@@ -1,0 +1,10 @@
+PoisonGasses = PoisonGasses or {}
+table.insert( PoisonGasses, { origin = Vector( -1562.8206787109,824.68530273438,-206.14859008789 ), radius = 277} )
+table.insert( PoisonGasses, { origin = Vector( -1621.7860107422,362.62164306641,-199.78451538086 ), radius = 184} )
+table.insert( PoisonGasses, { origin = Vector( -1658.3138427734,-413.75445556641,-181.44512939453 ), radius = 184} )
+table.insert( PoisonGasses, { origin = Vector( -1407.4693603516,125.86013031006,-203.00006103516 ), radius = 70} )
+table.insert( PoisonGasses, { origin = Vector( -1334.2315673828,-223.20364379883,-202.15419006348 ), radius = 70} )
+table.insert( PoisonGasses, { origin = Vector( 1489.7413330078,792.99780273438,-143.33358764648 ), radius = 310} )
+table.insert( PoisonGasses, { origin = Vector( 1408.8771972656,-475.14141845703,-147.00003051758 ), radius = 220} )
+table.insert( PoisonGasses, { origin = Vector( 1336.7758789063,164.51739501953,-147.00003051758 ), radius = 169} )
+table.insert( PoisonGasses, { origin = Vector( 1016.0093994141,921.34722900391,-146.96875 ), radius = 101} )

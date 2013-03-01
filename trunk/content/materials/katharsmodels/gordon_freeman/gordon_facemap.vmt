@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "katharsmodels/gordon_freeman/gordon_facemap"
+	"$halflambert" "1"
+	"$nocull" "1"
+}

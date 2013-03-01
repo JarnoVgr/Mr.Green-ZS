@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "katharsmodels/gordon_freeman/hevsuit_sheet_4"
+	"$halflambert" "1"
+}

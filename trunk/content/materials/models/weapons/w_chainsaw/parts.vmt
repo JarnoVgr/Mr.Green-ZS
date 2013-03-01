@@ -1,0 +1,9 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\weapons\v_chainsaw\parts"
+	"$bumpmap" "models\weapons\v_chainsaw\parts_n"	
+	"$envmap" "env_cubemap"
+	"$envmapcontrast" 1
+	"$normalmapalphaenvmapmask" 1
+	"$envmaptint" "[ 0.35 0.35 0.35 ]"	
+}

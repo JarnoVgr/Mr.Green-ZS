@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\\kassii\/hatt"
+	"$bumpmap" "models\\kassii\/hatt_normal"
+}

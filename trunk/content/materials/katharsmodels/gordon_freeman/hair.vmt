@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "katharsmodels/gordon_freeman/hair"
+	"$nocull" "1"
+	"$translucent" "1"
+//	"$no_draw" "1"
+}

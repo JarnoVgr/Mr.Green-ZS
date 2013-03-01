@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "katharsmodels/gordon_freeman/mouth"
+	"$halflambert" 1
+}

@@ -1,0 +1,7 @@
+"vertexlitgeneric"
+{
+	"$baseTexture" "models/skeletonarmy/skeletoneye"
+	"$model" 1
+	"$selfillum" 1
+}
+

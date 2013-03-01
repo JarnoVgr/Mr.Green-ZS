@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+
+{
+	"$basetexture"			"models\skeletonarmy\attachments_flat"
+	"$bumpmap" 			"models\skeletonarmy\attachments_flat_normal_spec"
+	"$halflambert" 			"1"
+}

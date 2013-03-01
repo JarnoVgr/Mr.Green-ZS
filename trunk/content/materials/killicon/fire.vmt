@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "killicon/fire"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+}

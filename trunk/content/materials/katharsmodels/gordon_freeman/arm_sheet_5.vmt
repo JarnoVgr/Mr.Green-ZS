@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "katharsmodels/gordon_freeman/arm_sheet_5"
+	"$bumpmap" "katharsmodels/gordon_freeman/arm_sheet_normal"
+}

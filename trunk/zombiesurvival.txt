@@ -1,0 +1,7 @@
+"zombiesurvival"
+{
+	"base"		"base"
+	"title"		"Zombie Survival Green Apocalypse"
+	"menusystem"	"1"
+
+}

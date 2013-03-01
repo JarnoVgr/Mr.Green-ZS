@@ -1,0 +1,818 @@
+-- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
+-- See LICENSE.txt for license information
+
+local table = table
+local math = math
+local string = string
+local util = util
+local pairs = pairs
+local team = team
+local player = player
+local timer = timer
+local ents = ents
+if SERVER then
+	local umsg = umsg
+elseif CLIENT then
+	local render = render
+end
+/*---------------------------------------------------------
+	       Get a player by its user ID
+---------------------------------------------------------*/
+function GetPlayerByUserID ( id )
+	for k, v in pairs( player.GetAll() ) do
+		if v:UserID() == id then
+			return v
+		end
+	end
+end
+
+function string.Sanitize( sDirty )
+	if sDirty == nil then return false end
+	if tonumber( sDirty ) then return tonumber( sDirty ) end
+	if sDirty == "true" then return true elseif sDirty == "false" then return false end
+	return tostring( sDirty )
+end
+
+function util.Blood(pos, amount, dir, force, noprediction)
+	local effectdata = EffectData()
+		effectdata:SetOrigin(pos)
+		effectdata:SetMagnitude(amount)
+		effectdata:SetNormal(dir)
+		effectdata:SetScale(math.max(128, force))
+	util.Effect("bloodstream", effectdata, nil, noprediction)
+end
+
+/*---------------------------------------------------------
+        Returns the team name (string) of a player
+---------------------------------------------------------*/
+function GetStringTeam ( pl )
+	if not ValidEntity ( pl ) then return end
+	if not pl:IsPlayer() then return end
+	
+	local Team, String = pl:Team(), "TEAM_HUMAN"
+	if Team == TEAM_UNDEAD then String = "TEAM_UNDEAD" end
+	
+	return String
+end
+
+/*---------------------------------------------------------
+           Prints a message to all the players
+---------------------------------------------------------*/
+function PrintMessageAll ( Type, Text )
+	if CLIENT then return end
+	if Type == nil or Text == nil then return end
+	
+	for k,v in pairs ( player.GetAll() ) do
+		if ValidEntity ( v ) then
+			v:PrintMessage ( Type, tostring ( Text ) )
+		end
+	end	
+end
+
+/*---------------------------------------------------------
+    Get a player by its name or fraction of the name
+---------------------------------------------------------*/
+function GetPlayerByName( name )
+	if name == nil then return end
+	if name == "" then return -1 end
+
+	//entity found, multiple found bool and string found
+	local found, multiple, foundString = nil, false
+	
+	//run through the players
+	for k,v in pairs( player.GetAll() ) do
+		foundString = string.find( string.lower( v:GetName() ), string.lower( name ) )
+		if ( foundString != nil and multiple == false ) then
+			if ( found == nil ) then found = v else	multiple = true end
+		end	
+	end
+
+	//Return -2 if found multiple or -1 if not found
+	if ( multiple == true ) then return -2 end
+	if ( found == nil or not found:IsValid() ) then return -1 end
+	
+	return found	
+end
+
+/*-----------------------------------------------
+                 Returns alive players
+------------------------------------------------*/
+function player.GetAlive()
+	local tab = {}
+	for k, pl in pairs( player.GetAll( )) do
+		if pl:IsValid() and pl:Alive() then
+			table.insert( tab,pl )
+		end
+	end
+	
+	return tab
+end
+
+/*-----------------------------------------------
+                 Returns Admin players
+------------------------------------------------*/
+function player.GetAdmin()
+	local tab = {}
+	for k, pl in pairs( player.GetAll() ) do
+		if pl:IsValid() and pl:IsAdmin() then
+			table.insert( tab,pl )
+		end
+	end
+	
+	return tab
+end	
+
+/*--------------------------------------------------------------------------------------
+                                    Returns humans inside sphere
+----------------------------------------------------------------------------------------*/
+function ents.FindHumansInSphere ( vPos, fRadius )
+	if not vPos or not fRadius then return end
+	
+	//Get ents in that radius
+	local tbEnts = team.GetPlayers(TEAM_HUMAN)//ents.FindInSphere ( vPos, fRadius )
+	local tbHumans = {} 
+	
+	//Leave only humans
+	for k,v in pairs ( tbEnts ) do
+		if v:IsPlayer() and v:IsHuman() and v:GetPos():Distance(vPos) <= fRadius then
+			table.insert ( tbHumans, v )
+		end
+	end
+	
+	return tbHumans	
+end
+
+/*---------------------------------------------------------
+	Used to make players 'ethereal'
+---------------------------------------------------------*/
+function EnableEtherealMode ( pl, bool )
+	if CLIENT then return end
+	if not ValidEntity ( pl ) then return end
+	
+	//default option is to enable
+	if bool == nil then bool = true end
+	
+	//so we can access this from elsewhere
+	pl.IsEthereal = bool
+	
+	//Freeze player, lock, make invisible 
+	if bool == true then
+		pl:Lock()
+		pl:Freeze( true )
+		pl:SetColor( 1,1,1,1 )
+		
+		//Uh, just finish him
+		timer.Simple ( 0.05, function() 
+			if ValidEntity ( pl ) then 
+				pl:KillSilent()
+			end 
+		end, pl )
+	end
+	
+	//Disable this mode
+	if bool == false then
+		pl:UnLock()
+		pl:Freeze ( false )
+		pl:SetCollisionGroup ( COLLISION_GROUP_PLAYER )
+		pl:SetBloodColor ( COLOR_RED )
+		pl:SetColor ( 255,255,255,255 )
+	end
+	
+	local bReady = pl.Ready
+	Debug ( "[SPAWN] "..tostring ( pl ).." 'Ready' status: "..tostring ( bReady )..". Settings him invisible/visible, whatever." )
+end
+
+/*--------------------------------------------------------
+      Used to add entities that don't have a phys.
+      entity. Mostly the ones used for hull traces
+---------------------------------------------------------*/
+local NonSolids = {}
+local function FilterNonSolids()
+	for k,v in pairs ( ents.GetAll() ) do	
+		if ValidEntity ( v ) and not v:IsPlayer() then
+			local Phys = v:GetPhysicsObject()
+			if not Phys:IsValid() then
+				table.insert ( NonSolids, v )
+			end
+		end
+	end
+end	
+hook.Add ( "Initialize", "FilterNonSolids", FilterNonSolids )
+
+/*----------------------------------------
+           Calculates Infliction
+----------------------------------------*/
+function GetInfliction()
+	local zombies = team.NumPlayers ( TEAM_UNDEAD )
+	local players = #player.GetAll()
+	local infliction
+
+	if players < 4 then
+		infliction = 0.15
+	else
+		infliction = math.Clamp ( zombies / players, 0.001, 1 )
+	end
+	
+	return infliction
+end
+
+/*-------------------------------------------------------
+           Calculates a new form of difficulty
+--------------------------------------------------------*/
+function GM:CalculateDifficulty()
+	if ENDROUND then return end
+	
+	//Difficulty based on ratios, guns and frags
+	local tbDifficulty = { GetInfliction() * 2, self:CalcFragsDifficulty(), self:CalcGunsDifficulty() }
+
+	local iVars, fDifficulty = 0, 0
+	for i = 1, #tbDifficulty do
+		if tbDifficulty[i] then
+			fDifficulty = fDifficulty + tbDifficulty[i]
+			iVars = iVars + 1
+		end
+	end
+	
+	if SERVER then Debug ( "Difficulty calc is : "..tostring ( fDifficulty / iVars )..". Vars are "..tostring ( iVars ).."/3. RatioDiff: "..tostring ( tbDifficulty[1] ).."/ FragDiff: "..tostring ( tbDifficulty[2] ).."/ GunDiff: "..tostring ( tbDifficulty[3] ) ) end
+	
+	return math.Clamp ( fDifficulty / iVars, 0.01, 2 )
+end
+
+/*-------------------------------------------------------
+           Calculates a new form of difficulty
+--------------------------------------------------------*/
+function GM:CalcFragsDifficulty()
+	if ENDROUND then return end
+	
+	//Get numbers
+	local Zombies = team.GetPlayers ( TEAM_UNDEAD )
+	if #Zombies == 0 then return end
+	
+	//Difficulty 
+	local fFragDifficulty = 0
+	
+	//Calc undead frags
+	local iZomboFrags, iFrags = 0, 0
+	for k,v in pairs ( player.GetAll() ) do
+		if v:IsZombie() then iZomboFrags = iZomboFrags + v:Frags() iFrags = iFrags + v:Frags() elseif v:IsHuman() then iFrags = iFrags + v:Frags() end
+	end
+	
+	//Nothing to calculate here
+	if iFrags == 0 then return end
+	
+	//Average
+	fFragDifficulty = math.Clamp ( iZomboFrags * 3 / iFrags, 0.001, 1 ) * 2
+	
+	return fFragDifficulty 
+end
+
+/*-------------------------------------------------------
+           Calculates a new form of difficulty
+--------------------------------------------------------*/
+function GM:CalcGunsDifficulty()
+	if ENDROUND then return end
+
+	//Get players
+	local Humans = team.GetPlayers ( TEAM_HUMAN )
+	if #Humans == 0 then return end
+	
+	//Difficulty
+	local fGunDifficulty = 0
+	
+	//Calc gun. difficulty
+	local tbHumans, fGunAvg = team.GetPlayers ( TEAM_HUMAN ), 0
+	for k,v in pairs ( tbHumans ) do
+		if IsEntityValid ( v:GetAutomatic() ) then
+			fGunAvg = fGunAvg + 1
+		end
+	end
+
+	//Human automatic gun average
+	fGunAvg = math.Clamp ( fGunAvg / #tbHumans, 0.001, 1 )
+	
+	//Difficulty
+	fGunDifficulty = fGunAvg * 2
+	
+	return fGunDifficulty
+end
+
+/*----------------------------------------
+           Calculates difficulty
+----------------------------------------*/
+function GetDifficulty()
+	if SERVER then return difficulty else return GAMEMODE:CalculateDifficulty() end
+end
+
+/*-----------------------------------------------------
+           Returns if an entity is valid or not
+------------------------------------------------------*/
+function IsEntityValid ( mEnt )
+	return ValidEntity ( mEnt )
+end
+
+/*---------------------------------------------------------------------------
+                Returns closest entity of a type from a point
+----------------------------------------------------------------------------*/
+function GetClosestEntity ( vPos, entTable )
+	if vPos == nil or entTable == nil then return end
+	
+	//Distance to entity
+	local fCloseDistance, mClosest = 32354
+	
+	//Loop through all type ents
+	for k,v in pairs ( entTable ) do
+		if IsEntityValid ( v ) then
+			local fDistance = vPos:Distance( v:GetPos() )
+			
+			//Check current distance
+			if fDistance < fCloseDistance then fCloseDistance = fDistance mClosest = v break end
+		end
+	end
+	
+	return mClosest
+end
+
+/*----------------------------------------
+         Returns a random human
+------------------------------------------*/
+function GetRandomHuman()
+	return table.Random ( team.GetPlayers ( TEAM_HUMAN ) )
+end
+
+/*-------------------------------------------------------------
+         Returns howlers within a specific range/pos
+--------------------------------------------------------------*/
+function GetHowlers( vPos, iRadius )
+	if vPos == nil or iRadius == nil then return end
+	
+	//Our howler table
+	local tbHowlers = {}
+	
+	for k,v in pairs ( team.GetPlayers(TEAM_UNDEAD) ) do//ents.FindInSphere ( vPos, iRadius )
+		if v:IsPlayer() and v:Alive() and v:Team() == TEAM_UNDEAD  and vPos:Distance(v:GetPos()) <= iRadius then
+			if v:IsHowler() then
+				table.insert ( tbHowlers, v )
+			end
+		end
+	end
+	
+	return tbHowlers 
+end
+
+/*------------------------------------------------------------------------------
+                Returns if an entity is visible by another entity
+------------------------------------------------------------------------------*/
+function IsEntityVisible ( mTarget, vSource, mFilter, iMask )
+	if vSource == nil or mTarget == nil then return end
+	
+	//Mask
+	if not iMask then iMask = MASK_SHOT end
+	
+	//Bool
+	local bIsVisible = false
+	
+	//Use center
+	local vEnd = mTarget:GetPos() + mTarget:OBBCenter() + Vector( 0,0,6 )
+	
+	//Trace 
+	local tr = util.TraceLine ( { start = vSource, endpos = vEnd, filter = mFilter, mask = iMask } )
+	if tr.Entity == mTarget then bIsVisible = true end
+	
+	return bIsVisible
+end
+
+/*-----------------------------------------------------------------------
+	    Returns if a world vector is visible to humans
+-------------------------------------------------------------------------*/
+function VisibleToHumans ( vPos, mFilter )
+	if vPos == nil or mFilter:Team() == TEAM_HUMAN then return end
+	
+	//No humans
+	if #team.GetPlayers ( TEAM_HUMAN ) <= 0 then return end
+	
+	//Visiblity bool
+	local bCanSeeMe = false
+	
+	//Get closest human first
+	local mClosest = GetClosestEntity ( vPos, team.GetPlayers ( TEAM_HUMAN ) )
+	if IsEntityVisible ( mClosest, vPos + Vector ( 0,0,55 ), mFilter ) then return true end
+	
+	//Cache cheked humans
+	local tbChecked = {}
+	
+	for i = 1, 3 do
+		if bCanSeeMe then break end
+	
+		//Get closest humans
+		local tbFound = ents.FindInSphere ( vPos, i * 150 )
+		
+		//Parse through the found humans in sphere
+		for k,v in pairs ( tbFound ) do
+			if not table.HasValue ( tbChecked, v ) then if v:IsPlayer() and v:IsHuman() then table.insert ( tbChecked, v ) if IsEntityVisible ( v, vPos + Vector ( 0,0,55 ), mFilter ) then bCanSeeMe = true break end end end
+		end
+	end
+	
+	return bCanSeeMe
+end
+
+/*-----------------------------------------------------------
+	      Returns fall to ground position
+------------------------------------------------------------*/
+function GetFloor ( vPos, mFilter )
+	if vPos == nil then return end
+	
+	//Difference of height
+	local fOffset = Vector ( 0,0,15 )
+	
+	//Trace 
+	local tr = util.TraceLine ( { start = vPos, endpos = vPos - Vector ( 0,0,10000 ), filter = mFilter, mask = MASK_PLAYERSOLID } )
+	if tr.Hit then return tr.HitPos else return vPos end
+end
+
+/*------------------------------------------------------------
+	        Get an entity by its index
+-------------------------------------------------------------*/
+function GetEntityByIndex ( iIndex ) 
+	for k, v in pairs ( ents.GetAll() ) do
+		if v:EntIndex() == iIndex then
+			return v
+		end
+	end
+end
+
+/*----------------------------------------------------------------------------
+	       Rounding to a specific digit math. function
+------------------------------------------------------------------------------*/
+function math.DigitRound ( fNumber, iDigits )  
+	local Remainder = fNumber % iDigits  
+	if Remainder / iDigits < 0.5 then return fNumber - Remainder else return fNumber - Remainder + ( iDigits ) end  
+end 
+
+/*--------------------------------------------------------
+	      See if something is stuck
+                  ( pos, filter, min, max)
+---------------------------------------------------------*/
+function IsStuck ( position, min, max, filtertb )
+	if not position then return end
+	
+	local pos = position
+	local x,y,z = pos.x,pos.y,pos.z
+	local filters = { }
+	
+	if filtertb and #filtertb != 0 then 
+		table.Add ( filters, filtertb )
+	end
+	
+	//Add non-solids to the filter 
+	if #NonSolids > 0 then
+		table.Add ( filters, NonSolids )
+	end
+	
+	// Hull tracing
+	local HullTrace = util.TraceHull ( { start = pos, endpos = pos, filter = filters, mins = min, maxs = max } )
+	
+	return HullTrace.Entity != NULL
+end
+
+/*-------------------------------------------------------
+             Computes zombie spawn points
+--------------------------------------------------------*/
+function GM:ComputeZombieSpawn()
+
+	//debug.sethook()
+	
+	//Reset zombie spawn table and disable fumes
+	SpawnPoints = {}
+	TOXIC_SPAWN = false
+	
+	//Get all props in the map
+	local tbProps = ents.FindByClass ( "prop_physics_multiplayer" )
+	table.Add ( tbProps, ents.FindByClass ( "prop_dynamic" ) )
+	table.Add ( tbProps, ents.FindByClass ( "func_physbox" ) )
+	table.Add ( tbProps, ents.FindByClass ( "info_player_zombie" ) )
+	table.Add ( tbProps, ents.FindByClass ( "info_player_undead" ) )
+	table.Add ( tbProps, ents.FindByClass ( "info_player_human" ) )
+	table.Add ( tbProps, ents.FindByClass ( "func_breakable" ) )
+	table.Add ( tbProps, ents.FindByClass ( "info_player_combine" ) )
+	table.Add ( tbProps, ents.FindByClass ( "info_player_rebel" ) )
+
+	//Loop
+	local tbTeleport
+	for i = 1, #tbProps do
+	
+		//Too many spawnpoints
+		if #SpawnPoints >= 150 then break end
+			
+		//See if the point is suitable
+		tbTeleport = LocationsFind ( tbProps[i] )
+			
+		//4 main directions
+		local tbAngles = { -180, 180, 90, -90 }
+			
+		//View distance
+		local fDistance, angSpawn = 0, Angle ( 0,0,0 )
+			
+		//Trace start/end points
+		if tbTeleport then
+			for k,v in pairs ( tbTeleport ) do
+				if v then
+				
+					//View distance
+					local fDistance, angSpawn = 0, Angle ( 0,0,0 )
+				
+					//Parse the 4 directions
+					for j = 1, #tbAngles do
+						local vStart = Vector ( 0,0,64 ) + v
+						local vEnd = vStart + Angle( 0, math.NormalizeAngle ( tbAngles[j] ), 0 ):Forward() * 32000
+							
+						//Start trace
+						local tr = util.TraceLine ( { start = vStart, endpos = vEnd, filter = player.GetAll() } )
+						if tr.HitPos:Distance( vStart ) > fDistance then fDistance = tr.HitPos:Distance( vStart ) angSpawn = Angle ( 0, tbAngles[j], 0 ) end
+					end
+						
+					//Save position
+					table.insert ( SpawnPoints, { v, angSpawn } ) 
+				end
+			end
+		end
+	end
+	
+	Debug ( "[SPAWN COMPUTE] Finished computing "..tostring ( #SpawnPoints or 0 ).." spawn points for zombies!" )
+end
+
+/*---------------------------------------------------------------------------------
+            Computes a space to teleport a player near another one
+----------------------------------------------------------------------------------*/
+function LocationsFind ( mDestination )
+	if not IsEntityValid ( mDestination ) or CLIENT then return end
+	
+	//We can't teleport into the void
+	if not mDestination:IsInWorld() then return end
+	
+	//Offset from destination
+	local fOffset = math.random ( 50,250 )
+	
+	//Position to teleport
+	local tbTeleport = {}
+
+	//Directions
+	local yawForward = mDestination:GetAngles().yaw
+	local angTable = { yawForward - 180, yawForward - 130, yawForward - 100, yawForward - 90, yawForward - 70, yawForward - 30, yawForward + 10, yawForward + 40, yawForward + 90 }
+	
+	local directions = {}
+	for i = 1, #angTable do
+		directions[i] = Angle( 0, math.NormalizeAngle ( angTable[i] ), 0 ):Forward()
+	end
+	
+	local vTempLoc = GetFloor ( mDestination:GetPos() + directions[1] * fOffset )
+	local bIsStuck = IsStuck ( vTempLoc, BIG_HULL[1], BIG_HULL[2] ) 
+	
+	//Search algorithm
+	for i = 1, #directions do
+	
+		//Change offset
+		for j = 1, 5 do
+			if j == 1 then fOffset = math.random ( 100,350 ) elseif j == 2 then fOffset = math.random ( 450, 650 ) elseif j == 3 then fOffset = math.random ( 650, 850 ) elseif j == 4 then fOffset = math.random ( 1200, 1600 ) else fOffset = math.random ( 1600, 2500 ) end
+		
+			//Update the bool with new coords
+			vTempLoc = GetFloor ( mDestination:GetPos() + directions[i] * fOffset )
+			bIsStuck = IsStuck ( vTempLoc, BIG_HULL[1], BIG_HULL[2] )
+			
+			//Found a good place
+			if not bIsStuck then if IsEntityInActiveArea( vTempLoc ) then table.insert ( tbTeleport, vTempLoc ) end end
+		end
+    end
+
+	return tbTeleport
+end
+
+/*--------------------------------------------------------------------------------
+                      Returns if entity is in an active play area
+---------------------------------------------------------------------------------*/
+function IsEntityInActiveArea( vPos, mFilter )
+	if vPos == nil then return end
+	
+	//Location of trace start
+	local vStart, vEnd = vPos + Vector ( 0,0,55 )
+	
+	//Nr of props seen
+	local iSeen, bHitNoDraw = 0, false
+	
+	local iTotal, iClip, iWorld, iEnts, iSky, iNoDraw = 0, 0, 0, 0, 0, 0
+	
+	local tbAngles = {}
+	for i = -180, 180, 5 do
+		table.insert ( tbAngles, i )
+	end
+	
+	local yawang = {}
+	for i = -180, 180, 30 do
+		table.insert ( yawang, i )
+	end
+	
+	//Total number of traces
+	iTotal = #tbAngles * #yawang
+	
+	//Pitch check
+	for j = 1, #yawang do
+		for i = 1, #tbAngles do
+			local vEnd = vStart + Angle( math.NormalizeAngle ( tbAngles[i] ),math.NormalizeAngle ( yawang[j] ) , 0 ):Forward() * 10000
+			
+			local tr = util.TraceLine ( { start = vStart, endpos = vEnd, filter = MySelf, mask = MASK_PLAYERSOLID } )
+			
+			//Hit only world
+			if tr.HitWorld and not tr.HitNoDraw and not tr.HitSky and not string.find ( tr.HitTexture, "CLIP" ) then iWorld = iWorld + 1 end
+			
+			//Hit an entity
+			if tr.HitNonWorld then iEnts = iEnts + 1 end
+			
+			//Hit sky
+			if tr.HitSky then iSky = iSky + 1 end
+			
+			//Hit nodrwa
+			if tr.HitNoDraw then iNoDraw = iNoDraw + 1 end
+			
+			//Hit clip texture
+			if string.find ( tr.HitTexture, "CLIP" ) then iClip = iClip + 1 end
+		end
+	end
+		
+	//print ( "Total: "..iTotal.." ---- Clip: "..( iClip/iTotal * 100 ).." ---- World(solid): "..( iWorld/iTotal * 100 ).." ----  Entities: "..( iEnts/iTotal * 100 ).." ----  Skybox: "..( iSky/iTotal * 100 ).." ---- NoDraw: "..( iNoDraw/iTotal * 100 ) )
+
+	local fClip, fWorld, fEnts, fSky, fNoDraw = ( iClip/iTotal * 100 ), ( iWorld/iTotal * 100 ), ( iEnts/iTotal * 100 ), ( iSky/iTotal * 100 ), ( iNoDraw/iTotal * 100 )
+	
+	return ( fEnts > 0 and fSky < 50 and fNoDraw <= 10 )
+end
+
+function math.Angle2D ( tbPoint1, tbPoint2 )
+	if tbPoint1 == nil or tbPoint1 == nil then return end
+
+	//Our angle
+	local fAng = 0
+
+	//Angle between 2 points in 2d space
+	if tbPoint2.x - tbPoint1.x == 0 then
+		if tbPoint2.y > tbPoint1.y then fAng = 0 end
+	else
+		fAng = math.atan2 ( tbPoint1.x - tbPoint2.x , tbPoint1.y - tbPoint2.y )
+	end
+	
+	return math.deg ( fAng )
+end
+
+/*--------------------------------------------------------------------------------------------------------
+         Used to add a draw function clientside, to draw and debug a trace (clientside, ofc)
+--------------------------------------------------------------------------------------------------------*/
+function RenderTraceAdd ( pl, vSource, vEnd, iRemoveTimer )
+
+	//Ran on server
+	if SERVER then pl:SendLua ( "RenderTraceAdd ( nil, Vector("..vSource.x..","..vSource.y..","..vSource.z.."),Vector("..vEnd.x..","..vEnd.y..","..vEnd.z.."))" ) return end
+	
+	//Random hook name
+	local HookName = "RenderTraceNr"..math.random ( 1,5000 )
+	hook.Add ( "HUDPaint", HookName, function()
+	
+		//Using laser material
+		local matLaser = Material("sprites/bluelaser1")
+		cam.Start3D( EyePos(), EyeAngles() )
+		
+			//Draw the laser beam.
+			render.SetMaterial( matLaser )
+			render.DrawBeam( vSource, vEnd, 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+		
+		cam.End3D()
+	end )
+	
+	//Remove it
+	timer.Simple ( iRemoveTimer or 1000, function() hook.Remove ( "HUDPaint", HookName ) end )
+end
+
+//Draw trace hulls on the screen for a couple of seconds
+function DrawTraceHull( trHull, iRemoveTimer )
+
+	//Grab vars from table
+	local vMin, vMax, vStart, vEnd = trHull.mins, trHull.maxs, trHull.start, trHull.endpos
+
+	if SERVER then pl:SendLua( "{mins=Vector("..vMin.x..","..vMin.y..","..vMin.z.."),maxs=Vector("..vMax.x..","..vMax.y..","..vMax.z.."),start=Vector("..vStart.x..","..vStart.y..","..vStart.z.."),endpos=Vector("..vEnd.x..","..vEnd.y..","..vEnd.z..")}" ) return end
+	
+	//See what we can draw
+	local HookName = "RenderTraceHull"..math.random( 1, 5000 )
+	local matLaser = Material( "sprites/bluelaser1" )
+	hook.Add( "HUDPaint", HookName, function()
+		cam.Start3D( EyePos(), EyeAngles() )
+		
+			//Draw the laser beam.
+			render.SetMaterial( matLaser )
+			
+			//Corner Lower Left 3 lines
+			render.DrawBeam( vStart + Vector( vMin.x, vMin.y, vMin.z ), vStart + Vector( vMin.x, vMax.y, vMin.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+			render.DrawBeam( vStart + Vector( vMin.x, vMin.y, vMin.z ), vStart + Vector( vMax.x, vMin.y, vMin.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+			render.DrawBeam( vStart + Vector( vMin.x, vMin.y, vMin.z ), vStart + Vector( vMin.x, vMin.y, vMax.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+			
+			//Corner Upper Right 3 lines
+			render.DrawBeam( vStart + Vector( vMax.x, vMax.y, vMax.z ), vStart + Vector( vMax.x, vMin.y, vMax.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+			render.DrawBeam( vStart + Vector( vMax.x, vMax.y, vMax.z ), vStart + Vector( vMin.x, vMax.y, vMax.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+			render.DrawBeam( vStart + Vector( vMax.x, vMax.y, vMax.z ), vStart + Vector( vMax.x, vMax.y, vMin.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+			
+			//Rest of them - from bottom
+			render.DrawBeam( vStart + Vector( vMax.x, vMin.y, vMin.z ), vStart + Vector( vMax.x, vMax.y, vMin.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+			render.DrawBeam( vStart + Vector( vMin.x, vMax.y, vMin.z ), vStart + Vector( vMax.x, vMax.y, vMin.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+			
+			//Rest of them - from upper
+			render.DrawBeam( vStart + Vector( vMin.x, vMax.y, vMax.z ), vStart + Vector( vMin.x, vMin.y, vMax.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+			render.DrawBeam( vStart + Vector( vMax.x, vMin.y, vMax.z ), vStart + Vector( vMin.x, vMin.y, vMax.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+			
+			//2 left laterals
+			render.DrawBeam( vStart + Vector( vMin.x, vMax.y, vMin.z ), vStart + Vector( vMin.x, vMax.y, vMax.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+			render.DrawBeam( vStart + Vector( vMax.x, vMin.y, vMin.z ), vStart + Vector( vMax.x, vMin.y, vMax.z ), 2, 0, 12.5, Color( 255, 0, 0, 255 ) )
+		
+		cam.End3D()
+	end )
+	
+	//Remove it
+	timer.Simple ( iRemoveTimer or 15, function() hook.Remove ( "HUDPaint", HookName ) end )
+end
+
+//Glitchy table.Random function
+function table.Random ( tbTable )
+	if not tbTable then return end
+	
+	//Random item
+	return tbTable[ math.random( 1,#tbTable ) ]
+end
+
+/*---------------------------------------------------------
+	Resequence a table from key 1 to n
+---------------------------------------------------------*/
+function table.Resequence ( oldtable )
+	local newtable = table.Copy ( oldtable )
+	local id = 0
+	
+	--Clear old table
+	table.Empty ( oldtable )
+	
+	--Write the new one
+	for k,v in pairs ( newtable ) do
+		id = id + 1
+		oldtable[id] = newtable[k]
+	end
+end
+
+function GetZombieFocus ( mEnt, range )
+	if not IsEntityValid ( mEnt ) then return 0 end
+	
+	local zombies = 0
+	for k, pl in ipairs( team.GetPlayers(TEAM_UNDEAD) ) do
+		if IsValid(pl) and pl != mEnt and pl:Alive() then
+			local Distance = pl:GetPos():Distance( mEnt:GetPos() )
+			if Distance <= range then
+				zombies = zombies + 1
+			end
+		end
+	end
+
+	return zombies
+end
+
+function GetHumanFocus ( mEnt, range )
+	if not IsEntityValid ( mEnt ) then return 0 end
+	
+	local humans = 0
+	for k, pl in pairs( player.GetAll() ) do
+		if pl != mEnt and pl:Team() == TEAM_HUMAN and pl:Alive() then
+			local Distance = pl:GetPos():Distance( mEnt:GetPos() )
+			if Distance <= range then
+				humans = humans + 1
+			end
+		end
+	end
+
+	return humans
+end
+
+//Set same vector sign
+function getVectorSign( Vec, VecSign )
+	if not Vec or not VecSign then return end
+	if VecSign.x < 0 and Vec.x > 0 then Vec.x = -1 * ( Vec.x ) elseif VecSign.X > 0 and Vec.X < 0 then Vec.X = math.abs( Vec.X ) end
+	if VecSign.Y < 0 and Vec.Y > 0 then Vec.Y = -1 * ( Vec.Y ) elseif VecSign.Y > 0 and Vec.Y < 0 then Vec.Y = math.abs( Vec.Y ) end
+	if VecSign.Z < 0 and Vec.Z > 0 then Vec.Z = -1 * ( Vec.Z ) elseif VecSign.Z > 0 and Vec.Z < 0 then Vec.Z = math.abs( Vec.Z ) end
+	return Vector( Vec.X, Vec.Y, Vec.Z )
+end
+
+/*-----------------------------------------------------------------------------------------------
+                      Fixing this shit so it returns rounded values
+------------------------------------------------------------------------------------------------*/
+function string.FormattedTime ( TimeInSeconds, Format )
+	if not TimeInSeconds then TimeInSeconds = 0 end
+
+	local iTime = math.floor( TimeInSeconds )
+	
+	//Convert to h,m,s,ms
+	local h,m,s,ms = ( iTime / 3600 ), math.Round ( ( iTime / 60 ) - ( math.floor( iTime / 3600 ) * 3600 ) ), math.Round( TimeInSeconds - ( math.floor( iTime / 60 ) * 60 ) ), math.Round ( ( TimeInSeconds - iTime ) * 100 )
+	
+	//Clamp the shit
+	m, s, ms = math.Clamp ( m, 0, 60 ), math.Clamp ( s, 0, 60 ), math.Clamp ( ms, 0, 99 )
+	
+	//Return shit
+	if Format then return string.format( Format, m, s, ms ) else return { h = h, m = m, s = s, ms = ms } end
+end

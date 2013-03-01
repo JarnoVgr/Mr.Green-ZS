@@ -1,0 +1,15 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "phoenix_storms/egg"
+	"$surfaceprop" "plastic"
+//	"$halflambert" 1
+	"$bumpmap" "phoenix_storms/egg_bump"
+	"$envmap" "env_cubemap"
+//	"$normalmapalphaenvmapmask" 1
+//	"$envmapcontrast" 1
+//	"$envmapsaturation" 0.5
+	"$envmaptint" "[ .3 .3 .3 ]"
+	"$model" 1
+}
+
+

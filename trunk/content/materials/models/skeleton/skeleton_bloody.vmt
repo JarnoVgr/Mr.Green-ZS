@@ -1,0 +1,6 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/skeleton/skeleton_bloody"
+	"$bumpmap" "models/skeleton/skeleton_bloody_nrm"
+	"$surfaceprop" "BloodyFlesh"
+}

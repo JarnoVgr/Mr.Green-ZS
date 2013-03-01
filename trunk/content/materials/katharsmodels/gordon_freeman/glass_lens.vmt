@@ -1,0 +1,15 @@
+"UnlitGeneric"
+{
+	"$additive" 1
+	"$basetexture" "katharsmodels/gordon_freeman/glass_lens"
+	"$surfaceprop" "glass"
+	"$translucent" 1
+	"$envmap" "env_cubemap"
+	"$envmapcontrast" "1"
+	"$model" 1
+	"$halflambert" 1
+	"UnlitGeneric_DX8"
+	{
+		"$envmaptint" "[.4 .4 .4]"
+	} 
+}

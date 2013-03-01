@@ -1,0 +1,6 @@
+"eyes"
+{
+	"$baseTexture" "katharsmodels/gordon_freeman/eyeball_l"
+	"$iris" "katharsmodels/gordon_freeman/grn_pupil_l"
+	"$halflambert" 1
+}

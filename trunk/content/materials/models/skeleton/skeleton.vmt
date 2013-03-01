@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+	
+	"$baseTexture" "models\skeleton\skeleton"
+	"$surfaceprop" "wood" 
+
+	"$bumpmap" "models\skeleton\skeleton_normal"
+//	"$envmap" "env_cubemap"
+
+	"$alphatest" "1" 
+//	"$translucent" 1
+}

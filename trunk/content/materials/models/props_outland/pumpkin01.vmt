@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$basetexture"	"models/props_outland/pumpkin01"
+	"$surfaceprop"	"watermelon"
+	"$bumpmap"	"models/props_outland/pumpkin01_normal"
+}

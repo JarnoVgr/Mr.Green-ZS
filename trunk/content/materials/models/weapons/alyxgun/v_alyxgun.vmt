@@ -1,0 +1,8 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\weapons\alyxgun/v_alyxgun"
+	"$model" "1"
+	"$translucent" "1"
+	"$envmap" "env_cubemap"
+	"$envmapmask" "models\weapons\alyxgun\v_alyxgun_em"
+}
