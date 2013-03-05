@@ -271,7 +271,7 @@ if CLIENT then
 		
 		if MySelf.SupplyTimerActive == true then
 			local time = math.Round(MySelf.SupplyTime - CurTime())
-			draw.SimpleTextOutlined("0"..ToMinutesSeconds(time), "ArialBoldFive", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("0"..ToMinutesSeconds(time + 1), "ArialBoldFive", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		elseif MySelf.SupplyTimerActive == false then
 			draw.SimpleTextOutlined("Ready for use!", "ArialBoldFive", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			draw.SimpleTextOutlined("(Refill ammo for equipped gun)", "ArialBoldFour", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))

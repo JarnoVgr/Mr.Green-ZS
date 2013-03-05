@@ -876,62 +876,62 @@ function DrawModels(self)
 				pos, ang = GetBoneOrientation( self.Hat, v, bone_ent, "ValveBiped.Bip01_R_Hand" )
 			end
 			
-			if (not pos) then continue end
+			if (pos) then 
 			
-			local model = v.modelEnt
-			local sprite = v.spriteMaterial
-			
-			if (v.type == "Model" and ValidEntity(model)) then
-
-				model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
-				ang:RotateAroundAxis(ang:Up(), v.angle.y)
-				ang:RotateAroundAxis(ang:Right(), v.angle.p)
-				ang:RotateAroundAxis(ang:Forward(), v.angle.r)
-
-				local size = (v.size.x + v.size.y + v.size.z)/3
-				
-				model:SetAngles(ang)
-				model:SetModelScale(size,0)
-				
-				if (v.material == "") then
-					model:SetMaterial("")
-				elseif (model:GetMaterial() ~= v.material) then
-					model:SetMaterial( v.material )
-				end
-				
-				if (v.skin and v.skin ~= model:GetSkin()) then
-					model:SetSkin(v.skin)
-				end
-				
-				if (v.bodygroup) then
-					for k, v in pairs( v.bodygroup ) do
-						if (model:GetBodygroup(k) ~= v) then
-							model:SetBodygroup(k, v)
-						end
-					end
-				end
-				
-				if (v.surpresslightning) then
-				-- 	render.SuppressEngineLighting(true)
-				end
-				
-				-- render.SetColorModulation(v.color.r/255, v.color.g/255, v.color.b/255)
-				-- render.SetBlend(v.color.a/255)
-				model:DrawModel()
-				-- render.SetBlend(1)
-				-- render.SetColorModulation(1, 1, 1)
-				
-				if (v.surpresslightning) then
-				-- 	render.SuppressEngineLighting(false)
-				end
-				
-			elseif (v.type == "Sprite" and sprite) then
-				
-				local drawpos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
-				render.SetMaterial(sprite)
-				render.DrawSprite(drawpos, v.size.x, v.size.y, v.color)
+    			local model = v.modelEnt
+    			local sprite = v.spriteMaterial
+    			
+    			if (v.type == "Model" and ValidEntity(model)) then
+    
+    				model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
+    				ang:RotateAroundAxis(ang:Up(), v.angle.y)
+    				ang:RotateAroundAxis(ang:Right(), v.angle.p)
+    				ang:RotateAroundAxis(ang:Forward(), v.angle.r)
+    
+    				local size = (v.size.x + v.size.y + v.size.z)/3
+    				
+    				model:SetAngles(ang)
+    				model:SetModelScale(size,0)
+    				
+    				if (v.material == "") then
+    					model:SetMaterial("")
+    				elseif (model:GetMaterial() ~= v.material) then
+    					model:SetMaterial( v.material )
+    				end
+    				
+    				if (v.skin and v.skin ~= model:GetSkin()) then
+    					model:SetSkin(v.skin)
+    				end
+    				
+    				if (v.bodygroup) then
+    					for k, v in pairs( v.bodygroup ) do
+    						if (model:GetBodygroup(k) ~= v) then
+    							model:SetBodygroup(k, v)
+    						end
+    					end
+    				end
+    				
+    				if (v.surpresslightning) then
+    				-- 	render.SuppressEngineLighting(true)
+    				end
+    				
+    				-- render.SetColorModulation(v.color.r/255, v.color.g/255, v.color.b/255)
+    				-- render.SetBlend(v.color.a/255)
+    				model:DrawModel()
+    				-- render.SetBlend(1)
+    				-- render.SetColorModulation(1, 1, 1)
+    				
+    				if (v.surpresslightning) then
+    				-- 	render.SuppressEngineLighting(false)
+    				end
+    				
+    			elseif (v.type == "Sprite" and sprite) then
+    				
+    				local drawpos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
+    				render.SetMaterial(sprite)
+    				render.DrawSprite(drawpos, v.size.x, v.size.y, v.color)
+    			end
 			end
-			
 		end
 	
 end

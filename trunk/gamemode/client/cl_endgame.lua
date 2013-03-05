@@ -1962,7 +1962,7 @@ function Intermission ( nextmap, winner, timeleft )
 	function GAMEMODE:HUDPaint()-- end
 	--function GAMEMODE:HUDPaintBackground ()
 		local TimeToChange = math.Clamp ( math.floor ( ENDTIME + timeleft - CurTime() ), 0, 9999 )
-		local headertext = "Next round in "..TimeToChange
+		local headertext = "Next round in "..( TimeToChange + 1 )
 		
 		--[=[if IsVotingOver == false then
 			if MySelf.VoteAlready == false then
@@ -2001,7 +2001,7 @@ function Intermission ( nextmap, winner, timeleft )
 			strMap = WinnerMapName
 			-- local tbMap, strMap = TranslateMapTable[WinnerMap]
 			-- if tbMap then strMap = tbMap.Name else strMap = "a Mystical Place" end
-			headertext = "Next map will be "..tostring( strMap ).." in "..TimeToChange
+			headertext = "Next map will be "..tostring( strMap ).." in "..( TimeToChange + 1 )
 		end
 		
 		draw.SimpleTextOutlined(headertext, "ArialBoldFifteen", w/2, h-80, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255))

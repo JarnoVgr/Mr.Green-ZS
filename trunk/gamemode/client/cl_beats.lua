@@ -520,7 +520,7 @@ function DrawInvasionNotice()
 	if CurTime() > FIRST_ZOMBIE_SPAWN_DELAY then return end
 	if team.NumPlayers(TEAM_UNDEAD) > 0 then return end
 	
-	draw.SimpleTextOutlined("Time until zombie invasion: "..ToMinutesSeconds(math.Clamp ( math.Round(FIRST_ZOMBIE_SPAWN_DELAY - CurTime()), 0, 500 )), "ArialBoldTwelve", w/2, h/3.8, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	draw.SimpleTextOutlined("Time until zombie invasion: "..ToMinutesSeconds( math.Clamp( math.Round(FIRST_ZOMBIE_SPAWN_DELAY - CurTime()), 0, 500 ) + 1), "ArialBoldTwelve", w/2, h/3.8, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 
 end
 --hook.Add( "HUDPaint", "DrawInvasionNotice", DrawInvasionNotice )
