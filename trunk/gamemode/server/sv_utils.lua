@@ -43,20 +43,20 @@ local umsg = umsg
 --[==[---------------------------------------------------------
 	Shuffle a table  (code from TTT)
 ---------------------------------------------------------]==]
-local rand = math.random
-function table.Shuffle(t)
-  local n = #t
- 
-  while n > 2 do
-
-    local k = rand(n) 
-
-    t[n], t[k] = t[k], t[n]
-    n = n - 1
-  end
- 
-  return t
-end
+--local rand = math.random
+--function table.Shuffle(t)
+--  local n = #t
+-- 
+--  while n > 2 do
+--
+--    local k = rand(n) 
+--
+--    t[n], t[k] = t[k], t[n]
+--    n = n - 1
+--  end
+-- 
+--  return t
+--end
 
 --[==[---------------------------------------------
                 Debug usermessages

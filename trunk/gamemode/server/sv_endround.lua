@@ -233,58 +233,69 @@ function GM:SendTopHealing (to)
 	end
 end
 
-function GM:SendVotemaps ( to )
-	local VoteMaps = self:GetVoteMaps()
-	
-	if (#VoteMaps < 3) then 
-	   return 
-	end
-	
-	umsg.Start("RecVotemaps", to)
-		for i = 1,3 do 
-			umsg.String ( VoteMaps[i][1] )
-			umsg.String ( VoteMaps[i][2] )
-		end
-	umsg.End()
-end
-
 --[==[--------------------------------------------------------
      Receive the chosen map from the client
 --------------------------------------------------------]==]
-local VotePointTable = {}
-for i = 1,3 do
-	VotePointTable[i] = 0
-end
-
 function GetChosenMap( pl, cmd, args )
-	if args[1] == nil then return end
-	if not ValidEntity ( pl ) then return end
+	if args[1] == nil then 
+	   return 
+	end
+	
+	if not ValidEntity ( pl ) then 
+	   return 
+	end
 	
 	-- Update server and client votepoints
-	UpdateClientVotePoints ( pl, tonumber (args[1]) )
+	UpdateClientVotePoints ( pl, args[1] )
 end
-concommand.Add ("VoteAddMap",GetChosenMap)
+concommand.Add ( "VoteAddMap",GetChosenMap )
+
+local VotePointTable = {}
+
+function GM:SendVotemaps ( to )
+    local VoteMaps = self:GetVoteMaps()
+    
+    if ( #VoteMaps < 3 ) then 
+       return -- Deluvas; what kind of error handling system is this
+    end
+    
+    umsg.Start( "RecVotemaps", to )
+        for i = 1, 3 do 
+            local key = VoteMaps[i][1]
+            VotePointTable[key] = { Votes = 0, Map = { FileName = VoteMaps[i][1], FriendlyName = VoteMaps[i][2] } }
+            
+            -- Send the data
+            umsg.String ( VotePointTable[key].Map.FileName )
+            umsg.String ( VotePointTable[key].Map.FriendlyName )
+        end
+    umsg.End()
+end
 
 --[==[---------------------------------------------------------
   Update client and server vote points for maps
 ---------------------------------------------------------]==]
-function UpdateClientVotePoints ( pl, slot )
-	if pl.Voted then return end
-
-	-- Voted
-	VotePointTable[slot] = VotePointTable[slot] + 1 
-	pl.Voted = true
+function UpdateClientVotePoints ( pl, mapfilename )
+	if pl.Voted then 
+	   return 
+	end
+        
+	-- Increment voting points for map
+	VotePointTable[mapfilename] = VotePointTable[mapfilename] or { Votes = 0 }
+	VotePointTable[mapfilename].Votes = VotePointTable[mapfilename].Votes + 1
 	
-	--- Send the change to all players
-	umsg.Start ("RecVoteChange", to)
-		for i = 1,3 do
-			umsg.Short ( VotePointTable[i] )
+	pl.Voted = true
+	   
+	-- Send change to all players
+	umsg.Start ( "RecVoteChange" )
+		for k,v in pairs( VotePointTable ) do
+		    umsg.String( k )
+			umsg.Short ( v.Votes )
 		end
 	umsg.End()
 	
-	--Send the automatic vote result
+	--Send the automatic vote result -- Deluvas; wtf is this?
 	umsg.Start ("RecAutomaticVoteResult", pl)
-		umsg.Short ( slot )
+		umsg.String ( mapfilename )
 	umsg.End()
 end
 
@@ -296,9 +307,10 @@ function UpdateClientVoteMaps ( pl )
 	if not ValidEntity ( pl ) then return end
 	
 	--- Send the change to pl
-	umsg.Start ("RecVoteChange", pl)
-		for i = 1,6 do
-			umsg.Short ( VotePointTable[i] )
+	umsg.Start ( "RecVoteChange", pl )
+		for k, v in pairs( VotePointTable ) do
+		    umsg.String( k )
+			umsg.Short ( v.Votes )
 		end
 	umsg.End()
 end	
@@ -339,29 +351,33 @@ function GM:OnEndRound ( winner )
 	timer.Simple(VOTE_TIME, function()
 		for k,pl in pairs (player.GetAll()) do
 			if pl:Team() ~= TEAM_SPECTATOR then
-				if not pl.Voted then
-					UpdateClientVotePoints ( pl, math.random (1,3) )
-					pl:SendLua ("MySelf.VoteAlready = true")
+				if not pl.Voted then 
+					UpdateClientVotePoints( pl, table.RandomEx( VotePointTable ).Map.FileName )
+					pl:SendLua ("MySelf.HasVotedMap = true")
 				end
 			end
 		end
 		
 		--- Calculate the map with most points
 		local MaximumPoint = -100
-		WinnerMap = ""
+		WinnerMap = "Unknown"
 		
-		for k,v in ipairs (VotePointTable) do
-			local CurrentPoint = v
-			if CurrentPoint > MaximumPoint then
-				MaximumPoint = CurrentPoint
-				WinnerMap = VoteMaps[k][1]
-				WinnerMapName = VoteMaps[k][2]
+		-- Find winner map
+		for k, v in pairs ( VotePointTable ) do
+			if v.Votes > MaximumPoint then
+				MaximumPoint = v.Votes
+				WinnerMap = v.Map.FileName
+				WinnerMapName = v.Map.FriendlyName				
 				NextMap = WinnerMap
 			end
 		end
 		
-		--Send the map name to client
-		if NextMap == nil then NextMap = "zs_noir" WinnerMap = "zs_noir" end
+		-- Deluvas; what in Clavus' name is this
+		if NextMap == nil then 
+		    NextMap = "zs_noir" 
+		    WinnerMap = "zs_noir" 
+		end
+		
 		gmod.BroadcastLua( "SetWinnerMap( '"..WinnerMap.."','"..WinnerMapName.."' )" )
 	end)
 		
@@ -434,7 +450,7 @@ function GM:OnEndRound ( winner )
 				UpdateClientVoteMaps ( pl )
 				if TimeLeft < INTERMISSION_TIME - VOTE_TIME then
 					pl:SendLua ( "SetWinnerMap( '"..WinnerMap.."' )" )
-					pl:SendLua ( "MySelf.VoteAlready = true" )
+					pl:SendLua ( "MySelf.HasVotedMap = true" )
 				end
 				
 				timer.Simple (0.4, function()

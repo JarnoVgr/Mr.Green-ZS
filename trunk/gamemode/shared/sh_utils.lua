@@ -816,3 +816,35 @@ function string.FormattedTime ( TimeInSeconds, Format )
 	-- Return shit
 	if Format then return string.format( Format, m, s, ms ) else return { h = h, m = m, s = s, ms = ms } end
 end
+
+function table.RandomEx( tab )
+    local length = 0
+    for k,v in pairs ( tab ) do
+        length = length + 1
+    end
+    
+    local random = math.random( 1, length )
+    local i = 1
+    
+    for k,v in pairs( tab ) do
+        if ( i == random ) then
+            return tab[k]
+        end
+        i = i + 1
+    end
+end
+
+--[[----------------------------------------------
+     Description: simple O(n) shuffle
+        algorithm for array type tables
+----------------------------------------------]]--
+function table.Shuffle( tab )
+    for i = 1, #tab - 1 do
+        local random = math.random( i + 1, #tab )
+        tab[i], tab[random] = tab[random], tab[i]
+    end
+    
+    return tab
+end
+
+

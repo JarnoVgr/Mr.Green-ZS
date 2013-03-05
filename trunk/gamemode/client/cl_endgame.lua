@@ -27,11 +27,6 @@ local WinnerMap = "Random Map"
 local WinnerMapName = "Random Map"
 local ROUNDWINNER = "Nobody"
 
-local function InitializeVoteVariables()
-    MySelf.VoteAlready = false 
-end
-hook.Add( "OnSelfReady", InitializeVoteVariables )
-
 --[==[---------------------------------------------------------
               Receive Top healing done ( medic)
 ---------------------------------------------------------]==]
@@ -105,32 +100,27 @@ end
 usermessage.Hook("RcTopTimes", ReceiveTopTimes)
 
 --[==[---------------------------------------------------------
-	   Receive VoteMap List (3 maps)
+	   Receive voting maps (3 maps)
 ---------------------------------------------------------]==]
-
--- Init the votemap list and points
-local Votemaplist = {}
 local VotePoints = {}
 
 local function ReceiveVotemaps ( um )
-	---A total of 6 maps
-	for i = 1,3 do
-		Votemaplist[i] = {}
-		Votemaplist[i].Map = um:ReadString()
-		Votemaplist[i].MapName = um:ReadString()
+	for i = 1, 3 do
+	    local key = um:ReadString()
+	    local friendlyname = um:ReadString()
+	    VotePoints[key] = { Votes = 0, Map = { FileName = key, FriendlyName = friendlyname } }
 	end
-	
-	PrintTable ( Votemaplist )
 end
 usermessage.Hook("RecVotemaps", ReceiveVotemaps)
 
 --[==[---------------------------------------------------------
-	   Receive Votepoints (6 maps)
+	   Receive vote points update
 ---------------------------------------------------------]==]
 local function ReceiveVotePoints ( um ) 
-	--Update our current list
-	for i = 1,3 do
-		VotePoints[i] = um:ReadShort()
+	for i = 1, 3 do
+	    local key = um:ReadString()
+		VotePoints[key] = VotePoints[key] or { Votes = 0, Map = { FileName = key, FriendlyName = "Unknown" } }
+    	VotePoints[key].Votes = um:ReadShort()
 	end
 end
 usermessage.Hook("RecVoteChange",ReceiveVotePoints)
@@ -139,8 +129,7 @@ usermessage.Hook("RecVoteChange",ReceiveVotePoints)
      Receive the voted map slot server-side
 ---------------------------------------------------------]==]
 local function ReceiveAutomaticVoteResult ( um )
-	-- Receive vote result for those who didn't vote manually from server
-	MySelf.VotedMapSlot = um:ReadShort()
+	MySelf.VotedMapFile = um:ReadString()
 end
 usermessage.Hook("RecAutomaticVoteResult",ReceiveAutomaticVoteResult)
 
@@ -214,18 +203,26 @@ function Intermission ( nextmap, winner, timeleft )
 		wincol = Color(200,40,40,255)
 	end
 
-	MySelf.VoteAlready = false
+	MySelf.HasVotedMap = false
 	
 	local delay = 1.1 -- delay between messages
 	local drawtime = delay-0.05 -- how long it takes to draw a message
 	
-	for k,v in ipairs (Votemaplist) do
-		VotePoints[k] = 0
+	-- Shuffle votemaps
+	local shuffleMaps = {}
+	local index = 1
+	
+	for k, v in pairs( VotePoints ) do
+	   shuffleMaps[index] = v
+	   index = index + 1
+	end
+
+	shuffleMaps = table.Shuffle( shuffleMaps )
+	
+	for i = 1, #shuffleMaps do
+	   AddMapLabel( h/2+85+30 * i, shuffleMaps[i].Map.FileName, shuffleMaps[i].Map.FriendlyName )
 	end
 	
-	for i = 1,3 do
-		AddMapLabel(h/2+85+30*i,i,Votemaplist[i].Map,Votemaplist[i].MapName)
-	end
 	-- kinda messy but whatever
 	local top = {}
 	
@@ -259,8 +256,6 @@ function Intermission ( nextmap, winner, timeleft )
 		top[i][3] = CurTime() + delay*i + drawtime
 	end
 	
-	-- PrintTable(top)
-	
 	-- Overwrite main paint/background
 	function GAMEMODE:HUDPaint()-- end
 		local TimeToChange = math.Clamp ( math.floor ( ENDTIME + timeleft - CurTime() ), 0, 9999 )
@@ -281,7 +276,7 @@ function Intermission ( nextmap, winner, timeleft )
 		draw.SimpleTextOutlined(wintext, "ArialBold_25", w/2, h/2, wincol, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255))
 		
 		local votetxt = "Vote for the next map:"
-		if MySelf.VoteAlready == true then
+		if MySelf.HasVotedMap == true then
 			votetxt = "Wait for other players to vote"
 		end
 		
@@ -299,7 +294,7 @@ end
 
 local MapLabel = {}
 	
-function AddMapLabel(y,index,map,mapname)
+function AddMapLabel(y,mapfilename,mapname)
 	
 	surface.SetFont("ArialBoldSeven")
 	
@@ -307,44 +302,45 @@ function AddMapLabel(y,index,map,mapname)
 	
 	local sw, sh = tw+30, th+6
 	
-	MapLabel[map] = vgui.Create( "DButton")
-	MapLabel[map]:SetText("")
-	MapLabel[map]:SetSize(sw, sh)
-	MapLabel[map]:SetPos(w/2-sw/2,y)
-	MapLabel[map].Color = color_white
-	MapLabel[map].OnCursorEntered = function()
-		MapLabel[map].Overed = true 
+	MapLabel[mapfilename] = vgui.Create( "DButton")
+	MapLabel[mapfilename]:SetText("")
+	MapLabel[mapfilename]:SetSize(sw, sh)
+	MapLabel[mapfilename]:SetPos(w/2-sw/2,y)
+	MapLabel[mapfilename].Color = color_white
+	MapLabel[mapfilename].OnCursorEntered = function()
+		MapLabel[mapfilename].Overed = true 
 	end
-	MapLabel[map].OnCursorExited = function()
-		MapLabel[map].Overed = false 
+	MapLabel[mapfilename].OnCursorExited = function()
+		MapLabel[mapfilename].Overed = false 
 	end
-	MapLabel[map].DoClick = function()
-		if not MySelf.VoteAlready then
-			MySelf.VoteAlready = true
-			MySelf.VotedMapSlot = index
-			RunConsoleCommand ( "VoteAddMap", tostring(MySelf.VotedMapSlot) )
+	MapLabel[mapfilename].DoClick = function()
+		if not MySelf.HasVotedMap then
+			MySelf.HasVotedMap = true
+			MySelf.VotedMapFile = mapfilename
+
+			-- Send voted mapfilename to server
+			RunConsoleCommand ( "VoteAddMap", mapfilename )
 		end
 	end
-	MapLabel[map].Paint = function()
-		if VotePoints[index] > 0 then
-			if IsVotingOver == true and map == WinnerMap then
-				draw.SimpleTextOutlined(mapname.." | Votes: "..VotePoints[index].." | WINNER", "ArialBoldSeven", sw/2, sh/2, Color(255,10,10,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+	MapLabel[mapfilename].Paint = function()
+		if VotePoints[mapfilename].Votes > 0 then
+			if IsVotingOver == true and mapfilename == WinnerMap then
+				draw.SimpleTextOutlined(mapname.." | Votes: "..VotePoints[mapfilename].Votes.." | WINNER", "ArialBoldSeven", sw/2, sh/2, Color(255,10,10,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 			else
-				draw.SimpleTextOutlined(mapname.." | Votes: "..VotePoints[index], "ArialBoldSeven", sw/2, sh/2, MapLabel[map].Color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+				draw.SimpleTextOutlined(mapname.." | Votes: "..VotePoints[mapfilename].Votes, "ArialBoldSeven", sw/2, sh/2, MapLabel[mapfilename].Color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 			end
 		else
-			draw.SimpleTextOutlined(mapname, "ArialBoldSeven", sw/2, sh/2, MapLabel[map].Color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+			draw.SimpleTextOutlined(mapname, "ArialBoldSeven", sw/2, sh/2, MapLabel[mapfilename].Color, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 		end
-		if MapLabel[map].Overed and not MySelf.VoteAlready then
-			
+		if MapLabel[mapfilename].Overed and not MySelf.HasVotedMap then
 			surface.SetDrawColor( 255, 255, 255, 255)
 			surface.DrawOutlinedRect( 0, 0, sw, sh)
 			surface.DrawOutlinedRect( 1, 1, sw-2, sh-2 )
 		end
 	end
-	MapLabel[map].Think = function()
-		if MySelf.VotedMapSlot and MySelf.VotedMapSlot == index then
-			MapLabel[map].Color = Color(120,120,120,255)
+	MapLabel[mapfilename].Think = function()
+		if MySelf.VotedMapFile and MySelf.VotedMapFile == mapfilename then
+			MapLabel[mapfilename].Color = Color(120,120,120,255)
 		end
 		gui.EnableScreenClicker ( true )
 	end
