@@ -12,7 +12,7 @@ local timer = timer
 local umsg = umsg
 local ents = ents
 
-//Include all files inside this folder
+-- Include all files inside this folder
 for k, sFile in pairs ( file.Find( "zombiesurvival/gamemode/server/doplayerdeath/*.lua","lsv" ) ) do
 	if not string.find( sFile, "main" ) then include( sFile ) end
 end
@@ -24,24 +24,24 @@ util.AddNetworkString( "PlayerKilledZS" )
 function GM:PlayerDeath(pl, inflictor, attacker)
 end
 
-//Main death event
+-- Main death event
 function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 
 	pl:RemoveStatus("overridemodel", false, true)
 
-	//Set last attacker
+	-- Set last attacker
 	if pl.LastAttackers then
 		if #pl.LastAttackers > 0 then
 			for i = #pl.LastAttackers, 1, -1 do
 			
-				//Check for inflictor
+				-- Check for inflictor
 				if pl.LastAttackers[i] then
 					if IsValid( pl.LastAttackers[i].Inflictor ) then
 						dmginfo:SetInflictor( pl.LastAttackers[i].Inflictor )
 					end
 				end
 			
-				//Check attackers
+				-- Check attackers
 				if pl:IsAttackerPlayer( i ) then
 					if pl.LastAttackers[i].Team == pl.LastAttackers[i].Attacker:Team() then
 						pl.IsFinished = true
@@ -54,40 +54,40 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 		end
 	end
 		
-	//Resets last damage table
+	-- Resets last damage table
 	pl.LastAttackers = nil
 	
-	//Process assists
+	-- Process assists
 	dmginfo:ProcessAssist( pl ) 
 	
-	//Resets the attacker's assistant
+	-- Resets the attacker's assistant
 	timer.Simple( 0.05, function( ) if IsValid( dmginfo:GetAttacker() ) then	dmginfo:GetAttacker().AttackerAssistant = nil end end )
 	
-	//Stop the player/camera
+	-- Stop the player/camera
 	self:SetPlayerSpeed ( pl, 0 )
 	
-	//Assisted death
+	-- Assisted death
 	if dmginfo:IsAssistValid() then
 		if gamemode.Call( "OnAssist", pl, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo:GetAssist(), dmginfo ) then
 			return
 		end
 	end
 	
-	// Undead death event
+	--  Undead death event
 	if pl:IsZombie() then
 		if gamemode.Call( "OnZombieDeath", pl, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo ) then 
 			return 
 		end
 	end
 	
-	// Human death event
+	--  Human death event
 	if pl:IsHuman() then
 		if gamemode.Call( "OnHumanDeath", pl, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo ) then 
 			return 
 		end
 	end
 	
-	//General death event with dmginfo arguments
+	-- General death event with dmginfo arguments
 	if gamemode.Call( "OnPlayerDeath", pl, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo ) then 
 		return
 	end	
@@ -99,17 +99,17 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 		return
 	end
 		
-	//Send death status to clients
+	-- Send death status to clients
 	if dmginfo:IsAttackerPlayer() then
 		
-		//Player suicided
+		-- Player suicided
 		if dmginfo:IsSuicide( pl ) then
 			net.Start("PlayerKilledSelfZS")
 				net.WriteEntity(pl)
 			net.Broadcast()
-			/*umsg.Start( "PlayerKilledSelfZS" )
+			--[=[umsg.Start( "PlayerKilledSelfZS" )
 				umsg.Entity( pl )
-			umsg.End()*/
+			umsg.End()]=]
 		end
 
 		if pl:GetAttachment( 1 ) then 
@@ -119,7 +119,7 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 		else
 			headshot = false
 		end
-		//Killing between other players
+		-- Killing between other players
 		if not dmginfo:IsSuicide( pl ) then
 			if dmginfo:GetInflictor():GetClass() == "env_explosion" then
 				if dmginfo:GetInflictor().Inflictor then
@@ -150,7 +150,7 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 				end
 			net.Broadcast()
 			
-			/*umsg.Start( "PlayerKilledByPlayerZS" )
+			--[==[umsg.Start( "PlayerKilledByPlayerZS" )
 				umsg.Entity( pl )
 				umsg.String( inflictor )
 				umsg.Entity( dmginfo:GetAttacker() )
@@ -158,15 +158,15 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 				umsg.Short( dmginfo:GetAttacker():Team() )
 				umsg.Bool( headshot )
 				
-				//Send assist
+				-- Send assist
 				if dmginfo:IsAssistValid() then
 					umsg.Short ( dmginfo:GetAssist():EntIndex() )
 				end
-			umsg.End()*/
+			umsg.End()]==]
 		end
 	end
 	
-	//Player got killed by something else
+	-- Player got killed by something else
 	if not dmginfo:IsAttackerPlayer() then
 		
 		net.Start("PlayerKilledZS")
@@ -175,28 +175,28 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 			net.WriteString(dmginfo:GetAttacker():GetClass())
 		net.Broadcast()
 		
-		/*umsg.Start( "PlayerKilledZS" )
+		--[==[umsg.Start( "PlayerKilledZS" )
 			umsg.Entity( pl )
 			umsg.String( dmginfo:GetInflictor():GetClass() )
 			umsg.String( dmginfo:GetAttacker():GetClass() )
-		umsg.End()*/
+		umsg.End()]==]
 	end
 	
-	//print ( "Death -- ", pl, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo:GetAssist() )
+	-- print ( "Death -- ", pl, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo:GetAssist() )
 	
 	Debug ( "[DEATH] "..tostring ( pl ).." has been killed by "..tostring ( dmginfo:GetAttacker() ).." with "..tostring ( dmginfo:GetInflictor() ) )
 end
 
-//Called every frame the player is dead
+-- Called every frame the player is dead
 
---[[
+--[=[
 
 function GM:PlayerDeathThink(pl,attacker,dmginfo)
 	if pl.StartSpectating then
 		if pl.StartSpectating <= CurTime() then
 			pl.StartSpectating = nil
-			//pl:SetHealth(100)
-			//pl:Spectate(OBS_MODE_ROAMING)
+			-- pl:SetHealth(100)
+			-- pl:Spectate(OBS_MODE_ROAMING)
 			pl:UnSpectate()
 			pl:SetAsCrow()
 		end
@@ -214,14 +214,14 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 				end
 			end
 		else
-			if pl:Team() != TEAM_SPECTATOR then
+			if pl:Team() ~= TEAM_SPECTATOR then
 				pl:UnSpectate()
 				pl:Spawn()
 			end
 		end
 	end
 end
-]]
+]=]
 
 
 function GM:PlayerDeathThink(pl,attacker,dmginfo)
@@ -294,12 +294,12 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 			end
 		end
 	end
-	--[[
+	--[=[
 	if pl.StartSpectating then
 		if pl.StartSpectating <= CurTime() then
 			pl.StartSpectating = nil
-			//pl:SetHealth(100)
-			//pl:Spectate(OBS_MODE_ROAMING)
+			-- pl:SetHealth(100)
+			-- pl:Spectate(OBS_MODE_ROAMING)
 			pl:UnSpectate()
 			pl:SetAsCrow()
 		end
@@ -317,20 +317,20 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 				end
 			end
 		else
-			if pl:Team() != TEAM_SPECTATOR then
+			if pl:Team() ~= TEAM_SPECTATOR then
 				pl:UnSpectate()
 				pl:Spawn()
 			end
 		end
-	end]]
+	end]=]
 end
 
---[[function GM:PlayerDeathThink( pl )
+--[=[function GM:PlayerDeathThink( pl )
 	if CurTime() > pl.NextSpawn then
 		if pl:IsZombie() then
 			pl:Spawn()
 		end
 	end
-end]]
+end]=]
 
 Debug ( "[MODULE] Loaded Do-Player-Death file." )

@@ -43,7 +43,7 @@ function ENT:Think()
 			Effect:SetMagnitude( 300 )
 		util.Effect("Explosion", Effect)
 		
-		//Remove it
+		-- Remove it
 		self.Entity:Remove()
 	end
 end
@@ -85,9 +85,9 @@ function ENT:Explode()
 	shake:Activate()
 	shake:Fire( "StartShake", "", 0 )
 	
-	//timer.Simple(0,function ()
-		//if not ValidEntity(self.Entity) then return end
-		self.Entity:Remove() //end)
+	-- timer.Simple(0,function ()
+		-- if not ValidEntity(self.Entity) then return end
+		self.Entity:Remove() -- end)
 end
 
 function ENT:UpdateTransmitState()

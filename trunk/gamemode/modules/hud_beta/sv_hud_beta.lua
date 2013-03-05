@@ -1,13 +1,13 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-//Add client-side
+-- Add client-side
 AddCSLuaFile ( "cl_hud_beta.lua" )
 
 DRAW_BETA_HUD = true
 if not DRAW_BETA_HUD then return end
 
-//Resource files
+-- Resource files
 resource.AddFile ( "materials/zombiesurvival/hud/splash_health.vmt" )
 resource.AddFile ( "materials/zombiesurvival/hud/splash_health.vtf" )
 resource.AddFile ( "materials/zombiesurvival/hud/splash_top.vmt" )
@@ -20,7 +20,7 @@ resource.AddFile ( "materials/zombiesurvival/hud/hud_friend_splash.vtf" )
 resource.AddFile ( "materials/zombiesurvival/hud/hud_friend_splash.vmt" )
 
 
-//Avatar textures
+-- Avatar textures
 resource.AddFile ( "materials/zombiesurvival/hud/avatar_medic.vtf" )
 resource.AddFile ( "materials/zombiesurvival/hud/avatar_medic.vmt" )
 resource.AddFile ( "materials/zombiesurvival/hud/avatar_commando.vtf" )

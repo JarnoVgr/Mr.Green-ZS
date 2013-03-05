@@ -9,9 +9,9 @@ local umsg = umsg
 
 util.AddNetworkString( "SendTitles" )
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
           Used to update titles on clientside
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:SendTitle ( from, to )
 	
 	local send = {}
@@ -24,7 +24,7 @@ function GM:SendTitle ( from, to )
 		net.WriteTable(send)
 	net.Send(to)
 
-	/*local tab = {}
+	--[==[local tab = {}
 	
 	if #from > 5 then
 		for k = 1, math.ceil( #from/5 ) do
@@ -49,5 +49,5 @@ function GM:SendTitle ( from, to )
 				umsg.String( v.Title or "" )
 			end	
 		umsg.End()
-	end*/
+	end]==]
 end

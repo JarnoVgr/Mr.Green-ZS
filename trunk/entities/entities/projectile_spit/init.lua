@@ -9,23 +9,23 @@ include( 'shared.lua' )
 ENT.PoisonExplodeSound = Sound( "ambient/levels/labs/electric_explosion1.wav" )
 ENT.MaximumDist = 300
 
-//Initialization
+-- Initialization
 function ENT:Initialize()
 	self:SetModel( "models/props/cs_italy/orange.mdl" )
 	self:PhysicsInit( SOLID_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS )
 	self:DrawShadow( false )
 	self:SetCollisionGroup(COLLISION_GROUP_PROJECTILE)
-	//Failsafe
+	-- Failsafe
 	self.DieTime = CurTime() + 10
 	
-	//Can ricochet
+	-- Can ricochet
 	self.CanRicochet = false
 	
-	//Ricochet time
+	-- Ricochet time
 	self.RicochetTimes = 0
 	
-	//Physics stuff
+	-- Physics stuff
 	self.PhysObj = self:GetPhysicsObject()
 	if self.PhysObj:IsValid() then
 		self.PhysObj:Wake()
@@ -34,53 +34,53 @@ function ENT:Initialize()
 	end
 end
 
-//Main think
+-- Main think
 function ENT:Think()
 	if self.DieTime <= CurTime() then
 		self:Remove()
 	end
 end
 
-//Ricochet function
+-- Ricochet function
 function ENT:Ricochet( trace )
 	if not trace then return false end
 
-	//Hit skybox, can't ricochet
+	-- Hit skybox, can't ricochet
 	if trace.HitSky then return false end
 	
 	self.PhysObj:EnableMotion( true )
 	local DotProduct = trace.HitNormal:Dot( trace.Normal * -1 )
 	self.PhysObj:SetVelocity( 250 * ( ( 2 * trace.HitNormal * DotProduct ) + trace.Normal ) )
 	
-	//Increment times
+	-- Increment times
 	self.RicochetTimes = self.RicochetTimes + 1
 	self:EmitSound( table.Random( self.RicochetSounds ), 100, math.random( 110, 135 ) )
 	
 	return true
 end
 
-//When it collides with something
+-- When it collides with something
 function ENT:PhysicsCollide( Data, Phys ) 
 	local HitEnt = Data.HitEntity
 	
-	//Stop
+	-- Stop
 	self.PhysObj:EnableMotion( false )
 	self.PhysObj:SetVelocity( Vector( 0,0,0 ) )
 	
-	//Stick it more
+	-- Stick it more
 	local trace = util.TraceLine( { start = self:GetPos(), endpos = self:GetPos() + Data.OurOldVelocity:GetNormal() * 500, filter = self } )
 	self:SetPos( trace.HitPos )
 	
-	//Network hitnormal
+	-- Network hitnormal
 	self:SetDTVector( 0, Data.HitNormal )
 	
-	//Some fancy effect
+	-- Some fancy effect
 	local eData = EffectData()
 		eData:SetOrigin( trace.HitPos )
 		eData:SetNormal( Data.HitNormal )
 	util.Effect( "poisonheadcrab_spit_hit", eData, true, true )
 	
-	//See if it hit a human
+	-- See if it hit a human
 	if IsValid( HitEnt ) and ( HitEnt:IsPlayer() ) and ( HitEnt:IsHuman() ) then
 		HitEnt:EmitSound( "vo/ravenholm/monk_death07.wav", 100, math.random( 90, 110 ) )
 		
@@ -90,7 +90,7 @@ function ENT:PhysicsCollide( Data, Phys )
 			Damage = math.ceil(Damage - Damage*0.3)
 		end
 		
-		//Take damage
+		-- Take damage
 		if IsValid( self:GetOwner() ) then
 			HitEnt:TakeDamage( Damage, self:GetOwner(), self:GetOwner():GetActiveWeapon() )
 		end
@@ -99,12 +99,12 @@ function ENT:PhysicsCollide( Data, Phys )
 		return
 	end
 	
-	//First time check chance
+	-- First time check chance
 	if math.random( 1, 2 ) == 1 and self.RicochetTimes == 0 then
 		self.CanRicochet = true
 	end
 	
-	//Ricochet if possible
+	-- Ricochet if possible
 	if ( self.RicochetTimes < 3 ) and ( self.CanRicochet ) then
 		if not self:Ricochet( trace ) then self:Remove() end
 	else
@@ -115,12 +115,12 @@ function ENT:PhysicsCollide( Data, Phys )
 
 end
 
-//On removal
+-- On removal
 function ENT:OnRemove()
 	self:EmitSound( "npc/antlion_grub/squashed.wav", 100, math.random( 90, 110 ) )
 end
 
-//Update PVS when needed
+-- Update PVS when needed
 function ENT:UpdateTransmitState()
 	return TRANSMIT_PVS
 end

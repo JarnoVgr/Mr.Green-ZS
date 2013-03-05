@@ -20,7 +20,7 @@ function ENT:PlayerSet(pPlayer, bExists)
 		tab.OnRevive(pPlayer)
 	end
 	
-	//pPlayer:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+	-- pPlayer:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 
 end
 
@@ -61,8 +61,8 @@ function ENT:OnRemove()
 		parent.Revive = nil
 		parent:Freeze(false)
 		parent:GodDisable()
-		--[[if not parent:Alive() then
+		--[=[if not parent:Alive() then
 			parent:SecondWind()
-		end]]
+		end]=]
 	end
 end

@@ -1,6 +1,6 @@
-// Thanks to Kogitsune for the code
-// http://www.facepunch.com/showthread.php?p=24290611
-// Basically allows calling HookOutput on any created entity
+--  Thanks to Kogitsune for the code
+--  http:-- www.facepunch.com/showthread.php?p=24290611
+--  Basically allows calling HookOutput on any created entity
 
 ENT.Base = "base_point"
 ENT.Type = "point"

@@ -45,7 +45,7 @@ SWEP.Secondary.Ammo	= "none"
 SWEP.DistanceCheck = 700
 SWEP.AimFailSounds = { Sound( "npc/headcrab_poison/ph_talk1.wav" ), Sound( "npc/headcrab_poison/ph_talk2.wav" ), Sound( "npc/headcrab_poison/ph_talk3.wav" ) }
 
-//On deploy
+-- On deploy
 function SWEP:Deploy()
 	if SERVER then
 		self.Owner:DrawViewModel( false )
@@ -53,7 +53,7 @@ function SWEP:Deploy()
 	end
 end
 
-//Main think function
+-- Main think function
 
 function SWEP:Think()
 	if IsValid( self.Owner ) and ( self.Owner:KeyPressed( IN_JUMP ) ) then
@@ -122,8 +122,8 @@ end
 
 function SWEP:CalculateSpitDelay()
 local iCrabs = 0
-		for k,v in pairs ( team.GetPlayers(TEAM_UNDEAD) ) do//ents.FindInSphere( self.Owner:GetPos(), 200 )
-			if IsValid(v) and v:IsPlayer() and v:Alive() and v:IsPoisonCrab() and self.Owner != v and v:GetPos():Distance(self.Owner:GetPos()) <= 200 then
+		for k,v in pairs ( team.GetPlayers(TEAM_UNDEAD) ) do-- ents.FindInSphere( self.Owner:GetPos(), 200 )
+			if IsValid(v) and v:IsPlayer() and v:Alive() and v:IsPoisonCrab() and self.Owner ~= v and v:GetPos():Distance(self.Owner:GetPos()) <= 200 then
 				iCrabs = iCrabs + 1
 			end
 		end
@@ -131,7 +131,7 @@ return iCrabs
 end
 
 
-//Random chance to deploy bomb on death
+-- Random chance to deploy bomb on death
 hook.Add( "OnZombieDeath", "DeployPoisonCrabBomb", function( mVictim, mAttacker, mInflictor, dmginfo )
 	if IsValid( mVictim ) and mVictim:IsPoisonCrab() then
 		if IsValid( mAttacker ) and not dmginfo:IsSuicide( mVictim ) then
@@ -139,7 +139,7 @@ hook.Add( "OnZombieDeath", "DeployPoisonCrabBomb", function( mVictim, mAttacker,
 				local Bomb = ents.Create( "projectile_spit_bomb" )
 				if not IsValid( Bomb ) then return end
 				
-				//Blast off!
+				-- Blast off!
 				Bomb:SetOwner( mVictim )
 				Bomb:SetPos( mVictim:GetPos() + Vector( 0,0,3 ) )
 				Bomb:SetFuse( math.Rand( 5, 6 ) )
@@ -149,21 +149,21 @@ hook.Add( "OnZombieDeath", "DeployPoisonCrabBomb", function( mVictim, mAttacker,
 	end
 end ) 
 
-//Check to see if you can shoot
+-- Check to see if you can shoot
 function SWEP:CanSpit()
 	if not IsValid( self.Owner ) then return false end
 	local mOwner = self.Owner
 	
-	//Trace down
+	-- Trace down
 	local checkTrace = util.TraceLine( { start = self:GetPos() + Vector( 0,0,15 ), endpos = self:GetPos() + Vector( 0,0,15 ) + mOwner:GetAimVector() * 1000, filter = mOwner } )
 	local fDistance = checkTrace.StartPos:Distance( checkTrace.HitPos )
 	
-	//Distance not suitable
+	-- Distance not suitable
 	if fDistance < 125 or not mOwner:OnGround() then 
 		return false
 	end
 	
-	//Check eye angles
+	-- Check eye angles
 	if mOwner:GetAngles().pitch > 24 then
 		return false
 	end
@@ -178,37 +178,37 @@ function SWEP:PrimaryAttack()
 	
 	local spitdelay = self:CalculateSpitDelay()
 	
-	//Check cooldown
+	-- Check cooldown
 	if ( mOwner.PrimaryAttackTimer or 0 ) > CurTime() then return end
 	mOwner.PrimaryAttackTimer, mOwner.LastCrabJump = CurTime() + 4.78 + spitdelay, CurTime() + 4.78
 	
-	//Secondary attack cooldown
+	-- Secondary attack cooldown
 	mOwner.NextSecondarySpit = CurTime() + 4.78 + spitdelay
 	
-	//Check if we can shoot
+	-- Check if we can shoot
 	if not self:CanSpit() then
 		mOwner.PrimaryAttackTimer, mOwner.LastCrabJump = CurTime() + 4.78 + spitdelay, CurTime() + 0.55
 		if SERVER then mOwner:EmitSound( table.Random( self.AimFailSounds ) ) end 
 		return
 	end
 	
-	//Spitting status
+	-- Spitting status
 	self.IsSpitting = true
 	
-	//Call secondary animation
+	-- Call secondary animation
 	mOwner:DoAnimationEvent( CUSTOM_SECONDARY )
 	if SERVER then mOwner:EmitSound( "npc/headcrab_poison/ph_scream"..math.random( 1,3 )..".wav", math.random( 120, 145 ) ) end
 	
 	self:SetSpitEndTime(CurTime() + 0.8)
 	
-	//Actual spitting
-	/*timer.Simple( 0.8, function() 
+	-- Actual spitting
+	--[==[timer.Simple( 0.8, function() 
 		if IsValid( self ) then
 			if IsValid( mOwner ) and mOwner:IsZombie() then
 				if mOwner:IsPoisonCrab() then
 					self.IsSpitting = false	
 					
-					//Check if we can shoot
+					-- Check if we can shoot
 					if not self:CanSpit() then
 						mOwner.PrimaryAttackTimer = CurTime() + 4.5  --0.5
 						if SERVER then mOwner:EmitSound( table.Random( self.AimFailSounds ) ) end 
@@ -218,16 +218,16 @@ function SWEP:PrimaryAttack()
 					if SERVER then 
 						mOwner:EmitSound( "weapons/crossbow/bolt_fly4.wav", 80, math.random( 120, 150 ) )
 						
-						//Create entity
+						-- Create entity
 						local Spit = ents.Create( "projectile_spit" )
 						if not IsValid( Spit ) then return end
 						
-						//Blast off!
+						-- Blast off!
 						Spit:SetOwner( mOwner )
 						Spit:SetPos( mOwner:GetPos() + Vector( 0,0,15 ) )
 						Spit:Spawn()
 						
-						//Apply velocity
+						-- Apply velocity
 						local Vel = mOwner:GetAimVector() * 3500
 						local phys = Spit:GetPhysicsObject()
 						if phys:IsValid() then
@@ -238,17 +238,17 @@ function SWEP:PrimaryAttack()
 				end
 			end
 		end
-	end)*/
+	end)]==]
 	
-	//Stopped the whole spit process
+	-- Stopped the whole spit process
 	GAMEMODE:SetPlayerSpeed( mOwner, 0,0 )
-	/*timer.Simple( 1, function( ) 
+	--[==[timer.Simple( 1, function( ) 
 		if IsValid( mOwner ) and mOwner:IsZombie() then
 			if mOwner:IsPoisonCrab() then
 				GAMEMODE:SetPlayerSpeed( mOwner, ZombieClasses[7].Speed, ZombieClasses[7].Speed ) 	
 			end
 		end
-	end )*/
+	end )]==]
 end
 
 function SWEP:ActualSpit()
@@ -258,7 +258,7 @@ function SWEP:ActualSpit()
 			if mOwner:IsPoisonCrab() then
 				self.IsSpitting = false	
 					
-				//Check if we can shoot
+				-- Check if we can shoot
 				if not self:CanSpit() then
 					mOwner.PrimaryAttackTimer = CurTime() + 4.5  --0.5
 					if SERVER then mOwner:EmitSound( table.Random( self.AimFailSounds ) ) end 
@@ -268,16 +268,16 @@ function SWEP:ActualSpit()
 				if SERVER then 
 					mOwner:EmitSound( "weapons/crossbow/bolt_fly4.wav", 80, math.random( 120, 150 ) )
 						
-					//Create entity
+					-- Create entity
 					local Spit = ents.Create( "projectile_spit" )
 						if not IsValid( Spit ) then return end
 						
-						//Blast off!
+						-- Blast off!
 						Spit:SetOwner( mOwner )
 						Spit:SetPos( mOwner:GetPos() + Vector( 0,0,15 ) )
 						Spit:Spawn()
 						
-						//Apply velocity
+						-- Apply velocity
 						local Vel = mOwner:GetAimVector() * 3500
 						local phys = Spit:GetPhysicsObject()
 						if phys:IsValid() then
@@ -296,35 +296,35 @@ end
 SWEP.NextSecondarySpit = 0
 function SWEP:SecondaryAttack()
 return false
---[[
+--[=[
 	local mOwner = self.Owner
 
-	//Cooldown
+	-- Cooldown
 	if CurTime() < ( mOwner.NextSecondarySpit or 0 ) then return end
 	mOwner.NextSecondarySpit, mOwner.PrimaryAttackTimer = CurTime() + 4.78 + self:CalculateSpitDelay(), CurTime() + 4.78 + self:CalculateSpitDelay()
 	mOwner.LastCrabJump = CurTime() + 1.85
 	
-	//Check if we can shoot
+	-- Check if we can shoot
 	if not self:CanSpit() then
 		mOwner.NextSecondarySpit, mOwner.PrimaryAttackTimer, mOwner.LastCrabJump = CurTime() + 0.5, CurTime() + 0.78, CurTime() + 0.55
 		if SERVER then mOwner:EmitSound( table.Random( self.AimFailSounds ) ) end 
 		return
 	end
 
-	//Spitting status
+	-- Spitting status
 	self.IsSpitting = true
 	
-	//Call secondary animation
+	-- Call secondary animation
 	mOwner:DoAnimationEvent( CUSTOM_SECONDARY )
 	if SERVER then mOwner:EmitSound( "npc/headcrab_poison/ph_scream"..math.random( 1,3 )..".wav", math.random( 130, 150 ) ) end
 	
-	//Actual spitting
+	-- Actual spitting
 	timer.Simple( 0.8, function( mOwner ) 
 		if IsValid( self ) and IsValid( mOwner ) and mOwner:IsZombie() then
 			if mOwner:IsPoisonCrab() then
 				self.IsSpitting = false	
 				
-				//Check if we can shoot
+				-- Check if we can shoot
 				if not self:CanSpit() then
 					mOwner.NextSecondarySpit, mOwner.PrimaryAttackTimer = CurTime() + 4.5, CurTime() + 4.78 --0.5, 0.78
 					if SERVER then mOwner:EmitSound( table.Random( self.AimFailSounds ) ) end 
@@ -334,16 +334,16 @@ return false
 				if SERVER then 
 					mOwner:EmitSound( "weapons/crossbow/bolt_fly4.wav", 80, math.random( 120, 150 ) )
 					
-					//Create entity
+					-- Create entity
 					local Spit = ents.Create( "projectile_spit" )
 					if not IsValid( Spit ) then return end
 					
-					//Blast off!
+					-- Blast off!
 					Spit:SetOwner( mOwner )
 					Spit:SetPos( mOwner:GetPos() + Vector( 0,0,15 ) )
 					Spit:Spawn()
 					
-					//Apply velocity
+					-- Apply velocity
 					local Vel = mOwner:GetAimVector() * 3500
 					local phys = Spit:GetPhysicsObject()
 					if phys:IsValid() then
@@ -355,7 +355,7 @@ return false
 		end
 	end, mOwner )
 	
-	//Stopped the whole spit process
+	-- Stopped the whole spit process
 	GAMEMODE:SetPlayerSpeed( mOwner, 0 )
 	timer.Simple( 1, function( mOwner ) 
 		if IsValid( mOwner ) and mOwner:IsZombie() then
@@ -364,10 +364,10 @@ return false
 			end
 		end
 	end, mOwner )
-	]]
+	]=]
 end
 
-//Fail jump
+-- Fail jump
 function SWEP:JumpFail()
 	if SERVER then
 		if IsValid( self.Owner ) then
@@ -379,19 +379,19 @@ function SWEP:JumpFail()
 	end
 end
 
-//Jumps!
+-- Jumps!
 function SWEP:Jump()
 	local mOwner = self.Owner
 	if not IsValid( mOwner ) then return end
 	
-	//Can't jump while in air
+	-- Can't jump while in air
 	if ( mOwner.LastCrabJump or 0 ) > CurTime() then return end
 	if not mOwner:OnGround() then self:JumpFail() return end
 	
-	//Check eye angles
+	-- Check eye angles
 	if mOwner:GetAngles().pitch > 28 or mOwner:GetAngles().pitch < -48 then self:JumpFail() return end
 	
-	//Play jump sound
+	-- Play jump sound
 	local Pitch = math.random( 90, 108 )
 	
 	if SERVER then
@@ -399,27 +399,27 @@ function SWEP:Jump()
 		GAMEMODE:SetPlayerSpeed( mOwner, 0 )
 	end
 	
-	//Status for animation(hacky)
+	-- Status for animation(hacky)
 	self.IsSpitting = true
 	
-	//Cooldown other abilities
+	-- Cooldown other abilities
 	mOwner.NextSecondarySpit, mOwner.PrimaryAttackTimer = CurTime() + 2, CurTime() + 2
 	
-	//Call secondary animation
+	-- Call secondary animation
 	mOwner:DoAnimationEvent( CUSTOM_SECONDARY )
 	
 	self:SetJumpEndTime(CurTime() + 0.7 * ( Pitch / 100 ))
 	
-	//Jump
-	/*timer.Simple( 0.7 * ( Pitch / 100 ), function()
+	-- Jump
+	--[==[timer.Simple( 0.7 * ( Pitch / 100 ), function()
 		if IsValid( mOwner ) then
 			local Aim, Velocity = mOwner:GetAimVector()
 			
-			//Reset speed
+			-- Reset speed
 			if IsValid( self ) then self.IsSpitting = false end
 			if SERVER then GAMEMODE:SetPlayerSpeed( mOwner, ZombieClasses[ mOwner:GetZombieClass() ].Speed ) end
 			
-			//Check eye angles
+			-- Check eye angles
 			if mOwner:GetAngles().pitch > 28 or mOwner:GetAngles().pitch < -55 then 
 				mOwner.NextSecondarySpit, mOwner.PrimaryAttackTimer = CurTime() + 4.78, CurTime() + 4.78
 				self:JumpFail() 
@@ -427,7 +427,7 @@ function SWEP:Jump()
 			end
 			
 			
-			//Calculate velocity
+			-- Calculate velocity
 			if SERVER then
 				self.Leaping = true
 				Velocity = Aim * 230
@@ -438,14 +438,14 @@ function SWEP:Jump()
 				
 
 				
-				//Emit crazy sound
+				-- Emit crazy sound
 				mOwner:EmitSound( "npc/headcrab_poison/ph_jump"..math.random( 1,3 )..".wav", 100, math.random( 95, 105 ) )
 				mOwner:EmitSound( "npc/headcrab_poison/ph_poisonbite"..math.random( 1,3 )..".wav", 100, math.random( 95, 105 ) )
 			end
 		end
-	end )	*/
+	end )	]==]
 	
-	//Cooldown
+	-- Cooldown
 	mOwner.LastCrabJump = CurTime() + 2.1
 end
 
@@ -475,11 +475,11 @@ function SWEP:ActualJump()
 	if IsValid( mOwner ) then
 		local Aim, Velocity = mOwner:GetAimVector()
 			
-			//Reset speed
+			-- Reset speed
 		if IsValid( self ) then self.IsSpitting = false end
 		if SERVER then GAMEMODE:SetPlayerSpeed( mOwner, ZombieClasses[ mOwner:GetZombieClass() ].Speed ) end
 			
-		//Check eye angles
+		-- Check eye angles
 		if mOwner:GetAngles().pitch > 28 or mOwner:GetAngles().pitch < -55 then 
 			mOwner.NextSecondarySpit, mOwner.PrimaryAttackTimer = CurTime() + 4.78, CurTime() + 4.78
 			self:JumpFail() 
@@ -498,7 +498,7 @@ function SWEP:ActualJump()
 				
 
 				
-			//Emit crazy sound
+			-- Emit crazy sound
 			mOwner:EmitSound( "npc/headcrab_poison/ph_jump"..math.random( 1,3 )..".wav", 100, math.random( 95, 105 ) )
 			mOwner:EmitSound( "npc/headcrab_poison/ph_poisonbite"..math.random( 1,3 )..".wav", 100, math.random( 95, 105 ) )
 		end
@@ -529,12 +529,12 @@ function SWEP:IsJumping()
 	return self:GetJumpEndTime() > 0
 end
 
-//Cancel out reload
+-- Cancel out reload
 function SWEP:Reload()
 	return false
 end
 
-//Delete on drop
+-- Delete on drop
 if SERVER then
 	function SWEP:OnDrop()
 		if self and self:IsValid() then
@@ -543,12 +543,12 @@ if SERVER then
 	end
 end
 
-//Drop crosshair
+-- Drop crosshair
 if CLIENT then
 	function SWEP:DrawHUD() GAMEMODE:DrawZombieCrosshair ( self.Owner, self.DistanceCheck ) end
 end
 
-//Precache some sounds
+-- Precache some sounds
 util.PrecacheSound("npc/headcrab_poison/ph_hiss1.wav") 
 util.PrecacheSound("npc/headcrab_poison/ph_scream1.wav")
 util.PrecacheSound("npc/headcrab_poison/ph_scream2.wav")

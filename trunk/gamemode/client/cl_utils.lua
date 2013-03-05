@@ -22,44 +22,44 @@ end
 
 
 
-/*-----------------------------------------------------------------------------------------------------------------------------------------------------------
+--[==[-----------------------------------------------------------------------------------------------------------------------------------------------------------
 	Draws a rounded text box with self sizeable text in it : ( text, font, posx, posy, added dist, box color, text color, aligny, alignx )
--------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+-------------------------------------------------------------------------------------------------------------------------------------------------------------]==]
 function draw.RoundedTextBox ( strText, strFont, xPos, yPos, fDistance, tbColorBox, tbColorText, xAlign, yAlign )
 
-	//Get text size
+	-- Get text size
 	surface.SetFont ( strFont )
 	local fWidth, fHeight = surface.GetTextSize ( strText )
 	
-	//Default distance
+	-- Default distance
 	local fxDist, fyDist
 	if fDistance == nil then fyDist = fHeight * 0.35 fxDist = fHeight * 0.45 else fyDist = fHeight * fDistance fxDist = fHeight * ( fDistance + 0.12 ) end
 	
-	//Draw box
+	-- Draw box
 	local fBoxWidth, fBoxHeight = fWidth + ( fxDist * 3 ), fHeight + ( fyDist * 2 )
 
-	//Align on width center
+	-- Align on width center
 	if ( xAlign == TEXT_ALIGN_CENTER ) then	xPos = xPos - fBoxWidth / 2 end
 		
-	//Align on width right
+	-- Align on width right
 	if ( xAlign == TEXT_ALIGN_RIGHT ) then xPos = xPos - fBoxWidth end
 		
-	//Align on height center
+	-- Align on height center
 	if ( yAlign == TEXT_ALIGN_CENTER ) then yPos = yPos - fBoxHeight / 2 end
 	
-	//Align on height top
+	-- Align on height top
 	if ( yAlign == TEXT_ALIGN_TOP ) then yPos = yPos - fBoxHeight end	
 	
-	//Align on width left
+	-- Align on width left
 	if ( xAlign == TEXT_ALIGN_LEFT ) then xPos = xPos + fBoxWidth end
 
 	draw.RoundedBox( 4, xPos, yPos , fBoxWidth, fBoxHeight, tbColorBox )
 	draw.SimpleText( strText, strFont, xPos + ( fBoxWidth / 2 ) ,yPos + ( fBoxHeight / 2 ),tbColorText, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Resequence a table from key 1 to n
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function table.Resequence ( oldtable )
 	local newtable = table.Copy ( oldtable )
 	local id = 0
@@ -186,7 +186,7 @@ function draw.SimpleColoredText (text, font, x, y, colour, xalign, yalign, _retu
 	end
 	
 	surface.SetTextPos(x,y)
-	if (colour!=nil) then
+	if (colour~=nil) then
 		local alpha = 255
 		if (colour.a) then alpha = colour.a end
 		surface.SetTextColor( colour.r, colour.g, colour.b, alpha )
@@ -194,7 +194,7 @@ function draw.SimpleColoredText (text, font, x, y, colour, xalign, yalign, _retu
 		surface.SetTextColor(255, 255, 255, 255)
 	end
 	
-	if nocolText != nil and not lines[1] then
+	if nocolText ~= nil and not lines[1] then
 		if not _return then
 			surface.DrawText( nocolText )
 		end
@@ -203,7 +203,7 @@ function draw.SimpleColoredText (text, font, x, y, colour, xalign, yalign, _retu
 	end
 	
 	for k, v in pairs (lines) do
-		if lines[k].whitetextbehind != "" then
+		if lines[k].whitetextbehind ~= "" then
 			local length = surface.GetTextSize ( lines[k].whitetextbehind )
 			surface.SetTextPos (x,y)
 			surface.SetTextColor ( colour )
@@ -222,7 +222,7 @@ function draw.SimpleColoredText (text, font, x, y, colour, xalign, yalign, _retu
 		x = x + lines[k].length
 		fulltext = fulltext..""..lines[k].text 
 		
-		if lines[k].whitetextafter != "" then
+		if lines[k].whitetextafter ~= "" then
 			local length = surface.GetTextSize ( lines[k].whitetextafter )
 			surface.SetTextPos (x,y)
 			surface.SetTextColor ( colour )
@@ -237,14 +237,14 @@ function draw.SimpleColoredText (text, font, x, y, colour, xalign, yalign, _retu
 	return w, h, fulltext
 end
 
-//Limits a string based on size given
+-- Limits a string based on size given
 function string.Limit ( sString, sFont, wSize )
 
-	//Get text size
+	-- Get text size
 	surface.SetFont ( sFont )
 	local wText, hText = surface.GetTextSize ( sString )
 	
-	//No need to clamp it
+	-- No need to clamp it
 	if wText <= wSize then return sString, false end
 	
 	local tbString, sNew = string.Explode ( "", sString ), ""
@@ -256,273 +256,273 @@ function string.Limit ( sString, sFont, wSize )
 	return sNew, true
 end
 
-//Draws a rectangle inside another rectangle
+-- Draws a rectangle inside another rectangle
 function draw.OutlineRect ( xPos, yPos, xSize, ySize, xDif, yDif, colOuter, colInner, xAlign, yAlign )
 
-	//Align on width center
+	-- Align on width center
 	if ( xAlign == TEXT_ALIGN_CENTER ) then	xPos = xPos - xSize / 2 end
 		
-	//Align on width right
+	-- Align on width right
 	if ( xAlign == TEXT_ALIGN_RIGHT ) then xPos = xPos - xSize end
 		
-	//Align on height center
+	-- Align on height center
 	if ( yAlign == TEXT_ALIGN_CENTER ) then yPos = yPos - ySize / 2 end
 	
-	//Align on height top
+	-- Align on height top
 	if ( yAlign == TEXT_ALIGN_TOP ) then yPos = yPos - ySize end	
 	
-	//Align on width left
+	-- Align on width left
 	if ( xAlign == TEXT_ALIGN_LEFT ) then xPos = xPos + xSize end
 
-	//Draw the outer box
+	-- Draw the outer box
 	surface.SetDrawColor ( colOuter )
 	surface.DrawRect ( xPos, yPos, xSize, ySize )
 	
-	//Draw inner box
+	-- Draw inner box
 	surface.SetDrawColor ( colInner )
 	surface.DrawRect ( xPos + xDif, yPos + yDif, xSize - ( 2 * xDif ), ySize - ( 2 * yDif ) )
 	
 	return xPos + xDif, yPos + yDif, xSize - ( 2 * xDif ), ySize - ( 2 * yDif )
 end
 
-//New draw metatable
+-- New draw metatable
 drawX, DRAW = {}, {}
 drawX.__index = DRAW 
 
-//Globals
+-- Globals
 ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER, ALIGN_TOP, ALIGN_BOTTOM = 10, 20, 30, 40, 50
  
-/*---------------------------------------------------------------------------------------------------------
+--[==[---------------------------------------------------------------------------------------------------------
 	                     Creates a text metatable : Variable are obvious
------------------------------------------------------------------------------------------------------------*/
+-----------------------------------------------------------------------------------------------------------]==]
 function CreateText ( sText, sFont, xPos, yPos, Color, wAlign, hAlign )
 	
-	//Our table
+	-- Our table
 	local Table = { IsText = true, sText = sText or "", sFont = sFont or "Default", xPos = xPos or 0, yPos = yPos or 0, Color = Color or Color ( 255,255,255,255 ), wAlign = wAlign, hAlign = hAlign }
 	
-	//Set font
+	-- Set font
 	surface.SetFont( sFont )
 	Table.wSize, Table.hSize = surface.GetTextSize( sText or "" )
 	
-	//Set meta table
+	-- Set meta table
 	setmetatable( Table, drawX ) 
 	
-	//Align
+	-- Align
 	Table:Align ( wAlign, hAlign )
 	
 	return Table
 end
 
-/*---------------------------------------------------------------------------------------------------------
+--[==[---------------------------------------------------------------------------------------------------------
 	                     Creates a box metatable - Variables are obvious
----------------------------------------------------------------------------------------------------------*/
+---------------------------------------------------------------------------------------------------------]==]
 function CreateBox ( xPos, yPos, wSize, hSize, Color, wAlign, hAlign )
 	
-	//Our table
+	-- Our table
 	local Table = { IsBox = true, xPos = xPos or 0, wSize = wSize or 0, hSize = hSize or 0, yPos = yPos or 0, Color = Color or Color ( 255,255,255,255 ), wAlign = wAlign, hAlign = hAlign }
 	
-	//Set meta table
+	-- Set meta table
 	setmetatable( Table, drawX ) 
 	
-	//Align
+	-- Align
 	Table:Align ( wAlign, hAlign )
 	
 	return Table
 end
 
-/*---------------------------------------------------------------------------------------------------------
+--[==[---------------------------------------------------------------------------------------------------------
 	                     Creates a rounded box metatable - Variables are obvious
----------------------------------------------------------------------------------------------------------*/
+---------------------------------------------------------------------------------------------------------]==]
 function CreateBoxRounded ( iRound, xPos, yPos, wSize, hSize, Color, wAlign, hAlign )
 	
-	//Our table
+	-- Our table
 	local Table = { IsRoundedBox = true, iRound = iRound or 4, xPos = xPos or 0, wSize = wSize or 0, hSize = hSize or 0, yPos = yPos or 0, Color = Color or Color ( 255,255,255,255 ), wAlign = wAlign, hAlign = hAlign }
 	
-	//Set meta table
+	-- Set meta table
 	setmetatable( Table, drawX ) 
 	
-	//Align
+	-- Align
 	Table:Align ( wAlign, hAlign )
 	
 	return Table
 end
 
-/*---------------------------------------------------------------------------------------------------------
+--[==[---------------------------------------------------------------------------------------------------------
 	                 Creates a textured box metatable - Variables are obvious
----------------------------------------------------------------------------------------------------------*/
+---------------------------------------------------------------------------------------------------------]==]
 function CreateBoxTextured ( matTexture, xPos, yPos, wSize, hSize, Color, wAlign, hAlign )
 	
-	//Our table
+	-- Our table
 	local Table = { IsTextureRect = true, matTexture = matTexture, xPos = xPos or 0, wSize = wSize or 0, hSize = hSize or 0, yPos = yPos or 0, Color = Color or Color ( 255,255,255,255 ), wAlign = wAlign, hAlign = hAlign }
 	
-	//Set meta table
+	-- Set meta table
 	setmetatable( Table, drawX ) 
 	
-	//Align
+	-- Align
 	Table:Align ( wAlign, hAlign )
 	
 	return Table
 end
 
-/*---------------------------------------------------------------------------------------------------
+--[==[---------------------------------------------------------------------------------------------------
 	                 Creates a line metatable - Variables are obvious
-----------------------------------------------------------------------------------------------------*/
+----------------------------------------------------------------------------------------------------]==]
 function CreateLine ( x1Pos, y1Pos, x2Pos, y2Pos, Color )
 	
-	//Our table
+	-- Our table
 	local Table = { IsLine = true, x1Pos = x1Pos or 0, x2Pos = x2Pos or 0, y2Pos = y2Pos or 0, y1Pos = y1Pos or 0, Color = Color or Color ( 255,255,255,255 ) }
 	
-	//Set meta table
+	-- Set meta table
 	setmetatable( Table, drawX ) 
 	
 	return Table
 end
 
-/*---------------------------------------------------------------------------------------------------
+--[==[---------------------------------------------------------------------------------------------------
 	         Creates a rotated textur'd box metatable - Variables are obvious
-----------------------------------------------------------------------------------------------------*/
+----------------------------------------------------------------------------------------------------]==]
 function CreateBoxTexturedRotated ( matTexture, xPos, yPos, wSize, hSize, Color, iRotation, wAlign, hAlign )
 
-	//Starts off centered
+	-- Starts off centered
 	xPos = xPos + math.Round( wSize / 2 )
 	yPos = yPos + math.Round( hSize / 2 )
 	
-	//Our table
+	-- Our table
 	local Table = { IsTextureRectRotated = true, iRotation = iRotation or 0, matTexture = matTexture, xPos = xPos or 0, wSize = wSize or 0, hSize = hSize or 0, yPos = yPos or 0, Color = Color or Color ( 255,255,255,255 ), wAlign = wAlign, hAlign = hAlign }
 	
-	//Set meta table
+	-- Set meta table
 	setmetatable( Table, drawX ) 
 	
-	//Align
+	-- Align
 	Table:Align ( wAlign, hAlign )
 	
 	return Table
 end
 
-/*---------------------------------------------------------------------------------------------------
+--[==[---------------------------------------------------------------------------------------------------
 	         Creates a rounded box with boolean corners (rounded)
-----------------------------------------------------------------------------------------------------*/
+----------------------------------------------------------------------------------------------------]==]
 function CreateBoxRoundedEx ( iRound, xPos, yPos, wSize, hSize, Color, bUpperLeft, bUpperRight, bBottomLeft, bBottomRight, wAlign, hAlign )
 
-	//Our table
+	-- Our table
 	local Table = { IsRoundedBoxEx = true, bUpperLeft = bUpperLeft, bUpperRight = bUpperRight, bBottomLeft = bBottomLeft, bBottomRight = bBottomRight, iRound = iRound or 0, xPos = xPos or 0, wSize = wSize or 0, hSize = hSize or 0, yPos = yPos or 0, Color = Color or Color ( 255,255,255,255 ), wAlign = wAlign, hAlign = hAlign }
 
-	//Set meta table
+	-- Set meta table
 	setmetatable( Table, drawX ) 
 	
 	return Table
 end
 
-/*-----------------------------------------
+--[==[-----------------------------------------
 	    Get draw width size
------------------------------------------*/
+-----------------------------------------]==]
 function DRAW:GetWidth()
 	return self.wSize
 end
 
-/*-----------------------------------------
+--[==[-----------------------------------------
 	    Get draw height size
------------------------------------------*/
+-----------------------------------------]==]
 function DRAW:GetHeight()
 	return self.hSize
 end
 
-/*-------------------------------------------------------
+--[==[-------------------------------------------------------
 	      Set module width position
---------------------------------------------------------*/
+--------------------------------------------------------]==]
 function DRAW:SetWidthPos( xPos )
 	self.xPos = xPos
 end
 
-/*----------------------------------------------
+--[==[----------------------------------------------
 	Get module width position
-----------------------------------------------*/
+----------------------------------------------]==]
 function DRAW:GetWidthPos()
 	return self.xPos
 end
 
-/*-----------------------------------------------------------
+--[==[-----------------------------------------------------------
 	         Set module height position
-------------------------------------------------------------*/
+------------------------------------------------------------]==]
 function DRAW:SetHeightPos ( yPos )
 	self.yPos = yPos
 end
 
-/*-----------------------------------------------
+--[==[-----------------------------------------------
 	Return module height position
-------------------------------------------------*/
+------------------------------------------------]==]
 function DRAW:GetHeightPos()
 	return self.yPos
 end
 
-/*---------------------------------------------------------------
+--[==[---------------------------------------------------------------
 	               Sets the module size
-----------------------------------------------------------------*/
+----------------------------------------------------------------]==]
 function DRAW:SetSize( wSize, hSize )
 	self.wSize, self.hSize = wSize, hSize
 	
-	//Update alignment
+	-- Update alignment
 	self:Align ( self.wAlign, self.hAlign )
 end
 
-/*----------------------------------------------------
+--[==[----------------------------------------------------
 	     Set the module width size
------------------------------------------------------*/
+-----------------------------------------------------]==]
 function DRAW:SetWidth( wSize )
 	self.wSize = wSize
 	
-	//Update alignment
+	-- Update alignment
 	self:Align ( self.wAlign )
 end
 
-/*-----------------------------------------------------
+--[==[-----------------------------------------------------
 	      Set the module height size
-------------------------------------------------------*/
+------------------------------------------------------]==]
 function DRAW:SetHeight( hSize )
 	self.hSize = hSize
 	
-	//Update alignment
+	-- Update alignment
 	self:Align ( nil, self.hAlign )
 end
 
-/*-------------------------------------
+--[==[-------------------------------------
          Returns module position
--------------------------------------*/
+-------------------------------------]==]
 function DRAW:GetPos()
 	return self:GetWidthPos(), self:GetHeightPos()
 end
 
-/*---------------------------------------
+--[==[---------------------------------------
          Returns round coeficient
-----------------------------------------*/
+----------------------------------------]==]
 function DRAW:GetRound()
 	return self.iRound or 0
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	     Set module position ( xPos, yPos )
-----------------------------------------------------------*/
+----------------------------------------------------------]==]
 function DRAW:SetPos( xPos, yPos )
 	self.xPos, self.yPos = xPos, yPos
 	
-	//Update align
+	-- Update align
 	self:Align( self.wAlign, self.hAlign )
 end
 
-/*---------------------------------------------------
+--[==[---------------------------------------------------
 	              Set module font 
----------------------------------------------------*/
+---------------------------------------------------]==]
 function DRAW:SetFont( sFont )
 	self.sFont = sFont or "Default"
 	
-	//Update size and font
+	-- Update size and font
 	surface.SetFont ( sFont )
 	self.wSize, self.hSize = surface.GetTextSize( self.sText )
 end
 
-/*------------------------------------------------------
+--[==[------------------------------------------------------
 	              Set module color
--------------------------------------------------------*/
+-------------------------------------------------------]==]
 function DRAW:SetColor ( Color )
 	self.Color = Color
 end
@@ -577,25 +577,25 @@ end
 
 function DRAW:GetDistanceInBetween( Module )
 
-	//Starting from first end to second start
+	-- Starting from first end to second start
 	local xDistance, yDistance
 	
-	//First module is in front of the other
+	-- First module is in front of the other
 	if self:GetWidthPos() > Module:GetWidthPos() then
 		xDistance = self:GetCenterLeft() - Module:GetCenterRight()
 	end
 	
-	//First module is behind the other
+	-- First module is behind the other
 	if self:GetWidthPos() < Module:GetWidthPos() then
 		xDistance = Module:GetCenterLeft() - self:GetCenterRight()
 	end
 	
-	//First module is in front of the other
+	-- First module is in front of the other
 	if self:GetHeightPos() > Module:GetHeightPos() then
 		xDistance = self:GetCenterBottom() - Module:GetCenterTop()
 	end
 	
-	//First module is behind the other
+	-- First module is behind the other
 	if self:GetHeightPos() < Module:GetHeightPos() then
 		xDistance = Module:GetCenterTop() - self:GetCenterBottom()
 	end
@@ -603,15 +603,15 @@ function DRAW:GetDistanceInBetween( Module )
 	return xDistance, yDistance
 end
 
-//Used for rounded box
+-- Used for rounded box
 local matCorner8, matCorner16 = surface.GetTextureID( "gui/corner8" ), surface.GetTextureID( "gui/corner16" )
 	
-/*---------------------------------
+--[==[---------------------------------
 	    Draw module
-----------------------------------*/
+----------------------------------]==]
 function DRAW:Draw()
 
-	//Draw rotated texture
+	-- Draw rotated texture
 	if self.IsTextureRectRotated then
 		surface.SetDrawColor ( self.Color )
 		surface.SetTexture ( self.matTexture )
@@ -620,7 +620,7 @@ function DRAW:Draw()
 		return
 	end
 
-	//Draw text
+	-- Draw text
 	if self.IsText then
 		if ( string.len( self.sText ) > 0 ) then
 			draw.SimpleText( self.sText, self.sFont, self.xPos, self.yPos, self.Color )
@@ -629,7 +629,7 @@ function DRAW:Draw()
 		return
 	end
 	
-	//Draw boxes
+	-- Draw boxes
 	if self.IsBox then
 		surface.SetDrawColor ( self.Color )
 		surface.DrawRect ( self:GetWidthPos(), self:GetHeightPos(), self:GetWidth(), self:GetHeight() )
@@ -637,14 +637,14 @@ function DRAW:Draw()
 		return
 	end
 	
-	//Draw rounded boxes
+	-- Draw rounded boxes
 	if self.IsRoundedBox then
 		draw.RoundedBox ( self:GetRound(), self:GetWidthPos(), self:GetHeightPos(), self:GetWidth(), self:GetHeight(), self.Color )
 		
 		return
 	end
 	
-	//Draw textured rects
+	-- Draw textured rects
 	if self.IsTextureRect then
 		surface.SetDrawColor ( self.Color )
 		surface.SetTexture ( self.matTexture )
@@ -653,7 +653,7 @@ function DRAW:Draw()
 		return
 	end
 	
-	//Drawline
+	-- Drawline
 	if self.IsLine then
 		surface.SetDrawColor ( self.Color )
 		surface.DrawLine ( self.x1Pos, self.y1Pos, self.x2Pos, self.y2Pos )
@@ -661,14 +661,14 @@ function DRAW:Draw()
 		return
 	end
 	
-	//Roundedbox ex.
+	-- Roundedbox ex.
 	if self.IsRoundedBoxEx then
 		surface.SetDrawColor( self.Color )
 		
-		//Round'em up
+		-- Round'em up
 		self.xPos, self.yPos, self.wSize, self.hSize = math.Round ( self.xPos ), math.Round ( self.yPos ), math.Round ( self.wSize ), math.Round ( self.hSize )
 		
-		// Draw as much of the rect as we can without textures
+		--  Draw as much of the rect as we can without textures
 		surface.DrawRect( self.xPos + self.iRound, self.yPos, self.wSize - self.iRound * 2, self.hSize )
 		surface.DrawRect( self.xPos, self.yPos + self.iRound, self.iRound, self.hSize - self.iRound * 2 )
 		surface.DrawRect( self.xPos + self.wSize - self.iRound, self.yPos + self.iRound, self.iRound, self.hSize - self.iRound * 2 )
@@ -676,7 +676,7 @@ function DRAW:Draw()
 		local matTex = matCorner8
 		if ( self.iRound > 8 ) then matTex = matCorner16 end
 		
-		//Set correct text. for corner
+		-- Set correct text. for corner
 		surface.SetTexture( matTex )
 		
 		if ( self.bUpperLeft ) then
@@ -705,23 +705,23 @@ function DRAW:Draw()
 	end
 end
 
-/*--------------------------------------------------------------
+--[==[--------------------------------------------------------------
          Align a draw module in place ( horiz, vertical )
----------------------------------------------------------------*/
+---------------------------------------------------------------]==]
 function DRAW:Align( wAlign, hAlign )
 	
-	//Align horizontal right
+	-- Align horizontal right
 	if wAlign == ALIGN_RIGHT then self:SetWidthPos( self:GetWidthPos() - self:GetWidth() ) end
 		
-	//Align horizontal center
+	-- Align horizontal center
 	if wAlign == ALIGN_CENTER then self:SetWidthPos( self:GetWidthPos() - math.Round ( self:GetWidth() / 2 ) ) end
 	
-	//Align vertical bottom
+	-- Align vertical bottom
 	if hAlign == ALIGN_BOTTOM then self:SetHeightPos( self:GetHeightPos() + self:GetHeight() ) end
 	
-	//Align vertical top
+	-- Align vertical top
 	if hAlign == ALIGN_TOP then self:SetHeightPos( self:GetHeightPos() - self:GetHeight() ) end
 	
-	//Align central vertical
+	-- Align central vertical
 	if hAlign == ALIGN_CENTER then self:SetHeightPos( self:GetHeightPos() - math.Round ( self:GetHeight() / 2 ) ) end
 end

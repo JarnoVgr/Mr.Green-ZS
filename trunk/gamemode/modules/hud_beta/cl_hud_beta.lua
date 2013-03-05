@@ -16,27 +16,27 @@ local player = player
 DRAW_BETA_HUD = true
 if not DRAW_BETA_HUD then return end
 
-//Function table
+-- Function table
 hud = {}
 
-//Health indications
+-- Health indications
 hud.HealthIndication = { [1] = { Text = "Healthy as a horse!", Percent = 1 }, [2] = { Text = "A few scratches..", Percent = 0.8 }, [3] = { Text = "Not looking good..", Percent = 0.6 }, [4] = { Text = "Search for a doctor!", Percent = 0.45 }, [5] = { Text = "You lost your guts!", Percent = 0.4 }, [6] = { Text = "Bleeding to death!", Percent = 0.25 } }
 hud.ZombieHealthIndication = { [1] = { Text = "Hungry as hell!", Percent = 1 }, [2] = { Text = "It's just pain..", Percent = 0.8 }, [3] = { Text = "Not looking good..", Percent = 0.6 }, [4] = { Text = "Search for a poison aura!", Percent = 0.45 }, [5] = { Text = "I want gibs. NOW!", Percent = 0.4 }, [6] = { Text = "Crawling in my skin...", Percent = 0.25 } }
 
-//Temporal panic bar
+-- Temporal panic bar
 hud.PanicBarColors = { [1] = { Percent = 1, Color = Color( 148,156,21,255 ) }, [2] = { Percent = 0.8, Color = Color( 179,145,42,255 ) }, [3] = { Percent = 0.6, Color = Color( 179,116,42,255 ) }, [4] = { Percent = 0.4, Color = Color( 191,77,26,255 ) }, [5] = { Percent = 0.2, Color = Color( 167,27,20,255 ) } }
 
-//Colors for danger sign
+-- Colors for danger sign
 hud.DangerColors = { [1] = Color( 60, 132, 38, 255 ), [2] = Color( 108, 111, 39, 255 ), [3] = Color ( 115, 132, 38, 255 ), [4] = Color ( 143, 96, 15, 255 ), [5] = Color ( 130, 19, 19,255 ) }
 
-//Text for danger sign
-hud.DangerText = { [1] = "Nothing to worry!", [2] = "Rotten meatbag..", [3] = "Zombie Fuck-up!", [4] = "HOLY SHI- F#$^", [5] = "ZOMBIELAND!" } //Brainfest
+-- Text for danger sign
+hud.DangerText = { [1] = "Nothing to worry!", [2] = "Rotten meatbag..", [3] = "Zombie Fuck-up!", [4] = "HOLY SHI- F#$^", [5] = "ZOMBIELAND!" } -- Brainfest
 hud.ZombieDangerText = { [1] = "Kill all humans!", [2] = "Fistful of flesh..", [3] = "Zombie Party!", [4] = "ARMY OF DEAD!", [5] = "DEAD RISING!" }
 
-//Textures needed
+-- Textures needed
 local matHealthSplash, matSplashTop = surface.GetTextureID ( "zombiesurvival/hud/splash_health" ), surface.GetTextureID ( "zombiesurvival/hud/splash_top" )
 
-//Avatar for classes
+-- Avatar for classes
 hud.AvatarClass = { 
 	[1] = surface.GetTextureID ( "zombiesurvival/hud/avatar_medic" ),
 	[2] = surface.GetTextureID ( "zombiesurvival/hud/avatar_commando" ),
@@ -57,42 +57,42 @@ hud.ZombieAvatarClass = {
 }
 
 
-/*----------------------------------------
+--[==[----------------------------------------
 	 Initialize fonts we need
------------------------------------------*/
+-----------------------------------------]==]
 function hud.InitFonts()
 
-	//Health indication font
-	surface.CreateFont( "Arial", ScreenScale( 7.6 ), 600, true, true, "HUDBetaHealth" ) //14.6
+	-- Health indication font
+	surface.CreateFont( "Arial", ScreenScale( 7.6 ), 600, true, true, "HUDBetaHealth" ) -- 14.6
 
-	//Level font
-	surface.CreateFont( "Arial", ScreenScale( 7.6 ), 600, true, true, "HUDBetaLevel" ) //14.6
+	-- Level font
+	surface.CreateFont( "Arial", ScreenScale( 7.6 ), 600, true, true, "HUDBetaLevel" ) -- 14.6
 	
-	//Level font 4:3
-	surface.CreateFont( "Arial", ScreenScale( 7.3 ), 600, true, true, "HUDBetaLevelNormal" ) //14.6
+	-- Level font 4:3
+	surface.CreateFont( "Arial", ScreenScale( 7.3 ), 600, true, true, "HUDBetaLevelNormal" ) -- 14.6
 	
-	//Kills icon font
-	surface.CreateFont( "csd", ScreenScale( 21.6 ), 500, true, true, "HUDBetaKills" ) //44.6
+	-- Kills icon font
+	surface.CreateFont( "csd", ScreenScale( 21.6 ), 500, true, true, "HUDBetaKills" ) -- 44.6
 	
-	//Ammo regen icon font
-	surface.CreateFont( "csd", ScreenScale( 17.6 ), 500, true, true, "HUDBetaAmmo" ) //36/6
+	-- Ammo regen icon font
+	surface.CreateFont( "csd", ScreenScale( 17.6 ), 500, true, true, "HUDBetaAmmo" ) -- 36/6
 	
-	//Kills and regen text font
-	surface.CreateFont( "Arial", ScreenScale( 7.6 ), 500, true, true, "HUDBetaStats" ) //16
+	-- Kills and regen text font
+	surface.CreateFont( "Arial", ScreenScale( 7.6 ), 500, true, true, "HUDBetaStats" ) -- 16
 	
-	//Small level showout
-	surface.CreateFont ( "Arial", ScreenScale( 7 ), 700, true, true, "HUDBetaCorner" ) //14
+	-- Small level showout
+	surface.CreateFont ( "Arial", ScreenScale( 7 ), 700, true, true, "HUDBetaCorner" ) -- 14
 	
-	//How much to survive font
+	-- How much to survive font
 	surface.CreateFont ( "Arial", ScreenScale( 13 ), 500, true, true, "HUDBetaHeader" )
 	
-	//Zombie count
+	-- Zombie count
 	surface.CreateFont ( "Arial", ScreenScale( 17 ), 700, true, true, "HUDBetaZombieCount" )
 	
-	//Infliction percentage font
+	-- Infliction percentage font
 	surface.CreateFont ( "Arial", ScreenScale( 10 ), 700, true, true, "HUDBetaInfliction" )
 	
-	//Right upper box text font
+	-- Right upper box text font
 	surface.CreateFont ( "Arial", ScreenScale( 9.6 ), 700, true, true, "HUDBetaRightBox" )
 	
 	surface.CreateFont ( "DS-Digital", ScreenScale( 7.6 ), 700, true, true, "NewAmmoFont7" )
@@ -103,13 +103,13 @@ function hud.InitFonts()
 	
 	surface.CreateFont ( "DS-Digital", ScreenScale( 20 ), 700, true, true, "NewAmmoFont20" )
 	
-	--[[surface.CreateFont ( "Sansation", ScreenScale( 7.6 ), 700, true, true, "sNewAmmoFont7" )
+	--[=[surface.CreateFont ( "Sansation", ScreenScale( 7.6 ), 700, true, true, "sNewAmmoFont7" )
 	
 	surface.CreateFont ( "Sansation", ScreenScale( 9 ), 700, true, true, "sNewAmmoFont9" )
 	
 	surface.CreateFont ( "Sansation", ScreenScale( 13 ), 700, true, true, "sNewAmmoFont13" )
 	
-	surface.CreateFont ( "Sansation", ScreenScale( 20 ), 700, true, true, "sNewAmmoFont20" )]]
+	surface.CreateFont ( "Sansation", ScreenScale( 20 ), 700, true, true, "sNewAmmoFont20" )]=]
 	
 	surface.CreateFont ( "Arial", ScreenScale( 7.6 ), 700, true, false, "ssNewAmmoFont7" )
 	
@@ -141,20 +141,20 @@ function hud.InitFonts()
 end
 hook.Add ( "Initialize", "hud.InitFonts", hud.InitFonts )
 
-/*----------------------------------------
+--[==[----------------------------------------
 	     Human HUD main
------------------------------------------*/
+-----------------------------------------]==]
 function hud.HumanHUD()
 	if not IsEntityValid ( MySelf ) or ENDROUND then return end
 	
-	//SQL ready
+	-- SQL ready
 	if not MySelf.ReadySQL then return end
 
 	if not MySelf:Alive() then return end
 	if IsClassesMenuOpen() then return end
-	//if IsSkillShopOpen() then return end
+	-- if IsSkillShopOpen() then return end
 	
-	//Only humans
+	-- Only humans
 	if not MySelf:IsHuman() then return end
 	
 	if util.tobool(GetConVarNumber("_zs_hidehud")) then return end
@@ -167,14 +167,14 @@ hook.Add ( "HUDPaint", "hud.HumanHUD", hud.HumanHUD )
 
 local matDangerSign = surface.GetTextureID ( "zombiesurvival/hud/danger_sign" )
 
-/*----------------------------------------
+--[==[----------------------------------------
 	     Zombie HUD main
------------------------------------------*/
+-----------------------------------------]==]
 function hud.ZombieHUD()
 	if not IsEntityValid ( MySelf ) or ENDROUND then return end
 	if not MySelf:Alive() then return end
 	
-	//SQL ready
+	-- SQL ready
 	if not MySelf.ReadySQL then return end
 	
 	if IsClassesMenuOpen() then return end
@@ -298,7 +298,7 @@ function hud.DrawNewZombieHUD()
 	end
 	
 	end
-	//WAVES
+	-- WAVES
 	
 	local curwav = GAMEMODE:GetWave()
 	
@@ -310,7 +310,7 @@ function hud.DrawNewZombieHUD()
 	
 
 	
-	//zero wave
+	-- zero wave
 	if curwav <= 0 then
 		
 		local timleft = math.max(0, WAVEZERO_LENGTH - CurTime())
@@ -452,7 +452,7 @@ function hud.DrawNewHumanHUD()
 	
 	--Draw!
 	hud.DrawBossHealth()
-	//hud.DrawAmmo(ScrW()-205,ScrH()-100,175,70)
+	-- hud.DrawAmmo(ScrW()-205,ScrH()-100,175,70)
 	hud.DrawAmmoPanel()
 	
 	hud.DrawHealthPanel()
@@ -465,7 +465,7 @@ function hud.DrawNewHumanHUD()
 	
 	local ENABLE_HPBAR = util.tobool(GetConVarNumber("_zs_enablehpbar"))
 	if ENABLE_HPBAR then
-	//	hud.SmallHPPanel(170,ScrH()-90,185,60)
+	-- 	hud.SmallHPPanel(170,ScrH()-90,185,60)
 	end
 	
 	if GAMEMODE:IsRetroMode() then
@@ -503,7 +503,7 @@ function hud.DrawAmmoPanel()
 	
 	local w,h,x,y = AmmoW,AmmoH,AmmoX,AmmoY
 	
-	//draw turret's ammo
+	-- draw turret's ammo
 	if ActiveWeapon:GetClass() == "weapon_zs_tools_remote" then
 		for _,v in pairs (ents.FindByClass("zs_turret")) do
 			if v:GetTurretOwner() and v:GetTurretOwner() == MySelf then
@@ -515,19 +515,19 @@ function hud.DrawAmmoPanel()
 	
 	if ActiveWeapon.NoHUD then return end
 	
-	if PrimaryAmmo != -1 then
+	if PrimaryAmmo ~= -1 then
 	
 		--Background
-		//DrawBlackBox(AmmoX,AmmoY,AmmoW,AmmoH)
+		-- DrawBlackBox(AmmoX,AmmoY,AmmoW,AmmoH)
 		
 		--Ammo
 		
 		local ToDraw1 = PrimaryAmmo
 		
 		local xpos = x+14
-		//for _,v in pairs(Numbers) do
-		//	draw.SimpleText(v, "sNewAmmoFont20", xpos+w/2.5, y+h/2, Color(110,110,110,35), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
-		//end
+		-- for _,v in pairs(Numbers) do
+		-- 	draw.SimpleText(v, "sNewAmmoFont20", xpos+w/2.5, y+h/2, Color(110,110,110,35), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
+		-- end
 		
 		draw.SimpleTextOutlined(ToDraw1, "ssNewAmmoFont20", xpos+w/2.5, y+h/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		
@@ -541,7 +541,7 @@ function hud.DrawAmmoPanel()
 		fWide, fTall = surface.GetTextSize ( "888" )
 		xpos = xpos + fWide
 		
-		//draw.SimpleText("888", "sNewAmmoFont13", xpos+w/2.5, y+h/2, Color(110,110,110,35), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
+		-- draw.SimpleText("888", "sNewAmmoFont13", xpos+w/2.5, y+h/2, Color(110,110,110,35), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
 		draw.SimpleTextOutlined(SecondaryAmmo, "ssNewAmmoFont13", xpos+w/2.5, y+h/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		
 		end
@@ -560,7 +560,7 @@ function hud.DrawHealthPanel()
 	local HealthX,HealthY = HealthStepX, ScrH()-HealthH-HealthStepY
 	
 	--Background
-	//DrawBlackBox(HealthX,HealthY,HealthW,HealthH)
+	-- DrawBlackBox(HealthX,HealthY,HealthW,HealthH)
 	
 	--Health
 	
@@ -592,7 +592,7 @@ function hud.DrawHealthPanel()
 	if not MySelf.HPBar then MySelf.HPBar = 1 end
 	MySelf.HPBar = math.Clamp ( math.Approach ( MySelf.HPBar, fHealth / fMaxHealth, FrameTime() * 1.8 ), 0, 1 )
 	
-	//Color of healthbar
+	-- Color of healthbar
 	local colHealthBar, sHealthIndication = COLOR_HUD_HEALTHY
 	if 0.8 < iPercentage then colHealthBar = Color ( 255,255,255,235 ) elseif 0.6 < iPercentage then colHealthBar = Color ( 146,142,22,235 ) elseif 0.3 < iPercentage then colHealthBar = Color ( 166,79,3,235 ) else colHealthBar = Color ( 153,7,4,math.sin(RealTime() * 6) * 127.5 + 127.5 ) end
 	
@@ -641,7 +641,7 @@ function hud.DrawHealthPanel()
 		draw.SimpleTextOutlined(tur:GetAmmo().."/"..tur:GetMaxAmmo(), "ssNewAmmoFont6.5", ActualX, ActualY+th/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 	
-	--[[[Stats
+	--[=[[Stats
 	
 	local StatsW,StatsH = HealthW,HealthH/2
 	local StatsX,StatsY = HealthX,HealthY-StatsH
@@ -666,7 +666,7 @@ function hud.DrawHealthPanel()
 	MySelf.SkillPoints = MySelf.SkillPoints or 0
 	
 	draw.SimpleTextOutlined("SP: "..MySelf.SkillPoints, "ssNewAmmoFont7", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	]]
+	]=]
 
 end
 
@@ -721,11 +721,11 @@ function hud.DrawWavePanel()
 	local WaveW,WaveH = ScaleW(205),ScaleH(70)
 
 	--Background
-	//DrawBlackBox(WaveX,WaveY,WaveW,WaveH)
+	-- DrawBlackBox(WaveX,WaveY,WaveW,WaveH)
 	
-	//surface.SetTexture(hud.LeftGradient)
-	//surface.SetDrawColor(0, 0, 0, 140)
-	//surface.DrawTexturedRect(0,0,ScaleW(300),ScaleH(80))
+	-- surface.SetTexture(hud.LeftGradient)
+	-- surface.SetDrawColor(0, 0, 0, 140)
+	-- surface.DrawTexturedRect(0,0,ScaleW(300),ScaleH(80))
 		
 	local curwav = GAMEMODE:GetWave()
 	
@@ -737,7 +737,7 @@ function hud.DrawWavePanel()
 	
 
 	
-	//zero wave
+	-- zero wave
 	if curwav <= 0 then
 		
 		local timleft = math.max(0, WAVEZERO_LENGTH - CurTime())

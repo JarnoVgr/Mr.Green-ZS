@@ -51,9 +51,9 @@ function ENT:Touch(ent)
 end
 
 function ENT:OnRemove()
-	--[[if not self.SilentRemove and self:GetParent():IsValid() then
+	--[=[if not self.SilentRemove and self:GetParent():IsValid() then
 		-- Emit death sound
-	end]]
+	end]=]
 end
 
 function ENT:SetDie(fTime)

@@ -30,8 +30,8 @@ end
 function ENT:PhysicsCollide ( data, physobj )
 	if CLIENT then return end
 	
-	//Hit player
-	if data.HitEntity and data.HitEntity:IsValid() and data.HitEntity:IsPlayer() and data.HitEntity != self.Entity:GetOwner() then
+	-- Hit player
+	if data.HitEntity and data.HitEntity:IsValid() and data.HitEntity:IsPlayer() and data.HitEntity ~= self.Entity:GetOwner() then
 		self.Entity:EmitSound("player/footsteps/snow"..math.random(1,6)..".wav")
 			
 		local pl = data.HitEntity
@@ -46,7 +46,7 @@ function ENT:PhysicsCollide ( data, physobj )
 		self.Entity:Remove()
 		
 	-- if it is an entity (not a player)	
-	elseif data.HitEntity and data.HitEntity:IsValid() and !data.HitEntity:IsPlayer() then
+	elseif data.HitEntity and data.HitEntity:IsValid() and not data.HitEntity:IsPlayer() then
 		
 		local Pos1 = data.HitPos + data.HitNormal
 		local Pos2 = data.HitPos - data.HitNormal

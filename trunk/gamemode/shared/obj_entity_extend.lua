@@ -6,7 +6,7 @@ local ents = ents
 local meta = FindMetaTable ("Entity")
 if not meta then return end
 
-/*meta.OldSetColor = meta.SetColor
+--[==[meta.OldSetColor = meta.SetColor
 
 function meta:SetColor(...)
 	
@@ -28,7 +28,7 @@ meta.OldGetColor = meta.GetColor
 	local col = meta:OldGetColor()
 	
 	return col.r,col.g,col.b,col.a
-end*/
+end]==]
 
 if SERVER then
 	util.AddNetworkString( "UpdateModelScale" )
@@ -38,7 +38,7 @@ elseif CLIENT then
 		local scale = net.ReadDouble()
 		local ent = net.ReadEntity()
 		
-		if !IsValid(LocalPlayer()) then return end
+		if not IsValid(LocalPlayer()) then return end
 		
 		if IsValid(ent) then
 			ent:SetModelScale(scale,0)
@@ -67,23 +67,23 @@ function meta:SetModelScale(sz,time)
 end
 
 -- Check if the entity is on the ground
-/*function meta:IsOnGround()
+--[==[function meta:IsOnGround()
 	local trLine = util.TraceLine( { start = self:LocalToWorld( self:OBBMins() ), endpos = self:LocalToWorld( self:OBBMins() ) - Vector( 0,0,1000 ), filter = ents.GetAll() } )
 	
-	//Is on the ground
+	-- Is on the ground
 	if trLine.HitWorld then 
 		if self:LocalToWorld( self:OBBMins() ):Distance( trLine.HitPos ) < 20 then
 			return true
 		end
 		
-		//Started as solid
+		-- Started as solid
 		if trLine.StartSolid then
 			return true
 		end
 	end
 	
 	return false
-end*/
+end]==]
 
 function meta:TakeSpecialDamage(damage, damagetype, attacker, inflictor, hitpos)
 	attacker = attacker or self
@@ -98,10 +98,10 @@ function meta:TakeSpecialDamage(damage, damagetype, attacker, inflictor, hitpos)
 	dmginfo:SetDamagePosition(hitpos or self:NearestPoint(inflictor:NearestPoint(self:LocalToWorld(self:OBBCenter()))))
 	dmginfo:SetDamageType(damagetype)
 	
-	//local dmginfo = GAMEMODE:EntityTakeDamage( self, dmginfo )
-	//if dmginfo then
+	-- local dmginfo = GAMEMODE:EntityTakeDamage( self, dmginfo )
+	-- if dmginfo then
 		self:TakeDamageInfo(dmginfo)
-	//end
+	-- end
 
 	return dmginfo
 end
@@ -124,8 +124,8 @@ function meta:TakeCustomDamage ( amount, attacker, bullettype, dmginfo, trTable 
 		if attacker:IsPlayer() and attacker:GetActiveWeapon():IsValid() then
 			if IsValid(dmginfo:GetInflictor()) then
 				if dmginfo:GetInflictor():GetClass() == "zs_turret" then
-					//dmginfo:SetInflictor( attacker:GetActiveWeapon() )
-					//dmginfo:GetInflictor().Inflictor = "zs_turret"
+					-- dmginfo:SetInflictor( attacker:GetActiveWeapon() )
+					-- dmginfo:GetInflictor().Inflictor = "zs_turret"
 					dmginfo:GetInflictor().IsTurretDmg = true
 				else
 					dmginfo:SetInflictor( attacker:GetActiveWeapon() )
@@ -160,7 +160,7 @@ function meta:GetHolder()
 end
 
 meta.BaseGetOwner = meta.GetOwner
-//hacky way to override some shit
+-- hacky way to override some shit
 function meta:GetOwner()
 	if self._mOwner then
 		return self._mOwner

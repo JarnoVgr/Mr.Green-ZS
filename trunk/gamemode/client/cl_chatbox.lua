@@ -8,7 +8,7 @@ CustomChat.Lines = {}
 CustomChat.ChatOpen = false
 CustomChat.FadeTime = 10 
 
-// Don't change these vars
+--  Don't change these vars
 CustomChat.ChatBoxFrameOffset = ScaleH(15)
 CustomChat.ChatTextOffset = ScaleH(20)
 CustomChat.PosX = ScaleW(700)
@@ -20,13 +20,13 @@ Colors.Subframe = Color ( 62,62,62, 0 )
 Colors.Chat = Color ( 255,255,255, 0 )
 Colors.Console = Color ( 151,211, 255,255 )
 
-//Initialize line alpha
+-- Initialize line alpha
 CustomChat.LineAlpha = {}
 for i = 1, 7 do
 	CustomChat.LineAlpha[i] = 255
 end
 
-//Initialize open box alpha
+-- Initialize open box alpha
 CustomChat.LineAlphaOpen = {}
 for i = 1, 7 do
 	CustomChat.LineAlphaOpen[i] = 255
@@ -48,16 +48,16 @@ function CustomChat.CreateChat()
 	
 	MySelf.StartChatBox = true
 	
-	// Create the chat box and chat entry
+	--  Create the chat box and chat entry
 	CustomChat.ChatBox = vgui.Create( "CustomChat" )
 	CustomChat.ChatEntry = vgui.Create ("DTextEntry", CustomChat.ChatBox)
 	CustomChat.ChatBox:SetVisible ( false )	
 	
-	//Chatbox setup
+	-- Chatbox setup
 	CustomChat.ChatBox:SetSize ( ScaleH(587), ScaleH(222) )
 	CustomChat.ChatBox:SetPos (CustomChat.PosX, CustomChat.PosY )
 	
-	//Calculate where the text entry bar will be
+	-- Calculate where the text entry bar will be
 	local ChatBoxTall = CustomChat.ChatBox:GetTall()
 	surface.SetFont( "ChatFont" )
 	local _, lineHeight = surface.GetTextSize( "H" )
@@ -67,22 +67,22 @@ function CustomChat.CreateChat()
 	end
 	height = height - ( ChatBoxTall - 65 ) + ScaleH(20) 
 	
-	// local height where every element of the main frame ends.
+	--  local height where every element of the main frame ends.
 	CustomChat.HeightEnd = CustomChat.ChatBoxFrameOffset + math.ceil ( height + ScaleH(26) ) + math.ceil ( ScaleH(21) )
 	
-	//Text Entry Setup
+	-- Text Entry Setup
 	local lineWidth, _ = surface.GetTextSize( "Say:" )
 	local fWidth = math.ceil ( ScaleH(23) + lineWidth + ScaleH(13) )
 	CustomChat.ChatEntry:SetPos( fWidth, math.ceil ( height + ScaleH(26) ) )
 	CustomChat.ChatEntry:SetSize( CustomChat.ChatBox:GetWide() - math.ceil ( fWidth ) - math.ceil ( ScaleH(15) ), math.ceil ( ScaleH(21) ) )
 	CustomChat.ChatEntryText = ""
 	
-	//Setup Paint ChatEntry
+	-- Setup Paint ChatEntry
 	CustomChat.ChatEntry.Paint = function()
 		local self = CustomChat.ChatEntry
 		local Wide,Tall = self:GetWide(),self:GetTall()
 		
-		//Align the text properly
+		-- Align the text properly
 		local text = CustomChat.ChatEntryText or ""
 		local align,posx,posy = TEXT_ALIGN_LEFT, 4, Tall * 0.5
 		
@@ -92,23 +92,23 @@ function CustomChat.CreateChat()
 			posx, posy = Wide - 4, Tall * 0.5
 		end
 		
-		//Fade Think for Frame color
+		-- Fade Think for Frame color
 		CustomChat.FadeThink()
 		
-		// Show a tip to the player
+		--  Show a tip to the player
 		if CustomChat.ShowTip then
 			text = "Press Y to enable typing a message here!"
 		end
 
-		//Draw the frame and the text you write
+		-- Draw the frame and the text you write
 		draw.RoundedBox ( 0, 0, 0, self:GetWide(), self:GetTall(), Colors.Subframe )
 		draw.SimpleText(text, "ChatFont", posx, posy, Colors.Chat, align, TEXT_ALIGN_CENTER )
 		
-		//Draw the pointer
+		-- Draw the pointer
 		local fClampedTextPos = math.Clamp ( textwide + 4, -10, Wide - ScaleW(3) )
 		surface.SetDrawColor ( 200,200,200, math.abs ( 255 * math.sin ( CurTime() * 4 ) ) )
 		
-		//Draw the pointer only if the chatbox is "active"
+		-- Draw the pointer only if the chatbox is "active"
 		if not CustomChat.ShowTip then
 			surface.DrawLine ( fClampedTextPos, ScaleW(2), fClampedTextPos, self:GetTall() - ScaleW(2) )
 		end
@@ -124,7 +124,7 @@ function CustomChat.OpenChat()
 	CustomChat.IsOpening = true
 	CustomChat.ShowTip = false
 	
-	// Enable cursor
+	--  Enable cursor
 	gui.EnableScreenClicker( true )
 	
 	return true
@@ -163,10 +163,10 @@ end
 --hook.Add( "ChatText", "CustomChatChatMessage2", CustomChat.ChatMessage )
 
 function GM:OnReceiveChatText ()
-	// Play a sound - Source Like
+	--  Play a sound - Source Like
 	--surface.PlaySound ( Sound ( "items/flashlight1.wav" ) )
 
-	// Refresh alpha for the lines that haven't expired yet
+	--  Refresh alpha for the lines that haven't expired yet
 	for i = 1, 7 do
 		local line = CustomChat.Lines[#CustomChat.Lines - i + 1]
 		if line then
@@ -191,7 +191,7 @@ function CustomChat.DrawLine( x, y, line, i )
 		alpha = CustomChat.LineAlpha[i + 1]
 	end
 	
-	//Text Color
+	-- Text Color
 	local TextCol = Color ( 255, 255, 255, alpha )
 	
 	if IsConsole then
@@ -200,10 +200,10 @@ function CustomChat.DrawLine( x, y, line, i )
 	
 	NewText = cText
 	
-	//Replace color markers with new alpha
+	-- Replace color markers with new alpha
 	NewText = string.gsub( NewText, "(%,(%d+)%])", ","..math.Round(alpha).."]" )
 
-	// Draw the text with color tags
+	--  Draw the text with color tags
 	draw.SimpleColoredText ( NewText, "ChatFont", curX, curY, TextCol )
 end
 
@@ -219,9 +219,9 @@ function CustomChat.FadeLineThink ()
 	end
 end
 	
-/*--------------------------------------------------------------
+--[==[--------------------------------------------------------------
          Draw the text when the panel is closed
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 function CustomChat.DrawChat()
 	if not ENDROUND then return end
 	if CustomChat.IsChatOpen then return end
@@ -232,11 +232,11 @@ function CustomChat.DrawChat()
 	local Wide = CustomChat.ChatBox:GetWide()
 	local Tall = CustomChat.ChatBox:GetTall()
 	
-	//Get the height of one line of text "H" the tallest letter
+	-- Get the height of one line of text "H" the tallest letter
 	surface.SetFont( "ChatFont" )
 	local _, lineHeight = surface.GetTextSize( "H" )
 	
-	// Calculate the h value where the text starts
+	--  Calculate the h value where the text starts
 	local curX = ScaleH(25) + cBoxX
 	local curY = ( Tall - ScaleH(65) ) + cBoxY
 	local height = curY
@@ -244,14 +244,14 @@ function CustomChat.DrawChat()
 		height = height + lineHeight + ScaleH(2) 
 	end
 	
-	// Height of all lines added
+	--  Height of all lines added
 	height =  height - ( Tall - ScaleH(65) ) + CustomChat.ChatTextOffset 
 	curY = height - ScaleH(30) * 0.5
 	
-	// Line Fade
+	--  Line Fade
 	CustomChat.FadeLineThink ()
 	
-	//Draw text lines
+	-- Draw text lines
 	for i = 0, 6 do
 		local line = CustomChat.Lines[#CustomChat.Lines-i]
 		if line then
@@ -267,9 +267,9 @@ function CustomChat:Init()
 	self:EnableMovement()
 end
 
-/*--------------------------------------------------------------
+--[==[--------------------------------------------------------------
           Draw the text when the panel is open
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 function CustomChat:Paint()
 	local Wide = self:GetWide()
 	local Tall = self:GetTall()
@@ -277,10 +277,10 @@ function CustomChat:Paint()
 	local ChatEntry = CustomChat.ChatEntry
 	local WideChatEntry,TallChatEntry = ScaleW(42), ChatEntry:GetTall()
 		
-	//Main frame
+	-- Main frame
 	draw.RoundedBox( 8, 0, 0, Wide, Tall, Colors.Background )
 	
-	//Draw text lines
+	-- Draw text lines
 	surface.SetFont( "ChatFont" )
 	local _, lineHeight = surface.GetTextSize( "H" ) --15
 	local curX = ScaleH(25)
@@ -291,11 +291,11 @@ function CustomChat:Paint()
 		height = height + lineHeight + ScaleH(2) 
 	end
 	
-	// Height of all lines added
+	--  Height of all lines added
 	height =  height - ( Tall - ScaleH(65) ) + CustomChat.ChatTextOffset 
 	curY = height - ScaleH(30) * 0.5
 	
-	//Sub-frame
+	-- Sub-frame
 	surface.SetDrawColor ( Colors.Subframe )
 	surface.DrawRect( ScaleH(15), ScaleH(15), Wide - ScaleH(30), height )
 	
@@ -308,19 +308,19 @@ function CustomChat:Paint()
 		end
 	end
 	
-	//Chat frames
+	-- Chat frames
 	local lineWidth, _ = surface.GetTextSize( "Say:" )
 	surface.DrawRect( ScaleH(15), math.ceil ( height + ScaleH(26) ), lineWidth + ScaleH(13), math.ceil ( ScaleH(21) ) )
 
-	//Draw the "say:" text
+	-- Draw the "say:" text
 	draw.SimpleText ( "Say:", "ChatFont", ScaleH(15) + ( ( lineWidth + ScaleH(13) ) * 0.5 ), height + ScaleH(26) + (TallChatEntry * 0.5) , Colors.Chat, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 	
 	return true
 end
 
-/*--------------------------------------------------------------
+--[==[--------------------------------------------------------------
            Chat panel fading animation set-up
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 function CustomChat.FadeThink()
 	local alpha = { 0,0,0 }
 	
@@ -330,11 +330,11 @@ function CustomChat.FadeThink()
 	
 	local iIndex = 0
 	for k,v in pairs (Colors) do
-		if k != "Console" then
+		if k ~= "Console" then
 			iIndex = iIndex + 1
 			v.a = math.Approach (v.a, alpha[iIndex], FrameTime() * 300)
 			
-			//Close the frame right when the colors reach 0 alpha
+			-- Close the frame right when the colors reach 0 alpha
 			if v.a == 0 and not CustomChat.IsOpening  then
 				CustomChat.IsChatOpen = false
 				CustomChat.ChatBox:SetVisible( false )
@@ -353,13 +353,13 @@ function CustomChat.FadeThink()
 	end
 end
 
-/*----------------------------------------------------------------------
+--[==[----------------------------------------------------------------------
         Extend the Panel Table to do Custom Movement
-------------------------------------------------------------------------*/
+------------------------------------------------------------------------]==]
 local panel = FindMetaTable ("Panel")
 if panel then
 
-	// Used to enable movement on mouse click (for painted panels)
+	--  Used to enable movement on mouse click (for painted panels)
 	function panel:EnableMovement()
 		self.EnableMove = true
 
@@ -390,7 +390,7 @@ if panel then
 		end
 	end
 	
-	// Used to disable movement on mouse click (for painted panels)
+	--  Used to disable movement on mouse click (for painted panels)
 	function panel:DisableMovement()
 		self.EnableMove = false
 	end
@@ -402,9 +402,9 @@ function CustomChat:PerformLayout()
 end
 vgui.Register("CustomChat", CustomChat, "Panel")
 
-/*----------------------------------------------------------------------
+--[==[----------------------------------------------------------------------
         Line parsing (  you don't wanna look down :P )
-------------------------------------------------------------------------*/
+------------------------------------------------------------------------]==]
 function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 	if not ENDROUND then return end
 
@@ -421,12 +421,12 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 	local fChatBoxWide = CustomChat.ChatBox:GetWide() - ScaleH(45)
 	
 	if not Console then
-		// Write the team and name
+		--  Write the team and name
 		Team = pl:Team()
 		Name = pl:Name()
 		
-		// Check admin status
-		if pl.Title != nil and pl.Title != "" then 
+		--  Check admin status
+		if pl.Title ~= nil and pl.Title ~= "" then 
 			HasTitle = true
 		end
 	end
@@ -449,11 +449,11 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 			local Title = pl.Title or ""
 			local ColorToApply = Color ( 255,255,255 )
 		
-			//Choose what color to apply to the title
+			-- Choose what color to apply to the title
 			if pl:Team() == TEAM_HUMAN then ColorToApply = Color( 0, 255, 0 ) end
 			if pl:Team() == TEAM_UNDEAD then ColorToApply = Color( 221, 219, 26 ) end
 		
-			//Is Admin
+			-- Is Admin
 			if pl:IsAdmin() or pl:IsSuperAdmin() then
 				ColorToApply = Color ( 255,0,0 )
 			end
@@ -466,14 +466,14 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 	
 	mLine = Prefixes..mLine
 	
-	if mLine != "" then
-		// Full Line (with markers)
+	if mLine ~= "" then
+		--  Full Line (with markers)
 		Line = mLine
 	
 		-- Actually draw the coloured text!
 		surface.SetFont ("ChatFont")
 		
-		// Line without color markers
+		--  Line without color markers
 		Line = string.gsub( Line, "(%[(%d+),(%d+),(%d+),(%d+)%])", "" )
 		Line = string.gsub( Line, "(%[/c%])", "" )
 		
@@ -482,10 +482,10 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 		local Text = string.Explode ( "", Line )
 		Line = ""
 			
-		//Split the larger text (unmarked text)
+		-- Split the larger text (unmarked text)
 		local StartPattern, EndPattern, Pattern, Position, strCurrentText, iCutHere = 0, 0, 0, 0, "", 0
 		for k,v in ipairs (Text) do
-			//Get current text wide
+			-- Get current text wide
 			strCurrentText = strCurrentText..v
 			local strWide, _ = surface.GetTextSize ( strCurrentText )
 			local fChatBoxWide = CustomChat.ChatBox:GetWide() - ScaleH(45)
@@ -522,12 +522,12 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 			end
 		end
 		
-		//Cut the color marked text
+		-- Cut the color marked text
 		mLine = string.sub (mLine, 0, iCutHere + Position)
 	
 		iIndex = #CustomChat.Lines + 1
 		
-		-- //information from the player that types the message
+		-- -- information from the player that types the message
 		table.insert( Lines.Value, Name )
 		table.insert( Lines.Value, teamonly )
 		table.insert( Lines.Value, deadpl )
@@ -536,7 +536,7 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 		table.insert( Lines.Value, Console )
 		table.insert( Lines.Value, CurTime() )
 		
-		-- // Information regarding text content 
+		-- --  Information regarding text content 
 		table.insert( Lines.Value, Line )
 		table.insert( Lines.Value, mLine )
 	end
@@ -544,17 +544,17 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 	table.insert( CustomChat.Lines, iIndex, Lines )
 	iIndex = iIndex + 1
 	
-	if SecondLine != "" then
+	if SecondLine ~= "" then
 		Lines = {}
 		Lines.Value = {}
 			
-		//Split the larger text
+		-- Split the larger text
 		local Text = string.Explode ( "", SecondLine )
 		SecondLine = ""
 			
 		local strCurrentText, iCutHere = "", 0
 		for k,v in ipairs (Text) do
-			//Get current text wide
+			-- Get current text wide
 			strCurrentText = strCurrentText..v
 			local strWide, _ = surface.GetTextSize ( strCurrentText )
 			local fChatBoxWide = CustomChat.ChatBox:GetWide() - ScaleH(45)
@@ -567,7 +567,7 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 			end
 		end
 	
-		-- //information from the player that types the message
+		-- -- information from the player that types the message
 		table.insert( Lines.Value, "" )
 		table.insert( Lines.Value, false )
 		table.insert( Lines.Value, false )
@@ -576,7 +576,7 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 		table.insert( Lines.Value, Console )
 		table.insert( Lines.Value, CurTime() )
 			
-		-- // Information regarding text content 
+		-- --  Information regarding text content 
 		table.insert( Lines.Value, SecondLine )
 		table.insert( Lines.Value, SecondLine )
 			
@@ -584,7 +584,7 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 		iIndex = iIndex + 1
 	end
 	
-	if ThirdLine != "" then
+	if ThirdLine ~= "" then
 		Lines = {}
 		Lines.Value = {}
 		
@@ -596,23 +596,23 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 		
 		local iInd = 0
 		for k,v in ipairs (Text) do
-			//Get current text wide
+			-- Get current text wide
 			strCurrentText = strCurrentText..v
 			local strWide, _ = surface.GetTextSize ( strCurrentText )
 			
-			// Cut it
+			--  Cut it
 			if strWide <= fChatBoxWide then
 				ThirdLine = ThirdLine..v
 			end
 		end
 		
-		//Place (..,) at the end to tell the player the message isn't finished
+		-- Place (..,) at the end to tell the player the message isn't finished
 		if strWideInit >= fChatBoxWide then
 			ThirdLine = string.sub (ThirdLine, 0, string.len (ThirdLine) - 4)
 			ThirdLine = ThirdLine.."(..)"
 		end
 		
-		-- //information from the player that types the message
+		-- -- information from the player that types the message
 		table.insert( Lines.Value, "" )
 		table.insert( Lines.Value, false )
 		table.insert( Lines.Value, false )
@@ -621,7 +621,7 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 		table.insert( Lines.Value, Console )
 		table.insert( Lines.Value, CurTime() )
 			
-		-- // Information regarding text content 
+		-- --  Information regarding text content 
 		table.insert( Lines.Value, ThirdLine )
 		table.insert( Lines.Value, ThirdLine )
 			

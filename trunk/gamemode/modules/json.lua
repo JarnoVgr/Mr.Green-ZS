@@ -1,4 +1,4 @@
---[[
+--[=[
 
  JSON Encoder and Parser for Lua 5.1
  
@@ -51,7 +51,7 @@
  7) Lua dictionary tables are converted to Json objects eg {"one":1,"two":2}
  8) Json nulls are decoded to Lua nil and treated by Lua in the normal way
 
---]]
+--]=]
 
 local string = string
 local math = math

@@ -1,4 +1,4 @@
-//Nothing to see here yet!
+-- Nothing to see here yet!
 
 local ZInfoTable = {}
 ZInfoTable[1] = {Desc1 = "Attack with claws", Desc2 = "Moan", Seq1 = "Idle01", Seq2 = "FireWalk", AnimSpeed1 = 1, AnimSpeed2 = 0.5, Cam = Vector( 58, 68, 40 ), Ang = Vector( 0, 0, 40 ) }
@@ -17,10 +17,10 @@ local function SetSeqModel( self, strModelName, seq )
 			self.Entity = nil              
 	end
  
-	if ( !ClientsideModel ) then return end
+	if ( not ClientsideModel ) then return end
  
 	self.Entity = ClientsideModel( strModelName, RENDER_GROUP_OPAQUE_ENTITY )
-	if ( !IsValid(self.Entity) ) then return end
+	if ( not IsValid(self.Entity) ) then return end
  
 	self.Entity:SetNoDraw( true )
 	
@@ -100,7 +100,7 @@ function MakeZClassInfo()
 	end
 	
 	local LeftModel = vgui.Create( "DModelPanel", pInfo )
-	//Do I really need to overrisde this function twice?
+	-- Do I really need to overrisde this function twice?
 	LeftModel.SetModel = SetSeqModel
 
 	function LeftModel:LayoutEntity(Entity)

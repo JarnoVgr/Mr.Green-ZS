@@ -5,7 +5,7 @@ function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 
 	if pl:IsBot() or attacker:IsBot() then return end
 
-	if attacker:Team() == TEAM_UNDEAD and attacker != pl then
+	if attacker:Team() == TEAM_UNDEAD and attacker ~= pl then
 		local brains = attacker.BrainsEaten
 		if brains >= 5 then
 			attacker:UnlockAchievement("bloodseeker")
@@ -97,7 +97,7 @@ function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 			
 		if pl.Class == 2 and not pl:OnGround() and pl:GetVelocity():Length() >= 1000 then -- kill a fast zombie in mid-air
 			attacker:UnlockAchievement("marksman")
-			//skillpoints.AchieveSkillShot(attacker,pl,"deadflight")
+			-- skillpoints.AchieveSkillShot(attacker,pl,"deadflight")
 		end
 		
 		if pl.Class == 10 and not dmginfo:IsSuicide( pl ) then
@@ -133,7 +133,7 @@ function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 		
 			
 		-- check for melee kills
-		if dmginfo:IsMeleeDamage() then//if meleekill then
+		if dmginfo:IsMeleeDamage() then-- if meleekill then
 			attacker.MeleeKills = attacker.MeleeKills + 1
 			if attacker:Health() <= 10 then
 				attacker:UnlockAchievement("laststand")

@@ -1,17 +1,17 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
---[[------------------------------------------------------------------------------
+--[=[------------------------------------------------------------------------------
               Map information - update when you add a map
          Size is the maximum player number the map can hold
---------------------------------------------------------------------------------]]
+--------------------------------------------------------------------------------]=]
 
 
---[[-----------------------------------------------------------------------------
+--[=[-----------------------------------------------------------------------------
 	Read this how to use additional functions for each map
--------------------------------------------------------------------------------]]
+-------------------------------------------------------------------------------]=]
 
---[[--------------------------------------------------------------------------------
+--[=[--------------------------------------------------------------------------------
 *Removing entities by class
 Format: 		RemoveEntities = table with entities
 Example: 		RemoveEntities = {"prop_physics"}
@@ -60,12 +60,12 @@ Example:		DisableMusic = true
 Format:		Objective = boolean value
 Example:		Objective = true
 *Note: This function is always 'false' by default
-----------------------------------------------------------------------------------]]
+----------------------------------------------------------------------------------]=]
 
-//Maximum player limit 
+-- Maximum player limit 
 VERY_SMALL,SMALL,MEDIUM,BIG,VERY_BIG = 7, 14, 20, MaxPlayers(), MaxPlayers()
 
-//Map table - Be sure there are 7 maps of each type (VERY_SMALL,SMALL and MEDIUM - BIG AND VERY_BIG ARE SHARED)
+-- Map table - Be sure there are 7 maps of each type (VERY_SMALL,SMALL and MEDIUM - BIG AND VERY_BIG ARE SHARED)
 TranslateMapTable = {
 	["zs_clav_chaossystem"] = { Name = "Chaos System", Size = BIG, RandomizeSpawn = true, ZombieSpawnProtection = 14 },
 	["zs_alexg_motel_v3"] = { Name = "Motel", Size = MEDIUM, RandomizeSpawn = true },

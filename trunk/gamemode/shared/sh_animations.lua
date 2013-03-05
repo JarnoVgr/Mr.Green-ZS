@@ -1,17 +1,17 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-//Custom gestures
+-- Custom gestures
 CUSTOM_PRIMARY, CUSTOM_SECONDARY = 100,200
 
-//Mananges playback rate and such
+-- Mananges playback rate and such
 function GM:UpdateAnimation( pl, velocity, maxseqgroundspeed )	
 
-	//Update zombie animations, too
+	-- Update zombie animations, too
 	if pl:IsZombie() then self:UpdateZombieAnimation( pl, velocity, maxseqgroundspeed ) return end
 	
 	return self.BaseClass.UpdateAnimation(self, pl, velocity, maxseqgroundspeed)
-/*
+--[==[
 	local len = velocity:Length()
 	local movement = 1.0
 	
@@ -24,7 +24,7 @@ function GM:UpdateAnimation( pl, velocity, maxseqgroundspeed )
 	-- if we're under water we want to constantly be swimming..
 	if ( pl:WaterLevel() >= 2 ) then
 		rate = math.max( rate, 0.5 )
-	elseif ( !pl:IsOnGround() && len >= 1000 ) then 
+	elseif ( not pl:IsOnGround() and len >= 1000 ) then 
 		rate = 0.1;
 	end
 	
@@ -34,14 +34,14 @@ function GM:UpdateAnimation( pl, velocity, maxseqgroundspeed )
 	if ( CLIENT ) and pl:IsHuman() then
 		GAMEMODE:GrabEarAnimation( pl )
 	end
-	*/
+	]==]
 end
 
-//Manages activities to play I think
+-- Manages activities to play I think
 function GM:CalcMainActivity( ply, velocity )	
 	
-	//ply.CalcIdeal = ACT_MP_STAND_IDLE
-	//ply.CalcSeqOverride = -1
+	-- ply.CalcIdeal = ACT_MP_STAND_IDLE
+	-- ply.CalcSeqOverride = -1
 	
 	if ply:IsZombie() then 
 		if self.CalcMainActivityZombies[ ply:GetZombieClass() ] then 
@@ -50,19 +50,19 @@ function GM:CalcMainActivity( ply, velocity )
 	end
 	
 	return self.BaseClass.CalcMainActivity(self, ply, velocity)
-	//Human animations
-	/*if ply:IsHuman() then
+	-- Human animations
+	--[==[if ply:IsHuman() then
 	
 		ply.CalcIdeal = ACT_MP_STAND_IDLE
 		ply.CalcSeqOverride = -1
 
 		self:HandlePlayerLanding( ply, velocity, ply.m_bWasOnGround );
 		
-		if ( self:HandlePlayerNoClipping( ply, velocity ) ||
-			self:HandlePlayerDriving( ply ) ||
-			self:HandlePlayerVaulting( ply, velocity ) ||
-			self:HandlePlayerJumping( ply, velocity ) ||
-			self:HandlePlayerDucking( ply, velocity ) ||
+		if ( self:HandlePlayerNoClipping( ply, velocity ) or
+			self:HandlePlayerDriving( ply ) or
+			self:HandlePlayerVaulting( ply, velocity ) or
+			self:HandlePlayerJumping( ply, velocity ) or
+			self:HandlePlayerDucking( ply, velocity ) or
 			self:HandlePlayerSwimming( ply, velocity ) ) then
 			
 		else
@@ -78,7 +78,7 @@ function GM:CalcMainActivity( ply, velocity )
 
 		if ( IsValid( weapon ) ) then ht = weapon.GetHoldType and weapon:GetHoldType() end
 		
-		if ( ply.CalcIdeal == ACT_MP_CROUCH_IDLE &&	( ht == "knife" || ht == "melee2" ) ) then
+		if ( ply.CalcIdeal == ACT_MP_CROUCH_IDLE and	( ht == "knife" or ht == "melee2" ) ) then
 			ply.CalcSeqOverride = ply:LookupSequence("cidle_" .. ht)
 		end
 
@@ -87,10 +87,10 @@ function GM:CalcMainActivity( ply, velocity )
 	
 		
 		return ply.CalcIdeal, ply.CalcSeqOverride
-	end*/
+	end]==]
 	
-	//Undead animations
-	//if ply:IsZombie() then if self.CalcMainActivityZombies[ ply:GetZombieClass() ] then return self.CalcMainActivityZombies[ ply:GetZombieClass() ]( ply, velocity ) end end
+	-- Undead animations
+	-- if ply:IsZombie() then if self.CalcMainActivityZombies[ ply:GetZombieClass() ] then return self.CalcMainActivityZombies[ ply:GetZombieClass() ]( ply, velocity ) end end
 end
 
 local IdleActivity = ACT_HL2MP_IDLE
@@ -109,8 +109,8 @@ local IdleActivityTranslate = {}
 	IdleActivityTranslate [ ACT_MP_SWIM ] 						= ACT_MP_SWIM
 	IdleActivityTranslate [ ACT_LAND ] 							= ACT_LAND
 	
-// it is preferred you return ACT_MP_* in CalcMainActivity, and if you have a specific need to not tranlsate through the weapon do it here
-/*function GM:TranslateActivity( ply, act )
+--  it is preferred you return ACT_MP_* in CalcMainActivity, and if you have a specific need to not tranlsate through the weapon do it here
+--[==[function GM:TranslateActivity( ply, act )
 
 	local act = act
 	local newact = ply:TranslateWeaponActivity( act )
@@ -122,9 +122,9 @@ local IdleActivityTranslate = {}
 	
 	return newact
 
-end*/
+end]==]
 
-//Animation events
+-- Animation events
 function GM:DoAnimationEvent( ply, event, data )
 	
 	if ply:IsZombie() then 
@@ -135,10 +135,10 @@ function GM:DoAnimationEvent( ply, event, data )
 	
 	self.BaseClass:DoAnimationEvent(ply, event, data)
 	
-	//Debug ( event .." -- ".. data )
+	-- Debug ( event .." -- ".. data )
 	
-	//Humans only
-	/*if ply:IsHuman() then
+	-- Humans only
+	--[==[if ply:IsHuman() then
 		if event == PLAYERANIMEVENT_ATTACK_PRIMARY then
 	
 		if ply:Crouching() then
@@ -181,7 +181,7 @@ function GM:DoAnimationEvent( ply, event, data )
 			return ACT_INVALID
 		end
 	end
-	*/
-	// Animation event handle for zombies
-	//if ply:IsZombie() then if self.DoAnimationEventZombies[ ply:GetZombieClass() ] then return self.DoAnimationEventZombies[ ply:GetZombieClass() ]( ply, event, data ) end end
+	]==]
+	--  Animation event handle for zombies
+	-- if ply:IsZombie() then if self.DoAnimationEventZombies[ ply:GetZombieClass() ] then return self.DoAnimationEventZombies[ ply:GetZombieClass() ]( ply, event, data ) end end
 end

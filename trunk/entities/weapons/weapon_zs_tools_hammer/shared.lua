@@ -9,7 +9,7 @@ SWEP.WorldModel = Model ( "models/weapons/w_hammer.mdl" )
 
 SWEP.Base = "weapon_zs_melee_base"
 
-//Name, fov, etc
+-- Name, fov, etc
 SWEP.PrintName = "Nailing Hammer"
 SWEP.DrawAmmo = true
 SWEP.DrawCrosshair = false
@@ -44,7 +44,7 @@ end
 
 SWEP.DamageType = DMG_CLUB
 
-//Slot pos.
+-- Slot pos.
 SWEP.Slot = 3
 SWEP.SlotPos = 3
 
@@ -103,10 +103,10 @@ function SWEP:OnInitialize()
 	self.NextNail = 0
 	
 end
-//LastInfoScroll = LastInfoScroll or 0
+-- LastInfoScroll = LastInfoScroll or 0
 SWEP.NextSwitch = 0
 function SWEP:Reload()
-	--[[if self.NextSwitch > CurTime() then return end
+	--[=[if self.NextSwitch > CurTime() then return end
 	
 	if self:GetNWInt("Nails/Boards") == 1 then
 		self.Info = "Right click to drop a plank.\n Reload - switch to nails."
@@ -128,7 +128,7 @@ function SWEP:Reload()
 		
 	end
 
-	self.NextSwitch = CurTime() + 1.5]]
+	self.NextSwitch = CurTime() + 1.5]=]
 	return false
 end
 
@@ -150,10 +150,10 @@ function SWEP:SecondaryAttack()
 			local trent = tr.Entity
 			if not IsEntityValid ( trent ) then return end
 			
-			//Get phys object
+			-- Get phys object
 			local PhysEnt = trent:GetPhysicsObject()
 			
-			if not trent:IsValid() and --[[trent:GetMoveType() == MOVETYPE_VPHYSICS]] string.find(trent:GetClass(), "prop_physics") and IsEntityValid ( PhysEnt ) then return end
+			if not trent:IsValid() and --[=[trent:GetMoveType() == MOVETYPE_VPHYSICS]=] string.find(trent:GetClass(), "prop_physics") and IsEntityValid ( PhysEnt ) then return end
 			if SERVER then 
 			if not IsValid(PhysEnt) then return end
 				if not PhysEnt:IsMoveable() and not trent.Nails then 
@@ -206,15 +206,15 @@ function SWEP:SecondaryAttack()
 						trent:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1,4)..".wav")
 						
 						trent:CollisionRulesChanged()
-						//trent.Nailed = true
-						//if trent:Health() < trent:GetMaxHealth() then -- we cant overheal props
-							//trent:SetHealth(trent:Health() + (trent:GetMaxHealth() - trent:Health())/3) -- and we cant repair them at 100%
-							//trent:TakeDamage(0.1, self.Owner) -- fix the ent color bug
-						//end
+						-- trent.Nailed = true
+						-- if trent:Health() < trent:GetMaxHealth() then -- we cant overheal props
+							-- trent:SetHealth(trent:Health() + (trent:GetMaxHealth() - trent:Health())/3) -- and we cant repair them at 100%
+							-- trent:TakeDamage(0.1, self.Owner) -- fix the ent color bug
+						-- end
 						
-						//store entities
+						-- store entities
 						nail.Ents = {}
-						//store 1st ent
+						-- store 1st ent
 						table.insert(nail.Ents, trent)
 						
 						
@@ -222,7 +222,7 @@ function SWEP:SecondaryAttack()
 						table.insert(trent.Nails, nail)
 						
 						if not ent:IsWorld() then
-							//store second one
+							-- store second one
 							table.insert(nail.Ents, ent)
 							
 							ent.Nails = ent.Nails or {}
@@ -266,9 +266,9 @@ function SWEP:SecondaryAttack()
 									nail:Spawn()
 									trent:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1,4)..".wav")
 									trent:CollisionRulesChanged()
-									//store entities
+									-- store entities
 									nail.Ents = {}
-									//store 1st ent
+									-- store 1st ent
 									table.insert(nail.Ents, trent)
 									
 									table.insert(trent.Nails, nail)
@@ -276,7 +276,7 @@ function SWEP:SecondaryAttack()
 									--table.insert(ent.Nails, nail)
 									
 									if not ent:IsWorld() then
-										//store second one
+										-- store second one
 										table.insert(nail.Ents, ent)
 									
 										ent.Nails = ent.Nails or {}
@@ -303,8 +303,8 @@ function SWEP:SecondaryAttack()
 						end
 					end
 				end
-				//Animations
-				--[[
+				-- Animations
+				--[=[
 				if SERVER then self:SendWeaponAnim(ACT_VM_HITCENTER) end
 				self.Alternate = not self.Alternate
 				self.Owner:SetAnimation(PLAYER_ATTACK1)
@@ -312,7 +312,7 @@ function SWEP:SecondaryAttack()
 				self.NextNail = CurTime() + 1
 				if SERVER then self:TakePrimaryAmmo(1) end
 				
-				//Creating the nail
+				-- Creating the nail
 				if SERVER then
 					local nail = ents.Create( "nail" )
 					local aimvec = self.Owner:GetAimVector()
@@ -334,27 +334,27 @@ function SWEP:SecondaryAttack()
 						phys:EnableMotion( false )
 					end
 				end
-				]]	
+				]=]	
 				-- Support Prop Nailing Achievments
 				if SERVER then
 					if self.Owner:GetHumanClass() == 5 then
 						if self.Owner:GetTableScore("support","level") == 0 then
 							if self.Owner:GetTableScore("support","achlevel0_2") < 150 then
-							//	self.Owner:AddTableScore ("support","achlevel0_2",1)
+							-- 	self.Owner:AddTableScore ("support","achlevel0_2",1)
 							end
 						elseif self.Owner:GetTableScore("support","level") == 1 then
 							if self.Owner:GetTableScore("support","achlevel0_2") < 400 then
-							//	self.Owner:AddTableScore ("support","achlevel0_2",1)
+							-- 	self.Owner:AddTableScore ("support","achlevel0_2",1)
 							end
 						end
 						
-						//self.Owner:CheckLevelUp()
+						-- self.Owner:CheckLevelUp()
 					end
 				end
 			end
 		end
 	--Planks
-	--[[else	
+	--[=[else	
 		if 0 < self:Clip2() and self.NextNail < CurTime() then
 			self.NextNail = CurTime() + 1
 			if SERVER then
@@ -363,13 +363,13 @@ function SWEP:SecondaryAttack()
 	
 			local v = self.Owner:GetShootPos()
 			v = v + self.Owner:GetForward() * 17
-			//v = v + self.Owner:GetRight() * 4
+			-- v = v + self.Owner:GetRight() * 4
 			v = v + self.Owner:GetUp() * -7
 			Plank:SetModel("models/props_debris/wood_board06a.mdl")
 			Plank:SetPos(v)
 			Plank:SetAngles( Angle(self.Owner:GetAimVector():Angle().p,self.Owner:GetAimVector():Angle().y,0) )
 			Plank:Fire("sethealth", "150", 0)
-			//Plank:SetOwner(self.Owner)
+			-- Plank:SetOwner(self.Owner)
 			Plank:Spawn()
 			Plank.IsBarricade = true
 			local Phys = Plank:GetPhysicsObject()
@@ -377,14 +377,14 @@ function SWEP:SecondaryAttack()
 			self:TakeSecondaryAmmo(1)
 			
 				if self.Owner:IsPlayer() then
-					// logging
+					--  logging
 					log.PlayerAction( self.Owner, "build_barricade")
 				end
 			
 			end
 			
 		end
-	end]]
+	end]=]
 end
 
 
@@ -405,10 +405,10 @@ function SWEP:Equip ( NewOwner )
 		end
 	end
 	
-	//Update it just in case
+	-- Update it just in case
 	self.MaximumNails = self:Clip1()		
 	
-	//Call this function to update weapon slot and others
+	-- Call this function to update weapon slot and others
 	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
 end
 

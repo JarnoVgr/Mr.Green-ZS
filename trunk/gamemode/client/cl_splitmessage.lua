@@ -13,24 +13,24 @@ local player = player
 local timer = timer
 local cam = cam
 
-//Global table
+-- Global table
 notice = {}
 
-//Sounds
+-- Sounds
 notice.Sounds = { Sound ( "hud/notice_soft.wav" ), Sound ( "mrgreen/beep22.wav" ) }
 
-//Cache table
+-- Cache table
 notice.Cache, notice.Draw = {}, {}
 
-//Materials
+-- Materials
 notice.Mats = { surface.GetTextureID( "hud3/hud_warning2" ), surface.GetTextureID( "hud3/hud_warning1" ), surface.GetTextureID( "zombiesurvival/hud/danger_sign" ) }
 
-//Vars
+-- Vars
 notice.bAddNext, notice.Size, notice.MaxSize, notice.Alpha, notice.TextPos, notice.ImgPos = false, 58, 67, 0, h * 0.6, h * 0.6
 
-/*-----------------------------------------------------------------------------------
+--[==[-----------------------------------------------------------------------------------
 	                    Add the message to a table (cache) 
-------------------------------------------------------------------------------------*/
+------------------------------------------------------------------------------------]==]
 function notice.Message( sText, tbColor, iType, iDuration )
 	if not IsValid( MySelf ) then
 		return 
@@ -46,27 +46,27 @@ function notice.Message( sText, tbColor, iType, iDuration )
 		notice.Timer = 0 
 	end	
 
-	//Add it to the draw table
+	-- Add it to the draw table
 	if notice.Timer <= CurTime() then
 		if ( #notice.Draw == 0 ) then
 			table.insert( notice.Draw, { sText = sText, MessageTime = CurTime(), iType = iType or 1, iDuration = iDuration or 3.5 } )
 			notice.Timer = CurTime() + ( iDuration or 3.5 )
 			
-			//Play sound
+			-- Play sound
 			if notice.Sounds[iType] then
 				surface.PlaySound ( notice.Sounds[iType or 1] )
 			end
 		end
 	else
 	
-		//Add it to cache
+		-- Add it to cache
 		table.insert( notice.Cache, { sText = sText, iType = iType or 1, iDuration = iDuration or 3.5 } )
 	end
 end
 
-/*-------------------------------------------------------
+--[==[-------------------------------------------------------
 	 Receive draw notice order from server
--------------------------------------------------------*/
+-------------------------------------------------------]==]
 
 net.Receive( "notice.GetNotice", function( len )
 	
@@ -77,7 +77,7 @@ net.Receive( "notice.GetNotice", function( len )
 	local iType = net.ReadDouble()
 	local sColor = net.ReadString()
 	
-	//Add it to list
+	-- Add it to list
 	notice.Message( sText, Color ( 255,255,255,255 ), iType, iDuration )
 
 end)
@@ -85,88 +85,88 @@ end)
 function notice.GetNotice ( um )
 	if not ValidEntity ( MySelf ) then return end
 	
-	//Get values from server
+	-- Get values from server
 	local sText = um:ReadString()
 	local iType = um:ReadShort()
 	local sColor = um:ReadString()
 	
-	//Add it to list
+	-- Add it to list
 	notice.Message( sText, Color ( 255,255,255,255 ), iType, iDuration )
 end
 usermessage.Hook ( "notice.GetNotice", notice.GetNotice ) 
 
-/*--------------------------------------------------
+--[==[--------------------------------------------------
 	       Draws the messages
---------------------------------------------------*/
+--------------------------------------------------]==]
 function notice.DrawMessage()
 	if not IsEntityValid ( MySelf ) then return end
 	
-	//Not on endround
+	-- Not on endround
 	if ENDROUND then return end
 	
-	//No mesage while dead
+	-- No mesage while dead
 	if not MySelf:Alive() then return end
 	
-	//Clear the already used messages
+	-- Clear the already used messages
 	if notice.Timer and notice.Timer <= CurTime() then
 		notice.Draw = {}
 		
-		//Reset some stats
+		-- Reset some stats
 		notice.Size, notice.Alpha, notice.TextPos, notice.ImgPos = 58, 0, h * 0.6, h * 0.6
 		
-		//Get latest entry from cache
+		-- Get latest entry from cache
 		if #notice.Cache > 0 and not notice.bAddNext then
 		
-			//So it doesn't loop
+			-- So it doesn't loop
 			notice.bAddNext = true
 			
-			//Delay for next message in cache
+			-- Delay for next message in cache
 			timer.Simple ( 1, function()
 				if #notice.Cache > 0 then			
 					table.insert( notice.Draw, { sText = notice.Cache[1].sText, MessageTime = CurTime(), iType = notice.Cache[1].iType or 1, iDuration = notice.Cache[1].iDuration or 3.5 } )
 					
-					//Cooldown
+					-- Cooldown
 					notice.Timer = CurTime() + ( notice.Cache[1].iDuration or 3.5 )
 					
-					//Play sound
+					-- Play sound
 					surface.PlaySound ( notice.Sounds[iType or 1] )
 						
-					//Delete cached and resequence
+					-- Delete cached and resequence
 					notice.Cache[1] = nil
 					table.Resequence ( notice.Cache )
 					
-					//Loop thing
+					-- Loop thing
 					notice.bAddNext = false
 				end
 			end )
 		end
 	end
 	
-	//No messages
+	-- No messages
 	if #notice.Draw == 0 then return end
 	
 	local iType = notice.Draw[1].iType
 	
-	//Get text size
+	-- Get text size
 	surface.SetFont ( "ArialBoldFifteen" )
 	local wText, hText = surface.GetTextSize ( notice.Draw[1].sText )
 			
-	//Make it go down the screen
+	-- Make it go down the screen
 	notice.TextPos = math.Approach( notice.TextPos, ScaleH(732), ( FrameTime() * 150 ) )
 	notice.ImgPos = math.Approach( notice.ImgPos, ScaleH(749), ( FrameTime() * 150 ) )
 				
-	//Create text module
+	-- Create text module
 	notice.HintText = CreateText ( notice.Draw[1].sText, "ArialBoldFifteen", ScaleW(669), notice.TextPos, Color ( 255,255,255, notice.Alpha ), ALIGN_CENTER )
 	notice.HintText:Draw()
 
-	//Get notice texture
+	-- Get notice texture
 	local matNotice, iOffset = notice.Mats[iType], ScaleW(36)
 	if iType == 2 then iOffset = ScaleW(23) end
 	
-	//Pulsate size
+	-- Pulsate size
 	notice.Size = math.Approach( notice.Size, notice.MaxSize, math.sin ( FrameTime() * 100 ) )
 	
-	//Create image module thing
+	-- Create image module thing
 	if iType == 3 then 
 		surface.SetDrawColor( Color( 46, 121, 0, notice.Alpha ) )
 	else
@@ -175,10 +175,10 @@ function notice.DrawMessage()
 	surface.SetTexture ( matNotice )
 	surface.DrawTexturedRectRotated ( ScaleW(669) - ( ( wText / 2 ) + iOffset ), notice.TextPos + math.Round ( hText / 2 ) , notice.Size, notice.Size, 0 )
 				
-	//Change the size so it looks like it's pulsating
+	-- Change the size so it looks like it's pulsating
 	if notice.Size >= 67 then notice.MaxSize = 50 elseif notice.Size <= 50 then notice.MaxSize = 67 end
 			
-	//Make it fade disappear/appear
+	-- Make it fade disappear/appear
 	if CurTime() > notice.Timer - 0.9 then
 		notice.Alpha = math.Approach( notice.Alpha,0,( FrameTime() * 300 ) )
 	else
@@ -233,7 +233,7 @@ end
 
 function GM:SplitMessage(y, ...)
 
-	/*local Cached = true
+	--[==[local Cached = true
 
 	for i=1, arg.n do
 		local str = arg[i]
@@ -251,7 +251,7 @@ function GM:SplitMessage(y, ...)
 		table.insert(ToDraw, CachedMarkups[ arg[i] ])
 	end
 
-	//hook.Add("HUDPaint", "DrawSplitMessage", DrawSplitMessage)*/
+	-- hook.Add("HUDPaint", "DrawSplitMessage", DrawSplitMessage)]==]
 end
 
 for i=2,3 do
@@ -276,7 +276,7 @@ local function Draw3DMessage()
 
 	if curtime > DrawTime1 then
 		hook.Remove("PostDrawViewModel", "Draw3DVMMessage")
-		//hook.Remove("PostDrawOpaqueRenderables", "Draw3DMessage")
+		-- hook.Remove("PostDrawOpaqueRenderables", "Draw3DMessage")
 		PlayedSound = false
 		DrawTime1 = nil
 		ToDraw1 = {}
@@ -288,12 +288,12 @@ local function Draw3DMessage()
 	local p, y, r = ang.p, ang.y, ang.r
 	ang:RotateAroundAxis(ang:Up(), -90)
 	ang:RotateAroundAxis(ang:Forward(), 90)
-	--[[ang.p = ang.p + 180
+	--[=[ang.p = ang.p + 180
 	ang.y = r + 90
-	ang.r = y -90]]
+	ang.r = y -90]=]
 	
 	local delta = DrawTime1 - curtime	
-	local delta2 = ((5-delta)/0.5) //when it equals 0 that means that our message arrived
+	local delta2 = ((5-delta)/0.5) -- when it equals 0 that means that our message arrived
 	
 	if delta < 4.5 and not PlayedSound then
 		surface.PlaySound("physics/body/body_medium_break"..math.random(2,3)..".wav")
@@ -368,14 +368,14 @@ function GM:Add3DMessage(y, msg, col, font)
 
 	
 	table.insert(ToDraw1, Message)
-	//if player have viewmodel - then in front of it, else draw the normal way
-	//if MySelf:Alive() and MySelf:GetActiveWeapon() and IsValid(MySelf:GetActiveWeapon()) then
+	-- if player have viewmodel - then in front of it, else draw the normal way
+	-- if MySelf:Alive() and MySelf:GetActiveWeapon() and IsValid(MySelf:GetActiveWeapon()) then
 		hook.Add("PostDrawViewModel", "Draw3DVMMessage", Draw3DMessage)
-	//else
-	//	hook.Add("PostDrawOpaqueRenderables", "Draw3DMessage", Draw3DMessage)
-	//end
+	-- else
+	-- 	hook.Add("PostDrawOpaqueRenderables", "Draw3DMessage", Draw3DMessage)
+	-- end
 end
-//PostDrawOpaqueRenderables
+-- PostDrawOpaqueRenderables
 -------------------------------------------------------
 local CachedMarkups2 = {}
 

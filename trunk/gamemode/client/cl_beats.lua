@@ -196,17 +196,17 @@ function GM:SetLastHumanText()
 end
 
 
-/*--------------------------------------------------------
+--[==[--------------------------------------------------------
        Called on GM:SetUnlife ( bool ) -- Loops, too
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayUnlife()
 	if ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end
 	
-	//Play the sound right now
-	local Duration = UNLIFESOUNDLENGTH //SoundDuration ( "../sound/"..UNLIFESOUND )
+	-- Play the sound right now
+	local Duration = UNLIFESOUNDLENGTH -- SoundDuration ( "../sound/"..UNLIFESOUND )
 	surface.PlaySound ( UNLIFESOUND )
 	
-	//Create a timer so it plays after it has finished
+	-- Create a timer so it plays after it has finished
 	timer.Create ( "LoopUnlife", Duration, 0, function() 
 		if UNLIFE and util.tobool(GetConVar( "_zs_enablemusic" )) and not ENDROUND and not LASTHUMAN and not DEADLIFE then 
 			surface.PlaySound ( UNLIFESOUND )  
@@ -216,12 +216,12 @@ end
 
 function PlayDeadlife()
 	if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end
-	//if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].DisableMusic then return end
+	-- if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].DisableMusic then return end
 	
-	//Stop sounds
+	-- Stop sounds
 	RunConsoleCommand( "stopsound" )
 	
-	//Play sound right now
+	-- Play sound right now
 	local Duration = 277
 	
 	local song = "deadlife_mrgreen.mp3"
@@ -233,7 +233,7 @@ function PlayDeadlife()
 	
 	timer.Simple( 0.3, function() surface.PlaySound( song ) end )
 	
-	//Create timer
+	-- Create timer
 	timer.Create ( "LoopDeadlife", Duration, 0, function() 
 		if LASTHUMAN or ENDROUND then return end
 		surface.PlaySound ( song )  
@@ -260,7 +260,7 @@ function GM:SetHalflifeText() -- Unused
 	end
 end
 
-//CreateClientConVar("_zs_enablebeats", 1, true, false)
+-- CreateClientConVar("_zs_enablebeats", 1, true, false)
 local ENABLE_BEATS = util.tobool(GetConVarNumber("_zs_enablebeats"))
 local function EnableBeats(sender, command, arguments)
 	ENABLE_BEATS = util.tobool(arguments[1])
@@ -305,7 +305,7 @@ local function EnableOldBeats1(sender, command, arguments)
 end
 concommand.Add("zs_enableoldbeats1", EnableOldBeats1)
 
-//CreateClientConVar("_zs_customweaponpos", 1, true, false)
+-- CreateClientConVar("_zs_customweaponpos", 1, true, false)
 local ENABLE_WEPPOS = util.tobool(GetConVarNumber("_zs_customweaponpos"))
 local function EnableCustomPos(sender, command, arguments)
 	ENABLE_WEPPOS = util.tobool(arguments[1])
@@ -320,7 +320,7 @@ local function EnableCustomPos(sender, command, arguments)
 end
 concommand.Add("zs_customweaponpos", EnableCustomPos)
 
-//CreateClientConVar("_zs_enablehptext", 1, true, false)
+-- CreateClientConVar("_zs_enablehptext", 1, true, false)
 local ENABLE_HPTEXT = util.tobool(GetConVarNumber("_zs_enablehptext"))
 local function EnableHPText(sender, command, arguments)
 	ENABLE_HPTEXT = util.tobool(arguments[1])
@@ -335,7 +335,7 @@ local function EnableHPText(sender, command, arguments)
 end
 concommand.Add("zs_enablehptext", EnableHPText)
 
-//CreateClientConVar("_zs_enablelighthud", 0, true, false)
+-- CreateClientConVar("_zs_enablelighthud", 0, true, false)
 local LIGHTHUD = util.tobool(GetConVarNumber("_zs_enablelighthud"))
 local function LightHud(sender, command, arguments)
 	LIGHTHUD = util.tobool(arguments[1])
@@ -350,7 +350,7 @@ local function LightHud(sender, command, arguments)
 end
 concommand.Add("zs_enablelighthud", LightHud)
 
-//CreateClientConVar("_zs_enablemusic", 1, true, false)
+-- CreateClientConVar("_zs_enablemusic", 1, true, false)
 ENABLE_MUSIC = util.tobool(GetConVarNumber("_zs_enablemusic"))
 local function EnableMusic(sender, command, arguments)
 	ENABLE_MUSIC = util.tobool(arguments[1])
@@ -365,7 +365,7 @@ local function EnableMusic(sender, command, arguments)
 end
 concommand.Add("zs_enablemusic", EnableMusic)
 
-//Small turret's names from IW
+-- Small turret's names from IW
 local randnames = { "Joseph", "Finger", "Beer", "Blob", "Chicken" }
 CreateClientConVar("_zs_turretnicknamefix", table.Random(randnames), true, true)
 TurretNickname = GetConVarString("_zs_turretnicknamefix")
@@ -379,7 +379,7 @@ function SetTurretNick( pl,commandName,args )
 end
 concommand.Add("zs_turretnickname",SetTurretNick) 
 
-//CreateClientConVar("_zs_showhorde", 1, true, false)
+-- CreateClientConVar("_zs_showhorde", 1, true, false)
 SHOWHORDE = util.tobool( GetConVarNumber("_zs_showhorde") )
 local function EnableHordeHUD(sender, command, arguments)
 	SHOWHORDE = util.tobool( arguments[1] )
@@ -394,7 +394,7 @@ local function EnableHordeHUD(sender, command, arguments)
 end
 concommand.Add("zs_showhorde", EnableHordeHUD)
 
-//CreateClientConVar("_zs_hcolormod", 1, true, false)
+-- CreateClientConVar("_zs_hcolormod", 1, true, false)
 HCOLORMOD = util.tobool( GetConVarNumber("_zs_hcolormod") )
 local function EnableHColorMod(sender, command, arguments)
 	HCOLORMOD = util.tobool( arguments[1] )
@@ -411,7 +411,7 @@ concommand.Add("zs_hcolormod", EnableHColorMod)
 
 CreateClientConVar("_zs_wepfov", 75, true, true)
 
---[[CreateClientConVar("_zs_enablescreenblood", 1, true, false)
+--[=[CreateClientConVar("_zs_enablescreenblood", 1, true, false)
 local ENABLE_BLOOD = util.tobool(GetConVarNumber("_zs_enablescreenblood"))
 local function EnableBlood(sender, command, arguments)
 	ENABLE_BLOOD = util.tobool(arguments[1])
@@ -424,7 +424,7 @@ local function EnableBlood(sender, command, arguments)
 		MySelf:ChatPrint("On screen blood disabled.")
 	end
 end
-concommand.Add("zs_enablescreenblood", EnableBlood)]]
+concommand.Add("zs_enablescreenblood", EnableBlood)]=]
 
 local NextBeat = 0
 local LastBeatLevel = 0
@@ -451,7 +451,7 @@ function GM:PlayBeats(teamid, am)
 end
 
 
-//Good old beats :D
+-- Good old beats :D
 function GM:_Think()
 	MySelf = LocalPlayer()
 	if not MySelf:IsValid() then return end
@@ -477,7 +477,7 @@ function GM:_Think()
 	end
 	
 end
-//2 functions from old zs for better calculating
+-- 2 functions from old zs for better calculating
 function GetZombieFocus2(mypos, range, multiplier, maxper)
 	local zombies = 0
 	for _, pl in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
@@ -567,11 +567,11 @@ function GM:HumanHUD(MySelf)
 	local entityhealth = math.max( MySelf:Health(), 0 )
 	local maxhealth
 	
-	//if HumanClasses[MySelf:GetHumanClass()].Health then
-	//	maxhealth = HumanClasses[MySelf:GetHumanClass()].Health or 100
-	//else
+	-- if HumanClasses[MySelf:GetHumanClass()].Health then
+	-- 	maxhealth = HumanClasses[MySelf:GetHumanClass()].Health or 100
+	-- else
 		maxhealth = 100
-	//end		
+	-- end		
 	
 	if MySelf:GetHumanClass() == 2 and HumanClasses[MySelf:GetHumanClass()].Health then
 		maxhealth = HumanClasses[MySelf:GetHumanClass()].Health+(HumanClasses[MySelf:GetHumanClass()].Health* ( HumanClasses[2].Coef[2]* ( MySelf.DataTable["ClassData"]["commando"].level+1 ) ) / 100 ) or 100
@@ -597,7 +597,7 @@ function GM:HumanHUD(MySelf)
 		colortouse = COLOR_HUD_CRITICAL
 	end
 	
-	//Infected
+	-- Infected
 	if MySelf:IsTakingDOT() then
 		if percenthealth > 0.3 then 
 			colortouse = COLOR_HUD_HURT 
@@ -841,15 +841,15 @@ function GM:HumanHUD(MySelf)
 		end
 	end
 
-	//Greencoins and regeneration timer
+	-- Greencoins and regeneration timer
 	local coins = MySelf:GreenCoins()
 	local TimeToRegenAmmo, RegenColor = "Ammo regen:"..string.FormattedTime ( math.Round ( math.Clamp ( MySelf:GetAmmoTime(), 0, 500 ) ), "%2i:%02i" ), Color( 122, 124, 87, 255 )
 	
-	//Change ammunition text to "Regenerated!"
+	-- Change ammunition text to "Regenerated!"
 	local bRegenerated = false
 	if not MySelf.IsFirstRegeneration and MySelf:GetAmmoTime() <= AMMO_REGENERATE_RATE and MySelf:GetAmmoTime() > AMMO_REGENERATE_RATE - 3 then bRegenerated = true TimeToRegenAmmo = "Ammo Regenerated!" end
 	
-	//Flash red when the ammo regenerated
+	-- Flash red when the ammo regenerated
 	if bRegenerated then RegenColor = Color( 180, 36, 36, 240 * math.abs ( math.sin ( CurTime() * 2.4 ) ) ) end
 	
 	if w/h > 1.24 and w/h < 1.35 then
@@ -894,13 +894,13 @@ function GM:HumanHUD(MySelf)
 		draw.SimpleTextOutlined("Oxygen: "..math.Round(WATER_DROWNTIME).." sec left", "ArialBoldFive", w/2, wy-2, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM,1,Color(0,0,0,255))
 		
 		
-		/*draw.RoundedBox (6,ScaleW(851),ScaleH(239), ScaleW(331),ScaleH(83), Color (1,1,1,200))
+		--[==[draw.RoundedBox (6,ScaleW(851),ScaleH(239), ScaleW(331),ScaleH(83), Color (1,1,1,200))
 		draw.SimpleText ("BREATH METER","ArialBoldNine",ScaleW(1014), ScaleH(250), Color (240,240,240,255),TEXT_ALIGN_CENTER)
 		surface.SetDrawColor (66,58,58,255)
 		surface.DrawRect (ScaleW(870),ScaleH(282),ScaleW(292),ScaleH(20))
 		surface.SetDrawColor (98,17,17,255)
 		surface.DrawRect (ScaleW(870),ScaleH(282),w*( ((WATER_DROWNTIME/30) * 292) / 1280 ),ScaleH(20))
-		draw.SimpleText ("Timeleft: "..math.Round(WATER_DROWNTIME).." sec","ArialBoldFive",ScaleW(1014), ScaleH(283), Color (230,228,228,255),TEXT_ALIGN_CENTER)*/
+		draw.SimpleText ("Timeleft: "..math.Round(WATER_DROWNTIME).." sec","ArialBoldFive",ScaleW(1014), ScaleH(283), Color (230,228,228,255),TEXT_ALIGN_CENTER)]==]
 	elseif WATER_DROWNTIME > 0 and WATER_DROWNTIME ~= 30 then
 		WATER_DROWNTIME = math.min(WATER_DROWNTIME + FrameTime() * 3, 30)
 		if WATER_DROWNTIME <= 30 then
@@ -924,13 +924,13 @@ function GM:HumanHUD(MySelf)
 		draw.SimpleTextOutlined("Recharging breath: "..math.Round(math.abs (WATER_DROWNTIME - 30)).." sec left", "ArialBoldFive", w/2, wy-2, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM,1,Color(0,0,0,255))
 		
 		
-		/*draw.RoundedBox (6,ScaleW(851),ScaleH(239), ScaleW(331),ScaleH(83), Color (1,1,1,200))
+		--[==[draw.RoundedBox (6,ScaleW(851),ScaleH(239), ScaleW(331),ScaleH(83), Color (1,1,1,200))
 		draw.SimpleText ("BREATH METER","ArialBoldNine",ScaleW(1014), ScaleH(250), Color (240,240,240,255),TEXT_ALIGN_CENTER)
 		surface.SetDrawColor (66,58,58,255)
 		surface.DrawRect (ScaleW(870),ScaleH(282),ScaleW(292),ScaleH(20))
 		surface.SetDrawColor (98,17,17,255)
 		surface.DrawRect (ScaleW(870),ScaleH(282),w*( ((WATER_DROWNTIME/30) * 292) / 1280 ),ScaleH(20))
-		draw.SimpleText ("Recharging breath: "..math.Round( math.abs (WATER_DROWNTIME - 30) ).." sec left","ArialBoldFive",ScaleW(1014), ScaleH(283), Color (230,228,228,255),TEXT_ALIGN_CENTER)*/
+		draw.SimpleText ("Recharging breath: "..math.Round( math.abs (WATER_DROWNTIME - 30) ).." sec left","ArialBoldFive",ScaleW(1014), ScaleH(283), Color (230,228,228,255),TEXT_ALIGN_CENTER)]==]
 	end
 	
 	if ANTI_VENT_CAMP and LocalPlayer():GetHumanClass() == 3 then
@@ -957,7 +957,7 @@ function GM:HumanHUD(MySelf)
 		end
 		end
 	
-	//MedicAuraThink()
+	-- MedicAuraThink()
 	--DrawBackgroundSelect()
 end
 
@@ -987,7 +987,7 @@ function GM:ZombieHUD(MySelf)
 		colortouse = COLOR_HUD_CRITICAL
 	end
 	
-	//Flashing health for howler protection
+	-- Flashing health for howler protection
 	local HealthColor = Color( 136,29,21,255 )
 	if MySelf:HasHowlerProtection() then
 		HealthColor = Color( math.random( 240,255 ), 10, 8, math.abs( math.sin( RealTime() * 6 ) ) * 100 )
@@ -1122,16 +1122,16 @@ end
 	local killz = MySelf:Frags()
 	local redeemkillz = REDEEM_KILLS
 	if MySelf and MySelf:HasBought("quickredemp") then
-	//	redeemkillz = REDEEM_FAST_KILLS
+	-- 	redeemkillz = REDEEM_FAST_KILLS
 	end
 	
-	//Manage soul effects
-	//ZombieAuraThink()
+	-- Manage soul effects
+	-- ZombieAuraThink()
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
       Generates those "soul" patterns on humans
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local NextAura = 0
 function ZombieAuraThink ()
 	if not ValidEntity ( MySelf ) then return end
@@ -1140,7 +1140,7 @@ function ZombieAuraThink ()
 	
 	local Position, MaxAuras, AuraTable = MySelf:GetPos(), 0, {}
 	
-	//Run through the humans and check who is alive
+	-- Run through the humans and check who is alive
 	for _, pl in pairs( team.GetPlayers ( TEAM_HUMAN ) ) do
 		if pl:Alive() and not (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
 			local HumanPosition = pl:GetPos()
@@ -1148,28 +1148,28 @@ function ZombieAuraThink ()
 				AuraTable[pl] = HumanPosition
 				MaxAuras = MaxAuras + 1
 				
-				//We have reached our aura limit ( 10 )
+				-- We have reached our aura limit ( 10 )
 				if MaxAuras >= 10 then break end
 			end
 		end
 	end
 	
-	//End this if there are no player souls to render
+	-- End this if there are no player souls to render
 	if MaxAuras <= 0 then return end
 	
-	//Render the souls
+	-- Render the souls
 	local Emitter = ParticleEmitter( EyePos() )
 	for pl, HumanPosition in pairs( AuraTable ) do
 		local vel = pl:GetVelocity() * 0.95
 		local health = pl:Health()
 		
-		//Get the position of the chest
+		-- Get the position of the chest
 		local attach = pl:GetAttachment( pl:LookupAttachment("chest") )
 		if not attach then
 			attach = { Pos = pl:GetPos() + Vector(0,0,48) }
 		end
 		
-		//Centered particle		
+		-- Centered particle		
 		local particle = Emitter:Add( "Sprites/light_glow02_add_noz", attach.Pos )
 			particle:SetVelocity( vel )
 			particle:SetDieTime( math.Rand(0.4, 0.8) )
@@ -1180,7 +1180,7 @@ function ZombieAuraThink ()
 			particle:SetRoll( math.Rand(0, 359) )
 			particle:SetRollDelta( math.Rand(-2, 2) )
 			
-		//Moving around particles
+		-- Moving around particles
 		for x = 1, math.random(1, 3) do
 			local particle = Emitter:Add( "Sprites/light_glow02_add_noz", attach.Pos + VectorRand() * 3 )
 				particle:SetVelocity( vel )
@@ -1196,51 +1196,51 @@ function ZombieAuraThink ()
 		Emitter:Finish()
 	end
 	
-	//Apply cooldown to the effect
+	-- Apply cooldown to the effect
 	NextAura = CurTime() + 0.4
 end
 
-// Almost same aura effect as above but for medic
+--  Almost same aura effect as above but for medic
 
 local NextMAura = 0
 function MedicAuraThink ()
 	if not ValidEntity ( MySelf ) then return end
-	if MySelf:GetHumanClass() != 1 then return end
+	if MySelf:GetHumanClass() ~= 1 then return end
 	if not MySelf:Alive() then return end
 	if NextMAura > CurTime() then return end
 	
 	local Position, MaxAuras, AuraTable = MySelf:GetPos(), 0, {}
 	
-	//Run through the humans and check who is alive
+	-- Run through the humans and check who is alive
 	for _, pl in pairs( team.GetPlayers ( TEAM_HUMAN ) ) do
-		if pl:Alive() and pl != MySelf then
+		if pl:Alive() and pl ~= MySelf then
 			local HumanPosition = pl:GetPos()
 			if HumanPosition:Distance ( Position ) < 500 and HumanPosition:ToScreen().visible then
 				AuraTable[pl] = HumanPosition
 				MaxAuras = MaxAuras + 1
 				
-				//We have reached our aura limit ( 10 )
+				-- We have reached our aura limit ( 10 )
 				if MaxAuras >= 7 then break end
 			end
 		end
 	end
 	
-	//End this if there are no player souls to render
+	-- End this if there are no player souls to render
 	if MaxAuras <= 0 then return end
 	
-	//Render the souls
+	-- Render the souls
 	local Emitter = ParticleEmitter( EyePos() )
 	for pl, HumanPosition in pairs( AuraTable ) do
 		local vel = pl:GetVelocity() * 0.95
 		local health = pl:Health()
 		
-		//Get the position of the chest
+		-- Get the position of the chest
 		local attach = pl:GetAttachment( pl:LookupAttachment("chest") )
 		if not attach then
 			attach = { Pos = pl:GetPos() + Vector(0,0,48) }
 		end
 		
-		//Centered particle		
+		-- Centered particle		
 		local particle = Emitter:Add( "Sprites/light_glow02_add_noz", attach.Pos )
 			particle:SetVelocity( vel )
 			particle:SetDieTime( math.Rand(0.4, 0.8) )
@@ -1251,7 +1251,7 @@ function MedicAuraThink ()
 			particle:SetRoll( math.Rand(0, 359) )
 			particle:SetRollDelta( math.Rand(-2, 2) )
 			
-		//Moving around particles
+		-- Moving around particles
 		for x = 1, math.random(1, 3) do
 			local particle = Emitter:Add( "Sprites/light_glow02_add_noz", attach.Pos + VectorRand() * 3 )
 				particle:SetVelocity( vel )
@@ -1267,7 +1267,7 @@ function MedicAuraThink ()
 		Emitter:Finish()
 	end
 	
-	//Apply cooldown to the effect
+	-- Apply cooldown to the effect
 	NextMAura = CurTime() + math.Rand(0.2,0.7)
 end
 

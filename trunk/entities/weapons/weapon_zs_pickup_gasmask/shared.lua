@@ -21,7 +21,7 @@ if ( CLIENT ) then
 	SWEP.IgnoreBonemerge = true
 	SWEP.UseHL2Bonemerge = true
 	
-	//SWEP.IgnoreThumbs = true
+	-- SWEP.IgnoreThumbs = true
 
 	
 end
@@ -36,7 +36,7 @@ SWEP.WorldModel = "models/props_junk/propane_tank001a.mdl"
 SWEP.Slot = 6
 SWEP.SlotPos = 1 
 
-//SWEP.Info = ""
+-- SWEP.Info = ""
 
 SWEP.Primary.ClipSize =1
 SWEP.Primary.DefaultClip = 1

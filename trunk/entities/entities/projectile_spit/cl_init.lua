@@ -5,27 +5,27 @@ include( "shared.lua" )
 
 ENT.PuffTimer = 0
 
-//Initialization
+-- Initialization
 function ENT:Initialize()
 	self.Sticked = false
 end
 
-//Main think
+-- Main think
 function ENT:Think()
-	if self:GetHitNormal() != Vector( 0,0,0 ) then
+	if self:GetHitNormal() ~= Vector( 0,0,0 ) then
 		if not self.Sticked then
 			self.Sticked = true
 		end
 	end
 end
 
-//On removal
+-- On removal
 function ENT:OnRemove()
 	if self.Emitter then
 		self.Emitter:Finish()
 	end
 	
-	//Check particles
+	-- Check particles
 	if self.Particles then
 		for i = 1, 2 do
 			self.Particles[i]:SetDieTime( 0.01 )
@@ -33,36 +33,36 @@ function ENT:OnRemove()
 	end		
 end
 
-//Get rounded hit normal
+-- Get rounded hit normal
 function ENT:GetRoundNormal()
 	return Vector( math.Round( self:GetHitNormal().X ), math.Round( self:GetHitNormal().Y ), math.Round( self:GetHitNormal().Z ) )
 end	
 
-//Render hook
+-- Render hook
 function ENT:Draw()
 	self:SetColor( Color(240, 30, 30, 150) )
 	self:DrawModel()
 	
-	//Initialize emitter
+	-- Initialize emitter
 	if not self.Emitter then
 		self.Particles = {}
 		self.Emitter = ParticleEmitter( self:GetPos() )
 	end	
 	
-	//Update emitter position
+	-- Update emitter position
 	if self.Emitter then
 		self.Emitter:SetPos( self:GetPos() )
 	end
 	
-	//Trail effect, etc
+	-- Trail effect, etc
 	if ( self.PuffTimer or 0 ) > CurTime() then return end
 	self.PuffTimer = CurTime() + 0.02
 	
-	//Properties
+	-- Properties
 	local partSize = math.Rand( 15, 20 )
 	if self.Sticked then partSize = math.Rand( 10,15 ) end
 	 
-	//Normal trace particle
+	-- Normal trace particle
 	self.Particles[1] = self.Emitter:Add( "sprites/light_glow02_add", self:GetPos() + self:GetRoundNormal() * -2.25 + ( getVectorSign( VectorRand() * 3, -1 * self:GetRoundNormal() ) ) )
 	self.Particles[1]:SetVelocity( ( -1 * self:GetRoundNormal() ) + ( getVectorSign( Vector( math.Rand( -4, 4 ),math.Rand( -4, 4 ),math.Rand( -4, 4 ) ), -1 * self:GetRoundNormal() ) ) )
 	self.Particles[1]:SetDieTime( 1.5 )
@@ -79,7 +79,7 @@ function ENT:Draw()
 	local bioSize = math.Rand( 4.5, 6 )
 	if self.Sticked then bioSize = math.Rand( 3, 4 ) end
 	
-	//infected bioharzard sign
+	-- infected bioharzard sign
 	self.Particles[2] = self.Emitter:Add( "effects/hazard_icon", self:GetPos() + self:GetRoundNormal() * -4 + ( getVectorSign( VectorRand() * 3, -1 * self:GetRoundNormal() ) ) )
 	self.Particles[2]:SetVelocity( ( -1 * self:GetRoundNormal() ) + ( getVectorSign( bioVelocity, -1 * self:GetRoundNormal() ) ) )
 	self.Particles[2]:SetDieTime( 1.8 )

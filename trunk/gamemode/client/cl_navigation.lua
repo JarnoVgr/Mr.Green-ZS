@@ -83,7 +83,7 @@ local function OnGenerated(Loaded)
 	
 	print("Save", Nav:Save("data/test.nav"))
 	
-	if(!Loaded) then
+	if ( not Loaded ) then
 		print("Load", Nav:Load("data/test.nav"), "\n")
 		OnGenerated(true)
 	end

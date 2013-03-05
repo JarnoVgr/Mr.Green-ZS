@@ -5,7 +5,7 @@ function EFFECT:Init(data)
 	local Dir = data:GetNormal()
 
 	Dir.z = math.max(-32, Dir.z) * 2.5
-	//self.Entity:PhysicsInitSphere(4)
+	-- self.Entity:PhysicsInitSphere(4)
 	local max = Vector(3,3,3)
 	local min = max * -1
 	self.Entity:PhysicsInitBox(min,max)
@@ -16,7 +16,7 @@ function EFFECT:Init(data)
 	local phys = self.Entity:GetPhysicsObject()
 	if IsValid(phys) then
 		phys:Wake()
-		// phys:ApplyForceCenter(Dir * math.random(200, 2500))
+		--  phys:ApplyForceCenter(Dir * math.random(200, 2500))
 		phys:ApplyForceCenter(Dir * math.random(10000, 65000))
 	end
 	self.Living = RealTime() + 4

@@ -52,23 +52,23 @@ function EFFECT:Init( data )
 end
 
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
    THINK
    Returning false makes the entity die
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function EFFECT:Think( )
 
-	// Die instantly
+	--  Die instantly
 	return false
 	
 end
 
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
    Draw the effect
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function EFFECT:Render()
 
-	// Do nothing - this effect is only used to spawn the particles in Init
+	--  Do nothing - this effect is only used to spawn the particles in Init
 	
 end

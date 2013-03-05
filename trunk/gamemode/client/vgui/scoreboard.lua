@@ -20,7 +20,7 @@ end
 
 local colBackground = Color(10, 10, 10, 220)
 
---[[local PANEL = {}
+--[=[local PANEL = {}
 
 function PANEL:Init()
 	SCOREBOARD = self
@@ -32,7 +32,7 @@ end
 function PANEL:Paint()
 	if ENDROUND then return end
 	
-	//Close it if it's already open and we open the zombie classes menu
+	-- Close it if it's already open and we open the zombie classes menu
 	if ( zClasses and zClasses:IsVisible() ) then SCOREBOARD:SetVisible ( false ) end
 	
 	local tall, wide = self:GetTall(), self:GetWide()
@@ -90,7 +90,7 @@ function PANEL:Paint()
 	local humanname = "" 
 	for i, pl in pairs(HumanPlayers) do
 		if MySelf:Team() == TEAM_HUMAN and pl:Team() == TEAM_HUMAN then
-			humanclassname = "Unknown" //HumanClasses[pl:GetHumanClass()].Name or "Unknown"
+			humanclassname = "Unknown" -- HumanClasses[pl:GetHumanClass()].Name or "Unknown"
 			if pl:GetHumanClass() == 3 then
 				humanclassname = "Marksman"
 			end
@@ -110,7 +110,7 @@ function PANEL:Paint()
 		else
 			draw.DrawText(humanname, "Default", 34, y, colHuman, TEXT_ALIGN_LEFT)
 			draw.DrawText(pl.Title, "Default", 246, y, colHuman, TEXT_ALIGN_CENTER) -- 192
-			//draw.DrawText(humanclassname, "Default", 365, y, colHuman, TEXT_ALIGN_CENTER)
+			-- draw.DrawText(humanclassname, "Default", 365, y, colHuman, TEXT_ALIGN_CENTER)
 			draw.DrawText(pl:Frags(), "Default", 433, y, colHuman, TEXT_ALIGN_CENTER)
 			draw.DrawText(fHealth, "Default", 484, y, colHuman, TEXT_ALIGN_CENTER)
 			draw.DrawText(pl:Ping(), "Default", 527, y, colHuman, TEXT_ALIGN_CENTER)
@@ -193,9 +193,9 @@ function PANEL:PerformLayout()
 	self:SetPos((w - self:GetWide()) * 0.5, (h - self:GetTall()) * 0.5)
 end
 vgui.Register("ScoreBoard", PANEL, "Panel")
-]]
+]=]
 
-//We will do it easier
+-- We will do it easier
 
 
 local function AddScoreboardItem(ply,list)
@@ -228,12 +228,12 @@ local function AddScoreboardItem(ply,list)
 	MainLabel[ply].Name	= MainLabel[ply]:Add( "DLabel" )
 	MainLabel[ply].Name:Dock( FILL )
 	MainLabel[ply].Name:SetText("")
-	//MainLabel[ply].Name:SetFont( "ArialBoldFive" )
+	-- MainLabel[ply].Name:SetFont( "ArialBoldFive" )
 	MainLabel[ply].Name:DockMargin( 15, 0, 0, 0 )
 	MainLabel[ply].Name.Paint = function()
 	local col = Color (255,255,255,255)
 		
-		if !IsValid(ply) then return end
+		if not IsValid(ply) then return end
 		
 		if ply:Team() == TEAM_UNDEAD then
 			col = team.GetColor( ply:Team() )
@@ -250,13 +250,13 @@ local function AddScoreboardItem(ply,list)
 	MainLabel[ply].Ping:Dock( RIGHT )
 	MainLabel[ply].Ping:SetText("")
 	MainLabel[ply].Ping:SetWidth( 50 )
-	//MainLabel[ply].Ping:SetFont( "ScoreboardDefault" )
-	//MainLabel[ply].Ping:SetTextColor( color_white )
-	//MainLabel[ply].Ping:SetContentAlignment( 5 )
+	-- MainLabel[ply].Ping:SetFont( "ScoreboardDefault" )
+	-- MainLabel[ply].Ping:SetTextColor( color_white )
+	-- MainLabel[ply].Ping:SetContentAlignment( 5 )
 	MainLabel[ply].Ping.Paint = function()
 		local col = Color (255,255,255,255)
 		
-		if !IsValid(ply) then return end
+		if not IsValid(ply) then return end
 		
 		if ply:Team() == TEAM_UNDEAD then
 			col = team.GetColor( ply:Team() )
@@ -268,13 +268,13 @@ local function AddScoreboardItem(ply,list)
 	MainLabel[ply].Health:Dock( RIGHT )
 	MainLabel[ply].Health:SetText("")
 	MainLabel[ply].Health:SetWidth( 50 )
-	//MainLabel[ply].Deaths:SetFont( "ScoreboardDefault" )
-	//MainLabel[ply].Deaths:SetTextColor( color_white )
-	//MainLabel[ply].Deaths:SetContentAlignment( 5 )
+	-- MainLabel[ply].Deaths:SetFont( "ScoreboardDefault" )
+	-- MainLabel[ply].Deaths:SetTextColor( color_white )
+	-- MainLabel[ply].Deaths:SetContentAlignment( 5 )
 	MainLabel[ply].Health.Paint = function()
 		local col = Color (255,255,255,255)
 		
-		if !IsValid(ply) then return end
+		if not IsValid(ply) then return end
 		
 		if ply:Team() == TEAM_UNDEAD then
 			col = team.GetColor( ply:Team() )
@@ -292,13 +292,13 @@ local function AddScoreboardItem(ply,list)
 	MainLabel[ply].Kills:Dock( RIGHT )
 	MainLabel[ply].Kills:SetText("")
 	MainLabel[ply].Kills:SetWidth( 60 )
-	//MainLabel[ply].Kills:SetFont( "ScoreboardDefault" )
-	//MainLabel[ply].Kills:SetTextColor( color_white )
-	//MainLabel[ply].Kills:SetContentAlignment( 5 )
+	-- MainLabel[ply].Kills:SetFont( "ScoreboardDefault" )
+	-- MainLabel[ply].Kills:SetTextColor( color_white )
+	-- MainLabel[ply].Kills:SetContentAlignment( 5 )
 	MainLabel[ply].Kills.Paint = function()
 		local col = Color (255,255,255,255)
 		
-		if !IsValid(ply) then return end
+		if not IsValid(ply) then return end
 		
 		if ply:Team() == TEAM_UNDEAD then
 			col = team.GetColor( ply:Team() )
@@ -308,10 +308,10 @@ local function AddScoreboardItem(ply,list)
 	
 	MainLabel[ply].Think = function()
 		
-		if !IsValid(ply) then return end
+		if not IsValid(ply) then return end
 	
 		local self = MainLabel[ply]
-		if ( self.Muted == nil || self.Muted != self.Player:IsMuted() ) then
+		if ( self.Muted == nil or self.Muted ~= self.Player:IsMuted() ) then
 
 			self.Muted = self.Player:IsMuted()
 			if ( self.Muted ) then
@@ -320,15 +320,15 @@ local function AddScoreboardItem(ply,list)
 				self.Mute:SetImage( "icon32/unmuted.png" )
 			end
 
-			self.Mute.DoClick = function() self.Player:SetMuted( !self.Muted ) end
+			self.Mute.DoClick = function() self.Player:SetMuted( not self.Muted ) end
 
 		end
 	end
 	
 	MainLabel[ply].Paint = function()
 		
-		/*local x1 = 15+32+5
-		local y1 = (scoreboard_h/11)/2//MainLabel[ply]:GetTall()/2
+		--[==[local x1 = 15+32+5
+		local y1 = (scoreboard_h/11)/2-- MainLabel[ply]:GetTall()/2
 		
 		local col = Color (255,255,255,255)
 		
@@ -346,8 +346,8 @@ local function AddScoreboardItem(ply,list)
 		
 		x1 = scoreboard_w-25
 		draw.SimpleTextOutlined(ply:Ping() , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		*/
-		if !IsValid(ply) then return end
+		]==]
+		if not IsValid(ply) then return end
 		
 		if ply == MySelf then
 			surface.SetDrawColor( 255, 255, 255, 255)
@@ -370,7 +370,7 @@ local function AddScoreboardItem(ply,list)
 end
 
 local function SwitchScoreboardItem(ply,from,to)
-	if !ValidEntity(ply) then return end
+	if not ValidEntity(ply) then return end
 	if not MainLabel then return end
 	if not MainLabel[ply] then return end
 	
@@ -385,7 +385,7 @@ local function SwitchScoreboardItem(ply,from,to)
 end
 
 local function RemoveScoreboardItem(ply,list)
-	if !ValidEntity(ply) then return end
+	if not ValidEntity(ply) then return end
 	if not MainLabel then return end
 	if not MainLabel[ply] then return end
 	
@@ -398,17 +398,17 @@ end
 
 function GM:CreateScoreboardVGUI()
 	
-	//small options
+	-- small options
 	
 	SCPanel = vgui.Create("DFrame")
 	SCPanel:SetSize(w,h)
 	SCPanel:SetPos(0,0)
 	SCPanel:SetDraggable ( false )
 	SCPanel:SetTitle ("")
-	//SCPanel:SetSkin("ZSMG")
+	-- SCPanel:SetSkin("ZSMG")
 	SCPanel:ShowCloseButton (false)
 	SCPanel.Paint = function() 
-		//override this
+		-- override this
 		draw.SimpleTextOutlined(GAMEMODE.Name , "ArialBoldTwenty", SCPanel:GetWide()/2,ScaleH(135), Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		draw.SimpleTextOutlined(GetGlobalString("servername") , "ArialBoldTwelve", SCPanel:GetWide()/2,ScaleH(180), Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		
@@ -421,19 +421,19 @@ function GM:CreateScoreboardVGUI()
 	left_x,left_y = w/2 - scoreboard_space/2 - scoreboard_w, h/2 - scoreboard_h/2 + 25 +ScaleH(50)
 	right_x,right_y = w/2 + scoreboard_space/2, h/2 - scoreboard_h/2 + 25+ScaleH(50)
 	
-	/*InfoLabel = vgui.Create( "DLabel",SCPanel)
-	//InfoLabel:ParentToHUD()
+	--[==[InfoLabel = vgui.Create( "DLabel",SCPanel)
+	-- InfoLabel:ParentToHUD()
 	InfoLabel:SetPos( left_x,left_y-25 )
 	InfoLabel:SetSize( scoreboard_w*2+scoreboard_space,25 )
 	InfoLabel:SetText("")
 	InfoLabel.Paint = function()
 		
-		//left
+		-- left
 		DrawPanelBlackBox(0,0,scoreboard_w,InfoLabel:GetTall())
-		//right
+		-- right
 		DrawPanelBlackBox(scoreboard_w+scoreboard_space,0,scoreboard_w,InfoLabel:GetTall())
 		
-		//left text
+		-- left text
 		local x1 = 15
 		local y1 = InfoLabel:GetTall()/2
 		
@@ -466,11 +466,11 @@ function GM:CreateScoreboardVGUI()
 		
 		
 		
-	end*/
+	end]==]
 	
 	
 	left_scoreboard = vgui.Create( "DPanelList",SCPanel )
-	//left_scoreboard:ParentToHUD()
+	-- left_scoreboard:ParentToHUD()
 	left_scoreboard:SetPos( left_x,left_y )
 	left_scoreboard:SetSize( scoreboard_w,scoreboard_h )
 	left_scoreboard:SetSkin("ZSMG")
@@ -483,7 +483,7 @@ function GM:CreateScoreboardVGUI()
 	
 	
 	right_scoreboard = vgui.Create( "DPanelList",SCPanel )
-	//right_scoreboard:ParentToHUD()
+	-- right_scoreboard:ParentToHUD()
 	right_scoreboard:SetPos( right_x,right_y )
 	right_scoreboard:SetSize( scoreboard_w,scoreboard_h )
 	right_scoreboard:SetSkin("ZSMG")
@@ -503,12 +503,12 @@ function GM:CreateScoreboardVGUI()
 		for i, pl in ipairs(HumanPlayers) do
 			AddScoreboardItem(pl,left_scoreboard,right_scoreboard,TEAM_HUMAN)
 		end		
-		//left_scoreboard:Rebuild()
+		-- left_scoreboard:Rebuild()
 		for i, pl in ipairs(UndeadPlayers) do
 			for k,v in pairs(left_scoreboard:GetItems()) do
 				if pl == v.Player then
-				//RemoveScoreboardItem(pl,left_scoreboard)
-				//AddScoreboardItem(pl,right_scoreboard)
+				-- RemoveScoreboardItem(pl,left_scoreboard)
+				-- AddScoreboardItem(pl,right_scoreboard)
 				SwitchScoreboardItem(pl,left_scoreboard,right_scoreboard)
 				break
 				end
@@ -516,14 +516,14 @@ function GM:CreateScoreboardVGUI()
 		end
 		
 		for k,v in pairs(left_scoreboard:GetItems()) do
-			if !ValidEntity(v.Player) then
+			if not ValidEntity(v.Player) then
 				left_scoreboard:RemoveItem(v)
 				MainLabel[v.Player] = nil
 			end
 		end
 		
 	end
-	//..............
+	-- ..............
 
 	
 	right_scoreboard.Think = function()
@@ -536,12 +536,12 @@ function GM:CreateScoreboardVGUI()
 			AddScoreboardItem(pl,right_scoreboard,left_scoreboard,TEAM_UNDEAD)	
 		end
 		
-		//right_scoreboard:Rebuild()
+		-- right_scoreboard:Rebuild()
 		for i, pl in pairs(HumanPlayers) do
 			for k,v in pairs(right_scoreboard:GetItems()) do
 				if pl == v.Player then
-					//RemoveScoreboardItem(pl,right_scoreboard)
-					//AddScoreboardItem(pl,left_scoreboard)
+					-- RemoveScoreboardItem(pl,right_scoreboard)
+					-- AddScoreboardItem(pl,left_scoreboard)
 					SwitchScoreboardItem(pl,right_scoreboard,left_scoreboard)
 					break
 				end
@@ -549,14 +549,14 @@ function GM:CreateScoreboardVGUI()
 		end
 		
 		for k,v in pairs(right_scoreboard:GetItems()) do
-			if !ValidEntity(v.Player) then
+			if not ValidEntity(v.Player) then
 				right_scoreboard:RemoveItem(v)
 				MainLabel[v.Player] = nil
 			end
 		end
 	
 	end	
-	//................
+	-- ................
 	
 end
 
@@ -569,7 +569,7 @@ function GM:RemoveScoreboardVGUI()
 		MainLabel = nil
 		
 	end
-	--[[if left_scoreboard and right_scoreboard then
+	--[=[if left_scoreboard and right_scoreboard then
 		
 		left_scoreboard:Remove()
 		left_scoreboard = nil
@@ -578,6 +578,6 @@ function GM:RemoveScoreboardVGUI()
 		InfoLabel:Remove()
 		MainLabel = nil
 		InfoLabel = nil
-	end]]
+	end]=]
 
 end

@@ -5,7 +5,7 @@ ENT.Type = "anim"
 
 ENT.TickSound = Sound( "weapons/stunstick/spark2.wav" )
 
-//Returns collision normal
+-- Returns collision normal
 function ENT:GetHitNormal()
 	return self:GetDTVector( 0 )
 end

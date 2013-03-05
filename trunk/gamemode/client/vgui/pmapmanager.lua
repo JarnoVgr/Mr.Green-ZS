@@ -30,7 +30,7 @@ function OpenMapManager()
 	MapSheet:SetPos( 5, 30 )
 	MapSheet:SetSize( MapPanelW-10, MapPanelH-35 )
 	
-	//-----------------------------------------
+	-- -----------------------------------------
 	
 	Sheet_MapCycle()
 	
@@ -81,7 +81,7 @@ function Sheet_MapCycle()
 	--Small label that describes what's in here
 	DMapPropLabel = vgui.Create( "DLabel")
 	DMapPropLabel:SetSize(DMapProp:GetWide(), ScaleH(30))
-	//DMapPropLabel:SetPos(0,0)
+	-- DMapPropLabel:SetPos(0,0)
 	DMapPropLabel:SetText("")
 	DMapPropLabel.Paint = function()
 		draw.SimpleTextOutlined ( "Map name", "WeaponNames", DMapPropLabel:GetWide()/2, DMapPropLabel:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
@@ -92,7 +92,7 @@ function Sheet_MapCycle()
 	--Text entry
 	DMapPropName = vgui.Create("DTextEntry")
 	DMapPropName:SetSize(DMapProp:GetWide(), ScaleH(25))
-	//DMapPropName:SetPos(0,ScaleH(25))
+	-- DMapPropName:SetPos(0,ScaleH(25))
 	DMapPropName:SetValue("")
 	DMapPropName:SetSkin("ZSMG")
 	DMapPropName:SetEditable(true)
@@ -119,7 +119,7 @@ function Sheet_MapCycle()
 	
 	DMapPropLabel2 = vgui.Create( "DLabel")
 	DMapPropLabel2:SetSize(DMapProp:GetWide(), ScaleH(30))
-	//DMapPropLabel2:SetPos(0,ScaleH(60))
+	-- DMapPropLabel2:SetPos(0,ScaleH(60))
 	DMapPropLabel2:SetText("")
 	DMapPropLabel2.Paint = function()
 		draw.SimpleTextOutlined ( "Map filename", "WeaponNames", DMapPropLabel2:GetWide()/2, DMapPropLabel2:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
@@ -130,7 +130,7 @@ function Sheet_MapCycle()
 	--Text entry
 	DMapPropName2 = vgui.Create("DTextEntry")
 	DMapPropName2:SetSize(DMapProp:GetWide(), ScaleH(25))
-	//DMapPropName2:SetPos(0,ScaleH(85))
+	-- DMapPropName2:SetPos(0,ScaleH(85))
 	DMapPropName2:SetValue("")
 	DMapPropName2:SetSkin("ZSMG")
 	DMapPropName2:SetEditable(true)
@@ -154,11 +154,11 @@ function Sheet_MapCycle()
 	
 	DMapProp:AddItem(DMapPropName2)
 	
-	/*EmptySpace = vgui.Create( "DLabel")
+	--[==[EmptySpace = vgui.Create( "DLabel")
 	EmptySpace:SetSize(DMapProp:GetWide(), ScaleH(50))
 	EmptySpace:SetText("")
 	
-	DMapProp:AddItem(EmptySpace)*/
+	DMapProp:AddItem(EmptySpace)]==]
 	
 	--Buttons!
 
@@ -275,11 +275,11 @@ function RebuildMapCycle()
 	for i=1, #MapCycle_cl do
 				
 		MapTab[i] = vgui.Create("DLabel")
-		MapTab[i]:SetText("")//MapCycle_cl[i].Map
+		MapTab[i]:SetText("")-- MapCycle_cl[i].Map
 		MapTab[i]:SetSize(DMapList:GetWide(),(MapPanelH-35)/10)
 		MapTab[i].OnCursorEntered = function() 
 			MapTab[i].Overed = true 
-			//surface.PlaySound ("UI/buttonrollover.wav") 
+			-- surface.PlaySound ("UI/buttonrollover.wav") 
 		end
 		MapTab[i].OnCursorExited = function () 
 			MapTab[i].Overed = false
@@ -300,13 +300,13 @@ function RebuildMapCycle()
 				surface.DrawOutlinedRect( 1, 1, MapTab[i]:GetWide()-2, MapTab[i]:GetTall()-2 )
 			end
 					
-			//index
+			-- index
 			draw.SimpleTextOutlined ( i, "WeaponNames", 5, MapTab[i]:GetTall()*0.25, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 					
-			//Name if exists
+			-- Name if exists
 			draw.SimpleTextOutlined ( MapCycle_cl[i].MapName, "WeaponNames", 25, MapTab[i]:GetTall()*0.25, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 					
-			//Actual name
+			-- Actual name
 			draw.SimpleTextOutlined ( MapCycle_cl[i].Map, "WeaponNames", 25, MapTab[i]:GetTall()*0.75, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 					
 		end
@@ -321,7 +321,7 @@ function RebuildMapCycle()
 			MapTab[i].SwapDown:SetSize(MapTab[i]:GetTall()/2.1,MapTab[i]:GetTall()/2.1)
 			MapTab[i].SwapDown:SetPos(MapTab[i]:GetWide()-(MapTab[i]:GetTall()/2.1)*1 - 30,MapTab[i]:GetTall()/2-(MapTab[i]:GetTall()/2.1)/2)
 			MapTab[i].SwapDown.PaintOver = function()
-				//draw.SimpleTextOutlined ( "u", "SysIcons", MapTab[i].SwapDown:GetWide()/2, MapTab[i].SwapDown:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+				-- draw.SimpleTextOutlined ( "u", "SysIcons", MapTab[i].SwapDown:GetWide()/2, MapTab[i].SwapDown:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 			end
 			MapTab[i].SwapDown.DoClick = function()
 				Map_Swap(i,true)
@@ -379,7 +379,7 @@ function Map_Swap(index,down)
 	RefreshMapProp()
 	
 	RebuildMapCycle()
-	//TODO: add serverside shit
+	-- TODO: add serverside shit
 	
 end
 
@@ -392,7 +392,7 @@ function Map_Delete(index)
 	MapSelected = nil
 	
 	MapCycle_cl[index] = nil
-	//MapTab[index] = nil
+	-- MapTab[index] = nil
 	
 	table.Resequence ( MapCycle_cl )
 		
@@ -400,14 +400,14 @@ function Map_Delete(index)
 	
 	RefreshMapProp()
 	
-	//TODO: add serverside support
+	-- TODO: add serverside support
 	
 end
 
 function Map_Add()
 	
 	local name = DMapPropName3:GetValue() or "Invalid Name!"
-	local filename = DMapPropName4:GetValue() or "zs_please" //lol
+	local filename = DMapPropName4:GetValue() or "zs_please" -- lol
 	
 	DMapList:Clear()
 	
@@ -430,7 +430,7 @@ function LoadMapCycle()
 	
 	timer.Simple(1, function()
 		
-		//PrintTable(MapCycle_cl)
+		-- PrintTable(MapCycle_cl)
 		
 		DMapLoadButton:SetText("Load Map Cycle from server")
 		DMapAddButton:SetDisabled(false)
@@ -608,7 +608,7 @@ function Sheet_MapProperties()
 	
 	DSpawnProtection = vgui.Create("DNumSlider")
 	DSpawnProtection:SetText("Z. Spawn Protection")
-	DSpawnProtection:SizeToContents()//SetSize(DRightList:GetWide(),ScaleH(20))
+	DSpawnProtection:SizeToContents()-- SetSize(DRightList:GetWide(),ScaleH(20))
 	DSpawnProtection:SetValue(3)
 	DSpawnProtection:SetMin(0)
 	DSpawnProtection:SetMax(30)
@@ -657,7 +657,7 @@ usermessage.Hook("SendMapProperties",function(um)
 	local map = um:ReadString()
 	local stuff = um:ReadString()
 	
-	//print(stuff)
+	-- print(stuff)
 	
 	local decoded = util.JSONToTable(stuff)
 	
@@ -689,7 +689,7 @@ function RefreshSubLists()
 		
 		local tbl = MapProperties_cl[MapSelectedProp]
 		
-		if !tbl then return end
+		if not tbl then return end
 		
 		local remove = tbl[1] or {}
 		local exclude = tbl[2] or {}
@@ -879,11 +879,11 @@ function SaveMapProp()
 		local name = tostring(MapSelectedProp)
 		local stuff = tostring(util.TableToJSON(MapProperties_cl[name]))
 		
-		//print("Clientside encoded: "..stuff)
+		-- print("Clientside encoded: "..stuff)
 		
 		local test = util.JSONToTable(stuff)
-		//print("Clientside decoded: ")
-		//PrintTable(test)
+		-- print("Clientside decoded: ")
+		-- PrintTable(test)
 		
 		local tbl = {name, stuff}
 		
@@ -901,7 +901,7 @@ function RebuildMapProperties()
 	for map, stuff in pairs(MapProperties_cl) do
 				
 		PropTab[map] = vgui.Create("DLabel")
-		PropTab[map]:SetText("")//MapCycle_cl[i].Map
+		PropTab[map]:SetText("")-- MapCycle_cl[i].Map
 		PropTab[map]:SetSize(DPropList:GetWide(),(MapPanelH-35)/15)
 		PropTab[map].OnCursorEntered = function() 
 			PropTab[map].Overed = true 
@@ -944,7 +944,7 @@ function Sheet_Crates()
 	DCrateLabel:SizeToContents()
 		
 	DCrateInfoLabel = vgui.Create("DLabel",DCrateLabel)
-	//DCrateInfoLabel:SetPos(0,0)
+	-- DCrateInfoLabel:SetPos(0,0)
 	DCrateInfoLabel:SetText([[
 	If you want to upload homemade files to server follow the steps:
 	
@@ -961,14 +961,14 @@ function Sheet_Crates()
 		surface.SetDrawColor( 30, 30, 30, 255 )
 		surface.DrawOutlinedRect( 1, 1, DCrateInfoLabel:GetWide()-2, DCrateInfoLabel:GetTall()-2 )
 	end
-	//DCrateInfoLabel:SetSize(DCrateLabel:GetWide(),DCrateLabel:GetTall())
+	-- DCrateInfoLabel:SetSize(DCrateLabel:GetWide(),DCrateLabel:GetTall())
 	
 	--le button
 	DCrateScanBtn = vgui.Create("DButton",DCrateLabel)
 	DCrateScanBtn:SetText("Scan for clientside crate files")
 	DCrateScanBtn:SetSkin("ZSMG")
-	DCrateScanBtn:SetPos(0,DCrateInfoLabel:GetTall()+10)//(0,ScaleH(300)+2)
-	DCrateScanBtn:SetSize(DCrateInfoLabel:GetWide()-6,ScaleH(25))//(DCrateLabel:GetWide()*0.9,ScaleH(20))
+	DCrateScanBtn:SetPos(0,DCrateInfoLabel:GetTall()+10)-- (0,ScaleH(300)+2)
+	DCrateScanBtn:SetSize(DCrateInfoLabel:GetWide()-6,ScaleH(25))-- (DCrateLabel:GetWide()*0.9,ScaleH(20))
 	DCrateScanBtn.DoClick = function()
 		Crates_Scan()
 	end
@@ -992,10 +992,10 @@ function Sheet_Crates()
 	DCrateConvBtn = vgui.Create("DButton",DCrateLabel)
 	DCrateConvBtn:SetText("Convert old map files into new on server (DON'T PRESS IF STUFF WAS CONVERTED ALREADY!)")
 	DCrateConvBtn:SetSkin("ZSMG")
-	DCrateConvBtn:SetPos(0,DCrateInfoLabel:GetTall()+30+DCrateScanBtn:GetTall()+DCrateFiles:GetTall())//(0,ScaleH(300)+2)
-	DCrateConvBtn:SetSize(DCrateInfoLabel:GetWide()-6,ScaleH(45))//(DCrateLabel:GetWide()*0.9,ScaleH(20))
+	DCrateConvBtn:SetPos(0,DCrateInfoLabel:GetTall()+30+DCrateScanBtn:GetTall()+DCrateFiles:GetTall())-- (0,ScaleH(300)+2)
+	DCrateConvBtn:SetSize(DCrateInfoLabel:GetWide()-6,ScaleH(45))-- (DCrateLabel:GetWide()*0.9,ScaleH(20))
 	DCrateConvBtn.DoClick = function()
-		//Crates_Scan()
+		-- Crates_Scan()
 		RunConsoleCommand("zs_convertcrates")
 	end
 	
@@ -1022,7 +1022,7 @@ function Crates_Scan()
 			
 			CrateTable[name] = util.JSONToTable(stuff)
 			
-			//print(name)
+			-- print(name)
 			CrateLabel[name] = vgui.Create("DLabel")
 			CrateLabel[name]:SetText("")
 			CrateLabel[name]:SetSize(DCrateFiles:GetWide(),DCrateFiles:GetTall()/8)
@@ -1054,7 +1054,7 @@ function Crates_Scan()
 		
 		DCrateScanBtn:SetText("Scan for clientside crate files")
 		
-		//PrintTable(CrateTable)
+		-- PrintTable(CrateTable)
 	
 	end)
 	
@@ -1105,8 +1105,8 @@ function Sheet_Exploits()
 	DExploitScanBtn = vgui.Create("DButton",DExploitLabel)
 	DExploitScanBtn:SetText("Scan for clientside exploit boxes files")
 	DExploitScanBtn:SetSkin("ZSMG")
-	DExploitScanBtn:SetPos(0,DExploitInfoLabel:GetTall()+10)//(0,ScaleH(300)+2)
-	DExploitScanBtn:SetSize(DExploitInfoLabel:GetWide()-6,ScaleH(25))//(DCrateLabel:GetWide()*0.9,ScaleH(20))
+	DExploitScanBtn:SetPos(0,DExploitInfoLabel:GetTall()+10)-- (0,ScaleH(300)+2)
+	DExploitScanBtn:SetSize(DExploitInfoLabel:GetWide()-6,ScaleH(25))-- (DCrateLabel:GetWide()*0.9,ScaleH(20))
 	DExploitScanBtn.DoClick = function()
 		Exploits_Scan()
 	end
@@ -1130,10 +1130,10 @@ function Sheet_Exploits()
 	DExploitConvBtn = vgui.Create("DButton",DExploitLabel)
 	DExploitConvBtn:SetText("Convert old map files into new on server (DON'T PRESS IF STUFF WAS CONVERTED ALREADY!)")
 	DExploitConvBtn:SetSkin("ZSMG")
-	DExploitConvBtn:SetPos(0,DExploitInfoLabel:GetTall()+30+DExploitScanBtn:GetTall()+DExploitFiles:GetTall())//(0,ScaleH(300)+2)
-	DExploitConvBtn:SetSize(DExploitInfoLabel:GetWide()-6,ScaleH(45))//(DExploitLabel:GetWide()*0.9,ScaleH(20))
+	DExploitConvBtn:SetPos(0,DExploitInfoLabel:GetTall()+30+DExploitScanBtn:GetTall()+DExploitFiles:GetTall())-- (0,ScaleH(300)+2)
+	DExploitConvBtn:SetSize(DExploitInfoLabel:GetWide()-6,ScaleH(45))-- (DExploitLabel:GetWide()*0.9,ScaleH(20))
 	DExploitConvBtn.DoClick = function()
-		//Crates_Scan()
+		-- Crates_Scan()
 		RunConsoleCommand("zs_convertexploits")
 	end
 	
@@ -1160,7 +1160,7 @@ function Exploits_Scan()
 			
 			ExploitTable[name] = util.JSONToTable(stuff)
 			
-			//print(name)
+			-- print(name)
 			ExploitLabel[name] = vgui.Create("DLabel")
 			ExploitLabel[name]:SetText("")
 			ExploitLabel[name]:SetSize(DExploitFiles:GetWide(),DExploitFiles:GetTall()/8)
@@ -1192,7 +1192,7 @@ function Exploits_Scan()
 		
 		DExploitScanBtn:SetText("Scan for clientside exploit boxes files")
 		
-		//PrintTable(CrateTable)
+		-- PrintTable(CrateTable)
 	
 	end)
 	

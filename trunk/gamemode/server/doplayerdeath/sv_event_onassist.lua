@@ -3,48 +3,48 @@
 
 local math = math
 
-//Credits the assistant on death (if there is one) 
+-- Credits the assistant on death (if there is one) 
 local function OnAssistDeath ( mVictim, mAttacker, mInflictor, mAssist, dmginfo )
 
-	//Case 1: Undead assistant
+	-- Case 1: Undead assistant
 	if mAssist:IsZombie() then
 		mAssist:AddFrags ( 1 )
 		mAssist:AddXP(50)
 		--skillpoints.AchieveSkillShot(attacker,pl,"freshfood")
 				
-		//Give greencoins to undead assistant
+		-- Give greencoins to undead assistant
 		mAssist:GiveGreenCoins ( COINS_PER_HUMAN )
 		mAssist.GreencoinsGained[ mAssist:Team() ] = mAssist.GreencoinsGained[ mAssist:Team() ] + COINS_PER_HUMAN
 		mAssist.Assists = mAssist.Assists + 1
 			
-		//Add brains 
+		-- Add brains 
 		mAssist.BrainsEaten = mAssist.BrainsEaten + 1
 		
-		//Redeem assistant if he has sufficient brains/score
+		-- Redeem assistant if he has sufficient brains/score
 		if mAssist:CanRedeem() then
 			mAssist:Redeem()
 		end
 	end
 			
-	//Case 2: Human assistant
+	-- Case 2: Human assistant
 	if mAssist:IsHuman() then
 		--mAssist:AddFrags ( 1 )
 		mAssist:GiveGreenCoins ( COINS_PER_ZOMBIE )
 				
-		//Give greencoins and add assists counter and increment zombies killed
+		-- Give greencoins and add assists counter and increment zombies killed
 		mAssist.GreencoinsGained[ mAssist:Team() ] = mAssist.GreencoinsGained[ mAssist:Team() ] + COINS_PER_ZOMBIE
 		mAssist.Assists = mAssist.Assists + 1
 		mAssist.ZombiesKilled = mAssist.ZombiesKilled + 1
 
-		//Check level up ( human only )
-		//mAssist:CheckLevelUp()
+		-- Check level up ( human only )
+		-- mAssist:CheckLevelUp()
 		
 		local reward = ZombieClasses[mVictim:GetZombieClass()].SP/2
 		
 		if GAMEMODE:IsRetroMode() then
 			reward = 1
 			if math.random(1,3) == 1 then
-				//reward = 1
+				-- reward = 1
 			end
 			if mVictim:IsCrow() then 
 				reward = 0
@@ -57,14 +57,14 @@ local function OnAssistDeath ( mVictim, mAttacker, mInflictor, mAssist, dmginfo 
 		
 		skillpoints.AddSkillPoints(mAssist, math.ceil(reward))
 		
-		--[[if mVictim:IsHeadcrab() or mVictim:IsPoisonCrab() then
+		--[=[if mVictim:IsHeadcrab() or mVictim:IsPoisonCrab() then
 			skillpoints.AchieveSkillShot(mAssist,mVictim,"hkillassist")	
 		else
 			skillpoints.AchieveSkillShot(mAssist,mVictim,"killassist")	
-		end]]
+		end]=]
 	end
 	
-	// logging
+	--  logging
 	if (mVictim:IsPlayer() and mAttacker:IsPlayer() and mAssist:IsPlayer()) then
 		
 		local properties = {}

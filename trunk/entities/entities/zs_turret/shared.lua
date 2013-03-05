@@ -1,4 +1,4 @@
-//Haters gonna hate. Engineers gonna love. What the hell? D:
+-- Haters gonna hate. Engineers gonna love. What the hell? D:
 
 if ( SERVER ) then
 	AddCSLuaFile(  )
@@ -20,7 +20,7 @@ ENT.PrintName           = "Turret"
 ENT.RenderGroup         = RENDERGROUP_TRANSLUCENT
 ENT.AutomaticFrameAdvance = true
 
-//Some precaching stuff
+-- Some precaching stuff
 util.PrecacheModel("models/Combine_turrets/Floor_turret.mdl")
 
 util.PrecacheSound("npc/turret_floor/ping.wav")
@@ -37,13 +37,13 @@ for i=1,2 do
 	util.PrecacheSound("npc/scanner/scanner_pain"..i..".wav")
 end
 
-//Options
+-- Options
 ENT.MaxHealth = 100
 ENT.MaxBullets = 100
-ENT.RechargeDelay = 0.5 //recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
+ENT.RechargeDelay = 0.5 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 540
 ENT.Damage = 3
-ENT.IgnoreClasses = {4,6,7,9} //Index of zombie's classes that turret should ignore
+ENT.IgnoreClasses = {4,6,7,9} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {6,7}
 
 ENT.MinimumAimDot = 0.5
@@ -58,7 +58,7 @@ local function MyTrueVisible(posa, posb, filter)
 	return not util.TraceLine({start = posa, endpos = posb, filter = filt, mask = MASK_SHOT}).Hit
 end
 
-//Server part goes here
+-- Server part goes here
 
 if SERVER then
 function ENT:Initialize()
@@ -76,18 +76,18 @@ function ENT:Initialize()
 		phys:Wake()
 		phys:EnableMotion( false ) 
 	end
-	self:SetPlaybackRate(1) //Normal speed for animations
+	self:SetPlaybackRate(1) -- Normal speed for animations
 
 	self:SetSequence(self:LookupSequence("deploy"))
 	
-	//Lets make it much pretty
-	//Why I dont use skins? Because I cant force a skin for turret model from original HL2 (unlike Ep2)
+	-- Lets make it much pretty
+	-- Why I dont use skins? Because I cant force a skin for turret model from original HL2 (unlike Ep2)
 	
 	
 	local RandomSkin = math.random(1,3)
 	local MaterialToApply = ""
 	
-	//Skin 1
+	-- Skin 1
 	if RandomSkin == 1 then
 		MaterialToApply = "models/Combine_Turrets/Floor_turret/floor_turret_citizen"
 	elseif RandomSkin == 2 then
@@ -111,22 +111,22 @@ function ENT:Initialize()
 		self.Damage = math.Round(self.Damage*1.5)
 	end
 	
-	//Set few things
+	-- Set few things
 	self.Target = nil
 	self.TargetPos = nil
 	self.LastShootTime = 0
 	self.NextSwitch = 0
 	
 	self:SetDTString(0,self:GetTurretOwner():GetInfo("_zs_turretnicknamefix"))
-	//self:SetNWString("TurretName",self:GetTurretOwner():GetInfo("_zs_turretnicknamefix"))
+	-- self:SetNWString("TurretName",self:GetTurretOwner():GetInfo("_zs_turretnicknamefix"))
 	
-	//switching to DT stuff
-	self:SetDTInt(0,self.MaxBullets) //ammo
-	self:SetDTInt(1,self.MaxHealth) //health
-	self:SetDTInt(2,self.MaxBullets) //max ammo
-	self:SetDTBool(0,true) //is turret active
-	self:SetDTBool(1,false) //attacking
-	self:SetDTBool(2,false) // remote
+	-- switching to DT stuff
+	self:SetDTInt(0,self.MaxBullets) -- ammo
+	self:SetDTInt(1,self.MaxHealth) -- health
+	self:SetDTInt(2,self.MaxBullets) -- max ammo
+	self:SetDTBool(0,true) -- is turret active
+	self:SetDTBool(1,false) -- attacking
+	self:SetDTBool(2,false) --  remote
 	
 	table.insert(ActualTurrets,self)
 	
@@ -147,7 +147,7 @@ local TargetAngles
 local ct = CurTime()
 
 self:CheckOwner()
-if !ValidEntity(self.Entity) then return end
+if not ValidEntity(self.Entity) then return end
 
 	if self:IsActive() then
 
@@ -176,7 +176,7 @@ if !ValidEntity(self.Entity) then return end
 					end
 					
 					if self:CanAttack() then
-						//double fire rate
+						-- double fire rate
 						self.NextShoot = self.NextShoot or ct + 0.075
 						if ct > self.NextShoot then
 							self:Shoot()
@@ -217,8 +217,8 @@ if !ValidEntity(self.Entity) then return end
 					
 					self.TargetPos = self:GetTargetPos(self.Target) 
 					
-					//Found zombie, KILL IT!
-					TargetAngles = (self.TargetPos - self:GetAttachment(self:LookupAttachment("eyes")).Pos):Angle() //Converting vector into angle
+					-- Found zombie, KILL IT!
+					TargetAngles = (self.TargetPos - self:GetAttachment(self:LookupAttachment("eyes")).Pos):Angle() -- Converting vector into angle
 						
 					AngleYaw = math.Clamp(self:WorldToLocalAngles(TargetAngles).y,-60,60)
 					AnglePitch = math.Clamp(self:WorldToLocalAngles(TargetAngles).p,-15,15)
@@ -226,7 +226,7 @@ if !ValidEntity(self.Entity) then return end
 					self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),AngleYaw,10))
 					self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),AnglePitch,7.5))
 					if ct > (self.NextAttackAction or 0) then
-						//if !self:IsBlocked() then
+						-- if not self:IsBlocked() then
 							if self:CanAttack() then
 								self.NextShoot = self.NextShoot or ct + 0.15	
 									if ct > self.NextShoot then
@@ -241,7 +241,7 @@ if !ValidEntity(self.Entity) then return end
 										self.NextShoot = ct + 0.15	
 									end
 							end
-						//end
+						-- end
 					end
 				else
 					self.Target = nil
@@ -255,12 +255,12 @@ if !ValidEntity(self.Entity) then return end
 				
 				if target then
 					self.Target = target
-					//self.TargetPos = self:GetTargetPos(Zombie)
+					-- self.TargetPos = self:GetTargetPos(Zombie)
 				else
 					if self:IsAttacking() then
 						self:SetDTBool(1,false)
 					end
-					//No zombies, play idle animation
+					-- No zombies, play idle animation
 					self.NextBeep = self.NextBeep or ct + 1	
 					AngleYaw = math.Clamp(math.sin( RealTime()*1.2)*60,-60,60)
 					AnglePitch = math.Clamp(math.sin( RealTime()*0.3)*15,-15,15)
@@ -279,7 +279,7 @@ if !ValidEntity(self.Entity) then return end
 			end
 		end
 	else
-		//Increased recharge rate
+		-- Increased recharge rate
 		self:RechargeAmmo(1,self.RechargeDelay/3.1)	
 		self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),0,1))
 		self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),15,1))
@@ -349,25 +349,25 @@ function ENT:SearchForTarget()
 	end
 end
 
---[[function ENT:SearchZombies()
+--[=[function ENT:SearchZombies()
 self.Target = nil
 self.TargetPos = nil
 local Humans = {}
 
 local tracedata = {}
 tracedata.start = self:GetAttachment(self:LookupAttachment("eyes")).Pos
-tracedata.filter = {self.Entity, team.GetPlayers(TEAM_HUMAN)}//Humans
+tracedata.filter = {self.Entity, team.GetPlayers(TEAM_HUMAN)}-- Humans
 local enemies = self:FindZombiesInCone(tracedata.start,self.SpotDistance,0.57)
 		local Zombie = self:GetClosestZombie( enemies )
 		for k, v in pairs(enemies) do
 				if( Zombie ) then
 					self.Target = Zombie
-					/*if Zombie:GetAttachment(1) then
-						tracedata.endpos = Zombie:GetAttachment(1).Pos// - Vector(0,0,3)
+					--[==[if Zombie:GetAttachment(1) then
+						tracedata.endpos = Zombie:GetAttachment(1).Pos--  - Vector(0,0,3)
 					else
-						tracedata.endpos = Zombie:GetPos() + Vector(0,0,20) // Im not sure: should the turret work against headcrabs?
-					end*/
-					self.TargetPos = self:GetTargetPos(Zombie)//tracedata.endpos
+						tracedata.endpos = Zombie:GetPos() + Vector(0,0,20) --  Im not sure: should the turret work against headcrabs?
+					end]==]
+					self.TargetPos = self:GetTargetPos(Zombie)-- tracedata.endpos
 					break
 				else
 				self.Target = nil
@@ -378,7 +378,7 @@ local enemies = self:FindZombiesInCone(tracedata.start,self.SpotDistance,0.57)
 end
 
 
-//Finally fixed dat function
+-- Finally fixed dat function
 function ENT:GetClosestZombie( Table )
 	local Closest = 10000
 	local dist = 0
@@ -387,15 +387,15 @@ function ENT:GetClosestZombie( Table )
 	local pos
 	if( Table ) then
 		for k, v in pairs(Table) do
-			pos = v:GetPos()//type(self:GetTargetPos(v)) == "vector" and self:GetTargetPos(v) or v:GetPos()
+			pos = v:GetPos()-- type(self:GetTargetPos(v)) == "vector" and self:GetTargetPos(v) or v:GetPos()
 			if v:GetAttachment(1) then
 				pos = v:GetAttachment(1).Pos
 			end
 			if self:IsZombieVisible(pos) and self:IsValidZombieClass(v) then
 			dist = pos:Distance( Pos1 )
 				if ( dist < Closest) then
-					if v:IsPlayer() and v:Alive() and v != self.Entity:GetOwner() and v:IsZombie() then
-						Closest = v:GetPos()//self:GetTargetPos(v)
+					if v:IsPlayer() and v:Alive() and v ~= self.Entity:GetOwner() and v:IsZombie() then
+						Closest = v:GetPos()-- self:GetTargetPos(v)
 						Ent = v
 					end
 				end
@@ -410,7 +410,7 @@ function ENT:GetClosestZombie( Table )
 	else
 		return
 	end
-end]]
+end]=]
 
 function ENT:GetShootPos()
 	return self:GetAttachment(self:LookupAttachment("eyes")).Pos
@@ -488,10 +488,10 @@ function ENT:Shoot()
 	bullet.Force = 1
 	bullet.Damage = 0
 	bullet.TracerName = "AR2Tracer"
-	bullet.Callback = BulletCallback//function ( a, b, c )
-		//self:TurretBulletCallback ( a, b, c )
-	//	BulletCallback
-	//end
+	bullet.Callback = BulletCallback-- function ( a, b, c )
+		-- self:TurretBulletCallback ( a, b, c )
+	-- 	BulletCallback
+	-- end
 	
 	self:FireBullets(bullet)
 	
@@ -599,9 +599,9 @@ function ENT:Explode()
 	Effect:SetStart( self:GetPos() )
 	Effect:SetMagnitude( 300 )
 	util.Effect("Explosion", Effect)
-	//if self:GetTurretOwner() then
-	//	self:GetTurretOwner().Turret = nil
-	//end
+	-- if self:GetTurretOwner() then
+	-- 	self:GetTurretOwner().Turret = nil
+	-- end
 	self.Entity:Remove()
 
 end
@@ -610,7 +610,7 @@ function ENT:UpdateTransmitState()
 	return TRANSMIT_PVS
 end
 end
-//Server part ends here
+-- Server part ends here
 
 function ENT:GetScan()
 	local scan = team.GetPlayers(TEAM_UNDEAD)
@@ -629,9 +629,9 @@ end
 
 
 
-//Since original function is screwed up - its time to make my own
+-- Since original function is screwed up - its time to make my own
 function ENT:FindZombiesInCone(pos,distance,dotproduct)
-//local enemies = ents.FindInSphere(pos,distance)
+-- local enemies = ents.FindInSphere(pos,distance)
 
 local enemies = {}
 
@@ -655,10 +655,10 @@ local tab = {mask = MASK_PLAYERSOLID_BRUSHONLY}
 
 function ENT:IsZombieVisible(pos)
 
-	tab.start = self:GetAttachment(self:LookupAttachment("eyes")).Pos//self:GetPos() + Vector(0,0,55)--
+	tab.start = self:GetAttachment(self:LookupAttachment("eyes")).Pos-- self:GetPos() + Vector(0,0,55)--
 	tab.endpos = pos
-	//tracedata.mask = MASK_PLAYERSOLID_BRUSHONLY
-	tab.filter = self.Entity//self:GetCachedScanFilter()////, Humans
+	-- tracedata.mask = MASK_PLAYERSOLID_BRUSHONLY
+	tab.filter = self.Entity-- self:GetCachedScanFilter()-- -- , Humans
 
 	local trace = util.TraceLine(tab)
 	local visible = false
@@ -666,7 +666,7 @@ function ENT:IsZombieVisible(pos)
 	--return false
 	--end
 		local TargetVector = (pos - self:GetAttachment(self:LookupAttachment("eyes")).Pos):GetNormal()
-		local ClampedPitch = self:WorldToLocalAngles(TargetVector:Angle()).p //I need this to get more accurate aiming
+		local ClampedPitch = self:WorldToLocalAngles(TargetVector:Angle()).p -- I need this to get more accurate aiming
 		if not trace.Hit then
 			if TargetVector:DotProduct(self.Entity:GetAngles():Forward()) >= 0.57 and (ClampedPitch <= 15 and ClampedPitch >= -16) then
 					visible = true
@@ -680,7 +680,7 @@ function ENT:IsZombieVisible(pos)
 	local tracedata2 = {}
 	tracedata2.start = self:GetPos() + Vector(0,0,50)
 	tracedata2.endpos = pos
-	tracedata2.filter = self.Entity//, Humans
+	tracedata2.filter = self.Entity-- , Humans
 	local trace2 = util.TraceLine(tracedata2)
 
 	if trace2.Hit and IsValid(trace2.Entity) and (trace2.Entity:GetClass() == "prop_door_rotating" 
@@ -703,7 +703,7 @@ end
 
 function ENT:IsValidZombieClass(pl)
 	if not IsValid(pl) then return end
-	return !table.HasValue( self.IgnoreClasses, pl:GetZombieClass() )
+	return not table.HasValue( self.IgnoreClasses, pl:GetZombieClass() )
 end
 
 function ENT:ShouldIgnoreDamage(pl)
@@ -720,7 +720,7 @@ function ENT:GetTurretOwner()
 	--return self:GetNWEntity("TurretOwner")
 end
 
-//ENT.GetOwner = ENT.GetTurretOwner
+-- ENT.GetOwner = ENT.GetTurretOwner
 
 function ENT:GetTurretName()
 	return self:GetDTString(0)
@@ -750,10 +750,10 @@ function ENT:IsControlled()
 	return self:GetDTBool(2)
 end
 
-//Client part starts here
+-- Client part starts here
 if CLIENT then
 local render = render
-//Small piece of code from IW
+-- Small piece of code from IW
 local matLaser 		= Material( "sprites/bluelaser1" )
 local matLight 				= Material( "models/roller/rollermine_glow" )
 local colBeam				= Color( 50, 100, 210, 120 )
@@ -768,7 +768,7 @@ function ENT:Think()
 	t.mask = MASK_PLAYERSOLID
 	local tr = util.TraceLine(t)
 	self.EndPos = tr.HitPos
-	//Correct normal
+	-- Correct normal
 	local t2 = {}
 	t2.start = self:GetAttachment(self:LookupAttachment("light")).Pos
 	t2.endpos = self.EndPos+(self.EndPos-t2.start):GetNormal()*100
@@ -807,7 +807,7 @@ function ENT:Draw()
 	render.SetMaterial( matLight )
 	
 	local Size = math.Rand( 5, 8 )
-	//local Normal = (self:GetAttachment(self:LookupAttachment("eyes")).Pos-self.EndPos):GetNormal() * 0.1
+	-- local Normal = (self:GetAttachment(self:LookupAttachment("eyes")).Pos-self.EndPos):GetNormal() * 0.1
 	local Normal = self.FixNormal
 	
 	if not self:IsAttacking() then
@@ -854,7 +854,7 @@ end
 
 net.Receive("SendTurret", function( len )
 	
-	if !IsValid(MySelf) then return end
+	if not IsValid(MySelf) then return end
 	
 	local t = net.ReadEntity()	
 	MySelf.Turret = t or nil
@@ -863,4 +863,4 @@ end)
 
 
 end
-//Client part ends here
+-- Client part ends here

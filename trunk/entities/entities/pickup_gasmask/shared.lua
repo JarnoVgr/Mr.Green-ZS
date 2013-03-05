@@ -10,7 +10,7 @@ AddCSLuaFile("shared.lua")
 
 function ENT:Initialize()
 	
-	self.Entity:SetModel("models/props_junk/metalgascan.mdl")//
+	self.Entity:SetModel("models/props_junk/metalgascan.mdl")-- 
 	self.Entity:SetColor(Color(0,0,0,0))
 	self.Entity:SetRenderMode(RENDERMODE_NONE)
 	self.Entity:DrawShadow(false)

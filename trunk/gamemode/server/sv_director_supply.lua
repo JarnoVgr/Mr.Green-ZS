@@ -47,13 +47,13 @@ end
 
 function ConvertOldCratesToNew(pl,cmd,args)
 	
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	
 	for i, filename in ipairs(file.Find("zombiesurvival/gamemode/server/maps/ammobox/*.lua","lsv")) do
 	
 		local tbl = {}
 		
-		//print("Found file: "..filename)
+		-- print("Found file: "..filename)
 		
 		AmmoDropPoints = { X = {}, Y = {}, Z = {}, Switch = {}, ID = {} }
 		include( "zombiesurvival/gamemode/server/maps/ammobox/"..filename ) 
@@ -80,7 +80,7 @@ concommand.Add("zs_convertcrates",ConvertOldCratesToNew)
 
 function ImportCratesFromClient(pl,cmd,args)
 	
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	
 	if not args then return end
 	
@@ -91,8 +91,8 @@ function ImportCratesFromClient(pl,cmd,args)
 	local name = args[1]
 	local data = args[2]
 	
-	//print("For map "..name)
-	//print("Received "..data)
+	-- print("For map "..name)
+	-- print("Received "..data)
 	
 	local fixed = string.gsub(data,"'","\"")
 	
@@ -107,11 +107,11 @@ concommand.Add("zs_importcrates",ImportCratesFromClient)
 
 function ConfirmCratesFromClient(pl,cmd,args)
 	
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	
 	if not ImportCrateFile then return end
 	
-	//PrintTable(ImportCrateTable)
+	-- PrintTable(ImportCrateTable)
 	
 	file.Write( "zombiesurvival/crates/"..ImportCrateFile..".txt",util.TableToJSON(ImportCrateTable or {}) )
 	
@@ -123,11 +123,11 @@ function ConfirmCratesFromClient(pl,cmd,args)
 end
 concommand.Add("zs_importcrates_confirm",ConfirmCratesFromClient)
 
-//Copy all positions so we can use them later
+-- Copy all positions so we can use them later
 if #AmmoDropPoints["X"] > 0 then 
 	for i,j in pairs ( AmmoDropPoints["X"] ) do
 		local P = Vector ( AmmoDropPoints.X[i] or 0, AmmoDropPoints.Y[i] or 0, AmmoDropPoints.Z[i] or 0 )
-		//table.insert(RealCrateSpawns,P)
+		-- table.insert(RealCrateSpawns,P)
 	end
 end
 PrintTable(RealCrateSpawns)
@@ -135,21 +135,21 @@ PrintTable(RealCrateSpawns)
 if #AmmoDropPoints["X"] > 0 then 
 	for i,j in pairs ( AmmoDropPoints["X"] ) do
 		local P = { pos = Vector ( AmmoDropPoints.X[i] or 0, AmmoDropPoints.Y[i] or 0, AmmoDropPoints.Z[i] or 0 ), switch = tobool ( AmmoDropPoints.Switch[i] ), id = AmmoDropPoints.ID[i]}
-		//table.insert(FullCrateSpawns,P)
+		-- table.insert(FullCrateSpawns,P)
 	end
 end
 PrintTable(FullCrateSpawns)
 
 local function CalculateGivenSupplies ( pl )
-	if not ValidEntity ( pl ) or pl:Team() != TEAM_HUMAN then return end
+	if not ValidEntity ( pl ) or pl:Team() ~= TEAM_HUMAN then return end
 	
-	//Calculate what weapons to give away
+	-- Calculate what weapons to give away
 	local Infliction = GetInfliction()
 	
 	local Available = { Pistols = {}, Automatic = {}, Melee = {}, Snipers = {} }
 	local PistolToGive, AutomaticToGive, MeleeToGive
 	
-	//Calculate and add every avaialable weapon to table
+	-- Calculate and add every avaialable weapon to table
 	for k,v in pairs ( GAMEMODE.HumanWeapons ) do
 		if not v.Restricted then
 		if GetInfliction() >= 0.6 then
@@ -173,12 +173,12 @@ local function CalculateGivenSupplies ( pl )
 		end
 	end
 	
-	/*--------------------------- PISTOLS ----------------------------*/
+	--[==[--------------------------- PISTOLS ----------------------------]==]
 	if #Available.Pistols >= 1 then
 		local RandomPistol, Pistol = table.Random ( Available.Pistols ), pl:GetPistol()
 		if not Pistol then PistolToGive = RandomPistol end
 		
-		//Player has pistol, see if the one from the box is powerful than the one he has
+		-- Player has pistol, see if the one from the box is powerful than the one he has
 		if Pistol then
 			if pl:HasWeapon ( RandomPistol ) then
 				RandomPistol = table.Random ( Available.Pistols )
@@ -191,7 +191,7 @@ local function CalculateGivenSupplies ( pl )
 		end
 	end
 	
-	/*--------------------------- AUTOMATIC GUNS ----------------------------*/
+	--[==[--------------------------- AUTOMATIC GUNS ----------------------------]==]
 	if #Available.Automatic >= 1 then
 		local RandomAutomatic, Automatic = table.Random ( Available.Automatic ), pl:GetAutomatic()
 		if not Automatic then AutomaticToGive = RandomAutomatic end
@@ -208,53 +208,53 @@ local function CalculateGivenSupplies ( pl )
 		end
 	end
 	
-	/*--------------------------- MELEE WEAPONS ----------------------------*/
+	--[==[--------------------------- MELEE WEAPONS ----------------------------]==]
 	local RandomMelee, Melee = table.Random ( Available.Melee ), pl:GetMelee()
 	local RandomMelee1 = { "weapon_zs_melee_pot","weapon_zs_melee_keyboard", "weapon_zs_melee_fryingpan", "weapon_zs_melee_plank" }
 	if not Melee then MeleeToGive = table.Random ( RandomMelee1 ) end
-	--[[
+	--[=[
 	if Melee then
 		if GAMEMODE.HumanWeapons[ RandomMelee ].DPS > GAMEMODE.HumanWeapons[ Melee:GetClass() ].DPS then
 			pl:StripWeapon ( Melee:GetClass() ) 
 			MeleeToGive = RandomMelee
 		end	
 	end
-	]]	
-	//Active weapon
+	]=]	
+	-- Active weapon
 	local ActiveWeapon = pl:GetActiveWeapon()
 	if ValidEntity ( ActiveWeapon ) then ActiveWeapon = ActiveWeapon:GetClass() end
 	
-	//Give the weapons ( in order - Melee, Pistol, Automatic )
-	if MeleeToGive != nil then 
+	-- Give the weapons ( in order - Melee, Pistol, Automatic )
+	if MeleeToGive ~= nil then 
 		if not pl:HasWeapon( MeleeToGive ) then
 			pl:Give ( MeleeToGive ) 
 		end
 	end
 	
-	if PistolToGive != nil then 
+	if PistolToGive ~= nil then 
 		if not pl:HasWeapon ( PistolToGive ) then
 			pl:Give ( PistolToGive )
 			pl:SelectWeapon ( PistolToGive ) 
 		end 
 	end
 	
-	if AutomaticToGive != nil then 
+	if AutomaticToGive ~= nil then 
 		if not pl:HasWeapon ( AutomaticToGive ) then
 			pl:Give ( AutomaticToGive ) 
 			pl:SelectWeapon ( AutomaticToGive ) 
 		end 
 	end
 	
-	/*--------------------------- AMMUNITION ----------------------------*/
+	--[==[--------------------------- AMMUNITION ----------------------------]==]
 	local AmmoList =  { "pistol", "ar2", "smg1", "buckshot", "xbowbolt", "357" }
 	for k,v in pairs ( AmmoList ) do
 		local HowMuch = GAMEMODE.AmmoRegeneration[v] or 50
 		HowMuch = HowMuch * 0.8
 		
-		//Double for ammoman upgrade
+		-- Double for ammoman upgrade
 		if pl:HasBought ( "ammoman" ) then HowMuch = HowMuch * 2 end
 		
-		//Double for infliction
+		-- Double for infliction
 		if Infliction >= 0.8 then HowMuch = HowMuch * 1.5 end
 		pl:GiveAmmo ( math.Clamp ( HowMuch, 1, 250 ), v )
 		
@@ -269,7 +269,7 @@ local function CalculateGivenSupplies ( pl )
 		end
 	end
 	
-	//Special case : mines, nailing hammers, barricade kits
+	-- Special case : mines, nailing hammers, barricade kits
 	local Special = { "weapon_zs_barricadekit" , "weapon_zs_tools_hammer", "mine", "grenade", "syringe","supplies" }
 	for i,j in pairs ( pl:GetWeapons() ) do
 		for k,v in pairs ( Special ) do
@@ -288,7 +288,7 @@ local function CalculateGivenSupplies ( pl )
 		end
 	end
 	
-	/*--------------------------- HEALTH ----------------------------*/
+	--[==[--------------------------- HEALTH ----------------------------]==]
 	local CurrentHealth, MaxHealth, AmountHeal = pl:Health(), pl:GetMaximumHealth(), 0
 	if CurrentHealth < MaxHealth then
 		AmountHeal = ( MaxHealth - CurrentHealth ) * 0.6
@@ -299,11 +299,11 @@ local function CalculateGivenSupplies ( pl )
 		pl:SetHealth ( math.Clamp ( CurrentHealth + AmountHeal, 0, MaxHealth ) )
 		pl:PrintMessage ( HUD_PRINTTALK, "[CRATES] You just got ammunition for your weapons and tools and restored "..math.Round ( AmountHeal ).." health!" )
 		
-		//Clear dot damage
+		-- Clear dot damage
 		pl:ClearDamageOverTime()
 	end
 	
-	//New perk requirements
+	-- New perk requirements
 	
 	if pl:GetHumanClass() == 1 then
 		if pl:GetTableScore("medic","level") == 0 and pl:GetTableScore("medic","achlevel0_2") < 100 then
@@ -341,31 +341,31 @@ local function CalculateGivenSupplies ( pl )
 	
 	Debug ( "[CRATES] Giving supplies to "..tostring ( pl ) )
 		
-	//Cooldown
+	-- Cooldown
 	pl.GotSupply = true
 end
 
-/*-------------------------------------------------------------
+--[==[-------------------------------------------------------------
       Manage player +USE on the ammo supply boxes
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 local function OnPlayerUse ( pl, key )
 	if not ValidEntity ( pl ) then return end
-	if key != IN_USE then return end
+	if key ~= IN_USE then return end
 	
-	//Main use trace
+	-- Main use trace
 	local vStart = pl:GetShootPos()
 	local tr = util.TraceLine ( { start = vStart, endpos = vStart + ( pl:GetAimVector() * 90 ), filter = pl, mask = MASK_SHOT } )
 	local entity = tr.Entity
 	
-	if not IsValid ( entity ) or pl:Team() != TEAM_HUMAN then return end
+	if not IsValid ( entity ) or pl:Team() ~= TEAM_HUMAN then return end
 	
 	if not entity.AmmoCrate then return end
-	//end this if the entity has no owner or isn't the parent
+	-- end this if the entity has no owner or isn't the parent
 	local Parent = entity:GetOwner()
-	if entity:GetClass() != "spawn_ammo" and entity:GetClass() != "prop_physics" then return end
-	if entity:GetClass() == "prop_physics" and ( Parent == NULL or ( IsValid ( Parent ) and Parent:GetClass() != "spawn_ammo" ) ) then return end
+	if entity:GetClass() ~= "spawn_ammo" and entity:GetClass() ~= "prop_physics" then return end
+	if entity:GetClass() == "prop_physics" and ( Parent == NULL or ( IsValid ( Parent ) and Parent:GetClass() ~= "spawn_ammo" ) ) then return end
 	
-	if GAMEMODE:GetFighting() then// and GAMEMODE:GetWave() ~= 6 then 
+	if GAMEMODE:GetFighting() then--  and GAMEMODE:GetWave() ~= 6 then 
 	if not pl.SupplyMessageTimer then pl.SupplyMessageTimer = 0 end
 		if pl.SupplyMessageTimer <= CurTime() then 
 			pl:Message ("Wait for the end of wave to get supplies!", 1, "white") 
@@ -375,13 +375,13 @@ local function OnPlayerUse ( pl, key )
 	
 	pl:SendLua("DoSkillShopMenu()")
 	
-	//Notify player that he already got supplies
-	//if not pl.SupplyMessageTimer then pl.SupplyMessageTimer = 0 end
-	//if pl.GotSupply == true then if pl.SupplyMessageTimer <= CurTime() then pl:Message ("You already got supplies. Wait for the next drop off!", 1, "white") pl.SupplyMessageTimer = CurTime() + 3.1 end return end
+	-- Notify player that he already got supplies
+	-- if not pl.SupplyMessageTimer then pl.SupplyMessageTimer = 0 end
+	-- if pl.GotSupply == true then if pl.SupplyMessageTimer <= CurTime() then pl:Message ("You already got supplies. Wait for the next drop off!", 1, "white") pl.SupplyMessageTimer = CurTime() + 3.1 end return end
 	
-	//pl:EmitSound ( Sound ( "mrgreen/supplycrates/itempickup.wav" ) )
-	//CalculateGivenSupplies( pl )
-	//GiveItemsFromCart(pl)
+	-- pl:EmitSound ( Sound ( "mrgreen/supplycrates/itempickup.wav" ) )
+	-- CalculateGivenSupplies( pl )
+	-- GiveItemsFromCart(pl)
 	
 	
 	Debug ( "[CRATES] "..tostring ( pl ).." used Supply Crate." )
@@ -390,30 +390,30 @@ local function OnPlayerUse ( pl, key )
 end
 hook.Add( "KeyPress", "KeyPressedHook", OnPlayerUse )
 
-/*-------------------------------------------------------------
+--[==[-------------------------------------------------------------
       Disable default use for the parent entity
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 local function DisableDefaultUseOnSupply ( pl, entity )
 	if ValidEntity ( entity ) and entity:GetClass() == "spawn_ammo" then return false end
 end
 hook.Add ( "PlayerUse", "DisableUseOnSupply", DisableDefaultUseOnSupply )
 
-/*-------------------------------------------------------------
+--[==[-------------------------------------------------------------
             Used to spawn the Supply Crate
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 local function SpawnSupply ( ID, Pos, Switch )
 	ID, Pos, Switch = ID or 1, Pos or Vector ( 0,0,0 ), Switch or false
 
-	//Create the entity, set it's ID, switch bool and position
+	-- Create the entity, set it's ID, switch bool and position
 	local Crate = ents.Create ( "spawn_ammo" ) 
 	Crate.ID, Crate.Switch = ID, tobool ( Switch )
 	Crate:SetPos ( Pos )
 	Crate:Spawn()
 end
 
-/*-------------------------------------------------------------
+--[==[-------------------------------------------------------------
 		TODO: Move to shared utils. 
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 function ClampWorldVector ( vec )
 	vec.x = math.Clamp( vec.x , -16380, 16380 )
 	vec.y = math.Clamp( vec.y , -16380, 16380 )
@@ -422,31 +422,31 @@ function ClampWorldVector ( vec )
 	return vec
 end
 
-/*-------------------------------------------------------------
+--[==[-------------------------------------------------------------
       Used to check if there's something in that spot 
 	      and delete it if it's small enough
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 local function TraceHullSupplyCrate ( Pos, Switch )
 
-	//Check to see if the spawn area isn't blocked
+	-- Check to see if the spawn area isn't blocked
 	local TraceHulls = { 
-		[1] = { Mins = Vector (-20,-33,0), Maxs = Vector ( 20, 33, 56 ) }, // Vector (-30,-35,56), Maxs = Vector ( 25, 40, 0 ) },
-		[2] = { Mins = Vector (-33,-20,0), Maxs = Vector ( 33, 20, 56 ) }, //Vector (-35,-30,56), Maxs = Vector ( 40, 25, 0 ) },
+		[1] = { Mins = Vector (-20,-33,0), Maxs = Vector ( 20, 33, 56 ) }, --  Vector (-30,-35,56), Maxs = Vector ( 25, 40, 0 ) },
+		[2] = { Mins = Vector (-33,-20,0), Maxs = Vector ( 33, 20, 56 ) }, -- Vector (-35,-30,56), Maxs = Vector ( 40, 25, 0 ) },
 	}
 	
 	local Position = 1
 	if Switch == false then Position = 2 end
 	
-	//Filters (to delete)
-	local Filters = { "vial", "mine", "nail", "gib", "supply", "turret", "spawn_ammo", "func_brush", "breakable", "player","weapon" } //func brush shit
+	-- Filters (to delete)
+	local Filters = { "vial", "mine", "nail", "gib", "supply", "turret", "spawn_ammo", "func_brush", "breakable", "player","weapon" } -- func brush shit
 	
-	//Find them in box
-	//local Ents, Found = ents.FindInBox ( ClampWorldVector ( Pos + TraceHulls[Position].Mins ), ClampWorldVector ( Pos + TraceHulls[Position].Maxs ) ), 0
+	-- Find them in box
+	-- local Ents, Found = ents.FindInBox ( ClampWorldVector ( Pos + TraceHulls[Position].Mins ), ClampWorldVector ( Pos + TraceHulls[Position].Maxs ) ), 0
 	local Ents, Found = ents.FindInBox ( ClampWorldVector ( Pos + TraceHulls[Position].Mins ), ClampWorldVector ( Pos + TraceHulls[Position].Maxs ) ), 0
 	for k,v in pairs ( Ents ) do
 		local Phys = v:GetPhysicsObject()
 		if ValidEntity ( Phys ) then
-			if not v:IsPlayer() and v:GetClass() != "spawn_ammo" and v:GetClass() != "prop_physics_multiplayer" then 
+			if not v:IsPlayer() and v:GetClass() ~= "spawn_ammo" and v:GetClass() ~= "prop_physics_multiplayer" then 
 				if v:OBBMins():Length() < TraceHulls[Position].Mins:Length() and v:OBBMaxs():Length() < TraceHulls[Position].Maxs:Length() or v:GetClass() == "prop_physics" then 
 					Debug ( "Removing object "..tostring ( v ).." to make space for Supply Crate Spawn!" )
 					v:Remove()
@@ -466,34 +466,34 @@ local function TraceHullSupplyCrate ( Pos, Switch )
 		end
 	end
 	
-	//We are blocked	
+	-- We are blocked	
 	if #Ents > 0 then return false end
 	
 	return true
 end
 
-/*-------------------------------------------------------------
+--[==[-------------------------------------------------------------
     Supply Items Director - calcs and drops supply items
---------------------------------------------------------------*/
---[[function GM:CalculateSupplyDrops ()
+--------------------------------------------------------------]==]
+--[=[function GM:CalculateSupplyDrops ()
 	if ENDROUND then return end
 	if #AmmoDropPoints["X"] == 0 then return end
 	
 	local Infliction = GetInfliction()
 	
-	//Get the old crates position so we don't spawn on the same place
+	-- Get the old crates position so we don't spawn on the same place
 	local LastPointsID = {}
 	for k,v in pairs ( ents.FindByClass ( "spawn_ammo" ) ) do
 		if v:IsValid() then
 			LastPointsID[v.ID] = v.ID
 			
-			//Remove sound
+			-- Remove sound
 			WorldSound ( Sound ( "physics/wood/wood_crate_break"..math.random( 1,5 )..".wav" ), v:GetPos(), 150, 100 )
 			
-			//Firstly gib the parent
+			-- Firstly gib the parent
 			v:Remove()
 			
-			//Then gib the children :D
+			-- Then gib the children :D
 			for i, child in pairs ( v:GetTable():GetChildren() ) do
 				if ValidEntity ( child ) then
 					child:Remove()
@@ -506,7 +506,7 @@ end
 		v.GotSupply = false
 	end
 	
-	//Spawn them!
+	-- Spawn them!
 	timer.Simple ( 0.1, function()
 		if ENDROUND then return end
 		if #AmmoDropPoints["X"] == 0 then return end
@@ -516,7 +516,7 @@ end
 			local SpawnBoxID = tonumber( AmmoDropPoints.ID[i] )
 			local LastID, SpawnPosition, Switch = LastPointsID [ SpawnBoxID ], Vector ( AmmoDropPoints.X[i], AmmoDropPoints.Y[i], AmmoDropPoints.Z[i] ), tobool ( AmmoDropPoints.Switch[i] )
 		
-			//Limit it to half then if the spot if clear right now and if it was clear before spawn.
+			-- Limit it to half then if the spot if clear right now and if it was clear before spawn.
 			if iSpawned < MAXIMUM_CRATES then
 				if TraceHullSupplyCrate ( SpawnPosition, Switch ) then
 					if LastID == nil then
@@ -530,33 +530,33 @@ end
 			end
 		end
 		
-		//Send crate positions to clients
+		-- Send crate positions to clients
 		timer.Simple ( 0.05, function() UpdateClientArrows() end )
 		
 		Debug ( "[CRATES] Resetting Supply Timer for every player" )
 	end )
-end]]
+end]=]
 --timer.Create ( "CalculateSupplyDrops" ,DEFAULT_SUPPLY_CRATE_SPAWN_TIME, 0, CalculateSupplyDrops )
-/*
+--[==[
 function GM:CalculateSupplyDrops ()
 	if ENDROUND then return end
 	if #AmmoDropPoints["X"] == 0 then return end
 	
 	local Infliction = GetInfliction()
 	
-	//Get the old crates position so we don't spawn on the same place
+	-- Get the old crates position so we don't spawn on the same place
 	local LastPointsID = {}
 	for k,v in pairs ( ents.FindByClass ( "spawn_ammo" ) ) do
 		if v:IsValid() then
 			LastPointsID[v.ID] = v.ID
 			
-			//Remove sound
+			-- Remove sound
 			WorldSound ( Sound ( "physics/wood/wood_crate_break"..math.random( 1,5 )..".wav" ), v:GetPos(), 150, 100 )
 			
-			//Firstly gib the parent
+			-- Firstly gib the parent
 			v:Remove()
 			
-			//Then gib the children :D
+			-- Then gib the children :D
 			for i, child in pairs ( v:GetTable():GetChildren() ) do
 				if ValidEntity ( child ) then
 					child:Remove()
@@ -569,7 +569,7 @@ function GM:CalculateSupplyDrops ()
 		v.GotSupply = false
 	end
 	
-	//Spawn them!
+	-- Spawn them!
 	timer.Simple ( 0.1, function()
 		if ENDROUND then return end
 		if #AmmoDropPoints["X"] == 0 then return end
@@ -579,7 +579,7 @@ function GM:CalculateSupplyDrops ()
 			local SpawnBoxID = tonumber( AmmoDropPoints.ID[i] )
 			local LastID, SpawnPosition, Switch = LastPointsID [ SpawnBoxID ], Vector ( AmmoDropPoints.X[i], AmmoDropPoints.Y[i], AmmoDropPoints.Z[i] ), tobool ( AmmoDropPoints.Switch[i] )
 		
-			//Limit it to half then if the spot if clear right now and if it was clear before spawn.
+			-- Limit it to half then if the spot if clear right now and if it was clear before spawn.
 			if iSpawned < MAXIMUM_CRATES then
 				if TraceHullSupplyCrate ( SpawnPosition, Switch ) then
 					if LastID == nil then
@@ -593,12 +593,12 @@ function GM:CalculateSupplyDrops ()
 			end
 		end
 		
-		//Send crate positions to clients
+		-- Send crate positions to clients
 		timer.Simple ( 0.05, function() UpdateClientArrows() end )
 		
 		Debug ( "[CRATES] Resetting Supply Timer for every player" )
 	end )
-end*/
+end]==]
 
 function GM:CalculateSupplyDrops()
 	if ENDROUND then return end
@@ -606,15 +606,15 @@ function GM:CalculateSupplyDrops()
 	
 	
 	
-	for k,v in ipairs ( ActualCrates ) do//ents.FindByClass ( "spawn_ammo" )
+	for k,v in ipairs ( ActualCrates ) do-- ents.FindByClass ( "spawn_ammo" )
 		if IsValid(v) then			
-			//Remove sound
+			-- Remove sound
 			WorldSound ( Sound ( "physics/wood/wood_crate_break"..math.random( 1,5 )..".wav" ), v:GetPos(), 150, 100 )
 			
-			//Firstly gib the parent
+			-- Firstly gib the parent
 			v:Remove()
 			
-			//Then gib the children :D
+			-- Then gib the children :D
 			for i, child in pairs ( v:GetTable():GetChildren() ) do
 				if ValidEntity ( child ) then
 					child:Remove()
@@ -629,7 +629,7 @@ function GM:CalculateSupplyDrops()
 		v.GotSupply = false
 	end
 	
-	//Spawn them!
+	-- Spawn them!
 	timer.Simple ( 0.1, function()
 		if ENDROUND then return end
 		if #FullCrateSpawns < 1 then return end
@@ -638,7 +638,7 @@ function GM:CalculateSupplyDrops()
 		self:SpawnCratesFromTable(FullCrateSpawns)
 		
 		
-		//Send crate positions to clients
+		-- Send crate positions to clients
 		timer.Simple ( 0.05, function() UpdateClientArrows() end )
 		
 		Debug ( "[CRATES] Resetting Supply Timer for every player" )
@@ -658,9 +658,9 @@ function GM:GetClosestCrate(cratetable)
 		local humans = team.GetPlayers(TEAM_HUMAN)
 		for _, hm in pairs(humans) do
 			if IsValid(hm) and hm:Alive() then
-					//count humans
+					-- count humans
 				hm._Hum = 0
-				local buddies = team.GetPlayers(TEAM_HUMAN)//ents.FindInSphere( hm:GetPos(), 700 )
+				local buddies = team.GetPlayers(TEAM_HUMAN)-- ents.FindInSphere( hm:GetPos(), 700 )
 				for k, bud in pairs(buddies) do
 					if IsValid(bud) and bud:IsPlayer() and bud:Alive() and bud ~= hm and bud:IsHuman() and hm:GetPos():Distance(bud:GetPos()) <= 700 then
 						hm._Hum = hm._Hum + 1
@@ -672,7 +672,7 @@ function GM:GetClosestCrate(cratetable)
 		
 		table.sort(tab, SortByHumens)
 		
-		//we got the guy with most buddies around
+		-- we got the guy with most buddies around
 		
 		local luckyguy = tab[1]
 		
@@ -680,7 +680,7 @@ function GM:GetClosestCrate(cratetable)
 				
 			local nearpos = luckyguy:GetPos()
 			local Closest = 1000000
-			//local dist = 0
+			-- local dist = 0
 			local ind = 1
 			
 			for _, tbl in pairs(cratetable) do
@@ -746,18 +746,18 @@ function GM:SpawnCratesFromTable(cratetable)
 	Debug ( "[CRATES] Spawned Supply Crate." )
 end
 
-/*--------------------------------------------------------------
+--[==[--------------------------------------------------------------
            Called on player ready - update stuff cl-side
----------------------------------------------------------------*/
+---------------------------------------------------------------]==]
 local function UpdatePlayerData( pl )
 	if not IsEntityValid ( pl ) then return end
 	
-	//Be sure to update on pl ready
+	-- Be sure to update on pl ready
 	UpdateClientArrows( pl )
 end
 hook.Add ( "PlayerReady", "UpdateArrow", UpdatePlayerData )
 
-//Precache the gib models
+-- Precache the gib models
 for i = 1, 9 do
 	util.PrecacheModel ( "models/items/item_item_crate_chunk0"..i..".mdl" )
 end

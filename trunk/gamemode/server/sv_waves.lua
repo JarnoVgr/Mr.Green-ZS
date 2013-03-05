@@ -45,14 +45,14 @@ function GM:SetRandomsToZombie()
 
 	if vols == desiredzombies then
 		for _, pl in pairs(voltab) do
-			if pl:Team() != TEAM_UNDEAD then
-				--[[local ID = pl:UniqueID() or "UNCONNECTED"
+			if pl:Team() ~= TEAM_UNDEAD then
+				--[=[local ID = pl:UniqueID() or "UNCONNECTED"
 				pl:StripWeapons()
 				pl:SetTeam(TEAM_UNDEAD)
 				self:SetFrags ( 0 )
 				DataTableConnected[ID].IsDead = true
 				
-				pl:Spawn()]]
+				pl:Spawn()]=]
 				pl:SetFirstZombie()
 				umsg.Start("recvolfirstzom", pl)
 				umsg.End()
@@ -61,12 +61,12 @@ function GM:SetRandomsToZombie()
 	elseif vols < desiredzombies then
 		local spawned = 0
 		for i, pl in ipairs(voltab) do
-			if pl:Team() != TEAM_UNDEAD then
-				--[[local ID = pl:UniqueID() or "UNCONNECTED"
+			if pl:Team() ~= TEAM_UNDEAD then
+				--[=[local ID = pl:UniqueID() or "UNCONNECTED"
 				pl:SetTeam(TEAM_UNDEAD)
 				DataTableConnected[ID].IsDead = true
 				pl:StripWeapons()
-				pl:Spawn()]]
+				pl:Spawn()]=]
 				pl:SetFirstZombie()
 				umsg.Start("recvolfirstzom", pl)
 				umsg.End()
@@ -79,12 +79,12 @@ function GM:SetRandomsToZombie()
 
 			if 0 < #humans then
 				local pl = humans[math.random(1, #humans)]
-				if pl:Team() != TEAM_UNDEAD then
-					--[[local ID = pl:UniqueID() or "UNCONNECTED"
+				if pl:Team() ~= TEAM_UNDEAD then
+					--[=[local ID = pl:UniqueID() or "UNCONNECTED"
 					pl:SetTeam(TEAM_UNDEAD)
 					DataTableConnected[ID].IsDead = true
 					pl:StripWeapons()
-					pl:Spawn()]]
+					pl:Spawn()]=]
 					pl:SwitchToZombie()
 					umsg.Start("recranfirstzom", pl)
 					umsg.End()
@@ -96,11 +96,11 @@ function GM:SetRandomsToZombie()
 			if desiredzombies < i and pl:Team() == TEAM_HUMAN then
 				pl:SetPos(self:PlayerSelectSpawn(pl):GetPos())
 			else
-				--[[local ID = pl:UniqueID() or "UNCONNECTED"
+				--[=[local ID = pl:UniqueID() or "UNCONNECTED"
 				pl:SetTeam(TEAM_UNDEAD)
 				DataTableConnected[ID].IsDead = true
 				pl:StripWeapons()
-				pl:Spawn()]]
+				pl:Spawn()]=]
 				pl:SetFirstZombie()
 				umsg.Start("recvolfirstzom", pl)
 				umsg.End()
@@ -125,7 +125,7 @@ function GM:SetRandomsToFirstZombie()
 		local undead = team.GetPlayers(TEAM_UNDEAD)
 		if 4 < #humans then
 				local pl = humans[math.random(1, #humans)]
-				if pl:Team() != TEAM_UNDEAD then
+				if pl:Team() ~= TEAM_UNDEAD then
 					pl:SetFirstZombie()
 					umsg.Start("recranfirstzom", pl)
 					umsg.End()
@@ -153,7 +153,7 @@ function GM:CalculateInfliction()
 	CAPPED_INFLICTION = INFLICTION
 
 	if humans == 1 and 3 < zombies then
-		//spawn all guys
+		-- spawn all guys
 		for _,pl in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
 			pl:ConCommand("ChangeClass 1")
 		end
@@ -188,11 +188,11 @@ function GM:FullGameUpdate(pl)
 		net.WriteFloat(self:GetWaveEnd())
 	net.Send(pl)
 
-	/*umsg.Start("reczsgamestate", pl)
+	--[==[umsg.Start("reczsgamestate", pl)
 		umsg.Short(self:GetWave())
 		umsg.Short(self:GetWaveStart())
 		umsg.Short(self:GetWaveEnd())
-	umsg.End()*/
+	umsg.End()]==]
 end
 
 util.AddNetworkString( "SetInf" )
@@ -203,9 +203,9 @@ function GM:SendInfliction()
 		net.WriteFloat(INFLICTION)
 	net.Broadcast()
 	
-	/*umsg.Start("SetInf", to)
+	--[==[umsg.Start("SetInf", to)
 		umsg.Float(INFLICTION)
-	umsg.End()*/
+	umsg.End()]==]
 end
 
 util.AddNetworkString( "SetInfInit" )
@@ -217,10 +217,10 @@ function GM:SendInflictionInit(to)
 		net.WriteDouble(self:GetWave())
 	net.Send(to)
 	
-	/*umsg.Start("SetInfInit", to)
+	--[==[umsg.Start("SetInfInit", to)
 		umsg.Float(INFLICTION)
 		umsg.Short(self:GetWave())
-	umsg.End()*/
+	umsg.End()]==]
 end
 
 function GM:GetLivingZombies()
@@ -236,9 +236,9 @@ function GM:GetLivingZombies()
 	return tab
 end
 
-//timer.Create("UpdateLiving", 5, 0,function()
-// GAMEMODE:GetLivingZombies()
-//end)
+-- timer.Create("UpdateLiving", 5, 0,function()
+--  GAMEMODE:GetLivingZombies()
+-- end)
 
 function GM:NumLivingZombies()
 	return self.LivingZombies
@@ -271,7 +271,7 @@ function SecondWind(pl)
 end
 
 function GM:DefaultRevive(pl)
-	//local status = pl:GiveStatus("revive")
+	-- local status = pl:GiveStatus("revive")
 	local status = pl:GiveStatus("revive")
 	if status then
 		status:SetReviveTime(CurTime() + 2.25)
@@ -293,7 +293,7 @@ function GM:PlayerUse(pl, entity)
 		self:TryHumanPickup(pl, entity)
 	end
 	
-	--[[local entclass = entity:GetClass()
+	--[=[local entclass = entity:GetClass()
 	if (string.find(entclass, "prop_physics") or entclass == "func_physbox") and pl:Team() == TEAM_HUMAN and not entity.Nails and pl:Alive() and entity:GetMoveType() == MOVETYPE_VPHYSICS and entity:GetPhysicsObject():GetMass() <= CARRY_MAXIMUM_MASS and entity:GetPhysicsObject():IsMoveable() and entity:OBBMins():Length() + entity:OBBMaxs():Length() <= CARRY_MAXIMUM_VOLUME then
 		local holder, status = entity:GetHolder()
 		if holder == pl and pl.NextUnHold < CurTime() then
@@ -312,7 +312,7 @@ function GM:PlayerUse(pl, entity)
 				self:SetPlayerSpeed(pl, math.max(CARRY_SPEEDLOSS_MINSPEED, CalculatePlayerSpeed(pl) - entity:GetPhysicsObject():GetMass() * CARRY_SPEEDLOSS_PERKG))
 			end
 		end
-	end]]
+	end]=]
 
 	return true
 end
@@ -322,7 +322,7 @@ function GM:TryHumanPickup(pl, entity)
 	if IsValid(entity) and not entity.m_NoPickup then
 		local entclass = entity:GetClass()
 		if (entclass == "prop_physics" or entclass == "prop_physics_multiplayer" or entclass == "prop_physics_respawnable" or entclass == "func_physbox" or entity.HumanHoldable and entity:HumanHoldable(pl)) and pl:Team() == TEAM_HUMAN and not entity.Nails and pl:Alive() and entity:GetMoveType() == MOVETYPE_VPHYSICS and entity:GetPhysicsObject():GetMass() <= CARRY_MAXIMUM_MASS and entity:GetPhysicsObject():IsMoveable() and entity:OBBMins():Length() + entity:OBBMaxs():Length() <= CARRY_MAXIMUM_VOLUME then
-			//(string.sub(entclass, 1, 12) == "prop_physics"
+			-- (string.sub(entclass, 1, 12) == "prop_physics"
 			local holder, status = entity:GetHolder()
 			if holder == pl and (pl.NextUnHold or 0) <= CurTime() then
 				status:Remove()
@@ -355,7 +355,7 @@ function GM:AddRandomSales()
 	
 	print("Sale chance is: "..SKILLSHOP_SALE.."%")
 	
-	//if passed then
+	-- if passed then
 	
 	self.Sale = true
 	
@@ -363,7 +363,7 @@ function GM:AddRandomSales()
 	local TempWeps = {}
 	local counter = 0
 	
-	//filter weapons with price
+	-- filter weapons with price
 	for wep,tab in pairs(GAMEMODE.HumanWeapons) do
 		if tab.Price then
 			table.insert(TempWeps,wep)
@@ -373,14 +373,14 @@ function GM:AddRandomSales()
 	print("Today there are "..actualitems.." item(s) on sale")
 	print("Weapons - discount in percentages")
 	
-	//Add X random weapons
+	-- Add X random weapons
 	while counter < actualitems do
 		
 		local wep = table.Random(TempWeps)
 		if not self.WeaponsOnSale[wep] then
 			self.WeaponsOnSale[wep] = math.random(SKILLSHOP_SALE_SALE_MINRANGE,SKILLSHOP_SALE_SALE_MAXRANGE)
 			counter = counter + 1
-			//Change actual price 
+			-- Change actual price 
 			GAMEMODE.HumanWeapons[wep].Price = math.ceil(GAMEMODE.HumanWeapons[wep].Price - GAMEMODE.HumanWeapons[wep].Price*(self.WeaponsOnSale[wep]/100))
 		end
 		
@@ -399,7 +399,7 @@ function GM:SendSalesToClient(pl)
 	
 	if pl:IsBot() then return end
 	if not self.WeaponsOnSale then return end
-	//if #self.WeaponsOnSale < 1 then return end
+	-- if #self.WeaponsOnSale < 1 then return end
 	
 	
 	net.Start("SendSales")
@@ -409,15 +409,15 @@ function GM:SendSalesToClient(pl)
 				net.WriteDouble(self.WeaponsOnSale[wep])
 			end
 	net.Send(pl)
-	/*umsg.Start( "SendSales",pl )
-		//Define amount of items
+	--[==[umsg.Start( "SendSales",pl )
+		-- Define amount of items
 		umsg.Short(self.ItemsOnSale)
-			//send the stuff
+			-- send the stuff
 			for wep, tab in pairs(self.WeaponsOnSale) do
 				umsg.String(wep)
 				umsg.Short(self.WeaponsOnSale[wep])
 			end
-	umsg.End()*/
+	umsg.End()]==]
 	
 end
 --small function that fixes weird errors
@@ -438,7 +438,7 @@ function GM:EnableSuperBoss()
 		print("--Super Boss activated!--")
 	end
 	
-	//SUPER_BOSS = true
+	-- SUPER_BOSS = true
 	
 	if SUPER_BOSS then
 	

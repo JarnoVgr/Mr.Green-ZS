@@ -1,11 +1,11 @@
---[[
+--[=[
 
 Bone Animations Library
 Created by William "JetBoom" Moodhe (williammoodhe@gmail.com / www.noxiousnet.com)
 Because I wanted custom, dynamic animations.
 Give credit or reference if used in your creations.
 
-]]
+]=]
 
 TYPE_GESTURE = 0 -- Gestures are keyframed animations that use the current position and angles of the bones. They play once and then stop automatically.
 TYPE_POSTURE = 1 -- Postures are static animations that use the current position and angles of the bones. They stay that way until manually stopped. Use TimeToArrive if you want to have a posture lerp.
@@ -243,7 +243,7 @@ function GetBoneParentID(boneid)
 	end
 end
 
---[[function GetRelativeBoneAngles(ent, bonename,
+--[=[function GetRelativeBoneAngles(ent, bonename,
 								parentangles)
 
 	local boneindex = ent:LookupBone(bonename)
@@ -261,7 +261,7 @@ end
 	if not parent or parent == bonename then return ang end
 
 	return GetRelativeBoneAngles(ent, parent, ang)
-end]]
+end]=]
 
 -- Gets angles relative to the parent's angles.
 function GetRelativeBoneAngles(ent, bonename)
@@ -284,7 +284,7 @@ function GetRelativeBoneAngles(ent, bonename)
 	return ang
 end
 
---[[function GetRelativeBoneAngles(ent, bonename)
+--[=[function GetRelativeBoneAngles(ent, bonename)
 	local boneindex = ent:LookupBone(bonename)
 	if not boneindex then return parentangles end
 	local matrix = ent:GetBoneMatrix(boneindex)
@@ -303,7 +303,7 @@ end
 	local parentangles = parentmatrix:GetAngles() - (absoluteangles[string.lower(ent:GetBoneName(parent) or "")] or Angle(0, 0, 0))
 
 	return matrix:GetAngles() - parentangles
-end]]
+end]=]
 
 function CopyFrameData(ent)
 	local framedata = {BoneInfo = {}, FrameRate = 1}
@@ -378,7 +378,7 @@ RegisterLuaAnimation('aaaa2', {
 	Type = TYPE_STANCE
 })
 
-//Pistol!
+-- Pistol!
 RegisterLuaAnimation('cast_revolver', {
 	FrameData = {
 		{
@@ -461,7 +461,7 @@ RegisterLuaAnimation('cast_revolver', {
 	Type = TYPE_GESTURE
 })
 
-//shotgun
+-- shotgun
 RegisterLuaAnimation('cast_shotgun', {
 	FrameData = {
 		{
@@ -537,7 +537,7 @@ RegisterLuaAnimation('cast_shotgun', {
 	Type = TYPE_GESTURE
 })
 
-//ar2
+-- ar2
 RegisterLuaAnimation('cast_ar2', {
 	FrameData = {
 		{
@@ -618,7 +618,7 @@ RegisterLuaAnimation('cast_ar2', {
 	Type = TYPE_GESTURE
 })
 
-//smg
+-- smg
 RegisterLuaAnimation('cast_smg', {
 	FrameData = {
 		{
@@ -683,7 +683,7 @@ RegisterLuaAnimation('cast_smg', {
 	Type = TYPE_GESTURE
 })
 
-//crossbow
+-- crossbow
 RegisterLuaAnimation('cast_crossbow', {
 	FrameData = {
 		{
@@ -752,7 +752,7 @@ RegisterLuaAnimation('cast_crossbow', {
 	Type = TYPE_GESTURE
 })
 
-/* EXAMPLES!
+--[==[ EXAMPLES!
 
 -- If your animation is only used on one model, use numbers instead of bone names (cache the lookup).
 -- If it's being used on a wide array of models (including default player models) then you should use bone names.
@@ -793,11 +793,11 @@ RegisterLuaAnimation("stancetest", {
 	Type = TYPE_STANCE
 })
 
---[[
+--[=[
 STANCE: staffholdspell
 To be used with the ACT_HL2MP_IDLE_MELEE2 animation.
 Player holds the staff so that their left hand is over the top of it.
-]]
+]=]
 
 RegisterLuaAnimation("staffholdspell", {
 	FrameData = {
@@ -871,4 +871,4 @@ RegisterLuaAnimation("staffholdspell", {
 	end
 })
 
-*/
+]==]

@@ -30,7 +30,7 @@ end
 		
 		local health = self:GetDTInt(0) / self:GetDTInt(1)
 		
-		//render.SetColorModulation( (255 - self.Entity:GetNWInt("NailHealth")) / 255, (self.Entity:GetNWInt("NailHealth") ) / 255, 0 )
+		-- render.SetColorModulation( (255 - self.Entity:GetNWInt("NailHealth")) / 255, (self.Entity:GetNWInt("NailHealth") ) / 255, 0 )
 		render.SetColorModulation(1 - health, health, 0)
 			self:SetModelScale( 1.2,0 )
 			self:DrawModel()

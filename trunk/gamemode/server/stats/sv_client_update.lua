@@ -19,12 +19,12 @@ function stats.SendAchievementsData( from, to )
 			net.WriteTable(from.DataTable["Achievements"])
 		net.Send(to)
 	
-		/*umsg.Start( "SetAchievementsData", to )
+		--[==[umsg.Start( "SetAchievementsData", to )
 			umsg.Entity( from )
 			for k, v in ipairs( achievementDesc ) do
 				umsg.Bool( from.DataTable["Achievements"][k] )
 			end
-		umsg.End()*/
+		umsg.End()]==]
 	end
 end
 
@@ -34,18 +34,18 @@ function stats.SendStatsData( from, to )
 	if IsValid( to ) and IsValid( from ) and not from:IsBot() then
 		if from.DataTable then
 			for k,v in pairs( from.DataTable ) do
-				if type( v ) != "table" then
+				if type( v ) ~= "table" then
 					
 					net.Start("SetStatsData")
 						net.WriteEntity(from)
 						net.WriteString(tostring( k ))
 						net.WriteString(tostring( v ))
 					net.Send(to)
-					/*umsg.Start( "SetStatsData", to )
+					--[==[umsg.Start( "SetStatsData", to )
 						umsg.Entity( from )
 						umsg.String( tostring( k ) )
 						umsg.String( tostring( v ) )
-					umsg.End()*/
+					umsg.End()]==]
 				end
 			end
 		end
@@ -54,10 +54,10 @@ end
 
 function stats.SendRecordsData( from, to )
 
-	//Set achievement data for player
+	-- Set achievement data for player
 	stats.SendAchievementsData( from, to )
 	
-	//TODO RECORD DATA
+	-- TODO RECORD DATA
 	stats.SendStatsData( from, to )
 end
 
@@ -73,7 +73,7 @@ function stats.SendClassDatastream( to )
 				net.WriteTable(to.DataTable["ClassData"])
 			net.Send(to)
 			
-			/*umsg.Start( "SendClassData", to )
+			--[==[umsg.Start( "SendClassData", to )
 				for k, v in pairs( classData ) do
 					for _,keys in pairs ( v ) do
 						local Value = 0
@@ -83,7 +83,7 @@ function stats.SendClassDatastream( to )
 						umsg.Long( Value )
 					end
 				end
-			umsg.End()*/
+			umsg.End()]==]
 		end
 	end
 end
@@ -99,12 +99,12 @@ function stats.SendShopData( from, to )
 				net.WriteTable(from.DataTable["ShopItems"])
 			net.Send(to)
 			
-			/*umsg.Start( "SetShopData", to )
+			--[==[umsg.Start( "SetShopData", to )
 				umsg.Entity( from )
 				for k, v in ipairs(shopData) do
 					umsg.Bool( from.DataTable["ShopItems"][k] )
 				end
-			umsg.End()*/
+			umsg.End()]==]
 		end
 	end
 end
@@ -117,8 +117,8 @@ function GM:SendUpgradeNumber ( to )
 			net.WriteDouble(to.TotalUpgrades or 0)
 		net.Broadcast()
 	
-		/*umsg.Start ( "SendUpgradeNumbers", to )
+		--[==[umsg.Start ( "SendUpgradeNumbers", to )
 			umsg.Short ( to.TotalUpgrades or 0 )
-		umsg.End()*/
+		umsg.End()]==]
 	end
 end

@@ -1,6 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
-/*
+--[==[
 function GM:HandlePlayerJumping( ply, velocity )
 	
 	if ( ply:GetMoveType() == MOVETYPE_NOCLIP ) then
@@ -10,13 +10,13 @@ function GM:HandlePlayerJumping( ply, velocity )
 
 	-- airwalk more like hl2mp, we airwalk until we have 0 velocity, then it's the jump animation
 	-- underwater we're alright we airwalking
-	if ( !ply.m_bJumping && !ply:OnGround() && ply:WaterLevel() <= 0 ) then
+	if ( not ply.m_bJumping and not ply:OnGround() and ply:WaterLevel() <= 0 ) then
 	
-		if ( !ply.m_fGroundTime ) then
+		if ( not ply.m_fGroundTime ) then
 
 			ply.m_fGroundTime = CurTime()
 			
-		elseif (CurTime() - ply.m_fGroundTime) > 0 && velocity:Length2D() < 0.5 then
+		elseif (CurTime() - ply.m_fGroundTime) > 0 and velocity:Length2D() < 0.5 then
 
 			ply.m_bJumping = true
 			ply.m_bFirstJumpFrame = false
@@ -34,7 +34,7 @@ function GM:HandlePlayerJumping( ply, velocity )
 
 		end
 		
-		if ( ply:WaterLevel() >= 2 ) ||	( (CurTime() - ply.m_flJumpStartTime) > 0.2 && ply:OnGround() ) then
+		if ( ply:WaterLevel() >= 2 ) or	( (CurTime() - ply.m_flJumpStartTime) > 0.2 and ply:OnGround() ) then
 
 			ply.m_bJumping = false
 			ply.m_fGroundTime = nil
@@ -53,7 +53,7 @@ end
 
 function GM:HandlePlayerDucking( ply, velocity )
 
-	if ( !ply:Crouching() ) then return false end
+	if ( not ply:Crouching() ) then return false end
 
 	if ( velocity:Length2D() > 0.5 ) then
 		ply.CalcIdeal = ACT_MP_CROUCHWALK
@@ -69,7 +69,7 @@ function GM:HandlePlayerNoClipping( ply, velocity )
 
 	if ( ply:InVehicle() ) then return end
 
-	if ( ply:GetMoveType() != MOVETYPE_NOCLIP ) then 
+	if ( ply:GetMoveType() ~= MOVETYPE_NOCLIP ) then 
 
 		if ( ply.m_bWasNoclipping ) then
 
@@ -83,7 +83,7 @@ function GM:HandlePlayerNoClipping( ply, velocity )
 
 	end
 
-	if ( !ply.m_bWasNoclipping ) then
+	if ( not ply.m_bWasNoclipping ) then
 
 		ply:AnimRestartGesture( GESTURE_SLOT_CUSTOM, ACT_GMOD_NOCLIP_LAYER, false )
 		if ( CLIENT ) then ply:SetIK( false ); end
@@ -127,7 +127,7 @@ function GM:HandlePlayerLanding( ply, velocity, WasOnGround )
 
 	if ( ply:GetMoveType() == MOVETYPE_NOCLIP ) then return end
 
-	if ( ply:IsOnGround() && !WasOnGround ) then
+	if ( ply:IsOnGround() and not WasOnGround ) then
 		ply:AnimRestartGesture( GESTURE_SLOT_JUMP, ACT_LAND, true );
 	end
 
@@ -138,10 +138,10 @@ function GM:HandlePlayerDriving( ply )
 	if ply:InVehicle() then
 		local pVehicle = ply:GetVehicle()
 		
-		if ( pVehicle.HandleAnimation != nil ) then
+		if ( pVehicle.HandleAnimation ~= nil ) then
 		
 			local seq = pVehicle:HandleAnimation( ply )
-			if ( seq != nil ) then
+			if ( seq ~= nil ) then
 				ply.CalcSeqOverride = seq
 				return true
 			end
@@ -154,7 +154,7 @@ function GM:HandlePlayerDriving( ply )
 				ply.CalcSeqOverride = ply:LookupSequence( "drive_jeep" )
 			elseif ( class == "prop_vehicle_airboat" ) then
 				ply.CalcSeqOverride = ply:LookupSequence( "drive_airboat" )
-			elseif ( class == "prop_vehicle_prisoner_pod" && pVehicle:GetModel() == "models/vehicles/prisoner_pod_inner.mdl" ) then
+			elseif ( class == "prop_vehicle_prisoner_pod" and pVehicle:GetModel() == "models/vehicles/prisoner_pod_inner.mdl" ) then
 				-- HACK!!
 				ply.CalcSeqOverride = ply:LookupSequence( "drive_pd" )
 			else
@@ -192,7 +192,7 @@ function GM:GrabEarAnimation( ply )
 	
 		local Name = ply:GetFlexName( i )
 
-		if ( Name == "jaw_drop" || Name == "right_part" || Name == "left_part" || Name == "right_mouth_drop" || Name == "left_mouth_drop"  ) then
+		if ( Name == "jaw_drop" or Name == "right_part" or Name == "left_part" or Name == "right_mouth_drop" or Name == "left_mouth_drop"  ) then
 
 			if ( ply:IsSpeaking() ) then
 				ply:SetFlexWeight( i, math.Clamp( ply:VoiceVolume() * 2, 0, 2 ) )
@@ -204,4 +204,4 @@ function GM:GrabEarAnimation( ply )
 	end
 	
 end
-*/
+]==]

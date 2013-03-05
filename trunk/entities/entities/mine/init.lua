@@ -35,7 +35,7 @@ end
 function ENT:Think()
 	if not ValidEntity ( self ) then return end
 
-	--[[local e = ents.FindInSphere( self.Entity:GetPos(), 130 )
+	--[=[local e = ents.FindInSphere( self.Entity:GetPos(), 130 )
 	for a,pl in pairs(e) do
 		if pl:IsPlayer() and pl:Team() == TEAM_UNDEAD and pl:Alive() and not pl:IsCrow() then
 			local trace = {}
@@ -51,7 +51,7 @@ function ENT:Think()
 				function self.Think() end
 			end
 		end
-	end]]
+	end]=]
 	
 	-- In case the owner dies
 	local Owner = self:GetOwner()
@@ -62,7 +62,7 @@ function ENT:Think()
 			Effect:SetMagnitude( 300 )
 		util.Effect("Explosion", Effect)
 		
-		//Remove it
+		-- Remove it
 		self.Entity:Remove()
 	end
 end
@@ -81,8 +81,8 @@ function ENT:Explode()
 	Ent.Inflictor = "weapon_zs_mine"
 	Ent:SetOwner( self:GetOwner() )
 	Ent:Activate()
-	Ent:SetKeyValue( "iMagnitude",180  )//math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )
-	Ent:SetKeyValue( "iRadiusOverride",120   )//math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )
+	Ent:SetKeyValue( "iMagnitude",180  )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )
+	Ent:SetKeyValue( "iRadiusOverride",120   )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )
 	Ent:Fire("explode", "", 0)
 	
 	-- Shaken, not stirred
@@ -98,10 +98,10 @@ function ENT:Explode()
 	shake:Activate()
 	shake:Fire( "StartShake", "", 0 )
 	
-	//timer.Simple(0,function (me)
-		//if not ValidEntity(self.Entity) then return end
-		self:Remove()// end,
-		//self)
+	-- timer.Simple(0,function (me)
+		-- if not ValidEntity(self.Entity) then return end
+		self:Remove()--  end,
+		-- self)
 end
 
 function ENT:WallPlant(hitpos, forward)
@@ -110,7 +110,7 @@ function ENT:WallPlant(hitpos, forward)
 end
 
 function ENT:PhysicsCollide( data, phys ) 
-	if ( !data.HitEntity:IsWorld() ) then return end
+	if ( not data.HitEntity:IsWorld() ) then return end
 	phys:EnableMotion( false )
 	self:WallPlant( nil, data.HitNormal:GetNormal() * -1 )
 end

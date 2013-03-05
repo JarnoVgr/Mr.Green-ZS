@@ -3,14 +3,14 @@
 
 if SERVER then AddCSLuaFile( "shared.lua" ) end
 
-//Melee base
+-- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
 if CLIENT then
 SWEP.ShowViewModel = true
 SWEP.ShowWorldModel = true
 SWEP.IgnoreBonemerge = true
-//SWEP.RotateFingers = Angle(12,-35,0)
+-- SWEP.RotateFingers = Angle(12,-35,0)
 
 SWEP.DummyModel = true
 end
@@ -31,20 +31,20 @@ function SWEP:InitializeClientsideModels()
 	
 end
 
-//Model paths
+-- Model paths
 SWEP.Author = "Deluvas"
 SWEP.ViewModel = Model ( "models/weapons/v_keyboard/v_keyboard.mdl" )
 SWEP.WorldModel = Model ( "models/weapons/w_keyboard.mdl" )
 
-//Name and fov
+-- Name and fov
 SWEP.PrintName = "Keyboard"
 SWEP.ViewModelFOV = 75
 
-//Slot position
+-- Slot position
 SWEP.Slot = 2
 SWEP.SlotPos = 5
 
-//Damage, distane, delay
+-- Damage, distane, delay
 SWEP.Primary.Damage = 40
 SWEP.Primary.Delay = 0.75
 SWEP.Primary.Distance = 70
@@ -67,7 +67,7 @@ function SWEP:PlayHitSound()
 	self:EmitSound("weapons/melee/keyboard/keyboard_hit-0"..math.random(1, 4)..".wav")
 end
 
-//Killicon
+-- Killicon
 if CLIENT then killicon.AddFont( "weapon_zs_melee_keyboard", "ZSKillicons", "d", Color(255, 255, 255, 255 ) ) end
  
 

@@ -53,9 +53,9 @@ zButtons = nil
 
 ZOMBIE_CLASSES = false
 
---[[--------------------------------------------------------
+--[=[--------------------------------------------------------
         Initialize the fonts used for the menu
----------------------------------------------------------]]
+---------------------------------------------------------]=]
 function InitMenuFonts()
 	-- Bold Arials
 	surface.CreateFont("Arial", ScreenScale(16.4), 700, true, false, "ArialBoldThirty")
@@ -74,12 +74,12 @@ for k = 1, 8 do
 	bloodSplats[k] = surface.GetTextureID("vgui/images/blood_splat/blood_splat0"..k)
 end
 
-//Choose random splats
+-- Choose random splats
 local bloodrand1,bloodrand2 = bloodSplats[math.random(1,2)], bloodSplats[math.random(3,5)]
 
---[[--------------------------------------------------------
+--[=[--------------------------------------------------------
    Don't draw the chat area when menu is open
----------------------------------------------------------]]
+---------------------------------------------------------]=]
 function ShouldDrawChat ( name ) 
 	if name == "CHudChat" then
 		return not IsClassesMenuOpen()
@@ -87,10 +87,10 @@ function ShouldDrawChat ( name )
 end
 hook.Add("HUDShouldDraw","ShouldDrawChat",ShouldDrawChat)
 
---[[--------------------------------------------------------
+--[=[--------------------------------------------------------
     The localplayer cannot open the chatbox 
                       while menu is open
----------------------------------------------------------]]
+---------------------------------------------------------]=]
 function ClassMenuSay ( pl, bind, pressed )
 	if IsClassesMenuOpen() then
 		if ( string.find (bind, "messagemode") or string.find (bind,"messagemode2") or string.find (bind,"+voicerecord") ) then 
@@ -100,9 +100,9 @@ function ClassMenuSay ( pl, bind, pressed )
 end
 hook.Add ("PlayerBindPress","Spectator",ClassMenuSay)
 
---[[--------------------------------------------
+--[=[--------------------------------------------
              Main menu draw hook
---------------------------------------------]]
+--------------------------------------------]=]
 function DrawClassMenu ()
 	if not IsClassesMenuOpen() then return end
 	if ENDROUND then return end
@@ -115,9 +115,9 @@ function DrawClassMenu ()
 	surface.DrawTexturedRect( 0,0,w,h )
 	
 	-- Draw the black boxes
-	draw.RoundedBox( 0, 0, ScaleH(74), ScrW(), ScaleH(113), Colors.Black ) // Upper blackbox
-	draw.RoundedBox( 0, 0, ScaleH(225), ScrW(), ScaleH(591), Colors.Black ) //Center blackbox
-	draw.RoundedBox( 0, 0, ScaleH(855), ScrW(), ScaleH(86), Colors.Black ) // Lower blackbox
+	draw.RoundedBox( 0, 0, ScaleH(74), ScrW(), ScaleH(113), Colors.Black ) --  Upper blackbox
+	draw.RoundedBox( 0, 0, ScaleH(225), ScrW(), ScaleH(591), Colors.Black ) -- Center blackbox
+	draw.RoundedBox( 0, 0, ScaleH(855), ScrW(), ScaleH(86), Colors.Black ) --  Lower blackbox
 	
 	-- Uperbox Text
 	draw.SimpleText ("UNDEAD CLASSES","ArialBoldThirty", ScaleW(168),ScaleH(110), Colors.White, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
@@ -151,13 +151,13 @@ function DrawClassMenu ()
 end
 hook.Add ("HUDPaint","DrawClassMenu",DrawClassMenu)
 
---[[--------------------------------------------------------
+--[=[--------------------------------------------------------
         Called when the player pressed F3
----------------------------------------------------------]]
+---------------------------------------------------------]=]
 function DoClassesMenu()
-	ZOMBIE_CLASSES = !ZOMBIE_CLASSES
+	ZOMBIE_CLASSES = not ZOMBIE_CLASSES
 	
-	//This is not wrong
+	-- This is not wrong
 	if IsClassesMenuOpen() then
 		OnClassesMenuOpen()
 	else
@@ -165,9 +165,9 @@ function DoClassesMenu()
 	end
 end
 
---[[--------------------------------------------------------
+--[=[--------------------------------------------------------
       Called when the class menu is open
----------------------------------------------------------]]
+---------------------------------------------------------]=]
 function OnClassesMenuOpen()
 	-- Enable the cursor
 	gui.EnableScreenClicker( true )
@@ -209,14 +209,14 @@ function OnClassesMenuOpen()
 		zDialog[i]:SetParent (zClasses)
 		zDialog[i]:SetText ("")
 		
-		//Set the size of the label as the text in it
+		-- Set the size of the label as the text in it
 		if i == 1 then zDialog[i].strText = "Done" else zDialog[i].strText = "Respawn" end
 		surface.SetFont ( "ClassDialog" )
 		local iTextWide,iTextTall = surface.GetTextSize ( zDialog[i].strText )
 		zDialog[i]:SetSize ( iTextWide, iTextTall )
 		zDialog[i]:SetPos ( ScaleW(240 + iOffset) - ( iTextWide * 0.5 ), ScaleH(900) - ( iTextTall * 0.5 ) )
 		
-		//Move it to the right
+		-- Move it to the right
 		iOffset = iOffset + 200
 		
 		zDialog[i].OnCursorEntered = function()
@@ -225,7 +225,7 @@ function OnClassesMenuOpen()
 			if i == 2 then
 				for j = 0, 8 do
 					if Buttons[j].Activated then
-						if MySelf:GetZombieClass() != j then
+						if MySelf:GetZombieClass() ~= j then
 							DialogColors[i] = Colors.LightYellow
 							surface.PlaySound ( Sounds.Over )
 						end
@@ -268,7 +268,7 @@ function OnClassesMenuOpen()
 			if i == 2 then 
 				for j = 0, 8 do
 					if Buttons[j].Activated then
-						if MySelf:GetZombieClass() != j then
+						if MySelf:GetZombieClass() ~= j then
 							RunConsoleCommand ("kill")
 							surface.PlaySound ( Sounds.Click )
 							zClasses:SetVisible ( false ) 
@@ -299,18 +299,18 @@ function OnClassesMenuOpen()
 		zScroll[i]:SetSize ( ScaleH(40), ScaleH(40) )
 		zScroll[i]:SetText ("")
 		
-		//Move it down
+		-- Move it down
 		offset = offset + 503
 		
-		//Overrite the default paint for button
+		-- Overrite the default paint for button
 		zScroll[i].Paint = function()
-			//Make sure the image is flipped correctly
+			-- Make sure the image is flipped correctly
 			local yaw = 0
 			if i == 1 then
 				yaw = 180
 			end
 			
-			//Draw the arrow only when its avaiaiable
+			-- Draw the arrow only when its avaiaiable
 			if ( i == 1 and zClasses.iIndex > -1 ) or ( i == 2 and zClasses.iIndex < 6 ) then
 				surface.SetDrawColor ( 255,255,255,255 )
 				surface.SetTexture ( Image["arrow"] )
@@ -318,7 +318,7 @@ function OnClassesMenuOpen()
 			end
 		end
 		
-		// Make the slots increment by 1 
+		--  Make the slots increment by 1 
 		zScroll[i].OnMousePressed = function()
 			if i == 1 then
 				if zClasses.iIndex > -1 and ScrollTimer <= CurTime() then
@@ -338,10 +338,10 @@ function OnClassesMenuOpen()
 		end
 	end
 	
-	//Create the class buttons
+	-- Create the class buttons
 	zButtons = {}
 			
-	// Initialize some other button vars
+	--  Initialize some other button vars
 	for i = 0, 8 do
 		Buttons[i] = {}
 		zButtons[i] = {}
@@ -349,7 +349,7 @@ function OnClassesMenuOpen()
 		Buttons[i].Activated = false
 		zButtons[i].iIndex = -1
 		
-		//Select my zombie class first
+		-- Select my zombie class first
 		if MySelf:GetZombieClass() == i then
 			Buttons[i].Activated = true
 		end
@@ -366,7 +366,7 @@ function OnClassesMenuOpen()
 		
 		zButtons[i].OnMousePressed = function() 
 			if ZombieClasses[zButtons[i].iIndex].Unlocked then
-				//Deactivate all buttons first
+				-- Deactivate all buttons first
 				for j = 0, 8 do
 					if not Buttons[zButtons[i].iIndex].Activated then
 						Buttons[j].Activated = false
@@ -387,7 +387,7 @@ function OnClassesMenuOpen()
 			end
 		end
 		
-		//Make them red/green lighter
+		-- Make them red/green lighter
 		zButtons[i].OnCursorEntered = function()
 			Buttons[zButtons[i].iIndex].CursorInside = true
 			
@@ -404,7 +404,7 @@ function OnClassesMenuOpen()
 			end
 		end
 		
-		//Restore their original color
+		-- Restore their original color
 		zButtons[i].OnCursorExited = function()
 			Buttons[zButtons[i].iIndex].CursorInside = false
 			
@@ -418,17 +418,17 @@ function OnClassesMenuOpen()
 		end
 		
 		zClasses.Think = function()
-			//Enable all the time the panel is open
+			-- Enable all the time the panel is open
 			gui.EnableScreenClicker( true )
 			
-			//Close the panel if endround is coming
+			-- Close the panel if endround is coming
 			if ENDROUND then
 				DoClassesMenu ()
 				zClasses:SetVisible ( false )
 			end
 		
 			for i = 1, 3 do
-				//Overrite the paint function and draw the buttons
+				-- Overrite the paint function and draw the buttons
 				zButtons[i].iIndex = i + zClasses.iIndex
 				
 				if not Buttons[zButtons[i].iIndex].CursorInside then
@@ -442,15 +442,15 @@ function OnClassesMenuOpen()
 				end
 				
 				zButtons[i].Paint = function() 
-					//Change its color to yellow if pushed
+					-- Change its color to yellow if pushed
 					if Buttons[zButtons[i].iIndex].Activated then
 						ButtonColors[zButtons[i].iIndex] = Colors.Yellow
 					end
 					
-					//Draw the colored button
+					-- Draw the colored button
 					draw.RoundedBox( 8, 0, 0, zButtons[i]:GetWide(), zButtons[i]:GetTall(), ButtonColors[zButtons[i].iIndex] )
 					
-					//Draw the picture of the class
+					-- Draw the picture of the class
 					surface.SetDrawColor ( 255,255,255,255 )
 					surface.SetTexture ( Image[zButtons[i].iIndex] )
 					surface.DrawTexturedRectRotated ( zButtons[i]:GetWide() * 0.5, zButtons[i]:GetTall() * 0.5, ScaleH(114), ScaleH(114), 0 )
@@ -460,39 +460,39 @@ function OnClassesMenuOpen()
 			end
 		end
 		
-		//Next slot
+		-- Next slot
 		offset = offset + ScaleH(30)
 		posY = posY + offset + ScaleH(100)
 	end
 	
-	//Overrite the main paint function
+	-- Overrite the main paint function
 	zClasses.Paint = function() end
 end
 
-/*--------------------------------------------------------
+--[==[--------------------------------------------------------
       Called when the class menu is closed
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function OnClassesMenuClose()
-	//Disable the cursor
+	-- Disable the cursor
 	gui.EnableScreenClicker( false )
 	
-	//Close the menu
+	-- Close the menu
 	zClasses:SetVisible ( false )
 	
-	//Shuffle the bloodsplats
+	-- Shuffle the bloodsplats
 	bloodrand1,bloodrand2 = bloodSplats[math.random(1,2)], bloodSplats[math.random(3,5)]
 end
 
-/*--------------------------------------------------------
+--[==[--------------------------------------------------------
         Return false if the menu is closed
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function IsClassesMenuOpen()
 	return ZOMBIE_CLASSES
 end
 
-/*--------------------------------------------------------
+--[==[--------------------------------------------------------
      Switch function used to send class to sv
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function ChangeZombieClass ( name )
 	RunConsoleCommand ( "zs_class", tostring ( name ) )
 end

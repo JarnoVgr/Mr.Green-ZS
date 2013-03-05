@@ -61,18 +61,18 @@ SWEP.OverrideAng = Vector( 0,0,0 )
 
 --SWEP.IronSightsPos = Vector(2.559, -3.28, 1.399)
 --SWEP.IronSightsAng = Vector(0, 0, 0)
---[[
+--[=[
 SWEP.NextReload = 0
 function SWEP:Reload()
 	local Magazine = self.Owner:GetAmmoCount( self.Weapon:GetPrimaryAmmoType() )	
 	
-	// If the player hasn't anymore ammo then stop running this
+	--  If the player hasn't anymore ammo then stop running this
 	if self.Weapon:Clip1() == self.Primary.ClipSize or Magazine == 0 then return end
 	
-	//Disable ironsights
+	-- Disable ironsights
 	self:SetIronsights( false )
 	
-	//Reload cooldown
+	-- Reload cooldown
 	if CurTime() < self.NextReload then return end
 	self.NextReload = CurTime() + self.Primary.Delay * 3
 	
@@ -81,18 +81,18 @@ function SWEP:Reload()
 		timer.Simple( 0.25, function( self, owner ) 
 			if not ValidEntity ( self ) or not ValidEntity ( owner ) then return end
 			
-			//Don't play the animation if it isn't the active weapon anymore
+			-- Don't play the animation if it isn't the active weapon anymore
 			local ActiveWeapon = owner:GetActiveWeapon()
-			if ActiveWeapon != self then return end
+			if ActiveWeapon ~= self then return end
 			
-			//Weapon animation special for shotguns
+			-- Weapon animation special for shotguns
 			self.Weapon:SendWeaponAnim ( ACT_SHOTGUN_RELOAD_FINISH )
 		end, self, self.Owner )
 			
 		self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 	end
 	
-	if SERVER then // Reloading voice effect
+	if SERVER then --  Reloading voice effect
 		if self.Weapon:Clip1() <= math.floor (self.Primary.ClipSize / 1.5) and math.random(1,2) == 1 then
 			local rlsnd = VoiceSets[self.Owner.VoiceSet].ReloadSounds
 			timer.Simple (0.2, function ( self )
@@ -103,7 +103,7 @@ function SWEP:Reload()
 		end
 	end
 end
-]]
+]=]
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0

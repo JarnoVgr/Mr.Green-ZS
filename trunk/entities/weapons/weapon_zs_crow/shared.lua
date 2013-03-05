@@ -70,10 +70,10 @@ if SERVER then
 	local vel = Vector(0,0,0)
 	local push = false
 	local flying = false
-	//prevent one glitch
+	-- prevent one glitch
 	local passenger = false
-	//small traces
-	/*local tr = {}
+	-- small traces
+	--[==[local tr = {}
 	tr.start = self.Owner:GetPos()
 	tr.endpos = self.Owner:GetPos()+Vector(0,0,45)
 	tr.filter = self.Owner
@@ -105,7 +105,7 @@ if SERVER then
 		
 	if case or case1 or case2 or case3 then
 		passenger = true
-	end*/
+	end]==]
 	
 	if self.NextIdle < ct then
 		self.NextIdle = ct + math. random(3,8)
@@ -142,7 +142,7 @@ if SERVER then
 			if self.Owner:KeyDown(IN_JUMP) then
 				vel.z = vel.z + 110
 				push = true
-				//self.Owner:SetLocalVelocity(Vector(0,0,130))
+				-- self.Owner:SetLocalVelocity(Vector(0,0,130))
 			end
 			if push then
 				self.Owner:SetLocalVelocity(vel)

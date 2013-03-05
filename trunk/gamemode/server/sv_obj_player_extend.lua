@@ -30,110 +30,110 @@ function meta:LegsGib()
 	self:Gib()
 end
 
-/*--------------------------------------------------------------------------
+--[==[--------------------------------------------------------------------------
            Spawns an NPC headcrab based on the player class
----------------------------------------------------------------------------*/
+---------------------------------------------------------------------------]==]
 function meta:SpawnHeadcrabNPC( tbDmginfo )
 	if not self:IsZombie() then return end
 	
-	//We need to be dead
+	-- We need to be dead
 	if self:Alive() then return end
 	
-	//Headshot
+	-- Headshot
 	if tbDmginfo:IsBulletDamage() and tbDmginfo:GetDamagePosition():Distance( self:GetAttachment(1).Pos ) < 15 then return end
 	
-	//Only for crabbed zombies
+	-- Only for crabbed zombies
 	if not self:IsCommonZombie() and not self:IsPoisonZombie() and not self:IsFastZombie() and not self:IsZombine() then return end
 	
-	//Different crabs
+	-- Different crabs
 	local sClass = "npc_headcrab"
 	if self:IsFastZombie() then sClass = "npc_headcrab_fast" elseif self:IsPoisonZombie() then sClass = "npc_headcrab_black" end
 	
-	//Create it
+	-- Create it
 	local mNPC = ents.Create ( sClass )
 	if not mNPC:IsValid() then return end
 	
-	//Make it friendly to other zombos
+	-- Make it friendly to other zombos
 	for k,v in pairs ( team.GetPlayers ( TEAM_UNDEAD ) ) do
 		if IsEntityValid ( v ) then
 			mNPC:AddEntityRelationship( v, D_FR, 99 ) 
 		end
 	end
 	
-	//Spawn it
+	-- Spawn it
 	mNPC:SetPos( self:GetPos() )
 	mNPC:Spawn()
 	
-	//Hop the attacker :C
+	-- Hop the attacker :C
 	local mAttacker = tbDmginfo:GetAttacker()
 	if IsEntityValid( mAttacker ) and mAttacker:IsHuman() then mNPC:UpdateEnemyMemory( mAttacker, mAttacker:GetPos() ) end
 	
-	//Set attacker
+	-- Set attacker
 	mNPC.Parent = self
 end
 
-/*-------------------------------------------------------------
+--[==[-------------------------------------------------------------
                Makes the zombies have headcrabs
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 function meta:SetHeadcrabBodyGroup()
 	if not self:IsZombie() then return end
 	
-	//Default 3
+	-- Default 3
 	local iGroup = 3
 	
-	//3 for everyone except posion zombo
+	-- 3 for everyone except posion zombo
 	if self:IsPoisonZombie() then iGroup = 11 end
 	
-	//Set it for all except headcrabs, howlers, wraith and poison crabs
+	-- Set it for all except headcrabs, howlers, wraith and poison crabs
 	if not self:IsHeadcrab() and not self:IsHowler() and not self:IsWraith() and not self:IsPoisonCrab() then self:Fire( "setbodygroup", tostring ( iGroup ) ) end
 end
 
-//Set team event
+-- Set team event
 function GM:OnTeamChange( pl, iFromTeam, iToTeam )
 end
 
-//On team change
+-- On team change
 meta.BaseSetTeam = meta.SetTeam
 function meta:SetTeam( iTeam )
 	if not iTeam then iTeam = 0 end
 	
-	//Call the event ( player, from, to )
+	-- Call the event ( player, from, to )
 	gamemode.Call( "OnTeamChange", self, self:Team(), iTeam )
 	
-	//Change team
+	-- Change team
 	self:BaseSetTeam( iTeam )
 end
 
-//Helper for DOT damage
+-- Helper for DOT damage
 function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflictor )
 	if IsValid( Victim ) and Victim:IsTakingDOT() then
 		if ( Victim.TeamDOT == Victim:Team() ) and ( Victim.TickDOT < iTicks ) and ( Victim:Alive() ) then
 		
-			//Check attacker
+			-- Check attacker
 			if not IsValid( Attacker ) then
 				Victim:ClearDamageOverTime()
 				return
 			end
 			
-			//if Victim:HasBought("naturalimmunity") then
+			-- if Victim:HasBought("naturalimmunity") then
 			if Victim:GetPerk() == "_poisonprotect" then
 				iDamage = math.ceil(iDamage - iDamage*0.3)
 			end
-			//Default take damage only when low on health
+			-- Default take damage only when low on health
 			if not IsValid( Inflictor ) then Inflictor = Attacker:GetActiveWeapon() or Attacker end
 			if Victim:Health() > iDamage then Victim:SetHealth( Victim:Health() - iDamage ) else Victim:TakeDamage( iDamage, Attacker, Inflictor ) end
 			Victim.IsInfected = true
-			//Shake screen
+			-- Shake screen
 			Victim:ViewPunch( Angle( math.random( -20, 20 ), math.random( -5, 5 ), 0 ) )
 			
-			//Cough sound
+			-- Cough sound
 			Victim:EmitSound( "ambient/voices/cough"..math.random( 1,4 )..".wav" )
 			Victim:EmitSound( "player/pl_pain"..math.random( 5,7 )..".wav" )
 			
-			//Increase tick
+			-- Increase tick
 			Victim.TickDOT = Victim.TickDOT + 1
 			
-			//Recursion
+			-- Recursion
 			--timer.Simple( fDelay, takeDamageOverTime, Victim, iDamage, fDelay, iTicks, Attacker, Inflictor )
 			timer.Simple( fDelay,function()
 				takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflictor )
@@ -142,29 +142,29 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 			return
 		end
 		
-		//Disable status
+		-- Disable status
 		Victim:ClearDamageOverTime()
 	end
 end	
 
-//Clears DOT damage
+-- Clears DOT damage
 function meta:ClearDamageOverTime()
 	self.IsInfected = false
 	self:SetDTBool( 0, false )
 end
 
-//Adds DOT damage to player
+-- Adds DOT damage to player
 function meta:TakeDamageOverTime( iDamage, fDelay, iTicks, Attacker, Inflictor )
 	if self:IsTakingDOT() or not self:Alive() or not IsValid( Attacker ) then return end
 	
-	//Default fDelay / Tick
+	-- Default fDelay / Tick
 	fDelay, iTicks = fDelay or 1, iTicks or 1
 	
-	//Status
+	-- Status
 	self:SetDTBool( 0, true )
 	self.TeamDOT, self.TickDOT = self:Team(), 0
 	
-	//Start recursion timer
+	-- Start recursion timer
 	--timer.Simple( fDelay, takeDamageOverTime, self, iDamage, fDelay, iTicks, Attacker, Inflictor )
 	timer.Simple( fDelay,function()
 				takeDamageOverTime( self, iDamage, fDelay, iTicks, Attacker, Inflictor )
@@ -179,22 +179,22 @@ hook.Add( "OnTeamChange", "ClearDamageOverTime", function( pl )
 	end
 end )
 
-/*---------------------------------------------------
+--[==[---------------------------------------------------
                 Spawns the first zombie/s
----------------------------------------------------*/
+---------------------------------------------------]==]
 function meta:SetFirstZombie()
 	if self:Team() == TEAM_UNDEAD then return end
 	
-	//Strip weapons
+	-- Strip weapons
 	self:StripWeapons()
 	
-	//Obviously, set his team to undead
+	-- Obviously, set his team to undead
 	self:SetTeam( TEAM_UNDEAD )
 	
-	//Reset kils
+	-- Reset kils
 	self:SetFrags ( 0 )
 	self:UnSpectate()
-	//Spawn him
+	-- Spawn him
 	self:Message( "You've been selected to lead the Undead Army.", 1, "255,255,255,255" )
 	self:Spawn()
 	
@@ -205,16 +205,16 @@ function meta:SetFirstZombie()
 	end
 
 	
-	//Correct any speed changes
+	-- Correct any speed changes
 	local Class = self:GetZombieClass()
 	GAMEMODE:SetPlayerSpeed ( self, ZombieClasses[Class].Speed )
 	
-	// logging
+	--  logging
 	--log.PlayerAction( self, "first_zombie" )
 	--log.PlayerJoinTeam( self, TEAM_UNDEAD )
 	--log.PlayerRoleChange( self, self:GetClassTag() )
 	
-	//Set him dead in the connect data table
+	-- Set him dead in the connect data table
 	local Table = DataTableConnected[ self:UniqueID() ]
 	if Table == nil then return end
 	
@@ -225,28 +225,28 @@ function meta:SwitchToZombie()
 	
 	if self:Team() == TEAM_UNDEAD then return end
 	
-	//Strip weapons
+	-- Strip weapons
 	self:StripWeapons()
 	
-	//Obviously, set his team to undead
+	-- Obviously, set his team to undead
 	self:SetTeam( TEAM_UNDEAD )
 	
-	//Reset kils
+	-- Reset kils
 	self:SetFrags ( 0 )
 	self:UnSpectate()
-	//Spawn him
-	//self:Message( "You've been randomly selected to lead the Undead Army.", 1, "255,255,255,255" )
+	-- Spawn him
+	-- self:Message( "You've been randomly selected to lead the Undead Army.", 1, "255,255,255,255" )
 	self:Spawn()
 	
-	//Correct any speed changes
+	-- Correct any speed changes
 	local Class = self:GetZombieClass()
 	GAMEMODE:SetPlayerSpeed ( self, ZombieClasses[Class].Speed )
 	
-	// logging
+	--  logging
 	--log.PlayerJoinTeam( self, TEAM_UNDEAD )
 	--log.PlayerRoleChange( self, self:GetClassTag() )
 	
-	//Set him dead in the connect data table
+	-- Set him dead in the connect data table
 	local Table = DataTableConnected[ self:UniqueID() ]
 	if Table == nil then return end
 	
@@ -255,7 +255,7 @@ function meta:SwitchToZombie()
 end
 
 function meta:RestoreHumanHealth(am,returnhealth)
-	if !self:IsHuman() then return end
+	if not self:IsHuman() then return end
 	
 	local health, maxhealth = self:Health(), 100
 	if self:GetPerk("_kevlar") then maxhealth = 110 elseif self:GetPerk("_kevlar2") then maxhealth = 120 end
@@ -281,129 +281,129 @@ function meta:Give ( Weapon )
 	self:BaseGive(Weapon)
 end
 
-/*-------------------------------------------------------------
+--[==[-------------------------------------------------------------
        Rewrite this so we can do various stuff easily
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 meta.BaseDropWeapon = meta.DropWeapon
 function meta:DropWeapon ( Weapon )
 	if Weapon == nil then return end
 	if not ValidEntity ( Weapon ) then return end
 		
-	//Doesn't have the weapon
+	-- Doesn't have the weapon
 	if not self:HasWeapon ( Weapon:GetClass() ) or not Weapon:IsWeapon() then return end
 	
-	//Substract a slot from the category and remove it
+	-- Substract a slot from the category and remove it
 	local strCategory = GetWeaponCategory ( Weapon:GetClass() )
 	if strCategory == nil then return end
 	
-	//We can't spawn the weapon into the void/solids
+	-- We can't spawn the weapon into the void/solids
 	if not self:CanDropWeapon ( Weapon ) then Debug ( "[DEBUG] Weapon trying to spawn in world/outside world. Preventing..." ) return end 
 	
-	//Debug
+	-- Debug
 	local strDebug = "[DEBUG] Preparing to drop weapon for "..tostring ( self )..". Weapon class: "..tostring ( Weapon:GetClass() ) 
 	Debug ( strDebug )
 	
-	//Disable ironsight for client only if the weapon is the active weapon one.
+	-- Disable ironsight for client only if the weapon is the active weapon one.
 	ActiveWeapon = self:GetActiveWeapon()
 	if ValidEntity ( ActiveWeapon ) and ActiveWeapon == Weapon then
-		//ClientDropWeapon ( self, Weapon )
+		-- ClientDropWeapon ( self, Weapon )
 	end
 	
-	//Base function
+	-- Base function
 	self:BaseDropWeapon( Weapon )
 	
-	//Substract weapon count
+	-- Substract weapon count
 	self.CurrentWeapons[strCategory] = self.CurrentWeapons[strCategory] - 1
 end
 
-/*----------------------------------------------------------------
+--[==[----------------------------------------------------------------
     Check to see if player can drop weapon (prevent crash) 
-------------------------------------------------------------------*/
+------------------------------------------------------------------]==]
 function meta:CanDropWeapon ( Weapon )
 	if Weapon == nil then return false end
 	if not ValidEntity ( Weapon ) then return false end
 
-	//Player doesn't have the weapon
+	-- Player doesn't have the weapon
 	if not self:HasWeapon ( Weapon:GetClass() ) or not Weapon:IsWeapon() then return false end
 	
-	//Check spawn location
+	-- Check spawn location
 	local vSpawn = self:GetShootPos() - Vector ( 0,0,12 )
 	if not util.IsInWorld ( vSpawn ) or util.PointContents( vSpawn ) == 1 then return false end
 
 	return true
 end
 
-/*-------------------------------------------------------------
+--[==[-------------------------------------------------------------
        Rewrite this so we can do various stuff easily
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 meta.BaseStripWeapons = meta.StripWeapons
 function meta:StripWeapons()
 
-	//Reset the human's weapon counter to 0, for all categories
-	//self.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tools = 0, Others = 0, Explosive = 0, Admin = 0 }
+	-- Reset the human's weapon counter to 0, for all categories
+	-- self.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tools = 0, Others = 0, Explosive = 0, Admin = 0 }
 	self.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
-	//Remove the weapons
+	-- Remove the weapons
 	for k,v in pairs ( self:GetWeapons() ) do
 		if IsEntityValid( v ) then
 			if v:IsWeapon() then v:Remove() end
 		end
 	end
 	
-	//Send drop event to client
+	-- Send drop event to client
 	ClientDropWeapon( self )
 end
 
-/*--------------------------------------------------------------------
+--[==[--------------------------------------------------------------------
            Rewrite this so we can do various stuff easily
----------------------------------------------------------------------*/
+---------------------------------------------------------------------]==]
 meta.BaseStripWeapon = meta.StripWeapon
 function meta:StripWeapon ( Class )
 	if not self:HasWeapon ( Class ) then return end
 	
-	//Substract a slot from the category and remove it
+	-- Substract a slot from the category and remove it
 	local strCategory = GetWeaponCategory ( Class )
 	if strCategory == nil then return end
 	
-	//Get the weapon to strip
+	-- Get the weapon to strip
 	local Weapon, ActiveWeapon = self:GetWeapon ( Class ), self:GetActiveWeapon()
 	
-	//We can't spawn in void/world
+	-- We can't spawn in void/world
 	if not self:CanDropWeapon ( Weapon ) then Debug ( "[DEBUG] Weapon trying to spawn in world/outside world. Preventing..." ) return end
 	
-	//Only disable clientside ironsights if it's the active weapon otherwise don't do it
-	//if ValidEntity ( ActiveWeapon ) and ActiveWeapon == Weapon then	ClientDropWeapon( self ) end
+	-- Only disable clientside ironsights if it's the active weapon otherwise don't do it
+	-- if ValidEntity ( ActiveWeapon ) and ActiveWeapon == Weapon then	ClientDropWeapon( self ) end
 	
-	//Substract weapon count
+	-- Substract weapon count
 	self.CurrentWeapons[strCategory] = self.CurrentWeapons[strCategory] - 1
 	
-	//Base function
+	-- Base function
 	self:BaseStripWeapon ( Class )
 end
 
-/*-------------------------------------------------------------
+--[==[-------------------------------------------------------------
        Rewrite this so we can check for score/reward
---------------------------------------------------------------*/
---[[function meta:AddFrags ( Amount )
+--------------------------------------------------------------]==]
+--[=[function meta:AddFrags ( Amount )
 	if Amount == nil then return end
 	if Amount == 0 then return end
 	
-	//Check score for each added
+	-- Check score for each added
 	for i = 1, Amount do
 		self:SetFrags ( self:Frags() + 1 )
-		//GAMEMODE:CheckHumanScore ( self )
+		-- GAMEMODE:CheckHumanScore ( self )
 	end
 	
 	Debug ( "[SCORE] Added "..tostring ( Amount ).." score points to "..tostring ( self ) )
-end]]
+end]=]
 
-/*-------------------------------------------------------------
+--[==[-------------------------------------------------------------
        Add some tweaks to the drop weapon function
---------------------------------------------------------------*/
+--------------------------------------------------------------]==]
 function meta:DropWeaponNamed ( class ) 
 	local ClassToType = GetWeaponType ( class )
 	if ClassToType == "none" then return end
 
-	//Substract a slot from the category and drop it
+	-- Substract a slot from the category and drop it
 	local Category = WeaponTypeToCategory[ClassToType]
 	self.CurrentWeapons[Category] = self.CurrentWeapons[Category] - 1
 	self:DropNamedWeapon ( class )
@@ -437,36 +437,36 @@ function meta:ConnectedHumanClass()
 	return DataTableConnected[ID].HumanClass
 end
 
-/*-------------------------------------------------
+--[==[-------------------------------------------------
              Gibs a player - splashes him
---------------------------------------------------*/
+--------------------------------------------------]==]
 function meta:Gib ( dmginfo )
 	if not ValidEntity ( self ) then return end
 	
 	if self.NoGib and self.NoGib > CurTime() then
 		self.NoGib = nil
-		if !ValidEntity(self:GetRagdollEntity()) then
+		if not ValidEntity(self:GetRagdollEntity()) then
 			self:CreateRagdoll()
 		end
 		return 
 	end
 	
 	self.Gibbed = true
-	//Sound effect
+	-- Sound effect
 	--self:EmitSound( Sound ( "physics/flesh/flesh_bloody_break.wav" ) )
 
-	//Spawn meat/gibs
+	-- Spawn meat/gibs
 	local vPos = self:GetPos() + Vector( 0, 0, 32 )
 	local vOtherPos = vPos + Vector( 0, 0, -22 )
 	for i = 1, math.random(1,2) do
 		local eGib = ents.Create( "playergib" )
 		if eGib:IsValid() then
 			
-			//Random position/angles
+			-- Random position/angles
 			eGib:SetPos( vPos + VectorRand() * 12 )
 			eGib:SetAngles( VectorRand():Angle() )
 			
-			//Different model/materials
+			-- Different model/materials
 			local iModel = math.random( 3, 7 )
 			eGib:SetModel( HumanGibs[iModel] )
 			if iModel > 4 then eGib:SetMaterial( "models/flesh" ) end
@@ -498,7 +498,7 @@ if not dmginfo then return end
 
 	if distype == "HEAD" then
 		typetoscale = 1	
-		/*for i=1,math.random(1,3) do
+		--[==[for i=1,math.random(1,3) do
 			local brain =  ents.Create( "playergib" )
 			if brain:IsValid() then
 				brain:SetPos( self:GetAttachment( 1 ).Pos )
@@ -513,12 +513,12 @@ if not dmginfo then return end
 					phys:ApplyForceCenter(VectorRand() * math.Rand(3, 10))
 				end
 		end
-	end	*/	
+	end	]==]	
 		
 	elseif distype == "DECAPITATION" then
 		typetoscale = 2
 		
-		/*local Gib = ents.Create( "playergib" )	
+		--[==[local Gib = ents.Create( "playergib" )	
 		if Gib:IsValid() then
 			Gib:SetPos( self:GetAttachment( 1 ).Pos )
 			Gib:SetAngles( VectorRand():Angle() )
@@ -532,7 +532,7 @@ if not dmginfo then return end
 				phys:Wake()
 				phys:ApplyForceCenter(Vector(0,0,50) * math.Rand(10, 38))
 			end
-		end*/
+		end]==]
 		
 	elseif distype == "LARM" then
 		typetoscale = 3
@@ -559,8 +559,8 @@ if not dmginfo then return end
 end
 
 function meta:GiveAmmoReward()
-if !IsValid(self) then return end
-if !IsValid(self:GetActiveWeapon()) then return end
+if not IsValid(self) then return end
+if not IsValid(self:GetActiveWeapon()) then return end
 if self:IsZombie() then return end
 
 local WeaponToFill = self:GetActiveWeapon()
@@ -584,7 +584,7 @@ function AddXP (pl, cmd, args)
 	
 	
 end
-//concommand.Add ("AddXP", AddXP)
+-- concommand.Add ("AddXP", AddXP)
 
 function Addr (pl, cmd, args)
 	if not ValidEntity (pl) then return end
@@ -593,7 +593,7 @@ function Addr (pl, cmd, args)
 	pl:AddRank(1)
 	
 end
-//concommand.Add ("Addr", Addr)
+-- concommand.Add ("Addr", Addr)
 
 util.AddNetworkString( "SendPlayerPerk" )
 
@@ -602,7 +602,7 @@ function meta:SetPerk(key)
 	if not ValidEntity (self) then return end
 	if not key then return end
 	
-	self.Perk = self.Perk or {} //just in case
+	self.Perk = self.Perk or {} -- just in case
 	
 	if #self.Perk > 2 then return end
 	
@@ -614,10 +614,10 @@ function meta:SetPerk(key)
 		net.WriteString(key)
 	net.Broadcast()
 	
-	--[[ umsg.Start("SendPlayerPerk")
+	--[=[ umsg.Start("SendPlayerPerk")
 		umsg.Entity(self)
 		umsg.String(key)
-	umsg.End()  ]]
+	umsg.End()  ]=]
 	
 end
 
@@ -678,10 +678,10 @@ function meta:AddXP (amount)
 			net.WriteDouble(tonumber(self.DataTable["ClassData"]["default"].xp))
 		net.Send(self)
 		
-		/*umsg.Start("SendPlayerXP",self)
-			//umsg.Entity(self)
+		--[==[umsg.Start("SendPlayerXP",self)
+			-- umsg.Entity(self)
 			umsg.Long(tonumber(self.DataTable["ClassData"]["default"].xp))
-		umsg.End()*/
+		umsg.End()]==]
 	end
 	
 	
@@ -708,9 +708,9 @@ function meta:AddRank (amount)
 			net.WriteDouble(tonumber(self.DataTable["ClassData"]["default"].rank))
 		net.Send(self)
 		
-		/*umsg.Start("SendPlayerRank",self)
+		--[==[umsg.Start("SendPlayerRank",self)
 			umsg.Long(tonumber(self.DataTable["ClassData"]["default"].rank))
-		umsg.End()*/
+		umsg.End()]==]
 		if GAMEMODE.RankUnlocks[self:GetRank()] then
 			for k,v in pairs(GAMEMODE.RankUnlocks[self:GetRank()])do
 				self:UnlockNotify( v )
@@ -727,7 +727,7 @@ function meta:AddScore( stat, amount )
 		return
 	end
 	
-	//Numbers only :)
+	-- Numbers only :)
 	if type ( self.DataTable[stat] ) == "number" then
 		self.DataTable[stat] = self.DataTable[stat] + amount
 	end
@@ -771,7 +771,7 @@ end
 
 function meta:CheckLevelUp ()
 	if not self:IsPlayer() then return end
-	if self:Team() != TEAM_HUMAN then return end
+	if self:Team() ~= TEAM_HUMAN then return end
 	if self:IsBot() then return end
 	if self.DataTable["ClassData"] == nil then return end
 	
@@ -925,8 +925,8 @@ function meta:GetTableScore( class,stat)
 	if self:IsBot() then return 0 end
 	if not class then return 0 end
 	return 0
-	//No datatable present
-	/*if self.DataTable == nil then return end
+	-- No datatable present
+	--[==[if self.DataTable == nil then return end
 	if self.DataTable["ClassData"] == nil then return end
 	
 	if stat == "level" then
@@ -949,7 +949,7 @@ function meta:GetTableScore( class,stat)
 		return self.DataTable["ClassData"][class].achlevel4_2
 	else
 		return 0
-	end*/
+	end]==]
 end
 --------------------------------------------------------------------------
 
@@ -966,14 +966,14 @@ function meta:UnlockAchievement( stat )
 	self:SendLua('UnlockEffect("'..stat..'")')
 	self.DataTable["progress"] = math.floor(self:GetAchvProgress())
 	PrintMessageAll(HUD_PRINTTALK,"Player "..self:Name().." got the achievement: "..achievementDesc[statID].Name.."!")
-	//self:AddFrags ( 1 )
+	-- self:AddFrags ( 1 )
 	
-	//Save SQL data
+	-- Save SQL data
 	self:SaveAchievement( statID )
 	
 	local hasAll = true
 	for k, v in pairs(self.DataTable["Achievements"]) do
-		if not v and k != util.GetAchievementID( "masterofzs" ) then
+		if not v and k ~= util.GetAchievementID( "masterofzs" ) then
 			hasAll = false
 		end
 	end
@@ -982,7 +982,7 @@ function meta:UnlockAchievement( stat )
 	end
 end
 
---[[function meta:SetAsCrow()
+--[=[function meta:SetAsCrow()
 	
 	self:RemoveAllStatus(true, true)
 	
@@ -991,12 +991,12 @@ end
 	end	
 	self.DeathClass = 9
 	
-	//self:SetZombieClass (9)
+	-- self:SetZombieClass (9)
 	self:Spawn()
 	self:UnSpectate()
 	self.DeathClass = tempclass or 1
 	
-end]]
+end]=]
 function meta:SetAsCrow()
 
 	self:RemoveAllStatus(true, true)
@@ -1004,7 +1004,7 @@ function meta:SetAsCrow()
 	
 	local curclass = self.DeathClass or self:GetZombieClass()
 	self:SetZombieClass(9)
-	//self:DoHulls(crowindex, TEAM_UNDEAD)
+	-- self:DoHulls(crowindex, TEAM_UNDEAD)
 
 	self.DeathClass = nil
 	self:UnSpectateAndSpawn()
@@ -1061,7 +1061,7 @@ function meta:CreateRagdoll()
 	if status and IsValid(status) then
 		timer.Simple(0,function() 
 			if IsValid(self) and IsValid(status) then 
-				//SetModel(self, status:GetModel()) 
+				-- SetModel(self, status:GetModel()) 
 				self:SetModel(status:GetModel())
 				timer.Simple(0, function() CreateRagdoll(self) end)
 			end 
@@ -1082,14 +1082,14 @@ function meta:SecondWind(pl)
 
 	local pos = self:GetPos()
 	local angles = self:EyeAngles()
-	//local lastattacker = self:GetLastAttacker()
+	-- local lastattacker = self:GetLastAttacker()
 	local dclass = self.DeathClass
 	self.DeathClass = nil
 	self.Revived = true
 	self:UnSpectateAndSpawn()
 	self.Revived = nil
 	self.DeathClass = dclass
-	//self:SetLastAttacker(lastattacker)
+	-- self:SetLastAttacker(lastattacker)
 	self:SetPos(pos)
 	self:SetHealth(self:Health() * 0.2)
 	self:SetEyeAngles(angles)
@@ -1201,7 +1201,7 @@ end
 
 util.AddNetworkString( "CustomChatAdd" )
 
-//Pretty awesome Server-to-Client chat messages by Overv
+-- Pretty awesome Server-to-Client chat messages by Overv
 function meta:CustomChatPrint(arg)
 if ( type( arg[1] ) == "Player" ) then self = arg[1] end
 	
@@ -1220,7 +1220,7 @@ if ( type( arg[1] ) == "Player" ) then self = arg[1] end
             end
         net.Send(self)
 	
-		/*umsg.Start("CustomChatAdd", self)
+		--[==[umsg.Start("CustomChatAdd", self)
             umsg.Short( #arg )
             for _, v in pairs( arg ) do
                 if ( type( v ) == "string" ) then
@@ -1232,28 +1232,28 @@ if ( type( arg[1] ) == "Player" ) then self = arg[1] end
                     umsg.Short( v.a )
                 end
             end
-        umsg.End( )*/
+        umsg.End( )]==]
 end
 
-//2 useful functions
+-- 2 useful functions
 function meta:GetHeldObject()
     return self:GetSaveTable().m_hMoveChild
 end
  
 function meta:HoldingObject()
     local object = self:GetSaveTable().m_hMoveChild
-    return object && object:GetClass() == "player_pickup"
+    return object and object:GetClass() == "player_pickup"
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Overriding PickUp code
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 
 meta.BasePickupObject = meta.PickupObject
 
 function meta:PickupObject( ent )
 	
-	if !ValidEntity(ent) then return end
+	if not ValidEntity(ent) then return end
 	
 	self:BasePickupObject( ent )
 	
@@ -1265,7 +1265,7 @@ meta.BaseDropObject = meta.DropObject
 
 function meta:DropObject( ent )
 	
-	if !ValidEntity(ent) then return end
+	if not ValidEntity(ent) then return end
 	
 	self:BaseDropObject( ent )
 	
@@ -1273,13 +1273,13 @@ function meta:DropObject( ent )
 
 end
 
-///////////// Entity Meta Table /////////////////////////
+-- -- -- -- -- -- / Entity Meta Table -- -- -- -- -- -- -- -- -- -- -- -- /
 local metaEntity = FindMetaTable( "Entity" )
 
-//Holy fuck. Garry, is it so hard to make a reference for dragged props?!
+-- Holy fuck. Garry, is it so hard to make a reference for dragged props?!
 function metaEntity:IsPickupEntity()
 
-	if !ValidEntity(self) then return end
+	if not ValidEntity(self) then return end
 	
 	local status = false
 	
@@ -1296,10 +1296,10 @@ function metaEntity:IsPickupEntity()
 	return status
 end
 
-//Home made creepy function to return prop owners
+-- Home made creepy function to return prop owners
 function metaEntity:GetCarryOwner()
 
-	if !ValidEntity(self) then return end
+	if not ValidEntity(self) then return end
 	if not self:IsPickupEntity() then return false end
 	
 	local owner = false
@@ -1382,7 +1382,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 							for num=1, #ent.Nails do
 								local nl = ent.Nails[num]
 								if nl.toworld then
-									if nail != nl then
+									if nail ~= nl then
 										unfreeze = false
 										break
 									else
@@ -1426,35 +1426,35 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	return true	
 end
 
-//Fixing physics attacker function
-/*metaEntity.BaseSetPhysAttacker = metaEntity.SetPhysicsAttacker
+-- Fixing physics attacker function
+--[==[metaEntity.BaseSetPhysAttacker = metaEntity.SetPhysicsAttacker
 function metaEntity:SetPhysicsAttacker( mPlayer )
 	
-	//Use custom function if entity is a physbox
-	if self:GetClass() == "func_physbox" or self:GetClass() == "func_physbox_multiplayer" then//string.find( tostring( self:GetClass() ), "physbox" )
+	-- Use custom function if entity is a physbox
+	if self:GetClass() == "func_physbox" or self:GetClass() == "func_physbox_multiplayer" then-- string.find( tostring( self:GetClass() ), "physbox" )
 		self.mPhysicsAttacker = mPlayer
 		
 		return
 	end
 	
-	//Default function
+	-- Default function
 	self:BaseSetPhysAttacker( mPlayer )
 end
 
-//Get physics attacker
+-- Get physics attacker
 metaEntity.BaseGetPhysAttacker = metaEntity.GetPhysicsAttacker
 function metaEntity:GetPhysicsAttacker()
 	
-	//Use custom function is entity is a physbox
-	if self:GetClass() == "func_physbox" or self:GetClass() == "func_physbox_multiplayer" then//string.find( tostring( self:GetClass() ), "physbox" )
+	-- Use custom function is entity is a physbox
+	if self:GetClass() == "func_physbox" or self:GetClass() == "func_physbox_multiplayer" then-- string.find( tostring( self:GetClass() ), "physbox" )
 		return self.mPhysicsAttacker
 	end
 	
-	//Return default result
+	-- Return default result
 	return self:BaseGetPhysAttacker()
-end*/
+end]==]
 
-//Some stuff from zs 2.0
+-- Some stuff from zs 2.0
 
 meta.OldDrawViewModel = meta.DrawViewModel
 meta.OldDrawWorldModel = meta.DrawWorldModel
@@ -1576,7 +1576,7 @@ function meta:DoHulls(classid, teamid)
 	classid = classid or -10
 	
 	if teamid == TEAM_UNDEAD then
-		//classid = classid or -10
+		-- classid = classid or -10
 		local classtab = ZombieClasses[ classid ]
 		local tbl
 		if classtab then
@@ -1705,13 +1705,13 @@ function meta:CheckSpeedChange()
 	local fHealthSpeed = self:GetPerk("_adrenaline") and 1 or math.Clamp ( ( health / 50 ), 0.7, 1 )
 	
 	if self:IsHolding() then
-		//for _, status in pairs(ents.FindByClass("status_human_holding")) do
+		-- for _, status in pairs(ents.FindByClass("status_human_holding")) do
 		local status = self.status_human_holding
 			if status and IsValid(status) and status:GetOwner() == self and status.GetObject and status:GetObject():IsValid() and status:GetObject():GetPhysicsObject():IsValid() then
 				speed = math.max(CARRY_SPEEDLOSS_MINSPEED, speed - status:GetObject():GetPhysicsObject():GetMass() * CARRY_SPEEDLOSS_PERKG)
-				//break
+				-- break
 			end
-		//end
+		-- end
 	else
 		speed = math.Round ( speed * fHealthSpeed )
 	end

@@ -8,7 +8,7 @@ AddCSLuaFile("shared.lua")
 
 function ENT:Initialize()
 	
-	self.Entity:SetModel("models/props_junk/propane_tank001a.mdl")//
+	self.Entity:SetModel("models/props_junk/propane_tank001a.mdl")-- 
 	self.Entity:SetColor(Color(255,0,0,255))
 	
 	self.Entity:PhysicsInit(SOLID_VPHYSICS )

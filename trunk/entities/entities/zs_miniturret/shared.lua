@@ -115,7 +115,7 @@ function ENT:Think()
 				else
 					self:ClearTarget()
 					self:SetAttacking(false)
-					//todo: add little sound there
+					-- todo: add little sound there
 				end
 			end
 		else
@@ -178,9 +178,9 @@ function ENT:CalculateMovement()
 	local phys = self:GetPhysicsObject()		
 	phys:Wake()
 		
-	//if not self.ObjectPosition or not self.EntOwner:KeyDown(IN_SPEED) then
+	-- if not self.ObjectPosition or not self.EntOwner:KeyDown(IN_SPEED) then
 		local obbcenter = self:OBBCenter()
-		local objectpos = pos//shootpos + owner:GetAimVector() * 70
+		local objectpos = pos-- shootpos + owner:GetAimVector() * 70
 		objectpos = objectpos - obbcenter.z * self:GetUp()
 		objectpos = objectpos - obbcenter.y * self:GetRight()
 		objectpos = objectpos - obbcenter.x * self:GetForward()
@@ -193,7 +193,7 @@ function ENT:CalculateMovement()
 			local check = owner:GetEyeTrace().Entity and owner:GetEyeTrace().Entity:IsPlayer() and owner:GetEyeTrace().Entity:IsZombie()
 			self.ObjectAngles = check and (owner:GetEyeTrace().HitPos - self:GetPos()):GetNormalized():Angle() or owner:GetAimVector():Angle()
 		end
-	//end
+	-- end
 
 	ShadowParams.pos = self.ObjectPosition
 	ShadowParams.angle = self.ObjectAngles
@@ -211,7 +211,7 @@ function ENT:CheckOwner()
 end
 
 function ENT:IsValidTarget(target)
-	return target:IsPlayer() and target:Team() == TEAM_UNDEAD and target:Alive() and !target:IsWraith() and TrueVisible(self:GetPos(), self:GetTargetPos(target), self)
+	return target:IsPlayer() and target:Team() == TEAM_UNDEAD and target:Alive() and not target:IsWraith() and TrueVisible(self:GetPos(), self:GetTargetPos(target), self)
 end
 
 local tabSearch = {mask = MASK_SHOT}
@@ -296,10 +296,10 @@ function ENT:Shoot()
 	bullet.Force = 1
 	bullet.Damage = 0
 	bullet.TracerName = "Tracer"
-	bullet.Callback = BulletCallback//function ( a, b, c )
-		//self:TurretBulletCallback ( a, b, c )
-	//	BulletCallback
-	//end
+	bullet.Callback = BulletCallback-- function ( a, b, c )
+		-- self:TurretBulletCallback ( a, b, c )
+	-- 	BulletCallback
+	-- end
 	
 	self:FireBullets(bullet)
 	
@@ -463,8 +463,8 @@ function ENT:Draw()
 	local Normal = ((att.Pos + att.Ang:Forward()*10)-att.Pos):GetNormal() * 0.1
 	local size = math.Rand( 2, 4 )
 	
-	//render.SetMaterial( matLight )
-	//render.DrawQuadEasy( att.Pos, Normal, size, size, Color( 255, 55, 55, 255 ), 0 )
+	-- render.SetMaterial( matLight )
+	-- render.DrawQuadEasy( att.Pos, Normal, size, size, Color( 255, 55, 55, 255 ), 0 )
 	
 	
 	
@@ -472,7 +472,7 @@ end
 
 net.Receive("SendMiniTurret", function( len )
 	
-	if !IsValid(MySelf) then return end
+	if not IsValid(MySelf) then return end
 	
 	local t = net.ReadEntity()	
 	MySelf.MiniTurret = t or nil

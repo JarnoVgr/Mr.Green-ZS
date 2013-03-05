@@ -13,8 +13,8 @@ if CLIENT then
 	
 	SWEP.ViewModelFlip = false
 		
-	//SWEP.IgnoreBonemerge = true
-	//SWEP.UseHL2Bonemerge = true
+	-- SWEP.IgnoreBonemerge = true
+	-- SWEP.UseHL2Bonemerge = true
 	--SWEP.ShowViewModel = true
 	--SWEP.AlwaysShowViewModel = true
 	--SWEP.ShowWorldModel = false
@@ -113,10 +113,10 @@ function SWEP:PrimaryAttack()
 		if trace.HitPos:Distance(self.Owner:GetShootPos()) <= 80 then
 			local ent = self.Owner:GetEyeTrace().Entity
 
-		//local ent = owner:MeleeTrace(32, 2).Entity
+		-- local ent = owner:MeleeTrace(32, 2).Entity
 			if ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
 
-				local health, maxhealth = ent:Health(), 100//owner:GetMaxHealth()
+				local health, maxhealth = ent:Health(), 100-- owner:GetMaxHealth()
 				if ent:GetPerk("_kevlar") then maxhealth = 110 elseif ent:GetPerk("_kevlar2") then maxhealth = 120 end
 				local multiplier = 1
 				if owner:GetPerk("_medupgr1" ) then
@@ -156,8 +156,8 @@ function SWEP:PrimaryAttack()
 							end
 						end
 					end
-					//end
-					//self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+					-- end
+					-- self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
 
 					owner:SetAnimation( PLAYER_ATTACK1 )
 
@@ -174,7 +174,7 @@ end
 function SWEP:SecondaryAttack()
 	local owner = self.Owner
 	if self:CanPrimaryAttack() then
-		local health, maxhealth = owner:Health(), 100//owner:GetMaxHealth()
+		local health, maxhealth = owner:Health(), 100-- owner:GetMaxHealth()
 		if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 end
 		local multiplier = 1
 		if owner:GetPerk("_medupgr1") then
@@ -200,7 +200,7 @@ function SWEP:SecondaryAttack()
 				
 				owner:EmitSound("items/smallmedkit1.wav")
 			end
-			//self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+			-- self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
 
 			owner:SetAnimation( PLAYER_ATTACK1 )
 			self.IdleAnimation = CurTime() + self:SequenceDuration()
@@ -247,10 +247,10 @@ if CLIENT then
 			surface.DrawTexturedRect(x+3, y+3, math.min(1, timeleft / math.max(self.Primary.HealDelay, self.Secondary.HealDelay)) * (wid-6), hei-6)
 		end
 
-		//surface.SetDrawColor(255, 0, 0, 180)
-		//surface.DrawOutlinedRect(x, y, wid, hei)
+		-- surface.SetDrawColor(255, 0, 0, 180)
+		-- surface.DrawOutlinedRect(x, y, wid, hei)
 
-		//draw.SimpleText("Medical Kit", "ZSHUDFontSmall", x, texty, COLOR_GREEN, TEXT_ALIGN_LEFT)
+		-- draw.SimpleText("Medical Kit", "ZSHUDFontSmall", x, texty, COLOR_GREEN, TEXT_ALIGN_LEFT)
 
 		local charges = self:GetPrimaryAmmoCount()
 		if charges > 0 then
@@ -273,7 +273,7 @@ function SWEP:CanPrimaryAttack()
 		return false
 	end
 	
-	return --[[self:GetNextCharge() <= CurTime() and]] (owner.NextMedKitUse or 0) <= CurTime()
+	return --[=[self:GetNextCharge() <= CurTime() and]=] (owner.NextMedKitUse or 0) <= CurTime()
 end
 
 function SWEP:Equip ( NewOwner )
@@ -295,6 +295,6 @@ function SWEP:Equip ( NewOwner )
 		end
 	end	
 	
-	//Call this function to update weapon slot and others
+	-- Call this function to update weapon slot and others
 	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
 end

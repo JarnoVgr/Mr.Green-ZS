@@ -7,7 +7,7 @@ function EFFECT:Init( data )
 	
 	print( 1 )
 	
-	//Effect size and pos
+	-- Effect size and pos
 	self.Size, self.Pos = 35, self:GetCenter()
 	
 	self.Particles = {}
@@ -32,7 +32,7 @@ function EFFECT:Init( data )
 	end
 end
 
-//Calculate position
+-- Calculate position
 function EFFECT:GetCenter()
 	if self:IsEntityValid() then
 		return self.Zombie:LocalToWorld( self.Zombie:OBBCenter() )
@@ -41,13 +41,13 @@ function EFFECT:GetCenter()
 	return Vector( 0,0,0 )
 end
 
-//Finish effect
+-- Finish effect
 function EFFECT:Finish()
 	if self.Emitter then
 		self.Emitter:Finish() 
 	end
 	
-	//Erase particles
+	-- Erase particles
 	if self.Particles then
 		for i = 1, 2 do
 			self.Particles[i]:SetDieTime( 0.01 )
@@ -66,7 +66,7 @@ function EFFECT:Think()
 		return self:Finish()
 	end	
 
-	//Update emitter position
+	-- Update emitter position
 	self:SetPos( self:GetCenter() )
 	
 	return true

@@ -5,10 +5,10 @@ function EFFECT:Init ( data )
 	self.Human = data:GetEntity()
 	if not self:IsItemValid() then return end
 
-	//Emitter
+	-- Emitter
 	self.Emitter = ParticleEmitter ( self.Human:LocalToWorld( self.Human:OBBCenter() ) )
 	
-	//Pre-fab random local location table
+	-- Pre-fab random local location table
 	self.ParticlePosition = {}
 	for i = 1, 500 do
 		local X, Y, Z
@@ -20,12 +20,12 @@ function EFFECT:Init ( data )
 	end
 end
 
-//Checks to see if item is valid
+-- Checks to see if item is valid
 function EFFECT:IsItemValid()
 	return IsValid( self.Human ) and self.Human:IsPlayer() and self.Human:IsHuman() and self.Human:IsTakingDOT()
 end
 
-//Returns effect position
+-- Returns effect position
 function EFFECT:Position()
 	if self:IsItemValid() then
 		return self.Human:LocalToWorld( table.Random( self.ParticlePosition ) )
@@ -39,7 +39,7 @@ function EFFECT:Think()
 		return self:Finish()
 	end
 	
-	//Update emitter position
+	-- Update emitter position
 	if self.Emitter then
 		self.Emitter:SetPos( self:Position() )
 		self:SetPos( self:Position() )
@@ -48,7 +48,7 @@ function EFFECT:Think()
 	return true
 end
 
-//Finishes effect
+-- Finishes effect
 function EFFECT:Finish()
 	if self.Emitter then
 		self.Emitter:Finish()
@@ -73,7 +73,7 @@ function EFFECT:Render()
 			end
 		end
 				
-		//Apply cooldown
+		-- Apply cooldown
 		self.PuffTime = CurTime() + math.Clamp( 0.3 - ( self.Human:GetVelocity():Length() / 1000 ), 0.13, 0.3 )
 	end
 end

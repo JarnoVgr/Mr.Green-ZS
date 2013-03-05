@@ -38,23 +38,23 @@ end
 
 	local function PlayerSpawn()
 
-		if legvar1:GetInt() != 1 then return end
+		if legvar1:GetInt() ~= 1 then return end
 
 		for k, ply in pairs(player.GetAll()) do
 
-			if !ply.LegsEnt then
+			if not ply.LegsEnt then
 				if ply:IsValid() then
 					if ply:Alive() then
 						if ply:InVehicle() then
-							if legvar3:GetInt() != 0 then
+							if legvar3:GetInt() ~= 0 then
 								SpawnLegs(ply)
 							end
 						else
 							SpawnLegs(ply)
 						end
 
-						if legvar2:GetInt() != 0 then
-							if !ply:InVehicle() then
+						if legvar2:GetInt() ~= 0 then
+							if not ply:InVehicle() then
 								local legs2 = ents.Create("player_shadow")
 								if (ValidEntity(legs2)) then
 									legs2:SetPos(ply:GetPos() + ply:GetForward()*-20)
@@ -82,7 +82,7 @@ end
 	end
 --	hook.Add("Think","LegSpawn",PlayerSpawn)
 
-	--[[local function PlayerEnteredVehicle( ply, vehicle, role )
+	--[=[local function PlayerEnteredVehicle( ply, vehicle, role )
 		if ply.LegsEnt and ply.LegsEnt:IsValid() then
 			ply.LegsEnt:Remove()
 		end
@@ -90,9 +90,9 @@ end
 			ply.LegsEnt2:Remove()
 		end
 	end 
-	hook.Add("PlayerEnteredVehicle","VehicleLegz",PlayerEnteredVehicle)]]
+	hook.Add("PlayerEnteredVehicle","VehicleLegz",PlayerEnteredVehicle)]=]
 
-	--[[local function PlayerLeaveVehicle( ply, vehicle, role )
+	--[=[local function PlayerLeaveVehicle( ply, vehicle, role )
 		if ply.LegsEnt and ply.LegsEnt:IsValid() then
 			ply.LegsEnt:Remove()
 		end
@@ -100,10 +100,10 @@ end
 			ply.LegsEnt2:Remove()
 		end
 	end 
-	hook.Add("PlayerLeaveVehicle","VehicleLegz",PlayerLeaveVehicle)]]
+	hook.Add("PlayerLeaveVehicle","VehicleLegz",PlayerLeaveVehicle)]=]
 
 	--Just some commands I used when I was testing.
-	--[[
+	--[=[
 
 	local function ResetLegs(ply, cmd, args)
 		ply.LegsEnt = nil
@@ -124,7 +124,7 @@ end
 	end
 	concommand.Add( "legs_remove", RemoveLegs )
 
-	]]
+	]=]
 
 
 	local function RemoveLegs(ply, cmd, args)

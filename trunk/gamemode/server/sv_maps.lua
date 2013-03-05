@@ -11,15 +11,15 @@ local player = player
 local timer = timer
 local umsg = umsg
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
    Read the mapcycle.txt and build the cycle
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 MapCycle = {}
 function GM:SetMapList()
-	/*local str = file.Read("../mapcycle.txt")
+	--[==[local str = file.Read("../mapcycle.txt")
 	MapCycle = string.Explode("\n",str)
 	
-	//Just in case the file is empty or small
+	-- Just in case the file is empty or small
 	if string.len ( str ) <= 50 then
 		local strFiles = file.Find( "../maps/*.bsp" )
 		for k,v in pairs ( strFiles ) do
@@ -30,7 +30,7 @@ function GM:SetMapList()
 		end
 	end
 	
-	//Verifiy the map cycle
+	-- Verifiy the map cycle
 	for k,v in pairs ( MapCycle ) do
 		if v == "" or string.len ( v ) <= 3 or not IsZombieMap( v ) then
 			MapCycle[k] = nil
@@ -45,8 +45,8 @@ function GM:SetMapList()
 			Debug ( "Randomized map cycle!" )
 		end
 	end
-	//Rearrange table
-	table.Resequence ( MapCycle )*/
+	-- Rearrange table
+	table.Resequence ( MapCycle )]==]
 	
 	local filename = "zombiesurvival/zsmapcycle.txt"
 	
@@ -60,32 +60,32 @@ function GM:SetMapList()
 	
 end
 
-/*-----------------------------------------------------
+--[==[-----------------------------------------------------
         Strips the extension of a map file
------------------------------------------------------*/
+-----------------------------------------------------]==]
 function NameNormalize ( strMap )
 	return string.gsub( strMap, ".bsp", "" ) or ""
 end
 
-/*-----------------------------------------------------
+--[==[-----------------------------------------------------
         Returns if a map is for zombie survival
------------------------------------------------------*/
+-----------------------------------------------------]==]
 function IsZombieMap ( strMap )
 	if strMap == nil then return end
 	local bIsZombieMap = false
 	
-	//First too letters are 'zs'
+	-- First too letters are 'zs'
 	if string.sub ( strMap, 1, 2 ) == "zs" or string.sub ( strMap, 1, 2 ) == "zm" or string.sub ( strMap, 1, 2 ) == "cs" then bIsZombieMap = true end
 	
 	return bIsZombieMap
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
    Return first 6 maps in front of the current
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 VoteMaps = {}
 function GM:GetVoteMaps()
-	/*local map = game.GetMap()
+	--[==[local map = game.GetMap()
 	local players = #player.GetAll()
 	
 	local Interval = {
@@ -109,7 +109,7 @@ function GM:GetVoteMaps()
 		end
 			
 		local nextmap, tbMap = MapCycle[mappos + 1], TranslateMapTable[nextmap]
-		if tbMap != nil then
+		if tbMap ~= nil then
 			local MapMaxLimit, MapMinLimit = TranslateMapTable[nextmap].Size, Interval[ TranslateMapTable[nextmap].Size ]
 			if players > MapMinLimit and players <= MapMaxLimit then 
 				if #VoteMaps < 3 then
@@ -122,7 +122,7 @@ function GM:GetVoteMaps()
 		end
 	end
 	
-	//if no maps found
+	-- if no maps found
 	if #VoteMaps == 0 then 
 		local mappos = 0
 		for k, v in pairs (MapCycle) do
@@ -146,11 +146,11 @@ function GM:GetVoteMaps()
 		end
 	end
 	
-	//no players on the server
+	-- no players on the server
 	if players == 0 then
 		VoteMaps = {}
 	
-		//get 6 random maps from the cycle
+		-- get 6 random maps from the cycle
 		for k,v in pairs ( MapCycle ) do
 			if math.random ( 1, 2 ) == 1 then
 				table.insert ( VoteMaps, v )
@@ -158,7 +158,7 @@ function GM:GetVoteMaps()
 		end
 	end
 
-	return VoteMaps*/
+	return VoteMaps]==]
 	local map = game.GetMap()
 	local players = #player.GetAll()
 	
@@ -183,20 +183,20 @@ function GM:GetVoteMaps()
 		end
 			
 		local nextmap, nextmapname = MapCycle[mappos + 1].Map, MapCycle[mappos + 1].MapName
-		//if tbMap != nil then
-			//local MapMaxLimit, MapMinLimit = TranslateMapTable[nextmap].Size, Interval[ TranslateMapTable[nextmap].Size ]
-			//if players > MapMinLimit and players <= MapMaxLimit then 
+		-- if tbMap ~= nil then
+			-- local MapMaxLimit, MapMinLimit = TranslateMapTable[nextmap].Size, Interval[ TranslateMapTable[nextmap].Size ]
+			-- if players > MapMinLimit and players <= MapMaxLimit then 
 				if #VoteMaps < 3 then
 					table.insert ( VoteMaps, {nextmap,nextmapname} )
 					Debug ( "Map "..tostring ( nextmap ).." added to End-Game Votecycle!" )
 				end
-			//end
+			-- end
 				
 			mappos = mappos + 1
-		//end
+		-- end
 	end
 	
-	//if no maps found
+	-- if no maps found
 	if #VoteMaps == 0 then 
 		local mappos = 0
 		for k, v in pairs (MapCycle) do
@@ -220,11 +220,11 @@ function GM:GetVoteMaps()
 		end
 	end
 	
-	//no players on the server
+	-- no players on the server
 	if players == 0 then
 		VoteMaps = {}
 	
-		//get 6 random maps from the cycle
+		-- get 6 random maps from the cycle
 		for k,v in pairs ( MapCycle ) do
 			if math.random ( 1, 2 ) == 1 then
 				table.insert ( VoteMaps, {v.Map,v.MapName} )
@@ -236,9 +236,9 @@ function GM:GetVoteMaps()
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Return the next map in the cycle
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:GetMapNext()
 	local map = game.GetMap()
 	local nextmap = MapCycle[1].Map
@@ -250,7 +250,7 @@ function GM:GetMapNext()
 	return nextmap
 end
 
-//New shit
+-- New shit
 
 function GM:MakeBlankMapList()
 		
@@ -284,13 +284,13 @@ function GM:LoadMapList()
 	MapCycle = util.JSONToTable(file.Read(filename))
 	
 	print("-< Loaded Map List! >-")
-	//PrintTable(MapCycle)
+	-- PrintTable(MapCycle)
 	
 end
 
 function ShuffleMapList(pl,cmd,args)
 	
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	if MapCycle == nil then return end
 	
 	table.Shuffle(MapCycle)
@@ -300,7 +300,7 @@ concommand.Add("zs_mapmanager_shuffle",ShuffleMapList)
 
 function SaveMapList(pl,cmd,args)
 	
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	if MapCycle == nil then return end
 	
 	local filename = "zombiesurvival/zsmapcycle.txt"
@@ -313,7 +313,7 @@ concommand.Add("zs_mapmanager_save",SaveMapList)
 
 --Send maps to client
 function SendMapListToClient ( pl,commandName,args )
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	if MapCycle == nil then return end
 	local x = 1
 	for k, v in pairs( MapCycle ) do	
@@ -332,7 +332,7 @@ concommand.Add("send_maplist",SendMapListToClient)
 
 function Map_Swap(pl,cmd,args)
 	
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	if MapCycle == nil then return end
 	
 	local index = args[1]
@@ -361,7 +361,7 @@ concommand.Add("zs_mapmanager_swap",Map_Swap)
 
 function Map_Delete(pl,cmd,args)
 	
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	if MapCycle == nil then return end
 	
 	local index = args[1]
@@ -379,7 +379,7 @@ concommand.Add("zs_mapmanager_delete",Map_Delete)
 
 function Map_AddNew(pl,cmd,args)
 	
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	if MapCycle == nil then return end
 	
 	local filename = args[1]
@@ -396,7 +396,7 @@ concommand.Add("zs_mapmanager_add",Map_AddNew)
 
 function Map_RenewName(pl,cmd,args)
 	
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	if MapCycle == nil then return end
 	
 	local index = args[1]
@@ -408,14 +408,14 @@ function Map_RenewName(pl,cmd,args)
 	
 	MapCycle[index].MapName = name or "Invalid Name!"
 	
-	//table.Resequence ( MapCycle )
+	-- table.Resequence ( MapCycle )
 
 end
 concommand.Add("zs_mapmanager_renewname",Map_RenewName) 
 
 function Map_RenewFileName(pl,cmd,args)
 	
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	if MapCycle == nil then return end
 	
 	local index = args[1]
@@ -427,7 +427,7 @@ function Map_RenewFileName(pl,cmd,args)
 	
 	MapCycle[index].Map = filename or "zs_please"
 	
-	//table.Resequence ( MapCycle )
+	-- table.Resequence ( MapCycle )
 
 end
 concommand.Add("zs_mapmanager_renewfilename",Map_RenewFileName) 
@@ -453,7 +453,7 @@ function GM:MakeBlankMapProperties()
 	local filename = "zombiesurvival/zsmapproperties.txt"
 	
 	for map,stuff in pairs(TranslateMapTable) do
-		//order -  Remove entities, Except removing,Remove by model, Remove Glass,spawn protection
+		-- order -  Remove entities, Except removing,Remove by model, Remove Glass,spawn protection
 		MapProperties[map] = { stuff.RemoveEntities or {}, stuff.ExceptEntitiesRemoval or {}, stuff.RemoveEntitiesByModel or {}, stuff.RemoveGlass or false, stuff.ZombieSpawnProtection or 3 }
 	end
 	
@@ -477,7 +477,7 @@ function GM:LoadMapProperties()
 end
 
 function SendMapPropertiesToClient ( pl,commandName,args )
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	if MapProperties == nil then return end
 	
 	for map, tables in pairs( MapProperties ) do	
@@ -492,7 +492,7 @@ concommand.Add("send_mapproperties",SendMapPropertiesToClient)
 
 function ReceiveMapProperties(pl,cmd,args)
 	
-	if !pl:IsAdmin() then return end
+	if not pl:IsAdmin() then return end
 	if MapProperties == nil then return end
 	
 	if not args then return end
@@ -500,20 +500,20 @@ function ReceiveMapProperties(pl,cmd,args)
 	local map = tostring(args[1])
 	local encoded = tostring(args[2])
 	
-	//print("Received :"..map)
-	//print("Serverside encoded: "..encoded)
+	-- print("Received :"..map)
+	-- print("Serverside encoded: "..encoded)
 	
 	local filename = "zombiesurvival/zsmapproperties.txt"
 	
 	local fixed = string.gsub(encoded,"'","\"")
 	
-	//print("Serverside fixed: "..fixed)
+	-- print("Serverside fixed: "..fixed)
 	
 	local decoded = util.JSONToTable(fixed)
 	
 	MapProperties[map] = decoded
 	
-	//PrintTable(MapProperties[map])
+	-- PrintTable(MapProperties[map])
 	
 	timer.Simple(0.1,function()	
 		file.Write(filename,util.TableToJSON(MapProperties))	

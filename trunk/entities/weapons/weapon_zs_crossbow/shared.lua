@@ -53,17 +53,17 @@ function SWEP:Initialize()
 	
 		    if CLIENT then
      
-        self:CreateModels(self.VElements) // create viewmodels
-        self:CreateModels(self.WElements) // create worldmodels
+        self:CreateModels(self.VElements) --  create viewmodels
+        self:CreateModels(self.WElements) --  create worldmodels
          
-        // init view model bone build function
+        --  init view model bone build function
         self.BuildViewModelBones = function( s )
             if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBonescales then
                 for k, v in pairs( self.ViewModelBonescales ) do
                     local bone = s:LookupBone(k)
-                    if (!bone) then continue end
+                    if (not bone) then continue end
                     local m = s:GetBoneMatrix(bone)
-                    if (!m) then continue end
+                    if (not m) then continue end
                     m:Scale(v)
                     s:SetBoneMatrix(bone, m)
 					end

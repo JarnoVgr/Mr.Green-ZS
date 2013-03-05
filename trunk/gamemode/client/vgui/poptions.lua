@@ -47,9 +47,9 @@ function MakepOptions()
 	
 	local winW,winH = pOptions:GetWide(), pOptions:GetTall()
 	
-	//define our categories and lists
+	-- define our categories and lists
 	local FrameList
-	local Cat = {} //no jokes
+	local Cat = {} -- no jokes
 	local CatList = {}
 	
 	FrameList = vgui.Create( "DPanelList", pOptions )
@@ -58,20 +58,20 @@ function MakepOptions()
 	FrameList:SetSpacing( 1 )
 	FrameList:EnableHorizontal( false )
 	FrameList:EnableVerticalScrollbar( true )
-	FrameList.Paint = function() end //dont draw this
+	FrameList.Paint = function() end -- dont draw this
 	
-	//HUD
+	-- HUD
 	Cat["hud"] = vgui.Create("DCollapsibleCategory", pOptions)
 	Cat["hud"]:SetSize( winW-10, 50 )
 	Cat["hud"]:SetPos( winW/2-Cat["hud"]:GetWide()/2,50 )
 	Cat["hud"]:SetExpanded( false )
 	Cat["hud"]:SetLabel( "HUD and Sound Options" )
-	//Cat["hud"].Paint = function()
+	-- Cat["hud"].Paint = function()
 
-	//end
+	-- end
 	FrameList:AddItem( Cat["hud"] )
 	
-	//Stuff for hud---------	
+	-- Stuff for hud---------	
 	CatList["hud"] = vgui.Create( "DPanelList" )
 	CatList["hud"]:SetAutoSize( true )
 	CatList["hud"]:SetSpacing( 3 )
@@ -89,23 +89,23 @@ function MakepOptions()
 	slider:SetMinMax(45, 125)
 	slider:SetConVar("_zs_wepfov")
 	slider:SetText("Weapon's FOV")
-	/*slider.Wang.TextEntry.OnEnter = function(txt)
+	--[==[slider.Wang.TextEntry.OnEnter = function(txt)
         slider:SetValue(tonumber(txt:GetValue()));
-    end*/
+    end]==]
 	CatList["hud"]:AddItem( slider )
 	
 	
-	//---------------------------
+	-- ---------------------------
 	
-	//Gameplay and stuff
+	-- Gameplay and stuff
 	Cat["gmp"] = vgui.Create("DCollapsibleCategory", pOptions)
 	Cat["gmp"]:SetSize( winW-10, 50 )
-	//Cat["gmp"]:SetPos( winW/2-Cat["gmp"]:GetWide()/2,50 )
+	-- Cat["gmp"]:SetPos( winW/2-Cat["gmp"]:GetWide()/2,50 )
 	Cat["gmp"]:SetExpanded( false )
 	Cat["gmp"]:SetLabel( "Gameplay stuff" )
 	FrameList:AddItem( Cat["gmp"] )
 	
-	//Stuff for gameplay---------	
+	-- Stuff for gameplay---------	
 	CatList["gmp"] = vgui.Create( "DPanelList" )
 	CatList["gmp"]:SetAutoSize( true )
 	CatList["gmp"]:SetSpacing( 3 )
@@ -118,14 +118,14 @@ function MakepOptions()
 	Cat["gmp"]:SetContents( CatList["gmp"] )	
 	
 	
-	//Misc
+	-- Misc
 	Cat["misc"] = vgui.Create("DCollapsibleCategory", pOptions)
 	Cat["misc"]:SetSize( winW-10, 50 )
 	Cat["misc"]:SetExpanded( false )
 	Cat["misc"]:SetLabel( "Other options" )
 	FrameList:AddItem( Cat["misc"] )
 	
-	//Stuff for gameplay---------	
+	-- Stuff for gameplay---------	
 	CatList["misc"] = vgui.Create( "DPanelList" )
 	CatList["misc"]:SetAutoSize( true )
 	CatList["misc"]:SetSpacing( 3 )
@@ -137,7 +137,7 @@ function MakepOptions()
 	end
 	Cat["misc"]:SetContents( CatList["misc"] )
 	
-	//title editor	
+	-- title editor	
 	if ( MySelf.DataTable and MySelf.DataTable["ShopItems"][ util.GetItemID( "titlechanging" ) ] ) then
 		
 		local yh = 0
@@ -203,7 +203,7 @@ function MakepOptions()
 	end
 	
 	
-	//turret's name
+	-- turret's name
 		
 		local title1 = vgui.Create("DLabel")
 		title1:SetText("")
@@ -288,7 +288,7 @@ function MakepOptions()
 		
 		hatpreview.Paint = function(self)
 		
-			if ( !IsValid( self.Entity ) ) then return end
+			if ( not IsValid( self.Entity ) ) then return end
 			
 			if self.Entity:GetModel() == "models/props_c17/doll01.mdl" then
 				draw.SimpleTextOutlined ( "No hat", "WeaponNames", hatpreview:GetTall()/2,hatpreview:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
@@ -337,7 +337,7 @@ function MakepOptions()
 						hat = hats[v]["1"].model
 					end
 				end
-				 //= hats[MySelf.Hat:GetHatType()]["1"].model
+				 -- = hats[MySelf.Hat:GetHatType()]["1"].model
 				if hat then
 					if not hatpreview.Entity then
 						hatpreview:SetModel(hat)
@@ -370,7 +370,7 @@ function MakepOptions()
 	
 	
 	
-	//fill stuff with convars
+	-- fill stuff with convars
 	local Items = {}
 	local counter = 1
 	
@@ -385,7 +385,7 @@ function MakepOptions()
 	
 	
 end
-/*
+--[==[
 function MakepOptions1()
 	if not MySelf then return end
 	if pOptions then
@@ -464,15 +464,15 @@ function MakepOptions1()
 	check.Button.ConVarChanged = CheckChanged
 	
 
-	--[[drawy = drawy+30
+	--[=[drawy = drawy+30
 	local check = vgui.Create("DCheckBoxLabel", Window)
 	check:SetPos(32, drawy)
 	check:SetSize(wide, 32)
 	check:SetText("Use new HUD")
 	check:SetConVar("_zs_newhud")
-	check.Button.ConVarChanged = CheckChanged]]
+	check.Button.ConVarChanged = CheckChanged]=]
 	
-	--[[drawy = drawy+30
+	--[=[drawy = drawy+30
 	local hudstyleslabel = vgui.Create("DLabel",Window)
 	hudstyleslabel:SetText( "Available HUD styles:" )
 	hudstyleslabel:SetPos( 32, drawy )
@@ -494,14 +494,14 @@ function MakepOptions1()
 		item = hudlist:AddItem(v)
 		item.ItemType = k
 		item.DoClick = itemDoClick
-	end]]
+	end]=]
 
 	--local oldpaint = hudlist.Paint
-	--[[hudstyleslabel.Paint = function()
+	--[=[hudstyleslabel.Paint = function()
 		print("Test: ".. tonumberhudlist.GetSelected())
 		--oldpaint()
 		RunConsoleCommand("zs_newhud",1)
-	end]]
+	end]=]
 
 	
 	drawy = drawy+30
@@ -576,12 +576,12 @@ function MakepOptions1()
 	
 	drawy = 80
 	xpos = pOptions:GetWide()/1.3
-	--[[local check = vgui.Create("DCheckBoxLabel", Window)
+	--[=[local check = vgui.Create("DCheckBoxLabel", Window)
 	check:SetPos(wide + 32, drawy)
 	check:SetSize(wide, 32)
 	check:SetText("Disable ALL post processing effects")
 	check:SetConVar("_disable_pp")
-	check.Button.ConVarChanged = CheckChanged]]
+	check.Button.ConVarChanged = CheckChanged]=]
 
 	drawy = drawy+30
 	local check = vgui.Create("DCheckBoxLabel", Window)
@@ -591,13 +591,13 @@ function MakepOptions1()
 	check:SetConVar("_zs_enablefilmgrain")
 	check.Button.ConVarChanged = CheckChanged
 
-	--[[drawy = drawy+30
+	--[=[drawy = drawy+30
 	local check = vgui.Create("DCheckBoxLabel", Window)
 	check:SetPos(wide + 32, drawy)
 	check:SetSize(wide, 32)
 	check:SetText("Enable color modifications")
 	check:SetConVar("_zs_enablecolormod")
-	check.Button.ConVarChanged = CheckChanged]]
+	check.Button.ConVarChanged = CheckChanged]=]
 
 	drawy = drawy+30
 	local check = vgui.Create("DCheckBoxLabel", Window)
@@ -623,7 +623,7 @@ function MakepOptions1()
 	check:SetConVar("_zs_customweaponpos")
 	check.Button.ConVarChanged = CheckChanged
 
-	--[[local modellist = vgui.Create("DComboBox",Window) 
+	--[=[local modellist = vgui.Create("DComboBox",Window) 
 	modellist:SetPos( 32, drawy ) 
 	modellist:SetSize( 200, 50 ) -- 180, 395
 	modellist:SetMultiple(false)
@@ -638,7 +638,7 @@ function MakepOptions1()
 		item = hudlist:AddItem(v)
 		item.ItemType = k
 		item.DoClick = modelDoClick
-	end]]
+	end]=]
 
 	if ( MySelf.DataTable and MySelf.DataTable["ShopItems"][ util.GetItemID( "titlechanging" ) ] ) then
 		local titleeditlabel = vgui.Create("DLabel",Window)
@@ -730,8 +730,8 @@ function MakepOptions1()
 		end
 		
 	
-	--[[
-	//Class button
+	--[=[
+	-- Class button
 	local ClassButton = vgui.Create("DButton",Window)
 	ClassButton:SetText( "Redeem as: "..HumanClasses[GetConVarNumber("_zs_redeemclass")].Name.."" )
 	ClassButton:SetPos(365, 312)
@@ -745,7 +745,7 @@ function MakepOptions1()
 		ClassMenu:AddOption("Support", function() RunConsoleCommand("_zs_redeemclass", "5"); RunConsoleCommand("mrgreen_setredeemclass", "5"); ClassButton:SetText( "Redeem as: Support" ) end )
 		ClassMenu:Open()
 	end
-	]]
+	]=]
 	
 	local lbw,lbh = xpos, 220 
 	local Classlabel = vgui.Create("DLabel",Window)
@@ -784,11 +784,11 @@ function MakepOptions1()
 	button:SetText("Close")
 	button.DoClick = function(btn) btn:GetParent():SetVisible(false) end
 end
-*/
+]==]
 
 
 -- Hat drawing
-//CreateClientConVar("_zs_enablehats", 1, true, false)
+-- CreateClientConVar("_zs_enablehats", 1, true, false)
 ENABLE_HATS = util.tobool(GetConVarNumber("_zs_enablehats"))
 local function EnableHats(sender, command, arguments)
 	ENABLE_HATS = util.tobool(arguments[1])
@@ -804,7 +804,7 @@ end
 concommand.Add("zs_enablehats", EnableHats)
 
 -- Auto redeem
-//CreateClientConVar("_zs_autoredeem", 1, true, false)
+-- CreateClientConVar("_zs_autoredeem", 1, true, false)
 AUTOREDEEM = util.tobool( GetConVarNumber("_zs_autoredeem") )
 local function EnableAutoRedeem(sender, command, arguments)
 	AUTOREDEEM = util.tobool( arguments[1] )

@@ -22,7 +22,7 @@ if CLIENT then
 	SWEP.ShowWorldModel = false
 
 	SWEP.ViewModelBoneMods = {
-		//["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(-10.202, 19.533, 0) },
+		-- ["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(-10.202, 19.533, 0) },
 		["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1.2, 1.2, 1.2), pos = Vector(0, 0, 0), angle = Angle(0, -7.493, -45.569) },
 		["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
@@ -39,7 +39,7 @@ if CLIENT then
 	
 end
 SWEP.Base = "weapon_zs_zombie"
-//Remade by Deluvas
+-- Remade by Deluvas
 SWEP.Author = "Deluvas"
 SWEP.Contact = ""
 SWEP.Purpose = ""
@@ -291,7 +291,7 @@ function SWEP:OnViewModelDrawn()
 				end
 			end
 			
-			self.Arms:SetRenderOrigin( vm:GetPos()-vm:GetAngles():Forward()*20-vm:GetAngles():Up()*60 )//self.Arms[1]:SetRenderOrigin( EyePos() )
+			self.Arms:SetRenderOrigin( vm:GetPos()-vm:GetAngles():Forward()*20-vm:GetAngles():Up()*60 )-- self.Arms[1]:SetRenderOrigin( EyePos() )
 			self.Arms:SetRenderAngles( vm:GetAngles() )
 			
 			self.Arms:SetupBones()	
@@ -314,7 +314,7 @@ function SWEP:MakeArms()
 		self.Arms:SetAngles(self:GetAngles())
 		self.Arms:SetParent(self) 
 		self.Arms:SetupBones()
-		//self.Arms:AddEffects(bit.bor(EF_BONEMERGE , EF_BONEMERGE_FASTCULL , EF_PARENT_ANIMATES))
+		-- self.Arms:AddEffects(bit.bor(EF_BONEMERGE , EF_BONEMERGE_FASTCULL , EF_PARENT_ANIMATES))
 		self.Arms:SetNoDraw(true) 
 	else
 		self.Arms = nil

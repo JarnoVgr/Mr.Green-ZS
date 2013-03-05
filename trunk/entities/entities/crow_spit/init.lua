@@ -10,7 +10,7 @@ function ENT:Initialize()
 	self.DieTime = CurTime() + 3
 
 	local pl = self.Entity:GetOwner()
-	//local aimvec = pl.Crow:GetAngles():Forward()
+	-- local aimvec = pl.Crow:GetAngles():Forward()
 	local aimvec = pl:GetAimVector()
 	pl:DeleteOnRemove(self.Entity)
 	self.Entity.Team = pl:Team()

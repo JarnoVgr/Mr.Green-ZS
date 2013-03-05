@@ -50,7 +50,7 @@ SWEP.Instruction = {
 	[4] = { "Left click to add a custom zombie spawn" , "Right click to delete nearby spawns. To save the map with new spawnpoints, press RELOAD" },
 }
 
-//Don't touch this
+-- Don't touch this
 local EntsToDelete = {}
 local PointsTable = {}
 SWEP.AmmoBoxTable = {}
@@ -58,10 +58,10 @@ SWEP.SpawnsTable = {}
 
 function SWEP:Initialize()
 
-	//Tool mode
+	-- Tool mode
 	self:SetNetworkedInt ( "Mode", 1 )
 	
-	//Ammo box switch
+	-- Ammo box switch
 	self:SetDTBool ( 0, false )
 end
 
@@ -75,13 +75,13 @@ function SWEP:SpawnAmmoBox ( Switched )
 	ent:SetPos ( pos )
 	ent:Spawn()	
 	
-	//Increment that shit
+	-- Increment that shit
 	BoxSpawnID = BoxSpawnID + 1
 	
-	//Set the ent's number so we know what to delete
+	-- Set the ent's number so we know what to delete
 	ent.BoxSpawnID = BoxSpawnID
 		
-	//Notify the dev
+	-- Notify the dev
 	local PosTableSupply = { X = trace.HitPos.x, Y = trace.HitPos.y, Z = trace.HitPos.z, ID = BoxSpawnID, Switch = Switched }
 	self.Owner:PrintMessage ( HUD_PRINTTALK, "You have created box with spawn number "..BoxSpawnID)
 		
@@ -93,7 +93,7 @@ function SWEP:MakeZombieSpawn ()
 	
 	local pos = self.Owner:GetPos()
 	local ang = self.Owner:GetAngles()
-	//Notify the dev
+	-- Notify the dev
 	local SpawnPos = { pos, ang}
 	self.Owner:PrintMessage ( HUD_PRINTTALK, "You have created zombie spawn!")
 	if SERVER then	
@@ -130,7 +130,7 @@ if CLIENT then
 end
 
 
-//Hacky way to update weapon slot count
+-- Hacky way to update weapon slot count
 function SWEP:Equip ( NewOwner )
 	if SERVER then
 		local EntClass = self:GetClass()
@@ -171,7 +171,7 @@ function SWEP:RemoveAmmoBoxFromTable( ent )
 	local vPos = ent:GetPos()
 	local x,y,z = vPos.x, vPos.y, vPos.z
 	
-	//Find the box ID in the spawn points table and remove it
+	-- Find the box ID in the spawn points table and remove it
 	for id, tab in pairs ( self.AmmoBoxTable ) do
 		for cord,val in pairs ( tab ) do
 			if self.AmmoBoxTable[id]["ID"] == ent.BoxSpawnID then
@@ -190,14 +190,14 @@ function SWEP:Think()
 	local Owner = self.Owner
 	local MaxModes, Message = 4
 	
-	//Change angle for ammo box
+	-- Change angle for ammo box
 	if Owner:KeyPressed ( IN_ZOOM ) then
 		self:SetDTBool ( 0 , not self:GetDTBool ( 0 ) ) 
 		
 		return
 	end
 	
-	//Change the tool mode on space press
+	-- Change the tool mode on space press
 	if Owner:KeyPressed ( IN_USE ) then
 		if SwitchTimer > CurTime() then return end
 		local Mode = self:GetNetworkedInt ( "Mode" )		
@@ -210,10 +210,10 @@ function SWEP:Think()
 			Mode = 1
 		end
 		
-		//Hacky way to set it:)
+		-- Hacky way to set it:)
 		self:SetNetworkedInt ( "Mode", Mode )
 		
-		//Make it smooth
+		-- Make it smooth
 		SwitchTimer = CurTime() + 0.3
 		
 		return
@@ -229,7 +229,7 @@ local function SaveWeaponPoints ( pl, cmd, args )
 	
 	for id, table in pairs ( PointsTable ) do
 		for cord, val in pairs ( table ) do
-			if cord != "ID" then
+			if cord ~= "ID" then
 				content = content .."\ntable.insert( DropPoints"..cord..",\"".. tostring(val) .."\" ) -- inserted by "..pl:Name()
 			end
 		end
@@ -239,9 +239,9 @@ local function SaveWeaponPoints ( pl, cmd, args )
 end
 concommand.Add( "dev_saveweaponpoints", SaveWeaponPoints )
 
-/*---------------------------------------------------------------------------------
+--[==[---------------------------------------------------------------------------------
        Saves Ammo Box Locations from the developer tool - don't touch!
-----------------------------------------------------------------------------------*/
+----------------------------------------------------------------------------------]==]
 local function SaveAmmoPoints ( pl, cmd, args )
 	if not pl:IsSuperAdmin() then return end
 	
@@ -333,7 +333,7 @@ function SWEP:RemoveWeaponFromTable( weapon )
 	local vPos = weapon:GetPos()
 	local x,y,z = vPos.x, vPos.y, vPos.z
 	
-	//Find the weapon ID in the spawn points table and remove it
+	-- Find the weapon ID in the spawn points table and remove it
 	for id, table in pairs ( PointsTable ) do
 		for cord,val in pairs ( table ) do
 			if PointsTable[id]["ID"] == weapon.SpawnID then
@@ -344,7 +344,7 @@ function SWEP:RemoveWeaponFromTable( weapon )
 		end		
 	end
 
-	//Remove the entity
+	-- Remove the entity
 	weapon:Remove()
 end
 
@@ -353,18 +353,18 @@ function SWEP:RemoveEntity ( Ent )
 	if Ent:IsPlayer() then return end
 	if not ValidEntity ( Ent ) then return end
 
-	//Grav the ent index
+	-- Grav the ent index
 	local EntIndex = tostring(Ent)
 	
-	//Insert the ent's index to the table
+	-- Insert the ent's index to the table
 	table.insert ( EntsToDelete, EntIndex )
 
-	//Make it not solid eventually
+	-- Make it not solid eventually
 	Ent:SetNotSolid( true )
 	Ent:SetMoveType( MOVETYPE_NONE )
 	Ent:SetNoDraw( true )
 	
-	//Remove it
+	-- Remove it
 	Ent:Remove()
 end
 
@@ -376,17 +376,17 @@ function SWEP:PrimaryAttack()
 		local HitPos, Ent = tr.HitPos + tr.HitNormal * 16, tr.Entity 
 		local Mode = self:GetNetworkedInt ( "Mode" )	
 		
-		//Case 1: Add spawn poit for weapons
+		-- Case 1: Add spawn poit for weapons
 		if Mode == 1 then
 			self:SpawnWeapon( HitPos )
 		end
 		
-		//Case 2: Remove entities and save the configuration to file
+		-- Case 2: Remove entities and save the configuration to file
 		if Mode == 2 then
 			self:RemoveEntity ( Ent )				
 		end
 		
-		//Case 3: Add ammo boxes 
+		-- Case 3: Add ammo boxes 
 		if Mode == 3 then
 			self:SpawnAmmoBox ( self:GetDTBool ( 0 ) )
 		end
@@ -395,7 +395,7 @@ function SWEP:PrimaryAttack()
 			self:MakeZombieSpawn()
 		end
 		
-		//Weapon animation
+		-- Weapon animation
 		self.Weapon:SendWeaponAnim ( ACT_VM_PRIMARYATTACK )
 	end
 	
@@ -412,7 +412,7 @@ function SWEP:SecondaryAttack()
 		local Ent = tr.Entity
 		local Mode = self:GetNetworkedInt ( "Mode" )
 		
-		//Case 1 : Delete weapon points
+		-- Case 1 : Delete weapon points
 		if Mode == 1 then
 			if ValidEntity ( Ent ) and Ent.SpawnID then
 				self:RemoveWeaponFromTable( Ent )
@@ -421,7 +421,7 @@ function SWEP:SecondaryAttack()
 			end
 		end
 		
-		//Case 3: Delete ammo crates
+		-- Case 3: Delete ammo crates
 		if Mode == 3 then
 			if ValidEntity ( Ent ) and Ent.BoxSpawnID then
 				self:RemoveAmmoBoxFromTable( Ent )
@@ -486,7 +486,7 @@ if CLIENT then
 		
 		local Mode = self:GetNetworkedInt ( "Mode" )
 		local spawnlist = table.Copy( SpawnPoints )
-		//First description and aditional (2 lines)
+		-- First description and aditional (2 lines)
 		local AditionalDesc = self.Instruction[Mode][2]	
 		local Description = "Mode Description: "..self.Instruction[Mode][1]
 		if Mode == 3 then
@@ -500,12 +500,12 @@ if CLIENT then
 			Description = Description..". Amount of spawns: "..tonumber(#SpawnPoints)
 		end
 		
-		//Get text size
+		-- Get text size
 		surface.SetFont ( "ArialNine" )
 		local DescWide, _ = surface.GetTextSize ( Description )
 		local AdDescWide, _ = surface.GetTextSize ( AditionalDesc )
 		
-		//Draw the box
+		-- Draw the box
 		local BoxWide = math.max ( DescWide, AdDescWide ) + ScaleW(50)
 		draw.RoundedBox ( 8, ScaleW(673) - BoxWide * 0.5, ScaleH(761) - ScaleH(117) * 0.5, BoxWide, ScaleH(117), Color ( 1,1,1,180 ) )
 		

@@ -11,14 +11,14 @@ local player = player
 local timer = timer
 local umsg = umsg
 
-//Web-Stats file
+-- Web-Stats file
 include( "sv_endround_stats.lua" )
 
 local function CheckPlayerDeathNitwits ( pl, attacker, dmginfo )
 	local headshot = false
 	local attach = pl:GetAttachment(1)
 	
-	// Headshots nitwit
+	--  Headshots nitwit
 	if pl:IsPlayer() and attacker:IsPlayer() then
 		if attach then
 			headshot = dmginfo:IsBulletDamage() and dmginfo:GetDamagePosition():Distance( pl:GetAttachment(1).Pos ) < 15
@@ -30,9 +30,9 @@ local function CheckPlayerDeathNitwits ( pl, attacker, dmginfo )
 end
 hook.Add("DoPlayerDeath","CheckNitwits",CheckPlayerDeathNitwits)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	 Send top surivival times to client
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:SendTopTimes(to)
 	local PlayerSorted = {}
 
@@ -61,9 +61,9 @@ function GM:SendTopTimes(to)
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	 Send top brains eaten to client
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:SendTopZombies(to)	
 	local PlayerSorted = {}
 
@@ -95,9 +95,9 @@ function GM:SendTopZombies(to)
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	 Send top damage done by humans
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:SendTopHumanDamages(to)
 	local PlayerSorted = {}
 
@@ -130,9 +130,9 @@ function GM:SendTopHumanDamages(to)
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	 Send top greencoins ( both teams)
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:SendTopGreencoins (to)
 	local PlayerSorted = {}
 
@@ -164,9 +164,9 @@ function GM:SendTopGreencoins (to)
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	 Send top zombies killed
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:SendTopZombiesKilled (to)
 	local PlayerSorted = {}
 
@@ -199,9 +199,9 @@ function GM:SendTopZombiesKilled (to)
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	 Send top assisting players
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:SendTopAssists (to)
 	local PlayerSorted = {}
 
@@ -234,9 +234,9 @@ function GM:SendTopAssists (to)
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	 Send top damage done by zombie
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:SendTopZombieDamages(to)
 	local PlayerSorted = {}
 
@@ -268,9 +268,9 @@ function GM:SendTopZombieDamages(to)
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
           Send top healing done (medic only)
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:SendTopHealing (to)
 	local PlayerSorted = {}
 
@@ -302,9 +302,9 @@ function GM:SendTopHealing (to)
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Send Most chosen class (both teams)
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:SendMostChosenClass ( to )
 	local MostChosenHumanClass,MostChosenUndeadClass = "",""
 
@@ -347,9 +347,9 @@ function GM:SendMostChosenClass ( to )
 	umsg.End()
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
   Send total greencoins gained for each team
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:SendGreencoinsGained ( to )
 	local HumanGC, UndeadGC = 0,0
 	
@@ -462,7 +462,7 @@ function GM:SendTopNitwits (to)
 		end
 	end
 	
-	//See what player has more than 1 nitwit achieved
+	-- See what player has more than 1 nitwit achieved
 	local currentpl, iIndex = 0, {}
 	for k,pl in pairs (Nitwits) do
 		if pl then
@@ -480,7 +480,7 @@ function GM:SendTopNitwits (to)
 					if currentpl == j then
 						iIndex[ Name ].Index = iIndex[ Name ].Index + 1
 						
-						// Give the player with more than 2 achievments 5 greencoins
+						--  Give the player with more than 2 achievments 5 greencoins
 						if iIndex[ Name ].Index > 1 and not iIndex[ Name ].HasTakenGC then
 							j:GiveGreenCoins ( 5 )
 							iIndex[ Name ].HasTakenGC = true
@@ -555,9 +555,9 @@ function GM:SendTopNitwits (to)
 	umsg.End()
 end
 
-/*--------------------------------------------------------
+--[==[--------------------------------------------------------
      Receive the chosen map from the client
---------------------------------------------------------*/
+--------------------------------------------------------]==]
 local VotePointTable = {}
 for i = 1,3 do
 	VotePointTable[i] = 0
@@ -572,13 +572,13 @@ function GetChosenMap( pl, cmd, args )
 end
 concommand.Add ("VoteAddMap",GetChosenMap)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
   Update client and server vote points for maps
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function UpdateClientVotePoints ( pl, slot )
 	if pl.Voted then return end
 
-	//Voted
+	-- Voted
 	VotePointTable[slot] = VotePointTable[slot] + 1 
 	pl.Voted = true
 	
@@ -595,10 +595,10 @@ function UpdateClientVotePoints ( pl, slot )
 	umsg.End()
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Proper Server to client votemap 
 	       update for one player
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function UpdateClientVoteMaps ( pl )
 	if not ValidEntity ( pl ) then return end
 	
@@ -610,16 +610,16 @@ function UpdateClientVoteMaps ( pl )
 	umsg.End()
 end	
 	
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	    Main Endgame Function
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:OnEndRound ( winner )
 	if ENDROUND then return end
 	ENDROUND = true
 	ENDTIME = CurTime()
 	WinnerMap = ""
 	
-	// logging
+	--  logging
 	log.WorldAction("Round_End")
 	
 	if (winner == TEAM_UNDEAD) then
@@ -630,10 +630,10 @@ function GM:OnEndRound ( winner )
 	
 	hook.Remove("SetupPlayerVisibility", "AddCratesToPVS")
 	
-	//Enable all talk
+	-- Enable all talk
 	RunConsoleCommand ( "sv_alltalk", "1" )
 	
-	//Stop NPCs attacking humans
+	-- Stop NPCs attacking humans
 	for k,npc in pairs ( ents.GetAll() ) do 
 		if npc:IsNPC() or npc:GetClass() == "npc_maker" then
 			npc:Remove()
@@ -645,7 +645,7 @@ function GM:OnEndRound ( winner )
 	
 	timer.Simple(VOTE_TIME, function()
 		for k,pl in pairs (player.GetAll()) do
-			if pl:Team() != TEAM_SPECTATOR then
+			if pl:Team() ~= TEAM_SPECTATOR then
 				if not pl.Voted then
 					UpdateClientVotePoints ( pl, math.random (1,3) )
 					pl:SendLua ("MySelf.VoteAlready = true")
@@ -674,13 +674,13 @@ function GM:OnEndRound ( winner )
 		
 	-- Change level after intermission time runs out
 	timer.Simple(INTERMISSION_TIME, function()
-		//RunConsoleCommand( "changelevel", NextMap )
+		-- RunConsoleCommand( "changelevel", NextMap )
 		game.ConsoleCommand("changelevel "..NextMap.."\n");
 	end)
 	
-	//timer.Simple(INTERMISSION_TIME+40, function()
-	//	RunConsoleCommand( "changelevel", "zs_please" )
-	//end)
+	-- timer.Simple(INTERMISSION_TIME+40, function()
+	-- 	RunConsoleCommand( "changelevel", "zs_please" )
+	-- end)
 	
 	-- We don't want to respawn anymore 
 	function self:PlayerDeathThink(pl)
@@ -702,14 +702,14 @@ function GM:OnEndRound ( winner )
 				
 			-- For the last 2 levels, the second achievment is to survive.
 			if team.NumPlayers (TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD) > 11 then
-			--[[	if not pl:IsBot() then
+			--[=[	if not pl:IsBot() then
 					if pl:Alive() and pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"achlevel4_2") < 150 and pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"level") == 4 then
 						pl:AddTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"achlevel4_2",1)
 					elseif pl:Alive() and pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"achlevel4_2") < 300 and pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"level") == 5 then
 						pl:AddTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"achlevel4_2",1)
 					end
 					pl:CheckLevelUp()
-				end]]
+				end]=]
 				if not pl:IsBot() then
 					if pl:Alive() then
 						if self:IsRetroMode() then
@@ -804,19 +804,19 @@ function GM:OnEndRound ( winner )
 			end
 		end
 		
-		//Saving data/stats over time
+		-- Saving data/stats over time
 		timer.Simple( _ * ( ( INTERMISSION_TIME - 3 ) / playerCount ), function()
 			if not IsValid( pl ) then
 				return 
 			end
 			
-			//Most stats/class data
+			-- Most stats/class data
 			local time1 = os.time()
 				pl:WriteDataSQL()
 			local time2 = os.time()
 			Debug( "[SQL] Saved sql data for "..tostring( pl ).." in "..tostring( time2 - time1 ) )
 		
-			//Greencoins
+			-- Greencoins
 			local time1 = os.time()
 				pl:SaveGreenCoins()
 			local time2 = os.time()

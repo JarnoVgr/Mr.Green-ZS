@@ -8,7 +8,7 @@ AddCSLuaFile("shared.lua")
 
 function ENT:Initialize()
 	
-	self.Entity:SetModel("models/props_junk/metalgascan.mdl")//
+	self.Entity:SetModel("models/props_junk/metalgascan.mdl")-- 
 	self.Entity:SetColor(Color(255,0,0,255))
 	
 	self.Entity:PhysicsInit(SOLID_VPHYSICS )
@@ -71,9 +71,9 @@ function ENT:OnZeroHealth(dmginfo)
 	shake:Activate()
 	shake:Fire( "StartShake", "", 0 )
 	
-	//timer.Simple(0,function ()
-		//if not ValidEntity(self.Entity) then return end
-		self.Entity:Remove() //end)
+	-- timer.Simple(0,function ()
+		-- if not ValidEntity(self.Entity) then return end
+		self.Entity:Remove() -- end)
 
 	
 end

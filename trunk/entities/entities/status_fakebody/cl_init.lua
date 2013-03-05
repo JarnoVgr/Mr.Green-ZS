@@ -33,7 +33,7 @@ function ENT:OnRemove()
 	if owner:IsValid() then
 
 		owner:DrawShadow( true )
-		//owner:SetNoDraw(false)
+		-- owner:SetNoDraw(false)
 		if self.Body and IsValid(self.Body) then
 			SafeRemoveEntity(self.Body)
 			self.Body = nil

@@ -16,10 +16,10 @@ local render = render
 
 CreateClientConVar("_disable_pp", 0, true, false)
 CreateClientConVar("_zs_enableblur",1,true,false) 
-//CreateClientConVar("_zs_enablefilmgrain", 1, true, false)
-//CreateClientConVar("_zs_enablecolormod", 1, true, false)
+-- CreateClientConVar("_zs_enablefilmgrain", 1, true, false)
+-- CreateClientConVar("_zs_enablecolormod", 1, true, false)
 CreateClientConVar("_zs_filmgrainopacity", 4, true, false)
-//CreateClientConVar( "_zs_ironsight",0, true, false ) 
+-- CreateClientConVar( "_zs_ironsight",0, true, false ) 
 
 local FILM_GRAIN = util.tobool( GetConVarNumber("_zs_enablefilmgrain") )
 local FILM_GRAIN_OPACITY = GetConVarNumber( "_zs_filmgrainopacity" )
@@ -145,33 +145,33 @@ DeadCM["$pp_colour_mulr"] = 0
 DeadCM["$pp_colour_mulg"] = 0
 DeadCM["$pp_colour_mulb"] = 0
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
       Receives toxic zombie points from the server 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 ToxicPoints = {}
 local function ReceiveToxicPositions ( um )
 	if not ValidEntity ( MySelf ) then return end
 	
-	//Table length
+	-- Table length
 	local tbStart = um:ReadShort()
 	local tbEnd = um:ReadShort()
 	
-	//Grab the data
+	-- Grab the data
 	for i = tbStart, tbEnd do
 		local vPos = um:ReadVector() 
 		table.insert ( ToxicPoints, vPos )
 	end
 	
-	//Initialize toxic fumes effect
+	-- Initialize toxic fumes effect
 	timer.Simple ( 1.5, function() if not bInitFumes then RefreshToxicFumes() bInitFumes = true Debug ( "[FUMES] Initialized toxic fumes effects." ) end end )
 	
 	Debug ( "[CLIENT] Succesfully received toxic fumes positions from server." )
 end
 usermessage.Hook ( "ReceiveToxicPositions", ReceiveToxicPositions )
 
-/*--------------------------------------------------
+--[==[--------------------------------------------------
         Used to calculate color mod values
----------------------------------------------------*/
+---------------------------------------------------]==]
 local DrawColorModify = DrawColorModify
 local surface = surface
 local EyePos = EyePos
@@ -182,7 +182,7 @@ function CalculateColorMod()
 	
 	
 	
-	//Undead side post proccesing
+	-- Undead side post proccesing
 	if MySelf:Team() == TEAM_UNDEAD then
 		local max = math.min(team.NumPlayers(TEAM_UNDEAD),HORDE_MAX_ZOMBIES)
 		zombies = math.Approach(zombies, MySelf:GetHordeCount(), FrameTime() * 5)
@@ -191,10 +191,10 @@ function CalculateColorMod()
 			local ApproachTo = ZombieCM[k]
 			if MySelf:HasHowlerProtection() then ApproachTo = ZombieHowlerCM[k] end
 			
-			//Check for zombie rage
+			-- Check for zombie rage
 			if MySelf:IsZombieInRage() or MySelf.IsWraithTeleporting then ApproachTo = ZombieRageCM[k] end
 			
-			//Approach colors
+			-- Approach colors
 			local ApproachMul = 0.01
 			if MySelf:IsWraith() then ApproachMul = 0.0025 end
 			ColorMod[k] = math.Approach ( ColorMod[k], ApproachTo, ApproachTo * ApproachMul )
@@ -204,7 +204,7 @@ function CalculateColorMod()
 	--HCOLORMOD = util.tobool( GetConVarNumber("_zs_hcolormod") )
 	COLORMOD = util.tobool( GetConVarNumber("_zs_enablecolormod") )
 	
-	//Human side post proccesing
+	-- Human side post proccesing
 	if MySelf:Team() == TEAM_HUMAN then
 		if COLORMOD then
 			if HCOLORMOD then
@@ -215,147 +215,147 @@ function CalculateColorMod()
 		if COLORMOD then
 			if HCOLORMOD and not GAMEMODE:IsNightMode() then
 				for k,v in pairs ( HumanCM ) do
-					if k != "$pp_colour_addr" and k != "$pp_colour_addg" and k != "$pp_colour_addb" and k != "$pp_colour_colour" then
+					if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
 						ColorMod[k] = v
 					end
 				end
 			else
 				for k,v in pairs ( DHumanCM ) do
-					if k != "$pp_colour_addr" and k != "$pp_colour_addg" and k != "$pp_colour_addb" and k != "$pp_colour_colour" then
+					if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
 						ColorMod[k] = v
 					end
 				end
 			end
 		end
 		
-		//Health events
+		-- Health events
 		local Red, Green, Blue, Color = ColorMod["$pp_colour_addr"], ColorMod["$pp_colour_addg"], ColorMod["$pp_colour_addb"], ColorMod["$pp_colour_colour"]
 		local iRedAmount, iGreenAmount, iBlueAmount, iColor = 0, 0, 0, 0.68
 		local Health = MySelf:Health()
 		
-		//Smooth rate
+		-- Smooth rate
 		local Rate, ColorRate = FrameTime() * 0.1, FrameTime() * 0.18	
 		
-		//Make the screen red when below 35 hp
-		if !MySelf:GetPerk("_adrenaline") then
+		-- Make the screen red when below 35 hp
+		if not MySelf:GetPerk("_adrenaline") then
 			if Health <= 35 then 
 				iRedAmount = 0.16
 			end
 			
-			//Make the screen go yellowish inbetween [36, 50]
+			-- Make the screen go yellowish inbetween [36, 50]
 			if Health > 35 and Health <= 50 or ( MySelf:IsTakingDOT() and Health > 35 ) then 
 				iRedAmount, iGreenAmount = 0.05, 0.05		
 			end
 		end
-		//Color the screen green-yellow if the player is in toxic fumes
+		-- Color the screen green-yellow if the player is in toxic fumes
 		if MySelf:Health() > 30 and MySelf:IsInToxicFumes( ToxicPoints ) then
 			iRedAmount, iGreenAmount, Rate = 0.2, 0.2, FrameTime() * 0.18
 		end
 		
-		//Exploit color change
+		-- Exploit color change
 		if MySelf:GetDTInt( 3 ) > 0 then
 			iRedAmount, iGreenAmount = 0.25, 0.1
 		end
 		
-		//More color when humans around, less when you are alone!
+		-- More color when humans around, less when you are alone!
 		if Health > 50 then
 			local HumansNearMe = GetHumanFocus ( MySelf, 380 )
 			iColor = math.Clamp ( HumansNearMe / 3, 0.4, 0.75 ) 
 		end
 			
-		//Dramatically change colors if you redeem
+		-- Dramatically change colors if you redeem
 		if Red == 0.25 and Green == 0.20 then Rate = 10 end
 		
-		//Smooth color values
+		-- Smooth color values
 		ColorMod["$pp_colour_addr"] = math.Approach ( Red, iRedAmount, Rate ) 
 		ColorMod["$pp_colour_addg"] = math.Approach ( Green, iGreenAmount, Rate )
 		ColorMod["$pp_colour_addb"] = math.Approach ( Blue, iBlueAmount, Rate )
 		ColorMod["$pp_colour_colour"] = math.Approach ( Color, iColor, ColorRate )  		
 	end
 	
-	//Dead post proccesing
+	-- Dead post proccesing
 	if not ENDROUND and ( MySelf:Team() == TEAM_SPECTATOR ) then
 		for k,v in pairs ( DeadCM ) do
 			ColorMod[k] = v
 		end
 	end
 	
-	//Actually change colors
+	-- Actually change colors
 	
 	DrawColorModify( ColorMod )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
      Render screen effects/ post proccesing here
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:_RenderScreenspaceEffects()
 	if not ValidEntity ( MySelf ) then return end
 	if render.GetDXLevel() < 80 then return end
 	
-	// Blur the screen on endround
+	--  Blur the screen on endround
 	if ENDROUND then
 		--DrawBlur ( 5, 2 )
 		DrawBlur ( 5, 1.2 )
 	end
 		
-	//Blur for zombie classes menu background
+	-- Blur for zombie classes menu background
 	if IsClassesMenuOpen() then
 		DrawBlur ( 5, 3 )
 	end
 		
-	//Sharpen Effect Think
+	-- Sharpen Effect Think
 	CalculateSharpenEffect()
 	
-	//Dynamic Filmgrain
+	-- Dynamic Filmgrain
 	CalculateFilmGrainEffect()
 	
-	//Dynamic color mod
+	-- Dynamic color mod
 	CalculateColorMod()
 	
-	//Sobel post-process
+	-- Sobel post-process
 	ManageSobelEffect()
 end
 
-/*----------------------------------------------------
+--[==[----------------------------------------------------
 	Used to manage sobel effect
------------------------------------------------------*/
+-----------------------------------------------------]==]
 local fSobel = 0
 function ManageSobelEffect()
 
 	local fCurrentSobel = 0
 
-	//Approach sobel value
+	-- Approach sobel value
 	fSobel = math.Approach ( fSobel, fCurrentSobel, 0.004 )
 	
-	//Apply 
+	-- Apply 
 	if fSobel > 0 then
 		DrawSobel( fSobel )
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
      Used to motion blur the edge of the screen
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local fBlurForward = 0
 local function ManageSourceMotionBlur ( x, y, fwd, spin )
 	if not ValidEntity ( MySelf ) then return end
 	
 	local fBlurForwardAmount = 0
 	
-	//Blur when health is low as human
+	-- Blur when health is low as human
 	if MySelf:Team() == TEAM_HUMAN then
 		if MySelf:Health() <= 50 or MySelf:IsTakingDOT() then
 			if MySelf:Health() >= 35 then fBlurForwardAmount = 0.03 else fBlurForwardAmount = 0.1 end
 		end
 		
-		//Explot blur
+		-- Explot blur
 		if MySelf:GetDTInt( 3 ) > 0 then
 			fBlurForwardAmount = 0.6
 		end
 		IRONBLUR = util.tobool( GetConVarNumber("_zs_enableironsightblur") )
 		if IRONBLUR then
-			//ironsight blur
+			-- ironsight blur
 			local Weapon = MySelf:GetActiveWeapon()
 			if ValidEntity ( Weapon ) then
 				if Weapon.GetIronsights and Weapon:GetIronsights() then
@@ -365,52 +365,52 @@ local function ManageSourceMotionBlur ( x, y, fwd, spin )
 		end
 	end
 	
-	//Wraith blur effect/ethereal
+	-- Wraith blur effect/ethereal
 	if MySelf:Alive() then
 		if MySelf:IsZombie() and MySelf:IsWraith() then
 			fBlurForwardAmount = 0.04
 		end
 	end
 	
-	//Smooth the blur apparition
+	-- Smooth the blur apparition
 	fBlurForward = math.Approach ( fBlurForward, fBlurForwardAmount, 0.001 )
 	
 	return x * 4, y * 4, fBlurForward, spin
 end
 hook.Add( "GetMotionBlurValues", "GetBlurValues", ManageSourceMotionBlur )
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Calculate how much sharpen to apply
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local fSharpenContrast, fSharpenOffset = 0, 0.22
 function CalculateSharpenEffect ()
 	if not ValidEntity ( MySelf ) then return end
 	
 	local fSharpenContrastAmount = 0
 	
-	//Get how many zombies are there near me
+	-- Get how many zombies are there near me
 	if MySelf:Team() == TEAM_HUMAN then
 		local ZombiesNearMe = GetZombieFocus ( MySelf, 300 )
 		fSharpenContrastAmount = math.Clamp ( ZombiesNearMe, 0, 9 )
 		
-		//Make it more obvious
+		-- Make it more obvious
 		if ZombiesNearMe < 3 and ZombiesNearMe > 0 then
 			fSharpenContrastAmount = 3.5
 		end
 	end
 	
-	//Smooth the contrast apparition
+	-- Smooth the contrast apparition
 	fSharpenContrast = math.Approach ( fSharpenContrast, fSharpenContrastAmount, 0.05 )
 		
-	//Finally, set the sharpen
-	if fSharpenContrast != 0 then
+	-- Finally, set the sharpen
+	if fSharpenContrast ~= 0 then
 		DrawSharpen ( fSharpenContrast, fSharpenOffset )
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Calculates how much film grain to apply
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local fFilmGrain, matFilmGrain = 0, surface.GetTextureID( "zombiesurvival/filmgrain/filmgrain.vtf" )
 function CalculateFilmGrainEffect()
 	if not ValidEntity ( MySelf ) or ENDROUND then return end
@@ -419,26 +419,26 @@ function CalculateFilmGrainEffect()
 	local fFilmGrainAmount, iLimit, iOffset = 0, 2.3, 3
 	if WIDESCREEN then iLimit, iOffset = 2.3, 0.6  end
 	
-	//Get how many zombies are there near me
+	-- Get how many zombies are there near me
 	if MySelf:Team() == TEAM_HUMAN then
 		local ZombiesNearMe = GetZombieFocus ( MySelf, 300 )
 		fFilmGrainAmount = math.Clamp ( ZombiesNearMe + iOffset, 0, iLimit )
 	end
 	
-	//Get how many humans are near me (zombie side grain)
+	-- Get how many humans are near me (zombie side grain)
 	if MySelf:Team() == TEAM_UNDEAD then
 		local HumansNearMe = GetHumanFocus ( MySelf, 180 )
 		fFilmGrainAmount = math.Clamp ( HumansNearMe + iOffset, 0, iLimit )
 	end
 	
-	//Smooth the contrast apparition
+	-- Smooth the contrast apparition
 	fFilmGrain = math.Approach ( fFilmGrain, fFilmGrainAmount, 0.08 )
 		
-	//Apply film grain material
+	-- Apply film grain material
 	surface.SetTexture ( matFilmGrain )
 	surface.SetDrawColor( 225, 225, 225, fFilmGrain * 1.5 )
 			
-	//Tile it on the screen
+	-- Tile it on the screen
 	for x = 0, w, 1024 do
 		for y = 0, h, 512 do
 			surface.DrawTexturedRect( x, y, 1024, 512 )
@@ -465,7 +465,7 @@ usermessage.Hook("PoisonEffect", PoisEff)
 function EyePoisoned()
 	MySelf.Blindness = CurTime() + math.random(14, 18)
 	MySelf.BlindRotate = 0
-	//PoisEff()
+	-- PoisEff()
 
 	hook.Add("HUDPaint", "EyePoison", PaintBlindness)
 end
@@ -502,7 +502,7 @@ local function DrawStalkerFuck()
 		hook.Remove("RenderScreenspaceEffects", "DrawStalkerFuck")
 	end
 end
-//small snippet from iw
+-- small snippet from iw
 local EndColTab = 
 {
 	[ "$pp_colour_addr" ] 		= 0,

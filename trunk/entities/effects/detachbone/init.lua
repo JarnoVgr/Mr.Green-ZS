@@ -15,16 +15,16 @@ function EFFECT:Init(data)
 	self.NextDrip 		= 0
 	self.RDieTime 		= CurTime() + 3
 	
-	//self.ent:SetModel("models/zombie/classic_torso.mdl")
+	-- self.ent:SetModel("models/zombie/classic_torso.mdl")
 	
-	if !IsValid(self.ent) then return end
+	if not IsValid(self.ent) then return end
 	
-	//Correct model
+	-- Correct model
 	if HasTorsoTable(self.ent,self.BoneType) then
-		//self.ent:GetRagdollEntity():InvalidateBoneCache()
-		//self.ent:GetRagdollEntity():SetModel(GetTorsoTable(self.ent,self.BoneType).Model)
-		//self.ent:GetRagdollEntity():SetBodygroup(1,GetTorsoTable(self.ent,self.BoneType).BodyGroup)
-		//self.ent:GetRagdollEntity():SetupBones()
+		-- self.ent:GetRagdollEntity():InvalidateBoneCache()
+		-- self.ent:GetRagdollEntity():SetModel(GetTorsoTable(self.ent,self.BoneType).Model)
+		-- self.ent:GetRagdollEntity():SetBodygroup(1,GetTorsoTable(self.ent,self.BoneType).BodyGroup)
+		-- self.ent:GetRagdollEntity():SetupBones()
 		
 		self.Torso = ClientsideModel(GetTorsoTable(self.ent,self.BoneType).Model, RENDERGROUP_OPAQUE)
 		self.Torso:SetPos(self.ent:GetRagdollEntity():GetPos())
@@ -69,7 +69,7 @@ Bones[5] = {Name = LLEG, BScale = {"ValveBiped.Bip01_L_Thigh", "ValveBiped.Bip01
 Bones[6] = {Name = RLEG, BScale = {"ValveBiped.Bip01_R_Thigh", "ValveBiped.Bip01_R_Calf", "ValveBiped.Bip01_R_Foot"}}
 Bones[7] = {Name = BOTHLEGS, BScale = {"ValveBiped.Bip01_R_Thigh", "ValveBiped.Bip01_R_Calf", "ValveBiped.Bip01_R_Foot", "ValveBiped.Bip01_L_Thigh", "ValveBiped.Bip01_L_Calf", "ValveBiped.Bip01_L_Foot"}}
 Bones[8] = {Name = TORSO, BScale = {	
-									//"ValveBiped.Bip01_Pelvis",
+									-- "ValveBiped.Bip01_Pelvis",
 									"ValveBiped.Bip01_Spine",
 									"ValveBiped.Bip01_Spine1",
 									"ValveBiped.Bip01_Spine2",
@@ -101,8 +101,8 @@ local ZombiesBones = {}
 	ZombiesBones["models/zombie/classic_torso.mdl"] = {["ValveBiped.Bip01_R_Thigh"]="ValveBiped.Bip01_Spine",["ValveBiped.Bip01_L_Thigh"]="ValveBiped.Bip01_Spine", ReverseBleedBone = true }
 	--ZombiesBones["models/zombie/classic_legs.mdl"] = {["ValveBiped.Bip01_R_Thigh"]="ValveBiped.Bip01_Spine",["ValveBiped.Bip01_L_Thigh"]="ValveBiped.Bip01_Spine", ReverseBleedBone = true }
 
-//A bit tricky stuff
-//Actually its a nice table so we can replace zombies that were teared apart with actual models
+-- A bit tricky stuff
+-- Actually its a nice table so we can replace zombies that were teared apart with actual models
 local TorsoTable = {}
 	TorsoTable["models/zombie/classic.mdl"] = { [8] = { Model = "models/zombie/classic_legs.mdl",BleedBone = "ValveBiped.Bip01_Pelvis", BodyGroup = 1}, 
 												[7] = { Model = "models/zombie/classic_torso.mdl", BodyGroup = 1}
@@ -111,7 +111,7 @@ local TorsoTable = {}
 												[7] = { Model = "models/gibs/fast_zombie_torso.mdl",BleedBone = "ValveBiped.Bip01_Spine2", BodyGroup = 1}
 												}
 
-// 'e' is player, 'num' is self.BoneType
+--  'e' is player, 'num' is self.BoneType
 function HasTorsoTable(e,num)
 	if e:IsPlayer() then
 		local rag = e:GetRagdollEntity()
@@ -157,11 +157,11 @@ local function BuildNewBonePositions(self)
 				local Bone = self:LookupBone(bonetoscale)
 					if Bone then
 						self:ManipulateBoneScale(Bone,Vector(0.0001, 0.0001, 0.0001))
-						//local mMatrix = self:GetBoneMatrix(Bone)
-						//if mMatrix then
-						//	mMatrix:Scale(Vector(0.0001, 0.0001, 0.0001))
-						//	self:SetBoneMatrix(Bone, mMatrix)
-						//end
+						-- local mMatrix = self:GetBoneMatrix(Bone)
+						-- if mMatrix then
+						-- 	mMatrix:Scale(Vector(0.0001, 0.0001, 0.0001))
+						-- 	self:SetBoneMatrix(Bone, mMatrix)
+						-- end
 					end
 			end
 		end
@@ -215,7 +215,7 @@ local function CollideCallbackSimple(particle, hitpos, hitnormal)
 	if math.random(1, 10) == 3 then
 		WorldSound("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav", hitpos, 50, math.random(95, 105))
 	end
-	//WorldSound("physics/flesh/flesh_bloody_impact_hard1.wav", hitpos, 60, math.random(95, 105))
+	-- WorldSound("physics/flesh/flesh_bloody_impact_hard1.wav", hitpos, 60, math.random(95, 105))
 	util.Decal("Blood", hitpos + hitnormal, hitpos - hitnormal)
 	
 	particle:SetDieTime(0)
@@ -223,7 +223,7 @@ local function CollideCallbackSimple(particle, hitpos, hitnormal)
 end
 
 function EFFECT:Think()
-if !ValidEntity(self.ent) then return end
+if not ValidEntity(self.ent) then return end
 	if self.ent:IsPlayer() then
 	local Rag = self.ent:GetRagdollEntity()
 		if Rag and IsValid(Rag) then

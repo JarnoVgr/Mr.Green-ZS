@@ -17,11 +17,11 @@ function ENT:Think()
 				owner:SetRandomFace()
 				owner:Freeze(true)
 				owner:TemporaryNoCollide()
-				//local status2 = owner:GiveStatus("overridemodel")
-				//if status2:IsValid() then
-				//	status2:SetModel(owner.LastModel or owner:GetModel())
-				//end
-				//owner:TemporaryNoCollide()
+				-- local status2 = owner:GiveStatus("overridemodel")
+				-- if status2:IsValid() then
+				-- 	status2:SetModel(owner.LastModel or owner:GetModel())
+				-- end
+				-- owner:TemporaryNoCollide()
 			end
 		end
 
@@ -31,8 +31,8 @@ function ENT:Think()
 		end
 
 		if not self:IsRising() then
-			//owner:SetCycle(0)
-			//owner:SetPlaybackRate(0)
+			-- owner:SetCycle(0)
+			-- owner:SetPlaybackRate(0)
 		end
 
 	end

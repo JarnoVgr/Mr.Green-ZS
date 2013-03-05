@@ -1,4 +1,4 @@
-//Store all bone shit in different file
+-- Store all bone shit in different file
 ENT.BoneMods = {}
 
 local pairs = pairs
@@ -11,7 +11,7 @@ UndeadBuildBonePositions[10] = function(s)
 	local Bone = s:LookupBone("ValveBiped.Bip01_Spine4")
 	if Bone then
 		s:ManipulateBoneAngles( Bone, Angle(0,88,-90)  )
-		//s:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		-- s:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
 	end
 	local Bone = s:LookupBone("ValveBiped.Bip01_L_UpperArm")
 	if Bone then
@@ -19,11 +19,11 @@ UndeadBuildBonePositions[10] = function(s)
 	end
 	local Bone = s:LookupBone("ValveBiped.Bip01_Spine1")
 	if Bone then
-	//	s:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	-- 	s:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
 	end
 	local Bone = s:LookupBone("ValveBiped.Bip01_Spine")
 	if Bone then
-	//	s:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	-- 	s:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
 	end
 	for i = 0, s:GetBoneCount() - 1 do
 		s:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
@@ -59,7 +59,7 @@ UndeadBuildBonePositions[13] = function(s)
 	
 		for k, v in pairs( bonemods ) do
 			local bone = s:LookupBone(k)
-			if (!bone) then continue end
+			if (not bone) then continue end
 			s:ManipulateBoneScale( bone, v.scale  )
 			s:ManipulateBoneAngles( bone, v.angle  )
 			s:ManipulateBonePosition( bone, v.pos  )
@@ -155,11 +155,11 @@ ENT.BoneMods["behe"] = function(s)
 	
 	local i = 1
 		for _, bonetbl in pairs(bones) do
-		local Bone = s:LookupBone("ValveBiped.Bip01"..bonetbl.."Clavicle")//UpperArm
+		local Bone = s:LookupBone("ValveBiped.Bip01"..bonetbl.."Clavicle")-- UpperArm
 			if Bone then
 				local mMatrix = s:GetBoneMatrix(Bone)
 				if mMatrix then
-					//mMatrix:Rotate(Angle(0,88,-90))
+					-- mMatrix:Rotate(Angle(0,88,-90))
 					mMatrix:Scale(Vector(1.4*i,1.4*i,1.4*i))
 					s:SetBoneMatrix(Bone, mMatrix)
 				end
@@ -168,7 +168,7 @@ ENT.BoneMods["behe"] = function(s)
 			if Bone then
 				local mMatrix = s:GetBoneMatrix(Bone)
 				if mMatrix then
-					//mMatrix:Rotate(Angle(0,88,-90))
+					-- mMatrix:Rotate(Angle(0,88,-90))
 					mMatrix:Scale(Vector(1.4*i,1.4*i,1.4*i))
 					s:SetBoneMatrix(Bone, mMatrix)
 				end
@@ -177,7 +177,7 @@ ENT.BoneMods["behe"] = function(s)
 			if Bone then
 				local mMatrix = s:GetBoneMatrix(Bone)
 				if mMatrix then
-					//mMatrix:Rotate(Angle(0,88,-90))
+					-- mMatrix:Rotate(Angle(0,88,-90))
 					mMatrix:Scale(Vector(1.35*i,1.35*i,1.35*i))
 					s:SetBoneMatrix(Bone, mMatrix)
 				end
@@ -186,7 +186,7 @@ ENT.BoneMods["behe"] = function(s)
 			if Bone then
 				local mMatrix = s:GetBoneMatrix(Bone)
 				if mMatrix then
-					//mMatrix:Rotate(Angle(0,88,-90))
+					-- mMatrix:Rotate(Angle(0,88,-90))
 					mMatrix:Scale(Vector(1.42*i,1.42*i,1.42*i))
 					s:SetBoneMatrix(Bone, mMatrix)
 				end
@@ -241,9 +241,9 @@ ENT.BoneMods["nerf"] = function(s)
 	
 		for k, v in pairs( bonemods ) do
 				local bone = s:LookupBone(k)
-				if (!bone) then continue end
+				if (not bone) then continue end
 				local m = s:GetBoneMatrix(bone)
-				if (!m) then continue end
+				if (not m) then continue end
 				m:Scale(v.scale)
 				m:Rotate(v.angle)
 				m:Translate(v.pos)
@@ -256,7 +256,7 @@ end
 
 function ENT:SetBoneMods(t)
 	if t and self.BoneMods[t] then
-		//self.BuildBonePositions = self.BoneMods[t]
+		-- self.BuildBonePositions = self.BoneMods[t]
 		self.BoneMods[t][1](self)
 		self.SetBoneMods = true
 	end

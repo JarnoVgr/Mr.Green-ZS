@@ -1,11 +1,11 @@
-/*-------------------------------
+--[==[-------------------------------
 Green-Coins system
 sh_greencoins.lua
 Shared
---------------------------------*/
+--------------------------------]==]
 
 
-// Metatable expanding
+--  Metatable expanding
 local meta = FindMetaTable("Player")
 if meta then
 

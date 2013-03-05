@@ -49,17 +49,17 @@ function SWEP:Initialize()
 	
 	    if CLIENT then
      
-        self:CreateModels(self.VElements) // create viewmodels
-        self:CreateModels(self.WElements) // create worldmodels
+        self:CreateModels(self.VElements) --  create viewmodels
+        self:CreateModels(self.WElements) --  create worldmodels
          
-        // init view model bone build function
+        --  init view model bone build function
         self.BuildViewModelBones = function( s )
             if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBonescales then
                 for k, v in pairs( self.ViewModelBonescales ) do
                     local bone = s:LookupBone(k)
-                    if (!bone) then continue end
+                    if (not bone) then continue end
                     local m = s:GetBoneMatrix(bone)
-                    if (!m) then continue end
+                    if (not m) then continue end
                     m:Scale(v)
                     s:SetBoneMatrix(bone, m)
 					end
@@ -94,7 +94,7 @@ function SWEP:CanPrimaryAttack()
 	return true
 end
 
-//Call this function to update weapon slot and others
+-- Call this function to update weapon slot and others
 function SWEP:Equip ( NewOwner )
 	if SERVER then
 		gamemode.Call ( "OnWeaponEquip", NewOwner, self )
@@ -105,7 +105,7 @@ util.PrecacheSound("npc/dog/dog_servo12.wav")
 
 function SWEP:OnRemove()
      
-    // other onremove code goes here
+    --  other onremove code goes here
      
     if CLIENT then
         self:RemoveModels()
@@ -120,9 +120,9 @@ if CLIENT then
     function SWEP:ViewModelDrawn()
          
         local vm = self.Owner:GetViewModel()
-        if !ValidEntity(vm) then return end
+        if not ValidEntity(vm) then return end
          
-        if (!self.VElements) then return end
+        if (not self.VElements) then return end
          
         if vm.BuildBonePositions ~= self.BuildViewModelBones then
             vm.BuildBonePositions = self.BuildViewModelBones
@@ -131,13 +131,13 @@ if CLIENT then
         if (self.ShowViewModel == nil or self.ShowViewModel) then
             vm:SetColor(255,255,255,255)
         else
-            // we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
+            --  we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
             vm:SetColor(255,255,255,1)
         end
          
-        if (!self.vRenderOrder) then
+        if (not self.vRenderOrder) then
              
-            // we build a render order because sprites need to be drawn after models
+            --  we build a render order because sprites need to be drawn after models
             self.vRenderOrder = {}
  
             for k, v in pairs( self.VElements ) do
@@ -153,14 +153,14 @@ if CLIENT then
         for k, name in ipairs( self.vRenderOrder ) do
          
             local v = self.VElements[name]
-            if (!v) then self.vRenderOrder = nil break end
+            if (not v) then self.vRenderOrder = nil break end
          
             local model = v.modelEnt
             local sprite = v.spriteMaterial
              
-            if (!v.bone) then continue end
+            if (not v.bone) then continue end
             local bone = vm:LookupBone(v.bone)
-            if (!bone) then continue end
+            if (not bone) then continue end
              
             local pos, ang = Vector(0,0,0), Angle(0,0,0)
             local m = vm:GetBoneMatrix(bone)
@@ -169,7 +169,7 @@ if CLIENT then
             end
              
             if (self.ViewModelFlip) then
-                ang.r = -ang.r // Fixes mirrored models
+                ang.r = -ang.r --  Fixes mirrored models
             end
              
             if (v.type == "Model" and ValidEntity(model)) then
@@ -184,17 +184,17 @@ if CLIENT then
                  
                 if (v.material == "") then
                     model:SetMaterial("")
-                elseif (model:GetMaterial() != v.material) then
+                elseif (model:GetMaterial() ~= v.material) then
                     model:SetMaterial( v.material )
                 end
                  
-                if (v.skin and v.skin != model:GetSkin()) then
+                if (v.skin and v.skin ~= model:GetSkin()) then
                     model:SetSkin(v.skin)
                 end
                  
                 if (v.bodygroup) then
                     for k, v in pairs( v.bodygroup ) do
-                        if (model:GetBodygroup(k) != v) then
+                        if (model:GetBodygroup(k) ~= v) then
                             model:SetBodygroup(k, v)
                         end
                     end
@@ -244,9 +244,9 @@ if CLIENT then
             self:DrawModel()
         end
          
-        if (!self.WElements) then return end
+        if (not self.WElements) then return end
          
-        if (!self.wRenderOrder) then
+        if (not self.wRenderOrder) then
  
             self.wRenderOrder = {}
  
@@ -266,7 +266,7 @@ if CLIENT then
         if (ValidEntity(self.Owner)) then
             bone_ent = self.Owner
         else
-            // when the weapon is dropped
+            --  when the weapon is dropped
             bone_ent = self
         end
          
@@ -281,7 +281,7 @@ if CLIENT then
         for k, name in pairs( self.wRenderOrder ) do
          
             local v = self.WElements[name]
-            if (!v) then self.wRenderOrder = nil break end
+            if (not v) then self.wRenderOrder = nil break end
          
             local model = v.modelEnt
             local sprite = v.spriteMaterial
@@ -300,17 +300,17 @@ if CLIENT then
                  
                 if (v.material == "") then
                     model:SetMaterial("")
-                elseif (model:GetMaterial() != v.material) then
+                elseif (model:GetMaterial() ~= v.material) then
                     model:SetMaterial( v.material )
                 end
                  
-                if (v.skin and v.skin != model:GetSkin()) then
+                if (v.skin and v.skin ~= model:GetSkin()) then
                     model:SetSkin(v.skin)
                 end
                  
                 if (v.bodygroup) then
                     for k, v in pairs( v.bodygroup ) do
-                        if (model:GetBodygroup(k) != v) then
+                        if (model:GetBodygroup(k) ~= v) then
                             model:SetBodygroup(k, v)
                         end
                     end
@@ -355,11 +355,11 @@ if CLIENT then
  
     function SWEP:CreateModels( tab )
  
-        if (!tab) then return end
+        if (not tab) then return end
  
-        // Create the clientside models here because Garry says we can't do it in the render hook
+        --  Create the clientside models here because Garry says we can't do it in the render hook
         for k, v in pairs( tab ) do
-            if (v.type == "Model" and v.model and v.model != "" and (!ValidEntity(v.modelEnt) or v.createdModel != v.model) and
+            if (v.type == "Model" and v.model and v.model ~= "" and (not ValidEntity(v.modelEnt) or v.createdModel ~= v.model) and
                     string.find(v.model, ".mdl") and file.Exists ("../"..v.model) ) then
                  
                 v.modelEnt = ClientsideModel(v.model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
@@ -373,12 +373,12 @@ if CLIENT then
                     v.modelEnt = nil
                 end
                  
-            elseif (v.type == "Sprite" and v.sprite and v.sprite != "" and (!v.spriteMaterial or v.createdSprite != v.sprite)
+            elseif (v.type == "Sprite" and v.sprite and v.sprite ~= "" and (not v.spriteMaterial or v.createdSprite ~= v.sprite)
                 and file.Exists ("../materials/"..v.sprite..".vmt")) then
                  
                 local name = v.sprite.."-"
                 local params = { ["$basetexture"] = v.sprite }
-                // make sure we create a unique name based on the selected options
+                --  make sure we create a unique name based on the selected options
                 local tocheck = { "nocull", "additive", "vertexalpha", "vertexcolor", "ignorez" }
                 for i, j in pairs( tocheck ) do
                     if (v[j]) then

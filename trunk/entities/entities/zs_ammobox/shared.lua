@@ -35,18 +35,18 @@ function ENT:Initialize()
 end	
 
 function ENT:Think()
-	//local humans = team.GetPlayers(TEAM_HUMAN)
+	-- local humans = team.GetPlayers(TEAM_HUMAN)
 	local ct = CurTime()
 	
 	local humans = player.GetAll()
 	if SERVER then self:CheckOwner() end
 	
-	//go though all humans
+	-- go though all humans
 	for _, pl in ipairs(humans) do
-		//check if player got ammo
-		if pl.GotSupplies == nil then //whatever
+		-- check if player got ammo
+		if pl.GotSupplies == nil then -- whatever
 			pl.GotSupplies = false
-			pl.SupplyTime = ct + self.AmmoDelay //make a timer for him
+			pl.SupplyTime = ct + self.AmmoDelay -- make a timer for him
 			pl.SupplyTimerActive = true
 		end
 
@@ -134,13 +134,13 @@ function ENT:Use(activator, caller)
 							AmmoType = "pistol"
 						end
 							
-						//How much ammo to give
+						-- How much ammo to give
 						local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
 								
-						//50% more ammunition at half-life and double for un-life
+						-- 50% more ammunition at half-life and double for un-life
 						if INFLICTION >= 0.7 then HowMuch = HowMuch * 1 end		
 								
-						//Multiplier -- 30% less
+						-- Multiplier -- 30% less
 						HowMuch = math.Round ( HowMuch * 0.62 )
 						
 						activator:GiveAmmo ( HowMuch, AmmoType )
@@ -150,7 +150,7 @@ function ENT:Use(activator, caller)
 							self.CrateOwner:AddXP(3)
 						end
 					
-					//activator:EmitSound("items/ammo_pickup.wav")
+					-- activator:EmitSound("items/ammo_pickup.wav")
 					end
 			end
 		elseif activator.SupplyTimerActive == true then
@@ -162,7 +162,7 @@ end
 	
 if SERVER then	
 	
-	--[[function ENT:StartTouch( ent )
+	--[=[function ENT:StartTouch( ent )
 		if self.active and ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
 			local weps = ent:GetWeapons()
 			local primtype = ""
@@ -176,7 +176,7 @@ if SERVER then
 							ent:GiveAmmo(math.ceil(ent:GetPistol().Primary.ClipSize*2), ent:GetPistol():GetPrimaryAmmoType())
 						end
 						
-						if ent != self:GetOwner() then
+						if ent ~= self:GetOwner() then
 							skillpoints.AddSkillPoints(self:GetOwner(),5)
 						end
 												
@@ -185,7 +185,7 @@ if SERVER then
 			timer.Simple(0,function (me) me:Remove() end,self)
 			function self:StartTouch() end
 		end
-	end]]
+	end]=]
 
 end
 
@@ -195,13 +195,13 @@ if CLIENT then
 	local draw = draw
 
 	local matOutlineWhite = Material( "white_outline" )
-	//function ENT:Draw()
-	//	self:DrawModel()
-	//end
+	-- function ENT:Draw()
+	-- 	self:DrawModel()
+	-- end
 	
 	function ENT:Draw()
 	if not ValidEntity ( MySelf ) then return end
-	if MySelf:Team() != TEAM_HUMAN then self:DrawModel() return end
+	if MySelf:Team() ~= TEAM_HUMAN then self:DrawModel() return end
 	
 	local outline = false
 	
@@ -226,18 +226,18 @@ if CLIENT then
 	render.SetStencilEnable( false )
 	cam.End3D()
 	
-	//Choose the color
+	-- Choose the color
 	local LineColor = Color ( 210, 0,0, 255 )
 	if MySelf.SupplyTimerActive == false then
 		LineColor = Color ( 0, math.abs ( 200 * math.sin ( CurTime() * 3 ) ),0, 255 )
 	end
 	
-	//Supress light for the parent
+	-- Supress light for the parent
 	render.SuppressEngineLighting( true )
-	//render.SetAmbientLight( 1, 1, 1 )
+	-- render.SetAmbientLight( 1, 1, 1 )
 	render.SetColorModulation( 1, 1, 1 )
 		   
-	// First Outline       
+	--  First Outline       
 	self:SetModelScale( self:GetModelScale() * 1.03,0 )
 	render.ModelMaterialOverride( matOutlineWhite )
 	render.SetColorModulation( LineColor.r / 255, LineColor.g / 255, LineColor.b / 255 )
@@ -245,7 +245,7 @@ if CLIENT then
 	self:DrawModel()
 	if outline then cam.IgnoreZ(false) end
 				   
-	// Revert everything back to how it should be
+	--  Revert everything back to how it should be
 	render.ModelMaterialOverride( nil )
 	self:SetModelScale( 1,0 )
 				   
@@ -256,7 +256,7 @@ if CLIENT then
 	self:DrawModel()
 	
 	
-	//Draw some stuff
+	-- Draw some stuff
 	
 	local pos = self:GetPos() + Vector(0,0,45)
 		

@@ -61,7 +61,7 @@ function EFFECT:Init(data)
 		end
 	emitter:Finish()
 	
---[[
+--[=[
 	local emitter = ParticleEmitter(pos)
 		for i=1, math.random(12, 15) do
 			local particle = emitter:Add("particle/smokestack", pos)
@@ -96,8 +96,8 @@ function EFFECT:Init(data)
 			particle:SetRoll(math.Rand(0, 360))
 		end
 	emitter:Finish()
-]]
-	/*for i=1, math.random(3, 6) do
+]=]
+	--[==[for i=1, math.random(3, 6) do
 		local effectdata = EffectData()
 			effectdata:SetOrigin(pos + VectorRand() * 16)
 			effectdata:SetNormal(VectorRand())
@@ -106,7 +106,7 @@ function EFFECT:Init(data)
 
 	local effectdata = EffectData()
 		effectdata:SetOrigin(pos)
-	util.Effect("Explosion", effectdata)*/
+	util.Effect("Explosion", effectdata)]==]
 end
 
 function EFFECT:Think()

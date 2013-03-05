@@ -3,7 +3,7 @@
 
 if SERVER then AddCSLuaFile ( "shared.lua" ) end
 
-//Melee base
+-- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
 if CLIENT then
@@ -34,20 +34,20 @@ function SWEP:InitializeClientsideModels()
 	
 end
 
-//Model paths
+-- Model paths
 SWEP.Author = "Deluvas"
 SWEP.ViewModel = Model ( "models/weapons/v_crowbar.mdl" )
 SWEP.WorldModel = Model ( "models/weapons/w_crowbar.mdl" )
 
-//Name and fov
+-- Name and fov
 SWEP.PrintName = "Crowbar"
 SWEP.ViewModelFOV = 60
 
-//Slot pos
+-- Slot pos
 SWEP.Slot = 2
 SWEP.SlotPos = 3
 
-//Damage, distane, delay
+-- Damage, distane, delay
 SWEP.Primary.Damage = 60
 SWEP.Primary.Delay = 0.78
 SWEP.Primary.Distance = 64
@@ -77,6 +77,6 @@ function SWEP:PlayHitFleshSound()
 end
 
 
-//Killicons
+-- Killicons
 if CLIENT then killicon.AddFont( "weapon_zs_melee_crowbar", "HL2MPTypeDeath", "6", Color(255, 255, 255, 255 ) ) end
  

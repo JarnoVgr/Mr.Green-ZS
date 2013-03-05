@@ -4,8 +4,8 @@ AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 
 function ENT:Initialize()   
-	//self:PhysicsInit( SOLID_VPHYSICS )  
-	//self:SetMoveType( MOVETYPE_VPHYSICS )
+	-- self:PhysicsInit( SOLID_VPHYSICS )  
+	-- self:SetMoveType( MOVETYPE_VPHYSICS )
 	self.Entity:DrawShadow(false)
 	self.Entity:SetSolid(false)
 
@@ -16,7 +16,7 @@ function ENT:Think()
 	local pl = self:GetOwner():GetRagdollEntity() or self:GetOwner()
 	self:SetColor(pl:GetColor())
 	if not ValidEntity(pl) then self:Remove() end
-	//if pl:IsZombie() then self:Remove() end
+	-- if pl:IsZombie() then self:Remove() end
 	self.Entity:SetPos(pl:GetPos())
 	for k, v in pairs(self.Props) do
 		v:SetColor(Color(255,255,255,255))

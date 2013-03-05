@@ -10,7 +10,7 @@ for k,v in pairs ( ZombieClasses ) do
 	GM.TeamMostChosenClass[v.Name] = 0
 end
 
-//Used to translate general category to restricted category for weapon selection menu.
+-- Used to translate general category to restricted category for weapon selection menu.
 WeaponTypeToCategory = {}
 WeaponTypeToCategory["rifle"] = "Automatic"
 WeaponTypeToCategory["smg"] = "Automatic"
@@ -24,10 +24,10 @@ WeaponTypeToCategory["explosive"] = "Explosive"
 WeaponTypeToCategory["admin"] = "Admin"
 WeaponTypeToCategory["christmas"] = "Admin"
 
-//Restricted weapons (mainly half life 2 ones)
+-- Restricted weapons (mainly half life 2 ones)
 WeaponsRestricted = { "weapon_stunstick", "weapon_crowbar", "weapon_pistol", "weapon_357", "weapon_ar2", "weapon_shotgun", "weapon_frag", "weapon_crossbow", "weapon_rpg" }
 
-//SuperAdmin only weapons 
+-- SuperAdmin only weapons 
 SuperAdminOnlyWeapons = { "admin_tool_canister", "admin_tool_remover", "weapon_physgun", "weapon_physcannon", "admin_tool_sprayviewer", "admin_tool_igniter" }
 
 GM.AmmoTranslations = {}
@@ -96,9 +96,9 @@ VoiceSetTranslate["models/player/hostage/hostage_02.mdl"] = "male"
 VoiceSetTranslate["models/player/hostage/hostage_03.mdl"] = "male"
 VoiceSetTranslate["models/player/hostage/hostage_04.mdl"] = "male"
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	    Resources management
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 ResourceFiles = {}
 
 for _, filename in pairs(file.Find("resource/fonts/*.*", "GAME" ) ) do
@@ -208,11 +208,11 @@ for _, filename in pairs ( file.Find("materials/models/effects/*.*" , "GAME") ) 
 	table.insert ( ResourceFiles, "materials/models/effects/"..filename )
 end
 
---[[---------------------------------------------------------
+--[=[---------------------------------------------------------
 	            Add sounds here
----------------------------------------------------------]]
+---------------------------------------------------------]=]
 
-/*table.insert ( ResourceFiles, "sound/ecky.wav")
+--[=[table.insert ( ResourceFiles, "sound/ecky.wav")
 table.insert ( ResourceFiles, "sound/beat9.wav")
 table.insert ( ResourceFiles, "sound/beat8.wav")
 table.insert ( ResourceFiles, "sound/beat7.wav")
@@ -231,12 +231,12 @@ table.insert ( ResourceFiles, "sound/zbeat3.wav")
 table.insert ( ResourceFiles, "sound/zbeat2.wav")
 table.insert ( ResourceFiles, "sound/zbeat1.wav")
 table.insert ( ResourceFiles, "sound/mrgreen/ui/deadlightdistrict.mp3"  )
-table.insert ( ResourceFiles, "sound/mrgreen/ui/osweetdeath.mp3"  )*/
+table.insert ( ResourceFiles, "sound/mrgreen/ui/osweetdeath.mp3"  ) ]=]
 table.insert ( ResourceFiles, "sound/wraithdeath4.wav"  )
 table.insert ( ResourceFiles, "sound/wraithdeath3.wav"  )
 table.insert ( ResourceFiles, "sound/wraithdeath2.wav"  )
 table.insert ( ResourceFiles, "sound/wraithdeath1.wav"  )
-//table.insert ( ResourceFiles, "sound/mrgreen/ui/gamestartup1.mp3"  )
+-- table.insert ( ResourceFiles, "sound/mrgreen/ui/gamestartup1.mp3"  )
 table.insert ( ResourceFiles, "sound/mrgreen/ui/menu_accept.wav"  )
 table.insert ( ResourceFiles, "sound/mrgreen/ui/menu_click01.wav"  )
 table.insert ( ResourceFiles, "sound/mrgreen/ui/menu_focus.wav"  )
@@ -282,8 +282,8 @@ table.insert ( ResourceFiles, "sound/weapons/melee/chainsaw_gore_04.wav" )
 
 
 table.insert ( ResourceFiles, "sound/"..LASTHUMANSOUND )
-//table.insert ( ResourceFiles, "sound/endgame/humanwin.mp3" )
-//table.insert ( ResourceFiles, "sound/endgame/zombiewins.mp3" )
+-- table.insert ( ResourceFiles, "sound/endgame/humanwin.mp3" )
+-- table.insert ( ResourceFiles, "sound/endgame/zombiewins.mp3" )
 table.insert ( ResourceFiles, "sound/"..UNLIFESOUND )
 table.insert ( ResourceFiles, "sound/mrgreen/supplycrates/itempickup.wav" )
 
@@ -317,9 +317,9 @@ for _, filename in pairs( file.Find( "sound/zombiesurvival/*.wav", "GAME" ) ) do
 	table.insert ( ResourceFiles, "sound/zombiesurvival/"..filename  )
 end
 
---[[---------------------------------------------------------
+--[=[---------------------------------------------------------
 	    Add Materials here
----------------------------------------------------------]]
+---------------------------------------------------------]=]
 table.insert ( ResourceFiles, "materials/killicon/zs_zombie.vtf"  )
 table.insert ( ResourceFiles, "materials/killicon/zs_zombie.vmt"  )
 table.insert ( ResourceFiles, "materials/killicon/propkill.vtf"  )
@@ -378,7 +378,7 @@ table.insert ( ResourceFiles, "materials/phoenix_storms/egg_bump.vtf" )
 table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vmt" )
 table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vtf" )
 table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01_normal.vtf" )
-/*table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/mostdamagedone.vtf" )
+--[[table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/mostdamagedone.vtf" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/mostdamagedone.vmt" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/timer.vtf" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/timer.vmt" )
@@ -399,7 +399,7 @@ table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/greencoins.vmt" 
 table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/survival.vmt" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/damagezombies.vmt" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/undeadkilled.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/brains.vmt" )*/
+table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/brains.vmt" )]]
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/arrow.vtf" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombie.vtf" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/arrow.vmt" )
@@ -422,7 +422,7 @@ table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/torso.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/filmgrain/filmgrain.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/filmgrain/filmgrain.vtf")
-//table.insert ( ResourceFiles, "materials/models/props_mrgreen/arrow/debugwhite.vmt" )
+-- table.insert ( ResourceFiles, "materials/models/props_mrgreen/arrow/debugwhite.vmt" )
 -- Howler materials
 table.insert ( ResourceFiles, "materials/models/mrgreen/howler/eyes.vmt" )
 table.insert ( ResourceFiles, "materials/models/mrgreen/howler/eye.vtf" )
@@ -434,8 +434,8 @@ table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/howler.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/howler.vtf")
 
 -- Weapon selection texture
-//table.insert ( ResourceFiles, "materials/zombiesurvival/hud/panel_texture.vtf" ) 
-//table.insert ( ResourceFiles, "materials/zombiesurvival/hud/panel_texture.vmt" ) 
+-- table.insert ( ResourceFiles, "materials/zombiesurvival/hud/panel_texture.vtf" ) 
+-- table.insert ( ResourceFiles, "materials/zombiesurvival/hud/panel_texture.vmt" ) 
 
 -- Zombine materials
 table.insert ( ResourceFiles, "materials/models/zombie_classic/combinesoldiersheet_zombie.vtf" ) 
@@ -453,11 +453,11 @@ table.insert( ResourceFiles, "materials/effects/hazard_icon.vtf" )
 table.insert( ResourceFiles, "materials/effects/hazard_icon.vmt" )
 
 table.insert( ResourceFiles,"models/weapons/w_chainsaw.mdl")
-//table.insert( ResourceFiles,"models/weapons/w_chainsaw.phy")
-//table.insert( ResourceFiles,"models/weapons/w_chainsaw.vvd")
-//table.insert( ResourceFiles,"models/weapons/w_chainsaw.dx80.vtx")
-//table.insert( ResourceFiles,"models/weapons/w_chainsaw.dx90.vtx")
-//table.insert( ResourceFiles,"models/weapons/w_chainsaw.sw.vtx")
+-- table.insert( ResourceFiles,"models/weapons/w_chainsaw.phy")
+-- table.insert( ResourceFiles,"models/weapons/w_chainsaw.vvd")
+-- table.insert( ResourceFiles,"models/weapons/w_chainsaw.dx80.vtx")
+-- table.insert( ResourceFiles,"models/weapons/w_chainsaw.dx90.vtx")
+-- table.insert( ResourceFiles,"models/weapons/w_chainsaw.sw.vtx")
 
 table.insert( ResourceFiles,"materials/models/weapons/w_chainsaw/body.vmt")
 table.insert( ResourceFiles,"materials/models/weapons/w_chainsaw/body.vtf")
@@ -485,9 +485,9 @@ table.insert( ResourceFiles,"materials/models/weapons/v_chainsaw/parts_n.vtf")
 
 
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	     Add models here
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 table.insert ( ResourceFiles, "models/weapons/w_sledgehammer.mdl" )
 table.insert ( ResourceFiles, "models/weapons/v_sledgehammer/v_sledgehammer.mdl" )
 table.insert ( ResourceFiles, "models/weapons/w_axe.mdl" )
@@ -515,34 +515,34 @@ table.insert ( ResourceFiles, "models/greenshat/greenshat.mdl" )
 table.insert ( ResourceFiles, "models/cloud/kn_santahat.mdl" )
 table.insert ( ResourceFiles, "models/bunnyears/bunnyears.mdl" )
 table.insert ( ResourceFiles, "models/props_phx/misc/egg.mdl" )
-//table.insert ( ResourceFiles, "models/weapons/v_healthkit.mdl" )
+-- table.insert ( ResourceFiles, "models/weapons/v_healthkit.mdl" )
 table.insert ( ResourceFiles, "models/props_outland/pumpkin01.mdl" )
 table.insert ( ResourceFiles, "models/effects/bday_gib01.mdl" )
-//table.insert ( ResourceFiles, "models/props_mrgreen/arrow.mdl" )
+-- table.insert ( ResourceFiles, "models/props_mrgreen/arrow.mdl" )
 
-//Katana!
+-- Katana!
 table.insert ( ResourceFiles, "models/weapons/v_katana.mdl" )
 table.insert ( ResourceFiles, "models/weapons/w_katana.mdl" )
 
-//AlyxGun
+-- AlyxGun
 table.insert ( ResourceFiles, "models/weapons/v_alyxgun.mdl" )
 
 table.insert ( ResourceFiles, "models/weapons/v_supershorty/v_supershorty.mdl" )
 table.insert ( ResourceFiles, "models/weapons/w_supershorty.mdl" )
 
-//Pipe melee
-//table.insert ( ResourceFiles, "models/weapons/v_pipe.mdl" )
+-- Pipe melee
+-- table.insert ( ResourceFiles, "models/weapons/v_pipe.mdl" )
 
-//Howler
+-- Howler
 table.insert ( ResourceFiles, "models/mrgreen/howler.mdl" )
 
-//Zombine viewmodel and world model
+-- Zombine viewmodel and world model
 table.insert ( ResourceFiles, "models/weapons/v_zombine.mdl" )
 table.insert ( ResourceFiles, "models/zombie/zombie_soldier.mdl" )
 table.insert ( ResourceFiles, "models/zombie/zombie_soldier_animations.mdl" )
 table.insert ( ResourceFiles, "models/zombie/zombie_soldier_animations.ani" )
 
-//Stalker model fix!
+-- Stalker model fix!
 table.insert ( ResourceFiles, "models/wraith.mdl" )
 table.insert ( ResourceFiles, "models/wraith__animations.mdl" )
 table.insert ( ResourceFiles, "models/weapons/v_wraith.mdl" )
@@ -554,7 +554,7 @@ for _, filename in pairs(file.Find("materials/Jaanus/monk/*.*" , "GAME") ) do
 end
 
 
-//Precache resource table models
+-- Precache resource table models
 for k,v in pairs ( ResourceFiles ) do
 	if string.find ( v, ".mdl" ) then
 		util.PrecacheModel ( v )

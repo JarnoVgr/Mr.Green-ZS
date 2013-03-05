@@ -14,7 +14,7 @@ end
 
 function ENT:Think()
 	if SERVER then
-		if !ValidEntity(self:GetOwner()) or not self:GetOwner():Alive() then
+		if not ValidEntity(self:GetOwner()) or not self:GetOwner():Alive() then
 			self:Remove()
 		end
 	end
@@ -25,17 +25,17 @@ if CLIENT then
 	local owner = self:GetOwner()
 	if owner:IsValid() and owner:Alive() then
 	local ply = self:GetOwner():GetRagdollEntity() or owner
-	//local bone = ply:LookupBone(bonename)  
+	-- local bone = ply:LookupBone(bonename)  
 	if bone then  
 		local position, angles = ply:GetBonePosition(bone)
 		
-		//local localpos = self:GetDTVector(0)
-		//local localang = self:GetDTAngle(0)
+		-- local localpos = self:GetDTVector(0)
+		-- local localang = self:GetDTAngle(0)
 
-		//local newpos, newang = LocalToWorld( localpos, localang, position, angles ) 
+		-- local newpos, newang = LocalToWorld( localpos, localang, position, angles ) 
 
-		//self:SetPos(newpos)  
-		//self:SetAngles(newang)  
+		-- self:SetPos(newpos)  
+		-- self:SetAngles(newang)  
 		
 		self:DrawModel()
 		

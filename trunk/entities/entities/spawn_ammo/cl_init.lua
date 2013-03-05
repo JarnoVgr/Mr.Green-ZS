@@ -17,26 +17,26 @@ end
 
 local matOutlineWhite = Material( "white_outline" )
 
-/*----------------------------------------------------
+--[==[----------------------------------------------------
     Used to control the colors for outline thing
------------------------------------------------------*/
+-----------------------------------------------------]==]
 ENT.DrawOutline, ENT.LineColor = false, Color ( 255,0,0,255 )
 function PlayerThinkTargetID()
 	if not ValidEntity ( MySelf ) then return end
 
-	//Main trace
+	-- Main trace
 	local vStart = MySelf:GetShootPos()
 	local tr = util.TraceLine ( { start = vStart, endpos = vStart + ( MySelf:GetAimVector() * 5000 ),filter = MySelf, mask = MASK_SHOT } )
 	local ent = tr.Entity
 	
-	//Reset outline bool
+	-- Reset outline bool
 	for k,v in pairs ( ents.FindByClass ("spawn_ammo" ) ) do
 		v.DrawOutline = false
 	end
 	
 	if not ValidEntity ( ent ) then return end
 
-	//if the trace hit the parent or one of it's children then make it glow
+	-- if the trace hit the parent or one of it's children then make it glow
 	if ent:GetClass() == "spawn_ammo" then
 		ent.DrawOutline = true
 	end
@@ -55,26 +55,26 @@ end
 function ENT:OnRemove()
 end
 
-/*----------------------------------------------
+--[==[----------------------------------------------
     Returns entity children / clientside
------------------------------------------------*/
+-----------------------------------------------]==]
 function ENT:GetChildren()
-	/*local Parent, Children = self.Entity, {}
-	for k,v in pairs ( ents.FindByClass("prop_physics_multiplayer") ) do//ents.FindInSphere ( self.Entity:GetPos(), 100 )
+	--[==[local Parent, Children = self.Entity, {}
+	for k,v in pairs ( ents.FindByClass("prop_physics_multiplayer") ) do-- ents.FindInSphere ( self.Entity:GetPos(), 100 )
 		if IsEntityValid( v ) and v:GetClass() == "prop_physics_multiplayer" and v:GetPos():Distance(self.Entity:GetPos()) <= 100 then
 			if ValidEntity ( v:GetOwner() ) and v:GetOwner() == Parent then
 				table.insert ( Children, v )
 			end
 		end
 	end
-	table.insert ( Children, Parent )*/
+	table.insert ( Children, Parent )]==]
 	
 	return self.Children or {}
 end
  
  
 function ENT:DrawEntityOutline()
-	if not ValidEntity ( MySelf ) or MySelf:Team() != TEAM_HUMAN then return end
+	if not ValidEntity ( MySelf ) or MySelf:Team() ~= TEAM_HUMAN then return end
 	
 	local outline = false
 	
@@ -102,7 +102,7 @@ function ENT:DrawEntityOutline()
 		cam.End3D()
 	end
 	
-	//Choose the color
+	-- Choose the color
 	local LineColor = Color ( 210, 0,0, 255 )
 	if (not GAMEMODE:GetFighting() and GAMEMODE:GetWave() ~= 6) then
 		LineColor = Color ( 0, math.abs ( 200 * math.sin ( CurTime() * 3 ) ),0, 255 )
@@ -111,19 +111,19 @@ function ENT:DrawEntityOutline()
 	local todraw = self:GetChildren()
 	
 	
-	//Supress light for the children
-	//render.SuppressEngineLighting( true )
-	//render.SetAmbientLight( 1, 1, 1 )
-	//render.SetColorModulation( 1, 1, 1 )
+	-- Supress light for the children
+	-- render.SuppressEngineLighting( true )
+	-- render.SetAmbientLight( 1, 1, 1 )
+	-- render.SetColorModulation( 1, 1, 1 )
 
-	//Children props
+	-- Children props
 	cam.Start3D ( EyePos(), EyeAngles() )
 		for k,v in pairs ( todraw ) do
 			render.SuppressEngineLighting( true )
 			render.SetAmbientLight( 1, 1, 1 )
 			render.SetColorModulation( 1, 1, 1 )
 				
-			// First Outline       
+			--  First Outline       
 			v:SetModelScale( v:GetModelScale() * 1.03,0 )
 			render.ModelMaterialOverride( matOutlineWhite )
 			render.SetColorModulation( LineColor.r / 255, LineColor.g / 255, LineColor.b / 255 )
@@ -131,7 +131,7 @@ function ENT:DrawEntityOutline()
 			v:DrawModel()
 			if outline then cam.IgnoreZ(false) end
 			
-			// Revert everything back to how it should be
+			--  Revert everything back to how it should be
 			render.ModelMaterialOverride( nil )
 			v:SetModelScale( 1,0 )
 			
@@ -140,7 +140,7 @@ function ENT:DrawEntityOutline()
 			local c = v:GetColor()
 			local r, g, b = c.r, c.g, c.b
 			render.SetColorModulation( r / 255, g / 255, b / 255 )
-			//v:DrawModel()
+			-- v:DrawModel()
 		end		
 	cam.End3D()
 	
@@ -151,12 +151,12 @@ function ENT:DrawEntityOutline()
 		end
 	end
 	
-	/*//Supress light for the parent
+	--[==[-- Supress light for the parent
 	render.SuppressEngineLighting( true )
-	//render.SetAmbientLight( 1, 1, 1 )
+	-- render.SetAmbientLight( 1, 1, 1 )
 	render.SetColorModulation( 1, 1, 1 )
 		   
-	// First Outline       
+	--  First Outline       
 	self:SetModelScale( self:GetModelScale() * 1.03,0 )
 	render.ModelMaterialOverride( matOutlineWhite )
 	render.SetColorModulation( LineColor.r / 255, LineColor.g / 255, LineColor.b / 255 )
@@ -164,7 +164,7 @@ function ENT:DrawEntityOutline()
 	self:DrawModel()
 	if outline then cam.IgnoreZ(false) end
 				   
-	// Revert everything back to how it should be
+	--  Revert everything back to how it should be
 	render.ModelMaterialOverride( nil )
 	self:SetModelScale( 1,0 )
 				   
@@ -173,5 +173,5 @@ function ENT:DrawEntityOutline()
 	local r, g, b = c.r, c.g, c.b
 	render.SetColorModulation( r/255, g/255, b/255 )
 	
-	self:DrawModel()*/
+	self:DrawModel()]==]
  end

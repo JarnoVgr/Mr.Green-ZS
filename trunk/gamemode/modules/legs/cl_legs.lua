@@ -1,6 +1,6 @@
-//Legs script by blackops7799
+-- Legs script by blackops7799
 
-/*----------------------------------------------------------------------
+--[==[----------------------------------------------------------------------
 	2.4 Changelog
 	- Removed arm for melee holdtype, it just did not look good in many cases, mainly because they don't animate while attacking
 	- Made legs move forward as you look up, looks as if you are bending over to look down or something. It's definitly an improvement.
@@ -13,31 +13,31 @@
 		* GetLocalPlayersLegs() -- Will return the leg entity if visible, if not visible it returns local player
 	- Fixed legs drawing while spectating another entity ( Example: Catdaemon's shuttle )
 	- Fixed certain models showing as errors
-*/----------------------------------------------------------------------
+]==]----------------------------------------------------------------------
 
-/*----------------------------------------------------------------------
+--[==[----------------------------------------------------------------------
 	DO NOT CHANGE ANYTHING BELOW UNLESS YOU KNOW WHAT YOU ARE DOING!
-*/----------------------------------------------------------------------
+]==]----------------------------------------------------------------------
 
-//if SERVER then
-//	AddCSLuaFile( "cl_legs.lua" )
-//	return
-//end
+-- if SERVER then
+-- 	AddCSLuaFile( "cl_legs.lua" )
+-- 	return
+-- end
 
 local Legs = {}
 Legs.LegEnt = nil
 
 function ShouldDrawLegs()
-	return util.tobool(GetConVarNumber("cl_legs")) and//Legs.EnabledVar:GetBool()
+	return util.tobool(GetConVarNumber("cl_legs")) and-- Legs.EnabledVar:GetBool()
 			IsValid( Legs.LegEnt ) and
 			( LocalPlayer():Alive() or ( LocalPlayer().IsGhosted and LocalPlayer():IsGhosted() ) ) and
 			Legs:CheckDrawVehicle() and
 			GetViewEntity() == LocalPlayer() and
-			!LocalPlayer():ShouldDrawLocalPlayer() and
-			!LocalPlayer():GetObserverTarget() //and not LocalPlayer():IsZombie() and LocalPlayer():IsBossZombie()
+			not LocalPlayer():ShouldDrawLocalPlayer() and
+			not LocalPlayer():GetObserverTarget() -- and not LocalPlayer():IsZombie() and LocalPlayer():IsBossZombie()
 end
 
---[[You can't really get another players legs, so we return the player back.
+--[=[You can't really get another players legs, so we return the player back.
 This would just simplify render hooks if you wanted to change the appearance
 of a players model and make the legs mimic that change.
 Seeing how you are probably going to be using this for a players model, we return
@@ -53,12 +53,12 @@ hook.Add( "RenderScreenspaceEffects", "RenderWireFrame", function() -- Will rend
 			GetPlayerLegs( ply ):DrawModel() -- If the player is the local player, it returns their legs if visible so we can make our legs have the same effect applied to it all with one simple line
 		SetMaterialOverride( nil )
 	end
-end )]]
+end )]=]
 function GetPlayerLegs( ply )
-	return ply and ply != LocalPlayer() and ply or ( ShouldDrawLegs() and Legs.LegEnt or LocalPlayer() )
+	return ply and ply ~= LocalPlayer() and ply or ( ShouldDrawLegs() and Legs.LegEnt or LocalPlayer() )
 end
 
-//Legs.EnabledVar = CreateConVar( "cl_legs", "1", { FCVAR_ARCHIVE, }, "Enable/Disable the rendering of the legs" )
+-- Legs.EnabledVar = CreateConVar( "cl_legs", "1", { FCVAR_ARCHIVE, }, "Enable/Disable the rendering of the legs" )
 Legs.VehicleDrawVar = CreateConVar( "cl_legs_vehicle", "1", { FCVAR_ARCHIVE, }, "Enable/Disable the rendering of the legs in a vehicle" )
 Legs.LeanMode = CreateConVar( "cl_legs_leanmode", "1", { FCVAR_ARCHIVE, }, "Enable/Disable the adjusting of the legs forward/backwards position determined by eye pitch" )
 
@@ -108,14 +108,14 @@ Legs.FixedModelNames = { -- Broken model path = key, fixed model path = value
 	["models/humans/group03/male_08.mdl"] = "models/player/group03/male_08.mdl",
 }
 
---[[hook.Add( "Initialize", "Legs:LoadModels", function() -- Used this for generating the list above
+--[=[hook.Add( "Initialize", "Legs:LoadModels", function() -- Used this for generating the list above
 	print( "Legs.FixedModelNames = {" )
 	for k,v in pairs( list.Get( "PlayerOptionsModel" ) ) do
 		v = v:lower()
 		print( "\t[\"" .. v:gsub( "/player/", "/" ):gsub( "/group0%d/", "/humans%1" ) .. "\"] = \"" .. v .. "\"," )
 	end
 	print( "}" )
-end )]]
+end )]=]
 
 function Legs:FixModelName( mdl ) -- For some reason, the client returns the original HL2 version model of the player, not the player model.. Weird right? Only applies to the default player models.
 	mdl = mdl:lower()
@@ -155,7 +155,7 @@ Legs.BoneHoldTypes = { ["none"] = {
 							"ValveBiped.Bip01_Head1",
 							"ValveBiped.Bip01_Neck1",
 							"ValveBiped.Bip01_Spine4",
-							//"ValveBiped.Bip01_Spine2",
+							-- "ValveBiped.Bip01_Spine2",
 							"ValveBiped.Bip01_L_Hand",
 							"ValveBiped.Bip01_L_Forearm",
 							"ValveBiped.Bip01_L_Upperarm",
@@ -190,14 +190,14 @@ Legs.BoneHoldTypes = { ["none"] = {
 							"ValveBiped.Bip01_Neck1",
 							"ValveBiped.Bip01_Spine4",
 							"ValveBiped.Bip01_Spine2",
-							//"ValveBiped.Bip01_L_Hand",
-							//"ValveBiped.Bip01_L_Forearm",
-							//"ValveBiped.Bip01_L_Upperarm",
-							//"ValveBiped.Bip01_L_Clavicle",
-							//"ValveBiped.Bip01_R_Hand",
-							//"ValveBiped.Bip01_R_Forearm",
-							//"ValveBiped.Bip01_R_Upperarm",
-							//"ValveBiped.Bip01_R_Clavicle"
+							-- "ValveBiped.Bip01_L_Hand",
+							-- "ValveBiped.Bip01_L_Forearm",
+							-- "ValveBiped.Bip01_L_Upperarm",
+							-- "ValveBiped.Bip01_L_Clavicle",
+							-- "ValveBiped.Bip01_R_Hand",
+							-- "ValveBiped.Bip01_R_Forearm",
+							-- "ValveBiped.Bip01_R_Upperarm",
+							-- "ValveBiped.Bip01_R_Clavicle"
 						}
 					}
 				
@@ -215,7 +215,7 @@ function Legs:WeaponChanged( weap ) --Different bones will be visible for differ
 			Legs.BonesToRemove = {
 				"ValveBiped.Bip01_Head1"
 			}
-			if !LocalPlayer():InVehicle() then
+			if not LocalPlayer():InVehicle() then
 				if LocalPlayer():IsHuman() then
 					Legs.BonesToRemove = Legs.BoneHoldTypes[ Legs.HoldType ] or Legs.BoneHoldTypes[ "default" ]
 				else
@@ -244,12 +244,12 @@ Legs.NextBreath = 0
 
 function Legs:Think( maxseqgroundspeed )
 	if IsValid( self.LegEnt ) then
-		if LocalPlayer():GetActiveWeapon() != self.OldWeapon then -- Player switched weapons, change the bones for new weapon
+		if LocalPlayer():GetActiveWeapon() ~= self.OldWeapon then -- Player switched weapons, change the bones for new weapon
 			self.OldWeapon = LocalPlayer():GetActiveWeapon()
 			self:WeaponChanged( self.OldWeapon )
 		end
 		
-		if self.LegEnt:GetModel() != self:FixModelName( LocalPlayer():GetModel() ) then --Player changed model without spawning?
+		if self.LegEnt:GetModel() ~= self:FixModelName( LocalPlayer():GetModel() ) then --Player changed model without spawning?
 			self.LegEnt:SetModel( self:FixModelName( LocalPlayer():GetModel() ) )
 			--print( LocalPlayer():GetModel(), self:FixModelName( LocalPlayer():GetModel() ) )
 		end
@@ -282,7 +282,7 @@ function Legs:Think( maxseqgroundspeed )
 		
 		self.Sequence = LocalPlayer():GetSequence()
 		
-		if ( self.LegEnt.Anim != self.Sequence ) then -- If the player changes sequences, change the legs too
+		if ( self.LegEnt.Anim ~= self.Sequence ) then -- If the player changes sequences, change the legs too
 			self.LegEnt.Anim = self.Sequence
 			self.LegEnt:ResetSequence( self.Sequence )
 		end
@@ -328,7 +328,7 @@ Legs.ClipVector = vector_up * -1
 Legs.ForwardOffset = -24
 
 function Legs:CheckDrawVehicle() -- Will return true if the player is in a vehicle and NOT in third person, or the player is not in a vehicle
-	return LocalPlayer():InVehicle() and ( !gmod_vehicle_viewmode:GetBool() and self.VehicleDrawVar:GetBool() ) or !LocalPlayer():InVehicle()
+	return LocalPlayer():InVehicle() and ( not gmod_vehicle_viewmode:GetBool() and self.VehicleDrawVar:GetBool() ) or not LocalPlayer():InVehicle()
 end
 
 hook.Add( "RenderScreenspaceEffects", "Legs:Render", function() -- Need to find a better place to render. Legs half-way in water = looks like they are clipped

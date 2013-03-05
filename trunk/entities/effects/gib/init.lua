@@ -24,7 +24,7 @@ function EFFECT:Init(data)
 	end
 
 	local phys = self.Entity:GetPhysicsObject()
-	if ( phys && IsValid(phys) ) then
+	if ( phys and IsValid(phys) ) then
 	
 		phys:Wake()
 		phys:SetAngles( Angle( math.random(0,359), math.random(0,359), math.random(0,359) ) )
@@ -32,7 +32,7 @@ function EFFECT:Init(data)
 	
 	end
 	self.Time = CurTime() + math.random(8, 15)
-	//self.Emitter = ParticleEmitter(self.Entity:GetPos())
+	-- self.Emitter = ParticleEmitter(self.Entity:GetPos())
 end
 
 function EFFECT:Think()
@@ -51,8 +51,8 @@ end
 
 function EFFECT:Render()
 	self.Entity:DrawModel()
-	--[[if self.Entity:GetVelocity():Length() > 20 then
-		//local emitter = ParticleEmitter(self.Entity:GetPos())
+	--[=[if self.Entity:GetVelocity():Length() > 20 then
+		-- local emitter = ParticleEmitter(self.Entity:GetPos())
 		local particle = self.Emitter:Add("decals/blood_spray"..math.random(1,8), self.Entity:GetPos())
 			particle:SetVelocity(VectorRand() * 16)
 			particle:SetDieTime(0.6)
@@ -62,5 +62,5 @@ function EFFECT:Render()
 			particle:SetRoll(180)
 			particle:SetColor(255, 0, 0)
 			particle:SetLighting(true)
-	end]]
+	end]=]
 end

@@ -45,7 +45,7 @@ function ENT:Touch(ent)
 end
 
 function ENT:StartTouch ( ent )
-	if ent:IsPlayer() and ent != self:GetOwner() and ent:Alive() and ent:Team() == TEAM_UNDEAD then
+	if ent:IsPlayer() and ent ~= self:GetOwner() and ent:Alive() and ent:Team() == TEAM_UNDEAD then
 		if not (ent:IsZombine() and ent.bCanSprint) then
 		local MaxHealth = ent:GetMaximumHealth()
 		if ent:Health() < MaxHealth then

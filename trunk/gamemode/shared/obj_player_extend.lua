@@ -65,7 +65,7 @@ function meta:IsZombieInHorde()
 	self._LastHordeTime = ct + 4
 	
 	for _, Zombie in ipairs( team.GetPlayers(TEAM_UNDEAD) ) do
-		if IsValid( Zombie ) and Zombie:Alive() and Zombie != self and self:GetPos():Distance(Zombie:GetPos()) <= HORDE_MAX_DISTANCE then
+		if IsValid( Zombie ) and Zombie:Alive() and Zombie ~= self and self:GetPos():Distance(Zombie:GetPos()) <= HORDE_MAX_DISTANCE then
 			return true
 		end
 	end
@@ -91,9 +91,9 @@ function meta:GetHordeCount(beat)
 	return LastHordeCount or 0
 end
 
-/*function meta:GetHordeCount(beat)
+--[==[function meta:GetHordeCount(beat)
 
-	//self._LastHordeCount = self._LastHordeCount or 0
+	-- self._LastHordeCount = self._LastHordeCount or 0
 	
 	if self._LastHordeTime and self._LastHordeTime >= CurTime() and SERVER then
 		return self._LastHordeCount
@@ -106,16 +106,16 @@ end
 	
 	self._LastHordeCount = math.Clamp(GetZombieFocus( self, HORDE_MAX_DISTANCE ),0,max)
 	
-	//if self:IsZombieInHorde() then//if self.InHorde and self.InHorde > CurTime() then
+	-- if self:IsZombieInHorde() then-- if self.InHorde and self.InHorde > CurTime() then
 		return self._LastHordeCount or 0
-	//end
-end*/
+	-- end
+end]==]
 
 function meta:GetHordePercent()
-	//if self:IsZombieInHorde() then
+	-- if self:IsZombieInHorde() then
 		return (self:GetHordeCount()/HORDE_MAX_ZOMBIES)*(HORDE_MAX_RESISTANCE/100) or 0
-	//end
-	//return 0
+	-- end
+	-- return 0
 end
 
 -- Get spawn time
@@ -136,10 +136,10 @@ end
 -- Get spawn time protection
 function meta:GetSpawnTimeProtection()
 
-	//Time limit for protection
+	-- Time limit for protection
 	local TimeLimit, iDiff = self:GetSpawnTimeLimit()
 	
-	//Calculate appropriate time
+	-- Calculate appropriate time
 	if self:IsHuman() then iDiff = 0 else iDiff = TimeLimit end
 	return math.Clamp( math.abs( iDiff - ( GetInfliction() * TimeLimit ) ), 5, TimeLimit )
 end
@@ -147,42 +147,42 @@ end
 -- Get suitable damage
 function meta:GetSpawnDamagePercent()
 
-	//Time limit for protection
+	-- Time limit for protection
 	local Time = self:GetSpawnTimeProtection()
 
-	//Percent damage reduction
+	-- Percent damage reduction
 	return math.Clamp( ( Time - math.abs( CurTime() - self:GetSpawnTime() ) ) / Time, 0, 1 )
 end
 
 -- Hook on spawn
 hook.Add( "PlayerSpawn", "SpawnTime", function( pl ) pl.SpawnTime = CurTime() end )
 
---[[---------------------------------------
+--[=[---------------------------------------
       Returns active human level
-----------------------------------------]]
+----------------------------------------]=]
 function meta:GetLevel()
 	if not self.DataTable or ( self.DataTable and not self.DataTable.ClassData ) then return end
 	
 	return self.DataTable["ClassData"][ string.lower ( self:GetHumanClassString() ) ].level
 end
 
---[[-----------------------------------------------------------
+--[=[-----------------------------------------------------------
        Returns the name of the active human class
-------------------------------------------------------------]]
+------------------------------------------------------------]=]
 function meta:GetHumanClassString()
 	return HumanClasses[ self:GetHumanClass() ].Name
 end
 
---[[--------------------------------------
+--[=[--------------------------------------
        See if player is a human
----------------------------------------]]
+---------------------------------------]=]
 function meta:IsHuman()
 	return self:Team() == TEAM_HUMAN
 end
 
---[[---------------------------------------
+--[=[---------------------------------------
        See if player is a zombie
-----------------------------------------]]
+----------------------------------------]=]
 function meta:IsZombie()
 	return self:Team() == TEAM_UNDEAD
 end
@@ -194,9 +194,9 @@ function meta:SyncAngles()
 	return ang
 end
 
---[[-------------------------------------------
+--[=[-------------------------------------------
          See if player is a spectator
----------------------------------------------]]
+---------------------------------------------]=]
 function meta:IsSpectator()
 	return self:Team() == TEAM_SPECTATOR
 end
@@ -243,9 +243,9 @@ function meta:MeleeTrace(distance, size, filter, start)
 	return self:TraceHull(distance, MASK_SOLID, size, filter, start)
 end
 
---[[---------------------------------------------------------
+--[=[---------------------------------------------------------
      Used to get what pistols the player is holding
----------------------------------------------------------]]
+---------------------------------------------------------]=]
 function meta:GetPistol()
 	local MyWeapons, Pistols = self:GetWeapons(), {}
 
@@ -260,9 +260,9 @@ function meta:GetPistol()
 	return Pistols[1] or false
 end
 
---[[-------------------------------------------------------------------------
+--[=[-------------------------------------------------------------------------
      Used to get what rifle/smg/awp/shotgun the player is holding
--------------------------------------------------------------------------]]
+-------------------------------------------------------------------------]=]
 function meta:GetAutomatic()
 	local MyWeapons, Automatic = self:GetWeapons(), {}
 
@@ -277,9 +277,9 @@ function meta:GetAutomatic()
 	return Automatic[1] or false
 end
 
---[[----------------------------------------------------------------
+--[=[----------------------------------------------------------------
      Used to get what melee weapon the player is holding
-----------------------------------------------------------------]]
+----------------------------------------------------------------]=]
 function meta:GetMelee()
 	local MyWeapons, Melee = self:GetWeapons(), {}
 
@@ -294,9 +294,9 @@ function meta:GetMelee()
 	return Melee[1] or false
 end
 
---[[----------------------------------------------------------------
+--[=[----------------------------------------------------------------
      Used to get what melee weapon the player is holding
-----------------------------------------------------------------]]
+----------------------------------------------------------------]=]
 function meta:GetTools()
 	local MyWeapons, Tools = self:GetWeapons(), {}
 
@@ -311,17 +311,17 @@ function meta:GetTools()
 	return Tools[1] or false
 end
 
---[[----------------------------------------------------------------
+--[=[----------------------------------------------------------------
      Used to compare 2 weapons and return strongest one
-----------------------------------------------------------------]]
+----------------------------------------------------------------]=]
 function meta:CompareMaxDPS ( Class1, Class2 )
 	if Class1 == nil or Class2 == nil then return end
-	if type ( Class1 ) != "string" or type ( Class2 ) != "string" then return end
+	if type ( Class1 ) ~= "string" or type ( Class2 ) ~= "string" then return end
 	
-	//Get damage (dps)
+	-- Get damage (dps)
 	local TableDPS = { [ tostring( Class1 ) ] = GetWeaponDPS ( Class1 ), [ tostring( Class2 ) ] = GetWeaponDPS ( Class2 ) }
 
-	//Compare them
+	-- Compare them
 	local Compare, WeaponWin = -5500
 	for k,v in pairs ( TableDPS ) do
 		if v > Compare then
@@ -336,53 +336,53 @@ end
 function meta:GetSurvivalPercent()
 	if self:IsZombie() then return 1 end
 	
-	//Default 100%
+	-- Default 100%
 	local fPercent = 1
 	
-	//Get zombies near for start
+	-- Get zombies near for start
 	local iZombies, fNearZombiePercent = GetZombieFocus( self, 300 )
 	fNearZombiePercent = 1 - ( math.Clamp ( iZombies, 0, 6 ) / 6 )
 	
-	//Get total zombies
+	-- Get total zombies
 	local iTotalZombs = team.NumPlayers ( TEAM_UNDEAD )
 	fZombiePercent = 1 - iTotalZombs / #player.GetAll()
 	
-	//Health percent
+	-- Health percent
 	local fHealth, iMaxHealth, fHealthPercent = self:Health(), self:GetMaximumHealth()
 	fHealthPercent = fHealth / iMaxHealth
 	
-	//Per total
+	-- Per total
 	fPercent = ( fNearZombiePercent + fZombiePercent + fHealthPercent ) / 3
 	
 	return fPercent
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
       Return the amount time left to ammo regen
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function meta:GetAmmoTime()
-	if self:Team() != TEAM_HUMAN then return 0 end
+	if self:Team() ~= TEAM_HUMAN then return 0 end
 	
-	//the variable is missing
+	-- the variable is missing
 	if self.AmmoRegenTime == nil then return 0 end
 	
 	return self.AmmoRegenTime
 end
 
-/*----------------------------------------------------------
+--[==[----------------------------------------------------------
              Shared get weapon function/method
------------------------------------------------------------*/
+-----------------------------------------------------------]==]
 meta.BaseGetWeapon = meta.GetWeapon
 function meta:GetWeapon ( Class )
 	if Class == nil then return end
 	
-	//Base function - Server function
+	-- Base function - Server function
 	if SERVER then return self:BaseGetWeapon ( Class ) end
 	
-	//Client function
+	-- Client function
 	if SERVER then return end
 	
-	//Loop through weapons
+	-- Loop through weapons
 	local tbWeapons = self:GetWeapons()
 	for k,v in pairs ( tbWeapons ) do
 		if v:GetClass() == Class then
@@ -391,71 +391,71 @@ function meta:GetWeapon ( Class )
 	end
 end
 
-/*---------------------------------------------------
+--[==[---------------------------------------------------
         Improved clientside/serverside FOV
-----------------------------------------------------*/
+----------------------------------------------------]==]
 meta.BaseSetFOV = meta.SetFOV
 function meta:SetFOV ( Fov, Time )
 	if Fov == nil then return end
 	
-	//Server-side default function
+	-- Server-side default function
 	if SERVER then self:BaseSetFOV ( Fov, Time ) end
 	
-	//Clientside function
+	-- Clientside function
 	if CLIENT then self.Fov = Fov or GetConVar("fov_desired"):GetInt() end
 end
 
-/*---------------------------------------------------
+--[==[---------------------------------------------------
         Improved clientside/serverside FOV
-----------------------------------------------------*/
+----------------------------------------------------]==]
 meta.BaseGetFOV = meta.GetFOV
-//function meta:GetFOV()
-//	if SERVER then return self:BaseGetFOV() else return self.ApproachFov or GetConVar("fov_desired"):GetInt() end
-//end
+-- function meta:GetFOV()
+-- 	if SERVER then return self:BaseGetFOV() else return self.ApproachFov or GetConVar("fov_desired"):GetInt() end
+-- end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
    Overwrite base give function so we can clamp it
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 meta.BaseGiveAmmo = meta.GiveAmmo
 function meta:GiveAmmo( Amount, AmmoType )
 	if CLIENT then return end
 	if Amount == 0 then return end
 	
-	//If the player has no weapons then our job is done
+	-- If the player has no weapons then our job is done
 	if #self:GetWeapons() == 0 then return end
 	
-	//We need a ranged bullet weapon for this
+	-- We need a ranged bullet weapon for this
 	local AmmoCount, MaximumLoad, Gun = self:GetAmmoCount ( AmmoType )
 	local WeaponType = GetWeaponTypeByAmmo ( AmmoType ) 
 	
-	//Get weapons
+	-- Get weapons
 	local Pistol, Automatic = self:GetPistol(), self:GetAutomatic()
 	
-	//Check which weapon we should clamp the ammo on
+	-- Check which weapon we should clamp the ammo on
 	if WeaponType == "Pistol" then if ValidEntity ( Pistol ) then Gun = Pistol end end
 	if WeaponType == "Automatic" then if ValidEntity ( Automatic ) then Gun = Automatic end end
 	
 	if Gun then
 		local Clamper, Multiplier = 350, 8
 		
-		//Pistols and automatic guns are different so use different maximum values
+		-- Pistols and automatic guns are different so use different maximum values
 		if GetWeaponCategory ( Gun:GetClass() ) == "Automatic" then Clamper, Multiplier = 750, 8 end
 		MaximumLoad = math.Clamp ( ( Gun.Primary.DefaultClip or 15 ) * Multiplier, 0, Clamper )
-		//if Gun.MaxAmmo then
-		//MaximumLoad = math.Clamp ( ( Gun.Primary.DefaultClip or 15 ) * 3, 0, Gun.MaxAmmo )
-		//end
+		-- if Gun.MaxAmmo then
+		-- MaximumLoad = math.Clamp ( ( Gun.Primary.DefaultClip or 15 ) * 3, 0, Gun.MaxAmmo )
+		-- end
 	end
 		
-	//Clamp it
+	-- Clamp it
 	Amount = ARENA_MODE and Amount or math.Clamp ( Amount, 1, ( ( MaximumLoad or 750 ) - AmmoCount ) )
 	
-	//Actually give the player ammunition
+	-- Actually give the player ammunition
 	self:BaseGiveAmmo( Amount, AmmoType )
 end
 
-/*----------------------------------------------
+--[==[----------------------------------------------
         No, it doesn't check for health
------------------------------------------------*/
+-----------------------------------------------]==]
 meta.OldAlive = meta.Alive
 function meta:Alive()
 	if self:GetObserverMode() ~= OBS_MODE_NONE or self:Team() == TEAM_UNDEAD and self:IsCrow() then return false end
@@ -477,7 +477,7 @@ function meta:SetRunSpeed( s )
 	self:OldSetRunSpeed( s + (s >= 2 and SHARED_SPEED_INCREASE or 0))
 end
 
---[[function meta:Alive()
+--[=[function meta:Alive()
 	if self:GetMoveType() == MOVETYPE_OBSERVER then return false end
 
 	return self.BaseAlive
@@ -496,62 +496,62 @@ function meta:UnSpectate()
 		oldunspec(self, obsm)
 		print(tostring(self).." unspectated")
 	end
-end]]
+end]=]
 
---[[function meta:Alive()
+--[=[function meta:Alive()
 
-	//Using only health verif.
+	-- Using only health verif.
 	local bAlive = true
 	if self:Health() <= 0 then bAlive = false end
 	
 	return bAlive
-end]]
+end]=]
 
-/*----------------------------------------------------
+--[==[----------------------------------------------------
 	    See if zombie is common type
-----------------------------------------------------*/
+----------------------------------------------------]==]
 function meta:IsCommonZombie()
 	return self:GetZombieClass() == 1
 end
 
-/*------------------------------------------------
+--[==[------------------------------------------------
 	  See if zombie is fast type
-------------------------------------------------*/
+------------------------------------------------]==]
 function meta:IsFastZombie()
 	return self:GetZombieClass() == 2
 end
 
-/*--------------------------------------------------
+--[==[--------------------------------------------------
 	  See if zombie is poison type
----------------------------------------------------*/
+---------------------------------------------------]==]
 function meta:IsPoisonZombie()
 	return self:GetZombieClass() == 3
 end
 
-/*-----------------------------------------
+--[==[-----------------------------------------
 	See if zombie is apparation
------------------------------------------*/
+-----------------------------------------]==]
 function meta:IsWraith()
 	return self:GetZombieClass() == 4
 end
 
-/*-----------------------------------------
+--[==[-----------------------------------------
 	See if zombie is a howler
------------------------------------------*/
+-----------------------------------------]==]
 function meta:IsHowler()
 	return self:GetZombieClass() == 5
 end
 
-/*-------------------------------------------
+--[==[-------------------------------------------
 	See if zombie is a headcrab
---------------------------------------------*/
+--------------------------------------------]==]
 function meta:IsHeadcrab()
 	return self:GetZombieClass() == 6
 end
 
-/*-------------------------------------------
+--[==[-------------------------------------------
 	See if zombie is a p. crab
---------------------------------------------*/
+--------------------------------------------]==]
 function meta:IsPoisonCrab()
 	return self:GetZombieClass() == 7
 end
@@ -560,9 +560,9 @@ function meta:IsCrow ()
 	return self:GetZombieClass() == 9
 end
 
-/*----------------------------------------------
+--[==[----------------------------------------------
 	See if zombie is a chem. zombie
-------------------------------------------------*/
+------------------------------------------------]==]
 function meta:IsChemZombie()
 	return self:GetZombieClass() == 66
 end
@@ -575,52 +575,52 @@ function meta:IsSuperBossZombie()
 	return ZombieClasses[self:GetZombieClass()] and ZombieClasses[self:GetZombieClass()].IsSuperBoss
 end
 
-/*------------------------------------------
+--[==[------------------------------------------
 	See if zombie is a zombine
-------------------------------------------*/
+------------------------------------------]==]
 function meta:IsZombine()
 	return self:GetZombieClass() == 8
 end
 
-/*---------------------------------------
+--[==[---------------------------------------
 	See if a human is medic
----------------------------------------*/
+---------------------------------------]==]
 function meta:IsMedic()
 	return self:GetHumanClass() == 1
 end
 
-/*------------------------------------------
+--[==[------------------------------------------
 	See if a human is commando
---------------------------------------------*/
+--------------------------------------------]==]
 function meta:IsCommando()
 	return self:GetHumanClass() == 2
 end
 
-/*--------------------------------------------
+--[==[--------------------------------------------
 	See if a human is berserker
-----------------------------------------------*/
+----------------------------------------------]==]
 function meta:IsBerserker()
 	return self:GetHumanClass() == 3
 end
 
-/*------------------------------------------
+--[==[------------------------------------------
 	See if a human is engineer
---------------------------------------------*/
+--------------------------------------------]==]
 function meta:IsEngineer()
 	return self:GetHumanClass() == 4
 end
 
-/*------------------------------------------
+--[==[------------------------------------------
 	See if a human is support
-------------------------------------------*/
+------------------------------------------]==]
 function meta:IsSupport()
 	return self:GetHumanClass() == 5
 end
 
 
-/*-----------------------
+--[==[-----------------------
 	Return logging tag
-------------------------*/
+------------------------]==]
 function meta:GetClassTag()
 	
 	if (self:IsHuman()) then
@@ -631,35 +631,35 @@ function meta:GetClassTag()
 
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
       Set the amount of time left to ammo regen
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function meta:SetAmmoTime( Time, UpdateClient )
 	
-	/*if Time == nil then return end
-	if self:Team() != TEAM_HUMAN and SERVER then return end
+	--[==[if Time == nil then return end
+	if self:Team() ~= TEAM_HUMAN and SERVER then return end
 	
-	//Initialize server-side checking variable since the timer is clientside
+	-- Initialize server-side checking variable since the timer is clientside
 	if SERVER then if self.ServerCheckTime == nil then self.ServerCheckTime = CurTime() + AMMO_REGENERATE_RATE end end
 
-	//Update it
+	-- Update it
 	self.AmmoRegenTime = Time
 	
-	//We can't update client with umsg if we are client
+	-- We can't update client with umsg if we are client
 	if CLIENT or UpdateClient == nil then return end
 	
-	//Set it on the client
+	-- Set it on the client
 	umsg.Start ( "UpdateAmmoTime", self )
 		umsg.Short ( self.AmmoRegenTime )
 	umsg.End()
 	
 	Debug ( "Updating client Ammo-Regeneration Timer. Countdown: "..tostring ( self.AmmoRegenTime ) )
-	*/
+	]==]
 end
 
-/*----------------------------------------------------------------
+--[==[----------------------------------------------------------------
           Check if the player has already voted or not
-----------------------------------------------------------------*/
+----------------------------------------------------------------]==]
 function meta:HasVoted( VOTES )
 	if table.HasValue ( VOTES.YES, self ) or table.HasValue ( VOTES.NO, self ) then 
 		return true
@@ -669,7 +669,7 @@ function meta:HasVoted( VOTES )
 end
 
 function meta:HasGasMask()
-	return false//self:Alive() and self:IsHuman() and self:GetWeapon("weapon_zs_pickup_gasmask") and IsValid(self:GetWeapon("weapon_zs_pickup_gasmask"))
+	return false-- self:Alive() and self:IsHuman() and self:GetWeapon("weapon_zs_pickup_gasmask") and IsValid(self:GetWeapon("weapon_zs_pickup_gasmask"))
 end
 
 function meta:IsHolding()
@@ -681,18 +681,18 @@ function meta:CanRedeem ()
 	if CLIENT then return end
 	if not ValidEntity ( self ) then return false end
 	if ( ENDROUND or LASTHUMAN ) then return false end
-	if self:Team() != TEAM_UNDEAD then return false end
+	if self:Team() ~= TEAM_UNDEAD then return false end
 	if team.NumPlayers(TEAM_HUMAN) == 1 then return false end
 		
-	if REDEEM and AUTOREDEEM and util.tobool(self:GetInfoNum("_zs_autoredeem",1)) then//self.AutoRedeem then
+	if REDEEM and AUTOREDEEM and util.tobool(self:GetInfoNum("_zs_autoredeem",1)) then-- self.AutoRedeem then
 		local redeemkillz = REDEEM_KILLS
 		if self:HasBought("quickredemp") then
-			//redeemkillz = REDEEM_FAST_KILLS
+			-- redeemkillz = REDEEM_FAST_KILLS
 		end
 		
 		if REDEEM_PUNISHMENT then
 			if (GAMEMODE:GetWave()) >= REDEEM_PUNISHMENT_TIME then
-				//self:ChatPrint("You can't redeem at wave "..REDEEM_PUNISHMENT_TIME)
+				-- self:ChatPrint("You can't redeem at wave "..REDEEM_PUNISHMENT_TIME)
 				return false
 			else	
 				if self:Frags() >= redeemkillz then
@@ -720,9 +720,9 @@ function meta:ScoreAdd ( score )
 end
 
 
-/*----------------------------------------------------------
+--[==[----------------------------------------------------------
   Used to see if a player is near toxic fumes (Shared)
-------------------------------------------------------------*/
+------------------------------------------------------------]==]
 function meta:IsInToxicFumes ( ToxicFumeTable )
 	if not self:Alive() then return end
 	if ToxicFumeTable == nil then return false end
@@ -841,7 +841,7 @@ end
 
 function meta:Message ( sText, iType, Col, iDuration )
 	
-	//Send message
+	-- Send message
 	if SERVER then
 		
 		net.Start( "notice.GetNotice")
@@ -850,22 +850,22 @@ function meta:Message ( sText, iType, Col, iDuration )
 			net.WriteString ( Col )
 		net.Send(self)
 		
-		/*umsg.Start( "notice.GetNotice", self )
+		--[==[umsg.Start( "notice.GetNotice", self )
 			umsg.String ( sText )
 			umsg.Short ( iType )
 			umsg.String ( Col )
-		umsg.End()*/
+		umsg.End()]==]
 	end
 	
-	//Clientside
+	-- Clientside
 	if CLIENT then notice.Message( sText, Col, iType, iDuration ) end
 end
 
 
-//////////////////  Notice System ////////////////////////
+-- -- -- -- -- -- -- -- --   Notice System -- -- -- -- -- -- -- -- -- -- -- -- 
 if SERVER then
 	function meta:Notice (msg,len,col)
-		if self:IsValid() then return end //Disable this for a moment
+		if self:IsValid() then return end -- Disable this for a moment
 		if not self:IsPlayer() or not self:IsValid() or not self:Alive() then return end
 		
 		umsg.Start("PaintText",self)
@@ -883,7 +883,7 @@ function meta:GetZombieClass()
 end
 
 function meta:GetHumanClass()
-	return 1//self.ClassHuman or
+	return 1-- self.ClassHuman or
 end
 
 function meta:SetHumanClass ( cl )
@@ -893,7 +893,7 @@ function meta:SetHumanClass ( cl )
 	self.TempClassHuman = cl
 	self:ConCommand("_zs_redeemclass "..cl.."")
 		
-	//Add one point to each class chosen every time someone changes class. (for endgame stats)
+	-- Add one point to each class chosen every time someone changes class. (for endgame stats)
 	timer.Simple( 0.1, function() 
 		if ValidEntity ( self ) then
 			local classname = HumanClasses[cl].Name
@@ -901,11 +901,11 @@ function meta:SetHumanClass ( cl )
 		end
 	end )
 		
-	//Send information from all players to player changing class
-	//UpdatePlayerClass ( player.GetAll(), { self }, "UpdateHumanClass", "ClassHuman" )
+	-- Send information from all players to player changing class
+	-- UpdatePlayerClass ( player.GetAll(), { self }, "UpdateHumanClass", "ClassHuman" )
 	
-	//Send information from player changing class to all players
-	//UpdatePlayerClass ( { self }, player.GetAll(), "UpdateHumanClass", "ClassHuman" )
+	-- Send information from player changing class to all players
+	-- UpdatePlayerClass ( { self }, player.GetAll(), "UpdateHumanClass", "ClassHuman" )
 end
 
 function meta:SetMaximumHealth ( Max )
@@ -920,7 +920,7 @@ function meta:GetMaximumHealth ( Health )
 	return self:GetDTInt ( 0 )
 end
 
---[[
+--[=[
 function meta:IsCrow ()
 	if not ValidEntity (self) then return false end
 	
@@ -931,10 +931,10 @@ function meta:IsCrow ()
 	end
 	
 	return false
-end]]
+end]=]
 
 if SERVER then
-//util.AddNetworkString( "SendZombieClass" )
+-- util.AddNetworkString( "SendZombieClass" )
 end
 
 function meta:SetZombieClass ( cl )
@@ -945,36 +945,36 @@ function meta:SetZombieClass ( cl )
 	
 	self:SetDTInt(2,cl)
 	
-	//local Players = player.GetAll()
+	-- local Players = player.GetAll()
 	
-	//for _,pl in ipairs(Players) do
-		//table.insert(tosend,{p = pl, class = pl.Class or 0})
-		//net.Start("SendZombieClass")
-		//	net.WriteTable(Players)
-			//net.WriteEntity(pl)
-			//net.WriteDouble(pl.Class or 1)
-		//net.Broadcast()
-	//end
+	-- for _,pl in ipairs(Players) do
+		-- table.insert(tosend,{p = pl, class = pl.Class or 0})
+		-- net.Start("SendZombieClass")
+		-- 	net.WriteTable(Players)
+			-- net.WriteEntity(pl)
+			-- net.WriteDouble(pl.Class or 1)
+		-- net.Broadcast()
+	-- end
 	
 	
 
 	
-	// Add one point to each class chosen every time someone changes class. (for endgame stats)
-	/*timer.Simple( 0.1,function() 
+	--  Add one point to each class chosen every time someone changes class. (for endgame stats)
+	--[==[timer.Simple( 0.1,function() 
 		if ValidEntity ( self ) then
 			local classname = ZombieClasses[cl].Name
-			//GAMEMODE.TeamMostChosenClass[ classname ] = GAMEMODE.TeamMostChosenClass[ classname ] + 1 
+			-- GAMEMODE.TeamMostChosenClass[ classname ] = GAMEMODE.TeamMostChosenClass[ classname ] + 1 
 		end
-	end)*/
+	end)]==]
 		
-	//Split the usermessage in 2 parts
-	/*local Players = player.GetAll()
+	-- Split the usermessage in 2 parts
+	--[==[local Players = player.GetAll()
 	local Split = 3
 	if #Players <= 3 then
 		Split = 1
 	end
 	
-	//Send it - (Heavy shit)
+	-- Send it - (Heavy shit)
 	local Start, End = 1, math.Round( #Players / Split )
 	local Max = End
 	if End == 1 and #Players > 1 then
@@ -994,9 +994,9 @@ function meta:SetZombieClass ( cl )
 		Start = End + 1
 		if Start > #Players then break end
 		if i == Split - 1 then End = #Players else End = Start + Max end
-	end*/
+	end]==]
 end
---[[
+--[=[
 function meta:GetXP()
 	if self:IsBot() then return 0 end
 	if SERVER then
@@ -1016,7 +1016,7 @@ function meta:GetXP()
 		end
 	end
 	return 0
-end]]
+end]=]
 
 function meta:GetXP()
 	if not ValidEntity(self) then return 0 end
@@ -1036,7 +1036,7 @@ function meta:GetXP()
 end
 
 
-//broke my brain while trying to figure out better calculation
+-- broke my brain while trying to figure out better calculation
 function meta:NextRankXP()
 	if self:IsBot() then return 0 end
 		local exp = 0
@@ -1066,7 +1066,7 @@ function meta:GetRank()
 		
 		return self.DataTable["ClassData"]["default"].rank
 	elseif CLIENT then
-		if not MySelf.DataTable then return 0 end//temp fix
+		if not MySelf.DataTable then return 0 end-- temp fix
 		
 		if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["default"] then
 			return MySelf.DataTable["ClassData"]["default"].rank
@@ -1075,7 +1075,7 @@ function meta:GetRank()
 	return 0
 end
 
---[[
+--[=[
 function meta:GetRank()
 	if self:IsBot() then return 0 end
 	if SERVER then
@@ -1086,7 +1086,7 @@ function meta:GetRank()
 	elseif CLIENT then
 		
 		if MySelf == self then
-			if not MySelf.DataTable then return 0 end//temp fix
+			if not MySelf.DataTable then return 0 end-- temp fix
 			if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["default"] then
 				return MySelf.DataTable["ClassData"]["default"].rank
 			end
@@ -1095,11 +1095,11 @@ function meta:GetRank()
 		end
 	end
 	return 0
-end]]
+end]=]
 
-/*function meta:GetPerk()
+--[==[function meta:GetPerk()
 	return self.Perk
-end*/
+end]==]
 
 function meta:GetPerk(prk)
 	self.Perk = self.Perk or {}
@@ -1148,7 +1148,7 @@ function meta:HasUnlocked( item )
 			end
 		end
 	end
-	//check upgrades
+	-- check upgrades
 	for upgr,items in pairs(GAMEMODE.UpgradesRefund) do
 		if self:HasBought(upgr) then
 			for _,v in pairs(GAMEMODE.UpgradesRefund[upgr]) do
@@ -1158,7 +1158,7 @@ function meta:HasUnlocked( item )
 			end
 		end
 	end
-	//check classes
+	-- check classes
 	for classname,items in pairs(GAMEMODE.ClassRefund) do
 		local me = self
 		if CLIENT then if me ~= MySelf then me = MySelf end end
@@ -1192,7 +1192,7 @@ function meta:HasUnlocked( item )
 	return unl
 end
 
---[[	for i=0,table.maxn(GAMEMODE.RankUnlocks) do
+--[=[	for i=0,table.maxn(GAMEMODE.RankUnlocks) do
 		if i > self:GetRank() then
 			if GAMEMODE.RankUnlocks[i] then
 				for _,v in pairs(GAMEMODE.RankUnlocks[i]) do
@@ -1203,7 +1203,7 @@ end
 			end
 		end
 	end
-]]
+]=]
 
 function meta:TraceLine ( distance, _mask, filter )
 	local vStart = self:GetShootPos()
@@ -1350,7 +1350,7 @@ function meta:GetSuit()
 	
 end
 
-/*function meta:GetSuit()
+--[==[function meta:GetSuit()
 
 	if not ValidEntity(self) then return end
 	if not self:Alive() then return end
@@ -1363,14 +1363,14 @@ end
 		return self.Suit:GetHatType() or "none"
 	end
 	return "none"
-end*/
+end]==]
 
 function meta:IsGonnaBeABoss()
 	return self:IsZombie() and GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == self
 end
 
 function meta:IsStartingZombie()
-	return self:IsZombie() and self:Alive() and self:Health() > ZombieClasses[self:GetZombieClass()].Health and !self:IsSteroidZombie() and !self:GetZombieClass() == 0
+	return self:IsZombie() and self:Alive() and self:Health() > ZombieClasses[self:GetZombieClass()].Health and not self:IsSteroidZombie() and not self:GetZombieClass() == 0
 end
 
 local function SkullCam(pl, ent)
@@ -1424,7 +1424,7 @@ function meta:PlayPainSound()
 		local snds = ZombieClasses[ self:GetZombieClass() ].PainSounds
 		if not snds then return end
 		
-		//Cooldown for howler is increased
+		-- Cooldown for howler is increased
 		if self:IsHowler() then self.NextPainSound = CurTime() + 1.5 end
 		if self:GetZombieClass() == 14 then self.NextPainSound = CurTime() + 10 end
 		
@@ -1458,39 +1458,39 @@ function meta:PlayPainSound()
 	end
 end
 
-//Male voiceset
+-- Male voiceset
 function meta:IsMale()
 	return self:IsHuman() and self.VoiceSet == "male"
 end
 
-//Female voiceset
+-- Female voiceset
 function meta:IsFemale()
 	return self:IsHuman() and self.VoiceSet == "female"
 end
 
-//Combine voiceset
+-- Combine voiceset
 function meta:IsCombine()
 	return self:IsHuman() and self.VoiceSet == "combine"
 end
 
-//Play spawn music
+-- Play spawn music
 function meta:PlaySpawnMusic()
 	if self:IsSpectator() then return end
 	if ROUNDTIME*0.1 < CurTime() then return end
-	//No music
+	-- No music
 	if not Ambience then return end
 	if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].DisableMusic then return end
 
 	
-	//Can't play dead
+	-- Can't play dead
 	if not self:Alive() or ENDROUND or LASTHUMAN or DEADLIFE or UNLIFE or SERVER then return end
 	if FIRSTAPRIL then return end
-	//Team check
+	-- Team check
 	local sSound = table.Random ( Ambience.Human )
 	if self:IsZombie() then sSound = table.Random ( Ambience.Zombie ) end
 
-	//Delay it
-	//RunConsoleCommand ( "stopsounds" )
+	-- Delay it
+	-- RunConsoleCommand ( "stopsounds" )
 	timer.Simple( 0.2, function() surface.PlaySound ( sSound ) end )
 end
 
@@ -1524,7 +1524,7 @@ end
 if CLIENT then
 function meta:GetStatus(sType)
 	local ent = self["status_"..sType]
-	if ent --[[and ent:GetOwner() == self]] then return ent end
+	if ent --[=[and ent:GetOwner() == self]=] then return ent end
 end
 
 function meta:DoHulls(classid, teamid)
@@ -1591,7 +1591,7 @@ function meta:DoHulls(classid, teamid)
 			elseif self:GetStepSize() ~= DEFAULT_STEP_SIZE then
 				self:SetStepSize(DEFAULT_STEP_SIZE)
 			end
-			/*if classtab.ModelScale then
+			--[==[if classtab.ModelScale then
 				if tbl and tbl.Scale then
 					self:SetModelScale(classtab.ModelScale*tbl.Scale,0)
 				else
@@ -1603,7 +1603,7 @@ function meta:DoHulls(classid, teamid)
 				else
 					self:SetModelScale(DEFAULT_MODELSCALE,0)
 				end
-			end*/
+			end]==]
 
 			local phys = self:GetPhysicsObject()
 			if phys:IsValid() then
@@ -1615,7 +1615,7 @@ function meta:DoHulls(classid, teamid)
 		self:SetViewOffset(DEFAULT_VIEW_OFFSET)
 		self:SetViewOffsetDucked(DEFAULT_VIEW_OFFSET_DUCKED)
 		self:SetStepSize(DEFAULT_STEP_SIZE)
-		//self:SetModelScale(DEFAULT_MODELSCALE,0)
+		-- self:SetModelScale(DEFAULT_MODELSCALE,0)
 		
 		local phys = self:GetPhysicsObject()
 		if phys:IsValid() then

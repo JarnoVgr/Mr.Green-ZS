@@ -11,20 +11,20 @@ ENT.MaximumDist = 300
 
 ENT.ClassFilter = { "prop_", "player", "world" }
 
-//Initialization
+-- Initialization
 function ENT:Initialize()
 	self:SetModel( "models/props/cs_italy/orange.mdl" )
 	self:PhysicsInit( SOLID_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS )
 	self:DrawShadow( false )
 	
-	//Status stuff
+	-- Status stuff
 	self.Sticked = false
 	
-	//Failsafe
+	-- Failsafe
 	self.DieTime = CurTime() + 10
 	
-	//Physics stuff
+	-- Physics stuff
 	self.PhysObj = self:GetPhysicsObject()
 	if self.PhysObj:IsValid() then
 		self.PhysObj:Wake()
@@ -33,14 +33,14 @@ function ENT:Initialize()
 	end
 end
 
-//Sets fuse
+-- Sets fuse
 function ENT:SetFuse( iNr )
 	if iNr then
 		self.Fuse = iNr
 	end
 end
 
-//Main think
+-- Main think
 function ENT:Think()
 	if self.IsCountingDown then
 		if ( self.TickTimer or 0 ) <= CurTime() then
@@ -49,23 +49,23 @@ function ENT:Think()
 		end
 	end
 
-	//Fail safe removal
+	-- Fail safe removal
 	if self.DieTime <= CurTime() then
 		self:Remove()
 	end
 end
 
-//Poison explosion
+-- Poison explosion
 function ENT:Explode()
 	local mOwner = self:GetOwner()
 
-	//Get players near
+	-- Get players near
 	local tbHumans = ents.FindHumansInSphere ( self:GetPos(), self.MaximumDist )
 	
-	//Local stuff
+	-- Local stuff
 	local vPos = self:GetPos()
 	
-	// Shaken, not stirred
+	--  Shaken, not stirred
 	local shake = ents.Create( "env_shake" )
 	shake:SetPos( vPos )
 	shake:SetKeyValue( "amplitude", "800" ) -- Power of the shake effect
@@ -77,46 +77,46 @@ function ENT:Explode()
 	shake:Activate()
 	shake:Fire( "StartShake", "", 0 )
 	
-	//Filter
+	-- Filter
 	local Filter = { self, self:GetOwner() }
 	table.Add( Filter, team.GetPlayers( TEAM_UNDEAD ) )
 	
-	//Get owner active weapon
+	-- Get owner active weapon
 	if IsValid( mOwner ) then
 		self.mOwnerWeapon = mOwner:GetActiveWeapon()
 	end
 	
-	//Damage humans nearby
+	-- Damage humans nearby
 	for k,v in pairs ( tbHumans ) do
 		if IsEntityVisible ( v, vPos, Filter ) then
 			table.insert( Filter, v )
 			local fDistance = self:GetPos():Distance( v:GetPos() )
 			v:TakeDamageOverTime( math.Rand( 1.3, 1.7 ), 0.65, math.Clamp( ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 30 ) / 2, 0, 12 ), mOwner, self.mOwnerWeapon or mOwner )
-			//Apply effect to human
+			-- Apply effect to human
 			local Infect = EffectData()
 				Infect:SetEntity( v )
 			util.Effect( "infected_human", Infect, true )
 		end
 	end
 	
-	//Effect
+	-- Effect
 	local eData = EffectData()
 		eData:SetOrigin( vPos )
 	util.Effect( "Explosion", eData )
 	
-	//Play some weird effect
+	-- Play some weird effect
 	self:EmitSound( self.PoisonExplodeSound )
 	
-	//Remove bomb
+	-- Remove bomb
 	self:Remove()
 end
 
-//When it collides with something
+-- When it collides with something
 function ENT:PhysicsCollide( Data, Phys ) 
 	local HitEnt = Data.HitEntity
 	if self.Sticked then return end
 	
-	//Entity doesn't have phys
+	-- Entity doesn't have phys
 	if IsValid( HitEnt ) then
 		if not IsValid( HitEnt:GetPhysicsObject() ) then 
 			return 
@@ -126,34 +126,34 @@ function ENT:PhysicsCollide( Data, Phys )
 		end
 	end
 	
-	//Stop
+	-- Stop
 	self.PhysObj:EnableMotion( false )
 	self.PhysObj:SetVelocity( Vector( 0,0,0 ) )
 	
-	//Stick it more
+	-- Stick it more
 	local trace = util.TraceLine( { start = self:GetPos(), endpos = self:GetPos() + Data.OurOldVelocity:GetNormal() * 500, filter = self } )
 	if trace.Hit then self:SetPos( trace.HitPos ) end
 	
-	//Network hitnormal
+	-- Network hitnormal
 	self:SetDTVector( 0, Data.HitNormal )
 	
-	//Parent
-	if HitEnt != GetWorldEntity() then
+	-- Parent
+	if HitEnt ~= GetWorldEntity() then
 		if IsValid( HitEnt ) then
 			self:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
 			self:SetParent( HitEnt )
 		end
 	end
 	
-	//Status
+	-- Status
 	self.Sticked, self.IsCountingDown = true, true
 	
-	//Fuse
+	-- Fuse
 	local iTime = math.Rand( 2.25, 3 )
 	if IsValid( HitEnt ) and ( HitEnt:IsPlayer() ) then iTime = math.Rand( 3.5, 5 ) end
 	if self.Fuse then iTime = self.Fuse end
 	
-	//EXPLODE!
+	-- EXPLODE!
 	timer.Simple( iTime, function()
 		if IsValid( self ) then
 			self:Explode()
@@ -161,7 +161,7 @@ function ENT:PhysicsCollide( Data, Phys )
 	end )
 end
 
-//Update PVS when needed
+-- Update PVS when needed
 function ENT:UpdateTransmitState()
 	return TRANSMIT_PVS
 end

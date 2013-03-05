@@ -21,7 +21,7 @@ if ( CLIENT ) then
 	SWEP.ScaleDownLeftHand = true
 	SWEP.ScaleDownRightHand = true
 	
-	//killicon.AddFont( "weapon_zs_mine", "CSKillIcons", "I", Color(255, 255, 255, 255 ) )
+	-- killicon.AddFont( "weapon_zs_mine", "CSKillIcons", "I", Color(255, 255, 255, 255 ) )
 	killicon.Add("weapon_zs_mine", "HUD/scoreboard_bomb", Color(255, 255, 255, 255 ) )
 	
 	function SWEP:DrawHUD()
@@ -86,13 +86,13 @@ SWEP.Secondary.Ammo         = "none"
 ------------------------------------------------------------------------------------------------------
 SWEP.WalkSpeed = 200
 
-//Preload
+-- Preload
 util.PrecacheSound("weapons/c4/c4_beep1.wav")
 util.PrecacheSound("weapons/c4/c4_plant.wav")
 
 
 function SWEP:On_Deploy()
-	//Draw animation
+	-- Draw animation
 	if 0 < self:Clip1() then 
 		self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_DRAW )
 	else
@@ -105,7 +105,7 @@ function SWEP:PrimaryAttack()
 	if( CurTime() < self.NextPlant ) or not self:CanPrimaryAttack() then return end
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return false end
 		self.NextPlant = ( CurTime() + 1.2 );
-	//
+	-- 
 	local trace = {}
 	local pos = self.Owner:GetPos()
 	local mines = 0
@@ -115,10 +115,10 @@ function SWEP:PrimaryAttack()
 	
 	trace.start = self.Owner:GetShootPos()
 	trace.endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * 64
-	//trace.mask = MASK_NPCWORLDSTATIC
+	-- trace.mask = MASK_NPCWORLDSTATIC
 	trace.filter = ents.GetAll() -- Ignore everything but the world.
 	local tr = util.TraceLine( trace )
-	//
+	-- 
 	
 	for k,v in pairs(ents.FindByClass("mine")) do
 		if v and v:GetOwner() == self.Owner then
@@ -134,11 +134,11 @@ function SWEP:PrimaryAttack()
 		return
 	end
 	
-	for k,v in pairs ( ActualMines ) do//ents.FindInBox (Vector (pos.x - 100,pos.y - 100,pos.z - 100), Vector (pos.x + 100, pos.y + 100, pos.z + 100))
+	for k,v in pairs ( ActualMines ) do-- ents.FindInBox (Vector (pos.x - 100,pos.y - 100,pos.z - 100), Vector (pos.x + 100, pos.y + 100, pos.z + 100))
 		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 100 then
-			//if v:GetClass() == "mine" then
+			-- if v:GetClass() == "mine" then
 				mines = mines + 1
-			//end
+			-- end
 		end
 	end
 		
@@ -151,13 +151,13 @@ function SWEP:PrimaryAttack()
 		return
 	end
 	
-	//for k,v in pairs (ents.FindInBox (Vector (pos.x - 150,pos.y - 150,pos.z - 150), Vector (pos.x + 150, pos.y + 150, pos.z + 150)) ) do
-	//	if IsValid( v ) then
-	//		if v.IsBarricade && v.Nails then
-				//cades = cades + 1
-	//		end
-	//	end
-	//end
+	-- for k,v in pairs (ents.FindInBox (Vector (pos.x - 150,pos.y - 150,pos.z - 150), Vector (pos.x + 150, pos.y + 150, pos.z + 150)) ) do
+	-- 	if IsValid( v ) then
+	-- 		if v.IsBarricade and v.Nails then
+				-- cades = cades + 1
+	-- 		end
+	-- 	end
+	-- end
 	
 	if cades >= 1 then
 		if SERVER then 
@@ -169,10 +169,10 @@ function SWEP:PrimaryAttack()
 	end
 	
 	if ( tr.Hit ) and tr.HitNormal.z > 0.5 then
-	///animation goes here
-	//self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+	-- /animation goes here
+	-- self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 
-	//local time = self:SequenceDuration()
+	-- local time = self:SequenceDuration()
 	self.NextPlant = ( CurTime() + 2 );
 
 		if not ValidEntity ( self.Owner ) then return end 
@@ -187,9 +187,9 @@ function SWEP:PrimaryAttack()
 		local tr = util.TraceLine( trace )
 		
 		if ( tr.Hit ) then	
-		//Shared animation
+		-- Shared animation
 		self.Owner:SetAnimation( PLAYER_ATTACK1 )
-		//self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
+		-- self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
 		--self.Weapon:SetSequence("throw_throw"..math.random(1,2))
 		self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_THROW )
 		--self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
@@ -198,7 +198,7 @@ function SWEP:PrimaryAttack()
 				if 0 < self:Clip1() then 
 					--if CLIENT then
 					--	local vm = self.Owner:GetViewModel()
-					--	if !ValidEntity(vm) then return end
+					--	if not ValidEntity(vm) then return end
 					--	vm:SetSequence("detonator_draw")
 					--end
 					self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_DRAW )
@@ -212,8 +212,8 @@ function SWEP:PrimaryAttack()
 			if ( ent ~= nil and ent:IsValid() ) then
 			
 				if self.Owner:IsPlayer() then
-					// logging
-					//log.PlayerAction( self.Owner, "plant_mine")
+					--  logging
+					-- log.PlayerAction( self.Owner, "plant_mine")
 				end
 				
 				ent:SetPos(tr.HitPos)		
@@ -255,11 +255,11 @@ function SWEP:SecondaryAttack()
 		end
 	
 	end
-	//if CLIENT then
-	//	local vm = self.Owner:GetViewModel()
-	//	if !ValidEntity(vm) then return end
-	//		vm:SetSequence("detonator_detonate")
-	//end
+	-- if CLIENT then
+	-- 	local vm = self.Owner:GetViewModel()
+	-- 	if not ValidEntity(vm) then return end
+	-- 		vm:SetSequence("detonator_detonate")
+	-- end
 	
 end 
 

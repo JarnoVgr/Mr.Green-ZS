@@ -3,28 +3,28 @@
 
 if SERVER then AddCSLuaFile( "shared.lua" ) end
 
-//Melee base
+-- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
-//Models paths
+-- Models paths
 SWEP.Author = "Deluvas"
 SWEP.ViewModel = Model ( "models/weapons/v_katana.mdl" )
 SWEP.WorldModel = Model ( "models/weapons/w_katana.mdl" )
 
-//Name and fov
+-- Name and fov
 SWEP.PrintName = "Katana"
 SWEP.ViewModelFOV = 57
 SWEP.HoldType = "melee2"
-//Position
+-- Position
 SWEP.Slot = 2
 SWEP.SlotPos = 6
 SWEP.DeploySpeed = 0.6
-//Damage, distane, delay
+-- Damage, distane, delay
 SWEP.Primary.Damage = 55
 SWEP.Primary.Delay = 0.67
 SWEP.Primary.Distance = 68
 SWEP.TotalDamage = SWEP.Primary.Damage
-//Killicon
+-- Killicon
 if CLIENT then killicon.AddFont( "weapon_zs_melee_katana", "ZSKillicons", "h", Color(255, 255, 255, 255 ) ) end
 
 function SWEP:Precache()
@@ -37,16 +37,16 @@ function SWEP:Precache()
 end
 function SWEP:Deploy()
 	if SERVER then
-		if self.Owner:FlashlightIsOn() and self.Owner:GetHumanClass() != 3 then
+		if self.Owner:FlashlightIsOn() and self.Owner:GetHumanClass() ~= 3 then
 			--self.Owner:Flashlight( false )
 		end
 	
 	end
 	self.Weapon:EmitSound("weapons/katana/draw.wav")
-	//Draw animation
+	-- Draw animation
 	self.Weapon:SendWeaponAnim ( ACT_VM_DRAW )
 	
-	//Deploy speed
+	-- Deploy speed
 	self.Weapon:SetNextPrimaryFire ( CurTime() + self.DeploySpeed )
 	
 	if SERVER then

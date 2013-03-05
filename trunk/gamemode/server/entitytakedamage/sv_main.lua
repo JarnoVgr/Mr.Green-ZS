@@ -12,19 +12,19 @@ local timer = timer
 local umsg = umsg
 local ents = ents
 
-//Include all files inside this folder
+-- Include all files inside this folder
 for k, sFile in pairs ( file.Find( "zombiesurvival/gamemode/server/entitytakedamage/*.lua","lsv" ) ) do
 	if not string.find( sFile, "main" ) then include( sFile ) end
 end
 
-//Main damage event
+-- Main damage event
 function GM:EntityTakeDamage ( ent,dmginfo )
 	
 	local attacker = dmginfo:GetAttacker()
 	local inflictor = dmginfo:GetInflictor()
 	local damage = dmginfo:GetDamage()
 	
-	//End on null damage or on endround
+	-- End on null damage or on endround
 	if dmginfo:IsDamageNull() or ENDROUND then 
 		dmginfo:SetDamage( 0 )
 		return 
@@ -201,49 +201,49 @@ function GM:EntityTakeDamage ( ent,dmginfo )
 	end
 	
 	
-	//On player damaged
+	-- On player damaged
 	if ent:IsPlayer() then
 	
-		//Scale player damage
+		-- Scale player damage
 		if gamemode.Call( "ScalePlayersDamage", ent, attacker, inflictor, dmginfo ) then 
 			return 
 		end
 		
-		//Human take damage
+		-- Human take damage
 		if ent:IsHuman() then
 			if gamemode.Call( "OnHumanTakeDamage", ent, attacker, inflictor, dmginfo ) then 
 				return 
 			end
 		end
 		
-		//Undead take damage
+		-- Undead take damage
 		if ent:IsZombie() then 
 			if gamemode.Call( "OnZombieTakeDamage", ent, attacker, inflictor, dmginfo ) then 
 				return 
 			end
 		end
 		
-		//Spectator damage (rare)
+		-- Spectator damage (rare)
 		if ent:IsSpectator() then
 			if gamemode.Call( "OnSpectatorTakeDamage", ent, attacker, inflictor, dmginfo ) then 
 				return 
 			end
 		end
 		
-		//Player take damage
+		-- Player take damage
 		if gamemode.Call( "OnPlayerTakeDamage", ent, attacker, inflictor, dmginfo ) then 
 			return 
 		end
 	end
 	
-	//print( ent, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo:GetDamageType() )
+	-- print( ent, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo:GetDamageType() )
 	
-	//Avoid console spam
+	-- Avoid console spam
 	if ent:IsPlayer() or attacker:IsPlayer() then
-		//Debug ( "[DAMAGE] "..tostring ( attacker ).."/"..tostring( dmginfo:GetAttacker() ).." hurt "..tostring( ent ).." with "..tostring( dmginfo:GetInflictor() ).."/"..tostring( inflictor ).." for "..tostring ( math.Round ( dmginfo:GetDamage() ) ).." damage. Type is "..tostring ( dmginfo:GetDamageType() )..". Target health is : "..tostring ( ent:Health() ) )
+		-- Debug ( "[DAMAGE] "..tostring ( attacker ).."/"..tostring( dmginfo:GetAttacker() ).." hurt "..tostring( ent ).." with "..tostring( dmginfo:GetInflictor() ).."/"..tostring( inflictor ).." for "..tostring ( math.Round ( dmginfo:GetDamage() ) ).." damage. Type is "..tostring ( dmginfo:GetDamageType() )..". Target health is : "..tostring ( ent:Health() ) )
 	end
 	
-	//return dmginfo
+	-- return dmginfo
 end
 
 function GM:SetupProps()
@@ -264,7 +264,7 @@ function GM:SetupProps()
 	end
 end
 
-//Disable 'crunch' sound for zombies on falldamage
+-- Disable 'crunch' sound for zombies on falldamage
 function GM:OnPlayerHitGround ( ent )
 	if IsEntityValid( ent ) then
 		if not ent:IsHuman() then 

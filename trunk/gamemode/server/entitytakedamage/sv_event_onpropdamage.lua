@@ -17,21 +17,21 @@ if not DESTRUCTIBLE_PROPS then return end
 EntityDamageTable = EntityDamageTable or {}
 local MAX_ENT_HEALTH = 13000
 
-//Entities affected by this module
+-- Entities affected by this module
 destructList = { "prop_physics", "prop_physics_multiplayer" }
 
 local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
-	//Physbox damage - mostly for doors - except the little planks
+	-- Physbox damage - mostly for doors - except the little planks
 	local entclass = ent:GetClass()
 	local OBBMin, OBBMax = ent:OBBMins(), ent:OBBMaxs()
 	
-	//fix the explosive damage
-	/*if dmginfo:IsExplosionDamage() and attacker:IsPlayer() and attacker:IsHuman() then
-		//force temporary protection from fire
+	-- fix the explosive damage
+	--[==[if dmginfo:IsExplosionDamage() and attacker:IsPlayer() and attacker:IsHuman() then
+		-- force temporary protection from fire
 		ent.FireProtection = CurTime() + 25
 		dmginfo:SetDamage ( 0 )
 		return true
-	end*/
+	end]==]
 	
 	if dmginfo:IsDamageType( DMG_BURN ) and ent.FireProtection and ent.FireProtection > CurTime() then
 		dmginfo:SetDamage ( 0 )
@@ -44,11 +44,11 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 	end
 	
 	if entclass == "func_physbox" then
-	/*if (attacker:IsPlayer() and attacker:IsZombie() and attacker:HasBought("cadebuster")) or (attacker:GetOwner():IsPlayer() and attacker:GetOwner():HasBought("cadebuster") and attacker:GetOwner():IsZombie()) and ent.Nails then  
+	--[==[if (attacker:IsPlayer() and attacker:IsZombie() and attacker:HasBought("cadebuster")) or (attacker:GetOwner():IsPlayer() and attacker:GetOwner():HasBought("cadebuster") and attacker:GetOwner():IsZombie()) and ent.Nails then  
 
 		dmginfo:ScaleDamage(1.5) 	
 
-	end*/
+	end]==]
 	
 	ent._LastAttackerIsHuman = false
 	
@@ -68,10 +68,10 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 	if attacker:IsPlayer() and attacker:IsZombie() and attacker:IsBossZombie() then
 		if attacker:GetZombieClass() == 12 then
 			dmginfo:ScaleDamage ( 2 )
-			//dmginfo:SetDamage(2800)
+			-- dmginfo:SetDamage(2800)
 		else
 			dmginfo:ScaleDamage ( 1.5 )
-			//dmginfo:SetDamage(1600)
+			-- dmginfo:SetDamage(1600)
 		end
 	end
 	
@@ -80,7 +80,7 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 	
 	
 	
-			if ent.Nails then//and not (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN)and dmginfo:IsMeleeDamage())
+			if ent.Nails then-- and not (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN)and dmginfo:IsMeleeDamage())
 				for i=1, #ent.Nails do
 					local nail = ent.Nails[i]
 					if nail then
@@ -96,7 +96,7 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 							if nail:GetNailHealth() <= 0 then
 								local findcons = nail.constraint
 								local numcons = 0
-								for _, theent in ipairs(ent.Nails) do//ents.FindByClass("nail")
+								for _, theent in ipairs(ent.Nails) do-- ents.FindByClass("nail")
 									if theent.constraint == findcons then numcons = numcons + 1 end
 								end
 								if numcons == 1 then
@@ -116,7 +116,7 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 										for num=1, #ent.Nails do
 											local nl = ent.Nails[num]
 											if nl.toworld then
-												if nail != nl then
+												if nail ~= nl then
 													unfreeze = false
 													break
 												else
@@ -165,11 +165,11 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 						end
 					end
 				end
-			//dmginfo:SetDamage ( 0 )
+			-- dmginfo:SetDamage ( 0 )
 			return true
 			end
 	
-	//func_breakable stuff
+	-- func_breakable stuff
 	if entclass == "func_breakable" then
 		local brit = math.Clamp( ent:Health() / ent:GetMaxHealth(), 0, 1 )
 		local c = ent:GetColor()
@@ -187,7 +187,7 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 		local r,g,b,a = c.r,c.g,c.b,c.a
 		ent:SetColor( Color(255, 255 * brit, 255 * brit * 0.5, a) )
 
-		//if it's a door, delete the phys_hinge
+		-- if it's a door, delete the phys_hinge
 		if ent.PropHealth <= 0 then
 			local foundaxis = false
 			local entname = ent:GetName()
@@ -210,15 +210,15 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 	
 
 	
-		//if DESTROY_DOORS and TranslateMapTable[ game.GetMap() ] and not TranslateMapTable[ game.GetMap() ].EnableSolidDoors then	
+		-- if DESTROY_DOORS and TranslateMapTable[ game.GetMap() ] and not TranslateMapTable[ game.GetMap() ].EnableSolidDoors then	
 				if entclass == "prop_door_rotating" then
 					
-					//check for locked doors
-					//if ent:GetKeyValues().spawnflags and (tonumber(ent:GetKeyValues().spawnflags) == 2048 or tonumber(ent:GetKeyValues().spawnflags) == 10240 ) then 
+					-- check for locked doors
+					-- if ent:GetKeyValues().spawnflags and (tonumber(ent:GetKeyValues().spawnflags) == 2048 or tonumber(ent:GetKeyValues().spawnflags) == 10240 ) then 
 					
-					//tricky method from facepunch, 2048 is that we a looking for
+					-- tricky method from facepunch, 2048 is that we a looking for
 					if ent:GetKeyValues().spawnflags and bit.band(tonumber(ent:GetKeyValues().spawnflags), 2048) == 2048 then
-						//print("locked door")
+						-- print("locked door")
 					return end
 					
 					if (attacker:IsPlayer() and attacker:IsZombie() and attacker:HasBought("cadebuster")) or (attacker:GetOwner():IsPlayer() and attacker:GetOwner():HasBought("cadebuster") and attacker:GetOwner():IsZombie()) then  
@@ -254,20 +254,20 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 						end
 					end
 				end
-		//end	
+		-- end	
 	end
 end
-//hook.Add ( "OnPropTakeDamage", "PhysBoxDestructible", DoPhysBoxDestructible )
+-- hook.Add ( "OnPropTakeDamage", "PhysBoxDestructible", DoPhysBoxDestructible )
 
-//Entity takes damage
+-- Entity takes damage
 local function DoDestructible ( ent, attacker, inflictor, dmginfo )
-	//Physgun damage, block
+	-- Physgun damage, block
 	if dmginfo:IsPhysGunDamage() then
 		dmginfo:SetDamage( 0 )
 		return true
 	end
 
-	//Attacker is world, block
+	-- Attacker is world, block
 	if dmginfo:IsPhysDamage() then
 		if dmginfo:IsAttackerWorld() then
 			dmginfo:SetDamage( 0 ) 
@@ -275,26 +275,26 @@ local function DoDestructible ( ent, attacker, inflictor, dmginfo )
 		end
 	end
 	
-	//fix the explosive damage
-	/*if dmginfo:IsExplosionDamage() and attacker:IsPlayer() and attacker:IsHuman() then
-		//force temporary protection from fire
+	-- fix the explosive damage
+	--[==[if dmginfo:IsExplosionDamage() and attacker:IsPlayer() and attacker:IsHuman() then
+		-- force temporary protection from fire
 		ent.FireProtection = CurTime() + 25
 		dmginfo:SetDamage ( 0 )
 		return true
-	end*/
+	end]==]
 	
 	if dmginfo:IsDamageType( DMG_BURN ) and ent.FireProtection and ent.FireProtection > CurTime() then
 		dmginfo:SetDamage ( 0 )
 		return true
 	end
 	
-	//Damage between props, block
+	-- Damage between props, block
 	if dmginfo:IsPhysDamageBetweenProps( ent ) then
 		dmginfo:SetDamage( 0 )
 		return true
 	end
 	
-	//No damage for ammo crates
+	-- No damage for ammo crates
 	if ent:GetClass() == "spawn_ammo" then
 		dmginfo:SetDamage ( 0 )
 		return true
@@ -329,21 +329,21 @@ local function DoDestructible ( ent, attacker, inflictor, dmginfo )
 	if attacker:IsPlayer() and attacker:IsZombie() and attacker:IsBossZombie() then
 		if attacker:GetZombieClass() == 12 then
 			dmginfo:ScaleDamage ( 2 )
-			//dmginfo:SetDamage(2800)
+			-- dmginfo:SetDamage(2800)
 		else
 			dmginfo:ScaleDamage ( 1.5 )
-			//dmginfo:SetDamage(1600)
+			-- dmginfo:SetDamage(1600)
 		end
 	end	
 	
 	local damage = dmginfo:GetDamage()
-	if ent.Nails then// and not (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN )and dmginfo:IsMeleeDamage()
+	if ent.Nails then--  and not (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN )and dmginfo:IsMeleeDamage()
 		for i=1, #ent.Nails do
 			local nail = ent.Nails[i]
 			if nail then
 				if nail:IsValid() then
 					nail:SetNailHealth(nail:GetNailHealth() - damage)
-					//nail.Heal = nail.Heal - damage
+					-- nail.Heal = nail.Heal - damage
 					dmginfo:SetDamage ( 0 )
 					if ent.PropHealth then
 						--ent.PropHealth = math.Clamp(ent.PropHealth + damage,0,ent.PropMaxHealth)
@@ -372,7 +372,7 @@ local function DoDestructible ( ent, attacker, inflictor, dmginfo )
 								for num=1, #ent.Nails do
 									local nl = ent.Nails[num]
 									if nl.toworld then
-										if nail != nl then
+										if nail ~= nl then
 											unfreeze = false
 											break
 										else
@@ -424,30 +424,30 @@ local function DoDestructible ( ent, attacker, inflictor, dmginfo )
 		return true
 	end
 	
-	//only prop types in the list go through this!
+	-- only prop types in the list go through this!
 	if not table.HasValue ( destructList, ent:GetClass() ) then return end
 	
-	//not applies to breakable props
+	-- not applies to breakable props
 	if ent.IsBreakable then return end
 	
 	if ent.PropHealth then
 		
-		//decr. health - hacky way around other types of dmg
+		-- decr. health - hacky way around other types of dmg
 		local Damage = dmginfo:GetDamage()
 		dmginfo:SetDamage ( 0 )
-		/*if (attacker:IsPlayer() and attacker:IsZombie() and attacker:HasBought("cadebuster")) or (attacker:GetOwner():IsPlayer() and attacker:GetOwner():HasBought("cadebuster") and attacker:GetOwner():IsZombie()) and (ent.IsBarricade or ent.Nails ) then 
+		--[==[if (attacker:IsPlayer() and attacker:IsZombie() and attacker:HasBought("cadebuster")) or (attacker:GetOwner():IsPlayer() and attacker:GetOwner():HasBought("cadebuster") and attacker:GetOwner():IsZombie()) and (ent.IsBarricade or ent.Nails ) then 
 			Damage = Damage*1.5 
-		end*/
+		end]==]
 		--ent:SetHealth ( ent:Health() - Damage )
 		ent.PropHealth = ent.PropHealth - Damage
 
-		//Set it back the way it was
+		-- Set it back the way it was
 		dmginfo:SetDamage ( Damage )
 		
 		--print("Health = "..ent.PropHealth)
 		--print("Max Health = "..ent.PropMaxHealth)
 		
-		//set the color based on how much health it has
+		-- set the color based on how much health it has
 		--local colmod = ent:Health() / ent:GetMaxHealth()
 		local colmod = ent.PropHealth / ent.PropMaxHealth
 		
@@ -471,7 +471,7 @@ local function DoDestructible ( ent, attacker, inflictor, dmginfo )
 
 		end
 
-		//Remove the entity if it has negative or 0 health
+		-- Remove the entity if it has negative or 0 health
 		if ent.PropHealth <= 0 then
 			Debug ( "[DESTRUCTIBLE] Removing Entity "..tostring ( ent ).." with model "..tostring ( ent:GetModel() )..". Attacker is "..tostring ( dmginfo:GetAttacker() ) )
 			local effectdata = EffectData()
@@ -483,10 +483,10 @@ local function DoDestructible ( ent, attacker, inflictor, dmginfo )
 end
 hook.Add( "OnPropTakeDamage", "DoDestructible", DoDestructible )
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
       Called when when an entity has been created
----------------------------------------------------------*/
-/*hook.Add("OnEntityCreated", "EntityDamageTableOnEntityCreated", function( ent )
+---------------------------------------------------------]==]
+--[==[hook.Add("OnEntityCreated", "EntityDamageTableOnEntityCreated", function( ent )
 	timer.Simple( 0.01, function()
 		if not ValidEntity ( ent ) then return end
 		if not ValidEntity ( ent:GetPhysicsObject() ) then return end
@@ -494,18 +494,18 @@ hook.Add( "OnPropTakeDamage", "DoDestructible", DoDestructible )
 		if ent.IsObjEntity then return end
 		
 		
-		//Breakables
-		if ent:Health() != 0 and not ent.IsBarricade then ent.IsBreakable = true end
+		-- Breakables
+		if ent:Health() ~= 0 and not ent.IsBarricade then ent.IsBreakable = true end
 		
-		//set up health for phys-boxes
+		-- set up health for phys-boxes
 		if ent:GetClass() == "func_physbox" then
 			local OBBMin, OBBMax = ent:OBBMins(), ent:OBBMaxs()
 			
-			//Set health
-			//ent:SetHealth ( ent:BoundingRadius() * 30 )
+			-- Set health
+			-- ent:SetHealth ( ent:BoundingRadius() * 30 )
 			ent.PropHealth = ent:BoundingRadius() * 30 
 			
-			//Maximum health
+			-- Maximum health
 			--ent:SetMaxHealth ( ent.PropHealth or ent:Health() )
 			ent.PropMaxHealth = PropHealth or ent:Health() 
 		end
@@ -517,13 +517,13 @@ hook.Add( "OnPropTakeDamage", "DoDestructible", DoDestructible )
 		end
 		
 		
-		//only prop types in the list go through this!
+		-- only prop types in the list go through this!
 		if not table.HasValue ( destructList, ent:GetClass() ) then return end
 		if ent.IsBreakable then return end
 		
 		local Phys, Index = ent:GetPhysicsObject(), ent:EntIndex()
 		
-		//Set the health of the ent and save it 
+		-- Set the health of the ent and save it 
 		--ent:SetHealth ( math.min( ( Phys:GetMass() * MASS_SCALAR) * 1.5, MAX_ENT_HEALTH ) )
 		ent.PropHealth = math.min( ( Phys:GetMass() * MASS_SCALAR) * 1.5, MAX_ENT_HEALTH ) 
 		
@@ -532,20 +532,20 @@ hook.Add( "OnPropTakeDamage", "DoDestructible", DoDestructible )
 			ent.PropHealth = math.random(420,650)
 		end
 			
-		//Freeze it if its heavy enough for the sake of lag
+		-- Freeze it if its heavy enough for the sake of lag
 		timer.Simple ( 2.5, function()
 			if not ValidEntity ( ent ) then return end
 			if ent:IsPlayer() then return end
 			if not ValidEntity ( Phys ) then return end
 			
-			//check again
+			-- check again
 			if not table.HasValue ( destructList, ent:GetClass() ) then return end
 		end)
 			
-		//Finally set it's default max health
+		-- Finally set it's default max health
 		--ent:SetMaxHealth ( ent.PropHealth or ent:Health() )
 		ent.PropMaxHealth = ent.PropHealth or ent:Health()
 	end)
-end)*/
+end)]==]
 
 Debug ( "[MODULE] Loaded Destructible Entities file." )

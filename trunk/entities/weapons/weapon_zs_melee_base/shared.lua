@@ -97,9 +97,9 @@ function SWEP:CreateViewModelElements()
 		if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 			for k, v in pairs( self.ViewModelBoneMods ) do
 				local bone = s:LookupBone(k)
-				if (!bone) then continue end
+				if (not bone) then continue end
 				local m = s:GetBoneMatrix(bone)
-				if (!m) then continue end
+				if (not m) then continue end
 				m:Scale(v.scale)
 				m:Rotate(v.angle)
 				m:Translate(v.pos)
@@ -117,7 +117,7 @@ function SWEP:UpdateBonePositions(vm)
 	if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 		for k, v in pairs( self.ViewModelBoneMods ) do
 			local bone = vm:LookupBone(k)
-			if (!bone) then continue end
+			if (not bone) then continue end
 			if vm:GetManipulateBoneScale(bone) ~= v.scale then
 				vm:ManipulateBoneScale( bone, v.scale )
 			end
@@ -148,7 +148,7 @@ function SWEP:ResetBonePositions()
 	
 	if not self.Owner then return end
 	local vm = self.Owner.GetViewModel and self.Owner:GetViewModel()
-	if !IsValid(vm) then return end
+	if not IsValid(vm) then return end
 	
 	for i=0, vm:GetBoneCount() do
 		vm:ManipulateBoneScale( i, Vector(1, 1, 1) )
@@ -163,7 +163,7 @@ function SWEP:CreateWorldModelElements()
 end
 
 function SWEP:CheckModelElements()
-	if !self.VElements or !self.WElements then
+	if not self.VElements or not self.WElements then
 		timer.Simple(0,function()
 			self:InitializeClientsideModels()
 			self:CreateViewModelElements()
@@ -173,7 +173,7 @@ function SWEP:CheckModelElements()
 end
 
 function SWEP:CheckWorldModelElements()
-	if !self.WElements then
+	if not self.WElements then
 		timer.Simple(0,function()
 			if self.InitializeClientsideModels then
 				self:InitializeClientsideModels()
@@ -231,7 +231,7 @@ end
 
 function SWEP:OnRemove()
 	
-	// other onremove code goes here
+	--  other onremove code goes here
 	RemoveNewArms(self)
 	if CLIENT then
 		self:RemoveModels()
@@ -246,16 +246,16 @@ function SWEP:Equip ( NewOwner )
 	local Pistol = NewOwner:GetPistol()
 	
 	if Pistol then
-	//NewOwner:RemoveAmmo ( 24, "pistol" )
+	-- NewOwner:RemoveAmmo ( 24, "pistol" )
 	end
-	//Call this function to update weapon slot and others
+	-- Call this function to update weapon slot and others
 	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
 end
 
 function SWEP:Think()
 	if self.IdleAnimation and self.IdleAnimation <= CurTime() then
 		self.IdleAnimation = nil
-		//self:SendWeaponAnim(ACT_VM_IDLE)
+		-- self:SendWeaponAnim(ACT_VM_IDLE)
 	end
 
 	if self:IsSwinging() and self:GetSwingEnd() <= CurTime() then
@@ -263,30 +263,30 @@ function SWEP:Think()
 		self:MeleeSwing()
 	end
 
-	--[[if self:GetNetworkedBool("Defending") and not self.Owner:KeyDown(IN_RELOAD) then
+	--[=[if self:GetNetworkedBool("Defending") and not self.Owner:KeyDown(IN_RELOAD) then
 		self:SetDefending(false)
-	end]]
+	end]=]
 end
 
 function SWEP:OnDeploy()
-//MakeNewArms(self)
+-- MakeNewArms(self)
 end
 function SWEP:OnDrop()
-//RemoveNewArms(self)
+-- RemoveNewArms(self)
 end
 
 function SWEP:SecondaryAttack()
 end
 
 function SWEP:Reload()
-	--[[if self.DefendPos and self:GetNextPrimaryFire() <= CurTime() then
+	--[=[if self.DefendPos and self:GetNextPrimaryFire() <= CurTime() then
 		self:SetDefending(true)
-	end]]
+	end]=]
 
 	return false
 end
 
---[[function SWEP:SetDefending(onoff)
+--[=[function SWEP:SetDefending(onoff)
 	self:SetNetworkedBool("Defending", onoff)
 
 	if onoff then
@@ -298,12 +298,12 @@ end
 
 function SWEP:GetDefending()
 	return self:GetNetworkedBool("Defending")
-end]]
+end]=]
 
 function SWEP:CanPrimaryAttack()
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return false end
 
-	return not self:IsSwinging()//self:GetNextPrimaryFire() <= CurTime() and
+	return not self:IsSwinging()-- self:GetNextPrimaryFire() <= CurTime() and
 end
 
 function SWEP:PlaySwingSound()
@@ -311,8 +311,8 @@ function SWEP:PlaySwingSound()
 end
 
 function SWEP:PlayStartSwingSound()
-	--[[local snd = "npc/combine_soldier/gear"..math.random(6)..".wav"
-	self:EmitSound(snd, 60, math.Clamp((SoundDuration(snd) / self.SwingTime) * 100, 50, 240))]]
+	--[=[local snd = "npc/combine_soldier/gear"..math.random(6)..".wav"
+	self:EmitSound(snd, 60, math.Clamp((SoundDuration(snd) / self.SwingTime) * 100, 50, 240))]=]
 end
 
 for i=1,4 do
@@ -366,7 +366,7 @@ end
 function SWEP:MeleeSwing()
 	local owner = self.Owner
 
-	//owner:DoAttackEvent()
+	-- owner:DoAttackEvent()
 	owner:SetAnimation(PLAYER_ATTACK1)
 	local filter = owner:GetMeleeFilter()
 
@@ -417,15 +417,15 @@ function SWEP:MeleeSwing()
 				if hitent:IsPlayer() then
 					hitent:MeleeViewPunch(damage)
 					if self.MeleeKnockBack > 0 then
-						//hitent:ThrowFromPositionSetZ(tr.HitPos, self.MeleeKnockBack, nil, true)
+						-- hitent:ThrowFromPositionSetZ(tr.HitPos, self.MeleeKnockBack, nil, true)
 					end
-					//hitent:TakeDamageInfo(dmginfo)
-				end//else
-				//	local dmginfo = GAMEMODE:EntityTakeDamage( hitent,dmginfo )--GAMEMODE:EntityTakeDamage( hitent, owner, dmginfo:GetInflictor(), damage, dmginfo )
-					//if dmginfo then
+					-- hitent:TakeDamageInfo(dmginfo)
+				end-- else
+				-- 	local dmginfo = GAMEMODE:EntityTakeDamage( hitent,dmginfo )--GAMEMODE:EntityTakeDamage( hitent, owner, dmginfo:GetInflictor(), damage, dmginfo )
+					-- if dmginfo then
 						hitent:TakeDamageInfo(dmginfo)
-					//end
-				//end
+					-- end
+				-- end
 				--hitent:TakeDamageInfo(dmginfo)
 
 				local phys = hitent:GetPhysicsObject()
@@ -488,7 +488,7 @@ if CLIENT then
 		if not self.Owner:IsValid() then return end
 		if not self.Owner:IsPlayer() then return end
 		local vm = self.Owner:GetViewModel()
-		if !IsValid(vm) then return end
+		if not IsValid(vm) then return end
 
 		
 		
@@ -510,17 +510,17 @@ if CLIENT then
 			self.OldViewModelFlip = self.ViewModelFlip or false
 		end
 		
-		/*if util.tobool(GetConVarNumber("_zs_clhands")) then
+		--[==[if util.tobool(GetConVarNumber("_zs_clhands")) then
 			if self.AlwaysDrawViewModel then
 				self.ShowViewModel = true
 			else
 				self.ShowViewModel = false
 			end
-			//self.ViewModelFlip = false
+			-- self.ViewModelFlip = false
 		else
-			//self.ViewModelFlip = self.OldViewModelFlip or false
+			-- self.ViewModelFlip = self.OldViewModelFlip or false
 			self.ShowViewModel = self.OldShowViewModel or true
-		end*/
+		end]==]
 		
 		if (self.ShowViewModel == nil or self.ShowViewModel) then
 			vm:SetColor(Color(255,255,255,255))
@@ -528,7 +528,7 @@ if CLIENT then
 				--vm:SetMaterial("")	
 			end
 		else
-			// we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
+			--  we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
 			vm:SetColor(Color(255,255,255,1)) 
 			if vm:GetMaterial() ~= "Debug/hsv" then 
 				--vm:SetMaterial("Debug/hsv")	
@@ -550,15 +550,15 @@ if CLIENT then
 			self._ResetBoneMods = true
 		end
 		
-		//self:UpdateBonePositions(vm)
+		-- self:UpdateBonePositions(vm)
 		
-		//UpdateArms(self)
+		-- UpdateArms(self)
 
-		if (!self.VElements) then return end
+		if (not self.VElements) then return end
 		
-		if (!self.vRenderOrder) then
+		if (not self.vRenderOrder) then
 			
-			// we build a render order because sprites need to be drawn after models
+			--  we build a render order because sprites need to be drawn after models
 			self.vRenderOrder = {}
 
 			for k, v in pairs( self.VElements ) do
@@ -574,16 +574,16 @@ if CLIENT then
 		for k, name in ipairs( self.vRenderOrder ) do
 		
 			local v = self.VElements[name]
-			if (!v) then self.vRenderOrder = nil break end
+			if (not v) then self.vRenderOrder = nil break end
 		
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
 			
-			if (!v.bone) then continue end
+			if (not v.bone) then continue end
 			
 			local pos, ang = self:GetBoneOrientation( self.VElements, v, vm )
 			
-			if (!pos) then continue end
+			if (not pos) then continue end
 			
 			if (v.type == "Model" and IsValid(model)) then
 
@@ -599,17 +599,17 @@ if CLIENT then
 				
 				if (v.material == "") then
 					model:SetMaterial("")
-				elseif (model:GetMaterial() != v.material) then
+				elseif (model:GetMaterial() ~= v.material) then
 					model:SetMaterial( v.material )
 				end
 				
-				if (v.skin and v.skin != model:GetSkin()) then
+				if (v.skin and v.skin ~= model:GetSkin()) then
 					model:SetSkin(v.skin)
 				end
 				
 				if (v.bodygroup) then
 					for k, v in pairs( v.bodygroup ) do
-						if (model:GetBodygroup(k) != v) then
+						if (model:GetBodygroup(k) ~= v) then
 							model:SetBodygroup(k, v)
 						end
 					end
@@ -621,7 +621,7 @@ if CLIENT then
 				
 				render.SetColorModulation(v.color.r/255, v.color.g/255, v.color.b/255)
 				render.SetBlend(v.color.a/255)
-				if (util.tobool(GetConVarNumber("_zs_clhands")) and self.DummyModel) or (!self.DummyModel) or XMAS_2012 then
+				if (util.tobool(GetConVarNumber("_zs_clhands")) and self.DummyModel) or (not self.DummyModel) or XMAS_2012 then
 					model:DrawModel()
 				end
 				render.SetBlend(1)
@@ -665,9 +665,9 @@ if CLIENT then
 			self:CheckWorldModelElements()	
 		end
 		
-		if (!self.WElements) then return end
+		if (not self.WElements) then return end
 		
-		if (!self.wRenderOrder) then
+		if (not self.wRenderOrder) then
 
 			self.wRenderOrder = {}
 
@@ -684,14 +684,14 @@ if CLIENT then
 		if (IsValid(self.Owner)) then
 			bone_ent = self.Owner
 		else
-			// when the weapon is dropped
+			--  when the weapon is dropped
 			bone_ent = self
 		end
 		
 		for k, name in pairs( self.wRenderOrder ) do
 		
 			local v = self.WElements[name]
-			if (!v) then self.wRenderOrder = nil break end
+			if (not v) then self.wRenderOrder = nil break end
 			
 			local pos, ang
 			
@@ -701,7 +701,7 @@ if CLIENT then
 				pos, ang = self:GetBoneOrientation( self.WElements, v, bone_ent, "ValveBiped.Bip01_R_Hand" )
 			end
 			
-			if (!pos) then continue end
+			if (not pos) then continue end
 			
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
@@ -720,17 +720,17 @@ if CLIENT then
 				
 				if (v.material == "") then
 					model:SetMaterial("")
-				elseif (model:GetMaterial() != v.material) then
+				elseif (model:GetMaterial() ~= v.material) then
 					model:SetMaterial( v.material )
 				end
 				
-				if (v.skin and v.skin != model:GetSkin()) then
+				if (v.skin and v.skin ~= model:GetSkin()) then
 					model:SetSkin(v.skin)
 				end
 				
 				if (v.bodygroup) then
 					for k, v in pairs( v.bodygroup ) do
-						if (model:GetBodygroup(k) != v) then
+						if (model:GetBodygroup(k) ~= v) then
 							model:SetBodygroup(k, v)
 						end
 					end
@@ -776,17 +776,17 @@ if CLIENT then
 	function SWEP:GetBoneOrientation( basetab, tab, ent, bone_override )
 		
 		local bone, pos, ang
-		if (tab.rel and tab.rel != "") then
+		if (tab.rel and tab.rel ~= "") then
 			
 			local v = basetab[tab.rel]
 			
-			if (!v) then return end
+			if (not v) then return end
 			
-			// Technically, if there exists an element with the same name as a bone
-			// you can get in an infinite loop. Let's just hope nobody's that stupid.
+			--  Technically, if there exists an element with the same name as a bone
+			--  you can get in an infinite loop. Let's just hope nobody's that stupid.
 			pos, ang = self:GetBoneOrientation( basetab, v, ent )
 			
-			if (!pos) then return end
+			if (not pos) then return end
 			
 			pos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
 			ang:RotateAroundAxis(ang:Up(), v.angle.y)
@@ -797,7 +797,7 @@ if CLIENT then
 		
 			bone = ent:LookupBone(bone_override or tab.bone)
 
-			if (!bone) then return end
+			if (not bone) then return end
 			
 			pos, ang = Vector(0,0,0), Angle(0,0,0)
 			local m = ent:GetBoneMatrix(bone)
@@ -807,7 +807,7 @@ if CLIENT then
 			
 			if (IsValid(self.Owner) and self.Owner:IsPlayer() and 
 				ent == self.Owner:GetViewModel() and self.ViewModelFlip) then
-				ang.r = -ang.r // Fixes mirrored models
+				ang.r = -ang.r --  Fixes mirrored models
 			end
 		
 		end
@@ -817,11 +817,11 @@ if CLIENT then
 
 	function SWEP:CreateModels( tab )
 
-		if (!tab) then return end
+		if (not tab) then return end
 
-		// Create the clientside models here because Garry says we can't do it in the render hook
+		--  Create the clientside models here because Garry says we can't do it in the render hook
 		for k, v in pairs( tab ) do
-			if (v.type == "Model" and v.model and v.model != "" and (!IsValid(v.modelEnt) or v.createdModel != v.model) and 
+			if (v.type == "Model" and v.model and v.model ~= "" and (not IsValid(v.modelEnt) or v.createdModel ~= v.model) and 
 					string.find(v.model, ".mdl") and file.Exists (v.model,"GAME") ) then
 				
 				v.modelEnt = ClientsideModel(v.model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
@@ -835,12 +835,12 @@ if CLIENT then
 					v.modelEnt = nil
 				end
 				
-			elseif (v.type == "Sprite" and v.sprite and v.sprite != "" and (!v.spriteMaterial or v.createdSprite != v.sprite) 
+			elseif (v.type == "Sprite" and v.sprite and v.sprite ~= "" and (not v.spriteMaterial or v.createdSprite ~= v.sprite) 
 				and file.Exists ("materials/"..v.sprite..".vmt","GAME")) then
 				
 				local name = v.sprite.."-"
 				local params = { ["$basetexture"] = v.sprite }
-				// make sure we create a unique name based on the selected options
+				--  make sure we create a unique name based on the selected options
 				local tocheck = { "nocull", "additive", "vertexalpha", "vertexcolor", "ignorez" }
 				for i, j in pairs( tocheck ) do
 					if (v[j]) then

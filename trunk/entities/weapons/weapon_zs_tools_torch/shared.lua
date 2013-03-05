@@ -14,9 +14,9 @@ if ( CLIENT ) then
 	SWEP.SlotPos = 2 
 	
 	killicon.AddFont("weapon_zs_tools_torch", "CSKillIcons", "E", Color(255, 255, 255, 255 ))
-	//function SWEP:DrawHUD()
-	//	MeleeWeaponDrawHUD()
-	//end
+	-- function SWEP:DrawHUD()
+	-- 	MeleeWeaponDrawHUD()
+	-- end
 	SWEP.IgnoreBonemerge = true
 	SWEP.UseHL2Bonemerge = true
 	SWEP.ShowViewModel = true
@@ -101,7 +101,7 @@ function SWEP:PrimaryAttack()
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
 	
 	if not self:CanPrimaryAttack() then return end
-	//if self.TempAng ~= self.ActiveAngle then return end
+	-- if self.TempAng ~= self.ActiveAngle then return end
 	
 	self.Weapon:SetNextPrimaryFire ( CurTime() + 0.12 )	
 	if SERVER then
@@ -126,7 +126,7 @@ function SWEP:PrimaryAttack()
 					
 					if nail and nail:IsValid() then
 						
-						if nail:GetNailHealth() < nail:GetDTInt(1) then //nail:GetNWInt("MaxNailHealth")
+						if nail:GetNailHealth() < nail:GetDTInt(1) then -- nail:GetNWInt("MaxNailHealth")
 						
 							self:TakePrimaryAmmo (1)
 							
@@ -146,7 +146,7 @@ function SWEP:PrimaryAttack()
 							nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+2,1,nail:GetDTInt(1)))
 							
 							local pos = tr.HitPos
-							local norm = tr.HitNormal//(tr.HitPos - self.Owner:GetShootPos()):Normalize():Angle()
+							local norm = tr.HitNormal-- (tr.HitPos - self.Owner:GetShootPos()):Normalize():Angle()
 							
 							local eff = EffectData()
 								eff:SetOrigin( pos )
@@ -159,7 +159,7 @@ function SWEP:PrimaryAttack()
 							
 							util.Decal("FadingScorch",tr.HitPos+tr.HitNormal,tr.HitPos-tr.HitNormal)
 							
-							//BREAKER!
+							-- BREAKER!
 							break
 						
 						end
@@ -185,7 +185,7 @@ function SWEP:PrimaryAttack()
 					trent:SetDTInt(1,trent:GetDTInt(1)+1)
 					
 					local pos = tr.HitPos
-					local norm = tr.HitNormal//(tr.HitPos - self.Owner:GetShootPos()):Normalize():Angle()
+					local norm = tr.HitNormal-- (tr.HitPos - self.Owner:GetShootPos()):Normalize():Angle()
 							
 					local eff = EffectData()
 					eff:SetOrigin( pos )
@@ -226,7 +226,7 @@ function SWEP:SecondaryAttack()
 	return false
 end 
 
-//make everything easy
+-- make everything easy
 local function ApproachAngle(ang,to,time)
 	
 	ang.p = math.Approach(ang.p, to.p, time)
@@ -247,11 +247,11 @@ function SWEP:Think()
 		self.AppTo = self.ActiveAngle
 	end
 	
-	//ApproachAngle(self.TempAng,self.AppTo,FrameTime()*33)
+	-- ApproachAngle(self.TempAng,self.AppTo,FrameTime()*33)
 	
 	if CLIENT then
 	
-		//ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
+		-- ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
 		
 	end
 	

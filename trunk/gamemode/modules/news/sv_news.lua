@@ -2,16 +2,16 @@
 -- See LICENSE.txt for license information
 
 --Moving stuff on a client!
---[[
-//News timer and team hints timer
+--[=[
+-- News timer and team hints timer
 local TEAM_DIFFERENCE, GENERAL_TIMER, TEAM_TIMER = 60, 20, 40 
 
-//Server related news
+-- Server related news
 local GENERAL_NEWS = {
 "New to the Server? Press F1 and click on Beginners' Guide!",
 }
 
-//Human related hints
+-- Human related hints
 local HUMAN_HINTS = {
 "Press E on Supply Crates to get ammo and health!",
 "To get New Weapons get skill points from killing zombies!",
@@ -20,16 +20,16 @@ local HUMAN_HINTS = {
 
 }
 
-//Undead related hints
+-- Undead related hints
 local UNDEAD_HINTS = {
 "Press F3 to open the Classes Menu. More classes will unlock as humans die.",
 "To Redeem Kill 4 Humans"
 }
 
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
        Used to send server news/info to players
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local sIndex = 1
 local function DisplayNews()
 	for k, v in pairs( player.GetAll() ) do
@@ -41,17 +41,17 @@ local function DisplayNews()
 		sIndex = 1
 	end
 	
-	//cooldown
+	-- cooldown
 	GENERAL_TIMER = CurTime() + TEAM_DIFFERENCE
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
        Used to send human/undead hints to players
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local HumanIndex, ZombieIndex = 1, 1
 local function DisplayHints()
 
-	//Send the message to coresponding teams.
+	-- Send the message to coresponding teams.
 	for k, v in pairs( player.GetAll() ) do
 		if v:Team() == TEAM_HUMAN then
 			if HUMAN_HINTS[HumanIndex] == nil then HumanIndex = 1 end
@@ -64,39 +64,39 @@ local function DisplayHints()
 		end
 	end
 	
-	//increment table hint slots for both teams
+	-- increment table hint slots for both teams
 	HumanIndex = HumanIndex + 1
 	ZombieIndex = ZombieIndex + 1
 	
-	//Reset human hints
+	-- Reset human hints
 	if HumanIndex > #HUMAN_HINTS then
 		HumanIndex = 1
 	end
 	
-	//Reset undead hints
+	-- Reset undead hints
 	if ZombieIndex > #UNDEAD_HINTS then
 		ZombieIndex = 1
 	end
 	
-	//cooldown
+	-- cooldown
 	TEAM_TIMER = CurTime() + TEAM_DIFFERENCE
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
             Manages when and what to display
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local function HintsThink()
 
-	//manage server info
+	-- manage server info
 	if GENERAL_TIMER <= CurTime() then
 		DisplayNews()
 	end
 	
-	//manage team hints
+	-- manage team hints
 	if TEAM_TIMER <= CurTime() then
 		DisplayHints()
 	end
 end
 hook.Add ( "Think", "HintsThink", HintsThink )
 
-Debug ( "[MODULE] Loaded News/Hints Module!" )]]
+Debug ( "[MODULE] Loaded News/Hints Module!" )]=]

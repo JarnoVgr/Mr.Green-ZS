@@ -23,11 +23,11 @@ function MakepShop()
 	Window:SetDeleteOnClose(false)
 	Window:SetCursor("pointer")
 	pShop = Window
-	--[[
+	--[=[
 	function Window:Paint()
 		draw.RoundedBox( 8, 0, 0, 640, Window:GetTall(), Color( 106, 103, 121, 250 ) )
 	end
-	]]
+	]=]
 	local curItemSelected = ""
 	local curHatSelected = ""
 	
@@ -59,7 +59,7 @@ function MakepShop()
 	shoplabel:SetPos( 380, 145 ) 
 	shoplabel:SetSize( 180, 200 )
 	
-	// SHOP
+	--  SHOP
 	
 	local itemlistlabel = vgui.Create("DLabel",Window)
 	itemlistlabel:SetText( "Shop Items - You currently got "..tostring ( MySelf.TotalUpgrades ).." upgrades over 2000 GC!" )
@@ -186,9 +186,9 @@ function MakepShop()
 		end)
 	end
 	
-	--[[-------------------------------
+	--[=[-------------------------------
 				Functions
-	-------------------------------]]
+	-------------------------------]=]
 	
 	function updateItemList()
 		itemlist:Clear()
@@ -224,7 +224,7 @@ function MakepShop()
 	function updateHatList()
 		hatlist:Clear()
 		local hat
-		for k, v in pairs(hats) do // correct to the ones that were bought
+		for k, v in pairs(hats) do --  correct to the ones that were bought
 			local itemID = util.GetItemID( k )
 			if MySelf.DataTable["ShopItems"][itemID] then
 				hat = hatlist:AddItem( shopData[itemID].Name )
@@ -271,9 +271,9 @@ function MakepShop()
 		end
 	end
 	
-	--[[--------------------------------
+	--[=[--------------------------------
 		DoClick functions and others
-	--------------------------------]]
+	--------------------------------]=]
 	
 	function itemDoClick(btn)
 		local item = btn.ItemType
@@ -351,10 +351,10 @@ function MakepShop()
 		
 		curHatSelected = hat
 		if hat == "crab" then
-			hatmodel:SetModel("models/headcrabclassic.mdl") // update model view
+			hatmodel:SetModel("models/headcrabclassic.mdl") --  update model view
 			hatmodel:SetCamPos (Vector (15,35,15)) 
 		else
-			hatmodel:SetModel(hats[hat].Model) // update model view
+			hatmodel:SetModel(hats[hat].Model) --  update model view
 			hatmodel:SetCamPos (Vector (15,15,15)) 
 		end
 		local itemID = util.GetItemID( hat )
@@ -367,7 +367,7 @@ end
 
 -----------------------------------------------------------------------------------------------------------------
 
-//Stuff
+-- Stuff
 CreateClientConVar("_zs_previewrotation", 35, true, false)
 
 local function HatsToString()
@@ -414,7 +414,7 @@ function InsertHats()
 	local HatTab = {}
 	
 	for key, tab in pairs(shopData) do
-		//not hidden and hat
+		-- not hidden and hat
 		if (tab.Type and (tab.Type == "hat" or tab.Type == "other")) and not tab.Hidden and (not tab.AdminOnly or MySelf:IsAdmin()) and (not tab.EventOnly or MySelf.DataTable["ShopItems"][tab.ID]) then
 			local itemID = tab.Key
 			HatTab[itemID] = vgui.Create("DLabel")
@@ -465,7 +465,7 @@ function InsertHats()
 				end
 			end
 			
-			//Description
+			-- Description
 			HatTab[itemID].Desc = vgui.Create("DTextEntry",HatTab[itemID])
 			HatTab[itemID].Desc:SetPos( 10, 2.3*HatTab[itemID]:GetTall()/6 ) 
 			HatTab[itemID].Desc:SetSize( HatTab[itemID]:GetWide()-45, HatTab[itemID]:GetTall()/2 ) 
@@ -473,7 +473,7 @@ function InsertHats()
 			HatTab[itemID].Desc:SetValue(tab.Desc or [[No data!]])
 			HatTab[itemID].Desc:SetMultiline( true )
 			
-			//Button
+			-- Button
 			
 			HatTab[itemID].Btn = vgui.Create("DButton",HatTab[itemID])
 			HatTab[itemID].Btn:SetSize(100, HatTab[itemID]:GetTall()/5)
@@ -481,7 +481,7 @@ function InsertHats()
 			HatTab[itemID].Btn.Think = function()
 				if MySelf.DataTable["ShopItems"][tab.ID] then
 					if ValidEntity(MySelf.Hat) then 
-						if GetCurrentHatId(tab.Key) then//MySelf.Hat:GetHatType() == tab.Key
+						if GetCurrentHatId(tab.Key) then-- MySelf.Hat:GetHatType() == tab.Key
 							HatTab[itemID].Btn:SetText("Drop")
 						else
 							HatTab[itemID].Btn:SetText("Equip")
@@ -508,9 +508,9 @@ function InsertHats()
 			
 			HatTab[itemID].Btn.OnMousePressed = function()
 				if MySelf.DataTable["ShopItems"][tab.ID] then
-					//Drop
+					-- Drop
 					if ValidEntity(MySelf.Hat) then 
-						if GetCurrentHatId(tab.Key) then//MySelf.Hat:GetHatType() == tab.KeyCurrentHats[tab.Key]
+						if GetCurrentHatId(tab.Key) then-- MySelf.Hat:GetHatType() == tab.KeyCurrentHats[tab.Key]
 							CurrentHats[GetCurrentHatId(tab.Key)] = nil
 							RunConsoleCommand("mrgreen_hat_drop")
 							RunConsoleCommand("_zs_equippedhats",HatsToString())
@@ -546,11 +546,11 @@ function InsertHats()
 					if MySelf:GreenCoins() >= tab.Cost then
 						Derma_Query("Purchase this item? '"..tab.Name.."'", "Warning!","Yes!",function() RunConsoleCommand("mrgreen_buyitem",tab.ID) end, "No", function() end)
 						
-						//RunConsoleCommand("mrgreen_buyitem",tab.ID)
+						-- RunConsoleCommand("mrgreen_buyitem",tab.ID)
 					end
 				end
 			end
-			//add
+			-- add
 			HatList:AddItem(HatTab[itemID])
 			
 		end
@@ -559,7 +559,7 @@ function InsertHats()
 
 end
 
-//suits
+-- suits
 function InsertSuits()
 	
 	SuitList = vgui.Create( "DPanelList")
@@ -576,7 +576,7 @@ function InsertSuits()
 	local SuitTab = {}
 	
 	for key, tab in pairs(shopData) do
-		//not hidden and hat
+		-- not hidden and hat
 		if (tab.Type and tab.Type == "suit") and not tab.Hidden and (not tab.AdminOnly or MySelf:IsAdmin()) then
 			local itemID = tab.Key
 			SuitTab[itemID] = vgui.Create("DLabel")
@@ -618,7 +618,7 @@ function InsertSuits()
 				end
 			end
 			
-			//Description
+			-- Description
 			SuitTab[itemID].Desc = vgui.Create("DTextEntry",SuitTab[itemID])
 			SuitTab[itemID].Desc:SetPos( 10, 2.3*SuitTab[itemID]:GetTall()/6 ) 
 			SuitTab[itemID].Desc:SetSize( SuitTab[itemID]:GetWide()-45, SuitTab[itemID]:GetTall()/2 ) 
@@ -626,7 +626,7 @@ function InsertSuits()
 			SuitTab[itemID].Desc:SetValue(tab.Desc or [[No data!]])
 			SuitTab[itemID].Desc:SetMultiline( true )
 			
-			//Button
+			-- Button
 			
 			SuitTab[itemID].Btn = vgui.Create("DButton",SuitTab[itemID])
 			SuitTab[itemID].Btn:SetSize(100, SuitTab[itemID]:GetTall()/5)
@@ -661,7 +661,7 @@ function InsertSuits()
 			
 			SuitTab[itemID].Btn.OnMousePressed = function()
 				if MySelf.DataTable["ShopItems"][tab.ID] then
-					//Drop
+					-- Drop
 					if ValidEntity(MySelf.Suit) then  
 						if MySelf.Suit:GetHatType() == tab.Key then
 							RunConsoleCommand("mrgreen_suit_drop")
@@ -677,12 +677,12 @@ function InsertSuits()
 					end
 				else
 					if MySelf:GreenCoins() >= tab.Cost then
-						//RunConsoleCommand("mrgreen_buyitem",tab.ID)
+						-- RunConsoleCommand("mrgreen_buyitem",tab.ID)
 						Derma_Query("Purchase this item? '"..tab.Name.."'", "Warning!","Yes!",function() RunConsoleCommand("mrgreen_buyitem",tab.ID) end, "No", function() end)
 					end
 				end
 			end
-			//add
+			-- add
 			SuitList:AddItem(SuitTab[itemID])
 			
 		end
@@ -691,7 +691,7 @@ function InsertSuits()
 
 end
 
-//misc
+-- misc
 function InsertOther()
 	
 	MiscList = vgui.Create( "DPanelList")
@@ -708,7 +708,7 @@ function InsertOther()
 	local MiscTab = {}
 	
 	for key, tab in pairs(shopData) do
-		//not hidden and hat
+		-- not hidden and hat
 		if (tab.Type and tab.Type == "misc") and not tab.Hidden and (not tab.AdminOnly or MySelf:IsAdmin()) then
 			local itemID = tab.Key
 			MiscTab[itemID] = vgui.Create("DLabel")
@@ -750,7 +750,7 @@ function InsertOther()
 				end
 			end
 			
-			//Description
+			-- Description
 			MiscTab[itemID].Desc = vgui.Create("DTextEntry",MiscTab[itemID])
 			MiscTab[itemID].Desc:SetPos( 10, 2.3*MiscTab[itemID]:GetTall()/6 ) 
 			MiscTab[itemID].Desc:SetSize( MiscTab[itemID]:GetWide()-45, MiscTab[itemID]:GetTall()/2 ) 
@@ -758,7 +758,7 @@ function InsertOther()
 			MiscTab[itemID].Desc:SetValue(tab.Desc or [[No data!]])
 			MiscTab[itemID].Desc:SetMultiline( true )
 			
-			//Button
+			-- Button
 			
 			MiscTab[itemID].Btn = vgui.Create("DButton",MiscTab[itemID])
 			MiscTab[itemID].Btn:SetSize(100, MiscTab[itemID]:GetTall()/5)
@@ -786,15 +786,15 @@ function InsertOther()
 			
 			MiscTab[itemID].Btn.OnMousePressed = function()
 				if MySelf.DataTable["ShopItems"][tab.ID] then
-				//nothing
+				-- nothing
 				else
 					if MySelf:GreenCoins() >= tab.Cost then
-						//RunConsoleCommand("mrgreen_buyitem",tab.ID)
+						-- RunConsoleCommand("mrgreen_buyitem",tab.ID)
 						Derma_Query("Purchase this item? '"..tab.Name.."'", "Warning!","Yes!",function() RunConsoleCommand("mrgreen_buyitem",tab.ID) end, "No", function() end)
 					end
 				end
 			end
-			//add
+			-- add
 			MiscList:AddItem(MiscTab[itemID])
 			
 		end
@@ -809,15 +809,15 @@ RenderOrder = nil
 local function GetBoneOrientation( basetab, tab, ent, bone_override )
 		
 		local bone, pos, ang
-		if (tab.rel and tab.rel != "") then
+		if (tab.rel and tab.rel ~= "") then
 			
 			local v = basetab[tab.rel]
 			
-			if (!v) then return end
+			if (not v) then return end
 
 			pos, ang = GetBoneOrientation( basetab, v, ent )
 			
-			if (!pos) then return end
+			if (not pos) then return end
 			
 			pos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
 			ang:RotateAroundAxis(ang:Up(), v.angle.y)
@@ -828,7 +828,7 @@ local function GetBoneOrientation( basetab, tab, ent, bone_override )
 		
 			bone = ent:LookupBone(bone_override or tab.bone)
 
-			if (!bone) then return end
+			if (not bone) then return end
 			
 			pos, ang = Vector(0,0,0), Angle(0,0,0)
 			local m = ent:GetBoneMatrix(bone)
@@ -843,9 +843,9 @@ end
 
 function DrawModels(self)
 	
-	if (!self.Hat) then return end
+	if (not self.Hat) then return end
 		
-		if (!RenderOrder) then
+		if (not RenderOrder) then
 
 			RenderOrder = {}
 
@@ -866,7 +866,7 @@ function DrawModels(self)
 		for k, name in pairs( RenderOrder ) do
 		
 			local v = self.Hat[name]
-			if (!v) then RenderOrder = nil break end
+			if (not v) then RenderOrder = nil break end
 			
 			local pos, ang
 			
@@ -876,7 +876,7 @@ function DrawModels(self)
 				pos, ang = GetBoneOrientation( self.Hat, v, bone_ent, "ValveBiped.Bip01_R_Hand" )
 			end
 			
-			if (!pos) then continue end
+			if (not pos) then continue end
 			
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
@@ -895,34 +895,34 @@ function DrawModels(self)
 				
 				if (v.material == "") then
 					model:SetMaterial("")
-				elseif (model:GetMaterial() != v.material) then
+				elseif (model:GetMaterial() ~= v.material) then
 					model:SetMaterial( v.material )
 				end
 				
-				if (v.skin and v.skin != model:GetSkin()) then
+				if (v.skin and v.skin ~= model:GetSkin()) then
 					model:SetSkin(v.skin)
 				end
 				
 				if (v.bodygroup) then
 					for k, v in pairs( v.bodygroup ) do
-						if (model:GetBodygroup(k) != v) then
+						if (model:GetBodygroup(k) ~= v) then
 							model:SetBodygroup(k, v)
 						end
 					end
 				end
 				
 				if (v.surpresslightning) then
-				//	render.SuppressEngineLighting(true)
+				-- 	render.SuppressEngineLighting(true)
 				end
 				
-				//render.SetColorModulation(v.color.r/255, v.color.g/255, v.color.b/255)
-				//render.SetBlend(v.color.a/255)
+				-- render.SetColorModulation(v.color.r/255, v.color.g/255, v.color.b/255)
+				-- render.SetBlend(v.color.a/255)
 				model:DrawModel()
-				//render.SetBlend(1)
-				//render.SetColorModulation(1, 1, 1)
+				-- render.SetBlend(1)
+				-- render.SetColorModulation(1, 1, 1)
 				
 				if (v.surpresslightning) then
-				//	render.SuppressEngineLighting(false)
+				-- 	render.SuppressEngineLighting(false)
 				end
 				
 			elseif (v.type == "Sprite" and sprite) then
@@ -940,7 +940,7 @@ end
 
 function CreateModels(self,tab)
 	RenderOrder = nil
-	//self.
+	-- self.
 	if type(self.Hat) == "table" then
 		for k, v in pairs( self.Hat ) do
 			if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
@@ -963,10 +963,10 @@ function CreateModels(self,tab)
 	
 	self.Hat = table.Copy(tbl[key]) or {}
 	
-	//PrintTable(self.Hat)
+	-- PrintTable(self.Hat)
 	
 	for k, v in pairs( self.Hat ) do
-			if (v.type == "Model" and v.model and v.model != "" and (!ValidEntity(v.modelEnt) or v.createdModel != v.model) and 
+			if (v.type == "Model" and v.model and v.model ~= "" and (not ValidEntity(v.modelEnt) or v.createdModel ~= v.model) and 
 					string.find(v.model, ".mdl") and file.Exists (v.model,"GAME") ) then
 				
 				v.modelEnt = ClientsideModel(v.model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
@@ -981,12 +981,12 @@ function CreateModels(self,tab)
 					v.modelEnt = nil
 				end
 				
-			elseif (v.type == "Sprite" and v.sprite and v.sprite != "" and (!v.spriteMaterial or v.createdSprite != v.sprite) 
+			elseif (v.type == "Sprite" and v.sprite and v.sprite ~= "" and (not v.spriteMaterial or v.createdSprite ~= v.sprite) 
 				and file.Exists ("materials/"..v.sprite..".vmt","GAME")) then
 				
 				local name = v.sprite.."-"
 				local params = { ["$basetexture"] = v.sprite }
-				// make sure we create a unique name based on the selected options
+				--  make sure we create a unique name based on the selected options
 				local tocheck = { "nocull", "additive", "vertexalpha", "vertexcolor", "ignorez" }
 				for i, j in pairs( tocheck ) do
 					if (v[j]) then
@@ -1031,7 +1031,7 @@ function CreateHat(self,tab)
 		if not hats[key] then return end
 		
 		self.Hat = ClientsideModel( hats[key].Model, RENDER_GROUP_OPAQUE_ENTITY )
-		if ( !IsValid(self.Hat) ) then return end
+		if ( not IsValid(self.Hat) ) then return end
 		
 		self.Hat.Key = key
 		
@@ -1083,7 +1083,7 @@ function CreateSuit(self,tab)
 			self.Hat[i]:SetParent(self.Entity)
 		end
 
-		if ( !IsValid(self.Hat) ) then return end
+		if ( not IsValid(self.Hat) ) then return end
 		
 		self.Hat.Key = key
 	end
@@ -1184,9 +1184,9 @@ function DrawHat(self)
 	end
 	
 	if hats[self.Hat.Key].SCK then
-		//local temp = self.Hat.RelAng.p
-		//self.Hat.RelAng.p = self.Hat.RelAng.r
-		//self.Hat.RelAng.r = temp
+		-- local temp = self.Hat.RelAng.p
+		-- self.Hat.RelAng.p = self.Hat.RelAng.r
+		-- self.Hat.RelAng.r = temp
 	end
 	
 	-- Draw it
@@ -1194,7 +1194,7 @@ function DrawHat(self)
 	if boneindex then
 		local pos, ang = self.Entity:GetBonePosition(boneindex)
 		if pos and pos ~= self.Entity:GetPos() then
-			//pos = pos + (ang:Forward() * (self.Hat.RelPos.x + self.Hat.addX)) + (ang:Right() * (self.Hat.RelPos.y + self.Hat.addY)) + (ang:Up() * self.Hat.RelPos.z)
+			-- pos = pos + (ang:Forward() * (self.Hat.RelPos.x + self.Hat.addX)) + (ang:Right() * (self.Hat.RelPos.y + self.Hat.addY)) + (ang:Up() * self.Hat.RelPos.z)
 			self.Hat:SetPos(pos + (ang:Forward() * (self.Hat.RelPos.x + self.Hat.addX)) + (ang:Right() * (self.Hat.RelPos.y + self.Hat.addY)) + (ang:Up() * self.Hat.RelPos.z))
 			ang:RotateAroundAxis(ang:Forward(), self.Hat.RelAng.p)
 			ang:RotateAroundAxis(ang:Up(), self.Hat.RelAng.y)
@@ -1225,7 +1225,7 @@ function ManagePreview()
 	ModelPanel:SetPos(-((PreviewH-25)/3)/2,0)
 	
 	--Make Hat
-	//ModelPanel.SetHat = CreateHat
+	-- ModelPanel.SetHat = CreateHat
 	
 	--SetModel
 	ModelPanel.SetModel = function( self, strModelName, seq )
@@ -1235,17 +1235,17 @@ function ManagePreview()
 				self.Entity = nil              
 		end
 
-		if ( !ClientsideModel ) then return end
+		if ( not ClientsideModel ) then return end
 	 
 		self.Entity = ClientsideModel( strModelName, RENDER_GROUP_OPAQUE_ENTITY )
-		if ( !IsValid(self.Entity) ) then return end
+		if ( not IsValid(self.Entity) ) then return end
 	 
 		self.Entity:SetNoDraw( true )
 		if SelectedItem then
 		
 			CreateModels(self,SelectedItem)
 			--CreateHat(self,SelectedItem)
-			//CreateSuit(self,SelectedItem)
+			-- CreateSuit(self,SelectedItem)
 		end
 	 
 		local iSeq = MySelf:GetSequence() or 0
@@ -1253,8 +1253,8 @@ function ManagePreview()
 			iSeq = self.Entity:LookupSequence( seq )
 		end
 		if (iSeq <= 0) then iSeq = self.Entity:LookupSequence( seq ) end
-		//if (iSeq <= 0) then iSeq = self.Entity:LookupSequence( "WalkUnarmed_all" ) end
-		//if (iSeq <= 0) then iSeq = self.Entity:LookupSequence( "walk_all_moderate" ) end
+		-- if (iSeq <= 0) then iSeq = self.Entity:LookupSequence( "WalkUnarmed_all" ) end
+		-- if (iSeq <= 0) then iSeq = self.Entity:LookupSequence( "walk_all_moderate" ) end
 	 
 		if (iSeq > 0) then self.Entity:ResetSequence( iSeq ) end
 		
@@ -1262,7 +1262,7 @@ function ManagePreview()
 	--Paint
 	ModelPanel.Paint = function(self)
 		
-		if ( !IsValid( self.Entity ) ) then return end
+		if ( not IsValid( self.Entity ) ) then return end
 	
 		local x, y = self:LocalToScreen( 0, 0 )
 		
@@ -1308,10 +1308,10 @@ function ManagePreview()
 	ModelPanel.LayoutEntity = function(self,Entity)
 		--self:RunAnimation()
 		Entity:SetAngles( Angle( 0, GetConVarNumber("_zs_previewrotation") or 35, 0) )
-		//Entity:SetPoseParameter( "move_yaw",180)
+		-- Entity:SetPoseParameter( "move_yaw",180)
 		Entity:SetPoseParameter( "neck_trans",0)
-		//Entity:SetPoseParameter( "aim_yaw",0)
-		//Entity:SetPoseParameter( "aim_pitch",0)
+		-- Entity:SetPoseParameter( "aim_yaw",0)
+		-- Entity:SetPoseParameter( "aim_pitch",0)
 		Entity:SetPoseParameter( "body_yaw",0)
 		Entity:SetPoseParameter( "spine_yaw",0)
 		Entity:SetPoseParameter( "head_yaw",0)
@@ -1325,9 +1325,9 @@ function ManagePreview()
 	slider:SetMinMax(-180, 180)
 	slider:SetConVar("_zs_previewrotation")
 	slider:SetText("Rotate")
-	//slider.Wang.TextEntry.OnEnter = function(txt)
-    //    slider:SetValue(tonumber(txt:GetValue()));
-    //end
+	-- slider.Wang.TextEntry.OnEnter = function(txt)
+    --     slider:SetValue(tonumber(txt:GetValue()));
+    -- end
 	
 
 	
@@ -1337,8 +1337,8 @@ end
 function DrawGreenShop()
 	
 	SelectedItem = nil
-	//local h = string.Explode("$",GetConVarString("_zs_equippedhats"))
-	CurrentHats = string.Explode("$",GetConVarString("_zs_equippedhats"))//{}
+	-- local h = string.Explode("$",GetConVarString("_zs_equippedhats"))
+	CurrentHats = string.Explode("$",GetConVarString("_zs_equippedhats"))-- {}
 	
 	for key,v in pairs(CurrentHats) do
 		if not hats[v] then
@@ -1346,7 +1346,7 @@ function DrawGreenShop()
 		end
 	end
 	
-	TopMenuW,TopMenuH = ScaleW(550), 130 //ScaleW(550)
+	TopMenuW,TopMenuH = ScaleW(550), 130 -- ScaleW(550)
 	TopMenuX,TopMenuY = w/2-TopMenuW/2,h/5-TopMenuH/1.6
 
 	TopMenuH1 = ScaleH(136)
@@ -1389,7 +1389,7 @@ function DrawGreenShop()
 	InvisiblePanel:SetSkin("ZSMG")
 	InvisiblePanel:ShowCloseButton (false)
 	InvisiblePanel.Paint = function() 
-		//override this
+		-- override this
 	end
 	
 	ShopMenuW,ShopMenuH = TopMenuW/1.7, ScaleH(510)
@@ -1445,10 +1445,10 @@ function DrawGreenShop()
 		
 	end
 	
-	//make model
+	-- make model
 	ManagePreview()
 	
-	//small close button
+	-- small close button
 	
 	closeW,closeH = 22, 22
 	closeX,closeY = TopMenuX + TopMenuW - 22,TopMenuY

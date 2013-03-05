@@ -12,8 +12,8 @@ end
 
 function EFFECT:Think()
 	
-	if !ValidEntity(self.EfOwner) then return false end
-	if !ValidEntity(self.EfOwner:GetActiveWeapon()) then return false end
+	if not ValidEntity(self.EfOwner) then return false end
+	if not ValidEntity(self.EfOwner:GetActiveWeapon()) then return false end
 	if self.EfOwner:GetActiveWeapon():GetClass() ~= "map_tool" then return false end
 	if not self.EfOwner:Alive() then return false end
 	if not self.EfOwner:IsHuman() then return false end
@@ -28,8 +28,8 @@ function EFFECT:Think()
 	self.Entity:SetPos(trace.HitPos+vector_up*25)
 	
 	local ang = self.Entity:GetAngles()
-	ang.p = 0 //- (switch and 90 or 0)
-	ang.r = 90 //+ (switch and 90 or 0)
+	ang.p = 0 -- - (switch and 90 or 0)
+	ang.r = 90 -- + (switch and 90 or 0)
 	ang.y = 0 + (switch and 90 or 0)
 	
 	ent:SetAngles(ang)

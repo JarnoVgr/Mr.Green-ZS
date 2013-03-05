@@ -106,7 +106,7 @@ function SWEP:Think()
 		if self and self.Weapon then
 			if ValidEntity(self.Owner) then
 				if SERVER then
-					//self.GrowlSound:PlayEx(0.4, 100) 
+					-- self.GrowlSound:PlayEx(0.4, 100) 
 				end
 				if self:IsAttacking() then
 					self.Owner:SetColor(Color(255,255,255,255))
@@ -117,9 +117,9 @@ function SWEP:Think()
 					if self.WElements then
 						for k,v in pairs(self.WElements) do
 							if self:IsAttacking() then
-								//v.color = Color(255,255,255,255)
+								-- v.color = Color(255,255,255,255)
 							else
-								//v.color = Color(255,255,255,0)
+								-- v.color = Color(255,255,255,0)
 							end
 						end
 					end
@@ -128,82 +128,82 @@ function SWEP:Think()
 		end
 end
 
-//Primary attack
+-- Primary attack
 SWEP.NextAttack = 0
 function SWEP:PrimaryAttack()
 	if CurTime() < self.NextAttack then return end
 	
 	self.Weapon:SetNextPrimaryFire ( CurTime() + 3 )
 	
-	//Make things easier
+	-- Make things easier
 	local pl = self.Owner
 	self.PreHit = nil
 	
-	//Trace filter
-	local trFilter = self.Owner//team.GetPlayers( TEAM_ZOMBIE )
+	-- Trace filter
+	local trFilter = self.Owner-- team.GetPlayers( TEAM_ZOMBIE )
 		
 	
-	//Set the thirdperson animation and emit zombie attack sound
+	-- Set the thirdperson animation and emit zombie attack sound
 	self.Owner:SetAnimation( PLAYER_ATTACK1 )
 	 
 	if SERVER then
 		GAMEMODE:SetPlayerSpeed( self.Owner, 50 )
-		//self.Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
+		-- self.Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
 		self:SetAttacking(true)
 	end 
-		//timer.Simple ( 0.4, function( pl )
-		//	if not ValidEntity ( pl ) then return end
+		-- timer.Simple ( 0.4, function( pl )
+		-- 	if not ValidEntity ( pl ) then return end
 			self.Owner:DoAnimationEvent( CUSTOM_PRIMARY )
 		
-		//end,pl)
+		-- end,pl)
 	timer.Simple ( 1.3, function()
 		if not ValidEntity ( pl ) then return end
 		
-		//Conditions
+		-- Conditions
 		if not pl:Alive() then return end
 		GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed )
 		if self and self.Weapon then self:SetAttacking(false) end
 	end)
 	if SERVER then if math.random(3) == 1 then self.Owner:EmitSound("player/zombies/seeker/screamclose.wav", 140, math.random( 80, 100 ) ) end end
 	 
-	//Trace an object
+	-- Trace an object
 	local trace = pl:TraceLine( self.DistanceCheck, MASK_SHOT, trFilter )
 	if trace.Hit and ValidEntity ( trace.Entity ) and not trace.Entity:IsPlayer() then
 		self.PreHit = trace.Entity
 	end
 	
-	//Delayed attack function (claw mechanism)
+	-- Delayed attack function (claw mechanism)
 	if SERVER then timer.Simple ( 0.7, function() self.DoPrimaryAttack(trace, pl, self.PreHit) end ) end
-	//timer.Simple ( 0.55, function()
-	//		if not ValidEntity ( pl ) then return end
-	//		if not ValidEntity ( self.Weapon ) then return end
+	-- timer.Simple ( 0.55, function()
+	-- 		if not ValidEntity ( pl ) then return end
+	-- 		if not ValidEntity ( self.Weapon ) then return end
 			
 			if self.SwapAnims then self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER ) else self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK ) end
 			self.SwapAnims = not self.SwapAnims
-	//	end)	
+	-- 	end)	
 				
-	// Set the next swing attack for cooldown
+	--  Set the next swing attack for cooldown
 	self.NextAttack = CurTime() + 3
 	self.NextHit = CurTime() + 0.7
 end
 
-//Primary attack function
+-- Primary attack function
 function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	if not ValidEntity ( self.Owner ) then return end
 	local mOwner = self.Owner
 	
-	//Trace filter
-	local trFilter = self.Owner//team.GetPlayers( TEAM_UNDEAD )
+	-- Trace filter
+	local trFilter = self.Owner-- team.GetPlayers( TEAM_UNDEAD )
 	
-	//Calculate damage done
+	-- Calculate damage done
 	local Damage = math.random( 50, 60 )
 
 	local TraceHit, HullHit = false, false
 	
-	//Push for whatever it hits
+	-- Push for whatever it hits
 	local Velocity = self.Owner:EyeAngles():Forward() * 5000
 	
-	//Tracehull attack
+	-- Tracehull attack
 	local trHull = util.TraceHull( { start = pl:GetShootPos(), endpos = pl:GetShootPos() + ( pl:GetAimVector() * 29 ), filter = trFilter, mins = Vector( -15,-10,-18 ), maxs = Vector( 20,20,20 ) } )
 	
 	local tr
@@ -218,77 +218,77 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	if SERVER then 
 	self.Owner:EmitSound("npc/zombie/claw_miss"..math.random(1, 2)..".wav", 90, math.random( 70, 80 ) ) end
 	
-	//Punch the prop / damage the player if the pretrace is valid
+	-- Punch the prop / damage the player if the pretrace is valid
 	if ValidEntity ( victim ) then
 		local phys = victim:GetPhysicsObject()
 		
-		//Break glass
+		-- Break glass
 		if victim:GetClass() == "func_breakable_surf" then
 			victim:Fire( "break", "", 0 )
 		end
 		
 		
-		//Take damage
+		-- Take damage
 		victim:TakeDamage ( math.Clamp( Damage, 1, 99 ), self.Owner, self )
 		
 		if victim:IsPlayer() and victim:IsZombie() then
 			victim:TakeDamage ( Damage/4, victim, self )
 		end
 
-		//Claw sound
+		-- Claw sound
 		if victim:IsPlayer() then
 			victim:EmitSound("player/zombies/seeker/melee_0"..math.random(1,3)..".wav",100, math.random( 90, 110 ))
 			if SERVER then util.Blood(tr.HitPos, math.Rand(Damage * 0.25, Damage * 0.6), (tr.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(Damage * 6, Damage * 12), true) end
 		else
-			//Play the hit sound
+			-- Play the hit sound
 			pl:EmitSound( "ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )
 		end
 				
-		//Case 2: It is a valid physics object
+		-- Case 2: It is a valid physics object
 		if phys:IsValid() and not victim:IsNPC() and phys:IsMoveable() and not victim:IsPlayer() then
 			if Velocity.z < 1800 then Velocity.z = 1800 end
 					
-			//Apply force to prop and make the physics attacker myself
+			-- Apply force to prop and make the physics attacker myself
 			phys:ApplyForceCenter( Velocity )
 			victim:SetPhysicsAttacker( pl )
 		end
 	end
 	
-	-- //Verify tracehull entity
+	-- -- Verify tracehull entity
 	if HullHit and not TraceHit then
 		local ent = trHull.Entity
-		if !ValidEntity(ent) then return end
+		if not ValidEntity(ent) then return end
 		local phys = ent:GetPhysicsObject()
 		
-		//Do a trace so that the tracehull won't push or damage objects over a wall or something
+		-- Do a trace so that the tracehull won't push or damage objects over a wall or something
 		local vStart, vEnd = self.Owner:GetShootPos(), ent:LocalToWorld ( ent:OBBCenter() )
 		local ExploitTrace = util.TraceLine ( { start = vStart, endpos = vEnd, filter = trFilter } )
 		
-		if ent != ExploitTrace.Entity then return end
+		if ent ~= ExploitTrace.Entity then return end
 		
-		//Break glass
+		-- Break glass
 		if ent:GetClass() == "func_breakable_surf" then
 			ent:Fire( "break", "", 0 )
 		end
 	
 		
-		//From behind
+		-- From behind
 		if ent:IsPlayer() then
 			ent:EmitSound("player/zombies/seeker/melee_0"..math.random(1,3)..".wav",100, math.random( 90, 110 ))
 			if self.Owner then util.Blood(tr.HitPos, math.Rand(Damage * 0.25, Damage * 0.6), (tr.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(Damage * 6, Damage * 12), true) end
 		else
-			//Play the hit sound
+			-- Play the hit sound
 			pl:EmitSound( "ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )
 		end
 		
-		//Take damage
+		-- Take damage
 		ent:TakeDamage ( math.Clamp( Damage, 1, 99 ), self.Owner, self )
 		
 		if ent:IsPlayer() and ent:IsZombie() then
 			ent:TakeDamage ( Damage/4, ent, self )
 		end
 	
-		//Apply force to the correct object
+		-- Apply force to the correct object
 		if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() then
 			if Velocity.z < 1800 then Velocity.z = 1800 end
 					
@@ -364,13 +364,13 @@ if CLIENT then
 		if not self.Owner:IsPlayer() then return end
 		
 		local vm = self.Owner:GetViewModel()
-		if !ValidEntity(vm) then return end
+		if not ValidEntity(vm) then return end
 			
 		
 		if (self.ShowViewModel == nil or self.ShowViewModel) then
 			vm:SetColor(255,255,255,255)
 		else
-			// we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
+			--  we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
 			vm:SetColor(255,255,255,1) 
 		end
 		
@@ -399,11 +399,11 @@ if CLIENT then
 			vm.BuildBonePositions = self.BuildViewModelBones
 		end
 		
-		if (!self.VElements) then return end
+		if (not self.VElements) then return end
 		
-		if (!self.vRenderOrder) then
+		if (not self.vRenderOrder) then
 			
-			// we build a render order because sprites need to be drawn after models
+			--  we build a render order because sprites need to be drawn after models
 			self.vRenderOrder = {}
 
 			for k, v in pairs( self.VElements ) do
@@ -419,16 +419,16 @@ if CLIENT then
 		for k, name in ipairs( self.vRenderOrder ) do
 		
 			local v = self.VElements[name]
-			if (!v) then self.vRenderOrder = nil break end
+			if (not v) then self.vRenderOrder = nil break end
 		
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
 			
-			if (!v.bone) then continue end
+			if (not v.bone) then continue end
 			
 			local pos, ang = self:GetBoneOrientation( self.VElements, v, vm )
 			
-			if (!pos) then continue end
+			if (not pos) then continue end
 			
 			if (v.type == "Model" and ValidEntity(model)) then
 
@@ -442,17 +442,17 @@ if CLIENT then
 				
 				if (v.material == "") then
 					model:SetMaterial("")
-				elseif (model:GetMaterial() != v.material) then
+				elseif (model:GetMaterial() ~= v.material) then
 					model:SetMaterial( v.material )
 				end
 				
-				if (v.skin and v.skin != model:GetSkin()) then
+				if (v.skin and v.skin ~= model:GetSkin()) then
 					model:SetSkin(v.skin)
 				end
 				
 				if (v.bodygroup) then
 					for k, v in pairs( v.bodygroup ) do
-						if (model:GetBodygroup(k) != v) then
+						if (model:GetBodygroup(k) ~= v) then
 							model:SetBodygroup(k, v)
 						end
 					end
@@ -498,7 +498,7 @@ if CLIENT then
 	SWEP.wRenderOrder = nil
 	function SWEP:DrawWorldModel()
 			
-		//if not self:IsAttacking() then return end
+		-- if not self:IsAttacking() then return end
 		
 		if self.WElements then
 			for k,v in pairs(self.WElements) do
@@ -510,9 +510,9 @@ if CLIENT then
 			end
 		end
 		
-		if (!self.WElements) then return end
+		if (not self.WElements) then return end
 		
-		if (!self.wRenderOrder) then
+		if (not self.wRenderOrder) then
 
 			self.wRenderOrder = {}
 
@@ -533,14 +533,14 @@ if CLIENT then
 				bone_ent = self.Owner
 			end
 		else
-			// when the weapon is dropped
+			--  when the weapon is dropped
 			bone_ent = self
 		end
 		
 		for k, name in pairs( self.wRenderOrder ) do
 		
 			local v = self.WElements[name]
-			if (!v) then self.wRenderOrder = nil break end
+			if (not v) then self.wRenderOrder = nil break end
 			
 			local pos, ang
 			
@@ -550,7 +550,7 @@ if CLIENT then
 				pos, ang = self:GetBoneOrientation( self.WElements, v, bone_ent, "ValveBiped.Bip01_R_Hand" )
 			end
 			
-			if (!pos) then continue end
+			if (not pos) then continue end
 			
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
@@ -567,17 +567,17 @@ if CLIENT then
 				
 				if (v.material == "") then
 					model:SetMaterial("")
-				elseif (model:GetMaterial() != v.material) then
+				elseif (model:GetMaterial() ~= v.material) then
 					model:SetMaterial( v.material )
 				end
 				
-				if (v.skin and v.skin != model:GetSkin()) then
+				if (v.skin and v.skin ~= model:GetSkin()) then
 					model:SetSkin(v.skin)
 				end
 				
 				if (v.bodygroup) then
 					for k, v in pairs( v.bodygroup ) do
-						if (model:GetBodygroup(k) != v) then
+						if (model:GetBodygroup(k) ~= v) then
 							model:SetBodygroup(k, v)
 						end
 					end
@@ -623,17 +623,17 @@ if CLIENT then
 	function SWEP:GetBoneOrientation( basetab, tab, ent, bone_override )
 		
 		local bone, pos, ang
-		if (tab.rel and tab.rel != "") then
+		if (tab.rel and tab.rel ~= "") then
 			
 			local v = basetab[tab.rel]
 			
-			if (!v) then return end
+			if (not v) then return end
 			
-			// Technically, if there exists an element with the same name as a bone
-			// you can get in an infinite loop. Let's just hope nobody's that stupid.
+			--  Technically, if there exists an element with the same name as a bone
+			--  you can get in an infinite loop. Let's just hope nobody's that stupid.
 			pos, ang = self:GetBoneOrientation( basetab, v, ent )
 			
-			if (!pos) then return end
+			if (not pos) then return end
 			
 			pos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
 			ang:RotateAroundAxis(ang:Up(), v.angle.y)
@@ -644,7 +644,7 @@ if CLIENT then
 		
 			bone = ent:LookupBone(bone_override or tab.bone)
 
-			if (!bone) then return end
+			if (not bone) then return end
 			
 			pos, ang = Vector(0,0,0), Angle(0,0,0)
 			local m = ent:GetBoneMatrix(bone)
@@ -654,7 +654,7 @@ if CLIENT then
 			
 			if (ValidEntity(self.Owner) and self.Owner:IsPlayer() and 
 				ent == self.Owner:GetViewModel() and self.ViewModelFlip) then
-				ang.r = -ang.r // Fixes mirrored models
+				ang.r = -ang.r --  Fixes mirrored models
 			end
 		
 		end
@@ -664,11 +664,11 @@ if CLIENT then
 
 	function SWEP:CreateModels( tab )
 
-		if (!tab) then return end
+		if (not tab) then return end
 
-		// Create the clientside models here because Garry says we can't do it in the render hook
+		--  Create the clientside models here because Garry says we can't do it in the render hook
 		for k, v in pairs( tab ) do
-			if (v.type == "Model" and v.model and v.model != "" and (!ValidEntity(v.modelEnt) or v.createdModel != v.model) and 
+			if (v.type == "Model" and v.model and v.model ~= "" and (not ValidEntity(v.modelEnt) or v.createdModel ~= v.model) and 
 					string.find(v.model, ".mdl") and file.Exists ("../"..v.model) ) then
 				
 				v.modelEnt = ClientsideModel(v.model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
@@ -682,12 +682,12 @@ if CLIENT then
 					v.modelEnt = nil
 				end
 				
-			elseif (v.type == "Sprite" and v.sprite and v.sprite != "" and (!v.spriteMaterial or v.createdSprite != v.sprite) 
+			elseif (v.type == "Sprite" and v.sprite and v.sprite ~= "" and (not v.spriteMaterial or v.createdSprite ~= v.sprite) 
 				and file.Exists ("../materials/"..v.sprite..".vmt")) then
 				
 				local name = v.sprite.."-"
 				local params = { ["$basetexture"] = v.sprite }
-				// make sure we create a unique name based on the selected options
+				--  make sure we create a unique name based on the selected options
 				local tocheck = { "nocull", "additive", "vertexalpha", "vertexcolor", "ignorez" }
 				for i, j in pairs( tocheck ) do
 					if (v[j]) then
@@ -706,9 +706,9 @@ if CLIENT then
 		
 	end
 
-	//function SWEP:OnRemove()
-	//	self:RemoveModels()		
-	//end
+	-- function SWEP:OnRemove()
+	-- 	self:RemoveModels()		
+	-- end
 
 	function SWEP:RemoveModels()
 		if (self.VElements) then

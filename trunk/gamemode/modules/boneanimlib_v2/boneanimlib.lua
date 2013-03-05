@@ -13,45 +13,45 @@ local meta = FindMetaTable("Entity")
 if not meta then return end
 
 function meta:ResetLuaAnimation(sAnimation, fTime, fPower, fTimeScale)
-	/*umsg.Start("resetluaanim")
+	--[==[umsg.Start("resetluaanim")
 		umsg.Entity(self)
 		umsg.String(sAnimation)
 		umsg.Float(fTime or -1)
 		umsg.Float(fPower or -1)
 		umsg.Float(fTimeScale or -1)
-	umsg.End()*/
+	umsg.End()]==]
 end
 
 function meta:SetLuaAnimation(sAnimation, fTime, fPower, fTimeScale)
-	/*umsg.Start("setluaanim")
+	--[==[umsg.Start("setluaanim")
 		umsg.Entity(self)
 		umsg.String(sAnimation)
 		umsg.Float(fTime or -1)
 		umsg.Float(fPower or -1)
 		umsg.Float(fTimeScale or -1)
-	umsg.End()*/
+	umsg.End()]==]
 end
 
 function meta:StopLuaAnimation(sAnimation, fTime)
-	/*umsg.Start("stopluaanim")
+	--[==[umsg.Start("stopluaanim")
 		umsg.Entity(self)
 		umsg.String(sAnimation)
 		umsg.Float(fTime or 0)
-	umsg.End()*/
+	umsg.End()]==]
 end
 
 function meta:StopLuaAnimationGroup(sAnimation, fTime)
-	/*umsg.Start("stopluaanimgp")
+	--[==[umsg.Start("stopluaanimgp")
 		umsg.Entity(self)
 		umsg.String(sAnimation)
 		umsg.Float(fTime or 0)
-	umsg.End()*/
+	umsg.End()]==]
 end
 
 function meta:StopAllLuaAnimations(fTime)
-	/*umsg.Start("stopallluaanim")
+	--[==[umsg.Start("stopallluaanim")
 		umsg.Entity(self)
 		umsg.Float(fTime or 0)
-	umsg.End()*/
+	umsg.End()]==]
 end
 end

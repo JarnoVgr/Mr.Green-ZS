@@ -11,27 +11,27 @@ local player = player
 local timer = timer
 local umsg = umsg
 
-/*----------------------------------------------------
+--[==[----------------------------------------------------
    Run the base function with SetPlayerSpeed
-----------------------------------------------------*/
+----------------------------------------------------]==]
 --timer.Simple ( 0.5, function()
 --	local BaseSetPlayerSpeed = GM.SetPlayerSpeed
 	function GM:SetPlayerSpeed( pl, walk, run, max )
 		if not ValidEntity ( pl ) then return end
 		if not pl:IsPlayer() then return end
 		
-		//Check for nulls
+		-- Check for nulls
 		run, max = run or walk, max or walk
 		
-		//Damn you Garry!
+		-- Damn you Garry!
 		if ( walk == 0 ) then walk = 1 end
 		if ( run == 0 ) then run = 1 end
 		if ( max == 0 ) then max = 1 end --@NECROSSIN: It was a typo, you need glasses :<
 		
-		//Call the base function
+		-- Call the base function
 		--BaseSetPlayerSpeed ( pl, walk )
 		
-		//Do other stuff
+		-- Do other stuff
 		pl.WalkSpeed = walk
 		pl:SetWalkSpeed( walk )
 		pl:SetRunSpeed( run )
@@ -40,9 +40,9 @@ local umsg = umsg
 --end )
 
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Shuffle a table  (code from TTT)
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local rand = math.random
 function table.Shuffle(t)
   local n = #t
@@ -58,74 +58,74 @@ function table.Shuffle(t)
   return t
 end
 
-/*---------------------------------------------
+--[==[---------------------------------------------
                 Debug usermessages
----------------------------------------------*/
+---------------------------------------------]==]
 umsg.BaseStart = umsg.Start
-/*function umsg.Start ( strLocation, eTo )
+--[==[function umsg.Start ( strLocation, eTo )
 	if strLocation == nil then return end
 	
-	//Base usermessage function
+	-- Base usermessage function
 	umsg.BaseStart ( strLocation, eTo )
 	
-	//Only debug with the convar on
-	//if GetConVarNumber ( "debug_usermessages" ) == 0 then return end
+	-- Only debug with the convar on
+	-- if GetConVarNumber ( "debug_usermessages" ) == 0 then return end
 	
-	//Debug 
+	-- Debug 
 	local To = "every player."
-	if eTo != nil then To = tostring ( eTo ) end
-	//Debug ( "[USERMESSAGE-START] Sending usermessage to function "..tostring ( strLocation ).." to: "..tostring ( To ) )
+	if eTo ~= nil then To = tostring ( eTo ) end
+	-- Debug ( "[USERMESSAGE-START] Sending usermessage to function "..tostring ( strLocation ).." to: "..tostring ( To ) )
 	print( "[USERMESSAGE-START] Sending usermessage to function "..tostring ( strLocation ).." to: "..tostring ( To ) )
-end*/
+end]==]
 
-/*---------------------------------------------
+--[==[---------------------------------------------
                 Debug usermessages
----------------------------------------------*/
+---------------------------------------------]==]
 umsg.BaseEnd = umsg.End
-/*function umsg.End ()
-	//Base end function
+--[==[function umsg.End ()
+	-- Base end function
 	umsg.BaseEnd()
 	
-	//Only debug with the convar on
-	//if GetConVarNumber ( "debug_usermessages" ) == 0 then return end
+	-- Only debug with the convar on
+	-- if GetConVarNumber ( "debug_usermessages" ) == 0 then return end
 	
-	//Debug
-	//Debug ( "[USERMESSAGE-END] Ending usermessage." )
+	-- Debug
+	-- Debug ( "[USERMESSAGE-END] Ending usermessage." )
 	print ( "[USERMESSAGE-END] Ending usermessage." )
-end*/
+end]==]
 
-/*-------------------------------------------------
+--[==[-------------------------------------------------
              Debug server-side effects
---------------------------------------------------*/
+--------------------------------------------------]==]
 util.BaseEffect = util.Effect
-/*function util.Effect ( strName, eData, bOverride, bIgnorePrediction )
+--[==[function util.Effect ( strName, eData, bOverride, bIgnorePrediction )
 	if strName == nil or eData == nil then return end
 	
-	//Debug
-	if GetConVarNumber ( "debug_effects" ) != 0 then Debug ( "[EFFECT] Spawning effect: "..tostring ( strName )..". Override is "..tostring ( bOverride )..". Ignoring Prediction: "..tostring ( bIgnorePrediction ) ) end
+	-- Debug
+	if GetConVarNumber ( "debug_effects" ) ~= 0 then Debug ( "[EFFECT] Spawning effect: "..tostring ( strName )..". Override is "..tostring ( bOverride )..". Ignoring Prediction: "..tostring ( bIgnorePrediction ) ) end
 	
-	//Base function
+	-- Base function
 	util.BaseEffect ( strName, eData, bOverride, bIgnorePrediction )
-end*/
+end]==]
 
-/*---------------------------------------------------
+--[==[---------------------------------------------------
       Used to call drop/strip weapon on client
-----------------------------------------------------*/
+----------------------------------------------------]==]
 function ClientDropWeapon ( self, Class )
 	if not ValidEntity ( self ) then return end
 	if not self:IsPlayer() then return end
 	
-	//Player not ready
+	-- Player not ready
 	if not self.Ready then return end
 
-	//Send it to client
+	-- Send it to client
 	umsg.Start( "OnWeaponDropped", self )
 	umsg.End()
 end
 
-/*----------------------------------------------------------------
+--[==[----------------------------------------------------------------
      Used to send umgs from and to for classes (by Clavus)
-----------------------------------------------------------------*/
+----------------------------------------------------------------]==]
 function UpdatePlayerClass ( from, to, class, var )
 	if var == nil or class == nil then return end
 
@@ -157,9 +157,9 @@ function UpdatePlayerClass ( from, to, class, var )
 	end
 end
 
-/*-------------------------------------------------------
+--[==[-------------------------------------------------------
           Updates client arrow status
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 
 util.AddNetworkString( "UpdateClientArrows" )
 
@@ -187,8 +187,8 @@ function UpdateClientArrows( pl )
 		end
 	end	
 	
-	//Get supply crates
-	local tbCrates = crates//ActualCrates//ents.FindByClass ( "spawn_ammo" )
+	-- Get supply crates
+	local tbCrates = crates-- ActualCrates-- ents.FindByClass ( "spawn_ammo" )
 	if #tbCrates == 0 or #player.GetAll() == 0 then return end
 	
 	net.Start("UpdateClientArrows")
@@ -209,7 +209,7 @@ function UpdateClientArrows( pl )
 	
 	
 	
-	/*//Update clients
+	--[==[-- Update clients
 	umsg.Start ( "UpdateClientArrows", pl )
 		umsg.Short ( #tbCrates )
 		for i = 1, #tbCrates do
@@ -217,25 +217,25 @@ function UpdateClientArrows( pl )
 			if tbCrates[i].Switch then pos = tbCrates[i]:GetPos()+Vector(20,0,0) end
 			umsg.Vector ( pos )
 		end
-	umsg.End()	*/
+	umsg.End()	]==]
 end
 
-/*--------------------------------------------------------------------------------
+--[==[--------------------------------------------------------------------------------
               Called when a player is being howlered (screamed upon)
-----------------------------------------------------------------------------------*/
+----------------------------------------------------------------------------------]==]
 function GM:OnPlayerHowlered ( pl, iIntensity )
 	if not IsEntityValid ( pl ) or iIntensity == nil then return end
 	
-	//Disorient the player
+	-- Disorient the player
 	pl:SendLua( "StalkerFuck("..( iIntensity )..")" )
 	
-	//Play a help sound/scream
+	-- Play a help sound/scream
 	pl:EmitSound ( table.Random ( VoiceSets[ pl.VoiceSet or 1 ].Frightened ) )
 end
 
-/*-------------------------------------------------------
+--[==[-------------------------------------------------------
           Returns a player by steamID
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GetPlayerBySteamID( SteamID )
 	for k,v in pairs ( player.GetAll() ) do
 		if v:SteamID() == SteamID then

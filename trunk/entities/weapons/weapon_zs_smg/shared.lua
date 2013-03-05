@@ -20,7 +20,7 @@ if CLIENT then
 	SWEP.ScaleDownLeftHand = true
 	
 	SWEP.VElements = {
-	//	["smg1"] = { type = "Model", model = "models/Weapons/w_smg1.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(-0.826, 0.95, 3.444), angle = Angle(88.787, 143.143, 126.155), size = Vector(0.837, 0.842, 0.856), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	-- 	["smg1"] = { type = "Model", model = "models/Weapons/w_smg1.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(-0.826, 0.95, 3.444), angle = Angle(88.787, 143.143, 126.155), size = Vector(0.837, 0.842, 0.856), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 	
 	SWEP.IconLetter = "/"

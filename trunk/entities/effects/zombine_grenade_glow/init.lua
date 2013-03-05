@@ -1,16 +1,16 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-//Initialization
+-- Initialization
 function EFFECT:Init( data )
 	self.Item = data:GetEntity()
 	if not self:IsItemValid() then return end
 
-	//Set emitter position
+	-- Set emitter position
 	self:SetPos( self:GetCenter() )
 	self.Emitter = ParticleEmitter( self:GetCenter() )
 	
-	//Get grenade type
+	-- Get grenade type
 	self.GrenadeType = self.Item:GetType()
 
 	self.Particles = {}
@@ -24,7 +24,7 @@ function EFFECT:Init( data )
 		self.Particles[i]:SetEndSize( 9 )
 		self.Particles[i]:SetRoll( 250 )
 		
-		//Red for kinetic, green for poison
+		-- Red for kinetic, green for poison
 		if self.GrenadeType then	
 			self.Particles[i]:SetStartAlpha( 210 )
 			self.Particles[i]:SetColor( 255, 30, 30 )
@@ -35,13 +35,13 @@ function EFFECT:Init( data )
 	end
 end
 
-//Terminates effect
+-- Terminates effect
 function EFFECT:Finish()
 	if self.Emitter then
 		self.Emitter:Finish()
 	end
 	
-	//Erase particles
+	-- Erase particles
 	if self.Particles then
 		for i = 1, 2 do
 			self.Particles[i]:SetDieTime( 0.01 )
@@ -51,12 +51,12 @@ function EFFECT:Finish()
 	return false
 end
 
-//Checks if item is valid
+-- Checks if item is valid
 function EFFECT:IsItemValid()
 	return IsValid( self.Item ) 
 end
 
-//Returns effect position
+-- Returns effect position
 function EFFECT:GetCenter()
 	if self:IsItemValid() then
 		return self.Item:LocalToWorld( self.Item:OBBCenter() )
@@ -65,19 +65,19 @@ function EFFECT:GetCenter()
 	return Vector( 0,0,0 )
 end
 
-//Effect think
+-- Effect think
 function EFFECT:Think()
 	if not self:IsItemValid() then
 		return self:Finish()
 	end
 	
-	//Update emitter position
+	-- Update emitter position
 	self:SetPos( self:GetCenter() )
 	
 	return true
 end
 
-//Renders particles
+-- Renders particles
 function EFFECT:Render()
 	if self.Particles then
 		for i = 1, 2 do

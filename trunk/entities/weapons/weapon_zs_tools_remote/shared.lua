@@ -31,7 +31,7 @@ SWEP.Author = "NECROSSIN"
 SWEP.ViewModel = "models/weapons/v_c4.mdl"
 SWEP.WorldModel = "models/weapons/w_pistol.mdl"
 
-//SWEP.Info = ""
+-- SWEP.Info = ""
 
 SWEP.Base				= "weapon_zs_base_dummy"
 
@@ -98,7 +98,7 @@ function SWEP:OnDeploy()
 			end
 		end
 	end
-	//Draw animation
+	-- Draw animation
 	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
 end
 

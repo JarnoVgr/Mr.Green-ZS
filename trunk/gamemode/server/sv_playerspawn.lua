@@ -12,25 +12,25 @@ local timer = timer
 local umsg = umsg
 local ents = ents
 
-//Global vars 
+-- Global vars 
 GM.UndeadSpawnPoints = {}
 GM.HumanSpawnPoints = {}
 DataTableConnected = {}
 
-/*--------------------------------------------------------------
+--[==[--------------------------------------------------------------
       Called everytime a player connects for first time
----------------------------------------------------------------*/
+---------------------------------------------------------------]==]
 function GM:PlayerInitialSpawn( pl )
 
 	pl:SetCanZoom( false )
 
-	//Bots are always ready, human players need to wait
+	-- Bots are always ready, human players need to wait
 	if pl:IsBot() then pl.Ready = true else pl.Ready = false end
 	
 	pl:SetZombieClass(0)
 	pl:SetHumanClass(1)
 	
-	//Substract one point from the most chosen class table to compensate for the setzombie/human class above
+	-- Substract one point from the most chosen class table to compensate for the setzombie/human class above
 	local HumanClassName, ZombieClassName = HumanClasses[1].Name, ZombieClasses[1].Name
 	self.TeamMostChosenClass[ HumanClassName ] = self.TeamMostChosenClass[ HumanClassName ] - 1 
 	self.TeamMostChosenClass[ ZombieClassName ] = self.TeamMostChosenClass[ ZombieClassName ] - 1
@@ -79,9 +79,9 @@ function GM:PlayerInitialSpawn( pl )
 	
 	pl.ReviveCount = 0
 	
-	//Small table for enabling some skillshots
+	-- Small table for enabling some skillshots
 	pl.MultiKills = {}
-	//Filter specific weapons
+	-- Filter specific weapons
 	pl.MultiKills.Grenade = {}
 	pl.MultiKills.Crossbow = {}
 	pl.MultiKills.Mine = {}
@@ -108,18 +108,18 @@ function GM:PlayerInitialSpawn( pl )
 	pl.LastRTD = 0 
 	pl.StuckTimer = 0
 	
-	//Used for supply boxes cooldown
+	-- Used for supply boxes cooldown
 	pl.GotSupplyTimer = 0
 	
 	pl:SetCustomCollisionCheck( true )
-	//pl:SetNoCollideWithTeammates(true)
-	//pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
+	-- pl:SetNoCollideWithTeammates(true)
+	-- pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
 	
-	//Spawn timer
-	//pl.NextSpawn = 0
+	-- Spawn timer
+	-- pl.NextSpawn = 0
 	
-	//Used to control how many weapons you are allowed to pickup
-	//pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tools = 0, Others = 0, Explosive = 0, Admin = 0 }
+	-- Used to control how many weapons you are allowed to pickup
+	-- pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tools = 0, Others = 0, Explosive = 0, Admin = 0 }
 	pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
 	
 	pl.AutoRedeem = util.tobool(pl:GetInfoNum("_zs_autoredeem",1)) or true
@@ -128,19 +128,19 @@ function GM:PlayerInitialSpawn( pl )
 	local balance = team.NumPlayers (TEAM_HUMAN) / team.NumPlayers (TEAM_UNDEAD)
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
-	//Team
+	-- Team
 	local iTeam = TEAM_SPECTATOR
 	
 	if pl:IsBot() then iTeam = TEAM_HUMAN end
-	//Send toxic fumes positions to client since I can't seem to get the spawnpoints clientside
+	-- Send toxic fumes positions to client since I can't seem to get the spawnpoints clientside
 	timer.Simple ( 2, function() SentToxicFumesPosition ( pl ) end )
 	
-	//Setup a table for connected players for good reasons
+	-- Setup a table for connected players for good reasons
 	if not DataTableConnected[ID] then
 		DataTableConnected[ID] = { IsDead = false, SuicideSickness = false, Health = false, HumanClass = false, AlreadyGotWeapons = false } 
 	end
 	
-	//Case 3: If player has connected as human and passed the class menu then reconnected then set him as human again with same class and health
+	-- Case 3: If player has connected as human and passed the class menu then reconnected then set him as human again with same class and health
 	if pl:ConnectedAlreadyGotWeapons() and not pl:ConnectedIsDead() then
 		iTeam = TEAM_HUMAN
 	end
@@ -175,24 +175,24 @@ function GM:PlayerInitialSpawn( pl )
 
 	
 	
-	//Set the player's team
+	-- Set the player's team
 	pl:SetTeam ( iTeam )
 	
 	if pl:Team() == TEAM_UNDEAD and (self:GetWave() <= 0 or not self:GetFighting()) then
-		//print("Late joiner")
-		//pl:SetZombieClass(9)
-		//pl.DeathClass = 1
+		-- print("Late joiner")
+		-- pl:SetZombieClass(9)
+		-- pl.DeathClass = 1
 		pl.SpawnAsCrow = true
-		//pl:SetAsCrow()
+		-- pl:SetAsCrow()
 	else
 		pl:SetZombieClass(0)
 	end
 	
-	//Call PlayerReady if player is a bot
+	-- Call PlayerReady if player is a bot
 	if pl:IsBot() then pl:SetHumanClass ( 1 ) self:PlayerReady( pl ) end
 	
-	// logging
-	if (iTeam != TEAM_SPECTATOR) then
+	--  logging
+	if (iTeam ~= TEAM_SPECTATOR) then
 		--log.PlayerJoinTeam( pl, iTeam )
 		--log.PlayerRoleChange( pl, pl:GetClassTag() )
 	end
@@ -212,34 +212,34 @@ function GM:PlayerInitialSpawn( pl )
 	Debug ( "[INIT-SPAWN] "..tostring ( pl ).." finished Initial Spawn Function!" ) 
 end
 
-/*-----------------------------------------------------------------
+--[==[-----------------------------------------------------------------
      Mainly for debug purposes -- record everything in logs
-------------------------------------------------------------------*/
+------------------------------------------------------------------]==]
 local function PlayerConnected ( pl, ip )
 	Debug ( "[CONNECTED] Player "..tostring ( pl ).." Connected. IP is "..tostring ( ip ) )
 end
 hook.Add ( "PlayerConnect", "Connected", PlayerConnected )
 
-//Add these new player models to the list
+-- Add these new player models to the list
 player_manager.AddValidModel ( "Gordon Freeman", "models/player/gordon_classic.mdl" )
 
-/*------------------------------------------------
+--[==[------------------------------------------------
      Main spawn function - called on spawn
--------------------------------------------------*/
+-------------------------------------------------]==]
 function GM:PlayerSpawn ( pl )
 
-	//Player must receive data from server before he can spawn
+	-- Player must receive data from server before he can spawn
 	if not pl.Ready then pl:KillSilent() Debug ( "[SPAWN] "..tostring ( pl ).." is not Ready. Blocking spawn and killing him silently. Alive: "..tostring ( pl:Alive() ) ) return end
 
-	//Predictin spawn, dont erase
+	-- Predictin spawn, dont erase
 	pl:SetDeaths ( PREDICT_SPAWN )
-	//timer.Simple ( 0.5, function( pl ) if IsEntityValid ( pl ) then pl:SetDeaths ( PREDICT_SPAWN_END ) end end)
+	-- timer.Simple ( 0.5, function( pl ) if IsEntityValid ( pl ) then pl:SetDeaths ( PREDICT_SPAWN_END ) end end)
 	
 
 	
-	if pl:Team() != TEAM_SPECTATOR then
+	if pl:Team() ~= TEAM_SPECTATOR then
 	
-		//Return his original color to normal
+		-- Return his original color to normal
 		if not FIRSTAPRIL then
 			pl:SetColor ( Color(255,255,255,255) )
 		else
@@ -247,7 +247,7 @@ function GM:PlayerSpawn ( pl )
 			umsg.End()
 		end
 
-		//Unlock or unfreeze if neccesary and make him able to walk
+		-- Unlock or unfreeze if neccesary and make him able to walk
 		pl:UnLock()
 		pl:Freeze( false )
 		
@@ -266,7 +266,7 @@ function GM:PlayerSpawn ( pl )
 			
 		pl.LastHealth = pl:Health()
 		
-		//Disable walk
+		-- Disable walk
 		pl:SetCanWalk ( false )
 		
 		
@@ -274,11 +274,11 @@ function GM:PlayerSpawn ( pl )
 		
 		--pl:SendLua("GAMEMODE:SwitchMaterials("..pl:Team()..")")
 		
-		//Set no-collide with team
-		//This shit glitchy as hell
+		-- Set no-collide with team
+		-- This shit glitchy as hell
 		--pl:SetNoCollideWithTeammates( true )
 		
-		//Setup spawn functions
+		-- Setup spawn functions
 		if pl:Team() == TEAM_HUMAN then
 			self:OnHumanSpawn ( pl )
 		elseif pl:Team() == TEAM_UNDEAD then
@@ -296,12 +296,12 @@ function GM:PlayerSpawn ( pl )
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
    Called right when the human classes menu appears
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function GM:OnFirstHumanSpawn ( pl )
 
-	//Kill them and make them stay still
+	-- Kill them and make them stay still
 	pl:KillSilent() 
 	
 	pl.HumanClassMenuSent = true
@@ -309,38 +309,38 @@ function GM:OnFirstHumanSpawn ( pl )
 	Debug ( "[INIT-SPAWN] Sending Human Class Menu to "..tostring ( pl ) )
 end
 
-/*------------------------------------------------
+--[==[------------------------------------------------
 	Called everytime a human spawns
--------------------------------------------------*/
+-------------------------------------------------]==]
 function GM:OnHumanSpawn ( pl )
 	if not pl:IsHuman() then return end
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
-	//Time the player spawned
+	-- Time the player spawned
 	pl.SpawnedTime = CurTime()
 	
-	//Case 1: If the player already got the class menu as human and disconnected then set his same class back and/or hp
-	if pl:ConnectedAlreadyGotWeapons() and pl:ConnectedHumanClass() != false then
-		//pl:SetHumanClass ( pl:ConnectedHumanClass() )
+	-- Case 1: If the player already got the class menu as human and disconnected then set his same class back and/or hp
+	if pl:ConnectedAlreadyGotWeapons() and pl:ConnectedHumanClass() ~= false then
+		-- pl:SetHumanClass ( pl:ConnectedHumanClass() )
 		DataTableConnected[ID].HumanClass = false
 	end
 	
-	//Strip weapons (bots automatically spawn)
+	-- Strip weapons (bots automatically spawn)
 	if not pl:IsBot() then pl:StripWeapons() end
 	
-	//Reset the Ammo-Regeneration Timer and send it to the client
+	-- Reset the Ammo-Regeneration Timer and send it to the client
 	pl:SetAmmoTime( AMMO_REGENERATE_RATE, true )
 	
 	local Class = pl:GetHumanClass()
 	local PlayerModel
 	-- lets take it easy
-	//local modelname = string.lower(player_manager.TranslatePlayerModel(pl:GetInfo("cl_playermodel")))
+	-- local modelname = string.lower(player_manager.TranslatePlayerModel(pl:GetInfo("cl_playermodel")))
 	
 	if table.HasValue(PlayerModels, modelname) then
-	//	PlayerModel = modelname
+	-- 	PlayerModel = modelname
 	else
-	//	PlayerModel = "models/player/kleiner.mdl"
+	-- 	PlayerModel = "models/player/kleiner.mdl"
 	end
 	
 	local desiredname = pl:GetInfo("cl_playermodel")
@@ -365,47 +365,47 @@ function GM:OnHumanSpawn ( pl )
 	pl.ReviveCount = 0
 	
 	
-	//Case 2: If player has bought gordon freeman upgrade then he has a chance to spawn as him
+	-- Case 2: If player has bought gordon freeman upgrade then he has a chance to spawn as him
 	if pl:HasBought("gordonfreeman") and not self.GordonIsHere and math.random( 1,5 ) == 1 then
-		--[[pl:ChatPrint("You're now THE Gordon Freeman!")
+		--[=[pl:ChatPrint("You're now THE Gordon Freeman!")
 		pl.IsFreeman = true
 		self.GordonIsHere = true
-		PlayerModel = "models/player/gordon_classic.mdl"]]
+		PlayerModel = "models/player/gordon_classic.mdl"]=]
 	end
 	
 	if pl:GetPerk("_freeman") then
-		//PlayerModel = "models/player/gordon_classic.mdl"
+		-- PlayerModel = "models/player/gordon_classic.mdl"
 	end
 	
-	//Change his player model and set up his voice set
+	-- Change his player model and set up his voice set
 	pl:SetModel ( PlayerModel )
 	pl.VoiceSet = VoiceSetTranslate[ string.lower( PlayerModel ) ] or "male"
 			
-	//Calculate player's speed
+	-- Calculate player's speed
 	self:SetPlayerSpeed( pl, CalculatePlayerSpeed ( pl ) )
 
-	//Set the human's crouch speed
+	-- Set the human's crouch speed
 	pl:SetCrouchedWalkSpeed( 0.65 )
 	
-	//Set jump power
-	if pl:GetJumpPower() != 200 then
+	-- Set jump power
+	if pl:GetJumpPower() ~= 200 then
 		pl:SetJumpPower( 200 ) 
 	end
 	
-	//Calculate maximum health for human
+	-- Calculate maximum health for human
 	CalculatePlayerHealth( pl )
-	//pl:SetHealth ( HumanClasses[Class].Health )
-	//pl:SetMaximumHealth ( HumanClasses[Class].Health )
+	-- pl:SetHealth ( HumanClasses[Class].Health )
+	-- pl:SetMaximumHealth ( HumanClasses[Class].Health )
 	
-	//CalculateHumanHull( pl )
+	-- CalculateHumanHull( pl )
 	
-	//pl:CalculateViewOffsets()
+	-- pl:CalculateViewOffsets()
 	pl:DoHulls()
 			
-	//Give them what they need
+	-- Give them what they need
 	CalculatePlayerLoadout ( pl )
 	
-	//check just in case
+	-- check just in case
 	timer.Simple(2,function()
 						if ValidEntity(pl) then
 							if #pl:GetWeapons() < 1 then
@@ -417,47 +417,47 @@ function GM:OnHumanSpawn ( pl )
 	self:SendSalesToClient(pl)
 	
 	
-	//GAMEMODE:SendRanks( { pl },player.GetAll() )
-	//GAMEMODE:SendXP( { pl },player.GetAll() )
+	-- GAMEMODE:SendRanks( { pl },player.GetAll() )
+	-- GAMEMODE:SendXP( { pl },player.GetAll() )
 	pl:SetBloodColor(BLOOD_COLOR_RED)
 
 	self:ProceedCustomSpawn(pl)
 	
-	//timer.Simple(2,function() if IsValid(pl) then pl:TemporaryNoCollide() end end)
+	-- timer.Simple(2,function() if IsValid(pl) then pl:TemporaryNoCollide() end end)
 	
 
 	local col = pl:GetInfo( "cl_playercolor" )
 	pl:SetPlayerColor( Vector( col ) )
 
-	//local col = pl:GetInfo( "cl_weaponcolor" )
+	-- local col = pl:GetInfo( "cl_weaponcolor" )
 	pl:SetWeaponColor( Vector( col ) )
 	
-	//Set hat
-	if ( pl.SelectedHat != "none" ) or pl:IsBot() then self:SpawnHat( pl, pl.SelectedHat ) end
-	if ( pl.SelectedSuit != "none" ) or pl:IsBot() then self:SpawnSuit( pl, pl.SelectedSuit ) end
+	-- Set hat
+	if ( pl.SelectedHat ~= "none" ) or pl:IsBot() then self:SpawnHat( pl, pl.SelectedHat ) end
+	if ( pl.SelectedSuit ~= "none" ) or pl:IsBot() then self:SpawnSuit( pl, pl.SelectedSuit ) end
 	
 	Debug ( "[SPAWN] "..tostring ( pl:Name() ).." spawned as a Human." )
 end
 
-/*------------------------------------------------
+--[==[------------------------------------------------
 	Called everytime a zombie spawns
--------------------------------------------------*/
+-------------------------------------------------]==]
 function GM:OnZombieSpawn ( pl )
-	if pl:Team() != TEAM_UNDEAD then return end
+	if pl:Team() ~= TEAM_UNDEAD then return end
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
-	//Set a random human class if they connect as zombie and there is no human class
+	-- Set a random human class if they connect as zombie and there is no human class
 	if pl:ConnectedIsDead() and pl.ClassHuman == nil then
 		pl:SetHumanClass ( 1 )
 	end
 	
-	//Manages class spawn
+	-- Manages class spawn
 	if pl.DeathClass and GAMEMODE:GetFighting() and GAMEMODE:GetWave() > 0 then
 		pl:SetZombieClass( pl.DeathClass )
 		pl.DeathClass = nil
 		
-		// logging
+		--  logging
 		--log.PlayerRoleChange( pl, pl:GetClassTag() )	
 	end
 	
@@ -467,7 +467,7 @@ function GM:OnZombieSpawn ( pl )
 		pl.SpawnAsCrow = false
 	end
 	
-	//Enable the suicide system on the player if he had it
+	-- Enable the suicide system on the player if he had it
 	if pl:ConnectedHasSuicideSickness() then
 		pl.Suicided = true
 		DataTableConnected[ID].SuicideSickness = false
@@ -477,8 +477,8 @@ function GM:OnZombieSpawn ( pl )
 	local Class = pl:GetZombieClass()
 	local Tab = ZombieClasses[Class]
 	
-		//Surprise 
-	--[[if pl.Suicided then
+		-- Surprise 
+	--[=[if pl.Suicided then
 	pl.SuicideMessageTime = pl.SuicideMessageTime or 0
 		if pl.SuicideMessageTime < CurTime() then
 			--pl:Message( "Good job on suiciding, mate! Let's see what you gonna do now.", 1, "255,255,255,255" )
@@ -487,7 +487,7 @@ function GM:OnZombieSpawn ( pl )
 		if CurTime() >= ROUNDTIME * 0.25 then
 			pl.Suicided = false
 		end	
-	end]]
+	end]=]
 	
 	local stchance = 1/(ST_ZOMBIE_CHANCE/100)
 	
@@ -498,29 +498,29 @@ function GM:OnZombieSpawn ( pl )
 		end
 	end
 	
-	//Calculate zombie's health
+	-- Calculate zombie's health
 	CalculateZombieHealth ( pl )
 	
-	//CalculateZombieHull( pl )
+	-- CalculateZombieHull( pl )
 	
-	//pl:CalculateViewOffsets()
+	-- pl:CalculateViewOffsets()
 	pl:DoHulls(Class, TEAM_UNDEAD)
 	
-	//Attach crabs to zombos
+	-- Attach crabs to zombos
 	pl:SetHeadcrabBodyGroup()
 	
-	//Set the zombie's model
+	-- Set the zombie's model
 	pl:SetModel ( Tab.Model )
 	
 	if not pl.Loadout then pl.Loadout = {} end
 	
-	//Fix late spawners
+	-- Fix late spawners
 	if #pl.Loadout <=1 then
 		timer.Simple(1,function() if ValidEntity(pl) then pl:SendLua("LateSpawnLoadout()") end end)
 	end
 
-	//Set jump power
-	if pl:GetJumpPower() != ( Tab.JumpPower or 200 ) then
+	-- Set jump power
+	if pl:GetJumpPower() ~= ( Tab.JumpPower or 200 ) then
 		pl:SetJumpPower( Tab.JumpPower or 200 ) 
 	end
 	
@@ -531,32 +531,32 @@ function GM:OnZombieSpawn ( pl )
 	end
 	
 	if not pl.Revived then
-		//SpawnProtection(pl)
+		-- SpawnProtection(pl)
 		pl.NoExplosiveDamage = CurTime() + 1.5 
 	end
-	//Give the zombie claws
+	-- Give the zombie claws
 	
 	pl:StripWeapons()
 	
 	if Tab.SWEP then pl:Give ( Tab.SWEP ) pl:SelectWeapon ( Tab.SWEP ) end
 	
-	//if not pl:GetZombieClass() ~= 9 then
-	//	pl:StripWeapon("weapon_zs_crow")
-	//end
+	-- if not pl:GetZombieClass() ~= 9 then
+	-- 	pl:StripWeapon("weapon_zs_crow")
+	-- end
 	
 	local col = pl:GetInfo( "cl_playercolor" )
 	pl:SetPlayerColor( Vector( col ) )
 
-	//local col = pl:GetInfo( "cl_weaponcolor" )
+	-- local col = pl:GetInfo( "cl_weaponcolor" )
 	pl:SetWeaponColor( Vector( col ) )
 
 	if Tab.OnSpawn then
 		Tab.OnSpawn(pl)
 	end
 	
-	//if pl.Revived or self:GetFighting() and CurTime() < self:GetWaveEnd() then
+	-- if pl.Revived or self:GetFighting() and CurTime() < self:GetWaveEnd() then
 		
-		//Set the zombie's walk and crouch speed
+		-- Set the zombie's walk and crouch speed
 		self:SetPlayerSpeed ( pl, Tab.Speed )
 		pl:SetCrouchedWalkSpeed ( Tab.CrouchWalkSpeed or 0.80 )
 		
@@ -568,15 +568,15 @@ function GM:OnZombieSpawn ( pl )
 			end
 		end
 		
-		//Check for spawnprotection
+		-- Check for spawnprotection
 		
 		pl:UnSpectate()		
-		//Prevent health pickups and/or machines
+		-- Prevent health pickups and/or machines
 		pl:SetMaxHealth( 1 ) 
 		
 		pl:SetBloodColor(BLOOD_COLOR_YELLOW)
-	//else
-		//if self:GetWave() != 0 then
+	-- else
+		-- if self:GetWave() ~= 0 then
 		
 		if not pl.Revived or not self:GetFighting() or CurTime() > self:GetWaveEnd() then
 			pl.StartCrowing = 0
@@ -584,18 +584,18 @@ function GM:OnZombieSpawn ( pl )
 		
 		if not pl.Revived and not self:GetFighting() and CurTime() > self:GetWaveEnd() then --not pl.Revived or
 			if not pl:IsCrow() then
-			//	pl:SetAsCrow()
+			-- 	pl:SetAsCrow()
 			end
 		end
-			//pl:Spectate(OBS_MODE_ROAMING)
-	//	end
-	//end
+			-- pl:Spectate(OBS_MODE_ROAMING)
+	-- 	end
+	-- end
 
 
 	Debug ( "[SPAWN] "..tostring ( pl:Name() ).." spawned as a Zombie." )
 end
 
-//Human's dynamic spawn
+-- Human's dynamic spawn
 
 function GM:ProceedCustomSpawn(pl)
 
@@ -616,26 +616,26 @@ end
 
 
 
-/*------------------------------------------------
+--[==[------------------------------------------------
 	    Called on player disconnect
--------------------------------------------------*/
+-------------------------------------------------]==]
 function GM:PlayerDisconnected( pl )
 	if not ValidEntity ( pl ) then return end
-	//Save greencoins and stats
+	-- Save greencoins and stats
 	pl:SaveGreenCoins()
-	//Clean up sprays
+	-- Clean up sprays
 	table.remove( Sprays,pl:UserID() )
 	SendSprayData()
 	Debug ( "[DISCONNECT] "..tostring ( pl ).." disconnected from the server. IP is "..tostring ( pl:IPAddress() ).." | SteamID: "..tostring ( pl:SteamID() ) )
 	
-	//Player saved data
+	-- Player saved data
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	if DataTableConnected[ID] == nil then return end
-	//Case 1: Disconnect as human
+	-- Case 1: Disconnect as human
 	if pl:Team() == TEAM_HUMAN then 
 		DataTableConnected[ID] = { IsDead = true, SuicideSickness = false, HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
 	end
-	//Case 2: Disconnect as zombie
+	-- Case 2: Disconnect as zombie
 	if pl:Team() == TEAM_UNDEAD then
 		DataTableConnected[ID] = { IsDead = true, SuicideSickness = false, HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
 		
@@ -646,25 +646,25 @@ function GM:PlayerDisconnected( pl )
 	timer.Simple(2, function() self:CalculateInfliction() end)
 end
 
-/*------------------------------------------------
+--[==[------------------------------------------------
    Used to calculate player speed on spawn
--------------------------------------------------*/
+-------------------------------------------------]==]
 function CalculatePlayerSpeed ( pl )
 	local Class = pl:GetHumanClass()
 	local Speed = 0
 	
-	//Case 1: Medic
+	-- Case 1: Medic
 	if Class == 1 then
 		Speed = HumanClasses[Class].Speed + ( HumanClasses[Class].Speed * (HumanClasses[1].Coef[3] * (pl:GetTableScore ("medic","level") + 1 ) ) / 100 )
 	end
 	
-	//Case 2: Berserker
+	-- Case 2: Berserker
 	if Class == 2 then
 		--Speed = HumanClasses[Class].Speed + ( HumanClasses[Class].Speed * (HumanClasses[3].Coef[2] * (pl:GetTableScore ("berserker","level") + 1 ) ) / 100 )
 	end
 	
-	//Case 3: Without bonus
-	if ( Class != 1 ) or pl:IsBot() then
+	-- Case 3: Without bonus
+	if ( Class ~= 1 ) or pl:IsBot() then
 		Speed = HumanClasses[Class].Speed
 	end
 	
@@ -673,11 +673,11 @@ function CalculatePlayerSpeed ( pl )
 	return Speed, Speed
 end
 
-/*------------------------------------------------
+--[==[------------------------------------------------
      Loadout Director - Called on h spawn
--------------------------------------------------*/
+-------------------------------------------------]==]
 function CalculatePlayerLoadout ( pl )
-	if pl:Team() != TEAM_HUMAN then return end
+	if pl:Team() ~= TEAM_HUMAN then return end
 
 	local Class = pl:GetHumanClass()
 	local ToGive = {}
@@ -697,7 +697,7 @@ function CalculatePlayerLoadout ( pl )
 		pl.Loadout = table.Copy(ToGive)
 	end
 		
-	//Actually give the weapons
+	-- Actually give the weapons
 	for k,v in pairs ( ToGive ) do
 		pl:Give ( tostring ( v ) )
 	end
@@ -715,7 +715,7 @@ function CalculatePlayerLoadout ( pl )
 end
 
 function CalculateZombieHull ( pl )
-	if pl:Team() != TEAM_UNDEAD then return end
+	if pl:Team() ~= TEAM_UNDEAD then return end
 
 	local Tab = ZombieClasses[ pl:GetZombieClass() ]
 	
@@ -731,15 +731,15 @@ function CalculateZombieHull ( pl )
 end
 
 function CalculateHumanHull ( pl )
-	if pl:Team() != TEAM_HUMAN then return end
+	if pl:Team() ~= TEAM_HUMAN then return end
 
 	local Tab = {Vector ( -16, -16, 0 ), Vector ( 16, 16, 72 )}
 	
 	ChangeHullSize(pl,Tab)
 end
-//TODO: Use spawn prediction on client instead
+-- TODO: Use spawn prediction on client instead
 function ChangeHullSize(pl,tab)
-if !IsValid(pl) then return end
+if not IsValid(pl) then return end
 if pl:IsBot() then return end
 if not tab then tab = {Vector ( -16, -16, 0 ), Vector ( 16, 16, 72 )} end
 
@@ -754,20 +754,20 @@ if not tab then tab = {Vector ( -16, -16, 0 ), Vector ( 16, 16, 72 )} end
 end
 
 function CalculateZombieHealth ( pl )
-	if pl:Team() != TEAM_UNDEAD then return end
+	if pl:Team() ~= TEAM_UNDEAD then return end
 	
 	local Class = pl:GetZombieClass()
 	local Tab = ZombieClasses[Class]
 	local MaxHealth = 0
 	
-	//Case 1: Normal case
+	-- Case 1: Normal case
 	MaxHealth = math.Clamp ( Tab.Health, 0, Tab.Health )
 			
 	
 	local allplayers = player.GetAll()
 	local numplayers = #allplayers
 	
-	//Case 2: if there are only 2 zombies double their hp
+	-- Case 2: if there are only 2 zombies double their hp
 	
 	local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
 	if not (pl:IsBossZombie() and not pl:IsCrow()) then
@@ -785,13 +785,13 @@ function CalculateZombieHealth ( pl )
 		end
 	end
 	
-	//if (team.NumPlayers( TEAM_UNDEAD ) <= 3 and team.NumPlayers( TEAM_HUMAN ) >= 4) or (team.NumPlayers( TEAM_UNDEAD ) <= 5 and team.NumPlayers( TEAM_HUMAN ) >= 35) then
-	//	MaxHealth = math.Clamp( ( ( ( #team.GetPlayers( TEAM_HUMAN ) or 0 ) / 10 ) + 1 ) * Tab.Health, Tab.Health, 799 )
-	//end
+	-- if (team.NumPlayers( TEAM_UNDEAD ) <= 3 and team.NumPlayers( TEAM_HUMAN ) >= 4) or (team.NumPlayers( TEAM_UNDEAD ) <= 5 and team.NumPlayers( TEAM_HUMAN ) >= 35) then
+	-- 	MaxHealth = math.Clamp( ( ( ( #team.GetPlayers( TEAM_HUMAN ) or 0 ) / 10 ) + 1 ) * Tab.Health, Tab.Health, 799 )
+	-- end
 	
-	//Case 3: Player has suicide sickness
+	-- Case 3: Player has suicide sickness
 	if pl.Suicided then
-		// = Tab.Health * math.ceil( difficulty ) * 0.8
+		--  = Tab.Health * math.ceil( difficulty ) * 0.8
 	end
 	
 	if pl:GetZombieClass() == 0 then
@@ -806,39 +806,39 @@ function CalculateZombieHealth ( pl )
 		end
 	end
 	
-	//if pl:GetZombieClass() == 0 and GAMEMODE:IsRetroMode() and MaxHealth == 125 then
-	//	MaxHealth = MaxHealth + 15*GAMEMODE:GetWave()
-	//end
+	-- if pl:GetZombieClass() == 0 and GAMEMODE:IsRetroMode() and MaxHealth == 125 then
+	-- 	MaxHealth = MaxHealth + 15*GAMEMODE:GetWave()
+	-- end
 	
 	
 	
-	//Send the maximum health clientside
+	-- Send the maximum health clientside
 	pl:SetMaximumHealth ( math.Round ( MaxHealth ) )
 	pl:SetHealth ( MaxHealth )
 end
 
 
 function CalculatePlayerHealth ( pl )
-	if pl:Team() != TEAM_HUMAN then return end
+	if pl:Team() ~= TEAM_HUMAN then return end
 
 	local Class = pl:GetHumanClass()
 	local ClassHealth = HumanClasses[Class].Health
 	local MaxHealth, Health = 100, 100
 	
-	//Case 1: Commando
+	-- Case 1: Commando
 	if Class == 2 then
-	//	MaxHealth = ClassHealth + ( ClassHealth * ( ( HumanClasses[2].Coef[2] * ( pl:GetTableScore ("commando","level") + 1 ) ) / 100 ) )
-	//	Health = MaxHealth
+	-- 	MaxHealth = ClassHealth + ( ClassHealth * ( ( HumanClasses[2].Coef[2] * ( pl:GetTableScore ("commando","level") + 1 ) ) / 100 ) )
+	-- 	Health = MaxHealth
 	end
 	
-	//Case 2: Without bonus or bot
-	if Class != 2 or pl:IsBot() then
-	//	MaxHealth = ClassHealth
-	//	Health = MaxHealth
+	-- Case 2: Without bonus or bot
+	if Class ~= 2 or pl:IsBot() then
+	-- 	MaxHealth = ClassHealth
+	-- 	Health = MaxHealth
 	end
 	
-	//Case 3: If player got hurt and reconnected as human
-	if pl:ConnectedHealth() != false then
+	-- Case 3: If player got hurt and reconnected as human
+	if pl:ConnectedHealth() ~= false then
 		Health = pl:ConnectedHealth()
 		DataTableConnected[ pl:UniqueID() or "UNCONNECTED" ].Health = false
 	end
@@ -851,14 +851,14 @@ function CalculatePlayerHealth ( pl )
 		MaxHealth, Health = 120, 120
 	end
 	
-	//Actually set the health
+	-- Actually set the health
 	pl:SetHealth ( Health )
 	pl:SetMaximumHealth ( MaxHealth )
 end
 
-/*----------------------------------------------------
+--[==[----------------------------------------------------
      Execute PlayerReady when client is ready
------------------------------------------------------*/
+-----------------------------------------------------]==]
 concommand.Add( "PostPlayerInitialSpawn", function( sender, command, arguments )
 	if not sender.PostPlayerInitialSpawn then
 		sender.PostPlayerInitialSpawn = true
@@ -866,32 +866,32 @@ concommand.Add( "PostPlayerInitialSpawn", function( sender, command, arguments )
 	end
 end )
 
-/*------------------------------------------------
+--[==[------------------------------------------------
     Send toxic fumes positions to the client
--------------------------------------------------*/
+-------------------------------------------------]==]
 function SentToxicFumesPosition ( pl )
 	if not ValidEntity ( pl ) then return end
 	
-	//Don't set up the toxic fumes
+	-- Don't set up the toxic fumes
 	if not TOXIC_SPAWN then return end
 	
-	//Get the zombie spawn points (or toxic points)
+	-- Get the zombie spawn points (or toxic points)
 	local SpawnPoints = ToxicPoints
 	
-	//Replace it in order
+	-- Replace it in order
 	table.Resequence ( SpawnPoints )
 			
-	//We are done here
+	-- We are done here
 	if #SpawnPoints == 0 then return end
 	
-	//Split the usermessage in 2 parts
+	-- Split the usermessage in 2 parts
 	local MaximumPoints = SpawnPoints
 	local Split = 3
 	if #MaximumPoints <= 3 then
 		Split = 1
 	end
 	
-	//Send the parts
+	-- Send the parts
 	local Start, End = 1, math.Round( #MaximumPoints / Split )
 	local Max = End
 	if End == 1 and #MaximumPoints > 1 then
@@ -922,28 +922,28 @@ hook.Add( "OnPlayerReadySQL", "UpdateDataTableJoin", function( pl )
 		return 
 	end
 	
-	//Check for client validity
+	-- Check for client validity
 	if not pl.IsClientValid then 
 		return 
 	end
 	
-	//player got all data
+	-- player got all data
 	pl.Ready = true
 	
 	GAMEMODE:SendTitle( player.GetAll(), { pl } )
 	GAMEMODE:SendTitle( { pl },player.GetAll() )
 	
-	//Send gc amount
+	-- Send gc amount
 	GAMEMODE:SendCoins( pl )
 
-	//Send shop items and ClassData
+	-- Send shop items and ClassData
 	stats.SendShopData( pl, pl )
 	stats.SendAchievementsData( pl, pl )
 	stats.SendClassDatastream( pl )
 	
 	pl.TotalUpgrades = 0
 	
-	//Calculate the total upgrade each player has
+	-- Calculate the total upgrade each player has
 	for upgrades,price in pairs ( shopData ) do
 		if pl:HasBought( upgrades ) then
 			if price.Cost > 2500 then
@@ -952,26 +952,26 @@ hook.Add( "OnPlayerReadySQL", "UpdateDataTableJoin", function( pl )
 		end
 	end
 	
-	//Send nr of shopitems
+	-- Send nr of shopitems
 	GAMEMODE:SendUpgradeNumber ( pl )
 	
-	//Send sql ready status
+	-- Send sql ready status
 	
 	net.Start("OnReadySQL")
 	net.Send(pl)
 	
-	//umsg.Start( "OnReadySQL", pl )
-	//umsg.End()
+	-- umsg.Start( "OnReadySQL", pl )
+	-- umsg.End()
 	
 	Debug ( "[SPAWN] "..tostring ( pl ).." is Ready. Spawning him." )
 	
-	//Spawn the player
+	-- Spawn the player
 	if not ENDROUND then 
 		pl:Spawn() 
 	end
 end )
 
-//When localplayer is valid on clientside
+-- When localplayer is valid on clientside
 function GM:PlayerReady ( pl )
 	pl.IsClientValid = true
 	
@@ -983,33 +983,33 @@ function GM:PlayerReady ( pl )
 	end
 end
 
-//Compute zombie spawn points if there arne't any
+-- Compute zombie spawn points if there arne't any
 if not file.Exists( "../gamemodes/zombiesurvival/gamemode/server/maps/spawns/"..game.GetMap()..".lua","lsv" ) then USE_RANDOM_SPAWN = false Debug ( "[SPAWN] Could not load computed zombie point!" ) else USE_RANDOM_SPAWN = true include ( "maps/spawns/"..game.GetMap()..".lua" ) end
 
-/*------------------------------------------------------
+--[==[------------------------------------------------------
              Adds spawn points for players 
--------------------------------------------------------*/
+-------------------------------------------------------]==]
 local function SetSpawnPoints()
 
-	//some other spawn points
+	-- some other spawn points
 	local SpawnTable = { 
 		Human = { "info_player_combine", "info_player_terrorist" }, 
 		Zombie = { "info_player_rebel", "info_player_counterterrorist", "info_player_undead" }
 	}
 	
-	//Default spawn angle
+	-- Default spawn angle
 	local angSpawn = Angle ( 0,0,0 )
 	
-	//default gamemode spawn points
+	-- default gamemode spawn points
 	GAMEMODE.UndeadSpawnPoints = ents.FindByClass( "info_player_zombie" )
 	GAMEMODE.HumanSpawnPoints = ents.FindByClass( "info_player_human" )
 	
-	//Add all the old ZS spawns.
+	-- Add all the old ZS spawns.
 	for _, spawn in pairs( ents.FindByClass( "gmod_player_start" ) ) do
 		if spawn.BlueTeam then table.insert( GAMEMODE.HumanSpawnPoints, spawn ) else table.insert( GAMEMODE.UndeadSpawnPoints, spawn ) end
 	end
 	
-	//add human and undead spawns to the table
+	-- add human and undead spawns to the table
 	for k, v in pairs ( SpawnTable ) do
 		if k == "Human" then
 			for i = 1, #k do
@@ -1024,23 +1024,23 @@ local function SetSpawnPoints()
 		end
 	end
 	
-	//if there aren't any of above, add the orignal ones
+	-- if there aren't any of above, add the orignal ones
 	if #GAMEMODE.HumanSpawnPoints <= 0 then
 		GAMEMODE.HumanSpawnPoints = ents.FindByClass( "info_player_start" )
 	end
 	
-	//if there aren't any of above, add the orignal ones
+	-- if there aren't any of above, add the orignal ones
 	if #GAMEMODE.UndeadSpawnPoints <= 0 then
 		GAMEMODE.UndeadSpawnPoints = ents.FindByClass( "info_player_start" )
 	end
 	
-	//Add angles to spawn
+	-- Add angles to spawn
 	for k,v in pairs ( GAMEMODE.HumanSpawnPoints ) do
 		local vPos = v if IsEntityValid ( v ) then vPos = v:GetPos() end
 		GAMEMODE.HumanSpawnPoints[k] = { vPos, angSpawn }
 	end		
 	
-	//Add angles to spawn
+	-- Add angles to spawn
 	for k,v in pairs ( GAMEMODE.UndeadSpawnPoints ) do	
 		local vPos = v if IsEntityValid ( v ) then vPos = v:GetPos() end
 		GAMEMODE.UndeadSpawnPoints[k] = { vPos, angSpawn }
@@ -1058,30 +1058,30 @@ local function SetSpawnPoints()
 	print("Done")
 	Objectives[1].VerifiedSpawns = true
 	end
-	//Resequence normal table
+	-- Resequence normal table
 	if SpawnPoints then
 		for k,v in pairs ( SpawnPoints ) do
 			GAMEMODE.UndeadSpawnPoints[k] = { [1] = v[1], [2] = v[2] }
 		end
 	end
 	
-	//Position and angles table for humans
+	-- Position and angles table for humans
 	GAMEMODE.HumanPositions, GAMEMODE.HumanAngles = {}, {}
 	for k,v in pairs ( GAMEMODE.HumanSpawnPoints ) do GAMEMODE.HumanPositions[k] = GAMEMODE.HumanSpawnPoints[k][1] GAMEMODE.HumanAngles[k] = GAMEMODE.HumanSpawnPoints[k][2] end
 	
-	//Position and angles table for zombos
+	-- Position and angles table for zombos
 	GAMEMODE.ZombiePositions, GAMEMODE.ZombieAngles = {}, {}
 	for k,v in pairs ( GAMEMODE.UndeadSpawnPoints ) do GAMEMODE.ZombiePositions[k] = GAMEMODE.UndeadSpawnPoints[k][1] GAMEMODE.ZombieAngles[k] = GAMEMODE.UndeadSpawnPoints[k][2] end
 	
-	//Using random zombie spawn
-	//if not USE_RANDOM_SPAWN then USE_RANDOM_SPAWN = true GAMEMODE:ComputeZombieSpawn() EDITOR_SPAWN_MODE = true end
+	-- Using random zombie spawn
+	-- if not USE_RANDOM_SPAWN then USE_RANDOM_SPAWN = true GAMEMODE:ComputeZombieSpawn() EDITOR_SPAWN_MODE = true end
 	if USE_RANDOM_SPAWN then 
-		if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].RandomizeSpawn != true then return end
-		//Disable toxic fumes and reset zombie spawn
+		if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].RandomizeSpawn ~= true then return end
+		-- Disable toxic fumes and reset zombie spawn
 		TOXIC_SPAWN = false
 		GAMEMODE.UndeadSpawnPoints = {}
 		
-		//Resequence normal table
+		-- Resequence normal table
 		if SpawnPoints then
 			for k,v in pairs ( SpawnPoints ) do
 				GAMEMODE.UndeadSpawnPoints[k] = { [1] = v[1], [2] = v[2] }
@@ -1089,7 +1089,7 @@ local function SetSpawnPoints()
 		end
 	end
 	
-	//readd gasses
+	-- readd gasses
 	
 	for _, spawn in pairs(GAMEMODE.UndeadSpawnPoints) do
 			local gasses = ents.FindByClass("zombiegasses")
@@ -1097,7 +1097,7 @@ local function SetSpawnPoints()
 			if 4 < numgasses then
 				break
 			elseif math.random(1, 4) == 1 or numgasses < 1 then
-				local spawnpos = spawn[1]//spawn:GetPos()
+				local spawnpos = spawn[1]-- spawn:GetPos()
 				local nearhum = false
 				for _, humspawn in pairs(GAMEMODE.HumanSpawnPoints) do
 					if humspawn[1]:Distance(spawnpos) < 272 then
@@ -1145,7 +1145,7 @@ function GM:SetupSpawnPoints()
 	end
 
 	if string.find(mapname, "_obj_", 1, true) or string.find(mapname, "objective", 1, true) then
-	//	self:SetDynamicSpawning(false)
+	-- 	self:SetDynamicSpawning(false)
 	end
 
 	-- Add all the old ZS spawns from GMod9.
@@ -1166,16 +1166,16 @@ function GM:SetupSpawnPoints()
 		ztab = ents.FindByClass("info_player_start")
 		ztab = table.Add(ztab, ents.FindByClass("info_zombiespawn")) -- Zombie Master
 	end
-	//print("Prepare")
+	-- print("Prepare")
 	team.SetSpawnPoint(TEAM_ZOMBIE, ztab)
-	//PrintTable(team.GetSpawnPoint(TEAM_ZOMBIE))
+	-- PrintTable(team.GetSpawnPoint(TEAM_ZOMBIE))
 	team.SetSpawnPoint(TEAM_HUMAN, htab)
-	//PrintTable(team.GetSpawnPoint(TEAM_HUMAN))
+	-- PrintTable(team.GetSpawnPoint(TEAM_HUMAN))
 	team.SetSpawnPoint(TEAM_SPECTATOR, htab)
 	
 end
 
-//hook.Add ( "InitPostEntity", "SetupSpawnPoints", SetupSpawnPoints )
+-- hook.Add ( "InitPostEntity", "SetupSpawnPoints", SetupSpawnPoints )
 
 function GM:SetRetroMode(mode)
 	self.RetroMode = mode
@@ -1186,30 +1186,30 @@ function GM:IsRetroMode()
 	return self.RetroMode
 end
 
-/*------------------------------------------------------------------------------------------------
+--[==[------------------------------------------------------------------------------------------------
                       Selects a location for the human/spectator to spawn
--------------------------------------------------------------------------------------------------*/
+-------------------------------------------------------------------------------------------------]==]
 function GM:ProcessHumanSpawn( pl, tbPoints, tbAngles )
 
-	//Get random points for first time
+	-- Get random points for first time
 	local iRandom = math.random ( 1, #tbPoints )
 	local vPos, angSpawn = tbPoints[iRandom], tbAngles[iRandom]
 	
-	//Filters
+	-- Filters
 	local Filter = {} 
 	if pl:Team() == TEAM_HUMAN then Filter = team.GetPlayers ( TEAM_HUMAN ) else Filter = team.GetPlayers ( TEAM_UNDEAD ) end
 	
-	//Hull trace spawnpoints
+	-- Hull trace spawnpoints
 	for i = 1, #tbPoints do
 		if i < 5 then
 		
-			//Stuck bool
-			//local bStuck = IsStuck ( vPos, HULL_PLAYER[1], HULL_PLAYER[2], Filter )
+			-- Stuck bool
+			-- local bStuck = IsStuck ( vPos, HULL_PLAYER[1], HULL_PLAYER[2], Filter )
 			
-			//Point is clear
+			-- Point is clear
 			if not bStuck then return vPos, angSpawn end
 				
-			//Point is not clear
+			-- Point is not clear
 			if bStuck then pl.SpawnRetryCounter = pl.SpawnRetryCounter + 1 local iRandom = math.random ( 1,#tbPoints ) vPos, angSpawn = tbPoints[iRandom], tbAngles[iRandom] end
 		end
 	end
@@ -1217,115 +1217,115 @@ function GM:ProcessHumanSpawn( pl, tbPoints, tbAngles )
 	return vPos, angSpawn
 end 
 
-/*------------------------------------------------------------------------------------------------
+--[==[------------------------------------------------------------------------------------------------
                              Selects a location for the undead to spawn
--------------------------------------------------------------------------------------------------*/
---[[function GM:ProcessZombieSpawn( pl, tbPoints, tbAngles )
+-------------------------------------------------------------------------------------------------]==]
+--[=[function GM:ProcessZombieSpawn( pl, tbPoints, tbAngles )
 
-	//Get random points for first time
+	-- Get random points for first time
 	local iRandom = math.random ( 1, #tbPoints )
 	local vPos, angSpawn, bStuck, bIsVisible = tbPoints[iRandom], tbAngles[iRandom]
 	
-	//Filters
+	-- Filters
 	local Filter = {} 
 	if pl:Team() == TEAM_HUMAN then Filter = team.GetPlayers ( TEAM_HUMAN ) else Filter = team.GetPlayers ( TEAM_UNDEAD ) end
 	
-	//Hull trace spawnpoints
+	-- Hull trace spawnpoints
 	for i = 1, 2 do
 
-		//Stuck bool
+		-- Stuck bool
 		bStuck, bIsVisible = IsStuck ( vPos, HULL_PLAYER[1], HULL_PLAYER[2], Filter ), VisibleToHumans ( vPos, pl )
 			
-		//Point is clear
+		-- Point is clear
 		if not bStuck then if not bIsVisible then return vPos, angSpawn end end
 				
-		//Point is not clear
+		-- Point is not clear
 		if bStuck or bIsVisible then pl.SpawnRetryCounter = pl.SpawnRetryCounter + 1 local iRandom = math.random ( 1,#tbPoints ) vPos, angSpawn = tbPoints[iRandom], tbAngles[iRandom] end
 	end
 	
 	return vPos, angSpawn
-end ]]
+end ]=]
 
 function GM:ProcessZombieSpawn( pl, tbPoints, tbAngles )
 	
-	//Get random points for first time
+	-- Get random points for first time
 	local iRandom = math.random ( 1, #tbPoints )
 	local vPos, angSpawn, bStuck, bIsVisible = tbPoints[iRandom], tbAngles[iRandom]
 	
-	//Filters
+	-- Filters
 	local Filter = {} 
 	if pl:Team() == TEAM_HUMAN then Filter = team.GetPlayers ( TEAM_HUMAN ) else Filter = team.GetPlayers ( TEAM_UNDEAD ) end
 	
-	//Hull trace spawnpoints
+	-- Hull trace spawnpoints
 	for i = 1, 2 do
 
-		//Stuck bool
+		-- Stuck bool
 		bStuck, bIsVisible = IsStuck ( vPos, HULL_PLAYER[1], HULL_PLAYER[2], Filter ), VisibleToHumans ( vPos, pl )
 			
-		//Point is clear
+		-- Point is clear
 		if not bStuck then if not bIsVisible then return vPos, angSpawn end end
 				
-		//Point is not clear
+		-- Point is not clear
 		if bStuck or bIsVisible then pl.SpawnRetryCounter = pl.SpawnRetryCounter + 1 local iRandom = math.random ( 1,#tbPoints ) vPos, angSpawn = tbPoints[iRandom], tbAngles[iRandom] end
 	end
 	
 	return vPos, angSpawn
 end 
 
-/*----------------------------------------------------------------------------------
+--[==[----------------------------------------------------------------------------------
                      Selects location for the player to spawn
-------------------------------------------------------------------------------------*/
+------------------------------------------------------------------------------------]==]
 function GM:SelectSpawn ( pl, SpawnTable, Team )
 	if SpawnTable == nil then return end
 	if not pl:IsPlayer() then return end
 	
-	// select only the team in the args
-	if pl:Team() != Team then return end
+	--  select only the team in the args
+	if pl:Team() ~= Team then return end
 	
-	//Table with position, angles
+	-- Table with position, angles
 	local tbPoints, tbAngles = {}, {}
 	if pl:IsZombie() then tbPoints, tbAngles = GAMEMODE.ZombiePositions, GAMEMODE.ZombieAngles else tbPoints, tbAngles = GAMEMODE.HumanPositions, GAMEMODE.HumanAngles end
 	
-	//don't compute for spectators - random spot or center of map
+	-- don't compute for spectators - random spot or center of map
 	if pl:Team() == TEAM_SPECTATOR then pl:SetPos ( table.Random ( tbPoints ) or Vector ( 0,0,0 ) ) return end
 	
-	//There are no spawnpoints
+	-- There are no spawnpoints
 	local Count = #tbPoints
 	if Count == 0 then return end
 	
-	//Retry counter
+	-- Retry counter
 	if pl.SpawnRetryCounter == nil then pl.SpawnRetryCounter = 0 end
 	
-	//Get spawnpoints
+	-- Get spawnpoints
 	local vSpawn, aAngle = table.Random ( tbPoints ), table.Random ( tbAngles )
-	//if pl:IsZombie() then vSpawn, aAngle = GAMEMODE:ProcessZombieSpawn( pl, tbPoints, tbAngles ) else vSpawn, aAngle = GAMEMODE:ProcessHumanSpawn( pl, tbPoints, tbAngles ) end
+	-- if pl:IsZombie() then vSpawn, aAngle = GAMEMODE:ProcessZombieSpawn( pl, tbPoints, tbAngles ) else vSpawn, aAngle = GAMEMODE:ProcessHumanSpawn( pl, tbPoints, tbAngles ) end
 	if not pl:IsZombie() then vSpawn, aAngle = GAMEMODE:ProcessHumanSpawn( pl, tbPoints, tbAngles ) end
 	
-	//Zombies use positions while human use entities
+	-- Zombies use positions while human use entities
 	if type ( vSpawn ) == "Vector" then pl:SetPos ( vSpawn ) pl:SetAngles ( aAngle or Angle ( 0,0,0 ) ) end
 	
-	//Spawnpoint found!
+	-- Spawnpoint found!
 	Debug ( "[SPAWN] Spawnpoint found for "..tostring ( pl:Name() ).." after "..tostring ( pl.SpawnRetryCounter ).." retries. Spawn point is "..tostring ( vSpawn ).."." )
 	pl.SpawnRetryCounter = 0
 end
 
-/*------------------------------------------------------
+--[==[------------------------------------------------------
       Returns the correct spawnpoint for the plr
--------------------------------------------------------*/
+-------------------------------------------------------]==]
 local function DoSelectSpawn ( pl )
 	if not ValidEntity ( pl ) then return end
 	
-	//we can't do this right now
+	-- we can't do this right now
 	if not pl.Ready then return end
 	
-	//sort out the tables
+	-- sort out the tables
 	local SpawnTable = {}
 	if pl:Team() == TEAM_UNDEAD then SpawnTable = GAMEMODE.UndeadSpawnPoints else SpawnTable = GAMEMODE.HumanSpawnPoints end
 	
-	//debug - ignore this
+	-- debug - ignore this
 	Debug ( "[SELECT-SPAWN] Trying to select spawn for "..tostring ( pl ) )
 	
-	//return the proper spawn point
+	-- return the proper spawn point
 	if not pl:IsZombie() then
 		GAMEMODE:SelectSpawn ( pl, SpawnTable, pl:Team() )
 	end
@@ -1364,7 +1364,7 @@ local function DoSelectSpawn ( pl )
 	-------------------------------------
 	return #tab > 0 and tab[math.random(1, #tab)] or pl --pl
 end
-//hook.Add ( "PlayerSelectSpawn", "DoSelectSpawn", DoSelectSpawn )
+-- hook.Add ( "PlayerSelectSpawn", "DoSelectSpawn", DoSelectSpawn )
 
 
 local playermins = Vector(-17, -17, 0)
@@ -1376,40 +1376,40 @@ function GM:PlayerSelectSpawn(pl)
 	local teamid = pl:Team()
 	local tab = {}
 	local epicenter
-	//print("Prepared")
+	-- print("Prepared")
 	if teamid == TEAM_UNDEAD and CurTime() >= self:GetWaveStart() + 1 then-- If we're a bit in the wave then we can spawn on top of heavily dense groups with no humans looking at us.
-		//print("Undead")
+		-- print("Undead")
 		local dyn = pl.ForceDynamicSpawn
 		if dyn then
-			//print("GotDynSpawn")
+			-- print("GotDynSpawn")
 			pl.ForceDynamicSpawn = nil
 			if self:DynamicSpawnIsValid(dyn) then
-				//print("Return zombie")
+				-- print("Return zombie")
 				return dyn
 			else
 				
 				epicenter = dyn:GetPos() -- Ok, at least skew our epicenter to what they tried to spawn at.
 				tab = table.Copy(team.GetSpawnPoint(TEAM_UNDEAD))
-				//print("ZombieSpawns:-------")
-				//PrintTable(tab)
+				-- print("ZombieSpawns:-------")
+				-- PrintTable(tab)
 				local dynamicspawns = self:GetDynamicSpawns(pl)
-				//print("DynamicZombieSpawns:-------")
-				//PrintTable(dynamicspawns)
-				//print("-------")
+				-- print("DynamicZombieSpawns:-------")
+				-- PrintTable(dynamicspawns)
+				-- print("-------")
 				if #dynamicspawns > 0 then
 					spawninplayer = true
 					table.Add(tab, dynamicspawns)
 				end
 			end
 		else
-			//print("NoDynSpawn")
+			-- print("NoDynSpawn")
 			tab = table.Copy(team.GetSpawnPoint(TEAM_UNDEAD))
-			//print("ZombieSpawns_NoTarget:-------")
-			//PrintTable(tab)
+			-- print("ZombieSpawns_NoTarget:-------")
+			-- PrintTable(tab)
 			local dynamicspawns = self:GetDynamicSpawns(pl)
-			//print("DynamicZombieSpawns_NoTarget:-------")
-			//PrintTable(dynamicspawns)
-			//print("-------")
+			-- print("DynamicZombieSpawns_NoTarget:-------")
+			-- PrintTable(dynamicspawns)
+			-- print("-------")
 			if #dynamicspawns > 0 then
 				spawninplayer = true
 				table.Add(tab, dynamicspawns)
@@ -1421,8 +1421,8 @@ function GM:PlayerSelectSpawn(pl)
 	
 	local result = #tab > 0 and tab[math.random(1, #tab)] or pl
 	
-	//print("Result "..tostring(result))
-	//PrintTable(tab)
+	-- print("Result "..tostring(result))
+	-- PrintTable(tab)
 	--return LastSpawnPoints[teamid] or #tab > 0 and tab[math.random(1, #tab)] or pl
 	return result
 end

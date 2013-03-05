@@ -1,10 +1,10 @@
-//Yes, its based off Exploit Blocker :v
+-- Yes, its based off Exploit Blocker :v
 
 if SERVER then
 	AddCSLuaFile( "shared.lua" )
 end
 
-//General info
+-- General info
 SWEP.PrintName = "Poison Spawner Tool"
 SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = true
@@ -18,7 +18,7 @@ SWEP.Contact = "None"
 SWEP.Purpose = "None"
 SWEP.Instructions = "None"
 
-//View and world models
+-- View and world models
 SWEP.ViewModel = "models/weapons/v_toolgun.mdl"
 SWEP.WorldModel	= "models/weapons/w_toolgun.mdl"
 
@@ -79,9 +79,9 @@ function SWEP:PrimaryAttack()
 		local ent = ents.Create ( "zs_poisongasses" )
 		ent:SetPos ( pos )
 		ent:SetAngles(Angle(90,0,0))
-		//ent:SetNWInt("GasRadius", self:GetDTInt( 0 ))
+		-- ent:SetNWInt("GasRadius", self:GetDTInt( 0 ))
 		ent:SetDTInt(0,self:GetDTInt( 0 ))
-		//ent:SetNWBool("GasPipe", ( firstgas ))
+		-- ent:SetNWBool("GasPipe", ( firstgas ))
 		ent:SetDTBool(0,firstgas)
 		ent:Spawn()	
 		
@@ -169,13 +169,13 @@ function SWEP:Holster( wep )
 	return true
 end 
 
-/*-------------------------------------------------------------------------
+--[==[-------------------------------------------------------------------------
 	Called when you make it active 
---------------------------------------------------------------------------*/
+--------------------------------------------------------------------------]==]
 function SWEP:Deploy()
 	self:SetDTInt( 0, 110 )
 	self.Origin = self.Owner:GetEyeTrace().HitPos + Vector(0,0,45)
-	//Initialize exploits table if not
+	-- Initialize exploits table if not
 	PoisonGasses = PoisonGasses or {}
 	self:SendWeaponAnim( ACT_VM_DRAW )
 
@@ -194,9 +194,9 @@ function SWEP:Deploy()
 	return true
 end 
 
-/*-------------------------------------------------------------------------
+--[==[-------------------------------------------------------------------------
 	Called when you equip it
---------------------------------------------------------------------------*/
+--------------------------------------------------------------------------]==]
 function SWEP:Equip ( NewOwner )
 	if SERVER then
 		local EntClass = self:GetClass()

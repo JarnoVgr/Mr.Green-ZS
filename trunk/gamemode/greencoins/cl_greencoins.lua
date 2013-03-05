@@ -1,8 +1,8 @@
-/*-------------------------------
+--[==[-------------------------------
 Green-Coins system
 cl_greencoins.lua
 Client
---------------------------------*/
+--------------------------------]==]
 
 include( 'sh_greencoins.lua' )
 
@@ -62,8 +62,8 @@ function CreateRequestPopup( id, name )
 	lab:SizeToContents()
 end
 
-// ZS already has its own draw functions
-/*function DrawGC()
+--  ZS already has its own draw functions
+--[==[function DrawGC()
 	local MySelf = LocalPlayer()
 	if not (MySelf:IsValid() and MySelf.Class and MySelf.Class ~= 0) then return end
 	if ENDROUND then return end
@@ -73,4 +73,4 @@ end
 	draw.DrawText("Green-Coins: "..coins, "InfoSmall", 10, 124, drawcol, TEXT_ALIGN_LEFT)
 	draw.DrawText("Green-Coins: "..coins, "InfoSmall", 10, 124, drawcol, TEXT_ALIGN_LEFT)
 end
-hook.Add("HUDPaint","DrawGreenCoins",DrawGC)*/
+hook.Add("HUDPaint","DrawGreenCoins",DrawGC)]==]

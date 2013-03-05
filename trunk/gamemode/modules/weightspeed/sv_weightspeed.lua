@@ -8,13 +8,13 @@ local function OnHealthEvent ( ent, dmginfo )
 	if not ent:IsPlayer() then return end
 	if not ent:IsHuman() then return end
 	
-	//Ignore null damage
+	-- Ignore null damage
 	if dmginfo:GetDamage() == 0 then return end
 	
-	//print ( ent, damage, dmginfo:GetDamage() )
+	-- print ( ent, damage, dmginfo:GetDamage() )
 
 end
-//hook.Add ( "EntityTakeDamage", "OnWeightHealth", OnHealthEvent )
+-- hook.Add ( "EntityTakeDamage", "OnWeightHealth", OnHealthEvent )
 
 
 

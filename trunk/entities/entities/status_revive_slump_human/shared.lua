@@ -35,7 +35,7 @@ function ENT:Initialize()
 			tab.OnRevive(owner)
 		end
 		
-		//owner:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+		-- owner:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 		
 		local wep = owner:GetActiveWeapon()
 		if wep and wep:IsValid() then

@@ -1,4 +1,4 @@
-//Blah. Moved some code from human's and zombie's classes so I can work much easier
+-- Blah. Moved some code from human's and zombie's classes so I can work much easier
 
 CreateClientConVar("_zs_skillshopsort", "cheap", true, false)
 
@@ -13,7 +13,7 @@ WeaponTypeToCategory["melee"] = "Melee"
 WeaponTypeToCategory["tool1"] = "Tool1"
 WeaponTypeToCategory["tool2"] = "Tool2"
 WeaponTypeToCategory["misc"] = "Misc"
-//WeaponTypeToCategory["others"] = "Others"
+-- WeaponTypeToCategory["others"] = "Others"
 WeaponTypeToCategory["explosive"] = "Explosive"
 WeaponTypeToCategory["admin"] = "Admin"
 WeaponTypeToCategory["christmas"] = "Admin"
@@ -26,12 +26,12 @@ local AlreadyStored = false
 
 function StoreWeaponStats()
 	
-	//max stats
+	-- max stats
 	MaxWeaponStats["Automatic"] = GetMaxWeaponStats("Automatic")
 	MaxWeaponStats["Pistol"] = GetMaxWeaponStats("Pistol")
 	MaxWeaponStats["Melee"] = GetMaxWeaponStats("Melee")
 	
-	//usual stats
+	-- usual stats
 	for wep,tab in pairs(GAMEMODE.HumanWeapons) do
 		WeaponStats[wep] = GetWeaponStats(wep)
 	end
@@ -56,7 +56,7 @@ function GetMaxWeaponStats(category)
 	
 	local dmg, acc, rof = 0.1, 0.001, 0.01
 	
-	for wep,tab in pairs(GAMEMODE.HumanWeapons) do //GAMEMODE.HumanWeapons
+	for wep,tab in pairs(GAMEMODE.HumanWeapons) do -- GAMEMODE.HumanWeapons
 		if tab.Price then
 			if GetWeaponCategory ( wep ) == category then
 				table.insert(weps,wep)
@@ -64,7 +64,7 @@ function GetMaxWeaponStats(category)
 		end
 	end
 	
-	//damage
+	-- damage
 	for _, weapon in pairs(weps) do
 		local tbl = weapons.Get(weapon)
 		if tbl then
@@ -74,7 +74,7 @@ function GetMaxWeaponStats(category)
 				if tbl.Primary.NumShots then 
 					dmg1 = tbl.Primary.Damage * tbl.Primary.NumShots 
 					if tbl.IsShotgun then
-						dmg1 = dmg1 * 0.15 //lower a bit so players wont be confused
+						dmg1 = dmg1 * 0.15 -- lower a bit so players wont be confused
 					end
 				end
 				
@@ -85,7 +85,7 @@ function GetMaxWeaponStats(category)
 		end
 	end
 	
-	//accuracy
+	-- accuracy
 	for _, weapon in pairs(weps) do
 		local tbl = weapons.Get(weapon)
 		if tbl then
@@ -99,9 +99,9 @@ function GetMaxWeaponStats(category)
 	
 	acc = 0.3
 	
-	//acc = math.max(0.00001, 1-(acc / 0.8)) * 100
+	-- acc = math.max(0.00001, 1-(acc / 0.8)) * 100
 	
-	//RoF
+	-- RoF
 	for _, weapon in pairs(weps) do
 		local tbl = weapons.Get(weapon)
 		if tbl then
@@ -113,11 +113,11 @@ function GetMaxWeaponStats(category)
 			end
 		end
 	end
-	//melee weapons
+	-- melee weapons
 	if category == "Melee" then
 		dmg, acc, rof = 0.1, 0.001, 0.01
 		
-		//damage
+		-- damage
 		for _, weapon in pairs(weps) do
 			local tbl = weapons.Get(weapon)
 			if tbl then
@@ -129,7 +129,7 @@ function GetMaxWeaponStats(category)
 			end
 		end
 		
-		//reach
+		-- reach
 		for _, weapon in pairs(weps) do
 			local tbl = weapons.Get(weapon)
 			if tbl then
@@ -141,12 +141,12 @@ function GetMaxWeaponStats(category)
 			end
 		end
 		
-		//speed overall
+		-- speed overall
 		for _, weapon in pairs(weps) do
 			local tbl = weapons.Get(weapon)
 			if tbl then
 				if tbl.Primary.Delay and tbl.SwingTime then
-					local total = tbl.SwingTime//tbl.Primary.Delay +
+					local total = tbl.SwingTime-- tbl.Primary.Delay +
 					if total >= rof then
 						rof = total
 					end
@@ -175,7 +175,7 @@ function GetWeaponStats(wep)
 			dmg = dmg1
 		end
 		if tbl.Cone then
-			//acc = math.max(0.00001, 1-(tbl.Cone / 0.8)) * 100
+			-- acc = math.max(0.00001, 1-(tbl.Cone / 0.8)) * 100
 			acc = math.Clamp(0.3-tbl.Cone,0,0.3)
 		end
 		if tbl.Primary.Delay then
@@ -193,7 +193,7 @@ function GetWeaponStats(wep)
 				acc = tbl.MeleeRange
 			end
 			if tbl.Primary.Delay and tbl.SwingTime then
-				local total = tbl.SwingTime// tbl.Primary.Delay + 
+				local total = tbl.SwingTime--  tbl.Primary.Delay + 
 				rof = math.Clamp(1-total,0,1)
 			end
 		end	
@@ -208,38 +208,38 @@ util.PrecacheSound("UI/buttonrollover.wav")
 
 function InsertWeaponsTab()
 
-	//Primary
-	WeaponsList1 = vgui.Create("DScrollPanel")//"DPanelList"
+	-- Primary
+	WeaponsList1 = vgui.Create("DScrollPanel")-- "DPanelList"
 	WeaponsList1:SetSize(MainSheetW,MainSheetH)
 	WeaponsList1:SetSkin("ZSMG")
-	//WeaponsList1:SetSpacing(0)
-	//WeaponsList1:SetPadding(0)
-	//WeaponsList1:EnableHorizontal( false )
-	//WeaponsList1:EnableVerticalScrollbar( true )
+	-- WeaponsList1:SetSpacing(0)
+	-- WeaponsList1:SetPadding(0)
+	-- WeaponsList1:EnableHorizontal( false )
+	-- WeaponsList1:EnableVerticalScrollbar( true )
 	WeaponsList1.Paint = function()
 	
 	end
 	
-	//Secondary
+	-- Secondary
 	WeaponsList2 = vgui.Create( "DScrollPanel")
 	WeaponsList2:SetSize(MainSheetW,MainSheetH)
 	WeaponsList2:SetSkin("ZSMG")
-	//WeaponsList2:SetSpacing(0)
-	//WeaponsList2:SetPadding(0)
-	//WeaponsList2:EnableHorizontal( false )
-	//WeaponsList2:EnableVerticalScrollbar( true )
+	-- WeaponsList2:SetSpacing(0)
+	-- WeaponsList2:SetPadding(0)
+	-- WeaponsList2:EnableHorizontal( false )
+	-- WeaponsList2:EnableVerticalScrollbar( true )
 	WeaponsList2.Paint = function()
 	
 	end
 	
-	//Melee
+	-- Melee
 	WeaponsList3 = vgui.Create( "DScrollPanel")
 	WeaponsList3:SetSize(MainSheetW,MainSheetH)
 	WeaponsList3:SetSkin("ZSMG")
-	//WeaponsList3:SetSpacing(0)
-	//WeaponsList3:SetPadding(0)
-	//WeaponsList3:EnableHorizontal( false )
-	//WeaponsList3:EnableVerticalScrollbar( true )
+	-- WeaponsList3:SetSpacing(0)
+	-- WeaponsList3:SetPadding(0)
+	-- WeaponsList3:EnableHorizontal( false )
+	-- WeaponsList3:EnableVerticalScrollbar( true )
 	WeaponsList3.Paint = function()
 	
 	end
@@ -311,7 +311,7 @@ function InsertWeaponsTab()
 				end
 				--Stats
 				local barw,barh = 120, WeaponTab[wep]:GetTall()/6
-				local barx, bary = WeaponTab[wep]:GetWide()/2-barw+55, 2*WeaponTab[wep]:GetTall()/6 - barh///2
+				local barx, bary = WeaponTab[wep]:GetWide()/2-barw+55, 2*WeaponTab[wep]:GetTall()/6 - barh-- /2
 				
 				local labels = {}
 				labels[1] = {"Damage","Damage"}
@@ -351,7 +351,7 @@ function InsertWeaponsTab()
 				else
 					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[wep].Price.." SP", "ArialBoldSeven",  WeaponTab[wep]:GetWide()/2+70, WeaponTab[wep]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				end
-				//Add sale thingy
+				-- Add sale thingy
 				if IsOnSale(wep) then
 					local s = surface.GetTextSize ( GAMEMODE.HumanWeapons[wep].Price.." SP" )
 					draw.SimpleTextOutlined ( "(ON SALE: -"..GAMEMODE.WeaponsOnSale[wep].."%)", "WeaponNames",  WeaponTab[wep]:GetWide()/2+70+s+6, WeaponTab[wep]:GetTall()/2, Color(( math.sin(RealTime() * 5) * 95 ) + 150 , 30, 30, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
@@ -381,14 +381,14 @@ function InsertWeaponsTab()
 				RunConsoleCommand ("_applyskillshopitem",wep)
 			end
 			
-			//Add to nessesary list
-			/*if GetWeaponCategory ( wep ) == "Automatic" then
+			-- Add to nessesary list
+			--[==[if GetWeaponCategory ( wep ) == "Automatic" then
 				WeaponsList1:AddItem(WeaponTab[wep])
 			elseif GetWeaponCategory ( wep ) == "Pistol" then
 				WeaponsList2:AddItem(WeaponTab[wep])
 			elseif GetWeaponCategory ( wep ) == "Melee" then
 				WeaponsList3:AddItem(WeaponTab[wep])
-			end*/
+			end]==]
 			
 		end
 	end
@@ -404,10 +404,10 @@ function InsertAmmoTab()
 	AmmoList = vgui.Create( "DScrollPanel")
 	AmmoList:SetSize(MainSheetW,MainSheetH)
 	AmmoList:SetSkin("ZSMG")
-	//AmmoList:SetSpacing(0)
-	//AmmoList:SetPadding(0)
-	//AmmoList:EnableHorizontal( false )
-	//AmmoList:EnableVerticalScrollbar( true )
+	-- AmmoList:SetSpacing(0)
+	-- AmmoList:SetPadding(0)
+	-- AmmoList:EnableHorizontal( false )
+	-- AmmoList:EnableVerticalScrollbar( true )
 	AmmoList.Paint = function()
 	
 	end
@@ -415,10 +415,10 @@ function InsertAmmoTab()
 	ToolList = vgui.Create( "DScrollPanel")
 	ToolList:SetSize(MainSheetW,MainSheetH)
 	ToolList:SetSkin("ZSMG")
-	//ToolList:SetSpacing(0)
-	//ToolList:SetPadding(0)
-	//ToolList:EnableHorizontal( false )
-	//ToolList:EnableVerticalScrollbar( true )
+	-- ToolList:SetSpacing(0)
+	-- ToolList:SetPadding(0)
+	-- ToolList:EnableHorizontal( false )
+	-- ToolList:EnableVerticalScrollbar( true )
 	ToolList.Paint = function()
 	
 	end
@@ -532,7 +532,7 @@ function DrawSkillShop()
 		AlreadyStored = true
 	end
 
-	TopMenuW,TopMenuH = ScaleW(550), 130 //ScaleH(136)
+	TopMenuW,TopMenuH = ScaleW(550), 130 -- ScaleH(136)
 	TopMenuX,TopMenuY = w/2-TopMenuW/2,h/5-TopMenuH/1.6
 
 	TopMenuH1 = ScaleH(136)
@@ -560,7 +560,7 @@ function DrawSkillShop()
 		
 		if MySelf:KeyDown(IN_FORWARD) or MySelf:KeyDown(IN_BACK) or MySelf:KeyDown(IN_MOVELEFT) or MySelf:KeyDown(IN_MOVERIGHT) or GAMEMODE:GetFighting() and GAMEMODE:GetWave() ~= 6 then
 			surface.PlaySound("items/ammocrate_close.wav")
-			//CloseSkillShop()
+			-- CloseSkillShop()
 			DoSkillShopMenu()
 		end
 		
@@ -574,7 +574,7 @@ function DrawSkillShop()
 	InvisiblePanel:SetSkin("ZSMG")
 	InvisiblePanel:ShowCloseButton (false)
 	InvisiblePanel.Paint = function() 
-		//override this
+		-- override this
 	end
 	
 	MainPanelW,MainPanelH = TopMenuW, ScaleH(500)
@@ -595,8 +595,8 @@ function DrawSkillShop()
 	SortingBox = vgui.Create("DComboBox",MainPanel)
 	SortingBox:SetSize(150,20)
 	SortingBox:SetPos(MainPanelW-1-150,1)
-	//SortingBox:Dock(RIGHT)
-	//SortingBox:DockMargin(0,1,1,0)
+	-- SortingBox:Dock(RIGHT)
+	-- SortingBox:DockMargin(0,1,1,0)
 	for name,tbl in pairs(Sorting) do
 		SortingBox:AddChoice(tbl[1],name)
 	end
@@ -625,7 +625,7 @@ function DrawSkillShop()
  
 	InsertAmmoTab()
 	
-	CloseButtonX, CloseButtonY = TopMenuX,TopMenuY+TopMenuH+ScaleH(20)+MainPanelH+ScaleH(20) //nice and shiny
+	CloseButtonX, CloseButtonY = TopMenuX,TopMenuY+TopMenuH+ScaleH(20)+MainPanelH+ScaleH(20) -- nice and shiny
 	CloseButtonW, CloseButtonH = TopMenuW/4, ScaleH(76)
 	
 	CloseButton = vgui.Create("DButton",InvisiblePanel)
@@ -633,7 +633,7 @@ function DrawSkillShop()
 	CloseButton:SetPos(CloseButtonX, CloseButtonY)
 	CloseButton:SetSize (CloseButtonW, CloseButtonH)
 	CloseButton.Think = function () 
-		--[[if spawntimercd <= CurTime() then 
+		--[=[if spawntimercd <= CurTime() then 
 			spawntimer = spawntimer - 1
 			if spawntimer <= 0 then
 				local randomclass = math.random (1,5)
@@ -645,7 +645,7 @@ function DrawSkillShop()
 				StatsMenu:Close()
 			end
 			spawntimercd = CurTime() + 1
-		end]]
+		end]=]
 	end
 	
 	CloseButton.PaintOver = function ()
@@ -671,10 +671,10 @@ function DrawSkillShop()
 end
 
 function CloseSkillShop()
-	//Disable the cursor
+	-- Disable the cursor
 	gui.EnableScreenClicker( false )
 	
-	//Close the menu
+	-- Close the menu
 	BlurMenu:Close()
 	InvisiblePanel:Close()
 	MainPanel:Close()
@@ -688,9 +688,9 @@ function IsSkillShopOpen()
 end
 
 function DoSkillShopMenu()
-	SKILLSHOP_OPENED = !SKILLSHOP_OPENED
+	SKILLSHOP_OPENED = not SKILLSHOP_OPENED
 	
-	//This is not wrong
+	-- This is not wrong
 	if IsSkillShopOpen() then
 		DrawSkillShop()
 	else
@@ -699,5 +699,5 @@ function DoSkillShopMenu()
 end
 
 
-//concommand.Add("open_testmenu",DoSkillShopMenu)
+-- concommand.Add("open_testmenu",DoSkillShopMenu)
 

@@ -3,10 +3,10 @@
 
 local math = math
 
-//On human damaged
+-- On human damaged
 local function OnHumanDamage( pl, attacker, inflictor, dmginfo )
 
-	//Spawn protection for humans
+	-- Spawn protection for humans
 	if pl.SpawnProtected then
 		dmginfo:SetDamage ( 0 )
 		return true
@@ -14,10 +14,10 @@ local function OnHumanDamage( pl, attacker, inflictor, dmginfo )
 end
 --hook.Add( "OnHumanTakeDamage", "HumanTakeDamage", OnHumanDamage )
 
-//Player take damage
+-- Player take damage
 local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 
-	//Player spawn protected
+	-- Player spawn protected
 	if pl:HasSpawnProtection() then
 		if dmginfo:IsExplosionDamage() then
 				dmginfo:SetDamage(dmginfo:GetDamage()*2)
@@ -27,23 +27,23 @@ local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 		if dmginfo:IsDamageNull() then return true end
 	end
 	
-	//Damage indicator
+	-- Damage indicator
 	GAMEMODE:DoDamageIndicator ( pl, inflictor, attacker, dmginfo )
 
-	// Process upgrade codes and bonuses
+	--  Process upgrade codes and bonuses
 	GAMEMODE:DoDamageUpgrades ( pl, attacker, inflictor, dmginfo )
 		
-	//Process achievements
+	-- Process achievements
 	GAMEMODE:DoDamageAchievements ( pl, attacker, inflictor, dmginfo )
 		
-	//Play hurt sound
+	-- Play hurt sound
 	pl:PlayPainSound()
 	
 	if pl:IsHuman() then
 		pl:CheckSpeedChange()
 	end
 	
-	//Victim got hit
+	-- Victim got hit
 	pl.TookHit = true
 end
 hook.Add( "OnPlayerTakeDamage", "PlayerTakeDamage", OnPlayerDamage )

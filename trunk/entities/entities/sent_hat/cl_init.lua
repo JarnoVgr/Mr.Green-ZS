@@ -71,11 +71,11 @@ function ENT:DrawTranslucent()
 			self.Scale = hats[self:GetHatType()].ScaleVector
 		end
 	end
-	//switch angles so i ca add stuff from Swep Construction Kit
+	-- switch angles so i ca add stuff from Swep Construction Kit
 	if hats[self:GetHatType()].SCK then
-		//local temp = self.RelAng.p
-		//self.RelAng.p = self.RelAng.r
-		//self.RelAng.r = temp
+		-- local temp = self.RelAng.p
+		-- self.RelAng.p = self.RelAng.r
+		-- self.RelAng.r = temp
 	end
 	
 	-- Now draw the hat in the right spot
@@ -85,7 +85,7 @@ function ENT:DrawTranslucent()
 	if boneindex then
 		local pos, ang = owner:GetBonePosition(boneindex)
 		if pos and pos ~= owner:GetPos() then
-			//pos = pos + (ang:Forward() * (self.RelPos.x + self.addX)) + (ang:Right() * (self.RelPos.y + self.addY)) + (ang:Up() * self.RelPos.z)
+			-- pos = pos + (ang:Forward() * (self.RelPos.x + self.addX)) + (ang:Right() * (self.RelPos.y + self.addY)) + (ang:Up() * self.RelPos.z)
 			self:SetPos(pos + (ang:Forward() * (self.RelPos.x + self.addX)) + (ang:Right() * (self.RelPos.y + self.addY)) + (ang:Up() * self.RelPos.z))
 			ang:RotateAroundAxis(ang:Forward(), self.RelAng.p)
 			ang:RotateAroundAxis(ang:Up(), self.RelAng.y)
@@ -182,7 +182,7 @@ function ENT:DrawTranslucent()
 	
 	
 	-- Ex-ragdoll attaching code, no longer needed since hats drop off players when they die
-	--[[local attach = owner:GetAttachment(owner:LookupAttachment("eyes"))
+	--[=[local attach = owner:GetAttachment(owner:LookupAttachment("eyes"))
 	if not attach then attach = owner:GetAttachment(owner:LookupAttachment("head")) end
 	if attach then
 		local r,g,b,a = owner:GetColor()
@@ -193,7 +193,7 @@ function ENT:DrawTranslucent()
 		self:SetAngles(ang)
 
 		self:DrawModel()
-	end]]
+	end]=]
 end
 
 function ENT:Draw()

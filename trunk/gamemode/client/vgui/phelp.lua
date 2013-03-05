@@ -42,7 +42,7 @@ HelpBtn[#HELP_TXT+1] = {
 			local ax,ay = 10, 55
 			
 			-- create player list
-			local playerlist = vgui.Create("DComboBox",pHelp)  //vgui.Create("DScrollPanel",pHelp)
+			local playerlist = vgui.Create("DComboBox",pHelp)  -- vgui.Create("DScrollPanel",pHelp)
 			playerlist:SetPos( ax,ay+25) 
 			playerlist:SetSize( 150, 25 )
 			table.insert(labtable,playerlist)
@@ -94,34 +94,34 @@ HelpBtn[#HELP_TXT+1] = {
 			table.insert(labtable,reasonbox)
 		
 			-- Bottom label
-			/*local botlabel = vgui.Create("DLabel",pHelp)
+			--[==[local botlabel = vgui.Create("DLabel",pHelp)
 			botlabel:SetText( "NOTE: there must be at least 8 players ingame before you can get achievements!" )
 			botlabel:SetPos( 16, 605 ) 
 			botlabel:SetSize( 500, 25 ) 
-			table.insert(labtable,botlabel)*/
+			table.insert(labtable,botlabel)]==]
 			
-			/*-- unlockinfo box
+			--[==[-- unlockinfo box
 			local unlockbox = vgui.Create("DTextEntry",Window)
 			unlockbox:SetPos( 120, 550 ) 
 			unlockbox:SetSize( 410, 50 ) 
 			unlockbox:SetEditable( false )
 			unlockbox:SetMultiline( true )
 			unlockbox:SetValue("")
-			table.insert(labtable,unlockbox)*/
+			table.insert(labtable,unlockbox)]==]
 			
-			/*-------------------------------
+			--[==[-------------------------------
 						Functions
-			-------------------------------*/
+			-------------------------------]==]
 				
 			function updatePlayerList()
 				playerlist:Clear()
 				for k, v in pairs(player.GetAll()) do
-					//v.Item = playerlist:AddItem( v:Name() )
+					-- v.Item = playerlist:AddItem( v:Name() )
 					v.Item = playerlist:AddChoice( v:Name() )
 				end	
 				updateDoClicks()
 				if LocalPlayer().Item then
-					//LocalPlayer().Item:Select() -- Calls DoClick
+					-- LocalPlayer().Item:Select() -- Calls DoClick
 					--playerlist:SelectItem(LocalPlayer().Item)
 					playerlist:ChooseOptionID(LocalPlayer().Item)
 				end
@@ -141,13 +141,13 @@ HelpBtn[#HELP_TXT+1] = {
 				local id
 					list:Clear()
 					for k, v in pairs( pl.DataTable ) do
-						if type( v ) != "table" then
-							if k != "coins" and k != "lastip" then
+						if type( v ) ~= "table" then
+							if k ~= "coins" and k ~= "lastip" then
 								local str = tostring( v )
 								local secs, mins, hours
 								if k == "timeplayed" then
 									secs = tonumber(str)
-									if secs != nil then
+									if secs ~= nil then
 										mins = (secs-(secs%60))/60
 										hours = (secs-(secs%(3600)))/3600
 										mins = mins-(hours*60)
@@ -180,15 +180,15 @@ HelpBtn[#HELP_TXT+1] = {
 					end
 			end
 			
-			/*--------------------------------
+			--[==[--------------------------------
 				DoClick functions and others
-			--------------------------------*/
+			--------------------------------]==]
 			
 			function updateDoClicks()
 				playerlist.OnSelect = function( panel,index, value, data )
 					for k, pl in pairs(player.GetAll()) do
 						if (pl.Item) and pl.Item == index then
-							//pl.Item.DoClick = function( btn )
+							-- pl.Item.DoClick = function( btn )
 								-- It's getting quite messy around here...
 								pl.StatsReceived = false
 								updateScorelist( pl )
@@ -206,7 +206,7 @@ HelpBtn[#HELP_TXT+1] = {
 										end
 									end
 								end,pl,list)
-							//end
+							-- end
 						end
 					end
 				end

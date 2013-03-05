@@ -15,7 +15,7 @@ function GM:CalculateEveryWeaponDPS()
 	end
 end
 
-/* --------------------------------------------------------Weapon MetaTable --------------------------------------------------------*/
+--[==[ --------------------------------------------------------Weapon MetaTable --------------------------------------------------------]==]
 local meta = FindMetaTable("Weapon")
 
 function meta:GetDPS()
@@ -47,7 +47,7 @@ function meta:GetDPS()
 	return math.Round ( ( damage / speed ) * numshots )
 end
 
-/* --------------------------------------------------------Player MetaTable --------------------------------------------------------*/
+--[==[ --------------------------------------------------------Player MetaTable --------------------------------------------------------]==]
 local metapl = FindMetaTable ("Player")
 
 function metapl:MinDPS ()
@@ -109,10 +109,10 @@ if SERVER then
 	function metapl:DropWeakestWeapon ()
 		if not ValidEntity (self) then return end
 		
-		//Grab data
+		-- Grab data
 		local minwep = self:MinWeaponDPS()
 		
-		//Drop the weapon from the right category
+		-- Drop the weapon from the right category
 		self:DropWeapon ( minwep )
 	end
 end

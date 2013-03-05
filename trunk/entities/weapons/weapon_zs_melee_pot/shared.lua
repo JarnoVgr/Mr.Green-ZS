@@ -3,7 +3,7 @@
 
 if SERVER then AddCSLuaFile( "shared.lua" ) end
 
-//Melee base
+-- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
 if CLIENT then
@@ -42,20 +42,20 @@ function SWEP:InitializeClientsideModels()
 	
 end
 
-//Model paths
+-- Model paths
 SWEP.Author = "Deluvas"
 SWEP.ViewModel = Model ( "models/weapons/v_pot/v_pot.mdl" )
 SWEP.WorldModel = Model ( "models/weapons/w_pot.mdl" )
 
-//Name and fov
+-- Name and fov
 SWEP.PrintName = "Pot"
 SWEP.ViewModelFOV = 52
 
-//Slot
+-- Slot
 SWEP.Slot = 2
 SWEP.SlotPos = 7
 
-//Damage, distane, delay
+-- Damage, distane, delay
 SWEP.Primary.Damage = 45
 SWEP.Primary.Delay = 0.65
 SWEP.Primary.Distance = 70
@@ -79,6 +79,6 @@ function SWEP:PlayHitSound()
 	self:EmitSound("weapons/melee/frying_pan/pan_hit-0"..math.random(1,4)..".wav")
 end
 
-//Killicon
+-- Killicon
 if CLIENT then killicon.AddFont( "weapon_zs_melee_pot", "HL2MPTypeDeath", "f", Color(255, 255, 255, 255 ) ) end
  

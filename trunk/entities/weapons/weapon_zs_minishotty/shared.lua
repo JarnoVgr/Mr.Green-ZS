@@ -40,7 +40,7 @@ SWEP.HoldType = "shotgun"
 SWEP.Primary.Sound			= Sound("Weapon_Shotgun.Single")
 SWEP.Primary.Recoil			= 22 -- 2
 SWEP.Primary.Unrecoil		= 2
-SWEP.Primary.Damage			= 10 //because its a tiny tiny shotgun!
+SWEP.Primary.Damage			= 10 -- because its a tiny tiny shotgun!
 SWEP.Primary.NumShots		= 5
 SWEP.Primary.ClipSize		= 4
 SWEP.Primary.Delay			= 0.8
@@ -52,7 +52,7 @@ SWEP.ConeMoving				= 0.3 -- 0.4
 SWEP.ConeCrouching			= 0.18
 SWEP.IsShotgun = true
 SWEP.MaxAmmo			    = 50
-SWEP.WalkSpeed = 175 //but it has better speed
+SWEP.WalkSpeed = 175 -- but it has better speed
 
 SWEP.Cone = 0.16
 SWEP.ConeMoving = 0.18

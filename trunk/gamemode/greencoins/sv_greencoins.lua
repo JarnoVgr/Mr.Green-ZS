@@ -1,34 +1,34 @@
-/*-------------------------------
+--[==[-------------------------------
 Green-Coins system
 sv_greencoins.lua
 Server
---------------------------------*/
+--------------------------------]==]
 
 AddCSLuaFile("sh_greencoins.lua")
 AddCSLuaFile("cl_greencoins.lua")
 
 include( 'sh_greencoins.lua' )
 
-// Debug setting
+--  Debug setting
 local DEBUG = false
 local GC_SUPERSECRET_ZSCODE = "wutL0l44xW"
 
-//Deluvas; lol :V
+-- Deluvas; lol :V
 function GM:GetFirstKey( iCode )
 	return GC_SUPERSECRET_ZSCODE
 end
 
-//// Metatable expanding ////
+-- --  Metatable expanding -- -- 
 local meta = FindMetaTable("Player")
 if meta then
 
 	function meta:GiveGreenCoins( amount, hash )
 		if self:IsBot() then return end
 		
-		//Loaded module or not
+		-- Loaded module or not
 		if not mysql.IsModuleActive() or not self.GCData then return end
 		
-		//No current amount
+		-- No current amount
 		if not self.GCData["amount_current"] then return end
 		
 		if amount > 100 then
@@ -43,10 +43,10 @@ if meta then
 	function meta:TakeGreenCoins( amount, hash )
 		if self:IsBot() then return end
 		
-		//Loaded module or not
+		-- Loaded module or not
 		if not mysql.IsModuleActive() or not self.GCData then return end
 		
-		//No current amount
+		-- No current amount
 		if not self.GCData["amount_current"] then return end
 		
 		self.EarnedGreenCoins = self.EarnedGreenCoins - amount
@@ -54,17 +54,17 @@ if meta then
 		GAMEMODE:SendCoins(self)
 	end
 	
-	//Save GC
+	-- Save GC
 	function meta:SaveGreenCoins()
 		if not self.Ready then return end
 		if self:IsBot() then return end
 				
-		//Loaded module or not
+		-- Loaded module or not
 		if not mysql.IsModuleActive() then return end
 		
 		local query = "SELECT * FROM green_coins WHERE steam_id = '"..self:SteamID().."' AND valid = 1"
 		
-		// we send a table with player data, so player doesnt have to be valid afterwards for the data to save
+		--  we send a table with player data, so player doesnt have to be valid afterwards for the data to save
 		SQLQuery( query, SaveGreenCoinsStep1Callback, {ent = self, name = self:Name(), steamid = self:SteamID(), earned = self.EarnedGreenCoins} )
 	end
 end
@@ -75,7 +75,7 @@ function GM:SendCoins(pl, amount)
 		umsg.Long(pl.GCData["amount_current"])
 	umsg.End()	
 	
-	// coin effect
+	--  coin effect
 	if amount then
 		umsg.Start("CoinEffect",pl)
 			umsg.Short(amount)
@@ -83,10 +83,10 @@ function GM:SendCoins(pl, amount)
 	end
 end
 
-//Load limit ends here
+-- Load limit ends here
 if not mysql.IsModuleActive() then return end
 
-/* -- Database structure --
+--[==[ -- Database structure --
 FIELD				TYPE
 ------------------------------------------
 id					int(16) PRIMARY KEY
@@ -96,21 +96,21 @@ steam_name			varchar(32)
 last_edit			datetime
 created_on			datetime
 valid				int(1)
-*/
+]==]
 
-//// Database functions ////
+-- --  Database functions -- -- 
 
 -- function ConnectToGCDatabase()
 	-- local host = "87.238.175.104"
-	-- local username = "admin_gcaccount" // account doesn't have permission to delete or drop tables
-	-- local password = "X0efU6hO" // FOR YO EYES ONLY
+	-- local username = "admin_gcaccount" --  account doesn't have permission to delete or drop tables
+	-- local password = "X0efU6hO" --  FOR YO EYES ONLY
 	-- local database = "admin_source"
 	-- local port = 3306
 	
-	-- // tmysql.initialize(host, user, pass, database, [port], [number of connections], [number of threads])
+	-- --  tmysql.initialize(host, user, pass, database, [port], [number of connections], [number of threads])
 	-- tmysql.initialize(host, username, password, database, port, 1, 1)
 -- end
--- //hook.Add("Initialize","ConnectToGCDB",ConnectToGCDatabase)
+-- -- hook.Add("Initialize","ConnectToGCDB",ConnectToGCDatabase)
 
 local function SQLReceive(callbackarg, result, status, err)
 	if (type(err) == "number" and err == 0) then
@@ -145,7 +145,7 @@ function SQLQuery( query, callback, callbackarg )
 	return result
 end
 
-//// Game functions ////
+-- --  Game functions -- -- 
 
 local function CreateGreenCoinsEntry( pl )
 	if not IsValid(pl) then return end
@@ -155,12 +155,12 @@ local function CreateGreenCoinsEntry( pl )
 	local currentdate = os.date("%Y-%m-%d %H:%M:%S")
 	local query = "INSERT INTO green_coins (steam_id, amount_current, steam_name, last_edit, created_on, valid) VALUES ('"..steamid.."', 0, '"..name.."', '"..currentdate.."', '"..currentdate.."', 1)"
 	
-	// callback is RetrieveGreenCoins so the player data gets refreshed instantly
+	--  callback is RetrieveGreenCoins so the player data gets refreshed instantly
 	SQLQuery( query, RetrieveGreenCoins, pl )
 	
 end
 
-// GC retrieving
+--  GC retrieving
 local function RetrieveGreenCoinsCallback(pl, result, status, err)
 	if not IsValid(pl) then return end
 	
@@ -204,7 +204,7 @@ function SendGCOnSpawn( pl )
 end
 hook.Add( "PlayerReady","SendGC",SendGCOnSpawn )
 
-// GC saving
+--  GC saving
 local function SaveGreenCoinsStep2Callback(pltab, result, status, err)
 	if (type(err) == "number" and err == 0) then
 		local pl = pltab.ent
@@ -212,7 +212,7 @@ local function SaveGreenCoinsStep2Callback(pltab, result, status, err)
 			pl.EarnedGreenCoins = 0
 			GAMEMODE:SendCoins(pl)
 			
-			//Notify
+			-- Notify
 			pl:ChatPrint( "[SERVER] Successfully saved Green-Coins!" )
 		end
 	else
@@ -220,7 +220,7 @@ local function SaveGreenCoinsStep2Callback(pltab, result, status, err)
 	end
 end
 
-//I'll make a local functions table, don't worry.
+-- I'll make a local functions table, don't worry.
 function SaveGreenCoinsStep1Callback(pltab, result, status, err)
 	
 	if (type(err) == "number" and err == 0) then
@@ -234,7 +234,7 @@ function SaveGreenCoinsStep1Callback(pltab, result, status, err)
 		
 		local currentdate = os.date("%Y-%m-%d %H:%M:%S")
 		if IsValid(pl) then
-			// this resets pl.GCData["amount_current"], but we saved the amount of earned GC in another var
+			--  this resets pl.GCData["amount_current"], but we saved the amount of earned GC in another var
 			pl.GCData = result[1]
 			pl.EarnedGreenCoins = pl.EarnedGreenCoins or 0
 			pl.GCData["amount_current"] = math.max(0,pl.GCData["amount_current"] + pl.EarnedGreenCoins)
@@ -251,11 +251,11 @@ function SaveGreenCoinsStep1Callback(pltab, result, status, err)
 	end
 end
 
-// Save GC at intervals
+--  Save GC at intervals
 NextGCSaveTime = 0
 local function SaveInterval()
 	if (NextGCSaveTime < CurTime() and not ENDROUND) then
-		NextGCSaveTime = CurTime()+120 // save every two minutes
+		NextGCSaveTime = CurTime()+120 --  save every two minutes
 		
 		for k, pl in pairs(player.GetAll()) do
 			if IsValid(pl) and pl.GCData then
@@ -266,7 +266,7 @@ local function SaveInterval()
 end
 hook.Add("Think","GCSaving",SaveInterval)
 
-// Check if a game connection was requested
+--  Check if a game connection was requested
 local function GameConnectionCallback( pl, result, status, err )
 
 	if not IsValid(pl) then return end
@@ -293,7 +293,7 @@ local function GameConnectionCallback( pl, result, status, err )
 end
 
 function CheckGameConnection( pl )
-	if !(IsValid(pl) and pl:IsPlayer() and not pl:IsBot() and pl.Ready and not pl.GameCChecked) then return end
+	if not (IsValid(pl) and pl:IsPlayer() and not pl:IsBot() and pl.Ready and not pl.GameCChecked) then return end
 	local query = "SELECT * FROM game_connections WHERE game_id_type = 'STEAM' AND game_id = '"..pl:SteamID().."' AND status = 'PENDING' AND valid = 1"
 	SQLQuery( query, GameConnectionCallback, pl )
 	pl.GameCChecked = true
@@ -302,7 +302,7 @@ hook.Add("PlayerSpawn","CheckGameConnection",CheckGameConnection)
 
 local function ConfirmStep3Callback( pl, result, status, err )
 	if (type(err) == "number" and err == 0) then
-		// refresh
+		--  refresh
 		RetrieveGreenCoins(pl)
 	else
 		WriteSQLLog("ERROR WHEN ATTEMPTING QUERY (CS3C) pl: "..pl:Name().."; status: "..tostring(status).."; error: "..tostring(err))
@@ -316,7 +316,7 @@ local function ConfirmStep2Callback( pl, result, status, err )
 		pl.EarnedGreenCoins = 0
 		local currentdate = os.date("%Y-%m-%d %H:%M:%S")
 		
-		// Invalidate the old record
+		--  Invalidate the old record
 		local query = "UPDATE green_coins SET valid = 0, last_edit = '"..currentdate.."' WHERE steam_id = '"..pl:SteamID().."' AND ISNULL(forum_id) AND valid = 1"
 		SQLQuery( query, ConfirmStep3Callback, pl )
 	else
@@ -333,7 +333,7 @@ local function ConfirmStep1Callback( pl, result, status, err )
 		end
 		old_gc = old_gc + (pl.EarnedGreenCoins or 0)
 		
-		// Connect the IDs and GC in one record
+		--  Connect the IDs and GC in one record
 		local query = "UPDATE green_coins SET steam_id = '"..pl:SteamID().."', amount_current = amount_current + "..old_gc..", last_edit = '"..currentdate.."' WHERE forum_id = "..pl.ForumIDRequested.." AND valid = 1"
 		SQLQuery( query, ConfirmStep2Callback, pl )
 	else
@@ -348,7 +348,7 @@ local function ConnectionAnswerCallback( pl, result, status, err )
 		
 		local currentdate = os.date("%Y-%m-%d %H:%M:%S")
 		if pl.ConnectionAccepted then
-			// First: game connection confirmed, retrieve his old data.
+			--  First: game connection confirmed, retrieve his old data.
 			local query = "SELECT * FROM green_coins WHERE steam_id = '"..pl:SteamID().."' AND ISNULL(forum_id) AND valid = 1"
 			SQLQuery( query, ConfirmStep1Callback, pl )
 		end
@@ -383,9 +383,9 @@ function ConnectionRequestAnswer( pl, command, args )
 end
 concommand.Add("game_conn_answer",ConnectionRequestAnswer)
 
-// Query tests (only difference is the use of quotes with steam ID)
-/*local function FaultyCallback( pl, result, status, err )
-	if !(type(err) == "number" and err == 0) then
+--  Query tests (only difference is the use of quotes with steam ID)
+--[==[local function FaultyCallback( pl, result, status, err )
+	if not (type(err) == "number" and err == 0) then
 		print("ERROR GENERATED")
 	end
 	print("ERROR WHEN ATTEMPTING QUERY (FaultCheck) pl: "..pl:Name().."; status: "..tostring(status).."; error: "..tostring(err))
@@ -414,9 +414,9 @@ function GoodQuery( pl )
 	local query = "SELECT * FROM green_coins WHERE steam_id = '"..pl:SteamID().."' AND valid = 1"
 	SQLQuery( query, GoodCallback, pl )
 end
-concommand.Add("yay",GoodQuery)*/
+concommand.Add("yay",GoodQuery)]==]
 
-//// Database error log functions ////
+-- --  Database error log functions -- -- 
 
 function WriteSQLLog( str )
 	

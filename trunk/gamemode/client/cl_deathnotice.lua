@@ -66,10 +66,10 @@ killicon.Add("weapon_zs_undead_behemoth", "killicon/zs_zombie", Color(255, 0, 0,
 killicon.Add("weapon_zs_undead_seeker", "killicon/zs_zombie", Color(255, 0, 0, 255))
 killicon.Add("weapon_zs_undead_nerf", "killicon/zs_zombie", Color(255, 0, 0, 255))
 
-//Unowned spit projectile
+-- Unowned spit projectile
 killicon.AddFont( "projectile_spit", "HL2MPTypeDeath", "~", Color_Icon )
 
-//Player death icon or others
+-- Player death icon or others
 killicon.AddAlias( "player", "default" )
 killicon.AddAlias( "suicide", "default" )
 
@@ -101,7 +101,7 @@ for k,v in pairs (EntityNames) do
 	end
 end
 
-//Override default ones
+-- Override default ones
 local Override = function() end
 local Table = { "PlayerKilled", "PlayerKilledSelf", "PlayerKilledByPlayer" }
 for k,v in pairs ( Table ) do
@@ -118,7 +118,7 @@ net.Receive("PlayerKilledByPlayerZS", function( len )
 	local headshot = tobool(net.ReadBit())
 	local assist = net.ReadDouble()
 	
-	//Check for assist
+	-- Check for assist
 	local mAssist, sAssistName = Entity( assist )
 	if IsValid( mAssist ) then sAssistName = mAssist:Name() end
 	
@@ -127,7 +127,7 @@ net.Receive("PlayerKilledByPlayerZS", function( len )
 	if victim:IsValid() and attacker:IsValid() then
 		GAMEMODE:AddDeathNotice( attacker:Name(), attackerteam, inflictor, victim:Name(), victimteam, headshot, sAssistName )
 		
-		//You are dead, not a big surprise part
+		-- You are dead, not a big surprise part
 		if victim:Name() == MySelf:Name() then
 			if attacker.IsPlayer() and attacker:IsPlayer() then
 				GAMEMODE:AddCustomDeathNotice ( attacker, inflictor, victim:Name(), sAssistName )
@@ -148,7 +148,7 @@ local function RecvPlayerKilledByPlayer(message)
 	local headshot = message:ReadBool()
 	local assist = message:ReadShort()
 	
-	//Check for assist
+	-- Check for assist
 	local mAssist, sAssistName = Entity( assist )
 	if IsValid( mAssist ) then sAssistName = mAssist:Name() end
 	
@@ -157,7 +157,7 @@ local function RecvPlayerKilledByPlayer(message)
 	if victim:IsValid() and attacker:IsValid() then
 		GAMEMODE:AddDeathNotice( attacker:Name(), attackerteam, inflictor, victim:Name(), victimteam, headshot, sAssistName )
 		
-		//You are dead, not a big surprise part
+		-- You are dead, not a big surprise part
 		if victim:Name() == MySelf:Name() then
 			if attacker.IsPlayer() and attacker:IsPlayer() then
 				GAMEMODE:AddCustomDeathNotice ( attacker, inflictor, victim:Name(), sAssistName )
@@ -176,7 +176,7 @@ net.Receive("PlayerKilledSelfZS", function( len )
 	if victim:IsValid() then
 		GAMEMODE:AddDeathNotice( nil, 0, "suicide", victim:Name(), victim:Team() )
 		if victim:Name() == MySelf:Name() then
-			//GAMEMODE:AddCustomDeathNotice ( "self", "suicide", victim:Name(), nil )
+			-- GAMEMODE:AddCustomDeathNotice ( "self", "suicide", victim:Name(), nil )
 		end
 	end
 
@@ -190,7 +190,7 @@ local function RecvPlayerKilledSelf( message )
 	if victim:IsValid() then
 		GAMEMODE:AddDeathNotice( nil, 0, "suicide", victim:Name(), victim:Team() )
 		if victim:Name() == MySelf:Name() then
-			//GAMEMODE:AddCustomDeathNotice ( "self", "suicide", victim:Name(), nil )
+			-- GAMEMODE:AddCustomDeathNotice ( "self", "suicide", victim:Name(), nil )
 		end
 	end
 end
@@ -207,7 +207,7 @@ net.Receive("PlayerRedeemed", function( len )
 		end
 	end
 	
-	//Call event
+	-- Call event
 	if IsValid( pl ) then
 		gamemode.Call( "OnPlayerRedeem", pl )
 	end
@@ -224,7 +224,7 @@ local function RecvPlayerRedeemed(message)
 		end
 	end
 	
-	//Call event
+	-- Call event
 	if IsValid( pl ) then
 		gamemode.Call( "OnPlayerRedeem", pl )
 	end
@@ -249,7 +249,7 @@ net.Receive("PlayerKilledZS", function( len )
 	end
 	
 	if victim:Name() == MySelf:Name() then
-		//GAMEMODE:AddCustomDeathNotice ( attacker, "something", victim:Name(), nil )
+		-- GAMEMODE:AddCustomDeathNotice ( attacker, "something", victim:Name(), nil )
 	end
 	
 	GAMEMODE:AddDeathNotice(nil, -1, "random", victim:Name(), victim:Team())
@@ -273,7 +273,7 @@ local function RecvPlayerKilled(message)
 	end
 	
 	if victim:Name() == MySelf:Name() then
-		//GAMEMODE:AddCustomDeathNotice ( attacker, "something", victim:Name(), nil )
+		-- GAMEMODE:AddCustomDeathNotice ( attacker, "something", victim:Name(), nil )
 	end
 	
 	GAMEMODE:AddDeathNotice(nil, -1, "random", victim:Name(), victim:Team())
@@ -344,18 +344,18 @@ local function DrawDeath( x, y, death, hud_deathnotice_time )
 		["random"] = { "has spread his bones!", "strangely died", "died in mistery!", "is gibs now!" },
 	}
 	
-	//Killicon size
+	-- Killicon size
 	local wIcon, hIcon = killicon.GetSize( death.icon )
 	local wHeadshot,hHeadshot = killicon.GetSize( "headshot" )
 	
-	//Side strings
+	-- Side strings
 	local sRightSide, sLeftSide = death.right
 	if not death.Message then 
 		death.Message = table.Random ( tbTranslate[death.icon] or tbTranslate["random"] ) 
 	end
 	
 	if death.left then 
-		if death.assist and death.assist != "" then 
+		if death.assist and death.assist ~= "" then 
 			sLeftSide = death.left.." + "..death.assist 
 		else 
 			sLeftSide = death.left 
@@ -364,10 +364,10 @@ local function DrawDeath( x, y, death, hud_deathnotice_time )
 		sRightSide = sRightSide..markup.DoColorText ( " "..death.Message, Color ( 255,255,255,alpha ) ) 
 	end
 
-	//Markup'd sides
+	-- Markup'd sides
 	local sMarkRight, sMarkLeft, sMarkCenter = markup.DoColorText ( sRightSide, death.color2 ), markup.DoColorText ( sLeftSide, death.color1 ), markup.DoColorText ( "finished off", Color ( 255,255,255,alpha ) )
 	
-	//Draw markup
+	-- Draw markup
 	mMarkRight, mMarkLeft, mMarkCenter = markup.Parse( "<font=ChatFont>"..sMarkRight.."</font>" ), markup.Parse( "<font=ChatFont>"..sMarkLeft.."</font>" ), markup.Parse( "<font=ChatFont>"..sMarkCenter.."</font>" ) 
 	local wMarkRight, hMarkRight = w * 0.98 - ( mMarkRight:GetWidth() ), y
 	if death.headshot then
@@ -376,16 +376,16 @@ local function DrawDeath( x, y, death, hud_deathnotice_time )
 		wMarkLeft = wMarkRight - ( wIcon * 1.4 ) - ( mMarkLeft:GetWidth() )
 	end
 		
-	//Draw victim markup
-	if death.icon != "player" then
+	-- Draw victim markup
+	if death.icon ~= "player" then
 		mMarkRight:Draw( wMarkRight, hMarkRight )
 	end
 	
-	//Draw attacker w/o assist
+	-- Draw attacker w/o assist
 	if death.left then 
 	
-		//Case where inflictor is player
-		if death.icon != "player" then
+		-- Case where inflictor is player
+		if death.icon ~= "player" then
 			if death.headshot then	
 				killicon.Draw( wMarkRight - ( wHeadshot * 0.8 ), y, "headshot", alpha ) 
 				killicon.Draw( wMarkRight - ( wHeadshot * 0.8 ) - ( wIcon * 0.7 ) , y, death.icon, alpha ) 
@@ -424,9 +424,9 @@ function GM:DrawDeathNotice(x, y)
 		end
 	end
 
-	// We want to maintain the order of the table so instead of removing
-	// expired entries one by one we will just clear the entire table
-	// once everything is expired.
+	--  We want to maintain the order of the table so instead of removing
+	--  expired entries one by one we will just clear the entire table
+	--  once everything is expired.
 	for k, Death in pairs(Deaths) do
 		if Death.time + hud_deathnotice_time > CurTime() then
 			return

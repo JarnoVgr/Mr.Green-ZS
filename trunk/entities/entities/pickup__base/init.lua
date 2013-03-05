@@ -41,7 +41,7 @@ function ENT:SetUse()
 end
 
 function ENT:OnTakeDamage( dmginfo )
-	if !self.AllowDamage then return end
+	if not self.AllowDamage then return end
 	
 	local dmg = dmginfo:GetDamage()
 	

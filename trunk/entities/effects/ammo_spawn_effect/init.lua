@@ -15,7 +15,7 @@ function EFFECT:Init ( data )
 		for i = 0, NumParticles do
 			local vPos = Vector( math.Rand(Low.x,High.x), math.Rand(Low.y,High.y), math.Rand(Low.z,High.z) )
 			local particle = emitter:Add( "effects/blueflare1", vPos )
-			//if particle:IsValid() then
+			-- if particle:IsValid() then
 				particle:SetVelocity( ( ( vPos - vOffset) * math.Rand(1,3) ) + Vector(0,0,math.Rand(1,3) ) )
 				particle:SetLifeTime( 0 )
 				particle:SetColor( math.random(120, 200 ),50,50,250 )
@@ -31,7 +31,7 @@ function EFFECT:Init ( data )
 				particle:SetGravity( Vector( 0, 0, -50 ) )
 				particle:SetCollide( true )
 				particle:SetBounce( 0.6 )
-			//end
+			-- end
 		end
 	emitter:Finish()
 end

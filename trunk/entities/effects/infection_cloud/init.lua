@@ -20,7 +20,7 @@ function EFFECT:Init( data )
 		alpha = 80
 	end
 	
-	--[[	//Effect size and pos
+	--[=[	-- Effect size and pos
 	self.Size, self.Pos = 35, self:GetCenter()
 	if self.Zombie:IsHeadcrab() or self.Zombie:IsPoisonCrab() then
 		self.Size = 22
@@ -45,10 +45,10 @@ function EFFECT:Init( data )
 			self.Particles[i]:SetEndSize( self.Size )
 			self.Particles[i]:SetColor( colr, colg, 20 )
 		end
-	end]]
+	end]=]
 end
 
-//Calculate position
+-- Calculate position
 function EFFECT:GetCenter()
 	if self:IsEntityValid() then
 		if self.Zombie:IsHeadcrab() or self.Zombie:IsPoisonCrab() then
@@ -61,20 +61,20 @@ function EFFECT:GetCenter()
 	return Vector( 0,0,0 )
 end
 
-//Finish effect
+-- Finish effect
 function EFFECT:Finish()
-	--[[if self.Emitter then
+	--[=[if self.Emitter then
 		self.Emitter:Finish() 
 	end
 	
-	//Erase particles
+	-- Erase particles
 	if self.Particles then
 		for i = 1, 2 do
 			self.Particles[i]:SetDieTime( 0.01 )
 		end
-	end]]
+	end]=]
 	
-	//Effect status
+	-- Effect status
 	if IsValid( self.Zombie ) then
 		self.Zombie.EffectActive = false
 		self.Zombie:SetMaterial("")
@@ -92,7 +92,7 @@ function EFFECT:Think()
 		return self:Finish()
 	end	
 
-	//Update emitter position
+	-- Update emitter position
 	self:SetPos( self:GetCenter() )
 	
 	return true
@@ -104,7 +104,7 @@ function CollideCallback(particle, hitpos, hitnormal)
 	local pos = hitpos + hitnormal
 
 	if math.random(1, 10) == 3 then
-		//WorldSound("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav", hitpos, 50, math.random(95, 105))
+		-- WorldSound("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav", hitpos, 50, math.random(95, 105))
 	end
 	
 	if hitnormal.z < -0.5 then
@@ -137,7 +137,7 @@ function EFFECT:Render()
 		local bone = self.Zombie:GetBoneMatrix(i)
 			if bone then
 				local pos = bone:GetTranslation()
-				local particle = emitter:Add( "decals/blood_spray"..math.random(1,8), pos )//"particles/smokey"
+				local particle = emitter:Add( "decals/blood_spray"..math.random(1,8), pos )-- "particles/smokey"
 				particle:SetVelocity( Vector(math.Rand(-4,4)/3,math.Rand(-4,4)/3,1):GetNormal()*math.Rand( 1, 30 ) )
 				particle:SetDieTime( math.Rand(0.8,1.4) )
 				particle:SetStartAlpha(alpha)
@@ -155,10 +155,10 @@ function EFFECT:Render()
 	
 
 
-	--[[if self.Particles then
+	--[=[if self.Particles then
 		for i = 1, 2 do
 			self.Particles[i]:SetPos( self:GetPos() )
 		end
-	end]]
+	end]=]
 	
 end

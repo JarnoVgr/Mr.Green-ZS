@@ -4,10 +4,10 @@
 if SERVER then
 	print( "Custom Chat (based on iChat) loaded" )
 	AddCSLuaFile( "sh_chat.lua" )
-	--[[local files = file.Find( "../materials/ichat/smilies/*.*" )
+	--[=[local files = file.Find( "../materials/ichat/smilies/*.*" )
 	for k, v in pairs( files ) do
 		resource.AddFile( "materials/ichat/smilies/"..v )
-	end]]
+	end]=]
 else
 	local TEXT_TYPE_NONE = 1
 	local TEXT_TYPE_COLOR = 2
@@ -24,7 +24,7 @@ else
 	ICHAT.Shorts["[c=black]"] = "[c=0,0,0,255]"
 	ICHAT.Shorts["[c=white]"] = "[c=0,0,0,255]"
 	ICHAT.Shorts["[c=green]"] = "[c=0,255,0,255]"
-	--[[ICHAT.Shorts[":)"] = "[e=smile]"
+	--[=[ICHAT.Shorts[":)"] = "[e=smile]"
 	ICHAT.Shorts[":D"] = "[e=biggrin]"
 	ICHAT.Shorts[":3"] = "[e=three]"
 	ICHAT.Shorts[":downs:"] = "[e=downs]"
@@ -39,10 +39,10 @@ else
 	ICHAT.Shorts[":blush:"] = "[e=redface]"
 	ICHAT.Shorts[":rolleye:"] = "[e=rolleye]"
 	ICHAT.Shorts[";D"] = "[e=wink]"
-	ICHAT.Shorts[";)"] = "[e=wink]"]]
+	ICHAT.Shorts[";)"] = "[e=wink]"]=]
 	
 	ICHAT.Emotes = {}
-	--[[ICHAT.Emotes["smile"] = "ichat/smilies/smile"
+	--[=[ICHAT.Emotes["smile"] = "ichat/smilies/smile"
 	ICHAT.Emotes["biggrin"] = "ichat/smilies/biggrin"
 	ICHAT.Emotes["three"] = "ichat/smilies/3"
 	ICHAT.Emotes["downs"] = "ichat/smilies/downs"
@@ -50,7 +50,7 @@ else
 	ICHAT.Emotes["geno"] = "ichat/smilies/geno"
 	ICHAT.Emotes["redface"] = "ichat/smilies/redface"
 	ICHAT.Emotes["rolleye"] = "ichat/smilies/rolleye"
-	ICHAT.Emotes["wink"] = "ichat/smilies/wink"]]
+	ICHAT.Emotes["wink"] = "ichat/smilies/wink"]=]
 
 	surface.CreateFont( "Arial", 12, 500, true, false, "ChatFont" )
 	function ICHAT.CreateChatBox()
@@ -85,13 +85,13 @@ else
 	hook.Add( "ChatTextChanged", "ICHATUpdateChatEntry", ICHAT.UpdateChatEntry )
 
 	function ICHAT.ChatMessage( plyInd, plyName, mText, mType )
-		if mType == "chat" && !ICHAT.FilterChat then
+		if mType == "chat" and not ICHAT.FilterChat then
 			local col = team.GetColor( player.GetByID( plyInd ):Team() ) or Color( 200, 200, 200, 255 )
 			for k, v in pairs( ICHAT.Shorts ) do mText = string.Replace( mText, k, v ) end
 			ICHAT.ParseLine( "[c="..col.r..","..col.g..","..col.b..","..col.a.."]"..plyName.." :[/c]"..mText )
-		elseif mType == "none" && !ICHAT.FilterNone then
+		elseif mType == "none" and not ICHAT.FilterNone then
 			ICHAT.ParseLine( mText )
-		elseif mType == "joinleave" && !ICHAT.FilterJoinLeave then
+		elseif mType == "joinleave" and not ICHAT.FilterJoinLeave then
 			ICHAT.ParseLine( "[c=200,200,200,255]"..mText.."[/c]" )
 		end
 	end
@@ -109,10 +109,10 @@ else
 		local id = 1
 		local clStart, clEnd, clTag, clR, clG, clB, clA = string.find( toParse, "(%[c=(%d+),(%d+),(%d+),(%d+)%])" )
 		local emStart, emEnd, emTag, em = string.find( toParse, "(%[e=(%a*)%])" )
-		while toParse != "" do
-			if clStart && emStart then //colours and emoticons
-				if clStart < emStart then // colour tag first
-					if clStart == 1 then // colour is at start
+		while toParse ~= "" do
+			if clStart and emStart then -- colours and emoticons
+				if clStart < emStart then --  colour tag first
+					if clStart == 1 then --  colour is at start
 						local colEndStart, colEndEnd, colEnd = string.find( toParse, "(%[/c%])" )
 						if colEndStart then colEndStart = colEndStart - 1 else colEndStart =  string.len( toParse ) end
 						colEndEnd = colEndEnd or string.len( toParse )
@@ -123,7 +123,7 @@ else
 						table.insert( lineValues.Text, id, text )
 						table.insert( lineValues.Width, id, w )
 						if colEndEnd then toParse = string.sub( toParse, colEndEnd+1 ) else toParse = "" end
-					elseif clStart > 1 then // colour is not at start
+					elseif clStart > 1 then --  colour is not at start
 						local text = string.sub( toParse, 1, clStart - 1 )
 						local w, h = surface.GetTextSize( text )
 						table.insert( lineValues.Width, id, w )
@@ -131,8 +131,8 @@ else
 						table.insert( lineValues.Text, id, text )
 						toParse = string.sub( toParse, clStart, string.len( toParse ) )
 					end
-				elseif emStart < clStart then //emote first
-					if emStart == 1 then // emote is at start
+				elseif emStart < clStart then -- emote first
+					if emStart == 1 then --  emote is at start
 						for k, v in pairs( ICHAT.Emotes ) do
 							if k == em then
 								table.insert( lineValues.Value, id, v )
@@ -146,7 +146,7 @@ else
 						table.insert( lineValues.Text, id, text )
 						table.insert( lineValues.Width, id, 18 )
 						toParse = string.sub( toParse, emEnd+1 )
-					elseif emStart > 1 then //emote is not at start
+					elseif emStart > 1 then -- emote is not at start
 						local text = string.sub( toParse, 1, emStart - 1 )
 						local w, h = surface.GetTextSize( text )
 						table.insert( lineValues.Width, id, w )
@@ -158,8 +158,8 @@ else
 				clStart, clEnd, clTag, clR, clG, clB, clA = string.find( toParse, "(%[c=(%d+),(%d+),(%d+),(%d+)%])" )
 				emStart, emEnd, emTag, em = string.find( toParse, "(%[e=([%a]*)%])" )
 				id = id + 1
-			elseif clStart && !emStart then //just colours
-				if clStart == 1 then // colour is at start
+			elseif clStart and not emStart then -- just colours
+				if clStart == 1 then --  colour is at start
 					local colEndStart, colEndEnd, colEnd = string.find( toParse, "(%[/c%])" )
 					if colEndStart then colEndStart = colEndStart - 1 else colEndStart = string.len( toParse ) end
 					colEndEnd = colEndEnd or string.len( toParse )
@@ -170,7 +170,7 @@ else
 					table.insert( lineValues.Text, id, text )
 					table.insert( lineValues.Width, id, w )
 					if colEndEnd then toParse = string.sub( toParse, colEndEnd+1 ) else toParse = "" end
-				elseif clStart > 1 then // colour is not at start
+				elseif clStart > 1 then --  colour is not at start
 					local text = string.sub( toParse, 1, clStart - 1 )
 					local w, h = surface.GetTextSize( text )
 					table.insert( lineValues.Width, id, w )
@@ -180,8 +180,8 @@ else
 				end
 				clStart, clEnd, clTag, clR, clG, clB, clA = string.find( toParse, "(%[c=(%d+),(%d+),(%d+),(%d+)%])" )
 				id = id + 1
-			elseif emStart && !clStart then //just emotes
-				if emStart == 1 then // emote is at start
+			elseif emStart and not clStart then -- just emotes
+				if emStart == 1 then --  emote is at start
 					for k, v in pairs( ICHAT.Emotes ) do
 						if k == em then
 							lineValues.Value[ id ] = v
@@ -193,7 +193,7 @@ else
 					table.insert( lineValues.Type, id, TEXT_TYPE_EMOTE )
 					table.insert( lineValues.Width, id, 18 )
 					toParse = string.sub( toParse, emEnd+1 )
-				elseif emStart > 1 then //emote is not at start
+				elseif emStart > 1 then -- emote is not at start
 					local text = string.sub( toParse, 1, emStart - 1 )
 					local w, h = surface.GetTextSize( text )
 					table.insert( lineValues.Width, id, w )
@@ -203,7 +203,7 @@ else
 				end
 				emStart, emEnd, emTag, em = string.find( toParse, "(%[e=(%a*)%])" )
 				id = id + 1
-			else //no colours or emotes
+			else -- no colours or emotes
 				local w, h = surface.GetTextSize( toParse )
 				table.insert( lineValues.Type, id, TEXT_TYPE_NONE )
 				table.insert( lineValues.Text, id, toParse )

@@ -60,7 +60,7 @@ SWEP.IronSightsAng = Vector(0, -0.131, 1.281)
 
 SWEP.OverridePos = Vector(-1.611, -6.722, 2.4)
 SWEP.OverrideAng = Vector(0, 0, 0)
---[[
+--[=[
 function SWEP:PrimaryAttack()
 	self:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
 	if not self:CanPrimaryAttack() then return end
@@ -72,7 +72,7 @@ function SWEP:PrimaryAttack()
 	if not ValidEntity(self.Weapon) then return end
 if not ValidEntity(self.Owner) then return end
 if not self:CanPrimaryAttack() then return end
-if self.Owner:GetActiveWeapon() != self.Weapon then return end
+if self.Owner:GetActiveWeapon() ~= self.Weapon then return end
 	self:BurstFire()
 	end)
 	end
@@ -82,18 +82,18 @@ function SWEP:BurstFire()
 if not ValidEntity(self.Weapon) then return end
 if not ValidEntity(self.Owner) then return end
 if not self:CanPrimaryAttack() then return end
-if self.Owner:GetActiveWeapon() != self.Weapon then return end
+if self.Owner:GetActiveWeapon() ~= self.Weapon then return end
 
-	//Get owner
+	-- Get owner
 	local Owner = self.Owner
 
-	//Ironsight precision
+	-- Ironsight precision
 	local iIronsightMul
 	if self:GetIronsights() then iIronsightMul = self.IronSightMultiplier else iIronsightMul = 2 end
 		
-	//Recoil 
+	-- Recoil 
 	if Owner.ViewPunch then Owner:ViewPunch( Angle(math.Rand(-0.2,-0.1) * self.Primary.Recoil * 0.25, math.Rand(-0.1,0.1) * self.Primary.Recoil * 0.35, 0) ) end
-	if ( ( SinglePlayer() && SERVER ) || ( !SinglePlayer() && CLIENT && IsFirstTimePredicted() ) ) then
+	if ( ( SinglePlayer() and SERVER ) or ( not SinglePlayer() and CLIENT and IsFirstTimePredicted() ) ) then
 		local eyeang = self.Owner:EyeAngles()
 		local recoil = math.Rand( 0.1, 0.2 )
 		eyeang.pitch = eyeang.pitch - recoil
@@ -102,12 +102,12 @@ if self.Owner:GetActiveWeapon() != self.Weapon then return end
 	
 	local WeaponType = self:GetType()
 	
-	//The crosshair enlarges
+	-- The crosshair enlarges
 	if CLIENT then
 		local Scale
 		local Cone = self.WeaponCones[WeaponType].Cone
 	
-		//Get the current action of the player
+		-- Get the current action of the player
 		if MySelf:GetVelocity():Length() > 25 then
 			Scale = ( ScrW() / 1024 ) * 10 * Cone * 1.5
 		else
@@ -123,14 +123,14 @@ if self.Owner:GetActiveWeapon() != self.Weapon then return end
 	end
 
 
-	//Fire sound
+	-- Fire sound
 	self:EmitSound ( "weapons/alyxgun/fire0"..math.random(1,2)..".wav" )
 	
-	//Calculate cone
+	-- Calculate cone
 	local Cone = self.WeaponCones[WeaponType].Cone
 	local fRunCone, fCrouchCone, fCone, fDamage, iNumShots = 1.7, 0.8, 1.3, self.Primary.Damage, self.Primary.NumShots
 	
-	//Running or standing still or crouching cones
+	-- Running or standing still or crouching cones
 	if self.Owner:GetVelocity():Length() > 25 then
 		self:ShootBullets ( fDamage, iNumShots, ( Cone * fRunCone ) * 0.25 * iIronsightMul )
 	else
@@ -169,4 +169,4 @@ function SWEP:CanPrimaryAttack()
 	
 	return true
 end
-]]
+]=]

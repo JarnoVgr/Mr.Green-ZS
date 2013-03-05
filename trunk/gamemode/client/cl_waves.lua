@@ -1,4 +1,4 @@
-//WAVES CLIENTSIDE
+-- WAVES CLIENTSIDE
 
 local table = table
 local surface = surface
@@ -34,27 +34,27 @@ net.Receive( "recwavestart", function( len )
 	--local msg = "<color=ltred><font=HUDFontAA>Wave "..wave.." has begun!"
 	local msg = "Wave "..wave.." has begun!"
 	if wave == NUM_WAVES then
-		//msg = "<color=ltred><font=HUDFontAA>THE FINAL WAVE HAS BEGUN!"
+		-- msg = "<color=ltred><font=HUDFontAA>THE FINAL WAVE HAS BEGUN!"
 		msg = "THE FINAL WAVE HAS BEGUN!"
 	end
 
 	local secmsg = ""
 	if amount == 1 then
-		//secmsg = "<color=green><font=HUDFontSmallAA>"..UnlockedClass.." unlocked!"
+		-- secmsg = "<color=green><font=HUDFontSmallAA>"..UnlockedClass.." unlocked!"
 		secmsg = UnlockedClass.." unlocked!"
 	elseif 1 < amount then
 		secmsg = amount.." new zombies unlocked!"
-		//secmsg = "<color=green><font=HUDFontSmallAA>"..amount.." new zombies unlocked!"
+		-- secmsg = "<color=green><font=HUDFontSmallAA>"..amount.." new zombies unlocked!"
 	end
 
-	//GAMEMODE:SplitMessage(h * 0.6, msg, secmsg)
+	-- GAMEMODE:SplitMessage(h * 0.6, msg, secmsg)
 	GAMEMODE:Add3DMessage(140,msg,nil,"ArialBoldTwelve")
 	
 	if wave == BONUS_RESISTANCE_WAVE then
 		GAMEMODE:Add3DMessage(140,"Undead became stronger!",nil,"ArialBoldTen")
 	end
 	
-	//GAMEMODE:Add3DMessage(140,secmsg,nil,"ArialBoldTen")
+	-- GAMEMODE:Add3DMessage(140,secmsg,nil,"ArialBoldTen")
 
 	surface.PlaySound("ambient/creatures/town_zombie_call1.wav")
 
@@ -79,20 +79,20 @@ usermessage.Hook("recwavestart", function(um)
 	--local msg = "<color=ltred><font=HUDFontAA>Wave "..wave.." has begun!"
 	local msg = "Wave "..wave.." has begun!"
 	if wave == NUM_WAVES then
-		//msg = "<color=ltred><font=HUDFontAA>THE FINAL WAVE HAS BEGUN!"
+		-- msg = "<color=ltred><font=HUDFontAA>THE FINAL WAVE HAS BEGUN!"
 		msg = "THE FINAL WAVE HAS BEGUN!"
 	end
 
 	local secmsg = ""
 	if amount == 1 then
-		//secmsg = "<color=green><font=HUDFontSmallAA>"..UnlockedClass.." unlocked!"
+		-- secmsg = "<color=green><font=HUDFontSmallAA>"..UnlockedClass.." unlocked!"
 		secmsg = UnlockedClass.." unlocked!"
 	elseif 1 < amount then
 		secmsg = amount.." new zombies unlocked!"
-		//secmsg = "<color=green><font=HUDFontSmallAA>"..amount.." new zombies unlocked!"
+		-- secmsg = "<color=green><font=HUDFontSmallAA>"..amount.." new zombies unlocked!"
 	end
 
-	//GAMEMODE:SplitMessage(h * 0.6, msg, secmsg)
+	-- GAMEMODE:SplitMessage(h * 0.6, msg, secmsg)
 	GAMEMODE:Add3DMessage(140,msg,nil,"ArialBoldTwelve")
 	GAMEMODE:Add3DMessage(140,secmsg,nil,"ArialBoldTen")
 
@@ -105,7 +105,7 @@ net.Receive( "recwaveend", function( len )
 	GAMEMODE:SetWaveStart(net.ReadFloat())
 
 	if wave < NUM_WAVES then
-		//GAMEMODE:SplitMessage(h * 0.7, "<color=ltred><font=HUDFontAA>Wave "..wave.." is over!", "<color=white><font=HUDFontSmallAA>The Undead have stopped rising... for now")
+		-- GAMEMODE:SplitMessage(h * 0.7, "<color=ltred><font=HUDFontAA>Wave "..wave.." is over!", "<color=white><font=HUDFontSmallAA>The Undead have stopped rising... for now")
 		GAMEMODE:Add3DMessage(140,"Wave "..wave.." is over!",nil,"ArialBoldTwelve")
 		
 		for i, tab in ipairs(ZombieClasses) do
@@ -124,7 +124,7 @@ usermessage.Hook("recwaveend", function(um)
 	GAMEMODE:SetWaveStart(um:ReadFloat())
 
 	if wave < NUM_WAVES then
-		//GAMEMODE:SplitMessage(h * 0.7, "<color=ltred><font=HUDFontAA>Wave "..wave.." is over!", "<color=white><font=HUDFontSmallAA>The Undead have stopped rising... for now")
+		-- GAMEMODE:SplitMessage(h * 0.7, "<color=ltred><font=HUDFontAA>Wave "..wave.." is over!", "<color=white><font=HUDFontSmallAA>The Undead have stopped rising... for now")
 		GAMEMODE:Add3DMessage(140,"Wave "..wave.." is over!",nil,"ArialBoldTwelve")
 		
 		for i, tab in ipairs(ZombieClasses) do
@@ -268,7 +268,7 @@ net.Receive( "SendPlayerXP", function( len )
 
 end)
 
-/*usermessage.Hook("SendPlayerXP", function(um)
+--[==[usermessage.Hook("SendPlayerXP", function(um)
 	
 	if not IsValid( MySelf ) then return end
 	
@@ -281,7 +281,7 @@ end)
 	end
 	
 end)
-*/
+]==]
 
 net.Receive( "SendPlayerRank", function( len )
 	
@@ -297,7 +297,7 @@ net.Receive( "SendPlayerRank", function( len )
 
 end)
 
-/*usermessage.Hook("SendPlayerRank", function(um)
+--[==[usermessage.Hook("SendPlayerRank", function(um)
 	
 	if not IsValid( MySelf ) then return end
 
@@ -309,7 +309,7 @@ end)
 		MySelf.DataTable["ClassData"]["default"].rank = rank
 	end
 	
-end)*/
+end)]==]
 
 net.Receive( "SendPlayerPerk", function( len )
 	
@@ -318,7 +318,7 @@ net.Receive( "SendPlayerPerk", function( len )
 	local pl = net.ReadEntity()
 	local perk = net.ReadString()
 	
-	if !IsValid(pl) then return end
+	if not IsValid(pl) then return end
 	
 	pl.Perk = pl.Perk or {}
 	
@@ -330,7 +330,7 @@ net.Receive( "SendPlayerPerk", function( len )
 
 end)
 
-/*usermessage.Hook("SendPlayerPerk", function(um)
+--[==[usermessage.Hook("SendPlayerPerk", function(um)
 	
 	if not IsValid( MySelf ) then return end
 	
@@ -342,9 +342,9 @@ end)
 	if #pl.Perk > 2 then return end
 	
 	table.insert(pl.Perk,perk)
-	//pl.Perk = perk
+	-- pl.Perk = perk
 	
-end)*/
+end)]==]
 
 net.Receive( "SendSales", function( len )
 	
@@ -358,7 +358,7 @@ net.Receive( "SendSales", function( len )
 		wep = net.ReadString()
 		disc = net.ReadDouble()
 		if not GAMEMODE.HumanWeapons[wep] then
-		//if wep == nil or disc == nil then
+		-- if wep == nil or disc == nil then
 			print("Sales error. Requesting an update.")
 			timer.Simple(1,function() RunConsoleCommand("mrgreen_fixdeadsales") end)
 			break
@@ -375,7 +375,7 @@ usermessage.Hook("SendSales", function(um)
 	
 	if not IsValid( MySelf ) then return end
 	print("Received!")
-	//GAMEMODE.WeaponsOnSale = GAMEMODE.WeaponsOnSale or {}
+	-- GAMEMODE.WeaponsOnSale = GAMEMODE.WeaponsOnSale or {}
 	
 	local amount = um:ReadShort()
 	print("Am "..amount)
@@ -384,7 +384,7 @@ usermessage.Hook("SendSales", function(um)
 		wep = um:ReadString()
 		disc = um:ReadShort()
 		if not GAMEMODE.HumanWeapons[wep] then
-		//if wep == nil or disc == nil then
+		-- if wep == nil or disc == nil then
 			print("Sales error. Requesting an update.")
 			timer.Simple(1,function() RunConsoleCommand("mrgreen_fixdeadsales") end)
 			break

@@ -1,4 +1,4 @@
-//Just for you, Darkstar :V
+-- Just for you, Darkstar :V
 
 if SERVER then
 	AddCSLuaFile("shared.lua")
@@ -71,15 +71,15 @@ SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
 
-//Deluvas will kill me for it D:
-//Or not
+-- Deluvas will kill me for it D:
+-- Or not
 function SWEP:PrimaryAttack()
 self.Weapon:SetNextPrimaryFire ( CurTime() + 5 )
 local tr = self.Owner:GetEyeTrace();
 self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 
 if SERVER then
-if !tr.Hit then return end
+if not tr.Hit then return end
 if tr.HitWorld then self.Owner:EmitSound("vo/k_lab/kl_fiddlesticks.wav") return end
 
 if tr.Entity:IsValid() and tr.Entity:IsPlayer() and tr.Entity:Alive() then

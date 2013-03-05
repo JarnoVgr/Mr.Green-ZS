@@ -1,9 +1,9 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-// Be sure to assign your custom animations at the bottom of this file.
+--  Be sure to assign your custom animations at the bottom of this file.
 
-// Poison Zombie
+--  Poison Zombie
 local PoisonZombieATT = {}
 PoisonZombieATT[PLAYER_IDLE] = ACT_IDLE_ON_FIRE
 PoisonZombieATT[PLAYER_WALK] = ACT_WALK
@@ -70,7 +70,7 @@ local WraithATT = {}
 WraithATT[PLAYER_IDLE] = ACT_IDLE
 WraithATT[PLAYER_WALK] = ACT_WALK
 WraithATT[PLAYER_JUMP] = ACT_WALK
-//WraithATT[PLAYER_ATTACK1] = ACT_RANGE_ATTACK1
+-- WraithATT[PLAYER_ATTACK1] = ACT_RANGE_ATTACK1
 
 local function WraithAnim(pl, anim)
 	local act = ACT_IDLE
@@ -83,11 +83,11 @@ local function WraithAnim(pl, anim)
 		end
 	end
 
-	/*if act == ACT_RANGE_ATTACK1 then
+	--[==[if act == ACT_RANGE_ATTACK1 then
 		pl:SetPlaybackRate(2)
 		pl:RestartGesture(act)
 		return true
-	end*/
+	end]==]
 
 	local seq = pl:SelectWeightedSequence(act)
 	if act == ACT_IDLE then
@@ -102,7 +102,7 @@ local function WraithAnim(pl, anim)
 	return true
 end
 
-// Fast Zombie
+--  Fast Zombie
 local FastZombieATT = {}
 FastZombieATT[PLAYER_IDLE] = ACT_IDLE
 FastZombieATT[PLAYER_WALK] = ACT_RUN
@@ -139,7 +139,7 @@ local function FastZombieAnim(pl, anim)
 	return true
 end
 
-// Headcrab / Fast headcrab
+--  Headcrab / Fast headcrab
 local HeadcrabATT = {}
 HeadcrabATT[PLAYER_IDLE] = ACT_IDLE
 HeadcrabATT[PLAYER_WALK] = ACT_RUN
@@ -179,7 +179,7 @@ local function HeadcrabAnim(pl, anim)
 	return true
 end
 
-// Poison Headcrab
+--  Poison Headcrab
 local PoisonHCATT = {}
 PoisonHCATT[PLAYER_IDLE] = ACT_IDLE
 PoisonHCATT[PLAYER_WALK] = ACT_RUN
@@ -226,7 +226,7 @@ end
 
 
 
-// Howler
+--  Howler
 local HowlerATT = {}
 HowlerATT[PLAYER_IDLE] = ACT_IDLE
 HowlerATT[PLAYER_WALK] = ACT_WALK
@@ -268,7 +268,7 @@ local function HowlerAnim(pl, anim)
 	return true
 end
 
-// Zombie Torso
+--  Zombie Torso
 local ZombieTorsoATT = {}
 ZombieTorsoATT[PLAYER_IDLE] = ACT_IDLE
 ZombieTorsoATT[PLAYER_WALK] = ACT_WALK
@@ -320,21 +320,21 @@ local function ZombineAnim ( pl, anim )
 	if( pl:KeyDown( IN_SPEED ) and pl:GetVelocity():Length() >= 1 ) then
 		seqname = "Run_All"
 		
-		//Player running with grenade
+		-- Player running with grenade
 		if pl.HoldingGrenade then seqname = "Run_All_grenade" end
 	elseif( pl:GetVelocity():Length() >= 1 ) then
 		seqname = "walk_All"
 		
-		//Walking with grenade
+		-- Walking with grenade
 		if pl.HoldingGrenade then seqname = "walk_All_Grenade" end
 	end
 
-	//Pulling out grenade
+	-- Pulling out grenade
 	if pl.IsGettingNade then
 		seqname = "pullGrenade"
 	end
 	
-	//Attacking animation
+	-- Attacking animation
 	if pl.IsAttacking then seqname = pl.IsAttacking end
 	
 	if ( pl:GetSequence() == pl:LookupSequence( seqname ) ) then return true end
@@ -346,7 +346,7 @@ local function ZombineAnim ( pl, anim )
 	return true
 end
 
-/*function GM:SetPlayerAnimation(pl, anim)
+--[==[function GM:SetPlayerAnimation(pl, anim)
 	if pl:Team() == TEAM_UNDEAD then
 		SpecialAnims[pl.Class](pl, anim)
 		return
@@ -383,15 +383,15 @@ end
 
 	local seq = pl:SelectWeightedSequence(pl:Weapon_TranslateActivity(act))
 
-	// Let's assume that no admins spawn any vehicles and that we always have a weapon.
+	--  Let's assume that no admins spawn any vehicles and that we always have a weapon.
 
 	if pl:GetSequence() == seq then return end
 	pl:SetPlaybackRate(1.0)
 	pl:ResetSequence(seq)
 	pl:SetCycle(0)
-end*/
+end]==]
 
-// These index numbers are related to the class numbers in zs_options.lua
+--  These index numbers are related to the class numbers in zs_options.lua
 SpecialAnims = {}
 SpecialAnims[1] = ZombieAnim
 SpecialAnims[2] = FastZombieAnim

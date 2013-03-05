@@ -1,4 +1,4 @@
-//Piece of art
+-- Piece of art
 
 --include("sh_skillpoints.lua")
 
@@ -12,7 +12,7 @@ local skillshot_fadeout_time = CreateConVar("_skillshot_fadeout_time", "3", FCVA
 
 skillpoints = {}
 
-skillpoints.Victims = {} //I need this table to apply bunch of messages to each victim instead of drawing shitload of messages at same place
+skillpoints.Victims = {} -- I need this table to apply bunch of messages to each victim instead of drawing shitload of messages at same place
 skillpoints.CachedVictims = {}
 
 skillpoints.Colors = {}
@@ -26,7 +26,7 @@ skillpoints.Colors["Yellow"] = Color(162,186,0,255)
 skillpoints.Colors["Purple"] = Color(108,0,255,255)
 skillpoints.Colors["White"] = Color(255,255,255,255)
 
-//Get skillshot info from server
+-- Get skillshot info from server
 function skillpoints.ReceiveSkillShot(um)
 
 	if not IsValid(MySelf) then return end
@@ -42,7 +42,7 @@ function skillpoints.ReceiveSkillShot(um)
 end
 usermessage.Hook("skillpoints.ReceiveSkillShot",skillpoints.ReceiveSkillShot)
 
-//Get amount of skillpoints from server
+-- Get amount of skillpoints from server
 function skillpoints.UpdateSkillPoints(um)
 
 	if not IsValid(MySelf) then return end
@@ -56,7 +56,7 @@ function skillpoints.UpdateSkillPoints(um)
 end
 usermessage.Hook("skillpoints.UpdateSkillPoints",skillpoints.UpdateSkillPoints)
 
-//Insert a message into quene
+-- Insert a message into quene
 function skillpoints.AddMessage(name,col,amount,victim,pos)
 
   if not IsValid(victim) then return end
@@ -73,12 +73,12 @@ function skillpoints.AddMessage(name,col,amount,victim,pos)
   Message.Time = CurTime()
   Message.Color = col
   
-  //Check if victim is already in the table - add another message
+  -- Check if victim is already in the table - add another message
 	if table.HasValue(skillpoints.CachedVictims, victim) then
 		for k,v in pairs(skillpoints.Victims) do 
 			if v.Player == victim then
-				Message.Time = CurTime()+0.5 * #v.Message // force small delay
-				table.insert(v.Message, Message) //Find the nessesary table entry and insert a message inside
+				Message.Time = CurTime()+0.5 * #v.Message --  force small delay
+				table.insert(v.Message, Message) -- Find the nessesary table entry and insert a message inside
 				break
 			end
 		end
@@ -93,7 +93,7 @@ function markup.DoColorText ( sText, Color )
 	return "<color="..Color.r..","..Color.g..","..Color.b..","..Color.a..">"..( sText or "" ).."</color>"
 end
 
-//Draw a single message
+-- Draw a single message
 local function skillpointsDraw(x,y,message,skillshot_fadeout_time)
 
 	local fadeout = ( message.Time + skillshot_fadeout_time ) - CurTime()
@@ -117,7 +117,7 @@ local function skillpointsDraw(x,y,message,skillshot_fadeout_time)
 
 end
 
-//Draw all cached messages
+-- Draw all cached messages
 function skillpoints.DrawMessage()
 
 	if not IsEntityValid ( MySelf ) then return end
@@ -163,9 +163,9 @@ function skillpoints.DrawMessage()
 end
 hook.Add( "HUDPaint", "skillpoints.DrawMessage", skillpoints.DrawMessage )
 
-//Draw amount of skillpoints on HUD
+-- Draw amount of skillpoints on HUD
 function skillpoints.DrawSkillPoints()
-//TODO: Maybe make a better version
+-- TODO: Maybe make a better version
 	if not IsEntityValid ( MySelf ) then return end
 	if not MySelf:Alive() then return end
 	if not MySelf.ReadySQL then return end
@@ -185,7 +185,7 @@ function skillpoints.DrawSkillPoints()
 		MySelf.CheckTimer = CurTime() + 2
 	end
 	
-	if MySelf.OldSkillPoints != MySelf.SkillPoints then
+	if MySelf.OldSkillPoints ~= MySelf.SkillPoints then
 		xshake,yshake = math.Rand(-1,1),math.Rand(-1,1)
 		MySelf.OldSkillPoints = math.Approach(MySelf.OldSkillPoints,MySelf.SkillPoints,1)
 	end
@@ -196,17 +196,17 @@ function skillpoints.DrawSkillPoints()
 	mSPLeft:Draw(ScaleW(172),ScaleH(826)) 
 	mSPRight:Draw(ScaleW(172) + mSPLeft:GetWidth() + 9 + xshake,ScaleH(809)+yshake) 
 	if MySelf:IsHuman() then
-	//local infow,infoh = ScaleW(180), ScaleH(80)
-	//draw.RoundedBoxEx( 8, 0 , ScaleH(10), infow,infoh, Color(1,1,1,230), false, true, false, true )
+	-- local infow,infoh = ScaleW(180), ScaleH(80)
+	-- draw.RoundedBoxEx( 8, 0 , ScaleH(10), infow,infoh, Color(1,1,1,230), false, true, false, true )
 	if ( (#WeaponsInCart.Weapons <=0 or #WeaponsInCart.Ammo <= 0) or (#WeaponsInCart.Weapons <=0 and #WeaponsInCart.Ammo <= 0) ) then
 		draw.RoundedTextBox ( "Press F2 to open a SkillShop", "ArialBoldFive", -1, h * 0.05, 0.45, Color ( 1,1,1,190 ), Color ( 255,255,255,255 ), nil, TEXT_ALIGN_TOP )
 	end
 	end
 	
-	//draw.SimpleText("Fkin speed "..math.Round(MySelf:GetVelocity():Length()), "CorpusCareFifteen", w/2, h/2, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+	-- draw.SimpleText("Fkin speed "..math.Round(MySelf:GetVelocity():Length()), "CorpusCareFifteen", w/2, h/2, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 
 end
-//hook.Add( "HUDPaint", "skillpoints.DrawSkillPoints", skillpoints.DrawSkillPoints )
+-- hook.Add( "HUDPaint", "skillpoints.DrawSkillPoints", skillpoints.DrawSkillPoints )
 
 
 function MakeSkillShotsList()
@@ -267,7 +267,7 @@ function MakeSkillShotsList()
 	
 	for k,v in pairs(tblSkillShots1) do
 	local desc
-		if v.Name != "" then
+		if v.Name ~= "" then
 		if v.Hidden and v.Hidden == true then
 			desc = "&^%$SECRET(*#&%#ONE11!!*@&#^"
 		else
@@ -310,7 +310,7 @@ function MakeSkillShotsList()
 	
 	for k,v in pairs(tblSkillShots2) do
 	local desc
-		if v.Name != "" then
+		if v.Name ~= "" then
 		if v.Hidden and v.Hidden == true then
 			desc = "&^%$SECRET(*#&%#ONE11!!*@&#^"
 		else

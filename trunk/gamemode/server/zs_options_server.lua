@@ -54,9 +54,9 @@ COINS_PER_ZOMBIE = 1
 COINS_PER_HUMAN = 3
 
 
-//----------------------------
+-- ----------------------------
 MAX_ST_ZOMBIES = 2
-ST_ZOMBIE_CHANCE = 6//3 //%
+ST_ZOMBIE_CHANCE = 6-- 3 -- %
 
 DOUBLE_XP = false
 

@@ -1,10 +1,10 @@
-/*
+--[==[
  * HL Log Standard style logging
- * Script written by Clavus (http://steamcommunity.com/id/clavuselite)
+ * Script written by Clavus (http:-- steamcommunity.com/id/clavuselite)
  * Free to distribute and use for any purpose
  *
  * Read about the HL Log Standard here (*** RECOMMENDED ***):
- * http://developer.valvesoftware.com/wiki/HL_Log_Standard
+ * http:-- developer.valvesoftware.com/wiki/HL_Log_Standard
  *
  * Usage: call 'require("log")' at the start of your script or gamemode.
  * The following functions can then be called:
@@ -30,7 +30,7 @@
  * This script exists to help gamemode developers easily
  * log events and actions according to the HL Log Standard,
  * making their gamemode compatible with a variety of statistic
- * tracking services like gameME (http://www.gameme.com/).
+ * tracking services like gameME (http:-- www.gameme.com/).
  *
  * Garry's Mod already logs all the HL Engine events.
  * GMod also logs several game events:
@@ -53,9 +53,9 @@
 	require("log")
  
 	local properties = {}
-	properties["headshot"] = true								// will be shortened to just the key name
-	properties["attacker_position"] = Vector(-100, 100, 200.87)	// will be formatted to 3 signed integers
-	properties["custom_kill"] = "nuked"							// 'default' example
+	properties["headshot"] = true								--  will be shortened to just the key name
+	properties["attacker_position"] = Vector(-100, 100, 200.87)	--  will be formatted to 3 signed integers
+	properties["custom_kill"] = "nuked"							--  'default' example
 	
 	log.PlayerKill( attacker, victim, weapon, properties )
  * --------------------------------
@@ -87,11 +87,11 @@
  * for example), the team code will be the user ID, as dictated by the HL Log Standard:
 	"PlayerName<120><STEAM_0:1:12345><120>"
  *
- */
+ ]==]
 
 ValidEntity = IsValid
  
-// not needed for clients
+--  not needed for clients
 if CLIENT then return end
 
 local ValidEntity = ValidEntity
@@ -108,7 +108,7 @@ local function formatProperties( tab )
 
 	for k, v in pairs( tab ) do
 		
-		// find all '(', ')' and space characters
+		--  find all '(', ')' and space characters
 		if (string.find(k,"[%(%)%s]")) then Error("Log: Property key name cannot contain spaces or parentheses!") end
 
 		if (type(v) == "boolean" and v) then
@@ -117,7 +117,7 @@ local function formatProperties( tab )
 			local vector = string.format("%d %d %d",v.x,v.y,v.z)
 			output = output..string.format("(%s %q) ",tostring(k),vector)
 		else
-			// find the quote character
+			--  find the quote character
 			if (string.find(v,"\"")) then Error("Log: Property value name cannot contain a quote character!") end
 			
 			output = output..string.format("(%s %q) ",tostring(k),tostring(v))
@@ -172,12 +172,12 @@ end
 
 module("log")
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: InitializeTeamBased( team 1 id, team 1 code, team 2 id, team 2 code, ...)
     Desc: Call this function at the start of your script if you want 
 		  the logs to make a distinction between teams. 
    Usage: You need to give a team code for every team id that is used
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function InitializeTeamBased( arg )
 	
 	--local arg = unpack({...})
@@ -195,18 +195,18 @@ function InitializeTeamBased( arg )
 end
 
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: PlayerKill(Player attacker, Player victim, String weapon, (optional) Table properties)
     Desc: Logs a kill in the format 
 			"Name<uid><wonid><team>" killed "Name<uid><wonid><team>" with "weapon"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayerKill( attacker, victim, weapon, props )
 
-	if (!playerValid( attacker )) then Error("Log: Invalid attacker specified!") end
-	if (!playerValid( victim )) then Error("Log: Invalid victim specified!") end
-	if (type(weapon) != "string") then Error("Log: No weapon specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (not playerValid( attacker )) then Error("Log: Invalid attacker specified!") end
+	if (not playerValid( victim )) then Error("Log: Invalid victim specified!") end
+	if (type(weapon) ~= "string") then Error("Log: No weapon specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("%q killed %q with %q", formatPlayer(attacker), formatPlayer(victim), weapon)
 	
@@ -221,7 +221,7 @@ function PlayerKill( attacker, victim, weapon, props )
 end
 
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: PlayerInjured(Player attacker, Player victim, String weapon, (optional) Table properties)
     Desc: Logs a kill in the format 
 			"Name<uid><wonid><team>" attacked "Name<uid><wonid><team>" with "weapon"
@@ -229,13 +229,13 @@ end
 		  log.PlayerKill instead.
 		  It's recommended to pass the property (damage "amount") to
 		  indicate the amount of health the victim lost.
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayerInjured( attacker, victim, weapon, props )
 
-	if (!playerValid( attacker )) then Error("Log: Invalid attacker specified!") end
-	if (!playerValid( victim )) then Error("Log: Invalid victim specified!") end
-	if (type(weapon) != "string") then Error("Log: No weapon specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (not playerValid( attacker )) then Error("Log: Invalid attacker specified!") end
+	if (not playerValid( victim )) then Error("Log: Invalid victim specified!") end
+	if (type(weapon) ~= "string") then Error("Log: No weapon specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("%q attacked %q with %q", formatPlayer(attacker), formatPlayer(victim), weapon)
 	
@@ -249,17 +249,17 @@ function PlayerInjured( attacker, victim, weapon, props )
 
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: PlayerSuicide(Player player, String weapon, (optional) Table properties)
     Desc: Logs an epic fail in the format 
 			"Name<uid><wonid><team>" committed suicide with "weapon"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayerSuicide( player, weapon, props )
 
-	if (!playerValid( player )) then Error("Log: Invalid player specified!") end
-	if (type(weapon) != "string") then Error("Log: No weapon specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (not playerValid( player )) then Error("Log: Invalid player specified!") end
+	if (type(weapon) ~= "string") then Error("Log: No weapon specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("%q committed suicide with %q", formatPlayer(player), weapon)
 	
@@ -273,17 +273,17 @@ function PlayerSuicide( player, weapon, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: PlayerJoinTeam(Player player, Int team, (optional) Table properties)
     Desc: Logs a team join
 			"Name<uid><wonid><team>" joined team "team"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayerJoinTeam( player, team, props )
 
-	if (!playerValid( player )) then Error("Log: Invalid player specified!") end
-	if (type(team) != "number") then Error("Log: Invalid team ID!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (not playerValid( player )) then Error("Log: Invalid player specified!") end
+	if (type(team) ~= "number") then Error("Log: Invalid team ID!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("%q joined team %q", formatPlayer(player), formatTeam(team))
 	
@@ -297,17 +297,17 @@ function PlayerJoinTeam( player, team, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: PlayerRoleChange(Player player, String role, (optional) Table properties)
     Desc: Logs a role change (like classes in TF2/DoD)
 			"Name<uid><wonid><team>" changed role to "role"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayerRoleChange( player, role, props )
 
-	if (!playerValid( player )) then Error("Log: Invalid player specified!") end
-	if (type(role) != "string") then Error("Log: Invalid role specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (not playerValid( player )) then Error("Log: Invalid player specified!") end
+	if (type(role) ~= "string") then Error("Log: Invalid role specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("%q changed role to %q", formatPlayer(player), role)
 	
@@ -321,18 +321,18 @@ function PlayerRoleChange( player, role, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: PlayerOnPlayerAction(Player player, Player target, String action, (optional) Table properties)
     Desc: Logs a player on player action:
 			"Name<uid><wonid><team>" triggered "action" against "Name<uid><wonid><team>"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayerOnPlayerAction( player, target, action, props )
 
-	if (!playerValid( player )) then Error("Log: Invalid player specified!") end
-	if (!playerValid( target )) then Error("Log: Invalid target player specified!") end
-	if (type(action) != "string") then Error("Log: Invalid action specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (not playerValid( player )) then Error("Log: Invalid player specified!") end
+	if (not playerValid( target )) then Error("Log: Invalid target player specified!") end
+	if (type(action) ~= "string") then Error("Log: Invalid action specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("%q triggered %q against %q", formatPlayer(player), action, formatPlayer(target))
 	
@@ -346,17 +346,17 @@ function PlayerOnPlayerAction( player, target, action, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: PlayerAction(Player player, Player target, String action, (optional) Table properties)
     Desc: Logs a player action:
 			"Name<uid><wonid><team>" triggered "action"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayerAction( player, action, props )
 
-	if (!playerValid( player )) then Error("Log: Invalid player specified!") end
-	if (type(action) != "string") then Error("Log: Invalid action specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (not playerValid( player )) then Error("Log: Invalid player specified!") end
+	if (type(action) ~= "string") then Error("Log: Invalid action specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("%q triggered %q", formatPlayer(player), action)
 	
@@ -370,17 +370,17 @@ function PlayerAction( player, action, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: TeamAction(Int team, String action, (optional) Table properties)
     Desc: Logs a player on player action:
 			Team "team" triggered "action"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function TeamAction( team, action, props )
 	
-	if (type(team) != "number") then Error("Log: Invalid team ID!") end
-	if (type(action) != "string") then Error("Log: Invalid action specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (type(team) ~= "number") then Error("Log: Invalid team ID!") end
+	if (type(action) ~= "string") then Error("Log: Invalid action specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("Team %q triggered %q", formatTeam(team), action)
 	
@@ -394,16 +394,16 @@ function TeamAction( team, action, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: WorldAction(String action, (optional) Table properties)
     Desc: Logs a world action:
 			World triggered "action"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function WorldAction( action, props )
 
-	if (type(action) != "string") then Error("Log: Invalid action specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (type(action) ~= "string") then Error("Log: Invalid action specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("World triggered %q", action)
 	
@@ -417,17 +417,17 @@ function WorldAction( action, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: TeamAlliance(Int team1, Int team2, (optional) Table properties)
     Desc: Logs a team alliance
 			Team "team" formed alliance with team "team"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function TeamAlliance( team1, team2, props )
 	
-	if (type(team1) != "number") then Error("Log: Invalid team1 ID!") end
-	if (type(team2) != "number") then Error("Log: Invalid team2 ID!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (type(team1) ~= "number") then Error("Log: Invalid team1 ID!") end
+	if (type(team2) ~= "number") then Error("Log: Invalid team2 ID!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("Team %q formed alliance with team %q", formatTeam(team1), formatTeam(team2))
 	
@@ -441,19 +441,19 @@ function TeamAlliance( team1, team2, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: TeamScoreReport(Int team, Int score, Int numplayers, (optional) Table properties)
     Desc: Logs a team score report
 			Team "team" scored "score" with "numplayers" players
    Usage: Refer to the HL Log Standard entry on the Source SDK wiki
 		  for a description of properties used to extend the report.
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function TeamScoreReport( team, score, numplayers, props )
 
-	if (type(team) != "number") then Error("Log: Invalid team ID!") end
-	if (type(score) != "number") then Error("Log: Invalid score!") end
-	if (type(numplayers) != "number") then Error("Log: Invalid player number!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (type(team) ~= "number") then Error("Log: Invalid team ID!") end
+	if (type(score) ~= "number") then Error("Log: Invalid score!") end
+	if (type(numplayers) ~= "number") then Error("Log: Invalid player number!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 
 	local log = string.format("Team %q scored %q with %q players", formatTeam(team), tostring(score), tostring(numplayers))
 	
@@ -467,18 +467,18 @@ function TeamScoreReport( team, score, numplayers, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: PlayerPrivateMessage(Player sender, Player receiver, String message, (optional) Table properties)
     Desc: Logs a private message:
 			"Name<uid><wonid><team>" tell "Name<uid><wonid><team>" message "message"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayerPrivateMessage( sender, receiver, message, props )
 
-	if (!playerValid( sender )) then Error("Log: Invalid sender specified!") end
-	if (!playerValid( receiver )) then Error("Log: Invalid receiver specified!") end
-	if (type(message) != "string") then Error("Log: Invalid message specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (not playerValid( sender )) then Error("Log: Invalid sender specified!") end
+	if (not playerValid( receiver )) then Error("Log: Invalid receiver specified!") end
+	if (type(message) ~= "string") then Error("Log: Invalid message specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("%q tell %q message %q", formatPlayer(sender), formatPlayer(receiver), message)
 	
@@ -492,18 +492,18 @@ function PlayerPrivateMessage( sender, receiver, message, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: PlayerScore(Player player, Int score, (optional) Table properties)
     Desc: Logs a player score report:
 			Player "Name<uid><wonid><team>" scored "score"
    Usage: Refer to the HL Log Standard entry on the Source SDK wiki
 		  for a description of properties used to extend the report.
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayerScore( player, score, props )
 
-	if (!playerValid( player )) then Error("Log: Invalid player specified!") end
-	if (type(score) != "number") then Error("Log: Invalid score specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (not playerValid( player )) then Error("Log: Invalid player specified!") end
+	if (type(score) ~= "number") then Error("Log: Invalid score specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("Player %q scored %q", formatPlayer(player), tostring(score))
 	
@@ -517,17 +517,17 @@ function PlayerScore( player, score, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: PlayerSelectWeapon(Player player, String weapon, (optional) Table properties)
     Desc: Logs the player equiping a weapon:
 			"Name<uid><wonid><team>" selected weapon "weapon"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayerSelectWeapon( player, weapon, props )
 
-	if (!playerValid( player )) then Error("Log: Invalid player specified!") end
-	if (type(weapon) != "string") then Error("Log: No weapon specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (not playerValid( player )) then Error("Log: Invalid player specified!") end
+	if (type(weapon) ~= "string") then Error("Log: No weapon specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("%q selected weapon %q", formatPlayer(player), weapon)
 	
@@ -541,17 +541,17 @@ function PlayerSelectWeapon( player, weapon, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: PlayerAcquireWeapon(Player player, String weapon, (optional) Table properties)
     Desc: Logs the player equiping a weapon:
 			"Name<uid><wonid><team>" acquired weapon "weapon"
    Usage: 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function PlayerAcquireWeapon( player, weapon, props )
 
-	if (!playerValid( player )) then Error("Log: Invalid player specified!") end
-	if (type(weapon) != "string") then Error("Log: No weapon specified!") end
-	if (props and type(props) != "table") then Error("Log: Properties value is not a table!") end
+	if (not playerValid( player )) then Error("Log: Invalid player specified!") end
+	if (type(weapon) ~= "string") then Error("Log: No weapon specified!") end
+	if (props and type(props) ~= "table") then Error("Log: Properties value is not a table!") end
 	
 	local log = string.format("%q acquired weapon %q", formatPlayer(player), weapon)
 	
@@ -565,19 +565,19 @@ function PlayerAcquireWeapon( player, weapon, props )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
     Name: Comment(String message)
     Desc: Logs a comment:
-			// "message"
+			--  "message"
    Usage: Should not be parsed by any stat tracking services
 		  and is only useful to improve log readability or
 		  something.
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function Comment( message )
 	
-	if (type(message) != "string") then Error("Log: Invalid comment string!") end
+	if (type(message) ~= "string") then Error("Log: Invalid comment string!") end
 	
-	Log("// "..message)
+	Log("--  "..message)
 
 end
 	

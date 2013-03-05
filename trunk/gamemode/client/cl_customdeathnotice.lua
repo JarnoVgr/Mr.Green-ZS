@@ -37,7 +37,7 @@ function GM:DrawCustomDeathNotice (x, y)
 end
 
 function DrawCustomDeath ( x, y, death )
-	--[[local text 
+	--[=[local text 
 	
 	if death.attacker == "self" then
 		text = "You have suicided! That's awful!"
@@ -52,7 +52,7 @@ function DrawCustomDeath ( x, y, death )
 	local boxw, boxh = textw + 28, texth + 12
 	
 	draw.RoundedBox( 6, x, y,boxw, boxh, Color (1,1,1,210) )
-	draw.SimpleText(text,"ArialBoldNine", x + (boxw/2), y + (boxh/2) ,Color (243,0,0,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)]]
+	draw.SimpleText(text,"ArialBoldNine", x + (boxw/2), y + (boxh/2) ,Color (243,0,0,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)]=]
 end
 
 function DrawCustomDeath2 ( death )
@@ -81,7 +81,7 @@ function DrawCustomDeath2 ( death )
 	
 	local textX,textY = xpos+4,ypos+3
 	
-	//text goes here
+	-- text goes here
 	draw.SimpleTextOutlined("Killed by "..text, "ArialBoldFive", textX,textY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1,Color(0,0,0,255))
 	
 	local font, letter = "WeaponSelectedHL2", "0"
@@ -147,26 +147,26 @@ end
 
 function DrawCustomDeath3 ( death )
 	
-	//PrintTable(death)
+	-- PrintTable(death)
 	
 	local text = ""
 	local text_assist = ""
 	
 	if death.attacker == "self" then return end
 	
-	//if type(death.attacker) ~= "player" then return end
+	-- if type(death.attacker) ~= "player" then return end
 	
 	
 	
 	if IsValid(death.attacker) and death.attacker.IsPlayer and death.attacker:IsPlayer() then
 		if death.assist and death.assist ~= "" then
-			text = ""..death.attacker:Name()//.." and "..death.assist..""
+			text = ""..death.attacker:Name()-- .." and "..death.assist..""
 			text_assist = death.assist
 		else
 			text = death.attacker:Name()
 		end
 	end
-	if !ValidEntity(death.attacker) then return end
+	if not ValidEntity(death.attacker) then return end
 	if not death.attacker:OBBCenter() then return end
 	if death.attacker:IsZombie() then return end
 	
@@ -177,16 +177,16 @@ function DrawCustomDeath3 ( death )
 		name = GAMEMODE.HumanWeapons[name].Name
 	end
 	
-	local attpos = death.attacker:LocalToWorld(death.attacker:OBBCenter())//death.attacker:OBBCenter()
+	local attpos = death.attacker:LocalToWorld(death.attacker:OBBCenter())-- death.attacker:OBBCenter()
 	attpos = attpos + Vector(0,0,death.attacker:OBBMaxs().z/3)
 	local angle = (EyePos() - attpos):Angle()
-	//angle.p = 0
+	-- angle.p = 0
 	angle.y = angle.y + 90
 	angle.r = angle.r + 90
 
 	cam.Start3D2D(attpos,angle,0.1)
 	
-		cam.IgnoreZ(true) //we want to see the text even if its stuck in a wall	
+		cam.IgnoreZ(true) -- we want to see the text even if its stuck in a wall	
 		
 		draw.SimpleTextOutlined("Killed by  ", "NewZombieFont27", -45-death.attacker:OBBMaxs().x, 0, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		draw.SimpleTextOutlined(text.."  ", "NewZombieFont23", -45-death.attacker:OBBMaxs().x, 34, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
@@ -203,6 +203,6 @@ function DrawCustomDeath3 ( death )
 		
 	cam.End3D2D()
 	
-	//draw.SimpleTextOutlined(text, "ArialBoldTen", 50, 50, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	-- draw.SimpleTextOutlined(text, "ArialBoldTen", 50, 50, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
 end

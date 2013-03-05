@@ -7,13 +7,13 @@ function EFFECT:Init(data)
 	self.EfOwner = data:GetEntity()
 	self.Entity:SetModel("models/Items/item_item_crate.mdl")
 
-	//self.DieTime = RealTime() + 0.01
+	-- self.DieTime = RealTime() + 0.01
 end
 
 function EFFECT:Think()
 	
-	if !ValidEntity(self.EfOwner) then return false end
-	if !ValidEntity(self.EfOwner:GetActiveWeapon()) then return false end
+	if not ValidEntity(self.EfOwner) then return false end
+	if not ValidEntity(self.EfOwner:GetActiveWeapon()) then return false end
 	if self.EfOwner:GetActiveWeapon():GetClass() ~= "weapon_zs_tools_supplies" then return false end
 	if not self.EfOwner:Alive() then return false end
 	if not self.EfOwner:IsHuman() then return false end
@@ -26,7 +26,7 @@ function EFFECT:Think()
 
 	self.Entity:SetPos(tr.HitPos)
 
-	local htrace = util.TraceHull ( { start = tr.HitPos, endpos = tr.HitPos,  mins = Vector (-28,-28,0), maxs = Vector (28,28,25)} )//filter = self.EfOwner,
+	local htrace = util.TraceHull ( { start = tr.HitPos, endpos = tr.HitPos,  mins = Vector (-28,-28,0), maxs = Vector (28,28,25)} )-- filter = self.EfOwner,
 	local trground = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos - Vector(0,0,1.5)})
 	
 	local Crate = false
@@ -50,7 +50,7 @@ function EFFECT:Think()
 	self.Entity:SetAngles( Angle (0,angles.y,angles.r) )
 	
 	return (self and self.EfOwner and ValidEntity(self.EfOwner) and self.EfOwner:GetActiveWeapon() and self.EfOwner:GetActiveWeapon():GetClass() == "weapon_zs_tools_supplies" and self.EfOwner:Alive() and self.EfOwner:Team() ~= TEAM_UNDEAD) or false
-	//return RealTime() < self.DieTime
+	-- return RealTime() < self.DieTime
 end
 
 function EFFECT:Render()

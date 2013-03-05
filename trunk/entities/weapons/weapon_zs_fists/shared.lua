@@ -3,30 +3,30 @@
 
 if SERVER then AddCSLuaFile ( "shared.lua" ) end
 
-//Melee base
+-- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
-//Model paths
+-- Model paths
 SWEP.Author = "Deluvas"
 SWEP.ViewModel = Model ( "models/weapons/v_smg1.mdl" )--models/weapons/v_punch.mdl
 SWEP.WorldModel = Model ( "models/weapons/w_crowbar.mdl" )
 
-//Name and fov
+-- Name and fov
 SWEP.PrintName = "Fists"
 SWEP.ViewModelFOV = 60
 
-//Slot pos
+-- Slot pos
 SWEP.Slot = 2
 SWEP.SlotPos = 3
 
 SWEP.HoldType = "fists"
 
-//Damage, distane, delay
+-- Damage, distane, delay
 SWEP.Primary.Damage = 60
 SWEP.Primary.Delay = 0.75
 SWEP.Primary.Distance = 64
 SWEP.TotalDamage = SWEP.Primary.Damage
-//Killicons
+-- Killicons
 if CLIENT then killicon.AddFont( "weapon_zs_fists", "HL2MPTypeDeath", "6", Color( 255, 80, 0, 255 ) ) end
 
 Bones = {
@@ -37,8 +37,8 @@ Bones = {
 	"ValveBiped.Bip01_Spine4",
 	"ValveBiped.Bip01_Neck1",
 	"ValveBiped.Bip01_Head1",
-	//"ValveBiped.Bip01_R_Clavicle",
-	//"ValveBiped.Bip01_L_Clavicle",
+	-- "ValveBiped.Bip01_R_Clavicle",
+	-- "ValveBiped.Bip01_L_Clavicle",
 	"ValveBiped.Bip01_R_Thigh",
 	"ValveBiped.Bip01_R_Calf",
 	"ValveBiped.Bip01_R_Foot",
@@ -67,10 +67,10 @@ end
 
 function SWEP:DoAnimation()
 	
-	//1st person animation
+	-- 1st person animation
 	if math.random ( 1,2 ) == 2 then self.Weapon:SendWeaponAnim( ACT_VM_PRIMARYATTACK ) else self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK ) end
 	
-	//Thirdperson animation
+	-- Thirdperson animation
 	self.Owner:SetAnimation( PLAYER_ATTACK1 )
 end
 
@@ -105,7 +105,7 @@ function SWEP:MakeNewArms()
 	self.Arms = ClientsideModel(self.Owner:GetModel(), RENDER_GROUP_OPAQUE_ENTITY) --self.Owner:GetModel()
 	if (ValidEntity(self.Arms)) and (ValidEntity(vm)) then 
 		self.Arms:SetPos(self.Owner:GetPos() - self.Owner:GetForward()*56)
-		//self.Arms:SetAngles(vm:GetAngles())
+		-- self.Arms:SetAngles(vm:GetAngles())
 		self.Arms:SetParent(vm) 
 		self.Arms:AddEffects(EF_BONEMERGE and EF_BONEMERGE_FASTCULL and EF_PARENT_ANIMATES)
 		self.Arms:SetNoDraw(true) 

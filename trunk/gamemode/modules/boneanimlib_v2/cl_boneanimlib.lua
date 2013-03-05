@@ -117,7 +117,7 @@ local function DoCurrentFrame(tGestureTable, tFrameData, iCurFrame, pl, fAmount,
 					mBoneMatrix:Translate((tBoneInfo.MU * vUp + tBoneInfo.MR * vRight + tBoneInfo.MF * vForward) * fAmount)
 					mBoneMatrix:Rotate(Angle(tBoneInfo.RR, tBoneInfo.RU, tBoneInfo.RF) * fAmount)
 				else
-					--[[if tGestureTable.FrameData[iCurFrame - 2] and tGestureTable.FrameData[iCurFrame + 1] then -- Cubic
+					--[=[if tGestureTable.FrameData[iCurFrame - 2] and tGestureTable.FrameData[iCurFrame + 1] then -- Cubic
 						local bi0 = GetFrameBoneInfo(pl, tGestureTable, iCurFrame - 2, iBoneID)
 						local bi1 = GetFrameBoneInfo(pl, tGestureTable, iCurFrame - 1, iBoneID)
 						local bi3 = GetFrameBoneInfo(pl, tGestureTable, iCurFrame + 1, iBoneID)
@@ -127,7 +127,7 @@ local function DoCurrentFrame(tGestureTable, tFrameData, iCurFrame, pl, fAmount,
 																Angle(tBoneInfo.RR, tBoneInfo.RU, tBoneInfo.RF),
 																Angle(bi3.RR, bi3.RU, bi3.RF),
 																fFrameDelta) * fPower)
-					else]] -- Cosine
+					else]=] -- Cosine
 						local bi1 = GetFrameBoneInfo(pl, tGestureTable, iCurFrame - 1, iBoneID)
 						mBoneMatrix:Translate(CosineInterpolation(bi1.MU * vUp + bi1.MR * vRight + bi1.MF * vForward, tBoneInfo.MU * vUp + tBoneInfo.MR * vRight + tBoneInfo.MF * vForward, fFrameDelta) * fPower)
 						mBoneMatrix:Rotate(CosineInterpolation(Angle(bi1.RR, bi1.RU, bi1.RF), Angle(tBoneInfo.RR, tBoneInfo.RU, tBoneInfo.RF), fFrameDelta) * fPower)
@@ -199,15 +199,15 @@ end
 hook.Add("Think", "BoneAnimThink", function()
 	for _, pl in pairs(player.GetAll()) do
 		if pl.LuaAnimations and pl:IsValid() then
-			//ProcessAnimations(pl)
+			-- ProcessAnimations(pl)
 		end
 	end
 end)
 
 hook.Add("CalcMainActivity", "LuaAnimationSequence", function(pl)
 	if pl.InSequence then
-		//pl:ResetInSequence()
-		//return 0, 0
+		-- pl:ResetInSequence()
+		-- return 0, 0
 	end	
 end)
 

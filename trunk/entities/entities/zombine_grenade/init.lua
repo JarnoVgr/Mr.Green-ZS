@@ -14,7 +14,7 @@ ENT.PoisonExplodeSound = Sound( "ambient/levels/labs/electric_explosion1.wav" )
 
 function ENT:Initialize()
 
-	//Initialize physics and model
+	-- Initialize physics and model
 	self:SetModel( "models/weapons/w_grenade.mdl" )
 	
 	self:InitPhys()
@@ -23,28 +23,28 @@ function ENT:Initialize()
 	
 	self.OwnerDied = false
 	
-	//Time to boom
+	-- Time to boom
 	self.BoomTime = CurTime() + 5
 	self.ZombieOwner = self:GetOwner()
 	
-	//Parent entity on zombie hand
+	-- Parent entity on zombie hand
 	if not IsEntityValid ( self.ZombieOwner ) then return end
 	
-	//Set grenade type (poison or damage)
+	-- Set grenade type (poison or damage)
 	self:SetType( 1 )
 	
-	//Set position on hand
+	-- Set position on hand
 	self:SetPos ( self.ZombieOwner:GetPos() + Vector ( 0,0,40 ) )
 end
 
 function ENT:InitPhys()
 
-	//Init phys stuff
+	-- Init phys stuff
 	self:PhysicsInit ( SOLID_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS ) 
 	self:SetCollisionGroup( COLLISION_GROUP_DEBRIS_TRIGGER ) 
 	
-	//Wake up
+	-- Wake up
 	local Phys = self:GetPhysicsObject()
 	timer.Simple ( 0.02, function( ) if not IsEntityValid (  ) then return end if Phys:IsValid() then Phys:Wake() end if self.OwnerDied then Phys:ApplyForceCenter( VectorRand() * math.Rand( 50, 50 ) ) end end)
 end
@@ -53,16 +53,16 @@ ENT.BeepDuration = 1
 function ENT:Think()
 	if not IsEntityValid ( self ) then return end
 	
-	//No valid owner
+	-- No valid owner
 	if not IsEntityValid ( self.ZombieOwner ) then return end
 	
-	//Owner redeemed
+	-- Owner redeemed
 	if self.ZombieOwner:IsHuman() then self:Remove() return end
 	
-	//Owner died before nade xploded
+	-- Owner died before nade xploded
 	if not self.OwnerDied and not self.ZombieOwner:Alive() then self.OwnerDied = true self:SetParent() self:InitPhys() end
 	
-	//Beep found
+	-- Beep found
 	if self.BeepTime <= CurTime() then
 		self:EmitSound ( "weapons/grenade/tick1.wav" )
 		
@@ -70,27 +70,27 @@ function ENT:Think()
 		self.BeepDuration = math.Clamp ( self.BeepDuration * 0.7, 0.2, 1 )
 	end
 	
-	//BOOM time
+	-- BOOM time
 	if CurTime() < self.BoomTime then return end
 	
-	//BOOM
+	-- BOOM
 	if self:GetType() then self:Explode() else self:PoisonExplode() end
 end
 
-//Poison explosion
+-- Poison explosion
 function ENT:PoisonExplode()
 	if not IsValid( self.ZombieOwner ) then return end
 	
-	//Not human anymore
+	-- Not human anymore
 	if not self.ZombieOwner:IsZombie() then return end
 	
-	//Get players near
+	-- Get players near
 	local tbHumans = ents.FindHumansInSphere ( self:GetPos(), self.MaximumDist )
 	
-	//Local stuff
+	-- Local stuff
 	local vPos = self:GetPos()
 	
-	// Shaken, not stirred
+	--  Shaken, not stirred
 	local shake = ents.Create( "env_shake" )
 	shake:SetPos( vPos )
 	shake:SetKeyValue( "amplitude", "800" ) -- Power of the shake effect
@@ -103,62 +103,62 @@ function ENT:PoisonExplode()
 	shake:Activate()
 	shake:Fire( "StartShake", "", 0 )
 	
-	//Kill owner
+	-- Kill owner
 	if not self.OwnerDied then self.ZombieOwner:SetHealth ( 0 ) self.ZombieOwner:Kill() end
 	
-	//Filter
+	-- Filter
 	local Filter = { self, self.ZombieOwner }
 	table.Add( Filter, team.GetPlayers( TEAM_UNDEAD ) )
 	
-	//Get owner active weapon
+	-- Get owner active weapon
 	local mOwnerWeapon = self.ZombieOwner:GetActiveWeapon()
 	
-	//Damage humans nearby
+	-- Damage humans nearby
 	for k,v in pairs ( tbHumans ) do
 		if IsEntityVisible ( v, vPos + Vector ( 0,0,3 ), Filter ) then
 			table.insert( Filter, v )
 			local fDistance = self:GetPos():Distance( v:GetPos() )
 			v:TakeDamageOverTime( math.Rand(2,3), 1.5, math.Clamp( ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 44 ) / 2, 0, 22 ), self.ZombieOwner, mOwnerWeapon )
 			
-			//Apply effect to human
+			-- Apply effect to human
 			local Infect = EffectData()
 				Infect:SetEntity( v )
 			util.Effect( "infected_human", Infect, true )
 		end
 	end
 	
-	//Effect
+	-- Effect
 	local eData = EffectData()
 		eData:SetOrigin( vPos )
 		eData:SetScale( 1.2 )
 	util.Effect( "Explosion", eData )
 	
-	//Play some weird effect
-	//self:EmitSound( self.PoisonExplodeSound )
+	-- Play some weird effect
+	-- self:EmitSound( self.PoisonExplodeSound )
 	
 	local eData = EffectData()
 		eData:SetOrigin( vPos )
 	util.Effect( "chemzombieexplode", eData )
 	
 	
-	//Remove grenade
+	-- Remove grenade
 	self:Remove()
 end
 
-//Kinetic explosion
+-- Kinetic explosion
 function ENT:Explode()
 	if not IsEntityValid ( self.ZombieOwner ) then return end
 	
-	//Not human anymore
+	-- Not human anymore
 	if not self.ZombieOwner:IsZombie() then return end
 	
-	//Get players near
+	-- Get players near
 	local tbHumans = ents.FindHumansInSphere ( self:GetPos(), self.MaximumDist )
 	
-	//Local stuff
+	-- Local stuff
 	local vPos = self:GetPos()
 	
-	// Shaken, not stirred
+	--  Shaken, not stirred
 	local shake = ents.Create( "env_shake" )
 	shake:SetPos( vPos )
 	shake:SetKeyValue( "amplitude", "800" ) -- Power of the shake effect
@@ -171,14 +171,14 @@ function ENT:Explode()
 	shake:Activate()
 	shake:Fire( "StartShake", "", 0 )
 	
-	//Kill owner
+	-- Kill owner
 	if not self.OwnerDied then self.ZombieOwner:SetHealth ( 0 ) self.ZombieOwner:Kill() end
 	
-	//Filter
+	-- Filter
 	local Filter = { self, self.ZombieOwner }
 	table.Add( Filter, team.GetPlayers( TEAM_UNDEAD ) )
 	
-	//Get owner active weapon
+	-- Get owner active weapon
 	local mOwnerWeapon = self.ZombieOwner:GetActiveWeapon()
 	
 	local Ent = ents.Create("env_explosion")
@@ -194,22 +194,22 @@ function ENT:Explode()
 	--Ent:SetKeyValue( "iRadiusOverride", math.Clamp ( math.Rand ( 50,120), 5, 130 )  )
 	Ent:Fire("explode", "", 0)
 	
-	//Damage humans nearby
-	--[[for k,v in pairs ( tbHumans ) do
+	-- Damage humans nearby
+	--[=[for k,v in pairs ( tbHumans ) do
 		if IsEntityVisible ( v, vPos + Vector ( 0,0,3 ), Filter ) then
 			table.insert( Filter, v )
 			local fDistance = self:GetPos():Distance( v:GetPos() )
 			v:TakeDamage ( math.Clamp ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 37,0, 47 ), self.ZombieOwner, mOwnerWeapon )
 		end
 	end
-	]]
-	//Effect
+	]=]
+	-- Effect
 	local eData = EffectData()
 		eData:SetOrigin( vPos )
 		eData:SetScale( 1.2 )
 	--util.Effect( "Explosion", eData )
 	
-	//Remove grenade
+	-- Remove grenade
 	self:Remove()
 end
 

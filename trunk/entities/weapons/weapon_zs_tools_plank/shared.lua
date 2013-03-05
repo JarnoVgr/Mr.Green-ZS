@@ -35,7 +35,7 @@ SWEP.WorldModel = "models/props_junk/propane_tank001a.mdl"
 SWEP.Slot = 5
 SWEP.SlotPos = 1 
 
-//SWEP.Info = ""
+-- SWEP.Info = ""
 
 SWEP.Primary.ClipSize =2
 SWEP.Primary.DefaultClip = 2
@@ -139,7 +139,7 @@ function SWEP:Equip ( NewOwner )
 		self.Weapon:SetClip1( 3 ) 	
 	end
 	
-	//Call this function to update weapon slot and others
+	-- Call this function to update weapon slot and others
 	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
 end
 	

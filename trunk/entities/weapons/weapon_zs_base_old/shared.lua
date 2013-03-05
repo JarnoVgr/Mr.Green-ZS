@@ -17,7 +17,7 @@ if CLIENT then
 	SWEP.ShowViewModel = false
 	SWEP.PlayerFOV = 75
 	
-	//killicons
+	-- killicons
 	surface.CreateFont( "csd", ScreenScale( 30 ), 500, true, true, "CSKillIcons" )
 	surface.CreateFont( "csd", ScreenScale( 60 ), 500, true, true, "CSSelectIcons" )
 	SWEP.VElements = {}
@@ -26,7 +26,7 @@ if CLIENT then
 	["v_weapon.Left_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 	["v_weapon.Right_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
 	}
-	//SWEP.Arms = {}
+	-- SWEP.Arms = {}
 
 end
 
@@ -68,40 +68,40 @@ SWEP.OverrideAng = Vector( 0,0,0 )
 
 SWEP.Tracer = "Tracer"
 
-//Deploy speed
+-- Deploy speed
 SWEP.DeploySpeed = 1.1
 
-//Numbers used to draw the crosshair and calculate the cone
+-- Numbers used to draw the crosshair and calculate the cone
 SWEP.WeaponCones = { ["pistol"] = { Cone = 0.1, Length = 14 }, ["smg"] = { Cone = 0.13, Length = 17 }, ["rifle"] = { Cone = 0.14, Length = 18 }, ["shotgun"] = { Cone = 0.26, Length = 22 }, ["admin"] = { Cone = 0.30, Length = 27 } }
 
-//Optimisation Event!
+-- Optimisation Event!
 	
 
 function SWEP:Precache() 
 	util.PrecacheSound(self.Primary.Sound)
 end
-/*------------------------------------
+--[==[------------------------------------
        Called on weapon deploy
-------------------------------------*/
+------------------------------------]==]
 function SWEP:Deploy()
 	self:SetIronsights( false )
 	
-	//Player the draw animation
+	-- Player the draw animation
 	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
 	
-	//Add a bit of time before we start shooting
+	-- Add a bit of time before we start shooting
 	self.Weapon:SetNextSecondaryFire( CurTime() + 0.8 )
 	
 	self.Owner:StopAllLuaAnimations()
 	
 	self:OnDeploy()
 	
-	//Speed change
+	-- Speed change
 	if SERVER then GAMEMODE:WeaponDeployed( self.Owner, self ) return true else self:SetViewModelColor ( Color(255,255,255,255) ) 
 	end
 	
 end
-//Additional func
+-- Additional func
 function SWEP:OnDeploy()
 MakeNewArms(self)
 if CLIENT then
@@ -111,30 +111,30 @@ if CLIENT then
 end
 end
 
-/*-------------------------------------------
+--[==[-------------------------------------------
        Called on weapon initialization
--------------------------------------------*/
+-------------------------------------------]==]
 function SWEP:Initialize()
 	self:SetWeaponHoldType( self.HoldType )
 	
-	//Deploy speed
+	-- Deploy speed
 	self:SetDeploySpeed ( self.DeploySpeed )
 	
 	
 	
-	//Clavus' code goes here:
+	-- Clavus' code goes here:
     if CLIENT then
-        self:CreateModels(self.VElements) // create viewmodels
-        self:CreateModels(self.WElements) // create worldmodels
+        self:CreateModels(self.VElements) --  create viewmodels
+        self:CreateModels(self.WElements) --  create worldmodels
        
-        // init view model bone build function
+        --  init view model bone build function
  		self.BuildViewModelBones = function( s )
 			if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 				for k, v in pairs( self.ViewModelBoneMods ) do
 					local bone = s:LookupBone(k)
-					if (!bone) then continue end
+					if (not bone) then continue end
 					local m = s:GetBoneMatrix(bone)
-					if (!m) then continue end
+					if (not m) then continue end
 					m:Scale(v.scale)
 					m:Rotate(v.angle)
 					m:Translate(v.pos)
@@ -149,19 +149,19 @@ end
 
 function SWEP:OnInitialize()
 	if CLIENT then
-		//MakeNewArms(self)
+		-- MakeNewArms(self)
 	end
 end
 
-/*------------------------------------
+--[==[------------------------------------
           Called on pressed R
--------------------------------------*/
+-------------------------------------]==]
 function SWEP:Reload()
 	if self.Owner.KnockedDown or self.Owner:IsHolding() then return end
 	local Magazine = self.Owner:GetAmmoCount( self.Weapon:GetPrimaryAmmoType() )
-	//Disable ironsight while reloading
+	-- Disable ironsight while reloading
 	self:SetIronsights( false )
-	// If the player hasn't anymore ammo then stop running this
+	--  If the player hasn't anymore ammo then stop running this
 	if self.Weapon:Clip1() >= self.Primary.ClipSize or Magazine == 0 then return end
 	
 
@@ -176,16 +176,16 @@ function SWEP:Reload()
 		end
 	end
 	
-	//Default reload animation
+	-- Default reload animation
 	self.Weapon:DefaultReload( ACT_VM_RELOAD )		
 	if self.ReloadSound then
 		self.Weapon:EmitSound(self.ReloadSound)
 	end
 end
 
-/*------------------------------------
+--[==[------------------------------------
           Called on holstered
--------------------------------------*/
+-------------------------------------]==]
 function SWEP:Holster()
 	self:SetIronsights( false ) 
 	RemoveNewArms(self)
@@ -207,25 +207,25 @@ function SWEP:OnRemove()
      
 end
 
-/*--------------------------------------------------
+--[==[--------------------------------------------------
      Called on Primary Fire Attack ( +attack )
----------------------------------------------------*/
+---------------------------------------------------]==]
 SWEP.PrimaryFire = 0
 function SWEP:PrimaryAttack()
 	if self.Owner.KnockedDown or self.Owner:IsHolding() then return end
 	self:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
 	if not self:CanPrimaryAttack() then return end
 	
-	//Get owner
+	-- Get owner
 	local Owner = self.Owner
 
-	//Ironsight precision
+	-- Ironsight precision
 	local iIronsightMul
 	if self:GetIronsights() then iIronsightMul = self.IronSightMultiplier else iIronsightMul = 2 end
 		
-	//Recoil 
+	-- Recoil 
 	if Owner.ViewPunch then Owner:ViewPunch( Angle(math.Rand(-0.2,-0.1) * self.Primary.Recoil * 0.25, math.Rand(-0.1,0.1) * self.Primary.Recoil * 0.35, 0) ) end
-	if ( ( SinglePlayer() && SERVER ) || ( !SinglePlayer() && CLIENT && IsFirstTimePredicted() ) ) then
+	if ( ( SinglePlayer() and SERVER ) or ( not SinglePlayer() and CLIENT and IsFirstTimePredicted() ) ) then
 		local eyeang = self.Owner:EyeAngles()
 		local recoil = math.Rand( 0.1, 0.2 )
 		eyeang.pitch = eyeang.pitch - recoil
@@ -234,12 +234,12 @@ function SWEP:PrimaryAttack()
 	
 	local WeaponType = self:GetType()
 	
-	//The crosshair enlarges
+	-- The crosshair enlarges
 	if CLIENT then
 		local Scale
 		local Cone = self.WeaponCones[WeaponType].Cone
 	
-		//Get the current action of the player
+		-- Get the current action of the player
 		if MySelf:GetVelocity():Length() > 25 then
 			Scale = ( ScrW() / 1024 ) * 10 * Cone * 1.5
 		else
@@ -254,20 +254,20 @@ function SWEP:PrimaryAttack()
 		self.CrosshairGap = math.Clamp ( self.CrosshairGap + 7, 0, MaxRecoil * 1.5 )
 	end
 		
-	//Fire sound
+	-- Fire sound
 	self:EmitSound ( self.Primary.Sound )
-	//Calculate cone
+	-- Calculate cone
 	local Cone = self.WeaponCones[WeaponType].Cone
 	local fRunCone, fCrouchCone, fCone, fDamage, iNumShots = 1.7, 0.8, 1.3, self.Primary.Damage, self.Primary.NumShots
 	
-	//Running or standing still or crouching cones
+	-- Running or standing still or crouching cones
 	
 	if self.Owner:GetVelocity():Length() > 25 then
 		self:ShootBullets ( fDamage, iNumShots, ( Cone * fRunCone ) * 0.25 * iIronsightMul )
 	else
 		if self.Owner:Crouching() then self:ShootBullets ( fDamage, iNumShots, ( Cone * fCrouchCone ) * 0.25 * iIronsightMul ) else self:ShootBullets ( fDamage, iNumShots, ( Cone * fCone ) * 0.25 * iIronsightMul ) end
 	end
-	//Leech ammunition
+	-- Leech ammunition
 	self:TakePrimaryAmmo( 1 )
 		
 	if self.IsShotgun and self.IsShotgun == true then
@@ -276,9 +276,9 @@ function SWEP:PrimaryAttack()
 	end
 end
 
-/*--------------------------------------------------
+--[==[--------------------------------------------------
 	   Half Life 2 like tracer origins
----------------------------------------------------*/
+---------------------------------------------------]==]
 function SWEP:GetTracerOrigin()
 	if SERVER then return end
 
@@ -311,10 +311,10 @@ function SWEP:BulletCallback ( attacker, trace, dmginfo )
 			local owner = self.Owner or self.Entity
 			local damage = self.Primary.Damage or 12
 			if not ValidEntity ( owner ) then return end
-			//No damage to humans 
+			-- No damage to humans 
 			if ( ent:IsPlayer() and ent:IsHuman() ) then return end
 			
-			//Predict some damage clientside
+			-- Predict some damage clientside
 			-- if CLIENT then 
 				-- if self.PrimaryFire <= CurTime() then
 					-- self.PrimaryFire = CurTime() + self.Primary.Delay 
@@ -378,7 +378,7 @@ if CLIENT then
 		if ENDROUND or ZOMBIE_CLASSES then return end
 		if self.Weapon:GetIronsights() == true and GetConVar( "_zs_ironsight" ):GetBool() == false then return end 
 		
-		//SQL ready
+		-- SQL ready
 		if not MySelf.ReadySQL then return end
 
 		local x = w * 0.5
@@ -406,12 +406,12 @@ if CLIENT then
 		if tr.Hit then
 			local ent = tr.Entity
 			if IsValid( ent ) and ent:IsPlayer() and ( not ent:IsWraith() ) then
-				if ent:Team() != owner:Team() and ent:Alive() then
+				if ent:Team() ~= owner:Team() and ent:Alive() then
 					self.CColor = Color (245,5,5,self.CHalpha)
 					self.DotColor = Color (255, 255, 255, math.min(self.CHalpha*3,230))
 				end
 			else
-				self.CColor = Color (255,255,255, self.CHalpha)//124,198,227
+				self.CColor = Color (255,255,255, self.CHalpha)-- 124,198,227
 				self.DotColor = Color (255, 0, 0, math.min(self.CHalpha*3,230))
 			end
 		end
@@ -421,7 +421,7 @@ if CLIENT then
 		local WeaponType = self:GetType()
 		local Cone = self.WeaponCones[WeaponType].Cone
 		
-		//Get the current action of the player
+		-- Get the current action of the player
 		if MySelf:GetVelocity():Length() > 25 then
 			Scale = scalebywidth * Cone * 1.5
 		else
@@ -434,7 +434,7 @@ if CLIENT then
 
 		surface.SetDrawColor( self.CColor )
 
-		//space between the lines
+		-- space between the lines
 		
 		if self.IsShotgun and self.IsShotgun == true then
 		self.CrosshairGap = math.Approach ( self.CrosshairGap, math.abs ( Scale * 6 ), FrameTime() * 55 )
@@ -484,19 +484,19 @@ if CLIENT then
 	end
 end
 
-/*------------------------------------------------------
+--[==[------------------------------------------------------
             Called when the weapon is equiped
--------------------------------------------------------*/
+-------------------------------------------------------]==]
 function SWEP:Equip ( NewOwner )
 	if CLIENT then return end
 	
-	//If the weapon is dropped and has 10 bullets less in the current clip, then substract that amount for the new owner
+	-- If the weapon is dropped and has 10 bullets less in the current clip, then substract that amount for the new owner
 	if self.Primary.RemainingAmmo then
 		self:TakePrimaryAmmo ( self:Clip1() - self.Primary.RemainingAmmo )
 	end
 
 	
-	//Magazine clip is stored in the weapon, instaed of player
+	-- Magazine clip is stored in the weapon, instaed of player
 	NewOwner:RemoveAmmo ( 1500, self:GetPrimaryAmmoTypeString() )
 	NewOwner:GiveAmmo ( self.Primary.Magazine or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
 	
@@ -504,7 +504,7 @@ function SWEP:Equip ( NewOwner )
 	
 	
 			
-	//Call this function to update weapon slot and others
+	-- Call this function to update weapon slot and others
 	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
 end
 
@@ -523,13 +523,13 @@ end
 
 SWEP.NextSecondaryAttack = 0
 function SWEP:SecondaryAttack()
-	if ( !self.IronSightsPos ) then return end
+	if ( not self.IronSightsPos ) then return end
 	if self.Owner.KnockedDown or self.Owner:IsHolding() then return end
 	if ( self.NextSecondaryAttack > CurTime() ) then return end
 	
 	bIronsights = !self.Weapon:GetIronsights() 
 	
-	//Set ironsights
+	-- Set ironsights
 	self:SetIronsights( bIronsights )
 	
 	self.NextSecondaryAttack = CurTime() + 0.4
@@ -539,7 +539,7 @@ SWEP.IRONSIGHT_TIME = 0.25
 
 function SWEP:GetViewModelPosition( pos, ang )
 self.Fov = GetConVar("fov_desired"):GetInt()
-local ENABLE_WEPPOS = util.tobool(GetConVarNumber("_zs_customweaponpos")) //we need this thing inside the hook, so it will check every damn second
+local ENABLE_WEPPOS = util.tobool(GetConVarNumber("_zs_customweaponpos")) -- we need this thing inside the hook, so it will check every damn second
 if ENABLE_WEPPOS then
 	if self.OverridePos and self.OverrideAng then
 	ang = ang * 1
@@ -560,11 +560,11 @@ else
 	ang = ang
 	pos = pos
 end
-	if ( !self.IronSightsPos ) then return pos, ang end
+	if ( not self.IronSightsPos ) then return pos, ang end
 
 	local bIron = self.Weapon:GetIronsights() 
 	
-	if ( bIron != self.bLastIron ) then
+	if ( bIron ~= self.bLastIron ) then
 	
 		self.bLastIron = bIron 
 		self.fIronTime = CurTime()
@@ -581,7 +581,7 @@ end
 	
 	local fIronTime = self.fIronTime or 0
 
-	if ( !bIron && fIronTime < CurTime() - self.IRONSIGHT_TIME ) then 
+	if ( not bIron and fIronTime < CurTime() - self.IRONSIGHT_TIME ) then 
 		return pos, ang
 	end
 	
@@ -589,7 +589,7 @@ end
 	
 	if ( fIronTime > CurTime() - self.IRONSIGHT_TIME ) then
 		Mul = math.Clamp( ( CurTime() - fIronTime) / self.IRONSIGHT_TIME, 0, 1 )
-		if (!bIron) then Mul = 1 - Mul end
+		if (not bIron) then Mul = 1 - Mul end
 	end
 	local Offset = self.IronSightsPos
 
@@ -631,35 +631,35 @@ end
 end
 end
 
-/*---------------------------------------------------------------
+--[==[---------------------------------------------------------------
                        Enable/Disable Ironsight
-----------------------------------------------------------------*/
+----------------------------------------------------------------]==]
 function SWEP:SetIronsights ( bIron )
 	if self:GetIronsights() == bIron then return end
 	
-	//Get owner
+	-- Get owner
 	local Owner = self.Owner
 	if not ValidEntity ( Owner ) then return end
 	
-	//Toggle ironsight
+	-- Toggle ironsight
 	self.IronSight = bIron
 	
-	//Set clientside irons
+	-- Set clientside irons
 	if CLIENT then 
-		if self:GetIronsights() == true then self.PlayerFOV = GetConVar("fov_desired"):GetInt() - 20 or 55 else self.PlayerFOV = GetConVar("fov_desired"):GetInt() end // or 75
+		if self:GetIronsights() == true then self.PlayerFOV = GetConVar("fov_desired"):GetInt() - 20 or 55 else self.PlayerFOV = GetConVar("fov_desired"):GetInt() end --  or 75
 		
-		//Set clientside fov
+		-- Set clientside fov
 		Owner:SetFOV ( self.PlayerFOV )
 	end
 	
-	//Manage speed set-up
+	-- Manage speed set-up
 	if CLIENT then return end
 	GAMEMODE:WeaponDeployed ( self.Owner, self, bIron )
 end
 
-/*---------------------------------------------------
+--[==[---------------------------------------------------
            Get Weapon Ironsight Status
----------------------------------------------------*/
+---------------------------------------------------]==]
 function SWEP:GetIronsights ()
 	return self.IronSight
 end
@@ -671,8 +671,8 @@ local function OnWeaponDropped ( um )
 	if SERVER then return end
 	if not ValidEntity ( MySelf ) then return end
 	
-	//Disable the ironsight
-	MySelf:SetFOV ( GetConVar("fov_desired"):GetInt()  ) //75
+	-- Disable the ironsight
+	MySelf:SetFOV ( GetConVar("fov_desired"):GetInt()  ) -- 75
 end
 if CLIENT then usermessage.Hook ( "OnWeaponDropped", OnWeaponDropped ) end
 
@@ -681,7 +681,7 @@ function SWEP:OnRestore()
 	self:SetIronsights( false )
 end
 
-//Some more code 
+-- Some more code 
 if CLIENT then
 
 	SWEP.vRenderOrder = nil
@@ -696,7 +696,7 @@ if CLIENT then
 		if not self.Owner:IsPlayer() then return end
 		
 		local vm = self.Owner:GetViewModel()
-		if !ValidEntity(vm) then return end
+		if not ValidEntity(vm) then return end
 
 		
 		
@@ -713,7 +713,7 @@ if CLIENT then
 		if (self.ShowViewModel == nil or self.ShowViewModel) then
 			vm:SetColor(255,255,255,255)
 		else
-			// we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
+			--  we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
 			vm:SetColor(255,255,255,1) 
 		end
 
@@ -723,13 +723,13 @@ if CLIENT then
 			vm.BuildBonePositions = self.BuildViewModelBones
 		end
 
-		UpdateArms(self) //testing
+		UpdateArms(self) -- testing
 		
-		if (!self.VElements) then return end
+		if (not self.VElements) then return end
 		
-		if (!self.vRenderOrder) then
+		if (not self.vRenderOrder) then
 			
-			// we build a render order because sprites need to be drawn after models
+			--  we build a render order because sprites need to be drawn after models
 			self.vRenderOrder = {}
 
 			for k, v in pairs( self.VElements ) do
@@ -745,16 +745,16 @@ if CLIENT then
 		for k, name in ipairs( self.vRenderOrder ) do
 		
 			local v = self.VElements[name]
-			if (!v) then self.vRenderOrder = nil break end
+			if (not v) then self.vRenderOrder = nil break end
 		
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
 			
-			if (!v.bone) then continue end
+			if (not v.bone) then continue end
 			
 			local pos, ang = self:GetBoneOrientation( self.VElements, v, vm )
 			
-			if (!pos) then continue end
+			if (not pos) then continue end
 			
 			if (v.type == "Model" and ValidEntity(model)) then
 
@@ -768,17 +768,17 @@ if CLIENT then
 				
 				if (v.material == "") then
 					model:SetMaterial("")
-				elseif (model:GetMaterial() != v.material) then
+				elseif (model:GetMaterial() ~= v.material) then
 					model:SetMaterial( v.material )
 				end
 				
-				if (v.skin and v.skin != model:GetSkin()) then
+				if (v.skin and v.skin ~= model:GetSkin()) then
 					model:SetSkin(v.skin)
 				end
 				
 				if (v.bodygroup) then
 					for k, v in pairs( v.bodygroup ) do
-						if (model:GetBodygroup(k) != v) then
+						if (model:GetBodygroup(k) ~= v) then
 							model:SetBodygroup(k, v)
 						end
 					end
@@ -834,18 +834,18 @@ if CLIENT then
 					local m1 = self.Owner:GetRagdollEntity():GetBoneMatrix(bone)
 						if (m1) then
 							pos1, ang1 = m1:GetTranslation(), m1:GetAngle()
-							//self:SetPos(pos1)
-							//self:SetAngles(ang1)
-							//print(tostring(pos1))
+							-- self:SetPos(pos1)
+							-- self:SetAngles(ang1)
+							-- print(tostring(pos1))
 						end
 					end	
 				end
 			self:DrawModel()
 		end
 		
-		if (!self.WElements) then return end
+		if (not self.WElements) then return end
 		
-		if (!self.wRenderOrder) then
+		if (not self.wRenderOrder) then
 
 			self.wRenderOrder = {}
 
@@ -866,14 +866,14 @@ if CLIENT then
 				bone_ent = self.Owner
 			end
 		else
-			// when the weapon is dropped
+			--  when the weapon is dropped
 			bone_ent = self
 		end
 		
 		for k, name in pairs( self.wRenderOrder ) do
 		
 			local v = self.WElements[name]
-			if (!v) then self.wRenderOrder = nil break end
+			if (not v) then self.wRenderOrder = nil break end
 			
 			local pos, ang
 			
@@ -883,7 +883,7 @@ if CLIENT then
 				pos, ang = self:GetBoneOrientation( self.WElements, v, bone_ent, "ValveBiped.Bip01_R_Hand" )
 			end
 			
-			if (!pos) then continue end
+			if (not pos) then continue end
 			
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
@@ -900,17 +900,17 @@ if CLIENT then
 				
 				if (v.material == "") then
 					model:SetMaterial("")
-				elseif (model:GetMaterial() != v.material) then
+				elseif (model:GetMaterial() ~= v.material) then
 					model:SetMaterial( v.material )
 				end
 				
-				if (v.skin and v.skin != model:GetSkin()) then
+				if (v.skin and v.skin ~= model:GetSkin()) then
 					model:SetSkin(v.skin)
 				end
 				
 				if (v.bodygroup) then
 					for k, v in pairs( v.bodygroup ) do
-						if (model:GetBodygroup(k) != v) then
+						if (model:GetBodygroup(k) ~= v) then
 							model:SetBodygroup(k, v)
 						end
 					end
@@ -956,17 +956,17 @@ if CLIENT then
 	function SWEP:GetBoneOrientation( basetab, tab, ent, bone_override )
 		
 		local bone, pos, ang
-		if (tab.rel and tab.rel != "") then
+		if (tab.rel and tab.rel ~= "") then
 			
 			local v = basetab[tab.rel]
 			
-			if (!v) then return end
+			if (not v) then return end
 			
-			// Technically, if there exists an element with the same name as a bone
-			// you can get in an infinite loop. Let's just hope nobody's that stupid.
+			--  Technically, if there exists an element with the same name as a bone
+			--  you can get in an infinite loop. Let's just hope nobody's that stupid.
 			pos, ang = self:GetBoneOrientation( basetab, v, ent )
 			
-			if (!pos) then return end
+			if (not pos) then return end
 			
 			pos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
 			ang:RotateAroundAxis(ang:Up(), v.angle.y)
@@ -977,7 +977,7 @@ if CLIENT then
 		
 			bone = ent:LookupBone(bone_override or tab.bone)
 
-			if (!bone) then return end
+			if (not bone) then return end
 			
 			pos, ang = Vector(0,0,0), Angle(0,0,0)
 			local m = ent:GetBoneMatrix(bone)
@@ -987,7 +987,7 @@ if CLIENT then
 			
 			if (ValidEntity(self.Owner) and self.Owner:IsPlayer() and 
 				ent == self.Owner:GetViewModel() and self.ViewModelFlip) then
-				ang.r = -ang.r // Fixes mirrored models
+				ang.r = -ang.r --  Fixes mirrored models
 			end
 		
 		end
@@ -997,11 +997,11 @@ if CLIENT then
 
 	function SWEP:CreateModels( tab )
 
-		if (!tab) then return end
+		if (not tab) then return end
 
-		// Create the clientside models here because Garry says we can't do it in the render hook
+		--  Create the clientside models here because Garry says we can't do it in the render hook
 		for k, v in pairs( tab ) do
-			if (v.type == "Model" and v.model and v.model != "" and (!ValidEntity(v.modelEnt) or v.createdModel != v.model) and 
+			if (v.type == "Model" and v.model and v.model ~= "" and (not ValidEntity(v.modelEnt) or v.createdModel ~= v.model) and 
 					string.find(v.model, ".mdl") and file.Exists ("../"..v.model) ) then
 				
 				v.modelEnt = ClientsideModel(v.model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
@@ -1015,12 +1015,12 @@ if CLIENT then
 					v.modelEnt = nil
 				end
 				
-			elseif (v.type == "Sprite" and v.sprite and v.sprite != "" and (!v.spriteMaterial or v.createdSprite != v.sprite) 
+			elseif (v.type == "Sprite" and v.sprite and v.sprite ~= "" and (not v.spriteMaterial or v.createdSprite ~= v.sprite) 
 				and file.Exists ("../materials/"..v.sprite..".vmt")) then
 				
 				local name = v.sprite.."-"
 				local params = { ["$basetexture"] = v.sprite }
-				// make sure we create a unique name based on the selected options
+				--  make sure we create a unique name based on the selected options
 				local tocheck = { "nocull", "additive", "vertexalpha", "vertexcolor", "ignorez" }
 				for i, j in pairs( tocheck ) do
 					if (v[j]) then

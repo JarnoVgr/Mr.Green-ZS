@@ -37,10 +37,10 @@ SWEP.AutoSwitchTo = true
 SWEP.AutoSwitchFrom = false
 
 SWEP.EmitWraithSound = 0
-//SWEP.Screams = { "wraithdeath1.wav", "wraithdeath2.wav", "wraithdeath3.wav", "wraithdeath4.wav" }
+-- SWEP.Screams = { "wraithdeath1.wav", "wraithdeath2.wav", "wraithdeath3.wav", "wraithdeath4.wav" }
 SWEP.Screams = { "npc/stalker/stalker_alert1b.wav", "npc/stalker/stalker_alert2b.wav", "npc/stalker/stalker_alert3b.wav"}
 
-//Human scream sounds
+-- Human scream sounds
 SWEP.HumanScreams = { Sound( "ambient/voices/m_scream1.wav" ), Sound( "ambient/voices/f_scream1.wav" ) }
 
 SWEP.DistanceCheck = 75
@@ -51,7 +51,7 @@ function SWEP:Precache()
 	
 	util.PrecacheModel(self.ViewModel)
 	
-	//Quick way to precache all sounds
+	-- Quick way to precache all sounds
 	for _, snd in pairs(ZombieClasses[4].PainSounds) do
 		util.PrecacheSound(snd)
 	end
@@ -74,7 +74,7 @@ function SWEP:Precache()
 	
 end
 
-//On deploy
+-- On deploy
 function SWEP:Deploy()
 	if SERVER then
 		self.Owner:DrawViewModel( true )
@@ -86,28 +86,28 @@ function SWEP:Deploy()
 	end
 end
 
-//No reloading
+-- No reloading
 function SWEP:Reload()
 	return false
 end
 
-//Primary attack
+-- Primary attack
 SWEP.NextAttack = 0
 function SWEP:PrimaryAttack()
 	if CurTime() < self.NextAttack then return end
 	
-	//Make things easier
+	-- Make things easier
 	local pl = self.Owner
 	self.PreHit = nil
 	
-	//Trace filter
+	-- Trace filter
 	local trFilter = team.GetPlayers( TEAM_ZOMBIE )
 		
-	//Hacky way for the animations
+	-- Hacky way for the animations
 	if self.SwapAnims then self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER ) else self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK ) end
 	self.SwapAnims = not self.SwapAnims
 	
-	//Set the thirdperson animation and emit zombie attack sound
+	-- Set the thirdperson animation and emit zombie attack sound
 	self.Owner:SetAnimation( PLAYER_ATTACK1 )
 	self:EmitSound( "npc/antlion/distract1.wav", 100, math.random( 92, 107 ) )
 	 
@@ -128,36 +128,36 @@ function SWEP:PrimaryAttack()
 	
 	self:SetAnimSwingEndTime(CurTime() + 1.3)
 	
-	/*timer.Simple ( 1.3, function()
+	--[==[timer.Simple ( 1.3, function()
 		if not ValidEntity ( pl ) then return end
 		
-		//Conditions
+		-- Conditions
 		if not pl:Alive() or not pl:IsWraith() then return end
 		GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed, ZombieClasses[ pl:GetZombieClass() ].Speed )
-	end)*/
+	end)]==]
 	 
-	//Trace an object
+	-- Trace an object
 	local trace = pl:TraceLine( self.DistanceCheck, MASK_SHOT, trFilter )
 	if trace.Hit and ValidEntity ( trace.Entity ) and not trace.Entity:IsPlayer() then
 		self.PreHit = trace.Entity
 	end
 	
-	//Delayed attack function (claw mechanism)
+	-- Delayed attack function (claw mechanism)
 	
 	self:SetSwingEndTime(CurTime() + 0.6)
 	
-	/*if SERVER then 
+	--[==[if SERVER then 
 		timer.Simple ( 0.6, function()
-							if !IsValid(self.Weapon) then return end
+							if not IsValid(self.Weapon) then return end
 							self:DoPrimaryAttack(trace, pl, self.PreHit)
 					end) 
-	end*/
+	end]==]
 				
-	// Set the next swing attack for cooldown
+	--  Set the next swing attack for cooldown
 	self.NextAttack = CurTime() + self.Primary.Delay
 	self.NextHit = CurTime() + 0.6
 	
-	//Teleport CD
+	-- Teleport CD
 	self.TeleportTimer = CurTime() + 2.2
 end
 
@@ -176,7 +176,7 @@ function SWEP:CheckMeleeAnimAttack()
 
 	local pl = self.Owner
 	
-	if !IsValid(pl) then return end
+	if not IsValid(pl) then return end
 	
 	if not pl:Alive() or not pl:IsWraith() then return end
 
@@ -184,27 +184,27 @@ function SWEP:CheckMeleeAnimAttack()
 	
 end
 
-//Primary attack function
+-- Primary attack function
 function SWEP:DoPrimaryAttack ( )
 	if CLIENT then return end
 	if not ValidEntity ( self.Owner ) then return end
 	local mOwner = self.Owner
 	local pl = self.Owner
 	
-	//Trace filter
+	-- Trace filter
 	local trFilter = team.GetPlayers( TEAM_UNDEAD )
 	
 	local victim = self.PreHit
 	
-	//Calculate damage done
+	-- Calculate damage done
 	local Damage = math.random( 10, 15 )
 	Damage = Damage + Damage * ( ( 1 - ( mOwner:GetVelocity():Length() / ZombieClasses[4].Speed ) ) )
 	local TraceHit, HullHit = false, false
 	
-	//Push for whatever it hits
+	-- Push for whatever it hits
 	local Velocity = self.Owner:EyeAngles():Forward() * 5000
 	
-	//Tracehull attack
+	-- Tracehull attack
 	local trHull = util.TraceHull( { start = pl:GetShootPos(), endpos = pl:GetShootPos() + ( pl:GetAimVector() * 17 ), filter = trFilter, mins = Vector( -15,-10,-18 ), maxs = Vector( 15,10,18 ) } )
 	
 	local tr
@@ -216,11 +216,11 @@ function SWEP:DoPrimaryAttack ( )
 	TraceHit = ValidEntity ( victim )
 	HullHit = ValidEntity ( trHull.Entity )
 	
-	//Punch the prop / damage the player if the pretrace is valid
+	-- Punch the prop / damage the player if the pretrace is valid
 	if ValidEntity ( victim ) then
 		local phys = victim:GetPhysicsObject()
 		
-		//Break glass
+		-- Break glass
 		if victim:GetClass() == "func_breakable_surf" then
 			victim:Fire( "break", "", 0 )
 		end
@@ -229,7 +229,7 @@ function SWEP:DoPrimaryAttack ( )
 			Damage = Damage * 1.5
 		end
 		
-		//From behind
+		-- From behind
 		if victim:IsPlayer() then
 			if FromBehind ( self.Owner, victim ) then 
 			--	Damage = Damage * 2
@@ -238,42 +238,42 @@ function SWEP:DoPrimaryAttack ( )
 			end
 		end
 		
-		//Take damage
+		-- Take damage
 		victim:TakeDamage ( math.Clamp( Damage, 1, 40 ), self.Owner, self )
 
-		//Claw sound
+		-- Claw sound
 		pl:EmitSound( "ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )
 				
-		//Case 2: It is a valid physics object
+		-- Case 2: It is a valid physics object
 		if phys:IsValid() and not victim:IsNPC() and phys:IsMoveable() and not victim:IsPlayer() then
 			if Velocity.z < 1800 then Velocity.z = 1800 end
 					
-			//Apply force to prop and make the physics attacker myself
+			-- Apply force to prop and make the physics attacker myself
 			phys:ApplyForceCenter( Velocity )
 			victim:SetPhysicsAttacker( pl )
 		end
 	end
 	
-	-- //Verify tracehull entity
+	-- -- Verify tracehull entity
 	if HullHit and not TraceHit then
 		local ent = trHull.Entity
 		local phys = ent:GetPhysicsObject()
 		
-		//Do a trace so that the tracehull won't push or damage objects over a wall or something
+		-- Do a trace so that the tracehull won't push or damage objects over a wall or something
 		local vStart, vEnd = self.Owner:GetShootPos(), ent:LocalToWorld ( ent:OBBCenter() )
 		local ExploitTrace = util.TraceLine ( { start = vStart, endpos = vEnd, filter = trFilter } )
 		
-		if ent != ExploitTrace.Entity then return end
+		if ent ~= ExploitTrace.Entity then return end
 		
-		//Break glass
+		-- Break glass
 		if ent:GetClass() == "func_breakable_surf" then
 			ent:Fire( "break", "", 0 )
 		end
 		
-		//Play the hit sound
+		-- Play the hit sound
 		pl:EmitSound( "ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )
 		
-		//From behind
+		-- From behind
 		if ent:IsPlayer() then
 			if FromBehind ( self.Owner, ent ) then 
 				--Damage = Damage * 2
@@ -282,10 +282,10 @@ function SWEP:DoPrimaryAttack ( )
 			end
 		end
 		
-		//Take damage
+		-- Take damage
 		ent:TakeDamage ( math.Clamp( Damage, 1, 40 ), self.Owner, self )
 	
-		//Apply force to the correct object
+		-- Apply force to the correct object
 		if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() then
 			if Velocity.z < 1800 then Velocity.z = 1800 end
 					
@@ -334,33 +334,33 @@ end
 
 
 
-//Secondary attack 
+-- Secondary attack 
 SWEP.TeleportTimer = 0
 SWEP.Disguised = false
 function SWEP:SecondaryAttack()
 	
-	//if self.Disguised then return end
+	-- if self.Disguised then return end
 	if self:IsDisguised() then return end
 		
 	self:SetDisguise(true)
 	
-	//self.Disguised = true
-	//self.Owner.Disguised = true
+	-- self.Disguised = true
+	-- self.Owner.Disguised = true
 	
 	local humans = team.GetPlayers(TEAM_HUMAN)
 	
-	local model = "models/player/kleiner.mdl"//"models/zombie/classic_legs.mdl"
+	local model = "models/player/kleiner.mdl"-- "models/zombie/classic_legs.mdl"
 	
 	if #humans > 0 then
 		model = table.Random(humans):GetModel()
 	end
 	
 	if SERVER then
-		//local status = self.Owner:GiveStatus("overridemodel")
+		-- local status = self.Owner:GiveStatus("overridemodel")
 		
-		//if status and status:IsValid() then
-		//	status:SetModel(model)
-		//end
+		-- if status and status:IsValid() then
+		-- 	status:SetModel(model)
+		-- end
 		
 		self.Owner:SetModel(model)
 		
@@ -368,31 +368,31 @@ function SWEP:SecondaryAttack()
 			
 	end
 
-	--[[
+	--[=[
 	local mOwner = self.Owner
 	if not IsValid( mOwner ) then return end
 	
-	//Not enough health
+	-- Not enough health
 	if mOwner:Health() < mOwner:GetMaximumHealth() * 0.15 then self:TeleportFail() return end
 	
-	//Don't teleport in air
+	-- Don't teleport in air
 	if self.TeleportTimer > CurTime() then return end
 	if not mOwner:OnGround() then self:TeleportFail() return end
 
-	//Trace from aim
+	-- Trace from aim
 	local aimTrace = util.TraceLine( { start = mOwner:GetShootPos(), endpos = mOwner:GetShootPos() + mOwner:GetAimVector() * 1000, filter = mOwner, mask = MASK_PLAYERSOLID_BRUSHONLY } ) 
-	if not aimTrace.Hit or aimTrace.HitNormal != Vector( 0,0,1 ) then self:TeleportFail() return end
+	if not aimTrace.Hit or aimTrace.HitNormal ~= Vector( 0,0,1 ) then self:TeleportFail() return end
 	
-	//Check distance too
+	-- Check distance too
 	if aimTrace.HitPos:Distance( aimTrace.StartPos ) > 1000 or aimTrace.HitPos:Distance( aimTrace.StartPos ) < 100 then self:TeleportFail() return end
 	
-	//Hulltrace that position
+	-- Hulltrace that position
 	local hullTrace = util.TraceHull( { start = aimTrace.HitPos, endpos = aimTrace.HitPos, filter = mOwner, mins = Vector ( -16, -16, 0 ), maxs = Vector ( 16, 16, 72 ) } )
 	if hullTrace.Hit then self:TeleportFail() return end
 	
 	mOwner.IsWraithTeleporting = true
 	
-	//Emit crazy sound
+	-- Emit crazy sound
 	if SERVER then mOwner:EmitSound( "npc/stalker/stalker_scream"..math.random(1,4)..".wav", 80, math.random( 100, 115 ) ) end
 	timer.Simple( 0.2, function() 
 		if IsValid( mOwner ) then
@@ -402,32 +402,32 @@ function SWEP:SecondaryAttack()
 		end 
 	end )
 	
-	//For effect
+	-- For effect
 	timer.Simple( 1.7, function()
 		if IsValid( mOwner ) then
 			mOwner.IsWraithTeleporting = false
 		end
 	end )
 	
-	//Take damage
+	-- Take damage
 	if SERVER then
 		mOwner:SetHealth( mOwner:Health() - mOwner:GetMaximumHealth() * 0.1 )
 		
-		//Pre-teleport smoke
+		-- Pre-teleport smoke
 		local eData = EffectData()
 			eData:SetEntity( mOwner )
 			eData:SetOrigin( mOwner:GetPos() )
 		util.Effect( "wraith_teleport_smoke", eData )
 	end
 	
-	//Shake screen
+	-- Shake screen
 	if SERVER then mOwner:SendLua( "WraithScream()" ) end
 	
-	//Teleport
+	-- Teleport
 	if SERVER then mOwner:SetPos( hullTrace.HitPos ) end
 	self.TeleportTimer = CurTime() + 6.8
 	
-	//Post teleport smoke
+	-- Post teleport smoke
 	timer.Simple( 0.1, function()
 		if IsValid( mOwner ) then
 			local eData = EffectData()
@@ -439,11 +439,11 @@ function SWEP:SecondaryAttack()
 	
 	if CLIENT then return end
 	
-	//Distract ability (random chance)
+	-- Distract ability (random chance)
 	local Humans = ents.FindInSphere( mOwner:GetPos(), 300 )
 	local Affected = 0
 	
-	//Count em
+	-- Count em
 	local iHumans = 0
 	for k,v in pairs( Humans ) do
 		if v:IsPlayer() and v:IsHuman() and v:Alive() then
@@ -451,7 +451,7 @@ function SWEP:SecondaryAttack()
 		end
 	end
 	
-	//Filter
+	-- Filter
 	local Filter = { mOwner }
 	table.Add( Filter, team.GetPlayers( TEAM_UNDEAD ) )
 	
@@ -466,31 +466,31 @@ function SWEP:SecondaryAttack()
 							v:SnapEyeAngles( SnapAngle )
 						end
 						
-						//Emit crazy sound
+						-- Emit crazy sound
 						local sSound = self.HumanScreams[1]
 						if v:IsFemale() then sSound = self.HumanScreams[2] end
 						v:EmitSound( sSound, 100, math.random( 90, 110 ) )
 						
-						//Stop player
+						-- Stop player
 						v:SetLocalVelocity( Vector( 0,0,0 ) )
 						
-						//Scare the shit out of him
+						-- Scare the shit out of him
 						v:SendLua( "StalkerFuck(1)" )
 						
-						//Cooldown
+						-- Cooldown
 						v.NextDistract = CurTime() + 3.5
 					end
 				end
 			end
 		end
-	end	]]
+	end	]=]
 end
 
-//Play teleport fail sound
+-- Play teleport fail sound
 function SWEP:TeleportFail()
 	if SERVER then
 		if ( self.TeleportWarnTime or 0 ) <= CurTime() then
-			//self.Owner:EmitSound( "npc/zombie_poison/pz_idle4.wav", 70, math.random( 92, 105 ) ) --Moo
+			-- self.Owner:EmitSound( "npc/zombie_poison/pz_idle4.wav", 70, math.random( 92, 105 ) ) --Moo
 			self.Owner:EmitSound( "npc/stalker/stalker_ambient01.wav", 70, 100 ) 
 			self.TeleportWarnTime = CurTime() + 0.97
 		end
@@ -500,8 +500,8 @@ end
 
 if CLIENT then
 
-	//Make all wraiths shiver out of existance
-	/*hook.Add( "Think", "WraithShiverEffect", function()
+	-- Make all wraiths shiver out of existance
+	--[==[hook.Add( "Think", "WraithShiverEffect", function()
 		for k,v in pairs( team.GetPlayers( TEAM_UNDEAD ) ) do
 			if v:IsWraith() then
 				if v:KeyDown(IN_ATTACK) or v.Disguised then
@@ -517,14 +517,14 @@ if CLIENT then
 		end
 	end )
 	
-	//Reset color
+	-- Reset color
 	hook.Add( "PlayerSpawn", "WraithResetColor", function( pl )
 		if IsValid( pl ) then
 			if not FIRSTAPRIL then
-				//pl:SetColor( 255,255,255,255 )
+				-- pl:SetColor( 255,255,255,255 )
 			end
 		end
-	end )*/
+	end )]==]
 end
 
 function SWEP:OnRemove()
@@ -536,11 +536,11 @@ function SWEP:OnRemove()
 	end
 end 
 
-//Main think
+-- Main think
 function SWEP:Think()
 	if not ValidEntity ( self.Owner ) then return end
 	local mOwner = self.Owner
-	//if self.Disguised then 
+	-- if self.Disguised then 
 	
 	self:CheckMeleeAttack()
 	self:CheckMeleeAnimAttack()
@@ -551,12 +551,12 @@ function SWEP:Think()
 		end 
 	end
 	
-	//return end
-	//Idle sounds
+	-- return end
+	-- Idle sounds
 	if SERVER then
 		if self.EmitWraithSound <= CurTime() then
-			//self.Owner:EmitSound ( table.Random ( self.Screams ), 100, math.random( 95, 110 ) )
-			//self.EmitWraithSound = CurTime() + 6.5
+			-- self.Owner:EmitSound ( table.Random ( self.Screams ), 100, math.random( 95, 110 ) )
+			-- self.EmitWraithSound = CurTime() + 6.5
 		end
 	end
 end
@@ -573,7 +573,7 @@ if CLIENT then
 	function SWEP:DrawHUD() GAMEMODE:DrawZombieCrosshair ( self.Owner, self.DistanceCheck ) end
 end
 
-//Precache sounds
+-- Precache sounds
 util.PrecacheSound( "npc/antlion/distract1.wav" )
 util.PrecacheSound( "ambient/machines/slicer1.wav" )
 util.PrecacheSound( "ambient/machines/slicer2.wav" )

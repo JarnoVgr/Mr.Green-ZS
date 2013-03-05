@@ -45,9 +45,9 @@ Sounds.Over = "mrgreen/ui/menu_accept.wav"
 SCREEN = w/h > 1.24 and w/h < 1.35
 WIDESCREEN = w/h > 1.45 and w/h < 1.8 or w/h == 1.6
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	     Expand panel metatable
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local metapanel = FindMetaTable ("Panel")
 if metapanel then
 
@@ -61,9 +61,9 @@ if metapanel then
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Hints used for end-round board
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local GameHints = {
 	"Headcrabs are small. They can hardly be seen. Use them wisely.",
 	"As a zombie, you can throw props at humans, in most cases, killing them.",
@@ -90,9 +90,9 @@ local GameHints = {
 	"You can type !rtd to Roll the Dice and if you are lucky, receive something!"
 }
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 		Initialize Fonts
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function InitializeFonts ()
 	-- Bold Arials
 	surface.CreateFont("Arial", ScreenScale(22.8), 700, true, false, "ArialBoldTwenty")
@@ -109,9 +109,9 @@ function InitializeFonts ()
 end
 hook.Add ("Initialize","InitializeFonts",InitializeFonts)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	 Update screen width and height
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function UpdateScreenType()
 	w,h = ScrW(),ScrH()
 
@@ -120,9 +120,9 @@ function UpdateScreenType()
 	WIDESCREEN = w/h > 1.45 and w/h < 1.8 or w/h == 1.6
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Some function i use to scale panels 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function ScalePanel ( nr )
 	local newnr = ScrW() * ( nr / 1280 )
 
@@ -130,9 +130,9 @@ function ScalePanel ( nr )
 	return newnr * ratio
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Blur function taken from utils
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local matBlurScreen = Material( "pp/blurscreen" )
 
 function DrawBlur ( starttime, amount )
@@ -167,9 +167,9 @@ function DrawBlur ( starttime, amount )
 	DisableClipping( false )
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Main Intermission Funciton
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 
 local TimerImage = surface.GetTextureID ("zombiesurvival/endgame/timer")
 local Spinner = surface.GetTextureID ("zombiesurvival/endgame/spinner")
@@ -418,27 +418,27 @@ function IntermissionOld ( nextmap, winner, timeleft )
 	--Manage General score stuff
 	ManageGeneralScore ( GENERAL_SCORE )
 	
-	//Reposition the chatbox if the nitwits panel isn't visible
+	-- Reposition the chatbox if the nitwits panel isn't visible
 	if not NITWITZ:IsVisible() then
 		CustomChat.PosX = ScaleW(40)
 		CustomChat.PosY = ScaleH(680)
 	end
 	
-	// Open the custom chatbox
+	--  Open the custom chatbox
 	CustomChat.ResetChat()
 		
 	print ("/************************* PANELS HAVE BEEN INIT /*************************")
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Intermission drawing function
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function DrawIntermission ( votemap, nextmap, winner )
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Manange team score stuff
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local GeneralTeamScores = {}
 function ManageTeamScore ( panel )
 	-- Initialize the subtitles
@@ -456,14 +456,14 @@ function ManageTeamScore ( panel )
 	UpdateTeamScore()
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
    Get teams score for general team score table
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function UpdateTeamScore ()
 	local humanscore = 0
 	local undeadscore = 0
 	
-	//Calculate the score
+	-- Calculate the score
 	for k,pl in pairs ( player.GetAll() ) do
 		if pl:Team() == TEAM_HUMAN then
 			humanscore = humanscore + pl:Frags()
@@ -479,9 +479,9 @@ function UpdateTeamScore ()
 	}
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Manange general score stuff
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function ManageGeneralScore ( panel )
 	-- Main Title
 	panel.PageTitle = {
@@ -521,9 +521,9 @@ local function ReceiveMostChosenClass ( um )
 end
 usermessage.Hook ("RecMostChosenClass",ReceiveMostChosenClass)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	  Receive Total Greencoins per team 
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local function ReceiveGreencoinsTeam ( um )
 	--Initialize the subtable
 	GeneralTeamScores["Greencoins gained"] = {}
@@ -535,9 +535,9 @@ local function ReceiveGreencoinsTeam ( um )
 end
 usermessage.Hook ("RecTeamGreencoinsGained", ReceiveGreencoinsTeam)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
               Receive Top healing done ( medic)
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local TopHealing = {}
 local function ReceiveTopHealing ( um )
 	local index = um:ReadShort()
@@ -547,9 +547,9 @@ local function ReceiveTopHealing ( um )
 end
 usermessage.Hook("RcTopHealing", ReceiveTopHealing)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
               Receive Top Infected killed
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local TopZombiesKilled = {}
 local function ReceiveTopZombiesKilled ( um )
 	local index = um:ReadShort()
@@ -559,9 +559,9 @@ local function ReceiveTopZombiesKilled ( um )
 end
 usermessage.Hook("RcTopZombiesKilled", ReceiveTopZombiesKilled)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
                 Receive Top Assists
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local TopAssists = {}
 local function ReceiveTopAssists ( um )
 	local index = um:ReadShort()
@@ -571,9 +571,9 @@ local function ReceiveTopAssists ( um )
 end
 usermessage.Hook("RcTopAssists", ReceiveTopAssists)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
                 Receive Top Brains Eaten
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local TopBrainsEaten = {}
 local function ReceiveTopZombies ( um )
 	local index = um:ReadShort()
@@ -583,9 +583,9 @@ local function ReceiveTopZombies ( um )
 end
 usermessage.Hook("RcTopZombies", ReceiveTopZombies)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
        Receive Top Damage done by Humans
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local TopHumanDamage = {}
 local function ReceiveTopHumanDamages ( um )
 	local index = um:ReadShort()
@@ -595,9 +595,9 @@ local function ReceiveTopHumanDamages ( um )
 end
 usermessage.Hook("RcTopHumanDamages", ReceiveTopHumanDamages)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
        Receive Top Damage done by Zombies
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local TopZombieDamage = {}
 local function ReceiveTopZombieDamages ( um )
 	local index = um:ReadShort()
@@ -607,9 +607,9 @@ local function ReceiveTopZombieDamages ( um )
 end
 usermessage.Hook("RcTopZombieDamages", ReceiveTopZombieDamages)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
            Receive Top Greencoins Gained
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local TopGreencoinsGained = {}
 local function ReceiveTopGreencoins ( um )
 	local i = um:ReadShort()
@@ -619,9 +619,9 @@ local function ReceiveTopGreencoins ( um )
 end
 usermessage.Hook("RcTopGreencoins", ReceiveTopGreencoins)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
            Receive Top Survival Times
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local TopSurvivalTimes = {}
 local function ReceiveTopTimes ( um )
 	local i = um:ReadShort()
@@ -631,12 +631,12 @@ local function ReceiveTopTimes ( um )
 end
 usermessage.Hook("RcTopTimes", ReceiveTopTimes)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Receive VoteMap List (6 maps)
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 
 -- Init the votemap list and points
---[[
+--[=[
 local Votemaplist = {}
 local VotePoints = {}
 
@@ -650,9 +650,9 @@ local function ReceiveVotemaps ( um )
 end
 usermessage.Hook("RecVotemaps", ReceiveVotemaps)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Receive Votepoints (6 maps)
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local function ReceiveVotePoints ( um ) 
 	--Update our current list
 	for i = 1,3 do
@@ -661,18 +661,18 @@ local function ReceiveVotePoints ( um )
 end
 usermessage.Hook("RecVoteChange",ReceiveVotePoints)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
      Receive the voted map slot server-side
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local function ReceiveAutomaticVoteResult ( um )
 	-- Receive vote result for those who didn't vote manually from server
 	MySelf.VotedMapSlot = um:ReadShort()
 end
 usermessage.Hook("RecAutomaticVoteResult",ReceiveAutomaticVoteResult)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Receive Nextmap ( Vote Result )
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function SetWinnerMap ( mapname )
 	WinnerMap = mapname
 	IsVotingOver = true
@@ -693,11 +693,11 @@ function SetWinnerMap ( mapname )
 			panel.Page = 2
 		end
 	end
-end]]
+end]=]
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	        Manage Votemap Panel
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function ManageVotemap ( panel )
 	panel.Maps = {}
 	
@@ -741,9 +741,9 @@ function ManageVotemap ( panel )
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
       Receive Nitwits (as Clavus or Ywa named them)
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 
 -- Init the Nitwits table
 local Nitwits = {}
@@ -759,9 +759,9 @@ local function ReceiveNitwits(um)
 end
 usermessage.Hook("RcTopNitwits", ReceiveNitwits)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 		Manage Nitwits
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function ManageNitwits ( panel )
 
 	-- Create the actual nitwit list desc.
@@ -786,7 +786,7 @@ function ManageNitwits ( panel )
 	local id = 0
 	for k,v in ipairs (Nitwits) do
 		id = id + 1
-		if v != "" then
+		if v ~= "" then
 			panel.PageScoreName[id] = NitwitsInOrder[k] 
 			panel.PageScore[id] = Nitwits[k] 
 		end
@@ -817,9 +817,9 @@ function ManageNitwits ( panel )
 	end
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 		Votemap Panel
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local VOTEMAP_PANEL = {}
 
 function VOTEMAP_PANEL:Init()
@@ -833,7 +833,7 @@ function VOTEMAP_PANEL:Paint()
 	draw.RoundedBox(8, 0, 0, Wide, Tall, COLOR_DARK_GREY )
 	surface.SetDrawColor ( COLOR_BLUE )
 	
-	//Voted map names
+	-- Voted map names
 	if not self.MapNames then
 		self.MapNames = {}
 		for i = 1, 3 do
@@ -845,7 +845,7 @@ function VOTEMAP_PANEL:Paint()
 	
 	-- Voted map name (the one voted by you)
 	local votedmap = "None"
-	if MySelf.VoteAlready == true and MySelf.VotedMapSlot != nil then
+	if MySelf.VoteAlready == true and MySelf.VotedMapSlot ~= nil then
 		if not MySelf.strMapVote then MySelf.strMapVote = string.gsub ( self.MapNames[ MySelf.VotedMapSlot ], "(voted)", "" ) or "a map" end
 		votedmap = MySelf.strMapVote
 	end
@@ -989,9 +989,9 @@ end
 vgui.Register("Votemap", VOTEMAP_PANEL, "Panel")
 
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 		Nitwits panel
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local NITWITS_PANEL = {}
 
 function NITWITS_PANEL:Init()
@@ -1063,7 +1063,7 @@ function NITWITS_PANEL:Paint()
 					surface.DrawRect ( 7, self.Height - ScaleH(15), Wide - 14, ScaleH(30) )
 				end
 				
-				//Format player name so it doesn't exceed a character limit
+				-- Format player name so it doesn't exceed a character limit
 				local text = string.Explode ("", playername )
 				playername = ""
 				for k,v in pairs (text) do
@@ -1125,7 +1125,7 @@ function NITWITS_PANEL:Paint()
 					surface.DrawRect ( 7, self.Height - ScalePanel(15), Wide - 14, ScalePanel(30) )
 				end
 				
-				//Format player name so it doesn't exceed a character limit
+				-- Format player name so it doesn't exceed a character limit
 				local text = string.Explode ("", playername )
 				playername = ""
 				for k,v in pairs (text) do
@@ -1175,9 +1175,9 @@ function NITWITS_PANEL:Resize ( w, h )
 end
 vgui.Register("Nitwits", NITWITS_PANEL, "Panel")
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 		Team score panel
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local TEAMSCORE_PANEL = {}
 
 function TEAMSCORE_PANEL:Init()
@@ -1234,7 +1234,7 @@ function TEAMSCORE_PANEL:Paint()
 			local scorenumber = tonumber(score)
 			local title = ""
 			
-			if scorenumber != nil then
+			if scorenumber ~= nil then
 				if scorenumber >= self.ScoreBest[subtitle] then
 					title = "(Co-op)"
 				elseif scorenumber >= math.ceil ( self.ScoreBest[subtitle] / 2 ) then
@@ -1247,7 +1247,7 @@ function TEAMSCORE_PANEL:Paint()
 					title = "(Mingebag Cluster)"
 				end
 				
-				if title != "" then
+				if title ~= "" then
 					surface.SetDrawColor ( COLOR_DARK_RED )
 					surface.DrawRect ( 7, self.Height - ScaleH(15), Wide - 14, ScaleH(30) )
 				end
@@ -1291,7 +1291,7 @@ function TEAMSCORE_PANEL:Paint()
 			local scorenumber = tonumber(score)
 			local title = ""
 			
-			if scorenumber != nil then
+			if scorenumber ~= nil then
 				if scorenumber >= self.ScoreBest[subtitle] then
 					title = "(Co-op)"
 				elseif scorenumber >= math.ceil ( self.ScoreBest[subtitle] / 2 ) then
@@ -1304,7 +1304,7 @@ function TEAMSCORE_PANEL:Paint()
 					title = "(Mingebag Cluster)"
 				end
 				
-				if title != "" then
+				if title ~= "" then
 					surface.SetDrawColor ( COLOR_DARK_RED )
 					surface.DrawRect ( 7, self.Height - ScalePanel(15), Wide - 14, ScalePanel(30) )
 				end
@@ -1338,9 +1338,9 @@ function TEAMSCORE_PANEL:PerformLayout()
 end
 vgui.Register("Teamscore", TEAMSCORE_PANEL, "Panel")
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Damage/Healing etc Panel
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local GENERALSCORE_PANEL = {}
 
 function GENERALSCORE_PANEL:Init()
@@ -1369,7 +1369,7 @@ function GENERALSCORE_PANEL:Init()
 	DoLabel ( 8, self, "ArialBoldEighteen", "<", Wide - ScaleW(64), ScaleH(57), COLOR_DARK_GREY_BUTTON, "prev", COLOR_DARK_GREY ) -- Prev button
 end
 
-//Materials for the picture for each rank - Don't change the ORDER! (With chainsawman's help)
+-- Materials for the picture for each rank - Don't change the ORDER! (With chainsawman's help)
 local ScoreImage = {
 	[8] = surface.GetTextureID ("zombiesurvival/endgame/mostdamagedone"),
 	[4] = surface.GetTextureID ("zombiesurvival/endgame/healing"),
@@ -1469,7 +1469,7 @@ function GENERALSCORE_PANEL:Paint()
 			if i == 1 then
 				local scorenumber = tonumber(playerscore)
 				local title = ""
-				if scorenumber != nil then
+				if scorenumber ~= nil then
 					if scorenumber >= self.ScoreBest[subtitle] then
 						title = "(Insane)"
 					elseif scorenumber >= math.ceil ( self.ScoreBest[subtitle] / 2 ) then
@@ -1482,7 +1482,7 @@ function GENERALSCORE_PANEL:Paint()
 						title = "(Mingebag)"
 					end
 										
-					if title != "" then
+					if title ~= "" then
 						playername = playername.." "..title
 						surface.SetDrawColor ( COLOR_DARK_RED )
 						surface.DrawRect ( ScaleW(280), h - ScaleH(15), Wide - ScaleW(287), ScaleH(30) )
@@ -1490,7 +1490,7 @@ function GENERALSCORE_PANEL:Paint()
 				end
 			end
 		
-			//Format player name so it doesn't exceed a character limit
+			-- Format player name so it doesn't exceed a character limit
 			local text = string.Explode ("", playername )
 			playername = ""
 			for k,v in pairs (text) do
@@ -1575,7 +1575,7 @@ function GENERALSCORE_PANEL:Paint()
 			if i == 1 then
 				local scorenumber = tonumber(playerscore)
 				local title = ""
-				if scorenumber != nil then
+				if scorenumber ~= nil then
 					if scorenumber >= self.ScoreBest[subtitle] then
 						title = "(Insane)"
 					elseif scorenumber >= math.ceil ( self.ScoreBest[subtitle] / 2 ) then
@@ -1588,7 +1588,7 @@ function GENERALSCORE_PANEL:Paint()
 						title = "(Mingebag)"
 					end
 										
-					if title != "" then
+					if title ~= "" then
 						playername = playername.." "..title
 						surface.SetDrawColor ( COLOR_DARK_RED )
 						surface.DrawRect ( ScalePanel(280), h - ScalePanel(15), Wide - ScalePanel(287), ScalePanel(30) )
@@ -1596,7 +1596,7 @@ function GENERALSCORE_PANEL:Paint()
 				end
 			end
 			
-			//Format player name so it doesn't exceed a character limit
+			-- Format player name so it doesn't exceed a character limit
 			local text = string.Explode ("", playername )
 			playername = ""
 			for k,v in pairs (text) do
@@ -1630,9 +1630,9 @@ function GENERALSCORE_PANEL:PerformLayout()
 end
 vgui.Register("Generalscore", GENERALSCORE_PANEL, "Panel")
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Label creation base function
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function DoLabel ( id, parent, font, text, posx, posy, colorenter, buttontype, colorexit,wide,tall )
 	NextPageLabel[id] = vgui.Create("DLabel")
 	NextPageLabel[id]:SetParent ( parent )
@@ -1640,7 +1640,7 @@ function DoLabel ( id, parent, font, text, posx, posy, colorenter, buttontype, c
 	
 	local IsMouseOver = false
 	
-	if buttontype != "label" then
+	if buttontype ~= "label" then
 		surface.SetFont ( tostring (font) )
 		local textw,texth = surface.GetTextSize ( tostring(text) )
 		posx,posy = posx - (textw / 2), posy - (texth / 2)
@@ -1673,7 +1673,7 @@ function DoLabel ( id, parent, font, text, posx, posy, colorenter, buttontype, c
 			end
 		end		
 		if parent and parent.Page then
-			if buttontype != nil then
+			if buttontype ~= nil then
 				if buttontype == "next" then
 					if parent.Page < parent.MaxPages then
 						surface.PlaySound ( Sounds.Over )
@@ -1708,14 +1708,14 @@ function DoLabel ( id, parent, font, text, posx, posy, colorenter, buttontype, c
 	NextPageLabel[id].Think = function()
 		if IsVotingOver and IsVotingOver == true and buttontype and buttontype == "label" then
 			if Color_Labels[id] == COLOR_LIGHT_GREY then
-				if MySelf.VotedMapSlot and MySelf.VotedMapSlot != id - 8 then
+				if MySelf.VotedMapSlot and MySelf.VotedMapSlot ~= id - 8 then
 					Color_Labels[id] = Color (0,0,0,0)
 				end
 			end
 		end
 		
 		-- Color the buttons GREY if you can't push them.
-		if buttontype != nil then
+		if buttontype ~= nil then
 			if buttontype == "next" then
 				if parent.Page == parent.MaxPages then
 					Color_Labels[id] = COLOR_LIGHT_GREY
@@ -1739,7 +1739,7 @@ function DoLabel ( id, parent, font, text, posx, posy, colorenter, buttontype, c
 	NextPageLabel[id].OnMousePressed = function()
 		--Manage pages
 		if parent and parent.Page then
-			if buttontype != nil then
+			if buttontype ~= nil then
 				if buttontype == "next" then
 					if parent.Page < parent.MaxPages then
 						parent.Page = parent.Page + 1
@@ -1788,11 +1788,11 @@ function DoLabel ( id, parent, font, text, posx, posy, colorenter, buttontype, c
 	end
 end
 
-//New Era! ---------------------------------------------------------------------------------------------------------------------
+-- New Era! ---------------------------------------------------------------------------------------------------------------------
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Receive VoteMap List (3 maps)
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 
 -- Init the votemap list and points
 local Votemaplist = {}
@@ -1810,9 +1810,9 @@ local function ReceiveVotemaps ( um )
 end
 usermessage.Hook("RecVotemaps", ReceiveVotemaps)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Receive Votepoints (6 maps)
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local function ReceiveVotePoints ( um ) 
 	--Update our current list
 	for i = 1,3 do
@@ -1821,18 +1821,18 @@ local function ReceiveVotePoints ( um )
 end
 usermessage.Hook("RecVoteChange",ReceiveVotePoints)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
      Receive the voted map slot server-side
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 local function ReceiveAutomaticVoteResult ( um )
 	-- Receive vote result for those who didn't vote manually from server
 	MySelf.VotedMapSlot = um:ReadShort()
 end
 usermessage.Hook("RecAutomaticVoteResult",ReceiveAutomaticVoteResult)
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	   Receive Nextmap ( Vote Result )
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function SetWinnerMap ( mapname, mapname2 )
 	WinnerMap = mapname
 	WinnerMapName = mapname2
@@ -1857,13 +1857,13 @@ function Intermission ( nextmap, winner, timeleft )
 	
 	-- Play the team specific.sounds (  thanks to Mayco :D )
 	timer.Simple (0.2, function() 
-		//if MySelf:Team() == TEAM_HUMAN then
+		-- if MySelf:Team() == TEAM_HUMAN then
 		if winner == TEAM_HUMAN and MySelf:Team() == TEAM_HUMAN then
 			surface.PlaySound ( "music/HL1_song25_REMIX3.mp3" )
-			//surface.PlaySound ( "endgame/humanwin.mp3" )
+			-- surface.PlaySound ( "endgame/humanwin.mp3" )
 		else
 			surface.PlaySound ( "music/HL1_song21.mp3" )
-			//surface.PlaySound ( "endgame/zombiewins.mp3" )
+			-- surface.PlaySound ( "endgame/zombiewins.mp3" )
 		end
 	end)
 	
@@ -1904,12 +1904,12 @@ function Intermission ( nextmap, winner, timeleft )
 	end
 	
 	--Manange Votemap Stuff
-	//ManageVotemap ( votemap )
+	-- ManageVotemap ( votemap )
 	
 	MySelf.VoteAlready = false
 	
-	local delay = 1.1 //delay between messages
-	local drawtime = delay-0.05 //how long it takes to draw a message
+	local delay = 1.1 -- delay between messages
+	local drawtime = delay-0.05 -- how long it takes to draw a message
 	
 	for k,v in ipairs (Votemaplist) do
 		VotePoints[k] = 0
@@ -1918,7 +1918,7 @@ function Intermission ( nextmap, winner, timeleft )
 	for i = 1,3 do
 		AddMapLabel(h/2+85+30*i,i,Votemaplist[i].Map,Votemaplist[i].MapName)
 	end
-	//kinda messy but whatever
+	-- kinda messy but whatever
 	local top = {}
 	
 	local txt = "Nobody survived..."
@@ -1950,13 +1950,13 @@ function Intermission ( nextmap, winner, timeleft )
 	top[7] = {txt,0,0}
 	
 	
-	//set the draw time 
+	-- set the draw time 
 	for i,_ in pairs(top) do
 		top[i][2] = CurTime() + delay*i
 		top[i][3] = CurTime() + delay*i + drawtime
 	end
 	
-	//PrintTable(top)
+	-- PrintTable(top)
 	
 	-- Overwrite main paint/background
 	function GAMEMODE:HUDPaint()-- end
@@ -1964,7 +1964,7 @@ function Intermission ( nextmap, winner, timeleft )
 		local TimeToChange = math.Clamp ( math.floor ( ENDTIME + timeleft - CurTime() ), 0, 9999 )
 		local headertext = "Next round in "..TimeToChange
 		
-		--[[if IsVotingOver == false then
+		--[=[if IsVotingOver == false then
 			if MySelf.VoteAlready == false then
 				headertext = "Vote your favourite map from the Votemap Panel"
 			elseif MySelf.VoteAlready == true then
@@ -1974,9 +1974,9 @@ function Intermission ( nextmap, winner, timeleft )
 			local tbMap, strMap = TranslateMapTable[WinnerMap]
 			if tbMap then strMap = tbMap.Name else strMap = "a Mystical Place" end
 			headertext = "You are on your way to "..tostring( strMap ).." !" 
-		end]]
+		end]=]
 		
-		//Draw the actual text
+		-- Draw the actual text
 		
 		for k,v in pairs(top) do
 			local tx, time, dtime = v[1], v[2], v[3]
@@ -1999,8 +1999,8 @@ function Intermission ( nextmap, winner, timeleft )
 		
 		if IsVotingOver == true then
 			strMap = WinnerMapName
-			//local tbMap, strMap = TranslateMapTable[WinnerMap]
-			//if tbMap then strMap = tbMap.Name else strMap = "a Mystical Place" end
+			-- local tbMap, strMap = TranslateMapTable[WinnerMap]
+			-- if tbMap then strMap = tbMap.Name else strMap = "a Mystical Place" end
 			headertext = "Next map will be "..tostring( strMap ).." in "..TimeToChange
 		end
 		
@@ -2016,16 +2016,16 @@ local MapLabel = {}
 	
 function AddMapLabel(y,index,map,mapname)
 	
-	//if Votemaplist[index].GotLabel then return end
+	-- if Votemaplist[index].GotLabel then return end
 	
-	//local tmap, mapname = TranslateMapTable[map]
+	-- local tmap, mapname = TranslateMapTable[map]
 	
-	//if tmap then mapname = tmap.Name else mapname = "a Mystical Place" end
+	-- if tmap then mapname = tmap.Name else mapname = "a Mystical Place" end
 
 	
 	surface.SetFont("ArialBoldSeven")
 	
-	local tw,th = surface.GetTextSize ( mapname.." | Votes: 99 | WINNER" )//take a bit bigger size
+	local tw,th = surface.GetTextSize ( mapname.." | Votes: 99 | WINNER" )-- take a bit bigger size
 	
 	local sw, sh = tw+30, th+6
 	
@@ -2071,13 +2071,13 @@ function AddMapLabel(y,index,map,mapname)
 		gui.EnableScreenClicker ( true )
 	end
 	
-	//MapLabel[map]:InvalidateLayout()
+	-- MapLabel[map]:InvalidateLayout()
 	
-	//MapLabel[map]:ParentToHUD()
+	-- MapLabel[map]:ParentToHUD()
 	
-	//MapLabel[map]:SetVisible(true)
+	-- MapLabel[map]:SetVisible(true)
 
-	//Votemaplist[index].GotLabel = true
+	-- Votemaplist[index].GotLabel = true
 
 end
 

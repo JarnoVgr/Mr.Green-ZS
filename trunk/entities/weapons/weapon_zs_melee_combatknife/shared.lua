@@ -3,23 +3,23 @@
 
 if SERVER then AddCSLuaFile( "shared.lua" ) end
 
-//Melee base
+-- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
-//Models paths
+-- Models paths
 SWEP.Author = "Deluvas"--Edited by NECROSSIN
 SWEP.ViewModel = Model ( "models/weapons/v_knife_t.mdl"  )
 SWEP.WorldModel = Model ( "models/weapons/w_knife_t.mdl"  )
 
-//Name and fov
+-- Name and fov
 SWEP.PrintName = "Combat Knife"
 SWEP.ViewModelFOV = 57
 
-//Position
+-- Position
 SWEP.Slot = 2
 SWEP.SlotPos = 6
 
-//Damage, distane, delay
+-- Damage, distane, delay
 SWEP.Primary.Damage = 15
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Distance = 45
@@ -51,10 +51,10 @@ function SWEP:PlayHitFleshSound()
 	self:EmitSound("weapons/knife/knife_hit"..math.random(1, 4)..".wav")
 end
 
-//Killicon
+-- Killicon
 if CLIENT then killicon.AddFont( "weapon_zs_melee_combatknife", "CSKillIcons", "j", Color(255, 255, 255, 255 ) ) 
 SWEP.ShowViewModel = true
-//SWEP.FlipYaw = true
+-- SWEP.FlipYaw = true
 end
 
 function SWEP:Precache()

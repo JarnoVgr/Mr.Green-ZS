@@ -45,19 +45,19 @@ self.Think = function()
 	local Owner = self.Owner
 	if not ValidEntity ( Owner ) then return end
 	
-	//Leaping
+	-- Leaping
 	if self.Leaping then
 		local nTrace = Owner:TraceLine ( 45, MASK_SHOT )
 		local Sphere = ents.FindInSphere ( Owner:GetShootPos() + Owner:GetAimVector() * 15, 20 )
 		
-		//Easier way to bump players
+		-- Easier way to bump players
 		local Victim = NULL		
 		for k,v in pairs ( Sphere ) do
-			if v:IsPlayer() and v != Owner then
+			if v:IsPlayer() and v ~= Owner then
 				local vStart, vEnd = Owner:GetShootPos(), v:LocalToWorld ( v:OBBCenter() )
 				local glitchTrace = util.TraceLine ( { start = vStart, endpos = vEnd, filter = Owner } )
 				
-				//Trace matches with entity found in sphere
+				-- Trace matches with entity found in sphere
 				if glitchTrace.Entity == v then
 					Victim = v
 					break
@@ -65,33 +65,33 @@ self.Think = function()
 			end
 		end
 
-		//We hit something while leaping
+		-- We hit something while leaping
 		if nTrace.Hit or ValidEntity ( Victim ) then
 			if Owner.ViewPunch then Owner:ViewPunch( Angle( math.random(0, 70), math.random(0, 70), math.random(0, 70) ) ) end
 			if SERVER then Owner:EmitSound( "physics/flesh/flesh_strider_impact_bullet1.wav" ) end
 			
-			//Bump the victim!
+			-- Bump the victim!
 			if ValidEntity ( Victim ) then self:DamageEntity ( Victim, 5 ) end
 			
-			//Stopped leaping
+			-- Stopped leaping
 			self.Leaping = false
 			
-			//Stop, so we don't bounce around
+			-- Stop, so we don't bounce around
 			Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
 			
-			//Cooldown
+			-- Cooldown
 			self.NextLeap = CurTime() + 1.5
 			
 			return
 		end
 		
-		//always update leap status
+		-- always update leap status
 		if Owner:OnGround() or Owner:WaterLevel() > 0 then
 			self.Leaping = false
 		end
 	end
 
-	//Attacking
+	-- Attacking
 	if not Owner:KeyDown( IN_ATTACK ) then
 		self.Swinging = false
 		return
@@ -107,43 +107,43 @@ function SWEP:PrimaryAttack()
 
 	local Owner = self.Owner
 	
-	//Cooldown
+	-- Cooldown
 	self.NextAttack = CurTime() + self.Primary.Delay
 	
-	//Calculate damage done
+	-- Calculate damage done
 	local Damage = math.Clamp ( 2.5 + ( 3 * math.min( GetZombieFocus( Owner, 300, 0.0005, 0 ) - 0.15, 1 ) ), 1.7, 6 )
 
-	//Trace an object
+	-- Trace an object
 	local nTrace = Owner:TraceLine ( 85, MASK_SHOT )
 	local Victim = nTrace.Entity
 	
-	//Play miss sound anyway
+	-- Play miss sound anyway
 	if SERVER then Owner:EmitSound( "npc/zombie/claw_miss"..math.random(1, 2)..".wav" ) end
 	
-	//Animation
+	-- Animation
 	Owner:SetAnimation( PLAYER_ATTACK1 )
 	if self.SwapAnims then self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER ) else self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK ) end
 	self.SwapAnims = not self.SwapAnims
 	
-	//First trace
+	-- First trace
 	if CLIENT then return end
 	if ValidEntity ( Victim ) then self:DamageEntity ( Victim, Damage ) return end
 	
-	//Tracehull attack ( second trace if the first one doesn't hit )
+	-- Tracehull attack ( second trace if the first one doesn't hit )
 	local TraceHull = Owner:TraceHullAttack ( Owner:GetShootPos(), Owner:GetShootPos() + ( Owner:GetAimVector() * 23 ), Vector ( -15,-10,-18 ), Vector ( 20,20,20 ), 0, DMG_GENERIC, 0 , true )
 	local TraceHit = ValidEntity ( TraceHull )	
 
-	//Hit nothing
+	-- Hit nothing
 	if not TraceHit then return end
 	
-	//Do a trace so that the tracehull won't push or damage objects over a wall or something
+	-- Do a trace so that the tracehull won't push or damage objects over a wall or something
 	local vStart, vEnd = Owner:GetShootPos(), TraceHull:LocalToWorld ( TraceHull:OBBCenter() )
 	local ExploitTrace = util.TraceLine ( { start = vStart, endpos = vEnd, filter = Owner } )
 		
-	//Hitting through wall
-	if TraceHull != ExploitTrace.Entity then return end
+	-- Hitting through wall
+	if TraceHull ~= ExploitTrace.Entity then return end
 	
-	//Damage entity with tracehull
+	-- Damage entity with tracehull
 	self:DamageEntity ( TraceHull, Damage ) 
 end
 	
@@ -153,34 +153,34 @@ function SWEP:DamageEntity ( ent, Damage )
 	
 	if CLIENT then return end
 	
-	//Don't hurt other zombies
+	-- Don't hurt other zombies
 	if ent.Team and ent:Team() == TEAM_UNDEAD then return end
 	
-	//Get phys object
+	-- Get phys object
 	local phys = ent:GetPhysicsObject()
 	
-	//Break glass
+	-- Break glass
 	if ent:GetClass() == "func_breakable_surf" then
 		ent:Fire( "break", "", 0 )
 	end
 	
-	//Play the hit sound
+	-- Play the hit sound
 	Owner:EmitSound( "npc/zombie/claw_strike"..math.random(1, 3)..".wav" )
 		
-	//Take damage
+	-- Take damage
 	ent:TakeDamage ( Damage, Owner, self )
 	
-	//Push for whatever it hits
+	-- Push for whatever it hits
 	local Velocity = Owner:EyeAngles():Forward() * 1000
 	
-	//Push the target off is leaping
+	-- Push the target off is leaping
 	if self.Leaping and ent:IsPlayer() then
 		Velocity.z = 150
 		ent:SetVelocity( Velocity * 0.5 )
 		if ent.ViewPunch then ent:ViewPunch( Angle( math.random(0, 80), math.random(0, 80), math.random(0, 80) ) ) end
 	end
 	
-	//Apply force to the correct object
+	-- Apply force to the correct object
 	if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() then
 		if Velocity.z < 200 then Velocity.z = 200 end
 				
@@ -195,32 +195,32 @@ function SWEP:SecondaryAttack()
 	if self.Swinging then return end
 	local Owner = self.Owner
 	
-	//See where the player is ( on ground or flying )
+	-- See where the player is ( on ground or flying )
 	local bOnGround, bCrouching = Owner:OnGround(), Owner:Crouching()
 	
-	//Trace filtering climb factors
+	-- Trace filtering climb factors
 	local vStart, vAimVector = Owner:GetShootPos() - Vector ( 0,0,20 ), Owner:GetAimVector()
 	local trClimb = util.TraceLine( { start = vStart, endpos = vStart + ( vAimVector * 35 ), filter = Owner } )
 	
-	//Climbing
+	-- Climbing
 	if CurTime() >= self.NextClimb and not bCrouching and trClimb.HitWorld then
 
-		//Climb!
+		-- Climb!
 		local Velocity = Vector ( 0,0,150 )
 		if bOnGround then Velocity.z = 280 end
 		Owner:SetLocalVelocity( Velocity )
 			
-		//Cooldown
+		-- Cooldown
 		self.NextClimb = CurTime() + self.Secondary.Delay
 		
-		//Set the thirdperson animation
+		-- Set the thirdperson animation
 		local iSeq, iDuration = Owner:LookupSequence( "climbloop" )
 		Owner.iZombieSecAttack = iDuration + CurTime()
 			
-		//Sound
+		-- Sound
 		if SERVER then Owner:EmitSound( "player/footsteps/metalgrate"..math.random(1,4)..".wav" ) end
 			
-		//Climbing animation
+		-- Climbing animation
 		self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK )
 		Owner:SetAnimation( PLAYER_SUPERJUMP )
 		
@@ -229,23 +229,23 @@ function SWEP:SecondaryAttack()
 	
 	if trClimb.HitWorld then return end
 	
-	//Leap cooldown / player flying
+	-- Leap cooldown / player flying
 	if CurTime() < self.NextLeap or not bOnGround or self.Leaping then return end
 	
-	//Set flying velocity
+	-- Set flying velocity
 	local Velocity = self.Owner:GetAngles():Forward() * 800
 	if Velocity.z < 200 then Velocity.z = 200 end
 	
-	//Apply velocity and set leap status to true
+	-- Apply velocity and set leap status to true
 	Owner:SetGroundEntity( NULL )
 	Owner:SetLocalVelocity( Velocity )
 	
 	self.Leaping = true
 	
-	//Leap cooldown
+	-- Leap cooldown
 	self.NextLeap = CurTime() + 1.5
 	
-	//Fast zombie scream
+	-- Fast zombie scream
 	if SERVER then Owner:EmitSound( "npc/fast_zombie/fz_scream1.wav" ) end
 end
 

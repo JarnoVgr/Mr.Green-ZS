@@ -8,7 +8,7 @@ if SERVER then
 	AddCSLuaFile( "sh_bonemods.lua" )
 end
 
-//Tables file
+-- Tables file
 include ( "sh_bonemods.lua" )
 
 
@@ -26,25 +26,25 @@ function ENT:Initialize()
 	if pPlayer and IsValid(pPlayer) then
 		pPlayer.status_overridemodel = self
 		pPlayer:SetRenderMode(RENDERMODE_NONE)
-		/*if pPlayer.Team and pPlayer:Team() == TEAM_UNDEAD and SERVER then
+		--[==[if pPlayer.Team and pPlayer:Team() == TEAM_UNDEAD and SERVER then
 			if pPlayer:IsWraith() then
-				//self:SetBoneMods("ethereal")
+				-- self:SetBoneMods("ethereal")
 			elseif pPlayer:GetZombieClass() == 10 then
 				if ZombieClasses[pPlayer:GetZombieClass()].IsSuperBoss then
-					//self:SetBoneMods("hate2")
+					-- self:SetBoneMods("hate2")
 				else
 					self:SetBoneMods("hate")
 				end
 			elseif pPlayer:GetZombieClass() == 11 then
-				//self:SetBoneMods("behe")
+				-- self:SetBoneMods("behe")
 			elseif pPlayer:GetZombieClass() == 12 then
-				//self:SetBoneMods("seeker")
+				-- self:SetBoneMods("seeker")
 			elseif pPlayer:GetZombieClass() == 13 then
-				//self:SetBoneMods("nerf")
+				-- self:SetBoneMods("nerf")
 			else
 				self:ResetBoneMods()
 			end
-		end*/
+		end]==]
 	end
 	
 	
@@ -52,7 +52,7 @@ function ENT:Initialize()
 end
 
 function ENT:GetPlayerColor()
-	return self:GetDTVector(0)//self:GetOwner() and IsValid(self:GetOwner()) and Vector( self:GetOwner():GetInfo( "cl_playercolor" ) ) or Vector(1,1,1) 
+	return self:GetDTVector(0)-- self:GetOwner() and IsValid(self:GetOwner()) and Vector( self:GetOwner():GetInfo( "cl_playercolor" ) ) or Vector(1,1,1) 
 end
 
 function ENT:UsePlayerAlpha(bl)
@@ -94,9 +94,9 @@ if CLIENT then
 			
 			
 			self:SetParent(owner)
-			//if MySelf == owner and owner.Revive and owner.Revive:IsValid() and owner.Revive:IsRising() then return end
+			-- if MySelf == owner and owner.Revive and owner.Revive:IsValid() and owner.Revive:IsRising() then return end
 			self:DrawModel()
-			//print(self:GetColor())
+			-- print(self:GetColor())
 		end
 	end
 end

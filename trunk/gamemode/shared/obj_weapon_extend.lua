@@ -118,13 +118,13 @@ function meta:GetSecondaryAmmoTypeString()
 	return TranslatedAmmo[self:GetSecondaryAmmoType()] or "none"
 end
 
-/*---------------------------------------------------------------
+--[==[---------------------------------------------------------------
         Returns weapon type ( only for bullet weapons )
----------------------------------------------------------------*/
+---------------------------------------------------------------]==]
 function GetWeaponTypeByAmmo ( Type ) 
 	if Type == nil then return end
 
-	//Translation table
+	-- Translation table
 	local Table, WeaponType = { Pistol = { "pistol", "alyxgun", "357" }, Automatic = { "smg1", "ar2", "xbowbolt", "buckshot", "ar2altfire", "slam", "rpg_round", "smg1_grenade", "sniperround", "sniperpenetratedround", "grenade", "thumper", "battery", "gravity", "gaussenergy", "combinecannon", "airboatgun", "striderminigun","helicoptergun" } }
 	for k,v in pairs ( Table ) do
 		for i, j in pairs ( v ) do
@@ -137,9 +137,9 @@ function GetWeaponTypeByAmmo ( Type )
 	return WeaponType or "Automatic"
 end
 
-/*---------------------------------------------------------------
+--[==[---------------------------------------------------------------
         Used to get the dps of a weapon - String input
----------------------------------------------------------------*/
+---------------------------------------------------------------]==]
 function GetWeaponDPS ( class )
 	if class == nil then return 0 end
 	
@@ -147,27 +147,27 @@ function GetWeaponDPS ( class )
 	return GAMEMODE.HumanWeapons[ class ].DPS
 end
 
-/*---------------------------------------------------------------
+--[==[---------------------------------------------------------------
         Returns the category of a weapon ( slot name )
----------------------------------------------------------------*/
+---------------------------------------------------------------]==]
 function GetWeaponCategory ( class )
 	if class == nil then return end
 	
-	//We need the weapon type first
+	-- We need the weapon type first
 	local Type = GetWeaponType ( class )
 	
-	//Type error
+	-- Type error
 	if Type == "none" or Type == nil then return end
 	
-	//Get category
+	-- Get category
 	local strCategory = WeaponTypeToCategory[ Type ]
 	
 	return strCategory
 end
 
-/*---------------------------------------------------------------------
+--[==[---------------------------------------------------------------------
         Used to get the type (string) of a weapon - String input
------------------------------------------------------------------------*/
+-----------------------------------------------------------------------]==]
 function GetWeaponType ( class ) 
 	if class == nil then return "none" end
 
@@ -175,9 +175,9 @@ function GetWeaponType ( class )
 	return GAMEMODE.HumanWeapons[ class ].Type
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
         Used to get the type (string) of a weapon
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function meta:GetType()
 	if not ValidEntity ( self ) then return "none" end                          
 
@@ -187,18 +187,18 @@ function meta:GetType()
 	return GAMEMODE.HumanWeapons[ name ].Type
 end
 
-/*---------------------------------------------------------------------
+--[==[---------------------------------------------------------------------
           Use this to set the color of a weapon viewmodel
-----------------------------------------------------------------------*/
+----------------------------------------------------------------------]==]
 function meta:SetViewModelColor ( col )
 	if SERVER then return end
 	if not ValidEntity ( MySelf ) then return end
 	
-	//Get Viewmodel
+	-- Get Viewmodel
 	local ViewModel = MySelf:GetViewModel()
 	if not ValidEntity ( ViewModel ) then return end
 
-	//Set color
+	-- Set color
 	ViewModel:SetColor ( col ) 
 end
 
@@ -210,22 +210,22 @@ function meta:GetSecondaryAmmoCount()
 	return self.Owner:GetAmmoCount(self.Secondary.Ammo) + self:Clip2()
 end
 
-//Moving all shit here
+-- Moving all shit here
 
-//Move all hands stuff here so it will be easier to control
+-- Move all hands stuff here so it will be easier to control
 
 --OLD!
-/*
+--[==[
 PlayerModelBones = {}
 
-//hands and such
+-- hands and such
 
 --Right hand-------------
 PlayerModelBones["ValveBiped.Bip01_L_Clavicle"] 	= {}
 PlayerModelBones["ValveBiped.Bip01_L_UpperArm"]		= {}
 
-PlayerModelBones["ValveBiped.Bip01_L_Forearm"] 		= {CSSBone = "v_weapon.Left_Arm", CSSScale = Vector(0.72, 0.72, 0.72),CSSTranslate = Vector(--[[-1]]0,0,0),CSSAngle = Angle(0,0,155)}//CSSAngle = Angle(0,0,180) Vector(0.82, 0.82, 0.82)
-PlayerModelBones["ValveBiped.Bip01_L_Hand"] 		= {CSSBone = "v_weapon.Left_Hand", CSSScale = Vector(0.68, 0.68, 0.68),CSSAngle = Angle(0,0,90),CSSTranslate = Vector(-0.13,0,0)}//v_weapon.Left_Hand
+PlayerModelBones["ValveBiped.Bip01_L_Forearm"] 		= {CSSBone = "v_weapon.Left_Arm", CSSScale = Vector(0.72, 0.72, 0.72),CSSTranslate = Vector(--[=[-1]=]0,0,0),CSSAngle = Angle(0,0,155)}-- CSSAngle = Angle(0,0,180) Vector(0.82, 0.82, 0.82)
+PlayerModelBones["ValveBiped.Bip01_L_Hand"] 		= {CSSBone = "v_weapon.Left_Hand", CSSScale = Vector(0.68, 0.68, 0.68),CSSAngle = Angle(0,0,90),CSSTranslate = Vector(-0.13,0,0)}-- v_weapon.Left_Hand
 --Fingers
 PlayerModelBones["ValveBiped.Bip01_L_Finger4"] 		= {CSSBone = "v_weapon.Left_Pinky01",Finger = true,CSSAngle=Angle(0,-30,0)}
 PlayerModelBones["ValveBiped.Bip01_L_Finger41"] 	= {CSSBone = "v_weapon.Left_Pinky02",Finger = true,CSSAngle=Angle(0,-40,0)}
@@ -249,8 +249,8 @@ PlayerModelBones["ValveBiped.Bip01_L_Finger02"] 	= {CSSBone = "v_weapon.Left_Thu
 PlayerModelBones["ValveBiped.Bip01_R_Clavicle"]		= {}
 PlayerModelBones["ValveBiped.Bip01_R_UpperArm"]		= {}
 
-PlayerModelBones["ValveBiped.Bip01_R_Forearm"] 		= {CSSBone = "v_weapon.Right_Arm", CSSScale = Vector(0.72, 0.72, 0.72),CSSTranslate = Vector(--[[-1]]0,0,0),CSSAngle = Angle(0,0,155)}
-PlayerModelBones["ValveBiped.Bip01_R_Hand"] 		= {CSSBone = "v_weapon.Right_Hand", CSSScale = Vector(0.68, 0.68, 0.68),CSSAngle = Angle(0,0,90),CSSTranslate = Vector(-0.13,0,0)}//CSSAngle = Angle(0,0,90)}
+PlayerModelBones["ValveBiped.Bip01_R_Forearm"] 		= {CSSBone = "v_weapon.Right_Arm", CSSScale = Vector(0.72, 0.72, 0.72),CSSTranslate = Vector(--[=[-1]=]0,0,0),CSSAngle = Angle(0,0,155)}
+PlayerModelBones["ValveBiped.Bip01_R_Hand"] 		= {CSSBone = "v_weapon.Right_Hand", CSSScale = Vector(0.68, 0.68, 0.68),CSSAngle = Angle(0,0,90),CSSTranslate = Vector(-0.13,0,0)}-- CSSAngle = Angle(0,0,90)}
 PlayerModelBones["ValveBiped.Bip01_R_Finger4"] 		= {CSSBone = "v_weapon.Right_Pinky01", Finger = true,CSSAngle=Angle(0,-10,0)}
 PlayerModelBones["ValveBiped.Bip01_R_Finger41"] 	= {CSSBone = "v_weapon.Right_Pinky02", Finger = true,CSSAngle=Angle(0,-10,0)}
 PlayerModelBones["ValveBiped.Bip01_R_Finger42"] 	= {CSSBone = "v_weapon.Right_Pinky03", Finger = true,CSSAngle=Angle(0,-5,0)}
@@ -286,7 +286,7 @@ PlayerModelBones["ValveBiped.Bip01_L_Calf"]			= {ScaleDown = true}
 PlayerModelBones["ValveBiped.Bip01_L_Foot"]			= {ScaleDown = true}
 PlayerModelBones["ValveBiped.Bip01_L_Toe0"]			= {ScaleDown = true}
 
-//'fix' for fucked up fingers
+-- 'fix' for fucked up fingers
 
 function BoneAngDifference(weapon,bonename)
 	if not bonename then return Angle(0,0,0) end
@@ -337,8 +337,8 @@ function BoneAngDifference(weapon,bonename)
 			local vmangles = vm:GetAngles()
 			
 			if weapon.ViewModelFlip == true then
-				//ang1.y = ang1.y*-1
-				//ang2.y = ang2.y*-1
+				-- ang1.y = ang1.y*-1
+				-- ang2.y = ang2.y*-1
 				ang1 = ang1*-1
 				ang2 = ang2*-1
 				
@@ -364,8 +364,8 @@ function BoneAngDifference(weapon,bonename)
 					end
 				end
 				
-				//local finalang = Angle(-p+16,y+10,r)
-				local finalang = Angle(-p/1.4,y/2,r/1.3)//1.4, 1.6
+				-- local finalang = Angle(-p+16,y+10,r)
+				local finalang = Angle(-p/1.4,y/2,r/1.3)-- 1.4, 1.6
 				
 				if weapon.ViewModelFlip == true then
 					finalang = Angle(p/1.4,y/2,r/1.3)
@@ -385,17 +385,17 @@ function CalculatePlayerModelBones1(weapon,ent)
 	local vm = weapon.Owner:GetViewModel()
 	weapon.BuildModelPosition1 = function(s) end
 		
-	if !ValidEntity(vm) then return end
+	if not ValidEntity(vm) then return end
 	weapon.BuildModelPosition1 = function(s)
 	
 	if s:GetModelScale() == Vector(1,1,1) then
-		//s:SetModelWorldScale(Vector(1,-1,1))
+		-- s:SetModelWorldScale(Vector(1,-1,1))
 	end
 	
 	for i = 0, vm:GetBoneCount() - 1 do
 		local name = vm:GetBoneName(i)
 		if (vm:LookupBone(name)) then
-			//print(tostring(name))
+			-- print(tostring(name))
 			if string.find(name,"v_weapon.") then
 				modelnum = 2
 				break
@@ -411,17 +411,17 @@ function CalculatePlayerModelBones1(weapon,ent)
 								if string.find(name,"_L_") and weapon.ScaleDownLeftHand or string.find(name,"_R_") and weapon.ScaleDownRightHand then
 									local mMatrix = s:GetBoneMatrix(bone)
 									if mMatrix then
-										mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))//0.00001
-										mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))//Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
+										mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))-- 0.00001
+										mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))-- Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
 										s:SetBoneMatrix(bone, mMatrix)
 									end
 								end
 						else
-							if string.find(name,"v_weapon.") and (string.find(name,"wrist_") or string.find(name,"Left_") or string.find(name,"Right_") ) then//
+							if string.find(name,"v_weapon.") and (string.find(name,"wrist_") or string.find(name,"Left_") or string.find(name,"Right_") ) then-- 
 								local mMatrix = s:GetBoneMatrix(bone)
 								if mMatrix then
-									mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))//0.00001
-									mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))//Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
+									mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))-- 0.00001
+									mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))-- Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
 									s:SetBoneMatrix(bone, mMatrix)
 								end
 							end
@@ -441,7 +441,7 @@ end
 
 function CalculatePlayerModelBones(weapon,ent)
 
-	//figure out where is this viewmodel from
+	-- figure out where is this viewmodel from
 	local modelnum = 1
 	
 	local vm = weapon.Owner:GetViewModel()
@@ -450,7 +450,7 @@ function CalculatePlayerModelBones(weapon,ent)
 	for i = 0, vm:GetBoneCount() - 1 do
 		local name = vm:GetBoneName(i)
 		if (vm:LookupBone(name)) then
-			//print(tostring(name))
+			-- print(tostring(name))
 			if string.find(name,"v_weapon.") then
 				modelnum = 2
 				break
@@ -460,7 +460,7 @@ function CalculatePlayerModelBones(weapon,ent)
 	
 	weapon.BuildModelPosition = function(s) end
 		
-	if !ValidEntity(vm) then return end
+	if not ValidEntity(vm) then return end
 	
 	if modelnum == 1 then
 		if weapon.UseHL2Bonemerge then
@@ -469,11 +469,11 @@ function CalculatePlayerModelBones(weapon,ent)
 					local name = s:GetBoneName(i)
 					local bone = s:LookupBone(name)
 						if bone then
-							if PlayerModelBones[name] and PlayerModelBones[name].ScaleDown then//
+							if PlayerModelBones[name] and PlayerModelBones[name].ScaleDown then-- 
 								local mMatrix = s:GetBoneMatrix(bone)
 								if mMatrix then
-									mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))//0.00001
-									mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))//Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
+									mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))-- 0.00001
+									mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))-- Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
 									s:SetBoneMatrix(bone, mMatrix)
 								end
 							end
@@ -488,11 +488,11 @@ function CalculatePlayerModelBones(weapon,ent)
 					if Bone then
 						local mMatrix = s:GetBoneMatrix(Bone)
 						if mMatrix then
-						//mMatrix:Scale(Vector(1, 1, 1))
+						-- mMatrix:Scale(Vector(1, 1, 1))
 						s:SetBoneMatrix(Bone, mMatrix)
 						end
-						//local BonePos2 , BoneAng2 = s:GetBonePosition( s:LookupBone("ValveBiped.Bip01_R_Clavicle") )
-						//s:SetBonePosition(Bone,BonePos2 , BoneAng2)
+						-- local BonePos2 , BoneAng2 = s:GetBonePosition( s:LookupBone("ValveBiped.Bip01_R_Clavicle") )
+						-- s:SetBonePosition(Bone,BonePos2 , BoneAng2)
 					end
 				else
 					if not v.Finger then
@@ -507,15 +507,15 @@ function CalculatePlayerModelBones(weapon,ent)
 							local vmmatrix = vm:GetBoneMatrix(vmbone)	
 							if BonePos and BoneAng then
 								--if mdlbone then
-								//	s:SetBonePosition(mdlbone,BonePos , BoneAng)
+								-- 	s:SetBonePosition(mdlbone,BonePos , BoneAng)
 								--end
 							end
 							if vmmatrix then 
 								if mdlmatrix then
-									//print(tostring(mdlmatrix:GetTranslation()))
-									//mdlmatrix:Scale(vmmatrix:GetScale())
-									//mdlmatrix:Rotate(vmmatrix:GetAngle())
-									//mdlmatrix:SetTranslation(vmmatrix:GetTranslation())
+									-- print(tostring(mdlmatrix:GetTranslation()))
+									-- mdlmatrix:Scale(vmmatrix:GetScale())
+									-- mdlmatrix:Rotate(vmmatrix:GetAngle())
+									-- mdlmatrix:SetTranslation(vmmatrix:GetTranslation())
 									s:SetBoneMatrix(mdlbone, vmmatrix)
 								end
 							end
@@ -526,7 +526,7 @@ function CalculatePlayerModelBones(weapon,ent)
 							local vmbone = vm:LookupBone(k)
 							local mdlmatrix = s:GetBoneMatrix(mdlbone)
 							if mdlmatrix then
-								//print(tostring(mdlmatrix:GetTranslation()))
+								-- print(tostring(mdlmatrix:GetTranslation()))
 								mdlmatrix:Rotate(weapon.RotateFingers)
 								s:SetBoneMatrix(mdlbone, mdlmatrix)
 							end
@@ -537,7 +537,7 @@ function CalculatePlayerModelBones(weapon,ent)
 		end
 	
 		end
-	//end
+	-- end
 	
 	elseif modelnum == 2 then
 		weapon.BuildModelPosition = function(s)
@@ -547,11 +547,11 @@ function CalculatePlayerModelBones(weapon,ent)
 					if Bone then
 						local mMatrix = s:GetBoneMatrix(Bone)
 						if mMatrix then
-							//mMatrix:Scale(Vector(1, 1, 1))
+							-- mMatrix:Scale(Vector(1, 1, 1))
 							s:SetBoneMatrix(Bone, mMatrix)
 						end
 						local BonePos2 , BoneAng2 = s:GetBonePosition( s:LookupBone("ValveBiped.Bip01_R_Clavicle") )
-						//s:SetBonePosition(Bone,BonePos2 , BoneAng2)
+						-- s:SetBonePosition(Bone,BonePos2 , BoneAng2)
 					end	
 				else
 					if v.CSSBone then
@@ -560,8 +560,8 @@ function CalculatePlayerModelBones(weapon,ent)
 
 						if vmbone and mdlbone then 
 							local vmmatrix = vm:GetBoneMatrix(vmbone)
-							//local vmmatrix = self.BoneTempScale[vmbone]
-							//print("Read "..tostring(self.BoneTempScale[vmbone]:GetScale()).." to "..tostring(vmmatrix:GetScale()))
+							-- local vmmatrix = self.BoneTempScale[vmbone]
+							-- print("Read "..tostring(self.BoneTempScale[vmbone]:GetScale()).." to "..tostring(vmmatrix:GetScale()))
 							if v.Finger then
 								if vmmatrix then 
 								local mdlmatrix = s:GetBoneMatrix(mdlbone)	
@@ -569,7 +569,7 @@ function CalculatePlayerModelBones(weapon,ent)
 								if mdlmatrix then
 								
 									if v.CSSAngle then
-										//mdlmatrix:Rotate(v.CSSAngle)
+										-- mdlmatrix:Rotate(v.CSSAngle)
 									end
 									
 									--local globalTranslation = util.WorldToLocal( weapon, vmmatrix:GetTranslation(), mdlbone )
@@ -581,8 +581,8 @@ function CalculatePlayerModelBones(weapon,ent)
 									--mdlmatrix:SetTranslation(globalTranslation)
 									
 									--print(tostring(mdlmatrix:GetTranslation()))
-									mdlmatrix:Rotate(BoneAngDifference(weapon,k))//BoneAngDifference(weapon,k)
-									//s:SetBoneMatrix(mdlbone, vmmatrix)
+									mdlmatrix:Rotate(BoneAngDifference(weapon,k))-- BoneAngDifference(weapon,k)
+									-- s:SetBoneMatrix(mdlbone, vmmatrix)
 									s:SetBoneMatrix(mdlbone, mdlmatrix)
 									
 									end
@@ -591,14 +591,14 @@ function CalculatePlayerModelBones(weapon,ent)
 							else
 								if vmmatrix then 
 										local mdlmatrix = s:GetBoneMatrix(mdlbone)
-										//mdlmatrix:SetAngle(vmmatrix:GetAngle())
-										//mdlmatrix:SetTranslation(vmmatrix:GetTranslation())
+										-- mdlmatrix:SetAngle(vmmatrix:GetAngle())
+										-- mdlmatrix:SetTranslation(vmmatrix:GetTranslation())
 										
 										s:SetBoneMatrix(mdlbone, vmmatrix)
 										
 										
 										
-										//s:SetBoneMatrix(mdlbone, mdlmatrix)
+										-- s:SetBoneMatrix(mdlbone, mdlmatrix)
 										local mdlmatrix = s:GetBoneMatrix(mdlbone)
 										if mdlmatrix then										
 																						
@@ -611,13 +611,13 @@ function CalculatePlayerModelBones(weapon,ent)
 											if v.CSSTranslate then
 												mdlmatrix:Translate(v.CSSTranslate)
 											end
-											//mdlmatrix:Translate(Vector(-2,-9,0))
-											//mdlmatrix:SetTranslation(mdlmatrix:GetTranslation()*10)
+											-- mdlmatrix:Translate(Vector(-2,-9,0))
+											-- mdlmatrix:SetTranslation(mdlmatrix:GetTranslation()*10)
 											
 											local mdlang = mdlmatrix:GetAngle()
 											local vmang = vmmatrix:GetAngle()
 											
-											//print(tostring(mdlang).." | "..tostring(vmang))
+											-- print(tostring(mdlang).." | "..tostring(vmang))
 											s:SetBoneMatrix(mdlbone, mdlmatrix)
 										end
 								end
@@ -644,12 +644,12 @@ function RemoveNewArms(weapon)
 	if not CLIENT then return end
 	if (ValidEntity(weapon.Arms)) then
 		weapon.Arms:Remove()
-		//print(tostring(ValidEntity(weapon.Arms)))
+		-- print(tostring(ValidEntity(weapon.Arms)))
 	end
 		weapon.Arms = nil
 	if (ValidEntity(weapon.Wep)) then
 		weapon.Wep:Remove()
-		//print(tostring(ValidEntity(weapon.Wep)))
+		-- print(tostring(ValidEntity(weapon.Wep)))
 	end
 		weapon.Wep = nil
 
@@ -661,7 +661,7 @@ function MakeNewArms(weapon)
 
 	if not weapon then return end
 	---
-	//set random model for first time
+	-- set random model for first time
 	local model = "models/player/group01/male_04.mdl"
 	---
 	if not CLIENT then return end
@@ -707,7 +707,7 @@ function UpdateArms(weapon)
 	if not vm then return end
 	
 	if not util.tobool(GetConVarNumber("_zs_clhands")) then return end
-	//weapon.ViewModelFlip = true
+	-- weapon.ViewModelFlip = true
 	if ValidEntity(weapon.Arms) then
 			
 			if weapon.Arms:GetModel() ~= weapon.Owner:GetModel() then
@@ -721,8 +721,8 @@ function UpdateArms(weapon)
 			render.SetBlend(1)
 			if weapon.ViewModelFlip == true then render.CullMode(MATERIAL_CULLMODE_CW) end
 			
-			weapon.Arms:SetRenderOrigin( vm:GetPos()-vm:GetAngles():Forward()*90-vm:GetAngles():Up()*40 )//self.Arms[1]:SetRenderOrigin( EyePos() )
-			weapon.Arms:SetRenderAngles( vm:GetAngles() )//
+			weapon.Arms:SetRenderOrigin( vm:GetPos()-vm:GetAngles():Forward()*90-vm:GetAngles():Up()*40 )-- self.Arms[1]:SetRenderOrigin( EyePos() )
+			weapon.Arms:SetRenderAngles( vm:GetAngles() )-- 
 			weapon.Arms:SetupBones()	
 			weapon.Arms:DrawModel()
 			weapon.Arms:SetRenderOrigin()
@@ -739,7 +739,7 @@ function UpdateArms(weapon)
 			end
 			
 			CalculatePlayerModelBones(weapon,weapon.Arms)
-			//weapon.Arms:SetParent(vm) 
+			-- weapon.Arms:SetParent(vm) 
 	end
 	if ValidEntity(weapon.Wep) then
 	
@@ -773,11 +773,11 @@ function UpdateArms(weapon)
 			
 	end
 end
-*/
+]==]
 
 PlayerModelBones = {}
 
-//hands and such
+-- hands and such
 
 
 
@@ -785,8 +785,8 @@ PlayerModelBones = {}
 PlayerModelBones["ValveBiped.Bip01_L_Clavicle"] 	= {Arm = true}
 PlayerModelBones["ValveBiped.Bip01_L_UpperArm"]		= {Arm = true}
 
-PlayerModelBones["ValveBiped.Bip01_L_Forearm"] 		= {CSSBone = "v_weapon.Left_Arm",IWBone = "L_Forearm",Arm = true,CSSScale = Vector(0.72, 0.72, 0.72),CSSTranslate = Vector(--[[-1]]0,0,0),CSSAngle = Angle(0,0,155)}//CSSAngle = Angle(0,0,180) Vector(0.82, 0.82, 0.82)
-PlayerModelBones["ValveBiped.Bip01_L_Hand"] 		= {CSSBone = "v_weapon.Left_Hand",IWBone = "L_Wrist", CSSScale = Vector(0.68, 0.68, 0.68),CSSAngle = Angle(0,0,90),CSSTranslate = Vector(-0.13,0,0)}//v_weapon.Left_Hand
+PlayerModelBones["ValveBiped.Bip01_L_Forearm"] 		= {CSSBone = "v_weapon.Left_Arm",IWBone = "L_Forearm",Arm = true,CSSScale = Vector(0.72, 0.72, 0.72),CSSTranslate = Vector(--[=[-1]=]0,0,0),CSSAngle = Angle(0,0,155)}-- CSSAngle = Angle(0,0,180) Vector(0.82, 0.82, 0.82)
+PlayerModelBones["ValveBiped.Bip01_L_Hand"] 		= {CSSBone = "v_weapon.Left_Hand",IWBone = "L_Wrist", CSSScale = Vector(0.68, 0.68, 0.68),CSSAngle = Angle(0,0,90),CSSTranslate = Vector(-0.13,0,0)}-- v_weapon.Left_Hand
 --Fingers
 PlayerModelBones["ValveBiped.Bip01_L_Finger4"] 		= {CSSBone = "v_weapon.Left_Pinky01",IWBone = "L_Pinky1",Finger = true,CSSAngle=Angle(0,-30,0)}
 PlayerModelBones["ValveBiped.Bip01_L_Finger41"] 	= {CSSBone = "v_weapon.Left_Pinky02",IWBone = "L_Pinky2",Finger = true,CSSAngle=Angle(0,-40,0)}
@@ -810,8 +810,8 @@ PlayerModelBones["ValveBiped.Bip01_L_Finger02"] 	= {CSSBone = "v_weapon.Left_Thu
 PlayerModelBones["ValveBiped.Bip01_R_Clavicle"]		= {Arm = true}
 PlayerModelBones["ValveBiped.Bip01_R_UpperArm"]		= {Arm = true}
 
-PlayerModelBones["ValveBiped.Bip01_R_Forearm"] 		= {CSSBone = "v_weapon.Right_Arm",IWBone = "R_Forearm",Arm = true, CSSScale = Vector(0.72, 0.72, 0.72),CSSTranslate = Vector(--[[-1]]0,0,0),CSSAngle = Angle(0,0,155)}
-PlayerModelBones["ValveBiped.Bip01_R_Hand"] 		= {CSSBone = "v_weapon.Right_Hand",IWBone = "R_Wrist", CSSScale = Vector(0.68, 0.68, 0.68),CSSAngle = Angle(0,0,90),CSSTranslate = Vector(-0.13,0,0)}//CSSAngle = Angle(0,0,90)}
+PlayerModelBones["ValveBiped.Bip01_R_Forearm"] 		= {CSSBone = "v_weapon.Right_Arm",IWBone = "R_Forearm",Arm = true, CSSScale = Vector(0.72, 0.72, 0.72),CSSTranslate = Vector(--[=[-1]=]0,0,0),CSSAngle = Angle(0,0,155)}
+PlayerModelBones["ValveBiped.Bip01_R_Hand"] 		= {CSSBone = "v_weapon.Right_Hand",IWBone = "R_Wrist", CSSScale = Vector(0.68, 0.68, 0.68),CSSAngle = Angle(0,0,90),CSSTranslate = Vector(-0.13,0,0)}-- CSSAngle = Angle(0,0,90)}
 PlayerModelBones["ValveBiped.Bip01_R_Finger4"] 		= {CSSBone = "v_weapon.Right_Pinky01",IWBone = "R_Pinky1", Finger = true,CSSAngle=Angle(0,-10,0)}
 PlayerModelBones["ValveBiped.Bip01_R_Finger41"] 	= {CSSBone = "v_weapon.Right_Pinky02",IWBone = "R_Pinky2", Finger = true,CSSAngle=Angle(0,-10,0)}
 PlayerModelBones["ValveBiped.Bip01_R_Finger42"] 	= {CSSBone = "v_weapon.Right_Pinky03",IWBone = "R_Pinky3", Finger = true,CSSAngle=Angle(0,-5,0)}
@@ -851,7 +851,7 @@ PlayerModelBones["ValveBiped.forward"]			= {ScaleDown = true}
 PlayerModelBones["smdimport01"]			= {ScaleDown = true}
 
 
-//'fix' for fucked up fingers
+-- 'fix' for fucked up fingers
 
 function BoneAngDifference(weapon,bonename)
 	if not bonename then return Angle(0,0,0) end
@@ -924,8 +924,8 @@ function BoneAngDifference(weapon,bonename)
 			local vmangles = vm:GetAngles()
 			
 			if weapon.ViewModelFlip == true then
-				//ang1.y = ang1.y*-1
-				//ang2.y = ang2.y*-1
+				-- ang1.y = ang1.y*-1
+				-- ang2.y = ang2.y*-1
 				ang1 = ang1*-1
 				ang2 = ang2*-1
 				
@@ -951,8 +951,8 @@ function BoneAngDifference(weapon,bonename)
 					end
 				end
 				
-				//local finalang = Angle(-p+16,y+10,r)
-				local finalang = Angle(-p/1.4,y/2,r/1.3)//1.4, 1.6
+				-- local finalang = Angle(-p+16,y+10,r)
+				local finalang = Angle(-p/1.4,y/2,r/1.3)-- 1.4, 1.6
 				
 				if weapon.ViewModelFlip == true then
 					finalang = Angle(p/1.4,y/2,r/1.3)
@@ -972,17 +972,17 @@ function CalculatePlayerModelBones1(weapon,ent)
 	local vm = weapon.Owner:GetViewModel()
 	weapon.BuildModelPosition1 = function(s) end
 		
-	if !ValidEntity(vm) then return end
+	if not ValidEntity(vm) then return end
 	weapon.BuildModelPosition1 = function(s)
 	
 	if s:GetModelScale() == Vector(1,1,1) then
-		//s:SetModelWorldScale(Vector(1,-1,1))
+		-- s:SetModelWorldScale(Vector(1,-1,1))
 	end
 	
 	for i = 0, vm:GetBoneCount() - 1 do
 		local name = vm:GetBoneName(i)
 		if (vm:LookupBone(name)) then
-			//print(tostring(name))
+			-- print(tostring(name))
 			if string.find(name,"v_weapon.") then
 				modelnum = 2
 				break
@@ -998,8 +998,8 @@ function CalculatePlayerModelBones1(weapon,ent)
 								if string.find(name,"_L_") and weapon.ScaleDownLeftHand or string.find(name,"_R_") and weapon.ScaleDownRightHand then
 									local mMatrix = s:GetBoneMatrix(bone)
 									if mMatrix then
-										mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))//0.00001
-										mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))//Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
+										mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))-- 0.00001
+										mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))-- Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
 										s:SetBoneMatrix(bone, mMatrix)
 									end
 								end
@@ -1008,8 +1008,8 @@ function CalculatePlayerModelBones1(weapon,ent)
 							or weapon.PlayerModelBones and table.HasValue(weapon.PlayerModelBones,name) then
 								local mMatrix = s:GetBoneMatrix(bone)
 								if mMatrix then
-									mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))//0.00001
-									mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))//Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
+									mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))-- 0.00001
+									mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))-- Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
 									s:SetBoneMatrix(bone, mMatrix)
 								end
 							end
@@ -1029,7 +1029,7 @@ end
 
 function CalculatePlayerModelBones2(weapon,ent)
 
-	//figure out where is this viewmodel from
+	-- figure out where is this viewmodel from
 	local modelnum = 1
 	
 	local vm = weapon.Owner:GetViewModel()
@@ -1038,7 +1038,7 @@ function CalculatePlayerModelBones2(weapon,ent)
 	for i = 0, vm:GetBoneCount() - 1 do
 		local name = vm:GetBoneName(i)
 		if (vm:LookupBone(name)) then
-			//print(tostring(name))
+			-- print(tostring(name))
 			if string.find(name,"v_weapon.") or weapon.PlayerModelBones then
 				modelnum = 2
 				break
@@ -1048,7 +1048,7 @@ function CalculatePlayerModelBones2(weapon,ent)
 	
 	weapon.BuildModelPosition = function(s) end
 		
-	if !ValidEntity(vm) then return end
+	if not ValidEntity(vm) then return end
 	
 	if modelnum == 1 then
 		if weapon.UseHL2Bonemerge then
@@ -1057,11 +1057,11 @@ function CalculatePlayerModelBones2(weapon,ent)
 					local name = s:GetBoneName(i)
 					local bone = s:LookupBone(name)
 						if bone then
-							if PlayerModelBones[name] and PlayerModelBones[name].ScaleDown then//
+							if PlayerModelBones[name] and PlayerModelBones[name].ScaleDown then-- 
 								local mMatrix = s:GetBoneMatrix(bone)
 								if mMatrix then
-									mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))//0.00001
-									mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))//Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
+									mMatrix:Scale(Vector(0.0000001,0.0000001, 0.0000001))-- 0.00001
+									mMatrix:SetTranslation(vm:GetPos()+vm:GetAngles():Forward()*(-990))-- Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
 									s:SetBoneMatrix(bone, mMatrix)
 								end
 							end
@@ -1086,11 +1086,11 @@ function CalculatePlayerModelBones2(weapon,ent)
 					if Bone then
 						local mMatrix = s:GetBoneMatrix(Bone)
 						if mMatrix then
-						//mMatrix:Scale(Vector(1, 1, 1))
+						-- mMatrix:Scale(Vector(1, 1, 1))
 						s:SetBoneMatrix(Bone, mMatrix)
 						end
-						//local BonePos2 , BoneAng2 = s:GetBonePosition( s:LookupBone("ValveBiped.Bip01_R_Clavicle") )
-						//s:SetBonePosition(Bone,BonePos2 , BoneAng2)
+						-- local BonePos2 , BoneAng2 = s:GetBonePosition( s:LookupBone("ValveBiped.Bip01_R_Clavicle") )
+						-- s:SetBonePosition(Bone,BonePos2 , BoneAng2)
 					end
 				else
 					if not v.Finger then
@@ -1105,15 +1105,15 @@ function CalculatePlayerModelBones2(weapon,ent)
 							local vmmatrix = vm:GetBoneMatrix(vmbone)	
 							if BonePos and BoneAng then
 								--if mdlbone then
-								//	s:SetBonePosition(mdlbone,BonePos , BoneAng)
+								-- 	s:SetBonePosition(mdlbone,BonePos , BoneAng)
 								--end
 							end
 							if vmmatrix then 
 								if mdlmatrix then
-									//print(tostring(mdlmatrix:GetTranslation()))
-									//mdlmatrix:Scale(vmmatrix:GetScale())
-									//mdlmatrix:Rotate(vmmatrix:GetAngle())
-									//mdlmatrix:SetTranslation(vmmatrix:GetTranslation())
+									-- print(tostring(mdlmatrix:GetTranslation()))
+									-- mdlmatrix:Scale(vmmatrix:GetScale())
+									-- mdlmatrix:Rotate(vmmatrix:GetAngle())
+									-- mdlmatrix:SetTranslation(vmmatrix:GetTranslation())
 									s:SetBoneMatrix(mdlbone, vmmatrix)
 								end
 							end
@@ -1124,7 +1124,7 @@ function CalculatePlayerModelBones2(weapon,ent)
 							local vmbone = vm:LookupBone(k)
 							local mdlmatrix = s:GetBoneMatrix(mdlbone)
 							if mdlmatrix then
-								//print(tostring(mdlmatrix:GetTranslation()))
+								-- print(tostring(mdlmatrix:GetTranslation()))
 								mdlmatrix:Rotate(weapon.RotateFingers)
 								s:SetBoneMatrix(mdlbone, mdlmatrix)
 							end
@@ -1145,7 +1145,7 @@ function CalculatePlayerModelBones2(weapon,ent)
 		end
 	
 		end
-	//end
+	-- end
 	
 	elseif modelnum == 2 then
 		weapon.BuildModelPosition = function(s)
@@ -1155,11 +1155,11 @@ function CalculatePlayerModelBones2(weapon,ent)
 					if Bone then
 						local mMatrix = s:GetBoneMatrix(Bone)
 						if mMatrix then
-							//mMatrix:Scale(Vector(1, 1, 1))
+							-- mMatrix:Scale(Vector(1, 1, 1))
 							s:SetBoneMatrix(Bone, mMatrix)
 						end
 						local BonePos2 , BoneAng2 = s:GetBonePosition( s:LookupBone("ValveBiped.Bip01_R_Clavicle") )
-						//s:SetBonePosition(Bone,BonePos2 , BoneAng2)
+						-- s:SetBonePosition(Bone,BonePos2 , BoneAng2)
 					end	
 				else
 					if v.CSSBone then
@@ -1201,8 +1201,8 @@ function CalculatePlayerModelBones2(weapon,ent)
 
 						if vmbone and mdlbone then 
 							local vmmatrix = vm:GetBoneMatrix(vmbone)
-							//local vmmatrix = self.BoneTempScale[vmbone]
-							//print("Read "..tostring(self.BoneTempScale[vmbone]:GetScale()).." to "..tostring(vmmatrix:GetScale()))
+							-- local vmmatrix = self.BoneTempScale[vmbone]
+							-- print("Read "..tostring(self.BoneTempScale[vmbone]:GetScale()).." to "..tostring(vmmatrix:GetScale()))
 							if v.Finger then
 								if vmmatrix then 
 								local mdlmatrix = s:GetBoneMatrix(mdlbone)	
@@ -1210,14 +1210,14 @@ function CalculatePlayerModelBones2(weapon,ent)
 								if mdlmatrix and not weapon.IgnoreFingers then
 								
 									if v.CSSAngle then
-										//mdlmatrix:Rotate(v.CSSAngle)
+										-- mdlmatrix:Rotate(v.CSSAngle)
 									end
 									
 									local mdlang = mdlmatrix:GetAngles()
 									local vmang = vmmatrix:GetAngles()
 									
-									mdlmatrix:Rotate(BoneAngDifference(weapon,k))//BoneAngDifference(weapon,k)
-									//s:SetBoneMatrix(mdlbone, vmmatrix)
+									mdlmatrix:Rotate(BoneAngDifference(weapon,k))-- BoneAngDifference(weapon,k)
+									-- s:SetBoneMatrix(mdlbone, vmmatrix)
 									s:SetBoneMatrix(mdlbone, mdlmatrix)
 									
 									end
@@ -1226,14 +1226,14 @@ function CalculatePlayerModelBones2(weapon,ent)
 							else
 								if vmmatrix then 
 										local mdlmatrix = s:GetBoneMatrix(mdlbone)
-										//mdlmatrix:SetAngle(vmmatrix:GetAngle())
-										//mdlmatrix:SetTranslation(vmmatrix:GetTranslation())
+										-- mdlmatrix:SetAngle(vmmatrix:GetAngle())
+										-- mdlmatrix:SetTranslation(vmmatrix:GetTranslation())
 										
 										s:SetBoneMatrix(mdlbone, vmmatrix)
 										
 										
 										
-										//s:SetBoneMatrix(mdlbone, mdlmatrix)
+										-- s:SetBoneMatrix(mdlbone, mdlmatrix)
 										local mdlmatrix = s:GetBoneMatrix(mdlbone)
 										if mdlmatrix then										
 											
@@ -1256,13 +1256,13 @@ function CalculatePlayerModelBones2(weapon,ent)
 													mdlmatrix:Translate(v.CSSTranslate)
 												end
 											end
-											//mdlmatrix:Translate(Vector(-2,-9,0))
-											//mdlmatrix:SetTranslation(mdlmatrix:GetTranslation()*10)
+											-- mdlmatrix:Translate(Vector(-2,-9,0))
+											-- mdlmatrix:SetTranslation(mdlmatrix:GetTranslation()*10)
 											
 											local mdlang = mdlmatrix:GetAngles()
 											local vmang = vmmatrix:GetAngles()
 											
-											//print(tostring(mdlang).." | "..tostring(vmang))
+											-- print(tostring(mdlang).." | "..tostring(vmang))
 											s:SetBoneMatrix(mdlbone, mdlmatrix)
 										end
 								end
@@ -1289,12 +1289,12 @@ function RemoveNewArms(weapon)
 	if not CLIENT then return end
 	if (ValidEntity(weapon.Arms)) then
 		weapon.Arms:Remove()
-		//print(tostring(ValidEntity(weapon.Arms)))
+		-- print(tostring(ValidEntity(weapon.Arms)))
 	end
 		weapon.Arms = nil
 	if (ValidEntity(weapon.Wep)) then
 		weapon.Wep:Remove()
-		//print(tostring(ValidEntity(weapon.Wep)))
+		-- print(tostring(ValidEntity(weapon.Wep)))
 	end
 		weapon.Wep = nil
 
@@ -1303,12 +1303,12 @@ end
 ---NEW----------------------------------------------------------
 
 
-//Calculate shit for our new weapon model
+-- Calculate shit for our new weapon model
 
 function CalculateWeaponBones(weapon,ent)
 
 	local vm = weapon.Owner:GetViewModel()		
-	if !ValidEntity(vm) then return end
+	if not ValidEntity(vm) then return end
 	
 	local s = ent
 	
@@ -1333,10 +1333,10 @@ function CalculateWeaponBones(weapon,ent)
 
 end
 
-//Calculate actual model 
+-- Calculate actual model 
 function CalculatePlayerModelBones(weapon,ent)
 
-	//figure out where is this viewmodel from
+	-- figure out where is this viewmodel from
 	local modelnum = 1
 	
 	local vm = weapon.Owner:GetViewModel()
@@ -1345,7 +1345,7 @@ function CalculatePlayerModelBones(weapon,ent)
 	for i = 0, vm:GetBoneCount() - 1 do
 		local name = vm:GetBoneName(i)
 		if (vm:LookupBone(name)) then
-			//print(tostring(name))
+			-- print(tostring(name))
 			if string.find(name,"v_weapon.") or weapon.PlayerModelBones then
 				modelnum = 2
 				break
@@ -1353,7 +1353,7 @@ function CalculatePlayerModelBones(weapon,ent)
 		end
 	end
 		
-	if !ValidEntity(vm) then return end
+	if not ValidEntity(vm) then return end
 	
 	local s = ent
 	
@@ -1365,7 +1365,7 @@ function CalculatePlayerModelBones(weapon,ent)
 						if bone then
 							if PlayerModelBones[name] and PlayerModelBones[name].ScaleDown then
 								s:ManipulateBoneScale(bone,Vector(0.0000001,0.0000001, 0.0000001))
-								s:ManipulateBonePosition(bone,vm:GetPos()+vm:GetAngles():Forward()*(-990))//Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
+								s:ManipulateBonePosition(bone,vm:GetPos()+vm:GetAngles():Forward()*(-990))-- Vector(-9999,-9999,9999)s:GetBoneMatrix(s:LookupBone("v_weapon.Right_Arm")):GetTranslation()
 							end
 							
 							if weapon.OverrideAngle and weapon.OverrideAngle[name] then
@@ -1384,11 +1384,11 @@ function CalculatePlayerModelBones(weapon,ent)
 					if Bone then
 						local mMatrix = s:GetBoneMatrix(Bone)
 						if mMatrix then
-						//mMatrix:Scale(Vector(1, 1, 1))
-						//s:SetBoneMatrix(Bone, mMatrix)
+						-- mMatrix:Scale(Vector(1, 1, 1))
+						-- s:SetBoneMatrix(Bone, mMatrix)
 						end
-						//local BonePos2 , BoneAng2 = s:GetBonePosition( s:LookupBone("ValveBiped.Bip01_R_Clavicle") )
-						//s:SetBonePosition(Bone,BonePos2 , BoneAng2)
+						-- local BonePos2 , BoneAng2 = s:GetBonePosition( s:LookupBone("ValveBiped.Bip01_R_Clavicle") )
+						-- s:SetBonePosition(Bone,BonePos2 , BoneAng2)
 					end
 				else
 					--if not v.Finger then
@@ -1403,13 +1403,13 @@ function CalculatePlayerModelBones(weapon,ent)
 								s:ManipulateBonePosition(mdlbone,vmmatrix:GetTranslation())
 							end
 						end
-					/*else
+					--[==[else
 						if weapon.RotateFingers and not string.find(k,"Finger0") then
 							local mdlbone = s:LookupBone(k)
 							local vmbone = vm:LookupBone(k)
 							local mdlmatrix = s:GetBoneMatrix(mdlbone)
 							if mdlmatrix then
-								//print(tostring(mdlmatrix:GetTranslation()))
+								-- print(tostring(mdlmatrix:GetTranslation()))
 								mdlmatrix:Rotate(weapon.RotateFingers)
 								s:SetBoneMatrix(mdlbone, mdlmatrix)
 							end
@@ -1424,11 +1424,11 @@ function CalculatePlayerModelBones(weapon,ent)
 								mMatrix:Translate(weapon.OverrideTranslation[name])
 							end
 							s:SetBoneMatrix(mdlbone, mMatrix)
-						end*/
+						end]==]
 				end
 			end	
 		end
-	//end
+	-- end
 	
 	elseif modelnum == 2 then
 
@@ -1479,37 +1479,37 @@ function CalculatePlayerModelBones(weapon,ent)
 						if vmbone and mdlbone then 
 							local vmmatrix = vm:GetBoneMatrix(vmbone)
 							
-							/*if v.Finger then
+							--[==[if v.Finger then
 								if vmmatrix then 
 									if not weapon.IgnoreFingers then
 									
 										if v.CSSAngle then
-											//mdlmatrix:Rotate(v.CSSAngle)
+											-- mdlmatrix:Rotate(v.CSSAngle)
 										end
 										
 										local mdlang = mdlmatrix:GetAngles()
 										local vmang = vmmatrix:GetAngles()
 										
-										mdlmatrix:Rotate(BoneAngDifference(weapon,k))//BoneAngDifference(weapon,k)
-										//s:SetBoneMatrix(mdlbone, vmmatrix)
+										mdlmatrix:Rotate(BoneAngDifference(weapon,k))-- BoneAngDifference(weapon,k)
+										-- s:SetBoneMatrix(mdlbone, vmmatrix)
 										s:SetBoneMatrix(mdlbone, mdlmatrix)
 									
 									end
 								end
 							
-							/*else*/
+							/*else]==]
 								if vmmatrix then 
 										
 										
-										//mdlmatrix:SetAngle(vmmatrix:GetAngle())
-										//mdlmatrix:SetTranslation(vmmatrix:GetTranslation())
+										-- mdlmatrix:SetAngle(vmmatrix:GetAngle())
+										-- mdlmatrix:SetTranslation(vmmatrix:GetTranslation())
 										
 										s:ManipulateBoneScale(mdlbone,vmmatrix:GetScale())
 										s:ManipulateBoneAngles(mdlbone,vmmatrix:GetAngles())
 										s:ManipulateBonePosition(mdlbone,vmmatrix:GetTranslation())
 		
-										//s:SetBoneMatrix(mdlbone, mdlmatrix)
-										/*local mdlmatrix = s:GetBoneMatrix(mdlbone)
+										-- s:SetBoneMatrix(mdlbone, mdlmatrix)
+										--[==[local mdlmatrix = s:GetBoneMatrix(mdlbone)
 										if mdlmatrix then										
 											
 											
@@ -1531,15 +1531,15 @@ function CalculatePlayerModelBones(weapon,ent)
 													mdlmatrix:Translate(v.CSSTranslate)
 												end
 											end
-											//mdlmatrix:Translate(Vector(-2,-9,0))
-											//mdlmatrix:SetTranslation(mdlmatrix:GetTranslation()*10)
+											-- mdlmatrix:Translate(Vector(-2,-9,0))
+											-- mdlmatrix:SetTranslation(mdlmatrix:GetTranslation()*10)
 											
 											local mdlang = mdlmatrix:GetAngles()
 											local vmang = vmmatrix:GetAngles()
 											
-											//print(tostring(mdlang).." | "..tostring(vmang))
+											-- print(tostring(mdlang).." | "..tostring(vmang))
 											s:SetBoneMatrix(mdlbone, mdlmatrix)
-										end*/
+										end]==]
 								end
 							--end
 						end
@@ -1554,7 +1554,7 @@ function MakeNewArms(weapon)
 
 	if not weapon then return end
 	---
-	//set random model for first time
+	-- set random model for first time
 	local model = "models/player/group01/male_04.mdl"
 	---
 	if not CLIENT then return end
@@ -1603,7 +1603,7 @@ function UpdateArms(weapon)
 	
 	if not util.tobool(GetConVarNumber("_zs_clhands")) then return end
 	if weapon.IgnoreClientsideHands then return end
-	//weapon.ViewModelFlip = true
+	-- weapon.ViewModelFlip = true
 	if ValidEntity(weapon.Arms) then
 			
 			if weapon.Arms:GetModel() ~= weapon.Owner:GetModel() then
@@ -1618,8 +1618,8 @@ function UpdateArms(weapon)
 			render.SetBlend(1)
 			if weapon.ViewModelFlip == true then render.CullMode(MATERIAL_CULLMODE_CW) end
 			
-			weapon.Arms:SetRenderOrigin( vm:GetPos()-vm:GetAngles():Forward()*20-vm:GetAngles():Up()*60 )//self.Arms[1]:SetRenderOrigin( EyePos() )
-			weapon.Arms:SetRenderAngles( vm:GetAngles() )//
+			weapon.Arms:SetRenderOrigin( vm:GetPos()-vm:GetAngles():Forward()*20-vm:GetAngles():Up()*60 )-- self.Arms[1]:SetRenderOrigin( EyePos() )
+			weapon.Arms:SetRenderAngles( vm:GetAngles() )-- 
 			weapon.Arms:SetupBones()	
 			weapon.Arms:DrawModel()
 			weapon.Arms:SetRenderOrigin()
@@ -1637,7 +1637,7 @@ function UpdateArms(weapon)
 			end
 			
 			CalculatePlayerModelBones(weapon,weapon.Arms)
-			//weapon.Arms:SetParent(vm) 
+			-- weapon.Arms:SetParent(vm) 
 	end
 	if ValidEntity(weapon.Wep) then
 	
@@ -1667,7 +1667,7 @@ function UpdateArms(weapon)
 			render.SetBlend(1)
 			render.SetColorModulation(1, 1, 1)
 
-			//CalculatePlayerModelBones1(weapon,weapon.Wep)
+			-- CalculatePlayerModelBones1(weapon,weapon.Wep)
 			CalculateWeaponBones(weapon,weapon.Wep)
 	end
 end

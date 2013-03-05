@@ -55,8 +55,8 @@ SWEP.ObjectForce		= 1000			-- Force multiplier (1000 works great)
 
 local function IgnitePlayer( Entity )
 
-	if (!Entity or CLIENT) then return false end
-	if (!Entity:IsValid()) then return false end
+	if (not Entity or CLIENT) then return false end
+	if (not Entity:IsValid()) then return false end
 	if (Entity:IsPlayer()) then
 		Entity:Ignite( 5, 0)
     elseif (Entity:IsNPC()) then
@@ -69,10 +69,10 @@ local function IgnitePlayer( Entity )
 
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
    Name:	LeftClick
    Desc:	Remove a single entity
----------------------------------------------------------*/  
+---------------------------------------------------------]==]  
 
 function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
@@ -81,7 +81,7 @@ function SWEP:PrimaryAttack()
 	 
     if ( IgnitePlayer( hitpos ) ) then
 	
-		--if ( !CLIENT ) then
+		--if ( not CLIENT ) then
 		--	MsgAll( self:GetOwner():Nick(), " removed ", trace.Entity:GetClass(), "\n" )
 		--end
 		self.Weapon:EmitSound(self.Primary.Sound)
@@ -94,7 +94,7 @@ function SWEP:PrimaryAttack()
 	end
 end
 
-//Hacky way to update weapon slot count
+-- Hacky way to update weapon slot count
 function SWEP:Equip ( NewOwner )
 	if SERVER then
 		local EntClass = self:GetClass()

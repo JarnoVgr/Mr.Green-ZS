@@ -1,4 +1,4 @@
-//I hate derma :<. Every panel is like pain in the ass for me :/
+-- I hate derma :<. Every panel is like pain in the ass for me :/
 function MakeWeps()
 	if not MySelf then return end
 	if pWeps then
@@ -39,7 +39,7 @@ function MakeWeps()
 	
 	local frags = MySelf:Frags()
 	
-	for i=1,table.maxn(tblRewards) do //Find the amount of kills that we need to get rewards
+	for i=1,table.maxn(tblRewards) do -- Find the amount of kills that we need to get rewards
 	local tab = tblRewards[i]
 		if tab then
 		
@@ -60,7 +60,7 @@ function MakeWeps()
 				end
 				xpos = xpos + 130
 				
-			for index,weapon in pairs(tab) do // if there are multiple weapons then make more icons
+			for index,weapon in pairs(tab) do --  if there are multiple weapons then make more icons
 			
 				local wep = weapons.Get(weapon)
 				
@@ -83,13 +83,13 @@ function MakeWeps()
 				icon:SetSize(64, 64)
 				icon:SetPos(xpos-32, ypos)
 				icon:SetModel(wep.WorldModel or "models/error.mdl")
-				icon:SetToolTip(text) //Add info about selected weapon
+				icon:SetToolTip(text) -- Add info about selected weapon
 				
-				xpos = xpos + 80 //Slide to the right
+				xpos = xpos + 80 -- Slide to the right
 				
 			end
 			
-			ypos = ypos + 120 //Make a new row
+			ypos = ypos + 120 -- Make a new row
 		end
 	end
 end

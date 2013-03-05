@@ -1,8 +1,8 @@
---[[
+--[=[
 
  JSON Encoder and Parser for Lua 5.1
  
- Copyright © 2007 Shaun Brown (http://www.chipmunkav.com).
+ Copyright © 2007 Shaun Brown (http:-- www.chipmunkav.com).
  All Rights Reserved.
  
  Permission is hereby granted, free of charge, to any person 
@@ -46,12 +46,12 @@
  2) Use Json.Null() to insert a null value into a Json object
  3) All control chars are encoded to \uXXXX format eg "\021" encodes to "\u0015"
  4) All Json \uXXXX chars are decoded to chars (0-255 byte range only)
- 5) Json single line // and /* */ block comments are discarded during decoding
+ 5) Json single line --  and --[==[ ]==] block comments are discarded during decoding
  6) Numerically indexed Lua arrays are encoded to Json Lists eg [1,2,3]
  7) Lua dictionary tables are converted to Json objects eg {"one":1,"two":2}
  8) Json nulls are decoded to Lua nil and treated by Lua in the normal way
 
---]]
+--]=]
 
 local string = string
 local math = math

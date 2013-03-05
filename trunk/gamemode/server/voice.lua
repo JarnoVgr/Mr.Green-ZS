@@ -1,8 +1,8 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-/*function VoiceInit()
-	//timer.Create( "voice_question",40,1,VoiceToQuestion )
+--[==[function VoiceInit()
+	-- timer.Create( "voice_question",40,1,VoiceToQuestion )
 end
 hook.Add( "Initialize","VoiceInit",VoiceInit )
 
@@ -21,7 +21,7 @@ function VoiceToQuestion()
 			pos_humans = {}
 			
 			for k, v in pairs(found) do
-				if v:IsPlayer() and v != ply and v:Alive() then
+				if v:IsPlayer() and v ~= ply and v:Alive() then
 					if v:Team() == TEAM_HUMAN then
 						table.insert(pos_humans, v)
 					elseif v:Team() == TEAM_UNDEAD then
@@ -39,7 +39,7 @@ function VoiceToQuestion()
 
 	timer.Adjust("voice_question",30+math.random(1,10)-math.min(#humans,20),1,VoiceToQuestion)
 	timer.Start("voice_question")
-end*/
+end]==]
 
 function VoiceToAnswer( ply )
 	if not IsRealisticToVoice( ply ) then return end

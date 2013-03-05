@@ -22,9 +22,9 @@ function EFFECT:Init(data)
 	emitter:Finish()
 end
 
---[[function EFFECT:Think()
+--[=[function EFFECT:Think()
 	return false
-end]]
+end]=]
 
---[[function EFFECT:Render()
-end]]
+--[=[function EFFECT:Render()
+end]=]

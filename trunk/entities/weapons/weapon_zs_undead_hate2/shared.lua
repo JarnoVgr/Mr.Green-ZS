@@ -59,7 +59,7 @@ function SWEP:InitializeClientsideModels()
 		["ValveBiped.Bip01_L_Finger3"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1.343, 1.343, 1.343), pos = Vector(0, 0, 0), angle = Angle(-3.389, 0.075, 1.312) },
 		["ValveBiped.Bip01_Spine4"] = { scale = Vector(1, 1, 1), pos = Vector(-3.701, 0.425, -0.288), angle = Angle(0, 0, 0) },
-		//["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(1.58, 5.205, 0) },
+		-- ["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(1.58, 5.205, 0) },
 		["ValveBiped.Bip01_L_Finger2"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["ValveBiped.Bip01_R_Finger3"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.213, 1.213, 1.213), pos = Vector(0, 0, 0), angle = Angle(-0.151, -20.414, -7.045) }
@@ -99,22 +99,22 @@ function SWEP:Think()
 	end
 end
 
-//Primary attack
+-- Primary attack
 SWEP.NextAttack = 0
 function SWEP:PrimaryAttack()
 	if CurTime() < self.NextAttack then return end
 	
 	self.Weapon:SetNextPrimaryFire ( CurTime() + 3 )
 	
-	//Make things easier
+	-- Make things easier
 	local pl = self.Owner
 	self.PreHit = nil
 	
-	//Trace filter
-	local trFilter = self.Owner//team.GetPlayers( TEAM_ZOMBIE )
+	-- Trace filter
+	local trFilter = self.Owner-- team.GetPlayers( TEAM_ZOMBIE )
 		
 	
-	//Set the thirdperson animation and emit zombie attack sound
+	-- Set the thirdperson animation and emit zombie attack sound
 	self.Owner:SetAnimation( PLAYER_ATTACK1 )
 	 
 	if SERVER then
@@ -129,19 +129,19 @@ function SWEP:PrimaryAttack()
 	timer.Simple ( 2.1, function()
 		if not ValidEntity ( pl ) then return end
 		
-		//Conditions
+		-- Conditions
 		if not pl:Alive() then return end
 		GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed,ZombieClasses[ pl:GetZombieClass() ].Speed )
 	end)
 	if SERVER then self.Owner:EmitSound(table.Random ( ZombieClasses[10].AttackSounds ), 120, math.random( 70, 80 ) ) end
 	 
-	//Trace an object
+	-- Trace an object
 	local trace = pl:TraceLine( self.DistanceCheck, MASK_SHOT, trFilter )
 	if trace.Hit and ValidEntity ( trace.Entity ) and not trace.Entity:IsPlayer() then
 		self.PreHit = trace.Entity
 	end
 	
-	//Delayed attack function (claw mechanism)
+	-- Delayed attack function (claw mechanism)
 	if SERVER then timer.Simple ( 0.7,function() if IsValid(self) and self.DoPrimaryAttack then self:DoPrimaryAttack(trace, pl, self.PreHit) end end ) end
 	if SERVER then timer.Simple ( 1.35,function() if IsValid(self) and self.DoPrimaryAttack then self:DoPrimaryAttack(trace, pl, self.PreHit) end end ) end
 	timer.Simple ( 0.55, function()
@@ -163,30 +163,30 @@ function SWEP:PrimaryAttack()
 			self.SwapAnims = not self.SwapAnims
 		end)	
 				
-	// Set the next swing attack for cooldown
+	--  Set the next swing attack for cooldown
 	self.NextAttack = CurTime() + 3
 	self.NextHit = CurTime() + 0.7
 end
 
-//Primary attack function
+-- Primary attack function
 function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	if not ValidEntity ( self.Owner ) then return end
 	local mOwner = self.Owner
 	
-	//Trace filter
-	local trFilter = self.Owner//team.GetPlayers( TEAM_UNDEAD )
+	-- Trace filter
+	local trFilter = self.Owner-- team.GetPlayers( TEAM_UNDEAD )
 	
-	//Calculate damage done
+	-- Calculate damage done
 	local Damage = math.random( 88, 99 )
 
 	local TraceHit, HullHit = false, false
 	
-	//Push for whatever it hits
+	-- Push for whatever it hits
 	local Velocity = self.Owner:EyeAngles():Forward() * 5000
 	
-	//Tracehull attack
+	-- Tracehull attack
 	local size = 3.1
-	local trHull = util.TraceHull( { start = pl:GetShootPos(), endpos = pl:GetShootPos() /*+ ( pl:GetAimVector() * 50 )*/, filter = trFilter, mins = Vector( -15*size,-10*size,-18 ), maxs = Vector( 20*size,20*size,20 ) } )
+	local trHull = util.TraceHull( { start = pl:GetShootPos(), endpos = pl:GetShootPos() --[==[+ ( pl:GetAimVector() * 50 )]==], filter = trFilter, mins = Vector( -15*size,-10*size,-18 ), maxs = Vector( 20*size,20*size,20 ) } )
 	
 	local tr
 	if not ValidEntity ( victim ) then	
@@ -200,76 +200,76 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	if SERVER then 
 	self.Owner:EmitSound("npc/zombie/claw_miss"..math.random(1, 2)..".wav", 90, math.random( 70, 80 ) ) end
 	
-	//Punch the prop / damage the player if the pretrace is valid
+	-- Punch the prop / damage the player if the pretrace is valid
 	if ValidEntity ( victim ) then
 		local phys = victim:GetPhysicsObject()
 		
-		//Break glass
+		-- Break glass
 		if victim:GetClass() == "func_breakable_surf" then
 			victim:Fire( "break", "", 0 )
 		end
 		
 		
-		//Take damage
+		-- Take damage
 		victim:TakeDamage ( math.Clamp( Damage, 1, 99 ), self.Owner, self )
 		
 		if victim:IsPlayer() and victim:IsZombie() then
 			victim:TakeDamage ( Damage/4, victim, self )
 		end
 
-		//Claw sound
+		-- Claw sound
 		if victim:IsPlayer() then
 			victim:EmitSound("weapons/melee/chainsaw_gore_0"..math.random(1,4)..".wav",100, math.random( 90, 110 ))
 			if SERVER then util.Blood(tr.HitPos, math.Rand(Damage * 0.25, Damage * 0.6), (tr.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(Damage * 6, Damage * 12), true) end
 		else
-			//Play the hit sound
+			-- Play the hit sound
 			pl:EmitSound( "ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )
 		end
 				
-		//Case 2: It is a valid physics object
+		-- Case 2: It is a valid physics object
 		if phys:IsValid() and not victim:IsNPC() and phys:IsMoveable() and not victim:IsPlayer() then
 			if Velocity.z < 1800 then Velocity.z = 1800 end
 					
-			//Apply force to prop and make the physics attacker myself
+			-- Apply force to prop and make the physics attacker myself
 			phys:ApplyForceCenter( Velocity )
 			victim:SetPhysicsAttacker( pl )
 		end
 	end
 	
-	-- //Verify tracehull entity
+	-- -- Verify tracehull entity
 	if HullHit and not TraceHit then
 		local ent = trHull.Entity
 		local phys = ent:GetPhysicsObject()
 		
-		//Do a trace so that the tracehull won't push or damage objects over a wall or something
+		-- Do a trace so that the tracehull won't push or damage objects over a wall or something
 		local vStart, vEnd = self.Owner:GetShootPos(), ent:LocalToWorld ( ent:OBBCenter() )
 		local ExploitTrace = util.TraceLine ( { start = vStart, endpos = vEnd, filter = trFilter } )
 		
-		if ent != ExploitTrace.Entity then return end
+		if ent ~= ExploitTrace.Entity then return end
 		
-		//Break glass
+		-- Break glass
 		if ent:GetClass() == "func_breakable_surf" then
 			ent:Fire( "break", "", 0 )
 		end
 	
 		
-		//From behind
+		-- From behind
 		if ent:IsPlayer() then
 			ent:EmitSound("weapons/melee/chainsaw_gore_0"..math.random(1,4)..".wav",100, math.random( 90, 110 ))
 			if SERVER then util.Blood(tr.HitPos, math.Rand(Damage * 0.25, Damage * 0.6), (tr.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(Damage * 6, Damage * 12), true) end
 		else
-			//Play the hit sound
+			-- Play the hit sound
 			pl:EmitSound( "ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )
 		end
 		
-		//Take damage
+		-- Take damage
 		ent:TakeDamage ( math.Clamp( Damage, 1, 99 ), self.Owner, self )
 		
 		if ent:IsPlayer() and ent:IsZombie() then
 			ent:TakeDamage ( Damage/4, ent, self )
 		end
 	
-		//Apply force to the correct object
+		-- Apply force to the correct object
 		if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() then
 			if Velocity.z < 1800 then Velocity.z = 1800 end
 					
@@ -285,10 +285,10 @@ function SWEP:SecondaryAttack()
 	if CurTime() < self.NextYell then return end
 	local mOwner = self.Owner
 	
-	//Thirdperson animation
+	-- Thirdperson animation
 	--mOwner:DoAnimationEvent( CUSTOM_SECONDARY )
 		
-	//Emit both claw attack sound and weird funny sound
+	-- Emit both claw attack sound and weird funny sound
 	if SERVER then self.Owner:EmitSound( table.Random ( ZombieClasses[10].IdleSounds ),math.random( 110, 160 ),math.random( 85, 110 )  ) end
 
 	self.NextYell = CurTime() + math.random(8,13)
@@ -332,7 +332,7 @@ function SWEP:Precache()
 	util.PrecacheSound("npc/headcrab_poison/ph_jump3.wav")
 	util.PrecacheSound("npc/zombie_poison/pz_breathe_loop1.wav")
 	
-	//Quick way to precache all sounds
+	-- Quick way to precache all sounds
 	for _, snd in pairs(ZombieClasses[3].PainSounds) do
 		util.PrecacheSound(snd)
 	end
@@ -350,9 +350,9 @@ end
 if CLIENT then
 	function SWEP:DrawHUD() GAMEMODE:DrawZombieCrosshair ( self.Owner, self.DistanceCheck ) end
 	
-	/*function SWEP:DrawWorldModel()
+	--[==[function SWEP:DrawWorldModel()
 		--self:SetMaterial("models/flesh")
 		self:DrawModel()
-	end*/
+	end]==]
 	
 end

@@ -6,7 +6,7 @@ oldIsValid = IsValid
 
 function IsValid( object )
 
-	if ( !object ) then return false end
+	if ( not object ) then return false end
 	if type(object) == "number" or type(object) == "string" or type(object) == "boolean" then 
 		return false
 	end
@@ -21,9 +21,9 @@ GetWorldEntity = game.GetWorld
 SinglePlayer = game.SinglePlayer
 MaxPlayers = game.MaxPlayers
 
---[[---------------------------------------------------------
+--[=[---------------------------------------------------------
 	     Include the shared files
----------------------------------------------------------]]
+---------------------------------------------------------]=]
 include("shared/obj_player_extend.lua")
 include("shared/obj_weapon_extend.lua")
 include("shared/obj_entity_extend.lua")
@@ -158,17 +158,17 @@ if CHRISTMAS then
 end
 
 -- Define footstep sounds
-/*local tbFootSteps = { 
+--[==[local tbFootSteps = { 
 	[1] = { Sound ( "npc/zombie/foot1.wav" ), Sound ( "npc/zombie/foot2.wav" ), Sound ( "npc/zombie/foot3.wav" ) }, 
 	[2] = { Sound ( "player/footsteps/ladder1.wav" ), Sound ( "player/footsteps/ladder2.wav" ), Sound ( "player/footsteps/ladder3.wav" ), Sound ( "player/footsteps/ladder4.wav" ) },
 	[3] = { Sound ( "npc/zombine/gear1.wav" ), Sound ( "npc/zombine/gear2.wav" ), Sound ( "npc/zombine/gear3.wav" ),Sound ( "npc/zombie/foot1.wav" ), Sound ( "npc/zombie/foot2.wav" ) },-- zombine
 	[4] = { Sound ( "npc/zombie_poison/pz_right_foot1.wav" ), Sound ( "npc/zombie_poison/pz_left_foot1.wav" ) },-- poison zombie
 	[5] = { Sound ( "npc/fast_zombie/foot1.wav" ), Sound ( "npc/fast_zombie/foot2.wav" ), Sound ( "npc/fast_zombie/foot3.wav" ), Sound ( "npc/fast_zombie/foot4.wav" ) },-- fast zombie
 	[6] = { Sound ( "npc/headcrab_poison/ph_step1.wav" ), Sound ( "npc/headcrab_poison/ph_step2.wav" ), Sound ( "npc/headcrab_poison/ph_step3.wav" ), Sound ( "npc/headcrab_poison/ph_step4.wav" ) },-- poison headcrab
-	//[11] = { Sound("physics/metal/metal_barrel_impact_hard5.wav"),Sound("physics/metal/metal_barrel_impact_hard6.wav")}
+	-- [11] = { Sound("physics/metal/metal_barrel_impact_hard5.wav"),Sound("physics/metal/metal_barrel_impact_hard6.wav")}
 	[11] = { Sound("npc/strider/strider_step1.wav"),Sound("npc/strider/strider_step2.wav"),Sound("npc/strider/strider_step3.wav"),Sound("npc/strider/strider_step4.wav"),Sound("npc/strider/strider_step5.wav"),Sound("npc/strider/strider_step6.wav")}
 	}
-*/
+]==]
 
 local tbFootSteps = { 
 	[1] = { "Zombie.FootstepLeft","Zombie.FootstepRight" }, 
@@ -218,7 +218,7 @@ function GM:PlayerFootstep( pl, pos, iFoot, sound, volume, rf )
 			ftime = 0.365
 		elseif pl:IsPoisonZombie() then
 			sSound = tbFootSteps[4][iFoot+1]
-			ftime = 0.31//0.27
+			ftime = 0.31-- 0.27
 		elseif pl:IsFastZombie() then
 			sSound = tbFootSteps[5][iFoot+1]
 			ftime = 0.1
@@ -360,11 +360,11 @@ for _,mdl in pairs (file.Find("models/player/hostage/*.mdl","GAME")) do
 	util.PrecacheModel( "models/player/hostage/"..mdl )
 end
 
-/*for k, v in pairs(suits) do
+--[==[for k, v in pairs(suits) do
 	for j, prop in pairs(v) do
 		util.PrecacheModel( prop.model )
 	end
-end*/
+end]==]
 
 for k=1, #ZombieClasses do
 	util.PrecacheModel( ZombieClasses[k].Model )
@@ -467,8 +467,7 @@ function GM:GravGunPunt( ply, ent )
 end
 
 
-
-/*for _, funcname in pairs({"Exists", "ExistsEx", "Read", "Size", "IsDir", "Find"}) do
+--[==[for _, funcname in pairs({"Exists", "ExistsEx", "Read", "Size", "IsDir", "Find"}) do
     local old = file[funcname]
     if not old then continue end
  
@@ -481,7 +480,7 @@ end
         return old(a, b)
     end
 end
-*/
+]==]
 
 -- Check if player title is valid
 local validchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789><! "
@@ -552,7 +551,7 @@ function CalculateHordeStatus()
 				if Zombie:IsPlayer() and Zombie:Alive() then
 					print("Nearby alive: "..Zombie:Nick())
 					local iDistance = Zombies:GetPos():Distance( Zombie:GetPos() )
-					if iDistance <= 230 and Zombies != Zombie then
+					if iDistance <= 230 and Zombies ~= Zombie then
 						--print("Checked: "..Zombie:Nick())
 						if Zombie:IsZombie() then
 							Zombie.InHorde = CurTime() + 0.5
@@ -580,23 +579,23 @@ function CalculateHordeStatus1()
 		if IsValid( pl ) and pl:Alive() then
 		pl.InHorde = pl.InHorde or 0
 			for i, Zombie in pairs( ents.FindInSphere( pl:GetPos(), 230 ) ) do
-				if IsValid( Zombie ) and Zombie:IsPlayer() and Zombie:Alive() and Zombie != pl then
+				if IsValid( Zombie ) and Zombie:IsPlayer() and Zombie:Alive() and Zombie ~= pl then
 					pl.InHorde = CurTime() + 0.5 Zombie.InHorde = CurTime() + 0.5
 				end
 			end		
 		end
 	end
 end
-//hook.Add( "Think", "CalculateHordeStatus", CalculateHordeStatus1 )
+-- hook.Add( "Think", "CalculateHordeStatus", CalculateHordeStatus1 )
 
 
-//Amazing but SetNoCollideWithTeammates is shitty as fuck
-//SO I have to use this thing (with player pushing from IW) :<
+-- Amazing but SetNoCollideWithTeammates is shitty as fuck
+-- SO I have to use this thing (with player pushing from IW) :<
 function GM:_ShouldCollide( ent1, ent2 )
 	if ent1:IsPlayer() and ent2:IsPlayer() and ent1:Team() == ent2:Team() or ent1.NoCollideAll or ent2.NoCollideAll then
 		return false
 	end
-	//print(tostring(ent1).." || "..tostring(ent2))
+	-- print(tostring(ent1).." || "..tostring(ent2))
 	return true
 end
 
@@ -630,7 +629,7 @@ function GM:NextObjStage()
 	self:SetObjStage(self:GetObjStage() + 1)
 end
 
-//WAVES///////////////
+-- WAVES-- -- -- -- -- -- -- /
 function GM:GetWaveEnd()
 	return GetGlobalFloat("waveend", 0)
 end
@@ -724,17 +723,17 @@ function GM:SetFighting(bfight)
 				net.WriteFloat(self:GetWaveEnd())
 			net.Broadcast()
 			
-			/*umsg.Start("recwavestart")
+			--[==[umsg.Start("recwavestart")
 				umsg.Short(self:GetWave())
 				umsg.Float(self:GetWaveEnd())
-			umsg.End()*/
+			umsg.End()]==]
 
-			--[[for _, pl in pairs(player.GetAll()) do
-				if pl:Team() == TEAM_UNDEAD then//and not pl:Alive()
+			--[=[for _, pl in pairs(player.GetAll()) do
+				if pl:Team() == TEAM_UNDEAD then-- and not pl:Alive()
 					pl:UnSpectate()
-					//if not pl:Alive() then
-					//	pl:Spawn()
-					//end
+					-- if not pl:Alive() then
+					-- 	pl:Spawn()
+					-- end
 					if pl:IsCrow() then
 						if pl:Alive() then
 							pl:KillSilent()
@@ -744,19 +743,19 @@ function GM:SetFighting(bfight)
 						pl:StripWeapon("weapon_zs_crow")
 					end
 				end
-			end]]
+			end]=]
 			
 			for _, pl in pairs(player.GetAll()) do
 				if pl:Team() == TEAM_UNDEAD then
 					if pl:IsCrow() then
-						//pl:SetZombieClass(pl.DeathClass or 1)
-						//pl:UnSpectateAndSpawn()
+						-- pl:SetZombieClass(pl.DeathClass or 1)
+						-- pl:UnSpectateAndSpawn()
 						pl:SelectSpawnType(true)
 					elseif not pl:Alive() and not pl.Revive then
-						//pl:UnSpectateAndSpawn()
+						-- pl:UnSpectateAndSpawn()
 						pl:SelectSpawnType()
 					else
-						if GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == pl then//if pl:IsGonnaBeABoss() then
+						if GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == pl then-- if pl:IsGonnaBeABoss() then
 							pl:SpawnAsZombieBoss()
 						end
 					end
@@ -787,10 +786,10 @@ function GM:SetFighting(bfight)
 				net.WriteFloat(self:GetWaveStart())
 			net.Broadcast()
 			
-			/*umsg.Start("recwaveend")
+			--[==[umsg.Start("recwaveend")
 				umsg.Short(self:GetWave())
 				umsg.Float(self:GetWaveStart())
-			umsg.End()*/
+			umsg.End()]==]
 
 			for _, h in pairs(team.GetPlayers(TEAM_HUMAN)) do
 				if h and h:IsValid() and h:Alive() then
@@ -801,13 +800,13 @@ function GM:SetFighting(bfight)
 			
 			for _, pl in pairs(player.GetAll()) do
 				if pl:Team() == TEAM_HUMAN and pl:Alive() then
-					//if self.EndWaveHealthBonus > 0 then
-						//pl:SetHealth(math.min(pl:GetMaxHealth(), pl:Health() + self.EndWaveHealthBonus))
-					//end
+					-- if self.EndWaveHealthBonus > 0 then
+						-- pl:SetHealth(math.min(pl:GetMaxHealth(), pl:Health() + self.EndWaveHealthBonus))
+					-- end
 				elseif pl:Team() == TEAM_UNDEAD and not pl:Alive() and not pl.Revive then
 					local curclass = pl.DeathClass or pl:GetZombieClass()
 					pl:SetZombieClass(9)
-					//pl:DoHulls(crowindex, TEAM_UNDEAD)
+					-- pl:DoHulls(crowindex, TEAM_UNDEAD)
 					pl.DeathClass = nil
 					pl:UnSpectateAndSpawn()
 					pl.DeathClass = curclass
@@ -816,13 +815,13 @@ function GM:SetFighting(bfight)
 				pl.SkipCrow = nil
 			end
 			
-			--[[for _, pl in pairs(player.GetAll()) do
+			--[=[for _, pl in pairs(player.GetAll()) do
 				if pl:Team() == TEAM_UNDEAD and not pl:Alive() and pl:GetMoveType() ~= MOVETYPE_OBSERVER then
-					//pl:SetHealth(100)
-					//pl:Spectate(OBS_MODE_ROAMING)
+					-- pl:SetHealth(100)
+					-- pl:Spectate(OBS_MODE_ROAMING)
 					pl:SetAsCrow()
 				end
-			end]]
+			end]=]
 			
 			--spawn crates
 			if not self:IsRetroMode() then
@@ -832,7 +831,7 @@ function GM:SetFighting(bfight)
 		end
 	end
 end
-////////////////////////
+-- -- -- -- -- -- -- -- -- -- -- -- 
 
 function GM:ZombieSpawnDistanceSort(other)
 	return self._ZombieSpawnDistance < other._ZombieSpawnDistance
@@ -995,9 +994,9 @@ function GM:GetNiceHumanSpawn(pl)
 		if IsValid(hm) and hm:Alive() and pl ~= hm then
 			local pos = hm:GetPos() + Vector(0, 0, 1)
 			if not util.TraceHull({start = pos, endpos = pos + playerheight, mins = playermins, maxs = playermaxs, mask = MASK_SOLID, filter = player.GetAll()}).Hit then
-				//count humans
+				-- count humans
 				hm._Humans = 0
-				local buddies = team.GetPlayers(TEAM_HUMAN)//ents.FindInSphere( hm:GetPos(), 290 )
+				local buddies = team.GetPlayers(TEAM_HUMAN)-- ents.FindInSphere( hm:GetPos(), 290 )
 				for k, bud in pairs(buddies) do
 					if IsValid(bud) and bud:IsPlayer() and bud:Alive() and bud ~= hm and bud:IsHuman() and hm:GetPos():Distance(bud:GetPos()) <= 290 then
 						hm._Humans = hm._Humans + 1
@@ -1035,7 +1034,7 @@ end
 function GM:IsBossRequired()
 	
 	if BOSSACTIVE then return false end
-	//if self:IsRetroMode() then return end
+	-- if self:IsRetroMode() then return end
 	
 	if #player.GetAll() >= BOSS_TOTAL_PLAYERS_REQUIRED 
 		and team.NumPlayers(TEAM_UNDEAD) > 0 and team.NumPlayers(TEAM_HUMAN) > 0 and
@@ -1058,7 +1057,7 @@ function GM:GetPlayerForBossZombie()
 	
 	
 	for _, zmb in pairs(zombies) do
-		if IsValid(zmb) then//and zmb:Alive() 
+		if IsValid(zmb) then-- and zmb:Alive() 
 			if zmb.DamageDealt and zmb.DamageDealt[TEAM_UNDEAD] and not zmb.bIsAFK then
 				table.insert(tab, zmb)
 			end

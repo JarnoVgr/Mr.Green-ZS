@@ -67,7 +67,7 @@ function SWEP:Precache()
 	
 	util.PrecacheModel(self.ViewModel)
 	
-	//Quick way to precache all sounds
+	-- Quick way to precache all sounds
 	for _, snd in pairs(ZombieClasses[5].PainSounds) do
 		util.PrecacheSound(snd)
 	end
@@ -87,125 +87,125 @@ SWEP.NextSwing = 0
 function SWEP:DoAttack( bPull ) 
 	if CurTime() < self.NextSwing then return end
 	
-	//Get owner
+	-- Get owner
 	local mOwner = self.Owner
 	if not ValidEntity ( mOwner ) then return end
 	
-	//Cannot scream while in air
+	-- Cannot scream while in air
 	if not mOwner:OnGround() then return end
 	
-	//Cooldown
+	-- Cooldown
 	self.NextSwing = CurTime() + self.Primary.Delay
 	
-	//Stop
+	-- Stop
 	if SERVER then
-		//GAMEMODE:SetPlayerSpeed( self.Owner, 1 )
-		//self.Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
+		-- GAMEMODE:SetPlayerSpeed( self.Owner, 1 )
+		-- self.Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
 	end
 	
-	//Thirdperson animation and sound
+	-- Thirdperson animation and sound
 	mOwner:DoAnimationEvent( CUSTOM_PRIMARY )
 	
 	self:SetScreamEndTime(CurTime() + 1.3)
-	//Restore speed
-	/*timer.Simple ( 1.3, function( mOwner )
+	-- Restore speed
+	--[==[timer.Simple ( 1.3, function( mOwner )
 		if not ValidEntity ( mOwner ) then return end
 		
-		//Conditions
+		-- Conditions
 		if not mOwner:Alive() or not mOwner:IsHowler() then return end
 		GAMEMODE:SetPlayerSpeed ( mOwner, ZombieClasses[ mOwner:GetZombieClass() ].Speed )
-	end, mOwner )*/
+	end, mOwner )]==]
 	
-	//Sound
+	-- Sound
 	if SERVER then
 		mOwner:EmitSound( table.Random ( ZombieClasses[ mOwner:GetZombieClass() ].AttackSounds ), 100, math.random ( 95,135 ) )
 	end
 	
-	//Just server
+	-- Just server
 	if CLIENT then return end
 	
-	//Get nearby howlers
+	-- Get nearby howlers
 	local iHowlers = #GetHowlers( mOwner:GetPos(), 450 ) or 1
 	if iHowlers == 0 then iHowlers = 1 end
 	
-	//Find in sphere
+	-- Find in sphere
 	local iDistance, iRandom = 450, math.Rand( 1, 2.5 )
-	//for k,v in pairs ( ents.FindInSphere ( self.Owner:GetPos(), iDistance ) ) do
+	-- for k,v in pairs ( ents.FindInSphere ( self.Owner:GetPos(), iDistance ) ) do
 	for k,v in ipairs ( team.GetPlayers(TEAM_HUMAN) ) do
 	
-		//Players
+		-- Players
 		if v:IsPlayer() and v:IsHuman() and v:Alive() and v:GetPos():Distance(self.Owner:GetPos()) <= iDistance then
 			local vPos, vEnd = mOwner:GetShootPos(), mOwner:GetShootPos() + ( mOwner:GetAimVector() * iDistance )
 			local Trace = util.TraceLine ( { start = vPos, endpos = v:LocalToWorld( v:OBBCenter() ), filter = mOwner, mask = MASK_SOLID } )
 			
-			//Exploit trace
+			-- Exploit trace
 			if Trace.Hit then
 				if ValidEntity ( Trace.Entity ) then
 					if Trace.Entity == v then
 						local fDistance = v:GetPos():Distance( self.Owner:GetPos() )
 						local iFuckIntensity = math.Clamp ( 4.5 - ( ( fDistance / iDistance ) * 10 ), 1, 2 )
-						//if v:GetHumanClass() == 3 then iFuckIntensity = iFuckIntensity * math.Rand(1.8,2.3) end
-						//Event
+						-- if v:GetHumanClass() == 3 then iFuckIntensity = iFuckIntensity * math.Rand(1.8,2.3) end
+						-- Event
 						GAMEMODE:OnPlayerHowlered ( v, iFuckIntensity )
 											
-						//Inflict damage
+						-- Inflict damage
 						local fDamage = math.Round ( math.Clamp ( ( 22 - ( fDistance / 10 ) ) / iHowlers, 0, 5 ) )
-						//if v:GetHumanClass() == 3 then fDamage = fDamage * math.Rand(1.8,2.3) end
+						-- if v:GetHumanClass() == 3 then fDamage = fDamage * math.Rand(1.8,2.3) end
 						if fDamage > 0 then v:TakeDamage ( fDamage, self.Owner, self ) end
 					end
 				end
 			end
 		end
 		
-		//Shield zombies in range
+		-- Shield zombies in range
 		if iRandom <= 1.5 then
 			if v:IsPlayer() and v:IsZombie() and v:Alive() then
 				if not v:HasHowlerProtection() and self.Owner:GetPos():Distance( v:GetPos() ) <= self.ProtectionDistance then
 					local iDuration = 1.3 + 2.5 
 					v.HowlerProtection = iDuration + CurTime()
 					
-					//Send usermessage
+					-- Send usermessage
 					net.Start( "howlerDoProtection" ) net.Send(v)
 				end
 			end
 		end
 	end
 	
-	//On trigger play sound
+	-- On trigger play sound
 	if iRandom <= 1.5 then
 		self.Owner:EmitSound( "ambient/energy/zap6.wav" )
 	end
 	
-	//Scream effect for myself
+	-- Scream effect for myself
 	self.Owner:SendLua( "WraithScream()" )
 	
-	//Pull or push targeted object
+	-- Pull or push targeted object
 	local Filter = { mOwner }
 	table.Add( Filter, team.GetPlayers( TEAM_UNDEAD ) )
 	
-	//Trace to object, see if you see it
+	-- Trace to object, see if you see it
 	local vPos, vEnd = mOwner:GetShootPos(), mOwner:GetShootPos() + ( mOwner:GetAimVector() * self.PropTKDistance )
 	local Trace = util.TraceLine ( { start = vPos, endpos = vEnd, filter = Filter, mask = MASK_SOLID } )
 	
-	//Check object
+	-- Check object
 	if IsValid( Trace.Entity ) then
 		local mTK = Trace.Entity
 		
-		//Calculate velocity
+		-- Calculate velocity
 		local Velocity = -1 * mOwner:GetForward() * 225
 		if not bPull then Velocity = -1 * Velocity * 2 end
 		
-		//Apply velocity
+		-- Apply velocity
 		if mTK:IsPlayer() and mTK:IsHuman() then
 			if ( mTK.HowlerKickTimer or 0 ) <= CurTime() then
 				Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random( 250, 270 )
 				if not bPull then Velocity = Vector( Velocity.x * 0.4, Velocity.y * 0.4, Velocity.z ) end
 			
-				//Player cooldown and apply velocity
+				-- Player cooldown and apply velocity
 				mTK.HowlerKickTimer = CurTime() + 3.2
 				mTK:SetVelocity( Velocity )
 				
-				//Play sound
+				-- Play sound
 				timer.Simple( 0.2, function()
 					if IsValid( mTK ) then
 						WorldSound( "npc/barnacle/barnacle_bark1.wav", mTK:GetPos() + Vector( 0,0,20 ), 120, math.random( 60, 75 ) )
@@ -215,19 +215,19 @@ function SWEP:DoAttack( bPull )
 		else
 			if IsValid( mTK:GetPhysicsObject() ) then
 			
-				//Calculate needed velocity
+				-- Calculate needed velocity
 				local fMass = mTK:GetPhysicsObject():GetMass()
 				Velocity = -1 * ( mOwner:GetForward() * 225 ) / ( fMass * 0.02 )
 				if not bPull then Velocity = -1 * Velocity * 1.3 end
 				
-				//Play sound
-				//timer.Simple( 0.2, function()
+				-- Play sound
+				-- timer.Simple( 0.2, function()
 					if IsValid( mTK ) then
 						WorldSound( "npc/barnacle/barnacle_bark1.wav", mTK:GetPos() + Vector( 0,0,20 ), 120, math.random( 60, 75 ) )
 					end
-				//end)
+				-- end)
 				
-				//Apply velocity
+				-- Apply velocity
 				mTK:SetPhysicsAttacker( mOwner )
 				mTK:GetPhysicsObject():SetVelocity( Velocity )
 			end
@@ -246,7 +246,7 @@ function SWEP:CheckScream()
 	
 	if SERVER then
 		local pl = self.Owner
-		//GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed )
+		-- GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed )
 	end
 	
 end
@@ -291,18 +291,18 @@ elseif CLIENT then
 			end
 		end	
 			
-		//Predict for self
+		-- Predict for self
 		if not MySelf:HasHowlerProtection() then
 			local iDuration = 1.3 + 2.5
 			MySelf.HowlerProtection = iDuration + CurTime()
 		end	
 		
-		//Wraith scream
+		-- Wraith scream
 		WraithScream()
 	end)
 end
 
-//Prediction trick
+-- Prediction trick
 local function howlerDoProtection()
 	for k,v in pairs ( ents.FindInSphere ( MySelf:GetPos(), 220 ) ) do
 		if v:IsPlayer() and v:IsZombie() and v:Alive() and not (v:IsZombine() and v.bCanSprint) then
@@ -313,13 +313,13 @@ local function howlerDoProtection()
 		end
 	end	
 		
-	//Predict for self
+	-- Predict for self
 	if not MySelf:HasHowlerProtection() then
 		local iDuration = 1.3 + 2.5
 		MySelf.HowlerProtection = iDuration + CurTime()
 	end	
 	
-	//Wraith scream
+	-- Wraith scream
 	WraithScream()
 end
 if CLIENT then usermessage.Hook( "howlerDoProtection", howlerDoProtection ) end

@@ -3,20 +3,20 @@
 
 function EFFECT:Init( data )
 
-	//Get entity
+	-- Get entity
 	self.Ent = data:GetEntity()
 	self.Pos = data:GetOrigin()
 	
-	if !IsValid(self.Ent) then return end
+	if not IsValid(self.Ent) then return end
 
-	//Set particle/emitter
+	-- Set particle/emitter
 	self.Particles = {}
 	self.Emitter = ParticleEmitter( self.Pos + self.Ent:OBBCenter() )
 	
-	//Effect die time
+	-- Effect die time
 	self.DieTime = CurTime() + 3.3
 	
-	//Pre-fab random local location table
+	-- Pre-fab random local location table
 	self.ParticlePosition = {}
 	for i = 1, 500 do
 		local X, Y, Z
@@ -27,10 +27,10 @@ function EFFECT:Init( data )
 		self.ParticlePosition[i] = Vector( X, Y, Z )
 	end
 	
-	//Particle color (grey random)
+	-- Particle color (grey random)
 	local greyCol = math.random( 40, 80 )
 	
-    //Add particles
+    -- Add particles
 	for i = 1, 14 do
 		self.Particles[i] = self.Emitter:Add( "particle/smokestack", self.Pos + table.Random( self.ParticlePosition ) )
 		self.Particles[i]:SetVelocity( Vector( math.Rand( -2, 2 ),math.Rand( -2, 2 ), math.Rand( 15, 35 ) ) )
@@ -45,13 +45,13 @@ function EFFECT:Init( data )
 	self:Finish()
 end
 
-//Finish effect
+-- Finish effect
 function EFFECT:Finish()
 	if self.Emitter then
 		self.Emitter:Finish() 
 	end
 	
-	//Erase particles
+	-- Erase particles
 	if self.Particles then
 		for i = 1, 10 do
 			self.Particles[i]:SetDieTime( 0.01 )

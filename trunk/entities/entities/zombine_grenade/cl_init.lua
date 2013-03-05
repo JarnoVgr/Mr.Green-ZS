@@ -14,16 +14,16 @@ function ENT:Think()
 	
 	if not IsEntityValid ( self:GetOwner() ) then return end
 	
-	//Owner died before nade xploded
+	-- Owner died before nade xploded
 	if not self.OwnerDied and not self:GetOwner():Alive() then self.OwnerDied = true self:GetOwner().HoldingGrenade = false end
 	
-	//BOOM time
+	-- BOOM time
 	if CurTime() < self.BoomTime then return end
 end
 
 function ENT:Draw()
 		
-	//Set position to hand
+	-- Set position to hand
 	if IsEntityValid ( self:GetOwner() ) then
 		if not self.OwnerDied then
 			local hand = self:GetOwner():LookupBone( "ValveBiped.Bip01_L_Hand" ) 
@@ -49,8 +49,8 @@ function ENT:Draw()
 		end
 	end
 	
-	//Apply grenade glow
-	if IsValid( self:GetOwner() ) and self:GetOwner() != MySelf then
+	-- Apply grenade glow
+	if IsValid( self:GetOwner() ) and self:GetOwner() ~= MySelf then
 		if not self.GlowActive then
 			local Glow = EffectData()
 				Glow:SetEntity( self )
@@ -58,11 +58,11 @@ function ENT:Draw()
 			util.Effect( "zombine_grenade_glow", Glow, true, true )
 		end
 	
-		//Draw model
+		-- Draw model
 		self:DrawModel()
 	end
 	
-	//Make the nade smaller
+	-- Make the nade smaller
 	self:SetModelScale ( 0.7,0 )
 end
 

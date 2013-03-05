@@ -12,10 +12,10 @@ if CLIENT then
 	SWEP.SlotPos = 7
 	SWEP.ViewModelFlip = false
 
-	//SWEP.ShowViewModel = false
-	//SWEP.IgnoreBonemerge = false
-	//SWEP.UseHL2Bonemerge = true
-	//SWEP.ScaleDownLeftHand = true
+	-- SWEP.ShowViewModel = false
+	-- SWEP.IgnoreBonemerge = false
+	-- SWEP.UseHL2Bonemerge = true
+	-- SWEP.ScaleDownLeftHand = true
 
 	killicon.AddFont( "weapon_zs_magnum", "HL2MPTypeDeath", ".",Color(255, 255, 255, 255 ) )
 	

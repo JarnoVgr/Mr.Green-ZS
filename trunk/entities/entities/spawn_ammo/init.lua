@@ -9,7 +9,7 @@ include ("shared.lua")
 local table = table
 local pairs = pairs
 
-//Normal set data
+-- Normal set data
 ENT.Table = {
 	["AmmoLeft"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( 0,0,0 ), Angles = Angle ( 0.019, -168.486 ,0.100 ) },
 	["AmmoRight"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -3.8088 ,37.7378 ,0 ), Angles = Angle ( -0.015 ,-179.685, 0.014 ) },
@@ -19,7 +19,7 @@ ENT.Table = {
 	["Vial"] = { Model = "models/healthvial.mdl", Position = Vector ( -9.5952 ,43.9023 ,25.5 ), Angles = Angle ( 0.726 ,-66.560 ,-90.018 ) },
 }
 
-//Switch offset
+-- Switch offset
 ENT.Offset = {
 	["AmmoRight"] = Vector ( 3 ,10.5 ,0 ),
 	["AmmoUp"] = Vector ( 1 ,8 ,0 ),
@@ -31,28 +31,28 @@ ActualCrates = {}
 
 ENT.Children = {}
 
-//Starts in original angle and position
+-- Starts in original angle and position
 ENT.Switch = false
 
-//Precache their models
+-- Precache their models
 for k,v in pairs ( ENT.Table ) do
 	util.PrecacheModel ( v.Model )
 end
 
 function ENT:Initialize()
 
-	//if the composite is switched, then set the angles inverse
+	-- if the composite is switched, then set the angles inverse
 	local aOffset, vCenter = Angle ( 0,0,0 ), Vector ( 0, 20, 0 )
 	if self.Switch then
 		aOffset, vCenter = Angle ( 0, -90, 0 ), Vector ( 20, 0, 0 )
 	end
 	
-	//Spawn the main parent prop 
+	-- Spawn the main parent prop 
 	self:SetModel ( self.Table["AmmoLeft"].Model )
 	self:SetAngles ( self.Table["AmmoLeft"].Angles + aOffset )
 	self:SetPos( self:GetPos() - vCenter )
 	self:PhysicsInit( SOLID_VPHYSICS )
-	//self:SetSolid( SOLID_NONE )
+	-- self:SetSolid( SOLID_NONE )
 	self:SetMoveType( MOVETYPE_NONE )
 	self:SetCollisionGroup ( COLLISION_GROUP_DEBRIS_TRIGGER )
 	
@@ -60,7 +60,7 @@ function ENT:Initialize()
 	
 	self.AmmoCrate = true
 	
-	//Effect for parent
+	-- Effect for parent
 	local effectdata = EffectData()
 	effectdata:SetEntity( self )
 	util.Effect( "ammo_spawn_effect", effectdata, nil, true )
@@ -69,20 +69,20 @@ function ENT:Initialize()
 		aOffset = Angle ( 0, 90, 0 )
 	end
 	
-	//Freeze the main prop
+	-- Freeze the main prop
 	local Phys = self:GetPhysicsObject()
 	if Phys:IsValid() then 
 		Phys:EnableMotion ( false )
 	end
 	
-	//Now spawn the rest
+	-- Now spawn the rest
 	for k,v in pairs ( self.Table ) do
-		if k != "AmmoLeft" then
-			local Ent = ents.Create ("prop_physics")//_multiplayer
+		if k ~= "AmmoLeft" then
+			local Ent = ents.Create ("prop_physics")-- _multiplayer
 			Ent:SetModel ( v.Model )
 			Ent:SetAngles ( v.Angles + aOffset )
 			
-			//Position offset
+			-- Position offset
 			local Offset = Vector ( 0,0,0 )
 			if self.Switch then
 				if self.Offset[k] then
@@ -90,33 +90,33 @@ function ENT:Initialize()
 				end
 			end
 			
-			//Switch positions if it's twisted
+			-- Switch positions if it's twisted
 			local xPos, yPos, zPos = v.Position.x, v.Position.y, v.Position.z
 			if self.Switch == true then
 				xPos, yPos = v.Position.y, v.Position.x
 			end
 			
-			//Actually set position
+			-- Actually set position
 			Ent:SetPos ( self:GetPos() + Vector ( xPos, yPos, zPos ) + Offset )
 			Ent:SetKeyValue ( "minhealthdmg", 600 )
-			//Ent:SetKeyValue ( "PerformanceMode", 3 ) 
+			-- Ent:SetKeyValue ( "PerformanceMode", 3 ) 
 			
-			//Delete the children when the parent is removed
+			-- Delete the children when the parent is removed
 			Ent:SetOwner ( self )
 			
 			
-			//Physics properties
+			-- Physics properties
 			Ent:PhysicsInit( SOLID_VPHYSICS )
-			//Ent:SetSolid( SOLID_NONE )
+			-- Ent:SetSolid( SOLID_NONE )
 			Ent:SetMoveType( MOVETYPE_NONE )
 			Ent:DrawShadow ( false )
 			Ent:SetUseType(SIMPLE_USE)
-			//Prevent unnecessary collisions
-			//if k == "Ammo" or k == "Shotgun" or k == "Vial" then
+			-- Prevent unnecessary collisions
+			-- if k == "Ammo" or k == "Shotgun" or k == "Vial" then
 			if k ~= "AmmoUp" then
 				Ent:SetCollisionGroup ( COLLISION_GROUP_DEBRIS_TRIGGER )
 			end
-			//end
+			-- end
 			
 			Ent:Spawn()
 			
@@ -124,12 +124,12 @@ function ENT:Initialize()
 			
 			Ent.AmmoCrate = true
 			
-			//Effect for parent
+			-- Effect for parent
 			local effectdata = EffectData()
 			effectdata:SetEntity( Ent )
 			util.Effect( "ammo_spawn_effect", effectdata, nil, true )
 			
-			//Freeze them
+			-- Freeze them
 			local Phys = Ent:GetPhysicsObject()
 			if Phys:IsValid() then 
 				Phys:EnableMotion ( false )
@@ -140,9 +140,9 @@ function ENT:Initialize()
 	table.insert(ActualCrates,self)
 end
 
-/*-------------------------------------------
+--[==[-------------------------------------------
    Returns entity children / serverside
----------------------------------------------*/
+---------------------------------------------]==]
 function ENT:GetChildren()
 	return self.Children
 end

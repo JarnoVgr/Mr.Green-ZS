@@ -78,7 +78,7 @@ function SWEP:UpdateBonePositions(vm)
 	if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 		for k, v in pairs( self.ViewModelBoneMods ) do
 			local bone = vm:LookupBone(k)
-			if (!bone) then continue end
+			if (not bone) then continue end
 			if vm:GetManipulateBoneScale(bone) ~= v.scale then
 				vm:ManipulateBoneScale( bone, v.scale )
 			end
@@ -109,7 +109,7 @@ function SWEP:ResetBonePositions()
 	
 	if not self.Owner then return end
 	local vm = self.Owner:GetViewModel()
-	if !IsValid(vm) then return end
+	if not IsValid(vm) then return end
 	
 	for i=0, vm:GetBoneCount() do
 		vm:ManipulateBoneScale( i, Vector(1, 1, 1) )
@@ -127,9 +127,9 @@ function SWEP:CreateViewModelElements()
 		if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 			for k, v in pairs( self.ViewModelBoneMods ) do
 				local bone = s:LookupBone(k)
-				if (!bone) then continue end
+				if (not bone) then continue end
 				local m = s:GetBoneMatrix(bone)
-				if (!m) then continue end
+				if (not m) then continue end
 				m:Scale(v.scale)
 				m:Rotate(v.angle)
 				m:Translate(v.pos)
@@ -147,7 +147,7 @@ function SWEP:CreateWorldModelElements()
 end
 
 function SWEP:CheckModelElements()
-	if !self.VElements or !self.WElements then
+	if not self.VElements or not self.WElements then
 		timer.Simple(0,function()
 			self:InitializeClientsideModels()
 			self:CreateViewModelElements()
@@ -157,7 +157,7 @@ function SWEP:CheckModelElements()
 end
 
 function SWEP:CheckWorldModelElements()
-	if !self.WElements then
+	if not self.WElements then
 		timer.Simple(0,function()
 			if self.InitializeClientsideModels then
 				self:InitializeClientsideModels()
@@ -183,7 +183,7 @@ function SWEP:PrimaryAttack()
 	local Owner = self.Owner
 	
 	if Owner.ViewPunch then Owner:ViewPunch( Angle(math.Rand(-0.2,-0.1) * self.Primary.Recoil * 0.25, math.Rand(-0.1,0.1) * self.Primary.Recoil * 0.35, 0) ) end
-	if ( ( SinglePlayer() && SERVER ) || ( !SinglePlayer() && CLIENT && IsFirstTimePredicted() ) ) then
+	if ( ( SinglePlayer() and SERVER ) or ( not SinglePlayer() and CLIENT and IsFirstTimePredicted() ) ) then
 		local eyeang = self.Owner:EyeAngles()
 		local recoil = math.Rand( 0.1, 0.2 )
 		eyeang.pitch = eyeang.pitch - recoil
@@ -256,7 +256,7 @@ function SWEP:Deploy()
 	
 	self:OnDeploy()
 	
-	//Speed change
+	-- Speed change
 	if SERVER then GAMEMODE:WeaponDeployed( self.Owner, self ) return true else self:SetViewModelColor ( Color(255,255,255,255) ) 
 	end
 
@@ -264,7 +264,7 @@ function SWEP:Deploy()
 end
 
 function SWEP:OnDeploy()
-//MakeNewArms(self)
+-- MakeNewArms(self)
 end
 
 function SWEP:Holster()
@@ -292,17 +292,17 @@ end
 function SWEP:Equip ( NewOwner )
 	if CLIENT then return end
 	
-	//If the weapon is dropped and has 10 bullets less in the current clip, then substract that amount for the new owner
+	-- If the weapon is dropped and has 10 bullets less in the current clip, then substract that amount for the new owner
 	if self.Primary.RemainingAmmo then
 		self:TakePrimaryAmmo ( self:Clip1() - self.Primary.RemainingAmmo )
 	end
 
 	
-	//Magazine clip is stored in the weapon, instaed of player
+	-- Magazine clip is stored in the weapon, instaed of player
 	NewOwner:RemoveAmmo ( 1500, self:GetPrimaryAmmoTypeString() )
 	NewOwner:GiveAmmo ( self.Primary.Magazine or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
 			
-	//Call this function to update weapon slot and others
+	-- Call this function to update weapon slot and others
 	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
 end
 
@@ -352,7 +352,7 @@ function SWEP:CanPrimaryAttack()
 		return false
 	end
 
-	return true//self:GetNextPrimaryFire() <= CurTime()
+	return true-- self:GetNextPrimaryFire() <= CurTime()
 end
 
 function SWEP:SecondaryAttack()
@@ -383,12 +383,12 @@ end
 
 function GenericBulletCallback(attacker, tr, dmginfo)
 		
-		--[[if SERVER then
+		--[=[if SERVER then
 			if dmginfo then
-			//if not dmginfo then dmginfo = DamageInfo() end
+			-- if not dmginfo then dmginfo = DamageInfo() end
 			
 			dmginfo:SetDamageType( DMG_BULLET )
-			//dmginfo:SetDamage ( self.Primary.Damage )
+			-- dmginfo:SetDamage ( self.Primary.Damage )
 			dmginfo:SetAttacker(attacker)
 			dmginfo:SetDamagePosition(tr.HitPos)
 			dmginfo:SetDamageForce(dmginfo:GetDamage()*190 * attacker:GetAimVector())
@@ -405,7 +405,7 @@ function GenericBulletCallback(attacker, tr, dmginfo)
 			print(tostring(dmginfo:GetDamageType()))
 			print("----------")
 			end
-		end]]
+		end]=]
 
 
 	local ent = tr.Entity
@@ -422,8 +422,8 @@ function GenericBulletCallback(attacker, tr, dmginfo)
 		end
 		if SERVER then
 			if dmginfo then
-				//local dmginfo = GAMEMODE:EntityTakeDamage( ent, attacker, dmginfo:GetInflictor(), dmginfo:GetDamage(), dmginfo )
-					//ent:TakeDamageInfo(dmginfo)
+				-- local dmginfo = GAMEMODE:EntityTakeDamage( ent, attacker, dmginfo:GetInflictor(), dmginfo:GetDamage(), dmginfo )
+					-- ent:TakeDamageInfo(dmginfo)
 				end
 		end
 	end
@@ -437,8 +437,8 @@ end
 SWEP.BulletCallback = GenericBulletCallback
 function SWEP:ShootBullets(dmg, numbul, cone)
 	local owner = self.Owner
-	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)//SendWeaponAnimation()
-	//owner:DoAttackEvent()
+	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)-- SendWeaponAnimation()
+	-- owner:DoAttackEvent()
 	owner:SetAnimation(PLAYER_ATTACK1)
 
 	self:StartBulletKnockback()

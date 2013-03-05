@@ -78,7 +78,7 @@ SWEP.Base = "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel = Model("models/weapons/v_pist_glock18.mdl")//Model("models/weapons/v_pistol.mdl")
+SWEP.ViewModel = Model("models/weapons/v_pist_glock18.mdl")-- Model("models/weapons/v_pistol.mdl")
 SWEP.WorldModel = Model("models/weapons/w_pistol.mdl")
 
 SWEP.Weight				= 5
@@ -107,8 +107,8 @@ SWEP.ConeCrouching = 0.055
 SWEP.ConeIron = 0.05
 SWEP.ConeIronCrouching = 0.045
 
-/*SWEP.IronSightsPos = Vector(-5.85, -3,4, 0)
-SWEP.IronSightsAng = Vector(0.15, -1, 1.5)*/
+--[==[SWEP.IronSightsPos = Vector(-5.85, -3,4, 0)
+SWEP.IronSightsAng = Vector(0.15, -1, 1.5)]==]
 
 SWEP.IronSightsPos = Vector(4.38, -1.951, 2.68)
 SWEP.IronSightsAng = Vector(0, -0.21, 0)

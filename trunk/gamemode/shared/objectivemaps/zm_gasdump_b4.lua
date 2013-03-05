@@ -1,9 +1,9 @@
-//Everything is in alpha fucking stage!
+-- Everything is in alpha fucking stage!
 
-//Few checks so it wont rebuild cache each time it changes
+-- Few checks so it wont rebuild cache each time it changes
 if not TranslateMapTable[ game.GetMap() ] then return end
 if not TranslateMapTable[ game.GetMap() ].Objective then return end
-if game.GetMap() != "zm_gasdump_b4" then return end
+if game.GetMap() ~= "zm_gasdump_b4" then return end
 
 OBJECTIVE = true
 
@@ -48,7 +48,7 @@ Objectives[2] = {
 	TriggerOutputHook = "OnTrigger",
 	TriggerOutputFunction = function()
 	
-	--[[PrintMessageAll( HUD_PRINTTALK, "You have activated optional function!" )
+	--[=[PrintMessageAll( HUD_PRINTTALK, "You have activated optional function!" )
 	local sledge1 = ents.Create( "weapon_zs_melee_sledgehammer" )
 	sledge1:SetPos(Vector(409.173767, 153.800476, -166.968750))
 	sledge1:Spawn()
@@ -63,7 +63,7 @@ Objectives[2] = {
 	
 	local sledge4 = ents.Create( "weapon_zs_melee_sledgehammer" )
 	sledge4:SetPos(Vector(449.173767, 173.800476, -156.968750))
-	sledge4:Spawn()]]
+	sledge4:Spawn()]=]
 	
 		local sledge = {}
 		for i=1,math.random(2,math.max(team.NumPlayers(TEAM_HUMAN),3)) do

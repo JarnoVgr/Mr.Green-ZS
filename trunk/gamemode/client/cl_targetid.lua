@@ -49,7 +49,7 @@ function DrawTargetIDTurret ( MySelf, team )
 	if team == otherteam then
 		local name 
 		local nick = ""
-		if IsValid(entity:GetTurretOwner()) and entity:GetTurretOwner():Nick() != nil then
+		if IsValid(entity:GetTurretOwner()) and entity:GetTurretOwner():Nick() ~= nil then
 			name = entity:GetTurretOwner():Nick().."'s Turret"
 			
 			if entity:GetTurretName() then
@@ -90,11 +90,11 @@ function DrawTargetIDTurret ( MySelf, team )
 end
 
 function GM:_HUDDrawTargetID(MySelf, team)
-	if !IsValid(MySelf) then return end
+	if not IsValid(MySelf) then return end
 	-- Draw target id for turrets
 	DrawTargetIDTurret (MySelf, team)
 	--DrawTargetIDMine (MySelf, team)
-	//make it classic way
+	-- make it classic way
 	local trace = MySelf:GetEyeTrace()
 	local entity = trace.Entity
 	
@@ -151,9 +151,9 @@ function GM:_HUDDrawTargetID(MySelf, team)
 	
 end
 
-//timer.Create("ShuffleNameBlur", 0.07, 0, function()
-	//XNameBlur = math.random(-3, 3)
-	//XNameBlur2 = math.random(-3, 3)
-	//YNameBlur = math.random(-3, 3)
-	//YNameBlur2 = math.random(-3, 3)
-//end)
+-- timer.Create("ShuffleNameBlur", 0.07, 0, function()
+	-- XNameBlur = math.random(-3, 3)
+	-- XNameBlur2 = math.random(-3, 3)
+	-- YNameBlur = math.random(-3, 3)
+	-- YNameBlur2 = math.random(-3, 3)
+-- end)

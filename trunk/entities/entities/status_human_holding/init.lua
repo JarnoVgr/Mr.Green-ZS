@@ -9,7 +9,7 @@ function ENT:Initialize()
 	local owner = self:GetOwner()
 	if IsValid(owner) then
 		owner.status_human_holding = self
-		//owner:SetNetworkedBool("IsHolding", true)
+		-- owner:SetNetworkedBool("IsHolding", true)
 		local wep = owner:GetActiveWeapon()
 		if IsValid(wep) then
 			wep:SendWeaponAnim(ACT_VM_HOLSTER)
@@ -24,11 +24,11 @@ function ENT:Initialize()
 
 	local object = self:GetObject()
 	if IsValid(object) then
-		//for _, ent in pairs(ents.FindByClass("logic_pickupdrop")) do
-		//	if ent.EntityToWatch == object:GetName() and IsValid(ent) then
-		//		ent:Input("onpickedup", owner, object, "")
-		//	end
-		//end
+		-- for _, ent in pairs(ents.FindByClass("logic_pickupdrop")) do
+		-- 	if ent.EntityToWatch == object:GetName() and IsValid(ent) then
+		-- 		ent:Input("onpickedup", owner, object, "")
+		-- 	end
+		-- end
 		object:SetRenderMode(RENDERMODE_TRANSALPHA) 
 		local c = object:GetColor()
 		object.r,object.g,object.b,object.a = c.r,c.g,c.b,c.a
@@ -45,26 +45,26 @@ function ENT:Initialize()
 				objectphys:EnableGravity(false)
 				objectphys:SetMass(2)
 
-				--[[if not object.OldCollisionGroup then
+				--[=[if not object.OldCollisionGroup then
 					local r, g, b, a = object:GetColor()
 					object.OldColor = Color(r, g, b, a)
 					object.OldCollisionGroup = object:GetCollisionGroup()
 					object:SetColor(r, g, b, a / 2)
 					object:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
-				end]]
+				end]=]
 			else
 				self:SetIsHeavy(true)
-			--[[else --if not object._OriginalLinearDamping then
+			--[=[else --if not object._OriginalLinearDamping then
 				--object._OriginalLinearDamping, object._OriginalAngularDamping = objectphys:GetDamping()
 				--objectphys:SetDamping(object._OriginalLinearDamping, object._OriginalAngularDamping + 100)
-				self.HingePosition = object:WorldToLocal(object:NearestPoint(owner:EyePos()))]]
+				self.HingePosition = object:WorldToLocal(object:NearestPoint(owner:EyePos()))]=]
 				self:SetHingePos(object:NearestPoint(self:GetPullPos()))
 			end
 
 			if IsValid(owner) then
 				owner:CheckSpeedChange()
-				//GAMEMODE:SetPlayerSpeed(owner, math.max(CARRY_SPEEDLOSS_MINSPEED, CalculatePlayerSpeed(owner) - object:GetPhysicsObject():GetMass() * CARRY_SPEEDLOSS_PERKG))
-				//owner:SetSpeed(math.max(CARRY_SPEEDLOSS_MINSPEED, 190 - objectphys:GetMass() * CARRY_SPEEDLOSS_PERKG))
+				-- GAMEMODE:SetPlayerSpeed(owner, math.max(CARRY_SPEEDLOSS_MINSPEED, CalculatePlayerSpeed(owner) - object:GetPhysicsObject():GetMass() * CARRY_SPEEDLOSS_PERKG))
+				-- owner:SetSpeed(math.max(CARRY_SPEEDLOSS_MINSPEED, 190 - objectphys:GetMass() * CARRY_SPEEDLOSS_PERKG))
 			end
 		end
 	end
@@ -74,9 +74,9 @@ function ENT:OnRemove()
 	local owner = self:GetOwner()
 	if IsValid(owner) then
 		owner.status_human_holding = nil
-		//owner:SetNetworkedBool("IsHolding", false)
+		-- owner:SetNetworkedBool("IsHolding", false)
 		if owner:Alive() and owner:Team() ~= TEAM_UNDEAD then
-			//GAMEMODE:SetPlayerSpeed(owner, owner:GetActiveWeapon().WalkSpeed or 200)
+			-- GAMEMODE:SetPlayerSpeed(owner, owner:GetActiveWeapon().WalkSpeed or 200)
 			owner:CheckSpeedChange()
 			local wep = owner:GetActiveWeapon()
 			if IsValid(wep) then
@@ -90,8 +90,8 @@ function ENT:OnRemove()
 
 	local object = self:GetObject()
 	if IsValid(object) then
-		--[[local timnam = "ENABLECOLLISIONS"..tostring(object)
-		timer.Create(timnam, 0, 0, EnableCollisions, object, 16, nil, timnam)]]
+		--[=[local timnam = "ENABLECOLLISIONS"..tostring(object)
+		timer.Create(timnam, 0, 0, EnableCollisions, object, 16, nil, timnam)]=]
 		object:SetColor(Color(object.r,object.g,object.b,object.a))
 		local objectphys = object:GetPhysicsObject()
 		if objectphys:IsValid() then
@@ -103,18 +103,18 @@ function ENT:OnRemove()
 				objectphys:SetMass(object._OriginalMass)
 				object._OriginalMass = nil
 			end
-			--[[if object._OriginalLinearDamping then
+			--[=[if object._OriginalLinearDamping then
 				objectphys:SetDamping(object._OriginalLinearDamping, object._OriginalAngularDamping)
 				object._OriginalLinearDamping = nil
 				object._OriginalAngularDamping = nil
-			end]]
+			end]=]
 		end
 
-		//for _, ent in pairs(ents.FindByClass("logic_pickupdrop")) do
-		//	if ent.EntityToWatch == object:GetName() and ent:IsValid() then
-		//		ent:Input("ondropped", owner, object, "")
-		//	end
-		//end
+		-- for _, ent in pairs(ents.FindByClass("logic_pickupdrop")) do
+		-- 	if ent.EntityToWatch == object:GetName() and ent:IsValid() then
+		-- 		ent:Input("ondropped", owner, object, "")
+		-- 	end
+		-- end
 	end
 end
 
@@ -157,10 +157,10 @@ function ENT:Think()
 		local pullpos = self:GetPullPos()
 		local hingepos = self:GetHingePos()
 		objectphys:ApplyForceOffset(objectphys:GetMass() * frametime * 450 * (pullpos - hingepos):GetNormal(), hingepos)
-		--[[local targetpos = shootpos + owner:GetAimVector() * 16
+		--[=[local targetpos = shootpos + owner:GetAimVector() * 16
 		local vel = (targetpos - object:NearestPoint(targetpos)):Normalize()
 		--vel.z = 0
-		objectphys:ApplyForceCenter(objectphys:GetMass() * frametime * 500 * vel:Normalize())]]
+		objectphys:ApplyForceCenter(objectphys:GetMass() * frametime * 500 * vel:Normalize())]=]
 	else
 		if not self.ObjectPosition or not owner:KeyDown(IN_SPEED) then
 			local obbcenter = object:OBBCenter()

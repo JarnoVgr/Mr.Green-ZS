@@ -42,7 +42,7 @@ end
 --Shared----------------
 
 function ENT:GetRadius()
-	//return self:GetNWInt("GasRadius")
+	-- return self:GetNWInt("GasRadius")
 	return self:GetDTInt(0)
 end
 
@@ -52,10 +52,10 @@ function ENT:IsPipe()
 end
 
 function ENT:TrueVisible(posa, posb)
-	local filt = {}//ents.FindByClass("projectile_*")
-	//filt = table.Add(filt, ents.FindByClass("npc_*"))
-	//filt = table.Add(filt, ents.FindByClass("prop_*"))
-	filt = table.Add(filt, {self})//ents.FindByClass("zs_*")
+	local filt = {}-- ents.FindByClass("projectile_*")
+	-- filt = table.Add(filt, ents.FindByClass("npc_*"))
+	-- filt = table.Add(filt, ents.FindByClass("prop_*"))
+	filt = table.Add(filt, {self})-- ents.FindByClass("zs_*")
 	filt = table.Add(filt, player.GetAll())
 
 	return not util.TraceLine({start = posa, endpos = posb, filter = filt}).Hit
@@ -67,9 +67,9 @@ function ENT:Think()
 	if GAMEMODE:GetWave() == 0 or not GAMEMODE:GetFighting() then return end
 	if ( self.NextPoisonHeal or 0 ) > ct then return end
 	local spawnang = self:GetAngles()
-	local spawnPos = self:GetPos()+spawnang:Up()*-21+spawnang:Right()*15+Vector(0,0,41)//+Vector(math.random(0,8),math.random(0,8),math.random(0,8))
+	local spawnPos = self:GetPos()+spawnang:Up()*-21+spawnang:Right()*15+Vector(0,0,41)-- +Vector(math.random(0,8),math.random(0,8),math.random(0,8))
 	
-	//Apply cooldown
+	-- Apply cooldown
 	if LASTHUMAN then
 		self.NextPoisonHeal = ct + 3
 	else
@@ -80,14 +80,14 @@ function ENT:Think()
 			--for i, Zombie in pairs( ents.FindInSphere( spawnPos, self:GetRadius() ) ) do
 			for i, Zombie in ipairs( team.GetPlayers(TEAM_HUMAN) ) do
 				if Zombie:IsPlayer() and Zombie:Alive() then
-					//self.iDistance = spawnPos:Distance( Zombie:GetPos() )
+					-- self.iDistance = spawnPos:Distance( Zombie:GetPos() )
 					local iDistance = spawnPos:Distance( Zombie:GetPos() )
 					if iDistance <= self:GetRadius() and self:TrueVisible(spawnPos, Zombie:GetShootPos()) then
 						if Zombie:IsZombie() and not Zombie:IsBossZombie() then
-							//Aura effect cooldown
+							-- Aura effect cooldown
 							
 							Zombie.InHealTime = ct + 0.5
-							//Heal
+							-- Heal
 							if SERVER then
 								Zombie.AuraTimeHeal = Zombie.AuraTimeHeal or 0
 								if Zombie.AuraTimeHeal <= ct then
@@ -102,11 +102,11 @@ function ENT:Think()
 								end
 							end
 						else
-							if SERVER and Zombie:IsHuman() and iDistance <= self:GetRadius() and self:TrueVisible(spawnPos, Zombie:GetShootPos()) and !Zombie:HasGasMask() then
+							if SERVER and Zombie:IsHuman() and iDistance <= self:GetRadius() and self:TrueVisible(spawnPos, Zombie:GetShootPos()) and not Zombie:HasGasMask() then
 								
 								if not Zombie.PoisonToxicTime then Zombie.PoisonToxicTime = 0 end
 								
-								//1 second delay for damage
+								-- 1 second delay for damage
 								if Zombie.PoisonToxicTime <= ct then
 									--if Zombie:Health() > 10 then
 										--Zombie:ViewPunch( Angle( math.random( -20, 20 ), math.random( -5, 5 ), 0 ) )
@@ -117,7 +117,7 @@ function ENT:Think()
 									--end
 									local fDistance = self:GetPos():Distance( Zombie:GetPos() )
 									Zombie:TakeDamageOverTime( math.Rand(1,2), 1.5, math.Clamp( ( ( ( self:GetRadius() - fDistance ) / self:GetRadius() ) * 44 ) / 2, 0, 10 ), Zombie, nil )
-									//Damage cooldown
+									-- Damage cooldown
 									Zombie.PoisonToxicTime = ct + math.Rand(1,3)
 								end
 							end
@@ -174,14 +174,14 @@ if GAMEMODE:GetWave() == 0 or not GAMEMODE:GetFighting() then return end
 			particle:SetColor(10, 100+ran, 10)
 			particle:SetCollide(true)	
 			particle:SetBounce( 1 )
-			//particle:SetLighting(true)
+			-- particle:SetLighting(true)
 			emitter:Finish()
 		end
 		
 		else
-			//local radius = self:GetRadius()
-		//	render.SetMaterial(matGlow)
-			//render.DrawSprite(pos + Vector(0,0,-15)+Vector(0, 0, radius * 0.5), radius*0.7 + math.Rand(-10, 40), radius*0.7 + math.Rand(-10, 40), colGlow)
+			-- local radius = self:GetRadius()
+		-- 	render.SetMaterial(matGlow)
+			-- render.DrawSprite(pos + Vector(0,0,-15)+Vector(0, 0, radius * 0.5), radius*0.7 + math.Rand(-10, 40), radius*0.7 + math.Rand(-10, 40), colGlow)
 		end
 		
 
@@ -204,7 +204,7 @@ if GAMEMODE:GetWave() == 0 or not GAMEMODE:GetFighting() then return end
 		particle:SetCollide(true)	
 		particle:SetBounce( 0.25 )
 		particle:SetCollideCallback(CollideCallback)
-		//particle:SetLighting(true)
+		-- particle:SetLighting(true)
 	
 end
 end

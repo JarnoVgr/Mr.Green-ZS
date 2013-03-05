@@ -38,23 +38,23 @@ function SWEP:InitializeClientsideModels()
 	
 end
 
-//Melee base
+-- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
-//Models paths
+-- Models paths
 SWEP.Author = "Deluvas"
 SWEP.ViewModel = Model ( "models/weapons/v_plank/v_plank.mdl" )
 SWEP.WorldModel = Model ( "models/weapons/w_plank.mdl" )
 
-//Name and fov
+-- Name and fov
 SWEP.PrintName = "Plank"
 SWEP.ViewModelFOV = 57
 
-//Position
+-- Position
 SWEP.Slot = 2
 SWEP.SlotPos = 6
 
-//Damage, distane, delay
+-- Damage, distane, delay
 SWEP.Primary.Damage = 35
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Distance = 70
@@ -84,7 +84,7 @@ function SWEP:PlayHitFleshSound()
 end
 
 
-//Killicon
+-- Killicon
 if CLIENT then killicon.AddFont( "weapon_zs_melee_plank", "ZSKillicons", "e", Color(255, 255, 255, 255 ) ) end
 
 function SWEP:Precache()

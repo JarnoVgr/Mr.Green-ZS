@@ -1,26 +1,26 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-//Process game achievements 
+-- Process game achievements 
 function GM:DoDamageAchievements ( ent, attacker, inflictor, dmginfo )
 
-	//More accurate
+	-- More accurate
 	local damage = dmginfo:GetDamage()
 	
-	//if there's no inflictor, make it the active weapon	
+	-- if there's no inflictor, make it the active weapon	
 	if ( inflictor == attacker ) then
 		if inflictor:IsPlayer() then inflictor = attacker:GetActiveWeapon() else inflictor = attacker end
 	end
 	
 
---[[  //No more turrets :(
-	//turret damage
+--[=[  -- No more turrets :(
+	-- turret damage
 	if inflictor:IsPlayer() and inflictor:Team() == TEAM_HUMAN then
 		if attacker:GetClass() == "turret" and attacker:GetOwner():IsValid() and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Alive() and attacker:GetOwner():Team() == TEAM_HUMAN then
 			local pl = attacker:GetOwner()
 			dmginfo:SetDamage ( damage + ( damage * ((pl:GetTableScore("engineer","level")+1)*HumanClasses[4].Coef[1] ) / 100 ) )
 			
-			//Engineer Achievments stuff - turret damage
+			-- Engineer Achievments stuff - turret damage
 			if pl:GetHumanClass() == 4 then
 				if pl:GetTableScore("engineer","level") == 2 and pl:GetTableScore("engineer","achlevel2_2") < 30000 then
 					pl:AddTableScore("engineer","achlevel2_2", math.ceil ( damage ) )
@@ -32,19 +32,19 @@ function GM:DoDamageAchievements ( ent, attacker, inflictor, dmginfo )
 			end
 		end
 	end
-]]
+]=]
 	
 
-	//Last time when the victim was hurt
+	-- Last time when the victim was hurt
 	ent.LastHurt = CurTime()
 	
-	if attacker:IsPlayer() and attacker:Team() != ent:Team() then
+	if attacker:IsPlayer() and attacker:Team() ~= ent:Team() then
 		--attacker:PrintMessage (HUD_PRINTTALK, "Damage done: "..dmginfo:GetDamage().." by "..inflictor:GetClass().."")
 		
-		//Add damage to the damage counter
+		-- Add damage to the damage counter
 		attacker.DamageDealt[ attacker:Team() ] = attacker.DamageDealt[ attacker:Team() ] + damage
 		
-		//Check damage original achievements
+		-- Check damage original achievements
 		if attacker:Team() == TEAM_UNDEAD then
 			attacker:AddScore( "humansdamaged",damage )
 			local dam = attacker:GetScore( "humansdamaged" )
@@ -56,9 +56,9 @@ function GM:DoDamageAchievements ( ent, attacker, inflictor, dmginfo )
 			end
 		end
 		
-		//A shitload of class achivements
+		-- A shitload of class achivements
 		if attacker:IsPlayer() and not attacker:IsBot() and attacker:Team() == TEAM_HUMAN then		
-			//Save the damage to the file and unlock some more damage achievements
+			-- Save the damage to the file and unlock some more damage achievements
 			attacker:AddScore( "undeaddamaged",damage )
 			local dam = attacker:GetScore("undeaddamaged")
 			if dam >= 100000 then

@@ -36,7 +36,7 @@ SWEP.Base				= "weapon_zs_base_dummy"
 SWEP.Slot = 5
 SWEP.SlotPos = 1 
 
-//SWEP.Info = ""
+-- SWEP.Info = ""
 
 SWEP.Primary.ClipSize =1
 SWEP.Primary.DefaultClip = 1
@@ -65,7 +65,7 @@ function SWEP:InitializeClientsideModels()
 		["ValveBiped.Bip01_R_Finger32"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -34.088, -1.82) },
 		["ValveBiped.Bip01_R_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-8.082, 7.224, 0) },
 		["ValveBiped.Bip01_R_Finger1"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -16.706, 0) },
-		//["ValveBiped.Bip01_R_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(5.169, 3.28, 6.412), angle = Angle(20.525, -7.2, -0.963) },
+		-- ["ValveBiped.Bip01_R_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(5.169, 3.28, 6.412), angle = Angle(20.525, -7.2, -0.963) },
 		["ValveBiped.Bip01_R_Finger42"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -25.382, 0) },
 		["ValveBiped.Bip01_R_Finger22"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -38.5, 0) },
 		["ValveBiped.Grenade_body"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
@@ -125,16 +125,16 @@ if SERVER then
 	
 	local tr = util.TraceLine({start = shootpos, endpos = shootpos + aimvec * 70, filter = self.Owner})
 
-	local htrace = util.TraceHull ( { start = tr.HitPos, endpos = tr.HitPos, mins = Vector (-30,-30,0), maxs = Vector (30,30,80), filter=self.Owner} )// filter = MySelf,
+	local htrace = util.TraceHull ( { start = tr.HitPos, endpos = tr.HitPos, mins = Vector (-30,-30,0), maxs = Vector (30,30,80), filter=self.Owner} )--  filter = MySelf,
 	local trground = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos - Vector(0,0,1.5)})
 	
 	if trground.HitWorld then
 		--print("hit world")
-		//if htrace.Entity == nil then
+		-- if htrace.Entity == nil then
 			CanCreateTurret = true
-		//else
-		//	CanCreateTurret = false
-		//end
+		-- else
+		-- 	CanCreateTurret = false
+		-- end
 		--print(htrace.Entity)
 	else
 		CanCreateTurret = false
@@ -144,11 +144,11 @@ if SERVER then
 	
 	--print(tostring(CanCreateTurret))
 	
-	for k,v in pairs ( ActualTurrets ) do//ents.FindInBox (Vector (pos.x - 150,pos.y - 150,pos.z - 150), Vector (pos.x + 150, pos.y + 150, pos.z + 150))
+	for k,v in pairs ( ActualTurrets ) do-- ents.FindInBox (Vector (pos.x - 150,pos.y - 150,pos.z - 150), Vector (pos.x + 150, pos.y + 150, pos.z + 150))
 		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 150 then
-			//if v:GetClass() == "zs_turret" then
+			-- if v:GetClass() == "zs_turret" then
 				turrets = turrets + 1
-			//end
+			-- end
 		end
 	end
 		
@@ -176,7 +176,7 @@ if SERVER then
 	local ent = ents.Create ("zs_turret")
 		if (IsValid(ent)) then
 			--print("done")
-			// logging
+			--  logging
 			--log.PlayerAction( self.Owner, "place_turret")
 		
 			ent:SetPos(tr.HitPos)
@@ -190,14 +190,14 @@ if SERVER then
 			self:TakePrimaryAmmo( 1 )
 			
 			-- Engineer's requirements
-			--[[-if self.Owner:GetHumanClass() == 4 then
+			--[=[-if self.Owner:GetHumanClass() == 4 then
 				if self.Owner:GetTableScore("engineer","level") == 0 and self.Owner:GetTableScore("engineer","achlevel0_1") < 30 then
 					self.Owner:AddTableScore("engineer","achlevel0_1",1)
 				elseif self.Owner:GetTableScore("engineer","level") == 1 and self.Owner:GetTableScore("engineer","achlevel0_1") < 60 then
 					self.Owner:AddTableScore("engineer","achlevel0_1",1)
 				end				
 			self.Owner:CheckLevelUp()
-			end ]]
+			end ]=]
 			
 			if self and self:IsValid() then
 				DropWeapon(self.Owner)

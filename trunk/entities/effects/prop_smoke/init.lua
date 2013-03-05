@@ -7,7 +7,7 @@ function EFFECT:Init(data)
 	local pos = data:GetOrigin()
 	if not pos then return end
 	
-	//local boxVec = data:GetStart()
+	-- local boxVec = data:GetStart()
 	local radius = data:GetScale()/2
 	
 	local emitter = ParticleEmitter(pos)
@@ -15,9 +15,9 @@ function EFFECT:Init(data)
 		local ppos = pos
 		ppos = ppos + VectorRand()*radius
 		ppos.z = -math.abs(ppos.z)
-		//ppos.x = ppos.x-math.abs(boxVec.x)+math.random(0,math.abs(boxVec.x))
-		//ppos.y = ppos.y-math.abs(boxVec.y)+math.random(0,math.abs(boxVec.y))
-		//ppos.z = ppos.z-math.abs(boxVec.z)+math.random(0,math.abs(boxVec.z))
+		-- ppos.x = ppos.x-math.abs(boxVec.x)+math.random(0,math.abs(boxVec.x))
+		-- ppos.y = ppos.y-math.abs(boxVec.y)+math.random(0,math.abs(boxVec.y))
+		-- ppos.z = ppos.z-math.abs(boxVec.z)+math.random(0,math.abs(boxVec.z))
 		local part = emitter:Add("particles/smokey",ppos)
 		if part then
 			local rand = math.random(30)

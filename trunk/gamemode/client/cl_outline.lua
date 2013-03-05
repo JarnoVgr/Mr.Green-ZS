@@ -1,7 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
---[[ -- //L4D style player and items outlining
+--[=[ -- -- L4D style player and items outlining
 
 -- local Colors = {}
 -- Colors.Green = { r =  0, b = 255, g = 0 }
@@ -19,19 +19,19 @@
     -- ["$additive"] = "1",  
 -- } );  
   
--- // we need two render targets, if you don't want to create them yourself, you can  
--- // use the bloom textures, they are quite low resolution though.  
--- // render.GetBloomTex0() and render.GetBloomTex1();  
+-- --  we need two render targets, if you don't want to create them yourself, you can  
+-- --  use the bloom textures, they are quite low resolution though.  
+-- --  render.GetBloomTex0() and render.GetBloomTex1();  
 local RT1 = GetRenderTarget( "L4D1" );  
 local RT2 = GetRenderTarget( "L4D2" );  
   
--- /*------------------------------------  
+-- --[==[------------------------------------  
     -- RenderToStencil()  
-----------------------------------*/  
+----------------------------------]==]  
 -- local function RenderToStencil( entity )  
   
-    -- // tell the stencil buffer we're going to write a value of one wherever the model  
-    -- // is rendered  
+    -- --  tell the stencil buffer we're going to write a value of one wherever the model  
+    -- --  is rendered  
     -- render.SetStencilEnable( true );  
     -- render.SetStencilFailOperation( STENCILOPERATION_KEEP );  
     -- render.SetStencilZFailOperation( STENCILOPERATION_KEEP );  
@@ -40,9 +40,9 @@ local RT2 = GetRenderTarget( "L4D2" );
     -- render.SetStencilWriteMask( 1 );  
     -- render.SetStencilReferenceValue( 1 );  
       
-    -- // this uses a small hack to render ignoring depth while not drawing color  
-    -- // i couldn't find a function in the engine to disable writing to the color channels  
-    -- // i did find one for shaders though, but I don't feel like writing a shader for this.  
+    -- --  this uses a small hack to render ignoring depth while not drawing color  
+    -- --  i couldn't find a function in the engine to disable writing to the color channels  
+    -- --  i did find one for shaders though, but I don't feel like writing a shader for this.  
     -- cam.IgnoreZ( true );  
         -- render.SetBlend( 0 );  
 			
@@ -57,14 +57,14 @@ local RT2 = GetRenderTarget( "L4D2" );
         -- render.SetBlend( 1 );  
     -- cam.IgnoreZ( false );  
       
-    -- // don't need this for the next pass  
+    -- --  don't need this for the next pass  
     -- render.SetStencilEnable( false );  
   
 -- end  
   
--- /*------------------------------------  
+-- --[==[------------------------------------  
     -- RenderToGlowTexture()  
-----------------------------------*/  
+----------------------------------]==]  
 -- local function RenderToGlowTexture( entity )  
   
     -- local w, h = ScrW(), ScrH();
@@ -86,7 +86,7 @@ local RT2 = GetRenderTarget( "L4D2" );
 		-- end
 	-- end
 		
-	-- // draw into the white texture  
+	-- --  draw into the white texture  
    local oldRT = render.GetRenderTarget();  
    render.SetRenderTarget( RT1 );  
        render.SetViewPort( 0, 0, w, h );  
@@ -94,7 +94,7 @@ local RT2 = GetRenderTarget( "L4D2" );
         -- cam.IgnoreZ( true );  
           
             -- render.SuppressEngineLighting( true );  
-            -- render.SetColorModulation( Color.r / 255, Color.g / 255, Color.b / 255 );           // Set color of glow here  
+            -- render.SetColorModulation( Color.r / 255, Color.g / 255, Color.b / 255 );           --  Set color of glow here  
               
                 -- SetMaterialOverride( MaterialWhite );  
                     -- entity:DrawModel();  
@@ -112,9 +112,9 @@ local RT2 = GetRenderTarget( "L4D2" );
   
 -- end  
   
--- /*------------------------------------  
+-- --[==[------------------------------------  
     -- RenderScene()  
-----------------------------------*/  
+----------------------------------]==]  
 local function RenderScene( Origin, Angles )  
   
     local oldRT = render.GetRenderTarget();  
@@ -125,9 +125,9 @@ local function RenderScene( Origin, Angles )
 end  
 hook.Add( "RenderScene", "ResetGlow", RenderScene );  
   
--- /*------------------------------------  
+-- --[==[------------------------------------  
     -- RenderScreenspaceEffects()  
-----------------------------------*/  
+----------------------------------]==]  
 -- local function RenderScreenspaceEffects( )  
   
     MaterialBlurX:SetMaterialTexture( "$basetexture", RT1 );  
@@ -137,55 +137,55 @@ hook.Add( "RenderScene", "ResetGlow", RenderScene );
           
     local oldRT = render.GetRenderTarget();  
       
-    // blur horizontally  
+    --  blur horizontally  
     render.SetRenderTarget( RT2 );  
     render.SetMaterial( MaterialBlurX );  
     render.DrawScreenQuad();  
   
-    // blur vertically  
+    --  blur vertically  
     render.SetRenderTarget( RT1 );  
     render.SetMaterial( MaterialBlurY );  
     render.DrawScreenQuad();  
   
    render.SetRenderTarget( oldRT );  
       
-    -- // tell the stencil buffer we're only going to draw  
-    -- // where the player models are not.  
+    -- --  tell the stencil buffer we're only going to draw  
+    -- --  where the player models are not.  
     -- render.SetStencilEnable( true );  
     -- render.SetStencilReferenceValue( 0 );  
     -- render.SetStencilTestMask( 1 );  
     -- render.SetStencilCompareFunction( STENCILCOMPARISONFUNCTION_EQUAL );  
     -- render.SetStencilPassOperation( STENCILOPERATION_ZERO );  
       
-    -- // composite the scene  
+    -- --  composite the scene  
     -- MaterialComposite:SetMaterialTexture( "$basetexture", RT1 );  
     -- render.SetMaterial( MaterialComposite );  
     -- render.DrawScreenQuad();  
   
-    -- // don't need this anymore  
+    -- --  don't need this anymore  
     -- render.SetStencilEnable( false );  
   
 -- end  
 -- hook.Add( "RenderScreenspaceEffects", "CompositeGlow", RenderScreenspaceEffects );  
   
--- /*------------------------------------  
+-- --[==[------------------------------------  
     -- PrePlayerDraw()  
-----------------------------------*/  
+----------------------------------]==]  
 -- local function PostPlayerDraw( pl )  
   
 	-- if ( ScrW() == ScrH() ) then return; end  
   
-    -- // prevent recursion  
+    -- --  prevent recursion  
     -- if( OUTLINING_PLAYER ) then return; end  
     -- OUTLINING_PLAYER = true;  
       
     -- RenderToStencil( pl );  
 	-- RenderToGlowTexture( pl );  
       
-    -- // prevents recursion time  
+    -- --  prevents recursion time  
     -- OUTLINING_PLAYER = false;  
       
 -- end  
 -- hook.Add( "PrePlayerDraw", "RenderGlow", PostPlayerDraw );  
 
- ]]
+ ]=]

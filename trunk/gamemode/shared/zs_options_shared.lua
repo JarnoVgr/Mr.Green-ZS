@@ -12,9 +12,9 @@ function ToMinutesSeconds(TimeInSeconds)
 	return string.format("%0d:%02d", iMinutes, math.floor(TimeInSeconds - iMinutes*60))
 end
 
-/*------------------------------------------------------------
+--[==[------------------------------------------------------------
    Call this whenever you want to check an option
--------------------------------------------------------------*/
+-------------------------------------------------------------]==]
 function ConVarIsTrue ( convar )
 	if not ConVarExists( convar ) then return false end
 	
@@ -31,22 +31,22 @@ DEFAULT_VIEW_OFFSET_DUCKED = Vector(0, 0, 28)
 DEFAULT_JUMP_POWER = 180
 DEFAULT_STEP_SIZE = 18
 DEFAULT_MASS = 80
-DEFAULT_MODELSCALE = 1//Vector(1, 1, 1)
+DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 
-//Horde stuff
+-- Horde stuff
 
 HORDE_MAX_ZOMBIES = 15
-HORDE_MAX_RESISTANCE = 60 //in %
+HORDE_MAX_RESISTANCE = 60 -- in %
 HORDE_MAX_DISTANCE = 260
 
 BONUS_RESISTANCE_WAVE = 5
-BONUS_RESISTANCE_AMOUNT = 20 //%
+BONUS_RESISTANCE_AMOUNT = 20 -- %
 
-//Boss stuff
+-- Boss stuff
 
-BOSS_TOTAL_PLAYERS_REQUIRED = 14//16
-BOSS_INFLICTION_REQUIRED = 95--67//1.35// max % zombies of total players
-BOSS_CLASS = {10,13}//10,11,12,
+BOSS_TOTAL_PLAYERS_REQUIRED = 14-- 16
+BOSS_INFLICTION_REQUIRED = 95--67-- 1.35--  max % zombies of total players
+BOSS_CLASS = {10,13}-- 10,11,12,
 BOSS_WAVE = 6
 
 if XMAS_2012 then
@@ -56,14 +56,14 @@ end
 
 SUPER_BOSS_CHANCE = 2
 
-/*if math.random(SUPER_BOSS_CHANCE) == SUPER_BOSS_CHANCE then
+--[==[if math.random(SUPER_BOSS_CHANCE) == SUPER_BOSS_CHANCE then
 	SUPER_BOSS = true
 	if SERVER then print("--Super Boss activated!--") end
-end*/
+end]==]
 
 SHARED_SPEED_INCREASE = 13
 
-//Use custom chatbox
+-- Use custom chatbox
 CUSTOM_CHAT = CreateConVar( "sos_customchat", 0, FCVAR_REPLICATED )
 
 ----------------------------------
@@ -139,7 +139,7 @@ ComeBackReward[2] = { -- Commando
 [1] =  { "weapon_zs_deagle", "weapon_zs_glock3"},
 [2] =  { "weapon_zs_galil", "weapon_zs_sg552" }, 
 [3] =  { "weapon_zs_ak47" }, 
-//[4] =  { "weapon_zs_ak47"  }, 
+-- [4] =  { "weapon_zs_ak47"  }, 
 }
 ComeBackReward[3] = { -- Berserker
 [1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
@@ -158,17 +158,17 @@ ComeBackReward[5] = { -- Support
 [3] =  { "weapon_zs_smg"}, 
 }
 
---[[
+--[=[
 ComeBackReward = {}
 ComeBackReward[1] = { "weapon_zs_glock3", "weapon_zs_fiveseven", "weapon_zs_magnum" } -- humans outnumber zombies
 ComeBackReward[2] = { "weapon_zs_p90", "weapon_zs_smg" } -- zombies outnumber humans by a small marigin
 ComeBackReward[3] = { "weapon_zs_galil", "weapon_zs_ak47", "weapon_zs_m4a1" } -- zombies outnumber humans 2 to 1
 ComeBackReward[4] = { "weapon_zs_m1014", "weapon_zs_shotgun" } -- zombies outnumber humans 4 to 1
-]]
-//Chat titles based on time spent on server
+]=]
+-- Chat titles based on time spent on server
 GM.ChatTitles = {
 
-	//Human titles
+	-- Human titles
 	Human = {
 		[5] = "[Fresh Meat]",
 		[10] = "[Zombie Food]",
@@ -189,7 +189,7 @@ GM.ChatTitles = {
 		[350] = "[Dr Zombo]",
 	},
 	
-	//Undead titles
+	-- Undead titles
 	Undead = {
 		[5] = "[Free Headshot]",
 		[10] = "[Canned Zombie]",
@@ -210,7 +210,7 @@ GM.ChatTitles = {
 		[350] = "[The Apocalypse]",
 	},
 	
-	//Admin titles
+	-- Admin titles
 	Admin = {
 		[1] = "[ZombAdmin]",
 		[2] = "[The Ban Hammer]",
@@ -233,11 +233,11 @@ GM.HumanWeapons = {
 	["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol",Price = 230 },
 	
 	-- Submachine guns
-	["weapon_zs_p90"]  = { Name = "P90 Sub-Machine Gun", DPS = 125,Mat = "VGUI/gfx/VGUI/p90", Infliction = 0.65, Type = "smg", Price = 450 }, // 3
-	["weapon_zs_ump"]  = { Name = "UMP Sub-Machine Gun", DPS = 110,Mat = "VGUI/gfx/VGUI/ump45", Infliction = 0.60, Type = "smg", Price = 480 }, // 1
-	["weapon_zs_smg"]  = { Name = "Sub-Machine Gun", DPS = 130, Infliction = 0.9, Type = "smg", Price = 470 }, // 4
-	["weapon_zs_mp5"]  = { Name = "MP5 Sub-Machine Gun", DPS = 127,Mat = "VGUI/gfx/VGUI/mp5", Infliction = 0.58, Type = "smg", Price = 500 }, // 5
-	["weapon_zs_tmp"]  = { Name = "TMP Sub-Machine Gun", DPS = 107,Mat = "VGUI/gfx/VGUI/tmp", Infliction = 0.56, Type = "smg", Price = 450 },	// 2
+	["weapon_zs_p90"]  = { Name = "P90 Sub-Machine Gun", DPS = 125,Mat = "VGUI/gfx/VGUI/p90", Infliction = 0.65, Type = "smg", Price = 450 }, --  3
+	["weapon_zs_ump"]  = { Name = "UMP Sub-Machine Gun", DPS = 110,Mat = "VGUI/gfx/VGUI/ump45", Infliction = 0.60, Type = "smg", Price = 480 }, --  1
+	["weapon_zs_smg"]  = { Name = "Sub-Machine Gun", DPS = 130, Infliction = 0.9, Type = "smg", Price = 470 }, --  4
+	["weapon_zs_mp5"]  = { Name = "MP5 Sub-Machine Gun", DPS = 127,Mat = "VGUI/gfx/VGUI/mp5", Infliction = 0.58, Type = "smg", Price = 500 }, --  5
+	["weapon_zs_tmp"]  = { Name = "TMP Sub-Machine Gun", DPS = 107,Mat = "VGUI/gfx/VGUI/tmp", Infliction = 0.56, Type = "smg", Price = 450 },	--  2
 	["weapon_zs_mac10"]  = { Name = "Mac 10 Sub-Machine Gun", DPS = 126,Mat = "VGUI/gfx/VGUI/mac10", Infliction = 0.60, Type = "smg", Price = 490 },
 	
 	["weapon_zs_minishotty"]  = { Name = "'Farter' Shotgun", DPS = 126, Infliction = 0, Type = "shotgun",Price = 630 },
@@ -378,9 +378,9 @@ GM.AmmoRegeneration = {
 	["helicoptergun"] = 100
 }
 
-/////////////////////
-//Ranks, xp, drugs and etc
-/////////////////////
+-- -- -- -- -- -- -- -- -- -- /
+-- Ranks, xp, drugs and etc
+-- -- -- -- -- -- -- -- -- -- /
 XP_BLANK = 2000
 
 XP_INCREASE_BY = 1000
@@ -389,8 +389,8 @@ XP_PLAYERS_REQUIRED = 5
 
 MAX_RANK = 75
 
-/////////////////////
-//[rank] = {unlocks}
+-- -- -- -- -- -- -- -- -- -- /
+-- [rank] = {unlocks}
 GM.RankUnlocks = {
 	[0] = {"weapon_zs_usp","weapon_zs_melee_keyboard"},
 	[1] = {"weapon_zs_melee_plank","weapon_zs_tools_hammer"},
@@ -414,7 +414,7 @@ GM.RankUnlocks = {
 	[28] = {"weapon_zs_tools_remote"},
 	[30] = {"_turretdmg"},
 	[31] = {"_turrethp","weapon_zs_mine"},
-	[33] = {"_turretammo"},//,"weapon_zs_melee_axe"
+	[33] = {"_turretammo"},-- ,"weapon_zs_melee_axe"
 	[34] = {"_medupgr1"},
 	[35] = {"_enhkevlar"},
 	[37] = {"weapon_zs_tools_plank"},
@@ -426,7 +426,7 @@ GM.RankUnlocks = {
 	[55] = {"weapon_zs_melee_axe"},
 	[65] = {"weapon_zs_classic"},
 	[70] = {"weapon_zs_fiveseven"},
-	//[90] = {"_professional"},//hidden for a while
+	-- [90] = {"_professional"},-- hidden for a while
 }
 
 RETRO_AMMO_REGENERATION = 90
@@ -445,7 +445,7 @@ GM.ArenaWeapons = {
 	"weapon_zs_famas","weapon_zs_galil","weapon_zs_smg", "weapon_zs_mp5",
 }
 
-//[name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
+-- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
 GM.Perks = {
 	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more hp",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
 	["_kevlar2"] = {Name = "Kevlar 2", Description = "Gives you 20 more hp",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
@@ -486,7 +486,7 @@ end
 GM.RankUnlocks[91] = AddRetro
 
 
-//[upgrade] = {what to give instead}
+-- [upgrade] = {what to give instead}
 GM.UpgradesRefund = {
 	["bootsofsteel"] = {"_falldmg"},
 	["gordonfreeman"] = {"_freeman","weapon_zs_melee_pot"},
@@ -514,7 +514,7 @@ GM.ClassRefund = {
 	["support"] = {"_trchregen","weapon_zs_tools_torch","weapon_zs_tools_supplies","weapon_zs_tools_plank"},
 }
 
-//Leave this. THis table will be filled at initialize hook
+-- Leave this. THis table will be filled at initialize hook
 GM.WeaponsOnSale = {}
 
 ------------------------------
@@ -533,7 +533,7 @@ USE_NPCS = false
 -- Example, change Rewards[6] to Rewards[15]. The number represents the kills.
 NPCS_COUNT_AS_KILLS = false
 
-//INCOMING!////
+-- INCOMING!-- -- 
 -- Fraction of people that should be set as zombies at the beginning of the game.
 WAVE_ONE_ZOMBIES = 0.17
 
@@ -550,7 +550,7 @@ DISPLAY_WAVES_ON_SERVERLIST = true
 WAVEONE_LENGTH = ARENA_MODE and 60 or 120
 
 -- Add this many seconds for each additional wave.
-WAVE_TIMEADD = 15//ARENA_MODE and 30 or 
+WAVE_TIMEADD = 15-- ARENA_MODE and 30 or 
 
 -- New players are put on the zombie team if the current wave is this or higher. Do not put it lower than 1 or you'll break the game.
 NONEWJOIN_WAVE = 3
@@ -584,7 +584,7 @@ CARRY_SPEEDLOSS_PERKG = 1.3
 -- But never slower than this.
 CARRY_SPEEDLOSS_MINSPEED = 88
 
-/////////////////
+-- -- -- -- -- -- -- -- /
 
 -- Used to spawn supply crates on this interval. ( seconds ) 
 DEFAULT_SUPPLY_CRATE_SPAWN_TIME = 240
@@ -731,9 +731,9 @@ Warning, some shit is broken because of high quality GMod updates.
 *Achievements and bosses are disabled.
 *Rest of stuff is unstable.
 
-Please report about any bugs at http://mrgreengaming.com
+Please report about any bugs at http:-- mrgreengaming.com
 ]]
---[[
+--[=[
 This version of gamemode was heavily modified so if you have any questions - you'd better check out F1 menu as soon as you spawn.
 
 Select your starting loadout at the panels below and press 'Spawn' when you done.
@@ -741,7 +741,7 @@ The more you play - the more unlocks you can get for your loadout and of course 
 Visit our forums at www.left4green.com if you are interested or if you want to leave a feedback.
 
 Enjoy your stay and have fun!	
-]]	
+]=]	
 
 
 SKILLSHOP_TEXT =
@@ -831,10 +831,10 @@ HELP_TXT[2] = {
 HELP_TXT[3] = {
 	title = "About", 
 	txt = [[
-		The Mr. Green forums can be found at http://www.mrgreengaming.com
+		The Mr. Green forums can be found at http:-- www.mrgreengaming.com
 		If you have any questions or tips about/for this server you can always e-mail to ywa@limetric.com
 		
-		Surf to http://www.mrgreengaming.com to post your ideas for changes and where you can post suggestions for new maps.
+		Surf to http:-- www.mrgreengaming.com to post your ideas for changes and where you can post suggestions for new maps.
 	]]
 } 
 
@@ -863,7 +863,7 @@ HELP_TXT[4] = {
 		* Press F4
 	]]
 } 
-ADMINS_HTTP = "http://left4green.com/serverinfo/zs_admins.php"
+ADMINS_HTTP = "http:-- left4green.com/serverinfo/zs_admins.php"
 HELP_TXT[5] = {
 	title = "Server", 
 	txt = [[]]
@@ -896,7 +896,7 @@ HELP_TEXT[1] = { title = "Help", text = [[^rZombie Survival
 @Check out www.lef4green.com or www.limetric.com!]]}
 
 -- Append the changelog later on
-CHANGELOG_HTTP = "http://www.mr-green.nl/portal/serverinfo/zs_changelog.html"
+CHANGELOG_HTTP = "http:-- www.mr-green.nl/portal/serverinfo/zs_changelog.html"
 HELP_TEXT[2] = { title = "Changelog", text = [[^rGamemode changelog
 @Some changes from JetBoom's original Zombie Survival v1.11 are listed here.
 @
@@ -915,11 +915,11 @@ HELP_TEXT[2] = { title = "Changelog", text = [[^rGamemode changelog
 
 
 HELP_TEXT[3] = { title = "Server", text = [[^rServer information
-@^yThe Mr. Green forums can be found at http://www.left4green.com
+@^yThe Mr. Green forums can be found at http:-- www.left4green.com
 @
 @If you have any questions or tips about/for this server you can always e-mail to ywa@limetric.com
 @
-@Surf to http://www.left4green.com to post your ideas for changes and where you can post suggestions for new maps.
+@Surf to http:-- www.left4green.com to post your ideas for changes and where you can post suggestions for new maps.
 @
 @
 ]]}
@@ -968,7 +968,7 @@ HELP_TEXT[5] = { title = "Donate!", text = [[^yDONATE TO THIS SERVER!
 @Donations are all done via PAYPAL (www.paypal.com).
 @
 @Further instructions can be found on our website www.left4green.com. Select "Green-Coins" and follow the link to the 
-@instructions topic in the page footer. Or follow this link directly: http://forums.left4green.com/index.php?showtopic=2183
+@instructions topic in the page footer. Or follow this link directly: http:-- forums.left4green.com/index.php?showtopic=2183
 @
 @^yYou will need your SteamID to connect your Steam account to the forum account. Type "!steamid" in chat to view yours.
 @
@@ -1031,7 +1031,7 @@ HELP_TEXT[7] = { title = "Quick Guide.", text = [[^Beginners Guide
 @ A: Supply crates will give you ammo until when there will be ~6-7 humans.
 @
 @^b Q: Where i can see the full changelog?
-@ A: Here: http://projects.limetric.com/projects/zombiesurvival
+@ A: Here: http:-- projects.limetric.com/projects/zombiesurvival
 @
 @^b Q: How I can buy stuff?
 @ A: Click 'Green SHOP' button or type '!shop' to open a shop where you can spend your Green Coins.
@@ -1086,7 +1086,7 @@ ZombieClasses[0] =
 	CanGib = true,
 	Model = Model("models/player/group01/male_09.mdl"), 
 	Speed = 195,	
-	//AngleFix = true,
+	-- AngleFix = true,
 	Description = "The victim of zombie plague.",
 	Unique = "Agile and hungry.",
 	PainSounds = {
@@ -1111,7 +1111,7 @@ ZombieClasses[0] =
 			pl:SetRandomFace()
 			
 		end,
-	//ModelScale = Vector(1.35,1.35,1.35),
+	-- ModelScale = Vector(1.35,1.35,1.35),
 }
 
 ZombieClasses[1] =						
@@ -1149,7 +1149,7 @@ ZombieClasses[1] =
 				}, 	
 	PlayerFootstep = true,
 	Unlocked = true,
-	//ViewOffset = Vector( 0, 0, 0 ),
+	-- ViewOffset = Vector( 0, 0, 0 ),
 	ReviveCallback = function(pl, attacker, dmginfo)
 		if math.random(1, 4) ~= 1 then
 			DefaultRevive(pl)
@@ -1160,7 +1160,7 @@ ZombieClasses[1] =
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
-	//ModelScale = Vector(1.35,1.35,1.35),
+	-- ModelScale = Vector(1.35,1.35,1.35),
 }
 
 ZombieClasses[2] = 
@@ -1195,7 +1195,7 @@ ZombieClasses[2] =
 	ViewOffsetDucked = Vector( 0, 0, 24 ),
 	Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
 	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
-	//ViewOffset = Vector(0, 0, 0)
+	-- ViewOffset = Vector(0, 0, 0)
 }
 
 ZombieClasses[3] =
@@ -1234,14 +1234,14 @@ ZombieClasses[3] =
 				Sound("npc/zombie_poison/pz_die1.wav"),
 				Sound("npc/zombie_poison/pz_die2.wav")
 				},
-	//ViewOffset = Vector( 0, 0, 0 ),
+	-- ViewOffset = Vector( 0, 0, 0 ),
 }
 
 ZombieClasses[4] =
 {
 	Name = "Ethereal Zombie",
 	Tag = "etherealzombie",
-	Wave = math.floor(0.4 * NUM_WAVES),//0.4 
+	Wave = math.floor(0.4 * NUM_WAVES),-- 0.4 
 	Health = 75,
 	MaxHealth = 80,
 	TimeLimit = 200,
@@ -1260,15 +1260,15 @@ ZombieClasses[4] =
 				Sound("npc/stalker/stalker_pain1.wav"),
 				Sound("npc/stalker/stalker_pain2.wav"),
 				Sound("npc/stalker/stalker_pain3.wav"),
-				//Sound("npc/barnacle/barnacle_pull4.wav")
+				-- Sound("npc/barnacle/barnacle_pull4.wav")
 				},
 	DeathSounds = {
 				Sound("npc/stalker/stalker_die1.wav"),
 				Sound("npc/stalker/stalker_die2.wav"),
-				//Sound("wraithdeath3.wav"),
-				//Sound("wraithdeath4.wav")
+				-- Sound("wraithdeath3.wav"),
+				-- Sound("wraithdeath4.wav")
 				},
-	//ViewOffset = Vector(0, 0, 0)
+	-- ViewOffset = Vector(0, 0, 0)
 }
 
 ZombieClasses[5] =						
@@ -1306,7 +1306,7 @@ ZombieClasses[5] =
 	PlayerFootstep = true,
 	OnSpawn = function(pl)
 		
-		//pl:SetModel("models/player/group01/female_01.mdl")
+		-- pl:SetModel("models/player/group01/female_01.mdl")
 	
 		local status = pl:GiveStatus("overridemodel")
 		
@@ -1314,7 +1314,7 @@ ZombieClasses[5] =
 			status:SetModel("models/mrgreen/howler.mdl")
 		end
 	end,
-	//ViewOffset = Vector( 0, 0, 0 )
+	-- ViewOffset = Vector( 0, 0, 0 )
 }
 util.PrecacheModel("models/mrgreen/howler.mdl")
 ZombieClasses[6] =
@@ -1510,27 +1510,27 @@ ZombieClasses[10] =
 				},
 	PlayerFootstep = true,
 	Unlocked = false,
-	//ViewOffset = Vector( 0, 0, 0 ),
+	-- ViewOffset = Vector( 0, 0, 0 ),
 	OnSpawn = function(pl)
-		//if not pl.Revive then
+		-- if not pl.Revive then
 			local status = pl:GiveStatus("overridemodel")
 		
 			if status and status:IsValid() then
 				status:SetModel("models/Zombie/Poison.mdl")
 			end
-		//end
+		-- end
 		
 		local status2 = pl:GiveStatus("simple_revive")
 		if status2 then
 			status2:SetReviveTime(CurTime() + 4)
-			//status2:SetZombieInitializeTime(CurTime() + 0.1)
+			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
 		end
 		
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
-	ModelScale = 1.35,//Vector(1.35,1.35,1.35),
+	ModelScale = 1.35,-- Vector(1.35,1.35,1.35),
 	ViewOffset = Vector(0, 0, 84),
 	ViewOffsetDucked = Vector(0,0,38),
 	--Hull = { Vector(-21,-21, 0), Vector(21,21,97) },
@@ -1588,18 +1588,18 @@ ZombieClasses[11] =
 		if status2 then
 			status2:SetReviveTime(CurTime() + 4)
 			status2:SetReviveDuration(3.37)
-			//status2:SetZombieInitializeTime(CurTime() + 0.1)
+			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
 		end
 		
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-		//pl:AnimRestartMainSequence()		
+		-- pl:AnimRestartMainSequence()		
 	end,
-	ModelScale = 1.15,//Vector(1.15,1.15,1.15),
+	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	//Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
+	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
 	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
@@ -1652,9 +1652,9 @@ ZombieClasses[12] =
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-		//pl:AnimRestartMainSequence()		
+		-- pl:AnimRestartMainSequence()		
 	end,
-	ModelScale = 1.15,//Vector(1.15,1.15,1.15),
+	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
 	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
@@ -1704,9 +1704,9 @@ ZombieClasses[13] =
 	end,
 	OnRevive = function(pl)
 		--pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-		//pl:AnimRestartMainSequence()		
+		-- pl:AnimRestartMainSequence()		
 	end,
-	ModelScale = 0.85,//Vector(0.85,0.85,0.85),
+	ModelScale = 0.85,-- Vector(0.85,0.85,0.85),
 	ViewOffset = Vector( 0, 0, 50 ),
 	ViewOffsetDucked = Vector( 0, 0, 24 ),
 	Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
@@ -1718,7 +1718,7 @@ local SantaStart = {
 	Sound("vo/ravenholm/engage01.wav"),
 }
 
-//haloween boss
+-- haloween boss
 ZombieClasses[14] =
 {
 	Name = "Santa Claws",
@@ -1765,17 +1765,17 @@ ZombieClasses[14] =
 	end,
 	OnRevive = function(pl)
 		--pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-		//pl:AnimRestartMainSequence()		
+		-- pl:AnimRestartMainSequence()		
 	end,
-	ModelScale = 1.2,//Vector(1.1,1.1,1.1),
+	ModelScale = 1.2,-- Vector(1.1,1.1,1.1),
 	ViewOffset = Vector( 0, 0, 72 ),
 	ViewOffsetDucked = Vector( 0, 0, 32 ),
 	Hull = { Vector(-16, -16, 0), Vector(16, 16, 74) },
 	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
 }
 
-//for swep
-/*
+-- for swep
+--[==[
 RegisterLuaAnimation('babyface', {
 	FrameData = {
 		{
@@ -1837,7 +1837,7 @@ RegisterLuaAnimation('babyface', {
 	Type = TYPE_POSTURE
 })
 
-*/
+]==]
 
 ZombieSuperBosses = {}
 
@@ -1884,9 +1884,9 @@ ZombieSuperBosses[10] = {
 				},
 	PlayerFootstep = true,
 	Unlocked = false,
-	//ViewOffset = Vector( 0, 0, 0 ),
+	-- ViewOffset = Vector( 0, 0, 0 ),
 	OnSpawn = function(pl)
-		//if not pl.Revive then
+		-- if not pl.Revive then
 			local status = pl:GiveStatus("overridemodel")
 		
 			if status and status:IsValid() then
@@ -1895,21 +1895,21 @@ ZombieSuperBosses[10] = {
 				status:SetBodygroup(3,1)
 				status:SetBodygroup(2,1)
 			end
-		//end
+		-- end
 		
 		pl:EmitSound( table.Random ( ZombieClasses[10].IdleSounds ),math.random( 110, 160 ),math.random( 85, 110 )  )
 		
 		local status2 = pl:GiveStatus("simple_revive")
 		if status2 then
 			status2:SetReviveTime(CurTime() + 4)
-			//status2:SetZombieInitializeTime(CurTime() + 0.1)
+			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
 		end
 		
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
-	ModelScale = 1.53,//Vector(1.52,1.52,1.52),
+	ModelScale = 1.53,-- Vector(1.52,1.52,1.52),
 	ViewOffset = Vector(0, 0, 90),
 	ViewOffsetDucked = Vector(0,0,40),
 	--Hull = { Vector(-21,-21, 0), Vector(21,21,97) },
@@ -1917,13 +1917,13 @@ ZombieSuperBosses[10] = {
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,70) },
 }
 
-/*if SUPER_BOSS then
+--[==[if SUPER_BOSS then
 	for index, tbl in pairs(ZombieClasses) do
 		if ZombieSuperBosses[index] then
 			ZombieClasses[index] = ZombieSuperBosses[index]
 		end
 	end
-end*/
+end]==]
 
 --Champions
 ZombiePowerups = {}
@@ -1967,9 +1967,9 @@ GM.RestrictedModels["models/player/charple01.mdl"] = true
 GM.RestrictedModels["models/player/zombie_classic.mdl"] = true
 GM.RestrictedModels["models/player/zombie_fast.mdl"] = true
 
---[[---------------------------------------------
+--[=[---------------------------------------------
 		Human Perks/Classes
-------------------------------------------------]]--
+------------------------------------------------]=]--
 
 HumanClasses = { }
 
@@ -2082,10 +2082,10 @@ HumanClasses[5] =
 	ClassInfo[5].Ach[6] = {"Deal 400k dmg with shotgun", "Survive 300 rounds",400000,300}
 	ClassInfo[5].Ach[7] = {"All Done", "All Done",400000,300}
 
---[[--------------------------------------------
+--[=[--------------------------------------------
 		Achievement descriptions
---------------------------------------------]]
-PLAYER_STATS = true // enables data reading/writing, DO NOT TURN OFF. ALSO APPLIES TO DONATION PROCESSING!
+--------------------------------------------]=]
+PLAYER_STATS = true --  enables data reading/writing, DO NOT TURN OFF. ALSO APPLIES TO DONATION PROCESSING!
 
 achievementDesc = {
 	[1] = { Image = "zombiesurvival/achv_blank_zs", Key = "bloodseeker", ID = 1, Name = "Bloodseeker", Desc = "Kill 5 humans in one round!",  },
@@ -2137,9 +2137,9 @@ achievementDesc = {
 	[47] = { Image = "zombiesurvival/achv_blank_zs", Key = "flare", ID = 47, Name = "'Let there be light!'", Desc = "???",  },
 }	
 
---[[---------------------------------
+--[=[---------------------------------
 	Server stats
-----------------------------------]]
+----------------------------------]=]
 SERVER_STATS = true
 
 GM.DataTable = {}
@@ -2156,9 +2156,9 @@ for k, v in ipairs( GM.DataTable ) do
 	end
 end
 
---[[-----------------------------------
+--[=[-----------------------------------
 		Some other player data
-------------------------------------]]
+------------------------------------]=]
 
 recordData = {
 	["undeadkilled"] = { Name = "Undead killed", Desc = "Amount of undead this person killed", Image = "zombiesurvival/achv_blank_zs" },	
@@ -2170,9 +2170,9 @@ recordData = {
 	["progress"] = { Name = "Overall Progress", Desc = "How much percent of the total amount of achievements this person has", Image = "zombiesurvival/achv_blank_zs" },
 }
 
---[[-----------------------------------
+--[=[-----------------------------------
 		Class data
-------------------------------------]]
+------------------------------------]=]
 
 classData = {
 	["medic"] = { level = 0, achlevel0_1 = 0, achlevel0_2 = 0, achlevel2_1 = 0, achlevel2_2 = 0, achlevel4_1 = 0, achlevel4_2 = 0 } ,
@@ -2183,9 +2183,9 @@ classData = {
 	["default"] = { rank = 0, xp = 0 },
 }
 
---[[---------------------------------
+--[=[---------------------------------
 		Mr. Green's Shop Data
-----------------------------------]]
+----------------------------------]=]
 local function PrintData()
 	for k,v in pairs ( achievementDesc ) do
 		Msg( "["..k.."] = { " )
@@ -2556,9 +2556,9 @@ suits_old = {
 }
 
 
---[[-------------------------------
+--[=[-------------------------------
 		Voice sets and/or sound tables
----------------------------------]]
+---------------------------------]=]
 
 -- Male pain / death sounds
 VoiceSets = {}
@@ -2754,9 +2754,9 @@ Sound("vo/npc/male01/health04.wav"),
 Sound("vo/npc/male01/health05.wav"),
 }
 
-//WARNING!
-//Here goes insane precaching code
-////////////////////////////////////////
+-- WARNING!
+-- Here goes insane precaching code
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 for _, set in pairs(VoiceSets["male"]) do
 	for k, snd in pairs(set) do
 		--Check if its another table
@@ -2779,7 +2779,7 @@ for _, tbl in pairs(VoiceSetsGhost) do
 	end
 end
 
-///////////////////////////////////////
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- /
 
 -- Female pain / death sounds
 VoiceSets["female"] = {}
@@ -2900,7 +2900,7 @@ Sound("vo/npc/female01/health04.wav"),
 Sound("vo/npc/female01/health05.wav"),
 }
 
-//Precache all sounds for female set
+-- Precache all sounds for female set
 for _, set in pairs(VoiceSets["female"]) do
 	for k, snd in pairs(set) do
 		--Check if its another table
@@ -3009,7 +3009,7 @@ Sound("npc/combine_soldier/vo/contactconfirmprosecuting.wav"),
 Sound("npc/combine_soldier/vo/overwatchrequestreinforcement.wav"),
 }
 
-//Aaaand precache sounds for combine voice set
+-- Aaaand precache sounds for combine voice set
 for _, set in pairs(VoiceSets["combine"]) do
 	for k, snd in pairs(set) do
 		--Check if its another table

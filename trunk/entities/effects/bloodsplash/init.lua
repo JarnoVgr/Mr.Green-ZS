@@ -18,7 +18,7 @@ function EFFECT:Init(data)
 	local LightColor = render.GetLightColor(Pos) * 255
 		LightColor.r = math.Clamp( LightColor.r, 70, 255 )
 		
-	--[[local emitter = ParticleEmitter(Pos)
+	--[=[local emitter = ParticleEmitter(Pos)
 		local particle = emitter:Add("effects/blood_core", Pos)
 			particle:SetVelocity(Norm)
 			particle:SetDieTime(math.Rand(1.0, 2.0))
@@ -27,7 +27,7 @@ function EFFECT:Init(data)
 			particle:SetEndSize(math.Rand( 32, 64))
 			particle:SetRoll(math.Rand( 0, 360))
 			particle:SetColor(LightColor.r*0.5, 0, 0)	
-	emitter:Finish()]]
+	emitter:Finish()]=]
 
 	util.Decal("Blood", Pos + Norm*10, Pos - Norm*10)
 	

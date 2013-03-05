@@ -36,11 +36,11 @@ function SKIN:PaintFrame(panel)
 end
 
 function SKIN:DrawGenericBackground( x, y, w, h, color ) 
-	--[[
+	--[=[
 	surface.DrawRect(x,y,w,h)
 	draw.RoundedBox( 4, x, y, w, h, color ) 
 	draw.RoundedBox( 4, x, y, w, h, color ) 
-]]
+]=]
 		surface.SetDrawColor( Color( 0, 0, 0, 240 ) )
 		surface.DrawRect( x, y, w, h )
 		
@@ -91,12 +91,12 @@ function SKIN:SchemeTextEntry( panel )
 
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
    DrawButtonBorder
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function SKIN:DrawButtonBorder( x, y, w, h, depressed )
 
-	if ( !depressed ) then
+	if ( not depressed ) then
 	
 		surface.SetDrawColor( 1,1,1,180 )
 		surface.DrawRect( x, y, w, h )
@@ -117,9 +117,9 @@ function SKIN:DrawButtonBorder( x, y, w, h, depressed )
 
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Button
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function SKIN:PaintButton( panel )
 
 	local w, h = panel:GetSize()
@@ -132,7 +132,7 @@ function SKIN:PaintButton( panel )
 		if ( panel:GetDisabled() ) then
 			col = Color(1,1,1,220)
 			col2 = Color(30, 30, 30, 200)
-		elseif ( panel.Depressed || panel:GetToggle() ) then
+		elseif ( panel.Depressed or panel:GetToggle() ) then
 			col = Color(1,1,1,180)
 			col2 = Color(30, 30, 30, 200)
 		elseif ( panel.Hovered ) then
@@ -168,7 +168,7 @@ function SKIN:PaintTooltip( panel )
 	
 	DisableClipping( true )
 	
-	// This isn't great, but it's not like we're drawing 1000's of tooltips all the time
+	--  This isn't great, but it's not like we're drawing 1000's of tooltips all the time
 	for i=1, 4 do
 	
 		local BorderSize = i*2
@@ -206,17 +206,17 @@ function SKIN:SchemeButton( panel )
 
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	PropertySheet
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function SKIN:PaintPropertySheet( panel )
 
 	local ActiveTab = panel:GetActiveTab()
 	local Offset = 0
 	if ( ActiveTab ) then Offset = ActiveTab:GetTall() end
 	
-	// This adds a little shadow to the right which helps define the tab shape..
-	//draw.RoundedBox( 0, 0, Offset, panel:GetWide(), panel:GetTall()-Offset, Color(60, 60, 60, 240) )
+	--  This adds a little shadow to the right which helps define the tab shape..
+	-- draw.RoundedBox( 0, 0, Offset, panel:GetWide(), panel:GetTall()-Offset, Color(60, 60, 60, 240) )
 	
 	surface.SetDrawColor( 30, 30, 30, 200 )
 	surface.DrawOutlinedRect( 0, Offset, panel:GetWide(), panel:GetTall()-Offset ) 
@@ -226,9 +226,9 @@ function SKIN:PaintPropertySheet( panel )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	CategoryHeader
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function SKIN:PaintCollapsibleCategory( panel )
 	
 	if ( panel:GetExpanded() ) then
@@ -251,9 +251,9 @@ function SKIN:PaintCollapsibleCategory( panel )
 	
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
 	Tab
----------------------------------------------------------*/
+---------------------------------------------------------]==]
 function SKIN:PaintTab( panel )
 
 	if ( panel:GetPropertySheet():GetActiveTab() == panel ) then

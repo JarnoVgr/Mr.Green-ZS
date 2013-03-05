@@ -8,7 +8,7 @@ local math = math
 function ENT:Draw()
 	self:DrawModel()
 	if self.Entity:GetVelocity():Length() > 20 then
-		//local emitter = ParticleEmitter(self.Entity:GetPos())
+		-- local emitter = ParticleEmitter(self.Entity:GetPos())
 		if self.Entity.IsHead == true then
 		local particle = self.Emitter:Add("decals/blood_spray"..math.random(1,8), self.Entity:GetPos())
 			particle:SetVelocity(VectorRand() * 16)

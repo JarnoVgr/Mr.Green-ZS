@@ -16,13 +16,13 @@ local umsg = umsg
 util.AddNetworkString( "DamageIndicator" )
 util.AddNetworkString( "BloodSplatter" )
 
-//Local vars
+-- Local vars
 local iCooldown = 0.4
 
 function GM:DoDamageIndicator ( mEnt, mInflictor, mAttacker, tbDmginfo )
 	if not IsEntityValid ( mEnt ) or not IsEntityValid ( mAttacker ) then return end
 	
-	//Only players
+	-- Only players
 	if not mEnt:IsPlayer() then return end
 	
 	if math.random(4) == 1 then
@@ -36,31 +36,31 @@ function GM:DoDamageIndicator ( mEnt, mInflictor, mAttacker, tbDmginfo )
 	end
 	
 	if not mAttacker:IsPlayer() then return end
-	//Cooldown
+	-- Cooldown
 	if not mEnt.IndicatorTimer then mEnt.IndicatorTimer = 0 end
 	if mEnt.IndicatorTimer > CurTime() then return end
 	
-	//Next indicator
+	-- Next indicator
 	mEnt.IndicatorTimer = CurTime() + iCooldown
 	
-	//Shake the player a bit
+	-- Shake the player a bit
 	local iPunch = 17
 	if mEnt:IsZombie() then iPunch = 2.5 end
 	if mEnt.ViewPunch then mEnt:ViewPunch ( Angle ( math.random ( iPunch * -1, iPunch ), math.random ( iPunch * -1, iPunch ), math.random ( iPunch * -1, iPunch ) ) ) end
 	
-	//Damage source
-	//local vSource = mAttacker:LocalToWorld ( mAttacker:OBBCenter() )
+	-- Damage source
+	-- local vSource = mAttacker:LocalToWorld ( mAttacker:OBBCenter() )
 	
-	//Send damage indicators to client
-	//net.Start("DamageIndicator")
-		//net.WriteDouble(mAttacker:EntIndex())
-	//	net.WriteEntity(mAttacker)
-	//net.Send(mEnt)
+	-- Send damage indicators to client
+	-- net.Start("DamageIndicator")
+		-- net.WriteDouble(mAttacker:EntIndex())
+	-- 	net.WriteEntity(mAttacker)
+	-- net.Send(mEnt)
 	
 	
-	/*umsg.Start( "DamageIndicator", mEnt )
+	--[==[umsg.Start( "DamageIndicator", mEnt )
 		umsg.Short ( mAttacker:EntIndex() )
-	umsg.End()*/
+	umsg.End()]==]
 	
 end
 

@@ -12,18 +12,18 @@ local timer = timer
 local umsg = umsg
 local ents = ents
 
-//Process shop upgrades and more
+-- Process shop upgrades and more
 function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 
 	local damage = dmginfo:GetDamage()
 
 	if attacker:IsPlayer() and ent:IsPlayer() then
 		
-		//Spartan Upgrade
+		-- Spartan Upgrade
 		if ent:Team() == TEAM_HUMAN and ent:HasBought ("spartanu") and attacker:Team() == TEAM_UNDEAD then
-			//local entscore = ent:Frags()
-			//local damage = dmginfo:GetDamage()
-			//dmginfo:SetDamage ( damage - ( damage * ( 0.15 + (entscore / 450) ) ) )
+			-- local entscore = ent:Frags()
+			-- local damage = dmginfo:GetDamage()
+			-- dmginfo:SetDamage ( damage - ( damage * ( 0.15 + (entscore / 450) ) ) )
 		end
 			
 		if not ent:IsBot() and ent:IsPlayer() and ent:Team() == TEAM_HUMAN and ent:Alive() and ent:GetPerk("_enhkevlar") and attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD then
@@ -31,8 +31,8 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 		end
 	end
 	
-	// more damage when attacking with melee weapons
-	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and attacker:GetPerk("_freeman") and ValidEntity( inflictor ) then//attacker:HasBought( "blessedfists" )
+	--  more damage when attacking with melee weapons
+	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and attacker:GetPerk("_freeman") and ValidEntity( inflictor ) then-- attacker:HasBought( "blessedfists" )
 		if inflictor:IsWeapon() and inflictor:GetType() == "melee" and not inflictor.IsTurretDmg then
 			dmginfo:SetDamage( damage * 1.2 )
 		end

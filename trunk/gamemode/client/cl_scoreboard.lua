@@ -2,7 +2,7 @@
 -- See LICENSE.txt for license information
 
 include("vgui/scoreboard.lua")
---[[
+--[=[
 local pScoreBoard = nil
 
 function GM:CreateScoreboard()
@@ -42,7 +42,7 @@ function GM:ScoreboardHide()
 end
 
 function GM:HUDDrawScoreBoard()
-end]]
+end]=]
 
 function GM:ScoreboardShow()
 	if MySelf:Team() == TEAM_SPECTATOR then return end
@@ -55,7 +55,7 @@ function GM:ScoreboardShow()
 		self:CreateScoreboardVGUI()
 	end
 
-	//pScoreBoard:SetVisible(true)
+	-- pScoreBoard:SetVisible(true)
 end
 
 function GM:ScoreboardHide()
@@ -67,7 +67,7 @@ function GM:ScoreboardHide()
 	GAMEMODE.ShowScoreboard = false
 	self:RemoveScoreboardVGUI()
 	gui.EnableScreenClicker(false)
-	//pScoreBoard:SetVisible( false )
+	-- pScoreBoard:SetVisible( false )
 end
 
 function GM:HUDDrawScoreBoard()

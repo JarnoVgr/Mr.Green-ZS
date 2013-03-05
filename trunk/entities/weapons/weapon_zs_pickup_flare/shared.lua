@@ -33,7 +33,7 @@ SWEP.WorldModel = "models/Items/Flare.mdl"
 SWEP.Slot = 5
 SWEP.SlotPos = 1 
 
-//SWEP.Info = ""
+-- SWEP.Info = ""
 
 SWEP.Primary.ClipSize =1
 SWEP.Primary.DefaultClip = 1

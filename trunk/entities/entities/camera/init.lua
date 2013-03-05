@@ -8,10 +8,10 @@ AddCSLuaFile ("shared.lua")
 
 function ENT:Initialize()
 	self.Entity:PhysicsInit(SOLID_VPHYSICS)
-	self.Entity:SetMoveType(MOVETYPE_FLY)//MOVETYPE_FLY
+	self.Entity:SetMoveType(MOVETYPE_FLY)-- MOVETYPE_FLY
 	self.Entity:SetMoveCollide(MOVECOLLIDE_FLY_SLIDE)
 	self.Entity:SetSolid(SOLID_VPHYSICS)
-	//self.Entity:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+	-- self.Entity:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 	self.Entity:SetModel("models/items/ar2_grenade.mdl")
 	self.Entity:SetBloodColor(BLOOD_COLOR_YELLOW)
 	self:GetOwner().Crow = self.Entity
@@ -23,7 +23,7 @@ function ENT:Initialize()
 --	self.Entity:PhysicsInitBox ( Vector (0 - (w/2), 0 - (l/2), 0 ), Vector (w/2,l/2,h) )
 	self.Entity:SetCollisionBounds( Vector (0 - (w/2), 0 - (l/2), 0 ), Vector (w/2,l/2,h) ) 
 	self.Entity:SetPos(GAMEMODE:PlayerSelectSpawn(self:GetOwner()):GetPos()+ Vector (0,0,50))
-	//self.Entity:SetPos(self:GetOwner():GetPos() + Vector (0,0,50))
+	-- self.Entity:SetPos(self:GetOwner():GetPos() + Vector (0,0,50))
 	self.LastTick = 0
 	self.CrowHealth = 50
 	print("Spawned!")
@@ -31,7 +31,7 @@ end
 
 function ENT:OnTakeDamage( dmginfo )
 	if not ValidEntity (self.Entity) or not ValidEntity (self:GetOwner()) then return end
-	--[[local attacker = dmginfo:GetAttacker()
+	--[=[local attacker = dmginfo:GetAttacker()
 	local inflictor
 	local ent = self:GetOwner()
 	
@@ -43,7 +43,7 @@ function ENT:OnTakeDamage( dmginfo )
 		end
 	else
 		inflictor = attacker
-	end]]
+	end]=]
 	if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsHuman() then
 	print("Health: "..self.CrowHealth)
 	self.CrowHealth = self.CrowHealth - dmginfo:GetDamage()
@@ -55,13 +55,13 @@ function ENT:OnTakeDamage( dmginfo )
 		end
 	end
 	-- Assist for crows, are you joking :o ?
-	//AssistAdd (ent, attacker, inflictor, dmginfo:GetDamage() , dmginfo)
+	-- AssistAdd (ent, attacker, inflictor, dmginfo:GetDamage() , dmginfo)
 	
-	//self.Owner:SetHealth(self.Owner:Health() - dmginfo:GetDamage())
-	//if self.Owner:Health() <= 0 then
-	//	gamemode.Call ("DoPlayerDeath", self.Owner, attacker, dmginfo)
-	//	ent:KillSilent()
-	//end
+	-- self.Owner:SetHealth(self.Owner:Health() - dmginfo:GetDamage())
+	-- if self.Owner:Health() <= 0 then
+	-- 	gamemode.Call ("DoPlayerDeath", self.Owner, attacker, dmginfo)
+	-- 	ent:KillSilent()
+	-- end
 end
 
 function ENT:Think()
@@ -108,30 +108,30 @@ function ENT:SpawnMechanism()
 	local owner = self.Entity:GetOwner()
 	if owner.DeathClass then
 		owner:SetZombieClass(owner.DeathClass)
-		//owner.DeathClass = nil
+		-- owner.DeathClass = nil
 	else
 		owner:SetZombieClass (1)
 	end
 	
 	local pos = owner:GetPos()
 	local ang = owner:EyeAngles()
-	//owner:StripWeapon("weapon_zs_crow")
+	-- owner:StripWeapon("weapon_zs_crow")
 	--owner:DropWeapon (owner:GetWeapon("weapon_zs_crow"))
-	//owner.MutatedSpawn = true
-	//owner:Spawn()
-	//owner:UnSpectate()
-	//owner:SetPos(pos)
-	//owner:SetEyeAngles (ang)
-	//function self:Think() end
-	//self:Remove()
+	-- owner.MutatedSpawn = true
+	-- owner:Spawn()
+	-- owner:UnSpectate()
+	-- owner:SetPos(pos)
+	-- owner:SetEyeAngles (ang)
+	-- function self:Think() end
+	-- self:Remove()
 end
 	 
 function ENT:Tick()
 	if not ValidEntity (self:GetOwner()) then return end
 	
 	self.Entity:NextThink(CurTime())
-	//self:FrameAdvance( CurTime() - self.LastTick )+0.001
-	//self.LastTick = CurTime()
+	-- self:FrameAdvance( CurTime() - self.LastTick )+0.001
+	-- self.LastTick = CurTime()
 	
 	local owner = self:GetOwner()
 	if owner and owner:IsValid() and owner:IsPlayer() then
@@ -283,6 +283,6 @@ function ENT:UnStuck ()
 	end
 end
 
---[[ function ENT:UpdateTransmitState ()
+--[=[ function ENT:UpdateTransmitState ()
 	return TRANSMIT_ALWAYS
-end ]]
+end ]=]

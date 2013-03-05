@@ -1,6 +1,6 @@
-//Eat with skill!
-//Serverside functions goes here
-//TODO: Make it better 
+-- Eat with skill!
+-- Serverside functions goes here
+-- TODO: Make it better 
 
 AddCSLuaFile ( "cl_skillpoints.lua" )
 AddCSLuaFile ( "sh_skillpoints.lua" )
@@ -18,7 +18,7 @@ function GM:CheckPlayerScore(pl)
 	if self.RetroUnlocks[score] then
 		local reward = self.RetroUnlocks[score][math.random(1, #self.RetroUnlocks[score])]
 		if string.sub(reward, 1, 1) == "_" then
-			//PowerupFunctions[reward](pl)
+			-- PowerupFunctions[reward](pl)
 		elseif pl:HasWeapon(reward) then
 			local hasall = true
 			for _, anotherwep in pairs(self.Rewards[score]) do
@@ -49,7 +49,7 @@ function GM:CheckPlayerScore(pl)
 	end
 end
 
-//Called in PlayerInitialSpawn
+-- Called in PlayerInitialSpawn
 function skillpoints.SetupSkillPoints(pl)
 
 	if not IsEntityValid(pl) then return end
@@ -62,7 +62,7 @@ function skillpoints.SetupSkillPoints(pl)
 	
 end
 
-//Add nessesary amount of skill points
+-- Add nessesary amount of skill points
 function skillpoints.AddSkillPoints(pl, amount)
 
 	if not IsEntityValid(pl) then return end
@@ -81,26 +81,26 @@ function skillpoints.AddSkillPoints(pl, amount)
 	end
 	
 	--pl.SkillPoints = pl.SkillPoints + amount
-	--[[
+	--[=[
 	for i = 1, amount do
 		pl.SkillPoints = pl.SkillPoints + 1
 		GAMEMODE:CheckHumanScore ( pl )
 		--insert rewarding here
-	end]]
+	end]=]
 	
-	//umsg.Start("skillpoints.UpdateSkillPoints", pl)
-	//	umsg.Short(pl.SkillPoints)
-	//umsg.End()
+	-- umsg.Start("skillpoints.UpdateSkillPoints", pl)
+	-- 	umsg.Short(pl.SkillPoints)
+	-- umsg.End()
 	
 end
 
-//Use it when you want player to achieve skillshot
+-- Use it when you want player to achieve skillshot
 function skillpoints.AchieveSkillShot(pl,victim, name)
 	if not IsEntityValid(pl) then return end
-	if not pl:IsPlayer() then return end //Check it anyway, because I have a bad feeling that attacker can be not a player and such.
+	if not pl:IsPlayer() then return end -- Check it anyway, because I have a bad feeling that attacker can be not a player and such.
 	
 	if not IsEntityValid(victim) then return end
-	if not victim:IsPlayer() then return end  //Same here
+	if not victim:IsPlayer() then return end  -- Same here
 	
 	local Team
 	
@@ -119,19 +119,19 @@ function skillpoints.AchieveSkillShot(pl,victim, name)
 	local Col = SkillPointsTable[Team][name].Color
 	local Pos = victim:GetPos() + Vector(0,0,math.random(55,77))
 
-	/*umsg.Start("skillpoints.ReceiveSkillShot", pl)
+	--[==[umsg.Start("skillpoints.ReceiveSkillShot", pl)
 		umsg.String(Name)
 		umsg.String(Col)
 		umsg.Short(Amount)
 		umsg.Entity(victim)
 		umsg.Vector(Pos)
-	umsg.End()*/
+	umsg.End()]==]
 	
 	skillpoints.AddSkillPoints(pl, Amount)	
 	
 end
 
-//Same as skillpoints.SetupSkillPoints :/
+-- Same as skillpoints.SetupSkillPoints :/
 function skillpoints.Clean(pl)
 
 	if not IsEntityValid(pl) then return end

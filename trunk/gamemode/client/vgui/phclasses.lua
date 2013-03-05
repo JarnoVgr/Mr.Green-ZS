@@ -93,7 +93,7 @@ function oldDrawSelectClass ()
 	InvisiblePanel:SetTitle ("")
 	InvisiblePanel:ShowCloseButton (false)
 	InvisiblePanel.Paint = function() 
-		//override this
+		-- override this
 	end
 	
 	local BloodPanel = vgui.Create("DLabel")
@@ -115,7 +115,7 @@ function oldDrawSelectClass ()
 	LabelNews:SetSize (ScaleW(1280), ScaleH(76)) 
 	LabelNews:SetPos (0, ScaleH(909))
 	LabelNews.Paint = function ()
-		draw.RoundedBox( 0, 0, 0, ScaleW(1280), ScaleH(78), Color (0,0,0,230) )  // Welcome frame!
+		draw.RoundedBox( 0, 0, 0, ScaleW(1280), ScaleH(78), Color (0,0,0,230) )  --  Welcome frame!
 		if HALLOWEEN then
 			draw.SimpleText("Welcome to mr green zombie survival! happy halloween!", "L4DDIFF", ScaleW(639), ScaleH(30), Color ( 190,180,190,255), TEXT_ALIGN_CENTER)
 		elseif CHRISTMAS then
@@ -125,57 +125,57 @@ function oldDrawSelectClass ()
 		end
 	end
 	
-	local BlackOutpanel = vgui.Create("DLabel") // Yes,yes i know, it's kind of stupid to make a label and turn it in a paint board... but meh.
+	local BlackOutpanel = vgui.Create("DLabel") --  Yes,yes i know, it's kind of stupid to make a label and turn it in a paint board... but meh.
 	BlackOutpanel:SetText("")
 	BlackOutpanel:SetParent(InvisiblePanel)
 	BlackOutpanel:SetSize (ScaleW(865), ScaleH(709)) 
 	BlackOutpanel:SetPos (ScaleW(207), ScaleH(157)) 
 	BlackOutpanel.Paint = function ()
-		draw.RoundedBox( 0, 0, 0, BlackOutpanel:GetWide(), BlackOutpanel:GetTall() , Color (0,0,0,230) )  // Black-ish outpanel
+		draw.RoundedBox( 0, 0, 0, BlackOutpanel:GetWide(), BlackOutpanel:GetTall() , Color (0,0,0,230) )  --  Black-ish outpanel
 	end
 
 	local Menu = vgui.Create("DFrame")
-	Menu:SetSize(ScaleW(785),ScaleH(629)) // + 48
+	Menu:SetSize(ScaleW(785),ScaleH(629)) --  + 48
 	Menu:SetPos(((w*0.5)-(Menu:GetWide()/2)),(h*0.5)-(Menu:GetTall()/2))
 	Menu:SetTitle("")
 	Menu:ShowCloseButton( false )
 	Menu:SetDraggable ( false )
 	Menu.Paint = function()
-		draw.RoundedBox( 0, 0, 0,Menu:GetWide(), Menu:GetTall(), Color(44,12,12,255) )  // MAIN FRAME
+		draw.RoundedBox( 0, 0, 0,Menu:GetWide(), Menu:GetTall(), Color(44,12,12,255) )  --  MAIN FRAME
 		surface.SetDrawColor (0,0,0,255)
 		
-		draw.RoundedBox( 0, ScaleW(44-offsetx), ScaleH(51), ScaleW(299), ScaleH(546), Color(51,21,21,250) )  // right side panel
-		draw.RoundedBox( 0, ScaleW(377-offsetxright), ScaleH(51), ScaleW(419), ScaleH(239), Color(51,21,21,250) ) // upper left
-		draw.RoundedBox( 0, ScaleW(377-offsetxright), ScaleH(307) ,ScaleW(419), ScaleH(223), Color(51,21,21,250) ) // down left
+		draw.RoundedBox( 0, ScaleW(44-offsetx), ScaleH(51), ScaleW(299), ScaleH(546), Color(51,21,21,250) )  --  right side panel
+		draw.RoundedBox( 0, ScaleW(377-offsetxright), ScaleH(51), ScaleW(419), ScaleH(239), Color(51,21,21,250) ) --  upper left
+		draw.RoundedBox( 0, ScaleW(377-offsetxright), ScaleH(307) ,ScaleW(419), ScaleH(223), Color(51,21,21,250) ) --  down left
 		
 		surface.SetFont( "FRAGS" ) 
 		surface.SetTextPos( ScaleW(263), ScaleH(19) )
 		surface.SetTextColor (200,200,200,255)
-		surface.DrawText( "CHOOSE YOUR CLASS ..." ) // main title
+		surface.DrawText( "CHOOSE YOUR CLASS ..." ) --  main title
 		
 		surface.SetFont( "FRAGS" ) 
 		surface.SetTextPos ( ScaleW(58-offsetx), ScaleH(61) )
-		surface.DrawText( "Select Perk" ) // perks title
+		surface.DrawText( "Select Perk" ) --  perks title
 		
 		surface.SetTextPos ( ScaleW(394-offsetxright), ScaleH(65) )
-		surface.DrawText( "Perk Description" ) // perks title
+		surface.DrawText( "Perk Description" ) --  perks title
 		
 		surface.SetFont ("SEVEN")
 		surface.SetTextPos ( ScaleW(394-offsetxright), ScaleH(323) )
-		surface.DrawText( "Next level requierments" ) // next level reqs
+		surface.DrawText( "Next level requierments" ) --  next level reqs
 		
-		// Achievment Maximum Calculation
+		--  Achievment Maximum Calculation
 		firstachmaximum = ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][3]
 		secondachmaximum = ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][4]
 		
-		// Class tabs
+		--  Class tabs
 		draw.RoundedBox( 0, ScaleW(70-offsetx), ScaleH(108) ,ScaleW(247), ScaleH(70), Colors.MedicBack ) 
 		draw.RoundedBox( 0, ScaleW(70-offsetx), ScaleH(198) ,ScaleW(247), ScaleH(70), Colors.CommandoBack ) 
 		draw.RoundedBox( 0, ScaleW(70-offsetx), ScaleH(296) ,ScaleW(247), ScaleH(70), Colors.BersekerBack )
 		draw.RoundedBox( 0, ScaleW(70-offsetx), ScaleH(392) ,ScaleW(247), ScaleH(70), Colors.EngineerBack )
 		draw.RoundedBox( 0, ScaleW(70-offsetx), ScaleH(492) ,ScaleW(247), ScaleH(70), Colors.SupportBack )
 		
-		// In-Tab Boxes -- Medic
+		--  In-Tab Boxes -- Medic
 		draw.RoundedBox( 0, ScaleW(93-offsetx), ScaleH(124) ,ScaleW( math.Clamp (( (GetAch (1, MySelf.DataTable["ClassData"][string.lower(HumanClasses[1].Name)].level, 1 ) + GetAch (1, MySelf.DataTable["ClassData"][string.lower(HumanClasses[1].Name)].level, 2 ) ) / (ClassInfo[1].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[1].Name)].level+1][4]+ClassInfo[1].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[1].Name)].level+1][3])),0,1) *207), ScaleH(36), Color(136,2,2,255) )
 		draw.RoundedBox( 0, ScaleW(93-offsetx), ScaleH(124) ,ScaleW(207), ScaleH(36), Color(0,0,0,240) )
 		surface.SetFont( "SEVEN" ) 
@@ -185,7 +185,7 @@ function oldDrawSelectClass ()
 		surface.SetTextPos(ScaleW(244-offsetx),ScaleH(135))
 		surface.DrawText( "Lvl "..MySelf.DataTable["ClassData"]["medic"].level )
 		
-		// Commando!
+		--  Commando!
 		surface.SetTextColor (Color (200, 200, 200, 255))
 		draw.RoundedBox( 0, ScaleW(93-offsetx), ScaleH(214) ,ScaleW( math.Clamp ( ( (GetAch (2, MySelf.DataTable["ClassData"][string.lower(HumanClasses[2].Name)].level, 1 ) + GetAch (2, MySelf.DataTable["ClassData"][string.lower(HumanClasses[2].Name)].level, 2 ) ) / (ClassInfo[2].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[2].Name)].level+1][4]+ClassInfo[2].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[2].Name)].level+1][3])),0,1) *207), ScaleH(36), Color(136,2,2,255) )
 		draw.RoundedBox( 0, ScaleW(93-offsetx), ScaleH(214) ,ScaleW(207), ScaleH(36), Color(0,0,0,240) )
@@ -195,7 +195,7 @@ function oldDrawSelectClass ()
 		surface.SetTextPos(ScaleW(244-offsetx),ScaleH(225))
 		surface.DrawText( "Lvl "..MySelf.DataTable["ClassData"]["commando"].level  )
 		
-		//Berseker
+		-- Berseker
 		draw.RoundedBox( 0, ScaleW(93-offsetx), ScaleH(312) ,ScaleW( math.Clamp (( (GetAch (3, MySelf.DataTable["ClassData"][string.lower(HumanClasses[3].Name)].level, 1 ) + GetAch (3, MySelf.DataTable["ClassData"][string.lower(HumanClasses[3].Name)].level, 2 ) ) / (ClassInfo[3].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[3].Name)].level+1][4]+ClassInfo[3].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[3].Name)].level+1][3])),0,1) *207), ScaleH(36), Color(136,2,2,255) )
 		draw.RoundedBox( 0, ScaleW(93-offsetx), ScaleH(312) ,ScaleW(207), ScaleH(36), Color(0,0,0,240) )
 		surface.SetTextPos(ScaleW(102-offsetx),ScaleH(324))
@@ -204,7 +204,7 @@ function oldDrawSelectClass ()
 		surface.SetTextPos(ScaleW(244-offsetx),ScaleH(324))
 		surface.DrawText( "Lvl "..MySelf.DataTable["ClassData"]["berserker"].level  )	
 		
-		//Engineer
+		-- Engineer
 		draw.RoundedBox( 0, ScaleW(93-offsetx), ScaleH(408) ,ScaleW( math.Clamp ( ( (GetAch (4, MySelf.DataTable["ClassData"][string.lower(HumanClasses[4].Name)].level, 1 ) + GetAch (4, MySelf.DataTable["ClassData"][string.lower(HumanClasses[4].Name)].level, 2 ) ) / (ClassInfo[4].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[4].Name)].level+1][4]+ClassInfo[4].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[4].Name)].level+1][3])),0,1) *207), ScaleH(36), Color(136,2,2,255) )
 		draw.RoundedBox( 0, ScaleW(93-offsetx), ScaleH(408) ,ScaleW(207), ScaleH(36), Color(0,0,0,240) )
 		surface.SetTextPos(ScaleW(102-offsetx),ScaleH(420))
@@ -213,7 +213,7 @@ function oldDrawSelectClass ()
 		surface.SetTextPos(ScaleW(244-offsetx),ScaleH(420))
 		surface.DrawText( "Lvl "..MySelf.DataTable["ClassData"]["engineer"].level  )			
 
-		//Support
+		-- Support
 		draw.RoundedBox( 0, ScaleW(93-offsetx),ScaleH(506) ,ScaleW( math.Clamp( ( (GetAch (5, MySelf.DataTable["ClassData"][string.lower(HumanClasses[5].Name)].level, 1 ) + GetAch (5, MySelf.DataTable["ClassData"][string.lower(HumanClasses[5].Name)].level, 2 ) ) / (ClassInfo[5].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[5].Name)].level+1][4]+ClassInfo[5].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[5].Name)].level+1][3])),0,1) *207), ScaleH(36), Color(136,2,2,255) )
 		draw.RoundedBox( 0, ScaleW(93-offsetx),ScaleH(506) ,ScaleW(207), ScaleH(36), Color(0,0,0,240) )
 		surface.SetTextPos(ScaleW(102-offsetx),ScaleH(518))
@@ -222,7 +222,7 @@ function oldDrawSelectClass ()
 		surface.SetTextPos(ScaleW(244-offsetx),ScaleH(518))
 		surface.DrawText( "Lvl "..MySelf.DataTable["ClassData"]["support"].level  )	
 		
-		--------------------------------/* Holy shit code for determining what achievment to draw *\ ------------------------------
+		----------------------------------[==[ Holy shit code for determining what achievment to draw ]==] ------------------------------
 		if MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level == 0 or MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level == 1 then
 			achstat1 = MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].achlevel0_1
 			achstat2 = MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].achlevel0_2
@@ -234,26 +234,26 @@ function oldDrawSelectClass ()
 			achstat2 = MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].achlevel4_2
 		end
 		---------------------------------------------------------------------------------------------------------------------------------------
-		//First Req Bar
-		draw.RoundedBox( 0, ScaleW(402-offsetxright), ScaleH(98) ,ScaleW(368), ScaleH(162), Color(15,4,4,86) ) // Req outline panel
+		-- First Req Bar
+		draw.RoundedBox( 0, ScaleW(402-offsetxright), ScaleH(98) ,ScaleW(368), ScaleH(162), Color(15,4,4,86) ) --  Req outline panel
 		
 		surface.SetTextColor (200,200,200,255)
 		draw.RoundedBox(0, ScaleW(422-offsetxright),ScaleH(373),ScaleW( math.Clamp( (achstat1 / ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][3]),0,1) *323) ,ScaleH(29), Color(136,2,2,255)) -- Progress bar
 		draw.RoundedBox(0, ScaleW(422-offsetxright),ScaleH(373),ScaleW(323),ScaleH(29), Color(0,0,0,240))
-		draw.RoundedBox( 0, ScaleW(400-offsetxright), ScaleH(352) ,ScaleW(368), ScaleH(70), Color(15,4,4,86) ) // Req Tab
+		draw.RoundedBox( 0, ScaleW(400-offsetxright), ScaleH(352) ,ScaleW(368), ScaleH(70), Color(15,4,4,86) ) --  Req Tab
 		
-		//Second Req Bar
+		-- Second Req Bar
 		draw.RoundedBox(0, ScaleW(422-offsetxright),ScaleH(456),ScaleW( math.Clamp ( (achstat2 / ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][4]),0,1) *323),ScaleH(29), Color(136,2,2,255)) -- Progress bar
 		draw.RoundedBox(0, ScaleW(422-offsetxright),ScaleH(456),ScaleW(323),ScaleH(29), Color(0,0,0,240))
-		draw.RoundedBox( 0, ScaleW(400-offsetxright), ScaleH(436) ,ScaleW(368), ScaleH(70), Color(15,4,4,86) ) // Req Tab #2
+		draw.RoundedBox( 0, ScaleW(400-offsetxright), ScaleH(436) ,ScaleW(368), ScaleH(70), Color(15,4,4,86) ) --  Req Tab #2
 		
-		// First next level req
+		--  First next level req
 		draw.SimpleText(ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][1]..": "..achstat1, "GC", ScaleW(548),ScaleH(381), Color ( 200, 200, 200, 255), TEXT_ALIGN_CENTER)
 		
-		//Second next level req
+		-- Second next level req
 		draw.SimpleText(ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][2]..": "..achstat2, "GC", ScaleW(548),ScaleH(464), Color ( 200, 200, 200, 255), TEXT_ALIGN_CENTER)
 
-		// Description Shit
+		--  Description Shit
 		surface.SetFont( "GC" ) 
 		surface.SetTextPos(ScaleW(419-offsetxright),ScaleH(124))
 		surface.DrawText( ""..(HumanClasses[SelectedClass].Coef[1]*(MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1)).." "..HumanClasses[SelectedClass].Description[1] )	
@@ -448,15 +448,15 @@ function oldDrawSelectClass ()
 	
 ---------------------------------------------------------------------------------------------------------------------------------		
 	Menu.Think = function ()
-		gui.EnableScreenClicker(true) // Prevent Steam Chat to enable mouse!
+		gui.EnableScreenClicker(true) --  Prevent Steam Chat to enable mouse!
 	end
 end
 
 --usermessage.Hook("DrawSelectClass", DrawSelectClass) 
 
-/////////////////////
-//New window WIP//
-////////////////////
+-- -- -- -- -- -- -- -- -- -- /
+-- New window WIP-- 
+-- -- -- -- -- -- -- -- -- -- 
 
 local Sounds = {}
 Sounds.Accept = "mrgreen/ui/menu_focus.wav"
@@ -496,7 +496,7 @@ local achstat2
 Loadout = Loadout or {}
 
 function DrawSelectClass1 ()
-	//
+	-- 
 	
 	
 	local filename = "zombiesurvival/loadouts/default.txt"
@@ -511,7 +511,7 @@ function DrawSelectClass1 ()
 	else
 		Loadout = {"weapon_zs_usp","weapon_zs_galil"}
 	end
-	//
+	-- 
 
 
 	local bloodrand1 = bloodSplats[math.random(1,2)]
@@ -547,7 +547,7 @@ function DrawSelectClass1 ()
 	InvisiblePanel:SetTitle ("")
 	InvisiblePanel:ShowCloseButton (false)
 	InvisiblePanel.Paint = function() 
-		//override this
+		-- override this
 	end
 	
 	local BloodPanel = vgui.Create("DLabel")
@@ -574,28 +574,28 @@ function DrawSelectClass1 ()
 			draw.RoundedBox( 0, 0, 0, TopClasspanel:GetWide(), TopClasspanel:GetTall() , Color (1,1,1,200) )
 	
 	
-		//TODO: make new icons
+		-- TODO: make new icons
 		local TopClassoffsetx,TopClassoffsety = 15,24
-		local classx = 15 //easy way to move all background panels at once
+		local classx = 15 -- easy way to move all background panels at once
 		local spacing = 27
 		
-		// In-Tab Boxes -- Medic
+		--  In-Tab Boxes -- Medic
 		CreateClassIcon(TopClassoffsetx+classx,TopClassoffsety,103,145,"zombiesurvival/hud/avatar_medic",Colors[1].CButton,1)
 		classx = classx + 103 + spacing
 		
-		// In-Tab Boxes -- Commando
+		--  In-Tab Boxes -- Commando
 		CreateClassIcon(TopClassoffsetx+classx,TopClassoffsety,103,145,"zombiesurvival/hud/avatar_commando",Colors[2].CButton,2)
 		classx = classx + 103 + spacing
 		
-		// In-Tab Boxes -- Berserker
+		--  In-Tab Boxes -- Berserker
 		CreateClassIcon(TopClassoffsetx+classx,TopClassoffsety,103,145,"zombiesurvival/hud/avatar_berserker",Colors[3].CButton,3)
 		classx = classx + 103 + spacing
 		
-		// In-Tab Boxes -- Engineer
+		--  In-Tab Boxes -- Engineer
 		CreateClassIcon(TopClassoffsetx+classx,TopClassoffsety,103,145,"zombiesurvival/hud/avatar_engineer",Colors[4].CButton,4)
 		classx = classx + 103 + spacing
 		
-		// In-Tab Boxes -- Support
+		--  In-Tab Boxes -- Support
 		CreateClassIcon(TopClassoffsetx+classx,TopClassoffsety,103,145,"zombiesurvival/hud/avatar_support",Colors[5].CButton,5)	
 		
 		
@@ -617,16 +617,16 @@ function DrawSelectClass1 ()
 	
 	--Left and right panels--
 	
-	local SideSmallPanelW,SideSmallPanelH = ScaleW(51), ScaleH(260) //size of small left and pight panels
-	local SidePanelW,SidePanelH = ScaleW(271)-SideSmallPanelW, ScaleH(200) //size of bigger left and right panels
+	local SideSmallPanelW,SideSmallPanelH = ScaleW(51), ScaleH(260) -- size of small left and pight panels
+	local SidePanelW,SidePanelH = ScaleW(271)-SideSmallPanelW, ScaleH(200) -- size of bigger left and right panels
 	
-	//left panels
+	-- left panels
 	local leftx = w*0.5 - HugePanelW/2 - SideSmallPanelW
 	draw.RoundedBoxEx( 8, leftx, (h*0.5)-(SideSmallPanelH/2), SideSmallPanelW, SideSmallPanelH, Color(1,1,1,230), true, false, true, false )
 	leftx = leftx - SidePanelW
 	draw.RoundedBoxEx( 16, leftx, (h*0.5)-(SidePanelH/2), SidePanelW, SidePanelH, Color(1,1,1,230), true, false, true, false )
 	
-	//right panels
+	-- right panels
 	local rightx = w*0.5 + HugePanelW/2
 	draw.RoundedBoxEx( 8, rightx, (h*0.5)-(SideSmallPanelH/2), SideSmallPanelW, SideSmallPanelH, Color(1,1,1,230), false, true, false, true )
 	rightx = rightx + SideSmallPanelW
@@ -730,39 +730,39 @@ function DrawSelectClass1 ()
 	local TopClassoffsetx,TopClassoffsety = 15,24
 	local classx = 15
 	local spacing = 27
-	//Medic
+	-- Medic
 	CreateClassLabel(TopClassoffsetx+classx,TopClassoffsety,103,145,1,TopClasspanel)
 	classx = classx + 103 + spacing
-	//Commando
+	-- Commando
 	CreateClassLabel(TopClassoffsetx+classx,TopClassoffsety,103,145,2,TopClasspanel)
 	classx = classx + 103 + spacing
-	//Berserker
+	-- Berserker
 	CreateClassLabel(TopClassoffsetx+classx,TopClassoffsety,103,145,3,TopClasspanel)
 	classx = classx + 103 + spacing
-	//Engineer
+	-- Engineer
 	CreateClassLabel(TopClassoffsetx+classx,TopClassoffsety,103,145,4,TopClasspanel)
 	classx = classx + 103 + spacing
-	//Support
+	-- Support
 	CreateClassLabel(TopClassoffsetx+classx,TopClassoffsety,103,145,5,TopClasspanel)	
 	
 	TopClasspanel.Think = function ()
-		gui.EnableScreenClicker(true) // Prevent Steam Chat to enable mouse!
+		gui.EnableScreenClicker(true) --  Prevent Steam Chat to enable mouse!
 	end
 	
 end
 
 function CreateClassIcon(x,y,w,h,texture,color,class)
 		
-		//Changing position, size
+		-- Changing position, size
 		x = x - (w * Classes[class].AddSize - w)/2
 		y = y - (h * Classes[class].AddSize - h)/2
 		w = w * Classes[class].AddSize
 		h = h * Classes[class].AddSize
 		
-		//Draw outline
+		-- Draw outline
 		draw.RoundedBox( 0, ScaleW(x-4), ScaleH(y-4), ScaleW(w+8), ScaleH(h+8), color )
 		
-		//Draw the icon itself
+		-- Draw the icon itself
 		local Quad = {} 
 		Quad.texture 	= surface.GetTextureID( texture )
 		Quad.color		= Color (255,255,255,255) 
@@ -773,12 +773,12 @@ function CreateClassIcon(x,y,w,h,texture,color,class)
 		Quad.h = ScaleH(h)
 		draw.TexturedQuad( Quad )
 		
-		//Draw small box for level
+		-- Draw small box for level
 		local LvlBoxW, LvLBoxH = Quad.w/6,Quad.h/6--ScaleW(21),ScaleH(26)
 		
 		local LvlBoxX, LvlBoxY = ScaleW(x),ScaleH(y)+ScaleH(h)-LvLBoxH
 		
-		//Small texture glitch fix
+		-- Small texture glitch fix
 		if texture == "zombiesurvival/hud/avatar_berserker" then
 			LvlBoxX = LvlBoxX - 1
 		end
@@ -786,7 +786,7 @@ function CreateClassIcon(x,y,w,h,texture,color,class)
 		
 		draw.RoundedBox( 0,LvlBoxX,LvlBoxY, LvlBoxW, LvLBoxH , Color (1,1,1,200) )
 		
-		//Draw level number
+		-- Draw level number
 		local IndexToName = string.lower(Classes[class].LabelName)
 		local Lvl = MySelf.DataTable["ClassData"][IndexToName].level
 		
@@ -810,7 +810,7 @@ function CreateClassLabel(x,y,w,h,class,parentframe)
 	ClassLabel:SetPos (ScaleW(x), ScaleH(y))
 	ClassLabel.OnCursorEntered = function() 
 		Colors[class].CButton = Color (200, 200, 200, 255) 
-		Classes[class].Overed = true //sadly but labels doesnt have PaintOverHovered function :/
+		Classes[class].Overed = true -- sadly but labels doesnt have PaintOverHovered function :/
 			if SelectedClass ~= class then 
 				surface.PlaySound (Sounds.Over) 
 			end 
@@ -874,7 +874,7 @@ end
 
 
 function CreateRequirementsPanel(x,y)
-//Grab some data
+-- Grab some data
 if MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level == 0 or MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level == 1 then
 	achstat1 = MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].achlevel0_1
 	achstat2 = MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].achlevel0_2
@@ -888,7 +888,7 @@ end
 
 --print("Achiv1: "..achstat1..", Achiv2: "..achstat2.."")
 
-//Make header
+-- Make header
 ---------------------------
 
 	surface.SetFont( "ArialBoldTen" ) 
@@ -899,20 +899,20 @@ end
 
 	surface.SetFont( "ArialBoldFive" ) 
 	local spacing = 41
-	//Draw text for 1st requirement
+	-- Draw text for 1st requirement
 	surface.SetTextPos(x,y+spacing)
 	surface.DrawText(""..(ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][1])..": "..achstat1)
 	spacing = spacing + 24
-	//Draw bar for 1st requirement
+	-- Draw bar for 1st requirement
 	draw.RoundedBox(0, x,y+spacing,ScaleW( math.Clamp( (achstat1 / ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][3]),0,1) *207) ,ScaleH(22), Color(200,200,200,255))
 	surface.SetDrawColor( 0, 0, 0, 255 )
 	surface.DrawOutlinedRect( x, y+spacing,ScaleW(207), ScaleH(22)+1)
 	spacing = spacing + 24
-	//Draw text for2nd requirement
+	-- Draw text for2nd requirement
 	surface.SetTextPos(x,y+spacing)
 	surface.DrawText(""..(ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][2])..": "..achstat2)
 	spacing = spacing + 24
-	//Draw bar for 2nd requirement
+	-- Draw bar for 2nd requirement
 	draw.RoundedBox(0, x,y+spacing,ScaleW( math.Clamp( (achstat2 / ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][4]),0,1) *207) ,ScaleH(22), Color(200,200,200,255))
 	--print("Actual: "..tonumber(achstat2)..", Need:"..tonumber(ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][4])..", Coef:"..tonumber(math.Clamp( (achstat2 / ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][4]),0,1))..", Draw: "..tonumber(math.Clamp( (achstat2 / ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][4]),0,1) *233).."/233, Actual draw: "..tonumber(ScaleW( math.Clamp( (achstat2 / ClassInfo[SelectedClass].Ach[MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].level+1][4]),0,1) *233)).."/"..tonumber(ScaleW(233)).." ")
 	surface.SetDrawColor( 0, 0, 0, 255 )
@@ -921,13 +921,13 @@ end
 end
 
 function CreateClassDescription(x,y)
-//Draw cool background
+-- Draw cool background
 surface.SetDrawColor( 0, 0, 0, 255 )
 surface.DrawOutlinedRect( -1, y, w+1, ScaleH(230))
 draw.RoundedBox( 0, -1, y, w+1, ScaleH(230), Color (1,1,1,200) )
 y = y + ScaleH(26)
 
-//Draw class name
+-- Draw class name
 local DrawName = HumanClasses[SelectedClass].Name
 
 if SelectedClass == 3 then DrawName = "Marksman" end
@@ -935,7 +935,7 @@ if SelectedClass == 3 then DrawName = "Marksman" end
 draw.SimpleText(DrawName,"ArialBoldFifteen",x,y,Color(255,255,255,255),TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)
 y = y + ScaleH(51)
 
-//Draw descriptions
+-- Draw descriptions
 draw.SimpleText(Classes[SelectedClass].Desc1,"ArialBoldTwelve",x,y,Color(255,255,255,255),TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)
 y = y + ScaleH(43)
 draw.SimpleText(Classes[SelectedClass].Desc2,"ArialBoldTwelve",x,y,Color(255,255,255,255),TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)
@@ -973,7 +973,7 @@ local lock_icon = Material("icon16/lock.png")
 local heart_icon = Material("icon16/heart.png")
 
 
-//Lists
+-- Lists
 Unlocks = {}
 SlotLabel = {}
 function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
@@ -985,14 +985,14 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 	Unlocks[num]:SetPadding(0)
 	Unlocks[num]:EnableHorizontal( true )
 	Unlocks[num]:EnableVerticalScrollbar( false )
-	//Unlocks[num]:SetVisible ( false )
+	-- Unlocks[num]:SetVisible ( false )
 	Unlocks[num].Paint = function ()
 		DrawPanelBlackBox(0,0,ww,hh*6)
 	end
 	
 	local ItemLabel = {}
 	
-	//if num ~= 6 then //not a perk
+	-- if num ~= 6 then -- not a perk
 		for i=0,table.maxn(GAMEMODE.RankUnlocks) do
 			if GAMEMODE.RankUnlocks[i] then
 				for _,item in pairs(GAMEMODE.RankUnlocks[i]) do
@@ -1000,7 +1000,7 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 						if IsWeapon(item) and GetWeaponCategory ( item ) == weptype then
 							ItemLabel[item] = vgui.Create("DLabel",Unlocks[num])
 							ItemLabel[item]:SetText("")
-							//ItemLabel[item]:SetSize(LoadoutMenuW,(LoadoutMenuH/6)*0.9) 
+							-- ItemLabel[item]:SetSize(LoadoutMenuW,(LoadoutMenuH/6)*0.9) 
 							ItemLabel[item]:SetSize(ww/3,hh) 
 							ItemLabel[item].OnCursorEntered = function() 
 								ItemLabel[item].Overed = true 
@@ -1079,7 +1079,7 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 											surface.SetTexture(surface.GetTextureID( ImgTable.mat ))	
 											local wd,hg = surface.GetTextureSize(surface.GetTextureID( ImgTable.mat ))
 											local clampedH = (ww/3*hg)/wd
-											surface.DrawTexturedRect( 57.5,12, wd, math.Clamp(hg,0,hh) )//surface.DrawTexturedRect( x + 57.5,y + 12, wd, clampedH )
+											surface.DrawTexturedRect( 57.5,12, wd, math.Clamp(hg,0,hh) )-- surface.DrawTexturedRect( x + 57.5,y + 12, wd, clampedH )
 
 										
 										else
@@ -1117,7 +1117,7 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 							ItemLabel[item] = vgui.Create("DLabel",Unlocks[num])
 							ItemLabel[item]:SetText("")
 							ItemLabel[item]:SetSize(ww/3,hh) 
-							//ItemLabel[item]:SetSize(LoadoutMenuW,(LoadoutMenuH/6)*0.9) 
+							-- ItemLabel[item]:SetSize(LoadoutMenuW,(LoadoutMenuH/6)*0.9) 
 							ItemLabel[item].OnCursorEntered = function() 
 								ItemLabel[item].Overed = true 
 								surface.PlaySound ("UI/buttonrollover.wav") 
@@ -1204,17 +1204,17 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 							end
 						
 							Unlocks[num]:AddItem(ItemLabel[item])							
-						end//back
+						end-- back
 					end
 				end
 			end
 		end
-	//end
+	-- end
 	
 	
 
 end
-//Loadout
+-- Loadout
 function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 			
 	SlotLabel[num] = vgui.Create("DLabel")
@@ -1244,8 +1244,8 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 	end
 	SlotLabel[num].OnCursorExited = function () 
 		SlotLabel[num].Overed = false
-		//Colors[class].CButton = Color (0,0,0,255) 
-		//Classes[class].Overed = false
+		-- Colors[class].CButton = Color (0,0,0,255) 
+		-- Classes[class].Overed = false
 	end
 	SlotLabel[num].OnMousePressed = function () 
 		for i=1, 6 do
@@ -1266,13 +1266,13 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 				end
 			end
 		end
-		//	surface.PlaySound (Sounds.Click) 
+		-- 	surface.PlaySound (Sounds.Click) 
 
 	end
 	SlotLabel[num].Think = function() 
-		//if IsPerk(SlotLabel[num].Item) then
-		//	SlotLabel[num]:SetToolTip(GAMEMODE.Perks[SlotLabel[num].Item].Description)
-		//end
+		-- if IsPerk(SlotLabel[num].Item) then
+		-- 	SlotLabel[num]:SetToolTip(GAMEMODE.Perks[SlotLabel[num].Item].Description)
+		-- end
 		if GAMEMODE:IsRetroMode() then
 			if MySelf:IsBlocked(SlotLabel[num].Item) then
 				SlotLabel[num]:SetToolTip("Not avalaible in retro mode!")
@@ -1296,7 +1296,7 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 			surface.DrawOutlinedRect( 1, 1, ww-2, hh-2 )
 		else
 			if SlotLabel[num].Active then
-				surface.SetDrawColor( 255, 255, 255,( math.sin(RealTime() * 5) * 95 ) + 150 )//
+				surface.SetDrawColor( 255, 255, 255,( math.sin(RealTime() * 5) * 95 ) + 150 )-- 
 				surface.DrawOutlinedRect( 0, 0, ww, hh)
 				surface.DrawOutlinedRect( 1, 1, ww-2, hh-2 )
 			else
@@ -1367,7 +1367,7 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 							surface.SetTexture(surface.GetTextureID( GAMEMODE.Perks[SlotLabel[num].Item].Material ))	
 							local wd,hg = surface.GetTextureSize(surface.GetTextureID( GAMEMODE.Perks[SlotLabel[num].Item].Material ))
 							local dif = (hh-14)/hg
-							//local clampedH = (ww*hg)/wd
+							-- local clampedH = (ww*hg)/wd
 							surface.SetDrawColor(80,80,80,255)
 							surface.DrawTexturedRect( ww/2-(wd*dif)/2,12, wd*dif, math.Clamp(hg*dif,0,hh) )
 						end
@@ -1402,7 +1402,7 @@ function DrawSelectClass()
 			for _,v in pairs (Loadout) do
 				if not MySelf:HasUnlocked(v) then
 					table.remove( Loadout, _ )
-					//Loadout[_] = nil
+					-- Loadout[_] = nil
 				end
 			end
 		else
@@ -1418,7 +1418,7 @@ function DrawSelectClass()
 	local spawntimer = 40
 	local spawntimercd = 0
 
-	TopMenuW,TopMenuH = ScaleW(550), 140 //ScaleH(136)
+	TopMenuW,TopMenuH = ScaleW(550), 140 -- ScaleH(136)
 	TopMenuX,TopMenuY = w/2-TopMenuW/2,h/5-TopMenuH/1.6
 
 	TopMenuH1 = ScaleH(136)
@@ -1453,11 +1453,11 @@ function DrawSelectClass()
 	InvisiblePanel:SetSkin("ZSMG")
 	InvisiblePanel:ShowCloseButton (false)
 	InvisiblePanel.Paint = function() 
-		//override this
+		-- override this
 	end
 	
 	LoadoutMenuW,LoadoutMenuH = TopMenuW/4, ScaleH(500)
-	//invisible panel for lists
+	-- invisible panel for lists
 	InvisiblePanel2 = vgui.Create("DFrame")
 	InvisiblePanel2:SetSize(TopMenuW,LoadoutMenuH)
 	InvisiblePanel2:SetPos(TopMenuX,TopMenuY+TopMenuH+ScaleH(20))
@@ -1467,7 +1467,7 @@ function DrawSelectClass()
 	InvisiblePanel2:SetDraggable ( false )
 	InvisiblePanel2:SetSizable(false)
 	InvisiblePanel2.Paint = function() 
-		//override this
+		-- override this
 	end
 	
 	LoadoutMenu = vgui.Create("DFrame")
@@ -1481,10 +1481,10 @@ function DrawSelectClass()
 	LoadoutMenu:ShowCloseButton(false)
 		
 	
-	//Long shitty code :<
+	-- Long shitty code :<
 	local primary,secondary,melee,tool1,tool2,perk,perk2 = "none","none","none","none","none","none","none"
 	
-	//Get primary
+	-- Get primary
 	for k, v in pairs(Loadout) do
 		if IsWeapon(v) then
 			if GetWeaponCategory ( v ) == "Automatic" then
@@ -1494,7 +1494,7 @@ function DrawSelectClass()
 		end
 	end
 	
-	//Get Secondary
+	-- Get Secondary
 	for k, v in pairs(Loadout) do
 		if IsWeapon(v) then
 			if GetWeaponCategory ( v ) == "Pistol" then
@@ -1504,7 +1504,7 @@ function DrawSelectClass()
 		end
 	end
 	
-	//Get Melee
+	-- Get Melee
 	for k, v in pairs(Loadout) do
 		if IsWeapon(v) then
 			if GetWeaponCategory ( v ) == "Melee" then
@@ -1514,7 +1514,7 @@ function DrawSelectClass()
 		end
 	end
 	
-	//Get Tool 1
+	-- Get Tool 1
 	for k, v in pairs(Loadout) do
 		if IsWeapon(v) then
 			if GetWeaponCategory ( v ) == "Tool1" then
@@ -1524,7 +1524,7 @@ function DrawSelectClass()
 		end
 	end
 	
-	//Get Tool 2
+	-- Get Tool 2
 	for k, v in pairs(Loadout) do
 		if IsWeapon(v) then
 			if GetWeaponCategory ( v ) == "Tool2" then
@@ -1534,7 +1534,7 @@ function DrawSelectClass()
 		end
 	end
 	
-	//Get Perk
+	-- Get Perk
 	for k, v in pairs(Loadout) do
 		if IsPerk(v) and GetPerkSlot(v) == 1 then
 			perk = v
@@ -1542,7 +1542,7 @@ function DrawSelectClass()
 		end
 	end
 	
-	//Get Perk2
+	-- Get Perk2
 	for k, v in pairs(Loadout) do
 		if IsPerk(v) and GetPerkSlot(v) == 2 then
 			perk2 = v
@@ -1550,13 +1550,13 @@ function DrawSelectClass()
 		end
 	end
 	
-	//And clean table since we dont need yet
+	-- And clean table since we dont need yet
 	Loadout = {}
 	
 	local step = 30
 	
-	//Rifles and etc
-	/*DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,primary,LoadoutMenu,1,"Automatic")	
+	-- Rifles and etc
+	--[==[DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,primary,LoadoutMenu,1,"Automatic")	
 	step = step+(LoadoutMenuH/6)*0.9
 	
 	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,secondary,LoadoutMenu,2,"Pistol")
@@ -1571,7 +1571,7 @@ function DrawSelectClass()
 	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,tool2,LoadoutMenu,5,"Tool2")
 	step = step+(LoadoutMenuH/6)*0.9
 	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,perk,LoadoutMenu,6,"Perk")*/
+	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,perk,LoadoutMenu,6,"Perk")]==]
 	
 	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,secondary,LoadoutMenu,1,"Pistol")	
 	step = step+(LoadoutMenuH/6)*0.9
@@ -1590,9 +1590,9 @@ function DrawSelectClass()
 	
 	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,perk2,LoadoutMenu,6,"Perk2")
 	
-	//Spawn button
+	-- Spawn button
 	
-	SpawnButtonX, SpawnButtonY = TopMenuX,TopMenuY+TopMenuH+ScaleH(20)+LoadoutMenuH+ScaleH(20) //nice and shiny
+	SpawnButtonX, SpawnButtonY = TopMenuX,TopMenuY+TopMenuH+ScaleH(20)+LoadoutMenuH+ScaleH(20) -- nice and shiny
 	SpawnButtonW, SpawnButtonH = LoadoutMenuW, TopMenuH1/1.1
 	
 	SpawnButton = vgui.Create("DButton",InvisiblePanel)
@@ -1627,7 +1627,7 @@ function DrawSelectClass()
 		StatsMenu:Close()
 	end	
 	
-	//Stats
+	-- Stats
 	
 	StatsX, StatsY = SpawnButtonX+SpawnButtonW+ScaleH(20),SpawnButtonY
 	StatsW, StatsH = TopMenuW-(SpawnButtonW+ScaleH(20)), SpawnButtonH
@@ -1654,7 +1654,7 @@ function DrawSelectClass()
 		draw.SimpleTextOutlined("rank" , "WeaponNames", Rank2X,Rank2Y+ScaleH(25), Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		
 		
-		//Progress bar
+		-- Progress bar
 		
 		local BarW,BarH = StatsW*0.7,StatsH*.3
 		local BarX,BarY = StatsW/2-BarW/2,StatsH/2-BarH/2
@@ -1678,10 +1678,10 @@ function DrawSelectClass()
 		surface.DrawRect(BarX+5 , BarY+5, (rel)*(BarW-10), BarH-10 )
 		
 		draw.SimpleTextOutlined("Experience: "..actual.."/"..full , "WeaponNames", StatsW/2,Rank2Y+ScaleH(25), Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		//draw.SimpleTextOutlined("Total experience: "..MySelf:GetXP().."/"..MySelf:NextRankXP() , "WeaponNames", StatsW/2,Rank2Y+ScaleH(40), Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		-- draw.SimpleTextOutlined("Total experience: "..MySelf:GetXP().."/"..MySelf:NextRankXP() , "WeaponNames", StatsW/2,Rank2Y+ScaleH(40), Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	
-		//
-		//surface.DrawRect(ActualX+5 , ActualY+5, (HPBarSizeW-10)*MySelf.HPBar, HPBarSizeH-10 )
+		-- 
+		-- surface.DrawRect(ActualX+5 , ActualY+5, (HPBarSizeW-10)*MySelf.HPBar, HPBarSizeH-10 )
 	
 	end
 	
@@ -1708,13 +1708,13 @@ function ChangeClassClient ( class )
 	RunConsoleCommand("ChangeClass", class)
 	
 	if not FIRSTAPRIL then
-	//RunConsoleCommand ("stopsounds")
+	-- RunConsoleCommand ("stopsounds")
 	end
 end
 usermessage.Hook("DrawSelectClass", DrawNewSelectClass2) 
-//concommand.Add("open_testmenu",DrawNewSelectClass2)
+-- concommand.Add("open_testmenu",DrawNewSelectClass2)
 
-//Include unlock draw effect too
+-- Include unlock draw effect too
 local UnlockStack = 0
 local UnlockTime = 0
 
@@ -1755,15 +1755,15 @@ function DrawUnlock()
 		end
 		draw.SimpleTextOutlined(UnlockType.." Unlocked!","ArialBoldTen",UnlockX[k]+rand,UnlockY[k]+rand2,col, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 1, col2)
 		draw.SimpleTextOutlined(UnlockName,"ArialBoldFifteen",UnlockX[k]+rand,UnlockY[k]+30+rand2,col, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 1, col2)
-		//draw.DrawText("Achievement Unlocked!","HUDFontSmaller",achievX[k]+rand,achievY[k]+rand2,col, TEXT_ALIGN_CENTER)
-		//draw.DrawText(achievName,"HUDFontSmall",achievX[k]+rand,achievY[k]+20+rand2,col, TEXT_ALIGN_CENTER)
+		-- draw.DrawText("Achievement Unlocked!","HUDFontSmaller",achievX[k]+rand,achievY[k]+rand2,col, TEXT_ALIGN_CENTER)
+		-- draw.DrawText(achievName,"HUDFontSmall",achievX[k]+rand,achievY[k]+20+rand2,col, TEXT_ALIGN_CENTER)
 	end
 	
 	col = Color(255,255,255,UnlockAlpha)
 	
-	//surface.SetTexture( achievImage )
-	//surface.SetDrawColor( col )
-	//surface.DrawTexturedRect( achievX[5], achievY[5],100,100 )
+	-- surface.SetTexture( achievImage )
+	-- surface.SetDrawColor( col )
+	-- surface.DrawTexturedRect( achievX[5], achievY[5],100,100 )
 	
 	for k=1,4 do
 		UnlockX[k] = math.Approach(UnlockX[k], textEndX, w*3*FrameTime())
@@ -1802,10 +1802,10 @@ function UnlockEffect2( Unlock )
 			UnlockType = "Perk"
 		end
 		
-		//UnlockImage = surface.GetTextureID(achievementDesc[statID].Image)
+		-- UnlockImage = surface.GetTextureID(achievementDesc[statID].Image)
 		UnlockTime = CurTime()+4
 		
-		//surface.PlaySound("physics/metal/sawblade_stick"..math.random(1,3)..".wav")
+		-- surface.PlaySound("physics/metal/sawblade_stick"..math.random(1,3)..".wav")
 		surface.PlaySound("ambient/levels/citadel/pod_close1.wav")
 		
 		hook.Add("HUDPaint","DrawUnlock",DrawUnlock)
@@ -1829,7 +1829,7 @@ function LateSpawnLoadout()
 			for _,v in pairs (Loadout) do
 				if not MySelf:HasUnlocked(v) then
 					table.remove( Loadout, _ )
-					//Loadout[_] = nil
+					-- Loadout[_] = nil
 				end
 			end
 		else

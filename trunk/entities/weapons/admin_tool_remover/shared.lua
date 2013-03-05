@@ -51,7 +51,7 @@ local function RemoveEntity( ent )
 
 end
 
-//Hacky way to update weapon slot count
+-- Hacky way to update weapon slot count
 function SWEP:Equip ( NewOwner )
 	if SERVER then
 		local EntClass = self:GetClass()
@@ -68,17 +68,17 @@ end
 
 local function DoRemoveEntity( Entity )
 
-	if (!Entity) then return false end
-	if (!Entity:IsValid()) then return false end
+	if (not Entity) then return false end
+	if (not Entity:IsValid()) then return false end
 	if (Entity:IsPlayer()) then return false end
 
-	// Nothing for the client to do here
+	--  Nothing for the client to do here
 	if ( CLIENT ) then return true end
 	
-	// Remove it properly in 1 second
+	--  Remove it properly in 1 second
 	timer.Simple( 1, RemoveEntity, Entity )
 	
-	// Make it non solid
+	--  Make it non solid
 	Entity:SetNotSolid( true )
 	Entity:SetMoveType( MOVETYPE_NONE )
 	Entity:SetNoDraw( true )
@@ -87,10 +87,10 @@ local function DoRemoveEntity( Entity )
 
 end
 
-/*---------------------------------------------------------
+--[==[---------------------------------------------------------
    Name:	LeftClick
    Desc:	Remove a single entity
----------------------------------------------------------*/  
+---------------------------------------------------------]==]  
 
 function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
@@ -99,7 +99,7 @@ function SWEP:PrimaryAttack()
 	 
     if ( DoRemoveEntity( hitpos ) ) then
 	
-		--if ( !CLIENT ) then
+		--if ( not CLIENT ) then
 		--	MsgAll( self:GetOwner():Nick(), " removed ", trace.Entity:GetClass(), "\n" )
 		--end
 		self.Weapon:EmitSound(self.Primary.Sound)

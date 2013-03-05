@@ -16,12 +16,12 @@ function ENT:OnRemove()
 	if IsValid(owner) then
 		owner:SetNoDraw(false)
 		owner.KnockedDown = false
-		--[[if 0 < owner:Health() then
+		--[=[if 0 < owner:Health() then
 			local rag = owner:GetRagdollEntity()
 			if rag and rag:IsValid() then
 				rag:Remove()
 			end
-		end]]
+		end]=]
 	end
 end
 

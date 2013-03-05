@@ -1,7 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-//Old, see weapon_zs_medkit
+-- Old, see weapon_zs_medkit
 
 if( SERVER ) then
 	AddCSLuaFile( "shared.lua" )
@@ -18,7 +18,7 @@ if( CLIENT ) then
 	killicon.AddFont( "weapon_zs_syringe", "CSKillIcons", "F", Color(255, 80, 0, 255 ) )
 	
 	function SWEP:DrawHUD()
-		//MeleeWeaponDrawHUD()
+		-- MeleeWeaponDrawHUD()
 	end
 end
 
@@ -65,7 +65,7 @@ function SWEP:Initialize()
 	self:SetWeaponHoldType ( "physgun" )
 end 
 
-//Call this function to update weapon slot and others
+-- Call this function to update weapon slot and others
 function SWEP:Equip ( NewOwner )
 	if SERVER then
 		gamemode.Call ( "OnWeaponEquip", NewOwner, self )
@@ -169,7 +169,7 @@ SWEP.infected = {}
 					if current < max then
 						self:TakePrimaryAmmo (1)
 						
-						//Healing Nitwit
+						-- Healing Nitwit
 						self.Owner.HealingDone = self.Owner.HealingDone + 1
 						self.Owner.HealedForSP = self.Owner.HealedForSP + 1
 						
@@ -293,7 +293,7 @@ if CLIENT then
 	
 	function SWEP:ViewModelDrawn()
 	local vm = self.Owner:GetViewModel()
-    if !ValidEntity(vm) then return end
+    if not ValidEntity(vm) then return end
 	pos,ang = vm:GetBonePosition(vm:LookupBone("breathe"))
 	local pname, phealth
 	pname = ""

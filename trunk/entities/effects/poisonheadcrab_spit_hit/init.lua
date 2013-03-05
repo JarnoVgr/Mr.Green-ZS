@@ -3,17 +3,17 @@
 
 function EFFECT:Init( data )
 
-	//Get normal
+	-- Get normal
 	self.Pos = data:GetOrigin()
 	self.Normal = data:GetNormal()
 
-	//Set particle/emitter
+	-- Set particle/emitter
 	self.Particles = {}
 	self.Emitter = ParticleEmitter( self.Pos )
 	
 	self.DieTime = CurTime() + 3
 
-	//Add particles
+	-- Add particles
 	for i = 1, 3 do
 		self.Particles[i] = self.Emitter:Add( "particle/smokestack", self.Pos + self.Normal * -4 + ( getVectorSign( VectorRand() * 2.2, -1 * self.Normal ) ) )
 		self.Particles[i]:SetVelocity( ( -1 * self.Normal ) + ( getVectorSign( Vector( math.Rand( -10, 10 ),math.Rand( -10, 10 ),math.Rand( -10, 10 ) ), -1 * self.Normal ) ) )
@@ -26,13 +26,13 @@ function EFFECT:Init( data )
 	end
 end
 
-//Finish effect
+-- Finish effect
 function EFFECT:Finish()
 	if self.Emitter then
 		self.Emitter:Finish() 
 	end
 	
-	//Erase particles
+	-- Erase particles
 	if self.Particles then
 		for i = 1, 3 do
 			self.Particles[i]:SetDieTime( 0.01 )

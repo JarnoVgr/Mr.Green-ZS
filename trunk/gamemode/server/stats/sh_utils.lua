@@ -3,7 +3,7 @@
 
 local util = util
 
-//Returns achievement table by keyname( eg: "rambo" )
+-- Returns achievement table by keyname( eg: "rambo" )
 function util.GetAchievementTableByKey( Key )
 	if achievementDesc then
 		for k,v in pairs ( achievementDesc ) do
@@ -14,7 +14,7 @@ function util.GetAchievementTableByKey( Key )
 	end
 end
 
-//Returns item table by keyname( eg: "crab" )
+-- Returns item table by keyname( eg: "crab" )
 function util.GetItemTableByKey( Key )
 	if shopData then
 		for k,v in pairs ( shopData ) do
@@ -25,7 +25,7 @@ function util.GetItemTableByKey( Key )
 	end
 end
 
-//Returns achievement ID by keyname( eg: "rambo" )
+-- Returns achievement ID by keyname( eg: "rambo" )
 function util.GetAchievementID( Name )
 	if achievementDesc then
 		for k,v in pairs ( achievementDesc ) do
@@ -36,7 +36,7 @@ function util.GetAchievementID( Name )
 	end
 end
 
-//Returns item by name
+-- Returns item by name
 function util.GetItemID( Name )
 	if shopData then
 		for k,v in pairs ( shopData ) do

@@ -45,7 +45,7 @@ SWEP.Secondary.Delay = 0.01
 SWEP.Primary.Sound = Sound( "buttons/button15.wav" )
 
 
-//Don't touch this
+-- Don't touch this
 local EntsToDelete = {}
 local PointsTable = {}
 
@@ -56,7 +56,7 @@ SWEP.AmmoBoxTable2 = {}
 SWEP.SpawnsTable = {}
 
 function SWEP:Initialize()
-	//Ammo box switch
+	-- Ammo box switch
 	self:SetDTBool ( 0, false )
 end
 
@@ -72,28 +72,28 @@ function SWEP:SpawnAmmoBox ( Switched )
 	ent:SetModel ( "models/props_interiors/VendingMachineSoda01a.mdl" )
 	ent:SetColor (Color(0,255,0,200))
 	ent:SetMaterial("models/debug/debugwhite")
-	//ent:SetCollisionGroup ( COLLISION_GROUP_DEBRIS )
+	-- ent:SetCollisionGroup ( COLLISION_GROUP_DEBRIS )
 	ent.CrateDummy = true
-	//ent.CrateIndex = #self.AmmoBoxTable+1
+	-- ent.CrateIndex = #self.AmmoBoxTable+1
 	ent:Spawn()
 	
 	
 	
-	//print("Spawning Crate index: "..ent.CrateIndex)
+	-- print("Spawning Crate index: "..ent.CrateIndex)
 
 	local Phys = ent:GetPhysicsObject()
 	if ValidEntity ( Phys ) then
 		Phys:EnableMotion ( false )
 	end
 	
-	/*local ent = ents.Create ( "spawn_ammo" )
+	--[==[local ent = ents.Create ( "spawn_ammo" )
 	ent.Switch = Switched
 	ent:SetPos ( pos )
-	ent:Spawn()	*/
+	ent:Spawn()	]==]
 
 	local PosTableSupply = { Pos = {trace.HitPos.x,trace.HitPos.y,trace.HitPos.z},Switch = Switched }
-	//self.AmmoBoxTable2[#self.AmmoBoxTable+1] = ent
-	//self.AmmoBoxTable[ent.CrateIndex] = PosTableSupply
+	-- self.AmmoBoxTable2[#self.AmmoBoxTable+1] = ent
+	-- self.AmmoBoxTable[ent.CrateIndex] = PosTableSupply
 	table.insert ( self.AmmoBoxTable2, ent )
 	table.insert ( self.AmmoBoxTable, PosTableSupply )
 	print("Added-------------------------")
@@ -102,7 +102,7 @@ end
 
 function SWEP:RemoveAmmoBox(ent)
 	
-	//local ind = ent.CrateIndex
+	-- local ind = ent.CrateIndex
 	
 	local ind = 0
 	
@@ -126,7 +126,7 @@ function SWEP:RemoveAmmoBox(ent)
 	PrintTable(self.AmmoBoxTable)
 end
 
-//Hacky way to update weapon slot count
+-- Hacky way to update weapon slot count
 function SWEP:Equip ( NewOwner )
 	if SERVER then
 		local EntClass = self:GetClass()
@@ -146,9 +146,9 @@ function SWEP:Think()
 
 end
 
-/*---------------------------------------------------------------------------------
+--[==[---------------------------------------------------------------------------------
        Saves Ammo Box Locations from the developer tool - don't touch!
-----------------------------------------------------------------------------------*/
+----------------------------------------------------------------------------------]==]
 local function SaveAmmoPoints ( pl, cmd, args )
 	if not pl:IsAdmin() then return end
 	
@@ -185,7 +185,7 @@ function SWEP:PrimaryAttack()
 			self:SpawnAmmoBox ( self:GetDTBool ( 0 ) )
 		end
 		
-		//Weapon animation
+		-- Weapon animation
 		self.Weapon:SendWeaponAnim ( ACT_VM_PRIMARYATTACK )
 	end
 end

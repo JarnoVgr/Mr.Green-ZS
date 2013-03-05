@@ -110,7 +110,7 @@ SWEP.AmmoMode = {
 	
 }
 
-//Call this function to update weapon slot and others
+-- Call this function to update weapon slot and others
 function SWEP:Equip ( NewOwner )
 	if SERVER then
 		--self.Weapon:SetNetworkedInt ( "AmmoMode", 1 )
@@ -148,11 +148,11 @@ if SERVER then
 	local trground = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos - Vector(0,0,1.5)})
 	
 	if trground.HitWorld then
-		//if htrace.Entity == NULL then
+		-- if htrace.Entity == NULL then
 			Crate = true
-		//else
-			//Crate = false
-		//end
+		-- else
+			-- Crate = false
+		-- end
 	else
 		Crate = false
 	end
@@ -171,8 +171,8 @@ if SERVER then
 	local ent = ents.Create ("zs_ammobox")
 		if ( ent ~= nil and ent:IsValid() ) then
 		
-			// logging, Note to Clavus - add crate logging
-			//log.PlayerAction( self.Owner, "place_turret")
+			--  logging, Note to Clavus - add crate logging
+			-- log.PlayerAction( self.Owner, "place_turret")
 		
 			ent:SetPos(tr.HitPos)
 			ent:SetAngles( Angle (0,angles.y,angles.r) )
@@ -184,14 +184,14 @@ if SERVER then
 			self:TakePrimaryAmmo( 1 )
 			
 			-- Engineer's requirements
-			--[[-if self.Owner:GetHumanClass() == 4 then
+			--[=[-if self.Owner:GetHumanClass() == 4 then
 				if self.Owner:GetTableScore("engineer","level") == 0 and self.Owner:GetTableScore("engineer","achlevel0_1") < 30 then
 					self.Owner:AddTableScore("engineer","achlevel0_1",1)
 				elseif self.Owner:GetTableScore("engineer","level") == 1 and self.Owner:GetTableScore("engineer","achlevel0_1") < 60 then
 					self.Owner:AddTableScore("engineer","achlevel0_1",1)
 				end				
 			self.Owner:CheckLevelUp()
-			end ]]
+			end ]=]
 			
 			if self and self:IsValid() then
 				DropWeapon(self.Owner)
