@@ -14,7 +14,7 @@ local function OnGameEnd( iWinnerTeam )
 	local sMap = game.GetMap()
 	
 	-- Stats page link
-	local sLink = "http:-- www.mr-green.nl/portal/statistics/rec_stats.php?game=zs"
+	local sLink = "http://www.mr-green.nl/portal/statistics/rec_stats.php?game=zs"
 	
 	-- Add team score values
 	local sParameter = "&add_global_human_wins="..( ( 1 and iWinnerTeam == TEAM_HUMAN ) or 0 ).."&add_global_zombie_wins="..( ( 1 and iWinnerTeam == TEAM_UNDEAD ) or 0 )

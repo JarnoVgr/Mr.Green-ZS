@@ -731,7 +731,7 @@ Warning, some shit is broken because of high quality GMod updates.
 *Achievements and bosses are disabled.
 *Rest of stuff is unstable.
 
-Please report about any bugs at http:-- mrgreengaming.com
+Please report about any bugs at http://mrgreengaming.com
 ]]
 --[=[
 This version of gamemode was heavily modified so if you have any questions - you'd better check out F1 menu as soon as you spawn.
@@ -831,10 +831,10 @@ HELP_TXT[2] = {
 HELP_TXT[3] = {
 	title = "About", 
 	txt = [[
-		The Mr. Green forums can be found at http:-- www.mrgreengaming.com
+		The Mr. Green forums can be found at http://www.mrgreengaming.com
 		If you have any questions or tips about/for this server you can always e-mail to ywa@limetric.com
 		
-		Surf to http:-- www.mrgreengaming.com to post your ideas for changes and where you can post suggestions for new maps.
+		Surf to http://www.mrgreengaming.com to post your ideas for changes and where you can post suggestions for new maps.
 	]]
 } 
 
@@ -863,7 +863,7 @@ HELP_TXT[4] = {
 		* Press F4
 	]]
 } 
-ADMINS_HTTP = "http:-- left4green.com/serverinfo/zs_admins.php"
+ADMINS_HTTP = "http://left4green.com/serverinfo/zs_admins.php"
 HELP_TXT[5] = {
 	title = "Server", 
 	txt = [[]]
@@ -896,7 +896,7 @@ HELP_TEXT[1] = { title = "Help", text = [[^rZombie Survival
 @Check out www.lef4green.com or www.limetric.com!]]}
 
 -- Append the changelog later on
-CHANGELOG_HTTP = "http:-- www.mr-green.nl/portal/serverinfo/zs_changelog.html"
+CHANGELOG_HTTP = "http://www.mr-green.nl/portal/serverinfo/zs_changelog.html"
 HELP_TEXT[2] = { title = "Changelog", text = [[^rGamemode changelog
 @Some changes from JetBoom's original Zombie Survival v1.11 are listed here.
 @
@@ -915,11 +915,11 @@ HELP_TEXT[2] = { title = "Changelog", text = [[^rGamemode changelog
 
 
 HELP_TEXT[3] = { title = "Server", text = [[^rServer information
-@^yThe Mr. Green forums can be found at http:-- www.left4green.com
+@^yThe Mr. Green forums can be found at http://www.left4green.com
 @
 @If you have any questions or tips about/for this server you can always e-mail to ywa@limetric.com
 @
-@Surf to http:-- www.left4green.com to post your ideas for changes and where you can post suggestions for new maps.
+@Surf to http://www.left4green.com to post your ideas for changes and where you can post suggestions for new maps.
 @
 @
 ]]}
@@ -968,7 +968,7 @@ HELP_TEXT[5] = { title = "Donate!", text = [[^yDONATE TO THIS SERVER!
 @Donations are all done via PAYPAL (www.paypal.com).
 @
 @Further instructions can be found on our website www.left4green.com. Select "Green-Coins" and follow the link to the 
-@instructions topic in the page footer. Or follow this link directly: http:-- forums.left4green.com/index.php?showtopic=2183
+@instructions topic in the page footer. Or follow this link directly: http://forums.left4green.com/index.php?showtopic=2183
 @
 @^yYou will need your SteamID to connect your Steam account to the forum account. Type "!steamid" in chat to view yours.
 @
@@ -1031,7 +1031,7 @@ HELP_TEXT[7] = { title = "Quick Guide.", text = [[^Beginners Guide
 @ A: Supply crates will give you ammo until when there will be ~6-7 humans.
 @
 @^b Q: Where i can see the full changelog?
-@ A: Here: http:-- projects.limetric.com/projects/zombiesurvival
+@ A: Here: http://projects.limetric.com/projects/zombiesurvival
 @
 @^b Q: How I can buy stuff?
 @ A: Click 'Green SHOP' button or type '!shop' to open a shop where you can spend your Green Coins.

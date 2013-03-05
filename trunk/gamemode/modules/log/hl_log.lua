@@ -1,10 +1,10 @@
 --[==[
  * HL Log Standard style logging
- * Script written by Clavus (http:-- steamcommunity.com/id/clavuselite)
+ * Script written by Clavus (http://steamcommunity.com/id/clavuselite)
  * Free to distribute and use for any purpose
  *
  * Read about the HL Log Standard here (*** RECOMMENDED ***):
- * http:-- developer.valvesoftware.com/wiki/HL_Log_Standard
+ * http://developer.valvesoftware.com/wiki/HL_Log_Standard
  *
  * Usage: call 'require("log")' at the start of your script or gamemode.
  * The following functions can then be called:
@@ -30,7 +30,7 @@
  * This script exists to help gamemode developers easily
  * log events and actions according to the HL Log Standard,
  * making their gamemode compatible with a variety of statistic
- * tracking services like gameME (http:-- www.gameme.com/).
+ * tracking services like gameME (http://www.gameme.com/).
  *
  * Garry's Mod already logs all the HL Engine events.
  * GMod also logs several game events:

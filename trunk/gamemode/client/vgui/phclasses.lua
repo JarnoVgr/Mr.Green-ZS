@@ -1616,7 +1616,7 @@ function DrawSelectClass()
 	end
 	
 	SpawnButton.PaintOver = function ()
-		draw.SimpleTextOutlined("SPAWN ("..spawntimer..")" , "ArialBoldTwelve", SpawnButtonW/2, SpawnButtonH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("SPAWN ("..( spawntimer )..")" , "ArialBoldTwelve", SpawnButtonW/2, SpawnButtonH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 	SpawnButton.DoClick = function ()
 		ChangeClassClient (1)

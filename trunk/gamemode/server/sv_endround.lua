@@ -131,40 +131,6 @@ function GM:SendTopHumanDamages(to)
 end
 
 --[==[---------------------------------------------------------
-	 Send top greencoins ( both teams)
----------------------------------------------------------]==]
-function GM:SendTopGreencoins (to)
-	local PlayerSorted = {}
-
-	for _, pl in pairs( player.GetAll() ) do
-		pl.TotalGreencoins = pl.GreencoinsGained[TEAM_HUMAN] + pl.GreencoinsGained[TEAM_UNDEAD]
-		table.insert(PlayerSorted, pl)
-	end
-
-	if #PlayerSorted <= 0 then return end
-	table.sort(PlayerSorted,
-	function(a, b)
-		if a.TotalGreencoins == b.TotalGreencoins then
-			return a:UserID() > b:UserID()
-		end
-		return a.TotalGreencoins > b.TotalGreencoins
-	end
-	)
-
-	local x = 0
-	for _, pl in pairs(PlayerSorted) do
-		if x < 5 then
-			x = x + 1
-			umsg.Start("RcTopGreencoins", to)
-				umsg.Short(x)
-				umsg.String( pl:Name() )
-				umsg.String( tostring ( math.ceil( pl.TotalGreencoins ) ) )
-			umsg.End()
-		end
-	end
-end
-
---[==[---------------------------------------------------------
 	 Send top zombies killed
 ---------------------------------------------------------]==]
 function GM:SendTopZombiesKilled (to)
@@ -194,41 +160,6 @@ function GM:SendTopZombiesKilled (to)
 				umsg.Short(x)
 				umsg.String( pl:Name() )
 				umsg.String( tostring ( math.ceil( pl.ZombiesKilled ) ) )
-			umsg.End()
-		end
-	end
-end
-
---[==[---------------------------------------------------------
-	 Send top assisting players
----------------------------------------------------------]==]
-function GM:SendTopAssists (to)
-	local PlayerSorted = {}
-
-	for _, pl in pairs(player.GetAll()) do
-		if pl.Assists then
-			table.insert(PlayerSorted, pl)
-		end
-	end
-
-	if #PlayerSorted <= 0 then return end
-	table.sort(PlayerSorted,
-	function(a, b)
-		if a.Assists == b.Assists then
-			return a:UserID() > b:UserID()
-		end
-		return a.Assists > b.Assists
-	end
-	)
-
-	local x = 0
-	for _, pl in pairs(PlayerSorted) do
-		if x < 5 then
-			x = x + 1
-			umsg.Start("RcTopAssists", to)
-				umsg.Short(x)
-				umsg.String( pl:Name() )
-				umsg.String( tostring ( math.ceil(pl.Assists) ) ) 
 			umsg.End()
 		end
 	end
@@ -302,255 +233,17 @@ function GM:SendTopHealing (to)
 	end
 end
 
---[==[---------------------------------------------------------
-	Send Most chosen class (both teams)
----------------------------------------------------------]==]
-function GM:SendMostChosenClass ( to )
-	local MostChosenHumanClass,MostChosenUndeadClass = "",""
-
-	-- Calculate most chosen human class
-	local MaximumPoint = -100
-	for k,v in pairs (self.TeamMostChosenClass) do
-		for i = 1, #HumanClasses do
-			if k == HumanClasses[i].Name then
-				local CurrentPoint = v
-				if CurrentPoint > MaximumPoint then
-					MaximumPoint = CurrentPoint
-					MostChosenHumanClass = k
-					
-					--Correct my spelling mistakes :<
-					if k == "Berseker" then
-						MostChosenHumanClass = "Marksman"
-					end
-				end
-			end
-		end
-	end
-	
-	-- Chose most chosen undead class
-	MaximumPoint = -100
-	for k,v in pairs (self.TeamMostChosenClass) do
-		for i = 1, #ZombieClasses do
-			if k == ZombieClasses[i].Name then
-				local CurrentPoint = v
-				if CurrentPoint > MaximumPoint then
-					MaximumPoint = CurrentPoint
-					MostChosenUndeadClass = k
-				end
-			end
-		end
-	end
-	
-	--Send info to all players (Use only one string and split it on client)
-	umsg.Start("RecMostChosenClass", to)
-		umsg.String ( MostChosenHumanClass.."|"..MostChosenUndeadClass )
-	umsg.End()
-end
-
---[==[---------------------------------------------------------
-  Send total greencoins gained for each team
----------------------------------------------------------]==]
-function GM:SendGreencoinsGained ( to )
-	local HumanGC, UndeadGC = 0,0
-	
-	-- Calculate total gc gained for each team.
-	for k,v in pairs (player.GetAll()) do
-		HumanGC = HumanGC + v.GreencoinsGained[TEAM_HUMAN]
-		UndeadGC = UndeadGC + v.GreencoinsGained[TEAM_UNDEAD]
-	end
-	
-	--Send info to all players
-	umsg.Start("RecTeamGreencoinsGained", to)
-		umsg.Short ( HumanGC )
-		umsg.Short ( UndeadGC )
-	umsg.End()
-end
-
 function GM:SendVotemaps ( to )
 	local VoteMaps = self:GetVoteMaps()
 	
-	if (#VoteMaps < 3) then return end
+	if (#VoteMaps < 3) then 
+	   return 
+	end
 	
 	umsg.Start("RecVotemaps", to)
-		-- Only 3 maps!
 		for i = 1,3 do 
 			umsg.String ( VoteMaps[i][1] )
 			umsg.String ( VoteMaps[i][2] )
-		end
-	umsg.End()
-end
-
-local function SortNitwit ( Nitwits, a, b, pl )
-	if Nitwits[a] then
-		if Nitwits[a][b] < pl[b] then
-			Nitwits[a] = pl
-		end
-	elseif pl[b] > 0 then
-		Nitwits[a] = pl
-	end
-end
-
-function GM:SendTopNitwits (to)
-	local Nitwits = {}
-	Nitwits.HeadshotChamp = nil
-	Nitwits.HelpfulChamp = nil
-	Nitwits.BrutalChamp = nil
-	Nitwits.FirstRedeemChamp = nil
-	Nitwits.GreencoinChamp = nil
-	Nitwits.HungryZombieChamp = nil
-	Nitwits.ScaryChamp = nil
-	Nitwits.HornyChamp = nil
-	Nitwits.UnhappyChamp = nil
-	Nitwits.MeleeChamp = nil
-	Nitwits.PropChamp = nil
-	Nitwits.Lasthuman = nil
-	
-	for k, pl in pairs(player.GetAll()) do
-		if pl:Team() == TEAM_UNDEAD or pl:Team() == TEAM_HUMAN then
-			SortNitwit ( Nitwits, "HeadshotChamp", "Headshots", pl)
-			SortNitwit ( Nitwits, "ScaryChamp", "ScreensFucked", pl)
-			SortNitwit ( Nitwits, "HornyChamp", "Hornyness", pl)
-			SortNitwit ( Nitwits, "MeleeChamp", "MeleeKills", pl)
-			SortNitwit ( Nitwits, "PropChamp", "PropKills", pl)
-			SortNitwit ( Nitwits, "HungryZombieChamp", "BrainsEaten", pl)
-			
-			for k,v in pairs (player.GetAll()) do
-				if v.FirstRedeem then
-					Nitwits.FirstRedeemChamp = v
-				end
-			end
-			
-			if Nitwits.GreencoinChamp then
-				if Nitwits.GreencoinChamp.GreencoinsGained[TEAM_HUMAN] + pl.GreencoinsGained[TEAM_UNDEAD] < pl.GreencoinsGained[TEAM_HUMAN] + pl.GreencoinsGained[TEAM_UNDEAD] then
-					Nitwits.GreencoinChamp = pl
-				end
-			elseif pl.GreencoinsGained[TEAM_HUMAN] + pl.GreencoinsGained[TEAM_UNDEAD] > 0 then
-				Nitwits.GreencoinChamp = pl
-			end
-			
-			if Nitwits.BrutalChamp then
-				if Nitwits.BrutalChamp.DamageDealt[TEAM_HUMAN] + pl.DamageDealt[TEAM_UNDEAD] < pl.DamageDealt[TEAM_HUMAN] + pl.DamageDealt[TEAM_UNDEAD] then
-					Nitwits.BrutalChamp = pl
-				end
-			elseif pl.DamageDealt[TEAM_HUMAN] + pl.DamageDealt[TEAM_UNDEAD] > 0 then
-				Nitwits.BrutalChamp = pl
-			end
-			
-			if Nitwits.HelpfulChamp then
-				if Nitwits.HelpfulChamp.HealingDone + Nitwits.HelpfulChamp.Assists < pl.HealingDone + pl.Assists then
-					Nitwits.HelpfulChamp = pl
-				end
-			elseif pl.HealingDone + pl.Assists > 0 then
-				Nitwits.HelpfulChamp = pl
-			end
-			
-			if Nitwits.UnhappyChamp then
-				if Nitwits.UnhappyChamp:Deaths() < pl:Deaths() then
-					Nitwits.UnhappyChamp = pl
-				end
-			elseif pl:Deaths() > 0 then
-				Nitwits.UnhappyChamp = pl
-			end
-			
-			if Nitwits.Lasthuman then
-				if pl.LastHumanTime and pl.LastHumanTime > Nitwits.Lasthuman.LastHumanTime then
-					Nitwits.Lasthuman = pl
-				end
-			elseif pl.LastHumanTime then
-				Nitwits.Lasthuman = pl
-			end
-		end
-	end
-	
-	-- See what player has more than 1 nitwit achieved
-	local currentpl, iIndex = 0, {}
-	for k,pl in pairs (Nitwits) do
-		if pl then
-			local Name = pl:Name()
-			if not iIndex[ Name ] then
-				iIndex[ Name ] = {
-					Index = 0,
-					HasTakenGC = false,
-				}
-			end
-			
-			local currentpl = pl
-			for i, j in pairs (Nitwits) do
-				if j then
-					if currentpl == j then
-						iIndex[ Name ].Index = iIndex[ Name ].Index + 1
-						
-						--  Give the player with more than 2 achievments 5 greencoins
-						if iIndex[ Name ].Index > 1 and not iIndex[ Name ].HasTakenGC then
-							j:GiveGreenCoins ( 5 )
-							iIndex[ Name ].HasTakenGC = true
-						end
-					end
-				end
-			end
-		end
-	end	
-	
-	umsg.Start("RcTopNitwits",to)
-		if Nitwits.ScaryChamp then
-			umsg.String (Nitwits.ScaryChamp:Name())
-		else
-			umsg.String ("")
-		end
-		if Nitwits.HornyChamp then 
-			umsg.String (Nitwits.HornyChamp:Name())
-		else
-			umsg.String ("")
-		end
-		if Nitwits.UnhappyChamp then
-			umsg.String (Nitwits.UnhappyChamp:Name())
-		else
-			umsg.String ("")
-		end
-		if Nitwits.BrutalChamp then
-			umsg.String (Nitwits.BrutalChamp:Name())
-		else
-			umsg.String ("")
-		end
-		if Nitwits.PropChamp then
-			umsg.String (Nitwits.PropChamp:Name())
-		else
-			umsg.String ("")
-		end
-		if Nitwits.Lasthuman then
-			umsg.String (Nitwits.Lasthuman:Name())
-		else
-			umsg.String ("")
-		end
-		if Nitwits.HeadshotChamp then
-			umsg.String (Nitwits.HeadshotChamp:Name())
-		else
-			umsg.String ("")
-		end
-		if Nitwits.HelpfulChamp then
-			umsg.String (Nitwits.HelpfulChamp:Name())
-		else
-			umsg.String ("")
-		end
-		if Nitwits.MeleeChamp then
-			umsg.String (Nitwits.MeleeChamp:Name())
-		else
-			umsg.String ("")
-		end
-		if Nitwits.FirstRedeemChamp then
-			umsg.String (Nitwits.FirstRedeemChamp:Name())
-		else
-			umsg.String ("")
-		end
-		if Nitwits.GreencoinChamp then
-			umsg.String (Nitwits.GreencoinChamp:Name())
-		else
-			umsg.String ("")
-		end
-		if Nitwits.HungryZombieChamp then
-			umsg.String (Nitwits.HungryZombieChamp:Name())
-		else
-			umsg.String ("")
 		end
 	umsg.End()
 end
@@ -674,13 +367,8 @@ function GM:OnEndRound ( winner )
 		
 	-- Change level after intermission time runs out
 	timer.Simple(INTERMISSION_TIME, function()
-		-- RunConsoleCommand( "changelevel", NextMap )
 		game.ConsoleCommand("changelevel "..NextMap.."\n");
 	end)
-	
-	-- timer.Simple(INTERMISSION_TIME+40, function()
-	-- 	RunConsoleCommand( "changelevel", "zs_please" )
-	-- end)
 	
 	-- We don't want to respawn anymore 
 	function self:PlayerDeathThink(pl)
@@ -702,14 +390,6 @@ function GM:OnEndRound ( winner )
 				
 			-- For the last 2 levels, the second achievment is to survive.
 			if team.NumPlayers (TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD) > 11 then
-			--[=[	if not pl:IsBot() then
-					if pl:Alive() and pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"achlevel4_2") < 150 and pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"level") == 4 then
-						pl:AddTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"achlevel4_2",1)
-					elseif pl:Alive() and pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"achlevel4_2") < 300 and pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"level") == 5 then
-						pl:AddTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"achlevel4_2",1)
-					end
-					pl:CheckLevelUp()
-				end]=]
 				if not pl:IsBot() then
 					if pl:Alive() then
 						if self:IsRetroMode() then
@@ -728,14 +408,9 @@ function GM:OnEndRound ( winner )
 	GAMEMODE:SendTopZombies()
 	GAMEMODE:SendTopHumanDamages()
 	GAMEMODE:SendTopZombieDamages()
-	GAMEMODE:SendTopNitwits()
 	GAMEMODE:SendVotemaps()
-	GAMEMODE:SendTopGreencoins()
-	GAMEMODE:SendTopHealing ()
-	GAMEMODE:SendTopAssists ()
+	GAMEMODE:SendTopHealing()
 	GAMEMODE:SendTopZombiesKilled ()
-	GAMEMODE:SendGreencoinsGained ()
-	GAMEMODE:SendMostChosenClass ()
 	
 	--MapExploitWrite()
 	--Send the information to the player that joined in the intermission
@@ -745,14 +420,9 @@ function GM:OnEndRound ( winner )
 		GAMEMODE:SendTopZombies(pl)
 		GAMEMODE:SendTopHumanDamages(pl)
 		GAMEMODE:SendTopZombieDamages(pl)
-		GAMEMODE:SendTopNitwits(pl)
 		GAMEMODE:SendVotemaps(pl)
-		GAMEMODE:SendTopGreencoins(pl)
 		GAMEMODE:SendTopHealing (pl)
-		GAMEMODE:SendTopAssists (pl)
 		GAMEMODE:SendTopZombiesKilled (pl)
-		GAMEMODE:SendGreencoinsGained (pl)
-		GAMEMODE:SendMostChosenClass (pl)
 		
 		--Delay this so it doesn't give errors
 		timer.Simple(0.2, function() 
@@ -811,16 +481,10 @@ function GM:OnEndRound ( winner )
 			end
 			
 			-- Most stats/class data
-			local time1 = os.time()
-				pl:WriteDataSQL()
-			local time2 = os.time()
-			Debug( "[SQL] Saved sql data for "..tostring( pl ).." in "..tostring( time2 - time1 ) )
-		
+			pl:WriteDataSQL()
+
 			-- Greencoins
-			local time1 = os.time()
-				pl:SaveGreenCoins()
-			local time2 = os.time()
-			Debug( "[SQL] Saved GC data for "..tostring( pl ).." in "..tostring( time2 - time1 ) )
+			pl:SaveGreenCoins()
 		end )
 	end
 end

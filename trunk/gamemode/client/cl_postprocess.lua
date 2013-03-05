@@ -295,7 +295,6 @@ function GM:_RenderScreenspaceEffects()
 	
 	--  Blur the screen on endround
 	if ENDROUND then
-		--DrawBlur ( 5, 2 )
 		DrawBlur ( 5, 1.2 )
 	end
 		
@@ -406,6 +405,43 @@ function CalculateSharpenEffect ()
 	if fSharpenContrast ~= 0 then
 		DrawSharpen ( fSharpenContrast, fSharpenOffset )
 	end
+end
+
+--[==[---------------------------------------------------------
+    Blur function taken from utils
+---------------------------------------------------------]==]
+local matBlurScreen = Material( "pp/blurscreen" )
+
+function DrawBlur ( starttime, amount )
+    if starttime == 0 and amount == 0 then return end
+ 
+    local Fraction = 1
+     
+    if ( starttime ) then
+        Fraction = math.Clamp( (SysTime() - starttime) / 1, 0, 1 )
+    end
+    
+    if ( amount ) then  
+        Fraction = amount
+    end
+     
+    x,y = 0,0
+     
+    DisableClipping( true )
+           
+    surface.SetMaterial( matBlurScreen )   
+    surface.SetDrawColor( 255, 255, 255, 255 )
+                   
+    for i=0.33, 1, 0.33 do
+        matBlurScreen:SetFloat( "$blur", Fraction * 5 * i )
+        if ( render ) then render.UpdateScreenEffectTexture() end 
+        surface.DrawTexturedRect( x * -1, y * -1, ScrW(), ScrH() )
+    end
+           
+    surface.SetDrawColor( 10, 10, 10, 200 * Fraction )
+    surface.DrawRect( x * -1, y * -1, ScrW(), ScrH() )
+           
+    DisableClipping( false )
 end
 
 --[==[---------------------------------------------------------
@@ -563,54 +599,6 @@ function RageScream( iTime )
 	RageTime = CurTime() + ( iTime or 3 )
 	hook.Add("RenderScreenspaceEffects", "DrawZombieRage", DrawZombieRage)
 end
-
-
-
--- local DamageTime = 0 
--- local color = { } 
--- color.a = 255
--- color.fade = 1
--- local matdamageover = surface.GetTextureID ("damageover3")
-
--- function render_CreateDamageEffect (r,g,b)
-	-- hook.Remove("HUDPaint", "render_DrawDamageEffect")
-	-- color.r = r
-	-- color.g = g
-	-- color.b = b
-	
-	-- DamageTime = CurTime() + 0.5
-	-- hook.Add("HUDPaint", "render_DrawDamageEffect", render_DrawDamageEffect) 
--- end
-
--- function render_CreateBlurEffect (duration, addalpha, drawalpha, update)
-	-- if GetConVar ( "_zs_enableblur" ):GetBool() == false then return end
-	
-	-- if duration < CurTime() then
-		-- DrawMotionBlur(addalpha, drawalpha, update)
-		-- duration = CurTime() + 1
-	-- end
--- end
-
--- function render_DrawDamageEffect ()
-	-- if not MySelf:IsValid() and not MySelf:Alive() then return end
-	-- if ENDROUND then return end
-	
-	-- surface.SetDrawColor(color.r, color.g, color.b, color.a)
-	-- surface.SetTexture(matdamageover)
-	-- surface.DrawTexturedRect( 0,0,w,h )
-	
-	-- color.a = math.Approach(color.a,0, FrameTime()*100*3.5)
-	-- color.fade = math.Approach (color.fade,0, 0.02)
-	-- render_CreateBlurEffect (1, 0.1, color.fade, 0.01)
-	
-	-- if DamageTime < CurTime() then
-		-- if color.a == 0 then
-			-- hook.Remove("HUDPaint", "render_DrawDamageEffect")
-			-- color.a = math.random (180,255)
-			-- color.fade = 1
-		-- end
-	-- end
--- end
 
 local function DisablePP(sender, command, arguments)
 	DISABLE_PP = util.tobool(arguments[1])

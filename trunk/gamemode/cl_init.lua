@@ -188,7 +188,7 @@ function GM:HookGetLocal()
 
 	self.Think = self._Think
 	self.HUDShouldDraw = self._HUDShouldDraw
-	self.RenderScreenspaceEffects = self._RenderScreenspaceEffects
+	self.RenderScreenspaceEffects = self._RenderScreenspaceEffects -- Deluvas; WTF?
 	self.CalcView = self._CalcView
 	self.ShouldDrawLocalPlayer = self._ShouldDrawLocalPlayer
 	self.PostDrawOpaqueRenderables = self._PostDrawOpaqueRenderables
@@ -232,7 +232,6 @@ end
  
 hook.Add( "HUDPaint", "DrawWaiting", function()
 	if not ENDROUND or SinglePlayer() then
-		--DrawBlur( 2,3 )
 		draw.SimpleText( "Please wait... "..RandomText, "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.5, Color( 255,255,255,210 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 		draw.SimpleText( "www.mrgreengaming.com", "ArialBoldTwelve", ScrW() * 0.5, ScrH() * 0.55, Color( 180,180,180,235 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 		
