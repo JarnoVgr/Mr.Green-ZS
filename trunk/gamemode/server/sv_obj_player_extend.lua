@@ -1326,7 +1326,17 @@ end
 
 function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 
-	if not self.Nails then return end
+	if not self.Nails then 
+	    return 
+	end
+	
+	-- Cadebreaker warning
+	if ( attacker:Team() == TEAM_HUMAN ) then
+	    if ( attacker:IsPlayer() and ( attacker.BarricadeWarnTime or 0 ) <= CurTime() ) then
+            attacker:Message( "Don't break the barricade, you mingebag!", 2 )
+            attacker.BarricadeWarnTime = CurTime() + 4
+	    end  
+	end
 	
 	local ent = self
 	

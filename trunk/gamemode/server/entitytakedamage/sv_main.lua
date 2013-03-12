@@ -30,7 +30,9 @@ function GM:EntityTakeDamage ( ent,dmginfo )
 		return 
 	end
 	
-	if ent:DamageNails(attacker, inflictor, damage, dmginfo) then return end
+	if ent:DamageNails(attacker, inflictor, damage, dmginfo) then 
+	    return 
+	end
 	
 	local entclass = ent:GetClass()
 	if ent.PropHealth then -- A prop that was invulnerable and converted to vulnerable.

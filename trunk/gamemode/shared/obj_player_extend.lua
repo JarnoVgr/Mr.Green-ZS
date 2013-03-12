@@ -844,10 +844,10 @@ function meta:Message ( sText, iType, Col, iDuration )
 	-- Send message
 	if SERVER then
 		
-		net.Start( "notice.GetNotice")
+		net.Start( "notice.GetNotice" )
 			net.WriteString ( sText )
 			net.WriteDouble ( iType )
-			net.WriteString ( Col )
+			net.WriteString ( Col or "zs_please" )
 		net.Send(self)
 		
 		--[==[umsg.Start( "notice.GetNotice", self )
@@ -858,7 +858,9 @@ function meta:Message ( sText, iType, Col, iDuration )
 	end
 	
 	-- Clientside
-	if CLIENT then notice.Message( sText, Col, iType, iDuration ) end
+	if CLIENT then 
+	    notice.Message( sText, Col, iType, iDuration ) 
+	end
 end
 
 

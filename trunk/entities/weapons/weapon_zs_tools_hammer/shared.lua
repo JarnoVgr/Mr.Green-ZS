@@ -17,8 +17,6 @@ SWEP.ViewModelFOV = 75
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
 
-
-
 if CLIENT then
 
 SWEP.ShowViewModel = true
@@ -81,10 +79,6 @@ SWEP.Mode = 1
 
 if CLIENT then killicon.AddFont( "weapon_zs_tools_hammer", "ZSKillicons", "c", Color(255, 255, 255, 255 ) ) end
 
-function SWEP:Reload()
-	return false
-end
-
 for i=1,4 do
 	util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-"..i..".wav")
 end
@@ -103,33 +97,11 @@ function SWEP:OnInitialize()
 	self.NextNail = 0
 	
 end
--- LastInfoScroll = LastInfoScroll or 0
+
+
 SWEP.NextSwitch = 0
 function SWEP:Reload()
-	--[=[if self.NextSwitch > CurTime() then return end
-	
-	if self:GetNWInt("Nails/Boards") == 1 then
-		self.Info = "Right click to drop a plank.\n Reload - switch to nails."
-		if CLIENT then 
-			LastInfoScroll = CurTime() + 10 
-
-		end
-		self.Weapon:SetNetworkedInt ( "Nails/Boards", 2 )
-		self.Weapon:EmitSound("weapons/smg1/switch_burst.wav")
-
-	elseif self:GetNWInt ("Nails/Boards") == 2 then
-		self.Info = "Right click to nail a prop.\n Reload - switch to planks."
-		if CLIENT then 
-			LastInfoScroll = CurTime() + 10 	
-
-		end
-		self.Weapon:SetNetworkedInt ( "Nails/Boards", 1 )
-		self.Weapon:EmitSound("weapons/smg1/switch_burst.wav")
-		
-	end
-
-	self.NextSwitch = CurTime() + 1.5]=]
-	return false
+    return false
 end
 
 
