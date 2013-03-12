@@ -1164,11 +1164,7 @@ end
 function meta:VoiceQuestion()
 	local set
 
-	if self.IsSkeleton == true then
-		set = VoiceSetsGhost.RandomSounds
-	else
-		set = VoiceSets[self.VoiceSet].QuestionSounds
-	end
+	set = VoiceSets[self.VoiceSet].QuestionSounds
 	
 	if set then
 		self:EmitSound(set[math.random(1, #set)])
@@ -1179,11 +1175,7 @@ end
 function meta:VoiceAnswer()
 	local set
 
-	if self.IsSkeleton == true then
-		set = VoiceSetsGhost.RandomSounds
-	else
-		set = VoiceSets[self.VoiceSet].AnswerSounds
-	end
+	set = VoiceSets[self.VoiceSet].AnswerSounds
 	
 	if set then
 		self:EmitSound(set[math.random(1, #set)])

@@ -379,7 +379,6 @@ local function OnPlayerUse ( pl, key )
 	-- if not pl.SupplyMessageTimer then pl.SupplyMessageTimer = 0 end
 	-- if pl.GotSupply == true then if pl.SupplyMessageTimer <= CurTime() then pl:Message ("You already got supplies. Wait for the next drop off!", 1, "white") pl.SupplyMessageTimer = CurTime() + 3.1 end return end
 	
-	-- pl:EmitSound ( Sound ( "mrgreen/supplycrates/itempickup.wav" ) )
 	-- CalculateGivenSupplies( pl )
 	-- GiveItemsFromCart(pl)
 	

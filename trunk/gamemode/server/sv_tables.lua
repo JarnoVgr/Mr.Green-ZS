@@ -113,10 +113,6 @@ for _, filename in pairs(file.Find("materials/*.*" , "GAME") ) do
 	table.insert ( ResourceFiles, "materials/"..filename  )
 end
 	
-for _, filename in pairs(file.Find("materials/mrgreen/*.*", "GAME" ) ) do
-	table.insert ( ResourceFiles, "materials/mrgreen/"..filename  )
-end
-	
 for _, filename in pairs(file.Find("materials/vgui/images/blood_splat/*.*" , "GAME") ) do
 	table.insert ( ResourceFiles, "materials/vgui/images/blood_splat/"..filename  )
 end
@@ -194,10 +190,6 @@ local files, dir = file.Find("materials/hud3/*.*", "GAME" )
 for _, filename in pairs(files) do
 	table.insert ( ResourceFiles, "materials/hud3/"..filename  )
 end
-	
-for _, filename in pairs(file.Find("materials/scope/*.*" , "GAME") ) do
-	table.insert ( ResourceFiles, "materials/scope/"..filename  )
-end
 
 for _, filename in pairs(file.Find("materials/katharsmodels/gordon_freeman/*.*", "GAME" ) ) do
 	table.insert ( ResourceFiles, "materials/katharsmodels/gordon_freeman/"..filename )
@@ -212,31 +204,6 @@ end
 	            Add sounds here
 ---------------------------------------------------------]=]
 
---[=[table.insert ( ResourceFiles, "sound/ecky.wav")
-table.insert ( ResourceFiles, "sound/beat9.wav")
-table.insert ( ResourceFiles, "sound/beat8.wav")
-table.insert ( ResourceFiles, "sound/beat7.wav")
-table.insert ( ResourceFiles, "sound/beat6.wav")
-table.insert ( ResourceFiles, "sound/beat5.wav")
-table.insert ( ResourceFiles, "sound/beat4.wav")
-table.insert ( ResourceFiles, "sound/beat3.wav")
-table.insert ( ResourceFiles, "sound/beat2.wav")
-table.insert ( ResourceFiles, "sound/beat1.wav")
-table.insert ( ResourceFiles, "sound/zbeat8.wav")
-table.insert ( ResourceFiles, "sound/zbeat7.wav")
-table.insert ( ResourceFiles, "sound/zbeat6.wav")
-table.insert ( ResourceFiles, "sound/zbeat5.wav")
-table.insert ( ResourceFiles, "sound/zbeat4.wav")
-table.insert ( ResourceFiles, "sound/zbeat3.wav")
-table.insert ( ResourceFiles, "sound/zbeat2.wav")
-table.insert ( ResourceFiles, "sound/zbeat1.wav")
-table.insert ( ResourceFiles, "sound/mrgreen/ui/deadlightdistrict.mp3"  )
-table.insert ( ResourceFiles, "sound/mrgreen/ui/osweetdeath.mp3"  ) ]=]
-table.insert ( ResourceFiles, "sound/wraithdeath4.wav"  )
-table.insert ( ResourceFiles, "sound/wraithdeath3.wav"  )
-table.insert ( ResourceFiles, "sound/wraithdeath2.wav"  )
-table.insert ( ResourceFiles, "sound/wraithdeath1.wav"  )
--- table.insert ( ResourceFiles, "sound/mrgreen/ui/gamestartup1.mp3"  )
 table.insert ( ResourceFiles, "sound/mrgreen/ui/menu_accept.wav"  )
 table.insert ( ResourceFiles, "sound/mrgreen/ui/menu_click01.wav"  )
 table.insert ( ResourceFiles, "sound/mrgreen/ui/menu_focus.wav"  )
@@ -282,10 +249,7 @@ table.insert ( ResourceFiles, "sound/weapons/melee/chainsaw_gore_04.wav" )
 
 
 table.insert ( ResourceFiles, "sound/"..LASTHUMANSOUND )
--- table.insert ( ResourceFiles, "sound/endgame/humanwin.mp3" )
--- table.insert ( ResourceFiles, "sound/endgame/zombiewins.mp3" )
 table.insert ( ResourceFiles, "sound/"..UNLIFESOUND )
-table.insert ( ResourceFiles, "sound/mrgreen/supplycrates/itempickup.wav" )
 
 -- Deadlife sound
 table.insert ( ResourceFiles, "sound/deadlife_mrgreen.mp3" )
@@ -328,8 +292,6 @@ table.insert ( ResourceFiles, "materials/killicon/redeem.vtf"  )
 table.insert ( ResourceFiles, "materials/killicon/redeem.vmt"  )
 table.insert ( ResourceFiles, "materials/killicon/fists.vtf"  )
 table.insert ( ResourceFiles, "materials/killicon/fists.vmt"  )
-table.insert ( ResourceFiles, "materials/killicon/mine.vtf"  )
-table.insert ( ResourceFiles, "materials/killicon/mine.vmt"  )
 table.insert ( ResourceFiles, "materials/killicon/fire.vtf"  )
 table.insert ( ResourceFiles, "materials/killicon/fire.vmt"  )
 table.insert ( ResourceFiles, "materials/killicon/laser.vtf"  )
@@ -378,28 +340,6 @@ table.insert ( ResourceFiles, "materials/phoenix_storms/egg_bump.vtf" )
 table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vmt" )
 table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vtf" )
 table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01_normal.vtf" )
---[[table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/mostdamagedone.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/mostdamagedone.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/timer.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/timer.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/spinner.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/spinner.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/mostdamagedone.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/healing.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/assists.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/greencoins.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/survival.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/damagezombies.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/undeadkilled.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/brains.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/mostdamagedone.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/healing.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/assists.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/greencoins.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/survival.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/damagezombies.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/undeadkilled.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/endgame/brains.vmt" )]]
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/arrow.vtf" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombie.vtf" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/arrow.vmt" )
@@ -422,7 +362,6 @@ table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/torso.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/filmgrain/filmgrain.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/filmgrain/filmgrain.vtf")
--- table.insert ( ResourceFiles, "materials/models/props_mrgreen/arrow/debugwhite.vmt" )
 -- Howler materials
 table.insert ( ResourceFiles, "materials/models/mrgreen/howler/eyes.vmt" )
 table.insert ( ResourceFiles, "materials/models/mrgreen/howler/eye.vtf" )
@@ -432,10 +371,6 @@ table.insert ( ResourceFiles, "materials/models/mrgreen/howler/zj_normal.vtf" )
 table.insert ( ResourceFiles, "materials/models/mrgreen/howler/zombie_jailbait.vmt" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/howler.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/howler.vtf")
-
--- Weapon selection texture
--- table.insert ( ResourceFiles, "materials/zombiesurvival/hud/panel_texture.vtf" ) 
--- table.insert ( ResourceFiles, "materials/zombiesurvival/hud/panel_texture.vmt" ) 
 
 -- Zombine materials
 table.insert ( ResourceFiles, "materials/models/zombie_classic/combinesoldiersheet_zombie.vtf" ) 
@@ -546,13 +481,6 @@ table.insert ( ResourceFiles, "models/zombie/zombie_soldier_animations.ani" )
 table.insert ( ResourceFiles, "models/wraith.mdl" )
 table.insert ( ResourceFiles, "models/wraith__animations.mdl" )
 table.insert ( ResourceFiles, "models/weapons/v_wraith.mdl" )
-
-table.insert ( ResourceFiles, "models/Jaanus/santa.mdl" )
-	
-for _, filename in pairs(file.Find("materials/Jaanus/monk/*.*" , "GAME") ) do
-	table.insert ( ResourceFiles, "materials/Jaanus/monk/"..filename  )
-end
-
 
 -- Precache resource table models
 for k,v in pairs ( ResourceFiles ) do

@@ -53,15 +53,6 @@ function oldDrawSelectClass ()
 	local SelectedClass = GetConVarNumber("_zs_redeemclass") or 1
 	local Levels = {0,2,1,4,5}
 	
-	if CHRISTMAS then 
-		Sounds.Startup = "christmas/jingleintro.mp3" 
-	elseif FIRSTAPRIL then 
-		if math.random(1,2) == 1 then
-			Sounds.Startup = "mrgreen/ui/deadlightdistrict.mp3" 
-		else
-			Sounds.Startup = "mrgreen/ui/osweetdeath.mp3" 
-		end
-	end
 	surface.PlaySound (Sounds.Startup)
 	
 	local achstat1
@@ -521,16 +512,12 @@ function DrawSelectClass1 ()
 	local spawntimercd = 0
 	local randmusic = math.random(1,3)
 	
-	if CHRISTMAS then 
-		Sounds.Startup = "christmas/jingleintro.mp3" 
+	if randmusic == 1 then
+		Sounds.Startup = "mrgreen/ui/deadlightdistrict.mp3" 
+	elseif randmusic == 2 then
+		Sounds.Startup = "mrgreen/ui/osweetdeath.mp3" 
 	else
-		if randmusic == 1 then
-			Sounds.Startup = "mrgreen/ui/deadlightdistrict.mp3" 
-		elseif randmusic == 2 then
-			Sounds.Startup = "mrgreen/ui/osweetdeath.mp3" 
-		else
-			Sounds.Startup = "mrgreen/ui/gamestartup1.mp3"
-		end
+		Sounds.Startup = "mrgreen/ui/gamestartup1.mp3"
 	end
 	surface.PlaySound (Sounds.Startup)
 	

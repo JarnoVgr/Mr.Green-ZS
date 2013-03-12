@@ -319,7 +319,6 @@ util.PrecacheSound("mrgreen/new/thunder1.mp3")
 util.PrecacheSound("mrgreen/new/thunder2.mp3")
 util.PrecacheSound("mrgreen/new/thunder3.mp3")
 util.PrecacheSound("mrgreen/new/thunder4.mp3")
-util.PrecacheSound("mrgreen/new/transformation.mp3")
 util.PrecacheSound("mrgreen/ui/gamestartup1.mp3")
 
 if not killicon.GetFont then -- Need this for the rewards message.
@@ -511,7 +510,6 @@ function GM:Initialize()
 	http.Get(ADMINS_HTTP,"",HTTPAdmins)]==]
 	
 	-- self:SplitMessage( h * 0.6, "<color=ltred><font=HUDFontAA>Welcome to</font></color>", "<color=green><font=HUDFontAA>Mr. Green Zombie Survival</font></color>" )
-	-- surface.PlaySound( "mrgreen/new/transformation.mp3" )
 end
 
 function HTTPChangelog(contents, size)

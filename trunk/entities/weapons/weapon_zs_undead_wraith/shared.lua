@@ -37,7 +37,6 @@ SWEP.AutoSwitchTo = true
 SWEP.AutoSwitchFrom = false
 
 SWEP.EmitWraithSound = 0
--- SWEP.Screams = { "wraithdeath1.wav", "wraithdeath2.wav", "wraithdeath3.wav", "wraithdeath4.wav" }
 SWEP.Screams = { "npc/stalker/stalker_alert1b.wav", "npc/stalker/stalker_alert2b.wav", "npc/stalker/stalker_alert3b.wav"}
 
 -- Human scream sounds

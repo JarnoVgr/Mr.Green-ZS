@@ -152,11 +152,6 @@ for k, v in pairs( suits ) do
 	end
 end
 
--- Load christmas player model
-if CHRISTMAS then
-	util.PrecacheModel ( "models/Jaanus/santa.mdl" )
-end
-
 -- Define footstep sounds
 --[==[local tbFootSteps = { 
 	[1] = { Sound ( "npc/zombie/foot1.wav" ), Sound ( "npc/zombie/foot2.wav" ), Sound ( "npc/zombie/foot3.wav" ) }, 

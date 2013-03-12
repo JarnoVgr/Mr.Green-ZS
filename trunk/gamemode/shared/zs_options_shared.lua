@@ -1718,62 +1718,6 @@ local SantaStart = {
 	Sound("vo/ravenholm/engage01.wav"),
 }
 
--- haloween boss
-ZombieClasses[14] =
-{
-	Name = "Santa Claws",
-	Tag = "santa",
-	Wave = 0,
-	Health = 5000,
-	MaxHealth = 5000,
-	TimeLimit = 1020,
-	Bounty = 600,
-	SP = 600,
-	Mass = DEFAULT_MASS * 2,
-	Threshold = 4,
-	JumpPower = 100,
-	CanCrouch = true,
-	CanGib = true,
-	Unlocked = false,
-	Hidden = true,
-	IsBoss = true,
-	SWEP = "weapon_zs_undead_infected",
-	Model = Model("models/Jaanus/santa.mdl"),
-	Speed = 185,
-	Description = "",
-	Unique = "",
-	PainSounds = {
-				Sound("vo/ravenholm/madlaugh01.wav"),
-				Sound("vo/ravenholm/madlaugh02.wav"),
-				Sound("vo/ravenholm/madlaugh03.wav"),
-				Sound("vo/ravenholm/madlaugh04.wav"),
-				Sound("vo/ravenholm/monk_blocked01.wav");
-				},
-	DeathSounds = {
-				Sound("vo/ravenholm/monk_helpme01.wav"),
-				Sound("vo/ravenholm/monk_helpme02.wav"),
-				Sound("vo/ravenholm/monk_helpme03.wav"),
-				Sound("vo/ravenholm/monk_helpme04.wav"),
-				Sound("vo/ravenholm/monk_helpme05.wav"),
-				},
-	IdleSounds = {
-
-				},
-	OnSpawn = function(pl)
-		pl:EmitSound(SantaStart[math.random(1,#SantaStart)],110,math.random(80,90))
-		pl:SetRandomFace()
-	end,
-	OnRevive = function(pl)
-		--pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-		-- pl:AnimRestartMainSequence()		
-	end,
-	ModelScale = 1.2,-- Vector(1.1,1.1,1.1),
-	ViewOffset = Vector( 0, 0, 72 ),
-	ViewOffsetDucked = Vector( 0, 0, 32 ),
-	Hull = { Vector(-16, -16, 0), Vector(16, 16, 74) },
-	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
-}
-
 -- for swep
 --[==[
 RegisterLuaAnimation('babyface', {
@@ -2658,20 +2602,6 @@ Sound("vo/npc/male01/question30.wav")
 }
 
 VoiceSetsGhost = {}
-VoiceSetsGhost.RandomSounds = {
-Sound("wraithdeath1.wav"),
-Sound("wraithdeath2.wav"),
-Sound("wraithdeath3.wav"),
-Sound("wraithdeath4.wav"),
-Sound("halloween/hambient1.wav")
-}
-
-VoiceSetsGhost.GhostSounds = {
-Sound("halloween/death1.mp3"),
-Sound("halloween/death2.mp3"),
-Sound("halloween/ghostappear.mp3"),
-Sound("halloween/ghostappear2.mp3"),	
-}
 
 VoiceSetsGhost.PainSounds = {
 Sound("npc/barnacle/barnacle_pull1.wav"),
