@@ -1,5 +1,0 @@
-"vertexlitgeneric"
-{
-	// original shader: vertexlittexture
-	"$basetexture" "models/debug/debugwhite"
-}

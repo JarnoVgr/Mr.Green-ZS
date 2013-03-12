@@ -1,6 +1,0 @@
-"VertexLitGeneric"
-{
-	"$basetexture" "jaanus/monk/monk_sheet"
- 	"$bumpmap" "jaanus/monk/monk_sheet_n"
-	"$halflambert" 1
-}
