@@ -340,9 +340,6 @@ local function CalculateGivenSupplies ( pl )
 	end
 	
 	Debug ( "[CRATES] Giving supplies to "..tostring ( pl ) )
-		
-	-- Cooldown
-	pl.GotSupply = true
 end
 
 --[==[-------------------------------------------------------------
@@ -375,17 +372,7 @@ local function OnPlayerUse ( pl, key )
 	
 	pl:SendLua("DoSkillShopMenu()")
 	
-	-- Notify player that he already got supplies
-	-- if not pl.SupplyMessageTimer then pl.SupplyMessageTimer = 0 end
-	-- if pl.GotSupply == true then if pl.SupplyMessageTimer <= CurTime() then pl:Message ("You already got supplies. Wait for the next drop off!", 1, "white") pl.SupplyMessageTimer = CurTime() + 3.1 end return end
-	
-	-- CalculateGivenSupplies( pl )
-	-- GiveItemsFromCart(pl)
-	
-	
 	Debug ( "[CRATES] "..tostring ( pl ).." used Supply Crate." )
-		
-	return 
 end
 hook.Add( "KeyPress", "KeyPressedHook", OnPlayerUse )
 
@@ -400,7 +387,7 @@ hook.Add ( "PlayerUse", "DisableUseOnSupply", DisableDefaultUseOnSupply )
 --[==[-------------------------------------------------------------
             Used to spawn the Supply Crate
 --------------------------------------------------------------]==]
-local function SpawnSupply ( ID, Pos, Switch )
+function SpawnSupply ( ID, Pos, Switch )
 	ID, Pos, Switch = ID or 1, Pos or Vector ( 0,0,0 ), Switch or false
 
 	-- Create the entity, set it's ID, switch bool and position
@@ -471,176 +458,29 @@ local function TraceHullSupplyCrate ( Pos, Switch )
 	return true
 end
 
---[==[-------------------------------------------------------------
-    Supply Items Director - calcs and drops supply items
---------------------------------------------------------------]==]
---[=[function GM:CalculateSupplyDrops ()
-	if ENDROUND then return end
-	if #AmmoDropPoints["X"] == 0 then return end
-	
-	local Infliction = GetInfliction()
-	
-	-- Get the old crates position so we don't spawn on the same place
-	local LastPointsID = {}
-	for k,v in pairs ( ents.FindByClass ( "spawn_ammo" ) ) do
-		if v:IsValid() then
-			LastPointsID[v.ID] = v.ID
-			
-			-- Remove sound
-			WorldSound ( Sound ( "physics/wood/wood_crate_break"..math.random( 1,5 )..".wav" ), v:GetPos(), 150, 100 )
-			
-			-- Firstly gib the parent
-			v:Remove()
-			
-			-- Then gib the children :D
-			for i, child in pairs ( v:GetTable():GetChildren() ) do
-				if ValidEntity ( child ) then
-					child:Remove()
-				end
-			end
-		end
-	end
-	
-	for k,v in pairs ( player.GetAll() ) do
-		v.GotSupply = false
-	end
-	
-	-- Spawn them!
-	timer.Simple ( 0.1, function()
-		if ENDROUND then return end
-		if #AmmoDropPoints["X"] == 0 then return end
-	
-		local iSpawned = 0
-		for i,j in pairs ( AmmoDropPoints["X"] ) do
-			local SpawnBoxID = tonumber( AmmoDropPoints.ID[i] )
-			local LastID, SpawnPosition, Switch = LastPointsID [ SpawnBoxID ], Vector ( AmmoDropPoints.X[i], AmmoDropPoints.Y[i], AmmoDropPoints.Z[i] ), tobool ( AmmoDropPoints.Switch[i] )
-		
-			-- Limit it to half then if the spot if clear right now and if it was clear before spawn.
-			if iSpawned < MAXIMUM_CRATES then
-				if TraceHullSupplyCrate ( SpawnPosition, Switch ) then
-					if LastID == nil then
-						if ( iSpawned >= 0 and math.random ( 1,3 ) == 1 ) or iSpawned == 0 then
-							SpawnSupply ( SpawnBoxID, SpawnPosition, Switch )
-							iSpawned = iSpawned + 1
-							Debug ( "[CRATES] Spawned Supply Crate." )
-						end
-					end
-				end
-			end
-		end
-		
-		-- Send crate positions to clients
-		timer.Simple ( 0.05, function() UpdateClientArrows() end )
-		
-		Debug ( "[CRATES] Resetting Supply Timer for every player" )
-	end )
-end]=]
---timer.Create ( "CalculateSupplyDrops" ,DEFAULT_SUPPLY_CRATE_SPAWN_TIME, 0, CalculateSupplyDrops )
---[==[
-function GM:CalculateSupplyDrops ()
-	if ENDROUND then return end
-	if #AmmoDropPoints["X"] == 0 then return end
-	
-	local Infliction = GetInfliction()
-	
-	-- Get the old crates position so we don't spawn on the same place
-	local LastPointsID = {}
-	for k,v in pairs ( ents.FindByClass ( "spawn_ammo" ) ) do
-		if v:IsValid() then
-			LastPointsID[v.ID] = v.ID
-			
-			-- Remove sound
-			WorldSound ( Sound ( "physics/wood/wood_crate_break"..math.random( 1,5 )..".wav" ), v:GetPos(), 150, 100 )
-			
-			-- Firstly gib the parent
-			v:Remove()
-			
-			-- Then gib the children :D
-			for i, child in pairs ( v:GetTable():GetChildren() ) do
-				if ValidEntity ( child ) then
-					child:Remove()
-				end
-			end
-		end
-	end
-	
-	for k,v in pairs ( player.GetAll() ) do
-		v.GotSupply = false
-	end
-	
-	-- Spawn them!
-	timer.Simple ( 0.1, function()
-		if ENDROUND then return end
-		if #AmmoDropPoints["X"] == 0 then return end
-	
-		local iSpawned = 0
-		for i,j in pairs ( AmmoDropPoints["X"] ) do
-			local SpawnBoxID = tonumber( AmmoDropPoints.ID[i] )
-			local LastID, SpawnPosition, Switch = LastPointsID [ SpawnBoxID ], Vector ( AmmoDropPoints.X[i], AmmoDropPoints.Y[i], AmmoDropPoints.Z[i] ), tobool ( AmmoDropPoints.Switch[i] )
-		
-			-- Limit it to half then if the spot if clear right now and if it was clear before spawn.
-			if iSpawned < MAXIMUM_CRATES then
-				if TraceHullSupplyCrate ( SpawnPosition, Switch ) then
-					if LastID == nil then
-						if ( iSpawned >= 0 and math.random ( 1,3 ) ~= 1 ) or iSpawned == 0 then
-							SpawnSupply ( SpawnBoxID, SpawnPosition, Switch )
-							iSpawned = iSpawned + 1
-							Debug ( "[CRATES] Spawned Supply Crate." )
-						end
-					end
-				end
-			end
-		end
-		
-		-- Send crate positions to clients
-		timer.Simple ( 0.05, function() UpdateClientArrows() end )
-		
-		Debug ( "[CRATES] Resetting Supply Timer for every player" )
-	end )
-end]==]
-
 function GM:CalculateSupplyDrops()
 	if ENDROUND then return end
 	if #FullCrateSpawns < 1 then return end
 	
-	
-	
-	for k,v in ipairs ( ActualCrates ) do-- ents.FindByClass ( "spawn_ammo" )
+	for k,v in ipairs ( ents.FindByClass( "spawn_ammo" ) ) do
 		if IsValid(v) then			
 			-- Remove sound
 			WorldSound ( Sound ( "physics/wood/wood_crate_break"..math.random( 1,5 )..".wav" ), v:GetPos(), 150, 100 )
-			
-			-- Firstly gib the parent
 			v:Remove()
-			
-			-- Then gib the children :D
-			for i, child in pairs ( v:GetTable():GetChildren() ) do
-				if ValidEntity ( child ) then
-					child:Remove()
-				end
-			end
-			
-			
 		end
 	end
 	
-	for k,v in pairs ( player.GetAll() ) do
-		v.GotSupply = false
-	end
-	
-	-- Spawn them!
+    -- Spawn them!
 	timer.Simple ( 0.1, function()
 		if ENDROUND then return end
 		if #FullCrateSpawns < 1 then return end
 	
-
 		self:SpawnCratesFromTable(FullCrateSpawns)
 		
-		
-		-- Send crate positions to clients
-		timer.Simple ( 0.05, function() UpdateClientArrows() end )
-		
-		Debug ( "[CRATES] Resetting Supply Timer for every player" )
+		-- Tell client about crates
+		timer.Simple ( 0.05, function() 
+		    UpdateClientArrows() 
+		end )
 	end )
 end
 
@@ -745,22 +585,10 @@ function GM:SpawnCratesFromTable(cratetable)
 	Debug ( "[CRATES] Spawned Supply Crate." )
 end
 
---[==[--------------------------------------------------------------
-           Called on player ready - update stuff cl-side
----------------------------------------------------------------]==]
-local function UpdatePlayerData( pl )
-	if not IsEntityValid ( pl ) then return end
-	
-	-- Be sure to update on pl ready
-	UpdateClientArrows( pl )
-end
-hook.Add ( "PlayerReady", "UpdateArrow", UpdatePlayerData )
-
 -- Precache the gib models
 for i = 1, 9 do
 	util.PrecacheModel ( "models/items/item_item_crate_chunk0"..i..".mdl" )
 end
-
 
 
 Debug ( "[MODULE] Loaded Supply-Crates Director." )

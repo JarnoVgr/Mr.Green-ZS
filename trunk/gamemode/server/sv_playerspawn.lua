@@ -108,9 +108,6 @@ function GM:PlayerInitialSpawn( pl )
 	pl.LastRTD = 0 
 	pl.StuckTimer = 0
 	
-	-- Used for supply boxes cooldown
-	pl.GotSupplyTimer = 0
-	
 	pl:SetCustomCollisionCheck( true )
 	-- pl:SetNoCollideWithTeammates(true)
 	-- pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)

@@ -39,25 +39,6 @@ local umsg = umsg
 	end
 --end )
 
-
---[==[---------------------------------------------------------
-	Shuffle a table  (code from TTT)
----------------------------------------------------------]==]
---local rand = math.random
---function table.Shuffle(t)
---  local n = #t
--- 
---  while n > 2 do
---
---    local k = rand(n) 
---
---    t[n], t[k] = t[k], t[n]
---    n = n - 1
---  end
--- 
---  return t
---end
-
 --[==[---------------------------------------------
                 Debug usermessages
 ---------------------------------------------]==]
@@ -164,60 +145,18 @@ end
 util.AddNetworkString( "UpdateClientArrows" )
 
 function UpdateClientArrows( pl )
-	
 	local broadcast = false
 	
-	if not pl then broadcast = true end
+	if not pl then 
+	   broadcast = true 
+	end
 	
-	local crates = {}
-	local update = {}
-	
-	for _,v in ipairs(ActualCrates) do
-		if v and IsValid(v) then
-			table.insert(crates,v)
-			local tbl = {}
-			
-			for k,child in ipairs(v:GetChildren() or {}) do
-				if IsValid(child) then
-					table.insert(tbl,child:EntIndex())
-				end
-			end
-			
-			table.insert(update,{parent = v:EntIndex(),childs = tbl})
-		end
-	end	
-	
-	-- Get supply crates
-	local tbCrates = crates-- ActualCrates-- ents.FindByClass ( "spawn_ammo" )
-	if #tbCrates == 0 or #player.GetAll() == 0 then return end
-	
-	net.Start("UpdateClientArrows")
-		net.WriteDouble(#tbCrates)
-		for i = 1, #tbCrates do
-			local pos = tbCrates[i]:GetPos()+Vector(0,20,0)
-			if tbCrates[i].Switch then pos = tbCrates[i]:GetPos()+Vector(20,0,0) end
-			net.WriteVector ( pos )
-		end
-		net.WriteTable(update)
+	net.Start( "UpdateClientArrows" )
 	if broadcast then
 		net.Broadcast()
 	else
 		net.Send(pl)
 	end
-
-
-	
-	
-	
-	--[==[-- Update clients
-	umsg.Start ( "UpdateClientArrows", pl )
-		umsg.Short ( #tbCrates )
-		for i = 1, #tbCrates do
-			local pos = tbCrates[i]:GetPos()+Vector(0,20,0)
-			if tbCrates[i].Switch then pos = tbCrates[i]:GetPos()+Vector(20,0,0) end
-			umsg.Vector ( pos )
-		end
-	umsg.End()	]==]
 end
 
 --[==[--------------------------------------------------------------------------------
