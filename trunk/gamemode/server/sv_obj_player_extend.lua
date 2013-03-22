@@ -1331,8 +1331,8 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	end
 	
 	-- Cadebreaker warning
-	if ( attacker:Team() == TEAM_HUMAN ) then
-	    if ( attacker:IsPlayer() and ( attacker.BarricadeWarnTime or 0 ) <= CurTime() ) then
+	if ( attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN ) then
+	    if ( ( attacker.BarricadeWarnTime or 0 ) <= CurTime() ) then
             attacker:Message( "Don't break the barricade, you mingebag!", 2 )
             attacker.BarricadeWarnTime = CurTime() + 4
 	    end  
@@ -1767,3 +1767,53 @@ function meta:SpawnMiniTurret()
 		self.MiniTurret = ent
 	end
 end
+
+--[[----------------------------------------------------]]--
+
+util.AddNetworkString( "BoughtPointsWithCoins" )
+
+function meta:HasBoughtPointsWithCoins()
+    local tab = DataTableConnected[self:UniqueID()]
+    if ( tab ) then
+        return tab.HasBoughtPointsWithCoins or false
+    end
+    
+    return false
+end
+
+function meta:SetBoughtPointsWithCoins( bool )
+    local tab = DataTableConnected[self:UniqueID()]
+    if ( not tab ) then
+        DataTableConnected[self:UniqueID()] = {}    
+    end
+    
+    tab.HasBoughtPointsWithCoins = bool
+end
+
+function meta:CanBuyPointsWithCoins()
+    return not self:HasBoughtPointsWithCoins() and self:GreenCoins() >= 200
+end
+
+--[[----------------------]]--
+
+function meta:UpdateBoughtPointsWithCoins()
+    net.Start( "BoughtPointsWithCoins" )
+        net.WriteBit( self:HasBoughtPointsWithCoins() )
+    net.Send( self )
+end
+
+hook.Add( "PlayerReady", "UpdatePlayerBoughtPointsWithCoins", function( pl )
+    pl:UpdateBoughtPointsWithCoins()
+end )
+
+concommand.Add( "zs_boughtpointswithcoins", function( pl, cmd, args )
+    if ( IsValid( pl ) ) then
+        if ( pl:CanBuyPointsWithCoins() ) then
+            pl:SetFrags( pl:Frags() + 400 )
+            pl:TakeGreenCoins( 1 )          
+        end
+        pl:SetBoughtPointsWithCoins( true )
+    end
+end )
+
+--[[----------------------------------------------------]]--

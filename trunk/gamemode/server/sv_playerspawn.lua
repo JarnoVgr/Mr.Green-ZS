@@ -204,8 +204,7 @@ function GM:PlayerInitialSpawn( pl )
 	
 	self:CalculateInfliction()
 	self:OnPlayerReady(pl)
-	
-	
+
 	Debug ( "[INIT-SPAWN] "..tostring ( pl ).." finished Initial Spawn Function!" ) 
 end
 
@@ -630,11 +629,13 @@ function GM:PlayerDisconnected( pl )
 	if DataTableConnected[ID] == nil then return end
 	-- Case 1: Disconnect as human
 	if pl:Team() == TEAM_HUMAN then 
-		DataTableConnected[ID] = { IsDead = true, SuicideSickness = false, HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
+		DataTableConnected[ID] = { HasBoughtPointsWithCoins = DataTableConnected[ID].HasBoughtPointsWithCoins, IsDead = true, SuicideSickness = false, 
+		    HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
 	end
 	-- Case 2: Disconnect as zombie
 	if pl:Team() == TEAM_UNDEAD then
-		DataTableConnected[ID] = { IsDead = true, SuicideSickness = false, HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
+		DataTableConnected[ID] = { HasBoughtPointsWithCoins = DataTableConnected[ID].HasBoughtPointsWithCoins, IsDead = true, 
+		    SuicideSickness = false, HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
 		
 		if pl.Suicided then
 			DataTableConnected[ID].SuicideSickness = true

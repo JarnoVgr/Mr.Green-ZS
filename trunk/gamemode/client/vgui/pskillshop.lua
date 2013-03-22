@@ -625,38 +625,49 @@ function DrawSkillShop()
  
 	InsertAmmoTab()
 	
-	CloseButtonX, CloseButtonY = TopMenuX,TopMenuY+TopMenuH+ScaleH(20)+MainPanelH+ScaleH(20) -- nice and shiny
-	CloseButtonW, CloseButtonH = TopMenuW/4, ScaleH(76)
+	CloseButtonX, CloseButtonY = TopMenuX, TopMenuY+TopMenuH+ScaleH(20)+MainPanelH+ScaleH(20) -- nice and shiny
+	CloseButtonW, CloseButtonH = TopMenuW/5, ScaleH(76)
 	
 	CloseButton = vgui.Create("DButton",InvisiblePanel)
 	CloseButton:SetText("")
 	CloseButton:SetPos(CloseButtonX, CloseButtonY)
 	CloseButton:SetSize (CloseButtonW, CloseButtonH)
-	CloseButton.Think = function () 
-		--[=[if spawntimercd <= CurTime() then 
-			spawntimer = spawntimer - 1
-			if spawntimer <= 0 then
-				local randomclass = math.random (1,5)
-				ChangeClassClient (1)
-				BlurMenu:Close()
-				InvisiblePanel:Close()
-				InvisiblePanel2:Close()
-				LoadoutMenu:Close()
-				StatsMenu:Close()
-			end
-			spawntimercd = CurTime() + 1
-		end]=]
-	end
 	
 	CloseButton.PaintOver = function ()
 		draw.SimpleTextOutlined("CLOSE" , "ArialBoldTwelve", CloseButtonW/2, CloseButtonH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
-	CloseButton.DoClick = function ()
+	CloseButton.DoClick = function()
 		DoSkillShopMenu()
 	end	
 	
-	SPLabelX, SPLabelY = CloseButtonX+CloseButtonW+ScaleH(20),CloseButtonY
-	SPLabelW, SPLabelH = TopMenuW-(CloseButtonW+ScaleH(20)), CloseButtonH
+    local coinsToPointsButtonX = CloseButtonX + CloseButtonW + ScaleH( 20 )
+    local coinsToPointsW = TopMenuW / 2.4
+	
+	-- Greencoins to Skillpoints button
+    btnCoinsToPoints = vgui.Create( "DButton", InvisiblePanel )
+    btnCoinsToPoints:SetText("")
+    btnCoinsToPoints:SetSkin("ZSMG")
+    btnCoinsToPoints:SetPos( coinsToPointsButtonX, CloseButtonY )
+    btnCoinsToPoints:SetSize( coinsToPointsW, CloseButtonH )
+    
+    btnCoinsToPoints.PaintOver = function( self )
+        if ( not MySelf:CanBuyPointsWithCoins() ) then
+            draw.SimpleTextOutlined( "WAIT NEXT ROUND", "ArialBoldTwelve", coinsToPointsW / 2, CloseButtonH / 2, Color (255,0,0,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
+        else
+            draw.SimpleTextOutlined( "BUY 400SP (200GC)", "ArialBoldTwelve", coinsToPointsW / 2, CloseButtonH / 2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
+        end
+    end
+    
+    btnCoinsToPoints.DoClick = function()
+        if ( not MySelf:HasBoughtPointsWithCoins() ) then
+            MySelf:SetBoughtPointsWithCoins( true )
+            RunConsoleCommand( "zs_boughtpointswithcoins" )   
+        end  
+    end
+	
+	-- Skillpoints label
+	SPLabelX, SPLabelY = coinsToPointsButtonX + coinsToPointsW + ScaleH(20), CloseButtonY
+	SPLabelW, SPLabelH = TopMenuW-( CloseButtonW + coinsToPointsW + ScaleH(40) ), CloseButtonH
 	
 	SPLabel = vgui.Create("DLabel",InvisiblePanel)
 	SPLabel:SetText("")
@@ -665,9 +676,8 @@ function DrawSkillShop()
 	SPLabel:SetPos (SPLabelX, SPLabelY)
 	SPLabel.Paint = function()
 		DrawPanelBlackBox(0,0,SPLabelW, SPLabelH)
-		draw.SimpleTextOutlined("Current amount of SkillPoints: "..MySelf:Frags() , "ArialBoldTwelve", SPLabelW/2, SPLabelH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("POINTS: "..MySelf:Frags() , "ArialBoldTwelve", SPLabelW/2, SPLabelH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
-
 end
 
 function CloseSkillShop()

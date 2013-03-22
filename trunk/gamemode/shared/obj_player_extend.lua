@@ -1637,6 +1637,27 @@ net.Receive( "DoHulls", function( len )
 	end
 end)
 
+--[[----------------------------------------------------]]--
+
+function meta:HasBoughtPointsWithCoins()
+    return MySelf.BoughtPointsWithCoins
+end
+
+function meta:CanBuyPointsWithCoins()
+    return not MySelf.BoughtPointsWithCoins and MySelf:GreenCoins() >= 200
+end
+
+function meta:SetBoughtPointsWithCoins( bool )
+    MySelf.BoughtPointsWithCoins = bool
+end
+
+--[[----------------------]]--
+
+net.Receive( "BoughtPointsWithCoins", function( len )
+    MySelf:SetBoughtPointsWithCoins( tobool( net.ReadBit() ) )
+end )
+
+--[[----------------------------------------------------]]--
 
 end
 

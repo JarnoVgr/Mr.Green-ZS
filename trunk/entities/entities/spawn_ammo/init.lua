@@ -20,7 +20,7 @@ for k,v in pairs ( ENT.Table ) do
 end
 
 -- Check penetration
-ENT.PenetrationCheckTimes = 3
+ENT.PenetrationCheckTimes = 4
 
 function ENT:Initialize()
 
@@ -96,8 +96,8 @@ end
 
 function ENT:Think()
     if ( ( self.PenetrationCheckTime or 0 ) < CurTime() ) then
-        if ( self:GetCreationTime() + ( self.PenetrationCheckTimes or 3 ) > CurTime() ) then
-            local blocks = ents.FindInBox( self:LocalToWorld( self:OBBMins() ), self:LocalToWorld( self:OBBMaxs() ) )
+        if ( self:GetCreationTime() + ( self.PenetrationCheckTimes or 4 ) > CurTime() ) then
+            local blocks = ents.FindInBox( self:LocalToWorld( self:OBBMins() * 0.7 ), self:LocalToWorld( self:OBBMaxs() * 0.7 ) )
     
             for k,v in pairs( blocks ) do
                if ( v:IsPlayer() ) then
