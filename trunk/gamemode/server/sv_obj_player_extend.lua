@@ -1810,7 +1810,7 @@ concommand.Add( "zs_boughtpointswithcoins", function( pl, cmd, args )
     if ( IsValid( pl ) ) then
         if ( pl:CanBuyPointsWithCoins() ) then
             pl:SetFrags( pl:Frags() + 400 )
-            pl:TakeGreenCoins( 1 )          
+            pl:TakeGreenCoins( 200 )          
         end
         pl:SetBoughtPointsWithCoins( true )
     end
