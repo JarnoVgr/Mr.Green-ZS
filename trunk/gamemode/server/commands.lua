@@ -1214,7 +1214,7 @@ local restrictedweaponList = { "dev_points", "admin_tool_remover", "admin_tool_s
 local function AdminSay( pl, text, teamonly )
 
 	if not pl:IsAdmin() then 
-		return text
+		return
 	end
 
 	local sep = string.Explode(" ",text)
