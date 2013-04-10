@@ -61,7 +61,7 @@ if CLIENT then
 		return self.BaseClass.GetViewModelPosition(self, pos, ang)
 	end
 
-	local scope = surface.GetTextureID("sprites/scope")
+	local scope = surface.GetTextureID( "zombiesurvival/scope/scope" )
 	function SWEP:DrawHUD()
 		if self:IsScoped() then
 				surface.SetDrawColor( 0, 0, 0, 255 )
@@ -97,7 +97,7 @@ if CLIENT then
 
 						 -- scope
 						 surface.SetTexture(scope)
-						 surface.SetDrawColor(255, 255, 255, 255)
+						 surface.SetDrawColor(1, 1, 1, 255)
 
 						 surface.DrawTexturedRectRotated(x, y, scope_size, scope_size, 0)
 

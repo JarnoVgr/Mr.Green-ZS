@@ -464,8 +464,6 @@ function GM:CalculateSupplyDrops()
 	
 	for k,v in ipairs ( ents.FindByClass( "spawn_ammo" ) ) do
 		if IsValid(v) then			
-			-- Remove sound
-			WorldSound ( Sound ( "physics/wood/wood_crate_break"..math.random( 1,5 )..".wav" ), v:GetPos(), 150, 100 )
 			v:Remove()
 		end
 	end

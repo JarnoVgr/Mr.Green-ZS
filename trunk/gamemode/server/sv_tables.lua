@@ -387,6 +387,9 @@ table.insert ( ResourceFiles, "materials/zombiesurvival/crosshair/undead_crossha
 table.insert( ResourceFiles, "materials/effects/hazard_icon.vtf" )
 table.insert( ResourceFiles, "materials/effects/hazard_icon.vmt" )
 
+table.insert ( ResourceFiles, "materials/zombiesurvival/scope/scope.vtf" )
+table.insert ( ResourceFiles, "materials/zombiesurvival/scope/scope.vmt" )
+
 table.insert( ResourceFiles,"models/weapons/w_chainsaw.mdl")
 -- table.insert( ResourceFiles,"models/weapons/w_chainsaw.phy")
 -- table.insert( ResourceFiles,"models/weapons/w_chainsaw.vvd")
