@@ -376,7 +376,13 @@ function SWEP:SecondaryAttack()
 			end
 		end
 	end
-	timer.Simple ( SoundDuration( "../../hl2/sound/"..moan ), function(  ) if IsEntityValid ( self.Owner ) then if self.Owner.IsMoaning then self.Owner.IsMoaning = false end end end )
+	timer.Simple ( SoundDuration( "../../hl2/sound/"..moan ), function() 
+	   if IsValid( self ) and IsValid( self.Owner ) then 
+	       if self.Owner.IsMoaning then 
+	           self.Owner.IsMoaning = false 
+	       end 
+	   end 
+	end )
 		
 	-- Emit both claw attack sound and weird funny sound
 	-- if SERVER then self.Owner:EmitSound( "npc/zombie/zombie_voice_idle"..math.random( 1, 14 )..".wav" ) end

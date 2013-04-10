@@ -396,6 +396,9 @@ end
 GM.CalcMainActivityZombies[8] = function ( pl, vel )
 
 	local wep = IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon()
+	if ( not wep ) then
+        return    	         
+    end
 	
 	-- wep = IsValid(wep) and wep
 	

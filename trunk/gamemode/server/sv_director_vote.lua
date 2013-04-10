@@ -32,7 +32,6 @@ end
 
 -- Handle gag
 local function HandleGag( ply, sText )
-	--if ply.IsGagged then
 	if GaggedTbl[ply:SteamID()] then
 		if ply:IsAdmin() and string.find( sText, "ungag" ) then
 			ply:UnGag( ply )
