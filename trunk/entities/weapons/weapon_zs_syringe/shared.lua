@@ -175,6 +175,7 @@ SWEP.infected = {}
 						
 						if self.Owner.HealedForSP == 40 then
 							skillpoints.AddSkillPoints(self.Owner,10)
+							ent:FloatingTextEffect( 10, self.Owner )
 							self.Owner.HealedForSP = 0
 						end
 						

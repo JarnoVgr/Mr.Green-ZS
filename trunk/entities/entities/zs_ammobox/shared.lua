@@ -147,6 +147,7 @@ function ENT:Use(activator, caller)
 						
 						if activator ~= self.CrateOwner then
 							skillpoints.AddSkillPoints(self.CrateOwner,3)
+							self:FloatingTextEffect( 3, self.CrateOwner )
 							self.CrateOwner:AddXP(3)
 						end
 					
@@ -160,35 +161,6 @@ function ENT:Use(activator, caller)
 end
 end
 	
-if SERVER then	
-	
-	--[=[function ENT:StartTouch( ent )
-		if self.active and ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
-			local weps = ent:GetWeapons()
-			local primtype = ""
-
-					
-						if ent:GetAutomatic() then
-							ent:GiveAmmo(math.ceil(ent:GetAutomatic().Primary.ClipSize*1.5), ent:GetAutomatic():GetPrimaryAmmoType())
-						end
-						
-						if ent:GetPistol() then
-							ent:GiveAmmo(math.ceil(ent:GetPistol().Primary.ClipSize*2), ent:GetPistol():GetPrimaryAmmoType())
-						end
-						
-						if ent ~= self:GetOwner() then
-							skillpoints.AddSkillPoints(self:GetOwner(),5)
-						end
-												
-						--ent:GiveAmmo(math.ceil(v.Primary.ClipSize*clips), primtype)
-								
-			timer.Simple(0,function (me) me:Remove() end,self)
-			function self:StartTouch() end
-		end
-	end]=]
-
-end
-
 if CLIENT then
 	local cam = cam
 	local render = render

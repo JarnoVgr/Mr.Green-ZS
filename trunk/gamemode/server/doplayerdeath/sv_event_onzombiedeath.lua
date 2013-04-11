@@ -222,7 +222,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		
 			skillpoints.AddSkillPoints(mAttacker,reward)
 			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-			
+			mVictim:FloatingTextEffect( reward, mAttacker )
 		
 		if LASTHUMAN then
 			-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"hero")

@@ -165,6 +165,7 @@ function SWEP:SecondaryAttack()
 						self:TakePrimaryAmmo(1)
 						
 						skillpoints.AddSkillPoints(self.Owner,10)
+						
 						self.Owner:AddXP(5)
 						
 						local nail = ents.Create("nail")
@@ -176,6 +177,8 @@ function SWEP:SecondaryAttack()
 						nail:SetOwner(self.Owner)
 						nail:Spawn()
 						trent:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1,4)..".wav")
+						
+						nail:FloatingTextEffect( 10, self.Owner )
 						
 						trent:CollisionRulesChanged()
 						-- trent.Nailed = true

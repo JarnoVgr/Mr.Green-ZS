@@ -136,6 +136,7 @@ function SWEP:PrimaryAttack()
 								
 								if self.Owner._TorchScore == 55 then
 									skillpoints.AddSkillPoints(self.Owner,5)
+									nail:FloatingTextEffect( 5, self.Owner )
 									self.Owner:AddXP(3)
 									self.Owner._TorchScore = 0
 								end
@@ -178,6 +179,7 @@ function SWEP:PrimaryAttack()
 								
 					if self.Owner._TorchScore == 55 then
 						skillpoints.AddSkillPoints(self.Owner,5)
+						trent:FloatingTextEffect( 5, self.Owner )
 						self.Owner:AddXP(3)
 						self.Owner._TorchScore = 0
 					end

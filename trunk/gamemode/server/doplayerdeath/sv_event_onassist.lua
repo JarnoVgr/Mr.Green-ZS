@@ -56,6 +56,7 @@ local function OnAssistDeath ( mVictim, mAttacker, mInflictor, mAssist, dmginfo 
 		mAssist:AddXP(math.ceil(ZombieClasses[mVictim:GetZombieClass()].Bounty/2))
 		
 		skillpoints.AddSkillPoints(mAssist, math.ceil(reward))
+		mVictim:FloatingTextEffect( math.ceil(reward), mAssist )
 		
 		--[=[if mVictim:IsHeadcrab() or mVictim:IsPoisonCrab() then
 			skillpoints.AchieveSkillShot(mAssist,mVictim,"hkillassist")	

@@ -137,6 +137,7 @@ function SWEP:PrimaryAttack()
 					if SERVER then
 						owner.HealingDone = owner.HealingDone + (toheal or 10)
 						skillpoints.AddSkillPoints(owner,toheal or 10)
+						ent:FloatingTextEffect( toheal or 10, owner )
 						owner:AddXP(toheal or 5)
 						
 						--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})

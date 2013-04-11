@@ -74,6 +74,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			if dmginfo:IsAttackerPlayer() then
 				-- mAttacker:AddFrags ( 1 )
 				skillpoints.AddSkillPoints(mAttacker,5)
+				mVictim:FloatingTextEffect( 5, mAttacker )
 			end
 		end
 		
@@ -145,6 +146,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				mVictim.Gibbed = true
 				-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"meatshower")
 				skillpoints.AddSkillPoints(mAttacker,5)
+				mVictim:FloatingTextEffect( 5, mAttacker )
 				
 				-- New commando's reqs--------------------------------------
 				

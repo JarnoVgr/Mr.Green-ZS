@@ -204,3 +204,45 @@ function meta:ResetBones(onlyscale)
 		end
 	end
 end
+
+--[==[----------------------------------------------------------------]==]
+
+if SERVER then
+    util.AddNetworkString( "net_floating_text" )
+
+    function meta:FloatingTextEffect( points, attacker )
+        if IsValid( attacker ) and attacker:IsPlayer() then
+            net.Start( "net_floating_text" )
+                net.WriteInt( points, 32 )
+                net.WriteEntity( self )
+            net.Send( attacker )
+        end
+    end
+end
+
+if CLIENT then
+    net.Receive( "net_floating_text", function( len )
+        local points = net.ReadInt( 32 )
+        local ent = net.ReadEntity()
+        
+        if ( IsValid( ent ) ) then
+            ent:FloatingTextEffect( points )
+        end
+    end )
+
+    function meta:FloatingTextEffect( points )
+        local effect = EffectData()
+        
+        -- Top-center
+        local pos = self:OBBCenter()
+        pos.z = self:OBBMaxs().z
+        
+        effect:SetOrigin( self:LocalToWorld( pos ) )
+        effect:SetMagnitude( math.Round( points ) or 0 )
+        
+        util.Effect( "effect_floating_text", effect, true, true )    
+    end
+end
+
+--[==[----------------------------------------------------------------]==]
+
