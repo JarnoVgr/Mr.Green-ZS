@@ -907,10 +907,16 @@ function hud.DrawZeroWaveMessage()
 
 			local numplayers = #allplayers
 			local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
+			
+			-- Client zombie spawn warning
+            if ( table.HasValue( voltab, MySelf ) ) then
+                draw.SimpleTextOutlined("You're currently volunteering as a zombie! Get out of that place if you don't want that!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.7 + txth, Color(235,50,50,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))              
+            end
 
 			draw.SimpleTextOutlined("Number of initial zombies this game ("..WAVE_ONE_ZOMBIES * 100 .."%): "..desiredzombies, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
 			draw.SimpleTextOutlined("Zombie volunteers: "..vols, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			
 			surface.SetFont("Default")
 			local y = ScrH() * 0.75 + txth * 2
 			txtw, txth = surface.GetTextSize("Hi")
