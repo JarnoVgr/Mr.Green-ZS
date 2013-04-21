@@ -66,8 +66,10 @@ local function GetAFKStatus ( pl, cmd, tbArgs )
 	-- Record time
 	if pl.bIsAFK then pl.KickTime = CurTime() + TIME_KICK else pl.KickTime = -1 end
 	
-	-- Notice players
-	if pl.bIsAFK then pl:ChatPrint ( "[AFK] You are now AFK! Hit a key to return to keyboard, otherwise you will be kicked in a couple of minutes." ) elseif not pl.bIsAFK then pl:ChatPrint ( "[AFK] Welcome back, "..tostring ( pl:Name() ).."!" ) end
+	-- Notice players when being marked as AFK
+	if pl.bIsAFK then
+		pl:ChatPrint ( "[AFK] You seem to be away. We will kick you in a couple minutes if you don't hit a key." )
+	end
 end
 concommand.Add ( "set_afk", GetAFKStatus )
 
