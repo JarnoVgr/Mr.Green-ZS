@@ -720,6 +720,13 @@ function hud.DrawWavePanel()
 	local WaveX,WaveY = 12,12
 	local WaveW,WaveH = ScaleW(205),ScaleH(70)
 
+	--Background
+	-- DrawBlackBox(WaveX,WaveY,WaveW,WaveH)
+	
+	-- surface.SetTexture(hud.LeftGradient)
+	-- surface.SetDrawColor(0, 0, 0, 140)
+	-- surface.DrawTexturedRect(0,0,ScaleW(300),ScaleH(80))
+		
 	local curwav = GAMEMODE:GetWave()
 	
 	surface.SetFont("ArialBoldSeven")
@@ -727,6 +734,8 @@ function hud.DrawWavePanel()
 	
 	local text1x, text1y = WaveX+ScaleW(7), WaveY+5
 	local text2x, text2y = WaveX+ScaleW(7), text1y+fTall+5
+	
+
 	
 	-- zero wave
 	if curwav <= 0 then
@@ -781,11 +790,7 @@ function hud.DrawWavePanel()
 		
 		draw.SimpleTextOutlined(cached_humans, "ArialBoldSeven", text2x+space1+space2+space3+2, text2y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
-        -- Encouragement for last 30 seconds of last round
-        if ( timleft <= 30 and GAMEMODE:GetWave() == 6 ) then
-            draw.SimpleTextOutlined("Hang on!", "ArialBoldTwelve", ScrW() * 0.5, ScrH() * 0.1, Color(255,255,255,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) 
-            draw.SimpleTextOutlined("Only "..math.Round( timleft + 1 ).." seconds left!", "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.14, Color(235,50,50,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-        end
+		
 	else
 		local timleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
 		if timleft < 10 then
@@ -877,8 +882,8 @@ function hud.DrawZeroWaveMessage()
 		
 			surface.SetFont("ArialBoldSeven")
 			local txtw, txth = surface.GetTextSize("Hi")
-			draw.SimpleTextOutlined("Waiting for players... "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1), "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			draw.SimpleTextOutlined("Go to an undead spawn area if you want to start as zombie", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1), "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Go to an zombie spawn area to volunteer for zombie", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
 			local vols = 0
 			local voltab = {}
@@ -905,10 +910,11 @@ function hud.DrawZeroWaveMessage()
 			
 			-- Client zombie spawn warning
             if ( table.HasValue( voltab, MySelf ) ) then
-                draw.SimpleTextOutlined("You're currently volunteering as a zombie! Get out of that place if you don't want that!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.7 + txth, Color(235,50,50,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))              
+                draw.SimpleTextOutlined("You're now volunteering as a zombie. Get out of this place if you want to stay alive!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.7 + txth, Color(235,50,50,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))              
             end
 
-			draw.SimpleTextOutlined("Number of initial zombies this game ("..WAVE_ONE_ZOMBIES * 100 .."%): "..desiredzombies, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			--draw.SimpleTextOutlined("Number of initial zombies this game ("..WAVE_ONE_ZOMBIES * 100 .."%): "..desiredzombies, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Starting with "..desiredzombies .." zombies ("..WAVE_ONE_ZOMBIES * 100 .."%)", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
 			draw.SimpleTextOutlined("Zombie volunteers: "..vols, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			

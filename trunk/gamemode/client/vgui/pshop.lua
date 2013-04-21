@@ -735,7 +735,7 @@ function InsertOther()
 				if MySelf.DataTable["ShopItems"][tab.ID] then
 					draw.SimpleTextOutlined ( "PURCHASED!", "WeaponNames", MiscTab[itemID]:GetWide() - 140,MiscTab[itemID]:GetTall()/6, Color(35, 155, 35, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				else
-					draw.SimpleTextOutlined ( "Price: "..tab.Cost, "WeaponNames", MiscTab[itemID]:GetWide() - 140,MiscTab[itemID]:GetTall()/6, Color(255, 255, 255, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined ( "Cost: "..tab.Cost .." GC", "WeaponNames", MiscTab[itemID]:GetWide() - 140,MiscTab[itemID]:GetTall()/6, Color(255, 255, 255, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				end
 				
 				if MiscTab[itemID].Overed then
@@ -765,7 +765,7 @@ function InsertOther()
 			MiscTab[itemID].Btn:SetPos(MiscTab[itemID]:GetWide()-35-100, (MiscTab[itemID]:GetTall()/6)/2)
 			MiscTab[itemID].Btn.Think = function()
 				if MySelf.DataTable["ShopItems"][tab.ID] then
-					MiscTab[itemID].Btn:SetText("You got this already")
+					MiscTab[itemID].Btn:SetText("You have this already")
 					
 					MiscTab[itemID].Btn:SetEnabled(false)
 					MiscTab[itemID].Btn:SetDisabled(true)
@@ -776,7 +776,7 @@ function InsertOther()
 						MiscTab[itemID].Btn:SetEnabled(false)
 						MiscTab[itemID].Btn:SetDisabled(true)
 					else
-						MiscTab[itemID].Btn:SetText("Buy this shit!")
+						MiscTab[itemID].Btn:SetText("BUY")
 						
 						MiscTab[itemID].Btn:SetEnabled(true)
 						MiscTab[itemID].Btn:SetDisabled(false)
@@ -1355,7 +1355,7 @@ function DrawGreenShop()
 	BlurMenu:SetSize(TopMenuW,TopMenuH)
 	BlurMenu:SetPos(TopMenuX,TopMenuY)
 	BlurMenu:SetSkin("ZSMG")
-	BlurMenu:SetTitle( "Welcome to the Green Shop!" ) 
+	BlurMenu:SetTitle( "Zombie Survival GreenCoins Shop" ) 
 	BlurMenu:SetDraggable ( false )
 	BlurMenu:SetBackgroundBlur( true )
 	BlurMenu:SetSizable(false)
@@ -1366,13 +1366,9 @@ function DrawGreenShop()
 	welcomebox:SetPos( 5, 25 ) 
 	welcomebox:SetSize( TopMenuW-10, TopMenuH-30 ) 
 	welcomebox:SetEditable( false )
-	welcomebox:SetValue([[WARNING!
-	Green Shop is under construction.
-	That means that some upgrades are not avalaible atm.
-	They will be either refunded with tools/perks or reworked and unlocked later.
-	
-	
-	Also, atm some hats/suits might look weird on few models.
+	welcomebox:SetValue([[Please note that some hats/suits might look strange on few playermodels.
+	You earn GreenCoins by playing this game, or by paying for them.
+	More information regarding GreenCoins can be found on http://mrgreengaming.com
 	]])
 	welcomebox:SetMultiline( true )
 	
@@ -1405,7 +1401,7 @@ function DrawGreenShop()
 	ShopMenu:ShowCloseButton(false)
 	ShopMenu.Think = function()
 		if ShopMenu and ShopMenu.SetTitle then
-			ShopMenu:SetTitle( "Shop items | Greencoins: "..(MySelf:GreenCoins() or 0) ) 
+			ShopMenu:SetTitle( "Shop items | Your GreenCoins balance: "..(MySelf:GreenCoins() or 0) ) 
 		end
 	end
 	
