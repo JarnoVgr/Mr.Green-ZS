@@ -620,7 +620,7 @@ DESTROY_DOORS = true
 PROP_MANAGE_MODULE = false
 
 -- Set this to true to destroy all prop-based doors. Not recommended since some doors have boards on them and what-not. Only for true door camping whores.
-DESTROY_PROP_DOORS = true
+DESTROY_PROP_DOORS = false
 
 -- Set this to true to force players to have mat_monitorgamma set to 2.2. This could cause problems with non-calibrated screens so, whatever.
 -- It forces people to use flashlights instead of whoring the video settings to make it brighter.
@@ -725,13 +725,11 @@ util.PrecacheSound(UNLIFESOUND)
 
 WELCOME_TEXT =
 [[
-Warning, some shit is broken because of high quality GMod updates.
+Select your loadout below and start to survive the Zombie Apocalypse.
+The more you play - the more unlocks you get for your loadout.
+Need help playing this gamemode? Press F1 while playing.
 
-*Viewmodels are messed up, ignore it.
-*Achievements and bosses are disabled.
-*Rest of stuff is unstable.
-
-Please report about any bugs at http://mrgreengaming.com
+Community: http://mrgreengaming.com
 ]]
 --[=[
 This version of gamemode was heavily modified so if you have any questions - you'd better check out F1 menu as soon as you spawn.
@@ -771,7 +769,7 @@ HELP_TXT = {}
 HELP_TXT[1] = {
 	title = "Help", 
 	txt = [[
-	Zombie Survival Green Apocalypse 2
+	Mr. Green Zombie Survival
 	
 	-- HUMANS -----------------------------------------------------
 	
@@ -794,7 +792,7 @@ HELP_TXT[1] = {
 	
 	
 	
-	Check out www.mrgreengaming.com or www.limetric.com!
+	Check out www.mrgreengaming.com!
 	]]
 } 
 
@@ -804,16 +802,17 @@ HELP_TXT[2] = {
 	The following WILL get you permabanned:
 		  - hacking / cheating
 		  - getting yourself banned too often
+		  - being a general retard
 	
 	The following can result in temporary ban:
-		  - Being unkind often
-		  - Impersonating an Admin
+		  - Being rude
+		  - Impersonating an admin
 		  - Exploiting after being warned several times
 		  - Ladder glitching
 		  - Cadebreaking
 	
 	The following can result in kick or insta-death:
-		  - Being AFK for a Long Period of Time
+		  - Being AFK for a long period of time
 		  - Spamming after being muted/gagged
 		
 	The following can result in being teleported:
@@ -822,8 +821,8 @@ HELP_TXT[2] = {
 		
 	The following can result in being muted/gagged:
 		  - Spamming
-		  - Being Underage and Using Microphone
-		  - Excessive Swearing
+		  - Abusing voice (playing music, screaming etc.)
+		  - Excessive swearing
 	
 	]]
 } 
@@ -831,10 +830,12 @@ HELP_TXT[2] = {
 HELP_TXT[3] = {
 	title = "About", 
 	txt = [[
-		The Mr. Green forums can be found at http://www.mrgreengaming.com
-		If you have any questions or tips about/for this server you can always e-mail to ywa@limetric.com
+		Mr. Green forums can be found at http://mrgreengaming.com
+		If you have any questions or tips about/for this server you can always e-mail to info@limetric.com
 		
-		Surf to http://www.mrgreengaming.com to post your ideas for changes and where you can post suggestions for new maps.
+		Surf to http://mrgreengaming.com to post your ideas for changes and where you can post suggestions for new maps.
+		
+		Gamemode is developped by Limetric for Mr. Green Gaming Community. More info at http://limetric.com
 	]]
 } 
 
@@ -845,22 +846,25 @@ HELP_TXT[4] = {
 		* Press F3 (also drops weapon as human)
 		
 		> How to become a human as a zombie?
-		* Kill 4 humans (8 score)
+		* Kill 4 humans (score 8 points)
 		
 		> How to get new weapons?
-		* Get skillpoints by helping your team and use them on supply crate (between waves)
+		* Get SkillPoints by helping your team and use them on available supply crate (between waves)
 		
 		> Where I can buy hats?
-		* Green Shop. Type !shop in chat to open it.
+		* GreenCoins Shop. Type !shop in chat to open it.
 		
 		> How to use hammer?
-		* Right click to nail a prop to something. (Also hammer can not heal props)
+		* Right click to nail a prop to something. (A hammer can't heal props!)
 		
 		> How to check my experience amount?
 		* Type !levelstats in chat
 		
 		> Where I can find options?
 		* Press F4
+		
+		> Who's awesome?
+		* You are!
 	]]
 } 
 ADMINS_HTTP = "http://left4green.com/serverinfo/zs_admins.php"
