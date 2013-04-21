@@ -138,7 +138,7 @@ function death.DeathZombieHUD()
 	if obsmode ~= OBS_MODE_NONE then
 		GAMEMODE:ZombieObserverHUD(obsmode)
 	elseif not GAMEMODE:GetFighting() or GAMEMODE:GetWave() == 0 then
-		draw.DrawText( "Wait for next wave to respawn | "..ToMinutesSeconds(respleft + 1).."", "NewZombieFont27", ScaleW(641), ScaleH(63), Color (155,155,155,255), TEXT_ALIGN_CENTER)
+		draw.DrawText( "You will spawn in "..ToMinutesSeconds(respleft + 1), "NewZombieFont27", ScaleW(641), ScaleH(63), Color (155,155,155,255), TEXT_ALIGN_CENTER)
 	end
 	
 	--[=[if MySelf:IsFreeSpectating() then

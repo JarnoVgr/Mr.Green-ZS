@@ -882,8 +882,8 @@ function hud.DrawZeroWaveMessage()
 		
 			surface.SetFont("ArialBoldSeven")
 			local txtw, txth = surface.GetTextSize("Hi")
-			draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1), "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			draw.SimpleTextOutlined("Go to an zombie spawn area to volunteer for zombie", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1) ..". Prepare your hideout!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			--draw.SimpleTextOutlined("Go to an zombie spawn area to volunteer for zombie", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
 			local vols = 0
 			local voltab = {}
@@ -916,7 +916,7 @@ function hud.DrawZeroWaveMessage()
 			--draw.SimpleTextOutlined("Number of initial zombies this game ("..WAVE_ONE_ZOMBIES * 100 .."%): "..desiredzombies, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			draw.SimpleTextOutlined("Starting with "..desiredzombies .." zombies ("..WAVE_ONE_ZOMBIES * 100 .."%)", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
-			draw.SimpleTextOutlined("Zombie volunteers: "..vols, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Volunteers: "..vols, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			
 			surface.SetFont("Default")
 			local y = ScrH() * 0.75 + txth * 2
