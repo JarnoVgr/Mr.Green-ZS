@@ -212,8 +212,7 @@ local function SaveGreenCoinsStep2Callback(pltab, result, status, err)
 			pl.EarnedGreenCoins = 0
 			GAMEMODE:SendCoins(pl)
 			
-			-- Notify
-			pl:ChatPrint( "[SERVER] Successfully saved Green-Coins!" )
+			--Saved!
 		end
 	else
 		WriteSQLLog("ERROR WHEN ATTEMPTING QUERY (SGCS2C) pl: "..pltab.name.."; status: "..tostring(status).."; error: "..tostring(err))
