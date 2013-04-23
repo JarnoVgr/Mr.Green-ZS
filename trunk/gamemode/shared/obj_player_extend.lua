@@ -155,7 +155,7 @@ function meta:GetSpawnDamagePercent()
 end
 
 -- Hook on spawn
-hook.Add( "PlayerSpawnZS", "SpawnTime", function( pl ) pl.SpawnTime = CurTime() end )
+hook.Add( "PlayerSpawn", "SpawnTime", function( pl ) pl.SpawnTime = CurTime() end )
 
 --[=[---------------------------------------
       Returns active human level
