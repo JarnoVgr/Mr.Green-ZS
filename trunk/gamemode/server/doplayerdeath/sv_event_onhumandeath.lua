@@ -18,7 +18,7 @@ hook.Add( "OnHumanDeath", "TeamDeathMechanism", function( pl )
 end )
 
 -- Died as human status
-hook.Add( "PlayerSpawn", "TeamDeathMechanism", function( pl )
+hook.Add( "PlayerSpawnZS", "TeamDeathMechanism", function( pl )
 	pl.IsHumanDeath = false
 end )
 

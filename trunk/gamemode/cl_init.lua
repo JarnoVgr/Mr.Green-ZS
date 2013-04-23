@@ -946,7 +946,7 @@ local function ResetProtectionBox( pl )
 		hook.Remove( "HUDPaint", "DrawHumanSpawnProtection" )
 	end
 end
-hook.Add( "PlayerSpawn", "ResetProtectionDrawBox", ResetProtectionBox )
+hook.Add( "PlayerSpawnZS", "ResetProtectionDrawBox", ResetProtectionBox )
 
 local function drawSpawnProtection( pl )
 	timer.Simple( 0.25, function( )
@@ -996,7 +996,7 @@ local function ResetBoostBox( pl )
 		drawZombieBoost = false
 	end
 end
---hook.Add( "PlayerSpawn", "ResetBoostBox", ResetBoostBox )
+--hook.Add( "PlayerSpawnZS", "ResetBoostBox", ResetBoostBox )
 
 local boostmat = surface.GetTextureID ( "zombiesurvival/hud/hud_friend_splash" )
 local function DrawZombieBoost()

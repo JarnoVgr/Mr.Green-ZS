@@ -78,7 +78,7 @@ function mPlayer:GetSpectators()
 end
 ]=]
 -- Unspectate a player on spawn. Automatically ignores the function if player isn't spectator
-hook.Add ( "PlayerSpawn", "OnSpawnUnSpectate", function ( pl ) pl:UnSpectate() pl.Spectators = {} end )
+hook.Add ( "PlayerSpawnZS", "OnSpawnUnSpectate", function ( pl ) pl:UnSpectate() pl.Spectators = {} end )
 
 --[==[------------------------------------------------------------------------------------------------------
                             Check for players that die while being spectated

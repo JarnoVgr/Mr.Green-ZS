@@ -297,7 +297,7 @@ function CheckGameConnection( pl )
 	SQLQuery( query, GameConnectionCallback, pl )
 	pl.GameCChecked = true
 end
-hook.Add("PlayerSpawn","CheckGameConnection",CheckGameConnection)
+hook.Add("PlayerSpawnZS","CheckGameConnection",CheckGameConnection)
 
 local function ConfirmStep3Callback( pl, result, status, err )
 	if (type(err) == "number" and err == 0) then

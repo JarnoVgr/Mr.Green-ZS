@@ -24,7 +24,7 @@ local function EquipCall( pl )
 		end
 	end
 end
-if CLIENT then hook.Add ( "PlayerSpawn", "EquipCall", EquipCall ) end
+if CLIENT then hook.Add ( "PlayerSpawnZS", "EquipCall", EquipCall ) end
 
 local function OnEquip ( pl, mWeapon )
 	
