@@ -994,10 +994,6 @@ eventually restarting the game!]],
 which is required for the content in this game to display properly.]]
 }
 
-local function QueryContentMissing( title, message )
-    local query = Derma_Query( message, title, "Close" )
-end
-
 ---
 -- @description Display a notification regarding Counter-Strike Source
 --  content status to the user. This occurs just after the main 
@@ -1016,7 +1012,7 @@ hook.Add( "OnPlayerReadySQL", "CheckContentStatus", function()
     end
     
     if ( message ) then
-        QueryContentMissing( title, messages.NotInstalled )
+        Derma_Query( message, title, "Close" )
     end
 end )
 
