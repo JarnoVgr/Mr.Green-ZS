@@ -985,11 +985,13 @@ local title = "Warning! Counter-Strike content not mounted/missing!"
 local messages = 
 {
     NotInstalled = [[It seems you do not have Counter-Strike Source installed
-which is required for this game to properly work.]],
-    NotMounted = [[It seems you do not have Counter-Strike Source mounted. Please
-do X and Y do mount it!]],
-    NotBought = [[It seems you don't have Counter-Strike Source bought. You may 
-experience a few content errors...]]
+which is required for the content in this game to display properly.]],
+    NotMounted = [[It seems you do not have Counter-Strike Source mounted. You
+can mount it by hitting escape and pressing the button with a game controller icon
+in the bottom-right corner of your screen, then checking 'Counter-Strike' and 
+eventually restarting the game!]],
+    NotBought = [[It seems you don't have Counter-Strike Source bought, 
+which is required for the content in this game to display properly.]]
 }
 
 local function QueryContentMissing( title, message )
