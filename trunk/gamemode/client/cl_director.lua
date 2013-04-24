@@ -84,7 +84,21 @@ end )
 local function PredictSpawn()
 	for k,v in pairs ( player.GetAll() ) do
 		if IsEntityValid ( v ) then
-			if v:Deaths() == PREDICT_SPAWN then v.bSpawning = nil if v.bSpawned == nil then timer.Simple ( 0.1, function() if IsEntityValid ( v ) then gamemode.Call ( "PlayerSpawn", v ) end end) v.bSpawned = true end elseif v:Deaths() == PREDICT_SPAWN_END then if v.bSpawning == nil then v.bSpawned = nil v.bSpawning = true end end
+			if v:Deaths() == PREDICT_SPAWN then 
+			     v.bSpawning = nil 
+			     if v.bSpawned == nil then 
+    			     timer.Simple ( 0.1, function() 
+    			         if IsEntityValid ( v ) then 
+    			             gamemode.Call ( "PlayerSpawn", v ) 
+    			         end 
+    			     end) 
+    			     v.bSpawned = true 
+    			end 
+			elseif v:Deaths() == PREDICT_SPAWN_END then 
+			    if v.bSpawning == nil then 
+			        v.bSpawned = nil v.bSpawning = true 
+			    end 
+		    end
 			
 			-- Preidct health loss
 			if v.LastHealth and v.LastHealth ~= v:Health() and v:Alive() then 

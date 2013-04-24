@@ -1694,9 +1694,8 @@ function ChangeClassClient ( class )
 	
 	RunConsoleCommand("ChangeClass", class)
 	
-	if not FIRSTAPRIL then
-	-- RunConsoleCommand ("stopsounds")
-	end
+	-- Only one call after choosing loadout
+	gamemode.Call( "PostPlayerChooseLoadout", MySelf )
 end
 usermessage.Hook("DrawSelectClass", DrawNewSelectClass2) 
 -- concommand.Add("open_testmenu",DrawNewSelectClass2)

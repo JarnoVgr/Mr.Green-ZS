@@ -979,3 +979,44 @@ function hud.DrawObjMessages()
 end
 hook.Add("PostDrawOpaqueRenderables","hud.DrawObjMessages",hud.DrawObjMessages)
 
+--[[----------------------------------------------------------------------------------]]
+
+local title = "Warning! Counter-Strike content not mounted/missing!"
+local messages = 
+{
+    NotInstalled = [[It seems you do not have Counter-Strike Source installed
+which is required for this game to properly work.]],
+    NotMounted = [[It seems you do not have Counter-Strike Source mounted. Please
+do X and Y do mount it!]],
+    NotBought = [[It seems you don't have Counter-Strike Source bought. You may 
+experience a few content errors...]]
+}
+
+local function QueryContentMissing( title, message )
+    local query = Derma_Query( message, title, "Close" )
+end
+
+---
+-- @description Display a notification regarding Counter-Strike Source
+--  content status to the user. This occurs just after the main 
+--  loading screen.
+-- 
+hook.Add( "OnPlayerReadySQL", "CheckContentStatus", function()
+    local game = engine.Games["Counter-Strike"]
+    local message
+    
+    if ( not engine.IsGameBought( game ) ) then
+        message = messages.NotBought 
+    elseif ( not engine.IsGameInstalled( game ) ) then
+        message = messages.NotInstalled    
+    elseif ( not engine.IsGameMounted( game ) ) then
+        message = messages.NotMounted 
+    end
+    
+    if ( message ) then
+        QueryContentMissing( title, messages.NotInstalled )
+    end
+end )
+
+--[[----------------------------------------------------------------------------------]]
+
