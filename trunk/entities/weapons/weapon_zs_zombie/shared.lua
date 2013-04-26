@@ -61,7 +61,7 @@ SWEP.Weight = 5
 SWEP.AutoSwitchTo = true
 SWEP.AutoSwitchFrom = false
 
-SWEP.DistanceCheck = 88
+SWEP.DistanceCheck = 95 -- 88
 SWEP.MeleeDelay = 0.6
 
 SWEP.SwapAnims = false
@@ -100,7 +100,7 @@ function SWEP:PrimaryAttack()
 	if CurTime() < self.NextSwing then return end
 	
 	self.Weapon:SetNextPrimaryFire ( CurTime() + self.MeleeDelay ) 
-	self.Weapon:SetNextSecondaryFire ( CurTime() + 1.2 )
+	self.Weapon:SetNextSecondaryFire ( self:GetNextPrimaryFire() + 0.5 )
 	self:StartSwinging()
 	
 	self.NextSwing = CurTime() + self.Primary.Delay
