@@ -791,6 +791,11 @@ function hud.DrawWavePanel()
 		
 		draw.SimpleTextOutlined(cached_humans, "ArialBoldSeven", text2x+space1+space2+space3+2, text2y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
+		-- Encouragement for last 30 seconds of last round
+        if ( timleft <= 30 and GAMEMODE:GetWave() == 6 ) then
+            draw.SimpleTextOutlined("Hang on!", "ArialBoldTwelve", ScrW() * 0.5, ScrH() * 0.1, Color(255,255,255,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) 
+            draw.SimpleTextOutlined("Only "..math.Round( timleft + 1 ).." seconds left!", "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.14, Color(235,50,50,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+        end
 		
 	else
 		local timleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
