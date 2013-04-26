@@ -1152,7 +1152,7 @@ ZombieClasses[0] =
 	-- ModelScale = Vector(1.35,1.35,1.35),
 }
 
---[[ZombieClasses[1] =						
+ZombieClasses[1] =						
 {
 	Name = "Normal Zombie",	
 	Tag = "zombie",	
@@ -1165,6 +1165,8 @@ ZombieClasses[0] =
 	Threshold = 0,	
 	SWEP = "weapon_zs_zombie",			
 	JumpPower = 200,
+	Unlocked = false,
+	Hidden = true,
 	CanCrouch = true,
 	CanGib = true,
 	Model = Model("models/Zombie/Classic.mdl"), 
@@ -1199,9 +1201,9 @@ ZombieClasses[0] =
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
 	-- ModelScale = Vector(1.35,1.35,1.35),
-}]]
+}
 
-ZombieClasses[1] = 
+ZombieClasses[2] = 
 {
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
@@ -1236,7 +1238,7 @@ ZombieClasses[1] =
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
-ZombieClasses[2] =
+ZombieClasses[3] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
@@ -1275,7 +1277,7 @@ ZombieClasses[2] =
 	-- ViewOffset = Vector( 0, 0, 0 ),
 }
 
-ZombieClasses[3] =
+ZombieClasses[4] =
 {
 	Name = "Ethereal Zombie",
 	Tag = "etherealzombie",
@@ -1309,7 +1311,7 @@ ZombieClasses[3] =
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
-ZombieClasses[4] =						
+ZombieClasses[5] =						
 {
 	Name = "Howler",
 	Tag = "howler",	
@@ -1355,7 +1357,7 @@ ZombieClasses[4] =
 	-- ViewOffset = Vector( 0, 0, 0 )
 }
 util.PrecacheModel("models/mrgreen/howler.mdl")
-ZombieClasses[5] =
+ZombieClasses[6] =
 {
 	Name = "Headcrab",
 	Tag = "headcrab",
@@ -1389,7 +1391,7 @@ ZombieClasses[5] =
 	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1)}
 }
 
-ZombieClasses[6] =
+ZombieClasses[7] =
 {
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
@@ -1426,7 +1428,7 @@ ZombieClasses[6] =
 	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1) }
 }
 
-ZombieClasses[7] =
+ZombieClasses[8] =
 {
 	Name = "Zombine",
 	Tag = "zombine",
@@ -1474,7 +1476,7 @@ ZombieClasses[7] =
 				},
 }
 
-ZombieClasses[8] =
+ZombieClasses[9] =
 {
 	Name = "Crow",
 	Health = 30,
@@ -1506,7 +1508,7 @@ ZombieClasses[8] =
 	Hidden = true
 }
 
-ZombieClasses[9] =						
+ZombieClasses[10] =						
 {
 	Name = "Hate",	
 	Tag = "hate",	
@@ -1576,7 +1578,7 @@ ZombieClasses[9] =
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
 }
 
-ZombieClasses[10] =
+ZombieClasses[11] =
 {
 	Name = "Behemoth",
 	Tag = "behemoth",
@@ -1642,7 +1644,7 @@ ZombieClasses[10] =
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
-ZombieClasses[11] =
+ZombieClasses[12] =
 {
 	Name = "Seeker",
 	Tag = "seeker",
@@ -1699,7 +1701,7 @@ ZombieClasses[11] =
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
-ZombieClasses[12] =
+ZombieClasses[13] =
 {
 	Name = "Nerf",
 	Tag = "nerf",
