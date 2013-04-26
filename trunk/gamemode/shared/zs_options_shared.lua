@@ -1188,7 +1188,6 @@ ZombieClasses[1] =
 				Sound("npc/zombie/zombie_die3.wav")
 				}, 	
 	PlayerFootstep = true,
-	Unlocked = true,
 	-- ViewOffset = Vector( 0, 0, 0 ),
 	ReviveCallback = function(pl, attacker, dmginfo)
 		if math.random(1, 4) ~= 1 then
