@@ -746,7 +746,7 @@ function hud.DrawWavePanel()
 		
 		if timleft < 10 then
 			local glow = math.sin(RealTime() * 8) * 200 + 255
-			draw.SimpleTextOutlined("Zombie invasion in: 0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text2x, text2y, Color(255, glow, glow), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text1x, text1y, Color(255, glow, glow), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 			if lastwarntim ~= math.ceil(timleft) then
 				lastwarntim = math.ceil(timleft)
 				if 0 < lastwarntim then
@@ -754,7 +754,7 @@ function hud.DrawWavePanel()
 				end
 			end
 		else
-			draw.SimpleTextOutlined("Zombie invasion in: 0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		end
 	elseif GAMEMODE:GetFighting() then
 		local timleft = math.max(0, GAMEMODE:GetWaveEnd() - CurTime())
@@ -882,7 +882,7 @@ function hud.DrawZeroWaveMessage()
 		
 			surface.SetFont("ArialBoldSeven")
 			local txtw, txth = surface.GetTextSize("Hi")
-			draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1) ..". Prepare your hideout!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			--draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1) ..". Prepare your hideout!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			--draw.SimpleTextOutlined("Go to an zombie spawn area to volunteer for zombie", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
 			local vols = 0
