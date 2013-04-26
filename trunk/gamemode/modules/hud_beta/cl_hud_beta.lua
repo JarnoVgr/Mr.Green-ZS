@@ -742,7 +742,7 @@ function hud.DrawWavePanel()
 		
 		local timleft = math.max(0, WAVEZERO_LENGTH - CurTime())
 		
-		draw.SimpleTextOutlined("Prepare your asses...", "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		--draw.SimpleTextOutlined("Prepare your asses...", "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		if timleft < 10 then
 			local glow = math.sin(RealTime() * 8) * 200 + 255
