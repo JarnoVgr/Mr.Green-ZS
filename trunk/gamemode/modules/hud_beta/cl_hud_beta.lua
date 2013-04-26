@@ -289,8 +289,7 @@ function hud.DrawNewZombieHUD()
 	--draw.SimpleText(fHealth, "NewZombieFont17", x+110, y+45, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	draw.SimpleTextOutlined(fHealth, "NewZombieFont17", x+110, y+45, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 	
-	draw.SimpleText("GREENCOINS: "..MySelf:GreenCoins(), "NewZombieFont13", x+108, y-11, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-		
+
 	if REDEEM_PUNISHMENT then
 		if GAMEMODE:GetWave() >= REDEEM_PUNISHMENT_TIME then
 			draw.SimpleText("Redeem time has expired!", "NewZombieFont13", x, y+77, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
@@ -307,6 +306,8 @@ function hud.DrawNewZombieHUD()
 	
 	local text1x, text1y = 10, 10
 	local text2x, text2y = 10, text1y+fTall+1
+
+	draw.SimpleText("GREENCOINS: "..MySelf:GreenCoins(), "NewZombieFont13", 10, text2y+fTall+20, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 	
 
 	
