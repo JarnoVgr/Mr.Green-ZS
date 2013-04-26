@@ -1018,11 +1018,7 @@ function meta:SelectSpawnType(iscrow)
 		if iscrow then
 			self:SetZombieClass(self.DeathClass or 0)
 		end
-		
-		--Spawn players with random delay to fix nade spam and mine spamming
-		timer.Simple(math.Rand(0.1,5),function()
-			self:UnSpectateAndSpawn()
-		end)
+		self:UnSpectateAndSpawn()
 	end
 end
 
