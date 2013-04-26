@@ -347,7 +347,7 @@ function hud.DrawNewZombieHUD()
 				end
 			end
 		end
-		draw.SimpleTextOutlined("Wave ".. curwav .. " out of ".. NUM_WAVES.."  |  ", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined("Wave ".. curwav .. " of ".. NUM_WAVES.."  |  ", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		draw.SimpleTextOutlined("Infliction: ", "NewZombieFont15", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
