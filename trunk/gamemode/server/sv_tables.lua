@@ -272,6 +272,11 @@ for _, filename in pairs( file.Find( "sound/npc/zombine/*.wav", "GAME" ) ) do
 	table.insert ( ResourceFiles, "sound/npc/zombine/"..filename  )
 end
 
+-- Green Zombie sounds
+for _, filename in pairs( file.Find( "sound/npc/zombiegreen/*.wav" , "GAME") ) do
+	table.insert ( ResourceFiles, "sound/npc/zombiegreen/"..filename  )
+end
+
 -- Wraith sounds
 for _, filename in pairs( file.Find( "sound/npc/stalker/*.wav" , "GAME") ) do
 	table.insert ( ResourceFiles, "sound/npc/stalker/"..filename  )

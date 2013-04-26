@@ -130,7 +130,7 @@ function SWEP:StartSwinging()
 	
 	-- Set the thirdperson animation and emit zombie attack sound
 	pl:DoAnimationEvent( CUSTOM_PRIMARY )
-	if SERVER then self.Owner:EmitSound("npc/zombie/zo_attack"..math.random(1, 2)..".wav") end
+	if SERVER then self.Owner:EmitSound("npc/zombiegreen/rage_at_victim"..math.random(20, 37)..".wav") end
 
 	if self.MeleeDelay > 0 then
 		self:SetSwingEndTime(CurTime() + self.MeleeDelay)
@@ -180,7 +180,7 @@ function SWEP:Swung()
 	HullHit = ValidEntity ( trHull.Entity )
 	
 	-- Play miss sound anyway
-	pl:EmitSound("npc/zombie/claw_miss"..math.random(1, 2)..".wav")
+	pl:EmitSound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav")
 	
 	-- Punch the prop / damage the player if the pretrace is valid
 	if ValidEntity ( victim ) then
@@ -195,7 +195,7 @@ function SWEP:Swung()
 		victim:TakeDamage ( Damage, self.Owner, self )
 			
 		-- Claw sound
-		pl:EmitSound("npc/zombie/claw_strike"..math.random(1, 3)..".wav")
+		pl:EmitSound("npc/zombiegreen/hit_punch_0"..math.random(1, 8)..".wav")
 				
 		-- Case 2: It is a valid physics object
 		if phys:IsValid() and not victim:IsNPC() and phys:IsMoveable() and not victim:IsPlayer() and not victim.Nails then
@@ -207,7 +207,7 @@ function SWEP:Swung()
 		end
 	end
 	
-	-- -- Verify tracehull entity
+	-- Verify tracehull entity
 	if HullHit and not TraceHit then
 		local ent = trHull.Entity
 		local phys = ent:GetPhysicsObject()
@@ -226,7 +226,7 @@ function SWEP:Swung()
 		end
 		
 		-- Play the hit sound
-		pl:EmitSound("npc/zombie/claw_strike"..math.random(1, 3)..".wav")
+		pl:EmitSound("npc/zombiegreen/hit_punch_0"..math.random(1, 8)..".wav")
 		
 		-- Take damage
 		ent:TakeDamage ( Damage, self.Owner, self )
@@ -338,60 +338,10 @@ end
 SWEP.NextYell = 0
 function SWEP:SecondaryAttack()
 	if CurTime() < self.NextYell then return end
-	local mOwner = self.Owner
 	
-	-- Can't moan while raging
-	if mOwner:IsZombieInRage() then return end
-	
-	-- Thirdperson animation
-	mOwner:DoAnimationEvent( CUSTOM_SECONDARY )
-	
-	local moan = "npc/zombie/moan_loop"..math.random(1,4)..".wav"
-	
-	if SERVER then
-	self.MoanSound = CreateSound(self.Owner,Sound(moan))
-		if not self:IsMoaning() then
-			if self.MoanSound then
-				-- self.Owner.Moaning = true 
-				self:SetMoaning(true)
-				self.MoanSound:Play()
-				timer.Simple ( SoundDuration( "../../hl2/sound/"..moan ), function() 
-														if self and ValidEntity(self.Weapon) and ValidEntity(self.Owner) then 
-															if self:IsMoaning() then
-																self:SetMoaning(false)
-																if self.MoanSound then
-																	self.MoanSound:Stop()
-																	self.MoanSound = nil
-																end
-															end
-														end 
-													end )
-			end
-		else
-			-- self.Owner.Moaning = false 
-			self:SetMoaning(false)
-			if self.MoanSound then
-				self.MoanSound:Stop()
-				self.MoanSound = nil
-			end
-		end
-	end
-	timer.Simple ( SoundDuration( "../../hl2/sound/"..moan ), function() 
-	   if IsValid( self ) and IsValid( self.Owner ) then 
-	       if self.Owner.IsMoaning then 
-	           self.Owner.IsMoaning = false 
-	       end 
-	   end 
-	end )
-		
-	-- Emit both claw attack sound and weird funny sound
-	-- if SERVER then self.Owner:EmitSound( "npc/zombie/zombie_voice_idle"..math.random( 1, 14 )..".wav" ) end
-	if self.Owner.IsMoaning then
-		self.NextYell = CurTime() + 2
-	else
-		self.NextYell = CurTime() + SoundDuration( "../../hl2/sound/"..moan )
-	end
-	
+	return
+
+	--Moaning was located here	
 end
 
 function SWEP:_OnRemove()
@@ -417,33 +367,25 @@ if SERVER then
 end
 
 if CLIENT then
-	function SWEP:DrawHUD() GAMEMODE:DrawZombieCrosshair ( self.Owner, self.DistanceCheck ) end
+	function SWEP:DrawHUD()
+		GAMEMODE:DrawZombieCrosshair ( self.Owner, self.DistanceCheck )
+	end
 end
 
 function SWEP:Precache()
-	for i = 1, 14 do
-		util.PrecacheSound("npc/zombie/zombie_voice_idle"..i..".wav")
+	for i = 20, 37 do
+		util.PrecacheSound("npc/zombiegreen/rage_at_victim"..i..".wav")
 	end
 
-	for i = 1, 3 do
-		util.PrecacheSound("npc/zombie/claw_strike"..i..".wav")
+	for i = 1, 2 do
+		util.PrecacheSound("npc/zombiegreen/claw_miss_"..i..".wav")
 	end
 	
 	for i = 1, 2 do
-		util.PrecacheSound("npc/zombie/claw_miss"..i..".wav")
+		util.PrecacheSound("npc/zombiegreen/hit_punch_0"..i..".wav")
 	end
 	
-	for i = 1, 2 do
-		util.PrecacheSound("npc/zombie/zo_attack"..i..".wav")
-	end
-	
-	for i = 1,3 do
-		util.PrecacheSound("npc/zombie/zombie_die"..i..".wav")
-	end
-	
-	for i = 1,4 do
-		util.PrecacheSound("npc/zombie/moan_loop"..i..".wav")
-	end
-	
-	
+	for i = 17,38 do
+		util.PrecacheSound("npc/zombiegreen/death_"..i..".wav")
+	end	
 end

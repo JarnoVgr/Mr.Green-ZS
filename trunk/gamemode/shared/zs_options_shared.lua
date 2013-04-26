@@ -1079,29 +1079,63 @@ ZombieClasses[0] =
 	Tag = "infected",	
 	Wave = math.floor(0 * NUM_WAVES),
 	Revives = false,
-	Health = 80,
-	MaxHealth = 100,
-	Bounty = 40,
-	SP = 10,
+	Health = 190,
+	MaxHealth = 250,
+	Bounty = 80,
+	SP = 15,
 	Threshold = 0,	
 	SWEP = "weapon_zs_undead_infected",			
 	JumpPower = 200,
 	CanCrouch = true,
 	CanGib = true,
 	Model = Model("models/player/group01/male_09.mdl"), 
-	Speed = 195,	
+	Speed = 180,	
 	-- AngleFix = true,
 	Description = "The victim of zombie plague.",
 	Unique = "Agile and hungry.",
 	PainSounds = {
-				Sound("npc/zombie/zombie_alert1.wav"),
-				Sound("npc/zombie/zombie_alert2.wav"),
-				Sound("npc/zombie/zombie_alert3.wav"),
+				Sound("npc/zombiegreen/been_shot_1.wav"),
+				Sound("npc/zombiegreen/been_shot_2.wav"),
+				Sound("npc/zombiegreen/been_shot_3.wav"),
+				Sound("npc/zombiegreen/been_shot_4.wav"),
+				Sound("npc/zombiegreen/been_shot_5.wav"),
+				Sound("npc/zombiegreen/been_shot_6.wav"),
+				Sound("npc/zombiegreen/been_shot_7.wav"),
+				Sound("npc/zombiegreen/been_shot_8.wav"),
+				Sound("npc/zombiegreen/been_shot_9.wav"),
+				Sound("npc/zombiegreen/been_shot_10.wav"),
+				Sound("npc/zombiegreen/been_shot_11.wav"),
+				Sound("npc/zombiegreen/been_shot_12.wav"),
+				Sound("npc/zombiegreen/been_shot_13.wav"),
+				Sound("npc/zombiegreen/been_shot_14.wav"),
+				Sound("npc/zombiegreen/been_shot_15.wav"),
+				Sound("npc/zombiegreen/been_shot_16.wav"),
+				Sound("npc/zombiegreen/been_shot_17.wav"),
+				Sound("npc/zombiegreen/been_shot_18.wav"),
+				Sound("npc/zombiegreen/been_shot_19.wav"),
+				Sound("npc/zombiegreen/been_shot_20.wav"),
+				Sound("npc/zombiegreen/been_shot_21.wav")
 				}, 
 	DeathSounds = {
-				Sound("npc/zombie/zombie_die1.wav"),
-				Sound("npc/zombie/zombie_die2.wav"),
-				Sound("npc/zombie/zombie_die3.wav")
+				Sound("npc/zombiegreen/death_17.wav"),
+				Sound("npc/zombiegreen/death_18.wav"),
+				Sound("npc/zombiegreen/death_19.wav"),
+				Sound("npc/zombiegreen/death_20.wav"),
+				Sound("npc/zombiegreen/death_21.wav"),
+				Sound("npc/zombiegreen/death_22.wav"),
+				Sound("npc/zombiegreen/death_23.wav"),
+				Sound("npc/zombiegreen/death_24.wav"),
+				Sound("npc/zombiegreen/death_25.wav"),
+				Sound("npc/zombiegreen/death_26.wav"),
+				Sound("npc/zombiegreen/death_27.wav"),
+				Sound("npc/zombiegreen/death_28.wav"),
+				Sound("npc/zombiegreen/death_29.wav"),
+				Sound("npc/zombiegreen/death_30.wav"),
+				Sound("npc/zombiegreen/death_31.wav"),
+				Sound("npc/zombiegreen/death_32.wav"),
+				Sound("npc/zombiegreen/death_33.wav"),
+				Sound("npc/zombiegreen/death_34.wav"),
+				Sound("npc/zombiegreen/death_35.wav")
 				}, 	
 	PlayerFootstep = true,
 	Unlocked = true,
@@ -1118,7 +1152,7 @@ ZombieClasses[0] =
 	-- ModelScale = Vector(1.35,1.35,1.35),
 }
 
-ZombieClasses[1] =						
+--[[ZombieClasses[1] =						
 {
 	Name = "Normal Zombie",	
 	Tag = "zombie",	
@@ -1165,9 +1199,9 @@ ZombieClasses[1] =
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
 	-- ModelScale = Vector(1.35,1.35,1.35),
-}
+}]]
 
-ZombieClasses[2] = 
+ZombieClasses[1] = 
 {
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
@@ -1202,7 +1236,7 @@ ZombieClasses[2] =
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
-ZombieClasses[3] =
+ZombieClasses[2] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
@@ -1241,7 +1275,7 @@ ZombieClasses[3] =
 	-- ViewOffset = Vector( 0, 0, 0 ),
 }
 
-ZombieClasses[4] =
+ZombieClasses[3] =
 {
 	Name = "Ethereal Zombie",
 	Tag = "etherealzombie",
@@ -1275,7 +1309,7 @@ ZombieClasses[4] =
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
-ZombieClasses[5] =						
+ZombieClasses[4] =						
 {
 	Name = "Howler",
 	Tag = "howler",	
@@ -1293,7 +1327,7 @@ ZombieClasses[5] =
 	Model = Model( "models/player/group01/female_01.mdl" ), 
 	Speed = 185,						
 	Description="Always kill this banshee at a large distanc, as its scream can blow heads up!",
-	Unique = "Unique abilities: Can disorientate humans and can sometimes create a sound barrier for herself and other nearby undead.",
+	Unique = "Unique abilities: Can disorientate humans and sometimes creates a sound barrier for herself and other nearby undead.",
 	AttackSounds = { 
 				Sound ( "player/zombies/howler/howler_scream_01.wav" ),
 				Sound ( "player/zombies/howler/howler_scream_02.wav" ),
@@ -1321,7 +1355,7 @@ ZombieClasses[5] =
 	-- ViewOffset = Vector( 0, 0, 0 )
 }
 util.PrecacheModel("models/mrgreen/howler.mdl")
-ZombieClasses[6] =
+ZombieClasses[5] =
 {
 	Name = "Headcrab",
 	Tag = "headcrab",
@@ -1355,7 +1389,7 @@ ZombieClasses[6] =
 	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1)}
 }
 
-ZombieClasses[7] =
+ZombieClasses[6] =
 {
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
@@ -1392,7 +1426,7 @@ ZombieClasses[7] =
 	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1) }
 }
 
-ZombieClasses[8] =
+ZombieClasses[7] =
 {
 	Name = "Zombine",
 	Tag = "zombine",
@@ -1440,7 +1474,7 @@ ZombieClasses[8] =
 				},
 }
 
-ZombieClasses[9] =
+ZombieClasses[8] =
 {
 	Name = "Crow",
 	Health = 30,
@@ -1472,7 +1506,7 @@ ZombieClasses[9] =
 	Hidden = true
 }
 
-ZombieClasses[10] =						
+ZombieClasses[9] =						
 {
 	Name = "Hate",	
 	Tag = "hate",	
@@ -1542,7 +1576,7 @@ ZombieClasses[10] =
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
 }
 
-ZombieClasses[11] =
+ZombieClasses[10] =
 {
 	Name = "Behemoth",
 	Tag = "behemoth",
@@ -1608,7 +1642,7 @@ ZombieClasses[11] =
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
-ZombieClasses[12] =
+ZombieClasses[11] =
 {
 	Name = "Seeker",
 	Tag = "seeker",
@@ -1665,7 +1699,7 @@ ZombieClasses[12] =
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
-ZombieClasses[13] =
+ZombieClasses[12] =
 {
 	Name = "Nerf",
 	Tag = "nerf",

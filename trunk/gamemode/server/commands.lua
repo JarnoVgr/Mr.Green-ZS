@@ -1104,7 +1104,7 @@ local function CommandSay( pl, text, teamonly )
 	elseif (text:sub(1, 6) == "!mayco") then
 		pl:PrintMessage( HUD_PRINTCENTER, "Mayco: Your friendly neighbourhood admin! He likes ducks and potatoes!" )
 	elseif (text:sub(1, 8) == "!mrgreen") then
-		pl:PrintMessage( HUD_PRINTCENTER, "WWW.MR-GREEN.NL -- Your multiplayer community!" )
+		pl:PrintMessage( HUD_PRINTCENTER, "WWW.MRGREENGAMING.COM -- Your multiplayer community!" )
 	elseif (text:sub(1, 7) == "!ratman") then
 		pl:PrintMessage( HUD_PRINTCENTER, "RatMan: ClavusElite's little bro..." )
 	elseif (text:sub(1, 8) == "!prismaa") then

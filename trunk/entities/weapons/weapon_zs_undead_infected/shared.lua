@@ -149,6 +149,8 @@ function SWEP:GetClimbSurface()
 end
 
 function SWEP:SecondaryAttack()
+	return --Climbing is disabled for now
+
 	if self:IsClimbing() then return end
 
 	if not self.Owner:IsOnGround() and self.Owner:GetVelocity():Length() < 200 and self:GetClimbSurface() then
