@@ -34,7 +34,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 	--  more damage when attacking with melee weapons
 	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and attacker:GetPerk("_freeman") and ValidEntity( inflictor ) then-- attacker:HasBought( "blessedfists" )
 		if inflictor:IsWeapon() and inflictor:GetType() == "melee" and not inflictor.IsTurretDmg then
-			dmginfo:SetDamage( damage * 1.2 )
+			dmginfo:SetDamage( damage * 1.5 )
 		end
 	end
 end

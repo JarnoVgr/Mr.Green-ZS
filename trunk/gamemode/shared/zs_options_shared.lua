@@ -456,7 +456,7 @@ GM.Perks = {
 	["_nailamount"] = {Name = "Pack of nails", Description = "50% more starting nails", Slot = 2, NoRetro = true},
 	["_nailhp"] = {Name = "Upgraded nails", Description = "40% more health for nails", Slot = 2, NoRetro = true},
 	["_falldmg"] = {Name = "Fall Protection", Description = "25% less fall damage", Slot = 1},
-	["_freeman"] = {Name = "Freeman's Spirit", Description = "20% more melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 1},
+	["_freeman"] = {Name = "Freeman's Spirit", Description = "50% more melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 1},
 	["_enhkevlar"] = {Name = "Enhanced Kevlar", Description = "15% less damage from hits",Material = "VGUI/gfx/VGUI/kevlar_helmet", Slot = 1},
 	["_adrenaline"] = {Name = "Adrenaline Injection", Description = "Negates speed reduction on low health. Also your screen won't turn red when you are low on health", Slot = 1},
 	["_medupgr1"] = {Name = "Medical Efficiency", Description = "35% more healing power", Slot = 2, NoRetro = true},
