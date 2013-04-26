@@ -303,7 +303,7 @@ function hud.DrawNewZombieHUD()
 	local curwav = GAMEMODE:GetWave()
 	
 	surface.SetFont("NewZombieFont15")
-	local fWide, fTall = surface.GetTextSize ( "Wave ".. curwav .. " out of ".. NUM_WAVES.."  |  " )
+	local fWide, fTall = surface.GetTextSize ( "Wave ".. curwav .. " of ".. NUM_WAVES.."  |  " )
 	
 	local text1x, text1y = 10, 10
 	local text2x, text2y = 10, text1y+fTall+1
@@ -315,11 +315,11 @@ function hud.DrawNewZombieHUD()
 		
 		local timleft = math.max(0, WAVEZERO_LENGTH - CurTime())
 		
-		draw.SimpleTextOutlined("Prepare your asses...", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		--draw.SimpleTextOutlined("Prepare your asses...", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		if timleft < 10 then
 			local glow = math.sin(RealTime() * 8) * 200 + 255
-			draw.SimpleTextOutlined("Zombie invasion in: 0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text2x, text2y, Color(255, glow, glow), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255, glow, glow), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 			if lastwarntim ~= math.ceil(timleft) then
 				lastwarntim = math.ceil(timleft)
 				if 0 < lastwarntim then
@@ -327,7 +327,7 @@ function hud.DrawNewZombieHUD()
 				end
 			end
 		else
-			draw.SimpleTextOutlined("Zombie invasion in: 0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		end
 	elseif GAMEMODE:GetFighting() then
 		local timleft = math.max(0, GAMEMODE:GetWaveEnd() - CurTime())
