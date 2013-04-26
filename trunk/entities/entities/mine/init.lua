@@ -82,14 +82,14 @@ function ENT:Explode()
 	Ent:SetOwner( self:GetOwner() )
 	Ent:Activate()
 	Ent:SetKeyValue( "iMagnitude", 300 ) --180 -- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )
-	Ent:SetKeyValue( "iRadiusOverride", 300 )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )
+	Ent:SetKeyValue( "iRadiusOverride", 350 )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )
 	Ent:Fire("explode", "", 0)
 	
 	-- Shaken, not stirred
 	local shake = ents.Create( "env_shake" )
 	shake:SetPos( self.Entity:GetPos() )
 	shake:SetKeyValue( "amplitude", "800" ) -- Power of the shake effect
-	shake:SetKeyValue( "radius", "300" )	-- Radius of the shake effect
+	shake:SetKeyValue( "radius", "400" )	-- Radius of the shake effect
 	shake:SetKeyValue( "duration", "3" )	-- Duration of shake
 	shake:SetKeyValue( "frequency", "128" )	-- Screenshake frequency
 	shake:SetKeyValue( "spawnflags", "4" )	-- Spawnflags( In Air )
