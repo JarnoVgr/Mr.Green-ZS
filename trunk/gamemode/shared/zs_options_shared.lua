@@ -1152,57 +1152,7 @@ ZombieClasses[0] =
 	-- ModelScale = Vector(1.35,1.35,1.35),
 }
 
-ZombieClasses[1] =						
-{
-	Name = "Normal Zombie",	
-	Tag = "zombie",	
-	Wave = math.floor(0 * NUM_WAVES),
-	Revives = true,
-	Health = 250,
-	MaxHealth = 350,
-	Bounty = 100,
-	SP = 15,
-	Threshold = 0,	
-	SWEP = "weapon_zs_zombie",			
-	JumpPower = 200,
-	Unlocked = false,
-	Hidden = true,
-	CanCrouch = true,
-	CanGib = true,
-	Model = Model("models/Zombie/Classic.mdl"), 
-	Speed = 154,	
-	AngleFix = true,
-	Description="The Backbone of any Undead Horde. The Common Rotting Zombie.",
-	Unique = "Can be deadly in numbers. Can Propkill.",
-	PainSounds = {
-				Sound("npc/zombie/zombie_pain1.wav"),
-				Sound("npc/zombie/zombie_pain2.wav"),
-				Sound("npc/zombie/zombie_pain3.wav"),
-				Sound("npc/zombie/zombie_pain4.wav"),
-				Sound("npc/zombie/zombie_pain5.wav"),
-				Sound("npc/zombie/zombie_pain6.wav")
-				}, 
-	DeathSounds = {
-				Sound("npc/zombie/zombie_die1.wav"),
-				Sound("npc/zombie/zombie_die2.wav"),
-				Sound("npc/zombie/zombie_die3.wav")
-				}, 	
-	PlayerFootstep = true,
-	-- ViewOffset = Vector( 0, 0, 0 ),
-	ReviveCallback = function(pl, attacker, dmginfo)
-		if math.random(1, 4) ~= 1 then
-			DefaultRevive(pl)
-			return true
-		end
-		return false
-	end,
-	OnRevive = function(pl)
-		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-	end,
-	-- ModelScale = Vector(1.35,1.35,1.35),
-}
-
-ZombieClasses[2] = 
+ZombieClasses[1] = 
 {
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
@@ -1237,7 +1187,7 @@ ZombieClasses[2] =
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
-ZombieClasses[3] =
+ZombieClasses[2] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
@@ -1276,7 +1226,7 @@ ZombieClasses[3] =
 	-- ViewOffset = Vector( 0, 0, 0 ),
 }
 
-ZombieClasses[4] =
+ZombieClasses[3] =
 {
 	Name = "Ethereal Zombie",
 	Tag = "etherealzombie",
@@ -1310,7 +1260,7 @@ ZombieClasses[4] =
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
-ZombieClasses[5] =						
+ZombieClasses[4] =						
 {
 	Name = "Howler",
 	Tag = "howler",	
@@ -1356,7 +1306,7 @@ ZombieClasses[5] =
 	-- ViewOffset = Vector( 0, 0, 0 )
 }
 util.PrecacheModel("models/mrgreen/howler.mdl")
-ZombieClasses[6] =
+ZombieClasses[5] =
 {
 	Name = "Headcrab",
 	Tag = "headcrab",
@@ -1390,7 +1340,7 @@ ZombieClasses[6] =
 	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1)}
 }
 
-ZombieClasses[7] =
+ZombieClasses[6] =
 {
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
@@ -1427,7 +1377,7 @@ ZombieClasses[7] =
 	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1) }
 }
 
-ZombieClasses[8] =
+ZombieClasses[7] =
 {
 	Name = "Zombine",
 	Tag = "zombine",
@@ -1473,6 +1423,58 @@ ZombieClasses[8] =
 				Sound ( "npc/zombine/zombine_alert6.wav" ),
 				Sound ( "npc/zombine/zombine_alert7.wav" ),
 				},
+}
+
+--Obsolete class (not removed to prevent gamemode from breaking)
+ZombieClasses[8] =						
+{
+	Name = "Normal Zombie",	
+	Tag = "zombie",	
+	--Wave = math.floor(0 * NUM_WAVES),
+	Wave = 99,
+	Revives = true,
+	Health = 250,
+	MaxHealth = 350,
+	Bounty = 100,
+	SP = 15,
+	Threshold = 0,	
+	SWEP = "weapon_zs_zombie",			
+	JumpPower = 200,
+	Unlocked = false,
+	Hidden = true,
+	CanCrouch = true,
+	CanGib = true,
+	Model = Model("models/Zombie/Classic.mdl"), 
+	Speed = 154,	
+	AngleFix = true,
+	Description="The Backbone of any Undead Horde. The Common Rotting Zombie.",
+	Unique = "Can be deadly in numbers. Can Propkill.",
+	PainSounds = {
+				Sound("npc/zombie/zombie_pain1.wav"),
+				Sound("npc/zombie/zombie_pain2.wav"),
+				Sound("npc/zombie/zombie_pain3.wav"),
+				Sound("npc/zombie/zombie_pain4.wav"),
+				Sound("npc/zombie/zombie_pain5.wav"),
+				Sound("npc/zombie/zombie_pain6.wav")
+				}, 
+	DeathSounds = {
+				Sound("npc/zombie/zombie_die1.wav"),
+				Sound("npc/zombie/zombie_die2.wav"),
+				Sound("npc/zombie/zombie_die3.wav")
+				}, 	
+	PlayerFootstep = true,
+	-- ViewOffset = Vector( 0, 0, 0 ),
+	ReviveCallback = function(pl, attacker, dmginfo)
+		if math.random(1, 4) ~= 1 then
+			DefaultRevive(pl)
+			return true
+		end
+		return false
+	end,
+	OnRevive = function(pl)
+		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+	end,
+	-- ModelScale = Vector(1.35,1.35,1.35),
 }
 
 ZombieClasses[9] =

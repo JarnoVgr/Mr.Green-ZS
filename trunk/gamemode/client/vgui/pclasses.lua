@@ -131,12 +131,12 @@ function DrawClassMenu ()
 		-- Think the color of the title
 		if not ZombieClasses[zButtons[i].iIndex].Unlocked then
 			color = Colors.Red
-			strTitle = ZombieClasses[zButtons[i].iIndex].Name.." ( locked )"
+			strTitle = ZombieClasses[zButtons[i].iIndex].Name.." (locked)"
 		end
 		
 		-- Write (selected) if it's active 
 		if Buttons[zButtons[i].iIndex].Activated then
-			strTitle = ZombieClasses[zButtons[i].iIndex].Name.." ( selected )"
+			strTitle = ZombieClasses[zButtons[i].iIndex].Name.." (current)"
 		end
 		
 		-- Draw the title (zombie name)
@@ -223,7 +223,7 @@ function OnClassesMenuOpen()
 			zDialog[i].IsCursorIn = true
 			
 			if i == 2 then
-				for j = 0, 8 do
+				for j = 0, 7 do
 					if Buttons[j].Activated then
 						if MySelf:GetZombieClass() ~= j then
 							DialogColors[i] = Colors.LightYellow
@@ -248,7 +248,7 @@ function OnClassesMenuOpen()
 		zDialog[i].Paint = function() 
 			local Wide,Tall = zDialog[i]:GetWide(), zDialog[i]:GetTall()
 			if i == 2 then
-				for j = 0, 8 do
+				for j = 0, 7 do
 					if Buttons[j].Activated then
 						if MySelf:GetZombieClass() == j then
 							DialogColors[i] = Colors.Grey
@@ -266,7 +266,7 @@ function OnClassesMenuOpen()
 		
 		zDialog[i].OnMousePressed = function()
 			if i == 2 then 
-				for j = 0, 8 do
+				for j = 0, 7 do
 					if Buttons[j].Activated then
 						if MySelf:GetZombieClass() ~= j then
 							RunConsoleCommand ("kill")
@@ -342,7 +342,7 @@ function OnClassesMenuOpen()
 	zButtons = {}
 			
 	--  Initialize some other button vars
-	for i = 0, 8 do
+	for i = 0, 7 do
 		Buttons[i] = {}
 		zButtons[i] = {}
 		Buttons[i].CursorInside = false
@@ -367,7 +367,7 @@ function OnClassesMenuOpen()
 		zButtons[i].OnMousePressed = function() 
 			if ZombieClasses[zButtons[i].iIndex].Unlocked then
 				-- Deactivate all buttons first
-				for j = 0, 8 do
+				for j = 0, 7 do
 					if not Buttons[zButtons[i].iIndex].Activated then
 						Buttons[j].Activated = false
 					end
