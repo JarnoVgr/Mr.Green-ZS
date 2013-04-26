@@ -17,19 +17,19 @@ Colors.ActivatedGreen = Color ( 20,140,4,255 )
 local Image = {
 	["arrow"] = surface.GetTextureID ("zombiesurvival/classmenu/arrow"),
 	[0] = surface.GetTextureID ("zombiesurvival/classmenu/zombie"),
-	[1] = surface.GetTextureID ("zombiesurvival/classmenu/zombie"),
-	[2] = surface.GetTextureID ("zombiesurvival/classmenu/fastzombie"),
-	[3] = surface.GetTextureID ("zombiesurvival/classmenu/poisonzombie"),
-	[4] = surface.GetTextureID ("zombiesurvival/classmenu/wraith"),
-	[5] = surface.GetTextureID ("zombiesurvival/classmenu/howler"),
-	[6] = surface.GetTextureID ("zombiesurvival/classmenu/headcrab"),
-	[7] = surface.GetTextureID ("zombiesurvival/classmenu/poisonheadcrab"),
-	[8] = surface.GetTextureID ("zombiesurvival/classmenu/zombine"),
+	--[1] = surface.GetTextureID ("zombiesurvival/classmenu/zombie"),
+	[1] = surface.GetTextureID ("zombiesurvival/classmenu/fastzombie"),
+	[2] = surface.GetTextureID ("zombiesurvival/classmenu/poisonzombie"),
+	[3] = surface.GetTextureID ("zombiesurvival/classmenu/wraith"),
+	[4] = surface.GetTextureID ("zombiesurvival/classmenu/howler"),
+	[5] = surface.GetTextureID ("zombiesurvival/classmenu/headcrab"),
+	[6] = surface.GetTextureID ("zombiesurvival/classmenu/poisonheadcrab"),
+	[7] = surface.GetTextureID ("zombiesurvival/classmenu/zombine"),
 }
 
 -- Initialize the colors needed for the 3 buttons
 local ButtonColors = {}
-for i = 1, 8 do
+for i = 1, 7 do
 	ButtonColors[i] = Colors.Green
 end
 
@@ -131,7 +131,7 @@ function DrawClassMenu ()
 		-- Think the color of the title
 		if not ZombieClasses[zButtons[i].iIndex].Unlocked then
 			color = Colors.Red
-			strTitle = ZombieClasses[zButtons[i].iIndex].Name.." (locked)"
+			strTitle = ZombieClasses[zButtons[i].iIndex].Name
 		end
 		
 		-- Write (selected) if it's active 
@@ -205,16 +205,16 @@ function OnClassesMenuOpen()
 	-- Create the 2 dialog buttons
 	local zDialog, iOffset = {}, 0
 	for i = 1, 2 do
-		zDialog[i] = vgui.Create ("DLabel")
-		zDialog[i]:SetParent (zClasses)
-		zDialog[i]:SetText ("")
+		zDialog[i] = vgui.Create("DLabel")
+		zDialog[i]:SetParent(zClasses)
+		zDialog[i]:SetText("")
 		
 		-- Set the size of the label as the text in it
 		if i == 1 then zDialog[i].strText = "Done" else zDialog[i].strText = "Respawn" end
-		surface.SetFont ( "ClassDialog" )
+		surface.SetFont( "ClassDialog" )
 		local iTextWide,iTextTall = surface.GetTextSize ( zDialog[i].strText )
-		zDialog[i]:SetSize ( iTextWide, iTextTall )
-		zDialog[i]:SetPos ( ScaleW(240 + iOffset) - ( iTextWide * 0.5 ), ScaleH(900) - ( iTextTall * 0.5 ) )
+		zDialog[i]:SetSize( iTextWide, iTextTall )
+		zDialog[i]:SetPos( ScaleW(240 + iOffset) - ( iTextWide * 0.5 ), ScaleH(900) - ( iTextTall * 0.5 ) )
 		
 		-- Move it to the right
 		iOffset = iOffset + 200
@@ -311,7 +311,7 @@ function OnClassesMenuOpen()
 			end
 			
 			-- Draw the arrow only when its avaiaiable
-			if ( i == 1 and zClasses.iIndex > -1 ) or ( i == 2 and zClasses.iIndex < 6 ) then
+			if ( i == 1 and zClasses.iIndex > -1 ) or ( i == 2 and zClasses.iIndex < 5 ) then
 				surface.SetDrawColor ( 255,255,255,255 )
 				surface.SetTexture ( Image["arrow"] )
 				surface.DrawTexturedRectRotated ( zScroll[i]:GetWide() * 0.5, zScroll[i]:GetTall() * 0.5, ScaleH(40), ScaleH(40), yaw )
