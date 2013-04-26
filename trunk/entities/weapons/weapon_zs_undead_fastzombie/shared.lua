@@ -62,11 +62,7 @@ end
 
 function SWEP:Initialize()
 	if CLIENT then
-		if math.random(1,2) == 1 then
-			self.BreathSound = CreateSound(self.Weapon,Sound("npc/fast_zombie/gurgle_loop1.wav"));
-		else
-			self.BreathSound = CreateSound(self.Weapon,Sound("npc/fast_zombie/breathe_loop1.wav"))
-		end
+		self.BreathSound = CreateSound(self.Weapon,Sound("npc/fast_zombie/breathe_loop1.wav"))
 				
 		if self.BreathSound then
 			self.BreathSound:Play()
