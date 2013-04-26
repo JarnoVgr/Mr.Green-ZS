@@ -193,10 +193,10 @@ function Intermission ( nextmap, winner, timeleft )
 	end
 	
 	-- Winner managment and team score
-	local wintext, wincol = "The round was a withdraw.", Color(255,255,255,255)
+	local wintext, wincol = "Withdraw", Color(255,255,255,255)
 
 	if winner == TEAM_HUMAN then
-		wintext = "Survivors win the round!"
+		wintext = "Survivors win"
 		wincol = Color(255,255,255,255)
 	elseif winner == TEAM_UNDEAD then
 		wintext = "The Undead rule the world!"
