@@ -32,7 +32,7 @@ SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound			= Sound("Weapon_M3.Single")
 SWEP.Primary.Recoil			= 3.5 * 6 -- 3.5
-SWEP.Primary.Damage			= 10
+SWEP.Primary.Damage			= 20
 SWEP.Primary.NumShots		= 8
 SWEP.Primary.ClipSize		= 4
 SWEP.Primary.Delay			= 0.9

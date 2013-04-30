@@ -240,7 +240,7 @@ GM.HumanWeapons = {
 	["weapon_zs_tmp"]  = { Name = "TMP Sub-Machine Gun", DPS = 107,Mat = "VGUI/gfx/VGUI/tmp", Infliction = 0.56, Type = "smg", Price = 450 },	--  2
 	["weapon_zs_mac10"]  = { Name = "Mac 10 Sub-Machine Gun", DPS = 126,Mat = "VGUI/gfx/VGUI/mac10", Infliction = 0.60, Type = "smg", Price = 490 },
 	
-	["weapon_zs_minishotty"]  = { Name = "'Farter' Shotgun", DPS = 126, Infliction = 0, Type = "shotgun",Price = 630 },
+	["weapon_zs_minishotty"]  = { Name = "'Farter' Shotgun", DPS = 126, Infliction = 0, Type = "shotgun" },
 	
 	-- Melee
 	["weapon_zs_melee_keyboard"]  = { Name = "Keyboard", DPS = 45, Infliction = 0, Type = "melee",Price = 60 },
@@ -286,13 +286,12 @@ GM.HumanWeapons = {
 	["weapon_zs_mine"]  = { Name = "Explosives", DPS = 8, Infliction = 0, Type = "tool2", NoRetro = true },
 	["weapon_zs_tools_plank"]  = { Name = "Pack of Planks", DPS = 0, Infliction = 0, Type = "tool2" },
 	
-	-- Others
-	["weapon_zs_boomstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun",Price = 1300  },
-	["weapon_zs_annabelle"]  = { Name = "Annabelle Shotgun", DPS = 210, Infliction = 0, Type = "shotgun",Price = 870 },
+	--Others
+	["weapon_zs_boomstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun",Price = 1300 },
+	["weapon_zs_annabelle"]  = { Name = "Annabelle Shotgun", DPS = 210, Infliction = 0, Type = "shotgun" },
 	["weapon_zs_m1014"]  = { Name = "M1014 Auto-Shotgun", DPS = 246,Mat = "VGUI/gfx/VGUI/xm1014", Infliction = 0.85, Type = "shotgun",Price = 900 },
-	
 	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Class = "Medic", Type = "rifle"},
-	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0,Class = "Support", Type = "shotgun",Price = 1000 }, 
+	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0,Class = "Support", Type = "shotgun", Price = 1000 }, 
 	
 	--Pickups!
 	["weapon_zs_pickup_gascan2"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },
@@ -302,7 +301,7 @@ GM.HumanWeapons = {
 	
 	
 	["weapon_zs_barricadekit"]  = { Name = "Barricade Kit", DPS = 1, Infliction = 0, Class = "Engineer", Type = "others" },
-	["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun",Price = 1000 },
+	["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" },
 	["weapon_zs_awm"]  = { Name = "Arctic Warface Magnum", DPS = 92, Infliction = 0.6, Class = "Support", Type = "rifle", Restricted = true },
 	["weapon_frag"]  = { Name = "Grenade", DPS = 1, Infliction = 0, Restricted = true, Type = "admin" },
 	
@@ -334,15 +333,15 @@ GM.HumanWeapons = {
 } 
 
 GM.SkillShopAmmo = {
-	["pistol"]  = { Name = "Pistol ammo pack", Model = "models/Items/BoxSRounds.mdl", Amount = 25, Price = 45},
-	["357"]  = { Name = "Sniper rounds pack", Model = "models/Items/357ammo.mdl", Amount = 8, Price = 50},
-	["smg1"]  = { Name = "SMG ammo pack", Model = "models/Items/BoxMRounds.mdl", Amount = 30, Price = 50},
-	["ar2"]  = { Name = "Rifle Ammo pack", Model = "models/Items/combine_rifle_cartridge01.mdl", Amount = 30, Price = 50},
-	["buckshot"]  = { Name = "Small Buckshot Ammo pack", Model = "models/Items/BoxBuckshot.mdl", Amount = 10, Price = 55},
-	["slam"]  = { Name = "Refill 1 explosive", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_mine", Amount = 1, Price = 85, ToolTab = true},
-	["grenade"]  = { Name = "Refill 1 grenade", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_grenade", Amount = 1, Price = 70, ToolTab = true},
-	["gravity"]  = { Name = "Refill 1 nail", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_tools_hammer", Amount = 1, Price = 40, ToolTab = true},
-	["Battery"]  = { Name = "Refill 30 charge for medkit", Model = "models/Items/BoxBuckshot.mdl", Amount = 30, Price = 30, ToolTab = true},
+	["pistol"]  = { Name = "Pistol ammo pack", Model = "models/Items/BoxSRounds.mdl", Amount = 25, Price = 35},
+	["357"]  = { Name = "Sniper rounds pack", Model = "models/Items/357ammo.mdl", Amount = 8, Price = 40},
+	["smg1"]  = { Name = "SMG ammo pack", Model = "models/Items/BoxMRounds.mdl", Amount = 30, Price = 40},
+	["ar2"]  = { Name = "Rifle Ammo pack", Model = "models/Items/combine_rifle_cartridge01.mdl", Amount = 30, Price = 40},
+	["buckshot"]  = { Name = "Small Buckshot Ammo pack", Model = "models/Items/BoxBuckshot.mdl", Amount = 10, Price = 45},
+	["slam"]  = { Name = "Refill 1 explosive", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_mine", Amount = 1, Price = 75, ToolTab = true},
+	["grenade"]  = { Name = "Refill 1 grenade", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_grenade", Amount = 1, Price = 50, ToolTab = true},
+	["gravity"]  = { Name = "Refill 1 nail", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_tools_hammer", Amount = 1, Price = 25, ToolTab = true},
+	["Battery"]  = { Name = "Refill 30 charge for medkit", Model = "models/Items/BoxBuckshot.mdl", Amount = 30, Price = 20, ToolTab = true},
 }
 
 
