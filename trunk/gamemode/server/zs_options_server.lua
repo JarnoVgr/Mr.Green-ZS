@@ -1,8 +1,8 @@
 
-GM.RetroMode = CreateConVar("zs_retromode", "0", FCVAR_ARCHIVE + FCVAR_NOTIFY, "Tough as nails old school zs. Also has no nails."):GetBool()
+GM.RetroMode = CreateConVar("zs_retromode", "0", FCVAR_ARCHIVE + FCVAR_NOTIFY + FCVAR_CHEAT, "Tough as nails old school zs. Also has no nails."):GetBool()
 cvars.AddChangeCallback("zs_retromode", function(cvar, oldvalue, newvalue)
 	GAMEMODE.RetroMode = (tonumber(newvalue) == 1)
-end)
+end
 
 GM.NightMode = CreateConVar("zs_nightmode", "0", FCVAR_ARCHIVE + FCVAR_NOTIFY, "Embrace the darkness."):GetBool()
 cvars.AddChangeCallback("zs_nightmode", function(cvar, oldvalue, newvalue)
@@ -11,7 +11,7 @@ end)
 
 
 --Donation address
-DONATE_ADDRESS = "donate.to.mrgreen[at]gmail[dot]com"
+DONATE_ADDRESS = "paypal@mrgreengaming.com"
 
 --Log lua errors
 timer.Simple ( 1, function() RunConsoleCommand ( "lua_log_sv", "1" ) end )

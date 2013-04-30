@@ -275,13 +275,13 @@ function OnClassesMenuOpen()
 							DoClassesMenu()
 						else
 							surface.PlaySound ( "buttons/weapon_cant_buy.wav" )
-							zClasses.Title = "You already are a "..ZombieClasses[MySelf:GetZombieClass()].Name..". Choose another class !"
+							zClasses.Title = "You already are a "..ZombieClasses[MySelf:GetZombieClass()].Name..". Choose another class!"
 						end
 					end
 				end
 			else
-				surface.PlaySound ( Sounds.Click )
-				zClasses:SetVisible ( false ) 
+				surface.PlaySound( Sounds.Click )
+				zClasses:SetVisible( false ) 
 				DoClassesMenu()
 			end
 		end
@@ -295,9 +295,9 @@ function OnClassesMenuOpen()
 	local ScrollTimer, offset = 0, 0
 	for i = 1,2 do
 		zScroll[i] = vgui.Create ("DButton", zClasses)
-		zScroll[i]:SetPos ( ScaleW(707) - (ScaleH(40) * 0.5), (ScaleH(268 + offset) - (ScaleH(40) * 0.5) ) )
-		zScroll[i]:SetSize ( ScaleH(40), ScaleH(40) )
-		zScroll[i]:SetText ("")
+		zScroll[i]:SetPos( ScaleW(707) - (ScaleH(40) * 0.5), (ScaleH(268 + offset) - (ScaleH(40) * 0.5) ) )
+		zScroll[i]:SetSize( ScaleH(40), ScaleH(40) )
+		zScroll[i]:SetText("")
 		
 		-- Move it down
 		offset = offset + 503
@@ -310,7 +310,7 @@ function OnClassesMenuOpen()
 				yaw = 180
 			end
 			
-			-- Draw the arrow only when its avaiaiable
+			-- Draw the arrow only when its available
 			if ( i == 1 and zClasses.iIndex > -1 ) or ( i == 2 and zClasses.iIndex < 5 ) then
 				surface.SetDrawColor ( 255,255,255,255 )
 				surface.SetTexture ( Image["arrow"] )
@@ -318,7 +318,7 @@ function OnClassesMenuOpen()
 			end
 		end
 		
-		--  Make the slots increment by 1 
+		-- Make the slots increment by 1 
 		zScroll[i].OnMousePressed = function()
 			if i == 1 then
 				if zClasses.iIndex > -1 and ScrollTimer <= CurTime() then
