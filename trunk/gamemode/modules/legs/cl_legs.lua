@@ -147,7 +147,8 @@ function _R.Legs:ShouldDraw()
 			GetViewEntity() == LocalPlayer() and
 			!LocalPlayer():ShouldDrawLocalPlayer() and
 			!LocalPlayer():GetObserverTarget() and
-			!LocalPlayer().ShouldDisableLegs
+			!LocalPlayer().ShouldDisableLegs and
+			!LocalPlayer():IsZombie()
 end
 
 function _R.Legs:UpdateAnimation( groundSpeed )
