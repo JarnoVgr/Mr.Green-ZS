@@ -644,9 +644,9 @@ function hud.DrawStatsPanel()
 	local StatsX,StatsY = 12+ScaleW(7),34+ScaleH(70)
 
 	surface.SetFont("ssNewAmmoFont6.5")
-	local fWide, fTall = surface.GetTextSize ( "GreenCoins" )
+	local fWide, fTall = surface.GetTextSize("GreenCoins")
 	
-	draw.SimpleTextOutlined("GreenCoins: "..MySelf:GreenCoins(), "ssNewAmmoFont6.5", StatsX, StatsY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	draw.SimpleTextOutlined(MySelf:GreenCoins() .." GreenCoins", "ssNewAmmoFont6.5", StatsX, StatsY, Color(220,255,220,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 	
 	StatsY = StatsY + fTall + 2
 	
