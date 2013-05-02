@@ -673,8 +673,6 @@ HALLOWEEN = false
 -- Christmas!
 CHRISTMAS = false
 
-
-
 --Keep this until 1st april
 FIRSTAPRIL = false
 
@@ -791,7 +789,7 @@ HELP_TXT[1] = {
 	
 	
 	
-	Check out www.mrgreengaming.com!
+	Check out http://mrgreengaming.com
 	]]
 } 
 
@@ -904,7 +902,7 @@ HELP_TEXT[2] = { title = "Changelog", text = [[^rGamemode changelog
 @Some changes from JetBoom's original Zombie Survival v1.11 are listed here.
 @
 @^bGot any ideas, suggestions or whatever?
-@Go to our forums at www.left4green.com and post it there.
+@Go to our forums at http://mrgreengaming.com and post it there.
 @
 @^yLatest changes on the server:
 @
@@ -920,9 +918,9 @@ HELP_TEXT[2] = { title = "Changelog", text = [[^rGamemode changelog
 HELP_TEXT[3] = { title = "Server", text = [[^rServer information
 @^yThe Mr. Green forums can be found at http://www.left4green.com
 @
-@If you have any questions or tips about/for this server you can always e-mail to ywa@limetric.com
+@If you have any questions or tips about/for this server you can always e-mail to mail@mrgreengaming.com
 @
-@Surf to http://www.left4green.com to post your ideas for changes and where you can post suggestions for new maps.
+@Surf to http://mrgreengaming.com to post your ideas for changes and where you can post suggestions for new maps.
 @
 @
 ]]}
@@ -960,18 +958,15 @@ HELP_TEXT[5] = { title = "Donate!", text = [[^yDONATE TO THIS SERVER!
 @As you all might know, Mr. Green is a very active server. This results in a massive use of bandwidth
 @which unfortunately, doesn't pay for itself.
 @
-@We will gladly accept donations to keep our server online! Every donation will be translated to Green-Coins on the server!
+@We will gladly accept donations to keep our server online! Every donation will be translated to GreenCoins on the server!
 @
-@This is how it works: for every EURO you donate, you get 1000 GC (Green-Coins). So if you donate 5 euros you
+@This is how it works: for every EURO you donate, you get 1000 GC (GreenCoins). So if you donate 5 euros you
 @get 5000 GC, donate 10 euros and you'll get 10.000! Green-Coins can be spend in the Green-Shop to buy upgrades, 
-@fancy hats or other neat features! (type "!shop" to open it, or use the button on the right -->)
+@fancy hats or other neat features! (type "!shop" to open it, or use the button on the right)
 @
 @^yHOW TO DONATE
 @
-@Donations are all done via PAYPAL (www.paypal.com).
-@
-@Further instructions can be found on our website www.left4green.com. Select "Green-Coins" and follow the link to the 
-@instructions topic in the page footer. Or follow this link directly: http://forums.left4green.com/index.php?showtopic=2183
+@All instructions can be found on: http://mrgreengaming.com/greencoins.php
 @
 @^yYou will need your SteamID to connect your Steam account to the forum account. Type "!steamid" in chat to view yours.
 @
@@ -1003,23 +998,23 @@ HELP_TEXT[6] = { title = "Fun", text = [[^yFun stuff
 HELP_TEXT[7] = { title = "Quick Guide.", text = [[^Beginners Guide
 @
 @ @^gQ: How do I change zombie class?
-@A: Press f3
+@A: Press F3.
 @
-@^gQ: How do I become human if I am zombie?
-@A: Kill 4 Humans, Get 8 Score
+@^gQ: How do I become human if I am Zombie?
+@A: Kill 4 Humans, Get 8 Score.
 @
 @^gQ: How do I change human class?
-@A: Press f4
+@A: Press F4.
 @
 @^gQ: Where is the options menu?
-@A: Press f4
+@A: Press F4.
 @
 @ 
-@^b Q: How do I sprint and use grenade as zombine?	
-@ A: When you take enough damage (~50% of your hp) you will be able to sprint and use grenade (Right mouse click).
+@^b Q: How do I sprint and use grenade as Zombine?	
+@ A: When you take enough damage (~50% of your HP) you will be able to sprint and use grenade (right mouse click).
 @	
 @^b Q: How do I heal as medic?	
-@ A: Equip medkit. Left click to heal other players,right click to heal yourself (you should stand still).	
+@ A: Equip medkit. Left click to heal other players, right click to heal yourself (make sure you're standing still).
 @	
 @^b Q: How do I use teleport as Ethereal Zombie?	
 @ A: Aim at the ground (not the walls) and press right mouse button.	
@@ -1027,17 +1022,17 @@ HELP_TEXT[7] = { title = "Quick Guide.", text = [[^Beginners Guide
 @^b Q: How to change my class as zombie?	
 @ A: Press F3 and you will see class selection menu.	
 @	
-@^b Q: How to nail props using hammer?	
+@^b Q: How to nail props using a hammer?	
 @ A: Thats easy, aim at the prop (make sure that there is a wall behind it) and press right mouse button.	
 @
-@^b Q: Why supply crate gives me only ammo?
-@ A: Supply crates will give you ammo until when there will be ~6-7 humans.
+@^b Q: Why Supply Crate gives me only ammo?
+@ A: Supply Crates will give you ammo until when there will be ~6-7 humans.
 @
 @^b Q: Where i can see the full changelog?
-@ A: Here: http://projects.limetric.com/projects/zombiesurvival
+@ A: Here: http://dev.limetric.com/svn/zs.php
 @
 @^b Q: How I can buy stuff?
-@ A: Click 'Green SHOP' button or type '!shop' to open a shop where you can spend your Green Coins.
+@ A: Click 'GreenShop' button or type '!shop' to open a shop where you can spend your Green Coins.
 @
 @^b Q: How to drop weapon as human?
 @ A: Select weapon and press F3.
@@ -1057,8 +1052,6 @@ for k, v in pairs(HELP_TEXT) do
 	end
 end
 
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------
 -- ZOMBIE CLASSES --
 -----------------------------
@@ -1074,7 +1067,7 @@ util.PrecacheSound("npc/zombie/foot_slide3.wav")
 
 ZombieClasses[0] =						
 {
-	Name = "Normal Zombie",	
+	Name = "Infected",	
 	Tag = "infected",	
 	Wave = math.floor(0 * NUM_WAVES),
 	Revives = false,
@@ -1091,7 +1084,7 @@ ZombieClasses[0] =
 	Speed = 170,	
 	-- AngleFix = true,
 	Description = "The victim of zombie plague.",
-	Unique = "Agile and hungry.",
+	Unique = "Deadly in numbers. Can Propkill.",
 	PainSounds = {
 				Sound("npc/zombiegreen/been_shot_1.wav"),
 				Sound("npc/zombiegreen/been_shot_2.wav"),
@@ -1155,7 +1148,7 @@ ZombieClasses[0] =
 --Obsolete class (not removed to prevent gamemode from breaking)
 ZombieClasses[1] =						
 {
-	Name = "Obsolete Zombie",
+	Name = "Obsolete",
 	Tag = "zombie",	
 	--Wave = math.floor(0 * NUM_WAVES),
 	Wave = 99,
@@ -1174,8 +1167,10 @@ ZombieClasses[1] =
 	Model = Model("models/Zombie/Classic.mdl"), 
 	Speed = 154,	
 	AngleFix = true,
-	Description="The Backbone of any Undead Horde. The Common Rotting Zombie.",
-	Unique = "Can be deadly in numbers. Can Propkill.",
+	Description = "",
+	Unique = "",
+	--Description="The Backbone of any Undead Horde. The Common Rotting Zombie.",
+	--Unique = "Can be deadly in numbers. Can Propkill.",
 	PainSounds = {
 				Sound("npc/zombie/zombie_pain1.wav"),
 				Sound("npc/zombie/zombie_pain2.wav"),
@@ -1280,7 +1275,7 @@ ZombieClasses[3] =
 
 ZombieClasses[4] =
 {
-	Name = "Ethereal Zombie",
+	Name = "Ethereal",
 	Tag = "etherealzombie",
 	Wave = math.floor(0.4 * NUM_WAVES),-- 0.4 
 	Health = 75,
