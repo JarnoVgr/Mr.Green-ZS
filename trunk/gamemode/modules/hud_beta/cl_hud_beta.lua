@@ -464,16 +464,15 @@ function hud.DrawNewHumanHUD()
 	
 	hud.DrawZeroWaveMessage()
 	
-	local ENABLE_HPBAR = util.tobool(GetConVarNumber("_zs_enablehpbar"))
+	--[[local ENABLE_HPBAR = util.tobool(GetConVarNumber("_zs_enablehpbar"))
 	if ENABLE_HPBAR then
-	-- 	hud.SmallHPPanel(170,ScrH()-90,185,60)
-	end
+	 	hud.SmallHPPanel(170,ScrH()-90,185,60)
+	end]]
 	
 	if GAMEMODE:IsRetroMode() then
 		draw.SimpleTextOutlined("RETRO APOCALYPSE", "NewZombieFont13", w/2 , h-23*2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
-		
-	
+
 	if not OBJECTIVE then return end
 	
 	surface.SetTexture(hud.LeftGradient)
@@ -481,9 +480,7 @@ function hud.DrawNewHumanHUD()
 	surface.DrawTexturedRect(0,0,ScaleW(370),ScaleH(60))
 	
 	draw.SimpleTextOutlined("Stage #"..GAMEMODE:GetObjStage().." of "..#Objectives, "ArialBoldFive", 10, 5, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-	draw.SimpleTextOutlined("Objective: "..Objectives[GAMEMODE:GetObjStage()].Info, "ArialBoldFive", 10, 25, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		
-	
+	draw.SimpleTextOutlined("Objective: "..Objectives[GAMEMODE:GetObjStage()].Info, "ArialBoldFive", 10, 25, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))	
 end
 
 
@@ -554,7 +551,6 @@ end
 local turreticon = surface.GetTextureID("killicon/turret")
 
 function hud.DrawHealthPanel()
-	
 	--Options
 	local HealthStepX,HealthStepY = 12,12
 	local HealthW,HealthH = ScaleW(250), ScaleH(73)
@@ -617,9 +613,7 @@ function hud.DrawHealthPanel()
 	surface.SetDrawColor(colHealthBar)
 	surface.DrawRect(ActualX+5 , ActualY+5, (HPBarSizeW-10)*MySelf.HPBar, HPBarSizeH-10 )
 	
-	
 	if IsValid(MySelf.MiniTurret) or IsValid(MySelf.Turret) then
-		
 		local tur = MySelf.MiniTurret or MySelf.Turret
 		
 		if not tur then return end
@@ -636,39 +630,9 @@ function hud.DrawHealthPanel()
 		surface.DrawTexturedRect(ActualX,ActualY,th,th)
 		
 		ActualX = ActualX + th + ScaleW(40)
-		
-		
-		
+				
 		draw.SimpleTextOutlined(tur:GetAmmo().."/"..tur:GetMaxAmmo(), "ssNewAmmoFont6.5", ActualX, ActualY+th/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
-	
-	--[=[[Stats
-	
-	local StatsW,StatsH = HealthW,HealthH/2
-	local StatsX,StatsY = HealthX,HealthY-StatsH
-	
-	--Background
-	DrawBlackBox(StatsX,StatsY,StatsW,StatsH)
-	
-	ActualX = StatsX + ScaleW(5)
-	ActualY = StatsY + StatsH/2
-	
-	draw.SimpleTextOutlined("GC: "..MySelf:GreenCoins(), "ssNewAmmoFont7", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	
-	ActualX = StatsX + StatsW/2 + ScaleW(5)
-	local LIGHTHUD = util.tobool(GetConVarNumber("_zs_enablelighthud"))
-	if not LIGHTHUD then
-		surface.SetDrawColor( 30, 30, 30, 200 )
-		surface.DrawOutlinedRect( StatsX + StatsW/2, StatsY, StatsW/2, StatsH )
-		surface.SetDrawColor( 30, 30, 30, 255 )
-		surface.DrawOutlinedRect( StatsX + StatsW/2+1, StatsY+1, StatsW/2-2, StatsH-2 )
-	end
-	
-	MySelf.SkillPoints = MySelf.SkillPoints or 0
-	
-	draw.SimpleTextOutlined("SP: "..MySelf.SkillPoints, "ssNewAmmoFont7", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	]=]
-
 end
 
 
@@ -688,10 +652,9 @@ function hud.DrawStatsPanel()
 	
 	MySelf.SkillPoints = MySelf.SkillPoints or 0
 	
-	local text = "SkillPoints: "..MySelf:Frags()
+	local text = MySelf:Frags() .." SP"
 	
 	if GAMEMODE:IsRetroMode() then
-		
 		local frags = MySelf:Frags()
 		if nextreward ~= 9999 and nextreward <= frags then
 			local maxn = table.maxn(GAMEMODE.RetroUnlocks)
@@ -706,14 +669,15 @@ function hud.DrawStatsPanel()
 		end
 		
 		if nextreward == 9999 then
-			text = "Kills: "..frags
+			text = frags .. " Kills"
 		else
-			text = "Kills: "..frags.." | Needed: "..nextreward
+			text = frags .." Kills | ".. nextreward .." Needed"
 		end
 	end
 	
-	draw.SimpleTextOutlined(text, "ssNewAmmoFont6.5", StatsX, StatsY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
+	local ActualX = 12 + ScaleW(5) + ScaleW(250) + ScaleW(5)
+	local ActualY = (ScrH()- ScaleH(73) - 12) + ScaleH(73)/2
+	draw.SimpleTextOutlined(text, "ssNewAmmoFont13", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 end
 
 function hud.DrawWavePanel()
