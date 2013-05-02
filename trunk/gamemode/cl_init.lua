@@ -420,6 +420,7 @@ usermessage.Hook ("client_GetCommand",client_GetCommand)
 function GM:Initialize()
 	self.ShowScoreboard = false
 
+	--Initialize fonts
 	surface.CreateFont("anthem", 42, 500, true, false, "ScoreboardHead")
 	surface.CreateFont("anthem", 24, 500, true, false, "ScoreboardSub")
 	surface.CreateFont("Tahoma", 16, 1000, true, false, "ScoreboardText")
@@ -479,37 +480,39 @@ function GM:Initialize()
 	surface.CreateFont("akbar", ScreenScale(18), 250, true, true, "TARGETNAME")
 	surface.CreateFont("akbar", ScreenScale(12), 500, true, true, "TARGETCLASS")
 	surface.CreateFont("akbar", ScreenScale(12), 500, true, true, "TARGETHP")
-	
-	-------------
-	-- Skillpoints fonts
+
+	--SkillPoints fonts
 	surface.CreateFont("CorpusCare", ScreenScale(6), 700, true, false, "CorpusCareFive")
 	surface.CreateFont("CorpusCare", ScreenScale(7), 700, true, false, "CorpusCareSeven")
 	surface.CreateFont("CorpusCare", ScreenScale(10), 700, true, false, "CorpusCareTen")
 	surface.CreateFont("CorpusCare", ScreenScale(13), 700, true, false, "CorpusCareThirteen")
 	surface.CreateFont("CorpusCare", ScreenScale(16), 500, true, false, "CorpusCareFifteen")
-	------------
-	
-	-- Notifications used by split message
+
+	--Notifications used by split message
 	surface.CreateFont( "anthem", ScreenScale(19), 500, true, false, "Notifications" )
 
+	--Force normal gamma
 	if FORCE_NORMAL_GAMMA then
-		RunConsoleCommand("mat_monitorgamma", "1.7") -- Was 2.2
-		timer.Create("GammaChecker", 3, 0, function() RunConsoleCommand("mat_monitorgamma", "1.7") end) -- "mat_monitorgamma" = "1.600000" ( def. "2.2" ) min. 1.600000 max. 2.600000 - monitor gamma (typically 2.2 for CRT and 1.7 for LCD)
+		RunConsoleCommand("mat_monitorgamma", "2.2")
+		timer.Create("GammaChecker", 3, 0, function()
+			RunConsoleCommand("mat_monitorgamma", "2.2")
+		end)
 	end
 	
-	-- Sync server setting
-	timer.Simple(4,function()
-		RunConsoleCommand("zs_setautoredeem", tostring( GetConVarNumber("_zs_autoredeem") ) )
+	--Sync server setting
+	timer.Simple(4, function()
+		RunConsoleCommand("zs_setautoredeem", tostring( GetConVarNumber("_zs_autoredeem")))
 	end)
 	
-	-- Force fast switch and some network vars
-	timer.Simple ( 0.1, function() --[=[RunConsoleCommand ( "rate", "30000" )]=] RunConsoleCommand( "hud_fastswitch" , "1" ) RunConsoleCommand ( "mat_motion_blur_enabled", "1" ) end )
+	--Force fast switch and some network vars
+	RunConsoleCommand("hud_fastswitch", "1")
+	RunConsoleCommand("mat_motion_blur_enabled", "1")
 	
-	-- Call for the changelog
+	--Call for the changelog
 	--[==[http.Get(CHANGELOG_HTTP,"",HTTPChangelog)
 	http.Get(ADMINS_HTTP,"",HTTPAdmins)]==]
 	
-	-- self:SplitMessage( h * 0.6, "<color=ltred><font=HUDFontAA>Welcome to</font></color>", "<color=green><font=HUDFontAA>Mr. Green Zombie Survival</font></color>" )
+	--self:SplitMessage( h * 0.6, "<color=ltred><font=HUDFontAA>Welcome to</font></color>", "<color=green><font=HUDFontAA>Mr. Green Zombie Survival</font></color>" )
 end
 
 function HTTPChangelog(contents, size)
@@ -558,7 +561,7 @@ function HTTPAdmins(contents, size)
 end
 
 function GM:RestoreViewmodel()
-	timer.Simple ( 0.1, function()
+	timer.Simple( 0.1, function()
 		local MySelf = LocalPlayer()
 		if MySelf:IsValid() then
 			local vm = MySelf:GetViewModel()
@@ -566,7 +569,7 @@ function GM:RestoreViewmodel()
 				-- vm:SetColor(Color(255, 255, 255, 255))
 			end
 		end
-	end )
+	end)
 end
 
 function RestoreViewmodel(pl)
@@ -603,27 +606,30 @@ local function DelayedLH()
 
 	if not ENDROUND then
 		if MySelf:Team() == TEAM_UNDEAD or not MySelf:Alive() then
-			--MySelf:Message( "Kill the Last Human!", nil, 2 )
-			GAMEMODE:Add3DMessage(140,"Kill the Last Human!",nil,"ArialBoldFifteen")
+			GAMEMODE:Add3DMessage(140, "Kill the Last Human", nil, "ArialBoldFifteen")
 		else
-			--MySelf:Message( "You are the LAST HUMAN! Run for your life...", nil, 2 )		
-			GAMEMODE:Add3DMessage(140,"You are the LAST HUMAN!",nil,"ArialBoldFifteen")
-			GAMEMODE:Add3DMessage(140,"Run for your life!",nil,"ArialBoldTen")
+			GAMEMODE:Add3DMessage(140, "You are the LAST HUMAN", nil, "ArialBoldFifteen")
+			GAMEMODE:Add3DMessage(140, "Run for your life!", nil, "ArialBoldTen")
 		end
 	end
 end
 
 function GM:LastHuman()
-	if LASTHUMAN then return end
-	if ENDROUND then return end
+	if LASTHUMAN or ENDROUND then
+		return
+	end
 
 	LASTHUMAN = true
-	-- if TranslateMapTable[ game.GetMap() ] and not TranslateMapTable[ game.GetMap() ].DisableMusic then 
-		RunConsoleCommand("stopsound")
-		timer.Simple(0.5, function() LoopLastHuman() end)
-	-- end
+	
+	RunConsoleCommand("stopsound")
+	timer.Simple(0.5, function()
+		LoopLastHuman()
+	end)
 	DrawingDanger = 1
-	timer.Simple(0.5, function() DelayedLH() end)
+	timer.Simple(0.5, function()
+		DelayedLH()
+	end)
+	
 	GAMEMODE:SetLastHumanText()
 end
 
@@ -643,7 +649,6 @@ local function ReceiveHeadcrabScale(um)
 
 	local pl = um:ReadEntity()
 	if pl:IsValid() then
-		--pl:SetModelScale(Vector(2,2,2))
 		if pl == MySelf then
 			HCView = true
 			hook.Add("Think", "HCView", function()
@@ -657,8 +662,7 @@ local function ReceiveHeadcrabScale(um)
 end
 usermessage.Hook("RcHCScale", ReceiveHeadcrabScale)
 
-net.Receive( "SendTitles", function( len )
-	
+net.Receive("SendTitles", function(len)
 	local tbl = net.ReadTable() or {}
 	
 	for _, stuff in pairs(tbl) do
@@ -667,7 +671,6 @@ net.Receive( "SendTitles", function( len )
 			pl.Title = stuff[2] or ""
 		end
 	end
-
 end)
 
 local function ReceiveTitles ( um )
@@ -683,17 +686,17 @@ usermessage.Hook( "SendTitles", ReceiveTitles )
 --[=[----------------------------------------------------------------
       Receives updates data regarding the ammo regen timer
 ------------------------------------------------------------------]=]
-local function ReceiveAmmoTimer ( um )
+local function ReceiveAmmoTimer( um )
 	if not ValidEntity ( MySelf ) then return end
 
 	-- Update the regeneration time
 	local SetTimer = um:ReadShort()
-	MySelf:SetAmmoTime ( SetTimer or AMMO_REGENERATE_RATE )
+	MySelf:SetAmmoTime(SetTimer or AMMO_REGENERATE_RATE)
 	
 	-- First regeneration
 	MySelf.IsFirstRegeneration = true
 end
-usermessage.Hook ( "UpdateAmmoTime" , ReceiveAmmoTimer )
+usermessage.Hook("UpdateAmmoTime", ReceiveAmmoTimer)
 
 PlayerIsAdmin = false
 local function ReceiveAdmin(um)
@@ -704,19 +707,18 @@ usermessage.Hook("SendAdminStats", ReceiveAdmin)
 -- Receive map list
 MapList = {}
 local function ReceiveMapList(um)
-
 	local index = um:ReadShort()
 	local map = um:ReadString()
 	map = string.gsub(map,".bsp","")
 	MapList[index] = map
-	
 end
 usermessage.Hook("RcMapList", ReceiveMapList)
 
-net.Receive( "SetAchievementsData", function( len )
-	
+net.Receive("SetAchievementsData", function(len)
 	local pl = net.ReadEntity()
-	if not IsValid( pl ) then return end
+	if not IsValid(pl) then
+		return
+	end
 	
 	local tbl = net.ReadTable() or {}
 	
@@ -730,31 +732,14 @@ net.Receive( "SetAchievementsData", function( len )
 	pl.GotAchievementsData = true
 	pl.StatsReceived = true
 	
-	print( "[DB] Successfully received achievements data.." )
+	print("[DB] Successfully received achievements data")
 end)
 
---[==[local function SetAchievementsData(um)
-	local pl = um:ReadEntity()
-	if not IsValid( pl ) then return end
-	
-	pl.DataTable = pl.DataTable or {}
-	pl.DataTable["Achievements"] = {}
-
-	for k, v in ipairs( achievementDesc ) do
-		pl.DataTable["Achievements"][k] = um:ReadBool()
-	end
-
-	pl.GotAchievementsData = true
-	pl.StatsReceived = true
-	
-	print( "[DB] Successfully received achievements data.." )
-end
-usermessage.Hook("SetAchievementsData", SetAchievementsData)]==]
-
-net.Receive( "SetStatsData", function( len )
-	
+net.Receive("SetStatsData", function(len)
 	local pl = net.ReadEntity()
-	if not IsValid( pl ) then return end
+	if not IsValid(pl) then
+		return
+	end
 	
 	-- Init datatable if it's not
 	pl.DataTable = pl.DataTable or {}
@@ -762,28 +747,13 @@ net.Receive( "SetStatsData", function( len )
 	-- Receive goodies
 	local Key = net.ReadString()
 	local Value = net.ReadString()
-	pl.DataTable[tostring(Key)] = string.Sanitize( Value )
-
+	pl.DataTable[tostring(Key)] = string.Sanitize(Value)
 end)
 
-
---[==[local function SetPlayerStatsData( um )
-	local pl = um:ReadEntity()
-	if not IsValid( pl ) then return end
-	
-	-- Init datatable if it's not
-	pl.DataTable = pl.DataTable or {}
-	
-	-- Receive goodies
-	local Key = um:ReadString()
-	local Value = um:ReadString()
-	pl.DataTable[tostring(Key)] = string.Sanitize( Value )
-end
-usermessage.Hook( "SetStatsData", SetPlayerStatsData )]==]
-
-net.Receive( "SendClassData", function( len )
-	
-	if not IsValid( MySelf ) then return end
+net.Receive("SendClassData", function(len)
+	if not IsValid(MySelf) then
+		return
+	end
 	
 	local tbl = net.ReadTable() or {}
 	
@@ -793,38 +763,14 @@ net.Receive( "SendClassData", function( len )
 	MySelf.DataTable["ClassData"] = table.Copy(tbl)
 	
 	MySelf.GotClassData = true
-	print( "[DB] Successfully received class data.." )
-	
-	
-
-
+	print("[DB] Successfully received class data")
 end)
 
---[==[local function SendClassData (um)
-	if not IsValid( MySelf ) then return end
-	
-	MySelf.DataTable = MySelf.DataTable or {}
-
-	if not MySelf.DataTable["ClassData"] then
-		MySelf.DataTable["ClassData"] = { }
-	end
-	
-	for k,v in pairs ( classData ) do
-		MySelf.DataTable["ClassData"][k] = { }
-		for _,keys in pairs ( v ) do
-			MySelf.DataTable["ClassData"][k][_] = um:ReadLong()
-		end
-	end
-	
-	MySelf.GotClassData = true
-	print( "[DB] Successfully received class data.." )
-end
-usermessage.Hook ("SendClassData", SendClassData)]==]
-
-net.Receive( "SetShopData", function( len )
-	
+net.Receive("SetShopData", function(len)
 	local pl = net.ReadEntity()
-	if not IsValid( pl ) then return end
+	if not IsValid( pl ) then
+		return
+	end
 	
 	local tbl = net.ReadTable() or {}
 	
@@ -836,7 +782,7 @@ net.Receive( "SetShopData", function( len )
 	end
 
 	pl.GotShopData = true
-	print( "[DB] Successfully received shop data.." )
+	print("[DB] Successfully received shop data..")
 end)
 
 local function SetShopData(um)
@@ -873,17 +819,15 @@ usermessage.Hook("SetServerData2", SetServerData)
 usermessage.Hook("SetServerData3", SetServerData)
 
 net.Receive( "SendUpgradeNumbers", function( len )
-	
 	MySelf.TotalUpgrades = net.ReadDouble()
-
 end)
 
-local function SendUpgradeNumbers (um)
+local function SendUpgradeNumbers(um)
 	MySelf.TotalUpgrades = um:ReadShort()
 end
-usermessage.Hook("SendUpgradeNumbers",SendUpgradeNumbers)
+usermessage.Hook("SendUpgradeNumbers", SendUpgradeNumbers)
 
-function UpdateHumanClass ( um )
+function UpdateHumanClass(um)
 	local pl
 	
 	-- Read interval
@@ -895,25 +839,9 @@ function UpdateHumanClass ( um )
 		pl.ClassHuman = um:ReadShort()
 	end
 end
-usermessage.Hook( "UpdateHumanClass", UpdateHumanClass )
+usermessage.Hook("UpdateHumanClass", UpdateHumanClass)
 
-
---[==[net.Receive( "SendZombieClass", function( len )
-	
-	local pl
-	
-	local tbl = net.ReadTable()
-	
-	for _,get in pairs(tbl) do
-		-- pl = get.p
-		-- pl.Class = get.class
-	end
-	
-	PrintTable(tbl)
-
-end)]==]
-
-function SendZombieClass ( um )
+function SendZombieClass(um)
 	local playersclass, pl
 
 	-- Receive the interval
@@ -926,12 +854,12 @@ function SendZombieClass ( um )
 		pl.Class = playersclass
 	end
 end
-usermessage.Hook("SendZombieClass",SendZombieClass)
+usermessage.Hook("SendZombieClass", SendZombieClass)
 
-local function SendMaximumHealth (um)
+local function SendMaximumHealth(um)
 	MySelf.MaximumHealth = um:ReadShort()
 end
-usermessage.Hook ("SendMaximumHealth", SendMaximumHealth)
+usermessage.Hook("SendMaximumHealth", SendMaximumHealth)
 
 ----------------------------- Spawn Protection Code for Humans  - Clientside  ------------------------------------ TODO: Fix
 
@@ -939,21 +867,25 @@ usermessage.Hook ("SendMaximumHealth", SendMaximumHealth)
 local function InitializeFonts()
 	surface.CreateFont("Arial", ScreenScale(10), 500, true, false, "ProtectionTitle" )
 end
-hook.Add( "Initialize", "InitializeSpawnProtectionFonts", InitializeFonts )
+hook.Add("Initialize", "InitializeSpawnProtectionFonts", InitializeFonts)
 
-local function ResetProtectionBox( pl )
-	if pl == MySelf then
-		hook.Remove( "HUDPaint", "DrawHumanSpawnProtection" )
+local function ResetProtectionBox(pl)
+	if pl ~= MySelf then
+		return
 	end
+	
+	hook.Remove( "HUDPaint", "DrawHumanSpawnProtection" )
 end
-hook.Add( "PlayerSpawn", "ResetProtectionDrawBox", ResetProtectionBox )
+hook.Add("PlayerSpawn", "ResetProtectionDrawBox", ResetProtectionBox)
 
-local function drawSpawnProtection( pl )
-	timer.Simple( 0.25, function( )
+local function drawSpawnProtection(pl)
+	timer.Simple(0.25, function()
 		if IsValid( pl ) then
 			if pl == MySelf then
-				hook.Add( "HUDPaint", "DrawHumanSpawnProtection", function()
-					if not IsValid( MySelf ) then return end
+				hook.Add("HUDPaint", "DrawHumanSpawnProtection", function()
+					if not IsValid( MySelf ) then
+						return
+					end
 					
 					-- Checks
 					if not MySelf:Alive() or not MySelf:IsHuman() or not MySelf:HasSpawnProtection() or ENDROUND then return end
@@ -972,29 +904,22 @@ local function drawSpawnProtection( pl )
 					surface.DrawRect(wx+5 , wy+5,(CurrentReduction*ww)-10, wh-10 )
 					
 					draw.SimpleTextOutlined("Spawn protection: "..math.Round(CurrentReduction * 100 ).."%", "ArialBoldFive", w/2, wy-2, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM,1,Color(0,0,0,255))
-								
-					-- Draw Spawn Protection Notice
-					--[==[draw.RoundedBox (6,ScaleW(445),ScaleH(820), ScaleW(428),ScaleH(105), Color (1,1,1,200))
-					draw.SimpleText ("Spawn protection:","ProtectionTitle",ScaleW(658), ScaleH(837), Color (219,216,216,255),TEXT_ALIGN_CENTER)
-					surface.SetDrawColor (66,58,58,255)
-					surface.DrawRect (ScaleW(474),ScaleH(876),ScaleW(368),ScaleH(24))
-					surface.SetDrawColor (98,17,17,255)
-					surface.DrawRect (ScaleW(474),ScaleH(876),w*( ( ( CurrentReduction ) * 368 ) / 1280 ), ScaleH(24) )
-					draw.SimpleText ( math.Round( CurrentReduction * 100 ).." PERCENT","SEVEN",ScaleW(656), ScaleH(881), Color (230,228,228,255),TEXT_ALIGN_CENTER)]==]
-				end )
+				end)
 			end
 		end
 	end)
 end
-hook.Add( "OnPlayerRedeem", "HumanSpawnProtection", drawSpawnProtection )
+hook.Add("OnPlayerRedeem", "HumanSpawnProtection", drawSpawnProtection)
 
 drawZombieBoost = drawZombieBoost or false
 local BoostTime = 0
 
 local function ResetBoostBox( pl )
-	if pl == MySelf then
-		drawZombieBoost = false
+	if pl ~= MySelf then
+		return
 	end
+	
+	drawZombieBoost = false
 end
 --hook.Add( "PlayerSpawn", "ResetBoostBox", ResetBoostBox )
 
@@ -1045,16 +970,14 @@ local function DrawZombieBoost()
 	if BoostTime - CurTime() <= 0 then
 		drawZombieBoost = false
 	end
-					
-
 end
-hook.Add( "HUDPaint", "DrawZombieBoost",DrawZombieBoost)
+hook.Add("HUDPaint", "DrawZombieBoost", DrawZombieBoost)
 
 local function EnableZombieBoost()
 	BoostTime = CurTime() + TranslateMapTable[ game.GetMap() ].ZombieSpawnProtection
 	drawZombieBoost = true
 end
-usermessage.Hook("EnableZombieBoost",EnableZombieBoost)
+usermessage.Hook("EnableZombieBoost", EnableZombieBoost)
 
 ----------------------------------------------------------------------------------------------------------------------
 
@@ -1234,63 +1157,6 @@ function GM:_HUDPaint()
 			draw.SimpleTextOutlined("Recharging breath: "..math.Round(math.abs (WATER_DROWNTIME - WATER_DROWNTIME_CONST)).." sec left", "ArialBoldFive", w/2, wy-2, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM,1,Color(0,0,0,255))
 		end
 	end
-	
-
-	--[=[ 
-	-- calculate hard/easy/insane things
-	local DrawDiff = "EASY"
-	local DiffValue = difficulty
-	
-	if DiffValue <= 0.50 then
-		DrawDiff = "EASY" -- Fake it a bit
-	elseif DiffValue <= 1.30 and DiffValue > 0.50 then
-		DrawDiff = "NORMAL"
-	elseif DiffValue <= 1.50 and DiffValue > 1.30 then
-		DrawDiff = "HARD"
-	elseif DiffValue <= 2.00 and DiffValue > 1.50 then
-		DrawDiff = "INSANE"
-	end
-	if not DRAW_BETA_HUD then 
-		-- (Shameless :D) Advert 
-		if MySelf:Alive() and myteam ~= TEAM_SPECTATOR then
-			if not IsClassesMenuOpen() then
-				draw.RoundedTextBox ( "www.left4green.com", "ArialBoldFive", w + w * 0.001, h * 0.05, 0.45, Color ( 1,1,1,190 ), Color ( 0,255,0,255 ), TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP )
-			end
-		end
-	end
-	if myteam == TEAM_UNDEAD then
-		if MySelf:Alive() then
-			if not IsClassesMenuOpen() or not IsSkillShopOpen() then
-				self:ZombieHUD(MySelf)
-				if not DRAW_BETA_HUD then 
-				if w/h > 1.24 and w/h < 1.35 then
-					draw.DrawText("Feed: "..ToMinutesSeconds(ROUNDTIME - CurTime()), "L4DTIMER", w*0.095, h*0.06, COLOR_GRAY, TEXT_ALIGN_LEFT)
-					draw.DrawText("Difficulty: "..DrawDiff, "L4DDIFF", w*0.095, h*0.095, Color (168,27,26,230), TEXT_ALIGN_LEFT)
-				elseif w/h > 1.45 and w/h < 1.8 or w/h == 1.6 then
-					draw.DrawText("Feed: "..ToMinutesSeconds(ROUNDTIME - CurTime()), "L4DTIMER", w*0.095, h*0.071, COLOR_GRAY, TEXT_ALIGN_LEFT)
-					draw.DrawText("Difficulty: "..DrawDiff, "L4DDIFF", w*0.095, h*0.113, Color (168,27,26,230), TEXT_ALIGN_LEFT)
-				end
-				end
-			end
-		end
-	elseif myteam == TEAM_HUMAN then
-		if MySelf:Alive() then
-		if not IsSkillShopOpen() then
-			self:HumanHUD(MySelf)
-			if not DRAW_BETA_HUD then 
-			if w/h > 1.24 and w/h < 1.35 then
-				draw.DrawText("Survive: "..ToMinutesSeconds(ROUNDTIME - CurTime()), "L4DTIMER", w*0.095, h*0.06, COLOR_GRAY, TEXT_ALIGN_LEFT)
-				draw.DrawText("Difficulty: "..DrawDiff, "L4DDIFF", w*0.095, h*0.095, Color (168,27,26,230), TEXT_ALIGN_LEFT)
-			elseif w/h > 1.45 and w/h < 1.8 or w/h == 1.6 then
-				draw.DrawText("Survive: "..ToMinutesSeconds(ROUNDTIME - CurTime()), "L4DTIMER", w*0.095, h*0.071, COLOR_GRAY, TEXT_ALIGN_LEFT)
-				draw.DrawText("Difficulty: "..DrawDiff, "L4DDIFF", w*0.095, h*0.113, Color (168,27,26,230), TEXT_ALIGN_LEFT)
-			end
-			end
-		end
-		end
-	else 
-		return 
-	end ]=]
 end
 
 -- Dropped weapons glow/sparkles by Deluvas (thanks!)
@@ -1362,16 +1228,18 @@ function DrawBackgroundSelect()
 	end
 end
 
--- Coin painting effect
+--Coin painting effect
 local amountAdded = 0
 local yAddAdd = 40
 local yAdd = 0
 function PaintCoinEffect()
-	yAdd = yAdd + FrameTime()*yAddAdd
-	yAddAdd = math.max(0,yAddAdd - FrameTime()*35)
-	local str = "+"..amountAdded
+	yAdd = yAdd + FrameTime() * yAddAdd
+	yAddAdd = math.max(0, yAddAdd - FrameTime()*35)
+	local str
 	if amountAdded < 0 then
-		str = ""..amountAdded
+		str = amountAdded
+	else
+		str = "+"..amountAdded
 	end
 	
 	draw.DrawText(str, "SSAKBAR", w*0.097, h*0.250-yAdd, Color(30,94,27,255), TEXT_ALIGN_CENTER) 
@@ -1381,6 +1249,7 @@ function KillCoinPaint()
 	amountAdded = 0
 	hook.Remove("HUDPaint","PaintCoinEffect")
 end
+
 -- Disable this for a while
 local cnt = 1
 local function CoinEffect(um)
@@ -1442,6 +1311,7 @@ function GM:PlayerBindPress(pl, bind, pressed)
 		return true
 	end
 	
+	--Third person view
 	if bind == "+menu_context" then
 		self.ZombieThirdPerson = not self.ZombieThirdPerson
 	end
@@ -1451,37 +1321,34 @@ end
    Restrict  keys like jump / crouch for some classes
 ------------------------------------------------------------------]=]
 function RestrictControls ( pl , bind, pressed ) 
-	if not pl == MySelf then return end
+	if not pl == MySelf then
+		return
+	end
 
 	if pl:Team() == TEAM_UNDEAD then
-		local Class = pl:GetZombieClass()
+		--Ducking
+		if string.find(bind, "duck") then
+			local Class = pl:GetZombieClass()
 		
-		-- Ducking
-		if string.find ( bind, "duck" ) then
 			if ZombieClasses[Class].CanCrouch == false then
 				return true
 			end
 		end
-		
-		-- Flashlight		
-		-- if string.find ( bind, "impulse" ) then
-			-- return true
-		-- end
 	end
 	
-	-- Walk for humans
+	--Walk for humans
 	if pl:Team() == TEAM_HUMAN then
-		if string.find( bind, "walk" ) then
+		if string.find(bind, "walk") then
 			return true
 		end		
 	end
 end
-hook.Add ("PlayerBindPress","RestrictControl",RestrictControls)
+hook.Add("PlayerBindPress", "RestrictControl", RestrictControls)
 
 function SpectatorSay ( say )
 	return MySelf:Team() == TEAM_SPECTATOR
 end
-hook.Add ("StartChat","Spectator",SpectatorSay)
+hook.Add("StartChat", "Spectator", SpectatorSay)
 
 DEBUG_VIEW = false
 
@@ -1493,13 +1360,15 @@ usermessage.Hook("SkullCam", function(um)
 	end
 end)
 GM.FOVLerp = 1
-hook.Add("Think","CheckFOV",function()
 
-	if not MySelf then return end
-	if not MySelf.Team then return end
+hook.Add("Think", "CheckFOV", function()
+	if not MySelf or not MySelf.Team then
+		return
+	end
 	
 	if MySelf:Team() == TEAM_HUMAN then
 		local wep = MySelf:GetActiveWeapon()
+		
 		if wep:IsValid() and wep.GetIronsights and wep:GetIronsights() then
 			GAMEMODE.FOVLerp = math.Approach(GAMEMODE.FOVLerp, wep.IronsightsMultiplier or 0.6, FrameTime() * 4)
 		else
@@ -1510,42 +1379,35 @@ hook.Add("Think","CheckFOV",function()
 			GAMEMODE:ToggleZombieVision(false)
 		end
 	end
-	
-		
 end)
 
 local function AddNightFog()
-
 	render.FogMode( 1 ) 
 	render.FogStart( 0 )
 	render.FogEnd( 10000  )
 	render.FogMaxDensity( 0.9 )
-
 	
 	render.FogColor( 0.1 * 255, 0.1 * 255, 0.1 * 255 )
 
 	return true
-
 end
 
 local function AddNightFogSkybox(skyboxscale)
-
 	render.FogMode( 1 ) 
 	render.FogStart( 0*skyboxscale )
 	render.FogEnd( 10000*skyboxscale  )
 	render.FogMaxDensity( 0.9 )
 
-	
 	render.FogColor( 0.1 * 255, 0.1 * 255, 0.1 * 255 )
 
 	return true
-
 end
 
 local drawfog = false
 hook.Add("Think","NightFog",function()
-	
-	if not GAMEMODE:IsNightMode() then return end
+	if not GAMEMODE:IsNightMode() then
+		return
+	end
 	
 	if not drawfog then
 		hook.Add( "SetupWorldFog","AddNightFog", AddNightFog )
@@ -1553,7 +1415,6 @@ hook.Add("Think","NightFog",function()
 
 		drawfog = true
 	end
-	
 end)
 
 local undomodelblend = false
@@ -1592,28 +1453,20 @@ end
 
 local revertvm = false
 function GM:PreDrawViewModel(vm,pl,wep)
-	-- local pl = vm and IsValid(vm) and IsValid(vm:GetOwner()) and vm:GetOwner()
-	
-	-- if vm and pl then
-		-- local wep = IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon()
-		if vm and wep then
-			if wep.ShowViewModel == false then
-				revertvm = true
-				render.SetBlend(1/255)
-			end
+	if vm and wep then
+		if wep.ShowViewModel == false then
+			revertvm = true
+			render.SetBlend(1/255)
 		end
-	-- end
-	
+	end	
 end
 
 function GM:PostDrawViewModel(vm)
-	
 	if revertvm then
 		render.SetBlend(1)
 		revertvm = false
 	end
 end
-
 
 local fovlerp = GetConVarNumber("fov_desired")
 local maxfov = fovlerp
@@ -1621,52 +1474,44 @@ local minfov = fovlerp * 0.6
 local staggerdir = VectorRand():GetNormal()
 
 function GM:_ShouldDrawLocalPlayer(pl)
-	local wep = pl:GetActiveWeapon()
-	return pl.Team and pl:Team() == TEAM_UNDEAD and ((self.ZombieThirdPerson or (IsValid(wep) and wep.GetClimbing and wep:GetClimbing())) or (pl.Revive and pl.Revive:IsValid()))--  and pl.Revive:IsRising()
+	local weapon = pl:GetActiveWeapon()
+	return pl.Team and pl:Team() == TEAM_UNDEAD and ((self.ZombieThirdPerson or (IsValid(weapon) and weapon.GetClimbing and weapon:GetClimbing())) or (pl.Revive and pl.Revive:IsValid()))--  and pl.Revive:IsRising()
 end
 
 function GM:_CalcView ( pl, vPos, aAng, fFov )
-	if not ValidEntity ( MySelf ) then return end
-	--print("X = "..tonumber(vPos.x)..", Y = "..tonumber(vPos.y)..", Z = "..tonumber(vPos.z))
+	if not ValidEntity ( MySelf ) then
+		return
+	end
+
 	-- Grab data
 	local Velocity, EyeAngle = pl:GetVelocity(), pl:EyeAngles()
-	--local savepos = vPos - Vector ( 0,0,40 )
+
 	-- Lower view position for crabs
-	if MySelf:IsZombie() then
+	--[[if MySelf:IsZombie() then
 		if MySelf:Health() > 0 then
 			if ZombieClasses[MySelf:GetZombieClass()].ViewOffset then
-			-- 	vPos = vPos + ZombieClasses[MySelf:GetZombieClass()].ViewOffset
+				vPos = vPos + ZombieClasses[MySelf:GetZombieClass()].ViewOffset
 			end
 		end
-	end
+	end]]
 	
+	--Revive camera
 	if pl.Revive and pl.Revive.GetRagdollEyes then
 		local rpos, rang = pl.Revive:GetRagdollEyes(pl)
 		if rpos then
-			return { origin=rpos, angles=rang }
+			return { origin = rpos, angles = rang }
 		end
 	end
 	
-	-- Skull camera for dying humans
+	--Skull camera for dead humans
 	if MySelf:GetRagdollEntity() and not (MySelf:GetObserverMode() == OBS_MODE_ROAMING or MySelf:GetObserverMode() == OBS_MODE_FREEZECAM or MySelf:GetObserverMode() == OBS_MODE_CHASE ) then
 		local rpos, rang = self:GetRagdollEyes(MySelf)
 		if rpos then
-			return { origin=rpos, angles=rang }
+			return { origin = rpos, angles = rang }
 		end
-		
-		--[=[local phys = MySelf:GetRagdollEntity():GetPhysicsObjectNum(12)
-		local ragdoll = MySelf:GetRagdollEntity()
-		if ragdoll then
-			local lookup = MySelf:LookupAttachment("eyes")
-			if lookup then
-				local attach = ragdoll:GetAttachment(lookup)
-				if attach then
-					return { origin=attach.Pos + attach.Ang:Forward() * 5, angles=attach.Ang }
-				end
-			end
-		end]=]
 	end
 	
+	--
 	if pl:ShouldDrawLocalPlayer() and pl:OldAlive() then
 		local wep = pl:GetActiveWeapon()
 		if IsValid(wep) and wep.GetClimbing and wep:GetClimbing() and not self.ZombieThirdPerson then
@@ -1684,23 +1529,21 @@ function GM:_CalcView ( pl, vPos, aAng, fFov )
 	end
 	
 	-- FOV controller ( used with MySelf:SetFOV () )
-	
-	-- print(fFov)
-	
+
 	fFov = fFov or GetConVar("fov_desired"):GetInt() or 75
-	-- MySelf.Fov = MySelf.Fov or GetConVar("fov_desired"):GetInt()
-	-- if MySelf.Fov then
-	-- 	MySelf.CurrentFov = MySelf.CurrentFov or GetConVar("fov_desired"):GetInt()
-	-- 	MySelf.CurrentFov = math.Approach ( MySelf.CurrentFov, MySelf.Fov, FrameTime() * 100 )
-	-- 	fFov = MySelf.Fov -- .CurrentFov
-	-- end
-	-- 	fFov = math.Approach ( fFov, MySelf.Fov, FrameTime() * 100 ) 
+	--[[MySelf.Fov = MySelf.Fov or GetConVar("fov_desired"):GetInt()
+	 if MySelf.Fov then
+	 	MySelf.CurrentFov = MySelf.CurrentFov or GetConVar("fov_desired"):GetInt()
+	 	MySelf.CurrentFov = math.Approach ( MySelf.CurrentFov, MySelf.Fov, FrameTime() * 100 )
+	 	fFov = MySelf.Fov -- .CurrentFov
+	 end
+	 	fFov = math.Approach ( fFov, MySelf.Fov, FrameTime() * 100 ) 
 	
-	-- MySelf.ApproachFov = MySelf.ApproachFov or GetConVar("fov_desired"):GetInt()-- 75
-	-- 
-	-- if MySelf.Fov then MySelf.ApproachFov = math.Approach ( MySelf.ApproachFov, MySelf.Fov, FrameTime() * 100 ) fFov = MySelf.ApproachFov end
-	-- MySelf.ApproachFov = math.Approach ( MySelf.ApproachFov, MySelf.Fov, FrameTime() * 100 ) 
-	-- fFov = MySelf.ApproachFov 
+	 MySelf.ApproachFov = MySelf.ApproachFov or GetConVar("fov_desired"):GetInt()-- 75
+	 
+	 if MySelf.Fov then MySelf.ApproachFov = math.Approach ( MySelf.ApproachFov, MySelf.Fov, FrameTime() * 100 ) fFov = MySelf.ApproachFov end
+	 MySelf.ApproachFov = math.Approach ( MySelf.ApproachFov, MySelf.Fov, FrameTime() * 100 ) 
+	 fFov = MySelf.ApproachFov]]
 	
 	-- Weapon calc. view management ( human only )
 	if MySelf:Team() == TEAM_HUMAN then
@@ -1713,8 +1556,7 @@ function GM:_CalcView ( pl, vPos, aAng, fFov )
 			if CalcViewFunc then vPos, aAng, fFov = CalcViewFunc ( Weapon, pl, vPos, aAng, fFov ) end
 		end
 		
-		-- Bouncy view ( strafe )
-
+		--Bouncy view ( strafe )
 		if ( MySelf:Alive() and MySelf:Health() > 30 ) and Velocity:Length() < 330 then
 			aAng.roll = aAng.roll + EyeAngle:Right():DotProduct( Velocity ) * 0.007
 		end	
@@ -1741,27 +1583,25 @@ end
 local matPullBeam = Material("cable/rope")
 local colPullBeam = Color(255, 255, 255, 255)
 hook.Add("PostDrawOpaqueRenderables","DrawCarryRope",function()
-	
-		local holding = MySelf.status_human_holding
-		if holding and holding:IsValid() and holding:GetIsHeavy() then
-			local object = holding:GetObject()
-			if object:IsValid() then
-				local pullpos = holding:GetPullPos()
-				local hingepos = holding:GetHingePos()
-				local r, g, b = render.GetLightRGB(hingepos)
-				colPullBeam.r = r * 255
-				colPullBeam.g = g * 255
-				colPullBeam.b = b * 255
-				render.SetMaterial(matPullBeam)
-				render.DrawBeam(hingepos, pullpos, 0.5, 0, pullpos:Distance(hingepos) / 128, colPullBeam)
-			end
+	local holding = MySelf.status_human_holding
+	if holding and holding:IsValid() and holding:GetIsHeavy() then
+		local object = holding:GetObject()
+		if object:IsValid() then
+			local pullpos = holding:GetPullPos()
+			local hingepos = holding:GetHingePos()
+			local r, g, b = render.GetLightRGB(hingepos)
+			colPullBeam.r = r * 255
+			colPullBeam.g = g * 255
+			colPullBeam.b = b * 255
+			render.SetMaterial(matPullBeam)
+			render.DrawBeam(hingepos, pullpos, 0.5, 0, pullpos:Distance(hingepos) / 128, colPullBeam)
 		end
-
+	end
 end)
+
 local vecfake = Vector(0, 0, 32000)
 local nodraw = false
-hook.Add("Think","DrawZombieFlashLight",function()
-	
+hook.Add("Think", "DrawZombieFlashLight", function()
 	local light = Entity(0):GetDTEntity(0)
 	
 	if light and IsValid(light) then
@@ -1769,7 +1609,6 @@ hook.Add("Think","DrawZombieFlashLight",function()
 		local todraw = MySelf and IsValid(MySelf) and MySelf.IsZombie and MySelf:IsZombie() and MySelf:OldAlive() and (GAMEMODE.m_ZombieVision or GAMEMODE:IsNightMode())
 		
 		if todraw then
-			
 			if light:IsEffectActive( EF_NODRAW ) then
 				light:SetNoDraw(false)
 			end
@@ -1846,9 +1685,7 @@ function GM:_CreateMove(cmd)
 		angl.pitch = (angl.pitch + math.sin(CurTime()*8)*0.06) 
 		angl.yaw = (angl.yaw + math.cos(CurTime()*4)*0.03) 	
 		
-		if GetConVar("_zs_headbob"):GetBool() then
-			cmd:SetViewAngles(angl)
-		end
+		cmd:SetViewAngles(angl)
 		
 	elseif MYSELFVALID and MySelf:Team() == TEAM_UNDEAD and MySelf:Alive() and vel:Length() < 330 and vel:Length() > 27 then 
 	
@@ -1857,17 +1694,13 @@ function GM:_CreateMove(cmd)
 			zangl.pitch = (zangl.pitch + math.sin(CurTime()*8)*0.06) 
 			zangl.yaw = (zangl.yaw + math.cos(CurTime()*4)*0.03) 	
 			
-			if GetConVar("_zs_headbob"):GetBool() then
-				cmd:SetViewAngles(zangl)
-			end
-			
+			cmd:SetViewAngles(zangl)
 		end
-		
 	end
 end
 
 function GM:ShutDown()
---self:RestoreMaterials()
+	--self:RestoreMaterials()
 end
 
 local last_mat = TEAM_UNASSIGNED
@@ -2156,10 +1989,8 @@ function DrawAchievement()
 			rand = 0 
 			rand2 = 0 
 		end
-		draw.SimpleTextOutlined("Achievement Unlocked!","HUDFontSmaller",achievX[k]+rand,achievY[k]+rand2,col, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 1, col2)
+		draw.SimpleTextOutlined("Achievement attained","HUDFontSmaller",achievX[k]+rand,achievY[k]+rand2,col, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 1, col2)
 		draw.SimpleTextOutlined(achievName,"HUDFontSmall",achievX[k]+rand,achievY[k]+20+rand2,col, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 1, col2)
-		-- draw.DrawText("Achievement Unlocked!","HUDFontSmaller",achievX[k]+rand,achievY[k]+rand2,col, TEXT_ALIGN_CENTER)
-		-- draw.DrawText(achievName,"HUDFontSmall",achievX[k]+rand,achievY[k]+20+rand2,col, TEXT_ALIGN_CENTER)
 	end
 	
 	col = Color(255,255,255,achievAlpha)
@@ -2225,14 +2056,19 @@ function ToxicThink()
 		ToxicReset = CurTime() + 5
 	end
 end
-
 -- hook.Add('Think','ToxicThink',ToxicThink)
 
--- Ravebreak, admin only
+--Ravebreak, admin only
 function RaveBreak(um)
+	--Stop current sounds
 	RunConsoleCommand("stopsound")
 
-	timer.Simple(0.2, function() surface.PlaySound(RAVESOUND) end)  --  0.2 to compensate for lag
+	--Delay sound to compensate lag
+	timer.Simple(0.2, function()
+		surface.PlaySound(RAVESOUND)
+	end)
+	
+	--Start actual raving with a second delay
 	timer.Simple(1,function()
 		hook.Add("RenderScreenspaceEffects", "RaveDraw",RaveDraw)
 	end)
@@ -2242,8 +2078,8 @@ usermessage.Hook("RaveBreak",RaveBreak)
 local lightCnt = 1
 local lastRaveUpdate = 0
 
+--Rave render
 function RaveDraw()
-	
 	local ang = MySelf:EyeAngles()
 	ang.p = 30*math.sin((CurTime()%2*math.pi)*5)
 	MySelf:SetEyeAngles( ang )
@@ -2256,84 +2092,82 @@ function RaveDraw()
 		end
 	end
 
-	DrawColorModify( RaveColTab[lightCnt] )
+	DrawColorModify(RaveColTab[lightCnt])
 end
 
+--Rave end
 function RaveEnd(um)
 	hook.Remove("RenderScreenspaceEffects", "RaveDraw")
 end
 usermessage.Hook("RaveEnd",RaveEnd)
 
+--Rave colours
 RaveColTab = {
-{
-	[ "$pp_colour_addr" ] 		= 0.05,
-	[ "$pp_colour_addg" ] 		= 0,
-	[ "$pp_colour_addb" ] 		= 0.05,
-	[ "$pp_colour_brightness" ] = 0.1,
-	[ "$pp_colour_contrast" ] 	= 1,
-	[ "$pp_colour_colour" ] 	= 0,
-	[ "$pp_colour_mulr" ] 		= 10,
-	[ "$pp_colour_mulg" ] 		= 0,
-	[ "$pp_colour_mulb" ] 		= 10
-},
-{
-	[ "$pp_colour_addr" ] 		= 0,
-	[ "$pp_colour_addg" ] 		= 0,
-	[ "$pp_colour_addb" ] 		= 0.05,
-	[ "$pp_colour_brightness" ] = 0.1,
-	[ "$pp_colour_contrast" ] 	= 1,
-	[ "$pp_colour_colour" ] 	= 0,
-	[ "$pp_colour_mulr" ] 		= 0,
-	[ "$pp_colour_mulg" ] 		= 0,
-	[ "$pp_colour_mulb" ] 		= 20
-},
-{
-	[ "$pp_colour_addr" ] 		= 0,
-	[ "$pp_colour_addg" ] 		= 0.05,
-	[ "$pp_colour_addb" ] 		= 0,
-	[ "$pp_colour_brightness" ] = 0.1,
-	[ "$pp_colour_contrast" ] 	= 1,
-	[ "$pp_colour_colour" ] 	= 0,
-	[ "$pp_colour_mulr" ] 		= 0,
-	[ "$pp_colour_mulg" ] 		= 20,
-	[ "$pp_colour_mulb" ] 		= 0
-},
-{
-	[ "$pp_colour_addr" ] 		= 0.05,
-	[ "$pp_colour_addg" ] 		= 0,
-	[ "$pp_colour_addb" ] 		= 0,
-	[ "$pp_colour_brightness" ] = 0.1,
-	[ "$pp_colour_contrast" ] 	= 1,
-	[ "$pp_colour_colour" ] 	= 0,
-	[ "$pp_colour_mulr" ] 		= 20,
-	[ "$pp_colour_mulg" ] 		= 0,
-	[ "$pp_colour_mulb" ] 		= 0
-},
-{
-	[ "$pp_colour_addr" ] 		= 0.05,
-	[ "$pp_colour_addg" ] 		= 0.05,
-	[ "$pp_colour_addb" ] 		= 0,
-	[ "$pp_colour_brightness" ] = 0.1,
-	[ "$pp_colour_contrast" ] 	= 1,
-	[ "$pp_colour_colour" ] 	= 0,
-	[ "$pp_colour_mulr" ] 		= 10,
-	[ "$pp_colour_mulg" ] 		= 10,
-	[ "$pp_colour_mulb" ] 		= 0
+	{
+		[ "$pp_colour_addr" ] 		= 0.05,
+		[ "$pp_colour_addg" ] 		= 0,
+		[ "$pp_colour_addb" ] 		= 0.05,
+		[ "$pp_colour_brightness" ] = 0.1,
+		[ "$pp_colour_contrast" ] 	= 1,
+		[ "$pp_colour_colour" ] 	= 0,
+		[ "$pp_colour_mulr" ] 		= 10,
+		[ "$pp_colour_mulg" ] 		= 0,
+		[ "$pp_colour_mulb" ] 		= 10
+	},
+	{
+		[ "$pp_colour_addr" ] 		= 0,
+		[ "$pp_colour_addg" ] 		= 0,
+		[ "$pp_colour_addb" ] 		= 0.05,
+		[ "$pp_colour_brightness" ] = 0.1,
+		[ "$pp_colour_contrast" ] 	= 1,
+		[ "$pp_colour_colour" ] 	= 0,
+		[ "$pp_colour_mulr" ] 		= 0,
+		[ "$pp_colour_mulg" ] 		= 0,
+		[ "$pp_colour_mulb" ] 		= 20
+	},
+	{
+		[ "$pp_colour_addr" ] 		= 0,
+		[ "$pp_colour_addg" ] 		= 0.05,
+		[ "$pp_colour_addb" ] 		= 0,
+		[ "$pp_colour_brightness" ] = 0.1,
+		[ "$pp_colour_contrast" ] 	= 1,
+		[ "$pp_colour_colour" ] 	= 0,
+		[ "$pp_colour_mulr" ] 		= 0,
+		[ "$pp_colour_mulg" ] 		= 20,
+		[ "$pp_colour_mulb" ] 		= 0
+	},
+	{
+		[ "$pp_colour_addr" ] 		= 0.05,
+		[ "$pp_colour_addg" ] 		= 0,
+		[ "$pp_colour_addb" ] 		= 0,
+		[ "$pp_colour_brightness" ] = 0.1,
+		[ "$pp_colour_contrast" ] 	= 1,
+		[ "$pp_colour_colour" ] 	= 0,
+		[ "$pp_colour_mulr" ] 		= 20,
+		[ "$pp_colour_mulg" ] 		= 0,
+		[ "$pp_colour_mulb" ] 		= 0
+	},
+	{
+		[ "$pp_colour_addr" ] 		= 0.05,
+		[ "$pp_colour_addg" ] 		= 0.05,
+		[ "$pp_colour_addb" ] 		= 0,
+		[ "$pp_colour_brightness" ] = 0.1,
+		[ "$pp_colour_contrast" ] 	= 1,
+		[ "$pp_colour_colour" ] 	= 0,
+		[ "$pp_colour_mulr" ] 		= 10,
+		[ "$pp_colour_mulg" ] 		= 10,
+		[ "$pp_colour_mulb" ] 		= 0
+	}
 }
-
-}
-
-net.Receive( "BloodSplatter", function( len )
 
 -- Blood shit
--- local function Splattered(um)
+net.Receive("BloodSplatter", function(len)
 	local severity = net.ReadDouble()-- um:ReadShort()
 	AddBloodSplat(severity)
 	if ((net.ReadBit() or 0) == 1 and severity > 1) then
 		AddBloodSplat(severity-1)
 	end
 end)
--- usermessage.Hook("BloodSplatter", Splattered)
 
 -- Receive spray locations
 Sprays = {}
@@ -2349,15 +2183,15 @@ function ReceiveSprays(um)
 end
 usermessage.Hook("SendSprays",ReceiveSprays)
 
-function PlaySoundClient ( sound )
+function PlaySoundClient(sound)
 	local sound = sound:ReadString()
 	if LocalPlayer() and LocalPlayer():IsValid() then
-			LocalPlayer():EmitSound(sound,130,100)
+		LocalPlayer():EmitSound(sound,130,100)
 	end
 end
 usermessage.Hook("PlaySoundClient", PlaySoundClient) 
 
-function PlayClientsideSound ( um )
+function PlayClientsideSound(um)
 	local sound = um:ReadString()
 	surface.PlaySound(sound)
 end
@@ -2565,13 +2399,14 @@ end
 
 GM.MapExploits = {}
 -- receive map exploit locations
-function RecMapExploits( um )
+function RecMapExploits(um)
 	local tab = {}
-		tab = {}
-		tab.origin = um:ReadVector()
+	
+	tab = {}
+	tab.origin = um:ReadVector()
 		
-		tab.bsize = um:ReadShort()
-		tab.type = um:ReadString()
-		table.insert(MapExploits, tab)
+	tab.bsize = um:ReadShort()
+	tab.type = um:ReadString()
+	table.insert(MapExploits, tab)
 end
 usermessage.Hook("mapexploits",RecMapExploits)

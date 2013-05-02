@@ -15,16 +15,14 @@ end
 --[==[------------------------------------------------------------
    Call this whenever you want to check an option
 -------------------------------------------------------------]==]
-function ConVarIsTrue ( convar )
-	if not ConVarExists( convar ) then return false end
+function ConVarIsTrue( convar )
+	if not ConVarExists(convar) then return false end
 	
-	return GetConVar( convar ):GetBool()
+	return GetConVar(convar):GetBool()
 end
 
 ARENA_MODE = tobool(string.find(tostring(game.GetMap()),"zs_arena"))
 print("Arena mode = "..tostring(ARENA_MODE))
-
-XMAS_2012 = false
 
 DEFAULT_VIEW_OFFSET = Vector(0, 0, 64)
 DEFAULT_VIEW_OFFSET_DUCKED = Vector(0, 0, 28)
@@ -549,7 +547,7 @@ DISPLAY_WAVES_ON_SERVERLIST = true
 WAVEONE_LENGTH = ARENA_MODE and 60 or 120
 
 -- Add this many seconds for each additional wave.
-WAVE_TIMEADD = 15-- ARENA_MODE and 30 or 
+WAVE_TIMEADD = 25-- ARENA_MODE and 30 or 
 
 -- New players are put on the zombie team if the current wave is this or higher. Do not put it lower than 1 or you'll break the game.
 NONEWJOIN_WAVE = 3
@@ -558,7 +556,7 @@ NONEWJOIN_WAVE = 3
 NOSUICIDE_WAVE = 1
 
 -- How long 'wave 0' should last in seconds. This is the time you should give for new players to join and get ready.
-WAVEZERO_LENGTH = ARENA_MODE and 50 or 130
+WAVEZERO_LENGTH = ARENA_MODE and 50 or 120
 
 -- Time humans have between waves to do stuff without NEW zombies spawning. Any dead zombies will be in spectator view and any living ones will still be living.
 WAVE_INTERMISSION_LENGTH = 75
@@ -591,9 +589,6 @@ DEFAULT_SUPPLY_CRATE_SPAWN_TIME = 240
 -- Maximum crates per map
 MAXIMUM_CRATES = math.random(2,3)
 
--- Good values are 1 to 3. 0.5 is about the same as the default HL2. 1 is about ZS difficulty. This is mainly for NPC healths and damages.
-DIFFICULTY = 1.5
-
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = true
 
@@ -609,20 +604,20 @@ INTERMISSION_TIME = 46
 --Amount of time players have to vote for next map(seconds)
 VOTE_TIME = 18
 
--- New joining players will be put on the Undead team if the round is half over.
+--New joining players will be put on the Undead team if the round is half over.
 HUMAN_DEADLINE = true
 
--- Set this to true to destroy all brush-based doors that aren't based on phys_hinge and func_physbox or whatever. For door campers.
+--Set this to true to destroy all brush-based doors that aren't based on phys_hinge and func_physbox or whatever. For door campers.
 DESTROY_DOORS = true
 
--- Prop freezing manage module
+--Prop freezing manage module
 PROP_MANAGE_MODULE = false
 
--- Set this to true to destroy all prop-based doors. Not recommended since some doors have boards on them and what-not. Only for true door camping whores.
+--Set this to true to destroy all prop-based doors. Not recommended since some doors have boards on them and what-not. Only for true door camping whores.
 DESTROY_PROP_DOORS = false
 
--- Set this to true to force players to have mat_monitorgamma set to 2.2. This could cause problems with non-calibrated screens so, whatever.
--- It forces people to use flashlights instead of whoring the video settings to make it brighter.
+--Set this to true to force players to have mat_monitorgamma set to 2.2. This could cause problems with non-calibrated screens so, whatever.
+--It forces people to use flashlights instead of whoring the video settings to make it brighter.
 FORCE_NORMAL_GAMMA = true
 
 -- Turn this to true if you don't want humans to be able to camp inside of vents and other hard to reach areas. They will die
@@ -642,17 +637,17 @@ FIRST_ZOMBIE_SPAWN_DELAY = 100
 -- For small prop collisions module
 SMALLPROPCOLLISIONS = false
 
--- Time untill roll-the-dice is re-enabled
+--Time untill roll-the-dice is re-enabled
 RTD_TIME = 180
 
--- Sound to play for last human.
+--Sound to play for last human.
 LASTHUMANSOUND = "lasthuman_fixed.mp3"
 
--- Sound to play for ambient Un-Life music.
+--Sound to play for ambient Un-Life music.
 UNLIFESOUND = "unlife_mrgreen.mp3"
 UNLIFESOUNDLENGTH = 192
 
--- Sound played to a person when they lose.
+--Sound played to a person when they lose.
 ALLLOSESOUND = "lose_test.mp3"
 
 -- Sound played to a person when they win.
@@ -667,35 +662,41 @@ RAVESOUND = "mrgreen/ravebreak_fix.mp3"
 -- Bug Reporting System
 BUG_REPORT = false
 
--- Halloween
+--EVENT: Christmas 2012
+XMAS_2012 = false
+
+--EVENT: Halloween
 HALLOWEEN = false
 
--- Christmas!
+--EVENT: Christmas
 CHRISTMAS = false
 
---Keep this until 1st april
+--EVENT: Aprils Fools
 FIRSTAPRIL = false
+
+-- Turn off/on the redeeming system.
+REDEEM = true
+
+-- Players don't have a choice if they want to redeem or not. Setting to false makes them press F2.
+AUTOREDEEM = true
 
 -- Human kills needed for a zombie player to redeem (resurrect). Do not set this to 0. If you want to turn this
 -- system off, set AUTOREDEEM to false. (Deluvas: using Score System)
 REDEEM_KILLS = 8
 REDEEM_FAST_KILLS = 6
 
--- Turn off/on the redeeming system.
-REDEEM = true
-
 --Players cant redeem near end of round
 REDEEM_PUNISHMENT = true
+
 --Number of wave or above when zombies cant redeem
 REDEEM_PUNISHMENT_TIME = 6
 
--- Players don't have a choice if they want to redeem or not. Setting to false makes them press F2.
-AUTOREDEEM = true
-
--- use soft collisions for teammates
+-- Use soft collisions for teammates
 SOFT_COLLISIONS = false
 
+--
 WARMUP_THRESHOLD = 4
+
 -- If a person dies when there are less than the above amount of people, don't set them on the undead team if this is true. This should generally be true on public / big servers.
 WARMUP_MODE = false
 
