@@ -616,19 +616,26 @@ function hud.DrawHealthPanel()
 	if IsValid(MySelf.MiniTurret) or IsValid(MySelf.Turret) then
 		local tur = MySelf.MiniTurret or MySelf.Turret
 		
-		if not tur then return end
+		if not tur then
+			return
+		end
+
+		surface.SetFont("ssNewAmmoFont13")
+		local fSPTextWidth, fSPTextHeight = surface.GetTextSize(MySelf:Frags() .." SP")
+
 	
-		ActualX = ActualX + HPBarSizeW + ScaleW(20)
+		ActualX = ActualX + HPBarSizeW + ScaleW(40) + fSPTextWidth
 	
 		local th = HPBarSizeH
 	
-		surface.SetDrawColor( 0, 0, 0, 150)
-		surface.DrawRect(ActualX, ActualY, ScaleW(80),HPBarSizeH )
+		surface.SetDrawColor(0, 0, 0, 150)
+		surface.DrawRect(ActualX, ActualY, ScaleW(80),HPBarSizeH)
 		
 		surface.SetTexture(turreticon)
 		surface.SetDrawColor(255, 255, 255, 255)
 		surface.DrawTexturedRect(ActualX,ActualY,th,th)
-		
+
+
 		ActualX = ActualX + th + ScaleW(40)
 				
 		draw.SimpleTextOutlined(tur:GetAmmo().."/"..tur:GetMaxAmmo(), "ssNewAmmoFont6.5", ActualX, ActualY+th/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
@@ -681,7 +688,6 @@ function hud.DrawStatsPanel()
 end
 
 function hud.DrawWavePanel()
-
 	local WaveX,WaveY = 12,12
 	local WaveW,WaveH = ScaleW(205),ScaleH(70)
 
@@ -699,9 +705,7 @@ function hud.DrawWavePanel()
 	
 	local text1x, text1y = WaveX+ScaleW(7), WaveY+5
 	local text2x, text2y = WaveX+ScaleW(7), text1y+fTall+5
-	
-
-	
+		
 	-- zero wave
 	if curwav <= 0 then
 		
