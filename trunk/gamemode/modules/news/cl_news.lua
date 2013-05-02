@@ -5,21 +5,22 @@ local TEAM_DIFFERENCE, GENERAL_TIMER, TEAM_TIMER = 60, 30, 40
 -- Server related news
 local GENERAL_NEWS = {
 "New to the Server? Press F1 and click on Beginners' Guide!",
+"In need of GreenCoins? Visit mrgreengaming.com",
+"Our forums can be found on mrgreengaming.com"
 }
 
 -- Human related hints
 local HUMAN_HINTS = {
 "Press E on Supply Crates to get ammo and health!",
-"To get New Weapons get skill points from killing zombies!",
+"In need of some new weaponry? Kill zombies and go to a Supply Crate when they're available!",
 -- "To see what Weapons you can get, press F2 to see your classes weapon tree!",
-"SP means Skill Points, you can get SP from killing zombies!",
-
+"SP means SkillPoints, you can get them from killing zombies!",
 }
 
 -- Undead related hints
 local UNDEAD_HINTS = {
 "Press F3 to open the Classes Menu. More classes will unlock as humans die.",
-"To Redeem Kill 4 Humans"
+"Kill 4 humans to redeem!"
 }
 
 

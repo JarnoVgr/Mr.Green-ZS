@@ -17,19 +17,19 @@ Colors.ActivatedGreen = Color ( 20,140,4,255 )
 local Image = {
 	["arrow"] = surface.GetTextureID ("zombiesurvival/classmenu/arrow"),
 	[0] = surface.GetTextureID ("zombiesurvival/classmenu/zombie"),
-	--[1] = surface.GetTextureID ("zombiesurvival/classmenu/zombie"),
-	[1] = surface.GetTextureID ("zombiesurvival/classmenu/fastzombie"),
-	[2] = surface.GetTextureID ("zombiesurvival/classmenu/poisonzombie"),
-	[3] = surface.GetTextureID ("zombiesurvival/classmenu/wraith"),
-	[4] = surface.GetTextureID ("zombiesurvival/classmenu/howler"),
-	[5] = surface.GetTextureID ("zombiesurvival/classmenu/headcrab"),
-	[6] = surface.GetTextureID ("zombiesurvival/classmenu/poisonheadcrab"),
-	[7] = surface.GetTextureID ("zombiesurvival/classmenu/zombine"),
+	[1] = surface.GetTextureID ("zombiesurvival/classmenu/zombie"),
+	[2] = surface.GetTextureID ("zombiesurvival/classmenu/fastzombie"),
+	[3] = surface.GetTextureID ("zombiesurvival/classmenu/poisonzombie"),
+	[4] = surface.GetTextureID ("zombiesurvival/classmenu/wraith"),
+	[5] = surface.GetTextureID ("zombiesurvival/classmenu/howler"),
+	[6] = surface.GetTextureID ("zombiesurvival/classmenu/headcrab"),
+	[7] = surface.GetTextureID ("zombiesurvival/classmenu/poisonheadcrab"),
+	[8] = surface.GetTextureID ("zombiesurvival/classmenu/zombine"),
 }
 
 -- Initialize the colors needed for the 3 buttons
 local ButtonColors = {}
-for i = 1, 7 do
+for i = 1, 8 do
 	ButtonColors[i] = Colors.Green
 end
 
@@ -136,7 +136,7 @@ function DrawClassMenu ()
 		
 		-- Write (selected) if it's active 
 		if Buttons[zButtons[i].iIndex].Activated then
-			strTitle = ZombieClasses[zButtons[i].iIndex].Name.." (current)"
+			strTitle = ZombieClasses[zButtons[i].iIndex].Name.." (selected)"
 		end
 		
 		-- Draw the title (zombie name)
@@ -179,7 +179,7 @@ function OnClassesMenuOpen()
 	zClasses:SetVisible ( true )
 	
 	-- Title
-	zClasses.Title = "Choose the zombie class you want to respawn with."
+	zClasses.Title = "Choose the zombie class you want to spawn with."
 	
 	local ScrollTimer = 0
 	
@@ -205,16 +205,16 @@ function OnClassesMenuOpen()
 	-- Create the 2 dialog buttons
 	local zDialog, iOffset = {}, 0
 	for i = 1, 2 do
-		zDialog[i] = vgui.Create("DLabel")
-		zDialog[i]:SetParent(zClasses)
-		zDialog[i]:SetText("")
+		zDialog[i] = vgui.Create ("DLabel")
+		zDialog[i]:SetParent (zClasses)
+		zDialog[i]:SetText ("")
 		
 		-- Set the size of the label as the text in it
 		if i == 1 then zDialog[i].strText = "Done" else zDialog[i].strText = "Respawn" end
-		surface.SetFont( "ClassDialog" )
+		surface.SetFont ( "ClassDialog" )
 		local iTextWide,iTextTall = surface.GetTextSize ( zDialog[i].strText )
-		zDialog[i]:SetSize( iTextWide, iTextTall )
-		zDialog[i]:SetPos( ScaleW(240 + iOffset) - ( iTextWide * 0.5 ), ScaleH(900) - ( iTextTall * 0.5 ) )
+		zDialog[i]:SetSize ( iTextWide, iTextTall )
+		zDialog[i]:SetPos ( ScaleW(240 + iOffset) - ( iTextWide * 0.5 ), ScaleH(900) - ( iTextTall * 0.5 ) )
 		
 		-- Move it to the right
 		iOffset = iOffset + 200
@@ -223,7 +223,7 @@ function OnClassesMenuOpen()
 			zDialog[i].IsCursorIn = true
 			
 			if i == 2 then
-				for j = 0, 7 do
+				for j = 0, 8 do
 					if Buttons[j].Activated then
 						if MySelf:GetZombieClass() ~= j then
 							DialogColors[i] = Colors.LightYellow
@@ -248,7 +248,7 @@ function OnClassesMenuOpen()
 		zDialog[i].Paint = function() 
 			local Wide,Tall = zDialog[i]:GetWide(), zDialog[i]:GetTall()
 			if i == 2 then
-				for j = 0, 7 do
+				for j = 0, 8 do
 					if Buttons[j].Activated then
 						if MySelf:GetZombieClass() == j then
 							DialogColors[i] = Colors.Grey
@@ -266,7 +266,7 @@ function OnClassesMenuOpen()
 		
 		zDialog[i].OnMousePressed = function()
 			if i == 2 then 
-				for j = 0, 7 do
+				for j = 0, 8 do
 					if Buttons[j].Activated then
 						if MySelf:GetZombieClass() ~= j then
 							RunConsoleCommand ("kill")
@@ -275,7 +275,7 @@ function OnClassesMenuOpen()
 							DoClassesMenu()
 						else
 							surface.PlaySound ( "buttons/weapon_cant_buy.wav" )
-							zClasses.Title = "You already are a "..ZombieClasses[MySelf:GetZombieClass()].Name..". Choose another class !"
+							zClasses.Title = "You already are a "..ZombieClasses[MySelf:GetZombieClass()].Name..". Choose another class!"
 						end
 					end
 				end
@@ -311,7 +311,7 @@ function OnClassesMenuOpen()
 			end
 			
 			-- Draw the arrow only when its avaiaiable
-			if ( i == 1 and zClasses.iIndex > -1 ) or ( i == 2 and zClasses.iIndex < 5 ) then
+			if ( i == 1 and zClasses.iIndex > -1 ) or ( i == 2 and zClasses.iIndex < 6 ) then
 				surface.SetDrawColor ( 255,255,255,255 )
 				surface.SetTexture ( Image["arrow"] )
 				surface.DrawTexturedRectRotated ( zScroll[i]:GetWide() * 0.5, zScroll[i]:GetTall() * 0.5, ScaleH(40), ScaleH(40), yaw )
@@ -342,7 +342,7 @@ function OnClassesMenuOpen()
 	zButtons = {}
 			
 	--  Initialize some other button vars
-	for i = 0, 7 do
+	for i = 0, 8 do
 		Buttons[i] = {}
 		zButtons[i] = {}
 		Buttons[i].CursorInside = false
@@ -367,7 +367,7 @@ function OnClassesMenuOpen()
 		zButtons[i].OnMousePressed = function() 
 			if ZombieClasses[zButtons[i].iIndex].Unlocked then
 				-- Deactivate all buttons first
-				for j = 0, 7 do
+				for j = 0, 8 do
 					if not Buttons[zButtons[i].iIndex].Activated then
 						Buttons[j].Activated = false
 					end

@@ -1074,7 +1074,7 @@ util.PrecacheSound("npc/zombie/foot_slide3.wav")
 
 ZombieClasses[0] =						
 {
-	Name = "Infected",	
+	Name = "Normal Zombie",	
 	Tag = "infected",	
 	Wave = math.floor(0 * NUM_WAVES),
 	Revives = false,
@@ -1151,7 +1151,60 @@ ZombieClasses[0] =
 	-- ModelScale = Vector(1.35,1.35,1.35),
 }
 
-ZombieClasses[1] = 
+
+--Obsolete class (not removed to prevent gamemode from breaking)
+ZombieClasses[1] =						
+{
+	Name = "Obsolete Zombie",
+	Tag = "zombie",	
+	--Wave = math.floor(0 * NUM_WAVES),
+	Wave = 99,
+	Revives = true,
+	Health = 250,
+	MaxHealth = 350,
+	Bounty = 100,
+	SP = 15,
+	Threshold = 99,	
+	SWEP = "weapon_zs_zombie",			
+	JumpPower = 200,
+	Unlocked = false,
+	Hidden = true,
+	CanCrouch = true,
+	CanGib = true,
+	Model = Model("models/Zombie/Classic.mdl"), 
+	Speed = 154,	
+	AngleFix = true,
+	Description="The Backbone of any Undead Horde. The Common Rotting Zombie.",
+	Unique = "Can be deadly in numbers. Can Propkill.",
+	PainSounds = {
+				Sound("npc/zombie/zombie_pain1.wav"),
+				Sound("npc/zombie/zombie_pain2.wav"),
+				Sound("npc/zombie/zombie_pain3.wav"),
+				Sound("npc/zombie/zombie_pain4.wav"),
+				Sound("npc/zombie/zombie_pain5.wav"),
+				Sound("npc/zombie/zombie_pain6.wav")
+				}, 
+	DeathSounds = {
+				Sound("npc/zombie/zombie_die1.wav"),
+				Sound("npc/zombie/zombie_die2.wav"),
+				Sound("npc/zombie/zombie_die3.wav")
+				}, 	
+	PlayerFootstep = true,
+	-- ViewOffset = Vector( 0, 0, 0 ),
+	ReviveCallback = function(pl, attacker, dmginfo)
+		if math.random(1, 4) ~= 1 then
+			DefaultRevive(pl)
+			return true
+		end
+		return false
+	end,
+	OnRevive = function(pl)
+		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+	end,
+	-- ModelScale = Vector(1.35,1.35,1.35),
+}
+
+ZombieClasses[2] = 
 {
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
@@ -1186,7 +1239,7 @@ ZombieClasses[1] =
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
-ZombieClasses[2] =
+ZombieClasses[3] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
@@ -1225,7 +1278,7 @@ ZombieClasses[2] =
 	-- ViewOffset = Vector( 0, 0, 0 ),
 }
 
-ZombieClasses[3] =
+ZombieClasses[4] =
 {
 	Name = "Ethereal Zombie",
 	Tag = "etherealzombie",
@@ -1259,7 +1312,7 @@ ZombieClasses[3] =
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
-ZombieClasses[4] =						
+ZombieClasses[5] =						
 {
 	Name = "Howler",
 	Tag = "howler",	
@@ -1276,8 +1329,8 @@ ZombieClasses[4] =
 	CanGib = false,
 	Model = Model( "models/player/group01/female_01.mdl" ), 
 	Speed = 185,						
-	Description="Always kill this banshee at a large distanc, as its scream can blow heads up!",
-	Unique = "Unique abilities: Can disorientate humans and sometimes creates a sound barrier for herself and other nearby undead.",
+	Description="Always kill this banshee at a large distance, as it's scream can blow heads up!",
+	Unique = "Unique abilities: Can disorientate humans and sometimes create a sound barrier for herself and other nearby undead.",
 	AttackSounds = { 
 				Sound ( "player/zombies/howler/howler_scream_01.wav" ),
 				Sound ( "player/zombies/howler/howler_scream_02.wav" ),
@@ -1305,7 +1358,7 @@ ZombieClasses[4] =
 	-- ViewOffset = Vector( 0, 0, 0 )
 }
 util.PrecacheModel("models/mrgreen/howler.mdl")
-ZombieClasses[5] =
+ZombieClasses[6] =
 {
 	Name = "Headcrab",
 	Tag = "headcrab",
@@ -1339,7 +1392,7 @@ ZombieClasses[5] =
 	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1)}
 }
 
-ZombieClasses[6] =
+ZombieClasses[7] =
 {
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
@@ -1361,7 +1414,7 @@ ZombieClasses[6] =
 	Model = Model("models/headcrabblack.mdl"),
 	Speed = 125,
 	Description="A headcrab that can launch poison spit from long distances!",
-	Unique = "Unique abilities: Can do direct damage with its spit ball. Can poison players with its bite.",
+	Unique = "Unique abilities: Can do direct damage with its spit ball. Can poison players with it's bite.",
 	PainSounds = {
 				Sound("npc/headcrab_poison/ph_pain1.wav"),
 				Sound("npc/headcrab_poison/ph_pain2.wav"),
@@ -1376,7 +1429,7 @@ ZombieClasses[6] =
 	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1) }
 }
 
-ZombieClasses[7] =
+ZombieClasses[8] =
 {
 	Name = "Zombine",
 	Tag = "zombine",
@@ -1424,58 +1477,6 @@ ZombieClasses[7] =
 				},
 }
 
---Obsolete class (not removed to prevent gamemode from breaking)
-ZombieClasses[8] =						
-{
-	Name = "Normal Zombie",	
-	Tag = "zombie",	
-	--Wave = math.floor(0 * NUM_WAVES),
-	Wave = 99,
-	Revives = true,
-	Health = 250,
-	MaxHealth = 350,
-	Bounty = 100,
-	SP = 15,
-	Threshold = 0,	
-	SWEP = "weapon_zs_zombie",			
-	JumpPower = 200,
-	Unlocked = false,
-	Hidden = true,
-	CanCrouch = true,
-	CanGib = true,
-	Model = Model("models/Zombie/Classic.mdl"), 
-	Speed = 154,	
-	AngleFix = true,
-	Description="The Backbone of any Undead Horde. The Common Rotting Zombie.",
-	Unique = "Can be deadly in numbers. Can Propkill.",
-	PainSounds = {
-				Sound("npc/zombie/zombie_pain1.wav"),
-				Sound("npc/zombie/zombie_pain2.wav"),
-				Sound("npc/zombie/zombie_pain3.wav"),
-				Sound("npc/zombie/zombie_pain4.wav"),
-				Sound("npc/zombie/zombie_pain5.wav"),
-				Sound("npc/zombie/zombie_pain6.wav")
-				}, 
-	DeathSounds = {
-				Sound("npc/zombie/zombie_die1.wav"),
-				Sound("npc/zombie/zombie_die2.wav"),
-				Sound("npc/zombie/zombie_die3.wav")
-				}, 	
-	PlayerFootstep = true,
-	-- ViewOffset = Vector( 0, 0, 0 ),
-	ReviveCallback = function(pl, attacker, dmginfo)
-		if math.random(1, 4) ~= 1 then
-			DefaultRevive(pl)
-			return true
-		end
-		return false
-	end,
-	OnRevive = function(pl)
-		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-	end,
-	-- ModelScale = Vector(1.35,1.35,1.35),
-}
-
 ZombieClasses[9] =
 {
 	Name = "Crow",
@@ -1501,7 +1502,6 @@ ZombieClasses[9] =
 				Sound("npc/crow/die1.wav"),
 				Sound("npc/crow/die2.wav")
 				},
-	CanCrouch = false,
 	ViewOffset = Vector(0,0,8),
 	Hull = { Vector(-5,-5, 0), Vector(5,5,5) },
 	NoPhysics = true,
