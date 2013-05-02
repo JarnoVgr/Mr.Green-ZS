@@ -55,9 +55,6 @@ function SWEP:Deploy()
 		self.Owner:DrawViewModel( true )
 		self.Owner:DrawWorldModel( false )
 	end
-	
-	
-	
 end
 
 function SWEP:Initialize()
@@ -99,21 +96,21 @@ function SWEP:Think()
 			end
 		end
 
-		-- We hit something while leaping
+		--We hit something while leaping
 		if nTrace.Hit or ValidEntity ( Victim ) then
 			if Owner.ViewPunch then Owner:ViewPunch( Angle( math.random(0, 70), math.random(0, 70), math.random(0, 70) ) ) end
 			if SERVER then Owner:EmitSound( "physics/flesh/flesh_strider_impact_bullet1.wav" ) end
 			
-			-- Bump the victim!
-			--if ValidEntity ( Victim ) then self:DamageEntity ( Victim, math.random(0,1) ) end
+			--Bump the victim!
+			if ValidEntity ( Victim ) then self:DamageEntity ( Victim, math.random(0,1) ) end
 			
-			-- Stopped leaping
+			--Stopped leaping
 			self.Leaping = false
 			
-			-- Stop, so we don't bounce around
+			--Stop, so we don't bounce around
 			Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
 			
-			-- Cooldown
+			--Leap Cooldown
 			self.NextLeap = ct + 3
 			
 			return

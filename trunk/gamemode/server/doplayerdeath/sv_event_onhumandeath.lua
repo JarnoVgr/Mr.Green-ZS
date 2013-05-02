@@ -24,15 +24,34 @@ end )
 
 -- Called when a human is killed
 local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
-
-	--  Smash off current hat
+	--Smash off current hat
 	GAMEMODE:DropHat( mVictim )
 	GAMEMODE:DropSuit( mVictim )
 	
-	-- Reset score on death
-	timer.Simple( 0, function( ) if IsEntityValid ( mVictim ) then mVictim:SetFrags( 0 ) end end )
+	--Drop active weapon
+	if mVictim:GetActiveWeapon() ~= NULL then
+		local weapon = mVictim:GetActiveWeapon()
+
+		if mVictim:CanDropWeapon(weapon) then
+			local weaponName = weapon:GetClass()
+			local weaponCategory = GetWeaponCategory(weapon:GetClass())
+			
+			--Only allow certain categories
+			if (weaponCategory == "Melee" or weaponCategory == "Automatic" or weaponCategory == "Pistol") then
+				--Actual dropping
+				mVictim:DropWeapon(weapon)
+			end
+		end
+	end
 	
-	-- timer.Create("DelayedCalculate", 0.2, 1, function() GAMEMODE:CalculateInfliction() end)
+	--Reset score on death
+	timer.Simple(0, function( )
+		if IsEntityValid ( mVictim ) then
+			mVictim:SetFrags( 0 )
+		end
+	end)
+		
+	--timer.Create("DelayedCalculate", 0.2, 1, function() GAMEMODE:CalculateInfliction() end)
 	
 	skillpoints.Clean(mVictim)
 	
@@ -40,7 +59,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	local revive = false
 	
-	-- local NextSpawn = math.Clamp ( GetInfliction() * 14, 1, 4 )
+	--local NextSpawn = math.Clamp ( GetInfliction() * 14, 1, 4 )
 	mVictim.NextSpawn = CurTime() + 4--NextSpawn
 	
 	local ct = CurTime()
