@@ -322,7 +322,7 @@ concommand.Add( "ban_player", BanPlayer )
 -----------------------------------------------------------]==]
 function ChangeLevel ( pl, cmd, args )
 	if not ValidEntity ( pl ) or args[1] == nil then return end
-	if not pl:IsAdmin() then return end
+	if not pl:IsSuperAdmin() then return end
 	
 	-- Target map
 	local TargetMap = tostring ( args[1] )

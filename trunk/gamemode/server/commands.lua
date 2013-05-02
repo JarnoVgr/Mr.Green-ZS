@@ -1272,12 +1272,12 @@ local function AdminSay( pl, text, teamonly )
 		return ""
 	end
 	
-	if text == "!mapmanager" then
+	if text == "!mapmanager" and pl:IsSuperAdmin() then
 		pl:SendLua("OpenMapManager()")
 		return ""
 	end
 	
-	if text == "!remove" then
+	if text == "!remove" and pl:IsSuperAdmin() then
 		server_RunCommand (pl, "mrgreen_admin_remove")
 		return ""
 	end
@@ -1373,7 +1373,7 @@ local function AdminSay( pl, text, teamonly )
 	
 	if (#sep > 1 and text:sub(1,1) == "!") then
 
-		if(sep[1] == "!changemap" or sep[1] == "!changelevel") then
+		if (sep[1] == "!changemap" or sep[1] == "!changelevel") then
 			server_RunCommand (pl, "change_map",sep[2] )
 			return ""		
 		end

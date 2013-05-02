@@ -284,7 +284,11 @@ function Intermission ( nextmap, winner, timeleft )
 		
 		if IsVotingOver == true then
 			strMap = WinnerMapName
-			headertext = "Next map will be "..tostring( strMap ).." in "..( TimeToChange + 1 )
+			if TimeToChange < 3 then
+				headertext = "Travelling to ".. tostring(strMap)
+			else
+				headertext = "Next map will be ".. tostring(strMap) .." in "..( TimeToChange + 1 )
+			end
 		end
 		
 		draw.SimpleTextOutlined(headertext, "ArialBoldFifteen", w/2, h-80, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255))
