@@ -224,7 +224,7 @@ function SWEP:PrimaryAttack()
 	self.NextAttack = ct + self.Primary.Delay
 	
 	-- Calculate damage done
-	local Damage = math.Rand(2,5)
+	local Damage = math.Rand(7,10)
 	
 	-- Trace an object
 	local nTrace = Owner:TraceLine ( 85, MASK_SHOT, trFilter )

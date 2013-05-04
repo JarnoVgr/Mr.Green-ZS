@@ -1,7 +1,9 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then AddCSLuaFile ( "shared.lua" ) end
+if SERVER then
+	AddCSLuaFile ( "shared.lua" )
+end
 
 SWEP.Author = "Deluvas"
 SWEP.Contact = ""
@@ -196,7 +198,7 @@ function SWEP:DoPrimaryAttack ( )
 	local victim = self.PreHit
 	
 	-- Calculate damage done
-	local Damage = math.random( 10, 15 )
+	local Damage = math.random( 20, 25 )
 	Damage = Damage + Damage * ( ( 1 - ( mOwner:GetVelocity():Length() / ZombieClasses[4].Speed ) ) )
 	local TraceHit, HullHit = false, false
 	
@@ -238,7 +240,7 @@ function SWEP:DoPrimaryAttack ( )
 		end
 		
 		-- Take damage
-		victim:TakeDamage ( math.Clamp( Damage, 1, 40 ), self.Owner, self )
+		victim:TakeDamage ( math.Clamp( Damage, 1, 50 ), self.Owner, self )
 
 		-- Claw sound
 		pl:EmitSound( "ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )
