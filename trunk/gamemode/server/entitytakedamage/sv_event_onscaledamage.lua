@@ -221,9 +221,9 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		if pl:GetAttachment( 1 ) then 
 			if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( 1 ).Pos )) < 15 then
 			if dmginfo:IsBulletDamage() then
-				dmginfo:SetDamage ( dmginfo:GetDamage() * 1.3 )
+				dmginfo:SetDamage ( dmginfo:GetDamage() * 2.0 )
 			elseif dmginfo:IsMeleeDamage() then
-				dmginfo:SetDamage ( dmginfo:GetDamage() * 1.2 )  -- 2.5
+				dmginfo:SetDamage ( dmginfo:GetDamage() * 1.5 )  -- 2.5
 			else
 				dmginfo:SetDamage ( dmginfo:GetDamage() * 1 )
 			end
