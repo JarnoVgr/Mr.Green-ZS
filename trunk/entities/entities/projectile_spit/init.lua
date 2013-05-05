@@ -84,7 +84,7 @@ function ENT:PhysicsCollide( Data, Phys )
 	if IsValid( HitEnt ) and ( HitEnt:IsPlayer() ) and ( HitEnt:IsHuman() ) then
 		HitEnt:EmitSound( "vo/ravenholm/monk_death07.wav", 100, math.random( 90, 110 ) )
 		
-		local Damage = math.random( 14, 25 ) - ( self.RicochetTimes * 1.5 )
+		local Damage = math.random( 11, 20 ) - ( self.RicochetTimes * 1.5 )
 		
 		if HitEnt:GetPerk("_poisonprotect") then
 			Damage = math.ceil(Damage - Damage*0.3)

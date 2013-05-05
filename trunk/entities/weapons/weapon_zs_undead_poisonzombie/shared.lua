@@ -83,69 +83,6 @@ function SWEP:Think()
 
 	self:CheckMeleeAttack()
 	self:CheckPuke()
-	--[==[
-	if not self.NextHit then return end
-	if not ValidEntity (self.Owner) then return end
-	
-	if CLIENT then 	
-	return end
-	
-
-
-	if CurTime() < self.NextHit then return end
-	
-	local trFilter = team.GetPlayers( TEAM_UNDEAD )
-	if self.NextSwingAnim and CurTime() > self.NextSwingAnim then
-		if self.SwapAnims then self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER ) else self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK ) end
-		self.SwapAnims = not self.SwapAnims
-		self.NextSwingAnim = nil
-	end
-	
-	local pl = self.Owner
-	local pos = pl:GetPos()
-	local damage = 45
-		
-	local trHull = util.TraceHull( { start = pl:GetShootPos(), endpos = pl:GetShootPos() + ( pl:GetAimVector() * 22 ), filter = trFilter, mins = Vector( -15,-10,-18 ), maxs = Vector ( 20,20,20 ) } )
-	
-	self.NextHit = nil
-	local trace = self.Owner:TraceLine( 95, MASK_SHOT, trFilter )
-	local ent
-	if trace.HitNonWorld then
-		ent = trace.Entity
-	elseif self.PreHit and self.PreHit:IsValid() and self.PreHit:GetPos():Distance(self.Owner:GetShootPos()) < 135 and not self.PreHit:IsPlayer() then
-		ent = self.PreHit
-		trace.Hit = true
-	end
-	
-	-- Be sure to punch the hull traced props, too
-	if ValidEntity ( trHull.Entity ) and not IsValid( ent ) then
-		ent = trHull.Entity
-	end
-
-	if SERVER then
-		if ent and ent:IsValid() then
-			if ent:GetClass() == "func_breakable_surf" then
-				ent:Fire("break", "", 0)
-			else
-				ent:TakeDamage( damage, pl, self )
-			
-				local phys = ent:GetPhysicsObject()
-				if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() then
-					local vel = self.Owner:EyeAngles():Forward() * damage * 1000
-					if vel.z < 1800 then vel.z = 1800 end
-					phys:ApplyForceCenter(vel)
-					ent:SetPhysicsAttacker(self.Owner)
-				end
-			end
-		end
-	end
-
- 	if IsValid( ent ) then
-		if SERVER then self.Owner:EmitSound("npc/zombie/claw_strike"..math.random(1, 3)..".wav", 90, math.random( 70, 80 ) ) end
-	end
-
-	if SERVER then self.Owner:EmitSound("npc/zombie/claw_miss"..math.random(1, 2)..".wav", 90, math.random( 70, 80 ) ) end
-	self.PreHit = nil]==]
 end
 
 function SWEP:Swung()
@@ -162,7 +99,7 @@ function SWEP:Swung()
 	-- Trace filter
 	local trFilter = team.GetPlayers( TEAM_UNDEAD )
 	-- Calculate damage done
-	local Damage = 45
+	local Damage = 55
 	local TraceHit, HullHit = false, false
 
 	-- Push for whatever it hits

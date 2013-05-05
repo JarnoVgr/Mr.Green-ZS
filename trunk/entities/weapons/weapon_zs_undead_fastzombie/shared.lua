@@ -213,9 +213,15 @@ SWEP.NextAttack = 0
 function SWEP:PrimaryAttack()
 	local ct = CurTime()
 
-	if self.NextAttack > ct then return end
-	if self.Leaping then return end
-	if self.Owner.IsRoar then return end
+	if self.NextAttack > ct then
+		return
+	end
+	if self.Leaping then
+		return
+	end
+	if self.Owner.IsRoar then
+		return
+	end
 	self.Owner:DoAnimationEvent ( CUSTOM_PRIMARY )
 	local Owner = self.Owner
 	local trFilter = team.GetPlayers( TEAM_UNDEAD )
@@ -227,7 +233,7 @@ function SWEP:PrimaryAttack()
 	local Damage = math.Rand(7,10)
 	
 	-- Trace an object
-	local nTrace = Owner:TraceLine ( 85, MASK_SHOT, trFilter )
+	local nTrace = Owner:TraceLine ( 75, MASK_SHOT, trFilter )
 	local Victim = nTrace.Entity
 	
 	-- Play miss sound anyway
@@ -235,14 +241,24 @@ function SWEP:PrimaryAttack()
 	
 	-- Animation
 	Owner:SetAnimation( PLAYER_ATTACK1 )
-	if self.SwapAnims then self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER ) else self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK ) end
+	if self.SwapAnims then
+		self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER )
+	else
+		self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK )
+	end
 	self.SwapAnims = not self.SwapAnims
 	
 	-- First trace
-	if CLIENT then return end
-	if ValidEntity ( Victim ) then self:DamageEntity ( Victim, Damage ) return end
+	if CLIENT then
+		return
+	end
+
+	if ValidEntity ( Victim ) then
+		self:DamageEntity ( Victim, Damage )
+		return
+	end
 	
-	-- Tracehull attack ( second trace if the first one doesn't hit )
+	-- Tracehull attack (second trace if the first one doesn't hit)
 	local TraceHull = util.TraceHull( { start = Owner:GetShootPos(), endpos = Owner:GetShootPos() + ( Owner:GetAimVector() * 20 ), filter = trFilter, mins = Vector( -15,-10,-18 ), maxs = Vector ( 20,20,20 ) } )
 	local TraceHit = ValidEntity ( TraceHull.Entity )	
 
