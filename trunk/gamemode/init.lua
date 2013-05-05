@@ -338,13 +338,13 @@ end
 
 -- Player presses F3
 local function OnPressedF3( pl )
-	if not ENDROUND and self:GetWave() < 1 then
+	if not ENDROUND then
 		if pl:Team() == TEAM_UNDEAD then
 			-- If undead show classes menu
 			if not (pl:IsBossZombie() and pl:Alive()) then
 				pl:SendLua("DoClassesMenu()")
 			end
-		elseif pl:Team() == TEAM_HUMAN then
+		elseif pl:Team() == TEAM_HUMAN and self:GetWave() >= 1 then
 			-- If survivor drop weapon
 			DropWeapon(pl)
 		end
