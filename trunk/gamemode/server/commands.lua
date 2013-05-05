@@ -699,11 +699,16 @@ end
 concommand.Add("show_classdescription",ShowClassDescription)
 
 function RollTheDice ( pl,commandName,args )
-	if ENDROUND then return end
-	if not (pl:IsValid() and pl:Alive() and not ENDROUND) then return end
+	if ENDROUND then
+		return
+	end
+
+	if not (pl:IsValid() and pl:Alive() and not ENDROUND) then
+		return
+	end
 	
 	if CurTime() < ROUNDTIME * 0.05 then
-		pl:ChatPrint("Dice temporarly disabled at round start")|
+		pl:ChatPrint("Dice temporarly disabled at round start")
 		return
 	end
 	
