@@ -301,7 +301,7 @@ end
 function OnPressF1 ( pl )
 	-- Display help menu
 	if not ENDROUND then
-	pl:SendLua("MakepHelp()")
+		pl:SendLua("MakepHelp()")
 	end
 end
 
@@ -337,13 +337,9 @@ function OnPressF2 ( pl )
 end
 
 -- Player presses F3
-local function OnPressedF3 ( pl )
-	if not ENDROUND then
+local function OnPressedF3( pl )
+	if not ENDROUND and self:GetWave() < 1 then
 		if pl:Team() == TEAM_UNDEAD then
-			-- if GAMEMODE:IsRetroMode() then 
-			-- 	pl:ChatPrint("You can't change classes in retro mode!")
-			-- 	return
-			-- end
 			-- If undead show classes menu
 			if not (pl:IsBossZombie() and pl:Alive()) then
 				pl:SendLua("DoClassesMenu()")
