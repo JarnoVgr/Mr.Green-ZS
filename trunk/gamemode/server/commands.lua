@@ -703,12 +703,17 @@ function RollTheDice ( pl,commandName,args )
 	if not (pl:IsValid() and pl:Alive() and not ENDROUND) then return end
 	
 	if CurTime() < ROUNDTIME * 0.05 then
-		pl:ChatPrint("Dice temporarly disabled at round start")
+		pl:ChatPrint("Dice temporarly disabled at round start")|
 		return
 	end
 	
 	if pl.LastRTD >= CurTime() then
 		pl:PrintMessage(HUD_PRINTTALK, "You have to wait "..math.floor((pl.LastRTD-CurTime())).." more seconds before you can roll the dice!")
+		return
+	end
+	
+	if pl:Team() == TEAM_UNDEAD then
+		pl:ChatPrint("Roll the Dice is only available for humans.")
 		return
 	end
 	
@@ -732,10 +737,10 @@ function RollTheDice ( pl,commandName,args )
 			Ent:Fire("explode", "", 0)
 			pl:SetVelocity( Vector(0,0,400) )
 			pl:TakeDamage( pl:Health()*2, nil, nil ) -- make sure he dies
-			message = "LOSE: the dice turned "..name.." inside out!"
+			message = name.." rolled the dice and is turned inside out!"
 		elseif ( choise == 2 ) then
 			pl:SetHealth(1)
-			message = "LOSE: "..name.." was raped in the ass by the dice."
+			message = name .." rolled the dice and got raped in the ass."
 		elseif choise == 3 then
 			pl:GiveAmmo( 20, "pistol" )	
 			pl:GiveAmmo( 60, "ar2" )
@@ -743,12 +748,12 @@ function RollTheDice ( pl,commandName,args )
 			pl:GiveAmmo( 15, "buckshot" )		
 			pl:GiveAmmo( 5, "XBowBolt" )
 			pl:GiveAmmo( 5, "357" )
-			message = "WIN: "..name.." received some ammo!"
+			message = name .." rolled the dice and received some ammo!"
 		elseif choise == 4 and pl:Health() < pl:GetMaximumHealth() then
-			local calchealth = math.Clamp ( 100 - pl:Health(),15,100 )
-			local randhealth = math.random( 15, math.Round ( calchealth ) )
+			local calchealth = math.Clamp ( 100 - pl:Health(),25,100 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
 			pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )                           
-			message = "WIN: "..name.." restored ".. randhealth .." health!"
+			message = name .." rolled the dice and restored ".. randhealth .." health!"
 		else
 			if pl:HasBought("ladyluck") or math.random (1,2) == 1 then
 			--	message = "WIN: The dice gave "..name.." some bandages and he now regenerates health for 1 minute!"
@@ -758,13 +763,13 @@ function RollTheDice ( pl,commandName,args )
 			--			pl.IsRegenerating = false
 			--		end
 			--	end)
-				local calchealth = math.Clamp ( 100 - pl:Health(),15,100 )
-				local randhealth = math.random( 15, math.Round ( calchealth ) )
+				local calchealth = math.Clamp ( 100 - pl:Health(),25,100 )
+				local randhealth = math.random( 25, math.Round ( calchealth ) )
 				pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )                           
-				message = "WIN: "..name.." restored ".. randhealth .." health!"
+				message = name.." rolled the dice and restored ".. randhealth .." health!"
 				else 
 					pl:Ignite( math.random(1,5), 0)
-					message = "LOSE: "..name.." was put on fire by the dice."
+					message = name.." rolled the dice and is put on fire."
 				end
 		end
 		pl.LastRTD = CurTime() + RTD_TIME
