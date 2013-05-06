@@ -1940,7 +1940,7 @@ function GM:Rewarded ( wep )
 			font = stuff.font
 			letter = stuff.letter
 		end
-		MySelf:Message( "Weapon found: "..wep.PrintName, nil, 1, 2.5 )
+		MySelf:Message( "Found a ".. wep.PrintName, nil, 1, 2.5 )
 	else
 		MySelf:Message( "Arsenal upgraded..", 2.5 )
 	end

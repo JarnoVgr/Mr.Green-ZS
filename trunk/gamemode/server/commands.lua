@@ -68,7 +68,14 @@ end
 concommand.Add("zs_setautoredeem",SetAutoRedeem) 
 
 function DropWeapon ( pl, commandName, args )
-	if pl:GetActiveWeapon() == NULL then return end
+	if pl:GetActiveWeapon() == NULL then
+		return false
+	end
+
+	if GAMEMODE:GetWave() < 1 then
+		pl:ChatPrint("You can only drop a weapon once the game has started.")
+		return false
+	end
 	
 	local Weapon = pl:GetActiveWeapon()
 	local wepname = Weapon:GetClass()
@@ -86,12 +93,19 @@ function DropWeapon ( pl, commandName, args )
 	end
 	
 	-- you can't drop all of them!
-	-- if Count == 1 then pl:ChatPrint( "You can't drop all of your weapons!" ) return false end
-	if Count == 1 then GAMEMODE:SetPlayerSpeed( pl, 210 ) end
+	--[[if Count == 1 then
+		pl:ChatPrint("You can't drop all of your weapons!")
+		return false
+	end]]
+
+	--
+	if Count == 1 then
+		GAMEMODE:SetPlayerSpeed( pl, 210 )
+	end
 	
 	-- if string.sub( wepname,1,5 ) == "admin" or wepname == "weapon_zs_tools_supplies" or wepname == "weapon_zs_syringe" or wepname == "weapon_zs_fists" or wepname == "weapon_zs_tools_hammer" or wepname == "weapon_zs_barricadekit" or wepname == "weapon_frag" or wepname == "weapon_zs_punch" or wepname == "weapon_physcannon" or wepname == "weapon_physgun" or wepname == "weapon_zs_mine" or wepname == "weapon_zs_grenade" or wepname == "weapon_zs_melee_combatknife" or wepname == "christmas_snowball" then
 	if string.sub( wepname,1,5 ) == "admin" or wepname == "weapon_zs_fists" or wepname == "weapon_frag" or wepname == "weapon_zs_punch" or wepname == "weapon_physcannon" or wepname == "weapon_physgun" or wepname == "christmas_snowball" then
-	pl:ChatPrint("You're not allowed to drop this weapon.")
+		pl:ChatPrint("You're not allowed to drop this weapon.")
 		return false
 	end
 	
@@ -101,8 +115,8 @@ function DropWeapon ( pl, commandName, args )
 		Weapon.Primary.Magazine = pl:GetAmmoCount( Weapon:GetPrimaryAmmoTypeString() )
 	end
 	
+	--
 	if GetWeaponCategory ( Weapon:GetClass() ) == "Tool1" or GetWeaponCategory ( Weapon:GetClass() ) == "Tool2" then
-
 		Weapon.Ammunition = Weapon:Clip1()
 		if wepname == "weapon_zs_medkit" then
 			Weapon.RemainingAmmunition = pl:GetAmmoCount( Weapon:GetPrimaryAmmoTypeString() )
@@ -110,11 +124,16 @@ function DropWeapon ( pl, commandName, args )
 	end
 	
 	-- Drop the weapon and check to see if you can before.
-	if not pl:CanDropWeapon( Weapon ) then pl:ChatPrint ( "You can't drop your weapon inside objects." ) return end
-	pl:DropWeapon ( Weapon ) 
+	if not pl:CanDropWeapon( Weapon ) then
+		pl:ChatPrint("You can't drop your weapon inside objects.")
+		return false
+	end
+
+	--Actual dropping
+	pl:DropWeapon(Weapon) 
 	
 	-- Notify 
-	pl:ChatPrint( "You've dropped a(n) "..tostring ( GAMEMODE.HumanWeapons[wepname].Name ).." !" )
+	pl:ChatPrint( "You've dropped a "..tostring ( GAMEMODE.HumanWeapons[wepname].Name ) )
 end
 concommand.Add( "zs_dropweapon",DropWeapon ) 
 

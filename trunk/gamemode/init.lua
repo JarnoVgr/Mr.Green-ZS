@@ -344,7 +344,7 @@ local function OnPressedF3( pl )
 			if not (pl:IsBossZombie() and pl:Alive()) then
 				pl:SendLua("DoClassesMenu()")
 			end
-		elseif pl:Team() == TEAM_HUMAN and self:GetWave() >= 1 then
+		elseif pl:Team() == TEAM_HUMAN then
 			-- If survivor drop weapon
 			DropWeapon(pl)
 		end
