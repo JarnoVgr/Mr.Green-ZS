@@ -43,16 +43,14 @@ SWEP.Primary.Delay			= 0.12
 SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
-SWEP.Primary.Cone			= 0.05
-SWEP.ConeMoving				= 0.12
-SWEP.ConeCrouching			= 0.036
+SWEP.Primary.Cone			= 0.04
 SWEP.MaxBulletDistance 		= 1900
 SWEP.MaxAmmo			    = 60
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.Cone = 0.05
-SWEP.ConeMoving = 0.12
-SWEP.ConeCrouching = 0.04
+SWEP.ConeMoving = 0.06
+SWEP.ConeCrouching = 0.03
 SWEP.ConeIron = 0.04
 SWEP.ConeIronCrouching = 0.03
 

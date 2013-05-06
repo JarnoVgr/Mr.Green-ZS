@@ -26,7 +26,7 @@ SWEP.Weight				= 6
 
 SWEP.Primary.Sound			= Sound("Weapon_AWP.Single")
 SWEP.Primary.Recoil			= 20
-SWEP.Primary.Damage			= 70
+SWEP.Primary.Damage			= 200
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 4
 SWEP.Primary.Delay			= 2

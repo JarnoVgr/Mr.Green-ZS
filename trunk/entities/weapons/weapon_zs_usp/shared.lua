@@ -57,15 +57,13 @@ SWEP.Primary.Delay			= 0.2
 SWEP.Primary.DefaultClip	= 45
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
-SWEP.Primary.Cone			= 0.09
-SWEP.ConeMoving				= 0.13
-SWEP.ConeCrouching			= 0.04
+SWEP.Primary.Cone			= 0.05
 
 SWEP.FlipYaw = true
 
 SWEP.Cone = 0.09
-SWEP.ConeMoving = 0.1
-SWEP.ConeCrouching = 0.05
+SWEP.ConeMoving = 0.08
+SWEP.ConeCrouching = 0.03
 SWEP.ConeIron = 0.035
 SWEP.ConeIronCrouching = 0.025
 
