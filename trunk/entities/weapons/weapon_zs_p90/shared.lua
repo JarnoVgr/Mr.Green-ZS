@@ -56,7 +56,7 @@ SWEP.Primary.DefaultClip	= 50
 SWEP.MaxAmmo			    = 250
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
-SWEP.Primary.Cone			= 0.05
+SWEP.Primary.Cone			= 0.09
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.Cone = 0.1
