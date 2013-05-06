@@ -439,11 +439,12 @@ function meta:GiveAmmo( Amount, AmmoType )
 		local Clamper, Multiplier = 350, 8
 		
 		-- Pistols and automatic guns are different so use different maximum values
-		if GetWeaponCategory ( Gun:GetClass() ) == "Automatic" then Clamper, Multiplier = 750, 8 end
-		MaximumLoad = math.Clamp ( ( Gun.Primary.DefaultClip or 15 ) * Multiplier, 0, Clamper )
-		-- if Gun.MaxAmmo then
-		-- MaximumLoad = math.Clamp ( ( Gun.Primary.DefaultClip or 15 ) * 3, 0, Gun.MaxAmmo )
-		-- end
+		if GetWeaponCategory ( Gun:GetClass() ) == "Automatic" then
+			Clamper, Multiplier = 750, 8
+		end
+		
+		--Fix max. ammo at 9999 for now
+		MaximumLoad = 9999
 	end
 		
 	-- Clamp it
