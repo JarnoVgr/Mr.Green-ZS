@@ -72,10 +72,10 @@ function DropWeapon ( pl, commandName, args )
 		return false
 	end
 
-	if GAMEMODE:GetWave() < 1 then
+	--[[if GAMEMODE:GetWave() < 1 then
 		pl:ChatPrint("You can only drop a weapon once the game has started.")
 		return false
-	end
+	end]]
 	
 	local Weapon = pl:GetActiveWeapon()
 	local wepname = Weapon:GetClass()
