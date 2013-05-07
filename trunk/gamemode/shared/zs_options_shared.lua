@@ -104,7 +104,7 @@ RewardsTable[2] = { --Commando
 RewardsTable[3] = { -- marksman
 	[100] = { "weapon_zs_deagle", "weapon_zs_fiveseven","weapon_zs_elites"},
 	[250] = { "weapon_zs_scout" },
-	[400] = { "weapon_zs_melee_axe" },
+	[400] = { "weapon_zs_melee_crowbar" },
 	[600] = { "weapon_zs_sg550" },
 	[900] = { "weapon_zs_g3sg1"},
 	[1800] = { "weapon_zs_awp"},
@@ -245,7 +245,7 @@ GM.HumanWeapons = {
 	["weapon_zs_melee_plank"]  = { Name = "Plank", DPS = 56, Infliction = 0, Type = "melee",Price = 50 }, 
 	["weapon_zs_melee_pot"]  = { Name = "Pot", DPS = 61, Infliction = 0, Type = "melee",Price = 70 }, 
 	["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee",Price = 70,OnlyRetro = true }, 
-	["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 200 }, 
+	["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 250 }, 
 	["weapon_zs_melee_crowbar"]  = { Name = "Crowbar", DPS = 85, Infliction = 0.65, Type = "melee", Price = 250 }, 
 	["weapon_zs_melee_katana"]  = { Name = "Katana", DPS = 90, Infliction = 0, Type = "melee", Price = 400 },
 	["weapon_zs_melee_combatknife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee", Price = 60,OnlyRetro = true },
@@ -339,7 +339,7 @@ GM.SkillShopAmmo = {
 	["slam"]  = { Name = "Refill 1 explosive", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_mine", Amount = 1, Price = 75, ToolTab = true},
 	["grenade"]  = { Name = "Refill 1 grenade", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_grenade", Amount = 1, Price = 50, ToolTab = true},
 	["gravity"]  = { Name = "Refill 1 nail", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_tools_hammer", Amount = 1, Price = 25, ToolTab = true},
-	["Battery"]  = { Name = "Refill 30 charge for Medkit", Model = "models/Items/BoxBuckshot.mdl", Amount = 30, Price = 50, ToolTab = true},
+	["Battery"]  = { Name = "Refill 30 charge for Medkit", Model = "models/Items/BoxBuckshot.mdl", Amount = 30, Price = 35, ToolTab = true},
 }
 
 
@@ -420,7 +420,7 @@ GM.RankUnlocks = {
 	[43] = {"_plankhp"},
 	[45] = {"weapon_zs_melee_pot"},
 	[50] = {"weapon_zs_miniturret"},
-	[55] = {"weapon_zs_melee_axe"},
+	[55] = {"weapon_zs_melee_crowbar"},
 	[65] = {"weapon_zs_classic"},
 	[70] = {"weapon_zs_fiveseven"},
 	-- [90] = {"_professional"},-- hidden for a while
@@ -506,7 +506,7 @@ CLASS_REFUND_LEVEL = 4
 GM.ClassRefund = {
 	["medic"] = {"weapon_zs_medkit","_medupgr2","_medupgr1","_sboost","weapon_zs_fiveseven"},
 	["commando"] = {"_enhkevlar","weapon_zs_classic","weapon_zs_grenade","weapon_zs_mine"},
-	["berserker"] = {"_sboost","_freeman","weapon_zs_melee_pot","weapon_zs_melee_axe"},
+	["berserker"] = {"_sboost","_freeman","weapon_zs_melee_pot","weapon_zs_melee_crowbar"},
 	["engineer"] = {"weapon_zs_turretplacer","weapon_zs_tools_remote","_turretdmg","weapon_zs_miniturret"},
 	["support"] = {"_trchregen","weapon_zs_tools_torch","weapon_zs_tools_supplies","weapon_zs_tools_plank"},
 }
@@ -1072,8 +1072,8 @@ ZombieClasses[0] =
 	Tag = "infected",	
 	Wave = math.floor(0 * NUM_WAVES),
 	Revives = false,
-	Health = 190,
-	MaxHealth = 250,
+	Health = 200,
+	MaxHealth = 260,
 	Bounty = 80,
 	SP = 20,
 	Threshold = 0,	
