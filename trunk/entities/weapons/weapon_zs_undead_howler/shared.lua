@@ -149,7 +149,7 @@ function SWEP:DoAttack( bPull )
 						GAMEMODE:OnPlayerHowlered ( v, iFuckIntensity )
 											
 						-- Inflict damage
-						local fDamage = math.Round ( math.Clamp ( ( 22 - ( fDistance / 10 ) ) / iHowlers, 0, 5 ) * 4 )
+						local fDamage = math.Round ( math.Clamp ( ( 22 - ( fDistance / 10 ) ) / iHowlers, 0, 5 ) * 3 )
 						-- if v:GetHumanClass() == 3 then fDamage = fDamage * math.Rand(1.8,2.3) end
 						if fDamage > 0 then v:TakeDamage ( fDamage, self.Owner, self ) end
 					end
