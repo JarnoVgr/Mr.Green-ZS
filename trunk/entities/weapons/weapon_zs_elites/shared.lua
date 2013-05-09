@@ -44,7 +44,7 @@ SWEP.Primary.Ammo			= "pistol"
 SWEP.Primary.Cone			= 0.05
 
 SWEP.Cone = 0.075
-SWEP.ConeMoving = 0.7
+SWEP.ConeMoving = 0.1
 SWEP.ConeCrouching = 0.035
 SWEP.ConeIron = 0.05
 SWEP.ConeIronCrouching = 0.04
