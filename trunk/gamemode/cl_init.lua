@@ -1612,10 +1612,9 @@ hook.Add("Think", "DrawZombieFlashLight", function()
 			if light:IsEffectActive( EF_NODRAW ) then
 				light:SetNoDraw(false)
 			end
-			
 			light:SetOwner(MySelf)
 			light:SetPos(EyePos())
-			light:SetAngles(EyeAngles())
+			light:SetAngles(MySelf:EyeAngles())
 		else
 			if not light:IsEffectActive( EF_NODRAW ) then
 				light:SetNoDraw(true)
