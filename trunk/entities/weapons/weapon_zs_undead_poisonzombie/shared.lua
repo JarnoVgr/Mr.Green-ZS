@@ -37,7 +37,7 @@ SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 1.2
+SWEP.Primary.Delay = 0.95
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
@@ -214,26 +214,6 @@ function SWEP:StartSwinging()
 	end
 end
 
---[==[function SWEP:PrimaryAttack()
-	if CurTime() < self.NextSwing then return end
-	self.Owner:SetAnimation( PLAYER_ATTACK1 )
-	
-	-- Trace filter
-	local trFilter = team.GetPlayers( TEAM_UNDEAD )
-	
-	if SERVER then self.Owner:EmitSound("npc/zombie_poison/pz_warn"..math.random(1, 2)..".wav") end
-	self.NextSwing = CurTime() + self.Primary.Delay
-	self.NextSwingAnim = CurTime() + 0.6
-	self.NextHit = CurTime() + 1
-	local trace = self.Owner:TraceLine( 95, MASK_SHOT, trFilter )
-	if trace.HitNonWorld then
-		self.PreHit = trace.Entity
-	end
-end]==]
-
-
-
-
 SWEP.NextYell = 0
 
 function SWEP:DoPuke()
@@ -277,7 +257,7 @@ function SWEP:DoPuke()
 
 		pl:EmitSound("physics/body/body_medium_break"..math.random(2,4)..".wav", 80, math.random(70, 80))
 
-		pl:TakeDamage(math.random(10,25), pl, wep)
+		pl:TakeDamage(math.random(30,45), pl, wep)
 end
 
 function SWEP:DoSwing()

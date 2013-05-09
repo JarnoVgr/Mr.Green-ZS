@@ -22,8 +22,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_mach_m249para.mdl" )
-SWEP.WorldModel			= Model ( "models/weapons/w_mach_m249para.mdl" )
+SWEP.ViewModel			= Model("models/weapons/v_mach_m249para.mdl")
+SWEP.WorldModel			= Model("models/weapons/w_mach_m249para.mdl")
 
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
@@ -32,9 +32,9 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_M249.Single")
-SWEP.Primary.Recoil			= 27 -- 1.6
+SWEP.Primary.Recoil			= 27
 SWEP.Primary.Unrecoil		= 4
-SWEP.Primary.Damage			= 50 --16
+SWEP.Primary.Damage			= 48
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 100
 SWEP.storeclipsize			= 100
@@ -43,8 +43,8 @@ SWEP.Primary.DefaultClip	= 100
 SWEP.MaxAmmo			    = 400
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
-SWEP.Primary.Cone			= 0.14 -- 0.09
-SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
+SWEP.Primary.Cone			= 0.14
+SWEP.FirePower = (SWEP.Primary.Damage * SWEP.Primary.ClipSize)
 
 SWEP.Cone = 0.12
 SWEP.ConeMoving = 0.18
@@ -53,7 +53,7 @@ SWEP.ConeIron = 0.12
 SWEP.ConeIronCrouching = 0.1
 
 SWEP.WalkSpeed = 155
-SWEP.MaxBulletDistance 		= 2450
+SWEP.MaxBulletDistance = 2450
 
 SWEP.IronSightsPos = Vector(-4.49,-2,2.15)
 SWEP.IronSightsAng = Vector(.00001,-.06,.00001)

@@ -67,7 +67,7 @@ function SWEP:Think()
 					if ent:GetClass() == "func_breakable_surf" then
 						ent:Fire("break", "", 0)
 					else
-						local damage = math.random(6,10) --5
+						local damage = math.random(9,14)
 						local phys = ent:GetPhysicsObject()
 
 						if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() then

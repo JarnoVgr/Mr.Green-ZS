@@ -82,22 +82,19 @@ end
 
 
 function SWEP:Think()
-	if not IsValid( self.Owner ) then return end
+	if not IsValid( self.Owner ) then
+		return
+	end
 	local mOwner = self.Owner
 	
 	self:CheckMeleeAttack()
 	self:CheckGrenade()
 	self:CheckAttackAnim()
-	
-	--if SERVER then
-	--PrintMessageAll(HUD_PRINTCENTER,"Rage: "..tostring(mOwner.bCanSprint)..", Holding nade: "..tostring(mOwner.HoldingGrenade)..", Getting nade: "..tostring(mOwner.IsGettingNade))
-	--end
-	
-		-- Infinite sprint while holding nade
-	--if mOwner.HoldingGrenade or CLIENT then mOwner.bCanSprint = true return end
-	
+
 	-- Think cooldown
-	if ( self.ThinkTimer or 0 ) > CurTime() then return end
+	if ( self.ThinkTimer or 0 ) > CurTime() then
+		return
+	end
 	
 	local Speed = ZombieClasses[8].Speed
 	--if mOwner:KeyDown( IN_SPEED ) then
