@@ -33,6 +33,7 @@ include("shared/sh_animations.lua")
 include("shared/sh_zombo_anims.lua")
 include("shared/sh_human_anims.lua")
 include( "extended/sh_engine.lua" )
+include( "modules/screentaker/screentaker.lua" )
 --include("modules/json/json.lua")
 
 --require("Json")
@@ -52,7 +53,7 @@ end
 --GM.Name = "Zombie Survival "..GM.Version.." "..GM.SubVersion
 GM.Name = "Zombie Survival Green Apocalypse"
 GM.Author = "Limetric Studios"
-GM.Email = "ywa@limetric.com"
+GM.Email = "info@limetric.com"
 GM.Website = "www.limetric.com"
 
 local table = table
