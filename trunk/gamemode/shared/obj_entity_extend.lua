@@ -246,3 +246,53 @@ end
 
 --[==[----------------------------------------------------------------]==]
 
+local matWireframe = Material( "models/wireframe" )
+local matWhite = Material( "models/debug/debugwhite" )
+
+function meta:RenderGlowEffect( color )
+    if ( not color ) then
+        color = Color( 1, 0.5, 1 )
+    end
+        
+    -- Setup timing
+    self.Seed = self.Seed or math.Rand( 0, 10 )
+    local time = ( CurTime() * 1 + self.Seed ) % 2
+
+    -- Too far away
+    if ( not ( time <= 1 and EyePos():Distance(self:GetPos()) <= 1024 ) ) then
+        return
+    end
+    
+    local oldscale = self:GetModelScale()
+
+    -- Render wireframe/debugwhite
+    self:SetModelScale( oldscale * 1.01, 0 )
+    
+    render.SetColorModulation( color.r, color.g, color.b )
+    render.SuppressEngineLighting(true)
+
+    render.SetBlend(0.15)
+    render.ModelMaterialOverride( matWhite )
+    self:DrawModel()
+
+    render.SetBlend(0.4)
+    render.ModelMaterialOverride( matWireframe )
+    self:DrawModel()
+
+    render.ModelMaterialOverride(0)
+    render.SuppressEngineLighting(false)
+    render.SetBlend(1)
+    render.SetColorModulation(1, 1, 1)
+    
+    self:SetModelScale( oldscale, 0 )
+end
+
+hook.Add( "PostDrawOpaqueRenderables", "RenderWeaponsGlow", function()
+    if ( IsValid( MySelf ) and MySelf:IsHuman() and MySelf:Alive() ) then
+        for k,v in pairs( ents.FindByClass( "weapon_*" ) ) do
+            v:RenderGlowEffect( Color( 0.1, 0.5, 1 ) )
+        end
+    end
+end )
+
+--[==[----------------------------------------------------------------]==]

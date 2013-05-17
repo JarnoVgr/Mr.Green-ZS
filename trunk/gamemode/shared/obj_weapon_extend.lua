@@ -1740,3 +1740,4 @@ function meta:DrawCrosshairDot()
 	surface.SetDrawColor(0, 0, 0, 160)
 	surface.DrawOutlinedRect(x - 2, y - 2, 4, 4)
 end
+
