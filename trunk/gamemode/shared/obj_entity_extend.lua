@@ -256,10 +256,10 @@ function meta:RenderGlowEffect( color )
         
     -- Setup timing
     self.Seed = self.Seed or math.Rand( 0, 10 )
-    local time = ( CurTime() * 1 + self.Seed ) % 2
+    local mytime = ( 1 + math.sin( CurTime() * 8 ) ) / 2
 
     -- Too far away
-    if ( not ( time <= 1 and EyePos():Distance(self:GetPos()) <= 1024 ) ) then
+    if ( not ( EyePos():Distance(self:GetPos()) <= 1024 ) ) then
         return
     end
     
@@ -271,11 +271,11 @@ function meta:RenderGlowEffect( color )
     render.SetColorModulation( color.r, color.g, color.b )
     render.SuppressEngineLighting(true)
 
-    render.SetBlend(0.15)
+    render.SetBlend(0.15 * mytime)
     render.ModelMaterialOverride( matWhite )
     self:DrawModel()
 
-    render.SetBlend(0.4)
+    render.SetBlend(0.4 * mytime)
     render.ModelMaterialOverride( matWireframe )
     self:DrawModel()
 
