@@ -21,8 +21,8 @@ SWEP.SlotPos = 6
 SWEP.DeploySpeed = 0.6
 -- Damage, distane, delay
 SWEP.Primary.Damage = 80
-SWEP.Primary.Delay = 0.4
-SWEP.Primary.Distance = 68
+SWEP.Primary.Delay = 0.45
+SWEP.Primary.Distance = 75
 SWEP.TotalDamage = SWEP.Primary.Damage
 -- Killicon
 if CLIENT then killicon.AddFont( "weapon_zs_melee_katana", "ZSKillicons", "h", Color(255, 255, 255, 255 ) ) end
