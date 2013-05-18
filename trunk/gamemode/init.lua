@@ -716,7 +716,7 @@ function GM:LastHuman()
 	log.WorldAction("Last_Human")
 	
 	-- The rest goes to the "LastManStand" upgrade
-	if not LastHuman:HasBought( "lastmanstand" ) then
+	--[[if not LastHuman:HasBought( "lastmanstand" ) then
 		return
 	end
 	
@@ -748,7 +748,7 @@ function GM:LastHuman()
 	
 	-- Give the new weapon and select it
 	LastHuman:Give ( RewardTable [ Class ] )
-	LastHuman:SelectWeapon ( RewardTable [ Class ] )]=]
+	LastHuman:SelectWeapon ( RewardTable [ Class ] )]]
 end
 
 --[=[--------------------------------------------------------------------
