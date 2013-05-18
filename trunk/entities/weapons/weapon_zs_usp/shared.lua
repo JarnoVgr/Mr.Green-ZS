@@ -61,8 +61,8 @@ SWEP.Primary.Cone			= 0.05
 
 SWEP.FlipYaw = true
 
-SWEP.Cone = 0.09
-SWEP.ConeMoving = 0.08
+SWEP.Cone = 0.07
+SWEP.ConeMoving = 0.09
 SWEP.ConeCrouching = 0.03
 SWEP.ConeIron = 0.035
 SWEP.ConeIronCrouching = 0.025
