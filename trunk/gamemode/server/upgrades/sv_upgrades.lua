@@ -20,11 +20,11 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 	if attacker:IsPlayer() and ent:IsPlayer() then
 		
 		-- Spartan Upgrade
-		if ent:Team() == TEAM_HUMAN and ent:HasBought ("spartanu") and attacker:Team() == TEAM_UNDEAD then
-			-- local entscore = ent:Frags()
-			-- local damage = dmginfo:GetDamage()
-			-- dmginfo:SetDamage ( damage - ( damage * ( 0.15 + (entscore / 450) ) ) )
-		end
+		--[[if ent:Team() == TEAM_HUMAN and ent:HasBought ("spartanu") and attacker:Team() == TEAM_UNDEAD then
+			local entscore = ent:Frags()
+			local damage = dmginfo:GetDamage()
+			dmginfo:SetDamage ( damage - ( damage * ( 0.15 + (entscore / 450) ) ) )
+		end]]
 			
 		if not ent:IsBot() and ent:IsPlayer() and ent:Team() == TEAM_HUMAN and ent:Alive() and ent:GetPerk("_enhkevlar") and attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD then
 			dmginfo:SetDamage (damage - damage*0.15 ) 

@@ -362,23 +362,23 @@ function GM:OnHumanSpawn ( pl )
 	
 	
 	-- Case 2: If player has bought gordon freeman upgrade then he has a chance to spawn as him
-	if pl:HasBought("gordonfreeman") and not self.GordonIsHere and math.random( 1,5 ) == 1 then
-		--[=[pl:ChatPrint("You're now THE Gordon Freeman!")
+	--[[if pl:HasBought("gordonfreeman") and not self.GordonIsHere and math.random( 1,5 ) == 1 then
+		pl:ChatPrint("You're now THE Gordon Freeman!")
 		pl.IsFreeman = true
 		self.GordonIsHere = true
-		PlayerModel = "models/player/gordon_classic.mdl"]=]
-	end
+		PlayerModel = "models/player/gordon_classic.mdl"
+	end]]
 	
-	if pl:GetPerk("_freeman") then
-		-- PlayerModel = "models/player/gordon_classic.mdl"
-	end
+	--[[if pl:GetPerk("_freeman") then
+		PlayerModel = "models/player/gordon_classic.mdl"
+	end]]
 	
 	-- Change his player model and set up his voice set
-	pl:SetModel ( PlayerModel )
+	pl:SetModel(PlayerModel)
 	pl.VoiceSet = VoiceSetTranslate[ string.lower( PlayerModel ) ] or "male"
 			
 	-- Calculate player's speed
-	self:SetPlayerSpeed( pl, CalculatePlayerSpeed ( pl ) )
+	self:SetPlayerSpeed(pl, CalculatePlayerSpeed(pl))
 
 	-- Set the human's crouch speed
 	pl:SetCrouchedWalkSpeed( 0.65 )

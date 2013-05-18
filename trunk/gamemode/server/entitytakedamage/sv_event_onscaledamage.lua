@@ -480,19 +480,20 @@ function GM:ScalePlayerMultiDamage( pl, attacker, inflictor, dmginfo )
 			fFinalDamage = fDamage*0.9
 		end
 		-- Set the damage
-		if not fFinalDamage then fFinalDamage = fDamage*0.9 end -- just to be sure that its fine
+		if not fFinalDamage then
+			fFinalDamage = fDamage*0.9
+		end -- just to be sure that its fine
 		
 		
-		if LASTHUMAN then
+		--[[if LASTHUMAN then
 			if attacker:HasBought("lastmanstand") then
-				--fFinalDamage = fFinalDamage * 1.35
+				fFinalDamage = fFinalDamage * 1.35
 			end
-		end
+		end]]
 		
 		if dmginfo:IsBulletDamage() then
 			fFinalDamage =fFinalDamage*1
 		end
-		
 		
 		if attacker:HasSpawnProtection() and not LASTHUMAN then
 			fFinalDamage = fFinalDamage + fFinalDamage*pl:GetSpawnDamagePercent()

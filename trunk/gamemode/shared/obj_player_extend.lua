@@ -678,7 +678,7 @@ function meta:IsHolding()
 end
 
 
-function meta:CanRedeem ()
+function meta:CanRedeem()
 	if CLIENT then return end
 	if not ValidEntity ( self ) then return false end
 	if ( ENDROUND or LASTHUMAN ) then return false end
@@ -688,7 +688,7 @@ function meta:CanRedeem ()
 	if REDEEM and AUTOREDEEM and util.tobool(self:GetInfoNum("_zs_autoredeem",1)) then-- self.AutoRedeem then
 		local redeemkillz = REDEEM_KILLS
 		if self:HasBought("quickredemp") then
-			-- redeemkillz = REDEEM_FAST_KILLS
+			redeemkillz = REDEEM_FAST_KILLS
 		end
 		
 		if REDEEM_PUNISHMENT then

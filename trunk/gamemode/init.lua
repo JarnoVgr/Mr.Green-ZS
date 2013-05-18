@@ -307,13 +307,13 @@ end
 
 -- Player presses F2
 function OnPressF2 ( pl )
-	if not ENDROUND and pl:Team() == TEAM_HUMAN then
-	-- pl:SendLua("MakeWeps()")
-	end
+	--[[if not ENDROUND and pl:Team() == TEAM_HUMAN then
+	pl:SendLua("MakeWeps()")
+	end]]
 	
 	local red = REDEEM_KILLS
 	if pl:HasBought("quickredemp") then
-	-- 	red = REDEEM_FAST_KILLS
+		red = REDEEM_FAST_KILLS
 	end
 	if not LASTHUMAN then
 		if REDEEM and AUTOREDEEM and pl:Team() == TEAM_UNDEAD and pl:Frags() >= red then
@@ -328,7 +328,7 @@ function OnPressF2 ( pl )
 			end
 		else
 			if pl:Team() == TEAM_UNDEAD then
-				pl:ChatPrint("You need a score of 6 (with Fast Redeem upgrade from !shop) or a score of 8 (without upgrade) to redeem!")
+				pl:ChatPrint("You need a score of 6 (with Fast Redeem upgrade) or a score of 8 (without upgrade) to redeem!")
 			end
 		end
 	else
