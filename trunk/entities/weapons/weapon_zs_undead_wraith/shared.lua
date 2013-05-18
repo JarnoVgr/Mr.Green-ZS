@@ -298,6 +298,7 @@ end
 
 function SWEP:SetDisguise(bl)
 	self:SetDTBool(0,bl)
+	self:DrawShadow(bl)
 end
 
 function SWEP:IsDisguised()
@@ -356,135 +357,11 @@ function SWEP:SecondaryAttack()
 		model = table.Random(humans):GetModel()
 	end
 	
-	if SERVER then
-		-- local status = self.Owner:GiveStatus("overridemodel")
-		
-		-- if status and status:IsValid() then
-		-- 	status:SetModel(model)
-		-- end
-		
+	if SERVER then		
 		self.Owner:SetModel(model)
 		
-		self.Owner:EmitSound( "npc/stalker/stalker_scream"..math.random(1,4)..".wav", 80, math.random( 100, 115 ) )
-			
+		self.Owner:EmitSound( "npc/stalker/stalker_scream"..math.random(1,4)..".wav", 80, math.random( 100, 115 ) )		
 	end
-
-	--[=[
-	local mOwner = self.Owner
-	if not IsValid( mOwner ) then return end
-	
-	-- Not enough health
-	if mOwner:Health() < mOwner:GetMaximumHealth() * 0.15 then self:TeleportFail() return end
-	
-	-- Don't teleport in air
-	if self.TeleportTimer > CurTime() then return end
-	if not mOwner:OnGround() then self:TeleportFail() return end
-
-	-- Trace from aim
-	local aimTrace = util.TraceLine( { start = mOwner:GetShootPos(), endpos = mOwner:GetShootPos() + mOwner:GetAimVector() * 1000, filter = mOwner, mask = MASK_PLAYERSOLID_BRUSHONLY } ) 
-	if not aimTrace.Hit or aimTrace.HitNormal ~= Vector( 0,0,1 ) then self:TeleportFail() return end
-	
-	-- Check distance too
-	if aimTrace.HitPos:Distance( aimTrace.StartPos ) > 1000 or aimTrace.HitPos:Distance( aimTrace.StartPos ) < 100 then self:TeleportFail() return end
-	
-	-- Hulltrace that position
-	local hullTrace = util.TraceHull( { start = aimTrace.HitPos, endpos = aimTrace.HitPos, filter = mOwner, mins = Vector ( -16, -16, 0 ), maxs = Vector ( 16, 16, 72 ) } )
-	if hullTrace.Hit then self:TeleportFail() return end
-	
-	mOwner.IsWraithTeleporting = true
-	
-	-- Emit crazy sound
-	if SERVER then mOwner:EmitSound( "npc/stalker/stalker_scream"..math.random(1,4)..".wav", 80, math.random( 100, 115 ) ) end
-	timer.Simple( 0.2, function() 
-		if IsValid( mOwner ) then
-			if mOwner:IsZombie() then 
-				if SERVER then mOwner:EmitSound( "npc/stalker/breathing3.wav" ) end
-			end
-		end 
-	end )
-	
-	-- For effect
-	timer.Simple( 1.7, function()
-		if IsValid( mOwner ) then
-			mOwner.IsWraithTeleporting = false
-		end
-	end )
-	
-	-- Take damage
-	if SERVER then
-		mOwner:SetHealth( mOwner:Health() - mOwner:GetMaximumHealth() * 0.1 )
-		
-		-- Pre-teleport smoke
-		local eData = EffectData()
-			eData:SetEntity( mOwner )
-			eData:SetOrigin( mOwner:GetPos() )
-		util.Effect( "wraith_teleport_smoke", eData )
-	end
-	
-	-- Shake screen
-	if SERVER then mOwner:SendLua( "WraithScream()" ) end
-	
-	-- Teleport
-	if SERVER then mOwner:SetPos( hullTrace.HitPos ) end
-	self.TeleportTimer = CurTime() + 6.8
-	
-	-- Post teleport smoke
-	timer.Simple( 0.1, function()
-		if IsValid( mOwner ) then
-			local eData = EffectData()
-				eData:SetEntity( mOwner )
-				eData:SetOrigin( mOwner:GetPos() )
-			util.Effect( "wraith_teleport_smoke", eData )
-		end
-	end )
-	
-	if CLIENT then return end
-	
-	-- Distract ability (random chance)
-	local Humans = ents.FindInSphere( mOwner:GetPos(), 300 )
-	local Affected = 0
-	
-	-- Count em
-	local iHumans = 0
-	for k,v in pairs( Humans ) do
-		if v:IsPlayer() and v:IsHuman() and v:Alive() then
-			iHumans = iHumans + 1
-		end
-	end
-	
-	-- Filter
-	local Filter = { mOwner }
-	table.Add( Filter, team.GetPlayers( TEAM_UNDEAD ) )
-	
-	for k,v in pairs( Humans ) do
-		if IsValid( v ) and v:IsPlayer() then
-			if v:IsHuman() and v:Alive() and Affected < 4 then
-				if ( iHumans <= 2 ) or ( iHumans > 3 and math.random( 1, 2 ) == 1 ) then
-					if ( v.NextDistract or 0 ) <= CurTime() and IsEntityVisible ( v, mOwner:GetPos() + mOwner:OBBCenter(), Filter ) then
-						Affected = Affected + 1
-						local SnapAngle = ( mOwner:EyePos() - v:EyePos() ):Angle()
-						if math.random(1,2) == 1 then
-							v:SnapEyeAngles( SnapAngle )
-						end
-						
-						-- Emit crazy sound
-						local sSound = self.HumanScreams[1]
-						if v:IsFemale() then sSound = self.HumanScreams[2] end
-						v:EmitSound( sSound, 100, math.random( 90, 110 ) )
-						
-						-- Stop player
-						v:SetLocalVelocity( Vector( 0,0,0 ) )
-						
-						-- Scare the shit out of him
-						v:SendLua( "StalkerFuck(1)" )
-						
-						-- Cooldown
-						v.NextDistract = CurTime() + 3.5
-					end
-				end
-			end
-		end
-	end	]=]
 end
 
 -- Play teleport fail sound
@@ -554,12 +431,12 @@ function SWEP:Think()
 	
 	-- return end
 	-- Idle sounds
-	if SERVER then
+	--[[if SERVER then
 		if self.EmitWraithSound <= CurTime() then
-			-- self.Owner:EmitSound ( table.Random ( self.Screams ), 100, math.random( 95, 110 ) )
-			-- self.EmitWraithSound = CurTime() + 6.5
+			self.Owner:EmitSound ( table.Random ( self.Screams ), 100, math.random( 95, 110 ) )
+			self.EmitWraithSound = CurTime() + 6.5
 		end
-	end
+	end]]
 end
 
 if SERVER then
