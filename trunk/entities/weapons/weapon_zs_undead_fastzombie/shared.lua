@@ -122,7 +122,7 @@ function SWEP:Think()
 		end
 	end
 
-	if Owner:KeyDown( IN_ATTACK ) and not self.Leaping then
+	--[[if Owner:KeyDown( IN_ATTACK ) and not self.Leaping then
 		if self:GetRoar() >= 8 and not self:IsRoar() then
 			self:SetRoar(0)
 			self.NextAttack = ct + 2
@@ -135,27 +135,15 @@ function SWEP:Think()
 				self.Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
 				self.Owner:SetJumpPower( 0 ) 
 				self.Owner:EmitSound("NPC_FastZombie.Frenzy") 
-			end 
-	
-				--[==[timer.Simple ( 2, function( pl )
-				if not ValidEntity ( pl ) then return end
-					if not pl:Alive() or not pl:IsFastZombie() then return end
-						GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed )
-						pl:SetJumpPower( ZombieClasses[ pl:GetZombieClass() ].JumpPower ) 
-					end, self.Owner )
-					
-					if SERVER then self.Owner:EmitSound("NPC_FastZombie.Frenzy") end]==]
-					
+			end 					
 		end
 	end	
 	
-	self:CheckRoar()
+	self:CheckRoar()]]
 	
 	-- Attacking
 	if not Owner:KeyDown( IN_ATTACK ) then
 		self.Swinging = false
-		--self.NextRoar = 0
-		-- return
 	end
 	
 	self:NextThink(ct)
@@ -219,13 +207,9 @@ function SWEP:PrimaryAttack()
 	if self.Leaping then
 		return
 	end
-	if self.Owner.IsRoar then
-		return
-	end
 	self.Owner:DoAnimationEvent ( CUSTOM_PRIMARY )
 	local Owner = self.Owner
 	local trFilter = team.GetPlayers( TEAM_UNDEAD )
-	self:AddRoar(1)
 	-- Cooldown
 	self.NextAttack = ct + self.Primary.Delay
 	
@@ -321,8 +305,9 @@ end
 SWEP.NextLeap = 0
 SWEP.NextClimb = 0
 function SWEP:SecondaryAttack()
-	if self.Swinging then return end
-	if self:IsRoar() then return end
+	if self.Swinging then
+		return
+	end
 	local Owner = self.Owner
 	
 	-- See where the player is ( on ground or flying )
