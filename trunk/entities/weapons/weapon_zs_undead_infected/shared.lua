@@ -55,7 +55,7 @@ SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 0.9
+SWEP.Primary.Delay = 1.1
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
@@ -67,7 +67,7 @@ SWEP.AutoSwitchTo = true
 SWEP.AutoSwitchFrom = false
 
 SWEP.DistanceCheck = 50
-SWEP.MeleeDelay = 0.9
+SWEP.MeleeDelay = 1.1
 
 SWEP.Damage = 25
 
