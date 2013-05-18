@@ -435,8 +435,10 @@ end
 hook.Add( "ScalePlayersDamage", "ScalePlayersDamage", ScalePlayerDamage )
 
 -- Multi-damage nerf
-function GM:ScalePlayerMultiDamage( pl, attacker, inflictor, dmginfo )
-	if not attacker:IsPlayer() then return end
+function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)
+	if not attacker:IsPlayer() then
+		return
+	end
 
 	-- Damage caused by humans to zombos
 	if attacker:IsHuman() and pl:IsZombie() then
@@ -446,15 +448,15 @@ function GM:ScalePlayerMultiDamage( pl, attacker, inflictor, dmginfo )
 		local fDamage, fFinalDamage = dmginfo:GetDamage()
 		
 		-- Get nr of humans around attacker
-		local iHumans = 0
-		-- for k,v in pairs ( tbHumans ) do
-			-- if v:IsPlayer() and v:IsHuman() and v:Alive() and v ~= attacker then
-			-- 	iHumans = iHumans + 1
-			-- end
-		-- end
+		--[[local iHumans = 0
+		for k,v in pairs ( tbHumans ) do
+			if v:IsPlayer() and v:IsHuman() and v:Alive() and v ~= attacker then
+			 	iHumans = iHumans + 1
+			 end
+		end]]
 		
 		-- Bullet force
-		--[==[if dmginfo:IsBulletDamage() then
+		--[[if dmginfo:IsBulletDamage() then
 			
 			-- Bullet force limit
 			local iBulletLimit = 700
@@ -468,32 +470,33 @@ function GM:ScalePlayerMultiDamage( pl, attacker, inflictor, dmginfo )
 				
 				fDamage = ( ( 1 - math.Clamp( fDistance / ( iBulletLimit * 2 ), 0.1, 1 ) ) * dmginfo:GetDamage() )
 			end
-		end]==]
+		end]]
 
 		-- Calcualte final damage
 		if dmginfo:IsBulletDamage() then
 			fFinalDamage = fDamage
-			fFinalDamage = fFinalDamage*1			
+			--fFinalDamage = fFinalDamage*1			
 		elseif dmginfo:IsMeleeDamage() then
 			fFinalDamage = fDamage*0.9
 		else
 			fFinalDamage = fDamage*0.9
 		end
 		-- Set the damage
+		
+		-- Just to be sure that its fine
 		if not fFinalDamage then
 			fFinalDamage = fDamage*0.9
-		end -- just to be sure that its fine
-		
+		end
 		
 		--[[if LASTHUMAN then
 			if attacker:HasBought("lastmanstand") then
-				fFinalDamage = fFinalDamage * 1.35
+				fFinalDamage = fFinalDamage * 1.2
 			end
 		end]]
 		
-		if dmginfo:IsBulletDamage() then
-			fFinalDamage =fFinalDamage*1
-		end
+		--[[if dmginfo:IsBulletDamage() then
+			fFinalDamage = fFinalDamage * 1
+		end]]
 		
 		if attacker:HasSpawnProtection() and not LASTHUMAN then
 			fFinalDamage = fFinalDamage + fFinalDamage*pl:GetSpawnDamagePercent()
@@ -511,7 +514,6 @@ function GM:ScalePlayerMultiDamage( pl, attacker, inflictor, dmginfo )
 		end
 		
 		dmginfo:SetDamage( fFinalDamage )
-		
 	end
 	
 	-- Damage caused by zombies to humans

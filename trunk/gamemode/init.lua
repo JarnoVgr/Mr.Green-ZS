@@ -698,22 +698,27 @@ function GM:LastHuman()
 
 	-- Global var change
 	LASTHUMAN = true
-	RunConsoleCommand ( "sv_alltalk", "1" )
+	RunConsoleCommand("sv_alltalk", "1")
+	
 	-- Broadcast status to clients
-	gmod.BroadcastLua( "GAMEMODE:LastHuman()" )
+	gmod.BroadcastLua("GAMEMODE:LastHuman()")
 	
 	-- Get the last human
 	local LastHuman = team.GetPlayers( TEAM_HUMAN )[1]
-	if not ValidEntity ( LastHuman ) then return end
+	if not ValidEntity ( LastHuman ) then
+		return
+	end
 	
 	-- Remember the time
 	LastHuman.LastHumanTime = CurTime()
 	
-	--  logging
+	-- Log
 	log.WorldAction("Last_Human")
 	
 	-- The rest goes to the "LastManStand" upgrade
-	--[=[if not LastHuman:HasBought ( "lastmanstand" ) then return end
+	if not LastHuman:HasBought( "lastmanstand" ) then
+		return
+	end
 	
 	-- Reward and class to name translation table
 	local RewardTable = { [1] = "weapon_zs_m249", [2] = "weapon_zs_m249", [3] = "weapon_zs_g3sg1", [4] = "weapon_zs_pulserifle", [5] = "weapon_zs_m249" }

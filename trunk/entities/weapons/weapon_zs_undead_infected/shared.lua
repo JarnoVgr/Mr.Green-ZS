@@ -69,7 +69,7 @@ SWEP.AutoSwitchFrom = false
 SWEP.DistanceCheck = 50
 SWEP.MeleeDelay = 0.74
 
-SWEP.Damage = 25
+SWEP.Damage = 28
 
 SWEP.SwapAnims = false
 SWEP.AttackAnimations = { "attackD", "attackE", "attackF" }

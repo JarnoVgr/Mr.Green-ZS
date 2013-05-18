@@ -195,18 +195,17 @@ function SWEP:GetRoar()
 	return self:GetDTInt(0)
 end
 
-
-
 SWEP.NextAttack = 0
 function SWEP:PrimaryAttack()
-	local ct = CurTime()
-
-	if self.NextAttack > ct then
-		return
-	end
 	if self.Leaping then
 		return
 	end
+
+	local ct = CurTime()
+	if self.NextAttack > ct then
+		return
+	end
+
 	self.Owner:DoAnimationEvent ( CUSTOM_PRIMARY )
 	local Owner = self.Owner
 	local trFilter = team.GetPlayers( TEAM_UNDEAD )
@@ -217,7 +216,7 @@ function SWEP:PrimaryAttack()
 	local Damage = math.Rand(6,8)
 	
 	-- Trace an object
-	local nTrace = Owner:TraceLine ( 75, MASK_SHOT, trFilter )
+	local nTrace = Owner:TraceLine( 75, MASK_SHOT, trFilter )
 	local Victim = nTrace.Entity
 	
 	-- Play miss sound anyway
@@ -247,54 +246,70 @@ function SWEP:PrimaryAttack()
 	local TraceHit = ValidEntity ( TraceHull.Entity )	
 
 	-- Hit nothing
-	if not TraceHit then return end
+	if not TraceHit then
+		return
+	end
 	
 	-- Do a trace so that the tracehull won't push or damage objects over a wall or something
 	local vStart, vEnd = Owner:GetShootPos(), TraceHull.Entity:LocalToWorld ( TraceHull.Entity:OBBCenter() )
 	local ExploitTrace = util.TraceLine ( { start = vStart, endpos = vEnd, filter = trFilter } )
 		
 	-- Hitting through wall
-	if TraceHull.Entity ~= ExploitTrace.Entity then return end
+	if TraceHull.Entity ~= ExploitTrace.Entity then
+		return
+	end
 	
 	-- Damage entity with tracehull
 	self:DamageEntity ( TraceHull.Entity, Damage ) 
 end
 	
 function SWEP:DamageEntity ( ent, Damage )
-	if not ValidEntity ( ent ) then return end
+	if not ValidEntity ( ent ) then
+		return
+	end
 	local Owner = self.Owner
 	
-	if CLIENT then return end
+	if CLIENT then
+		return
+	end
 	
 	-- Don't hurt other zombies
-	if ent.Team and ent:Team() == TEAM_UNDEAD then return end
+	if ent.Team and ent:Team() == TEAM_UNDEAD then
+		return
+	end
 	
 	-- Get phys object
 	local phys = ent:GetPhysicsObject()
 	
 	-- Break glass
 	if ent:GetClass() == "func_breakable_surf" then
-		ent:Fire( "break", "", 0 )
+		ent:Fire("break", "", 0)
 	end
 	
 	-- Play the hit sound
-	Owner:EmitSound( "npc/zombie/claw_strike"..math.random(1, 3)..".wav" )
+	Owner:EmitSound("npc/zombie/claw_strike"..math.random(1, 3)..".wav" )
 		
 	-- Take damage
-	ent:TakeDamage ( Damage, Owner, self )
+	ent:TakeDamage(Damage, Owner, self)
 	
 	-- Push for whatever it hits
 	local Velocity = Owner:EyeAngles():Forward() * 1000
 	
-	-- Push the target off is leaping
+	-- Push the target off in leap
 	if self.Leaping and ent:IsPlayer() then
 		Velocity.z = 150
-		if ent:OnGround() then ent:SetVelocity( Velocity * 0.5 ) else ent:SetVelocity ( Velocity * 0.1 ) end
-		if ent.ViewPunch then ent:ViewPunch( Angle( math.random(-20, 20), math.random(-20, 20), math.random(-20, 20) ) ) end
+		if ent:OnGround() then
+			ent:SetVelocity(Velocity * 0.5)
+		else
+			ent:SetVelocity(Velocity * 0.1)
+		end
+		if ent.ViewPunch then
+			ent:ViewPunch( Angle( math.random(-20, 20), math.random(-20, 20), math.random(-20, 20) ) )
+		end
 	end
 	
 	-- Apply force to the correct object
-	if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() then
+	if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() then --  and not ent:IsPlayer()
 		if Velocity.z < 200 then Velocity.z = 200 end
 				
 		phys:ApplyForceCenter( Velocity * 2 )
@@ -345,7 +360,9 @@ function SWEP:SecondaryAttack()
 	if trClimb.HitWorld then return end
 	
 	-- Leap cooldown / player flying
-	if CurTime() < self.NextLeap or not bOnGround or self.Leaping then return end
+	if CurTime() < self.NextLeap or not bOnGround or self.Leaping then
+		return
+	end
 	
 	-- Set flying velocity
 	local Velocity = self.Owner:GetAngles():Forward() * 800
