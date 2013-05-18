@@ -322,7 +322,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			
 		-- Fall damage for humans
 		if pl:IsHuman() then
-			local speed, div_factor = math.abs( pl:GetVelocity().z ), 14
+			local speed, div_factor = math.abs( pl:GetVelocity().z ), 24
 			local Damage = math.Clamp ( speed / div_factor, 5, 90 )
 				
 			-- Shake camera
