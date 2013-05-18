@@ -1479,7 +1479,7 @@ function GM:_ShouldDrawLocalPlayer(pl)
 end
 
 function GM:_CalcView ( pl, vPos, aAng, fFov )
-	if not ValidEntity ( MySelf ) then
+	if not IsValid(MySelf) then
 		return
 	end
 
