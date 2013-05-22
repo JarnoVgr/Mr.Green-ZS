@@ -71,6 +71,16 @@ function DoAdminPanel()
 			end
 		end
 	end
+
+	AdminPanel:AddOption ( "---------------------------------", function () CloseAdminPanel() end )
+
+	-- Screen grab
+	local RedeemMenu = AdminPanel:AddSubMenu( "Grab Player Screen >", function () CloseAdminPanel() end )
+	for k,v in pairs ( PlayersAll ) do
+		if ValidEntity ( v ) then
+			RedeemMenu:AddOption ( tostring ( v:Name() ), function() RunConsoleCommand ( "scanplayer", tostring ( v:EntIndex() ) ) CloseAdminPanel() end )
+		end
+	end
 	
 	-- Bring player option
 	AdminPanel:AddOption ( "---------------------------------", function () CloseAdminPanel() end )
