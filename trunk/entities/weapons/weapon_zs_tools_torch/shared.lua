@@ -250,7 +250,7 @@ function SWEP:Think()
 	
 	if self.Owner and self.Owner:GetSuit() == "supportsuit" then
 		maxclip = 80
-		rtime - 0.25
+		rtime = rtime - 0.25
 	end
 	
 	if SERVER then
