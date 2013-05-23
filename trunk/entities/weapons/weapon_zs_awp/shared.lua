@@ -26,11 +26,11 @@ SWEP.Weight				= 6
 
 SWEP.Primary.Sound			= Sound("Weapon_AWP.Single")
 SWEP.Primary.Recoil			= 20
-SWEP.Primary.Damage			= 200
+SWEP.Primary.Damage			= 260
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 4
 SWEP.Primary.Delay			= 2
-SWEP.Primary.DefaultClip	= 15
+SWEP.Primary.DefaultClip	= 4
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "357"
 SWEP.Primary.ReloadDelay	= 2
@@ -38,9 +38,9 @@ SWEP.Primary.ReloadDelay	= 2
 SWEP.IronSightsPos 			= Vector (5.6111, -3, 2.092)
 SWEP.IronSightsAng 			= Vector (0, 0, 0)
 
-SWEP.Cone = 0.06
-SWEP.ConeMoving = 0.075
-SWEP.ConeCrouching = 0.01
+SWEP.Cone = 0.04
+SWEP.ConeMoving = 0.06
+SWEP.ConeCrouching = 0.02
 SWEP.ConeIron = 0.01
 SWEP.ConeIronCrouching = 0.01
 

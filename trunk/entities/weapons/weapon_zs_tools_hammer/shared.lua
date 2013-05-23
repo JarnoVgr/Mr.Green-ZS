@@ -47,7 +47,7 @@ SWEP.Slot = 3
 SWEP.SlotPos = 3
 
 SWEP.Primary.ClipSize = 100
-SWEP.Primary.Damage = 18
+SWEP.Primary.Damage = 45
 SWEP.Primary.DefaultClip = 3
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "gravity"
@@ -164,7 +164,7 @@ function SWEP:SecondaryAttack()
 						self.NextNail = CurTime() + 1
 						self:TakePrimaryAmmo(1)
 						
-						skillpoints.AddSkillPoints(self.Owner,10)
+
 						
 						self.Owner:AddXP(5)
 						
@@ -178,7 +178,7 @@ function SWEP:SecondaryAttack()
 						nail:Spawn()
 						trent:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1,4)..".wav")
 						
-						nail:FloatingTextEffect( 10, self.Owner )
+
 						
 						trent:CollisionRulesChanged()
 						-- trent.Nailed = true
@@ -228,7 +228,6 @@ function SWEP:SecondaryAttack()
 									self.NextNail = CurTime() + 1
 									self:TakePrimaryAmmo(1)
 									
-									skillpoints.AddSkillPoints(self.Owner,10)
 									self.Owner:AddXP(5)
 									
 									local nail = ents.Create("nail")

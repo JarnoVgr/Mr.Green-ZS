@@ -44,14 +44,14 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_SG552.Single")
-SWEP.Primary.Recoil			= 1.1 * 5 --1.1
+SWEP.Primary.Recoil			= 6
 SWEP.Primary.Unrecoil		= 9
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 31
-SWEP.storeclipsize			= 31
+SWEP.Primary.ClipSize		= 30
+SWEP.storeclipsize			= 30
 SWEP.Primary.Delay			= 0.1
-SWEP.Primary.DefaultClip	= 40
+SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.Primary.Cone			= 0.05 -- 0.05
@@ -59,11 +59,11 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.MaxAmmo			    = 250
 SWEP.Secondary.Delay = 0.5
 
-SWEP.WalkSpeed = 175
+SWEP.WalkSpeed = 185
 
-SWEP.Cone = 0.07
-SWEP.ConeMoving = 0.10
-SWEP.ConeCrouching = 0.03
+SWEP.Cone = 0.06
+SWEP.ConeMoving = 0.08
+SWEP.ConeCrouching = 0.04
 SWEP.ConeIron = 0.05
 SWEP.ConeIronCrouching = 0.04
 

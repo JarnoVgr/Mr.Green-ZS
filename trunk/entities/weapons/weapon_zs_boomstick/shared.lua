@@ -30,13 +30,13 @@ SWEP.HoldType = "shotgun"
 
 util.PrecacheSound("weapons/shotgun/shotgun_dbl_fire.wav")
 SWEP.Primary.Sound = "weapons/shotgun/shotgun_dbl_fire.wav"
-SWEP.Primary.Recoil = 142.5
-SWEP.Primary.Damage = 46
+SWEP.Primary.Recoil = 100
+SWEP.Primary.Damage = 45
 SWEP.Primary.NumShots = 6
 SWEP.Primary.Delay = 2
 
 SWEP.Primary.ClipSize = 4
-SWEP.Primary.DefaultClip = 24
+SWEP.Primary.DefaultClip = 4
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "buckshot"
 
@@ -49,7 +49,7 @@ SWEP.ConeMoving				= 0.4 -- 0.4
 SWEP.ConeCrouching			= 0.18
 SWEP.IsShotgun = true
 SWEP.MaxAmmo			    = 55
-SWEP.WalkSpeed = 110
+SWEP.WalkSpeed = 175
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0

@@ -51,7 +51,7 @@ SWEP.ActiveAngle = Angle(0.893, 9.805, -4.725)
 
 SWEP.TempAng = SWEP.IdleAngle
 
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = 200
 
 function SWEP:InitializeClientsideModels()
 	self.ViewModelBoneMods = {
@@ -134,10 +134,10 @@ function SWEP:PrimaryAttack()
 							if not griefedprop then
 								self.Owner._TorchScore = self.Owner._TorchScore + 1
 								
-								if self.Owner._TorchScore == 55 then
-									skillpoints.AddSkillPoints(self.Owner, 15)
-									nail:FloatingTextEffect( 5, self.Owner )
-									self.Owner:AddXP(3)
+								if self.Owner._TorchScore == 30 then
+									skillpoints.AddSkillPoints(self.Owner, 10)
+									nail:FloatingTextEffect( 10, self.Owner )
+									self.Owner:AddXP(5)
 									self.Owner._TorchScore = 0
 								end
 							end
@@ -174,10 +174,10 @@ function SWEP:PrimaryAttack()
 					
 					self.Owner._TorchScore = self.Owner._TorchScore + 1
 								
-					if self.Owner._TorchScore == 55 then
-						skillpoints.AddSkillPoints(self.Owner, 15)
-						trent:FloatingTextEffect( 5, self.Owner )
-						self.Owner:AddXP(3)
+					if self.Owner._TorchScore == 30 then
+						skillpoints.AddSkillPoints(self.Owner, 10)
+						trent:FloatingTextEffect( 10, self.Owner )
+						self.Owner:AddXP(5)
 						self.Owner._TorchScore = 0
 					end
 				
@@ -249,7 +249,8 @@ function SWEP:Think()
 	local maxclip = 60
 	
 	if self.Owner and self.Owner:GetSuit() == "supportsuit" then
-		maxclip = 70
+		maxclip = 80
+		rtime - 0.25
 	end
 	
 	if SERVER then
@@ -259,9 +260,9 @@ function SWEP:Think()
 		else
 			if self.lastfire < CurTime() - 0.3 and self.rechargetimer < CurTime() then
 				self.Weapon:SetClip1( math.min( maxclip,self.Weapon:Clip1() + 1 ) )
-				local rtime = 0.17
+				local rtime = 0.15
 				if self.Owner:GetPerk("_trchregen") then
-					rtime = 0.13
+					rtime = 0.10
 				end
 				self.rechargetimer = CurTime() + rtime
 			end

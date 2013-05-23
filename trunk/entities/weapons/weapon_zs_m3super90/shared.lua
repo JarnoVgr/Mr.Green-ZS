@@ -32,11 +32,11 @@ SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound			= Sound("Weapon_M3.Single")
 SWEP.Primary.Recoil			= 3.5 * 6 -- 3.5
-SWEP.Primary.Damage			= 20
+SWEP.Primary.Damage			= 18
 SWEP.Primary.NumShots		= 8
-SWEP.Primary.ClipSize		= 4
+SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.9
-SWEP.Primary.DefaultClip	= 20
+SWEP.Primary.DefaultClip	= 6
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "buckshot"
 SWEP.Primary.Cone			= 0.28
@@ -45,7 +45,7 @@ SWEP.ConeCrouching			= 0.18
 SWEP.MaxAmmo			    = 70
 SWEP.IsShotgun = true
 
-SWEP.WalkSpeed = 155
+SWEP.WalkSpeed = 170
 SWEP.MaxBulletDistance 		= 1750
 
 SWEP.IronSightsPos = Vector(5.73,-2,3.375)
