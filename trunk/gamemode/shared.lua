@@ -589,7 +589,7 @@ end
 -- Amazing but SetNoCollideWithTeammates is shitty as fuck
 -- SO I have to use this thing (with player pushing from IW) :<
 function GM:_ShouldCollide( ent1, ent2 )
-	if ent1:IsPlayer() and ent2:IsPlayer() and ent1:Team() == ent2:Team() or ent1.NoCollideAll or ent2.NoCollideAll then
+	if ent1:IsPlayer() and ent2:IsPlayer() and ent1:Team() == TEAM_HUMAN and ent1:Team() == ent2:Team() or ent1.NoCollideAll or ent2.NoCollideAll then
 	
 	   -- Soft collision
 	    if ( ent1:GetPos():Distance( ent2:GetPos() ) <= 30 ) then
