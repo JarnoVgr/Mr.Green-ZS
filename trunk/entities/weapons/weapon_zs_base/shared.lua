@@ -432,7 +432,6 @@ function GenericBulletCallback(attacker, tr, dmginfo)
 	end
 end
 
-
 function SWEP:SendWeaponAnimation()
 	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 end

@@ -47,7 +47,7 @@ function death.ZomboDeath( pl, attacker )
 	if not pl:IsZombie() or pl ~= MySelf then return end
 	
 	-- Spawn timer
-	MySelf.NextSpawn = CurTime() + 4--( math.Clamp ( GetInfliction() * 14, 1, 4 ) )
+	MySelf.NextSpawn = CurTime() + 3 --( math.Clamp ( GetInfliction() * 14, 1, 4 ) )
 	
 	-- Status
 	MySelf.FirstHumanDeath = false
