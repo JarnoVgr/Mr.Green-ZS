@@ -58,7 +58,7 @@ SWEP.Primary.Cone			= 0.065
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.Cone = 0.065
-SWEP.ConeMoving = 0.85
+SWEP.ConeMoving = 0.085
 SWEP.ConeCrouching = 0.045
 SWEP.ConeIron = 0.065
 SWEP.ConeIronCrouching = 0.045

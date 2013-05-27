@@ -57,7 +57,7 @@ SWEP.Primary.Cone			= 0.06 -- 0.14
 SWEP.MaxAmmo			    = 100
 SWEP.WalkSpeed = 200
 
-SWEP.Cone = 0.7
+SWEP.Cone = 0.07
 SWEP.ConeMoving = 0.09
 SWEP.ConeCrouching = 0.05
 SWEP.ConeIron = 0.05
