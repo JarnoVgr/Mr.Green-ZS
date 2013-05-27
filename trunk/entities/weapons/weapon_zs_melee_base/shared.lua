@@ -47,19 +47,17 @@ SWEP.SwingRotation = Angle(0, 0, 0)
 SWEP.SwingOffset = Vector(0, 0, 0)
 
 function SWEP:InitializeClientsideModels()
-	
 	self.VElements = {}
 	self.WElements = {} 
-	
 end
 
 function SWEP:PrecacheModels()
-
 	for k, v in pairs( self.VElements ) do
 		if v.model then
 			util.PrecacheModel(v.model)
 		end
 	end
+
 	for k, v in pairs( self.WElements ) do
 		if v.model then
 			util.PrecacheModel(v.model)
@@ -78,19 +76,16 @@ function SWEP:Initialize()
 	self:SetWeaponSwingHoldType(self.SwingHoldType)
 	
 	if CLIENT then
-	
 		self:InitializeClientsideModels()
 		self:PrecacheModels()
 		self:CreateViewModelElements()
-		self:CreateWorldModelElements()   
-		
+		self:CreateWorldModelElements()
     end
 	
 	self:OnInitialize() 
 end
 
 function SWEP:CreateViewModelElements()
-	
 	self:CreateModels(self.VElements)
 	
 	 self.BuildViewModelBones = function( s )
@@ -109,11 +104,9 @@ function SWEP:CreateViewModelElements()
 	end   
 
 	MakeNewArms(self)
-	
 end
 
 function SWEP:UpdateBonePositions(vm)
-	
 	if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 		for k, v in pairs( self.ViewModelBoneMods ) do
 			local bone = vm:LookupBone(k)
@@ -141,11 +134,9 @@ function SWEP:UpdateBonePositions(vm)
 			end
 		end
 	end
-	
 end
 
 function SWEP:ResetBonePositions()
-	
 	if not self.Owner then return end
 	local vm = self.Owner.GetViewModel and self.Owner:GetViewModel()
 	if not IsValid(vm) then return end
@@ -154,8 +145,7 @@ function SWEP:ResetBonePositions()
 		vm:ManipulateBoneScale( i, Vector(1, 1, 1) )
 		vm:ManipulateBoneAngles( i, Angle(0, 0, 0) )
 		vm:ManipulateBonePosition( i, Vector(0, 0, 0) )
-	end
-	
+	end	
 end
 
 function SWEP:CreateWorldModelElements()
@@ -245,9 +235,10 @@ function SWEP:Equip ( NewOwner )
 	if CLIENT then return end
 	local Pistol = NewOwner:GetPistol()
 	
-	if Pistol then
-	-- NewOwner:RemoveAmmo ( 24, "pistol" )
-	end
+	--[[if Pistol then
+	NewOwner:RemoveAmmo ( 24, "pistol" )
+	end]]
+
 	-- Call this function to update weapon slot and others
 	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
 end
@@ -301,7 +292,9 @@ function SWEP:GetDefending()
 end]=]
 
 function SWEP:CanPrimaryAttack()
-	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return false end
+	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
+		return false
+	end
 
 	return not self:IsSwinging()-- self:GetNextPrimaryFire() <= CurTime() and
 end
@@ -416,9 +409,9 @@ function SWEP:MeleeSwing()
 				dmginfo:SetDamageForce(self.MeleeDamage * 200 * owner:GetAimVector())
 				if hitent:IsPlayer() then
 					hitent:MeleeViewPunch(damage)
-					if self.MeleeKnockBack > 0 then
-						-- hitent:ThrowFromPositionSetZ(tr.HitPos, self.MeleeKnockBack, nil, true)
-					end
+					--[[if self.MeleeKnockBack > 0 then
+						hitent:ThrowFromPositionSetZ(tr.HitPos, self.MeleeKnockBack, nil, true)
+					end]]
 					-- hitent:TakeDamageInfo(dmginfo)
 				end-- else
 				-- 	local dmginfo = GAMEMODE:EntityTakeDamage( hitent,dmginfo )--GAMEMODE:EntityTakeDamage( hitent, owner, dmginfo:GetInflictor(), damage, dmginfo )
@@ -490,17 +483,15 @@ if CLIENT then
 		local vm = self.Owner:GetViewModel()
 		if not IsValid(vm) then return end
 
-		
-		
 		if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then 
-		
 			vm:SetColor(Color(255,255,255,1)) 
-			if vm:GetMaterial() ~= "Debug/hsv" then 
-			--	vm:SetMaterial("Debug/hsv")	
-			end
+			--[[if vm:GetMaterial() ~= "Debug/hsv" then 
+				vm:SetMaterial("Debug/hsv")	
+			end]]
 			self:DrawWorldModel()
 			
-		return end
+			return
+		end
 		
 		if not self.OldShowViewModel then
 			self.OldShowViewModel = self.ShowViewModel or true
@@ -524,15 +515,15 @@ if CLIENT then
 		
 		if (self.ShowViewModel == nil or self.ShowViewModel) then
 			vm:SetColor(Color(255,255,255,255))
-			if vm:GetMaterial() ~= "" then 
-				--vm:SetMaterial("")	
-			end
+			--[[if vm:GetMaterial() ~= "" then 
+				vm:SetMaterial("")	
+			end]]
 		else
 			--  we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
 			vm:SetColor(Color(255,255,255,1)) 
-			if vm:GetMaterial() ~= "Debug/hsv" then 
-				--vm:SetMaterial("Debug/hsv")	
-			end
+			--[[if vm:GetMaterial() ~= "Debug/hsv" then 
+				vm:SetMaterial("Debug/hsv")	
+			end]]
 		end
 		
 		vm:SetRenderMode(RENDERMODE_TRANSALPHA) 
@@ -554,7 +545,9 @@ if CLIENT then
 		
 		-- UpdateArms(self)
 
-		if (not self.VElements) then return end
+		if (not self.VElements) then
+			return
+		end
 		
 		if (not self.vRenderOrder) then
 			
