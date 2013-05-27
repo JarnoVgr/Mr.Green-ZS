@@ -130,7 +130,7 @@ function DropWeapon ( pl, commandName, args )
 	end
 
 	--Actual dropping
-	pl:DropWeapon(Weapon) 
+	pl:DropWeapon(Weapon)
 	
 	-- Notify 
 	pl:ChatPrint( "You've dropped a "..tostring ( GAMEMODE.HumanWeapons[wepname].Name ) )
@@ -1660,7 +1660,13 @@ function ApplySkillShopItem(pl,com,args)
 				end
 				
 				if StrWep then
-					pl:StripWeapon ( StrWep:GetClass() ) 
+					for i,j in pairs ( pl:GetWeapons() ) do
+						if j:GetClass() == StrWep:GetClass() then
+							pl:DropWeapon(j)
+							break
+						end
+					end
+					--pl:StripWeapon ( StrWep:GetClass() ) 
 				end
 				pl:Give(weapon)
 				skillpoints.AddSkillPoints(pl,-1*GAMEMODE.HumanWeapons[weapon].Price)
