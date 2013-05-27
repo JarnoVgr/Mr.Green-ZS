@@ -290,20 +290,21 @@ function SWEP:OnRemove()
 end
 
 function SWEP:Equip ( NewOwner )
-	if CLIENT then return end
+	if CLIENT then
+		return
+	end
 	
 	-- If the weapon is dropped and has 10 bullets less in the current clip, then substract that amount for the new owner
 	if self.Primary.RemainingAmmo then
 		self:TakePrimaryAmmo ( self:Clip1() - self.Primary.RemainingAmmo )
 	end
-
 	
-	-- Magazine clip is stored in the weapon, instaed of player
-	NewOwner:RemoveAmmo ( 1500, self:GetPrimaryAmmoTypeString() )
-	NewOwner:GiveAmmo ( self.Primary.Magazine or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
+	-- Magazine clip is stored in the weapon, instead of player
+	NewOwner:RemoveAmmo( 1500, self:GetPrimaryAmmoTypeString() )
+	NewOwner:GiveAmmo( self.Primary.Magazine or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
 			
 	-- Call this function to update weapon slot and others
-	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
+	gamemode.Call( "OnWeaponEquip", NewOwner, self)
 end
 
 function SWEP:OnDrop()
@@ -344,7 +345,9 @@ function SWEP:GetIronsights()
 end
 
 function SWEP:CanPrimaryAttack()
-	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
+	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
+		return
+	end
 
 	if self:Clip1() <= 0 then
 		self:EmitSound("Weapon_Pistol.Empty")
@@ -420,12 +423,12 @@ function GenericBulletCallback(attacker, tr, dmginfo)
 				ent:SetPhysicsAttacker(attacker)
 			end
 		end
-		if SERVER then
+		--[[if SERVER then
 			if dmginfo then
-				-- local dmginfo = GAMEMODE:EntityTakeDamage( ent, attacker, dmginfo:GetInflictor(), dmginfo:GetDamage(), dmginfo )
-					-- ent:TakeDamageInfo(dmginfo)
-				end
-		end
+				local dmginfo = GAMEMODE:EntityTakeDamage( ent, attacker, dmginfo:GetInflictor(), dmginfo:GetDamage(), dmginfo )
+				ent:TakeDamageInfo(dmginfo)
+			end
+		end]]
 	end
 end
 

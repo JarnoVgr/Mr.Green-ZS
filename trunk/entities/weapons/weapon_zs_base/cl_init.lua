@@ -17,7 +17,9 @@ function SWEP:TranslateFOV(fov)
 end
 
 function SWEP:AdjustMouseSensitivity()
-	if self:GetIronsights() then return GAMEMODE.FOVLerp end
+	if self:GetIronsights() then
+		return GAMEMODE.FOVLerp
+	end
 end
 
 function SWEP:Think()
@@ -129,16 +131,14 @@ function SWEP:CheckCustomIronSights()
 	end
 end
 	
-	local render = render
-	local table = table
-	local pairs = pairs
-	local cam = cam
+local render = render
+local table = table
+local pairs = pairs
+local cam = cam
 	
-	SWEP.vRenderOrder = nil
-	function SWEP:ViewModelDrawn()
-	
-		
-	
+SWEP.vRenderOrder = nil
+
+function SWEP:ViewModelDrawn()
 		self.ViewModelFOV = GetConVarNumber("_zs_wepfov") or self.ViewModelFOV
 		
 		if not self.Owner then return end
@@ -152,9 +152,9 @@ end
 		
 		if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then 	
 			vm:SetColor(Color(255,255,255,1))
-			if vm:GetMaterial() ~= "Debug/hsv" then 
-			-- 	vm:SetMaterial("Debug/hsv")	
-			end
+			--[[if vm:GetMaterial() ~= "Debug/hsv" then 
+				vm:SetMaterial("Debug/hsv")	
+			end]]
 			self:DrawWorldModel()
 		return end
 		
@@ -180,15 +180,15 @@ end
 		
 		if (self.ShowViewModel == nil or self.ShowViewModel) then
 			vm:SetColor(Color(255,255,255,255))
-			if vm:GetMaterial() == "Debug/hsv" then 
-				-- vm:SetMaterial("")	
-			end
+			--[[if vm:GetMaterial() == "Debug/hsv" then 
+				vm:SetMaterial("")	
+			end]]
 		else
 			--  we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
 			vm:SetColor(Color(255,255,255,1)) 
-			if vm:GetMaterial() ~= "Debug/hsv" then 
-				-- vm:SetMaterial("Debug/hsv")	
-			end
+			--[[if vm:GetMaterial() ~= "Debug/hsv" then 
+				vm:SetMaterial("Debug/hsv")	
+			end]]
 		end
 		
 		vm:SetRenderMode(RENDERMODE_TRANSALPHA) 
@@ -205,13 +205,15 @@ end
 		self:UpdateBonePositions(vm)
 		
 		
-		if vm.BuildBonePositions ~= self.BuildViewModelBones then
-			--vm.BuildBonePositions = self.BuildViewModelBones
-		end
+		--[[if vm.BuildBonePositions ~= self.BuildViewModelBones then
+			vm.BuildBonePositions = self.BuildViewModelBones
+		end]]
 
-		-- UpdateArms(self) -- testing
+		--UpdateArms(self) -- testing
 		
-		if (not self.VElements) then return end
+		if (not self.VElements) then
+			return
+		end
 		
 		if (not self.vRenderOrder) then
 			
@@ -307,7 +309,7 @@ end
 			
 		end
 		
-	end
+end
 
 	SWEP.wRenderOrder = nil
 	function SWEP:DrawWorldModel()
@@ -323,9 +325,9 @@ end
 					local m1 = self.Owner:GetRagdollEntity():GetBoneMatrix(bone)
 						if (m1) then
 							pos1, ang1 = m1:GetTranslation(), m1:GetAngles()
-							-- self:SetPos(pos1)
-							-- self:SetAngles(ang1)
-							-- print(tostring(pos1))
+							--self:SetPos(pos1)
+							--self:SetAngles(ang1)
+							--print(tostring(pos1))
 						end
 					end	
 				end
@@ -540,7 +542,6 @@ end
 
 				v.createdSprite = v.sprite
 				v.spriteMaterial = CreateMaterial(name,"UnlitGeneric",params)
-				
 			end
 		end
 		
