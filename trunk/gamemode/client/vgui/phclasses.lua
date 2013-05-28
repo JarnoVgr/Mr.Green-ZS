@@ -1671,7 +1671,17 @@ function DrawSelectClass()
 		-- surface.DrawRect(ActualX+5 , ActualY+5, (HPBarSizeW-10)*MySelf.HPBar, HPBarSizeH-10 )
 	
 	end
-	
+
+	--Play spawnscreen sound
+	--[[local randmusic = math.random(1,3)
+	if randmusic == 1 then
+		Sounds.Startup = "mrgreen/ui/deadlightdistrict.mp3" 
+	elseif randmusic == 2 then
+		Sounds.Startup = "mrgreen/ui/osweetdeath.mp3" 
+	else
+		Sounds.Startup = "mrgreen/ui/gamestartup1.mp3"
+	end]]
+	surface.PlaySound("mrgreen/music/gamestart1.mp3")	
 end
 
 function ChangeClassClient ( class )
