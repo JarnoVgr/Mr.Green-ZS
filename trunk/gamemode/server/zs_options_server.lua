@@ -16,7 +16,7 @@ DONATE_ADDRESS = "paypal[at]mrgreengaming[dot]com"
 --Log lua errors
 timer.Simple ( 1, function() RunConsoleCommand ( "lua_log_sv", "1" ) end )
 
---Enable team voice
+--Disable team voice
 timer.Simple ( 1, function() RunConsoleCommand ( "sv_alltalk", "0" ) end )
 
 --Disables greencoin add function for local use (testing)

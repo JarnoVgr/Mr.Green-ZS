@@ -202,7 +202,9 @@ function CalculateColorMod()
 	end
 	
 	--HCOLORMOD = util.tobool( GetConVarNumber("_zs_hcolormod") )
-	COLORMOD = util.tobool( GetConVarNumber("_zs_enablecolormod") )
+	--COLORMOD = util.tobool( GetConVarNumber("_zs_enablecolormod") )
+	HCOLORMOD = true
+	COLORMOD = true
 	
 	-- Human side post proccesing
 	if MySelf:Team() == TEAM_HUMAN then
@@ -214,13 +216,13 @@ function CalculateColorMod()
 		
 		if COLORMOD then
 			if HCOLORMOD and not GAMEMODE:IsNightMode() then
-				for k,v in pairs ( HumanCM ) do
+				for k,v in pairs(HumanCM) do
 					if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
 						ColorMod[k] = v
 					end
 				end
 			else
-				for k,v in pairs ( DHumanCM ) do
+				for k,v in pairs(DHumanCM) do
 					if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
 						ColorMod[k] = v
 					end
@@ -283,7 +285,6 @@ function CalculateColorMod()
 	-- Actually change colors
 	
 	DrawColorModify( ColorMod )
-	
 end
 
 --[==[---------------------------------------------------------

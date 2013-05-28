@@ -32,24 +32,25 @@ include("shared/sh_maps.lua")
 include("shared/sh_animations.lua")
 include("shared/sh_zombo_anims.lua")
 include("shared/sh_human_anims.lua")
-include( "extended/sh_engine.lua" )
-include( "modules/screentaker/screentaker.lua" )
---include("modules/json/json.lua")
-
---require("Json")
-
---if file.Exists( "../gamemodes/zombiesurvival/gamemode/shared/objectivemaps/"..game.GetMap()..".lua" ) then
---if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].Objective then
---	include( "shared/objectivemaps/"..game.GetMap()..".lua" )	
---end
+include("extended/sh_engine.lua")
+include("modules/screentaker/screentaker.lua")
+	
+--MapCoder
 for map,opt in pairs(TranslateMapTable) do
 	if TranslateMapTable[map].Objective then
-		--print("Included "..tostring(map))
-		include( "shared/objectivemaps/"..map..".lua" )
+		print("[MAPCODER] Included shared/objectivemaps/".. tostring(map) ..".lua")
+		include("shared/objectivemaps/".. map ..".lua")
+	end
+	if TranslateMapTable[map].MapCoder then
+		print("[MAPCODER] Included shared/maps/".. tostring(map) ..".lua")
+		include("shared/maps/".. map ..".lua")
+		if SERVER then
+			AddCSLuaFile("shared/maps/".. map ..".lua")
+		end
 	end
 end
 
--- This stuff isn't for you to change. You should only edit the stuff in zs_options.lua
+--This stuff isn't for you to change. You should only edit the stuff in zs_options.lua
 --GM.Name = "Zombie Survival "..GM.Version.." "..GM.SubVersion
 GM.Name = "Zombie Survival Green Apocalypse"
 GM.Author = "Limetric Studios"

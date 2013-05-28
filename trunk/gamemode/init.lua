@@ -70,11 +70,6 @@ AddCSLuaFile("shared/obj_entity_extend.lua")
 AddCSLuaFile("shared/sh_maps.lua")
 
 AddCSLuaFile("modules/json/json.lua")
---if file.Exists( "../gamemodes/zombiesurvival/gamemode/shared/objectivemaps/"..game.GetMap()..".lua" ) then
-	--AddCSLuaFile("shared/objectivemaps/"..game.GetMap()..".lua")
---end
-
-
 
 include("modules/sql/sv_sql.lua")
 
@@ -237,13 +232,17 @@ end
 ---------------------------------------------------------]=]
 function GM:Initialize()
 	-- Creates the data/zombiesurvival folder if it doesn't exist
-	if ( not file.IsDir("zombiesurvival","DATA") ) then
+	if (not file.IsDir("zombiesurvival","DATA")) then
 		file.CreateDir("zombiesurvival")
 	end 
 	
 	-- Add resource files to download
-	for k,v in pairs ( ResourceFiles ) do
-		if not file.Exists ( v, "GAME" ) then Debug ( "[RESOURCE-FILES] Couldn't add/find file "..tostring ( v ).." to add to resource files!" ) else resource.AddFile ( v ) end
+	for k,v in pairs(ResourceFiles) do
+		if not file.Exists( v, "GAME") then
+			Debug ( "[RESOURCE-FILES] Couldn't add/find file "..tostring ( v ).." to add to resource files!" )
+		else
+			resource.AddFile(v)
+		end
 	end
 
 	
@@ -286,9 +285,9 @@ function GM:SetNightMode(mode)
 		env_skypaint:SetStarScale(1.1)
 	
 	
-		game.ConsoleCommand("sv_skyname painted\n");
+		game.ConsoleCommand("sv_skyname painted\n")
 		
-		timer.Simple(1,function() engine.LightStyle(0,"a") end)
+		timer.Simple(1,function() engine.LightStyle(0,"c") end)
 	end
 	
 end
@@ -298,7 +297,7 @@ function GM:IsNightMode()
 end
 
 -- Player presses F1
-function OnPressF1 ( pl )
+function OnPressF1(pl)
 	-- Display help menu
 	if not ENDROUND then
 		pl:SendLua("MakepHelp()")
@@ -306,7 +305,7 @@ function OnPressF1 ( pl )
 end
 
 -- Player presses F2
-function OnPressF2 ( pl )
+function OnPressF2(pl)
 	--[[if not ENDROUND and pl:Team() == TEAM_HUMAN then
 	pl:SendLua("MakeWeps()")
 	end]]

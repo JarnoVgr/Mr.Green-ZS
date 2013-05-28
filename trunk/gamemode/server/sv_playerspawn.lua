@@ -970,7 +970,7 @@ hook.Add( "OnPlayerReadySQL", "UpdateDataTableJoin", function( pl )
 end )
 
 -- When localplayer is valid on clientside
-function GM:PlayerReady ( pl )
+function GM:PlayerReady(pl)
 	pl.IsClientValid = true
 	
 	if self:IsRetroMode() then

@@ -1409,18 +1409,19 @@ hook.Add("Think","NightFog",function()
 		return
 	end
 	
-	if not drawfog then
-		hook.Add( "SetupWorldFog","AddNightFog", AddNightFog )
-		hook.Add( "SetupSkyboxFog","AddNightFogSkybox", AddNightFogSkybox )
-
-		drawfog = true
+	if drawfog then
+		return
 	end
+	
+	drawfog = true
+	
+	hook.Add( "SetupWorldFog","AddNightFog", AddNightFog )
+	hook.Add( "SetupSkyboxFog","AddNightFogSkybox", AddNightFogSkybox )	
 end)
 
 local undomodelblend = false
 local undowraithblend = false
 function GM:_PrePlayerDraw(pl)
-	
 	if pl.IsZombie and pl:IsZombie() and pl.IsWraith and pl:IsWraith() then
 		if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then
 			render.SetBlend(1)
