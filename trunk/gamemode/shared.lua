@@ -1041,30 +1041,56 @@ function GM:GetBossZombie()
 end
 
 function GM:IsBossRequired()
-	
-	if BOSSACTIVE then return false end
-	-- if self:IsRetroMode() then return end
-	
-	if #player.GetAll() >= BOSS_TOTAL_PLAYERS_REQUIRED 
-		and team.NumPlayers(TEAM_UNDEAD) > 0 and team.NumPlayers(TEAM_HUMAN) > 0 and
-			team.NumPlayers(TEAM_UNDEAD)*100/#player.GetAll() <= BOSS_INFLICTION_REQUIRED and--team.NumPlayers(TEAM_UNDEAD)/team.NumPlayers(TEAM_HUMAN) <= BOSS_INFLICTION_REQUIRED
-				self:GetWave() == BOSS_WAVE then
-					return true
+	if BOSSACTIVE then
+		return false
 	end
+	-- if self:IsRetroMode() then return end
+		
+	--Require teams on both sides
+	if team.NumPlayers(TEAM_UNDEAD) == 0 or team.NumPlayers(TEAM_HUMAN) == 0 then
+		return false
+	end
+	
+	--Require boss zombie
+	if self:GetWave() ~= BOSS_WAVE then
+		return false
+	end
+	
+	--Require atleast X amount of players
+	if #player.GetAll() < BOSS_TOTAL_PLAYERS_REQUIRED then
+		return false
+	end
+	
+	--More chance of boss when more players are online
+	local rand = math.random(0,1 + math.Round(#player.GetAll() / 10))
+	if (rand <= 1) then
+		return false
+	end
+	
+	--team.NumPlayers(TEAM_UNDEAD)/team.NumPlayers(TEAM_HUMAN)
+	
+	--[[if team.NumPlayers(TEAM_UNDEAD)*100/#player.GetAll() <= BOSS_INFLICTION_REQUIRED
+		return false
+	end]]
+	
+	--team.NumPlayers(TEAM_UNDEAD)/team.NumPlayers(TEAM_HUMAN) <= BOSS_INFLICTION_REQUIRED
 
-	return false
+	--Yay boss
+	return true
 end
 
 function GM:GetPlayerForBossZombie()
-	
 	local zombies = team.GetPlayers(TEAM_UNDEAD)
 	
-	if #zombies == 0 then return nil end
+	--Check if there are any zombies
+	if #zombies == 0 then
+		return nil
+	end
 	
+	--Init table
 	local tab = {}
-	
-	
-	
+		
+	--Check if players meet requirements
 	for _, zmb in pairs(zombies) do
 		if IsValid(zmb) then-- and zmb:Alive() 
 			if zmb.DamageDealt and zmb.DamageDealt[TEAM_UNDEAD] and not zmb.bIsAFK then
@@ -1073,6 +1099,7 @@ function GM:GetPlayerForBossZombie()
 		end
 	end
 	
+	--Sort descending based on damage dealt)
 	table.sort(tab,
 		function(a, b)
 			if a.DamageDealt[TEAM_UNDEAD] == b.DamageDealt[TEAM_UNDEAD] then
@@ -1080,15 +1107,19 @@ function GM:GetPlayerForBossZombie()
 			end
 			return a.DamageDealt[TEAM_UNDEAD] > b.DamageDealt[TEAM_UNDEAD]
 		end)
-		
-	local num = math.max(math.min(3,#tab),1)
 	
-	local rand = math.random(1,num)
+	--Take 3 best zombies
+	local num = math.min(1,math.max(3,#tab))
 	
-	if tab[rand] then
-		return tab[rand]
+	--Random chance of picking a good zombie
+	local rand = math.random(0,2)
+	
+	--Return good zombie
+	if rand <= 1 and tab[num] then
+		return tab[num]
 	end
 	
+	--Return random zombie
 	return table.Random(zombies)
 	
 end
