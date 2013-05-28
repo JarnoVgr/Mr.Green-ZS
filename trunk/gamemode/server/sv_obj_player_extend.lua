@@ -1319,13 +1319,11 @@ hook.Add("EntityKeyValue","KVFix",function(e,k,v)
 end)
  
 function metaEntity:GetKeyValues()
- 
     return keyvalues[self] or {}
 end
 
 
 function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
-
 	if not self.Nails then 
 	    return 
 	end
@@ -1335,7 +1333,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	    if ( ( attacker.BarricadeWarnTime or 0 ) <= CurTime() ) then
             attacker:Message( "Don't break the barricade!", 2 )
             attacker.BarricadeWarnTime = CurTime() + 4
-			damage = damage * 0.50
+			damage = damage * 0.25
 	    end  
 	end
 	
