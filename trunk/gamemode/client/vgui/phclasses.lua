@@ -1128,9 +1128,9 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 							ItemLabel[item].Think = function()
 								if GAMEMODE:IsRetroMode() then
 									if MySelf:IsBlocked(item) then
-										ItemLabel[item]:SetToolTip("Not avalaible in retro mode!")
+										ItemLabel[item]:SetToolTip("Not available in retro mode!")
 									elseif MySelf:IsRetroOnly(item) then
-										ItemLabel[item]:SetToolTip("Avalaible only in retro mode!")
+										ItemLabel[item]:SetToolTip("Available only in retro mode!")
 									else
 										ItemLabel[item]:SetToolTip(GAMEMODE.Perks[item].Description)
 									end
@@ -1214,10 +1214,10 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 	
 	if GAMEMODE:IsRetroMode() then
 		if MySelf:IsBlocked(SlotLabel[num].Item) then
-			SlotLabel[num]:SetToolTip("Not avalaible in retro mode!")
+			SlotLabel[num]:SetToolTip("Not available in retro mode!")
 		end
 		if MySelf:IsRetroOnly(SlotLabel[num].Item) then
-			SlotLabel[num]:SetToolTip("Avalaible only in retro mode!")
+			SlotLabel[num]:SetToolTip("Available only in retro mode!")
 		end
 	else
 		if IsPerk(SlotLabel[num].Item) then
