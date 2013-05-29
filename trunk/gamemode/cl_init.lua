@@ -1383,8 +1383,8 @@ end)
 
 local function AddNightFog()
 	render.FogMode( 1 ) 
-	render.FogStart( 0 )
-	render.FogEnd( 10000  )
+	render.FogStart(0)
+	render.FogEnd(10000)
 	render.FogMaxDensity( 0.9 )
 	
 	render.FogColor( 0.1 * 255, 0.1 * 255, 0.1 * 255 )
@@ -1394,8 +1394,8 @@ end
 
 local function AddNightFogSkybox(skyboxscale)
 	render.FogMode( 1 ) 
-	render.FogStart( 0*skyboxscale )
-	render.FogEnd( 10000*skyboxscale  )
+	render.FogStart(0*skyboxscale)
+	render.FogEnd(10000*skyboxscale)
 	render.FogMaxDensity( 0.9 )
 
 	render.FogColor( 0.1 * 255, 0.1 * 255, 0.1 * 255 )

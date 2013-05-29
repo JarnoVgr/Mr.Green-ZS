@@ -785,7 +785,7 @@ function GM:PlayerCanHearPlayersVoice( pListener, pTalker )
 	local sv_alltalk = GetConVar( "sv_alltalk" )
 	
 	local alltalk = sv_alltalk:GetInt()
-	if ( alltalk > 0 ) then return true, alltalk == 2 end
+	if (alltalk > 0) then return true, alltalk == 2 end
 
 	return pListener:Team() == pTalker:Team(), false
 	
@@ -794,20 +794,18 @@ end
 --[=[--------------------------------------------------------
        Restrict or allow player to pick up weapons
 ---------------------------------------------------------]=]
-function GM:PlayerCanPickupWeapon ( ply, entity )
-
-
+function GM:PlayerCanPickupWeapon(ply, entity)
 	local EntClass = entity:GetClass()
 	
-	-- Filter Half-Life weapons (expect physgun and physcannon - they are handled by admin filter)
-	for k,v in pairs ( WeaponsRestricted ) do
+	--Filter Half-Life weapons (expect physgun and physcannon - they are handled by admin filter)
+	for k,v in pairs(WeaponsRestricted) do
 		if EntClass == v then
 			return false
 		end
 	end
 	
-	-- Allow Super Admin to pickup any admin weapon!
-	for k,v in pairs ( SuperAdminOnlyWeapons ) do
+	--Allow Super Admin to pickup any admin weapon!
+	for k,v in pairs(SuperAdminOnlyWeapons) do
 		if v == EntClass then
 			if ply:IsAdmin() and v == "admin_tool_sprayviewer" then 
 				return true
@@ -817,11 +815,13 @@ function GM:PlayerCanPickupWeapon ( ply, entity )
 		end
 	end
 	
-	-- Restrict zombie only weapons to undead team members
-	if ply:Team() == TEAM_UNDEAD then return EntClass == ZombieClasses[ply.Class].SWEP end
+	--Restrict zombie only weapons to undead team members
+	if ply:Team() == TEAM_UNDEAD then
+		return EntClass == ZombieClasses[ply.Class].SWEP
+	end
 	
-	-- If we already got the weapon, don't do anything --  Dont notify anymore
-	if ply:HasWeapon( EntClass ) then
+	-- If we already got the weapon, don't do anything
+	if ply:HasWeapon(EntClass) then
 		return false
 	end
 	
@@ -855,7 +855,7 @@ function GM:SendAdminStats(to)
 	umsg.End()
 end
 
-function ChangeClass ( pl,cmd,args )
+function ChangeClass(pl,cmd,args)
 	if args[1] == nil then return end
 	
 	if pl:Team() == TEAM_SPECTATOR then
@@ -909,16 +909,20 @@ function server_RunCommand ( ply, command, args )
 	umsg.End()	
 end
 
-function SendDiffic( difficulty )
+function SendDiffic(difficulty)
 	umsg.Start( "SetDiff", pl )
 		umsg.Float( difficulty )
 	umsg.End()
 end
 
 -- Spawn hats for players
-function GM:SpawnHat( pl, hattype )
-	if not ValidEntity ( pl ) then return end
-	if not pl:IsPlayer() then return end
+function GM:SpawnHat(pl, hattype)
+	if not ValidEntity ( pl ) then
+		return
+	end
+	if not pl:IsPlayer() then
+		return
+	end
 
 	-- Player is a bot - testing purposes
 	-- if pl:IsBot() then hattype = "rpresent" end
@@ -927,9 +931,14 @@ function GM:SpawnHat( pl, hattype )
 	
 	-- if suits[hattype] then self:SpawnSuit(pl,hattype) return end
 	
-	if pl:IsBot() then hattype = "cigar$homburg" end
+	if pl:IsBot() then
+		hattype = "cigar$homburg"
+	end
 	
-	if not hattype then return end
+	--We clearly require a hat type
+	if not hattype then
+		return
+	end
 	
 	local player_hats = string.Explode("$",hattype)
 	-- Check to see if the hat is in the hats table
@@ -960,7 +969,6 @@ function GM:SpawnHat( pl, hattype )
 		
 		-- Select random hat for bot
 		if pl:IsBot() then
-			
 			pl.Hat:SetHatType("cigar$homburg")-- "cigar"
 			--print("Setting hat to rpresent")
 			--[==[local randhat = math.random( 1,13 )
@@ -980,9 +988,10 @@ function GM:SpawnHat( pl, hattype )
 	end
 end
 
-hook.Add( "PlayerShouldTaunt", "Disable Acts", function( ply )
+--Disable acts and other funky shit
+hook.Add( "PlayerShouldTaunt", "Disable_Acts", function(pl)
     return false
-end )
+end)
 
 function GM:SpawnSuit( pl, hattype )
 	if not ValidEntity ( pl ) then return end
@@ -1085,26 +1094,10 @@ function GM:DropHat(pl)
 	
 end
 ]==]
--- Thanks for making that exploit program Manadar x.x
-function CheckWeaponExploit( pl )
-	if not ValidEntity(pl) then return end
-	if pl:IsAdmin() or not pl:IsPlayer() then return end
-	if pl:Team() ~= TEAM_UNDEAD or not pl:Alive() then return end
-	
-	local wep = ZombieClasses[pl:GetZombieClass()].SWEP
-	for k, v in pairs(pl:GetWeapons()) do
-		if v:GetClass() ~= wep then
-			game.ConsoleCommand("kickid "..pl:UserID().." ".."Time-out kick (weapon exploit prevention)\n")
-			break
-		end
-	end 
-end
 
-function GM:PlayerNoClip ( pl, on )
-	
+function GM:PlayerNoClip ( pl, on )	
 	if pl:IsAdmin() and ALLOW_ADMIN_NOCLIP and pl:Team() ~= TEAM_SPECTATOR and not pl:IsFreeSpectating() then
 		if pl:GetMoveType() ~= MOVETYPE_NOCLIP then
-			
 			for k, v in pairs( player.GetAll() ) do
 				v:CustomChatPrint( {nil, Color(255,0,0),"[ADMIN] ", Color(245,245,255),"Admin ",Color(255,0,0),tostring ( pl:Name() ),Color(235,235,255)," turned ",Color(255,0,0),"ON",Color(235,235,255)," noclip."} )
 			end
@@ -1154,7 +1147,6 @@ end
 
 -- Point is location, kill is whether it's a kill, distance is distance affected
 function SoMuchBlood(point, kill, distance)
-
 	local hax = {}
 	local dirvec
 	for k, v in pairs(team.GetPlayers(TEAM_HUMAN)) do
@@ -1176,10 +1168,16 @@ function GM:PlayerDeathSound()
 	return true
 end
 
--- Can a player suicide (by using the kill command)
-function GM:CanPlayerSuicide ( pl )
+--Can a player suicide (by using the kill command)
+function GM:CanPlayerSuicide(pl)
+	--Suicide disabled at end round
+	if ENDROUND then
+		return false
+	end
+
+	--Humans can't suicide in first waves
 	if pl:Team() == TEAM_HUMAN and self:GetWave() < 2 then 
-		local suicidenote = { "You can't suicide now!","Suicide is not the answer!","Give others time to spawn before killing yourself!" }
+		local suicidenote = { "You can't suicide now!","Suicide is not the answer.","Give others time to spawn before killing yourself!" }
 		if math.random ( 1,3 ) == 1 then
 			pl:Notice ( suicidenote[math.random(1,#suicidenote)],3, Color (255,10,10,255) )
 		end
@@ -1187,12 +1185,15 @@ function GM:CanPlayerSuicide ( pl )
 		return false
 	end
 	
-	-- Spectators can't suicide
-	if pl:Team() == TEAM_SPECTATOR then return false end
+	--Spectators can't suicide
+	if pl:Team() == TEAM_SPECTATOR then
+		return false
+	end
 	
-	if pl:Team() == TEAM_UNDEAD and pl:IsBossZombie() then return false end
-	-- Suicide disabled on end round
-	if ENDROUND then return false end
+	--Boss zombies can't suicide
+	if pl:Team() == TEAM_UNDEAD and pl:IsBossZombie() then
+		return false
+	end
 	
 	return true
 end
@@ -1218,11 +1219,11 @@ function ChemBomb( pl,suicide )
 	end
 end
 
--- Old and unused ban function (?)
-function BanIdiot ( pl )
+--Obsolete ban function
+function BanIdiot(pl)
 end
 
--- Spawnprotection
+--Spawnprotection
 function SpawnProtection(pl)
 	if pl:IsValid() and pl:IsPlayer() then
 		if pl:Team() == TEAM_UNDEAD then
@@ -1264,9 +1265,7 @@ function DeSpawnProtection(pl)
 	end
 end
 
-
-
-function GM:WeaponEquip ( weapon )
+function GM:WeaponEquip(weapon)
 end
 
 local PickUpMessageTimer = 0
@@ -1396,7 +1395,7 @@ function DoPoisoned ( ent, owner, timername )
 		ent:TakeDamage(damage, owner)
 	end
 	
-	ent:Notice ("You have lost "..damage.." health because of a poison spit!",3, Color (240,5,5,255))
+	ent:Notice("You have lost "..damage.." health because of a poison spit!",3, Color (240,5,5,255))
 end
 
 -- Update server stats
@@ -1813,7 +1812,7 @@ local function RemovePowerups()
 			if IsValid( v ) then
 				for i,j in pairs( Filter ) do
 					if string.find( tostring( v:GetClass() ), j ) then
-						SafeRemoveEntity( v )
+						SafeRemoveEntity(v)
 					end
 				end
 			end
@@ -1857,4 +1856,4 @@ function OnShutDown ()
 end
 hook.Add ( "ShutDown", "OnShutDown", OnShutDown )
 
-Debug ( "[MODULE] Loaded main server file (init.lua)." )
+Debug("[MODULE] Loaded init.lua")

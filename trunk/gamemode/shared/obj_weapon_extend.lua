@@ -154,13 +154,13 @@ function GetWeaponCategory ( class )
 	if class == nil then return end
 	
 	-- We need the weapon type first
-	local Type = GetWeaponType ( class )
+	local Type = GetWeaponType(class)
 	
 	-- Type error
 	if Type == "none" or Type == nil then return end
 	
 	-- Get category
-	local strCategory = WeaponTypeToCategory[ Type ]
+	local strCategory = WeaponTypeToCategory[Type]
 	
 	return strCategory
 end

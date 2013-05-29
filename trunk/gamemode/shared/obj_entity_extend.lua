@@ -296,6 +296,4 @@ hook.Add( "PostDrawOpaqueRenderables", "RenderWeaponsGlow", function()
             end
         end
     end
-end )
-
---[==[----------------------------------------------------------------]==]
+end)

@@ -748,7 +748,6 @@ if not tab then tab = {Vector ( -16, -16, 0 ), Vector ( 16, 16, 72 )} end
 	umsg.Vector(tab[1])
 	umsg.Vector(tab[2])
 	umsg.End()
-	
 end
 
 function CalculateZombieHealth ( pl )

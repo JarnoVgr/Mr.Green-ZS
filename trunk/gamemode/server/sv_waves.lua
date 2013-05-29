@@ -281,6 +281,7 @@ end
 function GM:KeyPress(pl, key)
 	if key == IN_USE then
 		if pl:Team() == TEAM_HUMAN and pl:Alive() then
+			self:TryWeaponPickup(pl, pl:TraceLine(64,MASK_SHOT).Entity)
 			self:TryHumanPickup(pl, pl:TraceLine(64,MASK_SHOT).Entity)
 		end
 	end
@@ -290,6 +291,7 @@ function GM:PlayerUse(pl, entity)
 	if not pl:Alive() then return false end
 
 	if pl:Team() == TEAM_HUMAN and pl:Alive() and pl:KeyPressed(IN_USE) then
+		self:TryWeaponPickup(pl, entity)
 		self:TryHumanPickup(pl, entity)
 	end
 	
@@ -315,6 +317,80 @@ function GM:PlayerUse(pl, entity)
 	end]=]
 
 	return true
+end
+
+function GM:TryWeaponPickup(pl, ent)
+	--For now completely disabled. Fixes required: Anti-ammo exploit, Auto-select weapon
+	return false
+
+	--Check if ent is a weapon
+	if not ent:IsWeapon() then
+		return
+	end
+
+	--Check if weapon is not being holden by a player
+	if IsValid( ent:GetOwner() ) then
+		return
+	end
+
+	--Only allow alive humans
+	if not IsValid(pl) or not pl:IsHuman() or not pl:Alive() then
+		return
+	end
+
+	--Some hard way around checking category.. but yeah
+	--[[local Automatic, Pistol, Melee = pl:GetAutomatic(), pl:GetPistol(), pl:GetMelee()
+	
+	local StrCategory = GetWeaponCategory(ent:GetClass())
+	local StrWep = nil
+				
+	if StrCategory == "Automatic" then
+		if Automatic then
+			StrWep = Automatic
+		end
+	elseif StrCategory == "Pistol" then
+		if Pistol then
+			StrWep = Pistol
+		end
+	elseif StrCategory == "Melee" then
+		if Melee then
+			StrWep = Melee
+		end
+	end
+	
+	--Drop same type of weapon if we already have it
+	if StrWep then
+		for i,j in pairs (pl:GetWeapons()) do
+			if j:GetClass() == StrWep:GetClass() then
+				pl:DropWeapon(j)
+				break
+			end
+		end
+	end]]
+	
+	--Get weapon category
+	local wepCategory = GetWeaponCategory(StrWep:GetClass())
+	
+	--Only allow guns and melees to be picked up
+	if wepCategory ~= "Automatic" and wepCategory ~= "Pistol" and wepCategory ~= "Melee" then
+		return
+	end
+	
+	--Loop through all player weapons
+	for i,j in pairs (pl:GetWeapons()) do
+		--Check if categories match
+		if GetWeaponCategory(j:GetClass()) == wepCategory then
+			pl:DropWeapon(j)
+			break
+		end
+	end
+		
+	--Give weapon to player
+	ent:SetPos(pl:GetPos())
+	
+	--Select weapon
+	--pl:SelectWeapon(ent:GetClass())
+	--timer.Simple(1,function() engine.LightStyle(0,"b") end)
 end
 
 function GM:TryHumanPickup(pl, entity)
