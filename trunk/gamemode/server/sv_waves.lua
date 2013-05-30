@@ -320,11 +320,12 @@ function GM:PlayerUse(pl, entity)
 end
 
 function GM:TryWeaponPickup(pl, ent)
+
 	--For now completely disabled. Fixes required: Anti-ammo exploit, Auto-select weapon
-	return false
+	--return false
 
 	--Check if ent is a weapon
-	if not ent:IsWeapon() then
+	--[[if not ent:IsWeapon() then
 		return
 	end
 
@@ -338,36 +339,6 @@ function GM:TryWeaponPickup(pl, ent)
 		return
 	end
 
-	--Some hard way around checking category.. but yeah
-	--[[local Automatic, Pistol, Melee = pl:GetAutomatic(), pl:GetPistol(), pl:GetMelee()
-	
-	local StrCategory = GetWeaponCategory(ent:GetClass())
-	local StrWep = nil
-				
-	if StrCategory == "Automatic" then
-		if Automatic then
-			StrWep = Automatic
-		end
-	elseif StrCategory == "Pistol" then
-		if Pistol then
-			StrWep = Pistol
-		end
-	elseif StrCategory == "Melee" then
-		if Melee then
-			StrWep = Melee
-		end
-	end
-	
-	--Drop same type of weapon if we already have it
-	if StrWep then
-		for i,j in pairs (pl:GetWeapons()) do
-			if j:GetClass() == StrWep:GetClass() then
-				pl:DropWeapon(j)
-				break
-			end
-		end
-	end]]
-	
 	--Get weapon category
 	local wepCategory = GetWeaponCategory(StrWep:GetClass())
 	
@@ -391,6 +362,7 @@ function GM:TryWeaponPickup(pl, ent)
 	--Select weapon
 	--pl:SelectWeapon(ent:GetClass())
 	--timer.Simple(1,function() engine.LightStyle(0,"b") end)
+	]]
 end
 
 function GM:TryHumanPickup(pl, entity)
