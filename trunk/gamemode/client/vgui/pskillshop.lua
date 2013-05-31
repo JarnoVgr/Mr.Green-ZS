@@ -690,12 +690,11 @@ function CloseSkillShop()
 		DrawSkillShop()
 	end]]
 
-	SKILLSHOP_OPENED = false
-	
-
 	BlurMenu:Close()
 	InvisiblePanel:Close()
 	MainPanel:Close()
+
+	--SKILLSHOP_OPENED = false
 end
 
 function IsSkillShopOpen()
@@ -704,7 +703,6 @@ end
 
 function DoSkillShopMenu()
 	SKILLSHOP_OPENED = not SKILLSHOP_OPENED
-	
 	-- This is not wrong
 	if IsSkillShopOpen() then
 		DrawSkillShop()
