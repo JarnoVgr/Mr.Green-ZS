@@ -700,6 +700,7 @@ function CalculatePlayerLoadout ( pl )
 		pl:Give ( tostring ( v ) )
 	end
 	
+	
 	if ARENA_MODE then
 		pl:Give(table.Random(GAMEMODE.ArenaWeapons))
 		pl:GiveAmmo(650,"ar2")
@@ -707,6 +708,18 @@ function CalculatePlayerLoadout ( pl )
 		pl:GiveAmmo(650,"buckshot")
 		pl:GiveAmmo(650,"pistol")
 		pl:GiveAmmo(650,"357")
+	else
+		--Check if bought Magnum (give 1/3rd chance)
+		if pl:HasBought("magnumman") and math.random(1,3) == 1 then
+			--Strip previous pistol
+			local Pistol = pl:GetPistol()
+			if Pistol then
+				pl:StripWeapon( Pistol:GetClass() )
+			end
+			
+			--Give new magnum
+			pl:Give( "weapon_zs_magnum" )
+		end
 	end
 	
 	if ToGive and #ToGive > 0 then pl:SelectWeapon ( tostring ( ToGive[1] ) ) end

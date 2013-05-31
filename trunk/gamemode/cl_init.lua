@@ -1811,49 +1811,6 @@ end
 
 -- 2 second tick
 local tbWarnings = { Sound ( "npc/zombie_poison/pz_alert1.wav" ), Sound ( "npc/zombie_poison/pz_call1.wav" ), Sound ( "npc/fast_zombie/fz_alert_far1.wav" ), Sound ( "ambient/creatures/town_zombie_call1.wav" ) }
-local function UpdateDifficulty()
-	if ENDROUND then return end
-	
-	-- Get difficulty
-	difficulty = GetDifficulty()
-
-	local bSound = false
-	local iAmount = 0
-	
-	-- Infliction and threshold table
-	local Infliction = GetInfliction()
-	local ThresTable = { [1] = { Min = 0, Max = 0.3 }, [2] = { Min = 0.3, Max = 0.4 } ,[3] = { Min = 0.4, Max = 0.5 }, [4] = { Min = 0.5, Max = 0.75 }, [5] = { Min = 0.75, Max = 1 } }
-	
-	-- Check the current infliction
-	for k,v in pairs (ThresTable) do
-		if Infliction <= ThresTable[k].Max and Infliction > ThresTable[k].Min then
-			Threshold = k - 1
-		end	
-	end
-	
-	-- Lock/unlock the class
-	for i=1, #ZombieClasses do
-		if ZombieClasses[i] then
-			if ( ( ZombieClasses[i].Threshold <= Threshold ) or ( ZombieClasses[i].TimeLimit and ZombieClasses[i].TimeLimit < CurTime() ) ) and not ZombieClasses[i].Unlocked then
-				ZombieClasses[i].Unlocked = true
-				if iAmount == 0 then sWarning = ZombieClasses[i].Name else sWarning = sWarning.." and ".. ZombieClasses[i].Name end
-				iAmount = iAmount + 1
-				bSound = true
-			end
-		end
-	end
-
-	if not LASTHUMAN and bSound then
-		if iAmount > 2 then
-			sWarning = iAmount .." classes"
-		end
-		if ValidEntity( LocalPlayer() ) then
-			surface.PlaySound( table.Random ( tbWarnings ) )
-			MySelf:Message( sWarning.." unlocked!", 3 )
-		end
-	end
-end
---timer.Create ( "PredictDifficulty", 2, 0, UpdateDifficulty )
 
 local function SetDrop(um)
 	local DropCount = um:ReadLong()

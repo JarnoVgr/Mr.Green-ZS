@@ -320,9 +320,7 @@ function GM:PlayerUse(pl, entity)
 end
 
 function GM:TryWeaponPickup(pl, ent)
-
-	--For now completely disabled. Fixes required: Anti-ammo exploit, Auto-select weapon
-	--return false
+	--For now completely disabled. Fixes required: Anti-ammo exploit, Auto-select appropiate weapon
 
 	--Check if ent is a weapon
 	--[[if not ent:IsWeapon() then

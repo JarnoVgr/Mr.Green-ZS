@@ -2182,7 +2182,7 @@ end
 shopData = {
 	[1] = { Cost = 800, Type = "hat", AdminOnly = false, Desc = "Eating too many eggs in the morning? No problem. This is your solution! Now you can eat eggs, in-game, too!", Key = "egg", ID = 1, Sell = 0, Requires = 0, Name = "Egg Hat",  },
 	[2] = { Cost = 800, Type = "hat", AdminOnly = false, Desc = "If you wear this, you'll look like that anime character,Kanti Sama.", Key = "monitor", ID = 2, Sell = 0, Requires = 0, Name = "TV Head",  },
-	[3] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "Join the group with your only friend, Mister .357 cal. Have a 1/3 chance of starting the round with a magnum! Damage with this weapon increased by 50%.", Key = "magnumman", ID = 3, Sell = 0, Requires = 0, Name = "Mysterious Stranger",  },
+	[3] = { Cost = 5000, Type = "misc", Hidden = false, AdminOnly = false, Desc = "Join the group with your only friend, Mister .357 cal. Have a 1/3 chance of starting the round with a magnum.", Key = "magnumman", ID = 3, Sell = 0, Requires = 0, Name = "Mysterious Stranger",  },
 	[4] = { Cost = 6000, Hidden = true, AdminOnly = false, Desc = "You kill humans for a living. Literally. Restores half your HP after killing a human!", Key = "steamroller", ID = 4, Sell = 0, Requires = 0, Name = "Steamroller",  },
 	[5] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "Get an additional weapon after redeeming. More zombies, better weapon.", Key = "comeback", ID = 5, Sell = 0, Requires = 0, Name = "Comeback",  },
 	[6] = { Cost = 1000, Type = "other", AdminOnly = false, Desc = "Being a bit paranoid about those toxic fumes? No worries, carry this mask! (note: it doesn't work against toxis fumes).", Key = "mask", ID = 6, Sell = 0, Requires = 0, Name = "Mask",  },
