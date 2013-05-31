@@ -371,6 +371,8 @@ table.insert ( ResourceFiles, "materials/phoenix_storms/egg_bump.vtf" )
 table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vmt" )
 table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vtf" )
 table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01_normal.vtf" )
+
+--Class menuicons
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/arrow.vtf" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombie.vtf" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/arrow.vmt" )
@@ -391,6 +393,7 @@ table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/headcrab.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/poisonheadcrab.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/torso.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vmt")
+
 -- Howler materials
 table.insert ( ResourceFiles, "materials/models/mrgreen/howler/eyes.vmt" )
 table.insert ( ResourceFiles, "materials/models/mrgreen/howler/eye.vtf" )
@@ -411,6 +414,7 @@ table.insert ( ResourceFiles, "materials/zombiesurvival/crosshair/undead_crossha
 table.insert( ResourceFiles, "materials/effects/hazard_icon.vtf" )
 table.insert( ResourceFiles, "materials/effects/hazard_icon.vmt" )
 
+--Scope
 table.insert ( ResourceFiles, "materials/zombiesurvival/scope/scope.vtf" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/scope/scope.vmt" )
 

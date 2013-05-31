@@ -582,10 +582,10 @@ CARRY_SPEEDLOSS_MINSPEED = 88
 -- -- -- -- -- -- -- -- /
 
 -- Used to spawn supply crates on this interval. ( seconds ) 
-DEFAULT_SUPPLY_CRATE_SPAWN_TIME = 240
+DEFAULT_SUPPLY_CRATE_SPAWN_TIME = math.random(200,280)
 
 -- Maximum crates per map
-MAXIMUM_CRATES = math.random(2,3)
+MAXIMUM_CRATES = math.random(1,3)
 
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = true
@@ -1306,6 +1306,7 @@ ZombieClasses[4] =
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
+util.PrecacheModel("models/mrgreen/howler.mdl")
 ZombieClasses[5] =						
 {
 	Name = "Howler",
@@ -1315,16 +1316,18 @@ ZombieClasses[5] =
 	MaxHealth = 150,
 	TimeLimit = 460,
 	Bounty = 70,
-	SP = 15,	
-	Threshold = 4,					
+	SP = 15,
+	Threshold = 4,			
 	SWEP = "weapon_zs_undead_howler",			
 	JumpPower = 200,
 	CanCrouch = true,
 	CanGib = false,
 	Model = Model( "models/player/group01/female_01.mdl" ), 
+	--Model = Model( "models/mrgreen/howler.mdl" ),
 	Speed = 170,						
 	Description = "Screams that damage nearby humans.",
 	Unique = "Unique abilities: Can disorientate humans and pull humans closer.",
+	PlayerFootstep = true,
 	AttackSounds = { 
 				Sound ( "player/zombies/howler/howler_scream_01.wav" ),
 				Sound ( "player/zombies/howler/howler_scream_02.wav" ),
@@ -1338,10 +1341,9 @@ ZombieClasses[5] =
 	DeathSounds = {
 				Sound( "player/zombies/howler/howler_death_01.wav" ),
 				}, 
-	PlayerFootstep = true,
 	OnSpawn = function(pl)
 		
-		-- pl:SetModel("models/player/group01/female_01.mdl")
+		--pl:SetModel("models/player/group01/female_01.mdl")
 	
 		local status = pl:GiveStatus("overridemodel")
 		
@@ -1351,7 +1353,7 @@ ZombieClasses[5] =
 	end,
 	-- ViewOffset = Vector( 0, 0, 0 )
 }
-util.PrecacheModel("models/mrgreen/howler.mdl")
+
 ZombieClasses[6] =
 {
 	Name = "Headcrab",
