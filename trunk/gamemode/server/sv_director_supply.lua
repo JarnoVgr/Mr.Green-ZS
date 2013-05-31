@@ -169,7 +169,7 @@ local function OnPlayerUse(pl, key)
 	end
 	
 	--Prevent using supplies when fighting, unless it's the latest wave
-	if GAMEMODE:GetFighting() and GAMEMODE:GetWave() ~= 6 then
+	--[[if GAMEMODE:GetFighting() and GAMEMODE:GetWave() ~= 6 then
 		if not pl.SupplyMessageTimer then
 			pl.SupplyMessageTimer = 0
 		end
@@ -180,7 +180,7 @@ local function OnPlayerUse(pl, key)
 		end
 		
 		return
-	end
+	end]]
 	
 	--Open shop menu
 	pl:SendLua("DoSkillShopMenu()")
