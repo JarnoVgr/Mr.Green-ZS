@@ -685,15 +685,17 @@ function CloseSkillShop()
 	gui.EnableScreenClicker( false )
 	
 	-- Close the menu
-	if not BlurMenu:Close() then
+	--[[if not BlurMenu:Close() then
 		SKILLSHOP_OPENED = false
 		DrawSkillShop()
-	end
-	InvisiblePanel:Close()
-	MainPanel:Close()
-	
+	end]]
+
 	SKILLSHOP_OPENED = false
 	
+
+	BlurMenu:Close()
+	InvisiblePanel:Close()
+	MainPanel:Close()
 end
 
 function IsSkillShopOpen()
