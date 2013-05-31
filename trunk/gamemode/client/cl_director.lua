@@ -21,7 +21,6 @@ ClientsideConvars["_zs_showhorde"] = {Value = 1, ShouldSave = true, UserData = f
 -- ClientsideConvars["_zs_hcolormod"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable Dark Color mod (humans)"}
 ClientsideConvars["_zs_enablecolormod"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Enable entire color mod (humans)"}
 ClientsideConvars["_zs_enableironsightblur"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Enable blur while ironsight"}
-ClientsideConvars["_zs_enablefilmgrain"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable Film Grain"}
 ClientsideConvars["_zs_ironsight"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable crosshair while ironsight"}
 ClientsideConvars["_zs_enablehats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable hat drawing"}
 -- ClientsideConvars["_zs_customweaponpos"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Centered weapon's position"}

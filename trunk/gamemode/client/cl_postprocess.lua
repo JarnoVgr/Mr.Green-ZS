@@ -15,14 +15,8 @@ local render = render
 
 
 CreateClientConVar("_disable_pp", 0, true, false)
-CreateClientConVar("_zs_enableblur",1,true,false) 
--- CreateClientConVar("_zs_enablefilmgrain", 1, true, false)
--- CreateClientConVar("_zs_enablecolormod", 1, true, false)
-CreateClientConVar("_zs_filmgrainopacity", 4, true, false)
--- CreateClientConVar( "_zs_ironsight",0, true, false ) 
+CreateClientConVar("_zs_enableblur",1,true,false)
 
-local FILM_GRAIN = util.tobool( GetConVarNumber("_zs_enablefilmgrain") )
-local FILM_GRAIN_OPACITY = GetConVarNumber( "_zs_filmgrainopacity" )
 local COLOR_MOD = true
 local DAMAGE_BLUR = true
 IRON_CROSSHAIR = false
@@ -306,10 +300,7 @@ function GM:_RenderScreenspaceEffects()
 		
 	-- Sharpen Effect Think
 	CalculateSharpenEffect()
-	
-	-- Dynamic Filmgrain
-	CalculateFilmGrainEffect()
-	
+
 	-- Dynamic color mod
 	CalculateColorMod()
 	
@@ -443,44 +434,6 @@ function DrawBlur ( starttime, amount )
     surface.DrawRect( x * -1, y * -1, ScrW(), ScrH() )
            
     DisableClipping( false )
-end
-
---[==[---------------------------------------------------------
-	Calculates how much film grain to apply
----------------------------------------------------------]==]
-local fFilmGrain, matFilmGrain = 0, surface.GetTextureID( "zombiesurvival/filmgrain/filmgrain.vtf" )
-function CalculateFilmGrainEffect()
-	if not ValidEntity ( MySelf ) or ENDROUND then return end
-	if not util.tobool( GetConVarNumber("_zs_enablefilmgrain") ) then return end
-	
-	local fFilmGrainAmount, iLimit, iOffset = 0, 2.3, 3
-	if WIDESCREEN then iLimit, iOffset = 2.3, 0.6  end
-	
-	-- Get how many zombies are there near me
-	if MySelf:Team() == TEAM_HUMAN then
-		local ZombiesNearMe = GetZombieFocus ( MySelf, 300 )
-		fFilmGrainAmount = math.Clamp ( ZombiesNearMe + iOffset, 0, iLimit )
-	end
-	
-	-- Get how many humans are near me (zombie side grain)
-	if MySelf:Team() == TEAM_UNDEAD then
-		local HumansNearMe = GetHumanFocus ( MySelf, 180 )
-		fFilmGrainAmount = math.Clamp ( HumansNearMe + iOffset, 0, iLimit )
-	end
-	
-	-- Smooth the contrast apparition
-	fFilmGrain = math.Approach ( fFilmGrain, fFilmGrainAmount, 0.08 )
-		
-	-- Apply film grain material
-	surface.SetTexture ( matFilmGrain )
-	surface.SetDrawColor( 225, 225, 225, fFilmGrain * 1.5 )
-			
-	-- Tile it on the screen
-	for x = 0, w, 1024 do
-		for y = 0, h, 512 do
-			surface.DrawTexturedRect( x, y, 1024, 512 )
-		end
-	end
 end
 
 local function DecayPoisonedEffect()
@@ -627,19 +580,6 @@ local function ZS_EnableMotionBlur(sender, command, arguments)
 end
 concommand.Add("zs_enablemotionblur", ZS_EnableMotionBlur)
 
-local function ZS_EnableFilmGrain(sender, command, arguments)
-	FILM_GRAIN = util.tobool(arguments[1])
-
-	if FILM_GRAIN then
-		RunConsoleCommand("_zs_enablefilmgrain", "1")
-		MySelf:ChatPrint("Film Grain enabled.")
-	else
-		RunConsoleCommand("_zs_enablefilmgrain", "0")
-		MySelf:ChatPrint("Film Grain disabled.")
-	end
-end
-concommand.Add("zs_enablefilmgrain", ZS_EnableFilmGrain)
-
 local function ZS_EnableColorMod(sender, command, arguments)
 	COLOR_MOD = util.tobool(arguments[1])
 
@@ -652,13 +592,6 @@ local function ZS_EnableColorMod(sender, command, arguments)
 	end
 end
 concommand.Add("zs_enablecolormod", ZS_EnableColorMod)
-
-local function ZS_FilmGrainOpacity(sender, command, arguments)
-	FILM_GRAIN_OPACITY = arguments[1]
-
-	RunConsoleCommand("_zs_filmgrainopacity", FILM_GRAIN_OPACITY)
-end
-concommand.Add("zs_filmgrainopacity", ZS_FilmGrainOpacity)
 
 local function ZS_EnableBlur(sender, command, arguments)
 	DAMAGE_BLUR = util.tobool(arguments[1])

@@ -391,8 +391,6 @@ table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/headcrab.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/poisonheadcrab.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/torso.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vmt")
-table.insert ( ResourceFiles, "materials/zombiesurvival/filmgrain/filmgrain.vmt")
-table.insert ( ResourceFiles, "materials/zombiesurvival/filmgrain/filmgrain.vtf")
 -- Howler materials
 table.insert ( ResourceFiles, "materials/models/mrgreen/howler/eyes.vmt" )
 table.insert ( ResourceFiles, "materials/models/mrgreen/howler/eye.vtf" )
