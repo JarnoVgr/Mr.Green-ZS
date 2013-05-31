@@ -3,15 +3,6 @@
 
 if SERVER then AddCSLuaFile ( "shared.lua" ) end
 
-
-local math = math
-local team = team
-local util = util
-local timer = timer
-local ents = ents
-local pairs = pairs
-local ipairs = ipairs
-
 SWEP.Author = "JetBoom"
 SWEP.Contact = ""
 SWEP.Purpose = ""
@@ -59,11 +50,11 @@ end
 
 function SWEP:Initialize()
 	if CLIENT then
-		self.BreathSound = CreateSound(self.Weapon,Sound("npc/fast_zombie/breathe_loop1.wav"))
+		--[[self.BreathSound = CreateSound(self.Weapon,Sound("npc/fast_zombie/breathe_loop1.wav"))
 				
 		if self.BreathSound then
 			self.BreathSound:Play()
-		end
+		end]]
 	end
 end
 
@@ -213,7 +204,7 @@ function SWEP:PrimaryAttack()
 	self.NextAttack = ct + self.Primary.Delay
 	
 	-- Calculate damage done
-	local Damage = math.Rand(6,8)
+	local Damage = math.Rand(4,7)
 	
 	-- Trace an object
 	local nTrace = Owner:TraceLine( 75, MASK_SHOT, trFilter )
@@ -263,7 +254,7 @@ function SWEP:PrimaryAttack()
 	self:DamageEntity ( TraceHull.Entity, Damage ) 
 end
 	
-function SWEP:DamageEntity ( ent, Damage )
+function SWEP:DamageEntity( ent, Damage )
 	if not ValidEntity ( ent ) then
 		return
 	end
@@ -309,7 +300,7 @@ function SWEP:DamageEntity ( ent, Damage )
 	end
 	
 	-- Apply force to the correct object
-	if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() then --  and not ent:IsPlayer()
+	if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() then
 		if Velocity.z < 200 then Velocity.z = 200 end
 				
 		phys:ApplyForceCenter( Velocity * 2 )
@@ -357,7 +348,9 @@ function SWEP:SecondaryAttack()
 		return
 	end
 	
-	if trClimb.HitWorld then return end
+	if trClimb.HitWorld then
+		return
+	end
 	
 	-- Leap cooldown / player flying
 	if CurTime() < self.NextLeap or not bOnGround or self.Leaping then
@@ -366,11 +359,13 @@ function SWEP:SecondaryAttack()
 	
 	-- Set flying velocity
 	local Velocity = self.Owner:GetAngles():Forward() * 800
-	if Velocity.z < 200 then Velocity.z = 200 end
+	if Velocity.z < 200 then
+		Velocity.z = 200
+	end
 	
 	-- Apply velocity and set leap status to true
-	Owner:SetGroundEntity( NULL )
-	Owner:SetLocalVelocity( Velocity )
+	Owner:SetGroundEntity(NULL)
+	Owner:SetLocalVelocity(Velocity)
 	
 	self.Leaping = true
 	
@@ -378,7 +373,9 @@ function SWEP:SecondaryAttack()
 	self.NextLeap = CurTime() + 1.5
 	
 	-- Fast zombie scream
-	if SERVER then Owner:EmitSound( "npc/fast_zombie/fz_scream1.wav" ) end
+	if SERVER then
+		Owner:EmitSound( "npc/fast_zombie/fz_scream1.wav" )
+	end
 end
 
 function SWEP:Reload()
@@ -387,9 +384,9 @@ end
 
 function SWEP:OnRemove()
 	if CLIENT then
-		if self.BreathSound then
+		--[[if self.BreathSound then
 			self.BreathSound:Stop()
-		end
+		end]]
 	end
 return true
 end
