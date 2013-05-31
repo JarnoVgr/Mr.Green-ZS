@@ -582,10 +582,10 @@ CARRY_SPEEDLOSS_MINSPEED = 88
 -- -- -- -- -- -- -- -- /
 
 -- Used to spawn supply crates on this interval. ( seconds ) 
-DEFAULT_SUPPLY_CRATE_SPAWN_TIME = math.random(200,280)
+DEFAULT_SUPPLY_CRATE_SPAWN_TIME = math.random(220,300)
 
 -- Maximum crates per map
-MAXIMUM_CRATES = math.random(1,3)
+MAXIMUM_CRATES = math.random(1,2)
 
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = true
