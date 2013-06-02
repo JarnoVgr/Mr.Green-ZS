@@ -183,7 +183,7 @@ function hud.ZombieHUD()
 	
 	hud.DrawBossHealth()
 	hud.DrawNewZombieHUD()
-	
+
 end
 hook.Add ( "HUDPaint", "hud.ZombieHUD", hud.ZombieHUD )
 
@@ -483,7 +483,42 @@ function hud.DrawNewHumanHUD()
 	draw.SimpleTextOutlined("Objective: "..Objectives[GAMEMODE:GetObjStage()].Info, "ArialBoldFive", 10, 25, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))	
 end
 
+function hud.DrawWeaponLabels()
+    if not IsEntityValid ( MySelf ) or ENDROUND then return end
+    
+    -- SQL ready
+    if not MySelf.ReadySQL then return end
 
+    if not MySelf:Alive() then return end
+    if IsClassesMenuOpen() then return end
+    -- if IsSkillShopOpen() then return end
+    
+    -- Only humans
+    if not MySelf:IsHuman() then return end
+    
+    if util.tobool(GetConVarNumber("_zs_hidehud")) then return end
+    
+    local ents = ents.FindByClass( "weapon_*" )
+    for k, ent in pairs( ents ) do
+        if ent:IsWeapon() then
+            if not IsValid( ent:GetOwner() ) and ( ent:GetPos():Distance( LocalPlayer():GetPos() ) < 512 ) then
+                local camPos = ent:GetPos() + Vector( 0, 0, 8 )
+                local camAngle = ( LocalPlayer():GetPos() - ent:GetPos() ):Angle()
+                
+                camAngle.p = 0
+                camAngle.y = camAngle.y + 90
+                camAngle.r = camAngle.r + 90
+                
+                local name = ent.PrintName or "Weapon"
+                
+                cam.Start3D2D( camPos, camAngle, 0.2 )
+                    draw.SimpleTextOutlined( name, "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) ) 
+                cam.End3D2D()
+            end   
+        end  
+    end
+end
+hook.Add( "PostDrawTranslucentRenderables", "RenderWeaponLabels", hud.DrawWeaponLabels )
 
 function hud.DrawAmmoPanel()
 	
