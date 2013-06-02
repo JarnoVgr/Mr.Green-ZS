@@ -1632,7 +1632,6 @@ function ApplySkillShopItem(pl,com,args)
 	if not ValidEntity(pl) then return end
 	if not args then return end
 	if #args <= 0 then return end
-	if GAMEMODE:GetFighting() and GAMEMODE:GetWave() ~= 6 then return end
 	if not pl:IsNearCrate() then return end
 	
 	local weapon = args[1]

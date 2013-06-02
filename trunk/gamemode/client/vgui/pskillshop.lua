@@ -524,7 +524,6 @@ function DrawSkillShop()
 
 	if not MySelf:IsHuman() then return end
 	if not MySelf:Alive() then return end
-	if GAMEMODE:GetFighting() and GAMEMODE:GetWave() ~= 6 then return end
 	if not MySelf:IsNearCrate() then return end
 	
 	if not AlreadyStored then
@@ -558,7 +557,7 @@ function DrawSkillShop()
 	BlurMenu.Think = function ()
 		gui.EnableScreenClicker(true)
 		
-		if MySelf:KeyDown(IN_FORWARD) or MySelf:KeyDown(IN_BACK) or MySelf:KeyDown(IN_MOVELEFT) or MySelf:KeyDown(IN_MOVERIGHT) or GAMEMODE:GetFighting() and GAMEMODE:GetWave() ~= 6 then
+		if MySelf:KeyDown(IN_FORWARD) or MySelf:KeyDown(IN_BACK) or MySelf:KeyDown(IN_MOVELEFT) or MySelf:KeyDown(IN_MOVERIGHT) then
 			surface.PlaySound("items/ammocrate_close.wav")
 			-- CloseSkillShop()
 			DoSkillShopMenu()
@@ -690,9 +689,17 @@ function CloseSkillShop()
 		DrawSkillShop()
 	end]]
 
-	BlurMenu:Close()
-	InvisiblePanel:Close()
-	MainPanel:Close()
+    if ( IsValid( BlurMenu ) ) then
+        BlurMenu:Close()
+    end
+	
+	if ( IsValid( InvisiblePanel ) ) then
+        InvisiblePanel:Close()
+    end
+    
+    if ( IsValid( MainPanel ) ) then
+        MainPanel:Close()
+    end
 
 	--SKILLSHOP_OPENED = false
 end
