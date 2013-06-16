@@ -168,16 +168,16 @@ function SWEP:Swung()
 	end
 	
 	-- Tracehull attack
-	local trHull = self.Owner:MeleeTrace(30, 13, trFilter)
-	-- util.TraceHull( { start = pl:GetShootPos(), endpos = pl:GetShootPos() + ( pl:GetAimVector() * 20 ), filter = trFilter, mins = Vector( -15,-10,-18 ), maxs = Vector( 15,10,18 ) } )
+	--local trHull = self.Owner:MeleeTrace(48, 1.5, trFilter)
+	--local traces = self.owner:PenetratingMeleeTrace(self.MeleeReach, self.MeleeSize, self.PreHit)
 	
-	if not ValidEntity ( victim ) then	
-		local tr = pl:TraceLine ( self.DistanceCheck, MASK_SHOT, trFilter )
+	if not ValidEntity(victim) then	
+		local tr = pl:TraceLine(self.DistanceCheck, MASK_SHOT, trFilter)
 		victim = tr.Entity
 	end
 	
-	TraceHit = ValidEntity ( victim )
-	HullHit = ValidEntity ( trHull.Entity )
+	TraceHit = ValidEntity(victim)
+	HullHit = ValidEntity(trHull.Entity)
 	
 	-- Play miss sound anyway
 	pl:EmitSound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav")

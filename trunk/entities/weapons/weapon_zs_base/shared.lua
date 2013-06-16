@@ -174,7 +174,9 @@ end
 function SWEP:PrimaryAttack()
 
 	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-	if not self:CanPrimaryAttack() then return end
+	if not self:CanPrimaryAttack() then
+		return
+	end
 	
 	self:EmitFireSound()
 
@@ -324,7 +326,9 @@ function SWEP:TakeAmmo()
 end
 
 function SWEP:Reload()
-	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
+	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
+		return
+	end
 
 	if self:GetIronsights() then
 		self:SetIronsights(false)
@@ -351,7 +355,7 @@ function SWEP:CanPrimaryAttack()
 
 	if self:Clip1() <= 0 then
 		self:EmitSound("Weapon_Pistol.Empty")
-		self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+		self.Weapon:SetNextPrimaryFire(CurTime() + math.max(0.25, self.Primary.Delay))
 		return false
 	end
 
@@ -385,50 +389,19 @@ function SWEP:DoBulletKnockback()
 end
 
 function GenericBulletCallback(attacker, tr, dmginfo)
-		
-		--[=[if SERVER then
-			if dmginfo then
-			-- if not dmginfo then dmginfo = DamageInfo() end
-			
-			dmginfo:SetDamageType( DMG_BULLET )
-			-- dmginfo:SetDamage ( self.Primary.Damage )
-			dmginfo:SetAttacker(attacker)
-			dmginfo:SetDamagePosition(tr.HitPos)
-			dmginfo:SetDamageForce(dmginfo:GetDamage()*190 * attacker:GetAimVector())
-			
-			if attacker:IsPlayer() and attacker:GetActiveWeapon():IsValid() then
-				dmginfo:SetInflictor( attacker:GetActiveWeapon() )
-			end
-			
-			print("checking bullets----------")
-			print(tostring(attacker))
-			print(tostring(dmginfo:GetAttacker()))
-			print(tostring(dmginfo:GetInflictor()))
-			print(tostring(dmginfo:GetDamage()))
-			print(tostring(dmginfo:GetDamageType()))
-			print("----------")
-			end
-		end]=]
-
-
 	local ent = tr.Entity
-	if IsValid(ent) then
-		if ent:IsPlayer() then
-			if ent.Team and ent:Team() == TEAM_UNDEAD and tempknockback then
-				tempknockback[ent] = ent:GetVelocity()
-			end
-		else
-			local phys = ent:GetPhysicsObject()
-			if ent:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
-				ent:SetPhysicsAttacker(attacker)
-			end
+	if not IsValid(ent) then
+		return
+
+	if ent:IsPlayer() then
+		if ent:Team() == TEAM_UNDEAD and tempknockback then
+			tempknockback[ent] = ent:GetVelocity()
 		end
-		--[[if SERVER then
-			if dmginfo then
-				local dmginfo = GAMEMODE:EntityTakeDamage( ent, attacker, dmginfo:GetInflictor(), dmginfo:GetDamage(), dmginfo )
-				ent:TakeDamageInfo(dmginfo)
-			end
-		end]]
+	else
+		local phys = ent:GetPhysicsObject()
+		if ent:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
+			ent:SetPhysicsAttacker(attacker)
+		end
 	end
 end
 
