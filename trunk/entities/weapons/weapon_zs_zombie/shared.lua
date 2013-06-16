@@ -168,7 +168,7 @@ function SWEP:Swung()
 	end
 	
 	-- Tracehull attack
-	--local trHull = self.Owner:MeleeTrace(48, 1.5, trFilter)
+	local trHull = self.Owner:MeleeTrace(48, 1.5, trFilter)
 	--local traces = self.owner:PenetratingMeleeTrace(self.MeleeReach, self.MeleeSize, self.PreHit)
 	
 	if not ValidEntity(victim) then	
