@@ -67,7 +67,7 @@ function SWEP:Think()
 					if ent:GetClass() == "func_breakable_surf" then
 						ent:Fire("break", "", 0)
 					else
-						local damage = math.random(9,14)
+						local damage = math.random(6,9)
 						local phys = ent:GetPhysicsObject()
 
 						if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() then
@@ -109,7 +109,7 @@ function SWEP:PrimaryAttack()
 	angles.z = -0.1
 	angles = angles:GetNormal()
 	
-	self.OwnerAngles = angles * 48
+	self.OwnerAngles = angles * 52
 	self.OwnerOffset = Vector(0, 0, 6)
 	self.Owner:SetGroundEntity(NULL)
 	self.Owner:SetLocalVelocity(vel * 450)
