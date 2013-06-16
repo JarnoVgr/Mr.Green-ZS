@@ -1963,13 +1963,11 @@ PlayerModels = {
 		"models/player/Group01/Female_03.mdl",
 		"models/player/Group01/Female_04.mdl",
 		"models/player/Group01/Female_06.mdl",
-		"models/player/Group01/Female_07.mdl",
 		"models/player/Group03/Female_01.mdl",
 		"models/player/Group03/Female_02.mdl",
 		"models/player/Group03/Female_03.mdl",
 		"models/player/Group03/Female_04.mdl",
 		"models/player/Group03/Female_06.mdl",
-		--"models/player/Group03/Female_07.mdl",
 		"models/player/Group01/Male_01.mdl",
 		"models/player/Group01/Male_02.mdl",
 		"models/player/Group01/Male_03.mdl",
@@ -1995,10 +1993,10 @@ PlayerModels = {
 		"models/player/riot.mdl",
 		"models/player/swat.mdl",
 		"models/player/urban.mdl",
-		--[["models/player/Hostage/Hostage_01.mdl",
+		"models/player/Hostage/Hostage_01.mdl",
 		"models/player/Hostage/Hostage_02.mdl",
 		"models/player/Hostage/hostage_03.mdl",
-		"models/player/Hostage/hostage_04.mdl",]]
+		"models/player/Hostage/hostage_04.mdl"
 	--Day of Defeat
 		--"models/player/dod_american.mdl",
 		--"models/player/dod_german.mdl",

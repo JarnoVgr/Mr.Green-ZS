@@ -339,7 +339,6 @@ function GM:OnHumanSpawn ( pl )
 	if pl:IsBot() then
 		--Random model
 		PlayerModel = table.Random(PlayerModels)
-		print("Bot spawned with ".. PlayerModel)
 	else
 		--Get preferred model
 		local DesiredName = pl:GetInfo("cl_playermodel")
