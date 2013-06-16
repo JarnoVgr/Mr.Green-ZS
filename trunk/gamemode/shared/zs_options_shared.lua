@@ -1933,16 +1933,76 @@ ZombieClassesCrow =
 	Hidden = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Add models to this table to prevent human players from using them (Zombie skins and such).
+--Add models for players to allow (and randomly be picked from when having no preference)
 
-GM.RestrictedModels = {}
-GM.RestrictedModels["models/player/classic.mdl"] = true -- This is the only one that really looks like a zombie.
-GM.RestrictedModels["models/player/zombie_soldier.mdl"] = true
-GM.RestrictedModels["models/player/zombiefast.mdl"] = true
-GM.RestrictedModels["models/player/corpse1.mdl"] = true
-GM.RestrictedModels["models/player/charple01.mdl"] = true
-GM.RestrictedModels["models/player/zombie_classic.mdl"] = true
-GM.RestrictedModels["models/player/zombie_fast.mdl"] = true
+PlayerModels = {
+	--Half-Life 2
+		"models/player/alyx.mdl",
+		"models/player/barney.mdl",
+		"models/player/breen.mdl",
+		--"models/player/combine_soldier.mdl",
+		--"models/player/combine_soldier_prisonguard.mdl",
+		--"models/player/combine_super_soldier.mdl",
+		--"models/player/soldier_stripped.mdl",
+		--"models/player/police.mdl",
+		"models/player/eli.mdl",
+		"models/player/gman_high.mdl",
+		"models/player/Kleiner.mdl",
+		"models/player/monk.mdl",
+		"models/player/magnusson.mdl",
+		"models/player/mossman.mdl",
+		"models/player/odessa.mdl",
+		--"models/player/classic.mdl",
+		--"models/player/corpse1.mdl",
+		--"models/player/charple01.mdl",
+		"models/player/Group01/Female_01.mdl",
+		"models/player/Group01/Female_02.mdl",
+		"models/player/Group01/Female_03.mdl",
+		"models/player/Group01/Female_04.mdl",
+		"models/player/Group01/Female_06.mdl",
+		"models/player/Group01/Female_07.mdl",
+		"models/player/Group03/Female_01.mdl",
+		"models/player/Group03/Female_02.mdl",
+		"models/player/Group03/Female_03.mdl",
+		"models/player/Group03/Female_04.mdl",
+		"models/player/Group03/Female_06.mdl",
+		"models/player/Group03/Female_07.mdl",
+		"models/player/Group01/Male_01.mdl",
+		"models/player/Group01/Male_02.mdl",
+		"models/player/Group01/Male_03.mdl",
+		"models/player/Group01/Male_04.mdl",
+		"models/player/Group01/Male_05.mdl",
+		"models/player/Group01/Male_06.mdl",
+		"models/player/Group01/Male_07.mdl",
+		"models/player/Group01/Male_08.mdl",
+		"models/player/Group03/Male_01.mdl",
+		"models/player/Group03/Male_02.mdl",
+		"models/player/Group03/Male_03.mdl",
+		"models/player/Group03/Male_04.mdl",
+		"models/player/Group03/Male_05.mdl",
+		"models/player/Group03/Male_06.mdl",
+		"models/player/Group03/Male_07.mdl",
+		"models/player/Group03/Male_08.mdl",
+	--Counter-Strike
+		"models/player/arctic.mdl",
+		"models/player/leet.mdl",
+		"models/player/guerilla.mdl",
+		"models/player/phoenix.mdl",
+		"models/player/gasmask.mdl",
+		"models/player/riot.mdl",
+		"models/player/swat.mdl",
+		"models/player/urban.mdl",
+		--[["models/player/Hostage/Hostage_01.mdl",
+		"models/player/Hostage/Hostage_02.mdl",
+		"models/player/Hostage/hostage_03.mdl",
+		"models/player/Hostage/hostage_04.mdl",]]
+	--Day of Defeat
+		--"models/player/dod_american.mdl",
+		--"models/player/dod_german.mdl",
+	--Portal 2
+		--"models/player/p2_chell.mdl",
+	--Custom
+}
 
 --[=[---------------------------------------------
 		Human Perks/Classes

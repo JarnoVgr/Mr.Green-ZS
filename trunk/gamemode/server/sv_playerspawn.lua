@@ -309,7 +309,9 @@ end
 	Called everytime a human spawns
 -------------------------------------------------]==]
 function GM:OnHumanSpawn ( pl )
-	if not pl:IsHuman() then return end
+	if not pl:IsHuman() then
+		return
+	end
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
@@ -323,44 +325,41 @@ function GM:OnHumanSpawn ( pl )
 	end
 	
 	-- Strip weapons (bots automatically spawn)
-	if not pl:IsBot() then pl:StripWeapons() end
+	if not pl:IsBot() then
+		pl:StripWeapons()
+	end
 	
 	-- Reset the Ammo-Regeneration Timer and send it to the client
-	pl:SetAmmoTime( AMMO_REGENERATE_RATE, true )
+	pl:SetAmmoTime(AMMO_REGENERATE_RATE, true)
 	
-	local Class = pl:GetHumanClass()
+	--local Class = pl:GetHumanClass()
 	local PlayerModel
-	-- lets take it easy
-	-- local modelname = string.lower(player_manager.TranslatePlayerModel(pl:GetInfo("cl_playermodel")))
 	
-	if table.HasValue(PlayerModels, modelname) then
-	-- 	PlayerModel = modelname
-	else
-	-- 	PlayerModel = "models/player/kleiner.mdl"
-	end
-	
-	local desiredname = pl:GetInfo("cl_playermodel")
-	local modelname = player_manager.TranslatePlayerModel(#desiredname == 0 and self.RandomPlayerModels[math.random(1, #self.RandomPlayerModels)] or desiredname)
-	local lowermodelname = string.lower(modelname)
-	if self.RestrictedModels[lowermodelname] then
-		modelname = "models/player/alyx.mdl"
-	end
-	PlayerModel = modelname
-	
+	--Check if bot
 	if pl:IsBot() then
+		--Random model
 		PlayerModel = table.Random(PlayerModels)
+		
+	else
+		--Get preferred model
+		local DesiredName = pl:GetInfo("cl_playermodel")
+		PlayerModel = player_manager.TranslatePlayerModel(#DesiredName == 0 and self.RandomPlayerModels[math.random(1, #self.RandomPlayerModels)] or DesiredName)
+	
+		--Check if in PlayerModels list
+		if not table.HasValue(PlayerModels, PlayerModel) then
+			PlayerModel = table.Random(PlayerModels)
+		else
+			--Get custom player color
+			local PlayerModelColor = pl:GetInfo("cl_playercolor")
+			
+			--Set player color
+			pl:SetPlayerColor(Vector(PlayerModelColor))
+			
+			--local col = pl:GetInfo( "cl_weaponcolor" )
+			pl:SetWeaponColor(Vector(PlayerModelColor))
+		end	
 	end
-	
-	if pl:IsAdmin() then
-	--	PlayerModel = modelname
-	end
-	
-	pl.SelectedSuit = pl:GetInfo("_zs_defaultsuit") or "none"
-	pl.SelectedHat = pl:GetInfo("_zs_equippedhats") or "none"
-	
-	pl.ReviveCount = 0
-	
-	
+		
 	-- Case 2: If player has bought gordon freeman upgrade then he has a chance to spawn as him
 	--[[if pl:HasBought("gordonfreeman") and not self.GordonIsHere and math.random( 1,5 ) == 1 then
 		pl:ChatPrint("You're now THE Gordon Freeman!")
@@ -375,21 +374,26 @@ function GM:OnHumanSpawn ( pl )
 	
 	-- Change his player model and set up his voice set
 	pl:SetModel(PlayerModel)
-	pl.VoiceSet = VoiceSetTranslate[ string.lower( PlayerModel ) ] or "male"
+	pl.VoiceSet = VoiceSetTranslate[ string.lower(PlayerModel) ] or "male"
+	
+	pl.SelectedSuit = pl:GetInfo("_zs_defaultsuit") or "none"
+	pl.SelectedHat = pl:GetInfo("_zs_equippedhats") or "none"
+	
+	pl.ReviveCount = 0
 			
-	-- Calculate player's speed
+	--Calculate player's speed
 	self:SetPlayerSpeed(pl, CalculatePlayerSpeed(pl))
 
-	-- Set the human's crouch speed
-	pl:SetCrouchedWalkSpeed( 0.65 )
+	--Set crouch speed
+	pl:SetCrouchedWalkSpeed(0.65)
 	
-	-- Set jump power
+	--Set jump power
 	if pl:GetJumpPower() ~= 200 then
-		pl:SetJumpPower( 200 ) 
+		pl:SetJumpPower(200) 
 	end
 	
 	-- Calculate maximum health for human
-	CalculatePlayerHealth( pl )
+	CalculatePlayerHealth(pl)
 	-- pl:SetHealth ( HumanClasses[Class].Health )
 	-- pl:SetMaximumHealth ( HumanClasses[Class].Health )
 	
@@ -398,41 +402,36 @@ function GM:OnHumanSpawn ( pl )
 	-- pl:CalculateViewOffsets()
 	pl:DoHulls()
 			
-	-- Give them what they need
-	CalculatePlayerLoadout ( pl )
+	--Apply loadout
+	CalculatePlayerLoadout(pl)
 	
-	-- check just in case
-	timer.Simple(2,function()
+	--Reapply loadout to prevent spawn bug
+	--	Disabled because it allows a weapon exploit at spawn (dropping all weapons quick and then getting them again)
+	--[[timer.Simple(2,function()
 						if ValidEntity(pl) then
 							if #pl:GetWeapons() < 1 then
 								CalculatePlayerLoadout ( pl )
 							end
 						end
-					end)
+					end)]]
 	
 	self:SendSalesToClient(pl)
 	
-	
 	-- GAMEMODE:SendRanks( { pl },player.GetAll() )
 	-- GAMEMODE:SendXP( { pl },player.GetAll() )
+	
+	--Blood color
 	pl:SetBloodColor(BLOOD_COLOR_RED)
 
+	--
 	self:ProceedCustomSpawn(pl)
-	
-	-- timer.Simple(2,function() if IsValid(pl) then pl:TemporaryNoCollide() end end)
-	
 
-	local col = pl:GetInfo( "cl_playercolor" )
-	pl:SetPlayerColor( Vector( col ) )
-
-	-- local col = pl:GetInfo( "cl_weaponcolor" )
-	pl:SetWeaponColor( Vector( col ) )
-	
-	-- Set hat
+	--Set hat and suit
 	if ( pl.SelectedHat ~= "none" ) or pl:IsBot() then self:SpawnHat( pl, pl.SelectedHat ) end
 	if ( pl.SelectedSuit ~= "none" ) or pl:IsBot() then self:SpawnSuit( pl, pl.SelectedSuit ) end
 	
-	Debug ( "[SPAWN] "..tostring ( pl:Name() ).." spawned as a Human." )
+	--Log
+	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as human")
 end
 
 --[==[------------------------------------------------
