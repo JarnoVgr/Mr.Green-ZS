@@ -1062,10 +1062,10 @@ function GM:IsBossRequired()
 	end
 	
 	--More chance of boss when more players are online
-	local rand = math.random(0,1 + math.Round(#player.GetAll() / 12))
+	--[[local rand = math.random(0,1 + math.Round(#player.GetAll() / 12))
 	if (rand <= 1) then
 		return false
-	end
+	end]]
 	
 	--team.NumPlayers(TEAM_UNDEAD)/team.NumPlayers(TEAM_HUMAN)
 	
