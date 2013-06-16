@@ -1131,6 +1131,9 @@ ZombieClasses[0] =
 		
 			local desiredname = pl:GetInfo("cl_playermodel")
 			local modelname = player_manager.TranslatePlayerModel(#desiredname == 0 and "models/player/group01/male_09.mdl" or desiredname)
+			if not table.HasValueCI(PlayerModels, modelname) then
+				modelname = table.Random(PlayerModels)
+			end
 			local lowermodelname = string.lower(modelname)
 			pl:SetModel(lowermodelname)
 			
@@ -1966,7 +1969,7 @@ PlayerModels = {
 		"models/player/Group03/Female_03.mdl",
 		"models/player/Group03/Female_04.mdl",
 		"models/player/Group03/Female_06.mdl",
-		"models/player/Group03/Female_07.mdl",
+		--"models/player/Group03/Female_07.mdl",
 		"models/player/Group01/Male_01.mdl",
 		"models/player/Group01/Male_02.mdl",
 		"models/player/Group01/Male_03.mdl",

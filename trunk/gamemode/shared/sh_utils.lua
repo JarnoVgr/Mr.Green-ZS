@@ -15,6 +15,17 @@ if SERVER then
 elseif CLIENT then
 	local render = render
 end
+
+--Case Insensitive HasValue variant
+function table.HasValueCI( t, val )
+	val = string.lower(val)
+
+	for k,v in pairs(t) do
+		if (string.lower(v) == val ) then return true end
+	end
+	return false
+end
+
 --[==[---------------------------------------------------------
 	       Get a player by its user ID
 ---------------------------------------------------------]==]

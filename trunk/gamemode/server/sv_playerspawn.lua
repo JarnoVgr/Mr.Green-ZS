@@ -339,14 +339,14 @@ function GM:OnHumanSpawn ( pl )
 	if pl:IsBot() then
 		--Random model
 		PlayerModel = table.Random(PlayerModels)
-		
+		print("Bot spawned with ".. PlayerModel)
 	else
 		--Get preferred model
 		local DesiredName = pl:GetInfo("cl_playermodel")
 		PlayerModel = player_manager.TranslatePlayerModel(#DesiredName == 0 and self.RandomPlayerModels[math.random(1, #self.RandomPlayerModels)] or DesiredName)
 	
 		--Check if in PlayerModels list
-		if not table.HasValue(PlayerModels, PlayerModel) then
+		if not table.HasValueCI(PlayerModels, PlayerModel) then
 			PlayerModel = table.Random(PlayerModels)
 		else
 			--Get custom player color
