@@ -93,7 +93,9 @@ function SWEP:Think()
 			if SERVER then Owner:EmitSound( "physics/flesh/flesh_strider_impact_bullet1.wav" ) end
 			
 			--Bump the victim!
-			if ValidEntity ( Victim ) then self:DamageEntity ( Victim, math.random(0,1) ) end
+			if ValidEntity ( Victim ) then
+				self:DamageEntity(Victim, math.random(0,1))
+			end
 			
 			--Stopped leaping
 			self.Leaping = false
@@ -113,25 +115,6 @@ function SWEP:Think()
 		end
 	end
 
-	--[[if Owner:KeyDown( IN_ATTACK ) and not self.Leaping then
-		if self:GetRoar() >= 8 and not self:IsRoar() then
-			self:SetRoar(0)
-			self.NextAttack = ct + 2
-			--self.Owner.IsRoar = true
-			self.Owner:DoAnimationEvent( CUSTOM_SECONDARY )
-			self:SetRoarEndTime(ct + 2)
-			
-			if SERVER then
-				GAMEMODE:SetPlayerSpeed( self.Owner, 1 )
-				self.Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
-				self.Owner:SetJumpPower( 0 ) 
-				self.Owner:EmitSound("NPC_FastZombie.Frenzy") 
-			end 					
-		end
-	end	
-	
-	self:CheckRoar()]]
-	
 	-- Attacking
 	if not Owner:KeyDown( IN_ATTACK ) then
 		self.Swinging = false
@@ -139,7 +122,6 @@ function SWEP:Think()
 	
 	self:NextThink(ct)
 	return true
-
 end
 
 function SWEP:CheckRoar()
@@ -204,7 +186,7 @@ function SWEP:PrimaryAttack()
 	self.NextAttack = ct + self.Primary.Delay
 	
 	-- Calculate damage done
-	local Damage = math.Rand(4,7)
+	local Damage = math.Rand(3,5)
 	
 	-- Trace an object
 	local nTrace = Owner:TraceLine( 75, MASK_SHOT, trFilter )
@@ -251,7 +233,7 @@ function SWEP:PrimaryAttack()
 	end
 	
 	-- Damage entity with tracehull
-	self:DamageEntity ( TraceHull.Entity, Damage ) 
+	self:DamageEntity(TraceHull.Entity, Damage)
 end
 	
 function SWEP:DamageEntity( ent, Damage )
@@ -414,7 +396,7 @@ function SWEP:Precache()
 	util.PrecacheSound("player/footsteps/metalgrate2.wav")
 	util.PrecacheSound("player/footsteps/metalgrate3.wav")
 	util.PrecacheSound("player/footsteps/metalgrate4.wav")
-	util.PrecacheSound("npc/fast_zombie/gurgle_loop1.wav")
+	--util.PrecacheSound("npc/fast_zombie/gurgle_loop1.wav")
 	
 	-- Quick way to precache all sounds
 	for _, snd in pairs(ZombieClasses[2].PainSounds) do
