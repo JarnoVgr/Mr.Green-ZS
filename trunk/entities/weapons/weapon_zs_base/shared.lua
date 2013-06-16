@@ -392,6 +392,7 @@ function GenericBulletCallback(attacker, tr, dmginfo)
 	local ent = tr.Entity
 	if not IsValid(ent) then
 		return
+	end
 
 	if ent:IsPlayer() then
 		if ent:Team() == TEAM_UNDEAD and tempknockback then
