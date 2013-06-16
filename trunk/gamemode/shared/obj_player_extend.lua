@@ -243,6 +243,47 @@ function meta:MeleeTrace(distance, size, filter, start)
 	return self:TraceHull(distance, MASK_SOLID, size, filter, start)
 end
 
+function meta:PenetratingMeleeTrace(distance, size, prehit, start)
+	start = start or self:GetShootPos()
+
+	local t = {}
+	local trace = {start = start, endpos = start + self:GetAimVector() * distance, filter = self:GetMeleeFilter(), mask = MASK_SOLID, mins = Vector(-size, -size, -size), maxs = Vector(size, size, size)}
+	local onlyhitworld
+	for i=1, 50 do
+		local tr = util.TraceHull(trace)
+
+		if not tr.Hit then
+			break
+		end
+
+		if tr.HitWorld then
+			table.insert(t, tr)
+			break
+		end
+
+		if onlyhitworld then
+			break
+		end
+
+		local ent = tr.Entity
+		if ent and ent:IsValid() then
+			if not ent:IsPlayer() then
+				trace.mask = MASK_SOLID_BRUSHONLY
+				onlyhitworld = true
+			end
+
+			table.insert(t, tr)
+			table.insert(trace.filter, ent)
+		end
+	end
+
+	if prehit and (#t == 1 and not t[1].HitNonWorld and prehit.HitNonWorld or #t == 0 and prehit.HitNonWorld) then
+		t[1] = prehit
+	end
+
+	return t
+end
+
 --[=[---------------------------------------------------------
      Used to get what pistols the player is holding
 ---------------------------------------------------------]=]
@@ -373,7 +414,7 @@ end
              Shared get weapon function/method
 -----------------------------------------------------------]==]
 meta.BaseGetWeapon = meta.GetWeapon
-function meta:GetWeapon ( Class )
+function meta:GetWeapon(Class)
 	if Class == nil then return end
 	
 	-- Base function - Server function
@@ -395,7 +436,7 @@ end
         Improved clientside/serverside FOV
 ----------------------------------------------------]==]
 meta.BaseSetFOV = meta.SetFOV
-function meta:SetFOV ( Fov, Time )
+function meta:SetFOV(Fov, Time)
 	if Fov == nil then return end
 	
 	-- Server-side default function
@@ -467,9 +508,7 @@ end
 meta.OldSetWalkSpeed = meta.SetWalkSpeed
 
 function meta:SetWalkSpeed( s )
-	
 	self:OldSetWalkSpeed( s + (s >= 2 and SHARED_SPEED_INCREASE or 0))
-
 end
 
 meta.OldSetRunSpeed = meta.SetRunSpeed
