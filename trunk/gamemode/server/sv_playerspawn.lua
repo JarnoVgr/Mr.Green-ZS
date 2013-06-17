@@ -341,7 +341,7 @@ function GM:OnHumanSpawn ( pl )
 		PlayerModel = table.Random(PlayerModels)
 	else
 		--Get preferred model
-		local DesiredName = pl:GetInfo("cl_playermodel")
+		--[[local DesiredName = pl:GetInfo("cl_playermodel")
 		if #DesiredName == 0 then
 			PlayerModel = ""
 		else
@@ -361,8 +361,8 @@ function GM:OnHumanSpawn ( pl )
 			
 			--local col = pl:GetInfo( "cl_weaponcolor" )
 			pl:SetWeaponColor(Vector(PlayerModelColor))
-		end
-		--PlayerModel = table.Random(PlayerModels)
+		end]]
+		PlayerModel = table.Random(PlayerModels)
 		
 	end
 		
