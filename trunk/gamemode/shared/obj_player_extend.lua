@@ -979,64 +979,15 @@ if SERVER then
 -- util.AddNetworkString( "SendZombieClass" )
 end
 
-function meta:SetZombieClass ( cl )
-	if CLIENT then return end
+function meta:SetZombieClass(cl)
+	if CLIENT then
+		return
+	end
 
 	self.Class = cl
 	self.ClassTable = ZombieClasses[cl]
 	
 	self:SetDTInt(2,cl)
-	
-	-- local Players = player.GetAll()
-	
-	-- for _,pl in ipairs(Players) do
-		-- table.insert(tosend,{p = pl, class = pl.Class or 0})
-		-- net.Start("SendZombieClass")
-		-- 	net.WriteTable(Players)
-			-- net.WriteEntity(pl)
-			-- net.WriteDouble(pl.Class or 1)
-		-- net.Broadcast()
-	-- end
-	
-	
-
-	
-	--  Add one point to each class chosen every time someone changes class. (for endgame stats)
-	--[==[timer.Simple( 0.1,function() 
-		if ValidEntity ( self ) then
-			local classname = ZombieClasses[cl].Name
-			-- GAMEMODE.TeamMostChosenClass[ classname ] = GAMEMODE.TeamMostChosenClass[ classname ] + 1 
-		end
-	end)]==]
-		
-	-- Split the usermessage in 2 parts
-	--[==[local Players = player.GetAll()
-	local Split = 3
-	if #Players <= 3 then
-		Split = 1
-	end
-	
-	-- Send it - (Heavy shit)
-	local Start, End = 1, math.Round( #Players / Split )
-	local Max = End
-	if End == 1 and #Players > 1 then
-		End = End + 1 
-	end
-	
-	for i = 1, Split do
-		umsg.Start("SendZombieClass")
-			umsg.Short ( Start )
-			umsg.Short ( End )
-			for j = Start, End do
-				umsg.Entity ( Players[j] )
-				umsg.Short ( Players[j].Class )
-			end
-		umsg.End()
-		
-		Start = End + 1
-		if Start > #Players then break end
-		if i == Split - 1 then End = #Players else End = Start + Max end
-	end]==]
 end
 --[=[
 function meta:GetXP()

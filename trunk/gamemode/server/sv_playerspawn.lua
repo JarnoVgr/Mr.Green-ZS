@@ -315,24 +315,24 @@ function GM:OnHumanSpawn ( pl )
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
-	-- Time the player spawned
+	--Time the player spawned
 	pl.SpawnedTime = CurTime()
 	
-	-- Case 1: If the player already got the class menu as human and disconnected then set his same class back and/or hp
+	--Case 1: If the player already got the class menu as human and disconnected then set his same class back and/or hp
 	if pl:ConnectedAlreadyGotWeapons() and pl:ConnectedHumanClass() ~= false then
 		-- pl:SetHumanClass ( pl:ConnectedHumanClass() )
 		DataTableConnected[ID].HumanClass = false
 	end
 	
-	-- Strip weapons (bots automatically spawn)
+	--Strip weapons from real players
 	if not pl:IsBot() then
 		pl:StripWeapons()
 	end
 	
-	-- Reset the Ammo-Regeneration Timer and send it to the client
+	--Reset the Ammo-Regeneration Timer and send it to the client
 	pl:SetAmmoTime(AMMO_REGENERATE_RATE, true)
 	
-	--local Class = pl:GetHumanClass()
+	--Init variable
 	local PlayerModel
 	
 	--Check if bot
@@ -357,7 +357,7 @@ function GM:OnHumanSpawn ( pl )
 			--Set player color
 			pl:SetPlayerColor(Vector(PlayerModelColor))
 			
-			--local col = pl:GetInfo( "cl_weaponcolor" )
+			--Set weapon color
 			pl:SetWeaponColor(Vector(PlayerModelColor))
 		end
 	end
@@ -394,14 +394,10 @@ function GM:OnHumanSpawn ( pl )
 		pl:SetJumpPower(200) 
 	end
 	
-	-- Calculate maximum health for human
+	--Calculate maximum health for human
 	CalculatePlayerHealth(pl)
-	-- pl:SetHealth ( HumanClasses[Class].Health )
-	-- pl:SetMaximumHealth ( HumanClasses[Class].Health )
 	
-	-- CalculateHumanHull( pl )
-	
-	-- pl:CalculateViewOffsets()
+	--
 	pl:DoHulls()
 			
 	--Apply loadout
@@ -409,13 +405,13 @@ function GM:OnHumanSpawn ( pl )
 	
 	--Reapply loadout to prevent spawn bug
 	--	Disabled because it allows a weapon exploit at spawn (dropping all weapons quick and then getting them again)
-	timer.Simple(2,function()
+	--[[timer.Simple(2,function()
 		if ValidEntity(pl) then
 			if #pl:GetWeapons() < 1 then
 				CalculatePlayerLoadout(pl)
 			end
 		end
-	end)
+	end)]]
 	
 	self:SendSalesToClient(pl)
 	
@@ -429,8 +425,12 @@ function GM:OnHumanSpawn ( pl )
 	self:ProceedCustomSpawn(pl)
 
 	--Set hat and suit
-	if ( pl.SelectedHat ~= "none" ) or pl:IsBot() then self:SpawnHat( pl, pl.SelectedHat ) end
-	if ( pl.SelectedSuit ~= "none" ) or pl:IsBot() then self:SpawnSuit( pl, pl.SelectedSuit ) end
+	if (pl.SelectedHat ~= "none") or pl:IsBot() then
+		self:SpawnHat( pl, pl.SelectedHat )
+	end
+	if (pl.SelectedSuit ~= "none") or pl:IsBot() then
+		self:SpawnSuit( pl, pl.SelectedSuit )
+	end
 	
 	--Log
 	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as human")
@@ -440,18 +440,20 @@ end
 	Called everytime a zombie spawns
 -------------------------------------------------]==]
 function GM:OnZombieSpawn ( pl )
-	if pl:Team() ~= TEAM_UNDEAD then return end
+	if pl:Team() ~= TEAM_UNDEAD then
+		return
+	end
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
 	-- Set a random human class if they connect as zombie and there is no human class
 	if pl:ConnectedIsDead() and pl.ClassHuman == nil then
-		pl:SetHumanClass ( 1 )
+		pl:SetHumanClass(1)
 	end
 	
 	-- Manages class spawn
 	if pl.DeathClass and GAMEMODE:GetFighting() and GAMEMODE:GetWave() > 0 then
-		pl:SetZombieClass( pl.DeathClass )
+		pl:SetZombieClass(pl.DeathClass)
 		pl.DeathClass = nil
 		
 		--  logging
@@ -459,7 +461,7 @@ function GM:OnZombieSpawn ( pl )
 	end
 	
 	if pl.SpawnAsCrow then
-		pl:SetZombieClass( 9 )
+		pl:SetZombieClass(9)
 		pl.DeathClass = 0
 		pl.SpawnAsCrow = false
 	end
@@ -474,7 +476,7 @@ function GM:OnZombieSpawn ( pl )
 	local Class = pl:GetZombieClass()
 	local Tab = ZombieClasses[Class]
 	
-		-- Surprise 
+	-- Surprise 
 	--[=[if pl.Suicided then
 	pl.SuicideMessageTime = pl.SuicideMessageTime or 0
 		if pl.SuicideMessageTime < CurTime() then
@@ -496,7 +498,7 @@ function GM:OnZombieSpawn ( pl )
 	end
 	
 	-- Calculate zombie's health
-	CalculateZombieHealth ( pl )
+	CalculateZombieHealth(pl)
 	
 	-- CalculateZombieHull( pl )
 	
@@ -509,16 +511,22 @@ function GM:OnZombieSpawn ( pl )
 	-- Set the zombie's model
 	pl:SetModel ( Tab.Model )
 	
-	if not pl.Loadout then pl.Loadout = {} end
+	if not pl.Loadout then
+		pl.Loadout = {}
+	end
 	
 	-- Fix late spawners
 	if #pl.Loadout <=1 then
-		timer.Simple(1,function() if ValidEntity(pl) then pl:SendLua("LateSpawnLoadout()") end end)
+		timer.Simple(1,function()
+			if ValidEntity(pl) then
+				pl:SendLua("LateSpawnLoadout()")
+			end
+		end)
 	end
 
 	-- Set jump power
-	if pl:GetJumpPower() ~= ( Tab.JumpPower or 200 ) then
-		pl:SetJumpPower( Tab.JumpPower or 200 ) 
+	if pl:GetJumpPower() ~= (Tab.JumpPower or 200) then
+		pl:SetJumpPower(Tab.JumpPower or 200) 
 	end
 	
 	if pl.Revived then
@@ -535,7 +543,11 @@ function GM:OnZombieSpawn ( pl )
 	
 	pl:StripWeapons()
 	
-	if Tab.SWEP then pl:Give ( Tab.SWEP ) pl:SelectWeapon ( Tab.SWEP ) end
+	--Give zombie SWEP
+	if Tab.SWEP then
+		pl:Give(Tab.SWEP)
+		pl:SelectWeapon(Tab.SWEP)
+	end
 	
 	-- if not pl:GetZombieClass() ~= 9 then
 	-- 	pl:StripWeapon("weapon_zs_crow")
@@ -553,41 +565,40 @@ function GM:OnZombieSpawn ( pl )
 	
 	-- if pl.Revived or self:GetFighting() and CurTime() < self:GetWaveEnd() then
 		
-		-- Set the zombie's walk and crouch speed
-		self:SetPlayerSpeed ( pl, Tab.Speed )
-		pl:SetCrouchedWalkSpeed ( Tab.CrouchWalkSpeed or 0.80 )
-		
-		if pl:IsSteroidZombie() then
-			local tbl = ZombiePowerups[pl:GetSteroidZombieType()]
-			if tbl and tbl.Speed then
-				self:SetPlayerSpeed ( pl, Tab.Speed*tbl.Speed )
-				pl:SetCrouchedWalkSpeed ( (Tab.CrouchWalkSpeed or 0.80)*tbl.Speed )
-			end
+	-- Set the zombie's walk and crouch speed
+	self:SetPlayerSpeed ( pl, Tab.Speed )
+	pl:SetCrouchedWalkSpeed ( Tab.CrouchWalkSpeed or 0.80 )
+	
+	if pl:IsSteroidZombie() then
+		local tbl = ZombiePowerups[pl:GetSteroidZombieType()]
+		if tbl and tbl.Speed then
+			self:SetPlayerSpeed ( pl, Tab.Speed*tbl.Speed )
+			pl:SetCrouchedWalkSpeed ( (Tab.CrouchWalkSpeed or 0.80)*tbl.Speed )
 		end
+	end
 		
-		-- Check for spawnprotection
+	-- Check for spawnprotection
 		
-		pl:UnSpectate()		
-		-- Prevent health pickups and/or machines
-		pl:SetMaxHealth( 1 ) 
-		
-		pl:SetBloodColor(BLOOD_COLOR_YELLOW)
+	pl:UnSpectate()		
+	-- Prevent health pickups and/or machines
+	pl:SetMaxHealth( 1 ) 
+	
+	pl:SetBloodColor(BLOOD_COLOR_YELLOW)
 	-- else
 		-- if self:GetWave() ~= 0 then
 		
-		if not pl.Revived or not self:GetFighting() or CurTime() > self:GetWaveEnd() then
-			pl.StartCrowing = 0
-		end
+	if not pl.Revived or not self:GetFighting() or CurTime() > self:GetWaveEnd() then
+		pl.StartCrowing = 0
+	end
 		
-		if not pl.Revived and not self:GetFighting() and CurTime() > self:GetWaveEnd() then --not pl.Revived or
-			if not pl:IsCrow() then
-			-- 	pl:SetAsCrow()
-			end
+	if not pl.Revived and not self:GetFighting() and CurTime() > self:GetWaveEnd() then --not pl.Revived or
+		if not pl:IsCrow() then
+		-- 	pl:SetAsCrow()
 		end
-			-- pl:Spectate(OBS_MODE_ROAMING)
+	end
+	-- pl:Spectate(OBS_MODE_ROAMING)
 	-- 	end
 	-- end
-
 
 	Debug ( "[SPAWN] "..tostring ( pl:Name() ).." spawned as a Zombie." )
 end

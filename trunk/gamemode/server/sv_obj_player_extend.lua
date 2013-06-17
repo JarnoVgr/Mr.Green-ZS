@@ -1023,11 +1023,14 @@ function meta:SelectSpawnType(iscrow)
 end
 
 function meta:SpawnAsZombieBoss()
-	if BOSSACTIVE then return end
-	print(tostring(self).." Is boss")
+	if BOSSACTIVE then
+		return
+	end
 	BOSSACTIVE = true
 	
-	gmod.BroadcastLua( "BOSSACTIVE = true" )
+	print(tostring(self).." Is boss")
+	
+	gmod.BroadcastLua("BOSSACTIVE = true")
 	
 	self:RemoveAllStatus(true, true)
 	

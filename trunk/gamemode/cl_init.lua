@@ -233,18 +233,22 @@ end
 hook.Add( "HUDPaint", "DrawWaiting", function()
 	if not ENDROUND or SinglePlayer() then
 		draw.SimpleText( "Please wait... "..RandomText, "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.5, Color( 255,255,255,210 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-		draw.SimpleText( "www.mrgreengaming.com", "ArialBoldTwelve", ScrW() * 0.5, ScrH() * 0.55, Color( 180,180,180,235 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+		draw.SimpleText( "mrgreengaming.com", "ArialBoldTwelve", ScrW() * 0.5, ScrH() * 0.55, Color( 87, 175, 87,235 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 		
-		if IsValid( MySelf ) then
+		if IsValid(MySelf) then
 			if CurTime() - MySelf.ReadyTime > 20 then
 				MySelf.ReconnectTime = MySelf.ReconnectTime or CurTime() + 6
-				draw.SimpleText( "Reconnecting in "..math.Clamp( math.Round( MySelf.ReconnectTime - CurTime() ), 0, 10 ), "ArialFifteen", ScrW() * 0.5, ScrH() * 0.6, Color( 230,50,38,235 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				draw.SimpleText("There are some troubles. Reconnecting in "..math.Clamp(math.Round(MySelf.ReconnectTime - CurTime()), 0, 10), "ArialFifteen", ScrW() * 0.5, ScrH() * 0.6, Color( 230,50,38,235 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 				
-				-- Run the 'ready' command (bugged from GMod update)
-				if CurTime() - MySelf.ReadyTime > 25 then RunConsoleCommand( "PostPlayerInitialSpawn" ) end
+				--Run the 'ready' command (bugged from GMod update)
+				if CurTime() - MySelf.ReadyTime > 25 then
+					RunConsoleCommand("PostPlayerInitialSpawn")
+				end
 				
-				-- Reconnect after 20 seconds
-				if math.Round( MySelf.ReconnectTime - CurTime() ) <= 0 then RunConsoleCommand( "retry" ) end
+				--Reconnect after 20 seconds
+				if math.Round(MySelf.ReconnectTime - CurTime()) <= 0 then
+					RunConsoleCommand("retry")
+				end
 			end
 		end
 	end
