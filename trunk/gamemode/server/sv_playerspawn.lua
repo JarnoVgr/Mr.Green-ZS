@@ -342,7 +342,11 @@ function GM:OnHumanSpawn ( pl )
 	else
 		--Get preferred model
 		local DesiredName = pl:GetInfo("cl_playermodel")
-		PlayerModel = player_manager.TranslatePlayerModel(#DesiredName == 0 and self.RandomPlayerModels[math.random(1, #self.RandomPlayerModels)] or DesiredName)
+		if #DesiredName == 0 then
+			PlayerModel = ""
+		else
+			PlayerModel = player_manager.TranslatePlayerModel(DesiredName)
+		end
 	
 		--Check if in PlayerModels list
 		if not table.HasValueCI(PlayerModels, PlayerModel) and not (pl:IsAdmin() and table.HasValueCI(PlayerAdminModels, PlayerModel)) then
@@ -409,13 +413,13 @@ function GM:OnHumanSpawn ( pl )
 	
 	--Reapply loadout to prevent spawn bug
 	--	Disabled because it allows a weapon exploit at spawn (dropping all weapons quick and then getting them again)
-	--[[timer.Simple(2,function()
-						if ValidEntity(pl) then
-							if #pl:GetWeapons() < 1 then
-								CalculatePlayerLoadout ( pl )
-							end
-						end
-					end)]]
+	timer.Simple(2,function()
+		if ValidEntity(pl) then
+			if #pl:GetWeapons() < 1 then
+				CalculatePlayerLoadout(pl)
+			end
+		end
+	end)
 	
 	self:SendSalesToClient(pl)
 	
