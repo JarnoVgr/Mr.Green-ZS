@@ -345,8 +345,9 @@ function GM:OnHumanSpawn ( pl )
 		PlayerModel = player_manager.TranslatePlayerModel(#DesiredName == 0 and self.RandomPlayerModels[math.random(1, #self.RandomPlayerModels)] or DesiredName)
 	
 		--Check if in PlayerModels list
-		if not table.HasValueCI(PlayerModels, PlayerModel) then
+		if not table.HasValueCI(PlayerModels, PlayerModel) and not (pl:IsAdmin() and table.HasValueCI(PlayerAdminModels, PlayerModel)) then
 			PlayerModel = table.Random(PlayerModels)
+			Print("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredName ..". Which doesn't exist.")
 		else
 			--Get custom player color
 			local PlayerModelColor = pl:GetInfo("cl_playercolor")
@@ -356,7 +357,9 @@ function GM:OnHumanSpawn ( pl )
 			
 			--local col = pl:GetInfo( "cl_weaponcolor" )
 			pl:SetWeaponColor(Vector(PlayerModelColor))
-		end	
+		end
+		
+		
 	end
 		
 	-- Case 2: If player has bought gordon freeman upgrade then he has a chance to spawn as him

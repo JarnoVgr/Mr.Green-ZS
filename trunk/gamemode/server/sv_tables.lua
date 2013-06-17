@@ -497,8 +497,22 @@ table.insert ( ResourceFiles, "models/weapons/w_supershorty.mdl" )
 -- Pipe melee
 -- table.insert ( ResourceFiles, "models/weapons/v_pipe.mdl" )
 
--- Howler
-table.insert ( ResourceFiles, "models/mrgreen/howler.mdl" )
+--Howler
+table.insert(ResourceFiles, "models/mrgreen/howler.mdl")
+
+--Obama materials and models
+for _, filename in pairs(file.Find( "materials/models/mrgreen/obama/*.*", "GAME")) do
+	table.insert(ResourceFiles, "materials/models/mrgreen/obama/"..filename)
+end
+table.insert(ResourceFiles, "models/mrgreen/obama.mdl")
+player_manager.AddValidModel("obama", "models/mrgreen/obama.mdl")
+
+--Creepr (naked man)
+for _, filename in pairs(file.Find( "materials/models/mrgreen/creepr/*.*", "GAME")) do
+	table.insert(ResourceFiles, "materials/models/mrgreen/creepr/"..filename)
+end
+table.insert(ResourceFiles, "models/mrgreen/creepr.mdl")
+player_manager.AddValidModel("creepr", "models/mrgreen/creepr.mdl")
 
 -- Stalker model fix!
 table.insert ( ResourceFiles, "models/wraith.mdl" )

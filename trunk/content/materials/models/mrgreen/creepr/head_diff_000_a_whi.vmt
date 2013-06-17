@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "jessev92/dean/creepr/head_diff_000_a_whi"
+	"$bumpmap"	"jessev92/dean/creepr/head_diff_000_a_whib"
+	"$phong" "1"
+	"$phongexponent" "5"
+}

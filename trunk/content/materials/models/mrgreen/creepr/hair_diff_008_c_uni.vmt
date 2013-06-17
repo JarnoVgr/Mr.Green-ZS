@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "jessev92/dean/creepr/hair_diff_008_c_uni"
+	"$translucent" 1
+	"$bumpmap" "jessev92/dean/creepr/hair_normal_008"
+}

@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/Obama/Head_Diffuse"
+	"$bumpmap" "models/Obama/Head_normal"
+	"$phong" 1
+	"$phongexponent"			1
+	"$phongexponenttexture" ""
+	"$phongboost"				5.0
+	"$phongfresnelranges"		"[0 0.5 1]"
+	"$normalmapalphaenvmapmask"	1
+}
+

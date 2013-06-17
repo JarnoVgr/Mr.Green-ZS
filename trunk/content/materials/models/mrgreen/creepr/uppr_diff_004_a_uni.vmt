@@ -1,0 +1,28 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "jessev92\dean/creepr/uppr_diff_004_a_uni"
+	"$bumpmap" "jessev92/dean/creepr/uppr_normal_004"
+	"$phong" "1"
+	"$phongexponent" "5"
+	
+	// Tinting
+	
+	"$blendtintbybasealpha" "1" 
+ 	"$blendtintcoloroverbase" "0"
+
+	Proxies
+	{
+		PlayerColor
+		{
+			resultVar	$color2
+			default		0.87 0.85 0.83
+		}
+		Clamp
+		{
+			min 0.01
+			max 1.50
+			srcVar1 "$color2"
+			resultVar "$color2"
+		}
+	}
+}
