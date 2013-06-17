@@ -1131,7 +1131,7 @@ ZombieClasses[0] =
 		
 			local desiredname = pl:GetInfo("cl_playermodel")
 			local modelname = player_manager.TranslatePlayerModel(#desiredname == 0 and "models/player/group01/male_09.mdl" or desiredname)
-			if not table.HasValueCI(PlayerModels, modelname) and not (pl:IsAdmin() and table.HasValueCI(PlayerAdminModels, PlayerModel)) then
+			if not table.HasValueCI(PlayerModels, modelname) and not (pl:IsAdmin() and table.HasValueCI(PlayerAdminModels, modelname)) then
 				modelname = table.Random(PlayerModels)
 			end
 			local lowermodelname = string.lower(modelname)
