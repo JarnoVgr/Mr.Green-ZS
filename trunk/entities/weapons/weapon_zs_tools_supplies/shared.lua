@@ -168,15 +168,16 @@ if SERVER then
 	
 	local angles = aimvec:Angle()	
 	if Crate then
-	local ent = ents.Create ("zs_ammobox")
+	local ent = ents.Create("zs_ammobox")
 		if ( ent ~= nil and ent:IsValid() ) then
 		
 			--  logging, Note to Clavus - add crate logging
 			-- log.PlayerAction( self.Owner, "place_turret")
 		
 			ent:SetPos(tr.HitPos)
-			ent:SetAngles( Angle (0,angles.y,angles.r) )
-			ent:SetDTEntity(0,self.Owner)
+			ent:SetAngles(Angle (0,angles.y,angles.r))
+			--ent:SetDTEntity(0,self.Owner)
+			ent:SetPlacer(self.Owner)
 			ent:Spawn()
 			ent:Activate()
 			ent:EmitSound("npc/roller/blade_cut.wav")

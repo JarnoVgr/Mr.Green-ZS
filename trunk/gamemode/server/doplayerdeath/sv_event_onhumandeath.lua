@@ -29,25 +29,34 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	GAMEMODE:DropSuit( mVictim )
 	
 	--Drop active weapon
-	if mVictim:GetActiveWeapon() ~= NULL then
-		local weapon = mVictim:GetActiveWeapon()
-
-		if mVictim:CanDropWeapon(weapon) then
-			local weaponName = weapon:GetClass()
-			local weaponCategory = GetWeaponCategory(weapon:GetClass())
+	if mVictim:GetActiveWeapon() ~= NULL then		
+		--Loop through all player weapons
+		for i,j in pairs (mVictim:GetWeapons()) do
+			local wepCategory = GetWeaponCategory(j:GetClass())
+			if (wepCategory == "Pistol" or wepCategory == "Automatic" or wepCategory == "Melee") and mVictim:CanDropWeapon(j) then
+				--Save ammo information from weapon
+				if wepCategory ~= "Melee" then
+					j.Primary.RemainingAmmo = j:Clip1()
+					j.Primary.Magazine = mVictim:GetAmmoCount(j:GetPrimaryAmmoTypeString())
+				end
+					
+				--
+				if wepCategory == "Tool1" or wepCategory == "Tool2" then
+					j.Ammunition = j:Clip1()
+					if wepname == "weapon_zs_medkit" then
+						j.RemainingAmmunition = mVictim:GetAmmoCount(j:GetPrimaryAmmoTypeString())
+					end
+				end
 			
-			--Only allow certain categories
-			if (weaponCategory == "Melee" or weaponCategory == "Automatic" or weaponCategory == "Pistol") then
-				--Actual dropping
-				mVictim:DropWeapon(weapon)
+				mVictim:DropWeapon(j)
 			end
 		end
 	end
 	
 	--Reset score on death
-	timer.Simple(0, function( )
-		if IsEntityValid ( mVictim ) then
-			mVictim:SetFrags( 0 )
+	timer.Simple(0, function()
+		if IsEntityValid(mVictim) then
+			mVictim:SetFrags(0)
 		end
 	end)
 		

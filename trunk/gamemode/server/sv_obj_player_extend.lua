@@ -285,9 +285,9 @@ end
        Rewrite this so we can do various stuff easily
 --------------------------------------------------------------]==]
 meta.BaseDropWeapon = meta.DropWeapon
-function meta:DropWeapon ( Weapon )
+function meta:DropWeapon(Weapon)
 	if Weapon == nil then return end
-	if not ValidEntity ( Weapon ) then return end
+	if not ValidEntity(Weapon) then return end
 		
 	-- Doesn't have the weapon
 	if not self:HasWeapon ( Weapon:GetClass() ) or not Weapon:IsWeapon() then return end
@@ -368,7 +368,10 @@ function meta:StripWeapon ( Class )
 	local Weapon, ActiveWeapon = self:GetWeapon ( Class ), self:GetActiveWeapon()
 	
 	-- We can't spawn in void/world
-	if not self:CanDropWeapon ( Weapon ) then Debug ( "[DEBUG] Weapon trying to spawn in world/outside world. Preventing..." ) return end
+	if not self:CanDropWeapon(Weapon) then
+		Debug("[DEBUG] Weapon trying to spawn in world/outside world. Preventing...")
+		return
+	end
 	
 	-- Only disable clientside ironsights if it's the active weapon otherwise don't do it
 	-- if ValidEntity ( ActiveWeapon ) and ActiveWeapon == Weapon then	ClientDropWeapon( self ) end

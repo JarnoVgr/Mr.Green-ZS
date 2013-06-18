@@ -52,7 +52,7 @@ function PrintMapCycle( pl,commandName,args )
 end
 concommand.Add("print_mapcycle",PrintMapCycle) 
 
-function OpenBugPanel (pl, cmd, args)
+function OpenBugPanel(pl, cmd, args)
 	if not ValidEntity (pl) then return end
 	if pl:Team() == TEAM_SPECTATOR then return end
 	
@@ -67,7 +67,7 @@ function SetAutoRedeem(pl,commandName,args)
 end
 concommand.Add("zs_setautoredeem",SetAutoRedeem) 
 
-function DropWeapon ( pl, commandName, args )
+function DropWeapon(pl, commandName, args)
 	if pl:GetActiveWeapon() == NULL then
 		return false
 	end
@@ -85,7 +85,7 @@ function DropWeapon ( pl, commandName, args )
 	for k,v in pairs ( GAMEMODE.HumanWeapons ) do
 		if not v.Restricted then
 			if v.Type ~= "admin" then
-				if pl:HasWeapon ( k ) then
+				if pl:HasWeapon(k) then
 					Count = Count + 1
 				end
 			end
@@ -124,7 +124,7 @@ function DropWeapon ( pl, commandName, args )
 	end
 	
 	-- Drop the weapon and check to see if you can before.
-	if not pl:CanDropWeapon( Weapon ) then
+	if not pl:CanDropWeapon(Weapon) then
 		pl:ChatPrint("You can't drop your weapon inside objects.")
 		return false
 	end
@@ -284,15 +284,15 @@ end
 concommand.Add("mrgreen_suit_drop",DropPlayerSuit) 
 
 function UnlockEventHat(pl)
-	
-	if pl:HasBought("wbeanie") then return end
+	if pl:HasBought("wbeanie") then
+		return
+	end
 	
 	pl.DataTable.ShopItems[64] = true
 	pl:SaveShopItem( 64 )
 	stats.SendShopData( pl, pl )
 	
 	pl:ChatPrint("Congratulations! You have unlocked Winter Beanie hat in the shop!")
-	
 end
 
 function BuyItem(pl,commandName,args)

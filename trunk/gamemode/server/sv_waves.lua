@@ -349,6 +349,20 @@ function GM:TryWeaponPickup(pl, ent)
 	for i,j in pairs (pl:GetWeapons()) do
 		--Check if categories match
 		if GetWeaponCategory(j:GetClass()) == wepCategory then
+			-- Save ammo information from weapon
+			if GetWeaponCategory ( j:GetClass() ) ~= "Melee" then
+				j.Primary.RemainingAmmo = j:Clip1()
+				j.Primary.Magazine = pl:GetAmmoCount( j:GetPrimaryAmmoTypeString() )
+			end
+				
+			--
+			if GetWeaponCategory ( j:GetClass() ) == "Tool1" or GetWeaponCategory ( j:GetClass() ) == "Tool2" then
+				j.Ammunition = j:Clip1()
+				if wepname == "weapon_zs_medkit" then
+					j.RemainingAmmunition = pl:GetAmmoCount( j:GetPrimaryAmmoTypeString() )
+				end
+			end
+		
 			pl:DropWeapon(j)
 			break
 		end
