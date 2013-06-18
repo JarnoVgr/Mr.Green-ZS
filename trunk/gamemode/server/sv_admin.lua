@@ -383,6 +383,16 @@ end
 --concommand.Add( "do_fun", DoFunCommand ) 
 
 --[==[-----------------------------------------------------------
+                  Admin Addon - Debugging
+-----------------------------------------------------------]==]
+function DoDebugCommands ( pl, cmd, args )
+    if not pl:IsSuperAdmin() then return end
+    
+    GAMEMODE:SetFighting( not GAMEMODE:GetFighting() )    
+end
+concommand.Add( "do_debug_admin", DoDebugCommands ) 
+
+--[==[-----------------------------------------------------------
         Admin Addon - Bring a player to your pos
 -----------------------------------------------------------]==]
 function BringPlayer ( pl, cmd, args )

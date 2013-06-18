@@ -784,7 +784,6 @@ function CalculateZombieHealth ( pl )
 	
 	-- Case 1: Normal case
 	MaxHealth = math.Clamp ( Tab.Health, 0, Tab.Health )
-			
 	
 	local allplayers = player.GetAll()
 	local numplayers = #allplayers
@@ -828,12 +827,16 @@ function CalculateZombieHealth ( pl )
 		end
 	end
 	
+	-- Case 4: Boss zombos
+	if pl:IsBossZombie() then
+	   local humanCount = #team.GetPlayers( TEAM_HUMAN )
+	   MaxHealth = ( humanCount * 1300 ) * GetInfliction()
+	end
+	
 	-- if pl:GetZombieClass() == 0 and GAMEMODE:IsRetroMode() and MaxHealth == 125 then
 	-- 	MaxHealth = MaxHealth + 15*GAMEMODE:GetWave()
 	-- end
-	
-	
-	
+
 	-- Send the maximum health clientside
 	pl:SetMaximumHealth ( math.Round ( MaxHealth ) )
 	pl:SetHealth ( MaxHealth )

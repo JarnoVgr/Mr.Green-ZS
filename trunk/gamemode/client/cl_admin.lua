@@ -238,8 +238,14 @@ function DoAdminPanel()
 	-- Finally, ravebreak by Clavus
 	FunMenu:AddOption ( "Ravebreak", function() RunConsoleCommand ( "do_fun", "ravebreak", "1" ) CloseAdminPanel() end )
 	
+	-- Debug menu
+    if MySelf:IsSuperAdmin() then
+        local DebugMenu = AdminPanel:AddSubMenu( "Debug >", function () CloseAdminPanel() end )
+        DebugMenu:AddOption ( "Toggle Fighting", function() RunConsoleCommand ( "do_debug_admin" ) CloseAdminPanel() end )
+    end
+    
 	end )
-	
+
 	-- finally open the panel
 	timer.Simple ( 0.1, function() 
 		if AdminPanel == nil then return end
