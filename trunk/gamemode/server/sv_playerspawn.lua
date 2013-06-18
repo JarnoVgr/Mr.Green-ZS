@@ -830,7 +830,9 @@ function CalculateZombieHealth ( pl )
 	-- Case 4: Boss zombos
 	if pl:IsBossZombie() then
 	   local humanCount = #team.GetPlayers( TEAM_HUMAN )
-	   MaxHealth = ( humanCount * 1300 ) * GetInfliction()
+	   local zombieCount = #team.GetPlayers( TEAM_ZOMBIE )
+	   
+	   MaxHealth = ( humanCount * 1400 ) * math.Clamp( humanCount / zombieCount, 0.5, 1.5 )
 	end
 	
 	-- if pl:GetZombieClass() == 0 and GAMEMODE:IsRetroMode() and MaxHealth == 125 then
