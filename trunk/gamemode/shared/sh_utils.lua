@@ -18,10 +18,16 @@ end
 
 --Case Insensitive HasValue variant
 function table.HasValueCI( t, val )
+	if val == nil then
+		return false
+	end
+
 	val = string.lower(val)
 
 	for k,v in pairs(t) do
-		if (string.lower(v) == val ) then return true end
+		if (string.lower(v) == val ) then
+			return true
+		end
 	end
 	return false
 end
