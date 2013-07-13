@@ -149,7 +149,7 @@ end
 --[==[----------------------------------------------------
       Initialize some variables for supply crates
 ------------------------------------------------------]==]
-local function InitializeCrateVars ()
+local function InitializeCrateVars()
 
 	-- Precache the gib models
 	for i = 1, 9 do
@@ -162,15 +162,17 @@ local function InitializeCrateVars ()
 end
 hook.Add ( "Initialize", "InitVars", InitializeCrateVars )
 
-local function CrateApparitionSound ()
-	if not ValidEntity ( MySelf ) then return end
+local function CrateApparitionSound()
+	if not ValidEntity ( MySelf ) then
+		return
+	end
 	
 	-- Play thunder sound :> -- Thanks to Mayco
 	surface.PlaySound( "mrgreen/new/thunder"..math.random(1,4)..".mp3" ) 
 
 	-- Notify the player
 	if MySelf:Team() == TEAM_HUMAN and MySelf:Alive() then 
-		GAMEMODE:Add3DMessage(140,"Supply Crates have been dropped!",nil,"ArialBoldTen")
+		GAMEMODE:Add3DMessage(140,"Find a Supply Crate for resources",nil,"ArialBoldTen")
  	end
 	
 	Debug ( "[CLIENT] Supply Crates have been dropped !" )
