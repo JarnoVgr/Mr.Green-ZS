@@ -491,7 +491,7 @@ function GM:OnZombieSpawn ( pl )
 	local stchance = 1/(ST_ZOMBIE_CHANCE/100)
 	
 	--if self:GetWave() ~= 1 then
-	if self:GetWave() ~= 1  and math.random(1,stchance) == 1 then
+	if self:GetWave() ~= 1 and math.random(1,stchance) == 1 then
 		if not pl:IsBossZombie() and not pl:IsCrow() then
 			pl:SpawnAsSteroidZombie(math.random(1,#ZombiePowerups))
 		end
@@ -599,6 +599,12 @@ function GM:OnZombieSpawn ( pl )
 	-- pl:Spectate(OBS_MODE_ROAMING)
 	-- 	end
 	-- end
+
+	--Alert players they can change zombie class
+	--TODO: Alert once
+	if not pl:IsCrow() and self:GetWave() ~= 1 and Class == 0 and math.random(1,3) == 1 then
+		pl:Message("Press F3 to spawn as a different zombie", 2)
+	end
 
 	Debug ( "[SPAWN] "..tostring ( pl:Name() ).." spawned as a Zombie." )
 end
