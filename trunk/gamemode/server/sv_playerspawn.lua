@@ -576,11 +576,7 @@ function GM:OnZombieSpawn ( pl )
 			pl:SetCrouchedWalkSpeed ( (Tab.CrouchWalkSpeed or 0.80)*tbl.Speed )
 		end
 	end
-	--[[else if Class == 0 then
-		--Set red color
-		pl:SetColor(255,50,50,255)
-	end]]
-		
+
 	-- Check for spawnprotection
 		
 	pl:UnSpectate()		
