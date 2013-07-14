@@ -575,10 +575,11 @@ function GM:OnZombieSpawn ( pl )
 			self:SetPlayerSpeed ( pl, Tab.Speed*tbl.Speed )
 			pl:SetCrouchedWalkSpeed ( (Tab.CrouchWalkSpeed or 0.80)*tbl.Speed )
 		end
-	else if Class == 0 then
+	end
+	--[[else if Class == 0 then
 		--Set red color
 		pl:SetColor(255,50,50,255)
-	end
+	end]]
 		
 	-- Check for spawnprotection
 		
