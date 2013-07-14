@@ -583,7 +583,7 @@ function GM:OnZombieSpawn ( pl )
 	-- Prevent health pickups and/or machines
 	pl:SetMaxHealth( 1 ) 
 	
-	pl:SetBloodColor(BLOOD_COLOR_ZOMBIE) --BLOOD_COLOR_YELLOW
+	pl:SetBloodColor(BLOOD_COLOR_YELLOW)
 
 	if not pl.Revived or not self:GetFighting() or CurTime() > self:GetWaveEnd() then
 		pl.StartCrowing = 0
