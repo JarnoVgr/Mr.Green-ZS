@@ -575,6 +575,9 @@ function GM:OnZombieSpawn ( pl )
 			self:SetPlayerSpeed ( pl, Tab.Speed*tbl.Speed )
 			pl:SetCrouchedWalkSpeed ( (Tab.CrouchWalkSpeed or 0.80)*tbl.Speed )
 		end
+	else if Class == 0 then
+		--Set red color
+		pl:SetColor(255,50,50,255)
 	end
 		
 	-- Check for spawnprotection
@@ -583,10 +586,8 @@ function GM:OnZombieSpawn ( pl )
 	-- Prevent health pickups and/or machines
 	pl:SetMaxHealth( 1 ) 
 	
-	pl:SetBloodColor(BLOOD_COLOR_YELLOW)
-	-- else
-		-- if self:GetWave() ~= 0 then
-		
+	pl:SetBloodColor(BLOOD_COLOR_ZOMBIE) --BLOOD_COLOR_YELLOW
+
 	if not pl.Revived or not self:GetFighting() or CurTime() > self:GetWaveEnd() then
 		pl.StartCrowing = 0
 	end
