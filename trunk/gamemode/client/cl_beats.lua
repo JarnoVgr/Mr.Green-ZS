@@ -203,7 +203,7 @@ function PlayUnlife()
 	if ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end
 	
 	-- Play the sound right now
-	local Duration = UNLIFESOUNDLENGTH -- SoundDuration ( "../sound/"..UNLIFESOUND )
+	--[[local Duration = UNLIFESOUNDLENGTH -- SoundDuration ( "../sound/"..UNLIFESOUND )
 	surface.PlaySound ( UNLIFESOUND )
 	
 	-- Create a timer so it plays after it has finished
@@ -211,7 +211,7 @@ function PlayUnlife()
 		if UNLIFE and util.tobool(GetConVar( "_zs_enablemusic" )) and not ENDROUND and not LASTHUMAN and not DEADLIFE then 
 			surface.PlaySound ( UNLIFESOUND )  
 		end
-	end)  
+	end)]]
 end
 
 function PlayDeadlife()

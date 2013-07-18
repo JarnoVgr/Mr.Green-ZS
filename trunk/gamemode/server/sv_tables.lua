@@ -264,23 +264,23 @@ table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_gore_04.wav" )
 table.insert(ResourceFiles, "sound/mrgreen/music/gamestart1.mp3")
 
 --Last human music
-table.insert( ResourceFiles, "sound/"..LASTHUMANSOUND )
+table.insert(ResourceFiles, "sound/"..LASTHUMANSOUND)
 
---Unlife sound
-table.insert( ResourceFiles, "sound/"..UNLIFESOUND )
+--Intermission
+table.insert(ResourceFiles, "sound/mrgreen/music/intermission.mp3")
 
 --Deadlife music (2 variants)
-table.insert ( ResourceFiles, "sound/deadlife_mrgreen.mp3" )
-table.insert ( ResourceFiles, "sound/deadlife_mrgreen_insane.mp3" )
+table.insert(ResourceFiles, "sound/deadlife_mrgreen.mp3")
+table.insert(ResourceFiles, "sound/deadlife_mrgreen_insane.mp3")
 
 --Howler sound effects
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_death_01.wav" )
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_scream_01.wav" )
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_scream_02.wav" )
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_01.wav" )
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_02.wav" )
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_03.wav" )
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_04.wav" )
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_death_01.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_scream_01.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_scream_02.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_01.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_02.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_03.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_04.wav")
 
 --Soft-notice
 table.insert( ResourceFiles, "sound/hud/notice_soft.wav" )

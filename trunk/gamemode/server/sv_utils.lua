@@ -163,7 +163,9 @@ end
               Called when a player is being howlered (screamed upon)
 ----------------------------------------------------------------------------------]==]
 function GM:OnPlayerHowlered ( pl, iIntensity )
-	if not IsEntityValid ( pl ) or iIntensity == nil then return end
+	if not IsEntityValid ( pl ) or iIntensity == nil then
+		return
+	end
 	
 	-- Disorient the player
 	pl:SendLua( "StalkerFuck("..( iIntensity )..")" )

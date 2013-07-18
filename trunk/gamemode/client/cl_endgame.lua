@@ -136,16 +136,15 @@ usermessage.Hook("RecAutomaticVoteResult",ReceiveAutomaticVoteResult)
 --[==[---------------------------------------------------------
 	   Receive Nextmap ( Vote Result )
 ---------------------------------------------------------]==]
-function SetWinnerMap ( mapname, mapname2 )
+function SetWinnerMap(mapname, mapname2)
 	WinnerMap = mapname
 	WinnerMapName = mapname2
 	IsVotingOver = true
 end
 
-util.PrecacheSound("music/HL1_song25_REMIX3.mp3")
-util.PrecacheSound("music/HL1_song21.mp3")
+util.PrecacheSound("mrgreen/music/intermission.mp3")
 
-function Intermission ( nextmap, winner, timeleft )
+function Intermission( nextmap, winner, timeleft)
 	if ENDROUND then return end
 
 	ENDROUND = true
@@ -158,14 +157,7 @@ function Intermission ( nextmap, winner, timeleft )
 	ROUNDWINNER = winner
 	RunConsoleCommand("stopsound")
 	
-	-- Play the team specific.sounds (  thanks to Mayco :D )
-	timer.Simple (0.2, function() 
-		if winner == TEAM_HUMAN and MySelf:Team() == TEAM_HUMAN then
-			surface.PlaySound ( "music/HL1_song25_REMIX3.mp3" )
-		else
-			surface.PlaySound ( "music/HL1_song21.mp3" )
-		end
-	end)
+	surface.PlaySound("mrgreen/music/intermission.mp3")
 	
 	if ValidEntity(MySelf) and MySelf.Team and MySelf:Team() ~= TEAM_SPECTATOR then
 	
@@ -181,7 +173,7 @@ function Intermission ( nextmap, winner, timeleft )
 	gui.EnableScreenClicker ( true )
 	
 	-- Convert unfriendly map names to friendly ones
-	for k,v in pairs (TranslateMapTable) do
+	for k,v in pairs(TranslateMapTable) do
 		if nextmap == k then
 			nextmap = v.Name
 			break

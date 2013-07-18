@@ -507,7 +507,9 @@ local EndColTab =
 }
 
 function StalkerFuck(length)
-	if not length then length = 3 end
+	if not length then
+		length = 3
+	end
 	hook.Remove("RenderScreenspaceEffects", "DrawStalkerFuck")
 	FuckColTab[ "$pp_colour_colour" ] = 0
 	FuckedTime = CurTime()+length
