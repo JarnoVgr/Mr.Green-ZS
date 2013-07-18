@@ -638,16 +638,6 @@ RTD_TIME = 180
 --Sound to play for last human.
 LASTHUMANSOUND = "lasthuman_fixed.mp3"
 
---Sound to play for ambient Un-Life music.
-UNLIFESOUND = "unlife_mrgreen.mp3"
-UNLIFESOUNDLENGTH = 192
-
---Sound played to a person when they lose.
-ALLLOSESOUND = "lose_test.mp3"
-
--- Sound played to a person when they win.
-HUMANWINSOUND = "humanwin.mp3"
-
 -- Sound played to a person when they die as a human.
 DEATHSOUND = "music/stingers/HL1_stinger_song28.mp3"
 
@@ -713,8 +703,6 @@ if MaxPlayers() < 4 then
 end
 
 util.PrecacheSound(LASTHUMANSOUND)
-util.PrecacheSound(UNLIFESOUND)
-
 
 WELCOME_TEXT =
 [[
@@ -2007,9 +1995,12 @@ PlayerModels = {
 }
 
 PlayerAdminModels = {
+	--Day of Defeat
+		"models/player/dod_american.mdl",
+		"models/player/dod_german.mdl"
 	--Custom
-	"models/mrgreen/obama.mdl",
-	"models/mrgreen/creepr.mdl"
+		--"models/mrgreen/obama.mdl",
+		--"models/mrgreen/creepr.mdl"
 }
 
 --[=[---------------------------------------------
