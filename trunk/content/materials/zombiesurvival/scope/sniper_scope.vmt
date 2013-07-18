@@ -1,6 +1,6 @@
 "UnlitGeneric"
 {
-	"$basetexture" "scope/scope"
+	"$basetexture" "zombiesurvival/scope/sniper_scope"
 	"$vertexcolor" 1
 	"$vertexalpha" 1
 	"$nolod" 1

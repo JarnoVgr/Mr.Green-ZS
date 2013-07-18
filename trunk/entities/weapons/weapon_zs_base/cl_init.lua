@@ -311,261 +311,307 @@ function SWEP:ViewModelDrawn()
 		
 end
 
-	SWEP.wRenderOrder = nil
-	function SWEP:DrawWorldModel()
-		
-		if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end	
-		
-		
-		if (self.ShowWorldModel == nil or self.ShowWorldModel) then
-				if self.Owner.KnockedDown and ValidEntity(self.Owner:GetRagdollEntity()) then
-					local bone1 = self.Owner:GetRagdollEntity():LookupBone("ValveBiped.Bip01_R_Hand")
-					if (bone1) then
-					pos1, ang1 = Vector(0,0,0), Angle(0,0,0)
-					local m1 = self.Owner:GetRagdollEntity():GetBoneMatrix(bone)
-						if (m1) then
-							pos1, ang1 = m1:GetTranslation(), m1:GetAngles()
-							--self:SetPos(pos1)
-							--self:SetAngles(ang1)
-							--print(tostring(pos1))
-						end
-					end	
-				end
-			self:DrawModel()
-		end
-		
-		if self.CheckWorldModelElements then
-			self:CheckWorldModelElements()	
-		end
-		
-		
-		if (not self.WElements) then return end
-		
-		if (not self.wRenderOrder) then
-
-			self.wRenderOrder = {}
-
-			for k, v in pairs( self.WElements ) do
-				if (v.type == "Model") then
-					table.insert(self.wRenderOrder, 1, k)
-				elseif (v.type == "Sprite" or v.type == "Quad") then
-					table.insert(self.wRenderOrder, k)
-				end
-			end
-
-		end
-		
-		if (ValidEntity(self.Owner)) then
+SWEP.wRenderOrder = nil
+function SWEP:DrawWorldModel()
+	
+	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end	
+	
+	
+	if (self.ShowWorldModel == nil or self.ShowWorldModel) then
 			if self.Owner.KnockedDown and ValidEntity(self.Owner:GetRagdollEntity()) then
-				bone_ent = self.Owner:GetRagdollEntity()
-			else
-				bone_ent = self.Owner
-			end
-		else
-			--  when the weapon is dropped
-			bone_ent = self
-		end
-		
-		for k, name in pairs( self.wRenderOrder ) do
-		
-			local v = self.WElements[name]
-			if (not v) then self.wRenderOrder = nil break end
-			
-			local pos, ang
-			
-			if (v.bone) then
-				pos, ang = self:GetBoneOrientation( self.WElements, v, bone_ent )
-			else
-				pos, ang = self:GetBoneOrientation( self.WElements, v, bone_ent, "ValveBiped.Bip01_R_Hand" )
-			end
-			
-			if (not pos) then continue end
-			
-			local model = v.modelEnt
-			local sprite = v.spriteMaterial
-			
-			if (v.type == "Model" and ValidEntity(model)) then
-
-				model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
-				ang:RotateAroundAxis(ang:Up(), v.angle.y)
-				ang:RotateAroundAxis(ang:Right(), v.angle.p)
-				ang:RotateAroundAxis(ang:Forward(), v.angle.r)
-
-				local size = (v.size.x + v.size.y + v.size.z)/3
-				
-				model:SetAngles(ang)
-				model:SetModelScale(size,0)
-				
-				if (v.material == "") then
-					model:SetMaterial("")
-				elseif (model:GetMaterial() ~= v.material) then
-					model:SetMaterial( v.material )
-				end
-				
-				if (v.skin and v.skin ~= model:GetSkin()) then
-					model:SetSkin(v.skin)
-				end
-				
-				if (v.bodygroup) then
-					for k, v in pairs( v.bodygroup ) do
-						if (model:GetBodygroup(k) ~= v) then
-							model:SetBodygroup(k, v)
-						end
+				local bone1 = self.Owner:GetRagdollEntity():LookupBone("ValveBiped.Bip01_R_Hand")
+				if (bone1) then
+				pos1, ang1 = Vector(0,0,0), Angle(0,0,0)
+				local m1 = self.Owner:GetRagdollEntity():GetBoneMatrix(bone)
+					if (m1) then
+						pos1, ang1 = m1:GetTranslation(), m1:GetAngles()
+						--self:SetPos(pos1)
+						--self:SetAngles(ang1)
+						--print(tostring(pos1))
 					end
-				end
-				
-				if (v.surpresslightning) then
-					render.SuppressEngineLighting(true)
-				end
-				
-				render.SetColorModulation(v.color.r/255, v.color.g/255, v.color.b/255)
-				render.SetBlend(v.color.a/255)
-				model:DrawModel()
-				render.SetBlend(1)
-				render.SetColorModulation(1, 1, 1)
-				
-				if (v.surpresslightning) then
-					render.SuppressEngineLighting(false)
-				end
-				
-			elseif (v.type == "Sprite" and sprite) then
-				
-				local drawpos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
-				render.SetMaterial(sprite)
-				render.DrawSprite(drawpos, v.size.x, v.size.y, v.color)
-				
-			elseif (v.type == "Quad" and v.draw_func) then
-				
-				local drawpos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
-				ang:RotateAroundAxis(ang:Up(), v.angle.y)
-				ang:RotateAroundAxis(ang:Right(), v.angle.p)
-				ang:RotateAroundAxis(ang:Forward(), v.angle.r)
-				
-				cam.Start3D2D(drawpos, ang, v.size)
-					v.draw_func( self )
-				cam.End3D2D()
-
+				end	
 			end
-			
+		self:DrawModel()
+	end
+	
+	if self.CheckWorldModelElements then
+		self:CheckWorldModelElements()	
+	end
+	
+	
+	if (not self.WElements) then return end
+	
+	if (not self.wRenderOrder) then
+
+		self.wRenderOrder = {}
+
+		for k, v in pairs( self.WElements ) do
+			if (v.type == "Model") then
+				table.insert(self.wRenderOrder, 1, k)
+			elseif (v.type == "Sprite" or v.type == "Quad") then
+				table.insert(self.wRenderOrder, k)
+			end
+		end
+
+	end
+	
+	if (ValidEntity(self.Owner)) then
+		if self.Owner.KnockedDown and ValidEntity(self.Owner:GetRagdollEntity()) then
+			bone_ent = self.Owner:GetRagdollEntity()
+		else
+			bone_ent = self.Owner
+		end
+	else
+		--  when the weapon is dropped
+		bone_ent = self
+	end
+	
+	for k, name in pairs( self.wRenderOrder ) do
+	
+		local v = self.WElements[name]
+		if (not v) then self.wRenderOrder = nil break end
+		
+		local pos, ang
+		
+		if (v.bone) then
+			pos, ang = self:GetBoneOrientation( self.WElements, v, bone_ent )
+		else
+			pos, ang = self:GetBoneOrientation( self.WElements, v, bone_ent, "ValveBiped.Bip01_R_Hand" )
 		end
 		
-	end
-
-	function SWEP:GetBoneOrientation( basetab, tab, ent, bone_override )
+		if (not pos) then continue end
 		
-		local bone, pos, ang
-		if (tab.rel and tab.rel ~= "") then
-			
-			local v = basetab[tab.rel]
-			
-			if (not v) then return end
-			
-			--  Technically, if there exists an element with the same name as a bone
-			--  you can get in an infinite loop. Let's just hope nobody's that stupid.
-			pos, ang = self:GetBoneOrientation( basetab, v, ent )
-			
-			if (not pos) then return end
-			
-			pos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
+		local model = v.modelEnt
+		local sprite = v.spriteMaterial
+		
+		if (v.type == "Model" and ValidEntity(model)) then
+
+			model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
 			ang:RotateAroundAxis(ang:Up(), v.angle.y)
 			ang:RotateAroundAxis(ang:Right(), v.angle.p)
 			ang:RotateAroundAxis(ang:Forward(), v.angle.r)
-				
-		else
-		
-			bone = ent:LookupBone(bone_override or tab.bone)
 
-			if (not bone) then return end
+			local size = (v.size.x + v.size.y + v.size.z)/3
 			
-			pos, ang = Vector(0,0,0), Angle(0,0,0)
-			local m = ent:GetBoneMatrix(bone)
-			if (m) then
-				pos, ang = m:GetTranslation(), m:GetAngles()
+			model:SetAngles(ang)
+			model:SetModelScale(size,0)
+			
+			if (v.material == "") then
+				model:SetMaterial("")
+			elseif (model:GetMaterial() ~= v.material) then
+				model:SetMaterial( v.material )
 			end
 			
-			if (ValidEntity(self.Owner) and self.Owner:IsPlayer() and 
-				ent == self.Owner:GetViewModel() and self.ViewModelFlip) then
-				ang.r = -ang.r --  Fixes mirrored models
+			if (v.skin and v.skin ~= model:GetSkin()) then
+				model:SetSkin(v.skin)
 			end
-		
+			
+			if (v.bodygroup) then
+				for k, v in pairs( v.bodygroup ) do
+					if (model:GetBodygroup(k) ~= v) then
+						model:SetBodygroup(k, v)
+					end
+				end
+			end
+			
+			if (v.surpresslightning) then
+				render.SuppressEngineLighting(true)
+			end
+			
+			render.SetColorModulation(v.color.r/255, v.color.g/255, v.color.b/255)
+			render.SetBlend(v.color.a/255)
+			model:DrawModel()
+			render.SetBlend(1)
+			render.SetColorModulation(1, 1, 1)
+			
+			if (v.surpresslightning) then
+				render.SuppressEngineLighting(false)
+			end
+			
+		elseif (v.type == "Sprite" and sprite) then
+			
+			local drawpos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
+			render.SetMaterial(sprite)
+			render.DrawSprite(drawpos, v.size.x, v.size.y, v.color)
+			
+		elseif (v.type == "Quad" and v.draw_func) then
+			
+			local drawpos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
+			ang:RotateAroundAxis(ang:Up(), v.angle.y)
+			ang:RotateAroundAxis(ang:Right(), v.angle.p)
+			ang:RotateAroundAxis(ang:Forward(), v.angle.r)
+			
+			cam.Start3D2D(drawpos, ang, v.size)
+				v.draw_func( self )
+			cam.End3D2D()
+
 		end
 		
-		return pos, ang
 	end
+	
+end
 
-	function SWEP:CreateModels( tab )
+function SWEP:GetBoneOrientation( basetab, tab, ent, bone_override )
+	
+	local bone, pos, ang
+	if (tab.rel and tab.rel ~= "") then
+		
+		local v = basetab[tab.rel]
+		
+		if (not v) then return end
+		
+		--  Technically, if there exists an element with the same name as a bone
+		--  you can get in an infinite loop. Let's just hope nobody's that stupid.
+		pos, ang = self:GetBoneOrientation( basetab, v, ent )
+		
+		if (not pos) then return end
+		
+		pos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
+		ang:RotateAroundAxis(ang:Up(), v.angle.y)
+		ang:RotateAroundAxis(ang:Right(), v.angle.p)
+		ang:RotateAroundAxis(ang:Forward(), v.angle.r)
+			
+	else
+	
+		bone = ent:LookupBone(bone_override or tab.bone)
 
-		if (not tab) then return end
+		if (not bone) then return end
+		
+		pos, ang = Vector(0,0,0), Angle(0,0,0)
+		local m = ent:GetBoneMatrix(bone)
+		if (m) then
+			pos, ang = m:GetTranslation(), m:GetAngles()
+		end
+		
+		if (ValidEntity(self.Owner) and self.Owner:IsPlayer() and 
+			ent == self.Owner:GetViewModel() and self.ViewModelFlip) then
+			ang.r = -ang.r --  Fixes mirrored models
+		end
+	
+	end
+	
+	return pos, ang
+end
 
-		--  Create the clientside models here because Garry says we can't do it in the render hook
-		for k, v in pairs( tab ) do
-			if (v.type == "Model" and v.model and v.model ~= "" and (not ValidEntity(v.modelEnt) or v.createdModel ~= v.model) and 
-					string.find(v.model, ".mdl") and file.Exists (v.model,"GAME") ) then
+function SWEP:CreateModels( tab )
+
+	if (not tab) then return end
+
+	--  Create the clientside models here because Garry says we can't do it in the render hook
+	for k, v in pairs( tab ) do
+		if (v.type == "Model" and v.model and v.model ~= "" and (not ValidEntity(v.modelEnt) or v.createdModel ~= v.model) and 
+				string.find(v.model, ".mdl") and file.Exists (v.model,"GAME") ) then
+			
+			v.modelEnt = ClientsideModel(v.model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
+			if (ValidEntity(v.modelEnt)) then
+				v.modelEnt:SetPos(self:GetPos())
+				v.modelEnt:SetAngles(self:GetAngles())
+				v.modelEnt:SetParent(self)
+				v.modelEnt:SetNoDraw(true)
+				v.createdModel = v.model
 				
-				v.modelEnt = ClientsideModel(v.model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
-				if (ValidEntity(v.modelEnt)) then
-					v.modelEnt:SetPos(self:GetPos())
-					v.modelEnt:SetAngles(self:GetAngles())
-					v.modelEnt:SetParent(self)
-					v.modelEnt:SetNoDraw(true)
-					v.createdModel = v.model
-					
-					-- set bonemods
-					if self.VElementsBoneMods and self.VElementsBoneMods[k] then
-						for bn,tbl in pairs(self.VElementsBoneMods[k]) do
-							local bone = v.modelEnt:LookupBone(bn)
-							if (not bone) then continue end
-							v.modelEnt:ManipulateBoneScale( bone, tbl.scale )
-							v.modelEnt:ManipulateBoneAngles( bone, tbl.angle )
-							v.modelEnt:ManipulateBonePosition( bone, tbl.pos )
-						end
+				-- set bonemods
+				if self.VElementsBoneMods and self.VElementsBoneMods[k] then
+					for bn,tbl in pairs(self.VElementsBoneMods[k]) do
+						local bone = v.modelEnt:LookupBone(bn)
+						if (not bone) then continue end
+						v.modelEnt:ManipulateBoneScale( bone, tbl.scale )
+						v.modelEnt:ManipulateBoneAngles( bone, tbl.angle )
+						v.modelEnt:ManipulateBonePosition( bone, tbl.pos )
 					end
+				end
+			else
+				v.modelEnt = nil
+			end
+			
+		elseif (v.type == "Sprite" and v.sprite and v.sprite ~= "" and (not v.spriteMaterial or v.createdSprite ~= v.sprite) 
+			and file.Exists ("materials/"..v.sprite..".vmt","GAME")) then
+			
+			local name = v.sprite.."-"
+			local params = { ["$basetexture"] = v.sprite }
+			--  make sure we create a unique name based on the selected options
+			local tocheck = { "nocull", "additive", "vertexalpha", "vertexcolor", "ignorez" }
+			for i, j in pairs( tocheck ) do
+				if (v[j]) then
+					params["$"..j] = 1
+					name = name.."1"
 				else
-					v.modelEnt = nil
+					name = name.."0"
 				end
+			end
+
+			v.createdSprite = v.sprite
+			v.spriteMaterial = CreateMaterial(name,"UnlitGeneric",params)
+		end
+	end
+	
+end
+
+function SWEP:OnRemove()
+	self:RemoveModels()
+	RemoveNewArms(self)
+end
+
+function SWEP:RemoveModels()
+	if (self.VElements) then
+		for k, v in pairs( self.VElements ) do
+			if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
+		end
+	end
+	if (self.WElements) then
+		for k, v in pairs( self.WElements ) do
+			if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
+		end
+	end
+	self.VElements = nil
+	self.WElements = nil
+end
+
+local scope = surface.GetTextureID( "zombiesurvival/scope/sniper_scope" )
+
+function SWEP:DrawScope()
+	surface.SetDrawColor( 0, 0, 0, 255 )
 				
-			elseif (v.type == "Sprite" and v.sprite and v.sprite ~= "" and (not v.spriteMaterial or v.createdSprite ~= v.sprite) 
-				and file.Exists ("materials/"..v.sprite..".vmt","GAME")) then
-				
-				local name = v.sprite.."-"
-				local params = { ["$basetexture"] = v.sprite }
-				--  make sure we create a unique name based on the selected options
-				local tocheck = { "nocull", "additive", "vertexalpha", "vertexcolor", "ignorez" }
-				for i, j in pairs( tocheck ) do
-					if (v[j]) then
-						params["$"..j] = 1
-						name = name.."1"
-					else
-						name = name.."0"
-					end
-				end
+     local x = ScrW() / 2.0
+	 local y = ScrH() / 2.0
+	 local scope_size = ScrH()
 
-				v.createdSprite = v.sprite
-				v.spriteMaterial = CreateMaterial(name,"UnlitGeneric",params)
-			end
-		end
-		
-	end
+	 -- crosshair
+	 local gap = 80
+	 local length = scope_size
+	 surface.DrawLine( x - length, y, x - gap, y )
+	 surface.DrawLine( x + length, y, x + gap, y )
+	 surface.DrawLine( x, y - length, x, y - gap )
+	 surface.DrawLine( x, y + length, x, y + gap )
 
-	function SWEP:OnRemove()
-		self:RemoveModels()
-		
-		RemoveNewArms(self)
-		
-	end
+	 gap = 0
+	 length = 50
+	 surface.DrawLine( x - length, y, x - gap, y )
+	 surface.DrawLine( x + length, y, x + gap, y )
+	 surface.DrawLine( x, y - length, x, y - gap )
+	 surface.DrawLine( x, y + length, x, y + gap )
 
-	function SWEP:RemoveModels()
-		if (self.VElements) then
-			for k, v in pairs( self.VElements ) do
-				if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
-			end
-		end
-		if (self.WElements) then
-			for k, v in pairs( self.WElements ) do
-				if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
-			end
-		end
-		self.VElements = nil
-		self.WElements = nil
-	end
 
+	 -- cover edges
+	 local sh = scope_size / 2
+	 local w = (x - sh) + 2
+	 surface.DrawRect(0, 0, w, scope_size)
+	 surface.DrawRect(x + sh - 2, 0, w, scope_size)
+
+	 surface.SetDrawColor(255, 0, 0, 255)
+	 surface.DrawLine(x, y, x + 1, y + 1)
+
+	 -- scope
+	 surface.SetTexture(scope)
+	 surface.SetDrawColor(1, 1, 1, 255)
+	 surface.DrawTexturedRectRotated(x, y, scope_size, scope_size, 0)
+
+	local dist = 0
+	
+	local tr = MySelf:GetEyeTrace()
+	
+	if tr.Hit then
+		dist = math.Round(MySelf:GetShootPos():Distance(tr.HitPos))
+		draw.SimpleTextOutlined("Distance: "..dist, "ChatFont",ScrW()/2+100,ScrH()/2,Color(255,255,255,255),TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,0.1, Color(0,0,0,255))
+	end	
+end

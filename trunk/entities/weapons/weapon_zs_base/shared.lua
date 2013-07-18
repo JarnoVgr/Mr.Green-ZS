@@ -78,16 +78,17 @@ function SWEP:UpdateBonePositions(vm)
 	if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 		for k, v in pairs( self.ViewModelBoneMods ) do
 			local bone = vm:LookupBone(k)
-			if (not bone) then continue end
-			if vm:GetManipulateBoneScale(bone) ~= v.scale then
-				vm:ManipulateBoneScale( bone, v.scale )
-			end
-			if vm:GetManipulateBoneAngles(bone) ~= v.angle then
-				vm:ManipulateBoneAngles( bone, v.angle )
-			end
-			if vm:GetManipulateBonePosition(bone) ~= v.pos then
-				vm:ManipulateBonePosition( bone, v.pos )
-			end
+			if ( bone) then
+    			if vm:GetManipulateBoneScale(bone) ~= v.scale then
+    				vm:ManipulateBoneScale( bone, v.scale )
+    			end
+    			if vm:GetManipulateBoneAngles(bone) ~= v.angle then
+    				vm:ManipulateBoneAngles( bone, v.angle )
+    			end
+    			if vm:GetManipulateBonePosition(bone) ~= v.pos then
+    				vm:ManipulateBonePosition( bone, v.pos )
+    			end
+    	     end
 		end
 	else
 		for i=0, vm:GetBoneCount() do
@@ -127,13 +128,15 @@ function SWEP:CreateViewModelElements()
 		if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 			for k, v in pairs( self.ViewModelBoneMods ) do
 				local bone = s:LookupBone(k)
-				if (not bone) then continue end
-				local m = s:GetBoneMatrix(bone)
-				if (not m) then continue end
-				m:Scale(v.scale)
-				m:Rotate(v.angle)
-				m:Translate(v.pos)
-				s:SetBoneMatrix(bone, m)
+				if ( bone) then 
+    				local m = s:GetBoneMatrix(bone)
+    				if (m) then 
+        				m:Scale(v.scale)
+        				m:Rotate(v.angle)
+        				m:Translate(v.pos)
+        				s:SetBoneMatrix(bone, m)
+        			end
+    			end
 			end
 		end
 	end   
