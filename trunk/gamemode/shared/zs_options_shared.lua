@@ -15,14 +15,18 @@ end
 --[==[------------------------------------------------------------
    Call this whenever you want to check an option
 -------------------------------------------------------------]==]
-function ConVarIsTrue( convar )
-	if not ConVarExists(convar) then return false end
+function ConVarIsTrue(convar)
+	if not ConVarExists(convar) then
+		return false
+	end
 	
 	return GetConVar(convar):GetBool()
 end
 
 ARENA_MODE = tobool(string.find(tostring(game.GetMap()),"zs_arena"))
-print("Arena mode = "..tostring(ARENA_MODE))
+if ARENA_MODE then
+	print("[MAPCODER] Arena map")
+end
 
 DEFAULT_VIEW_OFFSET = Vector(0, 0, 64)
 DEFAULT_VIEW_OFFSET_DUCKED = Vector(0, 0, 28)
@@ -326,7 +330,7 @@ GM.HumanWeapons = {
 	["admin_poisonspawner"] = { Name = "Poison Spawner Tool", DPS = 0, Infliction = 0.2, Type = "admin", Restricted = true },
 	["admin_exploitblocker"] = { Name = "Exploit blocker Tool", DPS = 0, Infliction = 0.2, Type = "admin", Restricted = true },
 	["christmas_snowball"] = { Name = "Christmas Snowball", DPS = 0, Infliction = 0, Type = "christmas", Restricted = true },
-} 
+}
 
 GM.SkillShopAmmo = {
 	["pistol"]  = { Name = "12 Pistol Bullets", Model = "models/Items/BoxSRounds.mdl", Amount = 12, Price = 15},

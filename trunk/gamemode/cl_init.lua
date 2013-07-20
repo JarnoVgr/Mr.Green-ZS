@@ -510,7 +510,7 @@ function GM:Initialize()
 	
 	--Force fast switch and some network vars
 	RunConsoleCommand("hud_fastswitch", "1")
-	RunConsoleCommand("mat_motion_blur_enabled", "1")
+	--RunConsoleCommand("mat_motion_blur_enabled", "1")
 end
 
 function HTTPChangelog(contents, size)
