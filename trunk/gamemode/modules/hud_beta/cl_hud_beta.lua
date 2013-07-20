@@ -1,7 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-
 local table = table
 local surface = surface
 local draw = draw
@@ -14,37 +13,31 @@ local player = player
 
 
 DRAW_BETA_HUD = true
-if not DRAW_BETA_HUD then return end
+if not DRAW_BETA_HUD then
+	return
+end
 
--- Function table
+--Function table
 hud = {}
 
--- Health indications
-hud.HealthIndication = { [1] = { Text = "Healthy as a horse!", Percent = 1 }, [2] = { Text = "A few scratches..", Percent = 0.8 }, [3] = { Text = "Not looking good..", Percent = 0.6 }, [4] = { Text = "Search for a doctor!", Percent = 0.45 }, [5] = { Text = "You lost your guts!", Percent = 0.4 }, [6] = { Text = "Bleeding to death!", Percent = 0.25 } }
-hud.ZombieHealthIndication = { [1] = { Text = "Hungry as hell!", Percent = 1 }, [2] = { Text = "It's just pain..", Percent = 0.8 }, [3] = { Text = "Not looking good..", Percent = 0.6 }, [4] = { Text = "Search for a poison aura!", Percent = 0.45 }, [5] = { Text = "I want gibs. NOW!", Percent = 0.4 }, [6] = { Text = "Crawling in my skin...", Percent = 0.25 } }
+--Health indications
+hud.HealthIndication = { [1] = { Text = "Healthy as a horse", Percent = 1 }, [2] = { Text = "A few scratches..", Percent = 0.8 }, [3] = { Text = "Not looking good..", Percent = 0.6 }, [4] = { Text = "Search for a doctor!", Percent = 0.45 }, [5] = { Text = "You lost your guts!", Percent = 0.4 }, [6] = { Text = "Bleeding to death!", Percent = 0.25 } }
+hud.ZombieHealthIndication = { [1] = { Text = "Hungry as hell", Percent = 1 }, [2] = { Text = "It's just pain..", Percent = 0.8 }, [3] = { Text = "Not looking good..", Percent = 0.6 }, [4] = { Text = "Search for a poison aura!", Percent = 0.45 }, [5] = { Text = "I want gibs. NOW!", Percent = 0.4 }, [6] = { Text = "Crawling in my skin...", Percent = 0.25 } }
 
--- Temporal panic bar
+--Temporal panic bar
 hud.PanicBarColors = { [1] = { Percent = 1, Color = Color( 148,156,21,255 ) }, [2] = { Percent = 0.8, Color = Color( 179,145,42,255 ) }, [3] = { Percent = 0.6, Color = Color( 179,116,42,255 ) }, [4] = { Percent = 0.4, Color = Color( 191,77,26,255 ) }, [5] = { Percent = 0.2, Color = Color( 167,27,20,255 ) } }
 
--- Colors for danger sign
+--Colors for danger sign
 hud.DangerColors = { [1] = Color( 60, 132, 38, 255 ), [2] = Color( 108, 111, 39, 255 ), [3] = Color ( 115, 132, 38, 255 ), [4] = Color ( 143, 96, 15, 255 ), [5] = Color ( 130, 19, 19,255 ) }
 
--- Text for danger sign
+--Text for danger sign
 hud.DangerText = { [1] = "Nothing to worry!", [2] = "Rotten meatbag..", [3] = "Zombie Fuck-up!", [4] = "HOLY SHI- F#$^", [5] = "ZOMBIELAND!" } -- Brainfest
 hud.ZombieDangerText = { [1] = "Kill all humans!", [2] = "Fistful of flesh..", [3] = "Zombie Party!", [4] = "ARMY OF DEAD!", [5] = "DEAD RISING!" }
 
--- Textures needed
-local matHealthSplash, matSplashTop = surface.GetTextureID ( "zombiesurvival/hud/splash_health" ), surface.GetTextureID ( "zombiesurvival/hud/splash_top" )
+--Textures needed
+local matHealthSplash, matSplashTop = surface.GetTextureID ("zombiesurvival/hud/splash_health"), surface.GetTextureID ( "zombiesurvival/hud/splash_top" )
 
--- Avatar for classes
-hud.AvatarClass = { 
-	[1] = surface.GetTextureID ( "zombiesurvival/hud/avatar_medic" ),
-	[2] = surface.GetTextureID ( "zombiesurvival/hud/avatar_commando" ),
-	[3] = surface.GetTextureID ( "zombiesurvival/hud/avatar_berserker" ),
-	[4] = surface.GetTextureID ( "zombiesurvival/hud/avatar_engineer" ),
-	[5] = surface.GetTextureID ( "zombiesurvival/hud/avatar_support" ),
-}
-
+--Avatar for classes
 hud.ZombieAvatarClass = { 
 	[1] = surface.GetTextureID ("zombiesurvival/classmenu/zombie"),
 	[2] = surface.GetTextureID ("zombiesurvival/classmenu/fastzombie"),
@@ -61,7 +54,6 @@ hud.ZombieAvatarClass = {
 	 Initialize fonts we need
 -----------------------------------------]==]
 function hud.InitFonts()
-
 	-- Health indication font
 	surface.CreateFont( "Arial", ScreenScale( 7.6 ), 600, true, true, "HUDBetaHealth" ) -- 14.6
 
@@ -79,65 +71,39 @@ function hud.InitFonts()
 	
 	-- Kills and regen text font
 	surface.CreateFont( "Arial", ScreenScale( 7.6 ), 500, true, true, "HUDBetaStats" ) -- 16
-	
+
 	-- Small level showout
 	surface.CreateFont ( "Arial", ScreenScale( 7 ), 700, true, true, "HUDBetaCorner" ) -- 14
-	
+
 	-- How much to survive font
 	surface.CreateFont ( "Arial", ScreenScale( 13 ), 500, true, true, "HUDBetaHeader" )
-	
+
 	-- Zombie count
 	surface.CreateFont ( "Arial", ScreenScale( 17 ), 700, true, true, "HUDBetaZombieCount" )
-	
+
 	-- Infliction percentage font
 	surface.CreateFont ( "Arial", ScreenScale( 10 ), 700, true, true, "HUDBetaInfliction" )
-	
+
 	-- Right upper box text font
 	surface.CreateFont ( "Arial", ScreenScale( 9.6 ), 700, true, true, "HUDBetaRightBox" )
-	
+
 	surface.CreateFont ( "DS-Digital", ScreenScale( 7.6 ), 700, true, true, "NewAmmoFont7" )
-	
 	surface.CreateFont ( "DS-Digital", ScreenScale( 9 ), 700, true, true, "NewAmmoFont9" )
-	
 	surface.CreateFont ( "DS-Digital", ScreenScale( 13 ), 700, true, true, "NewAmmoFont13" )
-	
 	surface.CreateFont ( "DS-Digital", ScreenScale( 20 ), 700, true, true, "NewAmmoFont20" )
-	
-	--[=[surface.CreateFont ( "Sansation", ScreenScale( 7.6 ), 700, true, true, "sNewAmmoFont7" )
-	
-	surface.CreateFont ( "Sansation", ScreenScale( 9 ), 700, true, true, "sNewAmmoFont9" )
-	
-	surface.CreateFont ( "Sansation", ScreenScale( 13 ), 700, true, true, "sNewAmmoFont13" )
-	
-	surface.CreateFont ( "Sansation", ScreenScale( 20 ), 700, true, true, "sNewAmmoFont20" )]=]
-	
 	surface.CreateFont ( "Arial", ScreenScale( 7.6 ), 700, true, false, "ssNewAmmoFont7" )
-	
 	surface.CreateFont ( "Arial", ScreenScale( 7 ), 700, true, false, "ssNewAmmoFont6.5" )
-	
 	surface.CreateFont ( "Arial", ScreenScale( 9 ), 700, true, false, "ssNewAmmoFont9" )
-	
 	surface.CreateFont ( "Arial", ScreenScale( 13 ), 700, true, false, "ssNewAmmoFont13" )
-	
-	surface.CreateFont ( "Arial", ScreenScale( 20 ), 700, true, false, "ssNewAmmoFont20" )
-	
-	
+	surface.CreateFont ( "Arial", ScreenScale( 20 ), 700, true, false, "ssNewAmmoFont20" )	
 	surface.CreateFont ( "Face Your Fears", ScreenScale( 17 ), 400, true, true, "NewZombieFont17",false,true )
-	
 	surface.CreateFont ( "Face Your Fears", ScreenScale( 15 ), 400, true, true, "NewZombieFont15",false,true )
-	
 	surface.CreateFont ( "Face Your Fears", ScreenScale( 13 ), 400, true, true, "NewZombieFont13",false,true )
-	
 	surface.CreateFont ( "Face Your Fears", ScreenScale( 27 ), 400, true, true, "NewZombieFont27",false,true )
-	
 	surface.CreateFont ( "Face Your Fears", ScreenScale( 23 ), 400, true, true, "NewZombieFont23",false,true )
-	
 	surface.CreateFont ( "Face Your Fears", ScreenScale( 19 ), 400, true, true, "NewZombieFont19",false,true )
-	
 	surface.CreateFont ( "Face Your Fears", ScreenScale( 14 ), 400, true, true, "NewZombieFont14",false,true )
-	
 	surface.CreateFont ( "Face Your Fears", ScreenScale( 10 ), 400, true, true, "NewZombieFont10",false,true )
-	
 end
 hook.Add ( "Initialize", "hud.InitFonts", hud.InitFonts )
 
@@ -148,21 +114,13 @@ function hud.HumanHUD()
 	if not IsEntityValid ( MySelf ) or ENDROUND then return end
 	
 	-- SQL ready
-	if not MySelf.ReadySQL then return end
+	if not MySelf.ReadySQL or not MySelf:Alive() or IsClassesMenuOpen() or not MySelf:IsHuman() or util.tobool(GetConVarNumber("_zs_hidehud")) then
+		return
+	end
 
-	if not MySelf:Alive() then return end
-	if IsClassesMenuOpen() then return end
-	-- if IsSkillShopOpen() then return end
-	
-	-- Only humans
-	if not MySelf:IsHuman() then return end
-	
-	if util.tobool(GetConVarNumber("_zs_hidehud")) then return end
-	
 	hud.DrawNewHumanHUD()
-	
 end
-hook.Add ( "HUDPaint", "hud.HumanHUD", hud.HumanHUD )
+hook.Add("HUDPaint", "hud.HumanHUD", hud.HumanHUD)
 
 
 local matDangerSign = surface.GetTextureID ( "zombiesurvival/hud/danger_sign" )
@@ -171,34 +129,32 @@ local matDangerSign = surface.GetTextureID ( "zombiesurvival/hud/danger_sign" )
 	     Zombie HUD main
 -----------------------------------------]==]
 function hud.ZombieHUD()
-	if not IsEntityValid ( MySelf ) or ENDROUND then return end
-	if not MySelf:Alive() then return end
-	
-	-- SQL ready
-	if not MySelf.ReadySQL then return end
-	
-	if IsClassesMenuOpen() then return end
-	if not MySelf:IsZombie() then return end
-	if util.tobool(GetConVarNumber("_zs_hidehud")) then return end
-	
+	if not IsEntityValid(MySelf) or ENDROUND then
+		return
+	end
+
+	if not MySelf:Alive() or not MySelf.ReadySQL or IsClassesMenuOpen() or not MySelf:IsZombie() or util.tobool(GetConVarNumber("_zs_hidehud")) then
+		return
+	end
+
 	hud.DrawBossHealth()
 	hud.DrawNewZombieHUD()
-
 end
-hook.Add ( "HUDPaint", "hud.ZombieHUD", hud.ZombieHUD )
+hook.Add("HUDPaint", "hud.ZombieHUD", hud.ZombieHUD)
 
 hud.BossBackground = surface.GetTextureID ( "zombiesurvival/hud/splash_top" )
 hud.texGradDown = surface.GetTextureID("VGUI/gradient_down")
 function hud.DrawBossHealth()
-	
-	if not GAMEMODE:IsBossAlive() then return end
+	if not GAMEMODE:IsBossAlive() then
+		return
+	end
 	
 	local BW,BH = ScaleW(440), ScaleW(440)
 	local BX,BY = w/2-BW/2, 0
 	
-	surface.SetDrawColor ( 119, 10, 10, 255 )
-	surface.SetTexture ( hud.BossBackground )
-	surface.DrawTexturedRect ( BX,BY,BW,BH ) 
+	surface.SetDrawColor(119, 10, 10, 255)
+	surface.SetTexture(hud.BossBackground)
+	surface.DrawTexturedRect( BX,BY,BW,BH ) 
 	
 	local BarW,BarH = BW*0.75, ScaleH(36)
 	local BarX,BarY = w/2-BarW/2, ScaleH(100)
@@ -232,7 +188,6 @@ local lastrefresh = -1
 local cached_humans = 0
 local cached_zombies = 0
 function hud.DrawNewZombieHUD()
-	
 	if lastrefresh <= CurTime() then
 		cached_humans = team.NumPlayers(TEAM_HUMAN)
 		cached_zombies = team.NumPlayers(TEAM_UNDEAD)
@@ -435,16 +390,11 @@ function hud.DrawNewZombieHUD()
 	end
 	
 	surface.DrawRect(sx+3 , sy+2.5, ((MySelf.HRBar)/math.Clamp(max-1,0,max ))*(swide-6),stall-6 )	
-	
-
-	
-
 end
 
 hud.LeftGradient = surface.GetTextureID( "gui/gradient" )
 hud.Arrow = surface.GetTextureID( "gui/arrow" )
 function hud.DrawNewHumanHUD()
-	
 	if lastrefresh <= CurTime() then
 		cached_humans = team.NumPlayers(TEAM_HUMAN)
 		cached_zombies = team.NumPlayers(TEAM_UNDEAD)
@@ -453,15 +403,10 @@ function hud.DrawNewHumanHUD()
 	
 	--Draw!
 	hud.DrawBossHealth()
-	-- hud.DrawAmmo(ScrW()-205,ScrH()-100,175,70)
 	hud.DrawAmmoPanel()
-	
 	hud.DrawHealthPanel()
-	
 	hud.DrawWavePanel()
-	
 	hud.DrawStatsPanel()
-	
 	hud.DrawZeroWaveMessage()
 	
 	--[[local ENABLE_HPBAR = util.tobool(GetConVarNumber("_zs_enablehpbar"))
@@ -473,31 +418,31 @@ function hud.DrawNewHumanHUD()
 		draw.SimpleTextOutlined("RETRO APOCALYPSE", "NewZombieFont13", w/2 , h-23*2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 
-	if not OBJECTIVE then return end
+	if OBJECTIVE then
+		surface.SetTexture(hud.LeftGradient)
+		surface.SetDrawColor(0, 0, 0, 140)
+		surface.DrawTexturedRect(0,0,ScaleW(370),ScaleH(60))
 	
-	surface.SetTexture(hud.LeftGradient)
-	surface.SetDrawColor(0, 0, 0, 140)
-	surface.DrawTexturedRect(0,0,ScaleW(370),ScaleH(60))
-	
-	draw.SimpleTextOutlined("Stage #"..GAMEMODE:GetObjStage().." of "..#Objectives, "ArialBoldFive", 10, 5, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-	draw.SimpleTextOutlined("Objective: "..Objectives[GAMEMODE:GetObjStage()].Info, "ArialBoldFive", 10, 25, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))	
+		draw.SimpleTextOutlined("Stage #"..GAMEMODE:GetObjStage().." of "..#Objectives, "ArialBoldFive", 10, 5, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined("Objective: "..Objectives[GAMEMODE:GetObjStage()].Info, "ArialBoldFive", 10, 25, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))	
+	end
 end
 
 function hud.DrawWeaponLabels()
-    if not IsEntityValid ( MySelf ) or ENDROUND then return end
+    if not IsEntityValid(MySelf) or ENDROUND then
+    	return
+    end
     
-    -- SQL ready
-    if not MySelf.ReadySQL then return end
-
-    if not MySelf:Alive() then return end
-    if IsClassesMenuOpen() then return end
+    if not MySelf.ReadySQL or not MySelf:Alive() or not MySelf:IsHuman() or IsClassesMenuOpen() then
+    	return
+    end
     -- if IsSkillShopOpen() then return end
     
-    -- Only humans
-    if not MySelf:IsHuman() then return end
+    if util.tobool(GetConVarNumber("_zs_hidehud")) then
+    	return
+    end
     
-    if util.tobool(GetConVarNumber("_zs_hidehud")) then return end
-    
+    --Draw weapon name labels
     local ents = ents.FindByClass( "weapon_*" )
     for k, ent in pairs( ents ) do
         if ent:IsWeapon() then
@@ -521,10 +466,11 @@ end
 hook.Add( "PostDrawTranslucentRenderables", "RenderWeaponLabels", hud.DrawWeaponLabels )
 
 function hud.DrawAmmoPanel()
-	
 	local ActiveWeapon = MySelf:GetActiveWeapon()
-	if not ValidEntity ( ActiveWeapon ) then return end
-	local PrimaryAmmo, SecondaryAmmo = MySelf:GetActiveWeapon():Clip1(), MySelf:GetAmmoCount( MySelf:GetActiveWeapon():GetPrimaryAmmoType() )
+	if not ValidEntity(ActiveWeapon) then
+		return
+	end
+	local PrimaryAmmo, SecondaryAmmo = MySelf:GetActiveWeapon():Clip1(), MySelf:GetAmmoCount(MySelf:GetActiveWeapon():GetPrimaryAmmoType())
 	
 	--Options
 	local AmmoStepX,AmmoStepY = 12,12
@@ -536,7 +482,7 @@ function hud.DrawAmmoPanel()
 	
 	local w,h,x,y = AmmoW,AmmoH,AmmoX,AmmoY
 	
-	-- draw turret's ammo
+	--Draw turret's ammo
 	if ActiveWeapon:GetClass() == "weapon_zs_tools_remote" then
 		for _,v in pairs (ents.FindByClass("zs_turret")) do
 			if v:GetTurretOwner() and v:GetTurretOwner() == MySelf then
@@ -546,41 +492,39 @@ function hud.DrawAmmoPanel()
 		end
 	end
 	
-	if ActiveWeapon.NoHUD then return end
+	if ActiveWeapon.NoHUD then
+		return
+	end
 	
 	if PrimaryAmmo ~= -1 then
-	
 		--Background
-		-- DrawBlackBox(AmmoX,AmmoY,AmmoW,AmmoH)
+		--DrawBlackBox(AmmoX,AmmoY,AmmoW,AmmoH)
 		
 		--Ammo
 		
 		local ToDraw1 = PrimaryAmmo
 		
 		local xpos = x+14
-		-- for _,v in pairs(Numbers) do
-		-- 	draw.SimpleText(v, "sNewAmmoFont20", xpos+w/2.5, y+h/2, Color(110,110,110,35), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
-		-- end
+		--[[for _,v in pairs(Numbers) do
+			draw.SimpleText(v, "sNewAmmoFont20", xpos+w/2.5, y+h/2, Color(110,110,110,35), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
+		end]]
 		
 		draw.SimpleTextOutlined(ToDraw1, "ssNewAmmoFont20", xpos+w/2.5, y+h/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		
 		if SecondaryAmmo > 0 then
-		local fWide, fTall = surface.GetTextSize ( "/" )
-		xpos = xpos + fWide
+			local fWide, fTall = surface.GetTextSize ( "/" )
+			xpos = xpos + fWide
 		
-		draw.SimpleTextOutlined("/", "ssNewAmmoFont13", xpos+w/2.5, y+h/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			draw.SimpleTextOutlined("/", "ssNewAmmoFont13", xpos+w/2.5, y+h/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		
 		
-		fWide, fTall = surface.GetTextSize ( "888" )
-		xpos = xpos + fWide
+			fWide, fTall = surface.GetTextSize ( "888" )
+			xpos = xpos + fWide
 		
-		-- draw.SimpleText("888", "sNewAmmoFont13", xpos+w/2.5, y+h/2, Color(110,110,110,35), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
-		draw.SimpleTextOutlined(SecondaryAmmo, "ssNewAmmoFont13", xpos+w/2.5, y+h/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
+			-- draw.SimpleText("888", "sNewAmmoFont13", xpos+w/2.5, y+h/2, Color(110,110,110,35), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
+			draw.SimpleTextOutlined(SecondaryAmmo, "ssNewAmmoFont13", xpos+w/2.5, y+h/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		end
 	end
-
-
 end
 
 local turreticon = surface.GetTextureID("killicon/turret")
@@ -681,7 +625,6 @@ end
 
 local nextreward = -1
 function hud.DrawStatsPanel()
-
 	--Stats
 	local StatsX,StatsY = 12+ScaleW(7),34+ScaleH(70)
 
@@ -782,24 +725,20 @@ function hud.DrawWavePanel()
 		
 		draw.SimpleTextOutlined("Infliction: ", "ArialBoldSeven", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
-		local space1 = surface.GetTextSize ( "Infliction: " )
-		
+		local space1 = surface.GetTextSize("Infliction: ")
 		draw.SimpleTextOutlined(cached_zombies, "ArialBoldSeven", text2x+space1, text2y, team.GetColor(TEAM_UNDEAD), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
-		local space2 = surface.GetTextSize ( cached_zombies )
-		
+		local space2 = surface.GetTextSize(cached_zombies)
 		draw.SimpleTextOutlined("/", "ArialBoldSeven", text2x+space1+space2+1, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
-		local space3 = surface.GetTextSize ( "/" )
-		
+		local space3 = surface.GetTextSize("/")
 		draw.SimpleTextOutlined(cached_humans, "ArialBoldSeven", text2x+space1+space2+space3+2, text2y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		-- Encouragement for last 30 seconds of last round
-        if ( timleft <= 30 and GAMEMODE:GetWave() == 6 ) then
-            draw.SimpleTextOutlined("Hang on!", "ArialBoldTwelve", ScrW() * 0.5, ScrH() * 0.1, Color(255,255,255,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) 
-            draw.SimpleTextOutlined("Only "..math.Round( timleft + 1 ).." seconds left!", "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.14, Color(235,50,50,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+        if (timleft <= 30 and GAMEMODE:GetWave() == 6) then
+            draw.SimpleTextOutlined("Hang in there", "ArialBoldTwelve", ScrW() * 0.5, ScrH() * 0.1, Color(255,255,255,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) 
+            draw.SimpleTextOutlined(math.Round(timleft + 1).." seconds left", "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.14, Color(235,50,50,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
         end
-		
 	else
 		local timleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
 		if timleft < 10 then
@@ -820,7 +759,6 @@ function hud.DrawWavePanel()
 		end
 		draw.SimpleTextOutlined("Wave ".. curwav .. " of ".. NUM_WAVES.."  ", "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 	end
-	
 end
 
 hud.GradientExample = surface.GetTextureID( "gui/center_gradient" )
@@ -851,12 +789,10 @@ function DrawBlackBox(x,y,w,h,overridealpha)
 	surface.DrawOutlinedRect( x, y, w, h )
 	surface.SetDrawColor( 30, 30, 30, 255*a )
 	surface.DrawOutlinedRect( x+1, y+1, w-2, h-2 )
-
 end
 
 local Quad = {} 
 function DrawPanelBlackBox(x,y,w,h,overridealpha)
-	
 	local a = 1
 	
 	if overridealpha then
@@ -884,67 +820,60 @@ function DrawPanelBlackBox(x,y,w,h,overridealpha)
 end
 
 function hud.DrawZeroWaveMessage()
+	local curtime = CurTime()
 	
-		local curtime = CurTime()
-	
-		if WAVEZERO_LENGTH >= curtime then
-		
-			surface.SetFont("ArialBoldSeven")
-			local txtw, txth = surface.GetTextSize("Hi")
-			--draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1) ..". Prepare your hideout!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			--draw.SimpleTextOutlined("Go to an zombie spawn area to volunteer for zombie", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	if WAVEZERO_LENGTH >= curtime then	
+		surface.SetFont("ArialBoldSeven")
+		local txtw, txth = surface.GetTextSize("Hi")
+		--draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1) ..". Prepare your hideout!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+		--draw.SimpleTextOutlined("Go to an zombie spawn area to volunteer for zombie", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
-			local vols = 0
-			local voltab = {}
-			local allplayers = player.GetAll()
-			for _, gasses in pairs(ents.FindByClass("zs_poisongasses")) do
-				local gaspos = gasses:GetPos()
-				for _, ent in pairs(allplayers) do
-					if ent:GetPos():Distance(gaspos) <= 272 and not table.HasValue(voltab, ent) then
-						vols = vols + 1
-						table.insert(voltab, ent)
-					end
-				end
-			end
-
-			for _, pl in pairs(allplayers) do
-				if pl:Team() == TEAM_UNDEAD then
+		local vols = 0
+		local voltab = {}
+		local allplayers = player.GetAll()
+		for _, gasses in pairs(ents.FindByClass("zs_poisongasses")) do
+			local gaspos = gasses:GetPos()
+			for _, ent in pairs(allplayers) do
+				if ent:GetPos():Distance(gaspos) <= 272 and not table.HasValue(voltab, ent) then
 					vols = vols + 1
-					table.insert(voltab, pl)
-				end
-			end
-
-			local numplayers = #allplayers
-			local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
-			
-			-- Client zombie spawn warning
-            if ( table.HasValue( voltab, MySelf ) ) then
-                draw.SimpleTextOutlined("You're now volunteering for zombie. Get out of this place if you want to stay alive!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.7 + txth, Color(235,50,50,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))              
-            end
-
-			--draw.SimpleTextOutlined("Number of initial zombies this game ("..WAVE_ONE_ZOMBIES * 100 .."%): "..desiredzombies, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			draw.SimpleTextOutlined("Starting with "..desiredzombies .." zombies", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-
-			draw.SimpleTextOutlined("Volunteers: "..vols, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			
-			surface.SetFont("Default")
-			local y = ScrH() * 0.75 + txth * 2
-			txtw, txth = surface.GetTextSize("Hi")
-			for _, pl in pairs(voltab) do
-				if ScrH() - txth <= y then break else
-					draw.SimpleTextOutlined(pl:Name(), "ArialBoldFour", ScrW() * 0.5, y, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-					y = y + txth
+					table.insert(voltab, ent)
 				end
 			end
 		end
-	
+
+		for _, pl in pairs(allplayers) do
+			if pl:Team() == TEAM_UNDEAD then
+				vols = vols + 1
+				table.insert(voltab, pl)
+			end
+		end
+
+		local numplayers = #allplayers
+		local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
+		
+		-- Client zombie spawn warning
+		if ( table.HasValue( voltab, MySelf ) ) then
+			draw.SimpleTextOutlined("You're now volunteering for Zombie. Get out of this place if you want to stay alive!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.7 + txth, Color(235,50,50,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))              
+		end
+
+		--draw.SimpleTextOutlined("Number of initial zombies this game ("..WAVE_ONE_ZOMBIES * 100 .."%): "..desiredzombies, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+		--draw.SimpleTextOutlined("Starting with "..desiredzombies .." zombies", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+
+		draw.SimpleTextOutlined("Volunteers for Zombie: "..vols, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			
+		surface.SetFont("Default")
+		local y = ScrH() * 0.75 + txth * 2
+		txtw, txth = surface.GetTextSize("Hi")
+		for _, pl in pairs(voltab) do
+			if ScrH() - txth <= y then break else
+				draw.SimpleTextOutlined(pl:Name(), "ArialBoldFour", ScrW() * 0.5, y, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				y = y + txth
+			end
+		end
+	end
 end
 
 function hud.DrawObjMessages()
-	
-
-
-	
 	if not IsEntityValid ( MySelf ) or ENDROUND then return end
 
 	if not MySelf.ReadySQL then return end

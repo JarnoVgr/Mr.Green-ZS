@@ -53,13 +53,13 @@ CreateClientConVar("_zs_hatpcolB", 255, true, true)
 CreateConVar( "cl_playercolor", "0.24 0.34 0.41", { FCVAR_ARCHIVE, FCVAR_USERINFO, FCVAR_DONTRECORD }, "The value is a Vector - so between 0-1 - not between 0-255" )
 CreateConVar( "cl_weaponcolor", "0.30 1.80 2.10", { FCVAR_ARCHIVE, FCVAR_USERINFO, FCVAR_DONTRECORD }, "The value is a Vector - so between 0-1 - not between 0-255" )
 
--- Deadlife prediction
-hook.Add( "Think", "DeadlifeStatus", function()	
+--Deadlife prediction
+hook.Add("Think", "DeadlifeStatus", function()
 	if GAMEMODE:GetWave() == 6 --[=[and GAMEMODE:GetFighting()]=] then 
 		if not ENDROUND and not LASTHUMAN then
 			DEADLIFE = true 
 			-- All in one
-			if IsValid( MySelf ) then
+			if IsValid(MySelf) then
 				if not MySelf.WarnDeadlife then
 					PlayDeadlife()
 					MySelf.WarnDeadlife = true
@@ -77,7 +77,7 @@ hook.Add( "Think", "DeadlifeStatus", function()
 			DEADLIFE = false
 		end
 	end
-end )
+end)
 
 -- Predicting spawn/death
 local function PredictSpawn()
@@ -108,10 +108,10 @@ local function PredictSpawn()
 		end
 	end
 end
-hook.Add ( "Think", "PredictSpawn", PredictSpawn )
+hook.Add("Think", "PredictSpawn", PredictSpawn)
 
 -- Semi-predicted damage function
-function GM:PlayerTakeDamage ( pl, attacker, damage )
+function GM:PlayerTakeDamage( pl, attacker, damage )
 end
 
 -- Redeem
@@ -150,7 +150,6 @@ end
       Initialize some variables for supply crates
 ------------------------------------------------------]==]
 local function InitializeCrateVars()
-
 	-- Precache the gib models
 	for i = 1, 9 do
 		util.PrecacheModel ( "models/items/item_item_crate_chunk0"..i..".mdl" )
@@ -158,16 +157,15 @@ local function InitializeCrateVars()
 	
 	-- Precache main model
 	util.PrecacheModel ( "models/items/item_item_crate.mdl" )
-
 end
-hook.Add ( "Initialize", "InitVars", InitializeCrateVars )
+hook.Add("Initialize", "InitVars", InitializeCrateVars)
 
 local function CrateApparitionSound()
-	if not ValidEntity ( MySelf ) then
+	if not ValidEntity(MySelf) then
 		return
 	end
 	
-	-- Play thunder sound :> -- Thanks to Mayco
+	--Play thunder sound
 	surface.PlaySound( "mrgreen/new/thunder"..math.random(1,4)..".mp3" ) 
 
 	-- Notify the player
@@ -175,23 +173,25 @@ local function CrateApparitionSound()
 		GAMEMODE:Add3DMessage(140,"Find a Supply Crate for resources",nil,"ArialBoldTen")
  	end
 	
-	Debug ( "[CLIENT] Supply Crates have been dropped !" )
+	Debug ( "[CLIENT] Supply Crates have dropped" )
 end
 
-net.Receive( "UpdateClientArrows", function( len )
-	if not IsValid ( MySelf ) then 
+net.Receive("UpdateClientArrows", function(len)
+	if not IsValid(MySelf) then 
 	    return 
 	end
 	
-	-- Play that sound
+	--Play that sound
 	CrateApparitionSound()
 end)
 
 --[==[---------------------------------------------------------
        Manages Unlife Event. Set true to enable
 ---------------------------------------------------------]==]
-function GM:SetUnlife ( bool )
-	if LASTHUMAN or ENDROUND then return end
+function GM:SetUnlife(bool)
+	if LASTHUMAN or ENDROUND then
+		return
+	end
 
 	-- Set client unlife correspondenly
 	UNLIFE = bool
@@ -201,14 +201,16 @@ function GM:SetUnlife ( bool )
 	--RunConsoleCommand("stopsounds")
 	--timer.Simple( 0.3, PlayUnlife )
 	
-	Debug ( "[CLIENT] Un-life sound started to play. " )
+	Debug ( "[CLIENT] Unlife started" )
 end
 
 --[==[---------------------------------------------------------
        Used to receive player and chat title index
 ---------------------------------------------------------]==]
 local function ReceiveChatTitles ( um )
-	if not ValidEntity ( MySelf ) then return end
+	if not ValidEntity ( MySelf ) then
+		return
+	end
 
 	local tbStart, tbEnd = um:ReadShort(), um:ReadShort()
 	for i = tbStart, tbEnd do
@@ -229,7 +231,7 @@ local function ReceiveChatTitles ( um )
 	
 	Debug ( "[CLIENT] Succesfully recieved chat titles." )
 end
-usermessage.Hook ( "ReceiveChatTitles", ReceiveChatTitles )
+usermessage.Hook("ReceiveChatTitles", ReceiveChatTitles)
 
 --[==[---------------------------------------------------------
         Add titles before the player's name
@@ -389,7 +391,7 @@ if ENDROUND then return end
 	draw.SimpleTextOutlined(countno , "ArialBoldTwelve", xpos + 3*vwide/4 , ypos, Color (255,0,0,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_TOP,1,Color(0,0,0,255))
 	ypos = ypos +27
 	
-	draw.SimpleTextOutlined("(Timeleft: "..math.Clamp(math.Round(timeleft - CurTime()),0,20)..")" , "ArialBoldFive", xpos + vwide/2 , ypos, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_TOP,1,Color(0,0,0,255))
+	draw.SimpleTextOutlined("(Time left: "..math.Clamp(math.Round(timeleft - CurTime()),0,20)..")" , "ArialBoldFive", xpos + vwide/2 , ypos, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_TOP,1,Color(0,0,0,255))
 	
 	
 end

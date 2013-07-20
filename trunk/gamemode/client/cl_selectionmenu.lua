@@ -161,7 +161,9 @@ local SlotOrder = {
 }
 
 function FilterWeapons()
-	if not ValidEntity ( MySelf ) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND then return end
+	if not ValidEntity ( MySelf ) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND then
+		return
+	end
 	-- See what slots are present (what weapons do you actually have)
 	local MyWeapons = MySelf:GetWeapons()
 	
@@ -216,7 +218,6 @@ local SLOT_SIZE = {
 }
 
 function InitializeWeaponFonts ()
-
 	-- Unselected
 	surface.CreateFont("HL2MP", ScreenScale(25), 500, true, false, "WeaponUnselectedHL2") -- 30 and 45
 	surface.CreateFont("csd", ScreenScale(25), 500, true, false, "WeaponUnselectedCSS")
@@ -244,10 +245,9 @@ hook.Add ( "Initialize", "InitFonts", InitializeWeaponFonts )
             Draws the actual selection menu
 ---------------------------------------------------------]==]
 function PaintWeaponSelection ()
-	if not ValidEntity ( MySelf ) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND then return end
-	
-	-- SQL ready
-	if not MySelf.ReadySQL then return end
+	if not ValidEntity ( MySelf ) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND or not MySelf.ReadySQL then
+		return
+	end
 
 	-- Run the almighty filtering function
 	local MyWeapons = FilterWeapons()
@@ -257,7 +257,7 @@ function PaintWeaponSelection ()
 		IsSlot[i] = false
 	end
 	
-	for k,v in pairs ( MyWeapons ) do
+	for k,v in pairs(MyWeapons) do
 		if k <= MaximumSlots then
 			if v.Slot + 1 == k then
 				IsSlot[v.Slot+1] = true			
@@ -272,10 +272,10 @@ function PaintWeaponSelection ()
 	
 	-- Make the active weapon panel enlarge!
 	local ActiveWeapon = MySelf:GetActiveWeapon()
-	if ValidEntity ( ActiveWeapon ) then
+	if ValidEntity(ActiveWeapon) then
 		local Slot = ActiveWeapon.Slot or 6
-		for k, wep in pairs ( WeaponsRestricted ) do
-			if not string.find ( ActiveWeapon:GetClass(), wep ) then
+		for k, wep in pairs(WeaponsRestricted) do
+			if not string.find(ActiveWeapon:GetClass(), wep) then
 				IsSlotActive[Slot + 1] = true
 			end
 		end
@@ -303,13 +303,13 @@ function PaintWeaponSelection ()
 		end
 	end
 	
-	--  Slot 1 - 4 positions!
+	--Slot 1 - 4 positions
 	local SLOT_POS = {}
 	for i = 1, MaximumSlots do
 		SLOT_POS[i] = { PosX = w - SLOT_SIZE[i].SizeW * 0.5, PosY = h * 0.35 + ( Offset[i] ) }
 	end
 	
-	-- Actually draw the panels
+	--Actually draw the panels
 	for i = 1, MaximumSlots do
 		if IsSlot[i] then
 			surface.SetDrawColor( 255, 255, 255, 195 )
@@ -354,10 +354,10 @@ function PaintWeaponSelection ()
 			local ToDraw = PrimaryAmmo.."/"..SecondaryAmmo
 			if SecondaryAmmo <= 0 then ToDraw = PrimaryAmmo end
 			if PrimaryAmmo ~= -1 then
-				draw.SimpleText ( ToDraw, AmmoFont, SLOT_POS[i].PosX + ScaleW(50) - ( fWide * Mult ), SLOT_POS[i].PosY + fTextOffset, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+				draw.SimpleText( ToDraw, AmmoFont, SLOT_POS[i].PosX + ScaleW(50) - ( fWide * Mult ), SLOT_POS[i].PosY + fTextOffset, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 			end
 			
-			draw.SimpleText ( letter, font, SLOT_POS[i].PosX + ScaleW(60), SLOT_POS[i].PosY + fTextOffset, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+			draw.SimpleText( letter, font, SLOT_POS[i].PosX + ScaleW(60), SLOT_POS[i].PosY + fTextOffset, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		end
 	end
 end
@@ -465,7 +465,9 @@ function PaintNewWeaponSelection ()
 	
 	if LastScroll < CurTime() then ShowWeapons = false end
 	
-	if not ShowWeapons then return end
+	if not ShowWeapons then
+		return
+	end
 	
 	-- Actually draw the panels
 	for i = 0, MaximumSlots do
@@ -493,6 +495,8 @@ function PaintNewWeaponSelection ()
 				end
 				
 			end
+
+			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 60, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255*math.Clamp(LastScroll - CurTime(),0,1)))
 			
 			if StoredIcons[MyWeapons[i]:GetClass()] then-- killicon.GetImage( MyWeapons[i]:GetClass() )
 			
@@ -529,15 +533,10 @@ function PaintNewWeaponSelection ()
 					surface.SetDrawColor( 255, 255, 255, 255*math.Clamp(LastScroll - CurTime(),0,1) )
 					surface.DrawOutlinedRect( SLOT_POS[i].PosX, SLOT_POS[i].PosY, MySelf.WepW, MySelf.WepH)
 					surface.DrawOutlinedRect( SLOT_POS[i].PosX+1, SLOT_POS[i].PosY+1, MySelf.WepW-2, MySelf.WepH-2 )
-					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 10, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255*math.Clamp(LastScroll - CurTime(),0,1)))
+					draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 10, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255*math.Clamp(LastScroll - CurTime(),0,1)))
 					
-				end
-				
-				draw.SimpleTextOutlined ( letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 60, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255*math.Clamp(LastScroll - CurTime(),0,1)))
-			
+				end			
 			end
-
-			
 		end
 	end
 end

@@ -187,12 +187,6 @@ function GM:FullGameUpdate(pl)
 		net.WriteFloat(self:GetWaveStart())
 		net.WriteFloat(self:GetWaveEnd())
 	net.Send(pl)
-
-	--[==[umsg.Start("reczsgamestate", pl)
-		umsg.Short(self:GetWave())
-		umsg.Short(self:GetWaveStart())
-		umsg.Short(self:GetWaveEnd())
-	umsg.End()]==]
 end
 
 util.AddNetworkString( "SetInf" )
@@ -202,10 +196,6 @@ function GM:SendInfliction()
 	net.Start("SetInf")
 		net.WriteFloat(INFLICTION)
 	net.Broadcast()
-	
-	--[==[umsg.Start("SetInf", to)
-		umsg.Float(INFLICTION)
-	umsg.End()]==]
 end
 
 util.AddNetworkString( "SetInfInit" )
@@ -216,11 +206,6 @@ function GM:SendInflictionInit(to)
 		net.WriteFloat(INFLICTION)
 		net.WriteDouble(self:GetWave())
 	net.Send(to)
-	
-	--[==[umsg.Start("SetInfInit", to)
-		umsg.Float(INFLICTION)
-		umsg.Short(self:GetWave())
-	umsg.End()]==]
 end
 
 function GM:GetLivingZombies()
@@ -235,10 +220,6 @@ function GM:GetLivingZombies()
 	self.LivingZombies = #tab
 	return tab
 end
-
--- timer.Create("UpdateLiving", 5, 0,function()
---  GAMEMODE:GetLivingZombies()
--- end)
 
 function GM:NumLivingZombies()
 	return self.LivingZombies
@@ -295,86 +276,7 @@ function GM:PlayerUse(pl, entity)
 		self:TryHumanPickup(pl, entity)
 	end
 	
-	--[=[local entclass = entity:GetClass()
-	if (string.find(entclass, "prop_physics") or entclass == "func_physbox") and pl:Team() == TEAM_HUMAN and not entity.Nails and pl:Alive() and entity:GetMoveType() == MOVETYPE_VPHYSICS and entity:GetPhysicsObject():GetMass() <= CARRY_MAXIMUM_MASS and entity:GetPhysicsObject():IsMoveable() and entity:OBBMins():Length() + entity:OBBMaxs():Length() <= CARRY_MAXIMUM_VOLUME then
-		local holder, status = entity:GetHolder()
-		if holder == pl and pl.NextUnHold < CurTime() then
-			status:Remove()
-			pl.NextHold = CurTime() + 0.5
-		elseif not holder and not pl:IsHolding() and pl.NextHold < CurTime() and pl:GetShootPos():Distance(entity:NearestPoint(pl:GetShootPos())) < 64 and pl:GetGroundEntity() ~= entity then
-			local newstatus = ents.Create("status_human_holding")
-			if newstatus:IsValid() then
-				pl.NextHold = CurTime() + 1.5
-				pl.NextUnHold = CurTime() + 0.5
-				newstatus:SetPos(pl:GetShootPos())
-				newstatus:SetOwner(pl)
-				newstatus:SetParent(pl)
-				newstatus.Object = entity
-				newstatus:Spawn()
-				self:SetPlayerSpeed(pl, math.max(CARRY_SPEEDLOSS_MINSPEED, CalculatePlayerSpeed(pl) - entity:GetPhysicsObject():GetMass() * CARRY_SPEEDLOSS_PERKG))
-			end
-		end
-	end]=]
-
 	return true
-end
-
-function GM:TryWeaponPickup(pl, ent)
-	--For now completely disabled. Fixes required: Anti-ammo exploit, Auto-select appropiate weapon
-
-	--Check if ent is a weapon
-	--[[if not ent:IsWeapon() then
-		return
-	end
-
-	--Check if weapon is not being holden by a player
-	if IsValid( ent:GetOwner() ) then
-		return
-	end
-
-	--Only allow alive humans
-	if not IsValid(pl) or not pl:IsHuman() or not pl:Alive() then
-		return
-	end
-
-	--Get weapon category
-	local wepCategory = GetWeaponCategory(StrWep:GetClass())
-	
-	--Only allow guns and melees to be picked up
-	if wepCategory ~= "Automatic" and wepCategory ~= "Pistol" and wepCategory ~= "Melee" then
-		return
-	end
-	
-	--Loop through all player weapons
-	for i,j in pairs (pl:GetWeapons()) do
-		--Check if categories match
-		if GetWeaponCategory(j:GetClass()) == wepCategory then
-			-- Save ammo information from weapon
-			if GetWeaponCategory ( j:GetClass() ) ~= "Melee" then
-				j.Primary.RemainingAmmo = j:Clip1()
-				j.Primary.Magazine = pl:GetAmmoCount( j:GetPrimaryAmmoTypeString() )
-			end
-				
-			--
-			if GetWeaponCategory ( j:GetClass() ) == "Tool1" or GetWeaponCategory ( j:GetClass() ) == "Tool2" then
-				j.Ammunition = j:Clip1()
-				if wepname == "weapon_zs_medkit" then
-					j.RemainingAmmunition = pl:GetAmmoCount( j:GetPrimaryAmmoTypeString() )
-				end
-			end
-		
-			pl:DropWeapon(j)
-			break
-		end
-	end
-		
-	--Give weapon to player
-	ent:SetPos(pl:GetPos())
-	
-	--Select weapon
-	--pl:SelectWeapon(ent:GetClass())
-	--timer.Simple(1,function() engine.LightStyle(0,"b") end)
-	]]
 end
 
 function GM:TryHumanPickup(pl, entity)

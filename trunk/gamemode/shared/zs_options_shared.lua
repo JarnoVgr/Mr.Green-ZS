@@ -816,7 +816,7 @@ HELP_TXT[3] = {
 		
 		Surf to http://mrgreengaming.com to post your ideas for changes and where you can post suggestions for new maps.
 		
-		Gamemode is developped by Limetric for Mr. Green Gaming Community. More info at http://limetric.com
+		Gamemode is developed by Limetric for Mr. Green Gaming Community. More info at http://limetric.com
 	]]
 } 
 

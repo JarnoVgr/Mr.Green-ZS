@@ -153,7 +153,7 @@ TranslateMapTable = {
 	["zs_godzilla"] = { Name = "Godzilla", Size = BIG, RandomizeSpawn = true, ZombieSpawnProtection = 7},
 	["zs_gravity_v2"] = { Name = "Gravity", Size = BIG, RandomizeSpawn = true, ExceptEntitiesRemoval = { "game_text", "func_door", "func_door_rotating"} },
 	["zs_nowhere"] = { Name = "Nowhere", Size = BIG, RandomizeSpawn = true, ExceptEntitiesRemoval = { "game_text", "func_door", "func_door_rotating"} },
-	["zs_prc_wurzel_v2"] = { Name = "Wurzel (aka Train Rape)", Size = BIG, RandomizeSpawn = true},
+	["zs_prc_wurzel_v2"] = { Name = "Wurzel (aka Train Rape)", Size = BIG, MapCoder = true, RandomizeSpawn = true},
 	["zs_gutter"] = { Name = "Gutter", Size = BIG, RandomizeSpawn = true,ZombieSpawnProtection = 8},
 	["cs_bulletheory"] = { Name = "Bulletheory", Size = BIG, RandomizeSpawn = true,ZombieSpawnProtection = 5},
 	["cs_meridian"] = { Name = "Meridian", Size = BIG, RandomizeSpawn = true,ZombieSpawnProtection = 3},

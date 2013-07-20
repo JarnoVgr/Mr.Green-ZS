@@ -230,11 +230,12 @@ function GM:_PostDrawOpaqueRenderables()
 	
 end
  
-hook.Add( "HUDPaint", "DrawWaiting", function()
-	if not ENDROUND or SinglePlayer() then
-		draw.SimpleText( "Please wait... "..RandomText, "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.5, Color( 255,255,255,210 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
-		draw.SimpleText( "mrgreengaming.com", "ArialBoldTwelve", ScrW() * 0.5, ScrH() * 0.55, Color( 87, 175, 87,235 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+hook.Add("HUDPaint", "DrawWaiting", function()
+	if not ENDROUND or not SinglePlayer() then
+		draw.SimpleText("Please wait... "..RandomText, "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.5, Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		
+		draw.SimpleText("MrGreenGaming.com", "HUDFontTiny", ScrW() * 0.5, ScrH() * 0.55, Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+
 		if IsValid(MySelf) then
 			if CurTime() - MySelf.ReadyTime > 20 then
 				MySelf.ReconnectTime = MySelf.ReconnectTime or CurTime() + 6
@@ -252,11 +253,11 @@ hook.Add( "HUDPaint", "DrawWaiting", function()
 			end
 		end
 	end
-end )
+end)
 
 -- Called when client loaded
 function GM:OnClientReady()
-	gui.EnableScreenClicker( true )
+	gui.EnableScreenClicker(true)
 end
 
 -- Called when myself is ready
@@ -264,7 +265,7 @@ function GM:OnSelfReady()
 	MySelf.Ready, MySelf.ReadyTime = true, CurTime()
 end
 
--- Called when myself got SQL gata
+--Called when myself got SQL gata
 function GM:OnPlayerReadySQL()
 	MySelf.ReadySQLTime = CurTime()
 
@@ -275,25 +276,25 @@ function GM:OnPlayerReadySQL()
 					if MySelf.GotClassData and MySelf.GotShopData and MySelf.GotAchievementsData then
 						MySelf.ReadySQL = true
 						if not ENDROUND then 
-							gui.EnableScreenClicker( false ) 
+							gui.EnableScreenClicker(false) 
 						end
 						
-						-- Remove wait message and this hook
-						hook.Remove( "HUDPaint", "DrawWaiting" )
-						hook.Remove( "Think", "CheckUpdateData" )
+						--Remove wait message and this hook
+						hook.Remove("HUDPaint", "DrawWaiting")
+						hook.Remove("Think", "CheckUpdateData")
 						
-						-- Class menu
+						--Class menu
 						DrawSelectClass()
 					end
 				end
 			end			
-		end )
+		end)
 	else
 		MySelf.ReadySQL = true
 		hook.Remove( "HUDPaint", "DrawWaiting" )
 		
 		if not ENDROUND then 
-			gui.EnableScreenClicker( false ) 
+			gui.EnableScreenClicker(false) 
 		end
 	end
 end
@@ -301,14 +302,14 @@ end
 net.Receive( "OnReadySQL", function( len )
 	timer.Simple( 0.1, function()
 		gamemode.Call( "OnPlayerReadySQL" )
-	end )
+	end)
 end)
 
 -- Usermessage hook to sql ready
 local function OnReadySQL()
 	timer.Simple( 0.1, function()
 		gamemode.Call( "OnPlayerReadySQL" )
-	end )
+	end)
 end
 usermessage.Hook( "OnReadySQL", OnReadySQL )
 
@@ -318,7 +319,7 @@ usermessage.Hook( "OnReadySQL", OnReadySQL )
 function GM:OnWeaponEquip ( pl, mWeapon )
 end
 
--- Prevent freeze when weapons drop
+--Prevent freeze when weapons drop
 util.PrecacheSound("mrgreen/new/thunder1.mp3")
 util.PrecacheSound("mrgreen/new/thunder2.mp3")
 util.PrecacheSound("mrgreen/new/thunder3.mp3")
@@ -345,13 +346,13 @@ if not killicon.GetFont then -- Need this for the rewards message.
 		--Good way to sort out my new killicons :D
 		local IsZSWeapon = false
 		
-		for k,v in pairs (ZSWeapons) do
+		for k,v in pairs(ZSWeapons) do
 			if v == sClass then
 				IsZSWeapon = true
 			end
 		end
 		
-		if GetWeaponType ( sClass ) == "melee" and not IsZSWeapon then
+		if GetWeaponType(sClass) == "melee" and not IsZSWeapon then
 			IsHl2Weapon = true
 		end
 		if sClass == "weapon_zs_melee_combatknife" then
@@ -375,16 +376,13 @@ if not killicon.GetImage then
 	local storedicons = {}
 	
 	function killicon.Add(sClass, sMat, cColor)
-		
 		storedicons[sClass] = { mat = sMat, color = cColor }
 		kia(sClass, sMat, cColor)
-	
 	end
 
 	function killicon.GetImage ( sClass )
 		return storedicons[sClass]
 	end
-
 end
 
 local Top = {}
@@ -401,8 +399,10 @@ for k = 1, 8 do
 end
 
 -- Custom ConCommand Function
-function client_GetCommand (um)
-	if not MySelf:IsValid() then return end
+function client_GetCommand(um)
+	if not MySelf:IsValid() then
+		return
+	end
 	
 	local command = um:ReadString()
 	local stringcommand = tostring (command) -- Just in case
@@ -414,26 +414,26 @@ function client_GetCommand (um)
 	end
 	
 	if argonepresent == true then
-		RunConsoleCommand (stringcommand, firstarg) -- pl;ConCommand ("command 1") while RunConsoleCommand is like ("command","1") !!!!
+		RunConsoleCommand(stringcommand, firstarg) -- pl;ConCommand ("command 1") while RunConsoleCommand is like ("command","1") !!!!
 	else
-		RunConsoleCommand (stringcommand)
+		RunConsoleCommand(stringcommand)
 	end
 end
-usermessage.Hook ("client_GetCommand",client_GetCommand)
+usermessage.Hook("client_GetCommand",client_GetCommand)
 
 function GM:Initialize()
 	self.ShowScoreboard = false
 
 	--Initialize fonts
-	surface.CreateFont("anthem", 42, 500, true, false, "ScoreboardHead")
-	surface.CreateFont("anthem", 24, 500, true, false, "ScoreboardSub")
+	surface.CreateFont("akbar", 42, 500, true, false, "ScoreboardHead") --anthem
+	surface.CreateFont("akbar", 24, 500, true, false, "ScoreboardSub") --anthem
 	surface.CreateFont("Tahoma", 16, 1000, true, false, "ScoreboardText")
 
 	surface.CreateFont("csd", 42, 500, true, true, "Signs")
 
-	surface.CreateFont("akbar", 20, 250, false, true, "HUDFontTiny")
+	surface.CreateFont("akbar", ScreenScale(20), 250, true, true, "HUDFontTiny")
 	surface.CreateFont("akbar", 22, 400, false, true, "HUDFontSmaller")
-	surface.CreateFont("anthem", 28, 400, false, true, "HUDFontSmall")
+	surface.CreateFont("akbar", 28, 400, false, true, "HUDFontSmall") --anthem
 	surface.CreateFont("akbar", 42, 400, false, true, "HUDFont")
 	surface.CreateFont("akbar", 72, 400, false, true, "HUDFontBig")
 	surface.CreateFont("akbar", 20, 250, true, true, "HUDFontTinyAA")
@@ -497,26 +497,20 @@ function GM:Initialize()
 
 	--Force normal gamma
 	if FORCE_NORMAL_GAMMA then
-		RunConsoleCommand("mat_monitorgamma", "2.2")
+		RunConsoleCommand("mat_monitorgamma", "1.7")
 		timer.Create("GammaChecker", 3, 0, function()
-			RunConsoleCommand("mat_monitorgamma", "2.2")
+			RunConsoleCommand("mat_monitorgamma", "1.7")
 		end)
 	end
 	
 	--Sync server setting
 	timer.Simple(4, function()
-		RunConsoleCommand("zs_setautoredeem", tostring( GetConVarNumber("_zs_autoredeem")))
+		RunConsoleCommand("zs_setautoredeem", tostring(GetConVarNumber("_zs_autoredeem")))
 	end)
 	
 	--Force fast switch and some network vars
 	RunConsoleCommand("hud_fastswitch", "1")
 	RunConsoleCommand("mat_motion_blur_enabled", "1")
-	
-	--Call for the changelog
-	--[==[http.Get(CHANGELOG_HTTP,"",HTTPChangelog)
-	http.Get(ADMINS_HTTP,"",HTTPAdmins)]==]
-	
-	--self:SplitMessage( h * 0.6, "<color=ltred><font=HUDFontAA>Welcome to</font></color>", "<color=green><font=HUDFontAA>Mr. Green Zombie Survival</font></color>" )
 end
 
 function HTTPChangelog(contents, size)
@@ -526,6 +520,7 @@ function HTTPChangelog(contents, size)
 	end
 	table.Add(HELP_TEXT[2].text,contents)
 end
+
 function HTTPAdmins1(contents, size)
 	contents = string.Explode("@", contents)
 	for _, text in pairs(contents) do
@@ -577,12 +572,14 @@ function GM:RestoreViewmodel()
 end
 
 function RestoreViewmodel(pl)
-	
 	timer.Simple ( 0.1, function()
 		local MySelf = LocalPlayer()
 		
 		if MySelf:IsValid() then
-			if MySelf ~= pl then return end
+			if MySelf ~= pl then
+				return
+			end
+			
 			local wep = MySelf:GetActiveWeapon()
 			if wep then
 				if not wep.Base or (wep.Base and not string.find(wep.Base,"zs_")) then
@@ -593,9 +590,7 @@ function RestoreViewmodel(pl)
 				end
 			end
 		end
-		
-	end )
-	
+	end)
 end
 
 local function LoopLastHuman()
@@ -613,7 +608,7 @@ local function DelayedLH()
 			GAMEMODE:Add3DMessage(140, "Kill the Last Human", nil, "ArialBoldFifteen")
 		else
 			GAMEMODE:Add3DMessage(140, "You are the LAST HUMAN", nil, "ArialBoldFifteen")
-			GAMEMODE:Add3DMessage(140, "Run for your life!", nil, "ArialBoldTen")
+			GAMEMODE:Add3DMessage(140, "Run for your life", nil, "ArialBoldTen")
 		end
 	end
 end
@@ -677,7 +672,7 @@ net.Receive("SendTitles", function(len)
 	end
 end)
 
-local function ReceiveTitles ( um )
+local function ReceiveTitles(um)
 	local pl, title
 	local amount = um:ReadShort()
 	for k = 1, amount do
@@ -691,7 +686,9 @@ usermessage.Hook( "SendTitles", ReceiveTitles )
       Receives updates data regarding the ammo regen timer
 ------------------------------------------------------------------]=]
 local function ReceiveAmmoTimer( um )
-	if not ValidEntity ( MySelf ) then return end
+	if not ValidEntity ( MySelf ) then
+		return
+	end
 
 	-- Update the regeneration time
 	local SetTimer = um:ReadShort()

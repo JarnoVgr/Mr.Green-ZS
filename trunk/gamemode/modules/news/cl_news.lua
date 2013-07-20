@@ -5,9 +5,9 @@ local TEAM_DIFFERENCE, GENERAL_TIMER, TEAM_TIMER = 60, 30, 40
 -- Server related news
 local GENERAL_NEWS = {
 "New to the Server? Press F1 and click on Beginners' Guide!",
-"In need of GreenCoins? Visit mrgreengaming.com",
-"Our forums can be found on mrgreengaming.com",
-"Support the server by paying for GreenCoins. Visit mrgreengaming.com for more info."
+"In need of GreenCoins? Visit MrGreenGaming.com",
+"Our forums can be found on MrGreenGaming.com",
+"Support the server by paying for GreenCoins. Visit MrGreenGaming.com for more info."
 }
 
 -- Human related hints

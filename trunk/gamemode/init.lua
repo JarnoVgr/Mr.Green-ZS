@@ -289,7 +289,6 @@ function GM:SetNightMode(mode)
 		
 		timer.Simple(1,function() engine.LightStyle(0,"c") end)
 	end
-	
 end
 
 function GM:IsNightMode()

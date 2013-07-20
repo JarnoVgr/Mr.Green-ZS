@@ -18,15 +18,14 @@ for k, sFile in pairs ( file.Find( "zombiesurvival/gamemode/server/entitytakedam
 end
 
 -- Main damage event
-function GM:EntityTakeDamage ( ent,dmginfo )
-	
+function GM:EntityTakeDamage( ent,dmginfo )
 	local attacker = dmginfo:GetAttacker()
 	local inflictor = dmginfo:GetInflictor()
 	local damage = dmginfo:GetDamage()
 	
 	-- End on null damage or on endround
 	if dmginfo:IsDamageNull() or ENDROUND then 
-		dmginfo:SetDamage( 0 )
+		dmginfo:SetDamage(0)
 		return 
 	end
 	
@@ -48,7 +47,7 @@ function GM:EntityTakeDamage ( ent,dmginfo )
 
 		if ent.PropHealth <= 0 then
 			local effectdata = EffectData()
-				effectdata:SetOrigin(ent:GetPos())
+			effectdata:SetOrigin(ent:GetPos())
 			util.Effect("Explosion", effectdata, true, true)
 			ent:Fire("break")
 		else
@@ -60,11 +59,15 @@ function GM:EntityTakeDamage ( ent,dmginfo )
 			ent:SetColor(col)
 		end
 	elseif entclass == "func_door_rotating" then
-		if ent:GetKeyValues().damagefilter == "invul" then return end
+		if ent:GetKeyValues().damagefilter == "invul" then
+			return
+		end
 
 		if not ent.Heal then
 			local br = ent:BoundingRadius()
-			if br > 80 then return end
+			if br > 80 then
+				return
+			end
 
 			local health = br * 35
 			ent.Heal = health
@@ -96,7 +99,9 @@ function GM:EntityTakeDamage ( ent,dmginfo )
 			ent:Fire("kill", "", 0.1)
 		end
 	elseif entclass == "prop_door_rotating" then
-		if ent:GetKeyValues().damagefilter == "invul" or ent:HasSpawnFlags(2048) then return end
+		if ent:GetKeyValues().damagefilter == "invul" or ent:HasSpawnFlags(2048) then
+			return
+		end
 
 		ent.Heal = ent.Heal or ent:BoundingRadius() * 35
 		ent.TotalHeal = ent.TotalHeal or ent.Heal
@@ -199,13 +204,14 @@ function GM:EntityTakeDamage ( ent,dmginfo )
 
 	if damage > 0 then
 		local holder, status = ent:GetHolder()
-		if holder then status:Remove() end
+		if holder then
+			status:Remove()
+		end
 	end
 	
 	
 	-- On player damaged
 	if ent:IsPlayer() then
-	
 		-- Scale player damage
 		if gamemode.Call( "ScalePlayersDamage", ent, attacker, inflictor, dmginfo ) then 
 			return 
@@ -241,9 +247,9 @@ function GM:EntityTakeDamage ( ent,dmginfo )
 	-- print( ent, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo:GetDamageType() )
 	
 	-- Avoid console spam
-	if ent:IsPlayer() or attacker:IsPlayer() then
-		-- Debug ( "[DAMAGE] "..tostring ( attacker ).."/"..tostring( dmginfo:GetAttacker() ).." hurt "..tostring( ent ).." with "..tostring( dmginfo:GetInflictor() ).."/"..tostring( inflictor ).." for "..tostring ( math.Round ( dmginfo:GetDamage() ) ).." damage. Type is "..tostring ( dmginfo:GetDamageType() )..". Target health is : "..tostring ( ent:Health() ) )
-	end
+	--[[if ent:IsPlayer() or attacker:IsPlayer() then
+		Debug ( "[DAMAGE] "..tostring ( attacker ).."/"..tostring( dmginfo:GetAttacker() ).." hurt "..tostring( ent ).." with "..tostring( dmginfo:GetInflictor() ).."/"..tostring( inflictor ).." for "..tostring ( math.Round ( dmginfo:GetDamage() ) ).." damage. Type is "..tostring ( dmginfo:GetDamageType() )..". Target health is : "..tostring ( ent:Health() ) )
+	end]]
 	
 	-- return dmginfo
 end

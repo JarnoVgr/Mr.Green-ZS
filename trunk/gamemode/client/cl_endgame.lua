@@ -142,14 +142,13 @@ function SetWinnerMap(mapname, mapname2)
 	IsVotingOver = true
 end
 
-util.PrecacheSound("mrgreen/music/intermission.mp3")
-
-function Intermission( nextmap, winner, timeleft)
-	if ENDROUND then return end
+function Intermission(nextmap, winner, timeleft)
+	if ENDROUND then
+		return
+	end
 
 	ENDROUND = true
 	hook.Remove("RenderScreenspaceEffects", "PostProcess")
-	--hook.Add("RenderScreenspaceEffects", "DrawEnding", DrawEnding)
 	ENDTIME = CurTime()
 	DrawingDanger = 0
 	NearZombies = 0
@@ -157,20 +156,21 @@ function Intermission( nextmap, winner, timeleft)
 	ROUNDWINNER = winner
 	RunConsoleCommand("stopsound")
 	
-	surface.PlaySound("mrgreen/music/intermission.mp3")
+	util.PrecacheSound("mrgreen/music/intermission.mp3")
+	timer.Simple(0.2, function()
+		surface.PlaySound("mrgreen/music/intermission.mp3")
+	end)
 	
 	if ValidEntity(MySelf) and MySelf.Team and MySelf:Team() ~= TEAM_SPECTATOR then
-	
 		local wep = MySelf:GetActiveWeapon()
 		
 		if wep and wep:IsValid() then
 			wep.DrawHUD = function() end
 		end
-	
 	end
 	
 	--Enable mouse
-	gui.EnableScreenClicker ( true )
+	gui.EnableScreenClicker(true)
 	
 	-- Convert unfriendly map names to friendly ones
 	for k,v in pairs(TranslateMapTable) do
@@ -222,7 +222,7 @@ function Intermission( nextmap, winner, timeleft)
 	if TopSurvivalTimes[1] then txt = TopSurvivalTimes[1].Name.." was strong enough to survive for "..TopSurvivalTimes[1].Score end
 	top[1] = {txt,0,0}
 	
-	txt = "Nobody killed the zombies, because all humans are pussies D:"
+	txt = "Nobody killed the zombies, because all humans are pussies"
 	if TopZombiesKilled[1] and tonumber(TopZombiesKilled[1].Score) > 0 then txt = TopZombiesKilled[1].Name.." caused a bloodbath by killing "..TopZombiesKilled[1].Score.." undead" end
 	top[2] = {txt,0,0}
 	
@@ -251,7 +251,7 @@ function Intermission( nextmap, winner, timeleft)
 	-- Overwrite main paint/background
 	function GAMEMODE:HUDPaint()-- end
 		local TimeToChange = math.Clamp ( math.floor ( ENDTIME + timeleft - CurTime() ), 0, 9999 )
-		local headertext = "Next round in "..( TimeToChange + 1 )
+		local headertext = "New round in "..( TimeToChange + 1 ) .." seconds"
 		
 		-- Draw the actual text
 		
@@ -267,7 +267,7 @@ function Intermission( nextmap, winner, timeleft)
 		
 		draw.SimpleTextOutlined(wintext, "ArialBold_25", w/2, h/2, wincol, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255))
 		
-		local votetxt = "Vote for the next map:"
+		local votetxt = "Vote for the next location:"
 		if MySelf.HasVotedMap == true then
 			votetxt = "Wait for other players to vote"
 		end
@@ -279,7 +279,7 @@ function Intermission( nextmap, winner, timeleft)
 			if TimeToChange < 3 then
 				headertext = "Travelling to ".. tostring(strMap)
 			else
-				headertext = "Next map will be ".. tostring(strMap) .." in "..( TimeToChange + 1 )
+				headertext = "Travelling to ".. tostring(strMap) .." in "..( TimeToChange + 1 ) .." seconds"
 			end
 		end
 		
