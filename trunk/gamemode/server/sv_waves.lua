@@ -262,7 +262,6 @@ end
 function GM:KeyPress(pl, key)
 	if key == IN_USE then
 		if pl:Team() == TEAM_HUMAN and pl:Alive() then
-			self:TryWeaponPickup(pl, pl:TraceLine(64,MASK_SHOT).Entity)
 			self:TryHumanPickup(pl, pl:TraceLine(64,MASK_SHOT).Entity)
 		end
 	end
@@ -272,7 +271,6 @@ function GM:PlayerUse(pl, entity)
 	if not pl:Alive() then return false end
 
 	if pl:Team() == TEAM_HUMAN and pl:Alive() and pl:KeyPressed(IN_USE) then
-		self:TryWeaponPickup(pl, entity)
 		self:TryHumanPickup(pl, entity)
 	end
 	
