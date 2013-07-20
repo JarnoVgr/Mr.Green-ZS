@@ -280,16 +280,14 @@ function GM:PlayerSpawn ( pl )
 		elseif pl:Team() == TEAM_UNDEAD then
 			self:OnZombieSpawn ( pl )
 			pl:StopAllLuaAnimations()
-		end
-			
-		
+		end	
 	else
 		self:OnFirstHumanSpawn ( pl )
 	end
 	
-	if not pl:IsSteroidZombie() then
+	--[[if not pl:IsSteroidZombie() then
 		pl:SetColor( Color(255,255,255,255) )
-	end
+	end]]
 end
 
 --[==[---------------------------------------------------------
