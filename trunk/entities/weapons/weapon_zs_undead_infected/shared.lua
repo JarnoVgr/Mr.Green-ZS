@@ -66,7 +66,7 @@ SWEP.Weight = 5
 SWEP.AutoSwitchTo = true
 SWEP.AutoSwitchFrom = false
 
-SWEP.DistanceCheck = 50
+SWEP.DistanceCheck = 70
 SWEP.MeleeDelay = 0.74
 
 SWEP.Damage = 28

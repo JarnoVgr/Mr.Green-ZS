@@ -39,7 +39,7 @@ SWEP.AutoSwitchFrom = false
 
 SWEP.SwapAnims = false
 
-SWEP.DistanceCheck = 48
+SWEP.DistanceCheck = 68
 SWEP.NextRoar = 0
 function SWEP:Deploy()
 	if SERVER then

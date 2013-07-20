@@ -222,30 +222,29 @@ player_manager.AddValidModel ( "Gordon Freeman", "models/player/gordon_classic.m
 --[==[------------------------------------------------
      Main spawn function - called on spawn
 -------------------------------------------------]==]
-function GM:PlayerSpawn ( pl )
-
+function GM:PlayerSpawn(pl)
 	-- Player must receive data from server before he can spawn
-	if not pl.Ready then pl:KillSilent() Debug ( "[SPAWN] "..tostring ( pl ).." is not Ready. Blocking spawn and killing him silently. Alive: "..tostring ( pl:Alive() ) ) return end
+	if not pl.Ready then
+		pl:KillSilent()
+		Debug("[SPAWN] "..tostring ( pl ).." is not Ready. Blocking spawn and killing him silently. Alive: "..tostring(pl:Alive()))
+		return
+	end
 
-	-- Predictin spawn, dont erase
-	pl:SetDeaths ( PREDICT_SPAWN )
-	-- timer.Simple ( 0.5, function( pl ) if IsEntityValid ( pl ) then pl:SetDeaths ( PREDICT_SPAWN_END ) end end)
-	
-
+	--Predicting spawn, don't erase
+	pl:SetDeaths(PREDICT_SPAWN)
 	
 	if pl:Team() ~= TEAM_SPECTATOR then
-	
 		-- Return his original color to normal
 		if not FIRSTAPRIL then
-			pl:SetColor ( Color(255,255,255,255) )
+			pl:SetColor(Color(255,255,255,255))
 		else
-			umsg.Start( "MakeBody" )
+			umsg.Start("MakeBody")
 			umsg.End()
 		end
 
 		-- Unlock or unfreeze if neccesary and make him able to walk
 		pl:UnLock()
-		pl:Freeze( false )
+		pl:Freeze(false)
 		
 		pl.StartTime = pl.StarTime or CurTime()
 		pl.IsSecondSpawn = true
@@ -264,10 +263,7 @@ function GM:PlayerSpawn ( pl )
 		
 		-- Disable walk
 		pl:SetCanWalk ( false )
-		
-		
-		
-		
+
 		--pl:SendLua("GAMEMODE:SwitchMaterials("..pl:Team()..")")
 		
 		-- Set no-collide with team
@@ -276,13 +272,13 @@ function GM:PlayerSpawn ( pl )
 		
 		-- Setup spawn functions
 		if pl:Team() == TEAM_HUMAN then
-			self:OnHumanSpawn ( pl )
+			self:OnHumanSpawn(pl)
 		elseif pl:Team() == TEAM_UNDEAD then
-			self:OnZombieSpawn ( pl )
+			self:OnZombieSpawn(pl)
 			pl:StopAllLuaAnimations()
 		end	
 	else
-		self:OnFirstHumanSpawn ( pl )
+		self:OnFirstHumanSpawn(pl)
 	end
 	
 	--[[if not pl:IsSteroidZombie() then
@@ -293,20 +289,19 @@ end
 --[==[---------------------------------------------------------
    Called right when the human classes menu appears
 ---------------------------------------------------------]==]
-function GM:OnFirstHumanSpawn ( pl )
-
+function GM:OnFirstHumanSpawn(pl)
 	-- Kill them and make them stay still
 	pl:KillSilent() 
 	
 	pl.HumanClassMenuSent = true
 	
-	Debug ( "[INIT-SPAWN] Sending Human Class Menu to "..tostring ( pl ) )
+	Debug ( "[INIT-SPAWN] Sending Human Class Menu to "..tostring(pl))
 end
 
 --[==[------------------------------------------------
 	Called everytime a human spawns
 -------------------------------------------------]==]
-function GM:OnHumanSpawn ( pl )
+function GM:OnHumanSpawn(pl)
 	if not pl:IsHuman() then
 		return
 	end
@@ -437,7 +432,7 @@ end
 --[==[------------------------------------------------
 	Called everytime a zombie spawns
 -------------------------------------------------]==]
-function GM:OnZombieSpawn ( pl )
+function GM:OnZombieSpawn(pl)
 	if pl:Team() ~= TEAM_UNDEAD then
 		return
 	end
@@ -570,8 +565,8 @@ function GM:OnZombieSpawn ( pl )
 	if pl:IsSteroidZombie() then
 		local tbl = ZombiePowerups[pl:GetSteroidZombieType()]
 		if tbl and tbl.Speed then
-			self:SetPlayerSpeed ( pl, Tab.Speed*tbl.Speed )
-			pl:SetCrouchedWalkSpeed ( (Tab.CrouchWalkSpeed or 0.80)*tbl.Speed )
+			self:SetPlayerSpeed(pl, Tab.Speed*tbl.Speed)
+			pl:SetCrouchedWalkSpeed((Tab.CrouchWalkSpeed or 0.80)*tbl.Speed)
 		end
 	end
 
@@ -581,7 +576,8 @@ function GM:OnZombieSpawn ( pl )
 	-- Prevent health pickups and/or machines
 	pl:SetMaxHealth( 1 ) 
 	
-	pl:SetBloodColor(BLOOD_COLOR_YELLOW)
+	--pl:SetBloodColor(BLOOD_COLOR_YELLOW)
+	pl:SetBloodColor(BLOOD_COLOR_RED)
 
 	if not pl.Revived or not self:GetFighting() or CurTime() > self:GetWaveEnd() then
 		pl.StartCrowing = 0

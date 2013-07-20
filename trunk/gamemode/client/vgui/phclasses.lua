@@ -1061,25 +1061,27 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 															
 
 											surface.SetDrawColor( 255, 255, 255, 255) 
-											draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[item].Name, "WeaponNames", (ww/3)/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-															
+																							
 											surface.SetTexture(surface.GetTextureID( ImgTable.mat ))	
 											local wd,hg = surface.GetTextureSize(surface.GetTextureID( ImgTable.mat ))
 											local clampedH = (ww/3*hg)/wd
 											surface.DrawTexturedRect( 57.5,12, wd, math.Clamp(hg,0,hh) )-- surface.DrawTexturedRect( x + 57.5,y + 12, wd, clampedH )
 
-										
+											--Draw label
+											draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[item].Name, "WeaponNames", (ww/3)/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))										
 										else
 										
 											surface.SetFont ( font )
 											local fWide, fTall = surface.GetTextSize ( letter )
 											
 											surface.SetDrawColor( 255, 255, 255, 255 )
-											draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[item].Name, "WeaponNames", (ww/3)/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+											
 												
 											
 											draw.SimpleTextOutlined ( letter, font, (ww/3)/2, 55, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-										
+
+											--Draw label
+											draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[item].Name, "WeaponNames", (ww/3)/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 										end
 								end
 								
@@ -1162,9 +1164,6 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 								if string.sub(item, 1, 1) == "_" then
 									for perk, desc in pairs(GAMEMODE.Perks) do
 										if item == perk then
-										surface.SetDrawColor( 255, 255, 255, 255) 
-										draw.SimpleTextOutlined ( GAMEMODE.Perks[item].Name, "WeaponNames", (ww/3)/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-										
 											if GAMEMODE.Perks[item].Material then		
 												surface.SetTexture(surface.GetTextureID( GAMEMODE.Perks[item].Material ))	
 												local wd,hg = surface.GetTextureSize(surface.GetTextureID( GAMEMODE.Perks[item].Material ))
@@ -1172,6 +1171,9 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 												surface.SetDrawColor(80,80,80,255)
 												surface.DrawTexturedRect( (ww/3)/2-(wd*dif)/2,12, wd*dif, math.Clamp(hg*dif,0,hh) )
 											end
+
+											surface.SetDrawColor( 255, 255, 255, 255) 
+											draw.SimpleTextOutlined ( GAMEMODE.Perks[item].Name, "WeaponNames", (ww/3)/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 										end
 									end
 								end
@@ -1296,7 +1298,7 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 		
 		if SlotLabel[num].Item == "none" then
 			surface.SetDrawColor( 255, 255, 255, 255) 
-			draw.SimpleTextOutlined ( "NO ITEM", "WeaponNames", ww/2, hh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			draw.SimpleTextOutlined( "NO ITEM", "WeaponNames", ww/2, hh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 			return
 		end
 		
@@ -1322,34 +1324,31 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 									
 
 					surface.SetDrawColor( 255, 255, 255, 255) 
-					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[SlotLabel[num].Item].Name, "WeaponNames", ww/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 									
 					surface.SetTexture(surface.GetTextureID( ImgTable.mat ))	
 					local wd,hg = surface.GetTextureSize(surface.GetTextureID( ImgTable.mat ))
 					local clampedH = (ww*hg)/wd
 					surface.DrawTexturedRect( 57.5,12, wd, math.Clamp(hg,0,hh) )
 
-				
+					--Draw label
+					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[SlotLabel[num].Item].Name, "WeaponNames", ww/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				else
 				
 					surface.SetFont ( font )
 					local fWide, fTall = surface.GetTextSize ( letter )
 					
-					surface.SetDrawColor( 255, 255, 255, 255 )
-					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[SlotLabel[num].Item].Name, "WeaponNames", ww/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-						
+					surface.SetDrawColor( 255, 255, 255, 255 )						
 					
 					draw.SimpleTextOutlined ( letter, font, ww/2, 55, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-				
+
+					--Draw label
+					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[SlotLabel[num].Item].Name, "WeaponNames", ww/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))				
 				end
 			
 			
 		elseif string.sub(SlotLabel[num].Item, 1, 1) == "_" then
 				for perk, desc in pairs(GAMEMODE.Perks) do
 					if SlotLabel[num].Item == perk then
-						surface.SetDrawColor( 255, 255, 255, 255) 
-						draw.SimpleTextOutlined ( GAMEMODE.Perks[SlotLabel[num].Item].Name, "WeaponNames", ww/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-						
 						if GAMEMODE.Perks[SlotLabel[num].Item].Material then		
 							surface.SetTexture(surface.GetTextureID( GAMEMODE.Perks[SlotLabel[num].Item].Material ))	
 							local wd,hg = surface.GetTextureSize(surface.GetTextureID( GAMEMODE.Perks[SlotLabel[num].Item].Material ))
@@ -1358,6 +1357,10 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 							surface.SetDrawColor(80,80,80,255)
 							surface.DrawTexturedRect( ww/2-(wd*dif)/2,12, wd*dif, math.Clamp(hg*dif,0,hh) )
 						end
+
+						--Draw label
+						surface.SetDrawColor( 255, 255, 255, 255) 
+						draw.SimpleTextOutlined ( GAMEMODE.Perks[SlotLabel[num].Item].Name, "WeaponNames", ww/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 					end
 				end
 		end
@@ -1751,15 +1754,13 @@ function DrawUnlock()
 		end
 		draw.SimpleTextOutlined(UnlockType.." unlocked!","ArialBoldTen",UnlockX[k]+rand,UnlockY[k]+rand2,col, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 1, col2)
 		draw.SimpleTextOutlined(UnlockName,"ArialBoldFifteen",UnlockX[k]+rand,UnlockY[k]+30+rand2,col, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 1, col2)
-		-- draw.DrawText("Achievement Unlocked!","HUDFontSmaller",achievX[k]+rand,achievY[k]+rand2,col, TEXT_ALIGN_CENTER)
-		-- draw.DrawText(achievName,"HUDFontSmall",achievX[k]+rand,achievY[k]+20+rand2,col, TEXT_ALIGN_CENTER)
 	end
 	
 	col = Color(255,255,255,UnlockAlpha)
 	
-	-- surface.SetTexture( achievImage )
-	-- surface.SetDrawColor( col )
-	-- surface.DrawTexturedRect( achievX[5], achievY[5],100,100 )
+	--[[surface.SetTexture( achievImage )
+	surface.SetDrawColor( col )
+	surface.DrawTexturedRect( achievX[5], achievY[5],100,100 )]]
 	
 	for k=1,4 do
 		UnlockX[k] = math.Approach(UnlockX[k], textEndX, w*3*FrameTime())

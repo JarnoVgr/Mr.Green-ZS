@@ -44,7 +44,7 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo	= "none"
 
-SWEP.DistanceCheck = 55
+SWEP.DistanceCheck = 75
 
 function SWEP:Deploy()
 	if SERVER then
