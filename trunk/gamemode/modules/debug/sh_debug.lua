@@ -28,16 +28,18 @@ end
         Use : Debug purporse - prints to console
 ---------------------------------------------------------]==]
 function Debug ( Text )
-	if Text == nil then return end
+	if Text == nil then
+		return
+	end
 
-	-- Get the current time and date
+	--Get the current time and date
 	local Time, Date = os.date("%X"), os.date("%x")
 	local NewMessage = Text
 	
-	-- Server log
+	--Server log
 	local bLogServer = util.tobool ( GetConVarNumber ( "debug_rconprint" ) )
 	
-	-- Check debug convars
+	--Check debug convars
 	if SERVER then
 		if GetConVarNumber ( "debug" ) == 0 then return end
 		
@@ -45,14 +47,20 @@ function Debug ( Text )
 		if string.find ( tostring ( NewMessage ), "[DAMAGE]" ) and GetConVarNumber ( "debug_damage" ) == 0 then return end
 	end
 	
-	-- Print the message to the console
-	if not bLogServer or CLIENT then print ( "["..Date.."]["..Time.."] "..tostring ( NewMessage ) ) else ServerLog ( tostring ( NewMessage ).."\n" ) end
+	--Print the message to the console
+	if not bLogServer or CLIENT then
+		print( "["..Date.."]["..Time.."] "..tostring(NewMessage)) else ServerLog( tostring ( NewMessage ).."\n")
+	end
 	
-	-- Log the text to file if server
-	if SERVER then LogTable = LogTable.."["..Date.."]["..Time.."] "..tostring ( NewMessage ).."\n" end	
+	--Log the text to file if server
+	if SERVER then
+		LogTable = LogTable.."["..Date.."]["..Time.."] "..tostring ( NewMessage ).."\n"
+	end	
 
-	-- Turbo debug
-	if SERVER then if TURBO_DEBUGGER then WriteDebugToFile() end end
+	--Turbo debug
+	if SERVER and TURBO_DEBUGGER then
+		WriteDebugToFile()
+	end
 end
 
 -- Save debug each 3 seconds

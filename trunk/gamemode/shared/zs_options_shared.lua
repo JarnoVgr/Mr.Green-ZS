@@ -728,13 +728,10 @@ Enjoy your stay and have fun!
 
 SKILLSHOP_TEXT =
 [[
-At SkillShop you can buy weapons and ammo for yourself using SkillPoints.
+At SkillShop you can buy weapons and ammo for yourself using your earned SkillPoints.
 To gain SkillPoints - simply kill zombies and help your teammates.
 
-At the menu below you can get everything what you need, but remember - SkillShop is avalaible only between waves.
-Also, note that if you buy a weapon - it will have low amount of ammo unless you buy more ammunition.
-
-(TIP: During fighting you always can check your amount of SkillPoints on the left side of HUD)
+Please remember bought weapons can only be used during the current round.
 ]]	
 
 local shit = ""

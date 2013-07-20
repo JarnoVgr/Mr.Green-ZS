@@ -217,7 +217,7 @@ end
 hook.Add ( "PlayerConnect", "Connected", PlayerConnected )
 
 -- Add these new player models to the list
-player_manager.AddValidModel ( "Gordon Freeman", "models/player/gordon_classic.mdl" )
+player_manager.AddValidModel("Gordon Freeman", "models/player/gordon_classic.mdl")
 
 --[==[------------------------------------------------
      Main spawn function - called on spawn
