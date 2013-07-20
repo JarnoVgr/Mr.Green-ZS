@@ -15,10 +15,9 @@ local player = player
 local timer = timer
 local umsg = umsg
 
-local function AddCratesToPVS( pl )
-	
+local function AddCratesToPVS(pl)
 	for _, pos in ipairs(RealCrateSpawns) do
-		AddOriginToPVS( pos )
+		AddOriginToPVS(pos)
 	end
 end
 
@@ -167,47 +166,33 @@ local function OnPlayerUse(pl, key)
 	if entity:GetClass() == "prop_physics" and ( Parent == NULL or ( IsValid ( Parent ) and Parent:GetClass() ~= "spawn_ammo" ) ) then
 		return
 	end
-	
-	--Prevent using supplies when fighting, unless it's the latest wave
-	--[[if GAMEMODE:GetFighting() and GAMEMODE:GetWave() ~= 6 then
-		if not pl.SupplyMessageTimer then
-			pl.SupplyMessageTimer = 0
-		end
 		
-		if pl.SupplyMessageTimer <= CurTime() then 
-			pl:Message("Wait till end of wave for supplies", 1, "white") 
-			pl.SupplyMessageTimer = CurTime() + 3.1
-		end
-		
-		return
-	end]]
-	
 	--Open shop menu
 	pl:SendLua("DoSkillShopMenu()")
 	
 	--Debug
-	Debug("[CRATES] ".. tostring (pl) .." used Supply Crate")
+	Debug("[CRATES] ".. tostring(pl) .." used Supply Crate")
 end
 hook.Add("KeyPress", "KeyPressedHook", OnPlayerUse)
 
 --[==[-------------------------------------------------------------
       Disable default use for the parent entity
 --------------------------------------------------------------]==]
-local function DisableDefaultUseOnSupply ( pl, entity )
+local function DisableDefaultUseOnSupply(pl, entity)
 	if ValidEntity ( entity ) and entity:GetClass() == "spawn_ammo" then return false end
 end
-hook.Add ( "PlayerUse", "DisableUseOnSupply", DisableDefaultUseOnSupply )
+hook.Add("PlayerUse", "DisableUseOnSupply", DisableDefaultUseOnSupply)
 
 --[==[-------------------------------------------------------------
             Used to spawn the Supply Crate
 --------------------------------------------------------------]==]
-function SpawnSupply ( ID, Pos, Switch )
+function SpawnSupply(ID, Pos, Switch)
 	ID, Pos, Switch = ID or 1, Pos or Vector ( 0,0,0 ), Switch or false
 
 	-- Create the entity, set it's ID, switch bool and position
 	local Crate = ents.Create("spawn_ammo")
-	Crate.ID, Crate.Switch = ID, tobool ( Switch )
-	Crate:SetPos ( Pos )
+	Crate.ID, Crate.Switch = ID, tobool(Switch)
+	Crate:SetPos(Pos)
 	Crate:Spawn()
 end
 
@@ -237,63 +222,60 @@ local function TraceHullSupplyCrate(Pos, Switch)
 	if Switch == false then Position = 2 end
 	
 	-- Filters (to delete)
-	local Filters = { "vial", "mine", "nail", "gib", "supply", "turret", "spawn_ammo", "func_brush", "breakable", "player","weapon" } -- func brush shit
+	local Filters = {"vial", "mine", "nail", "gib", "supply", "turret", "spawn_ammo", "func_brush", "breakable", "player", "weapon"}
 	
 	-- Find them in box
-	-- local Ents, Found = ents.FindInBox ( ClampWorldVector ( Pos + TraceHulls[Position].Mins ), ClampWorldVector ( Pos + TraceHulls[Position].Maxs ) ), 0
-	local Ents, Found = ents.FindInBox ( ClampWorldVector ( Pos + TraceHulls[Position].Mins ), ClampWorldVector ( Pos + TraceHulls[Position].Maxs ) ), 0
+	local Ents, Found = ents.FindInBox(ClampWorldVector(Pos + TraceHulls[Position].Mins), ClampWorldVector(Pos + TraceHulls[Position].Maxs)), 0
 	for k,v in pairs ( Ents ) do
 		local Phys = v:GetPhysicsObject()
-		if ValidEntity ( Phys ) then
+		if ValidEntity(Phys) then
 			if not v:IsPlayer() and v:GetClass() ~= "spawn_ammo" and v:GetClass() ~= "prop_physics_multiplayer" then 
 				if v:OBBMins():Length() < TraceHulls[Position].Mins:Length() and v:OBBMaxs():Length() < TraceHulls[Position].Maxs:Length() or v:GetClass() == "prop_physics" then 
-					Debug ( "Removing object "..tostring ( v ).." to make space for Supply Crate Spawn!" )
+					Debug("[CRATES] Removing object ".. tostring(v) .." to make space" )
 					v:Remove()
 					Ents[k] = nil
 				end
 			end
 		end
 		
-		if not ValidEntity ( Phys ) then
+		if not ValidEntity(Phys) then
 			Ents[k] = nil
 		end
 		
-		for i,j in pairs ( Filters ) do
-			if string.find ( v:GetClass(), j ) then
+		for i,j in pairs(Filters) do
+			if string.find(v:GetClass(), j) then
 				Ents[k] = nil
 			end
 		end
 	end
 	
 	-- We are blocked	
-	if #Ents > 0 then return false end
+	if #Ents > 0 then
+		return false
+	end
 	
 	return true
 end
 
 function GM:CalculateSupplyDrops()
+	--Check if we should calculate crates
 	if ENDROUND or #FullCrateSpawns < 1 then
 		return
 	end
 	
+	--Remove current supplies
 	for k,v in ipairs(ents.FindByClass("spawn_ammo")) do
 		if IsValid(v) then			
 			v:Remove()
 		end
 	end
 	
-    -- Spawn them!
-	timer.Simple ( 0.1, function()
-		if ENDROUND or #FullCrateSpawns < 1 then
-			return
-		end
-	
-		self:SpawnCratesFromTable(FullCrateSpawns)
+	--Spawn crates
+	self:SpawnCratesFromTable(FullCrateSpawns)
 		
-		--Tell clients about crates
-		timer.Simple ( 0.05, function()
-		    UpdateClientArrows()
-		end)
+	--Tell clients about crates
+	timer.Simple(0.05, function()
+		UpdateClientArrows()
 	end)
 end
 
@@ -301,90 +283,36 @@ local function SortByHumens(a, b)
 	return a._Hum > b._Hum
 end
 
-function GM:GetClosestCrate(cratetable)
-	if #cratetable > 0 then
-		local tab = {}
-		
-		local humans = team.GetPlayers(TEAM_HUMAN)
-		for _, hm in pairs(humans) do
-			if IsValid(hm) and hm:Alive() then
-					-- count humans
-				hm._Hum = 0
-				local buddies = team.GetPlayers(TEAM_HUMAN)-- ents.FindInSphere( hm:GetPos(), 700 )
-				for k, bud in pairs(buddies) do
-					if IsValid(bud) and bud:IsPlayer() and bud:Alive() and bud ~= hm and bud:IsHuman() and hm:GetPos():Distance(bud:GetPos()) <= 700 then
-						hm._Hum = hm._Hum + 1
-					end
-				end
-				table.insert(tab, hm)
-			end
-		end
-		
-		table.sort(tab, SortByHumens)
-		
-		-- we got the guy with most buddies around
-		
-		local luckyguy = tab[1]
-		
-		if luckyguy then
-				
-			local nearpos = luckyguy:GetPos()
-			local Closest = 1000000
-			-- local dist = 0
-			local ind = 1
-			
-			for _, tbl in pairs(cratetable) do
-				local pos = tbl.pos
-				local dist = nearpos:Distance( pos )
-				
-				if dist < Closest then
-					Closest = dist
-					ind = _
-				end
-			end
-			return cratetable[ind]
-		
-		end
-		return cratetable[math.random(1,#cratetable)] or nil
-	end
-end
-
-function GM:SpawnCratesFromTable(cratetable)
+function GM:SpawnCratesFromTable(crateSpawns)
 	local idTable = {}
-	local tab = table.Copy(cratetable)
 	
+	--Get crate table and shuffle it
+	local tab = table.Copy(crateSpawns)
 	table.Shuffle(tab)
 	
-	local maxcrates = math.min(#cratetable,MAXIMUM_CRATES)
+	local maxCrates = math.min(#crateSpawns,MAXIMUM_CRATES)
 	
-	local crate = self:GetClosestCrate(cratetable)
+	local spawnedCratesCount = 0
 	
-	local SpawnPos,Switch,ID = crate.pos, tobool(crate.switch), crate.id
-			
-	if TraceHullSupplyCrate ( SpawnPos, Switch ) then
-		SpawnSupply ( ID, SpawnPos, Switch )	
-	end
-	
-	table.insert(idTable,ID)
-	
-	for i=1,maxcrates do
-		if i~=1 then
-			for ind, crt in pairs(tab) do
-				local SpawnPos,Switch,ID = crt.pos, tobool(crt.switch), crt.id
-				
-				if not table.HasValue(idTable,ID) then	
-					if TraceHullSupplyCrate ( SpawnPos, Switch ) then
-						SpawnSupply ( ID, SpawnPos, Switch )
-					end
+	--Loop through crate requests
+	for i=1,maxCrates do
+		--Loop through crate spawns
+		for crateSpawnID, crateSpawn in pairs(tab) do			
+			if not table.HasValue(idTable,crateSpawnID) then	
+				if TraceHullSupplyCrate(crateSpawn.pos, tobool(crateSpawn.switch)) then
+					SpawnSupply(crateSpawnID, crateSpawn.pos, tobool(crateSpawn.switch))
 					
-					table.insert(idTable,ID)
+					table.insert(idTable,crateSpawnID)
+					
+					spawnedCratesCount = spawnedCratesCount + 1
 					
 					break
 				end
 			end
 		end
 	end
-	Debug("[CRATES] Spawned Supply Crate")
+	
+	print("[CRATES] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
 end
 
 -- Precache the gib models
@@ -393,4 +321,4 @@ for i = 1, 9 do
 end
 
 --Info
-Debug( "[MODULE] Loaded Supply-Crates Director" )
+Debug("[MODULE] Loaded Supply-Crates Director")

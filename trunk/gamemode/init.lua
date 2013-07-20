@@ -357,38 +357,46 @@ function GM:ShowSpare2( pl )
 end
 
 function GM:InitPostEntity()
-
+	--Keep calls in order
 	gamemode.Call("SetupSpawnPoints")
-	-- keep the order
 	gamemode.Call("SpawnPoisonGasses")
-	
 	gamemode.Call("SetupProps")
 	
-	for _, ent in pairs( ents.FindByClass("prop_physics") ) do
-		self:ModelToEntity ( ent )
+	--Loop 1 through props to convert into entity where needed
+	for _, ent in pairs(ents.FindByClass("prop_physics")) do
+		self:ModelToEntity(ent)
 	end
 	
+	--Loop 2 through props to convert into entity where needed
+	for _, ent in pairs(ents.FindByClass("prop_physics_multiplayer")) do
+		self:ModelToEntity(ent)
+	end
+	
+	--Set objective stage
 	if OBJECTIVE then
 		self:SetObjStage(1)
 	end
 	
+	--Check if in retro mode
 	if self:IsRetroMode() then
+		--Sync ammo regeneration time
 		game.GetWorld():SetDTFloat(0,RETRO_AMMO_REGENERATION+WAVEONE_LENGTH)
+	else
+		--Spawn crate
+		self:CalculateSupplyDrops()
 	end
 	
+	--Create zombie flashlight
 	self:CreateZombieFlashLight()
 	
-	--  logging
+	--Log
 	log.WorldAction("Round_Start")
 end
 
 function GM:CreateZombieFlashLight()
 	local ent = ents.Create("env_projectedtexture")
 	if ent:IsValid() then
-		-- ent:SetParent(self)
 		ent:SetLocalPos(Vector(16000, 16000, 16000))
-		-- ent:SetAngles(self:EyeAngles())
-		-- ent:SetOwner(self)
 		ent:SetKeyValue("enableshadows", 0)
 		ent:SetKeyValue("farz", 1024)
 		ent:SetKeyValue("nearz", 8)

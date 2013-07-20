@@ -650,37 +650,12 @@ function GM:SetFighting(bfight)
 				net.WriteDouble(self:GetWave())
 				net.WriteFloat(self:GetWaveEnd())
 			net.Broadcast()
-			
-			--[==[umsg.Start("recwavestart")
-				umsg.Short(self:GetWave())
-				umsg.Float(self:GetWaveEnd())
-			umsg.End()]==]
 
-			--[=[for _, pl in pairs(player.GetAll()) do
-				if pl:Team() == TEAM_UNDEAD then-- and not pl:Alive()
-					pl:UnSpectate()
-					-- if not pl:Alive() then
-					-- 	pl:Spawn()
-					-- end
-					if pl:IsCrow() then
-						if pl:Alive() then
-							pl:KillSilent()
-						end
-						pl:Spawn()
-						pl:UnSpectate()
-						pl:StripWeapon("weapon_zs_crow")
-					end
-				end
-			end]=]
-			
 			for _, pl in pairs(player.GetAll()) do
 				if pl:Team() == TEAM_UNDEAD then
 					if pl:IsCrow() then
-						-- pl:SetZombieClass(pl.DeathClass or 1)
-						-- pl:UnSpectateAndSpawn()
 						pl:SelectSpawnType(true)
 					elseif not pl:Alive() and not pl.Revive then
-						-- pl:UnSpectateAndSpawn()
 						pl:SelectSpawnType()
 					else
 						if GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == pl then-- if pl:IsGonnaBeABoss() then
@@ -698,11 +673,10 @@ function GM:SetFighting(bfight)
 							hp = 120
 						end
 						
-						pl:SetHealth ( hp )
+						pl:SetHealth(hp)
 					end
 				end
 			end
-			
 		elseif self:GetWave() == NUM_WAVES then
 			self:OnEndRound(TEAM_HUMAN)
 		else
@@ -714,11 +688,6 @@ function GM:SetFighting(bfight)
 				net.WriteFloat(self:GetWaveStart())
 			net.Broadcast()
 			
-			--[==[umsg.Start("recwaveend")
-				umsg.Short(self:GetWave())
-				umsg.Float(self:GetWaveStart())
-			umsg.End()]==]
-
 			for _, h in pairs(team.GetPlayers(TEAM_HUMAN)) do
 				if h and h:IsValid() and h:Alive() then
 					skillpoints.AddSkillPoints(h,35*self:GetWave())
@@ -728,34 +697,19 @@ function GM:SetFighting(bfight)
 			
 			for _, pl in pairs(player.GetAll()) do
 				if pl:Team() == TEAM_HUMAN and pl:Alive() then
-					-- if self.EndWaveHealthBonus > 0 then
-						-- pl:SetHealth(math.min(pl:GetMaxHealth(), pl:Health() + self.EndWaveHealthBonus))
-					-- end
+					--[[if self.EndWaveHealthBonus > 0 then
+						pl:SetHealth(math.min(pl:GetMaxHealth(), pl:Health() + self.EndWaveHealthBonus))
+					end]]
 				elseif pl:Team() == TEAM_UNDEAD and not pl:Alive() and not pl.Revive then
 					local curclass = pl.DeathClass or pl:GetZombieClass()
 					pl:SetZombieClass(9)
-					-- pl:DoHulls(crowindex, TEAM_UNDEAD)
 					pl.DeathClass = nil
 					pl:UnSpectateAndSpawn()
 					pl.DeathClass = curclass
 				end
 
 				pl.SkipCrow = nil
-			end
-			
-			--[=[for _, pl in pairs(player.GetAll()) do
-				if pl:Team() == TEAM_UNDEAD and not pl:Alive() and pl:GetMoveType() ~= MOVETYPE_OBSERVER then
-					-- pl:SetHealth(100)
-					-- pl:Spectate(OBS_MODE_ROAMING)
-					pl:SetAsCrow()
-				end
-			end]=]
-			
-			--spawn crates
-			if not self:IsRetroMode() then
-				self:CalculateSupplyDrops()
-			end
-			
+			end	
 		end
 	end
 end

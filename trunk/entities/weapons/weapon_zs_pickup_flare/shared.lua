@@ -1,7 +1,7 @@
-if ( SERVER ) then
+if SERVER then
 	AddCSLuaFile( "shared.lua" )
 end
-SWEP.Base				= "weapon_zs_base_dummy"
+SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.HoldType = "grenade"
 
@@ -19,8 +19,7 @@ if ( CLIENT ) then
 	SWEP.ShowWorldModel = false
 	
 	SWEP.IgnoreBonemerge = true
-	SWEP.UseHL2Bonemerge = true 
-	
+	SWEP.UseHL2Bonemerge = true
 end
 
 SWEP.Author = "NECROSSIN"
@@ -28,12 +27,8 @@ SWEP.Author = "NECROSSIN"
 SWEP.ViewModel = "models/Weapons/v_Grenade.mdl"
 SWEP.WorldModel = "models/Items/Flare.mdl"
 
-
-
 SWEP.Slot = 5
 SWEP.SlotPos = 1 
-
--- SWEP.Info = ""
 
 SWEP.Primary.ClipSize =1
 SWEP.Primary.DefaultClip = 1
@@ -76,16 +71,16 @@ function SWEP:InitializeClientsideModels()
 	self.WElements = {
 		["flare"] = { type = "Model", model = "models/Items/Flare.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.474, 1.949, -0.838), angle = Angle(-37.957, -115.47, -71.583), size = Vector(0.744, 0.744, 0.744), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
-	
 end
 
 function SWEP:OnDeploy()
-
 	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
 end
 
 function SWEP:PrimaryAttack()
-	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
+	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
+		return
+	end
 	
 	local owner = self.Owner
 	if SERVER then
@@ -119,9 +114,8 @@ function SWEP:Reload()
 end  
  
 function SWEP:SecondaryAttack()
-return false
+	return false
 end 
-
 
 function SWEP:_OnDrop()
 	if SERVER then	
