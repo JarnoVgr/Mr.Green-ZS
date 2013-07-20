@@ -33,7 +33,7 @@ SWEP.Base = "weapon_zs_base"
 
 SWEP.ViewModel = "models/weapons/v_crossbow.mdl"
 SWEP.WorldModel = "models/weapons/w_crossbow.mdl"
-SWEP.TotalDamage = "~150-220"
+SWEP.TotalDamage = "~190-200"
 SWEP.Primary.ClipSize = 1
 SWEP.Primary.DefaultClip = 8
 SWEP.Primary.Automatic = true
@@ -43,7 +43,7 @@ SWEP.MaxAmmo			    = 22
 
 SWEP.SecondaryDelay = 0.5
 
-SWEP.WalkSpeed = 150
+SWEP.WalkSpeed = 185
 
 SWEP.NextZoom = 0
 

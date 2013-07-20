@@ -59,7 +59,7 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.MaxAmmo			    = 250
 SWEP.Secondary.Delay = 0.5
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = 190
 
 SWEP.Cone = 0.06
 SWEP.ConeMoving = 0.08

@@ -64,7 +64,7 @@ SWEP.AdminSpawnable		= false
 SWEP.ViewModel      = Model ( "models/Weapons/v_slam.mdl")
 SWEP.WorldModel   = Model ( "models/Weapons/w_package.mdl" )
 ------------------------------------------------------------------------------------------------------
-SWEP.Primary.Delay			= 0.9 	
+SWEP.Primary.Delay			= 0.6 	
 SWEP.Primary.Recoil			= 0		
 SWEP.Primary.Damage			= 7	
 SWEP.Primary.NumShots		= 1		
@@ -74,7 +74,7 @@ SWEP.Primary.DefaultClip	= 3
 SWEP.Primary.Automatic   	= false
 SWEP.Primary.Ammo         	= "slam"	
 ------------------------------------------------------------------------------------------------------
-SWEP.Secondary.Delay		= 0.9
+SWEP.Secondary.Delay		= 0.6
 SWEP.Secondary.Recoil		= 0
 SWEP.Secondary.Damage		= 6
 SWEP.Secondary.NumShots		= 1

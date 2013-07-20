@@ -20,8 +20,8 @@ SWEP.Slot = 2
 SWEP.SlotPos = 6
 SWEP.DeploySpeed = 0.6
 -- Damage, distane, delay
-SWEP.Primary.Damage = 80
-SWEP.Primary.Delay = 0.45
+SWEP.Primary.Damage = 120
+SWEP.Primary.Delay = 0.6
 SWEP.Primary.Distance = 75
 SWEP.TotalDamage = SWEP.Primary.Damage
 -- Killicon

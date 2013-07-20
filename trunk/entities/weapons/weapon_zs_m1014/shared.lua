@@ -34,23 +34,23 @@ SWEP.ReloadDelay = 0.4
 SWEP.Primary.Sound			= Sound("Weapon_XM1014.Single")
 SWEP.Primary.Recoil			= 42 -- 2.8
 SWEP.Primary.Unrecoil		= 1
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Damage			= 18
 SWEP.Primary.NumShots		= 8
-SWEP.Primary.ClipSize		= 6
+SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Delay			= 0.3
-SWEP.Primary.DefaultClip	= 6
+SWEP.Primary.DefaultClip	= 16
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "buckshot"
 SWEP.Primary.ReloadDelay	= 1.1
 SWEP.Cone			= 0.2
-SWEP.ConeMoving				= 0.2
-SWEP.ConeCrouching			= 0.2
+SWEP.ConeMoving				= 0.25
+SWEP.ConeCrouching			= 0.15
 SWEP.MaxAmmo			    = 70
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize * SWEP.Primary.NumShots)
 SWEP.IsShotgun = true
 
 
-SWEP.WalkSpeed = 170
+SWEP.WalkSpeed = 175
 SWEP.MaxBulletDistance 		= 2300
 
 SWEP.IronSightsPos = Vector(5.16,-3.5,2.155)

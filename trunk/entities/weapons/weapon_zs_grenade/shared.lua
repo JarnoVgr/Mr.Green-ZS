@@ -32,9 +32,9 @@ SWEP.Base				= "weapon_zs_base_dummy"
 
 SWEP.ViewModel = "models/weapons/v_grenade.mdl"
 SWEP.WorldModel = "models/weapons/w_grenade.mdl"
-SWEP.TotalDamage = "~175-300"
+SWEP.TotalDamage = "~300-350"
 SWEP.Primary.ClipSize = 3
-SWEP.Primary.DefaultClip = 3
+SWEP.Primary.DefaultClip = 1
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "grenade"
 SWEP.Primary.Delay = 3
@@ -46,7 +46,7 @@ SWEP.Secondary.DefaultClip = 3
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
 
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 205
 
 function SWEP:InitializeClientsideModels()
 	

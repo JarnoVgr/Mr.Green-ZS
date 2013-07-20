@@ -42,18 +42,18 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= "weapons/alyxgun/fire0"..math.random(1,2)..".wav"
 SWEP.Primary.Recoil			= 17.5
-SWEP.Primary.Damage			= 7
+SWEP.Primary.Damage			= 11
 SWEP.Primary.NumShots		= 3
-SWEP.Primary.ClipSize		= 12
+SWEP.Primary.ClipSize		= 15
 SWEP.Primary.Delay			= 0.25
-SWEP.Primary.DefaultClip	= 20
-SWEP.MaxAmmo			    = 80
+SWEP.Primary.DefaultClip	= 30
+SWEP.MaxAmmo			    = 9999
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
 SWEP.Primary.Cone			= 0.06 --0.12
 SWEP.ConeMoving				= 0.12 -- 0.18
 SWEP.ConeCrouching			= 0.03 -- 0.06
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = 200
 
 SWEP.IronSightsPos = Vector(-5.401, -9.837, 4.084)
 SWEP.IronSightsAng = Vector(0, -0.131, 1.281)

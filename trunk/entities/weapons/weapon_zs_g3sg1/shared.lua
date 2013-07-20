@@ -20,22 +20,22 @@ SWEP.WorldModel = "models/weapons/w_snip_g3sg1.mdl"
 
 SWEP.Primary.Sound = Sound("Weapon_G3SG1.Single")
 SWEP.Primary.Recoil = 6.0
-SWEP.Primary.Damage = 40
+SWEP.Primary.Damage = 70
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.75
+SWEP.Primary.Delay = 0.65
 
 SWEP.Primary.ClipSize = 10
-SWEP.Primary.DefaultClip = 30
+SWEP.Primary.DefaultClip = 20
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo			= "357"
 
-SWEP.Cone = 0.13
-SWEP.ConeMoving = 0.19
-SWEP.ConeCrouching = 0.08
-SWEP.ConeIron = 0.03
-SWEP.ConeIronCrouching = 0.015
+SWEP.Cone = 0.04
+SWEP.ConeMoving = 0.06
+SWEP.ConeCrouching = 0.025
+SWEP.ConeIron = 0.035
+SWEP.ConeIronCrouching = 0.010
 
-SWEP.WalkSpeed = 170
+SWEP.WalkSpeed = 185
 
 SWEP.IronSightsPos = Vector(5.39, -5.816, 2.16)
 SWEP.IronSightsAng = Vector(0, 0, 0)
