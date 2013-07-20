@@ -103,7 +103,7 @@ function SWEP:Swung()
 	local TraceHit, HullHit = false, false
 
 	-- Push for whatever it hits
-	local Velocity = self.Owner:EyeAngles():Forward() * Damage * 1000
+	local Velocity = self.Owner:EyeAngles():Forward() * Damage * 1500
 	if Velocity.z < 1800 then Velocity.z = 1800 end
 	
 	-- Tracehull attack
@@ -120,28 +120,28 @@ function SWEP:Swung()
 	-- Play miss sound anyway
 	pl:EmitSound("npc/zombie/claw_miss"..math.random(1, 2)..".wav", 90, math.random( 70, 80 ) )
 	
-	-- Punch the prop / damage the player if the pretrace is valid
+	--Punch the prop / damage the player if the pretrace is valid
 	if ValidEntity ( victim ) then
 		local phys = victim:GetPhysicsObject()
 		
-		-- Break glass
+		--Break glass
 		if victim:GetClass() == "func_breakable_surf" then
 			victim:Fire( "break", "", 0 )
 		end
-						
-		-- Take damage
-		victim:TakeDamage ( Damage, self.Owner, self )
-			
-		-- Claw sound
+		
+		--Claw sound
 		pl:EmitSound("npc/zombie/claw_strike"..math.random(1, 3)..".wav", 90, math.random( 70, 80 ) )
 				
-		-- Case 2: It is a valid physics object
+		--Case 2: It is a valid physics object
 		if phys:IsValid() and not victim:IsNPC() and phys:IsMoveable() and not victim:IsPlayer() then
 			if Velocity.z < 1800 then Velocity.z = 1800 end
 					
 			-- Apply force to prop and make the physics attacker myself
 			phys:ApplyForceCenter( Velocity )
 			victim:SetPhysicsAttacker( pl )
+		elseif not victim:IsWeapon() then
+			-- Take damage
+			victim:TakeDamage(Damage, self.Owner, self)
 		end
 	end
 	
@@ -154,9 +154,9 @@ function SWEP:Swung()
 		local vStart, vEnd = self.Owner:GetShootPos(), ent:LocalToWorld ( ent:OBBCenter() )
 		local ExploitTrace = util.TraceLine ( { start = vStart, endpos = vEnd, filter = trFilter } )
 		
-		if ent ~= ExploitTrace.Entity then 
-
-		return end
+		if ent ~= ExploitTrace.Entity then
+			return
+		end
 		
 		-- Break glass
 		if ent:GetClass() == "func_breakable_surf" then
@@ -165,25 +165,26 @@ function SWEP:Swung()
 		
 		-- Play the hit sound
 		pl:EmitSound("npc/zombie/claw_strike"..math.random(1, 3)..".wav", 90, math.random( 70, 80 ) )
-		
-		-- Take damage
-		ent:TakeDamage ( Damage, self.Owner, self )
-	
+
 		-- Apply force to the correct object
 		if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() then
 			if Velocity.z < 1800 then Velocity.z = 1800 end
 					
 			phys:ApplyForceCenter( Velocity )
 			ent:SetPhysicsAttacker( pl )
-		end	
+		elseif not ent:IsWeapon() then
+			-- Take damage
+			ent:TakeDamage(Damage, self.Owner, self)
+		end
 	end
 	
 end
 
 SWEP.NextSwing = 0
 function SWEP:PrimaryAttack()
-
-	if CurTime() < self.NextSwing then return end
+	if CurTime() < self.NextSwing then
+		return
+	end
 	
 	self.Weapon:SetNextPrimaryFire ( CurTime() + 1.8) 
 	self.Weapon:SetNextSecondaryFire ( CurTime() + 1.8 )

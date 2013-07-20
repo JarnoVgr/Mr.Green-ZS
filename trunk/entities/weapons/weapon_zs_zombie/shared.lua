@@ -145,27 +145,30 @@ function SWEP:StartSwinging()
 	end
 end
 
-function SWEP:Swung()
+function SWEP:Swung()	
+	if CLIENT then
+		return
+	end
 	
-	if CLIENT then return end
-	
-	if not ValidEntity ( self.Owner ) then return end
+	if not ValidEntity(self.Owner) then
+		return
+	end
 
 	local pl = self.Owner
 	local victim = self.PreHit
 	
 	
 	-- Trace filter
-	local trFilter = team.GetPlayers( TEAM_UNDEAD )
+	local trFilter = team.GetPlayers(TEAM_UNDEAD)
 	-- Calculate damage done
 	local Damage = self.Damage or 30
 	local TraceHit, HullHit = false, false
 
 	-- Push for whatever it hits
-	local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp ( Damage * 1000, 25000, 37000 )
-	if self.Owner.Suicided == true then
-	-- 	Velocity = Velocity * 0.4
-	end
+	local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(Damage * 2000, 25000, 37000)
+	--[[if self.Owner.Suicided == true then
+	 	Velocity = Velocity * 0.4
+	end]]
 	
 	-- Tracehull attack
 	local trHull = self.Owner:MeleeTrace(48, 1.5, trFilter)
@@ -182,32 +185,34 @@ function SWEP:Swung()
 	-- Play miss sound anyway
 	pl:EmitSound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav")
 	
-	-- Punch the prop / damage the player if the pretrace is valid
-	if ValidEntity ( victim ) then
+	--Punch the prop / damage the player if the pretrace is valid
+	if ValidEntity(victim) then
 		local phys = victim:GetPhysicsObject()
 		
-		-- Break glass
+		--Break glass
 		if victim:GetClass() == "func_breakable_surf" then
 			victim:Fire( "break", "", 0 )
 		end
-						
-		-- Take damage
-		victim:TakeDamage ( Damage, self.Owner, self )
 			
 		-- Claw sound
 		pl:EmitSound("npc/zombiegreen/hit_punch_0"..math.random(1, 8)..".wav")
 				
 		-- Case 2: It is a valid physics object
 		if phys:IsValid() and not victim:IsNPC() and phys:IsMoveable() and not victim:IsPlayer() and not victim.Nails then
-			if Velocity.z < 1800 then Velocity.z = 1800 end
+			if Velocity.z < 1800 then
+				Velocity.z = 1800
+			end
 					
 			-- Apply force to prop and make the physics attacker myself
-			phys:ApplyForceCenter( Velocity )
-			victim:SetPhysicsAttacker( pl )
+			phys:ApplyForceCenter(Velocity)
+			victim:SetPhysicsAttacker(pl)
+		elseif not victim:IsWeapon() then
+			-- Take damage
+			victim:TakeDamage(Damage, self.Owner, self)
 		end
 	end
 	
-	-- Verify tracehull entity
+	--Verify tracehull entity
 	if HullHit and not TraceHit then
 		local ent = trHull.Entity
 		local phys = ent:GetPhysicsObject()
@@ -217,8 +222,8 @@ function SWEP:Swung()
 		local ExploitTrace = util.TraceLine ( { start = vStart, endpos = vEnd, filter = trFilter } )
 		
 		if ent ~= ExploitTrace.Entity then 
-
-		return end
+			return
+		end
 		
 		-- Break glass
 		if ent:GetClass() == "func_breakable_surf" then
@@ -228,18 +233,19 @@ function SWEP:Swung()
 		-- Play the hit sound
 		pl:EmitSound("npc/zombiegreen/hit_punch_0"..math.random(1, 8)..".wav")
 		
-		-- Take damage
-		ent:TakeDamage ( Damage, self.Owner, self )
-	
 		-- Apply force to the correct object
 		if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() and not ent.Nails then
-			if Velocity.z < 1800 then Velocity.z = 1800 end
+			if Velocity.z < 1800 then
+				Velocity.z = 1800
+			end
 					
-			phys:ApplyForceCenter( Velocity )
-			ent:SetPhysicsAttacker( pl )
-		end	
+			phys:ApplyForceCenter(Velocity)
+			ent:SetPhysicsAttacker(pl)
+		elseif not ent:IsWeapon() then
+			-- Take damage
+			ent:TakeDamage(Damage, self.Owner, self)
+		end
 	end
-	
 end
 
 function SWEP:SetMoaning(bl)
@@ -269,7 +275,11 @@ end
 -- Disables rage on player
 function playerRevertRage( pl )
 	if not IsValid( pl ) then 
-		if CLIENT then pl = MySelf else return end
+		if CLIENT then
+			pl = MySelf
+		else
+			return
+		end
 	end
 	
 	-- Predict duration
@@ -292,17 +302,23 @@ function playerRevertRage( pl )
 			-- Reset status
 			pl.IsInRage = false
 		end
-	end )
+	end)
 end
 
 -- Enrage player
 function playerEnrage( pl )
 	if not IsValid( pl ) then 
-		if CLIENT then pl = MySelf else return end
+		if CLIENT then
+			pl = MySelf
+		else
+			return
+		end
 	end
 	
 	-- Check if not healed or protected
-	if pl:HasHowlerProtection() or pl:IsZombieInAura() or pl:IsZombieInRage() then return end
+	if pl:HasHowlerProtection() or pl:IsZombieInAura() or pl:IsZombieInRage() then
+		return
+	end
 	
 	-- Duration of rage
 	local iDuration, iPitch = math.Clamp( ( 1 - ( pl:Health() / pl:GetMaximumHealth() ) ) * 4, 1.8, 3.5 )
@@ -321,7 +337,7 @@ function playerEnrage( pl )
 
 	-- Send PP to client
 	if SERVER then 
-		pl:SendLua( "playerEnrage()" ) 
+		pl:SendLua("playerEnrage()") 
 	end
 	
 	-- Show effect
