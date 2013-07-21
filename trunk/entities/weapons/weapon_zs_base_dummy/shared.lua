@@ -478,7 +478,7 @@ if CLIENT then
 					local bone1 = self.Owner:GetRagdollEntity():LookupBone("ValveBiped.Bip01_R_Hand")
 					if (bone1) then
 					pos1, ang1 = Vector(0,0,0), Angle(0,0,0)
-					local m1 = self.Owner:GetRagdollEntity():GetBoneMatrix(bone)
+					local m1 = self.Owner:GetRagdollEntity():GetBoneMatrix(bone1)
 						if (m1) then
 							pos1, ang1 = m1:GetTranslation(), m1:GetAngles()
 							-- self:SetPos(pos1)

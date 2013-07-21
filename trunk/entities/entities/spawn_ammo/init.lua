@@ -19,24 +19,23 @@ for k,v in pairs ( ENT.Table ) do
     util.PrecacheModel ( v.Model )
 end
 
--- Check penetration
+--Check penetration
 ENT.PenetrationCheckTimes = 4
 
 function ENT:Initialize()
-
-	-- Spawn the main parent prop 
-	self:SetModel ( self.Table["AmmoUp"].Model )
-	self:SetAngles ( self.Table["AmmoUp"].Angles )
-	self:PhysicsInit( SOLID_VPHYSICS )
-	self:SetMoveType( MOVETYPE_NONE )
-	self:SetUseType( SIMPLE_USE )
-	self:DrawShadow( false )
+	--Spawn the main parent prop 
+	self:SetModel(self.Table["AmmoUp"].Model)
+	self:SetAngles(self.Table["AmmoUp"].Angles)
+	self:PhysicsInit(SOLID_VPHYSICS)
+	self:SetMoveType(MOVETYPE_NONE)
+	self:SetUseType(SIMPLE_USE)
+	self:DrawShadow(false)
 	self.AmmoCrate = true
 	
-	-- Effect for parent
+	--Effect for parent
 	local effectdata = EffectData()
 	effectdata:SetEntity( self )
-	util.Effect( "ammo_spawn_effect", effectdata, nil, true )
+	util.Effect("ammo_spawn_effect", effectdata, nil, true)
 	
 	-- Freeze the main prop
 	local Phys = self:GetPhysicsObject()

@@ -25,8 +25,8 @@ function ENT:OnRemove()
     hook.Remove( "PreDrawHalos", "PreDrawHalos"..tostring( self ) )
 end
 
-ENT.LineColor = Color ( 210, 0,0, 100 )
+ENT.LineColor = Color(210, 0, 0, 100)
 function ENT:Draw()
-    self.LineColor = Color( 0, math.abs ( 200 * math.sin ( CurTime() * 3 ) ),0, 100 )    
+    self.LineColor = Color(0, math.abs(200 * math.sin(CurTime() * 3)), 0, 100)    
     self:DrawModel()
 end

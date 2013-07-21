@@ -59,6 +59,47 @@ function util.Blood(pos, amount, dir, force, noprediction)
 	util.Effect("bloodstream", effectdata, nil, noprediction)
 end
 
+function TrueVisible(posa, posb, filter)
+	local filt = ents.FindByClass("projectile_*")
+	filt = table.Add(filt, player.GetAll())
+	if filter then
+		filt[#filt + 1] = filter
+	end
+
+	return not util.TraceLine({start = posa, endpos = posb, filter = filt, mask = MASK_SHOT}).Hit
+end
+
+function TrueVisibleFilters(posa, posb, ...)
+	local filt = ents.FindByClass("projectile_*")
+	filt = table.Add(filt, player.GetAll())
+	if ... ~= nil then
+		for k, v in pairs({...}) do
+			filt[#filt + 1] = v
+		end
+	end
+
+	return not util.TraceLine({start = posa, endpos = posb, filter = filt, mask = MASK_SHOT}).Hit
+end
+
+function WorldVisible(posa, posb)
+	return not util.TraceLine({start = posa, endpos = posb, mask = MASK_SOLID_BRUSHONLY}).Hit
+end
+
+-- I had to make this since the default function checks visibility vs. the entitiy's center and not the nearest position.
+function util.BlastDamageEx(inflictor, attacker, epicenter, radius, damage, damagetype)
+	local filter = inflictor
+	for _, ent in pairs(ents.FindInSphere(epicenter, radius)) do
+		local nearest = ent:NearestPoint(epicenter)
+		if TrueVisibleFilters(epicenter, nearest, inflictor, ent) then
+			ent:TakeSpecialDamage(((radius - nearest:Distance(epicenter)) / radius) * damage, damagetype, attacker, inflictor, nearest)
+		end
+	end
+end
+
+function util.BlastDamage2(inflictor, attacker, epicenter, radius, damage)
+	util.BlastDamageEx(inflictor, attacker, epicenter, radius, damage, DMG_BLAST)
+end
+
 --[==[---------------------------------------------------------
         Returns the team name (string) of a player
 ---------------------------------------------------------]==]
