@@ -194,16 +194,13 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	-- TODO CLEAN	
 	DeSpawnProtection( mVictim ) -- Disable his spawn protection as human!
 	
-	-- Change victim team a frame later
+	--Change victim team a frame later
 	timer.Simple( 0, function() 
 		if IsValid( mVictim ) then	
 			if mVictim:IsHuman() then
-				mVictim:SetTeam( TEAM_UNDEAD ) 
+				mVictim:SetTeam(TEAM_UNDEAD)
 				
 				GAMEMODE:CalculateInfliction()
-				--  logging
-				--log.PlayerJoinTeam( mVictim, TEAM_UNDEAD )
-				--log.PlayerRoleChange( mVictim, mVictim:GetClassTag() )
 			end
 		end
 	end)

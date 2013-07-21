@@ -386,7 +386,9 @@ end
                   Admin Addon - Debugging
 -----------------------------------------------------------]==]
 function DoDebugCommands ( pl, cmd, args )
-    if not pl:IsSuperAdmin() then return end
+    if not pl:IsSuperAdmin() then
+		return
+	end
     
     GAMEMODE:SetFighting( not GAMEMODE:GetFighting() )    
 end

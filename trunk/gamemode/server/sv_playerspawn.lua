@@ -626,24 +626,32 @@ end
 	    Called on player disconnect
 -------------------------------------------------]==]
 function GM:PlayerDisconnected( pl )
-	if not ValidEntity ( pl ) then return end
+	if not ValidEntity(pl) then
+		return
+	end
+	
 	-- Save greencoins and stats
 	pl:SaveGreenCoins()
-	-- Clean up sprays
-	table.remove( Sprays,pl:UserID() )
-	SendSprayData()
-	Debug ( "[DISCONNECT] "..tostring ( pl ).." disconnected from the server. IP is "..tostring ( pl:IPAddress() ).." | SteamID: "..tostring ( pl:SteamID() ) )
 	
-	-- Player saved data
+	-- Clean up sprays
+	table.remove(Sprays,pl:UserID())
+	SendSprayData()
+	
+	--Log
+	Debug ( "[DISCONNECT] "..tostring ( pl ).." disconnected from the server. IP is "..tostring(pl:IPAddress()).." | SteamID: "..tostring(pl:SteamID()))
+	
+	--Player saved data
 	local ID = pl:UniqueID() or "UNCONNECTED"
-	if DataTableConnected[ID] == nil then return end
-	-- Case 1: Disconnect as human
+	if DataTableConnected[ID] == nil then
+		return
+	end
+	
+	--Case 1: Disconnect as human
 	if pl:Team() == TEAM_HUMAN then 
 		DataTableConnected[ID] = { HasBoughtPointsWithCoins = DataTableConnected[ID].HasBoughtPointsWithCoins, IsDead = true, SuicideSickness = false, 
 		    HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
-	end
-	-- Case 2: Disconnect as zombie
-	if pl:Team() == TEAM_UNDEAD then
+	--Case 2: Disconnect as zombie
+	elseif pl:Team() == TEAM_UNDEAD then
 		DataTableConnected[ID] = { HasBoughtPointsWithCoins = DataTableConnected[ID].HasBoughtPointsWithCoins, IsDead = true, 
 		    SuicideSickness = false, HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
 		
@@ -651,7 +659,11 @@ function GM:PlayerDisconnected( pl )
 			DataTableConnected[ID].SuicideSickness = true
 		end
 	end
-	timer.Simple(2, function() self:CalculateInfliction() end)
+	
+	--Delay calculation
+	timer.Simple(2, function()
+		self:CalculateInfliction()
+	end)
 end
 
 --[==[------------------------------------------------
