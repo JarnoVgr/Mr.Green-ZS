@@ -315,14 +315,18 @@ function OnPressF2(pl)
 	end
 	if not LASTHUMAN then
 		if REDEEM and AUTOREDEEM and pl:Team() == TEAM_UNDEAD and pl:Frags() >= red then
-			pl:Redeem()
+			if not pl:IsBossZombie() then
+				pl:Redeem()
+			else
+				pl:ChatPrint("Zombie boss can't redeem.")
+			end
 		else
 			if pl:Team() == TEAM_UNDEAD then
-				pl:ChatPrint("You need a score of 6 (with Fast Redeem upgrade) or a score of 8 (without upgrade) to redeem!")
+				pl:ChatPrint("You need a score of ".. red .." to redeem!")
 			end
 		end
 	else
-		pl:ChatPrint("You can't redeem anymore!")
+		pl:ChatPrint("You can't redeem anymore.")
 	end
 end
 
