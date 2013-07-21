@@ -5,24 +5,22 @@ include("shared.lua")
 
 function ENT:Initialize()
     hook.Add("PreDrawHalos", "PreDrawHalos".. tostring(self), function()
-        if util.tobool(GetConVarNumber("_zs_drawcrateoutline")) then
-            if (IsValid(MySelf) and MySelf:Team() == TEAM_HUMAN and MySelf:Alive()) then
-                halo.Render({ 
-                    Ents = self:GetEntities(),  
-                    Color = self.LineColor, 
-                    BlurX = 1, 
-                    BlurY = 1, 
-                    DrawPasses = 1,
-                    Additive = true, 
-                    IgnoreZ = true 
-                })
-            end   
-        end   
+        if (IsValid(MySelf) and MySelf:Team() == TEAM_HUMAN and MySelf:Alive()) then
+            halo.Render({ 
+                Ents = self:GetEntities(),  
+                Color = self.LineColor, 
+                BlurX = 1, 
+                BlurY = 1, 
+                DrawPasses = 1,
+                Additive = true, 
+                IgnoreZ = true 
+            })
+        end
     end)
 end
 
 function ENT:OnRemove()
-    hook.Remove( "PreDrawHalos", "PreDrawHalos"..tostring( self ) )
+    hook.Remove( "PreDrawHalos", "PreDrawHalos".. tostring( self ) )
 end
 
 local cam = cam
