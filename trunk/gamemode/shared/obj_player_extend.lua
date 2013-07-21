@@ -721,7 +721,7 @@ function meta:CanRedeem()
 		return
 	end
 
-	if not ValidEntity(self) or ENDROUND or LASTHUMAN or self:Team() ~= TEAM_UNDEAD or team.NumPlayers(TEAM_HUMAN) == 1 or pl:IsBossZombie() then
+	if not ValidEntity(self) or ENDROUND or LASTHUMAN or self:Team() ~= TEAM_UNDEAD or team.NumPlayers(TEAM_HUMAN) == 1 or self:IsBossZombie() then
 		return false
 	end
 		
