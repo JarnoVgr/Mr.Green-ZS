@@ -66,39 +66,37 @@ timer.Create("ManageEvents", 0.2, 0, ManageEvents)
       Update server and clients with unlife
 ----------------------------------------------------]==]
 function GM:SetUnlife(bool)
-	if UNLIFE == bool then return end
+	if UNLIFE == bool then
+		return
+	end
 
 	UNLIFE = not UNLIFE
 
-	if UNLIFE then
-		for _, pl in pairs(player.GetAll()) do
-			if pl:Team() == TEAM_UNDEAD then
-				if pl:IsCrow() then
-					pl:SelectSpawnType(true)
-				elseif not pl:Alive() and not pl.Revive then
-					pl:SelectSpawnType()
-				else
-					if GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == pl then-- if pl:IsGonnaBeABoss() then
-						pl:SpawnAsZombieBoss()
+	if bool then
+		if GAMEMODE:IsBossRequired() then
+			bossPlayer = GAMEMODE:GetPlayerForBossZombie()
+			if bossPlayer then
+				bossPlayer:SpawnAsZombieBoss()
+			end
+			
+			for _, pl in pairs(player.GetAll()) do
+				if pl:Team() == TEAM_HUMAN and pl:Alive() then
+					if ARENA_MODE then
+						local hp = 100
+						if pl:GetPerk("_kevlar") then
+							hp = 110
+						end
+						
+						if pl:GetPerk("_kevlar2") then
+							hp = 120
+						end
+						
+						pl:SetHealth(hp)
 					end
-				end
-			elseif pl:Team() == TEAM_HUMAN and pl:Alive() then
-				if ARENA_MODE then
-					local hp = 100
-					if pl:GetPerk("_kevlar") then
-						hp = 110
-					end
-					
-					if pl:GetPerk("_kevlar2") then
-						hp = 120
-					end
-					
-					pl:SetHealth(hp)
 				end
 			end
 		end
 	end
-	
 	
 	gmod.BroadcastLua( "GAMEMODE:SetUnlife("..tostring( bool )..")" )
 end

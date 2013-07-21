@@ -798,7 +798,7 @@ function GM:GetPlayerForBossZombie()
 	local zombies = team.GetPlayers(TEAM_UNDEAD)
 	
 	--Check if there are any zombies
-	if #zombies == 0 then
+	if team.NumPlayers(TEAM_UNDEAD) == 0 then
 		return nil
 	end
 	
@@ -836,6 +836,5 @@ function GM:GetPlayerForBossZombie()
 	
 	--Return random zombie
 	return table.Random(zombies)
-	
 end
 

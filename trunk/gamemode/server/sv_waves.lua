@@ -116,18 +116,13 @@ function GM:CalculateInfliction()
 		return
 	end
 
-	local players = 0
-	local zombies = 0
-	local humans = 0
-	for _, pl in pairs(player.GetAll()) do
-		if pl:Team() == TEAM_UNDEAD then
-			zombies = zombies + 1
-		elseif pl:Team() == TEAM_HUMAN then
-			humans = humans + 1
-		end
-		players = players + 1
-	end
-	INFLICTION = math.max(math.Clamp(zombies / players, 0.001, 1), CAPPED_INFLICTION)
+	local zombies = team.NumPlayers(TEAM_UNDEAD)
+	local humans = team.NumPlayers(TEAM_SURVIVORS)
+	local players = humans + zombies
+	
+	local progressTime = CurTime() / ROUNDTIME
+	
+	INFLICTION = math.Round(math.max(math.Clamp(zombies / players, 0.001, 1), progressTime),2)
 	CAPPED_INFLICTION = INFLICTION
 
 	self:SendInfliction()
