@@ -1129,7 +1129,7 @@ ZombieClasses[0] =
 			pl:SetRandomFace()
 
 			--Set red color
-			pl:SetColor(math.random(150,180),0,0,255)
+			--pl:SetColor(math.random(150,180),0,0,255)
 		end,
 	-- ModelScale = Vector(1.35,1.35,1.35),
 }
