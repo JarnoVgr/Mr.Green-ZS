@@ -245,6 +245,11 @@ if CLIENT then
 		--Draw some stuff
 		
 		local pos = self:GetPos() + Vector(0,0,45)
+
+		--Check for distance with local player
+	    if pos:Distance(MySelf:GetPos()) > 500 then
+	        return
+    	end
 			
 		local angle = (MySelf:GetPos() - pos):Angle()
 		angle.p = 0
@@ -264,7 +269,7 @@ if CLIENT then
 				local time = math.Round(MySelf.SupplyTime - CurTime())
 				draw.SimpleTextOutlined("0"..ToMinutesSeconds(time + 1), "ArialBoldFive", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			elseif MySelf.SupplyTimerActive == false then
-				draw.SimpleTextOutlined("Press E to use!", "ArialBoldFive", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				draw.SimpleTextOutlined("Press E to use", "ArialBoldFive", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 				draw.SimpleTextOutlined("(Refill ammo for equipped gun)", "ArialBoldFour", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			end
 				

@@ -69,8 +69,8 @@ function GM:SetRandomsToZombie()
 				local pl = humans[math.random(1, #humans)]
 				if pl:Team() ~= TEAM_UNDEAD then
 					pl:SwitchToZombie()
-					umsg.Start("recranfirstzom", pl)
-					umsg.End()
+					--[[umsg.Start("recranfirstzom", pl)
+					umsg.End()]]
 				end
 			end
 		end
@@ -80,8 +80,8 @@ function GM:SetRandomsToZombie()
 				pl:SetPos(self:PlayerSelectSpawn(pl):GetPos())
 			else
 				pl:SetFirstZombie()
-				umsg.Start("recvolfirstzom", pl)
-				umsg.End()
+				--[[umsg.Start("recvolfirstzom", pl)
+				umsg.End()]]
 			end
 		end
 	end
@@ -130,22 +130,6 @@ function GM:CalculateInfliction()
 	INFLICTION = math.max(math.Clamp(zombies / players, 0.001, 1), CAPPED_INFLICTION)
 	CAPPED_INFLICTION = INFLICTION
 
-	if humans == 1 and 3 < zombies then
-		-- spawn all guys
-		for _,pl in pairs(team.GetPlayers(TEAM_SPECTATOR)) do
-			pl:ConCommand("ChangeClass 1")
-		end
-		self:LastHuman()
-	elseif 1 <= INFLICTION then
-		self:OnEndRound(TEAM_UNDEAD)
-		return
-	elseif 0.75 <= INFLICTION then
-		UNLIFE = true
-		HALFLIFE = true
-	elseif 0.5 <= INFLICTION then
-		HALFLIFE = true
-	end
-
 	self:SendInfliction()
 end
 
@@ -159,11 +143,8 @@ end
 util.AddNetworkString( "reczsgamestate" )
 
 function GM:FullGameUpdate(pl)
-	net.Start("reczsgamestate")
-		net.WriteDouble(self:GetWave())
-		net.WriteFloat(self:GetWaveStart())
-		net.WriteFloat(self:GetWaveEnd())
-	net.Send(pl)
+	--[[net.Start("reczsgamestate")
+	net.Send(pl)]]
 end
 
 util.AddNetworkString( "SetInf" )
@@ -179,7 +160,6 @@ util.AddNetworkString( "SetInfInit" )
 function GM:SendInflictionInit(to)
 	net.Start("SetInfInit")
 		net.WriteFloat(INFLICTION)
-		net.WriteDouble(self:GetWave())
 	net.Send(to)
 end
 

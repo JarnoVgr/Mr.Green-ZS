@@ -94,40 +94,19 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 		mVictim:PlayZombieDeathSound()
 		
-		if GAMEMODE:GetFighting() then
-			mVictim.StartSpectating = ct + 4
+		mVictim.StartSpectating = ct + 4
 			
-			if IsValid( mAttacker ) and mAttacker ~= mVictim then
-				mVictim:SpectateEntity( mAttacker )
-				mVictim:Spectate( OBS_MODE_FREEZECAM )
-				mVictim:SendLua("surface.PlaySound(\"UI/freeze_cam.wav\")")
-			end
-			
-		else
-			mVictim.StartCrowing = ct + 4.5
-		end
-		
-		--[=[if GAMEMODE.WaveEnd <= ct then
-			mVictim.StartSpectating = ct + 3--math.Clamp(NextSpawn-0.1,0.2,4)
-		else
-			if IsValid( mAttacker ) and mAttacker ~= mVictim then
-				mVictim:SpectateEntity( mAttacker )
-				mVictim:Spectate( OBS_MODE_FREEZECAM )
-			end
-		end
-		
-		if mVictim.MyBodyIsReady then
-			mVictim.MyBodyIsReady = nil
-		end]=]
-	
+		if IsValid( mAttacker ) and mAttacker ~= mVictim then
+			mVictim:SpectateEntity( mAttacker )
+			mVictim:Spectate( OBS_MODE_FREEZECAM )
+			mVictim:SendLua("surface.PlaySound(\"UI/freeze_cam.wav\")")
+		end	
 	end
+	
 	-- Class achievements
 	if mAttacker:IsPlayer() and mAttacker:IsHuman() and mAttacker ~= mVictim and mVictim:IsZombie() then	
 		local HumanClass, ZombieClass = mAttacker:GetHumanClass(), mVictim:GetZombieClass()
-			--print( mInflictor:GetClass())	:(
-		--mAttacker:PrintMessage (HUD_PRINTTALK, "Damage done: "..dmginfo:GetDamage().." by "..mInflictor:GetClass().."")
-		--mAttacker:PrintMessage (HUD_PRINTTALK, "Head dist: "..dmginfo:GetDamagePosition():Distance( mVictim:GetAttachment( 1 ).Pos ).."")
-		
+
 		-- Marksman
 		if HumanClass == 3 then
 			if mVictim:GetAttachment( 1 ) then  --why it was disabled? :O (because zombies don't have heads)

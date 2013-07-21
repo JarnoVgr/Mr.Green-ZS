@@ -243,21 +243,11 @@ function hud.DrawNewZombieHUD()
 	
 	--draw.SimpleText(fHealth, "NewZombieFont17", x+110, y+45, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	draw.SimpleTextOutlined(fHealth, "NewZombieFont17", x+110, y+45, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-	
+		
+	end
 
-	if REDEEM_PUNISHMENT then
-		if GAMEMODE:GetWave() >= REDEEM_PUNISHMENT_TIME then
-			draw.SimpleText("Redeem time has expired!", "NewZombieFont13", x, y+77, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-		end
-	end
-	
-	end
-	-- WAVES
-	
-	local curwav = GAMEMODE:GetWave()
-	
 	surface.SetFont("NewZombieFont15")
-	local fWide, fTall = surface.GetTextSize ( "Wave ".. curwav .. " of ".. NUM_WAVES.."  |  " )
+	local fWide, fTall = surface.GetTextSize ( "Kill all humans in " )
 	
 	local text1x, text1y = 10, 10
 	local text2x, text2y = 10, text1y+fTall+1
@@ -267,12 +257,10 @@ function hud.DrawNewZombieHUD()
 
 	
 	-- zero wave
-	if curwav <= 0 then
+	if WARMUPTIME > ServerTime() then
 		
-		local timleft = math.max(0, WAVEZERO_LENGTH - CurTime())
-		
-		--draw.SimpleTextOutlined("Prepare your asses...", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		
+		local timleft = math.max(0, WARMUPTIME - ServerTime())
+
 		if timleft < 10 then
 			local glow = math.sin(RealTime() * 8) * 200 + 255
 			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255, glow, glow), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
@@ -285,25 +273,10 @@ function hud.DrawNewZombieHUD()
 		else
 			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		end
-	elseif GAMEMODE:GetFighting() then
-		local timleft = math.max(0, GAMEMODE:GetWaveEnd() - CurTime())
-		if timleft <= 0 then
-			--draw.SimpleTextOutlined(GAMEMODE:NumLivingZombies().." Zombies remaining", "ArialBoldSeven", text2x, text2y,  Color(255,155,155,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		else
-			if 10 < timleft then
-				draw.SimpleTextOutlined("0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x + fWide + 2, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-			else
-				local glow = math.sin(RealTime() * 8) * 200 + 255
-				draw.SimpleTextOutlined("0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x + fWide + 2, text1y, Color(255,glow,glow,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-				if lastwarntim ~= math.ceil(timleft) then
-					lastwarntim = math.ceil(timleft)
-					if 0 < lastwarntim then
-						surface.PlaySound("mrgreen/ui/menu_countdown.wav")
-					end
-				end
-			end
-		end
-		draw.SimpleTextOutlined("Wave ".. curwav .. " of ".. NUM_WAVES.."  |  ", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+	else
+		local timleft = math.max(0, ROUNDTIME - ServerTime())
+
+		draw.SimpleTextOutlined("Kill all survivors in ".. ToMinutesSeconds(timleft + 1) .." minutes", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		draw.SimpleTextOutlined("Infliction: ", "NewZombieFont15", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
@@ -318,27 +291,6 @@ function hud.DrawNewZombieHUD()
 		local space3 = surface.GetTextSize ( "/" )
 		
 		draw.SimpleTextOutlined(cached_humans, "NewZombieFont15", text2x+space1+space2+space3+2, text2y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		
-		
-	else
-		local timleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
-		if timleft < 10 then
-			local glow = math.sin(RealTime() * 8) * 200 + 255
-			draw.SimpleTextOutlined("Next wave in 0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text2x, text2y,  Color(255, glow, glow,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-			if lastwarntim ~= math.ceil(timleft) then
-				lastwarntim = math.ceil(timleft)
-					if 0 < lastwarntim then
-					surface.PlaySound("mrgreen/ui/menu_countdown.wav")
-				end
-			end
-		else
-			if GAMEMODE:NumLivingZombies() > 0 then
-				draw.SimpleTextOutlined(GAMEMODE:NumLivingZombies().." Zombies remaining", "NewZombieFont15", text2x, text2y,  Color(255,100,100,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-			else
-				draw.SimpleTextOutlined("Next wave in 0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text2x, text2y,  Color(255, 255, 255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-			end
-		end
-		draw.SimpleTextOutlined("Wave ".. curwav .. " of ".. NUM_WAVES.."  ", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 	end
 	
 
@@ -405,7 +357,7 @@ function hud.DrawNewHumanHUD()
 	hud.DrawBossHealth()
 	hud.DrawAmmoPanel()
 	hud.DrawHealthPanel()
-	hud.DrawWavePanel()
+	hud.DrawInflictionPanel()
 	hud.DrawStatsPanel()
 	hud.DrawZeroWaveMessage()
 	
@@ -665,7 +617,7 @@ function hud.DrawStatsPanel()
 	draw.SimpleTextOutlined(text, "ssNewAmmoFont13", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 end
 
-function hud.DrawWavePanel()
+function hud.DrawInflictionPanel()
 	local WaveX,WaveY = 12,12
 	local WaveW,WaveH = ScaleW(205),ScaleH(70)
 
@@ -676,7 +628,7 @@ function hud.DrawWavePanel()
 	-- surface.SetDrawColor(0, 0, 0, 140)
 	-- surface.DrawTexturedRect(0,0,ScaleW(300),ScaleH(80))
 		
-	local curwav = GAMEMODE:GetWave()
+	local curwav = 0
 	
 	surface.SetFont("ArialBoldSeven")
 	local fWide, fTall = surface.GetTextSize ( "Wave ".. curwav .. " of ".. NUM_WAVES.."  |  " )
@@ -685,12 +637,9 @@ function hud.DrawWavePanel()
 	local text2x, text2y = WaveX+ScaleW(7), text1y+fTall+5
 		
 	-- zero wave
-	if curwav <= 0 then
-		
-		local timleft = math.max(0, WAVEZERO_LENGTH - CurTime())
-		
-		--draw.SimpleTextOutlined("Prepare your asses...", "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		
+	if ServerTime() <= WARMUPTIME then		
+		local timleft = math.max(0, WARMUPTIME - ServerTime())
+
 		if timleft < 10 then
 			local glow = math.sin(RealTime() * 8) * 200 + 255
 			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text1x, text1y, Color(255, glow, glow), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
@@ -703,25 +652,10 @@ function hud.DrawWavePanel()
 		else
 			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		end
-	elseif GAMEMODE:GetFighting() then
-		local timleft = math.max(0, GAMEMODE:GetWaveEnd() - CurTime())
-		if timleft <= 0 then
-			--draw.SimpleTextOutlined(GAMEMODE:NumLivingZombies().." Zombies remaining", "ArialBoldSeven", text2x, text2y,  Color(255,155,155,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		else
-			if 10 < timleft then
-				draw.SimpleTextOutlined("0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text1x + fWide + 2, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-			else
-				local glow = math.sin(RealTime() * 8) * 200 + 255
-				draw.SimpleTextOutlined("0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text1x + fWide + 2, text1y, Color(255,glow,glow,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-				if lastwarntim ~= math.ceil(timleft) then
-					lastwarntim = math.ceil(timleft)
-					if 0 < lastwarntim then
-						surface.PlaySound("mrgreen/ui/menu_countdown.wav")
-					end
-				end
-			end
-		end
-		draw.SimpleTextOutlined("Wave ".. curwav .. " of ".. NUM_WAVES.."  |  ", "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+	else
+		local timleft = math.max(0, ROUNDTIME - ServerTime())
+
+		draw.SimpleTextOutlined("Survive for ".. ToMinutesSeconds(timleft + 1) .." minutes", "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		draw.SimpleTextOutlined("Infliction: ", "ArialBoldSeven", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
@@ -733,32 +667,7 @@ function hud.DrawWavePanel()
 		
 		local space3 = surface.GetTextSize("/")
 		draw.SimpleTextOutlined(cached_humans, "ArialBoldSeven", text2x+space1+space2+space3+2, text2y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		
-		-- Encouragement for last 30 seconds of last round
-        if (timleft <= 30 and GAMEMODE:GetWave() == 6) then
-            draw.SimpleTextOutlined("Hang in there", "ArialBoldTwelve", ScrW() * 0.5, ScrH() * 0.1, Color(255,255,255,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) 
-            draw.SimpleTextOutlined(math.Round(timleft + 1).." seconds left", "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.14, Color(235,50,50,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-        end
-	else
-		local timleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
-		if timleft < 10 then
-			local glow = math.sin(RealTime() * 8) * 200 + 255
-			draw.SimpleTextOutlined("Next wave in: 0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text2x, text2y,  Color(255, glow, glow,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-			if lastwarntim ~= math.ceil(timleft) then
-				lastwarntim = math.ceil(timleft)
-					if 0 < lastwarntim then
-					surface.PlaySound("mrgreen/ui/menu_countdown.wav")
-				end
-			end
-		else
-			if GAMEMODE:NumLivingZombies() > 0 then
-				draw.SimpleTextOutlined(GAMEMODE:NumLivingZombies().." Zombies remaining", "ArialBoldSeven", text2x, text2y,  Color(255,50,50,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-			else
-				draw.SimpleTextOutlined("Next wave in: 0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text2x, text2y,  Color(255, 255, 255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-			end
-		end
-		draw.SimpleTextOutlined("Wave ".. curwav .. " of ".. NUM_WAVES.."  ", "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-	end
+    end
 end
 
 hud.GradientExample = surface.GetTextureID( "gui/center_gradient" )
@@ -820,74 +729,25 @@ function DrawPanelBlackBox(x,y,w,h,overridealpha)
 end
 
 function hud.DrawZeroWaveMessage()
-	local curtime = CurTime()
+	local curtime = ServerTime()
 	
-	if WAVEZERO_LENGTH >= curtime then	
+	--[[if WARMUPTIME >= curtime then	
 		surface.SetFont("ArialBoldSeven")
 		local txtw, txth = surface.GetTextSize("Hi")
 		--draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1) ..". Prepare your hideout!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-		--draw.SimpleTextOutlined("Go to an zombie spawn area to volunteer for zombie", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-
-		local vols = 0
-		local voltab = {}
-		local allplayers = player.GetAll()
-		for _, gasses in pairs(ents.FindByClass("zs_poisongasses")) do
-			local gaspos = gasses:GetPos()
-			for _, ent in pairs(allplayers) do
-				if ent:GetPos():Distance(gaspos) <= 272 and not table.HasValue(voltab, ent) then
-					vols = vols + 1
-					table.insert(voltab, ent)
-				end
-			end
-		end
-
-		for _, pl in pairs(allplayers) do
-			if pl:Team() == TEAM_UNDEAD then
-				vols = vols + 1
-				table.insert(voltab, pl)
-			end
-		end
-
-		local numplayers = #allplayers
-		local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
-		
-		-- Client zombie spawn warning
-		if ( table.HasValue( voltab, MySelf ) ) then
-			draw.SimpleTextOutlined("You're now volunteering for Zombie. Get out of this place if you want to stay alive!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.7 + txth, Color(235,50,50,255), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))              
-		end
-
-		--draw.SimpleTextOutlined("Number of initial zombies this game ("..WAVE_ONE_ZOMBIES * 100 .."%): "..desiredzombies, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-		--draw.SimpleTextOutlined("Starting with "..desiredzombies .." zombies", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-
-		draw.SimpleTextOutlined("Volunteers for Zombie: "..vols, "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.75 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			
-		surface.SetFont("Default")
-		local y = ScrH() * 0.75 + txth * 2
-		txtw, txth = surface.GetTextSize("Hi")
-		for _, pl in pairs(voltab) do
-			if ScrH() - txth <= y then break else
-				draw.SimpleTextOutlined(pl:Name(), "ArialBoldFour", ScrW() * 0.5, y, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-				y = y + txth
-			end
-		end
-	end
+	end]]
 end
 
 function hud.DrawObjMessages()
-	if not IsEntityValid ( MySelf ) or ENDROUND then return end
+	if not IsEntityValid ( MySelf ) or ENDROUND then
+		return
+	end
 
-	if not MySelf.ReadySQL then return end
-
-	if not MySelf:Alive() then return end
-	if IsClassesMenuOpen() then return end
-	if IsSkillShopOpen() then return end
-
-	if not MySelf:IsHuman() then return end
-	
-	if not OBJECTIVE then return end
+	if not MySelf.ReadySQL or not MySelf:Alive() or IsClassesMenuOpen() or IsSkillShopOpen() or not MySelf:IsHuman() or not OBJECTIVE then
+		return
+	end
 	
 	if Objectives[GAMEMODE:GetObjStage()].PaintObjective and #Objectives[GAMEMODE:GetObjStage()].PaintObjective > 0 then
-		
 		local objpos = Objectives[GAMEMODE:GetObjStage()].PaintObjective[2] + Vector(0,0,60)
 		local arrowpos = Objectives[GAMEMODE:GetObjStage()].PaintObjective[2]
 		local anim = math.Clamp(math.sin( RealTime()*3.2)*10,-20,20)
@@ -911,7 +771,6 @@ function hud.DrawObjMessages()
 			draw.SimpleTextOutlined(Objectives[GAMEMODE:GetObjStage()].PaintObjective[1], "ArialBoldTen", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			
 		cam.End3D2D()
-	
 	end
 	
 end

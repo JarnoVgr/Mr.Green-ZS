@@ -558,8 +558,6 @@ function DrawSkillShop()
 		gui.EnableScreenClicker(true)
 		
 		if MySelf:KeyDown(IN_FORWARD) or MySelf:KeyDown(IN_BACK) or MySelf:KeyDown(IN_MOVELEFT) or MySelf:KeyDown(IN_MOVERIGHT) then
-			surface.PlaySound("items/ammocrate_close.wav")
-			-- CloseSkillShop()
 			DoSkillShopMenu()
 		end
 		
@@ -582,14 +580,11 @@ function DrawSkillShop()
 	MainPanel:SetSize(MainPanelW,MainPanelH)
 	MainPanel:SetPos(TopMenuX,TopMenuY+TopMenuH+ScaleH(20))
 	MainPanel:SetDraggable ( false )
-	MainPanel:SetTitle ( "Time until shop closes: 0"..ToMinutesSeconds( math.max( 0, GAMEMODE:GetWaveStart() - CurTime() ) + 1 ) )
+	MainPanel:SetTitle("")
 	MainPanel:SetSkin("ZSMG")
 	MainPanel:ShowCloseButton (false)
 	MainPanel:SetDraggable ( false )
 	MainPanel:SetSizable(false)
-	MainPanel.Think = function()
-		MainPanel:SetTitle ( "Time until shop closes: 0"..ToMinutesSeconds( math.max( 0, GAMEMODE:GetWaveStart() - CurTime() ) + 1 ) )
-	end
 	
 	SortingBox = vgui.Create("DComboBox",MainPanel)
 	SortingBox:SetSize(150,20)
@@ -712,12 +707,16 @@ function DoSkillShopMenu()
 	SKILLSHOP_OPENED = not SKILLSHOP_OPENED
 	-- This is not wrong
 	if IsSkillShopOpen() then
+		--Play funky sound
+		surface.PlaySound("items/ammocrate_open.wav")
+
+		--
 		DrawSkillShop()
 	else
+		--Play funky sound
+		surface.PlaySound("items/ammocrate_close.wav")
+
+		--
 		CloseSkillShop()
 	end
 end
-
-
--- concommand.Add("open_testmenu",DoSkillShopMenu)
-

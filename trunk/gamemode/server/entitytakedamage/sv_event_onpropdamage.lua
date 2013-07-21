@@ -77,9 +77,6 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 	
 	
 	local damage = dmginfo:GetDamage()
-	
-	
-	
 			if ent.Nails then-- and not (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN)and dmginfo:IsMeleeDamage())
 				for i=1, #ent.Nails do
 					local nail = ent.Nails[i]
@@ -178,7 +175,6 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 	end
 	
 	if ent.PropHealth then
-		
 		ent.PropHealth = ent.PropHealth - dmginfo:GetDamage() 
 		--ent:SetHealth ( ent:Health() - dmginfo:GetDamage() )
 		--local brit = math.Clamp ( ent:Health() / ent:GetMaxHealth(), 0, 1 )

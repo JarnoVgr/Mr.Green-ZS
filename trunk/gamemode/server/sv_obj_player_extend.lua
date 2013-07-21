@@ -183,13 +183,15 @@ end )
                 Spawns the first zombie/s
 ---------------------------------------------------]==]
 function meta:SetFirstZombie()
-	if self:Team() == TEAM_UNDEAD then return end
+	if self:Team() == TEAM_UNDEAD then
+		return
+	end
 	
 	-- Strip weapons
 	self:StripWeapons()
 	
 	-- Obviously, set his team to undead
-	self:SetTeam( TEAM_UNDEAD )
+	self:SetTeam(TEAM_UNDEAD)
 	
 	-- Reset kils
 	self:SetFrags ( 0 )
@@ -200,19 +202,14 @@ function meta:SetFirstZombie()
 	
 		
 	if FIRSTAPRIL then
-	umsg.Start( "MakeBody" )
-	umsg.End()
+		umsg.Start( "MakeBody" )
+		umsg.End()
 	end
 
 	
 	-- Correct any speed changes
 	local Class = self:GetZombieClass()
 	GAMEMODE:SetPlayerSpeed ( self, ZombieClasses[Class].Speed )
-	
-	--  logging
-	--log.PlayerAction( self, "first_zombie" )
-	--log.PlayerJoinTeam( self, TEAM_UNDEAD )
-	--log.PlayerRoleChange( self, self:GetClassTag() )
 	
 	-- Set him dead in the connect data table
 	local Table = DataTableConnected[ self:UniqueID() ]

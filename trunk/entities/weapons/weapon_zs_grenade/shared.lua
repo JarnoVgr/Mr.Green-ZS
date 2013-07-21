@@ -124,23 +124,25 @@ function SWEP:PrimaryAttack()
 
 	local owner = self.Owner
 	if SERVER then
-	local ent = ents.Create("projectile_zsgrenade")
-	if IsValid(ent) then
-		ent:SetPos(owner:GetShootPos())
-		ent:SetOwner(owner)
-		ent:Spawn()
-		ent:Activate()
-		ent:EmitSound("WeaponFrag.Throw")
-		local phys = ent:GetPhysicsObject()
-		if phys:IsValid() then
-			phys:Wake()
-			phys:AddAngleVelocity(VectorRand() * 3)
-			phys:SetVelocityInstantaneous(self.Owner:GetAimVector() * 800)
+		local ent = ents.Create("projectile_zsgrenade")
+		if IsValid(ent) then
+			ent:SetPos(owner:GetShootPos())
+			ent:SetOwner(owner)
+			ent:Spawn()
+			ent:Activate()
+			ent:EmitSound("WeaponFrag.Throw")
+			local phys = ent:GetPhysicsObject()
+			if phys:IsValid() then
+				phys:Wake()
+				phys:AddAngleVelocity(VectorRand() * 5)
+				phys:SetVelocityInstantaneous(self.Owner:GetAimVector() * 800)
+			end
 		end
-		self:TakePrimaryAmmo(1)
-		self.NextDeploy = CurTime() + 1.5
 	end
-	end
+
+	self:TakePrimaryAmmo(1)
+	self.NextDeploy = CurTime() + 1.5
+
 	self:SendWeaponAnim(ACT_VM_THROW)
 	owner:SetAnimation(PLAYER_ATTACK1)
 end

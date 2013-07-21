@@ -282,7 +282,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	
 	-- starting zombies
 	if pl:IsZombie() and not pl:IsZombine() then
-		if pl:IsStartingZombie() and GAMEMODE:GetFighting() then
+		if pl:IsStartingZombie() then
 			if dmginfo:IsBulletDamage()	then
 				if math.random(3) == 3 then
 					WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )

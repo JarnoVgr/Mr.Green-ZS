@@ -60,8 +60,6 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	end)
 		
-	--timer.Create("DelayedCalculate", 0.2, 1, function() GAMEMODE:CalculateInfliction() end)
-	
 	skillpoints.Clean(mVictim)
 	
 	mVictim:PlayDeathSound()
@@ -92,23 +90,23 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		mVictim.MyBodyIsReady = true -- no jokes about this one
 	end
 	
-	if not revive then
+	--[[if not revive then
 		if GAMEMODE.WaveEnd <= ct or GAMEMODE:GetWave() == 0 then
-			-- mVictim.StartSpectating = ct + 3-- math.Clamp(NextSpawn-0.1,0.2,4)
+			mVictim.StartSpectating = ct + 3-- math.Clamp(NextSpawn-0.1,0.2,4)
 		end
-	end
+	end]]
 
 	-- Emo achievment
 	if dmginfo:IsSuicide( mVictim ) or mAttacker:IsWorld() then
 		if mVictim:IsHuman() then
-			mVictim:UnlockAchievement( "emo" )
+			mVictim:UnlockAchievement("emo")
 			if LASTHUMAN then
-				mVictim:UnlockAchievement( "iamlegend" )
+				mVictim:UnlockAchievement("iamlegend")
 			end	
 		end
 	end
 	
-	if dmginfo:IsSuicide( mVictim ) and CurTime() < ROUNDTIME * 0.12 then
+	if dmginfo:IsSuicide( mVictim ) and ServerTime() < ROUNDTIME * 0.12 then
 		if mVictim:IsHuman() then
 			mVictim.Suicided = true
 		end
@@ -156,15 +154,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			if mAttacker:CanRedeem() then
 				timer.Simple( 0, function() 
 					if mAttacker:CanRedeem() then
-						if REDEEM_PUNISHMENT then
-							if (GAMEMODE:GetWave()) >= REDEEM_PUNISHMENT_TIME then
-								mAttacker:ChatPrint("You can't redeem at wave "..REDEEM_PUNISHMENT_TIME)
-							else	
-								mAttacker:Redeem()
-							end
-						else
-							mAttacker:Redeem()
-						end
+						mAttacker:Redeem()
 					end
 				end)
 			end

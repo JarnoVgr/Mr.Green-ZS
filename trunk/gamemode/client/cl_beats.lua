@@ -200,30 +200,12 @@ end
        Called on GM:SetUnlife ( bool ) -- Loops, too
 ---------------------------------------------------------]==]
 function PlayUnlife()
-	if ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end
-	
-	-- Play the sound right now
-	--[[local Duration = UNLIFESOUNDLENGTH -- SoundDuration ( "../sound/"..UNLIFESOUND )
-	surface.PlaySound ( UNLIFESOUND )
-	
-	-- Create a timer so it plays after it has finished
-	timer.Create ( "LoopUnlife", Duration, 0, function() 
-		if UNLIFE and util.tobool(GetConVar( "_zs_enablemusic" )) and not ENDROUND and not LASTHUMAN and not DEADLIFE then 
-			surface.PlaySound ( UNLIFESOUND )  
-		end
-	end)]]
-end
-
-function PlayDeadlife()
-	if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end
-	-- if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].DisableMusic then return end
-	
+	if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
 	-- Stop sounds
-	RunConsoleCommand( "stopsound" )
+	RunConsoleCommand("stopsound")
 	
-	-- Play sound right now
+	--Play sound right now
 	local Duration = 277
-	
 	local song = "deadlife_mrgreen.mp3"
 	
 	if BOSSACTIVE or GAMEMODE:IsBossAlive() then
@@ -231,79 +213,21 @@ function PlayDeadlife()
 		song = "deadlife_mrgreen_insane.mp3"
 	end
 	
-	timer.Simple( 0.3, function() surface.PlaySound( song ) end )
+	timer.Simple(0.3, function()
+		surface.PlaySound(song)
+	end)
 	
 	-- Create timer
-	timer.Create ( "LoopDeadlife", Duration, 0, function() 
-		if LASTHUMAN or ENDROUND then return end
-		surface.PlaySound ( song )  
-	end )
+	timer.Create("LoopDeadlife", Duration, 0, function() 
+		if LASTHUMAN or ENDROUND then
+			return
+		end
+		surface.PlaySound(song)  
+	end)
 end
 
 util.PrecacheSound("deadlife_mrgreen.mp3")
 util.PrecacheSound("deadlife_mrgreen_insane.mp3")
-
-function GM:SetUnlifeText() -- Unused
-	if UNLIFE then
-		-- In originele ZS 2.0 code is het level 10 (bij BeatText en ZombieHordeText). Maar lijkt me logischer als het bij het minimale getal is.
-		BeatText[8] = "Un-Life"
-		ZombieHordeText[8] = "Un-Life"
-		NearZombies = 7.5
-	end
-end
-
-function GM:SetHalflifeText() -- Unused
-	if HALFLIFE then
-		BeatText[5] = "Half-Life"
-		ZombieHordeText[5] = "Half-Life"
-		NearZombies = 5
-	end
-end
-
--- CreateClientConVar("_zs_enablebeats", 1, true, false)
-local ENABLE_BEATS = util.tobool(GetConVarNumber("_zs_enablebeats"))
-local function EnableBeats(sender, command, arguments)
-	ENABLE_BEATS = util.tobool(arguments[1])
-
-	if ENABLE_BEATS then
-		RunConsoleCommand("_zs_enablebeats", "1")
-		MySelf:ChatPrint("Beats enabled.")
-	else
-		RunConsoleCommand("_zs_enablebeats", "0")
-		MySelf:ChatPrint("Beats disabled.")
-	end
-end
-concommand.Add("zs_enablebeats", EnableBeats)
-
-CreateClientConVar("_zs_enableoldbeats", 0, true, false)
-local ENABLE_OLDBEATS = util.tobool(GetConVarNumber("_zs_enableoldbeats"))
-local function EnableOldBeats(sender, command, arguments)
-	ENABLE_OLDBEATS = util.tobool(arguments[1])
-
-	if ENABLE_OLDBEATS then
-		RunConsoleCommand("_zs_enableoldbeats", "1")
-		MySelf:ChatPrint("Old beats enabled.")
-	else
-		RunConsoleCommand("_zs_enableoldbeats", "0")
-		MySelf:ChatPrint("Old beats disabled.")
-	end
-end
-concommand.Add("zs_enableoldbeats", EnableOldBeats)
-
-CreateClientConVar("_zs_enableoldbeats1", 0, true, false)
-local ENABLE_OLDBEATS1 = util.tobool(GetConVarNumber("_zs_enableoldbeats1"))
-local function EnableOldBeats1(sender, command, arguments)
-	ENABLE_OLDBEATS1 = util.tobool(arguments[1])
-
-	if ENABLE_OLDBEATS1 then
-		RunConsoleCommand("_zs_enableoldbeats1", "1")
-		MySelf:ChatPrint("Old zombie beats enabled.")
-	else
-		RunConsoleCommand("_zs_enableoldbeats1", "0")
-		MySelf:ChatPrint("Old zombie beats disabled.")
-	end
-end
-concommand.Add("zs_enableoldbeats1", EnableOldBeats1)
 
 -- CreateClientConVar("_zs_customweaponpos", 1, true, false)
 local ENABLE_WEPPOS = util.tobool(GetConVarNumber("_zs_customweaponpos"))
@@ -365,7 +289,7 @@ local function EnableMusic(sender, command, arguments)
 end
 concommand.Add("zs_enablemusic", EnableMusic)
 
--- Small turret's names from IW
+--Small turret's names from IW
 local randnames = { "Joseph", "Finger", "Beer", "Blob", "Chicken" }
 CreateClientConVar("_zs_turretnicknamefix", table.Random(randnames), true, true)
 TurretNickname = GetConVarString("_zs_turretnicknamefix")
@@ -394,43 +318,16 @@ local function EnableHordeHUD(sender, command, arguments)
 end
 concommand.Add("zs_showhorde", EnableHordeHUD)
 
--- CreateClientConVar("_zs_hcolormod", 1, true, false)
-HCOLORMOD = util.tobool( GetConVarNumber("_zs_hcolormod") )
-local function EnableHColorMod(sender, command, arguments)
-	HCOLORMOD = util.tobool( arguments[1] )
-
-	if HCOLORMOD then
-		RunConsoleCommand("_zs_hcolormod", "1")
-		MySelf:ChatPrint("Enabled darker color mod.")
-	else
-		RunConsoleCommand("_zs_hcolormod", "0")
-		MySelf:ChatPrint("Disabled darker color mod.")
-	end
-end
-concommand.Add("zs_hcolormod", EnableHColorMod)
+HCOLORMOD = true
 
 CreateClientConVar("_zs_wepfov", 75, true, true)
 
---[=[CreateClientConVar("_zs_enablescreenblood", 1, true, false)
-local ENABLE_BLOOD = util.tobool(GetConVarNumber("_zs_enablescreenblood"))
-local function EnableBlood(sender, command, arguments)
-	ENABLE_BLOOD = util.tobool(arguments[1])
-
-	if ENABLE_BLOOD then
-		RunConsoleCommand("_zs_enablescreenblood", "1")
-		MySelf:ChatPrint("On screen blood enabled.")
-	else
-		RunConsoleCommand("_zs_enablescreenblood", "0")
-		MySelf:ChatPrint("On screen blood disabled.")
-	end
-end
-concommand.Add("zs_enablescreenblood", EnableBlood)]=]
+ENABLE_BLOOD = false
 
 local NextBeat = 0
 local LastBeatLevel = 0
 function GM:PlayBeats(teamid, am)
-	
-	local ENABLE_BEATS = util.tobool(GetConVarNumber("_zs_enablebeats"))
+	--[[local ENABLE_BEATS = util.tobool(GetConVarNumber("_zs_enablebeats"))
 
 	if RealTime() <= NextBeat or not ENABLE_BEATS then return end
 
@@ -447,13 +344,13 @@ function GM:PlayBeats(teamid, am)
 	if snd then
 		MySelf:EmitSound(snd, 0, 100, 0.8)
 		NextBeat = RealTime() + SoundDuration(snd) - 0.025
-	end
+	end]]
 end
 
 
 -- Good old beats :D
 function GM:_Think()
-	MySelf = LocalPlayer()
+	--[[MySelf = LocalPlayer()
 	if not MySelf:IsValid() then return end
 
 	
@@ -474,7 +371,7 @@ function GM:_Think()
 			pl.WasBuildingBonePositions = nil
 			pl:ResetBones()
 		end
-	end
+	end]]
 	
 end
 -- 2 functions from old zs for better calculating
@@ -511,19 +408,6 @@ function GetZombieFocus3(mypos, range, multiplier, maxper)
 		return math.min(zombies, 1)
 	end
 end
-
-function DrawInvasionNotice()
-	if not IsEntityValid ( MySelf ) or ENDROUND then return end
-	if not MySelf:Alive() then return end
-	if not MySelf.ReadySQL then return end
-	if IsClassesMenuOpen() then return end
-	if CurTime() > FIRST_ZOMBIE_SPAWN_DELAY then return end
-	if team.NumPlayers(TEAM_UNDEAD) > 0 then return end
-	
-	draw.SimpleTextOutlined("Time until zombie invasion: "..ToMinutesSeconds( math.Clamp( math.Round(FIRST_ZOMBIE_SPAWN_DELAY - CurTime()), 0, 500 ) + 1), "ArialBoldTwelve", w/2, h/3.8, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-
-end
---hook.Add( "HUDPaint", "DrawInvasionNotice", DrawInvasionNotice )
 
 local regenSound = Sound("buttons/weapon_confirm.wav")
 

@@ -596,7 +596,7 @@ end
 local function LoopLastHuman()
 	if not ENDROUND and util.tobool(GetConVar( "_zs_enablemusic" )) then
 		surface.PlaySound(LASTHUMANSOUND)
-		--timer.Simple(LASTHUMANSOUNDLENGTH, LoopLastHuman)
+		timer.Simple(LASTHUMANSOUNDLENGTH, LoopLastHuman)
 	end
 end
 

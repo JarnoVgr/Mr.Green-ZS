@@ -54,7 +54,7 @@ SWEP.DamageType = DMG_CLUB
 SWEP.ViewModel = "models/weapons/v_shovel/v_shovel.mdl"
 SWEP.WorldModel = "models/weapons/w_shovel.mdl"
 
-SWEP.MeleeDamage = 140
+SWEP.MeleeDamage = 110
 SWEP.MeleeRange = 80
 SWEP.MeleeSize = 1.3
 

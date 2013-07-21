@@ -142,17 +142,32 @@ function GM:PlayerInitialSpawn( pl )
 		iTeam = TEAM_HUMAN
 	end
 
+	--Case 1: If the player disconnected while being in a team, it will correctly set him to the proper team.
+	--[[if pl:ConnectedIsDead() then
+		iTeam = TEAM_UNDEAD
+	end]]
+
 	if not pl:IsBot() then
 		if DataTableConnected[ID].IsDead then
 			pl.SpawnedTime = CurTime()
 			iTeam = TEAM_UNDEAD
-		elseif self:GetWave() <= 0 then
+		end
+	end
+	
+	--Case 2: If passed 5 minutes or lasthuman or endround or more than 50% players zombie, place him as undead
+	if (CurTime() > ROUNDTIME * 0.25) or LASTHUMAN or (GetInfliction() >= 0.5 and team.NumPlayers(TEAM_UNDEAD) > 2) or ENDROUND then
+		iTeam = TEAM_UNDEAD
+		DataTableConnected[ID].IsDead = true
+	end
+
+	--[[if not pl:IsBot() then
+		if DataTableConnected[ID].IsDead then
 			pl.SpawnedTime = CurTime()
-			iTeam = TEAM_SPECTATOR
+			iTeam = TEAM_UNDEAD
 		elseif LASTHUMAN then
 			iTeam = TEAM_UNDEAD
 			DataTableConnected[ID].IsDead = true	
-		elseif NONEWJOIN_WAVE <= self:GetWave() then
+		elseif CurTime() > ROUNDTIME * 0.15 then
 			iTeam = TEAM_UNDEAD
 			DataTableConnected[ID].IsDead = true	
 		elseif team.NumPlayers(TEAM_UNDEAD) < 1 and 2 < team.NumPlayers(TEAM_HUMAN) and NONEWJOIN_WAVE > self:GetWave() and not LASTHUMAN then
@@ -167,32 +182,24 @@ function GM:PlayerInitialSpawn( pl )
 				iTeam = TEAM_SPECTATOR
 			end
 		end
-	end
-	
-
-	
-	
+	end]]
+		
 	-- Set the player's team
-	pl:SetTeam ( iTeam )
+	pl:SetTeam(iTeam)
 	
-	if pl:Team() == TEAM_UNDEAD and (self:GetWave() <= 0 or not self:GetFighting()) then
-		-- print("Late joiner")
-		-- pl:SetZombieClass(9)
-		-- pl.DeathClass = 1
-		pl.SpawnAsCrow = true
-		-- pl:SetAsCrow()
-	else
-		pl:SetZombieClass(0)
+	pl:SetZombieClass(0)
+	
+	--Call PlayerReady if player is a bot
+	if pl:IsBot() then
+		pl:SetHumanClass(1)
+		self:PlayerReady(pl)
 	end
 	
-	-- Call PlayerReady if player is a bot
-	if pl:IsBot() then pl:SetHumanClass ( 1 ) self:PlayerReady( pl ) end
-	
-	--  logging
-	if (iTeam ~= TEAM_SPECTATOR) then
-		--log.PlayerJoinTeam( pl, iTeam )
-		--log.PlayerRoleChange( pl, pl:GetClassTag() )
-	end
+	--log
+	--[[if (iTeam ~= TEAM_SPECTATOR) then
+		log.PlayerJoinTeam( pl, iTeam )
+		log.PlayerRoleChange( pl, pl:GetClassTag() )
+	end]]
 	
 	skillpoints.SetupSkillPoints(pl)
 	
@@ -445,12 +452,9 @@ function GM:OnZombieSpawn(pl)
 	end
 	
 	-- Manages class spawn
-	if pl.DeathClass and GAMEMODE:GetFighting() and GAMEMODE:GetWave() > 0 then
+	if pl.DeathClass then
 		pl:SetZombieClass(pl.DeathClass)
 		pl.DeathClass = nil
-		
-		--  logging
-		--log.PlayerRoleChange( pl, pl:GetClassTag() )	
 	end
 	
 	if pl.SpawnAsCrow then
@@ -459,7 +463,7 @@ function GM:OnZombieSpawn(pl)
 		pl.SpawnAsCrow = false
 	end
 	
-	-- Enable the suicide system on the player if he had it
+	--Enable the suicide system on the player if he had it
 	if pl:ConnectedHasSuicideSickness() then
 		pl.Suicided = true
 		DataTableConnected[ID].SuicideSickness = false
@@ -468,23 +472,10 @@ function GM:OnZombieSpawn(pl)
 			
 	local Class = pl:GetZombieClass()
 	local Tab = ZombieClasses[Class]
-	
-	-- Surprise 
-	--[=[if pl.Suicided then
-	pl.SuicideMessageTime = pl.SuicideMessageTime or 0
-		if pl.SuicideMessageTime < CurTime() then
-			--pl:Message( "Good job on suiciding, mate! Let's see what you gonna do now.", 1, "255,255,255,255" )
-			pl.SuicideMessageTime = CurTime() + ROUNDTIME -- delay it because we dont need this anymore
-		end
-		if CurTime() >= ROUNDTIME * 0.25 then
-			pl.Suicided = false
-		end	
-	end]=]
-	
+		
 	local stchance = 1/(ST_ZOMBIE_CHANCE/100)
-	
-	--if self:GetWave() ~= 1 then
-	if self:GetWave() ~= 1 and math.random(1,stchance) == 1 then
+
+	if math.random(1,stchance) == 1 then
 		if not pl:IsBossZombie() and not pl:IsCrow() then
 			pl:SpawnAsSteroidZombie(math.random(1,#ZombiePowerups))
 		end
@@ -492,9 +483,7 @@ function GM:OnZombieSpawn(pl)
 	
 	-- Calculate zombie's health
 	CalculateZombieHealth(pl)
-	
-	-- CalculateZombieHull( pl )
-	
+
 	-- pl:CalculateViewOffsets()
 	pl:DoHulls(Class, TEAM_UNDEAD)
 	
@@ -502,13 +491,13 @@ function GM:OnZombieSpawn(pl)
 	pl:SetHeadcrabBodyGroup()
 	
 	-- Set the zombie's model
-	pl:SetModel ( Tab.Model )
+	pl:SetModel(Tab.Model)
 	
 	if not pl.Loadout then
 		pl.Loadout = {}
 	end
 	
-	-- Fix late spawners
+	--Fix late spawners
 	if #pl.Loadout <=1 then
 		timer.Simple(1,function()
 			if ValidEntity(pl) then
@@ -517,7 +506,7 @@ function GM:OnZombieSpawn(pl)
 		end)
 	end
 
-	-- Set jump power
+	--Set jump power
 	if pl:GetJumpPower() ~= (Tab.JumpPower or 200) then
 		pl:SetJumpPower(Tab.JumpPower or 200) 
 	end
@@ -532,7 +521,6 @@ function GM:OnZombieSpawn(pl)
 		-- SpawnProtection(pl)
 		pl.NoExplosiveDamage = CurTime() + 1.5 
 	end
-	-- Give the zombie claws
 	
 	pl:StripWeapons()
 	
@@ -542,21 +530,14 @@ function GM:OnZombieSpawn(pl)
 		pl:SelectWeapon(Tab.SWEP)
 	end
 	
-	-- if not pl:GetZombieClass() ~= 9 then
-	-- 	pl:StripWeapon("weapon_zs_crow")
-	-- end
-	
 	local col = pl:GetInfo( "cl_playercolor" )
 	pl:SetPlayerColor( Vector( col ) )
 
-	-- local col = pl:GetInfo( "cl_weaponcolor" )
 	pl:SetWeaponColor( Vector( col ) )
 
 	if Tab.OnSpawn then
 		Tab.OnSpawn(pl)
 	end
-	
-	-- if pl.Revived or self:GetFighting() and CurTime() < self:GetWaveEnd() then
 		
 	-- Set the zombie's walk and crouch speed
 	self:SetPlayerSpeed ( pl, Tab.Speed )
@@ -574,27 +555,16 @@ function GM:OnZombieSpawn(pl)
 		
 	pl:UnSpectate()		
 	-- Prevent health pickups and/or machines
-	pl:SetMaxHealth( 1 ) 
+	pl:SetMaxHealth(1) 
 	
 	--pl:SetBloodColor(BLOOD_COLOR_YELLOW)
 	pl:SetBloodColor(BLOOD_COLOR_RED)
 
-	if not pl.Revived or not self:GetFighting() or CurTime() > self:GetWaveEnd() then
-		pl.StartCrowing = 0
-	end
-		
-	if not pl.Revived and not self:GetFighting() and CurTime() > self:GetWaveEnd() then --not pl.Revived or
-		if not pl:IsCrow() then
-		-- 	pl:SetAsCrow()
-		end
-	end
-	-- pl:Spectate(OBS_MODE_ROAMING)
-	-- 	end
-	-- end
+ 	--pl:SetAsCrow()
 
 	--Alert players they can change zombie class
 	--TODO: Alert once
-	if not pl:IsCrow() and self:GetWave() ~= 1 and Class == 0 and math.random(1,3) == 1 then
+	if not pl:IsCrow() and Class == 0 and math.random(1,3) == 1 then
 		pl:Message("Press F3 to spawn as a different zombie", 2)
 	end
 
@@ -697,31 +667,32 @@ end
      Loadout Director - Called on h spawn
 -------------------------------------------------]==]
 function CalculatePlayerLoadout ( pl )
-	if pl:Team() ~= TEAM_HUMAN then return end
+	if pl:Team() ~= TEAM_HUMAN then
+		return
+	end
 
 	local Class = pl:GetHumanClass()
 	local ToGive = {}
 	
 	if pl.Loadout then
 		if #pl.Loadout > 0 then
-			PrintTable(pl.Loadout)
+			--PrintTable(pl.Loadout)
 			ToGive = table.Copy(pl.Loadout)
 		else
-			PrintTable(pl.Loadout)
+			--PrintTable(pl.Loadout)
 			ToGive = {"weapon_zs_usp","weapon_zs_melee_keyboard"}
 			pl.Loadout = table.Copy(ToGive)
 		end
 	else
-		PrintTable(pl.Loadout)
+		--PrintTable(pl.Loadout)
 		ToGive = {"weapon_zs_usp","weapon_zs_melee_keyboard"}
 		pl.Loadout = table.Copy(ToGive)
 	end
 		
-	-- Actually give the weapons
-	for k,v in pairs ( ToGive ) do
-		pl:Give ( tostring ( v ) )
+	--Actually give the weapons
+	for k,v in pairs(ToGive) do
+		pl:Give(tostring(v))
 	end
-	
 	
 	if ARENA_MODE then
 		pl:Give(table.Random(GAMEMODE.ArenaWeapons))
@@ -736,15 +707,20 @@ function CalculatePlayerLoadout ( pl )
 			--Strip previous pistol
 			local Pistol = pl:GetPistol()
 			if Pistol then
-				pl:StripWeapon( Pistol:GetClass() )
+				pl:StripWeapon(Pistol:GetClass())
 			end
 			
 			--Give new magnum
-			pl:Give( "weapon_zs_magnum" )
+			pl:Give("weapon_zs_magnum")
+
+			--Override old pistol for auto-deploy (selecting)
+			ToGive[1] = "weapon_zs_magnum"
 		end
 	end
 	
-	if ToGive and #ToGive > 0 then pl:SelectWeapon ( tostring ( ToGive[1] ) ) end
+	if ToGive and #ToGive > 0 then
+		pl:SelectWeapon(tostring(ToGive[1]))
+	end
 end
 
 function CalculateZombieHull ( pl )
@@ -785,15 +761,17 @@ if not tab then tab = {Vector ( -16, -16, 0 ), Vector ( 16, 16, 72 )} end
 	umsg.End()
 end
 
-function CalculateZombieHealth ( pl )
-	if pl:Team() ~= TEAM_UNDEAD then return end
+function CalculateZombieHealth(pl)
+	if pl:Team() ~= TEAM_UNDEAD then
+		return
+	end
 	
 	local Class = pl:GetZombieClass()
 	local Tab = ZombieClasses[Class]
 	local MaxHealth = 0
 	
 	-- Case 1: Normal case
-	MaxHealth = math.Clamp ( Tab.Health, 0, Tab.Health )
+	MaxHealth = math.Clamp(Tab.Health, 0, Tab.Health)
 	
 	local allplayers = player.GetAll()
 	local numplayers = #allplayers
@@ -802,7 +780,7 @@ function CalculateZombieHealth ( pl )
 	
 	local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
 	if not (pl:IsBossZombie() and not pl:IsCrow()) then
-		if (team.NumPlayers( TEAM_UNDEAD ) <= (desiredzombies+1) and team.NumPlayers( TEAM_HUMAN ) >= 4) then
+		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+1) and team.NumPlayers(TEAM_HUMAN) >= 4) then
 			local IncreaseHealth = Tab.Health*(WAVE_ONE_ZOMBIES)*desiredzombies+10*(team.NumPlayers(TEAM_HUMAN))
 			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth , Tab.Health, math.min(Tab.Health*1.9,510) )
 			pl:RemoveStatus("champion")
@@ -821,9 +799,9 @@ function CalculateZombieHealth ( pl )
 	-- end
 	
 	-- Case 3: Player has suicide sickness
-	if pl.Suicided then
-		--  = Tab.Health * math.ceil( difficulty ) * 0.8
-	end
+	--[[if pl.Suicided then
+		= Tab.Health * math.ceil( difficulty ) * 0.8
+	end]]
 	
 	if pl:GetZombieClass() == 0 then
 		if GAMEMODE:IsRetroMode() then
@@ -839,19 +817,15 @@ function CalculateZombieHealth ( pl )
 	
 	-- Case 4: Boss zombos
 	if pl:IsBossZombie() then
-	   local humanCount = #team.GetPlayers( TEAM_HUMAN )
-	   local zombieCount = #team.GetPlayers( TEAM_ZOMBIE )
+	   local humanCount = team.NumPlayers(TEAM_SURVIVORS)
+	   local zombieCount = team.NumPlayers(TEAM_UNDEAD)
 	   
 	   MaxHealth = ( humanCount * 1400 ) * math.Clamp( humanCount / zombieCount, 0.5, 1.5 )
 	end
-	
-	-- if pl:GetZombieClass() == 0 and GAMEMODE:IsRetroMode() and MaxHealth == 125 then
-	-- 	MaxHealth = MaxHealth + 15*GAMEMODE:GetWave()
-	-- end
 
 	-- Send the maximum health clientside
-	pl:SetMaximumHealth ( math.Round ( MaxHealth ) )
-	pl:SetHealth ( MaxHealth )
+	pl:SetMaximumHealth(math.Round(MaxHealth))
+	pl:SetHealth(MaxHealth)
 end
 
 
@@ -1374,7 +1348,7 @@ local function DoSelectSpawn ( pl )
 	local epicenter
 	
 	
-	if pl:IsZombie() and CurTime() >= GAMEMODE:GetWaveStart() + 1 then -- If we're a bit in the wave then we can spawn on top of heavily dense groups with no humans looking at us.
+	if pl:IsZombie() then -- If we're a bit in the wave then we can spawn on top of heavily dense groups with no humans looking at us.
 		local dyn = pl.ForceDynamicSpawn
 		if dyn then
 			pl.ForceDynamicSpawn = nil
@@ -1414,7 +1388,7 @@ function GM:PlayerSelectSpawn(pl)
 	local tab = {}
 	local epicenter
 	-- print("Prepared")
-	if teamid == TEAM_UNDEAD and CurTime() >= self:GetWaveStart() + 1 then-- If we're a bit in the wave then we can spawn on top of heavily dense groups with no humans looking at us.
+	if teamid == TEAM_UNDEAD then-- If we're a bit in the wave then we can spawn on top of heavily dense groups with no humans looking at us.
 		-- print("Undead")
 		local dyn = pl.ForceDynamicSpawn
 		if dyn then

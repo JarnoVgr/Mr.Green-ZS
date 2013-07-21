@@ -174,12 +174,6 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 			net.WriteString(dmginfo:GetInflictor():GetClass())
 			net.WriteString(dmginfo:GetAttacker():GetClass())
 		net.Broadcast()
-		
-		--[==[umsg.Start( "PlayerKilledZS" )
-			umsg.Entity( pl )
-			umsg.String( dmginfo:GetInflictor():GetClass() )
-			umsg.String( dmginfo:GetAttacker():GetClass() )
-		umsg.End()]==]
 	end
 	
 	-- print ( "Death -- ", pl, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo:GetAssist() )
@@ -187,45 +181,11 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 	Debug ( "[DEATH] "..tostring ( pl ).." has been killed by "..tostring ( dmginfo:GetAttacker() ).." with "..tostring ( dmginfo:GetInflictor() ) )
 end
 
--- Called every frame the player is dead
-
---[=[
 
 function GM:PlayerDeathThink(pl,attacker,dmginfo)
-	if pl.StartSpectating then
-		if pl.StartSpectating <= CurTime() then
-			pl.StartSpectating = nil
-			-- pl:SetHealth(100)
-			-- pl:Spectate(OBS_MODE_ROAMING)
-			pl:UnSpectate()
-			pl:SetAsCrow()
-		end
-	elseif pl.NextSpawn <= CurTime() then
-		if pl:Team() == TEAM_UNDEAD then
-			if pl:IsBot() then
-				if CurTime() <= self.WaveEnd then
-					pl:UnSpectate()
-					pl:Spawn()
-				end
-			else
-				if pl:KeyDown(IN_ATTACK) and CurTime() <= self.WaveEnd and self:GetWave() ~= 0 then
-					pl:UnSpectate()
-					pl:Spawn()
-				end
-			end
-		else
-			if pl:Team() ~= TEAM_SPECTATOR then
-				pl:UnSpectate()
-				pl:Spawn()
-			end
-		end
+	if pl.Revive then
+		return
 	end
-end
-]=]
-
-
-function GM:PlayerDeathThink(pl,attacker,dmginfo)
-	if pl.Revive or self:GetWave() == 0 then return end
 
 	if pl:GetObserverMode() == OBS_MODE_CHASE then
 		local target = pl:GetObserverTarget()
@@ -249,31 +209,23 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 		pl:RefreshDynamicSpawnPoint()
 		pl:UnSpectateAndSpawn()
 	elseif pl:GetObserverMode() == OBS_MODE_NONE or pl:GetObserverMode() == OBS_MODE_FREEZECAM then -- Not in spectator yet.
-		if self:GetFighting() and self:GetWave() ~= 0 then -- During wave.
-			if not pl.StartSpectating or CurTime() >= pl.StartSpectating then
-				pl.StartSpectating = nil
+		if not pl.StartSpectating or CurTime() >= pl.StartSpectating then
+			pl.StartSpectating = nil
 
-				pl:StripWeapons()
-				local best = self:GetBestDynamicSpawn(pl)
-				if best then
-					pl:Spectate(OBS_MODE_CHASE)
-					pl:SpectateEntity(best)
-				else
-					pl:Spectate(OBS_MODE_ROAMING)
-					pl:SpectateEntity(NULL)
-				end
+			pl:StripWeapons()
+			local best = self:GetBestDynamicSpawn(pl)
+			if best then
+				pl:Spectate(OBS_MODE_CHASE)
+				pl:SpectateEntity(best)
+			else
+				pl:Spectate(OBS_MODE_ROAMING)
+				pl:SpectateEntity(NULL)
 			end
-		elseif not pl.StartCrowing or CurTime() >= pl.StartCrowing then -- Not during wave. Turn in to a crow. If we die as a crow then we get turned to spectator anyway.
-			pl:SetAsCrow()
 		end
 	else -- In spectator.
 		if pl:KeyDown(IN_ATTACK) then
-			if self:GetFighting() and self:GetWave() ~= 0 then
-				pl:RefreshDynamicSpawnPoint()
-				pl:UnSpectateAndSpawn()
-			else
-				pl:SetAsCrow()
-			end
+			pl:RefreshDynamicSpawnPoint()
+			pl:UnSpectateAndSpawn()
 		elseif pl:KeyPressed(IN_ATTACK2) then
 			pl.SpectatedPlayerKey = (pl.SpectatedPlayerKey or 0) + 1
 
@@ -294,35 +246,7 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 			end
 		end
 	end
-	--[=[
-	if pl.StartSpectating then
-		if pl.StartSpectating <= CurTime() then
-			pl.StartSpectating = nil
-			-- pl:SetHealth(100)
-			-- pl:Spectate(OBS_MODE_ROAMING)
-			pl:UnSpectate()
-			pl:SetAsCrow()
-		end
-	elseif pl.NextSpawn <= CurTime() then
-		if pl:Team() == TEAM_UNDEAD then
-			if pl:IsBot() then
-				if CurTime() <= self.WaveEnd then
-					pl:UnSpectate()
-					pl:Spawn()
-				end
-			else
-				if pl:KeyDown(IN_ATTACK) and CurTime() <= self.WaveEnd and self:GetWave() ~= 0 then
-					pl:UnSpectate()
-					pl:Spawn()
-				end
-			end
-		else
-			if pl:Team() ~= TEAM_SPECTATOR then
-				pl:UnSpectate()
-				pl:Spawn()
-			end
-		end
-	end]=]
+	
 end
 
 --[=[function GM:PlayerDeathThink( pl )

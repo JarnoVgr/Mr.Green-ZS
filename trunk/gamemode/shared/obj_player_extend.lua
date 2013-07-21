@@ -662,7 +662,6 @@ end
 	Return logging tag
 ------------------------]==]
 function meta:GetClassTag()
-	
 	if (self:IsHuman()) then
 		return HumanClasses[self:GetHumanClass()].Tag
 	else
@@ -700,8 +699,8 @@ end
 --[==[----------------------------------------------------------------
           Check if the player has already voted or not
 ----------------------------------------------------------------]==]
-function meta:HasVoted( VOTES )
-	if table.HasValue ( VOTES.YES, self ) or table.HasValue ( VOTES.NO, self ) then 
+function meta:HasVoted(VOTES)
+	if table.HasValue(VOTES.YES, self) or table.HasValue(VOTES.NO, self) then 
 		return true
 	end
 	
@@ -718,45 +717,45 @@ end
 
 
 function meta:CanRedeem()
-	if CLIENT then return end
-	if not ValidEntity ( self ) then return false end
-	if ( ENDROUND or LASTHUMAN ) then return false end
-	if self:Team() ~= TEAM_UNDEAD then return false end
-	if team.NumPlayers(TEAM_HUMAN) == 1 then return false end
+	if CLIENT then
+		return
+	end
+
+	if not ValidEntity(self) or ENDROUND or LASTHUMAN or self:Team() ~= TEAM_UNDEAD or team.NumPlayers(TEAM_HUMAN) == 1 then
+		return false
+	end
 		
-	if REDEEM and AUTOREDEEM and util.tobool(self:GetInfoNum("_zs_autoredeem",1)) then-- self.AutoRedeem then
+	if REDEEM and AUTOREDEEM and util.tobool(self:GetInfoNum("_zs_autoredeem",1)) then
 		local redeemkillz = REDEEM_KILLS
 		if self:HasBought("quickredemp") then
 			redeemkillz = REDEEM_FAST_KILLS
 		end
 		
-		if REDEEM_PUNISHMENT then
-			if (GAMEMODE:GetWave()) >= REDEEM_PUNISHMENT_TIME then
-				-- self:ChatPrint("You can't redeem at wave "..REDEEM_PUNISHMENT_TIME)
-				return false
-			else	
-				if self:Frags() >= redeemkillz then
-					return true
-				end
-			end
-		else
-			if self:Frags() >= redeemkillz then
-				return true
-			end
+		if self:Frags() >= redeemkillz then
+			--Redeem is possible
+			return true
 		end
 	end
 	return false
 end
 
-function meta:SetScore ( score )
-	if CLIENT then return end
-	if not ValidEntity ( self ) then return end
-	self:SetFrags ( score )
+function meta:SetScore(score)
+	if CLIENT then
+		return
+	end
+
+	if not ValidEntity ( self ) then
+		return
+	end
+	self:SetFrags(score)
 end
 	
 function meta:ScoreAdd ( score ) 
-	if CLIENT then return end
-	self:SetFrags ( self:Frags() + score )
+	if CLIENT then
+		return
+	end
+
+	self:SetFrags(self:Frags() + score)
 end
 
 
@@ -1469,7 +1468,7 @@ end
 -- Play spawn music
 function meta:PlaySpawnMusic()
 	if self:IsSpectator() then return end
-	if ROUNDTIME*0.1 < CurTime() then return end
+	if ROUNDTIME*0.1 < ServerTime() then return end
 	-- No music
 	if not Ambience then return end
 	if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].DisableMusic then return end

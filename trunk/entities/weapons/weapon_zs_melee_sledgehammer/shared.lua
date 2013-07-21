@@ -57,7 +57,7 @@ SWEP.Slot = 2
 SWEP.SlotPos = 1
 SWEP.HoldType = "melee2"
 -- Damage, distane, delay
-SWEP.Primary.Damage = 130
+SWEP.Primary.Damage = 120
 SWEP.Primary.Delay = 1.35
 SWEP.Primary.Distance = 70
 SWEP.TotalDamage = SWEP.Primary.Damage

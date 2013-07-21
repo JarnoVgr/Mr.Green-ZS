@@ -63,8 +63,7 @@ end
 
 function ENT:Think()
 	local ct = CurTime()
-	if not GAMEMODE.GetWave then return end
-	if GAMEMODE:GetWave() == 0 or not GAMEMODE:GetFighting() then return end
+	--if not GAMESTART then return end
 	if ( self.NextPoisonHeal or 0 ) > ct then return end
 	local spawnang = self:GetAngles()
 	local spawnPos = self:GetPos()+spawnang:Up()*-21+spawnang:Right()*15+Vector(0,0,41)-- +Vector(math.random(0,8),math.random(0,8),math.random(0,8))
@@ -152,7 +151,6 @@ function ENT:Draw()
 if self.Entity:IsPipe()then
 	self.Entity:DrawModel()
 end
-if GAMEMODE:GetWave() == 0 or not GAMEMODE:GetFighting() then return end
 
 		local spawnang = self:GetAngles()
 		local spawnPos = self:GetPos()+spawnang:Up()*-21+spawnang:Right()*15+Vector(0,0,41)+Vector(math.random(0,8),math.random(0,8),math.random(0,8))
@@ -167,11 +165,11 @@ if GAMEMODE:GetWave() == 0 or not GAMEMODE:GetFighting() then return end
 			particle:SetVelocity( Vector(math.Rand(0,1)/3,math.Rand(0,1)/3,1):GetNormal()*math.Rand( 10, 120 ) )
 			particle:SetDieTime( math.Rand(0.5,1.4) )
 			particle:SetStartAlpha( math.Rand( 100, 150 ) )
-			particle:SetStartSize( math.Rand( 5, 10 ) )
-			particle:SetEndSize( math.Rand( 15, 60 ) )
+			particle:SetStartSize( math.Rand( 1, 4 ) )
+			particle:SetEndSize( math.Rand( 5, 10 ) )
 			particle:SetRoll( math.Rand( -0.7, 0.7 ) )
-			local ran = math.Rand(20,80)
-			particle:SetColor(10, 100+ran, 10)
+			local ran = math.Rand(0,40)
+			particle:SetColor(150+ran, 0, 0)
 			particle:SetCollide(true)	
 			particle:SetBounce( 1 )
 			-- particle:SetLighting(true)
@@ -186,7 +184,7 @@ if GAMEMODE:GetWave() == 0 or not GAMEMODE:GetFighting() then return end
 		
 
 		
-		local radius = self:GetRadius()
+		local radius = 5 --self:GetRadius()
 		if CurTime() < self.NextGas then return end
 		self.NextGas = CurTime() + math.Rand(0.1, 0.25)
 
@@ -195,12 +193,12 @@ if GAMEMODE:GetWave() == 0 or not GAMEMODE:GetFighting() then return end
 		particle:SetDieTime(math.Rand(1.2, 4))
 		particle:SetStartAlpha(math.Rand(115, 145))
 		particle:SetEndAlpha(0)
-		particle:SetStartSize(8)
-		particle:SetEndSize(radius * math.Rand(0.5, 0.9))
+		particle:SetStartSize(math.Rand(1,4))
+		particle:SetEndSize(math.Rand(5,10))
 		particle:SetRoll(math.Rand(0, 360))
 		particle:SetRollDelta(math.Rand(-2, 2))
-		local ran = math.Rand(20,80)
-		particle:SetColor(10, 100+ran, 10)
+		local ran = math.Rand(0,40)
+		particle:SetColor(150+ran, 0, 0)
 		particle:SetCollide(true)	
 		particle:SetBounce( 0.25 )
 		particle:SetCollideCallback(CollideCallback)

@@ -16,6 +16,30 @@ elseif CLIENT then
 	local render = render
 end
 
+if SERVER then
+    util.AddNetworkString( "ServerTime" )
+    hook.Add("PlayerInitialSpawn", "loldeluvasawesomefix", function( pl )
+        net.Start( "ServerTime" )
+            net.WriteFloat( CurTime() )
+        net.Send( pl )
+    end)
+end
+
+if CLIENT then
+    net.Receive( "ServerTime", function( len, cl )
+        g_ServerTime = net.ReadFloat()
+        g_ServerTimeReceiveTime = CurTime()
+    end)
+end
+
+if CLIENT then
+    function ServerTime()
+        return (g_ServerTime or 0) + ( (CurTime() - g_ServerTimeReceiveTime) or 0 )
+    end
+else
+    ServerTime = CurTime
+end
+
 --Case Insensitive HasValue variant
 function table.HasValueCI( t, val )
 	if val == nil then
@@ -261,7 +285,7 @@ hook.Add ( "Initialize", "FilterNonSolids", FilterNonSolids )
            Calculates Infliction
 ----------------------------------------]==]
 function GetInfliction()
-	local zombies = team.NumPlayers ( TEAM_UNDEAD )
+	--[[local zombies = team.NumPlayers ( TEAM_UNDEAD )
 	local players = #player.GetAll()
 	local infliction
 
@@ -271,14 +295,17 @@ function GetInfliction()
 		infliction = math.Clamp ( zombies / players, 0.001, 1 )
 	end
 	
-	return infliction
+	return infliction]]
+	return INFLICTION
 end
 
 --[==[-------------------------------------------------------
            Calculates a new form of difficulty
 --------------------------------------------------------]==]
 function GM:CalculateDifficulty()
-	if ENDROUND then return end
+	if ENDROUND then
+		return
+	end
 	
 	-- Difficulty based on ratios, guns and frags
 	local tbDifficulty = { GetInfliction() * 2, self:CalcFragsDifficulty(), self:CalcGunsDifficulty() }

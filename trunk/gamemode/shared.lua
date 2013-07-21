@@ -53,7 +53,7 @@ end
 --This stuff isn't for you to change. You should only edit the stuff in zs_options.lua
 --GM.Name = "Zombie Survival "..GM.Version.." "..GM.SubVersion
 GM.Name = "Zombie Survival Green Apocalypse"
-GM.Author = "Limetric Studios"
+GM.Author = "Limetric"
 GM.Email = "info@limetric.com"
 GM.Website = "www.limetric.com"
 
@@ -361,8 +361,8 @@ function GM:GetGameDescription()
 		if OBJECTIVE then
 			return self.Name.." (Obj. "..self:GetObjStage().." out of "..#Objectives..")"
 		else
-			--return self.Name.." (Time "..ToMinutesSeconds(math.Clamp ( ROUNDTIME - CurTime(), 0, ROUNDTIME ))..")"
-			return self.Name--.." (Wave "..self:GetWave().." of "..NUM_WAVES..")"
+			return self.Name.." (Time "..ToMinutesSeconds(math.Clamp ( ROUNDTIME - CurTime(), 0, ROUNDTIME ))..")"
+			--return self.Name--.." (Wave "..self:GetWave().." of "..NUM_WAVES..")"
 
 		end
 end
@@ -556,164 +556,6 @@ function GM:NextObjStage()
 	if self:GetObjStage() >= #Objectives then return end
 	self:SetObjStage(self:GetObjStage() + 1)
 end
-
--- WAVES-- -- -- -- -- -- -- /
-function GM:GetWaveEnd()
-	return GetGlobalFloat("waveend", 0)
-end
-
-GM.WaveEnd = 0
-function GM:SetWaveEnd(wav)
-	SetGlobalFloat("waveend", wav)
-	self.WaveEnd = wav
-	if SERVER and wav == 1 then
-		self:SetRandomsToZombie()
-	end
-end
-
-function GM:GetWaveStart()
-	return GetGlobalFloat("wavestart", WAVEZERO_LENGTH)
-end
-
-GM.WaveStart = 0
-function GM:SetWaveStart(wav)
-	SetGlobalFloat("wavestart", wav)
-	self.WaveStart = wav
-end
-
-function GM:GetWave()
-	return GetGlobalInt("wave", 0)
-end
-
-GM.Wave = 0
-function GM:SetWave(wav)
-	SetGlobalInt("wave", wav)
-	self.Wave = wav
-end
-
-if GM:GetWave() == 0 then
-	GM:SetWaveStart(WAVEZERO_LENGTH)
-	GM:SetWaveEnd(WAVEZERO_LENGTH + WAVEONE_LENGTH)
-end
-
-function GM:GetFighting()
-	return GetGlobalBool("fighting", false)
-end
-
-function GM:SetFighting(bfight)
-	if ENDROUND then return end
-
-	local changing = self:GetFighting() ~= bfight
-
-	SetGlobalBool("fighting", bfight)
-	self.Fighting = bfight
-
-	if SERVER and changing then
-		if bfight then
-			if self:GetWave() == 0 then
-				self:SetRandomsToZombie()
-			else
-				if team.NumPlayers(TEAM_UNDEAD) == 0 then
-					--self:SetRandomsToZombie()
-					timer.Simple(0.1,function()
-						self:SetRandomsToFirstZombie()
-					end)
-				end
-			end
-
-			self:SetWave(self:GetWave() + 1)
-			self:SetWaveStart(CurTime())
-			self:SetWaveEnd(self:GetWaveStart() + WAVEONE_LENGTH + (self:GetWave() - 1) * WAVE_TIMEADD)
-			
-			local humans = team.GetPlayers(TEAM_HUMAN)
-			if #humans > 0 then
-				local pl = humans[math.random(1, #humans)]
-				
-				local snd = VoiceSets[pl.VoiceSet].WaveSounds
-				
-				pl:EmitSound(snd[math.random(1, #snd)])
-			end
-			
-			if self:GetWave() == PICKUP_WAVE then
-				self:SpawnPickup(math.random(MIN_PICKUPS,MAX_PICKUPS))
-			end
-			
-			if self:GetWave() == BONUS_RESISTANCE_WAVE then
-				BONUS_RESISTANCE = true
-			end
-			
-			if self:GetWave() == 6 then
-				RunConsoleCommand ( "sv_alltalk", "1" )
-			end
-			
-			net.Start("recwavestart")
-				net.WriteDouble(self:GetWave())
-				net.WriteFloat(self:GetWaveEnd())
-			net.Broadcast()
-
-			for _, pl in pairs(player.GetAll()) do
-				if pl:Team() == TEAM_UNDEAD then
-					if pl:IsCrow() then
-						pl:SelectSpawnType(true)
-					elseif not pl:Alive() and not pl.Revive then
-						pl:SelectSpawnType()
-					else
-						if GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == pl then-- if pl:IsGonnaBeABoss() then
-							pl:SpawnAsZombieBoss()
-						end
-					end
-				elseif pl:Team() == TEAM_HUMAN and pl:Alive() then
-					if ARENA_MODE then
-						local hp = 100
-						if pl:GetPerk("_kevlar") then
-							hp = 110
-						end
-						
-						if pl:GetPerk("_kevlar2") then
-							hp = 120
-						end
-						
-						pl:SetHealth(hp)
-					end
-				end
-			end
-		elseif self:GetWave() == NUM_WAVES then
-			self:OnEndRound(TEAM_HUMAN)
-		else
-			local intermission = self:IsRetroMode() and WAVE_INTERMISSION_LENGTH_RETRO or WAVE_INTERMISSION_LENGTH
-			self:SetWaveStart(CurTime() + intermission)
-
-			net.Start("recwaveend")
-				net.WriteDouble(self:GetWave())
-				net.WriteFloat(self:GetWaveStart())
-			net.Broadcast()
-			
-			for _, h in pairs(team.GetPlayers(TEAM_HUMAN)) do
-				if h and h:IsValid() and h:Alive() then
-					skillpoints.AddSkillPoints(h,35*self:GetWave())
-					h:AddXP(40*self:GetWave())
-				end
-			end
-			
-			for _, pl in pairs(player.GetAll()) do
-				if pl:Team() == TEAM_HUMAN and pl:Alive() then
-					--[[if self.EndWaveHealthBonus > 0 then
-						pl:SetHealth(math.min(pl:GetMaxHealth(), pl:Health() + self.EndWaveHealthBonus))
-					end]]
-				elseif pl:Team() == TEAM_UNDEAD and not pl:Alive() and not pl.Revive then
-					local curclass = pl.DeathClass or pl:GetZombieClass()
-					pl:SetZombieClass(9)
-					pl.DeathClass = nil
-					pl:UnSpectateAndSpawn()
-					pl.DeathClass = curclass
-				end
-
-				pl.SkipCrow = nil
-			end	
-		end
-	end
-end
--- -- -- -- -- -- -- -- -- -- -- -- 
 
 function GM:ZombieSpawnDistanceSort(other)
 	return self._ZombieSpawnDistance < other._ZombieSpawnDistance
@@ -925,9 +767,9 @@ function GM:IsBossRequired()
 	end
 	
 	--Require boss zombie
-	if self:GetWave() ~= BOSS_WAVE then
+	--[[if self:GetWave() ~= BOSS_WAVE then
 		return false
-	end
+	end]]
 	
 	--Require atleast X amount of players
 	if #player.GetAll() < BOSS_TOTAL_PLAYERS_REQUIRED then

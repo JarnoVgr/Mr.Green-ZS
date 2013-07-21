@@ -6,110 +6,111 @@ include ("sv_director_vote.lua")
 include ("sv_director_titles.lua")
 -- include ("sv_director_rewards.lua")
 
+GAMEACTIVE = false
+
 --[==[---------------------------------------------------------
    Event Director - Unlife/ Last human/ Endround
 ---------------------------------------------------------]==]
 function ManageEvents()
-
-	-- Case 1: End the game if the time has passed
-	if ROUNDTIME < CurTime() and not ENDROUND then
-		if not ENDROUND then
-			if OBJECTIVE then
-				gamemode.Call( "OnEndRound", TEAM_UNDEAD )
-			else
-				gamemode.Call( "OnEndRound", TEAM_HUMAN )
-			end
+	--End game if the time has passed
+	if ServerTime() > ROUNDTIME and not ENDROUND then
+		if OBJECTIVE then
+			GAMEMODE:OnEndRound(TEAM_UNDEAD)
+		else
+			GAMEMODE:OnEndRound(TEAM_HUMAN)
 		end
 	end
 	
-	-- Case 2: Start lasthuman mode if undead > 2 and human = 1
-	if team.NumPlayers( TEAM_HUMAN ) == 1 and team.NumPlayers( TEAM_UNDEAD ) > 2 then
+	--Start LastHuman mode if undead > 2 and human = 1
+	if team.NumPlayers(TEAM_HUMAN) == 1 and team.NumPlayers(TEAM_UNDEAD) > 2 and not LASTHUMAN and not ENDROUND then
 		GAMEMODE:LastHuman()
 	end
 	
-	-- Case 3: End round if undead more than 1 and no humans
-	if team.NumPlayers( TEAM_HUMAN ) == 0 and team.NumPlayers( TEAM_UNDEAD ) > 1 then
-		if not ENDROUND then
-			gamemode.Call( "OnEndRound", TEAM_UNDEAD )
+	--End round if undead are more than 1 and no humans
+	if team.NumPlayers(TEAM_HUMAN) == 0 and team.NumPlayers(TEAM_UNDEAD) > 1 and not ENDROUND then
+		GAMEMODE:OnEndRound(TEAM_UNDEAD)
+	end
+	
+	--Enable unlife if infliction is more than 80%
+	if INFLICTION >= 0.8 and not ENDROUND then
+		GAMEMODE:SetUnlife(true)
+	end
+	
+	--Enable HalfLife halfway
+	if GetInfliction() >= 0.5 and not ENDROUND then
+		GAMEMODE:SetHalflife(true)
+	end
+
+	--Pick random zombie(s) if there aren't any
+	if team.NumPlayers(TEAM_UNDEAD) == 0 and team.NumPlayers(TEAM_HUMAN) > 3 and not ENDROUND and GAMEACTIVE then
+		GAMEMODE:SetRandomsToFirstZombie()
+		Debug("[DIRECTOR] There were no zombies. Fixed it")
+	end
+	
+	--Check warming up time
+	if CurTime() > WARMUPTIME and not GAMEACTIVE and not ENDROUND then
+		GAMEACTIVE = true
+		GAMEMODE:SetRandomsToFirstZombie()
+
+		for k,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
+			if IsEntityValid(v) then
+				v:SendLua("surface.PlaySound(\"ambient/creatures/town_zombie_call1.wav\") GAMEMODE:Add3DMessage(140,\"The Undead have arrived!\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh!\",nil,\"ArialBoldTen\")")
+			end
 		end
 	end
-	
-	-- Case 4: Enable unlife if infliction more than 60%
-	if GetInfliction() >= 0.6 then
-		GAMEMODE:SetUnlife ( true )
-	end
-	
-	-- Less people, enable Deadlife
-	if GetInfliction() >= 0.75 then
-		DEADLIFE = true
-	end
 end
---hook.Add ( "Think", "EventDirector", ManageEvents )
+--hook.Add("Think", "EventDirector", ManageEvents)
+timer.Create("ManageEvents", 0.2, 0, ManageEvents)
 
 --[==[---------------------------------------------------
       Update server and clients with unlife
 ----------------------------------------------------]==]
-function GM:SetUnlife ( bool )
+function GM:SetUnlife(bool)
 	if UNLIFE == bool then return end
-	
+
 	UNLIFE = not UNLIFE
+
+	if UNLIFE then
+		for _, pl in pairs(player.GetAll()) do
+			if pl:Team() == TEAM_UNDEAD then
+				if pl:IsCrow() then
+					pl:SelectSpawnType(true)
+				elseif not pl:Alive() and not pl.Revive then
+					pl:SelectSpawnType()
+				else
+					if GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == pl then-- if pl:IsGonnaBeABoss() then
+						pl:SpawnAsZombieBoss()
+					end
+				end
+			elseif pl:Team() == TEAM_HUMAN and pl:Alive() then
+				if ARENA_MODE then
+					local hp = 100
+					if pl:GetPerk("_kevlar") then
+						hp = 110
+					end
+					
+					if pl:GetPerk("_kevlar2") then
+						hp = 120
+					end
+					
+					pl:SetHealth(hp)
+				end
+			end
+		end
+	end
+	
+	
 	gmod.BroadcastLua( "GAMEMODE:SetUnlife("..tostring( bool )..")" )
 end
 
---[==[---------------------------------------------------------
-   Selects a zombie to lead the undead army
-	        (ticks every 5 seconds)
----------------------------------------------------------]==]
-local iNoticeTime = 0
-local bCheckFZombies
-function CheckFirstZombie ()
-	if CurTime() < FIRST_ZOMBIE_SPAWN_DELAY then return end
-	if ENDROUND or team.NumPlayers ( TEAM_UNDEAD ) >= 5 then return end
-	--poor 2 zombies at the round start :o
-	if (team.NumPlayers( TEAM_UNDEAD ) < 2 and team.NumPlayers( TEAM_HUMAN ) >= 5) then
-		bCheckFZombies = true
-	elseif (team.NumPlayers( TEAM_UNDEAD ) < 3 and team.NumPlayers( TEAM_HUMAN ) >= 13) then
-		bCheckFZombies = true
-	elseif (team.NumPlayers( TEAM_UNDEAD ) < 5 and team.NumPlayers( TEAM_HUMAN ) >= 25) then
-		bCheckFZombies = true
-	elseif (team.NumPlayers( TEAM_UNDEAD ) < 6 and team.NumPlayers( TEAM_HUMAN ) >= 30) then
-		bCheckFZombies = true
-	elseif (team.NumPlayers( TEAM_UNDEAD ) < 7 and team.NumPlayers( TEAM_HUMAN ) >= 35) then
-		bCheckFZombies = true
-	else
-		bCheckFZombies = false
-	end
-	
-	if bCheckFZombies then --balance, balance, balance
-		local tbHumans = team.GetPlayers( TEAM_HUMAN )
-		
-		-- Randomize the random
-		local Zombie = table.Random ( tbHumans )
-		for i = 1, #tbHumans do
-			if math.random ( 1,2 ) == 1 then 
-				Zombie = table.Random ( tbHumans )
-				if math.random ( 1,4 ) == 1 then break end 
-			end
-		end		
-		
-		if not Zombie.FreshRedeem then
-			Zombie:SetFirstZombie()
-		end
-		
-		-- Notice
-		if iNoticeTime <= CurTime() then
-			for k,v in pairs ( player.GetAll() ) do
-				if IsEntityValid ( v ) then
-					v:Message( "The undead have arrived and they're hungry for your fresh flesh! Braaiinnns!", 1, "255,255,255,255" )
-					v:ChatPrint( "The undead have arrived and they're hungry for your fresh flesh! Braaiinnns!" )
-				end
-			end
-			
-			iNoticeTime = CurTime() + 10
-		end
-	end
+
+function GM:SetHalflife(bool)
+	if HALFLIFE == bool then return end
+
+	HALFLIFE = not HALFLIFE
+
+	gmod.BroadcastLua( "GAMEMODE:SetHalflife("..tostring( bool )..")" )
 end
---timer.Create ( "CheckFirstZombie", 5, 0, CheckFirstZombie )
 
 --[==[------------------------------------------------------------
 	       Zombie unlock classes Director 

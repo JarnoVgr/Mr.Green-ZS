@@ -593,17 +593,17 @@ CUSTOM_FOOTSTEPS = true
 -- In seconds, repeatatively, the gamemode gives all humans get a box of whatever ammo of the weapon they use.
 AMMO_REGENERATE_RATE = 999140
 
+--Warming up time
+WARMUPTIME = 90
+
 -- In seconds, how long humans need to survive.
-ROUNDTIME = 19*60 -- 20 minutes
+ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes
 
 -- Time in seconds between end round and next map.
 INTERMISSION_TIME = 46
 
 --Amount of time players have to vote for next map(seconds)
 VOTE_TIME = 18
-
---New joining players will be put on the Undead team if the round is half over.
-HUMAN_DEADLINE = true
 
 --Set this to true to destroy all brush-based doors that aren't based on phys_hinge and func_physbox or whatever. For door campers.
 DESTROY_DOORS = true
@@ -640,6 +640,7 @@ RTD_TIME = 180
 
 --Sound to play for last human.
 LASTHUMANSOUND = "lasthuman_fixed.mp3"
+LASTHUMANSOUNDLENGTH = 159 -- 2:39
 
 -- Sound played to a person when they die as a human.
 DEATHSOUND = "music/stingers/HL1_stinger_song28.mp3"
@@ -1053,7 +1054,7 @@ ZombieClasses[0] =
 {
 	Name = "Infected",	
 	Tag = "infected",	
-	Wave = math.floor(0 * NUM_WAVES),
+	Infliction = 0,
 	Revives = false,
 	Health = 230,
 	MaxHealth = 290,
@@ -1126,6 +1127,9 @@ ZombieClasses[0] =
 			pl:SetModel(lowermodelname)
 			
 			pl:SetRandomFace()
+
+			--Set red color
+			pl:SetColor(math.random(150,180),0,0,255)
 		end,
 	-- ModelScale = Vector(1.35,1.35,1.35),
 }
@@ -1136,8 +1140,7 @@ ZombieClasses[1] =
 {
 	Name = "Obsolete",
 	Tag = "zombie",	
-	--Wave = math.floor(0 * NUM_WAVES),
-	Wave = 99,
+	Infliction = 99,
 	Revives = true,
 	Health = 250,
 	MaxHealth = 350,
@@ -1189,7 +1192,7 @@ ZombieClasses[2] =
 {
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
-	Wave = math.floor(0.5 * NUM_WAVES),
+	Infliction = 0.5,
 	Health = 100,
 	MaxHealth = 160,
 	TimeLimit = 300,
@@ -1224,7 +1227,7 @@ ZombieClasses[3] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
-	Wave = 4,--math.floor(0.6 * NUM_WAVES),
+	Infliction = 0.6,
 	Health = 480,
 	MaxHealth = 650,
 	TimeLimit = 810,
@@ -1263,7 +1266,7 @@ ZombieClasses[4] =
 {
 	Name = "Ethereal",
 	Tag = "etherealzombie",
-	Wave = math.floor(0.4 * NUM_WAVES),-- 0.4 
+	Infliction = 0.4,
 	Health = 85,
 	MaxHealth = 90,
 	TimeLimit = 200,
@@ -1298,7 +1301,7 @@ ZombieClasses[5] =
 {
 	Name = "Howler",
 	Tag = "howler",	
-	Wave = math.floor(0.6 * NUM_WAVES),
+	Infliction = 0.3,
 	Health = 110,
 	MaxHealth = 150,
 	TimeLimit = 460,
@@ -1345,7 +1348,7 @@ ZombieClasses[6] =
 {
 	Name = "Headcrab",
 	Tag = "headcrab",
-	Wave = math.floor(0 * NUM_WAVES),
+	Infliction = 0,
 	Health = 40,
 	MaxHealth = 80,
 	Bounty = 50,
@@ -1379,7 +1382,7 @@ ZombieClasses[7] =
 {
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
-	Wave = math.floor(0.4 * NUM_WAVES),
+	Infliction = 0.4,
 	Health = 50,
 	MaxHealth = 100,
 	Bounty = 70,
@@ -1416,7 +1419,7 @@ ZombieClasses[8] =
 {
 	Name = "Zombine",
 	Tag = "zombine",
-	Wave = 6, --math.floor(0.7 * NUM_WAVES),
+	Infliction = 0.7,
 	Health = 270,
 	MaxHealth = 270, --decreased from 320
 	TimeLimit = 1020,
@@ -1464,7 +1467,7 @@ ZombieClasses[9] =
 {
 	Name = "Crow",
 	Health = 30,
-	Wave = 0,
+	Infliction = 0,
 	Tag = "crow",
 	Bounty = 1,
 	SP = 1,
@@ -1495,7 +1498,7 @@ ZombieClasses[10] =
 {
 	Name = "Hate",	
 	Tag = "hate",	
-	Wave = math.floor(0 * NUM_WAVES),
+	Infliction = 0,
 	Health = 10000,
 	MaxHealth = 10000,
 	Bounty = 1000,
@@ -1565,7 +1568,7 @@ ZombieClasses[11] =
 {
 	Name = "Behemoth",
 	Tag = "behemoth",
-	Wave = 0, --math.floor(0.7 * NUM_WAVES),
+	Infliction = 0, --math.floor(0.7 * NUM_WAVES),
 	Health = 8100,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
@@ -1631,7 +1634,7 @@ ZombieClasses[12] =
 {
 	Name = "Seeker",
 	Tag = "seeker",
-	Wave = 0, --math.floor(0.7 * NUM_WAVES),
+	Infliction = 0, --math.floor(0.7 * NUM_WAVES),
 	Health = 8000,
 	MaxHealth = 8000,
 	TimeLimit = 1020,
@@ -1688,7 +1691,7 @@ ZombieClasses[13] =
 {
 	Name = "Nerf",
 	Tag = "nerf",
-	Wave = 0, --math.floor(0.7 * NUM_WAVES),
+	Infliction = 0, --math.floor(0.7 * NUM_WAVES),
 	Health = 7000,
 	MaxHealth = 7000,
 	TimeLimit = 1020,
@@ -1811,8 +1814,8 @@ ZombieSuperBosses = {}
 --Hate II
 ZombieSuperBosses[10] = {
 	Name = "Hate II",	
-	Tag = "hate",	
-	Wave = math.floor(0 * NUM_WAVES),
+	Tag = "hate",
+	Infliction = 0,
 	Health = 11000,
 	MaxHealth = 11000,
 	Bounty = 1300,
@@ -3123,3 +3126,7 @@ GameDeathHints = {
 	"Death isn't endgame. You can redeem by eating 4 brains (8 points)!",
 }	
 
+
+STATE_WARMUP = 0
+STATE_GAME = 1
+STATE_INTERMISSION = 2

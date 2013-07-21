@@ -390,7 +390,8 @@ function DoDebugCommands ( pl, cmd, args )
 		return
 	end
     
-    GAMEMODE:SetFighting( not GAMEMODE:GetFighting() )    
+	ROUNDTIME = CurTime() + 10
+	print("[DEBUG] Set roundtime to 10 seconds")
 end
 concommand.Add( "do_debug_admin", DoDebugCommands ) 
 

@@ -315,15 +315,7 @@ function OnPressF2(pl)
 	end
 	if not LASTHUMAN then
 		if REDEEM and AUTOREDEEM and pl:Team() == TEAM_UNDEAD and pl:Frags() >= red then
-			if REDEEM_PUNISHMENT then
-				if (GAMEMODE:GetWave()) >= REDEEM_PUNISHMENT_TIME then
-					pl:ChatPrint("You can't redeem at wave "..REDEEM_PUNISHMENT_TIME)
-				else	
-					pl:Redeem()
-				end
-			else
-				pl:Redeem()
-			end
+			pl:Redeem()
 		else
 			if pl:Team() == TEAM_UNDEAD then
 				pl:ChatPrint("You need a score of 6 (with Fast Redeem upgrade) or a score of 8 (without upgrade) to redeem!")
@@ -482,23 +474,24 @@ local function DeleteEntitiesRestricted()
 		end)
 		
 		
+		--Temp force
+		MapRemoveGlass = true
 		
 		--Remove glass
 		timer.Simple(1,function()
-		if MapRemoveGlass then
-			for k,v in pairs ( ents.GetAll() ) do
-				if v:GetClass() == "func_breakable" then
-					if ValidEntity ( v ) then
-						local phys = v:GetPhysicsObject()
-						if ValidEntity(phys) and phys:GetMaterial() == "glass" then
-							SafeRemoveEntity ( v )	
-							Debug ( "[INIT] Safely removing entity "..tostring ( v ).." from map "..tostring ( game.GetMap() ) )
-						end
-
-					end		
+			if MapRemoveGlass then
+				for k,v in pairs ( ents.GetAll() ) do
+					if v:GetClass() == "func_breakable" then
+						if ValidEntity(v) then
+							local phys = v:GetPhysicsObject()
+							if ValidEntity(phys) and phys:GetMaterial() == "glass" then
+								SafeRemoveEntity(v)	
+								Debug("[INIT] Safely removing entity "..tostring(v).." from map "..tostring(game.GetMap()))
+							end
+						end		
+					end
 				end
-			end
-		end	
+			end	
 		end)
 		
 		-- Except entities from the trash bin table
@@ -639,57 +632,6 @@ NextAmmoDropOff = AMMO_REGENERATE_RATE
 NextHeal = 0
 NextQuickHeal = 0
 
-function GM:Think()
-	local tim = CurTime()
-	
-	if self.Fighting then
-		if self.WaveEnd <= tim then
-			self:SetFighting(false)
-		end
-	elseif self.WaveStart <= tim then
-		self:SetFighting(true)
-	end
-	
-	if self:IsRetroMode() then
-		if game.GetWorld():GetDTFloat(0) < tim then
-			game.GetWorld():SetDTFloat(0,tim + RETRO_AMMO_REGENERATION)
-
-			self:RetroAmmoRegenerate()
-		end
-	end
-	
-end
-
-function GM:RetroAmmoRegenerate()
-	
-	for _,activator in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-	
-		local Automatic, Pistol = activator:GetAutomatic(), activator:GetPistol()
-		
-		if Automatic or Pistol then
-						
-			local WeaponToFill = activator:GetActiveWeapon()
-							
-			local AmmoType 
-							
-			if IsValid(WeaponToFill) and (GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic") then
-				AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
-			else
-				AmmoType = "pistol"
-			end
-
-			local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
-
-			if INFLICTION >= 0.7 then HowMuch = HowMuch * 1 end		
-
-			HowMuch = math.Round ( HowMuch * 0.62 )
-							
-			activator:GiveAmmo ( HowMuch, AmmoType )
-		end
-	end
-
-end
-
 function GM:OnNPCKilled ( ent, attacker, inflictor )
 	if NPCS_COUNT_AS_KILLS and attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
 		attacker:AddFrags(1)
@@ -700,7 +642,9 @@ end
              Last Human Event
 ---------------------------------------]=]
 function GM:LastHuman()
-	if LASTHUMAN then return end
+	if LASTHUMAN then
+		return
+	end
 
 	-- Global var change
 	LASTHUMAN = true
@@ -866,20 +810,12 @@ function ChangeClass(pl,cmd,args)
 	if args[1] == nil then return end
 	
 	if pl:Team() == TEAM_SPECTATOR then
-		
 		local Team = TEAM_HUMAN
 		
-		if NONEWJOIN_WAVE <= GAMEMODE:GetWave() then
-			Team = TEAM_UNDEAD
-		end
 		if LASTHUMAN then
 			Team = TEAM_UNDEAD
 		end
-		
-		if Team == TEAM_UNDEAD and not GAMEMODE:GetFighting() then
-			pl.SpawnAsCrow = true
-		end
-		
+				
 		pl:SetTeam(Team)
 		-- pl:SetHumanClass ( math.ceil(args[1]) )
 		
@@ -1183,10 +1119,10 @@ function GM:CanPlayerSuicide(pl)
 	end
 
 	--Humans can't suicide in first waves
-	if pl:Team() == TEAM_HUMAN and self:GetWave() < 2 then 
+	if pl:Team() == TEAM_HUMAN and WARMUPTIME > ServerTime() then 
 		local suicidenote = { "You can't suicide now!","Suicide is not the answer.","Give others time to spawn before killing yourself!" }
-		if math.random ( 1,3 ) == 1 then
-			pl:Notice ( suicidenote[math.random(1,#suicidenote)],3, Color (255,10,10,255) )
+		if math.random(1,3) == 1 then
+			pl:Notice(suicidenote[math.random(1,#suicidenote)],3, Color (255,10,10,255))
 		end
 		
 		return false
@@ -1236,7 +1172,7 @@ function SpawnProtection(pl)
 		if pl:Team() == TEAM_UNDEAD then
 			if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].ZombieSpawnProtection then
 			local tim = TranslateMapTable[ game.GetMap() ].ZombieSpawnProtection
-				if GAMEMODE:GetWave() < 4 and pl:GetZombieClass() == 1 and not pl.Suicided then
+				if pl:GetZombieClass() == 1 and not pl.Suicided then
 					-- print("Def. Speed is "..pl:GetMaxSpeed().." Settin' to "..math.Round(ZombieClasses[pl:GetZombieClass()].Speed * 1.3))
 					GAMEMODE:SetPlayerSpeed(pl, math.Round(ZombieClasses[pl:GetZombieClass()].Speed * 1.3))
 					pl.SpawnProtected1 = true
@@ -1245,13 +1181,6 @@ function SpawnProtection(pl)
 					umsg.End()
 				end
 			end
-		elseif pl:Team() == TEAM_HUMAN then
-		--	pl.SpawnProtected = true
-			--timer.Create(pl:UserID().."HumanSpawnProtection", tim, 1, DeSpawnProtection, pl)
-			-- Send the time amount to the client
-			--umsg.Start("rec_SpawnProtectionTime",pl)
-			--	umsg.Short(tim)
-			--umsg.End()
 		end
 	end
 end
@@ -1325,7 +1254,7 @@ concommand.Add("zs_class", function(sender, command, arguments)
 		if string.lower(ZombieClasses[i].Name) == string.lower(arguments) then
 			if ZombieClasses[i].Hidden then
 				sender:PrintMessage(HUD_PRINTTALK, "AND STOP SHOUTING! I'M NOT DEAF!")
-			elseif not ZombieClasses[i].Unlocked and GAMEMODE:GetWave() < ZombieClasses[i].Wave and not (not GAMEMODE:GetFighting() and ZombieClasses[i].Wave <= GAMEMODE:GetWave() + 1) then
+			elseif not ZombieClasses[i].Unlocked and GetInfliction() < ZombieClasses[i].Infliction then
 				sender:PrintMessage(HUD_PRINTTALK, "That class is not unlocked yet. It will be unlocked at wave "..ZombieClasses[i].Wave.."")
 			elseif sender.Class == i and not sender.DeathClass then
 				sender:PrintMessage(HUD_PRINTTALK, "You are already a "..ZombieClasses[i].Name.."!")

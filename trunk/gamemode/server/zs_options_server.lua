@@ -44,7 +44,7 @@ DESTRUCTIBLE_PROPS = true
 MASS_SCALAR = 40
 
 -- Zombie spawn toxic (spawnkill anti-measure)
-TOXIC_SPAWN = true
+TOXIC_SPAWN = false
 
 -- Green coins per Euro. Don't change unless you want an angry mob on your ass
 COINS_PER_EURO = 1000

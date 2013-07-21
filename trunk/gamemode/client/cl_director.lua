@@ -53,32 +53,6 @@ CreateClientConVar("_zs_hatpcolB", 255, true, true)
 CreateConVar( "cl_playercolor", "0.24 0.34 0.41", { FCVAR_ARCHIVE, FCVAR_USERINFO, FCVAR_DONTRECORD }, "The value is a Vector - so between 0-1 - not between 0-255" )
 CreateConVar( "cl_weaponcolor", "0.30 1.80 2.10", { FCVAR_ARCHIVE, FCVAR_USERINFO, FCVAR_DONTRECORD }, "The value is a Vector - so between 0-1 - not between 0-255" )
 
---Deadlife prediction
-hook.Add("Think", "DeadlifeStatus", function()
-	if GAMEMODE:GetWave() == 6 --[=[and GAMEMODE:GetFighting()]=] then 
-		if not ENDROUND and not LASTHUMAN then
-			DEADLIFE = true 
-			-- All in one
-			if IsValid(MySelf) then
-				if not MySelf.WarnDeadlife then
-					PlayDeadlife()
-					MySelf.WarnDeadlife = true
-					
-					-- Lol message
-					if MySelf:IsHuman() then 
-						--MySelf:Message( "There's no hope left. Holster your guns and run for your life!", 1, "white" )
-					--	MySelf:Message( "Pull yourself together! Get some weapons from crates and show no mercy to zombies!", 1, "white" )
-					else
-					--	MySelf:Message( "Humans are an extinct species. Put them out of their misery!", 1, "white" )
-					end
-				end
-			end
-		else
-			DEADLIFE = false
-		end
-	end
-end)
-
 -- Predicting spawn/death
 local function PredictSpawn()
 	for k,v in pairs ( player.GetAll() ) do
@@ -133,7 +107,7 @@ function GM:PlayerSpawn( pl )
 	if pl == MySelf then pl:PlaySpawnMusic() end
 	
 	if not pl.InitialSpawn then gamemode.Call ( "PlayerInitialSpawn", pl ) pl.InitialSpawn = true end
-	Debug ( "[SPAWN] "..tostring ( pl ).." spawned." )
+	Debug ( "[SPAWN] "..tostring ( pl ).." spawned" )
 end
 
 -- Called on player death
@@ -198,10 +172,29 @@ function GM:SetUnlife(bool)
 	
 	-- Stop sounds and delay the unlife song (Automtically loops)
 	-- Disable unlife music for a while
+	if UNLIFE then
+		timer.Simple(0.3, PlayUnlife)
+	
+		Debug("[CLIENT] Unlife started")
+	end
+end
+
+function GM:SetHalflife(bool)
+	if LASTHUMAN or ENDROUND then
+		return
+	end
+
+	-- Set client unlife correspondenly
+	HALFLIFE = bool
+	
+	-- Stop sounds and delay the unlife song (Automtically loops)
+	-- Disable unlife music for a while
 	--RunConsoleCommand("stopsounds")
 	--timer.Simple( 0.3, PlayUnlife )
 	
-	Debug ( "[CLIENT] Unlife started" )
+	if HALFLIFE then
+		Debug ( "[CLIENT] Halflife started" )
+	end
 end
 
 --[==[---------------------------------------------------------
