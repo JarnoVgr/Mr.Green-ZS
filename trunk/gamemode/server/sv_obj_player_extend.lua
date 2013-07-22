@@ -1348,10 +1348,12 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		ent._LastAttackerIsHuman = true
 	end
 	
+	--Prevent cadebreaking by reducing attack damage dealt by humans
 	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and dmginfo:IsMeleeDamage() and ent.Nails then 
-		damage = damage *0.25
+		damage = damage * 0.25
 	end
 	
+	--Hammer can't damage
 	if inflictor:GetClass() == "weapon_zs_tools_hammer" then
 		damage = 0
 	end
@@ -1361,14 +1363,17 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		if nail then
 			if nail:IsValid() then
 				nail:SetNailHealth(nail:GetNailHealth() - damage)
-				dmginfo:SetDamage ( 0 )
 				
+				--Check for nail heath
 				if nail:GetNailHealth() <= 0 then
 					local findcons = nail.constraint
 					local numcons = 0
 					for _, theent in ipairs(ent.Nails) do
-						if theent.constraint == findcons then numcons = numcons + 1 end
+						if theent.constraint == findcons then
+							numcons = numcons + 1
+						end
 					end
+					
 					if numcons == 1 then
 						findcons:Remove()
 					else
@@ -1397,36 +1402,39 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 										
 							if unfreeze then
 								ent:GetPhysicsObject():EnableMotion( true )
-								end
 							end
 						end
+					end
 								
-						if toworld then		
-							table.remove(ent.Nails, i)
+					if toworld then		
+						table.remove(ent.Nails, i)
 											
-							if #ent.Nails <= 0 then
-								ent.Nails = nil							
-							end
-						else
-							for _, entity in ipairs(nail.Ents) do
-								if entity.Nails then
-											
+						if #ent.Nails <= 0 then
+							ent.Nails = nil							
+						end
+					else
+						for _, entity in ipairs(nail.Ents) do
+							if entity.Nails then		
 								table.remove(entity.Nails, i)
 											
-									if #entity.Nails <= 0 then
-										entity.Nails = nil							
-									end
+								if #entity.Nails <= 0 then
+									entity.Nails = nil							
 								end
 							end
 						end
 					end
-					break
 				else
-					table.remove(ent.Nails, i)
-					i = i - 1
+					--Nails prevent prop getting damaged
+					dmginfo:SetDamage(0)
 				end
+	
+				break
+			else	
+				table.remove(ent.Nails, i)
+				i = i - 1
 			end
 		end
+	end
 	return true	
 end
 

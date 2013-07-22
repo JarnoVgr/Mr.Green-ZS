@@ -5,8 +5,10 @@ include("shared.lua")
 
 function ENT:Initialize()
     hook.Add("PreDrawHalos", "CustDrawHalos".. tostring(self), function()
-        if (IsValid(MySelf) and MySelf:Team() == TEAM_HUMAN and MySelf:Alive()) then
-            halo.Add( self:GetEntities(), self.LineColor, 1, 1, 1, true, true )
+        if util.tobool(GetConVarNumber("_zs_drawcrateoutline")) then
+            if (IsValid(MySelf) and MySelf:Team() == TEAM_HUMAN and MySelf:Alive()) then
+                halo.Add( self:GetEntities(), self.LineColor, 1, 1, 1, true, true )
+            end
         end
     end)
 end

@@ -20,6 +20,11 @@ local MAX_ENT_HEALTH = 13000
 -- Entities affected by this module
 destructList = { "prop_physics", "prop_physics_multiplayer" }
 
+--[[
+#####################################
+SEEMS TO BE UNUSED!! HOOK ISNT ACTIVE
+#####################################
+]]
 local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 	-- Physbox damage - mostly for doors - except the little planks
 	local entclass = ent:GetClass()
@@ -58,7 +63,7 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 	
 	
 	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and dmginfo:IsMeleeDamage() and ent.Nails then 
-		dmginfo:ScaleDamage ( 0.25 )
+		dmginfo:ScaleDamage(0.25)
 	end
 	
 	if attacker:IsPlayer() and attacker:IsZombie() and attacker:IsZombine() then
@@ -67,106 +72,108 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 	
 	if attacker:IsPlayer() and attacker:IsZombie() and attacker:IsBossZombie() then
 		if attacker:GetZombieClass() == 12 then
-			dmginfo:ScaleDamage ( 2 )
-			-- dmginfo:SetDamage(2800)
+			dmginfo:ScaleDamage(2)
 		else
-			dmginfo:ScaleDamage ( 1.5 )
-			-- dmginfo:SetDamage(1600)
+			dmginfo:ScaleDamage(1.5)
 		end
 	end
 	
-	
 	local damage = dmginfo:GetDamage()
-			if ent.Nails then-- and not (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN)and dmginfo:IsMeleeDamage())
-				for i=1, #ent.Nails do
-					local nail = ent.Nails[i]
-					if nail then
-						if nail:IsValid() then
-							nail:SetNailHealth(nail:GetNailHealth() - damage)
-							if ent.PropHealth then
-								--ent.PropHealth = math.Clamp(ent.PropHealth + damage,0,ent.PropMaxHealth)
+	if ent.Nails then
+		for i=1, #ent.Nails do
+			local nail = ent.Nails[i]
+			if nail then
+				if nail:IsValid() then
+					nail:SetNailHealth(nail:GetNailHealth() - damage)
+					--[[if ent.PropHealth then
+						ent.PropHealth = math.Clamp(ent.PropHealth + damage,0,ent.PropMaxHealth)
+					end]]
+					--nail.Heal = nail.Heal - damage
+					--ent:SetHealth(ent:Health() + damage)
+					--ent.PropHealth = ent.PropHealth + damage
+					
+					--Don't damage prop when nailed
+					dmginfo:SetDamage(0)
+					
+					--Check if nail is out of health
+					if nail:GetNailHealth() <= 0 then
+						--Set a bit of damage to prop so props can't be nailed endless
+						if ent.PropMaxHealth then
+							dmginfo:SetDamage(ent.PropMaxHealth*0.1)
+						end
+							
+						--Find constraints between nails
+						local findcons = nail.constraint
+						local numcons = 0
+						for _, theent in ipairs(ent.Nails) do
+							if theent.constraint == findcons then
+								numcons = numcons + 1
 							end
-							--nail.Heal = nail.Heal - damage
-							--ent:SetHealth(ent:Health() + damage)
-							--ent.PropHealth = ent.PropHealth + damage
-							dmginfo:SetDamage ( 0 )
-							if nail:GetNailHealth() <= 0 then
-								local findcons = nail.constraint
-								local numcons = 0
-								for _, theent in ipairs(ent.Nails) do-- ents.FindByClass("nail")
-									if theent.constraint == findcons then numcons = numcons + 1 end
-								end
-								if numcons == 1 then
-									findcons:Remove()
-								else
-									nail:Remove()
-								end
-								
-								local toworld = false
-								if nail.toworld then
-									toworld = true
-								end
-								
-								if ValidEntity ( ent:GetPhysicsObject() ) and not ent:GetPhysicsObject():IsMoveable() then
-									if nail.toworld then
-										local unfreeze = false
-										for num=1, #ent.Nails do
-											local nl = ent.Nails[num]
-											if nl.toworld then
-												if nail ~= nl then
-													unfreeze = false
-													break
-												else
-													unfreeze = true
-												end
-											end
-										end
-										
-										if unfreeze then
-											
-											ent:GetPhysicsObject():EnableMotion( true )
-										end
-									end
-								end
-								
-								
-								if toworld then
-									
-											table.remove(ent.Nails, i)
-											
-											if #ent.Nails <= 0 then
-												ent.Nails = nil							
-											end
-								else
-									for _, entity in ipairs(nail.Ents) do
-										if entity.Nails then
-											
-											table.remove(entity.Nails, i)
-											
-											if #entity.Nails <= 0 then
-												entity.Nails = nil							
-											end
-										end
-									end
-								end
-								--table.remove(ent.Nails, i)
-								
-								--if #ent.Nails <= 0 then
-								--	ent.Nails = nil							
-								--end
-							end
-							return
+						end
+						if numcons == 1 then
+							findcons:Remove()
 						else
+							nail:Remove()
+						end
+						
+						--??
+						local toworld = false
+						if nail.toworld then
+							toworld = true
+						end
+								
+						if ValidEntity(ent:GetPhysicsObject()) and not ent:GetPhysicsObject():IsMoveable() then
+							if nail.toworld then
+								local unfreeze = false
+								for num=1, #ent.Nails do
+									local nl = ent.Nails[num]
+									if nl.toworld then
+										if nail ~= nl then
+											unfreeze = false
+											break
+										else
+											unfreeze = true
+										end
+									end
+								end
+										
+								if unfreeze then
+									ent:GetPhysicsObject():EnableMotion(true)
+								end
+							end
+						end
+												
+						if toworld then
 							table.remove(ent.Nails, i)
-							i = i - 1
+											
+							if #ent.Nails <= 0 then
+								ent.Nails = nil							
+							end
+						else
+							for _, entity in ipairs(nail.Ents) do
+								if entity.Nails then
+									table.remove(entity.Nails, i)
+										
+									if #entity.Nails <= 0 then
+										entity.Nails = nil							
+									end
+								end
+							end
 						end
 					end
+					
+					return
+				else
+					table.remove(ent.Nails, i)
+					i = i - 1
 				end
-			-- dmginfo:SetDamage ( 0 )
-			return true
 			end
+		end
+				
+		return true
+	end
 	
-	-- func_breakable stuff
+	--func_breakable stuff
 	if entclass == "func_breakable" then
 		local brit = math.Clamp( ent:Health() / ent:GetMaxHealth(), 0, 1 )
 		local c = ent:GetColor()
@@ -174,16 +181,19 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 		ent:SetColor( Color(255, 255 * brit, 255 * brit * 0.5, a) )
 	end
 	
+	--Check if prop has health
 	if ent.PropHealth then
-		ent.PropHealth = ent.PropHealth - dmginfo:GetDamage() 
-		--ent:SetHealth ( ent:Health() - dmginfo:GetDamage() )
-		--local brit = math.Clamp ( ent:Health() / ent:GetMaxHealth(), 0, 1 )
-		local brit = math.Clamp ( ent.PropHealth / ent.PropMaxHealth, 0, 1 )
+		--Apply damage to PropHealth
+		ent.PropHealth = ent.PropHealth - dmginfo:GetDamage()
+		
+		local brit = math.Clamp(ent.PropHealth / ent.PropMaxHealth, 0, 1)
 		local c = ent:GetColor()
 		local r,g,b,a = c.r,c.g,c.b,c.a
+		
+		--Set color depending on health
 		ent:SetColor( Color(255, 255 * brit, 255 * brit * 0.5, a) )
 
-		-- if it's a door, delete the phys_hinge
+		--Delete phys_hinge if door
 		if ent.PropHealth <= 0 then
 			local foundaxis = false
 			local entname = ent:GetName()
@@ -194,7 +204,6 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 					foundaxis = true
 					axis:Remove()
 					ent.PropHealth = ent.PropHealth + 120
-					--ent:SetHealth ( ent:Health() + 120 )
 				end
 			end
 
@@ -206,51 +215,50 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 	
 
 	
-		-- if DESTROY_DOORS and TranslateMapTable[ game.GetMap() ] and not TranslateMapTable[ game.GetMap() ].EnableSolidDoors then	
-				if entclass == "prop_door_rotating" then
+	-- if DESTROY_DOORS and TranslateMapTable[ game.GetMap() ] and not TranslateMapTable[ game.GetMap() ].EnableSolidDoors then	
+	if entclass == "prop_door_rotating" then			
+		-- check for locked doors
+		-- if ent:GetKeyValues().spawnflags and (tonumber(ent:GetKeyValues().spawnflags) == 2048 or tonumber(ent:GetKeyValues().spawnflags) == 10240 ) then 
 					
-					-- check for locked doors
-					-- if ent:GetKeyValues().spawnflags and (tonumber(ent:GetKeyValues().spawnflags) == 2048 or tonumber(ent:GetKeyValues().spawnflags) == 10240 ) then 
+		-- tricky method from facepunch, 2048 is that we a looking for
+			
+		if ent:GetKeyValues().spawnflags and bit.band(tonumber(ent:GetKeyValues().spawnflags), 2048) == 2048 then
+			-- print("locked door")
+			return
+		end
 					
-					-- tricky method from facepunch, 2048 is that we a looking for
-					if ent:GetKeyValues().spawnflags and bit.band(tonumber(ent:GetKeyValues().spawnflags), 2048) == 2048 then
-						-- print("locked door")
-					return end
+		if (attacker:IsPlayer() and attacker:IsZombie() and attacker:HasBought("cadebuster")) or (attacker:GetOwner():IsPlayer() and attacker:GetOwner():HasBought("cadebuster") and attacker:GetOwner():IsZombie()) then  
+			dmginfo:ScaleDamage(1.3) 	
+		end
 					
-					if (attacker:IsPlayer() and attacker:IsZombie() and attacker:HasBought("cadebuster")) or (attacker:GetOwner():IsPlayer() and attacker:GetOwner():HasBought("cadebuster") and attacker:GetOwner():IsZombie()) then  
-					dmginfo:ScaleDamage(1.3) 	
-					end
+		ent.PropHealth = ent.PropHealth - dmginfo:GetDamage()
+		--ent:SetHealth ( ent:Health() - dmginfo:GetDamage() )
+		local brit = math.Clamp ( ent.PropHealth / ent.PropMaxHealth, 0, 1 )
+		local c = ent:GetColor()
+		local r,g,b,a = c.r,c.g,c.b,c.a
+		ent:SetColor( Color(255, 255 * brit, 255 * brit * 0.5, a) )
 					
-					ent.PropHealth = ent.PropHealth - dmginfo:GetDamage()
-					--ent:SetHealth ( ent:Health() - dmginfo:GetDamage() )
-					local brit = math.Clamp ( ent.PropHealth / ent.PropMaxHealth, 0, 1 )
-					local c = ent:GetColor()
-					local r,g,b,a = c.r,c.g,c.b,c.a
-					ent:SetColor( Color(255, 255 * brit, 255 * brit * 0.5, a) )
-					
-					--if ent:Health() <= 0 then
-					if ent.PropHealth <= 0 then
-					local physprop = ents.Create("prop_physics_multiplayer")
-						if physprop:IsValid() then
-							physprop:SetPos(ent:GetPos())
-							physprop:SetAngles(ent:GetAngles())
-							physprop:SetSkin(ent:GetSkin())
-							physprop:SetMaterial(ent:GetMaterial())
-							physprop:SetModel(ent:GetModel())
-							physprop:Spawn()
-							physprop.PropDoor = true
-							ent:Fire( "break", "", 0 )
-							physprop:SetPhysicsAttacker(attacker)
-							local phys = physprop:GetPhysicsObject()
-							if phys:IsValid() then
-								if attacker:IsValid() then
-									phys:Wake()
-								end
-							end
+		if ent.PropHealth <= 0 then
+			local physprop = ents.Create("prop_physics_multiplayer")
+			if physprop:IsValid() then
+				physprop:SetPos(ent:GetPos())
+				physprop:SetAngles(ent:GetAngles())
+				physprop:SetSkin(ent:GetSkin())
+				physprop:SetMaterial(ent:GetMaterial())
+				physprop:SetModel(ent:GetModel())
+				physprop:Spawn()
+				physprop.PropDoor = true
+				ent:Fire( "break", "", 0 )
+				physprop:SetPhysicsAttacker(attacker)
+				local phys = physprop:GetPhysicsObject()
+				if phys:IsValid() then
+						if attacker:IsValid() then
+							phys:Wake()
 						end
 					end
 				end
-		-- end	
+			end
+		end
 	end
 end
 -- hook.Add ( "OnPropTakeDamage", "PhysBoxDestructible", DoPhysBoxDestructible )
