@@ -32,7 +32,7 @@ function ManageEvents()
 	end
 	
 	--Enable unlife if infliction is more than 80%
-	if INFLICTION >= 0.8 and not ENDROUND then
+	if GetInfliction() >= 0.8 and not ENDROUND then
 		GAMEMODE:SetUnlife(true)
 	end
 	
@@ -52,6 +52,10 @@ function ManageEvents()
 		GAMEACTIVE = true
 		GAMEMODE:SetRandomsToFirstZombie()
 
+		--Give SkillPoints to survivors timer
+		timer.Create("GiveSkillPointsSurvivors", math.Round(ROUNDTIME/6), 0, GiveSkillPointsSurvivors)
+
+		--
 		for k,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
 			if IsEntityValid(v) then
 				v:SendLua("surface.PlaySound(\"ambient/creatures/town_zombie_call1.wav\") GAMEMODE:Add3DMessage(140,\"The Undead have arrived!\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh!\",nil,\"ArialBoldTen\")")
@@ -61,6 +65,20 @@ function ManageEvents()
 end
 --hook.Add("Think", "EventDirector", ManageEvents)
 timer.Create("ManageEvents", 0.2, 0, ManageEvents)
+
+--Timer creator is at ManageEvents
+function GiveSkillPointsSurvivors()
+	--Give skillpoints to all players for still being alive
+	for _, h in pairs(team.GetPlayers(TEAM_HUMAN)) do
+		if h and h:IsValid() and h:Alive() then
+			--Give SP
+			skillpoints.AddSkillPoints(h,175*GetInfliction())
+
+			--Give XP
+			h:AddXP(200*GetInfliction())
+		end
+	end
+end
 
 --[==[---------------------------------------------------
       Update server and clients with unlife
