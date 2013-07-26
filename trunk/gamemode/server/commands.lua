@@ -1741,7 +1741,7 @@ hook.Add( "irc.OnWelcome", "OnWelcome", function( response )
 	print("[IRC] Looks like we've received a warm welcome")
 
 	--Join default channel
-	irc:Join( "#mrgreen" )
+	--irc:Join( "#mrgreen" )
 
 	--Join relay channel
 	irc:Join( IRC_RELAY_CHANNEL )
