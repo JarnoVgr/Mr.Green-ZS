@@ -1702,7 +1702,7 @@ hook.Add( "Initialize", "OnInitialize", function()
 end )
 
 hook.Add( "irc.OnConnect", "OnConnect", function() 
-	irc:Register( "Relay" )
+	irc:Register( "MrGreenZS" )
 end )
 
 hook.Add( "irc.OnRegisterTimeout", "OnRegisterTimeout", function() 
@@ -1712,14 +1712,15 @@ hook.Add( "irc.OnRegisterTimeout", "OnRegisterTimeout", function()
 end )
 
 hook.Add( "irc.OnWelcome", "OnWelcome", function( response ) 
-	irc:Join( "#mrgreen.test" )
+	irc:Join( "#mrgreen.zs" )
+	irc:Join( "#mrgreen" )
 end )
 
 hook.Add( "irc.OnUserJoin", "OnUserJoin", function( user, channel ) 
 	player.CustomChatPrint( { nil, 
 		Color( 0, 255, 0 ), "(IRC) ",
 		Color( 191,196,22 ), string.format( "%s ", user.Name ), 
-		Color( 255,255,255 ), string.format( "has joined %s.", channel )
+		Color( 255,255,255 ), string.format( "has joined %s", channel )
 	} )
 end )
 
@@ -1735,7 +1736,7 @@ hook.Add( "irc.OnUserPart", "OnUserJoin", function( user, channel )
 	player.CustomChatPrint( { nil, 
 		Color( 0, 255, 0 ), "(IRC) ",
 		Color( 191,196,22 ), string.format( "%s ", user.Name ), 
-		Color( 255,255,255 ), string.format( "has left %s.", channel )
+		Color( 255,255,255 ), string.format( "has left %s", channel )
 	} )
 end )
 
@@ -1743,24 +1744,24 @@ hook.Add( "irc.OnUserQuit", "OnUserQuit", function( user, reason )
 	player.CustomChatPrint( { nil, 
 		Color( 0, 255, 0 ), "(IRC) ",
 		Color( 191,196,22 ), string.format( "%s ", user.Name ), 
-		Color( 255,255,255 ), " has quit." 
+		Color( 255,255,255 ), " has quit" 
 	} )
 end )
 
 hook.Add( "PlayerSay", "irc.PlayerSay", function( pl, text, team ) 
 	if ( not team ) then
-		irc:Say( string.format( "%s: %s", pl:Name(), text ), "#mrgreen.test" )
+		irc:Say( string.format( " 07%s %s", pl:Name(), text ), "#mrgreen.zs" )
 	end
 end )
 
 hook.Add( "PlayerDisconnected", "irc.PlayerDisconnected", function( pl )
 	if IsValid( pl ) then
-		irc:Say( string.format( "Player '%s' has disconnected.", pl:Name() ), "#mrgreen.test" )
+		irc:Say( string.format( "2*** %s left", pl:Name() ), "#mrgreen.zs" )
 	end
 end )
 
 hook.Add( "PlayerConnect", "irc.PlayerConnected", function( name, address ) 
-	irc:Say( string.format( "Player '%s' has connected.", name ), "#mrgreen.test" )	
+	irc:Say( string.format( "3*** %s joined", name ), "#mrgreen.zs" )	
 end )
 
 --------------------------------------------------------------------------------------------------
