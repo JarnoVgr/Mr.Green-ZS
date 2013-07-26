@@ -1713,7 +1713,6 @@ end )
 
 hook.Add( "irc.OnWelcome", "OnWelcome", function( response ) 
 	irc:Join( "#mrgreen.zs" )
-	irc:Join( "#mrgreen" )
 end )
 
 hook.Add( "irc.OnUserJoin", "OnUserJoin", function( user, channel ) 
