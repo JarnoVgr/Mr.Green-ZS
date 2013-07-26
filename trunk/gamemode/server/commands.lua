@@ -1699,7 +1699,6 @@ concommand.Add( "map_restart", RestartCommand )
 
 hook.Add( "Initialize", "OnInitialize", function()
 	if IRC_RELAY_ENABLED then
-		print("[IRC] Attempting connect to ".. IRC_RELAY_SERVER)
 		irc:Connect( IRC_RELAY_SERVER )
 	else
 		print("[IRC] Reconnect attempted but module is disabled")
@@ -1707,17 +1706,32 @@ hook.Add( "Initialize", "OnInitialize", function()
 end )
 
 hook.Add( "irc.OnConnect", "OnConnect", function() 
-	print("[IRC] Connected")
-
 	irc:Register( IRC_RELAY_NICK )
+end )
+
+local reconnectTries = 3
+
+hook.Add( "irc.OnConnectError", "OnConnectError", function( errorid )
+	print( "[IRC] Error connecting to the IRC server!" )
+	
+	if ( reconnectTries >= 0 ) then
+		timer.Simple( 1, function() 
+			irc:Connect( IRC_RELAY_SERVER )
+		end )
+		reconnectTries = reconnectTries - 1
+	end
 end )
 
 hook.Add( "irc.OnRegisterTimeout", "OnRegisterTimeout", function()
 	if IRC_RELAY_ENABLED then
 		print("[IRC] Attempting reconnect to ".. IRC_RELAY_SERVER)
-		timer.Simple( 1, function() 
-			irc:Connect( IRC_RELAY_SERVER )
-		end )
+		
+		if ( reconnectTries >= 0 ) then
+			timer.Simple( 1, function() 
+				irc:Connect( IRC_RELAY_SERVER )
+			end )
+			reconnectTries = reconnectTries - 1
+		end
 	else
 		print("[IRC] Reconnect attempted but IRC is disabled")
 	end

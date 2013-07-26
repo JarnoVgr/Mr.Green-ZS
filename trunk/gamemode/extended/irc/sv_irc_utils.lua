@@ -7,7 +7,7 @@ function irc.OnConnectCallback( sock, error )
 		irc.Connected = true
 		hook.Call( "irc.OnConnect" )
 	else
-		print("[IRC] Error in OnConnectCallback: ".. tostring(error))
+		hook.Call( "irc.OnConnectError", nil, error )
 	end
 end
 
@@ -19,7 +19,7 @@ function irc.OnCallback( sock, length, error )
 	if ( error == GLSOCK_ERROR_SUCCESS ) then
 		sock:Read( 4064, irc.OnCallbackRead ) 
 	else
-		print("[IRC] Error in OnCallback: ".. tostring(error))
+		hook.Call( "irc.OnSocketError", nil, error )
 	end
 end
 
