@@ -1698,24 +1698,51 @@ concommand.Add( "map_restart", RestartCommand )
 ----------------------------------------------------------------------------------------------
 
 hook.Add( "Initialize", "OnInitialize", function()
-	irc:Connect( "irc.gtanet.com" )
+	if IRC_RELAY_ENABLED then
+		print("[IRC] Attempting connect to ".. IRC_RELAY_SERVER)
+		irc:Connect( IRC_RELAY_SERVER )
+	else
+		print("[IRC] Reconnect attempted but module is disabled")
+	end
 end )
 
 hook.Add( "irc.OnConnect", "OnConnect", function() 
-	irc:Register( "MrGreenZS" )
+	print("[IRC] Connected")
+
+	irc:Register( IRC_RELAY_NICK )
 end )
 
-hook.Add( "irc.OnRegisterTimeout", "OnRegisterTimeout", function() 
-	timer.Simple( 1, function() 
-		irc:Connect( "irc.gtanet.com" )
-	end )
+hook.Add( "irc.OnRegisterTimeout", "OnRegisterTimeout", function()
+	if IRC_RELAY_ENABLED then
+		print("[IRC] Attempting reconnect to ".. IRC_RELAY_SERVER)
+		timer.Simple( 1, function() 
+			irc:Connect( IRC_RELAY_SERVER )
+		end )
+	else
+		print("[IRC] Reconnect attempted but IRC is disabled")
+	end
 end )
 
 hook.Add( "irc.OnWelcome", "OnWelcome", function( response ) 
-	irc:Join( "#mrgreen.zs" )
+	print("[IRC] Looks like we've received a warm welcome")
+
+	--Join default channel
+	irc:Join( "#mrgreen" )
+
+	--Join relay channel
+	irc:Join( IRC_RELAY_CHANNEL )
+
+	--Output fancy map name
+	if TranslateMapTable[ game.GetMap() ] then
+		irc:Say( string.format( "5*** Travelled to %s", TranslateMapTable[ game.GetMap() ] ), IRC_RELAY_CHANNEL )
+	end
 end )
 
 hook.Add( "irc.OnUserJoin", "OnUserJoin", function( user, channel ) 
+	if channel ~= IRC_RELAY_CHANNEL then
+		return
+	end
+
 	player.CustomChatPrint( { nil, 
 		Color( 0, 255, 0 ), "(IRC) ",
 		Color( 191,196,22 ), string.format( "%s ", user.Name ), 
@@ -1724,6 +1751,10 @@ hook.Add( "irc.OnUserJoin", "OnUserJoin", function( user, channel )
 end )
 
 hook.Add( "irc.OnPublicMessage", "OnPublicMessage", function( message, user, channel ) 
+	if channel ~= IRC_RELAY_CHANNEL then
+		return
+	end
+
 	player.CustomChatPrint( { nil, 
 		Color( 0, 255, 0 ), "(IRC) ",
 		Color( 191,196,22 ), string.format( "%s: ", user.Name ), 
@@ -1732,6 +1763,10 @@ hook.Add( "irc.OnPublicMessage", "OnPublicMessage", function( message, user, cha
 end )
 
 hook.Add( "irc.OnUserPart", "OnUserJoin", function( user, channel ) 
+	if channel ~= IRC_RELAY_CHANNEL then
+		return
+	end
+
 	player.CustomChatPrint( { nil, 
 		Color( 0, 255, 0 ), "(IRC) ",
 		Color( 191,196,22 ), string.format( "%s ", user.Name ), 
@@ -1740,6 +1775,10 @@ hook.Add( "irc.OnUserPart", "OnUserJoin", function( user, channel )
 end )
 
 hook.Add( "irc.OnUserQuit", "OnUserQuit", function( user, reason ) 
+	if channel ~= IRC_RELAY_CHANNEL then
+		return
+	end
+
 	player.CustomChatPrint( { nil, 
 		Color( 0, 255, 0 ), "(IRC) ",
 		Color( 191,196,22 ), string.format( "%s ", user.Name ), 
@@ -1749,18 +1788,18 @@ end )
 
 hook.Add( "PlayerSay", "irc.PlayerSay", function( pl, text, team ) 
 	if ( not team ) then
-		irc:Say( string.format( " 07%s: %s", pl:Name(), text ), "#mrgreen.zs" )
+		irc:Say( string.format( " 07%s: %s", pl:Name(), text ), IRC_RELAY_CHANNEL )
 	end
 end )
 
 hook.Add( "PlayerDisconnected", "irc.PlayerDisconnected", function( pl )
 	if IsValid( pl ) then
-		irc:Say( string.format( "2*** %s left", pl:Name() ), "#mrgreen.zs" )
+		irc:Say( string.format( "2*** %s disconnected [%i/%i]", pl:Name(), #player.GetAll(), game.MaxPlayers() ), IRC_RELAY_CHANNEL )
 	end
 end )
 
 hook.Add( "PlayerConnect", "irc.PlayerConnected", function( name, address ) 
-	irc:Say( string.format( "3*** %s joined", name ), "#mrgreen.zs" )	
+	irc:Say( string.format( "3*** %s connected [%i/%i]", name, #player.GetAll(), game.MaxPlayers() ), IRC_RELAY_CHANNEL )	
 end )
 
 --------------------------------------------------------------------------------------------------

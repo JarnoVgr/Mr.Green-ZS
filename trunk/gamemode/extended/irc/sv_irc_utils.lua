@@ -6,6 +6,8 @@ function irc.OnConnectCallback( sock, error )
 	if ( error == GLSOCK_ERROR_SUCCESS ) then
 		irc.Connected = true
 		hook.Call( "irc.OnConnect" )
+	else
+		print("[IRC] Error in OnConnectCallback: ".. tostring(error))
 	end
 end
 
@@ -16,6 +18,8 @@ end
 function irc.OnCallback( sock, length, error )
 	if ( error == GLSOCK_ERROR_SUCCESS ) then
 		sock:Read( 4064, irc.OnCallbackRead ) 
+	else
+		print("[IRC] Error in OnCallback: ".. tostring(error))
 	end
 end
 
@@ -34,7 +38,7 @@ function irc.OnCallbackRead( sock, buffer, error )
 				for k, text in ipairs( responses ) do
 					if ( #text > 0 ) then
 						local response = irc:Parse( text )
---						PrintTable( response )
+						PrintTable( response )
 --						print( "\n")
 						
 						-- Handle available responses
