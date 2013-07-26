@@ -22,9 +22,9 @@ end
 --[==[--------------------------------------------------------
 	      Check AFKness for all players
 -------------------------------------------------------]==]
-local fThinkAFK = 0
+--local fThinkAFK = 0
 local function CheckPlayersAFK()
-	if fThinkAFK > CurTime() then return end
+	--if fThinkAFK > CurTime() then return end
 	
 	-- Parse through players
 	for k,v in pairs ( player.GetAll() ) do
@@ -37,9 +37,10 @@ local function CheckPlayersAFK()
 	end
 	
 	-- Cooldown
-	fThinkAFK = CurTime() + 1
+	--fThinkAFK = CurTime() + 1
 end
-hook.Add ( "Think", "CheckPlayersAFK", CheckPlayersAFK )
+--hook.Add ( "Think", "CheckPlayersAFK", CheckPlayersAFK )
+timer.Create("CheckPlayersAFK", 1, 0, CheckPlayersAFK)
 
 --[==[---------------------------------------------------------------------------------
 		  Receives the AFK status from the client

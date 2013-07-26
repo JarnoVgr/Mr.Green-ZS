@@ -196,17 +196,17 @@ local function ProcessAnimations(pl)
 	end
 end
 
-hook.Add("Think", "BoneAnimThink", function()
+--[[hook.Add("Think", "BoneAnimThink", function()
 	for _, pl in pairs(player.GetAll()) do
 		if pl.LuaAnimations and pl:IsValid() then
-			-- ProcessAnimations(pl)
+			ProcessAnimations(pl)
 		end
 	end
-end)
+end)]]
 
 hook.Add("CalcMainActivity", "LuaAnimationSequence", function(pl)
 	if pl.InSequence then
-		-- pl:ResetInSequence()
+		pl:ResetInSequence()
 		-- return 0, 0
 	end	
 end)

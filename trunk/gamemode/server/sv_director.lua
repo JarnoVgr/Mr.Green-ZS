@@ -64,7 +64,7 @@ function ManageEvents()
 	end
 end
 --hook.Add("Think", "EventDirector", ManageEvents)
-timer.Create("ManageEvents", 0.2, 0, ManageEvents)
+timer.Create("ManageEvents", 0.5, 0, ManageEvents)
 
 --Timer creator is at ManageEvents
 function GiveSkillPointsSurvivors()

@@ -98,15 +98,15 @@ end
             Manages when and what to display
 ---------------------------------------------------------]==]
 local function HintsThink()
-
 	-- manage server info
-	if GENERAL_TIMER <= CurTime() then
+	--if GENERAL_TIMER <= CurTime() then
 		DisplayNews()
-	end
+	--end
 	
 	-- manage team hints
-	if TEAM_TIMER <= CurTime() then
+	--if TEAM_TIMER <= CurTime() then
 		DisplayHints()
-	end
+	--end
 end
-hook.Add ( "Think", "HintsThink", HintsThink )
+--hook.Add ( "Think", "HintsThink", HintsThink )
+timer.Create("HintsThink", 60, 0, HintsThink)
