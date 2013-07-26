@@ -1698,7 +1698,7 @@ concommand.Add( "map_restart", RestartCommand )
 ----------------------------------------------------------------------------------------------
 
 hook.Add( "Initialize", "OnInitialize", function()
-	--irc:Connect( "irc.gtanet.com" )
+	irc:Connect( "irc.gtanet.com" )
 end )
 
 hook.Add( "irc.OnConnect", "OnConnect", function() 
@@ -1706,9 +1706,9 @@ hook.Add( "irc.OnConnect", "OnConnect", function()
 end )
 
 hook.Add( "irc.OnRegisterTimeout", "OnRegisterTimeout", function() 
-	--[[timer.Simple( 1, function() 
+	timer.Simple( 1, function() 
 		irc:Connect( "irc.gtanet.com" )
-	end )]]
+	end )
 end )
 
 hook.Add( "irc.OnWelcome", "OnWelcome", function( response ) 
