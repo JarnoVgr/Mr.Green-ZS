@@ -1358,6 +1358,8 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		damage = 0
 	end
 	
+	local bNailDied = false
+
 	for i=1, #ent.Nails do
 		local nail = ent.Nails[i]
 		if nail then
@@ -1366,6 +1368,8 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 				
 				--Check for nail heath
 				if nail:GetNailHealth() <= 0 then
+					bNailDied = true
+
 					local findcons = nail.constraint
 					local numcons = 0
 					for _, theent in ipairs(ent.Nails) do
@@ -1424,8 +1428,10 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 						end
 					end
 				else
-					--Nails prevent prop getting damaged
-					dmginfo:SetDamage(0)
+					if bNailDied == false then
+						--Nails prevent prop getting damaged
+						dmginfo:SetDamage(0)
+					end
 				end
 	
 				break

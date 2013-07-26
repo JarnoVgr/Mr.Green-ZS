@@ -35,6 +35,16 @@ function ENT:Initialize()
 	--self.CrateOwner = self:GetDTEntity(0)
 	--self.CrateOwner = self:GetPlacer()
 	self.AmmoDelay = 150
+
+	if CLIENT then
+		hook.Add("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self), function()
+			if util.tobool(GetConVarNumber("_zs_drawcrateoutline")) then
+				if (IsValid(MySelf) and MySelf:Team() == TEAM_HUMAN and MySelf:Alive()) then
+					halo.Add({self}, self.LineColor, 1, 1, 1, true, false)
+				end
+			end
+		end)
+	end
 end	
 
 function ENT:Think()
@@ -170,111 +180,53 @@ if CLIENT then
 	local render = render
 	local draw = draw
 
-	local matOutlineWhite = Material( "white_outline" )
-	-- function ENT:Draw()
-	-- 	self:DrawModel()
-	-- end
-	
+	ENT.LineColor = Color(210, 0, 0, 100)
 	function ENT:Draw()
-		if not ValidEntity(MySelf) then
-			return
-		end
-		
-		if MySelf:Team() ~= TEAM_HUMAN then
-			self:DrawModel()
-			return
-		end
-		
-		local outline = false
-		
-		cam.Start3D ( EyePos(), EyeAngles() )
-		
-		render.ClearStencil()
-		render.SetStencilEnable( true )
-		
-		render.SetStencilFailOperation( STENCILOPERATION_KEEP )
-		render.SetStencilZFailOperation( STENCILOPERATION_REPLACE )
-		render.SetStencilPassOperation( STENCILOPERATION_KEEP )
-		render.SetStencilCompareFunction( STENCILCOMPARISONFUNCTION_ALWAYS )
-		render.SetStencilReferenceValue( 1 )
-		
-		outline = true
-		
-		render.SetStencilReferenceValue( 2 )
-			
-		render.SetStencilCompareFunction( STENCILCOMPARISONFUNCTION_EQUAL )
-		render.SetStencilPassOperation( STENCILOPERATION_REPLACE )
-		
-		render.SetStencilEnable( false )
-		cam.End3D()
-		
-		-- Choose the color
-		local LineColor = Color ( 210, 0,0, 255 )
-		if MySelf.SupplyTimerActive == false then
-			LineColor = Color ( 0, math.abs ( 200 * math.sin ( CurTime() * 3 ) ),0, 255 )
-		end
-		
-		-- Supress light for the parent
-		render.SuppressEngineLighting( true )
-		-- render.SetAmbientLight( 1, 1, 1 )
-		render.SetColorModulation( 1, 1, 1 )
-			   
-		--  First Outline       
-		self:SetModelScale( self:GetModelScale() * 1.03,0 )
-		render.ModelMaterialOverride( matOutlineWhite )
-		render.SetColorModulation( LineColor.r / 255, LineColor.g / 255, LineColor.b / 255 )
-		if outline then
-			cam.IgnoreZ(true)
-		end
-		self:DrawModel()
-		if outline then
-			cam.IgnoreZ(false)
-		end
-					   
-		--Revert everything back to how it should be
-		render.ModelMaterialOverride( nil )
-		self:SetModelScale( 1,0 )
-					   
-		render.SuppressEngineLighting( false )
+	    self:DrawModel()
 
-		render.SetColorModulation( 1, 1, 1 )
-		
-		self:DrawModel()
-		
-		
-		--Draw some stuff
-		
-		local pos = self:GetPos() + Vector(0,0,45)
-
-		--Check for distance with local player
-	    if pos:Distance(MySelf:GetPos()) > 500 then
+	    if not ValidEntity(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
 	        return
-    	end
-			
-		local angle = (MySelf:GetPos() - pos):Angle()
-		angle.p = 0
-		angle.y = angle.y + 90
-		angle.r = angle.r + 90
+	    end
 
-		cam.Start3D2D(pos,angle,0.26)
+		if MySelf.SupplyTimerActive == false then
+	    	self.LineColor = Color(0, math.abs(200 * math.sin(CurTime() * 3)), 0, 100)
+	    elseif self.LineColor ~= Color(210, 0, 0, 100) then
+	    	self.LineColor = Color(210, 0, 0, 100)
+	    end
 
-			local Owner = self:GetPlacer()
-			if ValidEntity(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN then
-				draw.SimpleTextOutlined( Owner:Name() .."'s Mobile Supplies", "ArialBoldSeven", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			else
-				draw.SimpleTextOutlined( "Mobile Supplies", "ArialBoldSeven", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			end
-			
-			if MySelf.SupplyTimerActive == true then
-				local time = math.Round(MySelf.SupplyTime - CurTime())
-				draw.SimpleTextOutlined("0"..ToMinutesSeconds(time + 1), "ArialBoldFive", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			elseif MySelf.SupplyTimerActive == false then
-				draw.SimpleTextOutlined("Press E to use", "ArialBoldFive", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-				draw.SimpleTextOutlined("(Refill ammo for equipped gun)", "ArialBoldFour", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			end
+	    --Draw some stuff
+	    local pos = self:GetPos() + Vector(0,0,45)
+
+	    --Check for distance with local player
+	    if pos:Distance(MySelf:GetPos()) > 400 then
+	        return
+	    end
+	          
+	    local angle = (MySelf:GetPos() - pos):Angle()
+	    angle.p = 0
+	    angle.y = angle.y + 90
+	    angle.r = angle.r + 90
+
+	    cam.Start3D2D(pos,angle,0.26)
+
+				local Owner = self:GetPlacer()
+				if ValidEntity(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN then
+					draw.SimpleTextOutlined( Owner:Name() .."'s Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				else
+					draw.SimpleTextOutlined( "Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				end
 				
-		cam.End3D2D()
+				if MySelf.SupplyTimerActive == true then
+					local time = math.Round(MySelf.SupplyTime - CurTime())
+					draw.SimpleTextOutlined("0"..ToMinutesSeconds(time + 1), "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				elseif MySelf.SupplyTimerActive == false then
+					draw.SimpleTextOutlined("Press E to refill ammo for equipped gun", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+				end
 
-		
+	    cam.End3D2D()
+	end
+
+	function ENT:OnRemove()
+	    hook.Remove( "PreDrawHalos", "CustDrawHalosAmmo".. tostring( self ) )
 	end
 end
