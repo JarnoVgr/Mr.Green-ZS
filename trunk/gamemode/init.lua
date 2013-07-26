@@ -127,6 +127,8 @@ include("modules/skillpoints/sh_skillpoints.lua")
 include("modules/boneanimlib_v2/sh_boneanimlib.lua")
 include("modules/boneanimlib_v2/boneanimlib.lua")
 
+include( "extended/irc/sv_irc.lua" )
+
 for map,opt in pairs(TranslateMapTable) do
 	if TranslateMapTable[map].Objective then
 		print("Added "..tostring(map))

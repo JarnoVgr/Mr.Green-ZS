@@ -1230,6 +1230,18 @@ if ( type( arg[1] ) == "Player" ) then self = arg[1] end
         umsg.End( )]==]
 end
 
+---
+-- Chat broadcast function which uses PLAYER:CustomChatPrint
+-- 
+function player.CustomChatPrint( arg )
+	local players = player.GetAll()
+	
+	for i = 1, #players do
+		local ply = players[i]
+		ply:CustomChatPrint( arg )
+	end
+end
+
 -- 2 useful functions
 function meta:GetHeldObject()
     return self:GetSaveTable().m_hMoveChild
@@ -1835,3 +1847,4 @@ concommand.Add( "zs_boughtpointswithcoins", function( pl, cmd, args )
 end )
 
 --[[----------------------------------------------------]]--
+

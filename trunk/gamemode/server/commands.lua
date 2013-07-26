@@ -1689,3 +1689,79 @@ function ApplySkillShopItem(pl,com,args)
 	end
 end
 concommand.Add("_applyskillshopitem",ApplySkillShopItem)
+
+local function RestartCommand( pl, cmd, args )
+    RunConsoleCommand( "changelevel", tostring( game.GetMap() ) )
+end
+concommand.Add( "map_restart", RestartCommand )
+
+----------------------------------------------------------------------------------------------
+
+hook.Add( "Initialize", "OnInitialize", function()
+	irc:Connect( "irc.gtanet.com" )
+end )
+
+hook.Add( "irc.OnConnect", "OnConnect", function() 
+	irc:Register( "Relay" )
+end )
+
+hook.Add( "irc.OnRegisterTimeout", "OnRegisterTimeout", function() 
+	timer.Simple( 1, function() 
+		irc:Connect( "irc.gtanet.com" )
+	end )
+end )
+
+hook.Add( "irc.OnWelcome", "OnWelcome", function( response ) 
+	irc:Join( "#mrgreen.test" )
+end )
+
+hook.Add( "irc.OnUserJoin", "OnUserJoin", function( user, channel ) 
+	player.CustomChatPrint( { nil, 
+		Color( 0, 255, 0 ), "(IRC) ",
+		Color( 191,196,22 ), string.format( "%s ", user.Name ), 
+		Color( 255,255,255 ), string.format( "has joined %s.", channel )
+	} )
+end )
+
+hook.Add( "irc.OnPublicMessage", "OnPublicMessage", function( message, user, channel ) 
+	player.CustomChatPrint( { nil, 
+		Color( 0, 255, 0 ), "(IRC) ",
+		Color( 191,196,22 ), string.format( "%s: ", user.Name ), 
+		Color( 255,255,255 ), string.format( "%s", message ) 
+	} )
+end )
+
+hook.Add( "irc.OnUserPart", "OnUserJoin", function( user, channel ) 
+	player.CustomChatPrint( { nil, 
+		Color( 0, 255, 0 ), "(IRC) ",
+		Color( 191,196,22 ), string.format( "%s ", user.Name ), 
+		Color( 255,255,255 ), string.format( "has left %s.", channel )
+	} )
+end )
+
+hook.Add( "irc.OnUserQuit", "OnUserQuit", function( user, reason ) 
+	player.CustomChatPrint( { nil, 
+		Color( 0, 255, 0 ), "(IRC) ",
+		Color( 191,196,22 ), string.format( "%s ", user.Name ), 
+		Color( 255,255,255 ), " has quit." 
+	} )
+end )
+
+hook.Add( "PlayerSay", "irc.PlayerSay", function( pl, text, team ) 
+	if ( not team ) then
+		irc:Say( string.format( "%s: %s", pl:Name(), text ), "#mrgreen.test" )
+	end
+end )
+
+hook.Add( "PlayerDisconnected", "irc.PlayerDisconnected", function( pl )
+	if IsValid( pl ) then
+		irc:Say( string.format( "Player '%s' has disconnected.", pl:Name() ), "#mrgreen.test" )
+	end
+end )
+
+hook.Add( "PlayerConnect", "irc.PlayerConnected", function( name, address ) 
+	irc:Say( string.format( "Player '%s' has connected.", name ), "#mrgreen.test" )	
+end )
+
+--------------------------------------------------------------------------------------------------
+

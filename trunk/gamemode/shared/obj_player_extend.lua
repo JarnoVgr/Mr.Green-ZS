@@ -508,7 +508,7 @@ end
 meta.OldSetWalkSpeed = meta.SetWalkSpeed
 
 function meta:SetWalkSpeed( s )
-	self:OldSetWalkSpeed( s + (s >= 2 and SHARED_SPEED_INCREASE or 0))
+	self:OldSetWalkSpeed( s + (s >= 2 and SHARED_SPEED_INCREASE or 0)) 
 end
 
 meta.OldSetRunSpeed = meta.SetRunSpeed
