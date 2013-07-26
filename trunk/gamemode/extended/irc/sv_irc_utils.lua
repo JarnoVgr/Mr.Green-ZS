@@ -38,7 +38,7 @@ function irc.OnCallbackRead( sock, buffer, error )
 				for k, text in ipairs( responses ) do
 					if ( #text > 0 ) then
 						local response = irc:Parse( text )
-						PrintTable( response )
+--						PrintTable( response )
 --						print( "\n")
 						
 						-- Handle available responses

@@ -56,7 +56,7 @@ COINS_PER_HUMAN = 3
 IRC_RELAY_ENABLED = true
 IRC_RELAY_NICK = "MrGreenZS"
 IRC_RELAY_SERVER = "irc.gtanet.com"
-IRC_RELAY_CHANNEL = "#mrgreen"
+IRC_RELAY_CHANNEL = "#mrgreen.zs"
 
 
 -- ----------------------------

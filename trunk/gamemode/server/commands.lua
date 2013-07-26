@@ -1734,7 +1734,7 @@ hook.Add( "irc.OnWelcome", "OnWelcome", function( response )
 
 	--Output fancy map name
 	if TranslateMapTable[ game.GetMap() ] then
-		irc:Say( string.format( "5*** Travelled to %s", TranslateMapTable[ game.GetMap() ] ), IRC_RELAY_CHANNEL )
+		irc:Say( string.format( "5*** Travelled to %s", TranslateMapTable[ game.GetMap() ].Name ), IRC_RELAY_CHANNEL )
 	end
 end )
 
