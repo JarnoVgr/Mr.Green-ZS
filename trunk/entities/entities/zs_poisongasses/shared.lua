@@ -100,27 +100,21 @@ function ENT:Think()
 									Zombie.AuraTimeHeal = ct + 0.6
 								end
 							end
-						else
+						end
+						--[[else
 							if SERVER and Zombie:IsHuman() and iDistance <= self:GetRadius() and self:TrueVisible(spawnPos, Zombie:GetShootPos()) and not Zombie:HasGasMask() then
 								
 								if not Zombie.PoisonToxicTime then Zombie.PoisonToxicTime = 0 end
 								
 								-- 1 second delay for damage
 								if Zombie.PoisonToxicTime <= ct then
-									--if Zombie:Health() > 10 then
-										--Zombie:ViewPunch( Angle( math.random( -20, 20 ), math.random( -5, 5 ), 0 ) )
-										--Zombie:EmitSound( "ambient/voices/cough"..math.random( 1,4 )..".wav" )
-										--Zombie:EmitSound( "player/pl_pain"..math.random( 5,7 )..".wav" )
-
-										--Zombie:SetHealth( math.Clamp( Zombie:Health() - math.Clamp( Zombie:Health() * math.Rand( 0.03, 0.4 ), 2, 12 ), 5, 100 ) )
-									--end
 									local fDistance = self:GetPos():Distance( Zombie:GetPos() )
 									Zombie:TakeDamageOverTime( math.Rand(1,2), 1.5, math.Clamp( ( ( ( self:GetRadius() - fDistance ) / self:GetRadius() ) * 44 ) / 2, 0, 10 ), Zombie, nil )
 									-- Damage cooldown
 									Zombie.PoisonToxicTime = ct + math.Rand(1,3)
 								end
 							end
-						end
+						end]]
 					end
 				end
 			end
