@@ -1749,7 +1749,7 @@ end )
 
 hook.Add( "PlayerSay", "irc.PlayerSay", function( pl, text, team ) 
 	if ( not team ) then
-		irc:Say( string.format( " 07%s %s", pl:Name(), text ), "#mrgreen.zs" )
+		irc:Say( string.format( " 07%s: %s", pl:Name(), text ), "#mrgreen.zs" )
 	end
 end )
 
