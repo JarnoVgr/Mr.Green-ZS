@@ -37,27 +37,23 @@ util.AddNetworkString( "PlayerRedeemed" )
 local PlayersRedeemed = {}
 function GM:OnPlayerRedeem( pl, causer )
 
-	-- Redeem effect
+	--Redeem effect
 	local effectdata = EffectData()
-		effectdata:SetOrigin( pl:GetPos() )
+	effectdata:SetOrigin( pl:GetPos() )
 	util.Effect( "redeem", effectdata )
 
-	-- Send status to everybody
-	
+	--Send status to everybody
 	net.Start("PlayerRedeemed")
 		net.WriteEntity(pl)
 	net.Broadcast()
 	
-	--[[umsg.Start( "PlayerRedeemed" )
-		umsg.Entity( pl )
-	umsg.End()]]
-	
+	--
 	pl:RemoveAllStatus(true,true)
 	
-	-- Check if it wasn't an admin redeem
-	if not IsValid( causer ) then
+	--Check if it wasn't an admin redeem
+	if not IsValid(causer) then
 		for k,v in pairs( player.GetAll() ) do
-			v:ChatPrint( pl:Name().." redeemed!" )
+			v:ChatPrint( pl:Name().." redeemed" )
 		end
 	
 		pl.Redeems = pl.Redeems + 1
@@ -93,10 +89,10 @@ function GM:OnPlayerRedeem( pl, causer )
 	pl.ServerCheckTime = nil
 	pl:SetHumanClass ( 1 )
 	pl:StripWeapons()
-	pl:SetTeam( TEAM_HUMAN )
+	pl:SetTeam(TEAM_HUMAN)
 	pl.FreshRedeem = true
 	
-	table.insert ( PlayersRedeemed, pl )
+	table.insert(PlayersRedeemed, pl)
 	if #PlayersRedeemed == 0 then
 		for k,pl in pairs (PlayersRedeemed) do
 			if k == 1 then
@@ -110,12 +106,10 @@ function GM:OnPlayerRedeem( pl, causer )
 	pl.Redeemed = nil
 	
 	pl:DrawViewModel( true )
-	-- pl:SendLua("GAMEMODE:RestoreViewmodel()")
 	pl:SetFrags(0)
 	
 	if pl:GetPerk("_comeback") then
 		if not pl._ComebackUsed then
-			--skillpoints.AddSkillPoints(pl,200)
 			if pl:GetPistol() then
 				pl:StripWeapon(pl:GetPistol():GetClass())
 			end
@@ -133,16 +127,21 @@ function GM:OnPlayerRedeem( pl, causer )
 	pl.BrainDamage = 0
 	
 	-- if the map has info_player_redeem then spawn him there
-	local RedeemPoints = ents.FindByClass ( "info_player_redeem" )
+	local RedeemPoints = ents.FindByClass("info_player_redeem")
 	if #RedeemPoints > 1 then 
-		for k,v in pairs ( RedeemPoints ) do
-			if ValidEntity ( v ) then
-				pl:SetPos ( v:GetPos() )
+		for k,v in pairs(RedeemPoints) do
+			if ValidEntity(v) then
+				pl:SetPos(v:GetPos())
 			end
 		end
 	end
 	
+	--Give SP for redeeming
+	skillpoints.AddSkillPoints(pl,math.Round(1100*GetInfliction()))
+	
+	--Process
 	self:ProceedRedeemSpawn(pl)
 	
-	Debug ( "[REDEEM] "..tostring(pl).." redeemed" )
+	--Output
+	Debug("[REDEEM] ".. tostring(pl) .." redeemed")
 end

@@ -219,14 +219,14 @@ function CheckObjSpawnpoints()
 	if not Objectives[GAMEMODE:GetObjStage()].VerifiedSpawns then
 		
 		GAMEMODE.UndeadSpawnPoints = {}
-		print("Cleared spawns")
+		Debug("[DIRECTOR] Cleared spawns")
 		Objectives[GAMEMODE:GetObjStage()].ZombieSpawns()
-		print("Loaded new")
+		Debug("[DIRECTOR] Loaded new")
 		
 		for k,v in pairs ( SpawnPoints ) do
 			GAMEMODE.UndeadSpawnPoints[k] = { [1] = v[1], [2] = v[2] }
 		end
-		print("Done")
+		Debug("[DIRECTOR] Done")
 		Objectives[GAMEMODE:GetObjStage()].VerifiedSpawns = true
 	
 	end

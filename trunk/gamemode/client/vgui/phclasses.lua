@@ -873,8 +873,6 @@ elseif MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Na
 	achstat2 = MySelf.DataTable["ClassData"][string.lower(HumanClasses[SelectedClass].Name)].achlevel4_2
 end
 
---print("Achiv1: "..achstat1..", Achiv2: "..achstat2.."")
-
 -- Make header
 ---------------------------
 

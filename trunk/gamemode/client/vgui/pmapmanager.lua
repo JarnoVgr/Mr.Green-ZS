@@ -655,14 +655,11 @@ end
 usermessage.Hook("SendMapProperties",function(um)
 	
 	local map = um:ReadString()
-	local stuff = um:ReadString()
+	local data = um:ReadString()
+
+	local decoded = util.JSONToTable(data)
 	
-	-- print(stuff)
-	
-	local decoded = util.JSONToTable(stuff)
-	
-	MapProperties_cl[map] = decoded
-		
+	MapProperties_cl[map] = decoded	
 end)
 
 function LoadMapProperties()

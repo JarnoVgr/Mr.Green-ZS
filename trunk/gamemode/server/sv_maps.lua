@@ -196,7 +196,8 @@ function GM:MakeBlankMapList()
 		MapCycle[index] = {Map = maps[index], MapName = ((TranslateMapTable[maps[index]] and TranslateMapTable[maps[index]].Name) or maps[index]) }
 	end
 	
-	print("-< Created new Map Cylcle! >-")
+	
+	Debug("[MAPS] Created new Map List")
 	
 	file.Write(filename,util.TableToJSON(MapCycle))	
 
@@ -209,7 +210,7 @@ function GM:LoadMapList()
 	
 	MapCycle = util.JSONToTable(file.Read(filename))
 	
-	print("-< Loaded Map List! >-")
+	Debug("[MAPS] Loaded Map List")
 	-- PrintTable(MapCycle)
 	
 end
@@ -232,7 +233,7 @@ function SaveMapList(pl,cmd,args)
 	local filename = "zombiesurvival/zsmapcycle.txt"
 	
 	file.Write(filename,util.TableToJSON(MapCycle))	
-	print("-< Saved Map List! >-")
+	Debug("[MAPS] Saved Map List")
 	
 end
 concommand.Add("zs_mapmanager_save",SaveMapList) 

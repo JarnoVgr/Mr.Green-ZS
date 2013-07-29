@@ -62,7 +62,7 @@ if meta then
 		-- Loaded module or not
 		if not mysql.IsModuleActive() then return end
 		
-		local query = "SELECT * FROM green_coins WHERE steam_id = '"..self:SteamID().."' AND valid = 1"
+		local query = "SELECT * FROM green_coins WHERE steam_id = '"..self:SteamID().."' AND valid = 1 LIMIT 0,1"
 		
 		--  we send a table with player data, so player doesnt have to be valid afterwards for the data to save
 		SQLQuery( query, SaveGreenCoinsStep1Callback, {ent = self, name = self:Name(), steamid = self:SteamID(), earned = self.EarnedGreenCoins} )
@@ -116,10 +116,10 @@ local function SQLReceive(callbackarg, result, status, err)
 	if (type(err) == "number" and err == 0) then
 		if DEBUG then
 			if type(result) == "number" or type(result) == "string" then
-				print("Number received")
-				print(tostring(result))
+				Debug("[SQL] Number received")
+				Debug("[SQL] "..tostring(result))
 			elseif type(result) == "table" then
-				print("Table received")
+				Debug("[SQL] Table received")
 				PrintTable(result)
 			end
 		end
@@ -137,7 +137,7 @@ function SQLQuery( query, callback, callbackarg )
 	local time = 0
 	if DEBUG then
 		time = SysTime()
-		print("Query start at "..time..", query: '"..query.."'")
+		Debug("[SQL] Query start at "..time..", query: '"..query.."'")
 	end
 	
 	tmysql.query(query, callback, 1, callbackarg)
@@ -168,7 +168,7 @@ local function RetrieveGreenCoinsCallback(pl, result, status, err)
 
 		if (#result == 0) then
 			if DEBUG then
-				print("No record found for "..pl:SteamID().."! Creating one...")
+				Debug("[SQL] No record found for "..pl:SteamID().."! Creating one...")
 			end
 			CreateGreenCoinsEntry( pl )
 			return
@@ -179,7 +179,7 @@ local function RetrieveGreenCoinsCallback(pl, result, status, err)
 		GAMEMODE:SendCoins(pl)
 		
 		if DEBUG then
-			print("Retrieve result table:")
+			Debug("[SQL] Retrieve result table:")
 			PrintTable(result)
 		end
 	else
@@ -381,39 +381,6 @@ function ConnectionRequestAnswer( pl, command, args )
 
 end
 concommand.Add("game_conn_answer",ConnectionRequestAnswer)
-
---  Query tests (only difference is the use of quotes with steam ID)
---[==[local function FaultyCallback( pl, result, status, err )
-	if not (type(err) == "number" and err == 0) then
-		print("ERROR GENERATED")
-	end
-	print("ERROR WHEN ATTEMPTING QUERY (FaultCheck) pl: "..pl:Name().."; status: "..tostring(status).."; error: "..tostring(err))
-	if type(result) == "table" then
-		PrintTable(result)
-	end
-end
-
-function FaultyQuery( pl )
-	local query = "SELECT * FROM green_coins WHERE steam_id = "..pl:SteamID().." AND valid = 1"
-	SQLQuery( query, FaultyCallback, pl )
-end
-concommand.Add("oops",FaultyQuery)
-
-local function GoodCallback( pl, result, status, err )
-	if (type(err) == "number" and err == 0) then
-		print("GOOD QUERY GENERATED")
-	end
-	print("ATTEMPTING QUERY (GoodCheck) pl: "..pl:Name().."; status: "..tostring(status).."; error: "..tostring(err))
-	if type(result) == "table" then
-		PrintTable(result)
-	end
-end
-
-function GoodQuery( pl )
-	local query = "SELECT * FROM green_coins WHERE steam_id = '"..pl:SteamID().."' AND valid = 1"
-	SQLQuery( query, GoodCallback, pl )
-end
-concommand.Add("yay",GoodQuery)]==]
 
 -- --  Database error log functions -- -- 
 

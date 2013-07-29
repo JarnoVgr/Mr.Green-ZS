@@ -91,7 +91,7 @@ net.Receive("SendPlayerXP", function(len)
 	local xp = net.ReadDouble()
 	
 	if not MySelf.DataTable then
-		print("[STATS] Small clientside stats error. Ignore it.")
+		Debug("[STATS] Small clientside stats error. Ignore it.")
 		return 0
 	end
 	
@@ -108,7 +108,7 @@ net.Receive("SendPlayerRank", function(len)
 	local rank = net.ReadDouble()
 
 	if not MySelf.DataTable then
-		print("[STATS] Small clientside stats error. Ignore it.")
+		Debug("[STATS] Small clientside stats error. Ignore it.")
 		return 0
 	end
 	
@@ -140,7 +140,7 @@ end)
 
 net.Receive("SendSales", function(len)
 	if not IsValid( MySelf ) then return end
-	print("[SKILLSHOP] Received SendSales (net)")
+	Debug("[SKILLSHOP] Received SendSales (net)")
 	
 	local amount = net.ReadDouble()
 
@@ -149,7 +149,7 @@ net.Receive("SendSales", function(len)
 		wep = net.ReadString()
 		disc = net.ReadDouble()
 		if not GAMEMODE.HumanWeapons[wep] then
-			print("[SKILLSHOP] Sales error. Requesting an update.")
+			Debug("[SKILLSHOP] Sales error. Requesting an update.")
 			timer.Simple(1,function() RunConsoleCommand("mrgreen_fixdeadsales") end)
 			break
 		else
@@ -178,10 +178,8 @@ usermessage.Hook("SuperBossNotify", function(um)
 end)
 
 usermessage.Hook("Fun1", function(um)
-	
 	local pl = um:ReadEntity()
 	local s = um:ReadShort()
 	
 	pl:SetModelScale(Vector(s,s,s))
-
 end)

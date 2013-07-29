@@ -13,9 +13,13 @@ local umsg = umsg
 local ents = ents
 local gmod = gmod
 
+--Very important script
+include("modules/debug/sh_debug.lua")
+
 --[=[---------------------------------------------------------
           Add them to download list (Client)
 ---------------------------------------------------------]=]
+
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("client/cl_chat.lua")
 AddCSLuaFile("client/cl_utils.lua")
@@ -73,7 +77,7 @@ AddCSLuaFile("modules/json/json.lua")
 
 include("modules/sql/sv_sql.lua")
 
-include("modules/debug/sh_debug.lua")
+
 include("modules/debug/sv_debug.lua")
 
 include("modules/log/hl_log.lua")
@@ -131,23 +135,23 @@ include( "extended/irc/sv_irc.lua" )
 
 for map,opt in pairs(TranslateMapTable) do
 	if TranslateMapTable[map].Objective then
-		print("Added "..tostring(map))
+		Debug("[MAPCODER] Added Objectives file "..tostring(map) .."")
 		AddCSLuaFile("shared/objectivemaps/"..map..".lua")
 	end
 end
-print( "[OBJECTIVES] Included objectives file" )
+Debug("[MAPCODER] Included Objectives file")
 
 hook.Remove("PlayerTick","TickWidgets")
 
 --[=[---------------------------------------------------------
   Include the data for supply crate points and more
 ---------------------------------------------------------]=]
-if file.Exists("gamemodes/zombiesurvival/gamemode/server/maps/"..game.GetMap()..".lua","lsv") then
+--[[if file.Exists("gamemodes/zombiesurvival/gamemode/server/maps/"..game.GetMap()..".lua","lsv") then
 	include("server/maps/".. game.GetMap()..".lua")
-	print( "----- Loaded map config file for this map -----" )
+	Debug("[MAPCODER] Loaded map config file for current map")
 else
-	print( "----- WARNING: Config file for this map has not been found! -----" )
-end
+	Debug("[MAPCODER] WARNING: Config file for this map has not been found")
+end]]
 
 Thres = 0
 difficulty = 1 --default 1
@@ -1649,7 +1653,7 @@ local function DoPhysicsMultiplayer()
 	local phys = {}
 	local movetype, collision, model, vPos, aAng, Skin, Mass
 	
-	print("----Converting prop_physics to multiplayer!")
+	Debug("[INIT] Converting prop_physics to multiplayer!")
 	local c = 0
 	-- Set-up the phys table so it matches the keyvalues one
 	for k,v in ipairs ( ents.FindByClass("prop_physics") ) do
@@ -1665,7 +1669,7 @@ local function DoPhysicsMultiplayer()
 		end
 	end
 
-	print("Found "..tostring(c).." props to convert!")
+	Debug("[INIT] Found "..tostring(c).." props to convert!")
 	
 	c = 0
 	
@@ -1728,7 +1732,7 @@ local function DoPhysicsMultiplayer()
 		c = c + 1
 	end
 	
-	print("Converted "..tostring(c).." props to prop_physics_multiplayer!")
+	Debug("[INIT] Converted "..tostring(c).." props to prop_physics_multiplayer!")
 end
 -- hook.Add ( "InitPostEntity","MultiplayerReplace",DoPhysicsMultiplayer )
 

@@ -21,8 +21,8 @@ mysql.Warnings = {
 
 -- Try to load module
 mysql.bLoaded = require( "tmysql" )
-if mysql.bLoaded then print( mysql.Warnings["module_loaded"] ) end
-if not mysql.bLoaded then print( mysql.Warnings["module_not_loaded"] ) end
+if mysql.bLoaded then Debug( mysql.Warnings["module_loaded"] ) end
+if not mysql.bLoaded then Debug( mysql.Warnings["module_not_loaded"] ) end
 
 -- Returns if sql module has loaded
 mysql.IsModuleActive = function()
@@ -86,8 +86,8 @@ end
 
 -- Check connection
 mysql.CheckConnection = function()
-	mysql.Query( "SELECT * FROM whitelist WHERE comment LIKE 'Deluvas%'", mysql.CheckCallback )
-	print( "[SQL] Checking connection with the DB... Pending..." )
+	mysql.Query( "SELECT * FROM whitelist WHERE comment LIKE 'Deluvas%' LIMIT 0,1", mysql.CheckCallback )
+	Debug( "[SQL] Checking connection..." )
 end	
 
 -- Connection callback
@@ -104,7 +104,7 @@ mysql.Query = function( sQuery, fCallback, bDebug )
 
 	-- Check for module
 	if not mysql.IsModuleActive() then
-		print( mysql.Warnings["module_no_load_query"] )
+		Debug( "[SQL] ".. mysql.Warnings["module_no_load_query"] )
 		return
 	end
 	

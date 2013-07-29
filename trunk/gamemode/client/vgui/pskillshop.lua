@@ -670,7 +670,7 @@ function DrawSkillShop()
 	SPLabel:SetPos (SPLabelX, SPLabelY)
 	SPLabel.Paint = function()
 		DrawPanelBlackBox(0,0,SPLabelW, SPLabelH)
-		draw.SimpleTextOutlined("POINTS: "..MySelf:Frags() , "ArialBoldTwelve", SPLabelW/2, SPLabelH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(MySelf:Frags() .." SP", "ArialBoldTwelve", SPLabelW/2, SPLabelH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 end
 

@@ -416,25 +416,6 @@ function SetPlayerTitle(pl,commandName,args)
 end
 concommand.Add("mrgreen_settitle",SetPlayerTitle) 
 
--- Change redeem class
-function ChangeRedeemClass(pl,commandName,args)
-if args[1] == nil then return end
-if not ValidEntity(pl) then return end
-if pl:Team() == TEAM_SPECTATOR then return end
-local class = tonumber(args[1])
-
-pl.TempClassHuman = class
-local name 
-
-if pl.TempClassHuman == 3 then
-	name = "Marksman"
-else
-	name = HumanClasses[pl.TempClassHuman].Name
-end
-
-pl:PrintMessage (HUD_PRINTTALK, "You will be a "..name.." when you respawn as human!")
-end
--- concommand.Add("mrgreen_setredeemclass",ChangeRedeemClass)
 -- Ban player
 function BanPlayer(pl,commandName,args)
 	if args[2] == nil then return end
@@ -1724,7 +1705,7 @@ end )
 
 hook.Add( "irc.OnRegisterTimeout", "OnRegisterTimeout", function()
 	if IRC_RELAY_ENABLED then
-		print("[IRC] Attempting reconnect to ".. IRC_RELAY_SERVER)
+		Debug("[IRC] Attempting reconnect to ".. IRC_RELAY_SERVER)
 		
 		if ( reconnectTries >= 0 ) then
 			timer.Simple( 1, function() 
@@ -1733,12 +1714,12 @@ hook.Add( "irc.OnRegisterTimeout", "OnRegisterTimeout", function()
 			reconnectTries = reconnectTries - 1
 		end
 	else
-		print("[IRC] Reconnect attempted but IRC is disabled")
+		Debug("[IRC] Reconnect attempted but IRC is disabled")
 	end
 end )
 
 hook.Add( "irc.OnWelcome", "OnWelcome", function( response ) 
-	print("[IRC] Looks like we've received a warm welcome")
+	Debug("[IRC] Looks like we've received a warm welcome")
 
 	--Join default channel
 	--irc:Join( "#mrgreen" )

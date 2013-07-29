@@ -53,8 +53,10 @@ GM.RewardIcons = {}
 w, h = ScrW(), ScrH()
 Threshold = 0
 
-include("shared.lua")
+--Very important script
 include("modules/debug/sh_debug.lua")
+
+include("shared.lua")
 include("client/cl_utils.lua")
 include("shared/sh_utils.lua")
 include("client/cl_chat.lua")

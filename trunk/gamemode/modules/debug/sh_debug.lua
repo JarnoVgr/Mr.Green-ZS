@@ -27,7 +27,7 @@ end
 --[==[--------------------------------------------------------
         Use : Debug purporse - prints to console
 ---------------------------------------------------------]==]
-function Debug ( Text )
+function Debug(Text)
 	if Text == nil then
 		return
 	end
@@ -37,24 +37,28 @@ function Debug ( Text )
 	local NewMessage = Text
 	
 	--Server log
-	local bLogServer = util.tobool ( GetConVarNumber ( "debug_rconprint" ) )
+	local bLogServer = util.tobool(GetConVarNumber("debug_rconprint"))
 	
 	--Check debug convars
 	if SERVER then
-		if GetConVarNumber ( "debug" ) == 0 then return end
+		if GetConVarNumber("debug") == 0 then
+			return
+		end
 		
 		-- Damage convar
 		if string.find ( tostring ( NewMessage ), "[DAMAGE]" ) and GetConVarNumber ( "debug_damage" ) == 0 then return end
 	end
 	
 	--Print the message to the console
-	if not bLogServer or CLIENT then
-		print( "["..Date.."]["..Time.."] "..tostring(NewMessage)) else ServerLog( tostring ( NewMessage ).."\n")
+	if bLogServer or CLIENT then
+		print("["..Date.."]["..Time.."] "..tostring(NewMessage))
+	else
+		ServerLog(tostring(NewMessage).."\n")
 	end
 	
 	--Log the text to file if server
 	if SERVER then
-		LogTable = LogTable.."["..Date.."]["..Time.."] "..tostring ( NewMessage ).."\n"
+		LogTable = LogTable .."[".. Date .."][".. Time .."] ".. tostring(NewMessage).."\n"
 	end	
 
 	--Turbo debug
@@ -64,7 +68,11 @@ function Debug ( Text )
 end
 
 -- Save debug each 3 seconds
--- if SERVER then timer.Create ( "DebugToFileTimer", 3, 0, WriteDebugToFile ) end
+--[[if SERVER then
+	timer.Create("DebugToFileTimer", 3, 0, WriteDebugToFile)
+end]]
 
 -- Write the debug file on lua shutdown
-hook.Add ( "ShutDown", "WriteDebugToFile", function() WriteDebugToFile() end )
+hook.Add("ShutDown", "WriteDebugToFile", function()
+	WriteDebugToFile()
+end)

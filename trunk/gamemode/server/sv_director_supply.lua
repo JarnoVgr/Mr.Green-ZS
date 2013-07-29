@@ -312,7 +312,7 @@ function GM:SpawnCratesFromTable(crateSpawns)
 		end
 	end
 	
-	print("[CRATES] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
+	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
 end
 
 -- Precache the gib models
