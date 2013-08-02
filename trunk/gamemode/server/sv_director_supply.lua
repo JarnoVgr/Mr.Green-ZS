@@ -37,7 +37,7 @@ function GM:SetCrates()
 		
 		hook.Add( "SetupPlayerVisibility", "AddCratesToPVS", AddCratesToPVS )
 		
-		print("-< Loaded Crate Spawnpoints! >-")
+		Debug("[DIRECTOR] Loaded Crate Spawnpoints")
 	end
 end
 
@@ -61,9 +61,7 @@ function ConvertOldCratesToNew(pl,cmd,args)
 		
 		local output = string.gsub(filename,".lua",".txt")
 		
-		file.Write( "zombiesurvival/crates/"..output,util.TableToJSON(tbl or {}) )
-		
-		
+		file.Write( "zombiesurvival/crates/"..output,util.TableToJSON(tbl or {}) )	
 	end
 	AmmoDropPoints = { X = {}, Y = {}, Z = {}, Switch = {}, ID = {} }
 	

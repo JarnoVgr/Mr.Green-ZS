@@ -458,6 +458,15 @@ function RedeemPlayer(pl,commandName,args)
 end
 concommand.Add("redeem_player",RedeemPlayer)
 
+--Supply Crates count
+function CountSupplyCrates(pl,commandName,args)
+	if not (pl:IsAdmin()) then return end
+
+	local CrateEntsCount = #ents.FindByClass("spawn_ammo")
+	pl:ChatPrint("There are ".. tostring(CrateEntsCount) .." Supply Crates active")
+end
+concommand.Add("admin_countcrates",CountSupplyCrates)
+
 -- Bring player
 function BringPlayer(pl,commandName,args)
 
