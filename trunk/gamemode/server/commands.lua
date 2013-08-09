@@ -950,18 +950,22 @@ local adminCommandList = {      -- list of all admin commands I added
 				CHATCOMMANDS
 -----------------------------------------]==]
 
-local function CommandSay( pl, text, teamonly )
-
+local function CommandSay(pl, text, teamonly)
 	if ((text == "!kill" or text == "!suicide") and pl:Alive() and not ENDROUND) then
-		if (pl:IsSuperAdmin() or GAMEMODE:CanPlayerSuicide(pl)) then
+		if GAMEMODE:CanPlayerSuicide(pl) then
 			pl:Kill()
-			return text
+		else
+			--Heads up!
+			local suicidenote = { "You can't suicide now!","Suicide is not the answer."}
+			if math.random(1,3) == 1 then
+				pl:Notice(suicidenote[math.random(1,#suicidenote)],3, Color(255,10,10,255))
+			end
 		end
 		return ""
 	end
 	
 	if (text == "!commandlist" or text == "!cmdhelp") then   -- prints the list of available commands
-		pl:PrintMessage(HUD_PRINTCONSOLE, "\n\nList of commands on the Mr.Green server added by ClavusElite:\n")
+		pl:PrintMessage(HUD_PRINTCONSOLE, "\n\nList of commands on the Mr. Green server added by ClavusElite:\n")
 		pl:PrintMessage(HUD_PRINTCONSOLE, "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- /\n")
 		for _, mrgreencmd in pairs(clientCommandList) do		
 			pl:PrintMessage(HUD_PRINTCONSOLE, mrgreencmd.."\n")	 	 	

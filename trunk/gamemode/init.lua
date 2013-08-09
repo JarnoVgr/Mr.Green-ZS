@@ -1129,12 +1129,7 @@ function GM:CanPlayerSuicide(pl)
 	end
 
 	--Humans can't suicide in first waves
-	if pl:Team() == TEAM_HUMAN and WARMUPTIME > ServerTime() then 
-		local suicidenote = { "You can't suicide now!","Suicide is not the answer.","Give others time to spawn before killing yourself!" }
-		if math.random(1,3) == 1 then
-			pl:Notice(suicidenote[math.random(1,#suicidenote)],3, Color (255,10,10,255))
-		end
-		
+	if pl:Team() == TEAM_HUMAN and CurTime() < WARMUPTIME then 
 		return false
 	end
 	
