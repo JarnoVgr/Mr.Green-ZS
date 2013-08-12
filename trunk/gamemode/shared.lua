@@ -361,9 +361,8 @@ function GM:GetGameDescription()
 		if OBJECTIVE then
 			return self.Name.." (Obj. "..self:GetObjStage().." out of "..#Objectives..")"
 		else
-			return self.Name.." (Time "..ToMinutesSeconds(math.Clamp ( ROUNDTIME - CurTime(), 0, ROUNDTIME ))..")"
-			--return self.Name--.." (Wave "..self:GetWave().." of "..NUM_WAVES..")"
-
+			--return self.Name.." (Time "..ToMinutesSeconds(math.Clamp ( ROUNDTIME - CurTime(), 0, ROUNDTIME ))..")"
+			return self.Name--.." (Wave "..self:GetWave().." of "..NUM_WAVES..")"
 		end
 end
 
