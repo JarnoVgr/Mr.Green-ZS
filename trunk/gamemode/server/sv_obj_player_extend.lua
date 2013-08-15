@@ -1340,7 +1340,7 @@ end
 
 function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	if not self.Nails then 
-	    return 
+	    return false
 	end
 	
 	-- Cadebreaker warning
@@ -1453,7 +1453,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 			end
 		end
 	end
-	return true	
+	return bNailDied == false
 end
 
 -- Fixing physics attacker function
