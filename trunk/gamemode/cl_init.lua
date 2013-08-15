@@ -1274,9 +1274,9 @@ BloodDraws = {}
 function AddBloodSplat( severity )
 	local toDraw = bloodSplats[math.random(1,8)]
 	local dur = severity
-	local alp = 55+severity*90
+	local alp = 55+severity*50
 	
-	if #BloodDraws < 5 then
+	if #BloodDraws < 3 then
 		table.insert(BloodDraws, { fadestart = CurTime()+3+math.Rand(1,5), image = toDraw, duration = dur, alpha = alp })
 	end
 end
