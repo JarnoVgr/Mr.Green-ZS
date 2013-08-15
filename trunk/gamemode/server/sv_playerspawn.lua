@@ -108,7 +108,7 @@ function GM:PlayerInitialSpawn( pl )
 	pl.LastRTD = 0 
 	pl.StuckTimer = 0
 	
-	pl:SetCustomCollisionCheck( true )
+	pl:SetCustomCollisionCheck(true)
 	-- pl:SetNoCollideWithTeammates(true)
 	-- pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
 	
@@ -128,9 +128,14 @@ function GM:PlayerInitialSpawn( pl )
 	-- Team
 	local iTeam = TEAM_SPECTATOR
 	
-	if pl:IsBot() then iTeam = TEAM_HUMAN end
+	if pl:IsBot() then
+		iTeam = TEAM_HUMAN
+	end
+
 	-- Send toxic fumes positions to client since I can't seem to get the spawnpoints clientside
-	timer.Simple ( 2, function() SentToxicFumesPosition ( pl ) end )
+	timer.Simple(2, function()
+		SentToxicFumesPosition(pl)
+	end)
 	
 	-- Setup a table for connected players for good reasons
 	if not DataTableConnected[ID] then

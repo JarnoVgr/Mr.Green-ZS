@@ -88,14 +88,13 @@ function GM:SetRandomsToZombie()
 end
 
 function GM:SetRandomsToFirstZombie()
-	local allplayers = player.GetAll()
-	local numplayers = #allplayers
+	local numPlayers = #player.GetAll()
 	
-	if numplayers <= 4 then
+	if numPlayers <= 4 then
 		return
 	end
 
-	local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
+	local desiredzombies = math.max(1, math.ceil(numPlayers * WAVE_ONE_ZOMBIES))
 
 	for i=1, desiredzombies do
 		local humans = team.GetPlayers(TEAM_HUMAN)
