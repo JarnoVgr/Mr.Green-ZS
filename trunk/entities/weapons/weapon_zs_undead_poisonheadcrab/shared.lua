@@ -64,12 +64,13 @@ function SWEP:Think()
 	self:CheckSpitting()
 	
 	if SERVER then
-	local mOwner = self.Owner
-	if IsValid(self.Owner) and self.Owner:Alive() then
-		if self.Leaping then
-			if mOwner:OnGround() or 0 < mOwner:WaterLevel() then
-				self.Leaping = false
-			else
+		local mOwner = self.Owner
+
+		if IsValid(self.Owner) and self.Owner:Alive() then
+			if self.Leaping then
+				if mOwner:OnGround() or 0 < mOwner:WaterLevel() then
+					self.Leaping = false
+				else
 					local vStart = Vector(0,0,14) + mOwner:GetPos()
 					local ang = mOwner:GetAimVector() 
 					ang.z = 0
@@ -88,7 +89,7 @@ function SWEP:Think()
 							break
 						end
 					end
-					
+						
 					if ent and IsValid(ent) then
 						local phys = ent:GetPhysicsObject()
 
@@ -98,7 +99,9 @@ function SWEP:Think()
 							phys:ApplyForceOffset(vel, (ent:NearestPoint(vStart) + ent:GetPos() * 2) / 3)
 							ent:SetPhysicsAttacker(mOwner)
 						end
+
 						mOwner:ViewPunch(Angle(math.random(0, 30), math.random(0, 30), math.random(0, 30)))
+
 						if ent:IsPlayer() and ent:Team() ~= mOwner:Team() then
 							ent:TakeDamage(5, mOwner)
 							ent:TakeDamageOverTime( math.Rand(2.1,3.1), 1.5, math.random(13,20), mOwner, self.Weapon )
@@ -111,12 +114,12 @@ function SWEP:Think()
 						end
 						self.Leaping = false
 					end
-		
+				end
 			end
 		end
 	end
-	end
-	self:NextThink(CurTime())
+	
+	self:NextThink(CurTime()+0.5)
 	return true
 end
 
