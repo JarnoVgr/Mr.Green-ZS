@@ -83,7 +83,9 @@ end
 
 function SWEP:CheckMeleeAttack()
 	local swingend = self:GetSwingEndTime()
-	if swingend == 0 or CurTime() < swingend then return end
+	if swingend == 0 or CurTime() < swingend then
+		return
+	end
 	self:StopSwinging(0)
 
 	self:Swung()
@@ -247,6 +249,8 @@ function SWEP:Swung()
 			ent:TakeDamage(Damage, self.Owner, self)
 		end
 	end
+
+	owner:LagCompensation(false)
 end
 
 function SWEP:SetMoaning(bl)
