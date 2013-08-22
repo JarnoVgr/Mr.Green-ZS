@@ -83,9 +83,7 @@ end
 
 function SWEP:CheckMeleeAttack()
 	local swingend = self:GetSwingEndTime()
-	if swingend == 0 or CurTime() < swingend then
-		return
-	end
+	if swingend == 0 or CurTime() < swingend then return end
 	self:StopSwinging(0)
 
 	self:Swung()
@@ -147,15 +145,14 @@ function SWEP:StartSwinging()
 	end
 end
 
-function SWEP:Swung()
+function SWEP:Swung()	
 	if CLIENT then
 		return
 	end
-
-	local owner = self.Owner
-
-	owner:LagCompensation(true)
-
+	
+	if not ValidEntity(self.Owner) then
+		return
+	end
 
 	local pl = self.Owner
 	local victim = self.PreHit
@@ -249,8 +246,6 @@ function SWEP:Swung()
 			ent:TakeDamage(Damage, self.Owner, self)
 		end
 	end
-
-	owner:LagCompensation(false)
 end
 
 function SWEP:SetMoaning(bl)
