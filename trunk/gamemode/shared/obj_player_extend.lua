@@ -43,7 +43,9 @@ function meta:IsZombieInAura()
 	return self.InHealTime and self.InHealTime > CurTime()
 end
 
-
+function meta:GetHandsModel()
+	return player_manager.TranslatePlayerHands(self.PlayerModel)
+end
 
 function meta:IsZombieInHorde()
 	if not ValidEntity(self) then return end

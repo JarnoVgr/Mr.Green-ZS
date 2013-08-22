@@ -73,7 +73,7 @@ function SWEP:Initialize()
 	
 end
 
-function SWEP:UpdateBonePositions(vm)
+--[[function SWEP:UpdateBonePositions(vm)
 	
 	if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 		for k, v in pairs( self.ViewModelBoneMods ) do
@@ -104,9 +104,9 @@ function SWEP:UpdateBonePositions(vm)
 		end
 	end
 	
-end
+end]]
 
-function SWEP:ResetBonePositions()
+--[[function SWEP:ResetBonePositions()
 	
 	if not self.Owner then return end
 	local vm = self.Owner:GetViewModel()
@@ -118,13 +118,13 @@ function SWEP:ResetBonePositions()
 		vm:ManipulateBonePosition( i, Vector(0, 0, 0) )
 	end
 	
-end
+end]]
 
 function SWEP:CreateViewModelElements()
 	
 	self:CreateModels(self.VElements)
 	
-	 self.BuildViewModelBones = function( s )
+	--[[self.BuildViewModelBones = function( s )
 		if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 			for k, v in pairs( self.ViewModelBoneMods ) do
 				local bone = s:LookupBone(k)
@@ -141,7 +141,7 @@ function SWEP:CreateViewModelElements()
 		end
 	end   
 
-	MakeNewArms(self)
+	MakeNewArms(self)]]
 	
 end
 
@@ -251,9 +251,9 @@ function SWEP:Deploy()
 		self:CheckCustomIronSights()
 	end
 	
-	if CLIENT then
+	--[[if CLIENT then
 		self:ResetBonePositions()
-	end
+	end]]
 	
 	self.Weapon:SetNextSecondaryFire( CurTime() + 0.8 )
 	
@@ -262,7 +262,11 @@ function SWEP:Deploy()
 	self:OnDeploy()
 	
 	-- Speed change
-	if SERVER then GAMEMODE:WeaponDeployed( self.Owner, self ) return true else self:SetViewModelColor ( Color(255,255,255,255) ) 
+	if SERVER then
+		GAMEMODE:WeaponDeployed( self.Owner, self )
+		return true
+	else
+		self:SetViewModelColor( Color(255,255,255,255) ) 
 	end
 
 	return true
@@ -276,7 +280,7 @@ function SWEP:Holster()
 	self:SetIronsights( false ) 
 	--RemoveNewArms(self)
 	 if CLIENT then
-		self:ResetBonePositions()
+		--self:ResetBonePositions()
 		RestoreViewmodel(self.Owner)
     end
 	
@@ -288,10 +292,8 @@ function SWEP:OnRemove()
     if CLIENT then
         self:RemoveModels()
 		RestoreViewmodel(self.Owner)
-		self:ResetBonePositions()
-		
+		--self:ResetBonePositions()
     end
-     
 end
 
 function SWEP:Equip ( NewOwner )

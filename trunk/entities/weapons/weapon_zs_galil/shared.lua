@@ -37,7 +37,8 @@ SWEP.ViewModelFlip		= false
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_rif_galil.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstike/c_rif_galil.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_rif_galil.mdl" )
 
 SWEP.Weight				= 5
@@ -70,8 +71,8 @@ SWEP.Cone = 0.07
 SWEP.ConeIron = 0.03
 SWEP.ConeIronCrouching = 0.0275
 
-SWEP.IronSightsPos = Vector(-5.15,-3,2.37)
-SWEP.IronSightsAng = Vector(-.4,0,0)
+SWEP.IronSightsPos = Vector(-6.361, -7.639, 2.559)
+SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.OverridePos = Vector(-2, -3.541, 1.519)
 SWEP.OverrideAng = Vector( 0,0,0 )

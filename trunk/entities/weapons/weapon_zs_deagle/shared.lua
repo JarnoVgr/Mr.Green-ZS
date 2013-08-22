@@ -37,7 +37,8 @@ SWEP.Base = "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_pist_deagle.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_pist_deagle.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_pist_deagle.mdl" )
 
 SWEP.Weight				= 5
@@ -63,8 +64,8 @@ SWEP.ConeCrouching = 0.025
 SWEP.ConeIron = 0.035
 SWEP.ConeIronCrouching = 0.020
 
-SWEP.IronSightsPos = Vector(5.15,-2,2.65)
-SWEP.IronSightsAng = Vector(.3,0,0)
+SWEP.IronSightsPos = Vector(-6.361, -10, 2)
+SWEP.IronSightsAng = Vector(0.456, 0, 0)
 
 SWEP.OverridePos = Vector(1.48, -1.282, 1.679)
 SWEP.OverrideAng = Vector( 0,0,0 )

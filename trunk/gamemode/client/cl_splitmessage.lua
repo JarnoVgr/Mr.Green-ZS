@@ -272,11 +272,12 @@ for i=1,8 do
 end
 
 local function Draw3DMessage()
-	local curtime = CurTime()
+	if not DrawTime1 then
+		return
+	end
 
-	if curtime > DrawTime1 then
+	if CurTime() > DrawTime1 then
 		hook.Remove("PostDrawViewModel", "Draw3DVMMessage")
-		-- hook.Remove("PostDrawOpaqueRenderables", "Draw3DMessage")
 		PlayedSound = false
 		DrawTime1 = nil
 		ToDraw1 = {}
@@ -292,7 +293,7 @@ local function Draw3DMessage()
 	ang.y = r + 90
 	ang.r = y -90]=]
 	
-	local delta = DrawTime1 - curtime	
+	local delta = DrawTime1 - CurTime()	
 	local delta2 = ((5-delta)/0.5) -- when it equals 0 that means that our message arrived
 	
 	if delta < 4.5 and not PlayedSound then
@@ -313,7 +314,7 @@ local function Draw3DMessage()
 		alpha = 255*math.Clamp(delta/1,0,1)
 	end
 	
-	cam.Start3D2D(EyePos()+MySelf:GetAimVector()*(300-pos),ang,0.05)
+	cam.Start3D2D(EyePos()+MySelf:GetAimVector()*(310-pos),ang,0.05)
 	cam.IgnoreZ(true)
 
 		for i, msg in pairs(ToDraw1) do
@@ -348,7 +349,9 @@ local function Draw3DMessage()
 end
 
 function GM:Add3DMessage(y, msg, col, font)
-	if util.tobool(GetConVarNumber("_zs_hidenotify")) then return end
+	if util.tobool(GetConVarNumber("_zs_hidenotify")) then
+		return
+	end
 
 	local Cached1 = true
 	
@@ -368,14 +371,9 @@ function GM:Add3DMessage(y, msg, col, font)
 
 	
 	table.insert(ToDraw1, Message)
-	-- if player have viewmodel - then in front of it, else draw the normal way
-	-- if MySelf:Alive() and MySelf:GetActiveWeapon() and IsValid(MySelf:GetActiveWeapon()) then
-		hook.Add("PostDrawViewModel", "Draw3DVMMessage", Draw3DMessage)
-	-- else
-	-- 	hook.Add("PostDrawOpaqueRenderables", "Draw3DMessage", Draw3DMessage)
-	-- end
+
+	hook.Add("PostDrawViewModel", "Draw3DMessage", Draw3DMessage)
 end
--- PostDrawOpaqueRenderables
 -------------------------------------------------------
 local CachedMarkups2 = {}
 

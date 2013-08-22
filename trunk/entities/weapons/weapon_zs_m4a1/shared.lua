@@ -44,7 +44,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_rif_m4a1.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_rif_m4a1.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_rif_m4a1.mdl" )
 
 SWEP.Weight				= 5
@@ -78,8 +79,8 @@ SWEP.MaxAmmo			    = 250
 SWEP.WalkSpeed = 175
 SWEP.MaxBulletDistance 		= 2600
 
-SWEP.IronSightsPos = Vector(5.9,-6,1)
-SWEP.IronSightsAng = Vector(3,1.3,4)
+SWEP.IronSightsPos = Vector(-8.05, -5, 0.5)
+SWEP.IronSightsAng = Vector(3, -4, -4)
 
 SWEP.OverridePos = Vector(2.64, -3.379, 1)
 SWEP.OverrideAng = Vector(0, 0, 3.144)

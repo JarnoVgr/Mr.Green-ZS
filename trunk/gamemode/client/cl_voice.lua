@@ -33,7 +33,11 @@ end
 function PANEL:Paint( w, h )
 
 	if ( not IsValid( self.ply ) ) then return end
-	draw.RoundedBox( 4, 0, 0, w, h, Color( 0, self.ply:VoiceVolume() * 255, 0, 240 ) )
+	if self.ply:IsHuman() then
+		draw.RoundedBox( 4, 0, 0, w, h, Color( 0, 0, self.ply:VoiceVolume() * 255, 240 ) )
+	else
+		draw.RoundedBox( 4, 0, 0, w, h, Color( 0, self.ply:VoiceVolume() * 255, 0, 240 ) )
+	end
 
 end
 

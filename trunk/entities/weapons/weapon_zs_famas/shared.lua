@@ -37,7 +37,8 @@ SWEP.ViewModelFlip		= false
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_rif_famas.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_rif_famas.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_rif_famas.mdl" )
 
 SWEP.Weight				= 5

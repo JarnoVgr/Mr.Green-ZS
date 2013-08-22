@@ -30,7 +30,8 @@ SWEP.Instructions = ""
 
 SWEP.Base				= "weapon_zs_base_dummy"
 
-SWEP.ViewModel = "models/weapons/v_grenade.mdl"
+SWEP.ViewModel = "models/weapons/c_grenade.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_grenade.mdl"
 SWEP.TotalDamage = "~300-350"
 SWEP.Primary.ClipSize = 3

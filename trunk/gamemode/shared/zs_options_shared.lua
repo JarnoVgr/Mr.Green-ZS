@@ -1118,13 +1118,13 @@ ZombieClasses[0] =
 	Unlocked = true,
 	OnSpawn = function(pl)
 		
-			local desiredname = pl:GetInfo("cl_playermodel")
+			--[[local desiredname = pl:GetInfo("cl_playermodel")
 			local modelname = player_manager.TranslatePlayerModel(#desiredname == 0 and "models/player/group01/male_09.mdl" or desiredname)
 			if not table.HasValueCI(PlayerModels, modelname) and not (pl:IsAdmin() and table.HasValueCI(PlayerAdminModels, modelname)) then
 				modelname = table.Random(PlayerModels)
 			end
-			local lowermodelname = string.lower(modelname)
-			pl:SetModel(lowermodelname)
+			local lowermodelname = string.lower(modelname)]]
+			pl:SetModel(player_manager.TranslatePlayerModel(pl.PlayerModel))
 			
 			pl:SetRandomFace()
 
@@ -1930,80 +1930,86 @@ ZombieClassesCrow =
 
 PlayerModels = {
 	--Half-Life 2
-		"models/player/alyx.mdl",
-		"models/player/barney.mdl",
-		"models/player/breen.mdl",
-		--"models/player/combine_soldier.mdl",
-		--"models/player/combine_soldier_prisonguard.mdl",
-		--"models/player/combine_super_soldier.mdl",
-		--"models/player/soldier_stripped.mdl",
-		--"models/player/police.mdl",
-		"models/player/eli.mdl",
-		"models/player/gman_high.mdl",
-		"models/player/Kleiner.mdl",
-		"models/player/monk.mdl",
-		"models/player/magnusson.mdl",
-		"models/player/mossman.mdl",
-		"models/player/odessa.mdl",
-		--"models/player/classic.mdl",
-		--"models/player/corpse1.mdl",
-		--"models/player/charple01.mdl",
-		"models/player/Group01/Female_01.mdl",
-		"models/player/Group01/Female_02.mdl",
-		"models/player/Group01/Female_03.mdl",
-		"models/player/Group01/Female_04.mdl",
-		"models/player/Group01/Female_06.mdl",
-		"models/player/Group03/Female_01.mdl",
-		"models/player/Group03/Female_02.mdl",
-		"models/player/Group03/Female_03.mdl",
-		"models/player/Group03/Female_04.mdl",
-		"models/player/Group03/Female_06.mdl",
-		"models/player/Group01/Male_01.mdl",
-		"models/player/Group01/Male_02.mdl",
-		"models/player/Group01/Male_03.mdl",
-		"models/player/Group01/Male_04.mdl",
-		"models/player/Group01/Male_05.mdl",
-		"models/player/Group01/Male_06.mdl",
-		"models/player/Group01/Male_07.mdl",
-		"models/player/Group01/Male_08.mdl",
-		"models/player/Group03/Male_01.mdl",
-		"models/player/Group03/Male_02.mdl",
-		"models/player/Group03/Male_03.mdl",
-		"models/player/Group03/Male_04.mdl",
-		"models/player/Group03/Male_05.mdl",
-		"models/player/Group03/Male_06.mdl",
-		"models/player/Group03/Male_07.mdl",
-		"models/player/Group03/Male_08.mdl",
-	--Counter-Strike
-		"models/player/arctic.mdl",
-		"models/player/leet.mdl",
-		"models/player/guerilla.mdl",
-		"models/player/phoenix.mdl",
-		"models/player/gasmask.mdl",
-		"models/player/riot.mdl",
-		"models/player/swat.mdl",
-		"models/player/urban.mdl",
-		"models/player/Hostage/Hostage_01.mdl",
-		"models/player/Hostage/Hostage_02.mdl",
-		"models/player/Hostage/hostage_03.mdl",
-		"models/player/Hostage/hostage_04.mdl",
-	--Day of Defeat
-		--"models/player/dod_american.mdl",
-		--"models/player/dod_german.mdl",
-	--Portal 2
-		--"models/player/p2_chell.mdl",
-	--Custom
-		--"models/mrgreen/obama.mdl",
-		--"models/mrgreen/creepr.mdl"
+		"alyx",
+		"barney",
+		"breen",
+		"eli",
+		"gman",
+		"kleiner",
+		"monk",
+		"magnusson",
+		"mossman",
+		"odessa",
+		"female01",
+		"female02",
+		"female03",
+		"female04",
+		"female05",
+		"female06",
+		"female07",
+		"female08",
+		"female09",
+		"female10",
+		"female11",
+		"female12",
+		"male01",
+		"male02",
+		"male03",
+		"male04",
+		"male05",
+		"male06",
+		"male07",
+		"male08",
+		"male09",
+		"male10",
+		"male11",
+		"male12",
+		"male13",
+		"male14",
+		"male15",
+		"male16",
+		"male17",
+		"male18",
+		"medic01",
+		"medic02",
+		"medic03",
+		"medic04",
+		"medic05",
+		"medic06",
+		"medic07",
+		"medic08",
+		"medic09",
+		"medic10",
+		"medic11",
+		"medic12",
+		"medic13",
+		"medic14",
+		"medic15",
+		"refugee01",
+		"refugee02",
+		"refugee03",
+		"refugee04",
+		"hostage01",
+		"hostage02",
+		"hostage03",
+		"hostage04",
+		"css_arctic",
+		"css_gasmask",
+		"css_guerilla",
+		"css_leet",
+		"css_phoenix",
+		"css_riot",
+		"css_swat",
+		"css_urban"
 }
 
 PlayerAdminModels = {
 	--Day of Defeat
-		"models/player/dod_american.mdl",
-		"models/player/dod_german.mdl"
+		"dod_american",
+		"dod_german"
 	--Custom
-		--"models/mrgreen/obama.mdl",
-		--"models/mrgreen/creepr.mdl"
+		--"obama",
+		--"creepr"
 }
 
 --[=[---------------------------------------------

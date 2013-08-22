@@ -28,8 +28,15 @@ function death.HumanDeath( pl, attacker )
 	if not IsEntityValid ( pl ) then return end
 	if pl ~= MySelf or not pl:IsHuman() then return end
 
+	if ServerTime() <= WARMUPTIME then
+		MySelf.NextSpawn = WARMUPTIME+2
+	else
+		local NextSpawn = math.Clamp(GetInfliction() * 14, 1, 4)
+		MySelf.NextSpawn = CurTime() + NextSpawn
+	end
+	
 	-- Predict spawn countdown timer
-	MySelf.NextSpawn = CurTime() + 4--( math.Clamp ( GetInfliction() * 10, 3, 8 ) )
+	--MySelf.NextSpawn = CurTime() + 4--( math.Clamp ( GetInfliction() * 10, 3, 8 ) )
 	
 	-- Shuffle random notice
 	death.ShuffleRandomNotice()
@@ -47,7 +54,12 @@ function death.ZomboDeath( pl, attacker )
 	if not pl:IsZombie() or pl ~= MySelf then return end
 	
 	-- Spawn timer
-	MySelf.NextSpawn = CurTime() + 3 --( math.Clamp ( GetInfliction() * 14, 1, 4 ) )
+	if ServerTime() <= WARMUPTIME then
+		MySelf.NextSpawn = WARMUPTIME+2
+	else
+		local NextSpawn = math.Clamp(GetInfliction() * 14, 1, 4)
+		MySelf.NextSpawn = CurTime() + NextSpawn
+	end
 	
 	-- Status
 	MySelf.FirstHumanDeath = false

@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.Author	= "JetBoom"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 12
-	SWEP.ViewModelFlip = true
+	SWEP.ViewModelFlip = false
 	SWEP.IconLetter = "x"
 	SWEP.ViewModelFOV = 65
 	killicon.AddFont("weapon_zs_mp5", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
@@ -36,7 +36,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_smg_mp5.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_smg_mp5.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_smg_mp5.mdl" )
 
 SWEP.Weight				= 5
@@ -67,11 +68,17 @@ SWEP.ConeIronCrouching = 0.05
 SWEP.WalkSpeed = 185
 SWEP.MaxBulletDistance 		= 2300
 
-SWEP.IronSightsPos = Vector(4.72,-2,1.86)
-SWEP.IronSightsAng = Vector(1.2,-.15,0)
+--SWEP.IronSightsPos = Vector(4.72,-2,1.86)
+--SWEP.IronSightsAng = Vector(1.2,-.15,0)
+SWEP.IronSightsPos = Vector(-5.361, -7.481, 1.759)
+SWEP.IronSightsAng = Vector(1.929, 0, 0)
+
 
 SWEP.OverridePos = Vector(1.6, -2.623, 1.559)
 SWEP.OverrideAng = Vector(0, 0, 0)
 
+
 --SWEP.IronSightsPos = Vector(1.6, -2.623, 1.559)
 --SWEP.IronSightsAng = Vector(0, 0, 0)
+
+

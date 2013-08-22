@@ -36,7 +36,8 @@ SWEP.WalkSpeed = 200
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_pist_p228.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_pist_p228.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_pist_p228.mdl" )
 
 SWEP.Weight				= 5
@@ -67,8 +68,8 @@ SWEP.MaxBulletDistance 		= 1800
 
 SWEP.MaxAmmo			    = 130
 
-SWEP.IronSightsPos = Vector(4.76,-2,2.955)
-SWEP.IronSightsAng = Vector(-.6,0,0)
+SWEP.IronSightsPos = Vector(-6, -10.473, 2.799)
+SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.OverridePos = Vector(1.6, -1.624, 1.559)
 SWEP.OverrideAng = Vector(0, 0, 0)

@@ -517,13 +517,13 @@ end
 --[==[------------------------------------------------------------
 	        Get an entity by its index
 -------------------------------------------------------------]==]
-function GetEntityByIndex ( iIndex ) 
+--[[function GetEntityByIndex ( iIndex ) 
 	for k, v in pairs ( ents.GetAll() ) do
 		if v:EntIndex() == iIndex then
 			return v
 		end
 	end
-end
+end]]
 
 --[==[----------------------------------------------------------------------------
 	       Rounding to a specific digit math. function

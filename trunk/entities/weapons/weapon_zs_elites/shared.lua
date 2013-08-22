@@ -23,7 +23,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ("models/weapons/v_pist_elite.mdl")
+SWEP.ViewModel			= Model ("models/weapons/cstrike/c_pist_elite.mdl")
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ("models/weapons/w_pist_elite.mdl")
 
 SWEP.Weight				= 5

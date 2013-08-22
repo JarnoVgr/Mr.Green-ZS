@@ -20,7 +20,8 @@ end
 
 SWEP.Base = "weapon_zs_base"
 
-SWEP.ViewModel = "models/weapons/v_shotgun.mdl"
+SWEP.ViewModel = "models/weapons/c_shotgun.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_shotgun.mdl"
 
 SWEP.Weight = 10

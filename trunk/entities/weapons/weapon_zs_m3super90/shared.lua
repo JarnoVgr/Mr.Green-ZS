@@ -21,7 +21,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_shot_m3super90.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_shot_m3super90.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_shot_m3super90.mdl" )
 
 SWEP.Weight				= 10
@@ -48,8 +49,8 @@ SWEP.IsShotgun = true
 SWEP.WalkSpeed = 180
 SWEP.MaxBulletDistance 		= 1750
 
-SWEP.IronSightsPos = Vector(5.73,-2,3.375)
-SWEP.IronSightsAng = Vector(0.001,.05,0.001)
+SWEP.IronSightsPos = Vector(-7.64, -10.315, 3.319)
+SWEP.IronSightsAng = Vector(0, 0, 0)
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.OverridePos = Vector(2.839, -4.591, 2)

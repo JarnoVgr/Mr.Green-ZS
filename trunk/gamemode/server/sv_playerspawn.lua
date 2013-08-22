@@ -245,6 +245,47 @@ function GM:PlayerSpawn(pl)
 	--Predicting spawn, don't erase
 	pl:SetDeaths(PREDICT_SPAWN)
 	
+
+	--Set model based on preferences
+	if pl:IsBot() then
+		--Random model
+		pl.PlayerModel = table.Random(PlayerModels)
+	else
+		--Get preferred model
+		local DesiredPlayerModelName = pl:GetInfo("cl_playermodel")
+		if #DesiredPlayerModelName > 0 and DesiredPlayerModelName ~= "none" then
+			pl.PlayerModel = string.lower(DesiredPlayerModelName)
+		else
+			pl.PlayerModel = table.Random(PlayerModels)
+		end
+	
+		--[[if pl:HasBought("gordonfreeman") and not self.GordonIsHere and math.random( 1,5 ) == 1 then
+			pl:ChatPrint("You're now THE Gordon Freeman!")
+			pl.IsFreeman = true
+			self.GordonIsHere = true
+			pl.PlayerModel = "gordon"
+		end]]
+	
+		--[[if pl:GetPerk("_freeman") then
+			pl.PlayerModel = "gordon"
+		end]]
+	
+		--Check if in PlayerModels list
+		if table.HasValue(PlayerModels, pl.PlayerModel) or (pl:IsAdmin() and table.HasValue(PlayerAdminModels, pl.PlayerModel)) then
+			--Get custom player color
+			local PlayerModelColor = pl:GetInfo("cl_playercolor")
+			
+			--Set player color
+			pl:SetPlayerColor(Vector(PlayerModelColor))
+			
+			--Set weapon color
+			pl:SetWeaponColor(Vector(PlayerModelColor))
+		else
+			pl.PlayerModel = table.Random(PlayerModels)
+			Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredPlayerModelName ..". Which doesn't exist.")
+		end
+	end
+	
 	if pl:Team() ~= TEAM_SPECTATOR then
 		-- Return his original color to normal
 		if not FIRSTAPRIL then
@@ -336,52 +377,10 @@ function GM:OnHumanSpawn(pl)
 	
 	--Reset the Ammo-Regeneration Timer and send it to the client
 	pl:SetAmmoTime(AMMO_REGENERATE_RATE, true)
-	
-	--Init variable
-	local PlayerModel
-	
-	--Check if bot
-	if pl:IsBot() then
-		--Random model
-		PlayerModel = table.Random(PlayerModels)
-	else
-		--Get preferred model
-		local DesiredPlayerModelName = pl:GetInfo("cl_playermodel")
-		if #DesiredPlayerModelName > 0 and DesiredPlayerModelName ~= "none" then
-			PlayerModel = player_manager.TranslatePlayerModel(DesiredPlayerModelName)
-		end
-	
-		--Check if in PlayerModels list
-		if not table.HasValueCI(PlayerModels, PlayerModel) and not (pl:IsAdmin() and table.HasValueCI(PlayerAdminModels, PlayerModel)) then
-			PlayerModel = table.Random(PlayerModels)
-			Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredPlayerModelName ..". Which doesn't exist.")
-		else
-			--Get custom player color
-			local PlayerModelColor = pl:GetInfo("cl_playercolor")
-			
-			--Set player color
-			pl:SetPlayerColor(Vector(PlayerModelColor))
-			
-			--Set weapon color
-			pl:SetWeaponColor(Vector(PlayerModelColor))
-		end
-	end
 		
-	-- Case 2: If player has bought gordon freeman upgrade then he has a chance to spawn as him
-	--[[if pl:HasBought("gordonfreeman") and not self.GordonIsHere and math.random( 1,5 ) == 1 then
-		pl:ChatPrint("You're now THE Gordon Freeman!")
-		pl.IsFreeman = true
-		self.GordonIsHere = true
-		PlayerModel = "models/player/gordon_classic.mdl"
-	end]]
-	
-	--[[if pl:GetPerk("_freeman") then
-		PlayerModel = "models/player/gordon_classic.mdl"
-	end]]
-	
 	-- Change his player model and set up his voice set
-	pl:SetModel(PlayerModel)
-	pl.VoiceSet = VoiceSetTranslate[ string.lower(PlayerModel) ] or "male"
+	pl:SetModel(player_manager.TranslatePlayerModel(pl.PlayerModel))
+	pl.VoiceSet = VoiceSetTranslate[ string.lower(player_manager.TranslatePlayerModel(pl.PlayerModel)) ] or "male"
 	
 	pl.SelectedSuit = pl:GetInfo("_zs_defaultsuit") or "none"
 	pl.SelectedHat = pl:GetInfo("_zs_equippedhats") or "none"
@@ -436,6 +435,18 @@ function GM:OnHumanSpawn(pl)
 	if (pl.SelectedSuit ~= "none") or pl:IsBot() then
 		self:SpawnSuit( pl, pl.SelectedSuit )
 	end
+
+	--Hands test
+	local oldhands = pl:GetHands()
+	if ( IsValid( oldhands ) ) then
+		oldhands:Remove()
+	end
+
+	local hands = ents.Create( "zs_hands" )
+	if ( IsValid( hands ) ) then
+		hands:DoSetup( pl )
+		hands:Spawn()
+	end	
 	
 	--Log
 	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as human")
@@ -1236,31 +1247,6 @@ end
 --[==[------------------------------------------------------------------------------------------------
                              Selects a location for the undead to spawn
 -------------------------------------------------------------------------------------------------]==]
---[=[function GM:ProcessZombieSpawn( pl, tbPoints, tbAngles )
-
-	-- Get random points for first time
-	local iRandom = math.random ( 1, #tbPoints )
-	local vPos, angSpawn, bStuck, bIsVisible = tbPoints[iRandom], tbAngles[iRandom]
-	
-	-- Filters
-	local Filter = {} 
-	if pl:Team() == TEAM_HUMAN then Filter = team.GetPlayers ( TEAM_HUMAN ) else Filter = team.GetPlayers ( TEAM_UNDEAD ) end
-	
-	-- Hull trace spawnpoints
-	for i = 1, 2 do
-
-		-- Stuck bool
-		bStuck, bIsVisible = IsStuck ( vPos, HULL_PLAYER[1], HULL_PLAYER[2], Filter ), VisibleToHumans ( vPos, pl )
-			
-		-- Point is clear
-		if not bStuck then if not bIsVisible then return vPos, angSpawn end end
-				
-		-- Point is not clear
-		if bStuck or bIsVisible then pl.SpawnRetryCounter = pl.SpawnRetryCounter + 1 local iRandom = math.random ( 1,#tbPoints ) vPos, angSpawn = tbPoints[iRandom], tbAngles[iRandom] end
-	end
-	
-	return vPos, angSpawn
-end ]=]
 
 function GM:ProcessZombieSpawn( pl, tbPoints, tbAngles )
 	

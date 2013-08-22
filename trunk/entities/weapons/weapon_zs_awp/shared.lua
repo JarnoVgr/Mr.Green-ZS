@@ -19,7 +19,8 @@ SWEP.HoldType = "ar2"
 
 SWEP.Base				= "weapon_zs_base"
 
-SWEP.ViewModel			= "models/weapons/v_snip_awp.mdl"
+SWEP.ViewModel			= "models/weapons/cstrike/c_snip_awp.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel			= "models/weapons/w_snip_awp.mdl"
 
 SWEP.Weight				= 6
@@ -35,8 +36,8 @@ SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "357"
 SWEP.Primary.ReloadDelay	= 2
 
-SWEP.IronSightsPos 			= Vector (5.6111, -3, 2.092)
-SWEP.IronSightsAng 			= Vector (0, 0, 0)
+SWEP.IronSightsPos = Vector(-7.481, -11.891, 2.24)
+SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.Cone = 0.03
 SWEP.ConeMoving = 0.05

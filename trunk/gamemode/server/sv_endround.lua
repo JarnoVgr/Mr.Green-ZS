@@ -337,14 +337,7 @@ function GM:OnEndRound ( winner )
 	
 	-- Enable all talk
 	RunConsoleCommand ( "sv_alltalk", "1" )
-	
-	-- Stop NPCs attacking humans
-	for k,npc in pairs ( ents.GetAll() ) do 
-		if npc:IsNPC() or npc:GetClass() == "npc_maker" then
-			npc:Remove()
-		end
-	end
-	
+		
 	-- Get nextmap in case voting fails
 	local NextMap = GAMEMODE:GetMapNext()
 	

@@ -22,7 +22,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model("models/weapons/v_mach_m249para.mdl")
+SWEP.ViewModel			= Model("models/weapons/cstrike/c_mach_m249para.mdl")
+SWEP.UseHands = true
 SWEP.WorldModel			= Model("models/weapons/w_mach_m249para.mdl")
 
 SWEP.Weight				= 5
@@ -55,8 +56,8 @@ SWEP.ConeIronCrouching = 0.1
 SWEP.WalkSpeed = 170
 SWEP.MaxBulletDistance = 2450
 
-SWEP.IronSightsPos = Vector(-4.49,-2,2.15)
-SWEP.IronSightsAng = Vector(.00001,-.06,.00001)
+SWEP.IronSightsPos = Vector(-5.961, -6.535, 2.359)
+SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.OverridePos = Vector(-1.601, -1.311, 1.6)
 SWEP.OverrideAng = Vector( 0,0,0 )

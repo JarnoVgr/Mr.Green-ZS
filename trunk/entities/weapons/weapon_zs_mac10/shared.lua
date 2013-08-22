@@ -20,7 +20,8 @@ end
 
 SWEP.Base = "weapon_zs_base"
 
-SWEP.ViewModel = "models/weapons/v_smg_mac10.mdl"
+SWEP.ViewModel = "models/weapons/cstrike/c_smg_mac10.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_smg_mac10.mdl"
 
 SWEP.Weight = 5
@@ -51,8 +52,8 @@ SWEP.ConeIronCrouching = 0.06
 
 SWEP.WalkSpeed = 190
 
-SWEP.IronSightsPos = Vector(6.658, -2.938, 2.913)
-SWEP.IronSightsAng = Vector(0.906, 5.217, 7.913)
+SWEP.IronSightsPos = Vector(-6.881, -11.261, 2.68)
+SWEP.IronSightsAng = Vector(0, -0.828, 0)
 
 SWEP.OverridePos = Vector(2.279, -3.28, 1.44)
 SWEP.OverrideAng = Vector(0, 0, 6.287)

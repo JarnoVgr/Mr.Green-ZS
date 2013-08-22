@@ -15,7 +15,8 @@ SWEP.HoldType = "ar2"
 
 SWEP.Base = "weapon_zs_base"
 
-SWEP.ViewModel = "models/weapons/v_snip_sg550.mdl"
+SWEP.ViewModel = "models/weapons/cstrike/c_snip_sg550.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_snip_sg550.mdl"
 
 SWEP.Primary.Sound = Sound("Weapon_SG550.Single")
@@ -40,7 +41,7 @@ SWEP.Secondary.Delay = 0.5
 
 SWEP.WalkSpeed = 185
 
-SWEP.IronSightsPos = Vector(5.593, -6.169, 1.894)
+SWEP.IronSightsPos = Vector(-7.441, -15.039, 1.559)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
 

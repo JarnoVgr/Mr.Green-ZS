@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 1
-	SWEP.ViewModelFlip = true
+	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = true
 	
 	SWEP.IconLetter = "b"
@@ -38,7 +38,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_rif_ak47.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_rif_ak47.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_rif_ak47.mdl" )
 
 SWEP.Weight				= 5
@@ -74,8 +75,8 @@ SWEP.MaxAmmo			    = 9999
 
 SWEP.WalkSpeed = 185
 
-SWEP.IronSightsPos = Vector(6.02,-3,2.3)
-SWEP.IronSightsAng = Vector(2.5,-.21,0)
+SWEP.IronSightsPos = Vector(-6.64, 0, 1.679)
+SWEP.IronSightsAng = Vector(3.03, 0, 0)
 
 SWEP.OverridePos = Vector(3.16, -4.755, 1.639)
 SWEP.OverrideAng = Vector( 0,0,0 )

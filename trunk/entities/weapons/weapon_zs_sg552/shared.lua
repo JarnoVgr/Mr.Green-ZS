@@ -34,7 +34,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_rif_sg552.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_rif_sg552.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_rif_sg552.mdl" )
 
 SWEP.Weight				= 5
@@ -68,8 +69,8 @@ SWEP.ConeIron = 0.05
 SWEP.ConeIronCrouching = 0.04
 
 
-SWEP.OverridePos = Vector(3.2, -6.394, 1.799)
-SWEP.OverrideAng = Vector(0, 0, 0)
+SWEP.IronSightsPos = Vector(-7.881, -18.504, 2.599)
+SWEP.IronSightsAng = Vector(0, 0, 0)
 
 --SWEP.IronSightsPos = Vector(6.635, -10.82, 2.678)
 --SWEP.IronSightsAng = Vector(0, 0, 0)

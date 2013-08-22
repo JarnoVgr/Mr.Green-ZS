@@ -15,7 +15,8 @@ SWEP.HoldType = "ar2"
 
 SWEP.Base = "weapon_zs_base"
 
-SWEP.ViewModel = "models/weapons/v_snip_g3sg1.mdl"
+SWEP.ViewModel = "models/weapons/cstrike/c_snip_g3sg1.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_snip_g3sg1.mdl"
 
 SWEP.Primary.Sound = Sound("Weapon_G3SG1.Single")

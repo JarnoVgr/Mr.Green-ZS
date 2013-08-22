@@ -145,14 +145,15 @@ function SWEP:StartSwinging()
 	end
 end
 
-function SWEP:Swung()	
+function SWEP:Swung()
 	if CLIENT then
 		return
 	end
-	
-	if not ValidEntity(self.Owner) then
-		return
-	end
+
+	local owner = self.Owner
+
+	owner:LagCompensation(true)
+
 
 	local pl = self.Owner
 	local victim = self.PreHit

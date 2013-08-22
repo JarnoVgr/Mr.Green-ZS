@@ -31,7 +31,7 @@ SWEP.MenuSlot 			= 1
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_alyxgun.mdl" )--Model ( "models/weapons/v_pist_deagle.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/v_alyxgun.mdl" )
 SWEP.WorldModel			= Model ( "models/Weapons/W_Alyx_Gun.mdl" )
 
 SWEP.Weight				= 5

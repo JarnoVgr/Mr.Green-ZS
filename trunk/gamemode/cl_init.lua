@@ -1456,16 +1456,27 @@ end
 
 
 local revertvm = false
-function GM:PreDrawViewModel(vm,pl,wep)
-	if vm and wep then
-		if wep.ShowViewModel == false then
+function GM:PreDrawViewModel(vm, pl, weapon)
+	if not weapon then
+		return
+	end
+
+	if vm then
+		if weapon.ShowViewModel == false then
 			revertvm = true
 			render.SetBlend(1/255)
 		end
-	end	
+	end
+
+	if weapon.UseHands then
+		local hands = pl:GetHands()
+		if ( IsValid( hands ) ) then
+			hands:DrawModel()
+		end
+	end
 end
 
-function GM:PostDrawViewModel(vm)
+function GM:PostDrawViewModel(vm, pl, weapon)
 	if revertvm then
 		render.SetBlend(1)
 		revertvm = false

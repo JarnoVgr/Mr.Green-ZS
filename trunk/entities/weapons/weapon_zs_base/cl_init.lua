@@ -2,8 +2,8 @@ include("shared.lua")
 
 SWEP.DrawAmmo = true
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 60
-SWEP.ViewModelFlip = true
+SWEP.ViewModelFOV = 57
+SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = true
 SWEP.BobScale = 2
 SWEP.SwayScale = 1.5
@@ -198,11 +198,11 @@ function SWEP:ViewModelDrawn()
 		end
 		
 		if not self._ResetBoneMods then
-			self:ResetBonePositions()
+--			self:ResetBonePositions()
 			self._ResetBoneMods = true
 		end
 		
-		self:UpdateBonePositions(vm)
+		--self:UpdateBonePositions(vm)
 		
 		
 		--[[if vm.BuildBonePositions ~= self.BuildViewModelBones then

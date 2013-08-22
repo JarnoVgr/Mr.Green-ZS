@@ -19,7 +19,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_shot_xm1014.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_shot_xm1014.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_shot_xm1014.mdl" )
 
 SWEP.Weight				= 10
@@ -53,8 +54,8 @@ SWEP.IsShotgun = true
 SWEP.WalkSpeed = 175
 SWEP.MaxBulletDistance 		= 2300
 
-SWEP.IronSightsPos = Vector(5.16,-3.5,2.155)
-SWEP.IronSightsAng = Vector(0.001,.75,0.001)
+SWEP.IronSightsPos = Vector(-6.881, -11.261, 2.68)
+SWEP.IronSightsAng = Vector(0, -0.828, 0)
 
 SWEP.OverridePos = Vector(2.559, -3.28, 1.399)
 SWEP.OverrideAng = Vector( 0,0,0 )

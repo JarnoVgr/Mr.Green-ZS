@@ -24,7 +24,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_pist_fiveseven.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_pist_fiveseven.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_pist_fiveseven.mdl" )
 
 SWEP.Weight				= 5
@@ -56,8 +57,8 @@ SWEP.ConeIronCrouching = 0.02
 
 SWEP.WalkSpeed = 200
 
-SWEP.IronSightsPos = Vector (4.5553, -1.7583, 3.1858)
-SWEP.IronSightsAng = Vector (0.2386, 0.0272, 0.1524)
+SWEP.IronSightsPos = Vector(-5.961, -12.363, 2.88)
+SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.OverridePos = Vector(1.12, -0.913, 1.919)
 SWEP.OverrideAng = Vector( 0,0,0 )

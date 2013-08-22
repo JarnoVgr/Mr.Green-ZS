@@ -66,8 +66,12 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	local revive = false
 	
-	local NextSpawn = math.Clamp ( GetInfliction() * 14, 1, 4 )
-	mVictim.NextSpawn = CurTime() + NextSpawn
+	if CurTime() <= WARMUPTIME then
+		mVictim.NextSpawn = WARMUPTIME+2
+	else
+		local NextSpawn = math.Clamp ( GetInfliction() * 14, 1, 4 )
+		mVictim.NextSpawn = CurTime() + NextSpawn
+	end
 	
 	local ct = CurTime()
 	
@@ -174,24 +178,10 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	--Change victim team a frame later
 	timer.Simple( 0, function() 
-		if IsValid( mVictim ) then
-			if mVictim:IsHuman() then
-				--When in warmuptime, always redeem
-				if CurTime() < WARMUPTIME then
-					timer.Simple( 0, function() 
-						if IsValid( mVictim ) then
-							if mVictim:IsHuman() then
-								--mVictim:Spawn()
-								mVictim:Redeem()
-							end
-						end
-					end)
-				else
-					mVictim:SetTeam(TEAM_UNDEAD)
+		if IsValid( mVictim ) and mVictim:IsHuman() then
+			mVictim:SetTeam(TEAM_UNDEAD)
 				
-					GAMEMODE:CalculateInfliction()
-				end
-			end
+			GAMEMODE:CalculateInfliction()
 		end
 	end)
 	

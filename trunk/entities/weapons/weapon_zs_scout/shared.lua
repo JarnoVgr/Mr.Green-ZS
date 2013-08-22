@@ -21,7 +21,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= "models/weapons/v_snip_scout.mdl"
+SWEP.ViewModel			= "models/weapons/cstrike/c_snip_scout.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel			= "models/weapons/w_snip_scout.mdl"
 
 SWEP.Weight				= 6
@@ -53,7 +54,7 @@ SWEP.MaxAmmo			    = 40
 
 SWEP.Secondary.Delay = 0.5
 
-SWEP.IronSightsPos = Vector(5.015, -8, 2.52)
+SWEP.IronSightsPos = Vector(-6.68, -19.292, 3.359)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
 function SWEP:IsScoped()

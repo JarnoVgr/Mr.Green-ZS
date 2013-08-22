@@ -27,7 +27,7 @@ net.Receive( "DamageIndicator", function( len )
 	-- local iIndex = um:ReadShort()
 	
 	-- Get entity
-	local mEnt = net.ReadEntity()-- GetEntityByIndex ( iIndex ) 
+	local mEnt = net.ReadEntity()
 	if not IsValid ( mEnt ) then return end
 	
 	-- Hook our draw function

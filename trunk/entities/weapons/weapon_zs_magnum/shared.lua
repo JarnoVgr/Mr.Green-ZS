@@ -42,7 +42,8 @@ SWEP.Base = "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_357.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/c_357.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_357.mdl" )
 
 SWEP.Weight				= 5
@@ -70,8 +71,8 @@ SWEP.ConeCrouching = 0.04
 SWEP.ConeIron = 0.040
 SWEP.ConeIronCrouching = 0.03
 
-SWEP.IronSightsPos = Vector(-5.6000,-0.5000,2.6000)
-SWEP.IronSightsAng = Vector(0,0,0)
+SWEP.IronSightsPos = Vector(-4.64, -9.056, 0.6)
+SWEP.IronSightsAng = Vector(0.275, 0, 0)
 
 SWEP.OverridePos = Vector(-1.481, -6.394, 1.559)
 SWEP.OverrideAng = Vector( 0,0,0 )

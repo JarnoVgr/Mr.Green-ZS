@@ -35,7 +35,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_smg_p90.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_smg_p90.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_smg_p90.mdl" )
 
 SWEP.Weight				= 5
@@ -68,7 +69,7 @@ SWEP.ConeIronCrouching = 0.06
 SWEP.WalkSpeed = 185
 SWEP.MaxBulletDistance 		= 1800
 
-SWEP.IronSightsPos = Vector(4.659, -5.738, 1.769)
+SWEP.IronSightsPos = Vector(-5.72, -17.403, 2.2)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.OverridePos = Vector(2.299, -2.46, 1.967)
