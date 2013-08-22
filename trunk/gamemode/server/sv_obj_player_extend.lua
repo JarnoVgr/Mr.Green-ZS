@@ -982,21 +982,6 @@ function meta:UnlockAchievement( stat )
 	end
 end
 
---[=[function meta:SetAsCrow()
-	
-	self:RemoveAllStatus(true, true)
-	
-	if self.DeathClass then
-		local tempclass = self.DeathClass
-	end	
-	self.DeathClass = 9
-	
-	-- self:SetZombieClass (9)
-	self:Spawn()
-	self:UnSpectate()
-	self.DeathClass = tempclass or 1
-	
-end]=]
 function meta:SetAsCrow()
 
 	self:RemoveAllStatus(true, true)

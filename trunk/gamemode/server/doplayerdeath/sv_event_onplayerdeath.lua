@@ -14,8 +14,6 @@ local ents = ents
 
 -- On player death
 local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
-
-	
 	-- Check original achievments
 	if mAttacker:IsPlayer() then
 		GAMEMODE:DoAchievementsCheck ( mVictim, mAttacker, mInflictor, dmginfo )
@@ -53,9 +51,9 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			if mAttacker:GetZombieClass() == 5 then
 				mVictim:Dismember("HEAD",dmginfo)
 				-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"screamtherapy")
-				if mVictim:GetHumanClass() == 3 then
-					-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"crime")
-				end
+				--[[if mVictim:GetHumanClass() == 3 then
+					skillpoints.AchieveSkillShot(mAttacker,mVictim,"crime")
+				end]]
 			else
 				if mAttacker:GetZombieClass() == 10 then
 					mVictim:Dismember("SAWED",dmginfo)
@@ -83,51 +81,48 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			if (dmginfo:GetDamagePosition():Distance( mVictim:GetAttachment( 1 ).Pos )) < 15 then
 				if not dmginfo:IsMeleeDamage() then
 				
-				-- if not mInflictor.IsTurretDmg then
-				-- 	mAttacker:AddFrags ( 1 )
-				-- end
+					--[[if not mInflictor.IsTurretDmg then
+						mAttacker:AddFrags ( 1 )
+					end]]
+					
+					--mVictim:EmitSound( "physics/body/body_medium_break"..math.random( 2, 4 )..".wav" )
+					
+					headshot = true
 				
-				-- mVictim:EmitSound( "physics/body/body_medium_break"..math.random( 2, 4 )..".wav" )
-				
-				headshot = true
-			
-				-- Effect
-				--[==[local effectdata = EffectData()
-					effectdata:SetOrigin( mVictim:GetAttachment(1).Pos )
-					effectdata:SetNormal( dmginfo:GetDamageForce():GetNormal() )
-					effectdata:SetMagnitude( dmginfo:GetDamageForce():Length() * 3 )
-					effectdata:SetEntity( mVictim )]==]
-				-- util.Effect( "headshot", effectdata, true, true )
-				
-				-- mVictim:Dismember("HEAD",dmginfo)
-				
-			
-				
+					-- Effect
+					--[[local effectdata = EffectData()
+						effectdata:SetOrigin( mVictim:GetAttachment(1).Pos )
+						effectdata:SetNormal( dmginfo:GetDamageForce():GetNormal() )
+						effectdata:SetMagnitude( dmginfo:GetDamageForce():Length() * 3 )
+						effectdata:SetEntity( mVictim )]]
+					-- util.Effect( "headshot", effectdata, true, true )
+					
+					-- mVictim:Dismember("HEAD",dmginfo)
+
 				elseif dmginfo:IsMeleeDamage() and (mInflictor:GetClass() == "weapon_zs_melee_axe" or mInflictor:GetClass() == "weapon_zs_melee_katana") and not mInflictor.IsTurretDmg then
-				
-				if math.random(1,3) == 1 --[=[or mAttacker:HasBought("homerun") and math.random(1,2) == 1 ]=]then
-				-- Berserker's decapitation requirement -------------------------------------------------
-					if mAttacker:IsHuman() and mVictim:IsZombie() and mAttacker:GetHumanClass() == 3 then
-						if mAttacker:GetTableScore("berserker","level") == 4 then
-							if mAttacker:GetTableScore("berserker","achlevel4_1") < 1337 then
-							--mAttacker:AddTableScore ("berserker","achlevel4_1",1)
-							end
-						elseif mAttacker:GetTableScore("berserker","level") == 5 then
-							if mAttacker:GetTableScore("berserker","achlevel4_1") < 4000 then
-							--mAttacker:AddTableScore ("berserker","achlevel4_1",1)
+					
+					if math.random(1,3) == 1 --[=[or mAttacker:HasBought("homerun") and math.random(1,2) == 1 ]=]then
+					-- Berserker's decapitation requirement -------------------------------------------------
+						if mAttacker:IsHuman() and mVictim:IsZombie() and mAttacker:GetHumanClass() == 3 then
+							if mAttacker:GetTableScore("berserker","level") == 4 then
+								if mAttacker:GetTableScore("berserker","achlevel4_1") < 1337 then
+								--mAttacker:AddTableScore ("berserker","achlevel4_1",1)
+								end
+							elseif mAttacker:GetTableScore("berserker","level") == 5 then
+								if mAttacker:GetTableScore("berserker","achlevel4_1") < 4000 then
+								--mAttacker:AddTableScore ("berserker","achlevel4_1",1)
+								end
 							end
 						end
-					end
 				-- -------------------------------------------------------------------------------------------------
-				-- skillpoints.AddSkillPoints(mAttacker,5)
-				-- mAttacker:AddFrags ( 1 )
-				-- mVictim:Dismember("DECAPITATION",dmginfo)
-				-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"decapitation")
-				-- mAttacker:CheckLevelUp()
+				--[[skillpoints.AddSkillPoints(mAttacker,5)
+				mAttacker:AddFrags ( 1 )
+				mVictim:Dismember("DECAPITATION",dmginfo)
+				skillpoints.AchieveSkillShot(mAttacker,mVictim,"decapitation")
+				mAttacker:CheckLevelUp()]]
+					end
 				end
-				
 			end
-		end
 		end
 	end
 
@@ -282,23 +277,5 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	
 	end
-	
-	
-	--[=[
-	if mVictim:Health() < -35 and not dmginfo:IsMeleeDamage() or dmginfo:IsExplosionDamage() or dmginfo:IsFallDamage() then
-		if mVictim:IsZombie() then
-			if ZombieClasses[ mVictim:GetZombieClass() ].CanGib then 
-				mVictim:Gib( dmginfo ) 
-			else
-				mVictim:CreateRagdoll()
-			end
-		else
-			mVictim:Gib( dmginfo ) 
-		end
-	else
-	mVictim:CreateRagdoll()	
-	end
-	]=]
-
 end
 hook.Add( "OnPlayerDeath", "OnPlayerKilled", OnPlayerDeath )

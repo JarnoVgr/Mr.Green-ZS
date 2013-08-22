@@ -346,51 +346,6 @@ local function ZombineAnim ( pl, anim )
 	return true
 end
 
---[==[function GM:SetPlayerAnimation(pl, anim)
-	if pl:Team() == TEAM_UNDEAD then
-		SpecialAnims[pl.Class](pl, anim)
-		return
-	end
-
-	local act = ACT_HL2MP_IDLE
-	local OnGround = pl:OnGround()
-
-	if ATT[anim] then
-		act = ATT[anim]
-	else
-		local Speed = pl:GetVelocity():Length()
-		if OnGround and pl:Crouching() then
-			act = ACT_HL2MP_IDLE_CROUCH
-			if Speed > 0 then
-				act = ACT_HL2MP_WALK_CROUCH
-			end
-		elseif Speed > 0 then
-			act = ACT_HL2MP_RUN
-		end
-	end
-
-	if act == ACT_HL2MP_GESTURE_RANGE_ATTACK or act == ACT_HL2MP_GESTURE_RELOAD then
-		pl:RestartGesture(pl:Weapon_TranslateActivity(act))
-		if act == ACT_HL2MP_GESTURE_RANGE_ATTACK then
-			pl:Weapon_SetActivity(pl:Weapon_TranslateActivity(ACT_RANGE_ATTACK1), 0)
-		end
-		return
-	end
-
-	if not OnGround then
-		act = ACT_HL2MP_JUMP
-	end
-
-	local seq = pl:SelectWeightedSequence(pl:Weapon_TranslateActivity(act))
-
-	--  Let's assume that no admins spawn any vehicles and that we always have a weapon.
-
-	if pl:GetSequence() == seq then return end
-	pl:SetPlaybackRate(1.0)
-	pl:ResetSequence(seq)
-	pl:SetCycle(0)
-end]==]
-
 --  These index numbers are related to the class numbers in zs_options.lua
 SpecialAnims = {}
 SpecialAnims[1] = ZombieAnim

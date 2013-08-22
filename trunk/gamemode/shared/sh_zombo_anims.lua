@@ -40,8 +40,6 @@ function GM:UpdateZombieAnimation( pl, vel, maxseqgroundspeed )
 	if pl._PlayBackRate then
 		pl:SetPlaybackRate( pl._PlayBackRate )
 	end
-	
-	
 end
 
 GM.CalcMainActivityZombies[0] = function ( pl, vel )

@@ -149,36 +149,17 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 					net.WriteDouble( dmginfo:GetAssist():EntIndex() )
 				end
 			net.Broadcast()
-			
-			--[==[umsg.Start( "PlayerKilledByPlayerZS" )
-				umsg.Entity( pl )
-				umsg.String( inflictor )
-				umsg.Entity( dmginfo:GetAttacker() )
-				umsg.Short( pl:Team() )
-				umsg.Short( dmginfo:GetAttacker():Team() )
-				umsg.Bool( headshot )
-				
-				-- Send assist
-				if dmginfo:IsAssistValid() then
-					umsg.Short ( dmginfo:GetAssist():EntIndex() )
-				end
-			umsg.End()]==]
 		end
 	end
 	
 	-- Player got killed by something else
 	if not dmginfo:IsAttackerPlayer() then
-		
 		net.Start("PlayerKilledZS")
 			net.WriteEntity(pl)
 			net.WriteString(dmginfo:GetInflictor():GetClass())
 			net.WriteString(dmginfo:GetAttacker():GetClass())
 		net.Broadcast()
 	end
-	
-	-- print ( "Death -- ", pl, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo:GetAssist() )
-	
-	Debug ( "[DEATH] "..tostring ( pl ).." has been killed by "..tostring ( dmginfo:GetAttacker() ).." with "..tostring ( dmginfo:GetInflictor() ) )
 end
 
 
@@ -223,7 +204,9 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 			end
 		end
 	else -- In spectator.
-		if pl:KeyDown(IN_ATTACK) then
+		if pl.NextSpawn and pl.NextSpawn > CurTime() then
+			return
+		elseif pl:KeyDown(IN_ATTACK) then
 			pl:RefreshDynamicSpawnPoint()
 			pl:UnSpectateAndSpawn()
 		elseif pl:KeyPressed(IN_ATTACK2) then
@@ -246,7 +229,6 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 			end
 		end
 	end
-	
 end
 
 --[=[function GM:PlayerDeathThink( pl )

@@ -27,9 +27,9 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	--Smash off current hat
 	GAMEMODE:DropHat( mVictim )
 	GAMEMODE:DropSuit( mVictim )
-	
+		
 	--Drop active weapon
-	if mVictim:GetActiveWeapon() ~= NULL then		
+	if mVictim:GetActiveWeapon() ~= NULL and CurTime() > WARMUPTIME then
 		--Loop through all player weapons
 		for i,j in pairs (mVictim:GetWeapons()) do
 			local wepCategory = GetWeaponCategory(j:GetClass())
@@ -66,8 +66,8 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	local revive = false
 	
-	--local NextSpawn = math.Clamp ( GetInfliction() * 14, 1, 4 )
-	mVictim.NextSpawn = CurTime() + 4--NextSpawn
+	local NextSpawn = math.Clamp ( GetInfliction() * 14, 1, 4 )
+	mVictim.NextSpawn = CurTime() + NextSpawn
 	
 	local ct = CurTime()
 	
@@ -81,21 +81,10 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			status:SetZombieInitializeTime(CurTime() + 2)
 		end
 		
-		-- local status2 = mVictim:GiveStatus("overridemodel")
-		-- if status2:IsValid() then
-		-- 	status2:SetModel(mVictim:GetModel())
-		-- end
-		--mVictim:GiveStatus("fakecorpse", -1)
 		revive = true
 		mVictim.MyBodyIsReady = true -- no jokes about this one
 	end
 	
-	--[[if not revive then
-		if GAMEMODE.WaveEnd <= ct or GAMEMODE:GetWave() == 0 then
-			mVictim.StartSpectating = ct + 3-- math.Clamp(NextSpawn-0.1,0.2,4)
-		end
-	end]]
-
 	-- Emo achievment
 	if dmginfo:IsSuicide( mVictim ) or mAttacker:IsWorld() then
 		if mVictim:IsHuman() then
@@ -131,19 +120,19 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			skillpoints.AchieveSkillShot(mAttacker,mVictim,"backbreaker")
 		end
 		
-		if mAttacker:IsHeadcrab() then
-			-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"brainsucker")
+		--[[if mAttacker:IsHeadcrab() then
+			skillpoints.AchieveSkillShot(mAttacker,mVictim,"brainsucker")
 		elseif mAttacker:IsPoisonCrab() then
-			-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"bleeder")
-		end
+			skillpoints.AchieveSkillShot(mAttacker,mVictim,"bleeder")
+		end]]
 		
-		if mVictim.IsInfected and not mAttacker:IsPoisonCrab() then
-			-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"detoxication")
-		end
+		--[[if mVictim.IsInfected and not mAttacker:IsPoisonCrab() then
+			skillpoints.AchieveSkillShot(mAttacker,mVictim,"detoxication")
+		end]]
 		
-		if mVictim:IsAdmin() then
-			-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"noregrets")
-		end
+		--[[if mVictim:IsAdmin() then
+			skillpoints.AchieveSkillShot(mAttacker,mVictim,"noregrets")
+		end]]
 		
 		-- Add brains eaten and greencoins
 		mAttacker.BrainsEaten = mAttacker.BrainsEaten + 1	
@@ -151,25 +140,24 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		mAttacker.GreencoinsGained[ mAttacker:Team() ] = mAttacker.GreencoinsGained[ mAttacker:Team() ] + COINS_PER_HUMAN
 		
 		-- Check brains and redeem
-			if mAttacker:CanRedeem() then
-				timer.Simple( 0, function() 
-					if mAttacker:CanRedeem() then
-						mAttacker:Redeem()
-					end
-				end)
-			end
+		if mAttacker:CanRedeem() then
+			timer.Simple( 0, function() 
+				if mAttacker:CanRedeem() then
+					mAttacker:Redeem()
+				end
+			end)
+		end
 		
 		-- Steamroller upgrade
 		if mAttacker:HasBought( "steamroller" ) then
 			if mAttacker:Alive() then
-				-- local MaxHealth = mAttacker:GetMaximumHealth()
 				local MaxHealth = ZombieClasses[mAttacker:GetZombieClass()].Health
-				--mAttacker:SetHealth( math.min( MaxHealth, mAttacker:Health() + math.floor ( MaxHealth / 2 ) ) )
+				mAttacker:SetHealth( math.min( MaxHealth, mAttacker:Health() + math.floor ( MaxHealth / 2 ) ) )
 			end
 		end
 	end
 		
-	-- Survival times (TODO : FIX)
+	--Survival times (TODO : FIX)
 	if mVictim.SpawnedTime then
 		local survtime = CurTime() - mVictim.SpawnedTime
 		if mVictim.SurvivalTime then
@@ -186,41 +174,41 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	--Change victim team a frame later
 	timer.Simple( 0, function() 
-		if IsValid( mVictim ) then	
+		if IsValid( mVictim ) then
 			if mVictim:IsHuman() then
-				mVictim:SetTeam(TEAM_UNDEAD)
+				--When in warmuptime, always redeem
+				if CurTime() < WARMUPTIME then
+					timer.Simple( 0, function() 
+						if IsValid( mVictim ) then
+							if mVictim:IsHuman() then
+								--mVictim:Spawn()
+								mVictim:Redeem()
+							end
+						end
+					end)
+				else
+					mVictim:SetTeam(TEAM_UNDEAD)
 				
-				GAMEMODE:CalculateInfliction()
+					GAMEMODE:CalculateInfliction()
+				end
 			end
 		end
 	end)
 	
 	DataTableConnected[ mVictim:UniqueID() or "UNCONNECTED" ].IsDead = true
 	
-	-- Spawn wait time
-	-- mVictim.NextSpawn = CurTime() + math.Clamp ( GetInfliction() * 10, 3, 8 )
-	
 	mVictim:StopAllLuaAnimations()
-	
-	--remove everything from cart
-	
-	-- umsg.Start("CleanWeaponsFromCart",mVictim)
-	-- umsg.End()
-	
+		
 	mVictim.SupplyCart.Weapons = {}
 
 	mVictim.GotWeapon.Pistol = false
 	mVictim.GotWeapon.Automatic = false
 	mVictim.GotWeapon.Melee = false
 	
-	-- umsg.Start("CleanAmmoFromCart",mVictim)
-	-- umsg.End()
-	
 	mVictim.SupplyCart.Ammo = {}
 	
 	for k,v in pairs (GAMEMODE.SkillShopAmmo) do
 		mVictim.AmmoMultiplier[k] = 1
 	end
-	
 end
 hook.Add( "OnHumanDeath", "OnHumanKilled", OnHumanDeath )
