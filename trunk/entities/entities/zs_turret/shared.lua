@@ -141,13 +141,15 @@ function ENT:Initialize()
 end
 
 function ENT:Think()
-local AngleYaw,AnglePitch = AngleYaw,AnglePitch or 0,0
-local TargetAngles
+	local AngleYaw,AnglePitch = AngleYaw,AnglePitch or 0,0
+	local TargetAngles
 
-local ct = CurTime()
+	local ct = CurTime()
 
-self:CheckOwner()
-if not ValidEntity(self.Entity) then return end
+	self:CheckOwner()
+	if not ValidEntity(self.Entity) then
+		return
+	end
 
 	if self:IsActive() then
 
@@ -286,7 +288,7 @@ if not ValidEntity(self.Entity) then return end
 
 	end
 
-	self:NextThink(ct)
+	self:NextThink(ct+0.1)
 	return true
 end
 
