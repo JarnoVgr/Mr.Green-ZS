@@ -65,7 +65,9 @@ end
 
 function SWEP:CheckMeleeAttack()
 	local swingend = self:GetSwingEndTime()
-	if swingend == 0 or CurTime() < swingend then return end
+	if swingend == 0 or CurTime() < swingend then
+		return
+	end
 	self:StopSwinging(0)
 
 	self:Swung()
@@ -73,14 +75,15 @@ end
 
 function SWEP:CheckPuke()
 	local swingend = self:GetPukeEndTime()
-	if swingend == 0 or CurTime() < swingend then return end
+	if swingend == 0 or CurTime() < swingend then
+		return
+	end
 	self:StopPuking(0)
 
 	self:DoPuke()
 end
 
 function SWEP:Think()
-
 	self:CheckMeleeAttack()
 	self:CheckPuke()
 end

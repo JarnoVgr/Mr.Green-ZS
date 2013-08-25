@@ -9,7 +9,7 @@ if CLIENT then
 	SWEP.Slot = 0
 	SWEP.SlotPos = 4
 	SWEP.ViewModelFOV = 70
-	SWEP.ViewModelFlip = true
+	SWEP.ViewModelFlip = false
 	
 	
 	SWEP.IconLetter = "n"
