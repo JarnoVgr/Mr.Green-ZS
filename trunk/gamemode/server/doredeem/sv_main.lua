@@ -137,7 +137,7 @@ function GM:OnPlayerRedeem( pl, causer )
 	end
 	
 	--Give SP for redeeming
-	if CurTime() > WARMUPTIME then
+	if CurTime() > (WARMUPTIME+240) then
 		skillpoints.AddSkillPoints(pl,math.Round(1100*GetInfliction()))
 	end
 	
