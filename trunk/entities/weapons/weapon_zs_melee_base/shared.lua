@@ -106,6 +106,7 @@ function SWEP:CreateViewModelElements()
 	MakeNewArms(self)
 end
 
+--[[
 function SWEP:UpdateBonePositions(vm)
 	if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 		for k, v in pairs( self.ViewModelBoneMods ) do
@@ -146,7 +147,7 @@ function SWEP:ResetBonePositions()
 		vm:ManipulateBoneAngles( i, Angle(0, 0, 0) )
 		vm:ManipulateBonePosition( i, Vector(0, 0, 0) )
 	end	
-end
+end]]
 
 function SWEP:CreateWorldModelElements()
 	self:CreateModels(self.WElements)
@@ -209,9 +210,9 @@ function SWEP:Deploy()
 	
 	self:OnDeploy()
 	
-	if CLIENT then
+	--[[if CLIENT then
 		self:ResetBonePositions()
-	end
+	end]]
 	
 	self.Owner:StopAllLuaAnimations()
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
@@ -220,27 +221,26 @@ function SWEP:Deploy()
 end
 
 function SWEP:OnRemove()
-	
-	--  other onremove code goes here
-	RemoveNewArms(self)
 	if CLIENT then
 		self:RemoveModels()
 		self:ResetBonePositions()
 		RestoreViewmodel(self.Owner)
 	end
-	
 end
 
 function SWEP:Equip ( NewOwner )
-	if CLIENT then return end
-	local Pistol = NewOwner:GetPistol()
+	if CLIENT then
+		return
+	end
+
+	--[[local Pistol = NewOwner:GetPistol()
 	
-	--[[if Pistol then
+	if Pistol then
 	NewOwner:RemoveAmmo ( 24, "pistol" )
 	end]]
 
 	-- Call this function to update weapon slot and others
-	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
+	gamemode.Call("OnWeaponEquip", NewOwner, self)
 end
 
 function SWEP:Think()
@@ -335,7 +335,7 @@ end
 function SWEP:Holster()
 	--RemoveNewArms(self)
 	 if CLIENT then
-		self:ResetBonePositions()
+		--self:ResetBonePositions()
 		RestoreViewmodel(self.Owner)
     end
 	return CurTime() >= self:GetSwingEnd()
@@ -364,6 +364,8 @@ function SWEP:MeleeSwing()
 	local filter = owner:GetMeleeFilter()
 
 	owner:LagCompensation(true)
+
+	--owner:MeleeViewPunch(math.random(5,30))
 
 	local tr = owner:MeleeTrace(self.MeleeRange, self.MeleeSize, filter)
 	if tr.Hit then
@@ -536,11 +538,11 @@ if CLIENT then
 			--vm.BuildBonePositions = self.BuildViewModelBones
 		end
 		
-		if not self._ResetBoneMods then
+		--[[if not self._ResetBoneMods then
 			self:ResetBonePositions()
 			self._ResetBoneMods = true
 		end
-		
+		]]
 		-- self:UpdateBonePositions(vm)
 		
 		-- UpdateArms(self)

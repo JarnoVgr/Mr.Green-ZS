@@ -51,7 +51,8 @@ SWEP.HoldType = "melee2"
 
 SWEP.DamageType = DMG_CLUB
 
-SWEP.ViewModel = "models/weapons/v_shovel/v_shovel.mdl"
+SWEP.ViewModel = "models/weapons/v_shovel/c_shovel.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_shovel.mdl"
 
 SWEP.MeleeDamage = 110

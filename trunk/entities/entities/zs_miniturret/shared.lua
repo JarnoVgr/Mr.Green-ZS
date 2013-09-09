@@ -155,7 +155,7 @@ function ENT:Think()
 	
 	self:SetPoseParameter("alert_control",math.Approach(self:GetPoseParameter("alert_control"),alert,FrameTime()))
 	
-	self:NextThink(CurTime())
+	self:NextThink(CurTime()+0.1)
 	return true
 	
 end

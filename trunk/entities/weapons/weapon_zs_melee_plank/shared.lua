@@ -43,7 +43,8 @@ SWEP.Base = "weapon_zs_melee_base"
 
 -- Models paths
 SWEP.Author = "Deluvas"
-SWEP.ViewModel = Model ( "models/weapons/v_plank/v_plank.mdl" )
+SWEP.ViewModel = Model ( "models/weapons/v_plank/c_plank.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel = Model ( "models/weapons/w_plank.mdl" )
 
 -- Name and fov

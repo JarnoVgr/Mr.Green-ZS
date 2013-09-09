@@ -33,7 +33,8 @@ end
 
 -- Model paths
 SWEP.Author = "Deluvas"
-SWEP.ViewModel = Model ( "models/weapons/v_fryingpan/v_fryingpan.mdl" )
+SWEP.ViewModel = Model ( "models/weapons/v_fryingpan/c_fryingpan.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel = Model ( "models/weapons/w_fryingpan.mdl" )
 
 -- Name

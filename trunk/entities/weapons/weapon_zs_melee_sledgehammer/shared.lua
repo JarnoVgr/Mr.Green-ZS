@@ -45,7 +45,8 @@ end
 
 -- Model paths
 SWEP.Author = "NECROSSIN"
-SWEP.ViewModel = "models/weapons/v_sledgehammer/v_sledgehammer.mdl"
+SWEP.ViewModel = "models/weapons/v_sledgehammer/c_sledgehammer.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_sledgehammer.mdl" 
 
 -- Name and fov

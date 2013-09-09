@@ -8,7 +8,8 @@ SWEP.Base = "weapon_zs_melee_base"
 
 -- Models paths
 SWEP.Author = "Deluvas"--Edited by NECROSSIN
-SWEP.ViewModel = Model ( "models/weapons/v_knife_t.mdl"  )
+SWEP.ViewModel = Model ( "models/weapons/cstrike/c_knife_t.mdl"  )
+SWEP.UseHands = true
 SWEP.WorldModel = Model ( "models/weapons/w_knife_t.mdl"  )
 
 -- Name and fov

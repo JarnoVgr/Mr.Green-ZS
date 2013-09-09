@@ -44,7 +44,8 @@ end
 
 -- Model paths
 SWEP.Author = "Deluvas"
-SWEP.ViewModel = Model ( "models/weapons/v_axe/v_axe.mdl" )
+SWEP.ViewModel = Model ( "models/weapons/v_axe/c_axe.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel = Model ( "models/weapons/w_axe.mdl" )
 
 -- Name and fov

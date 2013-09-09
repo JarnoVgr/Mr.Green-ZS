@@ -33,7 +33,8 @@ end
 
 -- Model paths
 SWEP.Author = "Deluvas"
-SWEP.ViewModel = Model ( "models/weapons/v_keyboard/v_keyboard.mdl" )
+SWEP.ViewModel = Model ( "models/weapons/v_keyboard/c_keyboard.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel = Model ( "models/weapons/w_keyboard.mdl" )
 
 -- Name and fov

@@ -4,7 +4,8 @@
 if SERVER then AddCSLuaFile ( "shared.lua" ) end
 
 SWEP.Author = "Deluvas"
-SWEP.ViewModel = Model ( "models/weapons/v_hammer/v_hammer.mdl" )
+SWEP.ViewModel = Model ( "models/weapons/v_hammer/c_hammer.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel = Model ( "models/weapons/w_hammer.mdl" )
 
 SWEP.Base = "weapon_zs_melee_base"

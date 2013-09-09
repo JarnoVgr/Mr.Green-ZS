@@ -37,7 +37,7 @@ SWEP.ViewModelFlip		= false
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/cstike/c_rif_galil.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_rif_galil.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_rif_galil.mdl" )
 
