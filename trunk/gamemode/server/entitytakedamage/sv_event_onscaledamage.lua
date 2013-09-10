@@ -25,6 +25,12 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		dmginfo:SetDamage( 0 )
 		return true
 	end
+
+	--Check for friendly fire
+	if dmginfo:IsPlayerFriendlyFire(pl) then
+		dmginfo:SetDamage(0)
+		return true
+	end
 	
 	-- Scale fire damage
 	--[[if dmginfo:IsFireDamage() then
@@ -64,12 +70,14 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 	end
 	
+	--Scale down explosion damage if it's the owner
 	if attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner() then
-		dmginfo:ScaleDamage ( 0.45 )
+		dmginfo:ScaleDamage(0.45)
 	end
 	
+	--Turret damage
 	if attacker:GetClass() == "zs_turret" then
-		if pl:IsHuman() then 
+		if pl:IsHuman() then
 			if pl == attacker:GetTurretOwner() then
 				dmginfo:SetDamage( attacker.Damage/2 )
 			else
@@ -78,6 +86,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		elseif pl:IsZombie() then
 			dmginfo:SetDamage( attacker.Damage )
 		end
+
 		return true		
 	end
 	
@@ -87,12 +96,14 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		elseif pl:IsZombie() then
 			dmginfo:SetDamage( attacker.Damage )
 		end
+
 		return true		
 	end
 	
-	-- Self-inflicted phys damage
-	if dmginfo:IsPhysHurtingSelf( pl ) then
+	--Self-inflicted phys damage
+	if dmginfo:IsPhysHurtingSelf(pl) then
 		dmginfo:SetDamage( 0 )
+
 		return true
 	end
 
@@ -116,16 +127,11 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 	end
 	
+	--Check for explosion damage immunity
 	if dmginfo:IsExplosionDamage() then
 		if pl.NoExplosiveDamage and pl.NoExplosiveDamage >= CurTime() then
 			dmginfo:ScaleDamage( 0.5 )
 		end		
-	end
-		
-	-- Check for friendly fire
-	if dmginfo:IsPlayerFriendlyFire( pl ) then
-		dmginfo:SetDamage( 0 )
-		return true
 	end
 	
 	-- Fix all zombie gun exploits in one go
@@ -136,20 +142,8 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 	end
 	
-	-- Zombies with howler protection
+	--Zombies with howler protection
 	if dmginfo:IsAttackerHuman() and pl:IsZombie() then
-					--[==[if math.random(1,3) == 1 then
-						if dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage() then
-							local effectdata = EffectData()
-							effectdata:SetEntity(pl)
-							effectdata:SetOrigin(dmginfo:GetDamagePosition())
-							effectdata:SetMagnitude(math.random(3, 5))
-							effectdata:SetScale(0)
-							util.Effect("bloodstream", effectdata, true, true)
-							-- effectdata:SetNormal(dmginfo:GetDamageForce())--effectdata:SetNormal(( pl:GetShootPos() - dmginfo:GetAttacker():GetShootPos() ):Normalize())
-							-- util.Effect("bloodhit", effectdata, true, true )
-						end
-					end]==]
 		if dmginfo:IsBulletDamage() and pl:HasHowlerProtection() then
 			if math.random(3) == 3 then
 				-- Play metal sound
@@ -180,7 +174,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			end
 		end
 
-	--  -35% damage for zombine (armor)
+		--35% damage for zombine (armor)
 		if pl:IsZombine() then
 			if (pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.75)) and pl:Health() ~= 0 and pl.bCanSprint == false then
 				pl.bCanSprint = true
@@ -239,37 +233,37 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 					dmginfo:ScaleDamage ( 0.85 )
 				end
 			end
-		end
 
-		--One boss
-		if pl:GetZombieClass() == 11 then
-			if dmginfo:IsBulletDamage()	then
-				if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 then
-					if math.random(5) == 5 then
-						WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
+			--One boss
+			if pl:GetZombieClass() == 11 then
+				if dmginfo:IsBulletDamage()	then
+					if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 then
+						if math.random(5) == 5 then
+							WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
 
-						local Spark = EffectData()
-						Spark:SetOrigin( dmginfo:GetDamagePosition() )
-						Spark:SetMagnitude( 50 )
-						Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
-						util.Effect( "MetalSpark", Spark, true, true )
+							local Spark = EffectData()
+							Spark:SetOrigin( dmginfo:GetDamagePosition() )
+							Spark:SetMagnitude( 50 )
+							Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
+							util.Effect( "MetalSpark", Spark, true, true )
+						end
+						dmginfo:ScaleDamage ( 0.07 )
 					end
-					dmginfo:ScaleDamage ( 0.07 )
 				end
 			end
 		end
 	end	
 	
-	--  Fall damage
+	--Fall damage
 	if dmginfo:IsFallDamage() then
 		dmginfo:SetDamage(0)
 			
-		-- Fall damage for humans
+		--Fall damage for humans
 		if pl:IsHuman() then
 			local speed, div_factor = math.abs( pl:GetVelocity().z ), 24
 			local Damage = math.Clamp ( speed / div_factor, 5, 90 )
 				
-			-- Shake camera
+			--Shake camera
 			if pl.ViewPunch then
 				pl:ViewPunch ( Angle ( math.random ( -45,45 ),math.random ( -15,15 ),math.random ( -10,10 ) ) )
 			end 
@@ -370,8 +364,10 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 	end
 	
-	-- Multi damage scale
-	GAMEMODE:ScalePlayerMultiDamage( pl, attacker, inflictor, dmginfo )	
+	--Multi damage scale
+	--[[if attacker:IsPlayer() then
+		GAMEMODE:ScalePlayerMultiDamage( pl, attacker, inflictor, dmginfo )	
+	end]]
 	
 	-- Identify our last attacker and inflictor
 	pl:InsertLastDamage( dmginfo:GetPlayerAttacker(), dmginfo:GetInflictor() )
@@ -380,10 +376,6 @@ hook.Add( "ScalePlayersDamage", "ScalePlayersDamage", ScalePlayerDamage )
 
 -- Multi-damage nerf
 function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)
-	if not attacker:IsPlayer() then
-		return
-	end
-
 	-- Damage caused by humans to zombos
 	if attacker:IsHuman() and pl:IsZombie() then
 		local vHumanPos = attacker:GetPos()
@@ -391,31 +383,6 @@ function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)
 		-- Ents around attacker, damage
 		local fDamage, fFinalDamage = dmginfo:GetDamage()
 		
-		-- Get nr of humans around attacker
-		--[[local iHumans = 0
-		for k,v in pairs ( tbHumans ) do
-			if v:IsPlayer() and v:IsHuman() and v:Alive() and v ~= attacker then
-			 	iHumans = iHumans + 1
-			 end
-		end]]
-		
-		-- Bullet force
-		--[[if dmginfo:IsBulletDamage() then
-			
-			-- Bullet force limit
-			local iBulletLimit = 700
-			
-			-- Check distance
-			local fDistance = attacker:GetPos():Distance( pl:GetPos() )
-			fDamage = math.Clamp(( ( ( ( iBulletLimit / 2 - fDistance ) / ( iBulletLimit / 2 ) ) * 0.3 ) * fDamage ) + fDamage,dmginfo:GetDamage()*0.8,dmginfo:GetDamage()*1.1)
-			
-			-- Extend distance
-			if fDistance > iBulletLimit * 0.5 then
-				
-				fDamage = ( ( 1 - math.Clamp( fDistance / ( iBulletLimit * 2 ), 0.1, 1 ) ) * dmginfo:GetDamage() )
-			end
-		end]]
-
 		-- Calcualte final damage
 		if dmginfo:IsBulletDamage() then
 			fFinalDamage = fDamage
