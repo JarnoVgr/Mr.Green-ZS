@@ -236,7 +236,7 @@ GM.HumanWeapons = {
 	-- Submachine guns
 	["weapon_zs_p90"]  = { Name = "P90 Sub-Machine Gun", DPS = 125,Mat = "VGUI/gfx/VGUI/p90", Infliction = 0.65, Type = "smg", Price = 400 }, --  3
 	["weapon_zs_ump"]  = { Name = "UMP Sub-Machine Gun", DPS = 110,Mat = "VGUI/gfx/VGUI/ump45", Infliction = 0.60, Type = "smg", Price = 480 }, --  1
-	["weapon_zs_smg"]  = { Name = "Sub-Machine Gun", DPS = 130, Infliction = 0.9, Type = "smg", Price = 300 }, --  4
+	["weapon_zs_smg"]  = { Name = "Sub-Machine Gun", DPS = 130, Infliction = 0.9, Type = "smg" }, --  4
 	["weapon_zs_mp5"]  = { Name = "MP5 Sub-Machine Gun", DPS = 127,Mat = "VGUI/gfx/VGUI/mp5", Infliction = 0.58, Type = "smg", Price = 380 }, --  5
 	["weapon_zs_tmp"]  = { Name = "TMP Sub-Machine Gun", DPS = 107,Mat = "VGUI/gfx/VGUI/tmp", Infliction = 0.56, Type = "smg", Price = 460 },	--  2
 	["weapon_zs_mac10"]  = { Name = "Mac 10 Sub-Machine Gun", DPS = 126,Mat = "VGUI/gfx/VGUI/mac10", Infliction = 0.60, Type = "smg", Price = 380 },
@@ -291,7 +291,7 @@ GM.HumanWeapons = {
 	["weapon_zs_annabelle"]  = { Name = "Annabelle Shotgun", DPS = 210, Infliction = 0, Type = "shotgun" }, --740
 	["weapon_zs_m1014"]  = { Name = "M1014 Auto-Shotgun", DPS = 246,Mat = "VGUI/gfx/VGUI/xm1014", Infliction = 0.85, Type = "shotgun", Price = 1080 },
 	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Class = "Medic", Type = "rifle"},
-	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0,Class = "Support", Type = "shotgun", Price = 960 }, 
+	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0,Class = "Support", Type = "shotgun" }, 
 	
 	--Pickups!
 	["weapon_zs_pickup_gascan2"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },
@@ -391,7 +391,7 @@ MAX_RANK = 75
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_melee_keyboard"},
+	[0] = {"weapon_zs_usp","weapon_zs_melee_keyboard","weapon_zs_m3super90","weapon_zs_smg"},
 	[1] = {"weapon_zs_melee_plank","weapon_zs_tools_hammer"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
