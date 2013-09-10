@@ -270,6 +270,7 @@ GM.HumanWeapons = {
 	["weapon_zs_awp"]  = { Name = "AWP", DPS = 200,Mat = "VGUI/gfx/VGUI/awp", Infliction = 0, Class = "Berserker", Type = "rifle",Price = 1200 },
 	["weapon_zs_g3sg1"]  = { Name = "G3-SG1", DPS = 80,Mat = "VGUI/gfx/VGUI/g3sg1", Infliction = 0, Class = "Berserker", Type = "rifle" },
 	["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70,Mat = "VGUI/gfx/VGUI/sg550", Infliction = 0, Class = "Berserker", Type = "rifle" },
+	["weapon_zs_sg552"]  = { Name = "SG550", DPS = 70,Mat = "VGUI/gfx/VGUI/sg552", Infliction = 0, Class = "Berserker", Type = "rifle", Price = 700 },
 	
 	--Tool1
 	["weapon_zs_tools_hammer"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", NoRetro = true },
