@@ -982,7 +982,15 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 			if GAMEMODE.RankUnlocks[i] then
 				for _,item in pairs(GAMEMODE.RankUnlocks[i]) do
 					if MySelf:HasUnlocked(item) then
-						if IsWeapon(item) and GetWeaponCategory ( item ) == weptype then
+
+						local sItemType = GetWeaponCategory(item)
+
+						--Work-around for primary weapons
+						if sItemType == "Automatic" then
+							sItemType = "Pistol"
+						end
+
+						if IsWeapon(item) and sItemType == weptype then
 							ItemLabel[item] = vgui.Create("DLabel",Unlocks[num])
 							ItemLabel[item]:SetText("")
 							-- ItemLabel[item]:SetSize(LoadoutMenuW,(LoadoutMenuH/6)*0.9) 
@@ -1010,10 +1018,10 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 							ItemLabel[item].Think = function()
 								if GAMEMODE:IsRetroMode() then
 									if MySelf:IsBlocked(item) then
-										ItemLabel[item]:SetToolTip("Not avalaible in retro mode!")
+										ItemLabel[item]:SetToolTip("Not available in retro mode!")
 									end
 									if MySelf:IsRetroOnly(item) then
-										ItemLabel[item]:SetToolTip("Avalaible only in retro mode!")
+										ItemLabel[item]:SetToolTip("Available only in retro mode!")
 									end
 								end
 							end
@@ -1262,9 +1270,9 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 		-- end
 		if GAMEMODE:IsRetroMode() then
 			if MySelf:IsBlocked(SlotLabel[num].Item) then
-				SlotLabel[num]:SetToolTip("Not avalaible in retro mode!")
+				SlotLabel[num]:SetToolTip("Not available in retro mode!")
 			elseif MySelf:IsRetroOnly(SlotLabel[num].Item) then
-				SlotLabel[num]:SetToolTip("Avalaible only in retro mode!")
+				SlotLabel[num]:SetToolTip("Available only in retro mode!")
 			elseif IsPerk(SlotLabel[num].Item) then
 				SlotLabel[num]:SetToolTip(GAMEMODE.Perks[SlotLabel[num].Item].Description)
 			end
@@ -1477,6 +1485,7 @@ function DrawSelectClass()
 		if IsWeapon(v) then
 			if GetWeaponCategory ( v ) == "Automatic" then
 				primary = v
+				secondary = v
 				break
 			end
 		end
@@ -1813,7 +1822,6 @@ function UnlockEffect2( Unlock )
 end
 	
 function LateSpawnLoadout()
-
 	Loadout = Loadout or {}
 	
 	local filename = "zombiesurvival/loadouts/default.txt"
@@ -1834,9 +1842,8 @@ function LateSpawnLoadout()
 		Loadout = {"weapon_zs_usp","weapon_zs_melee_keyboard"}
 	end
 	
-	print("Resending loadout")
-	PrintTable(Loadout)
+	--[[print("Resending loadout")
+	PrintTable(Loadout)]]
 	
 	RunConsoleCommand ("_applyloadout",unpack(Loadout))
-	
 end
