@@ -24,7 +24,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	-- Only for player attackers
 	if dmginfo:IsAttackerPlayer() then
 	
-		--  Add bonus for prop-kills
+		--Add bonus for prop-kills
 		if dmginfo:IsPhysDamage() then
 			if mVictim:IsHuman() and mAttacker:IsZombie() then
 				mAttacker:AddFrags( 1 )

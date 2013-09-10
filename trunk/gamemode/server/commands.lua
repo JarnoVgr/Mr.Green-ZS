@@ -1653,8 +1653,7 @@ function ApplySkillShopItem(pl,com,args)
 							pl:DropWeapon(j)
 							break
 						end
-					end
-					--pl:StripWeapon ( StrWep:GetClass() ) 
+					end 
 				end
 				pl:Give(weapon)
 				skillpoints.AddSkillPoints(pl,-1*GAMEMODE.HumanWeapons[weapon].Price)

@@ -64,14 +64,14 @@ end
 
 -- Add nessesary amount of skill points
 function skillpoints.AddSkillPoints(pl, amount)
+	if amount == nil or amount == 0 or not IsEntityValid(pl) or not pl:IsPlayer() then
+		return
+	end
 
-	if not IsEntityValid(pl) then return end
-	if not pl:IsPlayer() then return end
-	if amount == nil then return end
-	if amount == 0 then return end
-	
 	if GAMEMODE:IsRetroMode() then
-		if amount > 1 then return end
+		if amount > 1 then
+			return
+		end
 	end
 	
 	pl:SetFrags(pl:Frags()+amount)
@@ -79,19 +79,6 @@ function skillpoints.AddSkillPoints(pl, amount)
 	if GAMEMODE:IsRetroMode() then
 		GAMEMODE:CheckPlayerScore(pl)
 	end
-	
-	--pl.SkillPoints = pl.SkillPoints + amount
-	--[=[
-	for i = 1, amount do
-		pl.SkillPoints = pl.SkillPoints + 1
-		GAMEMODE:CheckHumanScore ( pl )
-		--insert rewarding here
-	end]=]
-	
-	-- umsg.Start("skillpoints.UpdateSkillPoints", pl)
-	-- 	umsg.Short(pl.SkillPoints)
-	-- umsg.End()
-	
 end
 
 -- Use it when you want player to achieve skillshot
@@ -119,16 +106,7 @@ function skillpoints.AchieveSkillShot(pl,victim, name)
 	local Col = SkillPointsTable[Team][name].Color
 	local Pos = victim:GetPos() + Vector(0,0,math.random(55,77))
 
-	--[==[umsg.Start("skillpoints.ReceiveSkillShot", pl)
-		umsg.String(Name)
-		umsg.String(Col)
-		umsg.Short(Amount)
-		umsg.Entity(victim)
-		umsg.Vector(Pos)
-	umsg.End()]==]
-	
-	skillpoints.AddSkillPoints(pl, Amount)	
-	
+	skillpoints.AddSkillPoints(pl, Amount)
 end
 
 -- Same as skillpoints.SetupSkillPoints :/
