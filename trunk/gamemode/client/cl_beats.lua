@@ -326,8 +326,8 @@ ENABLE_BLOOD = false
 
 local NextBeat = 0
 local LastBeatLevel = 0
-function GM:PlayBeats(teamid, am)
-	--[[local ENABLE_BEATS = util.tobool(GetConVarNumber("_zs_enablebeats"))
+local function PlayBeats(teamid, am)
+	local ENABLE_BEATS = util.tobool(GetConVarNumber("_zs_enablebeats"))
 
 	if RealTime() <= NextBeat or not ENABLE_BEATS then return end
 
@@ -344,36 +344,27 @@ function GM:PlayBeats(teamid, am)
 	if snd then
 		MySelf:EmitSound(snd, 0, 100, 0.8)
 		NextBeat = RealTime() + SoundDuration(snd) - 0.025
-	end]]
+	end
 end
 
 
 -- Good old beats :D
-function GM:_Think()
-	--[[MySelf = LocalPlayer()
-	if not MySelf:IsValid() then return end
+local function BeatsThink()
+	MySelf = LocalPlayer()
+	if not MySelf:IsValid() then
+		return
+	end
 
 	
 	local myteam = MySelf:Team()
 	
 	local am = myteam == TEAM_UNDEAD and MySelf:GetHordeCount(true) or math.Round(math.min(GetZombieFocus3(MySelf:GetPos(), 260, 0.001, 0) * 10, 10))
 	
-	self:PlayBeats(myteam, am)
-	
-	
-	for _, pl in ipairs(player.GetAll()) do
-		local cl = pl:GetZombieClass()
-		if pl:Team() == TEAM_UNDEAD and UndeadBuildBonePositions[cl] then
-			pl.WasBuildingBonePositions = true
-			pl:ResetBones()
-			UndeadBuildBonePositions[cl](pl)
-		elseif pl.WasBuildingBonePositions then
-			pl.WasBuildingBonePositions = nil
-			pl:ResetBones()
-		end
-	end]]
-	
+	PlayBeats(myteam, am)
 end
+hook.Add("Think", "BeatsThink", BeatsThink)
+
+
 -- 2 functions from old zs for better calculating
 function GetZombieFocus2(mypos, range, multiplier, maxper)
 	local zombies = 0

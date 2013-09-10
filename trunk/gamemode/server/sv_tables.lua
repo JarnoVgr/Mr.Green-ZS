@@ -308,9 +308,9 @@ for _, filename in pairs( file.Find( "sound/npc/stalker/*.wav" , "GAME") ) do
 end
 
 --Beats
---[[for _, filename in pairs( file.Find( "sound/zombiesurvival/*.wav", "GAME" ) ) do
+for _, filename in pairs( file.Find( "sound/zombiesurvival/*.wav", "GAME" ) ) do
 	table.insert ( ResourceFiles, "sound/zombiesurvival/"..filename  )
-end]]
+end
 
 --Killicons
 table.insert ( ResourceFiles, "materials/killicon/zs_zombie.vtf"  )
