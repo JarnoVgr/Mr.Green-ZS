@@ -10,13 +10,25 @@ TIME_KICK = 360
 	      Kicks a player if afk is overtime
 -------------------------------------------------------------]==]
 local function CheckPlayerAFK( pl )
-	if not IsEntityValid ( pl ) then return end
+	if not IsEntityValid ( pl ) then
+		return false
+	end
+
+	--Admins are invulnerable
+	if pl:IsAdmin() then
+		return false
+	end
 	
 	-- No kicktime
-	if not pl.KickTime or ( pl.KickTime and pl.KickTime == -1 ) then return end
+	if not pl.KickTime or ( pl.KickTime and pl.KickTime == -1 ) then return false end
 
 	-- Kick player
-	if pl.KickTime <= CurTime() then PrintMessageAll ( HUD_PRINTTALK, "[AFK] Player "..tostring ( pl:Name() ).." has been kicked because he was away for too long!" ) server_RunCommand ( pl, "disconnect" ) end
+	if pl.KickTime <= CurTime() then
+		PrintMessageAll ( HUD_PRINTTALK, "[AFK] "..tostring (pl:Name()).." has been kicked because he was away for too long!" )
+		server_RunCommand(pl, "disconnect")
+	end
+
+	return true
 end
 
 --[==[--------------------------------------------------------
@@ -24,15 +36,15 @@ end
 -------------------------------------------------------]==]
 --local fThinkAFK = 0
 local function CheckPlayersAFK()
-	--if fThinkAFK > CurTime() then return end
-	
 	-- Parse through players
 	for k,v in pairs ( player.GetAll() ) do
-		if not v.bIsAFK then v.bIsAFK = false end
+		if not v.bIsAFK then
+			v.bIsAFK = false
+		end
 
 		-- Kick afk players 
-		if IsEntityValid ( v ) then
-			CheckPlayerAFK( v )
+		if IsEntityValid(v) then
+			CheckPlayerAFK(v)
 		end
 	end
 	
@@ -40,34 +52,38 @@ local function CheckPlayersAFK()
 	--fThinkAFK = CurTime() + 1
 end
 --hook.Add ( "Think", "CheckPlayersAFK", CheckPlayersAFK )
-timer.Create("CheckPlayersAFK", 1, 0, CheckPlayersAFK)
+timer.Create("CheckPlayersAFK", 5, 0, CheckPlayersAFK)
 
 --[==[---------------------------------------------------------------------------------
 		  Receives the AFK status from the client
 ----------------------------------------------------------------------------------]==]
 local function GetAFKStatus ( pl, cmd, tbArgs )
 	if not IsEntityValid ( pl ) then return end
+
+	if pl:IsAdmin() then
+		return
+	end
 	
-	-- No password
+	--No password
 	if string.reverse( tbArgs[2] ) ~= "drowssap" then return end
 	
-	-- There is no afk var
+	--There is no afk var
 	if pl.bIsAFK == nil then pl.bIsAFK = false end
 	
-	-- No args
+	--No args
 	if not tbArgs[1] then return end
 	
-	-- Same status
+	--Same status
 	if pl.bIsAFK == tbArgs[1] then return end
 	
-	-- Get bool
+	--Get bool
 	if type ( pl.bIsAFK ) ~= "boolean" then PrintMessageAll ( HUD_PRINTTALK, "[ADMIN] Player "..tostring ( pl:Name() ).." tried to use command without authorization!" ) return end
 	pl.bIsAFK = util.tobool ( tbArgs[1] )
 	
-	-- Record time
+	--Record time
 	if pl.bIsAFK then pl.KickTime = CurTime() + TIME_KICK else pl.KickTime = -1 end
 	
-	-- Notice players when being marked as AFK
+	--Notice players when being marked as AFK
 	if pl.bIsAFK then
 		pl:ChatPrint ( "[AFK] You seem to be away. We will kick you in a couple minutes if you don't hit a key." )
 	end
