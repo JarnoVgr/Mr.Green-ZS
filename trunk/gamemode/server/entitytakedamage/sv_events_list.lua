@@ -15,10 +15,6 @@ end
 
 -- Zombie takes damage from any source
 function GM:OnZombieTakeDamage( ent, attacker, inflictor, dmginfo )
-	
-	
-
-
 end
 
 -- Final - Player takes damage from any source

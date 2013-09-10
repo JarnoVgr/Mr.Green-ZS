@@ -17,23 +17,18 @@ BONUS_RESISTANCE = false
 
 -- Scales player damage (called before others)
 local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
-	
 	local ct = CurTime()
 	
 	-- Player not ready
 	if not pl.Ready then
-		dmginfo:SetDamage( 0 )
-		return true
-	end
-
-	--Check for friendly fire
-	if dmginfo:IsPlayerFriendlyFire(pl) then
 		dmginfo:SetDamage(0)
 		return true
-	end
-	
-	-- Scale fire damage
-	--[[if dmginfo:IsFireDamage() then
+	--Check for friendly fire
+	elseif dmginfo:IsPlayerFriendlyFire(pl) then
+		dmginfo:SetDamage(0)
+		return true
+	--Scale fire damage
+	--[[elseif dmginfo:IsFireDamage() then
 		pl.dmgNextFire = pl.dmgNextFire or 0
 		if pl.dmgNextFire > ct then
 			dmginfo:SetDamage( 0 )
@@ -44,19 +39,20 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		--dmginfo:SetDamage( pl:GetMaximumHealth() * 0.05 )
 		dmginfo:SetDamage( math.random(5,15) )
 		pl.dmgNextFire = ct + 1
-	end]]
-			
+	]]		
 	-- Scale drown damage
-	if dmginfo:IsDrownDamage() then
+	elseif dmginfo:IsDrownDamage() then
 		pl.dmgNextDrown = pl.dmgNextDrown or 0
 		if pl.dmgNextDrown > ct then 
 			dmginfo:SetDamage( 0 )
 			return true
 		end
 		
-		--  10 damage per second
-		dmginfo:SetDamage( pl:GetMaximumHealth() * 0.1 )
+		--10 damage per second
+		dmginfo:SetDamage(pl:GetMaximumHealth() * 0.1)
 		pl.dmgNextDrown = ct + 1
+
+		return true
 	end		
 	
 	-- Physbox team-damage bug
@@ -134,13 +130,13 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end		
 	end
 	
-	-- Fix all zombie gun exploits in one go
-	if dmginfo:IsAttackerPlayer() and dmginfo:GetAttacker():Team() ~= pl:Team() then
+	--Fix all zombie gun exploits in one go
+	--[[if dmginfo:IsAttackerPlayer() and dmginfo:GetAttacker():Team() ~= pl:Team() then
 		if ( dmginfo:IsAttackerZombie() and dmginfo:IsBulletDamage() ) then
-			dmginfo:SetDamage( 0 )
+			dmginfo:SetDamage(0)
 			return true
 		end
-	end
+	end]]
 	
 	--Zombies with howler protection
 	if dmginfo:IsAttackerHuman() and pl:IsZombie() then
