@@ -51,15 +51,11 @@ end
 
 -- Check if it's headshot damage
 function metaDamage:IsHeadshot( mVictim )
-	--if IsEntityValid( mVictim ) then
-		if mVictim:GetAttachment( 1 ) then --and not mVictim:IsZombine()  Zombines not headless anymore
-			return ( self:IsBulletDamage() and self:GetDamagePosition():Distance( mVictim:GetAttachment( 1 ).Pos ) < 15 )
-		else	
-			return false	
-		end
-	--end
-	
-
+	if mVictim:GetAttachment( 1 ) then --and not mVictim:IsZombine()  Zombines not headless anymore
+		return ( self:IsBulletDamage() and self:GetDamagePosition():Distance( mVictim:GetAttachment( 1 ).Pos ) < 15 )
+	else	
+		return false	
+	end
 end
 
 -- Get player attacker from attacker/inflictor list, w/e

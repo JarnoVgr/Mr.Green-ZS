@@ -104,7 +104,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 	
 	-- Class achievements
-	if mAttacker:IsPlayer() and mAttacker:IsHuman() and mAttacker ~= mVictim and mVictim:IsZombie() then	
+	--[[if mAttacker:IsPlayer() and mAttacker:IsHuman() and mAttacker ~= mVictim and mVictim:IsZombie() then	
 		local HumanClass, ZombieClass = mAttacker:GetHumanClass(), mVictim:GetZombieClass()
 
 		-- Marksman
@@ -112,19 +112,19 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			if mVictim:GetAttachment( 1 ) then  --why it was disabled? :O (because zombies don't have heads)
 				if (dmginfo:GetDamagePosition():Distance( mVictim:GetAttachment( 1 ).Pos )) < 15 then
 					if mAttacker:GetTableScore("berserker","level") == 0 and mAttacker:GetTableScore("berserker","achlevel0_1") < 1000 then
-						-- mAttacker:AddTableScore("berserker","achlevel0_1",1)
+						mAttacker:AddTableScore("berserker","achlevel0_1",1)
 					elseif mAttacker:GetTableScore("berserker","level") == 1 and mAttacker:GetTableScore("berserker","achlevel0_1") < 2500 then
-						-- mAttacker:AddTableScore("berserker","achlevel0_1",1)
+						mAttacker:AddTableScore("berserker","achlevel0_1",1)
 					end
 					
 					if (dmginfo:GetDamagePosition():Distance( mAttacker:GetShootPos() )) > 710 then
 						if mAttacker:GetTableScore("berserker","level") == 4 then
 							if mAttacker:GetTableScore("berserker","achlevel4_1") < 700 then
-								-- mAttacker:AddTableScore ("berserker","achlevel4_1",1)
+								mAttacker:AddTableScore ("berserker","achlevel4_1",1)
 							end
 						elseif mAttacker:GetTableScore("berserker","level") == 5 then
 							if mAttacker:GetTableScore("berserker","achlevel4_1") < 1337 then
-								-- mAttacker:AddTableScore ("berserker","achlevel4_1",1)
+								mAttacker:AddTableScore ("berserker","achlevel4_1",1)
 							end
 						end
 					end
@@ -187,7 +187,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				end
 			end
 		end
-	end
+	end]]
 		
 	if mAttacker:IsPlayer() and mAttacker:IsHuman() and mAttacker ~= mVictim and mVictim:IsZombie() then --disable getting points from teamkilling anyway
 	
@@ -203,9 +203,9 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
 			mVictim:FloatingTextEffect( reward, mAttacker )
 		
-		if LASTHUMAN then
-			-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"hero")
-		end
+		--[[if LASTHUMAN then
+			skillpoints.AchieveSkillShot(mAttacker,mVictim,"hero")
+		end]]
 			
 			
 		-----------------------------

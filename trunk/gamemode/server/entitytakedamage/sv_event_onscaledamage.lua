@@ -27,7 +27,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	end
 	
 	-- Scale fire damage
-	if dmginfo:IsFireDamage() then
+	--[[if dmginfo:IsFireDamage() then
 		pl.dmgNextFire = pl.dmgNextFire or 0
 		if pl.dmgNextFire > ct then
 			dmginfo:SetDamage( 0 )
@@ -38,7 +38,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		--dmginfo:SetDamage( pl:GetMaximumHealth() * 0.05 )
 		dmginfo:SetDamage( math.random(5,15) )
 		pl.dmgNextFire = ct + 1
-	end
+	end]]
 			
 	-- Scale drown damage
 	if dmginfo:IsDrownDamage() then
@@ -78,7 +78,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		elseif pl:IsZombie() then
 			dmginfo:SetDamage( attacker.Damage )
 		end
-	return true		
+		return true		
 	end
 	
 	if attacker:GetClass() == "zs_miniturret" then
@@ -87,7 +87,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		elseif pl:IsZombie() then
 			dmginfo:SetDamage( attacker.Damage )
 		end
-	return true		
+		return true		
 	end
 	
 	-- Self-inflicted phys damage
@@ -95,64 +95,17 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		dmginfo:SetDamage( 0 )
 		return true
 	end
-	
-	-- Damage by unowned props on player
-	
-	--[==[if dmginfo:IsPhysDamage() then
-		if not dmginfo:IsAttackerPlayer() and not dmginfo:IsInflictorPlayer() then
-			if string.find( tostring( dmginfo:GetAttacker():GetClass() ), "prop" ) then
-				if dmginfo:GetAttacker():IsPickupEntity() or dmginfo:GetAttacker().Nails then
-					--pl:EmitSound("vo/npc/male01/pardonme01.wav")
-					dmginfo:SetDamage( 0 )
-					return true
-				end
-			end
-		end
-	end]==]
+
 	--remove unnesessary damage
 	if dmginfo:IsPhysDamage() then
 		if not dmginfo:IsAttackerPlayer() and not dmginfo:IsInflictorPlayer() then
-				if dmginfo:GetAttacker().IsObjEntity then
-					dmginfo:SetDamage( 0 )
-					return true
-				end
-		end
-	end
-	
-	--[=[
-	if dmginfo:IsPhysDamage() then
-		if not dmginfo:IsAttackerPlayer() and not dmginfo:IsInflictorPlayer() then
-			local fVelocity, fVicVelocity = dmginfo:GetAttacker():GetVelocity():Length(), pl:GetVelocity():Length()
-			
-			-- Check for func_ or door_
-			local Filter, bCrasherFound = { "func_", "door" }
-			for k,v in pairs ( Filter ) do
-				if string.find( tostring( dmginfo:GetAttacker():GetClass() ), v ) then
-					if not dmginfo:IsAttackerPhysbox() then
-						pl.dmgNextCrush = pl.dmgNextCrush or 0
-						if pl.dmgNextCrush > CurTime() then
-							dmginfo:SetDamage( 0 )
-							return true
-						end
-						
-						--  10% of maximum health per second
-						dmginfo:SetDamage( pl:GetMaximumHealth() * 0.15 )
-						pl.dmgNextCrush = CurTime() + 1
-						bCrasherFound = true
-					end
-				end
-			end				
-			
-			-- Block unwanted unowned prop dmg
-			if not bCrasherFound then
-				if fVelocity < 120 or dmginfo:GetAttacker():IsOnGround() then
-					dmginfo:SetDamage( 0 )
-					return true
-				end
+			if dmginfo:GetAttacker().IsObjEntity then
+				dmginfo:SetDamage( 0 )
+				return true
 			end
 		end
 	end
-	]=]
+
 	-- No phys damage between humans and zombies
 	if dmginfo:IsAttackerHuman() then
 		if pl:IsZombie() then
@@ -215,31 +168,26 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 	end
 	
-	-- Triple headshot damage
+	--Scale headshot damage
 	if pl:IsZombie() then
-		-- print(dmginfo:GetDamageType())
-		if pl:GetAttachment( 1 ) then 
+		if pl:GetAttachment(1) then 
 			if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( 1 ).Pos )) < 15 then
-			if dmginfo:IsBulletDamage() then
-				dmginfo:SetDamage ( dmginfo:GetDamage() * 2.0 )
-			elseif dmginfo:IsMeleeDamage() then
-				dmginfo:SetDamage ( dmginfo:GetDamage() * 1.5 )  -- 2.5
-			else
-				dmginfo:SetDamage ( dmginfo:GetDamage() * 1 )
-			end
-			--dmginfo:SetDamage ( 150 )  -- 2.5
+				if dmginfo:IsBulletDamage() then
+					dmginfo:SetDamage ( dmginfo:GetDamage() * 1.4 )
+				elseif dmginfo:IsMeleeDamage() then
+					dmginfo:SetDamage ( dmginfo:GetDamage() * 1.1 )
+				end
 			end
 		end
-	end
-	
+
 	--  -35% damage for zombine (armor)
-	if pl:IsZombie() then
 		if pl:IsZombine() then
 			if (pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.75)) and pl:Health() ~= 0 and pl.bCanSprint == false then
 				pl.bCanSprint = true
 				pl:SendLua( "WraithScream()" )
 				pl:EmitSound( Sound ( "npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav" ) )
 			end
+
 			if pl.bCanSprint then
 				if dmginfo:IsBulletDamage()	then
 					if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( 1 ).Pos )) > 14 then
@@ -271,54 +219,50 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 							dmginfo:ScaleDamage ( 0.2 )
 						end
 					end	
-				end
-				
+				end	
 			else
 				dmginfo:ScaleDamage ( 0.8 )
 			end
-			
+		else
+			--Starting zombies
+			if pl:IsStartingZombie() then
+				if dmginfo:IsBulletDamage()	then
+					if math.random(3) == 3 then
+						WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
+
+						local Spark = EffectData()
+						Spark:SetOrigin( dmginfo:GetDamagePosition() )
+						Spark:SetMagnitude( 50 )
+						Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
+						util.Effect( "MetalSpark", Spark, nil, true )
+					end
+					dmginfo:ScaleDamage ( 0.85 )
+				end
+			end
 		end
-	end
-	
-	-- starting zombies
-	if pl:IsZombie() and not pl:IsZombine() then
-		if pl:IsStartingZombie() then
+
+		--One boss
+		if pl:GetZombieClass() == 11 then
 			if dmginfo:IsBulletDamage()	then
-				if math.random(3) == 3 then
-					WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
+				if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 then
+					if math.random(5) == 5 then
+						WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
 
-					local Spark = EffectData()
+						local Spark = EffectData()
 						Spark:SetOrigin( dmginfo:GetDamagePosition() )
 						Spark:SetMagnitude( 50 )
 						Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
-					util.Effect( "MetalSpark", Spark, nil, true )
+						util.Effect( "MetalSpark", Spark, true, true )
+					end
+					dmginfo:ScaleDamage ( 0.07 )
 				end
-				dmginfo:ScaleDamage ( 0.85 )
 			end
 		end
-	end
-	-- one boss
-	if pl:IsZombie() and pl:GetZombieClass() == 11 then
-		if dmginfo:IsBulletDamage()	then
-			if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 then
-				if math.random(5) == 5 then
-					WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
-
-					local Spark = EffectData()
-						Spark:SetOrigin( dmginfo:GetDamagePosition() )
-						Spark:SetMagnitude( 50 )
-						Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
-					util.Effect( "MetalSpark", Spark, true, true )
-				end
-				dmginfo:ScaleDamage ( 0.07 )
-			end
-		end
-	end
-	
+	end	
 	
 	--  Fall damage
 	if dmginfo:IsFallDamage() then
-		dmginfo:SetDamage( 0 )
+		dmginfo:SetDamage(0)
 			
 		-- Fall damage for humans
 		if pl:IsHuman() then
@@ -326,7 +270,9 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			local Damage = math.Clamp ( speed / div_factor, 5, 90 )
 				
 			-- Shake camera
-			if pl.ViewPunch then pl:ViewPunch ( Angle ( math.random ( -45,45 ),math.random ( -15,15 ),math.random ( -10,10 ) ) ) end 
+			if pl.ViewPunch then
+				pl:ViewPunch ( Angle ( math.random ( -45,45 ),math.random ( -15,15 ),math.random ( -10,10 ) ) )
+			end 
 			
 			if pl:GetPerk("_falldmg") then
 				dmginfo:AddDamage( Damage*0.75 )
@@ -334,8 +280,9 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 				-- dmginfo:SetDamage( 0 )
 			else
 				-- Add new damage
-				dmginfo:AddDamage( Damage )
+				dmginfo:AddDamage(Damage)
 			end
+
 			if pl:Alive() then
 				pl:GiveStatus("knockdown",3)
 			end
@@ -391,9 +338,6 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			local effectdata = EffectData()
 			effectdata:SetEntity(pl)
 			effectdata:SetOrigin(dmginfo:GetDamagePosition())
-			-- effectdata:SetNormal(dmginfo:GetDamageForce())--effectdata:SetNormal(( pl:GetShootPos() - dmginfo:GetAttacker():GetShootPos() ):Normalize())
-			-- util.Effect("bloodhit", effectdata)
-			
 			effectdata:SetMagnitude(5)
 			effectdata:SetScale(0)
 			util.Effect("bloodstream", effectdata, nil, true)

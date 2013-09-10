@@ -3,17 +3,6 @@
 
 local math = math
 
--- On human damaged
-local function OnHumanDamage( pl, attacker, inflictor, dmginfo )
-
-	-- Spawn protection for humans
-	if pl.SpawnProtected then
-		dmginfo:SetDamage ( 0 )
-		return true
-	end
-end
---hook.Add( "OnHumanTakeDamage", "HumanTakeDamage", OnHumanDamage )
-
 -- Player take damage
 local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 
