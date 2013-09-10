@@ -1,6 +1,20 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
+if CLIENT then
+	--Initialize debug convars 
+	DEBUG_VARS = { "zs_debug" }
+	for k,v in pairs ( DEBUG_VARS ) do
+		local bValue = 1
+
+		if v == "zs_debug" then
+			bValue = 0
+		end
+
+		CreateConVar(v, tostring(bValue), FCVAR_NONE, "ConVar used by ZS Debug module")
+	end
+end
+
 --[==[--------------------------------------------------------
 	Save the debug reports from debug file
 ---------------------------------------------------------]==]
@@ -10,7 +24,7 @@ local function WriteDebugToFile ()
 	if LogTable == "" then return end
 	
 	-- Debug is off
-	if GetConVarNumber ( "debug" ) == 0 then return end
+	if GetConVarNumber ( "zs_debug" ) == 0 then return end
 	
 	-- Get the current time and date
 	if Time == nil or Date == nil then Time, Date = os.date("%X"), os.date("%x") end
@@ -32,42 +46,47 @@ function Debug(Text)
 		return
 	end
 
+	if GetConVarNumber("zs_debug") == 0 then
+		return
+	end
+
 	--Get the current time and date
 	local Time, Date = os.date("%X"), os.date("%x")
 	local NewMessage = Text
-	
-	--Server log
-	local bLogServer = util.tobool(GetConVarNumber("debug_rconprint"))
+
+	local bLogSave = 0
 	
 	--Check debug convars
 	if SERVER then
-		if GetConVarNumber("debug") == 0 then
+		bLogSave = util.tobool(GetConVarNumber("zs_debug_save"))
+
+		-- Damage convar
+		if GetConVarNumber("zs_debug_damage") == 0 and string.find(tostring ( NewMessage ), "[DAMAGE]") then
 			return
 		end
-		
-		-- Damage convar
-		if string.find ( tostring ( NewMessage ), "[DAMAGE]" ) and GetConVarNumber ( "debug_damage" ) == 0 then return end
 	end
 	
 	--Print the message to the console
-	if bLogServer or CLIENT then
+	if (SERVER and bLogSave == 0) or CLIENT then
 		print("["..Date.."]["..Time.."] "..tostring(NewMessage))
 	else
 		ServerLog(tostring(NewMessage).."\n")
 	end
 	
-	--Log the text to file if server
 	if SERVER then
+		--Log the text to file if server
 		LogTable = LogTable .."[".. Date .."][".. Time .."] ".. tostring(NewMessage).."\n"
-	end	
 
-	--Turbo debug
-	if SERVER and TURBO_DEBUGGER then
-		WriteDebugToFile()
-	end
+		--Turbo debug
+		--TODO: Use zs_debug_turbo
+		if TURBO_DEBUGGER then
+			WriteDebugToFile()
+		end
+	end	
 end
 
 -- Save debug each 3 seconds
+--TODO: Use zs_debug_saveatinterval
 --[[if SERVER then
 	timer.Create("DebugToFileTimer", 3, 0, WriteDebugToFile)
 end]]
