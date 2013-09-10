@@ -148,12 +148,13 @@ function SWEP:ResetBonePositions()
 	local vm = self.Owner.GetViewModel and self.Owner:GetViewModel()
 	if not IsValid(vm) then return end
 	
-	for i=0, vm:GetBoneCount() do
-		vm:ManipulateBoneScale( i, Vector(1, 1, 1) )
-		vm:ManipulateBoneAngles( i, Angle(0, 0, 0) )
-		vm:ManipulateBonePosition( i, Vector(0, 0, 0) )
-	end
-	
+	if vm:GetBoneCount() then
+		for i=0, vm:GetBoneCount() do
+			vm:ManipulateBoneScale( i, Vector(1, 1, 1) )
+			vm:ManipulateBoneAngles( i, Angle(0, 0, 0) )
+			vm:ManipulateBonePosition( i, Vector(0, 0, 0) )
+		end
+	end	
 end
 
 function SWEP:CreateWorldModelElements()
