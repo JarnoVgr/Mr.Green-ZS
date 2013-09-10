@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "M249 SAW"			
+	SWEP.PrintName = "m249"			
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 9
@@ -33,27 +33,24 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_M249.Single")
-SWEP.Primary.Recoil			= 27
-SWEP.Primary.Unrecoil		= 4
-SWEP.Primary.Damage			= 26
+SWEP.Primary.Recoil			= 17
+SWEP.Primary.Damage			= 28
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 100
 SWEP.storeclipsize			= 100
-SWEP.Primary.Delay			= 0.09
+SWEP.Primary.Delay			= 0.08
 SWEP.Primary.DefaultClip	= 200
 SWEP.MaxAmmo			    = 400
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
-SWEP.Primary.Cone			= 0.14
 SWEP.FirePower = (SWEP.Primary.Damage * SWEP.Primary.ClipSize)
 
-SWEP.Cone = 0.14
-SWEP.ConeMoving = 0.16
-SWEP.ConeCrouching = 0.1
-SWEP.ConeIron = 0.12
-SWEP.ConeIronCrouching = 0.1
+SWEP.ConeMoving = 0.10
+SWEP.Cone = 0.093
+SWEP.ConeCrouching = 0.081
 
-SWEP.WalkSpeed = 170
+
+SWEP.WalkSpeed = 180
 SWEP.MaxBulletDistance = 2450
 
 SWEP.IronSightsPos = Vector(-5.961, -6.535, 2.359)

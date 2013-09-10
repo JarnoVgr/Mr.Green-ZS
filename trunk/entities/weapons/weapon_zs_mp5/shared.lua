@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "MP5 Navy"			
+	SWEP.PrintName = "mp5"			
 	SWEP.Author	= "JetBoom"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 12
@@ -47,23 +47,21 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_MP5Navy.Single")
-SWEP.Primary.Recoil			= 8
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Recoil			= 3
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 30
-SWEP.Primary.Delay			= 0.1
-SWEP.Primary.DefaultClip	= 30
+SWEP.Primary.Delay			= 0.09
+SWEP.Primary.DefaultClip	= 60
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
-SWEP.Primary.Cone			= 0.05
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.MaxAmmo			    = 250
 
-SWEP.Cone = 0.05
-SWEP.ConeMoving				= 0.07
-SWEP.ConeCrouching			= 0.03
-SWEP.ConeIron = 0.06
-SWEP.ConeIronCrouching = 0.05
+
+SWEP.ConeMoving = 0.080
+SWEP.Cone = 0.075
+SWEP.ConeCrouching = 0.062
 
 SWEP.WalkSpeed = 185
 SWEP.MaxBulletDistance 		= 2300

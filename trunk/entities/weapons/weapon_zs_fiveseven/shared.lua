@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "Five-seveN"			
+	SWEP.PrintName = "Five-Seven"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 1
 	SWEP.ViewModelFOV = 68
@@ -35,27 +35,23 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_FiveSeven.Single" )
-SWEP.Primary.Recoil			= 8
-SWEP.Primary.Unrecoil		= 3
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Recoil			= 3
+SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 15
-SWEP.Primary.Delay			= 0.12
+SWEP.Primary.Delay			= 0.1
 SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "pistol"
-SWEP.Primary.Cone			= 0.04
 SWEP.MaxBulletDistance 		= 1900
 SWEP.MaxAmmo			    = 60
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.055
-SWEP.ConeMoving = 0.060
-SWEP.ConeCrouching = 0.03
-SWEP.ConeIron = 0.04
-SWEP.ConeIronCrouching = 0.02
+SWEP.ConeMoving = 0.064
+SWEP.Cone = 0.056
+SWEP.ConeCrouching = 0.045
 
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 190
 
 SWEP.IronSightsPos = Vector(-5.961, -12.363, 2.88)
 SWEP.IronSightsAng = Vector(0, 0, 0)

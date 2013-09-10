@@ -31,7 +31,7 @@ end
 
 SWEP.Base				= "weapon_zs_base"
 
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 190
 
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
@@ -47,22 +47,19 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound("Weapon_P228.Single")
-SWEP.Primary.Recoil			= 2.25 * 2 -- 2.25
-SWEP.Primary.Damage			= 13
+SWEP.Primary.Recoil			= 3
+SWEP.Primary.Damage			= 14.5
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 18
-SWEP.Primary.Delay			= 0.15
+SWEP.Primary.Delay			= 0.1
 SWEP.Primary.DefaultClip	= 90
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
-SWEP.Primary.Cone			= 0.03
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.03
-SWEP.ConeMoving = 0.045
-SWEP.ConeCrouching = 0.015
-SWEP.ConeIron = 0.02
-SWEP.ConeIronCrouching = 0.01
+SWEP.ConeMoving = 0.059
+SWEP.Cone = 0.051
+SWEP.ConeCrouching = 0.039
 
 SWEP.MaxBulletDistance 		= 1800
 

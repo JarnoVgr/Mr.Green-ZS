@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "FAMAS"
+	SWEP.PrintName = "Famas"
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 5
@@ -48,27 +48,26 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_FAMAS.Single")
-SWEP.Primary.Recoil			= 6.5 -- 1.5 It's like butter on 1.5 :o
-SWEP.Primary.Unrecoil		= 9
-SWEP.Primary.Damage			= 21
+SWEP.Primary.Recoil			= 8
+SWEP.Primary.Unrecoil		= 0
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 31
 SWEP.storeclipsize			= 31
 SWEP.MaxAmmo			    = 250
-SWEP.Primary.Delay			= 0.15
+SWEP.Primary.Delay			= 0.175
 SWEP.Primary.DefaultClip	= 60
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.Primary.Cone			= 0.04
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.05
-SWEP.ConeMoving = 0.08
-SWEP.ConeCrouching = 0.03
-SWEP.ConeIron = 0.04
-SWEP.ConeIronCrouching = 0.02
+SWEP.ConeMoving = 0.078
+SWEP.Cone = 0.071
+SWEP.ConeCrouching = 0.062
 
-SWEP.WalkSpeed = 185
+
+SWEP.WalkSpeed = 180
 SWEP.MaxBulletDistance 		= 2300
 
 SWEP.IronSightsPos = Vector(-4,-3,1)

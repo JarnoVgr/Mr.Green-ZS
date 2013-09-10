@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "M1014"			
+	SWEP.PrintName = "m1014"			
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 10
@@ -33,25 +33,24 @@ SWEP.HoldType = "shotgun"
 SWEP.ReloadDelay = 0.4
 
 SWEP.Primary.Sound			= Sound("Weapon_XM1014.Single")
-SWEP.Primary.Recoil			= 42 -- 2.8
-SWEP.Primary.Unrecoil		= 1
-SWEP.Primary.Damage			= 18
+SWEP.Primary.Recoil			= 17
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 8
 SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Delay			= 0.3
 SWEP.Primary.DefaultClip	= 16
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "buckshot"
-SWEP.Primary.ReloadDelay	= 1.1
-SWEP.Cone			= 0.2
-SWEP.ConeMoving				= 0.25
-SWEP.ConeCrouching			= 0.15
+SWEP.Primary.ReloadDelay	= 0.6
+SWEP.ConeMoving = 0.172
+SWEP.Cone = 0.167
+SWEP.ConeCrouching = 0.161
 SWEP.MaxAmmo			    = 70
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize * SWEP.Primary.NumShots)
 SWEP.IsShotgun = true
 
 
-SWEP.WalkSpeed = 175
+SWEP.WalkSpeed = 180
 SWEP.MaxBulletDistance 		= 2300
 
 SWEP.IronSightsPos = Vector(-6.881, -11.261, 2.68)

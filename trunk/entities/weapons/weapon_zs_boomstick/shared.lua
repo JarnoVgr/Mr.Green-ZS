@@ -4,7 +4,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "Boom Stick"
+	SWEP.PrintName = "'Boomstick'"
 	SWEP.Author = "JetBoom"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 17
@@ -15,7 +15,7 @@ if CLIENT then
 	SWEP.UseHL2Bonemerge = true
 	SWEP.ScaleDownLeftHand = true
 	
-	killicon.AddFont( "weapon_zs_boomstick", "HL2MPTypeDeath", "0", Color( 255, 10, 0, 255 ) )
+	killicon.AddFont( "weapon_zs_boomstick", "HL2MPTypeDeath", "0", Color( 255, 255, 255, 255 ) )
 end
 
 SWEP.Base = "weapon_zs_base"
@@ -31,8 +31,8 @@ SWEP.HoldType = "shotgun"
 
 util.PrecacheSound("weapons/shotgun/shotgun_dbl_fire.wav")
 SWEP.Primary.Sound = "weapons/shotgun/shotgun_dbl_fire.wav"
-SWEP.Primary.Recoil = 75
-SWEP.Primary.Damage = 70
+SWEP.Primary.Recoil = 28
+SWEP.Primary.Damage = 34
 SWEP.Primary.NumShots = 6
 SWEP.Primary.Delay = 1.6
 
@@ -41,16 +41,14 @@ SWEP.Primary.DefaultClip = 8
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "buckshot"
 
-SWEP.Cone = 0.095
-SWEP.ConeCrouching = 0.085
-SWEP.ConeMoving = 0.1
+SWEP.ConeMoving = 0.20
+SWEP.Cone = 0.186
+SWEP.ConeCrouching = 0.176
 
-SWEP.Primary.Cone			= 0.095
-SWEP.ConeMoving				= 0.1
-SWEP.ConeCrouching			= 0.085
+
 SWEP.IsShotgun = true
 SWEP.MaxAmmo			    = 55
-SWEP.WalkSpeed = 175
+SWEP.WalkSpeed = 180
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0
@@ -114,7 +112,7 @@ function SWEP:PrimaryAttack()
 		self.Owner:ViewPunch(clip * 0.5 * self.Primary.Recoil * Angle(math.Rand(-0.1, -0.1), math.Rand(-0.1, 0.1), 0))
 
 		self.Owner:SetGroundEntity(NULL)
-		self.Owner:SetVelocity(-80 * clip * self.Owner:GetAimVector())
+		self.Owner:SetVelocity(-100 * clip * self.Owner:GetAimVector())
 
 		self.IdleAnimation = CurTime() + self:SequenceDuration()
 	end

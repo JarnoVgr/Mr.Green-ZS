@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "SG552"			
+	SWEP.PrintName = "sg552"			
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 16
@@ -45,28 +45,24 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_SG552.Single")
-SWEP.Primary.Recoil			= 6
-SWEP.Primary.Unrecoil		= 9
+SWEP.Primary.Recoil			= 8
 SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 30
-SWEP.storeclipsize			= 30
-SWEP.Primary.Delay			= 0.1
-SWEP.Primary.DefaultClip	= 30
+SWEP.Primary.ClipSize		= 28
+SWEP.storeclipsize			= 34
+SWEP.Primary.Delay			= 0.07
+SWEP.Primary.DefaultClip	= 68
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
-SWEP.Primary.Cone			= 0.05 -- 0.05
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.MaxAmmo			    = 250
 SWEP.Secondary.Delay = 0.5
 
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = 180
 
-SWEP.Cone = 0.06
-SWEP.ConeMoving = 0.08
-SWEP.ConeCrouching = 0.04
-SWEP.ConeIron = 0.05
-SWEP.ConeIronCrouching = 0.04
+SWEP.ConeMoving = 0.080
+SWEP.Cone = 0.072
+SWEP.ConeCrouching = 0.063
 
 
 SWEP.IronSightsPos = Vector(-7.881, -18.504, 2.599)

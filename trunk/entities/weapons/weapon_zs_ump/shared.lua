@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "UMP-45"			
+	SWEP.PrintName = "ump"			
 	SWEP.Author	= "JetBoom"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 20
@@ -46,27 +46,23 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_UMP45.Single")
-SWEP.Primary.Recoil			= 12
-SWEP.Primary.Unrecoil		= 9
-SWEP.Primary.Damage			= 19
+SWEP.Primary.Recoil			= 9
+SWEP.Primary.Damage			= 20
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 26
-SWEP.Primary.Delay			= 0.16
-SWEP.Primary.DefaultClip	= 52
+SWEP.Primary.ClipSize		= 28
+SWEP.Primary.Delay			= 0.13
+SWEP.Primary.DefaultClip	= 56
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
-SWEP.Primary.Cone			= 0.065
+
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.065
-SWEP.ConeMoving = 0.085
-SWEP.ConeCrouching = 0.045
-SWEP.ConeIron = 0.065
-SWEP.ConeIronCrouching = 0.045
 
+SWEP.ConeMoving = 0.083
+SWEP.Cone = 0.074
+SWEP.ConeCrouching = 0.060
 
 SWEP.MaxAmmo			    = 250
-
 
 SWEP.WalkSpeed = 185
 SWEP.MaxBulletDistance 		= 2240

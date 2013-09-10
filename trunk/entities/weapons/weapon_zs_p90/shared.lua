@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "P90"			
+	SWEP.PrintName = "p90"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
 	SWEP.ViewModelFOV = 65
@@ -46,9 +46,9 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_P90.Single")
-SWEP.Primary.Recoil			= 6
-SWEP.Primary.Unrecoil		= 7
-SWEP.Primary.Damage			= 12.5
+SWEP.Primary.Recoil			= 3
+SWEP.Primary.Unrecoil		= 0
+SWEP.Primary.Damage			= 16
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.05
 SWEP.Primary.ClipSize		= 50
@@ -57,14 +57,12 @@ SWEP.Primary.DefaultClip	= 100
 SWEP.MaxAmmo			    = 250
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
-SWEP.Primary.Cone			= 0.09
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.07
-SWEP.ConeMoving = 0.09
-SWEP.ConeCrouching = 0.05
-SWEP.ConeIron = 0.08
-SWEP.ConeIronCrouching = 0.06
+
+SWEP.ConeMoving = 0.080
+SWEP.Cone = 0.076
+SWEP.ConeCrouching = 0.063
 
 SWEP.WalkSpeed = 185
 SWEP.MaxBulletDistance 		= 1800

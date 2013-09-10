@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "Glock 3"
+	SWEP.PrintName = "Glock"
 	SWEP.Author	= "JetBoom"
 	SWEP.Slot = 1
 	SWEP.ViewModelFOV = 68
@@ -46,23 +46,20 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Glock.Single" )
-SWEP.Primary.Recoil			= 9
-SWEP.Primary.Damage			= 15
+SWEP.Primary.Recoil			= 4
+SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 3
 SWEP.Primary.ClipSize		= 7
 SWEP.Primary.Delay			= 0.3
 SWEP.Primary.DefaultClip	= 14
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
-SWEP.Primary.Cone			= 0.06 -- 0.14
 SWEP.MaxAmmo			    = 100
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 190
 
-SWEP.Cone = 0.045
-SWEP.ConeMoving = 0.06
-SWEP.ConeCrouching = 0.03
-SWEP.ConeIron = 0.03
-SWEP.ConeIronCrouching = 0.025
+SWEP.ConeMoving = 0.072
+SWEP.Cone = 0.064
+SWEP.ConeCrouching = 0.057
 
 SWEP.IronSightsPos = Vector(-5.781, -13.466, 2.92)
 SWEP.IronSightsAng = Vector(0.275, 0, 0)

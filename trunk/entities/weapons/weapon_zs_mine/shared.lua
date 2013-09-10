@@ -9,7 +9,7 @@ end
 SWEP.HoldType = "melee"
 
 if ( CLIENT ) then
-	SWEP.PrintName = "Explosives"
+	SWEP.PrintName = "Explosive"
 	SWEP.Slot = 4
 	SWEP.SlotPos = 1
 	SWEP.DrawCrosshair = false
@@ -64,7 +64,7 @@ SWEP.AdminSpawnable		= false
 SWEP.ViewModel      = Model ( "models/Weapons/v_slam.mdl")
 SWEP.WorldModel   = Model ( "models/Weapons/w_package.mdl" )
 ------------------------------------------------------------------------------------------------------
-SWEP.Primary.Delay			= 0.6 	
+SWEP.Primary.Delay			= 0.25 	
 SWEP.Primary.Recoil			= 0		
 SWEP.Primary.Damage			= 7	
 SWEP.Primary.NumShots		= 1		
@@ -84,7 +84,7 @@ SWEP.Secondary.DefaultClip	= 1
 SWEP.Secondary.Automatic   	= false
 SWEP.Secondary.Ammo         = "none"
 ------------------------------------------------------------------------------------------------------
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 195
 
 -- Preload
 util.PrecacheSound("weapons/c4/c4_beep1.wav")
@@ -128,14 +128,14 @@ function SWEP:PrimaryAttack()
 	
 	if mymines > 5 then
 		if SERVER then 
-			self.Owner:PrintMessage (HUD_PRINTTALK, "You can't place more that 5 mines per ground!")
-			self.Owner:Message ("You can't place more that 5 mines per ground!",1,"white")
+			self.Owner:PrintMessage (HUD_PRINTTALK, "You can't place more than 5 mines per ground!")
+			self.Owner:Message ("You can't place more than 5 mines per ground!",1,"white")
 		end
 		return
 	end
 	
 	for k,v in pairs ( ActualMines ) do-- ents.FindInBox (Vector (pos.x - 100,pos.y - 100,pos.z - 100), Vector (pos.x + 100, pos.y + 100, pos.z + 100))
-		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 100 then
+		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 50 then
 			-- if v:GetClass() == "mine" then
 				mines = mines + 1
 			-- end
@@ -144,8 +144,8 @@ function SWEP:PrimaryAttack()
 		
 	if mines >= 1 then
 		if SERVER then 
-			self.Owner:PrintMessage (HUD_PRINTTALK, "You must place the mine 100 units away from any other ones!")
-			self.Owner:Message ("You must place the mine 100 units away from any other ones!",1,"white")
+			self.Owner:PrintMessage (HUD_PRINTTALK, "You must place the mine 50 units away from any other ones!")
+			self.Owner:Message ("You must place the mine 50 units away from any other ones!",1,"white")
 		end
 		
 		return
@@ -286,7 +286,7 @@ function SWEP:Think()
 		if SERVER then
 			GAMEMODE:WeaponDeployed (self.Owner, self.Weapon)
 		end
-		self.TimeNextThink = CurTime() + 3
+		self.TimeNextThink = CurTime() + 0.5
 	end
 	
 	return true

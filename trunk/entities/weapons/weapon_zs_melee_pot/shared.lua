@@ -45,12 +45,12 @@ end
 -- Model paths
 SWEP.Author = "Deluvas"
 SWEP.ViewModel = Model ( "models/weapons/v_pot/c_pot.mdl" )
-SWEP.UseHands = true
+\SWEP.UseHands = true
 SWEP.WorldModel = Model ( "models/weapons/w_pot.mdl" )
 
 -- Name and fov
 SWEP.PrintName = "Pot"
-SWEP.ViewModelFOV = 52
+SWEP.ViewModelFOV = 70
 
 -- Slot
 SWEP.Slot = 2
@@ -59,13 +59,14 @@ SWEP.SlotPos = 7
 -- Damage, distane, delay
 SWEP.Primary.Damage = 35
 SWEP.Primary.Delay = 0.60
-SWEP.Primary.Distance = 50
+SWEP.Primary.Distance = 45
 
 SWEP.DamageType = DMG_CLUB
 
-SWEP.MeleeDamage = 35
+SWEP.MeleeDamage = 40
 SWEP.MeleeRange = 50
-SWEP.MeleeSize = 1.1
+SWEP.MeleeSize = 1.0
+SWEP.WalkSpeed = 195
 
 SWEP.UseMelee1 = true
 

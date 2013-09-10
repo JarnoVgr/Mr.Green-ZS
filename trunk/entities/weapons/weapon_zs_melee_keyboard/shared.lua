@@ -39,16 +39,17 @@ SWEP.WorldModel = Model ( "models/weapons/w_keyboard.mdl" )
 
 -- Name and fov
 SWEP.PrintName = "Keyboard"
-SWEP.ViewModelFOV = 75
+SWEP.ViewModelFOV = 70
 
 -- Slot position
 SWEP.Slot = 2
 SWEP.SlotPos = 5
 
 -- Damage, distane, delay
-SWEP.Primary.Damage = 35
-SWEP.Primary.Delay = 0.55
-SWEP.Primary.Distance = 70
+
+SWEP.MeleeDamage = 35
+SWEP.MeleeRange = 50
+SWEP.MeleeSize = 1.0
 
 
 SWEP.DamageType = DMG_CLUB
@@ -56,6 +57,7 @@ SWEP.DamageType = DMG_CLUB
 SWEP.MeleeDamage = 35
 SWEP.MeleeRange = 45
 SWEP.MeleeSize = 1.25
+SWEP.WalkSpeed = 195
 
 SWEP.SwingTime = 0.3
 SWEP.SwingRotation = Angle(30, -30, -30)

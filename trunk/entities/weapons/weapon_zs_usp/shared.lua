@@ -13,9 +13,7 @@ if CLIENT then
 	SWEP.ViewModelFOV = 68
 	killicon.AddFont( "weapon_zs_usp", "CSKillIcons", "a", Color(255, 255, 255, 255 ) )
 	
-	
 	SWEP.IgnoreThumbs = true
-
 end
 
 if XMAS_2012 then
@@ -27,14 +25,12 @@ if XMAS_2012 then
 		self.WElements = {
 			["lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(0.082, 0.662, -1.106), angle = Angle(0, 0, -180), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
 		}
-		
 	end
-
 end
 
 SWEP.Base = "weapon_zs_base"
 
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 190
 
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
@@ -50,23 +46,20 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_USP.Single" )
-SWEP.Primary.Recoil			= 3.8
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Recoil			= 3
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 12
 SWEP.Primary.Delay			= 0.2
-SWEP.Primary.DefaultClip	= 48
+SWEP.Primary.DefaultClip	= 60
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
-SWEP.Primary.Cone			= 0.05
 
 SWEP.FlipYaw = true
 
-SWEP.Cone = 0.05
-SWEP.ConeMoving = 0.06
-SWEP.ConeCrouching = 0.04
-SWEP.ConeIron = 0.05
-SWEP.ConeIronCrouching = 0.03
+SWEP.ConeMoving = 0.067
+SWEP.Cone = 0.059
+SWEP.ConeCrouching = 0.047
 
 SWEP.MaxAmmo			    = 130
 
@@ -75,6 +68,3 @@ SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.OverridePos = Vector(1.36, -1.624, 1.639)
 SWEP.OverrideAng = Vector( 0,0,0 )
-
---SWEP.IronSightsPos = Vector(1.36, -1.624, 1.639)
---SWEP.IronSightsAng = Vector(0, 0, 0)

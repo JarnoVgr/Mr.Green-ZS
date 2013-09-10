@@ -3,7 +3,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "SG550"
+	SWEP.PrintName = "sg550"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 6
 	
@@ -20,7 +20,7 @@ SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_snip_sg550.mdl"
 
 SWEP.Primary.Sound = Sound("Weapon_SG550.Single")
-SWEP.Primary.Recoil = 5.0
+SWEP.Primary.Recoil = 12
 SWEP.Primary.Damage = 40
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.35
@@ -31,11 +31,10 @@ SWEP.Primary.DefaultClip = 40
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo			= "357"
 
-SWEP.Cone = 0.04
-SWEP.ConeMoving = 0.06
-SWEP.ConeCrouching = 0.025
-SWEP.ConeIron = 0.035
-SWEP.ConeIronCrouching = 0.010
+SWEP.ConeMoving = 0.09
+SWEP.Cone = 0.062
+SWEP.ConeCrouching = 0.012
+
 
 SWEP.Secondary.Delay = 0.5
 

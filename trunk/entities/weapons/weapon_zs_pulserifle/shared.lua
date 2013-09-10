@@ -13,7 +13,7 @@ if CLIENT then
 	SWEP.ViewModelFOV = 55
 	SWEP.IconLetter = "2"
 	SWEP.SelectFont = "HL2MPTypeDeath"
-	killicon.AddFont("weapon_zs_pulserifle", "HL2MPTypeDeath", SWEP.IconLetter, Color(255, 80, 0, 255 ))
+	killicon.AddFont("weapon_zs_pulserifle", "HL2MPTypeDeath", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
 
 SWEP.Base				= "weapon_zs_base"
@@ -30,19 +30,19 @@ SWEP.AutoSwitchFrom		= false
 
 SWEP.HoldType = "ar2"
 
-SWEP.Primary.Sound			= Sound("Weapon_AR2.Single")
-SWEP.Primary.Recoil			= 1.25 * 12.5 -- 1.25
-SWEP.Primary.Unrecoil		= 8
-SWEP.Primary.Damage			= 8.2
+SWEP.Primary.Sound			= Sound("Airboat.FireGunHeavy")
+SWEP.Primary.Recoil			= 13
+SWEP.Primary.Damage			= 16.5
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 90
-SWEP.Primary.Delay			= 0.08
-SWEP.Primary.DefaultClip	= 90
+SWEP.Primary.ClipSize		= 45
+SWEP.Primary.Delay			= 0.2
+SWEP.Primary.DefaultClip	= 45
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "none"
-SWEP.Primary.Cone			= 0.13
-SWEP.ConeMoving				= 0.23
-SWEP.ConeCrouching			= 0.06
+
+SWEP.ConeMoving				= 0.88
+SWEP.Primary.Cone			= 0.79
+SWEP.ConeCrouching			= 0.64
 
 SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1
@@ -53,13 +53,14 @@ SWEP.Tracer = "AR2Tracer"
 
 SWEP.MaxBulletDistance 		= 2900 -- Uses pulse power, FTW!
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
-SWEP.WalkSpeed = 170
+SWEP.WalkSpeed = 175
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.25
+SWEP.rechargerate = 0.50
 SWEP.startcharge = 1
-SWEP.MaxClip = 90
+SWEP.MaxClip = 45
+SWEP.WalkSpeed = 180
 
 SWEP.IronSightsPos = Vector(-5.88, -8.03, 2.191)
 SWEP.IronSightsAng = Vector(0.625, -0.695, 0)

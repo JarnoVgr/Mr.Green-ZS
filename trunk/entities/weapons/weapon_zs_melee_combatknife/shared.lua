@@ -9,28 +9,26 @@ SWEP.Base = "weapon_zs_melee_base"
 -- Models paths
 SWEP.Author = "Deluvas"--Edited by NECROSSIN
 SWEP.ViewModel = Model ( "models/weapons/cstrike/c_knife_t.mdl"  )
-SWEP.UseHands = true
 SWEP.WorldModel = Model ( "models/weapons/w_knife_t.mdl"  )
 
 -- Name and fov
 SWEP.PrintName = "Combat Knife"
-SWEP.ViewModelFOV = 57
+SWEP.ViewModelFOV = 70
 
 -- Position
 SWEP.Slot = 2
 SWEP.SlotPos = 6
 
 -- Damage, distane, delay
-SWEP.Primary.Damage = 30
-SWEP.Primary.Delay = 0.4
-SWEP.Primary.Distance = 45
+
+SWEP.Primary.Delay = 0.45
 
 SWEP.HoldType = "knife"
 
-SWEP.MeleeDamage = 35
-SWEP.MeleeRange = 45
+SWEP.MeleeDamage = 25
+SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
-SWEP.WalkSpeed = 215
+SWEP.WalkSpeed = 200
 
 SWEP.HitDecal = "Manhackcut"
 

@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "M4A1"			
+	SWEP.PrintName = "m4a1"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 8
@@ -55,9 +55,8 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_M4A1.Single")
-SWEP.Primary.Recoil			= 1.25 * 4 -- 1.25
-SWEP.Primary.Unrecoil		= 8
-SWEP.Primary.Damage			= 20
+SWEP.Primary.Recoil			= 6
+SWEP.Primary.Damage			= 18.5
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 31
 SWEP.storeclipsize			= 31
@@ -65,18 +64,15 @@ SWEP.Primary.Delay			= 0.1
 SWEP.Primary.DefaultClip	= 60
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
-SWEP.Primary.Cone			= 0.05
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.065
-SWEP.ConeMoving = 0.09
-SWEP.ConeCrouching = 0.04
-SWEP.ConeIron = 0.05
-SWEP.ConeIronCrouching = 0.03
+SWEP.ConeMoving = 0.080
+SWEP.Cone = 0.073
+SWEP.ConeCrouching = 0.063
 
 SWEP.MaxAmmo			    = 250
 
-SWEP.WalkSpeed = 175
+SWEP.WalkSpeed = 180
 SWEP.MaxBulletDistance 		= 2600
 
 SWEP.IronSightsPos = Vector(-8.05, -5, 0.5)

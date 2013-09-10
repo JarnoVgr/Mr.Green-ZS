@@ -3,11 +3,11 @@
 
 if SERVER then
 	AddCSLuaFile("shared.lua")
-	SWEP.PrintName = "SMG"
+	SWEP.PrintName = "'Tosser'"
 end
 
 if CLIENT then
-	SWEP.PrintName = "SMG"			
+	SWEP.PrintName = "smg'"			
 	SWEP.Author	= "Deluvas"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 18
@@ -60,27 +60,23 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_SMG1.Single")
-SWEP.Primary.Recoil			= 6
-SWEP.Primary.Unrecoil		= 7
-SWEP.Primary.Damage			= 10
+SWEP.Primary.Recoil			= 4
+SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
-SWEP.Primary.Delay			= 0.08
-SWEP.Primary.DefaultClip	= 50
+SWEP.Primary.Delay			= 0.10
+SWEP.Primary.DefaultClip	= 125
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
-SWEP.Primary.Cone			= 0.05 -- 0.05
-SWEP.ConeMoving				= 0.13 -- 0.16
-SWEP.ConeCrouching			= 0.04 -- 0.05
 SWEP.MaxBulletDistance 		= 3500
 SWEP.MaxAmmo			    = 250
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.05
-SWEP.ConeMoving = 0.07
-SWEP.ConeCrouching = 0.03
-SWEP.ConeIron = 0.07
-SWEP.ConeIronCrouching = 0.05
+
+SWEP.ConeMoving = 0.080
+SWEP.Cone = 0.072
+SWEP.ConeCrouching = 0.060
+
 
 SWEP.WalkSpeed = 185
 

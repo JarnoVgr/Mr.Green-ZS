@@ -6,20 +6,14 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "357 Magnum"
+	SWEP.PrintName = "Magnum"
 	SWEP.Author	= "JetBoom"
 	SWEP.Slot = 1
 	SWEP.SlotPos = 7
 	SWEP.ViewModelFlip = false
 
-	-- SWEP.ShowViewModel = false
-	-- SWEP.IgnoreBonemerge = false
-	-- SWEP.UseHL2Bonemerge = true
-	-- SWEP.ScaleDownLeftHand = true
-
 	killicon.AddFont( "weapon_zs_magnum", "HL2MPTypeDeath", ".",Color(255, 255, 255, 255 ) )
 	
-
 end
 
 if XMAS_2012 then
@@ -53,23 +47,20 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_357.Single" )
-SWEP.Primary.Recoil			= 100
-SWEP.Primary.Damage			= 70
+SWEP.Primary.Recoil			= 6
+SWEP.Primary.Damage			= 60
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.7
-SWEP.Primary.DefaultClip	= 6
+SWEP.Primary.DefaultClip	= 12
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"--?
-SWEP.Primary.Cone			= 0.045 -- 0.075
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 190
 SWEP.MaxAmmo			    = 60
 
-SWEP.Cone = 0.065
-SWEP.ConeMoving = 0.08
-SWEP.ConeCrouching = 0.04
-SWEP.ConeIron = 0.040
-SWEP.ConeIronCrouching = 0.03
+SWEP.ConeMoving = 0.067
+SWEP.Cone = 0.057
+SWEP.ConeCrouching = 0.050
 
 SWEP.IronSightsPos = Vector(-4.64, -9.056, 0.6)
 SWEP.IronSightsAng = Vector(0.275, 0, 0)
@@ -82,12 +73,12 @@ SWEP.OverrideAng = Vector( 0,0,0 )
 
 local function DoRicochet(attacker, hitpos, hitnormal, normal, damage)
 	attacker.RicochetBullet = true
-	attacker:FireBullets({Num = 1, Src = hitpos, Dir = 2 * hitnormal * hitnormal:Dot(normal * -1) + normal, Spread = Vector(0, 0, 0), Tracer = 1, TracerName = "rico_trace", Force = damage * 0.15, Damage = damage * 3.5, Callback = GenericBulletCallback})
+	attacker:FireBullets({Num = 1, Src = hitpos, Dir = 2 * hitnormal * hitnormal:Dot(normal * -1) + normal, Spread = Vector(0, 0, 0), Tracer = 1, TracerName = "rico_trace", Force = damage * 0.15, Damage = damage * 2, Callback = GenericBulletCallback})
 	attacker.RicochetBullet = nil
 end
 function SWEP.BulletCallback(attacker, tr, dmginfo)
 	if SERVER and tr.HitWorld and not tr.HitSky then
-		timer.Simple(0, function() DoRicochet( attacker, tr.HitPos, tr.HitNormal, tr.Normal, dmginfo:GetDamage() * 1.5) end)
+		timer.Simple(0, function() DoRicochet( attacker, tr.HitPos, tr.HitNormal, tr.Normal, dmginfo:GetDamage() * 2) end)
 	end
 
 	GenericBulletCallback(attacker, tr, dmginfo)

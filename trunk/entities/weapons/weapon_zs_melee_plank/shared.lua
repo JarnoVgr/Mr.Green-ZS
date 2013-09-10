@@ -49,7 +49,7 @@ SWEP.WorldModel = Model ( "models/weapons/w_plank.mdl" )
 
 -- Name and fov
 SWEP.PrintName = "Plank"
-SWEP.ViewModelFOV = 57
+SWEP.ViewModelFOV = 70
 
 -- Position
 SWEP.Slot = 2
@@ -65,7 +65,7 @@ SWEP.DamageType = DMG_CLUB
 SWEP.MeleeDamage = 30
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
-SWEP.WalkSpeed = 215
+SWEP.WalkSpeed = 200
 
 SWEP.UseMelee1 = true
 

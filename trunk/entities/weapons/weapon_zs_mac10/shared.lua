@@ -3,7 +3,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "Mac 10"
+	SWEP.PrintName = "mac10"
 	SWEP.Author = "NECROSSIN"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 12
@@ -29,8 +29,8 @@ SWEP.Weight = 5
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("Weapon_MAC10.Single")
-SWEP.Primary.Recoil = 6.5
-SWEP.Primary.Damage = 13
+SWEP.Primary.Recoil = 4
+SWEP.Primary.Damage = 16
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.07
 
@@ -39,25 +39,15 @@ SWEP.Primary.DefaultClip = 60
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "smg1"
 
-SWEP.Primary.Cone = 0.06
-SWEP.ConeMoving = 0.20
-SWEP.ConeCrouching = 0.1
 SWEP.MaxAmmo			    = 230
 
-SWEP.Cone = 0.075
-SWEP.ConeMoving = 0.095
-SWEP.ConeCrouching = 0.055
-SWEP.ConeIron = 0.065
-SWEP.ConeIronCrouching = 0.06
+SWEP.ConeMoving = 0.085
+SWEP.Cone = 0.77
+SWEP.ConeCrouching = 0.067
 
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = 185
 
 SWEP.IronSightsPos = Vector(-6.881, -11.261, 2.68)
 SWEP.IronSightsAng = Vector(0, -0.828, 0)
-
 SWEP.OverridePos = Vector(2.279, -3.28, 1.44)
 SWEP.OverrideAng = Vector(0, 0, 6.287)
-
---SWEP.IronSightsPos = Vector(2.279, -3.28, 1.44)
---SWEP.IronSightsAng = Vector(0, 0, 6.287)
-

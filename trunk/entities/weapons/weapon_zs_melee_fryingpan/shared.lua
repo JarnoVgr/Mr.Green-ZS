@@ -39,22 +39,23 @@ SWEP.WorldModel = Model ( "models/weapons/w_fryingpan.mdl" )
 
 -- Name
 SWEP.PrintName = "Frying Pan"
-SWEP.ViewModelFOV = 52
+SWEP.ViewModelFOV = 70
 
 -- Position
 SWEP.Slot = 2
 SWEP.SlotPos = 4
 
 -- Damage, distane, delay
-SWEP.Primary.Damage = 40
+
 SWEP.Primary.Delay = 0.60
-SWEP.Primary.Distance = 50
+
 
 SWEP.DamageType = DMG_CLUB
 
-SWEP.MeleeDamage = 40
+SWEP.MeleeDamage = 35
 SWEP.MeleeRange = 50
-SWEP.MeleeSize = 1.15
+SWEP.MeleeSize = 1.0
+SWEP.WalkSpeed = 195
 
 SWEP.UseMelee1 = true
 

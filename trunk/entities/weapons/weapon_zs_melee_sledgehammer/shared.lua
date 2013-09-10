@@ -50,23 +50,22 @@ SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_sledgehammer.mdl" 
 
 -- Name and fov
-SWEP.PrintName = "Mr Sledge"
-SWEP.ViewModelFOV = 60
+SWEP.PrintName = "Sledgehammer"
+SWEP.ViewModelFOV = 70
 
 -- Slot pos
 SWEP.Slot = 2
 SWEP.SlotPos = 1
 SWEP.HoldType = "melee2"
 -- Damage, distane, delay
-SWEP.Primary.Damage = 120
+
 SWEP.Primary.Delay = 1.35
-SWEP.Primary.Distance = 70
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 130
-SWEP.MeleeRange = 70
-SWEP.MeleeSize = 1.75
-SWEP.MeleeKnockBack = SWEP.MeleeDamage * 2.25
+SWEP.MeleeDamage = 70
+SWEP.MeleeRange = 65
+SWEP.MeleeSize = 2.5
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 2.5
 
 SWEP.Primary.Delay = 1.3
 

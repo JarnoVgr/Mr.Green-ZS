@@ -4,7 +4,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "Scout Sniper"
+	SWEP.PrintName = "Scout"
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 4
@@ -32,21 +32,19 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_Scout.Single")
-SWEP.Primary.Recoil			= 3.0
-SWEP.Primary.Damage			= 140
+SWEP.Primary.Recoil			= 10
+SWEP.Primary.Damage			= 55
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 1.8
-SWEP.Primary.DefaultClip	= 18
+SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "357"
 SWEP.Primary.ReloadDelay	= 1.5
 
+SWEP.ConeMoving = 0.09
 SWEP.Cone = 0.06
-SWEP.ConeMoving = 0.075
 SWEP.ConeCrouching = 0.01
-SWEP.ConeIron = 0.01
-SWEP.ConeIronCrouching = 0
 
 SWEP.WalkSpeed = 185
 

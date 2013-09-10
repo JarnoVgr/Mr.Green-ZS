@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "AK-47"
+	SWEP.PrintName = "ak47"
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 1
@@ -50,30 +50,27 @@ SWEP.PrintName			= "AK-47"
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AK47.Single")
-SWEP.Primary.Recoil			= 2 * 2.7 -- 2
-SWEP.Primary.Unrecoil		= 7
-SWEP.Primary.Damage			= 18
+SWEP.Primary.Recoil			= 10
+SWEP.Primary.Damage			= 16.5
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 31
-SWEP.storeclipsize			= 31
+SWEP.Primary.ClipSize		= 25
+SWEP.storeclipsize			= 25
 SWEP.Primary.Delay			= 0.12
-SWEP.Primary.DefaultClip	= 60
+SWEP.Primary.DefaultClip	= 50
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
-SWEP.Primary.Cone			= 0.06
 SWEP.MaxBulletDistance 		= 3500
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.08
-SWEP.ConeMoving = 0.1
-SWEP.ConeCrouching = 0.06
-SWEP.ConeIron = 0.03
-SWEP.ConeIronCrouching = 0.0275
+SWEP.ConeMoving = 0.088
+SWEP.Cone = 0.076
+SWEP.ConeCrouching = 0.064
+
 
 SWEP.MaxAmmo			    = 9999
 
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = 180
 
 SWEP.IronSightsPos = Vector(-6.64, 0, 1.679)
 SWEP.IronSightsAng = Vector(3.03, 0, 0)

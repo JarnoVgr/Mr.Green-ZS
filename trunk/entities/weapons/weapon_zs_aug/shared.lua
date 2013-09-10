@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "Steyr AUG"			
+	SWEP.PrintName = "AUG"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 2
@@ -43,14 +43,13 @@ SWEP.WorldModel			= Model ( "models/weapons/w_rif_aug.mdl" )
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
-SWEP.PrintName			= "Steyr AUG"
+SWEP.PrintName			= "Inferno'"
 
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AUG.Single")
-SWEP.Primary.Recoil			= 1 * 5.1 -- 1
-SWEP.Primary.Unrecoil		= 9
-SWEP.Primary.Damage			= 18
+SWEP.Primary.Recoil			= 7
+SWEP.Primary.Damage			= 17.5
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 31
 SWEP.storeclipsize			= 31
@@ -62,15 +61,13 @@ SWEP.Primary.Cone			= 0.05
 SWEP.MaxBulletDistance 		= 3500
 SWEP.MaxAmmo			    = 250
 
-SWEP.Cone = 0.055
-SWEP.ConeMoving = 0.08
-SWEP.ConeCrouching = 0.03
-SWEP.ConeIron = 0.02
-SWEP.ConeIronCrouching = 0.015
+SWEP.ConeMoving = 0.081
+SWEP.Cone = 0.073
+SWEP.ConeCrouching = 0.061
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = 180
 
 --SWEP.IronSightsPos = Vector(5.99,-3,.985)
 --SWEP.IronSightsAng = Vector(2.4,1.9,45)

@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "TMP"			
+	SWEP.PrintName = "tmp"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
 	SWEP.ViewModelFOV = 65
@@ -31,28 +31,23 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_TMP.Single")
-SWEP.Primary.Recoil			= 2
-SWEP.Primary.UnRecoil		= 5
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Recoil			= 7
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.Cone			= 0.06
-SWEP.Primary.ClipSize		= 30
+SWEP.Primary.ClipSize		= 25
 SWEP.Primary.Delay			= 0.07
-SWEP.Primary.DefaultClip	= 60
+SWEP.Primary.DefaultClip	= 50
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
-SWEP.Primary.Cone			= 0.06
-SWEP.ConeMoving				= 0.08
-SWEP.ConeCrouching			= 0.045
+
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.MaxAmmo			    = 250
 
-SWEP.Cone = 0.09
-SWEP.ConeMoving = 0.08
-SWEP.ConeCrouching = 0.02
-SWEP.ConeIron = 0.06
-SWEP.ConeIronCrouching = 0.05
+
+SWEP.ConeMoving = 0.086
+SWEP.Cone = 0.080
+SWEP.ConeCrouching = 0.070
 
 SWEP.WalkSpeed = 185
 SWEP.MaxBulletDistance 		= 2250

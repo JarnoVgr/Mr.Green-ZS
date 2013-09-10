@@ -3,7 +3,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "Annabelle Shotgun"
+	SWEP.PrintName = "Annabelle"
 	SWEP.Author = "JetBoom"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 7
@@ -32,7 +32,7 @@ SWEP.AutoSwitchFrom = false
 SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound			= Sound("Weapon_Shotgun.Single")
-SWEP.Primary.Recoil = 5.0
+SWEP.Primary.Recoil = 13
 SWEP.Primary.Damage = 120
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 1
@@ -45,17 +45,13 @@ SWEP.Primary.Ammo = "357"
 
 SWEP.MaxAmmo			    = 40
 
-SWEP.Cone = 0.03
-SWEP.ConeIron = 0.02
-SWEP.ConeIronCrouching = 0.015
-
-SWEP.Primary.Cone			= 0.03
-SWEP.ConeMoving				= 0.04
-SWEP.ConeCrouching			= 0.02
+SWEP.ConeMoving = 0.060
+SWEP.Cone = 0.050
+SWEP.ConeCrouching = 0.030
 
 SWEP.IsShotgun = true
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = 180
 
 SWEP.IronSightsPos = Vector(-10.889, -7.549, 5.587)
 SWEP.IronSightsAng = Vector(-1.112, -5.194, 4.074)
@@ -182,7 +178,7 @@ function SWEP:CanPrimaryAttack()
 end
 local function DoRicochet(attacker, hitpos, hitnormal, normal, damage)
 	attacker.RicochetBullet = true
-	attacker:FireBullets({Num = math.random(6,8), Src = hitpos, Dir = hitnormal, Spread = Vector(0.2, 0.2, 0), Tracer = 1, TracerName = "rico_trace", Force = damage * 0.15, Damage = damage, Callback = GenericBulletCallback})
+	attacker:FireBullets({Num = math.random(7,8), Src = hitpos, Dir = hitnormal, Spread = Vector(0.2, 0.2, 0), Tracer = 1, TracerName = "rico_trace", Force = damage * 0.15, Damage = damage, Callback = GenericBulletCallback})
 	attacker.RicochetBullet = nil
 end
 function SWEP.BulletCallback(attacker, tr, dmginfo)

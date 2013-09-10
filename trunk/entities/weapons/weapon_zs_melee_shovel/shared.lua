@@ -4,7 +4,7 @@ SWEP.Base = "weapon_zs_melee_base"
 
 if CLIENT then
 	SWEP.PrintName = "Shovel"
-	SWEP.ViewModelFOV = 75
+	SWEP.ViewModelFOV = 70
 	
 end
 
@@ -55,17 +55,18 @@ SWEP.ViewModel = "models/weapons/v_shovel/c_shovel.mdl"
 SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_shovel.mdl"
 
-SWEP.MeleeDamage = 110
-SWEP.MeleeRange = 80
+SWEP.MeleeDamage = 65
+SWEP.MeleeRange = 70
 SWEP.MeleeSize = 1.3
 
 SWEP.Primary.Delay = 1.25
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = 185
 
 SWEP.SwingRotation = Angle(0, -90, -60)
 SWEP.SwingOffset = Vector(0, 30, -40)
 SWEP.SwingTime = 0.65
 SWEP.SwingHoldType = "melee"
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 3.00
 
 function SWEP:PlaySwingSound()
 	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(65, 70))

@@ -4,7 +4,7 @@ if ( SERVER ) then
 end
 
 if ( CLIENT ) then
-	SWEP.PrintName = "Combat Grenade"
+	SWEP.PrintName = "Grenade"
 	SWEP.Slot = 4
 	SWEP.SlotPos = 1
 	SWEP.DrawCrosshair = false
