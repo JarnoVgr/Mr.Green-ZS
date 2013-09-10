@@ -42,7 +42,7 @@ ENT.MaxHealth = 100
 ENT.MaxBullets = 100
 ENT.RechargeDelay = 0.5 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 540
-ENT.Damage = 3
+ENT.Damage = 5
 ENT.IgnoreClasses = {4,6,7,9} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {6,7}
 
@@ -179,17 +179,17 @@ function ENT:Think()
 					
 					if self:CanAttack() then
 						-- double fire rate
-						self.NextShoot = self.NextShoot or ct + 0.075
+						self.NextShoot = self.NextShoot or ct + 0.065
 						if ct > self.NextShoot then
 							self:Shoot()
 							self:ResetSequence(self:LookupSequence("fire"))
-							self.NextShoot = ct + 0.075	
+							self.NextShoot = ct + 0.065	
 						end
 					else
-						self.NextShoot = self.NextShoot or ct + 0.075
+						self.NextShoot = self.NextShoot or ct + 0.065
 						if ct > self.NextShoot then
 							self:EmitSound("Weapon_Pistol.Empty")
-							self.NextShoot = ct + 0.075	
+							self.NextShoot = ct + 0.065	
 						end
 					end	
 					
