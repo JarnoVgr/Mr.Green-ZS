@@ -266,7 +266,7 @@ GM.HumanWeapons = {
 	["weapon_zs_m4a1"]  = { Name = "M4A1 Rifle", DPS = 138,Mat = "VGUI/gfx/VGUI/m4a1", Infliction = 0.65, Type = "rifle", Price = 720 },
 	["weapon_zs_m249"]  = { Name = "M249", DPS = 200,Mat = "VGUI/gfx/VGUI/m249", Infliction = 0.85, Type = "rifle", Price = 1200 },
 	
-	["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle", Price = 700},
+	["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle" },
 	["weapon_zs_awp"]  = { Name = "AWP", DPS = 200,Mat = "VGUI/gfx/VGUI/awp", Infliction = 0, Class = "Berserker", Type = "rifle",Price = 1200 },
 	["weapon_zs_g3sg1"]  = { Name = "G3-SG1", DPS = 80,Mat = "VGUI/gfx/VGUI/g3sg1", Infliction = 0, Class = "Berserker", Type = "rifle" },
 	["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70,Mat = "VGUI/gfx/VGUI/sg550", Infliction = 0, Class = "Berserker", Type = "rifle" },
@@ -391,7 +391,7 @@ MAX_RANK = 75
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_melee_keyboard","weapon_zs_m3super90","weapon_zs_smg"},
+	[0] = {"weapon_zs_usp","weapon_zs_melee_keyboard","weapon_zs_m3super90","weapon_zs_smg","weapon_zs_scout"},
 	[1] = {"weapon_zs_melee_plank","weapon_zs_tools_hammer"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
