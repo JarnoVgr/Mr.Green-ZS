@@ -3,10 +3,11 @@
 
 if SERVER then
 	AddCSLuaFile("shared.lua")
+	SWEP.PrintName = "'Tosser'"
 end
 
 if CLIENT then
-	SWEP.PrintName = "Sub-Machine Gun"			
+	SWEP.PrintName = "smg'"			
 	SWEP.Author	= "Deluvas"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 18
@@ -49,8 +50,7 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/c_smg1.mdl" )
-SWEP.UseHands = true
+SWEP.ViewModel			= Model ( "models/weapons/v_smg1.mdl" )
 SWEP.WorldModel			= Model ( "models/weapons/w_smg1.mdl" )
 
 SWEP.Weight				= 5
@@ -59,12 +59,12 @@ SWEP.AutoSwitchFrom		= false
 
 SWEP.HoldType = "ar2"
 
-SWEP.Primary.Sound			= Sound("Weapon_SMG1.Single")
+SWEP.Primary.Sound			= Sound("Weapon_AR2.NPC_Single")
 SWEP.Primary.Recoil			= 4
-SWEP.Primary.Damage			= 15
+SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
-SWEP.Primary.Delay			= 0.10
+SWEP.Primary.Delay			= 0.15
 SWEP.Primary.DefaultClip	= 125
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
@@ -73,13 +73,13 @@ SWEP.MaxAmmo			    = 250
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 
-SWEP.ConeMoving = 0.080
-SWEP.Cone = 0.072
-SWEP.ConeCrouching = 0.060
+SWEP.ConeMoving = 0.076
+SWEP.Cone = 0.068
+SWEP.ConeCrouching = 0.063
 
 
 SWEP.WalkSpeed = 185
 
-SWEP.IronSightsPos 		= Vector( -6.35, -11, 1 )
+SWEP.IronSightsPos 		= Vector( -6.44, -11, 2.55 )
 SWEP.IronSightsAng 		= Vector( 0, 0, 0 )
 

@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "M3 Super 90"
+	SWEP.PrintName = "m3"
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 7
@@ -32,17 +32,17 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound			= Sound("Weapon_M3.Single")
-SWEP.Primary.Recoil			= 13
-SWEP.Primary.Damage			= 7
+SWEP.Primary.Recoil			= 16
+SWEP.Primary.Damage			= 7.5
 SWEP.Primary.NumShots		= 8
 SWEP.Primary.ClipSize		= 6
-SWEP.Primary.Delay			= 0.8
+SWEP.Primary.Delay			= 0.9
 SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "buckshot"
-SWEP.ConeMoving = 0.16
-SWEP.Cone = 0.153
-SWEP.ConeCrouching = 0.147
+SWEP.ConeMoving = 0.156
+SWEP.Cone = 0.152
+SWEP.ConeCrouching = 0.146
 SWEP.MaxAmmo			    = 70
 SWEP.IsShotgun = true
 
