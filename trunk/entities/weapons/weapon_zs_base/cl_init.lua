@@ -198,11 +198,11 @@ function SWEP:ViewModelDrawn()
 		end
 		
 		if not self._ResetBoneMods then
---			self:ResetBonePositions()
+			self:ResetBonePositions()
 			self._ResetBoneMods = true
 		end
 		
-		--self:UpdateBonePositions(vm)
+		self:UpdateBonePositions(vm)
 		
 		
 		--[[if vm.BuildBonePositions ~= self.BuildViewModelBones then

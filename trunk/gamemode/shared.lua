@@ -31,7 +31,6 @@ include("shared/zs_options_shared.lua")
 include("shared/sh_maps.lua")
 include("shared/sh_animations.lua")
 include("shared/sh_zombo_anims.lua")
-include("shared/sh_human_anims.lua")
 include("extended/sh_engine.lua")
 include("modules/screentaker/screentaker.lua")
 	

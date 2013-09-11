@@ -4,10 +4,10 @@
 AddCSLuaFile ( "sh_debug.lua" )
 
 --  Initialize debug convars 
-DEBUG_VARS = { "zs_debug", "zs_debug_usermessages", "zs_debug_damage", "zs_debug_effects", "zs_debug_save", "zs_debug_turbo", "zs_debug_saveatinterval" }
+DEBUG_VARS = { "con_logfile", "zs_debug", "zs_debug_usermessages", "zs_debug_damage", "zs_debug_effects", "zs_debug_save", "zs_debug_turbo", "zs_debug_saveatinterval" }
 for k,v in pairs ( DEBUG_VARS ) do
 	local bValue = 1
-	if v == "zs_debug_save" or v == "zs_debug" or v == "zs_debug_turbo" or v == "zs_debug_saveatinterval" then
+	if v == "con_logfile" or v == "zs_debug_save" or v == "zs_debug" or v == "zs_debug_turbo" or v == "zs_debug_saveatinterval" then
 		bValue = 0
 	end
 

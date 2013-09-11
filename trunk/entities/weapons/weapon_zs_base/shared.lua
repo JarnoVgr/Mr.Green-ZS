@@ -26,24 +26,24 @@ SWEP.IronSightsHoldType = "ar2"
 SWEP.IronSightsPos = Vector(0, 0, 0)
 
 function SWEP:InitializeClientsideModels()
-	
 	self.VElements = {}
-	self.WElements = {} 
-	
-	
-	
+	self.WElements = {} 	
 end
 
 function SWEP:PrecacheModels()
-
-	for k, v in pairs( self.VElements ) do
-		if v.model then
-			util.PrecacheModel(v.model)
+	if self.VElements then
+		for k, v in pairs( self.VElements ) do
+			if v.model then
+				util.PrecacheModel(v.model)
+			end
 		end
 	end
-	for k, v in pairs( self.WElements ) do
-		if v.model then
-			util.PrecacheModel(v.model)
+
+	if self.WElements then
+		for k, v in pairs( self.WElements ) do
+			if v.model then
+				util.PrecacheModel(v.model)
+			end
 		end
 	end
 end
@@ -73,7 +73,7 @@ function SWEP:Initialize()
 	
 end
 
---[[function SWEP:UpdateBonePositions(vm)
+function SWEP:UpdateBonePositions(vm)
 	
 	if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 		for k, v in pairs( self.ViewModelBoneMods ) do
@@ -104,9 +104,9 @@ end
 		end
 	end
 	
-end]]
+end
 
---[[function SWEP:ResetBonePositions()
+function SWEP:ResetBonePositions()
 	
 	if not self.Owner then return end
 	local vm = self.Owner:GetViewModel()
@@ -118,13 +118,13 @@ end]]
 		vm:ManipulateBonePosition( i, Vector(0, 0, 0) )
 	end
 	
-end]]
+end
 
 function SWEP:CreateViewModelElements()
 	
 	self:CreateModels(self.VElements)
 	
-	--[[self.BuildViewModelBones = function( s )
+	self.BuildViewModelBones = function( s )
 		if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 			for k, v in pairs( self.ViewModelBoneMods ) do
 				local bone = s:LookupBone(k)
@@ -140,9 +140,6 @@ function SWEP:CreateViewModelElements()
 			end
 		end
 	end   
-
-	MakeNewArms(self)]]
-	
 end
 
 function SWEP:CreateWorldModelElements()
@@ -251,9 +248,9 @@ function SWEP:Deploy()
 		self:CheckCustomIronSights()
 	end
 	
-	--[[if CLIENT then
+	if CLIENT then
 		self:ResetBonePositions()
-	end]]
+	end
 	
 	self.Weapon:SetNextSecondaryFire( CurTime() + 0.8 )
 	
@@ -273,14 +270,13 @@ function SWEP:Deploy()
 end
 
 function SWEP:OnDeploy()
--- MakeNewArms(self)
 end
 
 function SWEP:Holster()
 	self:SetIronsights( false ) 
-	--RemoveNewArms(self)
+
 	 if CLIENT then
-		--self:ResetBonePositions()
+		self:ResetBonePositions()
 		RestoreViewmodel(self.Owner)
     end
 	
@@ -292,7 +288,7 @@ function SWEP:OnRemove()
     if CLIENT then
         self:RemoveModels()
 		RestoreViewmodel(self.Owner)
-		--self:ResetBonePositions()
+		self:ResetBonePositions()
     end
 end
 

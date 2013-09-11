@@ -56,7 +56,6 @@ AddCSLuaFile("client/cl_director.lua")
 AddCSLuaFile("client/cl_admin.lua")
 AddCSLuaFile("shared/sh_animations.lua")
 AddCSLuaFile("shared/sh_zombo_anims.lua")
-AddCSLuaFile("shared/sh_human_anims.lua")
 AddCSLuaFile("client/cl_hud.lua")
 
 AddCSLuaFile("modules/legs/cl_legs.lua")
