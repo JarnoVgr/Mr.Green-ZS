@@ -30,9 +30,7 @@ if CLIENT then
         g_ServerTime = net.ReadFloat()
         g_ServerTimeReceiveTime = CurTime()
     end)
-end
 
-if CLIENT then
     function ServerTime()
         return (g_ServerTime or 0) + ( (CurTime() - g_ServerTimeReceiveTime) or 0 )
     end

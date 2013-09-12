@@ -32,7 +32,7 @@ function death.HumanDeath( pl, attacker )
 		MySelf.NextSpawn = WARMUPTIME+2
 	else
 		local NextSpawn = math.Clamp(GetInfliction() * 14, 1, 4)
-		MySelf.NextSpawn = CurTime() + NextSpawn
+		MySelf.NextSpawn = ServerTime() + NextSpawn
 	end
 	
 	-- Shuffle random notice
@@ -55,7 +55,7 @@ function death.ZomboDeath( pl, attacker )
 		MySelf.NextSpawn = WARMUPTIME+2
 	else
 		local NextSpawn = math.Clamp(GetInfliction() * 14, 1, 4)
-		MySelf.NextSpawn = CurTime() + NextSpawn
+		MySelf.NextSpawn = ServerTime() + NextSpawn
 	end
 	
 	-- Status
@@ -81,33 +81,41 @@ function death.DeathHumanHUD()
 	if ENDROUND then return end
 	
 	-- Initialize the hint
-	if not sRandomNotice then sRandomNotice = "Hint: "..table.Random ( GameDeathHints ) end
+	--[[if not sRandomNotice then sRandomNotice = "Hint: "..table.Random ( GameDeathHints ) end
 	
-	surface.SetFont ( "ArialBoldFifteen" )
-	local textw, texth = surface.GetTextSize ( sRandomNotice )
+	surface.SetFont("ArialBoldFifteen")
+	local textw, texth = surface.GetTextSize( sRandomNotice )
 	
 	-- Draw the black boxes
-	-- surface.SetDrawColor (0,0,0,210)
-	-- surface.DrawRect (0,0, ScaleW(1280), ScaleH(162))
-	-- surface.DrawRect (0,ScaleH(864), ScaleW(1280), ScaleH(160))
+	surface.SetDrawColor(0,0,0,210)
+	surface.DrawRect(0,0, ScaleW(1280), ScaleH(162))
+	surface.DrawRect(0,ScaleH(864), ScaleW(1280), ScaleH(160))
 	
 	-- Draw the info material
-	-- surface.SetDrawColor (255,255,255,255)
-	-- surface.SetTexture ( matInfo )
-	-- surface.DrawTexturedRectRotated(ScaleW(691 - 48) - ( textw / 2 ), ScaleH(941),ScaleW(64), ScaleW(64),0)
+	surface.SetDrawColor (255,255,255,255)
+	surface.SetTexture( matInfo )
+	surface.DrawTexturedRectRotated(ScaleW(691 - 48) - ( textw / 2 ), ScaleH(941),ScaleW(64), ScaleW(64),0)
+
+	--Draw hint
+	draw.DrawText( sRandomNotice, "ArialBoldFifteen", ScaleW(641 + 50), ScaleH(926), Color (255,255,255,255), TEXT_ALIGN_CENTER )
+	]]
+
+	draw.DrawText( "YOU'VE BEEN INFECTED", "ArialBoldFifteen", ScaleW(642), ScaleH(44), Color ( 255,255,255,255 ), TEXT_ALIGN_CENTER )
+
+	local timeleft = math.max(0,math.Round(MySelf.NextSpawn - ServerTime()))
 	
-	local timeleft = math.Round( math.Clamp ( MySelf.NextSpawn - CurTime(), 0, 100 ) ) + 1
-	--draw.DrawText( "You are dead!", "NewZombieFont27", ScaleW(641), ScaleH(63), Color (155,155,155,255), TEXT_ALIGN_CENTER)
-	-- Draw text 
-	draw.DrawText( "YOU ARE KILLED BY THE UNDEAD", "ArialBoldFifteen", ScaleW(642), ScaleH(44), Color ( 255,255,255,255 ), TEXT_ALIGN_CENTER )
+	local bCanSpawn = false
+
 	if timeleft ~= 0 then
-	 	draw.DrawText( "You will resurrect as an Undead in "..( timeleft ).." seconds", "NewZombieFont27", ScaleW(641), ScaleH(93), Color (135,135,135,255), TEXT_ALIGN_CENTER)
+	 	draw.DrawText( "You can resurrect as an Undead in ".. (timeleft) .." seconds", "NewZombieFont27", ScaleW(641), ScaleH(93), Color (135,135,135,255), TEXT_ALIGN_CENTER)
 	else
-	 	draw.DrawText( "Press LMB to spawn", "NewZombieFont27", ScaleW(641), ScaleH(93), Color (135,135,135,255), TEXT_ALIGN_CENTER)
+		bCanSpawn = true
 	end
-	-- draw.DrawText( sRandomNotice, "ArialBoldFifteen", ScaleW(641 + 50), ScaleH(926), Color (255,255,255,255), TEXT_ALIGN_CENTER )
-	-- Draw the red death notice
-	--GAMEMODE:DrawCustomDeathNotice ()
+
+	local obsmode = MySelf:GetObserverMode()
+	if obsmode ~= OBS_MODE_NONE then
+		GAMEMODE:ZombieObserverHUD(obsmode,bCanSpawn)
+	end
 end
 hook.Add ( "HUDPaint", "DeathHumanHUD", death.DeathHumanHUD )
 
@@ -136,19 +144,17 @@ function death.DeathZombieHUD()
 	
 	local obsmode = MySelf:GetObserverMode()
 	if obsmode ~= OBS_MODE_NONE then
-		GAMEMODE:ZombieObserverHUD(obsmode)
+		GAMEMODE:ZombieObserverHUD(obsmode,true)
+	else	
+		local timeleft = math.max(0,math.Round(MySelf.NextSpawn - ServerTime())+2)
+
+		--print("NextSpawn: ".. tostring(MySelf.NextSpawn) .. " - ServerTime: ".. tostring(ServerTime()) .." - Diff:" .. tostring(MySelf.NextSpawn - ServerTime()))
+		--TODO: Figure out why +2 is needed
+
+		if timeleft ~= 0 then
+			draw.DrawText( "You can resurrect in ".. (timeleft) .." seconds", "NewZombieFont27", ScaleW(641), ScaleH(93), Color (135,135,135,255), TEXT_ALIGN_CENTER)
+		end
 	end
-	
-	local timeleft = math.Round( math.Clamp ( (MySelf.NextSpawn - CurTime()) + 1, 0, 100 ) )
-	if timeleft ~= 0 then
-		draw.DrawText( "You can resurrect in "..( timeleft ).." seconds", "NewZombieFont27", ScaleW(641), ScaleH(93), Color (135,135,135,255), TEXT_ALIGN_CENTER)
-	else
-		draw.DrawText( "Press LMB to resurrect", "NewZombieFont27", ScaleW(641), ScaleH(93), Color (135,135,135,255), TEXT_ALIGN_CENTER)
-	end
-		
-		-- Draw red deathnotice
-		-- GAMEMODE:DrawCustomDeathNotice ( )
-	--end
 end
 hook.Add ( "HUDPaint", "DeathZombieHUD", death.DeathZombieHUD )	
 
@@ -171,7 +177,7 @@ function death.Draw3DZombieHUD()
 end
 hook.Add("PostDrawOpaqueRenderables","Draw3DZombieHUD",death.Draw3DZombieHUD)
 
-function GM:ZombieObserverHUD(obsmode)
+function GM:ZombieObserverHUD(obsmode,bCanSpawn)
 	if obsmode == OBS_MODE_FREEZECAM then
 		return
 	end
@@ -188,8 +194,11 @@ function GM:ZombieObserverHUD(obsmode)
 		end
 	end
 
-	draw.SimpleText(dyn and "Press LMB to spawn close" or "Press LMB to spawn", "NewZombieFont19", w * 0.5, h * 0.75, dyn and Color(0, 150, 0, 255) or Color(185, 0, 0, 255), TEXT_ALIGN_CENTER)
-	draw.SimpleText("Cycle targets by pressing RMB", "NewZombieFont14", w * 0.5, h * 0.75 + texh + 8, Color(255,255,255, 255), TEXT_ALIGN_CENTER)
+	if bCanSpawn then
+		draw.DrawText(dyn and "Press LMB to resurrect here" or "Press LMB to resurrect", "NewZombieFont27", ScaleW(641), ScaleH(93),dyn and Color(0, 150, 0, 255) or Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+	end
+
+	draw.SimpleText("Cycle targets by pressing RMB", "NewZombieFont14", w * 0.5, h * 0.75 + texh + 8, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 end
 
 

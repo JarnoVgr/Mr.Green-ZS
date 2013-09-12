@@ -16,8 +16,12 @@ local ents = ents
 local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 
 	-- Calculate spawn cooldown
-	local NextSpawn = math.Clamp ( GetInfliction() * 14, 1, 4 )
-	-- mVictim.NextSpawn = CurTime() + 4-- NextSpawn
+	if CurTime() <= WARMUPTIME then
+		mVictim.NextSpawn = WARMUPTIME+2
+	else
+		local NextSpawn = math.Clamp ( GetInfliction() * 14, 1, 4 )
+		mVictim.NextSpawn = CurTime() + NextSpawn
+	end
 	
 	-- Play that funny zombie death sound
 	
@@ -91,14 +95,13 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 	
 	if not revive then
-	
 		mVictim:PlayZombieDeathSound()
 		
-		mVictim.StartSpectating = ct + 4
+		mVictim.StartSpectating = CurTime() + 4
 			
 		if IsValid( mAttacker ) and mAttacker ~= mVictim then
-			mVictim:SpectateEntity( mAttacker )
-			mVictim:Spectate( OBS_MODE_FREEZECAM )
+			mVictim:SpectateEntity(mAttacker)
+			mVictim:Spectate(OBS_MODE_FREEZECAM)
 			mVictim:SendLua("surface.PlaySound(\"UI/freeze_cam.wav\")")
 		end	
 	end
