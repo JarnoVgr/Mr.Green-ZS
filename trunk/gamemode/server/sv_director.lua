@@ -12,55 +12,68 @@ GAMEACTIVE = false
    Event Director - Unlife/ Last human/ Endround
 ---------------------------------------------------------]==]
 function ManageEvents()
-	--End game if the time has passed
-	if ServerTime() > ROUNDTIME and not ENDROUND then
-		if OBJECTIVE then
-			GAMEMODE:OnEndRound(TEAM_UNDEAD)
-		else
-			GAMEMODE:OnEndRound(TEAM_HUMAN)
-		end
-	end
-	
-	--Start LastHuman mode if undead > 2 and human = 1
-	if team.NumPlayers(TEAM_HUMAN) == 1 and team.NumPlayers(TEAM_UNDEAD) > 2 and not LASTHUMAN and not ENDROUND then
-		GAMEMODE:LastHuman()
-	end
-	
-	--End round if undead are more than 1 and no humans
-	if team.NumPlayers(TEAM_HUMAN) == 0 and team.NumPlayers(TEAM_UNDEAD) > 1 and not ENDROUND then
-		GAMEMODE:OnEndRound(TEAM_UNDEAD)
-	end
-	
-	--Enable unlife if infliction is more than 80%
-	if GetInfliction() >= 0.8 and not UNLIFE and not ENDROUND then
-		GAMEMODE:SetUnlife(true)
-	end
-	
-	--Enable HalfLife halfway
-	if GetInfliction() >= 0.5 and not HALFLIFE and not ENDROUND then
-		GAMEMODE:SetHalflife(true)
+	--Stuff followed up by this is only needed when round hasn't ended
+	if ENDROUND then
+		return
 	end
 
-	--Pick random zombie(s) if there aren't any
-	if team.NumPlayers(TEAM_UNDEAD) == 0 and team.NumPlayers(TEAM_HUMAN) > 3 and not ENDROUND and GAMEACTIVE then
-		GAMEMODE:SetRandomsToFirstZombie()
-		Debug("[DIRECTOR] There were no zombies. Fixed it")
-	end
+	local numSurvivors = team.NumPlayers(TEAM_HUMAN)
+	local numUndead = team.NumPlayers(TEAM_UNDEAD)
 	
 	--Check warming up time
-	if CurTime() > WARMUPTIME and not GAMEACTIVE and not ENDROUND then
+	if not GAMEACTIVE and ServerTime() > WARMUPTIME then
+		--Set active
 		GAMEACTIVE = true
+		
+		--Assign random zombies
 		GAMEMODE:SetRandomsToFirstZombie()
 
 		--Give SkillPoints to survivors timer
 		timer.Create("GiveSkillPointsSurvivors", math.Round(ROUNDTIME/6), 0, GiveSkillPointsSurvivors)
 
 		--
-		for k,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
+		for k,v in pairs(numSurvivors) do
 			if IsEntityValid(v) then
-				v:SendLua("surface.PlaySound(\"ambient/creatures/town_zombie_call1.wav\") GAMEMODE:Add3DMessage(140,\"The Undead have arrived!\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh!\",nil,\"ArialBoldTen\")")
+				v:SendLua("surface.PlaySound(\"ambient/creatures/town_zombie_call1.wav\") GAMEMODE:Add3DMessage(140,\"The Undead have arrived\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh\",nil,\"ArialBoldTen\")")
 			end
 		end
+		
+		return
+	end
+	
+	--End game if the time has passed
+	if ServerTime() > ROUNDTIME then
+		if OBJECTIVE then
+			Debug("[DIRECTOR] End-time reached. Undead win.")
+			GAMEMODE:OnEndRound(TEAM_UNDEAD)
+		else
+			Debug("[DIRECTOR] End-time reached. Survivors win.")
+			GAMEMODE:OnEndRound(TEAM_HUMAN)
+		end
+	end
+	
+	--Start LastHuman mode if undead > 2 and human = 1
+	if numSurvivors == 1 and numUndead > 2 and not LASTHUMAN then
+		GAMEMODE:LastHuman()
+	--End round if undead are more than 1 and no humans
+	elseif numSurvivors == 0 and numUndead > 1 then
+		GAMEMODE:OnEndRound(TEAM_UNDEAD)
+	end
+	
+	--Enable unlife if infliction is more than 80%
+	if GetInfliction() >= 0.8 and not UNLIFE then
+		Debug("[DIRECTOR] Started Un-Life")
+		GAMEMODE:SetUnlife(true)
+	--Enable HalfLife halfway
+	elseif GetInfliction() >= 0.5 and not HALFLIFE then
+		Debug("[DIRECTOR] Started Half-Life")
+		GAMEMODE:SetHalflife(true)
+	end
+
+	--Pick random zombie(s) if there aren't any
+	if numUndead == 0 and numSurvivors > 3 then
+		GAMEMODE:SetRandomsToFirstZombie()
+		Debug("[DIRECTOR] There were no zombies. Setting randoms")
 	end
 end
 --hook.Add("Think", "EventDirector", ManageEvents)
