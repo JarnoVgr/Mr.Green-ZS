@@ -128,17 +128,11 @@ function GM:CalculateInfliction()
 end
 
 function GM:OnPlayerReady(pl)
-	if pl:IsValid() then
-		self:SendInflictionInit(pl)
-		self:FullGameUpdate(pl)
+	if not pl:IsValid() then
+		return
 	end
-end
-
-util.AddNetworkString( "reczsgamestate" )
-
-function GM:FullGameUpdate(pl)
-	--[[net.Start("reczsgamestate")
-	net.Send(pl)]]
+	
+	self:SendInflictionTo(pl)
 end
 
 util.AddNetworkString( "SetInf" )
@@ -151,8 +145,8 @@ end
 
 util.AddNetworkString( "SetInfInit" )
 
-function GM:SendInflictionInit(to)
-	net.Start("SetInfInit")
+function GM:SendInflictionTo(to)
+	net.Start("SetInf")
 		net.WriteFloat(INFLICTION)
 	net.Send(to)
 end

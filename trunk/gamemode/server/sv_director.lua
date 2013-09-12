@@ -32,12 +32,12 @@ function ManageEvents()
 	end
 	
 	--Enable unlife if infliction is more than 80%
-	if GetInfliction() >= 0.8 and not ENDROUND then
+	if GetInfliction() >= 0.8 and not UNLIFE and not ENDROUND then
 		GAMEMODE:SetUnlife(true)
 	end
 	
 	--Enable HalfLife halfway
-	if GetInfliction() >= 0.5 and not ENDROUND then
+	if GetInfliction() >= 0.5 and not HALFLIFE and not ENDROUND then
 		GAMEMODE:SetHalflife(true)
 	end
 

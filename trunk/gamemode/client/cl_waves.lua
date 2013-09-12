@@ -43,26 +43,16 @@ net.Receive("SetInf", function(len)
 		surface.PlaySound("ambient/atmosphere/cave_hit1.wav")
 		--surface.PlaySound("ambient/creatures/town_zombie_call1.wav")
 	end
-end)
-
-net.Receive( "SetInfInit", function( len )
-	INFLICTION = net.ReadFloat()
-
-	--Unlock zombie classes clientside
-	for i, tab in ipairs(ZombieClasses) do
-		if tab.Infliction <= INFLICTION then
-			tab.Unlocked = true
-		else
-			tab.Unlocked = false
-		end
-	end
-
+	
 	--
-	if INFLICTION >= 0.8 then
-		UNLIFE = true
+	if INFLICTION >= 0.8 and not UNLIFE then
 		HALFLIFE = true
-	elseif INFLICTION >= 0.5 then
-		HALFLIFE = true
+		SetUnlife(true)
+		--UNLIFE = true
+		--HALFLIFE = true
+	elseif INFLICTION >= 0.5 and not HALFLIFE then
+		--HALFLIFE = true
+		SetHalflife(true)
 	end
 end)
 
