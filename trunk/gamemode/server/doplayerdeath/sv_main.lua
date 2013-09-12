@@ -184,11 +184,11 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 	end
 	
 	
-	--[[if pl.NextSpawn and pl.NextSpawn <= CurTime() then -- Force spawn.
+	if pl.NextSpawn and pl.NextSpawn <= CurTime() then -- Force spawn.
 		pl.NextSpawn = nil
 
 		pl:RefreshDynamicSpawnPoint()
-		pl:UnSpectateAndSpawn()]]
+		pl:UnSpectateAndSpawn()
 	if pl:GetObserverMode() == OBS_MODE_NONE or pl:GetObserverMode() == OBS_MODE_FREEZECAM then -- Not in spectator yet.
 		if not pl.StartSpectating or CurTime() >= pl.StartSpectating then
 			pl.StartSpectating = nil
