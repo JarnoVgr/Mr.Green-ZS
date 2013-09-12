@@ -171,7 +171,11 @@ net.Receive("PlayerKilledSelfZS", function( len )
 	
 	local victim = net.ReadEntity()
 	
-	gamemode.Call ( "DoPlayerDeath", victim, victim, victim:GetActiveWeapon() )
+	if not victim:GetActiveWeapon() then
+		gamemode.Call ( "DoPlayerDeath", victim, victim, nil )
+	else
+		gamemode.Call ( "DoPlayerDeath", victim, victim, victim:GetActiveWeapon() )
+	end
 	
 	if victim:IsValid() then
 		GAMEMODE:AddDeathNotice( nil, 0, "suicide", victim:Name(), victim:Team() )
