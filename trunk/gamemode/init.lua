@@ -13,6 +13,9 @@ local umsg = umsg
 local ents = ents
 local gmod = gmod
 
+--Third Party timer and hook profiler
+include("modules/dbugprofiler/dbug_profiler.lua")
+
 --Very important script
 include("modules/debug/sh_debug.lua")
 

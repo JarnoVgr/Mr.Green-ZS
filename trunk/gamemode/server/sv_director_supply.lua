@@ -35,7 +35,7 @@ function GM:SetCrates()
 			table.insert(RealCrateSpawns,minitable2)
 		end
 		
-		hook.Add( "SetupPlayerVisibility", "AddCratesToPVS", AddCratesToPVS )
+		--hook.Add( "SetupPlayerVisibility", "AddCratesToPVS", AddCratesToPVS )
 		
 		Debug("[DIRECTOR] Loaded Crate Spawnpoints")
 	end

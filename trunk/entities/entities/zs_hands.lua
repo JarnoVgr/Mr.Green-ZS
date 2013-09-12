@@ -6,13 +6,19 @@ ENT.RenderGroup		= RENDERGROUP_OTHER
 
 
 function ENT:Initialize()
-	
-	hook.Add( "OnViewModelChanged", self, self.ViewModelChanged )
+	if not DBUG_PROFILER then
+		--hook.Add( "OnViewModelChanged", "UnifiedHandsVMChange".. tostring(self:EntIndex()), self.ViewModelChanged )
+		hook.Add( "OnViewModelChanged", self, self.ViewModelChanged )
+	end
 
 	self:SetNotSolid( true )
 	self:DrawShadow( false )
 	self:SetTransmitWithParent( true ) -- Transmit only when the viewmodel does!
 	
+end
+
+function ENT:OnRemove()
+	hook.Remove(self)
 end
 
 function ENT:DoSetup( ply )

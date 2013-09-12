@@ -53,6 +53,9 @@ GM.RewardIcons = {}
 w, h = ScrW(), ScrH()
 Threshold = 0
 
+--Third Party timer and hook profiler
+--include("modules/dbugprofiler/dbug_profiler.lua")
+
 --Very important script
 include("modules/debug/sh_debug.lua")
 
