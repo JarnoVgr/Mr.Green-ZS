@@ -32,7 +32,7 @@ function ManageEvents()
 		timer.Create("GiveSkillPointsSurvivors", math.Round(ROUNDTIME/6), 0, GiveSkillPointsSurvivors)
 
 		--
-		for k,v in pairs(numSurvivors) do
+		for k,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
 			if IsEntityValid(v) then
 				v:SendLua("surface.PlaySound(\"ambient/creatures/town_zombie_call1.wav\") GAMEMODE:Add3DMessage(140,\"The Undead have arrived\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh\",nil,\"ArialBoldTen\")")
 			end
