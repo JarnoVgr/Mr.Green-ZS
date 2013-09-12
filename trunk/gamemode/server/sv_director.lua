@@ -1,4 +1,4 @@
--- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
+-- Â© Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
 include ("sv_director_supply.lua")
@@ -16,33 +16,37 @@ function ManageEvents()
 	if ENDROUND then
 		return
 	end
-
-	local numSurvivors = team.NumPlayers(TEAM_HUMAN)
-	local numUndead = team.NumPlayers(TEAM_UNDEAD)
 	
-	--Check warming up time
-	if not GAMEACTIVE and ServerTime() > WARMUPTIME then
-		--Set active
-		GAMEACTIVE = true
-		
-		--Assign random zombies
-		GAMEMODE:SetRandomsToFirstZombie()
+	--Check warmup time
+	if not GAMEACTIVE then
+		if CurTime() > WARMUPTIME then
+			--Set active
+			GAMEACTIVE = true
+			
+			--Assign random zombies
+			GAMEMODE:SetRandomsToFirstZombie()
 
-		--Give SkillPoints to survivors timer
-		timer.Create("GiveSkillPointsSurvivors", math.Round(ROUNDTIME/6), 0, GiveSkillPointsSurvivors)
+			--Give SkillPoints to survivors timer
+			timer.Create("GiveSkillPointsSurvivors", math.Round(ROUNDTIME/6), 0, GiveSkillPointsSurvivors)
 
-		--
-		for k,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
-			if IsEntityValid(v) then
-				v:SendLua("surface.PlaySound(\"ambient/creatures/town_zombie_call1.wav\") GAMEMODE:Add3DMessage(140,\"The Undead have arrived\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh\",nil,\"ArialBoldTen\")")
+			--
+			for k,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
+				if IsEntityValid(v) then
+					v:SendLua("surface.PlaySound(\"ambient/creatures/town_zombie_call1.wav\") GAMEMODE:Add3DMessage(140,\"The Undead have arrived\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh\",nil,\"ArialBoldTen\")")
+				end
 			end
+
+			Debug("[DIRECTOR] Game is now active")
 		end
 		
 		return
 	end
+
+	local numSurvivors = team.NumPlayers(TEAM_HUMAN)
+	local numUndead = team.NumPlayers(TEAM_UNDEAD)
 	
 	--End game if the time has passed
-	if ServerTime() > ROUNDTIME then
+	if CurTime() > ROUNDTIME then
 		if OBJECTIVE then
 			Debug("[DIRECTOR] End-time reached. Undead win.")
 			GAMEMODE:OnEndRound(TEAM_UNDEAD)
@@ -54,9 +58,11 @@ function ManageEvents()
 	
 	--Start LastHuman mode if undead > 2 and human = 1
 	if numSurvivors == 1 and numUndead > 2 and not LASTHUMAN then
+		Debug("[DIRECTOR] Started Last Human")
 		GAMEMODE:LastHuman()
 	--End round if undead are more than 1 and no humans
 	elseif numSurvivors == 0 and numUndead > 1 then
+		Debug("[DIRECTOR] All survivors dead. Undead win.")
 		GAMEMODE:OnEndRound(TEAM_UNDEAD)
 	end
 	
@@ -76,10 +82,9 @@ function ManageEvents()
 		Debug("[DIRECTOR] There were no zombies. Setting randoms")
 	end
 end
---hook.Add("Think", "EventDirector", ManageEvents)
 timer.Create("ManageEvents", 0.5, 0, ManageEvents)
 
---Timer creator is at ManageEvents
+--Timer creator for this function is at ManageEvents
 function GiveSkillPointsSurvivors()
 	--Give skillpoints to all players for still being alive
 	for _, h in pairs(team.GetPlayers(TEAM_HUMAN)) do
@@ -134,75 +139,19 @@ end
 
 
 function GM:SetHalflife(bool)
-	if HALFLIFE == bool then return end
+	if HALFLIFE == bool then
+		return
+	end
 
 	HALFLIFE = not HALFLIFE
 
 	gmod.BroadcastLua( "GAMEMODE:SetHalflife("..tostring( bool )..")" )
 end
 
---[==[------------------------------------------------------------
-	       Zombie unlock classes Director 
--------------------------------------------------------------]==]
-function UnlockZombieClassesThink()
-	if ENDROUND then return end
-	
-	--  Infliction and threshold table
-	local Infliction = GetInfliction()
-	local ThresTable = { [1] = { Min = 0, Max = 0.3 }, [2] = { Min = 0.3, Max = 0.4 } ,[3] = { Min = 0.4, Max = 0.5 }, [4] = { Min = 0.5, Max = 0.75 }, [5] = { Min = 0.75, Max = 1 } }
-	
-	--  Check the current infliction
-	for k,v in pairs (ThresTable) do
-		if Infliction <= ThresTable[k].Max and Infliction > ThresTable[k].Min then
-			Thres = k - 1
-		end	
-	end
-	
-	--  Lock/unlock the class
-	for i=1, #ZombieClasses do
-		if ZombieClasses[i] then
-			if ( ( ZombieClasses[i].Threshold <= Thres ) or ( ZombieClasses[i].TimeLimit and ZombieClasses[i].TimeLimit < CurTime() ) ) and not ZombieClasses[i].Unlocked then
-				ZombieClasses[i].Unlocked = true
-			end
-		end
-	end
-end
---timer.Create ( "UnlockZombies", 1, 0, UnlockZombieClassesThink )
-
-local GAMECHECKTIMER = 5 
-
--- Drop points table
-DropPointsX = {}
-DropPointsY = {}
-DropPointsZ = {}
-
---[==[-------------------------------------------
-	   Main Director Function 
---------------------------------------------]==]
-local Check = false
-local function CheckGame()
-	if ENDROUND then return end
-
-	-- We have no weapon spawn points
-	if table.Count( DropPointsX ) == 0 then if not Check then Debug ( "[DIRECTOR] WARNING: NO WEAPON DROP POINTS FOUND FOR THIS MAP!" ) Check = true end return end
-	
-	-- No players, normal difficulty
-	if team.NumPlayers( TEAM_HUMAN ) == 0 and team.NumPlayers( TEAM_UNDEAD ) == 0 then return end
-	
-	-- Stats about the game
-	local Infliction, Difficulty = GetInfliction(), 0, 0
-	
-	-- For the moment
-	Difficulty = GAMEMODE:CalculateDifficulty()
-	difficulty = Difficulty
-end
--- timer.Create( "DirectorCheck", GAMECHECKTIMER, 0, CheckGame )
-
-
-function GM:AllowPlayerPickup( pl, ent)
+--TODO: Move this out of here
+function GM:AllowPlayerPickup(pl, ent)
 	return false
 end
-
 
 function SetTurretName(pl, command, args)
 	if not args[1] then return end
@@ -225,7 +174,6 @@ function GM:UpdateObjStageOnClients(pl)
 end
 
 function CheckObjSpawnpoints()
-
 	if not OBJECTIVE then return end
 	if #Objectives < 0 then return end
 	
@@ -311,41 +259,33 @@ function GM:HandleObjEnts()
 
 end
 
-function FindTriggers(p, cmd, arg)
-	for _,v in pairs (ents.FindByClass("trigger_*")) do
-			print("------------")
-			print("Entity "..tostring(v))
-			PrintTable(v:GetKeyValues())
-	end
-	--[=[for _,v in pairs (ents.FindByClass("logic_*")) do
-			print("------------")
-			print("Entity "..tostring(v))
-			PrintTable(v:GetKeyValues())
-	end
-	for _,v in pairs (ents.FindByClass("math_*")) do
-			print("------------")
-			print("Entity "..tostring(v))
-			PrintTable(v:GetKeyValues())
-	end
-	for _,v in pairs (ents.FindByClass("game_*")) do
-			print("------------")
-			print("Entity "..tostring(v))
-			PrintTable(v:GetKeyValues())
-	end
-	
-	for _,v in pairs (ents.GetAll()) do
-		for k,key in pairs(v:GetKeyValues()) do
-			if string.find(key,"truc") then
-				print("------------")
-				print("Entity "..tostring(v))
+function PrintEnts(p, cmd, arguments)
+	--[[
+	Examples:
+		trigger_*
+		logic_*
+		math_*
+		game_*
+	]]
+	print("------------")
+
+	if not arguments[1] then
+		for _,v in pairs (ents.GetAll()) do
+			for k,key in pairs(v:GetKeyValues()) do
+				print("Entity: "..tostring(v))
 				PrintTable(v:GetKeyValues())
-				break
+				print("------------")
 			end
 		end
-	end]=]
-	
+	else
+		for _,v in pairs (ents.FindByClass(arguments[1])) do
+			print("Entity: "..tostring(v))
+			PrintTable(v:GetKeyValues())
+			print("------------")
+		end
+	end	
 end
---concommand.Add( "findtriggers", FindTriggers ) 
+concommand.Add( "zs_printents", PrintEnts ) 
 
 
-Debug ( "[MODULE] Loaded the Main Director." )
+Debug("[MODULE] Loaded the Main Director")
