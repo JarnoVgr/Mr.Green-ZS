@@ -3,11 +3,11 @@
 
 if SERVER then
 	AddCSLuaFile("shared.lua")
-	SWEP.PrintName = "'Tosser'"
 end
 
-if CLIENT then
-	SWEP.PrintName = "smg'"			
+SWEP.PrintName = "Sub-Machine Gun"
+
+if CLIENT then		
 	SWEP.Author	= "Deluvas"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 18
@@ -50,7 +50,8 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/v_smg1.mdl" )
+SWEP.ViewModel			= Model ( "models/weapons/c_smg1.mdl" )
+SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_smg1.mdl" )
 
 SWEP.Weight				= 5
