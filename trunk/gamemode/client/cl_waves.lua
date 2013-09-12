@@ -16,6 +16,7 @@ util.PrecacheSound("ambient/atmosphere/cave_hit1.wav")
 
 net.Receive("SetInf", function(len)
 	INFLICTION = net.ReadFloat()
+	local bIsInit = tobool(net.ReadByte())
 		
 	local UnlockedClass
 	local amount = 0
@@ -45,14 +46,16 @@ net.Receive("SetInf", function(len)
 	end
 	
 	--
-	if INFLICTION >= 0.8 and not UNLIFE then
-		HALFLIFE = true
-		SetUnlife(true)
-		--UNLIFE = true
-		--HALFLIFE = true
-	elseif INFLICTION >= 0.5 and not HALFLIFE then
-		--HALFLIFE = true
-		SetHalflife(true)
+	if bIsInit then
+		if INFLICTION >= 0.8 and not UNLIFE then
+			HALFLIFE = true
+			GM:SetUnlife(true)
+			--UNLIFE = true
+			--HALFLIFE = true
+		elseif INFLICTION >= 0.5 and not HALFLIFE then
+			--HALFLIFE = true
+			GM:SetHalflife(true)
+		end
 	end
 end)
 
