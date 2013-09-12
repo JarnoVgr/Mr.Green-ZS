@@ -468,10 +468,10 @@ function GM:OnEndRound ( winner )
 	for _, pl in ipairs( player.GetAll() ) do
 	
 		-- Don't draw the weapon viewmodel for artistic purposes.
-		pl:DrawViewModel ( false )
+		pl:DrawViewModel(false)
 		
 		--Lock the player and make him unable to spawn
-		pl.NextSpawnTime = 100
+		pl.NextSpawn = CurTime()+100
 		pl:Lock()
 	
 		if pl.DamageDealt then

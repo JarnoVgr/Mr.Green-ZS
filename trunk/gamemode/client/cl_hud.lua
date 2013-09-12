@@ -35,9 +35,6 @@ function death.HumanDeath( pl, attacker )
 		MySelf.NextSpawn = CurTime() + NextSpawn
 	end
 	
-	-- Predict spawn countdown timer
-	--MySelf.NextSpawn = CurTime() + 4--( math.Clamp ( GetInfliction() * 10, 3, 8 ) )
-	
 	-- Shuffle random notice
 	death.ShuffleRandomNotice()
 	

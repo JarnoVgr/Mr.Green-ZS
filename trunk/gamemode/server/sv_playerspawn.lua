@@ -111,10 +111,7 @@ function GM:PlayerInitialSpawn( pl )
 	pl:SetCustomCollisionCheck(true)
 	-- pl:SetNoCollideWithTeammates(true)
 	-- pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
-	
-	-- Spawn timer
-	-- pl.NextSpawn = 0
-	
+		
 	-- Used to control how many weapons you are allowed to pickup
 	-- pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tools = 0, Others = 0, Explosive = 0, Admin = 0 }
 	pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }

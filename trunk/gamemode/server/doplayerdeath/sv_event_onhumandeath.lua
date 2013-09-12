@@ -72,9 +72,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		local NextSpawn = math.Clamp ( GetInfliction() * 14, 1, 4 )
 		mVictim.NextSpawn = CurTime() + NextSpawn
 	end
-	
-	local ct = CurTime()
-	
+		
 	if not mVictim.Gibbed and not dmginfo:IsSuicide( mVictim ) then
 		-- timer.Create(mVictim:UniqueID().."secondwind", 2.5, 1, SecondWind, mVictim)
 		-- mVictim:GiveStatus("revive2", 3.5)

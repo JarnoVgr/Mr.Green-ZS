@@ -184,12 +184,12 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 	end
 	
 	
-	if pl.NextSpawn and pl.NextSpawn <= CurTime() then -- Force spawn.
+	--[[if pl.NextSpawn and pl.NextSpawn <= CurTime() then -- Force spawn.
 		pl.NextSpawn = nil
 
 		pl:RefreshDynamicSpawnPoint()
-		pl:UnSpectateAndSpawn()
-	elseif pl:GetObserverMode() == OBS_MODE_NONE or pl:GetObserverMode() == OBS_MODE_FREEZECAM then -- Not in spectator yet.
+		pl:UnSpectateAndSpawn()]]
+	if pl:GetObserverMode() == OBS_MODE_NONE or pl:GetObserverMode() == OBS_MODE_FREEZECAM then -- Not in spectator yet.
 		if not pl.StartSpectating or CurTime() >= pl.StartSpectating then
 			pl.StartSpectating = nil
 
@@ -204,7 +204,7 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 			end
 		end
 	else -- In spectator.
-		if pl.NextSpawn and pl.NextSpawn > CurTime() then
+		if pl.NextSpawn and pl.NextSpawn < CurTime() then
 			return
 		elseif pl:KeyDown(IN_ATTACK) then
 			pl:RefreshDynamicSpawnPoint()
@@ -214,10 +214,13 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 
 			local livingzombies = {}
 			for k, v in pairs(team.GetPlayers(TEAM_ZOMBIE)) do
-				if v:Alive() then table.insert(livingzombies, v) end
+				if v:Alive() then
+					table.insert(livingzombies, v)
+				end
 			end
 
 			pl:StripWeapons()
+			
 			local specplayer = livingzombies[pl.SpectatedPlayerKey]
 			if specplayer then
 				pl:Spectate(OBS_MODE_CHASE)

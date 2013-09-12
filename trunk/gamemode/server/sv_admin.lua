@@ -559,7 +559,9 @@ local function NextSpawn( pl, bind )
 		end
 	end
 end
-hook.Add ( "KeyPress", "SpawnShit", NextSpawn )
+if EDITOR_SPAWN_MODE then
+	hook.Add ( "KeyPress", "SpawnShit", NextSpawn )
+end
 
 local function PrevSpawn( pl, bind )
 	if not pl:IsSuperAdmin() or bind ~= IN_ATTACK2 then return end
@@ -578,7 +580,9 @@ local function PrevSpawn( pl, bind )
 		pl:ChatPrint ( "Spawning on position: "..vSpawnPos )
 	end
 end
-hook.Add ( "KeyPress", "SpawnPrevShit", PrevSpawn )
+if EDITOR_SPAWN_MODE then
+	hook.Add ( "KeyPress", "SpawnPrevShit", PrevSpawn )
+end
 
 local function SaveSpawn( pl, bind )
 	if not pl:IsSuperAdmin() or bind ~= IN_DUCK then return end
@@ -620,7 +624,9 @@ local function SaveSpawn( pl, bind )
 	
 	file.Write ( strPath, strContent )
 end
-hook.Add ( "KeyPress", "SpawnSave", SaveSpawn )
+if EDITOR_SPAWN_MODE then
+	hook.Add ( "KeyPress", "SpawnSave", SaveSpawn )
+end
 
 local function DeleteSpawn( pl, bind )
 	if not pl:IsSuperAdmin() or bind ~= IN_RELOAD then return end
@@ -629,6 +635,8 @@ local function DeleteSpawn( pl, bind )
 	-- Delete current slot spawn
 	if SpawnPoints[vSpawnPos] then pl:ChatPrint ( "Spawn point "..vSpawnPos.." deleted!" ) SpawnPoints[vSpawnPos] = nil else pl:ChatPrint ( "Spawn position cannot be deleted. It's already deleted." ) end
 end
-hook.Add ( "KeyPress", "SpawnFuck", DeleteSpawn )
+if EDITOR_SPAWN_MODE then
+	hook.Add ( "KeyPress", "SpawnFuck", DeleteSpawn )
+end
 
 Debug ( "[MODULE] Loaded New Admin Mod Commands." )
