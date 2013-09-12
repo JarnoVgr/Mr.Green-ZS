@@ -184,7 +184,7 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 	end
 	
 	
-	if pl.NextSpawn and pl.NextSpawn <= CurTime() then -- Force spawn.
+	if pl.NextSpawn and pl.NextSpawn > CurTime() then -- Force spawn.
 		pl.NextSpawn = nil
 
 		pl:RefreshDynamicSpawnPoint()
@@ -204,9 +204,7 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 			end
 		end
 	else -- In spectator.
-		if pl.NextSpawn and pl.NextSpawn < CurTime() then
-			return
-		elseif pl:KeyDown(IN_ATTACK) then
+		elseif pl:KeyDown(IN_ATTACK) and (not pl.NextSpawn or (pl.NextSpawn and pl.NextSpawn < CurTime())) then
 			pl:RefreshDynamicSpawnPoint()
 			pl:UnSpectateAndSpawn()
 		elseif pl:KeyPressed(IN_ATTACK2) then
