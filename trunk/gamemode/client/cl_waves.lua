@@ -16,7 +16,7 @@ util.PrecacheSound("ambient/atmosphere/cave_hit1.wav")
 
 net.Receive("SetInf", function(len)
 	INFLICTION = net.ReadFloat()
-	local bIsInit = net.ReadBit()
+	local bIsInit = tobool(net.ReadBit())
 		
 	local UnlockedClass
 	local amount = 0
