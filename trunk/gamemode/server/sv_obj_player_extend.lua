@@ -381,22 +381,6 @@ function meta:StripWeapon ( Class )
 end
 
 --[==[-------------------------------------------------------------
-       Rewrite this so we can check for score/reward
---------------------------------------------------------------]==]
---[=[function meta:AddFrags ( Amount )
-	if Amount == nil then return end
-	if Amount == 0 then return end
-	
-	-- Check score for each added
-	for i = 1, Amount do
-		self:SetFrags ( self:Frags() + 1 )
-		-- GAMEMODE:CheckHumanScore ( self )
-	end
-	
-	Debug ( "[SCORE] Added "..tostring ( Amount ).." score points to "..tostring ( self ) )
-end]=]
-
---[==[-------------------------------------------------------------
        Add some tweaks to the drop weapon function
 --------------------------------------------------------------]==]
 function meta:DropWeaponNamed ( class ) 
@@ -1824,10 +1808,10 @@ end )
 concommand.Add( "zs_boughtpointswithcoins", function( pl, cmd, args )
     if ( IsValid( pl ) ) then
         if ( pl:CanBuyPointsWithCoins() ) then
-            pl:SetFrags(math.max(2048,pl:Frags() + 400))
-            pl:TakeGreenCoins( 200 )          
+            pl:SetFrags(math.min(2048,pl:Frags() + 400))
+            pl:TakeGreenCoins(200)          
         end
-        pl:SetBoughtPointsWithCoins( true )
+        pl:SetBoughtPointsWithCoins(true)
     end
 end )
 

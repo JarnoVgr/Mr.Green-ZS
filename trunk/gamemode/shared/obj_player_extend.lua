@@ -749,7 +749,8 @@ function meta:SetScore(score)
 	if not ValidEntity ( self ) then
 		return
 	end
-	self:SetFrags(score)
+	
+	self:SetFrags(math.min(2048,score))
 end
 	
 function meta:ScoreAdd ( score ) 
@@ -757,7 +758,7 @@ function meta:ScoreAdd ( score )
 		return
 	end
 
-	self:SetFrags(math.max(2048,self:Frags() + score))
+	self:SetFrags(math.min(2048,self:Frags() + score))
 end
 
 

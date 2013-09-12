@@ -729,13 +729,13 @@ function RollTheDice ( pl,commandName,args )
 	local choise,message,name
 	
 	if pl:Team() == TEAM_HUMAN then
-		choise = math.random(1,4)
+		choise = math.random(1,5)
 		if pl:HasBought("ladyluck") and choise <= 2 then
-			choise = math.random(2,4) -- second chance with bad outcome
+			choise = math.random(2,5) -- second chance with bad outcome
 		end
 		message = ""
 		name = pl:GetName()
-		if ( choise == 1 ) and ( ServerTime() > ROUNDTIME * 0.15 ) then
+		if (choise == 1) and ( ServerTime() > ROUNDTIME * 0.15 ) then
 			pl:GodDisable() -- no spawnprotection can save you now!
 			local Ent = ents.Create("env_explosion")
 			Ent:SetPos(pl:GetPos())
@@ -747,10 +747,10 @@ function RollTheDice ( pl,commandName,args )
 			pl:SetVelocity( Vector(0,0,400) )
 			pl:TakeDamage( pl:Health()*2, nil, nil ) -- make sure he dies
 			message = name.." rolled the dice and is turned inside out!"
-		elseif ( choise == 2 ) then
+		elseif (choise == 2) then
 			pl:SetHealth(1)
 			message = name .." rolled the dice and got raped in the ass."
-		elseif choise == 3 then
+		elseif (choise == 3) then
 			pl:GiveAmmo( 20, "pistol" )	
 			pl:GiveAmmo( 60, "ar2" )
 			pl:GiveAmmo( 50, "SMG1" )	
@@ -758,20 +758,16 @@ function RollTheDice ( pl,commandName,args )
 			pl:GiveAmmo( 5, "XBowBolt" )
 			pl:GiveAmmo( 5, "357" )
 			message = name .." rolled the dice and received some ammo!"
-		elseif choise == 4 and pl:Health() < pl:GetMaximumHealth() then
+		elseif choise == 4 then
+			pl:SetFrags(math.min(2048,pl:GetFrags()+150))
+			message = name .." rolled the dice and received 150GC"
+		elseif choise == 5 and pl:Health() < pl:GetMaximumHealth() then
 			local calchealth = math.Clamp ( 100 - pl:Health(),25,100 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
 			pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )                           
-			message = name .." rolled the dice and restored ".. randhealth .." health!"
+			message = name .." rolled the dice and gained ".. randhealth .." health!"
 		else
 			if pl:HasBought("ladyluck") or math.random (1,2) == 1 then
-			--	message = "WIN: The dice gave "..name.." some bandages and he now regenerates health for 1 minute!"
-			--	pl.IsRegenerating = true
-			--	timer.Simple (60, function() 
-			--		if pl and pl:IsValid() then
-			--			pl.IsRegenerating = false
-			--		end
-			--	end)
 				local calchealth = math.Clamp ( 100 - pl:Health(),25,100 )
 				local randhealth = math.random( 25, math.Round ( calchealth ) )
 				pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )                           
@@ -798,13 +794,13 @@ function RollTheDice ( pl,commandName,args )
 			pl:SetHealth(pl:Health() - (pl:Health() / 5))
 			message = "LOSE: "..name.." has lost "..math.Clamp(math.floor((pl:Health() / 5)),10,9999).." kg worth of flesh!"
 		elseif (choise == 3) then
-			pl:SetFrags(math.max(2048,pl:Frags() + 1))
+			pl:SetFrags(math.min(2048,pl:Frags() + 1))
 			message = "WIN: "..name.." has gained a piece of brain from the dice!"
 			pl.BrainsEaten = pl.BrainsEaten + 0
 			if pl:CanRedeem() then pl:Redeem() end
 		else
 			if pl:HasBought("ladyluck") or math.random (1,5) == 1 then
-				pl:SetFrags ( pl:Frags() + 1 )
+				pl:SetFrags(math.min(2048,pl:Frags() + 1))
 				message = "WIN: The dice helped "..name.." steal a piece of brain from the humans!"
 				pl.BrainsEaten = pl.BrainsEaten + 0
 				if pl:CanRedeem() then pl:Redeem() end
