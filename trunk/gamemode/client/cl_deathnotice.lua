@@ -175,9 +175,9 @@ net.Receive("PlayerKilledSelfZS", function( len )
 	
 	if victim:IsValid() then
 		GAMEMODE:AddDeathNotice( nil, 0, "suicide", victim:Name(), victim:Team() )
-		if victim:Name() == MySelf:Name() then
-			-- GAMEMODE:AddCustomDeathNotice ( "self", "suicide", victim:Name(), nil )
-		end
+		--[[if victim:Name() == MySelf:Name() then
+			GAMEMODE:AddCustomDeathNotice ( "self", "suicide", victim:Name(), nil )
+		end]]
 	end
 
 end)
@@ -189,9 +189,9 @@ local function RecvPlayerKilledSelf( message )
 	
 	if victim:IsValid() then
 		GAMEMODE:AddDeathNotice( nil, 0, "suicide", victim:Name(), victim:Team() )
-		if victim:Name() == MySelf:Name() then
-			-- GAMEMODE:AddCustomDeathNotice ( "self", "suicide", victim:Name(), nil )
-		end
+		--[[if victim:Name() == MySelf:Name() then
+			GAMEMODE:AddCustomDeathNotice ( "self", "suicide", victim:Name(), nil )
+		end]]
 	end
 end
 usermessage.Hook("PlayerKilledSelfZS", RecvPlayerKilledSelf)

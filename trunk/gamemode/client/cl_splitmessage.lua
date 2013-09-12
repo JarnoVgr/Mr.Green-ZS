@@ -313,6 +313,11 @@ local function Draw3DMessage()
 	if delta < 0.5 then
 		alpha = 255*math.Clamp(delta/1,0,1)
 	end
+
+	--Somehow it goes wrong at times
+	if not MySelf:GetAimVector() then
+		return
+	end
 	
 	cam.Start3D2D(EyePos()+MySelf:GetAimVector()*(310-pos),ang,0.05)
 	cam.IgnoreZ(true)
