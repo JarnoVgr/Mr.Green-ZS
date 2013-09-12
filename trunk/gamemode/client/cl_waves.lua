@@ -49,12 +49,9 @@ net.Receive("SetInf", function(len)
 	if bIsInit then
 		if INFLICTION >= 0.8 and not UNLIFE then
 			HALFLIFE = true
-			GM:SetUnlife(true)
-			--UNLIFE = true
-			--HALFLIFE = true
+			GAMEMODE:SetUnlife(true)
 		elseif INFLICTION >= 0.5 and not HALFLIFE then
-			--HALFLIFE = true
-			GM:SetHalflife(true)
+			GAMEMODE:SetHalflife(true)
 		end
 	end
 end)
