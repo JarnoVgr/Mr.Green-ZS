@@ -768,7 +768,7 @@ function RollTheDice ( pl,commandName,args )
 		message = message .." rolled the dice and gained ".. randhealth .." health!"
 	else
 		pl:SetFrags(math.min(2048,pl:Frags()+150))
-		message = message .." rolled the dice and received 150GC."
+		message = message .." rolled the dice and received 150SP."
 	end
 	
 	pl.LastRTD = CurTime() + RTD_TIME
