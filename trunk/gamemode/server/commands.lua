@@ -712,7 +712,7 @@ function RollTheDice ( pl,commandName,args )
 	end
 	
 	if ServerTime() < (WARMUPTIME+10) then
-		pl:ChatPrint("Dice temporarly disabled at round start")
+		pl:ChatPrint("Dice temporarily disabled at round start")
 		return
 	end
 	
@@ -738,7 +738,7 @@ function RollTheDice ( pl,commandName,args )
 	
 	message = pl:GetName()
 	
-	if (choise == 1) then
+	if choise == 1 then
 		pl:GodDisable() -- no spawnprotection can save you now!
 		local Ent = ents.Create("env_explosion")
 		Ent:SetPos(pl:GetPos())
