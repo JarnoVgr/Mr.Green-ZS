@@ -74,7 +74,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 		end
 	end
 	
-	pl:SetFrags(pl:Frags()+amount)
+	pl:SetFrags(math.max(2048,pl:Frags()+amount))
 	
 	if GAMEMODE:IsRetroMode() then
 		GAMEMODE:CheckPlayerScore(pl)

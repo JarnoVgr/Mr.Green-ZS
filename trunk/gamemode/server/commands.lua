@@ -791,14 +791,14 @@ function RollTheDice ( pl,commandName,args )
 		name = pl:GetName()
 		
 		if (choise == 1) and pl:Frags() > 0 then
-			pl:SetFrags (pl:Frags() - 1)
+			pl:SetFrags(pl:Frags() - 1)
 			message = "LOSE: "..name.." has lost a brain because of the dice."
 			pl.BrainsEaten = pl.BrainsEaten - 1
 		elseif (choise == 2) then
-			pl:SetHealth (pl:Health() - (pl:Health() / 5))
+			pl:SetHealth(pl:Health() - (pl:Health() / 5))
 			message = "LOSE: "..name.." has lost "..math.Clamp(math.floor((pl:Health() / 5)),10,9999).." kg worth of flesh!"
 		elseif (choise == 3) then
-			pl:SetFrags ( pl:Frags() + 1 )
+			pl:SetFrags(math.max(2048,pl:Frags() + 1))
 			message = "WIN: "..name.." has gained a piece of brain from the dice!"
 			pl.BrainsEaten = pl.BrainsEaten + 0
 			if pl:CanRedeem() then pl:Redeem() end
