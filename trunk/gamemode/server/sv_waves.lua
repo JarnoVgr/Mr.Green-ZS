@@ -140,14 +140,14 @@ util.AddNetworkString( "SetInf" )
 function GM:SendInfliction()
 	net.Start("SetInf")
 		net.WriteFloat(INFLICTION)
-		net.WriteByte(0)
+		net.WriteBit(false)
 	net.Broadcast()
 end
 
 function GM:SendInflictionTo(to)
 	net.Start("SetInf")
 		net.WriteFloat(INFLICTION)
-		net.WriteByte(1)
+		net.WriteBit(true)
 	net.Send(to)
 end
 
