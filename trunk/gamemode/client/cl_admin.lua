@@ -283,8 +283,7 @@ end
               Called on KEY_C pressed
 -------------------------------------------------]==]
 local function OnKeyPressed ()
-	if not ValidEntity ( MySelf ) then return end
-	if not MySelf:IsAdmin() then return end
+	if not ValidEntity(MySelf) or not MySelf:IsAdmin() then return end
 	if ClassMenu ~= nil and ClassMenu:IsValid() and ClassMenu:IsVisible() then return end
 	
 	-- cooldown failsafe
@@ -293,18 +292,17 @@ local function OnKeyPressed ()
 	-- pop-up the admin panel
 	DoAdminPanel()
 end
-hook.Add( "OnContextMenuOpen", "KeyPressedHook", OnKeyPressed )
+hook.Add( "OnContextMenuOpen", "ContextKeyPressedHook", OnKeyPressed )
 
 --[==[------------------------------------------------
               Called on KEY_C released
 -------------------------------------------------]==]
 local function OnKeyReleased ()
-	if not ValidEntity ( MySelf ) then return end
-	if not MySelf:IsAdmin() then return end
+	if not ValidEntity(MySelf) or not MySelf:IsAdmin() then return end
 	
 	-- remove admin panel and disable mouse
 	CloseAdminPanel()
 end
-hook.Add( "OnContextMenuClose", "KeyReleasedHook", OnKeyReleased )
+hook.Add( "OnContextMenuClose", "ContextKeyReleasedHook", OnKeyReleased )
 
 Debug ( "[MODULE] Loaded client-side admin panel module." )

@@ -125,15 +125,10 @@ PrintTable(FullCrateSpawns)
 --------------------------------------------------------------]==]
 local function OnPlayerUse(pl, key)
 	--Ignore all keys but IN_USE
-	if key ~= IN_USE then
+	if key ~= IN_USE or not ValidEntity(pl) then
 		return
 	end
-	
-	--Is our player valid
-	if not ValidEntity ( pl ) then
-		return
-	end
-	
+		
 	--Check if player is zombie
 	if pl:Team() ~= TEAM_HUMAN then
 		return

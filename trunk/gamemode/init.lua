@@ -14,7 +14,7 @@ local ents = ents
 local gmod = gmod
 
 --Third Party timer and hook profiler
-include("modules/dbugprofiler/dbug_profiler.lua")
+--include("modules/dbugprofiler/dbug_profiler.lua")
 
 --Very important script
 include("modules/debug/sh_debug.lua")
@@ -340,19 +340,21 @@ end
 
 -- Player presses F3
 local function OnPressedF3( pl )
-	if not ENDROUND then
-		if pl:Team() == TEAM_UNDEAD then
-			-- If undead show classes menu
-			if not (pl:IsBossZombie() and pl:Alive()) then
-				pl:SendLua("DoClassesMenu()")
-			end
-		elseif pl:Team() == TEAM_HUMAN then
-			-- If survivor drop weapon
-			DropWeapon(pl)
+	if ENDROUND then
+		return
+	end
+	
+	if pl:Team() == TEAM_UNDEAD then
+		-- If undead show classes menu
+		if not (pl:IsBossZombie() and pl:Alive()) then
+			pl:SendLua("DoClassesMenu()")
 		end
+	elseif pl:Team() == TEAM_HUMAN then
+		-- If survivor drop weapon
+		DropWeapon(pl)
 	end
 end
-hook.Add ( "ShowSpare1", "PressedF3", OnPressedF3 )
+hook.Add("ShowSpare1", "PressedF3", OnPressedF3)
 
 -- Player presses F4
 function GM:ShowSpare2( pl )
