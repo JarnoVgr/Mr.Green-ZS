@@ -586,7 +586,7 @@ CARRY_SPEEDLOSS_MINSPEED = 88
 -- -- -- -- -- -- -- -- /
 
 -- Maximum crates per map
-MAXIMUM_CRATES = math.random(1, 2)
+MAXIMUM_CRATES = math.random(3, 4)
 
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = true

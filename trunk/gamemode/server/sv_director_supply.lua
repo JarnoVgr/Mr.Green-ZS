@@ -21,7 +21,7 @@ local function AddCratesToPVS(pl)
 	end
 end
 
-
+--Load crates from map file
 function GM:SetCrates()
 	local filename = "zombiesurvival/crates/".. game.GetMap() ..".txt"
 	
@@ -35,12 +35,14 @@ function GM:SetCrates()
 			table.insert(RealCrateSpawns,minitable2)
 		end
 		
+		--Causer of lag
 		--hook.Add( "SetupPlayerVisibility", "AddCratesToPVS", AddCratesToPVS )
 		
 		Debug("[DIRECTOR] Loaded Crate Spawnpoints")
 	end
 end
 
+--Convert old files to new
 function ConvertOldCratesToNew(pl,cmd,args)
 	if not pl:IsAdmin() then return end
 	
@@ -69,6 +71,7 @@ function ConvertOldCratesToNew(pl,cmd,args)
 end
 concommand.Add("zs_convertcrates",ConvertOldCratesToNew)
 
+--Import crates
 function ImportCratesFromClient(pl,cmd,args)
 	if not pl:IsAdmin() or not args then
 		return
@@ -104,7 +107,7 @@ end
 concommand.Add("zs_importcrates_confirm",ConfirmCratesFromClient)
 
 -- Copy all positions so we can use them later
-if #AmmoDropPoints["X"] > 0 then 
+--[[if #AmmoDropPoints["X"] > 0 then 
 	for i,j in pairs ( AmmoDropPoints["X"] ) do
 		local P = Vector ( AmmoDropPoints.X[i] or 0, AmmoDropPoints.Y[i] or 0, AmmoDropPoints.Z[i] or 0 )
 		-- table.insert(RealCrateSpawns,P)
@@ -118,7 +121,7 @@ if #AmmoDropPoints["X"] > 0 then
 		-- table.insert(FullCrateSpawns,P)
 	end
 end
-PrintTable(FullCrateSpawns)
+PrintTable(FullCrateSpawns)]]
 
 --[==[-------------------------------------------------------------
       Manage player +USE on the ammo supply boxes
@@ -166,13 +169,15 @@ local function OnPlayerUse(pl, key)
 	--Debug
 	Debug("[CRATES] ".. tostring(pl) .." used Supply Crate")
 end
-hook.Add("KeyPress", "KeyPressedHook", OnPlayerUse)
+hook.Add("KeyPress", "UseKeyPressedHook", OnPlayerUse)
 
 --[==[-------------------------------------------------------------
       Disable default use for the parent entity
 --------------------------------------------------------------]==]
 local function DisableDefaultUseOnSupply(pl, entity)
-	if ValidEntity ( entity ) and entity:GetClass() == "spawn_ammo" then return false end
+	if ValidEntity ( entity ) and entity:GetClass() == "spawn_ammo" then
+		return false
+	end
 end
 hook.Add("PlayerUse", "DisableUseOnSupply", DisableDefaultUseOnSupply)
 
