@@ -764,7 +764,7 @@ function RollTheDice ( pl,commandName,args )
 	elseif choise == 4 and pl:Health() < pl:GetMaximumHealth() then
 		local calchealth = math.Clamp ( 100 - pl:Health(),25,100 )
 		local randhealth = math.random( 25, math.Round ( calchealth ) )
-		pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )                           
+		pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
 		message = message .." rolled the dice and gained ".. randhealth .." health!"
 	else
 		pl:SetFrags(math.min(2048,pl:Frags()+150))

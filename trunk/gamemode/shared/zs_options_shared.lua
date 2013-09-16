@@ -239,7 +239,7 @@ GM.HumanWeapons = {
 	["weapon_zs_smg"]  = { Name = "Sub-Machine Gun", DPS = 130, Infliction = 0.9, Type = "smg" }, --  4
 	["weapon_zs_mp5"]  = { Name = "MP5 Sub-Machine Gun", DPS = 127,Mat = "VGUI/gfx/VGUI/mp5", Infliction = 0.58, Type = "smg", Price = 380 }, --  5
 	["weapon_zs_tmp"]  = { Name = "TMP Sub-Machine Gun", DPS = 107,Mat = "VGUI/gfx/VGUI/tmp", Infliction = 0.56, Type = "smg", Price = 460 },	--  2
-	["weapon_zs_mac10"]  = { Name = "Mac 10 Sub-Machine Gun", DPS = 126,Mat = "VGUI/gfx/VGUI/mac10", Infliction = 0.60, Type = "smg", Price = 380 },
+	["weapon_zs_mac10"]  = { Name = "Mac 10 Sub-Machine Gun", DPS = 126,Mat = "VGUI/gfx/VGUI/mac10", Infliction = 0.60, Type = "smg" },
 	
 	["weapon_zs_minishotty"]  = { Name = "'Farter' Shotgun", DPS = 126, Infliction = 0, Type = "shotgun" },
 	
@@ -291,7 +291,7 @@ GM.HumanWeapons = {
 	["weapon_zs_annabelle"]  = { Name = "Annabelle Shotgun", DPS = 210, Infliction = 0, Type = "shotgun" }, --740
 	["weapon_zs_m1014"]  = { Name = "M1014 Auto-Shotgun", DPS = 246,Mat = "VGUI/gfx/VGUI/xm1014", Infliction = 0.85, Type = "shotgun", Price = 1080 },
 	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Class = "Medic", Type = "rifle"},
-	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0,Class = "Support", Type = "shotgun" }, 
+	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0,Class = "Support", Type = "shotgun", Price = 960 }, 
 	
 	--Pickups!
 	["weapon_zs_pickup_gascan2"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },
@@ -391,12 +391,13 @@ MAX_RANK = 75
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_melee_keyboard","weapon_zs_m3super90","weapon_zs_smg","weapon_zs_scout"},
-	[1] = {"weapon_zs_melee_plank","weapon_zs_tools_hammer"},
+	[0] = {"weapon_zs_usp","weapon_zs_melee_keyboard","weapon_zs_mac10","weapon_zs_tools_torch"},
+	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
+	[5] = {"weapon_zs_scout"},
 	[4] = {"weapon_zs_medkit"},
-	[6] = {"weapon_zs_tools_torch"},
+	[6] = {"weapon_zs_tools_hammer"},
 	[7] = {"_nailamount"},
 	[11] = {"weapon_zs_tools_supplies"},
 	[13] = {"_adrenaline"},
@@ -412,7 +413,8 @@ GM.RankUnlocks = {
 	[27] = {"_poisonprotect"},
 	[28] = {"weapon_zs_tools_remote"},
 	[30] = {"_turretdmg"},
-	[31] = {"_turrethp","weapon_zs_mine"},
+	[31] = {"weapon_zs_mine"},
+	[32] = {"_turrethp"},
 	[33] = {"_turretammo"},-- ,"weapon_zs_melee_axe"
 	[34] = {"_medupgr1"},
 	[35] = {"_enhkevlar"},

@@ -150,6 +150,11 @@ for _, filename in pairs(file.Find("sound/mrgreen/new/*.*", "GAME" ) ) do
 	table.insert ( ResourceFiles, "sound/mrgreen/new/"..filename  )
 end
 
+--
+for _, filename in pairs(file.Find("sound/mrgreen/supplycrates/*.*", "GAME" ) ) do
+	table.insert ( ResourceFiles, "sound/mrgreen/supplycrates/"..filename  )
+end
+
 for _, filename in pairs(file.Find("materials/models/weapons/v_zombiearms/*.*", "GAME" ) ) do
 	table.insert ( ResourceFiles, "materials/models/weapons/v_zombiearms/"..string.lower(filename )  )
 end

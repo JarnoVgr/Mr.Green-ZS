@@ -50,7 +50,8 @@ end
 function ENT:Think()
 	local ct = CurTime()
 	
-	local humans = player.GetAll()
+	--local humans = player.GetAll()
+	local humans = team.GetPlayers(TEAM_HUMAN)
 	--if SERVER then self:CheckOwner() end
 	
 	--Loop though all players
@@ -113,64 +114,81 @@ if SERVER then
 
 
 	function ENT:Use(activator, caller)
-		if not IsValid(activator) then return end
+		if not IsValid(activator) then
+			return
+		end
 		
-		if activator:IsPlayer() and activator:IsHuman() then
+		if not activator:IsPlayer() or not activator:IsHuman() then
+			return
+		end
 		
-			activator.NextPop = activator.NextPop or 0
+		activator.NextPop = activator.NextPop or 0
 			
-			if activator.NextPop > CurTime() then return end
-			activator.NextPop = CurTime() + 1.5
+		if activator.NextPop > CurTime() then
+			return
+		end
+		activator.NextPop = CurTime() + 1.5
+
+		local gotSupplies = false
 			
-			if activator.SupplyTimerActive == false then
-				if activator.GotSupplies == false then
-					activator.GotSupplies = true
-					activator.SupplyTimerActive = true	
-					activator:SendLua("MySelf.SupplyTimerActive = true")
-					activator:SendLua("MySelf.GotSupplies = true")
-					activator.SupplyTime = CurTime() + self.AmmoDelay
-					activator:SendLua("MySelf.SupplyTime = CurTime() + "..self.AmmoDelay.."")
-					
-						local Automatic, Pistol = activator:GetAutomatic(), activator:GetPistol()
-		
-						if Automatic or Pistol then
-						
-							local WeaponToFill = activator:GetActiveWeapon()
+		if activator.SupplyTimerActive == false then
+			if activator.GotSupplies == false then
+				activator.GotSupplies = true
+				activator.SupplyTimerActive = true	
+				activator:SendLua("MySelf.SupplyTimerActive = true")
+				activator:SendLua("MySelf.GotSupplies = true")
+				activator.SupplyTime = CurTime() + self.AmmoDelay
+				activator:SendLua("MySelf.SupplyTime = CurTime() + "..self.AmmoDelay.."")
+				
+				--Give ammo
+				local Automatic, Pistol = activator:GetAutomatic(), activator:GetPistol()
+				if Automatic or Pistol then
+					local WeaponToFill = activator:GetActiveWeapon()		
+					local AmmoType
 							
-							local AmmoType 
-							
-							if IsValid(WeaponToFill) and (GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic") then
-								AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
-							else
-								AmmoType = "pistol"
-							end
+					if IsValid(WeaponToFill) and (GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic") then
+						AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
+					else
+						AmmoType = "pistol"
+					end
 								
-							-- How much ammo to give
-							local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
+					-- How much ammo to give
+					local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
 									
-							-- 50% more ammunition at half-life and double for un-life
-							if INFLICTION >= 0.7 then
-								HowMuch = HowMuch * 1
-							end
-									
-							-- Multiplier -- 30% less
-							HowMuch = math.Round(HowMuch * 0.62)
-							
-							activator:GiveAmmo(HowMuch, AmmoType)
-							
-							local Owner = self:GetPlacer()
-							if activator ~= Owner and (ValidEntity(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
-								skillpoints.AddSkillPoints(Owner,3)
-								self:FloatingTextEffect( 3, Owner)
-								Owner:AddXP(3)
-							end
-						
-						-- activator:EmitSound("items/ammo_pickup.wav")
-						end
+					--Multiplier for infliction
+					HowMuch = math.Round(HowMuch * (INFLICTION + 0.5))
+
+					--Finally give it
+					activator:GiveAmmo(HowMuch, AmmoType)
 				end
-			elseif activator.SupplyTimerActive == true then
-				activator:Message("You can't get ammo until crate will recharge it!",1,"white")
+
+				--Heal
+				if activator:Health() < activator:GetMaximumHealth() then
+					local healthDifference = math.Clamp(activator:GetMaximumHealth() - activator:Health(), 0, 25)
+					local actualHealAmount = math.random(10, healthDifference)
+					actualHealAmount = math.min(activator:Health() + actualHealAmount, activator:GetMaximumHealth())
+					activator:SetHealth(actualHealAmount)
+				end
+
+				--Give SP to crate owner		
+				local Owner = self:GetPlacer()
+				if activator ~= Owner and (ValidEntity(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
+					skillpoints.AddSkillPoints(Owner,3)
+					self:FloatingTextEffect(3, Owner)
+					Owner:AddXP(3)
+				end
+
+				--Play sound
+				activator:EmitSound("mrgreen/supplycrates/mobile_use.mp3")
+
+				--
+				gotSupplies = true
 			end
+		end
+
+		--Show notice when not being able to use it
+		if not gotSupplies then
+			activator:Message("You can't use mobile supplies at this moment",1,"white")
 		end
 	end
 end
@@ -220,7 +238,7 @@ if CLIENT then
 					local time = math.Round(MySelf.SupplyTime - CurTime())
 					draw.SimpleTextOutlined("0"..ToMinutesSeconds(time + 1), "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 				elseif MySelf.SupplyTimerActive == false then
-					draw.SimpleTextOutlined("Press E to refill ammo for equipped gun", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+					draw.SimpleTextOutlined("Press E for bandages and ammo", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 				end
 
 	    cam.End3D2D()

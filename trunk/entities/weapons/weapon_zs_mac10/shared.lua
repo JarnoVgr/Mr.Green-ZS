@@ -3,12 +3,12 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "mac10"
+	SWEP.PrintName = "Mac 10 Sub-Machine Gun"
 	SWEP.Author = "NECROSSIN"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 12
 	SWEP.ViewModelFOV = 65
-	SWEP.ViewModelFlip = true
+	SWEP.ViewModelFlip = false
 	
 	SWEP.ShowViewModel = false
 	SWEP.ShowWorldModel = true
@@ -30,7 +30,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("Weapon_MAC10.Single")
 SWEP.Primary.Recoil = 4
-SWEP.Primary.Damage = 16
+SWEP.Primary.Damage = 10
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.07
 
@@ -42,7 +42,7 @@ SWEP.Primary.Ammo = "smg1"
 SWEP.MaxAmmo			    = 230
 
 SWEP.ConeMoving = 0.085
-SWEP.Cone = 0.77
+SWEP.Cone = 0.077
 SWEP.ConeCrouching = 0.067
 
 SWEP.WalkSpeed = 185

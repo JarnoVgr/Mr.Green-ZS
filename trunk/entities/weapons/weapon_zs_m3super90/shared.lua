@@ -31,13 +31,16 @@ SWEP.AutoSwitchFrom		= false
 
 SWEP.HoldType = "shotgun"
 
+
+
+
 SWEP.Primary.Sound			= Sound("Weapon_M3.Single")
-SWEP.Primary.Recoil			= 16
-SWEP.Primary.Damage			= 7.5
+SWEP.Primary.Recoil			= 3.5 * 6 -- 3.5
+SWEP.Primary.Damage			= 22
 SWEP.Primary.NumShots		= 8
 SWEP.Primary.ClipSize		= 6
-SWEP.Primary.Delay			= 0.9
-SWEP.Primary.DefaultClip	= 30
+SWEP.Primary.Delay			= 0.8
+SWEP.Primary.DefaultClip	= 12
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "buckshot"
 SWEP.ConeMoving = 0.156
