@@ -1419,8 +1419,8 @@ function GM:PlayerSelectSpawn(pl)
 	else
 		tab = team.GetSpawnPoint(teamid)
 	end
-	
-	local result = #tab > 0 and tab[math.random(1, #tab)] or pl
+
+	local result = tab and #tab > 0 and tab[math.random(1, #tab)] or pl
 	
 	-- print("Result "..tostring(result))
 	-- PrintTable(tab)
