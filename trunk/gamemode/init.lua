@@ -545,14 +545,14 @@ hook.Add ( "InitPostEntity", "DeleteRestricteEnts", DeleteEntitiesRestricted )
     add "zs_weapondrop" as spawn for weapons
 ------------------------------------------------------------]=]
 local function EnableWeaponDrop ()
-	local WeaponDropEntites = ents.FindByClass("zs_weapondrop")
+	--[[local WeaponDropEntites = ents.FindByClass("zs_weapondrop")
 	for k,v in pairs ( WeaponDropEntites ) do
 		if #WeaponDropEntites >= 1 and v then
 			table.insert(DropPointsX,v:GetPos().x) -- PosX
 			table.insert(DropPointsY,v:GetPos().y) -- PosY
 			table.insert(DropPointsZ,v:GetPos().z) -- PosZ
 		end
-	end
+	end]]
 end
 hook.Add ("InitPostEntity","EnableMappingSupport",EnableWeaponDrop)
 
