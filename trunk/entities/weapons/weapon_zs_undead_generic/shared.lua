@@ -15,7 +15,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "Zombie"
+	SWEP.PrintName = "Generic Undead"
 	SWEP.DrawAmmo = false
 	SWEP.DrawCrosshair = false
 	SWEP.ViewModelFOV = 70
@@ -83,7 +83,9 @@ end
 
 function SWEP:CheckMeleeAttack()
 	local swingend = self:GetSwingEndTime()
-	if swingend == 0 or CurTime() < swingend then return end
+	if swingend == 0 or CurTime() < swingend then
+		return
+	end
 	self:StopSwinging(0)
 
 	self:Swung()
@@ -96,8 +98,9 @@ end
 
 SWEP.NextSwing = 0
 function SWEP:PrimaryAttack()
-
-	if CurTime() < self.NextSwing then return end
+	if CurTime() < self.NextSwing then
+		return
+	end
 	
 	self.Weapon:SetNextPrimaryFire ( CurTime() + self.MeleeDelay ) 
 	self.Weapon:SetNextSecondaryFire ( self:GetNextPrimaryFire() + 0.5 )
@@ -108,38 +111,35 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:StartSwinging()
-
-	local pl = self.Owner
 	self.PreHit = nil
 	self.Trace = nil
-	-- pl.IsMoaning = false
+	-- self.Owner.IsMoaning = false
 	
 	if SERVER then
-	self:SetMoaning(false)
+		self:SetMoaning(false)
 		if self.MoanSound then
 			self.MoanSound:Stop()
 			self.MoanSound = nil
 		end
 	end
-	
-	local trFilter = team.GetPlayers( TEAM_ZOMBIE )
-		
+			
 	-- Hacky way for the animations
-	if self.SwapAnims then self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER) else self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK) end
+	if self.SwapAnims then
+		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
+	else
+		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+	end
 	self.SwapAnims = not self.SwapAnims
 	
 	-- Set the thirdperson animation and emit zombie attack sound
-	pl:DoAnimationEvent( CUSTOM_PRIMARY )
-	if SERVER then self.Owner:EmitSound("npc/zombiegreen/rage_at_victim"..math.random(20, 37)..".wav") end
+	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
+
+	if SERVER then
+		self.Owner:EmitSound("npc/zombiegreen/rage_at_victim"..math.random(20, 37)..".wav")
+	end
 
 	if self.MeleeDelay > 0 then
 		self:SetSwingEndTime(CurTime() + self.MeleeDelay)
-
-		local trace = pl:TraceLine( self.DistanceCheck, MASK_SHOT, trFilter )
-		if trace.Hit and ValidEntity ( trace.Entity ) and not trace.Entity:IsPlayer() then -- no more Mr. Long arms
-			self.PreHit = trace.Entity
-			self.Trace = trace
-		end
 	else
 		self:Swung()
 	end
@@ -150,43 +150,69 @@ function SWEP:Swung()
 		return
 	end
 	
-	if not ValidEntity(self.Owner) then
-		return
-	end
+	self.Owner:LagCompensation(true)
 
-	local pl = self.Owner
-	local victim = self.PreHit
-	
-	
-	-- Trace filter
-	local trFilter = team.GetPlayers(TEAM_UNDEAD)
 	-- Calculate damage done
 	local Damage = self.Damage or 30
-	local TraceHit, HullHit = false, false
 
-	-- Push for whatever it hits
-	local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(Damage * 2000, 25000, 37000)
-	--[[if self.Owner.Suicided == true then
-	 	Velocity = Velocity * 0.4
-	end]]
-	
-	-- Tracehull attack
-	local trHull = self.Owner:MeleeTrace(48, 1.5, trFilter)
-	--local traces = self.owner:PenetratingMeleeTrace(self.MeleeReach, self.MeleeSize, self.PreHit)
-	
-	if not ValidEntity(victim) then	
-		local tr = pl:TraceLine(self.DistanceCheck, MASK_SHOT, trFilter)
-		victim = tr.Entity
+	--Do actual traces
+	local traces = self.Owner:PenetratingMeleeTrace(self.MeleeReach, self.MeleeSize, nil)
+		
+	local hit = false
+	for _, trace in ipairs(traces) do
+		if not trace.Hit then
+			continue
+		end
+
+		if trace.HitWorld then
+			hit = true
+
+			self:MeleeHitWorld(trace)
+		else
+			local ent = trace.Entity
+			if not ent or not ent:IsValid() then
+				continue
+			end
+
+			--Break glass
+			if ent:GetClass() == "func_breakable_surf" then
+				ent:Fire( "break", "", 0 )
+			end
+			
+			local phys = ent:GetPhysicsObject()
+			-- Case 2: It is a valid physics object
+			if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() and not ent.Nails then
+				local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(Damage * 2000, 25000, 37000)
+				Velocity.z = math.min(Velocity.z,1600)
+						
+				--Apply force to prop and make the physics attacker myself
+				
+				phys:ApplyForceCenter(Velocity)
+				ent:SetPhysicsAttacker(self.Owner)
+
+				hit = true
+			elseif not ent:IsWeapon() then
+				--Take damage
+				ent:TakeDamage(Damage, self.Owner, self)
+
+				hit = true
+			end
+		end
 	end
-	
-	TraceHit = ValidEntity(victim)
-	HullHit = ValidEntity(trHull.Entity)
-	
+
+	if SERVER then
+		if hit then
+			self.Owner:EmitSound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav")
+		else
+			self.Owner:EmitSound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav")
+		end
+	end
+
 	-- Play miss sound anyway
-	pl:EmitSound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav")
+	--
 	
 	--Punch the prop / damage the player if the pretrace is valid
-	if ValidEntity(victim) then
+	--[[if ValidEntity(victim) then
 		local phys = victim:GetPhysicsObject()
 		
 		--Break glass
@@ -196,6 +222,7 @@ function SWEP:Swung()
 			
 		-- Claw sound
 		pl:EmitSound("npc/zombiegreen/hit_punch_0"..math.random(1, 8)..".wav")
+		bHit = true
 				
 		-- Case 2: It is a valid physics object
 		if phys:IsValid() and not victim:IsNPC() and phys:IsMoveable() and not victim:IsPlayer() and not victim.Nails then
@@ -210,10 +237,12 @@ function SWEP:Swung()
 			-- Take damage
 			victim:TakeDamage(Damage, self.Owner, self)
 		end
-	end
+	else
+		pl:EmitSound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav")
+	end]]
 	
 	--Verify tracehull entity
-	if HullHit and not TraceHit then
+	--[[if HullHit and not TraceHit then
 		local ent = trHull.Entity
 		local phys = ent:GetPhysicsObject()
 		
@@ -245,7 +274,12 @@ function SWEP:Swung()
 			-- Take damage
 			ent:TakeDamage(Damage, self.Owner, self)
 		end
-	end
+	end]]
+
+	self.Owner:LagCompensation(false)
+end
+
+function SWEP:MeleeHitWorld(trace)
 end
 
 function SWEP:SetMoaning(bl)

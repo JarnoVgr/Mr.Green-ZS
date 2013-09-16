@@ -38,7 +38,7 @@ if CLIENT then
 
 	
 end
-SWEP.Base = "weapon_zs_zombie"
+SWEP.Base = "weapon_zs_undead_generic"
 -- Remade by Deluvas
 SWEP.Author = "Deluvas"
 SWEP.Contact = ""
@@ -67,6 +67,8 @@ SWEP.AutoSwitchTo = true
 SWEP.AutoSwitchFrom = false
 
 SWEP.DistanceCheck = 70
+SWEP.MeleeReach = 48
+SWEP.MeleeSize = 1.5
 SWEP.MeleeDelay = 0.74
 
 SWEP.Damage = 28

@@ -15,7 +15,7 @@ if SERVER then
 	local umsg = umsg
 end
 
-SWEP.Base = "weapon_zs_zombie"
+SWEP.Base = "weapon_zs_undead_generic"
 SWEP.Author = "Deluvas"
 SWEP.Contact = ""
 SWEP.Purpose = ""
