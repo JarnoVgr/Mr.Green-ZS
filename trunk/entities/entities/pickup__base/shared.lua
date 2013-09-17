@@ -15,6 +15,9 @@ end
 function ENT:AcceptInput(name, activator, caller)
 end
 
+---
+-- TODO: Use native :SetHealth function instead
+-- 
 function ENT:_SetHealth(am)
 	self:SetDTFloat(0,am)
 end

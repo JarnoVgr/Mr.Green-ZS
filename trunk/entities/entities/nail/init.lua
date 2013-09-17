@@ -21,6 +21,11 @@ function ENT:Initialize()
 	-- self.Entity:SetNWInt("MaxNailHealth", self.Heal)
 	
 	self.Entity:SetDTInt(0,self.Heal) -- health
+	
+	---
+	-- TODO: Use a shared fixed value for maximum health
+	-- instead of a DT
+	-- 
 	self.Entity:SetDTInt(1,self.Heal) -- max health
 	
 	if ARENA_MODE then

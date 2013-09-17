@@ -137,6 +137,11 @@ end
 
 util.AddNetworkString( "SetInf" )
 
+---
+-- FIXME: This function affects network performance. It is used by GM:CalculateInfliction which is being extensively 
+-- used by the gamemode. Since GM:CalculateInfliction uses shared variables, my suggestion would be to transform 
+-- GM:CalculateInfliction into a shared function which simply computes the infliction on the spot instead of saving it.
+-- 
 function GM:SendInfliction()
 	net.Start("SetInf")
 		net.WriteFloat(INFLICTION)

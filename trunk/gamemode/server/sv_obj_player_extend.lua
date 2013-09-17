@@ -658,6 +658,10 @@ function meta:AddXP (amount)
 			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
 		end
 			
+		--- 
+		-- FIXME: This function is used extensively throughout the game
+		-- My recommendation is that it should use a DT variable instead
+		-- 
 		net.Start("SendPlayerXP")
 			net.WriteDouble(tonumber(self.DataTable["ClassData"]["default"].xp))
 		net.Send(self)
@@ -1165,6 +1169,7 @@ end
 
 util.AddNetworkString( "CustomChatAdd" )
 
+-- NOTE: Function not network-friendly
 -- Pretty awesome Server-to-Client chat messages by Overv
 function meta:CustomChatPrint(arg)
 if ( type( arg[1] ) == "Player" ) then self = arg[1] end
@@ -1572,6 +1577,10 @@ end
 
 util.AddNetworkString( "DoHulls" )
 
+---
+-- FIXME: This function does way more than just 'hulls'.
+-- Called every PlayerSpawn, (re)setting hulls/offset/mass, sending net data. A disaster.
+-- 
 function meta:DoHulls(classid, teamid)
 	teamid = teamid or self:Team()
 	classid = classid or -10

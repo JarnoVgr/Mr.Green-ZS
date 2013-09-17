@@ -924,6 +924,9 @@ function SentToxicFumesPosition ( pl )
 		End = End + 1 
 	end
 	
+	---
+	-- TODO: Use net messages (without split)
+	-- 
 	for i = 1, Split do
 		umsg.Start( "ReceiveToxicPositions", pl )
 			umsg.Short ( Start )

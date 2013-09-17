@@ -72,6 +72,11 @@ function ENT:PhysicsCollide( Data, Phys )
 	self:SetPos( trace.HitPos )
 	
 	-- Network hitnormal
+	---
+	-- TODO: Used by some sort of visual effect in cl_init
+	-- Set everytime a spit bounces or hits something
+	-- Consider modifying the effect not to use this
+	-- 
 	self:SetDTVector( 0, Data.HitNormal )
 	
 	-- Some fancy effect

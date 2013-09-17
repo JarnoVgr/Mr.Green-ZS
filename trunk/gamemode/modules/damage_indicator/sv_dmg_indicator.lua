@@ -25,6 +25,10 @@ function GM:DoDamageIndicator ( mEnt, mInflictor, mAttacker, tbDmginfo )
 	-- Only players
 	if not mEnt:IsPlayer() then return end
 	
+	---
+	-- FIXME: This bloodsplatter effect is called on every 1/4 damage any player gets
+	-- Lowering the trigger chance seems like a fix, but it sure wouldn't be funny for the player
+	-- 
 	if math.random(4) == 1 then
 		net.Start("BloodSplatter")
 			net.WriteDouble(math.random(1,5))

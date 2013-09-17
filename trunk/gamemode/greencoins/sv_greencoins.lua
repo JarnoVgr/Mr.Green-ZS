@@ -69,6 +69,9 @@ if meta then
 	end
 end
 
+---
+-- NOTE: Used on PlayerAssist, HumanDeath, ZombieDeath
+-- 
 function GM:SendCoins(pl, amount)
 	if not pl.GCData then return end
 	umsg.Start("SendGC",pl)

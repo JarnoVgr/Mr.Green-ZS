@@ -135,6 +135,10 @@ function ENT:PhysicsCollide( Data, Phys )
 	if trace.Hit then self:SetPos( trace.HitPos ) end
 	
 	-- Network hitnormal
+	---
+	-- TODO: Used by some sort of visual effect in cl_init
+	-- Consider modifying the effect not to use this
+	-- 
 	self:SetDTVector( 0, Data.HitNormal )
 	
 	-- Parent
