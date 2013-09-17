@@ -127,8 +127,8 @@ function DropWeapon(pl, commandName, args)
 	--Actual dropping
 	pl:DropWeapon(Weapon)
 	
-	-- Notify 
-	pl:ChatPrint( "You've dropped a "..tostring ( GAMEMODE.HumanWeapons[wepname].Name ) )
+	--Notify 
+	--pl:ChatPrint( "You've dropped a "..tostring ( GAMEMODE.HumanWeapons[wepname].Name ) )
 end
 concommand.Add( "zs_dropweapon",DropWeapon ) 
 

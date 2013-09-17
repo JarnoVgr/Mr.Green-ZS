@@ -305,9 +305,9 @@ if CLIENT then
 		
 			vm:SetColor(Color(255,255,255,1))
 			vm:SetRenderMode(RENDERMODE_TRANSALPHA) 
-			if vm:GetMaterial() ~= "Debug/hsv" then 
-				--vm:SetMaterial("Debug/hsv")	
-			end			
+			--[[if vm:GetMaterial() ~= "Debug/hsv" then 
+				vm:SetMaterial("Debug/hsv")	
+			end]]		
 			self:DrawWorldModel()
 		
 		return end
@@ -337,16 +337,16 @@ if CLIENT then
 		if (self.ShowViewModel == nil or self.ShowViewModel) then
 			vm:SetColor(Color(255,255,255,255))
 			vm:SetRenderMode(RENDERMODE_TRANSCOLOR) 
-			if vm:GetMaterial() ~= "" then 
-				-- vm:SetMaterial("")	
-			end
+			--[[if vm:GetMaterial() ~= "" then 
+				vm:SetMaterial("")	
+			end]]
 		else
 			--  we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
 			vm:SetColor(Color(255,255,255,1)) 
 			vm:SetRenderMode(RENDERMODE_TRANSALPHA) 
-			if vm:GetMaterial() ~= "Debug/hsv" then 
-				-- vm:SetMaterial("Debug/hsv")	
-			end
+			--[[if vm:GetMaterial() ~= "Debug/hsv" then 
+				vm:SetMaterial("Debug/hsv")	
+			end]]
 		end
 		
 		
@@ -356,9 +356,9 @@ if CLIENT then
 		end
 			
 			
-		if vm.BuildBonePositions ~= self.BuildViewModelBones then
-			--vm.BuildBonePositions = self.BuildViewModelBones
-		end
+		--[[if vm.BuildBonePositions ~= self.BuildViewModelBones then
+			vm.BuildBonePositions = self.BuildViewModelBones
+		end]]
 		
 		if not self._ResetBoneMods then
 			self:ResetBonePositions()

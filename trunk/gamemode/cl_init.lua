@@ -34,7 +34,7 @@ function surface.CreateFont(arg1,arg2,arg3,arg4,arg5,arg6)
 	
 end
 
-local table = table
+--[[local table = table
 local math = math
 local string = string
 local util = util
@@ -46,7 +46,7 @@ local ents = ents
 local draw = draw
 local surface = surface
 local render = render
-local gui = gui
+local gui = gui]]
 
 
 GM.RewardIcons = {}

@@ -2,7 +2,7 @@
 -- See LICENSE.txt for license information
 
 
-oldIsValid = IsValid
+--[[oldIsValid = IsValid
 
 function IsValid( object )
 
@@ -12,7 +12,19 @@ function IsValid( object )
 	end
 	return oldIsValid(object)
 
+end]]
+
+function IsValidSpecial( object )
+
+	if ( not object ) then return false end
+	if type(object) == "number" or type(object) == "string" or type(object) == "boolean" then 
+		return false
+	end
+	return IsValid(object)
+
 end
+
+
 
 
 ValidEntity = IsValid

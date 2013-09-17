@@ -111,7 +111,7 @@ function SWEP:ResetBonePositions()
 	if not IsValid(self.Owner) then return end
 	local vm = self.Owner:GetViewModel()
 	if not IsValid(vm) then return end
-	if not IsValid(vm:GetBoneCount()) then return end
+	if not IsValidSpecial(vm:GetBoneCount()) then return end
 	
 	for i=0, vm:GetBoneCount() do
 		vm:ManipulateBoneScale( i, Vector(1, 1, 1) )

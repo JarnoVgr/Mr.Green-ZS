@@ -64,7 +64,7 @@ function metaPlayer:ReadDataSQL()
 	-- Waiting for reading data...
 	local SteamID = self:SteamID()
 	hook.Add( "Think", "SQLPlayerReadyThink"..SteamID, function()
-		if IsValid( self ) then
+		if IsValidSpecial( self ) then
 			if self:GotSQLData() then
 				if ( self.IsClientValid ) then
 					gamemode.Call( "OnPlayerReadySQL", self )
@@ -116,7 +116,7 @@ function metaPlayer:ReadItemsSQL()
 	
 		-- print(tostring(self).." checking ReadItemsSQL()")
 		
-		if not IsValid( self ) then
+		if not IsValidSpecial( self ) then
 			return
 		end
 		
@@ -182,7 +182,7 @@ function metaPlayer:ReadAchievementsSQL()
 	
 		-- print(tostring(self).." checking ReadAchievementsSQL()")
 		
-		if not IsValid( self ) then
+		if not IsValidSpecial( self ) then
 			return
 		end
 		
@@ -245,7 +245,7 @@ function metaPlayer:ReadStatsSQL()
 	-- Callback function for general stats
 	stats.QueryStatsCall = function( Table, Status, sError )
 		-- print(tostring(self).." checking ReadStatsSQL()")
-		if not( IsValid( self ) and self:HasSteamID() ) then
+		if not( IsValidSpecial( self ) and self:HasSteamID() ) then
 			return
 		end
 		
@@ -323,7 +323,7 @@ function metaPlayer:SaveStatsSQL()
 	
 	if ( sQuery ) then
 		mysql.Query( sQuery, function ( Table, Status, sError )
-			if not IsValid( self ) then
+			if not IsValidSpecial( self ) then
 				return
 			end
 			
@@ -350,7 +350,7 @@ function metaPlayer:ReadClassSQL()
 		
 		-- print(tostring(self).." checking ReadClassSQL()")
 		
-		if not( IsValid( self ) and self:HasSteamID() ) then
+		if not( IsValidSpecial( self ) and self:HasSteamID() ) then
 			return
 		end
 		
@@ -444,7 +444,7 @@ function metaPlayer:SaveClassDataSQL()
 	
 				if ( UpdateQ ) then
 					tmysql.query( UpdateQ, function ( nIndex, Table, Status, sError ) 
-						if not IsValid( self ) then
+						if not IsValidSpecial( self ) then
 							return
 						end
 						
@@ -473,7 +473,7 @@ end
 -- Write blank player stats in SQL
 function metaPlayer:WriteBlankStatsSQL()
 	mysql.Query( [[SELECT steamid FROM zs_player_stats WHERE steamid = ']]..tostring( self:SteamID() )..[[']], function ( Table, Status, sError )
-		if not( IsValid( self ) and self:HasSteamID() ) then
+		if not( IsValidSpecial( self ) and self:HasSteamID() ) then
 			return
 		end
 		
@@ -496,7 +496,7 @@ function metaPlayer:WriteBlankStatsSQL()
 		-- Insert data
 		if ( sQuery ) then
 			mysql.Query( sQuery, function ( Table, Status, sError )
-				if not( IsValid( self ) and self:HasSteamID() ) then
+				if not( IsValidSpecial( self ) and self:HasSteamID() ) then
 					return
 				end
 
@@ -516,7 +516,7 @@ end
 -- Write blank class data
 function metaPlayer:WriteBlankClassDataSQL()
 	mysql.Query( [[SELECT steamid FROM zs_player_classes WHERE steamid = ']]..tostring( self:SteamID() )..[[']], function ( Table, Status, sError )
-		if not( IsValid( self ) and self:HasSteamID() ) then
+		if not( IsValidSpecial( self ) and self:HasSteamID() ) then
 			return
 		end
 		
@@ -537,7 +537,7 @@ function metaPlayer:WriteBlankClassDataSQL()
 		
 		-- New blank entry
 		mysql.Query( Query, function ( Table, Status, sError )
-			if not IsValid( self ) then
+			if not IsValidSpecial( self ) then
 				return
 			end
 			
