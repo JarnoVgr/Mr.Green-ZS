@@ -21,13 +21,13 @@ SWEP.SlotPos = 6
 SWEP.DeploySpeed = 0.6
 -- Damage, distane, delay
 
-SWEP.MeleeDamage = 55
+SWEP.MeleeDamage = 102
 SWEP.MeleeRange = 70
 SWEP.MeleeSize = 1.25
 SWEP.Primary.Delay = 0.50
 SWEP.TotalDamage = SWEP.Primary.Damage
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 2.0
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = 200
 -- Killicon
 if CLIENT then killicon.AddFont( "weapon_zs_melee_katana", "ZSKillicons", "h", Color(255, 255, 255, 255 ) ) end
 

@@ -49,7 +49,7 @@ SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "none"
 SWEP.Secondary.Delay = 0.15
 
-SWEP.WalkSpeed = 160
+SWEP.WalkSpeed = 175
 
 function SWEP:InitializeClientsideModels()
 	

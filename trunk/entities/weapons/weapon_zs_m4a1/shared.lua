@@ -56,23 +56,25 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_M4A1.Single")
 SWEP.Primary.Recoil			= 6
-SWEP.Primary.Damage			= 18.5
+SWEP.Primary.Damage			= 20
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 31
 SWEP.storeclipsize			= 31
 SWEP.Primary.Delay			= 0.1
-SWEP.Primary.DefaultClip	= 60
+SWEP.Primary.DefaultClip	= 93
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.ConeMoving = 0.080
 SWEP.Cone = 0.073
-SWEP.ConeCrouching = 0.063
+SWEP.ConeIron = 0.063
+SWEP.ConeCrouching = 0.065
+SWEP.ConeIronCrouching = 0.046
 
 SWEP.MaxAmmo			    = 250
 
-SWEP.WalkSpeed = 180
+SWEP.WalkSpeed = 195
 SWEP.MaxBulletDistance 		= 2600
 
 SWEP.IronSightsPos = Vector(-8.05, -5, 0.5)

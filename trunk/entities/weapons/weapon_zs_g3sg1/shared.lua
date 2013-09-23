@@ -36,7 +36,7 @@ SWEP.ConeCrouching = 0.025
 SWEP.ConeIron = 0.035
 SWEP.ConeIronCrouching = 0.010
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = 190
 
 SWEP.IronSightsPos = Vector(5.39, -5.816, 2.16)
 SWEP.IronSightsAng = Vector(0, 0, 0)

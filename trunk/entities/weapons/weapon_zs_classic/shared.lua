@@ -31,8 +31,8 @@ SWEP.HoldType = "pistol"
  
 SWEP.Primary.Sound                      = Sound("Weapon_Pistol.NPC_Single")
 SWEP.ReloadSound                        = Sound("Weapon_Pistol.Reload")
-SWEP.Primary.Recoil                     = 10.5
-SWEP.Primary.Damage                     = 15
+SWEP.Primary.Recoil                     = 3
+SWEP.Primary.Damage                     = 13
 SWEP.Primary.NumShots           = 2
 SWEP.Primary.ClipSize           = 12
 SWEP.Primary.Delay                      = 0.2
@@ -45,11 +45,11 @@ SWEP.ConeMoving                         = 0.08 -- 0.18
 SWEP.ConeCrouching                      = 0.04 -- 0.06
 SWEP.WalkSpeed = 200
  
+SWEP.ConeMoving = 0.063
 SWEP.Cone = 0.055
-SWEP.ConeMoving = 0.075
-SWEP.ConeCrouching = 0.035
-SWEP.ConeIron = 0.50
-SWEP.ConeIronCrouching = 0.030
+SWEP.ConeIron = 0.051
+SWEP.ConeCrouching = 0.048
+SWEP.ConeIronCrouching = 0.036
  
 --[==[SWEP.IronSightsPos = Vector(-5.85, -3,4, 0)
 SWEP.IronSightsAng = Vector(0.15, -1, 1.5)]==]

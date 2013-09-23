@@ -46,25 +46,27 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_UMP45.Single")
-SWEP.Primary.Recoil			= 9
-SWEP.Primary.Damage			= 20
+SWEP.Primary.Recoil			= 6.5
+SWEP.Primary.Damage			= 18
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 28
 SWEP.Primary.Delay			= 0.13
-SWEP.Primary.DefaultClip	= 56
+SWEP.Primary.DefaultClip	= 84
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 
-SWEP.ConeMoving = 0.083
-SWEP.Cone = 0.074
-SWEP.ConeCrouching = 0.060
+SWEP.ConeMoving = 0.078
+SWEP.Cone = 0.070
+SWEP.ConeIron = 0.063
+SWEP.ConeCrouching = 0.064
+SWEP.ConeIronCrouching = 0.042
 
 SWEP.MaxAmmo			    = 250
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = 195
 SWEP.MaxBulletDistance 		= 2240
 
 SWEP.IronSightsPos = Vector(-8.721, -12.047, 4.039)

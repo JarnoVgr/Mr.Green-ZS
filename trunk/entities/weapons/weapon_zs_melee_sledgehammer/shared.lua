@@ -59,17 +59,17 @@ SWEP.SlotPos = 1
 SWEP.HoldType = "melee2"
 -- Damage, distane, delay
 
-SWEP.Primary.Delay = 1.35
+SWEP.Primary.Delay = 1.5
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 70
+SWEP.MeleeDamage = 135
 SWEP.MeleeRange = 65
 SWEP.MeleeSize = 2.5
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 2.5
 
 SWEP.Primary.Delay = 1.3
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = 190
 
 SWEP.SwingRotation = Angle(60, 0, -80)
 SWEP.SwingOffset = Vector(0, -30, 0)

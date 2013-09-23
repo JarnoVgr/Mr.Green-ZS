@@ -22,14 +22,14 @@ SWEP.SlotPos = 6
 
 -- Damage, distane, delay
 
-SWEP.Primary.Delay = 0.45
+SWEP.Primary.Delay = 0.55
 
 SWEP.HoldType = "knife"
 
-SWEP.MeleeDamage = 25
+SWEP.MeleeDamage = 17
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 215
 
 SWEP.HitDecal = "Manhackcut"
 

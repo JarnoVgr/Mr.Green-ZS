@@ -84,7 +84,7 @@ SWEP.Secondary.DefaultClip	= 1
 SWEP.Secondary.Automatic   	= false
 SWEP.Secondary.Ammo         = "none"
 ------------------------------------------------------------------------------------------------------
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = 202
 
 -- Preload
 util.PrecacheSound("weapons/c4/c4_beep1.wav")

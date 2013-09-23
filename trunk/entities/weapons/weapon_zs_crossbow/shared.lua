@@ -43,7 +43,7 @@ SWEP.MaxAmmo			    = 22
 
 SWEP.SecondaryDelay = 0.5
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = 200
 
 SWEP.NextZoom = 0
 

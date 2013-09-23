@@ -48,25 +48,27 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_Galil.Single")
-SWEP.Primary.Recoil			= 13
-SWEP.Primary.Damage			= 16
-SWEP.Primary.NumShots		= 4
-SWEP.Primary.ClipSize		= 8
-SWEP.storeclipsize			= 8
+SWEP.Primary.Recoil			= 9
+SWEP.Primary.Damage			= 17
+SWEP.Primary.NumShots		= 1
+SWEP.Primary.ClipSize		= 30
+SWEP.storeclipsize			= 30
 SWEP.MaxAmmo			    = 250
-SWEP.Primary.Delay			= 0.15
-SWEP.Primary.DefaultClip	= 16
+SWEP.Primary.Delay			= 0.175
+SWEP.Primary.DefaultClip	= 90
 SWEP.Primary.Automatic		= true
-SWEP.Primary.Ammo			= "buckshot"
+SWEP.Primary.Ammo			= "ar2"
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.WalkSpeed = 180
+SWEP.WalkSpeed = 195
 SWEP.MaxBulletDistance 		= 2750 
 
-SWEP.ConeMoving = 0.094
-SWEP.Cone = 0.088
-SWEP.ConeCrouching = 0.080
+SWEP.ConeMoving = 0.084
+SWEP.Cone = 0.078
+SWEP.ConeCrouching = 0.065
+SWEP.ConeIron = 0.068
+SWEP.ConeIronCrouching = 0.059
 
 SWEP.IronSightsPos = Vector(-6.361, -7.639, 2.559)
 SWEP.IronSightsAng = Vector(0, 0, 0)

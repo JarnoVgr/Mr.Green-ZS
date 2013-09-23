@@ -47,11 +47,13 @@ SWEP.MaxAmmo			    = 40
 
 SWEP.ConeMoving = 0.060
 SWEP.Cone = 0.050
-SWEP.ConeCrouching = 0.030
+SWEP.ConeIron = 0.041
+SWEP.ConeCrouching = 0.039
+SWEP.ConeIronCrouching = 0.031
 
 SWEP.IsShotgun = true
 
-SWEP.WalkSpeed = 180
+SWEP.WalkSpeed = 195
 
 SWEP.IronSightsPos = Vector(-10.889, -7.549, 5.587)
 SWEP.IronSightsAng = Vector(-1.112, -5.194, 4.074)

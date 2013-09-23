@@ -57,7 +57,7 @@ SWEP.DamageType = DMG_CLUB
 SWEP.MeleeDamage = 35
 SWEP.MeleeRange = 45
 SWEP.MeleeSize = 1.25
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = 208
 
 SWEP.SwingTime = 0.3
 SWEP.SwingRotation = Angle(30, -30, -30)

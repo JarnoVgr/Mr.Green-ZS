@@ -46,13 +46,13 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_P90.Single")
-SWEP.Primary.Recoil			= 3
+SWEP.Primary.Recoil			= 5
 SWEP.Primary.Unrecoil		= 0
 SWEP.Primary.Damage			= 16
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.05
 SWEP.Primary.ClipSize		= 50
-SWEP.Primary.Delay			= 0.08
+SWEP.Primary.Delay			= 0.075
 SWEP.Primary.DefaultClip	= 100
 SWEP.MaxAmmo			    = 250
 SWEP.Primary.Automatic		= true
@@ -62,9 +62,11 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.ConeMoving = 0.080
 SWEP.Cone = 0.076
-SWEP.ConeCrouching = 0.063
+SWEP.ConeIron = 0.065
+SWEP.ConeCrouching = 0.068
+SWEP.ConeIronCrouching = 0.061
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = 197
 SWEP.MaxBulletDistance 		= 1800
 
 SWEP.IronSightsPos = Vector(-4.16, -4.488, 2.039)
