@@ -28,7 +28,7 @@ SWEP.Primary.Ammo = "none"
 SWEP.Primary.Delay = 0.32
 
 SWEP.Secondary.ClipSize = -1
-SWEP.Secondary.Delay = 0.22
+SWEP.Secondary.Delay = 1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "none"
@@ -186,7 +186,7 @@ function SWEP:PrimaryAttack()
 	self.NextAttack = ct + self.Primary.Delay
 	
 	-- Calculate damage done
-	local Damage = math.Rand(3,5)
+	local Damage = 4
 	
 	-- Trace an object
 	local nTrace = Owner:TraceLine( 75, MASK_SHOT, trFilter )

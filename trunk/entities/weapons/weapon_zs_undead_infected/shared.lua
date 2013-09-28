@@ -67,7 +67,7 @@ SWEP.AutoSwitchTo = true
 SWEP.AutoSwitchFrom = false
 
 SWEP.DistanceCheck = 70
-SWEP.MeleeReach = 48
+SWEP.MeleeReach = 43
 SWEP.MeleeSize = 1.5
 SWEP.MeleeDelay = 0.74
 
