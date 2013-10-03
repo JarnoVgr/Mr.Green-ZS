@@ -198,7 +198,7 @@ function SWEP:DoPrimaryAttack ( )
 	local victim = self.PreHit
 	
 	-- Calculate damage done
-	local Damage = math.random( 20, 25 )
+	local Damage = math.random( 15, 20 )
 	Damage = Damage + Damage * ( ( 1 - ( mOwner:GetVelocity():Length() / ZombieClasses[4].Speed ) ) )
 	local TraceHit, HullHit = false, false
 	
