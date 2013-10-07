@@ -230,7 +230,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		-- end
 		
 		-- When the human kills a zombie he says (GOT ONE)
-		if ( math.random(1,10) == 1 ) then
+		if ( math.random(1,6) == 1 ) then
 			timer.Simple( 1, function() VoiceToKillCheer(mAttacker) end )
 		end
 		end

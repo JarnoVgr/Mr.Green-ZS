@@ -218,7 +218,7 @@ function PlayUnlife()
 	end)
 	
 	-- Create timer
-	timer.Create("LoopDeadlife", Duration, 0, function() 
+	timer.Create("LoopUnlife", Duration, 0, function() 
 		if LASTHUMAN or ENDROUND then
 			return
 		end
@@ -331,7 +331,7 @@ local function PlayBeats(teamid, am)
 
 	if RealTime() <= NextBeat or not ENABLE_BEATS then return end
 
-	if ENDROUND or LASTHUMAN or DEADLIFE then return end
+	if ENDROUND or LASTHUMAN or UNLIFE then return end
 
 	if am <= 0 then return end
 

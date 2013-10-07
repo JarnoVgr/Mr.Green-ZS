@@ -274,7 +274,7 @@ table.insert(ResourceFiles, "sound/"..LASTHUMANSOUND)
 --Intermission
 table.insert(ResourceFiles, "sound/mrgreen/music/intermission.mp3")
 
---Deadlife music (2 variants)
+--Unlife music (2 variants)
 table.insert(ResourceFiles, "sound/deadlife_mrgreen.mp3")
 table.insert(ResourceFiles, "sound/deadlife_mrgreen_insane.mp3")
 

@@ -1478,7 +1478,7 @@ function meta:PlaySpawnMusic()
 
 	
 	-- Can't play dead
-	if not self:Alive() or ENDROUND or LASTHUMAN or DEADLIFE or UNLIFE or SERVER then return end
+	if not self:Alive() or ENDROUND or LASTHUMAN or UNLIFE or SERVER then return end
 	if FIRSTAPRIL then return end
 	-- Team check
 	local sSound = table.Random ( Ambience.Human )

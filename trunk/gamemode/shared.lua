@@ -360,8 +360,6 @@ UNLIFE = false
 LASTHUMAN = false
 BOSSACTIVE = false
 
-DEADLIFE = false
-
 VecRand = VectorRand
 
 -- Hull types

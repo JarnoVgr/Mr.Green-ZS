@@ -1,22 +1,21 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
---[==[function VoiceInit()
-	-- timer.Create( "voice_question",40,1,VoiceToQuestion )
+function VoiceInit()
+	timer.Create( "voice_question",40,1,VoiceToQuestion )
 end
-hook.Add( "Initialize","VoiceInit",VoiceInit )
+hook.Add( "Initialize","VoiceInit",VoiceInit)
 
 function VoiceToQuestion()
-
 	local humans = team.GetPlayers(TEAM_HUMAN)
 	if (#humans > 1) then
 		local ply = humans[math.random(1,#humans)]
-		if IsRealisticToVoice( ply ) then
+		if IsRealisticToVoice(ply) then
 			ply:VoiceQuestion()
 			
 			-- Find any nearby players that can respond to your
 			-- random chatter.
-			local found = ents.FindInSphere( ply:GetPos(), 150 )
+			local found = ents.FindInSphere(ply:GetPos(), 150)
 			pos_zombies = {}
 			pos_humans = {}
 			
@@ -39,7 +38,7 @@ function VoiceToQuestion()
 
 	timer.Adjust("voice_question",30+math.random(1,10)-math.min(#humans,20),1,VoiceToQuestion)
 	timer.Start("voice_question")
-end]==]
+end
 
 function VoiceToAnswer( ply )
 	if not IsRealisticToVoice( ply ) then return end
