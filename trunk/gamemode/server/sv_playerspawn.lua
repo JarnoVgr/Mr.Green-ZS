@@ -379,10 +379,10 @@ function GM:OnHumanSpawn(pl)
 	pl:SetModel(player_manager.TranslatePlayerModel(pl.PlayerModel))
 	pl.VoiceSet = VoiceSetTranslate[ string.lower(player_manager.TranslatePlayerModel(pl.PlayerModel)) ] or "male"
 	
-	--[[pl.SelectedSuit = pl:GetInfo("_zs_defaultsuit") or "none"
-	pl.SelectedHat = pl:GetInfo("_zs_equippedhats") or "none"]]
-	pl.SelectedSuit = "none"
-	pl.SelectedHat = "none"
+	pl.SelectedSuit = pl:GetInfo("_zs_defaultsuit") or "none"
+	pl.SelectedHat = pl:GetInfo("_zs_equippedhats") or "none"
+	--[[pl.SelectedSuit = "none"
+	pl.SelectedHat = "none"]]
 	
 	pl.ReviveCount = 0
 			
