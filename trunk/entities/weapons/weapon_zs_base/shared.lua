@@ -344,6 +344,20 @@ function SWEP:Reload()
 			self:EmitSound(self.ReloadSound)
 		end
 	end
+
+	--Reload sounds
+	if SERVER then
+		if self.Weapon:Clip1() <= math.floor(self.Primary.ClipSize / 1.5) and math.random(1,2) == 1 then
+			local rlsnd = VoiceSets[self.Owner.VoiceSet].ReloadSounds
+			if rlsnd then
+				timer.Simple( 0.2, function ()
+					if ValidEntity(self) then
+						self:EmitSound(rlsnd[math.random(1, #rlsnd)])
+					end
+				end, self)
+			end
+		end
+	end
 end
 
 function SWEP:GetIronsights()
