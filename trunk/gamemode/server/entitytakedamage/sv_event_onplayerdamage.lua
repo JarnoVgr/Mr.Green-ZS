@@ -19,13 +19,13 @@ local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 	-- Damage indicator
 	GAMEMODE:DoDamageIndicator ( pl, inflictor, attacker, dmginfo )
 
-	timer.Simple(0.5, function()
+	--timer.Simple(0.5, function()
 		--  Process upgrade codes and bonuses
 		GAMEMODE:DoDamageUpgrades ( pl, attacker, inflictor, dmginfo )
 		
 		-- Process achievements
 		GAMEMODE:DoDamageAchievements ( pl, attacker, inflictor, dmginfo )
-	end)
+	--end)
 
 	-- Play hurt sound
 	pl:PlayPainSound()
