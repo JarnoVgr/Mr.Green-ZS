@@ -5,7 +5,7 @@ AddCSLuaFile()
 
 SWEP.Base = "weapon_zs_undead_generic"
 
-SWEP.Author = "JetBoom"
+SWEP.Author = "Ywa"
 SWEP.Contact = ""
 SWEP.Purpose = ""
 SWEP.Instructions = ""
@@ -47,10 +47,11 @@ SWEP.MeleeSize = 1.5
 SWEP.MeleeDelay = 0.74
 SWEP.NextRoar = 0
 
-SWEP.Damage = 5
+SWEP.Damage = 4
 
 --Increases both damage and push multiplier
-SWEP.LeapDamage = 7
+SWEP.LeapDamage = 5
+SWEP.LeapPounceVelocity = 700
 SWEP.LeapPounceReach = 32
 SWEP.LeapPounceSize = 16
 
@@ -118,18 +119,17 @@ function SWEP:Think()
 				end
 
 				if ent:IsPlayer() or ent:IsNPC() then
-					ent:SetVelocity(self.Owner:GetForward() * (100 * self.LeapDamage))
+					ent:SetVelocity(self.Owner:GetForward() * (100 * self.LeapPounceVelocity))
 				else
 					--Calculate velocity to push
-					local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.LeapDamage * 2000, 25000, 37000)
+					local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.LeapPounceVelocity * 20, 25000, 37000)
 					Velocity.z = math.min(Velocity.z,1600)
 
 					--Apply push
 					phys:ApplyForceCenter(Velocity)
-					
+					ent:SetPhysicsAttacker(self.Owner)					
 				end
-				ent:SetPhysicsAttacker(self.Owner)
-
+				
 				--Take damage
 				ent:TakeDamage(self.LeapDamage, self.Owner, self)
 			end

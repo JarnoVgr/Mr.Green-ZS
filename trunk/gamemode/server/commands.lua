@@ -50,7 +50,7 @@ function PrintMapCycle( pl,commandName,args )
 	pl:PrintMessage( HUD_PRINTTALK,"The mapcycle has been printed in console" )
 	
 end
-concommand.Add("print_mapcycle",PrintMapCycle) 
+concommand.Add("zs_print_mapcycle",PrintMapCycle) 
 
 function OpenBugPanel(pl, cmd, args)
 	if not ValidEntity (pl) then return end
@@ -631,7 +631,6 @@ concommand.Add("change_map",ChangeMap)
 
 --Remove
 function AdminRemove(pl,cmd,args)
-	
 	if not (pl:IsAdmin()) then return end
 	
 	local tr = pl:GetEyeTrace()
@@ -647,28 +646,13 @@ end
 concommand.Add("mrgreen_admin_remove",AdminRemove)
 
 function ShowLevelStats (pl, cmd, args)
-	if not (pl:IsValid() and pl:Alive()) then return end
+	if not (pl:IsValid() and pl:Alive()) then
+		return
+	end
 	
-	pl:PrintMessage (HUD_PRINTTALK, "|---------Player Info:----------")
-	pl:PrintMessage (HUD_PRINTTALK, "|Rank: "..pl:GetRank())
-	pl:PrintMessage (HUD_PRINTTALK, "|Experience: "..pl:GetXP().."/"..pl:NextRankXP())
-	pl:PrintMessage (HUD_PRINTTALK, "|-------------------------------")
-	--[=[local name = HumanClasses[pl:GetHumanClass()].Name
-	if name == "Berserker" then name = "Marksman" end
-	
-	-- Don't use /n. It will screw the custom chatbox formatting
-	if pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"level") < 6 then
-		pl:PrintMessage (HUD_PRINTTALK, "Current Class: "..name)
-		pl:PrintMessage (HUD_PRINTTALK, "Level: "..pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"level") )
-		pl:PrintMessage (HUD_PRINTTALK, "Level achievements #1: "..ClassInfo[pl:GetHumanClass()].Ach[pl.DataTable["ClassData"][string.lower(HumanClasses[pl:GetHumanClass()].Name)].level+1][1]..": "..pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"achlevel"..(pl.DataTable["ClassData"][string.lower(HumanClasses[pl:GetHumanClass()].Name)].level).."_1") )
-		pl:PrintMessage (HUD_PRINTTALK, "Level achievements #2: "..ClassInfo[pl:GetHumanClass()].Ach[pl.DataTable["ClassData"][string.lower(HumanClasses[pl:GetHumanClass()].Name)].level+1][2]..": "..pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"achlevel"..(pl.DataTable["ClassData"][string.lower(HumanClasses[pl:GetHumanClass()].Name)].level).."_2") )   
-	elseif pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"level") > 5 then
-		pl:PrintMessage (HUD_PRINTTALK, "Current Class: "..name )
-		pl:PrintMessage (HUD_PRINTTALK, "Level: "..pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"level") )
-		pl:PrintMessage (HUD_PRINTTALK, "You have reached the maximum level. All your achievments are done!")
-	end]=]
+	pl:PrintMessage(HUD_PRINTTALK,"Your rank is "..pl:GetRank() .." with "..pl:GetXP().."/"..pl:NextRankXP() .." XP.")
 end
-concommand.Add("show_levelstats",ShowLevelStats)
+concommand.Add("zs_showlevel",ShowLevelStats)
 
 function ShowClassDescription (pl, cmd ,args)
 	if not (pl:IsValid() and pl:Alive()) then return end
@@ -775,7 +759,7 @@ function RollTheDice ( pl,commandName,args )
 
 	PrintMessageAll( HUD_PRINTTALK, message )
 end
-concommand.Add("rollthedice",RollTheDice) 
+concommand.Add("zs_rollthedice",RollTheDice) 
 
 function ShowShop(pl,commandName,args)
 	-- pl:SendLua("MakepShop()")
@@ -909,220 +893,177 @@ local adminCommandList = {      -- list of all admin commands I added
 -----------------------------------------]==]
 
 local function CommandSay(pl, text, teamonly)
-	if ((text == "!kill" or text == "!suicide") and pl:Alive() and not ENDROUND) then
-		if GAMEMODE:CanPlayerSuicide(pl) then
-			pl:Kill()
-		else
-			--Heads up!
-			local suicidenote = { "You can't suicide now!","Suicide is not the answer."}
-			if math.random(1,3) == 1 then
-				pl:Notice(suicidenote[math.random(1,#suicidenote)],3, Color(255,10,10,255))
+	if text:sub(1,1) == "!" then
+		if (text == "!kill" or text == "!suicide" or text == "!boom") then
+			if pl:Alive() and not ENDROUND and GAMEMODE:CanPlayerSuicide(pl) then
+				pl:Kill()
+			else
+				--Heads up!
+				local suicidenote = { "You can't suicide now.","Suicide is not the answer."}
+				if math.random(1,3) == 1 then
+					pl:Notice(suicidenote[math.random(1,#suicidenote)],3, Color(255,10,10,255))
+				end
 			end
-		end
-		return ""
-	end
-	
-	if (text == "!commandlist" or text == "!cmdhelp") then   -- prints the list of available commands
-		pl:PrintMessage(HUD_PRINTCONSOLE, "\n\nList of commands on the Mr. Green server added by ClavusElite:\n")
-		pl:PrintMessage(HUD_PRINTCONSOLE, "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- /\n")
-		for _, mrgreencmd in pairs(clientCommandList) do		
-			pl:PrintMessage(HUD_PRINTCONSOLE, mrgreencmd.."\n")	 	 	
-		end
-		if pl:IsAdmin() then
-			for _, mrgreencmd in pairs(adminCommandList) do		
+
+			return ""
+		--Print list of available commands
+		elseif (text == "!commandlist" or text == "!commands" or text == "!cmdhelp") then
+			pl:PrintMessage(HUD_PRINTCONSOLE, "\n\nList of commands on the Mr. Green server\n")
+			pl:PrintMessage(HUD_PRINTCONSOLE, "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- /\n")
+			for _, mrgreencmd in pairs(clientCommandList) do		
 				pl:PrintMessage(HUD_PRINTCONSOLE, mrgreencmd.."\n")	 	 	
 			end
-		end
-		pl:PrintMessage(HUD_PRINTCONSOLE, "\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- /\n\n")
-		pl:PrintMessage(HUD_PRINTTALK, "List of commands printed in console.")
-		return text	
-	end
-		
-	if (string.lower(text:sub(1, 4)) == "boom" and pl:Alive() and pl:Team() == TEAM_ZOMBIE and pl.Class == 4) then
-		--pl:Kill()
-		pl:ChatPrint("You can't suicide explode anymore as Chem-Zombie. The humans need to kill you to explode.")
-	end
-	
-	if (text:sub(1,4) == "/me ") then
-		PrintMessageAll(HUD_PRINTTALK,pl:Name().." "..text:sub(5,string.len(text)))
-		return ""
-	end
-	
-	if (text == "!nextmap") then
-		if ENDROUND then
-			PrintMessageAll(HUD_PRINTTALK,"Player "..pl:Name().." needs glasses")
+
+			if pl:IsAdmin() then
+				for _, mrgreencmd in pairs(adminCommandList) do		
+					pl:PrintMessage(HUD_PRINTCONSOLE, mrgreencmd.."\n")	 	 	
+				end
+			end
+			pl:PrintMessage(HUD_PRINTCONSOLE, "\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- /\n\n")
+			pl:PrintMessage(HUD_PRINTTALK, "List of commands printed in console.")
+			return ""
+		--Simulate an action
+		elseif (text:sub(1,4) == "/me ") then
+			PrintMessageAll(HUD_PRINTTALK,pl:Name().." "..text:sub(5,string.len(text)))
+			return ""
+		elseif (text == "!nextmap") then
+			if ENDROUND then
+				PrintMessageAll(HUD_PRINTTALK,"Player "..pl:Name().." needs glasses")
+			else
+				PrintMessageAll(HUD_PRINTTALK,"The next map is "..GAMEMODE:GetMapNext())
+			end
+			return ""
+		elseif (text == "!thetime") then
+			pl:PrintMessage(HUD_PRINTTALK,"The server time is "..os.date("%X")..". The date is "..os.date("%x")..".")
+			return ""
+		elseif (text == "!currentmap") then
+			PrintMessageAll(HUD_PRINTTALK, "The current map is ".. game.GetMap())
+			return ""
+		elseif (text == "!mapcycle" or text == "!maplist") then
+			server_RunCommand(pl, "zs_print_mapcycle")
+			return ""
+		--[[if (text == "!reportbug") then
+			server_RunCommand(pl, "open_bugpanel")
+			return ""
+		end]]
+		elseif (text:sub(1,4) == "!rtd") then
+			server_RunCommand(pl, "zs_rollthedice")
+			return ""
+		-- Level stats! :D
+		elseif (text == "!levelstats") then
+			server_RunCommand(pl, "zs_showlevel")
+			return ""
+		elseif (text == "!classinfo") then
+			--server_RunCommand (pl,"show_classdescription")
+			pl:PrintMessage(HUD_PRINTTALK,"Class info not available.")
+			return ""
+		elseif (text == "!stopsounds") then
+			server_RunCommand(pl, "stopsounds")
+			pl:PrintMessage(HUD_PRINTTALK,"Stopped sounds.")
+			return ""
+		elseif (text == "!help" or text == "!info") then
+			if not ENDROUND then
+				pl:SendLua("MakepHelp()")
+			else
+				pl:PrintMessage(HUD_PRINTTALK,"Can't open help screen at intermission.")
+			end
+			return ""
+		elseif (text == "!achievements" or text == "!score") then
+			--[[if not ENDROUND then
+			pl:SendLua("MakepHelp("..(#HELP_TXT+1)..")")
+			end]]
+			pl:PrintMessage(HUD_PRINTTALK,"Command currently not available.")
+			return ""
+		elseif (text == "!server") then
+			--[[if not ENDROUND then
+			pl:SendLua("MakepHelp(5)")
+			end]]
+			pl:PrintMessage(HUD_PRINTTALK,"Command currently not available.")
+			return ""
+		elseif (text == "!rules") then
+			--[[if not ENDROUND then
+			pl:SendLua("MakepHelp(2)")
+			end]]
+			pl:PrintMessage(HUD_PRINTTALK,"Command currently not available.")
+			return ""
+		elseif (text == "!donate") then
+			--[[if not ENDROUND then
+				pl:SendLua("MakepHelp(5)")
+			end]]
+			pl:PrintMessage(HUD_PRINTTALK,"Command currently not available.")
+			return ""
+		elseif (text == "!shop") then
+			if not ENDROUND then
+				server_RunCommand(pl, "open_shop")
+			end
+			return ""
+		elseif (text == "!autoredeem") then
+			if pl.AutoRedeem then
+				server_RunCommand(pl, "zs_autoredeem", 0)
+			else
+				server_RunCommand(pl, "zs_autoredeem", 1)
+			end
+			return ""
+		elseif (text:sub(1,5) == "!ppon" or text:sub(1,6) == "!ppoff" or text == "!options" or text == "!grainoff" or text == "!grainon") then
+			pl:SendLua("MakepOptions()")
+			return ""
+		elseif (text == "!jetboom") then
+			pl:PrintMessage( HUD_PRINTCENTER, "JetBoom: as great in programming as he is unfriendly." )
+		elseif (text == "!clavus") then
+			pl:PrintMessage( HUD_PRINTCENTER, "Undead overlord!" )
+		elseif (text == "!ywa") then
+			pl:PrintMessage( HUD_PRINTCENTER, "Ywa FTW!" )
+		elseif (text == "!mayco") then
+			pl:PrintMessage( HUD_PRINTCENTER, "Mayco: Your friendly neighbourhood admin! He likes ducks and potatoes!" )
+		elseif (text == "!mrgreen") then
+			pl:PrintMessage( HUD_PRINTCENTER, "WWW.MRGREENGAMING.COM -- Your multiplayer community!" )
+		elseif (text == "!ratman") then
+			pl:PrintMessage( HUD_PRINTCENTER, "RatMan: ClavusElite's little bro..." )
+		elseif (text == "!prismaa") then
+			pl:PrintMessage( HUD_PRINTCENTER, "CRY SOME MOREEEEE" )
+		elseif (text == "!deluvas") then
+			pl:PrintMessage( HUD_PRINTCENTER, "EEENUUUF Deluvas is ENUUFF!" )
+		elseif (text == "!hundred2") then
+			pl:PrintMessage( HUD_PRINTCENTER, "Old ZS Veteran and ducttape enthousiast." )
+		elseif (text == "!chainsaw") then
+			pl:PrintMessage( HUD_PRINTCENTER, "GIVE HIM SOME ICETEA OR DIE!" )
+		elseif (text == "!corby") then
+			pl:PrintMessage( HUD_PRINTCENTER, "CRYPTIC METAPHOR! (from Gears of Awesome)" )
+		elseif (text == "!necrossin") then
+			pl:PrintMessage( HUD_PRINTCENTER, "There is nothing to hate, but the Hate itselves!" )
+		elseif (text == "!howler") then
+			pl:PrintMessage( HUD_PRINTCENTER, "Ywa sure likes 'em" )
+		elseif (text == "!chicken") then
+			pl:PrintMessage( HUD_PRINTCENTER, "CHICKEN SHIT. FAILED TO DELIVER! Poor Ywa D:" )
+		elseif (text == "!requirements") then
+			pl:PrintMessage( HUD_PRINTCENTER, "Requirements are supposed to be hard! Stop whining :O!" )
+		elseif (text == "!steamid") then
+			pl:PrintMessage( HUD_PRINTTALK, "Your Steam ID is "..pl:SteamID() )
+		elseif (text == "!uniqueid") then
+			pl:PrintMessage( HUD_PRINTTALK, "Your Unique ID is "..pl:UniqueID() )
+		elseif (text == "!entowner") then
+			if not pl:Team() == TEAM_HUMAN or not pl:Alive() then
+				return ""
+			end
+			
+			local trmine = pl:GetEyeTrace()
+			if not trmine.Hit then
+				return ""
+			end
+
+			if trmine.Entity:IsValid() and trmine.Entity:GetClass() == "mine" then
+				pl:PrintMessage(HUD_PRINTTALK, "This entity belongs to ".. trmine.Entity:GetOwner():Name() ..".")
+			end
 		else
-			PrintMessageAll(HUD_PRINTTALK,"The next map is "..GAMEMODE:GetMapNext())
+			local tbString = string.Explode( " ", text )
+
+			if tbString[1] == "!votemute" or tbString[1] == "!votegag" or tbString[1] == "!zsvotemute" or tbString[1] == "!zsvotegag" then
+				return Vote(pl,text)
+			end
 		end
-		return text
-	end
-	
-	if (text == "!thetime") then
-		pl:PrintMessage (HUD_PRINTTALK,"The server time is "..os.date("%X")..". The date is "..os.date("%x")..".")
-		return text
-	end
-	
-	if (text == "!currentmap") then
-		for k, v in pairs(player.GetAll()) do
-			v:PrintMessage( HUD_PRINTTALK, "The current map is "..game.GetMap())
-		end
-		return text
-	end
-		
-	if (text == "!mapcycle" or text == "!maplist") then
-		server_RunCommand ( pl, "print_mapcycle" )
-		return text
-	end
-	
-	-- if (text == "!reportbug") then
-		-- server_RunCommand (pl, "open_bugpanel")
-		-- return text
-	-- end
-	
-	if (text:sub(1,4) == "!rtd") then
-		if pl:Team() == TEAM_UNDEAD and pl:GetZombieClass() == 9 then pl:PrintMessage (HUD_PRINTTALK, "The dice isn't available to crows.") return end
-		server_RunCommand (pl, "rollthedice")
-		return ""
-	end
-	
-	--simple unstuck (yeah, very simple :<) using bring ocmmand!
-	-- if (text:sub(1,6) == "!stuck") or (text:sub(1,8) == "!unstuck") or (text:sub(1,8) == "!zsstuck") or (text:sub(1,10) == "!crowstuck") then
-		-- if pl:Team() == TEAM_UNDEAD and pl:GetZombieClass() == 10 then 
-			-- pl:PrintMessage (HUD_PRINTTALK, "This command isn't available to crows.")
-			-- return
-		-- end
-		-- if not pl:Alive() then pl:PrintMessage (HUD_PRINTTALK, "You can't un-stuck when you are dead!") return end
-		
-		-- if pl.StuckTimer >= CurTime() then
-			-- pl:PrintMessage (HUD_PRINTTALK, "You have to wait "..math.Round( (pl.StuckTimer - CurTime() )).." seconds before you can unstuck again!")
-			-- return 
-		-- end
-		-- server_RunCommand (pl, "PlayerStuck")
-		-- return text
-	-- end
-	
-	-- Level stats! :D
-	if (text:sub(1,11) == "!levelstats") then
-		server_RunCommand (pl, "show_levelstats")
-		return text
-	elseif (text:sub(1,11) == "!classinfo") then
-		-- server_RunCommand (pl,"show_classdescription")
-		return text
-	end
-	
-	if (text == "!stopsounds") then
-		server_RunCommand (pl, "stopsounds")
-		return text
-	end
-	
-	if (text == "!help" or text == "!info") then
-		if not ENDROUND then
-		pl:SendLua("MakepHelp()")
-		end
-		return text
-	end
-	
-	if (text == "!achievements" or text == "!score") then
-		if not ENDROUND then
-		-- pl:SendLua("MakepHelp("..(#HELP_TXT+1)..")")
-		end
-		return text
-	end
-	
-	if (text == "!server") then
-		if not ENDROUND then
-		-- pl:SendLua("MakepHelp(5)")
-		end
-		return text
-	end
-	
-	if (text == "!rules") then
-		if not ENDROUND then
-		-- pl:SendLua("MakepHelp(2)")
-		end
-		return text
-	end
-	
-	if (text == "!donate") then
-		if not ENDROUND then
-		--pl:SendLua("MakepHelp(5)")
-		end
-		return text
 	end
 
-	if (text == "!shop") then
-		if not ENDROUND then
-			server_RunCommand (pl, "open_shop")
-		end
-		return text
-	end
-	
-	if (text == "!autoredeem") then
-		if pl.AutoRedeem then
-			server_RunCommand (pl, "zs_autoredeem",0)
-		else
-			server_RunCommand (pl, "zs_autoredeem",1)
-		end
-		return text
-	end
-	
-	if (text:sub(1,5) == "!ppon" or text:sub(1,6) == "!ppoff" or text == "!options" or text == "!grainoff" or text == "!grainon") then
-		pl:SendLua("MakepOptions()")
-		return text
-	end
-	
-	if (text:sub(1, 8) == "!jetboom") then
-		pl:PrintMessage( HUD_PRINTCENTER, "JetBoom: as great in programming as he is unfriendly." )
-	elseif (text:sub(1, 7) == "!clavus") then
-		pl:PrintMessage( HUD_PRINTCENTER, "Undead overlord!" )
-	elseif (text:sub(1, 4) == "!ywa") then
-		pl:PrintMessage( HUD_PRINTCENTER, "Ywa FTW!" )
-	elseif (text:sub(1, 6) == "!mayco") then
-		pl:PrintMessage( HUD_PRINTCENTER, "Mayco: Your friendly neighbourhood admin! He likes ducks and potatoes!" )
-	elseif (text:sub(1, 8) == "!mrgreen") then
-		pl:PrintMessage( HUD_PRINTCENTER, "WWW.MRGREENGAMING.COM -- Your multiplayer community!" )
-	elseif (text:sub(1, 7) == "!ratman") then
-		pl:PrintMessage( HUD_PRINTCENTER, "RatMan: ClavusElite's little bro..." )
-	elseif (text:sub(1, 8) == "!prismaa") then
-		pl:PrintMessage( HUD_PRINTCENTER, "CRY SOME MOREEEEE" )
-	elseif (text:sub(1, 8) == "!deluvas") then
-		pl:PrintMessage( HUD_PRINTCENTER, "EEENUUUF Deluvas is ENUUFF!" )
-	elseif (text:sub(1, 9) == "!hundred2") then
-		pl:PrintMessage( HUD_PRINTCENTER, "Old ZS Veteran and ducttape enthousiast." )
-	elseif (text:sub(1, 9) == "!chainsaw") then
-		pl:PrintMessage( HUD_PRINTCENTER, "GIVE HIM SOME ICETEA OR DIE!" )
-	elseif (text:sub(1, 6) == "!corby") then
-		pl:PrintMessage( HUD_PRINTCENTER, "CRYPTIC METAPHOR! (from Gears of Awesome)" )
-	elseif (text:sub(1, 10) == "!necrossin") then
-		pl:PrintMessage( HUD_PRINTCENTER, "There is nothing to hate, but the Hate itselves!" )
-	elseif (text:sub(1, 7) == "!howler") then
-		pl:PrintMessage( HUD_PRINTCENTER, "Ywa sure likes 'em" )
-	elseif (text:sub(1, 8) == "!chicken") then
-		pl:PrintMessage( HUD_PRINTCENTER, "CHICKEN SHIT. FAILED TO DELIVER! Poor Ywa D:" )
-	elseif (text:sub(1, 13) == "!requirements") then
-		pl:PrintMessage( HUD_PRINTCENTER, "Requirements are supposed to be hard! Stop whining :O!" )
-	elseif (text:sub(1, 8) == "!steamid") then
-		pl:PrintMessage( HUD_PRINTTALK, "Your Steam id is "..pl:SteamID() )
-	elseif (text:sub(1, 9) == "!uniqueid") then
-		pl:PrintMessage( HUD_PRINTTALK, "Your unique id is "..pl:UniqueID() )
-	end
-	
-	if (text:sub(1, 9) == "!votemute") then
-		pl:CustomChatPrint( {nil, Color(213,213,213),"Votemute command was changed to ",Color(213,12,12), "'!zsvotemute'"} )
-		return ""
-	elseif (text:sub(1, 8) == "!votegag") then
-		pl:CustomChatPrint( {nil, Color(213,213,213),"Votegag command was changed to ",Color(213,12,12), "'!zsvotegag'"} )
-		return ""
-	end
-	
-	local tbString = string.Explode( " ", text )
-	
-	if text:sub(1,1) == "!" then
-		if tbString[1] == "!zsvotemute" or tbString[1] == "!zsvotegag" then
-			return Vote(pl,text)
-		end
-	end
-	
+	--Open help menu on question
 	if (string.lower(text:sub(1,6)) == "how to" or string.lower(text:sub(1,10)) == "how do you" or string.lower(text:sub(1,11)) == "how did you" or string.lower(text:sub(1,8)) == "how do i") then
 		if not ENDROUND then
 			if not pl.IsAsked then
@@ -1130,37 +1071,27 @@ local function CommandSay(pl, text, teamonly)
 				pl.IsAsked = true
 			end
 		end
-		return text
 	end
-		
 	
-	if (text == "medic!") and pl:Health() <=65 then
+	--[[if (text == "medic!") and pl:Health() <=65 then
 	if not pl:Team() == TEAM_HUMAN then return end
 		for _,medic in pairs(player.GetAll()) do
 			if pl:Team() == TEAM_HUMAN and medic:Team() == TEAM_HUMAN and medic:Alive() and medic:GetHumanClass() == 1 and pl ~= medic then
-			--  medic:Message( ""..pl:Name().." needs healing!",1,"white" )
+				medic:Message( ""..pl:Name().." needs healing!",1,"white" )
 			end
 		end
-	end
-	
-	if (text == "!mine") then
-	if not pl:Team() == TEAM_HUMAN then return end
-	if not pl:Alive() then return end
-	local trmine = pl:GetEyeTrace()
-	if not trmine.Hit then return end
-		if trmine.Entity:IsValid() and trmine.Entity:GetClass() == "mine" then
-		pl:PrintMessage( HUD_PRINTTALK, "This cute mine belongs to "..trmine.Entity:GetOwner():Name().."" )
-		end
-	end
-	--[==[-------------- WHAT DOES THE SCOUTER SAY ABOUT HIS HORNYNESS LEVEL?? ----------------]==]
-	local tocheck = string.lower(text.." "..pl:Name())
-	local hornytab = { "fuck", "horny", "ass", "bitch", "penis", "kitty", "pussy", "suck", "cock", "billy", "slut", "oh shi" }	
+	end]]
+
+	--WHAT DOES THE SCOUT SAY ABOUT HIS HORNYNESS LEVEL?
+	local tocheck = string.lower(text)
+	local hornytab = { "fuck", "horny", "ass", "bitch", "penis", "kitty", "pussy", "suck", "cock", "billy", "slut", "oh shi", "cum", "juice", "dick", "sex" }	
 	for k, v in pairs(hornytab) do
 		if string.find(tocheck,v) then
 			pl.Hornyness = pl.Hornyness + 1
 		end
 	end
-	
+
+	--Check for voice commands	
 	if pl:Team() == TEAM_HUMAN then
 		local set = pl.VoiceSet or "male"
 		pl.ChatScream = pl.ChatScream or 0
@@ -1175,25 +1106,23 @@ local function CommandSay(pl, text, teamonly)
 			end
 		end
 	end
-	
 end
 hook.Add("PlayerSay", "ChatCommands1", CommandSay)
 
+--List of weapons available for admins
 local weaponList = { "weapon_zs_annabelle","weapon_zs_turretplacer","weapon_zs_shotgun","weapon_zs_syringe","weapon_zs_melee_crowbar", "weapon_zs_classic", "weapon_zs_melee_keyboard", "weapon_zs_usp", "weapon_zs_p228", "weapon_zs_combatknife",       -- list all weapons you can give
 "weapon_zs_glock3", "weapon_zs_deagle", "weapon_zs_fiveseven", "weapon_zs_elites", "weapon_zs_magnum","weapon_zs_tmp", "weapon_zs_mp5", "weapon_zs_p90","weapon_zs_smg", "weapon_zs_ump", "weapon_zs_barricadekit",
 "weapon_zs_crossbow", "weapon_zs_scout", "weapon_zs_aug", "weapon_zs_galil", "weapon_zs_ak47", "weapon_zs_m4a1",
 "weapon_zs_m3super90", "weapon_zs_m1014", "weapon_zs_m249","weapon_zs_mine", "weapon_zs_sg552", "weapon_zs_famas", "weapon_zs_tools_torch", "weapon_zs_tools_supplies", "weapon_zs_tools_remote",
 "weapon_zs_pulserifle", "weapon_zs_melee_keyboard", "weapon_zs_melee_katana", "weapon_zs_melee_sledgehammer", "weapon_zs_melee_pot", "weapon_zs_melee_axe", "weapon_zs_melee_keyboard", "weapon_zs_melee_fryingpan", "weapon_zs_tools_hammer", "weapon_zs_melee_plank","weapon_zs_boomstick","weapon_zs_melee_combatknife","weapon_zs_pickup_flare","weapon_zs_pickup_gascan","weapon_zs_pickup_gascan2","weapon_zs_pickup_gasmask","weapon_zs_pickup_propane","weapon_zs_tools_plank"}
+--List of weapons only available to superadmins
 local restrictedweaponList = { "dev_points", "admin_tool_remover", "admin_tool_sprayviewer", "admin_tool_igniter", "admin_tool_canister", "weapon_physgun", "admin_exploitblocker",
-"weapon_physcannon"	} -- list of weapons only available to superadmins
+"weapon_physcannon"	}
 		
 local function AdminSay( pl, text, teamonly )
-
 	if not pl:IsAdmin() then 
 		return
 	end
-
-	local sep = string.Explode(" ",text)
 	
 	if (text:sub(1,3) == "@@@") then
 		text = string.gsub(text,"@@@","")
@@ -1208,6 +1137,8 @@ local function AdminSay( pl, text, teamonly )
 		PrintMessageAll( HUD_PRINTADMINCHAT, "(ADMINCHAT) "..pl:Name()..": "..text )
 		return ""
 	end
+
+	local sep = string.Explode(" ",text)
 	
 	if (text == "!sweplist") then   -- prints the list of available weapons
 		pl:PrintMessage(HUD_PRINTCONSOLE, "\n\nList of weapons spawnable for the !swep command:\n")
@@ -1222,135 +1153,114 @@ local function AdminSay( pl, text, teamonly )
 		end
 		pl:PrintMessage(HUD_PRINTTALK, "List of weapons printed in console.")
 		return ""	
-	end
-	
-	if(text == "!randomslay") then
+	elseif(text == "!randomslay") then
 		local theList = team.GetPlayers(TEAM_HUMAN)
 		
 		local unluckydude = theList[math.random(1,#theList)]
 		if ValidEntity(unluckydude) then
 			unluckydude:Kill()
 			
-			PrintMessageAll(HUD_PRINTTALK,"The condemned player is..."..unluckydude:Nick().."!")
+			PrintMessageAll(HUD_PRINTTALK,"The condemned player for The Undead is..."..unluckydude:Nick())
 		end
-		return text
-	end
-
-	if (sep[1] == "!nametrack") then
-		pl:PrintMessage(HUD_PRINTTALK, "Checking player names, reporting changes in 15 seconds")
-		StartNameTrack(pl)
-		timer.Simple(15,function() EndNameTrack(pl) end)
 		return ""
-	end
-		
-	if (text == "!admin" or text == "!menu") then
+	elseif (sep[1] == "!nametrack") then
+		pl:PrintMessage(HUD_PRINTTALK, "Checking player names, reporting changes in 15 seconds.")
+		StartNameTrack(pl)
+		timer.Simple(15,function()
+			EndNameTrack(pl)
+		end)
+		return ""
+	elseif (text == "!admin" or text == "!menu") then
 		-- pl:SendLua("MakepHelp("..(#HELP_TEXT+4)..")")
 		return ""
-	end
-	
-	if text == "!mapmanager" and pl:IsSuperAdmin() then
+	elseif text == "!mapmanager" and pl:IsSuperAdmin() then
 		pl:SendLua("OpenMapManager()")
 		return ""
-	end
-	
-	if text == "!remove" and pl:IsSuperAdmin() then
-		server_RunCommand (pl, "mrgreen_admin_remove")
+	elseif text == "!remove" and pl:IsSuperAdmin() then
+		server_RunCommand(pl, "mrgreen_admin_remove")
 		return ""
-	end
-	
-	if text == "!exploitblocker" and pl:IsSuperAdmin() then
+	elseif text == "!exploitblocker" and pl:IsSuperAdmin() then
 		pl:Give("admin_exploitblocker")
 		return ""
-	end
-	
-	if (text == "!ravebreak") then
-		if not Raving then
-			RaveBreak()
+	elseif text == "!ravebreak" then
+		if LASTHUMAN or ENDROUND then
+			if not Raving then
+				RaveBreak()
+			else
+				pl:ChatPrint("You're already raving dude.")
+			end
+			return text
 		else
-			pl:ChatPrint("You're already raving dude!")
+			pl:ChatPrint("Ravebreak not available at this time of round.")
+			return ""
 		end
-		return text
-	end
-	
-	if (text:sub(1,5) == "!asay") then
+	elseif (text:sub(1,5) == "!asay") then
 		text = string.gsub(text,"!asay","")
 		for k,pl in pairs (player.GetAll()) do
 			pl:CustomChatPrint( {nil, Color(255,15,15),text} )
 		end
+
 		return ""
 	end
-	
-	
-	--[==[--------- DEBUG COMMANDS -------]==]
+
+	--Super Admin only commands	
 	if pl:IsSuperAdmin() then
-		local spawnpos = Vector(pl:GetPos().x+pl:GetAimVector().x*100,pl:GetPos().y+pl:GetAimVector().y*100,pl:GetPos().z+100)
-		if (text == "!explosiontest") then
+		--[[if (text == "!explode") then
 			local tr = pl:TraceLine(100)
 			local Ent = ents.Create("env_explosion")
 			Ent:EmitSound( "explode_4" )		
-			Ent:SetPos(tr.HitPos)
+			Ent:SetPos(spawnpos)
 			Ent:Spawn()
 			Ent:Activate()
 			Ent:SetKeyValue("iMagnitude", 20)
 			Ent:SetKeyValue("iRadiusOverride", 120)
 			Ent:Fire("explode", "", 0)
-			return text
-		end
-		if (text == "!sendtest") then
-			Msg("Test all to player\n")
-			GAMEMODE:SendTitle(player.GetAll(), {pl})
-			Msg("Test player to all\n")
-			GAMEMODE:SendTitle({pl},player.GetAll())
-			pl:ChatPrint("Send test initiated")
-		end
-		if (text == "!bloodtest") then
-			umsg.Start("BloodSplatter",pl)
-				umsg.Short(math.random(1,5))
-			umsg.End()
-		end
-		if (text == "!endround") then
+			
+			return ""
+		end]]
+		if text == "!endround" then
 			if not ENDROUND then
 				gamemode.Call( "OnEndRound", TEAM_HUMAN )
 			end
 			
-			return text
-		end
-		if (sep[1] == "!achievement" or sep[1] == "!unlock") then
+			return ""
+		elseif (sep[1] == "!achievement" or sep[1] == "!unlock") then
 			if sep[2] and pl:GetAchievementsDataTable()[tostring(sep[2])] ~= nil then
 				pl:UnlockAchievement(sep[2])
 			else
-				pl:ChatPrint("Specify a valid achievement!")
+				pl:ChatPrint("Specify a valid achievement to unlock.")
 			end
-			return text
-		end
-		if (text == "!fuckme") then
+
+			return ""
+		elseif text == "!fuckme" then
 			pl:SendLua("StalkerFuck(5)")
-			return text
-		end
-		if (text == "!ornament") then
+			return ""
+		elseif text == "!ornament" then
 			for k, v in pairs(ents.FindByClass("prop_dynamic_ornament")) do
 				print(k..": Pos = "..tostring(v:GetPos()).."; Parent = "..v:GetParent():GetClass())
 			end
-		end
-		if (text == "!redeemall") then
+
+			return ""
+		elseif text == "!redeemall" then
 			for k, v in pairs(team.GetPlayers(TEAM_UNDEAD)) do
 				server_RunCommand (pl, "redeem_player",v:UserID() )
 			end
-		end
-		if (text == "!slayall") then
+
+			return ""
+		elseif text == "!slayall" then
 			for k, v in pairs(player.GetAll()) do
 				if v ~= pl then
 					server_RunCommand (pl, "slay_player",v:UserID() )
 				end
 			end
+
+			return ""
 		end
 	end
-	--[==[------- END DEBUG COMMANDS -------]==]
-	
-	if (#sep > 1 and text:sub(1,1) == "!") then
 
+	if (#sep > 1 and text:sub(1,1) == "!") then
 		if (sep[1] == "!changemap" or sep[1] == "!changelevel") then
-			server_RunCommand (pl, "change_map",sep[2] )
+			server_RunCommand(pl, "change_map",sep[2] )
 			return ""		
 		end
 		
@@ -1358,87 +1268,75 @@ local function AdminSay( pl, text, teamonly )
 		
 		local target = GetPlayerByName(sep[2])
 		if (target == -1) then
-			pl:PrintMessage( HUD_PRINTTALK, "[QUERY] Target player was not found.")
+			pl:PrintMessage( HUD_PRINTTALK, "Target player was not found.")
 			return ""
-		end
-		if (target == -2) then
-			pl:PrintMessage( HUD_PRINTTALK, "[QUERY] Multiple targets found, please refine your command.")
+		elseif (target == -2) then
+			pl:PrintMessage( HUD_PRINTTALK, "Multiple targets found, please refine your request.")
 			return ""
 		end
 		
-		-- Kick command
+		--Kick command
 		if(sep[1] == "!kick") then
 			if pl:IsValid() and pl:IsPlayer() and (pl:Team() == TEAM_UNDEAD or pl:Team() == TEAM_HUMAN) then
-				server_RunCommand (pl, "kick_player",target:UserID() )
+				server_RunCommand(pl, "kick_player",target:UserID() )
 				pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." was kicked.")
 			else
 				pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." is invalid (glitched) and can't be kicked.")
 			end
 			return ""
-		end
-
-		if (sep[1] == "!ip") then
-			pl:PrintMessage(HUD_PRINTTALK, "Player "..target:Nick().." IP adress is "..target:IPAddress())
+		--IP/Host output command
+		elseif (sep[1] == "!ip") or (sep[1] == "!host") then
+			pl:PrintMessage(HUD_PRINTTALK, "Player "..target:Nick().." IP address is ".. target:IPAddress())
 			return ""
 		end
 		
 		-- Check if he's alive
 		if not target:Alive() or not target:IsValid() then
-			pl:PrintMessage( HUD_PRINTTALK, "Target player is not alive!")
+			pl:PrintMessage( HUD_PRINTTALK, "Target player is not alive.")
 			return ""
 		end
 		
+		--Redeem command
 		if (sep[1] == "!redeem" and target:Team() == TEAM_UNDEAD) then	
 			if (target == pl and not pl:IsSuperAdmin()) then
-				pl:ChatPrint("You cannot redeem yourself!")
+				pl:ChatPrint("You cannot redeem yourself.")
 			else
-				server_RunCommand (pl, "redeem_player", target:UserID() )
+				server_RunCommand (pl, "redeem_player", target:UserID())
 				if not LASTHUMAN or not ENDROUND then
 					pl:ChatPrint(target:GetName().." was redeemed")
 				else
-					pl:ChatPrint("You can't redeem when lasthuman or endround!")
+					pl:ChatPrint("You can't redeem at LastHuman or EndRound!")
 				end
-				target:ChatPrint("You were redeemed by (ADMIN) "..pl:GetName())
+				target:ChatPrint("You are redeemed by (ADMIN) ".. pl:GetName())
 			end
 			return ""
-		end
-			
-		if(sep[1] == "!slay") then
+		--Slay command
+		elseif(sep[1] == "!slay") then
 			server_RunCommand (pl, "slay_player", target:UserID() )
-			pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." was killed")
-			target:PrintMessage( HUD_PRINTTALK, "Admin "..pl:Name().." killed you")
-			return ""		
-		end
-		
-		if(sep[1] == "!mute") then	
+			pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." was killed.")
+			target:PrintMessage( HUD_PRINTTALK, "Admin "..pl:Name().." killed you.")
+			return ""
+		elseif(sep[1] == "!mute") then	
 		
 			target:Mute()
-			PrintMessageAll( HUD_PRINTTALK, "Admin "..pl:Name().." muted player "..tostring( target:Name() ).."!" )
+			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." muted player "..tostring(target:Name())..".")
 			return ""
-		end
-		
-		if(sep[1] == "!unmute") then	
+		elseif(sep[1] == "!unmute") then	
 		
 			target:UnMute()
-			PrintMessageAll( HUD_PRINTTALK, "Admin "..pl:Name().." unmuted player "..tostring( target:Name() ).."!" )
+			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." unmuted player "..tostring(target:Name())..".")
 			return ""
-		end
-		
-		if(sep[1] == "!gag") then	
+		elseif(sep[1] == "!gag") then	
 		
 			target:Gag()
-			PrintMessageAll( HUD_PRINTTALK, "Admin "..pl:Name().." gagged player "..tostring( target:Name() ).."!" )
+			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." gagged player "..tostring(target:Name())..".")
 			return ""
-		end
-		
-		if(sep[1] == "!ungag") then	
+		elseif(sep[1] == "!ungag") then	
 		
 			target:UnGag()
-			PrintMessageAll( HUD_PRINTTALK, "Admin "..pl:Name().." ungagged player "..tostring( target:Name() ).."!" )
+			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." ungagged player "..tostring(target:Name())..".")
 			return ""
-		end
-	
-		if(sep[1] == "!slap") then
+		elseif(sep[1] == "!slap") then
 			local slapdam = 10
 			if sep[3] then
 				slapdam = tonumber(sep[3])
@@ -1449,23 +1347,16 @@ local function AdminSay( pl, text, teamonly )
 			target:TakeDamage(slapdam)
 			target:EmitSound("ambient/voices/citizen_punches2.wav")
 			target:SetVelocity(Vector(math.random(-10,10),math.random(-10,10),math.random(0,10)):GetNormal()*math.random(300,500))
-			pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." was slapped with "..slapdam.." damage")
-			target:PrintMessage( HUD_PRINTTALK, "Admin "..pl:Name().." slapped you with "..slapdam.." damage")
+			pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." was slapped with "..slapdam.." damage.")
+			target:PrintMessage( HUD_PRINTTALK, "Admin "..pl:Name().." slapped you with "..slapdam.." damage.")
 			return ""		
-		end
-		
-		if (sep[1] == "!bring") then
+		elseif sep[1] == "!bring" then
 			server_RunCommand (pl, "bring_player", target:UserID() )
 			return ""
-		end
-			
-		if (sep[1] == "!goto") then
+		elseif sep[1] == "!goto" then
 			server_RunCommand (pl, "goto_player", target:UserID() )
 			return ""
-		end
-			
-		-- Give ammo command
-		if (sep[1] == "!ammo+") then
+		elseif sep[1] == "!ammo+" and pl:IsSuperAdmin() then
 			if not pl:IsSuperAdmin() then pl:PrintMessage( HUD_PRINTTALK, "Only Super Admins can use this command now!") return "" end
 			pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." was given 100 ammo for his current weapon")
 			if (target ~= pl) then
@@ -1477,29 +1368,21 @@ local function AdminSay( pl, text, teamonly )
 			end
 			target:GiveAmmo(100,ammotype)
 			return ""
-		end
-		
 		-- Give hp command
-		if (sep[1] == "!hp+") then
-			if not pl:IsSuperAdmin() then pl:PrintMessage( HUD_PRINTTALK, "Only Super Admins can use this command now!") return "" end
+		elseif sep[1] == "!hp+" and pl:IsSuperAdmin() then
 			pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." restored 25 health")
 			if (target ~= pl) then
 				target:PrintMessage( HUD_PRINTTALK, "(ADMIN) "..pl:Name().." gave you 25 health")
 			end
 			target:SetHealth(target:Health()+25)
 			return ""
-		end	
-		
 		-- Give frag command
-		if (sep[1] == "!frag+") or (sep[1] == "!kill+") then
-			if not pl:IsSuperAdmin() then pl:PrintMessage( HUD_PRINTTALK, "Only Super Admins can use this command now!") return "" end
+		elseif (sep[1] == "!frag+" or sep[1] == "!kill+") and pl:IsSuperAdmin() then
 			target:AddFrags(1) 
 			pl:ChatPrint(target:GetName().." received a kill")
 			target:ChatPrint("You were given one kill by (ADMIN) "..pl:GetName())
 			return ""
-		end
-
-		if (sep[1] == "!swep") then -- gives the admin the ability to appoint a swep to a player     
+		elseif sep[1] == "!swep" then -- gives the admin the ability to appoint a swep to a player     
 			local weaponToGive = nil
 			
 			if sep[3] then
@@ -1528,12 +1411,11 @@ local function AdminSay( pl, text, teamonly )
 				pl:ChatPrint("No valid weapon or multiple weapons specified.")
 			end
 			return ""
-		end
-		
-		if (sep[1] == "!debug") then
+		elseif (sep[1] == "!debug") then
 			local str = "***DEBUG***\nName: "..target:Name().."\nSteamID: "..target:SteamID().."\nUniqueID: "..target:UniqueID().."\nUserID: "..target:UserID()
 			str = str.."\nModel: "..target:GetModel().."\nPosition: "..tostring(target:GetPos()).."\nTeam: "..team.GetName(target:Team()).."\n***END DEBUG***"
 			pl:PrintMessage(HUD_PRINTCONSOLE,str)
+			pl:ChatPrint("Debug printed to console.")
 			return ""
 		end
 		
@@ -1542,33 +1424,21 @@ local function AdminSay( pl, text, teamonly )
 end
 hook.Add("PlayerSay", "ChatCommands2", AdminSay)
 
-local function FixSay( pl, text, teamonly )
-
-	if (text == "!fix") then
-		pl:PrintMessage( HUD_PRINTTALK, "Chatcommands rehooked.")
-		hook.Add("PlayerSay", "ChatCommands1", CommandSay)
-		hook.Add("PlayerSay", "ChatCommands2", AdminSay)
+function ApplyLoadout(pl, com, args)
+	if not args or #args <= 0 or not ValidEntity(pl) then
+		return
 	end
 	
-end
-hook.Add("PlayerSay", "ChatCommands3", FixSay)
-
-function ApplyLoadout(pl, com, args)
-
-	if not ValidEntity(pl) then return end
-	if not args then return end
-	if #args <= 0 then return end
-	
-	-- pl.Loadout = pl.Loadout or {}
-	if not pl.Loadout then pl.Loadout = {} end
+	if not pl.Loadout then
+		pl.Loadout = {}
+	end
 	
 	for _, item in pairs(args) do
-		if pl:HasUnlocked( item ) then
+		if pl:HasUnlocked(item) then
 			if string.sub(item, 1, 1) == "_" then
 				pl:SetPerk(item)
 			elseif string.sub(item, 1, 6) == "weapon" then
 				table.insert(pl.Loadout,item)
-				-- table.Add(pl.Loadout,item)
 			end
 		end
 	end
@@ -1576,10 +1446,7 @@ end
 concommand.Add("_applyloadout",ApplyLoadout)
 
 function ApplySkillShopItem(pl,com,args)
-	if not ValidEntity(pl) then return end
-	if not args then return end
-	if #args <= 0 then return end
-	if not pl:IsNearCrate() then return end
+	if not args or #args <= 0 or not ValidEntity(pl) or not pl:IsNearCrate() then return end
 	
 	local weapon = args[1]
 	
@@ -1642,9 +1509,9 @@ end
 concommand.Add("_applyskillshopitem",ApplySkillShopItem)
 
 local function RestartCommand( pl, cmd, args )
-    RunConsoleCommand( "changelevel", tostring( game.GetMap() ) )
+    RunConsoleCommand("changelevel", tostring(game.GetMap()))
 end
-concommand.Add( "map_restart", RestartCommand )
+concommand.Add( "zs_restartmap", RestartCommand )
 
 ----------------------------------------------------------------------------------------------
 
@@ -1766,6 +1633,3 @@ end )
 hook.Add( "PlayerConnect", "irc.PlayerConnected", function( name, address ) 
 	irc:Say( string.format( "3*** %s connected [%i/%i]", name, #player.GetAll(), game.MaxPlayers() ), IRC_RELAY_CHANNEL )	
 end )
-
---------------------------------------------------------------------------------------------------
-
