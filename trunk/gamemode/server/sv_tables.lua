@@ -139,6 +139,14 @@ end
 for _, filename in pairs(file.Find("sound/player/zombies/seeker/*.*", "GAME" ) ) do  
 	table.insert ( ResourceFiles, "sound/player/zombies/seeker/"..filename  )
 end
+
+for _, filename in pairs(file.Find("sound/mrgreen/ambient/random/*.mp3", "GAME" ) ) do
+	table.insert ( ResourceFiles, "sound/mrgreen/ambient/random/".. filename  )
+end
+
+for _, filename in pairs(file.Find("sound/mrgreen/ambient/random/*.wav", "GAME" ) ) do
+	table.insert ( ResourceFiles, "sound/mrgreen/ambient/random/".. filename  )
+end
 	
 -- Sound files here
 for _, filename in pairs(file.Find("sound/mrgreen/pills/*.*", "GAME" ) ) do  

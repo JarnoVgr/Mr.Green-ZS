@@ -75,11 +75,13 @@ AddCSLuaFile("shared/zs_options_shared.lua")
 AddCSLuaFile("shared/obj_entity_extend.lua")
 AddCSLuaFile("shared/sh_maps.lua")
 
+--JSON support
 AddCSLuaFile("modules/json/json.lua")
 
+--SQL 
 include("modules/sql/sv_sql.lua")
 
-
+--Debug
 include("modules/debug/sv_debug.lua")
 
 include("modules/log/hl_log.lua")
@@ -118,42 +120,58 @@ include("server/sv_pickups.lua" )
 --[=[---------------------------------------------------------
 	        Include stand alone modules
 ----------------------------------------------------------]=]
+--Ambient
+include("modules/ambient/sv_ambient.lua")
+
+--AFK manager
 include("modules/afk/sv_afk.lua") -- AFK manager
+
+--Damage indicator
 include("modules/damage_indicator/sv_dmg_indicator.lua")
-include("modules/news/sv_news.lua") -- News flash
+
+--News flash
+include("modules/news/sv_news.lua")
+
+--Spectate(?)
 include("modules/spectate/sv_spectate.lua")
-include("modules/weightspeed/sv_weightspeed.lua") -- change walk speed depending on weapon weight
--- include("modules/friends/sv_friends.lua") -- w.i.p. friends system
-include("modules/hud_beta/sv_hud_beta.lua") -- New hud
+
+--Dynamic walk speed
+include("modules/weightspeed/sv_weightspeed.lua")
+
+--Buddy system
+--include("modules/friends/sv_friends.lua")
+
+--New HUD
+include("modules/hud_beta/sv_hud_beta.lua")
+
+--Nav Graph
 -- include("modules/nav_graph/sh_nav_graph.lua")
-include("server/stats/sv_server_stats.lua") -- Statistics
+
+--Server Stats
+include("server/stats/sv_server_stats.lua")
+
+--SkillPoints
 include("modules/skillpoints/sv_skillpoints.lua")
 include("modules/skillpoints/sh_skillpoints.lua")
 
+--Bone Anim Library
 include("modules/boneanimlib_v2/sh_boneanimlib.lua")
 include("modules/boneanimlib_v2/boneanimlib.lua")
 
-include( "extended/irc/sv_irc.lua" )
+--IRC
+include("extended/irc/sv_irc.lua")
 
+
+--Inclusion of MapCoder files (objective maps)
 for map,opt in pairs(TranslateMapTable) do
 	if TranslateMapTable[map].Objective then
-		Debug("[MAPCODER] Added Objectives file "..tostring(map) .."")
+		Debug("[MAPCODER] Added Objectives file "..tostring(map))
 		AddCSLuaFile("shared/objectivemaps/"..map..".lua")
 	end
 end
-Debug("[MAPCODER] Included Objectives file")
 
+--Remove hook (TODO: Check what this is)
 hook.Remove("PlayerTick","TickWidgets")
-
---[=[---------------------------------------------------------
-  Include the data for supply crate points and more
----------------------------------------------------------]=]
---[[if file.Exists("gamemodes/zombiesurvival/gamemode/server/maps/"..game.GetMap()..".lua","lsv") then
-	include("server/maps/".. game.GetMap()..".lua")
-	Debug("[MAPCODER] Loaded map config file for current map")
-else
-	Debug("[MAPCODER] WARNING: Config file for this map has not been found")
-end]]
 
 Thres = 0
 difficulty = 1 --default 1
@@ -164,20 +182,20 @@ HEAD_NPC_SCALE = math.Clamp(3 - difficulty, 1.5, 4)
 ---------------------------------------------------------]=]
 gmod.BroadcastLua = gmod.BroadcastLua or function( lua )
 	for _, pl in pairs( player.GetAll() ) do
-		pl:SendLua( lua )
+		pl:SendLua(lua)
 	end
 end
 
 --[=[---------------------------------------------------------
       Give weapons to the player here
 ---------------------------------------------------------]=]
-function GM:PlayerLoadout ( pl )
+function GM:PlayerLoadout(pl)
 end
 
 --[=[----------------------------------------------------------------------
 		Called when a player receives a SWEP
 -----------------------------------------------------------------------]=]
-function GM:OnWeaponEquip ( pl, mWeapon )
+function GM:OnWeaponEquip(pl, mWeapon)
 	if not IsEntityValid ( pl ) then return end
 
 	-- Hacky way to update weapon slot count

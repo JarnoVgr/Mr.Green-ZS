@@ -97,23 +97,44 @@ include("client/cl_waves.lua")
 --[=[-----------------------------------------------------------
 		Include stand alone modules
 ------------------------------------------------------------]=]
-include( "modules/afk/cl_afk.lua" ) -- AFK manager
+--Ambient
+include("modules/ambient/cl_ambient.lua")
+
+--AFK manager
+include( "modules/afk/cl_afk.lua" )
+
+--Damage indicator
 include( "modules/damage_indicator/cl_dmg_indicator.lua" )
+
+--Dynamic walk speed
 include ( "modules/weightspeed/sh_weightspeed.lua" )
--- include ( "modules/friends/cl_friends.lua" ) -- w.i.p. friends module
-include( "modules/hud_beta/cl_hud_beta.lua" ) -- beta hud (?)
--- include( "modules/nav_graph/sh_nav_graph.lua" )
+
+--Buddy system
+--include ( "modules/friends/cl_friends.lua" )
+
+--New HUD
+include( "modules/hud_beta/cl_hud_beta.lua" )
+
+--Nav Graph
+--include( "modules/nav_graph/sh_nav_graph.lua" )
+
+--SkillPoints
 include( "modules/skillpoints/cl_skillpoints.lua" )
 include( "modules/skillpoints/sh_skillpoints.lua" )
 
+--Player legs
 include( "modules/legs/cl_legs.lua" )
+
+--News flash
 include( "modules/news/cl_news.lua" )
 
+--Bone Animation Library
 include("modules/boneanimlib_v2/cl_boneanimlib.lua")
 
 -- SQL-stats related
 include( "server/stats/sh_utils.lua" )
 
+--
 CreateClientConVar("_zs_redeemclass", 1, true, false)
 
 color_white = Color(255, 255, 255, 220)
@@ -165,6 +186,7 @@ TOTALGIBS = 0
 NearZombies = 0
 ActualNearZombies = 0
 
+--Remove hook (TODO: Check what this is)
 hook.Remove("PlayerTick","TickWidgets")
 
 -- Loading...
