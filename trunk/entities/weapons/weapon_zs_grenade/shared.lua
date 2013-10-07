@@ -10,8 +10,6 @@ if ( CLIENT ) then
 	SWEP.DrawCrosshair = false
 	SWEP.ViewModelFlip = false
 
-	SWEP.IgnoreBonemerge = true
-	SWEP.UseHL2Bonemerge = true
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = true
 	
@@ -28,7 +26,7 @@ SWEP.Contact = ""
 SWEP.Purpose = ""
 SWEP.Instructions = ""
 
-SWEP.Base				= "weapon_zs_base_dummy"
+SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.ViewModel = "models/weapons/c_grenade.mdl"
 SWEP.UseHands = true
@@ -49,19 +47,14 @@ SWEP.Secondary.Ammo = "CombineCannon"
 
 SWEP.WalkSpeed = 205
 
-function SWEP:InitializeClientsideModels()
-	
-	self.VElements = {
-		["grenade"] = { type = "Model", model = "models/Weapons/w_grenade.mdl", bone = "ValveBiped.Grenade_body", rel = "", pos = Vector(0, -0.082, 3.581), angle = Angle(0, -139.025, -180), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
-	self.WElements = {} 
-	
+function SWEP:Initialize()
+	self:SetDeploySpeed(1.1)
 end
 
 function SWEP:Precache()
 	util.PrecacheSound("WeaponFrag.Throw")
+	util.PrecacheSound("WeaponFrag.Roll")
 end
-
 
 function SWEP:CanPrimaryAttack()
 	if self.Owner:Team() == TEAM_UNDEAD then self.Owner:PrintMessage(HUD_PRINTCENTER, "Great Job!") self.Owner:Kill() return false end

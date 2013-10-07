@@ -171,7 +171,7 @@ net.Receive("PlayerKilledSelfZS", function( len )
 	
 	local victim = net.ReadEntity()
 	
-	if not victim:GetActiveWeapon() then
+	if not victim.GetActiveWeapon then
 		gamemode.Call ( "DoPlayerDeath", victim, victim, nil )
 	else
 		gamemode.Call ( "DoPlayerDeath", victim, victim, victim:GetActiveWeapon() )
