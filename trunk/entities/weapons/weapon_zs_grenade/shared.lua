@@ -96,18 +96,7 @@ function SWEP:Think()
 				self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
 			end
 		end
-	end	
-	
-	if CLIENT then
-		if not self.VElements then return end
-		if util.tobool(GetConVarNumber("_zs_clhands")) then
-			self.VElements["grenade"].color = Color(255,255,255,255)
-		else
-			self.VElements["grenade"].color = Color(255,255,255,0)
-		end
-		
-	end
-	
+	end		
 end
 
 
