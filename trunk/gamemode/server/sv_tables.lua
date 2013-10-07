@@ -338,8 +338,11 @@ table.insert ( ResourceFiles, "materials/katharsmodels/hats/homburg/homburg_all.
 table.insert ( ResourceFiles, "materials/katharsmodels/hats/homburg/homburg_all.vtf" )
 table.insert ( ResourceFiles, "materials/models/tophat/tophat.vmt" )
 table.insert ( ResourceFiles, "materials/models/tophat/tophat.vtf" )
-table.insert ( ResourceFiles, "materials/damageover3.vtf" )
-table.insert ( ResourceFiles, "materials/damageover3.vmt" )
+
+--Zombie screen overlay
+--[[table.insert ( ResourceFiles, "materials/damageover3.vtf" )
+table.insert ( ResourceFiles, "materials/damageover3.vmt" )]]
+
 table.insert ( ResourceFiles, "materials/hud3/hud_warning1.vtf" ) --!!
 table.insert ( ResourceFiles, "materials/hud3/hud_warning1.vmt" ) --!!
 table.insert ( ResourceFiles, "materials/hud3/hud_warning2.vtf" ) --!!

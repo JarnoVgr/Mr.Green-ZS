@@ -46,7 +46,7 @@ SWEP.Purpose = ""
 SWEP.Instructions = ""
 
 SWEP.ViewModel = Model ( "models/Weapons/v_zombiearms.mdl" )
-SWEP.WorldModel = Model ( "models/weapons/w_knife_t.mdl" )
+SWEP.WorldModel = Model ( "models/weapons/w_crowbar.mdl" )
 
 SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
@@ -92,10 +92,6 @@ function SWEP:Think()
 	return self.BaseClass.Think(self)
 end
 
-function SWEP:PrimaryAttack()
-	self.BaseClass.PrimaryAttack(self)
-end
-
 local lerp = 0
 function SWEP:GetViewModelPosition(pos, ang)
 	lerp = math.Approach(lerp, 0, FrameTime() * ((lerp + 1) ^ 3))
@@ -106,7 +102,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 	return pos, ang
 end
 
-function SWEP:_OnRemove()
+function SWEP:OnRemove()
 	if CLIENT then
 		self:RemoveArms()
 	end

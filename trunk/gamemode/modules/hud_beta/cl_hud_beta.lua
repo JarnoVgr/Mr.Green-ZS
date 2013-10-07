@@ -182,7 +182,7 @@ function hud.DrawBossHealth()
 end
 
 local lastwarntim = -1
-hud.ZombieOverlay = surface.GetTextureID ( "damageover3.vtf" )
+--hud.ZombieOverlay = surface.GetTextureID ( "damageover3.vtf" )
 hud.boostmat = surface.GetTextureID ( "zombiesurvival/hud/hud_friend_splash" )
 local lastrefresh = -1
 local cached_humans = 0
@@ -194,67 +194,79 @@ function hud.DrawNewZombieHUD()
 		lastrefresh = CurTime() + 1
 	end
 	
-	if GAMEMODE:IsRetroMode() then
+	--Retro mode
+	--[[if GAMEMODE:IsRetroMode() then
 		draw.SimpleTextOutlined("RETRO APOCALYPSE", "NewZombieFont13", w/2 , h-23*2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	end
+	end]]
 	
-	surface.SetDrawColor ( 179, 0, 0, 255 )
+	--Zombie blood overlay
+	--[[surface.SetDrawColor ( 179, 0, 0, 255 )
 	surface.SetTexture ( hud.ZombieOverlay )
-	surface.DrawTexturedRect ( -90,-90, ScrW()+180, ScrH()+180 ) 
+	surface.DrawTexturedRect ( -90,-90, ScrW()+180, ScrH()+180 ) ]]
 	
 	local tw, th = surface.GetTextureSize( matHealthSplash )
 	
 	local x,y = 30, ScrH()-tw+190
 	
 	if not MySelf:IsFreeSpectating() then
-	
-	surface.SetDrawColor ( 119, 0, 0, 255 )
-	surface.SetTexture ( matHealthSplash )
-	surface.DrawTexturedRect ( x,y, tw, th ) 
-	
-	local Table = string.FormattedTime ( ROUNDTIME - CurTime() )
-
-	if ( Table.s ) > 30 then Table.m = Table.m - 1 end
-	
-	if ( Table.m ) < 10 then Table.m = "0"..Table.m end
-	if ( Table.s ) < 10 then Table.s = "0"..Table.s end
-
---	draw.SimpleText(Table.m..":"..Table.s, "NewZombieFont17", x+95, y+170, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	
-	surface.SetDrawColor( 0, 0, 0, 150)
-	surface.DrawRect(x+70 , y+195, 260, 30 )
-	
-	x,y = x+70 , y+195
-
-	surface.DrawRect(x+5 , y+5, 260-10, 30-10 )	
-	
-	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
-	
-	if not MySelf.HPBar then MySelf.HPBar = 1 end
-	MySelf.HPBar = math.Clamp ( math.Approach ( MySelf.HPBar, fHealth / fMaxHealth, FrameTime() * 1.8 ), 0, 1 )
-	
-	local iPercentage = math.Clamp ( fHealth / fMaxHealth, 0, 1 )
-	
-	local colHealthBar = COLOR_HUD_HEALTHY
-	if 0.8 < iPercentage then colHealthBar = Color( 136,29,21,255 ) elseif 0.6 < iPercentage then colHealthBar = Color( 125,29,21,255 ) elseif 0.3 < iPercentage then colHealthBar = Color( 110,11,11,255 ) else colHealthBar = Color ( 110,11,11,( math.sin(RealTime() * 8) * 127.5 ) + 127.5 ) end
-	
-	surface.SetDrawColor( colHealthBar)
-	surface.DrawRect(x+5 , y+5, 250*MySelf.HPBar, 20 )
-	
-	--draw.SimpleText(fHealth, "NewZombieFont17", x+110, y+45, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleTextOutlined(fHealth, "NewZombieFont17", x+110, y+45, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+		surface.SetDrawColor ( 119, 0, 0, 255 )
+		surface.SetTexture ( matHealthSplash )
+		surface.DrawTexturedRect ( x,y, tw, th ) 
 		
+		local Table = string.FormattedTime ( ROUNDTIME - CurTime() )
+
+		if ( Table.s ) > 30 then
+			Table.m = Table.m - 1
+		end
+		
+		if ( Table.m ) < 10 then
+			Table.m = "0"..Table.m
+		end
+		if ( Table.s ) < 10 then
+			Table.s = "0"..Table.s
+		end
+
+		surface.SetDrawColor( 0, 0, 0, 150)
+		surface.DrawRect(x+70 , y+195, 260, 30 )
+		
+		x,y = x+70 , y+195
+
+		surface.DrawRect(x+5 , y+5, 260-10, 30-10 )	
+		
+		local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
+		
+		if not MySelf.HPBar then
+			MySelf.HPBar = 1
+		end
+		MySelf.HPBar = math.Clamp(math.Approach(MySelf.HPBar, fHealth / fMaxHealth, FrameTime() * 1.8), 0, 1)
+		
+		local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
+		
+		local colHealthBar = COLOR_HUD_HEALTHY
+		if 0.8 < iPercentage then
+			colHealthBar = Color(136, 29, 21, 255)
+		elseif 0.6 < iPercentage then
+			colHealthBar = Color(125, 29, 21, 255)
+		elseif 0.3 < iPercentage then
+			colHealthBar = Color(110, 11, 11, 255)
+		else
+			colHealthBar = Color(110, 11, 11, (math.sin(RealTime() * 8) * 127.5) + 127.5)
+		end
+		
+		surface.SetDrawColor( colHealthBar)
+		surface.DrawRect(x+5, y+5, 250*MySelf.HPBar, 20)
+		
+		--draw.SimpleText(fHealth, "NewZombieFont17", x+110, y+45, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleTextOutlined(fHealth, "NewZombieFont17", x+110, y+45, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 	end
 
 	surface.SetFont("NewZombieFont15")
-	local fWide, fTall = surface.GetTextSize ( "Kill all humans in " )
+	local fWide, fTall = surface.GetTextSize("Kill all humans in ")
 	
+	--
 	local text1x, text1y = 10, 10
 	local text2x, text2y = 10, text1y+fTall+1
-
 	draw.SimpleText("GREENCOINS: "..MySelf:GreenCoins(), "NewZombieFont13", 10, text2y+fTall+20, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-	
-
 	
 	-- zero wave
 	if WARMUPTIME > ServerTime() then
@@ -277,29 +289,31 @@ function hud.DrawNewZombieHUD()
 		local timleft = math.max(0, ROUNDTIME - ServerTime())
 
 		draw.SimpleTextOutlined("Kill all survivors in ".. ToMinutesSeconds(timleft + 1) .." minutes", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		
 		draw.SimpleTextOutlined("Infliction: ", "NewZombieFont15", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
-		local space1 = surface.GetTextSize ( "Infliction: " )
+		local space1 = surface.GetTextSize("Infliction: ")
 		
 		draw.SimpleTextOutlined(cached_zombies, "NewZombieFont15", text2x+space1, text2y, team.GetColor(TEAM_UNDEAD), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
-		local space2 = surface.GetTextSize ( cached_zombies )
+		local space2 = surface.GetTextSize(cached_zombies)
 		
 		draw.SimpleTextOutlined("/", "NewZombieFont15", text2x+space1+space2+1, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
-		local space3 = surface.GetTextSize ( "/" )
+		local space3 = surface.GetTextSize("/")
 		
 		draw.SimpleTextOutlined(cached_humans, "NewZombieFont15", text2x+space1+space2+space3+2, text2y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 	end
+
+	if drawZombieBoost == true then
+		return
+	end
+	
+	if not MySelf.HRBar then
+		MySelf.HRBar = MySelf:GetHordeCount()
+	end
 	
 
-	if drawZombieBoost == true then return end
-	
-	if not MySelf.HRBar then MySelf.HRBar = MySelf:GetHordeCount() end
-	
-
-	local HORDE = util.tobool( GetConVarNumber("_zs_showhorde") ) 
+	local HORDE = util.tobool(GetConVarNumber("_zs_showhorde")) 
 	
 	if not HORDE then return end
 

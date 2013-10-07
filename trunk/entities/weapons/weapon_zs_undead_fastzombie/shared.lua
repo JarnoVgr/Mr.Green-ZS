@@ -1,7 +1,9 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then AddCSLuaFile ( "shared.lua" ) end
+AddCSLuaFile()
+
+SWEP.Base = "weapon_zs_undead_generic"
 
 SWEP.Author = "JetBoom"
 SWEP.Contact = ""
@@ -15,8 +17,8 @@ SWEP.ViewModelFOV = 70
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
 
-SWEP.ViewModel = Model ( "models/weapons/v_fza.mdl" )
-SWEP.WorldModel = Model ( "models/weapons/w_knife_t.mdl" )
+SWEP.ViewModel = Model("models/Weapons/v_fza.mdl")
+SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
@@ -40,87 +42,134 @@ SWEP.AutoSwitchFrom = false
 SWEP.SwapAnims = false
 
 SWEP.DistanceCheck = 68
+SWEP.MeleeReach = 43
+SWEP.MeleeSize = 1.5
+SWEP.MeleeDelay = 0.74
 SWEP.NextRoar = 0
-function SWEP:Deploy()
-	if SERVER then
-		self.Owner:DrawViewModel( true )
-		self.Owner:DrawWorldModel( false )
+
+SWEP.Damage = 5
+
+--Increases both damage and push multiplier
+SWEP.LeapDamage = 7
+SWEP.LeapPounceReach = 32
+SWEP.LeapPounceSize = 16
+
+if CLIENT then
+	SWEP.ShowViewModel = false
+	SWEP.ShowWorldModel = false
+end
+
+local lerp = 0
+function SWEP:GetViewModelPosition(pos, ang)
+	lerp = math.Approach(lerp, 0, FrameTime() * ((lerp + 1) ^ 3))
+	ang:RotateAroundAxis(ang:Right(), 64 * lerp)
+	if lerp > 0 then
+		pos = pos + -8 * lerp * ang:Up() + -12 * lerp * ang:Forward()
+	end
+	return pos, ang
+end
+
+function SWEP:OnRemove()
+	if CLIENT then
+		self:RemoveArms()
 	end
 end
 
-function SWEP:Initialize()
+function SWEP:OnInitialize()
 	if CLIENT then
-		--[[self.BreathSound = CreateSound(self.Weapon,Sound("npc/fast_zombie/breathe_loop1.wav"))
-				
-		if self.BreathSound then
-			self.BreathSound:Play()
-		end]]
+		self:MakeArms()
 	end
 end
+
 
 function SWEP:Think()
-	local Owner = self.Owner
-	if not ValidEntity ( Owner ) then return end
-	
-	local ct = CurTime()
-	
-	-- Leaping
+	self.BaseClass.Think(self)
+
+	--Leaping
 	if self.Leaping then
-		local trFilter = team.GetPlayers( TEAM_UNDEAD )
-		local nTrace = Owner:TraceLine ( 45, MASK_SHOT, trFilter )
-		-- local Sphere = ents.FindInSphere ( Owner:GetShootPos() + Owner:GetAimVector() * 15, 20 )
-		
-		local pos = Owner:GetShootPos() + Owner:GetAimVector() * 15
-		
-		-- Easier way to bump players
-		local Victim = NULL		
-		for k,v in ipairs ( team.GetPlayers(TEAM_HUMAN) ) do
-			if IsValid(v) and v:GetPos():Distance(pos) <= 20 and v:IsPlayer() and v ~= Owner then
-				local vStart, vEnd = Owner:GetShootPos(), v:LocalToWorld ( v:OBBCenter() )
-				local glitchTrace = util.TraceLine ( { start = vStart, endpos = vEnd, filter = trFilter } )
-				
-				-- Trace matches with entity found in sphere
-				if glitchTrace.Entity == v then
-					Victim = v
-					break
+		self.Owner:LagCompensation(true)
+
+		local traces = self.Owner:PenetratingMeleeTrace(self.LeapPounceReach, self.LeapPounceSize, nil, self.Owner:LocalToWorld(self.Owner:OBBCenter()))
+
+		local hit = false
+		for _, trace in ipairs(traces) do
+			if not trace.Hit then
+				continue
+			end
+
+			hit = true
+
+			if not trace.HitWorld then
+				local ent = trace.Entity
+				if not ent or not ent:IsValid() then
+					continue
 				end
+
+				--Break glass
+				if ent:GetClass() == "func_breakable_surf" then
+					ent:Fire( "break", "", 0 )
+					hit = true
+				end
+
+				--Check for valid phys object
+				local phys = ent:GetPhysicsObject()
+				if not phys:IsValid() or not phys:IsMoveable() or ent.Nails then
+					continue
+				end
+
+				if ent:IsPlayer() or ent:IsNPC() then
+					ent:SetVelocity(self.Owner:GetForward() * (100 * self.LeapDamage))
+				else
+					--Calculate velocity to push
+					local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.LeapDamage * 2000, 25000, 37000)
+					Velocity.z = math.min(Velocity.z,1600)
+
+					--Apply push
+					phys:ApplyForceCenter(Velocity)
+					
+				end
+				ent:SetPhysicsAttacker(self.Owner)
+
+				--Take damage
+				ent:TakeDamage(self.LeapDamage, self.Owner, self)
 			end
 		end
 
-		--We hit something while leaping
-		if nTrace.Hit or ValidEntity ( Victim ) then
-			if Owner.ViewPunch then Owner:ViewPunch( Angle( math.random(0, 70), math.random(0, 70), math.random(0, 70) ) ) end
-			if SERVER then Owner:EmitSound( "physics/flesh/flesh_strider_impact_bullet1.wav" ) end
-			
-			--Bump the victim!
-			if ValidEntity ( Victim ) then
-				self:DamageEntity(Victim, math.random(0,1))
+		if hit then
+			if self.Owner.ViewPunch then
+				self.Owner:ViewPunch(Angle(math.random(0, 70), math.random(0, 70), math.random(0, 70)))
 			end
-			
+
+			if SERVER then
+				self.Owner:EmitSound("physics/flesh/flesh_strider_impact_bullet1.wav")
+				self.Owner:EmitSound("npc/fast_zombie/wake1.wav")
+			end
+						
 			--Stopped leaping
 			self.Leaping = false
 			
 			--Stop, so we don't bounce around
-			Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
+			self.Owner:SetLocalVelocity(Vector(0, 0, 0))
 			
 			--Leap Cooldown
-			self.NextLeap = ct + 3
-			
-			return
+			self.NextLeap = CurTime() + 3
 		end
 		
-		-- always update leap status
-		if Owner:OnGround() or Owner:WaterLevel() > 0 then
+		--Always update leap status
+		if (self.Owner:OnGround() or self.Owner:WaterLevel() >= 2) then
 			self.Leaping = false
 		end
+
+		self.Owner:LagCompensation(false)
 	end
 
-	-- Attacking
-	if not Owner:KeyDown( IN_ATTACK ) then
+	--Stop attacking when not holding button anymore
+	if not self.Owner:KeyDown(IN_ATTACK) and self.Swinging == true then
 		self.Swinging = false
 	end
-	
-	self:NextThink(ct)
+
+	--Prevent overriding from baseclass
+	self:NextThink(CurTime())
 	return true
 end
 
@@ -174,69 +223,10 @@ function SWEP:PrimaryAttack()
 		return
 	end
 
-	local ct = CurTime()
-	if self.NextAttack > ct then
-		return
-	end
-
-	self.Owner:DoAnimationEvent ( CUSTOM_PRIMARY )
-	local Owner = self.Owner
-	local trFilter = team.GetPlayers( TEAM_UNDEAD )
-	-- Cooldown
-	self.NextAttack = ct + self.Primary.Delay
-	
-	-- Calculate damage done
-	local Damage = 4
-	
-	-- Trace an object
-	local nTrace = Owner:TraceLine( 75, MASK_SHOT, trFilter )
-	local Victim = nTrace.Entity
-	
-	-- Play miss sound anyway
-	if SERVER then Owner:EmitSound( "npc/zombie/claw_miss"..math.random(1, 2)..".wav" ) end
-	
-	-- Animation
-	Owner:SetAnimation( PLAYER_ATTACK1 )
-	if self.SwapAnims then
-		self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER )
-	else
-		self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK )
-	end
-	self.SwapAnims = not self.SwapAnims
-	
-	-- First trace
-	if CLIENT then
-		return
-	end
-
-	if ValidEntity ( Victim ) then
-		self:DamageEntity ( Victim, Damage )
-		return
-	end
-	
-	-- Tracehull attack (second trace if the first one doesn't hit)
-	local TraceHull = util.TraceHull( { start = Owner:GetShootPos(), endpos = Owner:GetShootPos() + ( Owner:GetAimVector() * 20 ), filter = trFilter, mins = Vector( -15,-10,-18 ), maxs = Vector ( 20,20,20 ) } )
-	local TraceHit = ValidEntity ( TraceHull.Entity )	
-
-	-- Hit nothing
-	if not TraceHit then
-		return
-	end
-	
-	-- Do a trace so that the tracehull won't push or damage objects over a wall or something
-	local vStart, vEnd = Owner:GetShootPos(), TraceHull.Entity:LocalToWorld ( TraceHull.Entity:OBBCenter() )
-	local ExploitTrace = util.TraceLine ( { start = vStart, endpos = vEnd, filter = trFilter } )
-		
-	-- Hitting through wall
-	if TraceHull.Entity ~= ExploitTrace.Entity then
-		return
-	end
-	
-	-- Damage entity with tracehull
-	self:DamageEntity(TraceHull.Entity, Damage)
+	self.BaseClass.PrimaryAttack(self)
 end
-	
-function SWEP:DamageEntity( ent, Damage )
+
+function SWEP:DamageEntitySpc( ent, Damage )
 	if not ValidEntity ( ent ) then
 		return
 	end
@@ -296,6 +286,7 @@ function SWEP:SecondaryAttack()
 	if self.Swinging then
 		return
 	end
+
 	local Owner = self.Owner
 	
 	-- See where the player is ( on ground or flying )
@@ -334,29 +325,30 @@ function SWEP:SecondaryAttack()
 		return
 	end
 	
-	-- Leap cooldown / player flying
+	--Leap cooldown / player flying
 	if CurTime() < self.NextLeap or not bOnGround or self.Leaping then
 		return
 	end
 	
-	-- Set flying velocity
+	--Set flying velocity
 	local Velocity = self.Owner:GetAngles():Forward() * 800
 	if Velocity.z < 200 then
 		Velocity.z = 200
 	end
 	
-	-- Apply velocity and set leap status to true
+	--Apply velocity and set leap status to true
 	Owner:SetGroundEntity(NULL)
 	Owner:SetLocalVelocity(Velocity)
 	
+	--Start leap
 	self.Leaping = true
 	
-	-- Leap cooldown
+	--Leap cooldown
 	self.NextLeap = CurTime() + 1.5
 	
-	-- Fast zombie scream
+	--Fast zombie scream
 	if SERVER then
-		Owner:EmitSound( "npc/fast_zombie/fz_scream1.wav" )
+		Owner:EmitSound("npc/fast_zombie/fz_scream1.wav")
 	end
 end
 
@@ -364,18 +356,11 @@ function SWEP:Reload()
 	return false
 end
 
-function SWEP:OnRemove()
-	if CLIENT then
-		--[[if self.BreathSound then
-			self.BreathSound:Stop()
-		end]]
-	end
-return true
-end
-
-function SWEP:OnDrop()
-	if self and self:IsValid() then
-		self:Remove()
+if SERVER then
+	function SWEP:OnDrop()
+		if self and self:IsValid() then
+			self:Remove()
+		end
 	end
 end
 
@@ -409,6 +394,80 @@ function SWEP:Precache()
 	
 end
 
+
 if CLIENT then
-	function SWEP:DrawHUD() GAMEMODE:DrawZombieCrosshair ( self.Owner, self.DistanceCheck ) end
+	function SWEP:OnViewModelDrawn()
+		local vm = self.Owner:GetViewModel();
+		if IsValid(self.Arms) and IsValid(vm) then
+			
+			if self.Arms:GetModel() ~= self.Owner:GetModel() then
+				self.Arms:SetModel(self.Owner:GetModel())
+			end
+			
+			if not self.Arms.GetPlayerColor then
+				self.Arms.GetPlayerColor = function() return Vector( GetConVarString( "cl_playercolor" ) ) end
+			end
+		
+			render.SetBlend(1) 
+				self.Arms:SetParent(vm)
+				
+				self.Arms:AddEffects(bit.bor(EF_BONEMERGE , EF_BONEMERGE_FASTCULL , EF_PARENT_ANIMATES))
+				
+				for b, tbl in pairs(PlayerModelBones) do
+					if tbl.ScaleDown then
+						local bone = self.Arms:LookupBone(b)
+						if bone and self.Arms:GetManipulateBoneScale(bone) == Vector(1,1,1) then
+							self.Arms:ManipulateBoneScale( bone, Vector(0.00001, 0.00001, 0.00001) )
+						end
+					else
+						if not tbl.Arm then
+							local bone = self.Arms:LookupBone(b)
+							if bone and self.Arms:GetManipulateBoneScale(bone) == Vector(1,1,1) then
+								self.Arms:ManipulateBoneScale( bone, Vector(1.5, 1.5, 1.5) )
+							end
+						end
+					end
+				end
+				
+				self.Arms:SetRenderOrigin( vm:GetPos()-vm:GetAngles():Forward()*20-vm:GetAngles():Up()*60 )-- self.Arms[1]:SetRenderOrigin( EyePos() )
+				self.Arms:SetRenderAngles( vm:GetAngles() )
+				
+				self.Arms:SetupBones()	
+				self.Arms:DrawModel()
+				
+				self.Arms:SetRenderOrigin()
+				self.Arms:SetRenderAngles()
+				
+			render.SetBlend(1)
+		end	
+	end
+
+	function SWEP:MakeArms()
+		self.Arms = ClientsideModel("models/player/group01/male_04.mdl", RENDER_GROUP_VIEW_MODEL_OPAQUE) 
+		
+		if (ValidEntity(self.Arms)) and (ValidEntity(self)) then 
+			self.Arms:SetPos(self:GetPos())
+			self.Arms:SetAngles(self:GetAngles())
+			self.Arms:SetParent(self) 
+			self.Arms:SetupBones()
+			-- self.Arms:AddEffects(bit.bor(EF_BONEMERGE , EF_BONEMERGE_FASTCULL , EF_PARENT_ANIMATES))
+			self.Arms:SetNoDraw(true) 
+		else
+			self.Arms = nil
+		end	
+	end
+
+	function SWEP:RemoveArms()
+		if (ValidEntity(self.Arms)) then
+			self.Arms:Remove()
+		end
+		
+		self.Arms = nil
+	end
+end
+
+if CLIENT then
+	function SWEP:DrawHUD()
+		GAMEMODE:DrawZombieCrosshair(self.Owner, self.DistanceCheck)
+	end
 end

@@ -177,6 +177,7 @@ function SWEP:Swung()
 			--Break glass
 			if ent:GetClass() == "func_breakable_surf" then
 				ent:Fire( "break", "", 0 )
+				hit = true
 			end
 			
 			local phys = ent:GetPhysicsObject()
@@ -207,74 +208,6 @@ function SWEP:Swung()
 			self.Owner:EmitSound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav")
 		end
 	end
-
-	-- Play miss sound anyway
-	--
-	
-	--Punch the prop / damage the player if the pretrace is valid
-	--[[if ValidEntity(victim) then
-		local phys = victim:GetPhysicsObject()
-		
-		--Break glass
-		if victim:GetClass() == "func_breakable_surf" then
-			victim:Fire( "break", "", 0 )
-		end
-			
-		-- Claw sound
-		pl:EmitSound("npc/zombiegreen/hit_punch_0"..math.random(1, 8)..".wav")
-		bHit = true
-				
-		-- Case 2: It is a valid physics object
-		if phys:IsValid() and not victim:IsNPC() and phys:IsMoveable() and not victim:IsPlayer() and not victim.Nails then
-			if Velocity.z < 1800 then
-				Velocity.z = 1800
-			end
-					
-			-- Apply force to prop and make the physics attacker myself
-			phys:ApplyForceCenter(Velocity)
-			victim:SetPhysicsAttacker(pl)
-		elseif not victim:IsWeapon() then
-			-- Take damage
-			victim:TakeDamage(Damage, self.Owner, self)
-		end
-	else
-		pl:EmitSound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav")
-	end]]
-	
-	--Verify tracehull entity
-	--[[if HullHit and not TraceHit then
-		local ent = trHull.Entity
-		local phys = ent:GetPhysicsObject()
-		
-		-- Do a trace so that the tracehull won't push or damage objects over a wall or something
-		local vStart, vEnd = self.Owner:GetShootPos(), ent:LocalToWorld ( ent:OBBCenter() )
-		local ExploitTrace = util.TraceLine ( { start = vStart, endpos = vEnd, filter = trFilter } )
-		
-		if ent ~= ExploitTrace.Entity then 
-			return
-		end
-		
-		-- Break glass
-		if ent:GetClass() == "func_breakable_surf" then
-			ent:Fire( "break", "", 0 )
-		end
-		
-		-- Play the hit sound
-		pl:EmitSound("npc/zombiegreen/hit_punch_0"..math.random(1, 8)..".wav")
-		
-		-- Apply force to the correct object
-		if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() and not ent.Nails then
-			if Velocity.z < 1800 then
-				Velocity.z = 1800
-			end
-					
-			phys:ApplyForceCenter(Velocity)
-			ent:SetPhysicsAttacker(pl)
-		elseif not ent:IsWeapon() then
-			-- Take damage
-			ent:TakeDamage(Damage, self.Owner, self)
-		end
-	end]]
 
 	self.Owner:LagCompensation(false)
 end
