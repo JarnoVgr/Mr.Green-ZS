@@ -119,7 +119,7 @@ function SWEP:Think()
 				end
 
 				if ent:IsPlayer() or ent:IsNPC() then
-					ent:SetVelocity(self.Owner:GetForward() * (100 * self.LeapPounceVelocity))
+					ent:SetVelocity(self.Owner:GetForward() * self.LeapPounceVelocity)
 				else
 					--Calculate velocity to push
 					local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.LeapPounceVelocity * 20, 25000, 37000)
@@ -226,60 +226,6 @@ function SWEP:PrimaryAttack()
 	self.BaseClass.PrimaryAttack(self)
 end
 
-function SWEP:DamageEntitySpc( ent, Damage )
-	if not ValidEntity ( ent ) then
-		return
-	end
-	local Owner = self.Owner
-	
-	if CLIENT then
-		return
-	end
-	
-	-- Don't hurt other zombies
-	if ent.Team and ent:Team() == TEAM_UNDEAD then
-		return
-	end
-	
-	-- Get phys object
-	local phys = ent:GetPhysicsObject()
-	
-	-- Break glass
-	if ent:GetClass() == "func_breakable_surf" then
-		ent:Fire("break", "", 0)
-	end
-	
-	-- Play the hit sound
-	Owner:EmitSound("npc/zombie/claw_strike"..math.random(1, 3)..".wav" )
-		
-	-- Take damage
-	ent:TakeDamage(Damage, Owner, self)
-	
-	-- Push for whatever it hits
-	local Velocity = Owner:EyeAngles():Forward() * 1000
-	
-	-- Push the target off in leap
-	if self.Leaping and ent:IsPlayer() then
-		Velocity.z = 150
-		if ent:OnGround() then
-			ent:SetVelocity(Velocity * 0.5)
-		else
-			ent:SetVelocity(Velocity * 0.1)
-		end
-		if ent.ViewPunch then
-			ent:ViewPunch( Angle( math.random(-20, 20), math.random(-20, 20), math.random(-20, 20) ) )
-		end
-	end
-	
-	-- Apply force to the correct object
-	if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() then
-		if Velocity.z < 200 then Velocity.z = 200 end
-				
-		phys:ApplyForceCenter( Velocity * 2 )
-		ent:SetPhysicsAttacker( Owner )
-	end	
-end
-
 SWEP.NextLeap = 0
 SWEP.NextClimb = 0
 function SWEP:SecondaryAttack()
@@ -315,8 +261,8 @@ function SWEP:SecondaryAttack()
 		if SERVER then Owner:EmitSound( "player/footsteps/metalgrate"..math.random(1,4)..".wav" ) end
 			
 		-- Climbing animation
-		self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK )
-		Owner:SetAnimation( PLAYER_SUPERJUMP )
+		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+		Owner:SetAnimation(PLAYER_SUPERJUMP)
 		
 		return
 	end
