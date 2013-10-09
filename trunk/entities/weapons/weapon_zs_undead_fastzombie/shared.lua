@@ -243,7 +243,7 @@ function SWEP:SecondaryAttack()
 	local trClimb = util.TraceLine( { start = vStart, endpos = vStart + ( vAimVector * 35 ), filter = Owner } )
 	
 	-- Climbing
-	if CurTime() >= self.NextClimb and not bCrouching and trClimb.HitWorld and not trClimb.HitSky then
+	--[[if CurTime() >= self.NextClimb and not bCrouching and trClimb.HitWorld and not trClimb.HitSky then
 
 		-- Climb!
 		local Velocity = Vector ( 0,0,150 )
@@ -265,7 +265,7 @@ function SWEP:SecondaryAttack()
 		Owner:SetAnimation(PLAYER_SUPERJUMP)
 		
 		return
-	end
+	end]]
 	
 	if trClimb.HitWorld then
 		return
