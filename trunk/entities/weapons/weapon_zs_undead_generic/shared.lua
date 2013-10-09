@@ -1,11 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local math = math
-local team = team
-local util = util
-local timer = timer
-
 if SERVER then
 	AddCSLuaFile("shared.lua")
 	SWEP.Weight				= 5
@@ -86,8 +81,11 @@ function SWEP:CheckMeleeAttack()
 	if swingend == 0 or CurTime() < swingend then
 		return
 	end
+
+	--Reset swing time
 	self:StopSwinging(0)
 
+	--Hit em baby
 	self:Swung()
 end
 
@@ -102,17 +100,23 @@ function SWEP:PrimaryAttack()
 		return
 	end
 	
-	self.Weapon:SetNextPrimaryFire ( CurTime() + self.MeleeDelay ) 
-	self.Weapon:SetNextSecondaryFire ( self:GetNextPrimaryFire() + 0.5 )
-	self:StartSwinging()
-	
+	--Delay next attack
+	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 	self.NextSwing = CurTime() + self.Primary.Delay
-	self.NextHit = CurTime() + 0.6	
+
+	--Delay leaping
+	self.Weapon:SetNextSecondaryFire(self:GetNextPrimaryFire() + 0.5)
+
+	--Start swinging
+	self:StartSwinging()
+
+	--Seems unused
+	--self.NextHit = CurTime() + 0.6
 end
 
 function SWEP:StartSwinging()
-	self.PreHit = nil
-	self.Trace = nil
+	--self.PreHit = nil
+	--self.Trace = nil
 	-- self.Owner.IsMoaning = false
 	
 	if SERVER then
@@ -133,11 +137,12 @@ function SWEP:StartSwinging()
 	
 	-- Set the thirdperson animation and emit zombie attack sound
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
-
+  
 	if SERVER then
 		self.Owner:EmitSound("npc/zombiegreen/rage_at_victim"..math.random(20, 37)..".wav")
 	end
 
+	--Set time before actual damaging
 	if self.MeleeDelay > 0 then
 		self:SetSwingEndTime(CurTime() + self.MeleeDelay)
 	else

@@ -27,7 +27,7 @@ SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 0.32
+SWEP.Primary.Delay = 0.7 --0.32
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.Delay = 1
@@ -44,13 +44,12 @@ SWEP.SwapAnims = false
 SWEP.DistanceCheck = 68
 SWEP.MeleeReach = 43
 SWEP.MeleeSize = 1.5
-SWEP.MeleeDelay = 0.74
+SWEP.MeleeDelay = 0
 SWEP.NextRoar = 0
 
 SWEP.Damage = 4
-
---Increases both damage and push multiplier
 SWEP.LeapDamage = 5
+
 SWEP.LeapPounceVelocity = 700
 SWEP.LeapPounceReach = 32
 SWEP.LeapPounceSize = 16

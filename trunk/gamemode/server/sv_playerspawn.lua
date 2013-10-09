@@ -488,13 +488,17 @@ function GM:OnZombieSpawn(pl)
 	local Class = pl:GetZombieClass()
 	local Tab = ZombieClasses[Class]
 		
-	local stchance = 1/(ST_ZOMBIE_CHANCE/100)
+	
 
+	--Steroids zombies
+	--Disabled for being not useful and only confusing players
+	--[[
+	local stchance = 1/(ST_ZOMBIE_CHANCE/100)
 	if math.random(1,stchance) == 1 then
 		if not pl:IsBossZombie() and not pl:IsCrow() then
 			pl:SpawnAsSteroidZombie(math.random(1,#ZombiePowerups))
 		end
-	end
+	end]]
 	
 	-- Calculate zombie's health
 	CalculateZombieHealth(pl)

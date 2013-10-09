@@ -18,13 +18,18 @@ local function AmbientThink()
 	local team = LocalPlayer():Team()
 
 	if team == TEAM_HUMAN then
-		LocalPlayer():EmitSound(RandomAmbientSounds[math.random(1, #RandomAmbientSounds)] , math.random(50,100), math.random(80,120))
+		local sFile = RandomAmbientSounds[math.random(1, #RandomAmbientSounds)]
+		LocalPlayer():EmitSound(sFile, math.random(50,100), math.random(80,120))
+
+		Debug("[AMBIENT] Played '".. sFile .."'")
 	end
 	
 	--Reset timer
 	timer.Simple(30 + math.random(30), AmbientThink)
+
+
 end
 
 --timer.Create( "AmbientThink", 10, 0, AmbientThink )
-timer.Simple(5, AmbientThink)
+timer.Simple(20, AmbientThink)
 --hook.Add("Think", "AmbientThink", AmbientThink)
