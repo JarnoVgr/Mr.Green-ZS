@@ -46,10 +46,10 @@ SWEP.MaxAmmo			    = 250
 
 
 SWEP.ConeMoving = 0.082
-SWEP.Cone = 0.077
-SWEP.ConeIron = 0.069
-SWEP.ConeCrouching = 0.070
-SWEP.ConeIronCrouching = 0.056
+SWEP.Cone = 0.052
+SWEP.ConeIron = 0.044
+SWEP.ConeCrouching = 0.034
+SWEP.ConeIronCrouching = 0.024
 
 SWEP.WalkSpeed = 197
 SWEP.MaxBulletDistance 		= 2250

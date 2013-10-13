@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "p90"			
+	SWEP.PrintName = "P90"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
 	SWEP.ViewModelFOV = 65
@@ -60,11 +60,11 @@ SWEP.Primary.Ammo			= "smg1"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 
-SWEP.ConeMoving = 0.080
-SWEP.Cone = 0.076
-SWEP.ConeIron = 0.065
-SWEP.ConeCrouching = 0.068
-SWEP.ConeIronCrouching = 0.061
+SWEP.ConeMoving = 0.072
+SWEP.Cone = 0.054
+SWEP.ConeIron = 0.038
+SWEP.ConeCrouching = 0.041
+SWEP.ConeIronCrouching = 0.029
 
 SWEP.WalkSpeed = 197
 SWEP.MaxBulletDistance 		= 1800

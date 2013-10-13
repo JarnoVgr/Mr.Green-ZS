@@ -32,7 +32,7 @@ SWEP.HoldType = "shotgun"
 util.PrecacheSound("weapons/shotgun/shotgun_dbl_fire.wav")
 SWEP.Primary.Sound = "weapons/shotgun/shotgun_dbl_fire.wav"
 SWEP.Primary.Recoil = 28
-SWEP.Primary.Damage = 34
+SWEP.Primary.Damage = 36
 SWEP.Primary.NumShots = 6
 SWEP.Primary.Delay = 1.6
 

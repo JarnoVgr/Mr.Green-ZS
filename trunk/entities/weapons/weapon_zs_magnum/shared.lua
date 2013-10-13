@@ -58,11 +58,11 @@ SWEP.Primary.Ammo			= "pistol"--?
 SWEP.WalkSpeed = 200
 SWEP.MaxAmmo			    = 60
 
-SWEP.ConeMoving = 0.071
-SWEP.Cone = 0.064
-SWEP.ConeIron = 0.054
-SWEP.ConeCrouching = 0.055
-SWEP.ConeIronCrouching = 0.044
+SWEP.ConeMoving = 0.079
+SWEP.Cone = 0.054
+SWEP.ConeIron = 0.032
+SWEP.ConeCrouching = 0.025
+SWEP.ConeIronCrouching = 0.017
 
 SWEP.IronSightsPos = Vector(-4.64, -9.056, 0.6)
 SWEP.IronSightsAng = Vector(0.275, 0, 0)
@@ -75,12 +75,12 @@ SWEP.OverrideAng = Vector( 0,0,0 )
 
 local function DoRicochet(attacker, hitpos, hitnormal, normal, damage)
 	attacker.RicochetBullet = true
-	attacker:FireBullets({Num = 1, Src = hitpos, Dir = 2 * hitnormal * hitnormal:Dot(normal * -1) + normal, Spread = Vector(0, 0, 0), Tracer = 1, TracerName = "rico_trace", Force = damage * 0.15, Damage = damage * 2, Callback = GenericBulletCallback})
+	attacker:FireBullets({Num = 1, Src = hitpos, Dir = 2 * hitnormal * hitnormal:Dot(normal * -1) + normal, Spread = Vector(0, 0, 0), Tracer = 1, TracerName = "rico_trace", Force = damage * 0.15, Damage = damage * 1, Callback = GenericBulletCallback})
 	attacker.RicochetBullet = nil
 end
 function SWEP.BulletCallback(attacker, tr, dmginfo)
 	if SERVER and tr.HitWorld and not tr.HitSky then
-		timer.Simple(0, function() DoRicochet( attacker, tr.HitPos, tr.HitNormal, tr.Normal, dmginfo:GetDamage() * 2) end)
+		timer.Simple(0, function() DoRicochet( attacker, tr.HitPos, tr.HitNormal, tr.Normal, dmginfo:GetDamage() * 1) end)
 	end
 
 	GenericBulletCallback(attacker, tr, dmginfo)
