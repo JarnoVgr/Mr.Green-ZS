@@ -59,10 +59,10 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 
 SWEP.ConeMoving = 0.078
-SWEP.Cone = 0.070
-SWEP.ConeIron = 0.063
-SWEP.ConeCrouching = 0.064
-SWEP.ConeIronCrouching = 0.042
+SWEP.Cone = 0.051
+SWEP.ConeIron = 0.034
+SWEP.ConeCrouching = 0.042
+SWEP.ConeIronCrouching = 0.023
 
 SWEP.MaxAmmo			    = 250
 
