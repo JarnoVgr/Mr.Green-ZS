@@ -50,18 +50,18 @@ SWEP.Primary.Sound			= Sound("Weapon_P228.Single")
 SWEP.Primary.Recoil			= 1
 SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 12
+SWEP.Primary.ClipSize		= 15
 SWEP.Primary.Delay			= 0.1
 SWEP.Primary.DefaultClip	= 120
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.ConeMoving = 0.059
-SWEP.Cone = 0.054
-SWEP.ConeIron = 0.044
-SWEP.ConeCrouching = 0.043
-SWEP.ConeIronCrouching = 0.026
+SWEP.ConeMoving = 0.055
+SWEP.Cone = 0.042
+SWEP.ConeIron = 0.034
+SWEP.ConeCrouching = 0.021
+SWEP.ConeIronCrouching = 0.011
 SWEP.WalkSpeed = 200
 SWEP.MaxBulletDistance 		= 1800
 

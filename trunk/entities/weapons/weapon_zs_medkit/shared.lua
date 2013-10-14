@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.BobScale = 2
 	SWEP.SwayScale = 1.5
 	SWEP.PrintName = "Medkit"
-
+	SWEP.IconLetter = "F"
 	SWEP.Slot = 4
 	SWEP.SlotPos = 0
 	
@@ -27,12 +27,12 @@ if CLIENT then
 	
 	SWEP.NoHUD = true
 		
-	killicon.AddFont( "weapon_zs_medkit", "CSKillIcons", "F", Color(255, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_medkit", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
 	
 end
 
-SWEP.WorldModel = "models/Weapons/w_package.mdl"
-SWEP.ViewModel = "models/weapons/v_c4.mdl"--models/weapons/v_hands.mdlmodels/weapons/v_healthkit.mdl
+SWEP.WorldModel = Model("models/Weapons/w_package.mdl")
+SWEP.ViewModel = Model("models/weapons/v_c4.mdl") --models/weapons/v_hands.mdlmodels/weapons/v_healthkit.mdl
 
 SWEP.Base				= "weapon_zs_base_dummy"
 

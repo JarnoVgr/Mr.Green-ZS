@@ -105,6 +105,7 @@ SWEP.AmmoMode = {
 	[2] = {Name = "Pistol", Time = 40, Type = {
 												["pistol"] = {Amount = 40, Icon = "R"},
 												["357"] = {Amount = 25, Icon = "T"},
+												["battery"] = {Amount = 20, Icon = "G"},
 												}
 		   },	   
 	

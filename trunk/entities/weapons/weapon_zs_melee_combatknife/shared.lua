@@ -51,8 +51,9 @@ function SWEP:PlayHitFleshSound()
 end
 
 -- Killicon
-if CLIENT then killicon.AddFont( "weapon_zs_melee_combatknife", "CSKillIcons", "j", Color(255, 255, 255, 255 ) ) 
-SWEP.ShowViewModel = true
+if CLIENT then
+	killicon.AddFont( "weapon_zs_melee_combatknife", "CSKillIcons", "j", Color(255, 255, 255, 255 ) ) 
+	SWEP.ShowViewModel = true
 -- SWEP.FlipYaw = true
 end
 
