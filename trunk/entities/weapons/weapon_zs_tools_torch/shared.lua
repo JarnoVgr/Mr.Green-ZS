@@ -1,22 +1,21 @@
-if ( SERVER ) then
+if SERVER then
 	AddCSLuaFile( "shared.lua" )
 	SWEP.PrintName = "Torch"
 end
 
 SWEP.HoldType = "slam"
 
-if ( CLIENT ) then
+if CLIENT then
 	SWEP.PrintName = "Torch"
 	SWEP.DrawCrosshair = false
 	SWEP.ViewModelFlip = false
 
-	SWEP.Slot = 3
-	SWEP.SlotPos = 2 
+	SWEP.Slot = 4
+	SWEP.SlotPos = 0
+	SWEP.IconLetter = "E"
 	
-	killicon.AddFont("weapon_zs_tools_torch", "CSKillIcons", "E", Color(255, 255, 255, 255 ))
-	-- function SWEP:DrawHUD()
-	-- 	MeleeWeaponDrawHUD()
-	-- end
+	killicon.AddFont("weapon_zs_tools_torch", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255))
+
 	SWEP.IgnoreBonemerge = true
 	SWEP.UseHL2Bonemerge = true
 	SWEP.ShowViewModel = true
@@ -24,15 +23,12 @@ if ( CLIENT ) then
 	
 end
 
-
-
-
 SWEP.Author = "NECROSSIN"
 
 SWEP.ViewModel = "models/Weapons/v_Grenade.mdl"
 SWEP.WorldModel = "models/Weapons/w_grenade.mdl"
 
-SWEP.Base				= "weapon_zs_base_dummy"
+SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.Primary.ClipSize = 60
 SWEP.Primary.DefaultClip = 60
@@ -77,7 +73,7 @@ function SWEP:InitializeClientsideModels()
 end
 
 function SWEP:OnDeploy()
-	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
+	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 	
 	if SERVER then
 		self.Owner._TorchScore = self.Owner._TorchScore or 0
@@ -213,9 +209,9 @@ function SWEP:PrimaryAttack()
 	
 end
 	
- function SWEP:Reload() 
+function SWEP:Reload() 
 	return false
- end  
+end  
 
 function SWEP:SecondaryAttack()
 	return false
