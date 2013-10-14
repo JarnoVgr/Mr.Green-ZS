@@ -112,7 +112,7 @@ function SWEP:PrimaryAttack()
 		local tr = self.Owner:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_HUMAN))
 	
 		local trent = tr.Entity
-		if not IsEntityValid ( trent ) then
+		if not IsEntityValid(trent) then
 			return
 		end
 	
@@ -240,11 +240,9 @@ function SWEP:Think()
 	
 	-- ApproachAngle(self.TempAng,self.AppTo,FrameTime()*33)
 	
-	if CLIENT then
-	
-		-- ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
-		
-	end
+	--[[if CLIENT then
+		ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
+	end]]
 	
 	local maxclip = 60
 	
@@ -275,21 +273,23 @@ end
 
 if CLIENT then
 	function SWEP:DrawHUD()
-		if not self.Owner:Alive() then
+		if ENDROUND or not self.Owner:Alive() then
 			return
 		end
-		if ENDROUND then
-			return
-		end
+
 		MeleeWeaponDrawHUD()
 		surface.SetFont("ArialBoldTen")
 	
 		for _,nail in pairs (ents.FindByClass("nail")) do
-			if nail and nail:IsValid() then
-				if nail:GetPos():Distance(EyePos()) <= 105 then
-					draw.SimpleTextOutlined("HP: "..math.Round((nail:GetDTInt(0)/nail:GetDTInt(1))*100).."%", "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-				end
+			if not nail or not nail:IsValid() then
+				continue
 			end
+
+			if nail:GetPos():Distance(EyePos()) > 105 then
+				continue
+			end
+
+			draw.SimpleTextOutlined("+".. math.Round(nail:GetDTInt(0)) .."/".. math.Round(nail:GetDTInt(1)), "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		end
 	end
 end
