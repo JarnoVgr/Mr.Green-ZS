@@ -34,7 +34,7 @@ SWEP.HoldType = "duel"
 SWEP.IronSightsHoldType = "duel"
 SWEP.Primary.Sound			= Sound("Weapon_ELITE.Single")
 SWEP.Primary.Recoil			= 3
-SWEP.Primary.Damage			= 9
+SWEP.Primary.Damage			= 10
 SWEP.Primary.NumShots		= 2
 SWEP.Primary.ClipSize		= 30
 SWEP.Primary.Delay			= 0.15
@@ -43,11 +43,11 @@ SWEP.MaxAmmo			    = 100
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "pistol"
 
-SWEP.ConeMoving = 0.081
-SWEP.Cone = 0.061
-SWEP.ConeIron = 0.031
-SWEP.ConeCrouching = 0.039
-SWEP.ConeIronCrouching = 0.014
+SWEP.ConeMoving = 0.067
+SWEP.Cone = 0.058
+SWEP.ConeIron = 0.048
+SWEP.ConeCrouching = 0.048
+SWEP.ConeIronCrouching = 0.044
 
 SWEP.WalkSpeed = 205
 --SWEP.IronSightsPos = Vector(0,0,0)
