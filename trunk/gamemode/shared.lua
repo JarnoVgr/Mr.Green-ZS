@@ -518,27 +518,23 @@ end
 -- SO I have to use this thing (with player pushing from IW) :<
 function GM:_ShouldCollide( ent1, ent2 )
 	if ent1:IsPlayer() and ent2:IsPlayer() and ent1:Team() == ent2:Team() or ent1.NoCollideAll or ent2.NoCollideAll then
-	
 	   	-- Soft collision for humans
-	   	if ( ent1:GetPos():Distance( ent2:GetPos() ) <= 30 ) and ent1:Team() == TEAM_HUMAN then
+	   	--[[if ( ent1:GetPos():Distance( ent2:GetPos() ) <= 30 ) and ent1:Team() == TEAM_HUMAN then
             local dir = ( ent1:GetPos() - ent2:GetPos() ):GetNormal()
             
             -- Now PUSH
             if ( ent1:GetVelocity():Length() > 0 ) then
                 ent1:SetVelocity( dir * 33 )  
             end
-        end
+        end]]
 	
 		return false
 	end
-	-- print(tostring(ent1).." || "..tostring(ent2))
 	return true
 end
 
 hook.Add("Initialize","InitShouldCollide",function()
-	
 	GAMEMODE.ShouldCollide = GAMEMODE._ShouldCollide
-	
 end)
 
 --------------------------------------------
