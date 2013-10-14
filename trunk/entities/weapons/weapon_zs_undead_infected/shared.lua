@@ -1,8 +1,3 @@
-local math = math
-local team = team
-local util = util
-local timer = timer
-
 if SERVER then
 	AddCSLuaFile("shared.lua")
 	SWEP.Weight				= 5
