@@ -45,11 +45,11 @@ SWEP.Primary.Ammo = "357"
 
 SWEP.MaxAmmo			    = 40
 
-SWEP.ConeMoving = 0.067
+SWEP.ConeMoving = 0.060
 SWEP.Cone = 0.050
-SWEP.ConeIron = 0.021
-SWEP.ConeCrouching = 0.031
-SWEP.ConeIronCrouching = 0.009
+SWEP.ConeIron = 0.041
+SWEP.ConeCrouching = 0.039
+SWEP.ConeIronCrouching = 0.031
 
 SWEP.IsShotgun = true
 
