@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "sg552"			
+	SWEP.PrintName = "SG552"			
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 16
@@ -60,11 +60,11 @@ SWEP.Secondary.Delay = 0.5
 
 SWEP.WalkSpeed = 195
 
-SWEP.ConeMoving = 0.080
-SWEP.Cone = 0.072
-SWEP.ConeIron = 0.062
-SWEP.ConeCrouching = 0.063
-SWEP.ConeIronCrouching = 0.043
+SWEP.ConeMoving = 0.076
+SWEP.Cone = 0.053
+SWEP.ConeIron = 0.041
+SWEP.ConeCrouching = 0.029
+SWEP.ConeIronCrouching = 0.019
 
 
 SWEP.IronSightsPos = Vector(-7.881, -18.504, 2.599)
@@ -72,3 +72,26 @@ SWEP.IronSightsAng = Vector(0, 0, 0)
 
 --SWEP.IronSightsPos = Vector(6.635, -10.82, 2.678)
 --SWEP.IronSightsAng = Vector(0, 0, 0)
+
+
+function SWEP:IsScoped()
+	return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.25 <= CurTime()
+end
+
+if CLIENT then
+	SWEP.IronsightsMultiplier = 0.25
+	--SWEP.MinFOV = GetConVarNumber("fov_desired") * 0.25
+	function SWEP:GetViewModelPosition(pos, ang)
+		if self:IsScoped() then
+			return pos + ang:Up() * 256
+		end
+
+		return self.BaseClass.GetViewModelPosition(self, pos, ang)
+	end
+
+	function SWEP:DrawHUD()
+		if self:IsScoped() then
+			self:DrawScope()
+		end
+	end	
+end
