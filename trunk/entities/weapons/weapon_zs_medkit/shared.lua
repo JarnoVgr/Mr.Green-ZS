@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.BobScale = 2
 	SWEP.SwayScale = 1.5
 	SWEP.PrintName = "Medkit"
-	--SWEP.IconLetter = "G"
+
 	SWEP.Slot = 4
 	SWEP.SlotPos = 0
 	

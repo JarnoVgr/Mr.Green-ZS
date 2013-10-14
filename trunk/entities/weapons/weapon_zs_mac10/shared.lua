@@ -41,11 +41,9 @@ SWEP.Primary.Ammo = "smg1"
 
 SWEP.MaxAmmo			    = 230
 
-SWEP.ConeMoving = 0.071
-SWEP.Cone = 0.059
-SWEP.ConeIron = 0.041
-SWEP.ConeCrouching = 0.032
-SWEP.ConeIronCrouching = 0.024
+SWEP.ConeMoving = 0.085
+SWEP.Cone = 0.077
+SWEP.ConeCrouching = 0.067
 
 SWEP.WalkSpeed = 195
 

@@ -31,9 +31,9 @@ SWEP.Base = "weapon_zs_base_dummy"
 SWEP.ViewModel = "models/weapons/c_grenade.mdl"
 SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_grenade.mdl"
-SWEP.TotalDamage = "~375-475"
+SWEP.TotalDamage = "~300-350"
 SWEP.Primary.ClipSize = 3
-SWEP.Primary.DefaultClip = 2
+SWEP.Primary.DefaultClip = 1
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "grenade"
 SWEP.Primary.Delay = 3
@@ -68,12 +68,18 @@ function SWEP:CanPrimaryAttack()
 end
 
 function SWEP:OnDeploy()
+
 	self.NextDeploy = CurTime() + 0.025
+
 end
 
 function SWEP:OnHolster()
+
 	self.NextDeploy = nil
+	
 end
+
+
 
 function SWEP:Think()
 	if SERVER then
@@ -92,6 +98,7 @@ function SWEP:Think()
 		end
 	end		
 end
+
 
 function SWEP:PrimaryAttack()
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
@@ -124,9 +131,8 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:Reload()
-	return false
+return false
 end
-
 function SWEP:SecondaryAttack()
 	return false
 end 

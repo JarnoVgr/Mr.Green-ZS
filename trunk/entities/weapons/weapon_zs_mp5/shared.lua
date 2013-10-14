@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "MP5"			
+	SWEP.PrintName = "mp5"			
 	SWEP.Author	= "JetBoom"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 12
@@ -59,11 +59,11 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.MaxAmmo			    = 250
 
 
-SWEP.ConeMoving = 0.064
-SWEP.Cone = 0.042
-SWEP.ConeIron = 0.031
-SWEP.ConeCrouching = 0.035
-SWEP.ConeIronCrouching = 0.021
+SWEP.ConeMoving = 0.088
+SWEP.Cone = 0.081
+SWEP.ConeIron = 0.070
+SWEP.ConeCrouching = 0.071
+SWEP.ConeIronCrouching = 0.055
 
 SWEP.WalkSpeed = 195
 SWEP.MaxBulletDistance 		= 2300
