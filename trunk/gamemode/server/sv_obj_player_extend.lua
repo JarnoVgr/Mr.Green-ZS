@@ -473,11 +473,13 @@ function meta:Gib ( dmginfo )
 end
 local typetoscale
 function meta:Dismember ( distype,dmginfo )
-if not ValidEntity ( self ) then return end
-if not dmginfo then return end
+	if not dmginfo or not ValidEntity(self) then
+		return
+	end
+	
 	local Brains = {
-	"models/props_junk/watermelon01_chunk02a.mdl",
-	"models/props_junk/watermelon01_chunk01b.mdl"
+		"models/props_junk/watermelon01_chunk02a.mdl",
+		"models/props_junk/watermelon01_chunk01b.mdl"
 	}
 
 	if distype == "HEAD" then
@@ -498,7 +500,6 @@ if not dmginfo then return end
 				end
 		end
 	end	]==]	
-		
 	elseif distype == "DECAPITATION" then
 		typetoscale = 2
 		
@@ -517,7 +518,6 @@ if not dmginfo then return end
 				phys:ApplyForceCenter(Vector(0,0,50) * math.Rand(10, 38))
 			end
 		end]==]
-		
 	elseif distype == "LARM" then
 		typetoscale = 3
 	elseif distype == "RARM" then
@@ -535,24 +535,24 @@ if not dmginfo then return end
 	elseif distype == "SAWED" then
 		typetoscale = math.random(7,11)
 	end
+	
 	local effectdata = EffectData()
-		effectdata:SetEntity(self)
-		effectdata:SetScale(typetoscale)
+	effectdata:SetEntity(self)
+	effectdata:SetScale(typetoscale)
 	util.Effect("detachbone", effectdata,nil,true)
-
 end
 
 function meta:GiveAmmoReward()
-if not IsValid(self) then return end
-if not IsValid(self:GetActiveWeapon()) then return end
-if self:IsZombie() then return end
+	if not IsValid(self) or not IsValid(self:GetActiveWeapon()) or self:IsZombie() then
+		return
+	end
 
-local WeaponToFill = self:GetActiveWeapon()
-if GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" then
-	self:GiveAmmo ( math.random(5,15), WeaponToFill:GetPrimaryAmmoTypeString() )
-elseif GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic" then
-	self:GiveAmmo ( math.random(5,20), WeaponToFill:GetPrimaryAmmoTypeString() )
-end
+	local WeaponToFill = self:GetActiveWeapon()
+	if GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" then
+		self:GiveAmmo ( math.random(5,15), WeaponToFill:GetPrimaryAmmoTypeString() )
+	elseif GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic" then
+		self:GiveAmmo ( math.random(5,20), WeaponToFill:GetPrimaryAmmoTypeString() )
+	end
 	self:EmitSound("items/ammo_pickup.wav")
 end
 
@@ -565,10 +565,8 @@ function AddXP (pl, cmd, args)
 			v:AddXP(555)
 		end
 	end
-	
-	
 end
--- concommand.Add ("AddXP", AddXP)
+concommand.Add("zs_xp_add", AddXP)
 
 function Addr (pl, cmd, args)
 	if not ValidEntity (pl) then return end
@@ -577,7 +575,7 @@ function Addr (pl, cmd, args)
 	pl:AddRank(1)
 	
 end
--- concommand.Add ("Addr", Addr)
+concommand.Add("zs_rank_add", Addr)
 
 util.AddNetworkString( "SendPlayerPerk" )
 
@@ -607,9 +605,7 @@ end
 
 --*insert rage icon here please*
 function meta:ValidateXP()
-	
 	if self.DataTable and self.DataTable["ClassData"] and self.DataTable["ClassData"]["default"] and self.DataTable["ClassData"]["default"].xp and self.DataTable["ClassData"]["default"].rank then
-		
 		local rank = self:GetRank()
 		local xp = self:GetXP()
 		
@@ -620,19 +616,17 @@ function meta:ValidateXP()
 		if rank == 0 then return end
 		
 		if xp < minxp then
-			print("Checking experience for player "..tostring(self)..". Corupted experience... Restoring!")
+			print("[XP] Experience for player "..tostring(self).." corrupted. Restoring!")
 			self.DataTable["ClassData"]["default"].xp = minxp + restore
-		else
-			print("Checking experience for player "..tostring(self)..". Experience is fine!")
 		end
-		
+		--[[else
+			print("Checking experience for player "..tostring(self)..". Experience is fine!")
+		end]]		
 	end
-	
 end
+util.AddNetworkString("SendPlayerXP")
 
-util.AddNetworkString( "SendPlayerXP" )
-
-function meta:AddXP (amount)
+function meta:AddXP(amount)
 	if #player.GetAll() < XP_PLAYERS_REQUIRED then return end
 	if not ValidEntity(self) then return end
 	if self:IsBot() then return end
@@ -654,7 +648,7 @@ function meta:AddXP (amount)
 		
 		if self:GetXP() >= self:NextRankXP() then
 			self:AddRank(1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached Rank "..self:GetRank())
+			self:PrintMessage(HUD_PRINTTALK,"Congratulation, you have reached Rank "..self:GetRank())
 			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
 		end
 			
@@ -665,17 +659,10 @@ function meta:AddXP (amount)
 		net.Start("SendPlayerXP")
 			net.WriteDouble(tonumber(self.DataTable["ClassData"]["default"].xp))
 		net.Send(self)
-		
-		--[==[umsg.Start("SendPlayerXP",self)
-			-- umsg.Entity(self)
-			umsg.Long(tonumber(self.DataTable["ClassData"]["default"].xp))
-		umsg.End()]==]
 	end
-	
-	
 end
 
-util.AddNetworkString( "SendPlayerRank" )
+util.AddNetworkString("SendPlayerRank")
 
 function meta:AddRank (amount)
 	if not ValidEntity(self) then return end
@@ -695,10 +682,7 @@ function meta:AddRank (amount)
 		net.Start("SendPlayerRank")
 			net.WriteDouble(tonumber(self.DataTable["ClassData"]["default"].rank))
 		net.Send(self)
-		
-		--[==[umsg.Start("SendPlayerRank",self)
-			umsg.Long(tonumber(self.DataTable["ClassData"]["default"].rank))
-		umsg.End()]==]
+
 		if GAMEMODE.RankUnlocks[self:GetRank()] then
 			for k,v in pairs(GAMEMODE.RankUnlocks[self:GetRank()])do
 				self:UnlockNotify( v )
@@ -1817,8 +1801,8 @@ end )
 concommand.Add( "zs_boughtpointswithcoins", function( pl, cmd, args )
     if ( IsValid( pl ) ) then
         if ( pl:CanBuyPointsWithCoins() ) then
-            pl:SetFrags(math.min(2048,pl:Frags() + 400))
-            pl:TakeGreenCoins(200)          
+            pl:SetFrags(math.min(2048,pl:Frags() + 300))
+            pl:TakeGreenCoins(80)
         end
         pl:SetBoughtPointsWithCoins(true)
     end

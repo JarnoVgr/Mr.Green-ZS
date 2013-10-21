@@ -648,7 +648,7 @@ function DrawSkillShop()
         if ( not MySelf:CanBuyPointsWithCoins() ) then
             draw.SimpleTextOutlined( "WAIT NEXT ROUND", "ArialBoldTwelve", coinsToPointsW / 2, CloseButtonH / 2, Color (255,0,0,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
         else
-            draw.SimpleTextOutlined( "BUY 400SP (200GC)", "ArialBoldTwelve", coinsToPointsW / 2, CloseButtonH / 2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
+            draw.SimpleTextOutlined( "BUY 300SP (80GC)", "ArialBoldTwelve", coinsToPointsW / 2, CloseButtonH / 2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
         end
     end
     
