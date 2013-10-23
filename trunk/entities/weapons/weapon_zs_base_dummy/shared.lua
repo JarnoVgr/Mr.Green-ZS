@@ -1,7 +1,8 @@
 --Dummy base for tools and stuff
 
-if( SERVER ) then
-	AddCSLuaFile( "shared.lua" )
+AddCSLuaFile()
+
+if SERVER then
 	SWEP.Weight	= 5
 	SWEP.AutoSwitchTo = true
 	SWEP.AutoSwitchFrom	= true
@@ -14,8 +15,6 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = true
 end
-
-
 
 SWEP.Author = "NECROSSIN"
 SWEP.Contact = ""
@@ -38,14 +37,11 @@ SWEP.Secondary.Ammo = "CombineCannon"
 SWEP.DeploySpeed = 1.1
 
 function SWEP:InitializeClientsideModels()
-	
 	self.VElements = {}
-	self.WElements = {} 
-	
+	self.WElements = {}
 end
 
 function SWEP:Deploy()	
-	
 	self.Owner:StopAllLuaAnimations()
 	
 	self:OnDeploy()
@@ -53,25 +49,37 @@ function SWEP:Deploy()
 	if CLIENT then
 		self:ResetBonePositions()
 	end
-	
-	-- MakeNewArms(self)
-	
-	if SERVER then GAMEMODE:WeaponDeployed( self.Owner, self ) return true else self:SetViewModelColor ( Color(255,255,255,255) ) 
+
+	if SERVER then
+		GAMEMODE:WeaponDeployed(self.Owner, self)
+		return true
+	else
+		self:SetViewModelColor(Color(255, 255, 255, 255)) 
 	end
-	
 end
 
 function SWEP:OnDeploy()
-
 end
 
 function SWEP:PrecacheModels()
+	--
+	if not self.VElements then
+		self.VElements = {}
+	end
 
-	for k, v in pairs( self.VElements ) do
+	--
+	if not self.WElements then
+		self.WElements = {}
+	end
+
+	--Precache viewmodel elements
+	for k, v in pairs(self.VElements) do
 		if v.model then
 			util.PrecacheModel(v.model)
 		end
 	end
+
+	--Precache worldmodel elements
 	for k, v in pairs( self.WElements ) do
 		if v.model then
 			util.PrecacheModel(v.model)
@@ -80,6 +88,7 @@ function SWEP:PrecacheModels()
 end
 
 function SWEP:Precache()
+	--Precache viewmodel and worldmodel
 	util.PrecacheModel(self.ViewModel)
 	util.PrecacheModel(self.WorldModel)
 end
@@ -99,14 +108,12 @@ function SWEP:Initialize()
 	end
 	
 	self:OnInitialize()
-	
-	
 end
+
 function SWEP:CreateViewModelElements()
-	
 	self:CreateModels(self.VElements)
 	
-	 self.BuildViewModelBones = function( s )
+	self.BuildViewModelBones = function( s )
 		if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 			for k, v in pairs( self.ViewModelBoneMods ) do
 				local bone = s:LookupBone(k)
@@ -121,12 +128,10 @@ function SWEP:CreateViewModelElements()
 		end
 	end   
 
-	MakeNewArms(self)
-	
+	--MakeNewArms(self)
 end
 
 function SWEP:UpdateBonePositions(vm)
-	
 	if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
 		for k, v in pairs( self.ViewModelBoneMods ) do
 			local bone = vm:LookupBone(k)
@@ -154,20 +159,23 @@ function SWEP:UpdateBonePositions(vm)
 			end
 		end
 	end
-	
 end
 
 function SWEP:ResetBonePositions()
-	
-	if not self.Owner then return end
+	if not self.Owner then
+		return
+	end
+
 	local vm = self.Owner.GetViewModel and self.Owner:GetViewModel()
-	if not IsValid(vm) then return end
+	if not IsValid(vm) then
+		return
+	end
 	
-	if vm:GetBoneCount() then
+	if vm.GetBoneCount then
 		for i=0, vm:GetBoneCount() do
-			vm:ManipulateBoneScale( i, Vector(1, 1, 1) )
-			vm:ManipulateBoneAngles( i, Angle(0, 0, 0) )
-			vm:ManipulateBonePosition( i, Vector(0, 0, 0) )
+			vm:ManipulateBoneScale(i, Vector(1, 1, 1))
+			vm:ManipulateBoneAngles(i, Angle(0, 0, 0))
+			vm:ManipulateBonePosition(i, Vector(0, 0, 0))
 		end
 	end	
 end
@@ -196,7 +204,6 @@ function SWEP:CheckWorldModelElements()
 end
 
 function SWEP:OnInitialize()
-
 end
 
 function SWEP:PrimaryAttack()
@@ -211,19 +218,11 @@ function SWEP:Reload()
 return false
 end
 
-function SWEP:Think()
-	
-	if CLIENT then
-		-- check existance of models
-		-- self:CheckModelElements()
-	end
-	
-	-- self:OnThink()
+--[[function SWEP:Think()
 end
 
 function SWEP:OnThink()
-
-end
+end]]
 
 function SWEP:Holster()
 
@@ -238,7 +237,6 @@ function SWEP:Holster()
 end
 
 function SWEP:OnHolster()
-
 end
 
 function SWEP:OnRemove()
@@ -257,13 +255,15 @@ function SWEP:_OnRemove()
 
 end
 
-function SWEP:Equip ( NewOwner )
-	if CLIENT then return end
+function SWEP:Equip(NewOwner)
+	if CLIENT then
+		return
+	end
 	
 	self:OnEquip()
 			
 	-- Call this function to update weapon slot and others
-	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
+	gamemode.Call("OnWeaponEquip", NewOwner, self)
 end
 
 function SWEP:OnEquip()
@@ -271,7 +271,6 @@ function SWEP:OnEquip()
 end
 
 function SWEP:OnDrop()
-	-- RemoveNewArms(self)
 	self:_OnDrop()
 end
 
@@ -279,11 +278,9 @@ function SWEP:_OnDrop()
 end
 
 function SWEP:OnViewModelDrawn()
-
 end
 
 if CLIENT then
-
 	local render = render
 	local table = table
 	local pairs = pairs
@@ -291,71 +288,54 @@ if CLIENT then
 
 	SWEP.vRenderOrder = nil
 	function SWEP:ViewModelDrawn()
-		
 		self.ViewModelFOV = GetConVarNumber("_zs_wepfov") or self.ViewModelFOV
 		
-		if not self.Owner then return end
-		if not self.Owner:IsValid() then return end
-		if not self.Owner:IsPlayer() then return end
+		if not self.Owner then
+			return
+		end
+
+		if not self.Owner:IsValid() then
+			return
+		end
+
+		if not self.Owner:IsPlayer() then
+			return
+		end
 		
 		local vm = self.Owner:GetViewModel()
 		if not ValidEntity(vm) then return end
 		
-		if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then 
-		
-			vm:SetColor(Color(255,255,255,1))
-			vm:SetRenderMode(RENDERMODE_TRANSALPHA) 
-			--[[if vm:GetMaterial() ~= "Debug/hsv" then 
-				vm:SetMaterial("Debug/hsv")	
-			end]]		
+		if self.Owner.KnockedDown or (self.Owner.IsHolding and self.Owner:IsHolding()) then 
+			vm:SetColor(Color(255, 255, 255, 1))
+			vm:SetRenderMode(RENDERMODE_TRANSALPHA)
 			self:DrawWorldModel()
 		
-		return end
+			return
+		end
 		
 		if not self.OldShowViewModel then
 			self.OldShowViewModel = self.ShowViewModel or true
 		end
-		
+			
 		if not self.OldViewModelFlip then
 			self.OldViewModelFlip = self.ViewModelFlip or false
 		end
-		
-		--[==[if util.tobool(GetConVarNumber("_zs_clhands")) then
-			if self.AlwaysDrawViewModel then
-				self.ShowViewModel = true
-			else
-				self.ShowViewModel = false
-			end
-			-- self.ViewModelFlip = false
-		else
-			-- self.ViewModelFlip = self.OldViewModelFlip or false
-			self.ShowViewModel = self.OldShowViewModel or true
-		end]==]
 		
 		-- vm:SetRenderMode(RENDERMODE_TRANSALPHA) 
 		
 		if (self.ShowViewModel == nil or self.ShowViewModel) then
 			vm:SetColor(Color(255,255,255,255))
 			vm:SetRenderMode(RENDERMODE_TRANSCOLOR) 
-			--[[if vm:GetMaterial() ~= "" then 
-				vm:SetMaterial("")	
-			end]]
 		else
-			--  we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
+			--Set alpha to 1 to prevent it from not calling ViewModelDrawn anymore (which happens at 0)
 			vm:SetColor(Color(255,255,255,1)) 
 			vm:SetRenderMode(RENDERMODE_TRANSALPHA) 
-			--[[if vm:GetMaterial() ~= "Debug/hsv" then 
-				vm:SetMaterial("Debug/hsv")	
-			end]]
 		end
-		
-		
-		
+
 		if self.CheckModelElements then
 			self:CheckModelElements()	
 		end
-			
-			
+
 		--[[if vm.BuildBonePositions ~= self.BuildViewModelBones then
 			vm.BuildBonePositions = self.BuildViewModelBones
 		end]]
@@ -369,13 +349,12 @@ if CLIENT then
 		
 		self:OnViewModelDrawn()
 
-		--UpdateArms(self) -- testing
+		if not self.VElements then
+			return
+		end
 		
-		if (not self.VElements) then return end
-		
-		if (not self.vRenderOrder) then
-			
-			--  we build a render order because sprites need to be drawn after models
+		if not self.vRenderOrder then
+			--We build a render order because sprites need to be drawn after models
 			self.vRenderOrder = {}
 
 			for k, v in pairs( self.VElements ) do
@@ -385,25 +364,29 @@ if CLIENT then
 					table.insert(self.vRenderOrder, k)
 				end
 			end
-			
 		end
 
 		for k, name in ipairs( self.vRenderOrder ) do
-		
 			local v = self.VElements[name]
-			if (not v) then self.vRenderOrder = nil break end
+			if not v then
+				self.vRenderOrder = nil
+				break
+			end
 		
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
 			
-			if (not v.bone) then continue end
+			if not v.bone then
+				continue
+			end
 			
 			local pos, ang = self:GetBoneOrientation( self.VElements, v, vm )
 			
-			if (not pos) then continue end
+			if not pos then
+				continue
+			end
 			
 			if (v.type == "Model" and ValidEntity(model)) then
-
 				model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
 				ang:RotateAroundAxis(ang:Up(), v.angle.y)
 				ang:RotateAroundAxis(ang:Right(), v.angle.p)
@@ -464,30 +447,29 @@ if CLIENT then
 				cam.End3D2D()
 
 			end
-			
 		end
-		
 	end
 
 	SWEP.wRenderOrder = nil
 	function SWEP:DrawWorldModel()
-		
-		if self.Owner.IsHolding and self.Owner:IsHolding() then return end
+		if self.Owner.IsHolding and self.Owner:IsHolding() then
+			return
+		end
 		
 		if (self.ShowWorldModel == nil or self.ShowWorldModel) then
-				if self.Owner.KnockedDown and ValidEntity(self.Owner:GetRagdollEntity()) then
+				--[[if self.Owner.KnockedDown and ValidEntity(self.Owner:GetRagdollEntity()) then
 					local bone1 = self.Owner:GetRagdollEntity():LookupBone("ValveBiped.Bip01_R_Hand")
 					if (bone1) then
 					pos1, ang1 = Vector(0,0,0), Angle(0,0,0)
 					local m1 = self.Owner:GetRagdollEntity():GetBoneMatrix(bone1)
 						if (m1) then
 							pos1, ang1 = m1:GetTranslation(), m1:GetAngles()
-							-- self:SetPos(pos1)
-							-- self:SetAngles(ang1)
-							-- print(tostring(pos1))
+							self:SetPos(pos1)
+							self:SetAngles(ang1)
+							--print(tostring(pos1))
 						end
 					end	
-				end
+				end]]
 			self:DrawModel()
 		end
 		
@@ -495,10 +477,11 @@ if CLIENT then
 			self:CheckWorldModelElements()	
 		end
 		
-		if (not self.WElements) then return end
+		if not self.WElements then
+			return
+		end
 		
-		if (not self.wRenderOrder) then
-
+		if not self.wRenderOrder then
 			self.wRenderOrder = {}
 
 			for k, v in pairs( self.WElements ) do
@@ -508,7 +491,6 @@ if CLIENT then
 					table.insert(self.wRenderOrder, k)
 				end
 			end
-
 		end
 		
 		if (ValidEntity(self.Owner)) then
@@ -525,17 +507,22 @@ if CLIENT then
 		for k, name in pairs( self.wRenderOrder ) do
 		
 			local v = self.WElements[name]
-			if (not v) then self.wRenderOrder = nil break end
+			if not v then
+				self.wRenderOrder = nil
+				break
+			end
 			
 			local pos, ang
 			
 			if (v.bone) then
-				pos, ang = self:GetBoneOrientation( self.WElements, v, bone_ent )
+				pos, ang = self:GetBoneOrientation(self.WElements, v, bone_ent)
 			else
-				pos, ang = self:GetBoneOrientation( self.WElements, v, bone_ent, "ValveBiped.Bip01_R_Hand" )
+				pos, ang = self:GetBoneOrientation(self.WElements, v, bone_ent, "ValveBiped.Bip01_R_Hand")
 			end
 			
-			if (not pos) then continue end
+			if not pos then
+				continue
+			end
 			
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
@@ -602,25 +589,25 @@ if CLIENT then
 				cam.End3D2D()
 
 			end
-			
 		end
-		
 	end
 
 	function SWEP:GetBoneOrientation( basetab, tab, ent, bone_override )
-		
 		local bone, pos, ang
 		if (tab.rel and tab.rel ~= "") then
-			
 			local v = basetab[tab.rel]
 			
-			if (not v) then return end
+			if not v then
+				return
+			end
 			
 			--  Technically, if there exists an element with the same name as a bone
 			--  you can get in an infinite loop. Let's just hope nobody's that stupid.
 			pos, ang = self:GetBoneOrientation( basetab, v, ent )
 			
-			if (not pos) then return end
+			if not pos then
+				return
+			end
 			
 			pos = pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z
 			ang:RotateAroundAxis(ang:Up(), v.angle.y)
@@ -628,10 +615,11 @@ if CLIENT then
 			ang:RotateAroundAxis(ang:Forward(), v.angle.r)
 				
 		else
-		
 			bone = ent:LookupBone(bone_override or tab.bone)
 
-			if (not bone) then return end
+			if not bone then
+				return
+			end
 			
 			pos, ang = Vector(0,0,0), Angle(0,0,0)
 			local m = ent:GetBoneMatrix(bone)
@@ -650,8 +638,9 @@ if CLIENT then
 	end
 
 	function SWEP:CreateModels( tab )
-
-		if (not tab) then return end
+		if not tab then
+			return
+		end
 
 		--  Create the clientside models here because Garry says we can't do it in the render hook
 		for k, v in pairs( tab ) do
@@ -693,13 +682,6 @@ if CLIENT then
 		
 	end
 
-	-- function SWEP:OnRemove()
-	-- 	self:RemoveModels()
-		
-	-- 	RemoveNewArms(self)
-		
-	-- end
-
 	function SWEP:RemoveModels()
 		if (self.VElements) then
 			for k, v in pairs( self.VElements ) do
@@ -714,7 +696,6 @@ if CLIENT then
 		self.VElements = nil
 		self.WElements = nil
 	end
-
 end
 
 
