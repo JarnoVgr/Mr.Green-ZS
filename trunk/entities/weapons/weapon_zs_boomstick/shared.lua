@@ -15,7 +15,8 @@ if CLIENT then
 	SWEP.UseHL2Bonemerge = true
 	SWEP.ScaleDownLeftHand = true
 	
-	killicon.AddFont( "weapon_zs_boomstick", "HL2MPTypeDeath", "0", Color( 255, 255, 255, 255 ) )
+	--Killicon
+	killicon.AddFont("weapon_zs_boomstick", "HL2MPTypeDeath", "0", Color(255, 255, 255, 255))
 end
 
 SWEP.Base = "weapon_zs_base"

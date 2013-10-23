@@ -147,12 +147,13 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				
 				---------------------------------------------------------------------
 				
-				if mVictim:GetZombieClass() == 1 and mAttacker:IsPlayer() and mAttacker:IsHuman() and mInflictor:GetClass() == "weapon_zs_boomstick" then
+				if mVictim:GetZombieClass() == 1 and mAttacker:IsPlayer() and mAttacker:IsHuman() and (mInflictor:GetClass() == "weapon_zs_boomstick" or mInflictor:GetClass() == "weapon_zs_grenadelauncher") then
 					mVictim:LegsGib()
 					--skillpoints.AchieveSkillShot(mAttacker,mVictim,"pants")	
-				else
-					--skillpoints.AchieveSkillShot(mAttacker,mVictim,"meatshower")
 				end
+				--[[else
+					skillpoints.AchieveSkillShot(mAttacker,mVictim,"meatshower")
+				end]]
 			else
 			-- Use dismemberment thing
 			mVictim:CreateRagdoll()

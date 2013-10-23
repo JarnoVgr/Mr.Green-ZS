@@ -53,7 +53,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		pl.dmgNextDrown = ct + 1
 
 		return true
-	end		
+	end
 	
 	-- Physbox team-damage bug
 	if dmginfo:IsAttackerPhysbox() then
@@ -61,9 +61,17 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		if IsEntityValid( mPhysAttacker ) and mPhysAttacker:IsPlayer() then
 		
 			-- Set attacker
-			dmginfo:SetAttacker( mPhysAttacker )
+			dmginfo:SetAttacker(mPhysAttacker)
 			attacker = mPhysAttacker
 		end
+	end
+
+	print("CLASS: ".. attacker:GetClass() .." - ".. tostring(pl:IsHuman()))
+
+	--Make humans invulnerable for AR2 grenades (used by the grenade launcher)
+	if ((attacker:GetClass() == "grenade_ar2" or attacker:GetClass() == "weapon_zs_grenadelauncher") and pl:IsHuman()) or (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
+		dmginfo:SetDamage(0)
+		return true
 	end
 	
 	--Scale down explosion damage if it's the owner
@@ -147,10 +155,10 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 				
 				-- Show spark effect
 				local Spark = EffectData()
-					Spark:SetOrigin( dmginfo:GetDamagePosition() )
-					Spark:SetMagnitude( 50 )
-					Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
-				util.Effect( "MetalSpark", Spark, nil, true )
+				Spark:SetOrigin( dmginfo:GetDamagePosition() )
+				Spark:SetMagnitude( 50 )
+				Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
+				util.Effect("MetalSpark", Spark, nil, true)
 			end
 			
 			dmginfo:SetDamage( 0 )
@@ -334,29 +342,31 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	end
 	
 	-- Normal enraged zombies
-	if dmginfo:IsAttackerHuman() and pl:IsZombie() then
-		if pl:IsZombieInRage() and dmginfo:IsBulletDamage() then
+	if dmginfo:IsAttackerHuman() and pl:IsZombie() and pl:IsZombieInRage() and dmginfo:IsBulletDamage() then
+		-- Sometimes play metal sound, sometimes flesh ...
+		local iRandom, fSound = math.random( 1, 2 ), "physics/flesh/flesh_impact_bullet"..math.random( 1, 4 )..".wav"
 			
-			-- Sometimes play metal sound, sometimes flesh ...
-			local iRandom, fSound = math.random( 1, 2 ), "physics/flesh/flesh_impact_bullet"..math.random( 1, 4 )..".wav"
+		-- Metal sound
+		if iRandom == 1 then
+			fSound = "physics/metal/metal_box_impact_bullet"..math.random( 1, 3 )..".wav"
+			WorldSound( fSound, pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
+		end
 			
-			-- Metal sound
-			if iRandom == 1 then
-				fSound = "physics/metal/metal_box_impact_bullet"..math.random( 1, 3 )..".wav"
-				WorldSound( fSound, pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
-			end
+		-- Show spark effect
+		if Random == 1 then
+			local Spark = EffectData()
+			Spark:SetOrigin( dmginfo:GetDamagePosition() )
+			Spark:SetMagnitude( 50 )
+			Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
+			util.Effect( "MetalSpark", Spark, nil, true )
+		end
 			
-			-- Show spark effect
-			if Random == 1 then
-				local Spark = EffectData()
-					Spark:SetOrigin( dmginfo:GetDamagePosition() )
-					Spark:SetMagnitude( 50 )
-					Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
-				util.Effect( "MetalSpark", Spark, nil, true )
-			end
-			
-			-- Reduce damage by 100% on random chance, else only 50%
-			if Random == 1 then dmginfo:SetDamage( 0 ) return true else dmginfo:SetDamage( dmginfo:GetDamage() * 0.5 ) end
+		-- Reduce damage by 100% on random chance, else only 50%
+		if Random == 1 then
+			dmginfo:SetDamage(0)
+			return true
+		else
+			dmginfo:SetDamage(dmginfo:GetDamage() * 0.5)
 		end
 	end
 	
@@ -366,9 +376,9 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	end]]
 	
 	-- Identify our last attacker and inflictor
-	pl:InsertLastDamage( dmginfo:GetPlayerAttacker(), dmginfo:GetInflictor() )
+	pl:InsertLastDamage(dmginfo:GetPlayerAttacker(), dmginfo:GetInflictor())
 end
-hook.Add( "ScalePlayersDamage", "ScalePlayersDamage", ScalePlayerDamage )
+hook.Add("ScalePlayersDamage", "ScalePlayersDamage", ScalePlayerDamage)
 
 -- Multi-damage nerf
 function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)

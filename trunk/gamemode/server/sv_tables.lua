@@ -101,10 +101,12 @@ VoiceSetTranslate["models/player/hostage/hostage_04.mdl"] = "male"
 ---------------------------------------------------------]==]
 ResourceFiles = {}
 
+--Fonts
 for _, filename in pairs(file.Find("resource/fonts/*.*", "GAME" ) ) do
 	table.insert ( ResourceFiles, "resource/fonts/"..filename  )
 end
 
+--
 for _, filename in pairs(file.Find("materials/zombiesurvival/*.*", "GAME" ) ) do
 	table.insert ( ResourceFiles, "materials/zombiesurvival/"..filename  )
 end
@@ -306,8 +308,17 @@ table.insert ( ResourceFiles, "models/zombie/zombie_soldier_animations.ani" )
 table.insert ( ResourceFiles, "materials/models/zombie_classic/combinesoldiersheet_zombie.vtf" ) 
 table.insert ( ResourceFiles, "materials/models/zombie_classic/combinesoldiersheet_zombie.vmt" ) 
 table.insert ( ResourceFiles, "materials/models/zombie_classic/combinesoldiersheet.vmt" ) 
-for _, filename in pairs( file.Find( "sound/npc/zombine/*.wav", "GAME" ) ) do
-	table.insert ( ResourceFiles, "sound/npc/zombine/"..filename  )
+for _, filename in pairs(file.Find("sound/npc/zombine/*.wav", "GAME")) do
+	table.insert(ResourceFiles, "sound/npc/zombine/"..filename)
+end
+
+--Grenade Launcher
+table.insert(ResourceFiles, "models/weapons/c_sw_grenadelauncher.mdl")
+table.insert(ResourceFiles, "models/weapons/w_sw_grenadelauncher.mdl")
+table.insert(ResourceFiles, "sound/weapons/sw_grenadelauncher/sw_gl_fire.wav")
+table.insert(ResourceFiles, "sound/weapons/sw_grenadelauncher/sw_gl_reload.wav")
+for _, filename in pairs(file.Find("materials/models/weapons/sw_grenadelauncher/*.*", "GAME")) do
+	table.insert(ResourceFiles, "materials/models/weapons/sw_grenadelauncher/"..filename)
 end
 
 --Green Zombie sounds

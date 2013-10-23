@@ -18,12 +18,12 @@ for k, sFile in pairs ( file.Find( "zombiesurvival/gamemode/server/entitytakedam
 end
 
 -- Main damage event
-function GM:EntityTakeDamage( ent,dmginfo )
+function GM:EntityTakeDamage(ent, dmginfo)
 	local attacker = dmginfo:GetAttacker()
 	local inflictor = dmginfo:GetInflictor()
 	local damage = dmginfo:GetDamage()
 	
-	-- End on null damage or on endround
+	--End on null damage or at intermission
 	if dmginfo:IsDamageNull() or ENDROUND then 
 		dmginfo:SetDamage(0)
 		return 
@@ -42,7 +42,9 @@ function GM:EntityTakeDamage( ent,dmginfo )
 				ent._LastAttackerIsHuman = true
 			end
 			
-			if not ent.TotalHealth then ent.TotalHealth = ent.PropHealth end
+			if not ent.TotalHealth then
+				ent.TotalHealth = ent.PropHealth
+			end
 
 			ent.PropHealth = ent.PropHealth - damage
 

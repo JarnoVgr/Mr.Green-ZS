@@ -356,7 +356,7 @@ util.PrecacheSound("mrgreen/ui/gamestartup1.mp3")
 if not killicon.GetFont then -- Need this for the rewards message.
 	local kiaf = killicon.AddFont
 	local storedfonts = {}
-	local HL2Weapons = { "weapon_zs_melee_crowbar","weapon_zs_shotgun","weapon_zs_crossbow","weapon_zs_smg", "weapon_zs_pulserifle", "weapon_zs_magnum", "weapon_zs_barricadekit", "christmas_snowball",  "weapon_zs_grenade", "weapon_zs_pulsesmg", "weapon_zs_annabelle","admin_raverifle","weapon_zs_boomstick","weapon_zs_minishotty","weapon_zs_classic"}
+	local HL2Weapons = { "weapon_zs_melee_crowbar","weapon_zs_shotgun","weapon_zs_crossbow","weapon_zs_smg", "weapon_zs_pulserifle", "weapon_zs_magnum", "weapon_zs_barricadekit", "christmas_snowball",  "weapon_zs_grenade", "weapon_zs_pulsesmg", "weapon_zs_annabelle","admin_raverifle","weapon_zs_boomstick","weapon_zs_grenadelauncher","weapon_zs_minishotty","weapon_zs_classic"}
 	local ZSWeapons = { "weapon_zs_melee_axe","weapon_zs_melee_fryingpan","weapon_zs_melee_keyboard","weapon_zs_melee_pot", "weapon_zs_melee_plank", "weapon_zs_tools_hammer", "weapon_zs_melee_katana" }
 	
 	function killicon.AddFont(sClass, sFont, sLetter, cColor)
