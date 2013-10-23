@@ -172,9 +172,9 @@ local EyePos = EyePos
 local EyeAngles = EyeAngles
 local zombies = 0
 function CalculateColorMod()
-	if not ValidEntity ( MySelf ) then return end
-	
-	
+	if not ValidEntity(MySelf) then
+		return
+	end
 	
 	-- Undead side post proccesing
 	if MySelf:Team() == TEAM_UNDEAD then
@@ -194,9 +194,7 @@ function CalculateColorMod()
 			ColorMod[k] = math.Approach ( ColorMod[k], ApproachTo, ApproachTo * ApproachMul )
 		end
 	end
-	
-	--HCOLORMOD = util.tobool( GetConVarNumber("_zs_hcolormod") )
-	--COLORMOD = util.tobool( GetConVarNumber("_zs_enablecolormod") )
+
 	HCOLORMOD = true
 	COLORMOD = true
 	

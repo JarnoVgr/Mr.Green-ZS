@@ -123,9 +123,10 @@ function SWEP:PrimaryAttack()
 	if not self:CanPrimaryAttack() then
 		return
 	end
-	self.Weapon:SetNextPrimaryFire( CurTime() + 0.9 )
+
+	self.Weapon:SetNextPrimaryFire(CurTime() + 0.9)
 	self:EmitSound("weapons/sw_grenadelauncher/sw_gl_fire.wav")
-	self:ShootEffects( self )
+	self:ShootEffects(self)
 	self:TakePrimaryAmmo(1)
 	
 	if not SERVER then
@@ -136,17 +137,16 @@ function SWEP:PrimaryAttack()
 	local Right = self.Owner:EyeAngles():Right()
 	local Up = self.Owner:EyeAngles():Up()
 	
-	local ent = ents.Create( "grenade_ar2" )
+	local ent = ents.Create("grenade_ar2")
 	if IsValid(ent) then
 		ent:SetPos( self.Owner:GetShootPos() + Forward * 12 + Right * 6 + Up * -5)
-		ent:SetAngles( self.Owner:EyeAngles() )
+		ent:SetAngles(self.Owner:EyeAngles())
 		ent:SetOwner(self.Owner)
 		ent:Spawn()	
 		ent:SetVelocity(Forward * 1800)
-		
 	end
 
-	local ent2 = ents.Create( "grenade_ar2" )
+	local ent2 = ents.Create("grenade_ar2")
 	if IsValid(ent2) then	
 		ent2:SetPos( self.Owner:GetShootPos() + Forward * 12 + Right * 6 + Up * -5)
 		ent2:SetAngles( self.Owner:EyeAngles() )

@@ -7,6 +7,7 @@ function ENT:Initialize()
 	local owner = self:GetOwner()
 	if owner:IsPlayer() then
 		owner:SetNoDraw(true)
+		owner:DrawViewModel(false)
 		owner.KnockedDown = self
 	end
 end
@@ -15,13 +16,8 @@ function ENT:OnRemove()
 	local owner = self:GetOwner()
 	if IsValid(owner) then
 		owner:SetNoDraw(false)
+		owner:DrawViewModel(true)
 		owner.KnockedDown = false
-		--[=[if 0 < owner:Health() then
-			local rag = owner:GetRagdollEntity()
-			if rag and rag:IsValid() then
-				rag:Remove()
-			end
-		end]=]
 	end
 end
 

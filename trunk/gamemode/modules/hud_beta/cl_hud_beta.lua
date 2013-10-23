@@ -308,18 +308,14 @@ function hud.DrawNewZombieHUD()
 		return
 	end
 	
-	if not MySelf.HRBar then
+	--[[if not MySelf.HRBar then
 		MySelf.HRBar = MySelf:GetHordeCount()
 	end
 	
-
-	local HORDE = util.tobool(GetConVarNumber("_zs_showhorde")) 
 	
-	if not HORDE then return end
-
 	local max = math.min(cached_zombies,HORDE_MAX_ZOMBIES)
 	
-	MySelf.HRBar = math.Clamp ( math.Approach ( MySelf.HRBar, MySelf:GetHordeCount(), FrameTime() * 5 ), 0, math.Clamp(max-1,0,max ))
+	MySelf.HRBar = math.Clamp(math.Approach(MySelf.HRBar, MySelf:GetHordeCount(), FrameTime() * 5), 0, math.Clamp(max-1,0,max))
 
 	if MySelf.HRBar <= 0 then return end
 	--Draw Horde status
@@ -337,7 +333,7 @@ function hud.DrawNewZombieHUD()
 	surface.SetTexture ( hud.boostmat )
 	surface.DrawTexturedRect ( matX, matY, matW, matH ) 
 
-	draw.SimpleTextOutlined("Damage resistance", "ArialBoldFive", w/2 , sy-3, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	draw.SimpleTextOutlined("Horde size", "ArialBoldFive", w/2 , sy-3, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	
 	sy = sy+5
 	
@@ -355,7 +351,7 @@ function hud.DrawNewZombieHUD()
 		surface.SetDrawColor( 230,1,1,( math.sin(RealTime() * 8) * 127.5 ) + 150.5 )
 	end
 	
-	surface.DrawRect(sx+3 , sy+2.5, ((MySelf.HRBar)/math.Clamp(max-1,0,max ))*(swide-6),stall-6 )	
+	surface.DrawRect(sx+3 , sy+2.5, ((MySelf.HRBar)/math.Clamp(max-1,0,max ))*(swide-6),stall-6 )]]
 end
 
 hud.LeftGradient = surface.GetTextureID( "gui/gradient" )
@@ -374,15 +370,6 @@ function hud.DrawNewHumanHUD()
 	hud.DrawInflictionPanel()
 	hud.DrawStatsPanel()
 	hud.DrawZeroWaveMessage()
-	
-	--[[local ENABLE_HPBAR = util.tobool(GetConVarNumber("_zs_enablehpbar"))
-	if ENABLE_HPBAR then
-	 	hud.SmallHPPanel(170,ScrH()-90,185,60)
-	end]]
-	
-	if GAMEMODE:IsRetroMode() then
-		draw.SimpleTextOutlined("RETRO APOCALYPSE", "NewZombieFont13", w/2 , h-23*2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	end
 
 	if OBJECTIVE then
 		surface.SetTexture(hud.LeftGradient)
@@ -402,7 +389,10 @@ function hud.DrawWeaponLabels()
     if not MySelf.ReadySQL or not MySelf:Alive() or not MySelf:IsHuman() or IsClassesMenuOpen() then
     	return
     end
-    -- if IsSkillShopOpen() then return end
+	
+    --[[if IsSkillShopOpen() then
+		return
+	end]]
     
     if util.tobool(GetConVarNumber("_zs_hidehud")) then
     	return
@@ -410,9 +400,9 @@ function hud.DrawWeaponLabels()
     
     --Draw weapon name labels
     local ents = ents.FindByClass( "weapon_*" )
-    for k, ent in pairs( ents ) do
+    for k, ent in pairs(ents) do
         if ent:IsWeapon() then
-            if not IsValid( ent:GetOwner() ) and ( ent:GetPos():Distance( LocalPlayer():GetPos() ) < 512 ) then
+            if not IsValid(ent:GetOwner()) and (ent:GetPos():Distance( LocalPlayer():GetPos() ) < 512) then
                 local camPos = ent:GetPos() + Vector( 0, 0, 8 )
                 local camAngle = ( LocalPlayer():GetPos() - ent:GetPos() ):Angle()
                 

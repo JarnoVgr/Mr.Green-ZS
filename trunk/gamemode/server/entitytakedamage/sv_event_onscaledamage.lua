@@ -66,8 +66,6 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 	end
 
-	print("CLASS: ".. attacker:GetClass() .." - ".. tostring(pl:IsHuman()))
-
 	--Make humans invulnerable for AR2 grenades (used by the grenade launcher)
 	if ((attacker:GetClass() == "grenade_ar2" or attacker:GetClass() == "weapon_zs_grenadelauncher") and pl:IsHuman()) or (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
 		dmginfo:SetDamage(0)
@@ -112,30 +110,20 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	end
 
 	--remove unnesessary damage
-	if dmginfo:IsPhysDamage() then
-		if not dmginfo:IsAttackerPlayer() and not dmginfo:IsInflictorPlayer() then
-			if dmginfo:GetAttacker().IsObjEntity then
-				dmginfo:SetDamage( 0 )
-				return true
-			end
-		end
+	if dmginfo:IsPhysDamage() and not dmginfo:IsAttackerPlayer() and not dmginfo:IsInflictorPlayer() and dmginfo:GetAttacker().IsObjEntity then
+		dmginfo:SetDamage( 0 )
+		return true
 	end
 
 	-- No phys damage between humans and zombies
-	if dmginfo:IsAttackerHuman() then
-		if pl:IsZombie() then
-			if dmginfo:IsPhysDamage() then
-				dmginfo:SetDamage( 0 )
-				return true
-			end
-		end
+	if dmginfo:IsAttackerHuman() and pl:IsZombie() and dmginfo:IsPhysDamage() then
+		dmginfo:SetDamage( 0 )
+		return true
 	end
 	
 	--Check for explosion damage immunity
-	if dmginfo:IsExplosionDamage() then
-		if pl.NoExplosiveDamage and pl.NoExplosiveDamage >= CurTime() then
-			dmginfo:ScaleDamage( 0.5 )
-		end		
+	if dmginfo:IsExplosionDamage() and pl.NoExplosiveDamage and pl.NoExplosiveDamage >= CurTime() then
+		dmginfo:ScaleDamage( 0.5 )
 	end
 	
 	--Fix all zombie gun exploits in one go
@@ -150,10 +138,10 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	if dmginfo:IsAttackerHuman() and pl:IsZombie() then
 		if dmginfo:IsBulletDamage() and pl:HasHowlerProtection() then
 			if math.random(3) == 3 then
-				-- Play metal sound
+				--Play metal sound
 				WorldSound( "physics/metal/metal_box_impact_bullet"..math.random( 1, 3 )..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
 				
-				-- Show spark effect
+				--Show spark effect
 				local Spark = EffectData()
 				Spark:SetOrigin( dmginfo:GetDamagePosition() )
 				Spark:SetMagnitude( 50 )
@@ -264,12 +252,12 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			
 		--Fall damage for humans
 		if pl:IsHuman() then
-			local speed, div_factor = math.abs( pl:GetVelocity().z ), 24
-			local Damage = math.Clamp ( speed / div_factor, 5, 90 )
+			local speed, div_factor = math.abs(pl:GetVelocity().z), 24
+			local Damage = math.Clamp(speed / div_factor, 5, 90)
 				
 			--Shake camera
 			if pl.ViewPunch then
-				pl:ViewPunch ( Angle ( math.random ( -45,45 ),math.random ( -15,15 ),math.random ( -10,10 ) ) )
+				pl:ViewPunch(Angle(math.random(-45, 45),math.random (-15, 15), math.random(-10, 10)))
 			end 
 			
 			if pl:GetPerk("_falldmg") then
@@ -353,7 +341,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 			
 		-- Show spark effect
-		if Random == 1 then
+		if iRandom == 1 then
 			local Spark = EffectData()
 			Spark:SetOrigin( dmginfo:GetDamagePosition() )
 			Spark:SetMagnitude( 50 )
@@ -362,7 +350,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 			
 		-- Reduce damage by 100% on random chance, else only 50%
-		if Random == 1 then
+		if iRandom == 1 then
 			dmginfo:SetDamage(0)
 			return true
 		else

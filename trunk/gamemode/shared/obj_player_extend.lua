@@ -76,9 +76,7 @@ end
 
 local LastHordeCount = 0
 local LastHordeTime = 0
-
 function meta:GetHordeCount(beat)
-	
 	if LastHordeTime <= CurTime() then
 		LastHordeTime = CurTime() + 1
 		
@@ -93,31 +91,25 @@ function meta:GetHordeCount(beat)
 	return LastHordeCount or 0
 end
 
---[==[function meta:GetHordeCount(beat)
-
-	-- self._LastHordeCount = self._LastHordeCount or 0
-	
-	if self._LastHordeTime and self._LastHordeTime >= CurTime() and SERVER then
-		return self._LastHordeCount
+local LastResistanceCount = 0
+local LastResistanceTime = 0
+function meta:GetResistanceCount()
+	if LastResistanceTime <= CurTime() then
+		LastResistanceTime = CurTime() + 1
+		
+		local max = math.min(team.NumPlayers(TEAM_UNDEAD),HORDE_MAX_ZOMBIES)
+		if beat then
+			max = 10
+		end
+		
+		LastResistanceCount = math.Clamp(team.NumPlayers(TEAM_UNDEAD) - GetZombieFocus(self, HORDE_MAX_DISTANCE), 0, max)
 	end
 
-	local max = math.min(team.NumPlayers(TEAM_UNDEAD),HORDE_MAX_ZOMBIES)
-	if beat then
-		max = 10
-	end
-	
-	self._LastHordeCount = math.Clamp(GetZombieFocus( self, HORDE_MAX_DISTANCE ),0,max)
-	
-	-- if self:IsZombieInHorde() then-- if self.InHorde and self.InHorde > CurTime() then
-		return self._LastHordeCount or 0
-	-- end
-end]==]
+	return LastResistanceCount or 0
+end
 
 function meta:GetHordePercent()
-	-- if self:IsZombieInHorde() then
-		return (self:GetHordeCount()/HORDE_MAX_ZOMBIES)*(HORDE_MAX_RESISTANCE/100) or 0
-	-- end
-	-- return 0
+	return (self:GetHordeCount()/HORDE_MAX_ZOMBIES)*(HORDE_MAX_RESISTANCE/100) or 0
 end
 
 -- Get spawn time
@@ -132,18 +124,21 @@ end
 
 -- Get time limit
 function meta:GetSpawnTimeLimit()
-	if self:IsHuman() then return 60 else return 20 end
+	if self:IsHuman() then
+		return 60
+	else
+		return 20
+	end
 end
 
 -- Get spawn time protection
 function meta:GetSpawnTimeProtection()
-
 	-- Time limit for protection
 	local TimeLimit, iDiff = self:GetSpawnTimeLimit()
 	
 	-- Calculate appropriate time
 	if self:IsHuman() then iDiff = 0 else iDiff = TimeLimit end
-	return math.Clamp( math.abs( iDiff - ( GetInfliction() * TimeLimit ) ), 5, TimeLimit )
+	return math.Clamp(math.abs(iDiff - (GetInfliction() * TimeLimit)), 5, TimeLimit)
 end
 
 -- Get suitable damage
@@ -153,7 +148,7 @@ function meta:GetSpawnDamagePercent()
 	local Time = self:GetSpawnTimeProtection()
 
 	-- Percent damage reduction
-	return math.Clamp( ( Time - math.abs( CurTime() - self:GetSpawnTime() ) ) / Time, 0, 1 )
+	return math.Clamp((Time - math.abs(CurTime() - self:GetSpawnTime())) / Time, 0, 1)
 end
 
 -- Hook on spawn
