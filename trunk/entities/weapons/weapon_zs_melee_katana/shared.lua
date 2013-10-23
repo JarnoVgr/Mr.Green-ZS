@@ -21,8 +21,8 @@ SWEP.SlotPos = 6
 SWEP.DeploySpeed = 0.6
 -- Damage, distane, delay
 
-SWEP.MeleeDamage = 102
-SWEP.MeleeRange = 70
+SWEP.MeleeDamage = 113
+SWEP.MeleeRange = 67
 SWEP.MeleeSize = 1.25
 SWEP.Primary.Delay = 0.50
 SWEP.TotalDamage = SWEP.Primary.Damage

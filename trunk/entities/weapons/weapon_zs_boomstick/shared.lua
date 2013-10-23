@@ -15,8 +15,7 @@ if CLIENT then
 	SWEP.UseHL2Bonemerge = true
 	SWEP.ScaleDownLeftHand = true
 	
-	--Killicon
-	killicon.AddFont("weapon_zs_boomstick", "HL2MPTypeDeath", "0", Color(255, 255, 255, 255))
+	killicon.AddFont( "weapon_zs_boomstick", "HL2MPTypeDeath", "0", Color( 255, 255, 255, 255 ) )
 end
 
 SWEP.Base = "weapon_zs_base"
@@ -33,7 +32,7 @@ SWEP.HoldType = "shotgun"
 util.PrecacheSound("weapons/shotgun/shotgun_dbl_fire.wav")
 SWEP.Primary.Sound = "weapons/shotgun/shotgun_dbl_fire.wav"
 SWEP.Primary.Recoil = 28
-SWEP.Primary.Damage = 34
+SWEP.Primary.Damage = 38
 SWEP.Primary.NumShots = 6
 SWEP.Primary.Delay = 1.6
 

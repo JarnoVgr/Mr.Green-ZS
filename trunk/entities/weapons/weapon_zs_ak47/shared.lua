@@ -51,7 +51,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AK47.Single")
 SWEP.Primary.Recoil			= 10
-SWEP.Primary.Damage			= 21
+SWEP.Primary.Damage			= 23
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
 SWEP.storeclipsize			= 25
@@ -62,11 +62,11 @@ SWEP.Primary.Ammo			= "ar2"
 SWEP.MaxBulletDistance 		= 3500
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.ConeMoving = 0.088
-SWEP.Cone = 0.076
-SWEP.ConeIron = 0.064
-SWEP.ConeCrouching = 0.068
-SWEP.ConeIronCrouching = 0.057
+SWEP.ConeMoving = 0.096
+SWEP.Cone = 0.069
+SWEP.ConeIron = 0.048
+SWEP.ConeCrouching = 0.039
+SWEP.ConeIronCrouching = 0.028
 
 
 SWEP.MaxAmmo			    = 9999

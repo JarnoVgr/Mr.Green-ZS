@@ -22,11 +22,11 @@ SWEP.SlotPos = 6
 
 -- Damage, distane, delay
 
-SWEP.Primary.Delay = 0.55
+SWEP.Primary.Delay = 0.62
 
 SWEP.HoldType = "knife"
 
-SWEP.MeleeDamage = 17
+SWEP.MeleeDamage = 21
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
 SWEP.WalkSpeed = 215
@@ -51,9 +51,8 @@ function SWEP:PlayHitFleshSound()
 end
 
 -- Killicon
-if CLIENT then
-	killicon.AddFont( "weapon_zs_melee_combatknife", "CSKillIcons", "j", Color(255, 255, 255, 255 ) ) 
-	SWEP.ShowViewModel = true
+if CLIENT then killicon.AddFont( "weapon_zs_melee_combatknife", "CSKillIcons", "j", Color(255, 255, 255, 255 ) ) 
+SWEP.ShowViewModel = true
 -- SWEP.FlipYaw = true
 end
 

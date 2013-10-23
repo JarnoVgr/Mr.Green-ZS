@@ -60,11 +60,11 @@ SWEP.Secondary.Delay = 0.5
 
 SWEP.WalkSpeed = 195
 
-SWEP.ConeMoving = 0.080
-SWEP.Cone = 0.072
-SWEP.ConeIron = 0.062
-SWEP.ConeCrouching = 0.063
-SWEP.ConeIronCrouching = 0.043
+SWEP.ConeMoving = 0.076
+SWEP.Cone = 0.053
+SWEP.ConeIron = 0.041
+SWEP.ConeCrouching = 0.029
+SWEP.ConeIronCrouching = 0.019
 
 
 SWEP.IronSightsPos = Vector(-7.881, -18.504, 2.599)

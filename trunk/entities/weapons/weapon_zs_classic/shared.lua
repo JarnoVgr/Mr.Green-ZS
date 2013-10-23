@@ -45,11 +45,11 @@ SWEP.ConeMoving                         = 0.08 -- 0.18
 SWEP.ConeCrouching                      = 0.04 -- 0.06
 SWEP.WalkSpeed = 200
  
-SWEP.ConeMoving = 0.063
-SWEP.Cone = 0.055
-SWEP.ConeIron = 0.051
-SWEP.ConeCrouching = 0.048
-SWEP.ConeIronCrouching = 0.036
+SWEP.ConeMoving = 0.062
+SWEP.Cone = 0.045
+SWEP.ConeIron = 0.022
+SWEP.ConeCrouching = 0.032
+SWEP.ConeIronCrouching = 0.014
  
 --[==[SWEP.IronSightsPos = Vector(-5.85, -3,4, 0)
 SWEP.IronSightsAng = Vector(0.15, -1, 1.5)]==]

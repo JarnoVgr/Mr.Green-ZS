@@ -39,7 +39,7 @@ SWEP.Primary.ReloadDelay	= 2
 SWEP.IronSightsPos = Vector(-7.481, -11.891, 2.24)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
-SWEP.ConeMoving = 0.09
+SWEP.ConeMoving = 0.71
 SWEP.Cone = 0.01
 SWEP.ConeIron = 0.001
 SWEP.ConeCrouching = 0.01
