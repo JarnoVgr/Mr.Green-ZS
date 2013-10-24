@@ -153,7 +153,8 @@ function SWEP:PrimaryAttack()
 
 	ent:SetHealth(health + toheal)
 	ent:EmitSound("items/medshot4.wav")
-						
+
+	--HERE PATCH YOURSELF UP
 	if math.random(9) == 9 then
 		if VoiceSets[owner.VoiceSet] then
 			local snd = VoiceSets[owner.VoiceSet].HealSounds or {}

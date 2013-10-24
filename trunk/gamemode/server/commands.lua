@@ -105,16 +105,16 @@ function DropWeapon(pl, commandName, args)
 	end
 	
 	-- Save ammo information from weapon
-	if GetWeaponCategory ( Weapon:GetClass() ) ~= "Melee" then
+	if GetWeaponCategory(Weapon:GetClass()) ~= "Melee" then
 		Weapon.Primary.RemainingAmmo = Weapon:Clip1()
-		Weapon.Primary.Magazine = pl:GetAmmoCount( Weapon:GetPrimaryAmmoTypeString() )
+		Weapon.Primary.Magazine = pl:GetAmmoCount(Weapon:GetPrimaryAmmoTypeString())
 	end
 	
 	--
-	if GetWeaponCategory ( Weapon:GetClass() ) == "Tool1" or GetWeaponCategory ( Weapon:GetClass() ) == "Tool2" then
+	if GetWeaponCategory(Weapon:GetClass()) == "Tool1" or GetWeaponCategory(Weapon:GetClass()) == "Tool2" then
 		Weapon.Ammunition = Weapon:Clip1()
 		if wepname == "weapon_zs_medkit" then
-			Weapon.RemainingAmmunition = pl:GetAmmoCount( Weapon:GetPrimaryAmmoTypeString() )
+			Weapon.RemainingAmmunition = pl:GetAmmoCount(Weapon:GetPrimaryAmmoTypeString())
 		end
 	end
 	

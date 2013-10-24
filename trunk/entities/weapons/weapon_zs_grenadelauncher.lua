@@ -139,18 +139,20 @@ function SWEP:PrimaryAttack()
 	
 	local ent = ents.Create("grenade_ar2")
 	if IsValid(ent) then
-		ent:SetPos( self.Owner:GetShootPos() + Forward * 12 + Right * 6 + Up * -5)
+		ent:SetPos(self.Owner:GetShootPos() + Forward * 12 + Right * 6 + Up * -5)
 		ent:SetAngles(self.Owner:EyeAngles())
 		ent:SetOwner(self.Owner)
+		ent:SetPhysicsAttacker(self.Owner)
 		ent:Spawn()	
 		ent:SetVelocity(Forward * 1800)
 	end
 
 	local ent2 = ents.Create("grenade_ar2")
 	if IsValid(ent2) then	
-		ent2:SetPos( self.Owner:GetShootPos() + Forward * 12 + Right * 6 + Up * -5)
-		ent2:SetAngles( self.Owner:EyeAngles() )
+		ent2:SetPos(self.Owner:GetShootPos() + Forward * 12 + Right * 6 + Up * -5)
+		ent2:SetAngles(self.Owner:EyeAngles())
 		ent2:SetOwner(self.Owner)
+		ent2:SetPhysicsAttacker(self.Owner)
 		ent2:Spawn()	
 		ent2:SetVelocity(Forward * 1800)
 		ent2:SetCollisionGroup(COLLISION_GROUP_DEBRIS)

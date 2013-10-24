@@ -128,18 +128,33 @@ function SWEP:Equip(NewOwner)
 	gamemode.Call("OnWeaponEquip", NewOwner, self)
 end
 
-function SWEP:OnDeploy()
-	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
-	self.Weapon:SetNextPrimaryFire(CurTime() + 0.3)
-	self.Weapon:SetNextSecondaryFire(CurTime() + 0.3)
+function SWEP:OnInitialize()
+	self.FirstThink = false
+end
 
-	if SERVER then
+function SWEP:Think()
+	if not SERVER then
+		return
+	end
+	
+	if self.FirstThink then
 		local owner = self.Owner
 		local effectdata = EffectData()
 		effectdata:SetEntity(owner)
 		effectdata:SetOrigin(owner:GetShootPos() + owner:GetAimVector() * 32)
 		effectdata:SetNormal(owner:GetAimVector())
 		util.Effect("crateghost", effectdata, true, true)
+		self.FirstThink = false
+	end
+end
+
+function SWEP:OnDeploy()
+	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
+	self.Weapon:SetNextPrimaryFire(CurTime() + 0.3)
+	self.Weapon:SetNextSecondaryFire(CurTime() + 0.3)
+
+	if SERVER then
+		self.FirstThink = true
 	end
 end
 
@@ -183,6 +198,9 @@ function SWEP:PrimaryAttack()
 		if not canPlaceCrate then
 			return
 		end
+
+		--Display animation
+		self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 
 		--Create entity
 		local angles = aimvec:Angle()

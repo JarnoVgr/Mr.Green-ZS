@@ -29,7 +29,6 @@ SWEP.DummyModel = true
 end
 
 function SWEP:InitializeClientsideModels()
-	
 	self.VElements = {
 		["hammer"] = { type = "Model", model = "models/weapons/w_hammer.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.318, 1.506, 0.449), angle = Angle(14.951, -5.289, 175.268), size = Vector(1.299, 1.299, 1.299), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
