@@ -1,11 +1,9 @@
-if SERVER then
-	AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
 
 if CLIENT then
-	SWEP.ViewModelFOV = 65
-	SWEP.BobScale = 2
-	SWEP.SwayScale = 1.5
+	SWEP.ViewModelFOV = 54
+	--[[SWEP.BobScale = 2
+	SWEP.SwayScale = 1.5]]
 	SWEP.PrintName = "Medkit"
 
 	SWEP.Slot = 4
@@ -20,10 +18,10 @@ if CLIENT then
 	--SWEP.ShowWorldModel = false
 
 	SWEP.ShowViewModel = true
-	SWEP.ShowWorldModel = false
-	SWEP.IgnoreBonemerge = true
+	SWEP.ShowWorldModel = true
+	--SWEP.IgnoreBonemerge = true
 	
-	SWEP.IgnoreThumbs = true
+	--SWEP.IgnoreThumbs = true
 	
 	SWEP.NoHUD = true
 		
@@ -31,10 +29,11 @@ if CLIENT then
 	
 end
 
-SWEP.WorldModel = "models/Weapons/w_package.mdl"
-SWEP.ViewModel = "models/weapons/v_c4.mdl"--models/weapons/v_hands.mdlmodels/weapons/v_healthkit.mdl
+SWEP.ViewModel = "models/weapons/c_medkit.mdl"
+SWEP.UseHands = true
+SWEP.WorldModel = "models/weapons/w_medkit.mdl"
 
-SWEP.Base				= "weapon_zs_base_dummy"
+SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.Primary.Delay = 0.01
 
@@ -62,159 +61,182 @@ SWEP.HoldType = "slam"
 
 SWEP.NoDeployDelay = true
 
-function SWEP:InitializeClientsideModels()
-	
-	self.ViewModelBoneMods = {
-		["v_weapon.button2"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.c4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button5"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button0"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.Left_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(-0.486, 0.456, 0.785), angle = Angle(0, 0.638, 0) },
-		["v_weapon.button3"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.Right_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(6.224, 3.197, -1.892) },
-		["v_weapon.button6"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button8"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button1"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button9"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button7"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
-	}
-
-	
-	self.VElements = {
-		["medkit"] = { type = "Model", model = "models/items/HealthKit.mdl", bone = "v_weapon.c4", rel = "", pos = Vector(-2.849, 0.319, 1.254), angle = Angle(-93, 90, 5), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
-	
-	self.WElements = {
-		["medkit"] = { type = "Model", model = "models/items/HealthKit.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.224, 5.181, -1.887), angle = Angle(40.43, 174.731, -180), size = Vector(0.6, 0.6, 0.6), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
-	
-end
+--[[function SWEP:InitializeClientsideModels()
+end]]
 
 function SWEP:OnInitialize()
-	if SERVER then
-		self.Weapon.FirstSpawn = true
-	end	
+	if not SERVER then
+		return
+	end
+	
+	self.Weapon.FirstSpawn = true
 end
 
-function SWEP:Think()
+--[[function SWEP:Think()
 	if self.IdleAnimation and self.IdleAnimation <= CurTime() then
 		self.IdleAnimation = nil
 		--self:SendWeaponAnim(ACT_VM_IDLE)
 	end
-end
+end]]
+
 util.PrecacheSound("items/medshot4.wav")
 util.PrecacheSound("items/medshotno1.wav")
 util.PrecacheSound("items/smallmedkit1.wav")
 function SWEP:PrimaryAttack()
-	if self:CanPrimaryAttack() then
-		local owner = self.Owner
-		local trace = self.Owner:GetEyeTrace()
-		if trace.HitPos:Distance(self.Owner:GetShootPos()) <= 80 then
-			local ent = self.Owner:GetEyeTrace().Entity
+	if not self:CanPrimaryAttack() then
+		if SERVER then
+			self.Owner:EmitSound("items/medshotno1.wav")	
+		end
 
-		-- local ent = owner:MeleeTrace(32, 2).Entity
-			if ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
+		return
+	end
 
-				local health, maxhealth = ent:Health(), 100-- owner:GetMaxHealth()
-				if ent:GetPerk("_kevlar") then maxhealth = 110 elseif ent:GetPerk("_kevlar2") then maxhealth = 120 end
-				local multiplier = 1
-				if owner:GetPerk("_medupgr1" ) then
-					multiplier = 1.35
-				end
-				local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
-				local totake = math.ceil(toheal / multiplier)
-				if toheal > 0 then
+	local owner = self.Owner
+	
+	local trace = self.Owner:GetEyeTrace()
+	--Check distance
+	if trace.HitPos:Distance(self.Owner:GetShootPos()) > 80 then
+		return
+	end
+
+	local ent = self.Owner:GetEyeTrace().Entity
+
+	--Several checks for guy to heal
+	if not ent:IsValid() or not ent:IsPlayer() or not ent:Alive() or not ent:Team() == TEAM_HUMAN then
+		return
+	end
+
+	--Get vars
+	local health, maxhealth = ent:Health(), 100
+
+	--Set max health higher if ent has certain perks
+	if ent:GetPerk("_kevlar") then
+		maxhealth = 110
+	elseif ent:GetPerk("_kevlar2") then
+		maxhealth = 120
+	end
+
+	--Medical upgrade (multiplier)
+	local multiplier = 1
+	if owner:GetPerk("_medupgr1" ) then
+		multiplier = 1.35
+	end
+
+	local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
+	local totake = math.ceil(toheal / multiplier)
+	if toheal <= 0 then
+		return
+	end
+
+	local delay = self.Primary.HealDelay
+
+	--Check for suit
+	if owner:GetSuit() == "medicsuit" then
+		delay = math.Clamp(self.Primary.HealDelay - 3,0,self.Primary.HealDelay)
+	end
 					
-					local delay = self.Primary.HealDelay
-					if owner:GetSuit() == "medicsuit" then
-						delay = math.Clamp(self.Primary.HealDelay - 3,0,self.Primary.HealDelay)
-					end
-					
-					self:SetNextCharge(CurTime() + delay)
-					owner.NextMedKitUse = self:GetNextCharge()
-					
-					if SERVER then
-						owner.HealingDone = owner.HealingDone + (toheal or 10)
-						skillpoints.AddSkillPoints(owner,toheal or 10)
-						ent:FloatingTextEffect( toheal or 10, owner )
-						owner:AddXP(toheal or 5)
+	self:SetNextCharge(CurTime() + delay)
+	owner.NextMedKitUse = self:GetNextCharge()
+		
+	if not SERVER then
+		return
+	end
+	
+	owner.HealingDone = owner.HealingDone + (toheal or 10)
+	skillpoints.AddSkillPoints(owner,toheal or 10)
+	ent:FloatingTextEffect( toheal or 10, owner )
+	owner:AddXP(toheal or 5)
 						
-						--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})
+	--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})
+
+	self:TakeCombinedPrimaryAmmo(totake)
+
+	ent:SetHealth(health + toheal)
+	ent:EmitSound("items/medshot4.wav")
 						
-						self:TakeCombinedPrimaryAmmo(totake)
-
-						ent:SetHealth(health + toheal)
-						ent:EmitSound("items/medshot4.wav")
-						
-						if math.random(9) == 9 then
-							if VoiceSets[owner.VoiceSet] then
-								local snd = VoiceSets[owner.VoiceSet].HealSounds or {}
-								local toplay = snd[math.random(1, #snd)]
-								if toplay then
-									owner:EmitSound(toplay)
-								end
-							end
-						end
-					end
-					-- end
-					-- self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
-
-					owner:SetAnimation( PLAYER_ATTACK1 )
-
-					self.IdleAnimation = CurTime() + self:SequenceDuration()
-
-				end
+	if math.random(9) == 9 then
+		if VoiceSets[owner.VoiceSet] then
+			local snd = VoiceSets[owner.VoiceSet].HealSounds or {}
+			local toplay = snd[math.random(1, #snd)]
+			if toplay then
+				owner:EmitSound(toplay)
 			end
 		end
-	else
-		if SERVER then self.Owner:EmitSound("items/medshotno1.wav") end
 	end
+		
+	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+	self.Owner:SetAnimation(PLAYER_ATTACK1)
+
+	--self.IdleAnimation = CurTime() + self:SequenceDuration()
+	timer.Simple( self:SequenceDuration(), function() if ( !IsValid( self ) ) then return end self:SendWeaponAnim( ACT_VM_IDLE ) end )
 end
 
 function SWEP:SecondaryAttack()
-	local owner = self.Owner
-	if self:CanPrimaryAttack() then
-		local health, maxhealth = owner:Health(), 100-- owner:GetMaxHealth()
-		if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 end
-		local multiplier = 1
-		if owner:GetPerk("_medupgr1") then
-			multiplier = 1.35
+	if not self:CanPrimaryAttack() then
+		if SERVER then
+			self.Owner:EmitSound("items/medshotno1.wav")
 		end
-		local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Secondary.Heal * multiplier, maxhealth - health)))
-		local totake = math.ceil(toheal / multiplier)
-		if toheal > 0 then
-		
-			local delay = self.Secondary.HealDelay
-			if owner:GetSuit() == "medicsuit" then
-				delay = math.Clamp(self.Secondary.HealDelay - 3,0,self.Secondary.HealDelay)
-			end
-			
-			self:SetNextCharge(CurTime() + delay)
-			owner.NextMedKitUse = self:GetNextCharge()
-			
-			self:TakeCombinedPrimaryAmmo(totake)
-			if SERVER then	
-				--log.PlayerAction( self.Owner, "heal_self", {["amount"] = toheal})
-			
-				owner:SetHealth(health + toheal)
-				
-				owner:EmitSound("items/smallmedkit1.wav")
-			end
-			-- self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
 
-			owner:SetAnimation( PLAYER_ATTACK1 )
-			self.IdleAnimation = CurTime() + self:SequenceDuration()
-		end
-	else
-		if SERVER then self.Owner:EmitSound("items/medshotno1.wav") end
+		return
 	end
+
+
+	--Define vars
+	local owner = self.Owner
+	local health, maxhealth = owner:Health(), 100-- owner:GetMaxHealth()
+	
+	--Check for perks
+	if owner:GetPerk("_kevlar") then
+		maxhealth = 110
+	elseif owner:GetPerk("_kevlar2") then
+		maxhealth = 120
+	end
+	
+	--Check for medical upgrade (multiplier)
+	local multiplier = 1
+	if owner:GetPerk("_medupgr1") then
+		multiplier = 1.35
+	end
+	
+	--
+	local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Secondary.Heal * multiplier, maxhealth - health)))
+	local totake = math.ceil(toheal / multiplier)
+	if toheal <= 0 then
+		return
+	end
+	
+	--
+	local delay = self.Secondary.HealDelay
+	if owner:GetSuit() == "medicsuit" then
+		delay = math.Clamp(self.Secondary.HealDelay - 3,0,self.Secondary.HealDelay)
+	end
+	
+	--	
+	self:SetNextCharge(CurTime() + delay)
+	owner.NextMedKitUse = self:GetNextCharge()
+			
+	self:TakeCombinedPrimaryAmmo(totake)
+
+	if SERVER then	
+		--log.PlayerAction( self.Owner, "heal_self", {["amount"] = toheal})
+	
+		owner:SetHealth(health + toheal)
+		
+		owner:EmitSound("items/smallmedkit1.wav")
+	end
+
+	--
+	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+	self.Owner:SetAnimation(PLAYER_ATTACK1)
+
+	--self.IdleAnimation = CurTime() + self:SequenceDuration()
+	timer.Simple( self:SequenceDuration(), function() if ( !IsValid( self ) ) then return end self:SendWeaponAnim( ACT_VM_IDLE ) end )
 end
 	
-function SWEP:OnDeploy()
+--[[function SWEP:OnDeploy()
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
-	--self:SendWeaponAnim(ACT_VM_IDLE)
-end
+	self:SendWeaponAnim(ACT_VM_IDLE)
+end]]
 
 function SWEP:SetNextCharge(tim)
 	self:SetDTFloat(0, tim)
@@ -227,7 +249,6 @@ end
 if CLIENT then
 	local texGradDown = surface.GetTextureID("VGUI/gradient_down")
 	function SWEP:DrawHUD()
-	
 		local wid, hei = ScaleW(150), ScaleH(33)
 		local space = 12+ScaleW(7)
 		local x, y = ScrW() - wid - 12, ScrH() - ScaleH(73) - 12
