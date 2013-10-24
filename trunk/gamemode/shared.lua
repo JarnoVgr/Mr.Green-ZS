@@ -167,7 +167,7 @@ for k, v in pairs( suits ) do
 end
 
 -- Define footstep sounds
---[==[local tbFootSteps = { 
+local tbFootSteps = { 
 	[1] = { Sound ( "npc/zombie/foot1.wav" ), Sound ( "npc/zombie/foot2.wav" ), Sound ( "npc/zombie/foot3.wav" ) }, 
 	[2] = { Sound ( "player/footsteps/ladder1.wav" ), Sound ( "player/footsteps/ladder2.wav" ), Sound ( "player/footsteps/ladder3.wav" ), Sound ( "player/footsteps/ladder4.wav" ) },
 	[3] = { Sound ( "npc/zombine/gear1.wav" ), Sound ( "npc/zombine/gear2.wav" ), Sound ( "npc/zombine/gear3.wav" ),Sound ( "npc/zombie/foot1.wav" ), Sound ( "npc/zombie/foot2.wav" ) },-- zombine
@@ -176,10 +176,9 @@ end
 	[6] = { Sound ( "npc/headcrab_poison/ph_step1.wav" ), Sound ( "npc/headcrab_poison/ph_step2.wav" ), Sound ( "npc/headcrab_poison/ph_step3.wav" ), Sound ( "npc/headcrab_poison/ph_step4.wav" ) },-- poison headcrab
 	-- [11] = { Sound("physics/metal/metal_barrel_impact_hard5.wav"),Sound("physics/metal/metal_barrel_impact_hard6.wav")}
 	[11] = { Sound("npc/strider/strider_step1.wav"),Sound("npc/strider/strider_step2.wav"),Sound("npc/strider/strider_step3.wav"),Sound("npc/strider/strider_step4.wav"),Sound("npc/strider/strider_step5.wav"),Sound("npc/strider/strider_step6.wav")}
-	}
-]==]
+}
 
-local tbFootSteps = { 
+--[[local tbFootSteps = { 
 	[1] = { "Zombie.FootstepLeft","Zombie.FootstepRight" }, 
 	[2] = { "Ladder.StepLeft","Ladder.StepRight" },
 	[3] = { "NPC_CombineS.RunFootstepLeft", "NPC_CombineS.RunFootstepRight" },-- zombine
@@ -187,7 +186,7 @@ local tbFootSteps = {
 	[5] = { "NPC_FastZombie.FootstepLeft", "NPC_FastZombie.FootstepRight" },-- fast zombie
 	[6] = { "NPC_BlackHeadcrab.Footstep", "NPC_BlackHeadcrab.Footstep" },-- poison headcrab
 	[11] = { "NPC_Strider.Footstep","NPC_Strider.Footstep"}
-}
+}]]
 
 for i=1, 6 do
 	for _,snd in pairs(tbFootSteps[i]) do
@@ -205,59 +204,68 @@ if SERVER then
 	function GM:PlayerFootstep(pl, vPos, iFoot, strSoundName, fVolume, pFilter)
 	end
 elseif CLIENT then
-function GM:PlayerFootstep( pl, pos, iFoot, sound, volume, rf ) 
-    if not pl:IsZombie() then return end
-	
-	-- Override for zombies
-	if CLIENT then
-		if not pl.iFootTime then pl.iFootTime = 0 end
-		if pl.iFootTime and pl.iFootTime > CurTime() then return true end
-		local sSound
-		local ftime
-		
-		-- Walk on something zombie footstep
-		if pl:IsCommonZombie() or pl:GetZombieClass() == 0 or pl:GetZombieClass() == 14 then
-			sSound = tbFootSteps[1][iFoot+1]
-			ftime = 0.1
-		elseif pl:IsZombine() then
-			sSound = tbFootSteps[3][iFoot+1]
-			ftime = 0.365
-		elseif pl:IsPoisonZombie() then
-			sSound = tbFootSteps[4][iFoot+1]
-			ftime = 0.31-- 0.27
-		elseif pl:IsFastZombie() then
-			sSound = tbFootSteps[5][iFoot+1]
-			ftime = 0.1
-		elseif pl:IsPoisonCrab() then
-			sSound = tbFootSteps[6][iFoot+1]
-			ftime = 0.001
-		elseif pl:GetZombieClass() == 10 then
-			sSound = tbFootSteps[4][iFoot+1]
-			ftime = 0.27
-		elseif pl:GetZombieClass() == 11 then
-			sSound = tbFootSteps[11][iFoot+1]
-			ftime = math.Rand(0.4,0.6)
-		else
-			ftime = 0.1
+	function GM:PlayerFootstep( pl, pos, iFoot, sound, volume, rf ) 
+	    if not pl:IsZombie() then
+			return
 		end
 		
-		
-		
-		
-		if pl:Crouching() then
-			ftime = ftime*2
-		end
-		
-		-- Climbing
-		if pl.Footstep and pl.Footstep == STEPSOUNDTIME_ON_LADDER then sSound = tbFootSteps[2][iFoot+1] end
-		
-		-- Play sound
-		if sSound then pl:EmitSound( sSound ) pl.iFootTime = CurTime() + ftime end
-	end
-	 
-    return true
-end	
+		-- Override for zombies
+		if CLIENT then
+			if not pl.iFootTime then
+				pl.iFootTime = 0
+			end
 
+			if pl.iFootTime and pl.iFootTime > CurTime() then
+				return true
+			end
+			
+			local sSound
+			local ftime
+			
+			-- Walk on something zombie footstep
+			if pl:IsCommonZombie() or pl:GetZombieClass() == 0 or pl:GetZombieClass() == 14 then
+				sSound = tbFootSteps[1][iFoot+1]
+				ftime = 0.1
+			elseif pl:IsZombine() then
+				sSound = tbFootSteps[3][iFoot+1]
+				ftime = 0.365
+			elseif pl:IsPoisonZombie() then
+				sSound = tbFootSteps[4][iFoot+1]
+				ftime = 0.31-- 0.27
+			elseif pl:IsFastZombie() then
+				sSound = tbFootSteps[5][iFoot+1]
+				ftime = 0.1
+			elseif pl:IsPoisonCrab() then
+				sSound = tbFootSteps[6][iFoot+1]
+				ftime = 0.001
+			elseif pl:GetZombieClass() == 10 then
+				sSound = tbFootSteps[4][iFoot+1]
+				ftime = 0.27
+			elseif pl:GetZombieClass() == 11 then
+				sSound = tbFootSteps[11][iFoot+1]
+				ftime = math.Rand(0.4,0.6)
+			else
+				ftime = 0.1
+			end
+		
+			
+			if pl:Crouching() then
+				ftime = ftime*2
+			end
+			
+			-- Climbing
+			if pl.Footstep and pl.Footstep == STEPSOUNDTIME_ON_LADDER then
+				sSound = tbFootSteps[2][iFoot+1]
+			end
+			
+			-- Play sound
+			if sSound then
+				pl:EmitSound( sSound ) pl.iFootTime = CurTime() + ftime
+			end
+		end
+
+	    return true
+	end	
 end
 	
 -- Play footstep sounds for some zombies
