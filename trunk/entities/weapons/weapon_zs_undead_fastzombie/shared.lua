@@ -48,7 +48,7 @@ SWEP.MeleeDelay = 0
 SWEP.NextRoar = 0
 
 SWEP.Damage = 4
-SWEP.LeapDamage = 5
+SWEP.LeapDamage = 2
 
 SWEP.LeapPounceVelocity = 700
 SWEP.LeapPounceReach = 32
