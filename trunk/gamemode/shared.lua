@@ -201,13 +201,10 @@ local function StepSoundTime( pl, iType, bWalking )
 end
 hook.Add ( "PlayerStepSoundTime", "FootSteps", StepSoundTime )
 	
-if SERVER then	
-
-function GM:PlayerFootstep(pl, vPos, iFoot, strSoundName, fVolume, pFilter)
-end
-
+if SERVER then
+	function GM:PlayerFootstep(pl, vPos, iFoot, strSoundName, fVolume, pFilter)
+	end
 elseif CLIENT then
-	
 function GM:PlayerFootstep( pl, pos, iFoot, sound, volume, rf ) 
     if not pl:IsZombie() then return end
 	

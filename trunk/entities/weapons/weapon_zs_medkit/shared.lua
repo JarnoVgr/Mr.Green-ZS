@@ -2,8 +2,6 @@ AddCSLuaFile()
 
 if CLIENT then
 	SWEP.ViewModelFOV = 54
-	--[[SWEP.BobScale = 2
-	SWEP.SwayScale = 1.5]]
 	SWEP.PrintName = "Medkit"
 
 	SWEP.Slot = 4
@@ -39,16 +37,13 @@ SWEP.Primary.Delay = 0.01
 
 SWEP.Primary.Heal = 15
 SWEP.Primary.HealDelay = 10
-
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.DefaultClip = 50
 SWEP.Primary.Ammo = "Battery"
 
 SWEP.Secondary.Delay = 0.01
-
 SWEP.Secondary.Heal = 10
 SWEP.Secondary.HealDelay = 20
-
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Ammo = "CombineCannon"
@@ -144,9 +139,9 @@ function SWEP:PrimaryAttack()
 	
 	owner.HealingDone = owner.HealingDone + (toheal or 10)
 	skillpoints.AddSkillPoints(owner,toheal or 10)
-	ent:FloatingTextEffect( toheal or 10, owner )
+	ent:FloatingTextEffect( toheal or 10, owner)
 	owner:AddXP(toheal or 5)
-						
+
 	--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})
 
 	self:TakeCombinedPrimaryAmmo(totake)
@@ -168,7 +163,6 @@ function SWEP:PrimaryAttack()
 	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
 
-	--self.IdleAnimation = CurTime() + self:SequenceDuration()
 	timer.Simple( self:SequenceDuration(), function() if ( !IsValid( self ) ) then return end self:SendWeaponAnim( ACT_VM_IDLE ) end )
 end
 
@@ -180,7 +174,6 @@ function SWEP:SecondaryAttack()
 
 		return
 	end
-
 
 	--Define vars
 	local owner = self.Owner
@@ -215,29 +208,25 @@ function SWEP:SecondaryAttack()
 	--	
 	self:SetNextCharge(CurTime() + delay)
 	owner.NextMedKitUse = self:GetNextCharge()
+
+	if not SERVER then
+		return
+	end
 			
 	self:TakeCombinedPrimaryAmmo(totake)
 
-	if SERVER then	
-		--log.PlayerAction( self.Owner, "heal_self", {["amount"] = toheal})
+	--log.PlayerAction( self.Owner, "heal_self", {["amount"] = toheal})
 	
-		owner:SetHealth(health + toheal)
+	owner:SetHealth(health + toheal)
 		
-		owner:EmitSound("items/smallmedkit1.wav")
-	end
+	owner:EmitSound("items/smallmedkit1.wav")
 
 	--
 	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
 
-	--self.IdleAnimation = CurTime() + self:SequenceDuration()
 	timer.Simple( self:SequenceDuration(), function() if ( !IsValid( self ) ) then return end self:SendWeaponAnim( ACT_VM_IDLE ) end )
 end
-	
---[[function SWEP:OnDeploy()
-	self.IdleAnimation = CurTime() + self:SequenceDuration()
-	self:SendWeaponAnim(ACT_VM_IDLE)
-end]]
 
 function SWEP:SetNextCharge(tim)
 	self:SetDTFloat(0, tim)
@@ -286,21 +275,23 @@ end
 
 function SWEP:CanPrimaryAttack()
 	local owner = self.Owner
-	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return false end
+	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
+		return false
+	end
 
 	if self:GetPrimaryAmmoCount() <= 0 then
 		self:SetNextCharge(CurTime() + 0.75)
 		owner.NextMedKitUse = self:GetNextCharge()
-		--self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-		--owner.NextMedKitUse = self:GetNextPrimaryFire()
 		return false
 	end
 	
-	return --[=[self:GetNextCharge() <= CurTime() and]=] (owner.NextMedKitUse or 0) <= CurTime()
+	return (owner.NextMedKitUse or 0) <= CurTime()
 end
 
-function SWEP:Equip ( NewOwner )
-	if CLIENT then return end
+function SWEP:Equip(NewOwner)
+	if CLIENT then
+		return
+	end
 	
 	if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false
@@ -318,6 +309,6 @@ function SWEP:Equip ( NewOwner )
 		end
 	end	
 	
-	-- Call this function to update weapon slot and others
+	--Call this function to update weapon slot and others
 	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
 end
