@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 2
-	SWEP.ViewModelFlip = true
+	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = false
 	SWEP.IconLetter = "e"
 	killicon.AddFont("weapon_zs_aug", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))

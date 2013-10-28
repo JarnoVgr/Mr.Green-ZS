@@ -41,9 +41,9 @@ SWEP.Primary.DefaultClip = 8
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "buckshot"
 
-SWEP.ConeMoving = 0.20
-SWEP.Cone = 0.186
-SWEP.ConeCrouching = 0.176
+SWEP.ConeMoving = 0.116
+SWEP.Cone = 0.096
+SWEP.ConeCrouching = 0.086
 
 
 SWEP.IsShotgun = true
