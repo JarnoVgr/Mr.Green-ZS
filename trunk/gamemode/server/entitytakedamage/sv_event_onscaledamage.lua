@@ -67,13 +67,13 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	end
 
 	--Make humans invulnerable for AR2 grenades (used by the grenade launcher)
-	if ((attacker:GetClass() == "grenade_ar2" or attacker:GetClass() == "weapon_zs_grenadelauncher") and pl:IsHuman()) or (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
+	if ((attacker:GetClass() == "grenade_ar2" or attacker:GetClass() == "weapon_zs_grenadelauncher") and pl:IsHuman()) then
 		dmginfo:SetDamage(0)
 		return true
 	end
 	
-	--Scale down explosion damage if it's the owner
-	if attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner() then
+	--Scale down explosion damage if it's the owner, and scale damage of grenade launcher AR2 grenades
+	if (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) or (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
 		dmginfo:ScaleDamage(0.45)
 	end
 	
