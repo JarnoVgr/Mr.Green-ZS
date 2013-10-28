@@ -27,7 +27,7 @@ function ManageEvents()
 			GAMEMODE:SetRandomsToFirstZombie()
 
 			--Give SkillPoints to survivors timer
-			timer.Create("GiveSkillPointsSurvivors", math.Round(ROUNDTIME/6), 0, GiveSkillPointsSurvivors)
+			timer.Create("GiveSkillPointsSurvivors", math.Round(ROUNDTIME/12), 0, GiveSkillPointsSurvivors)
 
 			--
 			for k,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
@@ -90,10 +90,10 @@ function GiveSkillPointsSurvivors()
 	for _, h in pairs(team.GetPlayers(TEAM_HUMAN)) do
 		if h and h:IsValid() and h:Alive() then
 			--Give SP
-			skillpoints.AddSkillPoints(h,math.max(0,math.Round(175*GetInfliction())))
+			skillpoints.AddSkillPoints(h,math.max(0,math.Round(130*GetInfliction())))
 
 			--Give XP
-			h:AddXP(math.max(0,200*GetInfliction()))
+			h:AddXP(math.max(0,100*GetInfliction()))
 		end
 	end
 end
