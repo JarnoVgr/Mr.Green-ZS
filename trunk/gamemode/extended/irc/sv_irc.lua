@@ -47,6 +47,11 @@ function irc:Raw( arg, callback )
 	local buffer = GLSockBuffer()
 	buffer:Write( arg.."\r\n" )
 
+	--Check if socket isn't available. Most likely because we have IRC disabled.
+	if not self.Socket then
+		return
+	end
+
 	-- Send raw
 	self.Socket:Send( buffer, callback or self.OnCallback )
 end

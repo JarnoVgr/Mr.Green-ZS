@@ -330,7 +330,7 @@ function ChangeLevel ( pl, cmd, args )
 	
 	-- We already are on this map
 	local CurrentMap = game.GetMap()
-	if CurrentMap == TargetMap then	pl:ChatPrint ( "[ADMIN] You can't change the map because it is already the current map!" ) return end
+	if CurrentMap == TargetMap then	pl:ChatPrint ( "[ADMIN] You can't change the map because it is already the current map." ) return end
 	
 	-- Notice
 	PrintMessageAll ( HUD_PRINTTALK, "[ADMIN] Admin "..tostring ( pl:Name() ).." set the server to change map to "..FriendlyName.." in 10 seconds !" )
@@ -342,58 +342,73 @@ end
 concommand.Add( "changemap_player", ChangeLevel ) 
 
 --[==[-----------------------------------------------------------
-                  Admin Addon - Fun Addon
------------------------------------------------------------]==]
-function DoFunCommand ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[1] == nil or args[2] == nil then return end
-	if not pl:IsAdmin() then return end
-	
-	-- Unpack args
-	local Toggle = tonumber ( args[2] )
-	local Command, cmdString = tostring ( args[1] ), ""
-	
-	-- Enable/disable gravity
-	if Command == "gravity" then
-		cmdString = "toggle the server's gravity"
-		for k,v in pairs ( ents.GetAll() ) do
-			local Phys = v:GetPhysicsObject()
-			if ValidEntity ( Phys ) then
-				Phys:EnableGravity ( tobool ( Toggle ) )
-			end
-		end
-	end
-	
-	-- Freeze/unfreeze props
-	if Command == "freeze" then
-		cmdString = "freeze/unfreeze all the props in the map"
-		for k,v in pairs ( ents.GetAll() ) do
-			local Phys = v:GetPhysicsObject()
-			if ValidEntity ( Phys ) and not v:IsPlayer() then
-				Phys:EnableMotion ( tobool ( Toggle ) )
-			end
-		end
-	end
-	
-	-- Ravebreak!
-	if Command == "ravebreak" then cmdString = "rave the server" RaveBreak() end
-	
-	PrintMessageAll ( HUD_PRINTTALK, "[ADMIN] Admin "..tostring ( pl:Name() ).." used command '"..Command.."' to "..cmdString.." !" )
-	Debug ( "[ADMIN] Admin "..tostring ( pl:Name() ).." used command '"..Command.."' to "..cmdString.." !" )
-end
---concommand.Add( "do_fun", DoFunCommand ) 
-
---[==[-----------------------------------------------------------
                   Admin Addon - Debugging
 -----------------------------------------------------------]==]
-function DoDebugCommands ( pl, cmd, args )
-    if not pl:IsSuperAdmin() then
+function DoDebugCommands(pl, cmd, args)
+	if not ValidEntity(pl) or not pl:IsSuperAdmin() or args[1] == nil then
 		return
 	end
-    
-	ROUNDTIME = CurTime() + 10
-	print("[DEBUG] Set roundtime to 10 seconds")
+
+	local sCommand = args[1]
+	local bToggle = tonumber(args[2])
+	
+	
+	if sCommand == "roundtime5" then
+		ROUNDTIME = CurTime() + 5
+		print("[DEBUG] Set RoundTime to expire in 5 seconds")
+	elseif sCommand == "startround" then
+		if GAMEACTIVE then
+			return
+		end
+		
+		WARMUPTIME = CurTime()
+		
+		Debug("[DEBUG] Started round")
+	elseif sCommand == "starthalflife" then
+		if not GAMEACTIVE and not HALFLIFE then
+			return
+		end
+		
+		GAMEMODE:SetHalflife(true)
+		
+		Debug("[DEBUG] Started HalfLife")
+	elseif sCommand == "startunlife" then
+		if not GAMEACTIVE and not UNLIFE then
+			return
+		end
+		
+		GAMEMODE:SetUnlife(true)
+		
+		Debug("[DEBUG] Started UnLife")
+	elseif sCommand == "unleashboss" then
+		bossPlayer = GAMEMODE:GetPlayerForBossZombie()
+		if bossPlayer then
+			bossPlayer:SpawnAsZombieBoss()
+		end
+		
+		Debug("[DEBUG] Unleased the Undead Boss")
+	elseif sCommand == "gravity" then
+		for k,v in pairs(ents.GetAll()) do
+			local Phys = v:GetPhysicsObject()
+			if ValidEntity(Phys) then
+				Phys:EnableGravity(tobool(bToggle))
+			end
+		end
+		
+		Debug("[DEBUG] Gravity action")
+	-- Freeze/unfreeze props
+	elseif sCommand == "freeze" then
+		for k,v in pairs(ents.GetAll()) do
+			local Phys = v:GetPhysicsObject()
+			if ValidEntity(Phys) and not v:IsPlayer() then
+				Phys:EnableMotion(tobool(bToggle))
+			end
+		end
+		
+		Debug("[DEBUG] (Un)Freeze action")
+	end
 end
-concommand.Add( "do_debug_admin", DoDebugCommands ) 
+concommand.Add("zs_admin_debug", DoDebugCommands) 
 
 --[==[-----------------------------------------------------------
         Admin Addon - Bring a player to your pos

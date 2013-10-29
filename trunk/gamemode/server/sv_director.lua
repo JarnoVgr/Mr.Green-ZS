@@ -32,7 +32,7 @@ function ManageEvents()
 			--
 			for k,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
 				if IsEntityValid(v) then
-					v:SendLua("surface.PlaySound(\"ambient/creatures/town_zombie_call1.wav\") GAMEMODE:Add3DMessage(140,\"The Undead have arrived\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh\",nil,\"ArialBoldTen\")")
+					v:SendLua("surface.PlaySound(\"ambient/creatures/town_zombie_call1.wav\") GAMEMODE:Add3DMessage(140,\"The Undead are rising\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh\",nil,\"ArialBoldTen\")")
 				end
 			end
 
@@ -77,7 +77,7 @@ function ManageEvents()
 	end
 
 	--Pick random zombie(s) if there aren't any
-	if numUndead == 0 and numSurvivors > 3 then
+	if numUndead == 0 and numSurvivors >= 5 then
 		GAMEMODE:SetRandomsToFirstZombie()
 		Debug("[DIRECTOR] There were no zombies. Setting randoms")
 	end
@@ -108,16 +108,17 @@ function GM:SetUnlife(bool)
 
 	UNLIFE = not UNLIFE
 
-	if bool then
+	if UNLIFE then
 		if GAMEMODE:IsBossRequired() then
 			bossPlayer = GAMEMODE:GetPlayerForBossZombie()
 			if bossPlayer then
 				bossPlayer:SpawnAsZombieBoss()
 			end
-			
-			for _, pl in pairs(player.GetAll()) do
-				if pl:Team() == TEAM_HUMAN and pl:Alive() then
-					if ARENA_MODE then
+
+			--Set full health on players when in Arena Mode
+			if ARENA_MODE then			
+				for _, pl in pairs(player.GetAll()) do
+					if pl:Team() == TEAM_HUMAN and pl:Alive() then
 						local hp = 100
 						if pl:GetPerk("_kevlar2") then
 							hp = 120
@@ -132,7 +133,7 @@ function GM:SetUnlife(bool)
 		end
 	end
 	
-	gmod.BroadcastLua( "GAMEMODE:SetUnlife("..tostring( bool )..")" )
+	gmod.BroadcastLua("GAMEMODE:SetUnlife("..tostring( bool )..")")
 end
 
 
@@ -143,7 +144,7 @@ function GM:SetHalflife(bool)
 
 	HALFLIFE = not HALFLIFE
 
-	gmod.BroadcastLua( "GAMEMODE:SetHalflife("..tostring( bool )..")" )
+	gmod.BroadcastLua("GAMEMODE:SetHalflife("..tostring( bool )..")")
 end
 
 --TODO: Move this out of here
@@ -157,26 +158,23 @@ function SetTurretName(pl, command, args)
 		return 
 	end
 	if ValidEntity(pl.Turret) then
-		-- pl.Turret:SetNWString("TurretName",tostring(args[1]))
 		pl.Turret:SetDTString(0,tostring(args[1]))
 	end
 end
 concommand.Add("turret_nickname",SetTurretName)
 
 function GM:UpdateObjStageOnClients(pl)
-	
 	umsg.Start("UpdateObjStage",pl)
 		umsg.Short(self:GetObjStage())
 	umsg.End()
-	
 end
 
 function CheckObjSpawnpoints()
-	if not OBJECTIVE then return end
-	if #Objectives < 0 then return end
+	if not OBJECTIVE or #Objectives < 0 then
+		return
+	end
 	
 	if not Objectives[GAMEMODE:GetObjStage()].VerifiedSpawns then
-		
 		GAMEMODE.UndeadSpawnPoints = {}
 		Debug("[DIRECTOR] Cleared spawns")
 		Objectives[GAMEMODE:GetObjStage()].ZombieSpawns()
@@ -187,7 +185,6 @@ function CheckObjSpawnpoints()
 		end
 		Debug("[DIRECTOR] Done")
 		Objectives[GAMEMODE:GetObjStage()].VerifiedSpawns = true
-	
 	end
 
 end
