@@ -104,9 +104,10 @@ hook.Add ("PlayerBindPress","Spectator",ClassMenuSay)
              Main menu draw hook
 --------------------------------------------]=]
 function DrawClassMenu ()
-	if not IsClassesMenuOpen() then return end
-	if ENDROUND then return end
-		
+	if not IsClassesMenuOpen() or ENDROUND then
+		return
+	end
+
 	-- Draw the blood splats
 	surface.SetTexture( bloodrand1 )
 	surface.SetDrawColor( Color(140,0,0,255) )
@@ -120,8 +121,8 @@ function DrawClassMenu ()
 	draw.RoundedBox( 0, 0, ScaleH(855), ScrW(), ScaleH(86), Colors.Black ) --  Lower blackbox
 	
 	-- Uperbox Text
-	draw.SimpleText ("UNDEAD CLASSES","ArialBoldThirty", ScaleW(168),ScaleH(110), Colors.White, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
-	draw.SimpleText (zClasses.Title,"ArialTwelveNormal", ScaleW(168),ScaleH(149), Colors.Grey, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
+	draw.SimpleText("UNDEAD CLASSES","ArialBoldThirty", ScaleW(168),ScaleH(110), Colors.White, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
+	draw.SimpleText(zClasses.Title,"ArialTwelveNormal", ScaleW(168),ScaleH(149), Colors.Grey, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
 	
 	local posY = ScaleH(329)
 	for i = 1, 3 do
@@ -179,7 +180,7 @@ function OnClassesMenuOpen()
 	zClasses:SetVisible ( true )
 	
 	-- Title
-	zClasses.Title = "Choose the zombie class you want to spawn with."
+	zClasses.Title = "Choose the Undead specie you want to spawn with. Scroll for more species."
 	
 	local ScrollTimer = 0
 	
@@ -189,7 +190,7 @@ function OnClassesMenuOpen()
 			if zClasses.iIndex > -1 and ScrollTimer <= CurTime() then
 				zClasses.iIndex = zClasses.iIndex - 1
 				ScrollTimer = CurTime() + 0.07
-				surface.PlaySound ( "buttons/button15.wav" )
+				surface.PlaySound("buttons/button15.wav")
 			end
 		end
 		
@@ -197,7 +198,7 @@ function OnClassesMenuOpen()
 			if zClasses.iIndex < 5 and ScrollTimer <= CurTime() then
 				zClasses.iIndex = zClasses.iIndex + 1
 				ScrollTimer = CurTime() + 0.07
-				surface.PlaySound ( "buttons/button15.wav" )
+				surface.PlaySound("buttons/button15.wav")
 			end
 		end
 	end
@@ -205,13 +206,18 @@ function OnClassesMenuOpen()
 	-- Create the 2 dialog buttons
 	local zDialog, iOffset = {}, 0
 	for i = 1, 2 do
-		zDialog[i] = vgui.Create ("DLabel")
-		zDialog[i]:SetParent (zClasses)
-		zDialog[i]:SetText ("")
+		zDialog[i] = vgui.Create("DLabel")
+		zDialog[i]:SetParent(zClasses)
+		zDialog[i]:SetText("")
 		
 		-- Set the size of the label as the text in it
-		if i == 1 then zDialog[i].strText = "Done" else zDialog[i].strText = "Respawn" end
-		surface.SetFont ( "ClassDialog" )
+		if i == 1 then
+			zDialog[i].strText = "Done"
+		else
+			zDialog[i].strText = "Respawn"
+		end
+
+		surface.SetFont("ClassDialog")
 		local iTextWide,iTextTall = surface.GetTextSize ( zDialog[i].strText )
 		zDialog[i]:SetSize ( iTextWide, iTextTall )
 		zDialog[i]:SetPos ( ScaleW(240 + iOffset) - ( iTextWide * 0.5 ), ScaleH(900) - ( iTextTall * 0.5 ) )
@@ -261,7 +267,7 @@ function OnClassesMenuOpen()
 				end
 			end
 			
-			draw.SimpleText (zDialog[i].strText,"ClassDialog", Wide * 0.5,Tall * 0.5, DialogColors[i], TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)
+			draw.SimpleText(zDialog[i].strText,"ClassDialog", Wide * 0.5,Tall * 0.5, DialogColors[i], TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)
 		end
 		
 		zDialog[i].OnMousePressed = function()
@@ -269,19 +275,19 @@ function OnClassesMenuOpen()
 				for j = 0, 8 do
 					if Buttons[j].Activated then
 						if MySelf:GetZombieClass() ~= j then
-							RunConsoleCommand ("kill")
-							surface.PlaySound ( Sounds.Click )
-							zClasses:SetVisible ( false ) 
+							RunConsoleCommand("kill")
+							surface.PlaySound(Sounds.Click)
+							zClasses:SetVisible(false)
 							DoClassesMenu()
 						else
-							surface.PlaySound ( "buttons/weapon_cant_buy.wav" )
-							zClasses.Title = "You already are a "..ZombieClasses[MySelf:GetZombieClass()].Name..". Choose another class!"
+							surface.PlaySound("buttons/weapon_cant_buy.wav")
+							zClasses.Title = "You already are a "..ZombieClasses[MySelf:GetZombieClass()].Name..". Pick a different specie!"
 						end
 					end
 				end
 			else
-				surface.PlaySound ( Sounds.Click )
-				zClasses:SetVisible ( false ) 
+				surface.PlaySound(Sounds.Click)
+				zClasses:SetVisible(false) 
 				DoClassesMenu()
 			end
 		end
@@ -295,9 +301,9 @@ function OnClassesMenuOpen()
 	local ScrollTimer, offset = 0, 0
 	for i = 1,2 do
 		zScroll[i] = vgui.Create ("DButton", zClasses)
-		zScroll[i]:SetPos ( ScaleW(707) - (ScaleH(40) * 0.5), (ScaleH(268 + offset) - (ScaleH(40) * 0.5) ) )
-		zScroll[i]:SetSize ( ScaleH(40), ScaleH(40) )
-		zScroll[i]:SetText ("")
+		zScroll[i]:SetPos(ScaleW(707) - (ScaleH(40) * 0.5), (ScaleH(268 + offset) - (ScaleH(40) * 0.5)))
+		zScroll[i]:SetSize(ScaleH(40), ScaleH(40))
+		zScroll[i]:SetText("")
 		
 		-- Move it down
 		offset = offset + 503
@@ -341,7 +347,7 @@ function OnClassesMenuOpen()
 	-- Create the class buttons
 	zButtons = {}
 			
-	--  Initialize some other button vars
+	--Initialize some other button vars
 	for i = 0, 8 do
 		Buttons[i] = {}
 		zButtons[i] = {}
@@ -359,14 +365,14 @@ function OnClassesMenuOpen()
 	local posY = ScaleH(329)
 	for i = 1, 3 do
 		local offset = ScaleH(30)
-		zButtons[i] = vgui.Create ("DButton", zClasses)
-		zButtons[i]:SetPos ( ScaleW(411 - 86) - (ScaleH(126) / 2), posY + offset - (ScaleH(126) / 2) )
-		zButtons[i]:SetSize ( ScaleH(126), ScaleH(126) )
-		zButtons[i]:SetText ("")
+		zButtons[i] = vgui.Create("DButton", zClasses)
+		zButtons[i]:SetPos(ScaleW(411 - 86) - (ScaleH(126) / 2), posY + offset - (ScaleH(126) / 2))
+		zButtons[i]:SetSize(ScaleH(126), ScaleH(126))
+		zButtons[i]:SetText("")
 		
 		zButtons[i].OnMousePressed = function() 
 			if ZombieClasses[zButtons[i].iIndex].Unlocked then
-				-- Deactivate all buttons first
+				--Deactivate all buttons first
 				for j = 0, 8 do
 					if not Buttons[zButtons[i].iIndex].Activated then
 						Buttons[j].Activated = false
@@ -375,13 +381,13 @@ function OnClassesMenuOpen()
 
 				if not Buttons[zButtons[i].iIndex].Activated then
 					Buttons[zButtons[i].iIndex].Activated = true
-					ChangeZombieClass ( ZombieClasses[ zButtons[i].iIndex ].Name )
-					zClasses.Title = "You have chosen to respawn as a "..ZombieClasses[ zButtons[i].iIndex ].Name..". Wisely done!"
-					surface.PlaySound ( Sounds.Click )
+					ChangeZombieClass(ZombieClasses[ zButtons[i].iIndex ].Name)
+					zClasses.Title = "You have chosen to respawn as a ".. ZombieClasses[ zButtons[i].iIndex ].Name ..". Wise choice!"
+					surface.PlaySound(Sounds.Click)
 				end
 			else
 				if DenySoundTimer <= CurTime() then
-					surface.PlaySound ( "buttons/weapon_cant_buy.wav" )
+					surface.PlaySound("buttons/weapon_cant_buy.wav")
 					DenySoundTimer = CurTime() + 0.5
 				end
 			end
@@ -455,8 +461,6 @@ function OnClassesMenuOpen()
 					surface.SetTexture ( Image[zButtons[i].iIndex] )
 					surface.DrawTexturedRectRotated ( zButtons[i]:GetWide() * 0.5, zButtons[i]:GetTall() * 0.5, ScaleH(114), ScaleH(114), 0 )
 				end
-				
-				
 			end
 		end
 		

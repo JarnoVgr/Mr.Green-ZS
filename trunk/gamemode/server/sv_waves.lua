@@ -16,98 +16,57 @@ util.AddNetworkString( "recwaveend" )
 
 CAPPED_INFLICTION = 0
 
-function GM:SetRandomsToZombie()
-	local allplayers = player.GetAll()
-	local numplayers = #allplayers
-	
-
-	if numplayers <= 4 then return end
-
-	local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
-
-	local vols = 0
-	local voltab = {}
-	for _, gasses in pairs(ents.FindByClass("zs_poisongasses")) do
-		for _, ent in pairs(ents.FindInSphere(gasses:GetPos(), 256)) do
-			if ent:IsPlayer() and not table.HasValue(voltab, ent) then
-				vols = vols + 1
-				table.insert(voltab, ent)
-			end
-		end
-	end
-
-	for _, pl in pairs(allplayers) do
-		if pl:Team() == TEAM_UNDEAD then
-			vols = vols + 1
-			table.insert(voltab, pl)
-		end
-	end
-
-	if vols == desiredzombies then
-		for _, pl in pairs(voltab) do
-			if pl:Team() ~= TEAM_UNDEAD then
-				pl:SetFirstZombie()
-				umsg.Start("recvolfirstzom", pl)
-				umsg.End()
-			end
-		end
-	elseif vols < desiredzombies then
-		local spawned = 0
-		for i, pl in ipairs(voltab) do
-			if pl:Team() ~= TEAM_UNDEAD then
-				pl:SetFirstZombie()
-				umsg.Start("recvolfirstzom", pl)
-				umsg.End()
-				spawned = i
-			end
-		end
-
-		for i = 1, desiredzombies - spawned do
-			local humans = team.GetPlayers(TEAM_HUMAN)
-
-			if 0 < #humans then
-				local pl = humans[math.random(1, #humans)]
-				if pl:Team() ~= TEAM_UNDEAD then
-					pl:SwitchToZombie()
-					--[[umsg.Start("recranfirstzom", pl)
-					umsg.End()]]
-				end
-			end
-		end
-	elseif desiredzombies < vols then
-		for i, pl in ipairs(voltab) do
-			if desiredzombies < i and pl:Team() == TEAM_HUMAN then
-				pl:SetPos(self:PlayerSelectSpawn(pl):GetPos())
-			else
-				pl:SetFirstZombie()
-				--[[umsg.Start("recvolfirstzom", pl)
-				umsg.End()]]
-			end
-		end
-	end
-end
-
 function GM:SetRandomsToFirstZombie()
+	--Get num of players
 	local numPlayers = #player.GetAll()
 	
+	--Require atleast 5 players
 	if numPlayers <= 4 then
 		return
 	end
 
-	local desiredzombies = math.max(1, math.ceil(numPlayers * WAVE_ONE_ZOMBIES))
+	--Get Humans and Undead
+	local tblHumans = team.GetPlayers(TEAM_HUMAN)
+	local tblUndead = team.GetPlayers(TEAM_UNDEAD)
+	
+	--Calculate required Undead amount
+	local numRequiredUndead = math.max(1, math.ceil(numPlayers * WAVE_ONE_ZOMBIES))
+	
+	--
+	
+	--Check if there are already zombies
+	if #tblUndead > 0 then
+		numRequiredUndead = numRequiredUndead - #tblUndead
+	end
+	
+	--Check if we still need undead
+	if numRequiredUndead <= 0 then
+		return
+	end
+	
+	local numAcquiredUndead, whileFailedAttempts = 0, 0
 
-	for i=1, desiredzombies do
-		local humans = team.GetPlayers(TEAM_HUMAN)
-		local undead = team.GetPlayers(TEAM_UNDEAD)
-		if 4 < #humans then
-			local pl = humans[math.random(1, #humans)]
-			if pl:Team() ~= TEAM_UNDEAD then
-				pl:SetFirstZombie()
-				umsg.Start("recranfirstzom", pl)
-				umsg.End()
-			end
+	--Keep going till we have either failed at a lot of attempts or when we have the number that's required
+	while numAcquiredUndead < numRequiredUndead and whileFailedAttempts < 40 do
+		--Get random player
+		local pl = tblHumans[math.random(1, #tblHumans)]
+		
+		if pl:Team() ~= TEAM_UNDEAD then
+			--Set as first Undead
+			pl:SetFirstZombie()
+			
+			--Send message
+			umsg.Start("recranfirstzom", pl)
+			umsg.End()
+			
+			--Increase number
+			numAcquiredUndead = numAcquiredUndead + 1
+		else
+			whileFailedAttempts = whileFailedAttempts + 1
 		end
 	end
+	
+	Debug("[WAVES] Acquired ".. numAcquiredUndead .." of ".. numRequiredUndead .." required Undead")
 end
 
 function GM:CalculateInfliction()

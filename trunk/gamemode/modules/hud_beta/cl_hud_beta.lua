@@ -170,19 +170,18 @@ function hud.DrawBossHealth()
 		
 		local TX,TY = BarX+BarW/5,BarY+7
 		
-		draw.SimpleText(ZombieClasses[GAMEMODE:GetBossZombie():GetZombieClass()].Name or GAMEMODE:GetBossZombie():Name(), "NewZombieFont23", TX,TY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
+		--draw.SimpleText(ZombieClasses[GAMEMODE:GetBossZombie():GetZombieClass()].Name or GAMEMODE:GetBossZombie():Name(), "NewZombieFont23", TX,TY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
+		draw.SimpleText("Boss", "NewZombieFont23", TX,TY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
 		
 		local dif = math.Clamp(health/GAMEMODE:GetBossZombie():GetMaximumHealth(),0,1)
 		
 		surface.SetTexture(hud.texGradDown)
 		surface.DrawTexturedRect(BarX+5, BarY+5, (BarW-10)*dif, BarH-10 )
-		--surface.DrawRect(BarX+5, BarY+5, (BarW-10)*dif, BarH-10 )
 	end	
 	
 end
 
 local lastwarntim = -1
---hud.ZombieOverlay = surface.GetTextureID ( "damageover3.vtf" )
 hud.boostmat = surface.GetTextureID ( "zombiesurvival/hud/hud_friend_splash" )
 local lastrefresh = -1
 local cached_humans = 0
@@ -194,17 +193,7 @@ function hud.DrawNewZombieHUD()
 		lastrefresh = CurTime() + 1
 	end
 	
-	--Retro mode
-	--[[if GAMEMODE:IsRetroMode() then
-		draw.SimpleTextOutlined("RETRO APOCALYPSE", "NewZombieFont13", w/2 , h-23*2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	end]]
-	
-	--Zombie blood overlay
-	--[[surface.SetDrawColor ( 179, 0, 0, 255 )
-	surface.SetTexture ( hud.ZombieOverlay )
-	surface.DrawTexturedRect ( -90,-90, ScrW()+180, ScrH()+180 ) ]]
-	
-	local tw, th = surface.GetTextureSize( matHealthSplash )
+	local tw, th = surface.GetTextureSize(matHealthSplash)
 	
 	local x,y = 30, ScrH()-tw+190
 	
@@ -213,7 +202,7 @@ function hud.DrawNewZombieHUD()
 		surface.SetTexture ( matHealthSplash )
 		surface.DrawTexturedRect ( x,y, tw, th ) 
 		
-		local Table = string.FormattedTime ( ROUNDTIME - CurTime() )
+		local Table = string.FormattedTime(ROUNDTIME - CurTime())
 
 		if ( Table.s ) > 30 then
 			Table.m = Table.m - 1
@@ -253,10 +242,9 @@ function hud.DrawNewZombieHUD()
 			colHealthBar = Color(110, 11, 11, (math.sin(RealTime() * 8) * 127.5) + 127.5)
 		end
 		
-		surface.SetDrawColor( colHealthBar)
+		surface.SetDrawColor(colHealthBar)
 		surface.DrawRect(x+5, y+5, 250*MySelf.HPBar, 20)
 		
-		--draw.SimpleText(fHealth, "NewZombieFont17", x+110, y+45, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		draw.SimpleTextOutlined(fHealth, "NewZombieFont17", x+110, y+45, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 	end
 
@@ -266,11 +254,12 @@ function hud.DrawNewZombieHUD()
 	--
 	local text1x, text1y = 10, 10
 	local text2x, text2y = 10, text1y+fTall+1
-	draw.SimpleText("GREENCOINS: "..MySelf:GreenCoins(), "NewZombieFont13", 10, text2y+fTall+20, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+	draw.SimpleText(MySelf:GreenCoins() .." GREENCOINS", "NewZombieFont13", 10, text2y+fTall+20, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 	
-	-- zero wave
+	--Check for WarmUp
 	if WARMUPTIME > ServerTime() then
-		
+		--Warm Up
+
 		local timleft = math.max(0, WARMUPTIME - ServerTime())
 
 		if timleft < 10 then
@@ -286,9 +275,11 @@ function hud.DrawNewZombieHUD()
 			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		end
 	else
+		--Actual ongoing round
+
 		local timleft = math.max(0, ROUNDTIME - ServerTime())
 
-		draw.SimpleTextOutlined("Kill all survivors in ".. ToMinutesSeconds(timleft + 1) .." minutes", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined("Kill all survivors in ".. ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		draw.SimpleTextOutlined("Infliction: ", "NewZombieFont15", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		local space1 = surface.GetTextSize("Infliction: ")
@@ -303,59 +294,10 @@ function hud.DrawNewZombieHUD()
 		
 		draw.SimpleTextOutlined(cached_humans, "NewZombieFont15", text2x+space1+space2+space3+2, text2y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 	end
-
-	if drawZombieBoost == true then
-		return
-	end
-	
-	--[[if not MySelf.HRBar then
-		MySelf.HRBar = MySelf:GetHordeCount()
-	end
-	
-	
-	local max = math.min(cached_zombies,HORDE_MAX_ZOMBIES)
-	
-	MySelf.HRBar = math.Clamp(math.Approach(MySelf.HRBar, MySelf:GetHordeCount(), FrameTime() * 5), 0, math.Clamp(max-1,0,max))
-
-	if MySelf.HRBar <= 0 then return end
-	--Draw Horde status
-	
-	local swide,stall = ScaleW(166), ScaleH(17)
-	local sx,sy = w/2 - swide/2, 3.5*h/4
-	
-	--local matW, matH = surface.GetTextureSize( matSplash )
-	local matW, matH = ScaleW(315), ScaleH(315)
-	local matX, matY = w/2 - matW/2, 3.5*h/4 + stall/2 - matH/2
-	
-	local coefW, coefH = swide/matW,stall/matH
-	
-	surface.SetDrawColor ( 119, 10, 10, 255 )
-	surface.SetTexture ( hud.boostmat )
-	surface.DrawTexturedRect ( matX, matY, matW, matH ) 
-
-	draw.SimpleTextOutlined("Horde size", "ArialBoldFive", w/2 , sy-3, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	
-	sy = sy+5
-	
-	--draw.RoundedBox( 0, sx,sy,swide,stall, Color (1,1,1,200) )
-	
-	surface.SetDrawColor( 0, 0, 0, 150)
-	surface.DrawRect(sx,sy,swide,stall )
-	
-	surface.DrawRect(sx+3 , sy+2.5, swide-6, stall-6 )	
-		
-	
-	surface.SetDrawColor( 230,1,1,160)
-	
-	if MySelf:GetHordeCount() == math.Clamp(max-1,0,max ) then
-		surface.SetDrawColor( 230,1,1,( math.sin(RealTime() * 8) * 127.5 ) + 150.5 )
-	end
-	
-	surface.DrawRect(sx+3 , sy+2.5, ((MySelf.HRBar)/math.Clamp(max-1,0,max ))*(swide-6),stall-6 )]]
 end
 
-hud.LeftGradient = surface.GetTextureID( "gui/gradient" )
-hud.Arrow = surface.GetTextureID( "gui/arrow" )
+hud.LeftGradient = surface.GetTextureID("gui/gradient")
+hud.Arrow = surface.GetTextureID("gui/arrow")
 function hud.DrawNewHumanHUD()
 	if lastrefresh <= CurTime() then
 		cached_humans = team.NumPlayers(TEAM_HUMAN)
@@ -369,7 +311,7 @@ function hud.DrawNewHumanHUD()
 	hud.DrawHealthPanel()
 	hud.DrawInflictionPanel()
 	hud.DrawStatsPanel()
-	hud.DrawZeroWaveMessage()
+	--hud.DrawZeroWaveMessage()
 
 	if OBJECTIVE then
 		surface.SetTexture(hud.LeftGradient)
@@ -498,22 +440,16 @@ function hud.DrawHealthPanel()
 	
 	local ActualX = HealthX + ScaleW(5)
 	local ActualY = HealthY + HealthH/2
-	
-	if GAMEMODE:IsRetroMode() then
-		local ammotime = Entity(0) and Entity(0):GetDTFloat(0) or 0
-		local TimeLeft = ammotime - CurTime()  
-		draw.SimpleTextOutlined("Ammo regeneration: "..ToMinutesSeconds(TimeLeft + 1), "ssNewAmmoFont9", ActualX+6, HealthY-15, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM,1,Color(0,0,0,255))
-	end
-	
+		
 	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
 
-	local iPercentage = math.Clamp ( fHealth / fMaxHealth, 0, 1 )	
+	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)	
 	
 	draw.SimpleTextOutlined("F", "HUDBetaKills", ActualX, ActualY+ScaleH(12), Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	
 	ActualX = ActualX + ScaleW(32)
 	
-	draw.SimpleTextOutlined(math.Round(100*iPercentage), "ssNewAmmoFont13", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	draw.SimpleTextOutlined(math.Round(fHealth), "ssNewAmmoFont13", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	
 	local HPBarSizeW,HPBarSizeH = ScaleW(160),HealthH*0.56
 	
@@ -521,12 +457,22 @@ function hud.DrawHealthPanel()
 	ActualY = ActualY - HPBarSizeH/2
 	
 	
-	if not MySelf.HPBar then MySelf.HPBar = 1 end
-	MySelf.HPBar = math.Clamp ( math.Approach ( MySelf.HPBar, fHealth / fMaxHealth, FrameTime() * 1.8 ), 0, 1 )
+	if not MySelf.HPBar then
+		MySelf.HPBar = 1
+	end
+	MySelf.HPBar = math.Clamp(math.Approach(MySelf.HPBar, fHealth / fMaxHealth, FrameTime() * 1.8), 0, 1)
 	
-	-- Color of healthbar
+	--Color of healthbar
 	local colHealthBar, sHealthIndication = COLOR_HUD_HEALTHY
-	if 0.8 < iPercentage then colHealthBar = Color ( 255,255,255,235 ) elseif 0.6 < iPercentage then colHealthBar = Color ( 146,142,22,235 ) elseif 0.3 < iPercentage then colHealthBar = Color ( 166,79,3,235 ) else colHealthBar = Color ( 153,7,4,math.sin(RealTime() * 6) * 127.5 + 127.5 ) end
+	if 0.8 < iPercentage then
+		colHealthBar = Color(255, 255, 255, 235)
+	elseif 0.6 < iPercentage then
+		colHealthBar = Color(146, 142, 22, 235)
+	elseif 0.3 < iPercentage then
+		colHealthBar = Color(166, 79, 3, 235)
+	else
+		colHealthBar = Color(153, 7, 4,math.sin(RealTime() * 6) * 127.5 + 127.5 )
+	end
 	
 	if MySelf:IsHuman() then
 		if MySelf:IsTakingDOT() then
@@ -557,7 +503,6 @@ function hud.DrawHealthPanel()
 
 		surface.SetFont("ssNewAmmoFont13")
 		local fSPTextWidth, fSPTextHeight = surface.GetTextSize(MySelf:Frags() .." SP")
-
 	
 		ActualX = ActualX + HPBarSizeW + ScaleW(40) + fSPTextWidth
 	
@@ -635,7 +580,7 @@ function hud.DrawInflictionPanel()
 	local curwav = 0
 	
 	surface.SetFont("ArialBoldSeven")
-	local fWide, fTall = surface.GetTextSize ( "Wave ".. curwav .. " of ".. NUM_WAVES.."  |  " )
+	local fWide, fTall = surface.GetTextSize("Invasion starts in 0:00")
 	
 	local text1x, text1y = WaveX+ScaleW(7), WaveY+5
 	local text2x, text2y = WaveX+ScaleW(7), text1y+fTall+5
@@ -735,11 +680,11 @@ end
 function hud.DrawZeroWaveMessage()
 	local curtime = ServerTime()
 	
-	--[[if WARMUPTIME >= curtime then	
+	if WARMUPTIME >= curtime then	
 		surface.SetFont("ArialBoldSeven")
 		local txtw, txth = surface.GetTextSize("Hi")
-		--draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1) ..". Prepare your hideout!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-	end]]
+		draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1) ..". Prepare your hideout!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	end
 end
 
 function hud.DrawObjMessages()

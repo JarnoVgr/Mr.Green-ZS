@@ -252,10 +252,16 @@ function meta:SwitchToZombie()
 end
 
 function meta:RestoreHumanHealth(am,returnhealth)
-	if not self:IsHuman() then return end
+	if not self:IsHuman() then
+		return
+	end
 	
 	local health, maxhealth = self:Health(), 100
-	if self:GetPerk("_kevlar") then maxhealth = 110 elseif self:GetPerk("_kevlar2") then maxhealth = 120 end
+	if self:GetPerk("_kevlar") then
+		maxhealth = 110
+	elseif self:GetPerk("_kevlar2") then
+		maxhealth = 120
+	end
 	
 	if health == maxhealth and returnhealth then
 		return false
@@ -264,7 +270,6 @@ function meta:RestoreHumanHealth(am,returnhealth)
 	self:SetHealth(health+am)
 	
 	return true
-	
 end
 
 meta.BaseGive = meta.Give

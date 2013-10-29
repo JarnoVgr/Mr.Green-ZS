@@ -449,16 +449,16 @@ GM.ArenaWeapons = {
 
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
 GM.Perks = {
-	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more hp",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
-	["_kevlar2"] = {Name = "Kevlar 2", Description = "Gives you 20 more hp",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
+	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
+	["_kevlar2"] = {Name = "Full Kevlar", Description = "Gives you 20 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
 	["_turretammo"] = {Name = "Turret Ammo", Description = "50% more ammo for turret", Slot = 2},
 	["_turrethp"] = {Name = "Turret Durability", Description = "50% more health for turret", Material = "VGUI/gfx/VGUI/defuser", Slot = 2},
 	["_turretdmg"] = {Name = "Turret Power", Description = "50% more turret's damage", Slot = 2},
-	["_poisonprotect"] = {Name = "Poison Protection", Description = "30% less damage from poison headcrabs", Slot = 2, NoRetro = true},
+	["_poisonprotect"] = {Name = "Poison Protection", Description = "30% less damage from Poison Headcrabs", Slot = 2, NoRetro = true},
 	["_nailamount"] = {Name = "Pack of nails", Description = "50% more starting nails", Slot = 2, NoRetro = true},
 	["_nailhp"] = {Name = "Upgraded nails", Description = "40% more health for nails", Slot = 2, NoRetro = true},
 	["_falldmg"] = {Name = "Fall Protection", Description = "25% less fall damage", Slot = 1},
-	["_freeman"] = {Name = "Freeman's Spirit", Description = "50% more melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 1},
+	["_freeman"] = {Name = "Freeman's Spirit", Description = "Do 50% more melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 1},
 	["_enhkevlar"] = {Name = "Enhanced Kevlar", Description = "15% less damage from hits",Material = "VGUI/gfx/VGUI/kevlar_helmet", Slot = 1},
 	["_adrenaline"] = {Name = "Adrenaline Injection", Description = "Negates speed reduction on low health. Also your screen won't turn red when you are low on health", Slot = 1},
 	["_medupgr1"] = {Name = "Medical Efficiency", Description = "35% more healing power", Slot = 2, NoRetro = true},

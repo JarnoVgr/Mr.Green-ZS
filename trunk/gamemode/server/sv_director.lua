@@ -119,14 +119,12 @@ function GM:SetUnlife(bool)
 				if pl:Team() == TEAM_HUMAN and pl:Alive() then
 					if ARENA_MODE then
 						local hp = 100
-						if pl:GetPerk("_kevlar") then
-							hp = 110
-						end
-						
 						if pl:GetPerk("_kevlar2") then
 							hp = 120
+						elseif pl:GetPerk("_kevlar") then
+							hp = 110
 						end
-						
+
 						pl:SetHealth(hp)
 					end
 				end

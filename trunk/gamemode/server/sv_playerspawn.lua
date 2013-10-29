@@ -795,54 +795,37 @@ function CalculateZombieHealth(pl)
 	local allplayers = player.GetAll()
 	local numplayers = #allplayers
 	
-	-- Case 2: if there are only 2 zombies double their hp
-	
+	-- Case 2: if there are only 2 zombies double their HP
 	local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
-	if not (pl:IsBossZombie() and not pl:IsCrow()) then
+	if not pl:IsBossZombie() and not pl:IsCrow() then
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+1) and team.NumPlayers(TEAM_HUMAN) >= 4) then
 			local IncreaseHealth = Tab.Health*(WAVE_ONE_ZOMBIES)*desiredzombies+10*(team.NumPlayers(TEAM_HUMAN))
 			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth , Tab.Health, math.min(Tab.Health*1.9,510) )
 			pl:RemoveStatus("champion")
 		end
 	end
-	
-	if pl:IsSteroidZombie() and not pl:IsBossZombie() then
-		local tbl = ZombiePowerups[pl:GetSteroidZombieType()]
-		if tbl and tbl.HealthAdd then
-			MaxHealth = math.Clamp(Tab.Health + math.random(tbl.HealthAdd[1],tbl.HealthAdd[2]) , Tab.Health/2, 550 )
-		end
-	end
-	
-	-- if (team.NumPlayers( TEAM_UNDEAD ) <= 3 and team.NumPlayers( TEAM_HUMAN ) >= 4) or (team.NumPlayers( TEAM_UNDEAD ) <= 5 and team.NumPlayers( TEAM_HUMAN ) >= 35) then
-	-- 	MaxHealth = math.Clamp( ( ( ( #team.GetPlayers( TEAM_HUMAN ) or 0 ) / 10 ) + 1 ) * Tab.Health, Tab.Health, 799 )
-	-- end
-	
-	-- Case 3: Player has suicide sickness
-	--[[if pl.Suicided then
-		= Tab.Health * math.ceil( difficulty ) * 0.8
-	end]]
-	
+		
 	if pl:GetZombieClass() == 0 then
 		if GAMEMODE:IsRetroMode() then
-			MaxHealth = math.Clamp ( MaxHealth, 100, 125 )
+			MaxHealth = math.Clamp(MaxHealth, 100, 125 )
 		else
-			MaxHealth = math.Clamp ( Tab.Health, 0, Tab.Health )
+			MaxHealth = math.Clamp(Tab.Health, 0, Tab.Health)
 		end
 	else
 		if GAMEMODE:IsRetroMode() then
-			MaxHealth = math.Clamp ( Tab.Health, 0, Tab.Health )
+			MaxHealth = math.Clamp(Tab.Health, 0, Tab.Health)
 		end
 	end
 	
-	-- Case 4: Boss zombos
+	--Case 4: Boss zombos
 	if pl:IsBossZombie() then
 	   local humanCount = team.NumPlayers(TEAM_SURVIVORS)
 	   local zombieCount = team.NumPlayers(TEAM_UNDEAD)
 	   
-	   MaxHealth = ( humanCount * 1400 ) * math.Clamp( humanCount / zombieCount, 0.5, 1.5 )
+	   MaxHealth = (humanCount * 1400) * math.Clamp( humanCount / zombieCount, 0.5, 1.5)
 	end
 
-	-- Send the maximum health clientside
+	--Set
 	pl:SetMaximumHealth(math.Round(MaxHealth))
 	pl:SetHealth(MaxHealth)
 end
