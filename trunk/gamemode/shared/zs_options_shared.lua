@@ -1072,8 +1072,8 @@ ZombieClasses[0] =
 	Model = Model("models/player/group01/male_09.mdl"), 
 	Speed = 165,	
 	-- AngleFix = true,
-	Description = "The victim of zombie plague.",
-	Unique = "Deadly in numbers. Can Propkill.",
+	Description = "Victim of the plague. Deadly in numbers.",
+	Unique = "",
 	PainSounds = {
 				Sound("npc/zombiegreen/been_shot_1.wav"),
 				Sound("npc/zombiegreen/been_shot_2.wav"),
@@ -1162,7 +1162,7 @@ ZombieClasses[1] =
 	AngleFix = true,
 	Description = "Unplayable",
 	Unique = "",
-	--Description="The Backbone of any Undead Horde. The Common Rotting Zombie.",
+	Description = "You aren't supposed to read this.",
 	--Unique = "Can be deadly in numbers. Can Propkill.",
 	PainSounds = {
 				Sound("npc/zombie/zombie_pain1.wav"),
@@ -1194,7 +1194,7 @@ ZombieClasses[1] =
 
 ZombieClasses[2] = 
 {
-	Name = "Fast Zombie",
+	Name = "Fastie",
 	Tag = "fastzombie",
 	Infliction = 0.5,
 	Health = 100,
@@ -1210,8 +1210,8 @@ ZombieClasses[2] =
 	AngleFix = true,
 	Model = Model("models/Zombie/Fast.mdl"),
 	Speed = 250,
-	Description = "Bare bones that can catch runners with little effort.",
-	Unique = "Unique abilities: Can climb walls and leap great distances.",
+	Description = "Bare bones that catches runners with little effort.",
+	Unique = "Unique ability: Leaps great distances.",
 	PainSounds = {
 				Sound("npc/fast_zombie/leap1.wav"),
 				Sound("npc/fast_zombie/wake1.wav")
@@ -1245,8 +1245,8 @@ ZombieClasses[3] =
 	SWEP = "weapon_zs_undead_poisonzombie",
 	Model = Model( "models/Zombie/Poison.mdl" ),
 	Speed = 165,
-	Description="Exceeds in strength compared to other zombies.",
-	Unique = "Unique abilities: Packs quite a punch.",
+	Description = "Exceeds in strength compared to other Undead.",
+	Unique = "Unique ability: Packs quite a punch.",
 	PainSounds = {
 				Sound("npc/zombie_poison/pz_pain1.wav"),
 				Sound("npc/zombie_poison/pz_pain2.wav"),
@@ -1283,8 +1283,8 @@ ZombieClasses[4] =
 	SWEP = "weapon_zs_undead_wraith",
 	Model = Model( "models/wraith.mdl" ),
 	Speed = 195,
-	Description="A Ghastly figure",
-	Unique = "Unique abilities: Almost invisible and dangerous for unsuspecting targets.",
+	Description = "A Ghastly figure.",
+	Unique = "Unique abilities: Almost invisible and very effective for unsuspecting targets.",
 	PainSounds = {
 				Sound("npc/stalker/stalker_pain1.wav"),
 				Sound("npc/stalker/stalker_pain2.wav"),
@@ -1316,21 +1316,21 @@ ZombieClasses[5] =
 	JumpPower = 200,
 	CanCrouch = true,
 	CanGib = false,
-	Model = Model( "models/player/group01/female_01.mdl" ), 
+	Model = Model("models/player/group01/female_01.mdl"), 
 	--Model = Model( "models/mrgreen/howler.mdl" ),
 	Speed = 170,						
-	Description = "Screams that damage nearby humans.",
-	Unique = "Unique abilities: Can disorientate humans and pull humans closer.",
+	Description = "The schoolgirl you used to secretly love. Now she wants you.",
+	Unique = "Unique ability: Disorientate humans by screaming.",
 	PlayerFootstep = true,
 	AttackSounds = { 
-				Sound ( "player/zombies/howler/howler_scream_01.wav" ),
-				Sound ( "player/zombies/howler/howler_scream_02.wav" ),
+				Sound("player/zombies/howler/howler_scream_01.wav"),
+				Sound("player/zombies/howler/howler_scream_02.wav"),
 				},
 	PainSounds = { 
-				Sound ( "player/zombies/howler/howler_mad_01.wav" ),
-				Sound ( "player/zombies/howler/howler_mad_02.wav" ),
-				Sound ( "player/zombies/howler/howler_mad_03.wav" ),
-				Sound ( "player/zombies/howler/howler_mad_04.wav" ),
+				Sound("player/zombies/howler/howler_mad_01.wav" ),
+				Sound("player/zombies/howler/howler_mad_02.wav" ),
+				Sound("player/zombies/howler/howler_mad_03.wav" ),
+				Sound("player/zombies/howler/howler_mad_04.wav" ),
 				},
 	DeathSounds = {
 				Sound( "player/zombies/howler/howler_death_01.wav" ),
@@ -1367,8 +1367,8 @@ ZombieClasses[6] =
 	SWEP = "weapon_zs_undead_headcrab",
 	Model = Model("models/headcrabclassic.mdl"),
 	Speed = 180,
-	Description="Headhumper!",
-	Unique = "Unique abilities: Can sneak through small holes and under barricades.",
+	Description="The freaking Head Humper.",
+	Unique = "Unique ability: Sneaks through small holes and under barricades.",
 	PainSounds = {
 				Sound("npc/headcrab/pain1.wav"),
 				Sound("npc/headcrab/pain2.wav"),
@@ -1403,8 +1403,8 @@ ZombieClasses[7] =
 	SWEP = "weapon_zs_undead_poisonheadcrab",
 	Model = Model("models/headcrabblack.mdl"),
 	Speed = 125,
-	Description="A headcrab that can launch poison spit from long distances!",
-	Unique = "Unique abilities: Can do direct damage with its spit ball. Can poison players with it's bite.",
+	Description = "A poisoned headcrab that you don't want to get Infected by.",
+	Unique = "Unique ability: Spits poison from long distances.",
 	PainSounds = {
 				Sound("npc/headcrab_poison/ph_pain1.wav"),
 				Sound("npc/headcrab_poison/ph_pain2.wav"),
@@ -1438,8 +1438,8 @@ ZombieClasses[8] =
 	Model = Model("models/zombie/Zombie_Soldier.mdl"),
 	Speed = 145,
 	RunSpeed = 260,
-	Description = "An armoured zombie that enrages if taken damage.",
-	Unique = "Unique abilities: Can pull a grenade out.",
+	Description = "An armoured Undead soldier. But he's not here to rescue you.",
+	Unique = "Unique ability: Pulls out a grenade.",
 	PainSounds = {
 				Sound( "npc/zombine/zombine_pain1.wav" ),
 				Sound( "npc/zombine/zombine_pain2.wav" ),
@@ -1483,7 +1483,8 @@ ZombieClasses[9] =
 	Model = Model("models/crow.mdl"),
 	Speed = 60,
 	RunSpeed = 125,
-	Description="Use this infected crow to sneak up humans and spawn as zombie!",
+	Description = "Use this Infected crow to sneak up humans.",
+	Unique = "Unique ability: Shits on anything and anyone.",
 	PainSounds = {
 				Sound("npc/crow/pain1.wav"),
 				Sound("npc/crow/pain2.wav")
