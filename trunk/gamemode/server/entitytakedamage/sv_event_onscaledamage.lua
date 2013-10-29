@@ -71,9 +71,14 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		dmginfo:SetDamage(0)
 		return true
 	end
+
+	--Scale down own AR2 grenades (grenade launcher) shots
+	if (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
+		dmginfo:ScaleDamage(0.05)
+	end
 	
-	--Scale down explosion damage if it's the owner, and scale damage of grenade launcher AR2 grenades
-	if (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) or (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
+	--Scale down explosion damage if it's the owner
+	if (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) then
 		dmginfo:ScaleDamage(0.45)
 	end
 	
@@ -81,9 +86,9 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	if attacker:GetClass() == "zs_turret" then
 		if pl:IsHuman() then
 			if pl == attacker:GetTurretOwner() then
-				dmginfo:SetDamage( attacker.Damage/2 )
+				dmginfo:SetDamage(attacker.Damage/2)
 			else
-				dmginfo:SetDamage( 0 )
+				dmginfo:SetDamage(0)
 			end
 		elseif pl:IsZombie() then
 			dmginfo:SetDamage( attacker.Damage )
