@@ -1,12 +1,13 @@
-AddCSLuaFile("shared.lua")
+AddCSLuaFile()
 
 ENT.Type 			= "anim"
 ENT.PrintName		= ""
 ENT.Author			= "NECROSSIN"
 ENT.Purpose			= ""
-ENT.RenderGroup         = RENDERGROUP_TRANSLUCENT
+ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 
 util.PrecacheSound("items/ammo_pickup.wav")
+util.PrecacheSound("mrgreen/supplycrates/mobile_use.mp3")
 
 local player = player
 local pairs = pairs
@@ -27,7 +28,7 @@ function ENT:Initialize()
 		local phys = self.Entity:GetPhysicsObject()
 		if (phys:IsValid()) then
 			phys:Wake()
-			phys:EnableMotion( false ) 
+			phys:EnableMotion(false) 
 		end
 	
 		self.CrateHealth = 300
@@ -80,7 +81,7 @@ if SERVER then
 		if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() then
 			self.CrateHealth = self.CrateHealth - dmginfo:GetDamage()
 		
-			if self.CrateHealth <=0 then
+			if self.CrateHealth <= 0 then
 				self:Explode()
 			end
 		end
@@ -103,13 +104,12 @@ if SERVER then
 		util.Decal("Scorch",traceground.HitPos - traceground.HitNormal,traceground.HitPos + traceground.HitNormal)
 
 		local Effect = EffectData()
-		Effect:SetOrigin( self:GetPos() )
-		Effect:SetStart( self:GetPos() )
-		Effect:SetMagnitude( 300 )
+		Effect:SetOrigin(self:GetPos())
+		Effect:SetStart(self:GetPos())
+		Effect:SetMagnitude(300)
 		util.Effect("Explosion", Effect)
 
 		self.Entity:Remove()
-
 	end
 
 
@@ -164,8 +164,8 @@ if SERVER then
 
 				--Heal
 				if activator:Health() < activator:GetMaximumHealth() then
-					local healthDifference = math.Clamp(activator:GetMaximumHealth() - activator:Health(), 0, 25)
-					local actualHealAmount = math.random(10, healthDifference)
+					local healthDifference = math.Clamp(activator:GetMaximumHealth() - activator:Health(), 0, 35)
+					local actualHealAmount = math.random(15, healthDifference)
 					actualHealAmount = math.min(activator:Health() + actualHealAmount, activator:GetMaximumHealth())
 					activator:SetHealth(actualHealAmount)
 				end
@@ -188,7 +188,7 @@ if SERVER then
 
 		--Show notice when not being able to use it
 		if not gotSupplies then
-			activator:Message("You can't use mobile supplies at this moment",1,"white")
+			activator:Message("You can't get supplies at this moment",1,"white")
 		end
 	end
 end
