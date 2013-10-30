@@ -19,8 +19,6 @@ end
 
 -- Main damage event
 function GM:EntityTakeDamage(ent, dmginfo)
-	local attacker = dmginfo:GetAttacker()
-	local inflictor = dmginfo:GetInflictor()
 	local damage = dmginfo:GetDamage()
 	
 	--End on null damage or at intermission
@@ -28,17 +26,26 @@ function GM:EntityTakeDamage(ent, dmginfo)
 		dmginfo:SetDamage(0)
 		return 
 	end
+
+	local attacker = dmginfo:GetAttacker()
+	local inflictor = dmginfo:GetInflictor()
 	
 	if not ent:IsPlayer() then
+		--Scale damage for Cade Buster item
+		if (attacker:IsPlayer() and attacker:IsZombie() and attacker:HasBought("cadebuster")) or (attacker:GetOwner():IsPlayer() and attacker:GetOwner():HasBought("cadebuster") and attacker:GetOwner():IsZombie()) then  
+			dmginfo:ScaleDamage(1.5)
+		end
+
 		if ent:DamageNails(attacker, inflictor, damage, dmginfo) then 
-	    	return 
+	    	return
 		end
 	
 		local entclass = ent:GetClass()
-		if ent.PropHealth then -- A prop that was invulnerable and converted to vulnerable.
+		-- A prop that was invulnerable and converted to vulnerable.
+		if ent.PropHealth then
 			ent._LastAttackerIsHuman = false
 		
-			if ValidEntity( attacker ) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and ValidEntity(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
+			if ValidEntity(attacker) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and ValidEntity(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
 				ent._LastAttackerIsHuman = true
 			end
 			
