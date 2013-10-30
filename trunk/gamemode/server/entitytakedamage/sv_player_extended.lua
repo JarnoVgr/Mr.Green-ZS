@@ -1,29 +1,31 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-
 -- Get meta table
-metaPlayer = FindMetaTable( "Player" )
+metaPlayer = FindMetaTable("Player")
 
 -- Insert last attacker in table
-function metaPlayer:InsertLastDamage( mAttacker, mInflictor )
-	if IsEntityValid ( mAttacker ) then
+function metaPlayer:InsertLastDamage(mAttacker, mInflictor)
+	if not IsEntityValid(mAttacker) then
+		return
+	end
 	
-		-- Init. table
-		self.LastAttackers = self.LastAttackers or {}
+	-- Init. table
+	self.LastAttackers = self.LastAttackers or {}
 	
-		-- Is a player
-		if mAttacker ~= self then
-			local iTeam	if mAttacker:IsPlayer() then iTeam = mAttacker:Team() end
-			table.insert( self.LastAttackers, { Attacker = mAttacker, Inflictor = mInflictor, Team = iTeam } )
+	-- Is a player
+	if mAttacker ~= self then
+		local iTeam
+		if mAttacker:IsPlayer() then
+			iTeam = mAttacker:Team()
 		end
+		table.insert(self.LastAttackers, {Attacker = mAttacker, Inflictor = mInflictor, Team = iTeam})
 	end
 end
 
 -- Is attacker a player
 function metaPlayer:IsAttackerPlayer( iPosition )
-	return ( self:IsAttackersTableValid() and IsValid( self.LastAttackers[iPosition].Attacker ) and self.LastAttackers[iPosition].Attacker:IsPlayer() )
+	return (self:IsAttackersTableValid() and IsValid( self.LastAttackers[iPosition].Attacker ) and self.LastAttackers[iPosition].Attacker:IsPlayer() )
 end
 
 -- Remove a position from the stack
@@ -45,9 +47,11 @@ end
 
 -- Get last inflictor from the table
 function metaPlayer:GetLastInflictor()
-	if self.LastAtackers then
-		return self.LastAttackers[ ( #self.LastAttackers or 1 ) ].Inflictor
+	if not self.LastAtackers then
+		return
 	end
+	
+	return self.LastAttackers[ ( #self.LastAttackers or 1 ) ].Inflictor
 end
 
 -- Check if inflictor is player
@@ -57,22 +61,28 @@ end
 
 -- Clear last damage
 function metaPlayer:ClearLastDamage()
-	if self.LastAtackers then
-		self.LastAttackers[ ( #self.LastAttackers or 1 ) ] = nil
+	if not self.LastAtackers then
+		return
 	end
+	
+	self.LastAttackers[ ( #self.LastAttackers or 1 ) ] = nil
 end
 
 -- Get last attacker entity
 function metaPlayer:GetLastAttacker()
-	if self.LastAtackers then
-		return self.LastAttackers[ ( #self.LastAttackers or 1 ) ].Attacker
+	if not self.LastAtackers then
+		return
 	end
+	
+	return self.LastAttackers[ ( #self.LastAttackers or 1 ) ].Attacker
 end
 
 -- Get last attacker team
 function metaPlayer:GetLastAttackerTeam()
-	if self.LastAtackers then
-		return self.LastAttackers[ ( #self.LastAttackers or 1 ) ].Team
+	if not self.LastAtackers then
+		return
 	end
+	
+	return self.LastAttackers[ ( #self.LastAttackers or 1 ) ].Team
 end
 

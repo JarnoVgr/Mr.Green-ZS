@@ -1194,7 +1194,7 @@ ZombieClasses[1] =
 
 ZombieClasses[2] = 
 {
-	Name = "Fastie",
+	Name = "Fast Zombie",
 	Tag = "fastzombie",
 	Infliction = 0.5,
 	Health = 100,
@@ -1204,7 +1204,7 @@ ZombieClasses[2] =
 	SP = 20,
 	Threshold = 2,
 	SWEP = "weapon_zs_undead_fastzombie",
-	JumpPower = 300,
+	JumpPower = 200,
 	CanCrouch = true,
 	CanGib = true,
 	AngleFix = true,

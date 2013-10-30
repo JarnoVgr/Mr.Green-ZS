@@ -17,49 +17,33 @@ BONUS_RESISTANCE = false
 
 -- Scales player damage (called before others)
 local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
-	local ct = CurTime()
-	
-	-- Player not ready
+	--Player not ready
 	if not pl.Ready then
 		dmginfo:SetDamage(0)
 		return true
 	--Check for friendly fire
 	elseif dmginfo:IsPlayerFriendlyFire(pl) then
 		dmginfo:SetDamage(0)
-		return true
-	--Scale fire damage
-	--[[elseif dmginfo:IsFireDamage() then
-		pl.dmgNextFire = pl.dmgNextFire or 0
-		if pl.dmgNextFire > ct then
-			dmginfo:SetDamage( 0 )
-			return true
-		end
-		
-		--  5 damage per second
-		--dmginfo:SetDamage( pl:GetMaximumHealth() * 0.05 )
-		dmginfo:SetDamage( math.random(5,15) )
-		pl.dmgNextFire = ct + 1
-	]]		
-	-- Scale drown damage
+		return true	
+	--Scale drown damage
 	elseif dmginfo:IsDrownDamage() then
 		pl.dmgNextDrown = pl.dmgNextDrown or 0
-		if pl.dmgNextDrown > ct then 
+
+		if pl.dmgNextDrown > CurTime() then 
 			dmginfo:SetDamage( 0 )
-			return true
+		else
+			--10 damage per second
+			dmginfo:SetDamage(pl:GetMaximumHealth() * 0.1)
+			pl.dmgNextDrown = CurTime() + 1
 		end
-		
-		--10 damage per second
-		dmginfo:SetDamage(pl:GetMaximumHealth() * 0.1)
-		pl.dmgNextDrown = ct + 1
 
 		return true
 	end
 	
-	-- Physbox team-damage bug
+	--Physbox team-damage bug
 	if dmginfo:IsAttackerPhysbox() then
 		local mPhysAttacker = dmginfo:GetAttacker():GetPhysicsAttacker()
-		if IsEntityValid( mPhysAttacker ) and mPhysAttacker:IsPlayer() then
-		
+		if IsEntityValid(mPhysAttacker) and mPhysAttacker:IsPlayer() then
 			-- Set attacker
 			dmginfo:SetAttacker(mPhysAttacker)
 			attacker = mPhysAttacker
@@ -91,230 +75,168 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 				dmginfo:SetDamage(0)
 			end
 		elseif pl:IsZombie() then
-			dmginfo:SetDamage( attacker.Damage )
+			dmginfo:SetDamage(attacker.Damage)
 		end
 
-		return true		
+		return true
 	end
 	
 	if attacker:GetClass() == "zs_miniturret" then
-		if pl:IsHuman() then 
-			dmginfo:SetDamage( 0 )
+		if pl:IsHuman() then
+			dmginfo:SetDamage(0)
 		elseif pl:IsZombie() then
-			dmginfo:SetDamage( attacker.Damage )
+			dmginfo:SetDamage(attacker.Damage)
 		end
 
-		return true		
+		return true
 	end
 	
 	--Self-inflicted phys damage
 	if dmginfo:IsPhysHurtingSelf(pl) then
-		dmginfo:SetDamage( 0 )
+		dmginfo:SetDamage(0)
 
 		return true
 	end
 
 	--remove unnesessary damage
 	if dmginfo:IsPhysDamage() and not dmginfo:IsAttackerPlayer() and not dmginfo:IsInflictorPlayer() and dmginfo:GetAttacker().IsObjEntity then
-		dmginfo:SetDamage( 0 )
+		dmginfo:SetDamage(0)
+
 		return true
 	end
 
 	-- No phys damage between humans and zombies
 	if dmginfo:IsAttackerHuman() and pl:IsZombie() and dmginfo:IsPhysDamage() then
-		dmginfo:SetDamage( 0 )
+		dmginfo:SetDamage(0)
+
 		return true
 	end
 	
 	--Check for explosion damage immunity
 	if dmginfo:IsExplosionDamage() and pl.NoExplosiveDamage and pl.NoExplosiveDamage >= CurTime() then
-		dmginfo:ScaleDamage( 0.5 )
+		dmginfo:ScaleDamage(0.5)
 	end
-	
-	--Fix all zombie gun exploits in one go
-	--[[if dmginfo:IsAttackerPlayer() and dmginfo:GetAttacker():Team() ~= pl:Team() then
-		if ( dmginfo:IsAttackerZombie() and dmginfo:IsBulletDamage() ) then
-			dmginfo:SetDamage(0)
-			return true
-		end
-	end]]
-	
+		
 	--Zombies with howler protection
-	if dmginfo:IsAttackerHuman() and pl:IsZombie() then
-		if dmginfo:IsBulletDamage() and pl:HasHowlerProtection() then
-			if math.random(3) == 3 then
-				--Play metal sound
-				WorldSound( "physics/metal/metal_box_impact_bullet"..math.random( 1, 3 )..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
+	if dmginfo:IsAttackerHuman() and pl:IsZombie() and dmginfo:IsBulletDamage() and pl:HasHowlerProtection() then
+		if math.random(3) == 3 then
+			--Play metal sound
+			WorldSound("physics/metal/metal_box_impact_bullet".. math.random(1, 3) ..".wav", pl:GetPos() + Vector(0, 0, 30), 80, math.random(90, 110))
 				
-				--Show spark effect
-				local Spark = EffectData()
-				Spark:SetOrigin( dmginfo:GetDamagePosition() )
-				Spark:SetMagnitude( 50 )
-				Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
-				util.Effect("MetalSpark", Spark, nil, true)
-			end
-			
-			dmginfo:SetDamage( 0 )
-			return true
+			--Show spark effect
+			local Spark = EffectData()
+			Spark:SetOrigin(dmginfo:GetDamagePosition())
+			Spark:SetMagnitude(50)
+			Spark:SetNormal(-1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal())
+			util.Effect("MetalSpark", Spark, nil, true)
 		end
+			
+		dmginfo:SetDamage(0)
+		return true
 	end
-	
-	--Scale headshot damage
+
 	if pl:IsZombie() then
-		if pl:GetAttachment(1) then 
-			if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( 1 ).Pos )) < 15 then
+		--Scale headshot damage
+		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
+			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
 				if dmginfo:IsBulletDamage() then
-					dmginfo:SetDamage ( dmginfo:GetDamage() * 1.4 )
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.4)
 				elseif dmginfo:IsMeleeDamage() then
-					dmginfo:SetDamage ( dmginfo:GetDamage() * 1.1 )
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.1)
 				end
 			end
 		end
 
 		--35% damage for zombine (armor)
-		if pl:IsZombine() then
-			if (pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.75)) and pl:Health() ~= 0 and pl.bCanSprint == false then
-				pl.bCanSprint = true
-				pl:SendLua( "WraithScream()" )
-				pl:EmitSound( Sound ( "npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav" ) )
-			end
-
-			if pl.bCanSprint then
-				if dmginfo:IsBulletDamage()	then
-					if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( 1 ).Pos )) > 14 then
-						if math.random(3) == 3 then
-							WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
-
-							local Spark = EffectData()
-								Spark:SetOrigin( dmginfo:GetDamagePosition() )
-								Spark:SetMagnitude( 50 )
-								Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
-							util.Effect( "MetalSpark", Spark, nil, true )
-						end
-					end
-				end	
-				
-				if not pl.HoldingGrenade then
-					if pl:GetAttachment( 1 ) then 
-						if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( 1 ).Pos )) < 10 then	
-							dmginfo:ScaleDamage ( 0.7 )
-						else
-							dmginfo:ScaleDamage ( 0.25 )
-						end
-					end		
-				else
-					if pl:GetAttachment( 1 ) then 
-						if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( 1 ).Pos )) < 10 then	
-							dmginfo:ScaleDamage ( 0.8 )
-						else
-							dmginfo:ScaleDamage ( 0.2 )
-						end
-					end	
-				end	
-			else
-				dmginfo:ScaleDamage ( 0.8 )
-			end
-		else
-			--Starting zombies
-			if pl:IsStartingZombie() then
-				if dmginfo:IsBulletDamage()	then
-					if math.random(3) == 3 then
-						WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
-
-						local Spark = EffectData()
-						Spark:SetOrigin( dmginfo:GetDamagePosition() )
-						Spark:SetMagnitude( 50 )
-						Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
-						util.Effect( "MetalSpark", Spark, nil, true )
-					end
-					dmginfo:ScaleDamage ( 0.85 )
-				end
-			end
-
-			--One boss
-			if pl:GetZombieClass() == 11 then
-				if dmginfo:IsBulletDamage()	then
-					if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 then
-						if math.random(5) == 5 then
-							WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
-
-							local Spark = EffectData()
-							Spark:SetOrigin( dmginfo:GetDamagePosition() )
-							Spark:SetMagnitude( 50 )
-							Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
-							util.Effect( "MetalSpark", Spark, true, true )
-						end
-						dmginfo:ScaleDamage ( 0.07 )
-					end
-				end
-			end
+		if pl:IsZombine() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.75) and pl:Health() ~= 0 and pl.bCanSprint == false then
+			pl.bCanSprint = true
+			pl:SendLua("WraithScream()")
+			pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
 		end
-	end	
+
+		--One boss
+		if dmginfo:IsBulletDamage() and pl:GetZombieClass() == 11 and (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 then
+			if math.random(5) == 5 then
+				WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
+
+				local Spark = EffectData()
+				Spark:SetOrigin( dmginfo:GetDamagePosition() )
+				Spark:SetMagnitude( 50 )
+				Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
+				util.Effect( "MetalSpark", Spark, true, true )
+			end
+
+			dmginfo:ScaleDamage(0.07)
+		end
+	end
 	
 	--Fall damage
 	if dmginfo:IsFallDamage() then
 		dmginfo:SetDamage(0)
 			
 		--Fall damage for humans
-		if pl:IsHuman() then
-			local speed, div_factor = math.abs(pl:GetVelocity().z), 24
-			local Damage = math.Clamp(speed / div_factor, 5, 90)
-				
-			--Shake camera
-			if pl.ViewPunch then
-				pl:ViewPunch(Angle(math.random(-45, 45),math.random (-15, 15), math.random(-10, 10)))
-			end 
-			
-			if pl:GetPerk("_falldmg") then
-				dmginfo:AddDamage( Damage*0.75 )
-			-- if pl:HasBought("bootsofsteel")	and math.random(1,4) == 1 then
-				-- dmginfo:SetDamage( 0 )
-			else
-				-- Add new damage
-				dmginfo:AddDamage(Damage)
-			end
-
-			if pl:Alive() then
-				pl:GiveStatus("knockdown",3)
-			end
-		else
+		if not pl:IsHuman() then
 			return true
+		end
+		
+		local speed, div_factor = math.abs(pl:GetVelocity().z), 24
+		local Damage = math.Clamp(speed / div_factor, 5, 90)
+				
+		--Shake camera
+		if pl.ViewPunch then
+			pl:ViewPunch(Angle(math.random(-45, 45),math.random (-15, 15), math.random(-10, 10)))
+		end 
+			
+		if pl:GetPerk("_falldmg") then
+			dmginfo:AddDamage( Damage*0.75 )
+		-- if pl:HasBought("bootsofsteel")	and math.random(1,4) == 1 then
+			-- dmginfo:SetDamage( 0 )
+		else
+			-- Add new damage
+			dmginfo:AddDamage(Damage)
+		end
+
+		if pl:Alive() then
+			pl:GiveStatus("knockdown",3)
 		end
 	end
 	
 	-- Clamp phys damage
-	if dmginfo:GetAttacker():IsPlayer() then
+	if pl:IsPlayer() and dmginfo:GetAttacker():IsPlayer() and pl:Team() ~= dmginfo:GetAttacker():Team() then
 		local Inflictor = dmginfo:GetInflictor()
 		if Inflictor:GetClass() == "prop_physics" or Inflictor:GetClass() == "prop_physics_multiplayer" or Inflictor:GetClass() == "func_physbox" or Inflictor:GetClass() == "func_physbox_multiplayer" then-- if string.find ( Inflictor:GetClass(), "prop_physics" ) or string.find ( Inflictor:GetClass(), "physbox" ) then
-			if pl:IsPlayer() and pl:Team() ~= dmginfo:GetAttacker():Team() then
-				local MaximumVictimHealth = pl:GetMaximumHealth()
-				local InitialDamage, NewDamage, Percentage = dmginfo:GetDamage(), dmginfo:GetDamage(), 0.45
+			local MaximumVictimHealth = pl:GetMaximumHealth()
+			local InitialDamage, NewDamage, Percentage = dmginfo:GetDamage(), dmginfo:GetDamage(), 0.45
 				
-				-- Phys damage cooldown -- so we don't hit it with great damage 2 times in one frame
-				if pl.PhysCooldownDamage == nil then pl.PhysCooldownDamage = 0 end
-				if pl.PhysCooldownDamage > ct then return 0 end
+			-- Phys damage cooldown -- so we don't hit it with great damage 2 times in one frame
+			if pl.PhysCooldownDamage == nil then
+				pl.PhysCooldownDamage = 0 
+			end
+
+			if pl.PhysCooldownDamage > CurTime() then
+				return 0
+			end
 				
-				if InitialDamage >= MaximumVictimHealth * Percentage then
-					NewDamage = MaximumVictimHealth * Percentage
-				end
+			if InitialDamage >= MaximumVictimHealth * Percentage then
+				NewDamage = MaximumVictimHealth * Percentage
+			end
 				
-				if InitialDamage < MaximumVictimHealth * Percentage then
-					NewDamage = MaximumVictimHealth * Percentage
-				end
+			if InitialDamage < MaximumVictimHealth * Percentage then
+				NewDamage = MaximumVictimHealth * Percentage
+			end
 				
-				-- Next damage in the next frame
-				pl.PhysCooldownDamage = ct + 0.05
+			-- Next damage in the next frame
+			pl.PhysCooldownDamage = CurTime() + 0.05
 					
-				-- Apply damage
-				dmginfo:SetDamage ( NewDamage )
+			-- Apply damage
+			dmginfo:SetDamage(NewDamage)
 				
-				local phys = Inflictor:GetPhysicsObject()
-				
-				if phys:IsValid() then
-					if phys:GetVelocity():Length() > 320 then
-						if pl:Alive() then
-							pl:GiveStatus("knockdown",math.Rand(2.1,3))
-						end
+			local phys = Inflictor:GetPhysicsObject()
+
+			if phys:IsValid() then
+				if phys:GetVelocity():Length() > 320 then
+					if pl:Alive() then
+						pl:GiveStatus("knockdown",math.Rand(2.1,3))
 					end
 				end
 			end
@@ -326,23 +248,24 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		if dmginfo:GetAttacker():HasHowlerProtection() then
 			dmginfo:SetDamage( dmginfo:GetDamage() * 0.2 )
 		end
-			local effectdata = EffectData()
-			effectdata:SetEntity(pl)
-			effectdata:SetOrigin(dmginfo:GetDamagePosition())
-			effectdata:SetMagnitude(5)
-			effectdata:SetScale(0)
-			util.Effect("bloodstream", effectdata, nil, true)
+
+		local effectdata = EffectData()
+		effectdata:SetEntity(pl)
+		effectdata:SetOrigin(dmginfo:GetDamagePosition())
+		effectdata:SetMagnitude(5)
+		effectdata:SetScale(0)
+		util.Effect("bloodstream", effectdata, nil, true)
 	end
 	
-	-- Normal enraged zombies
+	--Normal enraged zombies
 	if dmginfo:IsAttackerHuman() and pl:IsZombie() and pl:IsZombieInRage() and dmginfo:IsBulletDamage() then
 		-- Sometimes play metal sound, sometimes flesh ...
-		local iRandom, fSound = math.random( 1, 2 ), "physics/flesh/flesh_impact_bullet"..math.random( 1, 4 )..".wav"
+		local iRandom, fSound = math.random( 1, 2 ), "physics/flesh/flesh_impact_bullet"..math.random(1, 4)..".wav"
 			
 		-- Metal sound
 		if iRandom == 1 then
-			fSound = "physics/metal/metal_box_impact_bullet"..math.random( 1, 3 )..".wav"
-			WorldSound( fSound, pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
+			fSound = "physics/metal/metal_box_impact_bullet"..math.random(1, 3)..".wav"
+			WorldSound(fSound, pl:GetPos() + Vector( 0,0,30 ), 80, math.random(90, 110))
 		end
 			
 		-- Show spark effect

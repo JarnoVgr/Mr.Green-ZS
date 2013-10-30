@@ -38,8 +38,8 @@ local function DoPhysBoxDestructible ( ent, attacker, inflictor, dmginfo )
 		return true
 	end]==]
 	
-	if dmginfo:IsDamageType( DMG_BURN ) and ent.FireProtection and ent.FireProtection > CurTime() then
-		dmginfo:SetDamage ( 0 )
+	if dmginfo:IsDamageType(DMG_BURN) and ent.FireProtection and ent.FireProtection > CurTime() then
+		dmginfo:SetDamage(0)
 		return true
 	end
 	
