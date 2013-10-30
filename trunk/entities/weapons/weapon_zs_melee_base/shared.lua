@@ -477,7 +477,7 @@ if CLIENT then
 	SWEP.vRenderOrder = nil
 	function SWEP:ViewModelDrawn()
 		
-		self.ViewModelFOV = GetConVarNumber("_zs_wepfov") or self.ViewModelFOV
+		self.ViewModelFOV = GetConVarNumber("zs_wepfov") or self.ViewModelFOV
 		
 		if not self.Owner then return end
 		if not self.Owner:IsValid() then return end

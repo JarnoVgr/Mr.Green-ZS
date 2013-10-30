@@ -18,14 +18,11 @@ ClientsideConvars["_zs_enablehints"] = {Value = 1, ShouldSave = true, UserData =
 ClientsideConvars["_zs_enablebeats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable Beats"}
 ClientsideConvars["_zs_enablemusic"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable Music (not beats)"}
 ClientsideConvars["_zs_showhorde"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable Horde-meter (zombies)"}
--- ClientsideConvars["_zs_hcolormod"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable Dark Color mod (humans)"}
 ClientsideConvars["_zs_enablecolormod"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Enable entire color mod (humans)"}
 ClientsideConvars["_zs_enableironsightblur"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Enable blur while ironsight"}
 ClientsideConvars["_zs_ironsight"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable crosshair while ironsight"}
 ClientsideConvars["_zs_enablehats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable hat drawing"}
--- ClientsideConvars["_zs_customweaponpos"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Centered weapon's position"}
 ClientsideConvars["_zs_headbob"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Enable head-bobbing"}
--- ClientsideConvars["_zs_clhands"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable clientside hands"}
 ClientsideConvars["cl_legs"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Show legs"}
 ClientsideConvars["_zs_hidehud"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Disable HUD"}
 ClientsideConvars["_zs_hidecrosshair"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Disable crosshair"}
@@ -53,18 +50,18 @@ CreateClientConVar("_zs_hatpcolB", 255, true, true)
 CreateConVar( "cl_playercolor", "0.24 0.34 0.41", { FCVAR_ARCHIVE, FCVAR_USERINFO, FCVAR_DONTRECORD }, "The value is a Vector - so between 0-1 - not between 0-255" )
 CreateConVar( "cl_weaponcolor", "0.30 1.80 2.10", { FCVAR_ARCHIVE, FCVAR_USERINFO, FCVAR_DONTRECORD }, "The value is a Vector - so between 0-1 - not between 0-255" )
 
--- Predicting spawn/death
+--Predicting spawn/death
 local function PredictSpawn()
-	for k,v in pairs ( player.GetAll() ) do
-		if IsEntityValid ( v ) then
+	for k,v in pairs(player.GetAll()) do
+		if IsEntityValid(v) then
 			if v:Deaths() == PREDICT_SPAWN then 
 			     v.bSpawning = nil 
 			     if v.bSpawned == nil then 
-    			     timer.Simple ( 0.1, function() 
-    			         if IsEntityValid ( v ) then 
-    			             gamemode.Call ( "PlayerSpawn", v ) 
+    			     timer.Simple(0.1, function() 
+    			         if IsEntityValid(v) then 
+    			             gamemode.Call("PlayerSpawn", v) 
     			         end 
-    			     end) 
+    			     end)
     			     v.bSpawned = true 
     			end 
 			elseif v:Deaths() == PREDICT_SPAWN_END then 
@@ -73,10 +70,12 @@ local function PredictSpawn()
 			    end 
 		    end
 			
-			-- Preidct health loss
+			-- Predict health loss
 			if v.LastHealth and v.LastHealth ~= v:Health() and v:Alive() then 
 				local iAdd = v.LastHealth - v:Health()
-				if iAdd > 0 then gamemode.Call ( "PlayerTakeDamage", v, nil, iAdd ) end
+				if iAdd > 0 then
+					gamemode.Call("PlayerTakeDamage", v, nil, iAdd)
+				end
 			end
 			v.LastHealth = v:Health()
 		end
@@ -98,26 +97,34 @@ end
 
 -- Called on player spawn
 function GM:PlayerSpawn( pl )
-	
 	-- Restore viewmodel fix
 	-- self:RestoreViewmodel()
 	RestoreViewmodel(pl)
 	
 	-- Play player spawn sound
-	if pl == MySelf then pl:PlaySpawnMusic() end
+	if pl == MySelf then
+		pl:PlaySpawnMusic()
+	end
 	
-	if not pl.InitialSpawn then gamemode.Call ( "PlayerInitialSpawn", pl ) pl.InitialSpawn = true end
-	Debug ( "[SPAWN] "..tostring ( pl ).." spawned" )
+	if not pl.InitialSpawn then
+		gamemode.Call("PlayerInitialSpawn", pl)
+		pl.InitialSpawn = true
+	end
+	
+	Debug("[SPAWN] "..tostring ( pl ).." spawned")
 end
 
 -- Called on player death
 function GM:DoPlayerDeath( pl, attacker, inflictor, assist )
-	if not pl.InitialDeath then gamemode.Call ( "DoPlayerFirstDeath", pl, attacker ) pl.InitialDeath = true end
-	Debug ( "[DEATH] "..tostring ( pl ).." died killed by "..tostring ( attacker ).." with assist/or not from "..tostring( assist ) )
+	if not pl.InitialDeath then
+		gamemode.Call ( "DoPlayerFirstDeath", pl, attacker )
+		pl.InitialDeath = true
+	end
+	Debug("[DEATH] "..tostring(pl).." died killed by ".. tostring(attacker) .." with assist/or not from "..tostring(assist))
 end
 
 -- Called on first death
-function GM:DoPlayerFirstDeath ( pl, attacker )
+function GM:DoPlayerFirstDeath(pl, attacker)
 end
 
 --[==[----------------------------------------------------

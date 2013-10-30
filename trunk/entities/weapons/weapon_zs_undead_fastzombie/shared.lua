@@ -50,7 +50,7 @@ SWEP.NextRoar = 0
 SWEP.Damage = 4
 SWEP.LeapDamage = 2
 
-SWEP.LeapPounceVelocity = 700
+SWEP.LeapPounceVelocity = 500
 SWEP.LeapPounceReach = 32
 SWEP.LeapPounceSize = 16
 

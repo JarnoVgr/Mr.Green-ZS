@@ -171,8 +171,9 @@ function SWEP:ResetBonePositions()
 		return
 	end
 	
-	if vm.GetBoneCount then
-		for i=0, vm:GetBoneCount() do
+	local boneCount = vm:GetBoneCount()
+	if isnumber(boneCount) then
+		for i=0, boneCount do
 			vm:ManipulateBoneScale(i, Vector(1, 1, 1))
 			vm:ManipulateBoneAngles(i, Angle(0, 0, 0))
 			vm:ManipulateBonePosition(i, Vector(0, 0, 0))
@@ -218,12 +219,6 @@ function SWEP:Reload()
 return false
 end
 
---[[function SWEP:Think()
-end
-
-function SWEP:OnThink()
-end]]
-
 function SWEP:Holster()
 
 	if CLIENT then
@@ -262,7 +257,7 @@ function SWEP:Equip(NewOwner)
 	
 	self:OnEquip()
 			
-	-- Call this function to update weapon slot and others
+	--Call this function to update weapon slot and others
 	gamemode.Call("OnWeaponEquip", NewOwner, self)
 end
 
@@ -288,7 +283,7 @@ if CLIENT then
 
 	SWEP.vRenderOrder = nil
 	function SWEP:ViewModelDrawn()
-		self.ViewModelFOV = GetConVarNumber("_zs_wepfov") or self.ViewModelFOV
+		self.ViewModelFOV = GetConVarNumber("zs_wepfov") or self.ViewModelFOV
 		
 		if not self.Owner then
 			return

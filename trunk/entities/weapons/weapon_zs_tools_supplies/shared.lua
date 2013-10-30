@@ -73,7 +73,6 @@ local FailSound = Sound("buttons/combine_button_locked.wav")
 
 function SWEP:InitializeClientsideModels()
 	self.ViewModelBoneMods = {
-		--["v_weapon.Right_Thumb01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-11.089, -16.17, 4.663) },
 		["v_weapon.c4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["v_weapon.button0"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["v_weapon.button1"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
@@ -85,17 +84,6 @@ function SWEP:InitializeClientsideModels()
 		["v_weapon.button7"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["v_weapon.button8"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["v_weapon.button9"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		--["v_weapon.Left_Arm"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		--["v_weapon.Right_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(-0.594, 3.637, 2.168), angle = Angle(0, 0.324, 13.687) }
-	}
-
-	
-	--[[self.VElements = {
-		["crate"] = { type = "Model", model = "models/Items/item_item_crate.mdl", bone = "v_weapon.c4", rel = "", pos = Vector(-2.681, 1.43, 0.307), angle = Angle(-1.67, -3.294, -108.269), size = Vector(0.3, 0.3, 0.3), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}]]
-	
-	self.WElements = {
-		["crate"] = { type = "Model", model = "models/Items/item_item_crate.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(4.105, 4.942, -0.801), angle = Angle(-160.631, 95.724, -54.231), size = Vector(0.203, 0.146, 0.123), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 end
 
@@ -167,7 +155,7 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire(CurTime() + 0.65)
 
 	if SERVER then
-		local aimvec = self.Owner:GetAimVector()
+		--[[local aimvec = self.Owner:GetAimVector()
 		local shootpos = self.Owner:GetPos()+Vector(aimvec.x,aimvec.y,0)*25+Vector(0,0,1)
 		local canPlaceCrate = false
 		
@@ -181,19 +169,36 @@ function SWEP:PrimaryAttack()
 			canPlaceCrate = true
 		else
 			canPlaceCrate = false
+		end]]
+
+		local vecAim = self.Owner:GetAimVector()
+		local posShoot = self.Owner:GetShootPos()
+	
+		local tr = util.TraceLine({start = posShoot, endpos = posShoot+300*vecAim, filter = self.Owner})
+	
+		local canPlaceCrate = false
+
+		--Check if we really need to draw the crate
+		if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 10 and tr.HitPos:Distance(self.Owner:GetPos()) <= 70 then
+			--Check traceline position area
+			local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-28,-28,0), maxs = Vector(28,28,25)})
+
+			if hTrace.Entity == NULL then
+				canPlaceCrate = true
+			end
 		end
-		
-		--Check distance to Supply Crates
-		for _, point in pairs(RealCrateSpawns) do
-			if tr.HitPos then
-				if tr.HitPos:Distance(point) < 80 then
-					self.Owner:Message("You must place the crate 80 units away from a Supply Crate",1,"white")
+
+		if canPlaceCrate then
+			--Check distance to Supply Crates
+			for _, point in pairs(RealCrateSpawns) do
+				if tr.HitPos:Distance(point) <= 100 then
+					self.Owner:Message("Place the Mobile Supplies more away from a Supply Crate",1,"white")
 					canPlaceCrate = false
 					break
 				end
 			end
 		end
-		
+
 		--Exit when cannot place
 		if not canPlaceCrate then
 			return
@@ -203,7 +208,7 @@ function SWEP:PrimaryAttack()
 		self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 
 		--Create entity
-		local angles = aimvec:Angle()
+		local angles = vecAim:Angle()
 		local ent = ents.Create("zs_ammobox")
 		if (ent ~= nil and ent:IsValid()) then
 			--Logging, Note to Clavus - add crate logging

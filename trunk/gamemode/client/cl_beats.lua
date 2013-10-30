@@ -320,7 +320,7 @@ concommand.Add("zs_showhorde", EnableHordeHUD)
 
 HCOLORMOD = true
 
-CreateClientConVar("_zs_wepfov", 57, true, true)
+CreateClientConVar("zs_wepfov", 57, true, true)
 
 ENABLE_BLOOD = false
 

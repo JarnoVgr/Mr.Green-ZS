@@ -87,11 +87,8 @@ function MakepOptions()
 	slider:SizeToContents()
 	slider:SetDecimals(0)
 	slider:SetMinMax(45, 125)
-	slider:SetConVar("_zs_wepfov")
-	slider:SetText("Weapon's FOV")
-	--[==[slider.Wang.TextEntry.OnEnter = function(txt)
-        slider:SetValue(tonumber(txt:GetValue()));
-    end]==]
+	slider:SetConVar("zs_wepfov")
+	slider:SetText("Field Of View")
 	CatList["hud"]:AddItem( slider )
 	
 	

@@ -267,7 +267,7 @@ if CLIENT then
 	
 		
 		if not self.IgnoreFov then
-			self.ViewModelFOV = GetConVarNumber("_zs_wepfov") or self.ViewModelFOV
+			self.ViewModelFOV = GetConVarNumber("zs_wepfov") or self.ViewModelFOV
 		end
 		
 		if not self.Owner then return end
