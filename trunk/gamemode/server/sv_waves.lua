@@ -30,7 +30,7 @@ function GM:SetRandomsToFirstZombie()
 	local tblUndead = team.GetPlayers(TEAM_UNDEAD)
 	
 	--Calculate required Undead amount
-	local numRequiredUndead = math.max(1, math.ceil(numPlayers * WAVE_ONE_ZOMBIES))
+	local numRequiredUndead = math.max(1, math.ceil(numPlayers * UNDEAD_START_AMOUNT_PERCENTAGE))
 	
 	--
 	

@@ -372,17 +372,8 @@ HULL_PLAYER = { Vector ( -16, -16, 0 ), Vector ( 16, 16, 72 ), Vector ( 16, 16, 
 BIG_HULL = { Vector ( -32, -32, 0 ), Vector ( 32, 32, 72 ) }
 
 function GM:GetGameDescription()
-		if OBJECTIVE then
-			return self.Name.." (Obj. "..self:GetObjStage().." out of "..#Objectives..")"
-		else
-			--return self.Name.." (Time "..ToMinutesSeconds(math.Clamp ( ROUNDTIME - CurTime(), 0, ROUNDTIME ))..")"
-			return self.Name--.." (Wave "..self:GetWave().." of "..NUM_WAVES..")"
-		end
+	return self.Name
 end
-
---function GM:GetGameDescription()
---	return self.Name
---end
 
 function GM:PlayerTraceAttack( ply, dmginfo, dir, trace )
 	return false
@@ -395,22 +386,6 @@ end
 function GM:GravGunPunt( ply, ent )
 	return true	
 end
-
-
---[==[for _, funcname in pairs({"Exists", "ExistsEx", "Read", "Size", "IsDir", "Find"}) do
-    local old = file[funcname]
-    if not old then continue end
- 
-    file[funcname] = function(a, b)
-        if a and not b and (string.sub(a, 1, 3) == "../" or string.sub(a, 1, 3) == "..\\") then
-            b = true
-            a = string.sub(a, 4)
-        end
- 
-        return old(a, b)
-    end
-end
-]==]
 
 -- Check if player title is valid
 local validchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789><! "

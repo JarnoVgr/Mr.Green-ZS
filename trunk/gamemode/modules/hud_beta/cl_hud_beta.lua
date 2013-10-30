@@ -683,7 +683,7 @@ function hud.DrawZeroWaveMessage()
 	if WARMUPTIME >= curtime then	
 		surface.SetFont("ArialBoldSeven")
 		local txtw, txth = surface.GetTextSize("Hi")
-		draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WAVEZERO_LENGTH - curtime) + 1) ..". Prepare your hideout!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WARMUPTIME - curtime) + 1) ..". Prepare your hideout!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 	end
 end
 

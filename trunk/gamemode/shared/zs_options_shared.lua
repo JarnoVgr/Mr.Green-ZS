@@ -487,35 +487,6 @@ end
 
 GM.RankUnlocks[91] = AddRetro
 
-
--- [upgrade] = {what to give instead}
-GM.UpgradesRefund = {
-	["bootsofsteel"] = {"_falldmg"},
-	["gordonfreeman"] = {"_freeman","weapon_zs_melee_pot"},
-	["adrenaline"] = {"_adrenaline"},
-	["backbreaker"] = {"_kevlar2"},
-	["naturalimmunity"] = {"_poisonprotect"},
-	["quickcure"] = {"weapon_zs_medkit","_kevlar"},
-	["cheatdeath"] = {"_enhkevlar"},
-	["spartanu"] = {"_enhkevlar"},
-	["ammoman"] = {"weapon_zs_tools_supplies"},
-	["homerun"] = {"weapon_zs_melee_pot"},
-	["surgery"] = {"weapon_zs_medkit","_medupgr2"},
-	["antidote"] = {"_medupgr1"},
-	["blessedfists"] = {"_sboost"},
-	["retrieval"] = {"_comeback"},
-	["comeback"] = {"_comeback"},
-}
-
-CLASS_REFUND_LEVEL = 4
-GM.ClassRefund = {
-	["medic"] = {"weapon_zs_medkit","_medupgr2","_medupgr1","_sboost","weapon_zs_fiveseven"},
-	["commando"] = {"_enhkevlar","weapon_zs_classic","weapon_zs_grenade","weapon_zs_mine"},
-	["berserker"] = {"_sboost","_freeman","weapon_zs_melee_pot","weapon_zs_melee_crowbar"},
-	["engineer"] = {"weapon_zs_turretplacer","weapon_zs_tools_remote","_turretdmg","weapon_zs_miniturret"},
-	["support"] = {"_trchregen","weapon_zs_tools_torch","weapon_zs_tools_supplies","weapon_zs_tools_plank"},
-}
-
 -- Leave this. THis table will be filled at initialize hook
 GM.WeaponsOnSale = {}
 
@@ -537,36 +508,10 @@ NPCS_COUNT_AS_KILLS = false
 
 -- INCOMING!-- -- 
 -- Fraction of people that should be set as zombies at the beginning of the game.
-WAVE_ONE_ZOMBIES = 0.17
+UNDEAD_START_AMOUNT_PERCENTAGE = 0.17
 
 -- Good values are 1 to 3. 0.5 is about the same as the default HL2. 1 is about ZS difficulty. This is mainly for NPC healths and damages.
 DIFFICULTY = 1.5
-
--- Number of waves the humans need to survive through to completely win.
-NUM_WAVES = 6
-
--- Display current wave on the server list.
-DISPLAY_WAVES_ON_SERVERLIST = true
-
--- Initial length for wave 1.
-WAVEONE_LENGTH = ARENA_MODE and 60 or 120
-
--- Add this many seconds for each additional wave.
-WAVE_TIMEADD = 25-- ARENA_MODE and 30 or 
-
--- New players are put on the zombie team if the current wave is this or higher. Do not put it lower than 1 or you'll break the game.
-NONEWJOIN_WAVE = 3
-
--- Humans can not commit suicide if the current wave is this or lower. Negative numbers will effectively disable it but it's not suggested since people can just join quickly, suicide, and make it half-life (thus making all new players in to zombies).
-NOSUICIDE_WAVE = 1
-
--- How long 'wave 0' should last in seconds. This is the time you should give for new players to join and get ready.
-WAVEZERO_LENGTH = ARENA_MODE and 50 or 120
-
--- Time humans have between waves to do stuff without NEW zombies spawning. Any dead zombies will be in spectator view and any living ones will still be living.
-WAVE_INTERMISSION_LENGTH = 75
-
-WAVE_INTERMISSION_LENGTH_RETRO = 15
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
 CARRY_MAXIMUM_MASS = 300
@@ -1573,7 +1518,7 @@ ZombieClasses[11] =
 {
 	Name = "Behemoth",
 	Tag = "behemoth",
-	Infliction = 0, --math.floor(0.7 * NUM_WAVES),
+	Infliction = 0,
 	Health = 8100,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
@@ -1639,7 +1584,7 @@ ZombieClasses[12] =
 {
 	Name = "Seeker",
 	Tag = "seeker",
-	Infliction = 0, --math.floor(0.7 * NUM_WAVES),
+	Infliction = 0,
 	Health = 8000,
 	MaxHealth = 8000,
 	TimeLimit = 1020,
@@ -1696,7 +1641,7 @@ ZombieClasses[13] =
 {
 	Name = "Nerf",
 	Tag = "nerf",
-	Infliction = 0, --math.floor(0.7 * NUM_WAVES),
+	Infliction = 0,
 	Health = 7000,
 	MaxHealth = 7000,
 	TimeLimit = 1020,
@@ -1931,8 +1876,13 @@ ZombieClassesCrow =
 	Hidden = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Add models for players to allow (and randomly be picked from when having no preference)
 
+
+--Add custom player models and hands
+player_manager.AddValidModel("gordon", "models/player/gordon_classic.mdl")
+player_manager.AddValidHands("gordon", "models/weapons/c_arms_hev.mdl", 0, "00000000")
+
+--Add models for players to allow (and randomly be picked from when having no preference)
 PlayerModels = {
 	--Half-Life 2
 		"alyx",
@@ -2013,6 +1963,7 @@ PlayerAdminModels = {
 		"dod_american",
 		"dod_german"
 	--Custom
+		--"gordon",
 		--"obama",
 		--"creepr"
 }
@@ -2273,8 +2224,8 @@ shopData = {
 	[21] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "You won't die of starvation with this thing on.", Key = "melonhead", ID = 21, Sell = 0, Requires = 0, Name = "Melonhead",  },
 	[22] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "You get twice as much ammunition from the Supply Crates!", Key = "ammoman", ID = 22, Sell = 0, Requires = 0, Name = "Ammunition Man",  },
 	[23] = { Cost = 7000, Hidden = true, AdminOnly = false, Desc = "You get thirsty and want to suck the blood out of your victims. With this sucker,you'll leech health from your victims. The greater the damage, the greater the leech!", Key = "vampire", ID = 23, Sell = 0, Requires = 5, Name = "Blood Sucker",  },
-	[24] = { Cost = 6500, Hidden = true, AdminOnly = false, Desc = "Have a chance to start the round as THE Gordon Freeman. Crowbar damage is scaled by the number of zombies!", Key = "gordonfreeman", ID = 24, Sell = 0, Requires = 0, Name = "Crowbar Wielding God",  },
-	[25] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "When having low health you won't walk as slow as without adreline.", Key = "adrenaline", ID = 25, Sell = 0, Requires = 0, Name = "Adrenaline",  },
+	[24] = { Cost = 6500, Hidden = false, Type = "misc", AdminOnly = false, Desc = "Have a chance to start the round as THE Gordon Freeman. You'll do more Melee damage as Gordon.", Key = "gordonfreeman", ID = 24, Sell = 0, Requires = 0, Name = "Crowbar Wielding God",  },
+	[25] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "When having low health you won't walk as slow as without adrenaline.", Key = "adrenaline", ID = 25, Sell = 0, Requires = 0, Name = "Adrenaline",  },
 	[26] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "A few bandages should hold. Health regenerates when below 30 hp when you're still human!", Key = "quickcure", ID = 26, Sell = 0, Requires = 0, Name = "Quick Cure",  },
 	[27] = { Cost = 1500, Type = "misc", AdminOnly = false, Desc = "Ability to change your player title in the Options (F4) menu.", Key = "titlechanging", ID = 27, Sell = 0, Requires = 0, Name = "Title Editor",  },
 	[28] = { Cost = 7200, Hidden = true, AdminOnly = false, Desc = "When your health is 30 or below, and you get hit by zombies that do damage greater than 25, then you have a 30% chance to not take damage. Occurs once in 5 minutes. You must have atleast 4 upgrades to buy this one.", Key = "cheatdeath", ID = 28, Sell = 0, Requires = 4, Name = "Cheat Death",  },
@@ -2292,7 +2243,7 @@ shopData = {
 	[40] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "Bring some old-fashioned style to the apocalypse. Probably stolen from a dead Brit.", Key = "homburg", ID = 40, Sell = 0, Requires = 0, Name = "Homburg hat",  },
 	[41] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "A bucket hat. Works better than kevlar according to the local bums.", Key = "buckethat", ID = 41, Sell = 0, Requires = 0, Name = "Bucket hat",  },
 	[42] = { Cost = 5500, Hidden = true, AdminOnly = false, Desc = "As human, you receive [15 + your total score divided by 5] percent less damage from Normal and Poison zombies. Requires 7 other upgrades.", Key = "spartanu", ID = 42, Sell = 0, Requires = 7, Name = "Spartan",  },
-	[43] = { Cost = 6500, Hidden = false, AdminOnly = false, Desc = "Bring more destruction power! You will deal 50% more damage to barricades and nailed props.", Key = "cadebuster", ID = 43, Sell = 0, Requires = 0, Name = "Cade Buster",  },
+	[43] = { Cost = 6500, Type = "misc", Hidden = false, AdminOnly = false, Desc = "Bring more destruction power! You will deal 50% more damage to barricades and nailed props.", Key = "cadebuster", ID = 43, Sell = 0, Requires = 0, Name = "Cade Buster",  },
 	[44] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "Screw the gravity! You will have 25% chance to avoid fall damage. Requires 2 other upgrades.", Key = "bootsofsteel", ID = 44, Sell = 0, Requires = 2, Name = "Boots of Steel (NEW)",  },
 	[45] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "Bonk! Receive additional 20% chance to decapitate a zombie! Requires 6 other upgrades.", Key = "homerun", ID = 45, Sell = 0, Requires = 6, Name = "Home Run (NEW)",  },
 	[46] = { Cost = 11000, Hidden = true, Type = "suit", AdminOnly = false, Desc = "Classic suit from IW!", Key = "testsuit", ID = 46, Sell = 0, Requires = 0, Name = "IW test suit",  },
@@ -2313,7 +2264,7 @@ shopData = {
 	[61] = { Cost = 1700, Type = "hat", AdminOnly = false, Desc = "A cute fez for your and your friends :O  (NOTE: Actually it is red by default, but preview aint showing it)", Key = "fez", ID = 61, Sell = 0, Requires = 0, Name = "Tiny Fez" },
 	[62] = { Cost = 2100, Type = "other", AdminOnly = false, Desc = "ARE YOU MANLY ENOUGH TO WEAR THIS BEARD?! (Requires TF2)", Key = "beard", ID = 62, Sell = 0, Requires = 0, Name = "Beard" },
 	[63] = { Cost = 1500, Type = "other", AdminOnly = false, Desc = "Remember, smoking kills (zombies). (Requires TF2)", Key = "cigar", ID = 63, Sell = 0, Requires = 0, Name = "Cigar" },
-	[64] = { Cost = 0, EventOnly = true,Type = "hat", AdminOnly = false, Desc = "Unlockable beanie! (Requires TF2)", Key = "wbeanie", ID = 64, Sell = 0, Requires = 0, Name = "Winter Beanie" },
+	[64] = { Cost = 0, Type = "hat", EventOnly = true, Type = "hat", AdminOnly = false, Desc = "Unlockable beanie! (Requires TF2)", Key = "wbeanie", ID = 64, Sell = 0, Requires = 0, Name = "Winter Beanie" },
 	[65] = { Cost = 2000, Type = "hat", AdminOnly = false, Desc = "Now that is a proper hat for zombie apocalypse. (Requires TF2)", Key = "hellsing", ID = 65, Sell = 0, Requires = 0, Name = "Hellsing Hat" },
 	[66] = { Cost = 1900, Type = "hat",Hidden = true, AdminOnly = false, Desc = "You're tought guy, huh?. (Requires TF2)", Key = "beanie", ID = 66, Sell = 0, Requires = 0, Name = "Beanie" },
 	[67] = { Cost = 1900, Type = "hat", AdminOnly = false, Desc = "Just a normal hat. Nothing special... right?. (Requires TF2)", Key = "normalhat", ID = 67, Sell = 0, Requires = 0, Name = "Ordinary Hat" },

@@ -206,10 +206,6 @@ for _, filename in pairs(files) do
 	table.insert ( ResourceFiles, "materials/hud3/"..filename  )
 end
 
-for _, filename in pairs(file.Find("materials/katharsmodels/gordon_freeman/*.*", "GAME" ) ) do
-	table.insert ( ResourceFiles, "materials/katharsmodels/gordon_freeman/"..filename )
-end
-
 -- Present textures
 for _, filename in pairs ( file.Find("materials/models/effects/*.*" , "GAME") ) do		
 	table.insert ( ResourceFiles, "materials/models/effects/"..filename )
@@ -499,6 +495,10 @@ table.insert ( ResourceFiles, "models/weapons/v_zombiearms.mdl" )
 table.insert ( ResourceFiles, "models/weapons/v_fza.mdl" )
 table.insert ( ResourceFiles, "models/weapons/v_pza.mdl" )
 table.insert ( ResourceFiles, "models/player/gordon_classic.mdl" )
+for _, filename in pairs(file.Find("materials/katharsmodels/gordon_freeman/*.*", "GAME" ) ) do
+	table.insert ( ResourceFiles, "materials/katharsmodels/gordon_freeman/"..filename )
+end
+
 table.insert ( ResourceFiles, "models/katharsmodels/hats/homburg/homburg.mdl" )
 table.insert ( ResourceFiles, "models/tophat/tophat.mdl" )
 table.insert ( ResourceFiles, "models/piratehat/piratehat.mdl" )

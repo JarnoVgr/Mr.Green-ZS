@@ -1125,75 +1125,23 @@ function meta:IsRetroOnly( item )
 	return false
 end
 
-function meta:HasUnlocked( item )
+function meta:HasUnlocked(item)
 	local unl = false
+	
 	for i=0,table.maxn(GAMEMODE.RankUnlocks) do
-		if i <= self:GetRank() then
-			if GAMEMODE.RankUnlocks[i] then
-				for _,v in pairs(GAMEMODE.RankUnlocks[i]) do
-					if item == v then
-						unl = true
-					end
-				end
-			end
+		if i > self:GetRank() or not GAMEMODE.RankUnlocks[i] then
+			continue
 		end
-	end
-	-- check upgrades
-	for upgr,items in pairs(GAMEMODE.UpgradesRefund) do
-		if self:HasBought(upgr) then
-			for _,v in pairs(GAMEMODE.UpgradesRefund[upgr]) do
-				if item == v then
-					unl = true
-				end
-			end
-		end
-	end
-	-- check classes
-	for classname,items in pairs(GAMEMODE.ClassRefund) do
-		local me = self
-		if CLIENT then if me ~= MySelf then me = MySelf end end
 		
-		if me.DataTable and me.DataTable["ClassData"] and me.DataTable["ClassData"][classname] 
-		and me.DataTable["ClassData"][classname].level and me.DataTable["ClassData"][classname].level >= CLASS_REFUND_LEVEL then
-		
-			for _,v in pairs(GAMEMODE.ClassRefund[classname]) do
-				if item == v then
-					unl = true
-				end
-			end
-		end
-	end
-	
-	if SERVER then
-		if GAMEMODE:IsRetroMode() then
-			if unl and not self:IsBlocked(item) then
+		for _,v in pairs(GAMEMODE.RankUnlocks[i]) do
+			if item == v then
 				unl = true
-			else
-				unl = false
 			end
 		end
 	end
-	
-	if GAMEMODE:IsRetroMode() and self:IsRetroOnly(item) then
-		unl = true
-	end
-	
 	
 	return unl
 end
-
---[=[	for i=0,table.maxn(GAMEMODE.RankUnlocks) do
-		if i > self:GetRank() then
-			if GAMEMODE.RankUnlocks[i] then
-				for _,v in pairs(GAMEMODE.RankUnlocks[i]) do
-					if item == v then
-						unl = false
-					end
-				end
-			end
-		end
-	end
-]=]
 
 function meta:TraceLine ( distance, _mask, filter )
 	local vStart = self:GetShootPos()

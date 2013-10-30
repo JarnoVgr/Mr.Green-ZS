@@ -38,6 +38,9 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 
 		return true
+	--Scale damage for THE Gordon Freeman
+	elseif attacker.IsFreeman and attacker:IsHuman() and dmginfo:IsMeleeDamage() then
+		dmginfo:ScaleDamage(1.2)
 	end
 	
 	--Physbox team-damage bug
@@ -54,20 +57,14 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	if ((attacker:GetClass() == "grenade_ar2" or attacker:GetClass() == "weapon_zs_grenadelauncher") and pl:IsHuman()) then
 		dmginfo:SetDamage(0)
 		return true
-	end
-
 	--Scale down own AR2 grenades (grenade launcher) shots
-	if (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
+	elseif (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
 		dmginfo:ScaleDamage(0.05)
-	end
-	
 	--Scale down explosion damage if it's the owner
-	if (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) then
+	elseif (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) then
 		dmginfo:ScaleDamage(0.45)
-	end
-	
 	--Turret damage
-	if attacker:GetClass() == "zs_turret" then
+	elseif attacker:GetClass() == "zs_turret" then
 		if pl:IsHuman() then
 			if pl == attacker:GetTurretOwner() then
 				dmginfo:SetDamage(attacker.Damage/2)
@@ -79,9 +76,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 
 		return true
-	end
-	
-	if attacker:GetClass() == "zs_miniturret" then
+	elseif attacker:GetClass() == "zs_miniturret" then
 		if pl:IsHuman() then
 			dmginfo:SetDamage(0)
 		elseif pl:IsZombie() then

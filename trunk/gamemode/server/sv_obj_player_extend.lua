@@ -1306,8 +1306,8 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	    return false
 	end
 	
-	-- Cadebreaker warning
-	if ( attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN ) then
+	--Cadebreaker warning
+	if (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN) then
 	    if ( ( attacker.BarricadeWarnTime or 0 ) <= CurTime() ) then
             attacker:Message("Don't break the barricade", 2)
             attacker.BarricadeWarnTime = CurTime() + 4

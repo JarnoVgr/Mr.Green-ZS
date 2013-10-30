@@ -401,16 +401,10 @@ function GM:InitPostEntity()
 		self:SetObjStage(1)
 	end
 	
-	--Check if in retro mode
-	if self:IsRetroMode() then
-		--Sync ammo regeneration time
-		game.GetWorld():SetDTFloat(0,RETRO_AMMO_REGENERATION+WAVEONE_LENGTH)
-	else
-		--Spawn crate
-		self:CalculateSupplyDrops()
-	end
+	--Spawn crate
+	self:CalculateSupplyDrops()
 	
-	--Create zombie flashlight
+	--Create zombie Flashlight
 	self:CreateZombieFlashLight()
 	
 	--Log

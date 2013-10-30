@@ -161,30 +161,6 @@ function GM:PlayerInitialSpawn( pl )
 		iTeam = TEAM_UNDEAD
 		DataTableConnected[ID].IsDead = true
 	end
-
-	--[[if not pl:IsBot() then
-		if DataTableConnected[ID].IsDead then
-			pl.SpawnedTime = CurTime()
-			iTeam = TEAM_UNDEAD
-		elseif LASTHUMAN then
-			iTeam = TEAM_UNDEAD
-			DataTableConnected[ID].IsDead = true	
-		elseif CurTime() > ROUNDTIME * 0.15 then
-			iTeam = TEAM_UNDEAD
-			DataTableConnected[ID].IsDead = true	
-		elseif team.NumPlayers(TEAM_UNDEAD) < 1 and 2 < team.NumPlayers(TEAM_HUMAN) and NONEWJOIN_WAVE > self:GetWave() and not LASTHUMAN then
-			pl.SpawnedTime = CurTime()
-			iTeam = TEAM_SPECTATOR
-		else
-			if NONEWJOIN_WAVE > self:GetWave() and LASTHUMAN or LASTHUMAN then
-				iTeam = TEAM_UNDEAD
-				DataTableConnected[ID].IsDead = true
-			else
-				pl.SpawnedTime = CurTime()
-				iTeam = TEAM_SPECTATOR
-			end
-		end
-	end]]
 		
 	-- Set the player's team
 	pl:SetTeam(iTeam)
@@ -255,18 +231,7 @@ function GM:PlayerSpawn(pl)
 		else
 			pl.PlayerModel = table.Random(PlayerModels)
 		end
-	
-		--[[if pl:HasBought("gordonfreeman") and not self.GordonIsHere and math.random( 1,5 ) == 1 then
-			pl:ChatPrint("You're now THE Gordon Freeman!")
-			pl.IsFreeman = true
-			self.GordonIsHere = true
-			pl.PlayerModel = "gordon"
-		end]]
-	
-		--[[if pl:GetPerk("_freeman") then
-			pl.PlayerModel = "gordon"
-		end]]
-	
+			
 		--Check if in PlayerModels list
 		if table.HasValue(PlayerModels, pl.PlayerModel) or (pl:IsAdmin() and table.HasValue(PlayerAdminModels, pl.PlayerModel)) then
 			--Get custom player color
@@ -281,59 +246,73 @@ function GM:PlayerSpawn(pl)
 			pl.PlayerModel = table.Random(PlayerModels)
 			Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredPlayerModelName ..". Which doesn't exist.")
 		end
-	end
-	
-	if pl:Team() ~= TEAM_SPECTATOR then
-		-- Return his original color to normal
-		if not FIRSTAPRIL then
-			pl:SetColor(Color(255,255,255,255))
-		else
-			umsg.Start("MakeBody")
-			umsg.End()
-		end
+		
+		--Check if we can be THE Gordon Freeman
+		if pl:Team() ~= TEAM_SPECTATOR and (not self.IsGordonHere or pl.IsFreeman) and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 then
+			--Only display message when being human
+			if pl:Team() == TEAM_SURVIVORS then
+				pl:ChatPrint("You're now THE Gordon Freeman!")
+			end
 
-		-- Unlock or unfreeze if neccesary and make him able to walk
-		pl:UnLock()
-		pl:Freeze(false)
-		
-		pl.StartTime = pl.StarTime or CurTime()
-		pl.IsSecondSpawn = true
-		pl.SpawnTime = CurTime()
-		
-		pl.TookHit = false
-		pl.CheatDeathCooldown = 0
-		pl.IsRegenerating = false
-		
-		pl.StartCrowing = nil
-		pl.StartSpectating = nil
-		pl.NextSpawn = nil
-		pl.Gibbed = nil
+			--Set global
+			self.IsGordonHere = true
 			
-		pl.LastHealth = pl:Health()
-		
-		-- Disable walk
-		pl:SetCanWalk ( false )
-
-		--pl:SendLua("GAMEMODE:SwitchMaterials("..pl:Team()..")")
-		
-		-- Set no-collide with team
-		-- This shit glitchy as hell
-		--pl:SetNoCollideWithTeammates( true )
-		
-		-- Setup spawn functions
-		if pl:Team() == TEAM_HUMAN then
-			self:OnHumanSpawn(pl)
-		elseif pl:Team() == TEAM_UNDEAD then
-			self:OnZombieSpawn(pl)
-			pl:StopAllLuaAnimations()
-		end	
-	else
-		self:OnFirstHumanSpawn(pl)
+			--Set model for player
+			pl.IsFreeman = true
+			pl.PlayerModel = "gordon"
+		end
 	end
 	
-	--[[if not pl:IsSteroidZombie() then
-		pl:SetColor( Color(255,255,255,255) )
-	end]]
+	Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." test: ".. pl.PlayerModel .."")
+		
+	if pl:Team() == TEAM_SPECTATOR then
+		self:OnFirstHumanSpawn(pl)
+		return
+	end
+	
+	-- Return his original color to normal
+	if not FIRSTAPRIL then
+		pl:SetColor(Color(255,255,255,255))
+	else
+		umsg.Start("MakeBody")
+		umsg.End()
+	end
+
+	-- Unlock or unfreeze if neccesary and make him able to walk
+	pl:UnLock()
+	pl:Freeze(false)
+		
+	pl.StartTime = pl.StarTime or CurTime()
+	pl.IsSecondSpawn = true
+	pl.SpawnTime = CurTime()
+		
+	pl.TookHit = false
+	pl.CheatDeathCooldown = 0
+	pl.IsRegenerating = false
+		
+	pl.StartCrowing = nil
+	pl.StartSpectating = nil
+	pl.NextSpawn = nil
+	pl.Gibbed = nil
+		
+	pl.LastHealth = pl:Health()
+		
+	--Disable walk
+	pl:SetCanWalk(false)
+
+	--pl:SendLua("GAMEMODE:SwitchMaterials("..pl:Team()..")")
+		
+	--Set no-collide with team
+	--This shit glitchy as hell
+	pl:SetNoCollideWithTeammates(true)
+		
+	--Setup spawn functions
+	if pl:Team() == TEAM_HUMAN then
+		self:OnHumanSpawn(pl)
+	elseif pl:Team() == TEAM_UNDEAD then
+		self:OnZombieSpawn(pl)
+		pl:StopAllLuaAnimations()
+	end
 end
 
 --[==[---------------------------------------------------------
@@ -341,11 +320,11 @@ end
 ---------------------------------------------------------]==]
 function GM:OnFirstHumanSpawn(pl)
 	-- Kill them and make them stay still
-	pl:KillSilent() 
+	pl:KillSilent()
 	
 	pl.HumanClassMenuSent = true
 	
-	Debug ( "[INIT-SPAWN] Sending Human Class Menu to "..tostring(pl))
+	Debug("[SPAWN] Sending Human Class Menu to "..tostring(pl))
 end
 
 --[==[------------------------------------------------
@@ -363,7 +342,6 @@ function GM:OnHumanSpawn(pl)
 	
 	--Case 1: If the player already got the class menu as human and disconnected then set his same class back and/or hp
 	if pl:ConnectedAlreadyGotWeapons() and pl:ConnectedHumanClass() ~= false then
-		-- pl:SetHumanClass ( pl:ConnectedHumanClass() )
 		DataTableConnected[ID].HumanClass = false
 	end
 	
@@ -461,12 +439,12 @@ function GM:OnZombieSpawn(pl)
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
-	-- Set a random human class if they connect as zombie and there is no human class
+	--Set a random human class if they connect as zombie and there is no human class
 	if pl:ConnectedIsDead() and pl.ClassHuman == nil then
 		pl:SetHumanClass(1)
 	end
 	
-	-- Manages class spawn
+	--Manages class spawn
 	if pl.DeathClass then
 		pl:SetZombieClass(pl.DeathClass)
 		pl.DeathClass = nil
@@ -484,34 +462,22 @@ function GM:OnZombieSpawn(pl)
 		DataTableConnected[ID].SuicideSickness = false
 	end
 	
-			
 	local Class = pl:GetZombieClass()
 	local Tab = ZombieClasses[Class]
 		
-	
-
-	--Steroids zombies
-	--Disabled for being not useful and only confusing players
-	--[[
-	local stchance = 1/(ST_ZOMBIE_CHANCE/100)
-	if math.random(1,stchance) == 1 then
-		if not pl:IsBossZombie() and not pl:IsCrow() then
-			pl:SpawnAsSteroidZombie(math.random(1,#ZombiePowerups))
-		end
-	end]]
-	
 	-- Calculate zombie's health
 	CalculateZombieHealth(pl)
 
 	-- pl:CalculateViewOffsets()
 	pl:DoHulls(Class, TEAM_UNDEAD)
 	
-	-- Attach crabs to zombos
-	pl:SetHeadcrabBodyGroup()
+	--Attach crabs to zombos
+	--pl:SetHeadcrabBodyGroup()
 	
-	-- Set the zombie's model
+	--Set the zombies model
 	pl:SetModel(Tab.Model)
 	
+	--
 	if not pl.Loadout then
 		pl.Loadout = {}
 	end
@@ -530,12 +496,14 @@ function GM:OnZombieSpawn(pl)
 		pl:SetJumpPower(Tab.JumpPower or 200) 
 	end
 	
+	--
 	if pl.Revived then
 		pl.ReviveCount = pl.ReviveCount + 1
 	else
 		pl.ReviveCount = 0
 	end
 	
+	--
 	if not pl.Revived then
 		-- SpawnProtection(pl)
 		pl.NoExplosiveDamage = CurTime() + 1.5 
@@ -550,27 +518,19 @@ function GM:OnZombieSpawn(pl)
 	end
 	
 	local col = pl:GetInfo( "cl_playercolor" )
-	pl:SetPlayerColor( Vector( col ) )
+	pl:SetPlayerColor(Vector(col))
 
-	pl:SetWeaponColor( Vector( col ) )
+	pl:SetWeaponColor(Vector(col))
 
 	if Tab.OnSpawn then
 		Tab.OnSpawn(pl)
 	end
 		
 	-- Set the zombie's walk and crouch speed
-	self:SetPlayerSpeed ( pl, Tab.Speed )
-	pl:SetCrouchedWalkSpeed ( Tab.CrouchWalkSpeed or 0.80 )
-	
-	if pl:IsSteroidZombie() then
-		local tbl = ZombiePowerups[pl:GetSteroidZombieType()]
-		if tbl and tbl.Speed then
-			self:SetPlayerSpeed(pl, Tab.Speed*tbl.Speed)
-			pl:SetCrouchedWalkSpeed((Tab.CrouchWalkSpeed or 0.80)*tbl.Speed)
-		end
-	end
+	self:SetPlayerSpeed(pl, Tab.Speed)
+	pl:SetCrouchedWalkSpeed(Tab.CrouchWalkSpeed or 0.80)
 
-	-- Check for spawnprotection
+	--Check for spawnprotection
 		
 	pl:UnSpectate()		
 	-- Prevent health pickups and/or machines
@@ -796,10 +756,10 @@ function CalculateZombieHealth(pl)
 	local numplayers = #allplayers
 	
 	-- Case 2: if there are only 2 zombies double their HP
-	local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
+	local desiredzombies = math.max(1, math.ceil(numplayers * UNDEAD_START_AMOUNT_PERCENTAGE))
 	if not pl:IsBossZombie() and not pl:IsCrow() then
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+1) and team.NumPlayers(TEAM_HUMAN) >= 4) then
-			local IncreaseHealth = Tab.Health*(WAVE_ONE_ZOMBIES)*desiredzombies+10*(team.NumPlayers(TEAM_HUMAN))
+			local IncreaseHealth = Tab.Health*(UNDEAD_START_AMOUNT_PERCENTAGE)*desiredzombies+10*(team.NumPlayers(TEAM_HUMAN))
 			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth , Tab.Health, math.min(Tab.Health*1.9,510) )
 			pl:RemoveStatus("champion")
 		end
