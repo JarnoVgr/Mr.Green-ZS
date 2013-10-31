@@ -121,7 +121,7 @@ function SWEP:Think()
 					ent:SetVelocity(self.Owner:GetForward() * self.LeapPounceVelocity)
 				else
 					--Calculate velocity to push
-					local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.LeapPounceVelocity * 20, 25000, 37000)
+					local Velocity = self.Owner:EyeAngles():Forward() * (self.LeapPounceVelocity * 3)
 					Velocity.z = math.min(Velocity.z,1600)
 
 					--Apply push
