@@ -1,27 +1,10 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local surface = surface
-local draw = draw
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local render = render
-
-
-CreateClientConVar("_disable_pp", 0, true, false)
-CreateClientConVar("_zs_enableblur",1,true,false)
-
-local COLOR_MOD = true
 local DAMAGE_BLUR = true
-IRON_CROSSHAIR = false
+local IRON_CROSSHAIR = false
 
-ColorModify = {}
+local ColorModify = {}
 ColorModify["$pp_colour_addr"] = 0
 ColorModify["$pp_colour_addg" ] = 0
 ColorModify["$pp_colour_addb" ] = 0
@@ -32,7 +15,7 @@ ColorModify["$pp_colour_mulr" ] = 0
 ColorModify["$pp_colour_mulg" ] = 0
 ColorModify["$pp_colour_mulb" ] = 0
 
-ColorMod = {}
+local ColorMod = {}
 ColorMod["$pp_colour_addr"] = 0
 ColorMod["$pp_colour_addg" ] = 0
 ColorMod["$pp_colour_addb" ] = 0
@@ -43,38 +26,28 @@ ColorMod["$pp_colour_mulr" ] = 0
 ColorMod["$pp_colour_mulg" ] = 0
 ColorMod["$pp_colour_mulb" ] = 0
 
-local ZombieCM = {}
-ZombieCM[ "$pp_colour_addb" ] 	= 0
-ZombieCM[ "$pp_colour_contrast" ] = 1.2
-ZombieCM[ "$pp_colour_colour" ] = 1
-ZombieCM["$pp_colour_mulg" ] = 0
-ZombieCM["$pp_colour_mulb" ] = 0
-ZombieCM[ "$pp_colour_brightness" ] = -0.1
-ZombieCM[ "$pp_colour_addr" ]	= 0.25
-ZombieCM[ "$pp_colour_mulr" ] 	= 0.15
-ZombieCM[ "$pp_colour_addg" ]	= 0.20
+--[[
+local ZombieCM = {
+	["$pp_colour_brightness"] = -0.1,
+	["$pp_colour_contrast"] = 1.2,
+	["$pp_colour_colour"] = 1,
+	["$pp_colour_addr"] = 0.25,
+	["$pp_colour_addg"] = 0.20,
+	["$pp_colour_addb"] = 0,
+	["$pp_colour_mulr"] = 0.15,
+	["$pp_colour_mulg"] = 0,
+	["$pp_colour_mulb"] = 0.
+}
+]]
 
-local tColorModZombie = {
+--Alive Zombie ColourMod
+local ZombieCM = {
 	["$pp_colour_brightness"] = 0,
 	["$pp_colour_contrast"] = 1.25,
 	["$pp_colour_colour"] = 0.5,
 	["$pp_colour_addr"] = 0,
 	["$pp_colour_addg"] = 0,
 	["$pp_colour_addb"] = 0,
-	["$pp_colour_mulr"] = 0,
-	["$pp_colour_mulg"] = 0,
-	["$pp_colour_mulb"] = 0
-}
-
-ZombieCM = tColorModZombie
-
-local tColorModHuman = {
-	["$pp_colour_addr"] = 0,
-	["$pp_colour_addg"] = 0,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 1,
-	["$pp_colour_colour"] = 1,
 	["$pp_colour_mulr"] = 0,
 	["$pp_colour_mulg"] = 0,
 	["$pp_colour_mulb"] = 0
@@ -103,41 +76,56 @@ ZombieRageCM[ "$pp_colour_addr" ] = 0.27
 ZombieRageCM[ "$pp_colour_mulr" ] = 0.16
 ZombieRageCM[ "$pp_colour_addg" ] = 0.15
 
-local HumanCM = { }
-HumanCM[ "$pp_colour_addr" ] 		= 0
-HumanCM[ "$pp_colour_addg" ] 		= 0
-HumanCM[ "$pp_colour_addb" ] 		= 0
-HumanCM[ "$pp_colour_brightness" ] 	= -0.09---0.02
-HumanCM[ "$pp_colour_contrast" ] 	= 1.1
-HumanCM[ "$pp_colour_colour" ] 		= 0.7--0.68
-HumanCM[ "$pp_colour_mulr" ] 		= 0
-HumanCM[ "$pp_colour_mulg" ] 		= 1
-HumanCM[ "$pp_colour_mulb" ] 		= 1
 
-HumanCM = tColorModHuman
+--Alive Human
+--[[local HumanCM = {
+	["$pp_colour_addr"] = 0,
+	["$pp_colour_addg"] = 0,
+	["$pp_colour_addb"] = 0,
+	["$pp_colour_brightness"] = 0,
+	["$pp_colour_contrast"] = 1,
+	["$pp_colour_colour"] = 1,
+	["$pp_colour_mulr"] = 0,
+	["$pp_colour_mulg"] = 0,
+	["$pp_colour_mulb"] = 0
+}]]
+local HumanCM = {
+	["$pp_colour_addr"] = 0,
+	["$pp_colour_addg"] = 0,
+	["$pp_colour_addb"] = 0,
+	["$pp_colour_brightness"] = -0.03, --0.08
+	["$pp_colour_contrast"] = 0.8,
+	["$pp_colour_colour"] = 0.68,
+	["$pp_colour_mulr"] = 0,
+	["$pp_colour_mulg"] = 1,
+	["$pp_colour_mulb"] = 1
+}
 
-local DHumanCM = { }
-DHumanCM[ "$pp_colour_addr" ] 		= 0
-DHumanCM[ "$pp_colour_addg" ] 		= 0
-DHumanCM[ "$pp_colour_addb" ] 		= 0
-DHumanCM[ "$pp_colour_brightness" ] 	= -0.02
-DHumanCM[ "$pp_colour_contrast" ] 	= 0.8
-DHumanCM[ "$pp_colour_colour" ] 		= 0.68
-DHumanCM[ "$pp_colour_mulr" ] 		= 0
-DHumanCM[ "$pp_colour_mulg" ] 		= 1
-DHumanCM[ "$pp_colour_mulb" ] 		= 1
+--Alive Human in Nightmode
+local HumanNightModeCM = {
+	["$pp_colour_addr"] = 0,
+	["$pp_colour_addg"] = 0,
+	["$pp_colour_addb"] = 0,
+	["$pp_colour_brightness"] = -0.08,
+	["$pp_colour_contrast"] = 1.1,
+	["$pp_colour_colour"] = 0.7,
+	["$pp_colour_mulr"] = 0,
+	["$pp_colour_mulg"] = 1,
+	["$pp_colour_mulb"] = 1
+}
 
-
-local DeadCM = {}
-DeadCM["$pp_colour_contrast"] = 1.25
-DeadCM["$pp_colour_colour"] = 0
-DeadCM["$pp_colour_addr"] = 0
-DeadCM["$pp_colour_addg"] = 0
-DeadCM["$pp_colour_addb"] = 0
-DeadCM["$pp_colour_brightness"] = -0.08
-DeadCM["$pp_colour_mulr"] = 0
-DeadCM["$pp_colour_mulg"] = 0
-DeadCM["$pp_colour_mulb"] = 0
+--When spectating Zombies
+local SpectatorCM = {
+	["$pp_colour_addr"] = 0,
+	["$pp_colour_addg"] = 0,
+	["$pp_colour_addb"] = 0,
+	["$pp_colour_brightness"] = -0.08,
+	["$pp_colour_contrast"] = 1.25,
+	["$pp_colour_colour"] = 0,
+	["$pp_colour_mulr"] = 0,
+	["$pp_colour_mulg"] = 1,
+	["$pp_colour_mulb"] = 1
+}
 
 --[==[---------------------------------------------------------
       Receives toxic zombie points from the server 
@@ -181,56 +169,53 @@ function CalculateColorMod()
 		local max = math.min(team.NumPlayers(TEAM_UNDEAD),HORDE_MAX_ZOMBIES)
 		zombies = math.Approach(zombies, MySelf:GetHordeCount(), FrameTime() * 5)
 		ZombieCM["$pp_colour_colour"] = math.min(1, 0.25 + 1.75 * (zombies/max))
+
 		for k,v in pairs ( ZombieCM ) do
 			local ApproachTo = ZombieCM[k]
-			if MySelf:HasHowlerProtection() then ApproachTo = ZombieHowlerCM[k] end
+			if MySelf:HasHowlerProtection() then
+				ApproachTo = ZombieHowlerCM[k]
+			end
 			
 			-- Check for zombie rage
-			if MySelf:IsZombieInRage() or MySelf.IsWraithTeleporting then ApproachTo = ZombieRageCM[k] end
+			if MySelf:IsZombieInRage() or MySelf.IsWraithTeleporting then
+				ApproachTo = ZombieRageCM[k]
+			end
 			
 			-- Approach colors
 			local ApproachMul = 0.01
 			if MySelf:IsWraith() then ApproachMul = 0.0025 end
 			ColorMod[k] = math.Approach ( ColorMod[k], ApproachTo, ApproachTo * ApproachMul )
 		end
-	end
-
-	HCOLORMOD = true
-	COLORMOD = true
-	
 	-- Human side post proccesing
-	if MySelf:Team() == TEAM_HUMAN then
-		if COLORMOD then
-			if HCOLORMOD then
-				DrawBloom( .65, 1, 9, 9, 1, .65, 1, 1, 1 )
-			end
-		end
+	elseif MySelf:Team() == TEAM_HUMAN then
+		--Draw bloom
+		--DrawBloom( .65, 1, 9, 9, 1, .65, 1, 1, 1 )
 		
-		if COLORMOD then
-			if HCOLORMOD and not GAMEMODE:IsNightMode() then
-				for k,v in pairs(HumanCM) do
-					if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
-						ColorMod[k] = v
-					end
+		--Special settings for Nightmode
+		if GAMEMODE:IsNightMode() then
+			for k,v in pairs(HumanNightModeCM) do
+				if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
+					ColorMod[k] = v
 				end
-			else
-				for k,v in pairs(DHumanCM) do
-					if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
-						ColorMod[k] = v
-					end
+			end
+		--Use default settings
+		else
+			for k,v in pairs(HumanCM) do
+				if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
+					ColorMod[k] = v
 				end
 			end
 		end
-		
-		-- Health events
+
+		--Health events
 		local Red, Green, Blue, Color = ColorMod["$pp_colour_addr"], ColorMod["$pp_colour_addg"], ColorMod["$pp_colour_addb"], ColorMod["$pp_colour_colour"]
 		local iRedAmount, iGreenAmount, iBlueAmount, iColor = 0, 0, 0, 0.68
 		local Health = MySelf:Health()
 		
-		-- Smooth rate
+		--Smooth rate
 		local Rate, ColorRate = FrameTime() * 0.1, FrameTime() * 0.18	
 		
-		-- Make the screen red when below 35 hp
+		--Make the screen red when below 35 hp
 		if not MySelf:GetPerk("_adrenaline") then
 			if Health <= 35 then 
 				iRedAmount = 0.16
@@ -241,59 +226,59 @@ function CalculateColorMod()
 				iRedAmount, iGreenAmount = 0.05, 0.05		
 			end
 		end
+
 		-- Color the screen green-yellow if the player is in toxic fumes
-		if MySelf:Health() > 30 and MySelf:IsInToxicFumes( ToxicPoints ) then
+		if MySelf:Health() > 30 and MySelf:IsInToxicFumes(ToxicPoints) then
 			iRedAmount, iGreenAmount, Rate = 0.2, 0.2, FrameTime() * 0.18
 		end
 		
 		-- Exploit color change
-		if MySelf:GetDTInt( 3 ) > 0 then
+		if MySelf:GetDTInt(3) > 0 then
 			iRedAmount, iGreenAmount = 0.25, 0.1
 		end
 		
-		-- More color when humans around, less when you are alone!
+		--More color when humans around, less when you are alone!
 		if Health > 50 then
-			local HumansNearMe = GetHumanFocus ( MySelf, 380 )
-			iColor = math.Clamp ( HumansNearMe / 3, 0.4, 0.75 ) 
+			local HumansNearMe = GetHumanFocus(MySelf, 380)
+			iColor = math.Clamp(HumansNearMe / 3, 0.4, 0.75) 
 		end
 			
 		-- Dramatically change colors if you redeem
-		if Red == 0.25 and Green == 0.20 then Rate = 10 end
+		if Red == 0.25 and Green == 0.20 then
+			Rate = 10
+		end
 		
 		-- Smooth color values
-		ColorMod["$pp_colour_addr"] = math.Approach ( Red, iRedAmount, Rate ) 
-		ColorMod["$pp_colour_addg"] = math.Approach ( Green, iGreenAmount, Rate )
-		ColorMod["$pp_colour_addb"] = math.Approach ( Blue, iBlueAmount, Rate )
-		ColorMod["$pp_colour_colour"] = math.Approach ( Color, iColor, ColorRate )  		
-	end
-	
+		ColorMod["$pp_colour_addr"] = math.Approach( Red, iRedAmount, Rate)
+		ColorMod["$pp_colour_addg"] = math.Approach( Green, iGreenAmount, Rate)
+		ColorMod["$pp_colour_addb"] = math.Approach( Blue, iBlueAmount, Rate)
+		ColorMod["$pp_colour_colour"] = math.Approach( Color, iColor, ColorRate)
 	-- Dead post proccesing
-	if not ENDROUND and ( MySelf:Team() == TEAM_SPECTATOR ) then
-		for k,v in pairs ( DeadCM ) do
+	elseif MySelf:Team() == TEAM_SPECTATOR and not ENDROUND then
+		for k,v in pairs(SpectatorCM) do
 			ColorMod[k] = v
 		end
 	end
 	
 	-- Actually change colors
 	
-	DrawColorModify( ColorMod )
+	DrawColorModify(ColorMod)
 end
 
 --[==[---------------------------------------------------------
      Render screen effects/ post proccesing here
 ---------------------------------------------------------]==]
 function GM:_RenderScreenspaceEffects()
-	if not ValidEntity ( MySelf ) then return end
-	if render.GetDXLevel() < 80 then return end
-	
-	--  Blur the screen on endround
-	if ENDROUND then
-		DrawBlur ( 5, 1.2 )
+	if not ValidEntity ( MySelf ) or render.GetDXLevel() < 80 then
+		return
 	end
-		
-	-- Blur for zombie classes menu background
-	if IsClassesMenuOpen() then
-		DrawBlur ( 5, 3 )
+
+	--Blur the screen at Endround
+	if ENDROUND then
+		DrawBlur(5, 1.2)
+	--Blur for zombie classes menu background
+	elseif IsClassesMenuOpen() then
+		DrawBlur(5, 3)
 	end
 		
 	-- Sharpen Effect Think
@@ -311,15 +296,14 @@ end
 -----------------------------------------------------]==]
 local fSobel = 0
 function ManageSobelEffect()
-
 	local fCurrentSobel = 0
 
 	-- Approach sobel value
-	fSobel = math.Approach ( fSobel, fCurrentSobel, 0.004 )
+	fSobel = math.Approach(fSobel, fCurrentSobel, 0.004)
 	
 	-- Apply 
 	if fSobel > 0 then
-		DrawSobel( fSobel )
+		DrawSobel(fSobel)
 	end
 end
 
@@ -328,7 +312,9 @@ end
 ---------------------------------------------------------]==]
 local fBlurForward = 0
 local function ManageSourceMotionBlur ( x, y, fwd, spin )
-	if not ValidEntity ( MySelf ) then return end
+	if not ValidEntity ( MySelf ) then
+		return
+	end
 	
 	local fBlurForwardAmount = 0
 	
@@ -342,23 +328,19 @@ local function ManageSourceMotionBlur ( x, y, fwd, spin )
 		if MySelf:GetDTInt( 3 ) > 0 then
 			fBlurForwardAmount = 0.6
 		end
-		IRONBLUR = util.tobool( GetConVarNumber("_zs_enableironsightblur") )
-		if IRONBLUR then
-			-- ironsight blur
-			local Weapon = MySelf:GetActiveWeapon()
-			if ValidEntity ( Weapon ) then
-				if Weapon.GetIronsights and Weapon:GetIronsights() then
-					fBlurForwardAmount = 0.03
-				end
+
+		--Ironsight blur
+		local Weapon = MySelf:GetActiveWeapon()
+		if ValidEntity ( Weapon ) then
+			if Weapon.GetIronsights and Weapon:GetIronsights() then
+				fBlurForwardAmount = 0.03
 			end
 		end
 	end
 	
 	-- Wraith blur effect/ethereal
-	if MySelf:Alive() then
-		if MySelf:IsZombie() and MySelf:IsWraith() then
-			fBlurForwardAmount = 0.04
-		end
+	if MySelf:Alive() and MySelf:IsZombie() and MySelf:IsWraith() then
+		fBlurForwardAmount = 0.04
 	end
 	
 	-- Smooth the blur apparition
@@ -554,19 +536,6 @@ function RageScream( iTime )
 	hook.Add("RenderScreenspaceEffects", "DrawZombieRage", DrawZombieRage)
 end
 
-local function DisablePP(sender, command, arguments)
-	DISABLE_PP = util.tobool(arguments[1])
-
-	if DISABLE_PP then
-		--RunConsoleCommand("_disable_pp", "1")
-		MySelf:ChatPrint("Post process cannot be disabled.")
-	else
-		RunConsoleCommand("_disable_pp", "0")
-		MySelf:ChatPrint("Post process enabled.")
-	end
-end
-concommand.Add("disable_pp", DisablePP)
-
 local function ZS_EnableMotionBlur(sender, command, arguments)
 	MOTION_BLUR = util.tobool(arguments[1])
 
@@ -580,31 +549,16 @@ local function ZS_EnableMotionBlur(sender, command, arguments)
 end
 concommand.Add("zs_enablemotionblur", ZS_EnableMotionBlur)
 
-local function ZS_EnableColorMod(sender, command, arguments)
-	COLOR_MOD = util.tobool(arguments[1])
-
-	if COLOR_MOD then
-		RunConsoleCommand("_zs_enablecolormod", "1")
-		MySelf:ChatPrint("Color Mod enabled.")
-	else
-		RunConsoleCommand("_zs_enablecolormod", "0")
-		MySelf:ChatPrint("Color Mod disabled.")
-	end
-end
-concommand.Add("zs_enablecolormod", ZS_EnableColorMod)
-
 local function ZS_EnableBlur(sender, command, arguments)
 	DAMAGE_BLUR = util.tobool(arguments[1])
 
 	if DAMAGE_BLUR then
-		RunConsoleCommand("_zs_enableblur", "1")
 		MySelf:ChatPrint("Damage Blur Effect enabled.")
 	else
-		RunConsoleCommand("_zs_enableblur", "0")
 		MySelf:ChatPrint("Damage Blur Effect disabled.")
 	end
 end
-concommand.Add("zs_enableblur", ZS_EnableBlur)
+concommand.Add("zs_pp_enableblur", ZS_EnableBlur)
 
 local function ZS_Ironsight(sender, command, arguments)
 	IRON_CROSSHAIR = util.tobool(arguments[1])

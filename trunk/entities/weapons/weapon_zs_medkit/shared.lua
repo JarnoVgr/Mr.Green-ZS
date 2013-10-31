@@ -89,15 +89,17 @@ function SWEP:PrimaryAttack()
 	local owner = self.Owner
 	
 	local trace = self.Owner:GetEyeTrace()
-	--Check distance
+
+	--Check if not too far away
 	if trace.HitPos:Distance(self.Owner:GetShootPos()) > 80 then
 		return
 	end
 
-	local ent = self.Owner:GetEyeTrace().Entity
+	--Get trace entity
+	local ent = trace.Entity
 
 	--Several checks for guy to heal
-	if not ent:IsValid() or not ent:IsPlayer() or not ent:Alive() or not ent:Team() == TEAM_HUMAN then
+	if not ent:IsValid() or not ent:IsPlayer() or not ent:Alive() or ent:Team() ~= TEAM_HUMAN then
 		return
 	end
 
