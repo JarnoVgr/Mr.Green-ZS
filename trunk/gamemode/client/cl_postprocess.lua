@@ -4,7 +4,7 @@
 local DAMAGE_BLUR = true
 local IRON_CROSSHAIR = false
 
-local ColorModify = {}
+ColorModify = {}
 ColorModify["$pp_colour_addr"] = 0
 ColorModify["$pp_colour_addg" ] = 0
 ColorModify["$pp_colour_addb" ] = 0
@@ -15,7 +15,7 @@ ColorModify["$pp_colour_mulr" ] = 0
 ColorModify["$pp_colour_mulg" ] = 0
 ColorModify["$pp_colour_mulb" ] = 0
 
-local ColorMod = {}
+ColorMod = {}
 ColorMod["$pp_colour_addr"] = 0
 ColorMod["$pp_colour_addg" ] = 0
 ColorMod["$pp_colour_addb" ] = 0
