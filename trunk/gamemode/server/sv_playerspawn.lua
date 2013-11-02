@@ -201,9 +201,6 @@ local function PlayerConnected ( pl, ip )
 end
 hook.Add ( "PlayerConnect", "Connected", PlayerConnected )
 
--- Add these new player models to the list
-player_manager.AddValidModel("Gordon Freeman", "models/player/gordon_classic.mdl")
-
 --[==[------------------------------------------------
      Main spawn function - called on spawn
 -------------------------------------------------]==]
@@ -248,7 +245,7 @@ function GM:PlayerSpawn(pl)
 		end
 		
 		--Check if we can be THE Gordon Freeman
-		if pl:Team() ~= TEAM_SPECTATOR and (not self.IsGordonHere or pl.IsFreeman) and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 then
+		if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
 			--Only display message when being human
 			if pl:Team() == TEAM_SURVIVORS then
 				pl:ChatPrint("You're now THE Gordon Freeman!")
