@@ -14,6 +14,7 @@ if CLIENT then
 	SWEP.ShowViewModel = false
 	SWEP.IconLetter = "e"
 	killicon.AddFont("weapon_zs_aug", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
+	SWEP.ViewModelFOV = 50
 end
 
 if XMAS_2012 then
@@ -54,7 +55,7 @@ SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 31
 SWEP.storeclipsize			= 31
 SWEP.Primary.Delay			= 0.095
-SWEP.Primary.DefaultClip	= 93
+SWEP.Primary.DefaultClip	= 145
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.Primary.Cone			= 0.05
@@ -71,11 +72,8 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.WalkSpeed = 195
 
---SWEP.IronSightsPos = Vector(5.99,-3,.985)
---SWEP.IronSightsAng = Vector(2.4,1.9,45)
+SWEP.IronSightsPos = Vector(5.99,-4,34.985)
+SWEP.IronSightsAng = Vector(2.4,1.9,45)
 
-SWEP.OverridePos = Vector(1.6, -2.029, 0.839)
-SWEP.OverrideAng = Vector( 0,0,0 )
-
---SWEP.IronSightsPos = Vector(1.6, -2.029, 0.839)
---SWEP.IronSightsAng = Vector(0, 0, 0)
+SWEP.IronSightsPos = Vector(-4.6, -6.029, 0.839)
+SWEP.IronSightsAng = Vector(0, 0, 0)

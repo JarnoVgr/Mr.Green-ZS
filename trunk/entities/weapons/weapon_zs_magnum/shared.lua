@@ -13,7 +13,7 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 
 	killicon.AddFont( "weapon_zs_magnum", "HL2MPTypeDeath", ".",Color(255, 255, 255, 255 ) )
-	
+	SWEP.ViewModelFOV = 50
 end
 
 if XMAS_2012 then
@@ -48,11 +48,11 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_357.Single" )
 SWEP.Primary.Recoil			= 6
-SWEP.Primary.Damage			= 62
+SWEP.Primary.Damage			= 51
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.55
-SWEP.Primary.DefaultClip	= 18
+SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"--?
 SWEP.WalkSpeed = 200
@@ -61,11 +61,11 @@ SWEP.MaxAmmo			    = 60
 SWEP.ConeMoving = 0.079
 SWEP.Cone = 0.054
 SWEP.ConeIron = 0.032
-SWEP.ConeCrouching = 0.025
-SWEP.ConeIronCrouching = 0.017
+SWEP.ConeCrouching = 0.035
+SWEP.ConeIronCrouching = 0.022
 
-SWEP.IronSightsPos = Vector(-4.64, -9.056, 0.6)
-SWEP.IronSightsAng = Vector(0.275, 0, 0)
+SWEP.IronSightsPos = Vector(-4.64, -5.056, 1)
+SWEP.IronSightsAng = Vector(-2, 0, 0)
 
 SWEP.OverridePos = Vector(-1.481, -6.394, 1.559)
 SWEP.OverrideAng = Vector( 0,0,0 )

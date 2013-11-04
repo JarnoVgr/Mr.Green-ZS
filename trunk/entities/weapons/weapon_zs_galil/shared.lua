@@ -14,6 +14,7 @@ if CLIENT then
 	SWEP.FlipYaw = true
 	SWEP.IconLetter = "v"
 	killicon.AddFont("weapon_zs_galil", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
+	SWEP.ViewModelFOV = 50
 end
 
 if XMAS_2012 then
@@ -48,14 +49,14 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_Galil.Single")
-SWEP.Primary.Recoil			= 9
+SWEP.Primary.Recoil			= 7
 SWEP.Primary.Damage			= 18
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 30
 SWEP.storeclipsize			= 30
 SWEP.MaxAmmo			    = 250
-SWEP.Primary.Delay			= 0.135
-SWEP.Primary.DefaultClip	= 120
+SWEP.Primary.Delay			= 0.120
+SWEP.Primary.DefaultClip	= 185
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 

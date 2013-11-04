@@ -9,7 +9,7 @@ if CLIENT then
 	SWEP.PrintName = "Glock"
 	SWEP.Author	= "JetBoom"
 	SWEP.Slot = 1
-	SWEP.ViewModelFOV = 68
+	SWEP.ViewModelFOV = 50
 	SWEP.SlotPos = 6
 	SWEP.IconLetter = "c"
 	killicon.AddFont( "weapon_zs_glock3", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
@@ -47,23 +47,23 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Glock.Single" )
 SWEP.Primary.Recoil			= 4
-SWEP.Primary.Damage			= 14.5
+SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 3
 SWEP.Primary.ClipSize		= 7
 SWEP.Primary.Delay			= 0.3
-SWEP.Primary.DefaultClip	= 32
+SWEP.Primary.DefaultClip	= 45
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
 SWEP.MaxAmmo			    = 100
 SWEP.WalkSpeed = 200
 
-SWEP.ConeMoving = 0.061
-SWEP.Cone = 0.041
-SWEP.ConeIron = 0.035
-SWEP.ConeCrouching = 0.024
-SWEP.ConeIronCrouching = 0.016
+SWEP.ConeMoving = 0.072
+SWEP.Cone = 0.054
+SWEP.ConeIron = 0.034
+SWEP.ConeCrouching = 0.037
+SWEP.ConeIronCrouching = 0.027
 
-SWEP.IronSightsPos = Vector(-5.781, -13.466, 2.92)
+SWEP.IronSightsPos = Vector(-5.781, -10.466, 2.79)
 SWEP.IronSightsAng = Vector(0.275, 0, 0)
 
 SWEP.OverridePos = Vector(1.159, -0.913, 1.84)

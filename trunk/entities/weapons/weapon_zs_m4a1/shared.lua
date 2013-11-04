@@ -20,8 +20,8 @@ if CLIENT then
 	SWEP.OverrideAngle = {}
 	SWEP.OverrideAngle["v_weapon.Right_Arm"] = Angle(0,0,80)
 
-	
 	killicon.AddFont("weapon_zs_m4a1", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
+	SWEP.ViewModelFOV = 50
 end
 
 if XMAS_2012 then
@@ -77,10 +77,10 @@ SWEP.MaxAmmo			    = 250
 SWEP.WalkSpeed = 195
 SWEP.MaxBulletDistance 		= 2600
 
-SWEP.IronSightsPos = Vector(-8.05, -5, 0.5)
-SWEP.IronSightsAng = Vector(3, -4, -4)
+SWEP.IronSightsPos = Vector(-8.08, -5, 0.5)
+SWEP.IronSightsAng = Vector(3, -2.79, -4)
 
-SWEP.OverridePos = Vector(2.64, -3.379, 1)
+SWEP.OverridePos = Vector(1, -3.379, 1)
 SWEP.OverrideAng = Vector(0, 0, 3.144)
 
 --SWEP.IronSightsPos = Vector(2.64, -3.379, 1)

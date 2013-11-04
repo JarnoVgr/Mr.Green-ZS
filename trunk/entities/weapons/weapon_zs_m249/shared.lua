@@ -33,8 +33,8 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_M249.Single")
-SWEP.Primary.Recoil			= 17
-SWEP.Primary.Damage			= 29
+SWEP.Primary.Recoil			= 12
+SWEP.Primary.Damage			= 26
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 100
 SWEP.storeclipsize			= 100
@@ -45,8 +45,8 @@ SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.FirePower = (SWEP.Primary.Damage * SWEP.Primary.ClipSize)
 
-SWEP.ConeMoving = 0.090
-SWEP.Cone = 0.065
+SWEP.ConeMoving = 0.79
+SWEP.Cone = 0.059
 SWEP.ConeIron = 0.051
 SWEP.ConeCrouching = 0.042
 SWEP.ConeIronCrouching = 0.031

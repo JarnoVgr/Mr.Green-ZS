@@ -9,7 +9,7 @@ if CLIENT then
 	SWEP.PrintName = "Five-Seven"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 1
-	SWEP.ViewModelFOV = 68
+	SWEP.ViewModelFOV = 50
 	SWEP.SlotPos = 4
 	SWEP.IconLetter = "u"
 	killicon.AddFont("weapon_zs_fiveseven", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
@@ -36,11 +36,11 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_FiveSeven.Single" )
 SWEP.Primary.Recoil			= 3
-SWEP.Primary.Damage			= 16.5
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 15
 SWEP.Primary.Delay			= 0.15
-SWEP.Primary.DefaultClip	= 60
+SWEP.Primary.DefaultClip	= 80
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "pistol"
 SWEP.MaxBulletDistance 		= 1900
@@ -55,7 +55,7 @@ SWEP.ConeIronCrouching = 0.019
 
 SWEP.WalkSpeed = 200
 
-SWEP.IronSightsPos = Vector(-5.961, -12.363, 2.88)
+SWEP.IronSightsPos = Vector(-5.969, -10.652, 2.68)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.OverridePos = Vector(1.12, -0.913, 1.919)
