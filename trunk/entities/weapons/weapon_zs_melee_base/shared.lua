@@ -67,25 +67,6 @@ function SWEP:Initialize()
 
 		self:CreateModels(self.VElements) --Create viewmodels
 		self:CreateModels(self.WElements) --Create worldmodels
-					
-		--init view model bone build function
-		if IsValid(self.Owner) then
-			local vm = self.Owner:GetViewModel()
-			if IsValid(vm) then
-				self:ResetBonePositions(vm)
-									
-				--Init viewmodel visibility
-				if (self.ShowViewModel == nil or self.ShowViewModel) then
-					vm:SetColor(Color(255,255,255,255))
-				else
-					-- we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
-					vm:SetColor(Color(255,255,255,1))
-					-- ^ stopped working in GMod 13 because you have to do Entity:SetRenderMode(1) for translucency to kick in
-					-- however for some reason the view model resets to render mode 0 every frame so we just apply a debug material to prevent it from drawing
-					vm:SetMaterial("Debug/hsv")                        
-				end
-			end
-		end
 	end
 end
 
@@ -113,6 +94,21 @@ function SWEP:IsMelee()
 	return true
 end
 
+function SWEP:PreDrawViewModel(vm, pl, weapon)										
+	--Init viewmodel visibility
+	if (self.ShowViewModel == nil or self.ShowViewModel) then
+		vm:SetColor(Color(255,255,255,255))
+
+		vm:SetMaterial("")
+	else
+		-- we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
+		vm:SetColor(Color(255,255,255,1))
+		-- ^ stopped working in GMod 13 because you have to do Entity:SetRenderMode(1) for translucency to kick in
+		-- however for some reason the view model resets to render mode 0 every frame so we just apply a debug material to prevent it from drawing
+		vm:SetMaterial("Debug/hsv") --Debug/hsv
+	end
+end
+
 function SWEP:Deploy()
 	if SERVER then
 		GAMEMODE:WeaponDeployed(self.Owner, self)
@@ -127,14 +123,22 @@ function SWEP:Deploy()
 	return true
 end
 
+function SWEP:OnDeploy()
+end
+
 function SWEP:OnRemove()
 	if CLIENT and IsValid(self.Owner) then
+		self.HadFirstDraw = false
+
 		local vm = self.Owner:GetViewModel()
 		if IsValid(vm) then
 			self:ResetBonePositions(vm)
 
-			--Reset color, just incase
+			vm:SetMaterial("")
+			vm:SetColor(Color(255,255,255,255))
+
 			--vm:SetColor(Color(255,255,255,255))
+			--vm:SetMaterial("")
 		end
 	end
 end
@@ -158,9 +162,6 @@ function SWEP:Think()
 		self:StopSwinging()
 		self:MeleeSwing()
 	end
-end
-
-function SWEP:OnDeploy()
 end
 
 function SWEP:OnDrop()
@@ -343,6 +344,14 @@ end
 if CLIENT then	
 	SWEP.vRenderOrder = nil
 	function SWEP:ViewModelDrawn()
+		--Init view model bone build function
+		if IsValid(self.Owner) then
+			local vm = self.Owner:GetViewModel()
+			if IsValid(vm) then
+				
+			end 
+		end
+
 		--Prefer SWEP
 		self.ViewModelFOV = self.ViewModelFOV or GetConVarNumber("zs_wepfov")
 		

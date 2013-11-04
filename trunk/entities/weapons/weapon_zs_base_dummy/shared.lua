@@ -273,11 +273,6 @@ function SWEP:OnViewModelDrawn()
 end
 
 if CLIENT then
-	local render = render
-	local table = table
-	local pairs = pairs
-	local cam = cam
-
 	SWEP.vRenderOrder = nil
 	function SWEP:ViewModelDrawn()
 		self.ViewModelFOV = GetConVarNumber("zs_wepfov") or self.ViewModelFOV

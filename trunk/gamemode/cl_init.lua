@@ -586,40 +586,6 @@ function HTTPAdmins(contents, size)
 	-- table.Add(HELP_TXT[3].text,contents)
 end
 
-function GM:RestoreViewmodel()
-	timer.Simple( 0.1, function()
-		local MySelf = LocalPlayer()
-		if MySelf:IsValid() then
-			local vm = MySelf:GetViewModel()
-			if vm and vm:IsValid() then
-				-- vm:SetColor(Color(255, 255, 255, 255))
-			end
-		end
-	end)
-end
-
-function RestoreViewmodel(pl)
-	timer.Simple ( 0.1, function()
-		local MySelf = LocalPlayer()
-		
-		if MySelf:IsValid() then
-			if MySelf ~= pl then
-				return
-			end
-			
-			local wep = MySelf:GetActiveWeapon()
-			if wep then
-				if not wep.Base or (wep.Base and not string.find(wep.Base,"zs_")) then
-					local vm = MySelf:GetViewModel()
-					if vm and vm:IsValid() then
-						-- vm:SetColor(Color(255, 255, 255, 255))
-					end
-				end
-			end
-		end
-	end)
-end
-
 local function LoopLastHuman()
 	if not ENDROUND and util.tobool(GetConVar( "_zs_enablemusic" )) then
 		surface.PlaySound(LASTHUMANSOUND)

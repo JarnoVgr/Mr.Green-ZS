@@ -14,10 +14,10 @@ end)
 DONATE_ADDRESS = "paypal[at]mrgreengaming[dot]com"
 
 --Log lua errors
-timer.Simple ( 1, function() RunConsoleCommand ( "lua_log_sv", "1" ) end )
+timer.Simple( 1, function() RunConsoleCommand ( "lua_log_sv", "1" ) end)
 
 --Disable team voice
-timer.Simple ( 1, function() RunConsoleCommand ( "sv_alltalk", "0" ) end )
+timer.Simple( 1, function() RunConsoleCommand ( "sv_alltalk", "0" ) end)
 
 --Disables greencoin add function for local use (testing)
 USE_GREENCOINS = false
@@ -53,7 +53,7 @@ COINS_PER_EURO = 1000
 COINS_PER_ZOMBIE = 1
 COINS_PER_HUMAN = 3
 
-IRC_RELAY_ENABLED = true
+IRC_RELAY_ENABLED = false
 IRC_RELAY_NICK = "MrGreenZS"
 IRC_RELAY_SERVER = "irc.gtanet.com"
 IRC_RELAY_CHANNEL = "#mrgreen.zs"
