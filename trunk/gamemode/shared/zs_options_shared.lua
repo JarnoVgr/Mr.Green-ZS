@@ -238,7 +238,7 @@ GM.HumanWeapons = {
 	["weapon_zs_ump"]  = { Name = "UMP Sub-Machine Gun", DPS = 110,Mat = "VGUI/gfx/VGUI/ump45", Infliction = 0.60, Type = "smg", Price = 480 }, --  1
 	["weapon_zs_smg"]  = { Name = "Sub-Machine Gun", DPS = 130, Infliction = 0.9, Type = "smg" }, --  4
 	["weapon_zs_mp5"]  = { Name = "MP5 Sub-Machine Gun", DPS = 127,Mat = "VGUI/gfx/VGUI/mp5", Infliction = 0.58, Type = "smg", Price = 380 }, --  5
-	["weapon_zs_tmp"]  = { Name = "TMP Sub-Machine Gun", DPS = 107,Mat = "VGUI/gfx/VGUI/tmp", Infliction = 0.56, Type = "smg", Price = 460 },	--  2
+	["weapon_zs_tmp"]  = { Name = "TMP Sub-Machine Gun", DPS = 107,Mat = "VGUI/gfx/VGUI/tmp", Infliction = 0.56, Type = "smg" },	--  2
 	["weapon_zs_mac10"]  = { Name = "Mac 10 Sub-Machine Gun", DPS = 126,Mat = "VGUI/gfx/VGUI/mac10", Infliction = 0.60, Type = "smg" },
 	
 	["weapon_zs_minishotty"]  = { Name = "'Farter' Shotgun", DPS = 126, Infliction = 0, Type = "shotgun" },
@@ -396,10 +396,11 @@ GM.RankUnlocks = {
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
-	[5] = {"weapon_zs_scout"},
-	[4] = {"weapon_zs_medkit"},
+	[4] = {"weapon_zs_scout"},
+	[5] = {"weapon_zs_medkit"},
 	[6] = {"weapon_zs_tools_hammer"},
 	[7] = {"_nailamount"},
+	[8] = {"weapon_zs_tmp"},
 	[11] = {"weapon_zs_tools_supplies"},
 	[13] = {"_adrenaline"},
 	[14] = {"_sboost"},

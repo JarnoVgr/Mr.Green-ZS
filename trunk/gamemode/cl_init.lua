@@ -1375,44 +1375,6 @@ hook.Add("Think", "CheckFOV", function()
 	end
 end)
 
-local function AddNightFog()
-	render.FogMode( 1 ) 
-	render.FogStart(0)
-	render.FogEnd(10000)
-	render.FogMaxDensity( 0.9 )
-	
-	render.FogColor( 0.1 * 255, 0.1 * 255, 0.1 * 255 )
-
-	return true
-end
-
-local function AddNightFogSkybox(skyboxscale)
-	render.FogMode( 1 ) 
-	render.FogStart(0*skyboxscale)
-	render.FogEnd(10000*skyboxscale)
-	render.FogMaxDensity( 0.9 )
-
-	render.FogColor( 0.1 * 255, 0.1 * 255, 0.1 * 255 )
-
-	return true
-end
-
-local drawfog = false
-hook.Add("Think","NightFog",function()
-	if not GAMEMODE:IsNightMode() then
-		return
-	end
-	
-	if drawfog then
-		return
-	end
-	
-	drawfog = true
-	
-	hook.Add( "SetupWorldFog","AddNightFog", AddNightFog )
-	hook.Add( "SetupSkyboxFog","AddNightFogSkybox", AddNightFogSkybox )	
-end)
-
 local undomodelblend = false
 local undowraithblend = false
 function GM:_PrePlayerDraw(pl)
@@ -1574,10 +1536,6 @@ function GM:IsRetroMode()
 	return GetGlobalBool("retromode")
 end
 
-function GM:IsNightMode()
-	return GetGlobalBool("nightmode")
-end
-
 function render.GetLightRGB(pos)
 	local vec = render.GetLightColor(pos)
 	return vec.r, vec.g, vec.b
@@ -1609,7 +1567,7 @@ hook.Add("Think", "DrawZombieFlashLight", function()
 	
 	if light and IsValid(light) then
 		
-		local todraw = MySelf and IsValid(MySelf) and MySelf.IsZombie and MySelf:IsZombie() and MySelf:OldAlive() and (GAMEMODE.m_ZombieVision or GAMEMODE:IsNightMode())
+		local todraw = MySelf and IsValid(MySelf) and MySelf.IsZombie and MySelf:IsZombie() and MySelf:OldAlive() and GAMEMODE.m_ZombieVision
 		
 		if todraw then
 			if light:IsEffectActive( EF_NODRAW ) then
@@ -1630,31 +1588,6 @@ end)
 
 local light = DynamicLight
 local traceline = util.TraceLine
-
--- hook.Add("PostDrawOpaqueRenderables","DrawZombieVision",function()
-	
-	-- local todraw = MySelf and IsValid(MySelf) and MySelf.IsZombie and MySelf:IsZombie() and MySelf:Alive() and GAMEMODE.m_ZombieVision
-	
-	--[==[if todraw then
-		local dlight = DynamicLight( MySelf:EntIndex() )
-		if dlight then
-			
-			local trace = traceline({start = MySelf:GetShootPos(), endpos = MySelf:GetShootPos()+MySelf:GetAimVector()* 100, filter = MySelf})
-		
-			dlight.Pos = trace.HitPos + (trace.HitNormal or vector_origin)*5
-			dlight.r = 235-- math.random(30,45)
-			dlight.g = 60
-			dlight.b = 60
-			dlight.Brightness = 1
-			dlight.Size = 390
-			dlight.Decay = 390 * 5
-			dlight.DieTime = CurTime() + 1
-			dlight.Style = 0
-
-		end				
-	end]==]
-
--- end)
 
 function GM:ToggleZombieVision(onoff)
 	if onoff == nil then

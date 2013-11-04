@@ -101,19 +101,6 @@ local HumanCM = {
 	["$pp_colour_mulb"] = 1
 }
 
---Alive Human in Nightmode
-local HumanNightModeCM = {
-	["$pp_colour_addr"] = 0,
-	["$pp_colour_addg"] = 0,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_brightness"] = -0.08,
-	["$pp_colour_contrast"] = 1.1,
-	["$pp_colour_colour"] = 0.7,
-	["$pp_colour_mulr"] = 0,
-	["$pp_colour_mulg"] = 1,
-	["$pp_colour_mulb"] = 1
-}
-
 --When spectating Zombies
 local SpectatorCM = {
 	["$pp_colour_addr"] = 0,
@@ -192,18 +179,9 @@ function CalculateColorMod()
 		--DrawBloom( .65, 1, 9, 9, 1, .65, 1, 1, 1 )
 		
 		--Special settings for Nightmode
-		if GAMEMODE:IsNightMode() then
-			for k,v in pairs(HumanNightModeCM) do
-				if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
-					ColorMod[k] = v
-				end
-			end
-		--Use default settings
-		else
-			for k,v in pairs(HumanCM) do
-				if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
-					ColorMod[k] = v
-				end
+		for k,v in pairs(HumanCM) do
+			if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
+				ColorMod[k] = v
 			end
 		end
 

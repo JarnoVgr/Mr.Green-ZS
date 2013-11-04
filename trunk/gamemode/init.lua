@@ -281,44 +281,12 @@ function GM:Initialize()
 	GAMEMODE:AddRandomSales()
 	
 	GAMEMODE:EnableSuperBoss()
-	
-	self:SetRetroMode(self:IsRetroMode())
-	
-	self:SetNightMode(self:IsNightMode())
-	
-	-- game.GetWorld():SetDTFloat(0,RETRO_AMMO_REGENERATION)
-		
-	-- Set few cvars
+			
+	--Set few ConVars
 	game.ConsoleCommand("fire_dmgscale 1\nmp_flashlight 1\nmp_allowspectators 0\n")
 	
-	-- Map is loaded!
-	Debug ( "[MAP] Loaded map: "..tostring ( game.GetMap() ) )
-end
-
-function GM:SetNightMode(mode)
-	self.NightMode = mode
-	SetGlobalBool("nightmode", self.NightMode)
-	
-	if mode then
-		env_skypaint = ents.Create("env_skypaint")
-		env_skypaint:Spawn()
-		env_skypaint:Activate()
-	
-		env_skypaint:SetTopColor(Vector(0,0,0))
-		env_skypaint:SetBottomColor(Vector(0,0,0))
-		env_skypaint:SetDuskIntensity(0)
-		env_skypaint:SetSunColor(Vector(0,0,0))
-		env_skypaint:SetStarScale(1.1)
-	
-	
-		game.ConsoleCommand("sv_skyname painted\n")
-		
-		timer.Simple(1,function() engine.LightStyle(0,"c") end)
-	end
-end
-
-function GM:IsNightMode()
-	return self.NightMode
+	--Debug
+	Debug("[MAP] Loaded map: ".. tostring(game.GetMap()))
 end
 
 -- Player presses F1
@@ -330,25 +298,21 @@ function OnPressF1(pl)
 end
 
 -- Player presses F2
-function OnPressF2(pl)
-	--[[if not ENDROUND and pl:Team() == TEAM_HUMAN then
-	pl:SendLua("MakeWeps()")
-	end]]
-	
-	local red = REDEEM_KILLS
+function OnPressF2(pl)	
+	local requiredScore = REDEEM_KILLS
 	if pl:HasBought("quickredemp") then
-		red = REDEEM_FAST_KILLS
+		requiredScore = REDEEM_FAST_KILLS
 	end
 	if not LASTHUMAN then
-		if REDEEM and AUTOREDEEM and pl:Team() == TEAM_UNDEAD and pl:Frags() >= red then
+		if REDEEM and AUTOREDEEM and pl:Team() == TEAM_UNDEAD and pl:Frags() >= requiredScore then
 			if not pl:IsBossZombie() then
 				pl:Redeem()
 			else
-				pl:ChatPrint("Zombie boss can't redeem.")
+				pl:ChatPrint("Undead Boss can't redeem.")
 			end
 		else
 			if pl:Team() == TEAM_UNDEAD then
-				pl:ChatPrint("You need a score of ".. red .." to redeem!")
+				pl:ChatPrint("You need a score of ".. requiredScore .." to redeem.")
 			end
 		end
 	else
@@ -552,43 +516,16 @@ local function DeleteEntitiesRestricted()
 end
 hook.Add ( "InitPostEntity", "DeleteRestricteEnts", DeleteEntitiesRestricted )
 
---[=[----------------------------------------------------------
-              Enables support for mappers to
-    add "zs_weapondrop" as spawn for weapons
-------------------------------------------------------------]=]
-local function EnableWeaponDrop ()
-	--[[local WeaponDropEntites = ents.FindByClass("zs_weapondrop")
-	for k,v in pairs ( WeaponDropEntites ) do
-		if #WeaponDropEntites >= 1 and v then
-			table.insert(DropPointsX,v:GetPos().x) -- PosX
-			table.insert(DropPointsY,v:GetPos().y) -- PosY
-			table.insert(DropPointsZ,v:GetPos().z) -- PosZ
-		end
-	end]]
-end
-hook.Add ("InitPostEntity","EnableMappingSupport",EnableWeaponDrop)
-
---[=[----------------------------------------------------------
-       Initializes toxic fumes (around zombie spawn)
-------------------------------------------------------------]=]
-local function InitializeToxicFumes()
-	
-	-- Check to see if there are zs_disable_toxic_damage ents
-	for k,v in pairs ( ents.FindByClass ( "zs_disable_toxic_damage" ) ) do
-		if ValidEntity ( v ) then 
-			TOXIC_SPAWN = false
-		end
-	end
-end
--- hook.Add ( "InitPostEntity","InitializeToxicFumes",InitializeToxicFumes )
-
 --[=[--------------------------------------------------------
              Translates the given entity to
         another one, based on the original model
 ---------------------------------------------------------]=]
-function GM:ModelToEntity ( ent )
-	if not ValidEntity ( ent ) then return end
-	-- Initliaze our translation table
+function GM:ModelToEntity(ent)
+	if not ValidEntity(ent) then
+		return
+	end
+	
+	--Initialize our translation table
 	local ModelToEntity = {
 		["models/props_c17/tools_wrench01a.mdl"] = "weapon_zs_tools_hammer",
 		["models/props/cs_office/computer_keyboard.mdl"] = "weapon_zs_melee_keyboard",
@@ -604,61 +541,29 @@ function GM:ModelToEntity ( ent )
 		["models/props_interiors/pot02a.mdl"] = "weapon_zs_melee_fryingpan",
 	}
 	
-	-- See if the model exists in the table and if it, replace it with an entity
+	--See if the model exists in the table and if it, replace it with an entity
 	local mEnt = ModelToEntity[ string.lower(ent:GetModel()) ]
-	if mEnt == nil then return end
-	
-	local blockedweapon = self.HumanWeapons[mEnt] and self.HumanWeapons[mEnt].NoRetro == true 
-	
-	if self:IsRetroMode() and blockedweapon then return end
+	if mEnt == nil then
+		return
+	end
 
+	--Recreate entity
 	timer.Simple(1, function()
-		if ValidEntity ( ent ) then
-			local newEnt = ents.Create( mEnt )
-			newEnt:SetPos( ent:GetPos() )
+		if ValidEntity(ent) then
+			local newEnt = ents.Create(mEnt)
+			newEnt:SetPos(ent:GetPos())
+			newEnt:SetAngles(ent:GetAngles())
 			ent:Remove()
 			newEnt:Spawn()
 		end
 	end)
-	
-end
-
--- Toxic damage
-ToxicPoints = {}
-ToxicTime = 0
-ToxicWarningTime = 0
-function ToxicDamager() 
-	if ToxicTime > CurTime() then return end
-	
-	-- Damage humans that enter toxic fumes, but don't kill them
-	for _,pl in pairs ( team.GetPlayers( TEAM_HUMAN ) ) do
-		if pl:IsInToxicFumes ( ToxicPoints ) then
-			local MaxHealth = pl:GetMaximumHealth()
-			if pl:Health() > MaxHealth * 0.15 then
-				pl:TakeDamage ( MaxHealth * 0.05, nil, nil )
-				pl:Message ("Stay out of the infected areas as they might get you killed!", 2, "white")
-			end
-		end
-	end
-	
-	-- Heal the undead within the toxic fumes
-	for _,pl in pairs ( team.GetPlayers( TEAM_UNDEAD ) ) do
-		if pl:IsInToxicFumes ( ToxicPoints ) then
-			local MaxHealth = pl:GetMaximumHealth()
-			if pl:Health() < MaxHealth then
-				pl:SetHealth ( math.Clamp ( pl:Health() + ( MaxHealth * 0.25 ), 0, MaxHealth ) )
-			end
-		end
-	end
-	
-	ToxicTime = CurTime() + 1
 end
 
 NextAmmoDropOff = AMMO_REGENERATE_RATE
 NextHeal = 0
 NextQuickHeal = 0
 
-function GM:OnNPCKilled ( ent, attacker, inflictor )
+function GM:OnNPCKilled(ent, attacker, inflictor)
 	if NPCS_COUNT_AS_KILLS and attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
 		attacker:AddFrags(1)
 	end
@@ -668,27 +573,30 @@ end
              Last Human Event
 ---------------------------------------]=]
 function GM:LastHuman()
+	--Check if already in Last Human mode
 	if LASTHUMAN then
 		return
 	end
 
-	-- Global var change
+	--Global var change
 	LASTHUMAN = true
+	
+	--Everyone can talk to eachother
 	RunConsoleCommand("sv_alltalk", "1")
 	
-	-- Broadcast status to clients
+	--Broadcast status to clients
 	gmod.BroadcastLua("GAMEMODE:LastHuman()")
 	
-	-- Get the last human
-	local LastHuman = team.GetPlayers( TEAM_HUMAN )[1]
-	if not ValidEntity ( LastHuman ) then
+	--Get the last human
+	local LastHuman = team.GetPlayers(TEAM_HUMAN)[1]
+	if not ValidEntity(LastHuman) then
 		return
 	end
 	
-	-- Remember the time
+	--Remember the time
 	LastHuman.LastHumanTime = CurTime()
 	
-	-- Log
+	--Log
 	log.WorldAction("Last_Human")
 	
 	-- The rest goes to the "LastManStand" upgrade
@@ -730,8 +638,11 @@ end
 --[=[--------------------------------------------------------------------
        Restrict or allow players to turn on their flashlights
 ---------------------------------------------------------------------]=]
-local function RestrictFlashlight ( pl, Switch )
-	if Switch == false then return true end --  Always let them allow to turn it off.
+local function RestrictFlashlight(pl, switch)
+	--Always allow to turn off
+	if switch == false then
+		return true
+	end
 	
 	-- Allow flashlight if the weapon is not melee
 	local Weapon = pl:GetActiveWeapon()
@@ -755,17 +666,16 @@ function GM:PlayerSwitchFlashlight(pl, Switch)
 	return true
 end
 
-
-
 function GM:PlayerCanHearPlayersVoice( pListener, pTalker )
 	
 	local sv_alltalk = GetConVar( "sv_alltalk" )
 	
 	local alltalk = sv_alltalk:GetInt()
-	if (alltalk > 0) then return true, alltalk == 2 end
+	if (alltalk > 0) then
+		return true, alltalk == 2
+	end
 
 	return pListener:Team() == pTalker:Team(), false
-	
 end
 
 --[=[--------------------------------------------------------
@@ -792,36 +702,29 @@ function GM:PlayerCanPickupWeapon(ply, entity)
 		end
 	end
 	
-	--Restrict zombie only weapons to undead team members
+	--Restrict zombie only weapons to Undead team members
 	if ply:Team() == TEAM_UNDEAD then
 		return EntClass == ZombieClasses[ply.Class].SWEP
 	end
 	
-	-- If we already got the weapon, don't do anything
+	--If we already have the weapon, don't do anything
 	if ply:HasWeapon(EntClass) then
 		return false
 	end
 	
-	-- Notify the player if he is carying more than 1 weapon of each type --  Dont notify anymore
-	
-	local limit = 1
-	
-	if self:IsRetroMode() then
-		limit = 11
-	end
-	
+	-- Notify the player if he is carrying more than 1 weapon of each type --  Dont notify anymore		
 	local Category = WeaponTypeToCategory[ entity:GetType() ]
 	if Category then
-		if ply.CurrentWeapons[Category] and ply.CurrentWeapons[Category] >= limit and Category ~= "Admin" then
+		if ply.CurrentWeapons[Category] and ply.CurrentWeapons[Category] >= 1 and Category ~= "Admin" then
 			return false
 		end
 	end
-			
-	ply.HighestAmmoType = string.lower( entity:GetPrimaryAmmoTypeString() or ply.HighestAmmoType )
+	
+	--			
+	ply.HighestAmmoType = string.lower(entity:GetPrimaryAmmoTypeString() or ply.HighestAmmoType)
 	
 	--  logging
 	--log.PlayerAcquireWeapon( ply, entity:GetClass() )
-	
 	
 	return true
 end
@@ -843,11 +746,6 @@ function ChangeClass(pl,cmd,args)
 		end
 				
 		pl:SetTeam(Team)
-		-- pl:SetHumanClass ( math.ceil(args[1]) )
-		
-		--  logging
-		--log.PlayerJoinTeam( pl, Team )
-		-- log.PlayerRoleChange( pl, pl:GetClassTag() )
 		
 		pl:Spawn()
 	end
@@ -858,9 +756,16 @@ concommand.Add( "ChangeClass", ChangeClass )
 	  Crappy bypass for the FCVAR
 	       CAN SERVER EXECUTE
 ---------------------------------------------------------]=]
-function server_RunCommand ( ply, command, args )
-	if not ply:IsValid() then return end
-	if command == nil then ErrorNoHalt("Server_RunCommand failed because there was no command to run!") return end
+function server_RunCommand( ply, command, args)
+	if not ply:IsValid() then
+		return
+	end
+	
+	if command == nil then
+		ErrorNoHalt("Server_RunCommand failed because there was no command to run!")
+		return
+	end
+	
 	local firstarg
 	
 	if args ~= nil then 
@@ -884,7 +789,7 @@ function SendDiffic(difficulty)
 	umsg.End()
 end
 
--- Spawn hats for players
+--Spawn hats for players
 function GM:SpawnHat(pl, hattype)
 	if not ValidEntity ( pl ) then
 		return
@@ -963,8 +868,9 @@ hook.Add( "PlayerShouldTaunt", "Disable_Acts", function(pl)
 end)
 
 function GM:SpawnSuit( pl, hattype )
-	if not ValidEntity ( pl ) then return end
-	if not pl:IsPlayer() then return end
+	if not ValidEntity ( pl ) or not pl:IsPlayer() then
+		return
+	end
 
 	-- Player is a bot - testing purposes
 	-- if pl:IsBot() then hattype = "stalkersuit" end
@@ -1015,6 +921,7 @@ function GM:DropHat(pl)
 end
 
 HatCounter = 0
+
 --[==[
 function GM:DropHat(pl)
 	if ValidEntity(pl.Hat) and not pl.Hat.IsSuit and pl.Hat:GetModel() then
@@ -1064,7 +971,7 @@ function GM:DropHat(pl)
 end
 ]==]
 
-function GM:PlayerNoClip ( pl, on )	
+function GM:PlayerNoClip(pl, on)	
 	if pl:IsAdmin() and ALLOW_ADMIN_NOCLIP and pl:Team() ~= TEAM_SPECTATOR and not pl:IsFreeSpectating() then
 		if pl:GetMoveType() ~= MOVETYPE_NOCLIP then
 			for k, v in pairs( player.GetAll() ) do
@@ -1080,17 +987,16 @@ function GM:PlayerNoClip ( pl, on )
 	end
 	
 	return false
-	--return pl:IsAdmin() and ALLOW_ADMIN_NOCLIP and pl:Team() ~= TEAM_SPECTATOR
 end
 
-function GM:OnPhysgunFreeze( weapon, phys, ent, pl )
+function GM:OnPhysgunFreeze(weapon, phys, ent, pl)
 	return true
 end
 
-function GM:OnPhysgunReload( weapon, pl )
+function GM:OnPhysgunReload(weapon, pl)
 end
 
-function GM:PlayerSay( player, text, teamonly )
+function GM:PlayerSay(player, text, teamonly)
 	return player:Team() ~= TEAM_SPECTATOR
 end
 
@@ -1162,27 +1068,6 @@ function GM:CanPlayerSuicide(pl)
 	return true
 end
 
-function ChemBomb( pl,suicide )
-	if not pl:IsValid() then return end
-	
-	local damage,radius
-	if suicide then 
-		damage = 20
-		radius = 100
-	else
-		damage = 40
-		radius = 150
-	end
-	
-	util.BlastDamage ( pl, pl, pl:GetPos() + Vector(0,0,16), radius, damage )
-
-	if REDEEM and AUTOREDEEM and util.tobool(pl:GetInfoNum("_zs_autoredeem",1)) and not LASTHUMAN then-- pl.AutoRedeem
-		if REDEEM_KILLS <= pl:Frags() then
-			pl:Redeem()
-		end
-	end
-end
-
 --Obsolete ban function
 function BanIdiot(pl)
 end
@@ -1230,7 +1115,7 @@ function WeaponPickupNotify ( owner, PrintName )
 	if not ValidEntity ( owner ) then return end
 
 	if PickUpMessageTimer <= CurTime() then
-		owner:Notice ("You have picked up a(n) "..PrintName.." . Use it wisely!",3, Color (210,210,210,255))
+		owner:Notice("You have picked up a(n) "..PrintName.." . Use it wisely!",3, Color (210,210,210,255))
 		PickUpMessageTimer = CurTime() + 3
 	end
 end
@@ -1295,38 +1180,10 @@ concommand.Add("water_death", function(sender, command, arguments)
 	end
 end)
 
-concommand.Add("cramped_death", function(sender, command, arguments)
-	if sender:Alive() then
-		sender:Kill()
-		sender:EmitSound("physics/flesh/flesh_bloody_break.wav")
-		PrintMessageAll(HUD_PRINTTALK,""..sender:Name().."'s spine turned into dust.")
-	end
-end)
-
-util.PrecacheSound("ambient/voices/citizen_punches2.wav")
-concommand.Add("Shove", function(sender, command, arguments)
-	if not ALLOW_SHOVE then return end
-	if not (sender:Alive() and sender:Team() == TEAM_HUMAN and CurTime() >= sender.NextShove) then return end
-	local ent = Entity(tonumber(arguments[1]))
-	if not (ent and ent:IsValid() and ent:IsPlayer() and ent:Team() == TEAM_HUMAN) then return end
-	local shootpos = sender:GetShootPos()
-	if shootpos:Distance(ent:GetPos() + Vector(0,0,36)) <= 50 then
-		local vVel = sender:GetAimVector()
-		vVel.z = 0
-		local _start = ent:GetPos() + vVel * 32
-		local tr = util.TraceLine({start = _start, endpos = _start - Vector(0,0,32)})
-		if tr.Hit then
-			sender.NextShove = CurTime() + 1.5
-			ent:EmitSound("ambient/voices/citizen_punches2.wav", 80, math.random(76, 85))
-			ent:SetVelocity(vVel:GetNormal() * 340 + Vector(0,0,32))
-		end
-	end
-end)
-
 util.PrecacheSound("player/pl_pain5.wav")
 util.PrecacheSound("player/pl_pain6.wav")
 util.PrecacheSound("player/pl_pain7.wav")
-function DoPoisoned ( ent, owner, timername )
+function DoPoisoned( ent, owner, timername)
 	if not (ent:IsValid() and ent:Alive()) then
 		timer.Destroy(timername)
 		return
@@ -1355,9 +1212,8 @@ function DoPoisoned ( ent, owner, timername )
 	ent:Notice("You have lost "..damage.." health because of a poison spit!",3, Color (240,5,5,255))
 end
 
--- Update server stats
+--Update server stats
 function GM:UpdateServerStats()
-
 	local index = 0
 	local myid = ""
 	local temp = {}
@@ -1561,7 +1417,7 @@ end
 trackList = {}
 trackEnded = true
 
-function StartNameTrack( admin )
+function StartNameTrack(admin)
 	if not trackEnded then
 		admin:ChatPrint("There already is a name track in progress.")
 		return
@@ -1574,7 +1430,7 @@ function StartNameTrack( admin )
 	trackEnded = false
 end
 
-function EndNameTrack( admin )
+function EndNameTrack(admin)
 	admin:ChatPrint("End of name tracking! Results:")
 	local result = false
 	for k, tab in pairs(trackList) do

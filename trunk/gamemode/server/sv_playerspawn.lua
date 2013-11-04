@@ -944,20 +944,10 @@ hook.Add( "OnPlayerReadySQL", "UpdateDataTableJoin", function( pl )
 	end
 end )
 
--- When localplayer is valid on clientside
+--When localplayer is valid on clientside
 function GM:PlayerReady(pl)
 	pl.IsClientValid = true
-	
-	if self:IsRetroMode() then
-		pl:SendLua("SetGlobalBool(\"retromode\", true)")
-	end
-	if self:IsNightMode() then
-		pl:SendLua("SetGlobalBool(\"nightmode\", true)")
-	end
 end
-
--- Compute zombie spawn points if there arne't any
-if not file.Exists( "../gamemodes/zombiesurvival/gamemode/server/maps/spawns/"..game.GetMap()..".lua","lsv" ) then USE_RANDOM_SPAWN = false Debug ( "[SPAWN] Could not load computed zombie point!" ) else USE_RANDOM_SPAWN = true include ( "maps/spawns/"..game.GetMap()..".lua" ) end
 
 --[==[------------------------------------------------------
              Adds spawn points for players 
@@ -974,12 +964,16 @@ local function SetSpawnPoints()
 	local angSpawn = Angle ( 0,0,0 )
 	
 	-- default gamemode spawn points
-	GAMEMODE.UndeadSpawnPoints = ents.FindByClass( "info_player_zombie" )
-	GAMEMODE.HumanSpawnPoints = ents.FindByClass( "info_player_human" )
+	GAMEMODE.UndeadSpawnPoints = ents.FindByClass("info_player_zombie")
+	GAMEMODE.HumanSpawnPoints = ents.FindByClass("info_player_human")
 	
 	-- Add all the old ZS spawns.
-	for _, spawn in pairs( ents.FindByClass( "gmod_player_start" ) ) do
-		if spawn.BlueTeam then table.insert( GAMEMODE.HumanSpawnPoints, spawn ) else table.insert( GAMEMODE.UndeadSpawnPoints, spawn ) end
+	for _, spawn in pairs(ents.FindByClass("gmod_player_start")) do
+		if spawn.BlueTeam then
+			table.insert(GAMEMODE.HumanSpawnPoints, spawn)
+		else
+			table.insert(GAMEMODE.UndeadSpawnPoints, spawn)
+		end
 	end
 	
 	-- add human and undead spawns to the table
@@ -997,71 +991,57 @@ local function SetSpawnPoints()
 		end
 	end
 	
-	-- if there aren't any of above, add the orignal ones
+	--If there aren't any of above, add the original ones
 	if #GAMEMODE.HumanSpawnPoints <= 0 then
-		GAMEMODE.HumanSpawnPoints = ents.FindByClass( "info_player_start" )
+		GAMEMODE.HumanSpawnPoints = ents.FindByClass("info_player_start")
 	end
 	
-	-- if there aren't any of above, add the orignal ones
+	--If there aren't any of above, add the original ones
 	if #GAMEMODE.UndeadSpawnPoints <= 0 then
-		GAMEMODE.UndeadSpawnPoints = ents.FindByClass( "info_player_start" )
+		GAMEMODE.UndeadSpawnPoints = ents.FindByClass("info_player_start")
 	end
 	
-	-- Add angles to spawn
+	--Add angles to spawn
 	for k,v in pairs ( GAMEMODE.HumanSpawnPoints ) do
-		local vPos = v if IsEntityValid ( v ) then vPos = v:GetPos() end
+		local vPos = v if IsEntityValid(v) then vPos = v:GetPos() end
 		GAMEMODE.HumanSpawnPoints[k] = { vPos, angSpawn }
 	end		
 	
-	-- Add angles to spawn
+	--Add angles to spawn
 	for k,v in pairs ( GAMEMODE.UndeadSpawnPoints ) do	
-		local vPos = v if IsEntityValid ( v ) then vPos = v:GetPos() end
+		local vPos = v if IsEntityValid(v) then vPos = v:GetPos() end
 		GAMEMODE.UndeadSpawnPoints[k] = { vPos, angSpawn }
 	end
 	
+	--??
 	if OBJECTIVE and Objectives[1].ZombieSpawns then 
-	GAMEMODE.UndeadSpawnPoints = {}
-	print("Cleared spawns")
-	Objectives[1].ZombieSpawns()
-	print("Loaded new")
+		GAMEMODE.UndeadSpawnPoints = {}
+		print("Cleared spawns")
+		Objectives[1].ZombieSpawns()
+		print("Loaded new")
+		
+		for k,v in pairs ( SpawnPoints ) do
+			GAMEMODE.UndeadSpawnPoints[k] = { [1] = v[1], [2] = v[2] }
+		end
+		print("Done")
+		Objectives[1].VerifiedSpawns = true
+	end
 	
-	for k,v in pairs ( SpawnPoints ) do
-		GAMEMODE.UndeadSpawnPoints[k] = { [1] = v[1], [2] = v[2] }
-	end
-	print("Done")
-	Objectives[1].VerifiedSpawns = true
-	end
-	-- Resequence normal table
+	--Resequence normal table
 	if SpawnPoints then
 		for k,v in pairs ( SpawnPoints ) do
 			GAMEMODE.UndeadSpawnPoints[k] = { [1] = v[1], [2] = v[2] }
 		end
 	end
 	
-	-- Position and angles table for humans
+	--Position and angles table for humans
 	GAMEMODE.HumanPositions, GAMEMODE.HumanAngles = {}, {}
 	for k,v in pairs ( GAMEMODE.HumanSpawnPoints ) do GAMEMODE.HumanPositions[k] = GAMEMODE.HumanSpawnPoints[k][1] GAMEMODE.HumanAngles[k] = GAMEMODE.HumanSpawnPoints[k][2] end
 	
-	-- Position and angles table for zombos
+	--Position and angles table for zombos
 	GAMEMODE.ZombiePositions, GAMEMODE.ZombieAngles = {}, {}
 	for k,v in pairs ( GAMEMODE.UndeadSpawnPoints ) do GAMEMODE.ZombiePositions[k] = GAMEMODE.UndeadSpawnPoints[k][1] GAMEMODE.ZombieAngles[k] = GAMEMODE.UndeadSpawnPoints[k][2] end
-	
-	-- Using random zombie spawn
-	-- if not USE_RANDOM_SPAWN then USE_RANDOM_SPAWN = true GAMEMODE:ComputeZombieSpawn() EDITOR_SPAWN_MODE = true end
-	if USE_RANDOM_SPAWN then 
-		if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].RandomizeSpawn ~= true then return end
-		-- Disable toxic fumes and reset zombie spawn
-		TOXIC_SPAWN = false
-		GAMEMODE.UndeadSpawnPoints = {}
 		
-		-- Resequence normal table
-		if SpawnPoints then
-			for k,v in pairs ( SpawnPoints ) do
-				GAMEMODE.UndeadSpawnPoints[k] = { [1] = v[1], [2] = v[2] }
-			end
-		end
-	end
-	
 	-- readd gasses
 	
 	for _, spawn in pairs(GAMEMODE.UndeadSpawnPoints) do

@@ -6,15 +6,6 @@ if (game.GetMap() ~= "zs_the_pub_beta1") or (not TranslateMapTable[game.GetMap()
 	return
 end
 
---[[if SERVER then
-	hook.Add("InitPostEntity", "MapC_Init", function()
-		GAMEMODE:SetNightMode(true)
-	end)
-end]]
-
-
---Make map darker
---timer.Simple(1,function() engine.LightStyle(0,"b") end)
 if SERVER then
 	hook.Add("InitPostEntity", "MapC_Init", function()
 		--Find or create fog entity
@@ -32,11 +23,9 @@ if SERVER then
 	
 		game.ConsoleCommand("sv_skyname painted\n")
 
-		--engine.LightStyle(0,"b")
+		--timer.Simple(1,function() engine.LightStyle(0,"b") end)
 	end)
-end
-
-if CLIENT then
+elseif CLIENT then
 	--Probably not working because map lacks env_fog_controller
 	local function MapCAddNightFog()
 		print("[MAPC] GOT ITTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
@@ -69,9 +58,7 @@ if CLIENT then
 	
 		createdFog = true
 	
-		hook.Add( "SetupWorldFog","MapC_AddNightFog", MapCAddNightFog )
-		hook.Add( "SetupSkyboxFog","MapC_AddNightFogSkybox", MapCAddNightFogSkybox )	
-
-		print("[MAPC] ADDED FOG")
+		hook.Add("SetupWorldFog","MapC_AddNightFog", MapCAddNightFog)
+		hook.Add("SetupSkyboxFog","MapC_AddNightFogSkybox", MapCAddNightFogSkybox)
 	end)
 end

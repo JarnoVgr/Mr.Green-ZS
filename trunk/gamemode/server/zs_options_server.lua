@@ -1,38 +1,18 @@
-
-GM.RetroMode = CreateConVar("zs_retromode", "0", FCVAR_ARCHIVE + FCVAR_NOTIFY, "Tough as nails old school zs. Also has no nails."):GetBool()
-cvars.AddChangeCallback("zs_retromode", function(cvar, oldvalue, newvalue)
-	GAMEMODE.RetroMode = (tonumber(newvalue) == 1)
-end)
-
-GM.NightMode = CreateConVar("zs_nightmode", "0", FCVAR_ARCHIVE + FCVAR_NOTIFY, "Embrace the darkness."):GetBool()
-cvars.AddChangeCallback("zs_nightmode", function(cvar, oldvalue, newvalue)
-	GAMEMODE.NightMode = (tonumber(newvalue) == 1)
-end)
-
-
---Donation address
-DONATE_ADDRESS = "paypal[at]mrgreengaming[dot]com"
-
 --Log lua errors
-timer.Simple( 1, function() RunConsoleCommand ( "lua_log_sv", "1" ) end)
+timer.Simple(1, function()
+	RunConsoleCommand("lua_log_sv", "1")
+end)
 
---Disable team voice
-timer.Simple( 1, function() RunConsoleCommand ( "sv_alltalk", "0" ) end)
-
---Disables greencoin add function for local use (testing)
-USE_GREENCOINS = false
+--Disable Team Voice
+timer.Simple(1, function()
+	RunConsoleCommand("sv_alltalk", "0")
+end)
 
 --Saves debug to file at every entry
 TURBO_DEBUGGER = false
 
---Use zombie random points
-USE_RANDOM_SPAWN = false -- :/
-
 --Enable editor spawn mode
 EDITOR_SPAWN_MODE = false
-
--- Can be combined with above. Activates use of gm_guardian. Meaning default collision with zombies, but still soft collisions with teammates
-GM_GUARDIAN = false
 
 --Custom debug system save to file interval
 DEBUG_SAVE_FILE_TIME = 3
@@ -53,7 +33,13 @@ COINS_PER_EURO = 1000
 COINS_PER_ZOMBIE = 1
 COINS_PER_HUMAN = 3
 
+--IRC Relay
 IRC_RELAY_ENABLED = false
+GM.EnableIRCRelay = CreateConVar("zs_irc", "0", FCVAR_ARCHIVE + FCVAR_NOTIFY, ""):GetBool()
+cvars.AddChangeCallback("zs_irc", function(cvar, oldvalue, newvalue)
+	--GAMEMODE.NightMode = (tonumber(newvalue) == 1)
+	IRC_RELAY_ENABLED = (tonumber(newvalue) == 1)
+end)
 IRC_RELAY_NICK = "MrGreenZS"
 IRC_RELAY_SERVER = "irc.gtanet.com"
 IRC_RELAY_CHANNEL = "#mrgreen.zs"

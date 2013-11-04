@@ -1,12 +1,10 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then
-	AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "tmp"			
+	SWEP.PrintName = "TMP SMG"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
 	SWEP.ViewModelFOV = 65
@@ -20,7 +18,7 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_smg_tmp.mdl" )
+SWEP.ViewModel			= Model("models/weapons/cstrike/c_smg_tmp.mdl")
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_smg_tmp.mdl" )
 
@@ -32,7 +30,7 @@ SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_TMP.Single")
 SWEP.Primary.Recoil			= 7
-SWEP.Primary.Damage			= 15
+SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
 SWEP.Primary.Delay			= 0.07
