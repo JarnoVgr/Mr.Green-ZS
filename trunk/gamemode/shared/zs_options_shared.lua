@@ -1006,8 +1006,8 @@ ZombieClasses[0] =
 	Tag = "infected",	
 	Infliction = 0,
 	Revives = false,
-	Health = 230,
-	MaxHealth = 290,
+	Health = 200,
+	MaxHealth = 270,
 	Bounty = 80,
 	SP = 20,
 	Threshold = 0,	
@@ -1016,8 +1016,7 @@ ZombieClasses[0] =
 	CanCrouch = true,
 	CanGib = true,
 	Model = Model("models/player/group01/male_09.mdl"), 
-	Speed = 165,	
-	-- AngleFix = true,
+	Speed = 165,
 	Description = "Victim of the plague. Deadly in numbers.",
 	Unique = "",
 	PainSounds = {
@@ -1109,33 +1108,8 @@ ZombieClasses[1] =
 	Description = "Unplayable",
 	Unique = "",
 	Description = "You aren't supposed to read this.",
-	--Unique = "Can be deadly in numbers. Can Propkill.",
-	PainSounds = {
-				Sound("npc/zombie/zombie_pain1.wav"),
-				Sound("npc/zombie/zombie_pain2.wav"),
-				Sound("npc/zombie/zombie_pain3.wav"),
-				Sound("npc/zombie/zombie_pain4.wav"),
-				Sound("npc/zombie/zombie_pain5.wav"),
-				Sound("npc/zombie/zombie_pain6.wav")
-				}, 
-	DeathSounds = {
-				Sound("npc/zombie/zombie_die1.wav"),
-				Sound("npc/zombie/zombie_die2.wav"),
-				Sound("npc/zombie/zombie_die3.wav")
-				}, 	
+	--Unique = "Can be deadly in numbers. Can Propkill.",	
 	PlayerFootstep = true,
-	-- ViewOffset = Vector( 0, 0, 0 ),
-	ReviveCallback = function(pl, attacker, dmginfo)
-		if math.random(1, 4) ~= 1 then
-			DefaultRevive(pl)
-			return true
-		end
-		return false
-	end,
-	OnRevive = function(pl)
-		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-	end,
-	-- ModelScale = Vector(1.35,1.35,1.35),
 }
 
 ZombieClasses[2] = 
@@ -1143,7 +1117,7 @@ ZombieClasses[2] =
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
 	Infliction = 0.5,
-	Health = 100,
+	Health = 125,
 	MaxHealth = 160,
 	TimeLimit = 300,
 	Bounty = 80,
@@ -1178,7 +1152,7 @@ ZombieClasses[3] =
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
 	Infliction = 0.6,
-	Health = 480,
+	Health = 425,
 	MaxHealth = 650,
 	TimeLimit = 810,
 	Bounty = 130,
@@ -1218,7 +1192,7 @@ ZombieClasses[4] =
 	Tag = "etherealzombie",
 	Infliction = 0.4,
 	Health = 100,
-	MaxHealth = 90,
+	MaxHealth = 100,
 	TimeLimit = 200,
 	Bounty = 60,
 	SP = 12,
@@ -1370,8 +1344,8 @@ ZombieClasses[8] =
 	Name = "Zombine",
 	Tag = "zombine",
 	Infliction = 0.7,
-	Health = 270,
-	MaxHealth = 270, --decreased from 320
+	Health = 300,
+	MaxHealth = 300, --decreased from 320
 	TimeLimit = 1020,
 	Bounty = 150,
 	SP = 30,
