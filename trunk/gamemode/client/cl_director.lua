@@ -96,12 +96,8 @@ function GM:PlayerInitialSpawn( pl )
 end
 
 -- Called on player spawn
-function GM:PlayerSpawn( pl )
-	-- Restore viewmodel fix
-	-- self:RestoreViewmodel()
-	RestoreViewmodel(pl)
-	
-	-- Play player spawn sound
+function GM:PlayerSpawn( pl )	
+	--Play player spawn sound
 	if pl == MySelf then
 		pl:PlaySpawnMusic()
 	end

@@ -288,33 +288,45 @@ end
 --------------------------------------------------------------]==]
 meta.BaseDropWeapon = meta.DropWeapon
 function meta:DropWeapon(Weapon)
-	if Weapon == nil then return end
-	if not ValidEntity(Weapon) then return end
+	if Weapon == nil or not ValidEntity(Weapon) then
+		return
+	end
 		
-	-- Doesn't have the weapon
-	if not self:HasWeapon ( Weapon:GetClass() ) or not Weapon:IsWeapon() then return end
-	
-	-- Substract a slot from the category and remove it
-	local strCategory = GetWeaponCategory ( Weapon:GetClass() )
-	if strCategory == nil then return end
-	
-	-- We can't spawn the weapon into the void/solids
-	if not self:CanDropWeapon ( Weapon ) then Debug ( "[DEBUG] Weapon trying to spawn in world/outside world. Preventing..." ) return end 
-	
-	-- Debug
-	local strDebug = "[DEBUG] Preparing to drop weapon for "..tostring ( self )..". Weapon class: "..tostring ( Weapon:GetClass() ) 
-	Debug ( strDebug )
-	
-	-- Disable ironsight for client only if the weapon is the active weapon one.
-	ActiveWeapon = self:GetActiveWeapon()
-	if ValidEntity ( ActiveWeapon ) and ActiveWeapon == Weapon then
-		-- ClientDropWeapon ( self, Weapon )
+	--Doesn't have the weapon
+	if not self:HasWeapon(Weapon:GetClass()) or not Weapon:IsWeapon() then
+		return
 	end
 	
-	-- Base function
-	self:BaseDropWeapon( Weapon )
+	--Substract a slot from the category and remove it
+	local strCategory = GetWeaponCategory ( Weapon:GetClass() )
+	if strCategory == nil then
+		return
+	end
 	
-	-- Substract weapon count
+	--We can't spawn the weapon into the void/solids
+	if not self:CanDropWeapon(Weapon) then
+		Debug("[DEBUG] Weapon trying to spawn in world/outside world. Preventing...")
+		return
+	end 
+	
+	--Debug
+	local strDebug = "[DEBUG] Preparing to drop weapon for "..tostring ( self )..". Weapon class: "..tostring ( Weapon:GetClass() ) 
+	Debug(strDebug)
+	
+	--Disable ironsight for client only if the weapon is the active weapon one.
+	ActiveWeapon = self:GetActiveWeapon()
+	if ValidEntity(ActiveWeapon) and ActiveWeapon == Weapon then
+		if isfunction(ActiveWeapon.OnDrop) then
+			ActiveWeapon:OnDrop()
+		end
+		
+		ClientDropWeapon(self)
+	end
+	
+	--Base function
+	self:BaseDropWeapon(Weapon)
+	
+	--Subtract weapon count
 	self.CurrentWeapons[strCategory] = self.CurrentWeapons[strCategory] - 1
 end
 
@@ -347,12 +359,14 @@ function meta:StripWeapons()
 	-- Remove the weapons
 	for k,v in pairs ( self:GetWeapons() ) do
 		if IsEntityValid( v ) then
-			if v:IsWeapon() then v:Remove() end
+			if v:IsWeapon() then
+				v:Remove()
+			end
 		end
 	end
 	
 	-- Send drop event to client
-	ClientDropWeapon( self )
+	ClientDropWeapon(self)
 end
 
 --[==[--------------------------------------------------------------------
@@ -376,13 +390,19 @@ function meta:StripWeapon ( Class )
 	end
 	
 	-- Only disable clientside ironsights if it's the active weapon otherwise don't do it
-	-- if ValidEntity ( ActiveWeapon ) and ActiveWeapon == Weapon then	ClientDropWeapon( self ) end
+	if ValidEntity(ActiveWeapon ) and ActiveWeapon == Weapon then
+		if isfunction(ActiveWeapon.OnDrop) then
+			ActiveWeapon:OnDrop()
+		end
+		
+		ClientDropWeapon(self)
+	end
 	
 	-- Substract weapon count
 	self.CurrentWeapons[strCategory] = self.CurrentWeapons[strCategory] - 1
 	
 	-- Base function
-	self:BaseStripWeapon ( Class )
+	self:BaseStripWeapon(Class)
 end
 
 --[==[-------------------------------------------------------------

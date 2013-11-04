@@ -107,12 +107,14 @@ end
 
 if SERVER then
 	function metapl:DropWeakestWeapon ()
-		if not ValidEntity (self) then return end
+		if not ValidEntity (self) then
+			return
+		end
 		
 		-- Grab data
 		local minwep = self:MinWeaponDPS()
 		
 		-- Drop the weapon from the right category
-		self:DropWeapon ( minwep )
+		self:DropWeapon(minwep)
 	end
 end

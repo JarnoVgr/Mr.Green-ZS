@@ -92,15 +92,13 @@ end]==]
 --[==[---------------------------------------------------
       Used to call drop/strip weapon on client
 ----------------------------------------------------]==]
-function ClientDropWeapon ( self, Class )
-	if not ValidEntity ( self ) then return end
-	if not self:IsPlayer() then return end
-	
-	-- Player not ready
-	if not self.Ready then return end
+function ClientDropWeapon( self, Class )
+	if not ValidEntity(self) or not self:IsPlayer() or not self.Ready then
+		return
+	end
 
 	-- Send it to client
-	umsg.Start( "OnWeaponDropped", self )
+	umsg.Start("OnWeaponDropped", self)
 	umsg.End()
 end
 

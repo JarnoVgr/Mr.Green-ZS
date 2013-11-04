@@ -95,10 +95,9 @@ function DropWeapon(pl, commandName, args)
 
 	--
 	if Count == 1 then
-		GAMEMODE:SetPlayerSpeed( pl, 210 )
+		GAMEMODE:SetPlayerSpeed(pl, 210)
 	end
 	
-	-- if string.sub( wepname,1,5 ) == "admin" or wepname == "weapon_zs_tools_supplies" or wepname == "weapon_zs_syringe" or wepname == "weapon_zs_fists" or wepname == "weapon_zs_tools_hammer" or wepname == "weapon_zs_barricadekit" or wepname == "weapon_frag" or wepname == "weapon_zs_punch" or wepname == "weapon_physcannon" or wepname == "weapon_physgun" or wepname == "weapon_zs_mine" or wepname == "weapon_zs_grenade" or wepname == "weapon_zs_melee_combatknife" or wepname == "christmas_snowball" then
 	if string.sub( wepname,1,5 ) == "admin" or wepname == "weapon_zs_fists" or wepname == "weapon_frag" or wepname == "weapon_zs_punch" or wepname == "weapon_physcannon" or wepname == "weapon_physgun" or wepname == "christmas_snowball" then
 		pl:ChatPrint("You're not allowed to drop this weapon.")
 		return false
@@ -1114,7 +1113,7 @@ local weaponList = { "weapon_zs_annabelle","weapon_zs_grenadelauncher","weapon_z
 "weapon_zs_glock3", "weapon_zs_deagle", "weapon_zs_fiveseven", "weapon_zs_elites", "weapon_zs_magnum","weapon_zs_tmp", "weapon_zs_mp5", "weapon_zs_p90","weapon_zs_smg", "weapon_zs_ump", "weapon_zs_barricadekit",
 "weapon_zs_crossbow", "weapon_zs_scout", "weapon_zs_aug", "weapon_zs_galil", "weapon_zs_ak47", "weapon_zs_m4a1",
 "weapon_zs_m3super90", "weapon_zs_m1014", "weapon_zs_m249","weapon_zs_mine", "weapon_zs_sg552", "weapon_zs_famas", "weapon_zs_tools_torch", "weapon_zs_tools_supplies", "weapon_zs_tools_remote",
-"weapon_zs_pulserifle", "weapon_zs_melee_keyboard", "weapon_zs_melee_katana", "weapon_zs_melee_sledgehammer", "weapon_zs_melee_pot", "weapon_zs_melee_axe", "weapon_zs_melee_keyboard", "weapon_zs_melee_fryingpan", "weapon_zs_tools_hammer", "weapon_zs_melee_plank","weapon_zs_grenadelauncher","weapon_zs_boomstick","weapon_zs_melee_combatknife","weapon_zs_pickup_flare","weapon_zs_pickup_gascan","weapon_zs_pickup_gascan2","weapon_zs_pickup_gasmask","weapon_zs_pickup_propane","weapon_zs_tools_plank"}
+"weapon_zs_pulserifle", "weapon_zs_melee_keyboard", "weapon_zs_melee_katana", "weapon_zs_melee_sledgehammer", "weapon_zs_melee_pot", "weapon_zs_melee_axe", "weapon_zs_melee_keyboard", "weapon_zs_melee_fryingpan", "weapon_zs_melee_shovel", "weapon_zs_tools_hammer", "weapon_zs_melee_plank","weapon_zs_grenadelauncher","weapon_zs_boomstick","weapon_zs_melee_combatknife","weapon_zs_pickup_flare","weapon_zs_pickup_gascan","weapon_zs_pickup_gascan2","weapon_zs_pickup_gasmask","weapon_zs_pickup_propane","weapon_zs_tools_plank"}
 --List of weapons only available to superadmins
 local restrictedweaponList = { "dev_points", "admin_tool_remover", "admin_tool_sprayviewer", "admin_tool_igniter", "admin_tool_canister", "weapon_physgun", "admin_exploitblocker",
 "weapon_physcannon"	}

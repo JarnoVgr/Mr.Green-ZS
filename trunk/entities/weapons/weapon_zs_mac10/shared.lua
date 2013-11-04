@@ -3,7 +3,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "Mac 10 Sub-Machine Gun"
+	SWEP.PrintName = "Mac 10 SMG"
 	SWEP.Author = "NECROSSIN"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 12

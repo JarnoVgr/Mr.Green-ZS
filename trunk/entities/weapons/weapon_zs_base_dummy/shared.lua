@@ -220,10 +220,8 @@ return false
 end
 
 function SWEP:Holster()
-
 	if CLIENT then
 		self:ResetBonePositions()
-		RestoreViewmodel(self.Owner)
     end
 	
 	self:OnHolster()
@@ -239,7 +237,6 @@ function SWEP:OnRemove()
     if CLIENT then
 		self:ResetBonePositions()
         self:RemoveModels()
-		RestoreViewmodel(self.Owner)
     end
 	
 	self:_OnRemove()

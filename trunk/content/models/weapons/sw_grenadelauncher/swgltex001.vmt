@@ -1,0 +1,8 @@
+
+VertexLitGeneric
+{
+	$baseTexture "models/weapons/sw_grenadelauncher/swgltex001.vtf"
+	"$envmap" "env_cubemap"	
+	"$envmapmask" "models/weapons/sw_grenadelauncher/swgltex001_mask"
+	"$envmapcontrast" 1
+}
