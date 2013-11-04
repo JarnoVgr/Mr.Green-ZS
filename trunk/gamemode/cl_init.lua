@@ -1479,32 +1479,29 @@ function GM:_PostPlayerDraw(pl)
 	end
 end
 
-
-local revertvm = false
 function GM:PreDrawViewModel(vm, pl, weapon)
 	if not weapon then
 		return
 	end
 
-	if vm then
-		if weapon.ShowViewModel == false then
-			revertvm = true
-			render.SetBlend(1/255)
-		end
+	--Call same function in SWEP
+	if isfunction(weapon.PreDrawViewModel)	then
+		weapon:PreDrawViewModel(vm, pl, weapon)
 	end
 
+	--Use unified hands
 	if weapon.UseHands then
 		local hands = pl:GetHands()
-		if ( IsValid( hands ) ) then
+		if IsValid(hands) then
 			hands:DrawModel()
 		end
 	end
 end
 
-function GM:PostDrawViewModel(vm, pl, weapon)
-	if revertvm then
-		render.SetBlend(1)
-		revertvm = false
+function GM:PostDrawViewModel(vm, pl, weapon)	
+	--Call same function in SWEP
+	if isfunction(weapon.PostDrawViewModel)	then
+		weapon:PostDrawViewModel(vm, pl, weapon)
 	end
 end
 
@@ -2406,3 +2403,19 @@ function RecMapExploits(um)
 	table.insert(MapExploits, tab)
 end
 usermessage.Hook("mapexploits",RecMapExploits)
+
+function OnWeaponDropped(um)
+	if SERVER or not ValidEntity(MySelf) then
+		return
+	end
+	
+	--Disable the ironsight
+	--MySelf:SetFOV(GetConVar("fov_desired"):GetInt())
+	
+	--Call OnDrop function
+	local ActiveWeapon = MySelf:GetActiveWeapon()
+	if ValidEntity(ActiveWeapon) and isfunction(ActiveWeapon.OnDrop) then
+		ActiveWeapon:OnDrop()
+	end
+end
+usermessage.Hook("OnWeaponDropped", OnWeaponDropped)

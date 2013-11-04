@@ -274,11 +274,10 @@ function SWEP:OnDeploy()
 end
 
 function SWEP:Holster()
-	self:SetIronsights( false ) 
+	self:SetIronsights(false) 
 
 	 if CLIENT then
 		self:ResetBonePositions()
-		RestoreViewmodel(self.Owner)
     end
 	
 	return true
@@ -288,12 +287,11 @@ function SWEP:OnRemove()
     RemoveNewArms(self)     
     if CLIENT then
         self:RemoveModels()
-		RestoreViewmodel(self.Owner)
 		self:ResetBonePositions()
     end
 end
 
-function SWEP:Equip ( NewOwner )
+function SWEP:Equip(NewOwner)
 	if CLIENT then
 		return
 	end

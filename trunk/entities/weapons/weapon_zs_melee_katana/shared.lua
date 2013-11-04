@@ -1,19 +1,29 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then AddCSLuaFile( "shared.lua" ) end
+AddCSLuaFile()
 
 -- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
 -- Models paths
 SWEP.Author = "Deluvas"
-SWEP.ViewModel = Model ( "models/weapons/v_katana.mdl" )
-SWEP.WorldModel = Model ( "models/weapons/w_katana.mdl" )
+SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
+SWEP.UseHands = true
+SWEP.WorldModel = Model("models/weapons/w_katana.mdl")
+
+if CLIENT then
+	SWEP.ShowViewModel = false
+	SWEP.VElements = {
+		["katana"] = { type = "Model", model = "models/weapons/w_katana.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.941, 2.631, -6.678), angle = Angle(90, 180, -53.116), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+
+	killicon.AddFont( "weapon_zs_melee_katana", "ZSKillicons", "h", Color(255, 255, 255, 255 ) )
+end
 
 -- Name and fov
 SWEP.PrintName = "Katana"
-SWEP.ViewModelFOV = 70
+SWEP.ViewModelFOV = 50
 SWEP.HoldType = "melee2"
 -- Position
 SWEP.Slot = 2
@@ -28,8 +38,7 @@ SWEP.Primary.Delay = 0.50
 SWEP.TotalDamage = SWEP.Primary.Damage
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 2.0
 SWEP.WalkSpeed = 200
--- Killicon
-if CLIENT then killicon.AddFont( "weapon_zs_melee_katana", "ZSKillicons", "h", Color(255, 255, 255, 255 ) ) end
+
 
 function SWEP:Precache()
 	util.PrecacheSound("weapons/knife/knife_slash1.wav")

@@ -1,16 +1,20 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then AddCSLuaFile( "shared.lua" ) end
+AddCSLuaFile()
 
 -- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
 -- Models paths
-SWEP.Author = "Deluvas"--Edited by NECROSSIN
-SWEP.ViewModel = Model ( "models/weapons/cstrike/c_knife_t.mdl"  )
+SWEP.Author = "Deluvas"
+SWEP.ViewModel = Model("models/weapons/cstrike/c_knife_t.mdl")
 SWEP.UseHands = true
-SWEP.WorldModel = Model ( "models/weapons/w_knife_t.mdl"  )
+SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
+
+if CLIENT then
+	killicon.AddFont("weapon_zs_melee_combatknife", "CSKillIcons", "j", Color(255, 255, 255, 255))
+end
 
 -- Name and fov
 SWEP.PrintName = "Combat Knife"
@@ -33,9 +37,6 @@ SWEP.WalkSpeed = 215
 
 SWEP.HitDecal = "Manhackcut"
 
-SWEP.HitGesture = ACT_HL2MP_GESTURE_RANGE_ATTACK_KNIFE
-SWEP.MissGesture = SWEP.HitGesture
-
 SWEP.NoHitSoundFlesh = true
 
 function SWEP:PlaySwingSound()
@@ -48,12 +49,6 @@ end
 
 function SWEP:PlayHitFleshSound()
 	self:EmitSound("weapons/knife/knife_hit"..math.random(1, 4)..".wav")
-end
-
--- Killicon
-if CLIENT then killicon.AddFont( "weapon_zs_melee_combatknife", "CSKillIcons", "j", Color(255, 255, 255, 255 ) ) 
-SWEP.ShowViewModel = true
--- SWEP.FlipYaw = true
 end
 
 function SWEP:Precache()

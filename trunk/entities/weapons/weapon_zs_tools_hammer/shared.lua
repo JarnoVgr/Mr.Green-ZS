@@ -1,12 +1,12 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then AddCSLuaFile ( "shared.lua" ) end
+AddCSLuaFile()
 
 SWEP.Author = "Deluvas"
-SWEP.ViewModel = Model ( "models/weapons/v_hammer/c_hammer.mdl" )
+SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
 SWEP.UseHands = true
-SWEP.WorldModel = Model ( "models/weapons/w_hammer.mdl" )
+SWEP.WorldModel = Model("models/weapons/w_hammer.mdl")
 
 SWEP.Base = "weapon_zs_melee_base"
 
@@ -14,30 +14,26 @@ SWEP.Base = "weapon_zs_melee_base"
 SWEP.PrintName = "Nailing Hammer"
 SWEP.DrawAmmo = true
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 75
+SWEP.ViewModelFOV = 50
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
 
 if CLIENT then
+	SWEP.ShowViewModel = false
+	SWEP.ShowWorldModel = true
+	killicon.AddFont("weapon_zs_tools_hammer", "ZSKillicons", "c", Color(255, 255, 255, 255))
 
-SWEP.ShowViewModel = true
-SWEP.IgnoreBonemerge = true
-SWEP.RotateFingers = Angle(12,-35,0)
-
-
-SWEP.DummyModel = true
-end
-
-function SWEP:InitializeClientsideModels()
-	self.VElements = {
-		["hammer"] = { type = "Model", model = "models/weapons/w_hammer.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.318, 1.506, 0.449), angle = Angle(14.951, -5.289, 175.268), size = Vector(1.299, 1.299, 1.299), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	SWEP.VElements = {
+		["hammer"] = { type = "Model", model = "models/weapons/w_hammer.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.023, 1.764, -1.575), angle = Angle(0, 0, 180), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["nail"] = { type = "Model", model = "models/crossbow_bolt.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(0.989, 2.296, -3.958), angle = Angle(62.951, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 
-	self.ViewModelBoneMods = {
-		["ValveBiped.Bip01_L_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(-2.813, 0, -330), angle = Angle(0, 0, 0) }
-	} 
-	self.WElements = {} 
-	
+	SWEP.ViewModelBoneMods = {
+		["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(2.296, 1.378, -13.011), angle = Angle(0, -98.265, 8.265) },
+		["ValveBiped.Bip01_L_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 22.958, 0) },
+		["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -0.918, 0) },
+		["ValveBiped.Bip01_L_Finger12"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-32.144, -52.348, 0) }
+	}
 end
 
 SWEP.DamageType = DMG_CLUB
@@ -77,8 +73,6 @@ SWEP.SwingHoldType = "grenade"
 
 SWEP.Mode = 1
 
-if CLIENT then killicon.AddFont( "weapon_zs_tools_hammer", "ZSKillicons", "c", Color(255, 255, 255, 255 ) ) end
-
 for i=1,4 do
 	util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-"..i..".wav")
 end
@@ -87,15 +81,14 @@ function SWEP:PlayHitSound()
 	self:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1, 4)..".wav", 75, math.random(110, 115))
 end
 
+function SWEP:Initialize()
+	self.BaseClass.Initialize(self)
 
-function SWEP:OnInitialize()
-	self:SetDeploySpeed( 1.1 )
+	self:SetDeploySpeed(1.1)
 	if SERVER then
-		--self.Weapon:SetNWInt("Nails/Boards",1)	
 		self.Weapon.FirstSpawn = true
 	end
 	self.NextNail = 0
-	
 end
 
 
@@ -383,7 +376,7 @@ function SWEP:Equip ( NewOwner )
 	self.MaximumNails = self:Clip1()		
 	
 	-- Call this function to update weapon slot and others
-	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
+	gamemode.Call("OnWeaponEquip", NewOwner, self)
 end
 
 function SWEP:Precache()
@@ -394,15 +387,15 @@ function SWEP:Precache()
 end
 
 if CLIENT then
+	function SWEP:DrawHUD()
+		if not self.Owner:Alive() or ENDROUND then
+			return
+		end
+		MeleeWeaponDrawHUD()
 
-function SWEP:DrawHUD()
-	if not self.Owner:Alive() then return end
-	if ENDROUND then return end
-	MeleeWeaponDrawHUD()
-
-	draw.SimpleTextOutlined("Right click to nail an object", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	draw.SimpleTextOutlined("Hammer can NOT heal the nails", "ArialBoldFive", w-ScaleW(150), h-ScaleH(40), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-end
+		draw.SimpleTextOutlined("Right click to nail an object", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Hammer can NOT heal the nails", "ArialBoldFive", w-ScaleW(150), h-ScaleH(40), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	end
 end
 
  

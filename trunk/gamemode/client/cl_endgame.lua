@@ -188,10 +188,10 @@ function Intermission(nextmap, winner, timeleft)
 	local wintext, wincol = "Withdraw", Color(255,255,255,255)
 
 	if winner == TEAM_HUMAN then
-		wintext = "Survivors win"
+		wintext = "Humans have survived"
 		wincol = Color(255,255,255,255)
 	elseif winner == TEAM_UNDEAD then
-		wintext = "The Undead rule the world!"
+		wintext = "The Undead rule the world"
 		wincol = Color(200,40,40,255)
 	end
 

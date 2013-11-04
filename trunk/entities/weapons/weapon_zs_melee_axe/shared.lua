@@ -1,52 +1,31 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then AddCSLuaFile ( "shared.lua" ) end
+AddCSLuaFile ()
 
 -- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
 if CLIENT then
+	SWEP.ShowViewModel = false
+	SWEP.ShowWorldModel = false
 
-SWEP.ShowViewModel = true
-SWEP.ShowWorldModel = true
-SWEP.IgnoreBonemerge = true
-SWEP.RotateFingers = Angle(12,-35,0) 
-
-SWEP.DummyModel = true
-end
-
-function SWEP:InitializeClientsideModels()
-	
-	
-	if XMAS_2012 then
-		self.VElements = {
-			["lights"] = { type = "Model", model = "models/player/items/sniper/xms_sniperrifle.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(0.566, 1.733, 1.394), angle = Angle(-81.004, -2.358, -2.655), size = Vector(0.901, 0.901, 0.901), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-		self.WElements = {
-			["lights"] = { type = "Model", model = "models/player/items/sniper/xms_sniperrifle.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(1.027, 1.738, 0), angle = Angle(-90.68, -8.054, 12.628), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-	else
-		self.VElements = {
-			["axe"] = { type = "Model", model = "models/weapons/w_axe.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.349, 0.944, 5.375), angle = Angle(4.906, -5.338, 177.763), size = Vector(1.1, 1.1, 1.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-		}
-		self.WElements = {} 
-	end
-
-	self.ViewModelBoneMods = {
-		["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1.611, 1.611, 1.611), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(0.563, 0.563, 0.563), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["ValveBiped.Bip01_L_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(-2.813, 0, -330), angle = Angle(0, 0, 0) }
+	SWEP.VElements = {
+		["axe"] = { type = "Model", model = "models/props/CS_militia/axe.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.885, 1.679, -4.541), angle = Angle(0, -6.658, 88.976), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
-	
-	
+
+	SWEP.WElements = {
+		["axe"] = { type = "Model", model = "models/props/CS_militia/axe.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.742, 1.603, -3.182), angle = Angle(2.88, 0, 82.841), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+
+	killicon.AddFont("weapon_zs_melee_axe", "ZSKillicons", "a", Color(255, 255, 255, 255))
 end
 
 -- Model paths
 SWEP.Author = "Deluvas"
-SWEP.ViewModel = Model ( "models/weapons/v_axe/c_axe.mdl" )
+SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
 SWEP.UseHands = true
-SWEP.WorldModel = Model ( "models/weapons/w_axe.mdl" )
+SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 -- Name and fov
 SWEP.PrintName = "Axe"
@@ -88,13 +67,7 @@ function SWEP:PlayHitFleshSound()
 	self:EmitSound("physics/body/body_medium_break"..math.random(2, 4)..".wav")
 end
 
--- Killicon
-if CLIENT then 
---killicon.AddFont( "weapon_zs_melee_axe", "HL2MPTypeDeath", "6", Color( 255, 80, 0, 255 ) ) 
-killicon.AddFont( "weapon_zs_melee_axe", "ZSKillicons", "a", Color(255, 255, 255, 255 ) )
-end
-
 function SWEP:Precache()
 	util.PrecacheSound("weapons/knife/knife_slash1.wav")
 	util.PrecacheSound("weapons/knife/knife_slash2.wav")
-end 
+end

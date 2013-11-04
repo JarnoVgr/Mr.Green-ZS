@@ -2,7 +2,9 @@ include("shared.lua")
 
 
 function SWEP:DrawHUD()
-	if util.tobool(GetConVarNumber("_zs_hidecrosshair")) then return end
+	if util.tobool(GetConVarNumber("_zs_hidecrosshair")) then
+		return
+	end
 	MeleeWeaponDrawHUD()
 end
 
@@ -10,6 +12,7 @@ local function CosineInterpolation(y1, y2, mu)
 	local mu2 = (1 - math.cos(mu * math.pi)) / 2
 	return y1 * (1 - mu2) + y2 * mu2
 end
+
 local ghostlerp = 0
 function SWEP:GetViewModelPosition(pos, ang)
 	if self:IsSwinging() then

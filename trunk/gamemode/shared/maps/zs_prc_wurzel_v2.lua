@@ -2,10 +2,7 @@
 --zs_prc_wurzel_v2
 
 -- Few checks so it wont rebuild cache each time it changes
-if not TranslateMapTable[ game.GetMap() ] then
-	return
-end
-if game.GetMap() ~= "zs_prc_wurzel_v2" then
+if game.GetMap() ~= "zs_prc_wurzel_v2" or not TranslateMapTable[ game.GetMap() ] then
 	return
 end
 

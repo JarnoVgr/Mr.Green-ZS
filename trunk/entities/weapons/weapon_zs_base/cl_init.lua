@@ -12,6 +12,7 @@ SWEP.ShowViewModel = true
 
 SWEP.IronsightsMultiplier = 0.6
 
+
 function SWEP:TranslateFOV(fov)
 	return GAMEMODE.FOVLerp * fov
 end

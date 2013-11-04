@@ -1,18 +1,9 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
-local table = table
-local surface = surface
-local draw = draw
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local killicon = killicon
-local tobool = tobool
 
+-- killicons
+surface.CreateFont("csd", ScreenScale( 30 ), 500, true, true, "CSKillIcons")
+surface.CreateFont("csd", ScreenScale( 60 ), 500, true, true, "CSSelectIcons")
 
 local hud_deathnotice_time = CreateConVar("hud_deathnotice_time", "6", FCVAR_REPLICATED)
 
@@ -109,7 +100,6 @@ for k,v in pairs ( Table ) do
 end
 
 net.Receive("PlayerKilledByPlayerZS", function( len )
-	
 	local victim = net.ReadEntity()
 	local inflictor = net.ReadString()
 	local attacker = net.ReadEntity()
@@ -134,8 +124,6 @@ net.Receive("PlayerKilledByPlayerZS", function( len )
 			end
 		end
 	end
-	
-
 end)
 
 
