@@ -355,9 +355,7 @@ function SWEP:Reload()
 				end
 			end
 		end
-	end
-
-	
+	end	
 end
 
 function SWEP:GetIronsights()
@@ -372,6 +370,9 @@ function SWEP:CanPrimaryAttack()
 	if self:Clip1() <= 0 then
 		self:EmitSound("Weapon_Pistol.Empty")
 		self.Weapon:SetNextPrimaryFire(CurTime() + math.max(0.25, self.Primary.Delay))
+
+		--Auto-reloading
+		self:Reload()
 		return false
 	end
 

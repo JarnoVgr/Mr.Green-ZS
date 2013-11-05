@@ -28,10 +28,8 @@ COINS_PER_ZOMBIE = 1
 COINS_PER_HUMAN = 3
 
 --IRC Relay
-IRC_RELAY_ENABLED = false
-GM.EnableIRCRelay = CreateConVar("zs_irc", "0", FCVAR_ARCHIVE + FCVAR_NOTIFY, ""):GetBool()
+IRC_RELAY_ENABLED = CreateConVar("zs_irc", "0", FCVAR_ARCHIVE + FCVAR_NOTIFY, ""):GetBool()
 cvars.AddChangeCallback("zs_irc", function(cvar, oldvalue, newvalue)
-	--GAMEMODE.NightMode = (tonumber(newvalue) == 1)
 	IRC_RELAY_ENABLED = (tonumber(newvalue) == 1)
 end)
 IRC_RELAY_NICK = "MrGreenZS"
