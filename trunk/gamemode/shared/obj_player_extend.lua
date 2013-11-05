@@ -876,15 +876,16 @@ if SERVER then
 	util.AddNetworkString( "notice.GetNotice" )
 end
 
-function meta:Message ( sText, iType, Col, iDuration )
+function meta:Message(sText, iType, Col, iDuration)
 	
-	-- Send message
+	--Send message
 	if SERVER then
 		
 		net.Start( "notice.GetNotice" )
-			net.WriteString ( sText )
-			net.WriteDouble ( iType )
-			net.WriteString ( Col or "zs_please" )
+			net.WriteString(sText)
+			net.WriteDouble(iType or 2)
+			net.WriteString(Col or "zs_please")
+			net.WriteDouble(iDuration or -1)
 		net.Send(self)
 		
 		--[==[umsg.Start( "notice.GetNotice", self )
@@ -894,26 +895,9 @@ function meta:Message ( sText, iType, Col, iDuration )
 		umsg.End()]==]
 	end
 	
-	-- Clientside
+	--Clientside
 	if CLIENT then 
-	    notice.Message( sText, Col, iType, iDuration ) 
-	end
-end
-
-
--- -- -- -- -- -- -- -- --   Notice System -- -- -- -- -- -- -- -- -- -- -- -- 
-if SERVER then
-	function meta:Notice (msg,len,col)
-		if self:IsValid() then return end -- Disable this for a moment
-		if not self:IsPlayer() or not self:IsValid() or not self:Alive() then return end
-		
-		umsg.Start("PaintText",self)
-			umsg.String (msg)
-			umsg.Short (len)
-			for k,v in pairs (col) do
-				umsg.Short (v)
-			end
-		umsg.End()
+	    notice.Message(sText, Col, iType, iDuration) 
 	end
 end
 	

@@ -37,7 +37,7 @@ SWEP.Primary.DefaultClip = 60
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "smg1"
 
-SWEP.MaxAmmo			    = 230
+SWEP.MaxAmmo = 230
 
 SWEP.ConeMoving = 0.071
 SWEP.Cone = 0.059
@@ -47,7 +47,7 @@ SWEP.ConeIronCrouching = 0.024
 
 SWEP.WalkSpeed = 195
 
-SWEP.IronSightsPos = Vector(-6.881, -11.261, 2.68)
-SWEP.IronSightsAng = Vector(0, -0.828, 0)
+SWEP.IronSightsPos = Vector(-9.04, -8.426, 2.759)
+SWEP.IronSightsAng = Vector(1.483, -5.311, -6.961)
 SWEP.OverridePos = Vector(2.279, -3.28, 1.44)
 SWEP.OverrideAng = Vector(0, 0, 6.287)

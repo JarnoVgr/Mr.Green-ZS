@@ -68,32 +68,23 @@ end
 	 Receive draw notice order from server
 -------------------------------------------------------]==]
 
-net.Receive( "notice.GetNotice", function( len )
-	
-	if not ValidEntity ( MySelf ) then return end
-	
+net.Receive("notice.GetNotice", function( len )
+	if not ValidEntity(MySelf) then
+		return
+	end
 
 	local sText = net.ReadString()
 	local iType = net.ReadDouble()
 	local sColor = net.ReadString()
+	local iDuration = net.ReadDouble()
 	
-	-- Add it to list
-	notice.Message( sText, Color ( 255,255,255,255 ), iType, iDuration )
-
+	if iDuration == -1 then
+		iDuration = nil
+	end
+	
+	--Add it to list
+	notice.Message(sText, Color(255, 255, 255, 255), iType, iDuration)
 end)
-
-function notice.GetNotice ( um )
-	if not ValidEntity ( MySelf ) then return end
-	
-	-- Get values from server
-	local sText = um:ReadString()
-	local iType = um:ReadShort()
-	local sColor = um:ReadString()
-	
-	-- Add it to list
-	notice.Message( sText, Color ( 255,255,255,255 ), iType, iDuration )
-end
-usermessage.Hook ( "notice.GetNotice", notice.GetNotice ) 
 
 --[==[--------------------------------------------------
 	       Draws the messages
@@ -190,69 +181,6 @@ hook.Add( "HUDPaint", "notice.DrawNotice", notice.DrawMessage )
 ----------------------------------------------------
 
 local CachedMarkups = {}
-
-local ToDraw = {}
-local DrawTime = 0
-local DrawY = 0
-
-local function DrawSplitMessage()
-	local curtime = CurTime()
-
-	if curtime > DrawTime then
-		hook.Remove("HUDPaint", "DrawSplitMessage")
-		DrawTime = nil
-		return
-	end
-
-	local dh = DrawY
-
-	for i, marked in ipairs(ToDraw) do
-		local delta = DrawTime - curtime
-
-		local th = marked.totalHeight
-		local tw = marked.totalWidth
-
-		if delta > 3.5 then
-			delta = delta - 3.5
-			delta = 0.5 - delta
-
-			local halfw = tw * 0.5
-
-			marked:Draw(w * (1 - delta) - halfw, dh)
-			marked:Draw(w * delta - halfw, dh)
-		else
-			local mid = w * 0.5 - tw * 0.5
-
-			marked:Draw(mid, dh)
-			marked:Draw(mid + math.random(-1, 1), dh + math.random(-1, 1))
-		end
-
-		dh = dh + th
-	end
-end
-
-function GM:SplitMessage(y, ...)
-
-	--[==[local Cached = true
-
-	for i=1, arg.n do
-		local str = arg[i]
-		if not CachedMarkups[str] then
-			CachedMarkups[str] = markup.Parse(str)
-		end
-	end
-
-	ToDraw = {}
-
-	DrawTime = CurTime() + 4
-	DrawY = y
-
-	for i=1, arg.n do
-		table.insert(ToDraw, CachedMarkups[ arg[i] ])
-	end
-
-	-- hook.Add("HUDPaint", "DrawSplitMessage", DrawSplitMessage)]==]
-end
 
 for i=2,3 do
 	util.PrecacheSound("physics/body/body_medium_break"..i..".wav")

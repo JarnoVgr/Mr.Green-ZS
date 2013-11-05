@@ -1744,16 +1744,9 @@ function GM:Rewarded(wep)
 	surface.PlaySound("mrgreen/new/weppickup"..math.random(1,3)..".wav")
 
 	if wep and wep.PrintName then
-		local font = "HL2MPTypeDeath"
-		local letter = "0"
-		local stuff = killicon.GetFont( wep:GetClass() )
-		if stuff then
-			font = stuff.font
-			letter = stuff.letter
-		end
-		MySelf:Message( "Found a ".. wep.PrintName, nil, 1, 2.5 )
+		MySelf:Message( "Picked up a ".. wep.PrintName, nil, 1, 2.5 )
 	else
-		MySelf:Message( "Arsenal upgraded..", 2.5 )
+		MySelf:Message( "Arsenal upgraded", 2.5 )
 	end
 end
 rW = Rewarded

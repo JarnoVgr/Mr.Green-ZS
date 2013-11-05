@@ -187,33 +187,35 @@ function meta:SetFirstZombie()
 		return
 	end
 	
-	-- Strip weapons
+	--Strip weapons
 	self:StripWeapons()
 	
-	-- Obviously, set his team to undead
+	--Obviously, set his team to undead
 	self:SetTeam(TEAM_UNDEAD)
 	
-	-- Reset kils
-	self:SetFrags ( 0 )
+	--Reset kils
+	self:SetFrags(0)
 	self:UnSpectate()
-	-- Spawn him
-	self:Message( "You've been selected to lead the Undead Army.", 1, "255,255,255,255" )
+	
+	--Spawn him
+	self:Message("You've been selected to lead the Undead Army.", 3, "255,255,255,255")
 	self:Spawn()
 	
-		
+	--Aprils first joke
 	if FIRSTAPRIL then
 		umsg.Start( "MakeBody" )
 		umsg.End()
 	end
-
 	
 	-- Correct any speed changes
 	local Class = self:GetZombieClass()
-	GAMEMODE:SetPlayerSpeed ( self, ZombieClasses[Class].Speed )
+	GAMEMODE:SetPlayerSpeed(self, ZombieClasses[Class].Speed)
 	
-	-- Set him dead in the connect data table
-	local Table = DataTableConnected[ self:UniqueID() ]
-	if Table == nil then return end
+	--Set him dead in the connect data table
+	local Table = DataTableConnected[self:UniqueID()]
+	if Table == nil then
+		return
+	end
 	
 	Table.IsDead = true
 end

@@ -231,7 +231,6 @@ GM.HumanWeapons = {
 	--Others
 	["weapon_zs_boomstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 1200 },
 	["weapon_zs_grenadelauncher"]  = { Name = "Grenade Launcher", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 1800 },
-	["weapon_zs_annabelle"]  = { Name = "Annabelle Shotgun", DPS = 210, Infliction = 0, Type = "shotgun" }, --740
 	["weapon_zs_m1014"]  = { Name = "M1014 Auto-Shotgun", DPS = 246,Mat = "VGUI/gfx/VGUI/xm1014", Infliction = 0.85, Type = "shotgun", Price = 1080 },
 	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Class = "Medic", Type = "rifle"},
 	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0,Class = "Support", Type = "shotgun", Price = 960 }, 
@@ -243,11 +242,9 @@ GM.HumanWeapons = {
 	["weapon_zs_pickup_gasmask"]  = { Name = "Old Gas Mask", DPS = 0, Infliction = 0, Type = "misc" },
 	
 	
-	["weapon_zs_barricadekit"]  = { Name = "Barricade Kit", DPS = 1, Infliction = 0, Class = "Engineer", Type = "others" },
 	["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" }, -- 860
 	["weapon_zs_awm"]  = { Name = "Arctic Warface Magnum", DPS = 92, Infliction = 0.6, Class = "Support", Type = "rifle", Restricted = true },
 	["weapon_frag"]  = { Name = "Grenade", DPS = 1, Infliction = 0, Restricted = true, Type = "admin" },
-	
 	
 	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "rifle" },
 	
@@ -374,20 +371,17 @@ GM.RankUnlocks = {
 	-- [90] = {"_professional"},-- hidden for a while
 }
 
-RETRO_AMMO_REGENERATION = 90
-
-GM.RetroUnlocks = {
-	[5] = {"weapon_zs_deagle", "weapon_zs_glock3", "weapon_zs_magnum"},
-	[15] = {"weapon_zs_smg", "weapon_zs_mp5", "weapon_zs_p90", "weapon_zs_ump","weapon_zs_tmp","weapon_zs_smg","weapon_zs_sg552"},
-	[20] = {"weapon_zs_mine", "weapon_zs_grenade","weapon_zs_minishotty","weapon_zs_famas","weapon_zs_galil"},
-	[25] = {"weapon_zs_m1014", "weapon_zs_shotgun", "weapon_zs_annabelle"},
-	[35] = {"weapon_zs_ak47", "weapon_zs_m4a1","weapon_zs_m3super90"},
-	[50] = {"weapon_zs_m249"},
-}
-
+--Weapons to spawn with in Arena Mode
 GM.ArenaWeapons = {
-	"weapon_zs_m249","weapon_zs_m1014","weapon_zs_annabelle","weapon_zs_shotgun","weapon_zs_ak47","weapon_zs_m4a1","weapon_zs_m3super90",
-	"weapon_zs_famas","weapon_zs_galil","weapon_zs_smg", "weapon_zs_mp5",
+	"weapon_zs_m249",
+	"weapon_zs_m1014",
+	"weapon_zs_shotgun",
+	"weapon_zs_ak47",
+	"weapon_zs_m4a1",
+	"weapon_zs_m3super90",
+	"weapon_zs_famas",
+	"weapon_zs_galil",
+	"weapon_zs_mp5",
 }
 
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
@@ -397,40 +391,24 @@ GM.Perks = {
 	["_turretammo"] = {Name = "Turret Ammo", Description = "50% more ammo for turret", Slot = 2},
 	["_turrethp"] = {Name = "Turret Durability", Description = "50% more health for turret", Material = "VGUI/gfx/VGUI/defuser", Slot = 2},
 	["_turretdmg"] = {Name = "Turret Power", Description = "50% more turret's damage", Slot = 2},
-	["_poisonprotect"] = {Name = "Poison Protection", Description = "30% less damage from Poison Headcrabs", Slot = 2, NoRetro = true},
-	["_nailamount"] = {Name = "Pack of nails", Description = "50% more starting nails", Slot = 2, NoRetro = true},
-	["_nailhp"] = {Name = "Upgraded nails", Description = "40% more health for nails", Slot = 2, NoRetro = true},
+	["_poisonprotect"] = {Name = "Poison Protection", Description = "30% less damage from Poison Headcrabs", Slot = 2},
+	["_nailamount"] = {Name = "Pack of nails", Description = "50% more starting nails", Slot = 2},
+	["_nailhp"] = {Name = "Upgraded nails", Description = "40% more health for nails", Slot = 2},
 	["_falldmg"] = {Name = "Fall Protection", Description = "25% less fall damage", Slot = 1},
 	["_freeman"] = {Name = "Freeman's Spirit", Description = "Do 50% more melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 1},
 	["_enhkevlar"] = {Name = "Enhanced Kevlar", Description = "15% less damage from hits",Material = "VGUI/gfx/VGUI/kevlar_helmet", Slot = 1},
 	["_adrenaline"] = {Name = "Adrenaline Injection", Description = "Negates speed reduction on low health. Also your screen won't turn red when you are low on health", Slot = 1},
-	["_medupgr1"] = {Name = "Medical Efficiency", Description = "35% more healing power", Slot = 2, NoRetro = true},
-	["_medupgr2"] = {Name = "Medical Pack", Description = "70 more charges for medkit on spawn", Slot = 2, NoRetro = true},
+	["_medupgr1"] = {Name = "Medical Efficiency", Description = "35% more healing power", Slot = 2},
+	["_medupgr2"] = {Name = "Medical Pack", Description = "70 more charges for medkit on spawn", Slot = 2},
 	["_sboost"] = {Name = "Speed Boost", Description = "8% more walking speed", Slot = 1},
-	["_trchregen"] = {Name = "Handy Man", Description = "Increased regeneration rate for torch", Material = "HUD/scoreboard_clock", Slot = 2, NoRetro = true},
+	["_trchregen"] = {Name = "Handy Man", Description = "Increased regeneration rate for torch", Material = "HUD/scoreboard_clock", Slot = 2},
 	["_comeback"] = {Name = "Comeback", Description = "Gives you random Tier 2 pistol after redeeming! Works only once.", Slot = 1},
 	["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
 	["_plankamount"] = {Name = "Extra Plank", Description = "Ability to carry one more plank!", Slot = 2},
 	["_plankhp"] = {Name = "Stronger Planks", Description = "30% more health for planks", Slot = 2},
 }
 
-local AddRetro = {}
-
-for wep,tbl in pairs(GM.HumanWeapons) do
-	if tbl.OnlyRetro then
-		table.insert(AddRetro,wep)
-	end
-end
-
-for prk,tbl in pairs(GM.Perks) do
-	if tbl.OnlyRetro then
-		table.insert(AddRetro,prk)
-	end
-end
-
-GM.RankUnlocks[91] = AddRetro
-
--- Leave this. THis table will be filled at initialize hook
+-- Leave this. This table will be filled at initialize hook
 GM.WeaponsOnSale = {}
 
 ------------------------------

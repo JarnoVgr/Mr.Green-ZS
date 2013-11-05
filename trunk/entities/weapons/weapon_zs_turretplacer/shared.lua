@@ -87,7 +87,6 @@ function SWEP:InitializeClientsideModels()
 end
 
 function SWEP:Precache()
-	
 	util.PrecacheSound("npc/roller/blade_cut.wav")
 	
 	util.PrecacheModel(self.ViewModel)
@@ -129,33 +128,22 @@ if SERVER then
 	local trground = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos - Vector(0,0,1.5)})
 	
 	if trground.HitWorld then
-		--print("hit world")
-		-- if htrace.Entity == nil then
-			CanCreateTurret = true
-		-- else
-		-- 	CanCreateTurret = false
-		-- end
-		--print(htrace.Entity)
+		CanCreateTurret = true
 	else
 		CanCreateTurret = false
 	end
 	local pos = self.Owner:GetPos()
 	local turrets = 0
-	
-	--print(tostring(CanCreateTurret))
-	
+
 	for k,v in pairs ( ActualTurrets ) do-- ents.FindInBox (Vector (pos.x - 150,pos.y - 150,pos.z - 150), Vector (pos.x + 150, pos.y + 150, pos.z + 150))
 		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 150 then
-			-- if v:GetClass() == "zs_turret" then
-				turrets = turrets + 1
-			-- end
+			turrets = turrets + 1
 		end
 	end
 		
 	if turrets >= 1 then
 		if SERVER then 
-			self.Owner:PrintMessage (HUD_PRINTTALK, "You must place the turret 150 units away from any other ones!")
-			self.Owner:Message ("You must place the turret 150 units away from any other ones!",1,"white")
+			self.Owner:Message("Place turret more away from any other turrets", 2)
 		end
 		
 		return
@@ -164,7 +152,7 @@ if SERVER then
 	for _, point in pairs(RealCrateSpawns) do
 		if tr.HitPos then
 			if tr.HitPos:Distance(point) < 40 then
-				self.Owner:Message ("You must place the turret 40 units away from Supply Crate spawn!",1,"white")
+				self.Owner:Message("Place the turret more away from the Supply Crate!", 2)
 				return
 			end
 		end
@@ -173,7 +161,7 @@ if SERVER then
 	local angles = aimvec:Angle()	
 	if CanCreateTurret then
 	--print("I can")
-	local ent = ents.Create ("zs_turret")
+	local ent = ents.Create("zs_turret")
 		if (IsValid(ent)) then
 			--print("done")
 			--  logging
@@ -188,17 +176,7 @@ if SERVER then
 			ent:EmitSound("npc/roller/blade_cut.wav")
 			self.Owner.Turret = ent
 			self:TakePrimaryAmmo( 1 )
-			
-			-- Engineer's requirements
-			--[=[-if self.Owner:GetHumanClass() == 4 then
-				if self.Owner:GetTableScore("engineer","level") == 0 and self.Owner:GetTableScore("engineer","achlevel0_1") < 30 then
-					self.Owner:AddTableScore("engineer","achlevel0_1",1)
-				elseif self.Owner:GetTableScore("engineer","level") == 1 and self.Owner:GetTableScore("engineer","achlevel0_1") < 60 then
-					self.Owner:AddTableScore("engineer","achlevel0_1",1)
-				end				
-			self.Owner:CheckLevelUp()
-			end ]=]
-			
+						
 			if self and self:IsValid() then
 				DropWeapon(self.Owner)
 			end
@@ -208,12 +186,11 @@ end
 	
 end
 	
- function SWEP:Reload() 
+function SWEP:Reload() 
 	return false
- end  
+end  
  
 function SWEP:SecondaryAttack()
-
 	self:SetNextSecondaryFire(CurTime() + 0.1)
 	
 	if SERVER then
@@ -221,7 +198,6 @@ function SWEP:SecondaryAttack()
 	elseif CLIENT then
 		surface.PlaySound("npc/headcrab_poison/ph_step4.wav")
 	end
-	
 end 
 
 
@@ -234,9 +210,7 @@ function SWEP:_OnDrop()
 end
 
 function SWEP:Rotate()
-	
 	self:SetDTInt(0,math.NormalizeAngle(self:GetRotation()+10))
-	
 end
 
 function SWEP:GetRotation()
@@ -244,14 +218,15 @@ function SWEP:GetRotation()
 end
 
 function SWEP:Think()
-
-		if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
+	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
+		return
+	end
 		
-		if CLIENT then
+	if CLIENT then
 		if not self.VElements then return end
-			self.VElements["turret"].modelEnt:SetPoseParameter("aim_yaw",0)
-			self.VElements["turret"].modelEnt:SetPoseParameter("aim_pitch",0)
-		end
 		
+		self.VElements["turret"].modelEnt:SetPoseParameter("aim_yaw",0)
+		self.VElements["turret"].modelEnt:SetPoseParameter("aim_pitch",0)
+	end
 end
 

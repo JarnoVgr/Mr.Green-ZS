@@ -127,9 +127,8 @@ function SWEP:PrimaryAttack()
 	end
 	
 	if mymines > 5 then
-		if SERVER then 
-			self.Owner:PrintMessage (HUD_PRINTTALK, "You can't place more than 5 mines per ground!")
-			self.Owner:Message ("You can't place more than 5 mines per ground!",1,"white")
+		if SERVER then
+			self.Owner:Message("You can't place more than 5 mines per ground",1,"white")
 		end
 		return
 	end
@@ -144,8 +143,7 @@ function SWEP:PrimaryAttack()
 		
 	if mines >= 1 then
 		if SERVER then 
-			self.Owner:PrintMessage (HUD_PRINTTALK, "You must place the mine 50 units away from any other ones!")
-			self.Owner:Message ("You must place the mine 50 units away from any other ones!",1,"white")
+			self.Owner:Message("You must place the mine more away from other mines",1)
 		end
 		
 		return
@@ -161,8 +159,7 @@ function SWEP:PrimaryAttack()
 	
 	if cades >= 1 then
 		if SERVER then 
-			self.Owner:PrintMessage (HUD_PRINTTALK, "You must place the mine 150 units away from barricades!")
-			self.Owner:Message ("You must place the mine 150 units away from barricades!",1,"white")
+			self.Owner:Message("You must place the mine more away from barricades",1)
 		end
 		
 		return

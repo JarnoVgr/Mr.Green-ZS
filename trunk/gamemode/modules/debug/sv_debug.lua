@@ -59,6 +59,8 @@ function timer.Compute ( strName )
 end
 
 -- Didn't load precise timer dll
-if not GM:PreciseTimerActive() then print ( "[NOTICE] PreciseTimer is not available" ) end
+if not GM:PreciseTimerActive() then
+	print("[NOTICE] PreciseTimer is not available.")
+end
 
 Debug ( "[MODULE] Loaded Debug Script!" )

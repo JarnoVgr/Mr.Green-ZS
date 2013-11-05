@@ -188,7 +188,7 @@ if SERVER then
 
 		--Show notice when not being able to use it
 		if not gotSupplies then
-			activator:Message("You can't get supplies at this moment",1,"white")
+			activator:Message("You can't get Supplies at this moment",1,"white")
 		end
 	end
 end

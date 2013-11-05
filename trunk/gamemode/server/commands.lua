@@ -98,8 +98,8 @@ function DropWeapon(pl, commandName, args)
 		GAMEMODE:SetPlayerSpeed(pl, 210)
 	end
 	
-	if string.sub( wepname,1,5 ) == "admin" or wepname == "weapon_zs_fists" or wepname == "weapon_frag" or wepname == "weapon_zs_punch" or wepname == "weapon_physcannon" or wepname == "weapon_physgun" or wepname == "christmas_snowball" then
-		pl:ChatPrint("You're not allowed to drop this weapon.")
+	if string.sub( wepname,1,5 ) == "admin" or wepname == "weapon_frag" or wepname == "weapon_zs_punch" or wepname == "weapon_physcannon" or wepname == "weapon_physgun" or wepname == "christmas_snowball" then
+		pl:Message("You can't drop this weapon")
 		return false
 	end
 	
@@ -900,7 +900,7 @@ local function CommandSay(pl, text, teamonly)
 				--Heads up!
 				local suicidenote = { "You can't suicide now.","Suicide is not the answer."}
 				if math.random(1,3) == 1 then
-					pl:Notice(suicidenote[math.random(1,#suicidenote)],3, Color(255,10,10,255))
+					pl:Message(suicidenote[math.random(1,#suicidenote)], 2)
 				end
 			end
 
@@ -1072,14 +1072,14 @@ local function CommandSay(pl, text, teamonly)
 		end
 	end
 	
-	--[[if (text == "medic!") and pl:Health() <=65 then
-	if not pl:Team() == TEAM_HUMAN then return end
+	--MEDIC required
+	if (text == "medic!") and pl:Health() <= 65 and pl:Team() == TEAM_HUMAN and pl:Alive() then
 		for _,medic in pairs(player.GetAll()) do
-			if pl:Team() == TEAM_HUMAN and medic:Team() == TEAM_HUMAN and medic:Alive() and medic:GetHumanClass() == 1 and pl ~= medic then
-				medic:Message( ""..pl:Name().." needs healing!",1,"white" )
+			if pl:Team() == TEAM_HUMAN and medic:Team() == TEAM_HUMAN and medic:Alive() and pl ~= medic then
+				medic:Message(pl:Name() .." needs immediate healing", 1, "white")
 			end
 		end
-	end]]
+	end
 
 	--WHAT DOES THE SCOUT SAY ABOUT HIS HORNYNESS LEVEL?
 	local tocheck = string.lower(text)
@@ -1109,16 +1109,17 @@ end
 hook.Add("PlayerSay", "ChatCommands1", CommandSay)
 
 --List of weapons available for admins
-local weaponList = { "weapon_zs_annabelle","weapon_zs_grenadelauncher","weapon_zs_turretplacer","weapon_zs_shotgun","weapon_zs_syringe","weapon_zs_melee_crowbar", "weapon_zs_classic", "weapon_zs_melee_keyboard", "weapon_zs_usp", "weapon_zs_p228", "weapon_zs_combatknife",       -- list all weapons you can give
-"weapon_zs_glock3", "weapon_zs_deagle", "weapon_zs_fiveseven", "weapon_zs_elites", "weapon_zs_magnum","weapon_zs_tmp", "weapon_zs_mp5", "weapon_zs_p90","weapon_zs_smg", "weapon_zs_ump", "weapon_zs_barricadekit",
+local weaponList = { "weapon_zs_mac10", "weapon_zs_grenadelauncher","weapon_zs_turretplacer","weapon_zs_shotgun","weapon_zs_syringe","weapon_zs_melee_crowbar", "weapon_zs_classic", "weapon_zs_melee_keyboard", "weapon_zs_usp", "weapon_zs_p228", "weapon_zs_combatknife",       -- list all weapons you can give
+"weapon_zs_glock3", "weapon_zs_deagle", "weapon_zs_fiveseven", "weapon_zs_elites", "weapon_zs_magnum","weapon_zs_tmp", "weapon_zs_mp5", "weapon_zs_p90","weapon_zs_smg", "weapon_zs_ump",
 "weapon_zs_crossbow", "weapon_zs_scout", "weapon_zs_aug", "weapon_zs_galil", "weapon_zs_ak47", "weapon_zs_m4a1",
 "weapon_zs_m3super90", "weapon_zs_m1014", "weapon_zs_m249","weapon_zs_mine", "weapon_zs_sg552", "weapon_zs_famas", "weapon_zs_tools_torch", "weapon_zs_tools_supplies", "weapon_zs_tools_remote",
 "weapon_zs_pulserifle", "weapon_zs_melee_keyboard", "weapon_zs_melee_katana", "weapon_zs_melee_sledgehammer", "weapon_zs_melee_pot", "weapon_zs_melee_axe", "weapon_zs_melee_keyboard", "weapon_zs_melee_fryingpan", "weapon_zs_melee_shovel", "weapon_zs_tools_hammer", "weapon_zs_melee_plank","weapon_zs_grenadelauncher","weapon_zs_boomstick","weapon_zs_melee_combatknife","weapon_zs_pickup_flare","weapon_zs_pickup_gascan","weapon_zs_pickup_gascan2","weapon_zs_pickup_gasmask","weapon_zs_pickup_propane","weapon_zs_tools_plank"}
+
 --List of weapons only available to superadmins
 local restrictedweaponList = { "dev_points", "admin_tool_remover", "admin_tool_sprayviewer", "admin_tool_igniter", "admin_tool_canister", "weapon_physgun", "admin_exploitblocker",
 "weapon_physcannon"	}
 		
-local function AdminSay( pl, text, teamonly )
+local function AdminSay(pl, text, teamonly)
 	if not pl:IsAdmin() then 
 		return
 	end
@@ -1186,11 +1187,11 @@ local function AdminSay( pl, text, teamonly )
 			if not Raving then
 				RaveBreak()
 			else
-				pl:ChatPrint("You're already raving dude.")
+				pl:Message("You're already raving dude")
 			end
 			return text
 		else
-			pl:ChatPrint("Ravebreak not available at this time of round.")
+			pl:Message("RaveBreak not available at this time")
 			return ""
 		end
 	elseif (text:sub(1,5) == "!asay") then
@@ -1204,19 +1205,6 @@ local function AdminSay( pl, text, teamonly )
 
 	--Super Admin only commands	
 	if pl:IsSuperAdmin() then
-		--[[if (text == "!explode") then
-			local tr = pl:TraceLine(100)
-			local Ent = ents.Create("env_explosion")
-			Ent:EmitSound( "explode_4" )		
-			Ent:SetPos(spawnpos)
-			Ent:Spawn()
-			Ent:Activate()
-			Ent:SetKeyValue("iMagnitude", 20)
-			Ent:SetKeyValue("iRadiusOverride", 120)
-			Ent:Fire("explode", "", 0)
-			
-			return ""
-		end]]
 		if text == "!endround" then
 			if not ENDROUND then
 				gamemode.Call( "OnEndRound", TEAM_HUMAN )
@@ -1267,10 +1255,10 @@ local function AdminSay( pl, text, teamonly )
 		
 		local target = GetPlayerByName(sep[2])
 		if (target == -1) then
-			pl:PrintMessage( HUD_PRINTTALK, "Target player was not found.")
+			pl:Message("Target player not found")
 			return ""
 		elseif (target == -2) then
-			pl:PrintMessage( HUD_PRINTTALK, "Multiple targets found, please refine your request.")
+			pl:Message("Multiple targets found, please refine your request")
 			return ""
 		end
 		
@@ -1286,27 +1274,28 @@ local function AdminSay( pl, text, teamonly )
 		--IP/Host output command
 		elseif (sep[1] == "!ip") or (sep[1] == "!host") then
 			pl:PrintMessage(HUD_PRINTTALK, "Player "..target:Nick().." IP address is ".. target:IPAddress())
+			pl:Message(target:Nick().."'s IP address is ".. target:IPAddress())
 			return ""
 		end
 		
 		-- Check if he's alive
 		if not target:Alive() or not target:IsValid() then
-			pl:PrintMessage( HUD_PRINTTALK, "Target player is not alive.")
+			pl:Message("Target player is dead")
 			return ""
 		end
 		
 		--Redeem command
 		if (sep[1] == "!redeem" and target:Team() == TEAM_UNDEAD) then	
 			if (target == pl and not pl:IsSuperAdmin()) then
-				pl:ChatPrint("You cannot redeem yourself.")
+				pl:Message("You cannot redeem yourself")
 			else
 				server_RunCommand (pl, "redeem_player", target:UserID())
 				if not LASTHUMAN or not ENDROUND then
-					pl:ChatPrint(target:GetName().." was redeemed")
+					pl:Message(target:GetName() .." redeemed")
 				else
-					pl:ChatPrint("You can't redeem at LastHuman or EndRound!")
+					pl:Message("You can't ".. target:GetName() .." at this moment")
 				end
-				target:ChatPrint("You are redeemed by (ADMIN) ".. pl:GetName())
+				target:Message("You are redeemed by ".. pl:GetName())
 			end
 			return ""
 		--Slay command
@@ -1315,23 +1304,19 @@ local function AdminSay( pl, text, teamonly )
 			pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." was killed.")
 			target:PrintMessage( HUD_PRINTTALK, "Admin "..pl:Name().." killed you.")
 			return ""
-		elseif(sep[1] == "!mute") then	
-		
+		elseif(sep[1] == "!mute") then
 			target:Mute()
 			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." muted player "..tostring(target:Name())..".")
 			return ""
-		elseif(sep[1] == "!unmute") then	
-		
+		elseif(sep[1] == "!unmute") then
 			target:UnMute()
 			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." unmuted player "..tostring(target:Name())..".")
 			return ""
-		elseif(sep[1] == "!gag") then	
-		
+		elseif(sep[1] == "!gag") then
 			target:Gag()
 			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." gagged player "..tostring(target:Name())..".")
 			return ""
-		elseif(sep[1] == "!ungag") then	
-		
+		elseif(sep[1] == "!ungag") then
 			target:UnGag()
 			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." ungagged player "..tostring(target:Name())..".")
 			return ""
@@ -1346,8 +1331,8 @@ local function AdminSay( pl, text, teamonly )
 			target:TakeDamage(slapdam)
 			target:EmitSound("ambient/voices/citizen_punches2.wav")
 			target:SetVelocity(Vector(math.random(-10,10),math.random(-10,10),math.random(0,10)):GetNormal()*math.random(300,500))
-			pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." was slapped with "..slapdam.." damage.")
-			target:PrintMessage( HUD_PRINTTALK, "Admin "..pl:Name().." slapped you with "..slapdam.." damage.")
+			pl:Message("Slapped "..target:Name().." with "..slapdam.." damage")
+			target:Message("Admin "..pl:Name().." slapped you with "..slapdam.." damage")
 			return ""		
 		elseif sep[1] == "!bring" then
 			server_RunCommand (pl, "bring_player", target:UserID() )
@@ -1356,10 +1341,9 @@ local function AdminSay( pl, text, teamonly )
 			server_RunCommand (pl, "goto_player", target:UserID() )
 			return ""
 		elseif sep[1] == "!ammo+" and pl:IsSuperAdmin() then
-			if not pl:IsSuperAdmin() then pl:PrintMessage( HUD_PRINTTALK, "Only Super Admins can use this command now!") return "" end
-			pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." was given 100 ammo for his current weapon")
+			pl:Message(target:Name().." was given 100 ammo for his current weapon")
 			if (target ~= pl) then
-				target:PrintMessage( HUD_PRINTTALK, "(ADMIN) "..pl:Name().." gave you 100 ammo for your current weapon")
+				target:Message(pl:Name().." has given you 100 ammo for your current weapon")
 			end
 			local ammotype = target:GetActiveWeapon():GetPrimaryAmmoType()
 			if ammotype == "none" then 
@@ -1368,18 +1352,19 @@ local function AdminSay( pl, text, teamonly )
 			target:GiveAmmo(100,ammotype)
 			return ""
 		-- Give hp command
-		elseif sep[1] == "!hp+" and pl:IsSuperAdmin() then
-			pl:PrintMessage( HUD_PRINTTALK, "Player "..target:Name().." restored 25 health")
+		elseif (sep[1] == "!hp+" or sep[1] == "!hp") and pl:IsSuperAdmin() then
+			local healthToGive = math.min(target:GetMaxHealth(),target:Health()+25)
+			pl:Message("Player "..target:Name().." restored ".. healthToGive .." health")
 			if (target ~= pl) then
-				target:PrintMessage( HUD_PRINTTALK, "(ADMIN) "..pl:Name().." gave you 25 health")
+				target:Message(pl:Name().." has given you ".. healthToGive .." health")
 			end
-			target:SetHealth(target:Health()+25)
+			target:SetHealth(healthToGive)
 			return ""
 		-- Give frag command
-		elseif (sep[1] == "!frag+" or sep[1] == "!kill+") and pl:IsSuperAdmin() then
-			target:AddFrags(1) 
-			pl:ChatPrint(target:GetName().." received a kill")
-			target:ChatPrint("You were given one kill by (ADMIN) "..pl:GetName())
+		elseif sep[1] == "!sp" and pl:IsSuperAdmin() and target:Team() == TEAM_SURVIVORS then
+			target:AddFrags(2000) 
+			pl:Message(target:GetName() .." received 2000 SP")
+			target:ChatPrint("You received 2000 SP from ".. pl:GetName())
 			return ""
 		elseif sep[1] == "!swep" then -- gives the admin the ability to appoint a swep to a player     
 			local weaponToGive = nil
@@ -1400,21 +1385,27 @@ local function AdminSay( pl, text, teamonly )
 					end
 				end
 			end
-			if not pl:IsSuperAdmin() and target == pl then pl:PrintMessage( HUD_PRINTTALK, "Only Super Admins can give other admins or self weapons!") return "" end
+			
+			if not pl:IsSuperAdmin() and target == pl then
+				pl:Message("Only Super Admins can give other admins or themselves weapons")
+				return ""
+			end
 			
 			if (weaponToGive ~= nil) then
 				target:Give(weaponToGive)
-				pl:ChatPrint(target:GetName().." was given "..weaponToGive)
-				target:ChatPrint("You received "..weaponToGive.." from (ADMIN) "..pl:GetName())
+				--pl:ChatPrint(target:GetName().." was given "..weaponToGive)
+				--target:ChatPrint("You received "..weaponToGive.." from (ADMIN) "..pl:GetName())
+				target:Message("You received ".. weaponToGive .." from ".. pl:GetName())
+				pl:Message(target:GetName() .." was given ".. weaponToGive)
 			else
-				pl:ChatPrint("No valid weapon or multiple weapons specified.")
+				pl:Message("Multiple or invalid weapon specified")
 			end
 			return ""
 		elseif (sep[1] == "!debug") then
 			local str = "***DEBUG***\nName: "..target:Name().."\nSteamID: "..target:SteamID().."\nUniqueID: "..target:UniqueID().."\nUserID: "..target:UserID()
 			str = str.."\nModel: "..target:GetModel().."\nPosition: "..tostring(target:GetPos()).."\nTeam: "..team.GetName(target:Team()).."\n***END DEBUG***"
 			pl:PrintMessage(HUD_PRINTCONSOLE,str)
-			pl:ChatPrint("Debug printed to console.")
+			pl:Message("Debug information printed to console")
 			return ""
 		end
 		

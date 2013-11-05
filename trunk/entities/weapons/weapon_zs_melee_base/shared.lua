@@ -745,14 +745,24 @@ if CLIENT then
 	end
 		 
 	function SWEP:ResetBonePositions(vm)
-		if (!vm:GetBoneCount()) then
+		local actualVM
+		if not vm or not IsValid(vm) then
+			actualVM = self.Owner:GetViewModel()
+			if vm or not IsValid(vm) then
+				return
+			end
+		else
+			actualVM = vm
+		end
+
+		if (!actualVM:GetBoneCount()) then
 			return
 		end
 		
-		for i=0, vm:GetBoneCount() do
-			vm:ManipulateBoneScale( i, Vector(1, 1, 1) )
-			vm:ManipulateBoneAngles( i, Angle(0, 0, 0) )
-			vm:ManipulateBonePosition( i, Vector(0, 0, 0) )
+		for i=0, actualVM:GetBoneCount() do
+			actualVM:ManipulateBoneScale( i, Vector(1, 1, 1) )
+			actualVM:ManipulateBoneAngles( i, Angle(0, 0, 0) )
+			actualVM:ManipulateBonePosition( i, Vector(0, 0, 0) )
 		end
 	end
 end

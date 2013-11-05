@@ -72,8 +72,22 @@ local ShootSound = Sound("items/ammo_pickup.wav")
 local FailSound = Sound("buttons/combine_button_locked.wav")
 
 function SWEP:InitializeClientsideModels()
+	self.VElements = {
+		["crate"] = { type = "Model", model = "models/Items/item_item_crate.mdl", bone = "v_weapon.c4", rel = "", pos = Vector(0, 0, 0), angle = Angle(0, 0, -90), size = Vector(0.3, 0.3, 0.3), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+
 	self.ViewModelBoneMods = {
-		["v_weapon.c4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["v_weapon.c4"] = { scale = Vector(1, 1, 1), pos = Vector(-1.555, -12.747, -0.622), angle = Angle(9.326, 7.46, 37.305) },
+	["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -48.498, 0) },
+	["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(46.631, -33.576, 0) },
+	["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(29.844, 26.114, -39.172) },
+	["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-5.597, 9.326, 0), angle = Angle(11.192, 0, -63.42) },
+	["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-4.041, 0.31, -5.908), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-3.731, 27.979, -18.653) },
+	["ValveBiped.Bip01_L_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -24.25, 0) },
+	["ValveBiped.Bip01_Spine4"] = { scale = Vector(1, 1, 1), pos = Vector(0, -7.461, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_R_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(11.192, 0, 0) },
+	["ValveBiped.Bip01_L_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(13.057, 0, 0) },
 		["v_weapon.button0"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["v_weapon.button1"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["v_weapon.button2"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
@@ -192,7 +206,7 @@ function SWEP:PrimaryAttack()
 			--Check distance to Supply Crates
 			for _, point in pairs(RealCrateSpawns) do
 				if tr.HitPos:Distance(point) <= 100 then
-					self.Owner:Message("Place the Mobile Supplies more away from a Supply Crate",1,"white")
+					self.Owner:Message("Place the Mobile Supplies more away from a Supply Crate", 2)
 					canPlaceCrate = false
 					break
 				end

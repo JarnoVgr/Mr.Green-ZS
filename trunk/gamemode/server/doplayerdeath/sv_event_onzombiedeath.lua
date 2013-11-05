@@ -200,34 +200,16 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		
 			local reward = GAMEMODE:IsRetroMode() and 1 or ZombieClasses[mVictim:GetZombieClass()].SP
 			
-			if mVictim:IsCrow() and GAMEMODE:IsRetroMode() then reward = 0 end
+		if mVictim:IsCrow() and GAMEMODE:IsRetroMode() then reward = 0 end
 		
-			skillpoints.AddSkillPoints(mAttacker,reward)
-			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-			mVictim:FloatingTextEffect( reward, mAttacker )
-		
-		--[[if LASTHUMAN then
-			skillpoints.AchieveSkillShot(mAttacker,mVictim,"hero")
-		end]]
-			
-			
-		-----------------------------
-		
-		
-		
-		-- Check the player class achievements stats and level up if nececsary
-		-- mAttacker:CheckLevelUp()
-		
-		-- Add greencoins and increment zombies killed counter
+		skillpoints.AddSkillPoints(mAttacker,reward)
+		mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
+		mVictim:FloatingTextEffect( reward, mAttacker )
+
+		-- Add GreenCoins and increment zombies killed counter
 		mAttacker.ZombiesKilled = mAttacker.ZombiesKilled + 1
 		mAttacker:GiveGreenCoins( COINS_PER_ZOMBIE )
 		mAttacker.GreencoinsGained[ mAttacker:Team() ] = mAttacker.GreencoinsGained[ mAttacker:Team() ] + COINS_PER_ZOMBIE
-		
-		-- Notice
-		-- if math.random (1,3) == 1 then
-		-- 	local killzombienotice = {"You have killed "..mVictim:Name().." ! Don't worry, he was zombie!","You have killed a zombie!","Good job on killing a zombie!"}
-			-- mAttacker:Notice ( killzombienotice[math.random(1,#killzombienotice)],3, Color (190,210,210,255) )
-		-- end
 		
 		-- When the human kills a zombie he says (GOT ONE)
 		if ( math.random(1,6) == 1 ) then

@@ -541,7 +541,7 @@ function GM:OnZombieSpawn(pl)
 	--Alert players they can change zombie class
 	--TODO: Alert once
 	if not pl:IsCrow() and Class == 0 and math.random(1,3) == 1 then
-		pl:Message("Press F3 to spawn as a different zombie", 2)
+		pl:Message("Press F3 to play with a different Undead specie", 3)
 	end
 
 	Debug ( "[SPAWN] "..tostring ( pl:Name() ).." spawned as a Zombie." )

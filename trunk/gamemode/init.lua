@@ -204,8 +204,7 @@ function GM:OnWeaponEquip(pl, mWeapon)
 	if pl:IsPlayer() then
 		if pl:Team() == TEAM_HUMAN then
 			local category = WeaponTypeToCategory[ mWeapon:GetType() ]
-			pl.CurrentWeapons[ category ] = pl.CurrentWeapons[ category ] + 1
-			WeaponPickupNotify ( pl, PrintName )				
+			pl.CurrentWeapons[ category ] = pl.CurrentWeapons[ category ] + 1				
 		end
 	end
 end
@@ -1110,20 +1109,11 @@ end
 function GM:WeaponEquip(weapon)
 end
 
-local PickUpMessageTimer = 0
-function WeaponPickupNotify ( owner, PrintName )
-	if not ValidEntity ( owner ) then return end
-
-	if PickUpMessageTimer <= CurTime() then
-		owner:Notice("You have picked up a(n) "..PrintName.." . Use it wisely!",3, Color (210,210,210,255))
-		PickUpMessageTimer = CurTime() + 3
-	end
-end
-
 function ThrowGib(owner, wep)
-	if not owner:IsValid() then return end
-	if not owner:IsPlayer() then return end
-	if not wep.Weapon then return end
+	if not owner:IsValid() or not owner:IsPlayer() or not wep.Weapon then
+		return
+	end
+
 	if owner:Alive() and owner:Team() == TEAM_UNDEAD and owner.Class == 3 then
 		wep.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
 		GAMEMODE:SetPlayerSpeed(owner, ZombieClasses[3].Speed)
@@ -1209,7 +1199,7 @@ function DoPoisoned( ent, owner, timername)
 		ent:TakeDamage(damage, owner)
 	end
 	
-	ent:Notice("You have lost "..damage.." health because of a poison spit!",3, Color (240,5,5,255))
+	ent:Message("You have lost health because of a poison spit.", 3)
 end
 
 --Update server stats

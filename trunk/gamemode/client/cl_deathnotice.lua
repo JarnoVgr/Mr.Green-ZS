@@ -178,53 +178,32 @@ end)
 local function RecvPlayerKilledSelf( message )
 	local victim = message:ReadEntity()
 	
-	gamemode.Call ( "DoPlayerDeath", victim, victim, victim:GetActiveWeapon() )
+	gamemode.Call("DoPlayerDeath", victim, victim, victim:GetActiveWeapon())
 	
 	if victim:IsValid() then
 		GAMEMODE:AddDeathNotice( nil, 0, "suicide", victim:Name(), victim:Team() )
-		--[[if victim:Name() == MySelf:Name() then
-			GAMEMODE:AddCustomDeathNotice ( "self", "suicide", victim:Name(), nil )
-		end]]
 	end
 end
 usermessage.Hook("PlayerKilledSelfZS", RecvPlayerKilledSelf)
 
-net.Receive("PlayerRedeemed", function( len )
-	
+net.Receive("PlayerRedeemed", function(len)
 	local pl = net.ReadEntity()
 	if pl:IsValid() then
-		GAMEMODE:AddDeathNotice( nil, 0, "redeem", pl:Name(), TEAM_HUMAN )
+		GAMEMODE:AddDeathNotice(nil, 0, "redeem", pl:Name(), TEAM_HUMAN)
 		if pl == MySelf then
-			MySelf:Message( "You redeemed! Be careful!" )
-			pl:SetAmmoTime ( AMMO_REGENERATE_RATE )
+			MySelf:Message("You redeemed. Be careful.")
+			pl:SetAmmoTime(AMMO_REGENERATE_RATE)
 		end
 	end
 	
 	-- Call event
-	if IsValid( pl ) then
-		gamemode.Call( "OnPlayerRedeem", pl )
+	if IsValid(pl) then
+		gamemode.Call("OnPlayerRedeem", pl)
 	end
 
 end)
 
-local function RecvPlayerRedeemed(message)
-	local pl = message:ReadEntity()
-	if pl:IsValid() then
-		GAMEMODE:AddDeathNotice( nil, 0, "redeem", pl:Name(), TEAM_HUMAN )
-		if pl == MySelf then
-			MySelf:Message( "You redeemed! Be careful!" )
-			pl:SetAmmoTime ( AMMO_REGENERATE_RATE )
-		end
-	end
-	
-	-- Call event
-	if IsValid( pl ) then
-		gamemode.Call( "OnPlayerRedeem", pl )
-	end
-end
-usermessage.Hook("PlayerRedeemed", RecvPlayerRedeemed)
-
-net.Receive("PlayerKilledZS", function( len )
+net.Receive("PlayerKilledZS", function(len)
 	
 	local victim = net.ReadEntity()
 	local inflictor = net.ReadString()
@@ -241,37 +220,12 @@ net.Receive("PlayerKilledZS", function( len )
 		end
 	end
 	
-	if victim:Name() == MySelf:Name() then
-		-- GAMEMODE:AddCustomDeathNotice ( attacker, "something", victim:Name(), nil )
-	end
+	--[[if victim:Name() == MySelf:Name() then
+		GAMEMODE:AddCustomDeathNotice ( attacker, "something", victim:Name(), nil )
+	end]]
 	
 	GAMEMODE:AddDeathNotice(nil, -1, "random", victim:Name(), victim:Team())
-
 end)
-
-local function RecvPlayerKilled(message)
-	local victim = message:ReadEntity()
-	local inflictor = message:ReadString()
-	local attacker = message:ReadString()
-	
-	local mAttacker = ents.FindByClass ( attacker )[1]
-	if attacker == "worldspawn" then mAttacker = Entity(0) end
-	gamemode.Call ( "DoPlayerDeath", victim, mAttacker, nil )
-
-	for k,v in pairs (EntityNames) do
-		if attacker == k then
-			attacker = EntityNames[attacker]
-			break
-		end
-	end
-	
-	if victim:Name() == MySelf:Name() then
-		-- GAMEMODE:AddCustomDeathNotice ( attacker, "something", victim:Name(), nil )
-	end
-	
-	GAMEMODE:AddDeathNotice(nil, -1, "random", victim:Name(), victim:Team())
-end
-usermessage.Hook("PlayerKilledZS", RecvPlayerKilled)
 
 local function RecvPlayerKilledNPC(message)
 	local victim = "#"..message:ReadString()
