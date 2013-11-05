@@ -270,11 +270,6 @@ function GM:CalculateSupplyDrops()
 	
 	--Spawn crates
 	self:SpawnCratesFromTable(FullCrateSpawns)
-		
-	--Tell clients about crates
-	timer.Simple(0.05, function()
-		UpdateClientArrows()
-	end)
 end
 
 local function SortByHumens(a, b)

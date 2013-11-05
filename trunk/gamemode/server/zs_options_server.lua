@@ -17,12 +17,6 @@ EDITOR_SPAWN_MODE = false
 --Custom debug system save to file interval
 DEBUG_SAVE_FILE_TIME = 3
 
--- Whether to activate the destructible props system
-DESTRUCTIBLE_PROPS = true
-
--- Mass of physics prop * MASS_SCALAR = prop health
-MASS_SCALAR = 40
-
 -- Zombie spawn toxic (spawnkill anti-measure)
 TOXIC_SPAWN = false
 

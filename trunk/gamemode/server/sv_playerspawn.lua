@@ -829,12 +829,13 @@ end
 --[==[----------------------------------------------------
      Execute PlayerReady when client is ready
 -----------------------------------------------------]==]
-concommand.Add( "PostPlayerInitialSpawn", function( sender, command, arguments )
+concommand.Add( "PostPlayerInitialSpawn", function(sender, command, arguments)
 	if not sender.PostPlayerInitialSpawn then
+		Debug("[SPAWN] PostPlayerInitialSpawn ConCommand called. It's still needed.")
 		sender.PostPlayerInitialSpawn = true
-		gamemode.Call( "PlayerReady", sender )
+		gamemode.Call("PlayerReady", sender)
 	end
-end )
+end)
 
 --[==[------------------------------------------------
     Send toxic fumes positions to the client
@@ -888,61 +889,57 @@ function SentToxicFumesPosition ( pl )
 	Debug ( "[SPAWN] Succesfully sent toxic fumes positions to player - "..tostring ( pl ) )
 end
 
-util.AddNetworkString( "OnReadySQL" )
+util.AddNetworkString("OnReadySQL")
 
-hook.Add( "OnPlayerReadySQL", "UpdateDataTableJoin", function( pl )
-	if not IsValid( pl ) then 
+hook.Add("OnPlayerReadySQL", "UpdateDataTableJoin", function( pl )
+	if not IsValid(pl) then 
 		return 
 	end
 	
-	-- Check for client validity
+	--Check for client validity
 	if not pl.IsClientValid then 
 		return 
 	end
 	
-	-- player got all data
+	--Player received all data
 	pl.Ready = true
 	
-	GAMEMODE:SendTitle( player.GetAll(), { pl } )
-	GAMEMODE:SendTitle( { pl },player.GetAll() )
+	GAMEMODE:SendTitle(player.GetAll(), {pl})
+	GAMEMODE:SendTitle({pl}, player.GetAll())
 	
 	-- Send gc amount
-	GAMEMODE:SendCoins( pl )
+	GAMEMODE:SendCoins(pl)
 
 	-- Send shop items and ClassData
-	stats.SendShopData( pl, pl )
-	stats.SendAchievementsData( pl, pl )
-	stats.SendClassDatastream( pl )
+	stats.SendShopData(pl, pl)
+	stats.SendAchievementsData(pl, pl)
+	stats.SendClassDatastream(pl)
 	
 	pl.TotalUpgrades = 0
 	
-	-- Calculate the total upgrade each player has
-	for upgrades,price in pairs ( shopData ) do
-		if pl:HasBought( upgrades ) then
+	--Calculate the total upgrade each player has
+	for upgrades,price in pairs(shopData) do
+		if pl:HasBought(upgrades) then
 			if price.Cost > 2500 then
 				pl.TotalUpgrades = pl.TotalUpgrades + 1
 			end
 		end
 	end
 	
-	-- Send nr of shopitems
-	GAMEMODE:SendUpgradeNumber ( pl )
+	--Send nr of shopitems
+	GAMEMODE:SendUpgradeNumber(pl)
 	
-	-- Send sql ready status
-	
+	--Send SQL ready status
 	net.Start("OnReadySQL")
 	net.Send(pl)
 	
-	-- umsg.Start( "OnReadySQL", pl )
-	-- umsg.End()
+	Debug("[SPAWN] "..tostring(pl).." is Ready. Spawning him.")
 	
-	Debug ( "[SPAWN] "..tostring ( pl ).." is Ready. Spawning him." )
-	
-	-- Spawn the player
+	--Spawn the player
 	if not ENDROUND then 
 		pl:Spawn() 
 	end
-end )
+end)
 
 --When localplayer is valid on clientside
 function GM:PlayerReady(pl)

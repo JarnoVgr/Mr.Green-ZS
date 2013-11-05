@@ -72,68 +72,11 @@ CUSTOM_CHAT = CreateConVar( "sos_customchat", 0, FCVAR_REPLICATED )
 --		STARTING LOADOUTS		--
 ----------------------------------
 
-GM.STARTLOADOUTS = {}
-GM.STARTLOADOUTS[1] = {"weapon_zs_melee_crowbar","weapon_zs_p228"}
-GM.STARTLOADOUTS[2] = {"weapon_zs_combatknife","weapon_zs_usp"}
-
------------------------------------
--- 		KILL LEVEL REWARDS		 --
------------------------------------
-
--- Rewards that start with _ will be called as a powerup. ( PowerupFunctions["_name"](ply) ) This is cAsE-SenSiTivE!
--- See powerups.lua for examples and stuff.
--- Changing these means you're most likely an idiot.
-
--- add all BUY ONLY rewards to this list
-BuyOnly = {}
-BuyOnly[30] = "firepower"
-BuyOnly[60] = "energize"
--- Moving this into shared, because I want to use this table on client too
-RewardsTable = {}
-RewardsTable[1] = { --Medic
-	[100] = { "weapon_zs_deagle", "weapon_zs_fiveseven","weapon_zs_elites"},
-	[250] = { "weapon_zs_glock3","weapon_zs_magnum" },
-	[500] = { "weapon_zs_alyxgun"},
-	[800] = { "weapon_zs_sg552"},
-	[1500] = { "weapon_zs_shotgun", "weapon_zs_m1014" },
-}
-RewardsTable[2] = { --Commando
-	[100] = { "weapon_zs_glock3", "weapon_zs_deagle", "weapon_zs_magnum" },
-	[300] = { "weapon_zs_grenade" },
-	[600] = { "weapon_zs_aug", "weapon_zs_galil", "weapon_zs_ak47", "weapon_zs_m4a1" },
-	[1000] = { "weapon_zs_famas" },
-	[1450] = { "weapon_zs_m249" },
-	[1950] = { "weapon_zs_shotgun", "weapon_zs_m1014" },
-}
-RewardsTable[3] = { -- marksman
-	[100] = { "weapon_zs_deagle", "weapon_zs_fiveseven","weapon_zs_elites"},
-	[250] = { "weapon_zs_scout" },
-	[400] = { "weapon_zs_melee_crowbar" },
-	[600] = { "weapon_zs_sg550" },
-	[900] = { "weapon_zs_g3sg1"},
-	[1800] = { "weapon_zs_awp"},
-	--[75] = { "weapon_zs_shotgun", "weapon_zs_m1014" },
-}
-RewardsTable[4] = { --Engineer
-	[100] = { "weapon_zs_glock3", "weapon_zs_deagle", "weapon_zs_elites", "weapon_zs_magnum" },
-	[300] = { "weapon_zs_pulsesmg" },
-	[700] = {"weapon_zs_pulserifle" },
-	[1350] = { "weapon_zs_m249" },
-	[1800] = { "weapon_zs_shotgun", "weapon_zs_m1014" },
-}
-RewardsTable[5] = { --Support
-	[100] = { "weapon_zs_glock3", "weapon_zs_deagle", "weapon_zs_fiveseven", "weapon_zs_magnum" },
-	[300] = { "weapon_zs_tmp","weapon_zs_ump","weapon_zs_p90","weapon_zs_mac10" },
-	[650] = { "weapon_zs_mp5", "weapon_zs_smg" },
-	[1210] = { "weapon_zs_m249", "weapon_zs_m3super90" },
-	[1800] = { "weapon_zs_shotgun", "weapon_zs_m1014" },
-}
-
--- Only if they bought the comeback thingie
+-- Only if they bought the Comeback shop item
 ComeBackReward = {}
 ComeBackReward[1] = { -- Medic
 [1] =  { "weapon_zs_elites", "weapon_zs_fiveseven"},
-[2] =  { "weapon_zs_alyxgun"  }, 
+[2] =  { "weapon_zs_deagle"  }, 
 [3] =  { "weapon_zs_ak47"  }, 
 --[4] =  { "weapon_zs_ak47" }, 
 }
@@ -229,7 +172,6 @@ GM.HumanWeapons = {
 	["weapon_zs_fiveseven"]  = { Name = "Five-Seven",Mat = "VGUI/gfx/VGUI/fiveseven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 80 },
 	["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 220 },
 	["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120,Mat = "VGUI/gfx/VGUI/glock18", Infliction = 0.25, Type = "pistol", Price = 120 },
-	["weapon_zs_alyxgun"]  = { Name = "Alyx Gun", DPS = 122, Infliction = 0.65,Type = "pistol" }, -- 300
 	["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol", Price = 260 },
 	["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol",Price = 60 },
 	
@@ -1668,71 +1610,6 @@ local SantaStart = {
 	Sound("vo/ravenholm/engage06.wav"),
 	Sound("vo/ravenholm/engage01.wav"),
 }
-
--- for swep
---[==[
-RegisterLuaAnimation('babyface', {
-	FrameData = {
-		{
-			BoneInfo = {
-				['ValveBiped.Bip01_R_Calf'] = {
-				},
-				['ValveBiped.Bip01_R_UpperArm'] = {
-					RU = -1,
-					RR = 13,
-					RF = -7
-				},
-				['ValveBiped.Bip01_Pelvis'] = {
-				},
-				['ValveBiped.Bip01_R_Hand'] = {
-				},
-				['ValveBiped.Bip01_L_UpperArm'] = {
-					RU = 15,
-					RR = 20,
-					RF = -28
-				},
-				['ValveBiped.Bip01_Spine'] = {
-				},
-				['ValveBiped.Bip01_L_Clavicle'] = {
-					RU = 27,
-					RF = -12
-				},
-				['ValveBiped.Bip01_R_Forearm'] = {
-					RU = 44,
-					MF = -5,
-					RR = 7
-				},
-				['ValveBiped.Bip01_Spine4'] = {
-					RU = 21
-				},
-				['ValveBiped.Bip01_L_Forearm'] = {
-					RU = 13,
-					RR = 5,
-					RF = 17
-				},
-				['ValveBiped.Bip01_Spine1'] = {
-					RU = 8,
-					MF = 1,
-					RR = 9
-				},
-				['ValveBiped.Bip01_Spine2'] = {
-					RU = 8,
-					MF = 1
-				},
-				['ValveBiped.Bip01_R_Clavicle'] = {
-					RU = 5,
-					RR = -5
-				},
-				['ValveBiped.Bip01_R_Thigh'] = {
-				}
-			},
-			FrameRate = 1
-		}
-	},
-	Type = TYPE_POSTURE
-})
-
-]==]
 
 ZombieSuperBosses = {}
 

@@ -136,27 +136,6 @@ function UpdatePlayerClass ( from, to, class, var )
 	end
 end
 
---[==[-------------------------------------------------------
-          Updates client arrow status
----------------------------------------------------------]==]
-
-util.AddNetworkString( "UpdateClientArrows" )
-
-function UpdateClientArrows( pl )
-	local broadcast = false
-	
-	if not pl then 
-	   broadcast = true 
-	end
-	
-	net.Start( "UpdateClientArrows" )
-	if broadcast then
-		net.Broadcast()
-	else
-		net.Send(pl)
-	end
-end
-
 --[==[--------------------------------------------------------------------------------
               Called when a player is being howlered (screamed upon)
 ----------------------------------------------------------------------------------]==]

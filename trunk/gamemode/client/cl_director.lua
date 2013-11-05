@@ -137,31 +137,6 @@ local function InitializeCrateVars()
 end
 hook.Add("Initialize", "InitVars", InitializeCrateVars)
 
-local function CrateApparitionSound()
-	if not ValidEntity(MySelf) then
-		return
-	end
-	
-	--Play thunder sound
-	surface.PlaySound( "mrgreen/new/thunder"..math.random(1,4)..".mp3" ) 
-
-	-- Notify the player
-	if MySelf:Team() == TEAM_HUMAN and MySelf:Alive() then 
-		GAMEMODE:Add3DMessage(140,"Find a Supply Crate for resources",nil,"ArialBoldTen")
- 	end
-	
-	Debug ( "[CLIENT] Supply Crates have dropped" )
-end
-
-net.Receive("UpdateClientArrows", function(len)
-	if not IsValid(MySelf) then 
-	    return 
-	end
-	
-	--Play that sound
-	CrateApparitionSound()
-end)
-
 --[==[---------------------------------------------------------
        Manages Unlife Event. Set true to enable
 ---------------------------------------------------------]==]
@@ -178,7 +153,7 @@ function GM:SetUnlife(bool)
 	if UNLIFE then
 		timer.Simple(0.3, PlayUnlife)
 	
-		Debug("[CLIENT] Unlife started")
+		Debug("[CLIENT] UnLife started")
 	end
 end
 

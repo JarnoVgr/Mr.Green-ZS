@@ -2,8 +2,8 @@
 -- See LICENSE.txt for license information
 
 -- killicons
-surface.CreateFont("csd", ScreenScale( 30 ), 500, true, true, "CSKillIcons")
-surface.CreateFont("csd", ScreenScale( 60 ), 500, true, true, "CSSelectIcons")
+surface.CreateFont("csd", ScreenScale(30), 500, true, true, "CSKillIcons")
+surface.CreateFont("csd", ScreenScale(60), 500, true, true, "CSSelectIcons")
 
 local hud_deathnotice_time = CreateConVar("hud_deathnotice_time", "6", FCVAR_REPLICATED)
 
@@ -16,6 +16,7 @@ killicon.Add("prop_physics", "killicon/propkill", Color_Icon)
 killicon.Add("prop_physics_multiplayer", "killicon/propkill", Color_Icon)
 killicon.Add("func_physbox", "killicon/propkill", Color_Icon)
 killicon.Add("zs_turret", "killicon/turret", Color_Icon)
+--killicon.Add("weapon_zs_melee_shovel", "killicon/zs_shovel", Color_Icon)
 killicon.AddFont("prop_physics_respawnable", "HL2MPTypeDeath", "9", Color_Icon)
 killicon.AddFont("func_physbox", "HL2MPTypeDeath", "9", Color_Icon)
 killicon.AddFont("weapon_smg1", "HL2MPTypeDeath", "/", Color_Icon)

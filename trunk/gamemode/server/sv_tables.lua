@@ -165,38 +165,6 @@ for _, filename in pairs(file.Find("sound/mrgreen/supplycrates/*.*", "GAME" ) ) 
 	table.insert ( ResourceFiles, "sound/mrgreen/supplycrates/"..filename  )
 end
 
-for _, filename in pairs(file.Find("materials/models/weapons/v_zombiearms/*.*", "GAME" ) ) do
-	table.insert ( ResourceFiles, "materials/models/weapons/v_zombiearms/"..string.lower(filename )  )
-end
-
-for _, filename in pairs(file.Find("materials/models/weapons/v_pza/*.*", "GAME" ) ) do
-	table.insert ( ResourceFiles, "materials/models/weapons/v_pza/"..string.lower(filename )  )
-end
-
-for _, filename in pairs(file.Find("materials/models/weapons/v_fza/*.*" , "GAME") ) do
-	table.insert ( ResourceFiles, "materials/models/weapons/v_fza/"..string.lower(filename )  )
-end
-
-for _, filename in pairs(file.Find("materials/models/weapons/v_katana/*.*" , "GAME") ) do
-	table.insert ( ResourceFiles, "materials/models/weapons/v_katana/"..string.lower(filename )  )
-end
-
-for _, filename in pairs(file.Find("materials/models/weapons/alyxgun/*.*" , "GAME") ) do
-	table.insert ( ResourceFiles, "materials/models/weapons/alyxgun/"..string.lower(filename )  )
-end
-
-for _, filename in pairs(file.Find("materials/weapons/v_supershorty/*.*" , "GAME") ) do
-	table.insert ( ResourceFiles, "materials/weapons/v_supershorty/"..string.lower(filename )  )
-end
-
-for _, filename in pairs(file.Find("materials/weapons/w_supershorty/*.*", "GAME" ) ) do
-	table.insert ( ResourceFiles, "materials/weapons/w_supershorty/"..string.lower(filename )  )
-end
-
-for _, filename in pairs(file.Find("materials/weapons/survivor01_hands/*.*", "GAME" ) ) do
-	table.insert ( ResourceFiles, "materials/weapons/survivor01_hands/"..string.lower(filename )  )
-end
-
 for _, filename in pairs(file.Find("materials/models/Combine_turrets/Floor_turret/*.*" , "GAME") ) do
 	table.insert ( ResourceFiles, "materials/models/Combine_turrets/Floor_turret/"..string.lower(filename )  )
 end
@@ -211,65 +179,11 @@ for _, filename in pairs ( file.Find("materials/models/effects/*.*" , "GAME") ) 
 	table.insert ( ResourceFiles, "materials/models/effects/"..filename )
 end
 
---[=[---------------------------------------------------------
-	            Add sounds here
----------------------------------------------------------]=]
-
---UI
+--UI sounds
 table.insert( ResourceFiles, "sound/mrgreen/ui/menu_accept.wav")
 table.insert( ResourceFiles, "sound/mrgreen/ui/menu_click01.wav")
 table.insert( ResourceFiles, "sound/mrgreen/ui/menu_focus.wav")
 table.insert( ResourceFiles, "sound/mrgreen/ui/menu_countdown.wav")
-
---Golf club
-table.insert( ResourceFiles, "sound/weapons/melee/golf club/golf_hit-01.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/golf club/golf_hit-02.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/golf club/golf_hit-03.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/golf club/golf_hit-04.wav" )
-
---Crowbar
-table.insert( ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-1.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-2.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-3.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-4.wav" )
-
---Shovel
-table.insert( ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-01.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-02.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-03.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-04.wav" )
-
---Frying pan
-table.insert( ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-01.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-02.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-03.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-04.wav" )
-
---Keyboard
-table.insert( ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-01.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-02.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-03.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-04.wav" )
-
---Katana
-table.insert( ResourceFiles, "sound/weapons/katana/draw.wav" )
-table.insert( ResourceFiles, "sound/weapons/katana/katana_01.wav" )
-table.insert( ResourceFiles, "sound/weapons/katana/katana_02.wav" )
-table.insert( ResourceFiles, "sound/weapons/katana/katana_03.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/melee_skull_break_01.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/melee_skull_break_02.wav" )
-table.insert( ResourceFiles, "sound/weapons/alyxgun/fire01.wav" )
-table.insert( ResourceFiles, "sound/weapons/alyxgun/fire02.wav" )
-
---Chainsaw
-table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_die_01.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_idle.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_start_01.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_start_02.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_gore_01.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_gore_02.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_gore_03.wav" )
-table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_gore_04.wav" )
 
 --Game start music
 table.insert(ResourceFiles, "sound/mrgreen/music/gamestart1.mp3")
@@ -293,7 +207,7 @@ table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_02.wav")
 table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_03.wav")
 table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_04.wav")
 
---Soft-notice
+--Soft-notice HUD
 table.insert( ResourceFiles, "sound/hud/notice_soft.wav" )
 
 --Zombine
@@ -317,14 +231,9 @@ for _, filename in pairs(file.Find("materials/models/weapons/sw_grenadelauncher/
 	table.insert(ResourceFiles, "materials/models/weapons/sw_grenadelauncher/"..filename)
 end
 
---Green Zombie sounds
+--Infected sounds
 for _, filename in pairs( file.Find( "sound/npc/zombiegreen/*.wav" , "GAME") ) do
 	table.insert ( ResourceFiles, "sound/npc/zombiegreen/"..filename  )
-end
-
---Wraith sounds
-for _, filename in pairs( file.Find( "sound/npc/stalker/*.wav" , "GAME") ) do
-	table.insert ( ResourceFiles, "sound/npc/stalker/"..filename  )
 end
 
 --Beats
@@ -333,72 +242,36 @@ for _, filename in pairs( file.Find( "sound/zombiesurvival/*.wav", "GAME" ) ) do
 end
 
 --Killicons
-table.insert ( ResourceFiles, "materials/killicon/zs_zombie.vtf"  )
-table.insert ( ResourceFiles, "materials/killicon/zs_zombie.vmt"  )
-table.insert ( ResourceFiles, "materials/killicon/propkill.vtf"  )
-table.insert ( ResourceFiles, "materials/killicon/propkill.vmt"  )
-table.insert ( ResourceFiles, "materials/killicon/redeem.vtf"  )
-table.insert ( ResourceFiles, "materials/killicon/redeem.vmt"  )
-table.insert ( ResourceFiles, "materials/killicon/fists.vtf"  )
-table.insert ( ResourceFiles, "materials/killicon/fists.vmt"  )
-table.insert ( ResourceFiles, "materials/killicon/fire.vtf"  )
-table.insert ( ResourceFiles, "materials/killicon/fire.vmt"  )
-table.insert ( ResourceFiles, "materials/killicon/laser.vtf"  )
-table.insert ( ResourceFiles, "materials/killicon/laser.vmt"  )
-table.insert ( ResourceFiles, "materials/killicon/turret.vtf"  )
-table.insert ( ResourceFiles, "materials/killicon/turret.vmt"  )
+table.insert(ResourceFiles, "materials/killicon/zs_zombie.vtf")
+table.insert(ResourceFiles, "materials/killicon/zs_zombie.vmt")
+table.insert(ResourceFiles, "materials/killicon/propkill.vtf")
+table.insert(ResourceFiles, "materials/killicon/propkill.vmt")
+table.insert(ResourceFiles, "materials/killicon/redeem.vtf")
+table.insert(ResourceFiles, "materials/killicon/redeem.vmt")
+table.insert(ResourceFiles, "materials/killicon/fists.vtf")
+table.insert(ResourceFiles, "materials/killicon/fists.vmt")
+table.insert(ResourceFiles, "materials/killicon/fire.vtf")
+table.insert(ResourceFiles, "materials/killicon/fire.vmt")
+table.insert(ResourceFiles, "materials/killicon/laser.vtf")
+table.insert(ResourceFiles, "materials/killicon/laser.vmt")
+table.insert(ResourceFiles, "materials/killicon/turret.vtf")
+table.insert(ResourceFiles, "materials/killicon/turret.vmt")
+table.insert(ResourceFiles, "materials/killicon/zs_shovel.vtf")
+table.insert(ResourceFiles, "materials/killicon/zs_shovel.vmt")
 
 --More materials
-table.insert ( ResourceFiles, "materials/katharsmodels/hats/homburg/homburg_all.vmt" )
-table.insert ( ResourceFiles, "materials/katharsmodels/hats/homburg/homburg_all.vtf" )
-table.insert ( ResourceFiles, "materials/models/tophat/tophat.vmt" )
-table.insert ( ResourceFiles, "materials/models/tophat/tophat.vtf" )
-
---Zombie screen overlay
---[[table.insert ( ResourceFiles, "materials/damageover3.vtf" )
-table.insert ( ResourceFiles, "materials/damageover3.vmt" )]]
-
 table.insert ( ResourceFiles, "materials/hud3/hud_warning1.vtf" ) --!!
 table.insert ( ResourceFiles, "materials/hud3/hud_warning1.vmt" ) --!!
 table.insert ( ResourceFiles, "materials/hud3/hud_warning2.vtf" ) --!!
 table.insert ( ResourceFiles, "materials/hud3/hud_warning2.vmt" ) --!!
 table.insert ( ResourceFiles, "materials/hud3/hud_info.vtf" ) --!!
 table.insert ( ResourceFiles, "materials/hud3/hud_info.vmt" ) --!!
-table.insert ( ResourceFiles, "materials/models/weapons/pot.vtf" )
-table.insert ( ResourceFiles, "materials/models/weapons/pot.vmt" )
-table.insert ( ResourceFiles, "materials/models/weapons/sledge.vtf" )
-table.insert ( ResourceFiles, "materials/models/weapons/sledge.vmt" )
+
 table.insert ( ResourceFiles, "materials/models/weapons/temptexture/handsmesh1.vtf" )
 table.insert ( ResourceFiles, "materials/models/weapons/temptexture/handsmesh1.vmt" )
-table.insert ( ResourceFiles, "materials/models/weapons/hammer2.vtf" )
-table.insert ( ResourceFiles, "materials/models/weapons/hammer2.vmt" )
-table.insert ( ResourceFiles, "materials/models/weapons/hammer.vtf" )
-table.insert ( ResourceFiles, "materials/models/weapons/hammer.vmt" )
-table.insert ( ResourceFiles, "materials/models/weapons/axe.vtf" )
-table.insert ( ResourceFiles, "materials/models/weapons/axe.vmt" )
-table.insert ( ResourceFiles, "materials/models/weapons/computer.vtf" )
-table.insert ( ResourceFiles, "materials/models/weapons/computer.vmt" )
-table.insert ( ResourceFiles, "materials/models/weapons/shovel.vtf" )
-table.insert ( ResourceFiles, "materials/models/weapons/shovel.vmt" )
-table.insert ( ResourceFiles, "materials/models/piratehat/piratehat.vmt" )
-table.insert ( ResourceFiles, "materials/models/piratehat/piratehat.vtf" )
-table.insert ( ResourceFiles, "materials/models/cloud/santahat/kn_santahat.vmt" )
-table.insert ( ResourceFiles, "materials/models/cloud/santahat/kn_santahat.vtf" )
-table.insert ( ResourceFiles, "materials/models/bunnyears/bunnyears.vmt" )
-table.insert ( ResourceFiles, "materials/models/bunnyears/bunnyears.vtf" )
-table.insert ( ResourceFiles, "materials/models/greenshat/greenshat.vmt" )
-table.insert ( ResourceFiles, "materials/models/greenshat/greenshat.vtf" )
-table.insert ( ResourceFiles, "materials/phoenix_storms/egg.vtf" )
-table.insert ( ResourceFiles, "materials/phoenix_storms/egg.vmt" )
-table.insert ( ResourceFiles, "materials/phoenix_storms/egg_bump.vtf" )
-table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vmt" )
-table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vtf" )
-table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01_normal.vtf" )
 
---Class menuicons
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/arrow.vtf" )
+--Class menu icons
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombie.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/arrow.vmt" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombie.vmt" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/fastzombie.vtf")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/poisonzombie.vtf")
@@ -416,18 +289,10 @@ table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/headcrab.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/poisonheadcrab.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/torso.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vmt")
-
--- Howler materials
-table.insert ( ResourceFiles, "materials/models/mrgreen/howler/eyes.vmt" )
-table.insert ( ResourceFiles, "materials/models/mrgreen/howler/eye.vtf" )
-table.insert ( ResourceFiles, "materials/models/mrgreen/howler/eyes_bright.vmt" )
-table.insert ( ResourceFiles, "materials/models/mrgreen/howler/zj_diffuse.vtf" )
-table.insert ( ResourceFiles, "materials/models/mrgreen/howler/zj_normal.vtf" )
-table.insert ( ResourceFiles, "materials/models/mrgreen/howler/zombie_jailbait.vmt" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/howler.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/howler.vtf")
 
---Zombie crosshair
+--Undead crosshair
 table.insert ( ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_core.vtf" )  
 table.insert ( ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_core.vmt" )  
 table.insert ( ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_outer.vtf" )  
@@ -437,17 +302,12 @@ table.insert ( ResourceFiles, "materials/zombiesurvival/crosshair/undead_crossha
 table.insert( ResourceFiles, "materials/effects/hazard_icon.vtf" )
 table.insert( ResourceFiles, "materials/effects/hazard_icon.vmt" )
 
---Scope
+--Sniper Scope
 table.insert ( ResourceFiles, "materials/zombiesurvival/scope/sniper_scope.vtf" )
 table.insert ( ResourceFiles, "materials/zombiesurvival/scope/sniper_scope.vmt" )
 
+--Chainsaw worldmodel
 table.insert( ResourceFiles,"models/weapons/w_chainsaw.mdl")
--- table.insert( ResourceFiles,"models/weapons/w_chainsaw.phy")
--- table.insert( ResourceFiles,"models/weapons/w_chainsaw.vvd")
--- table.insert( ResourceFiles,"models/weapons/w_chainsaw.dx80.vtx")
--- table.insert( ResourceFiles,"models/weapons/w_chainsaw.dx90.vtx")
--- table.insert( ResourceFiles,"models/weapons/w_chainsaw.sw.vtx")
-
 table.insert( ResourceFiles,"materials/models/weapons/w_chainsaw/body.vmt")
 table.insert( ResourceFiles,"materials/models/weapons/w_chainsaw/body.vtf")
 table.insert( ResourceFiles,"materials/models/weapons/w_chainsaw/body_n.vtf")
@@ -459,7 +319,6 @@ table.insert( ResourceFiles,"materials/models/weapons/w_chainsaw/chainsaw_exp.vt
 table.insert( ResourceFiles,"materials/models/weapons/w_chainsaw/parts.vtf")
 table.insert( ResourceFiles,"materials/models/weapons/w_chainsaw/parts.vmt")
 table.insert( ResourceFiles,"materials/models/weapons/w_chainsaw/parts_n.vtf")
-
 table.insert( ResourceFiles,"materials/models/weapons/v_chainsaw/body.vmt")
 table.insert( ResourceFiles,"materials/models/weapons/v_chainsaw/body.vtf")
 table.insert( ResourceFiles,"materials/models/weapons/v_chainsaw/body_n.vtf")
@@ -471,61 +330,171 @@ table.insert( ResourceFiles,"materials/models/weapons/v_chainsaw/chainsaw_exp.vt
 table.insert( ResourceFiles,"materials/models/weapons/v_chainsaw/parts.vtf")
 table.insert( ResourceFiles,"materials/models/weapons/v_chainsaw/parts.vmt")
 table.insert( ResourceFiles,"materials/models/weapons/v_chainsaw/parts_n.vtf")
+table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_die_01.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_idle.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_start_01.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_start_02.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_gore_01.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_gore_02.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_gore_03.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/chainsaw_gore_04.wav" )
 
---[==[---------------------------------------------------------
-	     Add models here
----------------------------------------------------------]==]
-table.insert ( ResourceFiles, "models/weapons/w_sledgehammer.mdl" )
-table.insert ( ResourceFiles, "models/weapons/v_sledgehammer/c_sledgehammer.mdl" )
-table.insert ( ResourceFiles, "models/weapons/w_axe.mdl" )
-table.insert ( ResourceFiles, "models/weapons/v_axe/c_axe.mdl" )
-table.insert ( ResourceFiles, "models/weapons/w_hammer.mdl" )
-table.insert ( ResourceFiles, "models/weapons/v_hammer/c_hammer.mdl" )
-table.insert ( ResourceFiles, "models/weapons/w_shovel.mdl" )
-table.insert ( ResourceFiles, "models/weapons/v_shovel/c_shovel.mdl" )
-table.insert ( ResourceFiles, "models/weapons/w_plank.mdl" )
-table.insert ( ResourceFiles, "models/weapons/v_plank/c_plank.mdl" )
-table.insert ( ResourceFiles, "models/weapons/w_fryingpan.mdl" )
-table.insert ( ResourceFiles, "models/weapons/v_fryingpan/c_fryingpan.mdl" )
-table.insert ( ResourceFiles, "models/weapons/w_pot.mdl" )
-table.insert ( ResourceFiles, "models/weapons/v_pot/c_pot.mdl" )
-table.insert ( ResourceFiles, "models/weapons/w_keyboard.mdl" )
-table.insert ( ResourceFiles, "models/weapons/v_keyboard/c_keyboard.mdl" )
-table.insert ( ResourceFiles, "models/weapons/v_zombiearms.mdl" )
-table.insert ( ResourceFiles, "models/weapons/v_fza.mdl" )
-table.insert ( ResourceFiles, "models/weapons/v_pza.mdl" )
-table.insert ( ResourceFiles, "models/player/gordon_classic.mdl" )
-for _, filename in pairs(file.Find("materials/katharsmodels/gordon_freeman/*.*", "GAME" ) ) do
-	table.insert ( ResourceFiles, "materials/katharsmodels/gordon_freeman/"..filename )
-end
+--Golf club
+table.insert( ResourceFiles, "sound/weapons/melee/golf club/golf_hit-01.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/golf club/golf_hit-02.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/golf club/golf_hit-03.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/golf club/golf_hit-04.wav" )
 
-table.insert ( ResourceFiles, "models/katharsmodels/hats/homburg/homburg.mdl" )
-table.insert ( ResourceFiles, "models/tophat/tophat.mdl" )
-table.insert ( ResourceFiles, "models/piratehat/piratehat.mdl" )
-table.insert ( ResourceFiles, "models/greenshat/greenshat.mdl" )
-table.insert ( ResourceFiles, "models/cloud/kn_santahat.mdl" )
-table.insert ( ResourceFiles, "models/bunnyears/bunnyears.mdl" )
-table.insert ( ResourceFiles, "models/props_phx/misc/egg.mdl" )
--- table.insert ( ResourceFiles, "models/weapons/v_healthkit.mdl" )
-table.insert ( ResourceFiles, "models/props_outland/pumpkin01.mdl" )
-table.insert ( ResourceFiles, "models/effects/bday_gib01.mdl" )
--- table.insert ( ResourceFiles, "models/props_mrgreen/arrow.mdl" )
+--Crowbar
+table.insert( ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-1.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-2.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-3.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-4.wav" )
+
+--Shovel
+table.insert( ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-01.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-02.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-03.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-04.wav" )
+
+--Sledgehammer
+table.insert(ResourceFiles, "models/weapons/w_sledgehammer.mdl" )
+table.insert(ResourceFiles, "materials/models/weapons/sledge.vtf" )
+table.insert(ResourceFiles, "materials/models/weapons/sledge.vmt" )
+
+--Axe
+table.insert(ResourceFiles, "models/weapons/w_axe.mdl" )
+table.insert(ResourceFiles, "materials/models/weapons/axe.vtf" )
+table.insert(ResourceFiles, "materials/models/weapons/axe.vmt" )
+
+--Hammer
+table.insert(ResourceFiles, "models/weapons/w_hammer.mdl" )
+table.insert(ResourceFiles, "materials/models/weapons/hammer2.vtf" )
+table.insert(ResourceFiles, "materials/models/weapons/hammer2.vmt" )
+table.insert(ResourceFiles, "materials/models/weapons/hammer.vtf" )
+table.insert(ResourceFiles, "materials/models/weapons/hammer.vmt" )
+
+--Shovel
+table.insert(ResourceFiles, "models/weapons/w_shovel.mdl" )
+table.insert(ResourceFiles, "materials/models/weapons/shovel.vtf" )
+table.insert(ResourceFiles, "materials/models/weapons/shovel.vmt" )
+
+--Plank
+table.insert(ResourceFiles, "models/weapons/w_plank.mdl" )
+
+--Frying Pan
+table.insert(ResourceFiles, "models/weapons/w_fryingpan.mdl" )
+table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-01.wav" )
+table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-02.wav" )
+table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-03.wav" )
+table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-04.wav" )
+
+--Pot
+table.insert(ResourceFiles, "models/weapons/w_pot.mdl" )
+table.insert(ResourceFiles, "materials/models/weapons/pot.vtf" )
+table.insert(ResourceFiles, "materials/models/weapons/pot.vmt" )
+
+--Keyboard
+table.insert(ResourceFiles, "models/weapons/w_keyboard.mdl" )
+table.insert(ResourceFiles, "models/weapons/v_keyboard/c_keyboard.mdl" )
+table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-01.wav" )
+table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-02.wav" )
+table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-03.wav" )
+table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-04.wav" )
+table.insert(ResourceFiles, "materials/models/weapons/computer.vtf" )
+table.insert(ResourceFiles, "materials/models/weapons/computer.vmt" )
 
 --Katana
-table.insert ( ResourceFiles, "models/weapons/v_katana.mdl" )
-table.insert ( ResourceFiles, "models/weapons/w_katana.mdl" )
+table.insert(ResourceFiles, "models/weapons/w_katana.mdl" )
+for _, filename in pairs(file.Find("materials/models/weapons/v_katana/*.*" , "GAME") ) do
+	table.insert ( ResourceFiles, "materials/models/weapons/v_katana/"..string.lower(filename )  )
+end
+table.insert( ResourceFiles, "sound/weapons/katana/draw.wav" )
+table.insert( ResourceFiles, "sound/weapons/katana/katana_01.wav" )
+table.insert( ResourceFiles, "sound/weapons/katana/katana_02.wav" )
+table.insert( ResourceFiles, "sound/weapons/katana/katana_03.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/melee_skull_break_01.wav" )
+table.insert( ResourceFiles, "sound/weapons/melee/melee_skull_break_02.wav" )
 
---AlyxGun
-table.insert ( ResourceFiles, "models/weapons/v_alyxgun.mdl" )
+--Normal zombie viewmodel
+table.insert(ResourceFiles, "models/weapons/v_zombiearms.mdl" )
+for _, filename in pairs(file.Find("materials/models/weapons/v_zombiearms/*.*", "GAME" ) ) do
+	table.insert ( ResourceFiles, "materials/models/weapons/v_zombiearms/"..string.lower(filename )  )
+end
 
-table.insert ( ResourceFiles, "models/weapons/v_supershorty/v_supershorty.mdl" )
-table.insert ( ResourceFiles, "models/weapons/w_supershorty.mdl" )
+--Fast Zombie viewmodel
+table.insert(ResourceFiles, "models/weapons/v_fza.mdl" )
+for _, filename in pairs(file.Find("materials/models/weapons/v_fza/*.*" , "GAME") ) do
+	table.insert ( ResourceFiles, "materials/models/weapons/v_fza/"..string.lower(filename )  )
+end
 
--- Pipe melee
--- table.insert ( ResourceFiles, "models/weapons/v_pipe.mdl" )
+--Poison Zombie viewmodel
+table.insert(ResourceFiles, "models/weapons/v_pza.mdl" )
+for _, filename in pairs(file.Find("materials/models/weapons/v_pza/*.*", "GAME" ) ) do
+	table.insert ( ResourceFiles, "materials/models/weapons/v_pza/"..string.lower(filename )  )
+end
+
+
+
+--Homburg hat
+table.insert(ResourceFiles, "models/katharsmodels/hats/homburg/homburg.mdl")
+table.insert ( ResourceFiles, "materials/katharsmodels/hats/homburg/homburg_all.vmt" )
+table.insert ( ResourceFiles, "materials/katharsmodels/hats/homburg/homburg_all.vtf" )
+
+--Tophat
+table.insert(ResourceFiles, "models/tophat/tophat.mdl")
+table.insert ( ResourceFiles, "materials/models/tophat/tophat.vmt" )
+table.insert ( ResourceFiles, "materials/models/tophat/tophat.vtf" )
+
+--Pirate Hat
+table.insert(ResourceFiles, "models/piratehat/piratehat.mdl" )
+table.insert ( ResourceFiles, "materials/models/piratehat/piratehat.vmt" )
+table.insert ( ResourceFiles, "materials/models/piratehat/piratehat.vtf" )
+
+--Green Admin hat
+table.insert(ResourceFiles, "models/greenshat/greenshat.mdl" )
+table.insert ( ResourceFiles, "materials/models/greenshat/greenshat.vmt" )
+table.insert ( ResourceFiles, "materials/models/greenshat/greenshat.vtf" )
+
+--Santa Hat
+table.insert(ResourceFiles, "models/cloud/kn_santahat.mdl" )
+table.insert ( ResourceFiles, "materials/models/cloud/santahat/kn_santahat.vmt" )
+table.insert ( ResourceFiles, "materials/models/cloud/santahat/kn_santahat.vtf" )
+
+--Bunny Ears hat
+table.insert(ResourceFiles, "models/bunnyears/bunnyears.mdl" )
+table.insert ( ResourceFiles, "materials/models/bunnyears/bunnyears.vmt" )
+table.insert ( ResourceFiles, "materials/models/bunnyears/bunnyears.vtf" )
+
+--Egg hat
+table.insert(ResourceFiles, "models/props_phx/misc/egg.mdl" )
+table.insert ( ResourceFiles, "materials/phoenix_storms/egg.vtf" )
+table.insert ( ResourceFiles, "materials/phoenix_storms/egg.vmt" )
+table.insert ( ResourceFiles, "materials/phoenix_storms/egg_bump.vtf" )
+
+--Pumpkin Hat
+table.insert(ResourceFiles, "models/props_outland/pumpkin01.mdl" )
+table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vmt" )
+table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vtf" )
+table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01_normal.vtf" )
+
+--??
+table.insert(ResourceFiles, "models/effects/bday_gib01.mdl" )
 
 --Howler
 table.insert(ResourceFiles, "models/mrgreen/howler.mdl")
+table.insert(ResourceFiles, "materials/models/mrgreen/howler/eyes.vmt")
+table.insert(ResourceFiles, "materials/models/mrgreen/howler/eye.vtf")
+table.insert(ResourceFiles, "materials/models/mrgreen/howler/eyes_bright.vmt")
+table.insert(ResourceFiles, "materials/models/mrgreen/howler/zj_diffuse.vtf")
+table.insert(ResourceFiles, "materials/models/mrgreen/howler/zj_normal.vtf")
+table.insert(ResourceFiles, "materials/models/mrgreen/howler/zombie_jailbait.vmt")
+
+--Gordon Freeman playermodel
+table.insert(ResourceFiles, "models/player/gordon_classic.mdl")
+for _, filename in pairs(file.Find("materials/katharsmodels/gordon_freeman/*.*", "GAME")) do
+	table.insert(ResourceFiles, "materials/katharsmodels/gordon_freeman/".. filename)
+end
 
 --Obama materials and models
 --[[for _, filename in pairs(file.Find( "materials/models/mrgreen/obama/*.*", "GAME")) do
@@ -541,16 +510,19 @@ end
 table.insert(ResourceFiles, "models/mrgreen/creepr.mdl")
 player_manager.AddValidModel("creepr", "models/mrgreen/creepr.mdl")]]
 
---Stalker model fix
+--Wraith
 table.insert(ResourceFiles, "models/wraith.mdl")
 table.insert(ResourceFiles, "models/wraith__animations.mdl")
 table.insert(ResourceFiles, "models/weapons/v_wraith.mdl")
+for _, filename in pairs( file.Find( "sound/npc/stalker/*.wav" , "GAME") ) do
+	table.insert ( ResourceFiles, "sound/npc/stalker/"..filename  )
+end
 
 --Precache all models from resources
-for k,v in pairs ( ResourceFiles ) do
-	if string.find ( v, ".mdl" ) then
+for k,v in pairs(ResourceFiles) do
+	if string.find( v, ".mdl") then
 		util.PrecacheModel(v)
 	end
 end
 
-Debug("[MODULE] Loaded Tables and Resource Files.")
+Debug("[MODULE] Loaded General Tables and Resource Files.")

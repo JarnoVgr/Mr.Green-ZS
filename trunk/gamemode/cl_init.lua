@@ -34,21 +34,6 @@ function surface.CreateFont(arg1,arg2,arg3,arg4,arg5,arg6)
 	
 end
 
---[[local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local ents = ents
-local draw = draw
-local surface = surface
-local render = render
-local gui = gui]]
-
-
 GM.RewardIcons = {}
 w, h = ScrW(), ScrH()
 Threshold = 0
@@ -101,38 +86,38 @@ include("client/cl_waves.lua")
 include("modules/ambient/cl_ambient.lua")
 
 --AFK manager
-include( "modules/afk/cl_afk.lua" )
+include("modules/afk/cl_afk.lua")
 
 --Damage indicator
-include( "modules/damage_indicator/cl_dmg_indicator.lua" )
+include("modules/damage_indicator/cl_dmg_indicator.lua")
 
 --Dynamic walk speed
-include ( "modules/weightspeed/sh_weightspeed.lua" )
+include("modules/weightspeed/sh_weightspeed.lua")
 
 --Buddy system
---include ( "modules/friends/cl_friends.lua" )
+--include("modules/friends/cl_friends.lua")
 
 --New HUD
-include( "modules/hud_beta/cl_hud_beta.lua" )
+include("modules/hud_beta/cl_hud_beta.lua")
 
 --Nav Graph
 --include( "modules/nav_graph/sh_nav_graph.lua" )
 
 --SkillPoints
-include( "modules/skillpoints/cl_skillpoints.lua" )
-include( "modules/skillpoints/sh_skillpoints.lua" )
+include("modules/skillpoints/cl_skillpoints.lua")
+include("modules/skillpoints/sh_skillpoints.lua")
 
 --Player legs
-include( "modules/legs/cl_legs.lua" )
+include("modules/legs/cl_legs.lua")
 
 --News flash
-include( "modules/news/cl_news.lua" )
+include("modules/news/cl_news.lua")
 
 --Bone Animation Library
 include("modules/boneanimlib_v2/cl_boneanimlib.lua")
 
 -- SQL-stats related
-include( "server/stats/sh_utils.lua" )
+include("server/stats/sh_utils.lua")
 
 --
 CreateClientConVar("_zs_redeemclass", 1, true, false)
@@ -258,26 +243,30 @@ function GM:_PostDrawOpaqueRenderables()
 end
  
 hook.Add("HUDPaint", "DrawWaiting", function()
-	if not ENDROUND or not SinglePlayer() then
-		draw.SimpleText("Please wait... "..RandomText, "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.5, Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	if ENDROUND or SinglePlayer() then
+		return
+	end
+	
+	draw.SimpleText("Please wait... "..RandomText, "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.5, Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		
-		draw.SimpleText("MrGreenGaming.com", "HUDFontTiny", ScrW() * 0.5, ScrH() * 0.55, Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText("MrGreenGaming.com", "HUDFontTiny", ScrW() * 0.5, ScrH() * 0.55, Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
-		if IsValid(MySelf) then
-			if CurTime() - MySelf.ReadyTime > 20 then
-				MySelf.ReconnectTime = MySelf.ReconnectTime or CurTime() + 6
-				draw.SimpleText("There are some troubles. Reconnecting in "..math.Clamp(math.Round(MySelf.ReconnectTime - CurTime()), 0, 10), "ArialFifteen", ScrW() * 0.5, ScrH() * 0.6, Color( 230,50,38,235 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	if not IsValid(MySelf) then
+		return
+	end
+
+	if (CurTime() - MySelf.ReadyTime) > 20 then
+		MySelf.ReconnectTime = MySelf.ReconnectTime or CurTime() + 6
+		draw.SimpleText("There are some troubles. Reconnecting in "..math.Clamp(math.Round(MySelf.ReconnectTime - CurTime()), 0, 10), "ArialFifteen", ScrW() * 0.5, ScrH() * 0.6, Color( 230,50,38,235 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 				
-				--Run the 'ready' command (bugged from GMod update)
-				if CurTime() - MySelf.ReadyTime > 25 then
-					RunConsoleCommand("PostPlayerInitialSpawn")
-				end
+		--Run the 'ready' command (bugged from GMod update)
+		if (CurTime() - MySelf.ReadyTime) > 25 then
+			RunConsoleCommand("PostPlayerInitialSpawn")
+		end
 				
-				--Reconnect after 20 seconds
-				if math.Round(MySelf.ReconnectTime - CurTime()) <= 0 then
-					RunConsoleCommand("retry")
-				end
-			end
+		--Reconnect after 20 seconds
+		if math.Round(MySelf.ReconnectTime - CurTime()) <= 0 then
+			RunConsoleCommand("retry")
 		end
 	end
 end)
@@ -297,24 +286,27 @@ function GM:OnPlayerReadySQL()
 	MySelf.ReadySQLTime = CurTime()
 
 	if MySelf:Team() == 0 then
-		hook.Add( "Think", "CheckUpdateData", function()
-			if IsValid( MySelf ) then
-				if MySelf.ReadySQLTime + 2 < CurTime() then
-					if MySelf.GotClassData and MySelf.GotShopData and MySelf.GotAchievementsData then
-						MySelf.ReadySQL = true
-						if not ENDROUND then 
-							gui.EnableScreenClicker(false) 
-						end
-						
-						--Remove wait message and this hook
-						hook.Remove("HUDPaint", "DrawWaiting")
-						hook.Remove("Think", "CheckUpdateData")
-						
-						--Class menu
-						DrawSelectClass()
+		hook.Add("Think", "CheckUpdateData", function()
+			if not IsValid(MySelf) then
+				Debug("[SQL] MySelf is invalid at CheckUpdateData")
+				return
+			end
+
+			if MySelf.ReadySQLTime + 2 < CurTime() then
+				if MySelf.GotClassData and MySelf.GotShopData and MySelf.GotAchievementsData then
+					MySelf.ReadySQL = true
+					if not ENDROUND then 
+						gui.EnableScreenClicker(false) 
 					end
+						
+					--Remove wait message and this hook
+					hook.Remove("HUDPaint", "DrawWaiting")
+					hook.Remove("Think", "CheckUpdateData")
+					
+					--Class menu
+					DrawSelectClass()
 				end
-			end			
+			end
 		end)
 	else
 		MySelf.ReadySQL = true
@@ -332,14 +324,6 @@ net.Receive( "OnReadySQL", function( len )
 	end)
 end)
 
--- Usermessage hook to sql ready
-local function OnReadySQL()
-	timer.Simple( 0.1, function()
-		gamemode.Call( "OnPlayerReadySQL" )
-	end)
-end
-usermessage.Hook( "OnReadySQL", OnReadySQL )
-
 --[=[----------------------------------------------------------------------
 		Called when local player receives a SWEP
 -----------------------------------------------------------------------]=]
@@ -347,10 +331,6 @@ function GM:OnWeaponEquip ( pl, mWeapon )
 end
 
 --Prevent freeze when weapons drop
-util.PrecacheSound("mrgreen/new/thunder1.mp3")
-util.PrecacheSound("mrgreen/new/thunder2.mp3")
-util.PrecacheSound("mrgreen/new/thunder3.mp3")
-util.PrecacheSound("mrgreen/new/thunder4.mp3")
 util.PrecacheSound("mrgreen/ui/gamestartup1.mp3")
 
 if not killicon.GetFont then -- Need this for the rewards message.
@@ -1754,71 +1734,10 @@ usermessage.Hook("SetDrop", SetDrop)
 
 function Died()
 	LASTDEATH = RealTime()
-	surface.PlaySound( DEATHSOUND )
+	surface.PlaySound(DEATHSOUND)
 end
 
-function GM:KeyPress(pl, key)
-	if key == IN_USE and MySelf:Team() == TEAM_HUMAN then
-		local ent = util.TraceLine({start = MySelf:EyePos(), endpos = MySelf:EyePos() + MySelf:GetAimVector() * 50, filter = MySelf}).Entity
-		if ent and ent:IsValid() and ent:IsPlayer() then
-			RunConsoleCommand("shove", ent:EntIndex())
-		end
-	end
-end
-
-function DrawLose()
-	DrawLoseY = DrawLoseY or 0
-	if DrawLoseY > h*0.8 then
-		DrawLoseHoldTime = true
-	else
-		for i=1, 5 do
-			draw.DrawText("Zombies win", "HUDFontBig", w*0.5, DrawLoseY - i*h*0.02, Color(255, 0, 0, 200 - i*25), TEXT_ALIGN_CENTER)
-		end
-		DrawLoseY = DrawLoseY + h * 0.495 * FrameTime()
-	end
-	if DrawLoseHoldTime then
-		if not DrawLoseSound then
-			surface.PlaySound("weapons/physcannon/energy_disintegrate"..math.random(4,5)..".wav")
-			surface.PlaySound("physics/metal/sawblade_stick"..math.random(1,3)..".wav")
-			DrawLoseSound = true
-		end
-
-		draw.DrawText("Zombies win", "HUDFontBig", w*0.5 + XNameBlur2, YNameBlur + DrawLoseY, COLOR_RED, TEXT_ALIGN_CENTER)
-		draw.DrawText("Zombies win", "HUDFontBig", w*0.5 + XNameBlur, YNameBlur + DrawLoseY, COLOR_RED, TEXT_ALIGN_CENTER)
-		draw.DrawText("Zombies win", "HUDFontBig", w*0.5, DrawLoseY, COLOR_WHITE, TEXT_ALIGN_CENTER)
-	else
-		draw.DrawText("Zombies win", "HUDFontBig", w*0.5, DrawLoseY, COLOR_RED, TEXT_ALIGN_CENTER)
-	end
-end
-
-function DrawWin()
-	DrawWinY = DrawWinY or 0
-
-	if DrawWinY > h*0.8 then
-		DrawWinHoldTime = true
-	else
-		for i=1, 5 do
-			draw.DrawText("Humans win", "HUDFontBig", w*0.5, DrawWinY - i*h*0.02, Color(0, 0, 255, 200 - i*25), TEXT_ALIGN_CENTER)
-		end
-		DrawWinY = DrawWinY + h * 0.495 * FrameTime() 
-	end
-
-	if DrawWinHoldTime then
-		if not DrawWinSound then
-			surface.PlaySound("weapons/physcannon/energy_disintegrate"..math.random(4,5)..".wav")
-			surface.PlaySound("physics/metal/sawblade_stick"..math.random(1,3)..".wav")
-			DrawWinSound = true
-		end
-
-		draw.DrawText("Humans win", "HUDFontBig", w*0.5 + XNameBlur2, YNameBlur + DrawWinY, COLOR_BLUE, TEXT_ALIGN_CENTER)
-		draw.DrawText("Humans win", "HUDFontBig", w*0.5 + XNameBlur, YNameBlur + DrawWinY, COLOR_BLUE, TEXT_ALIGN_CENTER)
-		draw.DrawText("Humans win", "HUDFontBig", w*0.5, DrawWinY, COLOR_WHITE, TEXT_ALIGN_CENTER)
-	else
-		draw.DrawText("Humans win", "HUDFontBig", w*0.5, DrawWinY, COLOR_BLUE, TEXT_ALIGN_CENTER)
-	end
-end
-
-function GM:Rewarded ( wep )
+function GM:Rewarded(wep)
 	local MySelf = LocalPlayer()
 	if not MySelf:IsValid() then return end
 	
@@ -1912,7 +1831,7 @@ function DrawAchievement()
 	end
 end
 
-function UnlockEffect( achv )
+function UnlockEffect(achv)
 	achvStack = achvStack+1
 	if achievTime < CurTime() then
 		if MySelf.DataTable then
@@ -1936,121 +1855,6 @@ function UnlockEffect( achv )
 		end) -- Achievement display delays
 	end
 end
-
--- Toxic effects
-
-ToxicPool = 8
-ToxicReset = 0
-function ToxicThink()
-	if ToxicReset <= CurTime() then
-		-- gets decremented each time a set of particles spawn
-		ToxicPool = ToxicPool+8
-		ToxicReset = CurTime() + 5
-	end
-end
--- hook.Add('Think','ToxicThink',ToxicThink)
-
---Ravebreak, admin only
-function RaveBreak(um)
-	--Stop current sounds
-	RunConsoleCommand("stopsound")
-
-	--Delay sound to compensate lag
-	timer.Simple(0.2, function()
-		surface.PlaySound(RAVESOUND)
-	end)
-	
-	--Start actual raving with a second delay
-	timer.Simple(1,function()
-		hook.Add("RenderScreenspaceEffects", "RaveDraw",RaveDraw)
-	end)
-end
-usermessage.Hook("RaveBreak",RaveBreak)
-
-local lightCnt = 1
-local lastRaveUpdate = 0
-
---Rave render
-function RaveDraw()
-	local ang = MySelf:EyeAngles()
-	ang.p = 30*math.sin((CurTime()%2*math.pi)*5)
-	MySelf:SetEyeAngles( ang )
-			
-	if lastRaveUpdate < CurTime()-0.5 then
-		lastRaveUpdate = CurTime()
-		local last = lightCnt
-		while (last == lightCnt) do
-			lightCnt = math.random(1,#RaveColTab)
-		end
-	end
-
-	DrawColorModify(RaveColTab[lightCnt])
-end
-
---Rave end
-function RaveEnd(um)
-	hook.Remove("RenderScreenspaceEffects", "RaveDraw")
-end
-usermessage.Hook("RaveEnd",RaveEnd)
-
---Rave colours
-RaveColTab = {
-	{
-		[ "$pp_colour_addr" ] 		= 0.05,
-		[ "$pp_colour_addg" ] 		= 0,
-		[ "$pp_colour_addb" ] 		= 0.05,
-		[ "$pp_colour_brightness" ] = 0.1,
-		[ "$pp_colour_contrast" ] 	= 1,
-		[ "$pp_colour_colour" ] 	= 0,
-		[ "$pp_colour_mulr" ] 		= 10,
-		[ "$pp_colour_mulg" ] 		= 0,
-		[ "$pp_colour_mulb" ] 		= 10
-	},
-	{
-		[ "$pp_colour_addr" ] 		= 0,
-		[ "$pp_colour_addg" ] 		= 0,
-		[ "$pp_colour_addb" ] 		= 0.05,
-		[ "$pp_colour_brightness" ] = 0.1,
-		[ "$pp_colour_contrast" ] 	= 1,
-		[ "$pp_colour_colour" ] 	= 0,
-		[ "$pp_colour_mulr" ] 		= 0,
-		[ "$pp_colour_mulg" ] 		= 0,
-		[ "$pp_colour_mulb" ] 		= 20
-	},
-	{
-		[ "$pp_colour_addr" ] 		= 0,
-		[ "$pp_colour_addg" ] 		= 0.05,
-		[ "$pp_colour_addb" ] 		= 0,
-		[ "$pp_colour_brightness" ] = 0.1,
-		[ "$pp_colour_contrast" ] 	= 1,
-		[ "$pp_colour_colour" ] 	= 0,
-		[ "$pp_colour_mulr" ] 		= 0,
-		[ "$pp_colour_mulg" ] 		= 20,
-		[ "$pp_colour_mulb" ] 		= 0
-	},
-	{
-		[ "$pp_colour_addr" ] 		= 0.05,
-		[ "$pp_colour_addg" ] 		= 0,
-		[ "$pp_colour_addb" ] 		= 0,
-		[ "$pp_colour_brightness" ] = 0.1,
-		[ "$pp_colour_contrast" ] 	= 1,
-		[ "$pp_colour_colour" ] 	= 0,
-		[ "$pp_colour_mulr" ] 		= 20,
-		[ "$pp_colour_mulg" ] 		= 0,
-		[ "$pp_colour_mulb" ] 		= 0
-	},
-	{
-		[ "$pp_colour_addr" ] 		= 0.05,
-		[ "$pp_colour_addg" ] 		= 0.05,
-		[ "$pp_colour_addb" ] 		= 0,
-		[ "$pp_colour_brightness" ] = 0.1,
-		[ "$pp_colour_contrast" ] 	= 1,
-		[ "$pp_colour_colour" ] 	= 0,
-		[ "$pp_colour_mulr" ] 		= 10,
-		[ "$pp_colour_mulg" ] 		= 10,
-		[ "$pp_colour_mulb" ] 		= 0
-	}
-}
 
 -- Blood shit
 net.Receive("BloodSplatter", function(len)
@@ -2094,7 +1898,7 @@ usermessage.Hook("PlayClientsideSound", PlayClientsideSound)
  			Deluvas - Global Painting Effect!  		
 -----------------------------------------------------]=]
 
--- I'd rather eat my balls than rewrite this code down here
+--I'd rather eat my balls than rewrite this code down here
 local Notes = {}
 local NoteCount = 0
 local NoteDecrementTime = 0
@@ -2188,56 +1992,18 @@ function MeleeWeaponDrawHUD()
 	surface.DrawLine(cW + 1, cH - hLength, cW + 1, cH + hLength)
 end
 
---[=[------------------------------------------------------
-          Manages the ammo regeneration time
--------------------------------------------------------]=]
-local AmmoRegenTimer, RegenSound = 0, Sound ( "buttons/weapon_confirm.wav" )
-local function AmmoRegenThink()
-	if not ValidEntity ( MySelf ) then return end
-	if MySelf:Team() ~= TEAM_HUMAN then return end
-	
-	-- Prevent it on endround
-	if ENDROUND then return end
-	
-	-- Grab data
-	local Time = MySelf:GetAmmoTime()
-	if Time == nil then return end
-	
-	-- Time to give ammo and when it reaches 0, reset the timer
-	if Time <= -1 then 
-		RunConsoleCommand ( "zs_regenammo" ) 
-		
-		-- This isn't fire time we regen anymore
-		MySelf.IsFirstRegeneration = false 
-		
-		-- Reset timer
-		MySelf:SetAmmoTime ( AMMO_REGENERATE_RATE )
-		
-		-- Play regeneration sound
-		surface.PlaySound ( RegenSound ) 
-		
-		-- Notify
-		MySelf:Message( "Ammunition Regenerated !" )
-
-		return
-	end
-		
-	-- Substract one time unit each second
-	if AmmoRegenTimer <= CurTime() then MySelf:SetAmmoTime ( Time - 1 )	AmmoRegenTimer = CurTime() + 1 end
-end
--- hook.Add ( "Think", "ManageAmmoRegen", AmmoRegenThink )
-
 --[=[------------------------------------------------
      Refresh Toxic Fumes Effect ( 7 sec )
 ------------------------------------------------]=]
 function RefreshToxicFumes()
-	if ToxicPoints == nil then return end
-	if ENDROUND then return end
+	if ToxicPoints == nil or ENDROUND then
+		return
+	end
 
 	-- Spawn the effects clientside
 	for k, v in pairs( ToxicPoints ) do
 		local eData = EffectData()
-			eData:SetOrigin( v + Vector ( 0,0,15 ) )
+		eData:SetOrigin( v + Vector ( 0,0,15 ) )
 		util.Effect( "chemzombieambient", eData, true, true )
 	end
 	

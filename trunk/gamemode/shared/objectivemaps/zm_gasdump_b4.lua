@@ -232,7 +232,7 @@ Objectives[6] = {
 	
 	local weps = {"weapon_zs_ak47","weapon_zs_deagle","weapon_zs_aug","weapon_zs_mp5","weapon_zs_shotgun","weapon_zs_melee_crowbar","weapon_zs_m249","weapon_zs_m4a1","weapon_zs_g3sg1","item_healthkit",
 	"item_healthkit","item_healthkit","item_healthkit","item_healthkit",
-	"weapon_zs_alyxgun","weapon_zs_galil"
+	"weapon_zs_galil"
 	}
 	
 	local ent = {}

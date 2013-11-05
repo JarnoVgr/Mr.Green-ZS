@@ -1,7 +1,7 @@
 --Dummy base for tools and stuff
 
-if( SERVER ) then
-	AddCSLuaFile( "shared.lua" )
+if SERVER then
+	AddCSLuaFile()
 	SWEP.Weight	= 5
 	SWEP.AutoSwitchTo = true
 	SWEP.AutoSwitchFrom	= true

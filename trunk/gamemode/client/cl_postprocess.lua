@@ -118,8 +118,10 @@ local SpectatorCM = {
       Receives toxic zombie points from the server 
 ---------------------------------------------------------]==]
 ToxicPoints = {}
-local function ReceiveToxicPositions ( um )
-	if not ValidEntity ( MySelf ) then return end
+local function ReceiveToxicPositions(um)
+	if not ValidEntity ( MySelf ) then
+		return
+	end
 	
 	-- Table length
 	local tbStart = um:ReadShort()
@@ -132,11 +134,17 @@ local function ReceiveToxicPositions ( um )
 	end
 	
 	-- Initialize toxic fumes effect
-	timer.Simple ( 1.5, function() if not bInitFumes then RefreshToxicFumes() bInitFumes = true Debug ( "[FUMES] Initialized toxic fumes effects." ) end end )
+	timer.Simple(1.5, function()
+		if not bInitFumes then
+			RefreshToxicFumes()
+			bInitFumes = true
+			Debug("[FUMES] Initialized toxic fumes effects.")
+		end
+	end)
 	
-	Debug ( "[CLIENT] Succesfully received toxic fumes positions from server." )
+	Debug("[CLIENT] Successfully received toxic fumes positions from server.")
 end
-usermessage.Hook ( "ReceiveToxicPositions", ReceiveToxicPositions )
+usermessage.Hook("ReceiveToxicPositions", ReceiveToxicPositions)
 
 --[==[--------------------------------------------------
         Used to calculate color mod values

@@ -8,15 +8,15 @@ SWEP.Base = "weapon_zs_melee_base"
 
 if CLIENT then
 	SWEP.ShowViewModel = false
-	SWEP.ShowWorldModel = false
+	SWEP.ShowWorldModel = true
 
 	SWEP.VElements = {
 		["axe"] = { type = "Model", model = "models/props/CS_militia/axe.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.885, 1.679, -4.541), angle = Angle(0, -6.658, 88.976), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 
-	SWEP.WElements = {
+	--[[SWEP.WElements = {
 		["axe"] = { type = "Model", model = "models/props/CS_militia/axe.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.742, 1.603, -3.182), angle = Angle(2.88, 0, 82.841), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
+	}]]
 
 	killicon.AddFont("weapon_zs_melee_axe", "ZSKillicons", "a", Color(255, 255, 255, 255))
 end
@@ -25,7 +25,7 @@ end
 SWEP.Author = "Deluvas"
 SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
 SWEP.UseHands = true
-SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
+SWEP.WorldModel = Model("models/weapons/w_axe.mdl")
 
 -- Name and fov
 SWEP.PrintName = "Axe"

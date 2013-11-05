@@ -44,7 +44,12 @@ include("shared/sh_maps.lua")
 include("shared/sh_animations.lua")
 include("shared/sh_zombo_anims.lua")
 include("extended/sh_engine.lua")
+
+--Screentaker
 include("modules/screentaker/screentaker.lua")
+
+--Clavus' Ravebreak
+include("modules/ravebreak/sh_ravebreak.lua")
 	
 --MapCoder
 for map,opt in pairs(TranslateMapTable) do
