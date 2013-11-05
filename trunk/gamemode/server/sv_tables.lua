@@ -395,14 +395,13 @@ table.insert(ResourceFiles, "materials/models/weapons/pot.vtf" )
 table.insert(ResourceFiles, "materials/models/weapons/pot.vmt" )
 
 --Keyboard
-table.insert(ResourceFiles, "models/weapons/w_keyboard.mdl" )
-table.insert(ResourceFiles, "models/weapons/v_keyboard/c_keyboard.mdl" )
-table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-01.wav" )
-table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-02.wav" )
-table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-03.wav" )
-table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-04.wav" )
-table.insert(ResourceFiles, "materials/models/weapons/computer.vtf" )
-table.insert(ResourceFiles, "materials/models/weapons/computer.vmt" )
+table.insert(ResourceFiles, "models/weapons/w_keyboard.mdl")
+table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-01.wav")
+table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-02.wav")
+table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-03.wav")
+table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-04.wav")
+table.insert(ResourceFiles, "materials/models/weapons/computer.vtf")
+table.insert(ResourceFiles, "materials/models/weapons/computer.vmt")
 
 --Katana
 table.insert(ResourceFiles, "models/weapons/w_katana.mdl" )

@@ -169,11 +169,9 @@ function SWEP:CheckWorldModelElements()
 end
 
 function SWEP:OnInitialize()
-
 end
 
 function SWEP:PrimaryAttack()
-
 	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 	if not self:CanPrimaryAttack() then
 		return
@@ -247,9 +245,7 @@ function SWEP:Deploy()
 
 	if CLIENT then
 		self:CheckCustomIronSights()
-	end
-	
-	if CLIENT then
+
 		self:ResetBonePositions()
 	end
 	
@@ -259,7 +255,7 @@ function SWEP:Deploy()
 	
 	self:OnDeploy()
 	
-	-- Speed change
+	--Speed change
 	if SERVER then
 		GAMEMODE:WeaponDeployed( self.Owner, self )
 		return true
@@ -373,10 +369,11 @@ function SWEP:CanPrimaryAttack()
 
 		--Auto-reloading
 		self:Reload()
+
 		return false
 	end
 
-	return true-- self:GetNextPrimaryFire() <= CurTime()
+	return true
 end
 
 function SWEP:SecondaryAttack()
