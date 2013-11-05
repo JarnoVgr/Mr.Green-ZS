@@ -218,18 +218,10 @@ function SWEP:OnHolster()
 end
 
 function SWEP:OnRemove()
- 
     if CLIENT then
 		self:ResetBonePositions()
         self:RemoveModels()
-    end
-	
-	self:_OnRemove()
-     
-end
-
-function SWEP:_OnRemove()
-
+    end     
 end
 
 function SWEP:Equip ( NewOwner )
@@ -267,7 +259,7 @@ if CLIENT then
 	
 		
 		if not self.IgnoreFov then
-			self.ViewModelFOV = GetConVarNumber("zs_wepfov") or self.ViewModelFOV
+			self.ViewModelFOV = self.ViewModelFOV or GetConVarNumber("zs_wepfov")
 		end
 		
 		if not self.Owner then return end
@@ -282,13 +274,13 @@ if CLIENT then
 		if (self.ShowViewModel == nil or self.ShowViewModel) then
 			vm:SetColor(Color(255,255,255,255))
 			if vm:GetMaterial() ~= "" then 
-				-- vm:SetMaterial("")	
+				vm:SetMaterial("")	
 			end
 		else
 			--  we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
 			vm:SetColor(Color(255,255,255,1)) 
 			if vm:GetMaterial() ~= "Debug/hsv" then 
-				-- vm:SetMaterial("Debug/hsv")	
+				vm:SetMaterial("Debug/hsv")	
 			end
 		end
 		
