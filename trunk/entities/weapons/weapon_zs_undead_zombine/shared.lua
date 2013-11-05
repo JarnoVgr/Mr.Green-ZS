@@ -29,7 +29,6 @@ SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
 SWEP.ViewModelFOV = 60
 SWEP.ViewModelFlip = false
-SWEP.CSMuzzleFlashes = false
 
 SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
@@ -42,14 +41,13 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "none"
 
-SWEP.DistanceCheck = 52
+SWEP.DistanceCheck = 48
 
 function SWEP:Deploy()
-	
 	-- Hide world model
 	if SERVER then
-		self.Owner:DrawViewModel( true )
-		self.Owner:DrawWorldModel( false )
+		self.Owner:DrawViewModel(true)
+		self.Owner:DrawWorldModel(false)
 	end
 	
 	-- Animation vars
@@ -97,62 +95,23 @@ function SWEP:Think()
 	end
 	
 	local Speed = ZombieClasses[8].Speed
-	--if mOwner:KeyDown( IN_SPEED ) then
-			if mOwner.bCanSprint then
-				if mOwner:GetMaxSpeed() < ZombieClasses[8].RunSpeed then
-					if not self:IsAttackingAnim() and not self:IsGettingNade() then
-						GAMEMODE:SetPlayerSpeed( mOwner, ZombieClasses[8].RunSpeed, ZombieClasses[8].RunSpeed, ZombieClasses[8].RunSpeed )
-						--GAMEMODE:SetPlayerSpeed( mOwner, Speed, ZombieClasses[8].RunSpeed, ZombieClasses[8].RunSpeed )
-					end
-				end
-			else
-				if mOwner:GetMaxSpeed() > Speed then
-					if not self:IsAttackingAnim() and not self:IsGettingNade() then
-						GAMEMODE:SetPlayerSpeed( mOwner, Speed, Speed )
-					end
-				end	
-				
-			end
-	--end
-	self.ThinkTimer = CurTime() + 0.25
-	--[=[
-	-- Infinite sprint while holding nade
-	if mOwner.HoldingGrenade or CLIENT then mOwner.bCanSprint = true return end
 	
-	-- Think cooldown
-	if ( self.ThinkTimer or 0 ) > CurTime() then return end
-	
-	-- Normal speed
-	local Speed = ZombieClasses[8].Speed
-	
-	-- Check for speed button
-	if mOwner:KeyDown( IN_SPEED ) then
-		mOwner.Sprint = math.Clamp( mOwner.Sprint - 4.5, 0, 100 )
-		if mOwner.Sprint <= 0 then
-			if mOwner:GetMaxSpeed() > Speed then
-				if not mOwner.IsAttacking and not mOwner.IsGettingNade then
-					GAMEMODE:SetPlayerSpeed( mOwner, Speed )
-				end
-			end
-		else
-			if mOwner.bCanSprint then
-				if mOwner:GetMaxSpeed() < ZombieClasses[8].RunSpeed then
-					if not mOwner.IsAttacking and not mOwner.IsGettingNade then
-						GAMEMODE:SetPlayerSpeed( mOwner, Speed, ZombieClasses[8].RunSpeed, ZombieClasses[8].RunSpeed )
-					end
-				end
+	if mOwner.bCanSprint then
+		if mOwner:GetMaxSpeed() < ZombieClasses[8].RunSpeed then
+			if not self:IsAttackingAnim() and not self:IsGettingNade() then
+				GAMEMODE:SetPlayerSpeed( mOwner, ZombieClasses[8].RunSpeed, ZombieClasses[8].RunSpeed, ZombieClasses[8].RunSpeed )
+				--GAMEMODE:SetPlayerSpeed( mOwner, Speed, ZombieClasses[8].RunSpeed, ZombieClasses[8].RunSpeed )
 			end
 		end
 	else
-		mOwner.Sprint = math.Clamp( mOwner.Sprint + 5, 0, 100 )
+		if mOwner:GetMaxSpeed() > Speed then
+			if not self:IsAttackingAnim() and not self:IsGettingNade() then
+				GAMEMODE:SetPlayerSpeed( mOwner, Speed, Speed )
+				end
+			end	
 	end
-	
-	-- Set status
-	mOwner.bCanSprint = ( mOwner.Sprint > 10 )
-	
-	-- Think timer
+
 	self.ThinkTimer = CurTime() + 0.25
-	]=]
 end
 
 SWEP.IdleTimer = 0

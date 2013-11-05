@@ -69,12 +69,15 @@ function SWEP:Reload()
 	return false
 end
 
-function SWEP:OnDeploy()
+function SWEP:OnDeploy()	
+	-- Idle sounds
 	if SERVER then
-		self.Owner.Moaning = false
+		timer.Simple(1.5, function()
+			if IsValid(self) then
+				self:IdleVOX()
+			end
+		end)
 	end
-	self.Owner.IsMoaning = false 
-	self.Owner.ZomAnim = math.random(1, 3)
 end
 
 function SWEP:CheckMeleeAttack()
@@ -115,19 +118,7 @@ function SWEP:PrimaryAttack()
 	--self.NextHit = CurTime() + 0.6
 end
 
-function SWEP:StartSwinging()
-	--self.PreHit = nil
-	--self.Trace = nil
-	-- self.Owner.IsMoaning = false
-	
-	if SERVER then
-		self:SetMoaning(false)
-		if self.MoanSound then
-			self.MoanSound:Stop()
-			self.MoanSound = nil
-		end
-	end
-			
+function SWEP:StartSwinging()			
 	-- Hacky way for the animations
 	if self.SwapAnims then
 		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
@@ -222,15 +213,46 @@ function SWEP:Swung()
 	self.Owner:LagCompensation(false)
 end
 
+function SWEP:IdleVOX()
+	if not IsValid(self.Owner) or ENDROUND or not self.IdleSounds then
+		return
+	end
+
+	--Owner
+	local mOwner, mWeapon = self.Owner, self.Weapon
+	
+	--Not alive
+	if not mOwner:Alive() then
+		return
+	end
+	
+	--Emit idle sounds
+	local mSound = table.Random(self.IdleSounds)
+
+	--Sound duration
+	local fDuration = math.Rand( 1.6, 2.2 ) + 1.7
+
+	
+	if not self:IsSwinging() then
+		mOwner:EmitSound(mSound)
+	end
+
+	--Cooldown
+	timer.Simple(fDuration, function()
+		if IsValid(self) and self.IdleVOX then
+			self:IdleVOX()
+		end
+	end)
+end
+
 function SWEP:MeleeHitWorld(trace)
 end
 
 function SWEP:SetMoaning(bl)
-	self:SetDTBool(0,bl)
 end
 
 function SWEP:IsMoaning()
-	return self:GetDTBool(0)
+	return false
 end
 
 function SWEP:StopSwinging()
@@ -333,18 +355,6 @@ function SWEP:SecondaryAttack()
 	if CurTime() < self.NextYell then return end
 	
 	return
-
-	--Moaning was located here	
-end
-
-function SWEP:_OnRemove()
-	if SERVER then
-		if self.MoanSound then
-			self.MoanSound:Stop()
-		end
-	end
-	self.Owner.IsMoaning = false 
-return true
 end
 
 function SWEP:Reload()

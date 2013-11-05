@@ -27,7 +27,7 @@ SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 0.7 --0.32
+SWEP.Primary.Delay = 0.32
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.Delay = 1
@@ -41,11 +41,10 @@ SWEP.AutoSwitchFrom = false
 
 SWEP.SwapAnims = false
 
-SWEP.DistanceCheck = 68
-SWEP.MeleeReach = 43
+SWEP.DistanceCheck = 42
+SWEP.MeleeReach = 42
 SWEP.MeleeSize = 1.5
 SWEP.MeleeDelay = 0
-SWEP.NextRoar = 0
 
 SWEP.Damage = 4
 SWEP.LeapDamage = 2
@@ -55,6 +54,7 @@ SWEP.LeapPounceReach = 32
 SWEP.LeapPounceSize = 16
 
 SWEP.AttackSounds = {}
+SWEP.IdleSounds = {}
 
 if CLIENT then
 	SWEP.ShowViewModel = false
@@ -85,6 +85,11 @@ function SWEP:OnInitialize()
 	--Attack sounds
 	for i = 1, 11 do
 		table.insert(self.AttackSounds,Sound("mrgreen/undead/fastzombie/attack"..i..".wav"))
+	end
+
+	--Idle sounds
+	for i = 1, 12 do
+		table.insert(self.IdleSounds,Sound("mrgreen/undead/fastzombie/idle"..i..".wav"))
 	end
 end
 

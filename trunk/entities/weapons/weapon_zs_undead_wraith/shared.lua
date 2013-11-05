@@ -44,7 +44,7 @@ SWEP.Screams = { "npc/stalker/stalker_alert1b.wav", "npc/stalker/stalker_alert2b
 -- Human scream sounds
 SWEP.HumanScreams = { Sound( "ambient/voices/m_scream1.wav" ), Sound( "ambient/voices/f_scream1.wav" ) }
 
-SWEP.DistanceCheck = 75
+SWEP.DistanceCheck = 48
 
 function SWEP:Precache()
 	
@@ -128,15 +128,7 @@ function SWEP:PrimaryAttack()
 	end 
 	
 	self:SetAnimSwingEndTime(CurTime() + 1.3)
-	
-	--[==[timer.Simple ( 1.3, function()
-		if not ValidEntity ( pl ) then return end
-		
-		-- Conditions
-		if not pl:Alive() or not pl:IsWraith() then return end
-		GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed, ZombieClasses[ pl:GetZombieClass() ].Speed )
-	end)]==]
-	 
+		 
 	-- Trace an object
 	local trace = pl:TraceLine( self.DistanceCheck, MASK_SHOT, trFilter )
 	if trace.Hit and ValidEntity ( trace.Entity ) and not trace.Entity:IsPlayer() then
@@ -146,13 +138,6 @@ function SWEP:PrimaryAttack()
 	-- Delayed attack function (claw mechanism)
 	
 	self:SetSwingEndTime(CurTime() + 0.6)
-	
-	--[==[if SERVER then 
-		timer.Simple ( 0.6, function()
-							if not IsValid(self.Weapon) then return end
-							self:DoPrimaryAttack(trace, pl, self.PreHit)
-					end) 
-	end]==]
 				
 	--  Set the next swing attack for cooldown
 	self.NextAttack = CurTime() + self.Primary.Delay
