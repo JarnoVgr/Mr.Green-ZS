@@ -61,12 +61,13 @@ function InitMenuFonts()
 	surface.CreateFont("Arial", ScreenScale(16.4), 700, true, false, "ArialBoldThirty")
 	surface.CreateFont("Arial", ScreenScale(15), 700, true, false, "ZombieNameB")
 	surface.CreateFont("Arial", ScreenScale(11), 700, true, false, "ZombieDescription")
+	surface.CreateFont("Arial", ScreenScale(10), 600, true, false, "ZombieDescriptionGameplay")
 
 	-- Normal Arials
 	surface.CreateFont("Arial", ScreenScale(12.8), 500, true, false, "ArialTwelveNormal")
 	surface.CreateFont("Arial", ScreenScale(13.8), 500, true, false, "ClassDialog")
 end
-hook.Add( "Initialize","Fonts",InitMenuFonts )
+hook.Add("Initialize", "Fonts", InitMenuFonts)
 
 --Build the bloodsplats table
 bloodSplats = {}
@@ -152,7 +153,15 @@ function DrawClassMenu()
 		draw.SimpleText(strTitle,"ZombieNameB", ScaleW(640),ScaleH(500), ButtonColors[i], TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		
 		draw.SimpleText(ZombieClasses[i].Description, "ZombieDescription", ScaleW(640), ScaleH(500)+40, Colors.Grey, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		draw.SimpleText(ZombieClasses[i].Unique, "ZombieDescription", ScaleW(640), ScaleH(500)+80, Colors.Grey, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+
+		--Gameplay description
+		if ZombieClasses[i].DescriptionGameplay then
+			for lineIndex, lineValue in pairs(ZombieClasses[i].DescriptionGameplay) do
+				draw.SimpleText(lineValue, "ZombieDescriptionGameplay", ScaleW(640), ScaleH(500)+40+(40*lineIndex), Colors.Grey, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+			end
+		end
+
+		--draw.SimpleText(ZombieClasses[i].Unique, "ZombieDescription", ScaleW(640), ScaleH(500)+80, Colors.Grey, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
 		break
 	end

@@ -1,6 +1,25 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
+--[[
+SWEP.VElements = {
+	["element_name"] = { type = "Model", model = "models/Items/grenadeAmmo.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(0, 0, 0), angle = Angle(0, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+}
+--I dont know why but it didnt edit bones without atleast one model... See if you can figure out a alternate way
+
+SWEP.ViewModelBoneMods = {
+	["ValveBiped.Bip01_R_Finger31"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 78.342, 0) },
+	["ValveBiped.Bip01_R_Finger21"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 78.342, 0) },
+	["ValveBiped.Bip01_R_Finger11"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 35.439, 0) },
+	["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -41.036, 0) },
+	["ValveBiped.Bip01_L_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, 74.611) },
+	["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(0.933, 2.798, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(9.326, 6.527, -5.908), angle = Angle(-7.461, 0, -14.922) },
+	["ValveBiped.Bip01_R_Finger41"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 61.554, 0) },
+	["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 33.575, 0) }
+}
+]]
+
 AddCSLuaFile()
 
 SWEP.PrintName = "Mobile Supplies"
@@ -11,7 +30,6 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 	SWEP.DrawCrosshair = false
 	SWEP.IconLetter = "V"
-
 	
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = false
@@ -22,7 +40,7 @@ if CLIENT then
 	end	
 	
 	--Killicon
-	killicon.AddFont("weapon_zs_tools_supplies", "CSKillIcons", SWEP.IconLetter, Color(255, 80, 0, 255 ))
+	killicon.AddFont("weapon_zs_tools_supplies", "CSKillIcons", SWEP.IconLetter, Color(255, 80, 0, 255))
 end
 
 SWEP.Base = "weapon_zs_base_dummy"
@@ -78,16 +96,16 @@ function SWEP:InitializeClientsideModels()
 
 	self.ViewModelBoneMods = {
 		["v_weapon.c4"] = { scale = Vector(1, 1, 1), pos = Vector(-1.555, -12.747, -0.622), angle = Angle(9.326, 7.46, 37.305) },
-	["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -48.498, 0) },
-	["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(46.631, -33.576, 0) },
-	["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(29.844, 26.114, -39.172) },
-	["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-5.597, 9.326, 0), angle = Angle(11.192, 0, -63.42) },
-	["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-4.041, 0.31, -5.908), angle = Angle(0, 0, 0) },
-	["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-3.731, 27.979, -18.653) },
-	["ValveBiped.Bip01_L_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -24.25, 0) },
-	["ValveBiped.Bip01_Spine4"] = { scale = Vector(1, 1, 1), pos = Vector(0, -7.461, 0), angle = Angle(0, 0, 0) },
-	["ValveBiped.Bip01_R_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(11.192, 0, 0) },
-	["ValveBiped.Bip01_L_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(13.057, 0, 0) },
+		["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -48.498, 0) },
+		["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(46.631, -33.576, 0) },
+		["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(29.844, 26.114, -39.172) },
+		["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-5.597, 9.326, 0), angle = Angle(11.192, 0, -63.42) },
+		["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-4.041, 0.31, -5.908), angle = Angle(0, 0, 0) },
+		["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-3.731, 27.979, -18.653) },
+		["ValveBiped.Bip01_L_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -24.25, 0) },
+		["ValveBiped.Bip01_Spine4"] = { scale = Vector(1, 1, 1), pos = Vector(0, -7.461, 0), angle = Angle(0, 0, 0) },
+		["ValveBiped.Bip01_R_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(11.192, 0, 0) },
+		["ValveBiped.Bip01_L_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(13.057, 0, 0) },
 		["v_weapon.button0"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["v_weapon.button1"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["v_weapon.button2"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
@@ -169,22 +187,6 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire(CurTime() + 0.65)
 
 	if SERVER then
-		--[[local aimvec = self.Owner:GetAimVector()
-		local shootpos = self.Owner:GetPos()+Vector(aimvec.x,aimvec.y,0)*25+Vector(0,0,1)
-		local canPlaceCrate = false
-		
-		local tr = util.TraceLine({start = shootpos, endpos = shootpos + aimvec * 70, filter = self.Owner})
-
-		local htrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector (-28,-28,0), maxs = Vector (28,28,25)})
-		local trground = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos - Vector(0,0,1.5)})
-		
-		--Check if we hit world
-		if trground.HitWorld then
-			canPlaceCrate = true
-		else
-			canPlaceCrate = false
-		end]]
-
 		local vecAim = self.Owner:GetAimVector()
 		local posShoot = self.Owner:GetShootPos()
 	
@@ -206,7 +208,7 @@ function SWEP:PrimaryAttack()
 			--Check distance to Supply Crates
 			for _, point in pairs(RealCrateSpawns) do
 				if tr.HitPos:Distance(point) <= 100 then
-					self.Owner:Message("Place the Mobile Supplies more away from a Supply Crate", 2)
+					self.Owner:Message("Place the Mobile Supplies more away from the Supply Crate", 2)
 					canPlaceCrate = false
 					break
 				end
