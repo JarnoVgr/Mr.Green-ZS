@@ -45,7 +45,7 @@ SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.FirePower = (SWEP.Primary.Damage * SWEP.Primary.ClipSize)
 
-SWEP.ConeMoving = 0.79
+SWEP.ConeMoving = 0.079
 SWEP.Cone = 0.059
 SWEP.ConeIron = 0.051
 SWEP.ConeCrouching = 0.042

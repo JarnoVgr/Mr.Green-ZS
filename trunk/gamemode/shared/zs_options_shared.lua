@@ -1053,11 +1053,29 @@ ZombieClasses[2] =
 	Description = "Skin and bones predator.",
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap" },
 	PainSounds = {
-				Sound("npc/fast_zombie/leap1.wav"),
-				Sound("npc/fast_zombie/wake1.wav")
+				Sound("mrgreen/undead/fastzombie/pain1.wav"),
+				Sound("mrgreen/undead/fastzombie/pain2.wav"),
+				Sound("mrgreen/undead/fastzombie/pain3.wav"),
+				Sound("mrgreen/undead/fastzombie/pain4.wav"),
+				Sound("mrgreen/undead/fastzombie/pain5.wav"),
+				Sound("mrgreen/undead/fastzombie/pain6.wav"),
+				Sound("mrgreen/undead/fastzombie/pain7.wav"),
+				Sound("mrgreen/undead/fastzombie/pain8.wav"),
+				Sound("mrgreen/undead/fastzombie/pain9.wav"),
+				Sound("mrgreen/undead/fastzombie/pain10.wav"),
+				Sound("mrgreen/undead/fastzombie/pain11.wav"),
+				Sound("mrgreen/undead/fastzombie/pain12.wav"),
+				Sound("mrgreen/undead/fastzombie/pain13.wav"),
+				Sound("mrgreen/undead/fastzombie/pain14.wav"),
+				Sound("mrgreen/undead/fastzombie/pain15.wav"),
+				Sound("mrgreen/undead/fastzombie/pain16.wav"),
 				},
 	DeathSounds = {
-				Sound("npc/fast_zombie/fz_alert_close1.wav")
+				Sound("mrgreen/undead/fastzombie/death1.wav"),
+				Sound("mrgreen/undead/fastzombie/death2.wav"),
+				Sound("mrgreen/undead/fastzombie/death3.wav"),
+				Sound("mrgreen/undead/fastzombie/death4.wav"),
+				Sound("mrgreen/undead/fastzombie/death5.wav")
 				},
 	PlayerFootstep = true,
 	ViewOffset = Vector( 0, 0, 50 ),

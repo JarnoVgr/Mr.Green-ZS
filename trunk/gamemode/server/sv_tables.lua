@@ -421,10 +421,13 @@ for _, filename in pairs(file.Find("materials/models/weapons/v_zombiearms/*.*", 
 	table.insert ( ResourceFiles, "materials/models/weapons/v_zombiearms/"..string.lower(filename )  )
 end
 
---Fast Zombie viewmodel
+--Fast Zombie
 table.insert(ResourceFiles, "models/weapons/v_fza.mdl" )
 for _, filename in pairs(file.Find("materials/models/weapons/v_fza/*.*" , "GAME") ) do
 	table.insert ( ResourceFiles, "materials/models/weapons/v_fza/"..string.lower(filename )  )
+end
+for _, filename in pairs(file.Find( "sound/mrgreen/undead/fastzombie/*.wav" , "GAME")) do
+	table.insert(ResourceFiles, "sound/mrgreen/undead/fastzombie/".. filename)
 end
 
 --Poison Zombie viewmodel

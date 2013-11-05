@@ -35,7 +35,7 @@ SWEP.SwingRotation = Angle(0, -90, -60)
 SWEP.SwingOffset = Vector(0, 30, -40)
 SWEP.SwingTime = 0.65
 SWEP.SwingHoldType = "melee"
-SWEP.MeleeKnockBack = SWEP.MeleeDamage * 3.00
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.6
 
 SWEP.VElements = {
 	["shovel"] = { type = "Model", model = "models/weapons/w_shovel.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.924, 1.907, 0), angle = Angle(0, 180, 180), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }

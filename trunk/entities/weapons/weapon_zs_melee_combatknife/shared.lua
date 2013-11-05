@@ -33,7 +33,7 @@ SWEP.HoldType = "knife"
 SWEP.MeleeDamage = 21
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
-SWEP.WalkSpeed = 215
+SWEP.WalkSpeed = 212
 
 SWEP.HitDecal = "Manhackcut"
 

@@ -1,21 +1,22 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
+AddCSLuaFile()
+
 if SERVER then
-	AddCSLuaFile("shared.lua")
+	
 	SWEP.Weight				= 5
 	SWEP.AutoSwitchTo		= true
 	SWEP.AutoSwitchFrom		= true
-	SWEP.PrintName = "weapon"
 end
 
+SWEP.PrintName = "Generic Undead"
+
 if CLIENT then
-	SWEP.PrintName = "Generic Undead"
 	SWEP.DrawAmmo = false
 	SWEP.DrawCrosshair = false
 	SWEP.ViewModelFOV = 70
 	SWEP.ViewModelFlip = false
-	SWEP.CSMuzzleFlashes = false
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = false
 
@@ -35,8 +36,8 @@ SWEP.Contact = ""
 SWEP.Purpose = ""
 SWEP.Instructions = ""
 
-SWEP.ViewModel = Model ( "models/Weapons/v_zombiearms.mdl" )
-SWEP.WorldModel = Model ( "models/weapons/w_knife_t.mdl" )
+SWEP.ViewModel = Model("models/Weapons/v_zombiearms.mdl")
+SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
@@ -139,7 +140,11 @@ function SWEP:StartSwinging()
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
   
 	if SERVER then
-		self.Owner:EmitSound("npc/zombiegreen/rage_at_victim"..math.random(20, 37)..".wav")
+		if self.AttackSounds then
+			self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))
+		else
+			self.Owner:EmitSound(Sound("npc/zombiegreen/rage_at_victim"..math.random(20, 37)..".wav"))
+		end
 	end
 
 	--Set time before actual damaging
@@ -372,8 +377,4 @@ function SWEP:Precache()
 	for i = 1, 2 do
 		util.PrecacheSound("npc/zombiegreen/hit_punch_0"..i..".wav")
 	end
-	
-	for i = 17,38 do
-		util.PrecacheSound("npc/zombiegreen/death_"..i..".wav")
-	end	
 end

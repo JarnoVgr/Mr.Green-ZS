@@ -54,6 +54,8 @@ SWEP.LeapPounceVelocity = 500
 SWEP.LeapPounceReach = 32
 SWEP.LeapPounceSize = 16
 
+SWEP.AttackSounds = {}
+
 if CLIENT then
 	SWEP.ShowViewModel = false
 	SWEP.ShowWorldModel = false
@@ -78,6 +80,11 @@ end
 function SWEP:OnInitialize()
 	if CLIENT then
 		self:MakeArms()
+	end
+
+	--Attack sounds
+	for i = 1, 11 do
+		table.insert(self.AttackSounds,Sound("mrgreen/undead/fastzombie/attack"..i..".wav"))
 	end
 end
 
@@ -141,7 +148,7 @@ function SWEP:Think()
 
 			if SERVER then
 				self.Owner:EmitSound("physics/flesh/flesh_strider_impact_bullet1.wav")
-				self.Owner:EmitSound("npc/fast_zombie/wake1.wav")
+				self.Owner:EmitSound("mrgreen/undead/fastzombie/pain1.wav")
 			end
 						
 			--Stopped leaping
@@ -240,32 +247,7 @@ function SWEP:SecondaryAttack()
 	-- Trace filtering climb factors
 	local vStart, vAimVector = Owner:GetShootPos() - Vector ( 0,0,20 ), Owner:GetAimVector()
 	local trClimb = util.TraceLine( { start = vStart, endpos = vStart + ( vAimVector * 35 ), filter = Owner } )
-	
-	-- Climbing
-	--[[if CurTime() >= self.NextClimb and not bCrouching and trClimb.HitWorld and not trClimb.HitSky then
-
-		-- Climb!
-		local Velocity = Vector ( 0,0,150 )
-		if bOnGround then Velocity.z = 280 end
-		Owner:SetLocalVelocity( Velocity )
-			
-		-- Cooldown
-		self.NextClimb = CurTime() + self.Secondary.Delay
 		
-		-- Set the thirdperson animation
-		local iSeq, iDuration = Owner:LookupSequence( "climbloop" )
-		Owner.iZombieSecAttack = iDuration + CurTime()
-			
-		-- Sound
-		if SERVER then Owner:EmitSound( "player/footsteps/metalgrate"..math.random(1,4)..".wav" ) end
-			
-		-- Climbing animation
-		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
-		Owner:SetAnimation(PLAYER_SUPERJUMP)
-		
-		return
-	end]]
-	
 	if trClimb.HitWorld then
 		return
 	end
@@ -293,7 +275,7 @@ function SWEP:SecondaryAttack()
 	
 	--Fast zombie scream
 	if SERVER then
-		Owner:EmitSound("npc/fast_zombie/fz_scream1.wav")
+		Owner:EmitSound("mrgreen/undead/fastzombie/leap".. math.random(1,5) ..".wav")
 	end
 end
 
@@ -311,23 +293,12 @@ end
 
 -- Shutup.
 function SWEP:Precache()
-	util.PrecacheSound("npc/fast_zombie/fz_scream1.wav")
-	util.PrecacheSound("npc/zombie/claw_strike1.wav")
-	util.PrecacheSound("npc/zombie/claw_strike2.wav")
-	util.PrecacheSound("npc/zombie/claw_strike3.wav")
-	util.PrecacheSound("npc/zombie/claw_miss1.wav")
-	util.PrecacheSound("npc/zombie/claw_miss2.wav")
-	util.PrecacheSound("npc/zombie/zo_attack1.wav")
-	util.PrecacheSound("npc/fast_zombie/fz_alert_close1.wav")
-	util.PrecacheSound("npc/zombie/zombie_die1.wav")
-	util.PrecacheSound("npc/fast_zombie/fz_frenzy1.wav")
+	util.PrecacheSound("mrgreen/undead/fastzombie/leap1.wav")
+	util.PrecacheSound("mrgreen/undead/fastzombie/leap2.wav")
+	util.PrecacheSound("mrgreen/undead/fastzombie/leap3.wav")
+	util.PrecacheSound("mrgreen/undead/fastzombie/leap4.wav")
 	util.PrecacheSound("physics/flesh/flesh_strider_impact_bullet1.wav")
-	util.PrecacheSound("player/footsteps/metalgrate1.wav")
-	util.PrecacheSound("player/footsteps/metalgrate2.wav")
-	util.PrecacheSound("player/footsteps/metalgrate3.wav")
-	util.PrecacheSound("player/footsteps/metalgrate4.wav")
-	--util.PrecacheSound("npc/fast_zombie/gurgle_loop1.wav")
-	
+
 	-- Quick way to precache all sounds
 	for _, snd in pairs(ZombieClasses[2].PainSounds) do
 		util.PrecacheSound(snd)

@@ -32,16 +32,16 @@ SWEP.Slot = 2
 SWEP.SlotPos = 6
 
 -- Damage, distane, delay
-SWEP.Primary.Damage = 30
-SWEP.Primary.Delay = 0.4
+SWEP.Primary.Damage = 25
+SWEP.Primary.Delay = 0.45
 SWEP.Primary.Distance = 50
 
 SWEP.DamageType = DMG_CLUB
 
-SWEP.MeleeDamage = 30
+SWEP.MeleeDamage = 25
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
-SWEP.WalkSpeed = 212
+SWEP.WalkSpeed = 208
 
 SWEP.UseMelee1 = true
 
