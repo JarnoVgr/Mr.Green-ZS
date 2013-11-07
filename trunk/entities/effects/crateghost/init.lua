@@ -40,7 +40,7 @@ function EFFECT:Think()
 	end
 
 	--Check distance to Supply Crates
-	--[[for _, point in pairs(RealCrateSpawns) do
+	--[[for _, point in pairs(CrateSpawnsPositions) do
 		if tr.HitPos:Distance(point) > 100 then
 			continue
 		end

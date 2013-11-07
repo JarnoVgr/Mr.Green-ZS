@@ -149,7 +149,7 @@ if SERVER then
 		return
 	end
 	
-	for _, point in pairs(RealCrateSpawns) do
+	for _, point in pairs(CrateSpawnsPositions) do
 		if tr.HitPos then
 			if tr.HitPos:Distance(point) < 40 then
 				self.Owner:Message("Place the turret more away from the Supply Crate!", 2)

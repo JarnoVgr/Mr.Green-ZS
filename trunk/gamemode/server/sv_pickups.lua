@@ -108,7 +108,7 @@ function GM:CalculateRandomLocations()
 	
 	local spawns = team.GetSpawnPoint(TEAM_HUMAN)
 	
-	local cratespawns = RealCrateSpawns or {}
+	local cratespawns = CrateSpawnsPositions or {}
 	
 	for i, spwn in pairs(spawns) do
 		table.insert(self.PickupsLocations,spwn:GetPos()+Vector(VectorRand().x*40,VectorRand().y*40,math.random(50,90)))

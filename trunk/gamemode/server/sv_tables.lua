@@ -28,7 +28,7 @@ WeaponTypeToCategory["christmas"] = "Admin"
 WeaponsRestricted = { "weapon_stunstick", "weapon_crowbar", "weapon_pistol", "weapon_357", "weapon_ar2", "weapon_shotgun", "weapon_frag", "weapon_crossbow", "weapon_rpg" }
 
 -- SuperAdmin only weapons 
-SuperAdminOnlyWeapons = { "admin_tool_canister", "admin_tool_remover", "weapon_physgun", "weapon_physcannon", "admin_tool_sprayviewer", "admin_tool_igniter" }
+SuperAdminOnlyWeapons = { "admin_tool_canister", "admin_tool_remover", "weapon_physgun", "weapon_physcannon", "admin_tool_sprayviewer", "admin_tool_igniter", "admin_maptool" }
 
 GM.AmmoTranslations = {}
 GM.AmmoTranslations["weapon_physcannon"] = "pistol"

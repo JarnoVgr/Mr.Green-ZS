@@ -68,7 +68,7 @@ function metaPlayer:ReadDataSQL()
 			if self:GotSQLData() then
 				if ( self.IsClientValid ) then
 					gamemode.Call( "OnPlayerReadySQL", self )
-					print( "[SQL] Successfully got SQL player table for "..tostring( self ) )
+					Debug( "[SQL] Successfully got SQL player table for "..tostring( self ) )
 					
 					-- Datatable @ join
 					if not self.JoinDataTable then
@@ -112,17 +112,10 @@ function metaPlayer:ReadItemsSQL()
 	
 	-- Get bought items
 	stats.QueryBoughtItemsSQL( self:SteamID(), function( Table, Status, sError )
-	
-	
-		-- print(tostring(self).." checking ReadItemsSQL()")
-		
 		if not IsValidSpecial( self ) then
 			return
 		end
-		
-		-- print(tostring(sError).."    "..tostring(Status))
-		-- PrintTable(Table)
-		
+
 		-- Convert data
 		for k,v in pairs ( shopData ) do
 			self.DataTable.ShopItems[v.ID] = ( GetTableByID( Table, v.ID, "itembought" ) ~= nil )
@@ -179,16 +172,10 @@ function metaPlayer:ReadAchievementsSQL()
 	
 	-- Get  achievements
 	stats.QueryUnlockAchievementsSQL( self:SteamID(), function( Table, Status, sError )
-	
-		-- print(tostring(self).." checking ReadAchievementsSQL()")
-		
 		if not IsValidSpecial( self ) then
 			return
 		end
-		
-		-- print(tostring(sError).."    "..tostring(Status))
-		-- PrintTable(Table)
-		
+
 		-- Convert data
 		for k,v in pairs ( achievementDesc ) do
 			self.DataTable.Achievements[k] = ( GetTableByID( Table, k, "achievements" ) ~= nil )
@@ -244,14 +231,10 @@ function metaPlayer:ReadStatsSQL()
 	
 	-- Callback function for general stats
 	stats.QueryStatsCall = function( Table, Status, sError )
-		-- print(tostring(self).." checking ReadStatsSQL()")
 		if not( IsValidSpecial( self ) and self:HasSteamID() ) then
 			return
 		end
-		
-		-- print(tostring(sError).."    "..tostring(Status))
-		-- PrintTable(Table)
-		
+
 		-- Log errors 
 		if ( sError ~= 0 ) or ( Status ~= true ) then -- ASSERT
 			ErrorNoHalt( "[SQL: "..os.date().."] Error when getting general stats data for "..tostring( self )..": "..tostring( sError ).."\n" ) 
@@ -347,16 +330,10 @@ function metaPlayer:ReadClassSQL()
 
 	-- Callback for class data
 	stats.QueryClassDataCall = function( Table, Status, sError )
-		
-		-- print(tostring(self).." checking ReadClassSQL()")
-		
 		if not( IsValidSpecial( self ) and self:HasSteamID() ) then
 			return
 		end
-		
-		-- print(tostring(sError).."    "..tostring(Status))
-		-- PrintTable(Table)
-		
+
 		-- Log errors
 		if ( sError ~= 0 ) or ( Status ~= true ) then -- ASSERT
 			ErrorNoHalt( "[SQL: "..os.date().."] Error when reading class data for "..tostring( self )..": "..tostring( sError ).."\n" ) 

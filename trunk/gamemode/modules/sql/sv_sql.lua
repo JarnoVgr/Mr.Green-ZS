@@ -69,17 +69,17 @@ mysql.Connect = function()
 	local Login = { Host = "ares.limetric.com", User = "mrgreen_gczs", Pass = "WG0gcZSr", Database = "mrgreen_gc", Port = 3306 }
 	
 	-- Check for module and try to connect
-	if not mysql.IsModuleActive() then print( mysql.Warnings["connect_module_not_loaded"] ) return end
+	if not mysql.IsModuleActive() then Debug( mysql.Warnings["connect_module_not_loaded"] ) return end
 	tmysql.initialize( Login.Host, Login.User, Login.Pass, Login.Database, Login.Port, 2, 2 )
 	
 	-- Check connection
 	mysql.CheckConnection()
 	timer.Simple( 1, function()
 		if not mysql.IsConnected() then 
-			print( mysql.Warnings["no_connection"] ) 
+			Debug( mysql.Warnings["no_connection"] ) 
 		else 
 			gamemode.Call( "OnConnectSQL" )
-			print( mysql.Warnings["connection_on"] ) 
+			Debug( mysql.Warnings["connection_on"] ) 
 		end
 	end )
 end

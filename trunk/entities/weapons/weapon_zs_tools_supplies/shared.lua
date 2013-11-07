@@ -206,7 +206,7 @@ function SWEP:PrimaryAttack()
 
 		if canPlaceCrate then
 			--Check distance to Supply Crates
-			for _, point in pairs(RealCrateSpawns) do
+			for _, point in pairs(CrateSpawnsPositions) do
 				if tr.HitPos:Distance(point) <= 100 then
 					self.Owner:Message("Place the Mobile Supplies more away from the Supply Crate", 2)
 					canPlaceCrate = false

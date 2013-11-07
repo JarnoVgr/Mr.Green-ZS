@@ -1116,8 +1116,7 @@ local weaponList = { "weapon_zs_mac10", "weapon_zs_grenadelauncher","weapon_zs_t
 "weapon_zs_pulserifle", "weapon_zs_melee_keyboard", "weapon_zs_melee_katana", "weapon_zs_melee_sledgehammer", "weapon_zs_melee_pot", "weapon_zs_melee_axe", "weapon_zs_melee_keyboard", "weapon_zs_melee_fryingpan", "weapon_zs_melee_shovel", "weapon_zs_tools_hammer", "weapon_zs_melee_plank","weapon_zs_grenadelauncher","weapon_zs_boomstick","weapon_zs_melee_combatknife","weapon_zs_pickup_flare","weapon_zs_pickup_gascan","weapon_zs_pickup_gascan2","weapon_zs_pickup_gasmask","weapon_zs_pickup_propane","weapon_zs_tools_plank"}
 
 --List of weapons only available to superadmins
-local restrictedweaponList = { "dev_points", "admin_tool_remover", "admin_tool_sprayviewer", "admin_tool_igniter", "admin_tool_canister", "weapon_physgun", "admin_exploitblocker",
-"weapon_physcannon"	}
+local restrictedweaponList = { "dev_points", "admin_tool_remover", "admin_tool_sprayviewer", "admin_tool_igniter", "admin_tool_canister", "weapon_physgun", "admin_exploitblocker", "admin_maptool", "weapon_physcannon" }
 		
 local function AdminSay(pl, text, teamonly)
 	if not pl:IsAdmin() then 
@@ -1181,6 +1180,9 @@ local function AdminSay(pl, text, teamonly)
 		return ""
 	elseif text == "!exploitblocker" and pl:IsSuperAdmin() then
 		pl:Give("admin_exploitblocker")
+		return ""
+	elseif text == "!maptool" and pl:IsSuperAdmin() then
+		pl:Give("admin_maptool")
 		return ""
 	elseif text == "!ravebreak" then
 		if LASTHUMAN or ENDROUND then

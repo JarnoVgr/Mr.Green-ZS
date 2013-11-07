@@ -2,24 +2,8 @@
 -- See LICENSE.txt for license information
 
 AmmoDropPoints = { X = {}, Y = {}, Z = {}, Switch = {}, ID = {} }
-RealCrateSpawns = {}
-FullCrateSpawns = {}
-
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-
-local function AddCratesToPVS(pl)
-	for _, pos in ipairs(RealCrateSpawns) do
-		AddOriginToPVS(pos)
-	end
-end
+CrateSpawnsPositions = {}
+AllCrateSpawns = {}
 
 --Load crates from map file
 function GM:SetCrates()
@@ -29,47 +13,27 @@ function GM:SetCrates()
 		local tbl = util.JSONToTable(file.Read(filename))
 		
 		for i,stuff in pairs(tbl) do
-			local minitable = { pos = Vector ( stuff.Pos[1] or 0, stuff.Pos[2] or 0,  stuff.Pos[3] or 0 ), switch = tobool ( stuff.Switch )}
-			local minitable2 = Vector ( stuff.Pos[1] or 0, stuff.Pos[2] or 0,  stuff.Pos[3] or 0 )
-			table.insert(FullCrateSpawns,minitable)
-			table.insert(RealCrateSpawns,minitable2)
+			if not stuff.Pos then
+				Debug("[DIRECTOR] Skipped loading Supply Crate due to missing Pos")
+				continue
+			end
+
+			--Fix for possible missing Angles
+			if not stuff.Angles then
+				stuff.Angles = {}
+			end
+
+			local miniTable = {
+				pos = Vector(stuff.Pos[1] or 0, stuff.Pos[2] or 0, stuff.Pos[3] or 0),
+				angles = Angle(stuff.Angles[1] or 0, stuff.Angles[2] or 0, stuff.Angles[3] or 0),
+				switch = false
+			}
+			table.insert(AllCrateSpawns,miniTable)
 		end
-		
-		--Causer of lag
-		--hook.Add( "SetupPlayerVisibility", "AddCratesToPVS", AddCratesToPVS )
-		
+				
 		Debug("[DIRECTOR] Loaded Crate Spawnpoints")
 	end
 end
-
---Convert old files to new
-function ConvertOldCratesToNew(pl,cmd,args)
-	if not pl:IsAdmin() then return end
-	
-	for i, filename in ipairs(file.Find("zombiesurvival/gamemode/server/maps/ammobox/*.lua","lsv")) do
-		local tbl = {}
-		
-		-- print("Found file: "..filename)
-		
-		AmmoDropPoints = { X = {}, Y = {}, Z = {}, Switch = {}, ID = {} }
-		include( "zombiesurvival/gamemode/server/maps/ammobox/"..filename ) 
-		
-		if #AmmoDropPoints["X"] > 0 then 
-			for i,j in pairs ( AmmoDropPoints["X"] ) do
-				local P = { Pos = {AmmoDropPoints.X[i] or 0, AmmoDropPoints.Y[i] or 0, AmmoDropPoints.Z[i] or 0}, Switch = tobool ( AmmoDropPoints.Switch[i] )}
-				table.insert(tbl,P)
-			end
-		end
-		
-		local output = string.gsub(filename,".lua",".txt")
-		
-		file.Write( "zombiesurvival/crates/"..output,util.TableToJSON(tbl or {}) )	
-	end
-	AmmoDropPoints = { X = {}, Y = {}, Z = {}, Switch = {}, ID = {} }
-	
-	pl:ChatPrint("All old spawns were successfully converted!")
-end
-concommand.Add("zs_convertcrates",ConvertOldCratesToNew)
 
 --Import crates
 function ImportCratesFromClient(pl,cmd,args)
@@ -105,23 +69,6 @@ function ConfirmCratesFromClient(pl,cmd,args)
 	pl:ChatPrint("Successfully imported map file!")	
 end
 concommand.Add("zs_importcrates_confirm",ConfirmCratesFromClient)
-
--- Copy all positions so we can use them later
---[[if #AmmoDropPoints["X"] > 0 then 
-	for i,j in pairs ( AmmoDropPoints["X"] ) do
-		local P = Vector ( AmmoDropPoints.X[i] or 0, AmmoDropPoints.Y[i] or 0, AmmoDropPoints.Z[i] or 0 )
-		-- table.insert(RealCrateSpawns,P)
-	end
-end
-PrintTable(RealCrateSpawns)
-
-if #AmmoDropPoints["X"] > 0 then 
-	for i,j in pairs ( AmmoDropPoints["X"] ) do
-		local P = { pos = Vector ( AmmoDropPoints.X[i] or 0, AmmoDropPoints.Y[i] or 0, AmmoDropPoints.Z[i] or 0 ), switch = tobool ( AmmoDropPoints.Switch[i] ), id = AmmoDropPoints.ID[i]}
-		-- table.insert(FullCrateSpawns,P)
-	end
-end
-PrintTable(FullCrateSpawns)]]
 
 --[==[-------------------------------------------------------------
       Manage player +USE on the ammo supply boxes
@@ -184,14 +131,17 @@ hook.Add("PlayerUse", "DisableUseOnSupply", DisableDefaultUseOnSupply)
 --[==[-------------------------------------------------------------
             Used to spawn the Supply Crate
 --------------------------------------------------------------]==]
-function SpawnSupply(ID, Pos, Switch)
-	ID, Pos, Switch = ID or 1, Pos or Vector ( 0,0,0 ), Switch or false
+function SpawnSupply(ID, Pos, Angles)
+	ID, Pos = ID or 1, Pos or Vector ( 0,0,0 ), Angles or Vector(0,0,0)
 
-	-- Create the entity, set it's ID, switch bool and position
+	-- Create the entity, set it's ID, position and angles
 	local Crate = ents.Create("spawn_ammo")
-	Crate.ID, Crate.Switch = ID, tobool(Switch)
+	Crate.ID = ID
 	Crate:SetPos(Pos)
+	Crate:SetAngles(Angles)
 	Crate:Spawn()
+	
+	return Crate
 end
 
 --[==[-------------------------------------------------------------
@@ -257,10 +207,19 @@ end
 
 function GM:CalculateSupplyDrops()
 	--Check if we should calculate crates
-	if ENDROUND or #FullCrateSpawns < 1 then
+	if ENDROUND or #AllCrateSpawns < 1 then
 		return
 	end
-	
+		
+	--Spawn crates
+	self:SpawnCratesFromTable(AllCrateSpawns)
+end
+
+local function SortByHumens(a, b)
+	return a._Hum > b._Hum
+end
+
+function GM:SpawnCratesFromTable(crateSpawns,bAll)
 	--Remove current supplies
 	for k,v in ipairs(ents.FindByClass("spawn_ammo")) do
 		if IsValid(v) then			
@@ -268,35 +227,37 @@ function GM:CalculateSupplyDrops()
 		end
 	end
 	
-	--Spawn crates
-	self:SpawnCratesFromTable(FullCrateSpawns)
-end
-
-local function SortByHumens(a, b)
-	return a._Hum > b._Hum
-end
-
-function GM:SpawnCratesFromTable(crateSpawns)
 	local idTable = {}
 	
 	--Get crate table and shuffle it
-	local tab = table.Copy(crateSpawns)
-	table.Shuffle(tab)
+	--local tab = table.Copy(crateSpawns)
+	--table.Shuffle(tab)
+	
+	table.Shuffle(crateSpawns)
 	
 	local maxCrates = math.min(#crateSpawns,MAXIMUM_CRATES)
+	if bAll then
+		maxCrates = #crateSpawns
+	end
 	
 	local spawnedCratesCount = 0
 	
 	--Loop through crate requests
 	for i=1,maxCrates do
 		--Loop through crate spawns
-		for crateSpawnID, crateSpawn in pairs(tab) do			
+		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
 			if not table.HasValue(idTable,crateSpawnID) then	
-				if TraceHullSupplyCrate(crateSpawn.pos, tobool(crateSpawn.switch)) then
-					SpawnSupply(crateSpawnID, crateSpawn.pos, tobool(crateSpawn.switch))
+				if TraceHullSupplyCrate(crateSpawn.pos, false) then
+					crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
 					
+					--Add to table to prevent it being used again
 					table.insert(idTable,crateSpawnID)
 					
+					--Add crate position to easy-position table
+					local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
+					table.insert(CrateSpawnsPositions,miniPositionTable)
+					
+					--Increase count					
 					spawnedCratesCount = spawnedCratesCount + 1
 					
 					break
