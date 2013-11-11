@@ -1,18 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
---[[local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-local ents = ents
-local gmod = gmod]]
-
 --Third Party timer and hook profiler
 --include("modules/dbugprofiler/dbug_profiler.lua")
 

@@ -382,7 +382,7 @@ function GM:OnHumanSpawn(pl)
 	CalculatePlayerLoadout(pl)
 	
 	--Reapply loadout to prevent spawn bug
-	--	Disabled because it allows a weapon exploit at spawn (dropping all weapons quick and then getting them again)
+	--Disabled because it allows a weapon exploit at spawn (dropping all weapons quick and then getting them again)
 	--[[timer.Simple(2,function()
 		if ValidEntity(pl) then
 			if #pl:GetWeapons() < 1 then
@@ -403,12 +403,12 @@ function GM:OnHumanSpawn(pl)
 	self:ProceedCustomSpawn(pl)
 
 	--Set hat and suit
-	--[[if (pl.SelectedHat ~= "none") or pl:IsBot() then
-		self:SpawnHat( pl, pl.SelectedHat )
+	if (pl.SelectedHat ~= "none") or pl:IsBot() then
+		self:SpawnHat(pl, pl.SelectedHat)
 	end
 	if (pl.SelectedSuit ~= "none") or pl:IsBot() then
-		self:SpawnSuit( pl, pl.SelectedSuit )
-	end]]
+		self:SpawnSuit(pl, pl.SelectedSuit)
+	end
 
 	--Hands test
 	local oldhands = pl:GetHands()
