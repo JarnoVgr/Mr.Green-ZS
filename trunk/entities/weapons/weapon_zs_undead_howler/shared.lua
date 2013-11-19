@@ -135,7 +135,7 @@ function SWEP:DoAttack( bPull )
 		end
 
 		-- Calculate velocity
-		local Velocity = -1 * mOwner:GetForward() * 225
+		local Velocity = -1 * mOwner:GetForward() * 170
 		if not bPull then
 			Velocity = -1 * Velocity * 2
 		end
@@ -147,7 +147,7 @@ function SWEP:DoAttack( bPull )
 		end
 
 		--Apply velocity		
-		v:SetVelocity( Velocity )
+		v:SetVelocity(Velocity)
 				
 		-- Play sound
 		timer.Simple(0.2, function()
