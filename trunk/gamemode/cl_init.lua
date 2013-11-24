@@ -1269,7 +1269,7 @@ function BloodDraw()
 		end
 	end
 end
---hook.Add("HUDPaint","DrawBloodSplats",BloodDraw)
+hook.Add("HUDPaint","DrawBloodSplats",BloodDraw)
 
 -----------------
 
