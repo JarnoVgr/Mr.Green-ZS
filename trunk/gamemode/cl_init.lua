@@ -330,9 +330,6 @@ end)
 function GM:OnWeaponEquip ( pl, mWeapon )
 end
 
---Prevent freeze when weapons drop
-util.PrecacheSound("mrgreen/ui/gamestartup1.mp3")
-
 if not killicon.GetFont then -- Need this for the rewards message.
 	local kiaf = killicon.AddFont
 	local storedfonts = {}
