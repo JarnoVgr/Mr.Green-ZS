@@ -270,8 +270,8 @@ function InsertWeaponsTab()
 					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price )
 				elseif GetConVarString("_zs_skillshopsort") == "expensive" then
 					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price*-1 )
-				elseif GetConVarString("_zs_skillshopsort") == "avalaible" then
-					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price <= MySelf:Frags() and -2000 or 2000 )
+				elseif GetConVarString("_zs_skillshopsort") == "available" then
+					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price <= MySelf:Frags() and GAMEMODE.HumanWeapons[wep].Price*-1 or GAMEMODE.HumanWeapons[wep].Price )
 				elseif GetConVarString("_zs_skillshopsort") == "onsale" then
 					WeaponTab[wep]:SetZPos( IsOnSale(wep) and -2000 or 2000 )
 				else
@@ -450,7 +450,7 @@ function InsertAmmoTab()
 					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price )
 				elseif GetConVarString("_zs_skillshopsort") == "expensive" then
 					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price*-1 )
-				elseif GetConVarString("_zs_skillshopsort") == "avalaible" then
+				elseif GetConVarString("_zs_skillshopsort") == "available" then
 					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price <= MySelf:Frags() and -2000 or 2000 )
 				else
 					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price )
@@ -517,7 +517,7 @@ end
 local Sorting = {}
 Sorting["cheap"] = {"Cheap items on top"}
 Sorting["expensive"] = {"Expensive items on top"}
-Sorting["avalaible"] = {"Avalaible items on top"}
+Sorting["available"] = {"Available items on top"}
 Sorting["onsale"] = {"Discounted items on top"}
 
 function DrawSkillShop()
@@ -540,7 +540,7 @@ function DrawSkillShop()
 	BlurMenu:SetSize(TopMenuW,TopMenuH)
 	BlurMenu:SetPos(TopMenuX,TopMenuY)
 	BlurMenu:SetSkin("ZSMG")
-	BlurMenu:SetTitle( "Welcome to the SkillShop!" ) 
+	BlurMenu:SetTitle( "Welcome to the SkillShop: For all your Weapons and Supply needs" ) 
 	BlurMenu:SetDraggable ( false )
 	BlurMenu:SetBackgroundBlur( true )
 	BlurMenu:SetSizable(false)
@@ -595,7 +595,7 @@ function DrawSkillShop()
 		SortingBox:AddChoice(tbl[1],name)
 	end
 	
-	local def = "cheap"
+	local def = "available"
 	local choice = Sorting[def][1]
 	if Sorting[GetConVarString("_zs_skillshopsort")] then
 		choice = Sorting[GetConVarString("_zs_skillshopsort")][1]

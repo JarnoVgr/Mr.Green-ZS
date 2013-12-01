@@ -600,10 +600,10 @@ Enjoy your stay and have fun!
 
 SKILLSHOP_TEXT =
 [[
-At SkillShop you can buy weapons and ammo for yourself using your earned SkillPoints.
-To gain SkillPoints - simply kill zombies and help your teammates.
+At SkillShop you buy Weapons, Ammo and Supplies. Payment is done with SkillPoints (SP).
+To gain SkillPoints - simply kill the Undead and help your teammates.
 
-Please remember bought weapons can only be used during the current round.
+Please remember bought Weapons only last this round!
 ]]	
 
 local shit = ""

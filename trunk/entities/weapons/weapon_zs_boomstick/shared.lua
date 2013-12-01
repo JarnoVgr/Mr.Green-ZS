@@ -1,7 +1,4 @@
-if SERVER then
-	AddCSLuaFile("shared.lua")
-	SWEP.HoldType = "shotgun"
-end
+AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "'Boomstick'"
@@ -10,24 +7,13 @@ if CLIENT then
 	SWEP.SlotPos = 17
 	SWEP.ViewModelFlip = false
 	
-	SWEP.ShowViewModel = true
-	SWEP.IgnoreBonemerge = false
-	SWEP.UseHL2Bonemerge = true
-	SWEP.ScaleDownLeftHand = true
-	
 	killicon.AddFont( "weapon_zs_boomstick", "HL2MPTypeDeath", "0", Color( 255, 255, 255, 255 ) )
 end
 
 SWEP.Base = "weapon_zs_base"
 
-SWEP.ViewModel = "models/weapons/c_shotgun.mdl"
-SWEP.UseHands = true
-SWEP.WorldModel = "models/weapons/w_shotgun.mdl"
-
 SWEP.Weight = 10
 SWEP.ReloadDelay = 0.4
-
-SWEP.HoldType = "shotgun"
 
 util.PrecacheSound("weapons/shotgun/shotgun_dbl_fire.wav")
 SWEP.Primary.Sound = "weapons/shotgun/shotgun_dbl_fire.wav"
@@ -45,9 +31,8 @@ SWEP.ConeMoving = 0.11
 SWEP.Cone = 0.082
 SWEP.ConeCrouching = 0.061
 
-
 SWEP.IsShotgun = true
-SWEP.MaxAmmo			    = 55
+SWEP.MaxAmmo = 55
 SWEP.WalkSpeed = 185
 
 SWEP.reloadtimer = 0
@@ -59,21 +44,27 @@ SWEP.IronSightsAng = Vector(1, 0, 0)
 SWEP.OverridePos = Vector(-3.36, -9.016, 2.2)
 SWEP.OverrideAng = Vector(0, 0, 0)
 
-SWEP.ViewModelBoneMods = {
-	["ValveBiped.Pump"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-	["ValveBiped.Bip01"] = { scale = Vector(1, 1, 1), pos = Vector(2.469, 0.28, -0.607), angle = Angle(0, 0, 0) }
+SWEP.VElements = {
+	["chamber"] = { type = "Model", model = "models/props_junk/garbage_metalcan002a.mdl", bone = "v_weapon.M3_PARENT", rel = "", pos = Vector(-0.424, -4.538, -4.647), angle = Angle(180, 0, 0), size = Vector(0.061, 0.061, 0.236), color = Color(255, 255, 255, 255), surpresslightning = true, material = "models/props_lab/tank_glass001", skin = 0, bodygroup = {} },
+	["shell"] = { type = "Model", model = "models/Items/grenadeAmmo.mdl", bone = "v_weapon.M3_SHELL", rel = "", pos = Vector(0, 0, -0.93), angle = Angle(0, 0, 0), size = Vector(0.5, 0.5, 0.337), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["pump"] = { type = "Model", model = "models/props_junk/metalgascan.mdl", bone = "v_weapon.M3_PUMP", rel = "", pos = Vector(0, 0.446, -4.586), angle = Angle(0, 0, 0), size = Vector(0.207, 0.207, 0.31), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["thing"] = { type = "Model", model = "models/props_lab/teleportbulkeli.mdl", bone = "v_weapon.M3_PARENT", rel = "", pos = Vector(-0, -7.61, -3.994), angle = Angle(90, 90, 0), size = Vector(0.014, 0.014, 0.014), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
-SWEP.VElements = {
-	["part3"] = { type = "Model", model = "models/Weapons/w_grenade.mdl", bone = "ValveBiped.square", rel = "", pos = Vector(0, 0, -1.431), angle = Angle(0, 0, 0), size = Vector(0.4, 0.4, 0.4), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["part1"] = { type = "Model", model = "models/props_lab/teleportbulkeli.mdl", bone = "ValveBiped.Gun", rel = "", pos = Vector(0.231, -4.999, -7.783), angle = Angle(-90, -90, 0), size = Vector(0.021, 0.021, 0.021), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["part2"] = { type = "Model", model = "models/props_lab/HEV_case.mdl", bone = "ValveBiped.Pump", rel = "", pos = Vector(0, 1.343, -2.938), angle = Angle(0, -90, 0), size = Vector(0.059, 0.059, 0.142), color = Color(90, 90, 90, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-}
-	
 SWEP.WElements = {
-	["part1"] = { type = "Model", model = "models/props_lab/teleportbulkeli.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(11.319, 1.636, -9.157), angle = Angle(6.718, -180, 4.506), size = Vector(0.017, 0.017, 0.017), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["part2"] = { type = "Model", model = "models/props_lab/HEV_case.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(11.675, 1.1, -2.955), angle = Angle(97.574, -180, 1.136), size = Vector(0.059, 0.052, 0.148), color = Color(90, 90, 90, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["thing"] = { type = "Model", model = "models/props_lab/teleportbulkeli.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.359, 0.896, -7.804), angle = Angle(10, 180, 0), size = Vector(0.017, 0.017, 0.017), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["pump"] = { type = "Model", model = "models/props_junk/metalgascan.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(20.055, 0.763, -5.19), angle = Angle(0, 90, 99.418), size = Vector(0.272, 0.277, 0.331), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
+
+SWEP.HoldType = "shotgun"
+SWEP.ViewModelFOV = 57
+SWEP.ViewModelFlip = false
+SWEP.ViewModel = "models/weapons/cstrike/c_shot_m3super90.mdl"
+SWEP.UseHands = true
+SWEP.WorldModel = "models/weapons/w_shot_m3super90.mdl"
+SWEP.ShowViewModel = true
+SWEP.ShowWorldModel = true
+SWEP.ViewModelBoneMods = {}
 
 function SWEP:SetIronsights()
 end

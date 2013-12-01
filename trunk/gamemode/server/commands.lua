@@ -1364,9 +1364,9 @@ local function AdminSay(pl, text, teamonly)
 			return ""
 		-- Give frag command
 		elseif sep[1] == "!sp" and pl:IsSuperAdmin() and target:Team() == TEAM_SURVIVORS then
-			target:AddFrags(2000) 
-			pl:Message(target:GetName() .." received 2000 SP")
-			target:ChatPrint("You received 2000 SP from ".. pl:GetName())
+			skillpoints.AddSkillPoints(target, 500)
+			pl:Message(target:GetName() .." received 500 SP")
+			target:ChatPrint("You received 500 SP from ".. pl:GetName())
 			return ""
 		elseif sep[1] == "!swep" then -- gives the admin the ability to appoint a swep to a player     
 			local weaponToGive = nil
