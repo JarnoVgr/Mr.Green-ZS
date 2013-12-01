@@ -44,7 +44,7 @@ SWEP.WorldModel			= Model ( "models/weapons/w_rif_aug.mdl" )
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
-SWEP.PrintName			= "Inferno'"
+SWEP.PrintName			= "AUG"
 
 SWEP.HoldType = "ar2"
 
@@ -62,11 +62,11 @@ SWEP.Primary.Cone			= 0.05
 SWEP.MaxBulletDistance 		= 3500
 SWEP.MaxAmmo			    = 250
 
-SWEP.ConeMoving = 0.079
-SWEP.Cone = 0.059
-SWEP.ConeIron = 0.035
-SWEP.ConeCrouching = 0.041
-SWEP.ConeIronCrouching = 0.024
+SWEP.ConeMoving = 0.056
+SWEP.Cone = 0.043
+SWEP.ConeIron = 0.031
+SWEP.ConeCrouching = 0.034
+SWEP.ConeIronCrouching = 0.022
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 

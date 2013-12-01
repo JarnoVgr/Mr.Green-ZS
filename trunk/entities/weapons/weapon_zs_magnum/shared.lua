@@ -1,9 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then
-	AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "Magnum"
@@ -14,21 +12,6 @@ if CLIENT then
 
 	killicon.AddFont( "weapon_zs_magnum", "HL2MPTypeDeath", ".",Color(255, 255, 255, 255 ) )
 	SWEP.ViewModelFOV = 50
-end
-
-if XMAS_2012 then
-
-	function SWEP:InitializeClientsideModels()
-	
-		self.VElements = {
-			["lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "Hand", rel = "", pos = Vector(0.34, -2.938, 4.329), angle = Angle(91.225, -89.616, 0.488), size = Vector(0.3, 0.3, 0.3), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-		self.WElements = {
-			["lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.497, 0.989, -2.882), angle = Angle(0, 0, 180), size = Vector(0.356, 0.356, 0.356), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-		
-	end
-
 end
 
 SWEP.Base = "weapon_zs_base"
@@ -47,37 +30,35 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_357.Single" )
-SWEP.Primary.Recoil			= 6
+SWEP.Primary.Recoil			= 12
 SWEP.Primary.Damage			= 51
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.55
 SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= false
-SWEP.Primary.Ammo			= "pistol"--?
+SWEP.Primary.Ammo			= "pistol"
 SWEP.WalkSpeed = 200
 SWEP.MaxAmmo			    = 60
 
-SWEP.ConeMoving = 0.079
-SWEP.Cone = 0.054
+SWEP.ConeMoving = 0.063
+SWEP.Cone = 0.046
 SWEP.ConeIron = 0.032
 SWEP.ConeCrouching = 0.035
 SWEP.ConeIronCrouching = 0.022
 
-SWEP.IronSightsPos = Vector(-4.64, -5.056, 1)
-SWEP.IronSightsAng = Vector(-2, 0, 0)
+SWEP.IronSightsPos = Vector( -4.64, -1.5, 0.54 )
+SWEP.IronSightsAng = Vector( 0, 0, 0 )
 
-SWEP.OverridePos = Vector(-1.481, -6.394, 1.559)
-SWEP.OverrideAng = Vector( 0,0,0 )
-
---SWEP.IronSightsPos = Vector(-1.481, -6.394, 1.559)
---SWEP.IronSightsAng = Vector(0, 0, 0)
+SWEP.OverridePos = Vector( 0, 0, 0 )
+SWEP.OverrideAng = Vector( 0, 0, 0 )
 
 local function DoRicochet(attacker, hitpos, hitnormal, normal, damage)
 	attacker.RicochetBullet = true
 	attacker:FireBullets({Num = 1, Src = hitpos, Dir = 2 * hitnormal * hitnormal:Dot(normal * -1) + normal, Spread = Vector(0, 0, 0), Tracer = 1, TracerName = "rico_trace", Force = damage * 0.15, Damage = damage * 2, Callback = GenericBulletCallback})
 	attacker.RicochetBullet = nil
 end
+
 function SWEP.BulletCallback(attacker, tr, dmginfo)
 	if SERVER and tr.HitWorld and not tr.HitSky then
 		timer.Simple(0, function() DoRicochet( attacker, tr.HitPos, tr.HitNormal, tr.Normal, dmginfo:GetDamage() * 2) end)
@@ -85,5 +66,3 @@ function SWEP.BulletCallback(attacker, tr, dmginfo)
 
 	GenericBulletCallback(attacker, tr, dmginfo)
 end
-
-

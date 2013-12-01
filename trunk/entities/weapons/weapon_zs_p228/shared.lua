@@ -48,7 +48,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound("Weapon_P228.Single")
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 12
+SWEP.Primary.Damage			= 13
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 15
 SWEP.Primary.Delay			= 0.1
@@ -67,11 +67,8 @@ SWEP.MaxBulletDistance 		= 1800
 
 SWEP.MaxAmmo			    = 130
 
-SWEP.IronSightsPos = Vector(-6, -10.473, 2.799)
-SWEP.IronSightsAng = Vector(0, 0, 0)
-
-SWEP.OverridePos = Vector(1.6, -1.624, 1.559)
-SWEP.OverrideAng = Vector(0, 0, 0)
+SWEP.IronSightsPos = Vector( -5.94, -1.5, 2.7 )
+SWEP.IronSightsAng = Vector( 0, 0.29, 0 )
 
 --SWEP.IronSightsPos = Vector(1.6, -1.624, 1.559)
 --SWEP.IronSightsAng = Vector(0, 0, 0)

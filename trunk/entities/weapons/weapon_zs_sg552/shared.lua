@@ -12,6 +12,7 @@ if CLIENT then
 	SWEP.SlotPos = 16
 	SWEP.IconLetter = "A"
 	killicon.AddFont("weapon_zs_sg552", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
+	SWEP.ViewModelFOV = 50
 end
 
 if XMAS_2012 then
@@ -46,7 +47,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_SG552.Single")
 SWEP.Primary.Recoil			= 8
-SWEP.Primary.Damage			= 15
+SWEP.Primary.Damage			= 18
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 28
 SWEP.storeclipsize			= 34
@@ -60,15 +61,16 @@ SWEP.Secondary.Delay = 0.5
 
 SWEP.WalkSpeed = 195
 
-SWEP.ConeMoving = 0.076
-SWEP.Cone = 0.053
+SWEP.ConeMoving = 0.061
+SWEP.Cone = 0.049
 SWEP.ConeIron = 0.041
 SWEP.ConeCrouching = 0.029
 SWEP.ConeIronCrouching = 0.019
 
 
-SWEP.IronSightsPos = Vector(-7.881, -18.504, 2.599)
-SWEP.IronSightsAng = Vector(0, 0, 0)
+SWEP.IronSightsPos = Vector( -6, -18.504, 2.599 )
+SWEP.IronSightsAng = Vector( 0, 2, 0 )
+
 
 --SWEP.IronSightsPos = Vector(6.635, -10.82, 2.678)
 --SWEP.IronSightsAng = Vector(0, 0, 0)

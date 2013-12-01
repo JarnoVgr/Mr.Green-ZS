@@ -43,9 +43,9 @@ SWEP.Primary.Delay			= 0.8
 SWEP.Primary.DefaultClip	= 12
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "buckshot"
-SWEP.ConeMoving = 0.156
-SWEP.Cone = 0.152
-SWEP.ConeCrouching = 0.146
+SWEP.ConeMoving = 0.121
+SWEP.Cone = 0.105
+SWEP.ConeCrouching = 0.078
 SWEP.MaxAmmo			    = 70
 SWEP.IsShotgun = true
 

@@ -50,25 +50,24 @@ SWEP.Primary.Recoil			= 3
 SWEP.Primary.Damage			= 41
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 7
-SWEP.Primary.Delay			= 0.32
+SWEP.Primary.Delay			= 0.3
 SWEP.Primary.DefaultClip	= 45
 SWEP.MaxAmmo			    = 70
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
 SWEP.WalkSpeed = 200
 
-SWEP.ConeMoving = 0.075
-SWEP.Cone = 0.054
-SWEP.ConeIron = 0.032
-SWEP.ConeCrouching = 0.039
-SWEP.ConeIronCrouching = 0.018
+SWEP.ConeMoving = 0.061
+SWEP.Cone = 0.043
+SWEP.ConeIron = 0.036
+SWEP.ConeCrouching = 0.038
+SWEP.ConeIronCrouching = 0.026
 
-SWEP.IronSightsPos = Vector(-6.372, -9.00, 2)
+SWEP.IronSightsPos = Vector(-6.391, -1.5, 1.87)
 SWEP.IronSightsAng = Vector(0.456, 0, 0)
 
 SWEP.OverridePos = Vector(1.48, -1.282, 1.679)
 SWEP.OverrideAng = Vector( 0,0,0 )
-
 --SWEP.IronSightsPos = Vector(1.48, -1.282, 1.679)
 --SWEP.IronSightsAng = Vector(0, 0, 0)
 

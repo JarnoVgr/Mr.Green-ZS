@@ -31,7 +31,7 @@ SWEP.Primary.Delay = 0.8
 SWEP.Primary.Distance = 50
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 57
+SWEP.MeleeDamage = 50
 SWEP.MeleeRange = 55
 SWEP.MeleeSize = 1.45
 SWEP.WalkSpeed = 197

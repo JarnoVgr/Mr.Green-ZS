@@ -48,11 +48,11 @@ SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_MP5Navy.Single")
 SWEP.Primary.Recoil			= 3
-SWEP.Primary.Damage			= 16
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 24
 SWEP.Primary.Delay			= 0.09
-SWEP.Primary.DefaultClip	= 78
+SWEP.Primary.DefaultClip	= 128
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
@@ -70,12 +70,12 @@ SWEP.MaxBulletDistance 		= 2300
 
 --SWEP.IronSightsPos = Vector(4.72,-2,1.86)
 --SWEP.IronSightsAng = Vector(1.2,-.15,0)
-SWEP.IronSightsPos = Vector(-5.361, -7.481, 1.759)
-SWEP.IronSightsAng = Vector(1.929, 0, 0)
+SWEP.IronSightsPos = Vector( -5.361, -4.5, 1.6 )
+SWEP.IronSightsAng = Vector( 1.9, 0, 0 )
 
 
-SWEP.OverridePos = Vector(1.6, -2.623, 1.559)
-SWEP.OverrideAng = Vector(0, 0, 0)
+SWEP.OverridePos = Vector( 1.6, -2.623, 1.559 )
+SWEP.OverrideAng = Vector( 0, 0, 0 )
 
 
 --SWEP.IronSightsPos = Vector(1.6, -2.623, 1.559)
