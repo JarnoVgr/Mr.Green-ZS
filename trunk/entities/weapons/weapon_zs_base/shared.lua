@@ -102,7 +102,9 @@ function SWEP:PrimaryAttack()
 	end
 
 	--Knockback
-	self.Owner:SetVelocity(-6 * (self.Primary.Recoil * recoilMultiplier) * self.Owner:GetAimVector())
+	local aimVec = self.Owner:GetAimVector()
+	aimVec.z = 0
+	self.Owner:SetVelocity(-6 * (self.Primary.Recoil * recoilMultiplier) * aimVec)
 
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
 end
