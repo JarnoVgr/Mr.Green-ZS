@@ -21,6 +21,3 @@ function metaPlayer:Redeem ( Causer )
 	end]]
 	gamemode.Call( "OnPlayerRedeem", self, Causer )
 end
-
-
-

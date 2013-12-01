@@ -279,7 +279,25 @@ function hud.DrawNewZombieHUD()
 
 		local timleft = math.max(0, ROUNDTIME - ServerTime())
 
-		draw.SimpleTextOutlined("Kill all survivors in ".. ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		--Tell player how many survivors are needed to kill
+		local requiredScore = REDEEM_KILLS
+		if MySelf:HasBought("quickredemp") then
+			requiredScore = REDEEM_FAST_KILLS
+		end
+		requiredScore = math.max(0,requiredScore - MySelf:Frags())
+		if requiredScore > 0 then
+			requiredScore = math.ceil(requiredScore/2)
+			if requiredScore == 1 then
+				requiredScore = "a survivor"
+			else
+				requiredScore = requiredScore .." survivors"
+			end
+		else
+			requiredScore = "all survivors"
+		end
+
+
+		draw.SimpleTextOutlined("Kill ".. requiredScore .." in ".. ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		draw.SimpleTextOutlined("Infliction: ", "NewZombieFont15", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		local space1 = surface.GetTextSize("Infliction: ")
@@ -532,7 +550,9 @@ function hud.DrawStatsPanel()
 	surface.SetFont("ssNewAmmoFont6.5")
 	local fWide, fTall = surface.GetTextSize("GreenCoins")
 	
-	draw.SimpleTextOutlined(MySelf:GreenCoins() .." GreenCoins", "ssNewAmmoFont6.5", StatsX, StatsY, Color(220,255,220,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+	draw.SimpleTextOutlined(MySelf:GreenCoins() .." GreenCoins", "ssNewAmmoFont6.5", StatsX, StatsY, Color(220,255,220,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+	draw.SimpleTextOutlined("Rank ".. MySelf:GetRank() .." (".. MySelf:GetXP() .."/".. MySelf:NextRankXP() .." XP)", "ssNewAmmoFont6.5", StatsX, StatsY+fTall+4, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+	
 	
 	StatsY = StatsY + fTall + 2
 	

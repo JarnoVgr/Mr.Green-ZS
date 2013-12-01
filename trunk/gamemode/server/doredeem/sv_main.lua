@@ -83,11 +83,10 @@ function GM:OnPlayerRedeem( pl, causer )
 	pl.LastRedeemTime = CurTime()
 
 	-- Reset the human's weapon counter to 0, for all categories
-	-- pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tools = 0, Others = 0, Explosive = 0, Admin = 0 }
 	pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
 	-- Reset check time for ammo regen
 	pl.ServerCheckTime = nil
-	pl:SetHumanClass ( 1 )
+	pl:SetHumanClass(1)
 	pl:StripWeapons()
 	pl:SetTeam(TEAM_HUMAN)
 	pl.FreshRedeem = true
