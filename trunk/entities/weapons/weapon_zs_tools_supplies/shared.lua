@@ -1,25 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
---[[
-SWEP.VElements = {
-	["element_name"] = { type = "Model", model = "models/Items/grenadeAmmo.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(0, 0, 0), angle = Angle(0, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-}
---I dont know why but it didnt edit bones without atleast one model... See if you can figure out a alternate way
-
-SWEP.ViewModelBoneMods = {
-	["ValveBiped.Bip01_R_Finger31"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 78.342, 0) },
-	["ValveBiped.Bip01_R_Finger21"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 78.342, 0) },
-	["ValveBiped.Bip01_R_Finger11"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 35.439, 0) },
-	["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -41.036, 0) },
-	["ValveBiped.Bip01_L_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, 74.611) },
-	["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(0.933, 2.798, 0), angle = Angle(0, 0, 0) },
-	["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(9.326, 6.527, -5.908), angle = Angle(-7.461, 0, -14.922) },
-	["ValveBiped.Bip01_R_Finger41"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 61.554, 0) },
-	["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 33.575, 0) }
-}
-]]
-
 AddCSLuaFile()
 
 SWEP.PrintName = "Mobile Supplies"
@@ -31,7 +12,7 @@ if CLIENT then
 	SWEP.DrawCrosshair = false
 	SWEP.IconLetter = "V"
 	
-	SWEP.ShowViewModel = true
+	SWEP.ShowViewModel = false
 	SWEP.ShowWorldModel = false
 	SWEP.IgnoreBonemerge = true
 	

@@ -3,18 +3,6 @@
 
 --local matHealthBar = surface.GetTextureID("zombiesurvival/healthbar_fill")
 
-local table = table
-local surface = surface
-local draw = draw
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-
-
 -- Replace beats with cuts of hl2_song2.mp3 here:
 local Beats = {}
 Beats[0] = {}

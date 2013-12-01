@@ -73,35 +73,19 @@ SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0
 
 function SWEP:Reload()
-	if self.reloading then return end
+	if self.reloading then
+		return
+	end
 
-	if self:GetNextReload() <= CurTime() and self:Clip1() < self.Primary.ClipSize and 0 < self.Owner:GetAmmoCount(self.Primary.Ammo) then
-		self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+	if self:Clip1() < self.Primary.ClipSize and 0 < self.Owner:GetAmmoCount(self.Primary.Ammo) then
+		self:SetNextPrimaryFire(CurTime() + self.ReloadDelay)
 		self.reloading = true
 		self.reloadtimer = CurTime() + self.ReloadDelay
 		self:SendWeaponAnim(ACT_SHOTGUN_RELOAD_START)
-		self.Owner:DoReloadEvent()
-		self:SetNextReload(CurTime() + self:SequenceDuration())
+		self.Owner:RestartGesture(ACT_HL2MP_GESTURE_RELOAD_SHOTGUN)
 	end
-end
 
-function SWEP:PrimaryAttack()
-	if self:CanPrimaryAttack() then
-		self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-		self:EmitSound(self.Primary.Sound)
-
-		local clip = self:Clip1()
-
-		self:ShootBullets(self.Primary.Damage, self.Primary.NumShots * clip, self.Cone)
-
-		self:TakePrimaryAmmo(clip)
-		self.Owner:ViewPunch(clip * 0.5 * self.Primary.Recoil * Angle(math.Rand(-0.1, -0.1), math.Rand(-0.1, 0.1), 0))
-
-		self.Owner:SetGroundEntity(NULL)
-		self.Owner:SetVelocity(-100 * clip * self.Owner:GetAimVector())
-
-		self.IdleAnimation = CurTime() + self:SequenceDuration()
-	end
+	self:SetIronsights(false)
 end
 
 function SWEP:Think()
@@ -111,9 +95,8 @@ function SWEP:Think()
 
 		self.Owner:RemoveAmmo(1, self.Primary.Ammo, false)
 		self:SetClip1(self:Clip1() + 1)
-		self:EmitSound("Weapon_Shotgun.Reload")
 
-		if self.Primary.ClipSize <= self:Clip1() or self.Owner:GetAmmoCount(self.Primary.Ammo) <= 0 or not self.Owner:KeyDown(IN_RELOAD) then
+		if self.Primary.ClipSize <= self:Clip1() or self.Owner:GetAmmoCount(self.Primary.Ammo) <= 0 then
 			self.nextreloadfinish = CurTime() + self.ReloadDelay
 			self.reloading = false
 			self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
@@ -122,14 +105,8 @@ function SWEP:Think()
 
 	local nextreloadfinish = self.nextreloadfinish
 	if nextreloadfinish ~= 0 and nextreloadfinish < CurTime() then
-		self:SendWeaponAnim(ACT_SHOTGUN_PUMP)
-		self:EmitSound("Weapon_Shotgun.Special1")
+		self:SendWeaponAnim(ACT_SHOTGUN_RELOAD_FINISH)
 		self.nextreloadfinish = 0
-	end
-
-	if self.IdleAnimation and self.IdleAnimation <= CurTime() then
-		self.IdleAnimation = nil
-		self:SendWeaponAnim(ACT_VM_IDLE)
 	end
 
 	if self:GetIronsights() and not self.Owner:KeyDown(IN_ATTACK2) then
@@ -140,7 +117,6 @@ end
 function SWEP:CanPrimaryAttack()
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
 
-
 	if self:Clip1() <= 0 then
 		self:EmitSound("Weapon_Shotgun.Empty")
 		self:SetNextPrimaryFire(CurTime() + 0.25)
@@ -148,16 +124,18 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	if self.reloading then
-		if self:Clip1() < self.Primary.ClipSize then
+		if 0 < self:Clip1() then
 			self:SendWeaponAnim(ACT_SHOTGUN_RELOAD_FINISH)
 		else
-			self:SendWeaponAnim(ACT_SHOTGUN_RELOAD_PUMP)
-			self:EmitSound("Weapon_Shotgun.Special1")
+			self:SendWeaponAnim(ACT_VM_IDLE)
 		end
 		self.reloading = false
 		self:SetNextPrimaryFire(CurTime() + 0.25)
 		return false
 	end
 
-	return self:GetNextPrimaryFire() <= CurTime()
+	return true
+end
+
+function SWEP:SecondaryAttack()
 end

@@ -236,6 +236,10 @@ function SWEP:StartSwinging()
 	if self.Owner and self.Owner:GetSuit() == "meleesuit" then
 		swingtime = math.Clamp(self.SwingTime-0.11,0,self.SwingTime)
 	end
+
+	--Viewpunch
+	--owner:MeleeViewPunch(math.random(5,30))
+
 	self:SetSwingEnd(CurTime() + swingtime)
 end
 
@@ -246,8 +250,6 @@ function SWEP:MeleeSwing()
 	local filter = owner:GetMeleeFilter()
 
 	owner:LagCompensation(true)
-
-	--owner:MeleeViewPunch(math.random(5,30))
 
 	local tr = owner:MeleeTrace(self.MeleeRange, self.MeleeSize, filter)
 	if tr.Hit then

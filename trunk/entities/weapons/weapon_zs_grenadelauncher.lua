@@ -41,7 +41,7 @@ SWEP.WorldModel = "models/weapons/w_sw_grenadelauncher.mdl"
 SWEP.ShowViewModel = true
 SWEP.ShowWorldModel = true
 
-SWEP.Primary.Recoil			= 5
+SWEP.Primary.Recoil			= 10
 SWEP.Primary.NumShots		= 1
 
 SWEP.Primary.ClipSize		= 6

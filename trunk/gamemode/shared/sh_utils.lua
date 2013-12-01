@@ -324,30 +324,6 @@ end
 --[==[-------------------------------------------------------
            Calculates a new form of difficulty
 --------------------------------------------------------]==]
-function GM:CalculateDifficulty()
-	if ENDROUND then
-		return
-	end
-	
-	-- Difficulty based on ratios, guns and frags
-	local tbDifficulty = { GetInfliction() * 2, self:CalcFragsDifficulty(), self:CalcGunsDifficulty() }
-
-	local iVars, fDifficulty = 0, 0
-	for i = 1, #tbDifficulty do
-		if tbDifficulty[i] then
-			fDifficulty = fDifficulty + tbDifficulty[i]
-			iVars = iVars + 1
-		end
-	end
-	
-	if SERVER then Debug ( "Difficulty calc is : "..tostring ( fDifficulty / iVars )..". Vars are "..tostring ( iVars ).."/3. RatioDiff: "..tostring ( tbDifficulty[1] ).."/ FragDiff: "..tostring ( tbDifficulty[2] ).."/ GunDiff: "..tostring ( tbDifficulty[3] ) ) end
-	
-	return math.Clamp ( fDifficulty / iVars, 0.01, 2 )
-end
-
---[==[-------------------------------------------------------
-           Calculates a new form of difficulty
---------------------------------------------------------]==]
 function GM:CalcFragsDifficulty()
 	if ENDROUND then return end
 	
@@ -403,18 +379,11 @@ function GM:CalcGunsDifficulty()
 	return fGunDifficulty
 end
 
---[==[----------------------------------------
-           Calculates difficulty
-----------------------------------------]==]
-function GetDifficulty()
-	if SERVER then return difficulty else return GAMEMODE:CalculateDifficulty() end
-end
-
 --[==[-----------------------------------------------------
            Returns if an entity is valid or not
 ------------------------------------------------------]==]
-function IsEntityValid ( mEnt )
-	return ValidEntity ( mEnt )
+function IsEntityValid(mEnt)
+	return ValidEntity(mEnt)
 end
 
 --[==[---------------------------------------------------------------------------

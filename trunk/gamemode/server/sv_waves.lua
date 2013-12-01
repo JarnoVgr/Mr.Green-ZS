@@ -74,13 +74,18 @@ function GM:CalculateInfliction()
 		return
 	end
 
-	local zombies = team.NumPlayers(TEAM_UNDEAD)
+	--[[local zombies = team.NumPlayers(TEAM_UNDEAD)
 	local humans = team.NumPlayers(TEAM_SURVIVORS)
 	local players = humans + zombies
 	
 	local progressTime = CurTime() / ROUNDTIME
 	
 	INFLICTION = math.Round(math.max(math.Clamp(zombies / players, 0.001, 1), progressTime),2)
+	CAPPED_INFLICTION = INFLICTION]]
+	
+	local progressTime = CurTime() / ROUNDTIME
+	
+	INFLICTION = math.Round(progressTime,2)
 	CAPPED_INFLICTION = INFLICTION
 
 	self:SendInfliction()

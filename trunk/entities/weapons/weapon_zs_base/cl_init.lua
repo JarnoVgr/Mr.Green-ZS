@@ -2,7 +2,7 @@ include("shared.lua")
 
 SWEP.DrawAmmo = true
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 57
+SWEP.ViewModelFOV = 65
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = true
 SWEP.BobScale = 2

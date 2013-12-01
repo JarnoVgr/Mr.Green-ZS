@@ -1,6 +1,4 @@
-if SERVER then
-        AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
  
 if CLIENT then
         SWEP.PrintName = "'Classic' Pistol"
@@ -12,7 +10,6 @@ if CLIENT then
        
         SWEP.OverrideAngle = {}
  
-       
         killicon.AddFont( "weapon_zs_classic", "HL2MPTypeDeath", "-", Color(255, 255, 255, 255 ) )
 end
  
@@ -21,18 +18,14 @@ SWEP.Base = "weapon_zs_base"
 SWEP.Spawnable                  = true
 SWEP.AdminSpawnable             = true
  
-SWEP.ViewModel = Model("models/weapons/cstrike/c_pist_glock18.mdl")
-SWEP.UseHands = true
-SWEP.WorldModel = Model("models/weapons/w_pistol.mdl")
- 
 SWEP.Weight                             = 5
  
 SWEP.HoldType = "pistol"
  
-SWEP.Primary.Sound                      = Sound("Weapon_Pistol.NPC_Single")
-SWEP.ReloadSound                        = Sound("Weapon_Pistol.Reload")
-SWEP.Primary.Recoil                     = 3
-SWEP.Primary.Damage                     = 13
+SWEP.Primary.Sound  = Sound("Weapon_Pistol.NPC_Single")
+SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
+SWEP.Primary.Recoil  = 3
+SWEP.Primary.Damage = 13
 SWEP.Primary.NumShots           = 2
 SWEP.Primary.ClipSize           = 12
 SWEP.Primary.Delay                      = 0.2
@@ -51,19 +44,24 @@ SWEP.ConeIron = 0.022
 SWEP.ConeCrouching = 0.032
 SWEP.ConeIronCrouching = 0.014
  
---[==[SWEP.IronSightsPos = Vector(-5.85, -3,4, 0)
-SWEP.IronSightsAng = Vector(0.15, -1, 1.5)]==]
- 
-SWEP.IronSightsPos = Vector(4.38, -1.951, 2.68)
-SWEP.IronSightsAng = Vector(0, -0.21, 0)
+SWEP.IronSightsPos = Vector(-5.881, -11.921, 2.605)
+SWEP.IronSightsAng = Vector(0, -0.21, 0.769)
 
 
 SWEP.VElements = {
-	["pist"] = { type = "Model", model = "models/weapons/c_pistol.mdl", bone = "v_weapon.Glock_Parent", rel = "", pos = Vector(26.976, 1.536, 5.473), angle = Angle(176.932, -16.497, -101.25), size = Vector(10, 10, 10), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+        ["pistol"] = { type = "Model", model = "models/weapons/c_pistol.mdl", bone = "v_weapon.Glock_Parent", rel = "", pos = Vector(26.249, 1.776, 5.823), angle = Angle(1.692, 162.576, 79.93), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
+SWEP.HoldType = "pistol"
+SWEP.ViewModelFOV = 57
+SWEP.ViewModelFlip = false
+SWEP.ViewModel = "models/weapons/cstrike/c_pist_glock18.mdl"
+SWEP.UseHands = true
+SWEP.WorldModel = "models/weapons/w_pistol.mdl"
+SWEP.ShowViewModel = true
+SWEP.ShowWorldModel = true
 SWEP.ViewModelBoneMods = {
-	["v_weapon.Glock_Slide"] = { scale = Vector(0.01, 0.01, 0.01), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-	["v_weapon.Glock_Parent"] = { scale = Vector(0.46, 0.46, 0.46), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-	["v_weapon.Glock_Clip"] = { scale = Vector(2.5, 2.5, 2.5), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
+["v_weapon.Glock_Slide"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+["v_weapon.Glock_Parent"] = { scale = Vector(0.287, 0.287, 0.287), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+["v_weapon.Glock_Clip"] = { scale = Vector(3, 3, 3), pos = Vector(-0.672, -0.664, -0.24), angle = Angle(3.359, -10.171, 0) }
 }

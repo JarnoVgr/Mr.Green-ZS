@@ -6,7 +6,7 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.PrintName = "m3"
+	SWEP.PrintName = "M3 Shotgun"
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 7
@@ -67,7 +67,9 @@ SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0
 
 function SWEP:Reload()
-	if self.reloading then return end
+	if self.reloading then
+		return
+	end
 
 	if self:Clip1() < self.Primary.ClipSize and 0 < self.Owner:GetAmmoCount(self.Primary.Ammo) then
 		self:SetNextPrimaryFire(CurTime() + self.ReloadDelay)

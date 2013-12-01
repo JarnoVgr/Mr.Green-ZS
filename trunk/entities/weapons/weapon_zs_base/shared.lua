@@ -62,13 +62,27 @@ function SWEP:PrimaryAttack()
 	self:TakeAmmo()
 	
 	local Owner = self.Owner
+
+	--Recoil multiplier
+	local recoilMultiplier = 1
+	if self:GetIronsights() then
+		--Less recoil when in ironsight
+		recoilMultiplier = recoilMultiplier * 0.6
+	end
+	if self.Owner:Crouching() then
+		--Less recoil when crouching
+		recoilMultiplier = recoilMultiplier * 0.6
+	end
 	
-	if Owner.ViewPunch then Owner:ViewPunch( Angle(math.Rand(-0.2,-0.1) * self.Primary.Recoil * 0.25, math.Rand(-0.1,0.1) * self.Primary.Recoil * 0.35, 0) ) end
+	if Owner.ViewPunch then
+		Owner:ViewPunch(Angle(math.Rand(-0.2,-0.1) * (self.Primary.Recoil * recoilMultiplier), math.Rand(-0.1,0.1) * (self.Primary.Recoil * recoilMultiplier), 0))
+	end
+
 	if ( ( SinglePlayer() and SERVER ) or ( not SinglePlayer() and CLIENT and IsFirstTimePredicted() ) ) then
 		local eyeang = self.Owner:EyeAngles()
 		local recoil = math.Rand( 0.1, 0.2 )
 		eyeang.pitch = eyeang.pitch - recoil
-		self.Owner:SetEyeAngles( eyeang )
+		self.Owner:SetEyeAngles(eyeang)
 	end
 
 	if self:GetIronsights() then
@@ -86,6 +100,9 @@ function SWEP:PrimaryAttack()
 			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.Cone)
 		end
 	end
+
+	--Knockback
+	self.Owner:SetVelocity(-6 * (self.Primary.Recoil * recoilMultiplier) * self.Owner:GetAimVector())
 
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
 end
