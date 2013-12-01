@@ -1,11 +1,8 @@
-if SERVER then
-	AddCSLuaFile("shared.lua")
-
-end
+AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "Dual Elites"			
-	SWEP.Author	= "ClavusElite" -- modified a bit for zs
+	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 1
 	SWEP.SlotPos = 6
 	SWEP.IconLetter = "s"
@@ -19,9 +16,9 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ("models/weapons/cstrike/c_pist_elite.mdl")
+SWEP.ViewModel			= Model("models/weapons/cstrike/c_pist_elite.mdl")
 SWEP.UseHands = true
-SWEP.WorldModel			= Model ("models/weapons/w_pist_elite.mdl")
+SWEP.WorldModel			= Model("models/weapons/w_pist_elite.mdl")
 
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
@@ -61,12 +58,7 @@ SWEP.WElements = {
 	["elite2"] = { type = "Model", model = "models/weapons/w_pist_elite_single.mdl", bone = "ValveBiped.Bip01_L_Hand", pos = Vector(-0.35, 1.031, -0.633), angle = Angle(0, -19.07, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 	
-SWEP.ViewModelBoneMods = {
-["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-4.817, 2.815, 4.35), angle = Angle(0, 0, 0) },
-["v_weapon.elite_right"] = { scale = Vector(1, 1, 1), pos = Vector(-4.224, 3.921, 4.008), angle = Angle(0, 0, 0) },
-["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-5.11, 2.927, -3.945), angle = Angle(0, 0, 0) },
-["v_weapon.elite_left"] = { scale = Vector(1, 1, 1), pos = Vector(-3.757, -4, 3.895), angle = Angle(0, 0, 0) }
-}
+
 
 
 function SWEP:SendWeaponAnimation()
@@ -74,20 +66,27 @@ function SWEP:SendWeaponAnimation()
 end
 
 -- KF style Ironsights :D
---[[if CLIENT then
+if CLIENT then
 local vec = 1
 function SWEP:Think()
 	if self:GetIronsights() == true then 
-		vec = math.Approach(vec, 1.631, FrameTime())
-		self.ViewModelBoneMods["v_weapon.Left_Arm"].scale = Vector(vec,vec,vec)
-		self.ViewModelBoneMods["v_weapon.Right_Arm"].scale = Vector(vec,vec,vec)
+		--[[vec = math.Approach(vec, 1.631, FrameTime())
+		self.ViewModelBoneMods["ValveBiped.Bip01_L_UpperArm"].scale = Vector(vec,vec,vec)
+		self.ViewModelBoneMods["ValveBiped.Bip01_R_UpperArm"].scale = Vector(vec,vec,vec)]]
+		self.ViewModelBoneMods = {
+["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-4.817, 2.815, 4.35), angle = Angle(0, 0, 0) },
+["v_weapon.elite_right"] = { scale = Vector(1, 1, 1), pos = Vector(-4.224, 3.921, 4.008), angle = Angle(0, 0, 0) },
+["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-5.11, 2.927, -3.945), angle = Angle(0, 0, 0) },
+["v_weapon.elite_left"] = { scale = Vector(1, 1, 1), pos = Vector(-3.757, -4, 3.895), angle = Angle(0, 0, 0) }
+}
 	elseif self:GetIronsights() == false or self.Weapon:Clip1() <= 1 then
-		vec = math.Approach(vec,1, FrameTime())
-		self.ViewModelBoneMods["v_weapon.Left_Arm"].scale = Vector(vec,vec,vec)
-		self.ViewModelBoneMods["v_weapon.Right_Arm"].scale = Vector(vec,vec,vec)
+		--[[vec = math.Approach(vec,1, FrameTime())
+		self.ViewModelBoneMods["ValveBiped.Bip01_L_UpperArm"].scale = Vector(vec,vec,vec)
+		self.ViewModelBoneMods["ValveBiped.Bip01_R_UpperArm"].scale = Vector(vec,vec,vec)]]
+		self.ViewModelBoneMods = {}
 	end
 end
-end]]
+end
 --[==[
 function SWEP:OnDeploy()
 	

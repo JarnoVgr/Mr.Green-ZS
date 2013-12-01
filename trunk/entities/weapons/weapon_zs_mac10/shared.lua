@@ -8,7 +8,7 @@ if CLIENT then
 	SWEP.ViewModelFOV = 65
 	SWEP.ViewModelFlip = false
 	
-	SWEP.ShowViewModel = false
+	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = true
 	SWEP.ViewModelBonescales = {}
 	
