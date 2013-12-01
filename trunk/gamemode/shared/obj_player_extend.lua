@@ -737,23 +737,29 @@ function meta:CanRedeem()
 end
 
 function meta:SetScore(score)
-	if CLIENT then
-		return
-	end
-
-	if not ValidEntity ( self ) then
+	if CLIENT or not ValidEntity(self) then
 		return
 	end
 	
-	self:SetFrags(math.min(2048,score))
+	pl.SkillPoints = score
+	self:SetFrags(math.min(2048,pl.SkillPoints))
+end
+
+function meta:GetScore()
+	if CLIENT or not ValidEntity(self) then
+		return
+	end
+
+	return pl.SkillPoints
 end
 	
-function meta:ScoreAdd ( score ) 
+function meta:ScoreAdd(score)
 	if CLIENT then
 		return
 	end
 
-	self:SetFrags(math.min(2048,self:Frags() + score))
+	pl.SkillPoints = pl.SkillPoints + score
+	self:SetFrags(math.min(2048,pl.SkillPoints))
 end
 
 

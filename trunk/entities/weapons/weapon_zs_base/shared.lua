@@ -25,32 +25,9 @@ SWEP.IronSightsHoldType = "ar2"
 
 SWEP.IronSightsPos = Vector(0, 0, 0)
 
-function SWEP:InitializeClientsideModels()
-	self.VElements = {}
-	self.WElements = {} 	
-end
-
-function SWEP:PrecacheModels()
-	if self.VElements then
-		for k, v in pairs( self.VElements ) do
-			if v.model then
-				util.PrecacheModel(v.model)
-			end
-		end
-	end
-
-	if self.WElements then
-		for k, v in pairs( self.WElements ) do
-			if v.model then
-				util.PrecacheModel(v.model)
-			end
-		end
-	end
-end
-
 function SWEP:Precache()
-	util.PrecacheModel(self.ViewModel)
-	util.PrecacheModel(self.WorldModel)
+	--util.PrecacheModel(self.ViewModel)
+	--util.PrecacheModel(self.WorldModel)
 	util.PrecacheSound(self.Primary.Sound)
 end
 
@@ -59,113 +36,16 @@ function SWEP:Initialize()
 	self:SetDeploySpeed(1.1)
 
 	if CLIENT then
-	
-		self:CheckCustomIronSights()
+		--Create a new table for every weapon instance
+		self.VElements = table.FullCopy(self.VElements)
+		self.WElements = table.FullCopy(self.WElements)
+		self.ViewModelBoneMods = table.FullCopy(self.ViewModelBoneMods)
 
-		self:InitializeClientsideModels()
-		self:PrecacheModels()
-		self:CreateViewModelElements()
-		self:CreateWorldModelElements()   
-		
-    end
+		self:CreateModels(self.VElements) --Create viewmodels
+		self:CreateModels(self.WElements) --Create worldmodels
+	end
 	
 	self:OnInitialize() 
-	
-end
-
-function SWEP:UpdateBonePositions(vm)
-	
-	if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
-		for k, v in pairs( self.ViewModelBoneMods ) do
-			local bone = vm:LookupBone(k)
-			if ( bone) then
-    			if vm:GetManipulateBoneScale(bone) ~= v.scale then
-    				vm:ManipulateBoneScale( bone, v.scale )
-    			end
-    			if vm:GetManipulateBoneAngles(bone) ~= v.angle then
-    				vm:ManipulateBoneAngles( bone, v.angle )
-    			end
-    			if vm:GetManipulateBonePosition(bone) ~= v.pos then
-    				vm:ManipulateBonePosition( bone, v.pos )
-    			end
-    	     end
-		end
-	else
-		for i=0, vm:GetBoneCount() do
-			if vm:GetManipulateBoneScale(i) ~= Vector(1, 1, 1) then
-				vm:ManipulateBoneScale( i, Vector(1, 1, 1) )
-			end
-			if vm:GetManipulateBoneAngles(i) ~= Angle(0, 0, 0)  then
-				vm:ManipulateBoneAngles( i, Angle(0, 0, 0)  )
-			end
-			if vm:GetManipulateBonePosition(i) ~= Vector(0, 0, 0) then
-				vm:ManipulateBonePosition( i, Vector(0, 0, 0) )
-			end
-		end
-	end
-	
-end
-
-function SWEP:ResetBonePositions()
-	
-	if not IsValid(self.Owner) then return end
-	local vm = self.Owner:GetViewModel()
-	if not IsValid(vm) then return end
-	if not IsValidSpecial(vm:GetBoneCount()) then return end
-	
-	for i=0, vm:GetBoneCount() do
-		vm:ManipulateBoneScale( i, Vector(1, 1, 1) )
-		vm:ManipulateBoneAngles( i, Angle(0, 0, 0) )
-		vm:ManipulateBonePosition( i, Vector(0, 0, 0) )
-	end
-	
-end
-
-function SWEP:CreateViewModelElements()
-	
-	self:CreateModels(self.VElements)
-	
-	self.BuildViewModelBones = function( s )
-		if LocalPlayer():GetActiveWeapon() == self and self.ViewModelBoneMods then
-			for k, v in pairs( self.ViewModelBoneMods ) do
-				local bone = s:LookupBone(k)
-				if ( bone) then 
-    				local m = s:GetBoneMatrix(bone)
-    				if (m) then 
-        				m:Scale(v.scale)
-        				m:Rotate(v.angle)
-        				m:Translate(v.pos)
-        				s:SetBoneMatrix(bone, m)
-        			end
-    			end
-			end
-		end
-	end   
-end
-
-function SWEP:CreateWorldModelElements()
-	self:CreateModels(self.WElements)
-end
-
-function SWEP:CheckModelElements()
-	if not self.VElements or not self.WElements then
-		timer.Simple(0,function()
-			self:InitializeClientsideModels()
-			self:CreateViewModelElements()
-			self:CreateWorldModelElements()
-		end)
-	end
-end
-
-function SWEP:CheckWorldModelElements()
-	if not self.WElements then
-		timer.Simple(0,function()
-			if self.InitializeClientsideModels then
-				self:InitializeClientsideModels()
-				self:CreateWorldModelElements()
-			end
-		end)
-	end
 end
 
 function SWEP:OnInitialize()
@@ -216,6 +96,13 @@ function SWEP:GetWalkSpeed()
 	end
 
 	return self.WalkSpeed
+end
+
+function SWEP:Think()
+	if self.IdleAnimation and self.IdleAnimation <= CurTime() then
+		self.IdleAnimation = nil
+		self:SendWeaponAnim(ACT_VM_IDLE)
+	end
 end
 
 function SWEP:EmitFireSound()
@@ -270,21 +157,30 @@ function SWEP:OnDeploy()
 end
 
 function SWEP:Holster()
-	self:SetIronsights(false) 
+	self:SetIronsights(false)
 
-	 if CLIENT then
-		self:ResetBonePositions()
-    end
+	if CLIENT then
+		self:OnRemove()
+	end
 	
 	return true
 end
 
 function SWEP:OnRemove()
-    RemoveNewArms(self)     
-    if CLIENT then
-        self:RemoveModels()
-		self:ResetBonePositions()
-    end
+	if CLIENT and IsValid(self.Owner) then
+		self.HadFirstDraw = false
+
+		local vm = self.Owner:GetViewModel()
+		if IsValid(vm) then
+			self:ResetBonePositions(vm)
+
+			vm:SetMaterial("")
+			vm:SetColor(Color(255,255,255,255))
+
+			--vm:SetColor(Color(255,255,255,255))
+			--vm:SetMaterial("")
+		end
+	end
 end
 
 function SWEP:Equip(NewOwner)
@@ -306,7 +202,9 @@ function SWEP:Equip(NewOwner)
 end
 
 function SWEP:OnDrop()
---RemoveNewArms(self)
+	if CLIENT then
+		self:OnRemove()
+	end	
 end
 
 function SWEP:TranslateActivity(act)

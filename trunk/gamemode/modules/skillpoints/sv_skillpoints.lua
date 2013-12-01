@@ -2,14 +2,16 @@
 -- Serverside functions goes here
 -- TODO: Make it better 
 
-AddCSLuaFile ( "cl_skillpoints.lua" )
-AddCSLuaFile ( "sh_skillpoints.lua" )
+AddCSLuaFile("cl_skillpoints.lua")
+AddCSLuaFile("sh_skillpoints.lua")
 
 include("sh_skillpoints.lua")
 
 
 SKILLPOINTS = true
-if not SKILLPOINTS then return end
+if not SKILLPOINTS then
+	return
+end
 
 skillpoints = {}
 
@@ -51,10 +53,12 @@ end
 
 -- Called in PlayerInitialSpawn
 function skillpoints.SetupSkillPoints(pl)
-
-	if not IsEntityValid(pl) then return end
+	if not IsEntityValid(pl) then
+		return
+	end
 	
 	pl.SkillPoints = 0
+	pl:SetFrags(pl.SkillPoints)
 	
 	--umsg.Start("skillpoints.UpdateSkillPoints", pl)
 	--	umsg.Short(0)
@@ -65,20 +69,25 @@ end
 -- Add nessesary amount of skill points
 function skillpoints.AddSkillPoints(pl, amount)
 	if amount == nil or amount == 0 or not IsEntityValid(pl) or not pl:IsPlayer() then
-		return
+		return false
 	end
+	
+	pl.SkillPoints = pl.SkillPoints + amount
+	pl:SetFrags(math.min(2048,pl.SkillPoints))
+	
+	return true
+end
 
-	if GAMEMODE:IsRetroMode() then
-		if amount > 1 then
-			return
-		end
+--Get
+function skillpoints.GetSkillPoints(pl)
+	if not IsEntityValid(pl) or not pl:IsPlayer() or not pl.SkillPoints then
+		return false
 	end
 	
-	pl:SetFrags(math.min(2048,pl:Frags()+amount))
-	
-	if GAMEMODE:IsRetroMode() then
-		GAMEMODE:CheckPlayerScore(pl)
-	end
+	--[[local totalAmount = pl.SkillPoints + amount
+	pl:SetFrags(math.min(2048,totalAmount))
+	pl.SkillPoints = totalAmount]]
+	return pl.SkillPoints
 end
 
 -- Use it when you want player to achieve skillshot

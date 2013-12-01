@@ -750,7 +750,7 @@ function RollTheDice ( pl,commandName,args )
 		pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
 		message = message .." rolled the dice and gained ".. randhealth .." health!"
 	else
-		pl:SetFrags(math.min(2048,pl:Frags()+150))
+		skillpoints.AddSkillPoints(pl, 150)
 		message = message .." rolled the dice and received 150SP."
 	end
 	

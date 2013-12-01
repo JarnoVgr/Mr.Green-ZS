@@ -56,7 +56,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	--Reset score on death
 	timer.Simple(0, function()
 		if IsEntityValid(mVictim) then
-			mVictim:SetFrags(0)
+			skillpoints.SetupSkillPoints(pl)
 		end
 	end)
 		
@@ -69,7 +69,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	if CurTime() <= WARMUPTIME then
 		mVictim.NextSpawn = WARMUPTIME+2
 	else
-		local NextSpawn = math.Clamp ( GetInfliction() * 14, 1, 4 )
+		local NextSpawn = math.Clamp(GetInfliction() * 14, 1, 4)
 		mVictim.NextSpawn = CurTime() + NextSpawn
 	end
 		

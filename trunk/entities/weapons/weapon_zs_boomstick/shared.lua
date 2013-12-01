@@ -59,26 +59,21 @@ SWEP.IronSightsAng = Vector(1, 0, 0)
 SWEP.OverridePos = Vector(-3.36, -9.016, 2.2)
 SWEP.OverrideAng = Vector(0, 0, 0)
 
-function SWEP:InitializeClientsideModels()
-	
-	self.ViewModelBoneMods = {
-		["ValveBiped.Pump"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["ValveBiped.Bip01"] = { scale = Vector(1, 1, 1), pos = Vector(2.469, 0.28, -0.607), angle = Angle(0, 0, 0) }
-	}
-	
-	self.VElements = {
-		["part3"] = { type = "Model", model = "models/Weapons/w_grenade.mdl", bone = "ValveBiped.square", rel = "", pos = Vector(0, 0, -1.431), angle = Angle(0, 0, 0), size = Vector(0.4, 0.4, 0.4), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["part1"] = { type = "Model", model = "models/props_lab/teleportbulkeli.mdl", bone = "ValveBiped.Gun", rel = "", pos = Vector(0.231, -4.999, -7.783), angle = Angle(-90, -90, 0), size = Vector(0.021, 0.021, 0.021), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["part2"] = { type = "Model", model = "models/props_lab/HEV_case.mdl", bone = "ValveBiped.Pump", rel = "", pos = Vector(0, 1.343, -2.938), angle = Angle(0, -90, 0), size = Vector(0.059, 0.059, 0.142), color = Color(90, 90, 90, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
-	
-	self.WElements = {
-		["part1"] = { type = "Model", model = "models/props_lab/teleportbulkeli.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(11.319, 1.636, -9.157), angle = Angle(6.718, -180, 4.506), size = Vector(0.017, 0.017, 0.017), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["part2"] = { type = "Model", model = "models/props_lab/HEV_case.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(11.675, 1.1, -2.955), angle = Angle(97.574, -180, 1.136), size = Vector(0.059, 0.052, 0.148), color = Color(90, 90, 90, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
-	
-end
+SWEP.ViewModelBoneMods = {
+	["ValveBiped.Pump"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01"] = { scale = Vector(1, 1, 1), pos = Vector(2.469, 0.28, -0.607), angle = Angle(0, 0, 0) }
+}
 
+SWEP.VElements = {
+	["part3"] = { type = "Model", model = "models/Weapons/w_grenade.mdl", bone = "ValveBiped.square", rel = "", pos = Vector(0, 0, -1.431), angle = Angle(0, 0, 0), size = Vector(0.4, 0.4, 0.4), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["part1"] = { type = "Model", model = "models/props_lab/teleportbulkeli.mdl", bone = "ValveBiped.Gun", rel = "", pos = Vector(0.231, -4.999, -7.783), angle = Angle(-90, -90, 0), size = Vector(0.021, 0.021, 0.021), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["part2"] = { type = "Model", model = "models/props_lab/HEV_case.mdl", bone = "ValveBiped.Pump", rel = "", pos = Vector(0, 1.343, -2.938), angle = Angle(0, -90, 0), size = Vector(0.059, 0.059, 0.142), color = Color(90, 90, 90, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+}
+	
+SWEP.WElements = {
+	["part1"] = { type = "Model", model = "models/props_lab/teleportbulkeli.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(11.319, 1.636, -9.157), angle = Angle(6.718, -180, 4.506), size = Vector(0.017, 0.017, 0.017), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["part2"] = { type = "Model", model = "models/props_lab/HEV_case.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(11.675, 1.1, -2.955), angle = Angle(97.574, -180, 1.136), size = Vector(0.059, 0.052, 0.148), color = Color(90, 90, 90, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+}
 
 function SWEP:SetIronsights()
 end

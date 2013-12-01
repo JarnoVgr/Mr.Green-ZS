@@ -194,7 +194,7 @@ function meta:SetFirstZombie()
 	self:SetTeam(TEAM_UNDEAD)
 	
 	--Reset kils
-	self:SetFrags(0)
+	skillpoints.SetupSkillPoints(self)
 	self:UnSpectate()
 	
 	--Spawn him
@@ -230,8 +230,8 @@ function meta:SwitchToZombie()
 	-- Obviously, set his team to undead
 	self:SetTeam( TEAM_UNDEAD )
 	
-	-- Reset kils
-	self:SetFrags ( 0 )
+	-- Reset kills
+	skillpoints.SetupSkillPoints(self)
 	self:UnSpectate()
 	-- Spawn him
 	-- self:Message( "You've been randomly selected to lead the Undead Army.", 1, "255,255,255,255" )
@@ -1828,7 +1828,8 @@ end )
 concommand.Add( "zs_boughtpointswithcoins", function( pl, cmd, args )
     if ( IsValid( pl ) ) then
         if ( pl:CanBuyPointsWithCoins() ) then
-            pl:SetFrags(math.min(2048,pl:Frags() + 300))
+            --pl:SetFrags(math.min(2048,pl:Frags() + 300))
+			skillpoints.AddSkillPoints(pl, 300)
             pl:TakeGreenCoins(80)
         end
         pl:SetBoughtPointsWithCoins(true)

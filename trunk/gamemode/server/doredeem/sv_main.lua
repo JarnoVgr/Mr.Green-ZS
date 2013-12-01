@@ -105,8 +105,8 @@ function GM:OnPlayerRedeem( pl, causer )
 	pl:Spawn()
 	pl.Redeemed = nil
 	
-	pl:DrawViewModel( true )
-	pl:SetFrags(0)
+	pl:DrawViewModel(true)
+	skillpoints.SetupSkillPoints(pl)
 	
 	if pl:GetPerk("_comeback") then
 		if not pl._ComebackUsed then

@@ -70,6 +70,193 @@ function ConfirmCratesFromClient(pl,cmd,args)
 end
 concommand.Add("zs_importcrates_confirm",ConfirmCratesFromClient)
 
+local function CalculateGivenSupplies(pl)
+	if not ValidEntity ( pl ) or pl:Team() != TEAM_HUMAN then
+		return
+	end
+	
+	--Calculate what weapons to give away
+	local Infliction = GetInfliction()
+	
+	local Available = { Pistols = {}, Automatic = {}, Melee = {}, Snipers = {} }
+	local PistolToGive, AutomaticToGive, MeleeToGive
+	
+	--Calculate and add every available weapon to table
+	for k,v in pairs(GAMEMODE.HumanWeapons) do
+		if v.Restricted or not v.Price then
+			continue
+		end
+		
+		if GetInfliction() >= 0.6 then
+			if Infliction >= v.Infliction and v.Infliction > Infliction - 0.65 then
+				if GetWeaponType(k) == "pistol" then
+					table.insert(Available.Pistols, k)
+				end
+			end
+		end
+		
+		if GetInfliction() >= 0.75 then		
+			if Infliction >= v.Infliction and v.Infliction > Infliction - 0.25 then
+				if GetWeaponType(k) == "rifle" or GetWeaponType(k) == "smg" or GetWeaponType(k) == "shotgun" then
+					table.insert(Available.Automatic, k)
+				end
+			end
+		end	
+		
+		if GetWeaponType(k) == "melee" then
+			table.insert(Available.Melee, k)
+		end
+	end
+	
+	--[[--------------------------- PISTOLS ----------------------------]]
+	if #Available.Pistols >= 1 then
+		local RandomPistol, Pistol = table.Random ( Available.Pistols ), pl:GetPistol()
+		if not Pistol then PistolToGive = RandomPistol end
+		
+		--Player has pistol, see if the one from the box is more powerful than the one he has
+		if Pistol then
+			if pl:HasWeapon(RandomPistol) then
+				RandomPistol = table.Random(Available.Pistols)
+			end
+		
+			if GAMEMODE.HumanWeapons[RandomPistol].Price > GAMEMODE.HumanWeapons[Pistol:GetClass()].Price then --DPS
+				pl:DropWeapon(Pistol:GetClass())
+
+				PistolToGive = RandomPistol
+			end
+		end
+	end
+	
+	--[[--------------------------- AUTOMATIC GUNS ----------------------------]]
+	if #Available.Automatic >= 1 then
+		local RandomAutomatic, Automatic = table.Random ( Available.Automatic ), pl:GetAutomatic()
+		if not Automatic then AutomaticToGive = RandomAutomatic end
+		
+		if Automatic then
+			if pl:HasWeapon(RandomAutomatic) then
+				RandomAutomatic = table.Random(Available.Automatic)
+			end
+			
+			if GAMEMODE.HumanWeapons[ RandomAutomatic ].DPS > GAMEMODE.HumanWeapons[ Automatic:GetClass() ].DPS then --DPS
+				pl:DropWeapon(Automatic:GetClass())
+				AutomaticToGive = RandomAutomatic
+			end	
+		end
+	end
+	
+	--[[--------------------------- MELEE WEAPONS ----------------------------]]
+	local RandomMelee, Melee = table.Random ( Available.Melee ), pl:GetMelee()
+	local RandomMelee1 = { "weapon_zs_melee_pot","weapon_zs_melee_keyboard", "weapon_zs_melee_fryingpan", "weapon_zs_melee_plank" }
+	if not Melee then
+		MeleeToGive = table.Random(RandomMelee1)
+	end
+	--[[
+	if Melee then
+		if GAMEMODE.HumanWeapons[ RandomMelee ].DPS > GAMEMODE.HumanWeapons[ Melee:GetClass() ].DPS then --DPS
+			pl:DropWeapon(Melee:GetClass()) 
+			MeleeToGive = RandomMelee
+		end	
+	end
+	]]	
+	--Active weapon
+	local ActiveWeapon = pl:GetActiveWeapon()
+	if ValidEntity(ActiveWeapon) then
+		ActiveWeapon = ActiveWeapon:GetClass()
+	end
+	
+	--Give the weapons ( in order - Melee, Pistol, Automatic )
+	if MeleeToGive != nil then 
+		if not pl:HasWeapon(MeleeToGive) then
+			pl:Give(MeleeToGive)
+		end
+	end
+	
+	if PistolToGive != nil then 
+		if not pl:HasWeapon(PistolToGive) then
+			pl:Give(PistolToGive)
+			pl:SelectWeapon(PistolToGive)
+		end 
+	end
+	
+	if AutomaticToGive != nil then
+		if not pl:HasWeapon(AutomaticToGive) then
+			pl:Give(AutomaticToGive)
+			pl:SelectWeapon(AutomaticToGive)
+		end 
+	end
+	
+	--skillpoints.AddSkillPoints(pl, -1*GAMEMODE.HumanWeapons[weapon].Price)
+	
+	--[[--------------------------- AMMUNITION ----------------------------]]
+	local AmmoList =  { "pistol", "ar2", "smg1", "buckshot", "xbowbolt", "357" }
+	for k,v in pairs ( AmmoList ) do
+		local HowMuch = GAMEMODE.AmmoRegeneration[v] or 50
+		HowMuch = HowMuch * 0.8
+		
+		--Double for ammoman upgrade
+		if pl:HasBought ( "ammoman" ) then
+			HowMuch = HowMuch * 2
+		end
+		
+		--Multiply for infliction
+		if Infliction >= 0.8 then
+			HowMuch = HowMuch * 1.5
+		end
+		pl:GiveAmmo ( math.Clamp ( HowMuch, 1, 250 ), v )
+	end
+	
+	--Special case : mines, nailing hammers, barricade kits
+	local Special = { "weapon_zs_barricadekit" , "weapon_zs_tools_hammer", "mine", "grenade", "syringe", "supplies"}
+	for i,j in pairs ( pl:GetWeapons() ) do
+		for k,v in pairs ( Special ) do
+			if not string.find ( j:GetClass(), v ) then
+				continue
+			end
+			
+			local MaximumAmmo = j.Primary.DefaultClip
+			
+			if v == "weapon_zs_tools_hammer" then MaximumAmmo = j.MaximumNails 
+				j:SetClip2( 1 )
+			end
+			
+			if v == "weapon_zs_tools_hammer" or v == "syringe" then
+				j:SetClip1( math.Clamp ( MaximumAmmo, 1, MaximumAmmo ) )
+			else
+				j:SetClip1( math.Clamp ( j:Clip1() + math.ceil( MaximumAmmo/2 ), 1, MaximumAmmo ) )
+			end
+		end
+	end
+	
+	--[[--------------------------- HEALTH ----------------------------]]
+	local CurrentHealth, MaxHealth, AmountHeal = pl:Health(), pl:GetMaximumHealth(), 0
+	if CurrentHealth < MaxHealth then
+		AmountHeal = ( MaxHealth - CurrentHealth ) * 0.6
+	end
+	
+	if AmountHeal > 5 then
+		pl:EmitSound ( Sound ("items/smallmedkit1.wav") )
+		pl:SetHealth ( math.Clamp ( CurrentHealth + AmountHeal, 0, MaxHealth ) )
+		pl:PrintMessage ( HUD_PRINTTALK, "[CRATES] You just got ammunition for your weapons and tools and restored "..math.Round ( AmountHeal ).." health!" )
+		
+		--Clear dot damage
+		pl:ClearDamageOverTime()
+	end
+	
+	if math.random(1,4) == 1 then
+		local snd = VoiceSets[pl.VoiceSet].SupplySounds
+		timer.Simple( 0.2, function ()
+			if ValidEntity(pl) then
+				pl:EmitSound(Sound(snd[math.random(1, #snd)]))
+			end
+		end, pl)
+	end
+	
+	--Debug ( "[CRATES] Giving supplies to "..tostring ( pl ) )
+		
+	--Cooldown
+	pl.NextSupplyUse = CurTime()+30
+end
+
 --[==[-------------------------------------------------------------
       Manage player +USE on the ammo supply boxes
 --------------------------------------------------------------]==]
@@ -112,6 +299,22 @@ local function OnPlayerUse(pl, key)
 		
 	--Open shop menu
 	pl:SendLua("DoSkillShopMenu()")
+	
+	--[[if not pl.SupplyMessageTimer then
+		pl.SupplyMessageTimer = 0
+	end
+	
+	if pl.NextSupplyUse > CurTime() then
+		if pl.SupplyMessageTimer <= CurTime() then
+			pl:Message("You already have Supplies. Come back later.", 1, "white")
+			pl.SupplyMessageTimer = CurTime() + 3.1
+		end
+		
+		return
+	end
+	
+	pl:EmitSound(Sound("mrgreen/supplycrates/itempickup.wav"))
+	CalculateGivenSupplies(pl)]]
 	
 	--Debug
 	Debug("[CRATES] ".. tostring(pl) .." used Supply Crate")

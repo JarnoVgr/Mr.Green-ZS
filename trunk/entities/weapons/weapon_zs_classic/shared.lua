@@ -57,14 +57,13 @@ SWEP.IronSightsAng = Vector(0.15, -1, 1.5)]==]
 SWEP.IronSightsPos = Vector(4.38, -1.951, 2.68)
 SWEP.IronSightsAng = Vector(0, -0.21, 0)
 
-function SWEP:InitializeClientsideModels()
-self.VElements = {
+
+SWEP.VElements = {
 	["pist"] = { type = "Model", model = "models/weapons/c_pistol.mdl", bone = "v_weapon.Glock_Parent", rel = "", pos = Vector(26.976, 1.536, 5.473), angle = Angle(176.932, -16.497, -101.25), size = Vector(10, 10, 10), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
-self.ViewModelBoneMods = {
+SWEP.ViewModelBoneMods = {
 	["v_weapon.Glock_Slide"] = { scale = Vector(0.01, 0.01, 0.01), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 	["v_weapon.Glock_Parent"] = { scale = Vector(0.46, 0.46, 0.46), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 	["v_weapon.Glock_Clip"] = { scale = Vector(2.5, 2.5, 2.5), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
 }
-end
