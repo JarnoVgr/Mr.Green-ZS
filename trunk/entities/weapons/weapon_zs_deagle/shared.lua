@@ -63,7 +63,7 @@ SWEP.ConeIron = 0.036
 SWEP.ConeCrouching = 0.038
 SWEP.ConeIronCrouching = 0.026
 
-SWEP.IronSightsPos = Vector(-6.391, -1.5, 1.87)
+SWEP.IronSightsPos = Vector(-6.391, 1.5, 1.87)
 SWEP.IronSightsAng = Vector(0.456, 0, 0)
 
 SWEP.OverridePos = Vector(1.48, -1.282, 1.679)

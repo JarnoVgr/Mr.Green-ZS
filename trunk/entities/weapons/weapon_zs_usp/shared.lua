@@ -67,7 +67,7 @@ SWEP.WalkSpeed = 192
 
 SWEP.MaxAmmo			    = 130
 
-SWEP.IronSightsPos = Vector(-5.921, -1.5, 2.55)
+SWEP.IronSightsPos = Vector(-5.921, 1.5, 2.55)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.OverridePos = Vector(1.36, -1.624, 1.639)
