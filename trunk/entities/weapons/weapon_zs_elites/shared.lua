@@ -10,12 +10,8 @@ if CLIENT then
 	SWEP.SlotPos = 6
 	SWEP.IconLetter = "s"
 	killicon.AddFont("weapon_zs_elites", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
-	SWEP.ShowViewModel = false
+	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = false
-
-
-	
-	-- SWEP.ViewModelBonescales = {["v_weapon.Left_Arm"] = Vector(1, 1, 1), ["v_weapon.Right_Arm"] = Vector(1, 1, 1)}
 end
 
 SWEP.Base				= "weapon_zs_base"
@@ -60,36 +56,25 @@ SWEP.WalkSpeed = 205
 SWEP.IronSightsPos = Vector(-0, 1.213, 1.019)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
-function SWEP:InitializeClientsideModels()
+SWEP.WElements = {
+	["elite1"] = { type = "Model", model = "models/weapons/w_pist_elite_single.mdl", bone = "ValveBiped.Bip01_R_Hand", pos = Vector(-0.894, 0.669, 0.006), angle = Angle(-0.32, -2.125, -180), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["elite2"] = { type = "Model", model = "models/weapons/w_pist_elite_single.mdl", bone = "ValveBiped.Bip01_L_Hand", pos = Vector(-0.35, 1.031, -0.633), angle = Angle(0, -19.07, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+}
 	
-	if XMAS_2012 then
-		self.VElements = {
-			["lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.slide_left", rel = "", pos = Vector(-0.038, -1.732, -5.624), angle = Angle(93.946, 90, 0), size = Vector(0.3, 0.3, 0.3), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} },
-			["lights2"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.slide_right", rel = "", pos = Vector(0.181, -1.696, 2.497), angle = Angle(-86.361, -90.888, 0), size = Vector(0.3, 0.3, 0.3), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-	else
-		self.VElements = {}
-	end
-	
-	self.WElements = {
-		["elite1"] = { type = "Model", model = "models/weapons/w_pist_elite_single.mdl", bone = "ValveBiped.Bip01_R_Hand", pos = Vector(-0.894, 0.669, 0.006), angle = Angle(-0.32, -2.125, -180), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["elite2"] = { type = "Model", model = "models/weapons/w_pist_elite_single.mdl", bone = "ValveBiped.Bip01_L_Hand", pos = Vector(-0.35, 1.031, -0.633), angle = Angle(0, -19.07, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
-	
-	-- Fixing outdated stuff
-	self.ViewModelBoneMods = {
-		["v_weapon.Left_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.Right_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
-	}
-	
-end
+SWEP.ViewModelBoneMods = {
+["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-4.817, 2.815, 4.35), angle = Angle(0, 0, 0) },
+["v_weapon.elite_right"] = { scale = Vector(1, 1, 1), pos = Vector(-4.224, 3.921, 4.008), angle = Angle(0, 0, 0) },
+["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-5.11, 2.927, -3.945), angle = Angle(0, 0, 0) },
+["v_weapon.elite_left"] = { scale = Vector(1, 1, 1), pos = Vector(-3.757, -4, 3.895), angle = Angle(0, 0, 0) }
+}
+
 
 function SWEP:SendWeaponAnimation()
 	self:SendWeaponAnim(self:Clip1() % 2 == 0 and ACT_VM_PRIMARYATTACK or ACT_VM_SECONDARYATTACK)
 end
 
 -- KF style Ironsights :D
-if CLIENT then
+--[[if CLIENT then
 local vec = 1
 function SWEP:Think()
 	if self:GetIronsights() == true then 
@@ -102,7 +87,7 @@ function SWEP:Think()
 		self.ViewModelBoneMods["v_weapon.Right_Arm"].scale = Vector(vec,vec,vec)
 	end
 end
-end
+end]]
 --[==[
 function SWEP:OnDeploy()
 	
