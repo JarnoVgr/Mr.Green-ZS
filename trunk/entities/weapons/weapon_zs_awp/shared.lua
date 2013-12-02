@@ -1,7 +1,5 @@
-if SERVER then
-	AddCSLuaFile("shared.lua")
-	SWEP.HoldType = "ar2"
-end
+AddCSLuaFile()
+SWEP.HoldType = "ar2"
 
 if CLIENT then
 	SWEP.PrintName = "AWP"
@@ -46,8 +44,6 @@ SWEP.ConeCrouching = 0.016
 SWEP.ConeIronCrouching = 0.01
 
 SWEP.WalkSpeed = 195
-
-
 
 function SWEP:IsScoped()
 	return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.25 <= CurTime()

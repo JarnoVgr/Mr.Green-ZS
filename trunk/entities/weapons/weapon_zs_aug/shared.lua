@@ -1,35 +1,17 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then
-	AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
 
-if CLIENT then
-	SWEP.PrintName = "AUG"			
+if CLIENT then		
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 2
 	SWEP.ViewModelFlip = false
-	SWEP.ShowViewModel = false
+	SWEP.ShowViewModel = true
 	SWEP.IconLetter = "e"
 	killicon.AddFont("weapon_zs_aug", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 	SWEP.ViewModelFOV = 50
-end
-
-if XMAS_2012 then
-
-	function SWEP:InitializeClientsideModels()
-	
-		self.VElements = {
-			["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "v_weapon.aug_Parent", rel = "", pos = Vector(0.476, 2.634, 8.081), angle = Angle(180, -90, 0), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-		self.WElements = {
-			["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(17.575, 1.294, -3.518), angle = Angle(91.344, 0, 0), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-		
-	end
-
 end
 
 SWEP.Base				= "weapon_zs_base"
