@@ -46,7 +46,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_UMP45.Single")
-SWEP.Primary.Recoil			= 6.5
+SWEP.Primary.Recoil			= 3
 SWEP.Primary.Damage			= 16
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 28
@@ -69,8 +69,9 @@ SWEP.MaxAmmo			    = 250
 SWEP.WalkSpeed = 195
 SWEP.MaxBulletDistance 		= 2240
 
-SWEP.IronSightsPos = Vector(-5.3, -9, 4.4)
+SWEP.IronSightsPos = Vector(-5.3, -11, 4.4)
 SWEP.IronSightsAng = Vector(-1, 0.2, 2.55)
+
 
 
 --SWEP.IronSightsPos = Vector(3.599, -4.591, 1.6)

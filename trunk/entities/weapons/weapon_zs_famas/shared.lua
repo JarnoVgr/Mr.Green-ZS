@@ -48,25 +48,25 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_FAMAS.Single")
-SWEP.Primary.Recoil			= 8
+SWEP.Primary.Recoil			= 3
 SWEP.Primary.Unrecoil		= 0
 SWEP.Primary.Damage			= 25
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 31
 SWEP.storeclipsize			= 31
 SWEP.MaxAmmo			    = 250
-SWEP.Primary.Delay			= 0.145
+SWEP.Primary.Delay			= 0.152
 SWEP.Primary.DefaultClip	= 165
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.Primary.Cone			= 0.04
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.ConeMoving = 0.063
-SWEP.Cone = 0.047
-SWEP.ConeIron = 0.032
-SWEP.ConeCrouching = 0.037
-SWEP.ConeIronCrouching = 0.024
+SWEP.ConeMoving = 0.073
+SWEP.Cone = 0.056
+SWEP.ConeIron = 0.046
+SWEP.ConeCrouching = 0.039
+SWEP.ConeIronCrouching = 0.031
 
 SWEP.WalkSpeed = 195
 SWEP.MaxBulletDistance 		= 2300

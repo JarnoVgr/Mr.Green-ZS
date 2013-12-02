@@ -24,7 +24,7 @@ SWEP.HoldType = "pistol"
  
 SWEP.Primary.Sound  = Sound("Weapon_Pistol.NPC_Single")
 SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
-SWEP.Primary.Recoil  = 3
+SWEP.Primary.Recoil  = 1
 SWEP.Primary.Damage = 14
 SWEP.Primary.NumShots           = 2
 SWEP.Primary.ClipSize           = 12
@@ -38,20 +38,20 @@ SWEP.ConeMoving                         = 0.08 -- 0.18
 SWEP.ConeCrouching                      = 0.04 -- 0.06
 SWEP.WalkSpeed = 200
  
-SWEP.ConeMoving = 0.056
-SWEP.Cone = 0.041
+SWEP.ConeMoving = 0.067
+SWEP.Cone = 0.051
 SWEP.ConeIron = 0.022
 SWEP.ConeCrouching = 0.032
 SWEP.ConeIronCrouching = 0.026
  
-SWEP.IronSightsPos = Vector(-6.01, -1.5, 3.15)
-SWEP.IronSightsAng = Vector(0, -1.22, 0)
-
-
+SWEP.IronSightsPos = Vector(-5.872, 20, 2.605)
+SWEP.IronSightsAng = Vector(0, -0.21, 0.769)
+ 
+ 
 SWEP.VElements = {
         ["pistol"] = { type = "Model", model = "models/weapons/c_pistol.mdl", bone = "v_weapon.Glock_Parent", rel = "", pos = Vector(26.249, 1.776, 5.823), angle = Angle(1.692, 162.576, 79.93), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
-
+ 
 SWEP.HoldType = "pistol"
 SWEP.ViewModelFOV = 57
 SWEP.ViewModelFlip = false

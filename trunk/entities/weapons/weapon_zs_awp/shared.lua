@@ -24,7 +24,7 @@ SWEP.WorldModel			= "models/weapons/w_snip_awp.mdl"
 SWEP.Weight				= 6
 
 SWEP.Primary.Sound			= Sound("Weapon_AWP.Single")
-SWEP.Primary.Recoil			= 17
+SWEP.Primary.Recoil			= 6
 SWEP.Primary.Damage			= 320
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 4
@@ -41,7 +41,7 @@ SWEP.ConeMoving = 0.029
 SWEP.Cone = 0.019
 SWEP.ConeIron = 0.012
 SWEP.ConeCrouching = 0.016
-SWEP.ConeIronCrouching = 0.01
+SWEP.ConeIronCrouching = 0.007
 
 SWEP.WalkSpeed = 195
 
