@@ -117,6 +117,11 @@ function meta:GetSpawnTime()
 	return self.SpawnTime
 end
 
+-- Is spawnprotected
+function meta:HasSpawnProtection()
+	return self:GetSpawnTime() + self:GetSpawnTimeProtection() > CurTime()
+end
+
 -- Get time limit
 function meta:GetSpawnTimeLimit()
 	if self:IsHuman() then
@@ -126,10 +131,28 @@ function meta:GetSpawnTimeLimit()
 	end
 end
 
+-- Get spawn time protection
+function meta:GetSpawnTimeProtection()
+	-- Time limit for protection
+	local TimeLimit, iDiff = self:GetSpawnTimeLimit()
+	
+	-- Calculate appropriate time
+	if self:IsHuman() then iDiff = 0 else iDiff = TimeLimit end
+	return math.Clamp(math.abs(iDiff - (GetInfliction() * TimeLimit)), 5, TimeLimit)
+end
+
+-- Get suitable damage
+function meta:GetSpawnDamagePercent()
+
+	-- Time limit for protection
+	local Time = self:GetSpawnTimeProtection()
+
+	-- Percent damage reduction
+	return math.Clamp((Time - math.abs(CurTime() - self:GetSpawnTime())) / Time, 0, 1)
+end
+
 -- Hook on spawn
-hook.Add("PlayerSpawn", "SpawnTime", function(pl)
-	pl.SpawnTime = CurTime()
-end)
+hook.Add( "PlayerSpawn", "SpawnTime", function( pl ) pl.SpawnTime = CurTime() end )
 
 --[=[---------------------------------------
       Returns active human level
