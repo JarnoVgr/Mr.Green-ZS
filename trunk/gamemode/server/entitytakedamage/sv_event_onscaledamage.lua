@@ -326,10 +326,6 @@ function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)
 			fFinalDamage = fFinalDamage * 1
 		end]]
 		
-		if attacker:HasSpawnProtection() and not LASTHUMAN then
-			fFinalDamage = fFinalDamage*2
-		end
-		
 		local bonus = 0
 		
 		if BONUS_RESISTANCE then 

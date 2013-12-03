@@ -859,7 +859,7 @@ local function drawSpawnProtection(pl)
 					end
 					
 					-- Checks
-					if not MySelf:Alive() or not MySelf:IsHuman() or not MySelf:HasSpawnProtection() or ENDROUND then return end
+					if not MySelf:Alive() or not MySelf:IsHuman() or ENDROUND then return end
 					
 					-- Get damage reduction
 					local CurrentReduction = MySelf:GetSpawnDamagePercent()
@@ -880,7 +880,7 @@ local function drawSpawnProtection(pl)
 		end
 	end)
 end
-hook.Add("OnPlayerRedeem", "HumanSpawnProtection", drawSpawnProtection)
+--hook.Add("OnPlayerRedeem", "HumanSpawnProtection", drawSpawnProtection)
 
 drawZombieBoost = drawZombieBoost or false
 local BoostTime = 0
