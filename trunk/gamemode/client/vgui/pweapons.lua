@@ -37,7 +37,7 @@ function MakeWeps()
 	
 	local ypos = 90
 	
-	local frags = MySelf:Frags()
+	local frags = MySelf:GetScore()
 	
 	for i=1,table.maxn(tblRewards) do -- Find the amount of kills that we need to get rewards
 	local tab = tblRewards[i]

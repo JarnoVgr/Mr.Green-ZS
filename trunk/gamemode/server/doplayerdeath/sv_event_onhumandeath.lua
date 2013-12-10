@@ -113,8 +113,8 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	-- Case 1: Human is being atacked by a zombie
 	if mAttacker:IsPlayer() and mVictim:IsHuman() and mAttacker:IsZombie() and not dmginfo:IsSuicide( mVictim ) then
-		mAttacker:AddFrags ( 2 )
-		mAttacker:AddScore( "humanskilled", 1 )
+		mAttacker:AddScore ( 2 )
+		mAttacker:AddToCounter( "humanskilled", 1 )
 		
 		-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"freshfood")
 		mAttacker:AddXP(100)

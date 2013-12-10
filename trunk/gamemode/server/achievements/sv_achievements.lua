@@ -46,8 +46,8 @@ function GM:DoDamageAchievements ( ent, attacker, inflictor, dmginfo )
 		
 		-- Check damage original achievements
 		if attacker:Team() == TEAM_UNDEAD then
-			attacker:AddScore( "humansdamaged",damage )
-			local dam = attacker:GetScore( "humansdamaged" )
+			attacker:AddToCounter( "humansdamaged",damage )
+			local dam = attacker:GetCounter( "humansdamaged" )
 			if dam >= 10000 then
 				attacker:UnlockAchievement( "humanitysdamnation" )
 				if dam >= 100000 then
@@ -59,8 +59,8 @@ function GM:DoDamageAchievements ( ent, attacker, inflictor, dmginfo )
 		-- A shitload of class achivements
 		if attacker:IsPlayer() and not attacker:IsBot() and attacker:Team() == TEAM_HUMAN then		
 			-- Save the damage to the file and unlock some more damage achievements
-			attacker:AddScore( "undeaddamaged",damage )
-			local dam = attacker:GetScore("undeaddamaged")
+			attacker:AddToCounter( "undeaddamaged",damage )
+			local dam = attacker:GetCounter("undeaddamaged")
 			if dam >= 100000 then
 				attacker:UnlockAchievement("lightbringer")
 				if dam >= 1000000 then

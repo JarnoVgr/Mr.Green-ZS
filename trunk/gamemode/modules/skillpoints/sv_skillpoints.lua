@@ -16,7 +16,7 @@ end
 skillpoints = {}
 
 function GM:CheckPlayerScore(pl)
-	local score = pl:Frags()
+	local score = pl:GetScore()
 	if self.RetroUnlocks[score] then
 		local reward = self.RetroUnlocks[score][math.random(1, #self.RetroUnlocks[score])]
 		if string.sub(reward, 1, 1) == "_" then
@@ -56,14 +56,8 @@ function skillpoints.SetupSkillPoints(pl)
 	if not IsEntityValid(pl) then
 		return
 	end
-	
-	pl.SkillPoints = 0
-	pl:SetFrags(pl.SkillPoints)
-	
-	--umsg.Start("skillpoints.UpdateSkillPoints", pl)
-	--	umsg.Short(0)
-	--umsg.End()
-	
+
+	pl:SetScore(0)	
 end
 
 -- Add nessesary amount of skill points
@@ -72,9 +66,8 @@ function skillpoints.AddSkillPoints(pl, amount)
 		return false
 	end
 	
-	pl.SkillPoints = pl.SkillPoints + amount
-	pl:SetFrags(math.min(2048,pl.SkillPoints))
-	
+	pl:AddScore(amount)
+
 	return true
 end
 
@@ -87,7 +80,7 @@ function skillpoints.GetSkillPoints(pl)
 	--[[local totalAmount = pl.SkillPoints + amount
 	pl:SetFrags(math.min(2048,totalAmount))
 	pl.SkillPoints = totalAmount]]
-	return pl.SkillPoints
+	return pl:GetScore()
 end
 
 -- Use it when you want player to achieve skillshot
@@ -120,17 +113,11 @@ end
 
 -- Same as skillpoints.SetupSkillPoints :/
 function skillpoints.Clean(pl)
-
-	if not IsEntityValid(pl) then return end
+	if not IsEntityValid(pl) then
+		return
+	end
 	
-	pl:SetFrags(0)
-	
-	pl.SkillPoints = 0
-	
-	--umsg.Start("skillpoints.UpdateSkillPoints", pl)
-		--umsg.Short(0)
-	--umsg.End()
-	
+	pl:SetScore(0)	
 end
 
 

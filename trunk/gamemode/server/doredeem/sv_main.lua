@@ -19,7 +19,6 @@ end
 
 
 function GM:ProceedRedeemSpawn(pl)
-
 	if not IsValid(pl) then return end
 	if pl:IsZombie() then return end
 	
@@ -30,17 +29,16 @@ function GM:ProceedRedeemSpawn(pl)
 	if newspawn then
 		pl:SetPos(newspawn:GetPos())
 	end
-	
 end
 util.AddNetworkString( "PlayerRedeemed" )
+
 -- Redeem code goes here
 local PlayersRedeemed = {}
-function GM:OnPlayerRedeem( pl, causer )
-
+function GM:OnPlayerRedeem(pl, causer)
 	--Redeem effect
 	local effectdata = EffectData()
-	effectdata:SetOrigin( pl:GetPos() )
-	util.Effect( "redeem", effectdata )
+	effectdata:SetOrigin(pl:GetPos())
+	util.Effect("redeem", effectdata)
 
 	--Send status to everybody
 	net.Start("PlayerRedeemed")
@@ -53,14 +51,14 @@ function GM:OnPlayerRedeem( pl, causer )
 	--Check if it wasn't an admin redeem
 	if not IsValid(causer) then
 		for k,v in pairs( player.GetAll() ) do
-			v:ChatPrint( pl:Name().." redeemed" )
+			v:ChatPrint(pl:Name() .." redeemed")
 		end
 	
 		pl.Redeems = pl.Redeems + 1
 		
 		if not pl:IsBot() then
-			pl:AddScore( "redeems",1 )
-			pl:UnlockAchievement( "payback" )
+			pl:AddToCounter("redeems", 1)
+			pl:UnlockAchievement("payback")
 			if pl.Redeems >= 3 then
 				pl:UnlockAchievement( "dealwiththedevil" )
 			end

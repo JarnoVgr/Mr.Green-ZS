@@ -27,7 +27,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		--Add bonus for prop-kills
 		if dmginfo:IsPhysDamage() then
 			if mVictim:IsHuman() and mAttacker:IsZombie() then
-				mAttacker:AddFrags( 1 )
+				mAttacker:AddScore(1)
 				-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"propkill")
 			end
 		end
@@ -70,7 +70,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		-- Melee kill
 		if dmginfo:IsMeleeDamage() and not mInflictor.IsTurretDmg then
 			if dmginfo:IsAttackerPlayer() then
-				-- mAttacker:AddFrags ( 1 )
+				-- mAttacker:AddScore(1)
 				skillpoints.AddSkillPoints(mAttacker,5)
 				mVictim:FloatingTextEffect( 5, mAttacker )
 			end
@@ -82,7 +82,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				if not dmginfo:IsMeleeDamage() then
 				
 					--[[if not mInflictor.IsTurretDmg then
-						mAttacker:AddFrags ( 1 )
+						mAttacker:AddScore(1)
 					end]]
 					
 					--mVictim:EmitSound( "physics/body/body_medium_break"..math.random( 2, 4 )..".wav" )
@@ -116,7 +116,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 						end
 				-- -------------------------------------------------------------------------------------------------
 				--[[skillpoints.AddSkillPoints(mAttacker,5)
-				mAttacker:AddFrags ( 1 )
+				mAttacker:AddScore(1)
 				mVictim:Dismember("DECAPITATION",dmginfo)
 				skillpoints.AchieveSkillShot(mAttacker,mVictim,"decapitation")
 				mAttacker:CheckLevelUp()]]

@@ -8,7 +8,7 @@ local function OnAssistDeath ( mVictim, mAttacker, mInflictor, mAssist, dmginfo 
 
 	-- Case 1: Undead assistant
 	if mAssist:IsZombie() then
-		mAssist:AddFrags ( 1 )
+		mAssist:AddScore(1)
 		mAssist:AddXP(50)
 		--skillpoints.AchieveSkillShot(attacker,pl,"freshfood")
 				
@@ -28,7 +28,7 @@ local function OnAssistDeath ( mVictim, mAttacker, mInflictor, mAssist, dmginfo 
 			
 	-- Case 2: Human assistant
 	if mAssist:IsHuman() then
-		--mAssist:AddFrags ( 1 )
+		--mAssist:AddScore(1)
 		mAssist:GiveGreenCoins ( COINS_PER_ZOMBIE )
 				
 		-- Give greencoins and add assists counter and increment zombies killed

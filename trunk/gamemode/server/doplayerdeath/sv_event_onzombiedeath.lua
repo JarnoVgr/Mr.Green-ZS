@@ -193,30 +193,28 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end]]
 		
 	if mAttacker:IsPlayer() and mAttacker:IsHuman() and mAttacker ~= mVictim and mVictim:IsZombie() then --disable getting points from teamkilling anyway
-	
 		if not revive then
-			-- mAttacker:AddFrags ( 1 )
-			mAttacker:AddScore( "undeadkilled", 1 )
+			--mAttacker:AddScore(1)
+			mAttacker:AddToCounter( "undeadkilled", 1 )
 		
-			local reward = GAMEMODE:IsRetroMode() and 1 or ZombieClasses[mVictim:GetZombieClass()].SP
-			
-		if mVictim:IsCrow() and GAMEMODE:IsRetroMode() then reward = 0 end
+			local reward = ZombieClasses[mVictim:GetZombieClass()].SP
 		
-		skillpoints.AddSkillPoints(mAttacker,reward)
-		mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-		mVictim:FloatingTextEffect( reward, mAttacker )
+			skillpoints.AddSkillPoints(mAttacker,reward)
+			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
+			mVictim:FloatingTextEffect(reward, mAttacker)
 
-		-- Add GreenCoins and increment zombies killed counter
-		mAttacker.ZombiesKilled = mAttacker.ZombiesKilled + 1
-		mAttacker:GiveGreenCoins( COINS_PER_ZOMBIE )
-		mAttacker.GreencoinsGained[ mAttacker:Team() ] = mAttacker.GreencoinsGained[ mAttacker:Team() ] + COINS_PER_ZOMBIE
-		
-		-- When the human kills a zombie he says (GOT ONE)
-		if ( math.random(1,6) == 1 ) then
-			timer.Simple( 1, function() VoiceToKillCheer(mAttacker) end )
-		end
+			-- Add GreenCoins and increment zombies killed counter
+			mAttacker.ZombiesKilled = mAttacker.ZombiesKilled + 1
+			mAttacker:GiveGreenCoins(COINS_PER_ZOMBIE)
+			mAttacker.GreencoinsGained[mAttacker:Team()] = mAttacker.GreencoinsGained[ mAttacker:Team() ] + COINS_PER_ZOMBIE
+			
+			-- When the human kills a zombie he says (GOT ONE)
+			if (math.random(1,6) == 1) then
+				timer.Simple( 1, function()
+					VoiceToKillCheer(mAttacker)
+				end)
+			end
 		end
 	end
-
 end
 hook.Add( "OnZombieDeath", "OnZombieKilled", OnZombieDeath )

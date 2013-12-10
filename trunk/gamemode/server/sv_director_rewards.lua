@@ -24,12 +24,12 @@ function GM:CheckHumanScore ( pl )
 	if pl:Team() ~= TEAM_HUMAN then return end
 	local class = pl:GetHumanClass()
 	-- There isn't any entry in the reward table
-	--if RewardsTable[class][ pl:Frags() ] == nil then return end
+	--if RewardsTable[class][ pl:GetScore() ] == nil then return end
 	
 	if RewardsTable[class][ pl.SkillPoints ] == nil then return end
 	
 	-- Make things easier
-	local Score = pl.SkillPoints--pl:Frags()
+	local Score = pl:GetScore()
 	local Reward = table.Random ( RewardsTable[class][Score] )
 	
 	-- Check and see what type of weapon is that

@@ -1,16 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local ents = ents
-
 if SERVER then
 	local umsg = umsg
 end
@@ -712,7 +702,6 @@ function meta:IsHolding()
 	return self.status_human_holding and self.status_human_holding:IsValid()
 end
 
-
 function meta:CanRedeem()
 	if CLIENT then
 		return
@@ -723,50 +712,88 @@ function meta:CanRedeem()
 	end
 		
 	if REDEEM and AUTOREDEEM and util.tobool(self:GetInfoNum("_zs_autoredeem",1)) then
-		local redeemkillz = REDEEM_KILLS
+		local requiredScore = REDEEM_KILLS
 		if self:HasBought("quickredemp") then
-			redeemkillz = REDEEM_FAST_KILLS
+			requiredScore = REDEEM_FAST_KILLS
 		end
 		
-		if self:Frags() >= redeemkillz then
+		if self:GetScore() >= requiredScore then
 			--Redeem is possible
 			return true
 		end
 	end
+
 	return false
 end
 
-function meta:SetScore(score)
-	if CLIENT or not ValidEntity(self) then
-		return
+if SERVER then
+	util.AddNetworkString("SetPlayerScore")
+	util.AddNetworkString("SetLocalPlayerScore")
+end
+
+function meta:SetScore(newAmount)
+	if not ValidEntity(self) then
+		return false
 	end
 	
-	pl.SkillPoints = score
-	self:SetFrags(math.min(2048,pl.SkillPoints))
+	--Set local value
+	self.Score = newAmount or 0
+
+	if SERVER then
+		--Send new score to clients
+		net.Start("SetPlayerScore")
+		net.WriteEntity(self)
+		net.WriteInt(self.Score,32)
+		net.Broadcast()
+		--[[net.Start("SetLocalPlayerScore")
+		net.WriteEntity(self)
+		net.WriteInt(self.Score,32)
+		net.Send(self)]]
+
+		--Clamp because of frags limitation bug
+		self:SetFrags(math.Clamp(self.Score,-1999,1999))
+
+		print("SENDING SETPLAYERSCORE")
+	end
+
+	return true
 end
 
 function meta:GetScore()
-	if CLIENT or not ValidEntity(self) then
-		return
-	end
-
-	return pl.SkillPoints
-end
-	
-function meta:ScoreAdd(score)
-	if CLIENT then
-		return
-	end
-
-	pl.SkillPoints = pl.SkillPoints + score
-	self:SetFrags(math.min(2048,pl.SkillPoints))
+	return self.Score or 0
 end
 
+if SERVER then
+	function meta:AddScore(amountToAdd)
+		if type (amountToAdd) ~= "number" then
+			ErrorNoHalt( "Wrongly called AddScore. AmountToAdd: ".. amountToAdd )
+		end
+
+		if amountToAdd == 0 or not amountToAdd then
+			return 0
+		end
+
+		--Calculate new score
+		local newScore = self:GetScore() + amountToAdd
+
+		if self:SetScore(newScore) then
+			return newScore
+		else
+			return 0
+		end
+	end
+
+	--OBSOLETE
+	--TODO: Check if still used somewhere
+	function meta:ScoreAdd(score)
+		return self:AddScore(score)
+	end
+end
 
 --[==[----------------------------------------------------------
   Used to see if a player is near toxic fumes (Shared)
 ------------------------------------------------------------]==]
-function meta:IsInToxicFumes ( ToxicFumeTable )
+function meta:IsInToxicFumes(ToxicFumeTable)
 	if not self:Alive() then return end
 	if ToxicFumeTable == nil then return false end
 	

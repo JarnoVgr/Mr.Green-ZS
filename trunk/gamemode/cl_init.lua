@@ -3,18 +3,22 @@
 
 MySelf = NULL
 hook.Add("Think", "GetLocal", function()
-	if not ClientReady then ClientReady = true gamemode.Call( "OnClientReady" ) end
+	if not ClientReady then
+		ClientReady = true
+		gamemode.Call("OnClientReady")
+	end
 	
 	MySelf = LocalPlayer()
 	if MySelf:IsValid() then
-		-- MYSELFVALID = true
+		--MYSELFVALID = true
 		hook.Remove("Think", "GetLocal")
 		if not GAMEMODE.HookGetLocal then
-			GAMEMODE.HookGetLocal = function(g) end
+			GAMEMODE.HookGetLocal = function(g)
+			end
 		end
 		gamemode.Call("HookGetLocal", MySelf)
-		RunConsoleCommand( "PostPlayerInitialSpawn" )
-		gamemode.Call( "OnSelfReady" )
+		RunConsoleCommand("PostPlayerInitialSpawn")
+		gamemode.Call("OnSelfReady")
 	end
 end)
 
@@ -55,6 +59,7 @@ include("client/cl_hudpickup.lua")
 include("client/cl_spawnmenu.lua")
 include("client/cl_endgame.lua")
 include("client/cl_postprocess.lua")
+include("client/cl_players.lua")
 include("client/cl_deathnotice.lua")
 include("client/cl_beats.lua")
 include("client/cl_splitmessage.lua")

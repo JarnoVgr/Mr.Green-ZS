@@ -665,7 +665,7 @@ function meta:AddXP(amount)
 		if self.Ready then
 			str = "ready"
 		end
-		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddScore failed." )
+		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddXP failed." )
 		return
 	end	
 	
@@ -699,7 +699,7 @@ function meta:AddRank (amount)
 		if self.Ready then
 			str = "ready"
 		end
-		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddScore failed." )
+		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddRank failed." )
 		return
 	end	
 	if type ( self.DataTable["ClassData"]["default"].rank ) == "number" then
@@ -718,11 +718,11 @@ function meta:AddRank (amount)
 	end
 end
 
-function meta:AddScore( stat, amount )
+function meta:AddToCounter(stat, amount)
 	if not self.DataTable[stat] then
 		local str = "not ready"
 		if self.Ready then str = "ready" end
-		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable while "..str.." and thus AddScore failed." )
+		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable while "..str.." and thus AddToCounter failed." )
 		return
 	end
 	
@@ -732,7 +732,7 @@ function meta:AddScore( stat, amount )
 	end
 end
 
-function meta:GetScore( stat )
+function meta:GetCounter(stat)
 	return self.DataTable[stat] or 0
 end
 
@@ -744,7 +744,7 @@ function meta:AddTableScore( class,stat,amount )
 		if self.Ready then
 			str = "ready"
 		end
-		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddScore failed." )
+		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddTableScore failed." )
 		return
 	end
 	if team.NumPlayers (TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD) < 8 then return end
@@ -952,33 +952,50 @@ function meta:GetTableScore( class,stat)
 end
 --------------------------------------------------------------------------
 
-function meta:UnlockNotify( item )
+function meta:UnlockNotify(item)
 	self:SendLua('UnlockEffect2("'..item..'")')
 end
 
-function meta:UnlockAchievement( stat )
+function meta:UnlockAchievement(stat)
+	--Only unlock when having more than 8 players
+	if #player.GetAll() < 8 or not self:GetAchievementsDataTable() then
+		return false
+	end
 	
-	if #player.GetAll() < 8 or not self:GetAchievementsDataTable() then return end
-	local statID = util.GetAchievementID( stat )
-	if self:GetAchievementsDataTable()[statID] == true then return end
+	local statID = util.GetAchievementID(stat)
+	
+	--Check if already attained
+	if self:GetAchievementsDataTable()[statID] == true then
+		return false
+	end
+	
+	--YAY! Achievements
 	self.DataTable["Achievements"][statID] = true
 	self:SendLua('UnlockEffect("'..stat..'")')
 	self.DataTable["progress"] = math.floor(self:GetAchvProgress())
-	PrintMessageAll(HUD_PRINTTALK,"Player "..self:Name().." got the achievement: "..achievementDesc[statID].Name.."!")
-	-- self:AddFrags ( 1 )
+	PrintMessageAll(HUD_PRINTTALK,self:Name() .." attained the '"..achievementDesc[statID].Name.."' achievements!")
+	--self:AddScore(1)
 	
-	-- Save SQL data
-	self:SaveAchievement( statID )
+	--Save DB data
+	self:SaveAchievement(statID)
 	
-	local hasAll = true
-	for k, v in pairs(self.DataTable["Achievements"]) do
-		if not v and k ~= util.GetAchievementID( "masterofzs" ) then
-			hasAll = false
+	--Only check for this when it's not Master of ZS
+	if stat ~= "masterofzs" then
+		--Check if all achievements are attained (excluding masterofzs)
+		local hasAll = true
+		for k, v in pairs(self.DataTable["Achievements"]) do
+			if not v and k ~= util.GetAchievementID("masterofzs") then
+				hasAll = false
+			end
+		end
+		
+		--Award Master of ZS when having all
+		if hasAll then
+			self:UnlockAchievement("masterofzs")
 		end
 	end
-	if hasAll then
-		self:UnlockAchievement("masterofzs")
-	end
+	
+	return true
 end
 
 function meta:SetAsCrow()
@@ -1828,7 +1845,6 @@ end )
 concommand.Add( "zs_boughtpointswithcoins", function( pl, cmd, args )
     if ( IsValid( pl ) ) then
         if ( pl:CanBuyPointsWithCoins() ) then
-            --pl:SetFrags(math.min(2048,pl:Frags() + 300))
 			skillpoints.AddSkillPoints(pl, 300)
             pl:TakeGreenCoins(80)
         end

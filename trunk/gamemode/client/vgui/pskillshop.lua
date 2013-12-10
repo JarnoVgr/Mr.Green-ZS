@@ -271,7 +271,7 @@ function InsertWeaponsTab()
 				elseif GetConVarString("_zs_skillshopsort") == "expensive" then
 					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price*-1 )
 				elseif GetConVarString("_zs_skillshopsort") == "available" then
-					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price <= MySelf:Frags() and GAMEMODE.HumanWeapons[wep].Price*-1 or GAMEMODE.HumanWeapons[wep].Price )
+					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price <= MySelf:GetScore() and GAMEMODE.HumanWeapons[wep].Price*-1 or GAMEMODE.HumanWeapons[wep].Price )
 				elseif GetConVarString("_zs_skillshopsort") == "onsale" then
 					WeaponTab[wep]:SetZPos( IsOnSale(wep) and -2000 or 2000 )
 				else
@@ -346,7 +346,7 @@ function InsertWeaponsTab()
 				
 				
 				---------
-				if MySelf:Frags() < tab.Price then --MySelf.SkillPoints
+				if MySelf:GetScore() < tab.Price then --MySelf.SkillPoints
 					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[wep].Price.." SP", "ArialBoldSeven",  WeaponTab[wep]:GetWide()/2+70, WeaponTab[wep]:GetTall()/2, Color(180, 11, 11, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255)) -- WeaponTab[wep]:GetWide()/2-35
 				else
 					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[wep].Price.." SP", "ArialBoldSeven",  WeaponTab[wep]:GetWide()/2+70, WeaponTab[wep]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
@@ -368,7 +368,7 @@ function InsertWeaponsTab()
 			WeaponTab[wep].Btn:SetPos(WeaponTab[wep]:GetWide()-70-50, WeaponTab[wep]:GetTall()/2-WeaponTab[wep].Btn:GetTall()/2)
 			
 			WeaponTab[wep].Btn.Think = function()
-				if MySelf:Frags() < tab.Price then
+				if MySelf:GetScore() < tab.Price then
 					WeaponTab[wep].Btn:SetEnabled(false)
 					WeaponTab[wep].Btn:SetDisabled(true)
 				else
@@ -451,7 +451,7 @@ function InsertAmmoTab()
 				elseif GetConVarString("_zs_skillshopsort") == "expensive" then
 					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price*-1 )
 				elseif GetConVarString("_zs_skillshopsort") == "available" then
-					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price <= MySelf:Frags() and -2000 or 2000 )
+					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price <= MySelf:GetScore() and -2000 or 2000 )
 				else
 					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price )
 				end				
@@ -478,7 +478,7 @@ function InsertAmmoTab()
 			
 				surface.SetDrawColor( 255, 255, 255, 255) 
 				draw.SimpleTextOutlined ( GAMEMODE.SkillShopAmmo[ammo].Name, "WeaponNames", 15, AmmoTab[ammo]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-				if MySelf:Frags() < tab.Price then
+				if MySelf:GetScore() < tab.Price then
 					draw.SimpleTextOutlined ( GAMEMODE.SkillShopAmmo[ammo].Price.." SP", "ArialBoldSeven",  AmmoTab[ammo]:GetWide()/2-35, AmmoTab[ammo]:GetTall()/2, Color(180, 11, 11, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				else
 					draw.SimpleTextOutlined ( GAMEMODE.SkillShopAmmo[ammo].Price.." SP", "ArialBoldSeven",  AmmoTab[ammo]:GetWide()/2-35, AmmoTab[ammo]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
@@ -494,7 +494,7 @@ function InsertAmmoTab()
 			AmmoTab[ammo].Btn:SetPos(AmmoTab[ammo]:GetWide()-70-50, AmmoTab[ammo]:GetTall()/2-AmmoTab[ammo].Btn:GetTall()/2)
 			
 			AmmoTab[ammo].Btn.Think = function()
-				if MySelf:Frags() < tab.Price then
+				if MySelf:GetScore() < tab.Price then
 					AmmoTab[ammo].Btn:SetEnabled(false)
 					AmmoTab[ammo].Btn:SetDisabled(true)
 				else
@@ -670,7 +670,7 @@ function DrawSkillShop()
 	SPLabel:SetPos (SPLabelX, SPLabelY)
 	SPLabel.Paint = function()
 		DrawPanelBlackBox(0,0,SPLabelW, SPLabelH)
-		draw.SimpleTextOutlined(MySelf:Frags() .." SP", "ArialBoldTwelve", SPLabelW/2, SPLabelH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(MySelf:GetScore() .." SP", "ArialBoldTwelve", SPLabelW/2, SPLabelH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 end
 

@@ -62,7 +62,9 @@ end
 concommand.Add ("open_bugpanel", OpenBugPanel)
 
 function SetAutoRedeem(pl,commandName,args)
-	if not args[1] then return end
+	if not args[1] then
+		return
+	end
 	pl.AutoRedeem = util.tobool(args[1])
 end
 concommand.Add("zs_setautoredeem",SetAutoRedeem) 
@@ -451,8 +453,10 @@ end
 concommand.Add("slay_player",SlayPlayer)
 
 function RedeemPlayer(pl,commandName,args)
-	if not (pl:IsSuperAdmin()) then return end
-	if not (args[1]) then return end
+	if not (pl:IsSuperAdmin()) or not (args[1]) then
+		return
+	end
+
 	GetPlayerByUserID(tonumber(args[1])):Redeem( pl )
 end
 concommand.Add("redeem_player",RedeemPlayer)
@@ -879,7 +883,6 @@ local adminCommandList = {      -- list of all admin commands I added
 "!sweplist \t\t\t- Prints the list of available sweps in the console",
 "!changemap <map name> \t\t- Changes map",
 "!swep <player name> <weapon name> \t- Gives the specified player the specified weapon.",
-"!frag+ <player name> \t\t- Gives the specified player a frag. Will update weapon rewards, but won't redeem zombies.",
 "!ammo+ <player name> \t\t- Gives the specified player 100 ammo for the weapon he/she is holding.",
 "!hp+ <player name> \t\t- Restores 25 health for the specified player",
 "!redeem <player name> \t\t- Redeemes the specified player (if zombie)",
@@ -1446,7 +1449,7 @@ function ApplySkillShopItem(pl,com,args)
 	
 	if string.sub(weapon, 1, 6) == "weapon" then
 		if GAMEMODE.HumanWeapons[weapon] and GAMEMODE.HumanWeapons[weapon].Price then
-			if pl:Frags() >= GAMEMODE.HumanWeapons[weapon].Price then
+			if pl:GetScore() >= GAMEMODE.HumanWeapons[weapon].Price then
 				local StrCategory = GetWeaponCategory ( weapon )
 				local StrWep = nil
 				
@@ -1478,7 +1481,7 @@ function ApplySkillShopItem(pl,com,args)
 		end
 	else
 		if GAMEMODE.SkillShopAmmo[weapon] and GAMEMODE.SkillShopAmmo[weapon].Price then
-			if pl:Frags() >= GAMEMODE.SkillShopAmmo[weapon].Price then
+			if pl:GetScore() >= GAMEMODE.SkillShopAmmo[weapon].Price then
 				-- check for tools
 				if GAMEMODE.SkillShopAmmo[weapon].Tool then
 					for i,j in pairs ( pl:GetWeapons() ) do

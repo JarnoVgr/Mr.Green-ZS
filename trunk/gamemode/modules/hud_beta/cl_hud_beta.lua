@@ -284,7 +284,7 @@ function hud.DrawNewZombieHUD()
 		if MySelf:HasBought("quickredemp") then
 			requiredScore = REDEEM_FAST_KILLS
 		end
-		requiredScore = math.max(0,requiredScore - MySelf:Frags())
+		requiredScore = math.max(0,requiredScore - MySelf:GetScore())
 		if requiredScore > 0 then
 			requiredScore = math.ceil(requiredScore/2)
 			if requiredScore == 1 then
@@ -520,7 +520,7 @@ function hud.DrawHealthPanel()
 		end
 
 		surface.SetFont("ssNewAmmoFont13")
-		local fSPTextWidth, fSPTextHeight = surface.GetTextSize(MySelf:Frags() .." SP")
+		local fSPTextWidth, fSPTextHeight = surface.GetTextSize(MySelf:GetScore() .." SP")
 	
 		ActualX = ActualX + HPBarSizeW + ScaleW(40) + fSPTextWidth
 	
@@ -558,14 +558,14 @@ function hud.DrawStatsPanel()
 	
 	MySelf.SkillPoints = MySelf.SkillPoints or 0
 	
-	local text = MySelf:Frags() .." SP"
+	local text = MySelf:GetScore() .." SP"
 	
 	if GAMEMODE:IsRetroMode() then
-		local frags = MySelf:Frags()
-		if nextreward ~= 9999 and nextreward <= frags then
+		local myScore = MySelf:GetScore()
+		if nextreward ~= 9999 and nextreward <= myScore then
 			local maxn = table.maxn(GAMEMODE.RetroUnlocks)
 			for i=1, maxn do
-				if GAMEMODE.RetroUnlocks[i] and frags < i then
+				if GAMEMODE.RetroUnlocks[i] and myScore < i then
 					nextreward = i
 					break
 				elseif i == maxn then
@@ -575,9 +575,9 @@ function hud.DrawStatsPanel()
 		end
 		
 		if nextreward == 9999 then
-			text = frags .. " Kills"
+			text = myScore .. " Kills"
 		else
-			text = frags .." Kills | ".. nextreward .." Needed"
+			text = myScore .." Kills | ".. nextreward .." Needed"
 		end
 	end
 	

@@ -15,196 +15,18 @@ local vgui = vgui
 local texGradient = surface.GetTextureID("gui/center_gradient")
 
 local function SortFunc(a, b)
-	return a:Frags() > b:Frags()
+	return a:GetScore() > b:GetScore()
 end
 
 local colBackground = Color(10, 10, 10, 220)
 
---[=[local PANEL = {}
-
-function PANEL:Init()
-	SCOREBOARD = self
-	--self.imgAvatar = vgui.Create( "AvatarImage", self )
-	self.Elements = {}
-end
-
--- BITCH BE SAPPING MAH SCOREBOARD!!! >:O
-function PANEL:Paint()
-	if ENDROUND then return end
-	
-	-- Close it if it's already open and we open the zombie classes menu
-	if ( zClasses and zClasses:IsVisible() ) then SCOREBOARD:SetVisible ( false ) end
-	
-	local tall, wide = self:GetTall(), self:GetWide()
-	local posx, posy = self:GetPos()
-
-	draw.RoundedBox(8, 0, 0, wide, tall, colBackground)
-
-	draw.DrawText("Zombie Survival "..GAMEMODE.Version, "ScoreboardHead", wide * 0.5, 0, COLOR_LIMEGREEN, TEXT_ALIGN_CENTER)
-	surface.SetFont("HUDFont")
-	local gmw, gmh = surface.GetTextSize("Z")
-	draw.DrawText(GetGlobalString("servername"), "HUDFontSmaller2", wide * 0.5, gmh, COLOR_GRAY, TEXT_ALIGN_CENTER)
-	surface.SetFont("HUDFontSmaller2")
-	gmh = gmh+surface.GetTextSize("Z")
-	local y = gmh+30
-	local panPos = y
-	local panLowPos = tall-32
-	
-	surface.SetDrawColor(0, 0, 0, 255)
-	surface.DrawRect(30, y-2, wide - 60, panLowPos-y+4)
-
-	surface.SetDrawColor(200, 200, 200, 255)
-	surface.DrawOutlinedRect(30, y-2, wide - 60, panLowPos-y+4)
-
-	local colHuman = team.GetColor(TEAM_HUMAN)
-	local colUndead = team.GetColor(TEAM_UNDEAD)
-	local colSpectator = team.GetColor (TEAM_SPECTATOR)
-
-	local HumanPlayers = team.GetPlayers(TEAM_HUMAN)
-	local UndeadPlayers = team.GetPlayers(TEAM_UNDEAD)
-	local Spectators = team.GetPlayers (TEAM_SPECTATOR)
-	
-	local MySelf = LocalPlayer()
-
-	table.sort(HumanPlayers, SortFunc)
-	table.sort(UndeadPlayers, SortFunc)
-
-	draw.DrawText("Players", "Default", 34, panPos-14, color_white, TEXT_ALIGN_LEFT)
-	draw.DrawText("Title", "Default", 238, panPos-14, color_white, TEXT_ALIGN_LEFT)
-	draw.DrawText("Class", "Default", 353, panPos-14, color_white, TEXT_ALIGN_LEFT) 
-	draw.DrawText("Score", "Default", 425, panPos-14, color_white, TEXT_ALIGN_LEFT)
-	draw.DrawText("Health", "Default", 468, panPos-14, color_white, TEXT_ALIGN_LEFT)
-	draw.DrawText("Ping", "Default", wide-62, panPos-14, color_white, TEXT_ALIGN_RIGHT)
-
-	-- Initialize titles
-	for k, v in pairs(player.GetAll()) do
-		if v.Title == nil then
-			v.Title = ""
-		end
-	end
-	
-	surface.SetFont("Default")
-	local width, height = surface.GetTextSize("Q")
-
-	local humanclassname = ""
-	local humanname = "" 
-	for i, pl in pairs(HumanPlayers) do
-		if MySelf:Team() == TEAM_HUMAN and pl:Team() == TEAM_HUMAN then
-			humanclassname = "Unknown" -- HumanClasses[pl:GetHumanClass()].Name or "Unknown"
-			if pl:GetHumanClass() == 3 then
-				humanclassname = "Marksman"
-			end
-		else
-			humanclassname = "Unknown"
-		end
-	
-		humanname = pl:Name()		
-		local fMaxHealth = pl:GetMaximumHealth()
-		if fMaxHealth == math.huge then fMaxHealth = 100 end
-		--local fHealth = math.Round ( math.Clamp ( ( pl:Health() / pl:GetMaximumHealth() ) * 100, 0, 100 ) )
-		local fHealth = math.Round ( pl:Health())
-		
-		if y >= panLowPos-height then
-			draw.DrawText("...", "Default", 34, y, colHuman, TEXT_ALIGN_LEFT)
-			break
-		else
-			draw.DrawText(humanname, "Default", 34, y, colHuman, TEXT_ALIGN_LEFT)
-			draw.DrawText(pl.Title, "Default", 246, y, colHuman, TEXT_ALIGN_CENTER) -- 192
-			-- draw.DrawText(humanclassname, "Default", 365, y, colHuman, TEXT_ALIGN_CENTER)
-			draw.DrawText(pl:Frags(), "Default", 433, y, colHuman, TEXT_ALIGN_CENTER)
-			draw.DrawText(fHealth, "Default", 484, y, colHuman, TEXT_ALIGN_CENTER)
-			draw.DrawText(pl:Ping(), "Default", 527, y, colHuman, TEXT_ALIGN_CENTER)
-			y = y + height
-			if pl == MySelf then
-				surface.SetDrawColor (36,126,213,10)
-				surface.DrawRect (31,y - height,537,height)
-			end
-		end
-	end
-
-	if team.NumPlayers (TEAM_HUMAN) > 0 then
-		surface.SetDrawColor(200, 200, 200, 255)
-		surface.DrawLine(32,y+height/4,wide-32,y+height/4)
-		y = y + height/2
-	end
-	
-	local status = 0
-	local classname = ""
-	local MySelf = LocalPlayer()
-	for i, pl in ipairs(UndeadPlayers) do
-		if MySelf:Team() == TEAM_UNDEAD then
-			status = tostring(math.Clamp(pl:Health(),0,9999))
-			classname = ZombieClasses[pl.Class or 1].Name
-		else
-			if pl:Alive() then
-				status = "ALIVE-ish"
-			else
-				status = "DEAD"
-			end
-			classname = "Unknown"
-		end
-		
-		if y >= panLowPos-height then
-			draw.DrawText("...", "Default", 34, y, colUndead, TEXT_ALIGN_LEFT)
-			break
-		else
-			draw.DrawText(pl:Name(), "Default", 34, y, colUndead, TEXT_ALIGN_LEFT)
-			draw.DrawText(pl.Title, "Default", 246, y, colUndead, TEXT_ALIGN_CENTER) -- 192
-			draw.DrawText(classname, "Default", 365, y, colUndead, TEXT_ALIGN_CENTER)
-			draw.DrawText(pl:Frags(), "Default", 433, y, colUndead, TEXT_ALIGN_CENTER)
-			draw.DrawText(status, "Default", 484, y, colUndead, TEXT_ALIGN_CENTER)
-			draw.DrawText(pl:Ping(), "Default", 527, y, colUndead, TEXT_ALIGN_CENTER)
-			y = y + height
-			if pl == MySelf then
-				surface.SetDrawColor (44,177,31,10)
-				surface.DrawRect (31,y - height,537,height)
-			end
-		end
-	end
-	
-	if team.NumPlayers (TEAM_UNDEAD) > 0 then
-		surface.SetDrawColor(200, 200, 200, 255)
-		surface.DrawLine(32,y+height/4,wide-32,y+height/4)
-		y = y + height/2
-	end
-	
-	for i, pl in ipairs(Spectators) do
-		if y >= panLowPos-height then
-			draw.DrawText("...", "Default", 34, y, colSpectator, TEXT_ALIGN_LEFT)
-			break
-		else
-			draw.DrawText(pl:Name(), "Default", 34, y, colSpectator, TEXT_ALIGN_LEFT)
-			draw.DrawText("Connecting", "Default", 246, y, colSpectator, TEXT_ALIGN_CENTER) -- 192
-			draw.DrawText("N/A", "Default", 365, y, colSpectator, TEXT_ALIGN_CENTER)
-			draw.DrawText("0", "Default", 433, y, colSpectator, TEXT_ALIGN_CENTER)
-			draw.DrawText("0", "Default", 484, y, colSpectator, TEXT_ALIGN_CENTER)
-			draw.DrawText(pl:Ping(), "Default", 527, y, colSpectator, TEXT_ALIGN_CENTER)
-			y = y + height
-		end
-	end
-	
-	draw.DrawText("F1:  Help and Info - F2: Manual redeem - F3: Zombie classes - F4: Options", "HUDFontSmaller2", wide*0.5, tall-30, COLOR_LIMEGREEN, TEXT_ALIGN_CENTER)
-
-	return true
-end
-
-function PANEL:PerformLayout()
-	self:SetSize(600, h * 0.8)
-	self:SetPos((w - self:GetWide()) * 0.5, (h - self:GetTall()) * 0.5)
-end
-vgui.Register("ScoreBoard", PANEL, "Panel")
-]=]
-
--- We will do it easier
-
 
 local function AddScoreboardItem(ply,list)
-	
 	MainLabel = MainLabel or {}
 
-	if MainLabel[ply] then return end
-	
-	
+	if MainLabel[ply] then
+		return
+	end
 	
 	MainLabel[ply] = vgui.Create( "DLabel")
 	MainLabel[ply].Player = ply
@@ -303,7 +125,7 @@ local function AddScoreboardItem(ply,list)
 		if ply:Team() == TEAM_UNDEAD then
 			col = team.GetColor( ply:Team() )
 		end
-		draw.SimpleTextOutlined(ply:Frags() , "ArialBoldFive", MainLabel[ply].Kills:GetWide()/2,MainLabel[ply].Kills:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(ply:GetScore() , "ArialBoldFive", MainLabel[ply].Kills:GetWide()/2,MainLabel[ply].Kills:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 	
 	MainLabel[ply].Think = function()
@@ -339,7 +161,7 @@ local function AddScoreboardItem(ply,list)
 		draw.SimpleTextOutlined(ply:Nick() , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		
 		x1 = scoreboard_w/1.7
-		draw.SimpleTextOutlined(ply:Frags() , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(ply:GetScore() , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		
 		x1 = scoreboard_w/1.3
 		draw.SimpleTextOutlined(ply:Health() , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))

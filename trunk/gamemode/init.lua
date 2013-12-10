@@ -27,6 +27,7 @@ AddCSLuaFile("client/cl_deathnotice.lua")
 AddCSLuaFile("client/cl_beats.lua")
 AddCSLuaFile("client/cl_dermaskin.lua")
 AddCSLuaFile("client/cl_voice.lua")
+AddCSLuaFile("client/cl_players.lua")
 AddCSLuaFile("client/cl_waves.lua")
 AddCSLuaFile("client/vgui/scoreboard.lua")
 AddCSLuaFile("client/vgui/poptions.lua")
@@ -291,7 +292,7 @@ function OnPressF2(pl)
 		requiredScore = REDEEM_FAST_KILLS
 	end
 	if not LASTHUMAN then
-		if REDEEM and AUTOREDEEM and pl:Team() == TEAM_UNDEAD and pl:Frags() >= requiredScore then
+		if REDEEM and AUTOREDEEM and pl:Team() == TEAM_UNDEAD and pl:GetScore() >= requiredScore then
 			if not pl:IsBossZombie() then
 				pl:Redeem()
 			else
@@ -549,12 +550,6 @@ end
 NextAmmoDropOff = AMMO_REGENERATE_RATE
 NextHeal = 0
 NextQuickHeal = 0
-
-function GM:OnNPCKilled(ent, attacker, inflictor)
-	if NPCS_COUNT_AS_KILLS and attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
-		attacker:AddFrags(1)
-	end
-end
 
 --[=[--------------------------------------
              Last Human Event
