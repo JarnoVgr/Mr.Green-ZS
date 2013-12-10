@@ -1,6 +1,6 @@
 -- Blah. Moved some code from human's and zombie's classes so I can work much easier
 
-CreateClientConVar("_zs_skillshopsort", "cheap", true, false)
+CreateClientConVar("_zs_skillshopsort", "available", true, false)
 
 SKILLSHOP_OPENED = false
 
@@ -266,16 +266,14 @@ function InsertWeaponsTab()
 			WeaponTab[wep]:SetSize(MainSheetW,MainSheetH/5)
 			WeaponTab[wep]:Dock(TOP)
 			WeaponTab[wep].Think = function()
-				if GetConVarString("_zs_skillshopsort") == "cheap" then
+				if GetConVarString("_zs_skillshopsort") == "mcheap" then
 					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price )
 				elseif GetConVarString("_zs_skillshopsort") == "expensive" then
 					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price*-1 )
-				elseif GetConVarString("_zs_skillshopsort") == "available" then
-					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price <= MySelf:GetScore() and GAMEMODE.HumanWeapons[wep].Price*-1 or GAMEMODE.HumanWeapons[wep].Price )
 				elseif GetConVarString("_zs_skillshopsort") == "onsale" then
 					WeaponTab[wep]:SetZPos( IsOnSale(wep) and -2000 or 2000 )
-				else
-					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price )
+				else --available
+					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price <= MySelf:GetScore() and GAMEMODE.HumanWeapons[wep].Price*-1 or GAMEMODE.HumanWeapons[wep].Price )
 				end				
 			end
 			WeaponTab[wep].OnCursorEntered = function() 
@@ -446,14 +444,12 @@ function InsertAmmoTab()
 			
 			AmmoTab[ammo]:Dock(TOP)
 			AmmoTab[ammo].Think = function()
-				if GetConVarString("_zs_skillshopsort") == "cheap" then
+				if GetConVarString("_zs_skillshopsort") == "mcheap" then
 					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price )
 				elseif GetConVarString("_zs_skillshopsort") == "expensive" then
 					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price*-1 )
-				elseif GetConVarString("_zs_skillshopsort") == "available" then
-					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price <= MySelf:GetScore() and -2000 or 2000 )
-				else
-					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price )
+				else --available
+					AmmoTab[ammo]:SetZPos(GAMEMODE.SkillShopAmmo[ammo].Price <= MySelf:GetScore() and GAMEMODE.SkillShopAmmo[ammo].Price*-1 or GAMEMODE.SkillShopAmmo[ammo].Price)
 				end				
 			end
 			
@@ -515,16 +511,13 @@ function InsertAmmoTab()
 end
 
 local Sorting = {}
-Sorting["cheap"] = {"Cheap items on top"}
-Sorting["expensive"] = {"Expensive items on top"}
-Sorting["available"] = {"Available items on top"}
+Sorting["available"] = {"Best-Available items on top"}
+Sorting["mcheap"] = {"Cheapest items on top"}
+Sorting["expensive"] = {"Most Expensive items on top"}
 Sorting["onsale"] = {"Discounted items on top"}
 
 function DrawSkillShop()
-
-	if not MySelf:IsHuman() then return end
-	if not MySelf:Alive() then return end
-	if not MySelf:IsNearCrate() then return end
+	if not MySelf:IsHuman() or not MySelf:Alive() or not MySelf:IsNearCrate() then return end
 	
 	if not AlreadyStored then
 		StoreWeaponStats()
@@ -587,8 +580,8 @@ function DrawSkillShop()
 	MainPanel:SetSizable(false)
 	
 	SortingBox = vgui.Create("DComboBox",MainPanel)
-	SortingBox:SetSize(150,20)
-	SortingBox:SetPos(MainPanelW-1-150,1)
+	SortingBox:SetSize(180,20)
+	SortingBox:SetPos(MainPanelW-1-180,1)
 	-- SortingBox:Dock(RIGHT)
 	-- SortingBox:DockMargin(0,1,1,0)
 	for name,tbl in pairs(Sorting) do
