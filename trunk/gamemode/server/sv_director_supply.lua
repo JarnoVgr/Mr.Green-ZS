@@ -70,94 +70,127 @@ function ConfirmCratesFromClient(pl,cmd,args)
 end
 concommand.Add("zs_importcrates_confirm",ConfirmCratesFromClient)
 
+local function sortByItemPricing(a, b)
+	return a.Price > b.Price
+end
+
 local function CalculateGivenSupplies(pl)
-	if not ValidEntity ( pl ) or pl:Team() != TEAM_HUMAN then
+	if not ValidEntity(pl) or pl:Team() ~= TEAM_HUMAN then
 		return
 	end
 	
 	--Calculate what weapons to give away
 	local Infliction = GetInfliction()
 	
-	local Available = { Pistols = {}, Automatic = {}, Melee = {}, Snipers = {} }
+	local Available = { Pistols = {}, Automatic = {}, Melee = {} }
 	local PistolToGive, AutomaticToGive, MeleeToGive
 	
 	--Calculate and add every available weapon to table
-	for k,v in pairs(GAMEMODE.HumanWeapons) do
-		if v.Restricted or not v.Price then
+	for itemClass, item in pairs(GAMEMODE.HumanWeapons) do
+		if item.Restricted or not item.Price then
 			continue
 		end
+
+		--Workaround for not having key
+		item.Class = itemClass
 		
-		if GetInfliction() >= 0.6 then
-			if Infliction >= v.Infliction and v.Infliction > Infliction - 0.65 then
-				if GetWeaponType(k) == "pistol" then
-					table.insert(Available.Pistols, k)
-				end
-			end
-		end
-		
-		if GetInfliction() >= 0.75 then		
-			if Infliction >= v.Infliction and v.Infliction > Infliction - 0.25 then
-				if GetWeaponType(k) == "rifle" or GetWeaponType(k) == "smg" or GetWeaponType(k) == "shotgun" then
-					table.insert(Available.Automatic, k)
-				end
-			end
-		end	
-		
-		if GetWeaponType(k) == "melee" then
-			table.insert(Available.Melee, k)
+		if GetWeaponType(itemClass) == "pistol" then
+			table.insert(Available.Pistols, item)
+		elseif GetWeaponType(itemClass) == "rifle" or GetWeaponType(itemClass) == "smg" or GetWeaponType(itemClass) == "shotgun" then
+			table.insert(Available.Automatic, item)
+		elseif GetWeaponType(itemClass) == "melee" then
+			table.insert(Available.Melee, item)
 		end
 	end
+
+	table.sort(Available.Pistols,sortByItemPricing)
+	table.sort(Available.Automatic,sortByItemPricing)
+	table.sort(Available.Melee,sortByItemPricing)
 	
 	--[[--------------------------- PISTOLS ----------------------------]]
 	if #Available.Pistols >= 1 then
-		local RandomPistol, Pistol = table.Random ( Available.Pistols ), pl:GetPistol()
-		if not Pistol then PistolToGive = RandomPistol end
-		
-		--Player has pistol, see if the one from the box is more powerful than the one he has
-		if Pistol then
-			if pl:HasWeapon(RandomPistol) then
-				RandomPistol = table.Random(Available.Pistols)
-			end
-		
-			if GAMEMODE.HumanWeapons[RandomPistol].Price > GAMEMODE.HumanWeapons[Pistol:GetClass()].Price then --DPS
-				pl:DropWeapon(Pistol:GetClass())
+		local holdingItem = pl:GetPistol()
 
-				PistolToGive = RandomPistol
+		for k, item in pairs(Available.Pistols) do
+			--Skip when score is insufficient
+			if (pl:GetScore() < item.Price)  then
+				continue
+			end			
+
+			--Skip when we already have it
+			if pl:HasWeapon(item.Class) or (holdingItem and IsValid(holdingItem) and ((GAMEMODE.HumanWeapons[holdingItem:GetClass()].Price or 0) >= item.Price)) then
+				continue
 			end
+
+			--Drop current item
+			if holdingItem and IsValid(holdingItem) then
+				pl:StripWeapon(holdingItem:GetClass())
+			end
+
+			--Give new item
+			PistolToGive = item.Class
+
+			--Stop here
+			break
 		end
 	end
-	
+
 	--[[--------------------------- AUTOMATIC GUNS ----------------------------]]
 	if #Available.Automatic >= 1 then
-		local RandomAutomatic, Automatic = table.Random ( Available.Automatic ), pl:GetAutomatic()
-		if not Automatic then AutomaticToGive = RandomAutomatic end
-		
-		if Automatic then
-			if pl:HasWeapon(RandomAutomatic) then
-				RandomAutomatic = table.Random(Available.Automatic)
+		local holdingItem = pl:GetAutomatic()
+
+		for k, item in pairs(Available.Automatic) do
+			--Skip when score is insufficient
+			if (pl:GetScore() < item.Price)  then
+				continue
+			end			
+
+			--Skip when we already have it
+			if pl:HasWeapon(item.Class) or (holdingItem and IsValid(holdingItem) and ((GAMEMODE.HumanWeapons[holdingItem:GetClass()].Price or 0) >= item.Price)) then
+				continue
 			end
-			
-			if GAMEMODE.HumanWeapons[ RandomAutomatic ].DPS > GAMEMODE.HumanWeapons[ Automatic:GetClass() ].DPS then --DPS
-				pl:DropWeapon(Automatic:GetClass())
-				AutomaticToGive = RandomAutomatic
-			end	
+
+			--Drop current item
+			if holdingItem and IsValid(holdingItem) then
+				pl:StripWeapon(holdingItem:GetClass())
+			end
+
+			--Give new item
+			AutomaticToGive = item.Class
+
+			--Stop here
+			break
 		end
 	end
 	
 	--[[--------------------------- MELEE WEAPONS ----------------------------]]
-	local RandomMelee, Melee = table.Random ( Available.Melee ), pl:GetMelee()
-	local RandomMelee1 = { "weapon_zs_melee_pot","weapon_zs_melee_keyboard", "weapon_zs_melee_fryingpan", "weapon_zs_melee_plank" }
-	if not Melee then
-		MeleeToGive = table.Random(RandomMelee1)
+	if #Available.Melee >= 1 then
+		local holdingItem = pl:GetMelee()
+
+		for k, item in pairs(Available.Melee) do
+			--Skip when score is insufficient
+			if (pl:GetScore() < item.Price)  then
+				continue
+			end			
+
+			--Skip when we already have it
+			if pl:HasWeapon(item.Class) or (holdingItem and IsValid(holdingItem) and ((GAMEMODE.HumanWeapons[holdingItem:GetClass()].Price or 0) >= item.Price)) then
+				continue
+			end
+
+			--Drop current item
+			if holdingItem and IsValid(holdingItem) then
+				pl:StripWeapon(holdingItem:GetClass())
+			end
+
+			--Give new item
+			MeleeToGive = item.Class
+
+			--Stop here
+			break
+		end
 	end
-	--[[
-	if Melee then
-		if GAMEMODE.HumanWeapons[ RandomMelee ].DPS > GAMEMODE.HumanWeapons[ Melee:GetClass() ].DPS then --DPS
-			pl:DropWeapon(Melee:GetClass()) 
-			MeleeToGive = RandomMelee
-		end	
-	end
-	]]	
+
 	--Active weapon
 	local ActiveWeapon = pl:GetActiveWeapon()
 	if ValidEntity(ActiveWeapon) then
@@ -165,30 +198,25 @@ local function CalculateGivenSupplies(pl)
 	end
 	
 	--Give the weapons ( in order - Melee, Pistol, Automatic )
-	if MeleeToGive != nil then 
-		if not pl:HasWeapon(MeleeToGive) then
-			pl:Give(MeleeToGive)
-		end
+	if MeleeToGive ~= nil and not pl:HasWeapon(MeleeToGive) then 
+		pl:Give(MeleeToGive)
+		pl:SelectWeapon(MeleeToGive)
 	end
 	
-	if PistolToGive != nil then 
-		if not pl:HasWeapon(PistolToGive) then
-			pl:Give(PistolToGive)
-			pl:SelectWeapon(PistolToGive)
-		end 
+	if PistolToGive ~= nil and not pl:HasWeapon(PistolToGive) then 
+		pl:Give(PistolToGive)
+		pl:SelectWeapon(PistolToGive)
 	end
 	
-	if AutomaticToGive != nil then
-		if not pl:HasWeapon(AutomaticToGive) then
-			pl:Give(AutomaticToGive)
-			pl:SelectWeapon(AutomaticToGive)
-		end 
+	if AutomaticToGive ~= nil and not pl:HasWeapon(AutomaticToGive) then
+		pl:Give(AutomaticToGive)
+		pl:SelectWeapon(AutomaticToGive) 
 	end
 	
 	--skillpoints.AddSkillPoints(pl, -1*GAMEMODE.HumanWeapons[weapon].Price)
 	
 	--[[--------------------------- AMMUNITION ----------------------------]]
-	local AmmoList =  { "pistol", "ar2", "smg1", "buckshot", "xbowbolt", "357" }
+	--[[local AmmoList =  { "pistol", "ar2", "smg1", "buckshot", "xbowbolt", "357" }
 	for k,v in pairs ( AmmoList ) do
 		local HowMuch = GAMEMODE.AmmoRegeneration[v] or 50
 		HowMuch = HowMuch * 0.8
@@ -225,7 +253,7 @@ local function CalculateGivenSupplies(pl)
 				j:SetClip1( math.Clamp ( j:Clip1() + math.ceil( MaximumAmmo/2 ), 1, MaximumAmmo ) )
 			end
 		end
-	end
+	end]]
 	
 	--[[--------------------------- HEALTH ----------------------------]]
 	local CurrentHealth, MaxHealth, AmountHeal = pl:Health(), pl:GetMaximumHealth(), 0
@@ -251,10 +279,10 @@ local function CalculateGivenSupplies(pl)
 		end, pl)
 	end
 	
-	--Debug ( "[CRATES] Giving supplies to "..tostring ( pl ) )
+	Debug("[CRATES] Gave supplies to ".. tostring(pl))
 		
 	--Cooldown
-	pl.NextSupplyUse = CurTime()+30
+	pl.NextSupplyUse = CurTime()+2 --30
 end
 
 --[==[-------------------------------------------------------------
@@ -300,11 +328,12 @@ local function OnPlayerUse(pl, key)
 	--Open shop menu
 	pl:SendLua("DoSkillShopMenu()")
 	
+	--Give weap0nz
 	--[[if not pl.SupplyMessageTimer then
 		pl.SupplyMessageTimer = 0
 	end
 	
-	if pl.NextSupplyUse > CurTime() then
+	if (pl.NextSupplyUse or 0) > CurTime() then
 		if pl.SupplyMessageTimer <= CurTime() then
 			pl:Message("You already have Supplies. Come back later.", 1, "white")
 			pl.SupplyMessageTimer = CurTime() + 3.1

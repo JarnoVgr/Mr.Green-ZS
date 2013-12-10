@@ -209,7 +209,7 @@ function Intermission(nextmap, winner, timeleft)
 	   index = index + 1
 	end
 
-	shuffleMaps = table.Shuffle( shuffleMaps )
+	shuffleMaps = table.Shuffle(shuffleMaps)
 	
 	for i = 1, #shuffleMaps do
 	   AddMapLabel( h/2+85+30 * i, shuffleMaps[i].Map.FileName, shuffleMaps[i].Map.FriendlyName )

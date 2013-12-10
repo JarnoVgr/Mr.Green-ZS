@@ -752,8 +752,6 @@ function meta:SetScore(newAmount)
 
 		--Clamp because of frags limitation bug
 		self:SetFrags(math.Clamp(self.Score,-1999,1999))
-
-		print("SENDING SETPLAYERSCORE")
 	end
 
 	return true

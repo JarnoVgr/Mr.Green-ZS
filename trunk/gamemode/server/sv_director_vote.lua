@@ -1,16 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-
 local VoteType, VoteCooldown = "none", 0
 local VOTES, VOTING_PLAYERS, TARGET_PLAYER, IS_VOTE_IN_PROGRESS = { YES = {}, NO = {} }, {}, NULL, false
 local GaggedTbl, MutedTbl = {}, {}
