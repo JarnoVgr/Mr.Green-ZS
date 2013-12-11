@@ -232,7 +232,8 @@ local function CalculateGivenSupplies(pl)
 	end
 	
 	--Special case : mines, nailing hammers, barricade kits
-	--[[local Special = { "weapon_zs_barricadekit" , "weapon_zs_tools_hammer", "mine", "grenade", "syringe", "supplies"}
+	--local Special = { "weapon_zs_barricadekit" , "weapon_zs_tools_hammer", "mine", "grenade", "syringe", "supplies"}
+	--[[local Special = { "mine", "syringe", "supplies"}
 	for i,j in pairs ( pl:GetWeapons() ) do
 		for k,v in pairs ( Special ) do
 			if not string.find ( j:GetClass(), v ) then

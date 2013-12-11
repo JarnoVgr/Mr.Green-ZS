@@ -423,13 +423,17 @@ function BanPlayer(pl,commandName,args)
 	if not (pl:IsAdmin()) then return end
 	if not (args[3]) then args[3] = "The admin did not give a ban reason." end
 	
-	for k=1, 3 do -- spam the command
-		--pl:ConCommand("banid2 "..tonumber(args[1]).." "..tonumber(args[2]).."\n") 
-		pl:ConCommand("sm_ban \""..tonumber(args[1]).."\" "..tonumber(args[2]).." \""..args[3].."\"\n") 
+	local playerSteamId = GetPlayerByUserID(tonumber(args[1])):SteamID()
+	if playerSteamId then
+		RunConsoleCommand("banid ".. tonumber(args[2]) .." ".. playerSteamId .."")
 	end
-	
+
+	--[[for k=1, 3 do -- spam the command
+		--pl:ConCommand("banid2 "..tonumber(args[1]).." "..tonumber(args[2]).."\n") 
+		--pl:ConCommand("banid "..tonumber(args[1]).." "..tonumber(args[2]).."\n")
+	end]]	
 end
-concommand.Add("ban_player",BanPlayer) 
+concommand.Add("ban_player", BanPlayer) 
 
 -- Kick player
 function KickPlayer(pl,commandName,args)

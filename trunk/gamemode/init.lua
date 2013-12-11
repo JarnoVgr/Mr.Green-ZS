@@ -1050,10 +1050,6 @@ function GM:CanPlayerSuicide(pl)
 	return true
 end
 
---Obsolete ban function
-function BanIdiot(pl)
-end
-
 --Spawnprotection
 function SpawnProtection(pl)
 	if pl:IsValid() and pl:IsPlayer() then

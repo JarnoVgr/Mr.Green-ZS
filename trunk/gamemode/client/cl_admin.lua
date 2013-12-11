@@ -233,7 +233,7 @@ function DoAdminPanel()
 		
 		-- Debug menu
 		if MySelf:IsSuperAdmin() then
-			local DebugMenu = AdminPanel:AddSubMenu("Debug >", function()
+			local DebugMenu = AdminPanel:AddSubMenu("Debug [S-Admin] >", function()
 				CloseAdminPanel()
 			end)
 			
@@ -267,12 +267,12 @@ function DoAdminPanel()
 			DebugMenu:AddOption("---------------------------------", function() CloseAdminPanel() end)
 			
 			--Skip to Intermission
-			DebugMenu:AddOption("Set RoundTime to expire in 5 seconds", function()
+			DebugMenu:AddOption("End round in 5 seconds", function()
 				RunConsoleCommand("zs_admin_debug","roundtime5")
 				CloseAdminPanel()
 			end)
 			
-			DebugMenu:AddOption("Start Round (skip warmup)", function()
+			DebugMenu:AddOption("Start round immediately", function()
 				RunConsoleCommand("zs_admin_debug","startround")
 				CloseAdminPanel()
 			end)
@@ -287,7 +287,7 @@ function DoAdminPanel()
 				CloseAdminPanel()
 			end)
 					
-			DebugMenu:AddOption("Unleash Undead Zombie", function()
+			DebugMenu:AddOption("Unleash Undead Boss", function()
 				RunConsoleCommand("zs_admin_debug","unleashboss")
 				CloseAdminPanel()
 			end)
