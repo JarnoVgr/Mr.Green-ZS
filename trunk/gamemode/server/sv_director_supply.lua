@@ -80,7 +80,7 @@ local function CalculateGivenSupplies(pl)
 	end
 
 	--Start with message
-	pl:Message("You've been given Supplies.", 1, "white")
+	pl:Message("You've been given Supplies", 1, "white")
 	
 	--Calculate what weapons to give away
 
@@ -226,9 +226,9 @@ local function CalculateGivenSupplies(pl)
 		end]]
 
 		--Multiply with Infliction
-		ammoAmount = ammoAmount * (GetInfliction() + 0.5)
+		ammoAmount = math.Round(ammoAmount * (GetInfliction() + 0.5))
 		
-		pl:GiveAmmo(math.Clamp(ammoAmount, 1, 250 ), ammoType)
+		pl:GiveAmmo(math.Clamp(ammoAmount, 1, 250), ammoType)
 	end
 	
 	--Special case : mines, nailing hammers, barricade kits
@@ -283,7 +283,7 @@ local function CalculateGivenSupplies(pl)
 	Debug("[CRATES] Given supplies to ".. tostring(pl))
 		
 	--Cooldown
-	local nextUseDelay = math.Round(5 + ((1 - GetInfliction()) * 10))
+	local nextUseDelay = math.Round(SUPPLYCRATE_RECHARGE_TIME + ((1 - GetInfliction()) * 10))
 	pl.NextSupplyUse = ServerTime() + nextUseDelay
 	pl:SendLua("MySelf.NextSupplyTime = CurTime() + ".. nextUseDelay)
 end
@@ -320,11 +320,11 @@ local function OnPlayerUse(pl, key)
 	-- end this if the entity has no owner or isn't the parent
 	local Parent = entity:GetOwner()
 	
-	if entity:GetClass() ~= "spawn_ammo" and entity:GetClass() ~= "prop_physics" then
+	if entity:GetClass() ~= "game_supplycrate" and entity:GetClass() ~= "prop_physics" then
 		return
 	end
 	
-	if entity:GetClass() == "prop_physics" and ( Parent == NULL or ( IsValid ( Parent ) and Parent:GetClass() ~= "spawn_ammo" ) ) then
+	if entity:GetClass() == "prop_physics" and ( Parent == NULL or ( IsValid ( Parent ) and Parent:GetClass() ~= "game_supplycrate" ) ) then
 		return
 	end
 		
@@ -357,7 +357,7 @@ hook.Add("KeyPress", "UseKeyPressedHook", OnPlayerUse)
       Disable default use for the parent entity
 --------------------------------------------------------------]==]
 local function DisableDefaultUseOnSupply(pl, entity)
-	if ValidEntity ( entity ) and entity:GetClass() == "spawn_ammo" then
+	if ValidEntity(entity) and entity:GetClass() == "game_supplycrate" then
 		return false
 	end
 end
@@ -370,7 +370,7 @@ function SpawnSupply(ID, Pos, Angles)
 	ID, Pos = ID or 1, Pos or Vector ( 0,0,0 ), Angles or Vector(0,0,0)
 
 	-- Create the entity, set it's ID, position and angles
-	local Crate = ents.Create("spawn_ammo")
+	local Crate = ents.Create("game_supplycrate")
 	Crate.ID = ID
 	Crate:SetPos(Pos)
 	Crate:SetAngles(Angles)
@@ -405,14 +405,14 @@ local function TraceHullSupplyCrate(Pos, Switch)
 	if Switch == false then Position = 2 end
 	
 	-- Filters (to delete)
-	local Filters = {"vial", "mine", "nail", "gib", "supply", "turret", "spawn_ammo", "func_brush", "breakable", "player", "weapon"}
+	local Filters = {"vial", "mine", "nail", "gib", "supply", "turret", "game_supplycrate", "func_brush", "breakable", "player", "weapon"}
 	
 	-- Find them in box
 	local Ents, Found = ents.FindInBox(ClampWorldVector(Pos + TraceHulls[Position].Mins), ClampWorldVector(Pos + TraceHulls[Position].Maxs)), 0
 	for k,v in pairs ( Ents ) do
 		local Phys = v:GetPhysicsObject()
 		if ValidEntity(Phys) then
-			if not v:IsPlayer() and v:GetClass() ~= "spawn_ammo" and v:GetClass() ~= "prop_physics_multiplayer" then 
+			if not v:IsPlayer() and v:GetClass() ~= "game_supplycrate" and v:GetClass() ~= "prop_physics_multiplayer" then 
 				if v:OBBMins():Length() < TraceHulls[Position].Mins:Length() and v:OBBMaxs():Length() < TraceHulls[Position].Maxs:Length() or v:GetClass() == "prop_physics" then 
 					Debug("[CRATES] Removing object ".. tostring(v) .." to make space" )
 					v:Remove()
@@ -456,7 +456,7 @@ end
 
 function GM:SpawnCratesFromTable(crateSpawns,bAll)
 	--Remove current supplies
-	for k,v in ipairs(ents.FindByClass("spawn_ammo")) do
+	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do
 		if IsValid(v) then			
 			v:Remove()
 		end

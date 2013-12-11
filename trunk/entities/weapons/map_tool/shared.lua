@@ -86,7 +86,7 @@ function SWEP:SpawnAmmoBox ( Switched )
 		Phys:EnableMotion ( false )
 	end
 	
-	--[==[local ent = ents.Create ( "spawn_ammo" )
+	--[==[local ent = ents.Create ( "game_supplycrate" )
 	ent.Switch = Switched
 	ent:SetPos ( pos )
 	ent:Spawn()	]==]

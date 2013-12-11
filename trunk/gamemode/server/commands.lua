@@ -469,7 +469,7 @@ concommand.Add("redeem_player",RedeemPlayer)
 function CountSupplyCrates(pl,commandName,args)
 	if not (pl:IsAdmin()) then return end
 
-	local CrateEntsCount = #ents.FindByClass("spawn_ammo")
+	local CrateEntsCount = #ents.FindByClass("game_supplycrate")
 	pl:ChatPrint("There are ".. tostring(CrateEntsCount) .." Supply Crates active")
 end
 concommand.Add("admin_countcrates",CountSupplyCrates)

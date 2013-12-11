@@ -36,6 +36,9 @@ IRC_RELAY_NICK = "MrGreenZS"
 IRC_RELAY_SERVER = "irc.gtanet.com"
 IRC_RELAY_CHANNEL = "#mrgreen.zs"
 
+--Supply Crate recharge time
+SUPPLYCRATE_RECHARGE_TIME = 60
+
 
 -- ----------------------------
 MAX_ST_ZOMBIES = 2

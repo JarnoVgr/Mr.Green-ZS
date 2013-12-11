@@ -288,6 +288,38 @@ function meta:GetPistol()
 	return Pistols[1] or false
 end
 
+--[=[---------------------------------------------------------
+     Used to check if player has a weapon
+	 Note: This is a GLua function but it was only serverside
+---------------------------------------------------------]=]
+if CLIENT then
+	function meta:HasWeapon(className)
+		if not className then
+			return false
+		end	
+		
+		local weaponsTable = self:GetWeapons()
+
+		for k, wep in pairs(weaponsTable) do
+			--Check for invalid weapons
+			if not wep:IsValid() then
+				continue
+			end
+			
+			--Check if classes don't match
+			if wep:GetClass() ~= className then
+				continue
+			end
+			
+			--Match found
+			return true
+		end
+		
+		--Weapon not found
+		return false
+	end
+end
+
 --[=[-------------------------------------------------------------------------
      Used to get what rifle/smg/awp/shotgun the player is holding
 -------------------------------------------------------------------------]=]
@@ -1170,7 +1202,7 @@ end
 function meta:IsNearCrate()
 	local pos = self:EyePos()
 
-	for _, ent in pairs(ents.FindByClass("spawn_ammo")) do
+	for _, ent in pairs(ents.FindByClass("game_supplycrate")) do
 		local nearest = ent:NearestPoint(pos)
 		if pos:Distance(nearest) <= 120 then
 			return true
@@ -1180,7 +1212,7 @@ function meta:IsNearCrate()
 	return false
 end
 
-function meta:PlaySound (sound)
+function meta:PlaySound(sound)
 	if CLIENT then return end
 	if not self:IsValid() then return end 
 	
@@ -1283,40 +1315,33 @@ Sound("npc/combine_soldier/die2.wav"),
 Sound("npc/combine_soldier/die3.wav")
 }
 
-function meta:HasBought( str )
-	if not self.DataTable or ( SERVER and self:IsBot() ) or not str then return false end
-	if not self.DataTable["ShopItems"] then return false end
-	if self.DataTable["ShopItems"][str] then return true end
+function meta:HasBought(str)
+	if not str or not self.DataTable or (SERVER and self:IsBot()) then
+		return false
+	end
+	
+	if not self.DataTable["ShopItems"] then
+		return false
+	end
+	
+	if self.DataTable["ShopItems"][str] then
+		return true
+	end
+	
 	return self.DataTable["ShopItems"][ util.GetItemID( str ) ]
 end
 
 function meta:GetSuit()
-	
-	if not ValidEntity(self) then return end
-	if not self:Alive() then return end
+	if not ValidEntity(self) or not self:Alive() then
+		return
+	end
 	
 	if ValidEntity(self.Suit) then
 		return self.Suit:GetHatType() or "none"
 	end
 	
 	return "none"
-	
 end
-
---[==[function meta:GetSuit()
-
-	if not ValidEntity(self) then return end
-	if not self:Alive() then return end
-	
-	if SERVER and self.Suit and ValidEntity(self.Suit) then
-		return self.Suit:GetHatType() or "none"
-	end
-	
-	if CLIENT and and self.Suit and ValidEntity(self.Suit) then
-		return self.Suit:GetHatType() or "none"
-	end
-	return "none"
-end]==]
 
 function meta:IsGonnaBeABoss()
 	return self:IsZombie() and GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == self
@@ -1327,11 +1352,13 @@ function meta:IsStartingZombie()
 end
 
 local function SkullCam(pl, ent)
-	if ent:IsValid() and pl:IsValid() then
-		umsg.Start("SkullCam", pl)
-			umsg.Entity(ent)
-		umsg.End()
+	if not ent:IsValid() or not pl:IsValid() then
+		return
 	end
+	
+	umsg.Start("SkullCam", pl)
+	umsg.Entity(ent)
+	umsg.End()
 end
 
 function meta:GetAchvProgress()
@@ -1344,14 +1371,6 @@ function meta:GetAchvProgress()
 		end
 	end
 	return subnumber/totnumber*100
-end
-
-local function SkullCam(pl, ent)
-	if ent:IsValid() and pl:IsValid() then
-		umsg.Start("SkullCam", pl)
-			umsg.Entity(ent)
-		umsg.End()
-	end
 end
 
 function meta:PlayDeathSound()
@@ -1370,12 +1389,16 @@ function meta:PlayZombieDeathSound()
 end
 
 function meta:PlayPainSound()
-	if CurTime() < self.NextPainSound then return end
+	if CurTime() < self.NextPainSound then
+		return
+	end
 	self.NextPainSound = CurTime() + 0.5
 
 	if self:Team() == TEAM_UNDEAD then
 		local snds = ZombieClasses[ self:GetZombieClass() ].PainSounds
-		if not snds then return end
+		if not snds then
+			return
+		end
 		
 		-- Cooldown for howler is increased
 		if self:IsHowler() then self.NextPainSound = CurTime() + 1.5 end
@@ -1577,15 +1600,24 @@ function meta:DoHulls(classid, teamid)
 	end
 end
 
-net.Receive( "DoHulls", function( len )
-
+net.Receive( "DoHulls", function(len)
 	local ent = net.ReadEntity()
+	if not IsValid(ent) then
+		return
+	end
+	
 	local classid = net.ReadDouble()
 	local teamid = net.ReadDouble()
-	if IsValid(ent) then
+	
+	
+	ent:DoHulls(classid, teamid)
+	timer.Simple(0,function()
+		if not IsValid(ent) then
+			return
+		end
+		
 		ent:DoHulls(classid, teamid)
-		timer.Simple(0,function() if IsValid(ent) then ent:DoHulls(classid, teamid) end end)
-	end
+	end)
 end)
 
 --[[----------------------------------------------------]]--
@@ -1604,9 +1636,9 @@ end
 
 --[[----------------------]]--
 
-net.Receive( "BoughtPointsWithCoins", function( len )
-    MySelf:SetBoughtPointsWithCoins( tobool( net.ReadBit() ) )
-end )
+net.Receive("BoughtPointsWithCoins", function(len)
+    MySelf:SetBoughtPointsWithCoins(tobool(net.ReadBit()))
+end)
 
 --[[----------------------------------------------------]]--
 

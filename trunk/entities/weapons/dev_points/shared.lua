@@ -70,7 +70,7 @@ function SWEP:SpawnAmmoBox ( Switched )
 	local trace = self.Owner:GetEyeTrace()
 	
 	local pos = trace.HitPos
-	local ent = ents.Create ( "spawn_ammo" )
+	local ent = ents.Create ( "game_supplycrate" )
 	ent.Switch = Switched
 	ent:SetPos ( pos )
 	ent:Spawn()	

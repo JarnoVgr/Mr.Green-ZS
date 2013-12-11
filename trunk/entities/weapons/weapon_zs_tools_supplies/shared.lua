@@ -206,7 +206,7 @@ function SWEP:PrimaryAttack()
 
 		--Create entity
 		local angles = vecAim:Angle()
-		local ent = ents.Create("zs_ammobox")
+		local ent = ents.Create("game_mobilesupplycrate")
 		if (ent ~= nil and ent:IsValid()) then
 			--Logging, Note to Clavus - add crate logging
 			--log.PlayerAction( self.Owner, "place_turret")

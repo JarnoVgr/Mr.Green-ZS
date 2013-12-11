@@ -82,10 +82,6 @@ function SWEP:Initialize()
 
 	if SERVER then
 		--Parse existing ammo boxes
-		--[[for _, ent in pairs(ents.FindByClass("spawn_ammo")) do
-			table.insert(self.AmmoBoxTable2, ent )
-			table.insert(self.AmmoBoxTable, { Pos = {ent:GetPos().x,ent:GetPos().y,ent:GetPos().z}, Angles = { ent:GetAngles().p, ent:GetAngles().y, ent:GetAngles().r } } )
-		end]]
 		for _, tbl in pairs(AllCrateSpawns) do
 			local ent = tbl.ent
 			if not ent then
@@ -140,7 +136,7 @@ function SWEP:SpawnAmmoBox()
 	--Get proper angles
 	local angles = self.Owner:GetAimVector():Angle()
 	
-	local ent = ents.Create("spawn_ammo")
+	local ent = ents.Create("game_supplycrate")
 	ent:SetPos(pos)
 	ent:SetAngles(Angle(0,angles.y,angles.r))
 	ent:Spawn()
@@ -233,7 +229,7 @@ function SWEP:PrimaryAttack()
 		local HitPos, Ent = tr.HitPos + tr.HitNormal * 16, tr.Entity 
 		
 		if Ent and IsValid(Ent) then
-			if Ent:GetClass() == "spawn_ammo" then
+			if Ent:GetClass() == "game_supplycrate" then
 				self:RemoveAmmoBox(Ent)
 				self.Owner:Message("Removed Supply Crate")
 			else

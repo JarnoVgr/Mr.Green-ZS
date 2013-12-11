@@ -191,10 +191,6 @@ if SERVER then
 end
 	
 if CLIENT then
-	local cam = cam
-	local render = render
-	local draw = draw
-
 	ENT.LineColor = Color(210, 0, 0, 100)
 	function ENT:Draw()
 	    self:DrawModel()

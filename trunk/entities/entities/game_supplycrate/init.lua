@@ -1,10 +1,10 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-AddCSLuaFile ("shared.lua")
-AddCSLuaFile ("cl_init.lua")
+AddCSLuaFile("shared.lua")
+AddCSLuaFile("cl_init.lua")
 
-include ("shared.lua")
+include("shared.lua")
 
 -- Normal set data
 ENT.Table = {
