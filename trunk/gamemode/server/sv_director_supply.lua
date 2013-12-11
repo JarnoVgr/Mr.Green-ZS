@@ -78,10 +78,12 @@ local function CalculateGivenSupplies(pl)
 	if not ValidEntity(pl) or pl:Team() ~= TEAM_HUMAN then
 		return
 	end
+
+	--Start with message
+	pl:Message("You've been given Supplies.", 1, "white")
 	
 	--Calculate what weapons to give away
-	local Infliction = GetInfliction()
-	
+
 	local Available = { Pistols = {}, Automatic = {}, Melee = {} }
 	local PistolToGive, AutomaticToGive, MeleeToGive
 	
@@ -216,25 +218,21 @@ local function CalculateGivenSupplies(pl)
 	--skillpoints.AddSkillPoints(pl, -1*GAMEMODE.HumanWeapons[weapon].Price)
 	
 	--[[--------------------------- AMMUNITION ----------------------------]]
-	--[[local AmmoList =  { "pistol", "ar2", "smg1", "buckshot", "xbowbolt", "357" }
-	for k,v in pairs ( AmmoList ) do
-		local HowMuch = GAMEMODE.AmmoRegeneration[v] or 50
-		HowMuch = HowMuch * 0.8
-		
+	--local AmmoList = {"pistol", "ar2", "smg1", "buckshot", "xbowbolt", "357", "slam", "grenade", "Battery"}
+	for ammoType, ammoAmount in pairs(GAMEMODE.AmmoRegeneration) do
 		--Double for ammoman upgrade
-		if pl:HasBought ( "ammoman" ) then
-			HowMuch = HowMuch * 2
-		end
+		--[[if pl:HasBought("ammoman") then
+			ammoAmount = ammoAmount * 2
+		end]]
+
+		--Multiply with Infliction
+		ammoAmount = ammoAmount * (GetInfliction() + 0.5)
 		
-		--Multiply for infliction
-		if Infliction >= 0.8 then
-			HowMuch = HowMuch * 1.5
-		end
-		pl:GiveAmmo ( math.Clamp ( HowMuch, 1, 250 ), v )
+		pl:GiveAmmo(math.Clamp(ammoAmount, 1, 250 ), ammoType)
 	end
 	
 	--Special case : mines, nailing hammers, barricade kits
-	local Special = { "weapon_zs_barricadekit" , "weapon_zs_tools_hammer", "mine", "grenade", "syringe", "supplies"}
+	--[[local Special = { "weapon_zs_barricadekit" , "weapon_zs_tools_hammer", "mine", "grenade", "syringe", "supplies"}
 	for i,j in pairs ( pl:GetWeapons() ) do
 		for k,v in pairs ( Special ) do
 			if not string.find ( j:GetClass(), v ) then
@@ -256,20 +254,21 @@ local function CalculateGivenSupplies(pl)
 	end]]
 	
 	--[[--------------------------- HEALTH ----------------------------]]
-	local CurrentHealth, MaxHealth, AmountHeal = pl:Health(), pl:GetMaximumHealth(), 0
-	if CurrentHealth < MaxHealth then
-		AmountHeal = ( MaxHealth - CurrentHealth ) * 0.6
+	local currentHealth, maxHealth, healAmount = pl:Health(), pl:GetMaximumHealth(), 0
+	if currentHealth < maxHealth then
+		healAmount = math.Round((maxHealth - currentHealth) * GetInfliction())
 	end
 	
-	if AmountHeal > 5 then
-		pl:EmitSound ( Sound ("items/smallmedkit1.wav") )
-		pl:SetHealth ( math.Clamp ( CurrentHealth + AmountHeal, 0, MaxHealth ) )
-		pl:PrintMessage ( HUD_PRINTTALK, "[CRATES] You just got ammunition for your weapons and tools and restored "..math.Round ( AmountHeal ).." health!" )
+	if healAmount > 5 then
+		pl:EmitSound(Sound("items/smallmedkit1.wav"))
+		pl:SetHealth(math.Clamp(currentHealth + healAmount, 0, maxHealth))
+		--pl:PrintMessage ( HUD_PRINTTALK, "[CRATES] You just got ammunition for your weapons and tools and restored "..math.Round ( healAmount ).." health!" )
 		
 		--Clear dot damage
 		pl:ClearDamageOverTime()
 	end
 	
+	--Play voice
 	if math.random(1,4) == 1 then
 		local snd = VoiceSets[pl.VoiceSet].SupplySounds
 		timer.Simple( 0.2, function ()
@@ -279,10 +278,13 @@ local function CalculateGivenSupplies(pl)
 		end, pl)
 	end
 	
-	Debug("[CRATES] Gave supplies to ".. tostring(pl))
+	--Debug
+	Debug("[CRATES] Given supplies to ".. tostring(pl))
 		
 	--Cooldown
-	pl.NextSupplyUse = CurTime()+2 --30
+	local nextUseDelay = math.Round(5 + ((1 - GetInfliction()) * 10))
+	pl.NextSupplyUse = ServerTime() + nextUseDelay
+	pl:SendLua("MySelf.NextSupplyTime = CurTime() + ".. nextUseDelay)
 end
 
 --[==[-------------------------------------------------------------
@@ -326,10 +328,10 @@ local function OnPlayerUse(pl, key)
 	end
 		
 	--Open shop menu
-	pl:SendLua("DoSkillShopMenu()")
+	--pl:SendLua("DoSkillShopMenu()")
 	
 	--Give weap0nz
-	--[[if not pl.SupplyMessageTimer then
+	if not pl.SupplyMessageTimer then
 		pl.SupplyMessageTimer = 0
 	end
 	
@@ -343,7 +345,7 @@ local function OnPlayerUse(pl, key)
 	end
 	
 	pl:EmitSound(Sound("mrgreen/supplycrates/itempickup.wav"))
-	CalculateGivenSupplies(pl)]]
+	CalculateGivenSupplies(pl)
 	
 	--Debug
 	Debug("[CRATES] ".. tostring(pl) .." used Supply Crate")

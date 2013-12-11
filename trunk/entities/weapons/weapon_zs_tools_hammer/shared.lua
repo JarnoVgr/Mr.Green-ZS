@@ -292,8 +292,21 @@ function SWEP:SecondaryAttack()
 		end
 end
 
+if SERVER then
+	function SWEP:Think()
+		self.BaseClass.Think(self)
 
-function SWEP:Equip ( NewOwner )
+		--Set secondary ammo in clip
+		local ammocount = self.Owner:GetAmmoCount(self.Primary.Ammo)
+		if 0 < ammocount then
+			self:SetClip1(ammocount + self:Clip1())
+			self.Owner:RemoveAmmo(ammocount, self.Primary.Ammo)
+		end
+	end
+end
+
+
+function SWEP:Equip( NewOwner )
 	if CLIENT then return end
 	
 	if self.Weapon.FirstSpawn then

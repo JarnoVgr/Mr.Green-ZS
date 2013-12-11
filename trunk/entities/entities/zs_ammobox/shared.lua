@@ -9,9 +9,6 @@ ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 util.PrecacheSound("items/ammo_pickup.wav")
 util.PrecacheSound("mrgreen/supplycrates/mobile_use.mp3")
 
-local player = player
-local pairs = pairs
-
 function ENT:SetupDataTables()
 	self:NetworkVar( "Entity", 0, "Placer" );
 end
@@ -58,16 +55,16 @@ function ENT:Think()
 	--Loop though all players
 	for _, pl in ipairs(humans) do
 		-- check if player got ammo
-		if pl.GotSupplies == nil then -- whatever
-			pl.GotSupplies = false
-			pl.SupplyTime = ct + self.AmmoDelay -- make a timer for him
-			pl.SupplyTimerActive = true
+		if pl.GotMobileSupplies == nil then -- whatever
+			pl.GotMobileSupplies = false
+			pl.MobileSupplyTime = ct + self.AmmoDelay -- make a timer for him
+			pl.MobileSupplyTimerActive = true
 		end
 
-		if pl.SupplyTimerActive == true then
-			if pl.SupplyTime <= ct then
-				pl.SupplyTimerActive = false
-				pl.GotSupplies = false
+		if pl.MobileSupplyTimerActive == true then
+			if pl.MobileSupplyTime <= ct then
+				pl.MobileSupplyTimerActive = false
+				pl.GotMobileSupplies = false
 			end
 		end		
 	end
@@ -131,14 +128,14 @@ if SERVER then
 
 		local gotSupplies = false
 			
-		if activator.SupplyTimerActive == false then
-			if activator.GotSupplies == false then
-				activator.GotSupplies = true
-				activator.SupplyTimerActive = true	
-				activator:SendLua("MySelf.SupplyTimerActive = true")
-				activator:SendLua("MySelf.GotSupplies = true")
-				activator.SupplyTime = CurTime() + self.AmmoDelay
-				activator:SendLua("MySelf.SupplyTime = CurTime() + "..self.AmmoDelay.."")
+		if activator.MobileSupplyTimerActive == false then
+			if activator.GotMobileSupplies == false then
+				activator.GotMobileSupplies = true
+				activator.MobileSupplyTimerActive = true	
+				activator:SendLua("MySelf.MobileSupplyTimerActive = true")
+				activator:SendLua("MySelf.GotMobileSupplies = true")
+				activator.MobileSupplyTime = CurTime() + self.AmmoDelay
+				activator:SendLua("MySelf.MobileSupplyTime = CurTime() + "..self.AmmoDelay.."")
 				
 				--Give ammo
 				local Automatic, Pistol = activator:GetAutomatic(), activator:GetPistol()
@@ -179,7 +176,7 @@ if SERVER then
 				end
 
 				--Play sound
-				activator:EmitSound("mrgreen/supplycrates/mobile_use.mp3")
+				activator:EmitSound(Sound("mrgreen/supplycrates/mobile_use.mp3"))
 
 				--
 				gotSupplies = true
@@ -206,7 +203,7 @@ if CLIENT then
 	        return
 	    end
 
-		if MySelf.SupplyTimerActive == false then
+		if MySelf.MobileSupplyTimerActive == false then
 	    	self.LineColor = Color(0, math.abs(200 * math.sin(CurTime() * 3)), 0, 100)
 	    elseif self.LineColor ~= Color(210, 0, 0, 100) then
 	    	self.LineColor = Color(210, 0, 0, 100)
@@ -234,10 +231,10 @@ if CLIENT then
 					draw.SimpleTextOutlined( "Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 				end
 				
-				if MySelf.SupplyTimerActive == true then
-					local time = math.Round(MySelf.SupplyTime - CurTime())
+				if MySelf.MobileSupplyTimerActive == true then
+					local time = math.Round(MySelf.MobileSupplyTime - CurTime())
 					draw.SimpleTextOutlined("0"..ToMinutesSeconds(time + 1), "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-				elseif MySelf.SupplyTimerActive == false then
+				elseif MySelf.MobileSupplyTimerActive == false then
 					draw.SimpleTextOutlined("Press E for bandages and ammo", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 				end
 
