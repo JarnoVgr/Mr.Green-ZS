@@ -345,7 +345,7 @@ local function OnPlayerUse(pl, key)
 		return
 	end
 	
-	pl:EmitSound(Sound("mrgreen/supplycrates/itempickup.wav"))
+	pl:EmitSound(Sound("mrgreen/supplycrates/mobile_use.mp3"))
 	CalculateGivenSupplies(pl)
 	
 	--Debug

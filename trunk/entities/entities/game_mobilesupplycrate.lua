@@ -4,6 +4,7 @@ ENT.Type 			= "anim"
 ENT.PrintName		= ""
 ENT.Author			= "NECROSSIN"
 ENT.Purpose			= ""
+ENT.AmmoDelay = 90
 ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 
 util.PrecacheSound("items/ammo_pickup.wav")
@@ -30,9 +31,6 @@ function ENT:Initialize()
 	
 		self.CrateHealth = 300
 	end
-	--self.CrateOwner = self:GetDTEntity(0)
-	--self.CrateOwner = self:GetPlacer()
-	self.AmmoDelay = 150
 
 	if CLIENT then
 		hook.Add("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self), function()
