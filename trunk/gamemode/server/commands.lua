@@ -1,16 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-
 function SendMapList ( pl,commandName,args )
 	if MapCycle == nil then return end
 
@@ -1362,18 +1352,19 @@ local function AdminSay(pl, text, teamonly)
 			return ""
 		-- Give hp command
 		elseif (sep[1] == "!hp+" or sep[1] == "!hp") and pl:IsSuperAdmin() then
-			local healthToGive = math.min(target:GetMaxHealth(),target:Health()+25)
-			pl:Message("Player "..target:Name().." restored ".. healthToGive .." health")
+			local healthToSet = math.min(target:GetMaxHealth(),target:Health()+25)
+			pl:Message("Player "..target:Name().." restored to ".. healthToSet .." health")
 			if (target ~= pl) then
-				target:Message(pl:Name().." has given you ".. healthToGive .." health")
+				target:Message(pl:Name().." has set your health to ".. healthToSet)
 			end
-			target:SetHealth(healthToGive)
+			target:SetHealth(math.Clamp(healthToSet,1,target:GetMaxHealth()))
 			return ""
 		-- Give frag command
 		elseif sep[1] == "!sp" and pl:IsSuperAdmin() and target:Team() == TEAM_SURVIVORS then
-			skillpoints.AddSkillPoints(target, 500)
-			pl:Message(target:GetName() .." received 500 SP")
-			target:ChatPrint("You received 500 SP from ".. pl:GetName())
+			local amountToGive = 250
+			skillpoints.AddSkillPoints(target, amountToGive)
+			pl:Message(target:GetName() .." received ".. amountToGive .." SP")
+			target:ChatPrint("You received ".. amountToGive .." SP from ".. pl:GetName())
 			return ""
 		elseif sep[1] == "!swep" then -- gives the admin the ability to appoint a swep to a player     
 			local weaponToGive = nil

@@ -649,7 +649,9 @@ end
 
 function GM:GetBestDynamicSpawn(pl)
 	local spawns = self:GetDynamicSpawns(pl)
-	if #spawns == 0 then return end
+	if #spawns == 0 then
+		return
+	end
 
 	return self:GetClosestSpawnPoint(spawns, self:GetTeamEpicentre(TEAM_HUMAN)) or table.Random(spawns)
 end

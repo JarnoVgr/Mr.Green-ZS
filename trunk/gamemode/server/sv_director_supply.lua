@@ -280,12 +280,7 @@ local function CalculateGivenSupplies(pl)
 	end
 	
 	--Debug
-	Debug("[CRATES] Given supplies to ".. tostring(pl))
-		
-	--Cooldown
-	local nextUseDelay = math.Round(SUPPLYCRATE_RECHARGE_TIME + ((1 - GetInfliction()) * 10))
-	pl.NextSupplyUse = ServerTime() + nextUseDelay
-	pl:SendLua("MySelf.NextSupplyTime = CurTime() + ".. nextUseDelay)
+	--Debug("[CRATES] Given supplies to ".. tostring(pl))
 end
 
 --[==[-------------------------------------------------------------
@@ -335,10 +330,11 @@ local function OnPlayerUse(pl, key)
 	if not pl.SupplyMessageTimer then
 		pl.SupplyMessageTimer = 0
 	end
-	
+
+	--Don't allow supplies early in the game	
 	if (pl.NextSupplyUse or 0) > CurTime() then
 		if pl.SupplyMessageTimer <= CurTime() then
-			pl:Message("You already have Supplies. Come back later.", 1, "white")
+			pl:Message("There are no Supplies available now", 1, "white")
 			pl.SupplyMessageTimer = CurTime() + 3.1
 		end
 		
@@ -347,6 +343,11 @@ local function OnPlayerUse(pl, key)
 	
 	pl:EmitSound(Sound("mrgreen/supplycrates/mobile_use.mp3"))
 	CalculateGivenSupplies(pl)
+
+	--Cooldown
+	local nextUseDelay = math.Round(SUPPLYCRATE_RECHARGE_TIME + ((1 - GetInfliction()) * 10))
+	pl.NextSupplyUse = CurTime() + nextUseDelay
+	pl:SendLua("MySelf.NextSupplyTime = ".. pl.NextSupplyUse)
 	
 	--Debug
 	Debug("[CRATES] ".. tostring(pl) .." used Supply Crate")

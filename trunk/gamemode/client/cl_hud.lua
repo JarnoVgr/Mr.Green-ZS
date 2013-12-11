@@ -14,15 +14,16 @@ hook.Add ( "PlayerInitialSpawn", "InitNextSpawnTime", function( pl ) if pl == My
                      Called when myself ( as human ) dies
 ----------------------------------------------------------------------]==]
 function death.HumanDeath( pl, attacker )
-	if not IsEntityValid ( pl ) then return end
-	if pl ~= MySelf or not pl:IsHuman() then return end
+	if not IsEntityValid ( pl ) or pl ~= MySelf or not pl:IsHuman() then
+		return
+	end
 
-	if ServerTime() <= WARMUPTIME then
+	--[[if ServerTime() <= WARMUPTIME then
 		MySelf.NextSpawn = WARMUPTIME+2
 	else
 		local NextSpawn = math.Clamp(GetInfliction() * 14, 1, 4)
 		MySelf.NextSpawn = ServerTime() + NextSpawn
-	end
+	end]]
 	
 	-- Shuffle random notice
 	death.ShuffleRandomNotice()
@@ -89,14 +90,14 @@ function death.DeathHumanHUD()
 	draw.DrawText( sRandomNotice, "ArialBoldFifteen", ScaleW(641 + 50), ScaleH(926), Color (255,255,255,255), TEXT_ALIGN_CENTER )
 	]]
 
-	draw.DrawText( "YOU'VE BEEN INFECTED", "ArialBoldFifteen", ScaleW(642), ScaleH(44), Color ( 255,255,255,255 ), TEXT_ALIGN_CENTER )
+	draw.DrawText( "YOU'VE BEEN INFECTED", "NewZombieFont27", ScaleW(642), ScaleH(44), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER )
 
-	local timeleft = math.max(0,math.Round(MySelf.NextSpawn - ServerTime()))
+	local timeleft = math.max(0,math.Round(MySelf.NextSpawn - ServerTime())+1)
 	
 	local bCanSpawn = false
 
 	if timeleft ~= 0 then
-	 	draw.DrawText( "You can resurrect as an Undead in ".. (timeleft) .." seconds", "NewZombieFont27", ScaleW(641), ScaleH(93), Color (135,135,135,255), TEXT_ALIGN_CENTER)
+	 	draw.DrawText( "You can resurrect as an Undead in ".. (timeleft) .." seconds", "NewZombieFont27", ScaleW(641), ScaleH(96), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	else
 		bCanSpawn = true
 	end
@@ -135,7 +136,7 @@ function death.DeathZombieHUD()
 	if obsmode ~= OBS_MODE_NONE then
 		GAMEMODE:ZombieObserverHUD(obsmode,true)
 	else	
-		local timeleft = math.max(0,math.Round(MySelf.NextSpawn - ServerTime())+2)
+		local timeleft = math.max(0,math.Round(MySelf.NextSpawn - ServerTime())+1)
 
 		--print("NextSpawn: ".. tostring(MySelf.NextSpawn) .. " - ServerTime: ".. tostring(ServerTime()) .." - Diff:" .. tostring(MySelf.NextSpawn - ServerTime()))
 		--TODO: Figure out why +2 is needed

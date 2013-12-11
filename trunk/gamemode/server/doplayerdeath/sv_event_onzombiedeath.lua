@@ -1,26 +1,16 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-local ents = ents
-
 -- Called when a zombie is killed
 local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 
 	-- Calculate spawn cooldown
 	if CurTime() <= WARMUPTIME then
 		mVictim.NextSpawn = WARMUPTIME+2
+		mVictim:SendLua("MySelf.NextSpawn = ".. (WARMUPTIME+2))
 	else
-		local NextSpawn = math.Clamp ( GetInfliction() * 14, 1, 4 )
-		mVictim.NextSpawn = CurTime() + NextSpawn
+		mVictim.NextSpawn = CurTime() + 2
+		mVictim:SendLua("MySelf.NextSpawn = CurTime() + 2")
 	end
 	
 	-- Play that funny zombie death sound
@@ -96,9 +86,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	if not revive then
 		mVictim:PlayZombieDeathSound()
-		
-		mVictim.StartSpectating = CurTime() + 4
-			
+					
 		if IsValid( mAttacker ) and mAttacker ~= mVictim then
 			mVictim:SpectateEntity(mAttacker)
 			mVictim:Spectate(OBS_MODE_FREEZECAM)

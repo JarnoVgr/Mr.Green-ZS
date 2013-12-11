@@ -276,8 +276,6 @@ function GM:PlayerSpawn(pl)
 	pl.CheatDeathCooldown = 0
 	pl.IsRegenerating = false
 		
-	pl.StartCrowing = nil
-	pl.StartSpectating = nil
 	pl.NextSpawn = nil
 	pl.Gibbed = nil
 		
@@ -387,6 +385,10 @@ function GM:OnHumanSpawn(pl)
 	
 	--Blood color
 	pl:SetBloodColor(BLOOD_COLOR_RED)
+
+	--Delay use of Supply Crate
+	pl.NextSupplyUse = WARMUPTIME+60
+	pl:SendLua("MySelf.NextSupplyTime = ".. pl.NextSupplyUse) --Uses ServerTime clientside
 
 	--
 	self:ProceedCustomSpawn(pl)
@@ -524,8 +526,6 @@ function GM:OnZombieSpawn(pl)
 	
 	--pl:SetBloodColor(BLOOD_COLOR_YELLOW)
 	pl:SetBloodColor(BLOOD_COLOR_RED)
-
- 	--pl:SetAsCrow()
 
 	--Alert players they can change zombie class
 	--TODO: Alert once

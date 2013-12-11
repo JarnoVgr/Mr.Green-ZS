@@ -21,7 +21,7 @@ ENT.LineColor = Color(210, 0, 0, 100)
 function ENT:Draw()
     local suppliesAvailable = false
 
-    if (MySelf.NextSupplyTime or 0) <= CurTime() then
+    if (MySelf.NextSupplyTime or 0) <= ServerTime() then
         self.LineColor = Color(0, math.abs(200 * math.sin(CurTime() * 3)), 0, 100)
         suppliesAvailable = true
     elseif self.LineColor ~= Color(210, 0, 0, 100) then
@@ -52,7 +52,7 @@ function ENT:Draw()
     	ResetBestAvailableWeaponsCache()
 
     	--Calculate time for next supply use possibility
-        local timeLeft = math.Round(MySelf.NextSupplyTime - CurTime())
+        local timeLeft = math.Round(MySelf.NextSupplyTime - ServerTime())
         draw.SimpleTextOutlined("Weapons and Supplies in 0".. ToMinutesSeconds(timeLeft + 1), "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
     else
     	draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))

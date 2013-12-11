@@ -998,20 +998,6 @@ function meta:UnlockAchievement(stat)
 	return true
 end
 
-function meta:SetAsCrow()
-
-	self:RemoveAllStatus(true, true)
-	self.StartCrowing = nil
-	
-	local curclass = self.DeathClass or self:GetZombieClass()
-	self:SetZombieClass(9)
-	-- self:DoHulls(crowindex, TEAM_UNDEAD)
-
-	self.DeathClass = nil
-	self:UnSpectateAndSpawn()
-	self.DeathClass = curclass
-end
-
 function meta:SelectSpawnType(iscrow)
 	if GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == self then
 		self:SpawnAsZombieBoss()
@@ -1024,17 +1010,22 @@ function meta:SelectSpawnType(iscrow)
 end
 
 function meta:SpawnAsZombieBoss()
+	--Check if there's already a boss
 	if BOSSACTIVE then
 		return
 	end
 	BOSSACTIVE = true
 	
-	print(tostring(self).." Is boss")
+	--Debug
+	Debug("[BOSS] ".. tostring(self) .." spawned as boss")
 	
+	--Broadcast to players
 	gmod.BroadcastLua("BOSSACTIVE = true")
 	
 	self:RemoveAllStatus(true, true)
 	
+	--Some magic from NECROSSIN
+	--TODO: Tidy up boss classes
 	local curclass = self.DeathClass or self:GetZombieClass()
 	
 	if curclass == 10 or curclass == 11 then
@@ -1053,10 +1044,14 @@ local function CreateRagdoll(pl)
 end
 
 local function SetModel(pl, mdl)
-	if pl:IsValid() then
-		pl:SetModel(mdl)
-		timer.Simple(0, function() CreateRagdoll(pl) end)
+	if not pl:IsValid() then
+		return
 	end
+	
+	pl:SetModel(mdl)
+	timer.Simple(0, function()
+		CreateRagdoll(pl)
+	end)
 end
 
 meta.OldCreateRagdoll = meta.CreateRagdoll

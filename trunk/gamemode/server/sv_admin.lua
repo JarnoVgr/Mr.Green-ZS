@@ -1,14 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
+
 --[==[------------------------------------------------
           Admin Addon - Slay a player
 -------------------------------------------------]==]
@@ -354,15 +346,26 @@ function DoDebugCommands(pl, cmd, args)
 	
 	
 	if sCommand == "roundtime5" then
+		--Set roundtime to 5 seconds in future
 		ROUNDTIME = CurTime() + 5
+
+		--Broadcast to players
+		gmod.BroadcastLua("ROUNDTIME = ".. ROUNDTIME)
+
+		--Debug
 		print("[DEBUG] Set RoundTime to expire in 5 seconds")
 	elseif sCommand == "startround" then
 		if GAMEACTIVE then
 			return
 		end
 		
+		--Just set max. warmuptime to now
 		WARMUPTIME = CurTime()
+
+		--Broadcast to players
+		gmod.BroadcastLua("WARMUPTIME = ServerTime()")
 		
+		--Debug
 		Debug("[DEBUG] Started round")
 	elseif sCommand == "starthalflife" then
 		if not GAMEACTIVE and not HALFLIFE then

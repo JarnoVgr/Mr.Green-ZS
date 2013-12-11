@@ -1,17 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-local ents = ents
-
 -- Died as human status
 hook.Add( "OnHumanDeath", "TeamDeathMechanism", function( pl )
 	pl.IsHumanDeath = true
@@ -68,9 +57,10 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	if CurTime() <= WARMUPTIME then
 		mVictim.NextSpawn = WARMUPTIME+2
+		mVictim:SendLua("MySelf.NextSpawn = ".. (WARMUPTIME+2))
 	else
-		local NextSpawn = math.Clamp(GetInfliction() * 14, 1, 4)
-		mVictim.NextSpawn = CurTime() + NextSpawn
+		mVictim.NextSpawn = CurTime() + 2
+		mVictim:SendLua("MySelf.NextSpawn = CurTime() + 2")
 	end
 		
 	if not mVictim.Gibbed and not dmginfo:IsSuicide( mVictim ) then

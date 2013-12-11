@@ -1,25 +1,16 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-local ents = ents
-
 -- Include all files inside this folder
 for k, sFile in pairs ( file.Find( "zombiesurvival/gamemode/server/doplayerdeath/*.lua","lsv" ) ) do
-	if not string.find( sFile, "main" ) then include( sFile ) end
+	if not string.find( sFile, "main" ) then
+		include(sFile)
+	end
 end
 
-util.AddNetworkString( "PlayerKilledSelfZS" )
-util.AddNetworkString( "PlayerKilledByPlayerZS" )
-util.AddNetworkString( "PlayerKilledZS" )
+util.AddNetworkString("PlayerKilledSelfZS")
+util.AddNetworkString("PlayerKilledByPlayerZS")
+util.AddNetworkString("PlayerKilledZS")
 
 function GM:PlayerDeath(pl, inflictor, attacker)
 end
@@ -90,7 +81,8 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 	-- General death event with dmginfo arguments
 	if gamemode.Call( "OnPlayerDeath", pl, dmginfo:GetAttacker(), dmginfo:GetInflictor(), dmginfo ) then 
 		return
-	end	
+	end
+	
 	local headshot = false
 	local inflictor 
 	
@@ -178,8 +170,6 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 	end
 	
 	if pl:Team() ~= TEAM_UNDEAD then
-		pl.StartCrowing = nil
-		pl.StartSpectating = nil
 		return
 	end
 	
@@ -195,21 +185,23 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 		pl:RefreshDynamicSpawnPoint()
 		pl:UnSpectateAndSpawn()]]
 	elseif pl:GetObserverMode() == OBS_MODE_NONE or pl:GetObserverMode() == OBS_MODE_FREEZECAM then -- Not in spectator yet.
-		if not pl.StartSpectating or CurTime() >= pl.StartSpectating then
-			pl.StartSpectating = nil
-
+		if not pl.NextSpawn or CurTime() >= pl.NextSpawn then
 			pl:StripWeapons()
+	
+			--Attempt to get best Undead to spectate
 			local best = self:GetBestDynamicSpawn(pl)
 			if best then
+				--Chase Undead
 				pl:Spectate(OBS_MODE_CHASE)
 				pl:SpectateEntity(best)
 			else
+				--Just go into freeroam
 				pl:Spectate(OBS_MODE_ROAMING)
 				pl:SpectateEntity(NULL)
 			end
 		end
 	else -- In spectator.
-		if pl:KeyDown(IN_ATTACK) and (not pl.NextSpawn or (pl.NextSpawn and pl.NextSpawn <= CurTime())) then
+		if pl:KeyDown(IN_ATTACK) and (not pl.NextSpawn or (pl.NextSpawn and pl.NextSpawn < CurTime())) then
 			pl:RefreshDynamicSpawnPoint()
 			pl:UnSpectateAndSpawn()
 		elseif pl:KeyPressed(IN_ATTACK2) then

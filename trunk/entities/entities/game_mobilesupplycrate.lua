@@ -158,12 +158,12 @@ if SERVER then
 				end
 
 				--Heal
-				if activator:Health() < activator:GetMaximumHealth() then
+				--[[if activator:Health() < activator:GetMaximumHealth() then
 					local healthDifference = math.Clamp(activator:GetMaximumHealth() - activator:Health(), 0, 35)
 					local actualHealAmount = math.random(15, healthDifference)
 					actualHealAmount = math.min(activator:Health() + actualHealAmount, activator:GetMaximumHealth())
 					activator:SetHealth(actualHealAmount)
-				end
+				end]]
 
 				--Give SP to crate owner		
 				local Owner = self:GetPlacer()

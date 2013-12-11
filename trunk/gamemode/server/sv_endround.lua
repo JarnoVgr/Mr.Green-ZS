@@ -472,6 +472,7 @@ function GM:OnEndRound ( winner )
 		
 		--Lock the player and make him unable to spawn
 		pl.NextSpawn = CurTime()+500
+
 		pl:Lock()
 	
 		if pl.DamageDealt then
