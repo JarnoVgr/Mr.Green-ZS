@@ -1052,37 +1052,23 @@ function GM:CanPlayerSuicide(pl)
 end
 
 --Spawnprotection
+--OBSOLETE: Can this be removed?
 function SpawnProtection(pl)
-	if pl:IsValid() and pl:IsPlayer() then
-		if pl:Team() == TEAM_UNDEAD then
-			if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].ZombieSpawnProtection then
-			local tim = TranslateMapTable[ game.GetMap() ].ZombieSpawnProtection
-				if pl:GetZombieClass() == 1 and not pl.Suicided then
-					-- print("Def. Speed is "..pl:GetMaxSpeed().." Settin' to "..math.Round(ZombieClasses[pl:GetZombieClass()].Speed * 1.3))
-					GAMEMODE:SetPlayerSpeed(pl, math.Round(ZombieClasses[pl:GetZombieClass()].Speed * 1.3))
-					pl.SpawnProtected1 = true
-					timer.Create(pl:UserID().."SpawnProtection", tim, 1, DeSpawnProtection, pl)
-					umsg.Start("EnableZombieBoost", pl)
-					umsg.End()
-				end
-			end
-		end
-	end
 end
 
 function DeSpawnProtection(pl)
-	if pl:IsValid() and pl:IsPlayer() then
-		if pl:Team() == TEAM_UNDEAD then
-			if pl:Alive() then
-				if pl:GetMaxSpeed() == math.Round(ZombieClasses[pl:GetZombieClass()].Speed * 1.3) then
-					-- print("Speed is "..pl:GetMaxSpeed().." Settin' to "..math.Round(ZombieClasses[pl:GetZombieClass()].Speed))
-					GAMEMODE:SetPlayerSpeed(pl, ZombieClasses[pl:GetZombieClass()].Speed)
-					pl.SpawnProtected1 = false
-				end
-			end
-		elseif pl:Team() == TEAM_HUMAN then
+	if not pl:IsValid() or not pl:IsPlayer() then
+		return
+	end
+	
+	if pl:Team() == TEAM_UNDEAD and pl:Alive() then
+		if pl:GetMaxSpeed() == math.Round(ZombieClasses[pl:GetZombieClass()].Speed * 1.3) then
+			-- print("Speed is "..pl:GetMaxSpeed().." Settin' to "..math.Round(ZombieClasses[pl:GetZombieClass()].Speed))
+			GAMEMODE:SetPlayerSpeed(pl, ZombieClasses[pl:GetZombieClass()].Speed)
 			pl.SpawnProtected1 = false
 		end
+	elseif pl:Team() == TEAM_HUMAN then
+		pl.SpawnProtected1 = false
 	end
 end
 

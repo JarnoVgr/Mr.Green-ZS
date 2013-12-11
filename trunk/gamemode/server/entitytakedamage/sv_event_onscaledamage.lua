@@ -326,8 +326,9 @@ function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)
 			fFinalDamage = fFinalDamage * 1
 		end]]
 		
+		--
 		if attacker:HasSpawnProtection() and not LASTHUMAN then
-			fFinalDamage = fFinalDamage + fFinalDamage*pl:GetSpawnDamagePercent()
+			fFinalDamage = fFinalDamage + fFinalDamage * pl:GetSpawnDamagePercent()
 		end
 		
 		local bonus = 0
@@ -341,11 +342,9 @@ function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)
 			fFinalDamage = fFinalDamage - fFinalDamage*(pl:GetHordePercent() + bonus)
 		end
 		
-		dmginfo:SetDamage( fFinalDamage )
-	end
-	
+		dmginfo:SetDamage(fFinalDamage)
 	-- Damage caused by zombies to humans
-	if attacker:IsZombie() and pl:IsHuman() then
+	elseif attacker:IsZombie() and pl:IsHuman() then
 		local vZombiePos = attacker:GetPos()
 		
 		-- Ents around the attacker

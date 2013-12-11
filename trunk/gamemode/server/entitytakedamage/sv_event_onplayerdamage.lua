@@ -1,19 +1,20 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local math = math
-
 -- Player take damage
 local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 
 	-- Player spawn protected
 	if pl:HasSpawnProtection() then
 		if dmginfo:IsExplosionDamage() then
-				dmginfo:SetDamage(dmginfo:GetDamage()*2)
-			else
-				dmginfo:SetDamage( math.Clamp( dmginfo:GetDamage(), 0, 50 ) * ( 1 - pl:GetSpawnDamagePercent() ) )
+			dmginfo:SetDamage(dmginfo:GetDamage()*2)
+		else
+			dmginfo:SetDamage( math.Clamp( dmginfo:GetDamage(), 0, 50 ) * ( 1 - pl:GetSpawnDamagePercent() ) )
 		end
-		if dmginfo:IsDamageNull() then return true end
+		
+		if dmginfo:IsDamageNull() then
+			return true
+		end
 	end
 	
 	-- Damage indicator
