@@ -65,6 +65,8 @@ function ENT:Draw()
     	end
 
         draw.SimpleTextOutlined(text, "ArialBoldFive", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+
+        draw.SimpleTextOutlined("Earn more SkillWeapons for different weapons", "ArialBoldFour", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
     end
  
     cam.End3D2D()
