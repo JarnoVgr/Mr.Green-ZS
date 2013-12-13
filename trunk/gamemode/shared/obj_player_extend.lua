@@ -117,7 +117,7 @@ function meta:GetSpawnTimeLimit()
 	if self:IsHuman() then
 		return 40
 	else
-		return 7
+		return 4
 	end
 end
 
