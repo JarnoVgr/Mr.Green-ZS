@@ -46,8 +46,8 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_SG552.Single")
-SWEP.Primary.Recoil			= 4
-SWEP.Primary.Damage			= 18
+SWEP.Primary.Recoil			= 3
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 28
 SWEP.storeclipsize			= 34

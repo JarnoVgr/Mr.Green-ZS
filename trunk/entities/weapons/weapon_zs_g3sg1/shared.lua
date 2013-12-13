@@ -20,8 +20,8 @@ SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_snip_g3sg1.mdl"
 
 SWEP.Primary.Sound = Sound("Weapon_G3SG1.Single")
-SWEP.Primary.Recoil = 6
-SWEP.Primary.Damage = 67
+SWEP.Primary.Recoil = 5
+SWEP.Primary.Damage = 75
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.65
 
@@ -33,7 +33,7 @@ SWEP.Primary.Ammo			= "357"
 SWEP.Cone = 0.039
 SWEP.ConeMoving = 0.055
 SWEP.ConeCrouching = 0.025
-SWEP.ConeIron = 0.019
+SWEP.ConeIron = 0.012
 SWEP.ConeIronCrouching = 0.009
 
 SWEP.WalkSpeed = 190

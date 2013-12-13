@@ -36,7 +36,7 @@ SWEP.MaxAmmo			    = 100
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "pistol"
 
-SWEP.ConeMoving = 0.069
+SWEP.ConeMoving = 0.071
 SWEP.Cone = 0.051
 SWEP.ConeIron = 0.031
 SWEP.ConeCrouching = 0.039
@@ -54,8 +54,8 @@ SWEP.IronSightsPos = Vector(-0, 1.213, 1.019)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.WElements = {
-	["elite1"] = { type = "Model", model = "models/weapons/w_pist_elite_single.mdl", bone = "ValveBiped.Bip01_R_Hand", pos = Vector(-0.894, 0.669, 0.006), angle = Angle(-0.32, -2.125, -180), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["elite2"] = { type = "Model", model = "models/weapons/w_pist_elite_single.mdl", bone = "ValveBiped.Bip01_L_Hand", pos = Vector(-0.35, 1.031, -0.633), angle = Angle(0, -19.07, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["elite1"] = { type = "Model", model = "models/weapons/w_pist_elite_single.mdl", bone = "ValveBiped.Bip01_R_Hand", pos = Vector(3.763, 1.161, 2.691), angle = Angle(-0.32, -2.125, -180), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["elite2"] = { type = "Model", model = "models/weapons/w_pist_elite_single.mdl", bone = "ValveBiped.Bip01_L_Hand", pos = Vector(3.94, 1.294, -2.597), angle = Angle(0, -19.07, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 	
 

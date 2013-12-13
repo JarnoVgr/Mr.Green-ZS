@@ -54,7 +54,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_M4A1.Single")
 SWEP.Primary.Recoil			= 3
-SWEP.Primary.Damage			= 24
+SWEP.Primary.Damage			= 23
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 31
 SWEP.storeclipsize			= 31

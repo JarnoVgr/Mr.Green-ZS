@@ -46,9 +46,9 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_P90.Single")
-SWEP.Primary.Recoil			= 5
+SWEP.Primary.Recoil			= 1
 SWEP.Primary.Unrecoil		= 0
-SWEP.Primary.Damage			= 13
+SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.05
 SWEP.Primary.ClipSize		= 50

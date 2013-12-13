@@ -57,11 +57,11 @@ SWEP.Primary.Ammo			= "pistol"
 SWEP.MaxAmmo			    = 100
 SWEP.WalkSpeed = 200
 
-SWEP.ConeMoving = 0.067
-SWEP.Cone = 0.052
-SWEP.ConeIron = 0.039
-SWEP.ConeCrouching = 0.037
-SWEP.ConeIronCrouching = 0.026
+SWEP.ConeMoving = 0.073
+SWEP.Cone = 0.058
+SWEP.ConeIron = 0.044
+SWEP.ConeCrouching = 0.041
+SWEP.ConeIronCrouching = 0.036
 
 SWEP.IronSightsPos = Vector( -5.795, 22, 2.9 )
 SWEP.IronSightsAng = Vector( 0, 0, 0 )

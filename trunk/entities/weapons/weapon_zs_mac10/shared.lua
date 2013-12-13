@@ -27,8 +27,8 @@ SWEP.Weight = 5
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("Weapon_MAC10.Single")
-SWEP.Primary.Recoil = 4
-SWEP.Primary.Damage = 10
+SWEP.Primary.Recoil = 1
+SWEP.Primary.Damage = 15
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.093
 
@@ -39,9 +39,9 @@ SWEP.Primary.Ammo = "smg1"
 
 SWEP.MaxAmmo = 230
 
-SWEP.ConeMoving = 0.066
-SWEP.Cone = 0.053
-SWEP.ConeIron = 0.041
+SWEP.ConeMoving = 0.069
+SWEP.Cone = 0.057
+SWEP.ConeIron = 0.046
 SWEP.ConeCrouching = 0.039
 SWEP.ConeIronCrouching = 0.032
 
