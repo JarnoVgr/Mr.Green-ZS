@@ -278,6 +278,13 @@ end
 SWEP.TimeNextThink = 0
 function SWEP:Think()
 	if not self.Owner or not self.Owner:Alive() then return end
+
+	--Set secondary ammo in clip
+	local ammocount = self.Owner:GetAmmoCount(self.Primary.Ammo)
+	if 0 < ammocount then
+		self:SetClip1(ammocount + self:Clip1())
+		self.Owner:RemoveAmmo(ammocount, self.Primary.Ammo)
+	end
 	
 	if self.TimeNextThink <= CurTime() then
 		if SERVER then
