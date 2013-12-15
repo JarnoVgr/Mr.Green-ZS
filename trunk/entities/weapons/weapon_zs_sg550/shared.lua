@@ -21,9 +21,9 @@ SWEP.WorldModel = "models/weapons/w_snip_sg550.mdl"
 
 SWEP.Primary.Sound = Sound("Weapon_SG550.Single")
 SWEP.Primary.Recoil = 7
-SWEP.Primary.Damage = 96
+SWEP.Primary.Damage = 81
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.56
+SWEP.Primary.Delay = 0.71
 SWEP.Primary.ReloadDelay	= 0.35
 
 SWEP.Primary.ClipSize = 12

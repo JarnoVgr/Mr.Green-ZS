@@ -44,7 +44,7 @@ SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.9
 
 SWEP.Primary.Delay = 1.3
 
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = 185
 
 SWEP.SwingRotation = Angle(60, 0, -80)
 SWEP.SwingOffset = Vector(0, -30, 0)

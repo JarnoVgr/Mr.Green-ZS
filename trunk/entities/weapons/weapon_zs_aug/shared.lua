@@ -44,11 +44,11 @@ SWEP.Primary.Cone			= 0.05
 SWEP.MaxBulletDistance 		= 3500
 SWEP.MaxAmmo			    = 250
 
-SWEP.ConeMoving = 0.061
-SWEP.Cone = 0.043
-SWEP.ConeIron = 0.031
-SWEP.ConeCrouching = 0.034
-SWEP.ConeIronCrouching = 0.022
+SWEP.ConeMoving = 0.072
+SWEP.Cone = 0.051
+SWEP.ConeIron = 0.042
+SWEP.ConeCrouching = 0.038
+SWEP.ConeIronCrouching = 0.031
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 

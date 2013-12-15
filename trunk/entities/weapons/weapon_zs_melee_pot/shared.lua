@@ -41,7 +41,7 @@ SWEP.DamageType = DMG_CLUB
 SWEP.MeleeDamage = 40
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 1.0
-SWEP.WalkSpeed = 205
+SWEP.WalkSpeed = 202
 
 SWEP.UseMelee1 = true
 
