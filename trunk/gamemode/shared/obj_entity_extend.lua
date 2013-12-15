@@ -1,8 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local ents = ents
-
 local meta = FindMetaTable ("Entity")
 if not meta then return end
 

@@ -1,17 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-local ents = ents
-
 -- Include all files inside this folder
 for k, sFile in pairs ( file.Find( "zombiesurvival/gamemode/server/entitytakedamage/*.lua","lsv" ) ) do
 	if not string.find( sFile, "main" ) then include( sFile ) end
@@ -36,8 +25,13 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			dmginfo:ScaleDamage(1.5)
 		end
 
+		--Damage nails and check if a nail died
 		if ent:DamageNails(attacker, inflictor, damage, dmginfo) then 
+			--Nails are fine. Let's not damage the prop
 	    	return
+		else
+			--Multiply once a nail dies
+			dmginfo:ScaleDamage(1.5)
 		end
 	
 		local entclass = ent:GetClass()

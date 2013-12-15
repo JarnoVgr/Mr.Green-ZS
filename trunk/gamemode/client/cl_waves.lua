@@ -1,16 +1,5 @@
 -- WAVES CLIENTSIDE
 
-local table = table
-local surface = surface
-local draw = draw
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-
 util.PrecacheSound("ambient/creatures/town_zombie_call1.wav")
 util.PrecacheSound("ambient/atmosphere/cave_hit1.wav")
 
@@ -36,12 +25,12 @@ net.Receive("SetInf", function(len)
 	if amount == 1 then
 		msg = UnlockedClass .." specie unlocked"
 	elseif amount > 1 then
-		msg = amount .." new zombie species unlocked"
+		msg = amount .." Undead species unlocked"
 	end
 	
 	if msg ~= "" then
 		GAMEMODE:Add3DMessage(140,msg,nil,"ArialBoldTwelve")
-		surface.PlaySound("ambient/atmosphere/cave_hit1.wav")
+		surface.PlaySound(Sound("ambient/atmosphere/cave_hit1.wav"))
 		--surface.PlaySound("ambient/creatures/town_zombie_call1.wav")
 	end
 	
