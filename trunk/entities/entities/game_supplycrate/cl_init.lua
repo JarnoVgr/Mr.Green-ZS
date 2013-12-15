@@ -47,15 +47,17 @@ function ENT:Draw()
 
     cam.Start3D2D(pos,angle,0.26)
 
+    draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", 0, -10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+
     if not suppliesAvailable then
     	--Reset cache for once it's active again
     	ResetBestAvailableWeaponsCache()
 
     	--Calculate time for next supply use possibility
         local timeLeft = math.Round(MySelf.NextSupplyTime - ServerTime())
-        draw.SimpleTextOutlined("Weapons and Supplies in 0".. ToMinutesSeconds(timeLeft + 1), "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+        draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(timeLeft + 1), "ArialBoldFour", 0, 10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
     else
-    	draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+    	
 
     	--Get list of available weapons the player will most likely receive
     	local suppliesList = GetBestAvailableWeapons()
@@ -64,9 +66,9 @@ function ENT:Draw()
     		text = "Press E to use" 
     	end
 
-        draw.SimpleTextOutlined(text, "ArialBoldFive", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+        draw.SimpleTextOutlined(text, "ArialBoldFive", 0, 10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
-        draw.SimpleTextOutlined("Earn more SkillWeapons for different weapons", "ArialBoldFour", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+        draw.SimpleTextOutlined("Earn more SP for different weapons", "ArialBoldFour", 0, 30, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
     end
  
     cam.End3D2D()

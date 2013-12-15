@@ -227,7 +227,7 @@ if CLIENT then
 				
 				if MySelf.MobileSupplyTimerActive == true then
 					local time = math.Round(MySelf.MobileSupplyTime - CurTime())
-					draw.SimpleTextOutlined("0"..ToMinutesSeconds(time + 1), "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+					draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(time + 1), "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 				elseif MySelf.MobileSupplyTimerActive == false then
 					draw.SimpleTextOutlined("Press E for bandages and ammo", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 				end

@@ -111,7 +111,9 @@ net.Receive("PlayerKilledByPlayerZS", function( len )
 	
 	-- Check for assist
 	local mAssist, sAssistName = Entity( assist )
-	if IsValid( mAssist ) then sAssistName = mAssist:Name() end
+	if IsValid( mAssist ) then
+		sAssistName = mAssist:Name() or ""
+	end
 	
 	gamemode.Call ( "DoPlayerDeath", victim, attacker, inflictor, mAssist )
 
@@ -139,7 +141,9 @@ local function RecvPlayerKilledByPlayer(message)
 	
 	-- Check for assist
 	local mAssist, sAssistName = Entity( assist )
-	if IsValid( mAssist ) then sAssistName = mAssist:Name() end
+	if IsValid( mAssist ) then
+		sAssistName = mAssist:Name() or ""
+	end
 	
 	gamemode.Call ( "DoPlayerDeath", victim, attacker, inflictor, mAssist )
 
