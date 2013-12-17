@@ -21,7 +21,7 @@ SWEP.WorldModel = "models/weapons/w_snip_g3sg1.mdl"
 
 SWEP.Primary.Sound = Sound("Weapon_G3SG1.Single")
 SWEP.Primary.Recoil = 5
-SWEP.Primary.Damage = 65
+SWEP.Primary.Damage = 75
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.65
 

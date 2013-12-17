@@ -48,7 +48,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_FAMAS.Single")
-SWEP.Primary.Recoil			= 3
+SWEP.Primary.Recoil			= 2						
 SWEP.Primary.Unrecoil		= 0
 SWEP.Primary.Damage			= 18
 SWEP.Primary.NumShots		= 1
