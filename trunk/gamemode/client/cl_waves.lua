@@ -146,16 +146,6 @@ function IsOnSale(item)
 	return false
 end
 
-usermessage.Hook("SuperBossNotify", function(um)
-	SUPER_BOSS = true
-	
-	for index, tbl in pairs(ZombieClasses) do
-		if ZombieSuperBosses[index] then
-			ZombieClasses[index] = ZombieSuperBosses[index]
-		end
-	end
-end)
-
 usermessage.Hook("Fun1", function(um)
 	local pl = um:ReadEntity()
 	local s = um:ReadShort()

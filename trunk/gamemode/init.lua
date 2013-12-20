@@ -50,7 +50,6 @@ AddCSLuaFile("client/cl_admin.lua")
 AddCSLuaFile("shared/sh_animations.lua")
 AddCSLuaFile("shared/sh_zombo_anims.lua")
 AddCSLuaFile("client/cl_hud.lua")
-
 AddCSLuaFile("modules/legs/cl_legs.lua")
 AddCSLuaFile("modules/news/cl_news.lua")
 
@@ -150,6 +149,12 @@ include("modules/boneanimlib_v2/boneanimlib.lua")
 
 --IRC
 include("extended/irc/sv_irc.lua")
+
+--Christmas
+if CHRISTMAS then
+	--Snow
+	AddCSLuaFile("modules/christmas/snow.lua")
+end
 
 
 --Inclusion of MapCoder files (objective maps)
@@ -268,9 +273,7 @@ function GM:Initialize()
 	GAMEMODE:SetExploitBoxes()
 	
 	GAMEMODE:AddRandomSales()
-	
-	GAMEMODE:EnableSuperBoss()
-			
+				
 	--Set few ConVars
 	game.ConsoleCommand("fire_dmgscale 1\nmp_flashlight 1\nmp_allowspectators 0\n")
 	

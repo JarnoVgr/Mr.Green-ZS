@@ -169,9 +169,7 @@ function GM:PlayerInitialSpawn( pl )
 	end]]
 	
 	skillpoints.SetupSkillPoints(pl)
-	
-	self:SuperBossNotify(pl)
-	
+		
 	if OBJECTIVE then
 		self:UpdateObjStageOnClients(pl)
 	end
@@ -246,6 +244,21 @@ function GM:PlayerSpawn(pl)
 			--Set model for player
 			pl.IsFreeman = true
 			pl.PlayerModel = "gordon"
+		end
+
+		--Check if we can be THE Gordon Freeman
+		if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsSantaHere and math.random(1,7) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsSanta) and not pl.IsFreeman then
+			--Only display message when being human
+			if pl:Team() == TEAM_SURVIVORS then
+				pl:ChatPrint("You're now THE Santa Claus!")
+			end
+
+			--Set global
+			self.IsSantaHere = true
+			
+			--Set model for player
+			pl.IsSanta = true
+			pl.PlayerModel = "santa"
 		end
 	end
 	

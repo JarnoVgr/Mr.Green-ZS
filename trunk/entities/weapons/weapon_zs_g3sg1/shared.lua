@@ -1,6 +1,4 @@
-if SERVER then
-	AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "G3-SG1"
@@ -41,7 +39,14 @@ SWEP.WalkSpeed = 190
 SWEP.IronSightsPos = Vector(5.39, -5.816, 2.16)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
-
+if CHRISTMAS then
+	SWEP.VElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/sniper/xms_sniperrifle.mdl", bone = "v_weapon.g3sg1_Parent", rel = "", pos = Vector(-0.396, -3.859, 4.481), angle = Angle(-90, 90, 0), size = Vector(0.5, 0.735, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+	SWEP.WElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(0, 0.709, -8.789), angle = Angle(-10.304, 0, 0), size = Vector(0.871, 0.871, 0.871), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+end
 
 function SWEP:IsScoped()
 	return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.25 <= CurTime()

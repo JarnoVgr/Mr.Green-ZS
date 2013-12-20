@@ -1,9 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then
-	AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "M1014 Shotgun"
@@ -58,6 +56,12 @@ SWEP.IronSightsAng = Vector(0, -0.828, 0)
 
 SWEP.OverridePos = Vector(2.559, -3.28, 1.399)
 SWEP.OverrideAng = Vector( 0,0,0 )
+
+if CLIENT then
+	SWEP.VElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.xm1014_Parent", rel = "", pos = Vector(0, -1.282, 2.513), angle = Angle(-90, 90, 0), size = Vector(0.5, 0.5, 1.126), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+end
 
 --SWEP.IronSightsPos = Vector(2.559, -3.28, 1.399)
 --SWEP.IronSightsAng = Vector(0, 0, 0)

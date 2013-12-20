@@ -55,6 +55,15 @@ SWEP.MaxBulletDistance 		= 2240
 SWEP.IronSightsPos = Vector(-5.3, -11, 4.4)
 SWEP.IronSightsAng = Vector(-1, 0.2, 2.55)
 
+if CHRISTMAS then
+	SWEP.VElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.ump45_Parent", rel = "", pos = Vector(0, -2.619, 14.519), angle = Angle(-90, 90, 0), size = Vector(0.555, 0.555, 1.442), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+	SWEP.WElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-4.413, 0.8, -8.806), angle = Angle(-9.893, 0, 0), size = Vector(0.898, 0.898, 0.898), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+end
+
 
 
 --SWEP.IronSightsPos = Vector(3.599, -4.591, 1.6)

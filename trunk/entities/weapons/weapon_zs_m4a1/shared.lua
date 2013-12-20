@@ -22,19 +22,13 @@ if CLIENT then
 	SWEP.ViewModelFOV = 50
 end
 
-if XMAS_2012 then
-
-	function SWEP:InitializeClientsideModels()
-	
-		self.VElements = {
-			["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "v_weapon.m4_Parent", rel = "", pos = Vector(0.257, 3.138, -7.19), angle = Angle(0, 85.456, 0), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-		self.WElements = {
-			["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-6.818, 1.296, -5.288), angle = Angle(-81.126, 0, 0), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-		
-	end
-
+if CHRISTMAS then
+	SWEP.VElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/medic/xms_medigun.mdl", bone = "v_weapon.m4_Parent", rel = "", pos = Vector(0, -5.579, 11.704), angle = Angle(-90, 90, 0), size = Vector(0.342, 0.342, 0.87), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+	SWEP.WElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/sniper/xms_sniperrifle.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-2.017, 0.795, -3.843), angle = Angle(-12.945, 0, 0), size = Vector(0.952, 0.952, 0.952), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
 end
 
 SWEP.Base				= "weapon_zs_base"

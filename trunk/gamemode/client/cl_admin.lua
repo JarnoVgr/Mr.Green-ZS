@@ -261,16 +261,20 @@ function DoAdminPanel()
 				CloseAdminPanel()
 			end)
 			
+			--Skip warmup/Start game
 			DebugMenu:AddOption("Start round immediately", function()
 				RunConsoleCommand("zs_admin_debug","startround")
 				CloseAdminPanel()
 			end)
 			
+			--Start HalfLife
 			DebugMenu:AddOption("Start HalfLife", function()
 				RunConsoleCommand("zs_admin_debug","starthalflife")
 				CloseAdminPanel()
 			end)
+
 			
+			--Start UnLife
 			DebugMenu:AddOption("Start UnLife", function()
 				RunConsoleCommand("zs_admin_debug","startunlife")
 				CloseAdminPanel()

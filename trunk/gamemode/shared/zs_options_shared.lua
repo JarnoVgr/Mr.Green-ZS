@@ -41,6 +41,15 @@ HORDE_MAX_DISTANCE = 260
 BONUS_RESISTANCE_WAVE = 5
 BONUS_RESISTANCE_AMOUNT = 20 -- %
 
+--EVENT: Halloween
+HALLOWEEN = false
+
+--EVENT: Christmas
+CHRISTMAS = true
+
+--EVENT: Aprils Fools
+FIRSTAPRIL = false
+
 -- Boss stuff
 
 BOSS_TOTAL_PLAYERS_REQUIRED = 10
@@ -48,10 +57,10 @@ BOSS_INFLICTION_REQUIRED = 95--67-- 1.35--  max % zombies of total players
 BOSS_CLASS = {10,13}-- 10,11,12,
 BOSS_WAVE = 6
 
-if XMAS_2012 then
+--[[if CHRISTMAS then
 	BOSS_CLASS = {14}
 	BOSS_WAVE = 5
-end
+end]]
 
 SUPER_BOSS_CHANCE = 2
 
@@ -514,18 +523,6 @@ RAVESOUND = "mrgreen/ravebreak_fix.mp3"
 -- Bug Reporting System
 BUG_REPORT = false
 
---EVENT: Christmas 2012
-XMAS_2012 = false
-
---EVENT: Halloween
-HALLOWEEN = false
-
---EVENT: Christmas
-CHRISTMAS = false
-
---EVENT: Aprils Fools
-FIRSTAPRIL = false
-
 -- Turn off/on the redeeming system.
 REDEEM = true
 
@@ -978,21 +975,19 @@ ZombieClasses[0] =
 				}, 	
 	PlayerFootstep = true,
 	Unlocked = true,
-	OnSpawn = function(pl)
-		
-			--[[local desiredname = pl:GetInfo("cl_playermodel")
-			local modelname = player_manager.TranslatePlayerModel(#desiredname == 0 and "models/player/group01/male_09.mdl" or desiredname)
-			if not table.HasValueCI(PlayerModels, modelname) and not (pl:IsAdmin() and table.HasValueCI(PlayerAdminModels, modelname)) then
-				modelname = table.Random(PlayerModels)
-			end
-			local lowermodelname = string.lower(modelname)]]
-			pl:SetModel(player_manager.TranslatePlayerModel(pl.PlayerModel))
+	OnSpawn = function(pl)		
+		--[[local desiredname = pl:GetInfo("cl_playermodel")
+		local modelname = player_manager.TranslatePlayerModel(#desiredname == 0 and "models/player/group01/male_09.mdl" or desiredname)
+		if not table.HasValueCI(PlayerModels, modelname) and not (pl:IsAdmin() and table.HasValueCI(PlayerAdminModels, modelname)) then
+			modelname = table.Random(PlayerModels)
+		end
+		local lowermodelname = string.lower(modelname)]]
+		pl:SetModel(player_manager.TranslatePlayerModel(pl.PlayerModel))
 			
-			pl:SetRandomFace()
-
-			--Set red color
-			--pl:SetColor(math.random(150,180),0,0,255)
-		end,
+		pl:SetRandomFace()
+		--Set red color
+		--pl:SetColor(math.random(150,180),0,0,255)
+	end,
 	-- ModelScale = Vector(1.35,1.35,1.35),
 }
 
@@ -1593,132 +1588,73 @@ ZombieClasses[13] =
 	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
 }
 
-local SantaStart = {
+--[[local SantaStart = {
 	Sound("vo/ravenholm/engage06.wav"),
 	Sound("vo/ravenholm/engage01.wav"),
-}
+}]]
 
-ZombieSuperBosses = {}
-
---Hate II
-ZombieSuperBosses[10] = {
-	Name = "Hate II",	
-	Tag = "hate",
+--Christmas boss
+--[[ZombieClasses[14] =
+{
+	Name = "Santa Claws",
+	Tag = "santa",
+	Wave = 0,
+	Health = 5000,
+	MaxHealth = 5000,
+	TimeLimit = 1020,
 	Infliction = 0,
-	Health = 11000,
-	MaxHealth = 11000,
-	Bounty = 1300,
-	SP = 1300,
-	IsBoss = true,
-	IsSuperBoss = true,
+	Bounty = 600,
+	SP = 600,
 	Mass = DEFAULT_MASS * 2,
-	Threshold = 0,	
-	SWEP = "weapon_zs_undead_hate2",			
-	JumpPower = 200,
+	Threshold = 4,
+	JumpPower = 100,
 	CanCrouch = true,
 	CanGib = true,
-	Model = Model("models/Zombie/Classic.mdl"), 
-	Speed = 230,
-	Hidden = true,	
-	AngleFix = true,
-	Description="",
+	Unlocked = false,
+	Hidden = true,
+	IsBoss = true,
+	SWEP = "weapon_zs_undead_infected",
+	--Model = Model("models/Jaanus/santa.mdl"),
+	Model = Model("models/player/group01/male_09.mdl"),
+	Speed = 185,
+	Description = "",
 	Unique = "",
-	AttackSounds = {
-				Sound("player/zombies/hate/chainsaw_attack_miss.wav"),
-				Sound("player/zombies/hate/chainsaw_attack_hit.wav"),
-				}, 
 	PainSounds = {
-				Sound("player/zombies/hate/sawrunner_pain1.wav"),
-				Sound("player/zombies/hate/sawrunner_pain2.wav"),
-				}, 
+				Sound("vo/ravenholm/madlaugh01.wav"),
+				Sound("vo/ravenholm/madlaugh02.wav"),
+				Sound("vo/ravenholm/madlaugh03.wav"),
+				Sound("vo/ravenholm/madlaugh04.wav"),
+				Sound("vo/ravenholm/monk_blocked01.wav");
+				},
 	DeathSounds = {
-				Sound("npc/zombie_poison/pz_die1.wav"),
-				Sound("npc/zombie_poison/pz_die2.wav")
+				Sound("vo/ravenholm/monk_helpme01.wav"),
+				Sound("vo/ravenholm/monk_helpme02.wav"),
+				Sound("vo/ravenholm/monk_helpme03.wav"),
+				Sound("vo/ravenholm/monk_helpme04.wav"),
+				Sound("vo/ravenholm/monk_helpme05.wav"),
 				},
 	IdleSounds = {
-				Sound("player/zombies/hate/sawrunner_alert10.wav"),
-				Sound("player/zombies/hate/sawrunner_alert20.wav"),
-				Sound("player/zombies/hate/sawrunner_alert30.wav"),
-				Sound("player/zombies/hate/sawrunner_attack2.wav"),
+
 				},
-	PlayerFootstep = true,
-	Unlocked = false,
-	-- ViewOffset = Vector( 0, 0, 0 ),
 	OnSpawn = function(pl)
-		-- if not pl.Revive then
-			local status = pl:GiveStatus("overridemodel")
-		
-			if status and status:IsValid() then
-				status:SetModel("models/Zombie/Poison.mdl")
-				status:SetBodygroup(2,1)
-				status:SetBodygroup(3,1)
-				status:SetBodygroup(2,1)
-			end
-		-- end
-		
-		pl:EmitSound( table.Random ( ZombieClasses[10].IdleSounds ),math.random( 110, 160 ),math.random( 85, 110 )  )
-		
-		local status2 = pl:GiveStatus("simple_revive")
-		if status2 then
-			status2:SetReviveTime(CurTime() + 4)
-			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
-		end
-		
+		pl:EmitSound(SantaStart[math.random(1,#SantaStart)],110,math.random(80,90))
+		--pl:SetRandomFace()
+		pl:SetModel(Model(player_manager.TranslatePlayerModel("santa")))
+			
+		pl:SetRandomFace()
+		--Set red color
+		--pl:SetColor(math.random(150,180),0,0,255)
 	end,
-	OnRevive = function(pl)
-		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-	end,
-	ModelScale = 1.53,-- Vector(1.52,1.52,1.52),
-	ViewOffset = Vector(0, 0, 90),
-	ViewOffsetDucked = Vector(0,0,40),
-	--Hull = { Vector(-21,-21, 0), Vector(21,21,97) },
-	Hull = { Vector(-16,-16, 0), Vector(16,16,106) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,70) },
-}
-
---[==[if SUPER_BOSS then
-	for index, tbl in pairs(ZombieClasses) do
-		if ZombieSuperBosses[index] then
-			ZombieClasses[index] = ZombieSuperBosses[index]
-		end
-	end
-end]==]
-
---Champions
-ZombiePowerups = {}
-
---Stronger 
-ZombiePowerups[1] = {HealthAdd = {40,50}, Scale = 1.05, Speed = 0.9, Color = Color(255,170,170,255) }
-ZombiePowerups[2] = {HealthAdd = {80,110}, Scale = 1.1, Speed = 0.8, Color = Color(255,100,100,255) }
-ZombiePowerups[3] = {HealthAdd = {90,130}, Scale = 1.3, Speed = 0.75, Color = Color(255,50,50,255) }
---Faster
-ZombiePowerups[4] = {HealthAdd = {-20,-10}, Scale = 0.9, Speed = 1.1, Color = Color(255,250,170,255) }
-
-ZombieClassesCrow =
-{
-	Name = "Crow",
-	Health = 30,
-	Threshold = 0,
-	SWEP = "weapon_zs_crow",
-	Model = Model("models/crow.mdl"),
-	Speed = 250,
-	Description="Use this infected crow to sneak up humans and spawn as zombie!",
-	PainSounds = {
-				Sound("npc/crow/pain1.wav"),
-				Sound("npc/crow/pain2.wav")
-				},
-	DeathSounds = {
-				Sound("npc/crow/die1.wav"),
-				Sound("npc/crow/die2.wav")
-				},
-	ViewOffset = Vector(0, 0, 0),
-	Hidden = true
-}
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+	ModelScale = 1.2,//Vector(1.1,1.1,1.1),
+	ViewOffset = Vector( 0, 0, 72 ),
+	ViewOffsetDucked = Vector( 0, 0, 32 ),
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 74) },
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
+}]]
 
 --Add custom player models and hands
 player_manager.AddValidModel("gordon", "models/player/gordon_classic.mdl")
+player_manager.AddValidModel("santa", "models/Jaanus/santa.mdl")
 player_manager.AddValidHands("gordon", "models/weapons/c_arms_hev.mdl", 0, "00000000")
 
 --Add models for players to allow (and randomly be picked from when having no preference)
@@ -1794,7 +1730,8 @@ PlayerModels = {
 		"css_phoenix",
 		"css_riot",
 		"css_swat",
-		"css_urban"
+		"css_urban",
+		--"santa"
 }
 
 PlayerAdminModels = {

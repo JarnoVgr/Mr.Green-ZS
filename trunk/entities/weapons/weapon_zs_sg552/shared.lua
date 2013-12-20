@@ -1,12 +1,10 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then
-	AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "sg552"			
+	SWEP.PrintName = "SG552"			
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 16
@@ -15,19 +13,13 @@ if CLIENT then
 	SWEP.ViewModelFOV = 50
 end
 
-if XMAS_2012 then
-
-	function SWEP:InitializeClientsideModels()
-	
-		self.VElements = {
-			["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "v_weapon.sg552_Parent", rel = "", pos = Vector(-0.013, 3.461, -6.693), angle = Angle(6.018, -86.378, 0), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-		self.WElements = {
-			["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(29.431, -0.04, -3.326), angle = Angle(97.809, 0, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-		
-	end
-
+if CHRISTMAS then
+	SWEP.VElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.sg552_Parent", rel = "", pos = Vector(-0.317, -1.795, 4.256), angle = Angle(-70.569, 90, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+	SWEP.WElements = {
+		["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(29.431, -0.04, -3.326), angle = Angle(97.809, 0, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
+	}
 end
 
 SWEP.Base				= "weapon_zs_base"

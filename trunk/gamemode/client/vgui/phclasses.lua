@@ -811,7 +811,16 @@ function DrawSelectClass()
 
 	--Play spawnscreen sound
 	local randSong = math.random(2,3)
-	surface.PlaySound("mrgreen/music/gamestart".. randSong ..".mp3")	
+
+	--If christmas play xmas sound first and then the normal one
+	if CHRISTMAS then
+		surface.PlaySound("mrgreen/music/gamestart_xmas.mp3")
+		timer.Simple(22, function()
+			surface.PlaySound("mrgreen/music/gamestart".. randSong ..".mp3")
+		end)
+	else
+		surface.PlaySound("mrgreen/music/gamestart".. randSong ..".mp3")
+	end
 end
 
 function ChangeClassClient ( class )

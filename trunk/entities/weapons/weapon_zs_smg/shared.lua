@@ -30,19 +30,14 @@ if CLIENT then
 	killicon.AddFont( "weapon_zs_smg", "HL2MPTypeDeath", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
 end
 
-if XMAS_2012 then
-
-	function SWEP:InitializeClientsideModels()
-	
-		self.VElements = {
-			["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(-0.189, -1.303, 14.432), angle = Angle(3.562, -89.909, 180), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-		self.WElements = {
-			["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(21.04, 1.501, -9.778), angle = Angle(76.043, 0, 0), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
-		}
-		
-	end
-
+if CHRISTMAS then
+	--VElements is broken due to V-to-C-model change
+	SWEP.VElements = {
+		["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(-0.189, -1.303, 14.432), angle = Angle(3.562, -89.909, 180), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
+	}
+	SWEP.WElements = {
+		["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(21.04, 1.501, -9.778), angle = Angle(76.043, 0, 0), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
+	}
 end
 
 SWEP.Base				= "weapon_zs_base"

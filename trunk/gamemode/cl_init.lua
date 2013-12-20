@@ -125,6 +125,12 @@ include("modules/boneanimlib_v2/cl_boneanimlib.lua")
 -- SQL-stats related
 include("server/stats/sh_utils.lua")
 
+--Christmas
+if CHRISTMAS then
+	--Snow
+	include("modules/christmas/snow.lua")
+end
+
 --
 CreateClientConVar("_zs_redeemclass", 1, true, false)
 

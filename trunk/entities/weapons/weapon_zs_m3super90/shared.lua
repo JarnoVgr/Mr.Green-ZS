@@ -1,9 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then
-	AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "M3 Shotgun"
@@ -65,6 +63,15 @@ SWEP.ReloadDelay = 0.4
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0
+
+if CHRISTMAS then
+	SWEP.VElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.M3_PARENT", rel = "", pos = Vector(-0.32, -0.63, 5.836), angle = Angle(-88.977, 90, 0), size = Vector(0.5, 0.5, 1.343), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+	SWEP.WElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(1.009, 0.953, -7.064), angle = Angle(-9.205, 0.907, 0), size = Vector(0.774, 0.774, 1.118), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+end
 
 function SWEP:Reload()
 	if self.reloading then

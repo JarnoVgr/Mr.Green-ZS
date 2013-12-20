@@ -290,29 +290,3 @@ function FixNotUpdatedSales(pl,cmd,args)
 	print("[SKILLSHOP] Player "..tostring(pl).." requested serverside sales because of error! Sending a new ones.")
 end
 concommand.Add("mrgreen_fixdeadsales",FixNotUpdatedSales)
-
-function GM:EnableSuperBoss()
-	if math.random(SUPER_BOSS_CHANCE) == SUPER_BOSS_CHANCE then
-		SUPER_BOSS = true
-		print("[BOSS] Super Boss activated")
-	end
-	
-	if SUPER_BOSS then
-		for index, tbl in pairs(ZombieClasses) do
-			if ZombieSuperBosses[index] then
-				ZombieClasses[index] = ZombieSuperBosses[index]
-			end
-		end
-	end
-end
-
-function GM:SuperBossNotify(pl)
-	if pl:IsBot() then
-		return
-	end
-
-	if SUPER_BOSS then
-		umsg.Start( "SuperBossNotify",pl )
-		umsg.End()
-	end
-end

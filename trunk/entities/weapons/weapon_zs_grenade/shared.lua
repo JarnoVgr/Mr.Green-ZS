@@ -1,9 +1,6 @@
-if ( SERVER ) then
-	AddCSLuaFile( "shared.lua" )
-	SWEP.PrintName = "mine"
-end
+AddCSLuaFile()
 
-if ( CLIENT ) then
+if CLIENT then
 	SWEP.PrintName = "Grenade"
 	SWEP.Slot = 4
 	SWEP.SlotPos = 1

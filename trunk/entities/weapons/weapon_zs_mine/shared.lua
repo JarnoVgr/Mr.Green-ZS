@@ -1,14 +1,11 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if ( SERVER ) then
-	AddCSLuaFile( "shared.lua" )
-	SWEP.PrintName = "mine"
-end
+AddCSLuaFile()
 
 SWEP.HoldType = "melee"
 
-if ( CLIENT ) then
+if CLIENT then
 	SWEP.PrintName = "Explosive"
 	SWEP.Slot = 4
 	SWEP.SlotPos = 1

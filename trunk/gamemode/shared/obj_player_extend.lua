@@ -637,10 +637,6 @@ function meta:IsBossZombie()
 	return ZombieClasses[self:GetZombieClass()] and ZombieClasses[self:GetZombieClass()].IsBoss
 end
 
-function meta:IsSuperBossZombie()
-	return ZombieClasses[self:GetZombieClass()] and ZombieClasses[self:GetZombieClass()].IsSuperBoss
-end
-
 --[==[------------------------------------------
 	See if zombie is a zombine
 ------------------------------------------]==]
@@ -1518,9 +1514,6 @@ function meta:DoHulls(classid, teamid)
 		local classtab = ZombieClasses[ classid ]
 		local tbl
 		if classtab then
-			local powerup = self:IsSteroidZombie()
-			if powerup then tbl = ZombiePowerups[self:GetSteroidZombieType()] or {} end
-			
 			if not classtab.Hull or not classtab.HullDuck then				
 				if tbl and tbl.Scale then
 					self:SetHull(HULL_PLAYER[1], Vector(HULL_PLAYER[2].x,HULL_PLAYER[2].y,HULL_PLAYER[2].z*tbl.Scale))

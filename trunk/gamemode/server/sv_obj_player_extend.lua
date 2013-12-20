@@ -1612,11 +1612,7 @@ function meta:DoHulls(classid, teamid)
 		-- classid = classid or -10
 		local classtab = ZombieClasses[ classid ]
 		local tbl
-		if classtab then
-		
-			local powerup = self:IsSteroidZombie()
-			if powerup then tbl = ZombiePowerups[self:GetSteroidZombieType()] or {} end
-			
+		if classtab then			
 			if not classtab.Hull or not classtab.HullDuck then				
 				if tbl and tbl.Scale then
 					self:SetHull(HULL_PLAYER[1], Vector(HULL_PLAYER[2].x,HULL_PLAYER[2].y,HULL_PLAYER[2].z*tbl.Scale))

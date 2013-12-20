@@ -39,6 +39,12 @@ SWEP.HitDecal = "Manhackcut"
 
 SWEP.NoHitSoundFlesh = true
 
+if CHRISTMAS then
+	SWEP.VElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_bat.mdl", bone = "v_weapon.Knife_Handle", rel = "", pos = Vector(0, 0, -6.36), angle = Angle(0, 0, 0), size = Vector(0.5, 0.776, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+end
+
 function SWEP:PlaySwingSound()
 	self:EmitSound("weapons/knife/knife_slash"..math.random(1, 2)..".wav")
 end

@@ -203,6 +203,9 @@ table.insert( ResourceFiles, "sound/mrgreen/ui/menu_countdown.wav")
 --Game start music
 table.insert(ResourceFiles, "sound/mrgreen/music/gamestart2.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/gamestart3.mp3")
+if CHRISTMAS then
+	table.insert(ResourceFiles, "sound/mrgreen/music/gamestart_xmas.mp3")
+end
 
 --Last human music
 table.insert(ResourceFiles, "sound/"..LASTHUMANSOUND)
@@ -222,6 +225,28 @@ table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_01.wav")
 table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_02.wav")
 table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_03.wav")
 table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_04.wav")
+
+--Christmas lights
+if CHRISTMAS then
+	table.insert(ResourceFiles, "materials/effects/tiledfile/firelayeredslowtiled512.vtf")
+	table.insert(ResourceFiles, "materials/models/lightwarps/weapon_lightwarp.vtf")
+	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_colored_lights.vmt")
+	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_colored_lights_blu.vmt")
+	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_colored_lights_white.vmt")
+	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_colored_lights.vtf")
+	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_colored_lights_blu.vtf")
+	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_coloredlights_anim.vtf")
+	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_coloredlights_anim000.vtf")
+	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_coloredlights_anim001.vtf")
+	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_coloredlights_anim002.vtf")
+	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_coloredlights_blue_anim.vtf")
+	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_coloredlights_white_anim.vtf")
+	table.insert(ResourceFiles, "models/player/items/scout/xms_bat.mdl")
+	table.insert(ResourceFiles, "models/player/items/scout/xms_scattergun.mdl")
+	table.insert(ResourceFiles, "models/player/items/scout/xms_wrench.mdl")
+	table.insert(ResourceFiles, "models/player/items/medic/xms_medigun.mdl")
+	table.insert(ResourceFiles, "models/player/items/sniper/xms_sniperrifle.mdl")
+end
 
 --Soft-notice HUD
 table.insert( ResourceFiles, "sound/hud/notice_soft.wav" )
@@ -534,6 +559,14 @@ table.insert(ResourceFiles, "models/wraith__animations.mdl")
 table.insert(ResourceFiles, "models/weapons/v_wraith.mdl")
 for _, filename in pairs( file.Find( "sound/npc/stalker/*.wav" , "GAME") ) do
 	table.insert ( ResourceFiles, "sound/npc/stalker/"..filename  )
+end
+
+--Santa Claus Boss
+if CHRISTMAS then
+	table.insert(ResourceFiles, "models/Jaanus/santa.mdl")
+	for _, filename in pairs(file.Find("materials/Jaanus/monk/*.*", "GAME")) do
+		table.insert(ResourceFiles, "materials/Jaanus/monk/".. filename)
+	end
 end
 
 --Precache all models from resources

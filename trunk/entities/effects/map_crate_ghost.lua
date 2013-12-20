@@ -1,10 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local math = math
-local util = util
-local render = render
-
 function EFFECT:Init(data)
 	self.EfOwner = data:GetEntity()
 	self.Entity:SetModel("models/Items/item_item_crate.mdl") --"models/props_interiors/VendingMachineSoda01a.mdl"

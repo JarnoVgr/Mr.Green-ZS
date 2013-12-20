@@ -564,12 +564,7 @@ end
 
 
 -- Hate
-GM.CalcMainActivityZombies[10] = function ( pl, vel )
-
-	if pl:IsSuperBossZombie() then
-		return MainActivityHate2(pl,vel)
-	end
-	
+GM.CalcMainActivityZombies[10] = function ( pl, vel )	
 	-- Default zombie act
 	local iSeq, iIdeal = -1
 
@@ -594,9 +589,6 @@ end
 
 local Attacks = { "swatrightlow", "swatleftlow" }
 GM.DoAnimationEventZombies[10] = function ( pl, event, data )
-	if pl:IsSuperBossZombie() then
-		return AnimEventHate2(pl, event, data)
-	end
 	if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
 		if ( data == CUSTOM_PRIMARY ) then
 			-- pl:AnimRestartGesture( GESTURE_SLOT_CUSTOM, ACT_MELEE_ATTACK1 )

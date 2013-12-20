@@ -1,9 +1,7 @@
-if SERVER then
-	AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "sg550"
+	SWEP.PrintName = "SG550"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 6
 	
@@ -45,6 +43,15 @@ SWEP.WalkSpeed = 185
 
 SWEP.IronSightsPos = Vector(-7.441, -15.039, 1.559)
 SWEP.IronSightsAng = Vector(0, 0, 0)
+
+if CHRISTMAS then
+	SWEP.VElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/sniper/xms_sniperrifle.mdl", bone = "v_weapon.sg550_Parent", rel = "", pos = Vector(-0.463, -4.711, 5.598), angle = Angle(-90, 90, 0), size = Vector(0.5, 0.5, 1.391), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+	SWEP.WElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-3.965, 0.953, -5.652), angle = Angle(-9.205, 0, 0), size = Vector(0.5, 0.5, 1.23), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+end
 
 
 function SWEP:IsScoped()

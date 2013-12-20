@@ -51,3 +51,12 @@ SWEP.IronSightsPos = Vector(-9.04, -8.426, 2.759)
 SWEP.IronSightsAng = Vector(1.483, -5.311, -6.961)
 SWEP.OverridePos = Vector(2.279, -3.28, 1.44)
 SWEP.OverrideAng = Vector(0, 0, 6.287)
+
+if CHRISTMAS then
+	SWEP.VElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.mac10_parent", rel = "", pos = Vector(-0.48, -0.559, 10.204), angle = Angle(-90, 90, 0), size = Vector(0.554, 0.554, 0.694), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+	SWEP.WElements = {
+		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-4.9, 0.81, -6.652), angle = Angle(0, -2.901, 0), size = Vector(0.666, 0.666, 0.666), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+end
