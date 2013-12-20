@@ -248,6 +248,14 @@ if CHRISTMAS then
 	table.insert(ResourceFiles, "models/player/items/sniper/xms_sniperrifle.mdl")
 end
 
+--Christmas snow
+if CHRISTMAS then
+	table.insert(ResourceFiles, "materials/particle/cloud.vtf")
+	table.insert(ResourceFiles, "materials/particle/cloud.vmt")
+	table.insert(ResourceFiles, "materials/particle/snow.vmt")
+	table.insert(ResourceFiles, "materials/particle/snow.vtf")
+end
+
 --Soft-notice HUD
 table.insert( ResourceFiles, "sound/hud/notice_soft.wav" )
 
