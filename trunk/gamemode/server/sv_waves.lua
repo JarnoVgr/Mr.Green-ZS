@@ -30,7 +30,7 @@ function GM:SetRandomsToFirstZombie()
 	local tblUndead = team.GetPlayers(TEAM_UNDEAD)
 	
 	--Calculate required Undead amount
-	local numRequiredUndead = math.max(1, math.ceil(numPlayers * UNDEAD_START_AMOUNT_PERCENTAGE))
+	local numRequiredUndead = math.max(UNDEAD_START_AMOUNT_MINIMUM, math.Round(numPlayers * UNDEAD_START_AMOUNT_PERCENTAGE))
 	
 	--
 	
@@ -89,6 +89,33 @@ function GM:CalculateInfliction()
 	CAPPED_INFLICTION = INFLICTION
 
 	self:SendInfliction()
+end
+
+local undeadDamageMultiplier = 1
+function GM:CalculateUndeadDamageMultiplier()
+	local numUndead = team.NumPlayers(TEAM_UNDEAD)
+	local numSurvivors = team.NumPlayers(TEAM_SURVIVORS)
+	local numTotal = numUndead+numSurvivors
+	
+	local calculatedDamageMultiplier = 1
+	
+	--Normal difficulty when on or above 20 players
+	if numSurvivors <= numUndead then
+		undeadDamageMultiplier = calculatedDamageMultiplier
+		return calculatedDamageMultiplier
+	end
+	
+	calculatedDamageMultiplier = (numUndead / numSurvivors) * ((1-INFLICTION)+0.7)
+	
+	calculatedDamageMultiplier = math.Round(math.Clamp(calculatedDamageMultiplier,0.3,1),2)
+
+	undeadDamageMultiplier = calculatedDamageMultiplier
+		
+	return calculatedDamageMultiplier
+end
+
+function GM:GetUndeadDamageMultiplier()
+	return undeadDamageMultiplier
 end
 
 function GM:OnPlayerReady(pl)

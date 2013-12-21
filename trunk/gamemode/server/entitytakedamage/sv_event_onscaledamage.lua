@@ -119,6 +119,9 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	end
 
 	if pl:IsZombie() then
+		--Scale any damage
+		dmginfo:ScaleDamage(GAMEMODE:GetUndeadDamageMultiplier())
+
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then

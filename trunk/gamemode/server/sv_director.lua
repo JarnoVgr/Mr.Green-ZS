@@ -84,6 +84,17 @@ function ManageEvents()
 end
 timer.Create("ManageEvents", 0.5, 0, ManageEvents)
 
+
+function ManageMinorEvents()
+	if ENDROUND or not GAMEACTIVE then
+		return
+	end
+
+	--
+	GAMEMODE:CalculateUndeadDamageMultiplier()
+end
+timer.Create("ManageMinorEvents", 5, 0, ManageMinorEvents)
+
 --Timer creator for this function is at ManageEvents
 function GiveSkillPointsSurvivors()
 	--Give skillpoints to all players for still being alive
