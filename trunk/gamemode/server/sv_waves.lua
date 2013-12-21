@@ -107,7 +107,12 @@ function GM:CalculateUndeadDamageMultiplier()
 	
 	calculatedDamageMultiplier = (numUndead / numSurvivors) * ((1-INFLICTION)+0.7)
 	
-	calculatedDamageMultiplier = math.Round(math.Clamp(calculatedDamageMultiplier,0.3,1.6),2)
+	--Divide 
+	if calculatedDamageMultiplier > 1 then
+		calculatedDamageMultiplier = math.max(1,(calculatedDamageMultiplier / 2))
+	end
+	
+	calculatedDamageMultiplier = math.Round(math.Clamp(calculatedDamageMultiplier,0.3,2),2)
 
 	undeadDamageMultiplier = calculatedDamageMultiplier
 		
