@@ -100,14 +100,14 @@ function GM:CalculateUndeadDamageMultiplier()
 	local calculatedDamageMultiplier = 1
 	
 	--Normal difficulty when on or above 20 players
-	if numSurvivors <= numUndead then
+	--[[if numSurvivors <= numUndead then
 		undeadDamageMultiplier = calculatedDamageMultiplier
 		return calculatedDamageMultiplier
-	end
+	end]]
 	
 	calculatedDamageMultiplier = (numUndead / numSurvivors) * ((1-INFLICTION)+0.7)
 	
-	calculatedDamageMultiplier = math.Round(math.Clamp(calculatedDamageMultiplier,0.3,1),2)
+	calculatedDamageMultiplier = math.Round(math.Clamp(calculatedDamageMultiplier,0.3,1.6),2)
 
 	undeadDamageMultiplier = calculatedDamageMultiplier
 		
