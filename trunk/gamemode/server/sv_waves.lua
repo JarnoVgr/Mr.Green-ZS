@@ -108,7 +108,7 @@ function GM:CalculateUndeadDamageMultiplier()
 	if numUndead < numSurvivors then
 		calculatedDamageMultiplier = math.Clamp((numUndead / numTotal)+0.4,0.3,1)
 	elseif numSurvivors < numUndead then
-		calculatedDamageMultiplier = math.Clamp(0.5+(numUndead / numTotal),1,2)
+		calculatedDamageMultiplier = math.Clamp((0.5+(numUndead / numTotal)) * 1.3,1,2)
 	end
 	
 	--Divide 
@@ -120,7 +120,7 @@ function GM:CalculateUndeadDamageMultiplier()
 
 	undeadDamageMultiplier = calculatedDamageMultiplier
 	
-	Debug("Calculated to-Undead damage multiplier: ".. tostring(undeadDamageMultiplier))
+	Debug("[WAVES] Calculated to-Undead damage multiplier: ".. tostring(undeadDamageMultiplier))
 		
 	return calculatedDamageMultiplier
 end
