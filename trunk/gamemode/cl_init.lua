@@ -1,7 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-MySelf = NULL
+MySelf = MySelf or NULL
 hook.Add("Think", "GetLocal", function()
 	if not ClientReady then
 		ClientReady = true
@@ -41,6 +41,16 @@ end
 GM.RewardIcons = {}
 w, h = ScrW(), ScrH()
 Threshold = 0
+
+-- Remove when model decal crash is fixed.
+function util.Decal()
+end
+
+function GM:ClickedPlayerButton(pl, button)
+end
+
+function GM:ClickedEndBoardPlayerButton(pl, button)
+end
 
 --Third Party timer and hook profiler
 --include("modules/dbugprofiler/dbug_profiler.lua")
@@ -124,6 +134,9 @@ include("modules/boneanimlib_v2/cl_boneanimlib.lua")
 
 -- SQL-stats related
 include("server/stats/sh_utils.lua")
+
+-- SQL-stats related
+include("modules/emitterfix/sh_emitterfix.lua")
 
 --Christmas
 if CHRISTMAS then

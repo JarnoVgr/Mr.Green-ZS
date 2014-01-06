@@ -150,6 +150,9 @@ include("modules/boneanimlib_v2/boneanimlib.lua")
 --IRC
 include("extended/irc/sv_irc.lua")
 
+--Emitter Fix
+include("modules/emitterfix/sh_emitterfix.lua")
+
 --Christmas
 if CHRISTMAS then
 	--Snow
