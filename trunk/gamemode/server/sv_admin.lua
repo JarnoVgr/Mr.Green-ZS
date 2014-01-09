@@ -331,7 +331,9 @@ function ChangeLevel ( pl, cmd, args )
 	-- Change the map with a delay of 10
 	timer.Simple ( 10, function() RunConsoleCommand ( "changelevel", TargetMap ) end )
 end
-concommand.Add( "changemap_player", ChangeLevel ) 
+concommand.Add("changemap_player", ChangeLevel) 
+
+util.AddNetworkString("UnlockAllUndeadClasses")
 
 --[==[-----------------------------------------------------------
                   Admin Addon - Debugging
@@ -383,6 +385,19 @@ function DoDebugCommands(pl, cmd, args)
 		GAMEMODE:SetUnlife(true)
 		
 		Debug("[DEBUG] Started UnLife")
+	elseif sCommand == "unlockspecies" then
+		net.Start("UnlockAllUndeadClasses")
+		net.Broadcast()
+
+		--TODO: Check if serverside is needed
+		for i, tab in ipairs(ZombieClasses) do
+			--Check for unlock
+			if not tab.Unlocked and not tab.Hidden then
+				tab.Unlocked = true
+			end
+		end
+		
+		Debug("[DEBUG] Unlocked all Undead species/classes")
 	elseif sCommand == "unleashboss" then
 		bossPlayer = GAMEMODE:GetPlayerForBossZombie()
 		if bossPlayer then

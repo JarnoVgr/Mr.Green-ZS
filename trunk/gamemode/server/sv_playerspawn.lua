@@ -246,8 +246,8 @@ function GM:PlayerSpawn(pl)
 			pl.PlayerModel = "gordon"
 		end
 
-		--Check if we can be THE Gordon Freeman
-		if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsSantaHere and math.random(1,7) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsSanta) and not pl.IsFreeman then
+		--Check if we can be Santa Claus
+		if CHRISTMAS and pl:Team() ~= TEAM_SPECTATOR and ((not self.IsSantaHere and math.random(1,7) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsSanta) and not pl.IsFreeman then
 			--Only display message when being human
 			if pl:Team() == TEAM_SURVIVORS then
 				pl:ChatPrint("You're now THE Santa Claus!")

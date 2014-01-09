@@ -279,7 +279,14 @@ function DoAdminPanel()
 				RunConsoleCommand("zs_admin_debug","startunlife")
 				CloseAdminPanel()
 			end)
-					
+
+			--Unlock all undead classes
+			DebugMenu:AddOption("Unlock all Undead species", function()
+				RunConsoleCommand("zs_admin_debug","unlockspecies")
+				CloseAdminPanel()
+			end)
+				
+			--Unleash Undead Boss
 			DebugMenu:AddOption("Unleash Undead Boss", function()
 				RunConsoleCommand("zs_admin_debug","unleashboss")
 				CloseAdminPanel()

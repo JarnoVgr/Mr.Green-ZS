@@ -45,6 +45,32 @@ net.Receive("SetInf", function(len)
 	end
 end)
 
+net.Receive("UnlockAllUndeadClasses", function(len)		
+	local UnlockedClass
+	local amount = 0
+	for i, tab in ipairs(ZombieClasses) do
+		--Check for unlock
+		if not tab.Unlocked and not tab.Hidden then
+			tab.Unlocked = true
+			UnlockedClass = tab.Name
+			amount = amount + 1
+		end
+	end
+	
+	local msg = ""
+	if amount == 1 then
+		msg = UnlockedClass .." specie unlocked"
+	elseif amount > 1 then
+		msg = amount .." Undead species unlocked"
+	end
+	
+	if msg ~= "" then
+		GAMEMODE:Add3DMessage(140,msg,nil,"ArialBoldTwelve")
+		surface.PlaySound(Sound("ambient/atmosphere/cave_hit1.wav"))
+		--surface.PlaySound("ambient/creatures/town_zombie_call1.wav")
+	end
+end)
+
 function GM:GetLivingZombies()
 	local tab = {}
 
