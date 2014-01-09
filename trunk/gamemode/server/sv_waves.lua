@@ -106,7 +106,7 @@ function GM:CalculateUndeadDamageMultiplier()
 	end]]
 	
 	if numUndead < numSurvivors then
-		calculatedDamageMultiplier = math.Clamp((numUndead / numTotal)+0.4,0.3,1)
+		calculatedDamageMultiplier = math.Clamp((numUndead / numTotal)+0.3,0.3,1)
 	elseif numSurvivors < numUndead then
 		--calculatedDamageMultiplier = math.Clamp((0.5+(numUndead / numTotal)) * 1.3,1,2)
 		calculatedDamageMultiplier = math.Clamp(1+((numTotal / numUndead)/10),1,2.5)
