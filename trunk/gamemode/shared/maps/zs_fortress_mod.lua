@@ -65,7 +65,7 @@ if SERVER then
 		engine.LightStyle(0,"b")
 
 		--Spawn random props througout map
-		local maxProps = math.random(60,80)
+		local maxProps = math.random(30,40)
 		for i=1,maxProps do
 			local e = ents.Create("prop_physics")
 			--X: -1300 to 1200
