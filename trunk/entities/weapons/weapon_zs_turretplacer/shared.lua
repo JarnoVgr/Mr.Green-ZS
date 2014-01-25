@@ -1,12 +1,10 @@
-if ( SERVER ) then
-	AddCSLuaFile( "shared.lua" )
-	SWEP.PrintName = "Turret"
-end
+AddCSLuaFile()
+SWEP.PrintName = "Turret Placer"
 
 SWEP.HoldType = "melee"
 
-if ( CLIENT ) then
-	SWEP.PrintName = "Turret Placer"
+if CLIENT then
+	
 	SWEP.Slot = 4
 	SWEP.SlotPos = 1
 	SWEP.DrawCrosshair = false
