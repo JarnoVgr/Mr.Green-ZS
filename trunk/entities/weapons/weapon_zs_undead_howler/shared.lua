@@ -135,7 +135,7 @@ function SWEP:DoAttack( bPull )
 		end
 
 		-- Calculate velocity
-		local Velocity = -1 * mOwner:GetForward() * 170
+		local Velocity = -1 * mOwner:GetForward() * 145
 		if not bPull then
 			Velocity = -1 * Velocity * 2
 		end

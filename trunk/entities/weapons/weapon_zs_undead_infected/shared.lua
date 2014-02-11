@@ -66,7 +66,7 @@ SWEP.MeleeReach = 48
 SWEP.MeleeSize = 1.5
 SWEP.MeleeDelay = 0.74
 
-SWEP.Damage = 25
+SWEP.Damage = 22
 
 SWEP.SwapAnims = false
 SWEP.AttackAnimations = { "attackD", "attackE", "attackF" }
