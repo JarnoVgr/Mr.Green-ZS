@@ -351,8 +351,9 @@ function GM:OnHumanSpawn(pl)
 	pl:SetAmmoTime(AMMO_REGENERATE_RATE, true)
 		
 	-- Change his player model and set up his voice set
-	pl:SetModel(player_manager.TranslatePlayerModel(pl.PlayerModel))
-	pl.VoiceSet = VoiceSetTranslate[ string.lower(player_manager.TranslatePlayerModel(pl.PlayerModel)) ] or "male"
+	local plModel = player_manager.TranslatePlayerModel(pl.PlayerModel)
+	pl:SetModel(plModel)
+	pl.VoiceSet = VoiceSetTranslate[string.lower(plModel)] or "male"
 	
 	pl.SelectedSuit = pl:GetInfo("_zs_defaultsuit") or "none"
 	pl.SelectedHat = pl:GetInfo("_zs_equippedhats") or "none"
