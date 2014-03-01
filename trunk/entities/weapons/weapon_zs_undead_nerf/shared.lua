@@ -1,14 +1,8 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then AddCSLuaFile ( "shared.lua" ) end
+AddCSLuaFile()
 
-
-local math = math
-local team = team
-local util = util
-local timer = timer
-local ents = ents
 
 if CLIENT then
 
@@ -113,12 +107,7 @@ function SWEP:OnDeploy()
 				-- self.BreathSound:Play()
 			end
 		end)
-	
 	end
-	--self.Owner.IsRoar = false
-	
-	
-	
 end
 
 function SWEP:Think()

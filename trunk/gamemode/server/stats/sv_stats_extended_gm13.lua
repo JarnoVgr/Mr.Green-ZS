@@ -88,6 +88,11 @@ end
 
 -- Write everything to the SQL
 function metaPlayer:WriteDataSQL()
+	--Extra check. Write only when having received data.
+	
+	if not self:GotSQLData() then
+		return
+	end
 	self:SaveStatsSQL()
 	self:SaveClassDataSQL()
 end

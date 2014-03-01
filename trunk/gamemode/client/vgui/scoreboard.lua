@@ -1,17 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local surface = surface
-local draw = draw
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local vgui = vgui
-
 local texGradient = surface.GetTextureID("gui/center_gradient")
 
 local function SortFunc(a, b)
@@ -129,8 +118,9 @@ local function AddScoreboardItem(ply,list)
 	end
 	
 	MainLabel[ply].Think = function()
-		
-		if not IsValid(ply) then return end
+		if not IsValid(ply) then
+			return
+		end
 	
 		local self = MainLabel[ply]
 		if ( self.Muted == nil or self.Muted ~= self.Player:IsMuted() ) then
@@ -148,28 +138,9 @@ local function AddScoreboardItem(ply,list)
 	end
 	
 	MainLabel[ply].Paint = function()
-		
-		--[==[local x1 = 15+32+5
-		local y1 = (scoreboard_h/11)/2-- MainLabel[ply]:GetTall()/2
-		
-		local col = Color (255,255,255,255)
-		
-		if ply:Team() == TEAM_UNDEAD then
-			col = team.GetColor( ply:Team() )
+		if not IsValid(ply) then
+			return
 		end
-		
-		draw.SimpleTextOutlined(ply:Nick() , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		x1 = scoreboard_w/1.7
-		draw.SimpleTextOutlined(ply:GetScore() , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		x1 = scoreboard_w/1.3
-		draw.SimpleTextOutlined(ply:Health() , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		x1 = scoreboard_w-25
-		draw.SimpleTextOutlined(ply:Ping() , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		]==]
-		if not IsValid(ply) then return end
 		
 		if ply == MySelf then
 			surface.SetDrawColor( 255, 255, 255, 255)
@@ -180,48 +151,32 @@ local function AddScoreboardItem(ply,list)
 			surface.DrawOutlinedRect( 0, 0, MainLabel[ply]:GetWide(), MainLabel[ply]:GetTall())
 			surface.SetDrawColor( 30, 30, 30, 255 )
 			surface.DrawOutlinedRect( 1, 1, MainLabel[ply]:GetWide()-2, MainLabel[ply]:GetTall()-2 )
-		end
-		
-		
-		
+		end	
 	end
-	
-	
-	list:AddItem( MainLabel[ply] )
-	
+
+	list:AddItem(MainLabel[ply])
 end
 
 local function SwitchScoreboardItem(ply,from,to)
-	if not ValidEntity(ply) then return end
-	if not MainLabel then return end
-	if not MainLabel[ply] then return end
-	
+	if not ValidEntity(ply) or not MainLabel or not MainLabel[ply] then
+		return
+	end
+
 	from:RemoveItem(MainLabel[ply])
 	MainLabel[ply] = nil
-	AddScoreboardItem(ply,to)	
-	
-	
-	
-	
-
+	AddScoreboardItem(ply,to)
 end
 
 local function RemoveScoreboardItem(ply,list)
-	if not ValidEntity(ply) then return end
-	if not MainLabel then return end
-	if not MainLabel[ply] then return end
+	if not ValidEntity(ply) or not MainLabel or  not MainLabel[ply] then
+		return
+	end
 	
 	list:RemoveItem(MainLabel[ply])
 	MainLabel[ply] = nil
-	
-	
-
 end
 
 function GM:CreateScoreboardVGUI()
-	
-	-- small options
-	
 	SCPanel = vgui.Create("DFrame")
 	SCPanel:SetSize(w,h)
 	SCPanel:SetPos(0,0)
@@ -242,54 +197,6 @@ function GM:CreateScoreboardVGUI()
 	
 	left_x,left_y = w/2 - scoreboard_space/2 - scoreboard_w, h/2 - scoreboard_h/2 + 25 +ScaleH(50)
 	right_x,right_y = w/2 + scoreboard_space/2, h/2 - scoreboard_h/2 + 25+ScaleH(50)
-	
-	--[==[InfoLabel = vgui.Create( "DLabel",SCPanel)
-	-- InfoLabel:ParentToHUD()
-	InfoLabel:SetPos( left_x,left_y-25 )
-	InfoLabel:SetSize( scoreboard_w*2+scoreboard_space,25 )
-	InfoLabel:SetText("")
-	InfoLabel.Paint = function()
-		
-		-- left
-		DrawPanelBlackBox(0,0,scoreboard_w,InfoLabel:GetTall())
-		-- right
-		DrawPanelBlackBox(scoreboard_w+scoreboard_space,0,scoreboard_w,InfoLabel:GetTall())
-		
-		-- left text
-		local x1 = 15
-		local y1 = InfoLabel:GetTall()/2
-		
-		local col = Color (255,255,255,255)
-		
-		draw.SimpleTextOutlined("Players" , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		x1 = scoreboard_w/1.7
-		draw.SimpleTextOutlined("Score" , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		x1 = scoreboard_w/1.3
-		draw.SimpleTextOutlined("Health" , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		x1 = scoreboard_w-25
-		draw.SimpleTextOutlined("Ping" , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		local spacing = scoreboard_w+scoreboard_space
-		
-		x1 = 15+spacing
-		draw.SimpleTextOutlined("Players" , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		x1 = scoreboard_w/1.7 + spacing
-		draw.SimpleTextOutlined("Score" , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		x1 = scoreboard_w/1.3 + spacing
-		draw.SimpleTextOutlined("Health" , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		x1 = scoreboard_w-25 + spacing
-		draw.SimpleTextOutlined("Ping" , "ArialBoldFive", x1,y1, col, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		
-		
-	end]==]
-	
 	
 	left_scoreboard = vgui.Create( "DPanelList",SCPanel )
 	-- left_scoreboard:ParentToHUD()
@@ -383,23 +290,11 @@ function GM:CreateScoreboardVGUI()
 end
 
 function GM:RemoveScoreboardVGUI()
-	
-	if SCPanel then
-	
-		SCPanel:Remove()
-		SCPanel = nil
-		MainLabel = nil
-		
+	if not SCPanel then
+		return
 	end
-	--[=[if left_scoreboard and right_scoreboard then
-		
-		left_scoreboard:Remove()
-		left_scoreboard = nil
-		right_scoreboard:Remove()
-		right_scoreboard = nil
-		InfoLabel:Remove()
-		MainLabel = nil
-		InfoLabel = nil
-	end]=]
-
+	
+	SCPanel:Remove()
+	SCPanel = nil
+	MainLabel = nil
 end
