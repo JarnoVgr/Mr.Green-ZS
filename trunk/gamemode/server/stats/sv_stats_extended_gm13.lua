@@ -35,14 +35,20 @@ end
 
 -- Check data table beforehand
 function metaPlayer:CheckDataTable()
-	do
-		self.DataTable = self.DataTable or {}
-		self.DataTable.ClassData = self.DataTable.ClassData or {}
+	if not self.DataTable then
+		self.DataTable = {}
 	end
 
-	do
-		self.DataTable.ShopItems = self.DataTable.ShopItems or {}
-		self.DataTable.Achievements = self.DataTable.Achievements or {}
+	if not self.DataTable.ClassData then
+		self.DataTable.ClassData = {}
+	end
+
+	if not self.DataTable.ShopItems then
+		self.DataTable.ShopItems = {}
+	end
+
+	if not self.DataTable.Achievements then
+		self.DataTable.Achievements = {}
 	end
 end
 
@@ -89,7 +95,7 @@ end
 -- Write everything to the SQL
 function metaPlayer:WriteDataSQL()
 	--Extra check. Write only when having received data.
-	
+
 	if not self:GotSQLData() then
 		return
 	end
