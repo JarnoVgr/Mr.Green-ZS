@@ -654,11 +654,11 @@ end
 util.AddNetworkString("SendPlayerXP")
 
 function meta:AddXP(amount)
-	if #player.GetAll() < XP_PLAYERS_REQUIRED then return end
-	if not ValidEntity(self) then return end
-	if self:IsBot() then return end
+	if #player.GetAll() < XP_PLAYERS_REQUIRED or not ValidEntity(self) or self:IsBot() then return end
 	
-	if DOUBLE_XP then amount = amount*2 end
+	if DOUBLE_XP then
+		amount = amount*2
+	end
 	
 	if not self.DataTable["ClassData"]["default"] then
 		local str = "not ready"
