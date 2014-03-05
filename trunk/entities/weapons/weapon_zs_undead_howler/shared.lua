@@ -80,7 +80,7 @@ function SWEP:DoAttack( bPull )
 		return
 	end
 	
-	-- Cannot scream while in air
+	-- Cannot scream in air
 	if not mOwner:OnGround() then
 		return
 	end
@@ -121,26 +121,32 @@ function SWEP:DoAttack( bPull )
 		
 		--Calculate percentage of being hit
 		local fHitPercentage = math.Clamp(1 - (fDistance / self.DistanceCheck), 0, 1)
-		
-		--We want something between 1 and 2
-		local fFuckIntensity = fHitPercentage + 1
-		
-		--Shakey shakey
-		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
-											
+															
 		--Inflict damage
 		local fDamage = math.Round(10 * fHitPercentage, 0, 10)
 		if fDamage > 0 then
 			v:TakeDamage(fDamage, self.Owner, self)
 		end
 
-		-- Calculate velocity
-		local Velocity = -1 * mOwner:GetForward() * 145
+		--Check if last Howler scream was recently (we don't want to stack attacks)
+		if v.lastHowlerScream and v.lastHowlerScream >= (CurTime()-4) then
+			continue
+		end
+
+		--Set last Howler scream
+		v.lastHowlerScream = CurTime()
+
+		--Shakey shakey
+		local fFuckIntensity = fHitPercentage + 1
+		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
+
+		-- Calculate base velocity
+		local Velocity = -1 * mOwner:GetForward() * 225
 		if not bPull then
 			Velocity = -1 * Velocity * 2
 		end
 		
-		--Calculate velocity
+		--
 		Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random(250, 270)
 		if not bPull then
 			Velocity = Vector(Velocity.x * 0.4, Velocity.y * 0.4, Velocity.z)
