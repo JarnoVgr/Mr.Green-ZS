@@ -116,6 +116,11 @@ VoiceSetTranslate["models/player/group03m/female_06.mdl"] = "female"
 ---------------------------------------------------------]==]
 ResourceFiles = {}
 
+--Particles
+for _, filename in pairs(file.Find("particles/*.pcf", "GAME")) do
+	table.insert(ResourceFiles, "particles/"..filename)
+end
+
 --Fonts
 for _, filename in pairs(file.Find("resource/fonts/*.*", "GAME" ) ) do
 	table.insert ( ResourceFiles, "resource/fonts/"..filename  )
@@ -129,7 +134,7 @@ end
 for _, filename in pairs(file.Find("materials/*.*" , "GAME") ) do
 	table.insert ( ResourceFiles, "materials/"..filename  )
 end
-	
+
 for _, filename in pairs(file.Find("materials/vgui/images/blood_splat/*.*" , "GAME") ) do
 	table.insert ( ResourceFiles, "materials/vgui/images/blood_splat/"..filename  )
 end
@@ -138,7 +143,7 @@ for _, filename in pairs(file.Find("materials/decals/*.*", "GAME" ) ) do
 	table.insert ( ResourceFiles, "materials/decals/"..filename  )
 end
 
--- Sound files here
+--Sound files here
 for _, filename in pairs(file.Find("sound/mrgreen/*.*", "GAME" ) ) do
 	if string.find ( filename, "mp3" ) or string.find ( filename, "wav" ) then
 		table.insert ( ResourceFiles, "sound/mrgreen/"..filename  )
@@ -165,7 +170,7 @@ for _, filename in pairs(file.Find("sound/mrgreen/ambient/random/*.wav", "GAME" 
 	table.insert ( ResourceFiles, "sound/mrgreen/ambient/random/".. filename  )
 end
 	
--- Sound files here
+--Pills taunts
 for _, filename in pairs(file.Find("sound/mrgreen/pills/*.*", "GAME" ) ) do  
 	table.insert ( ResourceFiles, "sound/mrgreen/pills/"..filename  )
 end
@@ -180,6 +185,7 @@ for _, filename in pairs(file.Find("sound/mrgreen/supplycrates/*.*", "GAME" ) ) 
 	table.insert ( ResourceFiles, "sound/mrgreen/supplycrates/"..filename  )
 end
 
+--Turret skins
 for _, filename in pairs(file.Find("materials/models/Combine_turrets/Floor_turret/*.*" , "GAME") ) do
 	table.insert ( ResourceFiles, "materials/models/Combine_turrets/Floor_turret/"..string.lower(filename )  )
 end
@@ -260,13 +266,13 @@ end
 table.insert( ResourceFiles, "sound/hud/notice_soft.wav" )
 
 --Zombine
-table.insert ( ResourceFiles, "models/weapons/v_zombine.mdl" )
-table.insert ( ResourceFiles, "models/zombie/zombie_soldier.mdl" )
-table.insert ( ResourceFiles, "models/zombie/zombie_soldier_animations.mdl" )
-table.insert ( ResourceFiles, "models/zombie/zombie_soldier_animations.ani" )
-table.insert ( ResourceFiles, "materials/models/zombie_classic/combinesoldiersheet_zombie.vtf" ) 
-table.insert ( ResourceFiles, "materials/models/zombie_classic/combinesoldiersheet_zombie.vmt" ) 
-table.insert ( ResourceFiles, "materials/models/zombie_classic/combinesoldiersheet.vmt" ) 
+table.insert(ResourceFiles, "models/weapons/v_zombine.mdl" )
+table.insert(ResourceFiles, "models/zombie/zombie_soldier.mdl" )
+table.insert(ResourceFiles, "models/zombie/zombie_soldier_animations.mdl" )
+table.insert(ResourceFiles, "models/zombie/zombie_soldier_animations.ani" )
+for _, filename in pairs(file.Find("materials/models/zombie_classic/*.*", "GAME")) do
+	table.insert(ResourceFiles, "materials/models/zombie_classic/"..filename)
+end
 for _, filename in pairs(file.Find("sound/npc/zombine/*.wav", "GAME")) do
 	table.insert(ResourceFiles, "sound/npc/zombine/"..filename)
 end
@@ -316,6 +322,8 @@ table.insert ( ResourceFiles, "materials/hud3/hud_warning2.vmt" ) --!!
 table.insert ( ResourceFiles, "materials/hud3/hud_info.vtf" ) --!!
 table.insert ( ResourceFiles, "materials/hud3/hud_info.vmt" ) --!!
 
+
+--TODO: Check if needed
 table.insert ( ResourceFiles, "materials/models/weapons/temptexture/handsmesh1.vtf" )
 table.insert ( ResourceFiles, "materials/models/weapons/temptexture/handsmesh1.vmt" )
 
@@ -484,8 +492,6 @@ table.insert(ResourceFiles, "models/weapons/v_pza.mdl" )
 for _, filename in pairs(file.Find("materials/models/weapons/v_pza/*.*", "GAME" ) ) do
 	table.insert ( ResourceFiles, "materials/models/weapons/v_pza/"..string.lower(filename )  )
 end
-
-
 
 --Homburg hat
 table.insert(ResourceFiles, "models/katharsmodels/hats/homburg/homburg.mdl")

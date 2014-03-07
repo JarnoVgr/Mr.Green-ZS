@@ -148,7 +148,9 @@ if SERVER then
 
 			if self:IsControlled() then
 					
-					if ValidEntity(self:GetTurretOwner():GetActiveWeapon()) and self:GetTurretOwner():GetActiveWeapon():GetClass() ~= "weapon_zs_tools_remote" then self:SetControl(false) end
+					if ValidEntity(self:GetTurretOwner():GetActiveWeapon()) and self:GetTurretOwner():GetActiveWeapon():GetClass() ~= "weapon_zs_tools_remote" then
+						self:SetControl(false)
+					end
 					
 					local tr = self:GetTurretOwner():GetEyeTrace()
 
@@ -454,8 +456,11 @@ if SERVER then
 	end
 
 	function ENT:Use(activator, caller)
-	local ct = CurTime()
-	if not IsValid(activator) then return end
+		local ct = CurTime()
+		if not IsValid(activator) then
+			return
+		end
+
 		if activator:IsPlayer() and activator:IsHuman() and activator == self:GetTurretOwner() then
 			self.Target = nil
 			if self.NextSwitch < ct then
@@ -681,115 +686,113 @@ end
 
 -- Client part starts here
 if CLIENT then
-local render = render
--- Small piece of code from IW
-local matLaser 		= Material( "sprites/bluelaser1" )
-local matLight 				= Material( "models/roller/rollermine_glow" )
-local colBeam				= Color( 50, 100, 210, 120 )
-local colLaser				= Color( 50, 100, 240, 120 )
+	-- Small piece of code from IW
+	local matLaser 		= Material( "sprites/bluelaser1" )
+	local matLight 				= Material( "models/roller/rollermine_glow" )
+	local colBeam				= Color( 50, 100, 210, 120 )
+	local colLaser				= Color( 50, 100, 240, 120 )
 
-function ENT:Think()
+	function ENT:Think()
+		local t = {}
+		t.start = self:GetAttachment(self:LookupAttachment("eyes")).Pos
+		t.endpos = t.start + self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward() * 4096
+		t.filter = {self.Entity}
+		t.mask = MASK_PLAYERSOLID
+		local tr = util.TraceLine(t)
+		self.EndPos = tr.HitPos
+		-- Correct normal
+		local t2 = {}
+		t2.start = self:GetAttachment(self:LookupAttachment("light")).Pos
+		t2.endpos = self.EndPos+(self.EndPos-t2.start):GetNormal()*100
+		t2.filter = {self.Entity}
+		t2.mask = MASK_PLAYERSOLID
+		local tr2 = util.TraceLine(t2)
+		
+		self.FixNormal = tr2.HitNormal*0.5
+		self.Entity:SetRenderBoundsWS( self.EndPos, self.Entity:GetPos(), Vector()*11 )
+	end
 
-	local t = {}
-	t.start = self:GetAttachment(self:LookupAttachment("eyes")).Pos
-	t.endpos = t.start + self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward() * 4096
-	t.filter = {self.Entity}
-	t.mask = MASK_PLAYERSOLID
-	local tr = util.TraceLine(t)
-	self.EndPos = tr.HitPos
-	-- Correct normal
-	local t2 = {}
-	t2.start = self:GetAttachment(self:LookupAttachment("light")).Pos
-	t2.endpos = self.EndPos+(self.EndPos-t2.start):GetNormal()*100
-	t2.filter = {self.Entity}
-	t2.mask = MASK_PLAYERSOLID
-	local tr2 = util.TraceLine(t2)
-	
-	self.FixNormal = tr2.HitNormal*0.5
-	self.Entity:SetRenderBoundsWS( self.EndPos, self.Entity:GetPos(), Vector()*11 )
-end
+	function ENT:Draw()
+		self.Entity:DrawModel() 
+		if not self.EndPos then
+			return
+		end
+		
+		if self:IsActive() then
+		render.SetMaterial( matLaser )
 
-function ENT:Draw()
-	self.Entity:DrawModel() 
-	if not self.EndPos then return end
-	
-	if self:IsActive() then
-	render.SetMaterial( matLaser )
+		local TexOffset = CurTime() * 3
 
-	local TexOffset = CurTime() * 3
-
-	local Distance = self.EndPos:Distance( self:GetAttachment(self:LookupAttachment("eyes")).Pos )
-	
-	if not self:IsAttacking() then
-		if self:IsControlled() then
-			render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(5,8), TexOffset, TexOffset+Distance/8, Color( 0, 255, 0 , 255 ))
-			render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(3,5), TexOffset, TexOffset+Distance/8, Color( 0, 255, 0 , 255 ) )
+		local Distance = self.EndPos:Distance( self:GetAttachment(self:LookupAttachment("eyes")).Pos )
+		
+		if not self:IsAttacking() then
+			if self:IsControlled() then
+				render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(5,8), TexOffset, TexOffset+Distance/8, Color( 0, 255, 0 , 255 ))
+				render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(3,5), TexOffset, TexOffset+Distance/8, Color( 0, 255, 0 , 255 ) )
+			else
+				render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(5,7), TexOffset, TexOffset+Distance/8, colBeam )
+				render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(3,5), TexOffset, TexOffset+Distance/8, Color( 255, 255, 255 , 255 ) )
+			end
 		else
-			render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(5,7), TexOffset, TexOffset+Distance/8, colBeam )
-			render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(3,5), TexOffset, TexOffset+Distance/8, Color( 255, 255, 255 , 255 ) )
+			render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(9,10), TexOffset, TexOffset+Distance/8, Color( 255, 0, 0 , 250 ))
+			render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(8,9), TexOffset, TexOffset+Distance/8, Color( 255, 0, 0 , 255 ) )
 		end
-	else
-		render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(9,10), TexOffset, TexOffset+Distance/8, Color( 255, 0, 0 , 250 ))
-		render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(8,9), TexOffset, TexOffset+Distance/8, Color( 255, 0, 0 , 255 ) )
-	end
-	
-	render.SetMaterial( matLight )
-	
-	local Size = math.Rand( 5, 8 )
-	-- local Normal = (self:GetAttachment(self:LookupAttachment("eyes")).Pos-self.EndPos):GetNormal() * 0.1
-	local Normal = self.FixNormal
-	
-	if not self:IsAttacking() then
-		if self:IsControlled() then
-			Size = math.Rand( 7, 10 )
-			render.DrawQuadEasy( self.EndPos + Normal, Normal, Size, Size, Color( 0, 255, 0 , 255 ), 0 )
+		
+		render.SetMaterial( matLight )
+		
+		local Size = math.Rand( 5, 8 )
+		-- local Normal = (self:GetAttachment(self:LookupAttachment("eyes")).Pos-self.EndPos):GetNormal() * 0.1
+		local Normal = self.FixNormal
+		
+		if not self:IsAttacking() then
+			if self:IsControlled() then
+				Size = math.Rand( 7, 10 )
+				render.DrawQuadEasy( self.EndPos + Normal, Normal, Size, Size, Color( 0, 255, 0 , 255 ), 0 )
+			else
+				render.DrawQuadEasy( self.EndPos + Normal, Normal, Size, Size, colLaser, 0 )
+			end
 		else
-			render.DrawQuadEasy( self.EndPos + Normal, Normal, Size, Size, colLaser, 0 )
+			Size = math.Rand( 5, 8 )
+			render.DrawQuadEasy( self.EndPos + Normal, Normal, Size, Size, Color( 255, 0, 0 , 250 ), 0 )
 		end
-	else
-		Size = math.Rand( 5, 8 )
-		render.DrawQuadEasy( self.EndPos + Normal, Normal, Size, Size, Color( 255, 0, 0 , 250 ), 0 )
-	end
-	
-	local Normal1 = ((self:GetAttachment(self:LookupAttachment("light")).Pos + self:GetAttachment(self:LookupAttachment("light")).Ang:Forward()*10)-self:GetAttachment(self:LookupAttachment("light")).Pos):GetNormal() * 0.1
-	Size = math.Rand( 2, 4 )
-	render.DrawQuadEasy( self:GetAttachment(self:LookupAttachment("light")).Pos, Normal1, Size, Size, Color( 255, 255, 255, 255 ), 0 )
-	end
-	
-		if self:GetDTInt(1) < self.MaxHealth/2 then --self:GetNWInt("TurretHealth")
-
-		self.SmokeTimer = self.SmokeTimer or (CurTime()+0.02)
-		if ( self.SmokeTimer <= CurTime() ) then 
-			self.SmokeTimer = CurTime() + 0.02
-			local spawnang = self:GetAttachment(self:LookupAttachment("light")).Ang
-			local spawnPos = self:GetAttachment(self:LookupAttachment("light")).Pos+ spawnang:Right()*-4+ spawnang:Up()*-10+Vector(math.random(0,8),math.random(0,8),math.random(0,8))
-			local emitter = ParticleEmitter( spawnPos )
-			local particle = emitter:Add( "particles/smokey", spawnPos )
-			particle:SetVelocity( Vector(math.Rand(0,1)/3,math.Rand(0,1)/3,1):GetNormal()*math.Rand( 10, 20 ) )
-			particle:SetDieTime( 0.7 )
-			particle:SetStartAlpha( math.Rand( 100, 150 ) )
-			particle:SetStartSize( math.Rand( 5, 10 ) )
-			particle:SetEndSize( math.Rand( 15, 30 ) )
-			particle:SetRoll( math.Rand( -0.2, 0.2 ) )
-			local ran = math.random(0,30)
-			particle:SetColor( 40+ran, 40+ran, 40+ran )
-					
-			emitter:Finish()
+		
+		local Normal1 = ((self:GetAttachment(self:LookupAttachment("light")).Pos + self:GetAttachment(self:LookupAttachment("light")).Ang:Forward()*10)-self:GetAttachment(self:LookupAttachment("light")).Pos):GetNormal() * 0.1
+		Size = math.Rand( 2, 4 )
+		render.DrawQuadEasy( self:GetAttachment(self:LookupAttachment("light")).Pos, Normal1, Size, Size, Color( 255, 255, 255, 255 ), 0 )
 		end
+		
+			if self:GetDTInt(1) < self.MaxHealth/2 then --self:GetNWInt("TurretHealth")
+
+			self.SmokeTimer = self.SmokeTimer or (CurTime()+0.02)
+			if ( self.SmokeTimer <= CurTime() ) then 
+				self.SmokeTimer = CurTime() + 0.02
+				local spawnang = self:GetAttachment(self:LookupAttachment("light")).Ang
+				local spawnPos = self:GetAttachment(self:LookupAttachment("light")).Pos+ spawnang:Right()*-4+ spawnang:Up()*-10+Vector(math.random(0,8),math.random(0,8),math.random(0,8))
+				local emitter = ParticleEmitter( spawnPos )
+				local particle = emitter:Add( "particles/smokey", spawnPos )
+				particle:SetVelocity( Vector(math.Rand(0,1)/3,math.Rand(0,1)/3,1):GetNormal()*math.Rand( 10, 20 ) )
+				particle:SetDieTime( 0.7 )
+				particle:SetStartAlpha( math.Rand( 100, 150 ) )
+				particle:SetStartSize( math.Rand( 5, 10 ) )
+				particle:SetEndSize( math.Rand( 15, 30 ) )
+				particle:SetRoll( math.Rand( -0.2, 0.2 ) )
+				local ran = math.random(0,30)
+				particle:SetColor( 40+ran, 40+ran, 40+ran )
+						
+				emitter:Finish()
+			end
+		end
+
+
 	end
 
-
-end
-
-net.Receive("SendTurret", function( len )
-	
-	if not IsValid(MySelf) then return end
-	
-	local t = net.ReadEntity()	
-	MySelf.Turret = t or nil
-	
-end)
-
-
+	net.Receive("SendTurret", function( len )
+		if not IsValid(MySelf) then
+			return
+		end
+		
+		local t = net.ReadEntity()	
+		MySelf.Turret = t or nil
+	end)
 end
 -- Client part ends here
