@@ -153,6 +153,9 @@ include("extended/irc/sv_irc.lua")
 --Emitter Fix
 include("modules/emitterfix/sh_emitterfix.lua")
 
+--Unstuck
+include("modules/unstuck/sh_unstuck.lua")
+
 --Christmas
 if CHRISTMAS then
 	--Snow

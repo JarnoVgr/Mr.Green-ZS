@@ -8,20 +8,11 @@ if CLIENT then
 	SWEP.SlotPos = 0
 	
 	SWEP.ViewModelFlip = false
-		
-	-- SWEP.IgnoreBonemerge = true
-	-- SWEP.UseHL2Bonemerge = true
-	--SWEP.ShowViewModel = true
-	--SWEP.AlwaysShowViewModel = true
-	--SWEP.ShowWorldModel = false
-
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = true
-	--SWEP.IgnoreBonemerge = true
 	
-	--SWEP.IgnoreThumbs = true
-	
-	--SWEP.NoHUD = true
+	--Hide HUD. We have a custom display
+	SWEP.NoHUD = true
 		
 	killicon.AddFont( "weapon_zs_medkit", "CSKillIcons", "F", Color(255, 255, 255, 255 ) )
 	
@@ -36,19 +27,12 @@ SWEP.Base = "weapon_zs_base_dummy"
 SWEP.Primary.Delay = 0.01
 
 SWEP.Primary.Heal = 15
-SWEP.Primary.HealDelay = 10
 SWEP.Primary.ClipSize = 30
+SWEP.Primary.DefaultClipSize = 30
+SWEP.Primary.UpgradedClipSize = 60
 SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Ammo = "SniperRound"
 SWEP.Primary.Delay = 1
-
-SWEP.Secondary.Delay = 0.01
-SWEP.Secondary.Heal = 10
-SWEP.Secondary.HealDelay = 20
-SWEP.Secondary.ClipSize = 1
-SWEP.Secondary.DefaultClip = 1
-SWEP.Secondary.Ammo = "CombineCannon"
-SWEP.Secondary.Delay = SWEP.Primary.Delay
 
 SWEP.WalkSpeed = 200
 
@@ -81,8 +65,8 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 	self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
 
+
 	local owner = self.Owner
-	
 	local trace = self.Owner:GetEyeTrace()
 
 	--Check if not too far away
@@ -120,14 +104,10 @@ function SWEP:PrimaryAttack()
 		return
 	end
 
-	local delay = self.Primary.HealDelay
+	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+	self.Owner:SetAnimation(PLAYER_ATTACK1)
 
-	--Check for suit
-	if owner:GetSuit() == "medicsuit" then
-		delay = math.Clamp(self.Primary.HealDelay - 3,0,self.Primary.HealDelay)
-	end
-
-	if not SERVER then
+	if CLIENT then
 		return
 	end
 	
@@ -154,9 +134,6 @@ function SWEP:PrimaryAttack()
 			end
 		end
 	end
-		
-	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-	self.Owner:SetAnimation(PLAYER_ATTACK1)
 end
 
 function SWEP:SecondaryAttack()
@@ -168,8 +145,12 @@ function SWEP:SecondaryAttack()
 		return
 	end
 
-	self.Weapon:SetNextPrimaryFire(CurTime() + self.Secondary.Delay)
-	self.Weapon:SetNextSecondaryFire(CurTime() + self.Secondary.Delay)
+	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+	self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
+
+	if CLIENT then
+		return
+	end
 
 	--Define vars
 	local owner = self.Owner
@@ -189,19 +170,16 @@ function SWEP:SecondaryAttack()
 	end
 	
 	--
-	local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Secondary.Heal * multiplier, maxhealth - health)))
+	local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
 	local totake = math.ceil(toheal / multiplier)
 	if toheal <= 0 then
 		return
 	end
-	
-	--
-	local delay = self.Secondary.HealDelay
-	if owner:GetSuit() == "medicsuit" then
-		delay = math.Clamp(self.Secondary.HealDelay - 3,0,self.Secondary.HealDelay)
-	end
-	
-	if not SERVER then
+
+	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+	self.Owner:SetAnimation(PLAYER_ATTACK1)
+
+	if CLIENT then
 		return
 	end
 			
@@ -212,10 +190,6 @@ function SWEP:SecondaryAttack()
 	owner:SetHealth(health + toheal)
 		
 	owner:EmitSound(Sound("items/smallmedkit1.wav"))
-
-	--
-	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-	self.Owner:SetAnimation(PLAYER_ATTACK1)
 end
 
 SWEP.RechargeTimer = 0
@@ -236,8 +210,6 @@ function SWEP:Think()
 			
 			--Next recharge
 			self.RechargeTimer = CurTime() + 1
-
-			print("Recharged")
 		end
 	end
 end
@@ -255,27 +227,49 @@ function SWEP:CanPrimaryAttack()
 	return true
 end
 
+function SWEP:Deploy()
+	--Medical Pack perk
+	if self.Owner:GetPerk("_medupgr2") then
+		self.Weapon.Primary.ClipSize = self.Weapon.Primary.UpgradedClipSize
+	else
+		self.Weapon.Primary.ClipSize = self.Weapon.Primary.DefaultClipSize
+	end
+
+	--Adjust current amount if max is lower
+	if self.Weapon:Clip1() > self.Weapon.Primary.ClipSize then
+		self.Weapon:SetClip1(self.Weapon.Primary.ClipSize)
+	end
+end
+
 function SWEP:Equip(NewOwner)
 	if CLIENT then
 		return
 	end
 	
-	--[[if self.Weapon.FirstSpawn then
-		self.Weapon.FirstSpawn = false
-		if NewOwner:GetPerk("_medupgr2") then
-			NewOwner:GiveAmmo( 70, self:GetPrimaryAmmoTypeString() )
-		end
-	else
-		if self.Ammunition then
-			self:TakePrimaryAmmo ( self:Clip1() - self.Ammunition )
-		end
-	
-		NewOwner:RemoveAmmo ( 1500, self:GetPrimaryAmmoTypeString() )
-		if self.Weapon.RemainingAmmunition then
-			NewOwner:GiveAmmo( self.Weapon.RemainingAmmunition or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
-		end
-	end	]]
-	
 	--Call this function to update weapon slot and others
 	gamemode.Call("OnWeaponEquip", NewOwner, self)
+end
+
+
+if CLIENT then
+	local texGradDown = surface.GetTextureID("VGUI/gradient_down")
+	function SWEP:DrawHUD()
+		local wid, hei = ScaleW(150), ScaleH(33)
+		local x, y = ScrW() - wid - 12, ScrH() - ScaleH(73) - 12
+		y = y + ScaleH(73)/2 - hei/2
+		
+		surface.SetDrawColor(0, 0, 0, 150)
+
+		--Draw background box
+		surface.DrawRect(x, y, wid, hei)
+		surface.DrawRect(x+3, y+3, wid-6, hei-6)
+
+		--Draw filled box based on current clipsize
+		local clipFillSizePercentage = math.Clamp(self.Weapon:Clip1() / self.Primary.ClipSize, 0, 1)
+		if clipFillSizePercentage > 0 then
+			surface.SetDrawColor(255, 255, 255, 180)
+			surface.SetTexture(texGradDown)
+			surface.DrawTexturedRect(x+3, y+3, clipFillSizePercentage * (wid-6), hei-6)
+		end
+	end
 end

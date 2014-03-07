@@ -401,7 +401,7 @@ GM.Perks = {
 	["_enhkevlar"] = {Name = "Enhanced Kevlar", Description = "15% less damage from hits",Material = "VGUI/gfx/VGUI/kevlar_helmet", Slot = 1},
 	["_adrenaline"] = {Name = "Adrenaline Injection", Description = "Negates speed reduction on low health. Also your screen won't turn red when you are low on health", Slot = 1},
 	["_medupgr1"] = {Name = "Medical Efficiency", Description = "35% more healing power", Slot = 2},
-	["_medupgr2"] = {Name = "Medical Pack", Description = "70 more charges for medkit on spawn", Slot = 2},
+	["_medupgr2"] = {Name = "Medical Pack", Description = "Doubled maximum Medical Kit charges", Slot = 2},
 	["_sboost"] = {Name = "Speed Boost", Description = "8% more walking speed", Slot = 1},
 	["_trchregen"] = {Name = "Handy Man", Description = "Increased regeneration rate for torch", Material = "HUD/scoreboard_clock", Slot = 2},
 	["_comeback"] = {Name = "Comeback", Description = "Gives you random Tier 2 pistol after redeeming! Works only once.", Slot = 1},
