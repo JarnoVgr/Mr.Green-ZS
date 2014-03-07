@@ -26,13 +26,6 @@ end
 -- -- -- -- -- -- -- -- -- -- /
 -- New window WIP-- 
 -- -- -- -- -- -- -- -- -- -- 
-
-local Sounds = {}
-Sounds.Accept = "mrgreen/ui/menu_focus.wav"
-Sounds.Click = "mrgreen/ui/menu_click01.wav"
-Sounds.Over = "mrgreen/ui/menu_accept.wav"
-Sounds.Startup = "mrgreen/ui/gamestartup1.mp3"
-
 local Colors = {}
 Colors[1] = {CButton = Color (0,0,0,255)}
 Colors[2] = {CButton = Color (0,0,0,255)}
@@ -142,19 +135,7 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 								end
 							end
 							
-							ItemLabel[item].Think = function()
-								if GAMEMODE:IsRetroMode() then
-									if MySelf:IsBlocked(item) then
-										ItemLabel[item]:SetToolTip("Not available in retro mode!")
-									end
-									if MySelf:IsRetroOnly(item) then
-										ItemLabel[item]:SetToolTip("Available only in retro mode!")
-									end
-								end
-							end
-							
 							ItemLabel[item].Paint = function()
-								
 								if ItemLabel[item].Overed then
 									surface.SetDrawColor( 255, 255, 255, 255)
 									surface.DrawOutlinedRect( 0, 0, ww/3, hh)
@@ -168,11 +149,10 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 								
 								if item == "none" then
 									surface.SetDrawColor( 255, 255, 255, 255) 
-									draw.SimpleTextOutlined ( "NO ITEM", "WeaponNames", (ww/3)/2, hh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+									draw.SimpleTextOutlined( "NO ITEM", "WeaponNames", (ww/3)/2, hh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 									return
 								end
-								
-								
+
 								if string.sub(item, 1, 6) == "weapon" then
 								local font, letter = "WeaponSelectedHL2", "0"
 								local Table = killicon.GetFont( item )
@@ -185,14 +165,10 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 										elseif not Table.IsHL2 and Table.IsZS then
 											font = "WeaponSelectedZS"
 										end
-											
 									end
 										
 									if killicon.GetImage( item ) then
-										
 										local ImgTable = killicon.GetImage( item ) 
-															
-
 											surface.SetDrawColor( 255, 255, 255, 255) 
 																							
 											surface.SetTexture(surface.GetTextureID( ImgTable.mat ))	
@@ -206,10 +182,8 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 										
 											surface.SetFont ( font )
 											local fWide, fTall = surface.GetTextSize ( letter )
-											
+
 											surface.SetDrawColor( 255, 255, 255, 255 )
-											
-												
 											
 											draw.SimpleTextOutlined ( letter, font, (ww/3)/2, 55, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 
@@ -336,6 +310,7 @@ function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
 	
 
 end
+
 -- Loadout
 function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 			
@@ -388,8 +363,6 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 				end
 			end
 		end
-		-- 	surface.PlaySound (Sounds.Click) 
-
 	end
 	SlotLabel[num].Think = function() 
 		-- if IsPerk(SlotLabel[num].Item) then

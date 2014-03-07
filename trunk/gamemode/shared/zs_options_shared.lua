@@ -489,7 +489,7 @@ DESTROY_PROP_DOORS = false
 
 --Set this to true to force players to have mat_monitorgamma set to 2.2. This could cause problems with non-calibrated screens so, whatever.
 --It forces people to use flashlights instead of whoring the video settings to make it brighter.
-FORCE_NORMAL_GAMMA = true
+FORCE_NORMAL_GAMMA = false
 
 -- Turn this to true if you don't want humans to be able to camp inside of vents and other hard to reach areas. They will die
 -- if they are in a vent for 60 seconds or more.

@@ -538,7 +538,7 @@ function GM:Initialize()
 	end)
 	
 	--Force fast switch and some network vars
-	RunConsoleCommand("hud_fastswitch", "1")
+	--RunConsoleCommand("hud_fastswitch", "1")
 	--RunConsoleCommand("mat_motion_blur_enabled", "1")
 end
 

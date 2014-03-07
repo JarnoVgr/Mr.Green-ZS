@@ -1,17 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local surface = surface
-local draw = draw
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-
 -- Selection menu draw management
 
 
@@ -44,12 +33,14 @@ LastInfoScroll = LastInfoScroll or 0
 ---------------------------------------------------------]==]
 local sIndex, ScrollSpeed = 0, 0.2
 local function ManageSlotBinds ( pl, bind, pressed ) 
-	if pl:Team() ~= TEAM_HUMAN then return end
+	if pl:Team() ~= TEAM_HUMAN or not string.find(bind,"slot") then
+		return
+	end
 
 	for i = 1, MaximumSlots do
 		if string.find ( bind, "slot"..i ) then
 			if IsSlot[i] then
-				for k,v in pairs (IsSlotActive) do
+				for k,v in pairs(IsSlotActive) do
 					IsSlotActive[k] = false
 				end
 			
@@ -71,83 +62,80 @@ local function ManageSlotBinds ( pl, bind, pressed )
 		end
 	end
 end
---hook.Add ( "PlayerBindPress", "ManageSlots", ManageSlotBinds )
+hook.Add ( "PlayerBindPress", "ManageSlots", ManageSlotBinds )
 
-local function OnScrolled ( pl, bind, pressed )
-	if pl:Team() ~= TEAM_HUMAN then return end
+local function OnScrolled( pl, bind, pressed )
+	if pl:Team() ~= TEAM_HUMAN or (bind ~= "invnext" and bind ~= "invprev") then
+		return
+	end
 
-	if string.find ( bind, "invnext" ) or string.find ( bind, "invprev" ) then
-		if ScrollSpeed <= CurTime() then
-			local ActiveSlots, iIndex = {}, 0
-			for k,v in pairs ( IsSlot ) do
-				if IsSlot[k] == true then
-					iIndex = iIndex + 1
-					ActiveSlots[iIndex] = k
-				end
-			end
-			
-			if #ActiveSlots == 0 then return end
-			
-			-- Case 1: We scroll up
-			if bind == "invprev" then
-				if sIndex >= 1 then
-					sIndex = sIndex - 1
-				end
-				
-				if sIndex <= 0 then
-					sIndex = #ActiveSlots
-				end
-			end
-			
-			-- Case 2: We scroll down
-			if bind == "invnext" then
-				if sIndex <= #ActiveSlots then
-					sIndex = sIndex + 1
-				end
-				
-				if sIndex > #ActiveSlots then
-					sIndex = 1
-				end
-			end
-			
-			for k,v in pairs (IsSlotActive) do
-				IsSlotActive[k] = false
-			end
-		
-			if ActiveSlots[sIndex] == nil then return end
-			IsSlotActive[ ActiveSlots[sIndex] ] = true
-			
-			-- Run the almight filtering function and match the weapon you need to select
-			local MyWeapons = FilterWeapons()
-			local WeaponToSelect = MyWeapons[ ActiveSlots[sIndex] ]:GetClass()
-				
-			-- Select the weapon
-			RunConsoleCommand( "use", tostring( WeaponToSelect ) )
-			
-			ScrollSpeed = CurTime() + 0.2
-		end
-		
+	if ScrollSpeed > CurTime() then
 		return true
 	end
-end
---hook.Add ( "PlayerBindPress", "OnScrolled", OnScrolled )
 
-function CheckScrolling(pl, bind, pressed)
-	if pl:Team() ~= TEAM_HUMAN then return end
-
-	if string.find ( bind, "invnext" ) or string.find ( bind, "invprev" ) then
-		ShowWeapons = true
-		WeaponsAlpha = 255
-		Back1Alpha = 150
-		Back2Alpha = 10
-		LastScroll = CurTime() + 4
-		LastInfoScroll = CurTime() + math.random(9,10)
+	local ActiveSlots, iIndex = {}, 0
+	for k,v in pairs(IsSlot) do
+		if IsSlot[k] == true then
+			iIndex = iIndex + 1
+			ActiveSlots[iIndex] = k
+			print("TRUE: ".. k .." at ".. iIndex)
+		else
+			print("FALS: ".. k .." at ".. iIndex)
+		end
+	end
+			
+	if #ActiveSlots == 0 then
+		return true
 	end
 
-end
-hook.Add ( "PlayerBindPress", "OnScrolled", CheckScrolling )
+	-- Case 1: We scroll up
+	if bind == "invprev" then
+		if sIndex >= 1 then
+			sIndex = sIndex - 1
+		end
+		
+		if sIndex <= 0 then
+			sIndex = #ActiveSlots
+		end
+	-- Case 2: We scroll down
+	elseif bind == "invnext" then
+		if sIndex <= #ActiveSlots then
+			sIndex = sIndex + 1
+		end
+			
+		if sIndex > #ActiveSlots then
+			sIndex = 1
+		end
+	end
+			
+	for k,v in pairs (IsSlotActive) do
+		IsSlotActive[k] = false
+	end
+		
+	if ActiveSlots[sIndex] == nil then
+		return
+	end
+	IsSlotActive[ActiveSlots[sIndex]] = true
+			
+	--Run the almight filtering function and match the weapon you need to select
+	local MyWeapons = FilterWeapons()
+	local WeaponToSelect = MyWeapons[ ActiveSlots[sIndex] ]:GetClass()
+				
+	--Use weapon
+	RunConsoleCommand("use", tostring(WeaponToSelect))
+	
+	--Delay next scroll		
+	ScrollSpeed = CurTime() + 0.1
 
--- Restricted half life 2 weapons
+	--Display weapons
+	ShowWeapons = true
+	LastScroll = CurTime() + 4
+		
+	return true
+end
+hook.Add("PlayerBindPress", "OnScrolled", OnScrolled)
+
+--Restricted half life 2 weapons
 local WeaponsRestricted = { "weapon_stunstick", "weapon_crowbar", "weapon_pistol", "weapon_357", "weapon_ar2", "weapon_shotgun", "weapon_frag", "weapon_crossbow", "weapon_rpg", "weapon_physcannon", "weapon_physgun" }
 
 local SlotOrder = {
@@ -241,138 +229,14 @@ function InitializeWeaponFonts ()
 end
 hook.Add ( "Initialize", "InitFonts", InitializeWeaponFonts )
 
---[==[---------------------------------------------------------
-            Draws the actual selection menu
----------------------------------------------------------]==]
-function PaintWeaponSelection ()
-	if not ValidEntity ( MySelf ) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND or not MySelf.ReadySQL then
-		return
-	end
-
-	-- Run the almighty filtering function
-	local MyWeapons = FilterWeapons()
-	
-	-- Reset the IsSlot table before writing anything to it
-	for i = 1, MaximumSlots do
-		IsSlot[i] = false
-	end
-	
-	for k,v in pairs(MyWeapons) do
-		if k <= MaximumSlots then
-			if v.Slot + 1 == k then
-				IsSlot[v.Slot+1] = true			
-			end
-		end
-	end
-	
-	-- Reset active slots
-	for k,v in pairs (IsSlotActive) do
-		IsSlotActive[k] = false
-	end
-	
-	-- Make the active weapon panel enlarge!
-	local ActiveWeapon = MySelf:GetActiveWeapon()
-	if ValidEntity(ActiveWeapon) then
-		local Slot = ActiveWeapon.Slot or 6
-		for k, wep in pairs(WeaponsRestricted) do
-			if not string.find(ActiveWeapon:GetClass(), wep) then
-				IsSlotActive[Slot + 1] = true
-			end
-		end
-	end
-	
-	-- Set the panel scale to maximum if it's selected
-	for i = 1, MaximumSlots do
-		if IsSlotActive[i] == true then
-			SLOT_SIZE[i].SizeW, SLOT_SIZE[i].SizeH = math.Approach ( SLOT_SIZE[i].SizeW, wSize, wSize * 0.01 ), math.Approach ( SLOT_SIZE[i].SizeH, hSize, hSize * 0.01 ) 
-		else
-			SLOT_SIZE[i].SizeW, SLOT_SIZE[i].SizeH = math.Approach ( SLOT_SIZE[i].SizeW, wOffSize, wOffSize * 0.01 ), math.Approach ( SLOT_SIZE[i].SizeH, hOffSize, hOffSize * 0.01 ) 
-		end
-	end
-	
-	-- Calculate the distance (height) between each
-	local Offset = {}
-	for i = 1,MaximumSlots do
-		Offset[i] = 0
-		for j = 1,MaximumSlots do
-			if IsSlot[j] then
-				if j > 1 and j <= i then
-					Offset[i] = Offset[i] + ( SLOT_SIZE[j].SizeH * 0.95 )
-				end
-			end
-		end
-	end
-	
-	--Slot 1 - 4 positions
-	local SLOT_POS = {}
-	for i = 1, MaximumSlots do
-		SLOT_POS[i] = { PosX = w - SLOT_SIZE[i].SizeW * 0.5, PosY = h * 0.35 + ( Offset[i] ) }
-	end
-	
-	--Actually draw the panels
-	for i = 1, MaximumSlots do
-		if IsSlot[i] then
-			surface.SetDrawColor( 255, 255, 255, 195 )
-			surface.SetTexture( SelectPanel )
-			surface.DrawTexturedRectRotated( SLOT_POS[i].PosX, SLOT_POS[i].PosY, SLOT_SIZE[i].SizeW, SLOT_SIZE[i].SizeH, 0 )
-					
-			-- Font stuff for weapons 
-			local AmmoFont = "ArialBoldTen"
-			local font, letter = "WeaponSelectedHL2", "0"
-			local Table = killicon.GetFont( MyWeapons[i]:GetClass() )
-			
-			if Table then
-				letter = Table.letter
-				
-				if not Table.IsHl2 and not Table.IsZS then
-					font = "WeaponSelectedCSS"
-				elseif not Table.IsHL2 and Table.IsZS then
-					font = "WeaponSelectedZS"
-				end
-				
-			end
-			
-			if not IsSlotActive[i] then 
-				AmmoFont = "InactiveAmmo"
-				if font == "WeaponSelectedCSS" then font = "WeaponUnselectedCSS" end
-				if font == "WeaponSelectedHL2" then font = "WeaponUnselectedHL2" end
-				if font == "WeaponSelectedZS" then font = "WeaponUnselectedZS" end
-			end
-			
-			surface.SetFont ( font )
-			local fWide, fTall = surface.GetTextSize ( letter )
-		
-			-- Print weapon killicon
-			local PrimaryAmmo, SecondaryAmmo = MyWeapons[i]:Clip1(), MySelf:GetAmmoCount( MyWeapons[i]:GetPrimaryAmmoType() )
-			local ColorToDraw, Mult = Color ( 200,200,200,255 ), 0.75
-			if IsSlotActive[i] then
-				ColorToDraw = Color ( 20,150,20,255 ) 
-				Mult = 0.7
-			end
-			
-			local fTextOffset = SLOT_SIZE[i].SizeH * 0.1
-			local ToDraw = PrimaryAmmo.."/"..SecondaryAmmo
-			if SecondaryAmmo <= 0 then ToDraw = PrimaryAmmo end
-			if PrimaryAmmo ~= -1 then
-				draw.SimpleText( ToDraw, AmmoFont, SLOT_POS[i].PosX + ScaleW(50) - ( fWide * Mult ), SLOT_POS[i].PosY + fTextOffset, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-			end
-			
-			draw.SimpleText( letter, font, SLOT_POS[i].PosX + ScaleW(60), SLOT_POS[i].PosY + fTextOffset, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		end
-	end
-end
--- hook.Add ( "HUDPaintBackground", "PaintSelection" , PaintWeaponSelection )
-
 local StoredIcons = {}
 local storedicons = false
 
-function PaintNewWeaponSelection ()
-	if not ValidEntity ( MySelf ) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND then return end
-	if util.tobool(GetConVarNumber("_zs_hidehud")) then return end
+function PaintNewWeaponSelection()
+	if util.tobool(GetConVarNumber("_zs_hidehud")) or not ValidEntity(MySelf) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND or not MySelf.ReadySQL then
+		return
+	end
 
-	-- SQL ready
-	if not MySelf.ReadySQL then return end
-	
 	if not storedicons then
 		for wep,t in pairs(GAMEMODE.HumanWeapons) do
 			if killicon.GetImage( wep ) then
@@ -398,7 +262,7 @@ function PaintNewWeaponSelection ()
 		IsSlot[i] = false
 	end
 	
-	for k,v in pairs ( MyWeapons ) do
+	for k,v in pairs(MyWeapons) do
 		if k <= MaximumSlots then
 			if SlotOrder[GetWeaponCategory ( v:GetClass() )] + 1 == k then
 				IsSlot[SlotOrder[GetWeaponCategory ( v:GetClass() )]+1] = true			
@@ -433,6 +297,16 @@ function PaintNewWeaponSelection ()
 					counter = counter + 1
 			end
 	end
+
+	--Check if we still need to display the weapons
+	if LastScroll < CurTime() then
+		ShowWeapons = false
+	end
+	
+	--Return if we don't want it to be displayed
+	if not ShowWeapons then
+		return
+	end
 	
 
 	
@@ -462,13 +336,7 @@ function PaintNewWeaponSelection ()
 			end
 		end
 	end]=]
-	
-	if LastScroll < CurTime() then ShowWeapons = false end
-	
-	if not ShowWeapons then
-		return
-	end
-	
+
 	-- Actually draw the panels
 	for i = 0, MaximumSlots do
 		if IsSlot[i] then
@@ -493,7 +361,6 @@ function PaintNewWeaponSelection ()
 				elseif not Table.IsHL2 and Table.IsZS then
 					font = "WeaponSelectedZS"
 				end
-				
 			end
 
 			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 60, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255*math.Clamp(LastScroll - CurTime(),0,1)))
@@ -516,28 +383,23 @@ function PaintNewWeaponSelection ()
 				surface.SetTexture(StoredIcons[MyWeapons[i]:GetClass()])	-- surface.GetTextureID( ImgTable.mat )
 				local wd,hg = surface.GetTextureSize(StoredIcons[MyWeapons[i]:GetClass()])-- surface.GetTextureID( ImgTable.mat )
 				local koefw, koefh = wd/175, hg/70
-				surface.DrawTexturedRect( SLOT_POS[i].PosX + 57.5,SLOT_POS[i].PosY + 12, wd, hg )
-
-			
+				surface.DrawTexturedRect(SLOT_POS[i].PosX + 57.5,SLOT_POS[i].PosY + 12, wd, hg)			
 			else
-			
 				surface.SetFont ( font )
-				local fWide, fTall = surface.GetTextSize ( letter )
+				local fWide, fTall = surface.GetTextSize(letter)
 		
 				-- Print weapon killicon
 				-- local PrimaryAmmo, SecondaryAmmo = MyWeapons[i]:Clip1(), MySelf:GetAmmoCount( MyWeapons[i]:GetPrimaryAmmoType() )
 				local ColorToDraw, Mult = Color ( 140,140,140,255*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
 				if IsSlotActive[i] then
-				
 					ColorToDraw = Color ( 255,255,255,255*math.Clamp(LastScroll - CurTime(),0,1) ) 
 					surface.SetDrawColor( 255, 255, 255, 255*math.Clamp(LastScroll - CurTime(),0,1) )
 					surface.DrawOutlinedRect( SLOT_POS[i].PosX, SLOT_POS[i].PosY, MySelf.WepW, MySelf.WepH)
 					surface.DrawOutlinedRect( SLOT_POS[i].PosX+1, SLOT_POS[i].PosY+1, MySelf.WepW-2, MySelf.WepH-2 )
 					draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 10, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255*math.Clamp(LastScroll - CurTime(),0,1)))
-					
 				end			
 			end
 		end
 	end
 end
-hook.Add ( "HUDPaintBackground", "PaintSelection" , PaintNewWeaponSelection )
+hook.Add("HUDPaintBackground", "PaintSelection" , PaintNewWeaponSelection)
