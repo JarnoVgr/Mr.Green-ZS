@@ -1,27 +1,12 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local ents = ents
-if SERVER then
-	local umsg = umsg
-elseif CLIENT then
-	local render = render
-end
-
 if SERVER then
     util.AddNetworkString( "ServerTime" )
     hook.Add("PlayerInitialSpawn", "loldeluvasawesomefix", function( pl )
-        net.Start( "ServerTime" )
-            net.WriteFloat( CurTime() )
-        net.Send( pl )
+        net.Start("ServerTime")
+            net.WriteFloat(CurTime())
+        net.Send(pl)
     end)
 end
 

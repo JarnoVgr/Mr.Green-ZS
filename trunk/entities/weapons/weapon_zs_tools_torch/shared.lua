@@ -1,7 +1,4 @@
-if SERVER then
-	AddCSLuaFile( "shared.lua" )
-	SWEP.PrintName = "Torch"
-end
+AddCSLuaFile()
 
 SWEP.HoldType = "slam"
 
@@ -19,8 +16,7 @@ if CLIENT then
 	SWEP.IgnoreBonemerge = true
 	SWEP.UseHL2Bonemerge = true
 	SWEP.ShowViewModel = true
-	SWEP.ShowWorldModel = false	
-	
+	SWEP.ShowWorldModel = false
 end
 
 SWEP.Author = "NECROSSIN"
@@ -34,6 +30,7 @@ SWEP.Primary.ClipSize = 60
 SWEP.Primary.DefaultClip = 60
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "SniperRound"
+
 SWEP.Primary.Delay = 2.0
 
 SWEP.Secondary.ClipSize = 1

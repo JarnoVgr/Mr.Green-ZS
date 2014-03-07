@@ -1,16 +1,11 @@
-if ( SERVER ) then
-	AddCSLuaFile()
+AddCSLuaFile()
+
+if SERVER then	
 	util.AddNetworkString( "SendMiniTurret" )
 end
 
-local math = math
-local table = table
-local pairs = pairs
-local player = player
-local util = util
-
-ENT.Type   = "anim"
-ENT.RenderGroup         = RENDERGROUP_BOTH
+ENT.Type = "anim"
+ENT.RenderGroup = RENDERGROUP_BOTH
 
 ENT.AutomaticFrameAdvance = true
 
@@ -87,12 +82,10 @@ function ENT:Initialize()
 			net.Send(self:GetOwner())
 		end
 	end)
-	
 end
 
 
 function ENT:Think()
-	
 	local ct = CurTime()
 	local alert
 	
@@ -163,7 +156,6 @@ end
 local ShadowParams = {secondstoarrive = 0.001, maxangular = 1000, maxangulardamp = 10000, maxspeed = 800, maxspeeddamp = 1000, dampfactor = 0.65, teleportdistance = 300}
 
 function ENT:CalculateMovement()
-	
 	local ct = CurTime()
 	
 	local frametime = ct - (self.LastThink or ct)
@@ -296,10 +288,7 @@ function ENT:Shoot()
 	bullet.Force = 1
 	bullet.Damage = 0
 	bullet.TracerName = "Tracer"
-	bullet.Callback = BulletCallback-- function ( a, b, c )
-		-- self:TurretBulletCallback ( a, b, c )
-	-- 	BulletCallback
-	-- end
+	bullet.Callback = BulletCallback
 	
 	self:FireBullets(bullet)
 	
@@ -320,7 +309,6 @@ function ENT:Shoot()
 	ed:SetAngles(self:GetAngles())
 	ed:SetScale(0.3)
 	util.Effect("MuzzleEffect", ed)
-	
 end
 
 function ENT:TakeAmmo(amount)
@@ -332,20 +320,34 @@ function ENT:AddAmmo(amount)
 end
 
 function ENT:RechargeAmmo(amount,delay)
-local ct = CurTime()
-if self:GetAmmo() == self.MaxBullets then return end
-if not self.Emptied then return end
-	if self.LastShootTime < ct then
-		self.NextRegenTime = self.NextRegenTime or ct + delay
-		if ct > self.NextRegenTime then
-			self:AddAmmo(amount)
-			self.NextRegenTime = ct + delay
-			if self:GetAmmo() == self.MaxBullets and not self.Loaded then
-				self.Loaded = true
-				self.Emptied = false
-				self:EmitSound(readysound)
-			end
-		end
+	local ct = CurTime()
+
+	if self:GetAmmo() == self.MaxBullets then
+		return
+	end
+	
+	--Only allow reload when clip is empty
+	--[[if not self.Emptied then
+		return
+	end]]
+
+	if self.LastShootTime > ct then
+		return
+	end
+
+	self.NextRegenTime = self.NextRegenTime or ct + delay
+	
+	if ct < self.NextRegenTime then
+		return
+	end
+
+	self:AddAmmo(amount)
+	self.NextRegenTime = ct + delay
+
+	if self:GetAmmo() == self.MaxBullets and not self.Loaded then
+		self.Loaded = true
+		self.Emptied = false
+		self:EmitSound(readysound)
 	end
 end
 
@@ -363,7 +365,7 @@ function ENT:OnTakeDamage( dmginfo )
 		end
 		
 		self:SetHealth(self:GetHealth() - dmg)
-		self:EmitSound("npc/scanner/scanner_pain"..math.random(1,2)..".wav")
+		self:EmitSound(Sound("npc/scanner/scanner_pain"..math.random(1,2)..".wav"))
 	
 		if self:GetHealth() <=0 then
 			self:Explode()
@@ -435,8 +437,6 @@ function ENT:GetHealth()
 	return self:GetDTInt(1)
 end
 
-
-
 function ENT:GetTargetPos(target)
 	local boneid = target:GetHitBoxBone(HITGROUP_HEAD, 0)
 	if boneid and boneid > 0 then
@@ -449,34 +449,28 @@ function ENT:GetTargetPos(target)
 	return target:LocalToWorld(target:OBBCenter())
 end
 
-
 if CLIENT then
-local matLight = Material( "models/roller/rollermine_glow" )
-function ENT:Draw()
-	
-	self.Entity:SetRenderBounds( self:OBBMaxs()*2, self:OBBMins()*2) 
-	
-	self:DrawModel()
-	
-	local att = self:GetAttachment(self:LookupAttachment("eyes"))
-	
-	local Normal = ((att.Pos + att.Ang:Forward()*10)-att.Pos):GetNormal() * 0.1
-	local size = math.Rand( 2, 4 )
-	
-	-- render.SetMaterial( matLight )
-	-- render.DrawQuadEasy( att.Pos, Normal, size, size, Color( 255, 55, 55, 255 ), 0 )
-	
-	
-	
-end
+	local matLight = Material( "models/roller/rollermine_glow" )
+	function ENT:Draw()
+		self.Entity:SetRenderBounds( self:OBBMaxs()*2, self:OBBMins()*2) 
+		
+		self:DrawModel()
+		
+		--[[local att = self:GetAttachment(self:LookupAttachment("eyes"))
+		
+		local Normal = ((att.Pos + att.Ang:Forward()*10)-att.Pos):GetNormal() * 0.1
+		local size = math.Rand( 2, 4 )
+		
+		render.SetMaterial( matLight )
+		render.DrawQuadEasy( att.Pos, Normal, size, size, Color( 255, 55, 55, 255 ), 0 )]]
+	end
 
-net.Receive("SendMiniTurret", function( len )
-	
-	if not IsValid(MySelf) then return end
-	
-	local t = net.ReadEntity()	
-	MySelf.MiniTurret = t or nil
-	
-end)
-
+	net.Receive("SendMiniTurret", function( len )
+		if not IsValid(MySelf) then
+			return
+		end
+		
+		local t = net.ReadEntity()	
+		MySelf.MiniTurret = t or nil
+	end)
 end

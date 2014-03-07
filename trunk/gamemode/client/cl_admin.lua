@@ -198,25 +198,31 @@ function DoAdminPanel()
 		-- Slay all command - Superadmin only
 		if MySelf:IsSuperAdmin() then
 			AdminPanel:AddOption ( "---------------------------------", function () CloseAdminPanel() end )
-			AdminPanel:AddOption ( "Slay everyone [S-Admin] >", function () RunConsoleCommand ( "slay_all" ) CloseAdminPanel() end )
+			AdminPanel:AddOption ( "Slay everyone [S-Admin]", function ()
+				RunConsoleCommand ( "slay_all" )
+				CloseAdminPanel()
+			end)
 			
 			-- Swep command
-			local WeaponsTab = AdminPanel:AddSubMenu ( "Give weapons [S-Admin] >", function() CloseAdminPanel() end )
+			local WeaponsTab = AdminPanel:AddSubMenu ( "Give weapon [S-Admin] >", function() CloseAdminPanel() end )
 			
 			for k,v in pairs ( PlayersAll ) do
 				local Team = "[TEAM_HUMAN]" if v:Team() == TEAM_UNDEAD then Team = "[TEAM_UNDEAD]" end
-				local Slot = WeaponsTab:AddSubMenu ( tostring ( v:Name() ).." - "..Team, function() CloseAdminPanel() end )
+				local Slot = WeaponsTab:AddSubMenu( tostring ( v:Name() ).." - "..Team, function() CloseAdminPanel() end )
 			
-				-- Add the weapons to each player
-				for i,j in pairs ( GAMEMODE.HumanWeapons ) do
-					Slot:AddOption ( i, function() RunConsoleCommand ( "give_weapon", tostring ( v:UserID() ), i ) CloseAdminPanel() end ) 
+				--Add the weapons to each player
+				for i,j in SortedPairs(GAMEMODE.HumanWeapons) do
+					Slot:AddOption(i, function()
+						RunConsoleCommand("give_weapon", tostring ( v:UserID() ), i )
+						CloseAdminPanel()
+					end) 
 				end
 			end
 			
 			-- Add bots command
-			local BotMenu, HowMany = AdminPanel:AddSubMenu ( "Add Bots [S-Admin] >", function() CloseAdminPanel() end ), { [1] = 1, [2] = 2, [3] = 4, [4] = 8, [5] = 16 }
-			for i = 1, 5 do
-				BotMenu:AddOption ( HowMany[i].." Bots", function() RunConsoleCommand ( "add_bots", tostring ( HowMany[i] ) ) CloseAdminPanel() end )
+			local BotMenu, HowMany = AdminPanel:AddSubMenu ( "Add Bots [S-Admin] >", function() CloseAdminPanel() end ), { [1] = 1, [2] = 2, [3] = 4, [4] = 8, [5] = 12, [6] = 16 }
+			for i = 1, 6 do
+				BotMenu:AddOption( HowMany[i].." Bots", function() RunConsoleCommand ( "add_bots", tostring ( HowMany[i] ) ) CloseAdminPanel() end )
 			end
 		end
 		
@@ -254,16 +260,16 @@ function DoAdminPanel()
 			
 			--Separator
 			DebugMenu:AddOption("---------------------------------", function() CloseAdminPanel() end)
-			
-			--Skip to Intermission
-			DebugMenu:AddOption("End round in 5 seconds", function()
-				RunConsoleCommand("zs_admin_debug","roundtime5")
-				CloseAdminPanel()
-			end)
-			
+						
 			--Skip warmup/Start game
 			DebugMenu:AddOption("Start round immediately", function()
 				RunConsoleCommand("zs_admin_debug","startround")
+				CloseAdminPanel()
+			end)
+
+			--Unlock all undead classes
+			DebugMenu:AddOption("Unlock all Undead species", function()
+				RunConsoleCommand("zs_admin_debug","unlockspecies")
 				CloseAdminPanel()
 			end)
 			
@@ -279,16 +285,16 @@ function DoAdminPanel()
 				RunConsoleCommand("zs_admin_debug","startunlife")
 				CloseAdminPanel()
 			end)
-
-			--Unlock all undead classes
-			DebugMenu:AddOption("Unlock all Undead species", function()
-				RunConsoleCommand("zs_admin_debug","unlockspecies")
-				CloseAdminPanel()
-			end)
 				
 			--Unleash Undead Boss
 			DebugMenu:AddOption("Unleash Undead Boss", function()
 				RunConsoleCommand("zs_admin_debug","unleashboss")
+				CloseAdminPanel()
+			end)
+
+			--Skip to Intermission
+			DebugMenu:AddOption("Start intermission in 5 seconds", function()
+				RunConsoleCommand("zs_admin_debug","roundtime5")
 				CloseAdminPanel()
 			end)
 		end

@@ -21,15 +21,15 @@ if CLIENT then
 	
 	--SWEP.IgnoreThumbs = true
 	
-	SWEP.NoHUD = true
+	--SWEP.NoHUD = true
 		
 	killicon.AddFont( "weapon_zs_medkit", "CSKillIcons", "F", Color(255, 255, 255, 255 ) )
 	
 end
 
-SWEP.ViewModel = "models/weapons/c_medkit.mdl"
+SWEP.ViewModel = Model("models/weapons/c_medkit.mdl")
 SWEP.UseHands = true
-SWEP.WorldModel = "models/weapons/w_medkit.mdl"
+SWEP.WorldModel = Model("models/weapons/w_medkit.mdl")
 
 SWEP.Base = "weapon_zs_base_dummy"
 
@@ -38,8 +38,9 @@ SWEP.Primary.Delay = 0.01
 SWEP.Primary.Heal = 15
 SWEP.Primary.HealDelay = 10
 SWEP.Primary.ClipSize = 30
-SWEP.Primary.DefaultClip = 50
-SWEP.Primary.Ammo = "Battery"
+SWEP.Primary.DefaultClip = 30
+SWEP.Primary.Ammo = "SniperRound"
+SWEP.Primary.Delay = 1
 
 SWEP.Secondary.Delay = 0.01
 SWEP.Secondary.Heal = 10
@@ -47,6 +48,7 @@ SWEP.Secondary.HealDelay = 20
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Ammo = "CombineCannon"
+SWEP.Secondary.Delay = SWEP.Primary.Delay
 
 SWEP.WalkSpeed = 200
 
@@ -56,9 +58,6 @@ SWEP.HoldType = "slam"
 
 SWEP.NoDeployDelay = true
 
---[[function SWEP:InitializeClientsideModels()
-end]]
-
 function SWEP:OnInitialize()
 	if not SERVER then
 		return
@@ -67,24 +66,20 @@ function SWEP:OnInitialize()
 	self.Weapon.FirstSpawn = true
 end
 
---[[function SWEP:Think()
-	if self.IdleAnimation and self.IdleAnimation <= CurTime() then
-		self.IdleAnimation = nil
-		--self:SendWeaponAnim(ACT_VM_IDLE)
-	end
-end]]
-
 util.PrecacheSound("items/medshot4.wav")
 util.PrecacheSound("items/medshotno1.wav")
 util.PrecacheSound("items/smallmedkit1.wav")
 function SWEP:PrimaryAttack()
 	if not self:CanPrimaryAttack() then
 		if SERVER then
-			self.Owner:EmitSound("items/medshotno1.wav")	
+			self.Owner:EmitSound(Sound("items/medshotno1.wav"))
 		end
 
 		return
 	end
+
+	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+	self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
 
 	local owner = self.Owner
 	
@@ -131,10 +126,7 @@ function SWEP:PrimaryAttack()
 	if owner:GetSuit() == "medicsuit" then
 		delay = math.Clamp(self.Primary.HealDelay - 3,0,self.Primary.HealDelay)
 	end
-					
-	self:SetNextCharge(CurTime() + delay)
-	owner.NextMedKitUse = self:GetNextCharge()
-		
+
 	if not SERVER then
 		return
 	end
@@ -146,10 +138,11 @@ function SWEP:PrimaryAttack()
 
 	--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})
 
-	self:TakeCombinedPrimaryAmmo(totake)
+	--self:TakeCombinedPrimaryAmmo(totake)
+	self:TakePrimaryAmmo(totake)
 
 	ent:SetHealth(health + toheal)
-	ent:EmitSound("items/medshot4.wav")
+	ent:EmitSound(Sound("items/medshot4.wav"))
 
 	--HERE PATCH YOURSELF UP
 	if math.random(9) == 9 then
@@ -164,18 +157,19 @@ function SWEP:PrimaryAttack()
 		
 	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
-
-	--timer.Simple( self:SequenceDuration(), function() if ( !IsValid( self ) ) then return end self:SendWeaponAnim( ACT_VM_IDLE ) end )
 end
 
 function SWEP:SecondaryAttack()
 	if not self:CanPrimaryAttack() then
 		if SERVER then
-			self.Owner:EmitSound("items/medshotno1.wav")
+			self.Owner:EmitSound(Sound("items/medshotno1.wav"))
 		end
 
 		return
 	end
+
+	self.Weapon:SetNextPrimaryFire(CurTime() + self.Secondary.Delay)
+	self.Weapon:SetNextSecondaryFire(CurTime() + self.Secondary.Delay)
 
 	--Define vars
 	local owner = self.Owner
@@ -207,10 +201,6 @@ function SWEP:SecondaryAttack()
 		delay = math.Clamp(self.Secondary.HealDelay - 3,0,self.Secondary.HealDelay)
 	end
 	
-	--	
-	self:SetNextCharge(CurTime() + delay)
-	owner.NextMedKitUse = self:GetNextCharge()
-
 	if not SERVER then
 		return
 	end
@@ -221,56 +211,33 @@ function SWEP:SecondaryAttack()
 	
 	owner:SetHealth(health + toheal)
 		
-	owner:EmitSound("items/smallmedkit1.wav")
+	owner:EmitSound(Sound("items/smallmedkit1.wav"))
 
 	--
 	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
-
-	--timer.Simple( self:SequenceDuration(), function() if ( !IsValid( self ) ) then return end self:SendWeaponAnim( ACT_VM_IDLE ) end )
 end
 
-function SWEP:SetNextCharge(tim)
-	self:SetDTFloat(0, tim)
-end
+SWEP.RechargeTimer = 0
+function SWEP:Think()
+	self.BaseClass.Think(self)
 
-function SWEP:GetNextCharge()
-	return self:GetDTFloat(0)
-end
+	--Set secondary ammo in clip
+	local ammocount = self.Owner:GetAmmoCount(self.Primary.Ammo)
+	if 0 < ammocount then
+		self:SetClip1(ammocount + self:Clip1())
+		self.Owner:RemoveAmmo(ammocount, self.Primary.Ammo)
+	end
+	
+	if SERVER then
+		if not self.Owner:KeyDown(IN_ATTACK) and self.RechargeTimer < CurTime() and self.Weapon:Clip1() < self.Primary.ClipSize then	
+			--Give 1
+			self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 1))
+			
+			--Next recharge
+			self.RechargeTimer = CurTime() + 1
 
-if CLIENT then
-	local texGradDown = surface.GetTextureID("VGUI/gradient_down")
-	function SWEP:DrawHUD()
-		local wid, hei = ScaleW(150), ScaleH(33)
-		local space = 12+ScaleW(7)
-		local x, y = ScrW() - wid - 12, ScrH() - ScaleH(73) - 12
-		y = y + ScaleH(73)/2 - hei/2
-		surface.SetFont("ssNewAmmoFont13")
-		local tw, th = surface.GetTextSize("Medical Kit")
-		local texty = y + hei/2 
-		
-		surface.SetDrawColor( 0, 0, 0, 150)
-		
-		surface.DrawRect(x, y, wid, hei)
-		surface.DrawRect(x+3, y+3, wid-6, hei-6)
-
-		local timeleft = self:GetNextCharge() - CurTime()
-		if 0 < timeleft then
-			surface.SetDrawColor(255, 255, 255, 180)
-			surface.SetTexture(texGradDown)
-			surface.DrawTexturedRect(x+3, y+3, math.min(1, timeleft / math.max(self.Primary.HealDelay, self.Secondary.HealDelay)) * (wid-6), hei-6)
-		end
-
-		-- surface.SetDrawColor(255, 0, 0, 180)
-		-- surface.DrawOutlinedRect(x, y, wid, hei)
-
-		-- draw.SimpleText("Medical Kit", "ZSHUDFontSmall", x, texty, COLOR_GREEN, TEXT_ALIGN_LEFT)
-
-		local charges = self:GetPrimaryAmmoCount()
-		if charges > 0 then
-			draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		else
-			draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, COLOR_DARKRED, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			print("Recharged")
 		end
 	end
 end
@@ -282,12 +249,10 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	if self:GetPrimaryAmmoCount() <= 0 then
-		self:SetNextCharge(CurTime() + 0.75)
-		owner.NextMedKitUse = self:GetNextCharge()
 		return false
 	end
-	
-	return (owner.NextMedKitUse or 0) <= CurTime()
+
+	return true
 end
 
 function SWEP:Equip(NewOwner)
@@ -295,7 +260,7 @@ function SWEP:Equip(NewOwner)
 		return
 	end
 	
-	if self.Weapon.FirstSpawn then
+	--[[if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false
 		if NewOwner:GetPerk("_medupgr2") then
 			NewOwner:GiveAmmo( 70, self:GetPrimaryAmmoTypeString() )
@@ -309,8 +274,8 @@ function SWEP:Equip(NewOwner)
 		if self.Weapon.RemainingAmmunition then
 			NewOwner:GiveAmmo( self.Weapon.RemainingAmmunition or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
 		end
-	end	
+	end	]]
 	
 	--Call this function to update weapon slot and others
-	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
+	gamemode.Call("OnWeaponEquip", NewOwner, self)
 end
