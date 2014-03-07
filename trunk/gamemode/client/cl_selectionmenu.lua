@@ -78,9 +78,6 @@ local function OnScrolled( pl, bind, pressed )
 		if IsSlot[k] == true then
 			iIndex = iIndex + 1
 			ActiveSlots[iIndex] = k
-			print("TRUE: ".. k .." at ".. iIndex)
-		else
-			print("FALS: ".. k .." at ".. iIndex)
 		end
 	end
 			
