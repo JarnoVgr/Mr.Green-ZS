@@ -1,17 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local surface = surface
-local draw = draw
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-
-
 DRAW_BETA_HUD = true
 if not DRAW_BETA_HUD then
 	return
@@ -96,14 +85,16 @@ function hud.InitFonts()
 	surface.CreateFont ( "Arial", ScreenScale( 9 ), 700, true, false, "ssNewAmmoFont9" )
 	surface.CreateFont ( "Arial", ScreenScale( 13 ), 700, true, false, "ssNewAmmoFont13" )
 	surface.CreateFont ( "Arial", ScreenScale( 20 ), 700, true, false, "ssNewAmmoFont20" )	
-	surface.CreateFont ( "Face Your Fears", ScreenScale( 17 ), 400, true, true, "NewZombieFont17",false,true )
-	surface.CreateFont ( "Face Your Fears", ScreenScale( 15 ), 400, true, true, "NewZombieFont15",false,true )
-	surface.CreateFont ( "Face Your Fears", ScreenScale( 13 ), 400, true, true, "NewZombieFont13",false,true )
-	surface.CreateFont ( "Face Your Fears", ScreenScale( 27 ), 400, true, true, "NewZombieFont27",false,true )
-	surface.CreateFont ( "Face Your Fears", ScreenScale( 23 ), 400, true, true, "NewZombieFont23",false,true )
-	surface.CreateFont ( "Face Your Fears", ScreenScale( 19 ), 400, true, true, "NewZombieFont19",false,true )
-	surface.CreateFont ( "Face Your Fears", ScreenScale( 14 ), 400, true, true, "NewZombieFont14",false,true )
-	surface.CreateFont ( "Face Your Fears", ScreenScale( 10 ), 400, true, true, "NewZombieFont10",false,true )
+	
+	--Undead HUD font
+	surface.CreateFont("Face Your Fears", ScreenScale(10), 400, true, true, "NewZombieFont10",false, true)
+	surface.CreateFont("Face Your Fears", ScreenScale(13), 400, true, true, "NewZombieFont13",false, true)
+	surface.CreateFont("Face Your Fears", ScreenScale(14), 400, true, true, "NewZombieFont14",false, true)
+	surface.CreateFont("Face Your Fears", ScreenScale(15), 400, true, true, "NewZombieFont15",false, true)
+	surface.CreateFont("Face Your Fears", ScreenScale(17), 400, true, true, "NewZombieFont17",false, true)
+	surface.CreateFont("Face Your Fears", ScreenScale(19), 400, true, true, "NewZombieFont19",false, true)
+	surface.CreateFont("Face Your Fears", ScreenScale(23), 400, true, true, "NewZombieFont23",false, true)
+	surface.CreateFont( "Face Your Fears", ScreenScale(27), 400, true, true, "NewZombieFont27",false, true)
 end
 hook.Add ( "Initialize", "hud.InitFonts", hud.InitFonts )
 
@@ -150,7 +141,7 @@ function hud.DrawBossHealth()
 	end
 	
 	local BW,BH = ScaleW(440), ScaleW(440)
-	local BX,BY = w/2-BW/2, 0
+	local BX,BY = w/2-BW/2, 20
 	
 	surface.SetDrawColor(119, 10, 10, 255)
 	surface.SetTexture(hud.BossBackground)
@@ -170,8 +161,7 @@ function hud.DrawBossHealth()
 		
 		local TX,TY = BarX+BarW/5,BarY+7
 		
-		--draw.SimpleText(ZombieClasses[GAMEMODE:GetBossZombie():GetZombieClass()].Name or GAMEMODE:GetBossZombie():Name(), "NewZombieFont23", TX,TY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
-		draw.SimpleText("Boss", "NewZombieFont23", TX,TY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
+		draw.SimpleText("Boss - ".. ZombieClasses[GAMEMODE:GetBossZombie():GetZombieClass()].Name or GAMEMODE:GetBossZombie():Name(), "NewZombieFont23", TX,TY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
 		
 		local dif = math.Clamp(health/GAMEMODE:GetBossZombie():GetMaximumHealth(),0,1)
 		
@@ -254,7 +244,7 @@ function hud.DrawNewZombieHUD()
 	--
 	local text1x, text1y = 10, 10
 	local text2x, text2y = 10, text1y+fTall+1
-	draw.SimpleText(MySelf:GreenCoins() .." GREENCOINS", "NewZombieFont13", 10, text2y+fTall+20, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+	draw.SimpleText(MySelf:GreenCoins() .." GREENCOINS", "NewZombieFont13", 10, text1y+fTall+20, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 	
 	--Check for WarmUp
 	if WARMUPTIME > ServerTime() then
@@ -297,20 +287,18 @@ function hud.DrawNewZombieHUD()
 		end
 
 
-		draw.SimpleTextOutlined("Kill ".. requiredScore .." in ".. ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		draw.SimpleTextOutlined("Infliction: ", "NewZombieFont15", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		--[[draw.SimpleTextOutlined("Kill ".. requiredScore .." in ".. ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined("Infliction: ", "NewZombieFont15", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))]]
+		draw.SimpleTextOutlined("Kill ".. requiredScore .." in ".. ToMinutesSeconds(timleft + 1), "NewZombieFont17", ScrW()/2, text1y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined("Infection: ", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
+		--Infliction
 		local space1 = surface.GetTextSize("Infliction: ")
-		
-		draw.SimpleTextOutlined(cached_zombies, "NewZombieFont15", text2x+space1, text2y, team.GetColor(TEAM_UNDEAD), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		
+		draw.SimpleTextOutlined(cached_zombies, "NewZombieFont15", text1x+space1, text1y, team.GetColor(TEAM_UNDEAD), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		local space2 = surface.GetTextSize(cached_zombies)
-		
-		draw.SimpleTextOutlined("/", "NewZombieFont15", text2x+space1+space2+1, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		
+		draw.SimpleTextOutlined("/", "NewZombieFont15", text1x+space1+space2+1, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		local space3 = surface.GetTextSize("/")
-		
-		draw.SimpleTextOutlined(cached_humans, "NewZombieFont15", text2x+space1+space2+space3+2, text2y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined(cached_humans, "NewZombieFont15", text1x+space1+space2+space3+2, text1y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 	end
 end
 
