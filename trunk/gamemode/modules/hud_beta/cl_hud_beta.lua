@@ -326,28 +326,17 @@ function hud.DrawNewHumanHUD()
 end
 
 local cachedEnts
-local lastEntsCache = -1
+local nextEntsCache = -1
 function hud.DrawWeaponLabels()
-    if not IsEntityValid(MySelf) or ENDROUND then
-    	return
-    end
-    
-    if not MySelf.ReadySQL or not MySelf:Alive() or not MySelf:IsHuman() or IsClassesMenuOpen() then
-    	return
-    end
-	
-    --[[if IsSkillShopOpen() then
-		return
-	end]]
-    
-    if util.tobool(GetConVarNumber("_zs_hidehud")) then
+    if not IsEntityValid(MySelf) or ENDROUND or not MySelf.ReadySQL or not MySelf:Alive() or not MySelf:IsHuman() or IsClassesMenuOpen() or util.tobool(GetConVarNumber("_zs_hidehud")) then
     	return
     end
 
     --Cache ents
-    if lastEntsCache < CurTime() then
-    	cachedEnts = ents.FindByClass( "weapon_*" )
-    	lastEntsCache = CurTime()+5
+    if nextEntsCache < CurTime() then
+    	cachedEnts = ents.FindByClass("weapon_*")
+    	nextEntsCache = CurTime()+5
+    	print(nextEntsCache)
     end
 
     if not cachedEnts then
@@ -357,7 +346,7 @@ function hud.DrawWeaponLabels()
     --Draw weapon name labels
     
     for k, ent in pairs(cachedEnts) do
-        if not ent:IsWeapon() or not ent.GetOwner or IsValid(ent:GetOwner()) or ent:GetPos():Distance( LocalPlayer():GetPos() ) > 400 then
+        if not ent or not IsValid(ent) or not ent:IsWeapon() or IsValid(ent:GetOwner()) or ent:GetPos():Distance( LocalPlayer():GetPos() ) > 400 then
         	continue
         end
 
