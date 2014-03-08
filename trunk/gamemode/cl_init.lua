@@ -138,6 +138,10 @@ include("server/stats/sh_utils.lua")
 -- SQL-stats related
 include("modules/emitterfix/sh_emitterfix.lua")
 
+-- FPS buss
+include("modules/fpsbuff/sh_buffthefps.lua")
+include("modules/fpsbuff/sh_nixthelag.lua")
+
 --Christmas
 if CHRISTMAS then
 	--Snow
@@ -488,16 +492,17 @@ function GM:Initialize()
 	surface.CreateFont("Future Rot", ScreenScale(8), 500, true, false, "FRAGS")
 	surface.CreateFont("Future Rot", ScreenScale(9), 500, true, false, "NINE")
 	
+	surface.CreateFont("Arial", ScreenScale(5), 700, true, false, "ArialBoldFour")
+	surface.CreateFont("Arial", ScreenScale(6), 700, true, false, "ArialBold4.5")
+	surface.CreateFont("Arial", ScreenScale(7), 700, true, false, "ArialBoldFive")	
+	surface.CreateFont("Arial", ScreenScale(9), 700, true, false, "ArialBoldSeven")	
 	surface.CreateFont("Arial", ScreenScale(18), 500, true, false, "ArialThirteen")
 	surface.CreateFont("Arial", ScreenScale(12), 700, true, false, "ArialBoldTwelve")
 	surface.CreateFont("Arial", ScreenScale(10), 700, true, false, "ArialBoldTen")
 	surface.CreateFont("Arial", ScreenScale(16), 500, true, false, "ArialFifteen")
 	surface.CreateFont("Arial", ScreenScale(15), 700, true, false, "ArialBoldFifteen")
 	surface.CreateFont("Arial", ScreenScale(20), 700, true, false, "ArialBoldTwenty")
-	surface.CreateFont("Arial", ScreenScale(7), 700, true, false, "ArialBoldFive")	
-	surface.CreateFont("Arial", ScreenScale(6), 700, true, false, "ArialBold4.5")
-	surface.CreateFont("Arial", ScreenScale(5), 700, true, false, "ArialBoldFour")
-	surface.CreateFont("Arial", ScreenScale(9), 700, true, false, "ArialBoldSeven")	
+	
 	surface.CreateFont("Arial", ScreenScale(25), 700, true, false, "ArialBold_25")	
 	surface.CreateFont("Arial", ScreenScale(30), 700, true, false, "ArialBold_30")	
 	surface.CreateFont("Arial", ScreenScale(40), 700, true, false, "ArialBold_40")	

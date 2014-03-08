@@ -156,6 +156,10 @@ include("modules/emitterfix/sh_emitterfix.lua")
 --Unstuck
 include("modules/unstuck/sh_unstuck.lua")
 
+-- FPS buss
+include("modules/fpsbuff/sh_buffthefps.lua")
+include("modules/fpsbuff/sh_nixthelag.lua")
+
 --Christmas
 if CHRISTMAS then
 	--Snow

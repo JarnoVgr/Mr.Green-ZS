@@ -73,20 +73,6 @@ GM.Author = "Limetric"
 GM.Email = "info@limetric.com"
 GM.Website = "www.limetric.com"
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local ents = ents
-
-if SERVER then
-	local umsg = umsg
-end
-
 INFLICTION = 0
 
 -- Spawn prediction

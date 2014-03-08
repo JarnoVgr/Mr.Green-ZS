@@ -96,19 +96,16 @@ function hud.InitFonts()
 	surface.CreateFont("Face Your Fears", ScreenScale(23), 400, true, true, "NewZombieFont23",false, true)
 	surface.CreateFont( "Face Your Fears", ScreenScale(27), 400, true, true, "NewZombieFont27",false, true)
 end
-hook.Add ( "Initialize", "hud.InitFonts", hud.InitFonts )
+hook.Add("Initialize", "hud.InitFonts", hud.InitFonts)
 
 --[==[----------------------------------------
 	     Human HUD main
 -----------------------------------------]==]
 function hud.HumanHUD()
-	if not IsEntityValid ( MySelf ) or ENDROUND then return end
-	
-	-- SQL ready
-	if not MySelf.ReadySQL or not MySelf:Alive() or IsClassesMenuOpen() or not MySelf:IsHuman() or util.tobool(GetConVarNumber("_zs_hidehud")) then
+	if not IsEntityValid(MySelf) or ENDROUND or not MySelf.ReadySQL or not MySelf:Alive() or IsClassesMenuOpen() or not MySelf:IsHuman() or util.tobool(GetConVarNumber("_zs_hidehud")) then
 		return
 	end
-
+	
 	hud.DrawNewHumanHUD()
 end
 hook.Add("HUDPaint", "hud.HumanHUD", hud.HumanHUD)
@@ -305,7 +302,7 @@ end
 hud.LeftGradient = surface.GetTextureID("gui/gradient")
 hud.Arrow = surface.GetTextureID("gui/arrow")
 function hud.DrawNewHumanHUD()
-	if lastrefresh <= CurTime() then
+	if lastrefresh < CurTime() then
 		cached_humans = team.NumPlayers(TEAM_HUMAN)
 		cached_zombies = team.NumPlayers(TEAM_UNDEAD)
 		lastrefresh = CurTime() + 1
@@ -317,7 +314,6 @@ function hud.DrawNewHumanHUD()
 	hud.DrawHealthPanel()
 	hud.DrawInflictionPanel()
 	hud.DrawStatsPanel()
-	--hud.DrawZeroWaveMessage()
 
 	if OBJECTIVE then
 		surface.SetTexture(hud.LeftGradient)
@@ -329,6 +325,8 @@ function hud.DrawNewHumanHUD()
 	end
 end
 
+local cachedEnts
+local lastEntsCache = -1
 function hud.DrawWeaponLabels()
     if not IsEntityValid(MySelf) or ENDROUND then
     	return
@@ -345,29 +343,39 @@ function hud.DrawWeaponLabels()
     if util.tobool(GetConVarNumber("_zs_hidehud")) then
     	return
     end
+
+    --Cache ents
+    if lastEntsCache < CurTime() then
+    	cachedEnts = ents.FindByClass( "weapon_*" )
+    	lastEntsCache = CurTime()+5
+    end
+
+    if not cachedEnts then
+    	return
+    end
     
     --Draw weapon name labels
-    local ents = ents.FindByClass( "weapon_*" )
-    for k, ent in pairs(ents) do
-        if ent:IsWeapon() then
-            if not IsValid(ent:GetOwner()) and (ent:GetPos():Distance( LocalPlayer():GetPos() ) < 512) then
-                local camPos = ent:GetPos() + Vector( 0, 0, 8 )
-                local camAngle = ( LocalPlayer():GetPos() - ent:GetPos() ):Angle()
+    
+    for k, ent in pairs(cachedEnts) do
+        if not ent:IsWeapon() or not ent.GetOwner or IsValid(ent:GetOwner()) or ent:GetPos():Distance( LocalPlayer():GetPos() ) > 400 then
+        	continue
+        end
+
+        local camPos = ent:GetPos() + Vector( 0, 0, 8 )
+
+        local camAngle = ( LocalPlayer():GetPos() - ent:GetPos() ):Angle()
+       	camAngle.p = 0
+        camAngle.y = camAngle.y + 90
+        camAngle.r = camAngle.r + 90
                 
-                camAngle.p = 0
-                camAngle.y = camAngle.y + 90
-                camAngle.r = camAngle.r + 90
+        local name = ent.PrintName or "Weapon"
                 
-                local name = ent.PrintName or "Weapon"
-                
-                cam.Start3D2D( camPos, camAngle, 0.2 )
-                    draw.SimpleTextOutlined( name, "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) ) 
-                cam.End3D2D()
-            end   
-        end  
+        cam.Start3D2D( camPos, camAngle, 0.2 )
+        draw.SimpleTextOutlined( name, "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) ) 
+        cam.End3D2D()
     end
 end
-hook.Add( "PostDrawTranslucentRenderables", "RenderWeaponLabels", hud.DrawWeaponLabels )
+hook.Add("PostDrawTranslucentRenderables", "RenderWeaponLabels", hud.DrawWeaponLabels)
 
 function hud.DrawAmmoPanel()
 	local ActiveWeapon = MySelf:GetActiveWeapon()
@@ -528,8 +536,6 @@ function hud.DrawHealthPanel()
 	end
 end
 
-
-
 local nextreward = -1
 function hud.DrawStatsPanel()
 	--Stats
@@ -539,7 +545,7 @@ function hud.DrawStatsPanel()
 	local fWide, fTall = surface.GetTextSize("GreenCoins")
 	
 	draw.SimpleTextOutlined(MySelf:GreenCoins() .." GreenCoins", "ssNewAmmoFont6.5", StatsX, StatsY, Color(220,255,220,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	draw.SimpleTextOutlined("Rank ".. MySelf:GetRank() .." (".. MySelf:GetXP() .."/".. MySelf:NextRankXP() .." XP)", "ssNewAmmoFont6.5", StatsX, StatsY+fTall+4, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+	draw.SimpleTextOutlined("Rank ".. MySelf:GetRank() .." (".. math.Round((MySelf:GetXP() / MySelf:NextRankXP()) * 100) .."%)", "ssNewAmmoFont6.5", StatsX, StatsY+fTall+4, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 	
 	
 	StatsY = StatsY + fTall + 2
@@ -548,27 +554,6 @@ function hud.DrawStatsPanel()
 	
 	local text = MySelf:GetScore() .." SP"
 	
-	if GAMEMODE:IsRetroMode() then
-		local myScore = MySelf:GetScore()
-		if nextreward ~= 9999 and nextreward <= myScore then
-			local maxn = table.maxn(GAMEMODE.RetroUnlocks)
-			for i=1, maxn do
-				if GAMEMODE.RetroUnlocks[i] and myScore < i then
-					nextreward = i
-					break
-				elseif i == maxn then
-					nextreward = 9999
-				end
-			end
-		end
-		
-		if nextreward == 9999 then
-			text = myScore .. " Kills"
-		else
-			text = myScore .." Kills | ".. nextreward .." Needed"
-		end
-	end
-	
 	local ActualX = 12 + ScaleW(5) + ScaleW(250) + ScaleW(5)
 	local ActualY = (ScrH()- ScaleH(73) - 12) + ScaleH(73)/2
 	draw.SimpleTextOutlined(text, "ssNewAmmoFont13", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
@@ -576,22 +561,8 @@ end
 
 function hud.DrawInflictionPanel()
 	local WaveX,WaveY = 12,12
-	local WaveW,WaveH = ScaleW(205),ScaleH(70)
-
-	--Background
-	-- DrawBlackBox(WaveX,WaveY,WaveW,WaveH)
-	
-	-- surface.SetTexture(hud.LeftGradient)
-	-- surface.SetDrawColor(0, 0, 0, 140)
-	-- surface.DrawTexturedRect(0,0,ScaleW(300),ScaleH(80))
-		
-	local curwav = 0
-	
-	surface.SetFont("ArialBoldSeven")
-	local fWide, fTall = surface.GetTextSize("Invasion starts in 0:00")
 	
 	local text1x, text1y = WaveX+ScaleW(7), WaveY+5
-	local text2x, text2y = WaveX+ScaleW(7), text1y+fTall+5
 		
 	-- zero wave
 	if ServerTime() <= WARMUPTIME then		
@@ -599,31 +570,31 @@ function hud.DrawInflictionPanel()
 
 		if timleft < 10 then
 			local glow = math.sin(RealTime() * 8) * 200 + 255
-			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text1x, text1y, Color(255, glow, glow), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "ArialBoldTen", ScrW() / 2, text1y, Color(255, glow, glow), TEXT_ALIGN_CENTER, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 			if lastwarntim ~= math.ceil(timleft) then
 				lastwarntim = math.ceil(timleft)
 				if 0 < lastwarntim then
-					surface.PlaySound("mrgreen/ui/menu_countdown.wav")
+					surface.PlaySound(Sound("mrgreen/ui/menu_countdown.wav"))
 				end
 			end
 		else
-			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "ArialBoldTen", ScrW() / 2, text1y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		end
 	else
 		local timleft = math.max(0, ROUNDTIME - ServerTime())
 
-		draw.SimpleTextOutlined("Survive for ".. ToMinutesSeconds(timleft + 1) .." minutes", "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined("Survive for ".. ToMinutesSeconds(timleft + 1) .." minutes", "ArialBoldSeven", ScrW() / 2, text1y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
-		draw.SimpleTextOutlined("Infliction: ", "ArialBoldSeven", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined("Infliction: ", "ArialBoldSeven", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		local space1 = surface.GetTextSize("Infliction: ")
-		draw.SimpleTextOutlined(cached_zombies, "ArialBoldSeven", text2x+space1, text2y, team.GetColor(TEAM_UNDEAD), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined(cached_zombies, "ArialBoldSeven", text1x+space1, text1y, team.GetColor(TEAM_UNDEAD), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		local space2 = surface.GetTextSize(cached_zombies)
-		draw.SimpleTextOutlined("/", "ArialBoldSeven", text2x+space1+space2+1, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined("/", "ArialBoldSeven", text1x+space1+space2+1, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		local space3 = surface.GetTextSize("/")
-		draw.SimpleTextOutlined(cached_humans, "ArialBoldSeven", text2x+space1+space2+space3+2, text2y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined(cached_humans, "ArialBoldSeven", text1x+space1+space2+space3+2, text1y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
     end
 end
 
@@ -685,16 +656,6 @@ function DrawPanelBlackBox(x,y,w,h,overridealpha)
 
 end
 
-function hud.DrawZeroWaveMessage()
-	local curtime = ServerTime()
-	
-	if WARMUPTIME >= curtime then	
-		surface.SetFont("ArialBoldSeven")
-		local txtw, txth = surface.GetTextSize("Hi")
-		draw.SimpleTextOutlined("Game starts in "..ToMinutesSeconds(math.max(0, WARMUPTIME - curtime) + 1) ..". Prepare your hideout!", "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-	end
-end
-
 function hud.DrawObjMessages()
 	if not IsEntityValid ( MySelf ) or ENDROUND then
 		return
@@ -735,17 +696,17 @@ hook.Add("PostDrawOpaqueRenderables","hud.DrawObjMessages",hud.DrawObjMessages)
 
 --[[----------------------------------------------------------------------------------]]
 
-local title = "Warning! Counter-Strike content not mounted/missing!"
+local title = "Heads up! Counter-Strike Source content not missing"
 local messages = 
 {
     NotInstalled = [[It seems you do not have Counter-Strike Source installed
-which is required for the content in this game to display properly.]],
+which is recommended for the content in this game to display properly.]],
     NotMounted = [[It seems you do not have Counter-Strike Source mounted. You
 can mount it by hitting escape and pressing the button with a game controller icon
 in the bottom-right corner of your screen, then checking 'Counter-Strike' and 
 eventually restarting the game!]],
-    NotBought = [[It seems you don't have Counter-Strike Source bought, 
-which is required for the content in this game to display properly.]]
+    NotBought = [[It seems you haven't bought Counter-Strike Source, 
+which is recommended for the content in this game to display properly.]]
 }
 
 ---
