@@ -40,10 +40,10 @@ SWEP.NoMagazine = true
 
 SWEP.HoldType = "slam"
 
-SWEP.NoDeployDelay = true
+--SWEP.NoDeployDelay = true
 
 function SWEP:OnInitialize()
-	if not SERVER then
+	if CLIENT then
 		return
 	end
 	

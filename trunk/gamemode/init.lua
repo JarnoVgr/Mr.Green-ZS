@@ -645,8 +645,8 @@ end
 -- hook.Add ( "PlayerSwitchFlashlight", "RestrictFlashLight", RestrictFlashlight )
 
 function GM:PlayerSwitchFlashlight(pl, Switch)
-	pl.m_ZombieVision = pl.m_ZombieVision or false
 	if pl:Team() == TEAM_UNDEAD then
+		pl.m_ZombieVision = pl.m_ZombieVision or false
 		if pl:Alive() then
 			pl.m_ZombieVision = not pl.m_ZombieVision
 			pl:SendLua("gamemode.Call(\"ToggleZombieVision\", "..tostring(pl.m_ZombieVision)..")")
@@ -659,7 +659,6 @@ function GM:PlayerSwitchFlashlight(pl, Switch)
 end
 
 function GM:PlayerCanHearPlayersVoice( pListener, pTalker )
-	
 	local sv_alltalk = GetConVar( "sv_alltalk" )
 	
 	local alltalk = sv_alltalk:GetInt()
@@ -1174,7 +1173,7 @@ function DoPoisoned( ent, owner, timername)
 		ent:TakeDamage(damage, owner)
 	end
 	
-	ent:Message("You have lost health because of a poison spit.", 3)
+	ent:Message("You have lost health because of a Poison Spit", 3)
 end
 
 --Update server stats

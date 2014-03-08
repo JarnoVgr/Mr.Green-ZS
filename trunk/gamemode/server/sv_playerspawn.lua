@@ -10,8 +10,7 @@ DataTableConnected = {}
       Called everytime a player connects for first time
 ---------------------------------------------------------------]==]
 function GM:PlayerInitialSpawn( pl )
-
-	pl:SetCanZoom( false )
+	pl:SetCanZoom(false)
 
 	-- Bots are always ready, human players need to wait
 	if pl:IsBot() then pl.Ready = true else pl.Ready = false end
@@ -417,18 +416,22 @@ function GM:OnHumanSpawn(pl)
 
 	--Hands test
 	local oldhands = pl:GetHands()
-	if ( IsValid( oldhands ) ) then
+	if IsValid(oldhands) then
 		oldhands:Remove()
 	end
 
+	--Hands for c_model usage
 	local hands = ents.Create( "zs_hands" )
-	if ( IsValid( hands ) ) then
-		hands:DoSetup( pl )
+	if IsValid(hands) then
+		hands:DoSetup(pl)
 		hands:Spawn()
 	end	
-	
+
+	--Auto-enable flashlight
+	pl:Flashlight(true)
+
 	--Log
-	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as human")
+	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as a Survivor")
 end
 
 --[==[------------------------------------------------
@@ -547,26 +550,33 @@ function GM:OnZombieSpawn(pl)
 		pl:Message("Press F3 to play with a different Undead specie", 3)
 	end
 
-	Debug ( "[SPAWN] "..tostring ( pl:Name() ).." spawned as a Zombie." )
+	--Auto enable zombie vision at first spawn
+	if pl.m_ZombieVision == nil or pl.m_ZombieVision == true then
+		timer.Simple(0.3,function()
+			pl.m_ZombieVision = true
+			pl:SendLua("gamemode.Call(\"ToggleZombieVision\", "..tostring(pl.m_ZombieVision)..")")
+		end)
+	end
+
+	Debug("[SPAWN] "..tostring ( pl:Name() ).." spawned as an Undead")
 end
 
 -- Human's dynamic spawn
 
 function GM:ProceedCustomSpawn(pl)
-
-	if not IsValid(pl) then return end
-	if pl:IsZombie() then return end
-	if pl.Redeemed then return end
+	if not IsValid(pl) or pl:IsZombie() or pl.Redeemed then
+		return
+	end
 	
 	local newspawn = self:GetNiceHumanSpawn(pl)
 	
-	if not util.tobool(pl:GetInfoNum("_zs_humanspawn",0)) then return end
-	if self:IsRetroMode() then return end
-	
+	if not util.tobool(pl:GetInfoNum("_zs_humanspawn",0)) then
+		return
+	end
+
 	if newspawn then
 		pl:SetPos(newspawn:GetPos())
 	end
-	
 end
 
 

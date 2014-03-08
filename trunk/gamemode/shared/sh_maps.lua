@@ -102,7 +102,7 @@ TranslateMapTable = {
 	["zs_uglyfort"] = { Name = "Ugly Fort", Size = MEDIUM, RandomizeSpawn = true, ZombieSpawnProtection = 13 },
 	["zs_raunchyhouse_final"] = { Name = "Raunchy House", Size = VERY_SMALL, RandomizeSpawn = true },
 	["zs_clav_maze"] = { Name = "The Maze", Size = BIG, RandomizeSpawn = true, ZombieSpawnProtection = 8 },
-	["zs_storm_v1"] = { Name = "Storm House", Size = SMALL, RandomizeSpawn = true, ExceptEntitiesRemoval = { "func_door"}, ZombieSpawnProtection = 11 },
+	["zs_storm_fixed"] = { Name = "Storm House", Size = SMALL, RandomizeSpawn = true, ExceptEntitiesRemoval = { "func_door"}, ZombieSpawnProtection = 11, MapCoder = true },
 	["zs_fortress_mod"] = { Name = "The Fortress", Size = SMALL, RandomizeSpawn = true, ZombieSpawnProtection = 25, MapCoder = true},
 	["zs_barren"] = { Name = "Barren", Size = BIG, RandomizeSpawn = true, ZombieSpawnProtection = 20 },
 	["zs_house_number_23"] = { Name = "House Number 23", Size = MEDIUM, RandomizeSpawn = true, RemoveGlass = true },

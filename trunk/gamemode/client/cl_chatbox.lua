@@ -163,10 +163,7 @@ end
 --hook.Add( "ChatText", "CustomChatChatMessage2", CustomChat.ChatMessage )
 
 function GM:OnReceiveChatText ()
-	--  Play a sound - Source Like
-	--surface.PlaySound ( Sound ( "items/flashlight1.wav" ) )
-
-	--  Refresh alpha for the lines that haven't expired yet
+	--Refresh alpha for the lines that haven't expired yet
 	for i = 1, 7 do
 		local line = CustomChat.Lines[#CustomChat.Lines - i + 1]
 		if line then

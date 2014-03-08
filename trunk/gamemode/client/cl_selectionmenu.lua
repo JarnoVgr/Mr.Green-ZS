@@ -122,7 +122,7 @@ local function OnScrolled( pl, bind, pressed )
 	RunConsoleCommand("use", tostring(WeaponToSelect))
 	
 	--Delay next scroll		
-	ScrollSpeed = CurTime() + 0.1
+	ScrollSpeed = CurTime() + 0.05
 
 	--Display weapons
 	ShowWeapons = true
