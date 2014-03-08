@@ -116,6 +116,12 @@ local function OnScrolled( pl, bind, pressed )
 			
 	--Run the almight filtering function and match the weapon you need to select
 	local MyWeapons = FilterWeapons()
+
+	--Check if we still have weapons
+	if not MyWeapons then
+		return true
+	end
+
 	local WeaponToSelect = MyWeapons[ ActiveSlots[sIndex] ]:GetClass()
 				
 	--Use weapon
