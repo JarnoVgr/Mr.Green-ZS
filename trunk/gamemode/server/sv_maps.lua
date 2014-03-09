@@ -87,8 +87,16 @@ VoteMaps = {}
 function GM:GetVoteMaps()
 	local map = game.GetMap()
 	local players = #player.GetAll()
-		
-	--[[local mappos = 0
+	
+	local Interval = {
+		[VERY_SMALL] = 0,
+		[SMALL] = 7,
+		[MEDIUM] = 14,
+		[BIG] = 14,
+		[VERY_BIG] = 20
+	}
+	
+	local mappos = 0
 	for k, v in pairs (MapCycle) do
 		if v.Map == map then
 			mappos = k
@@ -101,12 +109,17 @@ function GM:GetVoteMaps()
 		end
 			
 		local nextmap, nextmapname = MapCycle[mappos + 1].Map, MapCycle[mappos + 1].MapName
-		if #VoteMaps < 3 then
-			table.insert ( VoteMaps, {nextmap,nextmapname} )
-			Debug ( "Map "..tostring ( nextmap ).." added to End-Game Votecycle!" )
-		end
+		-- if tbMap ~= nil then
+			-- local MapMaxLimit, MapMinLimit = TranslateMapTable[nextmap].Size, Interval[ TranslateMapTable[nextmap].Size ]
+			-- if players > MapMinLimit and players <= MapMaxLimit then 
+				if #VoteMaps < 3 then
+					table.insert ( VoteMaps, {nextmap,nextmapname} )
+					Debug ( "Map "..tostring ( nextmap ).." added to End-Game Votecycle!" )
+				end
+			-- end
 				
-		mappos = mappos + 1
+			mappos = mappos + 1
+		-- end
 	end
 	
 	-- if no maps found
@@ -143,15 +156,6 @@ function GM:GetVoteMaps()
 				table.insert ( VoteMaps, {v.Map,v.MapName} )
 			end
 		end
-	end]]
-	
-	VoteMaps = {}
-	
-	--Get 6 random maps from the cycle
-	for k,v in pairs ( MapCycle ) do
-		if math.random ( 1, 2 ) == 1 then
-			table.insert ( VoteMaps, {v.Map,v.MapName} )
-		end
 	end
 
 	return VoteMaps
@@ -175,6 +179,7 @@ end
 -- New shit
 
 function GM:MakeBlankMapList()
+		
 	local filename = "zombiesurvival/zsmapcycle.txt"	
 	local str = file.Read("../mapcycle.txt")
 	local maps = string.Explode("\n",str)
