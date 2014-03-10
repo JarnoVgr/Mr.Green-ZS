@@ -35,9 +35,9 @@ SWEP.Info = "Left click to place a Mobile Supplies"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel = "models/weapons/cstrike/c_c4.mdl"
+SWEP.ViewModel = Model("models/weapons/cstrike/c_c4.mdl")
 SWEP.UseHands = true
-SWEP.WorldModel = "models/weapons/w_c4.mdl"
+SWEP.WorldModel = Model("models/weapons/w_c4.mdl")
 
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
@@ -189,7 +189,7 @@ function SWEP:PrimaryAttack()
 			--Check distance to Supply Crates
 			for _, point in pairs(CrateSpawnsPositions) do
 				if tr.HitPos:Distance(point) <= 100 then
-					self.Owner:Message("Place the Mobile Supplies more away from the Supply Crate", 2)
+					self.Owner:Message("Place the Mobile Supplies further away from the Supply Crate", 2)
 					canPlaceCrate = false
 					break
 				end
@@ -216,7 +216,7 @@ function SWEP:PrimaryAttack()
 			ent:SetPlacer(self.Owner)
 			ent:Spawn()
 			ent:Activate()
-			ent:EmitSound("npc/roller/blade_cut.wav")
+			ent:EmitSound(Sound("npc/roller/blade_cut.wav"))
 			self.Owner.Crate = ent
 			self:TakePrimaryAmmo(1)
 							

@@ -70,7 +70,7 @@ function EFFECT:Think()
 		self.Entity:SetNoDraw(false)
 	end
 	
-	return (self and self.EfOwner and ValidEntity(self.EfOwner) and self.EfOwner:GetActiveWeapon() and self.EfOwner:GetActiveWeapon():GetClass() == "weapon_zs_tools_supplies" and self.EfOwner:Alive() and self.EfOwner:Team() ~= TEAM_UNDEAD) or false
+	return true
 end
 
 function EFFECT:Render()

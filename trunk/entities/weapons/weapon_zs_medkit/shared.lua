@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 if CLIENT then
 	SWEP.ViewModelFOV = 54
-	SWEP.PrintName = "Medkit"
+	SWEP.PrintName = "MedKit"
 
 	SWEP.Slot = 4
 	SWEP.SlotPos = 0

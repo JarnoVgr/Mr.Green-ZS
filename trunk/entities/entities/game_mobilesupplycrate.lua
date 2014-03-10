@@ -11,7 +11,8 @@ util.PrecacheSound("items/ammo_pickup.wav")
 util.PrecacheSound("mrgreen/supplycrates/mobile_use.mp3")
 
 function ENT:SetupDataTables()
-	self:NetworkVar( "Entity", 0, "Placer" );
+	self:NetworkVar("Entity", 0, "Placer")
+	self:NetworkVar("Bool", 0, "Claimed")
 end
 
 util.PrecacheModel("models/Items/item_item_crate.mdl")
@@ -32,6 +33,9 @@ function ENT:Initialize()
 		self.CrateHealth = 300
 	end
 
+	--Unclaimed by default
+	self:SetClaimed(false)
+
 	if CLIENT then
 		hook.Add("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self), function()
 			if util.tobool(GetConVarNumber("_zs_drawcrateoutline")) then
@@ -44,11 +48,10 @@ function ENT:Initialize()
 end	
 
 function ENT:Think()
+	--TODO: Rework this code to make it unneeded
 	local ct = CurTime()
 	
-	--local humans = player.GetAll()
 	local humans = team.GetPlayers(TEAM_HUMAN)
-	--if SERVER then self:CheckOwner() end
 	
 	--Loop though all players
 	for _, pl in ipairs(humans) do
@@ -79,13 +82,6 @@ if SERVER then
 			if self.CrateHealth <= 0 then
 				self:Explode()
 			end
-		end
-	end
-
-	function ENT:CheckOwner()
-		local Owner = self:GetPlacer()
-		if not ValidEntity(Owner) or not Owner:Alive() or Owner:Team() == TEAM_UNDEAD then 
-			self:Explode()
 		end
 	end
 
@@ -183,7 +179,29 @@ if SERVER then
 
 		--Show notice when not being able to use it
 		if not gotSupplies then
-			activator:Message("You can't get Supplies at this moment",1,"white")
+
+			--Check if activator is owner, so we can pick it up
+			local owner = self:GetPlacer()
+			local validOwner = (ValidEntity(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
+			if validOwner and activator == owner and not self:GetClaimed() then
+				local placeWeapon = "weapon_zs_tools_supplies"
+				activator:Give(placeWeapon)
+				activator:SelectWeapon(placeWeapon)
+				self:Remove()
+			--Check for claiming
+			elseif not validOwner then
+				--Claim crate
+				self:SetClaimed(true)
+
+				--Update owner
+				self:SetPlacer(activator)
+
+				--Inform new owner
+				activator:Message("You claimed this Mobile Supplies crate",1,"white")
+			--Nope. Nothing
+			else
+				activator:Message("You can't get Supplies at this moment",1,"white")
+			end
 		end
 	end
 end
@@ -218,24 +236,32 @@ if CLIENT then
 
 	    cam.Start3D2D(pos,angle,0.26)
 
-				local Owner = self:GetPlacer()
-				if ValidEntity(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN then
-					draw.SimpleTextOutlined( Owner:Name() .."'s Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-				else
-					draw.SimpleTextOutlined( "Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-				end
+		local owner = self:GetPlacer()
+		local validOwner = (ValidEntity(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
+	
+		if validOwner then
+			draw.SimpleTextOutlined( owner:Name() .."'s Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+		else
+			draw.SimpleTextOutlined( "Unclaimed Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+		end
 				
-				if MySelf.MobileSupplyTimerActive == true then
-					local time = math.Round(MySelf.MobileSupplyTime - CurTime())
-					draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(time + 1), "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-				elseif MySelf.MobileSupplyTimerActive == false then
-					draw.SimpleTextOutlined("Press E for bandages and ammo", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-				end
+		if MySelf.MobileSupplyTimerActive == true then
+			local time = math.Round(MySelf.MobileSupplyTime - CurTime())
+			draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(time + 1), "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 
+			--Check if placer is MySelf
+			if validOwner and MySelf == owner and not self:GetClaimed() then
+				draw.SimpleTextOutlined("Press E to pickup", "ArialBoldFour", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+			elseif not validOwner then
+				draw.SimpleTextOutlined("Press E to claim", "ArialBoldFour", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+			end
+		elseif MySelf.MobileSupplyTimerActive == false then
+			draw.SimpleTextOutlined("Press E for bandages and ammo", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+		end
 	    cam.End3D2D()
 	end
 
 	function ENT:OnRemove()
-	    hook.Remove( "PreDrawHalos", "CustDrawHalosAmmo".. tostring( self ) )
+	    hook.Remove("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self))
 	end
 end

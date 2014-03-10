@@ -480,7 +480,6 @@ if SERVER then
 		end
 	end
 
-
 	function ENT:OnTakeDamage( dmginfo )
 		if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() and not self:ShouldIgnoreDamage(dmginfo:GetAttacker()) then
 			--self:SetNWInt("TurretHealth",self:GetNWInt("TurretHealth") - dmginfo:GetDamage())
