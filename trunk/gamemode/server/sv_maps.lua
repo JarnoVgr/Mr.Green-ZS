@@ -1,53 +1,11 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-
 --[==[---------------------------------------------------------
    Read the mapcycle.txt and build the cycle
 ---------------------------------------------------------]==]
 MapCycle = {}
-function GM:SetMapList()
-	--[==[local str = file.Read("../mapcycle.txt")
-	MapCycle = string.Explode("\n",str)
-	
-	-- Just in case the file is empty or small
-	if string.len ( str ) <= 50 then
-		local strFiles = file.Find( "../maps/*.bsp" )
-		for k,v in pairs ( strFiles ) do
-			if IsZombieMap ( v ) then
-				local strMapName = NameNormalize ( v )
-				if not table.HasValue ( MapCycle, strMapName ) then table.insert ( MapCycle, strMapName ) end
-			end
-		end
-	end
-	
-	-- Verifiy the map cycle
-	for k,v in pairs ( MapCycle ) do
-		if v == "" or string.len ( v ) <= 3 or not IsZombieMap( v ) then
-			MapCycle[k] = nil
-		end
-	end
-	
-	--Shuffle the maps
-	if MAPS_RANDOMIZER then
-		if math.random(1,20) == 1 then
-			table.Shuffle ( MapCycle )
-			print("[MAP RANDOMIZER] Map cycle was successfully randomized.")
-			Debug ( "Randomized map cycle!" )
-		end
-	end
-	-- Rearrange table
-	table.Resequence ( MapCycle )]==]
-	
+function GM:SetMapList()	
 	local filename = "zombiesurvival/zsmapcycle.txt"
 	
 	if file.Exists(filename,"DATA") then
@@ -57,7 +15,6 @@ function GM:SetMapList()
 	end
 	
 	self:MapProperties()
-	
 end
 
 --[==[-----------------------------------------------------
@@ -70,8 +27,10 @@ end
 --[==[-----------------------------------------------------
         Returns if a map is for zombie survival
 -----------------------------------------------------]==]
-function IsZombieMap ( strMap )
-	if strMap == nil then return end
+function IsZombieMap(strMap)
+	if strMap == nil then
+		return
+	end
 	local bIsZombieMap = false
 	
 	-- First too letters are 'zs'
@@ -85,81 +44,18 @@ end
 ---------------------------------------------------------]==]
 VoteMaps = {}
 function GM:GetVoteMaps()
-	local map = game.GetMap()
-	local players = #player.GetAll()
-	
-	local Interval = {
-		[VERY_SMALL] = 0,
-		[SMALL] = 7,
-		[MEDIUM] = 14,
-		[BIG] = 14,
-		[VERY_BIG] = 20
-	}
-	
-	local mappos = 0
-	for k, v in pairs (MapCycle) do
-		if v.Map == map then
-			mappos = k
-		end
-	end
+	local VoteMaps = {}
 
-	for k = 1, (#MapCycle - 1) do
-		if MapCycle[mappos + 1] == nil then
-			mappos = 0
-		end
-			
-		local nextmap, nextmapname = MapCycle[mappos + 1].Map, MapCycle[mappos + 1].MapName
-		-- if tbMap ~= nil then
-			-- local MapMaxLimit, MapMinLimit = TranslateMapTable[nextmap].Size, Interval[ TranslateMapTable[nextmap].Size ]
-			-- if players > MapMinLimit and players <= MapMaxLimit then 
-				if #VoteMaps < 3 then
-					table.insert ( VoteMaps, {nextmap,nextmapname} )
-					Debug ( "Map "..tostring ( nextmap ).." added to End-Game Votecycle!" )
-				end
-			-- end
-				
-			mappos = mappos + 1
-		-- end
-	end
+	RandMapCycle = table.FullCopy(MapCycle)
 	
-	-- if no maps found
-	if #VoteMaps == 0 then 
-		local mappos = 0
-		for k, v in pairs (MapCycle) do
-			if v.Map == map then
-				mappos = k
-			end
-		end
-		
-		for k = 1, (#MapCycle - 1) do
-			if MapCycle[mappos + 1] == nil then
-				mappos = 0
-			end
-				
-			local nextmap, nextmapname = MapCycle[mappos + 1].Map, MapCycle[mappos + 1].MapName
-			if #VoteMaps < 3 then
-				table.insert ( VoteMaps, {nextmap,nextmapname} )
-				Debug ( "Map "..tostring ( nextmap ).." added to End-Game Votecycle!" )
-			end
-				
-			mappos = mappos + 1
-		end
-	end
-	
-	-- no players on the server
-	if players == 0 then
-		VoteMaps = {}
-	
-		-- get 6 random maps from the cycle
-		for k,v in pairs ( MapCycle ) do
-			if math.random ( 1, 2 ) == 1 then
-				table.insert ( VoteMaps, {v.Map,v.MapName} )
-			end
-		end
+	-- get 6 random maps from the cycle
+	for i=1,6 do
+		local map = table.Random(MapCycle)
+
+		table.insert(VoteMaps, {map.Map, map.MapName})
 	end
 
 	return VoteMaps
-	
 end
 
 --[==[---------------------------------------------------------
@@ -205,14 +101,11 @@ function GM:MakeBlankMapList()
 end
 
 function GM:LoadMapList()
-	
 	local filename = "zombiesurvival/zsmapcycle.txt"
 	
 	MapCycle = util.JSONToTable(file.Read(filename))
 	
 	Debug("[MAPS] Loaded Map List")
-	-- PrintTable(MapCycle)
-	
 end
 
 function ShuffleMapList(pl,cmd,args)
