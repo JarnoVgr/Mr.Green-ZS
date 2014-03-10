@@ -3,20 +3,14 @@
 
 AddCSLuaFile()
 
-SWEP.Base = "weapon_zs_undead_generic"
-SWEP.Author = "Deluvas"
-SWEP.Contact = ""
-SWEP.Purpose = ""
-SWEP.Instructions = ""
+SWEP.Base = "weapon_zs_undead_base"
+
 
 SWEP.PrintName = "Howler"
-SWEP.DrawAmmo = false
-SWEP.DrawCrosshair = false
 
 if CLIENT then
 	SWEP.ViewModelFOV = 70
 	SWEP.ViewModelFlip = false
-	SWEP.CSMuzzleFlashes = false
 	SWEP.ShowViewModel = false
 	SWEP.ShowWorldModel = false
 end
@@ -25,28 +19,15 @@ end
 SWEP.ViewModel = Model("models/Weapons/v_zombiearms.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
-SWEP.Spawnable = true
-SWEP.AdminSpawnable	= true
+SWEP.Primary.Delay = 0
+SWEP.Primary.Next = 4
+SWEP.Primary.Duration = 1.3
+SWEP.Primary.Reach = 400
 
-SWEP.Weight = 5
-SWEP.AutoSwitchTo = true
-SWEP.AutoSwitchFrom = false
-
-SWEP.Primary.ClipSize = -1
-SWEP.Primary.DefaultClip = -1
-SWEP.Primary.Automatic = true
-SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 4
-
-SWEP.Secondary.ClipSize = -1
-SWEP.Secondary.DefaultClip = -1
-SWEP.Secondary.Automatic = true
-SWEP.Secondary.Ammo	= "none"
-
-SWEP.DistanceCheck = 400
-
-SWEP.SwapAnims = false
-SWEP.AttackAnimations = { "attackD", "attackE", "attackF" }
+--Mimic primary
+SWEP.Secondary.Duration = SWEP.Primary.Duration
+SWEP.Secondary.Delay = SWEP.Primary.Delay
+SWEP.Secondary.Next = SWEP.Primary.Next
 
 function SWEP:Precache()
 	self.BaseClass.Precache(self)
@@ -68,12 +49,7 @@ function SWEP:Precache()
 	end
 end	
 
-SWEP.NextSwing = 0
-function SWEP:DoAttack( bPull ) 
-	if CurTime() < self.NextSwing then
-		return
-	end
-	
+function SWEP:DoAttack(bPull) 	
 	-- Get owner
 	local mOwner = self.Owner
 	if not ValidEntity(mOwner) then
@@ -84,16 +60,10 @@ function SWEP:DoAttack( bPull )
 	if not mOwner:OnGround() then
 		return
 	end
-	
-	-- Cooldown
-	self.NextSwing = CurTime() + self.Primary.Delay
-	
+		
 	--Thirdperson animation and sound
 	mOwner:DoAnimationEvent(CUSTOM_PRIMARY)
-	
-	--Set scream end time
-	self:SetScreamEndTime(CurTime() + 1.3)
-		
+			
 	--Just server from here
 	if CLIENT then
 		return
@@ -107,11 +77,11 @@ function SWEP:DoAttack( bPull )
 		local fDistance = v:GetPos():Distance( self.Owner:GetPos() )
 
 		--Check for conditions
-		if not v:IsPlayer() or not v:IsHuman() or not v:Alive() or fDistance > self.DistanceCheck then
+		if not v:IsPlayer() or not v:IsHuman() or not v:Alive() or fDistance > self.Primary.Reach then
 			continue
 		end
 
-		local vPos, vEnd = mOwner:GetShootPos(), mOwner:GetShootPos() + ( mOwner:GetAimVector() * self.DistanceCheck )
+		local vPos, vEnd = mOwner:GetShootPos(), mOwner:GetShootPos() + ( mOwner:GetAimVector() * self.Primary.Reach )
 		local Trace = util.TraceLine ( { start = vPos, endpos = v:LocalToWorld( v:OBBCenter() ), filter = mOwner, mask = MASK_SOLID } )
 			
 		-- Exploit trace
@@ -120,7 +90,7 @@ function SWEP:DoAttack( bPull )
 		end
 		
 		--Calculate percentage of being hit
-		local fHitPercentage = math.Clamp(1 - (fDistance / self.DistanceCheck), 0, 1)
+		local fHitPercentage = math.Clamp(1 - (fDistance / self.Primary.Reach), 0, 1)
 															
 		--Inflict damage
 		local fDamage = math.Round(10 * fHitPercentage, 0, 10)
@@ -173,63 +143,18 @@ function SWEP:DoAttack( bPull )
 	self.Owner:SendLua("WraithScream()")
 end
 
-function SWEP:Think()
-	self:CheckScream()
-
-	return self.BaseClass.Think(self)
-end
-
-function SWEP:CheckScream()
-	local rend = self:GetScreamEndTime()
-	if rend == 0 or CurTime() < rend then
-		return
-	end
-
-	self:SetScreamEndTime(0)
-end
-
-function SWEP:SetScreamEndTime(time)
-	self:SetDTFloat(0, time)
-end
-
-function SWEP:GetScreamEndTime()
-	return self:GetDTFloat(0)
-end
-
-function SWEP:IsScreaming()
-	return self:GetScreamEndTime() > 0
-end
-
-function SWEP:PrimaryAttack()
+function SWEP:PerformPrimaryAttack()
 	self:DoAttack(true)
 end
 
-function SWEP:SecondaryAttack()
+function SWEP:PerformSecondaryAttack()
 	self:DoAttack(false)
 end
 
 function SWEP:Move(mv)
-	if self:IsScreaming() then
+	if self:IsInPrimaryAttack() then
 		mv:SetMaxSpeed(0)
 		return true
-	end
-end
-
-function SWEP:Reload()
-	return false
-end
-
-if SERVER then
-	function SWEP:OnDrop()
-		if self and self:IsValid() then
-			self:Remove()
-		end
-	end
-end
-
-if CLIENT then
-	function SWEP:DrawHUD()
-		GAMEMODE:DrawZombieCrosshair(self.Owner, self.DistanceCheck)
 	end
 end
 
@@ -237,9 +162,13 @@ function SWEP:OnRemove()
 	if CLIENT then
 		self:RemoveArms()
 	end
+
+	self.BaseClass.OnRemove(self)
 end
 
-function SWEP:OnInitialize()
+function SWEP:Initialize()
+	self.BaseClass.Initialize(self)
+
 	if CLIENT then
 		self:MakeArms()
 	end
@@ -247,7 +176,9 @@ end
 
 
 if CLIENT then
-	function SWEP:OnViewModelDrawn()
+	function SWEP:ViewModelDrawn()
+		self.BaseClass.ViewModelDrawn(self)
+
 		local vm = self.Owner:GetViewModel()
 		if IsValid(self.Arms) and IsValid(vm) then
 			

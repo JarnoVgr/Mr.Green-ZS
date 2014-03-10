@@ -104,7 +104,9 @@ if CLIENT then
 			end
 			
 			if not self.Arms.GetPlayerColor then
-				self.Arms.GetPlayerColor = function() return Vector( GetConVarString( "cl_playercolor" ) ) end
+				self.Arms.GetPlayerColor = function()
+					return Vector( GetConVarString( "cl_playercolor" ) )
+				end
 			end
 
 		

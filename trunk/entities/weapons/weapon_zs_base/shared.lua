@@ -64,7 +64,7 @@ function SWEP:PrimaryAttack()
 	local Owner = self.Owner
 
 	--Recoil multiplier
-	local recoilMultiplier = 1
+	local recoilMultiplier = 1.3
 	if self:GetIronsights() then
 		--Less recoil when in ironsight
 		recoilMultiplier = recoilMultiplier * 0.6

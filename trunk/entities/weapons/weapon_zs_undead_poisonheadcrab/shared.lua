@@ -1,12 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local ents = ents
-local math = math
-local pairs = pairs
-local util = util
-
-if SERVER then AddCSLuaFile ( "shared.lua" ) end
+AddCSLuaFile()
 
 SWEP.Author = "Deluvas"
 SWEP.Contact = ""

@@ -44,16 +44,16 @@ SWEP.Base = "weapon_zs_undead_base"
 SWEP.ViewModel = Model("models/weapons/v_zombine.mdl")
 SWEP.WorldModel = Model("models/Weapons/w_crowbar.mdl")
 
-SWEP.Primary.Delay = 1.2
 SWEP.Primary.Reach = 88
 SWEP.Primary.Duration = 2.1
-SWEP.Primary.Delay = 1.2
+SWEP.Primary.Delay = 1.0
 SWEP.Primary.Damage = math.random(60,75)
 
 function SWEP:StartPrimaryAttack()
 	self.BaseClass.StartPrimaryAttack(self)
 
 	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+	self.IdleAnimation = CurTime() + self:SequenceDuration()
 
 	local pl = self.Owner
 
@@ -119,4 +119,14 @@ function SWEP:SecondaryAttack()
 	end
 
 	self.NextYell = CurTime() + math.random(8,13)
+end
+
+function SWEP:Think()
+	--Start idle animation when needed
+	if self.IdleAnimation and self.IdleAnimation <= CurTime() then
+		self.IdleAnimation = nil
+		self:SendWeaponAnim(ACT_VM_IDLE)
+	end
+
+	return self.BaseClass.Think(self)
 end

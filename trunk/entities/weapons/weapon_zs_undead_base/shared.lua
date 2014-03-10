@@ -102,8 +102,13 @@ function SWEP:PrimaryAttack()
 	end
 
 	--Delay next attack
-	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Duration)
-	self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Duration)
+	if self.Primary.Next then
+		self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Next)
+		self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Next)
+	else
+		self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Duration)
+		self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Duration)
+	end
 
 	--Start swinging
 	self:StartPrimaryAttack()
@@ -192,8 +197,13 @@ function SWEP:SecondaryAttack()
 	end
 
 	--Delay next attack
-	self.Weapon:SetNextPrimaryFire(CurTime() + self.Secondary.Duration)
-	self.Weapon:SetNextSecondaryFire(CurTime() + self.Secondary.Duration)
+	if self.Primary.Next then
+		self.Weapon:SetNextPrimaryFire(CurTime() + self.Secondary.Next)
+		self.Weapon:SetNextSecondaryFire(CurTime() + self.Secondary.Next)
+	else
+		self.Weapon:SetNextPrimaryFire(CurTime() + self.Secondary.Duration)
+		self.Weapon:SetNextSecondaryFire(CurTime() + self.Secondary.Duration)
+	end
 
 	--Delay leaping
 	--self.Weapon:SetNextSecondaryFire(self:GetNextPrimaryFire() + 0.5)
@@ -288,6 +298,14 @@ function SWEP:Holster()
 	self:OnRemove()
 	
 	return true
+end
+
+if SERVER then
+	function SWEP:OnDrop()
+		if self and self:IsValid() then
+			self:Remove()
+		end
+	end
 end
 
 function SWEP:OnRemove()
@@ -441,9 +459,6 @@ if CLIENT then
 		end
 	end
 
-	function SWEP:OnViewModelDrawn()
-	end
-
 	SWEP.wRenderOrder = nil
 	function SWEP:DrawWorldModel()
 		
@@ -470,7 +485,7 @@ if CLIENT then
 		if (IsValid(self.Owner)) then
 			bone_ent = self.Owner
 		else
-			// when the weapon is dropped
+			--when the weapon is dropped
 			bone_ent = self
 		end
 		
