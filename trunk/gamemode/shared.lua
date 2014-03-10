@@ -743,30 +743,11 @@ function GM:IsBossRequired()
 		return false
 	end
 	
-	--Require boss zombie
-	--[[if self:GetWave() ~= BOSS_WAVE then
-		return false
-	end]]
-	
 	--Require atleast X amount of players
 	if #player.GetAll() < BOSS_TOTAL_PLAYERS_REQUIRED then
 		return false
 	end
 	
-	--More chance of boss when more players are online
-	--[[local rand = math.random(0,1 + math.Round(#player.GetAll() / 12))
-	if (rand <= 1) then
-		return false
-	end]]
-	
-	--team.NumPlayers(TEAM_UNDEAD)/team.NumPlayers(TEAM_HUMAN)
-	
-	--[[if team.NumPlayers(TEAM_UNDEAD)*100/#player.GetAll() <= BOSS_INFLICTION_REQUIRED
-		return false
-	end]]
-	
-	--team.NumPlayers(TEAM_UNDEAD)/team.NumPlayers(TEAM_HUMAN) <= BOSS_INFLICTION_REQUIRED
-
 	--Yay boss
 	return true
 end
@@ -785,7 +766,7 @@ function GM:GetPlayerForBossZombie()
 	--Check if players meet requirements
 	for _, zmb in pairs(zombies) do
 		if IsValid(zmb) then-- and zmb:Alive() 
-			if zmb.DamageDealt and zmb.DamageDealt[TEAM_UNDEAD] and not zmb.bIsAFK then
+			if zmb.DamageDealt and zmb.DamageDealt[TEAM_UNDEAD] and zmb.DamageDealt[TEAM_UNDEAD] > 0 and not zmb.bIsAFK then
 				table.insert(tab, zmb)
 			end
 		end
@@ -803,11 +784,8 @@ function GM:GetPlayerForBossZombie()
 	--Take 3 best zombies
 	local num = math.min(1,math.max(3,#tab))
 	
-	--Random chance of picking a good zombie
-	local rand = math.random(0,2)
-	
 	--Return good zombie
-	if rand <= 1 and tab[num] then
+	if tab[num] then
 		return tab[num]
 	end
 	

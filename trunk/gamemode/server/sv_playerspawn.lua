@@ -260,9 +260,7 @@ function GM:PlayerSpawn(pl)
 			pl.PlayerModel = "santa"
 		end
 	end
-	
-	Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." test: ".. pl.PlayerModel .."")
-		
+
 	if pl:Team() == TEAM_SPECTATOR then
 		self:OnFirstHumanSpawn(pl)
 		return

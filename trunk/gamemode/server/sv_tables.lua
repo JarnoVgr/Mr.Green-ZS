@@ -223,15 +223,6 @@ table.insert(ResourceFiles, "sound/mrgreen/music/intermission.mp3")
 table.insert(ResourceFiles, "sound/deadlife_mrgreen.mp3")
 table.insert(ResourceFiles, "sound/deadlife_mrgreen_insane.mp3")
 
---Howler sound effects
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_death_01.wav")
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_scream_01.wav")
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_scream_02.wav")
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_01.wav")
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_02.wav")
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_03.wav")
-table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_04.wav")
-
 --Christmas lights
 if CHRISTMAS then
 	table.insert(ResourceFiles, "materials/effects/tiledfile/firelayeredslowtiled512.vtf")
@@ -263,13 +254,13 @@ if CHRISTMAS then
 end
 
 --Soft-notice HUD
-table.insert( ResourceFiles, "sound/hud/notice_soft.wav" )
+table.insert(ResourceFiles, "sound/hud/notice_soft.wav")
 
 --Zombine
-table.insert(ResourceFiles, "models/weapons/v_zombine.mdl" )
-table.insert(ResourceFiles, "models/zombie/zombie_soldier.mdl" )
-table.insert(ResourceFiles, "models/zombie/zombie_soldier_animations.mdl" )
-table.insert(ResourceFiles, "models/zombie/zombie_soldier_animations.ani" )
+table.insert(ResourceFiles, "models/weapons/v_zombine.mdl")
+table.insert(ResourceFiles, "models/zombie/zombie_soldier.mdl")
+table.insert(ResourceFiles, "models/zombie/zombie_soldier_animations.mdl")
+table.insert(ResourceFiles, "models/zombie/zombie_soldier_animations.ani")
 for _, filename in pairs(file.Find("materials/models/zombie_classic/*.*", "GAME")) do
 	table.insert(ResourceFiles, "materials/models/zombie_classic/"..filename)
 end
@@ -288,12 +279,12 @@ end
 
 --Infected sounds
 for _, filename in pairs( file.Find( "sound/npc/zombiegreen/*.wav" , "GAME") ) do
-	table.insert ( ResourceFiles, "sound/npc/zombiegreen/"..filename  )
+	table.insert(ResourceFiles, "sound/npc/zombiegreen/"..filename)
 end
 
 --Beats
 for _, filename in pairs( file.Find( "sound/zombiesurvival/*.wav", "GAME" ) ) do
-	table.insert ( ResourceFiles, "sound/zombiesurvival/"..filename  )
+	table.insert(ResourceFiles, "sound/zombiesurvival/"..filename)
 end
 
 --Killicons
@@ -315,53 +306,53 @@ table.insert(ResourceFiles, "materials/killicon/zs_shovel.vtf")
 table.insert(ResourceFiles, "materials/killicon/zs_shovel.vmt")
 
 --More materials
-table.insert ( ResourceFiles, "materials/hud3/hud_warning1.vtf" ) --!!
-table.insert ( ResourceFiles, "materials/hud3/hud_warning1.vmt" ) --!!
-table.insert ( ResourceFiles, "materials/hud3/hud_warning2.vtf" ) --!!
-table.insert ( ResourceFiles, "materials/hud3/hud_warning2.vmt" ) --!!
-table.insert ( ResourceFiles, "materials/hud3/hud_info.vtf" ) --!!
-table.insert ( ResourceFiles, "materials/hud3/hud_info.vmt" ) --!!
+table.insert(ResourceFiles, "materials/hud3/hud_warning1.vtf")
+table.insert(ResourceFiles, "materials/hud3/hud_warning1.vmt")
+table.insert(ResourceFiles, "materials/hud3/hud_warning2.vtf")
+table.insert(ResourceFiles, "materials/hud3/hud_warning2.vmt")
+table.insert(ResourceFiles, "materials/hud3/hud_info.vtf")
+table.insert(ResourceFiles, "materials/hud3/hud_info.vmt")
 
 
 --TODO: Check if needed
-table.insert ( ResourceFiles, "materials/models/weapons/temptexture/handsmesh1.vtf" )
-table.insert ( ResourceFiles, "materials/models/weapons/temptexture/handsmesh1.vmt" )
+table.insert( ResourceFiles, "materials/models/weapons/temptexture/handsmesh1.vtf")
+table.insert( ResourceFiles, "materials/models/weapons/temptexture/handsmesh1.vmt")
 
 --Class menu icons
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombie.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombie.vmt" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/fastzombie.vtf")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/poisonzombie.vtf")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/chemzombie.vtf")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/wraith.vtf")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/headcrab.vtf")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/poisonheadcrab.vtf")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/torso.vtf")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vtf")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/fastzombie.vmt")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/poisonzombie.vmt")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/chemzombie.vmt")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/wraith.vmt")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/headcrab.vmt")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/poisonheadcrab.vmt")
-table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/torso.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombie.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombie.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/fastzombie.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/fastzombie.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/poisonzombie.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/poisonzombie.vtf")
+--table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/chemzombie.vtf")
+--table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/chemzombie.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/wraith.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/wraith.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/headcrab.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/headcrab.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/poisonheadcrab.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/poisonheadcrab.vtf")
+--table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/torso.vmt")
+--table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/torso.vtf")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vmt")
+table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vtf")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/howler.vmt")
 table.insert ( ResourceFiles, "materials/zombiesurvival/classmenu/howler.vtf")
 
 --Undead crosshair
-table.insert ( ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_core.vtf" )  
-table.insert ( ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_core.vmt" )  
-table.insert ( ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_outer.vtf" )  
-table.insert ( ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_outer.vmt" )  
+table.insert(ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_core.vtf")  
+table.insert(ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_core.vmt")  
+table.insert(ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_outer.vtf")  
+table.insert(ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_outer.vmt")
 
 --Hazard icon
-table.insert( ResourceFiles, "materials/effects/hazard_icon.vtf" )
-table.insert( ResourceFiles, "materials/effects/hazard_icon.vmt" )
+table.insert(ResourceFiles, "materials/effects/hazard_icon.vtf")
+table.insert(ResourceFiles, "materials/effects/hazard_icon.vmt")
 
 --Sniper Scope
-table.insert ( ResourceFiles, "materials/zombiesurvival/scope/sniper_scope.vtf" )
-table.insert ( ResourceFiles, "materials/zombiesurvival/scope/sniper_scope.vmt" )
+table.insert(ResourceFiles, "materials/zombiesurvival/scope/sniper_scope.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/scope/sniper_scope.vmt")
 
 --Chainsaw worldmodel
 table.insert( ResourceFiles,"models/weapons/w_chainsaw.mdl")
@@ -472,10 +463,16 @@ table.insert( ResourceFiles, "sound/weapons/katana/katana_03.wav" )
 table.insert( ResourceFiles, "sound/weapons/melee/melee_skull_break_01.wav" )
 table.insert( ResourceFiles, "sound/weapons/melee/melee_skull_break_02.wav" )
 
---Normal zombie viewmodel
+--Infected
 table.insert(ResourceFiles, "models/weapons/v_zombiearms.mdl" )
 for _, filename in pairs(file.Find("materials/models/weapons/v_zombiearms/*.*", "GAME" ) ) do
-	table.insert ( ResourceFiles, "materials/models/weapons/v_zombiearms/"..string.lower(filename )  )
+	table.insert(ResourceFiles, "materials/models/weapons/v_zombiearms/"..string.lower(filename )  )
+end
+for _, filename in pairs(file.Find("sound/mrgreen/undead/infected/*.mp3" , "GAME")) do
+	table.insert(ResourceFiles, "sound/mrgreen/undead/infected/".. filename)
+end
+for _, filename in pairs(file.Find("sound/mrgreen/undead/infected/*.wav" , "GAME")) do
+	table.insert(ResourceFiles, "sound/mrgreen/undead/infected/".. filename)
 end
 
 --Fast Zombie
@@ -530,10 +527,10 @@ table.insert ( ResourceFiles, "materials/phoenix_storms/egg.vmt" )
 table.insert ( ResourceFiles, "materials/phoenix_storms/egg_bump.vtf" )
 
 --Pumpkin Hat
-table.insert(ResourceFiles, "models/props_outland/pumpkin01.mdl" )
-table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vmt" )
-table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01.vtf" )
-table.insert ( ResourceFiles, "materials/models/props_outland/pumpkin01_normal.vtf" )
+table.insert(ResourceFiles, "models/props_outland/pumpkin01.mdl")
+table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01.vmt")
+table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01.vtf")
+table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01_normal.vtf")
 
 --??
 table.insert(ResourceFiles, "models/effects/bday_gib01.mdl" )
@@ -546,6 +543,13 @@ table.insert(ResourceFiles, "materials/models/mrgreen/howler/eyes_bright.vmt")
 table.insert(ResourceFiles, "materials/models/mrgreen/howler/zj_diffuse.vtf")
 table.insert(ResourceFiles, "materials/models/mrgreen/howler/zj_normal.vtf")
 table.insert(ResourceFiles, "materials/models/mrgreen/howler/zombie_jailbait.vmt")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_death_01.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_scream_01.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_scream_02.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_01.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_02.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_03.wav")
+table.insert(ResourceFiles, "sound/player/zombies/howler/howler_mad_04.wav")
 
 --Gordon Freeman playermodel
 table.insert(ResourceFiles, "models/player/gordon_classic.mdl")

@@ -62,7 +62,7 @@ if SERVER then
 		game.ConsoleCommand("sv_skyname painted\n")
 
 		--Set lighting style (make it more dark)
-		engine.LightStyle(0,"b")
+		engine.LightStyle(0,"d") --b
 
 		--Spawn random props througout map
 		local maxProps = math.random(30,40)
@@ -112,9 +112,13 @@ if CLIENT then
 		end
 	
 		createdFog = true
+
+		--
+		render.RedownloadAllLightmaps()
 	
-		hook.Add( "SetupWorldFog","MapC_AddNightFog", MapCAddNightFog )
-		hook.Add( "SetupSkyboxFog","MapC_AddNightFogSkybox", MapCAddNightFogSkybox )	
+		--
+		hook.Add("SetupWorldFog","MapC_AddNightFog", MapCAddNightFog)
+		hook.Add("SetupSkyboxFog","MapC_AddNightFogSkybox", MapCAddNightFogSkybox)	
 
 		print("[MAPCODER] Created fog")
 	end)

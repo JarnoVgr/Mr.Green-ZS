@@ -33,7 +33,6 @@ DEFAULT_MASS = 80
 DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 
 -- Horde stuff
-
 HORDE_MAX_ZOMBIES = 15
 HORDE_MAX_RESISTANCE = 60 -- in %
 HORDE_MAX_DISTANCE = 260
@@ -50,29 +49,12 @@ CHRISTMAS = false
 --EVENT: Aprils Fools
 FIRSTAPRIL = false
 
--- Boss stuff
+--Boss stuff
+BOSS_TOTAL_PLAYERS_REQUIRED = 8
+BOSS_CLASS = {10,11,13} -- 12
 
-BOSS_TOTAL_PLAYERS_REQUIRED = 10
-BOSS_INFLICTION_REQUIRED = 95--67-- 1.35--  max % zombies of total players
-BOSS_CLASS = {10,13}-- 10,11,12,
-BOSS_WAVE = 6
-
---[[if CHRISTMAS then
-	BOSS_CLASS = {14}
-	BOSS_WAVE = 5
-end]]
-
-SUPER_BOSS_CHANCE = 2
-
---[==[if math.random(SUPER_BOSS_CHANCE) == SUPER_BOSS_CHANCE then
-	SUPER_BOSS = true
-	if SERVER then print("--Super Boss activated!--") end
-end]==]
-
+--??
 SHARED_SPEED_INCREASE = 13
-
--- Use custom chatbox
-CUSTOM_CHAT = CreateConVar( "sos_customchat", 0, FCVAR_REPLICATED )
 
 ----------------------------------
 --		STARTING LOADOUTS		--

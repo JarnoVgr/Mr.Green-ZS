@@ -189,7 +189,7 @@ function DoAdminPanel()
 			end
 		end
 	end)
-	
+
 	timer.Simple(0.08, function()
 		if AdminPanel == nil then
 			return

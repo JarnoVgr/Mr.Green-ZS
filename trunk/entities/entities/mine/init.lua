@@ -60,7 +60,7 @@ function ENT:Explode()
 	end
 	
 	local Ent = ents.Create("env_explosion")
-	Ent:EmitSound( "explode_4" )		
+	Ent:EmitSound( "explode_4")
 	Ent:SetPos( self.Entity:GetPos() )
 	Ent:Spawn()
 	Ent.Team = function() -- Correctly applies the whole 'no team damage' thing

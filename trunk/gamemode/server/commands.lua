@@ -168,21 +168,11 @@ function PrintZSStats(ply,commandName,args)
 end
 concommand.Add("status_zs",PrintZSStats)
 
-function ForceSpawnBoss(pl,commandName,args)
-
-	if not ValidEntity(pl) then return end
-	if not pl:IsSuperAdmin() then return end
-	
-	BOSS_TOTAL_PLAYERS_REQUIRED = 12
-	BOSS_INFLICTION_REQUIRED = 100
-	
-end
-concommand.Add("mrgreen_forceboss",ForceSpawnBoss)
-
 function FunCommand1(pl,commandName,args)
 
-	if not ValidEntity(pl) then return end
-	if not pl:IsSuperAdmin() then return end
+	if not ValidEntity(pl) or not pl:IsSuperAdmin() then
+		return
+	end
 	
 	local ent = pl:GetEyeTrace().Entity
 	
@@ -194,14 +184,12 @@ function FunCommand1(pl,commandName,args)
 		umsg.Entity(ent or pl)
 		umsg.Short(tonumber(args[1] or 1))
 	umsg.End()
-	
 end
 concommand.Add("mrgreen_fun1",FunCommand1)
 
 
 -- Hats
 function SetPlayerHat(pl,commandName,args)
-	
 	local h = args[1]
 	local temp = {}
 	
@@ -223,26 +211,13 @@ function SetPlayerHat(pl,commandName,args)
 		pl.SelectedHat = back
 		GAMEMODE:SpawnHat(pl,back)
 	end
-	
-	
-	-- if pl:Team() ~= TEAM_HUMAN then return end
-	-- if not pl:GetItemsDataTable()[itemID] then return end
-	
-	
-	-- Does it exist? Is it a valid hat type? Did he buy it? Is it an admin-only hat?	
-		--[==[if hats[hat] and (not ValidEntity(pl.Hat) or pl.Hat:GetHatType() ~= hat) and pl:Team() == TEAM_HUMAN 
-			and pl:GetItemsDataTable()[itemID] and (not shopData[itemID].AdminOnly or pl:IsAdmin()) then
-			GAMEMODE:DropHat(pl)
-			pl.SelectedHat = hat
-			GAMEMODE:SpawnHat(pl,hat)
-		end]==]
 end
 concommand.Add("mrgreen_hat_set",SetPlayerHat) 
 
 function SetPlayerSuit(pl,commandName,args)
 
 	local hat = args[1]
-	local itemID = util.GetItemID( hat )
+	local itemID = util.GetItemID(hat)
 
 	if suits[hat] and (not ValidEntity(pl.Suit) or pl.Suit:GetHatType() ~= hat) and pl:Team() == TEAM_HUMAN 
 		and pl:GetItemsDataTable()[itemID] and (not shopData[itemID].AdminOnly or pl:IsAdmin()) then
@@ -949,10 +924,6 @@ local function CommandSay(pl, text, teamonly)
 		elseif (text == "!levelstats") then
 			server_RunCommand(pl, "zs_showlevel")
 			return ""
-		elseif (text == "!classinfo") then
-			--server_RunCommand (pl,"show_classdescription")
-			pl:PrintMessage(HUD_PRINTTALK,"Class info not available.")
-			return ""
 		elseif (text == "!stopsounds") then
 			server_RunCommand(pl, "stopsounds")
 			pl:PrintMessage(HUD_PRINTTALK,"Stopped sounds.")
@@ -1080,7 +1051,7 @@ local function CommandSay(pl, text, teamonly)
 
 	--WHAT DOES THE SCOUT SAY ABOUT HIS HORNYNESS LEVEL?
 	local tocheck = string.lower(text)
-	local hornytab = { "fuck", "horny", "ass", "bitch", "penis", "kitty", "pussy", "suck", "cock", "billy", "slut", "oh shi", "cum", "juice", "dick", "sex" }	
+	local hornytab = { "fuck", "horny", "ass", "bitch", "penis", "kitty", "pussy", "suck", "cock", "billy", "slut", "oh shi", "cum", "juice", "dick", "sex", "tits", "boobs", "titties" }	
 	for k, v in pairs(hornytab) do
 		if string.find(tocheck,v) then
 			pl.Hornyness = pl.Hornyness + 1
@@ -1292,7 +1263,7 @@ local function AdminSay(pl, text, teamonly)
 				if not LASTHUMAN or not ENDROUND then
 					pl:Message(target:GetName() .." redeemed")
 				else
-					pl:Message("You can't ".. target:GetName() .." at this moment")
+					pl:Message("You can't redeem ".. target:GetName() .." at this moment")
 				end
 				target:Message("You are redeemed by ".. pl:GetName())
 			end
@@ -1318,6 +1289,18 @@ local function AdminSay(pl, text, teamonly)
 		elseif(sep[1] == "!ungag") then
 			target:UnGag()
 			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." ungagged player "..tostring(target:Name())..".")
+			return ""
+		elseif sep[1] == "!changeclass" and pl:IsSuperAdmin() then
+			local classId = tonumber(sep[3])
+			if type(classId) ~= "number" or not ZombieClasses[classId] then
+				pl:Message("Class doesn't exist")
+				return ""
+			end
+
+			--Set class
+			target:SpawnAsUndeadClass(classId)
+
+			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." changed "..tostring(target:Name()).."'s class.")
 			return ""
 		elseif(sep[1] == "!slap") then
 			local slapdam = 10

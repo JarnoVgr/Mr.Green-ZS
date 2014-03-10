@@ -1038,6 +1038,16 @@ function meta:SpawnAsZombieBoss()
 	self:UnSpectateAndSpawn()
 	self.DeathClass = curclass
 end
+
+function meta:SpawnAsUndeadClass(classId)
+	self:RemoveAllStatus(true, true)
+
+	self:SetZombieClass(classId)
+	
+	self.DeathClass = nil
+	self:UnSpectateAndSpawn()
+	self.DeathClass = classId
+end
 	
 local function CreateRagdoll(pl)
 	if IsValid(pl) then pl:OldCreateRagdoll() end
@@ -1750,42 +1760,14 @@ function meta:CheckSpeedChange()
 end
 
 function meta:SpawnAsSteroidZombie(int)
-	
-	if self:IsHuman() then return end
-	if self:IsStartingZombie() then return end
-	if self:IsBossZombie() then return end
-	if self:IsCrow() then return end
-	
-	local count = 0
-	for i, z in pairs(team.GetPlayers(TEAM_UNDEAD)) do
-		if z and z:IsSteroidZombie() and self ~= z then
-			count = count+1
-		end
-	end
-	
-	if count >= MAX_ST_ZOMBIES then return end
-	
-	local status = self:GiveStatus("champion")
-	if status then
-		status:SetType(int)
-	end
-		
-	--do some shit here
-	local tbl = ZombiePowerups[int]
-	if tbl then
-		if tbl.Color then 
-			local r,g,b,a = tbl.Color
-			self:SetColor(r,g,b,a)
-		end
-	end
-	
 end
 
 function meta:SpawnMiniTurret()
+	if IsValid(self.MiniTurret) then
+		return
+		end
 	
-	if IsValid(self.MiniTurret) then return end
-	
-	local ent = ents.Create ("zs_miniturret")
+	local ent = ents.Create("zs_miniturret")
 	if ent then
 		ent:SetPos(self:GetPos()+vector_up*40)
 		ent:SetOwner(self)

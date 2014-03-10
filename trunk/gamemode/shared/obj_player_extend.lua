@@ -622,15 +622,9 @@ function meta:IsPoisonCrab()
 	return self:GetZombieClass() == 7
 end
 
+--OBSOLETE?
 function meta:IsCrow ()
 	return self:GetZombieClass() == 9
-end
-
---[==[----------------------------------------------
-	See if zombie is a chem. zombie
-------------------------------------------------]==]
-function meta:IsChemZombie()
-	return self:GetZombieClass() == 66
 end
 
 function meta:IsBossZombie()
@@ -971,30 +965,37 @@ function meta:GetZombieClass()
 	return self:GetDTInt(2) or 1
 end
 
+function meta:SetZombieClass(cl)
+	if CLIENT then
+		return
+	end
+
+	self.Class = cl
+	self.ClassTable = ZombieClasses[cl]
+	
+	self:SetDTInt(2,cl)
+end
+
 function meta:GetHumanClass()
 	return 1-- self.ClassHuman or
 end
 
-function meta:SetHumanClass ( cl )
-	if CLIENT then return end
+function meta:SetHumanClass(cl)
+	if CLIENT then
+		return
+	end
 
 	self.ClassHuman = cl
 	self.TempClassHuman = cl
 	self:ConCommand("_zs_redeemclass "..cl.."")
 		
-	-- Add one point to each class chosen every time someone changes class. (for endgame stats)
+	--Add one point to each class chosen every time someone changes class. (for endgame stats)
 	timer.Simple( 0.1, function() 
 		if ValidEntity ( self ) then
 			local classname = HumanClasses[cl].Name
 			GAMEMODE.TeamMostChosenClass[ classname ] = GAMEMODE.TeamMostChosenClass[ classname ] + 1
 		end
-	end )
-		
-	-- Send information from all players to player changing class
-	-- UpdatePlayerClass ( player.GetAll(), { self }, "UpdateHumanClass", "ClassHuman" )
-	
-	-- Send information from player changing class to all players
-	-- UpdatePlayerClass ( { self }, player.GetAll(), "UpdateHumanClass", "ClassHuman" )
+	end)
 end
 
 function meta:SetMaximumHealth ( Max )
@@ -1009,137 +1010,88 @@ function meta:GetMaximumHealth ( Health )
 	return self:GetDTInt ( 0 )
 end
 
---[=[
-function meta:IsCrow ()
-	if not ValidEntity (self) then return false end
-	
-	if (self.camera and self.camera:IsValid()) or (self:Team() == TEAM_UNDEAD and self:GetZombieClass() == 10) then
-		if self.camera:GetOwner() == self then
-			return true
-		end
-	end
-	
-	return false
-end]=]
-
 if SERVER then
 -- util.AddNetworkString( "SendZombieClass" )
 end
 
-function meta:SetZombieClass(cl)
-	if CLIENT then
-		return
-	end
 
-	self.Class = cl
-	self.ClassTable = ZombieClasses[cl]
-	
-	self:SetDTInt(2,cl)
-end
---[=[
+
 function meta:GetXP()
-	if self:IsBot() then return 0 end
-	if SERVER then
+	if not ValidEntity(self) or self:IsBot() then
+		return 0
+	end
 	
-		if not self.DataTable["ClassData"]["default"] then return end
-		
-		return self.DataTable["ClassData"]["default"].xp
-	elseif CLIENT then
-		
-		if MySelf == self then
-			if not MySelf.DataTable then return 0 end
-			if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["default"] then
-				return MySelf.DataTable["ClassData"]["default"].xp
-			end
-		else
-			return self.XP
+	if SERVER then
+		if not self.DataTable["ClassData"]["default"] then
+			return 0
 		end
-	end
-	return 0
-end]=]
-
-function meta:GetXP()
-	if not ValidEntity(self) then return 0 end
-	if self:IsBot() then return 0 end
-	
-	if SERVER then
-		if not self.DataTable["ClassData"]["default"] then return 0 end
 		
 		return self.DataTable["ClassData"]["default"].xp
 	elseif CLIENT then
-		if not MySelf.DataTable then return 0 end
+		if not MySelf.DataTable then
+			return 0
+		end
+		
 		if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["default"] then
 			return MySelf.DataTable["ClassData"]["default"].xp
 		end
 	end
+	
 	return 0
 end
 
 
 -- broke my brain while trying to figure out better calculation
 function meta:NextRankXP()
-	if self:IsBot() then return 0 end
-		local exp = 0
+	if self:IsBot() then
+		return 0
+	end
+	
+	local exp = 0
 		
-		for i=0,self:GetRank() do
-			exp = exp + XP_BLANK + XP_INCREASE_BY*(i+1)
-		end
+	for i=0,self:GetRank() do
+		exp = exp + XP_BLANK + XP_INCREASE_BY*(i+1)
+	end
 
-		return exp or 2000
+	return exp or 2000
 end
 function meta:CurRankXP()
-	if self:IsBot() then return 0 end
-		local exp = 0
+	if self:IsBot() then
+		return 0
+	end
+	
+	local exp = 0
 		
-		for i=0,math.Clamp(self:GetRank()-1,0,999999) do
-			exp = exp + XP_BLANK + XP_INCREASE_BY*(i+1)
-		end
+	for i=0,math.Clamp(self:GetRank()-1,0,999999) do
+		exp = exp + XP_BLANK + XP_INCREASE_BY*(i+1)
+	end
 
-		return exp or 0
+	return exp or 0
 end
 
 function meta:GetRank()
-	if not ValidEntity(self) then return 0 end
-	if self:IsBot() then return 0 end
+	if not ValidEntity(self) or self:IsBot() then
+		return 0
+	end
+	
 	if SERVER then
-		if not self.DataTable["ClassData"]["default"] then return 0 end
+		if not self.DataTable["ClassData"]["default"] then
+			return 0
+		end
 		
 		return self.DataTable["ClassData"]["default"].rank
 	elseif CLIENT then
-		if not MySelf.DataTable then return 0 end-- temp fix
+		if not MySelf.DataTable then
+			return 0 --temp fix
+		end
 		
 		if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["default"] then
 			return MySelf.DataTable["ClassData"]["default"].rank
 		end
 	end
+	
 	return 0
 end
-
---[=[
-function meta:GetRank()
-	if self:IsBot() then return 0 end
-	if SERVER then
-	
-		if not self.DataTable["ClassData"]["default"] then return 0 end
-		
-		return self.DataTable["ClassData"]["default"].rank
-	elseif CLIENT then
-		
-		if MySelf == self then
-			if not MySelf.DataTable then return 0 end-- temp fix
-			if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["default"] then
-				return MySelf.DataTable["ClassData"]["default"].rank
-			end
-		else
-			return self.Rank
-		end
-	end
-	return 0
-end]=]
-
---[==[function meta:GetPerk()
-	return self.Perk
-end]==]
 
 function meta:GetPerk(prk)
 	self.Perk = self.Perk or {}
@@ -1148,12 +1100,9 @@ end
 
 
 
-function meta:IsBlocked( item )
-	
-	if not GAMEMODE:IsRetroMode() then return false end
-	
-	local blockedweapon = GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].NoRetro == true 
-	local blockedperk = GAMEMODE.Perks[item] and GAMEMODE.Perks[item].NoRetro == true 
+function meta:IsBlocked( item )	
+	local blockedweapon = GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].IsBlocked == true 
+	local blockedperk = GAMEMODE.Perks[item] and GAMEMODE.Perks[item].IsBlocked == true 
 	
 	if blockedweapon or blockedperk then
 		return true
@@ -1164,7 +1113,6 @@ end
 
 
 function meta:IsRetroOnly( item )
-		
 	local allowedweapon = GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].OnlyRetro == true 
 	local allowedperk = GAMEMODE.Perks[item] and GAMEMODE.Perks[item].OnlyRetro == true 
 	
@@ -1193,7 +1141,7 @@ function meta:HasUnlocked(item)
 	return unl
 end
 
-function meta:TraceLine ( distance, _mask, filter )
+function meta:TraceLine(distance, _mask, filter)
 	local vStart = self:GetShootPos()
 	if filter then 
 		return util.TraceLine({start=vStart, endpos = vStart + self:GetAimVector() * distance, filter = self, mask = _mask, filter = filter })

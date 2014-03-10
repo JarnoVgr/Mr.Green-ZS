@@ -1,14 +1,11 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then AddCSLuaFile ( "shared.lua" ) end
+AddCSLuaFile ()
 
 if CLIENT then
-
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = false
-	
-
 end
 
 SWEP.Base = "weapon_zs_base_undead_dummy"
@@ -18,8 +15,8 @@ SWEP.Contact = ""
 SWEP.Purpose = ""
 SWEP.Instructions = ""
 
-SWEP.ViewModel = Model ( "models/weapons/v_pza.mdl" )
-SWEP.WorldModel = Model ( "models/weapons/w_chainsaw.mdl" )
+SWEP.ViewModel = Model("models/weapons/v_pza.mdl")
+SWEP.WorldModel = Model("models/weapons/w_chainsaw.mdl")
 
 SWEP.Spawnable = true
 SWEP.AdminSpawnable	= true
@@ -48,31 +45,25 @@ SWEP.Secondary.Ammo	= "none"
 SWEP.SwapAnims = false
 SWEP.DistanceCheck = 95
 
-function SWEP:InitializeClientsideModels()
-
+SWEP.ViewModelBoneMods = {
+	["ValveBiped.Bip01_L_Forearm"] = { scale = Vector(1.343, 1.343, 1.343), pos = Vector(0, 0, 0), angle = Angle(-16.043, 20.868, -15.419) },
+	["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1.462, 1.462, 1.462), pos = Vector(0, 0, 0), angle = Angle(0, 3.68, 0) },
+	-- ["ValveBiped.Bip01_R_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(0, 1.419, -10.006), angle = Angle(0, 14.248, 12.737) },
+	["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.406, 1.406, 1.406), pos = Vector(0, 0, 0), angle = Angle(-2.5, -26.681, 9.494) },
+	-- ["ValveBiped.Bip01_L_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(4.4, -0.888, -3.712), angle = Angle(-4.75, 2.081, 0.675) },
+	["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, -3.675, 0), angle = Angle(-0.445, -3.039, 19.518) },
+	["ValveBiped.Bip01_L_Finger2"] = { scale = Vector(1.263, 1.263, 1.263), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_L_Finger3"] = { scale = Vector(1.156, 1.156, 1.156), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_L_Finger11"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-1.55, 1.069, 0) },
+	["ValveBiped.Bip01_R_Finger3"] = { scale = Vector(0.518, 0.518, 0.518), pos = Vector(0, 0, 0), angle = Angle(0, -3.294, -5.969) },
+	["ValveBiped.Bip01_L_Finger1"] = { scale = Vector(1.179, 1.179, 1.179), pos = Vector(0, 0, 0), angle = Angle(19.468, 16.761, -3.776) }
+}
 	
-	self.ViewModelBoneMods = {
-		["ValveBiped.Bip01_L_Forearm"] = { scale = Vector(1.343, 1.343, 1.343), pos = Vector(0, 0, 0), angle = Angle(-16.043, 20.868, -15.419) },
-		["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1.462, 1.462, 1.462), pos = Vector(0, 0, 0), angle = Angle(0, 3.68, 0) },
-		-- ["ValveBiped.Bip01_R_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(0, 1.419, -10.006), angle = Angle(0, 14.248, 12.737) },
-		["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.406, 1.406, 1.406), pos = Vector(0, 0, 0), angle = Angle(-2.5, -26.681, 9.494) },
-		-- ["ValveBiped.Bip01_L_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(4.4, -0.888, -3.712), angle = Angle(-4.75, 2.081, 0.675) },
-		["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, -3.675, 0), angle = Angle(-0.445, -3.039, 19.518) },
-		["ValveBiped.Bip01_L_Finger2"] = { scale = Vector(1.263, 1.263, 1.263), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["ValveBiped.Bip01_L_Finger3"] = { scale = Vector(1.156, 1.156, 1.156), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["ValveBiped.Bip01_L_Finger11"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-1.55, 1.069, 0) },
-		["ValveBiped.Bip01_R_Finger3"] = { scale = Vector(0.518, 0.518, 0.518), pos = Vector(0, 0, 0), angle = Angle(0, -3.294, -5.969) },
-		["ValveBiped.Bip01_L_Finger1"] = { scale = Vector(1.179, 1.179, 1.179), pos = Vector(0, 0, 0), angle = Angle(19.468, 16.761, -3.776) }
-	}
+SWEP.VElements = {
+	["chainsaw"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.368, -2.464, 1.712), angle = Angle(4.574, 93.4, 0), size = Vector(1.088, 1.088, 1.088), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+}
 	
-	self.VElements = {
-		["chainsaw"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.368, -2.464, 1.712), angle = Angle(4.574, 93.4, 0), size = Vector(1.088, 1.088, 1.088), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
-	
-	self.WElements = {}
-	
-	
-end
+SWEP.WElements = {}
 
 function SWEP:OnDeploy()
 	if SERVER then
@@ -86,7 +77,6 @@ function SWEP:OnDeploy()
 end
 
 function SWEP:Think()
-	
 	if SERVER then
 		if self.ChainSound and self.DeployTime < CurTime() then
 			self.ChainSound:PlayEx(0.3, 100) 
@@ -97,63 +87,88 @@ end
 -- Primary attack
 SWEP.NextAttack = 0
 function SWEP:PrimaryAttack()
-	if CurTime() < self.NextAttack then return end
+	if CurTime() < self.NextAttack then
+		return
+	end
 	
-	self.Weapon:SetNextPrimaryFire ( CurTime() + 3 )
+	self.Weapon:SetNextPrimaryFire(CurTime() + 3)
 	
 	-- Make things easier
 	local pl = self.Owner
 	self.PreHit = nil
 	
 	-- Trace filter
-	local trFilter = self.Owner-- team.GetPlayers( TEAM_ZOMBIE )
-		
+	local trFilter = self.Owner -- team.GetPlayers( TEAM_ZOMBIE )
 	
 	-- Set the thirdperson animation and emit zombie attack sound
-	self.Owner:SetAnimation( PLAYER_ATTACK1 )
+	self.Owner:SetAnimation(PLAYER_ATTACK1)
 	 
 	if SERVER then
-		GAMEMODE:SetPlayerSpeed( self.Owner, 1,1 )
-		self.Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
+		GAMEMODE:SetPlayerSpeed(self.Owner, 1,1)
+		self.Owner:SetLocalVelocity(Vector(0, 0, 0))
 	end 
-		timer.Simple ( 0.4, function( )
-			if not ValidEntity ( pl ) then return end
-			pl:DoAnimationEvent( CUSTOM_PRIMARY )
-		
-		end)
-	timer.Simple ( 1.3, function( )
-		if not ValidEntity ( pl ) then return end
-		
-		-- Conditions
-		if not pl:Alive() then return end
+
+	timer.Simple(0.4, function()
+		if not ValidEntity(pl) then
+			return
+		end
+
+		pl:DoAnimationEvent( CUSTOM_PRIMARY )	
+	end)
+
+	timer.Simple(1.3, function()
+		if not ValidEntity(pl) then
+			return
+		end
+			
+		--Conditions
+		if not pl:Alive() then
+			return
+		end
+	
 		GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed,ZombieClasses[ pl:GetZombieClass() ].Speed )
 	end)
-	if SERVER then self.Owner:EmitSound(table.Random ( ZombieClasses[10].AttackSounds ), 120, math.random( 70, 80 ) ) end
+		
+	if SERVER then
+		self.Owner:EmitSound(table.Random ( ZombieClasses[10].AttackSounds ), 120, math.random( 70, 80 ) )
+	end
 	 
-	-- Trace an object
+	--Trace an object
 	local trace = pl:TraceLine( self.DistanceCheck, MASK_SHOT, trFilter )
 	if trace.Hit and ValidEntity ( trace.Entity ) and not trace.Entity:IsPlayer() then
 		self.PreHit = trace.Entity
 	end
 	
-	-- Delayed attack function (claw mechanism)
-	if SERVER then timer.Simple ( 0.7, function() self:DoPrimaryAttack( trace, pl, self.PreHit) end ) end
-	timer.Simple ( 0.55, function()
-			if not ValidEntity ( pl ) then return end
-			if not ValidEntity ( self.Weapon ) then return end
+	--Delayed attack function (claw mechanism)
+	if SERVER then
+		timer.Simple(0.7, function()
+			self:DoPrimaryAttack(trace, pl, self.PreHit)
+		end)
+	end
+
+	timer.Simple(0.55, function()
+			if not ValidEntity(pl) or not ValidEntity(self.Weapon) then
+				return
+			end
 			
-			if self.SwapAnims then self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER ) else self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK ) end
+			if self.SwapAnims then
+				self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
+			else
+				self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+			end
 			self.SwapAnims = not self.SwapAnims
 		end)	
 				
-	--  Set the next swing attack for cooldown
+	--Set the next swing attack for cooldown
 	self.NextAttack = CurTime() + 3
 	self.NextHit = CurTime() + 0.7
 end
 
 -- Primary attack function
 function SWEP:DoPrimaryAttack ( trace, pl, victim )
-	if not ValidEntity ( self.Owner ) then return end
+	if not ValidEntity ( self.Owner ) then
+		return
+	end
 	local mOwner = self.Owner
 	
 	-- Trace filter

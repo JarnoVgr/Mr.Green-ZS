@@ -3,84 +3,33 @@
 
 AddCSLuaFile()
 
-SWEP.Base = "weapon_zs_undead_generic"
-
-SWEP.Author = "Ywa"
-SWEP.Contact = ""
-SWEP.Purpose = ""
-SWEP.Instructions = ""
+SWEP.Base = "weapon_zs_undead_base"
 
 SWEP.PrintName = "Fast Zombie"
-SWEP.DrawAmmo = false
-SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 70
-SWEP.ViewModelFlip = false
-SWEP.CSMuzzleFlashes = false
+if CLIENT then
+	SWEP.ViewModelFOV = 70
+	SWEP.ViewModelFlip = false
+end
 
 SWEP.ViewModel = Model("models/Weapons/v_fza.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
-SWEP.Spawnable = true
-SWEP.AdminSpawnable = true
+SWEP.Primary.Delay = 0.8
+SWEP.Primary.Reach = 42
+SWEP.Primary.Damage = 4
+SWEP.Primary.Duration = 1
 
-SWEP.Primary.ClipSize = -1
-SWEP.Primary.DefaultClip = -1
-SWEP.Primary.Automatic = true
-SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 0.9
 
-SWEP.Secondary.ClipSize = -1
-SWEP.Secondary.Delay = 1
-SWEP.Secondary.DefaultClip = -1
-SWEP.Secondary.Automatic = true
-SWEP.Secondary.Ammo = "none"
-
-SWEP.Weight = 5
-SWEP.AutoSwitchTo = true
-SWEP.AutoSwitchFrom = false
+SWEP.Secondary.Damage = 2
+SWEP.Secondary.PounceVelocity = 500
+SWEP.Secondary.PounceReach = 32
+SWEP.Secondary.PounceSize = 16
 
 SWEP.SwapAnims = false
 
-SWEP.DistanceCheck = 42
-SWEP.MeleeReach = 42
-SWEP.MeleeSize = 1.5
-SWEP.MeleeDelay = 0
 
-SWEP.Damage = 4
-SWEP.LeapDamage = 2
-
-SWEP.LeapPounceVelocity = 500
-SWEP.LeapPounceReach = 32
-SWEP.LeapPounceSize = 16
-
-SWEP.AttackSounds = {}
-SWEP.IdleSounds = {}
-
-if CLIENT then
-	SWEP.ShowViewModel = false
-	SWEP.ShowWorldModel = false
-end
-
-local lerp = 0
-function SWEP:GetViewModelPosition(pos, ang)
-	lerp = math.Approach(lerp, 0, FrameTime() * ((lerp + 1) ^ 3))
-	ang:RotateAroundAxis(ang:Right(), 64 * lerp)
-	if lerp > 0 then
-		pos = pos + -8 * lerp * ang:Up() + -12 * lerp * ang:Forward()
-	end
-	return pos, ang
-end
-
-function SWEP:OnRemove()
-	if CLIENT then
-		self:RemoveArms()
-	end
-end
-
-function SWEP:OnInitialize()
-	if CLIENT then
-		self:MakeArms()
-	end
+function SWEP:Initialize()
+	self.BaseClass.Initialize(self)
 
 	--Attack sounds
 	for i = 1, 11 do
@@ -93,7 +42,6 @@ function SWEP:OnInitialize()
 	end
 end
 
-
 function SWEP:Think()
 	self.BaseClass.Think(self)
 
@@ -101,7 +49,7 @@ function SWEP:Think()
 	if self.Leaping then
 		self.Owner:LagCompensation(true)
 
-		local traces = self.Owner:PenetratingMeleeTrace(self.LeapPounceReach, self.LeapPounceSize, nil, self.Owner:LocalToWorld(self.Owner:OBBCenter()))
+		local traces = self.Owner:PenetratingMeleeTrace(self.Secondary.PounceReach, self.Secondary.PounceSize, nil, self.Owner:LocalToWorld(self.Owner:OBBCenter()))
 
 		local hit = false
 		for _, trace in ipairs(traces) do
@@ -130,10 +78,10 @@ function SWEP:Think()
 				end
 
 				if ent:IsPlayer() or ent:IsNPC() then
-					ent:SetVelocity(self.Owner:GetForward() * self.LeapPounceVelocity)
+					ent:SetVelocity(self.Owner:GetForward() * self.Secondary.PounceVelocity)
 				else
 					--Calculate velocity to push
-					local Velocity = self.Owner:EyeAngles():Forward() * (self.LeapPounceVelocity * 3)
+					local Velocity = self.Owner:EyeAngles():Forward() * (self.Secondary.PounceVelocity * 3)
 					Velocity.z = math.min(Velocity.z,1600)
 
 					--Apply push
@@ -142,7 +90,7 @@ function SWEP:Think()
 				end
 				
 				--Take damage
-				ent:TakeDamage(self.LeapDamage, self.Owner, self)
+				ent:TakeDamage(self.Secondary.Damage, self.Owner, self)
 			end
 		end
 
@@ -152,8 +100,8 @@ function SWEP:Think()
 			end
 
 			if SERVER then
-				self.Owner:EmitSound("physics/flesh/flesh_strider_impact_bullet1.wav")
-				self.Owner:EmitSound("mrgreen/undead/fastzombie/pain1.wav")
+				self.Owner:EmitSound(Sound("physics/flesh/flesh_strider_impact_bullet1.wav"))
+				self.Owner:EmitSound(Sound("mrgreen/undead/fastzombie/pain1.wav"))
 			end
 						
 			--Stopped leaping
@@ -173,28 +121,6 @@ function SWEP:Think()
 
 		self.Owner:LagCompensation(false)
 	end
-
-	--Stop attacking when not holding button anymore
-	if not self.Owner:KeyDown(IN_ATTACK) and self.Swinging == true then
-		self.Swinging = false
-	end
-
-	--Prevent overriding from baseclass
-	self:NextThink(CurTime())
-	return true
-end
-
-function SWEP:CheckRoar()
-	local rend = self:GetRoarEndTime()
-	if rend == 0 or CurTime() < rend then return end
-	self:SetRoarEndTime(0)
-	
-	if SERVER then
-		local pl = self.Owner
-		GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed )
-		pl:SetJumpPower( ZombieClasses[ pl:GetZombieClass() ].JumpPower ) 
-	end
-	
 end
 
 function SWEP:Move(mv)
@@ -202,30 +128,6 @@ function SWEP:Move(mv)
 		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.35)
 		return true
 	end
-end
-
-function SWEP:SetRoarEndTime(time)
-	self:SetDTFloat(0,time)
-end
-
-function SWEP:GetRoarEndTime()
-	return self:GetDTFloat(0)
-end
-
-function SWEP:IsRoar()
-	return self:GetRoarEndTime() > 0
-end
-
-function SWEP:SetRoar(count)
-	self:SetDTInt(0,count)
-end
-
-function SWEP:AddRoar(am)
-	self:SetRoar(self:GetRoar()+am)
-end
-
-function SWEP:GetRoar()
-	return self:GetDTInt(0)
 end
 
 SWEP.NextAttack = 0
@@ -237,10 +139,39 @@ function SWEP:PrimaryAttack()
 	self.BaseClass.PrimaryAttack(self)
 end
 
+function SWEP:StartPrimaryAttack()			
+	--Hacky way for the animations
+	if self.SwapAnims then
+		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
+	else
+		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+	end
+	self.SwapAnims = not self.SwapAnims
+	
+	--Set the thirdperson animation and emit zombie attack sound
+	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
+  
+  	--Emit sound
+	if SERVER and #self.AttackSounds > 0 then
+		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))
+	end
+end
+
+function SWEP:PostPerformPrimaryAttack(hit)
+	if CLIENT then
+		return
+	end
+
+	if hit then
+		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav"))
+	else
+		self.Owner:EmitSound(Sound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav"))
+	end
+end
+
 SWEP.NextLeap = 0
-SWEP.NextClimb = 0
 function SWEP:SecondaryAttack()
-	if self.Swinging then
+	if self:IsInPrimaryAttack() then
 		return
 	end
 
@@ -280,19 +211,7 @@ function SWEP:SecondaryAttack()
 	
 	--Fast zombie scream
 	if SERVER then
-		Owner:EmitSound("mrgreen/undead/fastzombie/leap".. math.random(1,5) ..".wav")
-	end
-end
-
-function SWEP:Reload()
-	return false
-end
-
-if SERVER then
-	function SWEP:OnDrop()
-		if self and self:IsValid() then
-			self:Remove()
-		end
+		Owner:EmitSound(Sound("mrgreen/undead/fastzombie/leap".. math.random(1,5) ..".wav"))
 	end
 end
 
@@ -311,84 +230,5 @@ function SWEP:Precache()
 	
 	for _, snd in pairs(ZombieClasses[2].DeathSounds) do
 		util.PrecacheSound(snd)
-	end
-	
-end
-
-
-if CLIENT then
-	function SWEP:OnViewModelDrawn()
-		local vm = self.Owner:GetViewModel();
-		if IsValid(self.Arms) and IsValid(vm) then
-			
-			if self.Arms:GetModel() ~= self.Owner:GetModel() then
-				self.Arms:SetModel(self.Owner:GetModel())
-			end
-			
-			if not self.Arms.GetPlayerColor then
-				self.Arms.GetPlayerColor = function() return Vector( GetConVarString( "cl_playercolor" ) ) end
-			end
-		
-			render.SetBlend(1) 
-				self.Arms:SetParent(vm)
-				
-				self.Arms:AddEffects(bit.bor(EF_BONEMERGE , EF_BONEMERGE_FASTCULL , EF_PARENT_ANIMATES))
-				
-				for b, tbl in pairs(PlayerModelBones) do
-					if tbl.ScaleDown then
-						local bone = self.Arms:LookupBone(b)
-						if bone and self.Arms:GetManipulateBoneScale(bone) == Vector(1,1,1) then
-							self.Arms:ManipulateBoneScale( bone, Vector(0.00001, 0.00001, 0.00001) )
-						end
-					else
-						if not tbl.Arm then
-							local bone = self.Arms:LookupBone(b)
-							if bone and self.Arms:GetManipulateBoneScale(bone) == Vector(1,1,1) then
-								self.Arms:ManipulateBoneScale( bone, Vector(1.5, 1.5, 1.5) )
-							end
-						end
-					end
-				end
-				
-				self.Arms:SetRenderOrigin( vm:GetPos()-vm:GetAngles():Forward()*20-vm:GetAngles():Up()*60 )-- self.Arms[1]:SetRenderOrigin( EyePos() )
-				self.Arms:SetRenderAngles( vm:GetAngles() )
-				
-				self.Arms:SetupBones()	
-				self.Arms:DrawModel()
-				
-				self.Arms:SetRenderOrigin()
-				self.Arms:SetRenderAngles()
-				
-			render.SetBlend(1)
-		end	
-	end
-
-	function SWEP:MakeArms()
-		self.Arms = ClientsideModel("models/player/group01/male_04.mdl", RENDER_GROUP_VIEW_MODEL_OPAQUE) 
-		
-		if (ValidEntity(self.Arms)) and (ValidEntity(self)) then 
-			self.Arms:SetPos(self:GetPos())
-			self.Arms:SetAngles(self:GetAngles())
-			self.Arms:SetParent(self) 
-			self.Arms:SetupBones()
-			-- self.Arms:AddEffects(bit.bor(EF_BONEMERGE , EF_BONEMERGE_FASTCULL , EF_PARENT_ANIMATES))
-			self.Arms:SetNoDraw(true) 
-		else
-			self.Arms = nil
-		end	
-	end
-
-	function SWEP:RemoveArms()
-		if (ValidEntity(self.Arms)) then
-			self.Arms:Remove()
-		end
-		
-		self.Arms = nil
-	end
-end
-
-if CLIENT then
-	function SWEP:DrawHUD()
-		GAMEMODE:DrawZombieCrosshair(self.Owner, self.DistanceCheck)
 	end
 end

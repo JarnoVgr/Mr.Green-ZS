@@ -42,9 +42,6 @@ SWEP.SwingRotation = Angle(0, 0, 0)
 SWEP.SwingOffset = Vector(0, 0, 0)
 
 function SWEP:Precache()
-	--util.PrecacheModel(self.ViewModel)
-	--util.PrecacheModel(self.WorldModel)
-
 	for i=1,4 do
 		util.PrecacheSound("weapons/melee/golf club/golf_hit-0"..i..".wav")
 	end
@@ -94,7 +91,7 @@ function SWEP:IsMelee()
 	return true
 end
 
-function SWEP:PreDrawViewModel(vm, pl, weapon)										
+function SWEP:PreDrawViewModel(vm, pl, weapon)
 	--Init viewmodel visibility
 	if (self.ShowViewModel == nil or self.ShowViewModel) then
 		vm:SetColor(Color(255,255,255,255))
