@@ -39,6 +39,7 @@ if CLIENT then
 		["eye1+"] = { type = "Sprite", sprite = "effects/redflare", bone = "ValveBiped.Bip01_R_Hand", rel = "skull", pos = Vector(4.406, -2.438, 1.33), size = { x = 13, y = 13 }, color = Color(255, 255, 0, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false}
 	}
 end
+
 SWEP.Base = "weapon_zs_undead_base"
 
 SWEP.ViewModel = Model("models/weapons/v_zombine.mdl")
