@@ -6,7 +6,7 @@ boss.duration = 0
 boss.endTime = 0
 boss.nextBossTime = 0
 boss.count = 0
-boss.maxCount = math.random(2,3)
+boss.maxCount = math.random(4,5)
 
 function GM:UnleashBoss()
 
@@ -45,7 +45,7 @@ function GM:UnleashBoss()
 	boss.starTime = CurTime()
 		
 	--Calculate boss duration
-	boss.duration = math.Round(GAMEMODE:GetUndeadDifficulty() * 90)
+	boss.duration = math.Round(GAMEMODE:GetUndeadDifficulty() * 120)
 
 	--Set End time
 	boss.endTime = CurTime() + boss.duration		
@@ -63,7 +63,6 @@ function GM:UnleashBoss()
 		--Kill will trigger boss end
 
 		pl:SetPhysicsAttacker(nil)
-		pl.noBounty = true
 		pl:Kill()
 	end)
 	
@@ -134,7 +133,7 @@ function GM:SetBoss(value)
 
 		--Insane mode for last boss
 		local isInsane = false
-		if boss.count == boss.maxCount then
+		if boss.count >= boss.maxCount then
 			isInsane = true
 		end
 		

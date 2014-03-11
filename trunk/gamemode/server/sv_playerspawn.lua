@@ -304,9 +304,6 @@ function GM:PlayerSpawn(pl)
 	--Disable walk
 	pl:SetCanWalk(false)
 
-	--Give bounty to others (SP etc.) on death
-	pl.noBounty = false
-
 	--pl:SendLua("GAMEMODE:SwitchMaterials("..pl:Team()..")")
 		
 	--Set no-collide with team

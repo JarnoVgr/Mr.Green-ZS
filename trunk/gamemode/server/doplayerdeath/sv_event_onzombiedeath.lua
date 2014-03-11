@@ -100,7 +100,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		if not revive then
 			mAttacker:AddToCounter("undeadkilled", 1)
 		
-			local reward = ZombieClasses[mVictim:GetZombieClass()].SP
+			local reward = ZombieClasses[mVictim:GetZombieClass()].SP * math.Clamp(INFLICTION + 0.2,0.1,1)
 		
 			skillpoints.AddSkillPoints(mAttacker,reward)
 			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
