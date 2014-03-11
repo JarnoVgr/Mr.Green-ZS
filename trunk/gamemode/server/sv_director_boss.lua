@@ -75,7 +75,7 @@ function GM:CheckBoss()
 		return false
 	end
 
-	if GetInfliction() <= 0.1 then
+	if GetInfliction() <= 0.15 then
 		return false
 	end
 
@@ -87,9 +87,9 @@ function GM:CheckBoss()
 		return false
 	end
 
-	if boss.count >= boss.maxCount then
+	--[[if boss.count >= boss.maxCount then
 		return false
-	end
+	end]]
 
 	--Start boss
 	GAMEMODE:SetBoss(true)

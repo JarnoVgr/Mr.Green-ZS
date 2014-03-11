@@ -795,7 +795,7 @@ function CalculateZombieHealth(pl)
 	   local humanCount = team.NumPlayers(TEAM_SURVIVORS)
 	   local zombieCount = team.NumPlayers(TEAM_UNDEAD)
 	   
-	   MaxHealth = ((humanCount * (1500 * INFLICTION)) * math.Clamp( humanCount / zombieCount, 0.5, 1.5))
+	   MaxHealth = ((humanCount * (1000 * INFLICTION)) * math.Clamp( humanCount / zombieCount, 0.5, 1.5))
 	end
 
 	--Set
