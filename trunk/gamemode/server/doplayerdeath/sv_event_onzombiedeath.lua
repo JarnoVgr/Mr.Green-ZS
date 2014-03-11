@@ -96,7 +96,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end	
 	end
 		
-	if mAttacker:IsPlayer() and mAttacker:IsHuman() and mAttacker ~= mVictim and mVictim:IsZombie() and not mVictim.noBounty then --disable getting points from teamkilling anyway
+	if mAttacker:IsPlayer() and mAttacker:IsHuman() and mAttacker ~= mVictim and mVictim:IsZombie() then --disable getting points from teamkilling anyway
 		if not revive then
 			mAttacker:AddToCounter("undeadkilled", 1)
 		
