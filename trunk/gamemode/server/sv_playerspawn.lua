@@ -9,7 +9,15 @@ DataTableConnected = {}
 --[==[--------------------------------------------------------------
       Called everytime a player connects for first time
 ---------------------------------------------------------------]==]
-function GM:PlayerInitialSpawn( pl )
+function GM:PlayerInitialSpawn(pl)
+	if MAPCODER_CLIENT_ACTIVE then
+		--Map data
+		net.Start("mapData")
+		net.WriteBit(true)
+		net.Send(pl)
+	end
+
+
 	pl:SetCanZoom(false)
 
 	-- Bots are always ready, human players need to wait
@@ -176,8 +184,10 @@ function GM:PlayerInitialSpawn( pl )
 	self:CalculateInfliction()
 	self:OnPlayerReady(pl)
 
+
 	Debug ( "[INIT-SPAWN] "..tostring ( pl ).." finished Initial Spawn Function!" ) 
 end
+util.AddNetworkString("mapData")
 
 --[==[-----------------------------------------------------------------
      Mainly for debug purposes -- record everything in logs
@@ -293,6 +303,9 @@ function GM:PlayerSpawn(pl)
 		
 	--Disable walk
 	pl:SetCanWalk(false)
+
+	--Give bounty to others (SP etc.) on death
+	pl.noBounty = false
 
 	--pl:SendLua("GAMEMODE:SwitchMaterials("..pl:Team()..")")
 		
@@ -768,21 +781,13 @@ function CalculateZombieHealth(pl)
 	if not pl:IsBossZombie() and not pl:IsCrow() then
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+1) and team.NumPlayers(TEAM_HUMAN) >= 4) then
 			local IncreaseHealth = Tab.Health*(UNDEAD_START_AMOUNT_PERCENTAGE)*desiredzombies+10*(team.NumPlayers(TEAM_HUMAN))
-			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth , Tab.Health, math.min(Tab.Health*1.9,510) )
+			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*1.9,510) )
 			pl:RemoveStatus("champion")
 		end
 	end
 		
 	if pl:GetZombieClass() == 0 then
-		if GAMEMODE:IsRetroMode() then
-			MaxHealth = math.Clamp(MaxHealth, 100, 125 )
-		else
-			MaxHealth = math.Clamp(Tab.Health, 0, Tab.Health)
-		end
-	else
-		if GAMEMODE:IsRetroMode() then
-			MaxHealth = math.Clamp(Tab.Health, 0, Tab.Health)
-		end
+		MaxHealth = math.Clamp(Tab.Health, 0, Tab.Health)
 	end
 	
 	--Case 4: Boss zombos
@@ -790,7 +795,7 @@ function CalculateZombieHealth(pl)
 	   local humanCount = team.NumPlayers(TEAM_SURVIVORS)
 	   local zombieCount = team.NumPlayers(TEAM_UNDEAD)
 	   
-	   MaxHealth = (humanCount * 1400) * math.Clamp( humanCount / zombieCount, 0.5, 1.5)
+	   MaxHealth = ((humanCount * (1500 * INFLICTION)) * math.Clamp( humanCount / zombieCount, 0.5, 1.5))
 	end
 
 	--Set

@@ -166,18 +166,6 @@ if CHRISTMAS then
 	AddCSLuaFile("modules/christmas/snow.lua")
 end
 
-
---Inclusion of MapCoder files (objective maps)
-for map,opt in pairs(TranslateMapTable) do
-	if TranslateMapTable[map].Objective then
-		Debug("[MAPCODER] Added Objectives file "..tostring(map))
-		AddCSLuaFile("shared/objectivemaps/"..map..".lua")
-	end
-end
-
---Remove hook (TODO: Check what this is)
-hook.Remove("PlayerTick","TickWidgets")
-
 Thres = 0
 difficulty = 1 --default 1
 HEAD_NPC_SCALE = math.Clamp(3 - difficulty, 1.5, 4)

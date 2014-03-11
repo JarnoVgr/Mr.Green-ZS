@@ -4,7 +4,7 @@
 AddCSLuaFile()
 
 -- Few checks so it wont rebuild cache each time it changes
-if game.GetMap() ~= "zs_fortress_mod" then
+if game.GetMap() ~= "zs_yp_jungle" then
 	return
 end
 
@@ -65,10 +65,10 @@ if SERVER then
 		game.ConsoleCommand("sv_skyname painted\n")
 
 		--Set lighting style (make it more dark)
-		engine.LightStyle(0,"b")
+		--engine.LightStyle(0,"t")
 
 		--Spawn random props througout map
-		local maxProps = math.random(30,40)
+		--[[local maxProps = math.random(30,40)
 		for i=1,maxProps do
 			local e = ents.Create("prop_physics")
 			--X: -1300 to 1200
@@ -77,7 +77,7 @@ if SERVER then
 			e:SetAngles(Angle(math.random(0,360),math.random(0,360),math.random(0,360)))
 			e:Spawn()
 		end
-		Debug("[MAPCODER] Spawned ".. maxProps .." props")
+		Debug("[MAPCODER] Spawned ".. maxProps .." props")]]
 	end
 
 	hook.Add("InitPostEntity", "MapC_InitEntities", MapCInitEntities)
@@ -121,12 +121,4 @@ if CLIENT then
 
 		print("[MAPCODER] Created fog")
 	end)
---[[
-Model: models/player/mossman.mdl
-Position: 104.405632 -673.995178 192.031250
-Team: Survivors
-***END DEBUG***
-***DEBUG***
-Name: Ywa
-S]]
 end

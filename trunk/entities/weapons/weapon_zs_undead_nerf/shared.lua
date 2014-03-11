@@ -99,9 +99,14 @@ function SWEP:OnDeploy()
 		self.Owner:DrawWorldModel( false )
 		
 		timer.Simple(0.5,function()
-		if not IsValid(self.Owner) or not IsValid(self.Weapon) then return end
-		if self.Weapon ~= self.Owner:GetActiveWeapon() then return end
-			self.BreathSound = CreateSound(self.Owner,Sound("NPC_AntlionGuard.BreathSound"))-- "npc/antlion_guard/growl_high.wav"
+			if not self.Owner or not IsValid(self.Owner) or not IsValid(self.Weapon) then
+				return
+			end
+
+			if self.Weapon ~= self.Owner:GetActiveWeapon() then
+				return
+			end
+				self.BreathSound = CreateSound(self.Owner,Sound("NPC_AntlionGuard.BreathSound"))-- "npc/antlion_guard/growl_high.wav"
 			
 			if self.BreathSound then
 				-- self.BreathSound:Play()

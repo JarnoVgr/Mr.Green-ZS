@@ -1,10 +1,14 @@
 --MAPCODER FILE
 --zs_the_pub_beta1
 
+AddCSLuaFile()
+
 -- Few checks so it wont rebuild cache each time it changes
-if (game.GetMap() ~= "zs_the_pub_beta1") or (not TranslateMapTable[game.GetMap()]) then
+if game.GetMap() ~= "zs_the_pub_beta1" then
 	return
 end
+
+MAPCODER_CLIENT_ACTIVE = true
 
 if SERVER then
 	hook.Add("InitPostEntity", "MapC_Init", function()

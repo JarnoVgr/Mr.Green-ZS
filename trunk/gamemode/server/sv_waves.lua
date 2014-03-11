@@ -1,18 +1,5 @@
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-local ents = ents
-
-util.AddNetworkString( "recwavestart" )
-util.AddNetworkString( "recwaveend" )
-
-
+util.AddNetworkString("recwavestart")
+util.AddNetworkString("recwaveend")
 
 CAPPED_INFLICTION = 0
 
@@ -91,45 +78,6 @@ function GM:CalculateInfliction()
 	self:SendInfliction()
 end
 
-local undeadDamageMultiplier = 1
-function GM:CalculateUndeadDamageMultiplier()
-	local numUndead = team.NumPlayers(TEAM_UNDEAD)
-	local numSurvivors = team.NumPlayers(TEAM_SURVIVORS)
-	local numTotal = numUndead+numSurvivors
-	
-	local calculatedDamageMultiplier = 1
-	
-	--Normal difficulty when on or above 20 players
-	--[[if numSurvivors <= numUndead then
-		undeadDamageMultiplier = calculatedDamageMultiplier
-		return calculatedDamageMultiplier
-	end]]
-	
-	if numUndead < numSurvivors then
-		calculatedDamageMultiplier = math.Clamp((numUndead / numTotal)+0.3,0.3,1)
-	elseif numSurvivors < numUndead then
-		--calculatedDamageMultiplier = math.Clamp((0.5+(numUndead / numTotal)) * 1.3,1,2)
-		calculatedDamageMultiplier = math.Clamp(1+((numTotal / numUndead)/10),1,2.5)
-	end
-	
-	--Divide 
-	--[[if calculatedDamageMultiplier > 1 then
-		calculatedDamageMultiplier = math.max(1,(calculatedDamageMultiplier / 2))
-	end]]
-	
-	calculatedDamageMultiplier = math.Round(math.Clamp(calculatedDamageMultiplier,0.3,2.5),2)
-
-	undeadDamageMultiplier = calculatedDamageMultiplier
-	
-	Debug("[WAVES] Calculated to-Undead damage multiplier: ".. tostring(undeadDamageMultiplier))
-		
-	return calculatedDamageMultiplier
-end
-
-function GM:GetUndeadDamageMultiplier()
-	return undeadDamageMultiplier
-end
-
 function GM:OnPlayerReady(pl)
 	if not pl:IsValid() then
 		return
@@ -137,8 +85,7 @@ function GM:OnPlayerReady(pl)
 	
 	self:SendInflictionTo(pl)
 end
-
-util.AddNetworkString( "SetInf" )
+util.AddNetworkString("SetInf")
 
 ---
 -- FIXME: This function affects network performance. It is used by GM:CalculateInfliction which is being extensively 
@@ -219,7 +166,9 @@ function GM:KeyPress(pl, key)
 end
 
 function GM:PlayerUse(pl, entity)
-	if not pl:Alive() then return false end
+	if not pl:Alive() then
+		return false
+	end
 
 	if pl:Team() == TEAM_HUMAN and pl:Alive() and pl:KeyPressed(IN_USE) then
 		self:TryHumanPickup(pl, entity)
@@ -229,11 +178,9 @@ function GM:PlayerUse(pl, entity)
 end
 
 function GM:TryHumanPickup(pl, entity)
-	if self:IsRetroMode() then return end
 	if IsValid(entity) and not entity.m_NoPickup then
 		local entclass = entity:GetClass()
 		if (entclass == "prop_physics" or entclass == "prop_physics_multiplayer" or entclass == "prop_physics_respawnable" or entclass == "func_physbox" or entity.HumanHoldable and entity:HumanHoldable(pl)) and pl:Team() == TEAM_HUMAN and not entity.Nails and pl:Alive() and entity:GetMoveType() == MOVETYPE_VPHYSICS and entity:GetPhysicsObject():GetMass() <= CARRY_MAXIMUM_MASS and entity:GetPhysicsObject():IsMoveable() and entity:OBBMins():Length() + entity:OBBMaxs():Length() <= CARRY_MAXIMUM_VOLUME then
-			-- (string.sub(entclass, 1, 12) == "prop_physics"
 			local holder, status = entity:GetHolder()
 			if holder == pl and (pl.NextUnHold or 0) <= CurTime() then
 				status:Remove()
@@ -248,7 +195,6 @@ function GM:TryHumanPickup(pl, entity)
 					newstatus:SetParent(pl)
 					newstatus:SetObject(entity)
 					newstatus:Spawn()
-					
 				end
 			end
 		end
@@ -282,12 +228,10 @@ function GM:AddRandomSales()
 		end
 	end
 	
-	print("[SKILLSHOP] Today there are "..actualitems.." item(s) on sale")
-	--print("[SKILLSHOP] Weapons - discount in percentages")
+	print("[SKILLSHOP] Today there are ".. actualitems .." item(s) on sale")
 	
 	-- Add X random weapons
 	while counter < actualitems do
-		
 		local wep = table.Random(TempWeps)
 		if not self.WeaponsOnSale[wep] then
 			self.WeaponsOnSale[wep] = math.random(SKILLSHOP_SALE_SALE_MINRANGE,SKILLSHOP_SALE_SALE_MAXRANGE)
@@ -299,13 +243,8 @@ function GM:AddRandomSales()
 	end
 	
 	self.ItemsOnSale = counter
-	
-	--PrintTable(self.WeaponsOnSale)
-	
-
 end
-
-util.AddNetworkString( "SendSales" )
+util.AddNetworkString("SendSales")
 
 function GM:SendSalesToClient(pl)
 	if pl:IsBot() or not self.WeaponsOnSale then
@@ -322,10 +261,12 @@ function GM:SendSalesToClient(pl)
 end
 
 --small function that fixes weird errors
-function FixNotUpdatedSales(pl,cmd,args)
-	if not ValidEntity(pl) or ENDROUND then return end
+function FixNotUpdatedSales(pl, cmd, args)
+	if not ValidEntity(pl) or ENDROUND then
+		return
+	end
 	
 	GAMEMODE:SendSalesToClient(pl)
-	print("[SKILLSHOP] Player "..tostring(pl).." requested serverside sales because of error! Sending a new ones.")
+	print("[SKILLSHOP] Player "..tostring(pl).." requested serverside sales because of error! Sending new ones.")
 end
-concommand.Add("mrgreen_fixdeadsales",FixNotUpdatedSales)
+concommand.Add("mrgreen_fixdeadsales", FixNotUpdatedSales)

@@ -369,22 +369,6 @@ function DoDebugCommands(pl, cmd, args)
 		
 		--Debug
 		Debug("[DEBUG] Started round")
-	elseif sCommand == "starthalflife" then
-		if not GAMEACTIVE and not HALFLIFE then
-			return
-		end
-		
-		GAMEMODE:SetHalflife(true)
-		
-		Debug("[DEBUG] Started HalfLife")
-	elseif sCommand == "startunlife" then
-		if not GAMEACTIVE and not UNLIFE then
-			return
-		end
-		
-		GAMEMODE:SetUnlife(true)
-		
-		Debug("[DEBUG] Started UnLife")
 	elseif sCommand == "unlockspecies" then
 		net.Start("UnlockAllUndeadClasses")
 		net.Broadcast()
@@ -399,12 +383,9 @@ function DoDebugCommands(pl, cmd, args)
 		
 		Debug("[DEBUG] Unlocked all Undead species/classes")
 	elseif sCommand == "unleashboss" then
-		bossPlayer = GAMEMODE:GetPlayerForBossZombie()
-		if bossPlayer then
-			bossPlayer:SpawnAsZombieBoss()
-		end
+		GAMEMODE:SetBoss(true)
 		
-		Debug("[DEBUG] Unleased the Undead Boss")
+		Debug("[DEBUG] Unleashed Undead Boss")
 	elseif sCommand == "gravity" then
 		for k,v in pairs(ents.GetAll()) do
 			local Phys = v:GetPhysicsObject()

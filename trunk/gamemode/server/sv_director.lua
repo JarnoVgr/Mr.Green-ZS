@@ -1,17 +1,18 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-include ("sv_director_supply.lua")
-include ("sv_director_vote.lua")
-include ("sv_director_titles.lua")
--- include ("sv_director_rewards.lua")
+include("sv_director_difficulty.lua")
+include("sv_director_supply.lua")
+include("sv_director_vote.lua")
+include("sv_director_titles.lua")
+include("sv_director_boss.lua")
 
 GAMEACTIVE = false
 
 --[==[---------------------------------------------------------
    Event Director - Unlife/ Last human/ Endround
 ---------------------------------------------------------]==]
-function ManageEvents()
+local function ManageEvents()
 	--Stuff followed up by this is only needed when round hasn't ended
 	if ENDROUND then
 		return
@@ -32,7 +33,7 @@ function ManageEvents()
 			--
 			for k,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
 				if IsEntityValid(v) then
-					v:SendLua("surface.PlaySound(\"ambient/creatures/town_zombie_call1.wav\") GAMEMODE:Add3DMessage(140,\"The Undead are rising\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh\",nil,\"ArialBoldTen\")")
+					v:SendLua("surface.PlaySound(Sound(\"ambient/creatures/town_zombie_call1.wav\")) GAMEMODE:Add3DMessage(140,\"The Undead are rising\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh\",nil,\"ArialBoldTen\")")
 				end
 			end
 
@@ -65,16 +66,8 @@ function ManageEvents()
 		Debug("[DIRECTOR] All survivors dead. Undead win.")
 		GAMEMODE:OnEndRound(TEAM_UNDEAD)
 	end
-	
-	--Enable unlife if infliction is more than 80%
-	if GetInfliction() >= 0.8 and not UNLIFE then
-		Debug("[DIRECTOR] Started Un-Life")
-		GAMEMODE:SetUnlife(true)
-	--Enable HalfLife halfway
-	elseif GetInfliction() >= 0.5 and not HALFLIFE then
-		Debug("[DIRECTOR] Started Half-Life")
-		GAMEMODE:SetHalflife(true)
-	end
+
+	GAMEMODE:CheckBoss()
 
 	--Pick random zombie(s) if there aren't any
 	if numUndead == 0 and numSurvivors >= 5 then
@@ -85,13 +78,15 @@ end
 timer.Create("ManageEvents", 0.5, 0, ManageEvents)
 
 
-function ManageMinorEvents()
+local function ManageMinorEvents()
 	if ENDROUND or not GAMEACTIVE then
 		return
 	end
 
+	GAMEMODE:CalculateInfliction()
+
 	--
-	GAMEMODE:CalculateUndeadDamageMultiplier()
+	GAMEMODE:CalculateInitialDifficulty()
 end
 timer.Create("ManageMinorEvents", 5, 0, ManageMinorEvents)
 
@@ -107,55 +102,6 @@ function GiveSkillPointsSurvivors()
 			h:AddXP(math.max(0,100*GetInfliction()))
 		end
 	end
-end
-
---[==[---------------------------------------------------
-      Update server and clients with unlife
-----------------------------------------------------]==]
-function GM:SetUnlife(bool)
-	if UNLIFE == bool then
-		return
-	end
-
-	UNLIFE = not UNLIFE
-
-	if UNLIFE then
-		if GAMEMODE:IsBossRequired() then
-			bossPlayer = GAMEMODE:GetPlayerForBossZombie()
-			if bossPlayer then
-				bossPlayer:SpawnAsZombieBoss()
-			end
-
-			--Set full health on players when in Arena Mode
-			if ARENA_MODE then			
-				for _, pl in pairs(player.GetAll()) do
-					if pl:Team() == TEAM_HUMAN and pl:Alive() then
-						local hp = 100
-						if pl:GetPerk("_kevlar2") then
-							hp = 120
-						elseif pl:GetPerk("_kevlar") then
-							hp = 110
-						end
-
-						pl:SetHealth(hp)
-					end
-				end
-			end
-		end
-	end
-	
-	gmod.BroadcastLua("GAMEMODE:SetUnlife("..tostring( bool )..")")
-end
-
-
-function GM:SetHalflife(bool)
-	if HALFLIFE == bool then
-		return
-	end
-
-	HALFLIFE = not HALFLIFE
-
-	gmod.BroadcastLua("GAMEMODE:SetHalflife("..tostring( bool )..")")
 end
 
 --TODO: Move this out of here

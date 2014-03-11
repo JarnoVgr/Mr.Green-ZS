@@ -193,4 +193,5 @@ TranslateMapTable = {
 	["zs_factory_b3"] = { Name = "Factory Tennis", Size = BIG, RandomizeSpawn = false, ZombieSpawnProtection = 10},
 	["zs_abandon_factory_v3"] = { Name = "Abandoned Factory", Size = BIG, RandomizeSpawn = false, ZombieSpawnProtection = 10},
 	["zs_abandoned_mall_v3"] = { Name = "A Proper Mall", Size = BIG, RandomizeSpawn = false, ZombieSpawnProtection = 17},
+	["zs_yp_jungle"] = {Name = "Dark Jungle", MapCoder = true}
 }

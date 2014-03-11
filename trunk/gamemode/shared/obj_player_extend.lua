@@ -627,8 +627,13 @@ function meta:IsCrow ()
 	return self:GetZombieClass() == 9
 end
 
-function meta:IsBossZombie()
+function meta:IsBoss()
 	return ZombieClasses[self:GetZombieClass()] and ZombieClasses[self:GetZombieClass()].IsBoss
+end
+
+--Backwards compatibility
+function meta:IsBossZombie()
+	return self:IsBoss()
 end
 
 --[==[------------------------------------------
@@ -1402,7 +1407,9 @@ end
 
 -- Play spawn music
 function meta:PlaySpawnMusic()
-	if self:IsSpectator() then return end
+	if self:IsSpectator() then
+		return
+	end
 	if ROUNDTIME*0.1 < ServerTime() then return end
 	-- No music
 	if not Ambience then return end

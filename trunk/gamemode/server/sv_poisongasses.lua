@@ -1,20 +1,4 @@
-
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local ents = ents
-
 PoisonGasses = PoisonGasses or {}
-
-if file.Exists( "gamemodes/zombiesurvival/gamemode/server/maps/poisongasses/"..game.GetMap()..".lua","lsv" ) then
-	include( "maps/poisongasses/"..game.GetMap()..".lua" )
-	print( "[POISON GASSES] Included map file" )
-end
 
 function MapPoisonGassesWrite()
 	local path = "poisongasses/"..game.GetMap()..".txt"

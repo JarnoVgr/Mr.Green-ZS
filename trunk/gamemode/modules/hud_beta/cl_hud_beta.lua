@@ -158,7 +158,13 @@ function hud.DrawBossHealth()
 		
 		local TX,TY = BarX+BarW/5,BarY+7
 		
-		draw.SimpleText("Boss - ".. ZombieClasses[GAMEMODE:GetBossZombie():GetZombieClass()].Name or GAMEMODE:GetBossZombie():Name(), "NewZombieFont23", TX,TY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
+		--draw.SimpleText("Boss - ".. ZombieClasses[GAMEMODE:GetBossZombie():GetZombieClass()].Name or GAMEMODE:GetBossZombie():Name(), "NewZombieFont23", TX,TY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
+		local str = (ZombieClasses[GAMEMODE:GetBossZombie():GetZombieClass()].Name or GAMEMODE:GetBossZombie():Name()) .. " Boss"
+		if CurTime() <= GAMEMODE:GetBossEndTime() then
+			local timeLeft = GAMEMODE:GetBossEndTime() - CurTime()
+			str = str .." - ".. ToMinutesSeconds(timeLeft)
+		end
+		draw.SimpleText(str, "NewZombieFont23", ScrW()/2,TY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM)
 		
 		local dif = math.Clamp(health/GAMEMODE:GetBossZombie():GetMaximumHealth(),0,1)
 		

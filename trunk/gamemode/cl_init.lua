@@ -200,9 +200,6 @@ TOTALGIBS = 0
 NearZombies = 0
 ActualNearZombies = 0
 
---Remove hook (TODO: Check what this is)
-hook.Remove("PlayerTick","TickWidgets")
-
 -- Loading...
 local RandomText = table.Random( { 
 	"Fetching your braaainns!", 

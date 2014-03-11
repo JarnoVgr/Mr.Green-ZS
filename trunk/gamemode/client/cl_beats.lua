@@ -86,39 +86,35 @@ function GM:SetLastHumanText()
 	ActualHorde = 10
 end
 
-
---[==[--------------------------------------------------------
-       Called on GM:SetUnlife ( bool ) -- Loops, too
----------------------------------------------------------]==]
-function PlayUnlife()
-	if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
-	-- Stop sounds
+function playBossMusic(insane)
+	--if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
+	
+	--Stop all sounds
 	RunConsoleCommand("stopsound")
 	
-	--Play sound right now
-	local Duration = 277
+	--Play the music
+	local songDuration = 277
 	local song = "deadlife_mrgreen.mp3"
 	
-	if BOSSACTIVE or GAMEMODE:IsBossAlive() then
-		Duration = 215
+	--INSANE music
+	if insane then
+		songDuration = 215
 		song = "deadlife_mrgreen_insane.mp3"
 	end
 	
+	--Delayed play because of stopsound in same frame
 	timer.Simple(0.3, function()
 		surface.PlaySound(Sound(song))
 	end)
 	
 	-- Create timer
-	timer.Create("LoopUnlife", Duration, 0, function() 
-		if LASTHUMAN or ENDROUND then
+	timer.Create("LoopBossMusic", songDuration, 0, function() 
+		if LASTHUMAN or ENDROUND or not BOSSACTIVE then
 			return
 		end
 		surface.PlaySound(Sound(song))
 	end)
 end
-
-util.PrecacheSound("deadlife_mrgreen.mp3")
-util.PrecacheSound("deadlife_mrgreen_insane.mp3")
 
 ENABLE_MUSIC = util.tobool(GetConVarNumber("zs_enablemusic"))
 local function EnableMusic(sender, command, arguments)

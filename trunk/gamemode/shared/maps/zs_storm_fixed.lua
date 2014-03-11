@@ -1,11 +1,14 @@
 --MAPCODER FILE
 --zs_fortress_mod
 
+AddCSLuaFile()
+
 -- Few checks so it wont rebuild cache each time it changes
 if game.GetMap() ~= "zs_storm_fixed" then
 	return
 end
 
+MAPCODER_CLIENT_ACTIVE = true
 
 --[[
 function Fog:FindFogEntity( bDontCreate )

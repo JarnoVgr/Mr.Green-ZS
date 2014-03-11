@@ -999,29 +999,17 @@ function meta:UnlockAchievement(stat)
 end
 
 function meta:SelectSpawnType(iscrow)
-	if GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == self then
+	--[[if GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == self then
 		self:SpawnAsZombieBoss()
-	else
+	else]]
 		if iscrow then
 			self:SetZombieClass(self.DeathClass or 0)
 		end
 		self:UnSpectateAndSpawn()
-	end
+	--end
 end
 
-function meta:SpawnAsZombieBoss()
-	--Check if there's already a boss
-	if BOSSACTIVE then
-		return
-	end
-	BOSSACTIVE = true
-	
-	--Debug
-	Debug("[BOSS] ".. tostring(self) .." spawned as boss")
-	
-	--Broadcast to players
-	gmod.BroadcastLua("BOSSACTIVE = true")
-	
+function meta:SpawnAsZombieBoss()			
 	self:RemoveAllStatus(true, true)
 	
 	--Some magic from NECROSSIN
@@ -1037,6 +1025,9 @@ function meta:SpawnAsZombieBoss()
 	self.DeathClass = nil
 	self:UnSpectateAndSpawn()
 	self.DeathClass = curclass
+	
+	--Debug
+	Debug("[BOSS] ".. tostring(self) .." spawned as boss")
 end
 
 function meta:SpawnAsUndeadClass(classId)
@@ -1462,36 +1453,6 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	end
 	return bNailDied == false
 end
-
--- Fixing physics attacker function
---[==[metaEntity.BaseSetPhysAttacker = metaEntity.SetPhysicsAttacker
-function metaEntity:SetPhysicsAttacker( mPlayer )
-	
-	-- Use custom function if entity is a physbox
-	if self:GetClass() == "func_physbox" or self:GetClass() == "func_physbox_multiplayer" then-- string.find( tostring( self:GetClass() ), "physbox" )
-		self.mPhysicsAttacker = mPlayer
-		
-		return
-	end
-	
-	-- Default function
-	self:BaseSetPhysAttacker( mPlayer )
-end
-
--- Get physics attacker
-metaEntity.BaseGetPhysAttacker = metaEntity.GetPhysicsAttacker
-function metaEntity:GetPhysicsAttacker()
-	
-	-- Use custom function is entity is a physbox
-	if self:GetClass() == "func_physbox" or self:GetClass() == "func_physbox_multiplayer" then-- string.find( tostring( self:GetClass() ), "physbox" )
-		return self.mPhysicsAttacker
-	end
-	
-	-- Return default result
-	return self:BaseGetPhysAttacker()
-end]==]
-
--- Some stuff from zs 2.0
 
 meta.OldDrawViewModel = meta.DrawViewModel
 meta.OldDrawWorldModel = meta.DrawWorldModel

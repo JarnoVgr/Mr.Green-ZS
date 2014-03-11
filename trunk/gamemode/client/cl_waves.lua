@@ -33,16 +33,6 @@ net.Receive("SetInf", function(len)
 		surface.PlaySound(Sound("ambient/atmosphere/cave_hit1.wav"))
 		--surface.PlaySound("ambient/creatures/town_zombie_call1.wav")
 	end
-	
-	--
-	if bIsInit then
-		if INFLICTION >= 0.8 and not UNLIFE then
-			HALFLIFE = true
-			GAMEMODE:SetUnlife(true)
-		elseif INFLICTION >= 0.5 and not HALFLIFE then
-			GAMEMODE:SetHalflife(true)
-		end
-	end
 end)
 
 net.Receive("UnlockAllUndeadClasses", function(len)		

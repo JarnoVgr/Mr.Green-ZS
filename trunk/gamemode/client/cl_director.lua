@@ -137,43 +137,57 @@ local function InitializeCrateVars()
 end
 hook.Add("Initialize", "InitVars", InitializeCrateVars)
 
---[==[---------------------------------------------------------
-       Manages Unlife Event. Set true to enable
----------------------------------------------------------]==]
-function GM:SetUnlife(bool)
+local boss = {}
+boss.duration = 0
+boss.endTime = 0
+
+function GM:GetBossEndTime()
+	return boss.endTime or 0
+end
+
+function GM:SetBoss(value,isInsane,duration)
 	if LASTHUMAN or ENDROUND then
 		return
 	end
+	
+	print("SetBoss: ".. tostring(value))
 
 	-- Set client unlife correspondenly
-	UNLIFE = bool
+	BOSSACTIVE = value
 	
 	-- Stop sounds and delay the unlife song (Automtically loops)
 	-- Disable unlife music for a while
-	if UNLIFE then
-		timer.Simple(0.3, PlayUnlife)
+	if BOSSACTIVE then
+		--Play music
+		timer.Simple(0.3, function()
+			playBossMusic(isInsane)
+		end)
+
+		boss.duration = duration
+		boss.endTime = CurTime() + duration
+		
 	
-		Debug("[CLIENT] UnLife started")
+		Debug("[CLIENT] Boss unleashed")
+	else
+		--
+		timer.Destroy("LoopBossMusic")
+	
+		--Stop music
+		RunConsoleCommand("stopsound")
+		
+		Debug("[CLIENT] Boss ran off")
 	end
 end
 
-function GM:SetHalflife(bool)
-	if LASTHUMAN or ENDROUND then
-		return
-	end
+net.Receive("StartBoss", function(len)
+	local isInsane = tobool(net.ReadBit())
+	local bossDuration = net.ReadFloat()
+	GAMEMODE:SetBoss(true,isInsane,bossDuration)
+end)
 
-	-- Set client unlife correspondenly
-	HALFLIFE = bool
-	
-	-- Stop sounds and delay the unlife song (Automtically loops)
-	-- Disable unlife music for a while
-	--RunConsoleCommand("stopsounds")
-	--timer.Simple( 0.3, PlayUnlife )
-	
-	if HALFLIFE then
-		Debug ( "[CLIENT] Halflife started" )
-	end
-end
+net.Receive("StopBoss", function(len)
+	GAMEMODE:SetBoss(false)
+end)
 
 --[==[---------------------------------------------------------
        Used to receive player and chat title index

@@ -45,26 +45,48 @@ include("shared/sh_animations.lua")
 include("shared/sh_zombo_anims.lua")
 include("extended/sh_engine.lua")
 
+--MapCoder inclusions
+if SERVER then
+	for k, file in pairs(file.Find("zombiesurvival/gamemode/shared/maps/*.lua", "lsv")) do
+		local path = "shared/maps/".. tostring(file)
+		include(path)
+		AddCSLuaFile(path)
+
+		print("[MAPCODER] Included '".. path .."'")
+	end
+else
+	local mapcoderMaps = {"zs_fortress_mod","zs_prc_wurzel_v2","zs_storm_fixed","zs_the_pub_beta1","zs_yp_jungle"}
+	for _,v in pairs(mapcoderMaps) do
+  		if v == game.GetMap() then
+  			local includeFile = "shared/maps/".. v ..".lua"
+			include(includeFile)
+
+			print("[MAPCODER] Included '".. includeFile .."'")
+
+  			break
+  		end
+  	end
+
+	--[[function GM:loadMapCode()
+		local includeFile = "shared/maps/".. game.GetMap() ..".lua"
+
+		include(includeFile)
+
+		print("[MAPCODER] Included '".. includeFile .."'")
+	end
+
+	net.Receive("mapData", function(len)
+		
+		GAMEMODE:loadMapCode()
+		
+	end)]]
+end
+
 --Screentaker
 include("modules/screentaker/screentaker.lua")
 
 --Clavus' Ravebreak
 include("modules/ravebreak/sh_ravebreak.lua")
-	
---MapCoder
-for map,opt in pairs(TranslateMapTable) do
-	if TranslateMapTable[map].Objective then
-		print("[MAPCODER] Included shared/objectivemaps/".. tostring(map) ..".lua")
-		include("shared/objectivemaps/".. map ..".lua")
-	end
-	if TranslateMapTable[map].MapCoder then
-		print("[MAPCODER] Included shared/maps/".. tostring(map) ..".lua")
-		include("shared/maps/".. map ..".lua")
-		if SERVER then
-			AddCSLuaFile("shared/maps/".. map ..".lua")
-		end
-	end
-end
 
 --This stuff isn't for you to change. You should only edit the stuff in zs_options.lua
 --GM.Name = "Zombie Survival "..GM.Version.." "..GM.SubVersion
@@ -733,11 +755,11 @@ function GM:GetBossZombie()
 end
 
 function GM:IsBossRequired()
-	if BOSSACTIVE then
+	--Check if there's already an active boss
+	if GAMEMODE:GetBoss() then
 		return false
 	end
-	-- if self:IsRetroMode() then return end
-		
+	
 	--Require teams on both sides
 	if team.NumPlayers(TEAM_UNDEAD) == 0 or team.NumPlayers(TEAM_HUMAN) == 0 then
 		return false
@@ -782,7 +804,7 @@ function GM:GetPlayerForBossZombie()
 		end)
 	
 	--Take 3 best zombies
-	local num = math.min(1,math.max(3,#tab))
+	local num = math.random(1,math.max(3,#tab))
 	
 	--Return good zombie
 	if tab[num] then

@@ -52,10 +52,14 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 	dmginfo:ProcessAssist( pl ) 
 	
 	-- Resets the attacker's assistant
-	timer.Simple( 0.05, function( ) if IsValid( dmginfo:GetAttacker() ) then	dmginfo:GetAttacker().AttackerAssistant = nil end end )
+	timer.Simple(0.05, function()
+		if IsValid(dmginfo:GetAttacker()) then
+			dmginfo:GetAttacker().AttackerAssistant = nil
+		end
+	end)
 	
 	-- Stop the player/camera
-	self:SetPlayerSpeed ( pl, 0 )
+	self:SetPlayerSpeed( pl, 0 )
 	
 	-- Assisted death
 	if dmginfo:IsAssistValid() then
@@ -93,26 +97,21 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 		
 	-- Send death status to clients
 	if dmginfo:IsAttackerPlayer() then
-		
 		-- Player suicided
-		if dmginfo:IsSuicide( pl ) then
+		if dmginfo:IsSuicide(pl) then
 			net.Start("PlayerKilledSelfZS")
 				net.WriteEntity(pl)
 			net.Broadcast()
-			--[=[umsg.Start( "PlayerKilledSelfZS" )
-				umsg.Entity( pl )
-			umsg.End()]=]
-		end
-
-		if pl:GetAttachment( 1 ) then 
-			if (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( 1 ).Pos )) < 15 and not dmginfo:IsMeleeDamage() then
-				headshot = true
-			end	
 		else
-			headshot = false
-		end
 		-- Killing between other players
-		if not dmginfo:IsSuicide( pl ) then
+			if pl:GetAttachment(1) then 
+				if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment( 1 ).Pos)) < 15 and not dmginfo:IsMeleeDamage() then
+					headshot = true
+				end	
+			else
+				headshot = false
+			end
+
 			if dmginfo:GetInflictor():GetClass() == "env_explosion" then
 				if dmginfo:GetInflictor().Inflictor then
 					inflictor = dmginfo:GetInflictor().Inflictor
@@ -138,13 +137,13 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 				net.WriteDouble(dmginfo:GetAttacker():Team())
 				net.WriteBit(headshot)
 				if dmginfo:IsAssistValid() then
-					net.WriteDouble( dmginfo:GetAssist():EntIndex() )
+					net.WriteDouble(dmginfo:GetAssist():EntIndex())
 				end
 			net.Broadcast()
 		end
 	end
 	
-	-- Player got killed by something else
+	--Player got killed by something else
 	if not dmginfo:IsAttackerPlayer() then
 		net.Start("PlayerKilledZS")
 			net.WriteEntity(pl)
@@ -173,17 +172,11 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 		return
 	end
 	
-	
 	if pl:IsBot() then
 		pl.NextSpawn = nil
 
 		pl:RefreshDynamicSpawnPoint()
 		pl:UnSpectateAndSpawn()
-	--[[if pl.NextSpawn and pl.NextSpawn > CurTime() then -- Force spawn.
-		pl.NextSpawn = nil
-
-		pl:RefreshDynamicSpawnPoint()
-		pl:UnSpectateAndSpawn()]]
 	elseif pl:GetObserverMode() == OBS_MODE_NONE or pl:GetObserverMode() == OBS_MODE_FREEZECAM then -- Not in spectator yet.
 		if not pl.NextSpawn or CurTime() >= pl.NextSpawn then
 			pl:StripWeapons()
@@ -229,12 +222,4 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 	end
 end
 
---[=[function GM:PlayerDeathThink( pl )
-	if CurTime() > pl.NextSpawn then
-		if pl:IsZombie() then
-			pl:Spawn()
-		end
-	end
-end]=]
-
-Debug ( "[MODULE] Loaded Do-Player-Death file." )
+Debug("[MODULE] Loaded Do-Player-Death file")

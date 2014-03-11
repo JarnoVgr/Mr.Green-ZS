@@ -48,7 +48,7 @@ function GM:GetVoteMaps()
 
 	RandMapCycle = table.FullCopy(MapCycle)
 	
-	-- get 6 random maps from the cycle
+	--Get 6 random maps from the cycle
 	for i=1,6 do
 		local map = table.Random(MapCycle)
 
@@ -109,19 +109,18 @@ function GM:LoadMapList()
 end
 
 function ShuffleMapList(pl,cmd,args)
-	
-	if not pl:IsAdmin() then return end
-	if MapCycle == nil then return end
+	if not pl:IsAdmin() or not MapCycle then
+		return
+	end
 	
 	table.Shuffle(MapCycle)
-	
 end
-concommand.Add("zs_mapmanager_shuffle",ShuffleMapList) 
+concommand.Add("zs_mapmanager_shuffle",ShuffleMapList)
 
 function SaveMapList(pl,cmd,args)
-	
-	if not pl:IsAdmin() then return end
-	if MapCycle == nil then return end
+	if not pl:IsAdmin() or not MapCycle then
+		return
+	end
 	
 	local filename = "zombiesurvival/zsmapcycle.txt"
 	
@@ -129,12 +128,14 @@ function SaveMapList(pl,cmd,args)
 	Debug("[MAPS] Saved Map List")
 	
 end
-concommand.Add("zs_mapmanager_save",SaveMapList) 
+concommand.Add("zs_mapmanager_save",SaveMapList)
 
 --Send maps to client
-function SendMapListToClient ( pl,commandName,args )
-	if not pl:IsAdmin() then return end
-	if MapCycle == nil then return end
+function SendMapListToClient(pl, commandName, args)
+	if not pl:IsAdmin() or not MapCycle then
+		return
+	end
+
 	local x = 1
 	for k, v in pairs( MapCycle ) do	
 		umsg.Start( "SendMapList", pl )
@@ -152,13 +153,16 @@ concommand.Add("send_maplist",SendMapListToClient)
 
 function Map_Swap(pl,cmd,args)
 	
-	if not pl:IsAdmin() then return end
-	if MapCycle == nil then return end
+	if not pl:IsAdmin() or not MapCycle then
+		return
+	end
 	
 	local index = args[1]
 	local down = args[2]
 	
-	if not index then return end
+	if not index then
+		return
+	end
 	
 	local temp
 	
@@ -180,9 +184,9 @@ end
 concommand.Add("zs_mapmanager_swap",Map_Swap) 
 
 function Map_Delete(pl,cmd,args)
-	
-	if not pl:IsAdmin() then return end
-	if MapCycle == nil then return end
+	if not pl:IsAdmin() or not MapCycle then
+		return
+	end
 	
 	local index = args[1]
 	
