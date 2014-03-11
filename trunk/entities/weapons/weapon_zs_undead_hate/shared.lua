@@ -103,10 +103,10 @@ function SWEP:PrimaryAttack()
 	-- Set the thirdperson animation and emit zombie attack sound
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
 	 
-	if SERVER then
+	--[[if SERVER then
 		GAMEMODE:SetPlayerSpeed(self.Owner, 1,1)
 		self.Owner:SetLocalVelocity(Vector(0, 0, 0))
-	end 
+	end]]
 
 	timer.Simple(0.4, function()
 		if not ValidEntity(pl) then
@@ -116,7 +116,7 @@ function SWEP:PrimaryAttack()
 		pl:DoAnimationEvent( CUSTOM_PRIMARY )	
 	end)
 
-	timer.Simple(1.3, function()
+	--[[timer.Simple(1.3, function()
 		if not ValidEntity(pl) then
 			return
 		end
@@ -127,7 +127,7 @@ function SWEP:PrimaryAttack()
 		end
 	
 		GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed,ZombieClasses[ pl:GetZombieClass() ].Speed )
-	end)
+	end)]]
 		
 	if SERVER then
 		self.Owner:EmitSound(table.Random ( ZombieClasses[10].AttackSounds ), 120, math.random( 70, 80 ) )
