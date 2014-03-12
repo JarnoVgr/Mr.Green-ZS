@@ -162,6 +162,7 @@ local function PlayBeats(teamid, am)
 	end
 
 	LastBeatLevel = math.Approach(LastBeatLevel, math.ceil(am), 1)
+	print("LastBeatLevel: ".. LastBeatLevel)
 
 	local snd = beats[LastBeatLevel][1]
 	if snd then
@@ -177,67 +178,24 @@ local function BeatsThink()
 	if not MySelf:IsValid() then
 		return
 	end
-
 	
-	local myteam = MySelf:Team()
-	
-	local am = myteam == TEAM_UNDEAD and MySelf:GetHordeCount(true) or math.Round(math.min(GetZombieFocus3(MySelf:GetPos(), 260, 0.001, 0) * 10, 10))
-	
-	PlayBeats(myteam, am)
+	PlayBeats(MySelf:Team(), math.Clamp(MySelf:GetNearUndead(HORDE_MAX_DISTANCE),0,10))
 end
 hook.Add("Think", "BeatsThink", BeatsThink)
-
-
--- 2 functions from old zs for better calculating
-function GetZombieFocus2(mypos, range, multiplier, maxper)
-	local zombies = 0
-	for _, pl in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
-		if pl ~= MySelf and pl:Team() == TEAM_UNDEAD and pl:Alive() then
-			local dist = pl:GetPos():Distance(mypos)
-			if dist < range then
-				zombies = zombies + math.max((range - dist) * multiplier, maxper)
-			end
-		end
-	end
-
-	return math.min(zombies, 1)
-end
-
-function GetZombieFocus3(mypos, range, multiplier, maxper)
-	local zombies = 0
-	for _, pl in pairs(team.GetPlayers(TEAM_UNDEAD)) do
-		if pl:Team() == TEAM_UNDEAD and pl:Alive() then
-			local dist = pl:GetPos():Distance(mypos)
-			if dist <= range then
-				zombies = zombies + math.max((range - dist) * multiplier, maxper)
-			end
-		end
-	end
-
-	if UNLIFE then
-		return math.max(0.75, math.min(zombies, 1))
-	elseif HALFLIFE then
-		return math.max(0.5, math.min(zombies, 1))
-	else
-		return math.min(zombies, 1)
-	end
-end
-
-local regenSound = Sound("buttons/weapon_confirm.wav")
 
 --[==[---------------------------------------------------------
       Generates those "soul" patterns on humans
 ---------------------------------------------------------]==]
 local NextAura = 0
-function ZombieAuraThink ()
-	if not ValidEntity ( MySelf ) or not MySelf:Alive() or NextAura > CurTime() then
+function ZombieAuraThink()
+	if not ValidEntity(MySelf) or not MySelf:Alive() or NextAura > CurTime() then
 		return
 	end
 	
 	local Position, MaxAuras, AuraTable = MySelf:GetPos(), 0, {}
 	
 	-- Run through the humans and check who is alive
-	for _, pl in pairs( team.GetPlayers ( TEAM_HUMAN ) ) do
+	for _, pl in pairs(team.GetPlayers(TEAM_HUMAN)) do
 		if pl:Alive() and not (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
 			local HumanPosition = pl:GetPos()
 			if HumanPosition:Distance ( Position ) < 1024 and HumanPosition:ToScreen().visible then
@@ -245,7 +203,9 @@ function ZombieAuraThink ()
 				MaxAuras = MaxAuras + 1
 				
 				-- We have reached our aura limit ( 10 )
-				if MaxAuras >= 10 then break end
+				if MaxAuras >= 10 then
+					break
+				end
 			end
 		end
 	end

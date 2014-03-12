@@ -64,38 +64,36 @@ function meta:IsZombieInHorde()
 	return false
 end
 
-local LastHordeCount = 0
-local LastHordeTime = 0
-function meta:GetHordeCount(beat)
-	if LastHordeTime <= CurTime() then
-		LastHordeTime = CurTime() + 1
-		
-		local maxUndead = math.min(team.NumPlayers(TEAM_UNDEAD),HORDE_MAX_ZOMBIES)
-		if beat then
-			maxUndead = 10
+if CLIENT then
+	local lastUndeadFocusValue = 0
+	local nextUndeadFocusTime = 0
+	function meta:GetNearUndead(range)
+		if nextUndeadFocusTime > CurTime() then
+			return lastUndeadFocusValue
 		end
-		
-		LastHordeCount = math.Clamp(GetZombieFocus(self, HORDE_MAX_DISTANCE),0, maxUndead)
-	end
 
-	return LastHordeCount or 0
-end
-
-local LastResistanceCount = 0
-local LastResistanceTime = 0
-function meta:GetResistanceCount()
-	if LastResistanceTime <= CurTime() then
-		LastResistanceTime = CurTime() + 1
-		
-		local max = math.min(team.NumPlayers(TEAM_UNDEAD),HORDE_MAX_ZOMBIES)
-		if beat then
-			max = 10
+		local returnCount = 0
+		for k, pl in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
+			if IsValid(pl) and pl:Alive() then --pl ~= mEnt and
+				if pl:IsBoss() then
+					print("YO. IS BOSS.")
+					returnCount = returnCount + 6
+				else
+					print("YO. IS NO BOSS.")
+					local distance = pl:GetPos():Distance(self:GetPos())
+					if distance <= range then
+						returnCount = returnCount + 1
+					end
+				end
+			end
 		end
-		
-		LastResistanceCount = math.Clamp(team.NumPlayers(TEAM_UNDEAD) - GetZombieFocus(self, HORDE_MAX_DISTANCE), 0, max)
-	end
 
-	return LastResistanceCount or 0
+		--
+		lastUndeadFocusValue = returnCount
+		nextUndeadFocusTime = CurTime() + 2
+
+		return returnCount
+	end
 end
 
 -- Get spawn time
@@ -394,30 +392,6 @@ function meta:CompareMaxDPS ( Class1, Class2 )
 	end
 
 	return WeaponWin or "weapon_zs_usp"
-end
-
-function meta:GetSurvivalPercent()
-	if self:IsZombie() then return 1 end
-	
-	-- Default 100%
-	local fPercent = 1
-	
-	-- Get zombies near for start
-	local iZombies, fNearZombiePercent = GetZombieFocus( self, 300 )
-	fNearZombiePercent = 1 - ( math.Clamp ( iZombies, 0, 6 ) / 6 )
-	
-	-- Get total zombies
-	local iTotalZombs = team.NumPlayers ( TEAM_UNDEAD )
-	fZombiePercent = 1 - iTotalZombs / #player.GetAll()
-	
-	-- Health percent
-	local fHealth, iMaxHealth, fHealthPercent = self:Health(), self:GetMaximumHealth()
-	fHealthPercent = fHealth / iMaxHealth
-	
-	-- Per total
-	fPercent = ( fNearZombiePercent + fZombiePercent + fHealthPercent ) / 3
-	
-	return fPercent
 end
 
 --[==[---------------------------------------------------------
@@ -737,7 +711,7 @@ function meta:CanRedeem()
 		return
 	end
 
-	if not ValidEntity(self) or ENDROUND or LASTHUMAN or self:Team() ~= TEAM_UNDEAD or team.NumPlayers(TEAM_HUMAN) <= 1 or self:IsBossZombie() then
+	if not ValidEntity(self) or ENDROUND or LASTHUMAN or self:Team() ~= TEAM_UNDEAD or team.NumPlayers(TEAM_HUMAN) == 1 or self:IsBossZombie() then
 		return false
 	end
 		

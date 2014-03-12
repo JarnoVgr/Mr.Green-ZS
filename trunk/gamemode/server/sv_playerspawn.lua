@@ -429,7 +429,7 @@ function GM:OnHumanSpawn(pl)
 	end
 
 	--Hands for c_model usage
-	local hands = ents.Create( "zs_hands" )
+	local hands = ents.Create("zs_hands")
 	if IsValid(hands) then
 		hands:DoSetup(pl)
 		hands:Spawn()
@@ -763,28 +763,27 @@ function CalculateZombieHealth(pl)
 		return
 	end
 	
-	local Class = pl:GetZombieClass()
-	local Tab = ZombieClasses[Class]
+	local classId = pl:GetZombieClass()
+	local Tab = ZombieClasses[classId]
 	local MaxHealth = 0
 	
 	-- Case 1: Normal case
-	MaxHealth = math.Clamp(Tab.Health, 0, Tab.Health)
+	MaxHealth = Tab.Health
 	
-	local allplayers = player.GetAll()
-	local numplayers = #allplayers
+	
 	
 	-- Case 2: if there are only 2 zombies double their HP
-	local desiredzombies = math.max(1, math.ceil(numplayers * UNDEAD_START_AMOUNT_PERCENTAGE))
+	
 	if not pl:IsBossZombie() and not pl:IsCrow() then
+		local allPlayers = player.GetAll()
+		local numPlayers = #allPlayers
+
+		local desiredzombies = math.max(1, math.ceil(numPlayers * UNDEAD_START_AMOUNT_PERCENTAGE))
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+1) and team.NumPlayers(TEAM_HUMAN) >= 4) then
 			local IncreaseHealth = Tab.Health*(UNDEAD_START_AMOUNT_PERCENTAGE)*desiredzombies+10*(team.NumPlayers(TEAM_HUMAN))
 			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*1.9,510) )
 			pl:RemoveStatus("champion")
 		end
-	end
-		
-	if pl:GetZombieClass() == 0 then
-		MaxHealth = math.Clamp(Tab.Health, 0, Tab.Health)
 	end
 	
 	--Case 4: Boss zombos
@@ -795,8 +794,10 @@ function CalculateZombieHealth(pl)
 	   MaxHealth = (humanCount * (Tab.Health * math.Clamp(INFLICTION,0.3,1))) * math.Clamp(humanCount / zombieCount, 0.7, 2)
 	end
 
+	MaxHealth = math.Round(MaxHealth)
+
 	--Set
-	pl:SetMaximumHealth(math.Round(MaxHealth))
+	pl:SetMaximumHealth(MaxHealth)
 	pl:SetHealth(MaxHealth)
 end
 

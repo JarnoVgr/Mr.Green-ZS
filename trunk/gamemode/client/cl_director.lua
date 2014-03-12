@@ -163,7 +163,7 @@ function GM:SetBoss(value,isInsane,duration)
 		timer.Destroy("LoopBossMusic")
 	
 		--Stop music
-		RunConsoleCommand("stopsound")
+		--RunConsoleCommand("stopsound")
 		
 		Debug("[CLIENT] Boss ran off")
 	end

@@ -304,13 +304,13 @@ local function ManageSourceMotionBlur ( x, y, fwd, spin )
 	
 	local fBlurForwardAmount = 0
 	
-	-- Blur when health is low as human
+	--Blur when health is low as human
 	if MySelf:Team() == TEAM_HUMAN then
 		if MySelf:Health() <= 50 or MySelf:IsTakingDOT() then
 			if MySelf:Health() >= 35 then fBlurForwardAmount = 0.03 else fBlurForwardAmount = 0.1 end
 		end
 		
-		-- Explot blur
+		--Explot blur
 		if MySelf:GetDTInt( 3 ) > 0 then
 			fBlurForwardAmount = 0.6
 		end
@@ -324,12 +324,12 @@ local function ManageSourceMotionBlur ( x, y, fwd, spin )
 		end
 	end
 	
-	-- Wraith blur effect/ethereal
+	--Wraith blur effect/ethereal
 	if MySelf:Alive() and MySelf:IsZombie() and MySelf:IsWraith() then
 		fBlurForwardAmount = 0.04
 	end
 	
-	-- Smooth the blur apparition
+	--Smooth the blur apparition
 	fBlurForward = math.Approach ( fBlurForward, fBlurForwardAmount, 0.001 )
 	
 	return x * 4, y * 4, fBlurForward, spin
@@ -340,15 +340,17 @@ hook.Add( "GetMotionBlurValues", "GetBlurValues", ManageSourceMotionBlur )
 	Calculate how much sharpen to apply
 ---------------------------------------------------------]==]
 local fSharpenContrast, fSharpenOffset = 0, 0.22
-function CalculateSharpenEffect ()
-	if not ValidEntity ( MySelf ) then return end
+function CalculateSharpenEffect()
+	if not ValidEntity ( MySelf ) then
+		return
+	end
 	
 	local fSharpenContrastAmount = 0
 	
 	-- Get how many zombies are there near me
 	if MySelf:Team() == TEAM_HUMAN then
-		local ZombiesNearMe = GetZombieFocus ( MySelf, 300 )
-		fSharpenContrastAmount = math.Clamp ( ZombiesNearMe, 0, 9 )
+		local ZombiesNearMe = MySelf:GetNearUndead(300)
+		fSharpenContrastAmount = math.Clamp(ZombiesNearMe, 0, 9)
 		
 		-- Make it more obvious
 		if ZombiesNearMe < 3 and ZombiesNearMe > 0 then

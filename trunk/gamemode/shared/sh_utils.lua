@@ -819,28 +819,6 @@ function table.Resequence ( oldtable )
 	end
 end
 
-function GetZombieFocus(mEnt, range)
-	if not IsEntityValid(mEnt) then
-		return 0
-	end
-	
-	local returnCount = 0
-	for k, pl in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
-		if IsValid(pl) and pl ~= mEnt and pl:Alive() then
-			if pl:IsBoss() then
-				returnCount = returnCount + 6
-			else
-				local Distance = pl:GetPos():Distance( mEnt:GetPos() )
-				if Distance <= range then
-					returnCount = returnCount + 1
-				end
-			end
-		end
-	end
-
-	return returnCount
-end
-
 function GetHumanFocus ( mEnt, range )
 	if not IsEntityValid ( mEnt ) then return 0 end
 	

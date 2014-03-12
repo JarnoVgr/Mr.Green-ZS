@@ -99,7 +99,7 @@ function friends.CanInvitePlayer ( Inviter, Invited )
 	
 	-- Fighting zombos lol
 	if Invited:IsHuman() then
-		local iZombos = GetZombieFocus ( Invited, 300 )
+		local iZombos = Invited:GetNearUndead(300)
 		if iZombos > 0 then return -1 end
 	end
 	
