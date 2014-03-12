@@ -13,7 +13,7 @@ function GM:CalculateInitialDifficulty()
 	undeadDifficultyMultiplier = difficulty
 	
 	--Debug
-	Debug("[DIRECTOR] Calculated initial difficulty: ".. tostring(difficulty))
+	--Debug("[DIRECTOR] Calculated initial difficulty: ".. tostring(difficulty))
 		
 	return undeadDifficultyMultiplier
 end

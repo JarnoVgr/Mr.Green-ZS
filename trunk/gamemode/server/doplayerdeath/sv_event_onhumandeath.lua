@@ -45,7 +45,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	--Reset score on death
 	timer.Simple(0, function()
 		if IsEntityValid(mVictim) then
-			skillpoints.SetupSkillPoints(pl)
+			skillpoints.SetupSkillPoints(mVictim)
 		end
 	end)
 		
@@ -102,9 +102,10 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 	
 	-- Case 1: Human is being atacked by a zombie
-	if mAttacker:IsPlayer() and mVictim:IsHuman() and mAttacker:IsZombie() and not dmginfo:IsSuicide( mVictim ) then
-		mAttacker:AddScore ( 2 )
-		mAttacker:AddToCounter( "humanskilled", 1 )
+	if mAttacker:IsPlayer() and mVictim:IsHuman() and mAttacker:IsZombie() and not dmginfo:IsSuicide(mVictim) then
+		mAttacker:AddScore(2)
+		print("ITS A SCORE POST: ".. mAttacker:GetScore())
+		mAttacker:AddToCounter("humanskilled", 1)
 		
 		-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"freshfood")
 		mAttacker:AddXP(100)
@@ -127,8 +128,8 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end]]
 		
 		-- Add brains eaten and greencoins
-		mAttacker.BrainsEaten = mAttacker.BrainsEaten + 1	
-		mAttacker:GiveGreenCoins( COINS_PER_HUMAN )
+		mAttacker.BrainsEaten = mAttacker.BrainsEaten + 1
+		mAttacker:GiveGreenCoins(COINS_PER_HUMAN)
 		mAttacker.GreencoinsGained[ mAttacker:Team() ] = mAttacker.GreencoinsGained[ mAttacker:Team() ] + COINS_PER_HUMAN
 		
 		-- Check brains and redeem
@@ -141,7 +142,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 		
 		-- Steamroller upgrade
-		if mAttacker:HasBought( "steamroller" ) then
+		if mAttacker:HasBought("steamroller") then
 			if mAttacker:Alive() then
 				local MaxHealth = ZombieClasses[mAttacker:GetZombieClass()].Health
 				mAttacker:SetHealth( math.min( MaxHealth, mAttacker:Health() + math.floor ( MaxHealth / 2 ) ) )

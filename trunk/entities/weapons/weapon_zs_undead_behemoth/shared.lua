@@ -47,7 +47,7 @@ SWEP.WorldModel = Model("models/Weapons/w_crowbar.mdl")
 
 SWEP.Primary.Reach = 88
 SWEP.Primary.Duration = 2.1
-SWEP.Primary.Delay = 1.0
+SWEP.Primary.Delay = 0.8
 SWEP.Primary.Damage = math.random(60,75)
 
 function SWEP:StartPrimaryAttack()

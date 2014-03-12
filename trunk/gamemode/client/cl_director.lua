@@ -1,15 +1,5 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
-local table = table
-local surface = surface
-local draw = draw
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
 
 -- store convars here
 ClientsideConvars = {}
@@ -129,11 +119,11 @@ end
 local function InitializeCrateVars()
 	-- Precache the gib models
 	for i = 1, 9 do
-		util.PrecacheModel ( "models/items/item_item_crate_chunk0"..i..".mdl" )
+		util.PrecacheModel("models/items/item_item_crate_chunk0"..i..".mdl")
 	end
 	
 	-- Precache main model
-	util.PrecacheModel ( "models/items/item_item_crate.mdl" )
+	util.PrecacheModel("models/items/item_item_crate.mdl")
 end
 hook.Add("Initialize", "InitVars", InitializeCrateVars)
 
@@ -150,7 +140,7 @@ function GM:SetBoss(value,isInsane,duration)
 		return
 	end
 	
-	print("SetBoss: ".. tostring(value))
+	--print("SetBoss: ".. tostring(value))
 
 	-- Set client unlife correspondenly
 	BOSSACTIVE = value
@@ -159,15 +149,15 @@ function GM:SetBoss(value,isInsane,duration)
 	-- Disable unlife music for a while
 	if BOSSACTIVE then
 		--Play music
-		timer.Simple(0.3, function()
+		--[[timer.Simple(0.3, function()
 			playBossMusic(isInsane)
-		end)
+		end)]]
 
 		boss.duration = duration
 		boss.endTime = CurTime() + duration
 		
 	
-		Debug("[CLIENT] Boss unleashed")
+		Debug("[CLIENT] Boss has risen")
 	else
 		--
 		timer.Destroy("LoopBossMusic")

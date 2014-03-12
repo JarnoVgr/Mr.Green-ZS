@@ -62,14 +62,6 @@ for i=1,10 do
 	util.PrecacheSound(ZBeats[i][1])
 end
 
-local WATER_DROWNTIME = 30
-local CRAMP_METER_TIME = 0
-
-function GM:ResetWaterAndCramps()
-	WATER_DROWNTIME = 30
-	CRAMP_METER_TIME = 0
-end
-
 local NextHordeCalculate = 0
 local DisplayHorde = 0
 local ActualHorde = 0
@@ -151,13 +143,12 @@ ENABLE_BLOOD = false
 local NextBeat = 0
 local LastBeatLevel = 0
 local function PlayBeats(teamid, am)
-	if ENDROUND or LASTHUMAN or UNLIFE then
+	if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
 		return
 	end
 
 	local ENABLE_BEATS = util.tobool(GetConVarNumber("_zs_enablebeats"))
-
-	if RealTime() <= NextBeat or not ENABLE_BEATS then
+	if not ENABLE_BEATS then
 		return
 	end
 	

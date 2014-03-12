@@ -329,9 +329,9 @@ function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)
 		end
 		
 		-- horde resistance
-		if not ARENA_MODE then
+		--[[if not ARENA_MODE then
 			fFinalDamage = fFinalDamage - fFinalDamage*(pl:GetHordePercent() + bonus)
-		end
+		end]]
 		
 		dmginfo:SetDamage(fFinalDamage)
 	-- Damage caused by zombies to humans

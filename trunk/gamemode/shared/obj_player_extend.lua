@@ -70,12 +70,12 @@ function meta:GetHordeCount(beat)
 	if LastHordeTime <= CurTime() then
 		LastHordeTime = CurTime() + 1
 		
-		local max = math.min(team.NumPlayers(TEAM_UNDEAD),HORDE_MAX_ZOMBIES)
+		local maxUndead = math.min(team.NumPlayers(TEAM_UNDEAD),HORDE_MAX_ZOMBIES)
 		if beat then
-			max = 10
+			maxUndead = 10
 		end
 		
-		LastHordeCount = math.Clamp(GetZombieFocus( self, HORDE_MAX_DISTANCE ),0,max)
+		LastHordeCount = math.Clamp(GetZombieFocus(self, HORDE_MAX_DISTANCE),0, maxUndead)
 	end
 
 	return LastHordeCount or 0
@@ -96,10 +96,6 @@ function meta:GetResistanceCount()
 	end
 
 	return LastResistanceCount or 0
-end
-
-function meta:GetHordePercent()
-	return (self:GetHordeCount()/HORDE_MAX_ZOMBIES)*(HORDE_MAX_RESISTANCE/100) or 0
 end
 
 -- Get spawn time
@@ -741,7 +737,7 @@ function meta:CanRedeem()
 		return
 	end
 
-	if not ValidEntity(self) or ENDROUND or LASTHUMAN or self:Team() ~= TEAM_UNDEAD or team.NumPlayers(TEAM_HUMAN) == 1 or self:IsBossZombie() then
+	if not ValidEntity(self) or ENDROUND or LASTHUMAN or self:Team() ~= TEAM_UNDEAD or team.NumPlayers(TEAM_HUMAN) <= 1 or self:IsBossZombie() then
 		return false
 	end
 		

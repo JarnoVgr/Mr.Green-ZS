@@ -792,7 +792,7 @@ function CalculateZombieHealth(pl)
 	   local humanCount = team.NumPlayers(TEAM_SURVIVORS)
 	   local zombieCount = team.NumPlayers(TEAM_UNDEAD)
 	   
-	   MaxHealth = ((humanCount * (1000 * INFLICTION)) * math.Clamp( humanCount / zombieCount, 0.5, 1.5))
+	   MaxHealth = (humanCount * (Tab.Health * math.Clamp(INFLICTION,0.3,1))) * math.Clamp(humanCount / zombieCount, 0.7, 2)
 	end
 
 	--Set
@@ -801,42 +801,32 @@ function CalculateZombieHealth(pl)
 end
 
 
-function CalculatePlayerHealth ( pl )
-	if pl:Team() ~= TEAM_HUMAN then return end
+function CalculatePlayerHealth(pl)
+	if pl:Team() ~= TEAM_HUMAN then
+		return
+	end
 
-	local Class = pl:GetHumanClass()
-	local ClassHealth = HumanClasses[Class].Health
 	local MaxHealth, Health = 100, 100
-	
-	-- Case 1: Commando
-	if Class == 2 then
-	-- 	MaxHealth = ClassHealth + ( ClassHealth * ( ( HumanClasses[2].Coef[2] * ( pl:GetTableScore ("commando","level") + 1 ) ) / 100 ) )
-	-- 	Health = MaxHealth
-	end
-	
-	-- Case 2: Without bonus or bot
-	if Class ~= 2 or pl:IsBot() then
-	-- 	MaxHealth = ClassHealth
-	-- 	Health = MaxHealth
-	end
 	
 	-- Case 3: If player got hurt and reconnected as human
 	if pl:ConnectedHealth() ~= false then
 		Health = pl:ConnectedHealth()
-		DataTableConnected[ pl:UniqueID() or "UNCONNECTED" ].Health = false
+		DataTableConnected[pl:UniqueID() or "UNCONNECTED"].Health = false
 	end
 	
+	--First kevlar upgrade
 	if pl:GetPerk("_kevlar") then
 		MaxHealth, Health = 110, 110
 	end
 	
+	--Second kevlar upgrade
 	if pl:GetPerk("_kevlar2") then
 		MaxHealth, Health = 120, 120
 	end
 	
 	-- Actually set the health
-	pl:SetHealth ( Health )
-	pl:SetMaximumHealth ( MaxHealth )
+	pl:SetHealth(Health)
+	pl:SetMaximumHealth(MaxHealth)
 end
 
 --[==[----------------------------------------------------
