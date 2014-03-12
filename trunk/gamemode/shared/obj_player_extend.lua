@@ -76,10 +76,8 @@ if CLIENT then
 		for k, pl in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
 			if IsValid(pl) and pl:Alive() then --pl ~= mEnt and
 				if pl:IsBoss() then
-					print("YO. IS BOSS.")
 					returnCount = returnCount + 6
 				else
-					print("YO. IS NO BOSS.")
 					local distance = pl:GetPos():Distance(self:GetPos())
 					if distance <= range then
 						returnCount = returnCount + 1
