@@ -1,9 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-
-
-
 local function CheckChanged ( obj, strNewValue )
 	strNewValue = tostring(strNewValue)
 	if obj.m_strConVar and strNewValue ~= tostring(GetConVarNumber(obj.m_strConVar)) then

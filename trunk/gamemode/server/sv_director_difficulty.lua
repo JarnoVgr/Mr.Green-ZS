@@ -19,9 +19,10 @@ function GM:CalculateInitialDifficulty()
 end
 
 function GM:GetUndeadDamageMultiplier()
-	local multiplier = ((1 - undeadDifficultyMultiplier) * 3)
+	--local multiplier = ((1 - undeadDifficultyMultiplier) * 3)
+	local multiplier = 1
 
-	Debug("[DIRECTOR] Undead difficulty: ".. tostring(multiplier))
+	--Debug("[DIRECTOR] Undead difficulty: ".. tostring(multiplier))
 
 	return multiplier
 end
@@ -33,7 +34,7 @@ function GM:GetUndeadDifficulty()
 	--Multiply to make it more realistic
 	local difficulty = (undeadDifficultyMultiplier * 2)
 
-	Debug("[DIRECTOR] Undead difficulty: ".. tostring(difficulty))
+	--Debug("[DIRECTOR] Undead difficulty: ".. tostring(difficulty))
 
 	return difficulty
 end

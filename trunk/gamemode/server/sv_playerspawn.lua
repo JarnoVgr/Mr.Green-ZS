@@ -489,6 +489,8 @@ function GM:OnZombieSpawn(pl)
 	
 	--Set the zombies model
 	pl:SetModel(Tab.Model)
+
+	pl.NoBounty = false
 	
 	--
 	if not pl.Loadout then

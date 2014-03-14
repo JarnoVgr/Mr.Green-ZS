@@ -100,16 +100,18 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		if not revive then
 			mAttacker:AddToCounter("undeadkilled", 1)
 		
-			local reward = ZombieClasses[mVictim:GetZombieClass()].SP * math.Clamp(INFLICTION + 0.2,0.1,1)
-		
-			skillpoints.AddSkillPoints(mAttacker,reward)
-			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-			mVictim:FloatingTextEffect(reward, mAttacker)
+			if not mVictim.NoBounty then
+				local reward = ZombieClasses[mVictim:GetZombieClass()].SP -- * math.Clamp(INFLICTION + 0.2,0.1,1)
+			
+				skillpoints.AddSkillPoints(mAttacker,reward)
+				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
+				mVictim:FloatingTextEffect(reward, mAttacker)
 
-			-- Add GreenCoins and increment zombies killed counter
-			mAttacker.ZombiesKilled = mAttacker.ZombiesKilled + 1
-			mAttacker:GiveGreenCoins(COINS_PER_ZOMBIE)
-			mAttacker.GreencoinsGained[mAttacker:Team()] = mAttacker.GreencoinsGained[ mAttacker:Team() ] + COINS_PER_ZOMBIE
+				-- Add GreenCoins and increment zombies killed counter
+				mAttacker.ZombiesKilled = mAttacker.ZombiesKilled + 1
+				mAttacker:GiveGreenCoins(COINS_PER_ZOMBIE)
+				mAttacker.GreencoinsGained[mAttacker:Team()] = mAttacker.GreencoinsGained[ mAttacker:Team() ] + COINS_PER_ZOMBIE
+			end
 			
 			-- When the human kills a zombie he says (GOT ONE)
 			if (math.random(1,6) == 1) then

@@ -62,6 +62,7 @@ function GM:UnleashBoss()
 			
 		--Kill will trigger boss end
 
+		pl.NoBounty = true
 		pl:SetPhysicsAttacker(nil)
 		pl:Kill()
 	end)
