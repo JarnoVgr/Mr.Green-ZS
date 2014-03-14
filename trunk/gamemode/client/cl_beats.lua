@@ -162,7 +162,7 @@ local function PlayBeats(teamid, am)
 	end
 
 	LastBeatLevel = math.Approach(LastBeatLevel, math.ceil(am), 1)
-	print("LastBeatLevel: ".. LastBeatLevel)
+	--print("LastBeatLevel: ".. LastBeatLevel)
 
 	local snd = beats[LastBeatLevel][1]
 	if snd then

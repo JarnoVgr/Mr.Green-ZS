@@ -1,12 +1,10 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then
-	local umsg = umsg
-end
-
 local meta = FindMetaTable("Player")
-if not meta then return end
+if not meta then
+	return
+end
 
 -- Returns if player is taking DOT
 function meta:IsTakingDOT()
@@ -75,13 +73,15 @@ if CLIENT then
 		local returnCount = 0
 		for k, pl in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
 			if IsValid(pl) and pl:Alive() then --pl ~= mEnt and
-				if pl:IsBoss() then
-					returnCount = returnCount + 6
-				else
-					local distance = pl:GetPos():Distance(self:GetPos())
-					if distance <= range then
+				local distance = pl:GetPos():Distance(self:GetPos())
+				if distance <= range then
+					if pl:IsBoss() then
+						returnCount = returnCount + 10
+					else
 						returnCount = returnCount + 1
 					end
+				elseif pl:IsBoss() then
+					returnCount = returnCount + 6
 				end
 			end
 		end
