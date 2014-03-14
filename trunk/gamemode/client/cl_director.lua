@@ -155,12 +155,23 @@ function GM:SetBoss(value,isInsane,duration)
 
 		boss.duration = duration
 		boss.endTime = CurTime() + duration
+
+		--Alert the local player
+		--if GAMEMODE:IsBossAlive() then
+		timer.Simple(0.5, function()
+			local bossPl = GAMEMODE:GetBossZombie()
+			--print("bossPl: ".. bossPl)
+			if bossPl and IsValid(bossPl) then
+				surface.PlaySound(Sound("ambient/creatures/town_zombie_call1.wav"))
+				GAMEMODE:Add3DMessage(140, bossPl:Name() .." has risen as ".. ZombieClasses[bossPl:GetZombieClass()].Name .." Boss", nil, "ArialBoldFifteen")
+			end
+		end)
 		
 	
 		Debug("[CLIENT] Boss has risen")
 	else
 		--
-		timer.Destroy("LoopBossMusic")
+		--timer.Destroy("LoopBossMusic")
 	
 		--Stop music
 		--RunConsoleCommand("stopsound")

@@ -89,29 +89,30 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	if not revive then
 		mVictim:PlayZombieDeathSound()
 					
-		if IsValid( mAttacker ) and mAttacker ~= mVictim then
+		if IsValid(mAttacker) and mAttacker ~= mVictim then
 			mVictim:SpectateEntity(mAttacker)
 			mVictim:Spectate(OBS_MODE_FREEZECAM)
 			mVictim:SendLua("surface.PlaySound(Sound(\"UI/freeze_cam.wav\"))")
 		end	
 	end
 		
-	if mAttacker:IsPlayer() and mAttacker:IsHuman() and mAttacker ~= mVictim and mVictim:IsZombie() then --disable getting points from teamkilling anyway
+	if mAttacker:IsPlayer() and mAttacker:IsHuman() and mAttacker ~= mVictim and mVictim:IsZombie() and not mVictim.NoBounty then --disable getting points from teamkilling anyway
 		if not revive then
 			mAttacker:AddToCounter("undeadkilled", 1)
-		
-			if not mVictim.NoBounty then
-				local reward = ZombieClasses[mVictim:GetZombieClass()].SP -- * math.Clamp(INFLICTION + 0.2,0.1,1)
 			
-				skillpoints.AddSkillPoints(mAttacker,reward)
-				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-				mVictim:FloatingTextEffect(reward, mAttacker)
-
-				-- Add GreenCoins and increment zombies killed counter
-				mAttacker.ZombiesKilled = mAttacker.ZombiesKilled + 1
-				mAttacker:GiveGreenCoins(COINS_PER_ZOMBIE)
-				mAttacker.GreencoinsGained[mAttacker:Team()] = mAttacker.GreencoinsGained[ mAttacker:Team() ] + COINS_PER_ZOMBIE
+			local reward = ZombieClasses[mVictim:GetZombieClass()].SP
+			if mVictim:IsBoss() then
+				reward = reward * math.Clamp(INFLICTION + 0.2,0.1,1.1)
 			end
+			
+			skillpoints.AddSkillPoints(mAttacker,reward)
+			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
+			mVictim:FloatingTextEffect(reward, mAttacker)
+
+			-- Add GreenCoins and increment zombies killed counter
+			mAttacker.ZombiesKilled = mAttacker.ZombiesKilled + 1
+			mAttacker:GiveGreenCoins(COINS_PER_ZOMBIE)
+			mAttacker.GreencoinsGained[mAttacker:Team()] = mAttacker.GreencoinsGained[ mAttacker:Team() ] + COINS_PER_ZOMBIE
 			
 			-- When the human kills a zombie he says (GOT ONE)
 			if (math.random(1,6) == 1) then

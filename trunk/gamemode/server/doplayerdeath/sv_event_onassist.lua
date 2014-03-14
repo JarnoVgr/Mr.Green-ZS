@@ -1,11 +1,8 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local math = math
-
 -- Credits the assistant on death (if there is one) 
-local function OnAssistDeath ( mVictim, mAttacker, mInflictor, mAssist, dmginfo )
-
+local function OnAssistDeath(mVictim, mAttacker, mInflictor, mAssist, dmginfo)
 	-- Case 1: Undead assistant
 	if mAssist:IsZombie() then
 		mAssist:AddScore(1)
@@ -27,9 +24,9 @@ local function OnAssistDeath ( mVictim, mAttacker, mInflictor, mAssist, dmginfo 
 	end
 			
 	-- Case 2: Human assistant
-	if mAssist:IsHuman() then
+	if mAssist:IsHuman() and not mVictim.NoBounty then
 		--mAssist:AddScore(1)
-		mAssist:GiveGreenCoins ( COINS_PER_ZOMBIE )
+		mAssist:GiveGreenCoins(COINS_PER_ZOMBIE)
 				
 		-- Give greencoins and add assists counter and increment zombies killed
 		mAssist.GreencoinsGained[ mAssist:Team() ] = mAssist.GreencoinsGained[ mAssist:Team() ] + COINS_PER_ZOMBIE
@@ -40,18 +37,9 @@ local function OnAssistDeath ( mVictim, mAttacker, mInflictor, mAssist, dmginfo 
 		-- mAssist:CheckLevelUp()
 		
 		local reward = ZombieClasses[mVictim:GetZombieClass()].SP/2
-		
-		if GAMEMODE:IsRetroMode() then
-			reward = 1
-			if math.random(1,3) == 1 then
-				-- reward = 1
-			end
-			if mVictim:IsCrow() then 
-				reward = 0
-			end
+		if mVictim:IsBoss() then
+			reward = reward * math.Clamp(INFLICTION + 0.2,0.1,1.1)
 		end
-		
-		
 		
 		mAssist:AddXP(math.ceil(ZombieClasses[mVictim:GetZombieClass()].Bounty/2))
 		
