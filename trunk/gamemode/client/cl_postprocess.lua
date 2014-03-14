@@ -162,7 +162,7 @@ function CalculateColorMod()
 	-- Undead side post proccesing
 	if MySelf:Team() == TEAM_UNDEAD then
 		local max = math.min(team.NumPlayers(TEAM_UNDEAD),HORDE_MAX_ZOMBIES)
-		zombies = math.Approach(zombies, MySelf:GetHordeCount(), FrameTime() * 5)
+		zombies = math.Approach(zombies, math.Clamp(MySelf:GetNearUndead(HORDE_MAX_DISTANCE),0,10), FrameTime() * 5)
 		ZombieCM["$pp_colour_colour"] = math.min(1, 0.25 + 1.75 * (zombies/max))
 
 		for k,v in pairs ( ZombieCM ) do

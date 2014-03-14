@@ -1269,15 +1269,26 @@ BloodDraws = {}
 function AddBloodSplat( severity )
 	local toDraw = bloodSplats[math.random(1,8)]
 	local dur = severity
-	local alp = 55+severity*50
+	local alp = 35+severity*20
 	
 	if #BloodDraws < 3 then
 		table.insert(BloodDraws, { fadestart = CurTime()+3+math.Rand(1,5), image = toDraw, duration = dur, alpha = alp })
 	end
 end
 
+-- Blood shit
+net.Receive("BloodSplatter", function(len)
+	local severity = net.ReadDouble()-- um:ReadShort()
+	AddBloodSplat(severity)
+	if ((net.ReadBit() or 0) == 1 and severity > 1) then
+		AddBloodSplat(severity-1)
+	end
+end)
+
 function BloodDraw()
-	if not IsEntityValid( MySelf ) then return end
+	if not IsEntityValid( MySelf ) then
+		return
+	end
 	
 	for k, v in pairs(BloodDraws) do
 		
@@ -1287,7 +1298,7 @@ function BloodDraw()
 		
 		if (v.fadestart < CurTime()) then
 			v.alpha = math.Approach(v.alpha, 0, FrameTime()*v.duration*100)
-			if v.alpha == 0 then
+			if v.alpha <= 0 then
 				table.remove(BloodDraws,k)
 			end
 		end
@@ -1872,15 +1883,6 @@ function UnlockEffect(achv)
 		end) -- Achievement display delays
 	end
 end
-
--- Blood shit
-net.Receive("BloodSplatter", function(len)
-	local severity = net.ReadDouble()-- um:ReadShort()
-	AddBloodSplat(severity)
-	if ((net.ReadBit() or 0) == 1 and severity > 1) then
-		AddBloodSplat(severity-1)
-	end
-end)
 
 -- Receive spray locations
 Sprays = {}
