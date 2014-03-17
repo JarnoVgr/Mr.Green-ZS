@@ -152,7 +152,6 @@ function GM:SetBoss(value,isInsane,duration)
 		--[[timer.Simple(0.3, function()
 			playBossMusic(isInsane)
 		end)]]
-
 		boss.duration = duration
 		boss.endTime = CurTime() + duration
 

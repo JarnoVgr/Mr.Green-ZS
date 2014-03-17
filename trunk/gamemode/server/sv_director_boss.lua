@@ -50,27 +50,29 @@ function GM:UnleashBoss()
 	boss.starTime = CurTime()
 		
 	--Calculate boss duration
-	boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 120),ROUNDTIME-CurTime())
+	--boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 120),ROUNDTIME-CurTime())
 
 	--Set End time
 	boss.endTime = CurTime() + boss.duration		
 
 	--Create timer to kill boss and end of duration
-	timer.Create("EndBoss", boss.duration, 1, function() 
-		if not boss.pl or not ValidEntity(boss.pl) or not boss.pl:IsBoss() or not pl:Alive() then
-			--Just force disable it then
-			GAMEMODE:SetBoss(false)
-			return
-		end
+	if boss.duration and boss.duration > 0 then
+		timer.Create("EndBoss", boss.duration, 1, function() 
+			if not boss.pl or not ValidEntity(boss.pl) or not boss.pl:IsBoss() or not pl:Alive() then
+				--Just force disable it then
+				GAMEMODE:SetBoss(false)
+				return
+			end
 
-		local pl = boss.pl
-			
-		--Kill will trigger boss end
+			local pl = boss.pl
+				
+			--Kill will trigger boss end
 
-		pl.NoBounty = true
-		pl:SetPhysicsAttacker(nil)
-		pl:Kill()
-	end)
+			pl.NoBounty = true
+			pl:SetPhysicsAttacker(nil)
+			pl:Kill()
+		end)
+	end
 	
 	return pl
 end
@@ -150,7 +152,7 @@ function GM:SetBoss(value)
 		net.Broadcast()
 	else
 		--Kill end-boss timer
-		timer.Destroy("EndBoss")
+		--timer.Destroy("EndBoss")
 		
 		--Reset boss player
 		boss.pl = nil
