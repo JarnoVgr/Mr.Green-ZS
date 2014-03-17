@@ -16,7 +16,7 @@ function GM:UnleashBoss()
 
 	--No late bosses anymore
 	if CurTime() >= ROUNDTIME-60 then
-		return
+		return nil
 	end
 
 	--Set full health on players when in Arena Mode
