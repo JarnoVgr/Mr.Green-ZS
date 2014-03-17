@@ -44,13 +44,13 @@ local ZombieCM = {
 local ZombieCM = {
 	["$pp_colour_brightness"] = 0,
 	["$pp_colour_contrast"] = 1.25,
-	["$pp_colour_colour"] = 0.5,
+	["$pp_colour_colour"] = 1,
 	["$pp_colour_addr"] = 0,
 	["$pp_colour_addg"] = 0,
 	["$pp_colour_addb"] = 0,
-	["$pp_colour_mulr"] = 0,
-	["$pp_colour_mulg"] = 0,
-	["$pp_colour_mulb"] = 0
+	["$pp_colour_mulr"] = 1,
+	["$pp_colour_mulg"] = 1,
+	["$pp_colour_mulb"] = 1
 }
 
 
@@ -66,19 +66,21 @@ ZombieHowlerCM[ "$pp_colour_mulr" ] 	= 0.15
 ZombieHowlerCM[ "$pp_colour_addg" ]	= 0.20
 
 local ZombieRageCM = {}
-ZombieRageCM[ "$pp_colour_addb" ] 	= 0
-ZombieRageCM[ "$pp_colour_contrast" ] = 1.5
-ZombieRageCM[ "$pp_colour_colour" ] = 1
+ZombieRageCM["$pp_colour_addb" ] 	= 0
+ZombieRageCM["$pp_colour_contrast" ] = 1.5
+ZombieRageCM["$pp_colour_colour" ] = 1
 ZombieRageCM["$pp_colour_mulg" ] = 0
 ZombieRageCM["$pp_colour_mulb" ] = 0
-ZombieRageCM[ "$pp_colour_brightness" ] = -0.18
-ZombieRageCM[ "$pp_colour_addr" ] = 0.27
-ZombieRageCM[ "$pp_colour_mulr" ] = 0.16
-ZombieRageCM[ "$pp_colour_addg" ] = 0.15
+ZombieRageCM["$pp_colour_brightness" ] = -0.18
+ZombieRageCM["$pp_colour_addr" ] = 0.27
+ZombieRageCM["$pp_colour_mulr" ] = 0.16
+ZombieRageCM["$pp_colour_addg" ] = 0.15
 
 
 --Alive Human
---[[local HumanCM = {
+--[[
+--Oldest
+local HumanCM = {
 	["$pp_colour_addr"] = 0,
 	["$pp_colour_addg"] = 0,
 	["$pp_colour_addb"] = 0,
@@ -89,6 +91,8 @@ ZombieRageCM[ "$pp_colour_addg" ] = 0.15
 	["$pp_colour_mulg"] = 0,
 	["$pp_colour_mulb"] = 0
 }]]
+--[[
+--Pre-Changes
 local HumanCM = {
 	["$pp_colour_addr"] = 0,
 	["$pp_colour_addg"] = 0,
@@ -97,6 +101,17 @@ local HumanCM = {
 	["$pp_colour_contrast"] = 0.8,
 	["$pp_colour_colour"] = 0.68,
 	["$pp_colour_mulr"] = 0,
+	["$pp_colour_mulg"] = 1,
+	["$pp_colour_mulb"] = 1
+}]]
+local HumanCM = {
+	["$pp_colour_addr"] = 0,
+	["$pp_colour_addg"] = 0,
+	["$pp_colour_addb"] = 0,
+	["$pp_colour_brightness"] = -0.02,
+	["$pp_colour_contrast"] = 1,
+	["$pp_colour_colour"] = 1,
+	["$pp_colour_mulr"] = 1,
 	["$pp_colour_mulg"] = 1,
 	["$pp_colour_mulb"] = 1
 }
@@ -155,7 +170,7 @@ local EyePos = EyePos
 local EyeAngles = EyeAngles
 local zombies = 0
 function CalculateColorMod()
-	if not ValidEntity(MySelf) then
+	if not ValidEntity(MySelf) or not util.tobool(GetConVarNumber("zs_drawcolourmod")) then
 		return
 	end
 	
@@ -214,9 +229,9 @@ function CalculateColorMod()
 		end
 
 		-- Color the screen green-yellow if the player is in toxic fumes
-		if MySelf:Health() > 30 and MySelf:IsInToxicFumes(ToxicPoints) then
+		--[[if MySelf:Health() > 30 and MySelf:IsInToxicFumes(ToxicPoints) then
 			iRedAmount, iGreenAmount, Rate = 0.2, 0.2, FrameTime() * 0.18
-		end
+		end]]
 		
 		-- Exploit color change
 		if MySelf:GetDTInt(3) > 0 then
@@ -341,7 +356,7 @@ hook.Add( "GetMotionBlurValues", "GetBlurValues", ManageSourceMotionBlur )
 ---------------------------------------------------------]==]
 local fSharpenContrast, fSharpenOffset = 0, 0.22
 function CalculateSharpenEffect()
-	if not ValidEntity ( MySelf ) then
+	if not ValidEntity(MySelf) or not util.tobool(GetConVarNumber("zs_drawsharpeneffect")) then
 		return
 	end
 	
@@ -350,10 +365,10 @@ function CalculateSharpenEffect()
 	-- Get how many zombies are there near me
 	if MySelf:Team() == TEAM_HUMAN then
 		local ZombiesNearMe = MySelf:GetNearUndead(300)
-		fSharpenContrastAmount = math.Clamp(ZombiesNearMe, 0, 9)
+		fSharpenContrastAmount = math.Clamp(ZombiesNearMe, 0, 7)
 		
 		-- Make it more obvious
-		if ZombiesNearMe < 3 and ZombiesNearMe > 0 then
+		if ZombiesNearMe > 0 and ZombiesNearMe < 3 then
 			fSharpenContrastAmount = 3.5
 		end
 	end

@@ -3,26 +3,25 @@
 
 -- store convars here
 ClientsideConvars = {}
-ClientsideConvars["_zs_enablelighthud"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable Light HUD"}
-ClientsideConvars["_zs_enablehints"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable Hints"}
-ClientsideConvars["_zs_enablebeats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable Beats"}
-ClientsideConvars["_zs_enablemusic"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable Music (not beats)"}
-ClientsideConvars["_zs_showhorde"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable Horde-meter (zombies)"}
-ClientsideConvars["_zs_enablecolormod"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Enable entire color mod (humans)"}
-ClientsideConvars["_zs_enableironsightblur"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Enable blur while ironsight"}
-ClientsideConvars["_zs_ironsight"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable crosshair while ironsight"}
-ClientsideConvars["_zs_enablehats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Enable hat drawing"}
-ClientsideConvars["_zs_headbob"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Enable head-bobbing"}
+ClientsideConvars["_zs_enablehints"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Game Hints"}
+ClientsideConvars["_zs_enablebeats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Beats"}
+ClientsideConvars["_zs_enablemusic"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Music"}
+ClientsideConvars["_zs_enableironsightblur"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Blur while in ironsight"}
+ClientsideConvars["_zs_ironsight"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Crosshair while in ironsight"}
+ClientsideConvars["_zs_enablehats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hats"}
+ClientsideConvars["_zs_headbob"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Head-bobbing"}
 ClientsideConvars["cl_legs"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Show legs"}
-ClientsideConvars["_zs_hidehud"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Disable HUD"}
+ClientsideConvars["_zs_hidehud"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hide HUD"}
 ClientsideConvars["_zs_hidecrosshair"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Disable crosshair"}
 ClientsideConvars["_zs_hidenotify"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hide wave and pick-up notifications"}
-ClientsideConvars["_zs_drawcrateoutline"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Draw crate's outline through walls (eats fps)"}
+ClientsideConvars["_zs_drawcrateoutline"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Supply Crate outline"}
+ClientsideConvars["zs_drawcolourmod"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Colour mod"}
+ClientsideConvars["zs_drawsharpeneffect"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Sharpen effect as near Undead indicator"}
 
 
-ClientsideConvars["_zs_autoredeem"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Enable autoredeem (zombies)"}
-ClientsideConvars["_zs_humanspawn"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Spawn on humans when possible (humans)"}
-ClientsideConvars["_zs_humanspawnrdm"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Redeem on humans when possible (humans)"}
+ClientsideConvars["_zs_autoredeem"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Automatic redeem"}
+ClientsideConvars["_zs_humanspawn"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Spawn on Survivors when possible"}
+ClientsideConvars["_zs_humanspawnrdm"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Redeem on Survivors when possible"}
 
 
 -- finally get rid of readding shitload of code for single fucking convar
