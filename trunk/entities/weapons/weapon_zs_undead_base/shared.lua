@@ -163,7 +163,7 @@ function SWEP:PerformPrimaryAttack()
 
 	--Insert preTraces to normal traces
 	local arePreTracesUsed = false
-	for k,v in pairs(self.preTraces) do
+	for _,v in pairs(self.preTraces) do
 		table.insert(traces, v)
 
 		if not arePreTracesUsed then
@@ -217,7 +217,7 @@ function SWEP:PerformPrimaryAttack()
 			-- Case 2: It is a valid physics object
 			if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() and not ent.Nails then
 				local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 1400, 25000, 60000)
-				Velocity.z = math.min(Velocity.z,1600)
+				--Velocity.z = math.min(Velocity.z,1600)
 						
 				--Apply force to prop and make the physics attacker myself
 				
