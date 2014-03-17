@@ -66,6 +66,8 @@ end
 
 function SWEP:Initialize()
 	if CLIENT then
+		self:MakeArms()
+
 		-- Create a new table for every weapon instance
 		self.VElements = table.FullCopy( self.VElements )
 		self.WElements = table.FullCopy( self.WElements )
@@ -113,8 +115,31 @@ function SWEP:PrimaryAttack()
 	--Start swinging
 	self:StartPrimaryAttack()
 
+	--Reset preTraces
+	self.preTraces = {}
+
 	--Set time before actual damaging
 	if self.Primary.Delay > 0 then
+		local traces = self.Owner:PenetratingMeleeTrace(self.Primary.Reach, self.Primary.Size, nil)
+		for _, trace in ipairs(traces) do
+			if not trace.Hit or trace.HitWorld then
+				continue
+			end
+
+			local ent = trace.Entity
+			if not ent or not ent:IsValid() then
+				continue
+			end
+			
+			local phys = ent:GetPhysicsObject()
+			if not phys:IsValid() or ent:IsNPC() or not phys:IsMoveable() or ent:IsPlayer() or ent.Nails then
+				continue
+			end
+
+			--It's a phys object. It's a proper preTrace
+			table.insert(self.preTraces,trace)
+		end
+
 		self:SetPrimaryDelay(CurTime() + self.Primary.Delay)
 	else
 		self:PerformPrimaryAttack()
@@ -135,6 +160,19 @@ function SWEP:PerformPrimaryAttack()
 
 	--Do actual traces
 	local traces = self.Owner:PenetratingMeleeTrace(self.Primary.Reach, self.Primary.Size, nil)
+
+	--Insert preTraces to normal traces
+	local arePreTracesUsed = false
+	for k,v in pairs(self.preTraces) do
+		table.insert(traces, v)
+
+		if not arePreTracesUsed then
+			arePreTracesUsed = true
+		end
+	end
+
+	--Init table
+	local entsHit = {}
 		
 	local hit = false
 	for _, trace in ipairs(traces) do
@@ -150,6 +188,25 @@ function SWEP:PerformPrimaryAttack()
 				continue
 			end
 
+			if arePreTracesUsed then
+				--Check if we already hit this ent
+				local hitTwice = false
+				for _,v in pairs(entsHit) do
+					if ent == v then
+						hitTwice = true
+						break
+					end
+				end
+
+				--If we already hit this ent. Skip
+				if hitTwice then
+					continue
+				end
+
+				--Insert to hit table
+				table.insert(entsHit, ent)
+			end
+
 			--Break glass
 			if ent:GetClass() == "func_breakable_surf" then
 				ent:Fire( "break", "", 0 )
@@ -159,7 +216,7 @@ function SWEP:PerformPrimaryAttack()
 			local phys = ent:GetPhysicsObject()
 			-- Case 2: It is a valid physics object
 			if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() and not ent.Nails then
-				local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 1700, 25000, 60000)
+				local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 1400, 25000, 60000)
 				Velocity.z = math.min(Velocity.z,1600)
 						
 				--Apply force to prop and make the physics attacker myself
@@ -309,6 +366,10 @@ if SERVER then
 end
 
 function SWEP:OnRemove()
+	if CLIENT then
+		self:RemoveArms()
+	end
+
     if CLIENT and IsValid(self.Owner) then
 		local vm = self.Owner:GetViewModel()
 		if IsValid(vm) then
@@ -356,6 +417,51 @@ if CLIENT then
 		if !IsValid(vm) then
 			return
 		end
+
+--BEGIN ARMS
+		if IsValid(self.Arms) then
+			if self.Arms:GetModel() ~= self.Owner:GetModel() then
+				self.Arms:SetModel(self.Owner:GetModel())
+			end
+			
+			if not self.Arms.GetPlayerColor then
+				self.Arms.GetPlayerColor = function() return Vector(GetConVarString("cl_playercolor")) end
+			end
+
+		
+			render.SetBlend(1) 
+				self.Arms:SetParent(vm)
+				
+				self.Arms:AddEffects(bit.bor(EF_BONEMERGE , EF_BONEMERGE_FASTCULL , EF_PARENT_ANIMATES))
+				
+				for b, tbl in pairs(PlayerModelBones) do
+					if tbl.ScaleDown then
+						local bone = self.Arms:LookupBone(b)
+						if bone and self.Arms:GetManipulateBoneScale(bone) == Vector(1,1,1) then
+							self.Arms:ManipulateBoneScale( bone, Vector(0.00001, 0.00001, 0.00001) )
+						end
+					else
+						if not tbl.Arm then
+							local bone = self.Arms:LookupBone(b)
+							if bone and self.Arms:GetManipulateBoneScale(bone) == Vector(1,1,1) then
+								self.Arms:ManipulateBoneScale( bone, Vector(1.5, 1.5, 1.5) )
+							end
+						end
+					end
+				end
+				
+				self.Arms:SetRenderOrigin( vm:GetPos()-vm:GetAngles():Forward()*20-vm:GetAngles():Up()*60 )-- self.Arms[1]:SetRenderOrigin( EyePos() )
+				self.Arms:SetRenderAngles( vm:GetAngles() )
+				
+				self.Arms:SetupBones()	
+				self.Arms:DrawModel()
+				
+				self.Arms:SetRenderOrigin()
+				self.Arms:SetRenderAngles()
+				
+			render.SetBlend(1)
+		end
+-- END ARMS
 		
 		if (!self.VElements) then
 			return
@@ -773,4 +879,35 @@ function SWEP:IdleVOX()
 	--Emit idle sound
 	local mSound = table.Random(self.IdleSounds)
 	mOwner:EmitSound(Sound(mSound))
+end
+
+
+
+if CLIENT then
+	function SWEP:MakeArms()
+		if not self.FakeArms then
+			return
+		end
+
+		self.Arms = ClientsideModel("models/player/group01/male_04.mdl", RENDER_GROUP_VIEW_MODEL_OPAQUE) 
+		
+		if (ValidEntity(self.Arms)) and (ValidEntity(self)) then 
+			self.Arms:SetPos(self:GetPos())
+			self.Arms:SetAngles(self:GetAngles())
+			self.Arms:SetParent(self) 
+			self.Arms:SetupBones()
+			-- self.Arms:AddEffects(bit.bor(EF_BONEMERGE , EF_BONEMERGE_FASTCULL , EF_PARENT_ANIMATES))
+			self.Arms:SetNoDraw(true) 
+		else
+			self.Arms = nil
+		end	
+	end
+
+	function SWEP:RemoveArms()
+		if (ValidEntity(self.Arms)) then
+			self.Arms:Remove()
+		end
+
+		self.Arms = nil
+	end
 end

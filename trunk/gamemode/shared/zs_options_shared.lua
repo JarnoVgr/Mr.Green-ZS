@@ -1414,7 +1414,7 @@ ZombieClasses[11] =
 	Unlocked = false,
 	Hidden = true,
 	IsBoss = true,
-	SWEP = "weapon_zs_undead_behemoth",
+	SWEP = "weapon_zs_undead_boss_behemoth",
 	Model = Model("models/zombie/Zombie_Soldier.mdl"),
 	Speed = 187,
 	Description = "",
@@ -1536,7 +1536,7 @@ ZombieClasses[13] =
 	Unlocked = false,
 	Hidden = true,
 	IsBoss = true,
-	SWEP = "weapon_zs_undead_nerf",
+	SWEP = "weapon_zs_undead_boss_nerf",
 	Model = Model("models/Zombie/Fast.mdl"),
 	Speed = 175,
 	Description = "",
@@ -1556,7 +1556,7 @@ ZombieClasses[13] =
 		local status = pl:GiveStatus("overridemodel")
 		
 		if status and status:IsValid() then
-			status:SetModel("models/Zombie/Fast.mdl")
+			status:SetModel(Model("models/Zombie/Fast.mdl"))
 		end		
 	end,
 	OnRevive = function(pl)
@@ -1588,7 +1588,7 @@ ZombieClasses[14] =
 	Unlocked = false,
 	Hidden = true,
 	IsBoss = true,
-	SWEP = "weapon_zs_undead_burner",
+	SWEP = "weapon_zs_undead_boss_burner",
 	Model = Model("models/zombie/Zombie_Soldier.mdl"),
 	Speed = 187,
 	Description = "",
@@ -1611,8 +1611,63 @@ ZombieClasses[14] =
 	OnSpawn = function(pl)
 	end,
 	OnRevive = function(pl)
-		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)	
+	end,
+	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
+	ViewOffset = Vector(0, 0, 73),
+	ViewOffsetDucked = Vector(0,0,32.2),
+	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+}
+
+ZombieClasses[15] =
+{
+	Name = "Klinator",
+	Tag = "klinator",
+	Infliction = 0,
+	Health = 1000,
+	MaxHealth = 8100,
+	TimeLimit = 1020,
+	Bounty = 1000,
+	SP = 1000,
+	Mass = DEFAULT_MASS * 2,
+	Threshold = 4,
+	JumpPower = 200,
+	CanCrouch = true,
+	CanGib = true,
+	Unlocked = false,
+	Hidden = true,
+	IsBoss = true,
+	SWEP = "weapon_zs_undead_boss_klinator",
+	Model = Model("models/player/group01/male_09.mdl"), 
+	OnSpawn = function(pl)
+		pl:SetModel(Model(player_manager.TranslatePlayerModel("kleiner")))
+			
+		pl:SetRandomFace()		
+	end,
+	Speed = 187,
+	Description = "",
+	Unique = "",
+	PainSounds = {
+				Sound( "npc/strider/striderx_pain2.wav" ),
+				Sound( "npc/strider/striderx_pain5.wav" ),
+				Sound( "npc/strider/striderx_pain7.wav" ),
+				Sound( "npc/strider/striderx_pain8.wav" ),
+				},
+	DeathSounds = {
+				Sound("npc/strider/striderx_die1.wav"),
+				},
+	IdleSounds = {
+				Sound("npc/zombine/striderx_alert2.wav"),
+				Sound("npc/zombine/striderx_alert4.wav"),
+				Sound("npc/zombine/striderx_alert5.wav"),
+				Sound("npc/zombine/striderx_alert6.wav"),
+				},
+	OnRevive = function(pl)
+		
 		-- pl:AnimRestartMainSequence()		
+
+		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
 	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),

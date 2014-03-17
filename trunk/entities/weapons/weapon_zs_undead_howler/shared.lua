@@ -13,6 +13,7 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = false
 	SWEP.ShowWorldModel = false
+	SWEP.FakeArms = true
 end
 
 
@@ -155,95 +156,5 @@ function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
 		mv:SetMaxSpeed(0)
 		return true
-	end
-end
-
-function SWEP:OnRemove()
-	if CLIENT then
-		self:RemoveArms()
-	end
-
-	self.BaseClass.OnRemove(self)
-end
-
-function SWEP:Initialize()
-	self.BaseClass.Initialize(self)
-
-	if CLIENT then
-		self:MakeArms()
-	end
-end
-
-
-if CLIENT then
-	function SWEP:ViewModelDrawn()
-		self.BaseClass.ViewModelDrawn(self)
-
-		local vm = self.Owner:GetViewModel()
-		if IsValid(self.Arms) and IsValid(vm) then
-			
-			if self.Arms:GetModel() ~= self.Owner:GetModel() then
-				self.Arms:SetModel(self.Owner:GetModel())
-			end
-			
-			if not self.Arms.GetPlayerColor then
-				self.Arms.GetPlayerColor = function() return Vector(GetConVarString("cl_playercolor")) end
-			end
-
-		
-			render.SetBlend(1) 
-				self.Arms:SetParent(vm)
-				
-				self.Arms:AddEffects(bit.bor(EF_BONEMERGE , EF_BONEMERGE_FASTCULL , EF_PARENT_ANIMATES))
-				
-				for b, tbl in pairs(PlayerModelBones) do
-					if tbl.ScaleDown then
-						local bone = self.Arms:LookupBone(b)
-						if bone and self.Arms:GetManipulateBoneScale(bone) == Vector(1,1,1) then
-							self.Arms:ManipulateBoneScale( bone, Vector(0.00001, 0.00001, 0.00001) )
-						end
-					else
-						if not tbl.Arm then
-							local bone = self.Arms:LookupBone(b)
-							if bone and self.Arms:GetManipulateBoneScale(bone) == Vector(1,1,1) then
-								self.Arms:ManipulateBoneScale( bone, Vector(1.5, 1.5, 1.5) )
-							end
-						end
-					end
-				end
-				
-				self.Arms:SetRenderOrigin( vm:GetPos()-vm:GetAngles():Forward()*20-vm:GetAngles():Up()*60 )-- self.Arms[1]:SetRenderOrigin( EyePos() )
-				self.Arms:SetRenderAngles( vm:GetAngles() )
-				
-				self.Arms:SetupBones()	
-				self.Arms:DrawModel()
-				
-				self.Arms:SetRenderOrigin()
-				self.Arms:SetRenderAngles()
-				
-			render.SetBlend(1)
-		end	
-	end
-
-	function SWEP:MakeArms()
-		self.Arms = ClientsideModel("models/player/group01/male_04.mdl", RENDER_GROUP_VIEW_MODEL_OPAQUE) 
-		
-		if (ValidEntity(self.Arms)) and (ValidEntity(self)) then 
-			self.Arms:SetPos(self:GetPos())
-			self.Arms:SetAngles(self:GetAngles())
-			self.Arms:SetParent(self) 
-			self.Arms:SetupBones()
-			-- self.Arms:AddEffects(bit.bor(EF_BONEMERGE , EF_BONEMERGE_FASTCULL , EF_PARENT_ANIMATES))
-			self.Arms:SetNoDraw(true) 
-		else
-			self.Arms = nil
-		end	
-	end
-
-	function SWEP:RemoveArms()
-		if (ValidEntity(self.Arms)) then
-			self.Arms:Remove()
-		end
-			self.Arms = nil
 	end
 end

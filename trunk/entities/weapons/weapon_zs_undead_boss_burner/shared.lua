@@ -74,8 +74,6 @@ function SWEP:PerformPrimaryAttack()
 		return
 	end
 
-	print("PPA1")
-
 	local fire, tr
 
 	tr = util.TraceLine{ 
@@ -87,8 +85,6 @@ function SWEP:PerformPrimaryAttack()
 	if not tr.Hit then
 		return
 	end
-
-	print("PPA2")
 
 	fire = ents.Create( "env_fire" )
 	fire:SetKeyValue( "health", 20 )

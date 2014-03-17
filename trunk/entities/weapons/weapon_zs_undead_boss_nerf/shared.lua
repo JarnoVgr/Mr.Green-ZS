@@ -5,7 +5,7 @@ AddCSLuaFile()
 
 SWEP.Base = "weapon_zs_undead_base"
 
-SWEP.PrintName = "Fast Zombie"
+SWEP.PrintName = "Nerf"
 if CLIENT then
 	SWEP.ViewModelFOV = 70
 	SWEP.ViewModelFlip = false
@@ -16,16 +16,27 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Primary.Delay = 0.3
 SWEP.Primary.Reach = 42
-SWEP.Primary.Damage = 4
+SWEP.Primary.Damage = 15
 SWEP.Primary.Duration = 0.9
 
 
-SWEP.Secondary.Damage = 2
-SWEP.Secondary.PounceVelocity = 500
+SWEP.Secondary.Damage = 10
+SWEP.Secondary.PounceVelocity = 2500
 SWEP.Secondary.PounceReach = 32
 SWEP.Secondary.PounceSize = 16
 
 SWEP.SwapAnims = false
+
+SWEP.WElements = {
+	["4"] = { type = "Model", model = "models/gibs/gunship_gibs_wing.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(5, 4.091, 3.181), angle = Angle(86.931, 7.158, 82.841), size = Vector(0.321, 0.321, 0.321), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["8"] = { type = "Sprite", sprite = "effects/redflare", bone = "ValveBiped.Bip01_Spine4", rel = "7", pos = Vector(2.273, 0, 0), size = { x = 0.01, y = 0.01 }, color = Color(255, 255, 255, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
+	["1"] = { type = "Model", model = "models/gibs/gunship_gibs_midsection.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-6.818, 0.455, -0.456), angle = Angle(3.068, -25.569, 80.794), size = Vector(0.151, 0.151, 0.151), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["7"] = { type = "Model", model = "models/gibs/shield_scanner_gib1.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(0.455, 5, -1.364), angle = Angle(82.841, 84.886, 5.113), size = Vector(1.003, 1.003, 1.003), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["2"] = { type = "Model", model = "models/gibs/gunship_gibs_sensorarray.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(-6.818, -0.456, 0), angle = Angle(0, 0, -95.114), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["6"] = { type = "Model", model = "models/gibs/gunship_gibs_nosegun.mdl", bone = "ValveBiped.Bip01_R_Thigh", rel = "", pos = Vector(-2.274, -9.546, 2.273), angle = Angle(0, 39.886, -5.114), size = Vector(0.321, 0.321, 0.321), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["3"] = { type = "Model", model = "models/gibs/gunship_gibs_wing.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(5, 4.091, -6.818), angle = Angle(86.931, 7.158, 82.841), size = Vector(0.321, 0.321, 0.321), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["5"] = { type = "Model", model = "models/gibs/gunship_gibs_nosegun.mdl", bone = "ValveBiped.Bip01_L_Thigh", rel = "", pos = Vector(-2.274, -9.546, -4.092), angle = Angle(0, 39.886, -5.114), size = Vector(0.321, 0.321, 0.321), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+}
 
 
 function SWEP:Initialize()
