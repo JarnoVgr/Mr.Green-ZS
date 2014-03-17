@@ -4,11 +4,7 @@
 AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 
-include( "shared.lua" )
-
-local math = math
-local timer = timer
-local ents = ents
+include("shared.lua")
 
 ENT.PoisonExplodeSound = Sound( "ambient/levels/labs/electric_explosion1.wav" )
 
@@ -60,7 +56,11 @@ function ENT:Think()
 	if self.ZombieOwner:IsHuman() then self:Remove() return end
 	
 	-- Owner died before nade xploded
-	if not self.OwnerDied and not self.ZombieOwner:Alive() then self.OwnerDied = true self:SetParent() self:InitPhys() end
+	if not self.OwnerDied and (not self.ZombieOwner:Alive() or self.ZombieOwner:GetZombieClass() ~= 8) then
+		self.OwnerDied = true
+		self:SetParent()
+		self:InitPhys()
+	end
 	
 	-- Beep found
 	if self.BeepTime <= CurTime() then

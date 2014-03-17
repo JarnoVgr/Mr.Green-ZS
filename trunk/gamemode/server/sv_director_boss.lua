@@ -14,6 +14,11 @@ function GM:UnleashBoss()
 		return nil
 	end]]
 
+	--No late bosses anymore
+	if CurTime() >= ROUNDTIME-60 then
+		return
+	end
+
 	--Set full health on players when in Arena Mode
 	if ARENA_MODE then			
 		for _, pl in pairs(player.GetAll()) do
@@ -45,7 +50,7 @@ function GM:UnleashBoss()
 	boss.starTime = CurTime()
 		
 	--Calculate boss duration
-	boss.duration = math.Round(GAMEMODE:GetUndeadDifficulty() * 120)
+	boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 120),ROUNDTIME-CurTime())
 
 	--Set End time
 	boss.endTime = CurTime() + boss.duration		

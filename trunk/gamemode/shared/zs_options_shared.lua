@@ -1570,6 +1570,58 @@ ZombieClasses[13] =
 	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
 }
 
+ZombieClasses[14] =
+{
+	Name = "Burner",
+	Tag = "burner",
+	Infliction = 0,
+	Health = 1000,
+	MaxHealth = 8100,
+	TimeLimit = 1020,
+	Bounty = 1000,
+	SP = 1000,
+	Mass = DEFAULT_MASS * 2,
+	Threshold = 4,
+	JumpPower = 200,
+	CanCrouch = true,
+	CanGib = true,
+	Unlocked = false,
+	Hidden = true,
+	IsBoss = true,
+	SWEP = "weapon_zs_undead_burner",
+	Model = Model("models/zombie/Zombie_Soldier.mdl"),
+	Speed = 187,
+	Description = "",
+	Unique = "",
+	PainSounds = {
+				Sound( "npc/strider/striderx_pain2.wav" ),
+				Sound( "npc/strider/striderx_pain5.wav" ),
+				Sound( "npc/strider/striderx_pain7.wav" ),
+				Sound( "npc/strider/striderx_pain8.wav" ),
+				},
+	DeathSounds = {
+				Sound("npc/strider/striderx_die1.wav"),
+				},
+	IdleSounds = {
+				Sound("npc/zombine/striderx_alert2.wav"),
+				Sound("npc/zombine/striderx_alert4.wav"),
+				Sound("npc/zombine/striderx_alert5.wav"),
+				Sound("npc/zombine/striderx_alert6.wav"),
+				},
+	OnSpawn = function(pl)
+	end,
+	OnRevive = function(pl)
+		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+		-- pl:AnimRestartMainSequence()		
+	end,
+	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
+	ViewOffset = Vector(0, 0, 73),
+	ViewOffsetDucked = Vector(0,0,32.2),
+	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
+	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+}
+
 --[[local SantaStart = {
 	Sound("vo/ravenholm/engage06.wav"),
 	Sound("vo/ravenholm/engage01.wav"),
