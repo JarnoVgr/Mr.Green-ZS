@@ -43,21 +43,21 @@ SWEP.Primary.Sound			= Sound( "Weapon_FiveSeven.Single" )
 SWEP.Primary.Recoil			= 1
 SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 15
-SWEP.Primary.Delay			= 0.1
-SWEP.Primary.DefaultClip	= 80
+SWEP.Primary.ClipSize		= 12
+SWEP.Primary.Delay			= 0.23
+SWEP.Primary.DefaultClip	= 60
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
 SWEP.MaxBulletDistance 		= 1900
 SWEP.MaxAmmo			    = 60
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.ConeMoving = 0.066
-SWEP.Cone = 0.049
-SWEP.ConeIron = 0.039
-SWEP.ConeCrouching = 0.031
-SWEP.ConeIronCrouching = 0.026
-
+SWEP.Cone = 0.34
+SWEP.ConeMoving = SWEP.Cone *1.3
+SWEP.ConeCrouching = SWEP.Cone *0.75
+SWEP.ConeIron = SWEP.Cone *0.8
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
+SWEP.ConeIronMoving = SWEP.ConeMoving *0.80
 SWEP.WalkSpeed = 200
 
 SWEP.IronSightsPos = Vector(-5.969, 22, 2.79)
