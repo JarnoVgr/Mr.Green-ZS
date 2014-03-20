@@ -154,7 +154,7 @@ include("extended/irc/sv_irc.lua")
 include("modules/emitterfix/sh_emitterfix.lua")
 
 --Unstuck
-include("modules/unstuck/sh_unstuck.lua")
+--include("modules/unstuck/sh_unstuck.lua")
 
 -- FPS buss
 include("modules/fpsbuff/sh_buffthefps.lua")
