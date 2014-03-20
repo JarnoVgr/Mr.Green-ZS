@@ -21,7 +21,7 @@ SWEP.Primary.Duration = 0.9
 
 
 SWEP.Secondary.Damage = 10
-SWEP.Secondary.PounceVelocity = 2500
+SWEP.Secondary.PounceVelocity = 1000
 SWEP.Secondary.PounceReach = 32
 SWEP.Secondary.PounceSize = 16
 
