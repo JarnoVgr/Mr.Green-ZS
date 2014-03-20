@@ -27,17 +27,16 @@ SWEP.Slot = 2
 SWEP.SlotPos = 3
 
 -- Damage, distance, delay
-SWEP.Primary.Delay = 0.8
-SWEP.Primary.Distance = 50
+SWEP.Primary.Delay = 0.80
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 50
+SWEP.MeleeDamage = 45
 SWEP.MeleeRange = 55
 SWEP.MeleeSize = 1.45
 SWEP.WalkSpeed = 197
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 
-SWEP.SwingTime = 0.49
+SWEP.SwingTime = 0.55
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingHoldType = "grenade"
 

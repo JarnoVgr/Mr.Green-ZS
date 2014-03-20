@@ -67,7 +67,7 @@ SWEP.Primary.Damage			= 7
 SWEP.Primary.NumShots		= 1		
 SWEP.Primary.Cone			= 0 	
 SWEP.Primary.ClipSize		= 3
-SWEP.Primary.DefaultClip	= 3	
+SWEP.Primary.DefaultClip	= 1
 SWEP.Primary.Automatic   	= false
 SWEP.Primary.Ammo         	= "slam"	
 ------------------------------------------------------------------------------------------------------
