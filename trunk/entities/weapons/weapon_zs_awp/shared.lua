@@ -33,11 +33,11 @@ SWEP.Weight				= 6
 
 SWEP.Primary.Sound			= Sound("Weapon_AWP.Single")
 SWEP.Primary.Recoil			= 6
-SWEP.Primary.Damage			= 130
+SWEP.Primary.Damage			= 320
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 10
-SWEP.Primary.Delay			= 1.5
-SWEP.Primary.DefaultClip	= 20
+SWEP.Primary.ClipSize		= 4
+SWEP.Primary.Delay			= 1
+SWEP.Primary.DefaultClip	= 18
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "357"
 SWEP.Primary.ReloadDelay	= 2
@@ -45,14 +45,13 @@ SWEP.Primary.ReloadDelay	= 2
 SWEP.IronSightsPos = Vector(-7.481, -11.891, 2.24)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
-SWEP.Cone = 0.036
-SWEP.ConeMoving = SWEP.Cone *1.75
-SWEP.ConeCrouching = SWEP.Cone *0.75
-SWEP.ConeIron = SWEP.Cone *0.1
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.1
-SWEP.ConeIronMoving = SWEP.ConeMoving *0.1
+SWEP.ConeMoving = 0.029
+SWEP.Cone = 0.019
+SWEP.ConeIron = 0.012
+SWEP.ConeCrouching = 0.016
+SWEP.ConeIronCrouching = 0.007
 
-SWEP.WalkSpeed = 180
+SWEP.WalkSpeed = 195
 
 function SWEP:IsScoped()
 	return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.25 <= CurTime()
