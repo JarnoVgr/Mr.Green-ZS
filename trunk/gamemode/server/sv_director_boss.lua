@@ -58,7 +58,7 @@ function GM:UnleashBoss()
 	--Create timer to kill boss and end of duration
 	if boss.duration and boss.duration > 0 then
 		timer.Create("EndBoss", boss.duration, 1, function() 
-			if not boss.pl or not ValidEntity(boss.pl) or not boss.pl:IsBoss() or not pl:Alive() then
+			if not boss.pl or not ValidEntity(boss.pl) or not boss.pl:IsBoss() or not boss.pl:Alive() then
 				--Just force disable it then
 				GAMEMODE:SetBoss(false)
 				return
@@ -73,6 +73,19 @@ function GM:UnleashBoss()
 			pl:Kill()
 		end)
 	end
+
+	--Check if boss is still valid
+	timer.Create("BossValidityCheck", 5, 0, function() 
+		if not boss.pl then
+			return
+		end
+
+		if not ValidEntity(boss.pl) or not boss.pl:IsBoss() or not boss.pl:Alive() then
+			--Just force disable it then
+			GAMEMODE:SetBoss(false)
+			return
+		end
+	end)
 	
 	return pl
 end
@@ -153,6 +166,9 @@ function GM:SetBoss(value)
 	else
 		--Kill end-boss timer
 		--timer.Destroy("EndBoss")
+
+		--Kill boss timers
+		timer.Destroy("BossValidityCheck")
 		
 		--Reset boss player
 		boss.pl = nil
