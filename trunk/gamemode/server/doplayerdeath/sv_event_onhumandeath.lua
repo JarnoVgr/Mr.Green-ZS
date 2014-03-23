@@ -53,8 +53,6 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	mVictim:PlayDeathSound()
 	
-	local revive = false
-	
 	if CurTime() <= WARMUPTIME then
 		mVictim.NextSpawn = WARMUPTIME+2
 		mVictim:SendLua("MySelf.NextSpawn = ".. (WARMUPTIME+2))
@@ -62,18 +60,17 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		mVictim.NextSpawn = CurTime() + 2
 		mVictim:SendLua("MySelf.NextSpawn = CurTime() + 2")
 	end
-		
-	if not mVictim.Gibbed and not dmginfo:IsSuicide( mVictim ) then
-		-- timer.Create(mVictim:UniqueID().."secondwind", 2.5, 1, SecondWind, mVictim)
-		-- mVictim:GiveStatus("revive2", 3.5)
+	
+	--Revival
+	if not mVictim.Gibbed and not dmginfo:IsSuicide(mVictim) then
 		mVictim:SetZombieClass(0)
+		mVictim.ForcePlayerModel = true
 		local status = mVictim:GiveStatus("revive_slump_human")
 		if status then
 			status:SetReviveTime(CurTime() + 4)
 			status:SetZombieInitializeTime(CurTime() + 2)
 		end
-		
-		revive = true
+
 		mVictim.MyBodyIsReady = true -- no jokes about this one
 	end
 	

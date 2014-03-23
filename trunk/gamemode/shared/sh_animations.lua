@@ -17,14 +17,14 @@ function GM:UpdateAnimation( pl, velocity, maxseqgroundspeed )
 end
 
 -- Manages activities to play I think
-function GM:CalcMainActivity( ply, velocity )		
-	if ply:IsZombie() then 
-		if self.CalcMainActivityZombies[ ply:GetZombieClass() ] then 
-			return self.CalcMainActivityZombies[ ply:GetZombieClass() ]( ply, velocity ) 
+function GM:CalcMainActivity( pl, velocity )		
+	if pl:IsZombie() then 
+		if self.CalcMainActivityZombies[ pl:GetZombieClass() ] then 
+			return self.CalcMainActivityZombies[ pl:GetZombieClass() ]( pl, velocity ) 
 		end
 	end
 	
-	return self.BaseClass.CalcMainActivity(self, ply, velocity)
+	return self.BaseClass.CalcMainActivity(self, pl, velocity)
 end
 
 local IdleActivity = ACT_HL2MP_IDLE
@@ -44,12 +44,12 @@ IdleActivityTranslate [ ACT_MP_SWIM ] 						= ACT_MP_SWIM
 IdleActivityTranslate [ ACT_LAND ] 							= ACT_LAND
 
 -- Animation events
-function GM:DoAnimationEvent( ply, event, data )
-	if ply:IsZombie() then 
-		if self.DoAnimationEventZombies[ ply:GetZombieClass() ] then 
-			return self.DoAnimationEventZombies[ ply:GetZombieClass() ]( ply, event, data ) 
+function GM:DoAnimationEvent( pl, event, data )
+	if pl:IsZombie() then 
+		if self.DoAnimationEventZombies[ pl:GetZombieClass() ] then 
+			return self.DoAnimationEventZombies[ pl:GetZombieClass() ]( pl, event, data ) 
 		end 
 	end
 	
-	self.BaseClass:DoAnimationEvent(ply, event, data)
+	self.BaseClass:DoAnimationEvent(pl, event, data)
 end

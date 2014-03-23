@@ -907,7 +907,8 @@ ZombieClasses[0] =
 	JumpPower = 200,
 	CanCrouch = true,
 	CanGib = true,
-	Model = Model("models/player/group01/male_09.mdl"), 
+	--Model = Model("models/player/group01/male_09.mdl"), 
+	Model = Model("models/player/zombie_classic.mdl"),
 	Speed = 173,
 	Description = "The backbone of the horde.",
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill" },
@@ -957,18 +958,16 @@ ZombieClasses[0] =
 				}, 	
 	PlayerFootstep = true,
 	Unlocked = true,
-	OnSpawn = function(pl)		
-		--[[local desiredname = pl:GetInfo("cl_playermodel")
-		local modelname = player_manager.TranslatePlayerModel(#desiredname == 0 and "models/player/group01/male_09.mdl" or desiredname)
-		if not table.HasValueCI(PlayerModels, modelname) and not (pl:IsAdmin() and table.HasValueCI(PlayerAdminModels, modelname)) then
-			modelname = table.Random(PlayerModels)
+	OnSpawn = function(pl)
+		--Force human player model
+		if pl.ForcePlayerModel then
+			--Reset
+			pl.ForcePlayerModel = false
+
+			--Set model and face
+			pl:SetModel(player_manager.TranslatePlayerModel(pl.PlayerModel))
+			pl:SetRandomFace()
 		end
-		local lowermodelname = string.lower(modelname)]]
-		pl:SetModel(player_manager.TranslatePlayerModel(pl.PlayerModel))
-			
-		pl:SetRandomFace()
-		--Set red color
-		--pl:SetColor(math.random(150,180),0,0,255)
 	end,
 	-- ModelScale = Vector(1.35,1.35,1.35),
 }

@@ -1059,11 +1059,13 @@ meta.OldCreateRagdoll = meta.CreateRagdoll
 function meta:CreateRagdoll()
 	local status = self.status_overridemodel
 	if status and IsValid(status) then
-		timer.Simple(0,function() 
+		timer.Simple(0, function()
 			if IsValid(self) and IsValid(status) then 
 				-- SetModel(self, status:GetModel()) 
 				self:SetModel(status:GetModel())
-				timer.Simple(0, function() CreateRagdoll(self) end)
+				timer.Simple(0, function()
+					CreateRagdoll(self)
+				end)
 			end 
 		end)
 		status:SetRenderMode(RENDERMODE_NONE)

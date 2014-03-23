@@ -18,7 +18,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	if team.NumPlayers(TEAM_HUMAN) < 1 then
 		GAMEMODE:CalculateInfliction()
 	end
-	
+		
 	local revive = false
 	local ct = CurTime()
 	local headshot = false
