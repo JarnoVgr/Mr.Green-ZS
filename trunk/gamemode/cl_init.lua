@@ -132,11 +132,8 @@ include("modules/news/cl_news.lua")
 --Bone Animation Library
 include("modules/boneanimlib_v2/cl_boneanimlib.lua")
 
--- SQL-stats related
+--SQL-stats related
 include("server/stats/sh_utils.lua")
-
--- SQL-stats related
-include("modules/emitterfix/sh_emitterfix.lua")
 
 -- FPS buss
 include("modules/fpsbuff/sh_buffthefps.lua")
