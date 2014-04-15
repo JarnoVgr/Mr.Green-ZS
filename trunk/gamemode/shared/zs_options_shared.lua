@@ -54,7 +54,7 @@ BOSS_CLASS = {10,11,13} -- 12
 
 --??
 SHARED_SPEED_INCREASE = 13
-
+--hate
 ----------------------------------
 --		STARTING LOADOUTS		--
 ----------------------------------
@@ -1133,7 +1133,7 @@ ZombieClasses[5] =
 	Name = "Howler",
 	Tag = "howler",	
 	Infliction = 0.3,
-	Health = 160,
+	Health = 130,
 	MaxHealth = 180,
 	TimeLimit = 460,
 	Bounty = 70,
@@ -1338,11 +1338,11 @@ ZombieClasses[10] =
 	Mass = DEFAULT_MASS * 2,
 	Threshold = 0,	
 	SWEP = "weapon_zs_undead_hate",			
-	JumpPower = 200,
+	JumpPower = 220,
 	CanCrouch = true,
 	CanGib = true,
 	Model = Model("models/Zombie/Classic.mdl"), 
-	Speed = 215,
+	Speed = 200,
 	Hidden = true,	
 	AngleFix = true,
 	Description = "",
