@@ -346,6 +346,7 @@ GM.RankUnlocks = {
 	[39] = {"_plankamount"},
 	[40] = {"_freeman"},
 	[43] = {"_plankhp"},
+	[44] = {"weapon_zs_melee_combatknife"},
 	[45] = {"weapon_zs_melee_pot"},
 	[50] = {"weapon_zs_miniturret"},
 	[55] = {"weapon_zs_melee_crowbar"},
