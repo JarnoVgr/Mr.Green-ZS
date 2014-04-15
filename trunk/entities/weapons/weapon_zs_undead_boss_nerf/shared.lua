@@ -26,7 +26,7 @@ SWEP.Secondary.PounceReach = 32
 SWEP.Secondary.PounceSize = 16
 
 SWEP.SwapAnims = false
-
+	
 SWEP.WElements = {
 	["4"] = { type = "Model", model = "models/gibs/gunship_gibs_wing.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(5, 4.091, 3.181), angle = Angle(86.931, 7.158, 82.841), size = Vector(0.321, 0.321, 0.321), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["8"] = { type = "Sprite", sprite = "effects/redflare", bone = "ValveBiped.Bip01_Spine4", rel = "7", pos = Vector(2.273, 0, 0), size = { x = 0.01, y = 0.01 }, color = Color(255, 255, 255, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
@@ -37,6 +37,7 @@ SWEP.WElements = {
 	["3"] = { type = "Model", model = "models/gibs/gunship_gibs_wing.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(5, 4.091, -6.818), angle = Angle(86.931, 7.158, 82.841), size = Vector(0.321, 0.321, 0.321), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["5"] = { type = "Model", model = "models/gibs/gunship_gibs_nosegun.mdl", bone = "ValveBiped.Bip01_L_Thigh", rel = "", pos = Vector(-2.274, -9.546, -4.092), angle = Angle(0, 39.886, -5.114), size = Vector(0.321, 0.321, 0.321), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
+	
 
 
 function SWEP:Initialize()

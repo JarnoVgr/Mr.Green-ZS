@@ -35,7 +35,7 @@ ENT.MaxHealth = 100
 ENT.MaxBullets = 150
 ENT.RechargeDelay = 0.5 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 540
-ENT.Damage = 7
+ENT.Damage = 13
 ENT.IgnoreClasses = {4,6,7,9} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {6,7}
 
