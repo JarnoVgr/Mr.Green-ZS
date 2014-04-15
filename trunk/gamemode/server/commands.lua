@@ -390,7 +390,9 @@ function BanPlayer(pl,commandName,args)
 	
 	local playerSteamId = GetPlayerByUserID(tonumber(args[1])):SteamID()
 	if playerSteamId then
-		RunConsoleCommand("banid ".. tonumber(args[2]) .." ".. playerSteamId .."")
+		RunConsoleCommand("banid ".. tonumber(args[2]) .." ".. playerSteamId .."\n")
+		RunConsoleCommand("kickid ".. playerSteamId .." Bye\n")
+		RunConsoleCommand("writeid\n")
 	end
 
 	--[[for k=1, 3 do -- spam the command

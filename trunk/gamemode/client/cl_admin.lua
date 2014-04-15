@@ -166,7 +166,10 @@ function DoAdminPanel()
 			for l,m in ipairs ( PlayersAll ) do
 				if ValidEntity ( m ) then
 					local BanTime = tonumber ( j ) if j == "Permaban that sucker!" then BanTime = 0 end
-					TimeList:AddOption ( tostring ( m:Name() ).." - ["..GetStringTeam ( m ).."]", function() ConfirmAction ( "ban", m, true, BanTime, "Other reason." ) CloseAdminPanel() end )
+					TimeList:AddOption ( tostring ( m:Name() ).." - ["..GetStringTeam ( m ).."]", function()
+						ConfirmAction ( "ban", m, true, BanTime, "Other reason." )
+						CloseAdminPanel()
+					end )
 				end
 			end
 		end
