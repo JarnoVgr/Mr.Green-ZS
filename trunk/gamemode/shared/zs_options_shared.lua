@@ -1401,7 +1401,7 @@ ZombieClasses[11] =
 {
 	Name = "Behemoth",
 	Tag = "behemoth",
-	Infliction = 0.1,
+	Infliction = 0.2,
 	Health = 1000,
 	MaxHealth = 4000,
 	TimeLimit = 1020,
