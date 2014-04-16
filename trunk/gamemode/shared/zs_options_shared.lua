@@ -605,7 +605,6 @@ HELP_TXT[1] = {
 	To check your current experience type !levelstats in chat.
 	> Tips: Stick with your team and make good use of your tools.
 	
-	
 	-- ZOMBIES ----------------------------------------------------
 	
 	> Objective: Eat all humans. If you get 8 score (by eating 4 humans) - you will be able to redeem (F2).
@@ -614,11 +613,13 @@ HELP_TXT[1] = {
 	> Teamwork: Zombies can gain damage resistance from bullets by grouping into hordes. 
 	
 	-- ADMINS ----------------------------------------------------
+	
 	> Damien, Duby, Gheii Ben, Reiska, The real freeman, Lameshot, Phychopeti.
+	
 	-- SERVER CODERS ----------------------------------------------------
+	
 	>Ywa, Duby.
 	Any questions go to:
-	
 	Check out http://mrgreengaming.com
 	]]
 } 
