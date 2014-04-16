@@ -25,7 +25,7 @@ SWEP.WorldModel = Model("models/weapons/w_medkit.mdl")
 SWEP.Base = "weapon_zs_base_dummy"
 
 --SWEP.Primary.Delay = 0.01
-SWEP.Primary.Delay = 0.04
+SWEP.Primary.Delay = 0.4
 
 SWEP.Primary.Heal = 1
 SWEP.Primary.ClipSize = 30
@@ -33,7 +33,7 @@ SWEP.Primary.DefaultClipSize = 30
 SWEP.Primary.UpgradedClipSize = 60
 SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Ammo = "SniperRound"
-SWEP.Primary.Delay = 1.2
+--SWEP.Primary.Delay = 1.1
 SWEP.Primary.Automatic = true
 SWEP.Secondary.Automatic = true
 SWEP.WalkSpeed = 200
