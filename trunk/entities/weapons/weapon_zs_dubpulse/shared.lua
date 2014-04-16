@@ -28,8 +28,8 @@ SWEP.base = "weapon_zs_base"
 SWEP.ViewModel			= Model ( "models/weapons/v_smg1.mdl" )
 SWEP.WorldModel			= Model ( "models/weapons/w_smg1.mdl" )
 
-SWEP.WalkSpeed = 150
-SWEP.HoldType = "pistol"
+SWEP.WalkSpeed = 200
+SWEP.HoldType = "ar2"
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 SWEP.DrawAmmo = true

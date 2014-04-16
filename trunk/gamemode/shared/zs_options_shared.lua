@@ -1266,7 +1266,7 @@ ZombieClasses[8] =
 	SWEP = "weapon_zs_undead_zombine",
 	Model = Model("models/zombie/zombie_soldier.mdl"),
 	Speed = 145,
-	RunSpeed = 260,
+	RunSpeed = 220,
 	Description = "A heavily armoured soldier that has taken a turn for the worst.",
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Pulls out grenade", "> SPECIAL: Enrage when taken enough damage" },
 	PainSounds = {
@@ -1401,7 +1401,7 @@ ZombieClasses[11] =
 {
 	Name = "Behemoth",
 	Tag = "behemoth",
-	Infliction = 0,
+	Infliction = 0.1,
 	Health = 1000,
 	MaxHealth = 4000,
 	TimeLimit = 1020,
