@@ -206,9 +206,9 @@ GM.HumanWeapons = {
 	["weapon_zs_minishotty"]  = { Name = "'Farter' Shotgun", DPS = 126, Infliction = 0, Type = "shotgun" },
 	["weapon_zs_fists"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
 	["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" }, -- 860
-	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "rifle" },
+	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "rifle", },
 	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
-	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 1900 },
+	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 1900 }, --Seems to work fine now.
 	
 	--Tool1
 	["weapon_zs_tools_hammer"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", NoRetro = true },
@@ -1403,7 +1403,7 @@ ZombieClasses[11] =
 	Tag = "behemoth",
 	Infliction = 0,
 	Health = 1000,
-	MaxHealth = 8100,
+	MaxHealth = 4000,
 	TimeLimit = 1020,
 	Bounty = 1000,
 	SP = 1000,

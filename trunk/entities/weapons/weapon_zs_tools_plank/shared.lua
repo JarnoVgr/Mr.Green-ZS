@@ -37,8 +37,8 @@ SWEP.SlotPos = 1
 
 -- SWEP.Info = ""
 
-SWEP.Primary.ClipSize =2
-SWEP.Primary.DefaultClip = 2
+SWEP.Primary.ClipSize =4
+SWEP.Primary.DefaultClip = 4
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "none"
 SWEP.Primary.Delay = 2.0
