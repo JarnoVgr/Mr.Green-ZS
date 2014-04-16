@@ -93,7 +93,7 @@ function SWEP:PrimaryAttack()
 		bullet.Spread = Vector(0.02,0.02,0.02)
 		bullet.Tracer = 1
 		bullet.Force = 30
-		bullet.Damage = 8
+		bullet.Damage = 13
 	self:ShootEffects()
 	self.Owner:FireBullets( bullet )
 	self.Weapon:EmitSound(Sound("Airboat.FireGunHeavy"))
