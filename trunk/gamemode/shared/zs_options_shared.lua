@@ -599,24 +599,25 @@ HELP_TXT[1] = {
 	
 	-- HUMANS -----------------------------------------------------
 	
-	> Objective: Team up and survive the 6 waves!
-	> Weapons: Kill zombies, help your teammates to gain skillpoints! Between waves you can buy weapons/ammo/other stuff from supplies crates using your skillpoints.
+	> Objective: Team up and survive Against the zombie horde!
+	> Weapons: Kill zombies, Get SP go to the crate when the timer is up and press 'e' It then gives you your new weapons.
 	> Leveling: To level up - you need to gain experience that you get for almost anything you do. Each time you level up - you may unlock new tools and perks. 
 	To check your current experience type !levelstats in chat.
-	> Tips: Stick with your team and make good use of your tools and skillpoints.
+	> Tips: Stick with your team and make good use of your tools.
 	
 	
 	-- ZOMBIES ----------------------------------------------------
 	
 	> Objective: Eat all humans. If you get 8 score (by eating 4 humans) - you will be able to redeem (F2).
-	> Classes: Zombies have 8 different classes that will be unlocked with each wave (press F3 to choose your class). Between waves you will be forced to spectate as crow.
+	> Classes: Zombies have 8 different classes that will be unlocked depending on the round time. (press F3 to choose your class).
 	> Spawning: As zombie you can spawn on other zombies (left mouse button). With right mouse button you can scroll through other zombies.
 	> Teamwork: Zombies can gain damage resistance from bullets by grouping into hordes. 
 	
-	
-	
-	
-	
+	-- ADMINS ----------------------------------------------------
+	> Damien, Duby, Gheii Ben, Reiska, The real freeman, Lameshot, Phychopeti.
+	-- SERVER CODERS ----------------------------------------------------
+	>Ywa, Duby.
+	Any questions go to:
 	
 	Check out http://mrgreengaming.com
 	]]
