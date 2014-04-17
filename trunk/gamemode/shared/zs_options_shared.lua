@@ -664,6 +664,48 @@ HELP_TXT[3] = {
 		Surf to http://mrgreengaming.com to post your ideas for changes and where you can post suggestions for new maps.
 		
 		Gamemode is developed by Limetric for Mr. Green Gaming Community. More info at http://limetric.com
+		
+		---lEVEL UNLOCKS------------------
+		
+	[0] = {"weapon_zs_usp","weapon_zs_melee_keyboard","weapon_zs_tools_torch"},
+	[1] = {"weapon_zs_melee_plank"},
+	[2] = {"weapon_zs_p228"},
+	[3] = {"_kevlar"},
+	[5] = {"weapon_zs_medkit"},
+	[6] = {"weapon_zs_tools_hammer"},
+	[7] = {"_nailamount"},
+	[11] = {"weapon_zs_tools_supplies"},
+	[13] = {"_adrenaline"},
+	[14] = {"_sboost"},
+	[15] = {"weapon_zs_grenade"},
+	[16] = {"_trchregen"},
+	[17] = {"_nailhp"},
+	[19] = {"_falldmg"},
+	[21] = {"_kevlar2"},
+	[22] = {"_medupgr2"},
+	[24] = {"_comeback"},
+	[25] = {"weapon_zs_turretplacer"},
+	[27] = {"_poisonprotect"},
+	[28] = {"weapon_zs_tools_remote"},
+	[30] = {"_turretdmg"},
+	[31] = {"weapon_zs_mine"},
+	[32] = {"_turrethp"},
+	[33] = {"_turretammo"},-- ,"weapon_zs_melee_axe"
+	[34] = {"_medupgr1"},
+	[35] = {"_enhkevlar"},
+	[37] = {"weapon_zs_tools_plank"},
+	[39] = {"_plankamount"},
+	[40] = {"_freeman"},
+	[43] = {"_plankhp"},
+	[44] = {"weapon_zs_melee_combatknife"},
+	[45] = {"weapon_zs_melee_pot"},
+	[50] = {"weapon_zs_miniturret"},
+	[55] = {"weapon_zs_melee_crowbar"},
+	[65] = {"weapon_zs_classic"},
+	[70] = {"weapon_zs_fiveseven"},
+		
+		
+		
 	]]
 } 
 
