@@ -8,7 +8,7 @@ include("sv_director_titles.lua")
 include("sv_director_boss.lua")
 
 GAMEACTIVE = false
-
+--GiveSkillPointsSurvivors
 --[==[---------------------------------------------------------
    Event Director - Unlife/ Last human/ Endround
 ---------------------------------------------------------]==]
@@ -96,7 +96,7 @@ function GiveSkillPointsSurvivors()
 	for _, h in pairs(team.GetPlayers(TEAM_HUMAN)) do
 		if h and h:IsValid() and h:Alive() then
 			--Give SP
-			skillpoints.AddSkillPoints(h,math.max(0,math.Round(130*GetInfliction())))
+			--skillpoints.AddSkillPoints(h,math.max(0,math.Round(130*GetInfliction())))
 
 			--Give XP
 			h:AddXP(math.max(0,100*GetInfliction()))
