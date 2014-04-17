@@ -150,9 +150,9 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 				Spark:SetMagnitude( 50 )
 				Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
 				util.Effect( "MetalSpark", Spark, true, true )
-			end
 
-			dmginfo:ScaleDamage(0.07)
+				dmginfo:ScaleDamage(0.07)
+			end	
 		end
 	end
 	
