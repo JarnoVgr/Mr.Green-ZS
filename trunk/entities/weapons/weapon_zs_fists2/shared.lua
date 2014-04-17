@@ -3,7 +3,7 @@ AddCSLuaFile()
 
 SWEP.Author			= "robotboy655 & MaxOfS2D"
 SWEP.Purpose		= "Well we sure as heck didn't use guns! We would wrestle Hunters to the ground with our bare hands! I would get ten, twenty a day, just using my fists."
-
+SWEP.Base = "weapon_zs_melee_base"
 SWEP.Spawnable			= true
 SWEP.UseHands			= true
 
@@ -31,11 +31,20 @@ SWEP.PrintName			= "Fists"
 SWEP.Slot				= 0
 SWEP.SlotPos			= 5
 SWEP.DrawAmmo			= false
-SWEP.DrawCrosshair		= true
+SWEP.DrawCrosshair		= false
 
 local SwingSound = Sound( "weapons/slam/throw.wav" )
 local HitSound = Sound( "Flesh.ImpactHard" )
 
+
+if CLIENT then
+
+--if self.Owner and self.Owner:GetSuit() == "meleesuit" then
+--primary.damage = math.Clamp(self.primary.damage+15,0,self.Primary.Damage)
+--end
+
+
+end
 function SWEP:Initialize()
 
 	self:SetWeaponHoldType( "fist" )
@@ -101,6 +110,8 @@ function SWEP:PrimaryAttack()
 
 	self:SetNextPrimaryFire( CurTime() + 0.9 )
 
+	
+	
 end
 
 function SWEP:DealDamage( anim )
@@ -139,6 +150,7 @@ function SWEP:DealDamage( anim )
 
 		tr.Entity:TakeDamageInfo( dmginfo )
 	end
+	
 end
 
 function SWEP:SecondaryAttack()
