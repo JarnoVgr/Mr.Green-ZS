@@ -8,8 +8,8 @@ SWEP.Base = "weapon_zs_melee_base"
 
 -- Model paths
 SWEP.Author = "Deluvas"
-SWEP.ViewModel = Model ( "models/weapons/v_smg1.mdl" )--models/weapons/v_punch.mdl
-SWEP.WorldModel = Model ( "models/weapons/w_crowbar.mdl" )
+SWEP.ViewModel = Model ( "models/weapons/v_punch.mdl" )--models/weapons/v_punch.mdl
+SWEP.WorldModel = Model ( "models/weapons/w_hands.mdl" )
 
 -- Name and fov
 SWEP.PrintName = "Fists"
@@ -22,9 +22,9 @@ SWEP.SlotPos = 3
 SWEP.HoldType = "fists"
 
 -- Damage, distane, delay
-SWEP.Primary.Damage = 60
+SWEP.Primary.Damage = 3
 SWEP.Primary.Delay = 0.75
-SWEP.Primary.Distance = 64
+SWEP.Primary.Distance = 40
 SWEP.TotalDamage = SWEP.Primary.Damage
 -- Killicons
 if CLIENT then killicon.AddFont( "weapon_zs_fists", "HL2MPTypeDeath", "6", Color( 255, 80, 0, 255 ) ) end

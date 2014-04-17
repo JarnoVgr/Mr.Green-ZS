@@ -205,6 +205,8 @@ GM.HumanWeapons = {
 	--Uncategorized
 	["weapon_zs_minishotty"]  = { Name = "'Farter' Shotgun", DPS = 126, Infliction = 0, Type = "shotgun" },
 	["weapon_zs_fists"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
+	["weapon_zs_fists2"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
+	["weapon_zs_melee_pipe"]  = { Name = "pipe", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
 	["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" }, -- 860
 	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "rifle", },
 	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
@@ -317,15 +319,17 @@ MAX_RANK = 75
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_melee_keyboard","weapon_zs_tools_torch"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2"},
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
+	[4] = {"weapon_zs_tools_torch"},
 	[5] = {"weapon_zs_medkit"},
 	[6] = {"weapon_zs_tools_hammer"},
 	[7] = {"_nailamount"},
 	[11] = {"weapon_zs_tools_supplies"},
 	[13] = {"_adrenaline"},
+	[12] = {"weapon_zs_melee_keyboard"},
 	[14] = {"_sboost"},
 	[15] = {"weapon_zs_grenade"},
 	[16] = {"_trchregen"},
