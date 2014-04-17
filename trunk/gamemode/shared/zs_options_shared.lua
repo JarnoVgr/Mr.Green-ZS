@@ -619,8 +619,8 @@ HELP_TXT[1] = {
 	-- SERVER CODERS ----------------------------------------------------
 	
 	>Ywa, Duby.
-	Any questions go to:
-	Check out http://mrgreengaming.com
+	Any questions go to:  http://mrgreengaming.com
+	
 	]]
 } 
 
@@ -677,7 +677,7 @@ HELP_TXT[4] = {
 		* Kill 4 humans (score 8 points)
 		
 		> How to get new weapons?
-		* Get SkillPoints by helping your team and use them on available supply crate (between waves)
+		* Get SkillPoints by helping your team and use them on available supply crate (When the timer is up)
 		
 		> Where I can buy hats?
 		* GreenCoins Shop. Type !shop in chat to open it.
@@ -700,7 +700,7 @@ HELP_TXT[5] = {
 	title = "Server", 
 	txt = [[]]
 } 
-
+--battery
 HELP_TEXT = {}
 HELP_TEXT[1] = { title = "Help", text = [[^rZombie Survival
 @This version has been modified for the Mr. Green server
@@ -1259,7 +1259,7 @@ ZombieClasses[8] =
 	MaxHealth = 300, --decreased from 320
 	TimeLimit = 1020,
 	Bounty = 150,
-	SP = 30,
+	SP = 25,
 	Mass = DEFAULT_MASS * 1.2,
 	Threshold = 4,
 	JumpPower = 200,
@@ -1403,7 +1403,7 @@ ZombieClasses[11] =
 {
 	Name = "Behemoth",
 	Tag = "behemoth",
-	Infliction = 0.2,
+	Infliction = 0.4,
 	Health = 1000,
 	MaxHealth = 4000,
 	TimeLimit = 1020,
@@ -1541,7 +1541,7 @@ ZombieClasses[13] =
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_nerf",
 	Model = Model("models/Zombie/Fast.mdl"),
-	Speed = 175,
+	Speed = 190,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -2145,6 +2145,10 @@ shopData = {
 	[74] = { Cost = 2000, Type = "hat", AdminOnly = false, Desc = "Pimp?. (Requires TF2)", Key = "hall", ID = 74, Sell = 0, Requires = 0, Name = "Hustler's Hallmark" },
 	[75] = { Cost = 1200, Type = "other", AdminOnly = false, Desc = "Just a pair of cool glasses, I guess?. (Requires TF2)", Key = "copgl", ID = 75, Sell = 0, Requires = 0, Name = "Cop Glasses" },
 	[76] = { Cost = 1600, Type = "other", AdminOnly = false, Desc = "Sometimes you just need a little more hair. (Requires TF2)", Key = "sidebrn", ID = 76, Sell = 0, Requires = 0, Name = "Sideburns" },
+	[77] = { Cost = 200, Type = "other", AdminOnly = false, Desc = "Swag with burgers for ears, and guns for brains!", Key = "BurgerBuns", ID = 77, Sell = 0, Requires = 0, Name = "BurgerBuns" },
+	[78] = { Cost = 500, Type = "other", AdminOnly = false, Desc = "Becoming a cyborg is fun.", Key = "RoboEars", ID = 78, Sell = 0, Requires = 0, Name = "RoboEars" },
+	[79] = { Cost = 800, Type = "other", AdminOnly = false, Desc = "Being chased by zombies! No problem, attach this and play away! 'Doesn't actually do that'.", Key = "Helihead", ID = 79, Sell = 0, Requires = 0, Name = "HeliHead" },
+	
 }
 
 PureHats = {}
@@ -2291,6 +2295,23 @@ hats = {
 	["sidebrn"] = {
 		["1"] = { type = "Model", model = "models/player/items/all_class/winter_sideburns_medic.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-0.239, 0.344, 0), angle = Angle(-90, -56.035, 0), size = Vector(1.044, 1.044, 1.044), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 1, bodygroup = {} }
 	},
+	
+	["BurgerBuns"] = { --Made by Duby
+	   ["hat2"] = { type = "Model", model = "models/food/burger.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(2.273, -1.364, 11.364), angle = Angle(-180, 17.385, -1.024), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+       ["hat1"] = { type = "Model", model = "models/food/burger.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(2.273, -1.364, -10.455), angle = Angle(0, 17.385, -1.024), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+
+},
+	
+	["RoboEars"] = { --Made by Duby 
+	  ["belt"] = { type = "Model", model = "models/gibs/scanner_gib01.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(1.363, -9.546, 0), angle = Angle(180, 99.205, 97.158), size = Vector(0.72, 0.72, 0.72), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+      ["devider"] = { type = "Model", model = "models/gibs/scanner_gib05.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-1.364, -5, -0.456), angle = Angle(0, 0, 0), size = Vector(0.379, 0.379, 0.379), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	
+},
+
+	["Helihead"] = {
+	["head2"] = { type = "Model", model = "models/props_citizen_tech/windmill_blade004a.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(4.091, -3.182, 1.363), angle = Angle(5.113, 25.568, 0), size = Vector(0.094, 0.094, 0.094), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+},
+	
 }
 
 

@@ -33,10 +33,14 @@ SWEP.WElements = {
 	["1"] = { type = "Model", model = "models/gibs/gunship_gibs_midsection.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-6.818, 0.455, -0.456), angle = Angle(3.068, -25.569, 80.794), size = Vector(0.151, 0.151, 0.151), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["7"] = { type = "Model", model = "models/gibs/shield_scanner_gib1.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(0.455, 5, -1.364), angle = Angle(82.841, 84.886, 5.113), size = Vector(1.003, 1.003, 1.003), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["2"] = { type = "Model", model = "models/gibs/gunship_gibs_sensorarray.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(-6.818, -0.456, 0), angle = Angle(0, 0, -95.114), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["6"] = { type = "Model", model = "models/gibs/gunship_gibs_nosegun.mdl", bone = "ValveBiped.Bip01_R_Thigh", rel = "", pos = Vector(-2.274, -9.546, 2.273), angle = Angle(0, 39.886, -5.114), size = Vector(0.321, 0.321, 0.321), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["3"] = { type = "Model", model = "models/gibs/gunship_gibs_wing.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(5, 4.091, -6.818), angle = Angle(86.931, 7.158, 82.841), size = Vector(0.321, 0.321, 0.321), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["5"] = { type = "Model", model = "models/gibs/gunship_gibs_nosegun.mdl", bone = "ValveBiped.Bip01_L_Thigh", rel = "", pos = Vector(-2.274, -9.546, -4.092), angle = Angle(0, 39.886, -5.114), size = Vector(0.321, 0.321, 0.321), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-}
+	
+["nerfhead3"] = { type = "Model", model = "models/gibs/gunship_gibs_engine.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(0, 0, 0), angle = Angle(0, 0, 0), size = Vector(0.209, 0.209, 0.209), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+["nerfhead"] = { type = "Model", model = "models/props_combine/tprotato1.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(4.091, 2.273, 0), angle = Angle(0, 0, 86.931), size = Vector(0.094, 0.094, 0.094), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+["nerfhead2"] = { type = "Model", model = "models/props_combine/tprotato1_chunk01.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(8.635, -0.456, 0), angle = Angle(105.341, 88.976, 80.794), size = Vector(0.094, 0.094, 0.094), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+
+	
+	}
 	
 
 
