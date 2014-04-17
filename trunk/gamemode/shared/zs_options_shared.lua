@@ -2195,6 +2195,8 @@ shopData = {
 	[78] = { Cost = 500, Type = "other", AdminOnly = false, Desc = "Becoming a cyborg is fun.", Key = "RoboEars", ID = 78, Sell = 0, Requires = 0, Name = "RoboEars" },
 	[79] = { Cost = 800, Type = "other", AdminOnly = false, Desc = "Being chased by zombies! No problem, attach this and play away! 'Doesn't actually do that'.", Key = "Helihead", ID = 79, Sell = 0, Requires = 0, Name = "HeliHead" },
 	[80] = { Cost = 3000, Type = "suit", AdminOnly = false, Desc = "Hunt for the fast zombies! Kill the Kleiners and bury them!", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
+	[81] = { Cost = 5000, Type = "suit", AdminOnly = false, Desc = "Become one of the elite forces and fight for the Dubyans!", Key = "Combine", ID = 81, Sell = 0, Requires = 0, Name = "Combine the Zombine!",  },
+	
 }
 
 PureHats = {}
@@ -2408,6 +2410,15 @@ suits = {
 	["GraveDigger2"] = { type = "Model", model = "models/props_junk/shovel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "GraveDigger", pos = Vector(3.476, 2.934, 0), angle = Angle(-91.389, 133.335, 3.608), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["GraveDigger2+"] = { type = "Model", model = "models/props_junk/shovel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "GraveDigger", pos = Vector(3.476, -1.982, 0.048), angle = Angle(-91.389, -127.024, 3.608), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 
+	},
+	
+	["Combine"] = { --Thanks brain dawg
+	
+	["Combinesuit"] = { type = "Model", model = "models/props_combine/combine_dispenser.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(-3.122, 8.189, 0.734), angle = Angle(-180, 103.22, 90.872), size = Vector(0.379, 0.379, 0.379), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Combinesuit3"] = { type = "Model", model = "models/props_combine/combine_teleportplatform.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "Combinesuit", pos = Vector(-0.59, -0.806, -6.715), angle = Angle(0, 0, 0), size = Vector(0.134, 0.134, 0.134), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Combinesuit2+"] = { type = "Model", model = "models/props_combine/combine_light001a.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "Combinesuit", pos = Vector(-0.889, 3.54, 3.464), angle = Angle(-4.244, -180, 0), size = Vector(0.303, 0.303, 0.303), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Combinesuit2"] = { type = "Model", model = "models/props_combine/combine_light001a.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "Combinesuit", pos = Vector(-0.889, -4.875, 3.464), angle = Angle(-4.244, -180, 0), size = Vector(0.303, 0.303, 0.303), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	
 	},
 	
 	["medicsuit"] = {
