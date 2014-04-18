@@ -793,7 +793,8 @@ function CalculateZombieHealth(pl)
 	   local humanCount = team.NumPlayers(TEAM_SURVIVORS)
 	   local zombieCount = team.NumPlayers(TEAM_UNDEAD)
 	   
-	   MaxHealth = (humanCount * (Tab.Health * math.Clamp(INFLICTION,0.2,1))) * math.Clamp(humanCount / zombieCount, 0.5, 2)
+	  -- MaxHealth = (humanCount * (Tab.Health * math.Clamp(INFLICTION,0.2,1))) * math.Clamp(humanCount / zombieCount, 0.5, 2) --More health for bosses
+	   MaxHealth = (humanCount * (Tab.Health * math.Clamp(INFLICTION,0.1,1))) * math.Clamp(humanCount / zombieCount, 0.3, 2)
 	end
 
 	MaxHealth = math.Round(MaxHealth)
@@ -824,7 +825,7 @@ function CalculatePlayerHealth(pl)
 	
 	--Second kevlar upgrade
 	if pl:GetPerk("_kevlar2") then
-		MaxHealth, Health = 120, 120
+		MaxHealth, Health = 130, 130
 	end
 	
 	-- Actually set the health
