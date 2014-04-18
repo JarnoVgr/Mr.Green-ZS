@@ -376,7 +376,7 @@ GM.ArenaWeapons = {
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
 GM.Perks = {
 	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
-	["_kevlar2"] = {Name = "Full Kevlar", Description = "Gives you 20 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
+	["_kevlar2"] = {Name = "Full Kevlar", Description = "Gives you 30 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
 	["_turretammo"] = {Name = "Turret Ammo", Description = "50% more ammo for turret", Slot = 2},
 	["_turrethp"] = {Name = "Turret Durability", Description = "50% more health for turret", Material = "VGUI/gfx/VGUI/defuser", Slot = 2},
 	["_turretdmg"] = {Name = "Turret Power", Description = "50% more turret's damage", Slot = 2},
