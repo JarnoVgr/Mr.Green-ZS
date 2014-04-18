@@ -712,12 +712,12 @@ function RollTheDice ( pl,commandName,args )
 		pl:SetHealth(1)
 		message = message .." rolled the dice and got raped in the ass."
 	elseif choise == 3 then
-		pl:GiveAmmo( 20, "pistol" )	
+		pl:GiveAmmo( 90, "pistol" )	
 		pl:GiveAmmo( 60, "ar2" )
-		pl:GiveAmmo( 50, "SMG1" )	
-		pl:GiveAmmo( 15, "buckshot" )		
+		pl:GiveAmmo( 90, "SMG1" )	
+		pl:GiveAmmo( 60, "buckshot" )		
 		pl:GiveAmmo( 5, "XBowBolt" )
-		pl:GiveAmmo( 5, "357" )
+		pl:GiveAmmo( 30, "357" )
 		message = message .." rolled the dice and received some ammo!"	
 	elseif choise == 4 and pl:Health() < pl:GetMaximumHealth() then
 		local calchealth = math.Clamp ( 100 - pl:Health(),25,100 )
@@ -842,7 +842,16 @@ local clientCommandList = {      -- list of all client commands I added
 "!mayco \t\t\t\t- Easter egg",
 "!ratman \t\t\t- Easter egg",
 "!prismaa \t\t\t- Easter egg",
-"!deluvas \t\t\t- Easter egg"}
+"!deluvas \t\t\t- Easter egg",
+"!Damien \t\t\t- Easter egg",
+"!Duby \t\t\t- Easter egg",
+"!GheiiBen \t\t\t- Easter egg",
+"!Pufulet \t\t\t- Easter egg",
+"!Rob \t\t\t- Easter egg",
+"!Box \t\t\t- Easter egg",
+}
+			
+
 			
 local adminCommandList = {      -- list of all admin commands I added
 "\nLIST OF ADMIN-ONLY COMMANDS\n",
@@ -978,6 +987,26 @@ local function CommandSay(pl, text, teamonly)
 			return ""
 		elseif (text == "!jetboom") then
 			pl:PrintMessage( HUD_PRINTCENTER, "JetBoom: as great in programming as he is unfriendly." )
+			
+			elseif (text == "!Damien") then
+			pl:PrintMessage( HUD_PRINTCENTER, "CheeseCake HACKS!!!! xD." )
+			
+			elseif (text == "!Duby") then
+			pl:PrintMessage( HUD_PRINTCENTER, "The duel elite master will lead the dubyans!" )
+			
+			elseif (text == "!GheiiBen") then
+			pl:PrintMessage( HUD_PRINTCENTER, "You cannot take control! Unless you press the gheiiBen ;)" )
+			
+			elseif (text == "!Pufulet") then
+			pl:PrintMessage( HUD_PRINTCENTER, "I am the best and you know it. Lil Scrub suck on my turtle!" )
+			
+			elseif (text == "!Rob") then
+			pl:PrintMessage( HUD_PRINTCENTER, "hahahaha Pufulets updates make me laugh!" )
+			
+			elseif (text == "!Box") then
+			pl:PrintMessage( HUD_PRINTCENTER, "I am a Box within a box within a box within a box." )
+			
+			
 		elseif (text == "!clavus") then
 			pl:PrintMessage( HUD_PRINTCENTER, "Undead overlord!" )
 		elseif (text == "!ywa") then
