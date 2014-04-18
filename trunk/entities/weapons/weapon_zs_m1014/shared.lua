@@ -134,6 +134,11 @@ function SWEP:Think()
 		self.Owner:RemoveAmmo(1, self.Primary.Ammo, false)
 		self:SetClip1(self:Clip1() + 1)
 
+		
+	if self:GetOwner():GetSuit() == "Rambo" then
+			self:SetClip1(self:Clip1() + 3)
+		end
+		
 		if self.Primary.ClipSize <= self:Clip1() or self.Owner:GetAmmoCount(self.Primary.Ammo) <= 0 then
 			self.nextreloadfinish = CurTime() + self.ReloadDelay
 			self.reloading = false
@@ -155,6 +160,8 @@ end
 function SWEP:CanPrimaryAttack()
 	if self.Owner.KnockedDown or self.Owner:IsHolding() then return end
 
+	
+	
 	if self:Clip1() <= 0 then
 		self:EmitSound("Weapon_Shotgun.Empty")
 		self:SetNextPrimaryFire(CurTime() + 0.25)
@@ -173,6 +180,8 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	return true
+	
+	
 end
 
 function SWEP:SecondaryAttack()
