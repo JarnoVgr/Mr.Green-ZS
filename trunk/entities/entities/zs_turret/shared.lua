@@ -487,7 +487,7 @@ if SERVER then
 			local dmg = dmginfo:GetDamage()
 			
 			if ValidEntity(self:GetTurretOwner()) and self:GetTurretOwner():GetSuit() == "techsuit" then
-				dmg = dmg*0.9
+				dmg = dmg*1.5
 			end
 			
 			self:SetDTInt(1,self:GetDTInt(1) - dmg)

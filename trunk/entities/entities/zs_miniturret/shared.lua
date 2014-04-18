@@ -361,7 +361,7 @@ function ENT:OnTakeDamage( dmginfo )
 		local dmg = dmginfo:GetDamage()
 		
 		if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "techsuit" then
-			dmg = dmg*0.9
+			dmg = dmg*1.5
 		end
 		
 		self:SetHealth(self:GetHealth() - dmg)
