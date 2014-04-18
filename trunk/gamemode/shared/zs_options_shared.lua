@@ -2198,7 +2198,35 @@ shopData = {
 	[79] = { Cost = 800, Type = "other", AdminOnly = false, Desc = "Being chased by zombies! No problem, attach this and play away! 'Doesn't actually do that'.", Key = "Helihead", ID = 79, Sell = 0, Requires = 0, Name = "HeliHead" },
 	[80] = { Cost = 3000, Type = "suit", AdminOnly = false, Desc = "Hunt for the fast zombies! Kill the Kleiners and bury them!", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
 	[81] = { Cost = 5000, Type = "suit", AdminOnly = false, Desc = "Become one of the elite forces and fight for the Dubyans!", Key = "Combine", ID = 81, Sell = 0, Requires = 0, Name = "Combine the Zombine!",  },
-	
+	[82] = { Cost = 6000, Type = "suit", AdminOnly = false, Desc = "Let the Freeman inside of you take over and kill the many hoards of zombies chasing you!", Key = "freeman", ID = 82, Sell = 0, Requires = 0, Name = "Freeman!!!",  },
+	[83] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Live for nothing or die for something.", Key = "Rambo", ID = 83, Sell = 0, Requires = 0, Name = "Rambo Roar",  },
+	[84] = { Cost = 120, Type = "hat", AdminOnly = false, Desc = "I see you!", Key = "spotlight", ID = 84, Sell = 0, Requires = 0, Name = "Spotlight",  },
+	[85] = { Cost = 350 , Type = "hat", AdminOnly = false, Desc = "Brum Brum beep beep outa my way you Kliener scum!", Key = "motorhead", ID = 85, Sell = 0, Requires = 0, Name = "Motor Head",  },
+	[86] = { Cost = 1200, Type = "hat", AdminOnly = false, Desc = "I will never fall over! 'You will still have the fall down animation.'", Key = "gyrohead", ID = 86, Sell = 0, Requires = 0, Name = "Gyro Head",  },
+	[87] = { Cost = 600, Type = "hat", AdminOnly = false, Desc = "Let there be light", Key = "brightidea", ID = 87, Sell = 0, Requires = 0, Name = "Bright Idea",  },
+	[88] = { Cost = 750, Type = "hat", AdminOnly = false, Desc = "Its like I have a stalker suit, but isn't 1100GC!", Key = "lampshade", ID = 88, Sell = 0, Requires = 0, Name = "Lamp Shade",  },
+	[89] = { Cost = 150, Type = "hat", AdminOnly = false, Desc = "I can tell whats on your mind with this.", Key = "tinfoil", ID = 89, Sell = 0, Requires = 0, Name = "Tin Foil",  },
+	[90] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "A drunken night with Reiska is fun.", Key = "roadlock", ID = 90, Sell = 0, Requires = 0, Name = "Road Lock",  },
+	[91] = { Cost = 1200, Type = "hat", AdminOnly = false, Desc = "A sheild against your head getting bitten off!", Key = "combinething", ID = 91, Sell = 0, Requires = 0, Name = "The Combine Thing",  },
+	[92] = { Cost = 400, Type = "hat", AdminOnly = false, Desc = "Blame Pufulet", Key = "fence", ID = 92, Sell = 0, Requires = 0, Name = "Da fence",  },
+	[93] = { Cost = 650, Type = "hat", AdminOnly = false, Desc = "Jiggle Jiggle", Key = "noveltyhead", ID = 93, Sell = 0, Requires = 0, Name = "Novelty Head 1",  },
+	[94] = { Cost = 400, Type = "hat", AdminOnly = false, Desc = "Boggle boggle", Key = "noveltyhead2", ID = 94, Sell = 0, Requires = 0, Name = "Novelty Head 2",  },
+	[95] = { Cost = 560, Type = "hat", AdminOnly = false, Desc = "I am like valve but better! ^^", Key = "steamhead", ID = 95, Sell = 0, Requires = 0, Name = "Steam Head",  },
+	--[96] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 96, Sell = 0, Requires = 0, Name = "",  },
+	--[97] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 97, Sell = 0, Requires = 0, Name = "",  },
+	--[98] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 98, Sell = 0, Requires = 0, Name = "",  },
+	--[99] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 99, Sell = 0, Requires = 0, Name = "",  },
+	--[100] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 100, Sell = 0, Requires = 0, Name = "",  },
+	--[101] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 101, Sell = 0, Requires = 0, Name = "",  },
+	--[102] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 102, Sell = 0, Requires = 0, Name = "",  },
+--	[103] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 103, Sell = 0, Requires = 0, Name = "",  },
+--	[104] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 104, Sell = 0, Requires = 0, Name = "",  },
+--	[105] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 105, Sell = 0, Requires = 0, Name = "",  },
+--	[106] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 106, Sell = 0, Requires = 0, Name = "",  },
+--	[107] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 107, Sell = 0, Requires = 0, Name = "",  },
+--	[108] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 108, Sell = 0, Requires = 0, Name = "",  },
+--	[109] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 109, Sell = 0, Requires = 0, Name = "",  },
+--	[110] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 110, Sell = 0, Requires = 0, Name = "",  },
 }
 
 PureHats = {}
@@ -2345,22 +2373,59 @@ hats = {
 	["sidebrn"] = {
 		["1"] = { type = "Model", model = "models/player/items/all_class/winter_sideburns_medic.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-0.239, 0.344, 0), angle = Angle(-90, -56.035, 0), size = Vector(1.044, 1.044, 1.044), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 1, bodygroup = {} }
 	},
-	
 	["BurgerBuns"] = { --Made by Duby
 	   ["hat2"] = { type = "Model", model = "models/food/burger.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(2.273, -1.364, 11.364), angle = Angle(-180, 17.385, -1.024), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
        ["hat1"] = { type = "Model", model = "models/food/burger.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(2.273, -1.364, -10.455), angle = Angle(0, 17.385, -1.024), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-
-},
-	
+	},
 	["RoboEars"] = { --Made by Duby 
 	  ["belt"] = { type = "Model", model = "models/gibs/scanner_gib01.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(1.363, -9.546, 0), angle = Angle(180, 99.205, 97.158), size = Vector(0.72, 0.72, 0.72), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
       ["devider"] = { type = "Model", model = "models/gibs/scanner_gib05.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-1.364, -5, -0.456), angle = Angle(0, 0, 0), size = Vector(0.379, 0.379, 0.379), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	
-},
-
+	},
 	["Helihead"] = {
-	["head2"] = { type = "Model", model = "models/props_citizen_tech/windmill_blade004a.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(4.091, -3.182, 1.363), angle = Angle(5.113, 25.568, 0), size = Vector(0.094, 0.094, 0.094), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-},
+		["head2"] = { type = "Model", model = "models/props_citizen_tech/windmill_blade004a.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(4.091, -3.182, 1.363), angle = Angle(5.113, 25.568, 0), size = Vector(0.094, 0.094, 0.094), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	},
+	["spotlight"] = {
+		["spotlight"] = { type = "Model", model = "models/props_wasteland/light_spotlight01_lamp.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(2.872, 1.33, -2.777), angle = Angle(0.98, -81.212, 0), size = Vector(0.736, 0.736, 0.736), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	},
+	["motorhead"] = {
+		["Motorhead2"] = { type = "Model", model = "models/maxofs2d/thruster_propeller.mdl", bone = "ValveBiped.Bip01_Head1", rel = "Motorhead", pos = Vector(-0.002, 1.307, 1.121), angle = Angle(0, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["Motorhead"] = { type = "Model", model = "models/props_c17/TrapPropeller_Engine.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(4.013, 0.56, -0.028), angle = Angle(-95.013, 0, 0), size = Vector(0.584, 0.584, 0.584), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	},
+	["gyrohead"] = {
+		["Gyrohead"] = { type = "Model", model = "models/maxofs2d/hover_rings.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(2.401, 0.115, 0.144), angle = Angle(0, 0, 0), size = Vector(0.896, 0.896, 0.896), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	},
+	["brightidea"] = {
+		["Bright Idea"] = { type = "Model", model = "models/props/de_inferno/ceiling_light.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(22.645, -2.847, 1.465), angle = Angle(-90.204, 11.878, 0), size = Vector(0.703, 0.703, 0.703), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	},
+	["lampshade"] = {
+		["Lampshade"] = { type = "Model", model = "models/props_c17/lampShade001a.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(4.848, 0.773, 0.765), angle = Angle(-86.463, 0, 0), size = Vector(0.82, 0.82, 0.82), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	},
+	["tinfoil"] = {
+		["Tinfoil hat"] = { type = "Model", model = "models/props_wasteland/prison_lamp001c.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(8.314, 0.912, 0.081), angle = Angle(-87.541, 0, 0), size = Vector(0.686, 0.686, 0.686), color = Color(255, 255, 255, 255), surpresslightning = false, material = "phoenix_storms/cube", skin = 0, bodygroup = {} }
+	},
+	["roadlock"] = {
+		["Roadblock"] = { type = "Model", model = "models/props_junk/TrafficCone001a.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(14.961, 0.465, 0.547), angle = Angle(-86.75, 0, 0), size = Vector(0.746, 0.746, 0.746), color = Color(255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	},
+	["combinething"] = {
+		["Combinething"] = { type = "Model", model = "models/Items/combine_rifle_ammo01.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-7.296, 0.967, 0.899), angle = Angle(-95.742, 0, 0), size = Vector(1.218, 1.218, 1.218), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	},
+	["fence"] = {
+		["Fence+"] = { type = "Model", model = "models/props_c17/handrail04_corner.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-5.862, 0.086, -1.081), angle = Angle(89.017, 164.348, 11.123), size = Vector(0.374, 0.374, 0.374), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["Fence"] = { type = "Model", model = "models/props_c17/handrail04_corner.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-5.492, -0.788, 0.683), angle = Angle(-92.766, 0, 0), size = Vector(0.374, 0.374, 0.374), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	},
+	["noveltyhead"] = {
+		["Head"] = { type = "Model", model = "models/maxofs2d/balloon_gman.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-8.36, -0.35, 0.699), angle = Angle(-5.183, -86.738, -90.665), size = Vector(0.935, 0.935, 0.935), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	},
+	["noveltyhead2"] = {
+		["Head"] = { type = "Model", model = "models/maxofs2d/balloon_mossman.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-6.347, 0.15, 0.291), angle = Angle(-5.183, -86.738, -90.665), size = Vector(0.935, 0.935, 0.935), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	},
+	["steamhead"] = {
+		["Head2"] = { type = "Model", model = "models/props_pipes/valve003.mdl", bone = "ValveBiped.Bip01_Head1", rel = "Head", pos = Vector(1.958, 0.052, 2.691), angle = Angle(-92.111, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["Head3"] = { type = "Model", model = "models/props_pipes/valve003.mdl", bone = "ValveBiped.Bip01_Head1", rel = "Head2", pos = Vector(0.407, -0.657, -4.515), angle = Angle(180, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["Head"] = { type = "Model", model = "models/props_pipes/valvewheel001.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-0.667, 0.819, -0.392), angle = Angle(-88.527, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	},
+	--[""] = {
+	--},
 	
 }
 
@@ -2420,6 +2485,26 @@ suits = {
 	["Combinesuit3"] = { type = "Model", model = "models/props_combine/combine_teleportplatform.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "Combinesuit", pos = Vector(-0.59, -0.806, -6.715), angle = Angle(0, 0, 0), size = Vector(0.134, 0.134, 0.134), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["Combinesuit2+"] = { type = "Model", model = "models/props_combine/combine_light001a.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "Combinesuit", pos = Vector(-0.889, 3.54, 3.464), angle = Angle(-4.244, -180, 0), size = Vector(0.303, 0.303, 0.303), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["Combinesuit2"] = { type = "Model", model = "models/props_combine/combine_light001a.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "Combinesuit", pos = Vector(-0.889, -4.875, 3.464), angle = Angle(-4.244, -180, 0), size = Vector(0.303, 0.303, 0.303), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	
+	},
+	
+	["Rambo"] = { --Thanks brain dawg
+	
+	["Rambo5"] = { type = "Model", model = "models/weapons/w_katana.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Rambo4", pos = Vector(1.899, -0.973, 11.468), angle = Angle(-2.427, 0, 0), size = Vector(0.735, 0.735, 0.735), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Rambo4"] = { type = "Model", model = "models/weapons/w_mach_m249para.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Rambo3", pos = Vector(0.09, -1.209, -10.674), angle = Angle(0, 0, 0), size = Vector(0.843, 0.843, 0.843), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Rambo3"] = { type = "Model", model = "models/weapons/w_shot_xm1014.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Rambo2", pos = Vector(1.628, 6.658, -1.53), angle = Angle(138.72, 77.566, 0), size = Vector(0.856, 0.856, 0.856), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Rambo2+"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(-2.097, 4.592, -4.375), angle = Angle(0.032, 98.135, -43.984), size = Vector(0.474, 0.474, 0.474), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Rambo2"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(-2.889, 4.27, 6.258), angle = Angle(3.181, 93.208, 41.905), size = Vector(0.488, 0.488, 0.488), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+
+	
+	},
+	
+	["freeman"] = { --Thanks brain dawg
+	
+	["Freeman Suit3"] = { type = "Model", model = "models/props_lab/hevplate.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Freeman Suit2", pos = Vector(4.784, 1.077, -1.326), angle = Angle(88.183, 3.644, -59.925), size = Vector(0.642, 0.642, 0.642), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Freeman Suit"] = { type = "Model", model = "models/weapons/w_crowbar.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(0.634, 2.934, -1.288), angle = Angle(145.16, 0, 0), size = Vector(0.822, 0.822, 0.822), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Freeman Suit2"] = { type = "Model", model = "models/weapons/w_physics.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Freeman Suit", pos = Vector(0.358, 1.312, -5.443), angle = Angle(91.292, -5.927, 91.043), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+
 	
 	},
 	
