@@ -849,6 +849,7 @@ local clientCommandList = {      -- list of all client commands I added
 "!Pufulet \t\t\t- Easter egg",
 "!Rob \t\t\t- Easter egg",
 "!Box \t\t\t- Easter egg",
+"!Reiska \t\t\t- Easter egg",
 }
 			
 
@@ -1006,6 +1007,8 @@ local function CommandSay(pl, text, teamonly)
 			elseif (text == "!Box") then
 			pl:PrintMessage( HUD_PRINTCENTER, "I am a Box within a box within a box within a box." )
 			
+			elseif (text == "!Reiska") then
+			pl:PrintMessage( HUD_PRINTCENTER, "Ha the Dubyans will never stop me! Vodka will fuel me to victory!" )
 			
 		elseif (text == "!clavus") then
 			pl:PrintMessage( HUD_PRINTCENTER, "Undead overlord!" )

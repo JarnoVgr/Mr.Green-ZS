@@ -1623,3 +1623,27 @@ end
 hook.Add ( "ShutDown", "OnShutDown", OnShutDown )
 
 Debug("[MODULE] Loaded init.lua")
+
+
+
+--[=[----------------------------------------------------------------------
+     Dubys amazing method to slowing people down while running backwards!
+---------------------------------------------------------------------------]=]
+
+
+ function GM:KeyPress( pl, key )
+
+if pl:Team() == TEAM_HUMAN then
+if( pl:KeyDown( IN_BACK ) )  then
+pl:SetWalkSpeed( 160 )
+else pl:SetWalkSpeed(200)
+
+end
+end
+
+ if ( key == IN_JUMP ) then if (pl:Crouching()) then --Bhap fags
+pl:SetJumpPower(150)
+end
+end
+
+end
