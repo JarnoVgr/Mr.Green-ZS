@@ -26,12 +26,12 @@ SWEP.WorldModel = "models/Weapons/w_grenade.mdl"
 
 SWEP.Base = "weapon_zs_base_dummy"
 
-SWEP.Primary.ClipSize = 60
-SWEP.Primary.DefaultClip = 60
+SWEP.Primary.ClipSize = 30
+SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "SniperRound"
 
-SWEP.Primary.Delay = 2.0
+SWEP.Primary.Delay = 3.0
 
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
@@ -237,10 +237,10 @@ function SWEP:Think()
 		ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
 	end]]
 	
-	local maxclip = 60
+	local maxclip = 30
 	
 	if self.Owner and self.Owner:GetSuit() == "supportsuit" then
-		maxclip = 80
+		maxclip = 100
 		--rtime = rtime - 0.25
 	end
 	
