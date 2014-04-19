@@ -2164,7 +2164,7 @@ shopData = {
 	[45] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "Bonk! Receive additional 20% chance to decapitate a zombie! Requires 6 other upgrades.", Key = "homerun", ID = 45, Sell = 0, Requires = 6, Name = "Home Run (NEW)",  },
 	[46] = { Cost = 11000, Hidden = true, Type = "suit", AdminOnly = false, Desc = "Classic suit from IW!", Key = "testsuit", ID = 46, Sell = 0, Requires = 0, Name = "IW test suit",  },
 	[47] = { Cost = 1, Type = "suit", AdminOnly = true, Desc = "Special suit just for admins! (not finished yet)", Key = "greenssuit", ID = 47, Sell = 0, Requires = 0, Name = "Admin's Suit",  },
-	[48] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "For those who tries to keep their teammates alive. Suit Bonus: Faster medkit charge time", Key = "medicsuit", ID = 48, Sell = 0, Requires = 0, Name = "Medic's Suit",  }, --11000
+	[48] = { Cost = 12000, Type = "suit", AdminOnly = false, Desc = "For those who tries to keep their teammates alive. Suit Bonus: Faster medkit charge time", Key = "medicsuit", ID = 48, Sell = 0, Requires = 0, Name = "Medic's Suit",  }, --11000
 	[49] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "Crush. Pound. Suit Bonus: Faster swing speed (heavy weapons only)", Key = "meleesuit", ID = 49, Sell = 0, Requires = 0, Name = "Close combat Suit",  },
 	[50] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "If shooting zombies aint enough - use more gun. Suit Bonus: 10% damage reduction for turret", Key = "techsuit", ID = 50, Sell = 0, Requires = 0, Name = "Tech Suit",  },
 	[51] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "If you've mastered cading skills - this suit is for you. Suit Bonus: Increased torch capacity", Key = "supportsuit", ID = 51, Sell = 0, Requires = 0, Name = "Barricade Guy Suit",  },
@@ -2196,7 +2196,7 @@ shopData = {
 	[77] = { Cost = 200, Type = "other", AdminOnly = false, Desc = "Swag with burgers for ears, and guns for brains!", Key = "BurgerBuns", ID = 77, Sell = 0, Requires = 0, Name = "BurgerBuns" },
 	[78] = { Cost = 500, Type = "other", AdminOnly = false, Desc = "Becoming a cyborg is fun.", Key = "RoboEars", ID = 78, Sell = 0, Requires = 0, Name = "RoboEars" },
 	[79] = { Cost = 800, Type = "other", AdminOnly = false, Desc = "Being chased by zombies! No problem, attach this and play away! 'Doesn't actually do that'.", Key = "Helihead", ID = 79, Sell = 0, Requires = 0, Name = "HeliHead" },
-	[80] = { Cost = 3000, Type = "suit", AdminOnly = false, Desc = "Hunt for the fast zombies! Kill the Kleiners and bury them!", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
+	[80] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Hunt for the fast zombies! Kill the Kleiners and bury them!", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
 	[81] = { Cost = 5000, Type = "suit", AdminOnly = false, Desc = "Become one of the elite forces and fight for the Dubyans!", Key = "Combine", ID = 81, Sell = 0, Requires = 0, Name = "Combine the Zombine!",  },
 	[82] = { Cost = 6000, Type = "suit", AdminOnly = false, Desc = "Let the Freeman inside of you take over and kill the many hoards of zombies chasing you!", Key = "freeman", ID = 82, Sell = 0, Requires = 0, Name = "Freeman!!!",  },
 	[83] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Live for nothing or die for something. Reload more bullets in your shotgun at one time!", Key = "Rambo", ID = 83, Sell = 0, Requires = 0, Name = "Rambo Roar",  },

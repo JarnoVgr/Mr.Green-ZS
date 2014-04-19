@@ -57,14 +57,17 @@ SWEP.ConeIron = 0.041
 SWEP.ConeCrouching = 0.033
 SWEP.ConeIronCrouching = 0.026
 
-SWEP.IronSightsPos = Vector( -4.8, 22, 0.21 )
-SWEP.IronSightsAng = Vector( 0.5, -0.19, 0 )
+SWEP.IronSightsPos = Vector( -2.25, 22, 0.21 )
+SWEP.IronSightsAng = Vector( 0, 0, 0 )
+
+
+--SWEP.IronSightsPos = Vector(-3, 2, 1 )
+--SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.OverridePos = Vector( 0, 0, 0 )
 SWEP.OverrideAng = Vector( 0, 0, 0 )
 
---SWEP.IronSightsPos = Vector(-1.481, -6.394, 1.559)
---SWEP.IronSightsAng = Vector(0, 0, 0)
+
 
 local function DoRicochet(attacker, hitpos, hitnormal, normal, damage)
 	attacker.RicochetBullet = true

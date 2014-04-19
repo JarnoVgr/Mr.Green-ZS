@@ -58,7 +58,11 @@ SWEP.ConeIronMoving = SWEP.ConeMoving *0.80
 
 SWEP.MaxAmmo			    = 130
 
-SWEP.IronSightsPos = Vector(-6, -1, 2.25)
+--SWEP.IronSightsPos = Vector(-6, -1, 2.25)
+
+SWEP.IronSightsPos = Vector(-3, 2, 1 )
+SWEP.IronSightsAng = Vector(0, 0, 0)
+
 
 --SWEP.IronSightsPos = Vector(1.6, -1.624, 1.559)
 --SWEP.IronSightsAng = Vector(0, 0, 0)

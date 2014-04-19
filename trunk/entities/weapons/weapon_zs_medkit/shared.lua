@@ -49,6 +49,9 @@ function SWEP:OnInitialize()
 	end
 	
 	self.Weapon.FirstSpawn = true
+	
+	
+	
 end
 
 util.PrecacheSound("items/medshot4.wav")
@@ -207,6 +210,12 @@ function SWEP:Think()
 		self:SetClip1(ammocount + self:Clip1())
 		self.Owner:RemoveAmmo(ammocount, self.Primary.Ammo)
 	end
+	
+		
+	if self:GetOwner():GetSuit() == "medicsuit" then -- Medic suit.
+			self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 1))
+			self.RechargeTimer = CurTime() + 0.9
+		end
 	
 	if SERVER then
 		if not self.Owner:KeyDown(IN_ATTACK) and self.RechargeTimer < CurTime() and self.Weapon:Clip1() < self.Primary.ClipSize then	
