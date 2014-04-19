@@ -18,16 +18,7 @@ if CLIENT then
 
 	SWEP.IgnoreThumbs = true
 
-	
-SWEP.VElements = {
-	["Pulse Rifle"] = { type = "Model", model = "models/props_combine/bunker_gun01.mdl", bone = "Base", rel = "", pos = Vector(0, 11.465, 7.752), angle = Angle(83.305, -94.769, 4.453), size = Vector(0.777, 0.777, 0.777), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["Pulse Rifle2"] = { type = "Model", model = "models/weapons/c_arms_refugee.mdl", bone = "Base", rel = "Pulse Rifle", pos = Vector(-21.467, -23.573, 41.561), angle = Angle(162.212, -157.275, -8.691), size = Vector(1.003, 1.003, 1.003), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-}
 
-
-SWEP.WElements = {
-	["Pulse Rifle"] = { type = "Model", model = "models/props_combine/bunker_gun01.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(16.746, -0.174, 4.901), angle = Angle(-6.948, 3.631, 171.473), size = Vector(0.68, 0.68, 0.68), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-}
 
 end
 
@@ -44,13 +35,13 @@ SWEP.WorldModel			= Model ( "models/weapons/w_smg1.mdl" )
 --SWEP.WorldModel			= Model ("models/props_phx/construct/metal_dome360.mdl")
 SWEP.ViewModelFlip = false
 
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 210
 SWEP.HoldType = "ar2"
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 SWEP.DrawAmmo = true
 
-SWEP.Primary.NumShots		= 2
+SWEP.Primary.NumShots		= 4
 SWEP.Primary.Ammo = "ar2"                      
 SWEP.Primary.Automatic = true
 SWEP.Primary.Delay = 0.13
@@ -64,6 +55,16 @@ SWEP.Secondary.Recoil = 5
 
  SWEP.LastReload = 0
 
+ 	
+SWEP.VElements = {
+	["Pulse Rifle"] = { type = "Model", model = "models/props_combine/bunker_gun01.mdl", bone = "Base", rel = "", pos = Vector(0, 11.465, 7.752), angle = Angle(83.305, -94.769, 4.453), size = Vector(0.777, 0.777, 0.777), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Pulse Rifle2"] = { type = "Model", model = "models/weapons/c_arms_refugee.mdl", bone = "Base", rel = "Pulse Rifle", pos = Vector(-21.467, -23.573, 41.561), angle = Angle(162.212, -157.275, -8.691), size = Vector(1.003, 1.003, 1.003), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+}
+
+
+SWEP.WElements = {
+	["Pulse Rifle"] = { type = "Model", model = "models/props_combine/bunker_gun01.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(16.746, -0.174, 4.901), angle = Angle(-6.948, 3.631, 171.473), size = Vector(0.68, 0.68, 0.68), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+}
 
 function SWEP:Initialize()
 	self:SetWeaponHoldType(self.HoldType)
