@@ -71,7 +71,3 @@ function SWEP:Precache()
 	util.PrecacheSound("weapons/knife/knife_slash2.wav")
 end
 
-
----------Dubys amazing method to the zerk suit. 'Grave digger'
-
-hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_sledgehammer" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)

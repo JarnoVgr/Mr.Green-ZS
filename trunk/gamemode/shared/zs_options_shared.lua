@@ -2197,7 +2197,7 @@ shopData = {
 	[77] = { Cost = 200, Type = "other", AdminOnly = false, Desc = "Swag with burgers for ears, and guns for brains!", Key = "BurgerBuns", ID = 77, Sell = 0, Requires = 0, Name = "BurgerBuns" },
 	[78] = { Cost = 500, Type = "other", AdminOnly = false, Desc = "Becoming a cyborg is fun.", Key = "RoboEars", ID = 78, Sell = 0, Requires = 0, Name = "RoboEars" },
 	[79] = { Cost = 800, Type = "other", AdminOnly = false, Desc = "Being chased by zombies! No problem, attach this and play away! 'Doesn't actually do that'.", Key = "Helihead", ID = 79, Sell = 0, Requires = 0, Name = "HeliHead" },
-	[80] = { Cost = 5000, Type = "suit", AdminOnly = false, Desc = "You love zerking well this is the suit for you!! Gain 5 hp for every melee kill!!!", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
+	[80] = { Cost = 5000, Type = "suit", AdminOnly = false, Desc = "You love zerking well this is the suit for you!! Gain 8 hp for every melee kill!!! 'only works with crowbar atm'", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
 	[81] = { Cost = 5000, Type = "suit", AdminOnly = false, Desc = "Become one of the elite forces and fight for the Dubyans!", Key = "Combine", ID = 81, Sell = 0, Requires = 0, Name = "Combine the Zombine!",  },
 	[82] = { Cost = 6000, Type = "suit", AdminOnly = false, Desc = "Let the Freeman inside of you take over and kill the many hoards of zombies chasing you!", Key = "freeman", ID = 82, Sell = 0, Requires = 0, Name = "Freeman!!!",  },
 	[83] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Live for nothing or die for something. Reload more bullets in your shotgun at one time!", Key = "Rambo", ID = 83, Sell = 0, Requires = 0, Name = "Rambo Roar",  },

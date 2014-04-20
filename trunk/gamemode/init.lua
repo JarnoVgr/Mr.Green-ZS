@@ -1648,6 +1648,8 @@ end
 ---------------------------------------------------------------------------]=]
 
 
+hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 8 ) end end)
+
 
 --if (SERVER) then
 
