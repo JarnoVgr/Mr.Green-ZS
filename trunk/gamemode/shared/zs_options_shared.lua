@@ -2213,8 +2213,8 @@ shopData = {
 	[93] = { Cost = 650, Type = "hat", AdminOnly = false, Desc = "Jiggle Jiggle", Key = "noveltyhead", ID = 93, Sell = 0, Requires = 0, Name = "Novelty Head 1",  },
 	[94] = { Cost = 400, Type = "hat", AdminOnly = false, Desc = "Boggle boggle", Key = "noveltyhead2", ID = 94, Sell = 0, Requires = 0, Name = "Novelty Head 2",  },
 	[95] = { Cost = 560, Type = "hat", AdminOnly = false, Desc = "I am like valve but better! ^^", Key = "steamhead", ID = 95, Sell = 0, Requires = 0, Name = "Steam Head",  },
-	--[96] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 96, Sell = 0, Requires = 0, Name = "",  },
-	--[97] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 97, Sell = 0, Requires = 0, Name = "",  },
+	[96] = { Cost = 1, Type = "suit", AdminOnly = true, Desc = "", Key = "pistolsuit", ID = 96, Sell = 0, Requires = 0, Name = "Test suit",  },
+	[97] = { Cost = 1 , Type = "suit", AdminOnly = true, Desc = "", Key = "officesuit", ID = 97, Sell = 0, Requires = 0, Name = "Office",  },
 	--[98] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 98, Sell = 0, Requires = 0, Name = "",  },
 	--[99] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 99, Sell = 0, Requires = 0, Name = "",  },
 	--[100] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 100, Sell = 0, Requires = 0, Name = "",  },
@@ -2507,6 +2507,32 @@ suits = {
 	["Freeman Suit2"] = { type = "Model", model = "models/weapons/w_physics.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Freeman Suit", pos = Vector(0.358, 1.312, -5.443), angle = Angle(91.292, -5.927, 91.043), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 
 	
+	},
+	
+	["pistolsuit"] = { --Thanks Pistol mags
+	
+	["things+"] = { type = "Model", model = "models/props_lighting/light_porch.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(0.518, 5.714, -10.91), angle = Angle(90, -106.364, -90), size = Vector(0.301, 0.301, 0.301), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["electro++"] = { type = "Model", model = "models/props_hydro/2pipe_straight_256.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-4.676, 4.675, -0.519), angle = Angle(1.169, -15.195, -1.17), size = Vector(0.107, 0.107, 0.107), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["electro+"] = { type = "Model", model = "models/props_hydro/3pipe_straight_256.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-4.676, 1.557, -0.519), angle = Angle(-92.338, -106.364, -92.338), size = Vector(0.172, 0.172, 0.172), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["electro+++"] = { type = "Model", model = "models/props_hydro/3pipe_jog_64.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-2.597, 5.714, -7.792), angle = Angle(1.169, -17.532, -1.17), size = Vector(0.107, 0.107, 0.107), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["electro++++"] = { type = "Model", model = "models/props_hydro/3pipe_turn_90.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(4.675, 6.752, 9.869), angle = Angle(1.169, -17.532, -1.17), size = Vector(0.107, 0.107, 0.107), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["things"] = { type = "Model", model = "models/props_lighting/lightfixture05.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-7.792, 3.7, 3), angle = Angle(-1.17, -104.027, 1.169), size = Vector(0.237, 0.237, 0.237), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["electro"] = { type = "Model", model = "models/z-o-m-b-i-e/st_electrohren.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-15.065, -0.519, -0.519), angle = Angle(-1.17, -106.364, -90), size = Vector(0.237, 0.237, 0.237), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["things++"] = { type = "Model", model = "models/props_lighting/light_porch.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(0.518, 5.714, -10.91), angle = Angle(90, -106.364, -90), size = Vector(0.301, 0.301, 0.301), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	
+	},
+	
+	
+	["officesuit"] = {
+	
+	["Suit"] = { type = "Model", model = "models/props_lab/harddrive02.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(-4.585, 7.106, 4.994), angle = Angle(-84.15, 165.962, -5.211), size = Vector(0.333, 0.333, 0.333), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Suit7"] = { type = "Model", model = "models/props_combine/breenchair.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Suit6", pos = Vector(3.779, 1.302, -9.386), angle = Angle(5.098, -173.189, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Suit3"] = { type = "Model", model = "models/props_combine/breenglobe.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Suit4", pos = Vector(2.457, 4.105, 8.534), angle = Angle(1.511, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Suit6"] = { type = "Model", model = "models/props_combine/breenclock.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Suit5", pos = Vector(-0.686, 4.942, 0.56), angle = Angle(24.391, 16.781, -1.037), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Suit4"] = { type = "Model", model = "models/props_combine/breendesk.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Suit2", pos = Vector(3.786, -3.791, -11.171), angle = Angle(4.553, 180, -0.101), size = Vector(0.207, 0.207, 0.207), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Suit2"] = { type = "Model", model = "models/props_lab/monitor01a.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Suit", pos = Vector(-1.583, -3.47, -0.445), angle = Angle(-2.797, 5.784, -90.705), size = Vector(0.222, 0.222, 0.222), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Suit5"] = { type = "Model", model = "models/props_lab/huladoll.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "Suit3", pos = Vector(-5.527, 1.838, -1.658), angle = Angle(-8.636, 156.192, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+
 	},
 	
 	["medicsuit"] = {
