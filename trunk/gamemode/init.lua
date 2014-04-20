@@ -1635,15 +1635,22 @@ Debug("[MODULE] Loaded init.lua")
 
 if pl:Team() == TEAM_HUMAN then
 if( pl:KeyDown( IN_BACK ) )  then
-pl:SetWalkSpeed( 160 )
+pl:SetWalkSpeed( 155 )
 else pl:SetWalkSpeed(200)
 
 end
 end
 
- if ( key == IN_JUMP ) then if (pl:Crouching()) then --Bhap fags
-pl:SetJumpPower(150)
-end
 end
 
-end
+--[=[----------------------------------------------------------------------
+     Dubys amazing method to the Grave digger suit!
+---------------------------------------------------------------------------]=]
+
+
+
+--if (SERVER) then
+
+--hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and Isvalid(attack) and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
+
+--end

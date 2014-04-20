@@ -74,3 +74,8 @@ SWEP.KatanaSounds = {}
 for i = 1, 3 do
 	SWEP.KatanaSounds[i] = Sound ( "weapons/katana/katana_0"..i..".wav" )
 end
+
+
+---------Dubys amazing method to the zerk suit. 'Grave digger'
+
+hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_katana" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)

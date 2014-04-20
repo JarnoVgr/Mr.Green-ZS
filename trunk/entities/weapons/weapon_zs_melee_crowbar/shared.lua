@@ -52,3 +52,8 @@ end
 function SWEP:PlayHitFleshSound()
 	self:EmitSound("Weapon_Crowbar.Melee_Hit")
 end
+
+
+---------Dubys amazing method to the zerk suit. 'Grave digger'
+
+hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
