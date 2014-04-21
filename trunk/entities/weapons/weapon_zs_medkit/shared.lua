@@ -214,7 +214,7 @@ function SWEP:Think()
 		
 	if self:GetOwner():GetSuit() == "medicsuit" then -- Medic suit.
 			self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 1))
-			self.RechargeTimer = CurTime() + 0.9
+			self.RechargeTimer = CurTime() + 1.2
 		end
 	
 	if SERVER then
