@@ -90,13 +90,14 @@ ComeBackReward[5] = { -- Support
 [3] =  { "weapon_zs_smg"}, 
 }
 
-[=[
+--[[
 ComeBackReward = {}
 ComeBackReward[1] = { "weapon_zs_glock3", "weapon_zs_fiveseven", "weapon_zs_magnum" } -- humans outnumber zombies
 ComeBackReward[2] = { "weapon_zs_p90", "weapon_zs_smg" } -- zombies outnumber humans by a small marigin
 ComeBackReward[3] = { "weapon_zs_galil", "weapon_zs_ak47", "weapon_zs_m4a1" } -- zombies outnumber humans 2 to 1
 ComeBackReward[4] = { "weapon_zs_m1014", "weapon_zs_shotgun" } -- zombies outnumber humans 4 to 1
-]=]
+]]
+
 -- Chat titles based on time spent on server
 GM.ChatTitles = {
 
