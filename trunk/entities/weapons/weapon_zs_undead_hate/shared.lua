@@ -28,7 +28,7 @@ SWEP.AutoSwitchFrom = false
 SWEP.PrintName = "Hate"
 SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 60
+SWEP.ViewModelFOV = 55
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
 
@@ -175,7 +175,7 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	local trFilter = self.Owner-- team.GetPlayers( TEAM_UNDEAD )
 	
 	-- Calculate damage done
-	local Damage = math.random( 88, 99 )
+	local Damage = math.random( 70, 60 )
 
 	local TraceHit, HullHit = false, false
 	

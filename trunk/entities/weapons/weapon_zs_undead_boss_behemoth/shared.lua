@@ -27,7 +27,8 @@ if CLIENT then
 	}
 		
 	SWEP.VElements = {
-		["crowbar"] = { type = "Model", model = "models/weapons/c_crowbar.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(-27.084, -15.171, -11.478), angle = Angle(-1.976, 0, -98.67), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	--	["crowbar"] = { type = "Model", model = "models/weapons/c_crowbar.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(-27.084, -15.171, -11.478), angle = Angle(-1.976, 0, -98.67), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		["crowbar"] = { type = "Model", model = "models/weapons/c_crowbar.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(-14.084, -15.171, -11.478), angle = Angle(-1.976, 0, -98.67), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 
 	SWEP.WElements = {
@@ -48,7 +49,7 @@ SWEP.WorldModel = Model("models/Weapons/w_crowbar.mdl")
 SWEP.Primary.Reach = 60
 SWEP.Primary.Duration = 2.1
 SWEP.Primary.Delay = 0.8
-SWEP.Primary.Damage = math.random(60,75)
+SWEP.Primary.Damage = math.random(50,68)
 
 function SWEP:StartPrimaryAttack()
 	self.BaseClass.StartPrimaryAttack(self)
