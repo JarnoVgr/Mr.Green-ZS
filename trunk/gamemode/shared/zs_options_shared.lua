@@ -90,7 +90,7 @@ ComeBackReward[5] = { -- Support
 [3] =  { "weapon_zs_smg"}, 
 }
 
-[=[
+--[=[
 ComeBackReward = {}
 ComeBackReward[1] = { "weapon_zs_glock3", "weapon_zs_fiveseven", "weapon_zs_magnum" } -- humans outnumber zombies
 ComeBackReward[2] = { "weapon_zs_p90", "weapon_zs_smg" } -- zombies outnumber humans by a small marigin
