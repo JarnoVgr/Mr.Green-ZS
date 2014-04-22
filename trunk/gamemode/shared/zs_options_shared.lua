@@ -65,13 +65,13 @@ ComeBackReward[1] = { -- Medic
 [1] =  { "weapon_zs_elites", "weapon_zs_fiveseven"},
 [2] =  { "weapon_zs_deagle"  }, 
 [3] =  { "weapon_zs_ak47"  }, 
---[4] =  { "weapon_zs_ak47" }, 
+[4] =  { "weapon_zs_ak47" }, 
 }
 ComeBackReward[2] = { -- Commando
 [1] =  { "weapon_zs_deagle", "weapon_zs_glock3"},
 [2] =  { "weapon_zs_galil", "weapon_zs_sg552" }, 
 [3] =  { "weapon_zs_ak47" }, 
--- [4] =  { "weapon_zs_ak47"  }, 
+ [4] =  { "weapon_zs_ak47"  }, 
 }
 ComeBackReward[3] = { -- Berserker
 [1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
@@ -82,7 +82,7 @@ ComeBackReward[4] = { -- Engineer
 [1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
 [2] =  { "weapon_zs_pulsesmg"}, 
 [3] =  {"weapon_zs_ak47"}, 
---[4] =  { "weapon_zs_ak47"}, 
+[4] =  { "weapon_zs_ak47"}, 
 }
 ComeBackReward[5] = { -- Support
 [1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
@@ -90,7 +90,7 @@ ComeBackReward[5] = { -- Support
 [3] =  { "weapon_zs_smg"}, 
 }
 
---[=[
+[=[
 ComeBackReward = {}
 ComeBackReward[1] = { "weapon_zs_glock3", "weapon_zs_fiveseven", "weapon_zs_magnum" } -- humans outnumber zombies
 ComeBackReward[2] = { "weapon_zs_p90", "weapon_zs_smg" } -- zombies outnumber humans by a small marigin
@@ -670,44 +670,37 @@ HELP_TXT[3] = {
 		
 		Gamemode is developed by Limetric for Mr. Green Gaming Community. More info at http://limetric.com
 		
+	If you Win a round you gain XP this can be used to level up and unlock the following items.	
+		You can also gain XP by killing humans and zombies.
 		---lEVEL UNLOCKS------------------
 		
-	[0] = {"weapon_zs_usp","weapon_zs_melee_keyboard","weapon_zs_tools_torch"},
-	[1] = {"weapon_zs_melee_plank"},
-	[2] = {"weapon_zs_p228"},
-	[3] = {"_kevlar"},
-	[5] = {"weapon_zs_medkit"},
-	[6] = {"weapon_zs_tools_hammer"},
-	[7] = {"_nailamount"},
-	[11] = {"weapon_zs_tools_supplies"},
-	[13] = {"_adrenaline"},
-	[14] = {"_sboost"},
-	[15] = {"weapon_zs_grenade"},
-	[16] = {"_trchregen"},
-	[17] = {"_nailhp"},
-	[19] = {"_falldmg"},
-	[21] = {"_kevlar2"},
-	[22] = {"_medupgr2"},
-	[24] = {"_comeback"},
-	[25] = {"weapon_zs_turretplacer"},
-	[27] = {"_poisonprotect"},
-	[28] = {"weapon_zs_tools_remote"},
-	[30] = {"_turretdmg"},
-	[31] = {"weapon_zs_mine"},
-	[32] = {"_turrethp"},
-	[33] = {"_turretammo"},-- ,"weapon_zs_melee_axe"
-	[34] = {"_medupgr1"},
-	[35] = {"_enhkevlar"},
-	[37] = {"weapon_zs_tools_plank"},
-	[39] = {"_plankamount"},
-	[40] = {"_freeman"},
-	[43] = {"_plankhp"},
-	[44] = {"weapon_zs_melee_combatknife"},
-	[45] = {"weapon_zs_melee_pot"},
-	[50] = {"weapon_zs_miniturret"},
-	[55] = {"weapon_zs_melee_crowbar"},
-	[65] = {"weapon_zs_classic"},
-	[70] = {"weapon_zs_fiveseven"},
+	[0] = USP, fists [1] = Plank [2] = P228 [3] = Kevlar
+	[5] = Medkit [6] = Hammer [7] = Pack of nails [11] = Mobile supplies, Keyboard
+	[13] = Adrenaline injection, [14] = Speed boost [15] = Grenade
+	[16] = Torch regen rate [17] = NailHP [19] = Falldmg
+	[21] = Kevlar2 [22] = Medical upgrade2 [24] = Comeback
+	[25] = Turret [27] = Poison protection [28] = Turret remote
+	[30] = Turret Damage [31] = C4 [32] = Turret Health [33] = Turret Ammo
+	[35] = Enhanced Kevlar [37] = Planks [39] = Plank amount [40] = Freeman spirit
+	[43] = Plank HP [44] = Combat knife  [45] = Pot [50] = Mini turret
+	[55] = Crowbar [65] = Classic pistol 70] = Five seven
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	[
 		
 		
 		
@@ -962,7 +955,7 @@ ZombieClasses[0] =
 	--Model = Model("models/player/group01/male_09.mdl"), 
 	Model = Model("models/player/zombie_classic.mdl"),
 	--Speed = 173,
-	Speed = 140,
+	Speed = 160,
 	Description = "The backbone of the horde.",
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill" },
 	PainSounds = {
