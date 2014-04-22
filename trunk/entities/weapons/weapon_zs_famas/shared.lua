@@ -74,3 +74,4 @@ SWEP.OverrideAng = Vector( 0,0,0 )
 
 --SWEP.IronSightsPos = Vector(-1.56, -1.968, 1.44)
 --SWEP.IronSightsAng = Vector(0, 0, 0)
+

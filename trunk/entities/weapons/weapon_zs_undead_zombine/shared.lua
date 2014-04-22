@@ -16,8 +16,8 @@ end
 
 SWEP.Primary.Delay = 0.8
 SWEP.Primary.Duration = 1.2
-SWEP.Primary.Reach = 48
-SWEP.Primary.Damage = 22
+SWEP.Primary.Reach = 50
+SWEP.Primary.Damage = 35
 
 
 --Temp workaround
@@ -121,14 +121,16 @@ function SWEP:StartPrimaryAttack()
 	--Sequence to play
 	local iSequence = table.Random(self.ZombineAttacks) 	
 	self:SetAttackSeq(iSequence)	
-	self:SetAttackAnimEndTime(CurTime() + 1.2)
+	self:SetAttackAnimEndTime(CurTime() + 0.00)
+	--self:SetAttackAnimEndTime(CurTime() + 1.2)
 
 	--Hacky way for the animations
 	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 	mOwner:DoAnimationEvent(CUSTOM_PRIMARY)
 
 	-- Idle animation
-	timer.Simple(1.5, function()
+	--timer.Simple(1.5, function()
+	timer.Simple(10000, function() --work around for zombines walking and attacking
 		if not IsValid(self) then
 			return
 		end

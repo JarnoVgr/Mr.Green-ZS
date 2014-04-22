@@ -1635,13 +1635,14 @@ Debug("[MODULE] Loaded init.lua")
 
 if pl:Team() == TEAM_HUMAN then
 if( pl:KeyDown( IN_BACK ) )  then
-pl:SetWalkSpeed( 155 )
-else pl:SetWalkSpeed(200)
+pl:SetWalkSpeed( 140 )
+		
+else pl:SetWalkSpeed(200) 
+
 
 end
-end
+end end
 
-end
 
 --[=[----------------------------------------------------------------------
      Dubys amazing method to the Grave digger suit!
@@ -1661,8 +1662,6 @@ hook.Add("PlayerDeath", "Pufu'ssexy", function(victim, inf, attack) if ( inf and
 hook.Add("PlayerDeath", "boxsexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_fists2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 20 ) end end)
 
 
---if (SERVER) then
-
---hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and Isvalid(attack) and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-
---end
+--[=[----------------------------------------------------------------------
+     Dubys amazing method to the Combine Zombine suit!
+---------------------------------------------------------------------------]=]
