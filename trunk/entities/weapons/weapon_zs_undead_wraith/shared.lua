@@ -9,15 +9,22 @@ SWEP.ViewModel = Model("models/weapons/v_wraith.mdl")
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
 SWEP.PrintName = "Ethereal"
+
+
 if CLIENT then
 	SWEP.ViewModelFOV = 82
 	SWEP.ViewModelFlip = false
+	
+	
 end
+
+
+ 
 
 SWEP.Primary.Duration = 1.5
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
-SWEP.Primary.Damage = 18
+SWEP.Primary.Damage = 50
 
 SWEP.EmitWraithSound = 0
 SWEP.Screams = {
@@ -132,6 +139,8 @@ function SWEP:SecondaryAttack()
 		
 		self.Owner:EmitSound(Sound("npc/stalker/stalker_scream"..math.random(1,4)..".wav"), 80, math.random(100, 115))
 	end
+	
+	
 end
 
 -- Play teleport fail sound
@@ -144,6 +153,7 @@ end
 		end
 	end
 end]]
+
 
 function SWEP:OnRemove()
 	if SERVER then
@@ -172,3 +182,16 @@ util.PrecacheSound("ambient/machines/slicer3.wav")
 util.PrecacheSound("ambient/machines/slicer4.wav")
 util.PrecacheSound("npc/zombie/claw_miss1.wav")
 util.PrecacheSound("npc/zombie/claw_miss2.wav")
+
+
+
+  
+
+
+
+
+
+
+
+
+
