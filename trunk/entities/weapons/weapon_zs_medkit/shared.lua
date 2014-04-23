@@ -103,7 +103,7 @@ function SWEP:PrimaryAttack()
 	--Medical upgrade (multiplier)
 	local multiplier = 1
 	if owner:GetPerk("_medupgr1" ) then
-		multiplier = 1.35
+		multiplier = 1.5
 	end
 
 	local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
@@ -172,9 +172,7 @@ function SWEP:SecondaryAttack()
 	end
 	
 	
-	if self:GetOwner():GetSuit() == "medicsuit" then -- Medic suit.
-			maxhealth = 150
-		end
+	
 	
 	--Check for medical upgrade (multiplier)
 	local multiplier = 1
@@ -216,7 +214,10 @@ function SWEP:Think()
 		self.Owner:RemoveAmmo(ammocount, self.Primary.Ammo)
 	end
 	
-		
+		if self:GetOwner():GetSuit() == "medicsuit" then -- Medic suit.
+		self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 1))
+		self.RechargeTimer = CurTime() + 1
+		end
 	
 	
 	if SERVER then
