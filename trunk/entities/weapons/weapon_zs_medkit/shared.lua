@@ -35,7 +35,7 @@ SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Ammo = "SniperRound"
 SWEP.Primary.Automatic = true
 SWEP.Secondary.Automatic = true
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 160
 
 SWEP.NoMagazine = true
 
@@ -171,10 +171,15 @@ function SWEP:SecondaryAttack()
 		maxhealth = 120
 	end
 	
+	
+	if self:GetOwner():GetSuit() == "medicsuit" then -- Medic suit.
+			maxhealth = 150
+		end
+	
 	--Check for medical upgrade (multiplier)
 	local multiplier = 1
 	if owner:GetPerk("_medupgr1") then
-		multiplier = 1.35
+		multiplier = 1.1
 	end
 	
 	--
@@ -212,10 +217,7 @@ function SWEP:Think()
 	end
 	
 		
-	if self:GetOwner():GetSuit() == "medicsuit" then -- Medic suit.
-			self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 1))
-			self.RechargeTimer = CurTime() + 1.2
-		end
+	
 	
 	if SERVER then
 		if not self.Owner:KeyDown(IN_ATTACK) and self.RechargeTimer < CurTime() and self.Weapon:Clip1() < self.Primary.ClipSize then	
@@ -223,7 +225,7 @@ function SWEP:Think()
 			self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 1))
 			
 			--Next recharge
-			self.RechargeTimer = CurTime() + 1
+			self.RechargeTimer = CurTime() + 2
 		end
 	end
 end
