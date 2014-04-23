@@ -51,6 +51,7 @@ FIRSTAPRIL = false
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 8
 BOSS_CLASS = {10,11,13} -- 12
+--BOSS_CLASS = {15} -- 12
 
 --??
 SHARED_SPEED_INCREASE = 13
@@ -1678,7 +1679,7 @@ ZombieClasses[15] =
 	SP = 1000,
 	Mass = DEFAULT_MASS * 2,
 	Threshold = 4,
-	JumpPower = 200,
+	JumpPower = 160,
 	CanCrouch = true,
 	CanGib = true,
 	Unlocked = false,
@@ -1691,7 +1692,7 @@ ZombieClasses[15] =
 			
 		pl:SetRandomFace()		
 	end,
-	Speed = 187,
+	Speed = 110,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -1715,7 +1716,7 @@ ZombieClasses[15] =
 
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
-	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
+	ModelScale = 1,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
 	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
@@ -2159,7 +2160,7 @@ shopData = {
 	[45] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "Bonk! Receive additional 20% chance to decapitate a zombie! Requires 6 other upgrades.", Key = "homerun", ID = 45, Sell = 0, Requires = 6, Name = "Home Run (NEW)",  },
 	[46] = { Cost = 1100, Hidden = true, Type = "suit", AdminOnly = false, Desc = "Classic suit from IW!", Key = "testsuit", ID = 46, Sell = 0, Requires = 0, Name = "IW test suit",  },
 	[47] = { Cost = 1, Type = "suit", AdminOnly = true, Desc = "Special suit just for admins! (not finished yet)", Key = "greenssuit", ID = 47, Sell = 0, Requires = 0, Name = "Admin's Suit",  },
-	[48] = { Cost = 12000, Type = "suit", AdminOnly = false, Desc = "For those who tries to keep their teammates alive. Suit Bonus: Faster medkit charge time", Key = "medicsuit", ID = 48, Sell = 0, Requires = 0, Name = "Medic's Suit",  }, --11000
+	[48] = { Cost = 10000, Type = "suit", AdminOnly = false, Desc = "Heal your comrads! For doing this you have extra health to stand the brutal battles which face you!", Key = "medicsuit", ID = 48, Sell = 0, Requires = 0, Name = "Medic's Suit",  }, --11000
 	[49] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "Crush. Pound. Suit Bonus: Faster swing speed (heavy weapons only)", Key = "meleesuit", ID = 49, Sell = 0, Requires = 0, Name = "Close combat Suit",  },
 	[50] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "If shooting zombies aint enough - use more gun. Suit Bonus: 10% damage reduction for turret", Key = "techsuit", ID = 50, Sell = 0, Requires = 0, Name = "Tech Suit",  },
 	[51] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "If you've mastered cading skills - this suit is for you. Suit Bonus: Increased torch capacity", Key = "supportsuit", ID = 51, Sell = 0, Requires = 0, Name = "Barricade Guy Suit",  },
