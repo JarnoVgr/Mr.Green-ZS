@@ -35,7 +35,7 @@ SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Ammo = "SniperRound"
 SWEP.Primary.Automatic = true
 SWEP.Secondary.Automatic = true
-SWEP.WalkSpeed = 160
+SWEP.WalkSpeed = 180
 
 SWEP.NoMagazine = true
 
@@ -73,6 +73,10 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 	self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
 
+	if self:GetOwner():GetSuit() == "medicsuit" then -- Medic suit.
+		WalkSpeed = 140
+		end
+	 
 
 	local owner = self.Owner
 	local trace = self.Owner:GetEyeTrace()
@@ -172,6 +176,9 @@ function SWEP:SecondaryAttack()
 	end
 	
 	
+	if self:GetOwner():GetSuit() == "medicsuit" then -- Medic suit.
+		WalkSpeed = 140
+		end
 	
 	
 	--Check for medical upgrade (multiplier)
