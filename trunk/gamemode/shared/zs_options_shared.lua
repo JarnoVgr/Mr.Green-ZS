@@ -350,11 +350,11 @@ GM.RankUnlocks = {
 	[33] = {"_turretammo"},-- ,"weapon_zs_melee_axe"
 	[34] = {"_medupgr1"},
 	[35] = {"_enhkevlar"},
+	[36] = {"weapon_zs_melee_combatknife"}, --Combat knife. 
 	[37] = {"weapon_zs_tools_plank"},
 	[39] = {"_plankamount"},
 	[40] = {"_freeman"},
 	[43] = {"_plankhp"},
-	[44] = {"weapon_zs_melee_combatknife"},
 	[45] = {"weapon_zs_melee_pot"},
 	[50] = {"weapon_zs_miniturret"},
 	[55] = {"weapon_zs_melee_crowbar"},
@@ -421,7 +421,7 @@ NPCS_COUNT_AS_KILLS = false
 
 -- INCOMING!-- -- 
 -- Fraction of people that should be set as zombies at the beginning of the game.
-UNDEAD_START_AMOUNT_PERCENTAGE = 0.14
+UNDEAD_START_AMOUNT_PERCENTAGE = 0.20
 UNDEAD_START_AMOUNT_MINIMUM = 1
 
 -- Good values are 1 to 3. 0.5 is about the same as the default HL2. 1 is about ZS difficulty. This is mainly for NPC healths and damages.
