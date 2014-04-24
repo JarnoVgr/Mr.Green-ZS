@@ -342,7 +342,6 @@ function hud.DrawWeaponLabels()
     if nextEntsCache < CurTime() then
     	cachedEnts = ents.FindByClass("weapon_*")
     	nextEntsCache = CurTime()+5
-    	print(nextEntsCache)
     end
 
     if not cachedEnts then
