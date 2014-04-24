@@ -51,7 +51,7 @@ FIRSTAPRIL = false
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 8
 BOSS_CLASS = {10,11,13} -- 12
---BOSS_CLASS = {15} -- 12
+--BOSS_CLASS = {15} -- 12 15 14
 
 --??
 SHARED_SPEED_INCREASE = 13
@@ -1689,7 +1689,7 @@ ZombieClasses[15] =
 	Model = Model("models/player/group01/male_09.mdl"), 
 	OnSpawn = function(pl)
 		pl:SetModel(Model(player_manager.TranslatePlayerModel("kleiner")))
-			
+		pl:SetColor( 0,0, 225 )	
 		pl:SetRandomFace()		
 	end,
 	Speed = 110,

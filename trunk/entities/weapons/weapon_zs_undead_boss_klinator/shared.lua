@@ -14,8 +14,7 @@ if CLIENT then
 	SWEP.WElements = {
 		["bone1+"] = { type = "Model", model = "models/props_junk/vet001_chunk6.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(3.127, 5.98, 4.98), angle = Angle(78.624, 121.805, 0), size = Vector(1.2, 1.2, 1.2), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["bone1"] = { type = "Model", model = "models/props_junk/vet001_chunk6.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(3.489, 6.668, -4.731), angle = Angle(109.05, 121.805, 0), size = Vector(1.2, 1.2, 1.2), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		--["plank"] = { type = "Model", model = "models/Weapons/w_plank.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(3.857, 0.418, 1.325), angle = Angle(0, -107.212, -97.001), size = Vector(1, 1.715, 1.763), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/flesh", skin = 0, bodygroup = {} },
-		--["plank"] = { type = "Model", model = "models/Weapons/w_plank.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.95, 0.418, 1.5), angle = Angle(0, -107.212, -97.001), size = Vector(1, 1.715, 1.763), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/flesh", skin = 0, bodygroup = {} },
+		
 		["RightArm1"] = { type = "Model", model = "models/gibs/antlion_gib_small_1.mdl", bone = "ValveBiped.Bip01_R_UpperArm", rel = "", pos = Vector(7.727, 0.455, 0), angle = Angle(180, 0, 0), size = Vector(1.401, 1.401, 1.401), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["RightArm2"] = { type = "Model", model = "models/gibs/antlion_gib_small_1.mdl", bone = "ValveBiped.Bip01_L_UpperArm", rel = "", pos = Vector(7.727, 0.455, 0), angle = Angle(180, 0, 0), size = Vector(1.401, 1.401, 1.401), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["head"] = { type = "Model", model = "models/gibs/shield_scanner_gib6.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(19.545, 0, 0), angle = Angle(0, 0, 0), size = Vector(1.003, 1.003, 1.003), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
@@ -23,19 +22,17 @@ if CLIENT then
 		["Hand2"] = { type = "Model", model = "models/gibs/shield_scanner_gib4.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(-0.456, -0.456, -2.274), angle = Angle(43.977, 0, 0), size = Vector(0.889, 0.889, 0.889), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["UpperArm"] = { type = "Model", model = "models/gibs/strider_gib7.mdl", bone = "ValveBiped.Bip01_R_UpperArm", rel = "", pos = Vector(5, -0.456, -5.909), angle = Angle(0, 0, 0), size = Vector(0.151, 0.151, 0.151), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["UpperArm2"] = { type = "Model", model = "models/gibs/strider_gib7.mdl", bone = "ValveBiped.Bip01_L_UpperArm", rel = "", pos = Vector(5, -0.456, -5.909), angle = Angle(0, 0, 0), size = Vector(0.151, 0.151, 0.151), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	--["4"] = { type = "Model", model = "models/gibs/gunship_gibs_eye.mdl", bone = "ValveBiped.Bip01_R_Foot", rel = "", pos = Vector(-3.636, 4.675, 0), angle = Angle(0, 0, 73.636), size = Vector(0.367, 0.367, 0.367), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+
 	["1"] = { type = "Model", model = "models/gibs/strider_gib6.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-0.519, -0.519, 0), angle = Angle(0, 0, 97.013), size = Vector(0.432, 0.432, 0.432), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	--["5"] = { type = "Model", model = "models/gibs/gunship_gibs_eye.mdl", bone = "ValveBiped.Bip01_L_Foot", rel = "", pos = Vector(0, 5.714, 0), angle = Angle(180, 129.74, 82.986), size = Vector(0.367, 0.367, 0.367), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	--["2"] = { type = "Model", model = "models/gibs/strider_gib7.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-1.558, -11.948, 0.518), angle = Angle(0, 68.96, 97.013), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["3"] = { type = "Model", model = "models/gibs/gunship_gibs_headsection.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-7.792, 2.596, 0), angle = Angle(0, -24.546, 82.986), size = Vector(0.237, 0.237, 0.237), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 
-	["gun1"] = { type = "Model", model = "models/weapons/w_physics.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(0, 0, 0), angle = Angle(0, 0, 180), size = Vector(0.755, 0.755, 0.755), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["gun2"] = { type = "Model", model = "models/gibs/gunship_gibs_engine.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(7.791, 0.518, -2.597), angle = Angle(0, 0, 0), size = Vector(0.107, 0.107, 0.107), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["gun4"] = { type = "Model", model = "models/gibs/gunship_gibs_wing.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(7.791, -2.597, 0), angle = Angle(-104.027, 101.688, 0), size = Vector(0.172, 0.172, 0.172), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["gun5"] = { type = "Model", model = "models/gibs/gunship_gibs_wing.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(7.791, 3.635, 0), angle = Angle(73.636, 101.688, -22.209), size = Vector(0.172, 0.172, 0.172), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["gun3"] = { type = "Model", model = "models/gibs/gunship_gibs_nosegun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(11.947, 2.596, 0.518), angle = Angle(0, 0, 99.35), size = Vector(0.237, 0.237, 0.237), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 ["eye1"] = { type = "Sprite", sprite = "effects/redflare", bone = "ValveBiped.Bip01_R_Hand", rel = "1", pos = Vector(4.406, 2.168, 1.33), size = { x = 13, y = 13 }, color = Color(255, 255, 0, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
 ["eye1+"] = { type = "Sprite", sprite = "effects/redflare", bone = "ValveBiped.Bip01_R_Hand", rel = "1", pos = Vector(4.406, -2.438, 1.33), size = { x = 13, y = 13 }, color = Color(255, 255, 0, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
+	["gun1"] = { type = "Model", model = "models/gibs/antlion_gib_large_3.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(0.518, 0, -0.519), angle = Angle(80.649, 180, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["gun2"] = { type = "Model", model = "models/gibs/antlion_gib_medium_3.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-5.715, -2.597, -0.519), angle = Angle(180, -111.04, 22.208), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+
+
+
 	}
 	
 	SWEP.VElements = {
@@ -97,7 +94,7 @@ function SWEP:StartPrimaryAttack()
 		bullet.Damage = 1.2
 	self:ShootEffects()
 	self.Owner:FireBullets( bullet )
-	self.Weapon:EmitSound(Sound("Weapon_AR2.Single"))
+	self.Weapon:EmitSound(Sound("player/zombies/seeker/pain2.wav"))
 	self:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
 	self:SetNextSecondaryFire( CurTime() + self.Primary.Delay )
 	
@@ -126,7 +123,7 @@ function SWEP:PostPerformPrimaryAttack(hit)
 		return
 	end
 
-	self.Owner:EmitSound(Sound("player/zombies/b/swing.wav"),math.random(100,130),math.random(95,100))
+	self.Owner:EmitSound(Sound("player/zombies/seeker/pain2.wav"),math.random(100,130),math.random(95,100))
 end
 
 function SWEP:PrimaryAttackHit(trace, ent)
@@ -183,7 +180,7 @@ function SWEP:PerformSecondaryAttack()
 		local fHitPercentage = math.Clamp(1 - (fDistance / self.Primary.Reach), 0, 1)
 																													   
 		--Inflict damage
-		local fDamage = math.Round(15 * fHitPercentage, 0, 10)
+		local fDamage = math.Round(20 * fHitPercentage, 0, 10)
 		if fDamage > 0 then
 			v:TakeDamage(fDamage, self.Owner, self)
 		end
