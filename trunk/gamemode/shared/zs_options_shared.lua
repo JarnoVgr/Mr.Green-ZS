@@ -2194,7 +2194,7 @@ shopData = {
 	[79] = { Cost = 800, Type = "other", AdminOnly = false, Desc = "Being chased by zombies! No problem, attach this and play away! 'Doesn't actually do that'.", Key = "Helihead", ID = 79, Sell = 0, Requires = 0, Name = "HeliHead" },
 	[80] = { Cost = 5000, Type = "suit", AdminOnly = false, Desc = "You love zerking well this is the suit for you!! Gain hp for every melee kill depending on the weapon. ", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
 	[81] = { Cost = 5000, Type = "suit", AdminOnly = false, Desc = "Become one of the elite forces and fight for the Dubyans!", Key = "Combine", ID = 81, Sell = 0, Requires = 0, Name = "Combine the Zombine!",  },
-	[82] = { Cost = 6000, Type = "suit", AdminOnly = false, Desc = "Let the Freeman inside of you take over and kill the many hoards of zombies chasing you!", Key = "freeman", ID = 82, Sell = 0, Requires = 0, Name = "Freeman!!!",  },
+	[82] = { Cost = 8000, Type = "suit", AdminOnly = false, Desc = "When firing an assault rifle your speed with increase. Let it be known as freeman RAGE! ", Key = "freeman", ID = 82, Sell = 0, Requires = 0, Name = "Freeman Rage!",  },
 	[83] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Live for nothing or die for something. Reload more bullets in your shotgun at one time!", Key = "Rambo", ID = 83, Sell = 0, Requires = 0, Name = "Rambo Roar",  },
 	[84] = { Cost = 120, Type = "hat", AdminOnly = false, Desc = "I see you!", Key = "spotlight", ID = 84, Sell = 0, Requires = 0, Name = "Spotlight",  },
 	[85] = { Cost = 350 , Type = "hat", AdminOnly = false, Desc = "Brum Brum beep beep outa my way you Kliener scum!", Key = "motorhead", ID = 85, Sell = 0, Requires = 0, Name = "Motor Head",  },

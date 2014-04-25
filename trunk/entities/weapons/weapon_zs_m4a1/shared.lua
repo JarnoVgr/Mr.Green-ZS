@@ -78,3 +78,12 @@ SWEP.IronSightsAng = Vector(0,0,0)
 
 --SWEP.IronSightsPos = Vector(2.64, -3.379, 1)
 --SWEP.IronSightsAng = Vector(0, 0, 3.144)
+
+
+function think()
+if self:GetOwner():GetSuit() == "freeman" then -- freeman suit.
+			WalkSpeed = 220
+		--	WalkSpeed = 260
+		end
+
+end

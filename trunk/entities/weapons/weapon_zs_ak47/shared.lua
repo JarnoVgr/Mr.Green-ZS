@@ -64,11 +64,7 @@ SWEP.ConeIronCrouching = 0.036
 
 SWEP.MaxAmmo			    = 9999
 
-
 SWEP.WalkSpeed = 195
-
---SWEP.IronSightsPos = Vector(-6.64, -12, 2.279)
---SWEP.IronSightsAng = Vector(3.03, 0, 0)
 
 
 SWEP.IronSightsPos = Vector(-2.641, -4.481, 1 )
@@ -76,6 +72,12 @@ SWEP.IronSightsAng = Vector( 0, 0, 0 )
 
 SWEP.OverridePos = Vector(3.16, -4.755, 1.639)
 SWEP.OverrideAng = Vector( 0,0,0 )
---SWEP.IronSightsPos = Vector(3.16, -4.755, 1.639)
---SWEP.IronSightsAng = Vector(0, 0, 0)
 
+
+function think()
+if self:GetOwner():GetSuit() == "freeman" then -- freeman suit.
+			WalkSpeed = 220
+		--	WalkSpeed = 260
+		end
+
+end
