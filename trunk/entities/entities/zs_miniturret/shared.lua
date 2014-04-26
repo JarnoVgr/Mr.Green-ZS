@@ -283,10 +283,10 @@ function ENT:Shoot()
 	bullet.Num = 1
 	bullet.Src = self:GetPos()
 	bullet.Dir = self:GetAngles():Forward()
-	bullet.Spread = Vector(0.02,0.02, 0)  
-	bullet.Tracer = 1
+	bullet.Spread = Vector(0.1, 0.1, 0.1)  
+	bullet.Tracer = 6
 	bullet.Force = 1
-	bullet.Damage = 0
+	bullet.Damage = 2
 	bullet.TracerName = "Tracer"
 	bullet.Callback = BulletCallback
 	
@@ -356,7 +356,8 @@ function ENT:CanAttack()
 end
 
 function ENT:OnTakeDamage( dmginfo )
-	if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() then
+	--if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() then
+	if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsUNDEAD() then
 		
 		local dmg = dmginfo:GetDamage()
 		
