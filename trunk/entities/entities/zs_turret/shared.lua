@@ -31,7 +31,7 @@ for i=1,2 do
 end
 
 -- Options
-ENT.MaxHealth = 100
+ENT.MaxHealth = 250
 ENT.MaxBullets = 150
 ENT.RechargeDelay = 0.5 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 540
@@ -418,7 +418,7 @@ if SERVER then
 		bullet.Dir = self:GetShootDir()
 		bullet.Spread = Vector(0.01, 0.01, 0.01)  
 		bullet.Tracer = 1
-		bullet.Force = 1
+		bullet.Force = 2
 		bullet.Damage = 17
 		bullet.TracerName = "AR2Tracer"
 		bullet.Callback = BulletCallback
