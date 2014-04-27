@@ -1631,17 +1631,17 @@ Debug("[MODULE] Loaded init.lua")
 ---------------------------------------------------------------------------]=]
 
 
--- function GM:KeyPress( pl, key )
+ function GM:KeyPress( pl, key )
 
---if pl:Team() == TEAM_HUMAN then
---if( pl:KeyDown( IN_BACK ) )  then
---pl:SetWalkSpeed( 140 )
+if pl:Team() == TEAM_HUMAN then
+if( pl:KeyDown( IN_BACK ) )  then
+pl:SetWalkSpeed( 140 )
 		
---else pl:SetWalkSpeed(200) 
+else pl:SetWalkSpeed(200) 
 
 
---end
---end end
+end
+end end
 
 
 --[=[----------------------------------------------------------------------
