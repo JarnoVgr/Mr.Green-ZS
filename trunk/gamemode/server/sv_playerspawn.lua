@@ -6,6 +6,23 @@ GM.UndeadSpawnPoints = {}
 GM.HumanSpawnPoints = {}
 DataTableConnected = {}
 
+
+
+
+ function GM:KeyPress( pl, key )
+
+--if pl:Team() == TEAM_HUMAN then
+if( pl:KeyDown( IN_BACK ) )  then
+pl:SetWalkSpeed( 140 )
+elsepl:SetWalkSpeed(200)
+
+--end
+end
+
+
+end
+
+
 --[==[--------------------------------------------------------------
       Called everytime a player connects for first time
 ---------------------------------------------------------------]==]
@@ -260,6 +277,7 @@ function GM:PlayerSpawn(pl)
 			--Only display message when being human
 			if pl:Team() == TEAM_SURVIVORS then
 				pl:ChatPrint("You're now THE Santa Claus!")
+				pl:ChatPrint("Ho ho ho!")
 			end
 
 			--Set global
@@ -794,7 +812,7 @@ function CalculateZombieHealth(pl)
 	   local zombieCount = team.NumPlayers(TEAM_UNDEAD)
 	   
 	  -- MaxHealth = (humanCount * (Tab.Health * math.Clamp(INFLICTION,0.2,1))) * math.Clamp(humanCount / zombieCount, 0.5, 2) --More health for bosses
-	   MaxHealth = (humanCount * (Tab.Health * math.Clamp(INFLICTION,0.1,1))) * math.Clamp(humanCount / zombieCount, 0.3, 2)
+	 --  MaxHealth = (humanCount * (Tab.Health * math.Clamp(INFLICTION,0.1,1))) * math.Clamp(humanCount / zombieCount, 0.3, 2)
 	end
 
 	MaxHealth = math.Round(MaxHealth)
