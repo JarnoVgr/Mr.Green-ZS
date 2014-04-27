@@ -18,7 +18,7 @@ end
 
 -- Name and fov
 SWEP.PrintName = "Combat Knife"
-SWEP.ViewModelFOV = 70
+SWEP.ViewModelFOV = 60
 
 -- Position
 SWEP.Slot = 2
@@ -26,14 +26,14 @@ SWEP.SlotPos = 6
 
 -- Damage, distane, delay
 
-SWEP.Primary.Delay = 0.62
+SWEP.Primary.Delay = 0.60
 
 SWEP.HoldType = "knife"
 
-SWEP.MeleeDamage = 21
+SWEP.MeleeDamage = 30
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
-SWEP.WalkSpeed = 208
+SWEP.WalkSpeed = 210
 
 SWEP.HitDecal = "Manhackcut"
 

@@ -40,14 +40,11 @@ SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.75
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
-SWEP.ConeIronMoving = SWEP.ConeMoving *0.80
+--SWEP.ConeIronMoving = SWEP.Moving *0.80
  
---SWEP.IronSightsPos = Vector(-5.872, 20, 2.605)
---SWEP.IronSightsAng = Vector(0, -0.21, 0.769)
+SWEP.IronSightsPos = Vector(-3.2,-1,1)
+SWEP.IronSightsAng = Vector( 0, 0, 0 )
  
-SWEP.IronSightsPos = Vector(-3, 2, 1 )
-SWEP.IronSightsAng = Vector(0, 0, 0)
-
  
 SWEP.VElements = {
         ["pistol"] = { type = "Model", model = "models/weapons/c_pistol.mdl", bone = "v_weapon.Glock_Parent", rel = "", pos = Vector(26.249, 1.776, 5.823), angle = Angle(1.692, 162.576, 79.93), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }

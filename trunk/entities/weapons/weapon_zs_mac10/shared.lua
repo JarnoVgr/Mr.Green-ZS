@@ -28,31 +28,28 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("Weapon_MAC10.Single")
 SWEP.Primary.Recoil = 1
-SWEP.Primary.Damage = 15
+SWEP.Primary.Damage = 12
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.093
+SWEP.Primary.Delay = 0.075
 
-SWEP.Primary.ClipSize = 30
-SWEP.Primary.DefaultClip = 60
+SWEP.Primary.ClipSize = 40
+SWEP.Primary.DefaultClip = 80
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "smg1"
 
 SWEP.MaxAmmo = 230
 
-SWEP.ConeMoving = 0.069
-SWEP.Cone = 0.057
-SWEP.ConeIron = 0.046
-SWEP.ConeCrouching = 0.039
-SWEP.ConeIronCrouching = 0.032
+SWEP.Cone = 0.064
+SWEP.ConeMoving = SWEP.Cone *1.2
+SWEP.ConeCrouching = SWEP.Cone *0.9
+SWEP.ConeIron = SWEP.Cone *0.85
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.85
+--SWEP.ConeIronMoving = SWEP.Moving *0.85
 
 SWEP.WalkSpeed = 195
 
---SWEP.IronSightsPos = Vector(-9.04, -8.426, 2.759)
---SWEP.IronSightsAng = Vector(1.483, -5.311, -6.961)
-
-SWEP.IronSightsPos = Vector(-2.641, -4.481, 1 )
-SWEP.IronSightsAng = Vector( 0, 0, 0 )
-
+SWEP.IronSightsPos = Vector(-2, -4, 1.5)
+SWEP.IronSightsAng = Vector(0,0,0)
 SWEP.OverridePos = Vector(2.279, -3.28, 1.44)
 SWEP.OverrideAng = Vector(0, 0, 6.287)
 

@@ -43,41 +43,30 @@ SWEP.PrintName			= "AK-47"
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AK47.Single")
-SWEP.Primary.Recoil			= 3
-SWEP.Primary.Damage			= 21
+SWEP.Primary.Recoil			= 4
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
 SWEP.storeclipsize			= 25
-SWEP.Primary.Delay			= 0.13
-SWEP.Primary.DefaultClip	= 220
+SWEP.Primary.Delay			= 0.12
+SWEP.Primary.DefaultClip	= 50
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.MaxBulletDistance 		= 3500
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.ConeMoving = 0.071
-SWEP.Cone = 0.061
-SWEP.ConeIron = 0.049
-SWEP.ConeCrouching = 0.041
-SWEP.ConeIronCrouching = 0.036
+SWEP.Cone = 0.06
+SWEP.ConeMoving = SWEP.Cone *1.3
+SWEP.ConeCrouching = SWEP.Cone *0.80
+SWEP.ConeIron = SWEP.Cone *0.7
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
+--SWEP.ConeIronMoving = SWEP.Moving *0.7
 
 
 SWEP.MaxAmmo			    = 9999
 
+
 SWEP.WalkSpeed = 195
 
-
-SWEP.IronSightsPos = Vector(-2.641, -4.481, 1 )
-SWEP.IronSightsAng = Vector( 0, 0, 0 )
-
-SWEP.OverridePos = Vector(3.16, -4.755, 1.639)
-SWEP.OverrideAng = Vector( 0,0,0 )
-
-
-function think()
-if self:GetOwner():GetSuit() == "freeman" then -- freeman suit.
-		--	WalkSpeed = 220
-			WalkSpeed = 260
-		end
-
-end
+SWEP.IronSightsPos = Vector(-2, -4, 1.5)
+SWEP.IronSightsAng = Vector(0,0,0)

@@ -356,8 +356,8 @@ function ENT:CanAttack()
 end
 
 function ENT:OnTakeDamage( dmginfo )
-	--if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() then
-	if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsUNDEAD() then
+	if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() then
+	--if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsUNDEAD() then
 		
 		local dmg = dmginfo:GetDamage()
 		

@@ -42,10 +42,10 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_USP.Single" )
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 12
+SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 15
-SWEP.Primary.Delay			= 0.16
+SWEP.Primary.Delay			= 0.14
 SWEP.Primary.DefaultClip	= 75
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
@@ -57,12 +57,10 @@ SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.75
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
-SWEP.ConeIronMoving = SWEP.ConeMoving *0.80
+--SWEP.ConeIronMoving = SWEP.Moving *0.80
 
 SWEP.MaxAmmo			    = 130
 
---SWEP.IronSightsPos = Vector( -5.76, 4, 2.6 )
---SWEP.IronSightsAng = Vector( 0, 0.34, 0 )
-
 SWEP.IronSightsPos = Vector(-3, 2, 1 )
-SWEP.IronSightsAng = Vector(0, 0, 0)
+
+SWEP.IronSightsAng = Vector( 0, 0, 0 )

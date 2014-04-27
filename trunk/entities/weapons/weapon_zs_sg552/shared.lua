@@ -41,10 +41,9 @@ SWEP.Primary.Sound			= Sound("Weapon_SG552.Single")
 SWEP.Primary.Recoil			= 3
 SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 28
-SWEP.storeclipsize			= 34
-SWEP.Primary.Delay			= 0.089
-SWEP.Primary.DefaultClip	= 84
+SWEP.Primary.ClipSize		= 24
+SWEP.Primary.Delay			= 0.12
+SWEP.Primary.DefaultClip	= 48
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
@@ -53,11 +52,12 @@ SWEP.Secondary.Delay = 0.5
 
 SWEP.WalkSpeed = 195
 
-SWEP.ConeMoving = 0.061
-SWEP.Cone = 0.049
-SWEP.ConeIron = 0.041
-SWEP.ConeCrouching = 0.029
-SWEP.ConeIronCrouching = 0.019
+SWEP.Cone = 0.061
+SWEP.ConeMoving = SWEP.Cone *1.3
+SWEP.ConeCrouching = SWEP.Cone *0.80
+SWEP.ConeIron = SWEP.Cone *0.10
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.10
+--SWEP.ConeIronMoving = SWEP.Moving *0.10
 
 
 SWEP.IronSightsPos = Vector( -6, -8.504, 2.599 )

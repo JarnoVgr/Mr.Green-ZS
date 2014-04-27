@@ -24,18 +24,18 @@ SWEP.WorldModel = Model("models/weapons/w_medkit.mdl")
 
 SWEP.Base = "weapon_zs_base_dummy"
 
---SWEP.Primary.Delay = 0.01
-SWEP.Primary.Delay = 0.5
-
+SWEP.Primary.Delay = 1
+SWEP.Primary.Automatic	= true
 SWEP.Primary.Heal = 1
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.DefaultClipSize = 30
 SWEP.Primary.UpgradedClipSize = 60
 SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Ammo = "SniperRound"
-SWEP.Primary.Automatic = true
-SWEP.Secondary.Automatic = true
-SWEP.WalkSpeed = 180
+
+
+SWEP.Secondary.Automatic	= true
+SWEP.WalkSpeed = 190
 
 SWEP.NoMagazine = true
 
@@ -49,9 +49,6 @@ function SWEP:OnInitialize()
 	end
 	
 	self.Weapon.FirstSpawn = true
-	
-	
-	
 end
 
 util.PrecacheSound("items/medshot4.wav")
@@ -60,11 +57,7 @@ util.PrecacheSound("items/smallmedkit1.wav")
 function SWEP:PrimaryAttack()
 	if not self:CanPrimaryAttack() then
 		if SERVER then
-		
-		
 			self.Owner:EmitSound(Sound("items/medshotno1.wav"))
-			
-			
 		end
 
 		return
@@ -73,10 +66,6 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 	self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
 
-	if self:GetOwner():GetSuit() == "medicsuit" then -- Medic suit.
-		WalkSpeed = 140
-		end
-	 
 
 	local owner = self.Owner
 	local trace = self.Owner:GetEyeTrace()
@@ -107,7 +96,7 @@ function SWEP:PrimaryAttack()
 	--Medical upgrade (multiplier)
 	local multiplier = 1
 	if owner:GetPerk("_medupgr1" ) then
-		multiplier = 1.5
+		multiplier = 1.35
 	end
 
 	local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
@@ -164,6 +153,10 @@ function SWEP:SecondaryAttack()
 		return
 	end
 
+	if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "medicsuit" then
+			Walkspeed = 150
+		end
+	
 	--Define vars
 	local owner = self.Owner
 	local health, maxhealth = owner:Health(), 100-- owner:GetMaxHealth()
@@ -175,16 +168,10 @@ function SWEP:SecondaryAttack()
 		maxhealth = 120
 	end
 	
-	
-	if self:GetOwner():GetSuit() == "medicsuit" then -- Medic suit.
-		WalkSpeed = 140
-		end
-	
-	
 	--Check for medical upgrade (multiplier)
 	local multiplier = 1
 	if owner:GetPerk("_medupgr1") then
-		multiplier = 1.1
+		multiplier = 1.35
 	end
 	
 	--
@@ -221,11 +208,8 @@ function SWEP:Think()
 		self.Owner:RemoveAmmo(ammocount, self.Primary.Ammo)
 	end
 	
-		if self:GetOwner():GetSuit() == "medicsuit" then -- Medic suit.
-		self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 1))
-		self.RechargeTimer = CurTime() + 1
-		end
 	
+			
 	
 	if SERVER then
 		if not self.Owner:KeyDown(IN_ATTACK) and self.RechargeTimer < CurTime() and self.Weapon:Clip1() < self.Primary.ClipSize then	
@@ -233,7 +217,7 @@ function SWEP:Think()
 			self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 1))
 			
 			--Next recharge
-			self.RechargeTimer = CurTime() + 2
+			self.RechargeTimer = CurTime() + 1
 		end
 	end
 end

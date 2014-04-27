@@ -32,13 +32,10 @@ SWEP.Slot = 2
 SWEP.SlotPos = 6
 
 -- Damage, distane, delay
-SWEP.Primary.Damage = 22
+
 SWEP.Primary.Delay = 0.45
-SWEP.Primary.Distance = 50
-
 SWEP.DamageType = DMG_CLUB
-
-SWEP.MeleeDamage = 22
+SWEP.MeleeDamage = 23
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
 SWEP.WalkSpeed = 204
@@ -66,5 +63,4 @@ function SWEP:Precache()
 	util.PrecacheSound("weapons/knife/knife_slash1.wav")
 	util.PrecacheSound("weapons/knife/knife_slash2.wav")
 end
- 
  

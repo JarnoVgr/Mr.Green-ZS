@@ -4,7 +4,7 @@ SWEP.Base = "weapon_zs_melee_base"
 
 if CLIENT then
 	SWEP.PrintName = "Shovel"
-	SWEP.ViewModelFOV = 70
+	SWEP.ViewModelFOV = 60
 	SWEP.ShowViewModel = false
 	SWEP.ShowWorldModel = true
 	--SWEP.IgnoreBonemerge = true
@@ -29,7 +29,7 @@ SWEP.MeleeRange = 70
 SWEP.MeleeSize = 1.3
 
 SWEP.Primary.Delay = 1.25
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = 190
 
 SWEP.SwingRotation = Angle(0, -90, -60)
 SWEP.SwingOffset = Vector(0, 30, -40)
@@ -56,19 +56,3 @@ end
 function SWEP:PlayHitFleshSound()
 	self:EmitSound("physics/body/body_medium_break"..math.random(2, 4)..".wav")
 end
-
-function think()
-	
-if self:GetOwner():GetSuit() == "gravedigger" then
-
-	
-end
-	
-end
-
-	
-	
-	
-	
-	
-	

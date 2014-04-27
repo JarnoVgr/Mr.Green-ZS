@@ -23,9 +23,9 @@ function SWEP:GetViewModelPosition(pos, ang)
 		
 		local swingtime = self.SwingTime
 	
-		--if self.Owner and self.Owner:GetSuit() == "meleesuit" then
-		--	swingtime = math.Clamp(self.SwingTime-0.11,0,self.SwingTime)
-		--end
+		if self.Owner and self.Owner:GetSuit() == "meleesuit" then
+			swingtime = math.Clamp(self.SwingTime-0.11,0,self.SwingTime)
+		end
 		
 		local swingend = self:GetSwingEnd()
 		local delta = self.SwingTime - math.max(0, swingend - CurTime())

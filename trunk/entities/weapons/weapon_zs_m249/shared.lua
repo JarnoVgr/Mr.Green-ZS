@@ -32,32 +32,30 @@ SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_M249.Single")
 SWEP.Primary.Recoil			= 4
-SWEP.Primary.Damage			= 27
+SWEP.Primary.Damage			= 20
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 100
-SWEP.storeclipsize			= 100
-SWEP.Primary.Delay			= 0.085
-SWEP.Primary.DefaultClip	= 450
+SWEP.Primary.Delay			= 0.15
+SWEP.Primary.DefaultClip	= 200
 SWEP.MaxAmmo			    = 500
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.FirePower = (SWEP.Primary.Damage * SWEP.Primary.ClipSize)
 
-SWEP.ConeMoving = 0.079
-SWEP.Cone = 0.059
-SWEP.ConeIron = 0.051
-SWEP.ConeCrouching = 0.042
-SWEP.ConeIronCrouching = 0.031
+SWEP.Cone = 0.069
+SWEP.ConeMoving = SWEP.Cone *1.1
+SWEP.ConeCrouching = SWEP.Cone *0.9
+SWEP.ConeIron = SWEP.Cone *0.9
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
+--SWEP.ConeIronMoving = SWEP.Moving *0.9
 
 
 SWEP.WalkSpeed = 191
 SWEP.MaxBulletDistance = 2450
 
---SWEP.IronSightsPos = Vector(-5.961, -6.535, 2.359)
---SWEP.IronSightsAng = Vector(0, 0, 0)
-
 SWEP.IronSightsPos = Vector(-2.961, -5.535, 1.2)
 SWEP.IronSightsAng = Vector(0, 0, 0)
+
 
 SWEP.OverridePos = Vector(-1.601, -1.311, 1.6)
 SWEP.OverrideAng = Vector( 0,0,0 )

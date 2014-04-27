@@ -41,36 +41,27 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AUG.Single")
 SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 19
+SWEP.Primary.Damage			= 16
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 31
-SWEP.storeclipsize			= 31
+SWEP.Primary.ClipSize		= 30
 SWEP.Primary.Delay			= 0.095
-SWEP.Primary.DefaultClip	= 145
+SWEP.Primary.DefaultClip	= 60
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.Primary.Cone			= 0.05
 SWEP.MaxBulletDistance 		= 3500
 SWEP.MaxAmmo			    = 250
 
-SWEP.ConeMoving = 0.072
-SWEP.Cone = 0.051
-SWEP.ConeIron = 0.042
-SWEP.ConeCrouching = 0.038
-SWEP.ConeIronCrouching = 0.031
+SWEP.Cone = 0.060
+SWEP.ConeMoving = SWEP.Cone *1.4
+SWEP.ConeCrouching = SWEP.Cone *0.80
+SWEP.ConeIron = SWEP.Cone *0.7
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
+--SWEP.ConeIronMoving = SWEP.Moving *0.85
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.WalkSpeed = 195
 
-SWEP.IronSightsPos = Vector(-2.641, -4.481, 1 )
-SWEP.IronSightsAng = Vector( 0, 0, 0 )
-
-
-function think()
-if self:GetOwner():GetSuit() == "freeman" then -- freeman suit.
-		--	WalkSpeed = 220
-			WalkSpeed = 260
-		end
-
-end
+SWEP.IronSightsPos = Vector(-2, -4, 1.5)
+SWEP.IronSightsAng = Vector(0,0,0)

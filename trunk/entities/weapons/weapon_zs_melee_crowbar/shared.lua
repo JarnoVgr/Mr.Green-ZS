@@ -27,17 +27,16 @@ SWEP.Slot = 2
 SWEP.SlotPos = 3
 
 -- Damage, distance, delay
-SWEP.Primary.Delay = 0.8
-SWEP.Primary.Distance = 50
+SWEP.Primary.Delay = 0.80
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 50
+SWEP.MeleeDamage = 45
 SWEP.MeleeRange = 55
 SWEP.MeleeSize = 1.45
 SWEP.WalkSpeed = 197
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 
-SWEP.SwingTime = 0.49
+SWEP.SwingTime = 0.55
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingHoldType = "grenade"
 
@@ -52,8 +51,3 @@ end
 function SWEP:PlayHitFleshSound()
 	self:EmitSound("Weapon_Crowbar.Melee_Hit")
 end
-
-
----------Dubys amazing method to the zerk suit. 'Grave digger'
-
-hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)

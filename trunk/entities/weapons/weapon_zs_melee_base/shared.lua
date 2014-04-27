@@ -159,8 +159,6 @@ function SWEP:Think()
 		self:StopSwinging()
 		self:MeleeSwing()
 	end
-	
-	
 end
 
 function SWEP:OnDrop()
@@ -189,11 +187,6 @@ function SWEP:PlaySwingSound()
 	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav")
 end
 
---if self:GetOwner():GetSuit() == "freeman" then
---swingtime = math.Clamp(self.SwingTime-0.25,0,self.SwingTime)
---MeleeDamage = math.Clamp( self:MeleeDamage() +10,self:MeleeDamage) 
-		
-	--	end
 function SWEP:PlayStartSwingSound()
 	--[=[local snd = "npc/combine_soldier/gear"..math.random(6)..".wav"
 	self:EmitSound(snd, 60, math.Clamp((SoundDuration(snd) / self.SwingTime) * 100, 50, 240))]=]
@@ -208,8 +201,6 @@ function SWEP:PlayHitFleshSound()
 end
 
 function SWEP:PrimaryAttack()
-
-
 	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 	if not self:CanPrimaryAttack() then
 		return
@@ -240,9 +231,8 @@ function SWEP:StartSwinging()
 	local swingtime = self.SwingTime
 	
 	if self.Owner and self.Owner:GetSuit() == "meleesuit" then
-		swingtime = math.Clamp(self.SwingTime-0.25,0,self.SwingTime)
+		swingtime = math.Clamp(self.SwingTime-0.11,0,self.SwingTime)
 	end
-	
 
 	--Viewpunch
 	--owner:MeleeViewPunch(math.random(5,30))

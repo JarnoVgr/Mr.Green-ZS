@@ -67,7 +67,7 @@ SWEP.Primary.Damage			= 7
 SWEP.Primary.NumShots		= 1		
 SWEP.Primary.Cone			= 0 	
 SWEP.Primary.ClipSize		= 3
-SWEP.Primary.DefaultClip	= 3	
+SWEP.Primary.DefaultClip	= 1
 SWEP.Primary.Automatic   	= false
 SWEP.Primary.Ammo         	= "slam"	
 ------------------------------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ SWEP.Secondary.DefaultClip	= 1
 SWEP.Secondary.Automatic   	= false
 SWEP.Secondary.Ammo         = "none"
 ------------------------------------------------------------------------------------------------------
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = 202
 
 -- Preload
 util.PrecacheSound("weapons/c4/c4_beep1.wav")
@@ -101,7 +101,7 @@ end
 function SWEP:PrimaryAttack()
 	if( CurTime() < self.NextPlant ) or not self:CanPrimaryAttack() then return end
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return false end
-		self.NextPlant = ( CurTime() + 2 );
+		self.NextPlant = ( CurTime() + 1.2 );
 	-- 
 	local trace = {}
 	local pos = self.Owner:GetPos()

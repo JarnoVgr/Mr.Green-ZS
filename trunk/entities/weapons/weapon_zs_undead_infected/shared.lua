@@ -32,7 +32,8 @@ SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
 SWEP.Primary.Duration = 1.75
-SWEP.Primary.Delay = 0.74
+--SWEP.Primary.Delay = 0.74
+SWEP.Primary.Delay = 0.9
 --SWEP.Primary.Delay = 1.2
 --SWEP.Primary.Damage = 25
 SWEP.Primary.Damage = 30

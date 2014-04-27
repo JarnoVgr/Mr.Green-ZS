@@ -32,7 +32,7 @@ SWEP.ReloadDelay = 0.4
 
 SWEP.Primary.Sound			= Sound("Weapon_XM1014.Single")
 SWEP.Primary.Recoil			= 8
-SWEP.Primary.Damage			= 15
+SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 7
 SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Delay			= 0.3
@@ -40,15 +40,17 @@ SWEP.Primary.DefaultClip	= 16
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "buckshot"
 SWEP.Primary.ReloadDelay	= 0.4
-SWEP.ConeMoving = 0.121
-SWEP.Cone = 0.106
-SWEP.ConeCrouching = 0.087
+
+SWEP.Cone = 0.095
+SWEP.ConeMoving = SWEP.Cone *1.05
+SWEP.ConeCrouching = SWEP.Cone *0.095
+
 SWEP.MaxAmmo			    = 70
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize * SWEP.Primary.NumShots)
 SWEP.IsShotgun = true
 
 
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = 190
 SWEP.MaxBulletDistance 		= 2300
 
 SWEP.IronSightsPos = Vector(-6.881, -11.261, 2.68)
@@ -57,7 +59,7 @@ SWEP.IronSightsAng = Vector(0, -0.828, 0)
 SWEP.OverridePos = Vector(2.559, -3.28, 1.399)
 SWEP.OverrideAng = Vector( 0,0,0 )
 
-if CLIENT and CHRISTMAS then
+if CLIENT then
 	SWEP.VElements = {
 		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.xm1014_Parent", rel = "", pos = Vector(0, -1.282, 2.513), angle = Angle(-90, 90, 0), size = Vector(0.5, 0.5, 1.126), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
@@ -135,8 +137,8 @@ function SWEP:Think()
 		self:SetClip1(self:Clip1() + 1)
 
 		
-	if self:GetOwner():GetSuit() == "Rambo" then
-			self:SetClip1(self:Clip1() + 3)
+	if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
+			self:SetClip1(self:Clip1() + 4)
 		end
 		
 		if self.Primary.ClipSize <= self:Clip1() or self.Owner:GetAmmoCount(self.Primary.Ammo) <= 0 then
@@ -160,8 +162,6 @@ end
 function SWEP:CanPrimaryAttack()
 	if self.Owner.KnockedDown or self.Owner:IsHolding() then return end
 
-	
-	
 	if self:Clip1() <= 0 then
 		self:EmitSound("Weapon_Shotgun.Empty")
 		self:SetNextPrimaryFire(CurTime() + 0.25)
@@ -180,8 +180,6 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	return true
-	
-	
 end
 
 function SWEP:SecondaryAttack()
