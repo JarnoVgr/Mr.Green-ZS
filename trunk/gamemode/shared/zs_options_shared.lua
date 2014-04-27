@@ -809,12 +809,14 @@ HELP_TEXT[4] = { title = "Rules", text = [[^rRules
 @^yThe following can result in temporary ban:
 @   - Being Unkind Often
 @   - Impersonating an Admin
-@   - Exploiting after Being Warned Several Times
+@   - Exploiting after Being Warned Several Times 'exploiting spots on a map, or exploiting zombie classes.'
 @   - Glitching on Purpose
+@   - Glitching with a zombie class which needs a path can result in a week or month ban!
 @
 @^yThe following can result in kick or insta-death:
 @   - Being AFK for a Long Period of Time
 @   - Spamming after being muted/gagged
+@   - Cade breaking
 @
 @^yThe following can result in being teleported:
 @   - Exploiting a Map
@@ -824,6 +826,7 @@ HELP_TEXT[4] = { title = "Rules", text = [[^rRules
 @   - Spamming
 @   - Being Underage and Using Microphone
 @   - Excessive Swearing
+@   - Abusing an admin 'verbal'
  ]]}
 
 -- DON'T CHANGE DONATE TO ANOTHER NUMBER THAN 5 (see ReceiveDonLevel in cl_init)
