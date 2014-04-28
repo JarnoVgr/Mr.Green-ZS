@@ -45,9 +45,21 @@ function DoAdminPanel()
 		if AdminPanel == nil then
 			return
 		end
+
+		-- Slap player option
+		local SlapMenu, DamageToSlap = AdminPanel:AddSubMenu("Slap Player >", function() CloseAdminPanel() end), { "No damage", "10% health", "30% health", "50 health", "Kill the bastard" }
+		for i,j in pairs ( DamageToSlap ) do
+			local MenuList = SlapMenu:AddSubMenu ( j )
+			local Damage = { [1] = 0, [2] = 10, [3] = 30, [4] = 50, [5] = 100 }
+			for k,v in pairs ( PlayersAll ) do
+				if ValidEntity ( v ) then
+					MenuList:AddOption ( tostring ( v:Name() ).." - ["..GetStringTeam ( v ).."]", function() RunConsoleCommand ( "slap_player", tostring ( v:UserID() ), Damage[i] ) CloseAdminPanel() end )
+				end
+			end
+		end
 	
 		-- Slay player option
-		local SlayMenu = AdminPanel:AddSubMenu( "Slay Players >", function () CloseAdminPanel() end )
+		local SlayMenu = AdminPanel:AddSubMenu( "Slay Player >", function () CloseAdminPanel() end )
 		for k,v in pairs ( PlayersAll ) do
 			if ValidEntity ( v ) then
 				local Team = "[TEAM_HUMAN]" if v:Team() == TEAM_UNDEAD then Team = "[TEAM_UNDEAD]" end
@@ -64,7 +76,39 @@ function DoAdminPanel()
 				end
 			end
 		end
+	end)
+	
+	timer.Simple( 0.03, function()
+		if AdminPanel == nil then
+			return
+		end
+	
+		AdminPanel:AddOption ( "---------------------------------", function () CloseAdminPanel() end )
 
+		--Bring player option
+		local BringMenu = AdminPanel:AddSubMenu( "Bring Player >", function () CloseAdminPanel() end )
+		for k,v in pairs ( PlayersAll ) do
+			if ValidEntity ( v ) then
+				local Team = "[TEAM_HUMAN]" if v:Team() == TEAM_UNDEAD then Team = "[TEAM_UNDEAD]" end
+				BringMenu:AddOption ( tostring ( v:Name() ).." - "..Team, function() RunConsoleCommand ( "bring_player", tostring ( v:UserID() ) ) CloseAdminPanel() end )
+			end
+		end
+		
+		--GoTo player option
+		local GotoMenu = AdminPanel:AddSubMenu( "Teleport to Player >", function () CloseAdminPanel() end )
+		for k,v in pairs ( PlayersAll ) do
+			if ValidEntity ( v ) then
+				local Team = "[TEAM_HUMAN]" if v:Team() == TEAM_UNDEAD then Team = "[TEAM_UNDEAD]" end
+				GotoMenu:AddOption ( tostring ( v:Name() ).." - "..Team, function() RunConsoleCommand ( "goto_player", tostring ( v:UserID() ) ) CloseAdminPanel() end )
+			end
+		end
+	end)
+
+	timer.Simple(0.04, function()
+		if AdminPanel == nil then
+			return
+		end
+	
 		AdminPanel:AddOption ( "---------------------------------", function () CloseAdminPanel() end )
 
 		-- Screen grab
@@ -74,47 +118,9 @@ function DoAdminPanel()
 				RedeemMenu:AddOption ( tostring ( v:Name() ), function() RunConsoleCommand ( "scanplayer", tostring ( v:EntIndex() ) ) CloseAdminPanel() end )
 			end
 		end
-		
-		-- Bring player option
-		AdminPanel:AddOption ( "---------------------------------", function () CloseAdminPanel() end )
-		local BringMenu = AdminPanel:AddSubMenu( "Bring Player >", function () CloseAdminPanel() end )
-		for k,v in pairs ( PlayersAll ) do
-			if ValidEntity ( v ) then
-				local Team = "[TEAM_HUMAN]" if v:Team() == TEAM_UNDEAD then Team = "[TEAM_UNDEAD]" end
-				BringMenu:AddOption ( tostring ( v:Name() ).." - "..Team, function() RunConsoleCommand ( "bring_player", tostring ( v:UserID() ) ) CloseAdminPanel() end )
-			end
-		end
-		
-		-- GoTo player option
-		local GotoMenu = AdminPanel:AddSubMenu( "Teleport to Player >", function () CloseAdminPanel() end )
-		for k,v in pairs ( PlayersAll ) do
-			if ValidEntity ( v ) then
-				local Team = "[TEAM_HUMAN]" if v:Team() == TEAM_UNDEAD then Team = "[TEAM_UNDEAD]" end
-				GotoMenu:AddOption ( tostring ( v:Name() ).." - "..Team, function() RunConsoleCommand ( "goto_player", tostring ( v:UserID() ) ) CloseAdminPanel() end )
-			end
-		end
-		
-		-- Mute player option
-		local RestrictionVoiceMenu, List = AdminPanel:AddSubMenu( "Voice Chat Restrictions >", function () CloseAdminPanel() end ), { "Mute Player", "Unmute Player" }
-		for i,j in pairs ( List ) do	
-			local MenuList = RestrictionVoiceMenu:AddSubMenu ( j, function() CloseAdminPanel() end )
-			for k,v in pairs ( PlayersAll ) do
-				if ValidEntity ( v ) then
-					local TypeCmd = "true"
-					if string.find ( j, "Unmute" ) then TypeCmd = "false" end
-					MenuList:AddOption ( tostring ( v:Name() ).." - ["..GetStringTeam ( v ).."]", function() RunConsoleCommand ( "mute_player", tostring ( v:UserID() ), TypeCmd ) CloseAdminPanel() end )
-				end
-			end
-		end
-	end)
-	
-	timer.Simple( 0.03, function()
-		if AdminPanel == nil then
-			return
-		end
-	
+
 		-- Gag player option
-		local RestrictionChatMenu, List = AdminPanel:AddSubMenu( "Chat Restrictions >", function () CloseAdminPanel() end ), { "Gag Player", "Ungag Player" }
+		local RestrictionChatMenu, List = AdminPanel:AddSubMenu( "Restrict Player Chat (Gag) >", function () CloseAdminPanel() end ), { "Gag Player", "Ungag Player" }
 		for i,j in pairs ( List ) do	
 			local MenuList = RestrictionChatMenu:AddSubMenu ( j )
 			for k,v in pairs ( PlayersAll ) do
@@ -126,38 +132,37 @@ function DoAdminPanel()
 			end
 		end
 		
-		-- Changelevel menu
-		AdminPanel:AddOption ( "---------------------------------", function () CloseAdminPanel() end )
-		local MapMenu = AdminPanel:AddSubMenu( "Change Map >", function () CloseAdminPanel() end )
-		for k,v in pairs ( TranslateMapTable ) do
-			MapMenu:AddOption ( tostring ( v.Name ), function() ConfirmAction ( "changemap", k ) end )
-		end
-		
-		-- Safe kick a player
-		local SafeKickMenu = AdminPanel:AddSubMenu( "Safe Kick [Use with caution] >", function () CloseAdminPanel() end )
-		for k,v in pairs ( PlayersAll ) do
-			if ValidEntity ( v ) then
-				SafeKickMenu:AddOption ( tostring ( v:Name() ).." - ["..GetStringTeam ( v ).."]", function() ConfirmAction ( "safekick", v ) end )
-			end
-		end
-		
-		-- Kick player option
-		local KickMenu = AdminPanel:AddSubMenu( "Kick [Use with caution] >", function () CloseAdminPanel() end )
-		for k,v in pairs ( PlayersAll ) do
-			if ValidEntity ( v ) then
-				local Team = "[TEAM_HUMAN]" if v:Team() == TEAM_UNDEAD then Team = "[TEAM_UNDEAD]" end
-				KickMenu:AddOption ( tostring ( v:Name() ).." - "..Team, function() ConfirmAction ( "kick", v ) end )
+		-- Mute player option
+		local RestrictionVoiceMenu, List = AdminPanel:AddSubMenu( "Restrict Player Voice Chat (Mute) >", function () CloseAdminPanel() end ), { "Mute Player", "Unmute Player" }
+		for i,j in pairs ( List ) do	
+			local MenuList = RestrictionVoiceMenu:AddSubMenu ( j, function() CloseAdminPanel() end )
+			for k,v in pairs ( PlayersAll ) do
+				if ValidEntity ( v ) then
+					local TypeCmd = "true"
+					if string.find ( j, "Unmute" ) then TypeCmd = "false" end
+					MenuList:AddOption ( tostring ( v:Name() ).." - ["..GetStringTeam ( v ).."]", function() RunConsoleCommand ( "mute_player", tostring ( v:UserID() ), TypeCmd ) CloseAdminPanel() end )
+				end
 			end
 		end
 	end)
-	
-	timer.Simple ( 0.05, function() 
+		
+	timer.Simple(0.05, function()
 		if AdminPanel == nil then
 			return
+		end	
+	
+		AdminPanel:AddOption ( "---------------------------------", function () CloseAdminPanel() end )
+
+		--Kick a player
+		local KickMenu = AdminPanel:AddSubMenu( "Kick Player [Use with caution] >", function () CloseAdminPanel() end )
+		for k,v in pairs ( PlayersAll ) do
+			if ValidEntity ( v ) then
+				KickMenu:AddOption ( tostring ( v:Name() ).." - ["..GetStringTeam ( v ).." - ".. v:SteamID() .."]", function() ConfirmAction ( "kick", v ) end )
+			end
 		end
 		
-		-- Ban player option
-		local BanMenu = AdminPanel:AddSubMenu( "Ban [Use with caution] >", function () CloseAdminPanel() end )
+		--Ban player option
+		local BanMenu = AdminPanel:AddSubMenu( "Ban Player [Use with caution] >", function () CloseAdminPanel() end )
 		local Time, Reason = { [1] = "5", [2] = "10", [3] = "20", [4] = "50", [5] = "100", [6] = "1337", [7] = "Permaban that sucker!" }, { "Speed Hacking", "Mic/Chat Spamming", "Being an idiot/troll", "Insulting Players", "General Glitching/Exploiting" }
 		for i,j in ipairs ( Time ) do
 			local TimeToBan = tostring ( j ).." Minutes"
@@ -166,7 +171,7 @@ function DoAdminPanel()
 			for l,m in ipairs ( PlayersAll ) do
 				if ValidEntity ( m ) then
 					local BanTime = tonumber ( j ) if j == "Permaban that sucker!" then BanTime = 0 end
-					TimeList:AddOption ( tostring ( m:Name() ).." - ["..GetStringTeam ( m ).."]", function()
+					TimeList:AddOption ( tostring ( m:Name() ).." - ["..GetStringTeam ( m ).." - ".. m:SteamID() .."]", function()
 						ConfirmAction ( "ban", m, true, BanTime, "Other reason." )
 						CloseAdminPanel()
 					end )
@@ -174,26 +179,24 @@ function DoAdminPanel()
 			end
 		end
 	end)
-	
-	timer.Simple(0.06, function()
+
+
+	timer.Simple(0.06, function() 
 		if AdminPanel == nil then
 			return
-		end	
-	
-		-- Slap player option
-		local SlapMenu, DamageToSlap = AdminPanel:AddSubMenu("Slap Player >", function() CloseAdminPanel() end), { "No damage", "10% health", "30% health", "50 health", "Kill the bastard" }
-		for i,j in pairs ( DamageToSlap ) do
-			local MenuList = SlapMenu:AddSubMenu ( j )
-			local Damage = { [1] = 0, [2] = 10, [3] = 30, [4] = 50, [5] = 100 }
-			for k,v in pairs ( PlayersAll ) do
-				if ValidEntity ( v ) then
-					MenuList:AddOption ( tostring ( v:Name() ).." - ["..GetStringTeam ( v ).."]", function() RunConsoleCommand ( "slap_player", tostring ( v:UserID() ), Damage[i] ) CloseAdminPanel() end )
-				end
-			end
+		end
+
+		AdminPanel:AddOption ( "---------------------------------", function () CloseAdminPanel() end )
+
+		
+		--Changelevel menu
+		local MapMenu = AdminPanel:AddSubMenu( "Change Map >", function () CloseAdminPanel() end )
+		for k,v in pairs ( TranslateMapTable ) do
+			MapMenu:AddOption ( tostring ( v.Name ), function() ConfirmAction ( "changemap", k ) end )
 		end
 	end)
 
-	timer.Simple(0.08, function()
+	timer.Simple(0.07, function()
 		if AdminPanel == nil then
 			return
 		end
@@ -201,13 +204,13 @@ function DoAdminPanel()
 		-- Slay all command - Superadmin only
 		if MySelf:IsSuperAdmin() then
 			AdminPanel:AddOption ( "---------------------------------", function () CloseAdminPanel() end )
-			AdminPanel:AddOption ( "Slay everyone [S-Admin]", function ()
+			AdminPanel:AddOption ( "Slay Everyone [S-Admin]", function ()
 				RunConsoleCommand ( "slay_all" )
 				CloseAdminPanel()
 			end)
 			
 			-- Swep command
-			local WeaponsTab = AdminPanel:AddSubMenu ( "Give weapon [S-Admin] >", function() CloseAdminPanel() end )
+			local WeaponsTab = AdminPanel:AddSubMenu ( "Give Player Weapon [S-Admin] >", function() CloseAdminPanel() end )
 			
 			for k,v in pairs ( PlayersAll ) do
 				local Team = "[TEAM_HUMAN]" if v:Team() == TEAM_UNDEAD then Team = "[TEAM_UNDEAD]" end

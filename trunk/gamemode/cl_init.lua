@@ -24,8 +24,13 @@ end)
 
 -- gm13 workaround
 surface.OldCreateFont = surface.CreateFont
-function surface.CreateFont(arg1,arg2,arg3,arg4,arg5,arg6)	
-	
+function surface.CreateFont(arg1,arg2,arg3,arg4,arg5,arg6)
+	--Call new style if there are only 2 arguments
+	if arg3 == nil then
+		surface.OldCreateFont(arg1,arg2)
+		return
+	end
+
 	local name = arg6-- [6]-- or "None"
 	local fontdata = {
 		font = arg1,-- [1],-- or "Arial",
@@ -35,7 +40,6 @@ function surface.CreateFont(arg1,arg2,arg3,arg4,arg5,arg6)
 		additive = arg5,-- [5],-- or true,
 		}
 	surface.OldCreateFont(name,fontdata)
-	
 end
 
 GM.RewardIcons = {}
@@ -138,6 +142,9 @@ include("server/stats/sh_utils.lua")
 -- FPS buss
 include("modules/fpsbuff/sh_buffthefps.lua")
 include("modules/fpsbuff/sh_nixthelag.lua")
+
+--Custom Chat
+include("modules/customchat/cl_customchat.lua")
 
 --Christmas
 if CHRISTMAS then
