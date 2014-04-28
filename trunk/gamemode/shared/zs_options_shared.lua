@@ -50,9 +50,10 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 8
-BOSS_CLASS = {10,11,13,15} -- 12
+--BOSS_CLASS = {10,11,13,15} -- 12
 --BOSS_CLASS = {15} -- 12 15 14
---BOSS_CLASS = {16} -- 12 15 14
+--BOSS_CLASS = {16} 
+BOSS_CLASS = {17,10,15} 
 
 --??
 SHARED_SPEED_INCREASE = 13
@@ -1788,6 +1789,63 @@ ZombieClasses[16] =
 }
 
 
+ZombieClasses[17] =
+{
+	Name = "Puke pour",
+	Tag = "weapon_zs_undead_vomiter",
+	Infliction = 0,
+	Health = 10000,
+	MaxHealth = 8100,
+	TimeLimit = 1020,
+	Bounty = 1000,
+	SP = 25,
+	Mass = DEFAULT_MASS * 3,
+	Threshold = 4,
+	JumpPower = 180,
+	CanCrouch = true,
+	CanGib = true,
+	Unlocked = false,
+	Hidden = true,
+	IsBoss = true,
+	SWEP = "weapon_zs_undead_vomiter",
+	Model = Model("models/Zombie/Poison.mdl"), 
+	OnSpawn = function(pl)
+	--	pl:SetModel(Model(player_manager.TranslatePlayerModel("kleiner")))
+		--pl:SetColor( 0,0, 225 )	
+		pl:SetRandomFace()		
+	end,
+	Speed = 175,
+	Description = "",
+	Unique = "",
+	PainSounds = {
+				Sound( "npc/strider/striderx_pain2.wav" ),
+				Sound( "npc/strider/striderx_pain5.wav" ),
+				Sound( "npc/strider/striderx_pain7.wav" ),
+				Sound( "npc/strider/striderx_pain8.wav" ),
+				},
+	DeathSounds = {
+				Sound("npc/strider/striderx_die1.wav"),
+				},
+	IdleSounds = {
+				Sound("npc/zombine/striderx_alert2.wav"),
+				Sound("npc/zombine/striderx_alert4.wav"),
+				Sound("npc/zombine/striderx_alert5.wav"),
+				Sound("npc/zombine/striderx_alert6.wav"),
+				},
+	OnRevive = function(pl)
+		
+		-- pl:AnimRestartMainSequence()		
+
+		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+	end,
+	ModelScale = 1.40,-- Vector(1.15,1.15,1.15),
+	ViewOffset = Vector(0, 0, 73),
+	ViewOffsetDucked = Vector(0,0,32.2),
+	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	
+	
+}
 
 --[[local SantaStart = {
 	Sound("vo/ravenholm/engage06.wav"),

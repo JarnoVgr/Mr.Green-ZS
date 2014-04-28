@@ -9,7 +9,7 @@ SWEP.Base = "weapon_zs_undead_base"
 
 SWEP.PrintName = "Vomit Zombie"
 if CLIENT then
-	SWEP.ViewModelFOV = 52
+	SWEP.ViewModelFOV = 35
 	SWEP.ViewModelFlip = false
 end
 
@@ -21,11 +21,37 @@ SWEP.Primary.Reach = 65
 SWEP.Primary.Duration = 2
 SWEP.Primary.Damage = 55
 
-SWEP.Secondary.Duration = 4
-SWEP.Secondary.Delay = 0.5
-SWEP.Secondary.Damage = math.random(30,40)
+SWEP.Secondary.Automatic	= true
+SWEP.Secondary.Duration = 0
+SWEP.Secondary.Delay = 0
+SWEP.Secondary.Damage = math.random(2,5)
 
 SWEP.SwapAnims = false
+
+
+SWEP.ViewModelBoneMods = {
+	["ValveBiped.Bip01_L_Forearm"] = { scale = Vector(1.075, 1.075, 1.075), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1.488, 1.488, 1.488), pos = Vector(0, 0, 0), angle = Angle(-4.139, -1.862, 1.238) },
+	["ValveBiped.Bip01_L_Finger1"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_L_Finger3"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1.343, 1.343, 1.343), pos = Vector(0, 0, 0), angle = Angle(-3.389, 0.075, 1.312) },
+	["ValveBiped.Bip01_Spine4"] = { scale = Vector(1, 1, 1), pos = Vector(-3.701, 0.425, -0.288), angle = Angle(0, 0, 0) },
+	-- ["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(1.58, 5.205, 0) },
+	["ValveBiped.Bip01_L_Finger2"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_R_Finger3"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.213, 1.213, 1.213), pos = Vector(0, 0, 0), angle = Angle(-0.151, -20.414, -7.045) }
+}
+
+
+
+SWEP.WElements = {
+--	["2"] = { type = "Model", model = "models/weapons/w_plank.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.635, 1.557, 0), angle = Angle(5.843, 0, 180), size = Vector(1.08, 1.08, 1.08), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+--	["1"] = { type = "Model", model = "models/zombie/classic_torso.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-9.87, 3.635, 0.518), angle = Angle(10.519, -54.936, -92.338), size = Vector(1.014, 1.014, 1.014), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+--	["3"] = { type = "Model", model = "models/zombie/fast_torso.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-15.065, 1.557, -0.519), angle = Angle(-8.183, -82.987, -97.014), size = Vector(0.82, 0.82, 0.82), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+}
+
+
+
 
 function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
@@ -43,15 +69,7 @@ function SWEP:StartPrimaryAttack()
 end
 
 function SWEP:PostPerformPrimaryAttack(hit)
-	if CLIENT then
-		return
-	end
-
-	if hit then
-		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav"))
-	else
-		self.Owner:EmitSound(Sound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav"))
-	end
+	
 end
 
 function SWEP:StartSecondaryAttack()
@@ -104,13 +122,14 @@ function SWEP:PerformSecondaryAttack()
 		local ent = ents.Create("projectile_poisonpuke")
 		if ent:IsValid() then
 			local heading = (aimvec + VectorRand() * 0.2):GetNormal()
-			ent:SetPos(startpos + heading * 8)
+		--	ent:SetPos(startpos + heading * 8)
+			ent:SetPos(startpos + heading * 10)
 			ent:SetOwner(pl)
 			ent:Spawn()
 			ent.TeamID = pl:Team()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
-				phys:SetVelocityInstantaneous(heading * math.Rand(300, 550))
+				phys:SetVelocityInstantaneous(heading * math.Rand(600, 900))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end
@@ -123,10 +142,10 @@ end
 
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
-		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.8)
+		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*8)
 		return true
 	elseif self:IsInSecondaryAttack() then
-		mv:SetMaxSpeed(0)
+		mv:SetMaxSpeed(170)
 		return true
 	end
 end
