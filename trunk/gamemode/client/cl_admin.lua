@@ -9,20 +9,36 @@ local function ConfirmAction ( Action, Pl, IsBan, BanTime, Reason )
 	
 	-- Changemap
 	if type ( Pl ) == "string" then
-		Derma_Query( "You are trying to "..Action.." to "..tostring ( Pl ).." ! Please confirm :", "Warning!","Yes", function() RunConsoleCommand ( Action.."_player", tostring ( Pl ) ) CloseAdminPanel() end, "No", function() gui.EnableScreenClicker ( false ) end )
+		Derma_Query( "You are trying to "..Action.." to "..tostring ( Pl ).." ! Please confirm :", "Warning!","Yes", function()
+			RunConsoleCommand ( Action.."_player", tostring ( Pl ) )
+			CloseAdminPanel()
+		end, "No", function()
+			gui.EnableScreenClicker ( false )
+		end)
+
 		return
 	end
 	
 	-- For bans only
 	if IsBan == true then
 		if BanTime ~= nil and Reason ~= nil then
-			Derma_Query( "You are trying to ban player "..tostring ( Pl:Name() ).." for "..tostring ( BanTime ).." minutes. (0 minutes means permanent ban) ! Please confirm :", "Warning!","Yes", function() RunConsoleCommand ( "ban_player", tostring ( BanTime ), tostring ( Pl:UserID() ), tostring ( Reason ) ) CloseAdminPanel() end, "No", function() gui.EnableScreenClicker ( false ) end )
+			Derma_Query( "You are trying to ban player "..tostring ( Pl:Name() ).." for "..tostring ( BanTime ).." minutes. (0 minutes means permanent ban) ! Please confirm :", "Warning!","Yes", function()
+				RunConsoleCommand ( "ban_player", tostring ( BanTime ), tostring ( Pl:UserID() ), tostring ( Reason ) )
+				CloseAdminPanel()
+			end, "No", function()
+				gui.EnableScreenClicker ( false )
+			end)
 		end
 		
 		return
 	end	
 	
-	Derma_Query( "You are trying to "..Action.." player "..tostring ( Pl:Name() ).." ! Please confirm :", "Warning!","Yes", function() RunConsoleCommand ( Action.."_player", tostring ( Pl:UserID() ) ) CloseAdminPanel() end, "No", function() gui.EnableScreenClicker ( false ) end )
+	Derma_Query( "You are trying to "..Action.." player "..tostring ( Pl:Name() ).." ! Please confirm :", "Warning!","Yes", function()
+		RunConsoleCommand(Action.."_player", tostring ( Pl:UserID()))
+		CloseAdminPanel()
+	end, "No", function()
+		gui.EnableScreenClicker(false)
+	end)
 end
 
 --[==[------------------------------------------------
@@ -172,7 +188,7 @@ function DoAdminPanel()
 				if ValidEntity ( m ) then
 					local BanTime = tonumber ( j ) if j == "Permaban that sucker!" then BanTime = 0 end
 					TimeList:AddOption ( tostring ( m:Name() ).." - ["..GetStringTeam ( m ).." - ".. m:SteamID() .."]", function()
-						ConfirmAction ( "ban", m, true, BanTime, "Other reason." )
+						ConfirmAction("ban", m, true, BanTime, "No information given")
 						CloseAdminPanel()
 					end )
 				end

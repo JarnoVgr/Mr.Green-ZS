@@ -382,34 +382,16 @@ function SetPlayerTitle(pl,commandName,args)
 end
 concommand.Add("mrgreen_settitle",SetPlayerTitle) 
 
--- Ban player
-function BanPlayer(pl,commandName,args)
-	if args[2] == nil then return end
-	if not (pl:IsAdmin()) then return end
-	if not (args[3]) then args[3] = "The admin did not give a ban reason." end
-	
-	local playerSteamId = GetPlayerByUserID(tonumber(args[1])):SteamID()
-	if playerSteamId then
-		RunConsoleCommand("banid ".. tonumber(args[2]) .." ".. playerSteamId .."\n")
-		RunConsoleCommand("kickid ".. playerSteamId .." Bye\n")
-		RunConsoleCommand("writeid\n")
-	end
-
-	--[[for k=1, 3 do -- spam the command
-		--pl:ConCommand("banid2 "..tonumber(args[1]).." "..tonumber(args[2]).."\n") 
-		--pl:ConCommand("banid "..tonumber(args[1]).." "..tonumber(args[2]).."\n")
-	end]]	
-end
-concommand.Add("ban_player", BanPlayer) 
-
 -- Kick player
 function KickPlayer(pl,commandName,args)
 	if args[1] == nil then return end
 	if not (pl:IsAdmin()) then return end
 	if not (args[2]) then args[2] = "The admin did not give a kick reason." end
 	--args[2] = string.Replace(args[2]," ","_")
+
+	local playerSteamId = GetPlayerByUserID(tonumber(args[1])):SteamID()
 	for k=1, 3 do -- spam the command
-		pl:ConCommand("kickid2 \""..tonumber(args[1]).."\" \""..args[2].."\"\n")
+		RunConsoleCommand("kickid", tonumber(args[1]))
 	end
 	
 end

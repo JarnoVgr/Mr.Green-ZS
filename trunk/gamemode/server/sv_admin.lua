@@ -237,31 +237,59 @@ function KickPlayer ( pl, cmd, args )
 	Debug ( "[ADMIN] Admin "..tostring ( pl:Name() ).." has kicked player "..tostring( Victim:Name() ).." !" )
 
 	-- Run it
-	RunConsoleCommand ( "kickid", tonumber ( args[1] ) )
+	RunConsoleCommand("kickid", tonumber(args[1]))
 end
 concommand.Add( "kick_player", KickPlayer )
 
---[==[--------------------------------------------------------
-     Admin Addon - Safe Kick ( disconnect ) 
----------------------------------------------------------]==]
-function SafeKickPlayer ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[1] == nil then return end
-	if not pl:IsAdmin() then return end
+--[==[-----------------------------------------------------------
+        Admin Addon - Ban a player (may cause crash)
+-----------------------------------------------------------]==]
+function BanPlayer( pl, cmd, args )
+	if not ValidEntity(pl) or args[2] == nil or not pl:IsAdmin() then
+		return
+	end
 	
-	-- No reason
-	if not ( args[2] ) then args[2] = "The admin did not give a kick reason." end
-	
-	-- You can't do this
-	if GetPlayerByUserID( tonumber( args[1] ) ) == pl then pl:ChatPrint ( "[ADMIN] You can't kick yourself !" ) return end
+	--Time
+	if args[1] == nil then
+		args[1] = 5
+	end
+	local TimeToBan = tonumber(args[1])
+		
+	--Get target
+	local target = GetPlayerByUserID(tonumber(args[2]))
+	if not target or not IsValid(target) then
+		pl:ChatPrint("[ADMIN] Failed to find valid target")
+		return
+	end
 
-	-- Notice
-	PrintMessageAll ( HUD_PRINTTALK, "[ADMIN] Admin "..tostring ( pl:Name() ).." has safely kicked player "..GetPlayerByUserID( tonumber( args[1] ) ):Name().." !" )
-	Debug ( "[ADMIN] Admin "..tostring ( pl:Name() ).." has safely kicked player "..GetPlayerByUserID( tonumber( args[1] ) ):Name().." !" )
+	--You can't do this
+	if target == pl then
+		pl:ChatPrint("[ADMIN] You can't target yourself!")
+		return
+	end
 
-	-- Run it
-	server_RunCommand ( GetPlayerByUserID( tonumber( args[1] ) ), "disconnect" )
+	--Get target SteamID	
+	local targetSteamId = target:SteamID()
+	if not targetSteamId then
+		pl:ChatPrint("[ADMIN] Failed to find target's SteamID")
+		return
+	end
+
+	--Default reason
+	if not args[3] then
+		args[3] = "The admin did not specify a ban reason"
+	end
+
+	--Run it
+	game.ConsoleCommand("banid ".. TimeToBan .." ".. tostring(targetSteamId) .."\n")
+	game.ConsoleCommand("kickid ".. tostring(targetSteamId) .." \"".. tostring(args[3]) .."\"\n")
+	game.ConsoleCommand("writeid\n")
+
+	--Notice
+	PrintMessageAll(HUD_PRINTTALK, "[ADMIN] Admin "..tostring(pl:Name()).." has banned player ".. tostring(target:Name()) .." for ".. TimeToBan .." minutes (".. args[3] ..")")
+	Debug("[ADMIN] Admin "..tostring(pl:Name()).." has banned player ".. tostring(target:Name()) .." for ".. TimeToBan .." minutes (".. args[3] ..")")
 end
-concommand.Add( "safekick_player", SafeKickPlayer ) 
+concommand.Add("ban_player", BanPlayer) 
 
 --[==[--------------------------------------------------------
              Admin Addon - Slay all the players
@@ -282,32 +310,6 @@ function SlayAllPlayers ( pl, cmd, args )
 	end
 end
 concommand.Add( "slay_all", SlayAllPlayers ) 
-
---[==[-----------------------------------------------------------
-        Admin Addon - Ban a player (may cause crash)
------------------------------------------------------------]==]
-function BanPlayer ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[2] == nil then return end
-	if not pl:IsAdmin() then return end
-	
-	-- Time
-	if args[1] == nil then args[1] = 5 end
-	local TimeToBan = tonumber ( args[1] )
-	
-	-- No reason
-	if not ( args[3] ) then args[3] = "The admin did not give a ban reason." end
-	
-	-- You can't do this
-	if GetPlayerByUserID( tonumber( args[2] ) ) == pl then pl:ChatPrint ( "[ADMIN] You can't ban yourself !" ) return end
-	
-	-- Notice
-	PrintMessageAll ( HUD_PRINTTALK, "[ADMIN] Admin "..tostring ( pl:Name() ).." has banned player "..GetPlayerByUserID( tonumber( args[2] ) ):Name().." for "..TimeToBan.." minutes !" )
-	Debug ( "[ADMIN] Admin "..tostring ( pl:Name() ).." has banned player "..GetPlayerByUserID( tonumber( args[2] ) ):Name().." !" )
-
-	-- Run it
-	game.ConsoleCommand ("sm_ban \""..tonumber( args[1] ).."\" "..tonumber( args[2] ).." \""..args[3].."\"\n") 
-end
-concommand.Add( "ban_player", BanPlayer ) 
 
 --[==[-----------------------------------------------------------
                   Admin Addon - Changelevel
