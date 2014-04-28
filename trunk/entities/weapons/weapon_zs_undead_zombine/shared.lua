@@ -17,7 +17,7 @@ end
 SWEP.Primary.Delay = 0.8
 SWEP.Primary.Duration = 1.2
 SWEP.Primary.Reach = 50
-SWEP.Primary.Damage = 35
+SWEP.Primary.Damage = 40
 
 
 --Temp workaround
@@ -276,7 +276,7 @@ function SWEP:SecondaryAttack()
 	self:SetGettingNadeEndTime(CurTime() + 1)
 	
 	-- Cooldown
-	timer.Simple(0.5, function()
+	timer.Simple(0.2, function()
 		if not IsEntityValid ( mWeapon ) or not IsEntityValid ( mOwner ) then
 			return
 		end
