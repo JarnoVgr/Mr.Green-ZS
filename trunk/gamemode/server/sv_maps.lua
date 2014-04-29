@@ -46,11 +46,15 @@ VoteMaps = {}
 function GM:GetVoteMaps()
 	local VoteMaps = {}
 
-	RandMapCycle = table.FullCopy(MapCycle)
+	local randMapCycle = table.FullCopy(MapCycle)
+	randMapCycle = table.Shuffle(randMapCycle)
 	
 	--Get 6 random maps from the cycle
 	for i=1,6 do
-		local map = table.Random(MapCycle)
+		local map = randMapCycle[i]
+		if not map then
+			continue
+		end
 
 		table.insert(VoteMaps, {map.Map, map.MapName})
 	end
@@ -95,9 +99,7 @@ function GM:MakeBlankMapList()
 	
 	Debug("[MAPS] Created new Map List")
 	
-	file.Write(filename,util.TableToJSON(MapCycle))	
-
-	
+	file.Write(filename,util.TableToJSON(MapCycle))
 end
 
 function GM:LoadMapList()
@@ -113,7 +115,7 @@ function ShuffleMapList(pl,cmd,args)
 		return
 	end
 	
-	table.Shuffle(MapCycle)
+	MapCycle = table.Shuffle(MapCycle)
 end
 concommand.Add("zs_mapmanager_shuffle",ShuffleMapList)
 
@@ -126,7 +128,6 @@ function SaveMapList(pl,cmd,args)
 	
 	file.Write(filename,util.TableToJSON(MapCycle))	
 	Debug("[MAPS] Saved Map List")
-	
 end
 concommand.Add("zs_mapmanager_save",SaveMapList)
 
