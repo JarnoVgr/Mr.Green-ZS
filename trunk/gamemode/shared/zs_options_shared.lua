@@ -169,7 +169,8 @@ GM.HumanWeapons = {
 	["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Price = 6000 },
 	["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 1040 },
 	["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 7000 },
-	["weapon_zs_melee_pipe"]  = { Name = "pipe", DPS = 30, Infliction = 0, Type = "melee",Price = 7000 },
+	["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee",Price = 7000 },
+	["weapon_zs_melee_pipe2"]  = { Name = "Imporved Pipe", DPS = 30, Infliction = 0, Type = "melee",Price = 7000 },
 
 	--Pistols
 	["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42,Mat = "VGUI/gfx/VGUI/usp45", Infliction = 0, Type = "pistol" },
@@ -342,6 +343,7 @@ GM.RankUnlocks = {
 	[15] = {"weapon_zs_grenade"},
 	[16] = {"_trchregen"},
 	[17] = {"_nailhp"},
+	[18] = {"weapon_zs_melee_pipe"},
 	[19] = {"_falldmg"},
 	[21] = {"_kevlar2"},
 	[22] = {"_medupgr2"},
@@ -359,7 +361,7 @@ GM.RankUnlocks = {
 	[37] = {"weapon_zs_tools_plank"},
 	[39] = {"_plankamount"},
 	[40] = {"_freeman"},
-	[42] = {"weapon_zs_melee_pipe"},
+	[42] = {"weapon_zs_melee_pipe2"},
 	[43] = {"_plankhp"},
 	[45] = {"weapon_zs_melee_pot"},
 	[50] = {"weapon_zs_miniturret"},
