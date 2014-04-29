@@ -34,11 +34,14 @@ function GM:PlayerInitialSpawn(pl)
 		net.Send(pl)
 	end
 
-
 	pl:SetCanZoom(false)
 
 	-- Bots are always ready, human players need to wait
-	if pl:IsBot() then pl.Ready = true else pl.Ready = false end
+	if pl:IsBot() then
+		pl.Ready = true
+	else
+		pl.Ready = false
+	end
 	
 	pl:SetZombieClass(0)
 	pl:SetHumanClass(1)
@@ -210,9 +213,9 @@ util.AddNetworkString("mapData")
      Mainly for debug purposes -- record everything in logs
 ------------------------------------------------------------------]==]
 local function PlayerConnected ( pl, ip )
-	Debug ( "[CONNECTED] Player "..tostring ( pl ).." Connected. IP is "..tostring ( ip ) )
+	Debug("[CONNECTED] "..tostring ( pl ).." connecting from "..tostring(ip))
 end
-hook.Add ( "PlayerConnect", "Connected", PlayerConnected )
+hook.Add("PlayerConnect", "Connected", PlayerConnected)
 
 --[==[------------------------------------------------
      Main spawn function - called on spawn
@@ -916,7 +919,7 @@ end
 
 util.AddNetworkString("OnReadySQL")
 
-hook.Add("OnPlayerReadySQL", "UpdateDataTableJoin", function( pl )
+hook.Add("OnPlayerReadySQL", "UpdateDataTableJoin", function(pl)
 	if not IsValid(pl) then 
 		return 
 	end
@@ -958,7 +961,7 @@ hook.Add("OnPlayerReadySQL", "UpdateDataTableJoin", function( pl )
 	net.Start("OnReadySQL")
 	net.Send(pl)
 	
-	Debug("[SPAWN] "..tostring(pl).." is Ready. Spawning him.")
+	--Debug("[SPAWN] "..tostring(pl).." is Ready. Spawning him.")
 	
 	--Spawn the player
 	if not ENDROUND then 
@@ -969,6 +972,11 @@ end)
 --When localplayer is valid on clientside
 function GM:PlayerReady(pl)
 	pl.IsClientValid = true
+	if not pl.Ready and not mysql.IsConnected() then
+		pl:CheckDataTable()
+		gamemode.Call("OnPlayerReadySQL", pl)
+		Debug("[SQL] Failed to retrieve SQL player table for ".. tostring(pl))
+	end
 end
 
 --[==[------------------------------------------------------

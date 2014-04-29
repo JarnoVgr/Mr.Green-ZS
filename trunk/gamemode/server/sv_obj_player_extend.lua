@@ -665,7 +665,9 @@ function meta:AddXP(amount)
 		if self.Ready then
 			str = "ready"
 		end
-		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddXP failed." )
+		
+		--ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddXP failed." )
+		
 		return
 	end	
 	
@@ -699,7 +701,9 @@ function meta:AddRank (amount)
 		if self.Ready then
 			str = "ready"
 		end
-		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddRank failed." )
+		
+		--ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddRank failed." )
+		
 		return
 	end	
 	if type ( self.DataTable["ClassData"]["default"].rank ) == "number" then
@@ -722,7 +726,9 @@ function meta:AddToCounter(stat, amount)
 	if not self.DataTable[stat] then
 		local str = "not ready"
 		if self.Ready then str = "ready" end
-		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable while "..str.." and thus AddToCounter failed." )
+		
+		--ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable while "..str.." and thus AddToCounter failed." )
+		
 		return
 	end
 	
@@ -744,7 +750,9 @@ function meta:AddTableScore( class,stat,amount )
 		if self.Ready then
 			str = "ready"
 		end
-		ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddTableScore failed." )
+		
+		--ErrorNoHalt( "CUSTOM ERROR: "..self:Name().." has uninitialized DataTable[ClassData] while "..str.." and thus AddTableScore failed." )
+		
 		return
 	end
 	if team.NumPlayers (TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD) < 8 then return end

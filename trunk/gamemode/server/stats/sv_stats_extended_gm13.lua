@@ -43,6 +43,10 @@ function metaPlayer:CheckDataTable()
 		self.DataTable.ClassData = {}
 	end
 
+	--[[if not self.DataTable.ClassData.default then
+		self.DataTable.ClassData.default = {}
+	end]]
+
 	if not self.DataTable.ShopItems then
 		self.DataTable.ShopItems = {}
 	end
@@ -81,11 +85,12 @@ function metaPlayer:ReadDataSQL()
 						self.JoinDataTable = table.Copy( self.DataTable )
 					end
 					
-					-- Remove hook
+					--Remove hook
 					hook.Remove( "Think", "SQLPlayerReadyThink"..SteamID )
 				end
 			end
 		else
+			--Remove hook
 			hook.Remove( "Think", "SQLPlayerReadyThink"..SteamID )
 		end
 	end )
@@ -99,6 +104,7 @@ function metaPlayer:WriteDataSQL()
 	if not self:GotSQLData() then
 		return
 	end
+	
 	self:SaveStatsSQL()
 	self:SaveClassDataSQL()
 end

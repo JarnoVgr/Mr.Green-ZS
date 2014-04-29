@@ -13,7 +13,7 @@ mysql.ValidChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567
 mysql.Warnings = { 
 ["connect_module_not_loaded"] = "[SQL] Couldn't connect to the database because SQL module was not found/initialized!",
 ["module_no_load_query"] = "[SQL] Couldn't query server because module not loaded.",
-["no_connection"] = "[SQL] The module isn't connected to any host!",
+["no_connection"] = "[SQL] Unable to connect to database host",
 ["module_loaded"] = "[SQL] Successfully loaded SQL module",
 ["module_not_loaded"] = "[SQL] Couldn't load SQL module!",
 ["connection_on"] = "[SQL] Successfully connected to the DB",
@@ -34,6 +34,10 @@ end
 mysql.IsConnected = function()
 	return mysql.bConnected
 end
+
+
+--Default to true
+mysql.safeGame = true
 
 -- Replace forbidden chars with *
 mysql.ReplaceEscape = function( sText, Char )
@@ -76,10 +80,11 @@ mysql.Connect = function()
 	mysql.CheckConnection()
 	timer.Simple( 1, function()
 		if not mysql.IsConnected() then 
-			Debug( mysql.Warnings["no_connection"] ) 
+			Debug( mysql.Warnings["no_connection"] )
+			mysql.safeGame = false
 		else 
 			gamemode.Call( "OnConnectSQL" )
-			Debug( mysql.Warnings["connection_on"] ) 
+			Debug( mysql.Warnings["connection_on"] )
 		end
 	end )
 end
