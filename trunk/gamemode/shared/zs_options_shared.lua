@@ -50,7 +50,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 8
-BOSS_CLASS = {10,11,13,15} -- 12
+BOSS_CLASS = {10,11,13,} -- 12
 --BOSS_CLASS = {15} -- 12 15 14
 --BOSS_CLASS = {16} 
 --BOSS_CLASS = {17} 
@@ -169,6 +169,7 @@ GM.HumanWeapons = {
 	["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Price = 6000 },
 	["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 1040 },
 	["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 7000 },
+	["weapon_zs_melee_pipe"]  = { Name = "pipe", DPS = 30, Infliction = 0, Type = "melee",Price = 7000 },
 
 	--Pistols
 	["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42,Mat = "VGUI/gfx/VGUI/usp45", Infliction = 0, Type = "pistol" },
@@ -214,7 +215,6 @@ GM.HumanWeapons = {
 	["weapon_zs_minishotty"]  = { Name = "'Farter' Shotgun", DPS = 126, Infliction = 0, Type = "shotgun" },
 	["weapon_zs_fists"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
 	["weapon_zs_fists2"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
-	["weapon_zs_melee_pipe"]  = { Name = "pipe", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
 	["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" }, -- 860
 	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "rifle", Price = 1750},
 	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
@@ -359,6 +359,7 @@ GM.RankUnlocks = {
 	[37] = {"weapon_zs_tools_plank"},
 	[39] = {"_plankamount"},
 	[40] = {"_freeman"},
+	[42] = {"weapon_zs_melee_pipe"},
 	[43] = {"_plankhp"},
 	[45] = {"weapon_zs_melee_pot"},
 	[50] = {"weapon_zs_miniturret"},
