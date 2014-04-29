@@ -104,34 +104,24 @@ usermessage.Hook("RcTopTimes", ReceiveTopTimes)
 ---------------------------------------------------------]==]
 local VotePoints = {}
 
-local function ReceiveVotemaps ( um )
+net.Receive("ReceiveVoteMaps", function(len)
 	for i = 1, 3 do
-	    local key = um:ReadString()
-	    local friendlyname = um:ReadString()
+	    local key = net.ReadString()
+	    local friendlyname = net.ReadString()
 	    VotePoints[key] = { Votes = 0, Map = { FileName = key, FriendlyName = friendlyname } }
 	end
-end
-usermessage.Hook("RecVotemaps", ReceiveVotemaps)
+end)
 
 --[==[---------------------------------------------------------
 	   Receive vote points update
 ---------------------------------------------------------]==]
-local function ReceiveVotePoints ( um ) 
+net.Receive("ReceiveVotePoints", function(len)
 	for i = 1, 3 do
-	    local key = um:ReadString()
+	    local key = net.ReadString()
 		VotePoints[key] = VotePoints[key] or { Votes = 0, Map = { FileName = key, FriendlyName = "Unknown" } }
-    	VotePoints[key].Votes = um:ReadShort()
+    	VotePoints[key].Votes = net.ReadDouble()
 	end
-end
-usermessage.Hook("RecVoteChange",ReceiveVotePoints)
-
---[==[---------------------------------------------------------
-     Receive the voted map slot server-side
----------------------------------------------------------]==]
-local function ReceiveAutomaticVoteResult ( um )
-	MySelf.VotedMapFile = um:ReadString()
-end
-usermessage.Hook("RecAutomaticVoteResult",ReceiveAutomaticVoteResult)
+end)
 
 --[==[---------------------------------------------------------
 	   Receive Nextmap ( Vote Result )

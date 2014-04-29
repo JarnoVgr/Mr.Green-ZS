@@ -1,16 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-
 -- Web-Stats file
 include( "sv_endround_stats.lua" )
 
@@ -200,7 +190,7 @@ function GM:SendTopZombieDamages(to)
 end
 
 --[==[---------------------------------------------------------
-          Send top healing done (medic only)
+		  Send top healing done (medic only)
 ---------------------------------------------------------]==]
 function GM:SendTopHealing (to)
 	local PlayerSorted = {}
@@ -234,7 +224,7 @@ function GM:SendTopHealing (to)
 end
 
 --[==[--------------------------------------------------------
-     Receive the chosen map from the client
+	 Receive the chosen map from the client
 --------------------------------------------------------]==]
 function GetChosenMap( pl, cmd, args )
 	if args[1] == nil then 
@@ -248,75 +238,70 @@ function GetChosenMap( pl, cmd, args )
 	-- Update server and client votepoints
 	UpdateClientVotePoints ( pl, args[1] )
 end
-concommand.Add ( "VoteAddMap",GetChosenMap )
+concommand.Add("VoteAddMap",GetChosenMap)
 
 local VotePointTable = {}
 
 function GM:SendVotemaps ( to )
-    local VoteMaps = self:GetVoteMaps()
-    
-    if ( #VoteMaps < 3 ) then 
-       return -- Deluvas; what kind of error handling system is this
-    end
-    
-    umsg.Start( "RecVotemaps", to )
-        for i = 1, 3 do 
-            local key = VoteMaps[i][1]
-            VotePointTable[key] = { Votes = 0, Map = { FileName = VoteMaps[i][1], FriendlyName = VoteMaps[i][2] } }
-            
-            -- Send the data
-            umsg.String ( VotePointTable[key].Map.FileName )
-            umsg.String ( VotePointTable[key].Map.FriendlyName )
-        end
-    umsg.End()
+	local VoteMaps = self:GetVoteMaps()
+	
+	if ( #VoteMaps < 3 ) then 
+	   return -- Deluvas; what kind of error handling system is this
+	end
+
+	net.Start("ReceiveVoteMaps")
+	for i = 1, 3 do 
+		local key = VoteMaps[i][1]
+		VotePointTable[key] = { Votes = 0, Map = { FileName = VoteMaps[i][1], FriendlyName = VoteMaps[i][2] } }
+			
+		-- Send the data
+		net.WriteString(VotePointTable[key].Map.FileName)
+		net.WriteString(VotePointTable[key].Map.FriendlyName)
+	end
+	net.Broadcast()
 end
+
+--Init netmessages
+util.AddNetworkString("ReceiveVoteMaps")
+util.AddNetworkString("ReceiveVotePoints")
 
 --[==[---------------------------------------------------------
   Update client and server vote points for maps
 ---------------------------------------------------------]==]
-function UpdateClientVotePoints ( pl, mapfilename )
+function UpdateClientVotePoints(pl, mapfilename)
 	if pl.Voted then 
 	   return 
 	end
-        
+		
 	-- Increment voting points for map
 	VotePointTable[mapfilename] = VotePointTable[mapfilename] or { Votes = 0 }
 	VotePointTable[mapfilename].Votes = VotePointTable[mapfilename].Votes + 1
 	
 	pl.Voted = true
-	   
-	-- Send change to all players
-	umsg.Start ( "RecVoteChange" )
-		for k,v in pairs( VotePointTable ) do
-		    umsg.String( k )
-			umsg.Short ( v.Votes )
-		end
-	umsg.End()
-	
-	--Send the automatic vote result -- Deluvas; wtf is this?
-	umsg.Start ("RecAutomaticVoteResult", pl)
-		umsg.String ( mapfilename )
-	umsg.End()
+
+	UpdateClientVoteMaps(pl)
 end
 
 --[==[---------------------------------------------------------
 	Proper Server to client votemap 
-	       update for one player
+		   update for one player
 ---------------------------------------------------------]==]
-function UpdateClientVoteMaps ( pl )
-	if not ValidEntity ( pl ) then return end
+function UpdateClientVoteMaps(pl)
+	if not ValidEntity(pl) then
+		return
+	end
 	
-	--- Send the change to pl
-	umsg.Start ( "RecVoteChange", pl )
-		for k, v in pairs( VotePointTable ) do
-		    umsg.String( k )
-			umsg.Short ( v.Votes )
-		end
-	umsg.End()
+	-- Send change to all players
+	net.Start("ReceiveVotePoints")
+	for k,v in pairs(VotePointTable) do
+		net.WriteString(k)
+		net.WriteDouble(v.Votes)
+	end
+	net.Send(pl)
 end	
 	
 --[==[---------------------------------------------------------
-	    Main Endgame Function
+		Main Endgame Function
 ---------------------------------------------------------]==]
 function GM:OnEndRound ( winner )
 	if ENDROUND then return end
@@ -367,11 +352,12 @@ function GM:OnEndRound ( winner )
 		
 		-- Deluvas; what in Clavus' name is this
 		if NextMap == nil then 
-		    NextMap = "zs_noir" 
-		    WinnerMap = "zs_noir" 
+			NextMap = "zs_noir" 
+			WinnerMap = "zs_noir" 
 		end
 		
-		gmod.BroadcastLua( "SetWinnerMap( '"..WinnerMap.."','"..WinnerMapName.."' )" )
+		--TODO: Use net messages
+		gmod.BroadcastLua("SetWinnerMap('"..WinnerMap.."','"..WinnerMapName.."')")
 	end)
 		
 	-- Change level after intermission time runs out
@@ -440,13 +426,13 @@ function GM:OnEndRound ( winner )
 				pl:SendLua( "Intermission('"..GAMEMODE:GetMapNext().."', "..ROUNDWINNER..", "..TimeLeft.." )" )
 				
 				--Update his votemaps
-				UpdateClientVoteMaps ( pl )
+				UpdateClientVoteMaps(pl)
 				if TimeLeft < INTERMISSION_TIME - VOTE_TIME then
-					pl:SendLua ( "SetWinnerMap( '"..WinnerMap.."' )" )
-					pl:SendLua ( "MySelf.HasVotedMap = true" )
+					pl:SendLua("SetWinnerMap( '"..WinnerMap.."' )")
+					pl:SendLua("MySelf.HasVotedMap = true")
 				end
 				
-				timer.Simple (0.4, function()
+				timer.Simple(0.4, function()
 					if IsValid( pl ) then
 						pl:DrawViewModel ( false )
 						pl:Lock()
