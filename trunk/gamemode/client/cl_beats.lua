@@ -195,23 +195,38 @@ function ZombieAuraThink()
 	local Position, MaxAuras, AuraTable = MySelf:GetPos(), 0, {}
 	
 	-- Run through the humans and check who is alive
-	for _, pl in pairs(team.GetPlayers(TEAM_HUMAN)) do
-		if pl:Alive() and not (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
-			local HumanPosition = pl:GetPos()
-			if HumanPosition:Distance ( Position ) < 1024 and HumanPosition:ToScreen().visible then
-				AuraTable[pl] = HumanPosition
-				MaxAuras = MaxAuras + 1
+	local survivors = team.GetPlayers(TEAM_HUMAN)
+
+	--Shuffle to make it more random
+	survivors = table.Shuffle(survivors)
+
+	for _, pl in pairs(survivors) do
+		if not pl:Alive() then
+			continue
+		end
+
+		--Make humans with stalkersuit sometimes invisible
+		if pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10 and math.random(0,5) ~= 5 then
+			continue
+		end
+
+		--
+		local HumanPosition = pl:GetPos()
+		if HumanPosition:Distance(Position) < 1024 and HumanPosition:ToScreen().visible then
+			AuraTable[pl] = HumanPosition
+			MaxAuras = MaxAuras + 1
 				
-				-- We have reached our aura limit ( 10 )
-				if MaxAuras >= 10 then
-					break
-				end
+			--We have reached aura limit
+			if MaxAuras >= 10 then
+				break
 			end
 		end
 	end
 	
 	-- End this if there are no player souls to render
-	if MaxAuras <= 0 then return end
+	if MaxAuras <= 0 then
+		return
+	end
 	
 	-- Render the souls
 	local Emitter = ParticleEmitter( EyePos() )
