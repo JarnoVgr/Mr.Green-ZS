@@ -10,7 +10,7 @@ SWEP.Base = "weapon_zs_melee_base"
 SWEP.Author = "Duby"
 SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
-SWEP.UseHands = true
+SWEP.UseHands = false
 
 if CLIENT then
 	SWEP.ShowViewModel = false 
@@ -41,6 +41,7 @@ SWEP.Primary.Distance = 73
 SWEP.WalkSpeed = 177
 SWEP.SwingTime = 0.75
 SWEP.SwingRotation = Angle(30, -30, -30)
+SWEP.ShowViewModel = false
 -- Killicons
 if CLIENT then
 	killicon.AddFont( "weapon_zs_melee_pipe", "HL2MPTypeDeath", "6", Color( 255, 80, 0, 255 ) )
