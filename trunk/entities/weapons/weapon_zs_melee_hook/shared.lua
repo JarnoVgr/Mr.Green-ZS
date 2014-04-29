@@ -49,11 +49,11 @@ SWEP.Slot = 2
 SWEP.SlotPos = 3
 
 -- Damage, distance, delay
-SWEP.Primary.Delay = 0.85
+SWEP.Primary.Delay = 0.4
 SWEP.TotalDamage = SWEP.Primary.Damage
 
 SWEP.MeleeDamage = 50
-SWEP.MeleeRange = 45
+SWEP.MeleeRange = 35
 SWEP.MeleeSize = 1.45
 SWEP.WalkSpeed = 190
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
