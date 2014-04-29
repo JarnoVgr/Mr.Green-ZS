@@ -144,7 +144,7 @@ include("modules/fpsbuff/sh_buffthefps.lua")
 include("modules/fpsbuff/sh_nixthelag.lua")
 
 --Custom Chat
-include("modules/customchat/cl_customchat.lua")
+--include("modules/customchat/cl_customchat.lua")
 
 --Christmas
 if CHRISTMAS then
