@@ -61,15 +61,15 @@ SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 SWEP.SwingTime = 0.55
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingHoldType = "grenade"
-
+SWEP.ShowWorldModel = false 
 function SWEP:PlaySwingSound()
 	self:EmitSound("Weapon_Crowbar.Single")
 end
 
-function SWEP:PlayHitSound()
-	self:EmitSound("Weapon_Crowbar.Melee_HitWorld")
+ function SWEP:PlayHitFleshSound()
+self:EmitSound("physics/body/body_medium_break"..math.random(2, 4)..".wav", 75, math.random(120, 130))
 end
 
-function SWEP:PlayHitFleshSound()
-	self:EmitSound("Weapon_Crowbar.Melee_Hit")
+function SWEP:PlayHitSound()
+self:EmitSound("physics/metal/metal_sheet_impact_bullet"..math.random(2)..".wav")
 end
