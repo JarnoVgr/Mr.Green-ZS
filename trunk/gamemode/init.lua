@@ -1636,12 +1636,13 @@ Debug("[MODULE] Loaded init.lua")
 if pl:Team() == TEAM_HUMAN then
 if( pl:KeyDown( IN_BACK ) )  then
 pl:SetWalkSpeed( 140 )
-		
+ 	
 else pl:SetWalkSpeed(200) 
 
-
 end
-end end
+end
+end 
+
 
 
 --[=[----------------------------------------------------------------------
@@ -1660,6 +1661,8 @@ hook.Add("PlayerDeath", "Benssexy", function(victim, inf, attack) if ( inf and i
 hook.Add("PlayerDeath", "Robssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pot" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 8 ) end end)
 hook.Add("PlayerDeath", "Pufu'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_sledgehammer" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
 hook.Add("PlayerDeath", "boxsexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_fists2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 20 ) end end)
+hook.Add("PlayerDeath", "boxsexy2", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 12 ) end end)
+hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 6 ) end end)
 
 
 --[=[----------------------------------------------------------------------
