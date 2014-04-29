@@ -70,6 +70,7 @@ SWEP.Secondary.Delay = 0
 SWEP.Secondary.Next = 4
 SWEP.Secondary.Duration = 1.3
 SWEP.Secondary.Reach = 400
+SWEP.Secondary.Damage = 30
 
 function SWEP:StartPrimaryAttack()
 	--self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
@@ -90,7 +91,7 @@ function SWEP:StartPrimaryAttack()
 		bullet.Dir = self.Owner:GetAimVector()
 		bullet.Spread = Vector(0,0,0)
 		bullet.Tracer = 1
-		bullet.Force = 800
+		bullet.Force = 1000
 		bullet.Damage = 1.2
 	self:ShootEffects()
 	self.Owner:FireBullets( bullet )
@@ -180,8 +181,8 @@ function SWEP:PerformSecondaryAttack()
 		local fHitPercentage = math.Clamp(1 - (fDistance / self.Primary.Reach), 0, 1)
 																													   
 		--Inflict damage
-		local fDamage = math.Round(20 * fHitPercentage, 0, 10)
-		if fDamage > 0 then
+		local fDamage = math.Round(20 * fHitPercentage, 15, 10)
+		if fDamage > 30 then
 			v:TakeDamage(fDamage, self.Owner, self)
 		end
 		

@@ -53,7 +53,8 @@ BOSS_TOTAL_PLAYERS_REQUIRED = 8
 BOSS_CLASS = {10,11,13,15} -- 12
 --BOSS_CLASS = {15} -- 12 15 14
 --BOSS_CLASS = {16} 
---BOSS_CLASS = {17,10,15} 
+--BOSS_CLASS = {17} 
+ 
 
 --??
 SHARED_SPEED_INCREASE = 13
@@ -167,6 +168,7 @@ GM.HumanWeapons = {
 	["weapon_zs_melee_combatknife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee" , Price = 6000 },
 	["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Price = 6000 },
 	["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 1040 },
+	["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 7000 },
 
 	--Pistols
 	["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42,Mat = "VGUI/gfx/VGUI/usp45", Infliction = 0, Type = "pistol" },
@@ -177,6 +179,7 @@ GM.HumanWeapons = {
 	["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120,Mat = "VGUI/gfx/VGUI/glock18", Infliction = 0.25, Type = "pistol", Price = 270 },
 	["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol", Price = 420 },
 	["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol",Price = 60 },
+	["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol",Price = 5000 },
 	
 	--Light Guns
 	["weapon_zs_p90"]  = { Name = "P90", DPS = 125,Mat = "VGUI/gfx/VGUI/p90", Infliction = 0.65, Type = "smg", Price = 740 },
@@ -319,7 +322,7 @@ XP_INCREASE_BY = 1000
 
 XP_PLAYERS_REQUIRED = 5
 
-MAX_RANK = 75
+MAX_RANK = 77
 
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
@@ -362,6 +365,8 @@ GM.RankUnlocks = {
 	[55] = {"weapon_zs_melee_crowbar"},
 	[65] = {"weapon_zs_classic"},
 	[70] = {"weapon_zs_fiveseven"},
+	[76] = {"weapon_zs_melee_hook"},
+	[77] = {"weapon_zs_alyx"},
 	-- [90] = {"_professional"},-- hidden for a while
 }
 
@@ -1144,6 +1149,9 @@ ZombieClasses[3] =
 				Sound("npc/zombie_poison/pz_die2.wav")
 				},
 	-- ViewOffset = Vector( 0, 0, 0 ),
+	
+	  ViewOffset = Vector( 0,0,50 )
+
 }
 
 ZombieClasses[4] =
@@ -1694,7 +1702,7 @@ ZombieClasses[15] =
 	Model = Model("models/player/group01/male_09.mdl"), 
 	OnSpawn = function(pl)
 		pl:SetModel(Model(player_manager.TranslatePlayerModel("kleiner")))
-		pl:SetColor( 0,0, 225 )	
+		pl:SetColor( 0,0, 100 )	
 		pl:SetRandomFace()		
 	end,
 	Speed = 110,
@@ -1794,35 +1802,41 @@ ZombieClasses[17] =
 	Name = "Puke pour",
 	Tag = "weapon_zs_undead_vomiter",
 	Infliction = 0,
-	Health = 10000,
+	Health = 5000,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
 	SP = 25,
-	Mass = DEFAULT_MASS * 3,
+	Mass = DEFAULT_MASS * 8,
 	Threshold = 4,
-	JumpPower = 180,
+	JumpPower = 250,
 	CanCrouch = true,
 	CanGib = true,
 	Unlocked = false,
 	Hidden = true,
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_vomiter",
-	Model = Model("models/Zombie/Poison.mdl"), 
-	OnSpawn = function(pl)
-	--	pl:SetModel(Model(player_manager.TranslatePlayerModel("kleiner")))
-		--pl:SetColor( 0,0, 225 )	
-		pl:SetRandomFace()		
-	end,
-	Speed = 175,
+	Model = Model("models/zombie/zombie_soldier.mdl"), 
+	Speed = 130,
 	Description = "",
 	Unique = "",
-	PainSounds = {
-				Sound( "npc/strider/striderx_pain2.wav" ),
-				Sound( "npc/strider/striderx_pain5.wav" ),
-				Sound( "npc/strider/striderx_pain7.wav" ),
-				Sound( "npc/strider/striderx_pain8.wav" ),
-				},
+	
+	OnSpawn = function(pl)
+		
+	end,
+	
+	OnRevive = function(pl)
+		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+		-- pl:AnimRestartMainSequence()		
+	end,
+	
+	
+	--PainSounds = {
+	--			Sound( "npc/strider/striderx_pain2.wav" ),
+	--			Sound( "npc/strider/striderx_pain5.wav" ),
+	--			Sound( "npc/strider/striderx_pain7.wav" ),
+	--			Sound( "npc/strider/striderx_pain8.wav" ),
+	--			},
 	DeathSounds = {
 				Sound("npc/strider/striderx_die1.wav"),
 				},
@@ -1832,18 +1846,13 @@ ZombieClasses[17] =
 				Sound("npc/zombine/striderx_alert5.wav"),
 				Sound("npc/zombine/striderx_alert6.wav"),
 				},
-	OnRevive = function(pl)
-		
-		-- pl:AnimRestartMainSequence()		
-
-		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-	end,
-	ModelScale = 1.40,-- Vector(1.15,1.15,1.15),
+				
+	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
+	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
 	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
-	
 	
 }
 
