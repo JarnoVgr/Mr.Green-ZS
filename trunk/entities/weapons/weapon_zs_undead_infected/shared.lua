@@ -78,7 +78,7 @@ function SWEP:Initialize()
 
 	--Attack sounds
 	for i = 20, 37 do
-		table.insert(self.AttackSounds,Sound("npc/zombiegreen/rage_at_victim"..i..".wav"))
+		table.insert(self.AttackSounds,Sound("mrgreen/undead/infected/rage_at_victim"..i..".mp3"))
 	end
 
 	--Idle sounds
