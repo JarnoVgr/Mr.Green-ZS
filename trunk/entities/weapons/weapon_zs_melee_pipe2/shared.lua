@@ -35,7 +35,7 @@ SWEP.Slot = 2
 SWEP.SlotPos = 8
 
 -- Damage, distane, delay
-SWEP.Primary.Damage = 50
+SWEP.Primary.Damage = 60
 SWEP.Primary.Delay = 0.90
 SWEP.Primary.Distance = 73
 SWEP.WalkSpeed = 177
