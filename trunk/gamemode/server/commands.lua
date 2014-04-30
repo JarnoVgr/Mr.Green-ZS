@@ -1168,7 +1168,7 @@ local function AdminSay(pl, text, teamonly)
 	elseif text == "!maptool" and pl:IsSuperAdmin() then
 		pl:Give("admin_maptool")
 		return ""
-	elseif text == "!ravebreak" then
+	elseif text == "!noravebreak" then
 		if LASTHUMAN or ENDROUND then
 			if not Raving then
 				RaveBreak()
@@ -1208,6 +1208,7 @@ local function AdminSay(pl, text, teamonly)
 		elseif text == "!fuckme" then
 			pl:SendLua("StalkerFuck(5)")
 			return ""
+			
 		elseif text == "!ornament" then
 			for k, v in pairs(ents.FindByClass("prop_dynamic_ornament")) do
 				print(k..": Pos = "..tostring(v:GetPos()).."; Parent = "..v:GetParent():GetClass())

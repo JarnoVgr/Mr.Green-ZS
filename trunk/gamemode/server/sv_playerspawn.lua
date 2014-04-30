@@ -7,22 +7,6 @@ GM.HumanSpawnPoints = {}
 DataTableConnected = {}
 
 
-
-
- function GM:KeyPress( pl, key )
-
---if pl:Team() == TEAM_HUMAN then
-if( pl:KeyDown( IN_BACK ) )  then
-pl:SetWalkSpeed( 140 )
-elsepl:SetWalkSpeed(200)
-
---end
-end
-
-
-end
-
-
 --[==[--------------------------------------------------------------
       Called everytime a player connects for first time
 ---------------------------------------------------------------]==]
