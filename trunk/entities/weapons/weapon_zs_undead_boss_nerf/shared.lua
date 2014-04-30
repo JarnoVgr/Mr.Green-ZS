@@ -21,7 +21,7 @@ SWEP.Primary.Duration = 0.9
 
 
 SWEP.Secondary.Damage = 15
-SWEP.Secondary.PounceVelocity = 2000
+SWEP.Secondary.PounceVelocity = 400
 SWEP.Secondary.PounceReach = 35
 SWEP.Secondary.PounceSize = 20
 
@@ -98,7 +98,7 @@ function SWEP:Think()
 				else
 					--Calculate velocity to push
 					local Velocity = self.Owner:EyeAngles():Forward() * (self.Secondary.PounceVelocity * 3)
-					Velocity.z = math.min(Velocity.z,1600)
+					Velocity.z = math.min(Velocity.z,400)
 
 					--Apply push
 					phys:ApplyForceCenter(Velocity)
@@ -223,7 +223,7 @@ function SWEP:SecondaryAttack()
 	self.Leaping = true
 	
 	--Leap cooldown
-	self.NextLeap = CurTime() + 1.5
+	self.NextLeap = CurTime() + 2
 	
 	--Fast zombie scream
 	if SERVER then
