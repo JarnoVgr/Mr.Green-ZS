@@ -50,8 +50,8 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 8
---BOSS_CLASS = {10,11,13,} -- 12
-BOSS_CLASS = {15} -- 12 15 14
+BOSS_CLASS = {10,11,13,15} -- 12
+--BOSS_CLASS = {15} -- 12 15 14
 --BOSS_CLASS = {16} 
 --BOSS_CLASS = {17} 
  
@@ -1695,7 +1695,7 @@ ZombieClasses[15] =
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
-	SP = 400,
+	SP = 220,
 	Mass = DEFAULT_MASS * 2,
 	Threshold = 4,
 	JumpPower = 160,
