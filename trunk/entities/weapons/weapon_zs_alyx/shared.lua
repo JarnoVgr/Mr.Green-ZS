@@ -6,7 +6,7 @@ if CLIENT then
         SWEP.Slot = 1
         SWEP.SlotPos = 3
         SWEP.ViewModelFlip = false
-        SWEP.ViewModelFOV = 50
+        SWEP.ViewModelFOV = 45
        
         SWEP.OverrideAngle = {}
 		
@@ -35,14 +35,14 @@ SWEP.Weight                             = 5
  
 SWEP.HoldType = "pistol"
  
-SWEP.Primary.Sound  = Sound("Weapon_Pistol.NPC_Single")
+SWEP.Primary.Sound  = Sound("weapons/crossbow/fire1.wav")
 SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
-SWEP.Primary.Recoil  = 1
-SWEP.Primary.Damage = 4
+SWEP.Primary.Recoil  = 2
+SWEP.Primary.Damage = 7
 SWEP.Primary.NumShots           = 2
-SWEP.Primary.ClipSize           = 12
-SWEP.Primary.Delay                      = 0.09
-SWEP.Primary.DefaultClip        = 20
+SWEP.Primary.ClipSize           = 60
+SWEP.Primary.Delay                      = 0.1
+SWEP.Primary.DefaultClip        = 120
 SWEP.Primary.Automatic = true
 SWEP.MaxAmmo                        = 160
 SWEP.Primary.Ammo                       = "pistol"
@@ -65,7 +65,7 @@ SWEP.ViewModel = "models/weapons/cstrike/c_pist_glock18.mdl"
 --SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_pistol.mdl"
 --SWEP.ShowViewModel = true
---SWEP.ShowWorldModel = true
+SWEP.ShowWorldModel = false
 SWEP.ViewModelBoneMods = {
 ["v_weapon.Glock_Slide"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 ["v_weapon.Glock_Parent"] = { scale = Vector(0.287, 0.287, 0.287), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },

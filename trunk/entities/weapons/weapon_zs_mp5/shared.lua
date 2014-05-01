@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.SlotPos = 12
 	SWEP.ViewModelFlip = false
 	SWEP.IconLetter = "x"
-	SWEP.ViewModelFOV = 65
+	SWEP.ViewModelFOV = 50
 	killicon.AddFont("weapon_zs_mp5", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
 

@@ -1643,8 +1643,6 @@ end
 end
 end 
 
-
-
 --[=[----------------------------------------------------------------------
      Dubys amazing method to the Grave digger suit!
 ---------------------------------------------------------------------------]=]
@@ -1663,8 +1661,10 @@ hook.Add("PlayerDeath", "Pufu'ssexy", function(victim, inf, attack) if ( inf and
 hook.Add("PlayerDeath", "boxsexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_fists2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 20 ) end end)
 hook.Add("PlayerDeath", "boxsexy2", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 12 ) end end)
 hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 6 ) end end)
+hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_hook" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 7 ) end end)
 
 
 --[=[----------------------------------------------------------------------
      Dubys amazing method to the Combine Zombine suit!
 ---------------------------------------------------------------------------]=]
+

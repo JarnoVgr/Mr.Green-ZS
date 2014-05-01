@@ -24,7 +24,7 @@ end
 SWEP.Primary.Duration = 1.5
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
-SWEP.Primary.Damage = 45
+SWEP.Primary.Damage = 30
 
 SWEP.EmitWraithSound = 0
 SWEP.Screams = {
@@ -90,7 +90,7 @@ function SWEP:StartPrimaryAttack()
 	local stopPlayer = true
 
 	if self:IsDisguised() then
-		self.Primary.Speed = 100
+		self.Primary.Speed = 80
 		stopPlayer = false
 	else
 		self.Primary.Speed = 1

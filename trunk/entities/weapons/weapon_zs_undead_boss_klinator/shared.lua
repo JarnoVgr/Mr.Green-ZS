@@ -86,13 +86,13 @@ function SWEP:StartPrimaryAttack()
 	end	
 
 	local bullet = {}
-		bullet.Num = 1
+		bullet.Num = 10
 		bullet.Src = self.Owner:GetShootPos()
 		bullet.Dir = self.Owner:GetAimVector()
-		bullet.Spread = Vector(0,0,0)
+		bullet.Spread = Vector(0.1,0.1,0.1)
 		bullet.Tracer = 1
 		bullet.Force = 1000
-		bullet.Damage = 1.2
+		bullet.Damage = 0.2
 	self:ShootEffects()
 	self.Owner:FireBullets( bullet )
 	self.Weapon:EmitSound(Sound("player/zombies/seeker/pain2.wav"))
@@ -135,7 +135,7 @@ function SWEP:PrimaryAttackHit(trace, ent)
 	if hit then
 		if ent and ValidEntity(ent) and ent:IsPlayer() then
 			pl:EmitSound(Sound("player/zombies/k/smash.wav"),math.random(100,130),math.random(95,100))
-			util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
+			util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 7, self.Primary.Damage * 12), true)
 		else
 			pl:EmitSound(Sound("player/zombies/seeker/pain2.wav"),math.random(100,130),math.random(95,100))
 		end
@@ -146,87 +146,58 @@ end
 
 
 function SWEP:PerformSecondaryAttack()
-	-- Get owner
-	local mOwner = self.Owner
-	if not ValidEntity(mOwner) then
-		return
+	
+	local pl = self.Owner
+
+	-- GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed ) 
+	if pl:GetAngles().pitch > 70 or pl:GetAngles().pitch < -70 then 
+		if SERVER then
+			pl:EmitSound(Sound("npc/zombie_poison/pz_idle".. math.random(2,4) ..".wav"))
+		end
+
+		return 
 	end
-			   
-	--Thirdperson animation and sound
-	mOwner:DoAnimationEvent(CUSTOM_PRIMARY)
-					   
-	--Just server from here
+		
+	--Swap Anims
+	if self.SwapAnims then
+		self:SendWeaponAnim(ACT_VM_HITCENTER)
+	else
+		self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+	end
+	self.SwapAnims = not self.SwapAnims
+		
 	if CLIENT then
 		return
 	end
-	
-	
-	for k,v in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-		local fDistance = v:GetPos():Distance( self.Owner:GetPos() )
 
-		--Check for conditions
-		if not v:IsPlayer() or not v:IsHuman() or not v:Alive() or fDistance > self.Primary.Reach then
-			continue
-		end
- 
-		local vPos, vEnd = mOwner:GetShootPos(), mOwner:GetShootPos() + ( mOwner:GetAimVector() * self.Primary.Reach )
-		local Trace = util.TraceLine ( { start = vPos, endpos = v:LocalToWorld( v:OBBCenter() ), filter = mOwner, mask = MASK_SOLID } )
-					   
-		-- Exploit trace
-		if not Trace.Hit or not ValidEntity(Trace.Entity) or Trace.Entity ~= v then
-			continue
-		end
-			   
-		--Calculate percentage of being hit
-		local fHitPercentage = math.Clamp(1 - (fDistance / self.Primary.Reach), 0, 1)
-																													   
-		--Inflict damage
-		local fDamage = math.Round(20 * fHitPercentage, 15, 10)
-		if fDamage > 30 then
-			v:TakeDamage(fDamage, self.Owner, self)
-		end
-		
-		--Set last Howler scream
-		v.lastHowlerScream = CurTime()
- 
-		--Shakey shakey
-		local fFuckIntensity = fHitPercentage + 2
-		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
- 
-		-- Calculate base velocity
-		local Velocity = -1 * mOwner:GetForward() * 225
-		if not bPull then
-			Velocity = -1 * Velocity * 2
-		end
-			   
-		--
-		Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random(320, 232)
-		if not bPull then
-			Velocity = Vector(Velocity.x * 0.4, Velocity.y * 0.4, Velocity.z)
-		end
- 
-		--Apply velocity               
-		v:SetVelocity(Velocity)
-							   
-		-- Play sound
-		timer.Simple(0.2, function()
-			if IsValid(v) then
-				WorldSound("player/zombies/seeker/screamclose.wav", v:GetPos() + Vector(0, 0, 20), 120, math.random(60, 75))
+	local shootpos = pl:GetShootPos()
+	local startpos = pl:GetPos()
+	startpos.z = shootpos.z
+	local aimvec = pl:GetAimVector()
+	aimvec.z = math.max(aimvec.z, -0.7)
+	
+	for i=1, 8 do
+		local ent = ents.Create("projectile_poisonpuke")
+		if ent:IsValid() then
+			local heading = (aimvec + VectorRand() * 0.2):GetNormal()
+		--	ent:SetPos(startpos + heading * 8)
+			ent:SetPos(startpos + heading * 10)
+			ent:SetOwner(pl)
+			ent:Spawn()
+			ent.TeamID = pl:Team()
+			local phys = ent:GetPhysicsObject()
+			if phys:IsValid() then
+				phys:SetVelocityInstantaneous(heading * math.Rand(600, 900))
 			end
-		end)
+			ent:SetPhysicsAttacker(pl)
+		end
 	end
-	   
-	--On trigger play sound
-	local iRandom = math.Rand(1, 2.5)
-	if iRandom <= 1.5 then
-		self.Owner:EmitSound("player/zombies/seeker/screamclose.wav")
-	end
-	   
-	--Scream effect for myself
-	self.Owner:SendLua("WraithScream()")
+
+	pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
+
+	pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
+	
 end
-
-
 
 
 if CLIENT then
@@ -236,7 +207,8 @@ if CLIENT then
 		end
 		MeleeWeaponDrawHUD()
 
-		draw.SimpleTextOutlined("Klinator hits props to kill humans!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		draw.SimpleTextOutlined("He is not holding a GUN!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(40), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Klinator hits props to kill humans!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(73), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("He is not holding a GUN!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(50), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("His secondary is a puke cannon. But he will loose health using it!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(33), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 end

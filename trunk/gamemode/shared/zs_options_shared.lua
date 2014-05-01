@@ -50,8 +50,8 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 8
-BOSS_CLASS = {10,11,13,} -- 12
---BOSS_CLASS = {15} -- 12 15 14
+--BOSS_CLASS = {10,11,13,} -- 12
+BOSS_CLASS = {15} -- 12 15 14
 --BOSS_CLASS = {16} 
 --BOSS_CLASS = {17} 
  
@@ -234,6 +234,7 @@ GM.HumanWeapons = {
 	["weapon_zs_grenade"]  = { Name = "Grenade", DPS = 8, Infliction = 0, Type = "tool2", NoRetro = true },
 	["weapon_zs_mine"]  = { Name = "Explosives", DPS = 8, Infliction = 0, Type = "tool1", NoRetro = true },
 	["weapon_zs_tools_plank"]  = { Name = "Pack of Planks", DPS = 0, Infliction = 0, Type = "tool2" },
+	["weapon_zs_tools_c42"]  = { Name = "C4", DPS = 0, Infliction = 0, Type = "tool2" },
 	
 
 	--Pickups
@@ -441,10 +442,12 @@ DIFFICULTY = 1.5
 CARRY_MAXIMUM_MASS = 300
 
 -- Objects with more mass than this will be dragged instead of carried.
-CARRY_DRAG_MASS = 145
+--CARRY_DRAG_MASS = 145
+CARRY_DRAG_MASS = 130
 
 -- Anything bigger than this is dragged regardless of mass.
-CARRY_DRAG_VOLUME = 120
+--CARRY_DRAG_VOLUME = 120
+CARRY_DRAG_VOLUME = 100
 
 -- Humans can not carry anything with a volume more than this (OBBMins():Length() + OBBMaxs():Length()).
 CARRY_MAXIMUM_VOLUME = 150
@@ -1120,7 +1123,7 @@ ZombieClasses[3] =
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
 	Infliction = 0.6,
-	Health = 450,
+	Health = 500,
 	MaxHealth = 650,
 	TimeLimit = 810,
 	Bounty = 130,
@@ -1173,7 +1176,7 @@ ZombieClasses[4] =
 	CanGib = true,
 	SWEP = "weapon_zs_undead_wraith",
 	Model = Model( "models/wraith.mdl" ),
-	Speed = 195,
+	Speed = 170,
 	Description = "A ghastly figure capable of disguising as a fellow human.",
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Disguise" },
 	PainSounds = {
@@ -1316,10 +1319,10 @@ ZombieClasses[8] =
 	Tag = "zombine",
 	Infliction = 0.7,
 	Health = 300,
-	MaxHealth = 300, --decreased from 320
+	MaxHealth = 320, --decreased from 320
 	TimeLimit = 1020,
 	Bounty = 150,
-	SP = 25,
+	SP = 20,
 	Mass = DEFAULT_MASS * 1.2,
 	Threshold = 4,
 	JumpPower = 200,
@@ -1330,7 +1333,7 @@ ZombieClasses[8] =
 	Speed = 160,
 	RunSpeed = 190,
 	Description = "A heavily armoured soldier that has taken a turn for the worst.",
-	DescriptionGameplay = { "> PRIMARY: Bloody Claws", "> SPECIAL: Pulls out grenade", "> SPECIAL: Enrage when taken enough damage" },
+	DescriptionGameplay = { "> PRIMARY: Upgraded Bloody CLAWS", "> SPECIAL: Pulls out grenade, poison or normal", "> SPECIAL: Enrage when taken enough damage" },
 	PainSounds = {
 				Sound( "npc/zombine/zombine_pain1.wav" ),
 				Sound( "npc/zombine/zombine_pain2.wav" ),
@@ -1397,7 +1400,7 @@ ZombieClasses[10] =
 	Health = 3000,
 	MaxHealth = 10000,
 	Bounty = 1000,
-	SP = 200,
+	SP = 150,
 	IsBoss = true,
 	Mass = DEFAULT_MASS * 2,
 	Threshold = 0,	
@@ -1590,7 +1593,7 @@ ZombieClasses[13] =
 	MaxHealth = 7000,
 	TimeLimit = 1020,
 	Bounty = 1000,
-	SP = 150,
+	SP = 100,
 	Mass = DEFAULT_MASS * 2,
 	Threshold = 4,
 	JumpPower = 300,
@@ -1705,7 +1708,7 @@ ZombieClasses[15] =
 	Model = Model("models/player/group01/male_09.mdl"), 
 	OnSpawn = function(pl)
 		pl:SetModel(Model(player_manager.TranslatePlayerModel("kleiner")))
-		pl:SetColor( 0,0, 100 )	
+		pl:SetColor( 39, 148, 6 )	
 		pl:SetRandomFace()		
 	end,
 	Speed = 110,

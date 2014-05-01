@@ -706,9 +706,9 @@ function RollTheDice ( pl,commandName,args )
 		local randhealth = math.random( 25, math.Round ( calchealth ) )
 		pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
 		message = message .." rolled the dice and gained ".. randhealth .." health!"
-	else
-		skillpoints.AddSkillPoints(pl, 150)
-		message = message .." rolled the dice and received 150SP."
+--	else
+	--	skillpoints.AddSkillPoints(pl, 150)
+	--	message = message .." rolled the dice and received 150SP."
 	end
 	
 	pl.LastRTD = CurTime() + RTD_TIME

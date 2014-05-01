@@ -28,17 +28,17 @@ SWEP.Base = "weapon_zs_base_dummy"
 SWEP.ViewModel = "models/weapons/c_grenade.mdl"
 SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_grenade.mdl"
-SWEP.TotalDamage = "~300-350"
+SWEP.TotalDamage = "~400-420"
 SWEP.Primary.ClipSize = 3
 SWEP.Primary.DefaultClip = 2
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "grenade"
-SWEP.Primary.Delay = 3
+SWEP.Primary.Delay = 2
 
 SWEP.HoldType = "grenade"
 
-SWEP.Secondary.ClipSize = 3
-SWEP.Secondary.DefaultClip = 3
+SWEP.Secondary.ClipSize = 4
+SWEP.Secondary.DefaultClip = 4
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
 

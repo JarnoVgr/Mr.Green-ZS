@@ -9,7 +9,8 @@ local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 		if dmginfo:IsExplosionDamage() then
 			dmginfo:SetDamage(dmginfo:GetDamage()*2)
 		else
-			dmginfo:SetDamage( math.Clamp( dmginfo:GetDamage(), 0, 50 ) * ( 1 - pl:GetSpawnDamagePercent() ) )
+		--	dmginfo:SetDamage( math.Clamp( dmginfo:GetDamage(), 0, 50 ) * ( 1 - pl:GetSpawnDamagePercent() ) )
+			dmginfo:SetDamage( math.Clamp( dmginfo:GetDamage(), 0, 50 ) * ( 1.5 - pl:GetSpawnDamagePercent() ) )
 		end
 		
 		if dmginfo:IsDamageNull() then
