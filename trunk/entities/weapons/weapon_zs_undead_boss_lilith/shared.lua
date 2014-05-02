@@ -6,8 +6,8 @@ AddCSLuaFile()
 SWEP.Base = "weapon_zs_undead_base"
 
 
---SWEP.ViewModel = Model("models/weapons/v_wraith.mdl")
---SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
+SWEP.ViewModel = Model("models/weapons/v_wraith.mdl")
+SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
 
 SWEP.HoldType = "melee2"
@@ -55,14 +55,6 @@ if CLIENT then
 end
 
 
-SWEP.HoldType = "melee2"
-SWEP.ViewModelFOV = 70
-SWEP.ViewModelFlip = false
-SWEP.ViewModel = "models/weapons/v_crowbar.mdl"
-SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
---SWEP.ShowViewModel = true
---SWEP.ShowWorldModel = true
-SWEP.ViewModelBoneMods = {}
 
 
 
@@ -122,8 +114,7 @@ function SWEP:StartPrimaryAttack()
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
 	self:EmitSound(Sound("player/zombies/seeker/screamclose.wav"), 100, math.random(92, 107))
 	 
-	 
-
+	
 	local stopPlayer = true
 
 	if self:IsDisguised() then
