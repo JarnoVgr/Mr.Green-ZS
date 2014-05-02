@@ -356,3 +356,4 @@ SpecialAnims[5] = HowlerAnim
 SpecialAnims[6] = HeadcrabAnim
 SpecialAnims[7] = PoisonHeadcrabAnim
 SpecialAnims[8] = ZombineAnim
+SpecialAnims[16] = LilithAnim

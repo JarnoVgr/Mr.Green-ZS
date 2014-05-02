@@ -1167,7 +1167,7 @@ local function AdminSay(pl, text, teamonly)
 		return ""
 	elseif text == "!maptool" and pl:IsSuperAdmin() then
 		pl:Give("admin_maptool")
-		return ""
+		return ""	
 	elseif text == "!noravebreak" then
 		if LASTHUMAN or ENDROUND then
 			if not Raving then

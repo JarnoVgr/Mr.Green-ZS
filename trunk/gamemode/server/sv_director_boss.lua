@@ -9,10 +9,10 @@ boss.count = 0
 boss.maxCount = math.random(4,5)
 
 function GM:UnleashBoss()
-
+	
 	--[[if not GAMEMODE:IsBossRequired() then
 		return nil
-	end]]
+end]]
 
 	--No late bosses anymore
 	if CurTime() >= ROUNDTIME-60 then
@@ -45,7 +45,7 @@ function GM:UnleashBoss()
 	pl:SpawnAsZombieBoss()
 
 	boss.count = boss.count + 1
-
+	
 	--Start time
 	boss.starTime = CurTime()
 		
@@ -141,6 +141,9 @@ function GM:SetBoss(value)
 	if boss.active == tobool(value) then
 		return false
 	end
+	
+ 
+
 
 	--Update global
 	boss.active = tobool(value)

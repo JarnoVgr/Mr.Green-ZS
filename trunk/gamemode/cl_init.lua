@@ -222,7 +222,8 @@ local RandomText = table.Random( {
 	"Mixing fake blood...",
 	"Putting supplies into supply crates...",
 	"Starting zombie apocalypse...",
-	"Sewing zombie parts together...", } 
+	"Sewing zombie parts together...", 
+	"Hitting Duby to code zs...",  }
  )
  
 function GM:HookGetLocal()
@@ -359,6 +360,8 @@ end)
 -----------------------------------------------------------------------]=]
 function GM:OnWeaponEquip ( pl, mWeapon )
 end
+
+
 
 if not killicon.GetFont then -- Need this for the rewards message.
 	local kiaf = killicon.AddFont

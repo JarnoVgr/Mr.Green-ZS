@@ -50,11 +50,12 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 8
-BOSS_CLASS = {10,11,13,15} -- 12
---BOSS_CLASS = {15} -- 12 15 14
---BOSS_CLASS = {16} 
---BOSS_CLASS = {17} 
+--BOSS_CLASS = {10,11,13,15} -- 12
+BOSS_CLASS = {15} -- 12 15 14
+--BOSS_CLASS = {16} --Lilith
  
+ --BOSS_CLASS = {11} --Behemoth
+
 
 --??
 SHARED_SPEED_INCREASE = 13
@@ -518,6 +519,10 @@ RTD_TIME = 180
 LASTHUMANSOUND = "lasthuman_fixed.mp3"
 LASTHUMANSOUNDLENGTH = 159 -- 2:39
 
+FIGHTFIGHTFIGHTSOUND = "deadlife_mrgreen_insane.mp3"
+FIGHTFIGHTFIGHTSOUNDLENGTH = 222
+
+
 -- Sound played to a person when they die as a human.
 DEATHSOUND = "music/stingers/HL1_stinger_song28.mp3"
 
@@ -963,7 +968,7 @@ ZombieClasses[0] =
 	Health = 200,
 	MaxHealth = 270,
 	Bounty = 80,
-	SP = 20,
+	SP = 30,
 	Threshold = 0,	
 	SWEP = "weapon_zs_undead_infected",			
 	--JumpPower = 200,
@@ -1127,7 +1132,7 @@ ZombieClasses[3] =
 	MaxHealth = 650,
 	TimeLimit = 810,
 	Bounty = 130,
-	SP = 25,
+	SP = 40,
 	Mass = DEFAULT_MASS * 1.5,
 	Threshold = 4,
 	JumpPower = 200,
@@ -1169,7 +1174,7 @@ ZombieClasses[4] =
 	MaxHealth = 100,
 	TimeLimit = 200,
 	Bounty = 60,
-	SP = 15,
+	SP = 20,
 	Threshold = 2,
 	JumpPower = 200,
 	CanCrouch = true,
@@ -1204,7 +1209,7 @@ ZombieClasses[5] =
 	MaxHealth = 180,
 	TimeLimit = 460,
 	Bounty = 70,
-	SP = 15,
+	SP = 20,
 	Threshold = 4,			
 	SWEP = "weapon_zs_undead_howler",			
 	JumpPower = 200,
@@ -1319,10 +1324,10 @@ ZombieClasses[8] =
 	Tag = "zombine",
 	Infliction = 0.7,
 	Health = 300,
-	MaxHealth = 320, --decreased from 320
+	MaxHealth = 320, 
 	TimeLimit = 1020,
 	Bounty = 150,
-	SP = 20,
+	SP = 35,
 	Mass = DEFAULT_MASS * 1.2,
 	Threshold = 4,
 	JumpPower = 200,
@@ -1392,7 +1397,7 @@ ZombieClasses[9] =
 	Hidden = true
 }
 
-ZombieClasses[10] =						
+ZombieClasses[10] =										
 {
 	Name = "Hate",	
 	Tag = "hate",	
@@ -1547,7 +1552,7 @@ ZombieClasses[12] =
 	Hidden = true,
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_seeker",
-	Model = Model("models/Zombie/Poison.mdl"),
+	Model = Model("models/player/corpse1.mdl"),
 	Speed = 195,
 	Description = "",
 	PainSounds = {
@@ -1566,8 +1571,9 @@ ZombieClasses[12] =
 				Sound("npc/zombie_poison/pz_call1.wav"),
 				},
 	OnSpawn = function(pl)
-		local status = pl:GiveStatus("overridemodel")
-		
+	
+	local status = pl:GiveStatus("overridemodel")
+
 		if status and status:IsValid() then
 			status:SetModel("models/player/charple01.mdl")
 			status:UsePlayerAlpha(true)
@@ -1722,6 +1728,7 @@ ZombieClasses[15] =
 				},
 	DeathSounds = {
 				Sound("npc/strider/striderx_die1.wav"),
+				--Sound("deadlife_mrgreen_insane.mp3"),
 				},
 	IdleSounds = {
 				Sound("npc/zombine/striderx_alert2.wav"),
@@ -1750,43 +1757,41 @@ ZombieClasses[16] =
 	Name = "Lilith",
 	Tag = "lilith",
 	Infliction = 0,
-	Health = 1000,
+	Health = 1200,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
-	SP = 1000,
+	SP = 100,
 	Mass = DEFAULT_MASS * 3,
 	Threshold = 4,
-	JumpPower = 180,
+	JumpPower = 170,
 	CanCrouch = true,
 	CanGib = true,
 	Unlocked = false,
 	Hidden = true,
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_lilith",
-	Model = Model("models/player/Group01/Female_01.mdl"), 
+	Model = Model("models/player/corpse1.mdl"), 
 	OnSpawn = function(pl)
-	--	pl:SetModel(Model(player_manager.TranslatePlayerModel("kleiner")))
-		pl:SetColor( 0,0, 225 )	
 		pl:SetRandomFace()		
 	end,
-	Speed = 175,
+	Speed = 190,
 	Description = "",
 	Unique = "",
 	PainSounds = {
-				Sound( "npc/strider/striderx_pain2.wav" ),
-				Sound( "npc/strider/striderx_pain5.wav" ),
-				Sound( "npc/strider/striderx_pain7.wav" ),
-				Sound( "npc/strider/striderx_pain8.wav" ),
+				Sound( "player/zombies/seeker/pain1.wav" ),
+				Sound( "player/zombies/seeker/pain2.wav" ),
 				},
 	DeathSounds = {
-				Sound("npc/strider/striderx_die1.wav"),
+				Sound("npc/stalker/go_alert2a.wav"),
 				},
 	IdleSounds = {
-				Sound("npc/zombine/striderx_alert2.wav"),
-				Sound("npc/zombine/striderx_alert4.wav"),
-				Sound("npc/zombine/striderx_alert5.wav"),
-				Sound("npc/zombine/striderx_alert6.wav"),
+				Sound("bot/come_out_and_fight_like_a_man.wav"),
+				Sound("bot/come_out_wherever_you_are.wav"),
+				Sound("vo/ravenholm/madlaugh03.wav"),
+				Sound("vo/NovaProspekt/eli_nevermindme01.wav"),
+				Sound("ambient/creatures/town_child_scream1.wav"),
+				Sound("npc/zombie_poison/pz_call1.wav"),
 				},
 	OnRevive = function(pl)
 		
@@ -1794,10 +1799,10 @@ ZombieClasses[16] =
 
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
+	
 	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
 	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
