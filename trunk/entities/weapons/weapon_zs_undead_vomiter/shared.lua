@@ -11,23 +11,9 @@ SWEP.PrintName = "Vomit Zombie"
 if CLIENT then
 	SWEP.ViewModelFOV = 35
 	SWEP.ViewModelFlip = false
-end
-
-SWEP.ViewModel = Model("models/weapons/v_pza.mdl")
-SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
-
-SWEP.Primary.Delay = 0.8
-SWEP.Primary.Reach = 65
-SWEP.Primary.Duration = 2
-SWEP.Primary.Damage = 55
-
-SWEP.Secondary.Automatic	= true
-SWEP.Secondary.Duration = 0
-SWEP.Secondary.Delay = 0
-SWEP.Secondary.Damage = math.random(2,5)
-
-SWEP.SwapAnims = false
-
+	SWEP.ShowViewModel = true
+	
+	
 
 SWEP.ViewModelBoneMods = {
 	["ValveBiped.Bip01_L_Forearm"] = { scale = Vector(1.075, 1.075, 1.075), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
@@ -39,17 +25,44 @@ SWEP.ViewModelBoneMods = {
 	-- ["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(1.58, 5.205, 0) },
 	["ValveBiped.Bip01_L_Finger2"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 	["ValveBiped.Bip01_R_Finger3"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-	["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.213, 1.213, 1.213), pos = Vector(0, 0, 0), angle = Angle(-0.151, -20.414, -7.045) }
+	["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.213, 1.213, 1.213), pos = Vector(0, 0, 0), angle = Angle(-0.151, -20.414, -7.045) },
+	["ValveBiped.Bip01_Head1"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, 46.051) },
+    ["ValveBiped.Bip01_Spine4"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, 46.051) },
 }
 
 
 
 SWEP.WElements = {
---	["2"] = { type = "Model", model = "models/weapons/w_plank.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.635, 1.557, 0), angle = Angle(5.843, 0, 180), size = Vector(1.08, 1.08, 1.08), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
---	["1"] = { type = "Model", model = "models/zombie/classic_torso.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-9.87, 3.635, 0.518), angle = Angle(10.519, -54.936, -92.338), size = Vector(1.014, 1.014, 1.014), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
---	["3"] = { type = "Model", model = "models/zombie/fast_torso.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-15.065, 1.557, -0.519), angle = Angle(-8.183, -82.987, -97.014), size = Vector(0.82, 0.82, 0.82), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	
+	["4"] = { type = "Model", model = "models/gibs/antlion_gib_small_1.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(0.518, 6.752, -3.636), angle = Angle(0, -61.949, 0), size = Vector(1.404, 1.404, 1.404), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["8"] = { type = "Model", model = "models/effects/splode.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-6.753, -10.91, -2.597), angle = Angle(0, 0, 0), size = Vector(0.041, 0.041, 0.041), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["1"] = { type = "Model", model = "models/gibs/strider_gib7.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-6.753, 9.869, -2.597), angle = Angle(0, -75.974, -80.65), size = Vector(0.497, 0.497, 0.497), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["5"] = { type = "Model", model = "models/gibs/antlion_gib_small_3.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(0, -11.948, -3.636), angle = Angle(0, 3.506, 180), size = Vector(1.08, 1.08, 1.08), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["2"] = { type = "Model", model = "models/gibs/antlion_gib_small_2.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-8.832, -1.558, 0), angle = Angle(0, -26.883, 94.675), size = Vector(2.506, 2.506, 2.506), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["6"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-5.715, 3.635, -8.832), angle = Angle(-82.987, -22.209, 78.311), size = Vector(0.755, 0.755, 0.755), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["7"] = { type = "Model", model = "", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(0, 0, 0), angle = Angle(0, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["3"] = { type = "Model", model = "models/gibs/antlion_gib_small_1.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(0.518, 6.752, 3.635), angle = Angle(0, -61.949, 0), size = Vector(1.404, 1.404, 1.404), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+
+
+
 }
 
+end
+
+SWEP.ViewModel = Model("models/weapons/v_pza.mdl")
+SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
+
+SWEP.Primary.Delay = 0.8
+SWEP.Primary.Reach = 65
+SWEP.Primary.Duration = 2
+SWEP.Primary.Damage = 55
+
+SWEP.Secondary.Automatic	= true
+SWEP.Secondary.Duration = 0.5
+SWEP.Secondary.Delay = 0.5
+SWEP.Secondary.Damage = math.random(0.5,0.25)
+
+SWEP.SwapAnims = false
 
 
 
@@ -66,25 +79,22 @@ end
 
 function SWEP:StartPrimaryAttack()			
 	
+ 
+        
 end
 
 function SWEP:PostPerformPrimaryAttack(hit)
 	
 end
 
+
+function SWEP:Reload()
+end
+
 function SWEP:StartSecondaryAttack()
-	local pl = self.Owner
-	
-	if pl:GetAngles().pitch > 55 or pl:GetAngles().pitch < -55 then
-		pl:EmitSound(Sound("npc/zombie_poison/pz_idle"..math.random(2,4)..".wav"))
-		return
-	end
-	
-	self.Owner:SetAnimation( PLAYER_ATTACK1 )
-			
-	if SERVER then
-		pl:EmitSound(Sound("npc/zombie_poison/pz_throw".. math.random(2,3) ..".wav"))
-	end
+	self.Owner:EmitSound("npc/barnacle/barnacle_die2.wav")
+        self.Owner:EmitSound("npc/barnacle/barnacle_digesting1.wav")
+        self.Owner:EmitSound("npc/barnacle/barnacle_digesting2.wav")
 end
 
 
@@ -92,7 +102,7 @@ function SWEP:PerformSecondaryAttack()
 	local pl = self.Owner
 
 	-- GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed ) 
-	if pl:GetAngles().pitch > 55 or pl:GetAngles().pitch < -55 then 
+	if pl:GetAngles().pitch > 70 or pl:GetAngles().pitch < -70 then 
 		if SERVER then
 			pl:EmitSound(Sound("npc/zombie_poison/pz_idle".. math.random(2,4) ..".wav"))
 		end
@@ -145,7 +155,7 @@ function SWEP:Move(mv)
 		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*8)
 		return true
 	elseif self:IsInSecondaryAttack() then
-		mv:SetMaxSpeed(170)
+		mv:SetMaxSpeed(120)
 		return true
 	end
 end
@@ -191,3 +201,5 @@ function SWEP:Precache()
 		util.PrecacheSound(snd)
 	end
 end
+
+
