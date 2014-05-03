@@ -52,14 +52,15 @@ end
 SWEP.ViewModel = Model("models/weapons/v_pza.mdl")
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
-SWEP.Primary.Delay = 0.8
+SWEP.Primary.Delay = 1
 SWEP.Primary.Reach = 65
-SWEP.Primary.Duration = 2
-SWEP.Primary.Damage = 55
+SWEP.Primary.Duration = 1
+SWEP.Primary.Damage = 0
+SWEP.Primary.Automatic = true
 
 SWEP.Secondary.Automatic	= true
 SWEP.Secondary.Duration = 0.5
-SWEP.Secondary.Delay = 0.5
+SWEP.Secondary.Delay = 1.2
 SWEP.Secondary.Damage = math.random(0.5,0.25)
 
 SWEP.SwapAnims = false
@@ -75,80 +76,11 @@ function SWEP:Initialize()
 			self.BreathSound:Play()
 		end
 	end
-end
-
-function SWEP:StartPrimaryAttack()			
-	
- 
-        
-end
-
-function SWEP:PostPerformPrimaryAttack(hit)
-	
-end
-
+end     
 
 function SWEP:Reload()
 end
 
-function SWEP:StartSecondaryAttack()
-	self.Owner:EmitSound("npc/barnacle/barnacle_die2.wav")
-        self.Owner:EmitSound("npc/barnacle/barnacle_digesting1.wav")
-        self.Owner:EmitSound("npc/barnacle/barnacle_digesting2.wav")
-end
-
-
-function SWEP:PerformSecondaryAttack()
-	local pl = self.Owner
-
-	-- GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed ) 
-	if pl:GetAngles().pitch > 70 or pl:GetAngles().pitch < -70 then 
-		if SERVER then
-			pl:EmitSound(Sound("npc/zombie_poison/pz_idle".. math.random(2,4) ..".wav"))
-		end
-
-		return 
-	end
-		
-	--Swap Anims
-	if self.SwapAnims then
-		self:SendWeaponAnim(ACT_VM_HITCENTER)
-	else
-		self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
-	end
-	self.SwapAnims = not self.SwapAnims
-		
-	if CLIENT then
-		return
-	end
-
-	local shootpos = pl:GetShootPos()
-	local startpos = pl:GetPos()
-	startpos.z = shootpos.z
-	local aimvec = pl:GetAimVector()
-	aimvec.z = math.max(aimvec.z, -0.7)
-	
-	for i=1, 8 do
-		local ent = ents.Create("projectile_poisonpuke")
-		if ent:IsValid() then
-			local heading = (aimvec + VectorRand() * 0.2):GetNormal()
-		--	ent:SetPos(startpos + heading * 8)
-			ent:SetPos(startpos + heading * 10)
-			ent:SetOwner(pl)
-			ent:Spawn()
-			ent.TeamID = pl:Team()
-			local phys = ent:GetPhysicsObject()
-			if phys:IsValid() then
-				phys:SetVelocityInstantaneous(heading * math.Rand(600, 900))
-			end
-			ent:SetPhysicsAttacker(pl)
-		end
-	end
-
-	pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
-
-	pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
-end
 
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
@@ -203,3 +135,62 @@ function SWEP:Precache()
 end
 
 
+function SWEP:PerformSecondaryAttack()
+	local pl = self.Owner
+
+	-- GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed ) 
+	if pl:GetAngles().pitch > 55 or pl:GetAngles().pitch < -55 then 
+		if SERVER then
+			pl:EmitSound(Sound("npc/zombie_poison/pz_idle".. math.random(2,4) ..".wav"))
+		end
+
+		return 
+	end
+		
+	--Swap Anims
+	if self.SwapAnims then
+		self:SendWeaponAnim(ACT_VM_HITCENTER)
+	else
+		self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+	end
+	self.SwapAnims = not self.SwapAnims
+		
+	if CLIENT then
+		return
+	end
+
+	local shootpos = pl:GetShootPos()
+	local startpos = pl:GetPos()
+	startpos.z = shootpos.z
+	local aimvec = pl:GetAimVector()
+	aimvec.z = math.max(aimvec.z, -0.7)
+	
+	for i=1, 8 do
+		local ent = ents.Create("env_smoketrail")
+		if ent:IsValid() then
+			local heading = (aimvec + VectorRand() * 0.2):GetNormal()
+			ent:SetPos(startpos + heading * 8)
+			ent:SetOwner(pl)
+			ent:Spawn()
+			ent.TeamID = pl:Team()
+			
+			
+			local phys = ent:GetPhysicsObject()
+			--if phys:IsValid() then
+			--	phys:SetVelocityInstantaneous(heading * math.Rand(300, 550))
+			--end
+			ent:SetPhysicsAttacker(pl)
+		end
+	end
+
+	pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
+
+	pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
+	
+	timer.Simple(5, function()
+	
+	ents.FindByClass( "env_smoketrail" )[1]:Remove(env_smoketrail)
+	
+	end)
+	
+end

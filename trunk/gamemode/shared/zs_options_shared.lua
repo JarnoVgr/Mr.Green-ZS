@@ -55,6 +55,7 @@ BOSS_CLASS = {10,11,13,15} -- 12
 --BOSS_CLASS = {16} --Lilith
  
 --BOSS_CLASS = {15} --Klinator
+--BOSS_CLASS = {17} --Smoker class
 
 
 --??
@@ -327,7 +328,7 @@ XP_INCREASE_BY = 1000
 
 XP_PLAYERS_REQUIRED = 5
 
-MAX_RANK = 77
+MAX_RANK = 78
 
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
@@ -729,7 +730,7 @@ HELP_TXT[3] = {
 	
 	
 	
-	[
+	
 		
 		
 		
@@ -1819,10 +1820,10 @@ ZombieClasses[16] =
 
 ZombieClasses[17] =
 {
-	Name = "Puke pour",
+	Name = "Smoker",
 	Tag = "weapon_zs_undead_vomiter",
-	Infliction = 0,
-	Health = 5000,
+	Infliction = 0.2,
+	Health = 180,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -1832,13 +1833,13 @@ ZombieClasses[17] =
 	JumpPower = 250,
 	CanCrouch = true,
 	CanGib = true,
-	Unlocked = false,
+	Unlocked = true,
 	Hidden = true,
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_vomiter",
 	Model = Model("models/zombie/zombie_soldier.mdl"), 
 	Speed = 130,
-	Description = "",
+	Description = "A mysterious and rare type of zombie with a thick cloud of smoke for the primary. ",
 	Unique = "",
 	
 	OnSpawn = function(pl)
