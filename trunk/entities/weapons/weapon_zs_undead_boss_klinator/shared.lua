@@ -3,7 +3,7 @@
 
 AddCSLuaFile()
 
-SWEP.PrintName = "Klinanator"
+SWEP.PrintName = "Klinator"
 
 if CLIENT then
 	SWEP.ViewModelFOV = 70
@@ -43,7 +43,6 @@ if CLIENT then
 	
 	
 	}
-
 	
 end
 
@@ -117,6 +116,7 @@ function SWEP:StartPrimaryAttack()
 
 		GAMEMODE:SetPlayerSpeed(pl, ZombieClasses[classId].Speed, ZombieClasses[classId].Speed)
 	end)]]
+	
 end
 
 function SWEP:PostPerformPrimaryAttack(hit)

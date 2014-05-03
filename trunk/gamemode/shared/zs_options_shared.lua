@@ -51,10 +51,10 @@ FIRSTAPRIL = false
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 8
 BOSS_CLASS = {10,11,13,15} -- 12
---BOSS_CLASS = {15} -- 12 15 14
+--BOSS_CLASS = {10}
 --BOSS_CLASS = {16} --Lilith
  
- --BOSS_CLASS = {11} --Behemoth
+--BOSS_CLASS = {15} --Klinator
 
 
 --??
@@ -221,9 +221,11 @@ GM.HumanWeapons = {
 	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "rifle", Price = 1750},
 	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
 	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 2600 }, --Seems to work fine now.
+	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle" },
 	
 	--Tool1
 	["weapon_zs_tools_hammer"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", NoRetro = true },
+	["weapon_zs_tools_hammer2"]  = { Name = "Special Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", NoRetro = true },
 	["weapon_zs_medkit"]  = { Name = "Medkit", DPS = 8, Infliction = 0, Type = "tool1", NoRetro = true },
 	["weapon_zs_tools_supplies"] = { Name = "Mobile Supplies", DPS = 0, Infliction = 0, Type = "tool1", NoRetro = true },
 	["weapon_zs_tools_remote"] = { Name = "Remote Controller", DPS = 0, Infliction = 0, Type = "tool2" },
@@ -260,8 +262,8 @@ GM.HumanWeapons = {
 	["admin_tool_igniter"] = { Name = "Igniter Tool", DPS = 0, Infliction = 0.2, Type = "admin" },
 	["admin_tool_remover"] = { Name = "Remover Tool", DPS = 0, Infliction = 0.2, Type = "admin" },
 	["admin_maptool"] = { Name = "Map Tool", DPS = 0, Infliction = 0.2, Type = "admin" },
-	["weapon_physgun"] = { Name = "Physgun", DPS = 0, Infliction = 0.2, Type = "admin" },
-	["weapon_physcannon"] = { Name = "Physcannon", DPS = 0, Infliction = 0.2, Type = "admin" },
+	["weapon_physgun"] = { Name = "Physgun", DPS = 0, Infliction = 0.2, Type = "admin", Restricted = true },
+	["weapon_physcannon"] = { Name = "Physcannon", DPS = 0, Infliction = 0.2, Type = "admin", Restricted = true },
 	["dev_points"] = { Name = "Developer Tool", DPS = 0, Infliction = 0.2, Type = "admin", Restricted = true },
 	["map_tool"] = { Name = "Mapping Tool", DPS = 0, Infliction = 0.2, Type = "admin", Restricted = true },
 	["admin_raverifle"] = { Name = "Ravebreak Rifle!", DPS = 0, Infliction = 0.2, Type = "admin", Restricted = true },
@@ -372,6 +374,7 @@ GM.RankUnlocks = {
 	[70] = {"weapon_zs_fiveseven"},
 	[76] = {"weapon_zs_melee_hook"},
 	[77] = {"weapon_zs_alyx"},
+	[78] = {"weapon_zs_tools_hammer2"},
 	-- [90] = {"_professional"},-- hidden for a while
 }
 
@@ -386,6 +389,11 @@ GM.ArenaWeapons = {
 	"weapon_zs_famas",
 	"weapon_zs_galil",
 	"weapon_zs_mp5",
+	"weapon_zs_grenadelauncher",
+	"weapon_zs_boomerstick",
+	"weapon_zs_boomstick",
+	"weapon_zs_crossbow",
+	
 }
 
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
@@ -703,7 +711,8 @@ HELP_TXT[3] = {
 	[30] = Turret Damage [31] = C4 [32] = Turret Health [33] = Turret Ammo
 	[35] = Enhanced Kevlar [37] = Planks [39] = Plank amount [40] = Freeman spirit
 	[43] = Plank HP [44] = Combat knife  [45] = Pot [50] = Mini turret
-	[55] = Crowbar [65] = Classic pistol 70] = Five seven
+	[55] = Crowbar [65] = Classic pistol [70] = Five seven [76] = Hook
+	[77] = Alyx Gun [78] = Mystery!
 	
 	
 	
@@ -1595,7 +1604,7 @@ ZombieClasses[13] =
 	Name = "Nerf",
 	Tag = "nerf",
 	Infliction = 0,
-	Health = 2500,
+	Health = 2000,
 	MaxHealth = 7000,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -1610,7 +1619,7 @@ ZombieClasses[13] =
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_nerf",
 	Model = Model("models/Zombie/Fast.mdl"),
-	Speed = 190,
+	Speed = 195,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -1697,11 +1706,11 @@ ZombieClasses[15] =
 	Name = "Klinator",
 	Tag = "klinator",
 	Infliction = 0,
-	Health = 4000,
+	Health = 3000,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
-	SP = 220,
+	SP = 100,
 	Mass = DEFAULT_MASS * 2,
 	Threshold = 4,
 	JumpPower = 160,
@@ -1717,7 +1726,7 @@ ZombieClasses[15] =
 		pl:SetColor( 39, 148, 6 )	
 		pl:SetRandomFace()		
 	end,
-	Speed = 110,
+	Speed = 140,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -2335,7 +2344,7 @@ shopData = {
 	[77] = { Cost = 200, Type = "other", AdminOnly = false, Desc = "Swag with burgers for ears, and guns for brains!", Key = "BurgerBuns", ID = 77, Sell = 0, Requires = 0, Name = "BurgerBuns" },
 	[78] = { Cost = 500, Type = "other", AdminOnly = false, Desc = "Becoming a cyborg is fun.", Key = "RoboEars", ID = 78, Sell = 0, Requires = 0, Name = "RoboEars" },
 	[79] = { Cost = 800, Type = "other", AdminOnly = false, Desc = "Being chased by zombies! No problem, attach this and play away! 'Doesn't actually do that'.", Key = "Helihead", ID = 79, Sell = 0, Requires = 0, Name = "HeliHead" },
-	[80] = { Cost = 5000, Type = "suit", AdminOnly = false, Desc = "You love zerking well this is the suit for you!! Gain hp for every melee kill depending on the weapon. ", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
+	[80] = { Cost = 10000, Type = "suit", AdminOnly = false, Desc = "You love zerking well this is the suit for you!! Gain hp for every melee kill depending on the weapon. ", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
 	[81] = { Cost = 5000, Type = "suit", AdminOnly = false, Desc = "Become one of the elite forces and fight for the Dubyans!", Key = "Combine", ID = 81, Sell = 0, Requires = 0, Name = "Combine the Zombine!",  },
 	[82] = { Cost = 8000, Type = "suit", AdminOnly = false, Desc = "When firing an assault rifle your speed with increase. Let it be known as freeman RAGE! ", Key = "freeman", ID = 82, Sell = 0, Requires = 0, Name = "Freeman Rage!",  },
 	[83] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Live for nothing or die for something. Reload more bullets in your shotgun at one time!", Key = "Rambo", ID = 83, Sell = 0, Requires = 0, Name = "Rambo Roar",  },
