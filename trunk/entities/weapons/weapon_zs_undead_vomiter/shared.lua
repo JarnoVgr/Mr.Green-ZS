@@ -59,8 +59,8 @@ SWEP.Primary.Damage = 0
 SWEP.Primary.Automatic = true
 
 SWEP.Secondary.Automatic	= true
-SWEP.Secondary.Duration = 0.5
-SWEP.Secondary.Delay = 1.2
+SWEP.Secondary.Duration = 0.2
+SWEP.Secondary.Delay = 0.1
 SWEP.Secondary.Damage = math.random(0.5,0.25)
 
 SWEP.SwapAnims = false
@@ -139,9 +139,10 @@ function SWEP:PerformSecondaryAttack()
 	local pl = self.Owner
 
 	-- GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed ) 
-	if pl:GetAngles().pitch > 55 or pl:GetAngles().pitch < -55 then 
+	if pl:GetAngles().pitch > 45 or pl:GetAngles().pitch < -45 then 
 		if SERVER then
-			pl:EmitSound(Sound("npc/zombie_poison/pz_idle".. math.random(2,4) ..".wav"))
+		--	pl:EmitSound(Sound("npc/zombie_poison/pz_idle".. math.random(2,4) ..".wav"))
+			pl:EmitSound(Sound("npc/headcrab_poison/ph_talk3".. math.random(2,4) ..".wav"))
 		end
 
 		return 
@@ -172,25 +173,36 @@ function SWEP:PerformSecondaryAttack()
 			ent:SetPos(startpos + heading * 8)
 			ent:SetOwner(pl)
 			ent:Spawn()
-			ent.TeamID = pl:Team()
-			
+			ent.TeamID = pl:Team()	
 			
 			local phys = ent:GetPhysicsObject()
-			--if phys:IsValid() then
-			--	phys:SetVelocityInstantaneous(heading * math.Rand(300, 550))
-			--end
 			ent:SetPhysicsAttacker(pl)
 		end
+	
+	timer.Simple(0.05, function()
+	ent:Remove()
+	end)
+		
 	end
 
 	pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
 
 	pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
 	
-	timer.Simple(5, function()
 	
-	ents.FindByClass( "env_smoketrail" )[1]:Remove(env_smoketrail)
 	
-	end)
 	
+end
+
+
+if CLIENT then
+	function SWEP:DrawHUD()
+		if not self.Owner:Alive() or ENDROUND then
+			return
+		end
+		MeleeWeaponDrawHUD()
+
+		draw.SimpleTextOutlined("Hold Secondary to create smoke! ", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Use this to cover you're team mates advancing on the humans!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(40), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	end
 end

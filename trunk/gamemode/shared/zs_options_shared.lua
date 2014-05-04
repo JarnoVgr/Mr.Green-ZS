@@ -49,8 +49,8 @@ CHRISTMAS = false
 FIRSTAPRIL = false
 
 --Boss stuff
-BOSS_TOTAL_PLAYERS_REQUIRED = 8
-BOSS_CLASS = {10,11,13,15} -- 12
+BOSS_TOTAL_PLAYERS_REQUIRED = 9
+BOSS_CLASS = {10,11,13,15,17} -- 12
 --BOSS_CLASS = {10}
 --BOSS_CLASS = {16} --Lilith
  
@@ -1823,14 +1823,14 @@ ZombieClasses[17] =
 	Name = "Smoker",
 	Tag = "weapon_zs_undead_vomiter",
 	Infliction = 0.2,
-	Health = 180,
+	Health = 7000,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
 	SP = 25,
 	Mass = DEFAULT_MASS * 8,
 	Threshold = 4,
-	JumpPower = 250,
+	JumpPower = 400,
 	CanCrouch = true,
 	CanGib = true,
 	Unlocked = true,
@@ -1838,8 +1838,8 @@ ZombieClasses[17] =
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_vomiter",
 	Model = Model("models/zombie/zombie_soldier.mdl"), 
-	Speed = 130,
-	Description = "A mysterious and rare type of zombie with a thick cloud of smoke for the primary. ",
+	Speed = 175,
+	Description = "Uses smoke to blind humans for the horde to commence its attack!",
 	Unique = "",
 	
 	OnSpawn = function(pl)

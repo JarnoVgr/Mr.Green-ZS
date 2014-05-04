@@ -57,7 +57,7 @@ SWEP.Secondary.Ammo = "none"
 SWEP.WalkSpeed = 225
 SWEP.HoldType = "melee"
 
-SWEP.MeleeDamage = 35
+SWEP.MeleeDamage = 0
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
 
@@ -134,7 +134,7 @@ if not self:CanPrimaryAttack() then
 					
 					if nail and nail:IsValid() then
 						if nail:GetNailHealth() < nail:GetDTInt(1) then -- nail:GetNWInt("MaxNailHealth")
-							self:TakePrimaryAmmo (1)
+							self:TakePrimaryAmmo (2)
 							
 							if not griefedprop then
 								self.Owner._TorchScore = self.Owner._TorchScore + 1
@@ -175,7 +175,7 @@ if not self:CanPrimaryAttack() then
 			if trent:GetClass() == "zs_turret" then
 				if trent:GetDTInt(1) < trent.MaxHealth then
 				
-					self:TakePrimaryAmmo(1)
+					self:TakePrimaryAmmo(2)
 					
 					self.Owner._TorchScore = self.Owner._TorchScore + 1
 								
@@ -220,7 +220,9 @@ end
 
 local NONAILS = {}
 NONAILS[0] = "It's impossible to put nails here."
+NONAILS[0] = "Computer says no. Btw check you're nail count."
 NONAILS[MAT_GRATE] = "It's impossible to put nails here."
+NONAILS[MAT_GRATE] = "You're doing a Duby aren't you?"
 NONAILS[MAT_CLIP] = "It's impossible to put nails here."
 NONAILS[MAT_GLASS] = "Trying to put nails in glass is a silly thing to do."
 
@@ -238,7 +240,7 @@ function SWEP:SecondaryAttack()
 
 		--Notice, cuz we're nice folks explaining how this game works
 		if SERVER then
-			self.Owner:Message("No nails left. Buy them at Supply Crate.", 2)
+			self.Owner:Message("No nails left. Wait for the crate timer!", 2)
 		end
 
 		return
