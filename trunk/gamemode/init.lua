@@ -61,6 +61,8 @@ AddCSLuaFile("shared/sh_dps_sys.lua")
 AddCSLuaFile("shared/obj_player_extend.lua")
 AddCSLuaFile("shared/obj_weapon_extend.lua")
 AddCSLuaFile("shared/zs_options_shared.lua")
+AddCSLuaFile("shared/zs_shop.lua")
+AddCSLuaFile("shared/zs_zombie_classes.lua")
 AddCSLuaFile("shared/obj_entity_extend.lua")
 AddCSLuaFile("shared/sh_maps.lua")
 
@@ -1427,6 +1429,7 @@ end
 
 -- People will hate me for this
 -- Ywa: Nope. They still love you.
+-- Duby: Removed it for a while as some admins are retarded and use it every game. 
 function RaveBreak()
 	umsg.Start("RaveBreak")
 	umsg.End()
@@ -1646,7 +1649,7 @@ end
 --[=[----------------------------------------------------------------------
      Dubys amazing method to the Grave digger suit!
 ---------------------------------------------------------------------------]=]
-
+--Duby: I know this isn't the best method but it works well and its better than putting it in each SWEP. :P 
 
 hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 8 ) end end)
 hook.Add("PlayerDeath", "sexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_katana" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 4 ) end end)
@@ -1668,3 +1671,4 @@ hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and i
      Dubys amazing method to the Combine Zombine suit!
 ---------------------------------------------------------------------------]=]
 
+--Duby: Maybe one day when I am not being raped by the worst community for getting new stuff done.
