@@ -50,7 +50,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 9
-BOSS_CLASS = {10,11,13,15,17} -- 12
+BOSS_CLASS = {10,11,13,15} -- 12
 --BOSS_CLASS = {10}
 --BOSS_CLASS = {16} --Lilith
  
