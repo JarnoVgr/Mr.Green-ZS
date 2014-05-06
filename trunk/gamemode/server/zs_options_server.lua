@@ -25,7 +25,7 @@ COINS_PER_EURO = 1000
 
 -- Exchange rate coins for killing humans/zombies == Double GC for Holidays! (Halloween, Easter etc)
 COINS_PER_ZOMBIE = 1
-COINS_PER_HUMAN = 3
+COINS_PER_HUMAN = 5
 
 --IRC Relay
 IRC_RELAY_ENABLED = CreateConVar("zs_irc", "0", FCVAR_ARCHIVE + FCVAR_NOTIFY, ""):GetBool()
