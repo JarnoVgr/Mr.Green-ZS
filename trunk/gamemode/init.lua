@@ -63,6 +63,7 @@ AddCSLuaFile("shared/obj_weapon_extend.lua")
 AddCSLuaFile("shared/zs_options_shared.lua")
 AddCSLuaFile("shared/shopdata/zs_shop.lua")
 AddCSLuaFile("shared/zombiedata/zs_zombie_classes.lua")
+AddCSLuaFile("shared/sounds/sounds.lua")
 AddCSLuaFile("shared/obj_entity_extend.lua")
 AddCSLuaFile("shared/sh_maps.lua")
 
