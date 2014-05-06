@@ -579,13 +579,15 @@ for _, filename in pairs( file.Find( "sound/npc/stalker/*.wav" , "GAME") ) do
 	table.insert ( ResourceFiles, "sound/npc/stalker/"..filename  )
 end
 
+--Duby:Removed as it doesn't even exist any more. :P 
+
 --Santa Claus Boss
-if CHRISTMAS then
-	table.insert(ResourceFiles, "models/Jaanus/santa.mdl")
-	for _, filename in pairs(file.Find("materials/Jaanus/monk/*.*", "GAME")) do
-		table.insert(ResourceFiles, "materials/Jaanus/monk/".. filename)
-	end
-end
+--if CHRISTMAS then
+	--table.insert(ResourceFiles, "models/Jaanus/santa.mdl")
+	--for _, filename in pairs(file.Find("materials/Jaanus/monk/*.*", "GAME")) do
+--		table.insert(ResourceFiles, "materials/Jaanus/monk/".. filename)
+--	end
+--end
 
 --Precache all models from resources
 for k,v in pairs(ResourceFiles) do

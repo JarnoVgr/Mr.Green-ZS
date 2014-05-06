@@ -61,8 +61,8 @@ AddCSLuaFile("shared/sh_dps_sys.lua")
 AddCSLuaFile("shared/obj_player_extend.lua")
 AddCSLuaFile("shared/obj_weapon_extend.lua")
 AddCSLuaFile("shared/zs_options_shared.lua")
-AddCSLuaFile("shared/zs_shop.lua")
-AddCSLuaFile("shared/zs_zombie_classes.lua")
+AddCSLuaFile("shared/shopdata/zs_shop.lua")
+AddCSLuaFile("shared/zombiedata/zs_zombie_classes.lua")
 AddCSLuaFile("shared/obj_entity_extend.lua")
 AddCSLuaFile("shared/sh_maps.lua")
 
@@ -1638,7 +1638,7 @@ Debug("[MODULE] Loaded init.lua")
 
 if pl:Team() == TEAM_HUMAN then
 if( pl:KeyDown( IN_BACK ) )  then
-pl:SetWalkSpeed( 140 )
+pl:SetWalkSpeed( 130 )
  	
 else pl:SetWalkSpeed(200) 
 
@@ -1671,4 +1671,4 @@ hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and i
      Dubys amazing method to the Combine Zombine suit!
 ---------------------------------------------------------------------------]=]
 
---Duby: Maybe one day when I am not being raped by the worst community for getting new stuff done.
+--Duby: I will do it one day.

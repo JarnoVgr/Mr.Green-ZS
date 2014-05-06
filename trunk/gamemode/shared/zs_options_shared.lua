@@ -156,6 +156,8 @@ GM.ChatTitles = {
 	}
 }
 
+--Human weapons data
+
 -- Weapons information table
 GM.HumanWeapons = {	
 	--Melee
@@ -272,6 +274,8 @@ GM.HumanWeapons = {
 	["christmas_snowball"] = { Name = "Christmas Snowball", DPS = 0, Infliction = 0, Type = "christmas", Restricted = true },
 	["weapon_frag"]  = { Name = "Grenade", DPS = 1, Infliction = 0, Restricted = true, Type = "admin" },
 }
+
+---
 
 GM.SkillShopAmmo = {
 	["pistol"]  = { Name = "12 Pistol Bullets", Model = "models/Items/BoxSRounds.mdl", Amount = 12, Price = 20},
@@ -580,6 +584,8 @@ if MaxPlayers() < 4 then
 end
 
 util.PrecacheSound(LASTHUMANSOUND)
+
+--Menu stuff..
 
 WELCOME_TEXT =
 [[
@@ -923,7 +929,7 @@ HELP_TEXT[7] = { title = "Quick Guide.", text = [[^Beginners Guide
 @
 @
 ]]}
-
+--
 
 for k, v in pairs(HELP_TEXT) do
 	v.text = string.Explode("@", v.text)
@@ -941,77 +947,76 @@ player_manager.AddValidHands("gordon", "models/weapons/c_arms_hev.mdl", 0, "0000
 --Add models for players to allow (and randomly be picked from when having no preference)
 PlayerModels = {
 	--Half-Life 2
-	--	"alyx",
-	--	"barney",
-	--	"breen",
-	--	"eli",
-	--	"gman",
+		"alyx",
+		"barney",
+		"breen",
+		"eli",
+		"gman",
 		"kleiner",
-	--	"monk",
-	--	"magnusson",
-	--	"mossman",
-	--	"odessa",
-	--	"female01",
-	--	"female02",
-	--	"female03",
-	--	"female04",
-	--	"female05",
-	--	"female06",
-	--	"female07",
-	--	"female08",
-	--	"female09",
-	--	"female10",
-	--	"female11",
-	--	"female12",
-	--	"male01",
-	--	"male02",
-	--	"male03",
-	--	"male04",
-	--	"male05",
-	--	"male06",
-	--	"male07",
-	--	"male08",
-	--	"male09",
-	--	"male10",
-	--	"male11",
-	--	"male12",
-	--	"male13",
-	--	"male14",
-	--	"male15",
-	--	"male16",
-	--	"male17",
-	--	"male18",
-	--	"medic01",
-	--	"medic02",
-	--	"medic03",
-	--	"medic04",
-	--	"medic05",
-	--	"medic06",
-	--	"medic07",
-	--	"medic08",
-	--	"medic09",
-	--	"medic10",
-	--	"medic11",
-	--	"medic12",
-	--	"medic13",
-	--	"medic14",
-	--	"medic15",
-	--	"refugee01",
-	--	"refugee02",
-	--	"refugee03",
-	--	"refugee04",
-	--	"hostage01",
-	--	"hostage02",
-	--	"hostage03",
-	--	"hostage04",
-	--	"css_arctic",
-	--	"css_gasmask",
-	--	"css_guerilla",
-	--	"css_leet",
-	--	"css_phoenix",
-	--	"css_riot",
-	--	"css_swat",
-	--	"css_urban",
+		"monk",
+		"magnusson",
+		"mossman",
+		"odessa",
+		"female01",
+		"female02",
+		"female03",
+		"female05",
+		"female06",
+		"female07",
+		"female08",
+		"female09",
+		"female10",
+		"female11",
+		"female12",
+		"male01",
+		"male02",
+		"male03",
+		"male04",
+		"male05",
+		"male06",
+		"male07",
+		"male08",
+		"male09",
+		"male10",
+		"male11",
+		"male12",
+		"male13",
+		"male14",
+		"male15",
+		"male16",
+		"male17",
+		"male18",
+		"medic01",
+		"medic02",
+		"medic03",
+		"medic04",
+		"medic05",
+		"medic06",
+		"medic07",
+		"medic08",
+		"medic09",
+		"medic10",
+		"medic11",
+		"medic12",
+		"medic13",
+		"medic14",
+		"medic15",
+		"refugee01",
+		"refugee02",
+		"refugee03",
+		"refugee04",
+		"hostage01",
+		"hostage02",
+		"hostage03",
+		"hostage04",
+		"css_arctic",
+		"css_gasmask",
+		"css_guerilla",
+		"css_leet",
+		"css_phoenix",
+		"css_riot",
+		"css_swat",
+		"css_urban",
 		--"santa"
 }
 
