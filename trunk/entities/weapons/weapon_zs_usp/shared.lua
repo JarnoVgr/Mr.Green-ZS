@@ -42,10 +42,10 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_USP.Single" )
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 15
-SWEP.Primary.Delay			= 0.14
+SWEP.Primary.Delay			= 0.16
 SWEP.Primary.DefaultClip	= 75
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"

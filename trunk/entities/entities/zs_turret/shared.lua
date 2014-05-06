@@ -35,7 +35,7 @@ ENT.MaxHealth = 250
 ENT.MaxBullets = 150
 ENT.RechargeDelay = 0.5 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 540
-ENT.Damage = 17
+ENT.Damage = 15
 ENT.IgnoreClasses = {4,6,7,9} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {6,7}
 
@@ -417,9 +417,9 @@ if SERVER then
 		bullet.Src = self:GetShootPos()
 		bullet.Dir = self:GetShootDir()
 		bullet.Spread = Vector(0.01, 0.01, 0.01)  
-		bullet.Tracer = 1
-		bullet.Force = 2
-		bullet.Damage = 17
+		bullet.Tracer = 3
+		bullet.Force = 0
+		bullet.Damage = 15
 		bullet.TracerName = "AR2Tracer"
 		bullet.Callback = BulletCallback
 		
