@@ -33,7 +33,7 @@ SWEP.Primary.ClipSize		= 30
 SWEP.Primary.Delay			= 0.15
 SWEP.Primary.DefaultClip	= 98
 SWEP.MaxAmmo			    = 100
-SWEP.Primary.Automatic		= true
+SWEP.Primary.Automatic		= false  
 SWEP.Primary.Ammo			= "pistol"
 
 SWEP.Cone = 0.051

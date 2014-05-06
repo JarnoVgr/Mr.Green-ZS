@@ -21,6 +21,9 @@ if CLIENT then
 		["ValveBiped.Bip01_L_Finger0"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(0, 9.659, 6.218) },
 		["ValveBiped.Bip01_R_Finger0"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(-6.42, 28.499, 7.317) }
 	}
+	
+	
+	
 end
 
 SWEP.Base = "weapon_zs_undead_base"
@@ -31,9 +34,10 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
-SWEP.Primary.Duration = 1.75
---SWEP.Primary.Delay = 0.74
-SWEP.Primary.Delay = 0.9
+--SWEP.Primary.Duration = 1.75
+SWEP.Primary.Duration = 1.50
+SWEP.Primary.Delay = 0.8
+--SWEP.Primary.Delay = 0.9
 --SWEP.Primary.Delay = 1.2
 --SWEP.Primary.Damage = 25
 SWEP.Primary.Damage = 30
