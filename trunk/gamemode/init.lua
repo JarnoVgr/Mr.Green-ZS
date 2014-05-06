@@ -1052,6 +1052,7 @@ end
 
 --Spawnprotection
 --OBSOLETE: Can this be removed?
+--Duby: Made a work around for the human spawn protection in the player_spawn file.
 function SpawnProtection(pl)
 end
 

@@ -8,7 +8,7 @@ SWEP.Base = "weapon_zs_melee_base"
 
 SWEP.Author = "Duby"
 SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
-SWEP.UseHands = true
+SWEP.UseHands = false
 SWEP.WorldModel = Model("models/weapons/w_plank.mdl")
 
 if CLIENT then
@@ -62,6 +62,7 @@ SWEP.SwingTime = 0.55
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingHoldType = "grenade"
 SWEP.ShowWorldModel = false 
+SWEP.ShowViewModel = false
 function SWEP:PlaySwingSound()
 	self:EmitSound("Weapon_Crowbar.Single")
 end

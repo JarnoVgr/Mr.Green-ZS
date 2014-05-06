@@ -1198,6 +1198,7 @@ achievementDesc = {
 	[45] = { Image = "zombiesurvival/achv_blank_zs", Key = "seek", ID = 45, Name = "Hide'n'Seek", Desc = "When prey kills the hunter...",  },
 	[46] = { Image = "zombiesurvival/achv_blank_zs", Key = "nerf", ID = 46, Name = "Your worst enemy", Desc = "Still complaining? :v",  },
 	[47] = { Image = "zombiesurvival/achv_blank_zs", Key = "flare", ID = 47, Name = "'Let there be light!'", Desc = "???",  },
+	[48] = { Image = "zombiesurvival/achv_blank_zs", Key = "klinator", ID = 47, Name = "'Kill the Cyber Nerd!'", Desc = "Kill the lost kliener and see what happens..",  },
 }	
 
 --[=[---------------------------------
@@ -1249,6 +1250,9 @@ classData = {
 --[=[---------------------------------
 		Mr. Green's Shop Data
 ----------------------------------]=]
+
+--Moved into zs_shop.lua
+--Duby:Having one big ass file to run everything from is very inefficient. :P
 
 --[=[-------------------------------
 		Voice sets and/or sound tables
