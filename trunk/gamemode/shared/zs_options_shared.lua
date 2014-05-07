@@ -76,7 +76,7 @@ ComeBackReward[2] = { -- Commando
 [1] =  { "weapon_zs_deagle", "weapon_zs_glock3"},
 [2] =  { "weapon_zs_galil", "weapon_zs_sg552" }, 
 [3] =  { "weapon_zs_ak47" }, 
- [4] =  { "weapon_zs_ak47"  }, 
+[4] =  { "weapon_zs_ak47"  }, 
 }
 ComeBackReward[3] = { -- Berserker
 [1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
@@ -876,6 +876,7 @@ HELP_TEXT[6] = { title = "Fun", text = [[^yFun stuff
 @	- "incoming"
 @	- "get down"
 @ 	- "ok"
+@ 	- Ask an admin for '!ravebreak' ^^
 @
 @ There are also quite a few secret ones too. ;)
 @
@@ -1034,7 +1035,7 @@ PlayerAdminModels = {
 		Human Perks/Classes
 ------------------------------------------------]=]--
 
-HumanClasses = { }
+HumanClasses = { } --Duby: Leave this table as it will cause errors in sv_tables.lua and in the init.lua. I will deal with it soon!
 
 HumanClasses[1] =
 {
@@ -1075,10 +1076,9 @@ HumanClasses[4] =
 	Tag = "engineer",
 	Health = 100,
 	Description = {"% chance to spawn with turret","% increased clip for pulse weapons","% chance to spawn with pulse smg","% more turret's efficiency"},
-	Coef = {4,6,3,10},
 	Models = {"models/player/alyx.mdl","models/player/barney.mdl","models/player/eli.mdl","models/player/mossman.mdl","models/player/kleiner.mdl","models/player/breen.mdl" },
 	Speed = 190
-}
+	}
 
 HumanClasses[5] =
 {
@@ -1092,58 +1092,58 @@ HumanClasses[5] =
 }
 	
 	-- Human Class Description Tables
-	ClassInfo = { }
-	ClassInfo[1] = { }
-	ClassInfo[1].Ach = { }
-	ClassInfo[1].Ach[1] = {"Heal 10k hp", "Open 100 supply crates",10000,100}  -- What you need to do to get from level 0 to 1!
-	ClassInfo[1].Ach[2] = {"Heal 20k hp", "Open 250 supply crates",20000,250} -- What you need to do to get from level 1 to 2!
-	ClassInfo[1].Ach[3] = {"Heal 500 injured people", "Heal 1000 hp from supply crates",500,1000}
-	ClassInfo[1].Ach[4] = {"Heal 1000 injured people", "Heal 2100 hp from supply crates",1000,2100}
-	ClassInfo[1].Ach[5] = {"Heal 400 infected people", "Survive 150 rounds",400,150}
-	ClassInfo[1].Ach[6] = {"Heal 900 infected people", "Survive 300 rounds",900,300}
-	ClassInfo[1].Ach[7] = {"All Done", "All Done",4500,300}
+	--ClassInfo = { }
+--	ClassInfo[1] = { }
+	--ClassInfo[1].Ach = { }
+--	ClassInfo[1].Ach[1] = {"Heal 10k hp", "Open 100 supply crates",10000,100}  -- What you need to do to get from level 0 to 1!
+--	ClassInfo[1].Ach[2] = {"Heal 20k hp", "Open 250 supply crates",20000,250} -- What you need to do to get from level 1 to 2!
+--	ClassInfo[1].Ach[3] = {"Heal 500 injured people", "Heal 1000 hp from supply crates",500,1000}
+--	ClassInfo[1].Ach[4] = {"Heal 1000 injured people", "Heal 2100 hp from supply crates",1000,2100}
+--	ClassInfo[1].Ach[5] = {"Heal 400 infected people", "Survive 150 rounds",400,150}
+--	ClassInfo[1].Ach[6] = {"Heal 900 infected people", "Survive 300 rounds",900,300}
+--	ClassInfo[1].Ach[7] = {"All Done", "All Done",4500,300}
 	
-	ClassInfo[2] = { }
-	ClassInfo[2].Ach = { }
-	ClassInfo[2].Ach[1] = {"Dismemberment 600 undead", "Do 150k dmg to undead",600,150000} -- 0 
-	ClassInfo[2].Ach[2] = {"Dismemberment 2000 undead", "Do 300k dmg to undead",2000,300000} -- 1  
-	ClassInfo[2].Ach[3] = {"Kill 300 howlers with rifle", "Kill 1500 zombies with rifle",300,1500} -- 2
-	ClassInfo[2].Ach[4] = {"Kill 600 howlers with rifle", "Kill 3000 zombies with rifle",600,3000} -- 3
-	ClassInfo[2].Ach[5] = {"Open 500 supply crates", "Survive 150 rounds",500,150} -- 4
-	ClassInfo[2].Ach[6] = {"Open 1200 supply crates", "Survive 300 rounds",1200,300} --5
-	ClassInfo[2].Ach[7] = {"All Done", "All Done",500,300}
-	
-	
-	ClassInfo[3] = { }
-	ClassInfo[3].Ach = { }
-	ClassInfo[3].Ach[1] = {"Get 1000 headshots", "Deal 170k sniper damage",1000,170000}
-	ClassInfo[3].Ach[2] = {"Get 2500 headshots", "Deal 450k sniper damage",2500,450000}
-	ClassInfo[3].Ach[3] = {"Deal 200k headshot damage", "Kill 1500 zombies",200000,1500}
-	ClassInfo[3].Ach[4] = {"Deal 600k headshot damage", "Kill 4000 zombies",600000,4000}
-	ClassInfo[3].Ach[5] = {"Get 700 long range headshots", "Survive 150 rounds",1337,150}
-	ClassInfo[3].Ach[6] = {"Get 1337 long range headshots", "Survive 300 rounds",4000,300}
-	ClassInfo[3].Ach[7] = {"All Done", "All Done",15000,300}
+--	ClassInfo[2] = { }
+--	ClassInfo[2].Ach = { }
+--	ClassInfo[2].Ach[1] = {"Dismemberment 600 undead", "Do 150k dmg to undead",600,150000} -- 0 
+--	ClassInfo[2].Ach[2] = {"Dismemberment 2000 undead", "Do 300k dmg to undead",2000,300000} -- 1  
+--	ClassInfo[2].Ach[3] = {"Kill 300 howlers with rifle", "Kill 1500 zombies with rifle",300,1500} -- 2
+--	ClassInfo[2].Ach[4] = {"Kill 600 howlers with rifle", "Kill 3000 zombies with rifle",600,3000} -- 3
+--	ClassInfo[2].Ach[5] = {"Open 500 supply crates", "Survive 150 rounds",500,150} -- 4
+--	ClassInfo[2].Ach[6] = {"Open 1200 supply crates", "Survive 300 rounds",1200,300} --5
+--	ClassInfo[2].Ach[7] = {"All Done", "All Done",500,300}
 	
 	
-	ClassInfo[4] = { }
-	ClassInfo[4].Ach = { }
-	ClassInfo[4].Ach[1] = {"Deploy 20 turrets", "Deploy 150 tripmines",20,150}
-	ClassInfo[4].Ach[2] = {"Deploy 60 turrets", "Deploy 350 tripmines",60,350}
-	ClassInfo[4].Ach[3] = {"Kill 600 undead with mine", "Deal 200k mine damage",600,200000} --
-	ClassInfo[4].Ach[4] = {"Kill 850 undead with mine", "Deal 500k mine damage",850,500000} --
-	ClassInfo[4].Ach[5] = {"Deal 250k damage with pulse", "Survive 150 rounds",250000,150}
-	ClassInfo[4].Ach[6] = {"Deal 500k damage with pulse", "Survive 300 rounds",500000,300}
-	ClassInfo[4].Ach[7] = {"All Done", "All Done",500000,300}
+--	ClassInfo[3] = { }
+--	ClassInfo[3].Ach = { }
+--	ClassInfo[3].Ach[1] = {"Get 1000 headshots", "Deal 170k sniper damage",1000,170000}
+--	ClassInfo[3].Ach[2] = {"Get 2500 headshots", "Deal 450k sniper damage",2500,450000}
+--	ClassInfo[3].Ach[3] = {"Deal 200k headshot damage", "Kill 1500 zombies",200000,1500}
+--	ClassInfo[3].Ach[4] = {"Deal 600k headshot damage", "Kill 4000 zombies",600000,4000}
+--	ClassInfo[3].Ach[5] = {"Get 700 long range headshots", "Survive 150 rounds",1337,150}
+--	ClassInfo[3].Ach[6] = {"Get 1337 long range headshots", "Survive 300 rounds",4000,300}
+--	ClassInfo[3].Ach[7] = {"All Done", "All Done",15000,300}
 	
-	ClassInfo[5] = { }
-	ClassInfo[5].Ach = { }
-	ClassInfo[5].Ach[1] = {"Take 25000 ammo from supply crates", "Nail 150 props",25000,150}
-	ClassInfo[5].Ach[2] = {"Take 100k ammo from supply crates", "Nail 400 props",100000,400}
-	ClassInfo[5].Ach[3] = {"Deal 150k dmg with smg", "Open 300 supply crates",150000,300}
-	ClassInfo[5].Ach[4] = {"Deal 300k dmg with smg", "Open 1100 supply crates",300000,1100}
-	ClassInfo[5].Ach[5] = {"Deal 200k dmg with shotgun", "Survive 150 rounds",200000,150}
-	ClassInfo[5].Ach[6] = {"Deal 400k dmg with shotgun", "Survive 300 rounds",400000,300}
-	ClassInfo[5].Ach[7] = {"All Done", "All Done",400000,300}
+	
+--	ClassInfo[4] = { }
+--	ClassInfo[4].Ach = { }
+--	ClassInfo[4].Ach[1] = {"Deploy 20 turrets", "Deploy 150 tripmines",20,150}
+--	ClassInfo[4].Ach[2] = {"Deploy 60 turrets", "Deploy 350 tripmines",60,350}
+--	ClassInfo[4].Ach[3] = {"Kill 600 undead with mine", "Deal 200k mine damage",600,200000} --
+--	ClassInfo[4].Ach[4] = {"Kill 850 undead with mine", "Deal 500k mine damage",850,500000} --
+--	ClassInfo[4].Ach[5] = {"Deal 250k damage with pulse", "Survive 150 rounds",250000,150}
+--	ClassInfo[4].Ach[6] = {"Deal 500k damage with pulse", "Survive 300 rounds",500000,300}
+--	ClassInfo[4].Ach[7] = {"All Done", "All Done",500000,300}
+	
+--	ClassInfo[5] = { }
+--	ClassInfo[5].Ach = { }
+--	ClassInfo[5].Ach[1] = {"Take 25000 ammo from supply crates", "Nail 150 props",25000,150}
+--	ClassInfo[5].Ach[2] = {"Take 100k ammo from supply crates", "Nail 400 props",100000,400}
+--	ClassInfo[5].Ach[3] = {"Deal 150k dmg with smg", "Open 300 supply crates",150000,300}
+--	ClassInfo[5].Ach[4] = {"Deal 300k dmg with smg", "Open 1100 supply crates",300000,1100}
+--	ClassInfo[5].Ach[5] = {"Deal 200k dmg with shotgun", "Survive 150 rounds",200000,150}
+--	ClassInfo[5].Ach[6] = {"Deal 400k dmg with shotgun", "Survive 300 rounds",400000,300}
+--	ClassInfo[5].Ach[7] = {"All Done", "All Done",400000,300}
 
 --[=[--------------------------------------------
 		Achievement descriptions

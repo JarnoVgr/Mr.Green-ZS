@@ -224,7 +224,9 @@ local function CalculateGivenSupplies(pl)
 		--[[if pl:HasBought("ammoman") then
 			ammoAmount = ammoAmount * 2
 		end]]
-
+if pl:HasBought("ammoman") then
+			ammoAmount = ammoAmount * 2
+		end
 		--Multiply with Infliction
 		ammoAmount = math.Round(ammoAmount * (GetInfliction() + 0.5))
 		

@@ -348,6 +348,7 @@ for k=1, #ZombieClasses do
 	
 end
 
+
 for k=1, #HumanClasses do
 	for _, v in pairs(HumanClasses[k].Models) do
 	--	util.PrecacheModel( v )
@@ -406,7 +407,7 @@ end
 -- Check if player title is valid
 local validchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789><! "
 local tbPatern = { "%", "&", "(", ")", "+", "]", "[", "?" }
-local forbiddenwords = { "admin", "moderator", "host", "server", "fuck" }
+local forbiddenwords = { "admin", "moderator", "host", "server", "fuck", "( ?° ?? ?°) " }
 function ValidTitle( pl, str )
 	-- 24 character limit
 	if not str then return false end
@@ -436,7 +437,7 @@ function ValidTitle( pl, str )
 	return true
 end
 
-local forbiddenwords2 = { "fuck", "nigger", "nawb", "admin", "shit" }
+local forbiddenwords2 = { "fuck", "nigger", "nawb", "admin", "shit", "server", "( ?° ?? ?°) ", "Duby", "gay" }
 
 function ValidTurretNick(pl,str)
 
