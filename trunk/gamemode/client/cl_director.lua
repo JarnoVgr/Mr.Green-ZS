@@ -182,6 +182,7 @@ net.Receive("StartBoss", function(len)
 	local isInsane = tobool(net.ReadBit())
 	local bossDuration = net.ReadFloat()
 	GAMEMODE:SetBoss(true,isInsane,bossDuration)
+	surface.PlaySound("deadlife_mrgreen_insane.mp3")
 end)
 
 net.Receive("StopBoss", function(len)
