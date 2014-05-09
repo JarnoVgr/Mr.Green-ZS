@@ -14,9 +14,9 @@ end
 SWEP.ViewModel = Model("models/Weapons/v_fza.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
-SWEP.Primary.Delay = 0.4
-SWEP.Primary.Reach = 42
-SWEP.Primary.Damage = 6
+SWEP.Primary.Delay = 0.3
+SWEP.Primary.Reach = 45
+SWEP.Primary.Damage = 3
 SWEP.Primary.Duration = 0.8
 
 
@@ -47,7 +47,7 @@ function SWEP:Think()
 
 	--Leaping
 	if self.Leaping then
-		self.Owner:LagCompensation(true)
+		self.Owner:LagCompensation(false)
 
 		local traces = self.Owner:PenetratingMeleeTrace(self.Secondary.PounceReach, self.Secondary.PounceSize, nil, self.Owner:LocalToWorld(self.Owner:OBBCenter()))
 
@@ -121,6 +121,11 @@ function SWEP:Think()
 
 		self.Owner:LagCompensation(false)
 	end
+	
+
+	
+	
+	
 end
 
 function SWEP:Move(mv)
