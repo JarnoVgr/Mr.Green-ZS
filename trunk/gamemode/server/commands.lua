@@ -673,7 +673,7 @@ function RollTheDice ( pl,commandName,args )
 	
 	--Second roll when having ladyluck-item
 	if pl:HasBought("ladyluck") and choise <= 2 then
-		choise = math.random(1,4)
+		choise = math.random(1,5)
 	end
 	
 	message = pl:GetName()
