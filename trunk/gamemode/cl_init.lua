@@ -223,7 +223,8 @@ local RandomText = table.Random( {
 	"Putting supplies into supply crates...",
 	"Starting zombie apocalypse...",
 	"Sewing zombie parts together...", 
-	"Hitting Duby to code zs...",  }
+	"Hitting Duby to code zs...",  
+	"Hitting Ywa for zs Updates!", } 
  )
  
 function GM:HookGetLocal()

@@ -38,7 +38,7 @@ HORDE_MAX_ZOMBIES = 15
 HORDE_MAX_DISTANCE = 280
 
 BONUS_RESISTANCE_WAVE = 5
-BONUS_RESISTANCE_AMOUNT = 20 -- %
+BONUS_RESISTANCE_AMOUNT = 30 -- %
 
 --EVENT: Halloween
 HALLOWEEN = false
@@ -336,7 +336,7 @@ MAX_RANK = 78
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2",},
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
@@ -1019,6 +1019,10 @@ PlayerModels = {
 		"css_riot",
 		"css_swat",
 		"css_urban",
+		"Police",
+		"Combine_Soldier",
+		"Combine_Soldier_PrisonGuard",
+		"Combine_Super_Soldier"
 		--"santa"
 }
 
