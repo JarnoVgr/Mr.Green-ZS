@@ -449,7 +449,8 @@ UNDEAD_START_AMOUNT_PERCENTAGE = 0.20
 UNDEAD_START_AMOUNT_MINIMUM = 1
 
 -- Good values are 1 to 3. 0.5 is about the same as the default HL2. 1 is about ZS difficulty. This is mainly for NPC healths and damages.
-DIFFICULTY = 1.5
+--DIFFICULTY = 1.5
+DIFFICULTY = 2
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
 CARRY_MAXIMUM_MASS = 300

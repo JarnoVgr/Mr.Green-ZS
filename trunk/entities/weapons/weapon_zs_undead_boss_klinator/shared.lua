@@ -69,7 +69,7 @@ SWEP.Secondary.Delay = 0
 SWEP.Secondary.Next = 4
 SWEP.Secondary.Duration = 1.3
 SWEP.Secondary.Reach = 400
-SWEP.Secondary.Damage = 30
+SWEP.Secondary.Damage = 20
 
 function SWEP:StartPrimaryAttack()
 	--self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
@@ -209,7 +209,7 @@ if CLIENT then
 
 		draw.SimpleTextOutlined("Klinator hits props to kill humans!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(73), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		draw.SimpleTextOutlined("He is not holding a GUN!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(50), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		draw.SimpleTextOutlined("His secondary is a puke cannon. But he will loose health using it!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(33), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("His secondary is a puke cannon!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(33), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		
 		--Cross hair
 	draw.RoundedBox( 4,ScrW() / 2 - 3.5,ScrH() / 2 - 3.5,7,7, Color ( 0,0,0,100 )) --On screen cross hare. 
