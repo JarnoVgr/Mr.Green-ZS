@@ -857,9 +857,6 @@ local adminCommandList = {      -- list of all admin commands I added
 				CHATCOMMANDS
 -----------------------------------------]==]
 
---Dubys chat command table optimization.
-
-
 local function CommandSay(pl, text, teamonly)
 	if text:sub(1,1) == "!" then
 		if (text == "!kill" or text == "!suicide" or text == "!boom") then
@@ -971,13 +968,11 @@ local function CommandSay(pl, text, teamonly)
 		elseif (text:sub(1,5) == "!ppon" or text:sub(1,6) == "!ppoff" or text == "!options" or text == "!grainoff" or text == "!grainon") then
 			pl:SendLua("MakepOptions()")
 			return ""
+		elseif (text == "!jetboom") then
+			pl:PrintMessage( HUD_PRINTCENTER, "JetBoom: as great in programming as he is unfriendly." )
 			
-			
-	--	elseif (text == "!jetboom") then
-		--	pl:PrintMessage( HUD_PRINTCENTER, "JetBoom: as great in programming as he is unfriendly." )
-			
-		--	elseif (text == "!Damien") then
-		--	pl:PrintMessage( HUD_PRINTCENTER, "CheeseCake HACKS!!!! xD." )
+			elseif (text == "!Damien") then
+			pl:PrintMessage( HUD_PRINTCENTER, "CheeseCake HACKS!!!! xD." )
 			
 			elseif (text == "!Duby") then
 			pl:PrintMessage( HUD_PRINTCENTER, "The duel elite master will lead the dubyans!" )

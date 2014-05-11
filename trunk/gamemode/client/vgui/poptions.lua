@@ -1,4 +1,4 @@
--- Â© Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
+-- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
 local function CheckChanged ( obj, strNewValue )
@@ -83,10 +83,10 @@ function MakepOptions()
 	local slider = vgui.Create("DNumSlider")
 	slider:SizeToContents()
 	slider:SetDecimals(0)
-	slider:SetMinMax(-15, 60)
-	slider:SetConVar("zs_fov")
+	slider:SetMinMax(45, 125)
+	slider:SetConVar("zs_wepfov")
 	slider:SetText("Field Of View")
-	CatList["hud"]:AddItem(slider)
+	CatList["hud"]:AddItem( slider )
 	
 	
 	-- ---------------------------

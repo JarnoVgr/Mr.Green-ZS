@@ -38,7 +38,7 @@ HORDE_MAX_ZOMBIES = 15
 HORDE_MAX_DISTANCE = 280
 
 BONUS_RESISTANCE_WAVE = 5
-BONUS_RESISTANCE_AMOUNT = 30 -- %
+BONUS_RESISTANCE_AMOUNT = 20 -- %
 
 --EVENT: Halloween
 HALLOWEEN = false
@@ -227,7 +227,7 @@ GM.HumanWeapons = {
 	
 	--Tool1
 	["weapon_zs_tools_hammer"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", NoRetro = true },
-	--["weapon_zs_tools_hammer2"]  = { Name = "Special Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", NoRetro = true },
+	["weapon_zs_tools_hammer2"]  = { Name = "Special Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", NoRetro = true },
 	["weapon_zs_medkit"]  = { Name = "Medkit", DPS = 8, Infliction = 0, Type = "tool1", NoRetro = true },
 	["weapon_zs_tools_supplies"] = { Name = "Mobile Supplies", DPS = 0, Infliction = 0, Type = "tool1", NoRetro = true },
 	["weapon_zs_tools_remote"] = { Name = "Remote Controller", DPS = 0, Infliction = 0, Type = "tool2" },
@@ -336,7 +336,7 @@ MAX_RANK = 78
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2",},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2"},
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
@@ -378,7 +378,7 @@ GM.RankUnlocks = {
 	[70] = {"weapon_zs_fiveseven"},
 	[76] = {"weapon_zs_melee_hook"},
 	[77] = {"weapon_zs_alyx"},
---	[78] = {"weapon_zs_tools_hammer2"},
+	[78] = {"weapon_zs_tools_hammer2"},
 	-- [90] = {"_professional"},-- hidden for a while
 }
 
@@ -449,8 +449,7 @@ UNDEAD_START_AMOUNT_PERCENTAGE = 0.20
 UNDEAD_START_AMOUNT_MINIMUM = 1
 
 -- Good values are 1 to 3. 0.5 is about the same as the default HL2. 1 is about ZS difficulty. This is mainly for NPC healths and damages.
---DIFFICULTY = 1.5
-DIFFICULTY = 2
+DIFFICULTY = 1.5
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
 CARRY_MAXIMUM_MASS = 300
@@ -1019,10 +1018,6 @@ PlayerModels = {
 		"css_riot",
 		"css_swat",
 		"css_urban",
-		"Police",
-		"Combine_Soldier",
-		"Combine_Soldier_PrisonGuard",
-		"Combine_Super_Soldier"
 		--"santa"
 }
 
@@ -1203,7 +1198,7 @@ achievementDesc = {
 	[45] = { Image = "zombiesurvival/achv_blank_zs", Key = "seek", ID = 45, Name = "Hide'n'Seek", Desc = "When prey kills the hunter...",  },
 	[46] = { Image = "zombiesurvival/achv_blank_zs", Key = "nerf", ID = 46, Name = "Your worst enemy", Desc = "Still complaining? :v",  },
 	[47] = { Image = "zombiesurvival/achv_blank_zs", Key = "flare", ID = 47, Name = "'Let there be light!'", Desc = "???",  },
-	[48] = { Image = "zombiesurvival/achv_blank_zs", Key = "klinator", ID = 47, Name = "'Kill the Cyber Nerd!'", Desc = "Gosh you did well surviving until now!",  },
+	[48] = { Image = "zombiesurvival/achv_blank_zs", Key = "klinator", ID = 47, Name = "'Kill the Cyber Nerd!'", Desc = "Kill the lost kliener and see what happens..",  },
 }	
 
 --[=[---------------------------------

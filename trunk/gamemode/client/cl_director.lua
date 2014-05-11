@@ -17,8 +17,6 @@ ClientsideConvars["_zs_hidenotify"] = {Value = 0, ShouldSave = true, UserData = 
 ClientsideConvars["_zs_drawcrateoutline"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Supply Crate outline"}
 ClientsideConvars["zs_drawcolourmod"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Colour mod"}
 ClientsideConvars["zs_drawsharpeneffect"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Sharpen effect as near Undead indicator"}
-ClientsideConvars["zs_drawsharpeneffect"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Sharpen effect as near Undead indicator"}
-ClientsideConvars["zs_fov"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, HideOption = true, Category = "hud", Description = "Field of View"}
 
 
 ClientsideConvars["_zs_autoredeem"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Automatic redeem"}
@@ -184,10 +182,6 @@ net.Receive("StartBoss", function(len)
 	local isInsane = tobool(net.ReadBit())
 	local bossDuration = net.ReadFloat()
 	GAMEMODE:SetBoss(true,isInsane,bossDuration)
-	--surface.PlaySound("npc\zombie_poison\pz_alert1.wav")
-	--timer.Simple(600, function()
-	--surface.PlaySound("deadlife_mrgreen.mp3")
---	end)
 end)
 
 net.Receive("StopBoss", function(len)

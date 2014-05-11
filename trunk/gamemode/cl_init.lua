@@ -1,5 +1,5 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
--- See LICENSE.txt for license information 
+-- See LICENSE.txt for license information
 
 MySelf = MySelf or NULL
 hook.Add("Think", "GetLocal", function()
@@ -223,8 +223,7 @@ local RandomText = table.Random( {
 	"Putting supplies into supply crates...",
 	"Starting zombie apocalypse...",
 	"Sewing zombie parts together...", 
-	"Hitting Duby to code zs...",  
-	"Hitting Ywa for zs Updates!", } 
+	"Hitting Duby to code zs...",  }
  )
  
 function GM:HookGetLocal()

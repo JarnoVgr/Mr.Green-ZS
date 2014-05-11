@@ -196,56 +196,6 @@ ENT.BoneMods["behe"] = function(s)
 
 	end
 	
-	--Lilith
-	ENT.BoneMods["lilith"] = function(s)
-	
-	local bones = {
-		"_L_",
-		"_R_"
-	}
-	
-	local i = 1
-		for _, bonetbl in pairs(bones) do
-		local Bone = s:LookupBone("ValveBiped.Bip01"..bonetbl.."Clavicle")-- UpperArm
-			if Bone then
-				local mMatrix = s:GetBoneMatrix(Bone)
-				if mMatrix then
-					-- mMatrix:Rotate(Angle(0,88,-90))
-					mMatrix:Scale(Vector(1.4*i,1.4*i,1.4*i))
-					s:SetBoneMatrix(Bone, mMatrix)
-				end
-			end
-		local Bone = s:LookupBone("ValveBiped.Bip01"..bonetbl.."UpperArm")
-			if Bone then
-				local mMatrix = s:GetBoneMatrix(Bone)
-				if mMatrix then
-					-- mMatrix:Rotate(Angle(0,88,-90))
-					mMatrix:Scale(Vector(1.4*i,1.4*i,1.4*i))
-					s:SetBoneMatrix(Bone, mMatrix)
-				end
-			end
-		local Bone = s:LookupBone("ValveBiped.Bip01"..bonetbl.."ForeArm")
-			if Bone then
-				local mMatrix = s:GetBoneMatrix(Bone)
-				if mMatrix then
-					-- mMatrix:Rotate(Angle(0,88,-90))
-					mMatrix:Scale(Vector(1.35*i,1.35*i,1.35*i))
-					s:SetBoneMatrix(Bone, mMatrix)
-				end
-			end
-		local Bone = s:LookupBone("ValveBiped.Bip01"..bonetbl.."Hand")
-			if Bone then
-				local mMatrix = s:GetBoneMatrix(Bone)
-				if mMatrix then
-					-- mMatrix:Rotate(Angle(0,88,-90))
-					mMatrix:Scale(Vector(1.42*i,1.42*i,1.42*i))
-					s:SetBoneMatrix(Bone, mMatrix)
-				end
-			end
-		i=0.6
-		end
-
-	end
 ENT.BoneMods["seeker"] = function(s)
 	
 	for i = 0, s:GetBoneCount() - 1 do

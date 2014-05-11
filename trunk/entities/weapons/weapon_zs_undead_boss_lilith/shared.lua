@@ -63,84 +63,118 @@ SWEP.Primary.Delay = 0.3
 SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 45
 
-function SWEP:StartPrimaryAttack()
-	self.BaseClass.StartPrimaryAttack(self)
+SWEP.EmitWraithSound = 0
 
-	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-	self.IdleAnimation = CurTime() + self:SequenceDuration()
+function SWEP:Precache()
+	self.BaseClass.Precache(self)
 
-	local pl = self.Owner
-
-	--Set the thirdperson animation and emit zombie attack sound
-	pl:DoAnimationEvent(CUSTOM_PRIMARY)	
-
-	if CLIENT then
-		return
-	end	
-
-	--Slowdown
-	GAMEMODE:SetPlayerSpeed(pl, 120, 120)
+	util.PrecacheSound("npc/stalker/breathing3.wav")
 	
-	--Restore
-	timer.Simple(1.6, function()
-		if not ValidEntity(pl) then
-			return
-		end
-
-		local classId = pl:GetZombieClass()
-		
-		if not pl:Alive() or not classId == 11 then
-			return
-		end
-
-		GAMEMODE:SetPlayerSpeed(pl, ZombieClasses[classId].Speed, ZombieClasses[classId].Speed)
-	end)
-end
-
-function SWEP:PostPerformPrimaryAttack(hit)
-	if CLIENT then
-		return
+	-- Quick way to precache all sounds
+	for _, snd in pairs(ZombieClasses[4].PainSounds) do
+		util.PrecacheSound(snd)
 	end
-
-	self.Owner:EmitSound(Sound("player/zombies/b/swing.wav"),math.random(100,130),math.random(95,100))
-end
-
-function SWEP:PrimaryAttackHit(trace, ent)
-	if CLIENT then
-		return
+	
+	for _, snd in pairs(ZombieClasses[4].DeathSounds) do
+		util.PrecacheSound(snd)
 	end
-
-	if hit then
-		if ent and ValidEntity(ent) and ent:IsPlayer() then
-			pl:EmitSound(Sound("player/zombies/b/hitflesh.wav"),math.random(100,130),math.random(95,100))
-			util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
-		else
-			pl:EmitSound(Sound("player/zombies/b/hitwall.wav"),math.random(100,130),math.random(95,100))
-		end
-	else
-		self.Owner:EmitSound(Sound("player/zombies/b/swing.wav"),math.random(100,130),math.random(95,100))
+	
+	for _, snd in pairs(self.Screams) do
+		util.PrecacheSound(snd)
+	end
+	
+	for _, snd in pairs(self.HumanScreams) do
+		util.PrecacheSound(snd)
+	end
+	
+	for i=1, 4 do
+		util.PrecacheSound("player/zombies/seeker/melee_0")
 	end
 end
 
-SWEP.NextYell = 0
-function SWEP:SecondaryAttack()
-	if CurTime() < self.NextYell then
-		return
-	end
+function SWEP:Deploy()
+	self.BaseClass.Deploy(self)
 
 	if SERVER then
-		self.Owner:EmitSound("player/zombies/b/scream.wav", math.random(130, 150), math.random(80, 110))
+		self.ScarySound = CreateSound(self.Owner, Sound(""))
+		
 	end
-
-	self.NextYell = CurTime() + math.random(8,13)
 end
 
+function SWEP:StartPrimaryAttack()		
+	-- Hacky way for the animations
+	if self.SwapAnims then
+		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
+	else
+		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+	end
+	self.SwapAnims = not self.SwapAnims
+	
+	-- Set the thirdperson animation and emit zombie attack sound
+	self.Owner:SetAnimation(PLAYER_ATTACK1)
+	self:EmitSound(Sound("player/zombies/seeker/screamclose.wav"), 100, math.random(92, 107))
+	 
+	
+	local stopPlayer = true
+
+	if self:IsDisguised() then
+		self.Primary.Speed = 180
+		stopPlayer = false
+	else
+		self.Primary.Speed = 185
+	end
+	 
+	if SERVER then
+		if stopPlayer then
+			self.Owner:SetLocalVelocity(Vector(0, 0, 0))
+		end
+	end
+end
+
+function SWEP:Move(mv)
+	if self:IsInPrimaryAttack() then
+		mv:SetMaxSpeed(self.Primary.Speed)
+		return true
+	end
+end
+
+function SWEP:SetDisguise(bl)
+	self:SetDTBool(0,bl)
+	self:DrawShadow(bl)
+end
+
+function SWEP:IsDisguised()
+	return self:GetDTBool(0)
+end
+
+
+function SWEP:SecondaryAttack()
+	
+end
+
+function SWEP:OnRemove()
+	if SERVER then
+		self.ScarySound:Stop()
+	end
+
+	self.BaseClass.OnRemove(self)
+end 
+
+-- Main think
 function SWEP:Think()
-	--Start idle animation when needed
+	self.BaseClass.Think(self)
+
+	if SERVER then
+		if self.ScarySound then
+			self.ScarySound:PlayEx(0.2, 95 + math.sin(RealTime())*8) 
+		end 
+	end
+	
 	if self.IdleAnimation and self.IdleAnimation <= CurTime() then
 		self.IdleAnimation = nil
 		self:SendWeaponAnim(ACT_VM_IDLE)
 	end
 
 	return self.BaseClass.Think(self)
+	
 end

@@ -136,6 +136,8 @@ concommand.Add("zs_turretnickname",SetTurretNick)
 
 HCOLORMOD = true
 
+CreateClientConVar("zs_wepfov", 57, true, true)
+
 ENABLE_BLOOD = false
 
 local NextBeat = 0

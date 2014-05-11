@@ -379,9 +379,6 @@ function GM:OnEndRound ( winner )
 			if LASTHUMAN and pl.LastHumanTime then
 				pl:UnlockAchievement("survivor")
 			end
-			if LASTHUMAN  then
-				pl:UnlockAchievement("klinator")
-			end
 			if pl.TookHit == false then
 				pl:UnlockAchievement("dancingqueen")
 			end

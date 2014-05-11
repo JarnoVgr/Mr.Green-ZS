@@ -8,8 +8,6 @@ boss.nextBossTime = 0
 boss.count = 0
 boss.maxCount = math.random(4,5)
 
-
-
 function GM:UnleashBoss()
 	
 	--[[if not GAMEMODE:IsBossRequired() then
@@ -21,7 +19,6 @@ end]]
 		return nil
 	end
 
-	
 	--Set full health on players when in Arena Mode
 	if ARENA_MODE then			
 		for _, pl in pairs(player.GetAll()) do
