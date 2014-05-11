@@ -154,17 +154,17 @@ if SERVER then
 				end
 
 				--Heal
-				if activator:Health() < activator:GetMaximumHealth() then
-					local healthDifference = math.Clamp(activator:GetMaximumHealth() - activator:Health(), 0, 12)
-					local actualHealAmount = math.random(7, healthDifference)
-					actualHealAmount = math.min(activator:Health() + actualHealAmount, activator:GetMaximumHealth())
-					activator:SetHealth(actualHealAmount)
-				end
+				--if activator:Health() < activator:GetMaximumHealth() then
+				--	local healthDifference = math.Clamp(activator:GetMaximumHealth() - activator:Health(), 0, 12)
+				--	local actualHealAmount = math.random(7, healthDifference)
+				--	actualHealAmount = math.min(activator:Health() + actualHealAmount, activator:GetMaximumHealth())
+				--	activator:SetHealth(actualHealAmount)
+				--end
 
 				--Give SP to crate owner		
 				local Owner = self:GetPlacer()
 				if activator ~= Owner and (ValidEntity(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
-					skillpoints.AddSkillPoints(Owner,3)
+					skillpoints.AddSkillPoints(Owner,6)
 					self:FloatingTextEffect(3, Owner)
 					Owner:AddXP(3)
 				end
