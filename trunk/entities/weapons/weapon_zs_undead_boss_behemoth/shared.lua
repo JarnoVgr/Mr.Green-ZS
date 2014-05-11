@@ -28,9 +28,11 @@ if CLIENT then
 		
 	SWEP.VElements = {
 	--	["crowbar"] = { type = "Model", model = "models/weapons/c_crowbar.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(-27.084, -15.171, -11.478), angle = Angle(-1.976, 0, -98.67), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-		["crowbar"] = { type = "Model", model = "models/weapons/c_crowbar.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(-14.084, -15.171, -11.478), angle = Angle(-1.976, 0, -98.67), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
+		["crowbar"] = { type = "Model", model = "models/weapons/c_crowbar.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(-5.084, -10.171, -11.478), angle = Angle(-1.976, 0, -98.67), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }  
+-- 	["1"] = { type = "Model", model = "models/weapons/c_crowbar.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(62.856, -80, 65.973), angle = Angle(29.221, -3.507, -5.844), size = Vector(4.518, 4.518, 4.518), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 
+	
+}
 	SWEP.WElements = {
 		["bone1+"] = { type = "Model", model = "models/Gibs/HGIBS_spine.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(3.127, 5.98, 4.98), angle = Angle(78.624, 121.805, 0), size = Vector(1.2, 1.2, 1.2), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["bone1"] = { type = "Model", model = "models/Gibs/HGIBS_spine.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(3.489, 6.668, -4.731), angle = Angle(109.05, 121.805, 0), size = Vector(1.2, 1.2, 1.2), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },

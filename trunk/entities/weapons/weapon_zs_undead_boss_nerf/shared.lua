@@ -9,6 +9,8 @@ SWEP.PrintName = "Nerf"
 if CLIENT then
 	SWEP.ViewModelFOV = 70
 	SWEP.ViewModelFlip = false
+	
+	
 end
 
 SWEP.ViewModel = Model("models/Weapons/v_fza.mdl")
@@ -42,9 +44,8 @@ SWEP.WElements = {
 	
 	}
 	
-
-
 function SWEP:Initialize()
+
 	self.BaseClass.Initialize(self)
 
 	--Attack sounds

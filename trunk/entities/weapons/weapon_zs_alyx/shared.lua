@@ -14,13 +14,16 @@ if CLIENT then
 SWEP.VElements = {
       --  ["pistol"] = { type = "Model", model = "models/weapons/c_pistol.mdl", bone = "v_weapon.Glock_Parent", rel = "", pos = Vector(26.249, 1.776, 5.823), angle = Angle(1.692, 162.576, 79.93), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	 
-	["1"] = { type = "Model", model = "models/weapons/v_alyxgun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-20.261, 5.714, -8.832), angle = Angle(-1.17, -1.17, 180), size = Vector(5.037, 5.037, 5.037), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }  
-	  
+	--["1"] = { type = "Model", model = "models/weapons/v_alyxgun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-20.261, 5.714, -8.832), angle = Angle(-1.17, -1.17, 180), size = Vector(5.037, 5.037, 5.037), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }  
+	 ["alyx_gun"] = { type = "Model", model = "models/weapons/w_alyx_gun.mdl", bone = "ValveBiped.square", rel = "", pos = Vector(0.675, -0.553, 0.142), angle = Angle(-96.409, 155.455, 73.636), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+
 }
 
 SWEP.WElements = {
-	["1"] = { type = "Model", model = "models/weapons/w_alyx_gun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(4.675, 2.596, -4.676), angle = Angle(12.857, 180, -162.469), size = Vector(1.08, 1.08, 1.08), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-}
+	--["1"] = { type = "Model", model = "models/weapons/w_alyx_gun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(4.675, 2.596, -4.676), angle = Angle(12.857, 180, -162.469), size = Vector(1.08, 1.08, 1.08), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+
+	
+	}
 		
 		
         killicon.AddFont( "weapon_zs_classic", "HL2MPTypeDeath", "-", Color(0, 0, 150, 255 ) )
@@ -55,14 +58,15 @@ SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
 --SWEP.ConeIronMoving = SWEP.Moving *0.80
  
-SWEP.IronSightsPos = Vector(-3.2,-1,1)
-SWEP.IronSightsAng = Vector( 0, 0, 0 )
+SWEP.IronSightsPos = Vector(-7.479, -7.237, 2.914)
+SWEP.IronSightsAng = Vector(1.736, -5.628, -2.728)
+
  
 SWEP.HoldType = "pistol"
 SWEP.ViewModelFOV = 57
 SWEP.ViewModelFlip = false
 SWEP.ViewModel = "models/weapons/cstrike/c_pist_glock18.mdl"
---SWEP.UseHands = true
+SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_pistol.mdl"
 --SWEP.ShowViewModel = true
 SWEP.ShowWorldModel = false

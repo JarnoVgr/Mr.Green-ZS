@@ -63,3 +63,18 @@ SWEP.ViewModelBoneMods = {
 ["v_weapon.Glock_Parent"] = { scale = Vector(0.287, 0.287, 0.287), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 ["v_weapon.Glock_Clip"] = { scale = Vector(3, 3, 3), pos = Vector(-0.672, -0.664, -0.24), angle = Angle(3.359, -10.171, 0) }
 }
+
+
+function SWEP:EmitFireSound()
+self:EmitSound(self.Primary.Sound, 80, 70 + (1 - (self:Clip1() / self.Primary.ClipSize)) * 90)
+end
+
+function SWEP:ShootBullets(dmg, numbul, cone)
+if self:Clip1() == 1 then
+dmg = dmg * 3
+else
+dmg = dmg + dmg * (1 - self:Clip1() / self.Primary.ClipSize)
+end
+
+self.BaseClass.ShootBullets(self, dmg, numbul, cone)
+end
