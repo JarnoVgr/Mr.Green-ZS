@@ -49,7 +49,7 @@ SWEP.WorldModel = Model("models/Weapons/w_crowbar.mdl")
 SWEP.Primary.Reach = 60
 SWEP.Primary.Duration = 2.1
 SWEP.Primary.Delay = 0.8
-SWEP.Primary.Damage = math.random(50,68)
+SWEP.Primary.Damage = math.random(75,68)
 
 function SWEP:StartPrimaryAttack()
 	self.BaseClass.StartPrimaryAttack(self)
@@ -67,7 +67,7 @@ function SWEP:StartPrimaryAttack()
 	end	
 
 	--Slowdown
-	GAMEMODE:SetPlayerSpeed(pl, 120, 120)
+	--GAMEMODE:SetPlayerSpeed(pl, 120, 120)
 	
 	--Restore
 	timer.Simple(1.6, function()

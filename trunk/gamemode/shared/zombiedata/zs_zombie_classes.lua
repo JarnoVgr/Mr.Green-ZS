@@ -531,8 +531,8 @@ ZombieClasses[11] =
 {
 	Name = "Behemoth",
 	Tag = "behemoth",
-	Infliction = 0.4,
-	Health = 2000,
+	Infliction = 0.1,
+	Health = 2500,
 	MaxHealth = 4000,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -655,7 +655,7 @@ ZombieClasses[13] =
 	Name = "Nerf",
 	Tag = "nerf",
 	Infliction = 0,
-	Health = 2000,
+	Health = 2500,
 	MaxHealth = 7000,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -752,7 +752,7 @@ ZombieClasses[14] =
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
-ZombieClasses[15] =
+ZombieClasses[15] = --Everyone loves it ^^
 {
 	Name = "Klinator",
 	Tag = "klinator",
@@ -810,7 +810,7 @@ ZombieClasses[15] =
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
-ZombieClasses[16] =
+ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity. 
 {
 	Name = "Lilith",
 	Tag = "lilith",
@@ -866,7 +866,7 @@ ZombieClasses[16] =
 }
 
 
-ZombieClasses[17] =
+ZombieClasses[17] = --Smoke shit up :P
 {
 	Name = "Smoker",
 	Tag = "weapon_zs_undead_vomiter",

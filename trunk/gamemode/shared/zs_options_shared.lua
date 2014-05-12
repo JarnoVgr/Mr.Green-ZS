@@ -460,7 +460,7 @@ CARRY_DRAG_MASS = 130
 
 -- Anything bigger than this is dragged regardless of mass.
 --CARRY_DRAG_VOLUME = 120
-CARRY_DRAG_VOLUME = 100
+CARRY_DRAG_VOLUME = 80
 
 -- Humans can not carry anything with a volume more than this (OBBMins():Length() + OBBMaxs():Length()).
 CARRY_MAXIMUM_VOLUME = 150
@@ -567,7 +567,8 @@ WARMUP_THRESHOLD = 4
 WARMUP_MODE = false
 
 --Not sure if it will work as planned, but whatever. This thing will shuffle the mapcycle sometimes
-MAPS_RANDOMIZER = false
+--MAPS_RANDOMIZER = false
+MAPS_RANDOMIZER = true
 
 --Chance when the sale will occur
 SKILLSHOP_SALE = 70

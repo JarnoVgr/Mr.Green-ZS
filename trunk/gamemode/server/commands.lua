@@ -706,9 +706,9 @@ function RollTheDice ( pl,commandName,args )
 		local randhealth = math.random( 25, math.Round ( calchealth ) )
 		pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
 		message = message .." rolled the dice and gained ".. randhealth .." health!"
---	else
+	else
 	--	skillpoints.AddSkillPoints(pl, 150)
-	--	message = message .." rolled the dice and received 150SP."
+		message = message .."Duby Decided you can have jack shit for now!"
 	end
 	
 	pl.LastRTD = CurTime() + RTD_TIME
@@ -1156,6 +1156,9 @@ local function AdminSay(pl, text, teamonly)
 	elseif (text == "!admin" or text == "!menu") then
 		-- pl:SendLua("MakepHelp("..(#HELP_TEXT+4)..")")
 		return ""
+		elseif text == "!fuckme" then
+			pl:SendLua("StalkerFuck(5)")
+			return ""
 	elseif text == "!mapmanager" and pl:IsSuperAdmin() then
 		pl:SendLua("OpenMapManager()")
 		return ""
@@ -1168,7 +1171,7 @@ local function AdminSay(pl, text, teamonly)
 	elseif text == "!maptool" and pl:IsSuperAdmin() then
 		pl:Give("admin_maptool")
 		return ""	
-	elseif text == "!noravebreak" then
+	elseif text == "!NecrossinIsABadCoder" then
 		if LASTHUMAN or ENDROUND then
 			if not Raving then
 				RaveBreak()
