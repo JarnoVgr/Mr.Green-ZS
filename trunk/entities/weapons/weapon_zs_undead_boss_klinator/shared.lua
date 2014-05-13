@@ -69,7 +69,7 @@ SWEP.Secondary.Delay = 0
 SWEP.Secondary.Next = 4
 SWEP.Secondary.Duration = 1.3
 SWEP.Secondary.Reach = 400
-SWEP.Secondary.Damage = 30
+SWEP.Secondary.Damage = 10
 
 function SWEP:StartPrimaryAttack()
 	--self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
