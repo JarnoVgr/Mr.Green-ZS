@@ -707,8 +707,9 @@ function RollTheDice ( pl,commandName,args )
 		pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
 		message = message .." rolled the dice and gained ".. randhealth .." health!"
 	else
+	local table2 = {"..Duby Decided you can have jack shit for now!","..Necrossin Decided you don't deserve anything!","..Klieners can't have good outcomes","..The dice just trolled you!", "..Has been given a dildo by the dice!"}
 	--	skillpoints.AddSkillPoints(pl, 150)
-		message = message .."..Duby Decided you can have jack shit for now!"
+		message = message ..(table2[math.random(3,#table2)])
 	end
 	
 	pl.LastRTD = CurTime() + RTD_TIME
