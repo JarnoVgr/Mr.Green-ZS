@@ -66,8 +66,6 @@ SWEP.Secondary.Damage = math.random(0.5,0.25)
 
 SWEP.SwapAnims = false
 
-
-
 function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
 
@@ -169,6 +167,7 @@ function SWEP:PerformSecondaryAttack()
 	
 	for i=1, 8 do
 		local ent = ents.Create("env_smoketrail")
+		--local ent = ents.Create("smokersmoke")
 		
 		if ent:IsValid() then
 		--	local heading = (aimvec + VectorRand() * 0.2):GetNormal()
