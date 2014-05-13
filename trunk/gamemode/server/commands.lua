@@ -669,7 +669,7 @@ function RollTheDice ( pl,commandName,args )
 	local choise,message,name
 	
 	--Let's roll
-	choise = math.random(1,5)
+	choise = math.random(1,6)
 	
 	--Second roll when having ladyluck-item
 	if pl:HasBought("ladyluck") and choise <= 2 then
@@ -706,10 +706,15 @@ function RollTheDice ( pl,commandName,args )
 		local randhealth = math.random( 25, math.Round ( calchealth ) )
 		pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
 		message = message .." rolled the dice and gained ".. randhealth .." health!"
-	else
+	elseif choise == 5 then
 	local table2 = {"..Duby Decided you can have jack shit for now!","..Necrossin Decided you don't deserve anything!","..Klieners can't have good outcomes","..The dice just trolled you!", "..Has been given a dildo by the dice!"}
 	--	skillpoints.AddSkillPoints(pl, 150)
 		message = message ..(table2[math.random(3,#table2)])
+		
+	elseif choise == 6 then
+		message = message ..("..Rolled the dice and has been given a crossbow!")
+		pl:Give("weapon_zs_crossbow")
+		
 	end
 	
 	pl.LastRTD = CurTime() + RTD_TIME
