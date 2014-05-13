@@ -184,7 +184,7 @@ ZombieClasses[3] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
-	Infliction = 0.6,
+	Infliction = 0.55,
 	Health = 550,
 	MaxHealth = 650,
 	TimeLimit = 810,
@@ -815,7 +815,7 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	Name = "Lilith",
 	Tag = "lilith",
 	Infliction = 0,
-	Health = 1200,
+	Health = 2800,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -833,7 +833,7 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	OnSpawn = function(pl)
 		pl:SetRandomFace()		
 	end,
-	Speed = 195,
+	Speed = 210,
 	Description = "",
 	Unique = "",
 	PainSounds = {

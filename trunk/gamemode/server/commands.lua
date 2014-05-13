@@ -708,7 +708,7 @@ function RollTheDice ( pl,commandName,args )
 		message = message .." rolled the dice and gained ".. randhealth .." health!"
 	else
 	--	skillpoints.AddSkillPoints(pl, 150)
-		message = message .."Duby Decided you can have jack shit for now!"
+		message = message .."..Duby Decided you can have jack shit for now!"
 	end
 	
 	pl.LastRTD = CurTime() + RTD_TIME

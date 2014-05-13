@@ -51,7 +51,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 9
-BOSS_CLASS = {10,11,13,15} -- 12
+BOSS_CLASS = {10,11,13,15,16,17} -- 12
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {15} --Klinator
 --BOSS_CLASS = {17} --Smoker class
@@ -174,6 +174,7 @@ GM.HumanWeapons = {
 	["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 7000 },
 	["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee",Price = 7000 },
 	["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee",Price = 7000 },
+	["weapon_zs_melee_chainsaw"]  = { Name = "Chain SAW!", DPS = 30, Infliction = 0, Type = "melee",Price = 7000 },
 
 	--Pistols
 	["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42,Mat = "VGUI/gfx/VGUI/usp45", Infliction = 0, Type = "pistol" },

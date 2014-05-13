@@ -58,10 +58,10 @@ end
 
 
 
-SWEP.Primary.Duration = 1.5
-SWEP.Primary.Delay = 0.3
+SWEP.Primary.Duration = 1.2
+SWEP.Primary.Delay = 0.5
 SWEP.Primary.Reach = 48
-SWEP.Primary.Damage = 45
+SWEP.Primary.Damage = 12
 
 SWEP.EmitWraithSound = 0
 

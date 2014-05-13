@@ -4,7 +4,10 @@
 AddCSLuaFile("shared.lua")
 AddCSLuaFile("cl_init.lua")
 
+
+
 include("shared.lua")
+
 
 -- Normal set data
 ENT.Table = {

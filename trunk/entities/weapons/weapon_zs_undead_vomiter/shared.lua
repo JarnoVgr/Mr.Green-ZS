@@ -41,7 +41,8 @@ SWEP.WElements = {
 	["2"] = { type = "Model", model = "models/gibs/antlion_gib_small_2.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-8.832, -1.558, 0), angle = Angle(0, -26.883, 94.675), size = Vector(2.506, 2.506, 2.506), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["6"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-5.715, 3.635, -8.832), angle = Angle(-82.987, -22.209, 78.311), size = Vector(0.755, 0.755, 0.755), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["7"] = { type = "Model", model = "", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(0, 0, 0), angle = Angle(0, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["3"] = { type = "Model", model = "models/gibs/antlion_gib_small_1.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(0.518, 6.752, 3.635), angle = Angle(0, -61.949, 0), size = Vector(1.404, 1.404, 1.404), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["3"] = { type = "Model", model = "models/gibs/antlion_gib_small_1.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(0.518, 6.752, 3.635), angle = Angle(0, -61.949, 0), size = Vector(1.404, 1.404, 1.404), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+["weapon"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(7.791, 0.518, -5.715), angle = Angle(0, 78.311, 73.636), size = Vector(0.885, 0.885, 0.885), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 
 
 
@@ -60,7 +61,7 @@ SWEP.Primary.Automatic = true
 
 SWEP.Secondary.Automatic	= true
 SWEP.Secondary.Duration = 0.2
-SWEP.Secondary.Delay = 0.1
+SWEP.Secondary.Delay = 0.2
 SWEP.Secondary.Damage = math.random(0.5,0.25)
 
 SWEP.SwapAnims = false
@@ -168,8 +169,10 @@ function SWEP:PerformSecondaryAttack()
 	
 	for i=1, 8 do
 		local ent = ents.Create("env_smoketrail")
+		
 		if ent:IsValid() then
-			local heading = (aimvec + VectorRand() * 0.2):GetNormal()
+		--	local heading = (aimvec + VectorRand() * 0.2):GetNormal()
+			local heading = (aimvec + VectorRand() * 1.2):GetNormal()
 			ent:SetPos(startpos + heading * 8)
 			ent:SetOwner(pl)
 			ent:Spawn()
@@ -179,7 +182,7 @@ function SWEP:PerformSecondaryAttack()
 			ent:SetPhysicsAttacker(pl)
 		end
 	
-	timer.Simple(0.05, function()
+	timer.Simple(0.01, function()
 	ent:Remove()
 	end)
 		
