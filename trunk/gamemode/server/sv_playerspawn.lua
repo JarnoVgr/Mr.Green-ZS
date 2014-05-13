@@ -119,7 +119,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.AutoRedeem = util.tobool(pl:GetInfoNum("_zs_autoredeem",1)) or true
 	pl.IsFreeman = false
 	
-	local balance = team.NumPlayers (TEAM_HUMAN) / team.NumPlayers (TEAM_UNDEAD)
+	local balance = team.NumPlayers(TEAM_HUMAN) / team.NumPlayers(TEAM_UNDEAD)
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
 	-- Team
@@ -128,11 +128,6 @@ function GM:PlayerInitialSpawn(pl)
 	if pl:IsBot() then
 		iTeam = TEAM_HUMAN
 	end
-
-	-- Send toxic fumes positions to client since I can't seem to get the spawnpoints clientside
-	timer.Simple(2, function()
-		SentToxicFumesPosition(pl)
-	end)
 	
 	-- Setup a table for connected players for good reasons
 	if not DataTableConnected[ID] then
@@ -189,7 +184,7 @@ function GM:PlayerInitialSpawn(pl)
 	self:OnPlayerReady(pl)
 
 
-	Debug ( "[INIT-SPAWN] "..tostring ( pl ).." finished Initial Spawn Function!" ) 
+	Debug("[INIT-SPAWN] ".. tostring(pl) .." finished Initial Spawn Function")
 end
 util.AddNetworkString("mapData")
 
@@ -197,7 +192,7 @@ util.AddNetworkString("mapData")
      Mainly for debug purposes -- record everything in logs
 ------------------------------------------------------------------]==]
 local function PlayerConnected ( pl, ip )
-	Debug("[CONNECTED] "..tostring ( pl ).." connecting from "..tostring(ip))
+	Debug("[CONNECTED] "..tostring(pl).." connecting from "..tostring(ip))
 end
 hook.Add("PlayerConnect", "Connected", PlayerConnected)
 
@@ -205,10 +200,10 @@ hook.Add("PlayerConnect", "Connected", PlayerConnected)
      Main spawn function - called on spawn
 -------------------------------------------------]==]
 function GM:PlayerSpawn(pl)
-	-- Player must receive data from server before he can spawn
+	--Block when player isn't ready yet
 	if not pl.Ready then
 		pl:KillSilent()
-		Debug("[SPAWN] "..tostring ( pl ).." is not Ready. Blocking spawn and killing him silently. Alive: "..tostring(pl:Alive()))
+		--Debug("[SPAWN] "..tostring ( pl ).." is not Ready. Blocking spawn and killing him silently. Alive: "..tostring(pl:Alive()))
 		return
 	end
 
@@ -309,8 +304,6 @@ function GM:PlayerSpawn(pl)
 	--Disable walk
 	pl:SetCanWalk(false)
 
-	--pl:SendLua("GAMEMODE:SwitchMaterials("..pl:Team()..")")
-		
 	--Set no-collide with team
 	--This shit glitchy as hell
 	pl:SetNoCollideWithTeammates(true)
@@ -849,58 +842,6 @@ concommand.Add( "PostPlayerInitialSpawn", function(sender, command, arguments)
 	end
 end)
 
---[==[------------------------------------------------
-    Send toxic fumes positions to the client
--------------------------------------------------]==]
-function SentToxicFumesPosition ( pl )
-	if not ValidEntity ( pl ) then return end
-	
-	-- Don't set up the toxic fumes
-	if not TOXIC_SPAWN then return end
-	
-	-- Get the zombie spawn points (or toxic points)
-	local SpawnPoints = ToxicPoints
-	
-	-- Replace it in order
-	table.Resequence ( SpawnPoints )
-			
-	-- We are done here
-	if #SpawnPoints == 0 then return end
-	
-	-- Split the usermessage in 2 parts
-	local MaximumPoints = SpawnPoints
-	local Split = 3
-	if #MaximumPoints <= 3 then
-		Split = 1
-	end
-	
-	-- Send the parts
-	local Start, End = 1, math.Round( #MaximumPoints / Split )
-	local Max = End
-	if End == 1 and #MaximumPoints > 1 then
-		End = End + 1 
-	end
-	
-	---
-	-- TODO: Use net messages (without split)
-	-- 
-	for i = 1, Split do
-		umsg.Start( "ReceiveToxicPositions", pl )
-			umsg.Short ( Start )
-			umsg.Short ( End )
-			for j = Start, End do
-				umsg.Vector ( MaximumPoints[j]:GetPos() ) 
-			end
-		umsg.End()
-			
-		Start = End + 1
-		if Start > #MaximumPoints then break end
-		if i == Split - 1 then End = #MaximumPoints else End = Start + Max end
-	end
-	
-	Debug ( "[SPAWN] Succesfully sent toxic fumes positions to player - "..tostring ( pl ) )
-end
-
 util.AddNetworkString("OnReadySQL")
 
 hook.Add("OnPlayerReadySQL", "UpdateDataTableJoin", function(pl)
@@ -963,133 +904,6 @@ function GM:PlayerReady(pl)
 	end
 end
 
---[==[------------------------------------------------------
-             Adds spawn points for players 
--------------------------------------------------------]==]
-local function SetSpawnPoints()
-
-	-- some other spawn points
-	local SpawnTable = { 
-		Human = { "info_player_combine", "info_player_terrorist" }, 
-		Zombie = { "info_player_rebel", "info_player_counterterrorist", "info_player_undead" }
-	}
-	
-	-- Default spawn angle
-	local angSpawn = Angle ( 0,0,0 )
-	
-	-- default gamemode spawn points
-	GAMEMODE.UndeadSpawnPoints = ents.FindByClass("info_player_zombie")
-	GAMEMODE.HumanSpawnPoints = ents.FindByClass("info_player_human")
-	
-	-- Add all the old ZS spawns.
-	for _, spawn in pairs(ents.FindByClass("gmod_player_start")) do
-		if spawn.BlueTeam then
-			table.insert(GAMEMODE.HumanSpawnPoints, spawn)
-		else
-			table.insert(GAMEMODE.UndeadSpawnPoints, spawn)
-		end
-	end
-	
-	-- add human and undead spawns to the table
-	for k, v in pairs ( SpawnTable ) do
-		if k == "Human" then
-			for i = 1, #k do
-				table.Add ( GAMEMODE.HumanSpawnPoints, ents.FindByClass( tostring ( v[i] ) ) )
-			end
-		end
-		
-		if k == "Zombie" then
-			for i = 1, #k do
-				table.Add ( GAMEMODE.UndeadSpawnPoints, ents.FindByClass( tostring ( v[i] ) ) )
-			end
-		end
-	end
-	
-	--If there aren't any of above, add the original ones
-	if #GAMEMODE.HumanSpawnPoints <= 0 then
-		GAMEMODE.HumanSpawnPoints = ents.FindByClass("info_player_start")
-	end
-	
-	--If there aren't any of above, add the original ones
-	if #GAMEMODE.UndeadSpawnPoints <= 0 then
-		GAMEMODE.UndeadSpawnPoints = ents.FindByClass("info_player_start")
-	end
-	
-	--Add angles to spawn
-	for k,v in pairs ( GAMEMODE.HumanSpawnPoints ) do
-		local vPos = v if IsEntityValid(v) then vPos = v:GetPos() end
-		GAMEMODE.HumanSpawnPoints[k] = { vPos, angSpawn }
-	end		
-	
-	--Add angles to spawn
-	for k,v in pairs ( GAMEMODE.UndeadSpawnPoints ) do	
-		local vPos = v if IsEntityValid(v) then vPos = v:GetPos() end
-		GAMEMODE.UndeadSpawnPoints[k] = { vPos, angSpawn }
-	end
-	
-	--??
-	if OBJECTIVE and Objectives[1].ZombieSpawns then 
-		GAMEMODE.UndeadSpawnPoints = {}
-		print("Cleared spawns")
-		Objectives[1].ZombieSpawns()
-		print("Loaded new")
-		
-		for k,v in pairs ( SpawnPoints ) do
-			GAMEMODE.UndeadSpawnPoints[k] = { [1] = v[1], [2] = v[2] }
-		end
-		print("Done")
-		Objectives[1].VerifiedSpawns = true
-	end
-	
-	--Resequence normal table
-	if SpawnPoints then
-		for k,v in pairs ( SpawnPoints ) do
-			GAMEMODE.UndeadSpawnPoints[k] = { [1] = v[1], [2] = v[2] }
-		end
-	end
-	
-	--Position and angles table for humans
-	GAMEMODE.HumanPositions, GAMEMODE.HumanAngles = {}, {}
-	for k,v in pairs ( GAMEMODE.HumanSpawnPoints ) do GAMEMODE.HumanPositions[k] = GAMEMODE.HumanSpawnPoints[k][1] GAMEMODE.HumanAngles[k] = GAMEMODE.HumanSpawnPoints[k][2] end
-	
-	--Position and angles table for zombos
-	GAMEMODE.ZombiePositions, GAMEMODE.ZombieAngles = {}, {}
-	for k,v in pairs ( GAMEMODE.UndeadSpawnPoints ) do GAMEMODE.ZombiePositions[k] = GAMEMODE.UndeadSpawnPoints[k][1] GAMEMODE.ZombieAngles[k] = GAMEMODE.UndeadSpawnPoints[k][2] end
-		
-	-- Read gasses
-	for _, spawn in pairs(GAMEMODE.UndeadSpawnPoints) do
-			local gasses = ents.FindByClass("zombiegasses")
-			local numgasses = #gasses
-			if 4 < numgasses then
-				break
-			elseif math.random(1, 4) == 1 or numgasses < 1 then
-				local spawnpos = spawn[1]-- spawn:GetPos()
-				local nearhum = false
-				for _, humspawn in pairs(GAMEMODE.HumanSpawnPoints) do
-					if humspawn[1]:Distance(spawnpos) < 272 then
-						nearhum = true
-						break
-					end
-				end
-				if not nearhum then
-					for _, humspawn in pairs(gasses) do
-						if humspawn:GetPos():Distance(spawnpos) < 128 then
-							nearhum = true
-							break
-						end
-					end
-				end
-				if not nearhum then
-					local ent = ents.Create("zombiegasses")
-					if ent:IsValid() then
-						ent:SetPos(spawnpos)
-						ent:Spawn()
-					end
-				end
-			end
-		end
-end
-
 function GM:SetupSpawnPoints()
 	local ztab = {}
 	ztab = ents.FindByClass("info_player_undead")
@@ -1110,11 +924,11 @@ function GM:SetupSpawnPoints()
 		htab = table.Add(htab, ents.FindByClass("info_player_counterterrorist"))
 	end
 
-	if string.find(mapname, "_obj_", 1, true) or string.find(mapname, "objective", 1, true) then
-	-- 	self:SetDynamicSpawning(false)
-	end
+	--[[if string.find(mapname, "_obj_", 1, true) or string.find(mapname, "objective", 1, true) then
+		self:SetDynamicSpawning(false)
+	end]]
 
-	-- Add all the old ZS spawns from GMod9.
+	--Add deprecated GMod9 Zombie Survival spawns
 	for _, oldspawn in pairs(ents.FindByClass("gmod_player_start")) do
 		if oldspawn.BlueTeam then
 			table.insert(htab, oldspawn)
@@ -1123,7 +937,7 @@ function GM:SetupSpawnPoints()
 		end
 	end
 
-	-- You shouldn't play a DM map since spawns are shared but whatever. Let's make sure that there aren't team spawns first.
+	--You shouldn't play a DM map since spawns are shared but whatever. Let's make sure that there aren't team spawns first.
 	if #htab == 0 then
 		htab = ents.FindByClass("info_player_start")
 		htab = table.Add(htab, ents.FindByClass("info_player_deathmatch")) -- Zombie Master
@@ -1132,16 +946,11 @@ function GM:SetupSpawnPoints()
 		ztab = ents.FindByClass("info_player_start")
 		ztab = table.Add(ztab, ents.FindByClass("info_zombiespawn")) -- Zombie Master
 	end
-	-- print("Prepare")
-	team.SetSpawnPoint(TEAM_ZOMBIE, ztab)
-	-- PrintTable(team.GetSpawnPoint(TEAM_ZOMBIE))
-	team.SetSpawnPoint(TEAM_HUMAN, htab)
-	-- PrintTable(team.GetSpawnPoint(TEAM_HUMAN))
-	team.SetSpawnPoint(TEAM_SPECTATOR, htab)
 	
+	team.SetSpawnPoint(TEAM_ZOMBIE, ztab)
+	team.SetSpawnPoint(TEAM_HUMAN, htab)
+	team.SetSpawnPoint(TEAM_SPECTATOR, htab)
 end
-
--- hook.Add ( "InitPostEntity", "SetupSpawnPoints", SetupSpawnPoints )
 
 function GM:SetRetroMode(mode)
 	self.RetroMode = mode
@@ -1225,10 +1034,17 @@ function GM:SelectSpawn ( pl, SpawnTable, Team )
 	
 	-- Table with position, angles
 	local tbPoints, tbAngles = {}, {}
-	if pl:IsZombie() then tbPoints, tbAngles = GAMEMODE.ZombiePositions, GAMEMODE.ZombieAngles else tbPoints, tbAngles = GAMEMODE.HumanPositions, GAMEMODE.HumanAngles end
+	if pl:IsZombie() then
+		tbPoints, tbAngles = GAMEMODE.ZombiePositions, GAMEMODE.ZombieAngles
+	else
+		tbPoints, tbAngles = GAMEMODE.HumanPositions, GAMEMODE.HumanAngles
+	end
 	
 	-- don't compute for spectators - random spot or center of map
-	if pl:Team() == TEAM_SPECTATOR then pl:SetPos ( table.Random ( tbPoints ) or Vector ( 0,0,0 ) ) return end
+	if pl:Team() == TEAM_SPECTATOR then
+		pl:SetPos(table.Random(tbPoints) or Vector( 0,0,0 ))
+		return
+	end
 	
 	-- There are no spawnpoints
 	local Count = #tbPoints
@@ -1317,7 +1133,7 @@ function GM:PlayerSelectSpawn(pl)
 	local teamid = pl:Team()
 	local tab = {}
 	local epicenter
-	-- print("Prepared")
+	--print("Prepared")
 	if teamid == TEAM_UNDEAD then-- If we're a bit in the wave then we can spawn on top of heavily dense groups with no humans looking at us.
 		-- print("Undead")
 		local dyn = pl.ForceDynamicSpawn
