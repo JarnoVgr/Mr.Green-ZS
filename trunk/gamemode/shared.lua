@@ -24,9 +24,6 @@ function IsValidSpecial( object )
 
 end
 
-
-
-
 ValidEntity = IsValid
 WorldSound = sound.Play
 GetWorldEntity = game.GetWorld
@@ -84,6 +81,10 @@ else
 		
 	end)]]
 end
+
+game.AddParticles("particles/butt_fart1.pcf")
+PrecacheParticleSystem("BUTT_FART2")
+PrecacheParticleSystem("BUTT_FART3")
 
 --Screentaker
 include("modules/screentaker/screentaker.lua")

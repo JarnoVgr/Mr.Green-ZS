@@ -1056,8 +1056,7 @@ local function SetSpawnPoints()
 	GAMEMODE.ZombiePositions, GAMEMODE.ZombieAngles = {}, {}
 	for k,v in pairs ( GAMEMODE.UndeadSpawnPoints ) do GAMEMODE.ZombiePositions[k] = GAMEMODE.UndeadSpawnPoints[k][1] GAMEMODE.ZombieAngles[k] = GAMEMODE.UndeadSpawnPoints[k][2] end
 		
-	-- readd gasses
-	
+	-- Read gasses
 	for _, spawn in pairs(GAMEMODE.UndeadSpawnPoints) do
 			local gasses = ents.FindByClass("zombiegasses")
 			local numgasses = #gasses
