@@ -717,7 +717,8 @@ function RollTheDice ( pl,commandName,args )
 		
 	elseif choise == 7 then
 		pl:StripWeapons()
-		message = message ..("..Rolled the dice and has been Striped!")
+		message = message ..("..Rolled the dice and has been Stripped!")
+		pl:Give("weapon_zs_fists2")
 		
 	elseif choise == 8 then
 	message = message ..("..YOU HAVE 150 SECONDS TO LIVE!!")
