@@ -669,7 +669,7 @@ function RollTheDice ( pl,commandName,args )
 	local choise,message,name
 	
 	--Let's roll
-	choise = math.random(1,6)
+	choise = math.random(1,8)
 	
 	--Second roll when having ladyluck-item
 	if pl:HasBought("ladyluck") and choise <= 2 then
@@ -714,6 +714,17 @@ function RollTheDice ( pl,commandName,args )
 	elseif choise == 6 then
 		message = message ..("..Rolled the dice and has been given a crossbow!")
 		pl:Give("weapon_zs_crossbow")
+		
+	elseif choise == 7 then
+		pl:StripWeapons()
+		message = message ..("..Rolled the dice and has been Striped!")
+		
+	elseif choise == 8 then
+	message = message ..("..YOU HAVE 150 SECONDS TO LIVE!!")
+		timer.Simple(150, function()
+		pl:Kill()
+		end)
+		else
 		
 	end
 	

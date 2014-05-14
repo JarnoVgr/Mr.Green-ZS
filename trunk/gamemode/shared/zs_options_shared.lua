@@ -527,6 +527,7 @@ SMALLPROPCOLLISIONS = false
 
 --Time untill roll-the-dice is re-enabled
 RTD_TIME = 180
+--RTD_TIME = 1
 
 
 
