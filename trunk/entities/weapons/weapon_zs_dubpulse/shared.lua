@@ -79,6 +79,11 @@ if (self.LastReload + 0.02 <= ct) then
 --self.LastReload = ct + 0.2
 self.LastReload = ct + 0.1
 
+if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "freeman" then --Ability for freeman suit!
+			self.LastReload = ct + 0.4
+			self:SetClip1(self:Clip1() + 2)
+		end
+
 if (self:Clip1() < 25) then
 
 timer.Simple( 1, function()
@@ -91,6 +96,8 @@ end
 if (self:Clip1() < 1) then
 self.Weapon:EmitSound(Sound("weapons/grenade/tick1.wav"))
 end
+
+
 end
 
  

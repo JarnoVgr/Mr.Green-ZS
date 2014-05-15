@@ -64,6 +64,8 @@ util.PrecacheSound("items/medshot4.wav")
 util.PrecacheSound("items/medshotno1.wav")
 util.PrecacheSound("items/smallmedkit1.wav")
 function SWEP:PrimaryAttack()
+
+localplayer = pl
 	if not self:CanPrimaryAttack() then
 		if SERVER then
 			self.Owner:EmitSound(Sound("items/medshotno1.wav"))
@@ -105,7 +107,8 @@ function SWEP:PrimaryAttack()
 	--Medical upgrade (multiplier)
 	local multiplier = 1
 	if owner:GetPerk("_medupgr1" ) then
-		multiplier = 1.35
+		--multiplier = 1.35
+		skillpoints.AddSkillPoints(owner,toheal or 3)
 	end
 
 	local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
