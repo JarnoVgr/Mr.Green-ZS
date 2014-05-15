@@ -107,8 +107,8 @@ localplayer = pl
 	--Medical upgrade (multiplier)
 	local multiplier = 1
 	if owner:GetPerk("_medupgr1" ) then
-		--multiplier = 1.35
-		skillpoints.AddSkillPoints( pl, 3)
+		multiplier = 1.35
+		--skillpoints.AddSkillPoints( pl, 3)
 	end
 
 	local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
