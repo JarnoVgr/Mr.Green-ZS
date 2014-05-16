@@ -17,7 +17,7 @@ SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 55
 SWEP.Primary.Duration = 2
-SWEP.Primary.Damage = 55
+SWEP.Primary.Damage = 45
 
 SWEP.Secondary.Duration = 4
 SWEP.Secondary.Delay = 0.5
