@@ -54,68 +54,92 @@ SWEP.ViewModel = Model("models/weapons/v_plank/v_plank.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Primary.Reach = 20
-SWEP.Primary.Duration = 2.3
+SWEP.Primary.Duration = 1.3
 SWEP.Primary.Delay = 2.1
 --SWEP.Primary.Damage = math.random(40,55)
-
-
 SWEP.Primary.ClipSize = 0                        
 SWEP.Primary.Ammo = "ar2"  
 SWEP.Primary.DefaultClip = 0
 SWEP.Primary.Automatic = true
 SWEP.Primary.Recoil = 10
+SWEP.Primary.Next = 4
+SWEP.Primary.Damage = 3
+SWEP.Primary.Reach = 100
 
-SWEP.Secondary.Delay = 0
+SWEP.Secondary.Delay = 1.1
 SWEP.Secondary.Next = 4
 SWEP.Secondary.Duration = 1.3
-SWEP.Secondary.Reach = 400
-SWEP.Secondary.Damage = 10
+SWEP.Secondary.Reach = 250
+SWEP.Secondary.Damage = 5
 
 function SWEP:StartPrimaryAttack()
-	--self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-	--self.IdleAnimation = CurTime() + self:SequenceDuration()
+local pl = self.Owner
 
---	local pl = self.Owner
+	-- GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed ) 
+	if pl:GetAngles().pitch > 70 or pl:GetAngles().pitch < -70 then 
+		if SERVER then
+			pl:EmitSound(Sound("npc/zombie_poison/pz_idle".. math.random(2,4) ..".wav"))
+		end
 
-	--Set the thirdperson animation and emit zombie attack sound
---	pl:DoAnimationEvent(CUSTOM_PRIMARY)	
-
+		return 
+	end
+		
+	--Swap Anims
+	if self.SwapAnims then
+		self:SendWeaponAnim(ACT_VM_HITCENTER)
+	else
+		self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+	end
+	self.SwapAnims = not self.SwapAnims
+		
 	if CLIENT then
 		return
-	end	
+	end
 
-	local bullet = {}
-		bullet.Num = 10
-		bullet.Src = self.Owner:GetShootPos()
-		bullet.Dir = self.Owner:GetAimVector()
-		bullet.Spread = Vector(0.1,0.1,0.1)
-		bullet.Tracer = 1
-		bullet.Force = 1000
-		bullet.Damage = 0.2
-	self:ShootEffects()
-	self.Owner:FireBullets( bullet )
-	self.Weapon:EmitSound(Sound("player/zombies/seeker/pain2.wav"))
-	self:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
-	self:SetNextSecondaryFire( CurTime() + self.Primary.Delay )
+	local shootpos = pl:GetShootPos()
+	local startpos = pl:GetPos()
+	startpos.z = shootpos.z
+	local aimvec = pl:GetAimVector()
+	aimvec.z = math.max(aimvec.z, -0.7)
 	
-	--[[
-	--Slowdown
-	GAMEMODE:SetPlayerSpeed(pl, 200, 200)
+	for i=1, 8 do
+		local ent = ents.Create("projectile_poisonpuke")
+		if ent:IsValid() then
+			local heading = (aimvec + VectorRand() * 0.2):GetNormal()
+		--	ent:SetPos(startpos + heading * 8)
+			ent:SetPos(startpos + heading * 10)
+			ent:SetOwner(pl)
+			ent:Spawn()
+			ent.TeamID = pl:Team()
+			local phys = ent:GetPhysicsObject()
+			if phys:IsValid() then
+				phys:SetVelocityInstantaneous(heading * math.Rand(200, 300))
+			end
+			ent:SetPhysicsAttacker(pl)
+		end
+	end
+
+	pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
+
+	pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
+	--if CLIENT then
+	--	return
+	--end	
+
+--	local bullet = {}
+--		bullet.Num = 10
+--		bullet.Src = self.Owner:GetShootPos()
+	--	bullet.Dir = self.Owner:GetAimVector()
+	--	bullet.Spread = Vector(0.1,0.1,0.1)
+	--	bullet.Tracer = 1
+	--	bullet.Force = 1000
+	--	bullet.Damage = 0.2
+	--self:ShootEffects()
+	--self.Owner:FireBullets( bullet )
+--	self.Weapon:EmitSound(Sound("player/zombies/seeker/pain2.wav"))
+--	self:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
+--	self:SetNextSecondaryFire( CurTime() + self.Primary.Delay )
 	
-	--Restore
-	timer.Simple(1.6, function()
-		if not ValidEntity(pl) then
-			return
-		end
-
-		local classId = pl:GetZombieClass()
-		
-		if not pl:Alive() or not classId == 11 then
-			return
-		end
-
-		GAMEMODE:SetPlayerSpeed(pl, ZombieClasses[classId].Speed, ZombieClasses[classId].Speed)
-	end)]]
 	
 end
 
@@ -187,7 +211,7 @@ function SWEP:PerformSecondaryAttack()
 			ent.TeamID = pl:Team()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
-				phys:SetVelocityInstantaneous(heading * math.Rand(600, 900))
+				phys:SetVelocityInstantaneous(heading * math.Rand(50, 300))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end
@@ -207,9 +231,9 @@ if CLIENT then
 		end
 		MeleeWeaponDrawHUD()
 
-		draw.SimpleTextOutlined("Klinator hits props to kill humans!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(73), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		draw.SimpleTextOutlined("He is not holding a GUN!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(50), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		draw.SimpleTextOutlined("His secondary is a puke cannon. But he will loose health using it!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(33), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Klinator throws puke to kill humans!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(73), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		
+		draw.SimpleTextOutlined("You need to get close to kill them. So think tactically!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(33), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		
 		--Cross hair
 	draw.RoundedBox( 4,ScrW() / 2 - 3.5,ScrH() / 2 - 3.5,7,7, Color ( 0,0,0,100 )) --On screen cross hare. 
