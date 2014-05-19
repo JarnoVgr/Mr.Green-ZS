@@ -55,7 +55,7 @@ SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "XBowBolt"
 SWEP.PrimaryDelay = 4.0
 SWEP.MaxAmmo			    = 22
-
+SWEP.Slot = 5
 SWEP.SecondaryDelay = 0.5
 
 SWEP.WalkSpeed = 200
