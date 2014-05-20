@@ -668,7 +668,7 @@ function RollTheDice ( pl,commandName,args )
 		
 		
 	pl:SetHealth(math.random(50,150))
-	pl:ChatPrint("Your flesh amount has be altered!")
+	pl:ChatPrint("Your flesh amount has been altered!")
 		
 	return
 	
