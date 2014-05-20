@@ -113,7 +113,7 @@ local pl = self.Owner
 			ent.TeamID = pl:Team()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
-				phys:SetVelocityInstantaneous(heading * math.Rand(200, 300))
+				phys:SetVelocityInstantaneous(heading * math.Rand(400, 300))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end
@@ -211,7 +211,7 @@ function SWEP:PerformSecondaryAttack()
 			ent.TeamID = pl:Team()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
-				phys:SetVelocityInstantaneous(heading * math.Rand(50, 300))
+				phys:SetVelocityInstantaneous(heading * math.Rand(400, 300))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end

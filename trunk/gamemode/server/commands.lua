@@ -662,22 +662,36 @@ function RollTheDice ( pl,commandName,args )
 	end
 	
 	if pl:Team() == TEAM_UNDEAD then
-		pl:ChatPrint("Roll the Dice is only available for humans.")
-		return
+
+		--pl:ChatPrint("Roll the Dice is only available for humans.")
+		--return
+		
+		
+	pl:SetHealth(math.random(50,150))
+	pl:ChatPrint("Your flesh amount has be altered!")
+		
+	return
+	
 	end
 	
 	local choise,message,name
 	
 	--Let's roll
-	choise = math.random(1,6)
+	choise = math.random(1,8)
+	
 	
 	--Second roll when having ladyluck-item
 	if pl:HasBought("ladyluck") and choise <= 2 then
 		choise = math.random(1,5)
 	end
 	
-	message = pl:GetName()
+	if pl:HasBought("ladyluck") and choise <= 1 then
+		choise = math.random(1,5)
+		
+	end
 	
+	message = pl:GetName()
+
 	if choise == 1 then
 		pl:GodDisable() -- no spawnprotection can save you now!
 		local Ent = ents.Create("env_explosion")
