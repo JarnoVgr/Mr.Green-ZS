@@ -62,6 +62,63 @@ function EFFECT:Init( data )
 		local smoke = emitter:Add( "particle/particle_smokegrenade", self.pos )
 		if ( smoke ) then
 			smoke:SetVelocity( Vector( math.Rand(20, 60), math.Rand(40, 90), 44))
+			smoke:SetLifeTime( 7 )
+			smoke:SetDieTime( 7 )
+		--	smoke:SetColor( 25, 25, 25 )
+			smoke:SetColor( 75, 75, 75 )
+			smoke:SetStartAlpha( 300 )
+			smoke:SetEndAlpha( 700 )
+			smoke:SetStartSize( 150 )
+			smoke:SetEndSize( 250 )
+			smoke:SetRoll( math.Rand( 180, 480 ) )
+			smoke:SetGravity( Vector( 0, 0, 55 ) )
+			smoke:SetCollide( false )
+			smoke:SetBounce( 0.45 )
+		end
+	end
+	
+	
+	local smoke = emitter:Add( "particle/particle_smokegrenade", self.pos )
+		if ( smoke ) then
+			smoke:SetVelocity( Vector( math.Rand(20, 60), math.Rand(40, 90), 44))
+			smoke:SetLifeTime( 7 )
+			smoke:SetDieTime( 7 )
+		--	smoke:SetColor( 25, 25, 25 )
+			smoke:SetColor( 75, 75, 75 )
+			smoke:SetStartAlpha( 300 )
+			smoke:SetEndAlpha( 700 )
+			smoke:SetStartSize( 150 )
+			smoke:SetEndSize( 250 )
+			smoke:SetRoll( math.Rand( 180, 480 ) )
+			smoke:SetGravity( Vector( 0, 0, 55 ) )
+			smoke:SetCollide( false )
+			smoke:SetBounce( 0.45 )
+		end
+	end
+	
+	
+	local smoke = emitter:Add( "particle/particle_smokegrenade", self.pos )
+		if ( smoke ) then
+			smoke:SetVelocity( Vector( math.Rand(20, 60), math.Rand(40, 90), 44))
+			smoke:SetLifeTime( 7 )
+			smoke:SetDieTime( 7 )
+		--	smoke:SetColor( 25, 25, 25 )
+			smoke:SetColor( 75, 75, 75 )
+			smoke:SetStartAlpha( 300 )
+			smoke:SetEndAlpha( 700 )
+			smoke:SetStartSize( 150 )
+			smoke:SetEndSize( 250 )
+			smoke:SetRoll( math.Rand( 180, 480 ) )
+			smoke:SetGravity( Vector( 0, 0, 55 ) )
+			smoke:SetCollide( false )
+			smoke:SetBounce( 0.45 )
+		end
+	end
+	
+	
+	local smoke = emitter:Add( "particle/particle_smokegrenade", self.pos )
+		if ( smoke ) then
+			smoke:SetVelocity( Vector( math.Rand(20, 60), math.Rand(40, 90), 44))
 			smoke:SetLifeTime( 5 )
 			smoke:SetDieTime( 7 )
 		--	smoke:SetColor( 25, 25, 25 )
