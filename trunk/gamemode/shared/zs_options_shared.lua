@@ -51,7 +51,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 9
-BOSS_CLASS = {10,11,13,15,} -- 12
+BOSS_CLASS = {10,11,13,15,17} -- 12
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {15} --Klinator
 --BOSS_CLASS = {17} --Smoker class
