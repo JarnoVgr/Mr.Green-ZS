@@ -666,7 +666,7 @@ function RollTheDice ( pl,commandName,args )
 		--pl:ChatPrint("Roll the Dice is only available for humans.")
 		--return
 		
-		local table2 = { 2000, 1500, 1000, 800, 600, 400, 300, 200, 100}
+		local table2 = { 300, 200, 100}
 --	pl:SetHealth(math.random(50,150))
 	pl:SetHealth(table2[math.random(3,#table2)])
 	pl:ChatPrint("Your flesh amount has been altered!")
