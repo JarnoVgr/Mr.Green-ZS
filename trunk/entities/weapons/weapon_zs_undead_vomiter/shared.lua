@@ -2,12 +2,12 @@
 -- See LICENSE.txt for license information
 
 --BIG WORK IN PROGRESS
-
+--Created by DubyXD
 AddCSLuaFile()
 
 SWEP.Base = "weapon_zs_undead_base"
 
-SWEP.PrintName = "Vomit Zombie"
+SWEP.PrintName = "Smoker!"
 if CLIENT then
 	SWEP.ViewModelFOV = 35
 	SWEP.ViewModelFlip = false
@@ -53,16 +53,12 @@ end
 SWEP.ViewModel = Model("models/weapons/v_pza.mdl")
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
-SWEP.Primary.Delay = 1
-SWEP.Primary.Reach = 65
-SWEP.Primary.Duration = 1
-SWEP.Primary.Damage = 0
+SWEP.Primary.Delay = 0.8
+SWEP.Primary.Reach = 30
+SWEP.Primary.Duration = 0.8
+SWEP.Primary.Damage = 30
 SWEP.Primary.Automatic = true
 
-SWEP.Secondary.Automatic	= true
-SWEP.Secondary.Duration = 0.2
-SWEP.Secondary.Delay = 0.2
-SWEP.Secondary.Damage = math.random(0.5,0.25)
 
 SWEP.SwapAnims = false
 
@@ -134,68 +130,31 @@ function SWEP:Precache()
 end
 
 
-function SWEP:PerformSecondaryAttack()
-	local pl = self.Owner
+function SWEP:StartPrimaryAttack()
+local pl = self.Owner
+local e = EffectData()
+--e:SetPos( self.Owner:GetShootPos() )
+e:SetOrigin( self.Owner:GetShootPos() )
+util.Effect( "smokereffect", e )
 
-	-- GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed ) 
-	if pl:GetAngles().pitch > 45 or pl:GetAngles().pitch < -45 then 
-		if SERVER then
-		--	pl:EmitSound(Sound("npc/zombie_poison/pz_idle".. math.random(2,4) ..".wav"))
-			pl:EmitSound(Sound("npc/headcrab_poison/ph_talk3".. math.random(2,4) ..".wav"))
-		end
+end
 
-		return 
-	end
-		
-	--Swap Anims
-	if self.SwapAnims then
-		self:SendWeaponAnim(ACT_VM_HITCENTER)
-	else
-		self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
-	end
-	self.SwapAnims = not self.SwapAnims
-		
+function SWEP:PrimaryAttackHit(trace, ent)
 	if CLIENT then
 		return
 	end
 
-	local shootpos = pl:GetShootPos()
-	local startpos = pl:GetPos()
-	startpos.z = shootpos.z
-	local aimvec = pl:GetAimVector()
-	aimvec.z = math.max(aimvec.z, -0.7)
-	
-	for i=1, 8 do
-		local ent = ents.Create("env_smoketrail")
-		--local ent = ents.Create("smokersmoke")
-		
-		if ent:IsValid() then
-		--	local heading = (aimvec + VectorRand() * 0.2):GetNormal()
-			local heading = (aimvec + VectorRand() * 1.2):GetNormal()
-			ent:SetPos(startpos + heading * 8)
-			ent:SetOwner(pl)
-			ent:Spawn()
-			ent.TeamID = pl:Team()	
-			
-			local phys = ent:GetPhysicsObject()
-			ent:SetPhysicsAttacker(pl)
+	if hit then
+		if ent and ValidEntity(ent) and ent:IsPlayer() then
+			pl:EmitSound(Sound("physics/concrete/rock_impact_hard1.wav"),math.random(100,130),math.random(95,100))
+			util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
+		else
+			pl:EmitSound(Sound("physics/concrete/rock_impact_hard1.wav"),math.random(100,130),math.random(95,100))
 		end
-	
-	timer.Simple(0.01, function()
-	ent:Remove()
-	end)
-		
+	else
+		self.Owner:EmitSound(Sound("physics/concrete/rock_impact_hard1.wav"),math.random(100,130),math.random(95,100))
 	end
-
-	pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
-
-	pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
-	
-	
-	
-	
 end
-
 
 if CLIENT then
 	function SWEP:DrawHUD()
@@ -204,7 +163,8 @@ if CLIENT then
 		end
 		MeleeWeaponDrawHUD()
 
-		draw.SimpleTextOutlined("Hold Secondary to create smoke! ", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Hold Primary to create smoke! ", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		draw.SimpleTextOutlined("Use this to cover you're team mates advancing on the humans!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(40), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Use Third person so you can see wtf you are doing! 'c'! ", "ArialBoldFive", w-ScaleW(150), h-ScaleH(20), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 end

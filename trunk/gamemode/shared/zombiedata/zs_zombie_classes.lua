@@ -886,7 +886,7 @@ ZombieClasses[17] = --Smoke shit up :P
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_vomiter",
 	Model = Model("models/zombie/zombie_soldier.mdl"), 
-	Speed = 175,
+	Speed = 200,
 	Description = "Uses smoke to blind humans for the horde to commence its attack!",
 	Unique = "",
 	
