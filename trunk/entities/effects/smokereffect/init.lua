@@ -77,7 +77,7 @@ function EFFECT:Init( data )
 		end
 	end
 	
-	
+	for i = 1, 2 do
 	local smoke = emitter:Add( "particle/particle_smokegrenade", self.pos )
 		if ( smoke ) then
 			smoke:SetVelocity( Vector( math.Rand(20, 60), math.Rand(40, 90), 44))
@@ -96,7 +96,7 @@ function EFFECT:Init( data )
 		end
 	end
 	
-	
+	for i = 1, 2 do
 	local smoke = emitter:Add( "particle/particle_smokegrenade", self.pos )
 		if ( smoke ) then
 			smoke:SetVelocity( Vector( math.Rand(20, 60), math.Rand(40, 90), 44))
@@ -115,7 +115,7 @@ function EFFECT:Init( data )
 		end
 	end
 	
-	
+	for i = 1, 2 do
 	local smoke = emitter:Add( "particle/particle_smokegrenade", self.pos )
 		if ( smoke ) then
 			smoke:SetVelocity( Vector( math.Rand(20, 60), math.Rand(40, 90), 44))
