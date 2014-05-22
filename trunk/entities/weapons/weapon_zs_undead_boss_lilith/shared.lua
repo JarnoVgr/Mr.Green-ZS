@@ -58,8 +58,8 @@ end
 
 
 
-SWEP.Primary.Duration = 1.2
-SWEP.Primary.Delay = 0.5
+SWEP.Primary.Duration = 1.50
+SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 35
 
@@ -111,7 +111,8 @@ function SWEP:StartPrimaryAttack()
 	self.SwapAnims = not self.SwapAnims
 	
 	-- Set the thirdperson animation and emit zombie attack sound
-	self.Owner:SetAnimation(PLAYER_ATTACK1)
+	--self.Owner:SetAnimation(PLAYER_ATTACK1)
+	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
 	self:EmitSound(Sound("player/zombies/seeker/screamclose.wav"), 100, math.random(92, 107))
 	 
 	

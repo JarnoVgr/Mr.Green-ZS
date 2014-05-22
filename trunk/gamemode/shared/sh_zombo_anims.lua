@@ -830,7 +830,6 @@ GM.DoAnimationEventZombies[16] = function ( pl, event, data )
 end
 
 
-
 --Copy from Zombine for Smoker
 GM.CalcMainActivityZombies[17] = GM.CalcMainActivityZombies[8]
 GM.DoAnimationEventZombies[17] = GM.DoAnimationEventZombies[8]
@@ -838,6 +837,3 @@ GM.DoAnimationEventZombies[17] = GM.DoAnimationEventZombies[8]
 --Copy from Infected for Lillith
 GM.CalcMainActivityZombies[16] = GM.CalcMainActivityZombies[0]
 GM.DoAnimationEventZombies[16] = GM.DoAnimationEventZombies[0]
-
-
-
