@@ -26,7 +26,7 @@ SWEP.SlotPos = 6
 
 -- Damage, distane, delay
 
-SWEP.Primary.Delay = 0.60
+SWEP.Primary.Delay = 0.7
 
 SWEP.HoldType = "knife"
 

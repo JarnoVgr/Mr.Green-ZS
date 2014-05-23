@@ -41,7 +41,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_357.Single" )
 SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 30
+SWEP.Primary.Damage			= 36
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.6
@@ -51,12 +51,17 @@ SWEP.Primary.Ammo			= "pistol"--?
 SWEP.WalkSpeed = 200
 SWEP.MaxAmmo			    = 60
 
-SWEP.Cone = 0.038
+--SWEP.Cone = 0.038
+--SWEP.ConeMoving = SWEP.Cone *1.35
+--SWEP.ConeCrouching = SWEP.Cone *0.8
+--SWEP.ConeIron = SWEP.Cone *0.8
+--SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8
+
+SWEP.Cone = 0.042
 SWEP.ConeMoving = SWEP.Cone *1.35
 SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8
---SWEP.ConeIronMoving = SWEP.Moving *0.8
 
 SWEP.IronSightsPos = Vector(-3.2,-1,1)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )

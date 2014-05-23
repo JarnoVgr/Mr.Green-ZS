@@ -43,7 +43,8 @@ SWEP.Primary.ReloadDelay	= 0.4
 
 SWEP.Cone = 0.095
 SWEP.ConeMoving = SWEP.Cone *1.05
-SWEP.ConeCrouching = SWEP.Cone *0.095
+SWEP.ConeCrouching = SWEP.Cone *0.95
+
 
 SWEP.MaxAmmo			    = 70
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize * SWEP.Primary.NumShots)

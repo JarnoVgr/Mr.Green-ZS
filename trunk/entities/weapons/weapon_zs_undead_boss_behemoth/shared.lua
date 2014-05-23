@@ -46,7 +46,7 @@ SWEP.Base = "weapon_zs_undead_base"
 SWEP.ViewModel = Model("models/weapons/v_zombine.mdl")
 SWEP.WorldModel = Model("models/Weapons/w_crowbar.mdl")
 
-SWEP.Primary.Reach = 60
+SWEP.Primary.Reach = 45
 SWEP.Primary.Duration = 2.1
 SWEP.Primary.Delay = 0.8
 SWEP.Primary.Damage = math.random(45,35)

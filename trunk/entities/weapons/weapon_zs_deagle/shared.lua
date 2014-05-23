@@ -39,7 +39,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Deagle.Single" )
 SWEP.Primary.Recoil			= 4
-SWEP.Primary.Damage			= 41
+SWEP.Primary.Damage			= 31
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 7
 SWEP.Primary.Delay			= 0.3
@@ -49,12 +49,18 @@ SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
 SWEP.WalkSpeed = 200
 
-SWEP.Cone = 0.04
+--SWEP.Cone = 0.04
+--SWEP.ConeMoving = SWEP.Cone *1.3
+--SWEP.ConeCrouching = SWEP.Cone *0.75
+--SWEP.ConeIron = SWEP.Cone *0.8
+--SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
+
+SWEP.Cone = 0.041
 SWEP.ConeMoving = SWEP.Cone *1.3
-SWEP.ConeCrouching = SWEP.Cone *0.75
+SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.8
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
---SWEP.ConeIronMoving = SWEP.Moving *0.80
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8
+
 
 SWEP.IronSightsPos = Vector(-3.2,-1,1)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
