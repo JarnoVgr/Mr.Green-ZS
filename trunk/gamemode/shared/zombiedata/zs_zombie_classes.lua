@@ -878,7 +878,7 @@ ZombieClasses[17] = --Smoke shit up :P
 	SP = 25,
 	Mass = DEFAULT_MASS * 8,
 	Threshold = 4,
-	JumpPower = 400,
+	JumpPower = 150,
 	CanCrouch = true,
 	CanGib = true,
 	Unlocked = true,
@@ -886,7 +886,7 @@ ZombieClasses[17] = --Smoke shit up :P
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_vomiter",
 	Model = Model("models/zombie/zombie_soldier.mdl"), 
-	Speed = 200,
+	Speed = 190,
 	Description = "Uses smoke to blind humans for the horde to commence its attack!",
 	Unique = "",
 	

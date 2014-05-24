@@ -54,7 +54,7 @@ SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 30
 --SWEP.Primary.Duration = 0.8
 SWEP.Primary.Duration = 1.2
-SWEP.Primary.Damage = 10
+SWEP.Primary.Damage = 20
 SWEP.Primary.Automatic = true
 
 
@@ -149,6 +149,25 @@ util.Effect( "smokereffect", e )
 
 
 end
+
+
+function SWEP:PrimaryAttackHit(trace, ent)
+	if CLIENT then
+		return
+	end
+
+	if hit then
+		if ent and ValidEntity(ent) and ent:IsPlayer() then
+			pl:EmitSound(Sound("player/zombies/hate/sawrunner_attack1.wav"),math.random(100,130),math.random(95,50))
+			util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
+		else
+			pl:EmitSound(Sound("player/zombies/hate/sawrunner_attack1.wav"),math.random(100,130),math.random(95,60))
+		end
+	else
+		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0"),math.random(100,130),math.random(95,30))
+	end
+end
+
 
 if CLIENT then
 	function SWEP:DrawHUD()
