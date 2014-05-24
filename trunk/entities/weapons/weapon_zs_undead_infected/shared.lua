@@ -72,8 +72,12 @@ function SWEP:PostPerformPrimaryAttack(hit)
 
 	if hit then
 		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav"))
+		
+		
 	else
 		self.Owner:EmitSound(Sound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav"))
+		
+		
 	end
 end
 

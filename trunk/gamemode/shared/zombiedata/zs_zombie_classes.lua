@@ -815,7 +815,7 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	Name = "Lilith",
 	Tag = "lilith",
 	Infliction = 0,
-	Health = 1900,
+	Health = 2400,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -838,6 +838,7 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	Unique = "",
 	PainSounds = {
 				Sound( "player/zombies/seeker/pain1.wav" ),
+		
 				Sound( "player/zombies/seeker/pain2.wav" ),
 				},
 	DeathSounds = {
@@ -858,7 +859,7 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
 	
-	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
+	ModelScale = 1,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
 	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },

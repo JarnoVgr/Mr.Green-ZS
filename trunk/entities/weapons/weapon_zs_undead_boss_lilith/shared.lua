@@ -113,7 +113,8 @@ function SWEP:StartPrimaryAttack()
 	-- Set the thirdperson animation and emit zombie attack sound
 	--self.Owner:SetAnimation(PLAYER_ATTACK1)
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
-	self:EmitSound(Sound("player/zombies/seeker/screamclose.wav"), 100, math.random(40, 60))
+	--self:EmitSound(Sound("player/zombies/seeker/screamclose.wav"), 100, math.random(40, 60))
+	self:EmitSound(Sound("player/zombies/seeker/screamclose.wav"), 500, math.random(140, 130))
 	 
 	
 	local stopPlayer = true
