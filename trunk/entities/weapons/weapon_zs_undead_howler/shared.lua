@@ -23,7 +23,8 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 SWEP.Primary.Delay = 0
 SWEP.Primary.Next = 4
 SWEP.Primary.Duration = 1.3
-SWEP.Primary.Reach = 400
+--SWEP.Primary.Reach = 400
+SWEP.Primary.Reach = 380
 
 --Mimic primary
 SWEP.Secondary.Duration = SWEP.Primary.Duration
@@ -108,7 +109,9 @@ function SWEP:DoAttack(bPull)
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage + 1
+	--	local fFuckIntensity = fHitPercentage + 1
+		local fFuckIntensity = fHitPercentage + 0.5 --Duby test.
+		--local fFuckIntensity = fHitPercentage + 3 --Duby test.
 		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 
 		-- Calculate base velocity
@@ -120,7 +123,7 @@ function SWEP:DoAttack(bPull)
 		--
 		Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random(250, 270)
 		if not bPull then
-			Velocity = Vector(Velocity.x * 0.4, Velocity.y * 0.4, Velocity.z)
+			Velocity = Vector(Velocity.x * 0.45, Velocity.y * 0.45, Velocity.z)
 		end
 
 		--Apply velocity		
@@ -154,7 +157,7 @@ end
 
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
-		mv:SetMaxSpeed(0)
+		mv:SetMaxSpeed(100)
 		return true
 	end
 end

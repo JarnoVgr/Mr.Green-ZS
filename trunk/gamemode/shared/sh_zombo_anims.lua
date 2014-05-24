@@ -830,9 +830,62 @@ GM.DoAnimationEventZombies[16] = function ( pl, event, data )
 end
 
 
+GM.CalcMainActivityZombies[17] = function ( pl, vel )
+	-- Default zombie act
+	local iSeq, iIdeal = pl:LookupSequence ( "Idle_Grenade" )
+
+	local fVelocity = vel:Length2D()
+	
+	-- Walk animation or idle
+	if fVelocity > 30 then 
+		iSeq = pl:LookupSequence ( "walk_All_Grenade" )
+		if fVelocity > 180 then
+			iSeq = pl:LookupSequence ( "Run_All_grenade" )
+		end
+	else 
+		iSeq = pl:LookupSequence ( "Idle_Grenade" ) 
+	end
+	
+	if (pl.IsAttacking and pl.IsAttacking >= CurTime() ) then iSeq = pl:LookupSequence ( pl.AttackSequence ) else pl._PlayBackRate = nil end
+	
+	local revive = pl.Revive
+	if revive and revive:IsValid() then
+		if revive:IsRising() then
+			iSeq = pl:LookupSequence ( "slumprise_b" ) 
+		else
+			iSeq = pl:LookupSequence ( "slump_b" ) 
+		end
+	end
+	
+	return iIdeal, iSeq
+end
+
+local Attacks = { "swatleftlow", "swatleftlow", "attackE" }
+GM.DoAnimationEventZombies[17] = function ( pl, event, data )
+	if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
+		if ( data == CUSTOM_PRIMARY ) then
+			-- pl:AnimRestartGesture( GESTURE_SLOT_CUSTOM, ACT_MELEE_ATTACK1 )
+			--pl.IsAttacking = true
+			pl.AttackSequence = table.Random ( Attacks )
+			pl._PlayBackRate = 0.95
+			-- Get sequence and restart it
+			pl:AnimRestartMainSequence()
+			
+			pl.IsAttacking = CurTime() + 1.3
+			--timer.Simple ( 1.3, function( pl ) if IsEntityValid ( pl ) then pl.IsAttacking = false end end, pl )
+
+			return ACT_VM_PRIMARYATTACK
+		elseif ( data == CUSTOM_SECONDARY ) then
+
+			return ACT_INVALID
+		end
+	end
+end
+
+
 --Copy from Zombine for Smoker
-GM.CalcMainActivityZombies[17] = GM.CalcMainActivityZombies[8]
-GM.DoAnimationEventZombies[17] = GM.DoAnimationEventZombies[8]
+GM.CalcMainActivityZombies[17] = GM.CalcMainActivityZombies[1]
+GM.DoAnimationEventZombies[17] = GM.DoAnimationEventZombies[1]
 
 --Copy from Infected for Lillith
 GM.CalcMainActivityZombies[16] = GM.CalcMainActivityZombies[0]

@@ -6,7 +6,7 @@ AddCSLuaFile()
 SWEP.PrintName = "Behemoth"
 
 if CLIENT then
-	SWEP.ViewModelFOV = 70
+	SWEP.ViewModelFOV = 65
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = true
 

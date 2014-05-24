@@ -52,7 +52,8 @@ SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
 SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 30
-SWEP.Primary.Duration = 0.8
+--SWEP.Primary.Duration = 0.8
+SWEP.Primary.Duration = 1.2
 SWEP.Primary.Damage = 10
 SWEP.Primary.Automatic = true
 
@@ -128,28 +129,25 @@ end
 
 
 function SWEP:StartPrimaryAttack()
+
+-- Hacky way for the animations
+	if self.SwapAnims then
+		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
+	else
+		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+	end
+	self.SwapAnims = not self.SwapAnims
+	
+	-- Set the thirdperson animation and emit zombie attack sound
+	--self.Owner:SetAnimation(PLAYER_ATTACK1)
+	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
+
 local pl = self.Owner
 local e = EffectData()
---e:SetPos( self.Owner:GetShootPos() )
 e:SetOrigin( self.Owner:GetShootPos() )
 util.Effect( "smokereffect", e )
-end
 
-function SWEP:PrimaryAttackHit(trace, ent)
-	if CLIENT then
-		return
-	end
 
-	if hit then
-		if ent and ValidEntity(ent) and ent:IsPlayer() then
-			pl:EmitSound(Sound("physics/concrete/rock_impact_hard1.wav"),math.random(100,130),math.random(95,100))
-			util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
-		else
-			pl:EmitSound(Sound("physics/concrete/rock_impact_hard1.wav"),math.random(100,130),math.random(95,100))
-		end
-	else
-		self.Owner:EmitSound(Sound("physics/concrete/rock_impact_hard1.wav"),math.random(100,130),math.random(95,100))
-	end
 end
 
 if CLIENT then
@@ -159,7 +157,7 @@ if CLIENT then
 		end
 		MeleeWeaponDrawHUD()
 
-		draw.SimpleTextOutlined("Hold Primary to create smoke! ", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Hold Primary to create smoke, and attack! ", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		draw.SimpleTextOutlined("Use this to cover you're team mates advancing on the humans!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(40), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		draw.SimpleTextOutlined("Use Third person so you can see wtf you are doing! 'c'! ", "ArialBoldFive", w-ScaleW(150), h-ScaleH(20), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
