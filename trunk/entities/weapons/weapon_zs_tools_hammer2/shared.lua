@@ -14,7 +14,7 @@ SWEP.Base = "weapon_zs_melee_base"
 SWEP.PrintName = "Nailing Hammer"
 SWEP.DrawAmmo = true
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 50
+SWEP.ViewModelFOV = 60
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
  
@@ -91,6 +91,13 @@ function SWEP:Initialize()
 	self.NextNail = 0
 end
  
+ function SWEP:OnDeploy()
+	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
+	
+	if SERVER then
+		self.Owner. _RepairScore = self.Owner. _RepairScore or 0
+	end
+end
  
 SWEP.NextSwitch = 0
 function SWEP:Reload()
@@ -101,12 +108,10 @@ function SWEP:PrimaryAttack()
  
 	if not self:CanPrimaryAttack() then
         return	
-		print("Can't Primary Attack!")
 	end
  
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
 		return
-		print("Knocked Down!")
 	end
 		   
 	self.Weapon:SetNextPrimaryFire(CurTime() + 1)
@@ -123,19 +128,14 @@ function SWEP:PrimaryAttack()
 		end
 
 		if tr.Hit and not tr.HitWorld then
+			trent:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1,4)..".wav")
 			if trent.Nails and #trent.Nails > 0 then
-				local griefedprop = false
-			   
-				if trent._LastAttackerIsHuman then
-						griefedprop = true
-				end
-			   
+
 				for i=1, #trent.Nails do
 					local nail = trent.Nails[i]
 					   
 					if nail and nail:IsValid() then
-							print("Repairing!")
-					
+
 						if nail:GetNailHealth() < nail:GetDTInt(1) then -- nail:GetNWInt("MaxNailHealth")
 							if self.Owner:GetPerk("_trchregen") then      
 								--nail:SetMaxNailHealth(math.Clamp(nail:GetMaxNailHealth()-2,1))                                                        
@@ -144,18 +144,7 @@ function SWEP:PrimaryAttack()
 								--nail:SetMaxNailHealth(math.Clamp(nail:GetMaxNailHealth()-3,1))                                                        
 								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+5,1,nail:GetDTInt(1)))
 							end  					
-
-							if not griefedprop then
-								self.Owner._RepairScore = self.Owner._RepairScore + 1
-							   
-								if self.Owner._RepairScore == 5 then
-									skillpoints.AddSkillPoints(self.Owner, 10)
-									nail:FloatingTextEffect( 10, self.Owner )
-									self.Owner:AddXP(5)
-									self.Owner._RepairScore = 0
-								end
-							end
-
+							
 							local pos = tr.HitPos
 							local norm = tr.HitNormal-- (tr.HitPos - self.Owner:GetShootPos()):Normalize():Angle()
 						   
@@ -165,7 +154,15 @@ function SWEP:PrimaryAttack()
 							eff:SetScale( math.Rand(0.5,0.75) )
 							eff:SetMagnitude( math.random(5,10) )
 							util.Effect( "StunstickImpact", eff, true, true )
-						   
+							
+							self.Owner._RepairScore = self.Owner._RepairScore + 1
+							if self.Owner._RepairScore == 5 then
+								skillpoints.AddSkillPoints(self.Owner, 5)
+								nail:FloatingTextEffect( 10, self.Owner )
+								self.Owner:AddXP(5)
+								self.Owner._RepairScore = 0
+							end
+
 							self.Owner:EmitSound("npc/dog/dog_servo"..math.random(7, 8)..".wav", 70, math.random(100, 105))
 							break
 						end

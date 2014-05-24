@@ -416,6 +416,7 @@ GM.RankUnlocks = {
 	[21] = {"_kevlar2"},
 	[22] = {"_medupgr2"},
 	[24] = {"_comeback"},
+	[26] = {"weapon_zs_tools_hammer2"},
 	[25] = {"weapon_zs_turretplacer"},
 	[27] = {"_poisonprotect"},
 	[28] = {"weapon_zs_tools_remote"},
@@ -438,7 +439,7 @@ GM.RankUnlocks = {
 	[70] = {"weapon_zs_fiveseven"},
 	[76] = {"weapon_zs_melee_hook"},
 	[77] = {"weapon_zs_alyx"},
-	[78] = {"weapon_zs_tools_hammer2"},
+	
 	-- [90] = {"_professional"},-- hidden for a while
 }
 
