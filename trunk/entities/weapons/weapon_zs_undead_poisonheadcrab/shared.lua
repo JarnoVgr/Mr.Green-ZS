@@ -157,14 +157,14 @@ function SWEP:CanSpit()
 	local fDistance = checkTrace.StartPos:Distance( checkTrace.HitPos )
 	
 	-- Distance not suitable
-	if fDistance < 125 or not mOwner:OnGround() then 
-		return false
-	end
+		--if fDistance < 125 or not mOwner:OnGround() then 
+		--	return false
+		--end
 	
 	-- Check eye angles
-	if mOwner:GetAngles().pitch > 24 then
-		return false
-	end
+		--if mOwner:GetAngles().pitch > 24 then
+		--	return false
+		--end
 	
 	return true
 end

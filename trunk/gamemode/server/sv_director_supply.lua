@@ -225,7 +225,7 @@ local function CalculateGivenSupplies(pl)
 			ammoAmount = ammoAmount * 2
 		end]]
 if pl:HasBought("ammoman") then
-			ammoAmount = ammoAmount * 2
+			ammoAmount = ammoAmount * 2 --Ammo man perk
 		end
 		--Multiply with Infliction
 		ammoAmount = math.Round(ammoAmount * (GetInfliction() + 0.5))

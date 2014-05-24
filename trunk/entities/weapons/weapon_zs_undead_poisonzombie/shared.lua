@@ -14,9 +14,9 @@ end
 SWEP.ViewModel = Model("models/weapons/v_pza.mdl")
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
-SWEP.Primary.Delay = 0.8
+SWEP.Primary.Delay = 1
 SWEP.Primary.Reach = 55
-SWEP.Primary.Duration = 2
+SWEP.Primary.Duration = 1.8
 SWEP.Primary.Damage = 45
 
 SWEP.Secondary.Duration = 4
@@ -128,7 +128,7 @@ function SWEP:PerformSecondaryAttack()
 			ent.TeamID = pl:Team()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
-				phys:SetVelocityInstantaneous(heading * math.Rand(300, 550))
+				phys:SetVelocityInstantaneous(heading * math.Rand(310, 560))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end
