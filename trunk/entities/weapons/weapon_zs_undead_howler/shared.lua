@@ -110,7 +110,7 @@ function SWEP:DoAttack(bPull)
 
 		--Shakey shakey
 	--	local fFuckIntensity = fHitPercentage + 1
-		local fFuckIntensity = fHitPercentage + 4 --Duby test.
+		local fFuckIntensity = fHitPercentage + 3 --Duby test.
 	--	local fFuckIntensity = math.Clamp ( 4.5 - ( ( fDistance / iDistance ) * 10 ), 1, 2 )
 
 		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
