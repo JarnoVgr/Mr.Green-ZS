@@ -884,12 +884,27 @@ end
         algorithm for array type tables
 ----------------------------------------------]]--
 function table.Shuffle( tab )
-    for i = 1, #tab - 1 do
+    --[[for i = 1, #tab - 1 do
         local random = math.random( i + 1, #tab )
         tab[i], tab[random] = tab[random], tab[i]
     end
     
-    return tab
+    return tab]]
+	local n, order, res = #tab, {}, {}
+ 
+	for i=1,n do
+		order[i] = { rnd = math.random(), idx = i }
+	end
+	
+	table.sort(order, function(a,b)
+		return a.rnd < b.rnd
+	end)
+	
+	for i=1,n do
+		res[i] = tab[order[i].idx]
+	end
+	
+	return res
 end
 
 

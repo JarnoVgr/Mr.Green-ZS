@@ -46,6 +46,9 @@ VoteMaps = {}
 function GM:GetVoteMaps()
 	local VoteMaps = {}
 
+	--Seed
+	--math.randomseed(os.time())
+
 	local randMapCycle = table.FullCopy(MapCycle)
 	randMapCycle = table.Shuffle(randMapCycle)
 	
