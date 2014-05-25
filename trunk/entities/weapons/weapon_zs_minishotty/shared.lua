@@ -76,7 +76,7 @@ SWEP.Primary.Automatic                = false
 
 SWEP.Primary.Ammo                        = "buckshot"
 
-SWEP.Primary.Cone                        = 0.11
+SWEP.Cone                        = 0.11
 
 SWEP.ConeMoving                                = 0.15
 
