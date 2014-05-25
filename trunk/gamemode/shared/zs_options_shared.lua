@@ -285,7 +285,7 @@ GM.HumanWeapons = {
 	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
 	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 2600 }, --Seems to work fine now.
 	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle" },
-	["weapon_zs_minishotty"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle" },
+	["weapon_zs_minishotty"]  = { Name = "Father shotgun", DPS = 143, Infliction = 0, Type = "rifle" },
 	
 	
 	--Tool1
