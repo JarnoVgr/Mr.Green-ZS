@@ -55,6 +55,7 @@ BOSS_CLASS = {10,11,13,15,16,17} -- 12
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {15} --Klinator
 --BOSS_CLASS = {17} --Smoker class
+--BOSS_CLASS = {18} --Seeker2
 
 
 --??
@@ -284,6 +285,8 @@ GM.HumanWeapons = {
 	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
 	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 2600 }, --Seems to work fine now.
 	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle" },
+	["weapon_zs_minishotty"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle" },
+	
 	
 	--Tool1
 	["weapon_zs_tools_hammer"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", NoRetro = true },
@@ -396,7 +399,7 @@ MAX_RANK = 78
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_minishotty"},
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
