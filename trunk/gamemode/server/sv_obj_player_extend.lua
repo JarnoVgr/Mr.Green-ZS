@@ -117,7 +117,7 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 			
 			-- if Victim:HasBought("naturalimmunity") then
 			if Victim:GetPerk() == "_poisonprotect" then
-				iDamage = math.ceil(iDamage - iDamage*0.3)
+				iDamage = math.ceil(iDamage - iDamage*0.6)
 			end
 			-- Default take damage only when low on health
 			if not IsValid( Inflictor ) then Inflictor = Attacker:GetActiveWeapon() or Attacker end

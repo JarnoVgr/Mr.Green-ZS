@@ -110,7 +110,7 @@ function GM:OnPlayerRedeem(pl, causer)
 			if pl:GetPistol() then
 				pl:StripWeapon(pl:GetPistol():GetClass())
 			end
-			local wep = table.Random({"weapon_zs_classic","weapon_zs_fiveseven"})
+			local wep = table.Random({"weapon_zs_elites","weapon_zs_deagle"})
 			pl:Give(wep)
 			pl:SelectWeapon(wep)
 			pl._ComebackUsed = true

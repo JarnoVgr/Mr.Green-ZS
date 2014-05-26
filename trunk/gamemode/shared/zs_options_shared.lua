@@ -399,7 +399,7 @@ MAX_RANK = 78
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2",},
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
@@ -418,6 +418,7 @@ GM.RankUnlocks = {
 	[19] = {"_falldmg"},
 	[21] = {"_kevlar2"},
 	[22] = {"_medupgr2"},
+	[23] = {"_imortalpro"},
 	[24] = {"_comeback"},
 	[26] = {"weapon_zs_tools_hammer2"},
 	[25] = {"weapon_zs_turretplacer"},
@@ -483,10 +484,11 @@ GM.Perks = {
 	["_sboost"] = {Name = "Speed Boost", Description = "8% more walking speed", Slot = 1},
 	--["_trchregen"] = {Name = "Handy Man", Description = "Increased regeneration rate for torch", Material = "HUD/scoreboard_clock", Slot = 2},
 	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with hammer", Material = "HUD/scoreboard_clock", Slot = 2},
-	["_comeback"] = {Name = "Comeback", Description = "Gives you random Tier 2 pistol after redeeming! Works only once.", Slot = 1},
+	["_comeback"] = {Name = "Comeback", Description = "When you redeem you will spawn either with Elites or a Deagal! Works only once.", Slot = 1},
 	["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
 	["_plankamount"] = {Name = "Extra Plank", Description = "Ability to carry one more plank!", Slot = 2},
 	["_plankhp"] = {Name = "Stronger Planks", Description = "30% more health for planks", Slot = 2},
+	["_imortalpro"] = {Name = "Immortal Protector!", Description = "You will spawn with the legendary Pulse SMG!", Slot = 1},
 }
 
 -- Leave this. This table will be filled at initialize hook

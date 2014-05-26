@@ -210,7 +210,7 @@ function GM:PlayerSpawn(pl)
 	--Predicting spawn, don't erase
 	pl:SetDeaths(PREDICT_SPAWN)
 	
-
+	
 	--Set model based on preferences
 	if pl:IsBot() then
 		--Random model
@@ -336,6 +336,7 @@ function GM:OnHumanSpawn(pl)
 	if not pl:IsHuman() then
 		return
 	end
+	
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
@@ -714,6 +715,21 @@ function CalculatePlayerLoadout ( pl )
 			ToGive[1] = "weapon_zs_magnum"
 		end
 	end
+	
+	
+	 --IMORTAL PRO perk. Duby: Lets see how this works out. 
+	
+	if pl:GetPerk("_imortalpro") and math.random(1,1) == 1 then
+			--Strip previous pistol
+			local Pistol = pl:GetPistol()
+			if Pistol then
+				pl:StripWeapon(Pistol:GetClass())
+			end
+	
+		pl:Give("weapon_zs_pulsesmg")
+		ToGive[1] = "weapon_zs_pulsesmg"
+		end
+
 	
 	if ToGive and #ToGive > 0 then
 		pl:SelectWeapon(tostring(ToGive[1]))

@@ -177,13 +177,15 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			
 		if pl:GetPerk("_falldmg") then
 			dmginfo:AddDamage( Damage*0.75 )
-		-- if pl:HasBought("bootsofsteel")	and math.random(1,4) == 1 then
-			-- dmginfo:SetDamage( 0 )
+		 
 		else
 			-- Add new damage
 			dmginfo:AddDamage(Damage)
 		end
-
+		
+		if pl:HasBought("bootsofsteel")	and math.random(1,3) == 1 then
+			 dmginfo:SetDamage( 0 )
+			 end
 		if pl:Alive() then
 			pl:GiveStatus("knockdown",3)
 		end

@@ -48,7 +48,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("weapons/airboat/airboat_gun_lastshot"..math.random(1,2)..".wav")
 SWEP.Primary.Recoil			= 4
-SWEP.Primary.Damage			= 18
+SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Delay			= 0.085
@@ -77,8 +77,6 @@ SWEP.rechargerate = 0.40
 SWEP.startcharge = 1
 SWEP.MaxClip = 20
 
-SWEP.IronSightsPos 		= Vector( -6.44, -11, 2.55 )
-SWEP.IronSightsAng 		= Vector( 0, 0, 0 )
 
 function SWEP:Think()
 	if SERVER then
