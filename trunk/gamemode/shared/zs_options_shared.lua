@@ -285,7 +285,7 @@ GM.HumanWeapons = {
 	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
 	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 2600 }, --Seems to work fine now.
 	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle" },
-	["weapon_zs_minishotty"]  = { Name = "Farter shotgun", DPS = 143, Infliction = 0, Type = "shotgun" },
+	--["weapon_zs_minishotty"]  = { Name = "Farter shotgun", DPS = 143, Infliction = 0, Type = "shotgun" },
 	
 	
 	--Tool1
@@ -399,7 +399,7 @@ MAX_RANK = 78
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_minishotty"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2"},
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},

@@ -86,14 +86,6 @@ SWEP.IsShotgun = true
 
 SWEP.WalkSpeed = 185 //but it has better speed
 
-SWEP.IronSightsPos = Vector(-4.321, -6.886, 4.239)
-
-SWEP.IronSightsAng = Vector(0, 0, 0)
-
-SWEP.OverridePos = Vector(-1.68, -5.082, 2.4)
-
-SWEP.OverrideAng = Vector(0, 0, 0)
-
 ---SWEP.IronSightsPos = Vector(-3.36, -9.016, 2.2)
 
 ---SWEP.IronSightsAng = Vector(0, 0, 0)
