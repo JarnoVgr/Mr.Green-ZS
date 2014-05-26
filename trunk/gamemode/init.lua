@@ -93,6 +93,7 @@ include("server/achievements/sv_achievements.lua") -- Achievements
 include("server/upgrades/sv_upgrades.lua")
 include("server/sv_obj_player_extend.lua")
 include("server/commands.lua")
+include("server/admin_commands.lua")
 include("server/doplayerdeath/sv_main.lua")
 include("server/doredeem/sv_main.lua")
 include("server/voice.lua") -- Team voice management
@@ -106,7 +107,7 @@ include("server/sv_admin.lua") -- Admin commands
 -- include("shared/sh_human_anims.lua")
 include("server/anti_map_exploit.lua" )
 include("server/sv_poisongasses.lua" )
-include("server/sv_waves.lua" )
+include("server/sv_waves.lua" ) 
 include("server/sv_pickups.lua" )
 
 

@@ -114,8 +114,8 @@ function SWEP:Think()
 		end
 	end
 	
-	self:NextThink(CurTime()+0.5)
-	return true
+	--self:NextThink(CurTime()+0.5)
+	--return true
 end
 
 function SWEP:CalculateSpitDelay()

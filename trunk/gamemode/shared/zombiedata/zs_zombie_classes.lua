@@ -462,7 +462,7 @@ ZombieClasses[10] =
 	Name = "Hate",	
 	Tag = "hate",	
 	Infliction = 0,
-	Health = 3000,
+	Health = 2000,
 	MaxHealth = 10000,
 	Bounty = 1000,
 	SP = 150,
@@ -532,7 +532,7 @@ ZombieClasses[11] =
 	Name = "Behemoth",
 	Tag = "behemoth",
 	Infliction = 0.1,
-	Health = 2500,
+	Health = 2000,
 	MaxHealth = 4000,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -547,7 +547,7 @@ ZombieClasses[11] =
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_behemoth",
 	Model = Model("models/zombie/Zombie_Soldier.mdl"),
-	Speed = 182,
+	Speed = 160,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -815,7 +815,7 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	Name = "Lilith",
 	Tag = "lilith",
 	Infliction = 0,
-	Health = 2400,
+	Health = 1600,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -833,7 +833,7 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	OnSpawn = function(pl)
 		pl:SetRandomFace()		
 	end,
-	Speed = 210,
+	Speed = 180,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -872,14 +872,14 @@ ZombieClasses[17] = --Smoke shit up :P
 	Name = "Smoker",
 	Tag = "weapon_zs_undead_vomiter",
 	Infliction = 0.2,
-	Health = 7000,
+	Health = 1700,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
 	SP = 25,
 	Mass = DEFAULT_MASS * 8,
 	Threshold = 4,
-	JumpPower = 150,
+	JumpPower = 170,
 	CanCrouch = true,
 	CanGib = true,
 	Unlocked = true,
@@ -887,7 +887,7 @@ ZombieClasses[17] = --Smoke shit up :P
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_vomiter",
 	Model = Model("models/zombie/zombie_soldier.mdl"), 
-	Speed = 190,
+	Speed = 160,
 	Description = "Uses smoke to blind humans for the horde to commence its attack!",
 	Unique = "",
 	
@@ -925,6 +925,74 @@ ZombieClasses[17] = --Smoke shit up :P
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 	
 }
+
+
+ZombieClasses[18] = --Smoke shit up :P
+{
+	Name = "SeekerII",
+	Tag = "weapon_zs_undead_boss_seeker2",
+	Infliction = 0.2,
+	Health = 7000,
+	MaxHealth = 8100,
+	TimeLimit = 1020,
+	Bounty = 1000,
+	SP = 25,
+	Mass = DEFAULT_MASS * 8,
+	Threshold = 4,
+	JumpPower = 150,
+	CanCrouch = true,
+	CanGib = true,
+	Unlocked = true,
+	Hidden = true,
+	IsBoss = true,
+	SWEP = "weapon_zs_undead_boss_seeker2",
+	Model = Model("models/zombie/zombie_soldier.mdl"), 
+	Speed = 190,
+	Description = "Uses smoke to blind humans for the horde to commence its attack!",
+	Unique = "",
+	
+	OnSpawn = function(pl)
+		pl:SetRandomFace()
+		local status = pl:GiveStatus("overridemodel")
+
+		if status and status:IsValid() then
+			status:SetModel("models/player/corpse1.mdl")
+			status:UsePlayerAlpha(true)
+		end		
+		
+	end,
+	
+	OnRevive = function(pl)
+		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+		-- pl:AnimRestartMainSequence()		
+	end,
+	
+	
+	--PainSounds = {
+	--			Sound( "npc/strider/striderx_pain2.wav" ),
+	--			Sound( "npc/strider/striderx_pain5.wav" ),
+	--			Sound( "npc/strider/striderx_pain7.wav" ),
+	--			Sound( "npc/strider/striderx_pain8.wav" ),
+	--			},
+	DeathSounds = {
+				Sound("npc/strider/striderx_die1.wav"),
+				},
+	IdleSounds = {
+				Sound("npc/zombine/striderx_alert2.wav"),
+				Sound("npc/zombine/striderx_alert4.wav"),
+				Sound("npc/zombine/striderx_alert5.wav"),
+				Sound("npc/zombine/striderx_alert6.wav"),
+				},
+				
+	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
+	ViewOffset = Vector(0, 0, 73),
+	ViewOffsetDucked = Vector(0,0,32.2),
+	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
+	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	
+}
+
 
 --[[local SantaStart = {
 	Sound("vo/ravenholm/engage06.wav"),

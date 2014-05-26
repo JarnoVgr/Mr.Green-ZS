@@ -36,7 +36,7 @@ SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 1.8
+SWEP.Primary.Delay = 1.5
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
@@ -175,7 +175,7 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	local trFilter = self.Owner-- team.GetPlayers( TEAM_UNDEAD )
 	
 	-- Calculate damage done
-	local Damage = math.random( 70, 60 )
+	local Damage = math.random( 49, 55 )
 
 	local TraceHit, HullHit = false, false
 	

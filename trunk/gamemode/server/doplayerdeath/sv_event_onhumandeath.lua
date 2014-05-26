@@ -138,12 +138,12 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 		
 		-- Steamroller upgrade
-		if mAttacker:HasBought("steamroller") then
-			if mAttacker:Alive() then
-				local MaxHealth = ZombieClasses[mAttacker:GetZombieClass()].Health
-				mAttacker:SetHealth( math.min( MaxHealth, mAttacker:Health() + math.floor ( MaxHealth / 2 ) ) )
-			end
-		end
+		--if mAttacker:HasBought("steamroller") then
+			--if mAttacker:Alive() then
+			--	local MaxHealth = ZombieClasses[mAttacker:GetZombieClass()].Health
+			--	mAttacker:SetHealth( math.min( MaxHealth, mAttacker:Health() + math.floor ( MaxHealth / 2 ) ) )
+			--end
+		--end
 	end
 		
 	--Survival times (TODO : FIX)

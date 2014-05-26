@@ -54,7 +54,7 @@ SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 30
 --SWEP.Primary.Duration = 0.8
 SWEP.Primary.Duration = 1.2
-SWEP.Primary.Damage = 20
+SWEP.Primary.Damage = 25
 SWEP.Primary.Automatic = true
 
 
@@ -180,4 +180,8 @@ if CLIENT then
 		draw.SimpleTextOutlined("Use this to cover you're team mates advancing on the humans!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(40), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		draw.SimpleTextOutlined("Use Third person so you can see wtf you are doing! 'c'! ", "ArialBoldFive", w-ScaleW(150), h-ScaleH(20), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
+end
+
+function SWEP:PlayAttackSound()
+    self.Owner:EmitSound("npc/barnacle/barnacle_bark"..math.random(2)..".wav")
 end

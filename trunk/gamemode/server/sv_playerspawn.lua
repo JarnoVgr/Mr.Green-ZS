@@ -397,7 +397,7 @@ function GM:OnHumanSpawn(pl)
 		end
 	end)]]
 	
-	self:SendSalesToClient(pl)
+	self:SendSalesToClient(pl) 
 	
 	-- GAMEMODE:SendRanks( { pl },player.GetAll() )
 	-- GAMEMODE:SendXP( { pl },player.GetAll() )

@@ -783,149 +783,149 @@ function meta:CheckLevelUp ()
 	if self.DataTable["ClassData"] == nil then return end
 	
 	-- Commando Level UP!
-	if self:GetHumanClass() == 2 then
-		if self:GetTableScore("commando","achlevel0_2") >= 150000 and self:GetTableScore("commando","achlevel0_1") >= 600 and self:GetTableScore("commando","level") == 0 then
-			self:AddTableScore("commando","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 Commando!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("commando","achlevel0_2") >= 300000 and self:GetTableScore("commando","achlevel0_1") >= 2000 and self:GetTableScore("commando","level") == 1 then
-			self:AddTableScore("commando","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 Commando!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("commando","achlevel2_2") >= 1500 and self:GetTableScore("commando","achlevel2_1") >= 300 and self:GetTableScore("commando","level") == 2 then
-			self:AddTableScore("commando","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 Commando!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("commando","achlevel2_2") >= 3000 and self:GetTableScore("commando","achlevel2_1") >= 600 and self:GetTableScore("commando","level") == 3 then
-			self:AddTableScore("commando","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 Commando!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("commando","achlevel4_2") >= 150 and self:GetTableScore("commando","achlevel4_1") >= 500 and self:GetTableScore("commando","level") == 4 then
-			self:AddTableScore("commando","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 Commando!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("commando","achlevel4_2") >= 300 and self:GetTableScore("commando","achlevel4_1") >= 1200 and self:GetTableScore("commando","level") == 5 then
-			self:AddTableScore("commando","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 Commando!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		end
-	end	
+	--if self:GetHumanClass() == 2 then
+		--if self:GetTableScore("commando","achlevel0_2") >= 150000 and self:GetTableScore("commando","achlevel0_1") >= 600 and self:GetTableScore("commando","level") == 0 then
+		--	self:AddTableScore("commando","level",1)
+		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 Commando!")
+		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+		--elseif self:GetTableScore("commando","achlevel0_2") >= 300000 and self:GetTableScore("commando","achlevel0_1") >= 2000 and self:GetTableScore("commando","level") == 1 then
+		--	self:AddTableScore("commando","level",1)
+		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 Commando!")
+		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+		--elseif self:GetTableScore("commando","achlevel2_2") >= 1500 and self:GetTableScore("commando","achlevel2_1") >= 300 and self:GetTableScore("commando","level") == 2 then
+		--	self:AddTableScore("commando","level",1)
+		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 Commando!")
+		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("commando","achlevel2_2") >= 3000 and self:GetTableScore("commando","achlevel2_1") >= 600 and self:GetTableScore("commando","level") == 3 then
+		--	self:AddTableScore("commando","level",1)
+		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 Commando!")
+		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+		--elseif self:GetTableScore("commando","achlevel4_2") >= 150 and self:GetTableScore("commando","achlevel4_1") >= 500 and self:GetTableScore("commando","level") == 4 then
+		--	self:AddTableScore("commando","level",1)
+		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 Commando!")
+		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("commando","achlevel4_2") >= 300 and self:GetTableScore("commando","achlevel4_1") >= 1200 and self:GetTableScore("commando","level") == 5 then
+		--	self:AddTableScore("commando","level",1)
+		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 Commando!")
+		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	end
+	--end	
 
 	-- Medic Level UP!
-	if self:GetHumanClass() == 1 then
-		if self:GetTableScore("medic","achlevel0_2") >= 100 and self:GetTableScore("medic","achlevel0_1") >= 10000 and self:GetTableScore("medic","level") == 0 then
-			self:AddTableScore("medic","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 medic!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("medic","achlevel0_2") >= 250 and self:GetTableScore("medic","achlevel0_1") >= 20000 and self:GetTableScore("medic","level") == 1 then
-			self:AddTableScore("medic","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 medic!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("medic","achlevel2_2") >= 1000 and self:GetTableScore("medic","achlevel2_1") >= 500 and self:GetTableScore("medic","level") == 2 then
-			self:AddTableScore("medic","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 medic!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("medic","achlevel2_2") >= 2100 and self:GetTableScore("medic","achlevel2_1") >= 1000 and self:GetTableScore("medic","level") == 3 then
-			self:AddTableScore("medic","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 medic!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("medic","achlevel4_2") >= 150 and self:GetTableScore("medic","achlevel4_1") >= 400 and self:GetTableScore("medic","level") == 4 then
-			self:AddTableScore("medic","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 medic!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("medic","achlevel4_2") >= 300 and self:GetTableScore("medic","achlevel4_1") >= 900 and self:GetTableScore("medic","level") == 5 then
-			self:AddTableScore("medic","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 medic!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		end
-	end	
+	--if self:GetHumanClass() == 1 then
+	--	if self:GetTableScore("medic","achlevel0_2") >= 100 and self:GetTableScore("medic","achlevel0_1") >= 10000 and self:GetTableScore("medic","level") == 0 then
+	--		self:AddTableScore("medic","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 medic!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("medic","achlevel0_2") >= 250 and self:GetTableScore("medic","achlevel0_1") >= 20000 and self:GetTableScore("medic","level") == 1 then
+	--		self:AddTableScore("medic","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 medic!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("medic","achlevel2_2") >= 1000 and self:GetTableScore("medic","achlevel2_1") >= 500 and self:GetTableScore("medic","level") == 2 then
+	--		self:AddTableScore("medic","level",1)
+		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 medic!")
+		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+		--elseif self:GetTableScore("medic","achlevel2_2") >= 2100 and self:GetTableScore("medic","achlevel2_1") >= 1000 and self:GetTableScore("medic","level") == 3 then
+		--	self:AddTableScore("medic","level",1)
+		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 medic!")
+		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+		--elseif self:GetTableScore("medic","achlevel4_2") >= 150 and self:GetTableScore("medic","achlevel4_1") >= 400 and self:GetTableScore("medic","level") == 4 then
+		--	self:AddTableScore("medic","level",1)
+		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 medic!")
+		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+		--elseif self:GetTableScore("medic","achlevel4_2") >= 300 and self:GetTableScore("medic","achlevel4_1") >= 900 and self:GetTableScore("medic","level") == 5 then
+			--self:AddTableScore("medic","level",1)
+		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 medic!")
+		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+		--end
+	--end	
 
 	-- Berseker Level UP!
-	if self:GetHumanClass() == 3 then
-		if self:GetTableScore("berserker","achlevel0_1") >= 1000 and self:GetTableScore("berserker","achlevel0_2") >= 170000 and self:GetTableScore("berserker","level") == 0 then
-			self:AddTableScore("berserker","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 marksman!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("berserker","achlevel0_1") >= 2500 and self:GetTableScore("berserker","achlevel0_2") >= 450000 and self:GetTableScore("berserker","level") == 1 then
-			self:AddTableScore("berserker","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 marksman!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("berserker","achlevel2_1") >= 200000 and self:GetTableScore("berserker","achlevel2_2") >= 1500 and self:GetTableScore("berserker","level") == 2 then
-			self:AddTableScore("berserker","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 marksman!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("berserker","achlevel2_1") >= 600000 and self:GetTableScore("berserker","achlevel2_2") >= 4000 and self:GetTableScore("berserker","level") == 3 then
-			self:AddTableScore("berserker","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 marksman!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("berserker","achlevel4_1") >= 700 and self:GetTableScore("berserker","achlevel4_2") >= 150 and self:GetTableScore("berserker","level") == 4 then
-			self:AddTableScore("berserker","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 marksman!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("berserker","achlevel4_1") >= 1337 and self:GetTableScore("berserker","achlevel4_2") >= 300 and self:GetTableScore("berserker","level") == 5 then
-			self:AddTableScore("berserker","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 marksman!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		end
-	end		
+	--if self:GetHumanClass() == 3 then
+		--if self:GetTableScore("berserker","achlevel0_1") >= 1000 and self:GetTableScore("berserker","achlevel0_2") >= 170000 and self:GetTableScore("berserker","level") == 0 then
+	--		self:AddTableScore("berserker","level",1)
+		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 marksman!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("berserker","achlevel0_1") >= 2500 and self:GetTableScore("berserker","achlevel0_2") >= 450000 and self:GetTableScore("berserker","level") == 1 then
+	--		self:AddTableScore("berserker","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 marksman!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("berserker","achlevel2_1") >= 200000 and self:GetTableScore("berserker","achlevel2_2") >= 1500 and self:GetTableScore("berserker","level") == 2 then
+	--		self:AddTableScore("berserker","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 marksman!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("berserker","achlevel2_1") >= 600000 and self:GetTableScore("berserker","achlevel2_2") >= 4000 and self:GetTableScore("berserker","level") == 3 then
+	--		self:AddTableScore("berserker","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 marksman!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("berserker","achlevel4_1") >= 700 and self:GetTableScore("berserker","achlevel4_2") >= 150 and self:GetTableScore("berserker","level") == 4 then
+	--		self:AddTableScore("berserker","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 marksman!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("berserker","achlevel4_1") >= 1337 and self:GetTableScore("berserker","achlevel4_2") >= 300 and self:GetTableScore("berserker","level") == 5 then
+	--		self:AddTableScore("berserker","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 marksman!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	end
+--	end		
 	
 	-- Engineer Level UP!
-	if self:GetHumanClass() == 4 then
-		if self:GetTableScore("engineer","achlevel0_1") >= 20 and self:GetTableScore("engineer","achlevel0_2") >= 150 and self:GetTableScore("engineer","level") == 0 then
-			self:AddTableScore("engineer","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 engineer!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("engineer","achlevel0_1") >= 60 and self:GetTableScore("engineer","achlevel0_2") >= 350 and self:GetTableScore("engineer","level") == 1 then
-			self:AddTableScore("engineer","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 engineer!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("engineer","achlevel2_1") >= 600 and self:GetTableScore("engineer","achlevel2_2") >= 200000 and self:GetTableScore("engineer","level") == 2 then
-			self:AddTableScore("engineer","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 engineer!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("engineer","achlevel2_1") >= 850 and self:GetTableScore("engineer","achlevel2_2") >= 500000 and self:GetTableScore("engineer","level") == 3 then
-			self:AddTableScore("engineer","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 engineer!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("engineer","achlevel4_1") >= 250000 and self:GetTableScore("engineer","achlevel4_2") >= 150 and self:GetTableScore("engineer","level") == 4 then
-			self:AddTableScore("engineer","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 engineer!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("engineer","achlevel4_1") >= 500000 and self:GetTableScore("engineer","achlevel4_2") >= 300 and self:GetTableScore("engineer","level") == 5 then
-			self:AddTableScore("engineer","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 engineer!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		end
-	end		
+--	if self:GetHumanClass() == 4 then
+--		if self:GetTableScore("engineer","achlevel0_1") >= 20 and self:GetTableScore("engineer","achlevel0_2") >= 150 and self:GetTableScore("engineer","level") == 0 then
+--			self:AddTableScore("engineer","level",1)
+--			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 engineer!")
+--			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+--		elseif self:GetTableScore("engineer","achlevel0_1") >= 60 and self:GetTableScore("engineer","achlevel0_2") >= 350 and self:GetTableScore("engineer","level") == 1 then
+--			self:AddTableScore("engineer","level",1)
+--			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 engineer!")
+--			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+--		elseif self:GetTableScore("engineer","achlevel2_1") >= 600 and self:GetTableScore("engineer","achlevel2_2") >= 200000 and self:GetTableScore("engineer","level") == 2 then
+--			self:AddTableScore("engineer","level",1)
+--			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 engineer!")
+--			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+--		elseif self:GetTableScore("engineer","achlevel2_1") >= 850 and self:GetTableScore("engineer","achlevel2_2") >= 500000 and self:GetTableScore("engineer","level") == 3 then
+--			self:AddTableScore("engineer","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 engineer!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("engineer","achlevel4_1") >= 250000 and self:GetTableScore("engineer","achlevel4_2") >= 150 and self:GetTableScore("engineer","level") == 4 then
+	--		self:AddTableScore("engineer","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 engineer!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("engineer","achlevel4_1") >= 500000 and self:GetTableScore("engineer","achlevel4_2") >= 300 and self:GetTableScore("engineer","level") == 5 then
+	--		self:AddTableScore("engineer","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 engineer!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	end
+--	end		
 	
 	-- Support Level UP!
-	if self:GetHumanClass() == 5 then
-		if self:GetTableScore("support","achlevel0_1") >= 25000 and self:GetTableScore("support","achlevel0_2") >= 150 and self:GetTableScore("support","level") == 0 then
-			self:AddTableScore("support","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 support!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("support","achlevel0_1") >= 100000 and self:GetTableScore("support","achlevel0_2") >= 400 and self:GetTableScore("support","level") == 1 then
-			self:AddTableScore("support","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 support!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("support","achlevel2_1") >= 150000 and self:GetTableScore("support","achlevel2_2") >= 300 and self:GetTableScore("support","level") == 2 then
-			self:AddTableScore("support","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 support!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("support","achlevel2_1") >= 300000 and self:GetTableScore("support","achlevel2_2") >= 1100 and self:GetTableScore("support","level") == 3 then
-			self:AddTableScore("support","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 support!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("support","achlevel4_1") >= 200000 and self:GetTableScore("support","achlevel4_2") >= 150 and self:GetTableScore("support","level") == 4 then
-			self:AddTableScore("support","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 support!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		elseif self:GetTableScore("support","achlevel4_1") >= 400000 and self:GetTableScore("support","achlevel4_2") >= 300 and self:GetTableScore("support","level") == 5 then
-			self:AddTableScore("support","level",1)
-			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 support!")
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		end
-	end	
+--	if self:GetHumanClass() == 5 then
+--		if self:GetTableScore("support","achlevel0_1") >= 25000 and self:GetTableScore("support","achlevel0_2") >= 150 and self:GetTableScore("support","level") == 0 then
+	--		self:AddTableScore("support","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 support!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("support","achlevel0_1") >= 100000 and self:GetTableScore("support","achlevel0_2") >= 400 and self:GetTableScore("support","level") == 1 then
+	--		self:AddTableScore("support","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 support!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("support","achlevel2_1") >= 150000 and self:GetTableScore("support","achlevel2_2") >= 300 and self:GetTableScore("support","level") == 2 then
+	--		self:AddTableScore("support","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 support!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("support","achlevel2_1") >= 300000 and self:GetTableScore("support","achlevel2_2") >= 1100 and self:GetTableScore("support","level") == 3 then
+	--		self:AddTableScore("support","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 support!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("support","achlevel4_1") >= 200000 and self:GetTableScore("support","achlevel4_2") >= 150 and self:GetTableScore("support","level") == 4 then
+	--		self:AddTableScore("support","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 support!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	elseif self:GetTableScore("support","achlevel4_1") >= 400000 and self:GetTableScore("support","achlevel4_2") >= 300 and self:GetTableScore("support","level") == 5 then
+	--		self:AddTableScore("support","level",1)
+	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 support!")
+	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+	--	end
+	--end	
 end
 
 function meta:GetTableScore( class,stat)
