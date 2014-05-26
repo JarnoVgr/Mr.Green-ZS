@@ -783,13 +783,14 @@ HELP_TXT[3] = {
 	[5] = Medkit [6] = Hammer [7] = Pack of nails [11] = Mobile supplies, Keyboard
 	[13] = Adrenaline injection, [14] = Speed boost [15] = Grenade
 	[16] = Torch regen rate [17] = NailHP [19] = Falldmg
-	[21] = Kevlar2 [22] = Medical upgrade2 [24] = Comeback
-	[25] = Turret [27] = Poison protection [28] = Turret remote
+	[21] = Kevlar2 [22] = Medical upgrade2 [23] = Immortal Pro!
+	[24] = Comeback [25] = Turret [26] = Special Hammer! 
+	[27] = Poison protection [28] = Turret remote
 	[30] = Turret Damage [31] = C4 [32] = Turret Health [33] = Turret Ammo
 	[35] = Enhanced Kevlar [37] = Planks [39] = Plank amount [40] = Freeman spirit
 	[43] = Plank HP [44] = Combat knife  [45] = Pot [50] = Mini turret
 	[55] = Crowbar [65] = Classic pistol [70] = Five seven [76] = Hook
-	[77] = Alyx Gun [78] = Special Hammer!
+	[77] = Alyx Gun 
 		
 	]]
 } 
