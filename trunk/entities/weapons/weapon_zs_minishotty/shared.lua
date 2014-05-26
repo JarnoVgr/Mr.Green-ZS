@@ -40,6 +40,8 @@ end
 
 SWEP.Base                                = "weapon_zs_base"
 
+SWEP.UseHands = true
+
 SWEP.Spawnable                        = true
 
 SWEP.AdminSpawnable                = true
