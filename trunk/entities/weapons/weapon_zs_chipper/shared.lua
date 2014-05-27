@@ -17,6 +17,14 @@ if CLIENT then
 		["v_weapon.M3_CHAMBER"] = { scale = Vector(0.899, 0.899, 0.899), pos = Vector(0, 0.037, 0), angle = Angle(0, 0, 0) }
 	}
 
+	SWEP.WElements = {
+		["actual_grip"] = { type = "Model", model = "models/props_docks/dock01_pole01a_128.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.2, 0.8, 0.518), angle = Angle(5.843, 0, 0), size = Vector(0.2, 0.1, 0.05), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["barrel"] = { type = "Model", model = "models/props_docks/dock03_pole01a_256.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "grip", pos = Vector(-1.558, 0, 0), angle = Angle(180, 0, 0), size = Vector(0.119, 0.119, 0.14), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["handle"] = { type = "Model", model = "models/props_wasteland/prison_pipefaucet001a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "grip", pos = Vector(0, 0, 18.181), angle = Angle(0, -90, 90), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["barrel+"] = { type = "Model", model = "models/props_docks/piling_cluster01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "grip", pos = Vector(0.518, 0, 0), angle = Angle(0, 0, 0), size = Vector(0.05, 0.05, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["grip"] = { type = "Model", model = "models/props_docks/dock01_pole01a_128.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(15.064, 0.8, -4.676), angle = Angle(78.311, 0, 0), size = Vector(0.2, 0.2, 0.2), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
+	
 	SWEP.VElements = {
 		["handle+"] = { type = "Model", model = "models/props_docks/piling_cluster01a.mdl", bone = "v_weapon.M3_PARENT", rel = "handle", pos = Vector(0.2, 2.599, 1.1), angle = Angle(180, 180, 92.337), size = Vector(0.017, 0.017, 0.017), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["handle"] = { type = "Model", model = "models/props_wasteland/prison_pipefaucet001a.mdl", bone = "v_weapon.M3_PARENT", rel = "", pos = Vector(0, -3.201, 4.675), angle = Angle(180, 0, -94.676), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
@@ -30,7 +38,7 @@ if CLIENT then
 		["shell"] = { type = "Model", model = "models/props_docks/piling_cluster01a.mdl", bone = "v_weapon.M3_SHELL", rel = "", pos = Vector(0, 0, -0.7), angle = Angle(0, 90, 0), size = Vector(0.017, 0.017, 0.009), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["barrel+"] = { type = "Model", model = "models/props_docks/dock03_pole01a_256.mdl", bone = "v_weapon.M3_PARENT", rel = "", pos = Vector(0, -4.5, -9.87), angle = Angle(0, 0, 180), size = Vector(0.059, 0.059, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}	
-	
+	SWEP.ViewModelFOV = 55
 	killicon.AddFont("weapon_zs_m3super90", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
 
@@ -51,9 +59,9 @@ SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound 			= Sound("Weapon_Shotgun.Single")
 SWEP.Primary.Recoil			= 5
-SWEP.Primary.Damage			= 5
+SWEP.Primary.Damage			= 5.5
 SWEP.Primary.NumShots		= 8
-SWEP.Primary.ClipSize		= 6
+SWEP.Primary.ClipSize		= 4
 SWEP.Primary.Delay			= 0.8
 SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= false
@@ -67,7 +75,7 @@ SWEP.Cone  = 0.13
 SWEP.ConeMoving = SWEP.Cone *1.15
 SWEP.ConeCrouching = SWEP.Cone *0.95
 
-SWEP.WalkSpeed = 180
+SWEP.WalkSpeed = 175
 
 SWEP.IronSightsPos = Vector(-7.64, -10.315, 3.319)
 SWEP.IronSightsAng = Vector(0, 0, 0)

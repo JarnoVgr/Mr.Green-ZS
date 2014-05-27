@@ -47,7 +47,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("weapons/airboat/airboat_gun_lastshot"..math.random(1,2)..".wav")
-SWEP.Primary.Recoil			= 4
+SWEP.Primary.Recoil			= 3
 SWEP.Primary.Damage			= 10
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 20
@@ -58,9 +58,22 @@ SWEP.Primary.Automatic		= true
 
 SWEP.Primary.Ammo			= "none"
 
-SWEP.ConeMoving				= 0.077
-SWEP.Primary.Cone			= 0.068
-SWEP.ConeCrouching			= 0.055
+SWEP.Cone 			= 0.064
+SWEP.ConeMoving		 = SWEP.Cone *1.3
+SWEP.ConeCrouching 	 = SWEP.Cone *0.90
+SWEP.ConeIron 		 = SWEP.Cone *0.95
+SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.9
+--SWEP.ConeIronMoving	 = SWEP.Moving *0.9
+
+SWEP.IronSightsPos = Vector(-2, -4, 1.5)
+SWEP.IronSightsAng = Vector(0,0,0)
+
+SWEP.OverridePos = Vector(1.559, -3.116, 1.6)
+SWEP.OverrideAng = Vector(0, 0, 0)
+
+
+
+
 
 SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1

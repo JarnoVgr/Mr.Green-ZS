@@ -28,8 +28,8 @@ ZombieClasses[0] =
 	SP = 30,
 	Threshold = 0,	
 	SWEP = "weapon_zs_undead_infected",			
-	--JumpPower = 200,
-	JumpPower = 190,
+	JumpPower = 200,
+	--JumpPower = 190,
 	CanCrouch = true,
 	CanGib = true,
 	--Model = Model("models/player/group01/male_09.mdl"), 
@@ -777,7 +777,7 @@ ZombieClasses[15] = --Everyone loves it ^^
 		pl:SetColor( 39, 148, 6 )	
 		pl:SetRandomFace()		
 	end,
-	Speed = 140,
+	Speed = 130,
 	Description = "",
 	Unique = "",
 	PainSounds = {

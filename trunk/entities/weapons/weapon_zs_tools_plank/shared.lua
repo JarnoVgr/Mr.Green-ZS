@@ -118,6 +118,7 @@ function SWEP:PrimaryAttack()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
 				phys:SetMass(50)
+			
 				phys:SetVelocityInstantaneous(self.Owner:GetVelocity())
 			end
 			ent:SetPhysicsAttacker(self.Owner)

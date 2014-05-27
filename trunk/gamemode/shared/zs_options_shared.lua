@@ -287,6 +287,7 @@ GM.HumanWeapons = {
 	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle" },
 	["weapon_zs_minishotty"]  = { Name = "Farter shotgun", DPS = 143, Infliction = 0, Type = "shotgun" },
 	["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143, Infliction = 0, Type = "shotgun" },
+	["weapon_zs_python"]  = { Name = "Python", DPS = 143, Infliction = 0, Type = "pistol" },
 	
 	
 	--Tool1
@@ -400,11 +401,12 @@ MAX_RANK = 78
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_chipper"},
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
 	--[4] = {"weapon_zs_tools_torch"},
+	[4] = {"weapon_zs_python"},
 	[5] = {"weapon_zs_medkit"},
 	[6] = {"weapon_zs_tools_hammer"},
 	[7] = {"_nailamount"},
@@ -521,21 +523,21 @@ DIFFICULTY = 1.5
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
 --CARRY_MAXIMUM_MASS = 300
-CARRY_MAXIMUM_MASS = 1
+CARRY_MAXIMUM_MASS = 60
 
 -- Objects with more mass than this will be dragged instead of carried.
 --CARRY_DRAG_MASS = 145
 --CARRY_DRAG_MASS = 130
-CARRY_DRAG_MASS = 1
+CARRY_DRAG_MASS = 60
 
 -- Anything bigger than this is dragged regardless of mass.
 --CARRY_DRAG_VOLUME = 120
 --CARRY_DRAG_VOLUME = 80
-CARRY_DRAG_VOLUME = 1
+CARRY_DRAG_VOLUME = 60
 
 -- Humans can not carry anything with a volume more than this (OBBMins():Length() + OBBMaxs():Length()).
 --CARRY_MAXIMUM_VOLUME = 150
-CARRY_MAXIMUM_VOLUME = 1
+CARRY_MAXIMUM_VOLUME = 60
 
 -- Humans are slowed by this amount per kg carried.
 CARRY_SPEEDLOSS_PERKG = 1.3
@@ -780,7 +782,7 @@ HELP_TXT[3] = {
 		You can also gain XP by killing humans and zombies.
 		---lEVEL UNLOCKS------------------
 		
-	[0] = USP, fists [1] = Plank [2] = P228 [3] = Kevlar
+	[0] = USP, fists,chipper [1] = Plank [2] = P228 [3] = Kevlar [4] = Python
 	[5] = Medkit [6] = Hammer [7] = Pack of nails [11] = Mobile supplies, Keyboard
 	[13] = Adrenaline injection, [14] = Speed boost [15] = Grenade
 	[16] = Torch regen rate [17] = NailHP [19] = Falldmg
