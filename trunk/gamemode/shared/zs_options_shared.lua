@@ -400,7 +400,7 @@ MAX_RANK = 78
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","_imortalpro"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2"},
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
@@ -419,7 +419,7 @@ GM.RankUnlocks = {
 	[19] = {"_falldmg"},
 	[21] = {"_kevlar2"},
 	[22] = {"_medupgr2"},
-	--[23] = {"_imortalpro"},
+	[23] = {"_imortalpro"},
 	[24] = {"_comeback"},
 	[26] = {"weapon_zs_tools_hammer2"},
 	[25] = {"weapon_zs_turretplacer"},
