@@ -63,8 +63,12 @@ function SWEP:PrimaryAttack()
 	
 	local Owner = self.Owner
 
+	local bullet = {}
+	bullet.Force = 3000
+	
+	
 	--Recoil multiplier
-	local recoilMultiplier = 1.3
+	local recoilMultiplier = 0.13
 	if self:GetIronsights() then
 		--Less recoil when in ironsight
 		recoilMultiplier = recoilMultiplier * 0.6
@@ -104,7 +108,8 @@ function SWEP:PrimaryAttack()
 	--Knockback
 	local aimVec = self.Owner:GetAimVector()
 	aimVec.z = 0
-	self.Owner:SetVelocity(-6 * (self.Primary.Recoil * recoilMultiplier) * aimVec)
+	--self.Owner:SetVelocity(-6 * (self.Primary.Recoil * recoilMultiplier) * aimVec)
+	self.Owner:SetVelocity(-0 * (self.Primary.Recoil * recoilMultiplier) * aimVec)
 
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
 end
@@ -315,7 +320,8 @@ end
 function SWEP:DoBulletKnockback()
 	for ent, prevvel in pairs(tempknockback) do
 		local curvel = ent:GetVelocity()
-		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.25 + prevvel)
+		--ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.25 + prevvel)
+		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.025 + prevvel)
 	end
 end
 
@@ -349,7 +355,7 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 	owner:SetAnimation(PLAYER_ATTACK1)
 
 	self:StartBulletKnockback()
-	owner:FireBullets({Num = numbul, Src = owner:GetShootPos(), Dir = owner:GetAimVector(), Spread = Vector(cone, cone, 0), Tracer = 1, TracerName = self.TracerName, Force = dmg * 0.1, Damage = dmg, Callback = self.BulletCallback})
+	owner:FireBullets({Num = numbul, Src = owner:GetShootPos(), Dir = owner:GetAimVector(), Spread = Vector(cone, cone, 0), Tracer = 1, TracerName = self.TracerName, Force = dmg * 0.015, Damage = dmg, Callback = self.BulletCallback})
 	self:DoBulletKnockback()
 	self:EndBulletKnockback()
 end

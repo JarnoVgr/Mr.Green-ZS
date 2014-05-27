@@ -40,7 +40,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_357.Single" )
-SWEP.Primary.Recoil			= 2
+SWEP.Primary.Recoil			= 0.0
 SWEP.Primary.Damage			= 36
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
@@ -72,14 +72,14 @@ local function DoRicochet(attacker, hitpos, hitnormal, normal, damage)
 	attacker.RicochetBullet = nil
 end
 
-function SWEP.BulletCallback(attacker, tr, dmginfo)
-	if SERVER and tr.HitWorld and not tr.HitSky then
-		timer.Simple(0, function()
-			DoRicochet( attacker, tr.HitPos, tr.HitNormal, tr.Normal, dmginfo:GetDamage() * 2)
-		end)
-	end
+--function SWEP.BulletCallback(attacker, tr, dmginfo)
+--	if SERVER and tr.HitWorld and not tr.HitSky then
+--		timer.Simple(0, function()
+	--		DoRicochet( attacker, tr.HitPos, tr.HitNormal, tr.Normal, dmginfo:GetDamage() * 2)
+	--	end)
+	--end
 
-	GenericBulletCallback(attacker, tr, dmginfo)
-end
+--	GenericBulletCallback(attacker, tr, dmginfo)
+--end
 
 

@@ -1650,6 +1650,11 @@ end
 end
 end 
 
+--Speed change
+--if SERVER then GAMEMODE:WeaponDeployed( self.Owner, self ) return true else self:SetViewModelColor ( 255,255,255,255 ) 
+--end
+
+
 --[=[----------------------------------------------------------------------
      Dubys amazing method to the Grave digger suit!
 ---------------------------------------------------------------------------]=]
