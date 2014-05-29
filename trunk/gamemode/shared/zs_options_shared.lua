@@ -401,7 +401,7 @@ MAX_RANK = 78
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_chipper","_turretoverdrive"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_chipper"},
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
@@ -428,7 +428,7 @@ GM.RankUnlocks = {
 	[27] = {"_poisonprotect"},
 	[28] = {"weapon_zs_tools_remote"},
 	--[30] = {"_turretdmg"},
-	--[30] = {"_turretoverdrive"},
+	[30] = {"_turretoverdrive"},
 	[31] = {"weapon_zs_mine"},
 	--[32] = {"_turrethp"},
 	--[33] = {"_turretammo"},-- ,"weapon_zs_melee_axe"
