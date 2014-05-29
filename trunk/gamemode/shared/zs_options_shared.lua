@@ -488,7 +488,7 @@ GM.Perks = {
 	["_sboost"] = {Name = "Speed Boost", Description = "8% more walking speed", Slot = 1},
 	--["_trchregen"] = {Name = "Handy Man", Description = "Increased regeneration rate for torch", Material = "HUD/scoreboard_clock", Slot = 2},
 	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with hammer", Material = "HUD/scoreboard_clock", Slot = 2},
-	["_comeback"] = {Name = "Comeback", Description = "When you redeem you will spawn either with Elites or a Deagal! Works only once.", Slot = 1},
+	["_comeback"] = {Name = "Comeback", Description = "When you redeem you will spawn either with a P90 or a M4Al! (Only once.)", Slot = 1},
 	["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
 	["_plankamount"] = {Name = "Extra Plank", Description = "Ability to carry one more plank!", Slot = 2},
 	["_plankhp"] = {Name = "Stronger Planks", Description = "30% more health for planks", Slot = 2},
