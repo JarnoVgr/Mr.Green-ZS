@@ -131,7 +131,7 @@ ZombieClasses[2] =
 {
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
-	Infliction = 0.5,
+	Infliction = 0.45,
 	Health = 125,
 	MaxHealth = 160,
 	TimeLimit = 300,
@@ -184,7 +184,7 @@ ZombieClasses[3] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
-	Infliction = 0.55,
+	Infliction = 0.45,
 	Health = 400,
 	MaxHealth = 650,
 	TimeLimit = 810,
@@ -226,7 +226,7 @@ ZombieClasses[4] =
 {
 	Name = "Ethereal",
 	Tag = "etherealzombie",
-	Infliction = 0.4,
+	Infliction = 0.3,
 	Health = 110,
 	MaxHealth = 100,
 	TimeLimit = 200,
@@ -379,7 +379,7 @@ ZombieClasses[8] =
 {
 	Name = "Zombine",
 	Tag = "zombine",
-	Infliction = 0.7,
+	Infliction = 0.6,
 	Health = 300,
 	MaxHealth = 320, 
 	TimeLimit = 1020,
