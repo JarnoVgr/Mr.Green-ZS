@@ -56,7 +56,7 @@ local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 		
 	local HealthRegen = {}
 HealthRegen.Amount = 1
-HealthRegen.GiveDelay = 1.5
+HealthRegen.GiveDelay = 1
 HealthRegen.MaxRegen= 30
 
 hook.Add( "Think", "RegenHealth", function()
