@@ -27,7 +27,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 		end]]
 			
 		if not ent:IsBot() and ent:IsPlayer() and ent:Team() == TEAM_HUMAN and ent:Alive() and ent:GetPerk("_enhkevlar") and attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD then
-			dmginfo:SetDamage (damage - damage*0.15 ) 
+			dmginfo:SetDamage (damage - damage*0.25 ) 
 		end
 	end
 	

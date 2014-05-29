@@ -91,18 +91,23 @@ if SERVER then
 		
 		self:SetMaterial(MaterialToApply)
 			
-		
-		if self:GetTurretOwner():GetPerk("_turretammo") then
+			if self:GetTurretOwner():GetPerk("_turretoverdrive") then --Combined the turret perks into one perk as requested by the community.
 			self.MaxBullets = math.Round(self.MaxBullets*1.5)
-		end
-		
-		if self:GetTurretOwner():GetPerk("_turrethp") then
 			self.MaxHealth = math.Round(self.MaxHealth*1.5)
-		end
-		
-		if self:GetTurretOwner():GetPerk("_turretdmg") then
 			self.Damage = math.Round(self.Damage*1.5)
-		end
+			end
+		
+		--if self:GetTurretOwner():GetPerk("_turretammo") then
+		--	self.MaxBullets = math.Round(self.MaxBullets*1.5)
+		--end
+		
+		--if self:GetTurretOwner():GetPerk("_turrethp") then
+		--	self.MaxHealth = math.Round(self.MaxHealth*1.5)
+		--end
+		
+		--if self:GetTurretOwner():GetPerk("_turretdmg") then
+			--self.Damage = math.Round(self.Damage*1.5)
+		--end
 		
 		-- Set few things
 		self.Target = nil
@@ -370,7 +375,7 @@ if SERVER then
 	function ENT:DoBulletKnockback()
 		for ent, prevvel in pairs(tempknockback) do
 			local curvel = ent:GetVelocity()
-			ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.05 + prevvel)
+			ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.005 + prevvel)
 		end
 	end
 

@@ -218,7 +218,7 @@ GM.HumanWeapons = {
 	
 	["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42,Mat = "VGUI/gfx/VGUI/usp45", Infliction = 0, Type = "pistol" },
 	["weapon_zs_p228"]  = { Name = "P228", DPS = 58,Mat = "VGUI/gfx/VGUI/p228", Infliction = 0, Type = "pistol" },
-	["weapon_zs_deagle"]  = { Name = "Desert Eagle",Mat = "VGUI/gfx/VGUI/deserteagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = (table25[math.random(3,#table25)]) },
+	--["weapon_zs_deagle"]  = { Name = "Desert Eagle",Mat = "VGUI/gfx/VGUI/deserteagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = (table25[math.random(3,#table25)]) },
 	--["weapon_zs_fiveseven"]  = { Name = "Five-Seven",Mat = "VGUI/gfx/VGUI/fiveseven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = (table21[math.random(3,#table21)]) },
 	--["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = (table24[math.random(3,#table24)]) },
 	--["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120,Mat = "VGUI/gfx/VGUI/glock18", Infliction = 0.25, Type = "pistol", Price =(table23[math.random(3,#table23)]) },
@@ -343,15 +343,15 @@ GM.HumanWeapons = {
 ---
 
 GM.SkillShopAmmo = {
-	["pistol"]  = { Name = "12 Pistol Bullets", Model = "models/Items/BoxSRounds.mdl", Amount = 12, Price = 20},
-	["357"]  = { Name = "6 Sniper Bullets", Model = "models/Items/357ammo.mdl", Amount = 6, Price = 35},
-	["smg1"]  = { Name = "30 SMG Bullets", Model = "models/Items/BoxMRounds.mdl", Amount = 30, Price = 25},
-	["ar2"]  = { Name = "30 Rifle Bullets", Model = "models/Items/combine_rifle_cartridge01.mdl", Amount = 35, Price = 30},
-	["buckshot"]  = { Name = "12 Shotguns Shells", Model = "models/Items/BoxBuckshot.mdl", Amount = 12, Price = 30},
-	["slam"]  = { Name = "Refill 1 explosive", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_mine", Amount = 1, Price = 60, ToolTab = true},
-	["grenade"]  = { Name = "Refill 1 grenade", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_grenade", Amount = 1, Price = 70, ToolTab = true},
-	["gravity"]  = { Name = "Refill 1 nail", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_tools_hammer", Amount = 1, Price = 30, ToolTab = true},
-	["Battery"]  = { Name = "Refill 30 charge for Medkit", Model = "models/Items/BoxBuckshot.mdl", Amount = 30, Price = 35, ToolTab = true},
+--	["pistol"]  = { Name = "12 Pistol Bullets", Model = "models/Items/BoxSRounds.mdl", Amount = 12, Price = 20},
+	--["357"]  = { Name = "6 Sniper Bullets", Model = "models/Items/357ammo.mdl", Amount = 6, Price = 35},
+	--["smg1"]  = { Name = "30 SMG Bullets", Model = "models/Items/BoxMRounds.mdl", Amount = 30, Price = 25},
+--	["ar2"]  = { Name = "30 Rifle Bullets", Model = "models/Items/combine_rifle_cartridge01.mdl", Amount = 35, Price = 30},
+--	["buckshot"]  = { Name = "12 Shotguns Shells", Model = "models/Items/BoxBuckshot.mdl", Amount = 12, Price = 30},
+--	["slam"]  = { Name = "Refill 1 explosive", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_mine", Amount = 1, Price = 60, ToolTab = true},
+--	["grenade"]  = { Name = "Refill 1 grenade", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_grenade", Amount = 1, Price = 70, ToolTab = true},
+	--["gravity"]  = { Name = "Refill 1 nail", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_tools_hammer", Amount = 1, Price = 30, ToolTab = true},
+	--["Battery"]  = { Name = "Refill 30 charge for Medkit", Model = "models/Items/BoxBuckshot.mdl", Amount = 30, Price = 35, ToolTab = true},
 }
 
 
@@ -401,7 +401,7 @@ MAX_RANK = 78
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_chipper"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_chipper","_turretoverdrive"},
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
@@ -427,10 +427,11 @@ GM.RankUnlocks = {
 	[25] = {"weapon_zs_turretplacer"},
 	[27] = {"_poisonprotect"},
 	[28] = {"weapon_zs_tools_remote"},
-	[30] = {"_turretdmg"},
+	--[30] = {"_turretdmg"},
+	--[30] = {"_turretoverdrive"},
 	[31] = {"weapon_zs_mine"},
-	[32] = {"_turrethp"},
-	[33] = {"_turretammo"},-- ,"weapon_zs_melee_axe"
+	--[32] = {"_turrethp"},
+	--[33] = {"_turretammo"},-- ,"weapon_zs_melee_axe"
 	[34] = {"_medupgr1"},
 	[35] = {"_enhkevlar"},
 	[36] = {"weapon_zs_melee_combatknife"}, --Combat knife. 
@@ -472,9 +473,9 @@ GM.ArenaWeapons = {
 GM.Perks = {
 	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
 	["_kevlar2"] = {Name = "Full Kevlar", Description = "Gives you 30 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
-	["_turretammo"] = {Name = "Turret Ammo", Description = "50% more ammo for turret", Slot = 2},
-	["_turrethp"] = {Name = "Turret Durability", Description = "50% more health for turret", Material = "VGUI/gfx/VGUI/defuser", Slot = 2},
-	["_turretdmg"] = {Name = "Turret Power", Description = "50% more turret's damage", Slot = 2},
+	--["_turretammo"] = {Name = "Turret Ammo", Description = "50% more ammo for turret", Slot = 2},
+	--["_turrethp"] = {Name = "Turret Durability", Description = "50% more health for turret", Material = "VGUI/gfx/VGUI/defuser", Slot = 2},
+	--["_turretdmg"] = {Name = "Turret Power", Description = "50% more turret's damage", Slot = 2},
 	["_poisonprotect"] = {Name = "Poison Protection", Description = "30% less damage from Poison Headcrabs", Slot = 2},
 	["_nailamount"] = {Name = "Pack of nails", Description = "50% more starting nails", Slot = 2},
 	["_nailhp"] = {Name = "Upgraded nails", Description = "40% more health for nails", Slot = 2},
@@ -492,6 +493,7 @@ GM.Perks = {
 	["_plankamount"] = {Name = "Extra Plank", Description = "Ability to carry one more plank!", Slot = 2},
 	["_plankhp"] = {Name = "Stronger Planks", Description = "30% more health for planks", Slot = 2},
 	["_imortalpro"] = {Name = "Immortal Protector!", Description = "You will spawn with the legendary Pulse SMG!", Slot = 1},
+	["_turretoverdrive"] = {Name = "Turret Overdrive!", Description = "Your turret has had an upgrade!", Material = "VGUI/gfx/VGUI/defuser", Slot = 2},
 }
 
 -- Leave this. This table will be filled at initialize hook
@@ -1278,6 +1280,9 @@ achievementDesc = {
 	[46] = { Image = "zombiesurvival/achv_blank_zs", Key = "nerf", ID = 46, Name = "Your worst enemy", Desc = "Still complaining? :v",  },
 	[47] = { Image = "zombiesurvival/achv_blank_zs", Key = "flare", ID = 47, Name = "'Let there be light!'", Desc = "???",  },
 	[48] = { Image = "zombiesurvival/achv_blank_zs", Key = "klinator", ID = 47, Name = "'Kill the Cyber Nerd!'", Desc = "Kill the lost kliener and see what happens..",  },
+	[49] = { Image = "zombiesurvival/achv_blank_zs", Key = "smoker", ID = 47, Name = "'From the smoke a hero arises!'", Desc = "Kill what blinds you!",  },
+	[50] = { Image = "zombiesurvival/achv_blank_zs", Key = "lilith", ID = 47, Name = "'Screaming bitch!'", Desc = "Kill the boss which is on its period.",  },
+	[51] = { Image = "zombiesurvival/achv_blank_zs", Key = "seekerII", ID = 47, Name = "'Hide'n'Seek reborn!'", Desc = "Return of an old evil in a new form!",  },
 }	
 
 --[=[---------------------------------

@@ -26,11 +26,11 @@ SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.Primary.Delay = 0.7
 SWEP.Primary.Automatic	= true
-SWEP.Primary.Heal = 1
-SWEP.Primary.ClipSize = 30
-SWEP.Primary.DefaultClipSize = 30
-SWEP.Primary.UpgradedClipSize = 60
-SWEP.Primary.DefaultClip = 30
+SWEP.Primary.Heal = 10
+SWEP.Primary.ClipSize = 60
+SWEP.Primary.DefaultClipSize = 60
+SWEP.Primary.UpgradedClipSize = 150
+SWEP.Primary.DefaultClip = 60
 SWEP.Primary.Ammo = "SniperRound"
 
 
@@ -101,7 +101,7 @@ localplayer = pl
 	if ent:GetPerk("_kevlar") then
 		maxhealth = 110
 	elseif ent:GetPerk("_kevlar2") then
-		maxhealth = 120
+		maxhealth = 130
 	end
 
 	--Medical upgrade (multiplier)
@@ -177,7 +177,7 @@ function SWEP:SecondaryAttack()
 	if owner:GetPerk("_kevlar") then
 		maxhealth = 110
 	elseif owner:GetPerk("_kevlar2") then
-		maxhealth = 120
+		maxhealth = 130
 	end
 	
 	--Check for medical upgrade (multiplier)
@@ -223,15 +223,15 @@ function SWEP:Think()
 	
 			
 	
-	if SERVER then
-		if not self.Owner:KeyDown(IN_ATTACK) and self.RechargeTimer < CurTime() and self.Weapon:Clip1() < self.Primary.ClipSize then	
+--	if SERVER then
+	--	if not self.Owner:KeyDown(IN_ATTACK) and self.RechargeTimer < CurTime() and self.Weapon:Clip1() < self.Primary.ClipSize then	
 			--Give 1
-			self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 1))
+		--	self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 1))
 			
 			--Next recharge
-			self.RechargeTimer = CurTime() + 1
-		end
-	end
+			--self.RechargeTimer = CurTime() + 1
+		--end
+	--end
 end
 
 function SWEP:CanPrimaryAttack()

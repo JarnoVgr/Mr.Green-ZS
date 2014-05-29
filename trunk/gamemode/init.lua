@@ -1681,3 +1681,53 @@ hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and i
 ---------------------------------------------------------------------------]=]
 
 --Duby: I will do it one day.
+
+--[=[----------------------------------------------------------------------
+     Dubys amazing method to the new crate!!
+---------------------------------------------------------------------------]=]
+TeamsTable = {}
+TeamsTable["RewardTableOne"] = {"weapon_zs_deagle","weapon_zs_magnum","weapon_zs_elites","weapon_zs_fiveseven"}
+
+
+hook.Add("PlayerDeath","CheckKillCount",function(pl,dmg,attacker)
+--// what if the attacker is the attacker? :o
+if ( pl != attacker ) then
+pl:Frags( 0 )
+end
+--// the first row of reward for team 1
+--// you can change the rewards in "options_Shared.lua"
+if( attacker:Team()  == 1 ) then 
+if( attacker:Frags() == 1 ) then
+attacker:Give( table.Random( TeamsTable["RewardTableOne"] ) )
+end
+end
+if ( attacker:Team() == 1 ) then
+if( attacker:Frags() == 2 ) then
+attacker:Give( table.Random( TeamsTable["RewardTableTwo"] ) )
+end
+end
+
+if ( attacker:Team() == 1 ) then 
+if( attacker:Frags() == 3 ) then
+attacker:Give( table.Random( TeamsTable["RewardTableThree"]  ) )
+end
+end
+
+if( attacker:Team() == 2 ) then 
+if( attacker:Frags() == 1 ) then
+attacker:Give( table.Random( TeamsTable2["RewardTableOne"] ) )
+end
+end
+if ( attacker:Team() == 2 ) then
+if( attacker:Frags() == 2 ) then
+attacker:Give( table.Random( TeamsTable2["RewardTableTwo"] ) )
+end
+end
+
+if ( attacker:Team() == TEAM_2 ) then 
+if( attacker:Frags() == 3 ) then
+attacker:Give( table.Random( TeamsTable2["RewardTableThree"]  ) )
+end
+end
+end)
+

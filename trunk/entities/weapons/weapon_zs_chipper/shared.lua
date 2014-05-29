@@ -51,7 +51,8 @@ SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_shot_m3super90.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_shot_m3super90.mdl" )
 
-SWEP.Weight				= 10
+--SWEP.Weight				= 10
+SWEP.Weight				= 40
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -59,17 +60,19 @@ SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound 			= Sound("Weapon_Shotgun.Single")
 SWEP.Primary.Recoil			= 0.05
-SWEP.Primary.Damage			= 6
+--SWEP.Primary.Damage			= 6
+SWEP.Primary.Damage			= 9
 SWEP.Primary.NumShots		= 8
 SWEP.Primary.ClipSize		= 4
-SWEP.Primary.Delay			= 0.8
+--SWEP.Primary.Delay			= 0.8
+SWEP.Primary.Delay			= 1.1
 SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "buckshot"
 
 SWEP.MaxAmmo			    = 70
 SWEP.IsShotgun = true
-
+ 
 
 SWEP.Cone  = 0.13
 SWEP.ConeMoving = SWEP.Cone *1.15
@@ -95,7 +98,6 @@ function SWEP:Reload()
 	if self.reloading then
 		return
 	end
-
 	if self:Clip1() < self.Primary.ClipSize and 0 < self.Owner:GetAmmoCount(self.Primary.Ammo) then
 		self:SetNextPrimaryFire(CurTime() + self.ReloadDelay)
 		self.reloading = true
@@ -134,6 +136,7 @@ function SWEP:Think()
 end
 
 function SWEP:CanPrimaryAttack()
+
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
 
 	if self:Clip1() <= 0 then

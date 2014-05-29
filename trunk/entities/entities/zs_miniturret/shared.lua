@@ -56,17 +56,24 @@ function ENT:Initialize()
 	
 	self.LastShootTime = 0
 	
-	if self:GetOwner():GetPerk("_turretammo") then
-		self.MaxBullets = math.Round(self.MaxBullets*1.5)
-	end
 	
-	if self:GetOwner():GetPerk("_turrethp") then
-		self.MaxHealth = math.Round(self.MaxHealth*1.5)
-	end
+			if self:GetTurretOwner():GetPerk("_turretoverdrive") then --Combined the turret perks into one perk as requested by the community.
+			self.MaxBullets = math.Round(self.MaxBullets*1.5)
+			self.MaxHealth = math.Round(self.MaxHealth*1.5)
+			self.Damage = math.Round(self.Damage*1.5)
+			end
 	
-	if self:GetOwner():GetPerk("_turretdmg") then
-		self.Damage = math.Round(self.Damage*1.5)
-	end
+	--if self:GetOwner():GetPerk("_turretammo") then
+	--	self.MaxBullets = math.Round(self.MaxBullets*1.5)
+	--end
+	
+	--if self:GetOwner():GetPerk("_turrethp") then
+	--	self.MaxHealth = math.Round(self.MaxHealth*1.5)
+	--end
+	
+	--if self:GetOwner():GetPerk("_turretdmg") then
+	--	self.Damage = math.Round(self.Damage*1.5)
+	--end
 	
 	self:SetAmmo(self.MaxBullets)
 	self:SetHealth(self.MaxHealth)
@@ -237,7 +244,7 @@ end
 function ENT:DoBulletKnockback()
 	for ent, prevvel in pairs(tempknockback) do
 		local curvel = ent:GetVelocity()
-		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.05 + prevvel)
+		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.005 + prevvel)
 	end
 end
 

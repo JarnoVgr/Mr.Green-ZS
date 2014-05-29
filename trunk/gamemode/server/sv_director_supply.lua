@@ -259,7 +259,8 @@ if pl:HasBought("ammoman") then
 	--[[--------------------------- HEALTH ----------------------------]]
 	local currentHealth, maxHealth, healAmount = pl:Health(), pl:GetMaximumHealth(), 0
 	if currentHealth < maxHealth then
-		healAmount = math.Round((maxHealth - currentHealth) * GetInfliction())
+		--healAmount = math.Round((maxHealth - currentHealth) * GetInfliction())
+		healAmount = 25 --Duby:Static health works better and zombies will not rage quit when a human gains 80 hp from a crate..
 	end
 	
 	if healAmount > 5 then

@@ -124,14 +124,30 @@ function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 			end
 		end
 		
-		if pl.Class == 14 and not dmginfo:IsSuicide( pl ) then
+		if pl.Class == 15 and not dmginfo:IsSuicide( pl ) then
 			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-				UnlockEventHat(h)
+				h:UnlockAchievement("klinator")
 			end
 		end
 		
+		if pl.Class == 16 and not dmginfo:IsSuicide( pl ) then
+			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+				h:UnlockAchievement("lilith")
+			end
+		end
 		
-			
+		if pl.Class == 17 and not dmginfo:IsSuicide( pl ) then
+			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+				h:UnlockAchievement("smoker")
+			end
+		end
+		
+		if pl.Class == 18 and not dmginfo:IsSuicide( pl ) then
+			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+				h:UnlockAchievement("smoker")
+			end
+		end
+		
 		-- check for melee kills
 		if dmginfo:IsMeleeDamage() then-- if meleekill then
 			attacker.MeleeKills = attacker.MeleeKills + 1
