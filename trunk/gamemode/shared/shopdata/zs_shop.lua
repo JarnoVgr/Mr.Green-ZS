@@ -120,7 +120,7 @@ shopData = {
 	[83] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Live for nothing or die for something. Reload more bullets in your shotgun at one time!", Key = "Rambo", ID = 83, Sell = 0, Requires = 0, Name = "Rambo Roar",  },
 	[96] = { Cost = 1, Type = "suit", AdminOnly = true, Desc = "", Key = "pistolsuit", ID = 96, Sell = 0, Requires = 0, Name = "Test suit",  },
 	[97] = { Cost = 20 , Type = "suit", AdminOnly = false, Desc = "Another day at the office...", Key = "officesuit", ID = 97, Sell = 0, Requires = 0, Name = "Office",  },
-	[98] = { Cost = 3500, Type = "misc", AdminOnly = false, Desc = "If your health goes lower than 30 hp your health with regenerate back up to 30 hp! This is the perfect perk for if your a new to the server!! ", Key = "horse", ID = 98, Sell = 0, Requires = 0, Name = "Horse Health! (Classic perk!) ",  },
+	[98] = { Cost = 6500, Type = "misc", AdminOnly = false, Desc = "If your health goes lower than 30 hp your health with regenerate back up to 30 hp! This is the perfect perk for if your a new to the server!! ", Key = "horse", ID = 98, Sell = 0, Requires = 0, Name = "Horse Health! (Classic perk!) ",  },
 	
 	--[99] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 99, Sell = 0, Requires = 0, Name = "",  },
 	--[100] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 100, Sell = 0, Requires = 0, Name = "",  },
