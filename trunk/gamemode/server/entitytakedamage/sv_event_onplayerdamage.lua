@@ -35,13 +35,6 @@ local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 	if pl:IsHuman() then
 		pl:CheckSpeedChange()
 	end
-	
-	
-	
-	--if self:GetPerk("_horsehealth") then
-	
-	--	end
-	
 	-- Victim got hit
 	pl.TookHit = true
 	
@@ -53,31 +46,34 @@ local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 	
 	--Duby:Hey you know I love to code with silly stuff. Well I gave horse health a revamp!! :O 
 	--Duby: Please do not fuck with the medkit or anything as you will literally fuck the balance of the server!! >:(
-		if pl:HasBought("horse") then
-	local HealthRegen = {}
-HealthRegen.Amount = 1
-HealthRegen.GiveDelay = 1
-HealthRegen.MaxRegen= 30
+		--if pl:HasBought("horse") then
+			--if pl:Team() == TEAM_HUMAN then
+	--local HealthRegen = {}
+--HealthRegen.Amount = 1
+--HealthRegen.GiveDelay = 1
+--HealthRegen.MaxRegen= 30
 
-hook.Add( "Think", "RegenHealth", function()
+--hook.Add( "Think", "RegenHealth", function()
 
 
 
---if pl:HasBought("horse") then
-	for k,v in pairs( player.GetAll() ) do
-		if v:Alive()  and v:Health() < HealthRegen.MaxRegen and ( !v.lastregen or v.lastregen < CurTime() - HealthRegen.GiveDelay ) then
+
+--	for k,v in pairs( player.GetAll() ) do
+	--	if v:Alive()  and v:Health() < HealthRegen.MaxRegen and ( !v.lastregen or v.lastregen < CurTime() - HealthRegen.GiveDelay ) then
 		
-			v.lastregen = CurTime()
-			v:SetHealth( v:Health() + HealthRegen.Amount )
+		--	v.lastregen = CurTime()
+		--	v:SetHealth( v:Health() + HealthRegen.Amount )
 			
-		end
-	end
+		--end
+	--end
 	
---end
+
 	
-end )
-				end
-	
+--end )
+
+--else return
+				--end
+					--end
 end
 hook.Add( "OnPlayerTakeDamage", "PlayerTakeDamage", OnPlayerDamage )
 
