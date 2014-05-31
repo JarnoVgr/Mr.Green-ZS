@@ -777,7 +777,7 @@ ZombieClasses[15] = --Everyone loves it ^^
 		pl:SetColor( 39, 148, 6 )	
 		pl:SetRandomFace()		
 	end,
-	Speed = 130,
+	Speed = 125,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -837,9 +837,9 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	Description = "",
 	Unique = "",
 	PainSounds = {
-				Sound( "player/zombies/seeker/pain1.wav" ),
+				--Sound( "player/zombies/seeker/pain1.wav" ),
 		
-				Sound( "player/zombies/seeker/pain2.wav" ),
+				--Sound( "player/zombies/seeker/pain2.wav" ),
 				},
 	DeathSounds = {
 				Sound("npc/stalker/go_alert2a.wav"),
@@ -876,7 +876,7 @@ ZombieClasses[17] = --Smoke shit up :P
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
-	SP = 25,
+	SP = 50,
 	Mass = DEFAULT_MASS * 8,
 	Threshold = 4,
 	JumpPower = 170,
@@ -887,7 +887,7 @@ ZombieClasses[17] = --Smoke shit up :P
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_vomiter",
 	Model = Model("models/zombie/zombie_soldier.mdl"), 
-	Speed = 160,
+	Speed = 170,
 	Description = "Uses smoke to blind humans for the horde to commence its attack!",
 	Unique = "",
 	

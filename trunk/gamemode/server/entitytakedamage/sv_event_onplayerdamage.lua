@@ -44,38 +44,36 @@ local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 	
 	
 	
-	--Duby:Hey you know I love to code with silly stuff. Well I gave horse health a revamp!! :O 
+	--Duby: Hey you know I love to code with silly stuff. Well I gave horse health a revamp!! :O 
 	--Duby: Please do not fuck with the medkit or anything as you will literally fuck the balance of the server!! >:(
-		--if pl:HasBought("horse") then
-			--if pl:Team() == TEAM_HUMAN then
-	--local HealthRegen = {}
---HealthRegen.Amount = 1
---HealthRegen.GiveDelay = 1
---HealthRegen.MaxRegen= 30
-
---hook.Add( "Think", "RegenHealth", function()
-
-
-
-
---	for k,v in pairs( player.GetAll() ) do
-	--	if v:Alive()  and v:Health() < HealthRegen.MaxRegen and ( !v.lastregen or v.lastregen < CurTime() - HealthRegen.GiveDelay ) then
 		
-		--	v.lastregen = CurTime()
-		--	v:SetHealth( v:Health() + HealthRegen.Amount )
-			
-		--end
-	--end
-	
+		
 
-	
---end )
-
---else return
-				--end
-					--end
+		
+		
+					
 end
 hook.Add( "OnPlayerTakeDamage", "PlayerTakeDamage", OnPlayerDamage )
 
 
+		
+--HealthRegenTbl = {}
+--HealthRegenTbl.Amount = 1
+--HealthRegenTbl.GiveDelay = 1
+--HealthRegenTbl.MaxRegen= 30
 
+--timer.Create("RegenTimer", HealthRegenTbl.GiveDelay, function()
+
+--for k,v in pairs( player.GetAll() ) do
+
+--if ( v:Team() == TEAM_ZOMBIE ) then continue end
+--if ( not v:HasBought("horse") ) then continue end
+--if ( not v:Alive() ) then continue end
+--if ( v:Health() > HealthRegen.MaxRegen ) then continue end
+
+--v:SetHealth( v:Health() + HealthRegen.Amount )
+--end
+
+
+
+--end )

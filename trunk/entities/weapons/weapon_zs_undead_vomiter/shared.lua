@@ -54,7 +54,7 @@ SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 50
 --SWEP.Primary.Duration = 0.8
 SWEP.Primary.Duration = 1.2
-SWEP.Primary.Damage = 25
+SWEP.Primary.Damage = 30
 SWEP.Primary.Automatic = true
 
 
@@ -169,6 +169,21 @@ function SWEP:PrimaryAttackHit(trace, ent)
 end
 
 
+function SWEP:PrimaryAttackHit(trace, ent)
+	if CLIENT then
+		return
+	end
+
+	if hit then
+		if ent and ValidEntity(ent) and ent:IsPlayer() then
+		pl:EmitSound(Sound("player/zombies/hate/chainsaw_attack_hit.wav"),math.random(100,130),math.random(95,100))
+		 pl:EmitSound(Sound("npc/barnacle/barnacle_bark.wav"),math.random(100,130),math.random(95,100))
+		else
+		pl:EmitSound(Sound("player/zombies/hate/sawrunner_attack1.wav"),math.random(100,130),math.random(95,100))
+		
+		end
+		end end
+
 if CLIENT then
 	function SWEP:DrawHUD()
 		if not self.Owner:Alive() or ENDROUND then
@@ -183,5 +198,5 @@ if CLIENT then
 end
 
 function SWEP:PlayAttackSound()
-    self.Owner:EmitSound("npc/barnacle/barnacle_bark"..math.random(2)..".wav")
+   
 end

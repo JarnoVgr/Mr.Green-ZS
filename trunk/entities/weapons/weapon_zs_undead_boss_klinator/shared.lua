@@ -54,7 +54,7 @@ SWEP.ViewModel = Model("models/weapons/v_plank/v_plank.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Primary.Reach = 20
-SWEP.Primary.Duration = 1.3
+SWEP.Primary.Duration = 0.8
 SWEP.Primary.Delay = 2.1
 --SWEP.Primary.Damage = math.random(40,55)
 SWEP.Primary.ClipSize = 0                        
