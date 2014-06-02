@@ -63,6 +63,7 @@ function SWEP:StartPrimaryAttack()
 	if SERVER and #self.AttackSounds > 0 then
 		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))
 	end
+
 end
 
 function SWEP:PostPerformPrimaryAttack(hit)

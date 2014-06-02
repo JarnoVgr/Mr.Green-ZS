@@ -927,16 +927,16 @@ ZombieClasses[17] = --Smoke shit up :P
 }
 
 
-ZombieClasses[18] = --Smoke shit up :P
+ZombieClasses[18] = --Creep and Play!
 {
 	Name = "SeekerII",
 	Tag = "weapon_zs_undead_boss_seeker2",
 	Infliction = 0.2,
-	Health = 7000,
+	Health = math.random(1400, 2000 ),
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
-	SP = 25,
+	SP = 200,
 	Mass = DEFAULT_MASS * 8,
 	Threshold = 4,
 	JumpPower = 150,
@@ -946,20 +946,13 @@ ZombieClasses[18] = --Smoke shit up :P
 	Hidden = true,
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_seeker2",
-	Model = Model("models/zombie/zombie_soldier.mdl"), 
-	Speed = 190,
-	Description = "Uses smoke to blind humans for the horde to commence its attack!",
+	Model = Model("models/player/corpse1.mdl"), 
+	Speed = 140,
+	Description = "An experiment gone wrong out hunting the nooby!",
 	Unique = "",
 	
-	OnSpawn = function(pl)
-		pl:SetRandomFace()
-		local status = pl:GiveStatus("overridemodel")
-
-		if status and status:IsValid() then
-			status:SetModel("models/player/corpse1.mdl")
-			status:UsePlayerAlpha(true)
-		end		
-		
+	OnSpawn = function(pl)	
+	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,2))
 	end,
 	
 	OnRevive = function(pl)
@@ -975,7 +968,8 @@ ZombieClasses[18] = --Smoke shit up :P
 	--			Sound( "npc/strider/striderx_pain8.wav" ),
 	--			},
 	DeathSounds = {
-				Sound("npc/strider/striderx_die1.wav"),
+				Sound("npc/barnacle/neck_snap1.wav"),
+				Sound("player/zombies/b/scream.wav"),
 				},
 	IdleSounds = {
 				Sound("npc/zombine/striderx_alert2.wav"),
@@ -983,14 +977,6 @@ ZombieClasses[18] = --Smoke shit up :P
 				Sound("npc/zombine/striderx_alert5.wav"),
 				Sound("npc/zombine/striderx_alert6.wav"),
 				},
-				
-	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
-	ViewOffset = Vector(0, 0, 73),
-	ViewOffsetDucked = Vector(0,0,32.2),
-	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
-	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
-	
 }
 
 
