@@ -144,7 +144,7 @@ function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 		
 		if pl.Class == 18 and not dmginfo:IsSuicide( pl ) then
 			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-				h:UnlockAchievement("smoker")
+				h:UnlockAchievement("seekerII")
 			end
 		end
 		
