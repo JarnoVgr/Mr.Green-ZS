@@ -85,7 +85,7 @@ function hud.InitFonts()
 	surface.CreateFont ( "DS-Digital", ScreenScale( 9 ), 700, true, true, "NewAmmoFont9" )
 	surface.CreateFont ( "DS-Digital", ScreenScale( 13 ), 700, true, true, "NewAmmoFont13" )
 	surface.CreateFont ( "DS-Digital", ScreenScale( 20 ), 700, true, true, "NewAmmoFont20" )
-	surface.CreateFont ( "corpuscare", ScreenScale( 15 ), 700, true, true, "NewAmmoFont21" )
+	surface.CreateFont ( "DS-Digital", ScreenScale( 15 ), 700, true, true, "NewAmmoFont21" )
 	
 	surface.CreateFont ( "Arial", ScreenScale( 7.6 ), 700, true, false, "ssNewAmmoFont7" )
 	surface.CreateFont ( "Arial", ScreenScale( 7 ), 700, true, false, "ssNewAmmoFont6.5" )
