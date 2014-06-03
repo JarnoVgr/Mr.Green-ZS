@@ -456,7 +456,7 @@ function hud.DrawHealthPanel()
 	--local HealthStepX,HealthStepY = 12,12
 	local HealthStepX,HealthStepY = 35,35
 	--local HealthW,HealthH = ScaleW(250), ScaleH(73)
-	local HealthW,HealthH = ScaleW(250), ScaleH(100)
+	local HealthW,HealthH = ScaleW(250), ScaleH(120)
 	local HealthX,HealthY = HealthStepX, ScrH()-HealthH-HealthStepY
 	
 	--Background
@@ -557,7 +557,7 @@ end
 local nextreward = -1
 function hud.DrawStatsPanel()
 	--Stats
-	local StatsX,StatsY = 13+ScaleW(10),34+ScaleH(850)
+	local StatsX,StatsY = 13+ScaleW(10),34+ScaleH(800)
 
 	surface.SetFont("NewAmmoFont7")
 	local fWide, fTall = surface.GetTextSize("GreenCoins")
@@ -613,7 +613,7 @@ end
 function hud.DrawInflictionPanel()
 	local WaveX,WaveY = 12,12
 	
-	local text1x, text1y = WaveX+ScaleW(7), WaveY+890
+	local text1x, text1y = WaveX+ScaleW(7), WaveY+794
 	
 		
 		
