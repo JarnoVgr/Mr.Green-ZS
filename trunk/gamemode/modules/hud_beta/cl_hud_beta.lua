@@ -323,7 +323,7 @@ function hud.DrawNewHumanHUD()
 	end
 	
 	--Draw!
---	hud.DrawBossHealth()
+	hud.DrawBossHealth()
 --	hud.DrawAmmoPanel()
 	--hud.DrawHealthPanel()
 --	hud.DrawInflictionPanel()
@@ -431,7 +431,7 @@ local ActiveWeapon = MySelf:GetActiveWeapon()
 	ActualX = ActualX + ScaleW(32)
 	--ActualX = ActualX + ScaleW(0)
 	
-	draw.SimpleTextOutlined(math.Round(fHealth), "NewAmmoFont13", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	draw.SimpleTextOutlined(math.Round(fHealth), "NewAmmoFont20", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	
 	--local HPBarSizeW,HPBarSizeH = ScaleW(160),HealthH*0.56
 	local HPBarSizeW,HPBarSizeH = ScaleW(100),HealthH*0.4
@@ -528,7 +528,7 @@ local ActiveWeapon = MySelf:GetActiveWeapon()
 	draw.SimpleTextOutlined(text, "NewAmmoFont13", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	
 	
-	
+
 local WaveX,WaveY = 12,12
 
 local text1x, text1y = WaveX+ScaleW(7), WaveY+5
