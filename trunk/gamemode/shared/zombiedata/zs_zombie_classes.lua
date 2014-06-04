@@ -250,8 +250,8 @@ ZombieClasses[4] =
 	DeathSounds = {
 				Sound("npc/stalker/stalker_die1.wav"),
 				Sound("npc/stalker/stalker_die2.wav"),
-				-- Sound("wraithdeath3.wav"),
-				-- Sound("wraithdeath4.wav")
+				 Sound("wraithdeath3.wav"),
+				 Sound("wraithdeath4.wav")
 				},
 	-- ViewOffset = Vector(0, 0, 0)
 }

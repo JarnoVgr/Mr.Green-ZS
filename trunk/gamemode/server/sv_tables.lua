@@ -207,6 +207,7 @@ table.insert( ResourceFiles, "sound/mrgreen/ui/menu_focus.wav")
 table.insert( ResourceFiles, "sound/mrgreen/ui/menu_countdown.wav")
 
 --Game start music
+table.insert(ResourceFiles, "sound/mrgreen/music/gamestart1.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/gamestart2.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/gamestart3.mp3")
 if CHRISTMAS then

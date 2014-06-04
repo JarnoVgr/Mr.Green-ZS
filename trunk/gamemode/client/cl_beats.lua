@@ -58,6 +58,7 @@ ZBeatLength[10] = 10.2
 
 --Precache beats
 for i=1,10 do
+
 	util.PrecacheSound(Beats[i][1])
 	util.PrecacheSound(ZBeats[i][1])
 end

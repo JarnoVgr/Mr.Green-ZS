@@ -323,7 +323,7 @@ function hud.DrawNewHumanHUD()
 	end
 	
 	--Draw!
-	hud.DrawBossHealth()
+	--hud.DrawBossHealth()
 	hud.DrawAmmoPanel()
 	hud.DrawHealthPanel()
 	hud.DrawInflictionPanel()

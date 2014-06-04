@@ -182,10 +182,14 @@ net.Receive("StartBoss", function(len)
 	local isInsane = tobool(net.ReadBit())
 	local bossDuration = net.ReadFloat()
 	GAMEMODE:SetBoss(true,isInsane,bossDuration)
---	timer.Simple(750,function()
-	--RunConsoleCommand("stopsound")
-	--surface.PlaySound("deadlife_mrgreen.mp3")
-	--end)
+	--timer.Simple(750,function()
+	timer.Simple(1050,function()
+	RunConsoleCommand("stopsound")
+	surface.PlaySound("deadlife_mrgreen.mp3")
+	end)
+	if LASTHUMAN then 
+	RunConsoleCommand("stopsound")
+	end
 end)
 
 net.Receive("StopBoss", function(len)
