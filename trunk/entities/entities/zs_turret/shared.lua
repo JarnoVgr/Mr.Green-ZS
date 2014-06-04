@@ -424,7 +424,7 @@ if SERVER then
 		bullet.Spread = Vector(0.01, 0.01, 0.01)  
 		bullet.Tracer = 3
 		bullet.Force = 0
-		bullet.Damage = 15
+		bullet.Damage = 12
 		bullet.TracerName = "AR2Tracer"
 		bullet.Callback = BulletCallback
 		
