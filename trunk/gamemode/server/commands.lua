@@ -661,34 +661,9 @@ function RollTheDice ( pl,commandName,args )
 		return
 	end
 	
-	if pl:Team() == TEAM_UNDEAD then
-		--pl:ChatPrint("Roll the Dice is only available for humans.")
-		--return
+	if pl:Team() == TEAM_UNDEAD then	
+
 		
-		local choise2,message2,name2
-		message2 = pl:GetName() 
-		choise2 = math.random(1,3)
-		if choise2 == 1 then
-		local table2 = { 10, 5, 1}
---	pl:SetHealth(math.random(50,150))
-	pl:SetHealth(table2[math.random(3,#table2)])
-	--pl:ChatPrint("Your flesh amount has been altered!")
-		local table2 = { 1 }
-		pl:AddScore(table2[math.random(1,#table2)])
-		--pl:ChatPrint("The dice may of been kind enough to give me a brain!")
-		pl:ChatPrint("At the cost of some of your health you have gained a brain!")
-		message2 = message2 .." rolled the dice and the dice may of been kind enough to give me a brain!"
-		elseif choise2 == 2 then
-		pl:SetHealth( 500 )
-		message2 = message2 .." rolled the dice and got the spirit of the horse!!"
-		pl:ChatPrint("rolled the dice and got a horde boost!")
-		elseif choise2 ==3 then
-		
-		pl:SetHealth(math.random(1,10))
-		message2 = message2 .." rolled the dice and was ingured!"
-		pl:ChatPrint("You rolled the dice and was ingured!")
-		end
-	return
 	end
 	
 	local choise,message,name
@@ -745,8 +720,6 @@ function RollTheDice ( pl,commandName,args )
 		timer.Simple(150, function()
 		pl:Kill()
 		end)
-		else
-		message = message ..("..Klieners can't have good outcomes")
 	end
 	
 	pl.LastRTD = CurTime() + RTD_TIME
