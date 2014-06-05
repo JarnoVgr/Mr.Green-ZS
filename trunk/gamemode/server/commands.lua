@@ -663,6 +663,7 @@ function RollTheDice ( pl,commandName,args )
 	
 	if pl:Team() == TEAM_UNDEAD then	
 
+		pl:ChatPrint("Zombies can't roll the dice!")
 		
 	end
 	
@@ -697,8 +698,9 @@ function RollTheDice ( pl,commandName,args )
 		pl:TakeDamage( pl:Health()*2, nil, nil ) -- make sure he dies
 		message = message .." rolled the dice and is turned inside out!"
 	elseif choise == 2 then
+			pl:SetHealth(200)
+		message = message .." rolled the dice and has had a steroid boost!"
 		pl:SetHealth(1)
-		message = message .." rolled the dice and got raped in the ass."
 	elseif choise == 3 then
 		pl:GiveAmmo( 90, "pistol" )	
 		pl:GiveAmmo( 60, "ar2" )
@@ -719,7 +721,9 @@ function RollTheDice ( pl,commandName,args )
 	message = message ..("..YOU HAVE 150 SECONDS TO LIVE!!")
 		timer.Simple(150, function()
 		pl:Kill()
-		end)
+		end)	
+		else
+		message = message .." rolled the dice and got raped in the ass."
 	end
 	
 	pl.LastRTD = CurTime() + RTD_TIME
