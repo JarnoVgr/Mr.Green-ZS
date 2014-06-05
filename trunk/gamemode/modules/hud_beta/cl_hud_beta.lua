@@ -329,6 +329,7 @@ function hud.DrawNewHumanHUD()
 	hud.DrawInflictionPanel()
 	hud.DrawStatsPanel()
 	hud.DrawRoundTimer()
+	hud.ForumLink()
 	--hud.box1()
 	--hud.ActualHud()
 
@@ -646,6 +647,15 @@ function hud.DrawInflictionPanel()
 		
     end
 
+	function hud.ForumLink()
+	
+	local WaveX,WaveY = 12,12
+	
+	local text1x, text1y = ScaleW(10), WaveY+(80)
+	
+	draw.SimpleTextOutlined("http://forums.mrgreengaming.com/", "NewAmmoFont7", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+	
+	end
 
 hud.GradientExample = surface.GetTextureID( "gui/center_gradient" )
 
