@@ -108,7 +108,7 @@ shopData = {
 	
 	
 	--Suits
-	[48] = { Cost = 0, Type = "suit", AdminOnly = false, Desc = "Heal your comrads! For doing this you have extra health to stand the brutal battles which face you!", Key = "medicsuit", ID = 48, Sell = 0, Requires = 0, Name = "Medic's Suit",  }, --11000
+	[48] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "Heal your comrads! For doing this you have extra health to stand the brutal battles which face you!", Key = "medicsuit", ID = 48, Sell = 0, Requires = 0, Name = "Medic's Suit",  }, --11000
 	[49] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "Crush. Pound. Suit Bonus: Faster swing speed (heavy weapons only)", Key = "meleesuit", ID = 49, Sell = 0, Requires = 0, Name = "Close combat Suit",  },
 	[50] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "If shooting zombies aint enough - use more gun. Suit Bonus: 10% damage reduction for turret", Key = "techsuit", ID = 50, Sell = 0, Requires = 0, Name = "Tech Suit",  },
 	[51] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "If you've mastered cading skills - this suit is for you. Suit Bonus: Increased torch capacity", Key = "supportsuit", ID = 51, Sell = 0, Requires = 0, Name = "Barricade Guy Suit",  },
@@ -120,7 +120,7 @@ shopData = {
 	[83] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Live for nothing or die for something. Reload more bullets in your shotgun at one time!", Key = "Rambo", ID = 83, Sell = 0, Requires = 0, Name = "Rambo Roar",  },
 	[96] = { Cost = 1, Type = "suit", AdminOnly = true, Desc = "", Key = "pistolsuit", ID = 96, Sell = 0, Requires = 0, Name = "Test suit",  },
 	[97] = { Cost = 20 , Type = "suit", AdminOnly = false, Desc = "Another day at the office...", Key = "officesuit", ID = 97, Sell = 0, Requires = 0, Name = "Office",  },
-	[98] = { Cost = 0, Type = "misc", AdminOnly = false, Desc = "If your health goes lower than 30 hp your health with regenerate back up to 30 hp! This is the perfect perk for if your a new to the server!! ", Key = "horse", ID = 98, Sell = 0, Requires = 0, Name = "Horse Health! (Classic perk!) ",  },
+	[98] = { Cost = 20000, Type = "misc", AdminOnly = false, Desc = "If your health goes lower than 30 hp your health with regenerate back up to 30 hp! This is the perfect perk for if your a new to the server!! ", Key = "horse", ID = 98, Sell = 0, Requires = 0, Name = "Horse Health! (Classic perk!) ",  },
 	
 	--[99] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 99, Sell = 0, Requires = 0, Name = "",  },
 	--[100] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 100, Sell = 0, Requires = 0, Name = "",  },
