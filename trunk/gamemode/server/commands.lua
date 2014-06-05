@@ -661,10 +661,18 @@ function RollTheDice ( pl,commandName,args )
 		return
 	end
 	
-	if pl:Team() == TEAM_UNDEAD then	
+	if pl:Team() == TEAM_UNDEAD then
 
-		pl:ChatPrint("Zombies can't roll the dice!")
+		pl:ChatPrint("Roll the Dice is only available for humans.")
+		--return
 		
+		--local table2 = { 300, 200, 100}
+--	pl:SetHealth(math.random(50,150))
+	--pl:SetHealth(table2[math.random(3,#table2)])
+	--pl:ChatPrint("Your flesh amount has been altered!")
+		
+	return
+	
 	end
 	
 	local choise,message,name
