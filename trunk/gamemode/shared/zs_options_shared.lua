@@ -469,7 +469,8 @@ DIFFICULTY = 1.5
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
 --CARRY_MAXIMUM_MASS = 300
-CARRY_MAXIMUM_MASS = 60
+--CARRY_MAXIMUM_MASS = 60
+CARRY_MAXIMUM_MASS = 120
 
 -- Objects with more mass than this will be dragged instead of carried.
 --CARRY_DRAG_MASS = 145
@@ -479,11 +480,13 @@ CARRY_DRAG_MASS = 60
 -- Anything bigger than this is dragged regardless of mass.
 --CARRY_DRAG_VOLUME = 120
 --CARRY_DRAG_VOLUME = 80
-CARRY_DRAG_VOLUME = 60
+--CARRY_DRAG_VOLUME = 60
+CARRY_DRAG_VOLUME = 80
 
 -- Humans can not carry anything with a volume more than this (OBBMins():Length() + OBBMaxs():Length()).
 --CARRY_MAXIMUM_VOLUME = 150
-CARRY_MAXIMUM_VOLUME = 60
+--CARRY_MAXIMUM_VOLUME = 100
+CARRY_MAXIMUM_VOLUME = 120
 
 -- Humans are slowed by this amount per kg carried.
 CARRY_SPEEDLOSS_PERKG = 1.3

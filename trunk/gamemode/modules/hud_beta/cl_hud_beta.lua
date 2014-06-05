@@ -631,22 +631,18 @@ function hud.DrawInflictionPanel()
 			
 	local WaveX,WaveY = 12,12
 	
-	
 	local text1x, text1y = ScaleW(10), WaveY+(100)
-	
 		
-		
-		
-		draw.SimpleTextOutlined("Infliction:", "NewAmmoFont7", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined("Infliction:", "NewAmmoFont13", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		local space1 = surface.GetTextSize("Infliction: ")
-		draw.SimpleTextOutlined(cached_zombies, "NewAmmoFont7", text1x+space1, text1y, team.GetColor(TEAM_UNDEAD), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined(cached_zombies, "NewAmmoFont13", text1x+space1, text1y, team.GetColor(TEAM_UNDEAD), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		local space2 = surface.GetTextSize(cached_zombies)
-		draw.SimpleTextOutlined("/", "NewAmmoFont7", text1x+space1+space2+1, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined("/", "NewAmmoFont13", text1x+space1+space2+1, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
 		local space3 = surface.GetTextSize("/")
-		draw.SimpleTextOutlined(cached_humans, "NewAmmoFont7", text1x+space1+space2+space3+2, text1y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined(cached_humans, "NewAmmoFont13", text1x+space1+space2+space3+2, text1y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		
     end
 
