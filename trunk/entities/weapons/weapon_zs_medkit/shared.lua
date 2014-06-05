@@ -27,20 +27,20 @@ SWEP.Base = "weapon_zs_base_dummy"
 SWEP.Primary.Delay = 0.7
 SWEP.Primary.Automatic	= true
 SWEP.Primary.Heal = 10
-SWEP.Primary.ClipSize = 60
-SWEP.Primary.DefaultClipSize = 60
+SWEP.Primary.ClipSize = 80
+SWEP.Primary.DefaultClipSize = 80
 SWEP.Primary.UpgradedClipSize = 150
-SWEP.Primary.DefaultClip = 60
+SWEP.Primary.DefaultClip = 80
 SWEP.Primary.Ammo = "SniperRound"
 
 
 SWEP.Secondary.Delay = 0.7
 SWEP.Secondary.Automatic	= true
-SWEP.Secondary.Heal = 1
-SWEP.Secondary.ClipSize = 30
-SWEP.Secondary.DefaultClipSize = 30
-SWEP.Secondary.UpgradedClipSize = 60
-SWEP.Secondary.DefaultClip = 30
+SWEP.Secondary.Heal = 10
+SWEP.Secondary.ClipSize = 80
+SWEP.Secondary.DefaultClipSize = 80
+SWEP.Secondary.UpgradedClipSize = 150
+SWEP.Secondary.DefaultClip = 80
 SWEP.Secondary.Ammo = "SniperRound"
 
 SWEP.Secondary.Automatic	= true
@@ -107,10 +107,17 @@ localplayer = pl
 	--Medical upgrade (multiplier)
 	local multiplier = 1
 	if owner:GetPerk("_medupgr1" ) then
-		multiplier = 1.35
-		--skillpoints.AddSkillPoints( pl, 3)
+		--multiplier = 1.35
+		skillpoints.AddSkillPoints( pl, 3)
 	end
 
+	if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "medicsuit" then --Walk slower with the medsuit and  heal
+			Walkspeed = 150
+			Primary.DefaultClipSize = 120
+			Primary.Heal = 20	
+		end
+	
+	
 	local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
 	local totake = math.ceil(toheal / multiplier)
 	if toheal <= 0 then
@@ -167,6 +174,8 @@ function SWEP:SecondaryAttack()
 
 	if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "medicsuit" then --Walk slower with the medsuit and  heal
 			Walkspeed = 150
+			Heal = 20
+			DefaultClipSize = 120
 		end
 	
 	--Define vars
@@ -223,15 +232,15 @@ function SWEP:Think()
 	
 			
 	
---	if SERVER then
-	--	if not self.Owner:KeyDown(IN_ATTACK) and self.RechargeTimer < CurTime() and self.Weapon:Clip1() < self.Primary.ClipSize then	
-			--Give 1
-		--	self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 1))
+	if SERVER then
+		if not self.Owner:KeyDown(IN_ATTACK) and self.RechargeTimer < CurTime() and self.Weapon:Clip1() < self.Primary.ClipSize then	
+			--Give 5
+			self.Weapon:SetClip1(math.min(self.Primary.ClipSize, self.Weapon:Clip1() + 10))
 			
 			--Next recharge
-			--self.RechargeTimer = CurTime() + 1
-		--end
-	--end
+			self.RechargeTimer = CurTime() + 10
+		end
+	end
 end
 
 function SWEP:CanPrimaryAttack()
