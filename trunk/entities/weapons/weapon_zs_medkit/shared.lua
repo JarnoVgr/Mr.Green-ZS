@@ -102,6 +102,8 @@ localplayer = pl
 		maxhealth = 110
 	elseif ent:GetPerk("_kevlar2") then
 		maxhealth = 130
+	elseif ent:GetPerk("_kevlar3") then
+		maxhealth = 105
 	end
 
 	--Medical upgrade (multiplier)

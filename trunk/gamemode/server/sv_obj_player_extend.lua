@@ -262,8 +262,12 @@ function meta:RestoreHumanHealth(am,returnhealth)
 	if self:GetPerk("_kevlar") then
 		maxhealth = 110
 	elseif self:GetPerk("_kevlar2") then
-		maxhealth = 120
+		maxhealth = 130
+	elseif self:GetPerk("_kevlar3") then
+		maxhealth = 105
 	end
+	
+	
 	
 	if health == maxhealth and returnhealth then
 		return false
@@ -1710,6 +1714,10 @@ function meta:CheckSpeedChange()
 	
 	if self:GetPerk() == "_sboost" then
 		speed = speed*1.08
+	end
+	
+	if self:GetPerk() == "_sboost2" then
+		speed = speed*1.04
 	end
 	
 	local fHealthSpeed = self:GetPerk("_adrenaline") and 1 or math.Clamp ( ( health / 50 ), 0.7, 1 )

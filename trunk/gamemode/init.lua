@@ -220,6 +220,10 @@ function GM:WeaponDeployed ( mOwner, mWeapon, bIron )
 		fSpeed = fSpeed*1.08
 	end
 
+	if mOwner:GetPerk("_sboost2") then
+		fSpeed = fSpeed*1.04
+	end
+	
 	-- Does player got adrenaline shop item or is player medic
 	-- if mOwner:HasBought("adrenaline") or iClass == 1 then
 	-- 	fHealthSpeed = 1

@@ -28,9 +28,12 @@ end]]
 			
 			local hp = 100
 			if pl:GetPerk("_kevlar2") then
-				hp = 120
+				hp = 130
 			elseif pl:GetPerk("_kevlar") then
 				hp = 110
+			elseif pl:GetPerk("_kevlar3") then
+				hp = 105
+				
 			end
 
 			pl:SetHealth(hp)

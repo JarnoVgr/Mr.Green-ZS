@@ -345,7 +345,7 @@ MAX_RANK = 78
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_chipper","weapon_zs_tools_hammer"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_chipper","weapon_zs_tools_hammer","_nailhp","_sboost2","_kevlar3","_comeback2"},
 	[1] = {"weapon_zs_melee_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_kevlar"},
@@ -360,7 +360,7 @@ GM.RankUnlocks = {
 	[14] = {"_sboost"},
 	[15] = {"weapon_zs_grenade"},
 	[16] = {"_trchregen"},
-	[17] = {"_nailhp"},
+	--[17] = {""},
 	[18] = {"weapon_zs_melee_pipe"},
 	[19] = {"_falldmg"},
 	[21] = {"_kevlar2"},
@@ -438,6 +438,10 @@ GM.Perks = {
 	["_plankhp"] = {Name = "Stronger Planks", Description = "30% more health for planks", Slot = 2},
 	["_imortalpro"] = {Name = "Immortal Protector!", Description = "You will spawn with the legendary Pulse SMG!", Slot = 1},
 	["_turretoverdrive"] = {Name = "Turret Overdrive!", Description = "Your turret has had an upgrade!", Material = "VGUI/gfx/VGUI/defuser", Slot = 2},
+	
+	["_sboost2"] = {Name = "Running Shoes", Description = "5% faster!", Slot = 1},
+	["_kevlar3"] = {Name = "Light Kevlar", Description = "Gives you 5 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
+	["_comeback2"] = {Name = "Reborn", Description = "When you redeem you will spawn either with a deagal or a pair of duel elites! (Only once.)", Slot = 1},
 }
 
 -- Leave this. This table will be filled at initialize hook
@@ -733,14 +737,14 @@ HELP_TXT[3] = {
 		You can also gain XP by killing humans and zombies.
 		---lEVEL UNLOCKS------------------
 		
-	[0] = USP, fists,chipper [1] = Plank [2] = P228 [3] = Kevlar [4] = Python
+	[0] = USP, fists,chipper,Speedboost2,reborn, light kevlar,nail HP [1] = Plank [2] = P228 [3] = Kevlar [4] = Python
 	[5] = Medkit [6] = Hammer [7] = Pack of nails [11] = Mobile supplies, Keyboard
 	[13] = Adrenaline injection, [14] = Speed boost [15] = Grenade
-	[16] = Torch regen rate [17] = NailHP [19] = Falldmg
+	[16] = Torch regen rate [19] = Falldmg
 	[21] = Kevlar2 [22] = Medical upgrade2 [23] = Immortal Pro!
 	[24] = Comeback [25] = Turret [26] = Special Hammer! 
-	[27] = Poison protection [28] = Turret remote
-	[30] = Turret Damage [31] = C4 [32] = Turret Health [33] = Turret Ammo
+	[27] = Poison protection 
+	[30] = Turret OverDrive![31] = C4 
 	[35] = Enhanced Kevlar [37] = Planks [39] = Plank amount [40] = Freeman spirit
 	[43] = Plank HP [44] = Combat knife  [45] = Pot [50] = Mini turret
 	[55] = Crowbar [65] = Classic pistol [70] = Five seven [76] = Hook
