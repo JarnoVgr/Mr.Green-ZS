@@ -678,7 +678,7 @@ function RollTheDice ( pl,commandName,args )
 	local choise,message,name
 	
 	--Let's roll
-	choise = math.random(1,8)
+	choise = math.random(1,6)
 	
 	
 	--Second roll when having ladyluck-item
@@ -708,7 +708,6 @@ function RollTheDice ( pl,commandName,args )
 	elseif choise == 2 then
 			pl:SetHealth(200)
 		message = message .." rolled the dice and has had a steroid boost!"
-		pl:SetHealth(1)
 	elseif choise == 3 then
 		pl:GiveAmmo( 90, "pistol" )	
 		pl:GiveAmmo( 60, "ar2" )
@@ -732,6 +731,7 @@ function RollTheDice ( pl,commandName,args )
 		end)	
 		else
 		message = message .." rolled the dice and got raped in the ass."
+		pl:SetHealth(1)
 	end
 	
 	pl.LastRTD = CurTime() + RTD_TIME
