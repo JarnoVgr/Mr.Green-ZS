@@ -1646,7 +1646,7 @@ Debug("[MODULE] Loaded init.lua")
 
 if pl:Team() == TEAM_HUMAN then
 if( pl:KeyDown( IN_BACK ) )  then
-pl:SetWalkSpeed( 130 )
+pl:SetWalkSpeed( 140 )
  	
 else pl:SetWalkSpeed(200) 
 
@@ -1678,7 +1678,6 @@ hook.Add("PlayerDeath", "boxsexy", function(victim, inf, attack) if ( inf and in
 hook.Add("PlayerDeath", "boxsexy2", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 12 ) end end)
 hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 6 ) end end)
 hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_hook" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 7 ) end end)
-
 
 --[=[----------------------------------------------------------------------
      Dubys amazing method to the Combine Zombine suit!

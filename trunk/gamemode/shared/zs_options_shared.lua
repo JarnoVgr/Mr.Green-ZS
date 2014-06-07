@@ -386,11 +386,11 @@ GM.RankUnlocks = {
 	[43] = {"_plankhp"},
 	[45] = {"weapon_zs_melee_pot"},
 	[50] = {"weapon_zs_miniturret"},
-	[55] = {"weapon_zs_melee_crowbar"},
+	--[55] = {"weapon_zs_melee_crowbar"},
 	[65] = {"weapon_zs_classic"},
-	[70] = {"weapon_zs_fiveseven"},
+	--[70] = {"weapon_zs_fiveseven"},
 	[76] = {"weapon_zs_melee_hook"},
-	[77] = {"weapon_zs_alyx"},
+	--[77] = {"weapon_zs_alyx"},
 	
 	-- [90] = {"_professional"},-- hidden for a while
 }
