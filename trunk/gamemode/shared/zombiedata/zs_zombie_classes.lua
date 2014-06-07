@@ -752,7 +752,7 @@ ZombieClasses[14] =
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
-ZombieClasses[15] = --Everyone loves it ^^
+ZombieClasses[15] = --Everyone loves it ^^ Duby: R.I.P until you are loved once more! :<
 {
 	Name = "Klinator",
 	Tag = "klinator",
