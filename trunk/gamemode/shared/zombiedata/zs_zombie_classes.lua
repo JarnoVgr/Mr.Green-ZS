@@ -980,6 +980,60 @@ ZombieClasses[18] = --Creep and Play!
 }
 
 
+
+ZombieClasses[19] = 
+{
+	Name = "RAMIEL",
+	Tag = "weapon_zs_undead_boss_raimel",
+	Infliction = 0.7,
+	Health = math.random(6000, 7000 ),
+	MaxHealth = 8100,
+	TimeLimit = 1020,
+	Bounty = 1000,
+	SP = 0,
+	Mass = DEFAULT_MASS * 8,
+	Threshold = 4,
+	JumpPower = 160,
+	CanCrouch = true,
+	CanGib = true,
+	Unlocked = true,
+	Hidden = true,
+	IsBoss = true,
+	SWEP = "weapon_zs_undead_boss_raimel",
+	Model = Model(""), 
+	Speed = 170,
+	Description = "An angel has appeared! ",
+	Unique = "",
+	
+	OnSpawn = function(pl)	
+	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(239,16,16,225))
+	end,
+	
+	OnRevive = function(pl)
+		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+		-- pl:AnimRestartMainSequence()		
+	end,
+	
+	
+	--PainSounds = {
+	--			Sound( "npc/strider/striderx_pain2.wav" ),
+	--			Sound( "npc/strider/striderx_pain5.wav" ),
+	--			Sound( "npc/strider/striderx_pain7.wav" ),
+	--			Sound( "npc/strider/striderx_pain8.wav" ),
+	--			},
+	DeathSounds = {
+				Sound("npc/barnacle/neck_snap1.wav"),
+				Sound("player/zombies/b/scream.wav"),
+				},
+	IdleSounds = {
+				Sound("npc/zombine/striderx_alert2.wav"),
+				Sound("npc/zombine/striderx_alert4.wav"),
+				Sound("npc/zombine/striderx_alert5.wav"),
+				Sound("npc/zombine/striderx_alert6.wav"),
+				},
+}
+
+
 --[[local SantaStart = {
 	Sound("vo/ravenholm/engage06.wav"),
 	Sound("vo/ravenholm/engage01.wav"),
