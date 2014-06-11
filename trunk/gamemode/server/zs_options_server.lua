@@ -44,8 +44,7 @@ SUPPLYCRATE_RECHARGE_TIME = 160
 MAX_ST_ZOMBIES = 2
 ST_ZOMBIE_CHANCE = 6-- 3 -- %
 
-DOUBLE_XP = true
---DOUBLE_XP = false
+DOUBLE_XP = false
 
 IgnorePhysToMult = {
 	"models/props_wasteland/prison_padlock001a.mdl",
