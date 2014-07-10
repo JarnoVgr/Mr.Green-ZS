@@ -69,5 +69,6 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.WalkSpeed = 195
 
-SWEP.IronSightsPos = Vector(-2, -4, 1.5)
+SWEP.IronSightsPos = Vector(-4, 16, 2)
 SWEP.IronSightsAng = Vector(0,0,0)
+

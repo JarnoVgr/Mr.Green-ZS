@@ -42,7 +42,7 @@ SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.FirePower = (SWEP.Primary.Damage * SWEP.Primary.ClipSize)
 
-SWEP.Cone = 0.069
+SWEP.Cone = 0.049
 SWEP.ConeMoving = SWEP.Cone *1.1
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9
@@ -53,7 +53,7 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
 SWEP.WalkSpeed = 191
 SWEP.MaxBulletDistance = 2450
 
-SWEP.IronSightsPos = Vector(-2.961, -5.535, 1.2)
+SWEP.IronSightsPos = Vector(-5.9, 19, 2)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
 

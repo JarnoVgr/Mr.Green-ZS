@@ -52,7 +52,7 @@ SWEP.MaxAmmo			    = 250
 SWEP.WalkSpeed = 195
 SWEP.MaxBulletDistance 		= 2240
 
-SWEP.IronSightsPos = Vector(-2, -4, 1.5)
+SWEP.IronSightsPos = Vector(-2, 8, 1.5)
 SWEP.IronSightsAng = Vector(0,0,0)
 
 if CHRISTMAS then

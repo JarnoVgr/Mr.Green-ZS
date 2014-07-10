@@ -70,5 +70,5 @@ SWEP.MaxAmmo			    = 250
 SWEP.WalkSpeed = 195
 SWEP.MaxBulletDistance 		= 2600
 
-SWEP.IronSightsPos = Vector( -2.4, -5, 1.0 )
+SWEP.IronSightsPos = Vector(-4, 13, 2)
 SWEP.IronSightsAng = Vector(0,0,0)

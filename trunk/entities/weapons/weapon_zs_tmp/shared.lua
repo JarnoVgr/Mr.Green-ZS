@@ -53,7 +53,7 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
 SWEP.WalkSpeed = 197
 SWEP.MaxBulletDistance 		= 2250
 
-SWEP.IronSightsPos = Vector(-2, -4, 1.5)
+SWEP.IronSightsPos = Vector(-3.5, 5, 2)
 SWEP.IronSightsAng = Vector(0,0,0)
 
 SWEP.OverridePos = Vector(1.559, -3.116, 1.6)

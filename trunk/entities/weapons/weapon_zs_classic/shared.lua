@@ -42,7 +42,7 @@ SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
 --SWEP.ConeIronMoving = SWEP.Moving *0.80
  
-SWEP.IronSightsPos = Vector(-3.2,-1,1)
+SWEP.IronSightsPos = Vector(-5.85,10,2)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
  
  

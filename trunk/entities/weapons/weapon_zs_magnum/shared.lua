@@ -63,7 +63,7 @@ SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8
 
-SWEP.IronSightsPos = Vector(-3.2,-1,1)
+SWEP.IronSightsPos = Vector(-4.59,25,0.65)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
 
 local function DoRicochet(attacker, hitpos, hitnormal, normal, damage)
