@@ -24,7 +24,7 @@ SWEP.Primary.Delay = 0
 SWEP.Primary.Next = 4
 SWEP.Primary.Duration = 1.3
 --SWEP.Primary.Reach = 400
-SWEP.Primary.Reach = 380
+SWEP.Primary.Reach = 350
 
 --Mimic primary
 SWEP.Secondary.Duration = SWEP.Primary.Duration
@@ -110,7 +110,7 @@ function SWEP:DoAttack(bPull)
 
 		--Shakey shakey
 	--	local fFuckIntensity = fHitPercentage + 1
-		local fFuckIntensity = fHitPercentage + 3 --Duby test.
+		local fFuckIntensity = fHitPercentage + 2 --Duby test.
 	--	local fFuckIntensity = math.Clamp ( 4.5 - ( ( fDistance / iDistance ) * 10 ), 1, 2 )
 
 		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
