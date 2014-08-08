@@ -457,6 +457,26 @@ local function AdminSay(pl, text, teamonly)
 			end
 
 			return ""
+			
+			
+			elseif text == "!alltalk" then
+			for k, v in pairs(player.GetAll()) do
+				if v ~= pl then
+					RunConsoleCommand ( "sv_alltalk", "1" )
+				end
+			end
+
+			return ""
+			
+			elseif text == "!notalk" then
+			for k, v in pairs(player.GetAll()) do
+				if v ~= pl then
+					RunConsoleCommand ( "sv_alltalk", "0" )
+				end
+			end
+
+			return ""
+			
 		end
 	end
 
