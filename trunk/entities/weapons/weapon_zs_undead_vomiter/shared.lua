@@ -28,6 +28,7 @@ SWEP.ViewModelBoneMods = {
 	["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.213, 1.213, 1.213), pos = Vector(0, 0, 0), angle = Angle(-0.151, -20.414, -7.045) },
 	["ValveBiped.Bip01_Head1"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, 46.051) },
     ["ValveBiped.Bip01_Spine4"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, 46.051) },
+	
 }
 
 
@@ -147,27 +148,9 @@ local e = EffectData()
 e:SetOrigin( self.Owner:GetShootPos() )
 util.Effect( "smokereffect", e )
 
-
+	self:EmitSound(Sound("player/zombies/hate/sawrunner_attack1.wav"),math.random(100,130),math.random(95,100))
+	--self:EmitSound(Sound("player/zombies/hate/sawrunner_attack2.wav"),math.random(100,130),math.random(95,100))
 end
-
-
-function SWEP:PrimaryAttackHit(trace, ent)
-	if CLIENT then
-		return
-	end
-
-	if hit then
-		if ent and ValidEntity(ent) and ent:IsPlayer() then
-			pl:EmitSound(Sound("player/zombies/hate/sawrunner_attack1.wav"),math.random(100,130),math.random(95,50))
-			util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
-		else
-			pl:EmitSound(Sound("player/zombies/hate/sawrunner_attack1.wav"),math.random(100,130),math.random(95,60))
-		end
-	else
-		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0"),math.random(100,130),math.random(95,30))
-	end
-end
-
 
 function SWEP:PrimaryAttackHit(trace, ent)
 	if CLIENT then
@@ -179,8 +162,9 @@ function SWEP:PrimaryAttackHit(trace, ent)
 		pl:EmitSound(Sound("player/zombies/hate/chainsaw_attack_hit.wav"),math.random(100,130),math.random(95,100))
 		 pl:EmitSound(Sound("npc/barnacle/barnacle_bark.wav"),math.random(100,130),math.random(95,100))
 		else
+		pl:EmitSound(Sound("player/zombies/hate/sawrunner_attack2.wav"),math.random(100,130),math.random(95,100))
 		pl:EmitSound(Sound("player/zombies/hate/sawrunner_attack1.wav"),math.random(100,130),math.random(95,100))
-		
+
 		end
 		end end
 
@@ -200,3 +184,16 @@ end
 function SWEP:PlayAttackSound()
    
 end
+
+
+function SWEP:OnDeploy()
+	if SERVER then
+		self.DeployTime = CurTime() + 3.5
+		self.ChainSound = CreateSound( self.Owner, "weapons/melee/chainsaw_idle.wav" ) 
+		if not self.Deployed then
+			self.Owner:EmitSound("weapons/melee/chainsaw_start_0"..math.random(1,2)..".wav")
+			self.Deployed = true
+		end
+	end
+end
+

@@ -890,7 +890,14 @@ ZombieClasses[17] = --Smoke shit up :P
 	Speed = 170,
 	Description = "Uses smoke to blind humans for the horde to commence its attack!",
 	Unique = "",
-	
+	PainSounds = {
+				Sound( "npc/zombine/zombine_pain1.wav" ),
+				Sound( "npc/zombine/zombine_pain2.wav" ),
+				Sound( "npc/zombine/zombine_pain3.wav" ),
+				Sound( "npc/zombine/zombine_pain4.wav" ),
+		
+				--Sound( "player/zombies/seeker/pain2.wav" ),
+				},
 	OnSpawn = function(pl)
 		
 	end,
@@ -917,7 +924,7 @@ ZombieClasses[17] = --Smoke shit up :P
 				Sound("npc/zombine/striderx_alert6.wav"),
 				},
 				
-	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
+	ModelScale = 1.40,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
 	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
