@@ -202,13 +202,13 @@ GM.HumanWeapons = {
 			
 	--Medium Guns
 	
-	["weapon_zs_g3sg1"]  = { Name = "G3-SG1", DPS = 106,Mat = "VGUI/gfx/VGUI/g3sg1", Infliction = 0.51, Type = "rifle", Price = 1600 },
+	--["weapon_zs_g3sg1"]  = { Name = "G3-SG1", DPS = 106,Mat = "VGUI/gfx/VGUI/g3sg1", Infliction = 0.51, Type = "rifle", Price = 1600 },
 	["weapon_zs_famas"]  = { Name = "Famas", DPS = 140,Mat = "VGUI/gfx/VGUI/famas", Infliction = 0.7, Type = "rifle", Price = 750 },
 	["weapon_zs_sg552"]  = { Name = "SG552 Rifle", DPS = 106,Mat = "VGUI/gfx/VGUI/sg552", Infliction = 0.51, Type = "rifle", Price = 750 },
 	["weapon_zs_galil"]  = { Name = "Galil", DPS = 129,Mat = "VGUI/gfx/VGUI/galil", Infliction = 0.57, Type = "rifle", Price = 900 },
 	["weapon_zs_sg550"]  = { Name = "SG550", DPS = 106,Mat = "VGUI/gfx/VGUI/sg550", Infliction = 0.51, Type = "rifle", Price = 1100 },
 	["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133,Mat = "VGUI/gfx/VGUI/ak47", Infliction = 0.7, Type = "rifle", Price = 1200 },
-	["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138,Mat = "VGUI/gfx/VGUI/m4a1", Infliction = 0.65, Type = "rifle", Price = 1200 },
+	["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138,Mat = "VGUI/gfx/VGUI/m4a1", Infliction = 0.65, Type = "rifle", Price = 1600 },
 	["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125,Mat = "VGUI/gfx/VGUI/aug", Infliction = 0.53, Type = "rifle" , Price = 1400 },
 	
 	--Heavy
@@ -387,7 +387,7 @@ GM.RankUnlocks = {
 	[43] = {"_plankhp"},
 	[45] = {"weapon_zs_melee_pot"},
 	[50] = {"weapon_zs_miniturret"},
-	--[55] = {"weapon_zs_melee_crowbar"},
+	[55] = {"weapon_zs_melee_crowbar"},
 	[65] = {"weapon_zs_classic"},
 	--[70] = {"weapon_zs_fiveseven"},
 	[76] = {"weapon_zs_melee_hook"},
