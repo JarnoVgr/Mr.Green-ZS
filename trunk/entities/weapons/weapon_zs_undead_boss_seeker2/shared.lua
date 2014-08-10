@@ -82,8 +82,8 @@ local pl = self.Owner
 local e = EffectData()
 e:SetOrigin( self.Owner:GetShootPos() )
 util.Effect( "seekerII", e )
-self.Owner:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,100))
-timer.Simple(2, function() 
+self.Owner:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,50))
+timer.Simple(0.5, function() 
 	self.Owner:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,1))
 	end)
 end
