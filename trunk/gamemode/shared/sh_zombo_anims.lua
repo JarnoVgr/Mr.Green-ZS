@@ -974,3 +974,6 @@ GM.DoAnimationEventZombies[16] = GM.DoAnimationEventZombies[0]
 --Attack for SeekerII
 GM.CalcMainActivityZombies[18] = GM.CalcMainActivityZombies[0]
 GM.DoAnimationEventZombies[18] = GM.DoAnimationEventZombies[0]
+
+GM.CalcMainActivityZombies[1] = GM.CalcMainActivityZombies[0]
+GM.DoAnimationEventZombies[1] = GM.DoAnimationEventZombies[0]

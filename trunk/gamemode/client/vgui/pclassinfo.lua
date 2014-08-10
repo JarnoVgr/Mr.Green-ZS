@@ -4,11 +4,12 @@ local ZInfoTable = {}
 ZInfoTable[1] = {Desc1 = "Attack with claws", Desc2 = "Moan", Seq1 = "Idle01", Seq2 = "FireWalk", AnimSpeed1 = 1, AnimSpeed2 = 0.5, Cam = Vector( 58, 68, 40 ), Ang = Vector( 0, 0, 40 ) }
 ZInfoTable[2] = {Desc1 = "Attack with claws", Desc2 = "Leap/Climb the walls", Seq1 = "Melee", Seq2 = "LeapStrike", AnimSpeed1 = 0.5, AnimSpeed2 = 0.5, Cam = Vector( 58, 68, 40 ), Ang = Vector( 0, 0, 40 ) }
 ZInfoTable[3] = {Desc1 = "Attack with claws", Desc2 = "Moan", Seq1 = "Idle01", Seq2 = "FireWalk", AnimSpeed1 = 1, AnimSpeed2 = 0.5, Cam = Vector( 58, 68, 40 ), Ang = Vector( 0, 0, 40 ) }
-ZInfoTable[4] = {Desc1 = "Attack with claws", Desc2 = "Teleportation (Aim at the floor)", Seq1 = "idle2", Seq2 = "walk", AnimSpeed1 = 1, AnimSpeed2 = 0, Cam = Vector( 58, 68, 40 ), Ang = Vector( 0, 0, 40 ) }
+ZInfoTable[4] = {Desc1 = "Attack with claws", Desc2 = "Invisibility", Seq1 = "idle2", Seq2 = "walk", AnimSpeed1 = 1, AnimSpeed2 = 0, Cam = Vector( 58, 68, 40 ), Ang = Vector( 0, 0, 40 ) }
 ZInfoTable[5] = {Desc1 = "Pull objects/players with scream", Desc2 = "Push objects/players with scream", Seq1 = "FireIdle", Seq2 = "FireIdle", AnimSpeed1 = 1, AnimSpeed2 = 1, Cam = Vector( 58, 68, 40 ), Ang = Vector( 0, 0, 40 ) }
 ZInfoTable[6] = {Desc1 = "Attack", Desc2 = "Emit a lovely sound", Seq1 = "Run1", Seq2 = "Idle01", AnimSpeed1 = 1, AnimSpeed2 = 1, Cam = Vector( 45, 45, 35 ), Ang = Vector( 0, 0, 0 )}
 ZInfoTable[7] = {Desc1 = "Spit a green poison ball", Desc2 = "Spit a red poison ball", Seq1 = "IdleSniff", Seq2 = "IdleSumo", AnimSpeed1 = 1, AnimSpeed2 = 1, Cam = Vector( 45, 45, 35 ), Ang = Vector( 0, 0, 0 ) }
-ZInfoTable[8] = {Desc1 = "Attack with claws", Desc2 = "Pull out grenade (avalaible at full rage)", Seq1 = "Walk_All", Seq2 = "Run_All_grenade", AnimSpeed1 = 0.8, AnimSpeed2 = 0.8, Cam = Vector( 58, 68, 40 ), Ang = Vector( 0, 0, 40 ) }
+ZInfoTable[8] = {Desc1 = "Attack with claws", Desc2 = "Pull out grenade ", Seq1 = "Walk_All", Seq2 = "Run_All_grenade", AnimSpeed1 = 0.8, AnimSpeed2 = 0.8, Cam = Vector( 58, 68, 40 ), Ang = Vector( 0, 0, 40 ) }
+ZInfoTable[20] = {Desc1 = "Attack with claws", Desc2 = "Very fast!", Seq1 = "Walk_All", Seq2 = "Run_All_grenade", AnimSpeed1 = 0.8, AnimSpeed2 = 0.8, Cam = Vector( 58, 68, 40 ), Ang = Vector( 0, 0, 40 ) }
 
 local function SetSeqModel( self, strModelName, seq )
 

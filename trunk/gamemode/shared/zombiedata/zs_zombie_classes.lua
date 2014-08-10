@@ -102,29 +102,47 @@ ZombieClasses[0] =
 --Obsolete class (not removed to prevent gamemode from breaking)
 ZombieClasses[1] =						
 {
-	Name = "Obsolete",
+	Name = "Ghouler",
 	Tag = "zombie",	
-	Infliction = 99,
+	Infliction = 0,
 	Revives = true,
-	Health = 250,
-	MaxHealth = 350,
+	Health = 160,
+	MaxHealth = 160,
 	Bounty = 100,
 	SP = 15,
 	Threshold = 99,	
-	SWEP = "weapon_zs_zombie",			
-	JumpPower = 200,
+	SWEP = "weapon_zs_undead_ghoul",			
+	JumpPower = 130,
 	Unlocked = false,
-	Hidden = true,
+	--Hidden = true,
 	CanCrouch = true,
 	CanGib = true,
-	Model = Model("models/Zombie/Classic.mdl"), 
-	Speed = 154,	
+	Model = Model("models/player/corpse1.mdl"), 
+	--Model = Model("models/Zombie/Poison.mdl"), 
+	Speed = 180,	
 	AngleFix = true,
-	Description = "Unplayable",
+	Description = "A fast and deadly zombie in numbers",
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Fast Attack" },
+	PainSounds = {
+				Sound("npc/zombie/zombie_pain1.wav"),
+				Sound("npc/zombie/zombie_pain2.wav"),
+				Sound("npc/zombie/zombie_pain3.wav"),
+				Sound("npc/zombie/zombie_pain4.wav"),
+				Sound("npc/zombie/zombie_pain5.wav"),
+				Sound("npc/zombie/zombie_pain6.wav"),
+				
+				}, 
+	DeathSounds = {
+				Sound("npc/zombie/zombie_die1.wav"),
+				Sound("npc/zombie/zombie_die2.wav"),
+				Sound("npc/zombie/zombie_die3.wav"),
+				
+				}, 	
 	Unique = "",
-	Description = "You aren't supposed to read this.",
+	Description = "The support of the horde! ",
 	--Unique = "Can be deadly in numbers. Can Propkill.",	
 	PlayerFootstep = true,
+	 ModelScale = 0.85
 }
 
 ZombieClasses[2] = 
@@ -1039,6 +1057,90 @@ ZombieClasses[19] =
 				Sound("npc/zombine/striderx_alert6.wav"),
 				},
 }
+
+
+
+ZombieClasses[20] =						
+{
+	Name = "Ghouler",	
+	Tag = "ghoul",	
+	Infliction = 0,
+	Revives = false,
+	Health = 160,
+	MaxHealth = 160,
+	Bounty = 80,
+	SP = 20,
+	Threshold = 0,	
+	SWEP = "weapon_zs_undead_ghoul",			
+	JumpPower = 130,
+	CanCrouch = true,
+	CanGib = true,
+	Model = Model("models/player/corpse1.mdl"),
+	Speed = 180,
+	Description = "The support of the horde.",
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Agility" },
+	PainSounds = {
+				Sound("npc/zombiegreen/been_shot_1.wav"),
+				Sound("npc/zombiegreen/been_shot_2.wav"),
+				Sound("npc/zombiegreen/been_shot_3.wav"),
+				Sound("npc/zombiegreen/been_shot_4.wav"),
+				Sound("npc/zombiegreen/been_shot_5.wav"),
+				Sound("npc/zombiegreen/been_shot_6.wav"),
+				Sound("npc/zombiegreen/been_shot_7.wav"),
+				Sound("npc/zombiegreen/been_shot_8.wav"),
+				Sound("npc/zombiegreen/been_shot_9.wav"),
+				Sound("npc/zombiegreen/been_shot_10.wav"),
+				Sound("npc/zombiegreen/been_shot_11.wav"),
+				Sound("npc/zombiegreen/been_shot_12.wav"),
+				Sound("npc/zombiegreen/been_shot_13.wav"),
+				Sound("npc/zombiegreen/been_shot_14.wav"),
+				Sound("npc/zombiegreen/been_shot_15.wav"),
+				Sound("npc/zombiegreen/been_shot_16.wav"),
+				Sound("npc/zombiegreen/been_shot_17.wav"),
+				Sound("npc/zombiegreen/been_shot_18.wav"),
+				Sound("npc/zombiegreen/been_shot_19.wav"),
+				Sound("npc/zombiegreen/been_shot_20.wav"),
+				Sound("npc/zombiegreen/been_shot_21.wav")
+				}, 
+	DeathSounds = {
+				Sound("npc/zombiegreen/death_17.wav"),
+				Sound("npc/zombiegreen/death_18.wav"),
+				Sound("npc/zombiegreen/death_19.wav"),
+				Sound("npc/zombiegreen/death_20.wav"),
+				Sound("npc/zombiegreen/death_21.wav"),
+				Sound("npc/zombiegreen/death_22.wav"),
+				Sound("npc/zombiegreen/death_23.wav"),
+				Sound("npc/zombiegreen/death_24.wav"),
+				Sound("npc/zombiegreen/death_25.wav"),
+				Sound("npc/zombiegreen/death_26.wav"),
+				Sound("npc/zombiegreen/death_27.wav"),
+				Sound("npc/zombiegreen/death_28.wav"),
+				Sound("npc/zombiegreen/death_29.wav"),
+				Sound("npc/zombiegreen/death_30.wav"),
+				Sound("npc/zombiegreen/death_31.wav"),
+				Sound("npc/zombiegreen/death_32.wav"),
+				Sound("npc/zombiegreen/death_33.wav"),
+				Sound("npc/zombiegreen/death_34.wav"),
+				Sound("npc/zombiegreen/death_35.wav")
+				}, 	
+	PlayerFootstep = true,
+	Unlocked = true,
+	OnSpawn = function(pl)
+		--Force human player model
+		if pl.ForcePlayerModel then
+			--Reset
+			pl.ForcePlayerModel = false
+
+			--Set model and face
+			pl:SetModel(player_manager.TranslatePlayerModel(pl.PlayerModel))
+			pl:SetRandomFace()
+		end
+	end,
+	-- ModelScale = Vector(1.35,1.35,1.35),
+	ModelScale = 0.7
+}
+
+
 
 
 --[[local SantaStart = {

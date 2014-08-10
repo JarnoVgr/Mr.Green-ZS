@@ -25,6 +25,7 @@ local Image = {
 	[6] = surface.GetTextureID("zombiesurvival/classmenu/headcrab"),
 	[7] = surface.GetTextureID("zombiesurvival/classmenu/poisonheadcrab"),
 	[8] = surface.GetTextureID("zombiesurvival/classmenu/zombine"),
+	[20] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
 }
 
 -- Initialize the colors needed for the 3 buttons
@@ -409,7 +410,8 @@ function OnClassesMenuOpen()
 		end
 
 		-- Next slot
-		buttonPosX = buttonPosX + ScaleW(126) + spaceBetweenButtons
+		--buttonPosX = buttonPosX + ScaleW(126) + spaceBetweenButtons
+		buttonPosX = buttonPosX + ScaleW(110) + spaceBetweenButtons
 	end
 		
 	zClasses.Think = function()
