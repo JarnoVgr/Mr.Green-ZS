@@ -140,6 +140,33 @@ ZombieClasses[1] =
 				}, 	
 	Unique = "",
 	Description = "The support of the horde! ",
+	OnSpawn = function(pl)
+	--pl:ManipulateBonePosition(math.Rand(1, 15) , Vector( math.Rand( 5, 5), math.Rand( 5, 5), math.Rand( 1, 5)) )
+		
+		local b = pl:LookupBone("ValveBiped.Bip01_Head1")
+	pl:ManipulateBonePosition( b, Vector(-1,1.5,-1)) 
+	
+		local d = pl:LookupBone("ValveBiped.Bip01_R_Foot")
+	pl:ManipulateBonePosition( d, Vector(1,2,3))
+	
+		local e = pl:LookupBone("ValveBiped.Bip01_L_Foot")
+	pl:ManipulateBonePosition( e, Vector(1,-10,3))
+	
+		local f = pl:LookupBone("ValveBiped.Bip01_R_Hand")
+	pl:ManipulateBonePosition( f, Vector(1,5,1))
+	
+		local g = pl:LookupBone("ValveBiped.Bip01_L_Hand")
+	pl:ManipulateBonePosition( g, Vector(1,-5,5))
+	
+		local h = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	pl:ManipulateBonePosition( h, Vector(1,15,1))
+	
+		local i = pl:LookupBone("ValveBiped.Bip01_Spine2")
+	pl:ManipulateBonePosition( i, Vector(1,-5,1))
+		
+		
+			
+	end,
 	--Unique = "Can be deadly in numbers. Can Propkill.",	
 	PlayerFootstep = true,
 	 ModelScale = 0.9

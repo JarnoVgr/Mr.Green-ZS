@@ -72,27 +72,8 @@ function SWEP:StartPrimaryAttack()
 		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))
 	end
 	
-	local b = self.Owner:LookupBone("ValveBiped.Bip01_Head1")
-	self.Owner:ManipulateBonePosition( b, Vector(-1,1.5,-1)) 
 	
 
-		local d = self.Owner:LookupBone("ValveBiped.Bip01_R_Foot")
-	self.Owner:ManipulateBonePosition( d, Vector(1,2,3))
-	
-		local e = self.Owner:LookupBone("ValveBiped.Bip01_L_Foot")
-	self.Owner:ManipulateBonePosition( e, Vector(1,-10,3))
-	
-		local f = self.Owner:LookupBone("ValveBiped.Bip01_R_Hand")
-	self.Owner:ManipulateBonePosition( f, Vector(1,5,1))
-	
-		local g = self.Owner:LookupBone("ValveBiped.Bip01_L_Hand")
-	self.Owner:ManipulateBonePosition( g, Vector(1,-5,5))
-	
-		local h = self.Owner:LookupBone("ValveBiped.Bip01_Spine4")
-	self.Owner:ManipulateBonePosition( h, Vector(1,15,1))
-	
-		local i = self.Owner:LookupBone("ValveBiped.Bip01_Spine2")
-	self.Owner:ManipulateBonePosition( i, Vector(1,-5,1))
 
 end
 
