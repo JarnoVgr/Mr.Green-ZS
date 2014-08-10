@@ -51,41 +51,9 @@ SWEP.Secondary.Delay = 0.3
 SWEP.Secondary.Damage = 15
 SWEP.Secondary.Reach = 45
 
-function SWEP:Think()
-
-
---Lets make him look terrifing! 
-	
-	--	local a = self.Owner:LookupBone("ValveBiped.Bip01_R_Thigh")
-	--self.Owner:ManipulateBonePosition( a, Vector(1,1,5)) 
 	--pl:ManipulateBonePosition(math.Rand(1, 15) , Vector( math.Rand( 1, 5), math.Rand( 1, 5), math.Rand( 1, 5)) )
-		local b = self.Owner:LookupBone("ValveBiped.Bip01_Head1")
-	self.Owner:ManipulateBonePosition( b, Vector(-1,1.5,-1)) 
 	
-	--	local c = self.Owner:LookupBone("ValveBiped.Bip01_L_Thigh")
-	--self.Owner:ManipulateBonePosition( c, Vector(5,1,1))
-	
-		local d = self.Owner:LookupBone("ValveBiped.Bip01_R_Foot")
-	self.Owner:ManipulateBonePosition( d, Vector(1,2,3))
-	
-		local e = self.Owner:LookupBone("ValveBiped.Bip01_L_Foot")
-	self.Owner:ManipulateBonePosition( e, Vector(1,-10,3))
-	
-		local f = self.Owner:LookupBone("ValveBiped.Bip01_R_Hand")
-	self.Owner:ManipulateBonePosition( f, Vector(1,5,1))
-	
-		local g = self.Owner:LookupBone("ValveBiped.Bip01_L_Hand")
-	self.Owner:ManipulateBonePosition( g, Vector(1,-5,5))
-	
-		local h = self.Owner:LookupBone("ValveBiped.Bip01_Spine4")
-	self.Owner:ManipulateBonePosition( h, Vector(1,15,1))
-	
-		local i = self.Owner:LookupBone("ValveBiped.Bip01_Spine2")
-	self.Owner:ManipulateBonePosition( i, Vector(1,-5,1))
-	
-	--ValveBiped.Bip01_Spine4  ValveBiped.Bip01_Spine2  ValveBiped.Bip01_Pelvis ValveBiped.Bip01_R_UpperArm ValveBiped.Bip01_L_UpperArm
 
-end
 
 function SWEP:StartPrimaryAttack()			
 	--Hacky way for the animations
@@ -103,6 +71,28 @@ function SWEP:StartPrimaryAttack()
 	if SERVER and #self.AttackSounds > 0 then
 		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))
 	end
+	
+	local b = self.Owner:LookupBone("ValveBiped.Bip01_Head1")
+	self.Owner:ManipulateBonePosition( b, Vector(-1,1.5,-1)) 
+	
+
+		local d = self.Owner:LookupBone("ValveBiped.Bip01_R_Foot")
+	self.Owner:ManipulateBonePosition( d, Vector(1,2,3))
+	
+		local e = self.Owner:LookupBone("ValveBiped.Bip01_L_Foot")
+	self.Owner:ManipulateBonePosition( e, Vector(1,-10,3))
+	
+		local f = self.Owner:LookupBone("ValveBiped.Bip01_R_Hand")
+	self.Owner:ManipulateBonePosition( f, Vector(1,5,1))
+	
+		local g = self.Owner:LookupBone("ValveBiped.Bip01_L_Hand")
+	self.Owner:ManipulateBonePosition( g, Vector(1,-5,5))
+	
+		local h = self.Owner:LookupBone("ValveBiped.Bip01_Spine4")
+	self.Owner:ManipulateBonePosition( h, Vector(1,15,1))
+	
+		local i = self.Owner:LookupBone("ValveBiped.Bip01_Spine2")
+	self.Owner:ManipulateBonePosition( i, Vector(1,-5,1))
 
 end
 

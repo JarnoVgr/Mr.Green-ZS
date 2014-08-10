@@ -142,7 +142,7 @@ ZombieClasses[1] =
 	Description = "The support of the horde! ",
 	--Unique = "Can be deadly in numbers. Can Propkill.",	
 	PlayerFootstep = true,
-	 ModelScale = 0.85
+	 ModelScale = 0.9
 }
 
 ZombieClasses[2] = 
