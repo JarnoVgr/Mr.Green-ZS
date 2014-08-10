@@ -1,7 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
---Duby I am the puuusey boosss!
+--Duby: I am the puuusey boosss!
 
 if CLIENT then
 
@@ -82,7 +82,10 @@ local pl = self.Owner
 local e = EffectData()
 e:SetOrigin( self.Owner:GetShootPos() )
 util.Effect( "seekerII", e )
-
+self.Owner:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,100))
+timer.Simple(2, function() 
+	self.Owner:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,1))
+	end)
 end
 
 
@@ -91,8 +94,11 @@ function SWEP:PostPerformPrimaryAttack(hit)
 		return
 	end
 
-	self.Owner:EmitSound(Sound("vo/Citadel/al_fail_no.wav"),math.random(100,160),math.random(70,65))
-	
+	--self.Owner:EmitSound(Sound("vo/Citadel/al_fail_no.wav"),math.random(100,160),math.random(70,65))
+	--self.Owner:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,100))
+	--timer.Simple(2, function() 
+	--self.Owner:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,1))
+	--end)
 end
 
 
@@ -105,12 +111,18 @@ function SWEP:PrimaryAttackHit(trace, ent)
 		if ent and ValidEntity(ent) and ent:IsPlayer() then
 			pl:EmitSound(Sound("player/zombies/seeker/melee_01.wav"),math.random(100,130),math.random(95,100))
 			util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
+			
+	
 		else
 			pl:EmitSound(Sound("player/zombies/seeker/melee_02.wav"),math.random(100,130),math.random(95,100))
+			
+	
 		end
 	else
 		self.Owner:EmitSound(Sound("player/zombies/seeker/melee_03.wav"),math.random(100,130),math.random(95,100))
 	end
+	
+	
 end
 
 function SWEP:OnDeploy()
@@ -128,8 +140,6 @@ function SWEP:_OnRemove()
 	end
 	
 end
-
-
 
 
 
