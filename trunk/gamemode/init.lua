@@ -10,6 +10,11 @@ include("modules/debug/sh_debug.lua")
 --[=[---------------------------------------------------------
           Add them to download list (Client)
 ---------------------------------------------------------]=]
+--Swag we have a faster dl now. We should have people connecting a lot faster!
+
+resource.AddWorkshop("299110437") --Sound 1
+resource.AddWorkshop("299111187") --Sound 2
+resource.AddWorkshop("299079647") --Content
 
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("client/cl_chat.lua")
@@ -109,6 +114,7 @@ include("server/anti_map_exploit.lua" )
 include("server/sv_poisongasses.lua" )
 include("server/sv_waves.lua" ) 
 include("server/sv_pickups.lua" )
+
 
 
 --[=[---------------------------------------------------------
@@ -261,13 +267,16 @@ function GM:Initialize()
 	end 
 	
 	-- Add resource files to download
-	for k,v in pairs(ResourceFiles) do
-		if not file.Exists( v, "GAME") then
-			Debug ( "[RESOURCE-FILES] Couldn't add/find file "..tostring ( v ).." to add to resource files!" )
-		else
-			resource.AddFile(v)
-		end
-	end
+	
+	--Duby: This was removed as we are now using the workshop for our content download! ^^ 
+	
+	--for k,v in pairs(ResourceFiles) do
+		--if not file.Exists( v, "GAME") then
+		--	Debug ( "[RESOURCE-FILES] Couldn't add/find file "..tostring ( v ).." to add to resource files!" )
+		--else
+		--	resource.AddFile(v)
+		--end
+	--end
 
 	
 	GAMEMODE:SetMapList()
@@ -1688,49 +1697,3 @@ hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and i
 --[=[----------------------------------------------------------------------
      Dubys amazing method to the new crate!!
 ---------------------------------------------------------------------------]=]
-TeamsTable = {}
-TeamsTable["RewardTableOne"] = {"weapon_zs_deagle","weapon_zs_magnum","weapon_zs_elites","weapon_zs_fiveseven"}
-
-
-hook.Add("PlayerDeath","CheckKillCount",function(pl,dmg,attacker)
---// what if the attacker is the attacker? :o
-if ( pl != attacker ) then
-pl:Frags( 0 )
-end
---// the first row of reward for team 1
---// you can change the rewards in "options_Shared.lua"
-if( attacker:Team()  == 1 ) then 
-if( attacker:Frags() == 1 ) then
-attacker:Give( table.Random( TeamsTable["RewardTableOne"] ) )
-end
-end
-if ( attacker:Team() == 1 ) then
-if( attacker:Frags() == 2 ) then
-attacker:Give( table.Random( TeamsTable["RewardTableTwo"] ) )
-end
-end
-
-if ( attacker:Team() == 1 ) then 
-if( attacker:Frags() == 3 ) then
-attacker:Give( table.Random( TeamsTable["RewardTableThree"]  ) )
-end
-end
-
-if( attacker:Team() == 2 ) then 
-if( attacker:Frags() == 1 ) then
-attacker:Give( table.Random( TeamsTable2["RewardTableOne"] ) )
-end
-end
-if ( attacker:Team() == 2 ) then
-if( attacker:Frags() == 2 ) then
-attacker:Give( table.Random( TeamsTable2["RewardTableTwo"] ) )
-end
-end
-
-if ( attacker:Team() == TEAM_2 ) then 
-if( attacker:Frags() == 3 ) then
-attacker:Give( table.Random( TeamsTable2["RewardTableThree"]  ) )
-end
-end
-end)
-
