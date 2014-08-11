@@ -32,7 +32,7 @@ shopData = {
 	[13] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "You might experience a little IQ increase when inserting this thing in your head. Don't count on it though.", Key = "borghat", ID = 13, Sell = 0, Requires = 0, Name = "Borg hat",  },
 	[14] = { Cost = 1, Type = "hat", AdminOnly = true, Desc = "Hat for admins! Nope, normal players cannot see this in the list.", Key = "greenshat", ID = 14, Sell = 0, Requires = 0, Name = "Greens Hat",  },
 	[15] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "With this big eye-catching thing lodged on your head you're sure to attract some attention. Too bad it doesn't shoot lasers.", Key = "roboteye", ID = 15, Sell = 0, Requires = 0, Name = "Robot hat",  },
-	[16] = { Cost = 7000, Hidden = true, AdminOnly = false, Desc = "You are healthy as a horse and you regenerate an additional 10 hp of health, if under 40 health. You need Quick Cure and at least 3 upgrades to buy this.", Key = "antidote", ID = 16, Sell = 0, Requires = 3, Name = "Horse Health",  },
+	
 	[17] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "Rambo's your bitch. As last human you do more damage to zombie and receive the powerful M249!", Key = "lastmanstand", ID = 17, Sell = 0, Requires = 0, Name = "Last Man Stand",  },
 	[18] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "Ho ho ho! Merry Christmas! It's that time of the year again .. (Permanent hat)", Key = "snowhat", ID = 18, Sell = 0, Requires = 0, Name = "Snowman Hat",  },
 	[19] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "Greencoins make Santa Claus's World go round! That's why you should buy this lovely hat right from Santa's Bag!  .. (Permanent hat)", Key = "present", ID = 19, Sell = 0, Requires = 0, Name = "Present Hat",  },
@@ -120,8 +120,8 @@ shopData = {
 	[83] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Live for nothing or die for something. Reload more bullets in your shotgun at one time!", Key = "Rambo", ID = 83, Sell = 0, Requires = 0, Name = "Rambo Roar",  },
 	[96] = { Cost = 1, Type = "suit", AdminOnly = true, Desc = "", Key = "pistolsuit", ID = 96, Sell = 0, Requires = 0, Name = "Test suit",  },
 	[97] = { Cost = 20 , Type = "suit", AdminOnly = false, Desc = "Another day at the office...", Key = "officesuit", ID = 97, Sell = 0, Requires = 0, Name = "Office",  },
-	[98] = { Cost = 20000, Type = "misc", AdminOnly = false, Desc = "If your health goes lower than 30 hp your health with regenerate back up to 30 hp! This is the perfect perk for if your a new to the server!! ", Key = "horse", ID = 98, Sell = 0, Requires = 0, Name = "Horse Health! (Classic perk!) ",  },
-	
+	--[98] = { Cost = 20000, Type = "misc", AdminOnly = false, Desc = "If your health goes lower than 30 hp your health with regenerate back up to 30 hp! This is the perfect perk for if your a new to the server!! ", Key = "horse", ID = 98, Sell = 0, Requires = 0, Name = "Horse Health! (Classic perk!) ",  },
+	[16] = { Cost = 20000, Type = "misc", AdminOnly = false, Desc = "You are healthy as a horse and you regenerate an additional 10 hp of health, if under 40 health. You need Quick Cure and at least 3 upgrades to buy this.", Key = "antidote", ID = 16, Sell = 0, Requires = 3, Name = "Horse Health",  }, --Horse health
 	--[99] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 99, Sell = 0, Requires = 0, Name = "",  },
 	--[100] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 100, Sell = 0, Requires = 0, Name = "",  },
 	--[101] = { Cost = , Type = "hat", AdminOnly = false, Desc = "", Key = "", ID = 101, Sell = 0, Requires = 0, Name = "",  },
