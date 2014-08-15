@@ -12,9 +12,16 @@ include("shared.lua")
 -- Normal set data
 ENT.Table = {
 	["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 18.8135, 0 ), Angles = Angle ( 0, -180, 0 ) },
-	["Shotgun"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -7.1762, -10.9928, 24 ), Angles = Angle ( -1.297 ,60 ,-89.158 ) },
-	["Ammo"] = { Model = "models/items/boxbuckshot.mdl", Position = Vector ( 4.6052 ,-6.7138, 23 ), Angles = Angle ( -0.336 , -115 ,0.072 ) },
-	["Vial"] = { Model = "models/healthvial.mdl", Position = Vector ( -11.5952, 7.5, 25.5 ), Angles = Angle ( 0.726, -66.560, -90.018 ) },
+	["AmmoUp2"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 31.8135, 0 ), Angles = Angle ( 0, -180, 0 ) },
+	["AmmoUp3"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, -31.8135, 0 ), Angles = Angle ( 0, -180, 0 ) },
+	["AmmoUp4"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, -15.8135, 24 ), Angles = Angle ( 0, -180, 0 ) },
+	["AmmoUp5"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 16, 24 ), Angles = Angle ( 0, -180, 0 ) },
+	["AmmoUp6"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 0.8135, 48 ), Angles = Angle ( 0, -180, 0 ) },
+	--["Shotgun"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -7.1762, -10.9928, 24 ), Angles = Angle ( -1.297 ,60 ,-89.158 ) },
+	--["Ammo"] = { Model = "models/items/boxbuckshot.mdl", Position = Vector ( 4.6052 ,-6.7138, 23 ), Angles = Angle ( -0.336 , -115 ,0.072 ) }, --Old
+	["Ammo"] = { Model = "models/items/boxbuckshot.mdl", Position = Vector ( 4.6052 ,42.7138, 23 ), Angles = Angle ( -0.336 , -115 ,0.072 ) }, --New
+	--["Vial"] = { Model = "models/healthvial.mdl", Position = Vector ( -11.5952, 7.5, 25.5 ), Angles = Angle ( 0.726, -66.560, -90.018 ) }, --Old 
+	["Vial"] = { Model = "models/healthvial.mdl", Position = Vector ( -11.5952, -41, 25.5 ), Angles = Angle ( 0.726, -66.560, -90.018 ) }, --New
 }
 
 -- Precache their models
@@ -29,6 +36,22 @@ function ENT:Initialize()
 	--Spawn the main parent prop 
 	self:SetModel(self.Table["AmmoUp"].Model)
 	self:SetAngles(self.Table["AmmoUp"].Angles)
+	
+	self:SetModel(self.Table["AmmoUp2"].Model)
+	self:SetAngles(self.Table["AmmoUp2"].Angles)
+	
+	self:SetModel(self.Table["AmmoUp3"].Model)
+	self:SetAngles(self.Table["AmmoUp3"].Angles)
+	
+	self:SetModel(self.Table["AmmoUp4"].Model)
+	self:SetAngles(self.Table["AmmoUp4"].Angles)
+	
+	self:SetModel(self.Table["AmmoUp5"].Model)
+	self:SetAngles(self.Table["AmmoUp5"].Angles)
+	
+	self:SetModel(self.Table["AmmoUp6"].Model)
+	self:SetAngles(self.Table["AmmoUp6"].Angles)
+	
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_NONE)
 	self:SetUseType(SIMPLE_USE)
@@ -50,7 +73,7 @@ function ENT:Initialize()
 	
 	-- Now spawn the rest
 	for k,v in pairs ( self.Table ) do
-		if k ~= "AmmoUp" then
+		if k ~= "AmmoUp" and "AmmoUp2" and "AmmoUp3" and "AmmoUp4" and "AmmoUp5" and "AmmoUp6" then
 		    i = i + 1
 		    
 			local Ent = ents.Create ("prop_physics")-- _multiplayer

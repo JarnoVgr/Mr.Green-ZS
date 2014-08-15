@@ -517,9 +517,10 @@ function GM:SpawnCratesFromTable(crateSpawns,bAll)
      Dubys amazing method to the new crate!!
 ---------------------------------------------------------------------------]=]
 --Duby: Its not the best method, but it works well! ^^
-		timer.Simple(480, function() --Remove the crate.
-		--timer.Simple(30, function() --Remove the crate.
+		--timer.Simple(480, function() --Remove the crate.
+		timer.Simple(600, function() --Remove the crate.
 	ents.FindByClass( "game_supplycrate" )[1]:Remove()
+	ents.FindByClass( "game_supplycrate" )[2]:Remove()
 player.GetByID( 1 ):PrintMessage( HUD_PRINTCENTER, "The crate has moved! !" )
 player.GetByID( 1 ):PrintMessage( HUD_PRINTCONSOLE, "The crate has moved! !" )
 umsg.Start("cratemove")
@@ -527,7 +528,8 @@ umsg.Start("cratemove")
 	end)
 	
 	
-	timer.Simple(500, function() --Add the crate.
+	--timer.Simple(500, function() --Add the crate.
+	timer.Simple(605, function() --Add the crate.
 	for i=1,maxCrates do
 		--Loop through crate spawns
 		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
@@ -555,81 +557,69 @@ umsg.Start("cratemove")
 	
 	end)
 	
-	
-	timer.Simple(960, function() --Remove the crate.
+	timer.Simple(1200, function() --Remove the crate.
 	ents.FindByClass( "game_supplycrate" )[1]:Remove()
+	ents.FindByClass( "game_supplycrate" )[2]:Remove()
 player.GetByID( 1 ):PrintMessage( HUD_PRINTCENTER, "The crate has moved! !" )
 player.GetByID( 1 ):PrintMessage( HUD_PRINTCONSOLE, "The crate has moved! !" )
 umsg.Start("cratemove")
 		umsg.End()	
 	end)
+	
+	timer.Simple(1205, function() --Reset the crate spawn loctions. Also change the crate ID's again.
+--Remove current supplies
+	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do
+		if IsValid(v) then			
+			v:Remove()
+		end
+	end
+	
+	local idTable = {}
+	
+	--Get crate table and shuffle it
+	--local tab = table.Copy(crateSpawns)
+	--table.Shuffle(tab)
+	
+	table.Shuffle(crateSpawns)
+	
+	local maxCrates = math.min(#crateSpawns,MAXIMUM_CRATES)
+	if bAll then
+		maxCrates = #crateSpawns
+	end
+	
+	local spawnedCratesCount = 0
+	
+	--Loop through crate requests
+	for i=1,maxCrates do
+		--Loop through crate spawns
+		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
+			if not table.HasValue(idTable,crateSpawnID) then	
+				if TraceHullSupplyCrate(crateSpawn.pos, false) then
+					crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
+					
+					--Add to table to prevent it being used again
+					table.insert(idTable,crateSpawnID)
+					
+					--Add crate position to easy-position table
+					local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
+					table.insert(CrateSpawnsPositions,miniPositionTable)
+					
+					--Increase count					
+					spawnedCratesCount = spawnedCratesCount + 1
+					
+					break
+				end
+			end
+		end
+	end
+	
+	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
+	
+	
+	end)
+	
+	
 
-	
-	timer.Simple(980, function() --Add the crate.
-	
-	for i=1,maxCrates do
-		--Loop through crate spawns
-		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
-			if not table.HasValue(idTable,crateSpawnID) then	
-				if TraceHullSupplyCrate(crateSpawn.pos, false) then
-					crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
-					
-					--Add to table to prevent it being used again
-					table.insert(idTable,crateSpawnID)
-					
-					--Add crate position to easy-position table
-					local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
-					table.insert(CrateSpawnsPositions,miniPositionTable)
-					
-					--Increase count					
-					spawnedCratesCount = spawnedCratesCount + 1
-					
-					break
-				end
-			end
-		end
-	end
-	
-	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
-	
-	end)
-	
-	timer.Simple(1440, function() --Remove the crate.
-	ents.FindByClass( "game_supplycrate" )[1]:Remove()
-player.GetByID( 1 ):PrintMessage( HUD_PRINTCENTER, "The crate has moved! !" )
-player.GetByID( 1 ):PrintMessage( HUD_PRINTCONSOLE, "The crate has moved! !" )
-umsg.Start("cratemove")
-		umsg.End()	
-	end)
-	
-	timer.Simple(1460, function() --Remove the crate.
-	
-	for i=1,maxCrates do
-		--Loop through crate spawns
-		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
-			if not table.HasValue(idTable,crateSpawnID) then	
-				if TraceHullSupplyCrate(crateSpawn.pos, false) then
-					crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
-					
-					--Add to table to prevent it being used again
-					table.insert(idTable,crateSpawnID)
-					
-					--Add crate position to easy-position table
-					local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
-					table.insert(CrateSpawnsPositions,miniPositionTable)
-					
-					--Increase count					
-					spawnedCratesCount = spawnedCratesCount + 1
-					
-					break
-				end
-			end
-		end
-	end
-	
-	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
-	
-	end)
 	
 	
 end

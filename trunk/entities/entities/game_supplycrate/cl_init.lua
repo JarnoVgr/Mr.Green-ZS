@@ -47,7 +47,8 @@ function ENT:Draw()
 
     cam.Start3D2D(pos,angle,0.26)
 
-    draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", 0, -10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+    --draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", 0, -10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --Old
+    draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", 0, -150, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
 
     if not suppliesAvailable then
     	--Reset cache for once it's active again
@@ -55,7 +56,8 @@ function ENT:Draw()
 
     	--Calculate time for next supply use possibility
         local timeLeft = math.Round(MySelf.NextSupplyTime - ServerTime())
-        draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(timeLeft + 1), "ArialBoldFour", 0, 10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+      --  draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(timeLeft + 1), "ArialBoldFour", 0, 10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))--Old
+        draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(timeLeft + 1), "ArialBoldFour", 0,-120, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
     else
     	
 
@@ -66,9 +68,11 @@ function ENT:Draw()
     		text = "Press E to use" 
     	end
 
-        draw.SimpleTextOutlined(text, "ArialBoldFive", 0, 10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+      --  draw.SimpleTextOutlined(text, "ArialBoldFive", 0, 10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --Old
+        draw.SimpleTextOutlined(text, "ArialBoldFive", 0, -150, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
 
-        draw.SimpleTextOutlined("Earn more SP for different weapons", "ArialBoldFour", 0, 30, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+       -- draw.SimpleTextOutlined("Earn more SP for different weapons", "ArialBoldFour", 0, 30, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --Old
+        draw.SimpleTextOutlined("Earn more SP for different weapons", "ArialBoldFour", 0, -150, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
     end
  
     cam.End3D2D()
