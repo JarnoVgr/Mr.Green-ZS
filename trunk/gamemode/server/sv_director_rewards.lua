@@ -2,6 +2,15 @@
 -- See LICENSE.txt for license information
 
 -- Score translation table
+
+local RewardsTable = {
+	[5] = { "weapon_zs_glock3", "weapon_zs_deagle", "weapon_zs_fiveseven", "weapon_zs_magnum" },
+	[15] = { "weapon_zs_tmp", "weapon_zs_mp5", "weapon_zs_p90", "weapon_zs_ump", "weapon_zs_smg" },
+	[25] = { "weapon_zs_aug", "weapon_zs_galil", "weapon_zs_ak47", "weapon_zs_m4a1" },
+	[35] = { "weapon_zs_famas", "weapon_zs_sg552", "weapon_zs_pulserifle" },
+	[50] = { "weapon_zs_m249" },
+	[75] = { "weapon_zs_shotgun", "weapon_zs_m1014" },
+}
 --[=[
 local RewardsTable = {
 	[5] = { "weapon_zs_glock3", "weapon_zs_deagle", "weapon_zs_fiveseven", "weapon_zs_magnum" },
@@ -13,23 +22,24 @@ local RewardsTable = {
 }]=]
 
 
-
-
-
 --[==[-------------------------------------------------------------
       Checks players score and gives him new weapons
 --------------------------------------------------------------]==]
 function GM:CheckHumanScore ( pl )
 	if not ValidEntity ( pl ) then return end
-	if pl:Team() ~= TEAM_HUMAN then return end
-	local class = pl:GetHumanClass()
+	if pl:Team() == TEAM_HUMAN then return end
+	--if pl:Team() ~= TEAM_HUMAN then return end
+	--local class = pl:GetHumanClass()
+	local class = pl:TEAM_HUMAN() 
 	-- There isn't any entry in the reward table
 	--if RewardsTable[class][ pl:GetScore() ] == nil then return end
 	
 	if RewardsTable[class][ pl.SkillPoints ] == nil then return end
 	
 	-- Make things easier
-	local Score = pl:GetScore()
+	--local Score = pl:GetScore()
+	local Score = pl:SkillPoints()
+
 	local Reward = table.Random ( RewardsTable[class][Score] )
 	
 	-- Check and see what type of weapon is that
@@ -39,7 +49,7 @@ function GM:CheckHumanScore ( pl )
 	-- Old ammo count
 	local iOldAmmo = 0
 	
-	-- Compare automatic strenght with what you have
+	-- Compare automatic strength with what you have
 	if strCategory == "Automatic" then 
 		if ValidEntity ( Automatic ) and Automatic:IsWeapon() then
 			local AutomaticMax = pl:CompareMaxDPS ( Automatic:GetClass(), Reward )

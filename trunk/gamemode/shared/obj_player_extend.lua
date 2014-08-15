@@ -28,7 +28,7 @@ end
 
 -- Poison zombie healing aura
 function meta:IsZombieInAura()
-	return self.InHealTime and self.InHealTime > CurTime()
+	return self.InHealTime and  self.InHealTime > CurTime()
 end
 
 function meta:GetHandsModel()
@@ -395,13 +395,13 @@ end
 --[==[---------------------------------------------------------
       Return the amount time left to ammo regen
 ---------------------------------------------------------]==]
-function meta:GetAmmoTime()
-	if self:Team() ~= TEAM_HUMAN then return 0 end
+function meta:GetAmmoTime() --Duby:Clear out the function as it isn't used any more.
+--	if self:Team() ~= TEAM_HUMAN then return 0 end
 	
 	-- the variable is missing
-	if self.AmmoRegenTime == nil then return 0 end
+	--if self.AmmoRegenTime == nil then return 0 end
 	
-	return self.AmmoRegenTime
+	--return self.AmmoRegenTime
 end
 
 --[==[----------------------------------------------------------
@@ -591,8 +591,9 @@ function meta:IsPoisonCrab()
 end
 
 --OBSOLETE?
+--Duby: Yes, yes it is. 
 function meta:IsCrow ()
-	return self:GetZombieClass() == 9
+--	return self:GetZombieClass() == 9
 end
 
 function meta:IsBoss()
@@ -611,40 +612,42 @@ function meta:IsZombine()
 	return self:GetZombieClass() == 8
 end
 
+--Duby: We don't have classes anymore. So it is only sensible to remove this.
+
 --[==[---------------------------------------
 	See if a human is medic
 ---------------------------------------]==]
-function meta:IsMedic()
-	return self:GetHumanClass() == 1
-end
+--function meta:IsMedic()
+	--return self:GetHumanClass() == 1
+--end
 
 --[==[------------------------------------------
 	See if a human is commando
 --------------------------------------------]==]
-function meta:IsCommando()
-	return self:GetHumanClass() == 2
-end
+--function meta:IsCommando()
+	--return self:GetHumanClass() == 2
+--end
 
 --[==[--------------------------------------------
 	See if a human is berserker
 ----------------------------------------------]==]
-function meta:IsBerserker()
-	return self:GetHumanClass() == 3
-end
+--function meta:IsBerserker()
+	--return self:GetHumanClass() == 3
+--end
 
 --[==[------------------------------------------
 	See if a human is engineer
 --------------------------------------------]==]
-function meta:IsEngineer()
-	return self:GetHumanClass() == 4
-end
+--function meta:IsEngineer()
+	--return self:GetHumanClass() == 4
+--end
 
 --[==[------------------------------------------
 	See if a human is support
 ------------------------------------------]==]
-function meta:IsSupport()
-	return self:GetHumanClass() == 5
-end
+--function meta:IsSupport()
+	--return self:GetHumanClass() == 5
+--end
 
 
 --[==[-----------------------
@@ -1543,25 +1546,27 @@ net.Receive( "DoHulls", function(len)
 	end)
 end)
 
+--Duby: More of this Skillpoints for coins which isn't used anymore. 
+
 --[[----------------------------------------------------]]--
 
-function meta:HasBoughtPointsWithCoins()
-    return MySelf.BoughtPointsWithCoins
-end
+--function meta:HasBoughtPointsWithCoins()
+ --   return MySelf.BoughtPointsWithCoins
+--end
 
-function meta:CanBuyPointsWithCoins()
-    return not MySelf.BoughtPointsWithCoins and MySelf:GreenCoins() >= 200
-end
+--function meta:CanBuyPointsWithCoins()
+  --  return not MySelf.BoughtPointsWithCoins and MySelf:GreenCoins() >= 200
+--end
 
-function meta:SetBoughtPointsWithCoins( bool )
-    MySelf.BoughtPointsWithCoins = bool
-end
+--function meta:SetBoughtPointsWithCoins( bool )
+ --   MySelf.BoughtPointsWithCoins = bool
+--end
 
 --[[----------------------]]--
 
-net.Receive("BoughtPointsWithCoins", function(len)
-    MySelf:SetBoughtPointsWithCoins(tobool(net.ReadBit()))
-end)
+--net.Receive("BoughtPointsWithCoins", function(len)
+ --   MySelf:SetBoughtPointsWithCoins(tobool(net.ReadBit()))
+--end)
 
 --[[----------------------------------------------------]]--
 

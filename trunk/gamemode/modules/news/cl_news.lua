@@ -13,7 +13,7 @@ local GENERAL_NEWS = {
 -- Human related hints
 local HUMAN_HINTS = {
 "Press E on Supply Crates to get weapons, ammo and health.",
-"In need of new weaponry? Kill zombies and go to a Supply Crate when a wave ended!",
+"In need of new weaponry? Kill zombies and find a Supply Crate!",
 -- "To see what Weapons you can get, press F2 to see your classes weapon tree!",
 "SP means SkillPoints, you can get them by killing zombies!",
 "Press F3 to drop your current weapon."

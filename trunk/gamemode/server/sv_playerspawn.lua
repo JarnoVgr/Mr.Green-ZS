@@ -315,6 +315,8 @@ function GM:PlayerSpawn(pl)
 		self:OnZombieSpawn(pl)
 		pl:StopAllLuaAnimations()
 	end
+
+	
 end
 
 --[==[---------------------------------------------------------
@@ -439,6 +441,9 @@ function GM:OnHumanSpawn(pl)
 
 	--Log
 	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as a Survivor")
+	
+
+	
 end
 
 --[==[------------------------------------------------
@@ -642,14 +647,14 @@ function CalculatePlayerSpeed ( pl )
 	local Speed = 0
 	
 	-- Case 1: Medic
-	if Class == 1 then
-		Speed = HumanClasses[Class].Speed + ( HumanClasses[Class].Speed * (HumanClasses[1].Coef[3] * (pl:GetTableScore ("medic","level") + 1 ) ) / 100 )
-	end
+	--if Class == 1 then
+		--Speed = HumanClasses[Class].Speed + ( HumanClasses[Class].Speed * (HumanClasses[1].Coef[3] * (pl:GetTableScore ("medic","level") + 1 ) ) / 100 )
+	--end
 	
 	-- Case 2: Berserker
-	if Class == 2 then
+	--if Class == 2 then
 		--Speed = HumanClasses[Class].Speed + ( HumanClasses[Class].Speed * (HumanClasses[3].Coef[2] * (pl:GetTableScore ("berserker","level") + 1 ) ) / 100 )
-	end
+	--end
 	
 	-- Case 3: Without bonus
 	if ( Class ~= 1 ) or pl:IsBot() then

@@ -99,6 +99,7 @@ include("client/cl_hud.lua")
 include("client/cl_voice.lua")
 include("client/cl_waves.lua")
 
+
 --[=[-----------------------------------------------------------
 		Include stand alone modules
 ------------------------------------------------------------]=]
@@ -2110,3 +2111,17 @@ function OnWeaponDropped(um)
 	end
 end
 usermessage.Hook("OnWeaponDropped", OnWeaponDropped)
+
+
+--------------------------------------------------------
+
+--Duby: This is for when the crate moves. We need some sounds. :) 
+
+
+
+
+
+local function cratemove()
+surface.PlaySound("mrgreen/beep22.wav")	
+end
+usermessage.Hook ( "cratemove", cratemove )

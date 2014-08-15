@@ -75,18 +75,23 @@ end
 --[==[-------------------------------------------------------------
                Makes the zombies have headcrabs
 --------------------------------------------------------------]==]
-function meta:SetHeadcrabBodyGroup()
-	if not self:IsZombie() then return end
+--Duby: This was removed as it isn't used anymore, no point having random crap here.
+
+--function meta:SetHeadcrabBodyGroup()
+--	if not self:IsZombie() then return end
 	
 	-- Default 3
-	local iGroup = 3
+	
+	--local iGroup = 3
 	
 	-- 3 for everyone except posion zombo
-	if self:IsPoisonZombie() then iGroup = 11 end
+	
+	--if self:IsPoisonZombie() then iGroup = 11 end
 	
 	-- Set it for all except headcrabs, howlers, wraith and poison crabs
-	if not self:IsHeadcrab() and not self:IsHowler() and not self:IsWraith() and not self:IsPoisonCrab() then self:Fire( "setbodygroup", tostring ( iGroup ) ) end
-end
+	
+	--if not self:IsHeadcrab() and not self:IsHowler() and not self:IsWraith() and not self:IsPoisonCrab() then self:Fire( "setbodygroup", tostring ( iGroup ) ) end
+--end
 
 -- Set team event
 function GM:OnTeamChange( pl, iFromTeam, iToTeam )
@@ -1756,53 +1761,55 @@ function meta:SpawnMiniTurret()
 	end
 end
 
+--Duby: I removed this as we don't have the shop any more.
+
 --[[----------------------------------------------------]]--
 
-util.AddNetworkString( "BoughtPointsWithCoins" )
+--util.AddNetworkString( "BoughtPointsWithCoins" )
 
-function meta:HasBoughtPointsWithCoins()
-    local tab = DataTableConnected[self:UniqueID()]
-    if ( tab ) then
-        return tab.HasBoughtPointsWithCoins or false
-    end
+--function meta:HasBoughtPointsWithCoins()
+ --   local tab = DataTableConnected[self:UniqueID()]
+  --  if ( tab ) then
+   --     return tab.HasBoughtPointsWithCoins or false
+   -- end
     
-    return false
-end
+   -- return false
+--end
 
-function meta:SetBoughtPointsWithCoins( bool )
-    local tab = DataTableConnected[self:UniqueID()]
-    if ( not tab ) then
-        DataTableConnected[self:UniqueID()] = {}    
-    end
+--function meta:SetBoughtPointsWithCoins( bool )
+ --   local tab = DataTableConnected[self:UniqueID()]
+  --  if ( not tab ) then
+   --     DataTableConnected[self:UniqueID()] = {}    
+  --  end
     
-    tab.HasBoughtPointsWithCoins = bool
-end
+  --  tab.HasBoughtPointsWithCoins = bool
+--end
 
-function meta:CanBuyPointsWithCoins()
-    return not self:HasBoughtPointsWithCoins() and self:GreenCoins() >= 200
-end
+--function meta:CanBuyPointsWithCoins()
+  --  return not self:HasBoughtPointsWithCoins() and self:GreenCoins() >= 200
+--end
 
 --[[----------------------]]--
 
-function meta:UpdateBoughtPointsWithCoins()
-    net.Start( "BoughtPointsWithCoins" )
-        net.WriteBit( self:HasBoughtPointsWithCoins() )
-    net.Send( self )
-end
+--function meta:UpdateBoughtPointsWithCoins()
+ --   net.Start( "BoughtPointsWithCoins" )
+  --      net.WriteBit( self:HasBoughtPointsWithCoins() )
+   -- net.Send( self )
+--end
 
-hook.Add( "PlayerReady", "UpdatePlayerBoughtPointsWithCoins", function( pl )
-    pl:UpdateBoughtPointsWithCoins()
-end )
+--hook.Add( "PlayerReady", "UpdatePlayerBoughtPointsWithCoins", function( pl )
+ --   pl:UpdateBoughtPointsWithCoins()
+--end )
 
-concommand.Add( "zs_boughtpointswithcoins", function( pl, cmd, args )
-    if ( IsValid( pl ) ) then
-        if ( pl:CanBuyPointsWithCoins() ) then
-			skillpoints.AddSkillPoints(pl, 300)
-            pl:TakeGreenCoins(80)
-        end
-        pl:SetBoughtPointsWithCoins(true)
-    end
-end )
+--concommand.Add( "zs_boughtpointswithcoins", function( pl, cmd, args )
+ --   if ( IsValid( pl ) ) then
+ --       if ( pl:CanBuyPointsWithCoins() ) then
+	--		skillpoints.AddSkillPoints(pl, 300)
+  --          pl:TakeGreenCoins(80)
+    --    end
+     --   pl:SetBoughtPointsWithCoins(true)
+   -- end
+--end )
 
 --[[----------------------------------------------------]]--
 

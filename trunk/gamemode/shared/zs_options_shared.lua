@@ -467,7 +467,7 @@ NPCS_COUNT_AS_KILLS = false
 -- INCOMING!-- -- 
 -- Fraction of people that should be set as zombies at the beginning of the game.
 UNDEAD_START_AMOUNT_PERCENTAGE = 0.20
-UNDEAD_START_AMOUNT_MINIMUM = 1
+UNDEAD_START_AMOUNT_MINIMUM = 4
 
 -- Good values are 1 to 3. 0.5 is about the same as the default HL2. 1 is about ZS difficulty. This is mainly for NPC healths and damages.
 DIFFICULTY = 1.5
@@ -507,8 +507,9 @@ MAXIMUM_CRATES = math.random(1, 1)
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = true
 
+
 -- In seconds, repeatatively, the gamemode gives all humans get a box of whatever ammo of the weapon they use.
-AMMO_REGENERATE_RATE = 999140
+AMMO_REGENERATE_RATE = 2056744
 
 --Warming up time
 WARMUPTIME = 110
@@ -531,7 +532,7 @@ DESTROY_DOORS = true
 PROP_MANAGE_MODULE = false
 
 --Set this to true to destroy all prop-based doors. Not recommended since some doors have boards on them and what-not. Only for true door camping whores.
-DESTROY_PROP_DOORS = false
+DESTROY_PROP_DOORS = true
 
 --Set this to true to force players to have mat_monitorgamma set to 2.2. This could cause problems with non-calibrated screens so, whatever.
 --It forces people to use flashlights instead of whoring the video settings to make it brighter.

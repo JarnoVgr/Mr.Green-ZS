@@ -1,6 +1,8 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
+util.AddNetworkString( "cratemove" )
+
 AmmoDropPoints = { X = {}, Y = {}, Z = {}, Switch = {}, ID = {} }
 CrateSpawnsPositions = {}
 AllCrateSpawns = {}
@@ -511,11 +513,17 @@ function GM:SpawnCratesFromTable(crateSpawns,bAll)
 	
 	
 	
-	
+--[=[----------------------------------------------------------------------
+     Dubys amazing method to the new crate!!
+---------------------------------------------------------------------------]=]
+--Duby: Its not the best method, but it works well! ^^
 		timer.Simple(480, function() --Remove the crate.
+		--timer.Simple(30, function() --Remove the crate.
 	ents.FindByClass( "game_supplycrate" )[1]:Remove()
-	Entity( 1 ):PrintMessage( HUD_PRINTTALK, "The crate has moved! !" )
-	PrintMessage( HUD_PRINTTALK, "The crate has moved! !" )
+player.GetByID( 1 ):PrintMessage( HUD_PRINTCENTER, "The crate has moved! !" )
+player.GetByID( 1 ):PrintMessage( HUD_PRINTCONSOLE, "The crate has moved! !" )
+umsg.Start("cratemove")
+		umsg.End()	
 	end)
 	
 	
@@ -550,8 +558,10 @@ function GM:SpawnCratesFromTable(crateSpawns,bAll)
 	
 	timer.Simple(960, function() --Remove the crate.
 	ents.FindByClass( "game_supplycrate" )[1]:Remove()
-	Entity( 1 ):PrintMessage( HUD_PRINTTALK, "The crate has moved! !" )
-	PrintMessage( HUD_PRINTTALK, "The crate has moved! !" )
+player.GetByID( 1 ):PrintMessage( HUD_PRINTCENTER, "The crate has moved! !" )
+player.GetByID( 1 ):PrintMessage( HUD_PRINTCONSOLE, "The crate has moved! !" )
+umsg.Start("cratemove")
+		umsg.End()	
 	end)
 
 	
@@ -586,8 +596,10 @@ function GM:SpawnCratesFromTable(crateSpawns,bAll)
 	
 	timer.Simple(1440, function() --Remove the crate.
 	ents.FindByClass( "game_supplycrate" )[1]:Remove()
-	Entity( 1 ):PrintMessage( HUD_PRINTTALK, "The crate has moved! !" )
-	PrintMessage( HUD_PRINTTALK, "The crate has moved! !" )
+player.GetByID( 1 ):PrintMessage( HUD_PRINTCENTER, "The crate has moved! !" )
+player.GetByID( 1 ):PrintMessage( HUD_PRINTCONSOLE, "The crate has moved! !" )
+umsg.Start("cratemove")
+		umsg.End()	
 	end)
 	
 	timer.Simple(1460, function() --Remove the crate.
