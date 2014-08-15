@@ -517,7 +517,7 @@ function GM:SpawnCratesFromTable(crateSpawns,bAll)
      Dubys amazing method to the new crate!!
 ---------------------------------------------------------------------------]=]
 --Duby: Its not the best method, but it works well! ^^
-		--timer.Simple(480, function() --Remove the crate.
+		--timer.Simple(30, function() --Remove the crate.
 		timer.Simple(600, function() --Remove the crate.
 	ents.FindByClass( "game_supplycrate" )[1]:Remove()
 	ents.FindByClass( "game_supplycrate" )[2]:Remove()
