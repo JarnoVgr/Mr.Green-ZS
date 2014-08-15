@@ -11,17 +11,19 @@ include("shared.lua")
 
 -- Normal set data
 ENT.Table = {
-	["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 18.8135, 0 ), Angles = Angle ( 0, -180, 0 ) },
+	--Duby: This is the new crate model.
+	["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 10.8135, 0 ), Angles = Angle ( 0, -180, 0 ) },
 	["Shotgun"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 31.8135, 0 ), Angles = Angle ( 0, -180, 0 ) },
-	["Ammo"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, -31.8135, 0 ), Angles = Angle ( 0, -180, 0 ) },
-	["Vial"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 0, 24 ), Angles = Angle ( 0, -180, 0 ) },
-	--["Vial"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, -15.8135, 24 ), Angles = Angle ( 0, -180, 0 ) },
-	--["AmmoUp5"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 16, 24 ), Angles = Angle ( 0, -180, 0 ) },
-	--["AmmoUp6"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 0.8135, 48 ), Angles = Angle ( 0, -180, 0 ) },
-	--["Shotgun"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -7.1762, -10.9928, 24 ), Angles = Angle ( -1.297 ,60 ,-89.158 ) },
+	["Ammo"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 15.8135, 24 ), Angles = Angle ( 0, -180, 0 ) },
+	["Vial"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( 16, 10.8135, 18 ), Angles = Angle ( 100, -90, 180 ) },
+	["Ammo2"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -18, 10.8135, 18 ), Angles = Angle ( 100, -90, 180 ) },
+	["AmmoUp5"] = { Model = "models/greenshat/greenshat.mdl", Position = Vector ( -0.1039, 10, 48 ), Angles = Angle ( 0, -180, 0 ) },
+	
+	--Necros old crate:
+	--	["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 18.8135, 0 ), Angles = Angle ( 0, -180, 0 ) }, --Old
+	--["Shotgun"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -7.1762, -10.9928, 24 ), Angles = Angle ( -1.297 ,60 ,-89.158 ) }, --Old
 	--["Ammo"] = { Model = "models/items/boxbuckshot.mdl", Position = Vector ( 4.6052 ,-6.7138, 23 ), Angles = Angle ( -0.336 , -115 ,0.072 ) }, --Old
-
-	--["Vial"] = { Model = "models/healthvial.mdl", Position = Vector ( -11.5952, 7.5, 25.5 ), Angles = Angle ( 0.726, -66.560, -90.018 ) }, --Old 
+	["Vial2"] = { Model = "models/healthvial.mdl", Position = Vector ( -11.5952, -10, 25.5 ), Angles = Angle ( 0.726, -66.560, -90.018 ) }, --Old 
 
 }
 
@@ -38,21 +40,7 @@ function ENT:Initialize()
 	--Spawn the main parent prop 
 	self:SetModel(self.Table["AmmoUp"].Model)
 	self:SetAngles(self.Table["AmmoUp"].Angles)
-	
-	--self:SetModel(self.Table["AmmoUp2"].Model)
-	--self:SetAngles(self.Table["AmmoUp2"].Angles)
-	
-	--self:SetModel(self.Table["AmmoUp3"].Model)
-	--self:SetAngles(self.Table["AmmoUp3"].Angles)
-	
-	--self:SetModel(self.Table["AmmoUp4"].Model)
-	--self:SetAngles(self.Table["AmmoUp4"].Angles)
-	
-	--self:SetModel(self.Table["AmmoUp5"].Model)
-	--self:SetAngles(self.Table["AmmoUp5"].Angles)
-	
-	--self:SetModel(self.Table["AmmoUp6"].Model)
-	--self:SetAngles(self.Table["AmmoUp6"].Angles)
+
 	
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_NONE)
@@ -98,8 +86,9 @@ function ENT:Initialize()
 			Ent:SetUseType( SIMPLE_USE )
 			
 			-- Prevent unnecessary collisions
-			 if k == "Ammo" or k == "Shotgun" or k == "Vial" then
-				Ent:SetCollisionGroup ( COLLISION_GROUP_DEBRIS_TRIGGER )
+			 if k == "Ammo" or k == "Shotgun" or k == "Vial" or k == "AmmoUp5" or k == "Ammo2" or k == "Vial2" or k == ""  then
+				--Ent:SetCollisionGroup ( COLLISION_GROUP_DEBRIS_TRIGGER )
+				Ent:SetCollisionGroup ( SOLID_VPHYSICS )
 			end
 			
 			Ent:Spawn()
