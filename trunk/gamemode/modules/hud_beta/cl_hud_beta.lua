@@ -541,12 +541,8 @@ local pl = LocalPlayer()
 	local fWide, fTall = surface.GetTextSize("GreenCoins")
 	
 	draw.SimpleTextOutlined(MySelf:GreenCoins() .." GreenCoins", "ssNewAmmoFont6.5", StatsX, StatsY, Color(220,255,220,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	--draw.SimpleTextOutlined("Rank ".. MySelf:GetRank() .." (".. math.Round((MySelf:GetXP() / MySelf:NextRankXP()) * 100) .."%)", "ssNewAmmoFont6.5", StatsX, StatsY+fTall+4, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	--draw.SimpleTextOutlined("XP " .. MySelf:GetXP() / MySelf:NextRankXP(), "ssNewAmmoFont6.5", StatsX, StatsY+fTall+4, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	draw.SimpleTextOutlined("XP " ..pl:GetRank() .." with "..pl:GetXP().."/"..pl:NextRankXP() .." XP." , "ssNewAmmoFont6.5", StatsX, StatsY+fTall+4, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	
-	
-	
+	draw.SimpleTextOutlined("Rank ".. MySelf:GetRank() .." (".. math.Round((MySelf:GetXP() / MySelf:NextRankXP()) * 100) .."%)", "ssNewAmmoFont6.5", StatsX, StatsY+fTall+4, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+		
 	StatsY = StatsY + fTall + 2
 	
 	MySelf.SkillPoints = MySelf.SkillPoints or 0
