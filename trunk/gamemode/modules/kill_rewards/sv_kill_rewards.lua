@@ -108,9 +108,13 @@ function gun_race:ProcessUpgrades( _p, _frags )
 					if ( istable( _weapons ) ) then
 						for key, _w in pairs( _weapons ) do
 						local holdingItem = _p:GetPistol()
+						local holdingItem2 = _p:GetAutomatic()
 						if holdingItem and IsValid(holdingItem) then
 							_p:StripWeapon(holdingItem:GetClass())
 							end
+						if holdingItem2 and IsValid(holdingItem2) then
+							_p:StripWeapon(holdingItem2:GetClass())
+							end	
 							_p:StripWeapon( _w );
 						end
 					elseif ( isstring( _weapons ) ) then
