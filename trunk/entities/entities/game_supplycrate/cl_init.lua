@@ -72,7 +72,7 @@ function ENT:Draw()
         draw.SimpleTextOutlined(text, "ArialBoldFive", 0, -50, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
 
        -- draw.SimpleTextOutlined("Earn more SP for different weapons", "ArialBoldFour", 0, 30, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --Old
-        draw.SimpleTextOutlined("Earn more SP for different weapons", "ArialBoldFour", 0, -50, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
+        draw.SimpleTextOutlined("Earn more SP for different weapons", "ArialBoldFour", 0, -85, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
     end
  
     cam.End3D2D()
