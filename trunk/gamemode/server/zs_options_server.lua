@@ -18,7 +18,7 @@ EDITOR_SPAWN_MODE = false
 DEBUG_SAVE_FILE_TIME = 3
 
 -- Zombie spawn toxic (spawnkill anti-measure)
-TOXIC_SPAWN = false
+TOXIC_SPAWN = true
 
 -- Green coins per Euro. Don't change unless you want an angry mob on your ass
 COINS_PER_EURO = 1000

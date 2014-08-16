@@ -60,6 +60,7 @@ AddCSLuaFile("modules/news/cl_news.lua")
 
 
 
+
 --[=[---------------------------------------------------------
           Add them to download list (Shared)
 ---------------------------------------------------------]=]
@@ -165,8 +166,8 @@ include("modules/boneanimlib_v2/boneanimlib.lua")
 --IRC
 include("extended/irc/sv_irc.lua")
 
---Kill Rewards
---include("modules/kill_rewards/sv_kill_rewards.lua")
+--Kill Rewards Thanks Josh 'Acecool'
+include("modules/kill_rewards/sv_kill_rewards.lua")
 
 --Unstuck
 --include("modules/unstuck/sh_unstuck.lua")
@@ -213,6 +214,7 @@ function GM:OnWeaponEquip(pl, mWeapon)
 		if pl:Team() == TEAM_HUMAN then
 			local category = WeaponTypeToCategory[ mWeapon:GetType() ]
 			pl.CurrentWeapons[ category ] = pl.CurrentWeapons[ category ] + 1				
+				
 		end
 	end
 end
@@ -719,10 +721,11 @@ function GM:PlayerCanPickupWeapon(ply, entity)
 	
 	-- Notify the player if he is carrying more than 1 weapon of each type --  Dont notify anymore		
 	local Category = WeaponTypeToCategory[ entity:GetType() ]
-	if Category then
+	--if Category then
 		if ply.CurrentWeapons[Category] and ply.CurrentWeapons[Category] >= 1 and Category ~= "Admin" then
-			return false
-		end
+			--return false
+			return 
+		--end
 	end
 	
 	--			
@@ -1704,3 +1707,5 @@ hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and i
 --[=[----------------------------------------------------------------------
      Dubys amazing method to the new crate!!
 ---------------------------------------------------------------------------]=]
+
+--This is located in another file. I decided to make it a module rather than pilling more shit in here. 

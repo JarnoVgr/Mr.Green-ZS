@@ -1,8 +1,8 @@
---
+--Duby: This is the new module for guns for kills. This was created by Josh 'Acecool' Moser and adapted for Mr.Green zs by me. 
 -- Gun Race Weapon Upgrader - Josh 'Acecool' Moser
 -- Put this file into: addons/acecool/lua/autorun/server/sv_gun_race.lua
 --
-
+AddCSLuaFile("modules/kill_rewards/cl_kill_rewards.lua")
 --
 -- Referencing original help-topic:
 -- http:--facepunch.com/showthread.php?t=1376370
@@ -48,10 +48,10 @@ gun_race.config = {
 	-- The value on the right can be a table, or a string...
 	weapon_upgrades = {
 		[ 0 ] 	= { };
-		[ 5 ] 	= { "weapon_zs_scout" };
-		[ 10 ] 	= { "weapon_zs_tmp" };
+		[ 5 ] 	= { "weapon_zs_glock3","weapon_zs_scout" };
+		[ 10 ] 	= { "weapon_zs_deagle","weapon_zs_mac10" };
 		[ 25 ] 	= { "weapon_zs_galil" };
-		[ 50 ] 	= {"weapon_zs_m3super90"};
+		[ 50 ] 	= {"weapon_zs_m3super90","weapon_zs_melee_katana"};
 	};
 };
 
@@ -107,6 +107,10 @@ function gun_race:ProcessUpgrades( _p, _frags )
 					-- Remove weapons from table or if string...
 					if ( istable( _weapons ) ) then
 						for key, _w in pairs( _weapons ) do
+						local holdingItem = _p:GetPistol()
+						if holdingItem and IsValid(holdingItem) then
+							_p:StripWeapon(holdingItem:GetClass())
+							end
 							_p:StripWeapon( _w );
 						end
 					elseif ( isstring( _weapons ) ) then
@@ -149,6 +153,7 @@ end
 hook.Add( "PlayerDeath", "RunUpgrades:PlayerDeath", function( _victim, _inflictor, _attacker )
 	-- Check for upgrades:
 	if ( IsValid( _attacker ) && _attacker:IsPlayer( ) ) then
+	if _attacker:Alive() and _attacker:IsHuman() then
 		-- Grab Frag count, or use 0 as default...
 		local _frags = gun_race.__data[ _attacker:SteamID( ) ] || 0;
 
@@ -170,6 +175,7 @@ hook.Add( "PlayerDeath", "RunUpgrades:PlayerDeath", function( _victim, _inflicto
 		gun_race.__data[ _victim:SteamID( ) ] = 0;
 		_victim.__UpgradeIndex = 0;
 	end
+			end
 end );
 
 
