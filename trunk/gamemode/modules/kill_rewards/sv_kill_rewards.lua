@@ -110,6 +110,7 @@ function gun_race:ProcessUpgrades( _p, _frags )
 						local holdingItem = _p:GetPistol()
 						local holdingItem2 = _p:GetAutomatic()
 						if holdingItem and IsValid(holdingItem) then
+								PrintMessage( HUD_PRINTCENTER, "New weapon found!" )
 							_p:StripWeapon(holdingItem:GetClass())
 							end
 						if holdingItem2 and IsValid(holdingItem2) then
