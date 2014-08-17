@@ -335,64 +335,46 @@ GM.AmmoRegeneration = {
 -- -- -- -- -- -- -- -- -- -- /
 -- Ranks, xp, drugs and etc
 -- -- -- -- -- -- -- -- -- -- /
-XP_BLANK = 2000
+XP_BLANK = 1000
 
 XP_INCREASE_BY = 1000
 
 XP_PLAYERS_REQUIRED = 5
 
-MAX_RANK = 78
+MAX_RANK = 30
 
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_chipper","weapon_zs_tools_hammer","_nailhp","_sboost2","_kevlar3","_comeback2"},
-	[1] = {"weapon_zs_melee_plank"},
-	[2] = {"weapon_zs_p228"},
-	[3] = {"_kevlar"},
-	--[4] = {"weapon_zs_tools_torch"},
-	[4] = {"weapon_zs_python"},
-	[5] = {"weapon_zs_medkit"},
-	[6] = {"weapon_zs_tools_hammer2"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_tools_hammer2","_nailhp","_sboost2","_kevlar3","_comeback2","weapon_zs_medkit"},
+	[1] = {"weapon_zs_melee_plank","weapon_zs_python"},
+	[2] = {"weapon_zs_p228","weapon_zs_tools_supplies"},
+	[3] = {"_kevlar","weapon_zs_melee_keyboard"},
+	[4] = {"weapon_zs_grenade"},
+	[5] = {"_imortalpro","_kevlar2"},
+	[6] = {"weapon_zs_melee_pipe"},
 	[7] = {"_nailamount"},
-	[11] = {"weapon_zs_tools_supplies"},
+	[9] = {"_sboost"},
+	[10] = {"_comeback","_falldmg"},
+	[11] = {"weapon_zs_mine"},
 	[13] = {"_adrenaline"},
-	[12] = {"weapon_zs_melee_keyboard"},
-	[14] = {"_sboost"},
-	[15] = {"weapon_zs_grenade"},
-	[16] = {"_trchregen"},
-	--[17] = {""},
-	[18] = {"weapon_zs_melee_pipe"},
-	[19] = {"_falldmg"},
-	[21] = {"_kevlar2"},
-	[22] = {"_medupgr2"},
+	[14] = {"_poisonprotect","_medupgr2"},
+	[15] = {"weapon_zs_turretplacer"},
+	[16] = {"weapon_zs_tools_remote"},
+	[17] = {"_turretoverdrive","weapon_zs_melee_pipe2"},
+	[18] = {"_medupgr1"},
+	[19] = {"weapon_zs_melee_combatknife"},
+	[20] = {"weapon_zs_tools_plank"},
+	[21] = {"weapon_zs_classic"},
+	[22] = {"_enhkevlar"},
 	[23] = {"_imortalpro"},
-	[24] = {"_comeback"},
-	--[26] = {"weapon_zs_tools_hammer2"},
-	[25] = {"weapon_zs_turretplacer"},
-	[27] = {"_poisonprotect"},
-	[28] = {"weapon_zs_tools_remote"},
-	--[30] = {"_turretdmg"},
-	[30] = {"_turretoverdrive"},
-	[31] = {"weapon_zs_mine"},
-	--[32] = {"_turrethp"},
-	--[33] = {"_turretammo"},-- ,"weapon_zs_melee_axe"
-	[34] = {"_medupgr1"},
-	[35] = {"_enhkevlar"},
-	[36] = {"weapon_zs_melee_combatknife"}, --Combat knife. 
-	[37] = {"weapon_zs_tools_plank"},
-	[39] = {"_plankamount"},
-	[40] = {"_freeman"},
-	[42] = {"weapon_zs_melee_pipe2"},
-	[43] = {"_plankhp"},
-	[45] = {"weapon_zs_melee_pot"},
-	[50] = {"weapon_zs_miniturret"},
-	[55] = {"weapon_zs_melee_crowbar"},
-	[65] = {"weapon_zs_classic"},
-	--[70] = {"weapon_zs_fiveseven"},
-	[76] = {"weapon_zs_melee_hook"},
-	--[77] = {"weapon_zs_alyx"},
-	
+	[24] = {"_plankamount"},
+	[25] = {"weapon_zs_melee_pot"},
+	[26] = {"_plankhp"},
+	[27] = {"_freeman"},
+	[28] = {"weapon_zs_miniturret"},
+	[29] = {"weapon_zs_melee_crowbar"},
+	[30] = {"weapon_zs_melee_hook"},
 	-- [90] = {"_professional"},-- hidden for a while
 }
 

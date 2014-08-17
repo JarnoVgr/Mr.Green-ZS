@@ -3,6 +3,7 @@
 -- Put this file into: addons/acecool/lua/autorun/server/sv_gun_race.lua
 --
 AddCSLuaFile("modules/kill_rewards/cl_kill_rewards.lua")
+
 --
 -- Referencing original help-topic:
 -- http:--facepunch.com/showthread.php?t=1376370
@@ -110,7 +111,9 @@ function gun_race:ProcessUpgrades( _p, _frags )
 						local holdingItem = _p:GetPistol()
 						local holdingItem2 = _p:GetAutomatic()
 						if holdingItem and IsValid(holdingItem) then
-								PrintMessage( HUD_PRINTCENTER, "New weapon found!" )
+						--if _p:Alive() and _p:IsHuman() then
+							--	PrintMessage( HUD_PRINTCENTER, "New weapon found!" )
+							--	end
 							_p:StripWeapon(holdingItem:GetClass())
 							end
 						if holdingItem2 and IsValid(holdingItem2) then
@@ -134,6 +137,7 @@ function gun_race:ProcessUpgrades( _p, _frags )
 
 				-- Give weapon from table of weapons
 				_p:Give( v );
+	
 			end
 		elseif ( isstring( _weapons ) ) then
 			-- Debug output
