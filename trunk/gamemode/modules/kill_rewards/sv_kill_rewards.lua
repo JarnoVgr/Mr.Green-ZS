@@ -2,7 +2,7 @@
 -- Gun Race Weapon Upgrader - Josh 'Acecool' Moser
 -- Put this file into: addons/acecool/lua/autorun/server/sv_gun_race.lua
 --
-AddCSLuaFile("modules/kill_rewards/cl_kill_rewards.lua")
+AddCSLuaFile("cl_kill_rewards.lua")
 
 --
 -- Referencing original help-topic:

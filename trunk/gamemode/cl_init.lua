@@ -145,6 +145,9 @@ include("server/stats/sh_utils.lua")
 include("modules/fpsbuff/sh_buffthefps.lua")
 include("modules/fpsbuff/sh_nixthelag.lua")
 
+--Guns for kills module
+
+
 --Custom Chat
 --include("modules/customchat/cl_customchat.lua")
 
@@ -225,8 +228,12 @@ local RandomText = table.Random( {
 	"Putting supplies into supply crates...",
 	"Starting zombie apocalypse...",
 	"Sewing zombie parts together...", 
-	"Hitting Duby to code zs...",  }
- )
+	"Hitting Duby to code zs...",  
+	"Inserting coin to start round...",  
+	"Waking up Behemoth...",  
+	"Spawning poison gas...",  
+	"Shuffling crate spawns..."  })
+
  
 function GM:HookGetLocal()
 	MYSELFVALID = true

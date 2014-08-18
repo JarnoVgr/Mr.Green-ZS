@@ -83,14 +83,16 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 
 	--remove unnesessary damage
 	if dmginfo:IsPhysDamage() and not dmginfo:IsAttackerPlayer() and not dmginfo:IsInflictorPlayer() and dmginfo:GetAttacker().IsObjEntity then
-		dmginfo:SetDamage(0)
+		dmginfo:SetDamage(1)--Duby:Test
+		--dmginfo:SetDamage(0)
 
 		return true
 	end
 
 	-- No phys damage between humans and zombies
 	if dmginfo:IsAttackerHuman() and pl:IsZombie() and dmginfo:IsPhysDamage() then
-		dmginfo:SetDamage(0)
+		dmginfo:SetDamage(1)--Duby:Test
+		--dmginfo:SetDamage(0)
 
 		return true
 	end
@@ -126,11 +128,9 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
 				if dmginfo:IsBulletDamage() then
-				--	dmginfo:SetDamage(dmginfo:GetDamage() * 1.4)
 					dmginfo:SetDamage(dmginfo:GetDamage() * 1.2) --Duby: Reduced it as it was far to high
 				elseif dmginfo:IsMeleeDamage() then
-				--	dmginfo:SetDamage(dmginfo:GetDamage() * 1.1) --Duby: Reduced it as it was far to high
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1)
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1)  --Duby: Reduced it as it was far to high
 				end
 			end
 		end
@@ -186,9 +186,9 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		if pl:HasBought("bootsofsteel")	and math.random(1,3) == 1 then
 			 dmginfo:SetDamage( 0 )
 			 end
-		if pl:Alive() then
-			pl:GiveStatus("knockdown",3)
-		end
+		--if pl:Alive() then
+			--pl:GiveStatus("knockdown",3)
+		--end
 	end
 	
 	-- Clamp phys damage
@@ -225,9 +225,9 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 
 			if phys:IsValid() then
 				if phys:GetVelocity():Length() > 320 then
-					if pl:Alive() then
-						pl:GiveStatus("knockdown",math.Rand(2.1,3))
-					end
+					--if pl:Alive() then 		
+					--	pl:GiveStatus("knockdown",math.Rand(2.1,3)) --Duby: Who ever put this here needs to be shot. What a load of shit.. 
+					--end
 				end
 			end
 		end
