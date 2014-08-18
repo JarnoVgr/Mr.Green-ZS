@@ -129,10 +129,10 @@ function gun_race:ProcessUpgrades( _p, _frags )
 									if holdingItem2 and IsValid(holdingItem2) and _p:GetPerk("_imortalpro") then return end --If the immortal protector perk is in effect the don't give them a new weapon.
 							_p:StripWeapon(holdingItem2:GetClass())
 							end	
-							_p:StripWeapon( _w ); --This is a checker for if the client hasn't fixed up or changed weapons. 
+							--_p:StripWeapon( _w ); --This is a checker for if the client hasn't fixed up or changed weapons. 
 						end
-					elseif ( isstring( _weapons ) ) then
-						_p:StripWeapon( _weapons );
+					--elseif ( isstring( _weapons ) ) then
+						--_p:StripWeapon( _weapons );
 					end
 				end
 			end
