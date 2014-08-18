@@ -71,7 +71,8 @@ function death.DeathHumanHUD()
 	if ENDROUND then return end
 	
 	-- Initialize the hint
-	--[[if not sRandomNotice then sRandomNotice = "Hint: "..table.Random ( GameDeathHints ) end
+	----[[
+	if not sRandomNotice then sRandomNotice = "Hint: "..table.Random ( GameDeathHints ) end
 	
 	surface.SetFont("ArialBoldFifteen")
 	local textw, texth = surface.GetTextSize( sRandomNotice )
@@ -88,7 +89,7 @@ function death.DeathHumanHUD()
 
 	--Draw hint
 	draw.DrawText( sRandomNotice, "ArialBoldFifteen", ScaleW(641 + 50), ScaleH(926), Color (255,255,255,255), TEXT_ALIGN_CENTER )
-	]]
+	--]]
 
 	draw.DrawText( "YOU'VE BEEN INFECTED", "NewZombieFont27", ScaleW(642), ScaleH(44), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER )
 

@@ -78,8 +78,9 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		GAMEMODE:SetBoss(false)
 	end
 	
-	if not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 2) then
-		if math.random(1,4) ~= 1 and dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage() and math.random(5) == 1 then -- 75% of reviving when hit by bullets, 30% when hit by melee
+	if not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 1) then
+		--if math.random(1,4) ~= 1 and dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage() and math.random(5) == 1 then -- 75% of reviving when hit by bullets, 30% when hit by melee
+		if math.random(1,6) ~= 1 and dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage() and math.random(5) == 1 then -- Duby: Lets lower that by a lot as its kinda annoying!
 			GAMEMODE:DefaultRevive(mVictim)
 			revive = true
 			mVictim.NoDeathNotice = true

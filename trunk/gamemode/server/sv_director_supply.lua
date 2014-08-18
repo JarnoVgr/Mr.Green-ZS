@@ -230,7 +230,8 @@ if pl:HasBought("ammoman") then
 			ammoAmount = ammoAmount * 2 --Ammo man perk
 		end
 		--Multiply with Infliction
-		ammoAmount = math.Round(ammoAmount * (GetInfliction() + 0.5))
+		--ammoAmount = math.Round(ammoAmount * (GetInfliction() + 0.5))
+		ammoAmount = math.Round(ammoAmount * (GetInfliction() + 0.9))
 		
 		pl:GiveAmmo(math.Clamp(ammoAmount, 1, 250), ammoType)
 	end
