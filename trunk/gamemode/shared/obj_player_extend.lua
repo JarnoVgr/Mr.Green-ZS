@@ -155,9 +155,9 @@ end
 --[=[-----------------------------------------------------------
        Returns the name of the active human class
 ------------------------------------------------------------]=]
-function meta:GetHumanClassString()
-	return HumanClasses[ self:GetHumanClass() ].Name
-end
+--function meta:GetHumanClassString()
+	--return HumanClasses[ self:GetHumanClass() ].Name
+--end
 
 --[=[--------------------------------------
        See if player is a human
@@ -655,8 +655,8 @@ end
 ------------------------]==]
 function meta:GetClassTag()
 	if (self:IsHuman()) then
-		return HumanClasses[self:GetHumanClass()].Tag
-	else
+	--	return HumanClasses[self:GetHumanClass()].Tag
+	--else
 		return ZombieClasses[self:GetZombieClass()].Tag
 	end
 
@@ -966,12 +966,12 @@ function meta:SetHumanClass(cl)
 	self:ConCommand("_zs_redeemclass "..cl.."")
 		
 	--Add one point to each class chosen every time someone changes class. (for endgame stats)
-	timer.Simple( 0.1, function() 
-		if ValidEntity ( self ) then
-			local classname = HumanClasses[cl].Name
-			GAMEMODE.TeamMostChosenClass[ classname ] = GAMEMODE.TeamMostChosenClass[ classname ] + 1
-		end
-	end)
+	--timer.Simple( 0.1, function() 
+		--if ValidEntity ( self ) then
+		--	local classname = HumanClasses[cl].Name
+		--	GAMEMODE.TeamMostChosenClass[ classname ] = GAMEMODE.TeamMostChosenClass[ classname ] + 1
+		--end
+	--end)
 end
 
 function meta:SetMaximumHealth ( Max )

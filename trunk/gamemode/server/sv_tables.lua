@@ -2,9 +2,9 @@
 -- See LICENSE.txt for license information
 
 GM.TeamMostChosenClass = {}
-for k,v in pairs ( HumanClasses ) do
-	GM.TeamMostChosenClass[v.Name] = 0
-end
+--for k,v in pairs ( HumanClasses ) do
+	--GM.TeamMostChosenClass[v.Name] = 0
+--end
 
 for k,v in pairs ( ZombieClasses ) do
 	GM.TeamMostChosenClass[v.Name] = 0

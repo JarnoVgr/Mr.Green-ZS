@@ -57,6 +57,10 @@ killicon.Add("weapon_zs_undead_hate2", "killicon/zs_zombie", Color(255, 0, 0, 25
 killicon.Add("weapon_zs_undead_behemoth", "killicon/zs_zombie", Color(255, 0, 0, 255))
 killicon.Add("weapon_zs_undead_seeker", "killicon/zs_zombie", Color(255, 0, 0, 255))
 killicon.Add("weapon_zs_undead_nerf", "killicon/zs_zombie", Color(255, 0, 0, 255))
+killicon.Add("weapon_zs_undead_boss_lilith", "killicon/zs_zombie", Color(255, 0, 0, 255))
+killicon.Add("weapon_zs_undead_boss_seeker2", "killicon/zs_zombie", Color(255, 0, 0, 255))
+killicon.Add("weapon_zs_undead_ghoul", "killicon/zs_zombie", Color(120, 120, 0, 255))
+killicon.Add("weapon_zs_undead_vomiter", "killicon/zs_zombie", Color(150, 150, 0, 255))
 
 -- Unowned spit projectile
 killicon.AddFont( "projectile_spit", "HL2MPTypeDeath", "~", Color_Icon )

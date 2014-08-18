@@ -610,37 +610,37 @@ function ShowLevelStats (pl, cmd, args)
 end
 concommand.Add("zs_showlevel",ShowLevelStats)
 
-function ShowClassDescription (pl, cmd ,args)
-	if not (pl:IsValid() and pl:Alive()) then return end
+--function ShowClassDescription (pl, cmd ,args) --Duby: There is no need for this old human classes command anymore. So removing it is the best option. :P
+--	if not (pl:IsValid() and pl:Alive()) then return end
 	
-	if pl:IsZombie() then
-	pl:SendLua("MakeZClassInfo()")
-	return
-	end
+--	if pl:IsZombie() then
+	--pl:SendLua("MakeZClassInfo()")
+	--return
+	--end
 	
-	local leveladd = 1
-	local pllevel = pl:GetHumanClass()
+	--local leveladd = 1
+	--local pllevel = pl:GetHumanClass()
 		
-	if pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"level") <= 6 then 
-		leveladd = 1
-	else
-		leveladd = 0
-	end
+	--if pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"level") <= 6 then 
+	--	leveladd = 1
+	--else
+	--	leveladd = 0
+	--end
 	
-	if pllevel == 2 then
-		lastdesc = ""
-	else
-		lastdesc = HumanClasses[pllevel].Coef[4]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd)
-	end
+	--if pllevel == 2 then
+	--	lastdesc = ""
+	--else
+	--	lastdesc = HumanClasses[pllevel].Coef[4]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd)
+	--end
 	
 	--  Don't use /n. It will screw the custom chat bot formatting
-	pl:PrintMessage (HUD_PRINTTALK, "Class description: Only For Humans!")
-	pl:PrintMessage (HUD_PRINTTALK, HumanClasses[pllevel].Coef[1]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd).." "..HumanClasses[pllevel].Description[1] )
-	pl:PrintMessage (HUD_PRINTTALK, HumanClasses[pllevel].Coef[2]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd).." "..HumanClasses[pllevel].Description[2] )
-	pl:PrintMessage (HUD_PRINTTALK, HumanClasses[pllevel].Coef[3]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd).." "..HumanClasses[pllevel].Description[3] )
-	pl:PrintMessage (HUD_PRINTTALK, lastdesc.." "..HumanClasses[pllevel].Description[4] )
-end
-concommand.Add("show_classdescription",ShowClassDescription)
+	--pl:PrintMessage (HUD_PRINTTALK, "Class description: Only For Humans!")
+	--pl:PrintMessage (HUD_PRINTTALK, HumanClasses[pllevel].Coef[1]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd).." "..HumanClasses[pllevel].Description[1] )
+	--pl:PrintMessage (HUD_PRINTTALK, HumanClasses[pllevel].Coef[2]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd).." "..HumanClasses[pllevel].Description[2] )
+	--pl:PrintMessage (HUD_PRINTTALK, HumanClasses[pllevel].Coef[3]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd).." "..HumanClasses[pllevel].Description[3] )
+	--pl:PrintMessage (HUD_PRINTTALK, lastdesc.." "..HumanClasses[pllevel].Description[4] )
+--end
+--concommand.Add("show_classdescription",ShowClassDescription)
 
 function RollTheDice ( pl,commandName,args )
 	if ENDROUND then

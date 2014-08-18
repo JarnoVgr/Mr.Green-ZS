@@ -350,11 +350,11 @@ for k=1, #ZombieClasses do
 end
 
 
-for k=1, #HumanClasses do
-	for _, v in pairs(HumanClasses[k].Models) do
+--for k=1, #HumanClasses do --Duby: Old classes not which isn't needed anymore. 
+--	for _, v in pairs(HumanClasses[k].Models) do
 	--	util.PrecacheModel( v )
-	end
-end
+	--end
+--end
 
 -- Identifier for hat adjustment
 TModels = {

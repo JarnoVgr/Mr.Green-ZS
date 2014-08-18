@@ -834,19 +834,19 @@ local function SendUpgradeNumbers(um)
 end
 usermessage.Hook("SendUpgradeNumbers", SendUpgradeNumbers)
 
-function UpdateHumanClass(um)
-	local pl
+--function UpdateHumanClass(um)
+--	local pl
 	
 	-- Read interval
-	local tbStart = um:ReadShort()
+--	local tbStart = um:ReadShort()
 	
 	-- Set classes thoughout the interval
-	for k = 1, tbStart do
-		pl = um:ReadEntity()
-		pl.ClassHuman = um:ReadShort()
-	end
-end
-usermessage.Hook("UpdateHumanClass", UpdateHumanClass)
+	--for k = 1, tbStart do
+	--	pl = um:ReadEntity()
+		--pl.ClassHuman = um:ReadShort()
+	--end
+--end
+--usermessage.Hook("UpdateHumanClass", UpdateHumanClass)
 
 function SendZombieClass(um)
 	local playersclass, pl

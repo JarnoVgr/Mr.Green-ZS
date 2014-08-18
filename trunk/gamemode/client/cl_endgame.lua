@@ -147,8 +147,11 @@ function Intermission(nextmap, winner, timeleft)
 	RunConsoleCommand("stopsound")
 	
 	util.PrecacheSound("mrgreen/music/intermission.mp3")
+	util.PrecacheSound("mrgreen/music/gamestart1.mp3")
 	timer.Simple(0.2, function()
-		surface.PlaySound("mrgreen/music/intermission.mp3")
+		--surface.PlaySound("mrgreen/music/intermission.mp3")
+		local table2 = {"mrgreen/music/intermission.mp3","mrgreen/music/gamestart1.mp3"} --Duby: A table to hold the end game songs!
+		surface.PlaySound(table2[math.random(1,#table2)]) --Duby: Lets randomize this shit!
 	end)
 	
 	if ValidEntity(MySelf) and MySelf.Team and MySelf:Team() ~= TEAM_SPECTATOR then

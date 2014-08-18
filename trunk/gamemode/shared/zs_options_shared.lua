@@ -67,35 +67,35 @@ SHARED_SPEED_INCREASE = 13
 ----------------------------------
 
 -- Only if they bought the Comeback shop item
-ComeBackReward = {}
-ComeBackReward[1] = { -- Medic
-[1] =  { "weapon_zs_elites", "weapon_zs_fiveseven"},
-[2] =  { "weapon_zs_deagle"  }, 
-[3] =  { "weapon_zs_ak47"  }, 
-[4] =  { "weapon_zs_ak47" }, 
-}
-ComeBackReward[2] = { -- Commando
-[1] =  { "weapon_zs_deagle", "weapon_zs_glock3"},
-[2] =  { "weapon_zs_galil", "weapon_zs_sg552" }, 
-[3] =  { "weapon_zs_ak47" }, 
-[4] =  { "weapon_zs_ak47"  }, 
-}
-ComeBackReward[3] = { -- Berserker
-[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
-[2] =  { "weapon_zs_scout" }, 
-[3] =  { "weapon_zs_sg550"}, 
-}
-ComeBackReward[4] = { -- Engineer
-[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
-[2] =  { "weapon_zs_pulsesmg"}, 
-[3] =  {"weapon_zs_ak47"}, 
-[4] =  { "weapon_zs_ak47"}, 
-}
-ComeBackReward[5] = { -- Support
-[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
-[2] =  { "weapon_zs_tmp","weapon_zs_ump", "weapon_zs_mac10"}, 
-[3] =  { "weapon_zs_smg"}, 
-}
+--ComeBackReward = {}
+--ComeBackReward[1] = { -- Medic
+--[1] =  { "weapon_zs_elites", "weapon_zs_fiveseven"},
+--[2] =  { "weapon_zs_deagle"  }, 
+--[3] =  { "weapon_zs_ak47"  }, 
+--[4] =  { "weapon_zs_ak47" }, 
+--}
+--ComeBackReward[2] = { -- Commando
+--[1] =  { "weapon_zs_deagle", "weapon_zs_glock3"},
+--[2] =  { "weapon_zs_galil", "weapon_zs_sg552" }, 
+--[3] =  { "weapon_zs_ak47" }, 
+--[4] =  { "weapon_zs_ak47"  }, 
+--}
+--ComeBackReward[3] = { -- Berserker
+--[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
+--[2] =  { "weapon_zs_scout" }, 
+--[3] =  { "weapon_zs_sg550"}, 
+--}
+--ComeBackReward[4] = { -- Engineer
+--[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
+--[2] =  { "weapon_zs_pulsesmg"}, 
+--[3] =  {"weapon_zs_ak47"}, 
+--[4] =  { "weapon_zs_ak47"}, 
+--}
+--ComeBackReward[5] = { -- Support
+--[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
+--[2] =  { "weapon_zs_tmp","weapon_zs_ump", "weapon_zs_mac10"}, 
+--[3] =  { "weapon_zs_smg"}, 
+--}
 
 --[[
 ComeBackReward = {}
@@ -306,6 +306,7 @@ GM.SkillShopAmmo = {
 -- This is how much ammo a player is given for whatever type it is on ammo regeneration.
 -- Players are given double these amounts if 75% or above Infliction.
 -- Changing these means you're an idiot.
+-- Duby: This is confusing when it has this name... Its the amount of ammo which the crate gives out. :P
 
 GM.AmmoRegeneration = {
 	["ar2"] = 80, --Rifle
@@ -1041,61 +1042,61 @@ PlayerAdminModels = {
 		Human Perks/Classes
 ------------------------------------------------]=]--
 
-HumanClasses = { } --Duby: Leave this table as it will cause errors in sv_tables.lua and in the init.lua. I will deal with it soon!
+--HumanClasses = { } --Duby: Leave this table as it will cause errors in sv_tables.lua and in the init.lua. I will deal with it soon!
+					 --Duby: Removed it, seems ok. I removed a load of stuff in sv_playerspawn and obj_player_extended and also sv_tables.
 
-HumanClasses[1] =
-{
-	Name = "Medic",
-	Tag = "medic",
-	Health = 95,
-	Description = {"% more damage with pistols","% more heal on teammates","% increased speed","% less damage taken"},
-	Coef = {2,10,2,5},
-	Models = {"models/player/group03/male_02.mdl","models/player/group03/Male_04.mdl","models/player/group03/male_06.mdl","models/player/group03/male_07.mdl"},
-	Speed = 200,
-}
+--HumanClasses[1] =
+--{
+	--Name = "Medic",
+	--Tag = "medic",
+	--Health = 95,
+	--Description = {"% more damage with pistols","% more heal on teammates","% increased speed","% less damage taken"},
+	--Coef = {2,10,2,5},
+	--Models = {"models/player/group03/male_02.mdl","models/player/group03/Male_04.mdl","models/player/group03/male_06.mdl","models/player/group03/male_07.mdl"},
+	--Speed = 200,
+--}
 
-HumanClasses[2] =
-{
-	Name = "Commando",
-	Tag = "commando",
-	Health = 100,
-	Description = {"% increased rifle magazine size","% more health","% chance to spawn with rifle","Can see health of zombies and ethereals"},
-	Coef = {5,2,3,""},
-	Models = {"models/player/combine_soldier.mdl","models/player/combine_soldier_prisonguard.mdl","models/player/combine_super_soldier.mdl","models/player/police.mdl" },
-	Speed = 190,
-}
+--HumanClasses[2] =
+--{
+	--Name = "Commando",
+	--Tag = "commando",
+	--Health = 100,
+	--Description = {"% increased rifle magazine size","% more health","% chance to spawn with rifle","Can see health of zombies and ethereals"},
+	--Coef = {5,2,3,""},
+	--Models = {"models/player/combine_soldier.mdl","models/player/combine_soldier_prisonguard.mdl","models/player/combine_super_soldier.mdl","models/player/police.mdl" },
+	--Speed = 190,
+--}
 
-HumanClasses[3] =
-{
-	Name = "Berserker",--Aka Marksman
-	Tag = "marksman",
-	Health = 90,
-	Description = {"% increased scope zoom","% chance to spawn with scout","% more bullet force"," more long range hs dmg"},
-	Coef = {7,3,18,4},
-	Models = {"models/player/gasmask.mdl","models/player/odessa.mdl","models/player/group01/male_04.mdl","models/player/hostage/hostage_02.mdl"},
-	Speed = 200
-}
+--HumanClasses[3] =
+--{
+	--Name = "Berserker",--Aka Marksman
+	--Tag = "marksman",
+	--Health = 90,
+	--Description = {"% increased scope zoom","% chance to spawn with scout","% more bullet force"," more long range hs dmg"},
+	--Coef = {7,3,18,4},
+	--Models = {"models/player/gasmask.mdl","models/player/odessa.mdl","models/player/group01/male_04.mdl","models/player/hostage/hostage_02.mdl"},
+	--Speed = 200
+--}
 
-HumanClasses[4] =
-{
-	Name = "Engineer",
-	Tag = "engineer",
-	Health = 100,
-	Description = {"% chance to spawn with turret","% increased clip for pulse weapons","% chance to spawn with pulse smg","% more turret's efficiency"},
-	Models = {"models/player/alyx.mdl","models/player/barney.mdl","models/player/eli.mdl","models/player/mossman.mdl","models/player/kleiner.mdl","models/player/breen.mdl" },
-	Speed = 190
-	}
+--HumanClasses[4] =
+--{
+	--Name = "Engineer",
+--	Health = 100,
+	--Description = {"% chance to spawn with turret","% increased clip for pulse weapons","% chance to spawn with pulse smg","% more turret's efficiency"},
+	--Models = {"models/player/alyx.mdl","models/player/barney.mdl","models/player/eli.mdl","models/player/mossman.mdl","models/player/kleiner.mdl","models/player/breen.mdl" },
+	--Speed = 190
+	---}
 
-HumanClasses[5] =
-{
-	Name = "Support",
-	Tag = "support",
-	Health = 90,
-	Description = {"% increased smg damage.","% chance to spawn with smg","% chance to spawn with mobile supplies","more nail(s) for the hammer"},
-	Coef = {5,3,12,1},
-	Models = {"models/player/arctic.mdl","models/player/leet.mdl","models/player/guerilla.mdl","models/player/phoenix.mdl","models/player/riot.mdl","models/player/swat.mdl","models/player/urban.mdl" },
-	Speed = 200
-}
+--HumanClasses[5] =
+--{
+--	Name = "Support",
+--	Tag = "support",
+	--Health = 90,
+--	Description = {"% increased smg damage.","% chance to spawn with smg","% chance to spawn with mobile supplies","more nail(s) for the hammer"},
+--	Coef = {5,3,12,1},
+--	Models = {"models/player/arctic.mdl","models/player/leet.mdl","models/player/guerilla.mdl","models/player/phoenix.mdl","models/player/riot.mdl","models/player/swat.mdl","models/player/urban.mdl" },
+	--Speed = 200
+--}
 	
 	-- Human Class Description Tables
 	--ClassInfo = { }

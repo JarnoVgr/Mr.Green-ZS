@@ -288,9 +288,12 @@ ZombieClasses[4] =
 	Description = "A ghastly figure capable of disguising as a fellow human.",
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Disguise" },
 	PainSounds = {
-				Sound("npc/stalker/stalker_pain1.wav"),
-				Sound("npc/stalker/stalker_pain2.wav"),
-				Sound("npc/stalker/stalker_pain3.wav"),
+				--Sound("npc/stalker/stalker_pain1.wav"),
+				--Sound("npc/stalker/stalker_pain2.wav"),
+				--Sound("npc/stalker/stalker_pain3.wav"),
+				Sound("npc/stalker/stalker_alert1b.wav"),
+				Sound("npc/stalker/stalker_alert12.wav"),
+				Sound("npc/stalker/stalker_alert13.wav"),
 				-- Sound("npc/barnacle/barnacle_pull4.wav")
 				},
 	DeathSounds = {

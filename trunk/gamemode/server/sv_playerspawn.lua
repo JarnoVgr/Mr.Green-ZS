@@ -31,8 +31,10 @@ function GM:PlayerInitialSpawn(pl)
 	pl:SetHumanClass(1)
 	
 	-- Substract one point from the most chosen class table to compensate for the setzombie/human class above
-	local HumanClassName, ZombieClassName = HumanClasses[1].Name, ZombieClasses[1].Name
-	self.TeamMostChosenClass[ HumanClassName ] = self.TeamMostChosenClass[ HumanClassName ] - 1 
+	--local HumanClassName, ZombieClassName = HumanClasses[1].Name, ZombieClasses[1].Name
+	
+	local  ZombieClassName = ZombieClasses[1].Name --Duby: I altered this as I removed the classes code. 
+	--self.TeamMostChosenClass[ HumanClassName ] = self.TeamMostChosenClass[ HumanClassName ] - 1 
 	self.TeamMostChosenClass[ ZombieClassName ] = self.TeamMostChosenClass[ ZombieClassName ] - 1
 	
 	pl.BrainsEaten = 0
@@ -657,8 +659,9 @@ function CalculatePlayerSpeed ( pl )
 	--end
 	
 	-- Case 3: Without bonus
-	if ( Class ~= 1 ) or pl:IsBot() then
-		Speed = HumanClasses[Class].Speed
+	if  pl:IsBot() then --This was changed as it worked off the medic class speeds. Which don't exist any more! 
+	--	Speed = HumanClasses[Class].Speed
+	Speed = 200
 	end
 	
 	Speed = 200
@@ -728,7 +731,7 @@ function CalculatePlayerLoadout ( pl )
 			--Strip previous pistol
 			local Pistol = pl:GetPistol()
 			if Pistol then
-				pl:StripWeapon(Pistol:GetClass())
+				pl:StripWeapon(Pistol:GetClass()) --We remove their pistol as its the price they pay for having the pulse smg!
 			end
 	
 		pl:Give("weapon_zs_pulsesmg")
