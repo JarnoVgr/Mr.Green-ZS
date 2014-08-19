@@ -78,7 +78,7 @@ ZombieRageCM["$pp_colour_addg" ] = 0.15
 
 
 --Alive Human
---[[
+
 --Oldest
 local HumanCM = {
 	["$pp_colour_addr"] = 0,
@@ -90,7 +90,7 @@ local HumanCM = {
 	["$pp_colour_mulr"] = 0,
 	["$pp_colour_mulg"] = 0,
 	["$pp_colour_mulb"] = 0
-}]]
+}
 --[[
 --Pre-Changes
 local HumanCM = {
@@ -104,6 +104,7 @@ local HumanCM = {
 	["$pp_colour_mulg"] = 1,
 	["$pp_colour_mulb"] = 1
 }]]
+--[[
 local HumanCM = {
 	["$pp_colour_addr"] = 0,
 	["$pp_colour_addg"] = 0,
@@ -115,7 +116,7 @@ local HumanCM = {
 	["$pp_colour_mulg"] = 1,
 	["$pp_colour_mulb"] = 1
 }
-
+}]]
 --When spectating Zombies
 local SpectatorCM = {
 	["$pp_colour_addr"] = 0,

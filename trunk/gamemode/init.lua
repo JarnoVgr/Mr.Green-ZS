@@ -1175,13 +1175,13 @@ function DoPoisoned( ent, owner, timername)
 	local damage --  damage taken
 	local viewpunchangle = Angle (0,0,0) --  view punch for each poison tick
 	
-	if ent:HasBought("naturalimmunity") then
-		damage = math.random (1,2)
-		viewpunchangle = Angle(math.random(-5, 5), math.random(-5, 5), math.random(-10, 10))
-	else
+	--if ent:HasBought("naturalimmunity") then
+		--damage = math.random (1,2)
+		--viewpunchangle = Angle(math.random(-5, 5), math.random(-5, 5), math.random(-10, 10))
+	--else
 		damage = math.random (3,4)
 		viewpunchangle = Angle(math.random(-10, 10), math.random(-10, 10), math.random(-20, 20))
-	end
+	--end
 	
 	ent:ViewPunch(viewpunchangle)
 

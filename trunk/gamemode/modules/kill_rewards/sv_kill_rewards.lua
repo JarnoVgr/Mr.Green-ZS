@@ -51,16 +51,15 @@ gun_race.config = {
 	
 	weapon_upgrades = {
 		[ 0 ] 	= { };
-		[ 5 ] 	= { "weapon_zs_glock3","weapon_zs_scout", "weapon_zs_mac10"};
-		[ 10 ] 	= { "weapon_zs_deagle","weapon_zs_mp5","weapon_zs_tmp" };
-		[ 15 ] 	= { "weapon_zs_deagle","weapon_zs_p90","weapon_zs_ump" };
-		[ 25 ] 	= { "weapon_zs_deagle","weapon_zs_famas","weapon_zs_ak47" };
-		[ 35 ] 	= { "weapon_zs_deagle","weapon_zs_aug","weapon_zs_galil" };
-		[ 45 ] 	= { "weapon_zs_deagle","weapon_zs_m4a1" };
-		[ 50 ] 	= {"weapon_zs_elites","weapon_zs_m3super90"};
-		[ 60 ] 	= {"weapon_zs_elites","weapon_zs_m1014"};
-		[ 80 ] 	= {"weapon_zs_elites","weapon_zs_boomerstick","weapon_zs_dubpulse"};
-		[ 100 ] = {"weapon_zs_elites","weapon_zs_grenadelauncher"};
+		[ 5 ] 	= { "weapon_zs_fiveseven","weapon_zs_scout"};
+		[ 15 ] 	= { "weapon_zs_glock3","weapon_zs_p90" };
+		[ 25 ] 	= { "weapon_zs_magnum","weapon_zs_ak47" };
+		[ 35 ] 	= { "weapon_zs_deagle","weapon_zs_aug" };
+		[ 45 ] 	= { "weapon_zs_elites","weapon_zs_m4a1" };
+		[ 50 ] 	= { "weapon_zs_m3super90","weapon_zs_awp"};
+		[ 60 ] 	= { "weapon_zs_m1014","weapon_zs_m249"};
+		[ 80 ] 	= { "weapon_zs_boomerstick"};
+		[ 100 ] = { "weapon_zs_grenadelauncher"};
 	};
 };
 
@@ -119,20 +118,12 @@ function gun_race:ProcessUpgrades( _p, _frags )
 						local holdingItem = _p:GetPistol() --Check the pistol they are holding.
 						local holdingItem2 = _p:GetAutomatic() --Check the secondary weapon they are holding. 
 						if holdingItem and IsValid(holdingItem) then
-						--if _p:Alive() and _p:IsHuman() then
-							--	PrintMessage( HUD_PRINTCENTER, "New weapon found!" ) --This need to be made client based. 
-							--	end
-								--if holdingItem and IsValid(holdingItem) and Get:Perk("_imortalpro") then return end --If the immortal protector perk is in effect the don't give them a new weapon.
 							_p:StripWeapon(holdingItem:GetClass())
-							end
+							end 
 						if holdingItem2 and IsValid(holdingItem2) then
-									--if holdingItem2 and IsValid(holdingItem2) and _p:GetPerk("_imortalpro") then return end --If the immortal protector perk is in effect the don't give them a new weapon.
 							_p:StripWeapon(holdingItem2:GetClass())
 							end	
-							--_p:StripWeapon( _w ); --This is a checker for if the client hasn't fixed up or changed weapons. 
 						end
-					--elseif ( isstring( _weapons ) ) then
-						--_p:StripWeapon( _weapons );
 					end
 				end
 			end
@@ -147,7 +138,6 @@ function gun_race:ProcessUpgrades( _p, _frags )
 
 				-- Give weapon from table of weapons
 				_p:Give( v );
-	
 			end
 		elseif ( isstring( _weapons ) ) then
 			-- Debug output
