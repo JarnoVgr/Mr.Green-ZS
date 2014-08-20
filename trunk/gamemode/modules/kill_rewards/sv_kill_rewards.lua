@@ -51,12 +51,12 @@ gun_race.config = {
 	
 	weapon_upgrades = {
 		[ 0 ] 	= { };
-		[ 5 ] 	= { "weapon_zs_fiveseven","weapon_zs_scout"};
-		[ 15 ] 	= { "weapon_zs_glock3","weapon_zs_p90" };
-		[ 25 ] 	= { "weapon_zs_magnum","weapon_zs_ak47" };
-		[ 35 ] 	= { "weapon_zs_deagle","weapon_zs_aug" };
-		[ 45 ] 	= { "weapon_zs_elites","weapon_zs_m4a1" };
-		[ 50 ] 	= { "weapon_zs_m3super90","weapon_zs_awp"};
+		[ 3 ] 	= { "weapon_zs_fiveseven","weapon_zs_scout"};
+		[ 5 ] 	= { "weapon_zs_glock3","weapon_zs_p90" };
+		[ 11 ] 	= { "weapon_zs_magnum","weapon_zs_ak47" };
+		[ 17 ] 	= { "weapon_zs_deagle","weapon_zs_aug" };
+		[ 24 ] 	= { "weapon_zs_elites","weapon_zs_m4a1" };
+		[ 30 ] 	= { "weapon_zs_m3super90","weapon_zs_awp"};
 		[ 60 ] 	= { "weapon_zs_m1014","weapon_zs_m249"};
 		[ 80 ] 	= { "weapon_zs_boomerstick"};
 		[ 100 ] = { "weapon_zs_grenadelauncher"};
@@ -137,6 +137,9 @@ function gun_race:ProcessUpgrades( _p, _frags )
 				gun_race.log( "Gave " .. tostring( _p ) .. " " .. tostring( v ), Color( 0, 255, 0, 255 ) );
 
 				-- Give weapon from table of weapons
+		util.AddNetworkString( "newweapon" )		
+net.Start("newweapon")
+net.Send(_p)
 				_p:Give( v );
 			end
 		elseif ( isstring( _weapons ) ) then
