@@ -119,6 +119,9 @@ function gun_race:ProcessUpgrades( _p, _frags )
 						local holdingItem2 = _p:GetAutomatic() --Check the secondary weapon they are holding. 
 						if holdingItem and IsValid(holdingItem) then
 							_p:StripWeapon(holdingItem:GetClass())
+							if _p:GetPerk("_comeback") then --If they have the comeback perk then don't give them any more weapons.
+							return
+							end
 							end 
 						if holdingItem2 and IsValid(holdingItem2) then
 							_p:StripWeapon(holdingItem2:GetClass())
@@ -137,9 +140,7 @@ function gun_race:ProcessUpgrades( _p, _frags )
 				gun_race.log( "Gave " .. tostring( _p ) .. " " .. tostring( v ), Color( 0, 255, 0, 255 ) );
 
 				-- Give weapon from table of weapons
-		util.AddNetworkString( "newweapon" )		
-net.Start("newweapon")
-net.Send(_p)
+
 				_p:Give( v );
 			end
 		elseif ( isstring( _weapons ) ) then
