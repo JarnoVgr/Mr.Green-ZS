@@ -51,12 +51,12 @@ gun_race.config = {
 	
 	weapon_upgrades = {
 		[ 0 ] 	= { };
-		[ 3 ] 	= { "weapon_zs_fiveseven","weapon_zs_scout"};
-		[ 5 ] 	= { "weapon_zs_glock3","weapon_zs_p90" };
-		[ 11 ] 	= { "weapon_zs_magnum","weapon_zs_ak47" };
-		[ 17 ] 	= { "weapon_zs_deagle","weapon_zs_aug" };
-		[ 24 ] 	= { "weapon_zs_elites","weapon_zs_m4a1" };
-		[ 30 ] 	= { "weapon_zs_m3super90","weapon_zs_awp"};
+		[ 5 ] 	= { "weapon_zs_fiveseven","weapon_zs_scout"};
+		[ 10 ] 	= { "weapon_zs_glock3","weapon_zs_p90" };
+		[ 15 ] 	= { "weapon_zs_magnum","weapon_zs_ak47" };
+		[ 25 ] 	= { "weapon_zs_deagle","weapon_zs_aug" };
+		[ 30 ] 	= { "weapon_zs_elites","weapon_zs_m4a1" };
+		[ 45 ] 	= { "weapon_zs_m3super90","weapon_zs_awp"};
 		[ 60 ] 	= { "weapon_zs_m1014","weapon_zs_m249"};
 		[ 80 ] 	= { "weapon_zs_boomerstick"};
 		[ 100 ] = { "weapon_zs_grenadelauncher"};
@@ -117,9 +117,10 @@ function gun_race:ProcessUpgrades( _p, _frags )
 						for key, _w in pairs( _weapons ) do
 						local holdingItem = _p:GetPistol() --Check the pistol they are holding.
 						local holdingItem2 = _p:GetAutomatic() --Check the secondary weapon they are holding. 
+						if ARENA_MODE then return end --If the map is fridge of doom then ignore this system. :P 
 						if holdingItem and IsValid(holdingItem) then
 							_p:StripWeapon(holdingItem:GetClass())
-							if _p:GetPerk("_comeback") then --If they have the comeback perk then don't give them any more weapons.
+							if _p:GetPerk("_comeback") then --If they have the comeback perk then don't give them any more weapons. (They have good enough weapons with this perk anyway.)
 							return
 							end
 							end 
@@ -159,7 +160,6 @@ function gun_race:ProcessUpgrades( _p, _frags )
 	end
 end
 
-
 --
 -- This will run on death, and it'll update the UpgradeIndex which we use for Respawn gives, this handles the instantaneous upgrades
 --
@@ -172,7 +172,7 @@ hook.Add( "PlayerDeath", "RunUpgrades:PlayerDeath", function( _victim, _inflicto
 
 		-- Add kill
 		gun_race.__data[ _attacker:SteamID( ) ] = _frags + 1;
-
+		
 		-- Debug output
 		gun_race.log( "Victim: " .. tostring( _victim ) .. " killed by: " .. tostring( _p ) .. " and killer now has " .. tostring( _frags ) .. " frags!" );
 

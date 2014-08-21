@@ -26,11 +26,12 @@ local function OnAssistDeath(mVictim, mAttacker, mInflictor, mAssist, dmginfo)
 	-- Case 2: Human assistant
 	if mAssist:IsHuman() and not mVictim.NoBounty then
 		--mAssist:AddScore(1)
+		mAssist:AddFrags(1)
 		mAssist:GiveGreenCoins(COINS_PER_ZOMBIE)
 				
 		-- Give greencoins and add assists counter and increment zombies killed
 		mAssist.GreencoinsGained[ mAssist:Team() ] = mAssist.GreencoinsGained[ mAssist:Team() ] + COINS_PER_ZOMBIE
-		mAssist.Assists = mAssist.Assists + 1
+		mAssist.Assists = mAssist.Assists + 1 
 		mAssist.ZombiesKilled = mAssist.ZombiesKilled + 1
 
 		-- Check level up ( human only )
