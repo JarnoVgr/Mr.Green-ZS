@@ -35,15 +35,15 @@ SWEP.Weight                             = 5
  
 SWEP.HoldType = "pistol"
  
-SWEP.Primary.Sound  = Sound("weapons/crossbow/fire1.wav")
+SWEP.Primary.Sound  = Sound("weapons/alyxgun/fire01.wav")
 SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
 SWEP.Primary.Recoil  = 2
-SWEP.Primary.Damage = 5
-SWEP.Primary.NumShots           = 2
-SWEP.Primary.ClipSize           = 60
-SWEP.Primary.Delay                      = 0.1
-SWEP.Primary.DefaultClip        = 120
-SWEP.Primary.Automatic = true
+SWEP.Primary.Damage = 16
+SWEP.Primary.NumShots           = 1
+SWEP.Primary.ClipSize           = 15
+SWEP.Primary.Delay                      = 0.3
+SWEP.Primary.DefaultClip        = 30
+SWEP.Primary.Automatic = false
 SWEP.MaxAmmo                        = 160
 SWEP.Primary.Ammo                       = "pistol"
 SWEP.WalkSpeed = 200

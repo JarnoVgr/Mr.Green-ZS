@@ -288,6 +288,23 @@ function meta:GetPistol()
 end
 
 --[=[---------------------------------------------------------
+     Used to get what 4th item the player is holding
+---------------------------------------------------------]=]
+function meta:GetMisc()
+	local MyWeapons, Misc = self:GetWeapons(), {}
+
+	for k,v in pairs ( MyWeapons ) do
+		if v:IsValid() then
+			if v:GetType() == "misc" then
+				table.insert ( Misc, v )
+			end
+		end
+	end
+	
+	return Misc[1] or false
+end
+
+--[=[---------------------------------------------------------
      Used to check if player has a weapon
 	 Note: This is a GLua function but it was only serverside
 ---------------------------------------------------------]=]
