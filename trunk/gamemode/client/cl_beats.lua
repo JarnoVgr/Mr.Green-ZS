@@ -80,21 +80,19 @@ function GM:SetLastHumanText()
 end
 
 function playBossMusic(insane)
-	if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
+	--if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
 	
 	--Stop all sounds
 	RunConsoleCommand("stopsound")
-	local table2 = { "deadlife_mrgreen.mp3", "deadlife_mrgreen_insane.mp3"}
+	
 	--Play the music
 	local songDuration = 277
-	--local song = "deadlife_mrgreen.mp3"
-	local song = table2[math.random(1,#table2)]
+	local song = "deadlife_mrgreen.mp3"
 	
 	--INSANE music
 	if insane then
 		songDuration = 215
-		--song = "deadlife_mrgreen.mp3"
-		song = table2[math.random(1,#table2)]
+		song = "deadlife_mrgreen_insane.mp3"
 	end
 	
 	--Delayed play because of stopsound in same frame
@@ -109,9 +107,6 @@ function playBossMusic(insane)
 		end
 		surface.PlaySound(Sound(song))
 	end)
-	
-
-	
 end
 
 ENABLE_MUSIC = util.tobool(GetConVarNumber("zs_enablemusic"))
@@ -149,7 +144,7 @@ ENABLE_BLOOD = false
 local NextBeat = 0
 local LastBeatLevel = 0
 local function PlayBeats(teamid, am)
-	if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then --Duby: Sweet so when a boss is active the beats won't play. (It doesn't overlap!)
+	if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
 		return
 	end
 
@@ -167,8 +162,6 @@ local function PlayBeats(teamid, am)
 		return
 	end
 
-
-	
 	LastBeatLevel = math.Approach(LastBeatLevel, math.ceil(am), 1)
 	--print("LastBeatLevel: ".. LastBeatLevel)
 

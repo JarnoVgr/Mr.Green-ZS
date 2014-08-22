@@ -368,6 +368,45 @@ hats_old = {
 }
 
 
+classes_suits = {
+
+	["engineer"] = {
+		["1"] = { type = "Model", model = "models/combine_turrets/floor_turret.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-24.925, -0.625, -4.42), angle = Angle(-97.112, 176.037, -173.445), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/Combine_Turrets/Floor_turret/floor_turret_citizen4", skin = 0, bodygroup = {} },
+		["3"] = { type = "Model", model = "models/Weapons/w_annabelle.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(4.756, 3.042, 3.18), angle = Angle(7.794, 179.805, -171.65), size = Vector(0.794, 0.794, 0.794), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["2"] = { type = "Model", model = "models/weapons/w_pistol.mdl", bone = "ValveBiped.Bip01_L_Thigh", rel = "", pos = Vector(9.519, 2.732, 3.036), angle = Angle(1.743, 180, -103.357), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["5"] = { type = "Model", model = "models/props_combine/combine_light002a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "4", pos = Vector(2.47, 0.025, 3.65), angle = Angle(0, -180, 0), size = Vector(0.059, 0.109, 0.109), color = Color(155, 155, 155, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["4"] = { type = "Model", model = "models/props_combine/combine_teleportplatform.mdl", bone = "ValveBiped.Bip01_R_Forearm", rel = "", pos = Vector(1.238, 0.194, 0.018), angle = Angle(-90.595, 0, 0), size = Vector(0.05, 0.05, 0.059), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	},
+
+	["beserker"] = { --Thanks brain dawg
+	
+	["GraveDigger"] = { type = "Model", model = "models/props_c17/gravestone_coffinpiece001a.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-7.329, 3.148, 0), angle = Angle(2.003, -4.893, 88.582), size = Vector(0.216, 0.216, 0.216), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["GraveDigger3"] = { type = "Model", model = "models/weapons/v_fza.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "GraveDigger2", pos = Vector(0.649, -6.95, 10.17), angle = Angle(116.171, 7.475, -4.185), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["GraveDigger2"] = { type = "Model", model = "models/props_junk/shovel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "GraveDigger", pos = Vector(3.476, 2.934, 0), angle = Angle(-91.389, 133.335, 3.608), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["GraveDigger2+"] = { type = "Model", model = "models/props_junk/shovel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "GraveDigger", pos = Vector(3.476, -1.982, 0.048), angle = Angle(-91.389, -127.024, 3.608), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+
+	},
+	
+	["assult"] = { --Thanks brain dawg
+	
+	["Combinesuit"] = { type = "Model", model = "models/props_combine/combine_dispenser.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(-3.122, 8.189, 0.734), angle = Angle(-180, 103.22, 90.872), size = Vector(0.379, 0.379, 0.379), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Combinesuit3"] = { type = "Model", model = "models/props_combine/combine_teleportplatform.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "Combinesuit", pos = Vector(-0.59, -0.806, -6.715), angle = Angle(0, 0, 0), size = Vector(0.134, 0.134, 0.134), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Combinesuit2+"] = { type = "Model", model = "models/props_combine/combine_light001a.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "Combinesuit", pos = Vector(-0.889, 3.54, 3.464), angle = Angle(-4.244, -180, 0), size = Vector(0.303, 0.303, 0.303), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Combinesuit2"] = { type = "Model", model = "models/props_combine/combine_light001a.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "Combinesuit", pos = Vector(-0.889, -4.875, 3.464), angle = Angle(-4.244, -180, 0), size = Vector(0.303, 0.303, 0.303), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	
+	},
+	
+	["medic"] = {
+		["1"] = { type = "Model", model = "models/healthvial.mdl", bone = "ValveBiped.Bip01_Pelvis", rel = "", pos = Vector(-7.432, -1.969, -2.287), angle = Angle(-3.362, 180, -85.087), size = Vector(0.75, 0.75, 0.75), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["3"] = { type = "Model", model = "models/weapons/w_eq_eholster_elite.mdl", bone = "ValveBiped.Bip01_L_Thigh", rel = "", pos = Vector(11.281, -1.507, 2.78), angle = Angle(18.736, -92.639, 94.268), size = Vector(0.718, 0.718, 0.718), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["2"] = { type = "Model", model = "models/items/healthkit.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(6.775, 3.068, 2.299), angle = Angle(2.375, 171.6, -74.189), size = Vector(0.688, 0.688, 0.688), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["5"] = { type = "Model", model = "models/weapons/w_rif_sg552.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(-3.22, 2.112, -6.369), angle = Angle(-1.589, -3.97, 26.544), size = Vector(0.593, 0.593, 0.593), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["4"] = { type = "Model", model = "models/weapons/w_defuser.mdl", bone = "ValveBiped.Bip01_Pelvis", rel = "", pos = Vector(0.723, 1.593, -6.757), angle = Angle(98.436, -92.312, 0.13), size = Vector(0.763, 0.763, 0.763), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	},
+
+}
+
+
 suits = {
 	["greenssuit"] = {
 		--["1"] = { type = "Model", model = "models/weapons/w_sledgehammer.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(13.043, 2.974, -7.763), angle = Angle(51.706, -14.294, 16.419), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }

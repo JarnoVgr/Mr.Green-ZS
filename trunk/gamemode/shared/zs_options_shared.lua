@@ -62,7 +62,48 @@ BOSS_CLASS = {10,11,13,16,17,18} -- 12
 --??
 SHARED_SPEED_INCREASE = 13
 --hate
+----------------------------------
+--		STARTING LOADOUTS		--
+----------------------------------
 
+-- Only if they bought the Comeback shop item
+--ComeBackReward = {}
+--ComeBackReward[1] = { -- Medic
+--[1] =  { "weapon_zs_elites", "weapon_zs_fiveseven"},
+--[2] =  { "weapon_zs_deagle"  }, 
+--[3] =  { "weapon_zs_ak47"  }, 
+--[4] =  { "weapon_zs_ak47" }, 
+--}
+--ComeBackReward[2] = { -- Commando
+--[1] =  { "weapon_zs_deagle", "weapon_zs_glock3"},
+--[2] =  { "weapon_zs_galil", "weapon_zs_sg552" }, 
+--[3] =  { "weapon_zs_ak47" }, 
+--[4] =  { "weapon_zs_ak47"  }, 
+--}
+--ComeBackReward[3] = { -- Berserker
+--[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
+--[2] =  { "weapon_zs_scout" }, 
+--[3] =  { "weapon_zs_sg550"}, 
+--}
+--ComeBackReward[4] = { -- Engineer
+--[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
+--[2] =  { "weapon_zs_pulsesmg"}, 
+--[3] =  {"weapon_zs_ak47"}, 
+--[4] =  { "weapon_zs_ak47"}, 
+--}
+--ComeBackReward[5] = { -- Support
+--[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
+--[2] =  { "weapon_zs_tmp","weapon_zs_ump", "weapon_zs_mac10"}, 
+--[3] =  { "weapon_zs_smg"}, 
+--}
+
+--[[
+ComeBackReward = {}
+ComeBackReward[1] = { "weapon_zs_glock3", "weapon_zs_fiveseven", "weapon_zs_magnum" } -- humans outnumber zombies
+ComeBackReward[2] = { "weapon_zs_p90", "weapon_zs_smg" } -- zombies outnumber humans by a small marigin
+ComeBackReward[3] = { "weapon_zs_galil", "weapon_zs_ak47", "weapon_zs_m4a1" } -- zombies outnumber humans 2 to 1
+ComeBackReward[4] = { "weapon_zs_m1014", "weapon_zs_shotgun" } -- zombies outnumber humans 4 to 1
+]]
 
 -- Chat titles based on time spent on server
 GM.ChatTitles = {
@@ -249,7 +290,15 @@ GM.HumanWeapons = {
 ---
 
 GM.SkillShopAmmo = {
-
+--	["pistol"]  = { Name = "12 Pistol Bullets", Model = "models/Items/BoxSRounds.mdl", Amount = 12, Price = 20},
+	--["357"]  = { Name = "6 Sniper Bullets", Model = "models/Items/357ammo.mdl", Amount = 6, Price = 35},
+	--["smg1"]  = { Name = "30 SMG Bullets", Model = "models/Items/BoxMRounds.mdl", Amount = 30, Price = 25},
+--	["ar2"]  = { Name = "30 Rifle Bullets", Model = "models/Items/combine_rifle_cartridge01.mdl", Amount = 35, Price = 30},
+--	["buckshot"]  = { Name = "12 Shotguns Shells", Model = "models/Items/BoxBuckshot.mdl", Amount = 12, Price = 30},
+--	["slam"]  = { Name = "Refill 1 explosive", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_mine", Amount = 1, Price = 60, ToolTab = true},
+--	["grenade"]  = { Name = "Refill 1 grenade", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_grenade", Amount = 1, Price = 70, ToolTab = true},
+	--["gravity"]  = { Name = "Refill 1 nail", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_tools_hammer", Amount = 1, Price = 30, ToolTab = true},
+	--["Battery"]  = { Name = "Refill 30 charge for Medkit", Model = "models/Items/BoxBuckshot.mdl", Amount = 30, Price = 35, ToolTab = true},
 }
 
 
@@ -409,19 +458,24 @@ UNDEAD_START_AMOUNT_MINIMUM = 2
 DIFFICULTY = 1.5
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
-
+--CARRY_MAXIMUM_MASS = 300
+--CARRY_MAXIMUM_MASS = 60
 CARRY_MAXIMUM_MASS = 120
 
 -- Objects with more mass than this will be dragged instead of carried.
-
+--CARRY_DRAG_MASS = 145
+--CARRY_DRAG_MASS = 130
 CARRY_DRAG_MASS = 60
 
 -- Anything bigger than this is dragged regardless of mass.
-
+--CARRY_DRAG_VOLUME = 120
+--CARRY_DRAG_VOLUME = 80
+--CARRY_DRAG_VOLUME = 60
 CARRY_DRAG_VOLUME = 80
 
 -- Humans can not carry anything with a volume more than this (OBBMins():Length() + OBBMaxs():Length()).
-
+--CARRY_MAXIMUM_VOLUME = 150
+--CARRY_MAXIMUM_VOLUME = 100
 CARRY_MAXIMUM_VOLUME = 120
 
 -- Humans are slowed by this amount per kg carried.
@@ -986,6 +1040,120 @@ PlayerAdminModels = {
 		--"creepr"
 }
 
+--[=[---------------------------------------------
+		Human Perks/Classes
+------------------------------------------------]=]--
+
+--HumanClasses = { } --Duby: Leave this table as it will cause errors in sv_tables.lua and in the init.lua. I will deal with it soon!
+					 --Duby: Removed it, seems ok. I removed a load of stuff in sv_playerspawn and obj_player_extended and also sv_tables.
+
+--HumanClasses[1] =
+--{
+	--Name = "Medic",
+	--Tag = "medic",
+	--Health = 95,
+	--Description = {"% more damage with pistols","% more heal on teammates","% increased speed","% less damage taken"},
+	--Coef = {2,10,2,5},
+	--Models = {"models/player/group03/male_02.mdl","models/player/group03/Male_04.mdl","models/player/group03/male_06.mdl","models/player/group03/male_07.mdl"},
+	--Speed = 200,
+--}
+
+--HumanClasses[2] =
+--{
+	--Name = "Commando",
+	--Tag = "commando",
+	--Health = 100,
+	--Description = {"% increased rifle magazine size","% more health","% chance to spawn with rifle","Can see health of zombies and ethereals"},
+	--Coef = {5,2,3,""},
+	--Models = {"models/player/combine_soldier.mdl","models/player/combine_soldier_prisonguard.mdl","models/player/combine_super_soldier.mdl","models/player/police.mdl" },
+	--Speed = 190,
+--}
+
+--HumanClasses[3] =
+--{
+	--Name = "Berserker",--Aka Marksman
+	--Tag = "marksman",
+	--Health = 90,
+	--Description = {"% increased scope zoom","% chance to spawn with scout","% more bullet force"," more long range hs dmg"},
+	--Coef = {7,3,18,4},
+	--Models = {"models/player/gasmask.mdl","models/player/odessa.mdl","models/player/group01/male_04.mdl","models/player/hostage/hostage_02.mdl"},
+	--Speed = 200
+--}
+
+--HumanClasses[4] =
+--{
+	--Name = "Engineer",
+--	Health = 100,
+	--Description = {"% chance to spawn with turret","% increased clip for pulse weapons","% chance to spawn with pulse smg","% more turret's efficiency"},
+	--Models = {"models/player/alyx.mdl","models/player/barney.mdl","models/player/eli.mdl","models/player/mossman.mdl","models/player/kleiner.mdl","models/player/breen.mdl" },
+	--Speed = 190
+	---}
+
+--HumanClasses[5] =
+--{
+--	Name = "Support",
+--	Tag = "support",
+	--Health = 90,
+--	Description = {"% increased smg damage.","% chance to spawn with smg","% chance to spawn with mobile supplies","more nail(s) for the hammer"},
+--	Coef = {5,3,12,1},
+--	Models = {"models/player/arctic.mdl","models/player/leet.mdl","models/player/guerilla.mdl","models/player/phoenix.mdl","models/player/riot.mdl","models/player/swat.mdl","models/player/urban.mdl" },
+	--Speed = 200
+--}
+	
+	-- Human Class Description Tables
+	--ClassInfo = { }
+--	ClassInfo[1] = { }
+	--ClassInfo[1].Ach = { }
+--	ClassInfo[1].Ach[1] = {"Heal 10k hp", "Open 100 supply crates",10000,100}  -- What you need to do to get from level 0 to 1!
+--	ClassInfo[1].Ach[2] = {"Heal 20k hp", "Open 250 supply crates",20000,250} -- What you need to do to get from level 1 to 2!
+--	ClassInfo[1].Ach[3] = {"Heal 500 injured people", "Heal 1000 hp from supply crates",500,1000}
+--	ClassInfo[1].Ach[4] = {"Heal 1000 injured people", "Heal 2100 hp from supply crates",1000,2100}
+--	ClassInfo[1].Ach[5] = {"Heal 400 infected people", "Survive 150 rounds",400,150}
+--	ClassInfo[1].Ach[6] = {"Heal 900 infected people", "Survive 300 rounds",900,300}
+--	ClassInfo[1].Ach[7] = {"All Done", "All Done",4500,300}
+	
+--	ClassInfo[2] = { }
+--	ClassInfo[2].Ach = { }
+--	ClassInfo[2].Ach[1] = {"Dismemberment 600 undead", "Do 150k dmg to undead",600,150000} -- 0 
+--	ClassInfo[2].Ach[2] = {"Dismemberment 2000 undead", "Do 300k dmg to undead",2000,300000} -- 1  
+--	ClassInfo[2].Ach[3] = {"Kill 300 howlers with rifle", "Kill 1500 zombies with rifle",300,1500} -- 2
+--	ClassInfo[2].Ach[4] = {"Kill 600 howlers with rifle", "Kill 3000 zombies with rifle",600,3000} -- 3
+--	ClassInfo[2].Ach[5] = {"Open 500 supply crates", "Survive 150 rounds",500,150} -- 4
+--	ClassInfo[2].Ach[6] = {"Open 1200 supply crates", "Survive 300 rounds",1200,300} --5
+--	ClassInfo[2].Ach[7] = {"All Done", "All Done",500,300}
+	
+	
+--	ClassInfo[3] = { }
+--	ClassInfo[3].Ach = { }
+--	ClassInfo[3].Ach[1] = {"Get 1000 headshots", "Deal 170k sniper damage",1000,170000}
+--	ClassInfo[3].Ach[2] = {"Get 2500 headshots", "Deal 450k sniper damage",2500,450000}
+--	ClassInfo[3].Ach[3] = {"Deal 200k headshot damage", "Kill 1500 zombies",200000,1500}
+--	ClassInfo[3].Ach[4] = {"Deal 600k headshot damage", "Kill 4000 zombies",600000,4000}
+--	ClassInfo[3].Ach[5] = {"Get 700 long range headshots", "Survive 150 rounds",1337,150}
+--	ClassInfo[3].Ach[6] = {"Get 1337 long range headshots", "Survive 300 rounds",4000,300}
+--	ClassInfo[3].Ach[7] = {"All Done", "All Done",15000,300}
+	
+	
+--	ClassInfo[4] = { }
+--	ClassInfo[4].Ach = { }
+--	ClassInfo[4].Ach[1] = {"Deploy 20 turrets", "Deploy 150 tripmines",20,150}
+--	ClassInfo[4].Ach[2] = {"Deploy 60 turrets", "Deploy 350 tripmines",60,350}
+--	ClassInfo[4].Ach[3] = {"Kill 600 undead with mine", "Deal 200k mine damage",600,200000} --
+--	ClassInfo[4].Ach[4] = {"Kill 850 undead with mine", "Deal 500k mine damage",850,500000} --
+--	ClassInfo[4].Ach[5] = {"Deal 250k damage with pulse", "Survive 150 rounds",250000,150}
+--	ClassInfo[4].Ach[6] = {"Deal 500k damage with pulse", "Survive 300 rounds",500000,300}
+--	ClassInfo[4].Ach[7] = {"All Done", "All Done",500000,300}
+	
+--	ClassInfo[5] = { }
+--	ClassInfo[5].Ach = { }
+--	ClassInfo[5].Ach[1] = {"Take 25000 ammo from supply crates", "Nail 150 props",25000,150}
+--	ClassInfo[5].Ach[2] = {"Take 100k ammo from supply crates", "Nail 400 props",100000,400}
+--	ClassInfo[5].Ach[3] = {"Deal 150k dmg with smg", "Open 300 supply crates",150000,300}
+--	ClassInfo[5].Ach[4] = {"Deal 300k dmg with smg", "Open 1100 supply crates",300000,1100}
+--	ClassInfo[5].Ach[5] = {"Deal 200k dmg with shotgun", "Survive 150 rounds",200000,150}
+--	ClassInfo[5].Ach[6] = {"Deal 400k dmg with shotgun", "Survive 300 rounds",400000,300}
+--	ClassInfo[5].Ach[7] = {"All Done", "All Done",400000,300}
+
 --[=[--------------------------------------------
 		Achievement descriptions
 --------------------------------------------]=]
@@ -1078,6 +1246,18 @@ recordData = {
 	["progress"] = { Name = "Overall Progress", Desc = "How much percent of the total amount of achievements this person has", Image = "zombiesurvival/achv_blank_zs" },
 }
 
+--[=[-----------------------------------
+		Class data
+------------------------------------]=]
+
+classData = {
+	["medic"] = { level = 0, achlevel0_1 = 0, achlevel0_2 = 0, achlevel2_1 = 0, achlevel2_2 = 0, achlevel4_1 = 0, achlevel4_2 = 0 } ,
+	["commando"] = { level = 0, achlevel0_1 = 0, achlevel0_2 = 0, achlevel2_1 = 0, achlevel2_2 = 0, achlevel4_1 = 0, achlevel4_2 = 0 },
+	["berserker"] = { level = 0, achlevel0_1 = 0, achlevel0_2 = 0, achlevel2_1 = 0, achlevel2_2 = 0, achlevel4_1 = 0, achlevel4_2 = 0 },
+	["engineer"] = { level = 0, achlevel0_1 = 0, achlevel0_2 = 0, achlevel2_1 = 0, achlevel2_2 = 0, achlevel4_1 = 0, achlevel4_2 = 0 },
+	["support"] = { level = 0, achlevel0_1 = 0, achlevel0_2 = 0, achlevel2_1 = 0, achlevel2_2 = 0, achlevel4_1 = 0, achlevel4_2 = 0 },
+	["default"] = { rank = 0, xp = 0 },
+}
 
 --[=[---------------------------------
 		Mr. Green's Shop Data
