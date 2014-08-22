@@ -28,7 +28,7 @@ end
 
 -- Poison zombie healing aura
 function meta:IsZombieInAura()
-	return self.InHealTime and  self.InHealTime > CurTime()
+	return self.InHealTime and self.InHealTime > CurTime()
 end
 
 function meta:GetHandsModel()
@@ -152,6 +152,12 @@ function meta:GetLevel()
 	return self.DataTable["ClassData"][ string.lower ( self:GetHumanClassString() ) ].level
 end
 
+--[=[-----------------------------------------------------------
+       Returns the name of the active human class
+------------------------------------------------------------]=]
+function meta:GetHumanClassString()
+	return HumanClasses[ self:GetHumanClass() ].Name
+end
 
 --[=[--------------------------------------
        See if player is a human
@@ -282,23 +288,6 @@ function meta:GetPistol()
 end
 
 --[=[---------------------------------------------------------
-     Used to get what 4th item the player is holding
----------------------------------------------------------]=]
-function meta:GetMisc() --Duby: This was added for the g4k system. If its removed as a module then this function has no purpose. 
-	local MyWeapons, Misc = self:GetWeapons(), {}
-
-	for k,v in pairs ( MyWeapons ) do
-		if v:IsValid() then
-			if v:GetType() == "misc" then
-				table.insert ( Misc, v )
-			end
-		end
-	end
-	
-	return Misc[1] or false
-end
-
---[=[---------------------------------------------------------
      Used to check if player has a weapon
 	 Note: This is a GLua function but it was only serverside
 ---------------------------------------------------------]=]
@@ -406,8 +395,13 @@ end
 --[==[---------------------------------------------------------
       Return the amount time left to ammo regen
 ---------------------------------------------------------]==]
-function meta:GetAmmoTime() --Duby:Clear out the function as it isn't used any more.
-
+function meta:GetAmmoTime()
+	if self:Team() ~= TEAM_HUMAN then return 0 end
+	
+	-- the variable is missing
+	if self.AmmoRegenTime == nil then return 0 end
+	
+	return self.AmmoRegenTime
 end
 
 --[==[----------------------------------------------------------
@@ -597,9 +591,8 @@ function meta:IsPoisonCrab()
 end
 
 --OBSOLETE?
---Duby: Yes, yes it is. 
 function meta:IsCrow ()
---	return self:GetZombieClass() == 9
+	return self:GetZombieClass() == 9
 end
 
 function meta:IsBoss()
@@ -618,13 +611,49 @@ function meta:IsZombine()
 	return self:GetZombieClass() == 8
 end
 
+--[==[---------------------------------------
+	See if a human is medic
+---------------------------------------]==]
+function meta:IsMedic()
+	return self:GetHumanClass() == 1
+end
+
+--[==[------------------------------------------
+	See if a human is commando
+--------------------------------------------]==]
+function meta:IsCommando()
+	return self:GetHumanClass() == 2
+end
+
+--[==[--------------------------------------------
+	See if a human is berserker
+----------------------------------------------]==]
+function meta:IsBerserker()
+	return self:GetHumanClass() == 3
+end
+
+--[==[------------------------------------------
+	See if a human is engineer
+--------------------------------------------]==]
+function meta:IsEngineer()
+	return self:GetHumanClass() == 4
+end
+
+--[==[------------------------------------------
+	See if a human is support
+------------------------------------------]==]
+function meta:IsSupport()
+	return self:GetHumanClass() == 5
+end
+
+
 --[==[-----------------------
 	Return logging tag
 ------------------------]==]
 function meta:GetClassTag()
 	if (self:IsHuman()) then
-	--	return HumanClasses[self:GetHumanClass()].Tag
-	--else
+		return HumanClasses[self:GetHumanClass()].Tag
+	else
 		return ZombieClasses[self:GetZombieClass()].Tag
 	end
 
@@ -635,6 +664,25 @@ end
 ---------------------------------------------------------]==]
 function meta:SetAmmoTime( Time, UpdateClient )
 	
+	--[==[if Time == nil then return end
+	if self:Team() ~= TEAM_HUMAN and SERVER then return end
+	
+	-- Initialize server-side checking variable since the timer is clientside
+	if SERVER then if self.ServerCheckTime == nil then self.ServerCheckTime = CurTime() + AMMO_REGENERATE_RATE end end
+
+	-- Update it
+	self.AmmoRegenTime = Time
+	
+	-- We can't update client with umsg if we are client
+	if CLIENT or UpdateClient == nil then return end
+	
+	-- Set it on the client
+	umsg.Start ( "UpdateAmmoTime", self )
+		umsg.Short ( self.AmmoRegenTime )
+	umsg.End()
+	
+	Debug ( "Updating client Ammo-Regeneration Timer. Countdown: "..tostring ( self.AmmoRegenTime ) )
+	]==]
 end
 
 --[==[----------------------------------------------------------------
@@ -746,17 +794,17 @@ end
   Used to see if a player is near toxic fumes (Shared)
 ------------------------------------------------------------]==]
 function meta:IsInToxicFumes(ToxicFumeTable)
-	--if not self:Alive() then return end
-	--if ToxicFumeTable == nil then return false end
+	if not self:Alive() then return end
+	if ToxicFumeTable == nil then return false end
 	
-	--for _, point in pairs( ToxicFumeTable ) do
-		--local vPos if SERVER then vPos = point:GetPos() else vPos = point end
-		--if self:GetPos():Distance( vPos + Vector( 0,0,40 ) ) < 140 then
-		--	return true
-		--end
-	--end
+	for _, point in pairs( ToxicFumeTable ) do
+		local vPos if SERVER then vPos = point:GetPos() else vPos = point end
+		if self:GetPos():Distance( vPos + Vector( 0,0,40 ) ) < 140 then
+			return true
+		end
+	end
 		
-	--return false
+	return false
 end
 
 function meta:IsStuck( position, smallbox)
@@ -915,12 +963,12 @@ function meta:SetHumanClass(cl)
 	self:ConCommand("_zs_redeemclass "..cl.."")
 		
 	--Add one point to each class chosen every time someone changes class. (for endgame stats)
-	--timer.Simple( 0.1, function() 
-		--if ValidEntity ( self ) then
-		--	local classname = HumanClasses[cl].Name
-		--	GAMEMODE.TeamMostChosenClass[ classname ] = GAMEMODE.TeamMostChosenClass[ classname ] + 1
-		--end
-	--end)
+	timer.Simple( 0.1, function() 
+		if ValidEntity ( self ) then
+			local classname = HumanClasses[cl].Name
+			GAMEMODE.TeamMostChosenClass[ classname ] = GAMEMODE.TeamMostChosenClass[ classname ] + 1
+		end
+	end)
 end
 
 function meta:SetMaximumHealth ( Max )
@@ -1495,6 +1543,27 @@ net.Receive( "DoHulls", function(len)
 	end)
 end)
 
+--[[----------------------------------------------------]]--
+
+function meta:HasBoughtPointsWithCoins()
+    return MySelf.BoughtPointsWithCoins
+end
+
+function meta:CanBuyPointsWithCoins()
+    return not MySelf.BoughtPointsWithCoins and MySelf:GreenCoins() >= 200
+end
+
+function meta:SetBoughtPointsWithCoins( bool )
+    MySelf.BoughtPointsWithCoins = bool
+end
+
+--[[----------------------]]--
+
+net.Receive("BoughtPointsWithCoins", function(len)
+    MySelf:SetBoughtPointsWithCoins(tobool(net.ReadBit()))
+end)
+
+--[[----------------------------------------------------]]--
 
 end
 
