@@ -148,9 +148,9 @@ function GM:SetBoss(value,isInsane,duration)
 	-- Disable unlife music for a while
 	if BOSSACTIVE then
 		--Play music
-		--[[timer.Simple(0.3, function()
+		timer.Simple(0.3, function() --Duby: We have music again! 
 			playBossMusic(isInsane)
-		end)]]
+			end)
 		boss.duration = duration
 		boss.endTime = CurTime() + duration
 
@@ -169,10 +169,10 @@ function GM:SetBoss(value,isInsane,duration)
 		Debug("[CLIENT] Boss has risen")
 	else
 		--
-		--timer.Destroy("LoopBossMusic")
+		timer.Destroy("LoopBossMusic")
 	
 		--Stop music
-		--RunConsoleCommand("stopsound")
+		RunConsoleCommand("stopsound")
 		
 		Debug("[CLIENT] Boss ran off")
 	end
@@ -182,14 +182,6 @@ net.Receive("StartBoss", function(len)
 	local isInsane = tobool(net.ReadBit())
 	local bossDuration = net.ReadFloat()
 	GAMEMODE:SetBoss(true,isInsane,bossDuration)
-	--timer.Simple(750,function()
-	--timer.Simple(1050,function()
-	--RunConsoleCommand("stopsound")
-	--surface.PlaySound("deadlife_mrgreen.mp3")
-	--end)
-	--if LASTHUMAN then --No idea this was made. But its stupid!
-	--RunConsoleCommand("stopsound")
-	--end
 end)
 
 net.Receive("StopBoss", function(len)
@@ -248,8 +240,10 @@ local function ManageChatTitles ( pl, Text, TeamOnly, PlayerIsDead )
 		if pl:Team() == TEAM_HUMAN then ColorToApply = Color( 0, 255, 0 ) end
 		if pl:Team() == TEAM_UNDEAD then ColorToApply = Color( 221, 219, 26 ) end
 		
-		if pl:IsAdmin() or pl:IsSuperAdmin() then
+		if pl:IsAdmin() then
 			ColorToApply = Color ( 255,0,0 )
+			elseif pl:IsSuperAdmin() then
+			ColorToApply = Color ( 0,0,225 )
 		end
 	
 		if pl.Title ~= nil and pl.Title ~= "" then

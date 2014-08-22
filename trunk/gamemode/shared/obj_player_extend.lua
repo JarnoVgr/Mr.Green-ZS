@@ -152,12 +152,6 @@ function meta:GetLevel()
 	return self.DataTable["ClassData"][ string.lower ( self:GetHumanClassString() ) ].level
 end
 
---[=[-----------------------------------------------------------
-       Returns the name of the active human class
-------------------------------------------------------------]=]
---function meta:GetHumanClassString()
-	--return HumanClasses[ self:GetHumanClass() ].Name
---end
 
 --[=[--------------------------------------
        See if player is a human
@@ -290,7 +284,7 @@ end
 --[=[---------------------------------------------------------
      Used to get what 4th item the player is holding
 ---------------------------------------------------------]=]
-function meta:GetMisc()
+function meta:GetMisc() --Duby: This was added for the g4k system. If its removed as a module then this function has no purpose. 
 	local MyWeapons, Misc = self:GetWeapons(), {}
 
 	for k,v in pairs ( MyWeapons ) do
@@ -413,12 +407,7 @@ end
       Return the amount time left to ammo regen
 ---------------------------------------------------------]==]
 function meta:GetAmmoTime() --Duby:Clear out the function as it isn't used any more.
---	if self:Team() ~= TEAM_HUMAN then return 0 end
-	
-	-- the variable is missing
-	--if self.AmmoRegenTime == nil then return 0 end
-	
-	--return self.AmmoRegenTime
+
 end
 
 --[==[----------------------------------------------------------
@@ -629,44 +618,6 @@ function meta:IsZombine()
 	return self:GetZombieClass() == 8
 end
 
---Duby: We don't have classes anymore. So it is only sensible to remove this.
-
---[==[---------------------------------------
-	See if a human is medic
----------------------------------------]==]
---function meta:IsMedic()
-	--return self:GetHumanClass() == 1
---end
-
---[==[------------------------------------------
-	See if a human is commando
---------------------------------------------]==]
---function meta:IsCommando()
-	--return self:GetHumanClass() == 2
---end
-
---[==[--------------------------------------------
-	See if a human is berserker
-----------------------------------------------]==]
---function meta:IsBerserker()
-	--return self:GetHumanClass() == 3
---end
-
---[==[------------------------------------------
-	See if a human is engineer
---------------------------------------------]==]
---function meta:IsEngineer()
-	--return self:GetHumanClass() == 4
---end
-
---[==[------------------------------------------
-	See if a human is support
-------------------------------------------]==]
---function meta:IsSupport()
-	--return self:GetHumanClass() == 5
---end
-
-
 --[==[-----------------------
 	Return logging tag
 ------------------------]==]
@@ -684,25 +635,6 @@ end
 ---------------------------------------------------------]==]
 function meta:SetAmmoTime( Time, UpdateClient )
 	
-	--[==[if Time == nil then return end
-	if self:Team() ~= TEAM_HUMAN and SERVER then return end
-	
-	-- Initialize server-side checking variable since the timer is clientside
-	if SERVER then if self.ServerCheckTime == nil then self.ServerCheckTime = CurTime() + AMMO_REGENERATE_RATE end end
-
-	-- Update it
-	self.AmmoRegenTime = Time
-	
-	-- We can't update client with umsg if we are client
-	if CLIENT or UpdateClient == nil then return end
-	
-	-- Set it on the client
-	umsg.Start ( "UpdateAmmoTime", self )
-		umsg.Short ( self.AmmoRegenTime )
-	umsg.End()
-	
-	Debug ( "Updating client Ammo-Regeneration Timer. Countdown: "..tostring ( self.AmmoRegenTime ) )
-	]==]
 end
 
 --[==[----------------------------------------------------------------
@@ -814,17 +746,17 @@ end
   Used to see if a player is near toxic fumes (Shared)
 ------------------------------------------------------------]==]
 function meta:IsInToxicFumes(ToxicFumeTable)
-	if not self:Alive() then return end
-	if ToxicFumeTable == nil then return false end
+	--if not self:Alive() then return end
+	--if ToxicFumeTable == nil then return false end
 	
-	for _, point in pairs( ToxicFumeTable ) do
-		local vPos if SERVER then vPos = point:GetPos() else vPos = point end
-		if self:GetPos():Distance( vPos + Vector( 0,0,40 ) ) < 140 then
-			return true
-		end
-	end
+	--for _, point in pairs( ToxicFumeTable ) do
+		--local vPos if SERVER then vPos = point:GetPos() else vPos = point end
+		--if self:GetPos():Distance( vPos + Vector( 0,0,40 ) ) < 140 then
+		--	return true
+		--end
+	--end
 		
-	return false
+	--return false
 end
 
 function meta:IsStuck( position, smallbox)
@@ -1563,29 +1495,6 @@ net.Receive( "DoHulls", function(len)
 	end)
 end)
 
---Duby: More of this Skillpoints for coins which isn't used anymore. 
-
---[[----------------------------------------------------]]--
-
---function meta:HasBoughtPointsWithCoins()
- --   return MySelf.BoughtPointsWithCoins
---end
-
---function meta:CanBuyPointsWithCoins()
-  --  return not MySelf.BoughtPointsWithCoins and MySelf:GreenCoins() >= 200
---end
-
---function meta:SetBoughtPointsWithCoins( bool )
- --   MySelf.BoughtPointsWithCoins = bool
---end
-
---[[----------------------]]--
-
---net.Receive("BoughtPointsWithCoins", function(len)
- --   MySelf:SetBoughtPointsWithCoins(tobool(net.ReadBit()))
---end)
-
---[[----------------------------------------------------]]--
 
 end
 
