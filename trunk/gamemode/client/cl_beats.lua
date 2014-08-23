@@ -84,15 +84,15 @@ function playBossMusic(insane)
 	
 	--Stop all sounds
 	RunConsoleCommand("stopsound")
-	
+	local table2 = { "deadlife_mrgreen.mp3","deadlife_mrgreen_insane.mp3" }
 	--Play the music
 	local songDuration = 277
-	local song = "deadlife_mrgreen.mp3"
+	local song = table2[math.random(1,#table2)]
 	
 	--INSANE music
 	if insane then
 		songDuration = 215
-		song = "deadlife_mrgreen_insane.mp3"
+		song = table2[math.random(1,#table2)]
 	end
 	
 	--Delayed play because of stopsound in same frame
@@ -144,7 +144,7 @@ ENABLE_BLOOD = false
 local NextBeat = 0
 local LastBeatLevel = 0
 local function PlayBeats(teamid, am)
-	if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
+	if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
 		return
 	end
 

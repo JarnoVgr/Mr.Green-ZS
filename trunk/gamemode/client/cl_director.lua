@@ -151,6 +151,9 @@ function GM:SetBoss(value,isInsane,duration)
 		--[[timer.Simple(0.3, function()
 			playBossMusic(isInsane)
 		end)]]
+		timer.Simple(0.3, function()
+			playBossMusic(isInsane)
+			end)
 		boss.duration = duration
 		boss.endTime = CurTime() + duration
 
@@ -169,7 +172,7 @@ function GM:SetBoss(value,isInsane,duration)
 		Debug("[CLIENT] Boss has risen")
 	else
 		--
-		--timer.Destroy("LoopBossMusic")
+		timer.Destroy("LoopBossMusic")
 	
 		--Stop music
 		--RunConsoleCommand("stopsound")
