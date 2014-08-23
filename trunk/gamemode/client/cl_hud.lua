@@ -128,8 +128,9 @@ function death.DeathZombieHUD()
 	surface.DrawRect (0,0, ScaleW(1280), ScaleH(162))
 	
 	-- Draw death text
-	draw.DrawText( "YOU ARE DEAD", "ArialBoldFifteen", ScaleW(642), ScaleH(44), Color (255,255,255,255), TEXT_ALIGN_CENTER )
-	draw.DrawText( "You will resurrect in "..( math.Round( math.Clamp ( MySelf.NextSpawn - CurTime(), 0, 100 ) ) ).." seconds.", "ArialTwelve", ScaleW(641), ScaleH(93), Color (135,135,135,255), TEXT_ALIGN_CENTER)
+	draw.DrawText( "YOU ARE DEAD", "NewZombieFont27", ScaleW(642), ScaleH(44), Color (255,255,255,255), TEXT_ALIGN_CENTER )
+	--draw.DrawText( "You will resurrect in "..( math.Round( math.Clamp ( MySelf.NextSpawn - CurTime(), 0, 100 ) ) ).." seconds.", "NewZombieFont27", ScaleW(641), ScaleH(150), Color (135,135,135,255), TEXT_ALIGN_CENTER)
+	draw.DrawText( "Try other zombie classes (F3)", "NewZombieFont27", ScaleW(641), ScaleH(150), Color (135,135,135,255), TEXT_ALIGN_CENTER)
 	
 	--local respleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
 	
@@ -173,14 +174,14 @@ function GM:ZombieObserverHUD(obsmode,bCanSpawn)
 		return
 	end
 	
-	surface.SetFont("NewZombieFont19")
+	surface.SetFont("NewZombieFont10")
 	local texw, texh = surface.GetTextSize("W")
 
 	local dyn
 	if obsmode == OBS_MODE_CHASE then
 		local target = MySelf:GetObserverTarget()
 		if target and target:IsValid() and target:IsPlayer() and target:Team() == TEAM_UNDEAD then
-			draw.SimpleText("Observing "..target:Name().." (+"..math.max(0, target:Health())..")", "NewZombieFont19", w * 0.5, h * 0.75 - texh - 32, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+			draw.SimpleText("Observing "..target:Name().." (+"..math.max(0, target:Health())..")", "NewZombieFont10", w * 0.5, h * 0.75 - texh - 32, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 			dyn = self:DynamicSpawnIsValid(target)
 		end
 	end
