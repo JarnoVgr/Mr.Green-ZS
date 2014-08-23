@@ -185,14 +185,6 @@ net.Receive("StartBoss", function(len)
 	local isInsane = tobool(net.ReadBit())
 	local bossDuration = net.ReadFloat()
 	GAMEMODE:SetBoss(true,isInsane,bossDuration)
-	--timer.Simple(750,function()
-	timer.Simple(1050,function()
-	RunConsoleCommand("stopsound")
-	surface.PlaySound("deadlife_mrgreen.mp3")
-	end)
-	if LASTHUMAN then 
-	RunConsoleCommand("stopsound")
-	end
 end)
 
 net.Receive("StopBoss", function(len)
@@ -251,10 +243,14 @@ local function ManageChatTitles ( pl, Text, TeamOnly, PlayerIsDead )
 		if pl:Team() == TEAM_HUMAN then ColorToApply = Color( 0, 255, 0 ) end
 		if pl:Team() == TEAM_UNDEAD then ColorToApply = Color( 221, 219, 26 ) end
 		
-		if pl:IsAdmin() or pl:IsSuperAdmin() then
+		if pl:IsAdmin() then
 			ColorToApply = Color ( 255,0,0 )
 		end
-	
+		
+		if pl:IsSuperAdmin() then
+			ColorToApply = Color ( 0,0,225 )
+		end
+		
 		if pl.Title ~= nil and pl.Title ~= "" then
 			table.insert( tab, ColorToApply )
 			table.insert( tab, "["..pl.Title.."] " )	

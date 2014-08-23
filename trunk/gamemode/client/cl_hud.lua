@@ -124,12 +124,12 @@ function death.DeathZombieHUD()
 	if ENDROUND then return end
 	
 	-- Draw black box
-	--surface.SetDrawColor (0,0,0,210)
-	--surface.DrawRect (0,0, ScaleW(1280), ScaleH(162))
+	surface.SetDrawColor (0,0,0,210)
+	surface.DrawRect (0,0, ScaleW(1280), ScaleH(162))
 	
 	-- Draw death text
-	--draw.DrawText( "YOU ARE DEAD", "ArialBoldFifteen", ScaleW(642), ScaleH(44), Color (255,255,255,255), TEXT_ALIGN_CENTER )
-	--draw.DrawText( "You will resurrect in "..( math.Round( math.Clamp ( MySelf.NextSpawn - CurTime(), 0, 100 ) ) ).." seconds.", "ArialTwelve", ScaleW(641), ScaleH(93), Color (135,135,135,255), TEXT_ALIGN_CENTER)
+	draw.DrawText( "YOU ARE DEAD", "ArialBoldFifteen", ScaleW(642), ScaleH(44), Color (255,255,255,255), TEXT_ALIGN_CENTER )
+	draw.DrawText( "You will resurrect in "..( math.Round( math.Clamp ( MySelf.NextSpawn - CurTime(), 0, 100 ) ) ).." seconds.", "ArialTwelve", ScaleW(641), ScaleH(93), Color (135,135,135,255), TEXT_ALIGN_CENTER)
 	
 	--local respleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
 	
