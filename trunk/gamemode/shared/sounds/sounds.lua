@@ -513,7 +513,7 @@ for _, tbl in pairs(Ambience) do
 end
 
 GameDeathHints = {
-	"Use props to fastly kill humans!",
+	"Use props to kill humans at a longer distance!!",
 	"Stick together as a team to win the game!",
 	"You usually get 3 greencoins for a human kill.",
 	"Headcrabs are small.Use them wisely!",
@@ -524,4 +524,8 @@ GameDeathHints = {
 	"More zombie classes are unlocked when roundtime passes!",
 	"As zombie, you can redeem by eating 4 brains (8 points)!",
 	"Death isn't endgame. You can redeem by eating 4 brains (8 points)!",
+	"Try other zombie classes! (F3)",
+	"If you are new or confused press f1 and have a read!",
+	"If you are new or confused ask an admin! (Red titles)",
+	"Do you have any idea's or questions? Visit the forums!",
 }	
