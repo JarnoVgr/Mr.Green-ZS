@@ -47,7 +47,8 @@ end
 GM.CalcMainActivityZombies[0] = function ( pl, vel )
 
 	local iSeq, iIdeal = pl:LookupSequence("zombie_run")
-	
+
+		
 	local wep = pl:GetActiveWeapon()
 	if IsValid(wep) and wep.GetClimbing and wep:GetClimbing() then
 		iSeq = 10
@@ -291,6 +292,7 @@ GM.CalcMainActivityZombies[5] = function ( pl, vel )
 	local iSeq, iIdeal = -1
 	
 	if fVelocity <= 0.5 then
+		--iIdeal = ACT_HL2MP_IDLE_ZOMBIE
 		iIdeal = ACT_HL2MP_IDLE_ZOMBIE
 	else
 		iIdeal = ACT_HL2MP_WALK_ZOMBIE_01 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)

@@ -50,7 +50,7 @@ CHRISTMAS = false
 FIRSTAPRIL = false
 
 --Boss stuff
-BOSS_TOTAL_PLAYERS_REQUIRED = 9
+BOSS_TOTAL_PLAYERS_REQUIRED = 20
 BOSS_CLASS = {10,11,13,16,17,18} -- 12
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {15} --Klinator
@@ -528,7 +528,7 @@ FORCE_NORMAL_GAMMA = false
 ANTI_VENT_CAMP = false -- come on! D:
 
 -- Set this to true to allow humans to shove other humans by pressing USE. Great for door blocking tards.
-ALLOW_SHOVE = false -- not needed with soft collisions
+ALLOW_SHOVE = true -- not needed with soft collisions
 
 -- Set this to true if you want your admins to be able to use the 'noclip' concommand.
 -- If they already have rcon then it's pointless to set this to false.
@@ -586,8 +586,8 @@ WARMUP_THRESHOLD = 4
 WARMUP_MODE = false
 
 --Not sure if it will work as planned, but whatever. This thing will shuffle the mapcycle sometimes
---MAPS_RANDOMIZER = false
-MAPS_RANDOMIZER = true
+MAPS_RANDOMIZER = false
+
 
 --Chance when the sale will occur
 SKILLSHOP_SALE = 70

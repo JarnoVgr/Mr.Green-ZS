@@ -14,7 +14,7 @@ SWEP.ViewModelFOV		= 52
 
 SWEP.Primary.ClipSize		= -1
 SWEP.Primary.DefaultClip	= -1
-SWEP.Primary.Damage			= 25
+SWEP.Primary.Damage			= 40
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "none"
 

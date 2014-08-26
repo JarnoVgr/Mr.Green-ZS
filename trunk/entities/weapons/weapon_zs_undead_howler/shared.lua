@@ -65,6 +65,7 @@ function SWEP:DoAttack(bPull)
 		
 	--Thirdperson animation and sound
 	mOwner:DoAnimationEvent(CUSTOM_PRIMARY)
+
 			
 	--Just server from here
 	if CLIENT then
@@ -110,13 +111,14 @@ function SWEP:DoAttack(bPull)
 
 		--Shakey shakey
 	--	local fFuckIntensity = fHitPercentage + 1
-		local fFuckIntensity = fHitPercentage + 2 --Duby test.
-	--	local fFuckIntensity = math.Clamp ( 4.5 - ( ( fDistance / iDistance ) * 10 ), 1, 2 )
+		local fFuckIntensity = fHitPercentage + 1.1 --Duby test.
+	--	local fFuckIntensity = math.Clamp ( 4.5 - (  fDistance  * 10 ), 1, 2 )
 
 		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 
 		-- Calculate base velocity
-		local Velocity = -1 * mOwner:GetForward() * 225
+		--local Velocity = -1 * mOwner:GetForward() * 225
+		local Velocity = -1 * mOwner:GetForward() * 125
 		if not bPull then
 			Velocity = -1 * Velocity * 2
 		end
@@ -158,7 +160,7 @@ end
 
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
-		mv:SetMaxSpeed(100)
+		mv:SetMaxSpeed(1)
 		return true
 	end
 end
