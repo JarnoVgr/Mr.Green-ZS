@@ -15,6 +15,7 @@ include("modules/debug/sh_debug.lua")
 resource.AddWorkshop("299110437") --Sound 1
 resource.AddWorkshop("299111187") --Sound 2
 resource.AddWorkshop("299079647") --Content
+resource.AddWorkshop("306782797") --Content 2
 
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("client/cl_chat.lua")
