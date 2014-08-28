@@ -96,7 +96,7 @@ function SWEP:DoAttack(bPull)
 		local fHitPercentage = math.Clamp(1 - (fDistance / self.Primary.Reach), 0, 1)
 															
 		--Inflict damage
-		local fDamage = math.Round(10 * fHitPercentage, 0, 10)
+		local fDamage = math.Round(20 * fHitPercentage, 0, 10)
 		if fDamage > 0 then
 			v:TakeDamage(fDamage, self.Owner, self)
 		end
@@ -124,7 +124,8 @@ function SWEP:DoAttack(bPull)
 		end
 		
 		--
-		Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random(250, 270)
+		--Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random(250, 270)
+		Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random(190, 230)
 		if not bPull then
 			Velocity = Vector(Velocity.x * 0.45, Velocity.y * 0.45, Velocity.z)
 		end

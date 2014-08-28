@@ -84,7 +84,7 @@ function playBossMusic(insane)
 	
 	--Stop all sounds
 	RunConsoleCommand("stopsound")
-	local table2 = { "deadlife_mrgreen.mp3","deadlife_mrgreen_insane.mp3" }
+	local table2 = { "deadlife_mrgreen.mp3","deadlife_mrgreen_insane.mp3","boss theme1.mp3","boss theme2.mp3","boss theme3.mp3" }
 	--Play the music
 	local songDuration = 277
 	local song = table2[math.random(1,#table2)]

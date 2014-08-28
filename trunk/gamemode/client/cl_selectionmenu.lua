@@ -5,7 +5,8 @@
 
 
 
-local SelectPanel = surface.GetTextureID( "zombiesurvival/hud/panel_texture" )
+--local SelectPanel = surface.GetTextureID( "zombiesurvival/hud/panel_texture" )
+local SelectPanel = surface.GetTextureID( "greencoins" )
 
 local Gradient = surface.GetTextureID( "gui/center_gradient" )
 
@@ -129,11 +130,12 @@ local function OnScrolled( pl, bind, pressed )
 	
 	--Delay next scroll		
 	--ScrollSpeed = CurTime() + 0.05
-	ScrollSpeed = CurTime() + 0.01
+	ScrollSpeed = CurTime() + 0.001
 
 	--Display weapons
 	ShowWeapons = true
-	LastScroll = CurTime() + 4
+	--LastScroll = CurTime() + 4
+	LastScroll = CurTime() + 6 --Duby: Lets set this permanently.  
 		
 	return true
 end
@@ -235,7 +237,7 @@ hook.Add ( "Initialize", "InitFonts", InitializeWeaponFonts )
 
 local StoredIcons = {}
 local storedicons = false
-
+local hudsplat = Material("greencoins.png") --Items for the HUD.
 function PaintNewWeaponSelection()
 	if util.tobool(GetConVarNumber("_zs_hidehud")) or not ValidEntity(MySelf) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND or not MySelf.ReadySQL then
 		return
@@ -345,12 +347,12 @@ function PaintNewWeaponSelection()
 	for i = 0, MaximumSlots do
 		if IsSlot[i] then
 		
-			-- draw.RoundedBox( 3,SLOT_POS[i].PosX, SLOT_POS[i].PosY,175,70, Color( 0, 0, 0, 150*math.Clamp(LastScroll - CurTime(),0,1) ) )
-			-- surface.SetTexture(Gradient)
-			-- surface.SetDrawColor(211, 238, 231, 10*math.Clamp(LastScroll - CurTime(),0,1) )
-			-- surface.DrawTexturedRectRotated(SLOT_POS[i].PosX+175/2,SLOT_POS[i].PosY+70/2,70-2,175-2,90)
-			
-			-- DrawBlackBox(SLOT_POS[i].PosX, SLOT_POS[i].PosY,MySelf.WepW,MySelf.WepH,math.Clamp(LastScroll - CurTime(),0,1))
+
+			surface.SetMaterial(hudsplat)
+			surface.SetDrawColor(225, 225, 225, 220 )
+			--surface.DrawTexturedRect( SLOT_POS[i].PosX+175/2,SLOT_POS[i].PosY+70/2,70-2,175-2,90 )
+			surface.DrawTexturedRect( SLOT_POS[i].PosX-60,SLOT_POS[i].PosY-400,340,175-2,180 )
+
 					
 			-- Font stuff for weapons 
 			local AmmoFont = "ArialBoldTen"
@@ -367,40 +369,41 @@ function PaintNewWeaponSelection()
 				end
 			end
 
-			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 60, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255*math.Clamp(LastScroll - CurTime(),0,1)))
+
+			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -300, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
 			
 			if StoredIcons[MyWeapons[i]:GetClass()] then-- killicon.GetImage( MyWeapons[i]:GetClass() )
 			
 				-- local ImgTable = killicon.GetImage( MyWeapons[i]:GetClass() ) 
 								
-				local ColorToDraw, Mult = Color ( 140,140,140,255*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
+				local ColorToDraw, Mult = Color ( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
 				if IsSlotActive[i] then
 				
-					ColorToDraw = Color ( 255,255,255,255*math.Clamp(LastScroll - CurTime(),0,1) ) 
-					surface.SetDrawColor( 255, 255, 255, 255*math.Clamp(LastScroll - CurTime(),0,1) )
-					surface.DrawOutlinedRect( SLOT_POS[i].PosX, SLOT_POS[i].PosY, MySelf.WepW, MySelf.WepH)
-					surface.DrawOutlinedRect( SLOT_POS[i].PosX+1, SLOT_POS[i].PosY+1, MySelf.WepW-2, MySelf.WepH-2 )
-					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 10, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255*math.Clamp(LastScroll - CurTime(),0,1)))
+					--olorToDraw = Color ( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ) 
+					--surface.SetDrawColor( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) )
+					--surface.DrawOutlinedRect( SLOT_POS[i].PosX, SLOT_POS[i].PosY, MySelf.WepW, MySelf.WepH)
+					--surface.DrawOutlinedRect( SLOT_POS[i].PosX+1, SLOT_POS[i].PosY - 300, MySelf.WepW-2, MySelf.WepH-2 )
+					--draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 10, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
 				
 				end
 				
-				surface.SetTexture(StoredIcons[MyWeapons[i]:GetClass()])	-- surface.GetTextureID( ImgTable.mat )
-				local wd,hg = surface.GetTextureSize(StoredIcons[MyWeapons[i]:GetClass()])-- surface.GetTextureID( ImgTable.mat )
-				local koefw, koefh = wd/175, hg/70
-				surface.DrawTexturedRect(SLOT_POS[i].PosX + 57.5,SLOT_POS[i].PosY + 12, wd, hg)			
+				--surface.SetTexture(StoredIcons[MyWeapons[i]:GetClass()])	-- surface.GetTextureID( ImgTable.mat )
+				--local wd,hg = surface.GetTextureSize(StoredIcons[MyWeapons[i]:GetClass()])-- surface.GetTextureID( ImgTable.mat )
+				--local koefw, koefh = wd/175, hg/70
+				--surface.DrawTexturedRect(SLOT_POS[i].PosX + 57.5,SLOT_POS[i].PosY + 12, wd, hg)			
 			else
 				surface.SetFont ( font )
 				local fWide, fTall = surface.GetTextSize(letter)
 		
 				-- Print weapon killicon
-				-- local PrimaryAmmo, SecondaryAmmo = MyWeapons[i]:Clip1(), MySelf:GetAmmoCount( MyWeapons[i]:GetPrimaryAmmoType() )
+				--local PrimaryAmmo, SecondaryAmmo = MyWeapons[i]:Clip1(), MySelf:GetAmmoCount( MyWeapons[i]:GetPrimaryAmmoType() )
 				local ColorToDraw, Mult = Color ( 140,140,140,255*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
 				if IsSlotActive[i] then
-					ColorToDraw = Color ( 255,255,255,255*math.Clamp(LastScroll - CurTime(),0,1) ) 
-					surface.SetDrawColor( 255, 255, 255, 255*math.Clamp(LastScroll - CurTime(),0,1) )
-					surface.DrawOutlinedRect( SLOT_POS[i].PosX, SLOT_POS[i].PosY, MySelf.WepW, MySelf.WepH)
-					surface.DrawOutlinedRect( SLOT_POS[i].PosX+1, SLOT_POS[i].PosY+1, MySelf.WepW-2, MySelf.WepH-2 )
-					draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 10, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255*math.Clamp(LastScroll - CurTime(),0,1)))
+					ColorToDraw = Color ( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ) 
+					surface.SetDrawColor( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) )
+					--surface.DrawOutlinedRect( SLOT_POS[i].PosX, SLOT_POS[i].PosY, MySelf.WepW, MySelf.WepH)
+					--surface.DrawOutlinedRect( SLOT_POS[i].PosX+1, SLOT_POS[i].PosY+1, MySelf.WepW-2, MySelf.WepH-2 )
+					--draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 10, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
 				end			
 			end
 		end

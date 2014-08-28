@@ -269,7 +269,7 @@ if pl:HasBought("ammoman") then
 	if healAmount > 5 then
 		pl:EmitSound(Sound("items/smallmedkit1.wav"))
 		pl:SetHealth(math.Clamp(currentHealth + healAmount, 0, maxHealth))
-		--pl:PrintMessage ( HUD_PRINTTALK, "[CRATES] You just got ammunition for your weapons and tools and restored "..math.Round ( healAmount ).." health!" )
+		pl:PrintMessage ( HUD_PRINTTALK, "[CRATES] You just got ammunition for your weapons and tools and restored "..math.Round ( healAmount ).." health!" )
 		
 		--Clear dot damage
 		pl:ClearDamageOverTime()

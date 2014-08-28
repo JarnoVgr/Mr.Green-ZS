@@ -40,12 +40,12 @@ end]]
 		end
 	end
 
-	pl = GAMEMODE:GetPlayerForBossZombie()
+	--pl = GAMEMODE:GetPlayerForBossZombie() --Duby: Lets disable bosses for now
 	if not pl then
 		return nil
 	end
 	
-	pl:SpawnAsZombieBoss()
+	--pl:SpawnAsZombieBoss() --Duby: Lets disable bosses for now
 
 	boss.count = boss.count + 1
 	
