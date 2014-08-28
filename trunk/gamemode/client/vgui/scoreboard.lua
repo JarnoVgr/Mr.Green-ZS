@@ -46,9 +46,9 @@ local function AddScoreboardItem(ply,list)
 		
 		if not IsValid(ply) then return end
 		
-		if ply:Team() == TEAM_UNDEAD then
+		--if ply:Team() == TEAM_UNDEAD then
 			col = team.GetColor( ply:Team() )
-		end
+		--end
 		draw.SimpleTextOutlined(ply:Nick() , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 	
@@ -69,9 +69,9 @@ local function AddScoreboardItem(ply,list)
 		
 		if not IsValid(ply) then return end
 		
-		if ply:Team() == TEAM_UNDEAD then
+		--if ply:Team() == TEAM_UNDEAD then
 			col = team.GetColor( ply:Team() )
-		end
+		--end
 		draw.SimpleTextOutlined(ply:Ping() , "ArialBoldFive", MainLabel[ply].Ping:GetWide()/2,MainLabel[ply].Ping:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 
@@ -83,13 +83,15 @@ local function AddScoreboardItem(ply,list)
 	-- MainLabel[ply].Deaths:SetTextColor( color_white )
 	-- MainLabel[ply].Deaths:SetContentAlignment( 5 )
 	MainLabel[ply].Health.Paint = function()
-		local col = Color (255,255,255,255)
+		local col = Color(255,255,255,255)
 		
-		if not IsValid(ply) then return end
-		
-		if ply:Team() == TEAM_UNDEAD then
-			col = team.GetColor( ply:Team() )
+		if not IsValid(ply) then
+			return
 		end
+		
+		--if ply:Team() == TEAM_UNDEAD then
+			col = team.GetColor( ply:Team() )
+		--end
 		
 		local txt = "+"..ply:Health()
 		if ply:Health() <= 0 then
@@ -111,9 +113,9 @@ local function AddScoreboardItem(ply,list)
 		
 		if not IsValid(ply) then return end
 		
-		if ply:Team() == TEAM_UNDEAD then
+		--if ply:Team() == TEAM_UNDEAD then
 			col = team.GetColor( ply:Team() )
-		end
+		--end
 		draw.SimpleTextOutlined(ply:GetScore() , "ArialBoldFive", MainLabel[ply].Kills:GetWide()/2,MainLabel[ply].Kills:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 	
