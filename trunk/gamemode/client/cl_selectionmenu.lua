@@ -237,7 +237,7 @@ hook.Add ( "Initialize", "InitFonts", InitializeWeaponFonts )
 
 local StoredIcons = {}
 local storedicons = false
-local hudsplat = Material("greencoins.png") --Items for the HUD.
+local hudsplat = Material("hudbackground.png") --Items for the HUD.
 function PaintNewWeaponSelection()
 	if util.tobool(GetConVarNumber("_zs_hidehud")) or not ValidEntity(MySelf) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND or not MySelf.ReadySQL then
 		return
