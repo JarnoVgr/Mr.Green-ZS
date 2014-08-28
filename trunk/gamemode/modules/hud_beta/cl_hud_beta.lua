@@ -1,17 +1,18 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-DRAW_BETA_HUD = true
-if not DRAW_BETA_HUD then
-	return
-end
-
 --Function table
 hud = {}
 
---Health indications
-hud.HealthIndication = { [1] = { Text = "Healthy as a horse", Percent = 1 }, [2] = { Text = "A few scratches..", Percent = 0.8 }, [3] = { Text = "Not looking good..", Percent = 0.6 }, [4] = { Text = "Search for a doctor!", Percent = 0.45 }, [5] = { Text = "You lost your guts!", Percent = 0.4 }, [6] = { Text = "Bleeding to death!", Percent = 0.25 } }
-hud.ZombieHealthIndication = { [1] = { Text = "Hungry as hell", Percent = 1 }, [2] = { Text = "It's just pain..", Percent = 0.8 }, [3] = { Text = "Not looking good..", Percent = 0.6 }, [4] = { Text = "Search for a poison aura!", Percent = 0.45 }, [5] = { Text = "I want gibs. NOW!", Percent = 0.4 }, [6] = { Text = "Crawling in my skin...", Percent = 0.25 } }
+local hudElementBackground = Material("hudbackground.png")
+
+--Health indication statusses
+local healthIndication = { { Text = "Healthy as a horse", Percent = 1 }, { Text = "A few scratches..", Percent = 0.8 }, { Text = "Not looking good..", Percent = 0.6 }, { Text = "Search for a doctor", Percent = 0.45 }, { Text = "You lost your guts", Percent = 0.4 }, { Text = "Bleeding to death!", Percent = 0.25 } }
+local zombieHealthIndication = { { Text = "Hungry as hell", Percent = 1 }, { Text = "It's just pain..", Percent = 0.8 }, { Text = "Not looking good..", Percent = 0.6 }, { Text = "Search for a poison aura!", Percent = 0.45 }, { Text = "I want gibs. NOW!", Percent = 0.4 }, { Text = "Crawling in my skin...", Percent = 0.25 } }
+
+--Order by percentage
+table.SortByMember(healthIndication, "Percent", false)
+table.SortByMember(zombieHealthIndication, "Percent", false)
 
 --Temporal panic bar
 hud.PanicBarColors = { [1] = { Percent = 1, Color = Color( 148,156,21,255 ) }, [2] = { Percent = 0.8, Color = Color( 179,145,42,255 ) }, [3] = { Percent = 0.6, Color = Color( 179,116,42,255 ) }, [4] = { Percent = 0.4, Color = Color( 191,77,26,255 ) }, [5] = { Percent = 0.2, Color = Color( 167,27,20,255 ) } }
@@ -28,14 +29,14 @@ local matHealthSplash, matSplashTop = surface.GetTextureID ("zombiesurvival/hud/
 
 --Avatar for classes
 hud.ZombieAvatarClass = { 
-	[1] = surface.GetTextureID ("zombiesurvival/classmenu/zombie"),
-	[2] = surface.GetTextureID ("zombiesurvival/classmenu/fastzombie"),
-	[3] = surface.GetTextureID ("zombiesurvival/classmenu/poisonzombie"),
-	[4] = surface.GetTextureID ("zombiesurvival/classmenu/wraith"),
-	[5] = surface.GetTextureID ("zombiesurvival/classmenu/howler"),
-	[6] = surface.GetTextureID ("zombiesurvival/classmenu/headcrab"),
-	[7] = surface.GetTextureID ("zombiesurvival/classmenu/poisonheadcrab"),
-	[8] = surface.GetTextureID ("zombiesurvival/classmenu/zombine"),
+	[1] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
+	[2] = surface.GetTextureID("zombiesurvival/classmenu/fastzombie"),
+	[3] = surface.GetTextureID("zombiesurvival/classmenu/poisonzombie"),
+	[4] = surface.GetTextureID("zombiesurvival/classmenu/wraith"),
+	[5] = surface.GetTextureID("zombiesurvival/classmenu/howler"),
+	[6] = surface.GetTextureID("zombiesurvival/classmenu/headcrab"),
+	[7] = surface.GetTextureID("zombiesurvival/classmenu/poisonheadcrab"),
+	[8] = surface.GetTextureID("zombiesurvival/classmenu/zombine"),
 }
 
 
@@ -102,7 +103,7 @@ end
 hook.Add("Initialize", "hud.InitFonts", hud.InitFonts)
 
 --[==[----------------------------------------
-	     Human HUD main
+		 Human HUD main
 -----------------------------------------]==]
 function hud.HumanHUD()
 	if not IsEntityValid(MySelf) or ENDROUND or not MySelf.ReadySQL or not MySelf:Alive() or IsClassesMenuOpen() or not MySelf:IsHuman() or util.tobool(GetConVarNumber("_zs_hidehud")) then
@@ -117,7 +118,7 @@ hook.Add("HUDPaint", "hud.HumanHUD", hud.HumanHUD)
 local matDangerSign = surface.GetTextureID ( "zombiesurvival/hud/danger_sign" )
 
 --[==[----------------------------------------
-	     Zombie HUD main
+		 Zombie HUD main
 -----------------------------------------]==]
 function hud.ZombieHUD()
 	if not IsEntityValid(MySelf) or ENDROUND then
@@ -318,14 +319,12 @@ function hud.DrawNewHumanHUD()
 	end
 	
 	--Draw!
-	hud.HudImages()
 	hud.DrawBossHealth()
 	hud.DrawAmmoPanel()
-	hud.DrawHealthPanel()
-	hud.DrawInflictionPanel()
-	hud.DrawStatsPanel()
+	hud.DrawHealth()
+	hud.DrawSkillPoints()
+	hud.DrawStats()
 	hud.DrawObjMessages()
-	hud.humanhealthstatus()
 	
 	if OBJECTIVE then
 		surface.SetTexture(hud.LeftGradient)
@@ -340,40 +339,40 @@ end
 local cachedEnts
 local nextEntsCache = -1
 function hud.DrawWeaponLabels()
-    if not IsEntityValid(MySelf) or ENDROUND or not MySelf.ReadySQL or not MySelf:Alive() or not MySelf:IsHuman() or IsClassesMenuOpen() or util.tobool(GetConVarNumber("_zs_hidehud")) then
-    	return
-    end
+	if not IsEntityValid(MySelf) or ENDROUND or not MySelf.ReadySQL or not MySelf:Alive() or not MySelf:IsHuman() or IsClassesMenuOpen() or util.tobool(GetConVarNumber("_zs_hidehud")) then
+		return
+	end
 
-    --Cache ents
-    if nextEntsCache < CurTime() then
-    	cachedEnts = ents.FindByClass("weapon_*")
-    	nextEntsCache = CurTime()+5
-    end
+	--Cache ents
+	if nextEntsCache < CurTime() then
+		cachedEnts = ents.FindByClass("weapon_*")
+		nextEntsCache = CurTime()+5
+	end
 
-    if not cachedEnts then
-    	return
-    end
-    
-    --Draw weapon name labels
-    
-    for k, ent in pairs(cachedEnts) do
-        if not ent or not IsValid(ent) or not ent:IsWeapon() or IsValid(ent:GetOwner()) or ent:GetPos():Distance( LocalPlayer():GetPos() ) > 400 then
-        	continue
-        end
+	if not cachedEnts then
+		return
+	end
+	
+	--Draw weapon name labels
+	
+	for k, ent in pairs(cachedEnts) do
+		if not ent or not IsValid(ent) or not ent:IsWeapon() or IsValid(ent:GetOwner()) or ent:GetPos():Distance( LocalPlayer():GetPos() ) > 400 then
+			continue
+		end
 
-        local camPos = ent:GetPos() + Vector( 0, 0, 8 )
+		local camPos = ent:GetPos() + Vector(0, 0, 8)
 
-        local camAngle = ( LocalPlayer():GetPos() - ent:GetPos() ):Angle()
-       	camAngle.p = 0
-        camAngle.y = camAngle.y + 90
-        camAngle.r = camAngle.r + 90
-                
-        local name = ent.PrintName or "Weapon"
-                
-        cam.Start3D2D( camPos, camAngle, 0.2 )
-        draw.SimpleTextOutlined( name, "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) ) 
-        cam.End3D2D()
-    end
+		local camAngle = ( LocalPlayer():GetPos() - ent:GetPos() ):Angle()
+		camAngle.p = 0
+		camAngle.y = camAngle.y + 90
+		camAngle.r = camAngle.r + 90
+				
+		local name = ent.PrintName or "Weapon"
+				
+		cam.Start3D2D( camPos, camAngle, 0.2 )
+		draw.SimpleTextOutlined( name, "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) ) 
+		cam.End3D2D()
+	end
 end
 hook.Add("PostDrawTranslucentRenderables", "RenderWeaponLabels", hud.DrawWeaponLabels)
 
@@ -382,142 +381,111 @@ function hud.DrawAmmoPanel()
 	if not ValidEntity(ActiveWeapon) then
 		return
 	end
-	local PrimaryAmmo, SecondaryAmmo = MySelf:GetActiveWeapon():Clip1(), MySelf:GetAmmoCount(MySelf:GetActiveWeapon():GetPrimaryAmmoType())
-	
-	--Options
-	local AmmoStepX,AmmoStepY = 12,12
-	local AmmoW,AmmoH = ScaleW(150), ScaleH(73)
-	local AmmoX,AmmoY = ScrW()-AmmoW-AmmoStepX, ScrH()-AmmoH-AmmoStepY
-	
-	MySelf.WepX,MySelf.WepY = AmmoX, AmmoY+AmmoH
-	MySelf.WepW,MySelf.WepH = AmmoW, AmmoH
-	
-	local w,h,x,y = AmmoW,AmmoH,AmmoX,AmmoY
-	
+	local currentClipSize, currentAmmo = MySelf:GetActiveWeapon():Clip1(), MySelf:GetAmmoCount(MySelf:GetActiveWeapon():GetPrimaryAmmoType())
+		
 	--Draw turret's ammo
 	if ActiveWeapon:GetClass() == "weapon_zs_tools_remote" then
 		for _,v in pairs (ents.FindByClass("zs_turret")) do
 			if v:GetTurretOwner() and v:GetTurretOwner() == MySelf then
-				PrimaryAmmo, SecondaryAmmo = v:GetDTInt(0),v:GetDTInt(2)
+				currentClipSize, currentAmmo = v:GetDTInt(0),v:GetDTInt(2)
 				break
 			end
 		end
 	end
 	
-	if ActiveWeapon.NoHUD then
+	if ActiveWeapon.NoHUD or currentClipSize == -1 then
 		return
 	end
 	
-	if PrimaryAmmo ~= -1 then
-		--Background
-		--DrawBlackBox(AmmoX,AmmoY,AmmoW,AmmoH)
+	local drawX, drawY, drawW, drawH = ScaleW(1110), ScaleH(880), ScaleW(150), ScaleH(270)
 		
-		--Ammo
-		
-		local ToDraw1 = PrimaryAmmo
-		
-		local xpos = x+14
-		--[[for _,v in pairs(Numbers) do
-			draw.SimpleText(v, "sNewAmmoFont20", xpos+w/2.5, y+h/2, Color(110,110,110,35), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
-		end]]
-		
-		draw.SimpleTextOutlined(ToDraw1, "ssNewAmmoFont20", xpos+w/2.5, y+h/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		if SecondaryAmmo > 0 then
-			local fWide, fTall = surface.GetTextSize ( "/" )
-			xpos = xpos + fWide
-		
-			--draw.SimpleTextOutlined("/", "NewZombieFont27", xpos+w/2.5, y+h/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		
-			fWide, fTall = surface.GetTextSize ( "888" )
-			xpos = xpos + fWide
-		
-			-- draw.SimpleText("888", "sNewAmmoFont13", xpos+w/2.5, y+h/2, Color(110,110,110,35), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
-			draw.SimpleTextOutlined(SecondaryAmmo, "ssNewAmmoFont9", xpos+w/4.5, y+h-45, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		end
+	if currentAmmo > 0 then
+
+		surface.SetFont("ssNewAmmoFont9")
+		local ammoTextWide, ammoTextTall = surface.GetTextSize(currentAmmo)
+
+		surface.SetFont("ssNewAmmoFont20")
+		local clipTextWide, clipTextTall = surface.GetTextSize(currentClipSize)
+
+		draw.SimpleTextOutlined(currentClipSize, "ssNewAmmoFont20", ScrW()-ScaleW(10)-ammoTextWide-10, ScrH()-(ScaleH(5)+clipTextTall), Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+		draw.SimpleTextOutlined(currentAmmo, "ssNewAmmoFont9", ScrW()-ScaleW(10)-ammoTextWide-5, ScrH()-(ScaleH(5)+clipTextTall), Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+	else
+		draw.SimpleTextOutlined(currentClipSize, "ssNewAmmoFont20", ScrW()-ScaleW(5), ScrH()-ScaleH(5), Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP, 1, Color(0,0,0,255))
 	end
 end
 
-local turreticon = surface.GetTextureID("killicon/turret")
-local hudsplat = Material("hudbackground.png") --Items for the HUD.
-function hud.DrawHealthPanel()
---Duby: This is everything in the lower left corner of the screen. Thanks Ywa thanks a lot for rejecting me..... :P 
-	--Options
-	local HealthStepX,HealthStepY = 30,40
-	local HealthW,HealthH = ScaleW(450), ScaleH(73)
-	local HealthX,HealthY = HealthStepX, ScrH()-HealthH-HealthStepY
-	--Health
-	
-	local ActualX = HealthX + ScaleW(5)
-	local ActualY = HealthY + HealthH/2
-		
-	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
+function hud.DrawSkillPoints()
+	--Background
+	surface.SetMaterial(hudElementBackground) 
+	surface.SetDrawColor(0, 0, 0, 255)
+	surface.DrawTexturedRect(ScaleW(-50), ScaleH(770), ScaleW(150), ScaleH(250))
 
-	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)	
-	
-	ActualX = ActualX + ScaleW(32)
-	
-	--local HPBarSizeW,HPBarSizeH = ScaleW(160),HealthH*0.56
-	local HPBarSizeW,HPBarSizeH = ScaleW(200),HealthH*0.56
-	
-	ActualX = ActualX + ScaleW(42)
-	ActualY = ActualY - HPBarSizeH/2
-	
+	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(860), ScaleH(890)
+	draw.SimpleText(MySelf:GetScore() or 0, "HUDBetaHeader", textX, textValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText("SP", "ssNewAmmoFont9", textX, textKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+end
 
-	surface.SetDrawColor( 0, 0, 0, 150)
-	surface.DrawRect(ActualX, ActualY, HPBarSizeW,HPBarSizeH )
-	surface.DrawRect(ActualX+5 , ActualY+5,  HPBarSizeW-10, HPBarSizeH-10 )	
+local turretIcon = surface.GetTextureID("killicon/turret")
+local healthPercentageDrawn, healthStatusText = 1, healthIndication[1].Text
+function hud.DrawHealth()
+	--Health?
+	surface.SetMaterial(hudElementBackground) 
+	surface.SetDrawColor(0, 0, 0, 255)
+	surface.DrawTexturedRect(ScaleW(-133),ScaleH(880), ScaleW(450), ScaleH(270))
+
+	--surface.SetMaterial() --Reset for later use of surface
+
+	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
+
+	--Draw health points text
+	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1005)
+	draw.SimpleText(healthPoints, "HUDBetaHeader", healthTextX, healthTextValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText("HP", "ssNewAmmoFont9", healthTextX, healthTextKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+
+	--Health bar begin
+
+	local barW, barH = ScaleW(190), ScaleH(35)
+	local barX, barY = healthTextX + ScaleW(30), ScaleH(880)+ScaleH(90)
 	
-	if not MySelf.HPBar then
-		MySelf.HPBar = 1
-	end
-	MySelf.HPBar = math.Clamp(math.Approach(MySelf.HPBar, fHealth / fMaxHealth, FrameTime() * 1.8), 0, 1)
-	local Stats2X,Stats2Y = ScaleW(120),ScaleH(950) --Duby: This is for the health options. eg: Healthy as a horse!
-	local Stats4X,Stats4Y = ScaleW(120),ScaleH(950) 
-	
-	--Color of healthbar
-	local colHealthBar, sHealthIndication = COLOR_HUD_HEALTHY
-	if 0.8 < iPercentage then
-		--draw.SimpleTextOutlined("Healthy as a horse!", "NewZombieFont7", Stats2X, Stats2Y, Color(255,255,255,225), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		colHealthBar = Color(204, 0, 0, 225)
-	elseif 0.6 < iPercentage then
-	--	draw.SimpleTextOutlined("Just a few scratches!", "NewZombieFont7", Stats2X, Stats2Y, Color(255,255,255,225), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		colHealthBar = Color(146, 142, 60, 225)	
-	elseif 0.4 < iPercentage then
-		--draw.SimpleTextOutlined("Feeling the Pain!", "NewZombieFont7", Stats2X, Stats2Y, Color(255,255,255,225), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		colHealthBar = Color(146, 142, 22, 225)		
-	elseif 0.3 < iPercentage then	
-		--draw.SimpleTextOutlined("Seeking a medic!", "NewZombieFont7", Stats2X, Stats2Y, Color(255,255,255,225), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		colHealthBar = Color(166, 79, 3, 225)
-	else
-		draw.SimpleTextOutlined("Near Death!!!", "NewZombieFont7", Stats4X, Stats4Y, Color(250,0,0,200), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		colHealthBar = Color(153, 7, 4,math.sin(RealTime() * 6) * 127.5 + 127.5 )
+	local healthPercentage, healthChanged = math.Clamp(healthPoints / maxHealthPoints, 0, 1), false
+	if healthPercentage ~= healthPercentageDrawn then
+		healthChanged = true
 	end
 
-	
-	 --Duby: I remade this part of the code as it was attached to the health bar.
-	local Stats3X,Stats3Y = ScaleW(65),ScaleH(950)
-	local Stats32X,Stats32Y = ScaleW(65),ScaleH(975)
-	local HP = MySelf:Health() --Set the variable for the local players health. 
-	draw.SimpleTextOutlined(HP, "HUDBetaHeader", Stats3X, Stats3Y, Color(255,255,255,255),TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER, 1, Color(0,0,0,255)) --Set the players HP.
-	draw.SimpleTextOutlined("HP", "ssNewAmmoFont9", Stats32X, Stats32Y, Color(255,255,255,255),TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255)) --Set the players HP.
-	
-	if MySelf:IsHuman() then
-		if MySelf:IsTakingDOT() then
-			if iPercentage > 0.3 then 
-				colHealthBar = COLOR_HUD_HURT 
+	healthPercentageDrawn = math.Clamp(math.Approach(healthPercentageDrawn, healthPercentage, FrameTime() * 1.8), 0, 1) --Smooth
+
+	--Determine health bar foreground color
+	local healthBarColor = Color(137, 30, 30, 255)
+	if MySelf:IsTakingDOT() or healthPercentageDrawn < 0.3 then
+		healthBarColor = Color(healthBarColor.r, healthBarColor.g, healthBarColor.b, math.abs( math.sin( CurTime() * 4 ) ) * 255 )
+	end
+
+	--Background
+	if healthPercentageDrawn ~= 1 then
+		surface.SetDrawColor(70, 20, 20, 255)
+		surface.DrawRect(barX, barY, barW, barH)
+	end
+
+	--Foreground
+	surface.SetDrawColor(healthBarColor)
+	surface.DrawRect(barX, barY, barW * healthPercentageDrawn, barH)
+
+	--Only update text if health changed
+	if healthChanged then
+		for k, v in ipairs(healthIndication) do
+			print(v.Text)
+			if healthPercentage >= v.Percent then
+				healthStatusText = v.Text
+				break
 			end
 		end
-
-		if MySelf:IsTakingDOT() or iPercentage < 0.3 then
-			colHealthBar = Color( colHealthBar.r, colHealthBar.g, colHealthBar.b, math.abs( math.sin( RealTime() * 4 ) ) * 255 )
-		end	
 	end
 	
-	surface.SetDrawColor(colHealthBar)
-	surface.DrawRect(ActualX+5 , ActualY+5, (HPBarSizeW-10)*MySelf.HPBar, HPBarSizeH-10 )
+	--Draw health status text
+	draw.SimpleText(healthStatusText, "NewZombieFont7", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	
+
+	--TODO: Make this look nice in the HUD
 	if IsValid(MySelf.MiniTurret) or IsValid(MySelf.Turret) then
 		local tur = MySelf.MiniTurret or MySelf.Turret
 		
@@ -535,7 +503,7 @@ function hud.DrawHealthPanel()
 		surface.SetDrawColor(0, 0, 0, 150)
 		surface.DrawRect(ActualX, ActualY, ScaleW(80),HPBarSizeH)
 		
-		surface.SetTexture(turreticon)
+		surface.SetTexture(turretIcon)
 		surface.SetDrawColor(255, 255, 255, 255)
 		surface.DrawTexturedRect(ActualX,ActualY,th,th)
 
@@ -546,192 +514,87 @@ function hud.DrawHealthPanel()
 	end
 end
 
-local nextreward = -1
-function hud.DrawStatsPanel()
-local pl = LocalPlayer()
-	--Stats
-	local StatsX,StatsY = 1100+ScaleW(7),34+ScaleH(85) --Duby: CENTER THIS CENTER THAT, WHAT A PISS TAKE!
-	local Stats2X,Stats2Y = 20+ScaleW(780),ScaleH(20)
-	local Stats3X,Stats3Y = ScaleW(430),ScaleH(20)
-	local Stats4X,Stats4Y = ScaleW(900),ScaleH(20)
-	local Stats5X,Stats5Y = ScaleW(530),ScaleH(20)
-	local Stats6X,Stats6Y = ScaleW(895),ScaleH(60)
-	local Stats7X,Stats7Y = ScaleW(790),ScaleH(60)
+local function DrawRoundTime()
+	--Initialize variables
+	local startX, keyStartY, valueStartY = ScaleW(640), ScaleH(10), ScaleH(50)
+	local timeLeft, keyText, valueColor = 0, "EVACUATION TIME", Color(255,255,255,255)
 
-	
-	surface.SetFont("ssNewAmmoFont6.5")
-	local fWide, fTall = surface.GetTextSize("GreenCoins")
-	draw.SimpleTextOutlined(MySelf:GreenCoins(), "ssNewAmmoFont13", Stats7X,Stats7Y , Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	draw.SimpleTextOutlined("GREENCOINS", "ssNewAmmoFont5", Stats2X, Stats2Y, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	draw.SimpleTextOutlined("LEVEL", "ssNewAmmoFont5", Stats4X, Stats4Y, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	draw.SimpleTextOutlined("SURVIVORS", "ssNewAmmoFont5", Stats3X, Stats3Y, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	draw.SimpleTextOutlined("UNDEAD", "ssNewAmmoFont5", Stats5X, Stats5Y, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	--draw.SimpleTextOutlined("Rank ".. MySelf:GetRank() .." (".. math.Round((MySelf:GetXP() / MySelf:NextRankXP()) * 100) .."%)", "NewZombieFont14", Stats2X, Stats2Y+fTall+4, Color(220,255,220,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	draw.SimpleTextOutlined(MySelf:GetRank(), "ssNewAmmoFont13", Stats6X,Stats6Y, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		
-	StatsY = StatsY + fTall + 2
-	
-	MySelf.SkillPoints = MySelf.SkillPoints or 0
-	
-	local text = MySelf:GetScore()
-	
-	--local ActualX = 12 + ScaleW(5) + ScaleW(295) + ScaleW(5)
-	local ActualX,ActualY = ScaleW(65),ScaleH(840) 
-	local Actual2X, Actual2Y = ScaleW(65),ScaleH(870) 
-	draw.SimpleTextOutlined(text, "HUDBetaKills", ActualX, ActualY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	draw.SimpleTextOutlined("SP", "ssNewAmmoFont9", Actual2X, Actual2Y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	--draw.SimpleTextOutlined(text, "HUDBetaZombieCount", StatsX, StatsY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-end
+	--Preparation (warmup)
+	if ServerTime() <= WARMUPTIME then
+		keyText = "PREPARATION TIME"
 
-function hud.humanhealthstatus() --Duby: WHY DON'T YOU FUCKING CENTER THAT, YOU WANT SOMETHING CENTERED DO IT YOUR FUCKING SELF!
-local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
+		timeLeft = math.max(0, WARMUPTIME - ServerTime())
 
-	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)	
-	local Stats2X,Stats2Y = ScaleW(140),ScaleH(950) --Duby: This is for the health options. eg: Healthy as a horse!
-	local Stats4X,Stats4Y = ScaleW(140),ScaleH(950) 
+		if timeLeft < 10 then
+			local glow = math.sin(CurTime() * 8) * 200 + 255
 
-local colHealthBar, sHealthIndication = COLOR_HUD_HEALTHY
-	if 0.8 < iPercentage then
-		draw.SimpleTextOutlined("Healthy as a horse!", "NewZombieFont7", Stats2X, Stats2Y, Color(255,255,255,225), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		--colHealthBar = Color(204, 0, 0, 225)
-	elseif 0.6 < iPercentage then
-		draw.SimpleTextOutlined("Just a few scratches!", "NewZombieFont7", Stats2X, Stats2Y, Color(255,255,255,225), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		--colHealthBar = Color(146, 142, 60, 225)	
-	elseif 0.4 < iPercentage then
-		draw.SimpleTextOutlined("Feeling the Pain!", "NewZombieFont7", Stats2X, Stats2Y, Color(255,255,255,225), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		--colHealthBar = Color(146, 142, 22, 225)		
-	elseif 0.3 < iPercentage then	
-		draw.SimpleTextOutlined("Seeking a medic!", "NewZombieFont7", Stats2X, Stats2Y, Color(255,255,255,225), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		--colHealthBar = Color(166, 79, 3, 225)
-	else
-		draw.SimpleTextOutlined("Near Death!!!", "NewZombieFont7", Stats4X, Stats4Y, Color(250,0,0,200), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		--colHealthBar = Color(153, 7, 4,math.sin(RealTime() * 6) * 127.5 + 127.5 )
-	end
+			--valueColor.g, valueColor.b = glow, glow
 
-end
-
-function hud.HudImages()
-
-
-	--Duby: This section is for the hud images at the top of the hud. 
-	
-	local Stats4X,Stats4Y = ScaleW(450),ScaleH(-120)
-	local Stats42X,Stats42Y = ScaleW(360),ScaleH(420)
-	
-	surface.SetMaterial(hudsplat) 
-	surface.SetDrawColor(0, 0, 0, 400 )
-	surface.DrawTexturedRect( Stats4X,Stats4Y, Stats42X, Stats42Y )
-	
-	local Stats9X,Stats9Y = ScaleW(650),ScaleH(-85)
-	local Stats92X,Stats92Y = ScaleW(360),ScaleH(320)	
-	
-	surface.SetMaterial(hudsplat) 
-	surface.SetDrawColor(0, 0, 0, 400 )
-	surface.DrawTexturedRect( Stats9X,Stats9Y, Stats92X, Stats92Y )
-	
-	local Stats10X,Stats10Y = ScaleW(280),ScaleH(-85)
-	local Stats102X,Stats102Y = ScaleW(360),ScaleH(320)	
-	
-	surface.SetMaterial(hudsplat) 
-	surface.SetDrawColor(0, 0, 0, 400 )
-	surface.DrawTexturedRect( Stats10X,Stats10Y, Stats102X, Stats102Y )
-	
-	 --Duby: Lets set a material the proper way :P
-local Stats5X,Stats5Y = ScaleW(-50),ScaleH(850) --Duby: This is for a hud graphic! :P
-local Stats6X,Stats6Y = ScaleW(400),ScaleH(250) 
---local Stats7X,Stats7Y = ScaleW(230),ScaleH(850) 
-local Stats7X,Stats7Y = ScaleW(-15),ScaleH(750) 
-local Stats8X,Stats8Y = ScaleW(150),ScaleH(250) 
-local Stats9X,Stats9Y = ScaleW(1110),ScaleH(870) 
-local Stats92X,Stats92Y = ScaleW(150),ScaleH(250) 
-
-
-	surface.SetMaterial(hudsplat) 
-	surface.SetDrawColor(0, 0, 0, 400 )
-	surface.DrawTexturedRect( Stats5X,Stats5Y, Stats6X, Stats6Y )
-	surface.SetMaterial(hudsplat) 
-	surface.SetDrawColor(0, 0, 0, 400 )
-	surface.DrawTexturedRect( Stats7X,Stats7Y, Stats8X,Stats8Y  )
-	
-	surface.SetMaterial(hudsplat) 
-	surface.SetDrawColor(0, 0, 0, 400 )
-	surface.DrawTexturedRect( Stats9X,Stats9Y, Stats92X,Stats92Y  )
-
-end
-
-
-
-
-function hud.DrawInflictionPanel()
-	local WaveX,WaveY = 12,12
-	local text1x, text1y = WaveX+ScaleW(7), WaveY+5
-	local Stats4X,Stats4Y = ScaleW(570),ScaleH(20)
-	local Stats5X,Stats5Y = ScaleW(640),ScaleH(60)--Round timer. 
-	local Stats6X,Stats6Y = ScaleW(430),ScaleH(40)--infliction humans. 
-	local Stats62X,Stats62Y = ScaleW(530),ScaleH(40)--infliction humans. 
-	local Stats7X,Stats7Y = ScaleW(470),ScaleH(0)--blood splat. 
-	local Stats8X,Stats8Y = ScaleW(640),ScaleH(20)
-
-	-- zero wave
-	local tw, th = surface.GetTextureSize(matHealthSplash)
-	local x,y = 700, ScrH()-tw-600
-
-	if ServerTime() <= WARMUPTIME then		
-		local timleft = math.max(0, WARMUPTIME - ServerTime())
-
-		if timleft < 10 then
-			local glow = math.sin(RealTime() * 8) * 200 + 255
-			draw.SimpleTextOutlined(ToMinutesSeconds(timleft + 1), "HUDBetaZombieCount", Stats5X,Stats5Y, Color(255, glow, glow), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			if lastwarntim ~= math.ceil(timleft) then
-				lastwarntim = math.ceil(timleft)
+			if lastwarntim ~= math.ceil(timeLeft) then
+				lastwarntim = math.ceil(timeLeft)
 				if 0 < lastwarntim then
 					surface.PlaySound(Sound("mrgreen/ui/menu_countdown.wav"))
 				end
 			end
-		else
-			draw.SimpleTextOutlined(ToMinutesSeconds(timleft + 1), "HUDBetaZombieCount", Stats5X,Stats5Y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			
 		end
 	else
-		local timleft = math.max(0, ROUNDTIME - ServerTime())
-		draw.SimpleTextOutlined( ToMinutesSeconds(timleft + 1), "HUDBetaZombieCount",Stats5X,Stats5Y , Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --Duby: Lets make this like the old Deluvas hud, but a little more swagy!
-
-    end
-		draw.SimpleTextOutlined("EVACUATION TIME", "ssNewAmmoFont5", Stats8X, Stats8Y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	draw.SimpleTextOutlined(cached_humans, "ssNewAmmoFont13",Stats6X,Stats6Y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-	draw.SimpleTextOutlined(cached_zombies, "ssNewAmmoFont13",Stats62X,Stats62Y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-	
-end
-
-hud.GradientExample = surface.GetTextureID( "gui/center_gradient" )
-
-
-local Quad = {} 
-function DrawPanelBlackBox(x,y,w,h,overridealpha)
-	local a = 1
-	
-	if overridealpha then
-		a = overridealpha
+		timeLeft = math.max(0, ROUNDTIME - ServerTime())
 	end
 	
-	surface.SetDrawColor( Color( 0, 0, 0, 240*a ) )
-	surface.DrawRect( x, y, w, h )
-		
-	
-	Quad.texture 	= hud.GradientExample
-	Quad.color		= Color(40,40,40,140*a)
- 
-	Quad.x = x
-	Quad.y = y
-	Quad.w = w
-	Quad.h = h
-	draw.TexturedQuad( Quad )
-		
-	surface.SetDrawColor( 30, 30, 30, 200*a )
-	surface.DrawOutlinedRect( x, y, w, h )
-	surface.SetDrawColor( 30, 30, 30, 255*a )
-	surface.DrawOutlinedRect( x+1, y+1, w-2, h-2 )
+	--Draw time
+	draw.SimpleText(keyText, "ssNewAmmoFont5", startX, keyStartY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText(ToMinutesSeconds(timeLeft + 1), "HUDBetaZombieCount", startX, valueStartY, Color(0,0,0,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+end
 
+local nextLevelKeySwitch, currentLevelKey = CurTime()+10, false
+function hud.DrawStats()
+	--Draw background
+	surface.SetMaterial(hudElementBackground) 
+	surface.SetDrawColor(0, 0, 0, 255)
+	surface.DrawTexturedRect(ScaleW(450), ScaleH(-140), ScaleW(360), ScaleH(420)) --Middle
+	surface.DrawTexturedRect(ScaleW(650), ScaleH(-105), ScaleW(360), ScaleH(320)) --Right	
+	surface.DrawTexturedRect(ScaleW(280), ScaleH(-105), ScaleW(360), ScaleH(320)) --Left
+
+	--Text drawing
+	surface.SetFont("ssNewAmmoFont6.5")
+
+	--Define Y-axis positions of keys and values
+	local keysStartY, valuesStartY = ScaleH(10), ScaleH(50)
+
+	--Draw Survivor team count
+	local startX = ScaleW(430)
+	draw.SimpleText("SURVIVORS", "ssNewAmmoFont5", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleTextOutlined(cached_humans, "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 87, 135, 170))
+
+	--Draw Undead team count
+	local startX = ScaleW(530)	
+	draw.SimpleText("UNDEAD", "ssNewAmmoFont5", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleTextOutlined(cached_zombies, "ssNewAmmoFont13",startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(137, 30, 30, 170))
+
+	--Draw GreenCoins
+	local startX = 20+ScaleW(780)
+	draw.SimpleText("GREENCOINS", "ssNewAmmoFont5", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleTextOutlined(MySelf:GreenCoins(), "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 135, 49, 170))
+
+	--Handle level key switching for current level and level completion percentage
+	if nextLevelKeySwitch <= CurTime() then
+		currentLevelKey = not currentLevelKey
+		nextLevelKeySwitch = CurTime()+10
+	end
+
+	if currentLevelKey then
+		--Draw current level
+		local startX = ScaleW(900)
+		draw.SimpleText("LEVEL", "ssNewAmmoFont5", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleTextOutlined(MySelf:GetRank(), "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 135, 49, 170))
+	else
+		--Draw level completion percentage
+		local startX = ScaleW(900)
+		draw.SimpleText("NEXT LEVEL", "ssNewAmmoFont5", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleTextOutlined(math.Round((MySelf:GetXP() / MySelf:NextRankXP()) * 100) .."%", "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 135, 49, 170))
+	end
+
+	DrawRoundTime()
 end
 
 function hud.DrawObjMessages()
@@ -777,13 +640,13 @@ hook.Add("PostDrawOpaqueRenderables","hud.DrawObjMessages",hud.DrawObjMessages)
 local title = "Heads up! Counter-Strike Source content not missing"
 local messages = 
 {
-    NotInstalled = [[It seems you do not have Counter-Strike Source installed
+	NotInstalled = [[It seems you do not have Counter-Strike Source installed
 which is recommended for the content in this game to display properly.]],
-    NotMounted = [[It seems you do not have Counter-Strike Source mounted. You
+	NotMounted = [[It seems you do not have Counter-Strike Source mounted. You
 can mount it by hitting escape and pressing the button with a game controller icon
 in the bottom-right corner of your screen, then checking 'Counter-Strike' and 
 eventually restarting the game!]],
-    NotBought = [[It seems you haven't bought Counter-Strike Source, 
+	NotBought = [[It seems you haven't bought Counter-Strike Source, 
 which is recommended for the content in this game to display properly.]]
 }
 
@@ -792,22 +655,78 @@ which is recommended for the content in this game to display properly.]]
 --  content status to the user. This occurs just after the main 
 --  loading screen.
 -- 
-hook.Add( "OnPlayerReadySQL", "CheckContentStatus", function()
-    local game = engine.Games["Counter-Strike"]
-    local message
-    
-    if ( not engine.IsGameBought( game ) ) then
-        message = messages.NotBought 
-    elseif ( not engine.IsGameInstalled( game ) ) then
-        message = messages.NotInstalled    
-    elseif ( not engine.IsGameMounted( game ) ) then
-        message = messages.NotMounted 
-    end
-    
-    if ( message ) then
-        Derma_Query( message, title, "Close" )
-    end
-end )
+hook.Add("OnPlayerReadySQL", "CheckContentStatus", function()
+	local game = engine.Games["Counter-Strike"]
+	local message
+	
+	if not engine.IsGameBought(game) then
+		message = messages.NotBought 
+	elseif not engine.IsGameInstalled(game) then
+		message = messages.NotInstalled    
+	elseif not engine.IsGameMounted(game) then
+		message = messages.NotMounted 
+	end
+	
+	if message then
+		Derma_Query(message, title, "Close")
+	end
+end)
 
 --[[----------------------------------------------------------------------------------]]
 
+local GradientExample = surface.GetTextureID("gui/center_gradient")
+
+function DrawBlackBox(x,y,w,h,overridealpha)
+	local LIGHTHUD = util.tobool(GetConVarNumber("_zs_enablelighthud"))
+	if LIGHTHUD then return end
+	local a = 1
+	
+	if overridealpha then
+		a = overridealpha
+	end
+	
+	surface.SetDrawColor( Color( 0, 0, 0, 240*a ) )
+	surface.DrawRect( x, y, w, h )
+		
+	local Quad = {} 
+	Quad.texture 	= GradientExample
+	Quad.color		= Color(40,40,40,140*a)
+ 
+	Quad.x = x
+	Quad.y = y
+	Quad.w = w
+	Quad.h = h
+	draw.TexturedQuad( Quad )
+		
+	surface.SetDrawColor( 30, 30, 30, 200*a )
+	surface.DrawOutlinedRect( x, y, w, h )
+	surface.SetDrawColor( 30, 30, 30, 255*a )
+	surface.DrawOutlinedRect( x+1, y+1, w-2, h-2 )
+end
+
+local Quad = {}
+function DrawPanelBlackBox(x,y,w,h,overridealpha)
+	local a = 1
+	
+	if overridealpha then
+		a = overridealpha
+	end
+	
+	surface.SetDrawColor( Color( 0, 0, 0, 240*a ) )
+	surface.DrawRect( x, y, w, h )
+		
+	
+	Quad.texture = GradientExample
+	Quad.color = Color(40,40,40,140*a)
+ 
+	Quad.x = x
+	Quad.y = y
+	Quad.w = w
+	Quad.h = h
+	draw.TexturedQuad(Quad)
+		
+	surface.SetDrawColor( 30, 30, 30, 200*a )
+	surface.DrawOutlinedRect( x, y, w, h )
+	surface.SetDrawColor( 30, 30, 30, 255*a )
+	surface.DrawOutlinedRect( x+1, y+1, w-2, h-2 )
+end
