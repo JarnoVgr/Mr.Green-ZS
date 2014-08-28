@@ -528,7 +528,7 @@ local function DrawRoundTime()
 		if timeLeft < 10 then
 			local glow = math.sin(CurTime() * 8) * 200 + 255
 
-			--valueColor.g, valueColor.b = glow, glow
+			valueColor.g, valueColor.b = glow, glow
 
 			if lastwarntim ~= math.ceil(timeLeft) then
 				lastwarntim = math.ceil(timeLeft)
@@ -542,8 +542,9 @@ local function DrawRoundTime()
 	end
 	
 	--Draw time
+	print("WAT WAT WAT")
 	draw.SimpleText(keyText, "ssNewAmmoFont5", startX, keyStartY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleText(ToMinutesSeconds(timeLeft + 1), "HUDBetaZombieCount", startX, valueStartY, Color(0,0,0,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText(ToMinutesSeconds(timeLeft + 1), "HUDBetaZombieCount", startX, valueStartY, valueColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 end
 
 local nextLevelKeySwitch, currentLevelKey = CurTime()+10, false
