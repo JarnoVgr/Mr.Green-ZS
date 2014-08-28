@@ -542,7 +542,6 @@ local function DrawRoundTime()
 	end
 	
 	--Draw time
-	print("WAT WAT WAT")
 	draw.SimpleText(keyText, "ssNewAmmoFont5", startX, keyStartY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	draw.SimpleText(ToMinutesSeconds(timeLeft + 1), "HUDBetaZombieCount", startX, valueStartY, valueColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 end
