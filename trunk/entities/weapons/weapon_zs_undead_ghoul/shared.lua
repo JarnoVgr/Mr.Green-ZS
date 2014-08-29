@@ -1,5 +1,5 @@
 AddCSLuaFile()
-
+--Made by Duby :P
 if CLIENT then
 	SWEP.PrintName = "Ghouler"
 	SWEP.ViewModelFOV = 70
@@ -40,7 +40,7 @@ SWEP.Primary.Delay = 0.7
 --SWEP.Primary.Delay = 0.9
 --SWEP.Primary.Delay = 1.2
 --SWEP.Primary.Damage = 25
-SWEP.Primary.Damage = 15
+SWEP.Primary.Damage = 18
 SWEP.Primary.Reach = 45
 
 SWEP.SwapAnims = false

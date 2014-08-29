@@ -486,6 +486,7 @@ function hud.DrawHealth()
 	
 
 	--TODO: Make this look nice in the HUD
+	--Duby: Ywa this causes script errors and removes the whole hud when a player has both turrets. So I am going to do something with this soon. 
 	if IsValid(MySelf.MiniTurret) or IsValid(MySelf.Turret) then
 		local tur = MySelf.MiniTurret or MySelf.Turret
 		

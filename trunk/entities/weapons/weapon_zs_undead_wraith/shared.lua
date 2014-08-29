@@ -120,7 +120,7 @@ function SWEP:IsDisguised()
 end
 
 function SWEP:SecondaryAttack()
-	-- if self.Disguised then return end
+	 if self.Disguised then return end
 	if self:IsDisguised() then
 		return
 	end
@@ -142,6 +142,8 @@ function SWEP:SecondaryAttack()
 	
 	
 end
+
+
 
 -- Play teleport fail sound
 --[[function SWEP:TeleportFail()
@@ -182,16 +184,4 @@ util.PrecacheSound("ambient/machines/slicer3.wav")
 util.PrecacheSound("ambient/machines/slicer4.wav")
 util.PrecacheSound("npc/zombie/claw_miss1.wav")
 util.PrecacheSound("npc/zombie/claw_miss2.wav")
-
-
-
-  
-
-
-
-
-
-
-
-
 

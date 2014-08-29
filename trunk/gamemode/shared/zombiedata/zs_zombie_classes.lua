@@ -169,7 +169,7 @@ ZombieClasses[1] =
 	end,
 	--Unique = "Can be deadly in numbers. Can Propkill.",	
 	PlayerFootstep = true,
-	 ModelScale = 0.9
+	-- ModelScale = 0.9
 }
 
 ZombieClasses[2] = 
@@ -231,7 +231,7 @@ ZombieClasses[3] =
 	Tag = "poisonzombie",
 	Infliction = 0.55,
 	--Health = 400,
-	Health = 500,
+	Health = 550,
 	MaxHealth = 650,
 	TimeLimit = 810,
 	Bounty = 130,
@@ -392,7 +392,7 @@ ZombieClasses[7] =
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
 	Infliction = 0.4,
-	Health = 50,
+	Health = 70,
 	MaxHealth = 100,
 	Bounty = 70,
 	SP = 12,
@@ -429,7 +429,7 @@ ZombieClasses[8] =
 	Name = "Zombine",
 	Tag = "zombine",
 	Infliction = 0.75,
-	Health = 300,
+	Health = 350,
 	MaxHealth = 320, 
 	TimeLimit = 1020,
 	Bounty = 150,
