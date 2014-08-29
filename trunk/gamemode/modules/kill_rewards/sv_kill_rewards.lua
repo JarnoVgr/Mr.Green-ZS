@@ -119,6 +119,7 @@ function gun_race:ProcessUpgrades( _p, _frags )
 							return
 							end
 							_p:StripWeapon(holdingItem:GetClass())
+
 							end 
 						--if holdingItem2 and IsValid(holdingItem2) then
 							--_p:StripWeapon(holdingItem2:GetClass())
@@ -139,6 +140,7 @@ function gun_race:ProcessUpgrades( _p, _frags )
 				-- Give weapon from table of weapons
 
 				_p:Give( v );
+				_p:PrintMessage ( HUD_PRINTTALK, "[G4K]" )
 			end
 		elseif ( isstring( _weapons ) ) then
 			-- Debug output
@@ -146,6 +148,9 @@ function gun_race:ProcessUpgrades( _p, _frags )
 
 			-- Give weapon from STRING
 			_p:Give( _weapons );
+			--_p:PrintMessage ( HUD_PRINTTALK, "[G4K] You have just recieved a new weapon!" )
+			_p:PrintMessage ( HUD_PRINTTALK, "[G4K]" )
+			--surface.PlaySound("beep22.wav")
 		else
 			-- Debug output
 			gun_race.log( "_weapons from the upgrade-table doesn't appear to be a table, or a string!", Color( 255, 0, 0, 255 ) );
