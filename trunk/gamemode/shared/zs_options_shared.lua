@@ -233,7 +233,6 @@ GM.HumanWeapons = {
 	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 2600 }, --Seems to work fine now.
 	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle" },
 	["weapon_zs_minishotty"]  = { Name = "Farter shotgun", DPS = 143, Infliction = 0, Type = "shotgun" },
-	["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143, Infliction = 0, Type = "shotgun" },
 	["weapon_zs_python"]  = { Name = "Python", DPS = 143, Infliction = 0, Type = "pistol" },
 	
 	
@@ -259,6 +258,7 @@ GM.HumanWeapons = {
 	["weapon_zs_pickup_propane"]  = { Name = "Dangerous Propane Tank", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_pickup_flare"]  = { Name = "Rusty Flare", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_pickup_gasmask"]  = { Name = "Old Gas Mask", DPS = 0, Infliction = 0, Type = "misc" },
+	["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143, Infliction = 0, Type = "misc" },
 
 	--HL2 weapons
 	["weapon_357"] = { Name = ".357 Original", DPS = 0, Infliction = 0.2, Type = "admin", Restricted = true  },
@@ -474,7 +474,7 @@ CARRY_DRAG_VOLUME = 100
 --CARRY_DRAG_VOLUME = 80
 
 -- Humans can not carry anything with a volume more than this (OBBMins():Length() + OBBMaxs():Length()).
-CARRY_MAXIMUM_VOLUME = 120
+CARRY_MAXIMUM_VOLUME = 90
 --CARRY_MAXIMUM_VOLUME = 100
 --CARRY_MAXIMUM_VOLUME = 120
 
