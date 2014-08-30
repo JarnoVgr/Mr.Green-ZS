@@ -245,12 +245,12 @@ local VotePointTable = {}
 function GM:SendVotemaps ( to )
 	local VoteMaps = self:GetVoteMaps()
 	
-	if ( #VoteMaps < 3 ) then 
+	if ( #VoteMaps < 6 ) then 
 	   return -- Deluvas; what kind of error handling system is this
 	end
 
 	net.Start("ReceiveVoteMaps")
-	for i = 1, 3 do 
+	for i = 1, 6 do 
 		local key = VoteMaps[i][1]
 		VotePointTable[key] = { Votes = 0, Map = { FileName = VoteMaps[i][1], FriendlyName = VoteMaps[i][2] } }
 			

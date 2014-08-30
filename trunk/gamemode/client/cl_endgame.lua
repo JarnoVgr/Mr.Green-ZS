@@ -105,7 +105,8 @@ usermessage.Hook("RcTopTimes", ReceiveTopTimes)
 local VotePoints = {}
 
 net.Receive("ReceiveVoteMaps", function(len)
-	for i = 1, 3 do
+	--for i = 1, 3 do
+	for i = 1, 6 do
 	    local key = net.ReadString()
 	    local friendlyname = net.ReadString()
 	    VotePoints[key] = { Votes = 0, Map = { FileName = key, FriendlyName = friendlyname } }

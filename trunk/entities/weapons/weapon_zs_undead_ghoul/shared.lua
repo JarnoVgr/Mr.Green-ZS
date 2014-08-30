@@ -93,44 +93,6 @@ function SWEP:PostPerformPrimaryAttack(hit)
 	end
 end
 
-
-
-function SWEP:StartSecondaryAttack()			
-	--Hacky way for the animations
-	if self.SwapAnims then
-		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
-	else
-		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
-	end
-	self.SwapAnims = not self.SwapAnims
-	
-	--Set the thirdperson animation and emit zombie attack sound
-	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
-  
-	--Emit sound
-	if SERVER and #self.AttackSounds > 0 then
-		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))
-	end
-end
-
-function SWEP:PostPerformSecondaryAttack(hit)
-	if CLIENT then
-		return
-	end
-
-	if hit then
-		self.Owner:EmitSound(Sound("npc/zombie/zombie_hit.wav".. math.random(1, 8) ..".wav"))
-		
-		
-	else
-		self.Owner:EmitSound(Sound("npc/zombie/claw_miss1.wav"..math.random(1, 2)..".wav"))
-		
-		
-	end
-end
-
-
-
 function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
 

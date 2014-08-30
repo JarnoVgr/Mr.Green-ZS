@@ -22,8 +22,8 @@ end
  
 
 SWEP.Primary.Duration = 1.5
-SWEP.Primary.Delay = 0.6
-SWEP.Primary.Reach = 48
+SWEP.Primary.Delay = 0.5
+SWEP.Primary.Reach = 50
 SWEP.Primary.Damage = 40
 
 SWEP.EmitWraithSound = 0
@@ -120,6 +120,7 @@ function SWEP:IsDisguised()
 end
 
 function SWEP:SecondaryAttack()
+--[[
 	 if self.Disguised then return end
 	if self:IsDisguised() then
 		return
@@ -140,7 +141,7 @@ function SWEP:SecondaryAttack()
 		self.Owner:EmitSound(Sound("npc/stalker/stalker_scream"..math.random(1,4)..".wav"), 80, math.random(100, 115))
 	end
 	
-	
+	]]--
 end
 
 

@@ -141,6 +141,7 @@ ZombieClasses[1] =
 	Unique = "",
 	Description = "The support of the horde! ",
 	OnSpawn = function(pl)
+			if pl:Team() == TEAM_UNDEAD and pl:GetZombieClass() == 1 then
 	--pl:ManipulateBonePosition(math.Rand(1, 15) , Vector( math.Rand( 5, 5), math.Rand( 5, 5), math.Rand( 1, 5)) )
 		
 		local b = pl:LookupBone("ValveBiped.Bip01_Head1")
@@ -149,8 +150,8 @@ ZombieClasses[1] =
 		local d = pl:LookupBone("ValveBiped.Bip01_R_Foot")
 	pl:ManipulateBonePosition( d, Vector(1,2,3))
 	
-		local e = pl:LookupBone("ValveBiped.Bip01_L_Foot")
-	pl:ManipulateBonePosition( e, Vector(1,-10,3))
+		--local e = pl:LookupBone("ValveBiped.Bip01_L_Foot")
+	--pl:ManipulateBonePosition( e, Vector(1,-10,3))
 	
 		local f = pl:LookupBone("ValveBiped.Bip01_R_Hand")
 	pl:ManipulateBonePosition( f, Vector(1,5,1))
@@ -159,13 +160,14 @@ ZombieClasses[1] =
 	pl:ManipulateBonePosition( g, Vector(1,-5,5))
 	
 		local h = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	pl:ManipulateBonePosition( h, Vector(1,15,1))
+	pl:ManipulateBonePosition( h, Vector(1,5,1))
 	
 		local i = pl:LookupBone("ValveBiped.Bip01_Spine2")
-	pl:ManipulateBonePosition( i, Vector(1,-5,1))
+	pl:ManipulateBonePosition( i, Vector(1,1,1))
 		
-		
-			
+		else
+			return
+				end
 	end,
 	--Unique = "Can be deadly in numbers. Can Propkill.",	
 	PlayerFootstep = true,
@@ -243,7 +245,7 @@ ZombieClasses[3] =
 	CanGib = true,
 	SWEP = "weapon_zs_undead_poisonzombie",
 	Model = Model( "models/Zombie/Poison.mdl" ),
-	Speed = 170,
+	Speed = 175,
 	Description = "A hulking mass of flesh far more durable than any other zombie.",
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> SPECIAL: Propkill" },
 	PainSounds = {
@@ -302,6 +304,9 @@ ZombieClasses[4] =
 				 Sound("wraithdeath3.wav"),
 				 Sound("wraithdeath4.wav")
 				},
+	OnSpawn = function(pl)	
+	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,2))
+	end,
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
@@ -1005,7 +1010,7 @@ ZombieClasses[18] = --Creep and Play!
 	--Model = Model("models/player/corpse1.mdl"), 
 	Model = Model("models/player/zombie_classic.mdl"), 
 	Speed = 140,
-	Description = "An experiment gone wrong out hunting the nooby!",
+	Description = "An experiment gone wrong, its now out hunting the nooby!",
 	Unique = "",
 	
 	OnSpawn = function(pl)	
