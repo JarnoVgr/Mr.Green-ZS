@@ -487,6 +487,7 @@ function hud.DrawHealth()
 
 	--TODO: Make this look nice in the HUD
 	--Duby: Ywa this causes script errors and removes the whole hud when a player has both turrets. So I am going to do something with this soon. 
+--[[
 	if IsValid(MySelf.MiniTurret) or IsValid(MySelf.Turret) then
 		local tur = MySelf.MiniTurret or MySelf.Turret
 		
@@ -494,17 +495,17 @@ function hud.DrawHealth()
 			return
 		end
 
-		surface.SetFont("NewZombieFont27")
+		surface.SetFont("ssNewAmmoFont13")
 		local fSPTextWidth, fSPTextHeight = surface.GetTextSize(MySelf:GetScore() .." SP")
 	
-		ActualX = ActualX + HPBarSizeW + ScaleW(20) + fSPTextWidth
+		ActualX = ActualX + HPBarSizeW + ScaleW(40) + fSPTextWidth
 	
 		local th = HPBarSizeH
 	
 		surface.SetDrawColor(0, 0, 0, 150)
 		surface.DrawRect(ActualX, ActualY, ScaleW(80),HPBarSizeH)
 		
-		surface.SetTexture(turretIcon)
+		surface.SetTexture(turreticon)
 		surface.SetDrawColor(255, 255, 255, 255)
 		surface.DrawTexturedRect(ActualX,ActualY,th,th)
 
@@ -513,6 +514,7 @@ function hud.DrawHealth()
 				
 		draw.SimpleTextOutlined(tur:GetAmmo().."/"..tur:GetMaxAmmo(), "ssNewAmmoFont6.5", ActualX, ActualY+th/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
+	]]--
 end
 
 local function DrawRoundTime()
