@@ -118,6 +118,9 @@ function gun_race:ProcessUpgrades( _p, _frags )
 						if _p:GetPerk("_comeback") then --If they have the comeback perk then don't give them any more weapons. (They have good enough weapons with this perk anyway.)
 							return
 							end
+						if _p:GetPerk("_imortalpro") then
+							return
+							end
 							_p:StripWeapon(holdingItem:GetClass())
 
 							end 
