@@ -54,7 +54,7 @@ gun_race.config = {
 		[ 5 ] 	= { "weapon_zs_alyx" };
 		[ 10 ] 	= { "weapon_zs_p90"};
 		[ 25 ] 	= { "weapon_zs_ak47" };
-		[ 45 ] 	= { "weapon_zs_m249" };
+		[ 50 ] 	= { "weapon_zs_m249" };
 
 	};
 };
