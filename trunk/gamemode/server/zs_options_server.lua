@@ -37,7 +37,7 @@ IRC_RELAY_SERVER = "irc.gtanet.com"
 IRC_RELAY_CHANNEL = "#mrgreen.zs"
 
 --Supply Crate recharge time
-SUPPLYCRATE_RECHARGE_TIME = 160
+SUPPLYCRATE_RECHARGE_TIME = 180
 
 
 -- ----------------------------

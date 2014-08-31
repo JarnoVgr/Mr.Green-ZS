@@ -309,7 +309,7 @@ GM.SkillShopAmmo = {
 -- Players are given double these amounts if 75% or above Infliction.
 -- Changing these means you're an idiot.
 -- Duby: This is confusing when it has this name... Its the amount of ammo which the crate gives out. :P
-
+--[[
 GM.AmmoRegeneration = {
 	["ar2"] = 80, --Rifle
 	["alyxgun"] = 16,
@@ -318,6 +318,32 @@ GM.AmmoRegeneration = {
 	["357"] = 20, --Sniper
 	["xbowbolt"] = 5,
 	["buckshot"] = 35, --Shotgun
+	["ar2altfire"] = 1,
+	["slam"] = 2, --Explosive
+	["rpg_round"] = 1,
+	["smg1_grenade"] = 1,
+	["sniperround"] = 1,
+	["sniperpenetratedround"] = 5,
+	["grenade"] = 1, --Grenade
+	["thumper"] = 1,
+	["gravity"] = 3, --Nail
+	["battery"] = 30, --Medkit
+	["gaussenergy"] = 50,
+	["combinecannon"] = 10,
+	["airboatgun"] = 100,
+	["striderminigun"] = 100,
+	["helicoptergun"] = 100
+}
+]]--
+
+GM.AmmoRegeneration = {
+	["ar2"] = 60, --Rifle
+	["alyxgun"] = 16,
+	["pistol"] = 30, --Pistol
+	["smg1"] = 60, --SMG
+	["357"] = 15, --Sniper
+	["xbowbolt"] = 5,
+	["buckshot"] = 25, --Shotgun
 	["ar2altfire"] = 1,
 	["slam"] = 2, --Explosive
 	["rpg_round"] = 1,
@@ -458,23 +484,23 @@ UNDEAD_START_AMOUNT_MINIMUM = 2
 DIFFICULTY = 1.5
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
-CARRY_MAXIMUM_MASS = 1000
+CARRY_MAXIMUM_MASS = 2000
 --CARRY_MAXIMUM_MASS = 60
 --CARRY_MAXIMUM_MASS = 120
 
 -- Objects with more mass than this will be dragged instead of carried.
-CARRY_DRAG_MASS = 100
+CARRY_DRAG_MASS = 130
 --CARRY_DRAG_MASS = 130
 --CARRY_DRAG_MASS = 60
 
 -- Anything bigger than this is dragged regardless of mass.
-CARRY_DRAG_VOLUME = 100
+CARRY_DRAG_VOLUME = 700
 --CARRY_DRAG_VOLUME = 80
 --CARRY_DRAG_VOLUME = 60
 --CARRY_DRAG_VOLUME = 80
 
 -- Humans can not carry anything with a volume more than this (OBBMins():Length() + OBBMaxs():Length()).
-CARRY_MAXIMUM_VOLUME = 90
+CARRY_MAXIMUM_VOLUME = 110
 --CARRY_MAXIMUM_VOLUME = 100
 --CARRY_MAXIMUM_VOLUME = 120
 

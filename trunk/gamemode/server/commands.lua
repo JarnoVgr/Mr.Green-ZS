@@ -706,7 +706,7 @@ function RollTheDice ( pl,commandName,args )
 		pl:TakeDamage( pl:Health()*2, nil, nil ) -- make sure he dies
 		message = message .." rolled the dice and is turned inside out!"
 	elseif choise == 2 then
-			pl:SetHealth(200)
+			pl:SetHealth(150)
 		message = message .." rolled the dice and has had a steroid boost!"
 	elseif choise == 3 then
 		pl:GiveAmmo( 90, "pistol" )	
@@ -722,10 +722,8 @@ function RollTheDice ( pl,commandName,args )
 		pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
 		message = message .." rolled the dice and gained ".. randhealth .." health!"
 	elseif choise == 5 then
-	message = message ..("..YOU HAVE 150 SECONDS TO LIVE!!")
-		timer.Simple(150, function()
-		pl:Kill()
-		end)	
+	message = message ..("..You've been set to half life!")
+	pl:SetHealth(50)
 		else
 		message = message .." rolled the dice and got raped in the ass."
 		pl:SetHealth(1)
