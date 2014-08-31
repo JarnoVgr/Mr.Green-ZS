@@ -57,7 +57,7 @@ local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 
 --for k,v in pairs( player.GetAll() ) do
 
---if ( v:Team() == TEAM_ZOMBIE ) then continue end
+--if ( v:Team() == TEAM_ZOMBIE ) then return end
 --if ( not v:HasBought("horse") ) then continue end
 --if ( not v:Alive() ) then continue end
 --if ( v:Health() > HealthRegen.MaxRegen ) then continue end
