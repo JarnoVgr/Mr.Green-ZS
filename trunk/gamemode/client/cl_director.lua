@@ -13,7 +13,7 @@ ClientsideConvars["_zs_headbob"] = {Value = 1, ShouldSave = true, UserData = fal
 ClientsideConvars["cl_legs"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Show legs"}
 ClientsideConvars["_zs_hidehud"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hide HUD"}
 ClientsideConvars["_zs_hidecrosshair"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Disable crosshair"}
-ClientsideConvars["_zs_hidenotify"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hide wave and pick-up notifications"}
+--ClientsideConvars["_zs_hidenotify"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hide wave and pick-up notifications"} --Hide this as we want people to see all of this!
 ClientsideConvars["_zs_drawcrateoutline"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Supply Crate outline"}
 ClientsideConvars["zs_drawcolourmod"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Colour mod"}
 ClientsideConvars["zs_drawsharpeneffect"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Sharpen effect as near Undead indicator"}

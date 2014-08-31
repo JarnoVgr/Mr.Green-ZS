@@ -2125,9 +2125,9 @@ usermessage.Hook("OnWeaponDropped", OnWeaponDropped)
 
 --Duby: This is for when the crate moves. We need some sounds. :) 
 
-
-
 local function cratemove()
+pl = LocalPlayer() 
 surface.PlaySound("mrgreen/beep22.wav")	
+pl:Message("The Crate Has Moved!", 1, "white")
 end
 usermessage.Hook ( "cratemove", cratemove )

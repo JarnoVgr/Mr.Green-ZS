@@ -143,7 +143,7 @@ function gun_race:ProcessUpgrades( _p, _frags )
 				-- Give weapon from table of weapons
 
 				_p:Give( v );
-				_p:PrintMessage ( HUD_PRINTCENTER, "You Have Received A New Weapon!" )
+				--_p:PrintMessage ( HUD_PRINTCENTER, "You Have Received A New Weapon!" )
 			end
 		elseif ( isstring( _weapons ) ) then
 			-- Debug output
@@ -152,8 +152,7 @@ function gun_race:ProcessUpgrades( _p, _frags )
 			-- Give weapon from STRING
 			_p:Give( _weapons );
 			--_p:PrintMessage ( HUD_PRINTTALK, "[G4K] You have just recieved a new weapon!" )
-			_p:PrintMessage ( HUD_PRINTCENTER, "You Have Received A New Weapon!" )
-			--surface.PlaySound("beep22.wav")
+			--_p:PrintMessage ( HUD_PRINTCENTER, "You Have Received A New Weapon!" )
 		else
 			-- Debug output
 			gun_race.log( "_weapons from the upgrade-table doesn't appear to be a table, or a string!", Color( 255, 0, 0, 255 ) );
