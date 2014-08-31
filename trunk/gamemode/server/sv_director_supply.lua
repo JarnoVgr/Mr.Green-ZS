@@ -528,8 +528,8 @@ umsg.Start("cratemove")
 	end)
 	
 	
-	--timer.Simple(500, function() --Add the crate.
-	timer.Simple(605, function() --Add the crate.
+	--timer.Simple(40, function() --Add the crate.
+	timer.Simple(800, function() --Add the crate.
 	for i=1,maxCrates do
 		--Loop through crate spawns
 		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
@@ -551,6 +551,8 @@ umsg.Start("cratemove")
 				end
 			end
 		end
+		umsg.Start("spawn")
+		umsg.End()
 	end
 	
 	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
@@ -565,7 +567,7 @@ umsg.Start("cratemove")
 		umsg.End()	
 	end)
 	
-	timer.Simple(1205, function() --Reset the crate spawn loctions. Also change the crate ID's again.
+	timer.Simple(1400, function() --Reset the crate spawn loctions. Also change the crate ID's again.
 --Remove current supplies
 	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do
 		if IsValid(v) then			
@@ -610,6 +612,8 @@ umsg.Start("cratemove")
 				end
 			end
 		end
+		umsg.Start("spawn")
+		umsg.End()
 	end
 	
 	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
