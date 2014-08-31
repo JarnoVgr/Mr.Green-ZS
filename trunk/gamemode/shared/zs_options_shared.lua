@@ -502,7 +502,7 @@ WARMUPTIME = 110
 -- In seconds, how long humans need to survive.
 --ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes
 ROUNDTIME = (25*60) + WARMUPTIME -- 20 minutes
---ROUNDTIME = (5*60) + WARMUPTIME -- 5 minutes 'testing'
+--ROUNDTIME = (1*60) + WARMUPTIME -- 5 minutes 'testing'
 
 -- Time in seconds between end round and next map.
 INTERMISSION_TIME = 46
@@ -549,6 +549,8 @@ RTD_TIME = 180
 --Sound to play for last human.
 LASTHUMANSOUND = "lasthuman_fixed.mp3"
 LASTHUMANSOUNDLENGTH = 159 -- 2:39
+--Song which is played during the middle of a round! Duh! :P 
+
 
 -- Sound played to a person when they die as a human.
 DEATHSOUND = "music/stingers/HL1_stinger_song28.mp3"

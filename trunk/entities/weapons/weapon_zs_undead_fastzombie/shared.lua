@@ -14,9 +14,9 @@ end
 SWEP.ViewModel = Model("models/Weapons/v_fza.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
-SWEP.Primary.Delay = 0.4
+SWEP.Primary.Delay = 0.3
 SWEP.Primary.Reach = 42
-SWEP.Primary.Damage = 6
+SWEP.Primary.Damage = 7
 SWEP.Primary.Duration = 0.8
 
 

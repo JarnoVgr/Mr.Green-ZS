@@ -4,6 +4,7 @@
 --local matHealthBar = surface.GetTextureID("zombiesurvival/healthbar_fill")
 
 -- Replace beats with cuts of hl2_song2.mp3 here:
+--[[
 local Beats = {}
 Beats[0] = {}
 Beats[1] = {"zombiesurvival/hbeat1.wav"}
@@ -16,6 +17,19 @@ Beats[7] = {"zombiesurvival/hbeat6.wav"}
 Beats[8] = {"zombiesurvival/hbeat7.wav"}
 Beats[9] = {"zombiesurvival/hbeat8.wav"}
 Beats[10] = {"zombiesurvival/hbeat9.wav"}
+]]--
+local Beats = {} --Duby: Lets make these beats more exciting!
+Beats[0] = {}
+Beats[1] = {"zombiesurvival/hbeat1.wav"}
+Beats[2] = {"zombiesurvival/hbeat2.wav"}
+Beats[3] = {"zombiesurvival/hbeat3.wav"}
+Beats[4] = {"zombiesurvival/hbeat4.wav"}
+Beats[5] = {"zombiesurvival/hbeat5.wav"}
+Beats[6] = {"zombiesurvival/hbeat6.wav"}
+Beats[7] = {"zombiesurvival/hbeat7.wav"}
+Beats[8] = {"zombiesurvival/hbeat8.wav"}
+Beats[9] = {"zombiesurvival/hbeat9.wav"}
+Beats[10] = {"zombiesurvival/hbeat10.wav"}
 
 local BeatLength = {}
 BeatLength[0] = 1.0
@@ -109,6 +123,7 @@ function playBossMusic(insane)
 	end)
 end
 
+
 ENABLE_MUSIC = util.tobool(GetConVarNumber("zs_enablemusic"))
 local function EnableMusic(sender, command, arguments)
 	ENABLE_MUSIC = util.tobool(arguments[1])
@@ -147,7 +162,7 @@ local function PlayBeats(teamid, am)
 	if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
 		return
 	end
-
+	
 	local ENABLE_BEATS = util.tobool(GetConVarNumber("_zs_enablebeats"))
 	if not ENABLE_BEATS then
 		return
@@ -168,6 +183,7 @@ local function PlayBeats(teamid, am)
 	local snd = beats[LastBeatLevel][1]
 	if snd then
 		MySelf:EmitSound(snd, 0, 100, 0.8)
+	--	NextBeat = RealTime() + SoundDuration(snd) - 0.025
 		NextBeat = RealTime() + SoundDuration(snd) - 0.025
 	end
 end
