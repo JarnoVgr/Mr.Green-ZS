@@ -269,7 +269,7 @@ if pl:HasBought("ammoman") then
 	if healAmount > 5 then
 		pl:EmitSound(Sound("items/smallmedkit1.wav"))
 		pl:SetHealth(math.Clamp(currentHealth + healAmount, 0, maxHealth))
-		pl:PrintMessage ( HUD_PRINTTALK, "[CRATES] You just got ammunition for your weapons and tools and restored "..math.Round ( healAmount ).." health!" )
+	--	pl:PrintMessage ( HUD_PRINTTALK, "[CRATES] You just got ammunition for your weapons and tools and restored "..math.Round ( healAmount ).." health!" )
 		
 		--Clear dot damage
 		pl:ClearDamageOverTime()
@@ -529,7 +529,7 @@ umsg.Start("cratemove")
 	
 	
 	--timer.Simple(40, function() --Add the crate.
-	timer.Simple(800, function() --Add the crate.
+	timer.Simple(700, function() --Add the crate.
 	for i=1,maxCrates do
 		--Loop through crate spawns
 		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
@@ -567,7 +567,7 @@ umsg.Start("cratemove")
 		umsg.End()	
 	end)
 	
-	timer.Simple(1400, function() --Reset the crate spawn loctions. Also change the crate ID's again.
+	timer.Simple(1300, function() --Reset the crate spawn loctions. Also change the crate ID's again.
 --Remove current supplies
 	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do
 		if IsValid(v) then			
