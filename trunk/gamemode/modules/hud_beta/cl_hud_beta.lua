@@ -417,7 +417,7 @@ end
 function hud.DrawSkillPoints()
 	--Background
 	surface.SetMaterial(hudElementBackground) 
-	surface.SetDrawColor(0, 0, 0, 255)
+	surface.SetDrawColor(0, 0, 0, 190)
 	surface.DrawTexturedRect(ScaleW(-50), ScaleH(770), ScaleW(150), ScaleH(250))
 
 	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(860), ScaleH(890)
@@ -430,7 +430,7 @@ local healthPercentageDrawn, healthStatusText = 1, healthIndication[1].Text
 function hud.DrawHealth()
 	--Health?
 	surface.SetMaterial(hudElementBackground) 
-	surface.SetDrawColor(0, 0, 0, 255)
+	surface.SetDrawColor(0, 0, 0, 190)
 	surface.DrawTexturedRect(ScaleW(-133),ScaleH(880), ScaleW(450), ScaleH(270))
 
 	--surface.SetMaterial() --Reset for later use of surface
@@ -554,7 +554,7 @@ local nextLevelKeySwitch, currentLevelKey = CurTime()+10, false
 function hud.DrawStats()
 	--Draw background
 	surface.SetMaterial(hudElementBackground) 
-	surface.SetDrawColor(0, 0, 0, 255)
+	surface.SetDrawColor(0, 0, 0, 190)
 	surface.DrawTexturedRect(ScaleW(450), ScaleH(-140), ScaleW(360), ScaleH(420)) --Middle
 	surface.DrawTexturedRect(ScaleW(650), ScaleH(-105), ScaleW(360), ScaleH(320)) --Right	
 	surface.DrawTexturedRect(ScaleW(280), ScaleH(-105), ScaleW(360), ScaleH(320)) --Left

@@ -19,7 +19,7 @@ function GM:UpdateZombieAnimation( pl, vel, maxseqgroundspeed )
 	
 	-- This is fucked
 	pl:SetPoseParameter("move_yaw", math.NormalizeAngle(vel:Angle().yaw - eye.y))
-	-- pl:SetPoseParameter( "move_yaw", -math.NormalizeAngle( math.NormalizeAngle( eye.y ) - math.Clamp( math.atan2( vel.y, vel.x ) * 180 / math.pi, -180, 180 ) ) )
+	 --pl:SetPoseParameter( "move_yaw", -math.NormalizeAngle( math.NormalizeAngle( eye.y ) - math.Clamp( math.atan2( vel.y, vel.x ) * 180 / math.pi, -180, 180 ) ) )
 
 	if self.UpdateClassAnimation[pl:GetZombieClass()] then
 		self.UpdateClassAnimation[pl:GetZombieClass()](pl, vel, maxseqgroundspeed)
@@ -48,17 +48,18 @@ GM.CalcMainActivityZombies[0] = function ( pl, vel )
 
 	local iSeq, iIdeal = pl:LookupSequence("zombie_run")
 
+
 		
 	local wep = pl:GetActiveWeapon()
 	if IsValid(wep) and wep.GetClimbing and wep:GetClimbing() then
 		iSeq = 10
 	end
-	
+	--[[
 	local revive = pl.Revive
 	if revive and revive:IsValid() then
 		iSeq = pl:LookupSequence("zombie_slump_rise_01")
 	end
-	
+	]]--
 	
 	return iIdeal, iSeq
 	
@@ -122,7 +123,7 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel )
 			end 
 		end 
 	end
-	
+	--[[
 	local revive = pl.Revive
 	if revive and revive:IsValid() then
 		if revive:IsRising() then
@@ -131,7 +132,7 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel )
 			iSeq = 22 --26
 		end
 	end
-	
+	]]--
 	return iIdeal, iSeq
 end
 
@@ -299,7 +300,9 @@ GM.CalcMainActivityZombies[5] = function ( pl, vel )
 	end
 
 	-- Default zombie act
-	--[==[local iSeq, iIdeal = -1
+	--[==[
+	
+	local iSeq, iIdeal = -1
 
 	local fVelocity = vel:Length2D()
 	if fVelocity > 30 then iIdeal = ACT_WALK else iIdeal = ACT_IDLE end
@@ -435,8 +438,10 @@ GM.CalcMainActivityZombies[8] = function ( pl, vel )
 	end
 	
 	-- Attacking animation
-	if (wep.IsAttackingAnim and wep:IsAttackingAnim() ) then iSeq = pl:LookupSequence ( wep.GetAttackSeq and wep:GetAttackSeq() or "attackD" ) end
-		
+	if (wep.IsAttackingAnim and wep:IsAttackingAnim() ) then iSeq = pl:LookupSequence ( wep.GetAttackSeq and wep:GetAttackSeq() or "attackD" ) --Moving
+	end
+
+	
 	return iIdeal, iSeq
 end
 
@@ -460,7 +465,6 @@ GM.DoAnimationEventZombies[8] = function ( pl, event, data )
 		if ( data == CUSTOM_PRIMARY ) then
 		
 			-- Animation status
-			-- pl.IsAttacking = CurTime() + 1.2-- true
 			pl.AttackSequence = table.Random ( Attacks )
 			
 			-- Get sequence and restart it
@@ -598,7 +602,7 @@ local Attacks = { "swatrightlow", "swatleftlow" }
 GM.DoAnimationEventZombies[10] = function ( pl, event, data )
 	if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
 		if ( data == CUSTOM_PRIMARY ) then
-			-- pl:AnimRestartGesture( GESTURE_SLOT_CUSTOM, ACT_MELEE_ATTACK1 )
+			 --pl:AnimRestartGesture( GESTURE_SLOT_CUSTOM, ACT_MELEE_ATTACK1 )
 			--pl.IsAttacking = true
 			pl.AttackSequence = table.Random ( Attacks )
 			

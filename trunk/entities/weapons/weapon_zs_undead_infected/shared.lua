@@ -28,6 +28,7 @@ end
 
 SWEP.Base = "weapon_zs_undead_base"
 
+
 SWEP.ViewModel = Model("models/Weapons/v_zombiearms.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 

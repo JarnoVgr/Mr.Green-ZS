@@ -14,9 +14,9 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 end
 
-SWEP.Primary.Delay = 0.8
+SWEP.Primary.Delay = 1
 --SWEP.Primary.Duration = 1.2
-SWEP.Primary.Duration = 1.5
+SWEP.Primary.Duration = 2
 SWEP.Primary.Reach = 50
 SWEP.Primary.Damage = 35
 
@@ -116,14 +116,15 @@ function SWEP:StartPrimaryAttack()
 		-- Stop when we get grenade
 
 		GAMEMODE:SetPlayerSpeed ( mOwner, 0,0)
-		mOwner:SetLocalVelocity ( Vector ( 0,0,0 ) )
+		mOwner:SetLocalVelocity ( Vector ( 50,100,50 ) )
+		--mOwner:SetLocalVelocity ( Vector ( 0,0,0 ) )
 	end
 
 	--Sequence to play
 	local iSequence = table.Random(self.ZombineAttacks) 	
 	self:SetAttackSeq(iSequence)	
 	--self:SetAttackAnimEndTime(CurTime() + 0.00)
-	self:SetAttackAnimEndTime(CurTime() + 1.2)
+	self:SetAttackAnimEndTime(CurTime() + 2.2)
 
 	--Hacky way for the animations
 	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
