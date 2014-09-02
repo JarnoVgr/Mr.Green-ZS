@@ -219,7 +219,7 @@ GM.HumanWeapons = {
 	["weapon_zs_m1014"]  = { Name = "M1014 Auto-Shotgun", DPS = 246,Mat = "VGUI/gfx/VGUI/xm1014", Infliction = 0.85, Type = "shotgun", Price = 2000},
 	["weapon_zs_awp"]  = { Name = "AWP", DPS = 200,Mat = "VGUI/gfx/VGUI/awp", Infliction = 0, Class = "Berserker", Type = "rifle", Price = 2300 },
 	["weapon_zs_grenadelauncher"]  = { Name = "Grenade Launcher", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 2500 },
-	["weapon_zs_boomerstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 3900 },
+	["weapon_zs_boomerstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 6000 },
 	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Class = "Medic", Type = "rifle"},
 	
 
@@ -230,7 +230,7 @@ GM.HumanWeapons = {
 	["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" }, -- 860
 	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "misc",},
 	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
-	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 2600 }, --Seems to work fine now.
+	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 6000 }, --Seems to work fine now.
 	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle" },
 	["weapon_zs_minishotty"]  = { Name = "Farter shotgun", DPS = 143, Infliction = 0, Type = "shotgun" },
 	["weapon_zs_python"]  = { Name = "Python", DPS = 143, Infliction = 0, Type = "pistol" },
@@ -526,8 +526,8 @@ AMMO_REGENERATE_RATE = 2056744
 WARMUPTIME = 110
 
 -- In seconds, how long humans need to survive.
---ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes
-ROUNDTIME = (25*60) + WARMUPTIME -- 20 minutes
+ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes
+--ROUNDTIME = (25*60) + WARMUPTIME -- 20 minutes
 --ROUNDTIME = (1*60) + WARMUPTIME -- 5 minutes 'testing'
 
 -- Time in seconds between end round and next map.
@@ -567,8 +567,8 @@ FIRST_ZOMBIE_SPAWN_DELAY = 100
 SMALLPROPCOLLISIONS = false
 
 --Time untill roll-the-dice is re-enabled
-RTD_TIME = 180
---RTD_TIME = 1
+--RTD_TIME = 180
+RTD_TIME = 1
 
 
 
