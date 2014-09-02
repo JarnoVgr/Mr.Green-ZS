@@ -113,6 +113,10 @@ function SWEP:Think()
 		self.reloadtimer = CurTime() + self.ReloadDelay
 		self:SendWeaponAnim(ACT_VM_RELOAD)
 
+		if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
+			self:SetClip1(self:Clip1() + 3)
+		end
+		
 		self.Owner:RemoveAmmo(1, self.Primary.Ammo, false)
 		self:SetClip1(self:Clip1() + 1)
 
