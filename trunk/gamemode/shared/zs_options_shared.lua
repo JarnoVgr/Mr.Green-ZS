@@ -567,8 +567,8 @@ FIRST_ZOMBIE_SPAWN_DELAY = 100
 SMALLPROPCOLLISIONS = false
 
 --Time untill roll-the-dice is re-enabled
---RTD_TIME = 180
-RTD_TIME = 1
+RTD_TIME = 180
+--RTD_TIME = 1
 
 
 
