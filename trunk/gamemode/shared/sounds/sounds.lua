@@ -528,4 +528,5 @@ GameDeathHints = {
 	"If you are new or confused press f1 and have a read!",
 	"If you are new or confused ask an admin! (Red titles)",
 	"Do you have any idea's or questions? Visit the forums!",
+	"Zombies have the dice as well, try your luck! !rtd",
 }	
