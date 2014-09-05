@@ -62,7 +62,7 @@ SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 SWEP.Primary.Reach = 45
 SWEP.Primary.Duration = 2.1
 SWEP.Primary.Delay = 1.4
-SWEP.Primary.Damage = math.random(30,35)
+SWEP.Primary.Damage = math.random(50,55)
 
 SWEP.ShowWorldModel = false
 

@@ -80,12 +80,12 @@ function meta:SetHeadcrabBodyGroup()
 	
 	-- Default 3
 	local iGroup = 3
-	
 	-- 3 for everyone except posion zombo
 	if self:IsPoisonZombie() then iGroup = 11 end
 	
+	
 	-- Set it for all except headcrabs, howlers, wraith and poison crabs
-	if not self:IsHeadcrab() and not self:IsHowler() and not self:IsWraith() and not self:IsPoisonCrab() then self:Fire( "setbodygroup", tostring ( iGroup ) ) end
+	if not self:IsHeadcrab() and not self:IsHowler() and not self:IsZombine() and not self:IsWraith()  and not self:IsPoisonCrab() then self:Fire( "setbodygroup", tostring ( iGroup ) ) end
 end
 
 -- Set team event

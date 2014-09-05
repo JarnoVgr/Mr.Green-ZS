@@ -29,7 +29,7 @@ SWEP.Weight = 5
 SWEP.AutoSwitchTo = true
 SWEP.AutoSwitchFrom = false
 
-SWEP.PrintName = "Hate"
+SWEP.PrintName = "HateII"
 SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
 SWEP.ViewModelFOV = 58

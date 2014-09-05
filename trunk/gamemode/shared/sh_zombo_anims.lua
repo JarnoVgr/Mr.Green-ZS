@@ -40,20 +40,21 @@ function GM:UpdateZombieAnimation( pl, vel, maxseqgroundspeed )
 	if pl._PlayBackRate then
 		pl:SetPlaybackRate( pl._PlayBackRate )
 	end
-	
+
 	
 end
 
 GM.CalcMainActivityZombies[0] = function ( pl, vel )
 
+
 	local iSeq, iIdeal = pl:LookupSequence("zombie_run")
-
-
 		
 	local wep = pl:GetActiveWeapon()
 	if IsValid(wep) and wep.GetClimbing and wep:GetClimbing() then
 		iSeq = 10
 	end
+	
+
 	--[[
 	local revive = pl.Revive
 	if revive and revive:IsValid() then
@@ -77,11 +78,12 @@ GM.DoAnimationEventZombies[0] = function ( pl, event, data )
 end
 
 GM.UpdateClassAnimation[0] = function(pl, vel, maxseqgroundspeed)
+--[[
 	local revive = pl.Revive
 	if revive and revive:IsValid() then
 		pl:SetCycle(0.4 + (1 - math.Clamp((revive:GetReviveTime() - CurTime()) / 1.9, 0, 1)) * 0.6)
 		pl:SetPlaybackRate(0)
-	end
+	end --]]
 	
 	if pl:GetSequence() == 10 then
 		local zvel = pl:GetVelocity().z
@@ -122,17 +124,8 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel )
 				iIdeal = ACT_IDLE_ON_FIRE 
 			end 
 		end 
-	end
-	--[[
-	local revive = pl.Revive
-	if revive and revive:IsValid() then
-		if revive:IsRising() then
-			iSeq = 25 --27
-		else
-			iSeq = 22 --26
-		end
-	end
-	]]--
+	end 
+	
 	return iIdeal, iSeq
 end
 

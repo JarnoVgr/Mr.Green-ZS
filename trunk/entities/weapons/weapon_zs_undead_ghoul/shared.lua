@@ -106,3 +106,4 @@ function SWEP:Initialize()
 		table.insert(self.IdleSounds,Sound("mrgreen/undead/infected/idle"..i..".mp3"))
 	end
 end
+

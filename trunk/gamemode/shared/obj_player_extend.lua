@@ -564,7 +564,9 @@ end]=]
 function meta:IsCommonZombie()
 	return self:GetZombieClass() == 1
 end
-
+function meta:IsCommonZombie2()
+	return self:GetZombieClass() == 0
+end
 --[==[------------------------------------------------
 	  See if zombie is fast type
 ------------------------------------------------]==]

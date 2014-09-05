@@ -40,12 +40,12 @@ end]]
 		end
 	end
 
-	--pl = GAMEMODE:GetPlayerForBossZombie() --Duby: Lets disable bosses for now
+	pl = GAMEMODE:GetPlayerForBossZombie() --Duby: Lets disable bosses for now
 	if not pl then
 		return nil
 	end
 	
-	--pl:SpawnAsZombieBoss() --Duby: Lets disable bosses for now
+	pl:SpawnAsZombieBoss() --Duby: Lets disable bosses for now
 
 	boss.count = boss.count + 1
 	
@@ -98,7 +98,8 @@ function GM:CheckBoss()
 		return false
 	end
 
-	if GetInfliction() <= 0.15 then
+	--if GetInfliction() <= 0.15 then
+	if GetInfliction() <= 0.7 then
 		return false
 	end
 

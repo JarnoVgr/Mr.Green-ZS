@@ -149,7 +149,7 @@ function hud.DrawBossHealth()
 	surface.DrawTexturedRect( BX,BY,BW,BH ) 
 	
 	local BarW,BarH = BW*0.75, ScaleH(36)
-	local BarX,BarY = w/2-BarW/2, ScaleH(200)
+	local BarX,BarY = w/2-BarW/2, ScaleH(100)
 	
 	surface.SetDrawColor( 0, 0, 0, 150)
 	surface.DrawRect(BarX,BarY,BarW,BarH)
