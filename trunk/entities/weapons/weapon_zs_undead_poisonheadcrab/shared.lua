@@ -29,7 +29,7 @@ SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 0.4
+SWEP.Primary.Delay = 0.2
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.Delay = 0.22
@@ -294,7 +294,7 @@ end
 SWEP.NextSecondarySpit = 0
 function SWEP:SecondaryAttack()
 return false
---[=[
+--[[
 	local mOwner = self.Owner
 
 	-- Cooldown
@@ -354,15 +354,15 @@ return false
 	end, mOwner )
 	
 	-- Stopped the whole spit process
-	GAMEMODE:SetPlayerSpeed( mOwner, 0 )
-	timer.Simple( 1, function( mOwner ) 
-		if IsValid( mOwner ) and mOwner:IsZombie() then
-			if mOwner:IsPoisonCrab() then
-				GAMEMODE:SetPlayerSpeed( mOwner, ZombieClasses[7].Speed ) 	
-			end
-		end
-	end, mOwner )
-	]=]
+	--GAMEMODE:SetPlayerSpeed( mOwner, 0 )
+--	timer.Simple( 1, function( mOwner ) 
+	--	if IsValid( mOwner ) and mOwner:IsZombie() then
+		--	if mOwner:IsPoisonCrab() then
+		--		GAMEMODE:SetPlayerSpeed( mOwner, ZombieClasses[7].Speed ) 	
+		--	end
+	--	end
+	--end, mOwner )
+	]]
 end
 
 -- Fail jump

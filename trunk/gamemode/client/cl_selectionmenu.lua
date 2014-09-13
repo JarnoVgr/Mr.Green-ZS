@@ -130,7 +130,7 @@ local function OnScrolled( pl, bind, pressed )
 	
 	--Delay next scroll		
 	--ScrollSpeed = CurTime() + 0.05
-	ScrollSpeed = CurTime() + 0.001
+	ScrollSpeed = CurTime() + 0.01
 
 	--Display weapons
 	ShowWeapons = true

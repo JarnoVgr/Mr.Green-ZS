@@ -60,7 +60,7 @@ SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound 			= Sound("Weapon_Shotgun.Single")
 SWEP.Primary.Recoil			= 0.05
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Damage			= 13
 SWEP.Primary.NumShots		= 8
 SWEP.Primary.ClipSize		= 4
 --SWEP.Primary.Delay			= 0.8
@@ -114,6 +114,10 @@ function SWEP:Think()
 		self:SendWeaponAnim(ACT_VM_RELOAD)
 
 		if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
+			self:SetClip1(self:Clip1() + 3)
+		end
+		
+		if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "berserker" then
 			self:SetClip1(self:Clip1() + 3)
 		end
 		

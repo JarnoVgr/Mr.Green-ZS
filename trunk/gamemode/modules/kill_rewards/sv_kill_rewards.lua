@@ -54,7 +54,7 @@ gun_race.config = {
 		[ 5 ] 	= { "weapon_zs_chipper" };
 		[ 10 ] 	= { "weapon_zs_p90"};
 		[ 25 ] 	= { "weapon_zs_ak47" };
-		[ 50 ] 	= { "weapon_zs_m249" };
+		[ 40 ] 	= { "weapon_zs_m249" };
 
 	};
 };

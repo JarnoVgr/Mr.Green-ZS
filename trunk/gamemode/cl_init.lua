@@ -2129,7 +2129,7 @@ local function cratemove()
 pl = LocalPlayer() 
 if pl:Team() == TEAM_HUMAN then
 surface.PlaySound("mrgreen/beep22.wav")	
-pl:Message("The Supplies have been used up! Await for supplies to be dropped!", 1, "white")
+pl:Message("The Supplies have been used up! Await for supplies to be dropped!", 2, "white")
 --timer.Simple(5,function()
 --pl:Message("Await for new supplies to be dropped!", 1, "white")
 --end)
@@ -2141,16 +2141,10 @@ local function cratemove2()
 pl = LocalPlayer() 
 if pl:Team() == TEAM_HUMAN then
 surface.PlaySound("mrgreen/beep22.wav")	
-pl:Message("Supplies have been dropped, go find em!", 1, "white")
+pl:Message("Supplies have been dropped, go find em!", 2, "white")
+timer.Simple(2, function()
+surface.PlaySound("mrgreen/supplycrates/thunder2.mp3")
+end)
 end
 end
 usermessage.Hook ( "spawn", cratemove2 )
-
-local function cratemove3()
-pl = LocalPlayer() 
-if pl:Team() == TEAM_HUMAN then
-surface.PlaySound("mrgreen/beep22.wav")	
-pl:Message("The First batch of supplies have been dropped!", 1, "white")
-end
-end
-usermessage.Hook ( "cratemove3", cratemove3 )

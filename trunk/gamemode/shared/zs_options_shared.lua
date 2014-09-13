@@ -53,6 +53,7 @@ FIRSTAPRIL = false
 BOSS_TOTAL_PLAYERS_REQUIRED = 20
 BOSS_CLASS = {10,11,13,16,18} -- 12
 --BOSS_CLASS = {16} --Lilith
+--BOSS_CLASS = {10} --hate
 --BOSS_CLASS = {15} --Klinator
 --BOSS_CLASS = {17} --Smoker class
 --BOSS_CLASS = {18} --Seeker2
@@ -1072,19 +1073,19 @@ PlayerAdminModels = {
 		Human Perks/Classes
 ------------------------------------------------]=]--
 
---HumanClasses = { } --Duby: Leave this table as it will cause errors in sv_tables.lua and in the init.lua. I will deal with it soon!
+HumanClasses = { } --Duby: Leave this table as it will cause errors in sv_tables.lua and in the init.lua. I will deal with it soon!
 					 --Duby: Removed it, seems ok. I removed a load of stuff in sv_playerspawn and obj_player_extended and also sv_tables.
 
---HumanClasses[1] =
---{
-	--Name = "Medic",
-	--Tag = "medic",
-	--Health = 95,
-	--Description = {"% more damage with pistols","% more heal on teammates","% increased speed","% less damage taken"},
-	--Coef = {2,10,2,5},
-	--Models = {"models/player/group03/male_02.mdl","models/player/group03/Male_04.mdl","models/player/group03/male_06.mdl","models/player/group03/male_07.mdl"},
-	--Speed = 200,
---}
+HumanClasses[1] =
+{
+	Name = "Medic",
+	Tag = "medic",
+	Health = 95,
+	Description = {"% more damage with pistols","% more heal on teammates","% increased speed","% less damage taken"},
+	Coef = {2,10,2,5},
+	Models = {"models/player/group03/male_02.mdl","models/player/group03/Male_04.mdl","models/player/group03/male_06.mdl","models/player/group03/male_07.mdl"},
+	Speed = 200,
+}
 
 --HumanClasses[2] =
 --{
@@ -1097,25 +1098,25 @@ PlayerAdminModels = {
 	--Speed = 190,
 --}
 
---HumanClasses[3] =
---{
-	--Name = "Berserker",--Aka Marksman
-	--Tag = "marksman",
-	--Health = 90,
-	--Description = {"% increased scope zoom","% chance to spawn with scout","% more bullet force"," more long range hs dmg"},
-	--Coef = {7,3,18,4},
-	--Models = {"models/player/gasmask.mdl","models/player/odessa.mdl","models/player/group01/male_04.mdl","models/player/hostage/hostage_02.mdl"},
-	--Speed = 200
---}
+HumanClasses[3] =
+{
+	Name = "Berserker",--Aka Marksman
+	Tag = "berserker",
+	Health = 90,
+	Description = {"% increased scope zoom","% chance to spawn with scout","% more bullet force"," more long range hs dmg"},
+	Coef = {7,3,18,4},
+	Models = {"models/player/gasmask.mdl","models/player/odessa.mdl","models/player/group01/male_04.mdl","models/player/hostage/hostage_02.mdl"},
+	Speed = 200
+}
 
---HumanClasses[4] =
---{
-	--Name = "Engineer",
---	Health = 100,
-	--Description = {"% chance to spawn with turret","% increased clip for pulse weapons","% chance to spawn with pulse smg","% more turret's efficiency"},
-	--Models = {"models/player/alyx.mdl","models/player/barney.mdl","models/player/eli.mdl","models/player/mossman.mdl","models/player/kleiner.mdl","models/player/breen.mdl" },
-	--Speed = 190
-	---}
+HumanClasses[4] =
+{
+	Name = "Engineer",
+	Health = 100,
+	Description = {"% chance to spawn with turret","% increased clip for pulse weapons","% chance to spawn with pulse smg","% more turret's efficiency"},
+	Models = {"models/player/alyx.mdl","models/player/barney.mdl","models/player/eli.mdl","models/player/mossman.mdl","models/player/kleiner.mdl","models/player/breen.mdl" },
+	Speed = 190
+	}
 
 --HumanClasses[5] =
 --{

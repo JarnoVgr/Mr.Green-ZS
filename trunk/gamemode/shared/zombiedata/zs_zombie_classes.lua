@@ -562,16 +562,19 @@ ZombieClasses[10] =
 				status:SetModel("models/Zombie/Poison.mdl")
 			end
 		-- end
+
 		
 		local status2 = pl:GiveStatus("simple_revive")
 		if status2 then
 			status2:SetReviveTime(CurTime() + 4)
 			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
 		end
-		
+	
+
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+		
 	end,
 	ModelScale = 1.35,-- Vector(1.35,1.35,1.35),
 	ViewOffset = Vector(0, 0, 84),
@@ -993,7 +996,7 @@ ZombieClasses[18] = --Creep and Play!
 	Name = "SeekerII",
 	Tag = "weapon_zs_undead_boss_seeker2",
 	Infliction = 0.2,
-	Health = math.random(2000, 2300 ),
+	Health = math.random(8000, 7300 ),
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
