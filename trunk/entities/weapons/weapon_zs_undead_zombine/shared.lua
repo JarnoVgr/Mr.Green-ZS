@@ -132,13 +132,13 @@ function SWEP:StartPrimaryAttack()
 
 	-- Idle animation
 	--timer.Simple(1.5, function()
-	timer.Simple(10000, function() --work around for zombines walking and attacking
-		if not IsValid(self) then
-			return
-		end
+	--timer.Simple(10000, function() --work around for zombines walking and attacking
+	--	if not IsValid(self) then
+		--	return
+	--end
 
-		self.Weapon:SendWeaponAnim(ACT_VM_IDLE)
-	end)
+		--self.Weapon:SendWeaponAnim(ACT_VM_IDLE)
+	--end)
 end
 
 function SWEP:StopAttackAnim()

@@ -44,23 +44,29 @@ function GM:UpdateZombieAnimation( pl, vel, maxseqgroundspeed )
 	
 end
 
-GM.CalcMainActivityZombies[0] = function ( pl, vel )
+GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
 
 
-	local iSeq, iIdeal = pl:LookupSequence("zombie_run")
+	if ValidEntity(pl:GetActiveWeapon()) then 
+	--	local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) 
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_02" ) --Duby: I spent fucking ages guessing this...
 		
-	local wep = pl:GetActiveWeapon()
-	if IsValid(wep) and wep.GetClimbing and wep:GetClimbing() then
-		iSeq = 10
+		return iIdeal, iSeq
 	end
 	
+	--local iSeq, iIdeal = pl:LookupSequence("zombie_run")
+		
+	--local wep = pl:GetActiveWeapon()
+	--if IsValid(wep) and wep.GetClimbing and wep:GetClimbing() then
+	--	iSeq = 10
+	--end
 
-	--[[
+	
 	local revive = pl.Revive
 	if revive and revive:IsValid() then
 		iSeq = pl:LookupSequence("zombie_slump_rise_01")
 	end
-	]]--
+	
 	
 	return iIdeal, iSeq
 	
@@ -78,12 +84,12 @@ GM.DoAnimationEventZombies[0] = function ( pl, event, data )
 end
 
 GM.UpdateClassAnimation[0] = function(pl, vel, maxseqgroundspeed)
---[[
+
 	local revive = pl.Revive
 	if revive and revive:IsValid() then
 		pl:SetCycle(0.4 + (1 - math.Clamp((revive:GetReviveTime() - CurTime()) / 1.9, 0, 1)) * 0.6)
 		pl:SetPlaybackRate(0)
-	end --]]
+	end 
 	
 	if pl:GetSequence() == 10 then
 		local zvel = pl:GetVelocity().z
@@ -106,24 +112,24 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel )
 	if --[=[pl:GetAngles().pitch > 40 and]=] util.TraceLine({start = pl:GetShootPos(), endpos = pl:GetShootPos() + pl:GetAimVector() * 32, filter = pl}).Hit then canwallpound = true end
 
 	-- Default zombie act
-	local iSeq, iIdeal = -1
+	local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_06" )
 
 	local fVelocity = vel:Length2D()
 	
 	-- Walk animation or idle
-	if fVelocity > 30 then iIdeal = ACT_WALK else iIdeal = ACT_IDLE end
+	--if fVelocity > 30 then iIdeal = ACT_WALK else iIdeal = ACT_IDLE end
 	
 	-- Moaning
 	if ValidEntity(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsMoaning and pl:GetActiveWeapon():IsMoaning() then 
-		if fVelocity > 2 then 
-			iIdeal = ACT_WALK_ON_FIRE 
-		else 
-			if canwallpound then 
-				iSeq = pl:LookupSequence ( "WallPound" ) 
-			else 
-				iIdeal = ACT_IDLE_ON_FIRE 
-			end 
-		end 
+		--if fVelocity > 2 then 
+			--iIdeal = ACT_WALK_ON_FIRE 
+		--else 
+		--	if canwallpound then 
+			--	iSeq = pl:LookupSequence ( "WallPound" ) 
+			--else 
+			--	iIdeal = ACT_IDLE_ON_FIRE 
+			--end 
+		--end 
 	end 
 	
 	return iIdeal, iSeq
@@ -316,9 +322,9 @@ GM.DoAnimationEventZombies[5] = function ( pl, event, data )
 		if ( data == CUSTOM_PRIMARY ) then
 			
 			-- Screaming
-			-- pl.IsScreaming = true
+			 pl.IsScreaming = true
 			pl:AnimRestartMainSequence()
-			-- timer.Simple ( 1.3, function( pl ) if IsEntityValid ( pl ) then pl.IsScreaming = false end end, pl )
+		   timer.Simple ( 1.3, function( pl ) if IsEntityValid ( pl ) then pl.IsScreaming = false end end, pl )
 
 			return ACT_INVALID
 		end
@@ -411,8 +417,9 @@ GM.CalcMainActivityZombies[8] = function ( pl, vel )
 	
 	-- Walking
 	if fVelocity >= 1 then
-		iSeq = pl:LookupSequence ( "walk_All" )
-	
+		--iSeq = pl:LookupSequence ( "walk_All" )
+		iSeq = pl:LookupSequence ( "zombie_walk_04" )
+		--pl:LookupSequence ( "zombie_walk_02" )
 		-- Walking with grenade
 		if wep.IsHoldingGrenade and wep:IsHoldingGrenade() then iSeq = pl:LookupSequence ( "walk_All_Grenade" ) end
 	end
@@ -432,6 +439,8 @@ GM.CalcMainActivityZombies[8] = function ( pl, vel )
 	
 	-- Attacking animation
 	if (wep.IsAttackingAnim and wep:IsAttackingAnim() ) then iSeq = pl:LookupSequence ( wep.GetAttackSeq and wep:GetAttackSeq() or "attackD" ) --Moving
+	
+
 	end
 
 	

@@ -21,7 +21,7 @@ ZombieClasses[0] =
 	Name = "Infected",	
 	Tag = "infected",	
 	Infliction = 0,
-	Revives = true,
+	Revives = false,
 	Health = 220,
 	MaxHealth = 350,
 	Bounty = 80,
@@ -82,7 +82,7 @@ ZombieClasses[0] =
 				Sound("npc/zombiegreen/death_34.wav"),
 				Sound("npc/zombiegreen/death_35.wav")
 				}, 	
-	PlayerFootstep = true,
+	PlayerFootstep = false,
 	Unlocked = true,
 	OnSpawn = function(pl)
 		--Force human player model
@@ -105,7 +105,7 @@ ZombieClasses[1] =
 	Name = "Ghouler",
 	Tag = "zombie",	
 	Infliction = 0,
-	Revives = true,
+	Revives = false,
 	Health = 120,
 	MaxHealth = 120,
 	Bounty = 100,
@@ -170,7 +170,7 @@ ZombieClasses[1] =
 				end
 	end,
 	--Unique = "Can be deadly in numbers. Can Propkill.",	
-	PlayerFootstep = true,
+	PlayerFootstep = false,
 	-- ModelScale = 0.9
 }
 
