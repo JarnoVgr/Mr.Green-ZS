@@ -397,23 +397,42 @@ local function AdminSay(pl, text, teamonly)
 		pl:Give("admin_maptool")
 		return ""	
 	elseif text == "!DubyIsSexy" then
-		if LASTHUMAN or ENDROUND then
+		--if LASTHUMAN or ENDROUND then
 			if not Raving then
 				RaveBreak()
 			else
 				pl:Message("You're already raving dude")
-			end
+		--	end
 			return text
-		else
-			pl:Message("RaveBreak not available at this time")
-			return ""
+		--else
+		--	pl:Message("RaveBreak not available at this time")
+		--	return ""
 		end
+		
 	elseif (text:sub(1,5) == "!asay") then
 		text = string.gsub(text,"!asay","")
 		for k,pl in pairs (player.GetAll()) do
 			pl:CustomChatPrint( {nil, Color(255,15,15),text} )
 		end
 
+		elseif text == "!alltalk" then
+			for k, v in pairs(player.GetAll()) do
+				if v ~= pl then
+					RunConsoleCommand ( "sv_alltalk", "1" )
+				end
+			end
+
+			return ""
+			
+			elseif text == "!notalk" then
+			for k, v in pairs(player.GetAll()) do
+				if v ~= pl then
+					RunConsoleCommand ( "sv_alltalk", "0" )
+				end
+			end
+		
+		
+		
 		return ""
 	end
 

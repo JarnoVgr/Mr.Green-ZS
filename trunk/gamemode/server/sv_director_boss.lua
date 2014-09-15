@@ -8,6 +8,7 @@ boss.nextBossTime = 0
 boss.count = 0
 boss.maxCount = math.random(4,5)
 
+
 function GM:UnleashBoss()
 	
 	--[[if not GAMEMODE:IsBossRequired() then
@@ -27,14 +28,12 @@ end]]
 			end
 			
 			local hp = 100
-			if pl:GetPerk("_kevlar2") then
-				hp = 130
-			elseif pl:GetPerk("_kevlar") then
-				hp = 110
-			elseif pl:GetPerk("_kevlar3") then
-				hp = 105
-				
-			end
+			--if pl:GetPerk("_kevlar2") then
+			--	hp = 130
+			--elseif pl:GetPerk("_kevlar") then
+			--	hp = 110
+			--elseif pl:GetPerk("_kevlar3") then
+			--	hp = 105
 
 			pl:SetHealth(hp)
 		end
@@ -45,7 +44,7 @@ end]]
 		return nil
 	end
 	
-	pl:SpawnAsZombieBoss() --Duby: Lets disable bosses for now
+	pl:SpawnAsZombieBoss() 
 
 	boss.count = boss.count + 1
 	

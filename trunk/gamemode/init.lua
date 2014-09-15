@@ -1662,19 +1662,6 @@ Debug("[MODULE] Loaded init.lua")
      Dubys amazing method to slowing people down while running backwards!
 ---------------------------------------------------------------------------]=]
 
---[[
- function GM:KeyPress( pl, key )
-
-if pl:Team() == TEAM_HUMAN then
-if( pl:KeyDown( IN_BACK ) )  then
-pl:SetWalkSpeed( 140 )
- 	
-else pl:SetWalkSpeed(200) 
-
-end
-end
-end 
-]]--
 --Speed change
 --if SERVER then GAMEMODE:WeaponDeployed( self.Owner, self ) return true else self:SetViewModelColor ( 255,255,255,255 ) 
 --end

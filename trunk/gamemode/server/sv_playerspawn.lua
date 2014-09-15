@@ -424,7 +424,9 @@ function GM:OnHumanSpawn(pl)
 	if (pl.SelectedSuit ~= "none") or pl:IsBot() then
 		self:SpawnSuit(pl, pl.SelectedSuit)
 	end
-
+	
+	
+	
 	--Hands test
 	local oldhands = pl:GetHands()
 	if IsValid(oldhands) then
@@ -447,6 +449,7 @@ function GM:OnHumanSpawn(pl)
 
 	
 end
+
 
 --[==[------------------------------------------------
 	Called everytime a zombie spawns
@@ -723,7 +726,7 @@ function CalculatePlayerLoadout ( pl )
 			ToGive[1] = "weapon_zs_magnum"
 		end
 	end
-	
+
 	
 	 --IMORTAL PRO perk. Duby: Lets see how this works out. 
 	
@@ -736,9 +739,7 @@ function CalculatePlayerLoadout ( pl )
 	
 		pl:Give("weapon_zs_pulsesmg")
 		ToGive[1] = "weapon_zs_pulsesmg"
-		end
-
-	
+		end	
 	if ToGive and #ToGive > 0 then
 		pl:SelectWeapon(tostring(ToGive[1]))
 	end
@@ -842,19 +843,19 @@ function CalculatePlayerHealth(pl)
 	end
 	
 	--First kevlar upgrade
-	if pl:GetPerk("_kevlar") then
-		MaxHealth, Health = 110, 110
-	end
+	--if pl:GetPerk("_kevlar") then
+	--	MaxHealth, Health = 110, 110
+	--end
 	
 	--Second kevlar upgrade
-	if pl:GetPerk("_kevlar2") then
-		MaxHealth, Health = 130, 130
-	end
+	--if pl:GetPerk("_kevlar2") then
+		--MaxHealth, Health = 130, 130
+	--end
 	
 	--Third kevlar upgrade
-	if pl:GetPerk("_kevlar3") then
-		MaxHealth, Health = 105, 105
-	end
+	--if pl:GetPerk("_kevlar3") then
+	--	MaxHealth, Health = 105, 105
+	--end
 	
 	-- Actually set the health
 	pl:SetHealth(Health)

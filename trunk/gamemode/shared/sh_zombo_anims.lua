@@ -49,8 +49,7 @@ GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
 
 	if ValidEntity(pl:GetActiveWeapon()) then 
 	--	local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) 
-		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_02" ) --Duby: I spent fucking ages guessing this...
-		
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_02" ) --Duby: I spent fucking ages guessing this...	
 		return iIdeal, iSeq
 	end
 	
@@ -222,7 +221,8 @@ end
 GM.CalcMainActivityZombies[3] = function ( pl, vel )
 
 	-- Default zombie act
-	local iSeq, iIdeal = -1
+	--local iSeq, iIdeal = -1
+	local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_06" )
 
 	local fVelocity = vel:Length2D()
 	if fVelocity > 30 then iIdeal = ACT_WALK else iIdeal = ACT_IDLE end
@@ -285,7 +285,8 @@ GM.CalcMainActivityZombies[5] = function ( pl, vel )
 	local fVelocity = vel:Length2D()
 
 	if ValidEntity(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsScreaming and pl:GetActiveWeapon():IsScreaming() then 
-		local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) 
+		--local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) 
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_02" ) 
 		return iIdeal, iSeq
 	end
 
