@@ -354,7 +354,7 @@ GM.AmmoRegeneration = {
 	["grenade"] = 1, --Grenade
 	["thumper"] = 1,
 	["gravity"] = 3, --Nail
-	["battery"] = 30, --Medkit
+	["battery"] = 20, --Medkit
 	["gaussenergy"] = 50,
 	["combinecannon"] = 10,
 	["airboatgun"] = 100,
@@ -365,9 +365,9 @@ GM.AmmoRegeneration = {
 -- -- -- -- -- -- -- -- -- -- /
 -- Ranks, xp, drugs and etc
 -- -- -- -- -- -- -- -- -- -- /
-XP_BLANK = 1000
+XP_BLANK = 500
 
-XP_INCREASE_BY = 1000
+XP_INCREASE_BY = 2000
 
 XP_PLAYERS_REQUIRED = 5
 
@@ -376,37 +376,41 @@ MAX_RANK = 30
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","weapon_zs_tools_hammer2","_nailhp","_sboost2","_kevlar3","_comeback2","weapon_zs_medkit"},
-	[1] = {"weapon_zs_melee_plank","weapon_zs_python"},
-	[2] = {"weapon_zs_p228","weapon_zs_tools_supplies"},
-	[3] = {"_kevlar","weapon_zs_melee_keyboard"},
-	[4] = {"weapon_zs_grenade"},
-	[5] = {"_imortalpro","_kevlar2"},
-	[6] = {"weapon_zs_melee_pipe"},
-	[7] = {"_nailamount"},
-	[9] = {"_sboost"},
-	[10] = {"_comeback","_falldmg"},
-	[11] = {"weapon_zs_mine"},
-	[13] = {"_adrenaline"},
-	[14] = {"_poisonprotect"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","_sboost2","_kevlar3","_comeback2","weapon_zs_p228"},
+	[1] = {"weapon_zs_melee_plank"},
+	[2] = {"weapon_zs_tools_hammer2"},
+	[3] = {"_nailamount"},
+	[4] = {"weapon_zs_medkit"},
+	[5] = {"weapon_zs_tools_supplies"},
+	[6] = {"_kevlar","weapon_zs_melee_pipe"},
+	[7] = {"_imortalpro","weapon_zs_melee_keyboard"},
+	[8] = {"_nailhp","_kevlar2"},
+	[9] = {"_falldmg","_medupgr1"},
+	[10] = {"weapon_zs_python"},
+	[11] = {"weapon_zs_tools_plank"},
+	[12] = {"_plankamount","weapon_zs_melee_pipe2"},
+	[13] = {"_freeman"},
+	[14] = {"_poisonprotect","weapon_zs_melee_hook"},
 	[15] = {"weapon_zs_turretplacer"},
 	[16] = {"weapon_zs_tools_remote"},
-	[17] = {"_turretoverdrive","weapon_zs_melee_pipe2"},
-	[18] = {"_medupgr1"},
-	[19] = {"weapon_zs_melee_combatknife"},
-	[20] = {"weapon_zs_tools_plank"},
+	[17] = {"_turretoverdrive"},
+	[18] = {"_plankhp"},
+	[19] = {"weapon_zs_melee_pot"},
+	[20] = {"weapon_zs_grenade"},
 	[21] = {"weapon_zs_classic"},
-	[22] = {"_enhkevlar"},
+	[22] = {"_sboost"},
 	[23] = {"_medupgr2"},
-	[24] = {"_plankamount"},
-	[25] = {"weapon_zs_melee_pot"},
-	[26] = {"_plankhp"},
-	[27] = {"_freeman"},
-	[28] = {"weapon_zs_miniturret"},
+	[24] = {"weapon_zs_mine"},
+	[25] = {"_enhkevlar"},
+	[26] = {"weapon_zs_melee_combatknife"},
+	[27] = {"_comeback"},
+	[28] = {"_adrenaline"},
 	[29] = {"weapon_zs_melee_crowbar"},
-	[30] = {"weapon_zs_melee_hook"},
+	[30] = {"weapon_zs_miniturret"},
 	-- [90] = {"_professional"},-- hidden for a while
 }
+
+
 
 --Weapons to spawn with in Arena Mode
 GM.ArenaWeapons = {
@@ -485,25 +489,25 @@ UNDEAD_START_AMOUNT_MINIMUM = 2
 DIFFICULTY = 1.5
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
-CARRY_MAXIMUM_MASS = 2000
+CARRY_MAXIMUM_MASS = 300
 --CARRY_MAXIMUM_MASS = 60
 --CARRY_MAXIMUM_MASS = 120
 
 -- Objects with more mass than this will be dragged instead of carried.
-CARRY_DRAG_MASS = 130
+CARRY_DRAG_MASS = 145
 --CARRY_DRAG_MASS = 130
 --CARRY_DRAG_MASS = 60
 
 -- Anything bigger than this is dragged regardless of mass.
-CARRY_DRAG_VOLUME = 700
+--CARRY_DRAG_VOLUME = 700
 --CARRY_DRAG_VOLUME = 80
---CARRY_DRAG_VOLUME = 60
+CARRY_DRAG_VOLUME = 120
 --CARRY_DRAG_VOLUME = 80
 
 -- Humans can not carry anything with a volume more than this (OBBMins():Length() + OBBMaxs():Length()).
-CARRY_MAXIMUM_VOLUME = 90
+--CARRY_MAXIMUM_VOLUME = 90
 --CARRY_MAXIMUM_VOLUME = 100
---CARRY_MAXIMUM_VOLUME = 120
+CARRY_MAXIMUM_VOLUME = 150
 
 -- Humans are slowed by this amount per kg carried.
 CARRY_SPEEDLOSS_PERKG = 1.3

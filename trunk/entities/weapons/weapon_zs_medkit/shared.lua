@@ -3,7 +3,8 @@ if SERVER then
 end
 
 if CLIENT then
-	SWEP.ViewModelFOV = 65
+
+	SWEP.ViewModelFOV = 75
 	SWEP.BobScale = 2
 	SWEP.SwayScale = 1.5
 	SWEP.PrintName = "Medkit"
@@ -34,6 +35,7 @@ end
 SWEP.WorldModel = "models/Weapons/w_package.mdl"
 SWEP.ViewModel = "models/weapons/v_c4.mdl"--models/weapons/v_hands.mdlmodels/weapons/v_healthkit.mdl
 
+
 SWEP.Base				= "weapon_zs_base_dummy"
 
 SWEP.Primary.Delay = 0.01
@@ -42,7 +44,7 @@ SWEP.Primary.Heal = 15
 SWEP.Primary.HealDelay = 10
 
 SWEP.Primary.ClipSize = 30
-SWEP.Primary.DefaultClip = 50
+SWEP.Primary.DefaultClip = 40
 SWEP.Primary.Ammo = "Battery"
 
 SWEP.Secondary.Delay = 0.01
@@ -83,6 +85,7 @@ function SWEP:InitializeClientsideModels()
 	
 	self.VElements = {
 		["medkit"] = { type = "Model", model = "models/items/HealthKit.mdl", bone = "v_weapon.c4", rel = "", pos = Vector(-2.849, 0.319, 1.254), angle = Angle(-93, 90, 5), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		
 	}
 	
 	self.WElements = {
@@ -100,7 +103,7 @@ end
 function SWEP:Think()
 	if self.IdleAnimation and self.IdleAnimation <= CurTime() then
 		self.IdleAnimation = nil
-		--self:SendWeaponAnim(ACT_VM_IDLE)
+		self:SendWeaponAnim(ACT_VM_IDLE)
 	end
 end
 util.PrecacheSound("items/medshot4.wav")
@@ -117,8 +120,8 @@ function SWEP:PrimaryAttack()
 			if ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
 
 				local health, maxhealth = ent:Health(), 100-- owner:GetMaxHealth()
-				if ent:GetPerk("_kevlar") then maxhealth = 110 elseif ent:GetPerk("_kevlar2") then maxhealth = 120 end
-				local multiplier = 1
+				--if ent:GetPerk("_kevlar") then maxhealth = 110 elseif ent:GetPerk("_kevlar2") then maxhealth = 120 end
+				local multiplier = 0.8
 				if owner:GetPerk("_medupgr1" ) then
 					multiplier = 1.35
 				end
@@ -128,7 +131,7 @@ function SWEP:PrimaryAttack()
 					
 					local delay = self.Primary.HealDelay
 					if owner:GetSuit() == "medicsuit" then
-						delay = math.Clamp(self.Primary.HealDelay - 3,0,self.Primary.HealDelay)
+						delay = math.Clamp(self.Primary.HealDelay - 5,0,self.Primary.HealDelay)
 					end
 					
 					self:SetNextCharge(CurTime() + delay)
@@ -136,7 +139,7 @@ function SWEP:PrimaryAttack()
 					
 					if SERVER then
 						owner.HealingDone = owner.HealingDone + (toheal or 10)
-						skillpoints.AddSkillPoints(owner,toheal or 10)
+						skillpoints.AddSkillPoints(owner,toheal or 50)
 						ent:FloatingTextEffect( toheal or 10, owner )
 						owner:AddXP(toheal or 5)
 						
@@ -176,7 +179,7 @@ function SWEP:SecondaryAttack()
 	local owner = self.Owner
 	if self:CanPrimaryAttack() then
 		local health, maxhealth = owner:Health(), 100-- owner:GetMaxHealth()
-		if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 end
+		--if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 end
 		local multiplier = 1
 		if owner:GetPerk("_medupgr1") then
 			multiplier = 1.35
@@ -187,7 +190,7 @@ function SWEP:SecondaryAttack()
 		
 			local delay = self.Secondary.HealDelay
 			if owner:GetSuit() == "medicsuit" then
-				delay = math.Clamp(self.Secondary.HealDelay - 3,0,self.Secondary.HealDelay)
+				delay = math.Clamp(self.Secondary.HealDelay - 5,0,self.Secondary.HealDelay)
 			end
 			
 			self:SetNextCharge(CurTime() + delay)

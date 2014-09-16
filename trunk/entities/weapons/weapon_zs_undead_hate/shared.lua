@@ -28,7 +28,7 @@ SWEP.AutoSwitchFrom = false
 SWEP.PrintName = "Hate"
 SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 55
+SWEP.ViewModelFOV = 45
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
 
@@ -48,9 +48,9 @@ SWEP.DistanceCheck = 95
 SWEP.ViewModelBoneMods = {
 	["ValveBiped.Bip01_L_Forearm"] = { scale = Vector(1.343, 1.343, 1.343), pos = Vector(0, 0, 0), angle = Angle(-16.043, 20.868, -15.419) },
 	["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1.462, 1.462, 1.462), pos = Vector(0, 0, 0), angle = Angle(0, 3.68, 0) },
-	-- ["ValveBiped.Bip01_R_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(0, 1.419, -10.006), angle = Angle(0, 14.248, 12.737) },
+	["ValveBiped.Bip01_R_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(0, 1.419, -10.006), angle = Angle(0, 14.248, 12.737) },
 	["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.406, 1.406, 1.406), pos = Vector(0, 0, 0), angle = Angle(-2.5, -26.681, 9.494) },
-	-- ["ValveBiped.Bip01_L_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(4.4, -0.888, -3.712), angle = Angle(-4.75, 2.081, 0.675) },
+	["ValveBiped.Bip01_L_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(4.4, -0.888, -3.712), angle = Angle(-4.75, 2.081, 0.675) },
 	["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, -3.675, 0), angle = Angle(-0.445, -3.039, 19.518) },
 	["ValveBiped.Bip01_L_Finger2"] = { scale = Vector(1.263, 1.263, 1.263), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 	["ValveBiped.Bip01_L_Finger3"] = { scale = Vector(1.156, 1.156, 1.156), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },

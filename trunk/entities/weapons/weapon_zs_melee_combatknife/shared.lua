@@ -30,7 +30,7 @@ SWEP.Primary.Delay = 0.7
 
 SWEP.HoldType = "knife"
 
-SWEP.MeleeDamage = 30
+SWEP.MeleeDamage = 20
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
 SWEP.WalkSpeed = 210
