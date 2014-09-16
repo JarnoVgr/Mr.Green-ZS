@@ -744,9 +744,42 @@ HELP_TXT[2] = {
 } 
 
 HELP_TXT[3] = {
-	title = "About", 
+	title = "LV Unlocks", 
 	txt = [[
-		Mr. Green forums can be found at http://mrgreengaming.com
+		This is the Unlock tree for every unlock on the server. WorkHard PlayHard!! ^^
+	 [0] = USP, FISTS, SPEEDBOOST2, KEVLAR3, COMBACK3, P228    [1] = PLANK
+	 [2] = NAILING HAMMER    [3] = NAILAMOUNT
+	 [4] = MEDKIT	
+	 [5] = MOBILE SUPPLIES
+	 [6] = KEVLAR1, PIPE1
+	 [7] = IMORTALPRO, KEYBOARD
+	 [8] = HAIL'HP', FULL KEVLAR
+	 [9] = FALLDAMAGE, MEDKIT UPGRADE1
+	[10] = PYTHON MAGNUM
+	[11] = PLANK 'TOOL
+	[12] = PLANK AMOUNT, PIPE2
+	[13] = FREEMAN SPIRIT
+	[14] = POISON PROTECTION, HOOK
+	[15] = TURRET
+	[16] = TURRET REMOTE
+	[17] = TURRET OVERDRIVE
+	[18] = PLANK HP
+	[19] = POT
+	[20] = GRENADE
+	[21] = CLASSICE PISTOL
+	[22] = SPEED BOOST1
+	[23] = MEDICAL EFFICIENCY
+	[24] = C4
+	[25] = ENHANCED KEVLAR
+	[26] = COMBAT KNIFE
+	[27] = COMBACK
+	[28] = ADRENALINE INJECTION
+	[29] = CROWBAR
+	[30] = MINI TURRET
+	]]
+} 
+
+--[[	Mr. Green forums can be found at http://mrgreengaming.com
 		If you have any questions or tips about/for this server you can always e-mail to info@limetric.com
 		
 		Surf to http://mrgreengaming.com to post your ideas for changes and where you can post suggestions for new maps.
@@ -755,11 +788,7 @@ HELP_TXT[3] = {
 		
 	If you Win a round you gain XP this can be used to level up and unlock the following items.	
 		You can also gain XP by killing humans and zombies.
-		
-
-		
-	]]
-} 
+		]]--
 
 HELP_TXT[4] = {
 	title = "Quick Guide", 
@@ -772,6 +801,7 @@ HELP_TXT[4] = {
 		
 		> How to get new weapons?
 		* Guns for kills. It is what it says on the tin! ^^
+		* Kill zombies get SP and go to the crate when the timer is ready!
 		
 		> Where I can buy hats?
 		* GreenCoins Shop. Type !shop in chat to open it.
