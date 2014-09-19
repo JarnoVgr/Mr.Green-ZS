@@ -14,13 +14,13 @@ end
 SWEP.ViewModel = Model("models/weapons/v_pza.mdl")
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
-SWEP.Primary.Delay = 1
+SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 55
 SWEP.Primary.Duration = 1.8
 SWEP.Primary.Damage = 45
 
-SWEP.Secondary.Duration = 4
 SWEP.Secondary.Delay = 0.5
+SWEP.Secondary.Duration = 4
 SWEP.Secondary.Damage = math.random(30,40)
 
 SWEP.SwapAnims = false

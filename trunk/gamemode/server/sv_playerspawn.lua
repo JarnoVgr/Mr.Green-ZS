@@ -664,10 +664,10 @@ function CalculatePlayerSpeed ( pl )
 	-- Case 3: Without bonus
 	if  pl:IsBot() then --This was changed as it worked off the medic class speeds. Which don't exist any more! 
 	--	Speed = HumanClasses[Class].Speed
-	Speed = 200
+	Speed = 190
 	end
 	
-	Speed = 200
+	Speed = 190
 	
 	return Speed, Speed
 end

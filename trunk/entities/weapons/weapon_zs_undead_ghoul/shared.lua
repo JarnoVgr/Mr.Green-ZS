@@ -47,8 +47,9 @@ SWEP.SwapAnims = false
 
 SWEP.Secondary.Duration = 1.2
 SWEP.Secondary.Delay = 0.3
+SWEP.Secondary.Duration = 4
 
-SWEP.Secondary.Damage = 15
+SWEP.Secondary.Damage = math.random(30,40)
 SWEP.Secondary.Reach = 45
 
 	--pl:ManipulateBonePosition(math.Rand(1, 15) , Vector( math.Rand( 1, 5), math.Rand( 1, 5), math.Rand( 1, 5)) )

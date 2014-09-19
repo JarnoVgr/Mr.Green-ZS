@@ -414,25 +414,7 @@ local function AdminSay(pl, text, teamonly)
 		for k,pl in pairs (player.GetAll()) do
 			pl:CustomChatPrint( {nil, Color(255,15,15),text} )
 		end
-
-		elseif text == "!alltalk" then
-			for k, v in pairs(player.GetAll()) do
-				if v ~= pl then
-					RunConsoleCommand ( "sv_alltalk", "1" )
-				end
-			end
-
-			return ""
-			
-			elseif text == "!notalk" then
-			for k, v in pairs(player.GetAll()) do
-				if v ~= pl then
-					RunConsoleCommand ( "sv_alltalk", "0" )
-				end
-			end
-		
-		
-		
+	
 		return ""
 	end
 
@@ -478,7 +460,7 @@ local function AdminSay(pl, text, teamonly)
 			return ""
 			
 			
-			elseif text == "!alltalk" then
+		--[[	elseif text == "!alltalk" then
 			for k, v in pairs(player.GetAll()) do
 				if v ~= pl then
 					RunConsoleCommand ( "sv_alltalk", "1" )
@@ -496,6 +478,7 @@ local function AdminSay(pl, text, teamonly)
 
 			return ""
 			
+		end]]--
 		end
 	end
 
