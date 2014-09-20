@@ -87,7 +87,7 @@ if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "freeman" then 
 if (self:Clip1() < 25) then
 
 timer.Simple( 1, function()
-self:SetClip1(self:Clip1() + 1)
+self:SetClip1(self:Clip1() + 2)
 end)
 
 end
