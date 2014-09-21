@@ -18,12 +18,15 @@ ENT.Table = {
 	["Vial"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( 16, 10.8135, 18 ), Angles = Angle ( 100, -90, 180 ) },
 	["Ammo2"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -18, 10.8135, 18 ), Angles = Angle ( 100, -90, 180 ) },
 	["AmmoUp5"] = { Model = "models/greenshat/greenshat.mdl", Position = Vector ( -0.1039, 10, 48 ), Angles = Angle ( 0, -180, 0 ) },
+	["pistol"] = { Model = "models/weapons/w_pist_glock18.mdl", Position = Vector ( -6.1039, 30, 48 ), Angles = Angle ( 0, -66, 90 ) },
+	["buckshot"] = { Model = "models/items/boxbuckshot.mdl", Position = Vector ( -9.5952, 40, 24.5 ), Angles = Angle ( 0.726, -6.560, 0.018 ) },
 	
 	--Necros old crate:
 	--	["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 18.8135, 0 ), Angles = Angle ( 0, -180, 0 ) }, --Old
 	--["Shotgun"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -7.1762, -10.9928, 24 ), Angles = Angle ( -1.297 ,60 ,-89.158 ) }, --Old
 	--["Ammo"] = { Model = "models/items/boxbuckshot.mdl", Position = Vector ( 4.6052 ,-6.7138, 23 ), Angles = Angle ( -0.336 , -115 ,0.072 ) }, --Old
 	["Vial2"] = { Model = "models/healthvial.mdl", Position = Vector ( -11.5952, -10, 25.5 ), Angles = Angle ( 0.726, -66.560, -90.018 ) }, --Old 
+	["Vial3"] = { Model = "models/healthvial.mdl", Position = Vector ( 8.5952, -10, 25.5 ), Angles = Angle ( 0.726, -6.560, -90.018 ) }, 
 
 }
 
@@ -33,7 +36,8 @@ for k,v in pairs ( ENT.Table ) do
 end
 
 --Check penetration
-ENT.PenetrationCheckTimes = 4
+--ENT.PenetrationCheckTimes = 4
+ENT.PenetrationCheckTimes = 30
 
 
 function ENT:Initialize()
@@ -86,7 +90,7 @@ function ENT:Initialize()
 			Ent:SetUseType( SIMPLE_USE )
 			
 			-- Prevent unnecessary collisions
-			 if k == "Ammo" or k == "Shotgun" or k == "Vial" or k == "AmmoUp5" or k == "Ammo2" or k == "Vial2" or k == ""  then
+			 if k == "Ammo" or k == "Shotgun" or k == "AmmoUp" or k == "Vial" or k == "AmmoUp5" or k == "Ammo2" or k == "Vial2" or k == "Vial3" or k == "pistol" or k == "" then
 				--Ent:SetCollisionGroup ( COLLISION_GROUP_DEBRIS_TRIGGER )
 				Ent:SetCollisionGroup ( SOLID_VPHYSICS )
 			end
