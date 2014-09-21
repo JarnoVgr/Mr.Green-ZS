@@ -631,7 +631,7 @@ function meta:IsZombine()
 	return self:GetZombieClass() == 8
 end
 
---Duby: We don't have classes anymore. So it is only sensible to remove this.
+--Duby: We don't have classes anymore. So its only sensible to remove this.
 
 --[==[---------------------------------------
 	See if a human is medic

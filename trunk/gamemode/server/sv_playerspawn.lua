@@ -441,7 +441,7 @@ function GM:OnHumanSpawn(pl)
 	end	
 
 	--Auto-enable flashlight
-	pl:Flashlight(true)
+	--pl:Flashlight(true)
 
 	--Log
 	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as a Survivor")
@@ -490,6 +490,8 @@ function GM:OnZombieSpawn(pl)
 	-- Calculate zombie's health
 	CalculateZombieHealth(pl)
 
+	
+	
 	-- pl:CalculateViewOffsets()
 	pl:DoHulls(Class, TEAM_UNDEAD)
 	
@@ -808,6 +810,21 @@ function CalculateZombieHealth(pl)
 			local IncreaseHealth = Tab.Health*(UNDEAD_START_AMOUNT_PERCENTAGE)*desiredzombies+10*(team.NumPlayers(TEAM_HUMAN))
 			--MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*1.9,510) )
 			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*1.5,510) )
+			pl:RemoveStatus("champion")
+		end
+	end
+	
+	--Case 3: If there are a nice amount of zombies give them a lovely buff, stop Regs being OP as shit!
+	
+	if not pl:IsBossZombie() and not pl:IsCrow() then
+		local allPlayers = player.GetAll()
+		local numPlayers = #allPlayers
+
+		local desiredzombies = math.max(1, math.ceil(numPlayers ))
+		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+20) and team.NumPlayers(TEAM_HUMAN) >= 4) then
+			local IncreaseHealth = Tab.Health*desiredzombies+20*(team.NumPlayers(TEAM_HUMAN))
+			--MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*1.9,510) )
+			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*2.0,510) )
 			pl:RemoveStatus("champion")
 		end
 	end

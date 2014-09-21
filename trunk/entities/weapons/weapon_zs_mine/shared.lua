@@ -61,17 +61,17 @@ SWEP.AdminSpawnable		= false
 SWEP.ViewModel      = Model ( "models/Weapons/v_slam.mdl")
 SWEP.WorldModel   = Model ( "models/Weapons/w_package.mdl" )
 ------------------------------------------------------------------------------------------------------
-SWEP.Primary.Delay			= 0.25 	
+SWEP.Primary.Delay			= 0.025 	
 SWEP.Primary.Recoil			= 0		
 SWEP.Primary.Damage			= 7	
 SWEP.Primary.NumShots		= 1		
 SWEP.Primary.Cone			= 0 	
 SWEP.Primary.ClipSize		= 3
 SWEP.Primary.DefaultClip	= 1
-SWEP.Primary.Automatic   	= false
+SWEP.Primary.Automatic   	= true
 SWEP.Primary.Ammo         	= "slam"	
 ------------------------------------------------------------------------------------------------------
-SWEP.Secondary.Delay		= 0.6
+SWEP.Secondary.Delay		= 0.06
 SWEP.Secondary.Recoil		= 0
 SWEP.Secondary.Damage		= 6
 SWEP.Secondary.NumShots		= 1
@@ -81,7 +81,7 @@ SWEP.Secondary.DefaultClip	= 1
 SWEP.Secondary.Automatic   	= false
 SWEP.Secondary.Ammo         = "none"
 ------------------------------------------------------------------------------------------------------
-SWEP.WalkSpeed = 202
+SWEP.WalkSpeed = 190
 
 -- Preload
 util.PrecacheSound("weapons/c4/c4_beep1.wav")
@@ -167,7 +167,7 @@ function SWEP:PrimaryAttack()
 	-- self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 
 	-- local time = self:SequenceDuration()
-	self.NextPlant = ( CurTime() + 2 );
+	self.NextPlant = ( CurTime() + 1 );
 
 		if not ValidEntity ( self.Owner ) then return end 
 		local trace = {}
@@ -232,7 +232,7 @@ end
 
 function SWEP:SecondaryAttack()
 	if( CurTime() < self.NextPlant ) then return end
-	self.NextPlant = ( CurTime() + 1.2 );
+	self.NextPlant = ( CurTime() + 1 );
 	
 	if 0 < self:Clip1() then 
 		self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_DETONATE )
