@@ -442,6 +442,7 @@ function GM:OnHumanSpawn(pl)
 
 	--Auto-enable flashlight
 	--pl:Flashlight(true)
+	pl:Flashlight(false)
 
 	--Log
 	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as a Survivor")
@@ -532,6 +533,7 @@ function GM:OnZombieSpawn(pl)
 	--
 	if not pl.Revived then
 		-- SpawnProtection(pl)
+		-- DeSpawnProtection(pl)
 		pl.NoExplosiveDamage = CurTime() + 1.5 
 	end
 	
@@ -557,7 +559,7 @@ function GM:OnZombieSpawn(pl)
 	pl:SetCrouchedWalkSpeed(Tab.CrouchWalkSpeed or 0.80)
 
 	--Check for spawnprotection
-		
+ 	
 	pl:UnSpectate()		
 	-- Prevent health pickups and/or machines
 	pl:SetMaxHealth(1) 
@@ -849,19 +851,19 @@ function CalculatePlayerHealth(pl)
 	end
 	
 	--First kevlar upgrade
-	--if pl:GetPerk("_kevlar") then
-	--	MaxHealth, Health = 110, 110
-	--end
+	if pl:GetPerk("_kevlar") then
+		MaxHealth, Health = 110, 110
+	end
 	
 	--Second kevlar upgrade
-	--if pl:GetPerk("_kevlar2") then
-		--MaxHealth, Health = 130, 130
-	--end
+	if pl:GetPerk("_kevlar2") then
+		MaxHealth, Health = 130, 130
+	end
 	
 	--Third kevlar upgrade
-	--if pl:GetPerk("_kevlar3") then
-	--	MaxHealth, Health = 105, 105
-	--end
+	if pl:GetPerk("_kevlar3") then
+		MaxHealth, Health = 105, 105
+	end
 	
 	-- Actually set the health
 	pl:SetHealth(Health)
