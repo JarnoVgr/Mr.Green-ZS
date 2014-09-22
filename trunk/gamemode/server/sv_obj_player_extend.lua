@@ -259,12 +259,12 @@ function meta:RestoreHumanHealth(am,returnhealth)
 	end
 	
 	local health, maxhealth = self:Health(), 100
---	if self:GetPerk("_kevlar") then
-	--	maxhealth = 110
-	--elseif self:GetPerk("_kevlar2") then
-	--	maxhealth = 130
-	--elseif self:GetPerk("_kevlar3") then
-		--maxhealth = 105
+	if self:GetPerk("_kevlar") then
+		maxhealth = 110
+	elseif self:GetPerk("_kevlar2") then
+		maxhealth = 130
+	elseif self:GetPerk("_kevlar3") then
+		maxhealth = 105
 
 	if health == maxhealth and returnhealth then
 		return false
