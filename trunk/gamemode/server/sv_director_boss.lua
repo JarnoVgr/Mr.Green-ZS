@@ -28,16 +28,16 @@ end]]
 			end
 			
 			local hp = 100
-			--if pl:GetPerk("_kevlar2") then
-			--	hp = 130
-			--elseif pl:GetPerk("_kevlar") then
-			--	hp = 110
-			--elseif pl:GetPerk("_kevlar3") then
-			--	hp = 105
+			if pl:GetPerk("_kevlar2") then
+				hp = 130
+			elseif pl:GetPerk("_kevlar") then
+				hp = 110
+			elseif pl:GetPerk("_kevlar3") then
+				hp = 105
 
 			pl:SetHealth(hp)
 		end
-	end
+	end end
 
 	pl = GAMEMODE:GetPlayerForBossZombie() --Duby: Lets disable bosses for now
 	if not pl then

@@ -849,19 +849,19 @@ function CalculatePlayerHealth(pl)
 	end
 	
 	--First kevlar upgrade
-	--if pl:GetPerk("_kevlar") then
-	--	MaxHealth, Health = 110, 110
-	--end
+	if pl:GetPerk("_kevlar") then
+		MaxHealth, Health = 110, 110
+	end
 	
 	--Second kevlar upgrade
-	--if pl:GetPerk("_kevlar2") then
-		--MaxHealth, Health = 130, 130
-	--end
+	if pl:GetPerk("_kevlar2") then
+		MaxHealth, Health = 130, 130
+	end
 	
 	--Third kevlar upgrade
-	--if pl:GetPerk("_kevlar3") then
-	--	MaxHealth, Health = 105, 105
-	--end
+	if pl:GetPerk("_kevlar3") then
+		MaxHealth, Health = 105, 105
+	end
 	
 	-- Actually set the health
 	pl:SetHealth(Health)
