@@ -95,7 +95,7 @@ local pl = self.Owner
 			ent.TeamID = pl:Team()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
-				phys:SetVelocityInstantaneous(heading * math.Rand(400, 400))
+				phys:SetVelocityInstantaneous(heading * math.Rand(500, 550))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end
