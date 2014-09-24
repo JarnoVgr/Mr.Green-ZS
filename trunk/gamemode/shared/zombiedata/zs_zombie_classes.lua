@@ -85,6 +85,16 @@ ZombieClasses[0] =
 	PlayerFootstep = false,
 	Unlocked = true,
 	OnSpawn = function(pl)
+	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
 		--Force human player model
 		if pl.ForcePlayerModel then
 			--Reset
@@ -144,6 +154,17 @@ ZombieClasses[1] =
 			if pl:Team() == TEAM_UNDEAD and pl:GetZombieClass() == 1 then
 	--pl:ManipulateBonePosition(math.Rand(1, 15) , Vector( math.Rand( 5, 5), math.Rand( 5, 5), math.Rand( 1, 5)) )
 		
+		--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+		
+		
 		local b = pl:LookupBone("ValveBiped.Bip01_Head1")
 	pl:ManipulateBonePosition( b, Vector(-1,1.5,-1)) 
 	
@@ -193,6 +214,17 @@ ZombieClasses[2] =
 	Model = Model("models/Zombie/Fast.mdl"),
 	Speed = 245,
 	Description = "Skin and bones predator.",
+	OnSpawn = function(pl)
+	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	end,
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap" },
 	PainSounds = {
 				Sound("mrgreen/undead/fastzombie/pain1.wav"),
@@ -247,6 +279,17 @@ ZombieClasses[3] =
 	Model = Model( "models/Zombie/Poison.mdl" ),
 	Speed = 195,
 	Description = "A hulking mass of flesh far more durable than any other zombie.",
+		OnSpawn = function(pl)
+	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	end,
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> SPECIAL: Propkill" },
 	PainSounds = {
 				Sound("npc/zombie_poison/pz_pain1.wav"),
@@ -306,6 +349,16 @@ ZombieClasses[4] =
 				},
 	OnSpawn = function(pl)	
 	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,2))
+		--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
 	end,
 	-- ViewOffset = Vector(0, 0, 0)
 }
@@ -346,7 +399,16 @@ ZombieClasses[5] =
 				Sound( "player/zombies/howler/howler_death_01.wav" ),
 				}, 
 	OnSpawn = function(pl)
-		
+			--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
 		--pl:SetModel("models/player/group01/female_01.mdl")
 	
 		local status = pl:GiveStatus("overridemodel")
@@ -378,6 +440,17 @@ ZombieClasses[6] =
 	Model = Model("models/headcrabclassic.mdl"),
 	Speed = 190,
 	Description = "Head Humper! Nobody knows where this creature came from.",
+		OnSpawn = function(pl)
+	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	end,
 	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes" },
 	PainSounds = {
 				Sound("npc/headcrab/pain1.wav"),
@@ -414,6 +487,17 @@ ZombieClasses[7] =
 	Model = Model("models/headcrabblack.mdl"),
 	Speed = 140,
 	Description = "A headcrab that has evolved spit poison balls over dangerous distances.",
+		OnSpawn = function(pl)
+	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	end,
 	DescriptionGameplay = { "> PRIMARY: Spit", "> SPECIAL: Fits through small places", "> DEATH: Chance of dropping a Poison Bomb" },
 	PainSounds = {
 				Sound("npc/headcrab_poison/ph_pain1.wav"),
@@ -449,6 +533,17 @@ ZombieClasses[8] =
 	Speed = 160,
 	RunSpeed = 190,
 	Description = "A heavily armoured soldier that has taken a turn for the worst.",
+		OnSpawn = function(pl)
+	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	end,
 	DescriptionGameplay = { "> PRIMARY: Upgraded Bloody CLAWS", "> SPECIAL: Pulls out grenade, poison or normal", "> SPECIAL: Enrage when taken enough damage" },
 	PainSounds = {
 				Sound( "npc/zombine/zombine_pain1.wav" ),
@@ -477,6 +572,7 @@ ZombieClasses[8] =
 				},
 }
 
+--[[
 ZombieClasses[9] =
 {
 	Name = "Crow",
@@ -509,7 +605,53 @@ ZombieClasses[9] =
 }
 
 
+]]--
 
+
+ZombieClasses[9] = --Duby: You will all love my labs new creation. 
+{
+	Name = "Spitter",
+	Tag = "spitterzombie",
+	Infliction = 0.45,
+	Health = 130,
+	MaxHealth = 100,
+	TimeLimit = 200,
+	Bounty = 60,
+	SP = 20,
+	Threshold = 2,
+	JumpPower = 200,
+	CanCrouch = true,
+	CanGib = true,
+	SWEP = "weapon_zs_undead_spitter",
+	Model = Model( "models/Zombie/Poison.mdl" ),
+	Speed = 140,
+	Description = "A flesh spitting monster!",
+	DescriptionGameplay = { "> PRIMARY: Fresh Vomit!", "> SECONDARY: " },
+	PainSounds = {
+				Sound("npc/zombie_poison/pz_pain1.wav"),
+				Sound("npc/zombie_poison/pz_pain2.wav"),
+				Sound("npc/zombie_poison/pz_pain3.wav")
+				},
+	DeathSounds = {
+				Sound("npc/zombie_poison/pz_die1.wav"),
+				Sound("npc/zombie_poison/pz_die2.wav")
+				},
+	OnSpawn = function(pl)	
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 5, 5), math.Rand( 11, 5)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 8, 5), math.Rand( -10, -10), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand left
+	
+
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 5, 5), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 8, 5), math.Rand( 5, 5), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
+
+	end,
+	-- ViewOffset = Vector(0, 0, 0)
+}
 
 ZombieClasses[10] =										
 {
@@ -1100,8 +1242,6 @@ ZombieClasses[19] =  --I love Evangelion. So lets make a boss based off of it! >
 				Sound("npc/zombine/striderx_alert6.wav"),
 				},
 }
-
-
 
 
 --[[local SantaStart = {

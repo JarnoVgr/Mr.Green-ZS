@@ -75,7 +75,7 @@ end
 function SWEP:StartSecondaryAttack()
 	local pl = self.Owner
 	
-	if pl:GetAngles().pitch > 55 or pl:GetAngles().pitch < -55 then
+	if pl:GetAngles().pitch > 180 or pl:GetAngles().pitch < -180 then
 		pl:EmitSound(Sound("npc/zombie_poison/pz_idle"..math.random(2,4)..".wav"))
 		return
 	end

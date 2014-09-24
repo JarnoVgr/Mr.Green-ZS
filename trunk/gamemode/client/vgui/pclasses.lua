@@ -25,7 +25,7 @@ local Image = {
 	[6] = surface.GetTextureID("zombiesurvival/classmenu/headcrab"),
 	[7] = surface.GetTextureID("zombiesurvival/classmenu/poisonheadcrab"),
 	[8] = surface.GetTextureID("zombiesurvival/classmenu/zombine"),
-	[20] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
+	[9] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
 }
 
 -- Initialize the colors needed for the 3 buttons
@@ -128,7 +128,8 @@ function DrawClassMenu()
 	
 	--Draw hovered classes
 	local posY = ScaleH(329)
-	for i = 0, 8 do
+	--for i = 0, 8 do
+	for i = 0, 9 do
 		if not Buttons[i] then
 			continue
 		end
@@ -225,7 +226,8 @@ function OnClassesMenuOpen()
 			zDialog[i].IsCursorIn = true
 			
 			if i == 2 then
-				for j = 0, 8 do
+			--	for j = 0, 8 do
+				for j = 0, 9 do
 					if not Buttons[j] then
 						continue
 					end
@@ -254,7 +256,8 @@ function OnClassesMenuOpen()
 		zDialog[i].Paint = function() 
 			local Wide,Tall = zDialog[i]:GetWide(), zDialog[i]:GetTall()
 			if i == 2 then
-				for j = 0, 8 do
+				--for j = 0, 8 do
+				for j = 0, 9 do
 					if ZombieClasses[j].Hidden then
 						continue
 					end
@@ -276,7 +279,8 @@ function OnClassesMenuOpen()
 		
 		zDialog[i].OnMousePressed = function()
 			if i == 2 then 
-				for j = 0, 8 do
+			--	for j = 0, 8 do
+				for j = 0, 9 do
 					if not Buttons[j] then
 						continue
 					end
@@ -305,7 +309,8 @@ function OnClassesMenuOpen()
 	zButtons = {}
 			
 	--Initialize some other button vars
-	for i = 0, 8 do
+	--for i = 0, 8 do
+	for i = 0, 9 do
 		if ZombieClasses[i].Hidden then
 			continue
 		end
@@ -326,7 +331,8 @@ function OnClassesMenuOpen()
 	
 	local DenySoundTimer = 0
 	local buttonPosX = (ScrW()-totalWidth)/2
-	for i = 0, 8 do
+	--for i = 0, 8 do
+	for i = 0, 9 do
 		--Disable hidden classes
 		if ZombieClasses[i].Hidden then
 			continue
@@ -340,7 +346,8 @@ function OnClassesMenuOpen()
 		zButtons[i].OnMousePressed = function() 
 			if ZombieClasses[i].Unlocked then
 				--Deactivate all buttons first
-				for j = 0, 8 do
+				--for j = 0, 8 do
+				for j = 0, 9 do
 					--
 					if not Buttons[j] or i == j then
 						continue
@@ -424,7 +431,8 @@ function OnClassesMenuOpen()
 			zClasses:SetVisible(false)
 		end
 	
-		for i = 0, 8 do
+	--	for i = 0, 8 do
+		for i = 0, 9 do
 			if not Buttons[i] then
 				continue
 			end
