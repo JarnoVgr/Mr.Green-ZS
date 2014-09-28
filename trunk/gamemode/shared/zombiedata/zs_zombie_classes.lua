@@ -612,8 +612,8 @@ ZombieClasses[9] = --Duby: You will all love my labs new creation.
 {
 	Name = "Spitter",
 	Tag = "spitterzombie",
-	Infliction = 0.45,
-	Health = 200,
+	Infliction = 0.5,
+	Health = 150,
 	MaxHealth = 100,
 	TimeLimit = 200,
 	Bounty = 60,
