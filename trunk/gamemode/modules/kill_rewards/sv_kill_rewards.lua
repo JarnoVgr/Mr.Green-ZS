@@ -27,7 +27,7 @@ end
 --
 gun_race.config = {
 	-- If debug_mode is on, it'll output to server-console what is happening...
-	debug_mode 				= true;
+	debug_mode 				= false;
 
 	-- Should all old weapons be removed? false if they should keep their old weapon upgrades unless they die!
 	remove_previous_weapons = true;
@@ -53,6 +53,7 @@ gun_race.config = {
 		[ 0 ] 	= { };
 		[ 5 ] 	= { "weapon_zs_chipper" };
 		[ 10 ] 	= { "weapon_zs_p90"};
+		[ 16 ] 	= { "weapon_zs_alyx"};
 		[ 25 ] 	= { "weapon_zs_ak47" };
 		[ 40 ] 	= { "weapon_zs_m249" };
 

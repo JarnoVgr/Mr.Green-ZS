@@ -6,16 +6,17 @@ if CLIENT then
         SWEP.Slot = 1
         SWEP.SlotPos = 3
         SWEP.ViewModelFlip = false
-        SWEP.ViewModelFOV = 45
+        SWEP.ViewModelFOV = 50
        
         SWEP.OverrideAngle = {}
 		
 		SWEP.ShowViewModel = false 
+	SWEP.ViewModelBoneMods = {
+	["v_weapon.FIVESEVEN_PARENT"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
+}
+	
 SWEP.VElements = {
-      --  ["pistol"] = { type = "Model", model = "models/weapons/c_pistol.mdl", bone = "v_weapon.Glock_Parent", rel = "", pos = Vector(26.249, 1.776, 5.823), angle = Angle(1.692, 162.576, 79.93), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	 
-	["1"] = { type = "Model", model = "models/weapons/v_alyxgun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-20.261, 5.714, -8.832), angle = Angle(-1.17, -1.17, 180), size = Vector(5.037, 5.037, 5.037), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }  
-	  
+	["alyxgun"] = { type = "Model", model = "models/weapons/w_alyx_gun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(5.046, 1.735, -3.823), angle = Angle(172.804, 2.371, 4.261), size = Vector(0.779, 0.779, 0.779), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
 SWEP.WElements = {
@@ -42,30 +43,30 @@ SWEP.Primary.Damage = 20
 SWEP.Primary.NumShots           = 1
 SWEP.Primary.ClipSize           = 15
 SWEP.Primary.Delay                      = 0.1
-SWEP.Primary.DefaultClip        = 200
+SWEP.Primary.DefaultClip        = 150
 SWEP.Primary.Automatic = false
 SWEP.MaxAmmo                        = 160
 SWEP.Primary.Ammo                       = "pistol"
 SWEP.WalkSpeed = 200
- 
+SWEP.UseHands = true
 SWEP.Cone = 0.045
 SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.75
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
---SWEP.ConeIronMoving = SWEP.Moving *0.80
- 
-SWEP.IronSightsPos = Vector(-3.2,-1,1)
+
+SWEP.IronSightsPos = Vector(-4.59,25,0.65)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
  
 SWEP.HoldType = "pistol"
 SWEP.ViewModelFOV = 57
 SWEP.ViewModelFlip = false
-SWEP.ViewModel = "models/weapons/cstrike/c_pist_glock18.mdl"
+SWEP.ViewModel = "models/weapons/cstrike/c_pist_fiveseven.mdl"
 --SWEP.UseHands = true
-SWEP.WorldModel = "models/weapons/w_pistol.mdl"
+SWEP.WorldModel = "models/weapons/w_alyx_gun.mdl"
+--SWEP.WorldModel = "models/weapons/w_pistol.mdl"
 --SWEP.ShowViewModel = true
-SWEP.ShowWorldModel = false
+SWEP.ShowWorldModel = true
 SWEP.ViewModelBoneMods = {
 ["v_weapon.Glock_Slide"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 ["v_weapon.Glock_Parent"] = { scale = Vector(0.287, 0.287, 0.287), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
