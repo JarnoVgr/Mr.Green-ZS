@@ -38,7 +38,7 @@ SWEP.AdminSpawnable = true
 SWEP.Primary.Automatic = true
 SWEP.Primary.Duration = 0.2
 SWEP.Primary.Delay = 0.2
-SWEP.Primary.Damage = math.random(1,1)
+SWEP.Primary.Damage = math.random(0.2,0.1)
 SWEP.Primary.Reach = 45
 
 SWEP.SwapAnims = false
