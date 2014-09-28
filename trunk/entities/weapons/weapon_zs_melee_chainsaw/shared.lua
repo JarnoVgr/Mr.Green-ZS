@@ -8,9 +8,8 @@ SWEP.Base = "weapon_zs_melee_base"
 
 -- Model paths
 SWEP.Author = "Duby"
-SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
-SWEP.WorldModel = "models/props_canal/mattpipe.mdl"
-SWEP.UseHands = false
+
+
 
 if CLIENT then
 	SWEP.ShowViewModel = false 
@@ -33,8 +32,11 @@ SWEP.WElements = {
 	--killicon.AddFont( "weapon_zs_melee_crowbar", "HL2MPTypeDeath", "6", Color(255, 255, 255, 255 ) )
 end
 
+SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
+SWEP.WorldModel = "models/props_canal/mattpipe.mdl"
+
 -- Name and fov
- SWEP.HoldType = "physgun"
+SWEP.HoldType = "melee2"
 SWEP.PrintName = "Chainsaw!"
 SWEP.ViewModelFOV = 60
 SWEP.DeploySpeed = 0.6
