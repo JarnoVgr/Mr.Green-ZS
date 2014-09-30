@@ -17,11 +17,11 @@ util.PrecacheSound("npc/turret_floor/active.wav")
 for i=1,3 do
 	util.PrecacheSound("npc/turret_floor/shoot"..i..".wav")
 end
-util.PrecacheSound("npc/turret_floor/die.wav")
+util.PrecacheSound("physics/wood/wood_crate_break1.wav")
 util.PrecacheSound("npc/turret_floor/deploy.wav")
 
 for i=1,2 do
-	util.PrecacheSound("npc/scanner/scanner_pain"..i..".wav")
+	util.PrecacheSound("physics/wood/wood_crate_break"..i..".wav")
 end
 
 -- Options
