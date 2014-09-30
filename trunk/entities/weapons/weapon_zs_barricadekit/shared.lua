@@ -21,13 +21,13 @@ SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
 SWEP.Primary.ClipSize = 2
-SWEP.Primary.DefaultClip = 2
+SWEP.Primary.DefaultClip = 4
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "SniperRound"
 SWEP.Primary.Delay = 1
 
-SWEP.Secondary.ClipSize = 1
-SWEP.Secondary.DefaultClip = 1
+SWEP.Secondary.ClipSize = 2
+SWEP.Secondary.DefaultClip = 4
 SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "CombineCannon"
 SWEP.Secondary.Delay = 0.5
