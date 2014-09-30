@@ -50,6 +50,7 @@ if SERVER then
 
 		--self.Entity:SetModel("models/props_interiors/radiator01a.mdl")
 		self.Entity:SetModel("models/props_debris/wood_board01a.mdl")
+		self.Entity:SetModel("models/props_debris/wood_board06a.mdl")
 		self.Entity:PhysicsInit(SOLID_VPHYSICS )
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
 		self.Entity:SetSolid(SOLID_VPHYSICS)

@@ -2,7 +2,7 @@ include("shared.lua")
 
 SWEP.PrintName = "'Aegis' Barricade Kit"
 SWEP.DrawAmmo = true
-SWEP.DrawCrosshair = false
+SWEP.DrawCrosshair = true
 SWEP.ViewModelFOV = 60
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false

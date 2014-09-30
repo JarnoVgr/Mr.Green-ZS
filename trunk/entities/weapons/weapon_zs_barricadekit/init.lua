@@ -11,8 +11,9 @@ SWEP.PrintName = "barricade kit"
 SWEP.WalkSpeed = 190
 --SWEP.Models = { "models/props_interiors/radiator01a.mdl", "models/props_junk/trashbin01a.mdl" }
 SWEP.Models = { "models/props_debris/wood_board01a.mdl", "models/props_junk/trashbin01a.mdl" }
---SWEP.ModelOBB = { [1] = { Min = Vector( -5.2500, -25.2500, -18.4771 ) , Max = Vector ( 5.2500 ,25.0245 ,18.2500 )  }, [2] = { Min = Vector( -13.2614 ,-12.0523 ,-20.2876 ) , Max = Vector ( 13.2614, 12.0523 ,20.3897 )  } }
-SWEP.ModelOBB = { [1] = { Min = Vector( 10.2500 ,10.0245 ,10.2500 ) , Max = Vector ( 30.2500 ,30.0245 ,30.2500 )  }, [2] = { Min = Vector( -13.2614 ,-12.0523 ,-20.2876 ) , Max = Vector ( 13.2614, 12.0523 ,20.3897 )  } }
+SWEP.Models = { "models/props_debris/wood_board06a.mdl", "models/props_junk/trashbin01a.mdl" }
+SWEP.ModelOBB = { [1] = { Min = Vector( -5.2500, -25.2500, -18.4771 ) , Max = Vector ( 5.2500 ,25.0245 ,18.2500 )  }, [2] = { Min = Vector( -13.2614 ,-12.0523 ,-20.2876 ) , Max = Vector ( 13.2614, 12.0523 ,20.3897 )  } }
+--SWEP.ModelOBB = { [1] = { Min = Vector( -5.2500 ,-5.0245 ,-5.2500 ) , Max = Vector ( 1.2500 ,1.0245 ,1.2500 )  }, [2] = { Min = Vector( -13.2614 ,-12.0523 ,-20.2876 ) , Max = Vector ( 13.2614, 12.0523 ,20.3897 )  } }
 
 function SWEP:Deploy()
 	self.Owner:DrawViewModel( true )
@@ -51,15 +52,17 @@ function SWEP:PrimaryAttack()
 		end
 		
 		//Trace the shit
-		local tr = util.TraceLine( { start = shootpos, endpos = shootpos + aimvec * 250, filter = self.Owner , mask = MASK_NPCWORLDSTATIC } )
+		--local tr = util.TraceLine( { start = shootpos, endpos = shootpos + aimvec * 250, filter = self.Owner , mask = MASK_NPCWORLDSTATIC } )
+		local tr = util.TraceLine( { start = shootpos, endpos = shootpos + aimvec * 80, filter = self.Owner , mask = MASK_NPCWORLDSTATIC } )
 		local hTrace = util.TraceHull ( { start = tr.HitPos + Vector( 0,0, Offset ), endpos = tr.HitPos + Vector( 0,0, Offset ), filter = { self.Owner }, mins = Min, maxs = Max } )
 		
 		CanSpawn = false
 		
 		//Spawn conditions
-		if hTrace.Entity == NULL or hTrace.Entity:IsWorld() then CanSpawn = true end	
+	--	if hTrace.Entity == NULL or hTrace.Entity:IsWorld() then CanSpawn = true end	
+		if hTrace.Entity:IsWorld() then CanSpawn = true else CanSpawn = false end	
 		--if tr.HitPos.z < self.Owner:GetPos().z + 20 then CanSpawn = true else CanSpawn = false end
-		if tr.HitPos.z < self.Owner:GetPos().z + 20 then CanSpawn = true else CanSpawn = true end
+		if tr.HitPos.z < self.Owner:GetPos().z + 100 then CanSpawn = true else CanSpawn = false end
 
 		if CanSpawn then
 			--local ent = ents.Create ( "prop_physics_multiplayer" )
