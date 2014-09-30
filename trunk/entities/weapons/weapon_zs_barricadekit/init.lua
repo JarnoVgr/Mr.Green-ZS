@@ -87,20 +87,11 @@ end
 
 local sIndex = 1
 function SWEP:SecondaryAttack()
-	self:SetNextSecondaryFire( CurTime() + self.Secondary.Delay )
+
+
 	
-	//Cycle through the models
-	if sIndex <= #self.Models then
-		sIndex = sIndex + 1
-	end
-				
-	if sIndex > #self.Models then
-		sIndex = 1
-	end
-	
-	//Set the model to spawn
-	self:SetModelToSpawn ( sIndex )
 end
+--end
 
 function SWEP:OnDrop()
 
