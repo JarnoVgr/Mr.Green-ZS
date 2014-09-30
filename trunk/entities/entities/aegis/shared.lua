@@ -25,7 +25,7 @@ for i=1,2 do
 end
 
 -- Options
-ENT.MaxHealth = 100
+ENT.MaxHealth = 140
 ENT.IgnoreClasses = {} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {}
 
