@@ -14,7 +14,7 @@ end
 SWEP.ViewModel = Model("models/Weapons/v_fza.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
-SWEP.Primary.Delay = 0.3
+SWEP.Primary.Delay = 0.2
 SWEP.Primary.Reach = 42
 SWEP.Primary.Damage = 7
 SWEP.Primary.Duration = 0.8
@@ -111,7 +111,7 @@ function SWEP:Think()
 			self.Owner:SetLocalVelocity(Vector(0, 0, 0))
 			
 			--Leap Cooldown
-			self.NextLeap = CurTime() + 4
+			self.NextLeap = CurTime() + 5
 		end
 		
 		--Always update leap status
@@ -207,7 +207,7 @@ function SWEP:SecondaryAttack()
 	self.Leaping = true
 	
 	--Leap cooldown
-	self.NextLeap = CurTime() + 2
+	self.NextLeap = CurTime() + 5
 	
 	--Fast zombie scream
 	if SERVER then

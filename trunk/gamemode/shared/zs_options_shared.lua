@@ -247,6 +247,7 @@ GM.HumanWeapons = {
 	["weapon_zs_tools_supplies"] = { Name = "Mobile Supplies", DPS = 0, Infliction = 0, Type = "tool1", NoRetro = true },
 	["weapon_zs_tools_remote"] = { Name = "Remote Controller", DPS = 0, Infliction = 0, Type = "tool2" },
 	["weapon_zs_tools_torch"] = { Name = "Torch", DPS = 0, Infliction = 0, Type = "tool2", NoRetro = true },
+	["weapon_zs_barricadekit"] = { Name = "Agies Barricading kit", DPS = 0, Infliction = 0, Type = "tool1", NoRetro = true },
 	
 	--Tool2
 	["weapon_zs_miniturret"] = { Name = "Combat Mini-Turret", DPS = 0, Infliction = 0, Type = "tool2" },
@@ -390,7 +391,7 @@ GM.RankUnlocks = {
 	[8] = {"_nailhp","_kevlar2"},
 	[9] = {"_falldmg","_medupgr1"},
 	[10] = {"weapon_zs_python"},
-	[11] = {"weapon_zs_tools_plank"},
+	[11] = {"weapon_zs_barricadekit"},
 	[12] = {"_plankamount","weapon_zs_melee_pipe2"},
 	[13] = {"_freeman"},
 	[14] = {"_poisonprotect","weapon_zs_melee_hook"},
@@ -759,7 +760,7 @@ HELP_TXT[3] = {
 	 [8] = HAIL'HP', FULL KEVLAR
 	 [9] = FALLDAMAGE, MEDKIT UPGRADE1
 	[10] = PYTHON MAGNUM
-	[11] = PLANK 'TOOL
+	[11] = BARRICADING KIT
 	[12] = PLANK AMOUNT, PIPE2
 	[13] = FREEMAN SPIRIT
 	[14] = POISON PROTECTION, HOOK
