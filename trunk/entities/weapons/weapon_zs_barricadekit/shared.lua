@@ -51,10 +51,10 @@ SWEP.Primary.Ammo = "SniperRound"
 SWEP.Primary.Delay = 1
 
 SWEP.Secondary.ClipSize = 2
-SWEP.Secondary.DefaultClip = 4
-SWEP.Secondary.Automatic = true
-SWEP.Secondary.Ammo = "CombineCannon"
-SWEP.Secondary.Delay = 0.5
+SWEP.Secondary.DefaultClip = 2
+SWEP.Secondary.Automatic = false
+SWEP.Secondary.Ammo = "SniperRound"
+SWEP.Secondary.Delay = 1
 
 SWEP.WalkSpeed = 150
 

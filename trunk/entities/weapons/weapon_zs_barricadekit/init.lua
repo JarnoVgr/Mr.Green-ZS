@@ -137,7 +137,7 @@ if self:CanSecondaryAttack() then
 			end
 			
 			--//Take ammo and set cooldown
-			self:TakePrimaryAmmo(1)
+			self:TakeSecondaryAmmo(1)
 			self:SetNextSecondaryFire ( CurTime() + 1 )
 		end
 	end
