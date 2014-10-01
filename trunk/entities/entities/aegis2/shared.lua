@@ -6,16 +6,14 @@ AddCSLuaFile()
 
 
 ENT.Type   = "anim"
-ENT.PrintName           = "Aeigs"
+ENT.PrintName           = "Aeigs2"
 ENT.RenderGroup         = RENDERGROUP_TRANSLUCENT
 ENT.AutomaticFrameAdvance = true
 
 -- Some precaching stuff
-
 for i=1,3 do
 	util.PrecacheSound("npc/turret_floor/shoot"..i..".wav")
 end
-util.PrecacheSound("physics/wood/wood_crate_break1.wav")
 for i=1,2 do
 	util.PrecacheSound("physics/wood/wood_crate_break"..i..".wav")
 end
@@ -51,7 +49,7 @@ if SERVER then
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
 		self.Entity:SetSolid(SOLID_VPHYSICS)
 		self.Entity:SetCollisionGroup( COLLISION_GROUP_NONE )
-	    self.Entity:SetAngles(Angle(0, 0, 90))
+	    self.Entity:SetAngles(Angle(0, 270, 270))
 		local phys = self.Entity:GetPhysicsObject()
 		if (phys:IsValid()) then
 			phys:Wake()

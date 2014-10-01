@@ -91,7 +91,56 @@ end
 local sIndex = 1
 function SWEP:SecondaryAttack()
 
+if self:CanSecondaryAttack() then
+		if not ValidEntity ( self.Owner ) then return end
+	
+		//Grab position
+		local aimvec = self.Owner:GetAimVector()
+		local shootpos = self.Owner:GetShootPos()
+		
+		//Heavy shit
+		local Index = self.Weapon:GetNetworkedInt ( "ModelToSpawn" )
+		local Max, Min = self.ModelOBB[Index].Max, self.ModelOBB[Index].Min
+		local Offset = math.abs ( Max.z )
+		if math.Round ( math.abs ( Min.z ) ) != math.Round ( math.abs( Max.z ) ) then
+			Offset = 2
+		end
+		
+		//Trace the shit
+		--local tr = util.TraceLine( { start = shootpos, endpos = shootpos + aimvec * 250, filter = self.Owner , mask = MASK_NPCWORLDSTATIC } )
+		local tr = util.TraceLine( { start = shootpos, endpos = shootpos + aimvec * 80, filter = self.Owner , mask = MASK_NPCWORLDSTATIC } )
+		local hTrace = util.TraceHull ( { start = tr.HitPos + Vector( 0,0, Offset ), endpos = tr.HitPos + Vector( 0,0, Offset ), filter = { self.Owner }, mins = Min, maxs = Max } )
+		
+		CanSpawn = false
+		
+		//Spawn conditions
+	--	if hTrace.Entity == NULL or hTrace.Entity:IsWorld() then CanSpawn = true end	
+		if hTrace.Entity:IsWorld() then CanSpawn = true else CanSpawn = false end	
+		--if tr.HitPos.z < self.Owner:GetPos().z + 20 then CanSpawn = true else CanSpawn = false end
+		if tr.HitPos.z < self.Owner:GetPos().z + 100 then CanSpawn = true else CanSpawn = false end
 
+		if CanSpawn then
+			--local ent = ents.Create ( "prop_physics_multiplayer" )
+			local ent = ents.Create ( "aegis2" )
+			local angles = self.Owner:GetAngles()
+			ent:SetPos ( tr.HitPos + Vector ( 0,0, Offset ) )
+			ent:EmitSound( "npc/dog/dog_servo12.wav" )
+			ent:SetModel( self:GetModelToSpawn() )
+			ent.IsBarricade = true
+			ent:SetHealth ( 0 )
+			ent:Spawn()
+			
+			//Freeze it
+			local Phys = ent:GetPhysicsObject()
+			if Phys:IsValid() then
+				Phys:EnableMotion ( false ) 
+			end
+			
+			--//Take ammo and set cooldown
+			self:TakePrimaryAmmo(1)
+			self:SetNextSecondaryFire ( CurTime() + 1 )
+		end
+	end
 	
 end
 --end
@@ -99,3 +148,18 @@ end
 function SWEP:OnDrop()
 
 end
+
+
+if CLIENT then
+	function SWEP:DrawHUD()
+		if not self.Owner:Alive() or ENDROUND then
+			return
+		end
+		MeleeWeaponDrawHUD()
+
+		draw.SimpleTextOutlined("Right for 270*c placement.", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Left for 908C placement.", "ArialBoldFive", w-ScaleW(150), h-ScaleH(40), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	end
+end
+
+
