@@ -146,19 +146,8 @@ end
 --end
 
 function SWEP:OnDrop()
-
-end
-
-
-if CLIENT then
-	function SWEP:DrawHUD()
-		if not self.Owner:Alive() or ENDROUND then
-			return
-		end
-		MeleeWeaponDrawHUD()
-
-		draw.SimpleTextOutlined("Right for 270*c placement.", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		draw.SimpleTextOutlined("Left for 908C placement.", "ArialBoldFive", w-ScaleW(150), h-ScaleH(40), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+if self and self:IsValid() then
+		self:Remove()
 	end
 end
 
