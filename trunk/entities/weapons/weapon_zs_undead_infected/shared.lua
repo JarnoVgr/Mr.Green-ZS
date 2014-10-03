@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "Infected"
-	SWEP.ViewModelFOV = 70
+	SWEP.ViewModelFOV = 60
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = false
 
@@ -42,7 +42,7 @@ SWEP.Primary.Delay = 0.8
 --SWEP.Primary.Delay = 1.2
 --SWEP.Primary.Damage = 25
 SWEP.Primary.Damage = 30
-SWEP.Primary.Reach = 45
+SWEP.Primary.Reach = 40
 
 SWEP.SwapAnims = false
 

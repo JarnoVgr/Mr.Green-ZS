@@ -2130,9 +2130,10 @@ pl = LocalPlayer()
 if pl:Team() == TEAM_HUMAN then
 surface.PlaySound("mrgreen/beep22.wav")	
 pl:Message("The Supplies have been used up! Await for supplies to be dropped!", 2, "white")
---timer.Simple(5,function()
---pl:Message("Await for new supplies to be dropped!", 1, "white")
---end)
+end
+if pl:Team() == TEAM_UNDEAD then
+surface.PlaySound("player/zombies/b/scream.wav")	
+pl:Message("Human supplies have moved!", 2, "white")
 end
 end
 usermessage.Hook ( "cratemove", cratemove )

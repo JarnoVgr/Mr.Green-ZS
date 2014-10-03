@@ -52,10 +52,10 @@ ZBeats[3] = {"zombiesurvival/_zbeat3.wav"}
 ZBeats[4] = {"zombiesurvival/_zbeat4.wav"}
 ZBeats[5] = {"zombiesurvival/_zbeat5.wav"}
 ZBeats[6] = {"zombiesurvival/_zbeat6.wav"}
-ZBeats[7] = {"zombiesurvival/_zbeat6_5.wav"}
-ZBeats[8] = {"zombiesurvival/_zbeat7.wav"}
-ZBeats[9] = {"zombiesurvival/_zbeat7_5.wav"}
-ZBeats[10] = {"zombiesurvival/_zbeat8.wav"}
+ZBeats[7] = {"zombiesurvival/_zbeat7.wav"}
+ZBeats[8] = {"zombiesurvival/_zbeat7_5.wav"}
+ZBeats[9] = {"zombiesurvival/_zbeat8.wav"}
+ZBeats[10] = {"zombiesurvival/hbeat10.wav"}
 
 local ZBeatLength = {}
 ZBeatLength[0] = 1
@@ -68,7 +68,8 @@ ZBeatLength[6] = 7.4
 ZBeatLength[7] = 5.1
 ZBeatLength[8] = 10.3
 ZBeatLength[9] = 10.3
-ZBeatLength[10] = 10.2
+--ZBeatLength[10] = 10.2
+ZBeatLength[10] = 21.8
 
 --Precache beats
 for i=1,10 do

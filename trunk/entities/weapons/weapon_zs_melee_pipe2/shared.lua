@@ -23,7 +23,7 @@ SWEP.WElements = {
 }
 
 
-	--killicon.AddFont( "weapon_zs_melee_crowbar", "HL2MPTypeDeath", "6", Color(255, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_melee_crowbar", "HL2MPTypeDeath", "6", Color(255, 120, 120, 255 ) )
 end
 
 -- Name and fov
@@ -35,7 +35,7 @@ SWEP.Slot = 2
 SWEP.SlotPos = 8
 
 -- Damage, distane, delay
-SWEP.Primary.Damage = 60
+SWEP.Primary.Damage = 70
 SWEP.Primary.Delay = 0.90
 SWEP.Primary.Distance = 73
 SWEP.WalkSpeed = 177

@@ -51,9 +51,9 @@ gun_race.config = {
 	
 	weapon_upgrades = {
 		[ 0 ] 	= { };
-		[ 5 ] 	= { "weapon_zs_chipper" };
-		[ 10 ] 	= { "weapon_zs_p90"};
-		[ 16 ] 	= { "weapon_zs_alyx"};
+		[ 5 ] 	= { "weapon_zs_alyx" };
+		[ 10 ] 	= { "weapon_zs_chipper"};
+		[ 16 ] 	= { "weapon_zs_p90"};
 		[ 25 ] 	= { "weapon_zs_ak47" };
 		[ 40 ] 	= { "weapon_zs_m249" };
 
@@ -75,7 +75,6 @@ end
 --
 function gun_race.log( _msg, _color )
 	if ( gun_race.config.debug_mode ) then
-		--MsgC( _color || Color( 0, 255, 255 ), "[AcecoolDev:Gun-Race] " .. _msg .. "\n" );
 		MsgC( _color || Color( 0, 255, 255 ), "[G4K Debug System:] " .. _msg .. "\n" );
 	end
 end

@@ -57,7 +57,7 @@ SWEP.SlotPos = 5
 
 SWEP.MeleeSize = 1.0
 SWEP.DamageType = DMG_CLUB
-SWEP.MeleeDamage = 32
+SWEP.MeleeDamage = 35
 SWEP.MeleeRange = 48
 SWEP.WalkSpeed = 202
 
