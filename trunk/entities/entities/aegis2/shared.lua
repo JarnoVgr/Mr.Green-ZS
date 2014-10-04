@@ -42,14 +42,12 @@ if SERVER then
 		
 		self._mOwner = self:GetTurretOwner()
 
-		--self.Entity:SetModel("models/props_interiors/radiator01a.mdl")
-		self.Entity:SetModel("models/props_debris/wood_board01a.mdl")
-		self.Entity:SetModel("models/props_debris/wood_board06a.mdl")
+		self.Entity:SetModel("models/props_c17/oildrum001.mdl")
 		self.Entity:PhysicsInit(SOLID_VPHYSICS )
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
 		self.Entity:SetSolid(SOLID_VPHYSICS)
 		self.Entity:SetCollisionGroup( COLLISION_GROUP_NONE )
-	    self.Entity:SetAngles(Angle(0, 270, 270))
+	    self.Entity:SetAngles(Angle(0, 0, 0))
 		local phys = self.Entity:GetPhysicsObject()
 		if (phys:IsValid()) then
 			phys:Wake()

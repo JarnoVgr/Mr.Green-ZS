@@ -43,15 +43,12 @@ if SERVER then
 	function ENT:Initialize()
 		
 		self._mOwner = self:GetTurretOwner()
-
-		--self.Entity:SetModel("models/props_interiors/radiator01a.mdl")
-		self.Entity:SetModel("models/props_debris/wood_board01a.mdl")
-		self.Entity:SetModel("models/props_debris/wood_board06a.mdl")
+		self.Entity:SetModel("models/props_debris/wood_board07a.mdl")
 		self.Entity:PhysicsInit(SOLID_VPHYSICS )
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
 		self.Entity:SetSolid(SOLID_VPHYSICS)
 		self.Entity:SetCollisionGroup( COLLISION_GROUP_NONE )
-	    self.Entity:SetAngles(Angle(0, 0, 90))
+	    self.Entity:SetAngles(Angle(0, 0, 0))
 		local phys = self.Entity:GetPhysicsObject()
 		if (phys:IsValid()) then
 			phys:Wake()
@@ -82,7 +79,7 @@ if SERVER then
 		return self:GetPos() + self:GetUp() * 55
 	end
 
-	function ENT:ShootPos()
+	--[[function ENT:ShootPos()
 		local attachid = self:LookupAttachment("eyes")
 		if attachid then
 			local attach = self:GetAttachment(attachid)
@@ -103,18 +100,18 @@ if SERVER then
 
 		return target:LocalToWorld(target:OBBCenter())
 	end
-
-	function ENT:GetLocalAnglesToTarget(target)
-		return self:WorldToLocalAngles(self:GetAnglesToTarget(target))
-	end
+]]--
+	--function ENT:GetLocalAnglesToTarget(target)
+	--	return self:WorldToLocalAngles(self:GetAnglesToTarget(target))
+	--end
 
 	function ENT:GetAnglesToPos(pos)
 		return (pos - self:ShootPos()):Angle()
 	end
 
-	function ENT:GetAnglesToTarget(target)
-		return self:GetAnglesToPos(self:GetTargetPos(target))
-	end
+	--function ENT:GetAnglesToTarget(target)
+	--	return self:GetAnglesToPos(self:GetTargetPos(target))
+	--end
 
 	function ENT:GetLocalAnglesToPos(pos)
 		return self:WorldToLocalAngles(self:GetAnglesToPos(pos))
@@ -125,7 +122,7 @@ if SERVER then
 		self:GetForward():Dot(self:GetAnglesToTarget(target):Forward()) >= self.MinimumAimDot and MyTrueVisible(self:ShootPos(), self:GetTargetPos(target), self) and self:IsValidZombieClass(target)
 	end
 
-	function ENT:SearchForTarget()
+	--[[function ENT:SearchForTarget()
 		for _,ent in ipairs(self:GetCachedScan()) do
 			if ent and ent:IsValid() and self:IsValidTarget(ent) then
 				local dist = self:ShootPos():Distance( self:GetTargetPos(ent) )
@@ -134,38 +131,38 @@ if SERVER then
 				end
 			end
 		end
-	end
+	end ]]--
 
-	function ENT:GetShootPos()
-		return self:GetAttachment(self:LookupAttachment("eyes")).Pos
-	end
+	--function ENT:GetShootPos()
+	--	return self:GetAttachment(self:LookupAttachment("eyes")).Pos
+	--end
 
-	function ENT:GetShootDir()
-		return self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward()
-	end
+	--function ENT:GetShootDir()
+	--	return self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward()
+	--end
 
 	local TURRETOWNER
 	local TURRET
 
 	local damageisfalse = {damage = false, effect = true}
 
-	local tempknockback
-	function ENT:StartBulletKnockback()
-		tempknockback = {}
-	end
+	--local tempknockback
+	--function ENT:StartBulletKnockback()
+	--	tempknockback = {}
+	--end
 
-	function ENT:EndBulletKnockback()
-		tempknockback = nil
-	end
+	--function ENT:EndBulletKnockback()
+	--	tempknockback = nil
+	--end
 
-	function ENT:DoBulletKnockback()
+	--[[function ENT:DoBulletKnockback()
 		for ent, prevvel in pairs(tempknockback) do
 			local curvel = ent:GetVelocity()
 			ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.005 + prevvel)
 		end
-	end
+	end]]--
 
-	function GenericBulletCallback(attacker, tr, dmginfo)
+	--[[function GenericBulletCallback(attacker, tr, dmginfo)
 		local ent = tr.Entity
 		if ent:IsValid() then
 			if ent:IsPlayer() then
@@ -179,9 +176,9 @@ if SERVER then
 				end
 			end
 		end
-	end
+	end ]]--
 
-	local function BulletCallback(attacker, tr, dmginfo)
+	--[[local function BulletCallback(attacker, tr, dmginfo)
 		local ent = tr.Entity
 		if ent:IsValid() then
 			ent:TakeSpecialDamage(dmginfo:GetDamage(), dmginfo:GetDamageType(), TURRETOWNER, TURRET, tr.HitPos)
@@ -193,18 +190,18 @@ if SERVER then
 		end
 
 		return damageisfalse
-	end
+	end ]]--
 
 
-	function ENT:TakeAmmo(amount)
-		self:SetDTInt(0, math.Clamp(self:GetAmmo() - amount,0,self.MaxBullets))
-	end
+	--function ENT:TakeAmmo(amount)
+	--	self:SetDTInt(0, math.Clamp(self:GetAmmo() - amount,0,self.MaxBullets))
+	--end
 
-	function ENT:AddAmmo(amount)
-		self:SetDTInt(0, math.Clamp(self:GetAmmo() + amount,0,self.MaxBullets))
-	end
+	--function ENT:AddAmmo(amount)
+	--	self:SetDTInt(0, math.Clamp(self:GetAmmo() + amount,0,self.MaxBullets))
+	--end
 
-	function ENT:RechargeAmmo(amount,delay)
+	--[[function ENT:RechargeAmmo(amount,delay)
 		local ct = CurTime()
 		if self:GetAmmo() == self.MaxBullets then
 			return
@@ -217,7 +214,7 @@ if SERVER then
 				self.NextRegenTime = ct + delay
 			end
 		end
-	end
+	end ]]--
 
 	function ENT:Use(activator, caller)
 		local ct = CurTime()
