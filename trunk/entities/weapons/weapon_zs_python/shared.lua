@@ -50,7 +50,7 @@ SWEP.WElements = {
         ["scopeholder"] = { type = "Model", model = "models/props_c17/lampShade001a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "scope", pos = Vector(-2, 0, 1), angle = Angle(0, 0, 0), size = Vector(0.1, 0.05, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
         ["scope"] = { type = "Model", model = "models/XQM/deg360.mdl", bone = "ValveBiped.Bip01_Head1", rel = "cylinder", pos = Vector(0, 0, -2.6), angle = Angle(-4, 1, 0), size = Vector(0.219, 0.025, 0.025), color = Color(204, 255, 193, 255), surpresslightning = false, material = "models/xqm/cellshadedcamo_diffuse", skin = 0, bodygroup = {} }
 }
-        killicon.AddFont( "weapon_zs_magnum", "HL2MPTypeDeath", ".",Color(255, 0, 0, 255 ) )
+        killicon.AddFont( "weapon_zs_python", "HL2MPTypeDeath", ".",Color(255, 0, 0, 255 ) )
         SWEP.ViewModelFOV = 60
 end
  
