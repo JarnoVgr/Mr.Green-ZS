@@ -30,7 +30,7 @@ SWEP.WElements = {
 	["1"] = { type = "Model", model = "models/props_junk/meathook001a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(4.675, 1.557, -5.715), angle = Angle(-8.183, 82.986, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	--["pipe2"] = { type = "Model", model = "", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(0, 0, 0), angle = Angle(0, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 }
-	killicon.AddFont( "weapon_zs_melee_hook", "HL2MPTypeDeath", "6", Color(0, 0, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_melee_hook", "HL2MPTypeDeath", "6", Color(255, 255, 255, 255 ) )
 
 end
 

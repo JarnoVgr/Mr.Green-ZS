@@ -43,7 +43,7 @@ if CLIENT then
 --primary.damage = math.Clamp(self.primary.damage+15,0,self.Primary.Damage)
 --end
 
-  killicon.AddFont( "weapon_zs_fists2", "HL2MPTypeDeath", "6", Color( 0, 225, 0, 255 ) )
+
 end
 function SWEP:Initialize()
 

@@ -32,7 +32,7 @@ LastInfoScroll = LastInfoScroll or 0
 --[==[---------------------------------------------------------
         Called to check if the slot bind is pressed
 ---------------------------------------------------------]==]
-local sIndex, ScrollSpeed = 0, 0.01
+local sIndex, ScrollSpeed = 0, 0.2
 local function ManageSlotBinds ( pl, bind, pressed ) 
 	if pl:Team() ~= TEAM_HUMAN or not string.find(bind,"slot") then
 		return
@@ -376,7 +376,7 @@ function PaintNewWeaponSelection()
 			
 				-- local ImgTable = killicon.GetImage( MyWeapons[i]:GetClass() ) 
 								
-				local ColorToDraw, Mult = Color ( 0, 225, 0, 100*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
+				local ColorToDraw, Mult = Color ( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
 				if IsSlotActive[i] then
 				
 					--olorToDraw = Color ( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ) 
@@ -399,8 +399,8 @@ function PaintNewWeaponSelection()
 				--local PrimaryAmmo, SecondaryAmmo = MyWeapons[i]:Clip1(), MySelf:GetAmmoCount( MyWeapons[i]:GetPrimaryAmmoType() )
 				local ColorToDraw, Mult = Color ( 140,140,140,255*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
 				if IsSlotActive[i] then
-					ColorToDraw = Color ( 30, 225, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ) 
-					surface.SetDrawColor( 30, 225, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) )
+					ColorToDraw = Color ( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ) 
+					surface.SetDrawColor( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) )
 					--surface.DrawOutlinedRect( SLOT_POS[i].PosX, SLOT_POS[i].PosY, MySelf.WepW, MySelf.WepH)
 					--surface.DrawOutlinedRect( SLOT_POS[i].PosX+1, SLOT_POS[i].PosY+1, MySelf.WepW-2, MySelf.WepH-2 )
 					--draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 10, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))

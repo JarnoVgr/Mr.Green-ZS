@@ -9,7 +9,6 @@ SWEP.Base = "weapon_zs_melee_base"
 -- Model paths
 SWEP.Author = "Duby"
 SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
-SWEP.UseHands = true
 SWEP.WorldModel = "models/props_canal/mattpipe.mdl"
 SWEP.UseHands = false
 

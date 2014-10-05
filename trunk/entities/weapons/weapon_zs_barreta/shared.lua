@@ -9,7 +9,7 @@ if CLIENT then
 	SWEP.Slot = 1
 	SWEP.SlotPos = 3
 	SWEP.ViewModelFOV = 70
-	--killicon.AddFont( "weapon_zs_barreta", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_elites", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
 
 	SWEP.IgnoreThumbs = true
 
