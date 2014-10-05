@@ -265,7 +265,7 @@ ZombieClasses[3] =
 	Tag = "poisonzombie",
 	Infliction = 0.55,
 	--Health = 400,
-	Health = 650,
+	Health = 850,
 	MaxHealth = 650,
 	TimeLimit = 810,
 	Bounty = 130,
@@ -277,7 +277,7 @@ ZombieClasses[3] =
 	CanGib = true,
 	SWEP = "weapon_zs_undead_poisonzombie",
 	Model = Model( "models/Zombie/Poison.mdl" ),
-	Speed = 195,
+	Speed = 155,
 	Description = "A hulking mass of flesh far more durable than any other zombie.",
 		OnSpawn = function(pl)
 	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.

@@ -9,6 +9,7 @@ SWEP.Base = "weapon_zs_melee_base"
 -- Model paths
 SWEP.Author = "Duby"
 SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel = "models/props_canal/mattpipe.mdl"
 SWEP.UseHands = false
 
@@ -23,7 +24,7 @@ SWEP.WElements = {
 }
 
 
-	killicon.AddFont( "weapon_zs_melee_crowbar", "HL2MPTypeDeath", "6", Color(255, 120, 120, 255 ) )
+	killicon.AddFont( "weapon_zs_melee_pipe2", "HL2MPTypeDeath", "6", Color(255, 120, 120, 255 ) )
 end
 
 -- Name and fov
@@ -36,7 +37,7 @@ SWEP.SlotPos = 8
 
 -- Damage, distane, delay
 SWEP.Primary.Damage = 70
-SWEP.Primary.Delay = 0.90
+SWEP.Primary.Delay = 0.6
 SWEP.Primary.Distance = 73
 SWEP.WalkSpeed = 177
 SWEP.SwingTime = 1

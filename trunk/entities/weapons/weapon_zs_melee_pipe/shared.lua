@@ -9,6 +9,7 @@ SWEP.Base = "weapon_zs_melee_base"
 -- Model paths
 SWEP.Author = "Duby"
 SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
+SWEP.UseHands = true
 SWEP.WorldModel = "models/props_canal/mattpipe.mdl"
 SWEP.UseHands = false
 
@@ -24,7 +25,7 @@ SWEP.WElements = {
 	["1"] = { type = "Model", model = "models/props_pipes/pipecluster08d_extender128.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.596, 1.557, -11.948), angle = Angle(176.494, 85.324, -3.507), size = Vector(0.237, 0.237, 0.237), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
-	--killicon.AddFont( "weapon_zs_melee_crowbar", "HL2MPTypeDeath", "6", Color(255, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_melee_pipe", "HL2MPTypeDeath", "6", Color(255, 0, 0, 255 ) )
 end
 
 -- Name and fov

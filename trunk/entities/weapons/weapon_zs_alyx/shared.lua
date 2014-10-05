@@ -24,7 +24,7 @@ SWEP.WElements = {
 }
 		
 		
-        killicon.AddFont( "weapon_zs_classic", "HL2MPTypeDeath", "-", Color(0, 0, 150, 255 ) )
+        killicon.AddFont( "weapon_zs_alyx", "HL2MPTypeDeath", "-", Color(0, 0, 150, 255 ) )
 end
  
 SWEP.Base = "weapon_zs_base"

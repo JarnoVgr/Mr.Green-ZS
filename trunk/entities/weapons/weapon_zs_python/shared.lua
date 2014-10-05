@@ -41,7 +41,7 @@ if CLIENT then
 		["bullet2+++"] = { type = "Model", model = "models/props_c17/oildrum001.mdl", bone = "Cylinder_release", rel = "", pos = Vector(-0.601, -1.101, -2.901), angle = Angle(0, 0, 0), size = Vector(0.025, 0.025, 0.025), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 
-	killicon.AddFont( "weapon_zs_magnum", "HL2MPTypeDeath", ".",Color(255, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_python", "HL2MPTypeDeath", ".",Color(255, 60, 60, 255 ) )
 	SWEP.ViewModelFOV = 60
 end
 
