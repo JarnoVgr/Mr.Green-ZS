@@ -200,7 +200,7 @@ ZombieClasses[2] =
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
 	Infliction = 0.4,
-	Health = 130,
+	Health = 125,
 	MaxHealth = 150,
 	TimeLimit = 300,
 	Bounty = 80,
@@ -348,7 +348,7 @@ ZombieClasses[4] =
 				 Sound("wraithdeath4.wav")
 				},
 	OnSpawn = function(pl)	
-	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,2))
+	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(3,3,3,2))
 		--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
 	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
 	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left

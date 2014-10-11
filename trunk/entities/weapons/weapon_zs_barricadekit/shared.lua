@@ -44,13 +44,13 @@ SWEP.SlotPos = 2
 SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
-SWEP.Primary.ClipSize = 2
-SWEP.Primary.DefaultClip = 4
+SWEP.Primary.ClipSize = 1
+SWEP.Primary.DefaultClip = 2
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "SniperRound"
 SWEP.Primary.Delay = 1
 
-SWEP.Secondary.ClipSize = 2
+SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 2
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "SniperRound"
