@@ -131,6 +131,16 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel )
 		--end 
 	end 
 	
+	
+	local revive = pl.Revive
+	if revive and revive:IsValid() then
+		if revive:IsRising() then
+			iSeq = 25 --27
+		else
+			iSeq = 22 --26
+		end
+	end
+	
 	return iIdeal, iSeq
 end
 

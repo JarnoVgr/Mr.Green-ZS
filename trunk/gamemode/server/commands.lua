@@ -708,7 +708,7 @@ function RollTheDice ( pl,commandName,args )
 		if pl:Team() == TEAM_UNDEAD then
 		local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
 		local randhealth = math.random( 25, math.Round ( calchealth ) )
-		pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
+		pl:SetHealth( math.min( pl:Health() + randhealth ) )
 		message = message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
 		end
 	elseif choise == 3 then
@@ -724,7 +724,7 @@ function RollTheDice ( pl,commandName,args )
 		if pl:Team() == TEAM_UNDEAD then
 		local calchealth = math.Clamp ( 100 - pl:Health(),60,100 )
 		local randhealth = math.random( 25, math.Round ( calchealth ) )
-		pl:SetHealth( math.min( pl:Health() - randhealth, pl:GetMaximumHealth() ) )
+		pl:SetHealth( math.min( pl:Health() - randhealth) ) 
 		message = message .." rolled the dice and lost ".. randhealth .."KG of flesh!!"
 		end
 	elseif choise == 4 and pl:Health() < pl:GetMaximumHealth() then
@@ -737,7 +737,7 @@ function RollTheDice ( pl,commandName,args )
 		if pl:Team() == TEAM_UNDEAD then
 		local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
 		local randhealth = math.random( 25, math.Round ( calchealth ) )
-		pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
+		pl:SetHealth( math.min( pl:Health() + randhealth ) )
 		message = message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
 		end
 	elseif choise == 5 then
@@ -746,7 +746,7 @@ function RollTheDice ( pl,commandName,args )
 		pl:SetHealth(50)
 		end
 		if pl:Team() == TEAM_UNDEAD then
-		pl:AddScore(3)
+		pl:AddScore(2)
 		message = message .." rolled the dice and has found a whole brain!"
 		end
 		else
@@ -757,7 +757,7 @@ function RollTheDice ( pl,commandName,args )
 		if pl:Team() == TEAM_UNDEAD then
 		local calchealth = math.Clamp ( 100 - pl:Health(),60,100 )
 		local randhealth = math.random( 25, math.Round ( calchealth ) )
-		pl:SetHealth( math.min( pl:Health() - randhealth, pl:GetMaximumHealth() ) )
+		pl:SetHealth( math.min( pl:Health() - randhealth ) )
 		message = message .." rolled the dice and lost ".. randhealth .."KG of flesh!!"
 		end
 	end

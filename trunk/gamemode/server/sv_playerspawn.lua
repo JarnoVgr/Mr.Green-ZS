@@ -468,6 +468,10 @@ function GM:OnZombieSpawn(pl)
 		return
 	end
 	
+	--Duby: Spawn protection :P
+	pl:GodEnable()
+	timer.Simple(5, function() pl:Message("Spawn protection is no more!", 2, "white") pl:GodDisable() end)
+	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
 	--Set a random human class if they connect as zombie and there is no human class
