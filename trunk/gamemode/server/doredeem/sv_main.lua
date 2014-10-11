@@ -105,7 +105,7 @@ function GM:OnPlayerRedeem(pl, causer)
 	pl:DrawViewModel(true)
 	skillpoints.SetupSkillPoints(pl)
 	
-	if pl:GetPerk("_comeback") then
+	if pl:GetPerk("_comeback") then --Duby: Lets add some cool redeem perks! :P 
 		if not pl._ComebackUsed then
 			if pl:GetPistol() then
 				pl:StripWeapon(pl:GetPistol():GetClass())
@@ -147,7 +147,8 @@ function GM:OnPlayerRedeem(pl, causer)
 	
 	--Give SP for redeeming
 	if CurTime() > (WARMUPTIME+240) then
-		skillpoints.AddSkillPoints(pl,math.max(0,math.Round(550*GetInfliction())))
+		--skillpoints.AddSkillPoints(pl,math.max(0,math.Round(550*GetInfliction())))
+		skillpoints.AddSkillPoints(pl,math.max(20,math.Round(600*GetInfliction())))
 	end
 	
 	--Process

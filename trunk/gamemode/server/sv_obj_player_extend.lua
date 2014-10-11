@@ -678,7 +678,7 @@ function meta:AddXP(amount)
 		
 		if self:GetXP() >= self:NextRankXP() then
 			self:AddRank(1)
-			self:PrintMessage(HUD_PRINTTALK,"Congratulation, you have reached Rank "..self:GetRank())
+			self:PrintMessage(HUD_PRINTTALK,"Congratulations, you have reached Rank "..self:GetRank())
 			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
 		end
 			
@@ -1706,7 +1706,7 @@ function meta:CheckSpeedChange()
 		return
 	end
 	
-	local speed = 200
+	local speed = 190
 	local health = self:Health()
 	
 	if self:GetPerk() == "_sboost" then

@@ -470,7 +470,7 @@ function GM:OnZombieSpawn(pl)
 	
 	--Duby: Spawn protection :P
 	pl:GodEnable()
-	timer.Simple(5, function() pl:Message("Spawn protection is no more!", 2, "white") pl:GodDisable() end)
+	timer.Simple(5, function() pl:GodDisable() end)
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
@@ -822,7 +822,7 @@ function CalculateZombieHealth(pl)
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+1) and team.NumPlayers(TEAM_HUMAN) >= 4) then
 			local IncreaseHealth = Tab.Health*(UNDEAD_START_AMOUNT_PERCENTAGE)*desiredzombies+10*(team.NumPlayers(TEAM_HUMAN))
 			--MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*1.9,510) )
-			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*1.8,510) )
+			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*2.5,710) )
 			pl:RemoveStatus("champion")
 		end
 	end
