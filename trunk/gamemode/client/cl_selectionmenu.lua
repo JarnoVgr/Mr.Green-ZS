@@ -3,7 +3,7 @@
 
 -- Selection menu draw management
 
-
+--Duby: I moded this to fit the current zs hud. I think it looks great. Remove this comment if you disagree. 
 
 --local SelectPanel = surface.GetTextureID( "zombiesurvival/hud/panel_texture" )
 local SelectPanel = surface.GetTextureID( "greencoins" )
@@ -376,33 +376,21 @@ function PaintNewWeaponSelection()
 			
 				-- local ImgTable = killicon.GetImage( MyWeapons[i]:GetClass() ) 
 								
-				local ColorToDraw, Mult = Color ( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
+				local ColorToDraw, Mult = Color ( 30, 30, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
 				if IsSlotActive[i] then
-				
-					--olorToDraw = Color ( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ) 
-					--surface.SetDrawColor( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) )
-					--surface.DrawOutlinedRect( SLOT_POS[i].PosX, SLOT_POS[i].PosY, MySelf.WepW, MySelf.WepH)
-					--surface.DrawOutlinedRect( SLOT_POS[i].PosX+1, SLOT_POS[i].PosY - 300, MySelf.WepW-2, MySelf.WepH-2 )
 					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 30, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
 				
-				end
-				
-				--surface.SetTexture(StoredIcons[MyWeapons[i]:GetClass()])	-- surface.GetTextureID( ImgTable.mat )
-				--local wd,hg = surface.GetTextureSize(StoredIcons[MyWeapons[i]:GetClass()])-- surface.GetTextureID( ImgTable.mat )
-				--local koefw, koefh = wd/175, hg/70
-				--surface.DrawTexturedRect(SLOT_POS[i].PosX + 57.5,SLOT_POS[i].PosY + 12, wd, hg)			
+				end		
 			else
 				surface.SetFont ( font )
 				local fWide, fTall = surface.GetTextSize(letter)
 		
 				-- Print weapon killicon
-				--local PrimaryAmmo, SecondaryAmmo = MyWeapons[i]:Clip1(), MySelf:GetAmmoCount( MyWeapons[i]:GetPrimaryAmmoType() )
+			--	local PrimaryAmmo, SecondaryAmmo = MyWeapons[i]:Clip1(), MySelf:GetAmmoCount( MyWeapons[i]:GetPrimaryAmmoType() )
 				local ColorToDraw, Mult = Color ( 140,140,140,255*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
 				if IsSlotActive[i] then
-					ColorToDraw = Color ( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ) 
-					surface.SetDrawColor( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) )
-					--surface.DrawOutlinedRect( SLOT_POS[i].PosX, SLOT_POS[i].PosY, MySelf.WepW, MySelf.WepH)
-					--surface.DrawOutlinedRect( SLOT_POS[i].PosX+1, SLOT_POS[i].PosY+1, MySelf.WepW-2, MySelf.WepH-2 )
+					ColorToDraw = Color ( 140,140,140,255*math.Clamp(LastScroll - CurTime(),0,1) ) --We want this to be clear to the users.
+					surface.SetDrawColor( 140,140,140,255*math.Clamp(LastScroll - CurTime(),0,1) )
 					draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 30, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
 				end			
 			end

@@ -129,7 +129,7 @@ ZombieClasses[1] =
 	CanGib = true,
 	Model = Model("models/player/corpse1.mdl"), 
 	--Model = Model("models/Zombie/Poison.mdl"), 
-	Speed = 200,	
+	Speed = 190,	
 	AngleFix = true,
 	Description = "A fast and deadly zombie in numbers",
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Fast Attack" },
@@ -170,9 +170,6 @@ ZombieClasses[1] =
 	
 		local d = pl:LookupBone("ValveBiped.Bip01_R_Foot")
 	pl:ManipulateBonePosition( d, Vector(1,2,3))
-	
-		--local e = pl:LookupBone("ValveBiped.Bip01_L_Foot")
-	--pl:ManipulateBonePosition( e, Vector(1,-10,3))
 	
 		local f = pl:LookupBone("ValveBiped.Bip01_R_Hand")
 	pl:ManipulateBonePosition( f, Vector(1,5,1))
@@ -269,7 +266,7 @@ ZombieClasses[3] =
 	MaxHealth = 650,
 	TimeLimit = 810,
 	Bounty = 130,
-	SP = 40,
+	SP = 60,
 	Mass = DEFAULT_MASS * 1.5,
 	Threshold = 4,
 	JumpPower = 200,
@@ -348,7 +345,7 @@ ZombieClasses[4] =
 				 Sound("wraithdeath4.wav")
 				},
 	OnSpawn = function(pl)	
-	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(3,3,3,2))
+	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(5,5,5,2))
 		--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
 	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
 	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
@@ -380,7 +377,6 @@ ZombieClasses[5] =
 	CanCrouch = true,
 	CanGib = false,
 	Model = Model("models/player/group01/female_01.mdl"), 
-	--Model = Model( "models/mrgreen/howler.mdl" ),
 	Speed = 180,						
 	Description = "Schoolgirl that can scream so loud she can pull or push people.",
 	DescriptionGameplay = { "> PRIMARY: Pulling Scream", "> SECONDARY: Pushing Scream" },
@@ -408,9 +404,6 @@ ZombieClasses[5] =
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-		--pl:SetModel("models/player/group01/female_01.mdl")
-	
 		local status = pl:GiveStatus("overridemodel")
 		
 		if status and status:IsValid() then
@@ -471,7 +464,7 @@ ZombieClasses[7] =
 	Tag = "poisonheadcrab",
 	Infliction = 0.4,
 	Health = 70,
-	MaxHealth = 100,
+	MaxHealth = 140,
 	Bounty = 70,
 	SP = 12,
 	Mass = 40,
@@ -658,7 +651,7 @@ ZombieClasses[10] =
 	Name = "Hate",	
 	Tag = "hate",	
 	Infliction = 0,
-	Health = 11000,
+	Health = 8000,
 	MaxHealth = 10000,
 	Bounty = 1000,
 	SP = 150,
@@ -740,7 +733,7 @@ ZombieClasses[11] =
 	Name = "Behemoth",
 	Tag = "behemoth",
 	Infliction = 0.1,
-	Health = 10000,
+	Health = 7000,
 	MaxHealth = 4000,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -815,7 +808,7 @@ ZombieClasses[12] =
 	Name = "Seeker",
 	Tag = "seeker",
 	Infliction = 0,
-	Health = 8000,
+	Health = 6000,
 	MaxHealth = 8000,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -872,7 +865,7 @@ ZombieClasses[13] =
 	Name = "Nerf",
 	Tag = "nerf",
 	Infliction = 0,
-	Health = 10000,
+	Health = 5000,
 	MaxHealth = 7000,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -1041,7 +1034,7 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	Name = "Lilith",
 	Tag = "lilith",
 	Infliction = 0,
-	Health = 9000,
+	Health = 5000,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -1174,7 +1167,7 @@ ZombieClasses[18] = --Creep and Play!
 	Name = "SeekerII",
 	Tag = "weapon_zs_undead_boss_seeker2",
 	Infliction = 0.2,
-	Health = math.random(8000, 7300 ),
+	Health = math.random(6000, 5000 ),
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
