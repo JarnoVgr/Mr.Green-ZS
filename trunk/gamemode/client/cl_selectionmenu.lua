@@ -383,7 +383,7 @@ function PaintNewWeaponSelection()
 					--surface.SetDrawColor( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) )
 					--surface.DrawOutlinedRect( SLOT_POS[i].PosX, SLOT_POS[i].PosY, MySelf.WepW, MySelf.WepH)
 					--surface.DrawOutlinedRect( SLOT_POS[i].PosX+1, SLOT_POS[i].PosY - 300, MySelf.WepW-2, MySelf.WepH-2 )
-					--draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 10, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
+					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 30, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
 				
 				end
 				
@@ -403,7 +403,7 @@ function PaintNewWeaponSelection()
 					surface.SetDrawColor( 30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) )
 					--surface.DrawOutlinedRect( SLOT_POS[i].PosX, SLOT_POS[i].PosY, MySelf.WepW, MySelf.WepH)
 					--surface.DrawOutlinedRect( SLOT_POS[i].PosX+1, SLOT_POS[i].PosY+1, MySelf.WepW-2, MySelf.WepH-2 )
-					--draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY + 10, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
+					draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 30, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
 				end			
 			end
 		end
