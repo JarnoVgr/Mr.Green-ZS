@@ -157,9 +157,9 @@ function SWEP:PrimaryAttack()
 							
 							self.Owner._RepairScore = self.Owner._RepairScore + 1
 							if self.Owner._RepairScore == 5 then
-								skillpoints.AddSkillPoints(self.Owner, 5)
-								nail:FloatingTextEffect( 10, self.Owner )
-								self.Owner:AddXP(5)
+								skillpoints.AddSkillPoints(self.Owner, 15)
+								nail:FloatingTextEffect( 15, self.Owner )
+								self.Owner:AddXP(10)
 								self.Owner._RepairScore = 0
 							end
 
