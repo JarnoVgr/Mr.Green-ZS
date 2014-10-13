@@ -614,6 +614,7 @@ ZombieClasses[9] = --Duby: You will all love my labs new creation.
 	Threshold = 2,
 	JumpPower = 200,
 	CanCrouch = true,
+	Hidden = true,
 	CanGib = true,
 	SWEP = "weapon_zs_undead_spitter",
 	Model = Model( "models/Zombie/Poison.mdl" ),
