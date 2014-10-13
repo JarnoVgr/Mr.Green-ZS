@@ -1684,8 +1684,8 @@ end
 ---------------------------------------------------------------------------]=]
 --Duby: I know this isn't the best method but it works well and its better than putting it in each SWEP. :P 
 
-hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 8 )  end end)
-hook.Add("PlayerDeath", "sexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_katana" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 4 ) end end)
+hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 )  end end)
+hook.Add("PlayerDeath", "sexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_katana" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 2 ) end end)
 hook.Add("PlayerDeath", "Ywa'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_shovel" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 6 ) end end)
 hook.Add("PlayerDeath", "Duby'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_axe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 7 ) end end)
 hook.Add("PlayerDeath", "Necro'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_combatknife" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 12 ) end end)
