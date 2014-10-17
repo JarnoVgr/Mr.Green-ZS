@@ -349,7 +349,7 @@ function PaintNewWeaponSelection()
 		
 
 			surface.SetMaterial(hudsplat)
-			surface.SetDrawColor(225, 225, 225, 220 )
+			surface.SetDrawColor(100, 225, 225, 220 )
 			--surface.DrawTexturedRect( SLOT_POS[i].PosX+175/2,SLOT_POS[i].PosY+70/2,70-2,175-2,90 )
 			surface.DrawTexturedRect( SLOT_POS[i].PosX-60,SLOT_POS[i].PosY-400,340,175-2,180 )
 
@@ -389,9 +389,10 @@ function PaintNewWeaponSelection()
 			--	local PrimaryAmmo, SecondaryAmmo = MyWeapons[i]:Clip1(), MySelf:GetAmmoCount( MyWeapons[i]:GetPrimaryAmmoType() )
 				local ColorToDraw, Mult = Color ( 140,140,140,255*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
 				if IsSlotActive[i] then
-					ColorToDraw = Color ( 140,140,140,255*math.Clamp(LastScroll - CurTime(),0,1) ) --We want this to be clear to the users.
-					surface.SetDrawColor( 140,140,140,255*math.Clamp(LastScroll - CurTime(),0,1) )
-					draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 30, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
+					ColorToDraw = Color ( 140,140,140,255*math.Clamp(LastScroll,0,1) ) --We want this to be clear to the users.
+					surface.SetDrawColor( 200,140,140,255*math.Clamp(LastScroll,0,1) )
+					draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 30, 30, 100*math.Clamp(LastScroll,0,1)))
+					--draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 30, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
 				end			
 			end
 		end
