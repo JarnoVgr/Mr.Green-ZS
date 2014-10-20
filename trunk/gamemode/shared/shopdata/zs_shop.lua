@@ -121,7 +121,7 @@ shopData = {
 	[96] = { Cost = 1, Type = "suit", AdminOnly = true, Desc = "", Key = "pistolsuit", ID = 96, Sell = 0, Requires = 0, Name = "Test suit",  },
 	[97] = { Cost = 20 , Type = "suit", AdminOnly = false, Desc = "Another day at the office...", Key = "officesuit", ID = 97, Sell = 0, Requires = 0, Name = "Office",  },
 	--[98] = { Cost = 20000, Type = "misc", AdminOnly = false, Desc = "If your health goes lower than 30 hp your health with regenerate back up to 30 hp! This is the perfect perk for if your a new to the server!! ", Key = "horse", ID = 98, Sell = 0, Requires = 0, Name = "Horse Health! (Classic perk!) ",  },
-	[16] = { Cost = 0, Type = "misc", AdminOnly = true, Desc = "You are healthy as a horse and you regenerate an additional 10 hp of health, if under 40 health.", Key = "horse", ID = 16, Sell = 0, Requires = 3, Name = "Horse Health",  }, --Horse health
+	--[16] = { Cost = 0, Type = "misc", AdminOnly = true, Desc = "You are healthy as a horse and you regenerate an additional 10 hp of health, if under 40 health.", Key = "horse", ID = 16, Sell = 0, Requires = 3, Name = "Horse Health",  }, --Horse health
 	
 	--New Classes stuff :P
 	

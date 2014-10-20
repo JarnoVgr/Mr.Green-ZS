@@ -47,7 +47,7 @@ local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 	--Duby: Hey you know I love to code with silly stuff. Well I gave horse health a revamp!! :O 
 	--Duby: Please do not mess with the medkit or anything as you will literally mess up the balance of the server!! >:(
 		
-		
+--[[		
 HealthRegenTbl = {}
 HealthRegenTbl.Amount = 1
 HealthRegenTbl.GiveDelay = 1.5
@@ -72,7 +72,7 @@ end
 end )
 		
 		
-					
+		]]--			
 end
 hook.Add( "OnPlayerTakeDamage", "PlayerTakeDamage", OnPlayerDamage )
 
