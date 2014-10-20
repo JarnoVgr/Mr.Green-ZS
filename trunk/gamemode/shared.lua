@@ -117,7 +117,8 @@ TEAM_HUMAN = TEAM_SURVIVORS
 TEAM_SPECTATOR = 0
 
 -- Setup teams
-team.SetUp(TEAM_ZOMBIE, "The Undead", Color(198, 43, 43) )
+--team.SetUp(TEAM_ZOMBIE, "The Undead", Color(198, 43, 43) )
+team.SetUp(TEAM_ZOMBIE, "The Undead", Color(43, 198, 43) )
 team.SetUp(TEAM_SURVIVORS, "Survivors", Color(43, 129, 198))
 team.SetUp(TEAM_SPECTATOR, "Connecting", Color(128, 155, 21, 255) )
 

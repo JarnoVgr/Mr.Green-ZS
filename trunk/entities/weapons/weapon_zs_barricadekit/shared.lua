@@ -1,4 +1,4 @@
-SWEP.Author = "JetBoom"
+SWEP.Author = "Duby"
 SWEP.Contact = ""
 SWEP.Purpose = ""
 SWEP.Instructions = ""

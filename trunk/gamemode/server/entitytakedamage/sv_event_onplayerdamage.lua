@@ -45,29 +45,31 @@ local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 	
 	
 	--Duby: Hey you know I love to code with silly stuff. Well I gave horse health a revamp!! :O 
-	--Duby: Please do not fuck with the medkit or anything as you will literally fuck the balance of the server!! >:(
+	--Duby: Please do not mess with the medkit or anything as you will literally mess up the balance of the server!! >:(
 		
 		
---HealthRegenTbl = {}
---HealthRegenTbl.Amount = 1
---HealthRegenTbl.GiveDelay = 1
---HealthRegenTbl.MaxRegen= 30
+HealthRegenTbl = {}
+HealthRegenTbl.Amount = 1
+HealthRegenTbl.GiveDelay = 1.5
+HealthRegenTbl.MaxRegen= 30
 
---timer.Create("RegenTimer", HealthRegenTbl.GiveDelay, function()
+timer.Create("RegenTimer", HealthRegenTbl.GiveDelay, function()
 
---for k,v in pairs( player.GetAll() ) do
+for k,v in pairs( player.GetAll() ) do
 
---if ( v:Team() == TEAM_ZOMBIE ) then return end
---if ( not v:HasBought("horse") ) then continue end
---if ( not v:Alive() ) then continue end
---if ( v:Health() > HealthRegen.MaxRegen ) then continue end
+if ( v:Team() == TEAM_ZOMBIE ) then return end
+if ( v:Team() == TEAM_SURVIVORS ) then 
 
---v:SetHealth( v:Health() + HealthRegen.Amount )
---end
+if ( not v:HasBought("horse") ) then continue end
+if ( not v:Alive() ) then continue end
+if ( v:Health() > HealthRegen.MaxRegen ) then continue end
+
+v:SetHealth( v:Health() + HealthRegen.Amount )
+end
 
 
-
---end )
+end
+end )
 		
 		
 					
