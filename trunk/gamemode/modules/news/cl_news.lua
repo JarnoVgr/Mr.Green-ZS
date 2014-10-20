@@ -31,10 +31,10 @@ local UNDEAD_HINTS = {
 ---------------------------------------------------------]==]
 local sIndex = 1
 local function DisplayNews()
-	-- for k, v in pairs( player.GetAll() ) do
-	-- 	v:CustomChatPrint( nil, Color(78,255,0),"[INFO] ", Color(255,255,255),GENERAL_NEWS[sIndex] )
-	-- end
-	GAMEMODE:HintMessage(5, {"<font=ssNewAmmoFont6.5><color=78,255,0,255>INFO: </color><color=255,255,255,255>"..GENERAL_NEWS[sIndex].."</color></font>"})
+	--For now only display to the Undead
+	if LocalPlayer() == TEAM_UNDEAD then
+		GAMEMODE:HintMessage(5, {"<font=ssNewAmmoFont6.5><color=78,255,0,255>INFO: </color><color=255,255,255,255>"..GENERAL_NEWS[sIndex].."</color></font>"})
+	end
 	
 	sIndex = sIndex + 1
 	if sIndex > #GENERAL_NEWS then
@@ -65,7 +65,7 @@ local function DisplayHints()
 	end]=]
 	
 	if LocalPlayer():Team() == TEAM_HUMAN or LocalPlayer():Team() == TEAM_SPECTATOR then
-		GAMEMODE:HintMessage(5, {"<font=ssNewAmmoFont6.5><color=0,160,255,255>HINT: </color><color=213,213,213,255>"..HUMAN_HINTS[HumanIndex].."</color></font>"})
+		--GAMEMODE:HintMessage(5, {"<font=ssNewAmmoFont6.5><color=0,160,255,255>HINT: </color><color=213,213,213,255>"..HUMAN_HINTS[HumanIndex].."</color></font>"})
 		HumanIndex = HumanIndex + 1
 	end
 	
