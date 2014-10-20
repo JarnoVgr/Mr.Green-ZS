@@ -1,6 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
+
 --[==[---------------------------------------------------------
    Read the mapcycle.txt and build the cycle
 ---------------------------------------------------------]==]
@@ -78,6 +79,8 @@ function GM:GetMapNext()
 	end
 	return nextmap
 end
+
+
 
 -- New shit
 
@@ -352,4 +355,3 @@ end
 concommand.Add("send_back_mapproperties",ReceiveMapProperties) 
 
 Debug ( "[MODULE] Loaded map utilities file." )
-

@@ -5,6 +5,7 @@
 hud = {}
 
 local hudElementBackground = Material("hudbackground.png")
+local nHudBackground = Material("mrgreen/hud/hudbackgroundnew.png")
 
 --Health indication statusses
 local healthIndication = { { Text = "Healthy as a horse", Percent = 1 }, { Text = "A few scratches..", Percent = 0.8 }, { Text = "Not looking good..", Percent = 0.6 }, { Text = "Search for a doctor", Percent = 0.45 }, { Text = "You lost your guts", Percent = 0.4 }, { Text = "Bleeding to death!", Percent = 0.25 } }
@@ -179,7 +180,7 @@ function hud.DrawBossHealth()
 end
 
 local lastwarntim = -1
-hud.boostmat = surface.GetTextureID ( "zombiesurvival/hud/hud_friend_splash" )
+hud.boostmat = surface.GetTextureID("zombiesurvival/hud/hud_friend_splash")
 local lastrefresh = -1
 local cached_humans = 0
 local cached_zombies = 0
@@ -325,6 +326,7 @@ function hud.DrawNewHumanHUD()
 	hud.DrawSkillPoints()
 	hud.DrawStats()
 	hud.DrawObjMessages()
+	--hud.DrawFriends()
 	
 	if OBJECTIVE then
 		surface.SetTexture(hud.LeftGradient)
@@ -473,7 +475,6 @@ function hud.DrawHealth()
 	--Only update text if health changed
 	if healthChanged then
 		for k, v in ipairs(healthIndication) do
-			print(v.Text)
 			if healthPercentage >= v.Percent then
 				healthStatusText = v.Text
 				break
@@ -514,7 +515,7 @@ function hud.DrawHealth()
 				
 		draw.SimpleTextOutlined(tur:GetAmmo().."/"..tur:GetMaxAmmo(), "ssNewAmmoFont6.5", ActualX, ActualY+th/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
-	]]--
+	]]
 end
 
 local function DrawRoundTime()
@@ -595,7 +596,10 @@ function hud.DrawStats()
 		--Draw level completion percentage
 		local startX = ScaleW(900)
 		draw.SimpleText("NEXT LEVEL", "ssNewAmmoFont5", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		draw.SimpleTextOutlined(math.Round((MySelf:GetXP() / MySelf:NextRankXP()) * 100) .."%", "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 135, 49, 170))
+
+		local RequiredXP = MySelf:NextRankXP() - MySelf:CurRankXP()
+		local CurrentXP = MySelf:GetXP() - MySelf:CurRankXP()
+		draw.SimpleTextOutlined(math.Round((CurrentXP / RequiredXP) * 100) .."%", "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 135, 49, 170))
 	end
 
 	DrawRoundTime()
@@ -638,6 +642,60 @@ function hud.DrawObjMessages()
 	
 end
 hook.Add("PostDrawOpaqueRenderables","hud.DrawObjMessages",hud.DrawObjMessages)
+
+local nearPlayers, nextFriendsCache = {}, CurTime() + 5
+local function cacheFriends(max)
+	nextFriendsCache = CurTime() + 5
+
+	nearPlayers = {}
+
+	for k, pl in ipairs(team.GetPlayers(TEAM_SURVIVORS)) do
+		if #nearPlayers >= max then
+			continue
+		end
+
+		if not IsValid(pl) or not pl:Alive() or pl == MySelf then
+			continue
+		end
+
+		local distance = pl:GetPos():Distance(MySelf:GetPos())
+		if distance < 80 then
+			table.insert(nearPlayers,{pl = pl, distance = distance})
+		end
+	end
+
+	--Sort ascending
+	table.SortByMember(nearPlayers, "distance", true)
+
+	print("Cached new friends!" .. #nearPlayers)
+end
+
+function hud.DrawFriends()
+	if nextFriendsCache <= CurTime() then
+		cacheFriends(3)
+	end
+
+	if #nearPlayers == 0 then
+		return
+	end
+
+	for i, v in ipairs(nearPlayers) do
+		if i > 3 then
+			break
+		end
+
+		local pl = v.pl
+
+		--Background
+		surface.SetMaterial(nHudBackground) 
+		surface.SetDrawColor(0, 0, 0, 255)
+		surface.DrawTexturedRect(ScaleW(-50), ScaleH(770-(250*i)), ScaleW(150), ScaleH(250))
+
+		local textX, textValueY, textKeyY = ScaleW(40), ScaleH(860-(250*i)), ScaleH(890-(250*i))
+		draw.SimpleText(pl:Nick() or 0, "HUDBetaHeader", textX, textValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText("+".. pl:Health(), "ssNewAmmoFont9", textX, textKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	end
+end
 
 --[[----------------------------------------------------------------------------------]]
 
