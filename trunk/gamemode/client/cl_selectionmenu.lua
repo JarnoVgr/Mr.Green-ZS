@@ -26,7 +26,7 @@ end
 
 local ShowWeapons = false
 local WeaponsAlpha, Back1Alpha,Back2Alpha = 0,0,0
-local LastScroll = 0
+local LastScroll, HideSelectionTime = 0, 0
 LastInfoScroll = LastInfoScroll or 0
 
 --[==[---------------------------------------------------------
@@ -134,8 +134,8 @@ local function OnScrolled( pl, bind, pressed )
 
 	--Display weapons
 	ShowWeapons = true
-	--LastScroll = CurTime() + 4
-	LastScroll = CurTime() + 6 --Duby: Lets set this permanently.  
+	LastScroll = CurTime()
+	HideSelectionTime = LastScroll + 1.8
 		
 	return true
 end
@@ -237,7 +237,7 @@ hook.Add ( "Initialize", "InitFonts", InitializeWeaponFonts )
 
 local StoredIcons = {}
 local storedicons = false
-local hudsplat = Material("hudbackground.png") --Items for the HUD.
+local WeaponSelectionBackground = Material("mrgreen/hud/hudbackground.png") --Items for the HUD.
 function PaintNewWeaponSelection()
 	if util.tobool(GetConVarNumber("_zs_hidehud")) or not ValidEntity(MySelf) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND or not MySelf.ReadySQL then
 		return
@@ -305,7 +305,7 @@ function PaintNewWeaponSelection()
 	end
 
 	--Check if we still need to display the weapons
-	if LastScroll < CurTime() then
+	if HideSelectionTime <= CurTime() then
 		ShowWeapons = false
 	end
 	
@@ -313,6 +313,9 @@ function PaintNewWeaponSelection()
 	if not ShowWeapons then
 		return
 	end
+
+	--Calculate alpha level
+	local Alpha = math.Clamp((HideSelectionTime - CurTime()) / (HideSelectionTime - LastScroll),0,1)
 	
 
 	
@@ -326,7 +329,7 @@ function PaintNewWeaponSelection()
 		if wep.Info then
 			local infW,infH = surface.GetTextSize(wep.Info)
 			
-			draw.RoundedBox( 3, ScrW()-205-(infW+15),ScrH()-100, infW+15,70, Color( 0, 0, 0, 150*math.Clamp(LastInfoScroll - CurTime(),0,1) ) )
+			draw.RoundedBox( 3, ScrW()-205-(infW+15),ScrH()-100, infW+15,70, Color( 0, 0, 0, 150*Alpha ) )
 	
 			surface.SetTexture(Gradient)
 			surface.SetDrawColor(211, 238, 231, 10*math.Clamp(LastInfoScroll - CurTime(),0,1) )
@@ -343,15 +346,12 @@ function PaintNewWeaponSelection()
 		end
 	end]=]
 
-	-- Actually draw the panels
+	--Draw panels
 	for i = 0, MaximumSlots do
-		if IsSlot[i] then
-		
-
-			surface.SetMaterial(hudsplat)
-			surface.SetDrawColor(100, 225, 225, 220 )
-			--surface.DrawTexturedRect( SLOT_POS[i].PosX+175/2,SLOT_POS[i].PosY+70/2,70-2,175-2,90 )
-			surface.DrawTexturedRect( SLOT_POS[i].PosX-60,SLOT_POS[i].PosY-400,340,175-2,180 )
+		if IsSlot[i] then		
+			surface.SetMaterial(WeaponSelectionBackground)
+			surface.SetDrawColor(100, 225, 225, 255*Alpha)
+			surface.DrawTexturedRect(SLOT_POS[i].PosX-60, SLOT_POS[i].PosY-400, 340, 175-2, 180)
 
 					
 			-- Font stuff for weapons 
@@ -369,33 +369,17 @@ function PaintNewWeaponSelection()
 				end
 			end
 
+			--Weapon icon
+			local ColorToDraw = Color(255, 255, 255, 255*Alpha )
+			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -300, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(30, 140, 30, 200*Alpha))
 
-			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -300, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 140, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
-			
-			if StoredIcons[MyWeapons[i]:GetClass()] then-- killicon.GetImage( MyWeapons[i]:GetClass() )
-			
-				-- local ImgTable = killicon.GetImage( MyWeapons[i]:GetClass() ) 
-								
-				local ColorToDraw, Mult = Color ( 30, 30, 30, 100*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
-				if IsSlotActive[i] then
-					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 30, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
-				
-				end		
-			else
-				surface.SetFont ( font )
-				local fWide, fTall = surface.GetTextSize(letter)
-		
-				-- Print weapon killicon
-			--	local PrimaryAmmo, SecondaryAmmo = MyWeapons[i]:Clip1(), MySelf:GetAmmoCount( MyWeapons[i]:GetPrimaryAmmoType() )
-				local ColorToDraw, Mult = Color ( 140,140,140,255*math.Clamp(LastScroll - CurTime(),0,1) ), 0.75
-				if IsSlotActive[i] then
-					ColorToDraw = Color ( 140,140,140,255*math.Clamp(LastScroll,0,1) ) --We want this to be clear to the users.
-					surface.SetDrawColor( 200,140,140,255*math.Clamp(LastScroll,0,1) )
-					draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 30, 30, 100*math.Clamp(LastScroll,0,1)))
-					--draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(30, 30, 30, 100*math.Clamp(LastScroll - CurTime(),0,1)))
-				end			
+			if not IsSlotActive[i] then
+				continue
 			end
+
+			local ColorToDraw = Color(255, 255, 255, 255*Alpha)
+			draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0, 0, 0, 255*Alpha))
 		end
 	end
 end
-hook.Add("HUDPaintBackground", "PaintSelection" , PaintNewWeaponSelection)
+hook.Add("HUDPaintBackground", "PaintSelection", PaintNewWeaponSelection)

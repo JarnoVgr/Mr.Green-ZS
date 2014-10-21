@@ -12,10 +12,10 @@ include("modules/debug/sh_debug.lua")
 ---------------------------------------------------------]=]
 --Swag we have a faster dl now. We should have people connecting a lot faster!
 
-resource.AddWorkshop("299110437") --Sound 1
-resource.AddWorkshop("299111187") --Sound 2
-resource.AddWorkshop("299079647") --Content
-resource.AddWorkshop("306782797") --Content 2
+--resource.AddWorkshop("299110437") --Sound 1
+--resource.AddWorkshop("299111187") --Sound 2
+--resource.AddWorkshop("299079647") --Content
+--resource.AddWorkshop("306782797") --Content 2
 
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("client/cl_chat.lua")
@@ -272,37 +272,30 @@ end
 	      Called at map load
 ---------------------------------------------------------]=]
 function GM:Initialize()
-	-- Creates the data/zombiesurvival folder if it doesn't exist
+	--Creates the data/zombiesurvival folder when it doesn't exist
 	if (not file.IsDir("zombiesurvival","DATA")) then
 		file.CreateDir("zombiesurvival")
 	end 
 	
-	-- Add resource files to download
-	
-	--Duby: This was removed as we are now using the workshop for our content download! ^^ 
-	
-	--for k,v in pairs(ResourceFiles) do
-		--if not file.Exists( v, "GAME") then
-		--	Debug ( "[RESOURCE-FILES] Couldn't add/find file "..tostring ( v ).." to add to resource files!" )
-		--else
-		--	resource.AddFile(v)
-		--end
-	--end
-
+	--Add resource files to download
+	for k,v in pairs(ResourceFiles) do
+		if not file.Exists( v, "GAME") then
+			Debug("[RESOURCE] Couldn't add/find file "..tostring ( v ).." to add to resource files")
+		else
+			resource.AddFile(v)
+		end
+	end
 	
 	GAMEMODE:SetMapList()
-	
 	GAMEMODE:SetCrates()
-	
 	GAMEMODE:SetExploitBoxes()
-	
 	GAMEMODE:AddRandomSales()
 				
 	--Set few ConVars
 	game.ConsoleCommand("fire_dmgscale 1\nmp_flashlight 1\nmp_allowspectators 0\n")
 	
 	--Debug
-	Debug("[MAP] Loaded map: ".. tostring(game.GetMap()))
+	Debug("[MAP] Travelled to: ".. tostring(game.GetMap()))
 end
 
 -- Player presses F1

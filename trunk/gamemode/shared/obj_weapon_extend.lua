@@ -1675,8 +1675,9 @@ end
 --------------------------------------------------------------------
 
 function meta:DrawCrosshair()
-	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
-	if util.tobool(GetConVarNumber("_zs_hidecrosshair")) then return end
+	if util.tobool(GetConVarNumber("_zs_hidecrosshair")) or self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
+		return
+	end
 	self:DrawCrosshairCross()
 	self:DrawCrosshairDot()
 end
@@ -1707,7 +1708,9 @@ function meta:DrawCrosshairCross()
 		end
 	end
 
-	if cone <= 0 or ironsights and not ironsightscrosshair then return end
+	if cone <= 0 or ironsights and not ironsightscrosshair then
+		return
+	end
 
 	cone = ScrH() / 76.8 * cone
 
@@ -1716,28 +1719,33 @@ function meta:DrawCrosshairCross()
 	local scalebyheight = (h / 768) * 0.2
 
 	local midarea = 40 * CrossHairScale
-	local length = scalebyheight * 24 + midarea / 4
+	local length = scalebyheight * 30 + midarea / 2
 
-	surface.SetDrawColor(Color(255,255,255,255))
-	surface.DrawRect(x - midarea - length, y - 2, length, 4)
-	surface.DrawRect(x + midarea, y - 2, length, 4)
-	surface.DrawRect(x - 2, y - midarea - length, 4, length)
-	surface.DrawRect(x - 2, y + midarea, 4, length)
+	surface.SetDrawColor(Color(255,255,255,160))
+	surface.DrawRect(x - midarea - length, y - 1, length, 2)
+	surface.DrawRect(x + midarea, y - 1, length, 2)
+	surface.DrawRect(x - 1, y - midarea - length, 2, length)
+	surface.DrawRect(x - 1, y + midarea, 2, length)
 
 	surface.SetDrawColor(0, 0, 0, 160)
-	surface.DrawOutlinedRect(x - midarea - length, y - 2, length, 4)
-	surface.DrawOutlinedRect(x + midarea, y - 2, length, 4)
-	surface.DrawOutlinedRect(x - 2, y - midarea - length, 4, length)
-	surface.DrawOutlinedRect(x - 2, y + midarea, 4, length)
+	surface.DrawOutlinedRect(x - midarea - length, y - 1, length, 2)
+	surface.DrawOutlinedRect(x + midarea, y - 1, length, 2)
+	surface.DrawOutlinedRect(x - 1, y - midarea - length, 2, length)
+	surface.DrawOutlinedRect(x - 1, y + midarea, 2, length)
 end
 
 function meta:DrawCrosshairDot()
+	local ironsights = self.GetIronsights and self:GetIronsights()
+	if not ironsights then
+		return
+	end
+	
 	local x = ScrW() * 0.5
 	local y = ScrH() * 0.5
 
-	surface.SetDrawColor(Color(255,0,0,255))
-	surface.DrawRect(x - 2, y - 2, 4, 4)
+	surface.SetDrawColor(Color(255,0,0,160))
+	surface.DrawRect(x - 1, y - 1, 2, 2)
 	surface.SetDrawColor(0, 0, 0, 160)
-	surface.DrawOutlinedRect(x - 2, y - 2, 4, 4)
+	surface.DrawOutlinedRect(x - 1, y - 1, 2, 2)
 end
 

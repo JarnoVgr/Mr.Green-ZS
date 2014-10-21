@@ -4,7 +4,7 @@
 --Function table
 hud = {}
 
-local hudElementBackground = Material("hudbackground.png")
+local hudElementBackground = Material("mrgreen/hud/hudbackground.png")
 local nHudBackground = Material("mrgreen/hud/hudbackgroundnew.png")
 
 --Health indication statusses

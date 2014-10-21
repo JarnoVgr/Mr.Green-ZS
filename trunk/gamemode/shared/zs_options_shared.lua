@@ -577,12 +577,9 @@ SMALLPROPCOLLISIONS = false
 
 --Time untill roll-the-dice is re-enabled
 RTD_TIME = 180
---RTD_TIME = 1
-
-
 
 --Sound to play for last human.
-LASTHUMANSOUND = "lasthuman_fixed.mp3"
+LASTHUMANSOUND = "mrgreen/music/lasthuman.mp3"
 LASTHUMANSOUNDLENGTH = 159 -- 2:39
 --Song which is played during the middle of a round! Duh! :P 
 

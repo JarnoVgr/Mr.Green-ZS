@@ -29,7 +29,7 @@ Beats[6] = {"zombiesurvival/hbeat6.wav"}
 Beats[7] = {"zombiesurvival/hbeat7.wav"}
 Beats[8] = {"zombiesurvival/hbeat8.wav"}
 Beats[9] = {"zombiesurvival/hbeat9.wav"}
-Beats[10] = {"zombiesurvival/hbeat10.wav"}
+Beats[10] = {"zombiesurvival/hbeat9.wav"}
 
 local BeatLength = {}
 BeatLength[0] = 1.0
@@ -55,7 +55,7 @@ ZBeats[6] = {"zombiesurvival/_zbeat6.wav"}
 ZBeats[7] = {"zombiesurvival/_zbeat7.wav"}
 ZBeats[8] = {"zombiesurvival/_zbeat7_5.wav"}
 ZBeats[9] = {"zombiesurvival/_zbeat8.wav"}
-ZBeats[10] = {"zombiesurvival/hbeat10.wav"}
+ZBeats[10] = {"zombiesurvival/_zbeat8.wav"}
 
 local ZBeatLength = {}
 ZBeatLength[0] = 1
@@ -73,7 +73,6 @@ ZBeatLength[10] = 21.8
 
 --Precache beats
 for i=1,10 do
-
 	util.PrecacheSound(Beats[i][1])
 	util.PrecacheSound(ZBeats[i][1])
 end
