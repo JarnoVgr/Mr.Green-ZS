@@ -594,9 +594,13 @@ local playermins = Vector(-17, -17, 0)
 local playermaxs = Vector(17, 17, 4)
 
 function GM:DynamicSpawnIsValid(zombie, humans, allplayers)
-	-- Optional caching for these.
-	if not humans then humans = team.GetPlayers(TEAM_HUMAN) end
-	if not allplayers then allplayers = player.GetAll() end
+	--TODO: Cache
+	if not humans then
+		humans = team.GetPlayers(TEAM_HUMAN)
+	end
+	if not allplayers then
+		allplayers = player.GetAll()
+	end
 
 	local pos = zombie:GetPos() + Vector(0, 0, 1)
 	if zombie:Alive() and zombie:GetMoveType() == MOVETYPE_WALK and zombie:WaterLevel() < 2 and not util.TraceHull({start = pos, endpos = pos + playerheight, mins = playermins, maxs = playermaxs, mask = MASK_SOLID, filter = allplayers}).Hit then

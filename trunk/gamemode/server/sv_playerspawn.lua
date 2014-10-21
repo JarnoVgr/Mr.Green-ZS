@@ -1116,62 +1116,6 @@ function GM:SelectSpawn ( pl, SpawnTable, Team )
 	pl.SpawnRetryCounter = 0
 end
 
---[==[------------------------------------------------------
-      Returns the correct spawnpoint for the plr
--------------------------------------------------------]==]
-local function DoSelectSpawn ( pl )
-	if not ValidEntity ( pl ) then return end
-	
-	-- we can't do this right now
-	if not pl.Ready then return end
-	
-	-- sort out the tables
-	local SpawnTable = {}
-	if pl:Team() == TEAM_UNDEAD then SpawnTable = GAMEMODE.UndeadSpawnPoints else SpawnTable = GAMEMODE.HumanSpawnPoints end
-	
-	-- debug - ignore this
-	Debug ( "[SELECT-SPAWN] Trying to select spawn for "..tostring ( pl ) )
-	
-	-- return the proper spawn point
-	if not pl:IsZombie() then
-		GAMEMODE:SelectSpawn ( pl, SpawnTable, pl:Team() )
-	end
-	
-	--------------------------------------
-	
-	local spawninplayer = false
-	local tab = {}
-	local epicenter
-	
-	
-	if pl:IsZombie() then -- If we're a bit in the wave then we can spawn on top of heavily dense groups with no humans looking at us.
-		local dyn = pl.ForceDynamicSpawn
-		if dyn then
-			pl.ForceDynamicSpawn = nil
-			if GAMEMODE:DynamicSpawnIsValid(dyn) then
-				return dyn
-			else
-				epicenter = dyn:GetPos() -- Ok, at least skew our epicenter to what they tried to spawn at.
-				tab = table.Copy(team.GetSpawnPoint(TEAM_UNDEAD))
-				local dynamicspawns = GAMEMODE:GetDynamicSpawns(pl)
-				if #dynamicspawns > 0 then
-					spawninplayer = true
-					table.Add(tab, dynamicspawns)
-				end
-			end
-		else
-			tab = table.Copy(team.GetSpawnPoint(TEAM_UNDEAD))
-			local dynamicspawns = GAMEMODE:GetDynamicSpawns(pl)
-			if #dynamicspawns > 0 then
-				spawninplayer = true
-				table.Add(tab, dynamicspawns)
-			end
-		end
-	end
-	-------------------------------------
-	return #tab > 0 and tab[math.random(1, #tab)] or pl --pl
-end
--- hook.Add ( "PlayerSelectSpawn", "DoSelectSpawn", DoSelectSpawn )
 
 
 local playermins = Vector(-17, -17, 0)
@@ -1179,49 +1123,28 @@ local playermaxs = Vector(17, 17, 4)
 local LastSpawnPoints = {}
 
 function GM:PlayerSelectSpawn(pl)
-	local spawninplayer = false
 	local teamid = pl:Team()
 	local tab = {}
-	local epicenter
-	--print("Prepared")
-	if teamid == TEAM_UNDEAD then-- If we're a bit in the wave then we can spawn on top of heavily dense groups with no humans looking at us.
-		-- print("Undead")
+	
+	--Undead spawn
+	if teamid == TEAM_UNDEAD then
 		local dyn = pl.ForceDynamicSpawn
 		if dyn then
-			-- print("GotDynSpawn")
 			pl.ForceDynamicSpawn = nil
 			if self:DynamicSpawnIsValid(dyn) then
-				-- print("Return zombie")
 				return dyn
-			else
-				
-				epicenter = dyn:GetPos() -- Ok, at least skew our epicenter to what they tried to spawn at.
-				tab = table.Copy(team.GetSpawnPoint(TEAM_UNDEAD))
-				-- print("ZombieSpawns:-------")
-				-- PrintTable(tab)
-				local dynamicspawns = self:GetDynamicSpawns(pl)
-				-- print("DynamicZombieSpawns:-------")
-				-- PrintTable(dynamicspawns)
-				-- print("-------")
-				if #dynamicspawns > 0 then
-					spawninplayer = true
-					table.Add(tab, dynamicspawns)
-				end
 			end
-		else
-			-- print("NoDynSpawn")
-			tab = table.Copy(team.GetSpawnPoint(TEAM_UNDEAD))
-			-- print("ZombieSpawns_NoTarget:-------")
-			-- PrintTable(tab)
-			local dynamicspawns = self:GetDynamicSpawns(pl)
-			-- print("DynamicZombieSpawns_NoTarget:-------")
-			-- PrintTable(dynamicspawns)
-			-- print("-------")
-			if #dynamicspawns > 0 then
-				spawninplayer = true
-				table.Add(tab, dynamicspawns)
-			end
+			--local epicenter = dyn:GetPos()
 		end
+
+		--Use Dynamic spawns when available
+		local DynamicSpawns = self:GetDynamicSpawns(pl)
+		if #DynamicSpawns > 0 then
+			table.Add(tab, DynamicSpawns)
+		else
+			tab = table.Copy(team.GetSpawnPoint(TEAM_UNDEAD))
+		end
+	--Human spawn
 	else
 		tab = team.GetSpawnPoint(teamid)
 	end
