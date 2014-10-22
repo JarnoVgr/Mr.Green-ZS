@@ -91,20 +91,12 @@ end
 util.AddNetworkString( "SetShopData" )
 
 function stats.SendShopData( from, to )
-	if IsValid( to ) and IsValid( from ) then
+	if IsValid(to) and IsValid( from ) then
 		if not to:IsBot() and not from:IsBot() then	
-		
 			net.Start("SetShopData")
 				net.WriteEntity(from)
 				net.WriteTable(from.DataTable["ShopItems"])
 			net.Send(to)
-			
-			--[==[umsg.Start( "SetShopData", to )
-				umsg.Entity( from )
-				for k, v in ipairs(shopData) do
-					umsg.Bool( from.DataTable["ShopItems"][k] )
-				end
-			umsg.End()]==]
 		end
 	end
 end

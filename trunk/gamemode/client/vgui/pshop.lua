@@ -47,13 +47,15 @@ function MakepShop()
 	end
 	
 	local shoplabel = vgui.Create("DLabel",Window)
-	shoplabel:SetText( [[HOW TO GET GREEN-COINS:
+	shoplabel:SetText( [[HOW TO GET GREENCOINS:
 	
 	- Kill a zombie (as human): 1 GC
 	
 	- Kill a human (as zombie): 3 GC
+
+	- Achievements
 	
-	- Every euro you donate: 1000 GC
+	- Donating 1 euro gives 1000 GC
 	
 	]] )
 	shoplabel:SetPos( 380, 145 ) 
@@ -62,7 +64,7 @@ function MakepShop()
 	--  SHOP
 	
 	local itemlistlabel = vgui.Create("DLabel",Window)
-	itemlistlabel:SetText( "Shop Items - You currently got "..tostring ( MySelf.TotalUpgrades ).." upgrades over 2000 GC!" )
+	itemlistlabel:SetText( "Shop Items - You currently have "..tostring ( MySelf.TotalUpgrades ).." upgrades over 2000 GC!" )
 	itemlistlabel:SetPos( 16, 30 ) 
 	itemlistlabel:SizeToContents()
 		
@@ -293,12 +295,12 @@ function MakepShop()
 			buybutton:SetDisabled(true)
 			sellbutton:SetDisabled(false)
 			sellbutton:SetText("Sell this\nfor ".. shopData[k].Sell .." GC")
-			buybutton:SetText("You got\nthis already!")
+			buybutton:SetText("") --Bought
 		elseif (MySelf.DataTable["ShopItems"][k]) then
 			buybutton:SetDisabled(true)
 			sellbutton:SetDisabled(true)
 			sellbutton:SetText("")
-			buybutton:SetText("You got\nthis already!")
+			buybutton:SetText("") --Bought
 		elseif (shopData[k].Cost == -1) then -- No buyable anymore
 			buybutton:SetDisabled(true) -- disable button if you can't buy it
 			sellbutton:SetDisabled(true)
@@ -323,7 +325,7 @@ function MakepShop()
 			buybutton:SetDisabled(false)
 			sellbutton:SetText("")
 			sellbutton:SetDisabled(true)
-			buybutton:SetText("Buy this item!")
+			buybutton:SetText("Buy this item")
 		end
 		
 		-- Set hat preview if a hat is selected
@@ -442,10 +444,10 @@ function InsertHats()
 					if GetCurrentHatId(tab.Key) then
 						draw.SimpleTextOutlined ( "EQUIPPED "..(GetActualHats() or 0).."/4", "WeaponNames", HatTab[itemID]:GetWide() - 140,HatTab[itemID]:GetTall()/6, Color(35, 255, 35, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 					else
-						draw.SimpleTextOutlined ( "PURCHASED!", "WeaponNames", HatTab[itemID]:GetWide() - 140,HatTab[itemID]:GetTall()/6, Color(35, 155, 35, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+						draw.SimpleTextOutlined ( "Purchased", "WeaponNames", HatTab[itemID]:GetWide() - 140,HatTab[itemID]:GetTall()/6, Color(35, 155, 35, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 					end
 				else
-					draw.SimpleTextOutlined ( "Price: "..tab.Cost, "WeaponNames", HatTab[itemID]:GetWide() - 140,HatTab[itemID]:GetTall()/6, Color(255, 255, 255, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined(tab.Cost .." GC", "WeaponNames", HatTab[itemID]:GetWide() - 140,HatTab[itemID]:GetTall()/6, Color(255, 255, 255, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				end
 				
 				if HatTab[itemID].Overed then
@@ -498,7 +500,7 @@ function InsertHats()
 						HatTab[itemID].Btn:SetEnabled(false)
 						HatTab[itemID].Btn:SetDisabled(true)
 					else
-						HatTab[itemID].Btn:SetText("Buy this shit!")
+						HatTab[itemID].Btn:SetText("Buy")
 						
 						HatTab[itemID].Btn:SetEnabled(true)
 						HatTab[itemID].Btn:SetDisabled(false)
@@ -601,9 +603,9 @@ function InsertSuits()
 				draw.SimpleTextOutlined ( tab.Name, "WeaponNames", 10,SuitTab[itemID]:GetTall()/6, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				
 				if MySelf.DataTable["ShopItems"][tab.ID] then
-					draw.SimpleTextOutlined ( "PURCHASED!", "WeaponNames", SuitTab[itemID]:GetWide() - 140,SuitTab[itemID]:GetTall()/6, Color(35, 155, 35, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined("Purchased", "WeaponNames", SuitTab[itemID]:GetWide() - 140,SuitTab[itemID]:GetTall()/6, Color(35, 155, 35, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				else
-					draw.SimpleTextOutlined ( "Price: "..tab.Cost, "WeaponNames", SuitTab[itemID]:GetWide() - 140,SuitTab[itemID]:GetTall()/6, Color(255, 255, 255, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined(tab.Cost .." GC", "WeaponNames", SuitTab[itemID]:GetWide() - 140,SuitTab[itemID]:GetTall()/6, Color(255, 255, 255, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				end
 				
 				if SuitTab[itemID].Overed then
@@ -651,7 +653,7 @@ function InsertSuits()
 						SuitTab[itemID].Btn:SetEnabled(false)
 						SuitTab[itemID].Btn:SetDisabled(true)
 					else
-						SuitTab[itemID].Btn:SetText("Buy this shit!")
+						SuitTab[itemID].Btn:SetText("Buy")
 						
 						SuitTab[itemID].Btn:SetEnabled(true)
 						SuitTab[itemID].Btn:SetDisabled(false)
@@ -765,7 +767,7 @@ function InsertOther()
 			MiscTab[itemID].Btn:SetPos(MiscTab[itemID]:GetWide()-35-100, (MiscTab[itemID]:GetTall()/6)/2)
 			MiscTab[itemID].Btn.Think = function()
 				if MySelf.DataTable["ShopItems"][tab.ID] then
-					MiscTab[itemID].Btn:SetText("You have this already")
+					MiscTab[itemID].Btn:SetText("")
 					
 					MiscTab[itemID].Btn:SetEnabled(false)
 					MiscTab[itemID].Btn:SetDisabled(true)
@@ -776,7 +778,7 @@ function InsertOther()
 						MiscTab[itemID].Btn:SetEnabled(false)
 						MiscTab[itemID].Btn:SetDisabled(true)
 					else
-						MiscTab[itemID].Btn:SetText("BUY")
+						MiscTab[itemID].Btn:SetText("Buy")
 						
 						MiscTab[itemID].Btn:SetEnabled(true)
 						MiscTab[itemID].Btn:SetDisabled(false)

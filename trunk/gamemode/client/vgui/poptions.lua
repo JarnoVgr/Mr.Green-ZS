@@ -133,7 +133,6 @@ function MakepOptions()
 	
 	-- title editor	
 	if ( MySelf.DataTable and MySelf.DataTable["ShopItems"][ util.GetItemID( "titlechanging" ) ] ) then
-		
 		local yh = 0
 		
 		local title = vgui.Create("DLabel")

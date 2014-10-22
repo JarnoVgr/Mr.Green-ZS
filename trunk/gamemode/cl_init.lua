@@ -770,39 +770,22 @@ end)
 
 net.Receive("SetShopData", function(len)
 	local pl = net.ReadEntity()
-	if not IsValid( pl ) then
+	if not IsValid(pl) then
 		return
 	end
 	
 	local tbl = net.ReadTable() or {}
 	
 	pl.DataTable = pl.DataTable or {}
-	pl.DataTable["ShopItems"] = pl.DataTable["ShopItems"] or {}
+	pl.DataTable["ShopItems"] = {}
 	
-	for k, v in ipairs( shopData ) do
+	for k, v in pairs(shopData) do
 		pl.DataTable["ShopItems"][k] = tbl[k] or false
 	end
 
 	pl.GotShopData = true
 	print("[DB] Successfully received shop data..")
 end)
-
-local function SetShopData(um)
-	local pl = um:ReadEntity()
-	if not IsValid( pl ) then return end
-	
-	--if not pl.DataTable then
-	pl.DataTable = pl.DataTable or {}
-	pl.DataTable["ShopItems"] = pl.DataTable["ShopItems"] or {}
-	--end
-	for k, v in ipairs( shopData ) do
-		pl.DataTable["ShopItems"][k] = um:ReadBool()
-	end
-	
-	pl.GotShopData = true
-	print( "[DB] Successfully received shop data.." )
-end
-usermessage.Hook("SetShopData", SetShopData)
 
 local function SetServerData(um)
 	local index = um:ReadShort()

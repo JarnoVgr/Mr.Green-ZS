@@ -1276,7 +1276,7 @@ function meta:HasBought(str)
 		return true
 	end
 	
-	return self.DataTable["ShopItems"][ util.GetItemID( str ) ]
+	return self.DataTable["ShopItems"][util.GetItemID(str)]
 end
 
 function meta:GetSuit()
