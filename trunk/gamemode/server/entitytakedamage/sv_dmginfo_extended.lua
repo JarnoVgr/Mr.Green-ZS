@@ -126,7 +126,7 @@ end
 
 -- Check if attacker the world (props hitting world)
 function metaDamage:IsAttackerWorld()
-	return self:GetAttacker() == GetWorldEntity() or self:GetInflictor() == GetWorldEntity()
+	return self:GetAttacker() == game.GetWorld() or self:GetInflictor() == game.GetWorld()
 end
 
 -- See if the attacker is hurting himself with physdamage

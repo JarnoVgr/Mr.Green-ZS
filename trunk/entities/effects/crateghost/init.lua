@@ -14,7 +14,7 @@ function EFFECT:Init(data)
 end
 
 function EFFECT:Think()
-	if not ValidEntity(self.EfOwner) or not ValidEntity(self.EfOwner:GetActiveWeapon()) or self.EfOwner:GetActiveWeapon():GetClass() ~= "weapon_zs_tools_supplies" or not self.EfOwner:Alive() or not self.EfOwner:IsHuman() then
+	if not IsValid(self.EfOwner) or not IsValid(self.EfOwner:GetActiveWeapon()) or self.EfOwner:GetActiveWeapon():GetClass() ~= "weapon_zs_tools_supplies" or not self.EfOwner:Alive() or not self.EfOwner:IsHuman() then
 		return false
 	end
 	

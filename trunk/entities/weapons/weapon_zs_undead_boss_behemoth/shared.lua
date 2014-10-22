@@ -93,7 +93,7 @@ function SWEP:StartPrimaryAttack()
 	
 	--Restore
 	timer.Simple(1.6, function()
-		if not ValidEntity(pl) then
+		if not IsValid(pl) then
 			return
 		end
 
@@ -121,7 +121,7 @@ function SWEP:PrimaryAttackHit(trace, ent)
 	end
 
 	if hit then
-		if ent and ValidEntity(ent) and ent:IsPlayer() then
+		if ent and IsValid(ent) and ent:IsPlayer() then
 			pl:EmitSound(Sound("player/zombies/b/hitflesh.wav"),math.random(100,130),math.random(95,100))
 			util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
 		else

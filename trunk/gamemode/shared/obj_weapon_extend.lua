@@ -179,7 +179,7 @@ end
         Used to get the type (string) of a weapon
 ---------------------------------------------------------]==]
 function meta:GetType()
-	if not ValidEntity ( self ) then return "none" end                          
+	if not IsValid ( self ) then return "none" end                          
 
 	local name = tostring ( self:GetClass() )
 		
@@ -192,11 +192,11 @@ end
 ----------------------------------------------------------------------]==]
 function meta:SetViewModelColor ( col )
 	if SERVER then return end
-	if not ValidEntity ( MySelf ) then return end
+	if not IsValid ( MySelf ) then return end
 	
 	-- Get Viewmodel
 	local ViewModel = MySelf:GetViewModel()
-	if not ValidEntity ( ViewModel ) then return end
+	if not IsValid ( ViewModel ) then return end
 
 	-- Set color
 	ViewModel:SetColor ( col ) 
@@ -385,7 +385,7 @@ function CalculatePlayerModelBones1(weapon,ent)
 	local vm = weapon.Owner:GetViewModel()
 	weapon.BuildModelPosition1 = function(s) end
 		
-	if not ValidEntity(vm) then return end
+	if not IsValid(vm) then return end
 	weapon.BuildModelPosition1 = function(s)
 	
 	if s:GetModelScale() == Vector(1,1,1) then
@@ -460,7 +460,7 @@ function CalculatePlayerModelBones(weapon,ent)
 	
 	weapon.BuildModelPosition = function(s) end
 		
-	if not ValidEntity(vm) then return end
+	if not IsValid(vm) then return end
 	
 	if modelnum == 1 then
 		if weapon.UseHL2Bonemerge then
@@ -642,14 +642,14 @@ end
 function RemoveNewArms(weapon)
 
 	if not CLIENT then return end
-	if (ValidEntity(weapon.Arms)) then
+	if (IsValid(weapon.Arms)) then
 		weapon.Arms:Remove()
-		-- print(tostring(ValidEntity(weapon.Arms)))
+		-- print(tostring(IsValid(weapon.Arms)))
 	end
 		weapon.Arms = nil
-	if (ValidEntity(weapon.Wep)) then
+	if (IsValid(weapon.Wep)) then
 		weapon.Wep:Remove()
-		-- print(tostring(ValidEntity(weapon.Wep)))
+		-- print(tostring(IsValid(weapon.Wep)))
 	end
 		weapon.Wep = nil
 
@@ -668,7 +668,7 @@ function MakeNewArms(weapon)
 	
 	weapon.Arms = ClientsideModel(model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
 	
-	if ValidEntity(weapon.Arms) then 
+	if IsValid(weapon.Arms) then 
 		
 		if string.find(model,"gman") then
 			weapon.Arms:SetBodygroup(1,1)
@@ -687,7 +687,7 @@ function MakeNewArms(weapon)
 	
 	weapon.Wep = ClientsideModel(weapon.ViewModel, RENDER_GROUP_VIEW_MODEL_OPAQUE)
 	
-	if ValidEntity(weapon.Wep) then 
+	if IsValid(weapon.Wep) then 
 	
 		weapon.Wep:SetPos(weapon:GetPos())
 		weapon.Wep:SetAngles(weapon:GetAngles())
@@ -708,7 +708,7 @@ function UpdateArms(weapon)
 	
 	if not util.tobool(GetConVarNumber("_zs_clhands")) then return end
 	-- weapon.ViewModelFlip = true
-	if ValidEntity(weapon.Arms) then
+	if IsValid(weapon.Arms) then
 			
 			if weapon.Arms:GetModel() ~= weapon.Owner:GetModel() then
 				weapon.Arms:SetModel(weapon.Owner:GetModel())
@@ -741,7 +741,7 @@ function UpdateArms(weapon)
 			CalculatePlayerModelBones(weapon,weapon.Arms)
 			-- weapon.Arms:SetParent(vm) 
 	end
-	if ValidEntity(weapon.Wep) then
+	if IsValid(weapon.Wep) then
 	
 			render.SetBlend(1)
 		
@@ -972,7 +972,7 @@ function CalculatePlayerModelBones1(weapon,ent)
 	local vm = weapon.Owner:GetViewModel()
 	weapon.BuildModelPosition1 = function(s) end
 		
-	if not ValidEntity(vm) then return end
+	if not IsValid(vm) then return end
 	weapon.BuildModelPosition1 = function(s)
 	
 	if s:GetModelScale() == Vector(1,1,1) then
@@ -1048,7 +1048,7 @@ function CalculatePlayerModelBones2(weapon,ent)
 	
 	weapon.BuildModelPosition = function(s) end
 		
-	if not ValidEntity(vm) then return end
+	if not IsValid(vm) then return end
 	
 	if modelnum == 1 then
 		if weapon.UseHL2Bonemerge then
@@ -1287,14 +1287,14 @@ end
 function RemoveNewArms(weapon)
 
 	if not CLIENT then return end
-	if (ValidEntity(weapon.Arms)) then
+	if (IsValid(weapon.Arms)) then
 		weapon.Arms:Remove()
-		-- print(tostring(ValidEntity(weapon.Arms)))
+		-- print(tostring(IsValid(weapon.Arms)))
 	end
 		weapon.Arms = nil
-	if (ValidEntity(weapon.Wep)) then
+	if (IsValid(weapon.Wep)) then
 		weapon.Wep:Remove()
-		-- print(tostring(ValidEntity(weapon.Wep)))
+		-- print(tostring(IsValid(weapon.Wep)))
 	end
 		weapon.Wep = nil
 
@@ -1308,7 +1308,7 @@ end
 function CalculateWeaponBones(weapon,ent)
 
 	local vm = weapon.Owner:GetViewModel()		
-	if not ValidEntity(vm) then return end
+	if not IsValid(vm) then return end
 	
 	local s = ent
 	
@@ -1353,7 +1353,7 @@ function CalculatePlayerModelBones(weapon,ent)
 		end
 	end
 		
-	if not ValidEntity(vm) then return end
+	if not IsValid(vm) then return end
 	
 	local s = ent
 	
@@ -1561,7 +1561,7 @@ function MakeNewArms(weapon)
 	
 	weapon.Arms = ClientsideModel(model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
 	
-	if ValidEntity(weapon.Arms) then 
+	if IsValid(weapon.Arms) then 
 		
 		if string.find(model,"gman") then
 			weapon.Arms:SetBodygroup(1,1)
@@ -1582,7 +1582,7 @@ function MakeNewArms(weapon)
 	
 	weapon.Wep = ClientsideModel(weapon.ViewModel, RENDER_GROUP_VIEW_MODEL_OPAQUE)
 	
-	if ValidEntity(weapon.Wep) then 
+	if IsValid(weapon.Wep) then 
 	
 		weapon.Wep:SetPos(weapon:GetPos())
 		weapon.Wep:SetAngles(weapon:GetAngles())
@@ -1604,7 +1604,7 @@ function UpdateArms(weapon)
 	if not util.tobool(GetConVarNumber("_zs_clhands")) then return end
 	if weapon.IgnoreClientsideHands then return end
 	-- weapon.ViewModelFlip = true
-	if ValidEntity(weapon.Arms) then
+	if IsValid(weapon.Arms) then
 			
 			if weapon.Arms:GetModel() ~= weapon.Owner:GetModel() then
 				weapon.Arms:SetModel(weapon.Owner:GetModel())
@@ -1639,7 +1639,7 @@ function UpdateArms(weapon)
 			CalculatePlayerModelBones(weapon,weapon.Arms)
 			-- weapon.Arms:SetParent(vm) 
 	end
-	if ValidEntity(weapon.Wep) then
+	if IsValid(weapon.Wep) then
 	
 			render.SetColorModulation(1, 1, 1)
 			render.SetBlend(1)

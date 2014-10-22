@@ -30,7 +30,7 @@ function ENT:Draw()
 
     self:DrawModel()
 
-    if not ValidEntity(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
+    if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
         return
     end
 

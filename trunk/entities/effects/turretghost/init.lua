@@ -16,8 +16,8 @@ end
 
 function EFFECT:Think()
 	
-	if not ValidEntity(self.EfOwner) then return false end
-	if not ValidEntity(self.EfOwner:GetActiveWeapon()) then return false end
+	if not IsValid(self.EfOwner) then return false end
+	if not IsValid(self.EfOwner:GetActiveWeapon()) then return false end
 	if self.EfOwner:GetActiveWeapon():GetClass() ~= "weapon_zs_turretplacer" then return false end
 	if not self.EfOwner:Alive() then return false end
 	if not self.EfOwner:IsHuman() then return false end

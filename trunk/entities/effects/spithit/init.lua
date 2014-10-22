@@ -22,7 +22,7 @@ function EFFECT:Init(data)
 
 	util.Decal("AlienBlood", pos + VectorRand() * 4, pos + VectorRand() * 4)
 
-	WorldSound("npc/antlion_grub/squashed.wav", pos, 90, math.random(95, 110))
+	sound.Play("npc/antlion_grub/squashed.wav", pos, 90, math.random(95, 110))
 end
 
 function EFFECT:Think()

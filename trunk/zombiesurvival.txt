@@ -1,7 +1,15 @@
 "zombiesurvival"
 {
-	"base"		"base"
-	"title"		"Zombie Survival Green Apocalypse"
+	"base"			"base"
+	"title"			"Zombie Survival Green Apocalypse"
 	"menusystem"	"1"
+	"maps"			"^zs_|^zm_|^zh_|^zps_|^zr_|^ze_"
+	
+	"author_name"		"Limetric"
+	"author_email"		"info@limetric.com"
+	"author_url"		"http://limetric.com"
 
+	"settings"
+	{
+	}
 }

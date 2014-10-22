@@ -163,13 +163,13 @@ SWEP.vRenderOrder = nil
 				
 		--vm:SetRenderMode(RENDERMODE_TRANSALPHA) 
 						
-		if (!self.VElements) then
+		if not self.VElements then
 			return
 		end
 				
 		self:UpdateBonePositions(vm)
 
-		if (!self.vRenderOrder) then
+		if not self.vRenderOrder then
 			--we build a render order because sprites need to be drawn after models
 			self.vRenderOrder = {}
 

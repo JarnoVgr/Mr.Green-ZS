@@ -891,7 +891,7 @@ if CLIENT then
 
 		self.Arms = ClientsideModel("models/player/group01/male_04.mdl", RENDER_GROUP_VIEW_MODEL_OPAQUE) 
 		
-		if (ValidEntity(self.Arms)) and (ValidEntity(self)) then 
+		if (IsValid(self.Arms)) and (IsValid(self)) then 
 			self.Arms:SetPos(self:GetPos())
 			self.Arms:SetAngles(self:GetAngles())
 			self.Arms:SetParent(self) 
@@ -904,7 +904,7 @@ if CLIENT then
 	end
 
 	function SWEP:RemoveArms()
-		if (ValidEntity(self.Arms)) then
+		if (IsValid(self.Arms)) then
 			self.Arms:Remove()
 		end
 

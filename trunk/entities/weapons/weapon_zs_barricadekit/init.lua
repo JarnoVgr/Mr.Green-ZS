@@ -34,7 +34,7 @@ end
 
 function SWEP:PrimaryAttack()
 	if self:CanPrimaryAttack() then
-		if not ValidEntity ( self.Owner ) then return end
+		if not IsValid ( self.Owner ) then return end
 	
 		local aimvec = self.Owner:GetAimVector()
 		local shootpos = self.Owner:GetShootPos()

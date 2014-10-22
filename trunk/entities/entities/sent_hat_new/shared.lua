@@ -17,15 +17,15 @@ function ENT:Think()
 	if SERVER then
 		local pl = self:GetOwner():GetRagdollEntity() or self:GetOwner()
 		-- self:SetColor(pl:GetColor())
-		if not ValidEntity(pl) then self:Remove() end
+		if not IsValid(pl) then self:Remove() end
 		if (pl:IsPlayer() and not pl:IsHuman()) then self:Remove() end
-		if ValidEntity(self:GetOwner()) and not self:GetOwner():Alive() and not ValidEntity(self:GetOwner():GetRagdollEntity()) then self:Remove() end
+		if IsValid(self:GetOwner()) and not self:GetOwner():Alive() and not IsValid(self:GetOwner():GetRagdollEntity()) then self:Remove() end
 		-- self.Entity:SetPos(pl:GetPos())
 	end
 	if CLIENT then
-		if ValidEntity(self:GetOwner()) then
+		if IsValid(self:GetOwner()) then
 			local owner = self:GetOwner()
-			if MySelf and owner == MySelf and not ValidEntity(MySelf.Hat) then
+			if MySelf and owner == MySelf and not IsValid(MySelf.Hat) then
 				MySelf.Hat = self.Entity
 			end
 		end
@@ -126,12 +126,12 @@ if CLIENT then
 
 	function ENT:Draw()
 		
-		if ValidEntity(self:GetOwner()) then
+		if IsValid(self:GetOwner()) then
 			self.Entity:SetRenderBounds( self:GetOwner():OBBMaxs()*1.5, self:GetOwner():OBBMins()*1.5) 
 		end
 	
 		local owner = self:GetOwner()
-		if MySelf and owner == MySelf and not ValidEntity(MySelf.Hat) then
+		if MySelf and owner == MySelf and not IsValid(MySelf.Hat) then
 			MySelf.Hat = self.Entity
 		end
 		if not owner:IsValid() or not owner:Alive() or owner == MySelf or not util.tobool(GetConVarNumber("_zs_enablehats")) then return end
@@ -159,8 +159,8 @@ if CLIENT then
 
 		end
 		
-		if (ValidEntity(self:GetOwner())) then
-			if ValidEntity(self:GetOwner():GetRagdollEntity()) then
+		if (IsValid(self:GetOwner())) then
+			if IsValid(self:GetOwner():GetRagdollEntity()) then
 				bone_ent = self:GetOwner():GetRagdollEntity()
 			else
 				bone_ent = self:GetOwner()
@@ -187,7 +187,7 @@ if CLIENT then
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
 			
-			if (v.type == "Model" and ValidEntity(model)) then
+			if (v.type == "Model" and IsValid(model)) then
 
 				model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
 				ang:RotateAroundAxis(ang:Up(), v.angle.y)
@@ -314,11 +314,11 @@ if CLIENT then
 
 		--  Create the clientside models here because Garry says we can't do it in the render hook
 		for k, v in pairs( tab ) do
-			if (v.type == "Model" and v.model and v.model ~= "" and (not ValidEntity(v.modelEnt) or v.createdModel ~= v.model) and 
+			if (v.type == "Model" and v.model and v.model ~= "" and (not IsValid(v.modelEnt) or v.createdModel ~= v.model) and 
 					string.find(v.model, ".mdl") and file.Exists (v.model,"GAME") ) then
 				
 				v.modelEnt = ClientsideModel(v.model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
-				if (ValidEntity(v.modelEnt)) then
+				if (IsValid(v.modelEnt)) then
 					v.modelEnt:SetPos(self:GetPos())
 					v.modelEnt:SetAngles(self:GetAngles())
 					v.modelEnt:SetParent(self)
@@ -367,7 +367,7 @@ if CLIENT then
 	function ENT:RemoveModels()
 		if (self.Elements) then
 			for k, v in pairs( self.Elements ) do
-				if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
+				if (IsValid( v.modelEnt )) then v.modelEnt:Remove() end
 			end
 		end
 		self.Elements = nil

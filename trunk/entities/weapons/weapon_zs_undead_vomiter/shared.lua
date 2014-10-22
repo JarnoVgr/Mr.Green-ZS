@@ -158,7 +158,7 @@ function SWEP:PrimaryAttackHit(trace, ent)
 	end
 
 	if hit then
-		if ent and ValidEntity(ent) and ent:IsPlayer() then
+		if ent and IsValid(ent) and ent:IsPlayer() then
 		pl:EmitSound(Sound("player/zombies/hate/chainsaw_attack_hit.wav"),math.random(100,130),math.random(95,100))
 		 pl:EmitSound(Sound("npc/barnacle/barnacle_bark.wav"),math.random(100,130),math.random(95,100))
 		else

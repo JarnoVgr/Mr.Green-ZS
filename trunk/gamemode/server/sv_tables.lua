@@ -601,6 +601,11 @@ for _, filename in pairs(file.Find("materials/mrgreen/hud/*.*", "GAME")) do
 	table.insert(ResourceFiles, "materials/mrgreen/hud/".. filename)
 end
 
+--Intermission materials
+for _, filename in pairs(file.Find("materials/mrgreen/intermission/*.*", "GAME")) do
+	table.insert(ResourceFiles, "materials/mrgreen/intermission/".. filename)
+end
+
 --Precache all models from resources
 for k,v in pairs(ResourceFiles) do
 	if string.find( v, ".mdl") then

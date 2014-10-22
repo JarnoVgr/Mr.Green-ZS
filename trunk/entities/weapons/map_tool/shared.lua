@@ -82,7 +82,7 @@ function SWEP:SpawnAmmoBox ( Switched )
 	-- print("Spawning Crate index: "..ent.CrateIndex)
 
 	local Phys = ent:GetPhysicsObject()
-	if ValidEntity ( Phys ) then
+	if IsValid ( Phys ) then
 		Phys:EnableMotion ( false )
 	end
 	

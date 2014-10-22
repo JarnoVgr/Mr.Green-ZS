@@ -11,7 +11,7 @@ ENT.PuffTimer = 0
 function ENT:DrawTranslucent()
 
 	local owner = self:GetOwner()
-	if MySelf and owner == MySelf and not ValidEntity(MySelf.Hat) then
+	if MySelf and owner == MySelf and not IsValid(MySelf.Hat) then
 		MySelf.Hat = self.Entity
 	end
 	if not owner:IsValid() or not owner:Alive() or owner == MySelf or not ENABLE_HATS then return end

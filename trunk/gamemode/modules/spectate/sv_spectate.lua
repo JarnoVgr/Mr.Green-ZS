@@ -149,7 +149,7 @@ function GetAvailableSpectator ( mSpectator, mAttacker )
 		end
 	end
 	
-	if ( IsEntityValid ( mAttacker ) and mAttacker:IsPlayer() and not mAttacker:Alive() ) or mSpectator == mAttacker or ( IsEntityValid ( mAttacker ) and mAttacker:IsPlayer() and mAttacker:IsZombie() ) or ( ( IsEntityValid ( mAttacker ) or mAttacker == GetWorldEntity() ) and not mAttacker:IsPlayer() ) then mSpectated = nil end	
+	if ( IsEntityValid ( mAttacker ) and mAttacker:IsPlayer() and not mAttacker:Alive() ) or mSpectator == mAttacker or ( IsEntityValid ( mAttacker ) and mAttacker:IsPlayer() and mAttacker:IsZombie() ) or ( ( IsEntityValid ( mAttacker ) or mAttacker == game.GetWorld() ) and not mAttacker:IsPlayer() ) then mSpectated = nil end	
 	
 	-- Player to be spectated
 	if IsEntityValid ( mSpectated ) and ( mSpectated:IsPlayer() ) then return mSpectated end

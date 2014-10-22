@@ -26,7 +26,7 @@ local RewardsTable = {
       Checks players score and gives him new weapons
 --------------------------------------------------------------]==]
 function GM:CheckHumanScore ( pl )
-	if not ValidEntity ( pl ) then return end
+	if not IsValid ( pl ) then return end
 	if pl:Team() == TEAM_HUMAN then return end
 	--if pl:Team() ~= TEAM_HUMAN then return end
 	--local class = pl:GetHumanClass()
@@ -51,7 +51,7 @@ function GM:CheckHumanScore ( pl )
 	
 	-- Compare automatic strength with what you have
 	if strCategory == "Automatic" then 
-		if ValidEntity ( Automatic ) and Automatic:IsWeapon() then
+		if IsValid ( Automatic ) and Automatic:IsWeapon() then
 			local AutomaticMax = pl:CompareMaxDPS ( Automatic:GetClass(), Reward )
 			iOldAmmo = pl:GetAmmoCount ( Automatic:GetPrimaryAmmoType() )
 			if AutomaticMax == Automatic:GetClass() then Reward = nil else WeaponToStrip = Automatic:GetClass() end
@@ -60,14 +60,14 @@ function GM:CheckHumanScore ( pl )
 		
 	-- Compare pistol strength with what you have
 	if strCategory == "Pistol" then
-		if ValidEntity ( Pistol ) and Pistol:IsWeapon() then
+		if IsValid ( Pistol ) and Pistol:IsWeapon() then
 			local PistolMax = pl:CompareMaxDPS ( Pistol:GetClass(), Reward )
 			iOldAmmo = pl:GetAmmoCount ( Pistol:GetPrimaryAmmoType() )
 			if PistolMax == Pistol:GetClass() then Reward = nil else WeaponToStrip = Pistol:GetClass() end
 		end
 	end		
 	if strCategory == "Melee" then
-		if ValidEntity ( Melee ) and Melee:IsWeapon() then
+		if IsValid ( Melee ) and Melee:IsWeapon() then
 			local MeleeMax = pl:CompareMaxDPS ( Melee:GetClass(), Reward )
 			if MeleeMax == Melee:GetClass() then Reward = nil else WeaponToStrip = Melee:GetClass() end
 		end
@@ -92,7 +92,7 @@ function GM:CheckHumanScore ( pl )
 		-- Give back old ammo if there is
 		local RwEntity = pl:GetWeapon( Reward )
 		if RwCategory ~= "Melee" and RwCategory ~= "Explosive" then
-		if iOldAmmo ~= 0 and ValidEntity ( RwEntity ) then pl:GiveAmmo ( math.Clamp ( iOldAmmo * 0.5, 15, 150 ), RwEntity:GetPrimaryAmmoType() ) end
+		if iOldAmmo ~= 0 and IsValid ( RwEntity ) then pl:GiveAmmo ( math.Clamp ( iOldAmmo * 0.5, 15, 150 ), RwEntity:GetPrimaryAmmoType() ) end
 		end
 		-- Sound to play 
 		pl:EmitSound ( Sound ( "weapons/physcannon/physcannon_pickup.wav" ) )
@@ -108,7 +108,7 @@ end
           Called from the client - delivers ammunition
 --------------------------------------------------------------]==]
 function RegenerateAmmo ( pl, cmd, args )
-	if not ValidEntity ( pl ) then return end
+	if not IsValid ( pl ) then return end
 	if pl:Team() ~= TEAM_HUMAN then return end
 	
 	-- Prevent it on endround

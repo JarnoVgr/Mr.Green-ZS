@@ -11,7 +11,7 @@ end
 local function CollideCallback(particle, hitpos, hitnormal)
 	particle:SetDieTime(0)
 	if math.random(1, 3) == 1 then
-		WorldSound("physics/flesh/flesh_bloody_impact_hard1.wav", hitpos, 50, math.random(95, 105))
+		sound.Play("physics/flesh/flesh_bloody_impact_hard1.wav", hitpos, 50, math.random(95, 105))
 	end
 
 	util.Decal("Impact.Antlion", hitpos + hitnormal, hitpos - hitnormal)
@@ -43,5 +43,5 @@ function EFFECT:Init(data)
 
 	util.Decal("YellowBlood", pos + normal, pos - normal)
 
-	WorldSound("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav", pos, 80, math.random(95, 110))
+	sound.Play("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav", pos, 80, math.random(95, 110))
 end

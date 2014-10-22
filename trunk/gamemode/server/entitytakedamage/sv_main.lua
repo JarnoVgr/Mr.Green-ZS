@@ -39,7 +39,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 		if ent.PropHealth then
 			ent._LastAttackerIsHuman = false
 		
-			if ValidEntity(attacker) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and ValidEntity(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
+			if IsValid(attacker) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and IsValid(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
 				ent._LastAttackerIsHuman = true
 			end
 			
@@ -80,7 +80,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 
 			ent._LastAttackerIsHuman = false
 		
-			if ValidEntity( attacker ) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and ValidEntity(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
+			if IsValid( attacker ) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and IsValid(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
 				ent._LastAttackerIsHuman = true
 			end
 
@@ -160,7 +160,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 
 			ent._LastAttackerIsHuman = false
 		
-			if ValidEntity( attacker ) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and ValidEntity(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
+			if IsValid( attacker ) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and IsValid(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
 				ent._LastAttackerIsHuman = true
 			end
 
@@ -194,7 +194,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 
 			ent._LastAttackerIsHuman = false
 		
-			if ValidEntity( attacker ) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and ValidEntity(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
+			if IsValid( attacker ) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and IsValid(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
 				ent._LastAttackerIsHuman = true
 			end
 

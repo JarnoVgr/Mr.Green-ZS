@@ -91,7 +91,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 	
 	-- Retrieval upgrade
-	if ValidEntity ( mVictim ) then
+	if IsValid ( mVictim ) then
 		mVictim.WeaponTable = {}
 		for k, v in pairs( mVictim:GetWeapons() ) do
 			table.insert( mVictim.WeaponTable,v:GetClass() )

@@ -14,7 +14,7 @@ function EFFECT:Init(data)
 
 	self.DieTime = CurTime() + self.TracerTime
 
-	WorldSound("weapons/fx/rics/ric4.wav", self.StartPos, 70, math.random(110, 180))
+	sound.Play("weapons/fx/rics/ric4.wav", self.StartPos, 70, math.random(110, 180))
 end
 
 function EFFECT:Think()

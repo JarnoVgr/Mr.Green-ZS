@@ -77,7 +77,7 @@ local function sortByItemPricing(a, b)
 end
 
 local function CalculateGivenSupplies(pl)
-	if not ValidEntity(pl) or pl:Team() ~= TEAM_HUMAN then
+	if not IsValid(pl) or pl:Team() ~= TEAM_HUMAN then
 		return
 	end
 
@@ -197,7 +197,7 @@ local function CalculateGivenSupplies(pl)
 
 	--Active weapon
 	local ActiveWeapon = pl:GetActiveWeapon()
-	if ValidEntity(ActiveWeapon) then
+	if IsValid(ActiveWeapon) then
 		ActiveWeapon = ActiveWeapon:GetClass()
 	end
 	
@@ -279,7 +279,7 @@ if pl:HasBought("ammoman") then
 	if math.random(1,4) == 1 then
 		local snd = VoiceSets[pl.VoiceSet].SupplySounds
 		timer.Simple( 0.2, function ()
-			if ValidEntity(pl) then
+			if IsValid(pl) then
 				pl:EmitSound(Sound(snd[math.random(1, #snd)]))
 			end
 		end, pl)
@@ -294,7 +294,7 @@ end
 --------------------------------------------------------------]==]
 local function OnPlayerUse(pl, key)
 	--Ignore all keys but IN_USE
-	if key ~= IN_USE or not ValidEntity(pl) then
+	if key ~= IN_USE or not IsValid(pl) then
 		return
 	end
 		
@@ -364,7 +364,7 @@ hook.Add("KeyPress", "UseKeyPressedHook", OnPlayerUse)
       Disable default use for the parent entity
 --------------------------------------------------------------]==]
 local function DisableDefaultUseOnSupply(pl, entity)
-	if ValidEntity(entity) and entity:GetClass() == "game_supplycrate" then
+	if IsValid(entity) and entity:GetClass() == "game_supplycrate" then
 		return false
 	end
 end
@@ -420,7 +420,7 @@ local function TraceHullSupplyCrate(Pos, Switch)
 	local Ents, Found = ents.FindInBox(ClampWorldVector(Pos + TraceHulls[Position].Mins), ClampWorldVector(Pos + TraceHulls[Position].Maxs)), 0
 	for k,v in pairs ( Ents ) do
 		local Phys = v:GetPhysicsObject()
-		if ValidEntity(Phys) then
+		if IsValid(Phys) then
 			if not v:IsPlayer() and v:GetClass() ~= "game_supplycrate" and v:GetClass() ~= "prop_physics_multiplayer" then 
 				if v:OBBMins():Length() < TraceHulls[Position].Mins:Length() and v:OBBMaxs():Length() < TraceHulls[Position].Maxs:Length() or v:GetClass() == "prop_physics" then 
 					Debug("[CRATES] Removing object ".. tostring(v) .." to make space" )
@@ -430,7 +430,7 @@ local function TraceHullSupplyCrate(Pos, Switch)
 			end
 		end
 		
-		if not ValidEntity(Phys) then
+		if not IsValid(Phys) then
 			Ents[k] = nil
 		end
 		

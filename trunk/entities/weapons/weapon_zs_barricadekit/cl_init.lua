@@ -26,13 +26,13 @@ function SWEP:GetModelToSpawn()
 end
 
 function SWEP:PrimaryAttack()
-	if ValidEntity ( self.GhostEntity ) then
+	if IsValid ( self.GhostEntity ) then
 		self.GhostEntity:Remove()
 	end
 end
 
 function SWEP:Holster()
-	if ValidEntity ( self.GhostEntity ) then
+	if IsValid ( self.GhostEntity ) then
 		self.GhostEntity:Remove()
 	end
 end

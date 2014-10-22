@@ -136,7 +136,7 @@ function DoVoteResults ( PlayerCount, Initiator, Target, VoteType )
 	umsg.End()
 
 	-- Targeted player has left the game
-	if not ValidEntity ( Target ) then 
+	if not IsValid ( Target ) then 
 		for k,p in pairs(player.GetAll()) do
 			p:CustomChatPrint ( {nil, Color(213,84,0),"[VOTE] ",Color(213,213,213),"Vote failed because target player has disconnected!"} ) 
 		end
@@ -206,7 +206,7 @@ function PlayerVoteYes ( pl )
 	local Type = GetVoteType()
 	if Type == "none" then pl:PrintMessage ( HUD_PRINTTALK, "Something went wrong during voting. Your vote has failed." ) return end
 	
-	if ValidEntity ( TARGET_PLAYER ) then
+	if IsValid ( TARGET_PLAYER ) then
 		for k,p in pairs(player.GetAll()) do
 			p:CustomChatPrint ( {nil,Color(213,213,213), "Player "..pl:Name().." voted ",Color(0,255,0),"YES",Color(213,213,213)," to "..Type.." player "..TARGET_PLAYER:Name().." !"} )
 		end
@@ -228,7 +228,7 @@ function PlayerVoteNo ( pl )
 	local Type = GetVoteType()
 	if Type == "none" then pl:PrintMessage ( HUD_PRINTTALK, "Something went wrong during voting. Your vote has failed." ) return end
 
-	if ValidEntity ( TARGET_PLAYER ) then
+	if IsValid ( TARGET_PLAYER ) then
 		for k,p in pairs(player.GetAll()) do
 			p:CustomChatPrint ( {nil,Color(213,213,213), "Player "..pl:Name().." voted ",Color(255,0,0),"NO",Color(213,213,213)," to "..Type.." player "..TARGET_PLAYER:Name().." !"} )
 		end

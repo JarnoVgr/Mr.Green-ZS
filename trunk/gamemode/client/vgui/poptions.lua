@@ -323,7 +323,7 @@ function MakepOptions()
 		hatpreview.Think = function()
 			local col = colpicker:GetColor()
 			hatpreview:SetColor(Color(col.r,col.g,col.b))
-			if ValidEntity(MySelf.Hat) then
+			if IsValid(MySelf.Hat) then
 				local hat
 				local h = string.Explode("$",MySelf.Hat:GetHatType())
 				for k,v in pairs(h) do

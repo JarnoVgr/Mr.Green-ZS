@@ -19,7 +19,7 @@ end
 local meta = FindMetaTable("Weapon")
 
 function meta:GetDPS()
-	if not ValidEntity (self) then return 0 end
+	if not IsValid (self) then return 0 end
 	local speed,damage,numshots
 	
 	if self.Primary then
@@ -51,7 +51,7 @@ end
 local metapl = FindMetaTable ("Player")
 
 function metapl:MinDPS ()
-	if not ValidEntity (self) then return end
+	if not IsValid (self) then return end
 	if not self:Alive() then return end
 
 	local DPS_MIN = 99999 
@@ -68,7 +68,7 @@ function metapl:MinDPS ()
 end
 
 function metapl:MinWeaponDPS ()
-	if not ValidEntity (self) then return end
+	if not IsValid (self) then return end
 	if not self:Alive() then return end		
 		
 	local DPS_MIN = 99999 
@@ -87,7 +87,7 @@ function metapl:MinWeaponDPS ()
 end
 
 function metapl:MaxWeaponDPS ()
-	if not ValidEntity (self) then return end
+	if not IsValid (self) then return end
 	if not self:Alive() then return end		
 		
 	local DPS_MAX = -9999 
@@ -107,7 +107,7 @@ end
 
 if SERVER then
 	function metapl:DropWeakestWeapon ()
-		if not ValidEntity (self) then
+		if not IsValid (self) then
 			return
 		end
 		

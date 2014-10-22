@@ -160,7 +160,7 @@ local function AddScoreboardItem(ply,list)
 end
 
 local function SwitchScoreboardItem(ply,from,to)
-	if not ValidEntity(ply) or not MainLabel or not MainLabel[ply] then
+	if not IsValid(ply) or not MainLabel or not MainLabel[ply] then
 		return
 	end
 
@@ -170,7 +170,7 @@ local function SwitchScoreboardItem(ply,from,to)
 end
 
 local function RemoveScoreboardItem(ply,list)
-	if not ValidEntity(ply) or not MainLabel or  not MainLabel[ply] then
+	if not IsValid(ply) or not MainLabel or  not MainLabel[ply] then
 		return
 	end
 	
@@ -247,7 +247,7 @@ function GM:CreateScoreboardVGUI()
 		end
 		
 		for k,v in pairs(left_scoreboard:GetItems()) do
-			if not ValidEntity(v.Player) then
+			if not IsValid(v.Player) then
 				left_scoreboard:RemoveItem(v)
 				MainLabel[v.Player] = nil
 			end
@@ -280,7 +280,7 @@ function GM:CreateScoreboardVGUI()
 		end
 		
 		for k,v in pairs(right_scoreboard:GetItems()) do
-			if not ValidEntity(v.Player) then
+			if not IsValid(v.Player) then
 				right_scoreboard:RemoveItem(v)
 				MainLabel[v.Player] = nil
 			end

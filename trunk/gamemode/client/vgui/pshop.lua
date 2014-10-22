@@ -179,7 +179,7 @@ function MakepShop()
 	button:SetSize(90, 24)
 	button:SetText("Drop hat")
 	button.DoClick = function(btn) 
-		if not ValidEntity(LocalPlayer().Hat) then return end
+		if not IsValid(LocalPlayer().Hat) then return end
 		RunConsoleCommand("mrgreen_hat_drop")
 		timer.Simple(0.7,function()
 			updateHatList()
@@ -245,7 +245,7 @@ function MakepShop()
 		end
 		
 		-- Update the model of the hat you're currently wearing
-		if ValidEntity(LocalPlayer().Hat) then
+		if IsValid(LocalPlayer().Hat) then
 			local model = MySelf.Hat:GetModel()
 			
 			if model == "models/nova/w_headcrab.mdl" then
@@ -480,7 +480,7 @@ function InsertHats()
 			HatTab[itemID].Btn:SetPos(HatTab[itemID]:GetWide()-35-100, (HatTab[itemID]:GetTall()/6)/2)
 			HatTab[itemID].Btn.Think = function()
 				if MySelf.DataTable["ShopItems"][tab.ID] then
-					if ValidEntity(MySelf.Hat) then 
+					if IsValid(MySelf.Hat) then 
 						if GetCurrentHatId(tab.Key) then-- MySelf.Hat:GetHatType() == tab.Key
 							HatTab[itemID].Btn:SetText("Drop")
 						else
@@ -509,7 +509,7 @@ function InsertHats()
 			HatTab[itemID].Btn.OnMousePressed = function()
 				if MySelf.DataTable["ShopItems"][tab.ID] then
 					-- Drop
-					if ValidEntity(MySelf.Hat) then 
+					if IsValid(MySelf.Hat) then 
 						if GetCurrentHatId(tab.Key) then-- MySelf.Hat:GetHatType() == tab.KeyCurrentHats[tab.Key]
 							CurrentHats[GetCurrentHatId(tab.Key)] = nil
 							RunConsoleCommand("mrgreen_hat_drop")
@@ -633,7 +633,7 @@ function InsertSuits()
 			SuitTab[itemID].Btn:SetPos(SuitTab[itemID]:GetWide()-35-100, (SuitTab[itemID]:GetTall()/6)/2)
 			SuitTab[itemID].Btn.Think = function()
 				if MySelf.DataTable["ShopItems"][tab.ID] then
-					if ValidEntity(MySelf.Suit) then  
+					if IsValid(MySelf.Suit) then  
 						if MySelf.Suit:GetHatType() == tab.Key then
 							SuitTab[itemID].Btn:SetText("Drop")
 						else
@@ -662,7 +662,7 @@ function InsertSuits()
 			SuitTab[itemID].Btn.OnMousePressed = function()
 				if MySelf.DataTable["ShopItems"][tab.ID] then
 					-- Drop
-					if ValidEntity(MySelf.Suit) then  
+					if IsValid(MySelf.Suit) then  
 						if MySelf.Suit:GetHatType() == tab.Key then
 							RunConsoleCommand("mrgreen_suit_drop")
 						else
@@ -859,7 +859,7 @@ function DrawModels(self)
 
 		end
 		
-		if (ValidEntity(self.Entity)) then
+		if (IsValid(self.Entity)) then
 			bone_ent = self.Entity
 		end
 		
@@ -881,7 +881,7 @@ function DrawModels(self)
     			local model = v.modelEnt
     			local sprite = v.spriteMaterial
     			
-    			if (v.type == "Model" and ValidEntity(model)) then
+    			if (v.type == "Model" and IsValid(model)) then
     
     				model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
     				ang:RotateAroundAxis(ang:Up(), v.angle.y)
@@ -943,7 +943,7 @@ function CreateModels(self,tab)
 	-- self.
 	if type(self.Hat) == "table" then
 		for k, v in pairs( self.Hat ) do
-			if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
+			if (IsValid( v.modelEnt )) then v.modelEnt:Remove() end
 		end
 		self.Hat.Key = nil 
 		self.Hat = nil  
@@ -966,11 +966,11 @@ function CreateModels(self,tab)
 	-- PrintTable(self.Hat)
 	
 	for k, v in pairs( self.Hat ) do
-			if (v.type == "Model" and v.model and v.model ~= "" and (not ValidEntity(v.modelEnt) or v.createdModel ~= v.model) and 
+			if (v.type == "Model" and v.model and v.model ~= "" and (not IsValid(v.modelEnt) or v.createdModel ~= v.model) and 
 					string.find(v.model, ".mdl") and file.Exists (v.model,"GAME") ) then
 				
 				v.modelEnt = ClientsideModel(v.model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
-				if (ValidEntity(v.modelEnt)) then
+				if (IsValid(v.modelEnt)) then
 					v.modelEnt:SetPos(self.Entity:GetPos())
 					v.modelEnt:SetAngles(self.Entity:GetAngles())
 					v.modelEnt:SetParent(self.Entity)
@@ -1463,7 +1463,7 @@ function DrawGreenShop()
 		else
 			if type(ModelPanel.Hat) == "table" then
 				for k, v in pairs( ModelPanel.Hat ) do
-					if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
+					if (IsValid( v.modelEnt )) then v.modelEnt:Remove() end
 				end
 				ModelPanel.Hat.Key = nil 
 				ModelPanel.Hat = nil  

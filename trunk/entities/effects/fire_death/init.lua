@@ -4,7 +4,7 @@ function EFFECT:Init(data)
 	self.ent = data:GetEntity()
 	self.Ragdoll = self.ent:GetRagdollEntity()
 	
-	--[==[if ValidEntity(self.Ragdoll) then
+	--[==[if IsValid(self.Ragdoll) then
 		self.Toast = CreateSound( self.Ragdoll,  "NPC_HeadCrab.Burning" ) 
 	end]==]
 	
@@ -12,7 +12,7 @@ end
 
 function EFFECT:Think()
 	
-	if not ValidEntity(self.Ragdoll) then 
+	if not IsValid(self.Ragdoll) then 
 		--[==[if self.Toast then
 			self.Toast:Stop() 
 		end]==]
@@ -24,7 +24,7 @@ function EFFECT:Think()
 		--[==[if self.Toast then
 			self.Toast:PlayEx(1, 95 + math.sin(RealTime())*5) 
 		end]==]
-		if ValidEntity(self.Ragdoll) then
+		if IsValid(self.Ragdoll) then
 			self.Entity:SetRenderBounds(Vector(-128, -128, -128), Vector(128, 128, 128))
 			self.Entity:SetPos(self.Ragdoll:GetPos())
 		end
@@ -36,7 +36,7 @@ end
 
 function EFFECT:Render()
 
-	if not ValidEntity(self.Ragdoll) then return end
+	if not IsValid(self.Ragdoll) then return end
 	
 	local rag = self.Ragdoll
 	

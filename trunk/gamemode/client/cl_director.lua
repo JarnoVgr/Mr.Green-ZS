@@ -195,7 +195,7 @@ end)
        Used to receive player and chat title index
 ---------------------------------------------------------]==]
 local function ReceiveChatTitles ( um )
-	if not ValidEntity ( MySelf ) then
+	if not IsValid ( MySelf ) then
 		return
 	end
 
@@ -273,7 +273,7 @@ end
 hook.Add ( "OnPlayerChat", "ManageChatTitle", ManageChatTitles )
 -- TODO: Use spawn prediction instead
 local function ChangeHullSize(um)
-	if not ValidEntity ( MySelf ) then return end
+	if not IsValid ( MySelf ) then return end
 	local pl = um:ReadEntity()
 	local vecmin = um:ReadVector()
 	local vecmax = um:ReadVector()
@@ -284,7 +284,7 @@ end
 usermessage.Hook ( "ChangeHullSize", ChangeHullSize )
 
 local function ChangeOffset(um)
-	if not ValidEntity ( MySelf ) then return end
+	if not IsValid ( MySelf ) then return end
 	local pl = um:ReadEntity()
 	local vec1 = um:ReadVector()
 	local vec2 = um:ReadVector()
@@ -305,7 +305,7 @@ local whiner, target,votetype, countyes, countno, timeleft = "", "", "", 0, 0, 0
 
 -- Called when vote begins
 local function OpenVoteWindow(um)
-if not ValidEntity ( MySelf ) then return end
+if not IsValid ( MySelf ) then return end
 
 	target = um:ReadEntity():Name()
 	votetype = um:ReadString()
@@ -319,7 +319,7 @@ usermessage.Hook ( "OpenVoteWindow", OpenVoteWindow )
 
 -- Called when someone votes yes or no
 local function AddVote(um)
-if not ValidEntity ( MySelf ) then return end
+if not IsValid ( MySelf ) then return end
 
 local vote = um:ReadString()
 
@@ -336,7 +336,7 @@ usermessage.Hook ( "AddVote", AddVote )
 
 -- Called at the end of vote
 local function CloseVoteWindow()
-if not ValidEntity ( MySelf ) then return end
+if not IsValid ( MySelf ) then return end
 
 	target,votetype,countyes,countno, timeleft = "", "", 0, 0, 0
 	DrawVote = false
@@ -348,7 +348,7 @@ usermessage.Hook ( "CloseVoteWindow", CloseVoteWindow )
 
 -- Draw the vote message with results
 function DrawVoteMessage()
-if not ValidEntity ( MySelf ) then return end
+if not IsValid ( MySelf ) then return end
 if ENDROUND then return end
 
 	if DrawVote then distapproach = -1 else distapproach = -vwide end
@@ -461,7 +461,7 @@ local Trash = Trash or {} --must. hate. because i cant remove entities without v
 -- Also 'TrashbinForBodies' - table where we store all usual clientside bodies (when player is alive). 'Trash' table is for corpses.
 -- Main function where we ccreate bodies for all zombies, because garry doesn't let us to make it in Think hook or such :<
 local function MakeMahBody(um)
-if not ValidEntity ( MySelf ) then return end
+if not IsValid ( MySelf ) then return end
 	for k,zombie in pairs(player.GetAll()) do
 		if zombie:IsZombie() and zombie:IsValid() then
 			if zombie:Alive() then
@@ -473,7 +473,7 @@ if not ValidEntity ( MySelf ) then return end
 					Body = ClientsideModel("models/player/gordon_classic.mdl", RENDERGROUP_OPAQUE)
 					end
 					
-						if not ValidEntity(Body) then return end
+						if not IsValid(Body) then return end
 						Body:SetPos(zombie:GetPos())
 						Body:SetAngles(zombie:GetAngles())
 						Body:SetParent(zombie) 
@@ -500,7 +500,7 @@ end
 
 -- Use this only when player redeems
 local function DeletMahBody(um)
-if not ValidEntity ( MySelf ) then return end
+if not IsValid ( MySelf ) then return end
 local owner = um:ReadEntity()
 if not owner.HasBody then return end
 DeleteBodyEnt(owner,TrashbinForBodies[owner])
@@ -511,7 +511,7 @@ usermessage.Hook ( "DeleteBody", DeletMahBody )
 -- This thing allows us to make an illusion of real corpse.
 function AttachBodiesToCorpses(ent)
 if not IsValid(ent) then return end
-if not ValidEntity ( MySelf ) then return end
+if not IsValid ( MySelf ) then return end
 		for k,zombie in pairs(player.GetAll()) do
 			if zombie:IsZombie() and zombie:IsValid() and not zombie:Alive() then
 				if IsValid(zombie:GetRagdollEntity()) and ent == zombie:GetRagdollEntity() then
@@ -527,7 +527,7 @@ if not ValidEntity ( MySelf ) then return end
 						else
 						zombie.corpse.Body = ClientsideModel("models/player/gordon_classic.mdl", RENDERGROUP_OPAQUE)
 						end
-						if not ValidEntity(zombie.corpse.Body) then return end
+						if not IsValid(zombie.corpse.Body) then return end
 						zombie.corpse.Body:SetPos(zombie.corpse:GetPos())
 						zombie.corpse.Body:SetAngles(zombie.corpse:GetAngles())
 						zombie.corpse.Body:SetParent(zombie.corpse) 
@@ -549,7 +549,7 @@ hook.Add("OnEntityCreated", "AttachBodiesToCorpses", AttachBodiesToCorpses)
 -- Better way how to remove corpses
 function RemoveCorpses(ent)
 if not IsValid(ent) then return end
-if not ValidEntity ( MySelf ) then return end
+if not IsValid ( MySelf ) then return end
 	for k,v in pairs(Trash) do
 			if IsValid(k) then
 				if ent == k:GetRagdollEntity() then
@@ -565,7 +565,7 @@ hook.Add("EntityRemoved", "RemoveCorpses", RemoveCorpses)
 
 -- This function always updates our bodies  and corpses
 function UpdateBodies()
-if not ValidEntity ( MySelf ) then return end
+if not IsValid ( MySelf ) then return end
 	for k,zombie in pairs(player.GetAll()) do
 		if zombie:IsZombie() and zombie:IsValid() then
 			if zombie:Alive() then
@@ -617,7 +617,7 @@ end
 hook.Add("Think", "UpdateBodies", UpdateBodies)
 -- Clean bodies of disconnected players
 local function RemoveDisconectedBodies(um)
-if not ValidEntity ( MySelf ) then return end
+if not IsValid ( MySelf ) then return end
 local pl = um:ReadEntity()
 	if pl:IsZombie() and pl:IsValid() then
 		if not pl.HasBody then return end
@@ -630,7 +630,7 @@ end
 
 -- Clean all bodies for disconnected player
 local function CleanDisconectedBodies(um)
-if not ValidEntity ( MySelf ) then return end
+if not IsValid ( MySelf ) then return end
 for k,v in pairs(TrashbinForBodies) do
 DeleteBodyEnt(k,TrashbinForBodies[k])
 end

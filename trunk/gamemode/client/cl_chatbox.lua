@@ -44,7 +44,8 @@ function CustomChat.ResetChat()
 end
 
 function CustomChat.CreateChat()
-	if not ENDROUND then return end
+	print("WOOP WOOP- Create")
+	--if not ENDROUND then return end
 	
 	MySelf.StartChatBox = true
 	
@@ -106,7 +107,7 @@ function CustomChat.CreateChat()
 		
 		-- Draw the pointer
 		local fClampedTextPos = math.Clamp ( textwide + 4, -10, Wide - ScaleW(3) )
-		surface.SetDrawColor ( 200,200,200, math.abs ( 255 * math.sin ( CurTime() * 4 ) ) )
+		surface.SetDrawColor ( Color(200,200,200, math.abs ( 255 * math.sin ( CurTime() * 4 ) ) ))
 		
 		-- Draw the pointer only if the chatbox is "active"
 		if not CustomChat.ShowTip then
@@ -116,8 +117,9 @@ function CustomChat.CreateChat()
 end
 --hook.Add("Initialize","InitChatBox",CustomChat.CreateChat)
 
-function CustomChat.OpenChat()
-	if not ENDROUND then return end
+function CustomChat.OpenChat(isTeamChat)
+	print("WOOP WOOP- Open")
+	--if not ENDROUND then return end
 
 	CustomChat.IsChatOpen = true
 	CustomChat.ChatBox:SetVisible( true )
@@ -132,7 +134,9 @@ end
 --hook.Add( "StartChat", "OpenChatBox", CustomChat.OpenChat )
 
 function CustomChat.CloseChat()
-	if not CustomChat.ChatBox then return true end
+	if not CustomChat.ChatBox then
+		return true
+	end
 		
 	--CustomChat.IsOpening = false
 	CustomChat.ShowTip = true
@@ -220,7 +224,7 @@ end
          Draw the text when the panel is closed
 --------------------------------------------------------------]==]
 function CustomChat.DrawChat()
-	if not ENDROUND then return end
+	--if not ENDROUND then return end
 	if CustomChat.IsChatOpen then return end
 
 	local cBox = CustomChat.ChatBox
@@ -403,7 +407,7 @@ vgui.Register("CustomChat", CustomChat, "Panel")
         Line parsing (  you don't wanna look down :P )
 ------------------------------------------------------------------------]==]
 function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
-	if not ENDROUND then return end
+	--if not ENDROUND then return end
 
 	local Lines = {}
 	Lines.Value = {}

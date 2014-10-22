@@ -135,7 +135,7 @@ end
         Returns the team name (string) of a player
 ---------------------------------------------------------]==]
 function GetStringTeam ( pl )
-	if not ValidEntity ( pl ) then return end
+	if not IsValid ( pl ) then return end
 	if not pl:IsPlayer() then return end
 	
 	local Team, String = pl:Team(), "TEAM_HUMAN"
@@ -152,7 +152,7 @@ function PrintMessageAll ( Type, Text )
 	if Type == nil or Text == nil then return end
 	
 	for k,v in pairs ( player.GetAll() ) do
-		if ValidEntity ( v ) then
+		if IsValid ( v ) then
 			v:PrintMessage ( Type, tostring ( Text ) )
 		end
 	end	
@@ -236,7 +236,7 @@ end
 ---------------------------------------------------------]==]
 function EnableEtherealMode ( pl, bool )
 	if CLIENT then return end
-	if not ValidEntity ( pl ) then return end
+	if not IsValid ( pl ) then return end
 	
 	-- default option is to enable
 	if bool == nil then bool = true end
@@ -252,7 +252,7 @@ function EnableEtherealMode ( pl, bool )
 		
 		-- Uh, just finish him
 		timer.Simple ( 0.05, function() 
-			if ValidEntity ( pl ) then 
+			if IsValid ( pl ) then 
 				pl:KillSilent()
 			end 
 		end, pl )
@@ -278,7 +278,7 @@ end
 local NonSolids = {}
 local function FilterNonSolids()
 	for k,v in pairs ( ents.GetAll() ) do	
-		if ValidEntity ( v ) and not v:IsPlayer() then
+		if IsValid ( v ) and not v:IsPlayer() then
 			local Phys = v:GetPhysicsObject()
 			if not Phys:IsValid() then
 				table.insert ( NonSolids, v )
@@ -368,7 +368,7 @@ end
            Returns if an entity is valid or not
 ------------------------------------------------------]==]
 function IsEntityValid(mEnt)
-	return ValidEntity(mEnt)
+	return IsValid(mEnt)
 end
 
 --[==[---------------------------------------------------------------------------

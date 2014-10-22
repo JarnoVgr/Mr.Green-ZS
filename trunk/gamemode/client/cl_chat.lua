@@ -7,13 +7,15 @@ include("cl_chatbox.lua")
 --[==[---------------------------------------------------------
            Called when the chat box is opened
 ---------------------------------------------------------]==]
-function GM:StartChat ()
-end
+--[[function GM:StartChat(isTeamChat)
+	print("Well hello")
+end]]
 
 --[==[---------------------------------------------------------
            Called when the chat box is closed
 ---------------------------------------------------------]==]
-function GM:FinishChat ()
+function GM:FinishChat()
+	print("Well bye")
 end
 
 --[==[---------------------------------------------------------
@@ -35,26 +37,23 @@ end
 function GM:OnChatTab ( str )
  	local LastWord
 	for word in string.gmatch( str, "%a+" ) do
-	     LastWord = word;
+	     LastWord = word
 	end
  
-	if (LastWord == nil) then return str end
+	if (LastWord == nil) then
+		return str
+	end
  
 	playerlist = player.GetAll()
  
-	for k, v in pairs( playerlist ) do
- 
+	for k, v in pairs(playerlist) do
 		local nickname = v:Nick()
  
-		if ( string.len(LastWord) < string.len(nickname) and
-			 string.find( string.lower(nickname), string.lower(LastWord) ) == 1 ) then
- 
+		if string.len(LastWord) < string.len(nickname) and string.find( string.lower(nickname), string.lower(LastWord) ) == 1 then
 			str = string.sub( str, 1, (string.len(LastWord) * -1) - 1)
 			str = str .. nickname
 			return str
- 
-		end		
- 
+		end
 	end
  
 	return str

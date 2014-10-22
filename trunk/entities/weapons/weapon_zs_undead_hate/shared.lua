@@ -109,7 +109,7 @@ function SWEP:PrimaryAttack()
 	end]]
 
 	timer.Simple(0.4, function()
-		if not ValidEntity(pl) then
+		if not IsValid(pl) then
 			return
 		end
 
@@ -117,7 +117,7 @@ function SWEP:PrimaryAttack()
 	end)
 
 	--[[timer.Simple(1.3, function()
-		if not ValidEntity(pl) then
+		if not IsValid(pl) then
 			return
 		end
 			
@@ -135,7 +135,7 @@ function SWEP:PrimaryAttack()
 	 
 	--Trace an object
 	local trace = pl:TraceLine( self.DistanceCheck, MASK_SHOT, trFilter )
-	if trace.Hit and ValidEntity ( trace.Entity ) and not trace.Entity:IsPlayer() then
+	if trace.Hit and IsValid ( trace.Entity ) and not trace.Entity:IsPlayer() then
 		self.PreHit = trace.Entity
 	end
 	
@@ -147,7 +147,7 @@ function SWEP:PrimaryAttack()
 	end
 
 	timer.Simple(0.55, function()
-			if not ValidEntity(pl) or not ValidEntity(self.Weapon) then
+			if not IsValid(pl) or not IsValid(self.Weapon) then
 				return
 			end
 			
@@ -166,7 +166,7 @@ end
 
 -- Primary attack function
 function SWEP:DoPrimaryAttack ( trace, pl, victim )
-	if not ValidEntity ( self.Owner ) then
+	if not IsValid ( self.Owner ) then
 		return
 	end
 	local mOwner = self.Owner
@@ -186,19 +186,19 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	local trHull = util.TraceHull( { start = pl:GetShootPos(), endpos = pl:GetShootPos() + ( pl:GetAimVector() * 50 ), filter = trFilter, mins = Vector( -15,-10,-18 ), maxs = Vector( 20,20,20 ) } )
 	
 	local tr
-	if not ValidEntity ( victim ) then	
+	if not IsValid ( victim ) then	
 		tr = pl:TraceLine ( self.DistanceCheck, MASK_SHOT, trFilter )
 		victim = tr.Entity
 	end
 	
-	TraceHit = ValidEntity ( victim )
-	HullHit = ValidEntity ( trHull.Entity )
+	TraceHit = IsValid ( victim )
+	HullHit = IsValid ( trHull.Entity )
 	
 	if SERVER then 
 	self.Owner:EmitSound("npc/zombie/claw_miss"..math.random(1, 2)..".wav", 90, math.random( 70, 80 ) ) end
 	
 	-- Punch the prop / damage the player if the pretrace is valid
-	if ValidEntity ( victim ) then
+	if IsValid ( victim ) then
 		local phys = victim:GetPhysicsObject()
 		
 		-- Break glass

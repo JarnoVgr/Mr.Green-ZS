@@ -163,7 +163,7 @@ if SERVER then
 
 				--Give SP to crate owner		
 				local Owner = self:GetPlacer()
-				if activator ~= Owner and (ValidEntity(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
+				if activator ~= Owner and (IsValid(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
 					skillpoints.AddSkillPoints(Owner,6)
 					self:FloatingTextEffect(3, Owner)
 					Owner:AddXP(3)
@@ -182,7 +182,7 @@ if SERVER then
 
 			--Check if activator is owner, so we can pick it up
 			local owner = self:GetPlacer()
-			local validOwner = (ValidEntity(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
+			local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
 			if validOwner and activator == owner and not self:GetClaimed() then
 				local placeWeapon = "weapon_zs_tools_supplies"
 				activator:Give(placeWeapon)
@@ -211,7 +211,7 @@ if CLIENT then
 	function ENT:Draw()
 	    self:DrawModel()
 
-	    if not ValidEntity(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
+	    if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
 	        return
 	    end
 
@@ -237,7 +237,7 @@ if CLIENT then
 	    cam.Start3D2D(pos,angle,0.26)
 
 		local owner = self:GetPlacer()
-		local validOwner = (ValidEntity(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
+		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
 	
 		if validOwner then
 			draw.SimpleTextOutlined( owner:Name() .."'s Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))

@@ -63,7 +63,7 @@ Example:		Objective = true
 ----------------------------------------------------------------------------------]=]
 
 -- Maximum player limit 
-VERY_SMALL,SMALL,MEDIUM,BIG,VERY_BIG = 7, 14, 20, MaxPlayers(), MaxPlayers()
+VERY_SMALL,SMALL,MEDIUM,BIG,VERY_BIG = 7, 14, 20, game.MaxPlayers(), game.MaxPlayers()
 
 -- Map table - Be sure there are 7 maps of each type (VERY_SMALL,SMALL and MEDIUM - BIG AND VERY_BIG ARE SHARED)
 TranslateMapTable = {

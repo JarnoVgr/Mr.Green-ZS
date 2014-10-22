@@ -3,7 +3,7 @@
 
 function EFFECT:Init ( data )
 	local Ent = data:GetEntity()
-	if not ValidEntity ( Ent ) then return end
+	if not IsValid ( Ent ) then return end
 	
 	local vOffset = Ent:GetPos()
 	local Low, High = Ent:WorldSpaceAABB()

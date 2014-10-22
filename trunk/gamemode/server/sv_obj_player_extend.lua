@@ -291,7 +291,7 @@ end
 --------------------------------------------------------------]==]
 meta.BaseDropWeapon = meta.DropWeapon
 function meta:DropWeapon(Weapon)
-	if Weapon == nil or not ValidEntity(Weapon) then
+	if Weapon == nil or not IsValid(Weapon) then
 		return
 	end
 		
@@ -318,7 +318,7 @@ function meta:DropWeapon(Weapon)
 	
 	--Disable ironsight for client only if the weapon is the active weapon one.
 	ActiveWeapon = self:GetActiveWeapon()
-	if ValidEntity(ActiveWeapon) and ActiveWeapon == Weapon then
+	if IsValid(ActiveWeapon) and ActiveWeapon == Weapon then
 		if isfunction(ActiveWeapon.OnDrop) then
 			ActiveWeapon:OnDrop()
 		end
@@ -338,7 +338,7 @@ end
 ------------------------------------------------------------------]==]
 function meta:CanDropWeapon ( Weapon )
 	if Weapon == nil then return false end
-	if not ValidEntity ( Weapon ) then return false end
+	if not IsValid ( Weapon ) then return false end
 
 	-- Player doesn't have the weapon
 	if not self:HasWeapon ( Weapon:GetClass() ) or not Weapon:IsWeapon() then return false end
@@ -393,7 +393,7 @@ function meta:StripWeapon ( Class )
 	end
 	
 	-- Only disable clientside ironsights if it's the active weapon otherwise don't do it
-	if ValidEntity(ActiveWeapon ) and ActiveWeapon == Weapon then
+	if IsValid(ActiveWeapon ) and ActiveWeapon == Weapon then
 		if isfunction(ActiveWeapon.OnDrop) then
 			ActiveWeapon:OnDrop()
 		end
@@ -453,11 +453,11 @@ end
              Gibs a player - splashes him
 --------------------------------------------------]==]
 function meta:Gib ( dmginfo )
-	if not ValidEntity ( self ) then return end
+	if not IsValid ( self ) then return end
 	
 	if self.NoGib and self.NoGib > CurTime() then
 		self.NoGib = nil
-		if not ValidEntity(self:GetRagdollEntity()) then
+		if not IsValid(self:GetRagdollEntity()) then
 			self:CreateRagdoll()
 		end
 		return 
@@ -501,7 +501,7 @@ function meta:Gib ( dmginfo )
 end
 local typetoscale
 function meta:Dismember ( distype,dmginfo )
-	if not dmginfo or not ValidEntity(self) then
+	if not dmginfo or not IsValid(self) then
 		return
 	end
 	
@@ -585,7 +585,7 @@ function meta:GiveAmmoReward()
 end
 
 function AddXP (pl, cmd, args)
-	if not ValidEntity (pl) then return end
+	if not IsValid (pl) then return end
 	if pl:Team() == TEAM_SPECTATOR then return end
 	
 	for _,v in pairs(player.GetAll()) do
@@ -597,7 +597,7 @@ end
 concommand.Add("zs_xp_add", AddXP)
 
 function Addr (pl, cmd, args)
-	if not ValidEntity (pl) then return end
+	if not IsValid (pl) then return end
 	if pl:Team() == TEAM_SPECTATOR then return end
 	
 	pl:AddRank(1)
@@ -609,7 +609,7 @@ util.AddNetworkString( "SendPlayerPerk" )
 
 function meta:SetPerk(key)
 	
-	if not ValidEntity (self) then return end
+	if not IsValid (self) then return end
 	if not key then return end
 	
 	self.Perk = self.Perk or {} -- just in case
@@ -655,7 +655,7 @@ end
 util.AddNetworkString("SendPlayerXP")
 
 function meta:AddXP(amount)
-	if #player.GetAll() < XP_PLAYERS_REQUIRED or not ValidEntity(self) or self:IsBot() then return end
+	if #player.GetAll() < XP_PLAYERS_REQUIRED or not IsValid(self) or self:IsBot() then return end
 	
 	if DOUBLE_XP then
 		amount = amount*2
@@ -695,7 +695,7 @@ end
 util.AddNetworkString("SendPlayerRank")
 
 function meta:AddRank (amount)
-	if not ValidEntity(self) then return end
+	if not IsValid(self) then return end
 	if self:IsBot() then return end
 	if not self.DataTable["ClassData"]["default"] then
 		local str = "not ready"
@@ -1269,7 +1269,7 @@ meta.BasePickupObject = meta.PickupObject
 
 function meta:PickupObject( ent )
 	
-	if not ValidEntity(ent) then return end
+	if not IsValid(ent) then return end
 	
 	self:BasePickupObject( ent )
 	
@@ -1281,7 +1281,7 @@ meta.BaseDropObject = meta.DropObject
 
 function meta:DropObject( ent )
 	
-	if not ValidEntity(ent) then return end
+	if not IsValid(ent) then return end
 	
 	self:BaseDropObject( ent )
 	
@@ -1295,13 +1295,13 @@ local metaEntity = FindMetaTable( "Entity" )
 -- Holy fuck. Garry, is it so hard to make a reference for dragged props?!
 function metaEntity:IsPickupEntity()
 
-	if not ValidEntity(self) then return end
+	if not IsValid(self) then return end
 	
 	local status = false
 	
 	for _, pl in pairs(player.GetAll()) do
 		if pl:HoldingObject() then
-			if ValidEntity(pl:GetHeldObject()) then
+			if IsValid(pl:GetHeldObject()) then
 				if (pl:GetHeldObject().ActualProp and pl:GetHeldObject().ActualProp == self) and (self.Pickup and self.Pickup == pl:GetHeldObject()) then
 					status = true
 				end
@@ -1315,14 +1315,14 @@ end
 -- Home made creepy function to return prop owners
 function metaEntity:GetCarryOwner()
 
-	if not ValidEntity(self) then return end
+	if not IsValid(self) then return end
 	if not self:IsPickupEntity() then return false end
 	
 	local owner = false
 	
 	for _, pl in pairs(player.GetAll()) do
 		if pl:HoldingObject() then
-			if ValidEntity(pl:GetHeldObject()) then
+			if IsValid(pl:GetHeldObject()) then
 				if (pl:GetHeldObject().ActualProp and pl:GetHeldObject().ActualProp == self) and (self.Pickup and self.Pickup == pl:GetHeldObject()) then
 					owner = pl
 				end
@@ -1365,7 +1365,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	
 	ent._LastAttackerIsHuman = false
 	
-	if ValidEntity( attacker ) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and ValidEntity(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
+	if IsValid( attacker ) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and IsValid(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
 		ent._LastAttackerIsHuman = true
 	end
 	
@@ -1410,7 +1410,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 						toworld = true
 					end
 								
-					if ValidEntity ( ent:GetPhysicsObject() ) and not ent:GetPhysicsObject():IsMoveable() then
+					if IsValid ( ent:GetPhysicsObject() ) and not ent:GetPhysicsObject():IsMoveable() then
 						if nail.toworld then
 							local unfreeze = false
 							for num=1, #ent.Nails do
@@ -1551,7 +1551,7 @@ function meta:RefreshDynamicSpawnPoint()
 end
 
 local function nocollidetimer(self, timername)
-	if not ValidEntity(self) then return end
+	if not IsValid(self) then return end
 	for _, e in pairs(ents.FindInBox(self:WorldSpaceAABB())) do
 		if e:IsPlayer() and e ~= self and GAMEMODE:ShouldCollide(self, e) then
 			return
@@ -1563,7 +1563,7 @@ local function nocollidetimer(self, timername)
 end
 
 function meta:TemporaryNoCollide()
-	if not ValidEntity(self) then return end
+	if not IsValid(self) then return end
 	if self:GetCollisionGroup() ~= COLLISION_GROUP_PLAYER then return end
 
 	for _, e in pairs(ents.FindInBox(self:WorldSpaceAABB())) do
@@ -1689,7 +1689,7 @@ function meta:DoHulls(classid, teamid)
 end
 
 function meta:CheckSpeedChange()
-	if not ValidEntity(self) then return end
+	if not IsValid(self) then return end
 	
 	local wep = self:GetActiveWeapon()
 	

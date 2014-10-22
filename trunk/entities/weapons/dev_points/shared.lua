@@ -154,7 +154,7 @@ function SWEP:SpawnWeapon ( HitPos )
 	ent:Spawn()
 
 	local Phys = ent:GetPhysicsObject()
-	if ValidEntity ( Phys ) then
+	if IsValid ( Phys ) then
 		Phys:EnableMotion ( false )
 	end
 	
@@ -351,7 +351,7 @@ end
 function SWEP:RemoveEntity ( Ent )
 	if CLIENT then return end
 	if Ent:IsPlayer() then return end
-	if not ValidEntity ( Ent ) then return end
+	if not IsValid ( Ent ) then return end
 
 	-- Grav the ent index
 	local EntIndex = tostring(Ent)
@@ -414,7 +414,7 @@ function SWEP:SecondaryAttack()
 		
 		-- Case 1 : Delete weapon points
 		if Mode == 1 then
-			if ValidEntity ( Ent ) and Ent.SpawnID then
+			if IsValid ( Ent ) and Ent.SpawnID then
 				self:RemoveWeaponFromTable( Ent )
 				self.Weapon:EmitSound ( self.Primary.Sound )
 				self.Weapon:SendWeaponAnim ( ACT_VM_PRIMARYATTACK )
@@ -423,7 +423,7 @@ function SWEP:SecondaryAttack()
 		
 		-- Case 3: Delete ammo crates
 		if Mode == 3 then
-			if ValidEntity ( Ent ) and Ent.BoxSpawnID then
+			if IsValid ( Ent ) and Ent.BoxSpawnID then
 				self:RemoveAmmoBoxFromTable( Ent )
 				self.Weapon:EmitSound ( self.Primary.Sound )
 				self.Weapon:SendWeaponAnim ( ACT_VM_PRIMARYATTACK )

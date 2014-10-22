@@ -10,7 +10,7 @@ ENT.Hooks = { }
 local catch = NULL
 local metaEntity = FindMetaTable( "Entity" )
 function metaEntity:HookOutput( name, unique, func )
-	if not ValidEntity( catch ) then
+	if not IsValid( catch ) then
 		catch = ents.Create( "outputhook" )
 		catch:Spawn( )
 		catch:SetName( "outputhook" )
@@ -30,7 +30,7 @@ function metaEntity:HookOutput( name, unique, func )
 end
 
 function metaEntity:UnhookOutput( name, unique )
-	if not ValidEntity( catch ) then
+	if not IsValid( catch ) then
 		catch = ents.Create( "outputhook" )
 		catch:Spawn( )
 		catch:SetName( "outputhook" )

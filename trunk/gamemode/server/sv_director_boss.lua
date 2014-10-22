@@ -60,7 +60,7 @@ end]]
 	--Create timer to kill boss and end of duration
 	if boss.duration and boss.duration > 0 then
 		timer.Create("EndBoss", boss.duration, 1, function() 
-			if not boss.pl or not ValidEntity(boss.pl) or not boss.pl:IsBoss() or not boss.pl:Alive() then
+			if not boss.pl or not IsValid(boss.pl) or not boss.pl:IsBoss() or not boss.pl:Alive() then
 				--Just force disable it then
 				GAMEMODE:SetBoss(false)
 				return
@@ -82,7 +82,7 @@ end]]
 			return
 		end
 
-		if not ValidEntity(boss.pl) or not boss.pl:IsBoss() or not boss.pl:Alive() then
+		if not IsValid(boss.pl) or not boss.pl:IsBoss() or not boss.pl:Alive() then
 			--Just force disable it then
 			GAMEMODE:SetBoss(false)
 			return

@@ -135,7 +135,7 @@ local SpectatorCM = {
 ---------------------------------------------------------]==]
 ToxicPoints = {}
 local function ReceiveToxicPositions(um)
-	if not ValidEntity ( MySelf ) then
+	if not IsValid ( MySelf ) then
 		return
 	end
 	
@@ -171,7 +171,7 @@ local EyePos = EyePos
 local EyeAngles = EyeAngles
 local zombies = 0
 function CalculateColorMod()
-	if not ValidEntity(MySelf) or not util.tobool(GetConVarNumber("zs_drawcolourmod")) then
+	if not IsValid(MySelf) or not util.tobool(GetConVarNumber("zs_drawcolourmod")) then
 		return
 	end
 	
@@ -271,7 +271,7 @@ end
      Render screen effects/ post proccesing here
 ---------------------------------------------------------]==]
 function GM:_RenderScreenspaceEffects()
-	if not ValidEntity ( MySelf ) or render.GetDXLevel() < 80 then
+	if not IsValid ( MySelf ) or render.GetDXLevel() < 80 then
 		return
 	end
 
@@ -314,7 +314,7 @@ end
 ---------------------------------------------------------]==]
 local fBlurForward = 0
 local function ManageSourceMotionBlur ( x, y, fwd, spin )
-	if not ValidEntity ( MySelf ) then
+	if not IsValid ( MySelf ) then
 		return
 	end
 	
@@ -333,7 +333,7 @@ local function ManageSourceMotionBlur ( x, y, fwd, spin )
 
 		--Ironsight blur
 		local Weapon = MySelf:GetActiveWeapon()
-		if ValidEntity ( Weapon ) then
+		if IsValid ( Weapon ) then
 			if Weapon.GetIronsights and Weapon:GetIronsights() then
 				fBlurForwardAmount = 0.03
 			end
@@ -357,7 +357,7 @@ hook.Add( "GetMotionBlurValues", "GetBlurValues", ManageSourceMotionBlur )
 ---------------------------------------------------------]==]
 local fSharpenContrast, fSharpenOffset = 0, 0.22
 function CalculateSharpenEffect()
-	if not ValidEntity(MySelf) or not util.tobool(GetConVarNumber("zs_drawsharpeneffect")) then
+	if not IsValid(MySelf) or not util.tobool(GetConVarNumber("zs_drawsharpeneffect")) then
 		return
 	end
 	

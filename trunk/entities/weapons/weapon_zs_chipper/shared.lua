@@ -113,11 +113,11 @@ function SWEP:Think()
 		self.reloadtimer = CurTime() + self.ReloadDelay
 		self:SendWeaponAnim(ACT_VM_RELOAD)
 
-		if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
+		if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
 			self:SetClip1(self:Clip1() + 3)
 		end
 		
-		if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "berserker" then
+		if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "berserker" then
 			self:SetClip1(self:Clip1() + 3)
 		end
 		

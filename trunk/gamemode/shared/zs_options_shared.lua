@@ -613,9 +613,6 @@ REDEEM_PUNISHMENT_TIME = 6
 -- Use soft collisions for teammates
 SOFT_COLLISIONS = false
 
---
-WARMUP_THRESHOLD = 4
-
 -- If a person dies when there are less than the above amount of people, don't set them on the undead team if this is true. This should generally be true on public / big servers.
 WARMUP_MODE = false
 
@@ -633,7 +630,7 @@ SKILLSHOP_SALE_MAXITEMS = 6
 SKILLSHOP_SALE_SALE_MINRANGE = 10
 SKILLSHOP_SALE_SALE_MAXRANGE = 25
 
-if MaxPlayers() < 4 then
+if game.MaxPlayers() < 4 then
 	WARMUP_MODE = false
 end
 

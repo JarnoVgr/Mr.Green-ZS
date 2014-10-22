@@ -92,7 +92,7 @@ end
 
 function SWEP:OnDeploy()
 	if SERVER then
-		if self.Owner.Turret and ValidEntity(self.Owner.Turret) then
+		if self.Owner.Turret and IsValid(self.Owner.Turret) then
 			if self.Owner.Turret:GetTable() then
 				self.Owner.Turret:GetTable():SetControl(true)
 			end
@@ -104,7 +104,7 @@ end
 
 function SWEP:_OnRemove()
 	if SERVER then
-		if self.Owner.Turret and ValidEntity(self.Owner.Turret) then
+		if self.Owner.Turret and IsValid(self.Owner.Turret) then
 			if self.Owner.Turret:GetTable() then
 				self.Owner.Turret:GetTable():SetControl(false)
 			end
@@ -114,7 +114,7 @@ end
 
 function SWEP:_OnDrop()
 	if SERVER then
-		if self.Owner.Turret and ValidEntity(self.Owner.Turret) then
+		if self.Owner.Turret and IsValid(self.Owner.Turret) then
 			if self.Owner.Turret:GetTable() then
 				self.Owner.Turret:GetTable():SetControl(false)
 			end
@@ -124,7 +124,7 @@ end
 
 function SWEP:OnHolster()
 	if SERVER then
-		if self.Owner.Turret and ValidEntity(self.Owner.Turret) then
+		if self.Owner.Turret and IsValid(self.Owner.Turret) then
 			if self.Owner.Turret:GetTable() then
 				self.Owner.Turret:GetTable():SetControl(false)
 			end

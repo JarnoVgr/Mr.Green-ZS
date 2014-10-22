@@ -32,7 +32,7 @@ function ENT:Initialize()
 	if ARENA_MODE then
 		timer.Simple(0,function()
 			if IsValid(self) then
-				WorldSound(Sound("ambient/machines/catapult_throw.wav"), self:GetPos(), 80, math.random(90, 110))
+				sound.Play(Sound("ambient/machines/catapult_throw.wav"), self:GetPos(), 80, math.random(90, 110))
 				self:Remove()
 			end
 		end)
@@ -63,11 +63,11 @@ function ENT:Think()
 		local Ent1,Ent2 = self.Ents[1], self.Ents[2]
 		
 		if (Ent1 and self.Ents[1]:GetPhysicsObject() and self.Ents[1]:GetPhysicsObject():GetVelocity():Length() > 580 and Ent1.Nails) then
-			WorldSound(Sound("ambient/machines/catapult_throw.wav"), self:GetPos(), 80, math.random(90, 110))
+			sound.Play(Sound("ambient/machines/catapult_throw.wav"), self:GetPos(), 80, math.random(90, 110))
 			Ent1:TakeDamage(self.Entity:GetDTInt(0)+10,nil)
 			-- Ent1:TakeDamage(self.Entity:GetNWInt("NailHealth")+10,nil)
 		elseif (Ent2 and self.Ents[2]:GetPhysicsObject() and self.Ents[2]:GetPhysicsObject():GetVelocity():Length() > 580 and Ent2.Nails) then
-			WorldSound(Sound("ambient/machines/catapult_throw.wav"), self:GetPos(), 80, math.random(90, 110))
+			sound.Play(Sound("ambient/machines/catapult_throw.wav"), self:GetPos(), 80, math.random(90, 110))
 			-- Ent2:TakeDamage(self.Entity:GetNWInt("NailHealth")+10,nil)
 			Ent2:TakeDamage(self.Entity:GetDTInt(0)+10,nil)
 		end

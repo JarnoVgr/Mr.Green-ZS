@@ -109,7 +109,7 @@ end
 
 function SWEP:Think()
 		if self and self.Weapon then
-			if ValidEntity(self.Owner) then
+			if IsValid(self.Owner) then
 				if SERVER then
 					-- self.GrowlSound:PlayEx(0.4, 100) 
 				end
@@ -157,12 +157,12 @@ function SWEP:PrimaryAttack()
 		self:SetAttacking(true)
 	end 
 		-- timer.Simple ( 0.4, function( pl )
-		-- 	if not ValidEntity ( pl ) then return end
+		-- 	if not IsValid ( pl ) then return end
 			self.Owner:DoAnimationEvent( CUSTOM_PRIMARY )
 		
 		-- end,pl)
 	timer.Simple ( 1.3, function()
-		if not ValidEntity ( pl ) then return end
+		if not IsValid ( pl ) then return end
 		
 		-- Conditions
 		if not pl:Alive() then return end
@@ -173,15 +173,15 @@ function SWEP:PrimaryAttack()
 	 
 	-- Trace an object
 	local trace = pl:TraceLine( self.DistanceCheck, MASK_SHOT, trFilter )
-	if trace.Hit and ValidEntity ( trace.Entity ) and not trace.Entity:IsPlayer() then
+	if trace.Hit and IsValid ( trace.Entity ) and not trace.Entity:IsPlayer() then
 		self.PreHit = trace.Entity
 	end
 	
 	-- Delayed attack function (claw mechanism)
 	if SERVER then timer.Simple ( 0.7, function() self.DoPrimaryAttack(trace, pl, self.PreHit) end ) end
 	-- timer.Simple ( 0.55, function()
-	-- 		if not ValidEntity ( pl ) then return end
-	-- 		if not ValidEntity ( self.Weapon ) then return end
+	-- 		if not IsValid ( pl ) then return end
+	-- 		if not IsValid ( self.Weapon ) then return end
 			
 			if self.SwapAnims then self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER ) else self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK ) end
 			self.SwapAnims = not self.SwapAnims
@@ -194,7 +194,7 @@ end
 
 -- Primary attack function
 function SWEP:DoPrimaryAttack ( trace, pl, victim )
-	if not ValidEntity ( self.Owner ) then return end
+	if not IsValid ( self.Owner ) then return end
 	local mOwner = self.Owner
 	
 	-- Trace filter
@@ -212,19 +212,19 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	local trHull = util.TraceHull( { start = pl:GetShootPos(), endpos = pl:GetShootPos() + ( pl:GetAimVector() * 29 ), filter = trFilter, mins = Vector( -15,-10,-18 ), maxs = Vector( 20,20,20 ) } )
 	
 	local tr
-	if not ValidEntity ( victim ) then	
+	if not IsValid ( victim ) then	
 		tr = pl:TraceLine ( self.DistanceCheck, MASK_SHOT, trFilter )
 		victim = tr.Entity
 	end
 	
-	TraceHit = ValidEntity ( victim )
-	HullHit = ValidEntity ( trHull.Entity )
+	TraceHit = IsValid ( victim )
+	HullHit = IsValid ( trHull.Entity )
 	
 	if SERVER then 
 	self.Owner:EmitSound("npc/zombie/claw_miss"..math.random(1, 2)..".wav", 90, math.random( 70, 80 ) ) end
 	
 	-- Punch the prop / damage the player if the pretrace is valid
-	if ValidEntity ( victim ) then
+	if IsValid ( victim ) then
 		local phys = victim:GetPhysicsObject()
 		
 		-- Break glass
@@ -262,7 +262,7 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	-- -- Verify tracehull entity
 	if HullHit and not TraceHit then
 		local ent = trHull.Entity
-		if not ValidEntity(ent) then return end
+		if not IsValid(ent) then return end
 		local phys = ent:GetPhysicsObject()
 		
 		-- Do a trace so that the tracehull won't push or damage objects over a wall or something
@@ -316,7 +316,7 @@ function SWEP:SecondaryAttack()
 		
 		local guy = humans[math.random(1,#humans)]
 		
-			if guy and ValidEntity(guy) and guy:Alive() then
+			if guy and IsValid(guy) and guy:Alive() then
 				guy:EmitSound( table.Random ( ZombieClasses[12].IdleSounds ),math.random( 140, 160 ),math.random( 60, 90 )  )
 			end
 		end
@@ -330,9 +330,9 @@ function SWEP:_OnRemove()
 		self.GrowlSound:Stop()
 	end
 	if CLIENT then
-		if self and self.Owner and ValidEntity(self.Owner) then
+		if self and self.Owner and IsValid(self.Owner) then
 			local vm = self.Owner:GetViewModel()
-			if ValidEntity(vm) then
+			if IsValid(vm) then
 				vm:SetMaterial("")
 			end
 		end
@@ -369,7 +369,7 @@ if CLIENT then
 		if not self.Owner:IsPlayer() then return end
 		
 		local vm = self.Owner:GetViewModel()
-		if not ValidEntity(vm) then return end
+		if not IsValid(vm) then return end
 			
 		
 		if (self.ShowViewModel == nil or self.ShowViewModel) then
@@ -435,7 +435,7 @@ if CLIENT then
 			
 			if (not pos) then continue end
 			
-			if (v.type == "Model" and ValidEntity(model)) then
+			if (v.type == "Model" and IsValid(model)) then
 
 				model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
 				ang:RotateAroundAxis(ang:Up(), v.angle.y)
@@ -531,8 +531,8 @@ if CLIENT then
 
 		end
 		
-		if (ValidEntity(self.Owner)) then
-			if self.Owner.KnockedDown and ValidEntity(self.Owner:GetRagdollEntity()) then
+		if (IsValid(self.Owner)) then
+			if self.Owner.KnockedDown and IsValid(self.Owner:GetRagdollEntity()) then
 				bone_ent = self.Owner:GetRagdollEntity()
 			else
 				bone_ent = self.Owner
@@ -560,7 +560,7 @@ if CLIENT then
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
 			
-			if (v.type == "Model" and ValidEntity(model)) then
+			if (v.type == "Model" and IsValid(model)) then
 
 				model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
 				ang:RotateAroundAxis(ang:Up(), v.angle.y)
@@ -658,7 +658,7 @@ if CLIENT then
 		--		pos, ang = m:GetTranslation(), m:GetAngle()
 		--	end
 			
-			if (ValidEntity(self.Owner) and self.Owner:IsPlayer() and 
+			if (IsValid(self.Owner) and self.Owner:IsPlayer() and 
 				ent == self.Owner:GetViewModel() and self.ViewModelFlip) then
 				ang.r = -ang.r --  Fixes mirrored models
 			end
@@ -674,11 +674,11 @@ if CLIENT then
 
 		--  Create the clientside models here because Garry says we can't do it in the render hook
 		for k, v in pairs( tab ) do
-			if (v.type == "Model" and v.model and v.model ~= "" and (not ValidEntity(v.modelEnt) or v.createdModel ~= v.model) and 
+			if (v.type == "Model" and v.model and v.model ~= "" and (not IsValid(v.modelEnt) or v.createdModel ~= v.model) and 
 					string.find(v.model, "models/player/Charple01.mdl") and file.Exists ("../"..v.model) ) then
 				
 				v.modelEnt = ClientsideModel(v.model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
-				if (ValidEntity(v.modelEnt)) then
+				if (IsValid(v.modelEnt)) then
 					v.modelEnt:SetPos(self:GetPos())
 					v.modelEnt:SetAngles(self:GetAngles())
 					v.modelEnt:SetParent(self)
@@ -719,12 +719,12 @@ if CLIENT then
 	function SWEP:RemoveModels()
 		if (self.VElements) then
 			for k, v in pairs( self.VElements ) do
-				if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
+				if (IsValid( v.modelEnt )) then v.modelEnt:Remove() end
 			end
 		end
 		if (self.WElements) then
 			for k, v in pairs( self.WElements ) do
-				if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
+				if (IsValid( v.modelEnt )) then v.modelEnt:Remove() end
 			end
 		end
 		self.VElements = nil

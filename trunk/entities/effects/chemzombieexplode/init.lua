@@ -5,7 +5,7 @@ function EFFECT:Init(data)
 	local pos = data:GetOrigin()
 	pos = pos + Vector(0, 0, 48)
 
-	WorldSound("ambient/explosions/explode_9.wav", pos, 90, math.random(85, 95))
+	sound.Play("ambient/explosions/explode_9.wav", pos, 90, math.random(85, 95))
 	
 		local emitter = ParticleEmitter(pos)
 	emitter:SetNearClip(40, 45)

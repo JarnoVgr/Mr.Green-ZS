@@ -72,7 +72,7 @@ function ENT:OnZeroHealth(dmginfo)
 	shake:Fire( "StartShake", "", 0 )
 	
 	-- timer.Simple(0,function ()
-		-- if not ValidEntity(self.Entity) then return end
+		-- if not IsValid(self.Entity) then return end
 		self.Entity:Remove() -- end)
 
 	

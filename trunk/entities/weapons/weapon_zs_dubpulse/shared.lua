@@ -79,7 +79,7 @@ if (self.LastReload + 0.02 <= ct) then
 --self.LastReload = ct + 0.2
 self.LastReload = ct + 0.1
 
-if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "freeman" then --Ability for freeman suit!
+if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "freeman" then --Ability for freeman suit!
 			self.LastReload = ct + 0.4
 			self:SetClip1(self:Clip1() + 2)
 		end

@@ -43,7 +43,7 @@ end
 concommand.Add("zs_print_mapcycle",PrintMapCycle) 
 
 function OpenBugPanel(pl, cmd, args)
-	if not ValidEntity (pl) then return end
+	if not IsValid (pl) then return end
 	if pl:Team() == TEAM_SPECTATOR then return end
 	
 	umsg.Start ("DoBugReportPanel", pl)
@@ -170,13 +170,13 @@ concommand.Add("status_zs",PrintZSStats)
 
 function FunCommand1(pl,commandName,args)
 
-	if not ValidEntity(pl) or not pl:IsSuperAdmin() then
+	if not IsValid(pl) or not pl:IsSuperAdmin() then
 		return
 	end
 	
 	local ent = pl:GetEyeTrace().Entity
 	
-	if not ValidEntity(ent) or not ent:IsPlayer() then
+	if not IsValid(ent) or not ent:IsPlayer() then
 		ent = pl
 	end
 	
@@ -219,7 +219,7 @@ function SetPlayerSuit(pl,commandName,args)
 	local hat = args[1]
 	local itemID = util.GetItemID(hat)
 
-	if suits[hat] and (not ValidEntity(pl.Suit) or pl.Suit:GetHatType() ~= hat) and pl:Team() == TEAM_HUMAN 
+	if suits[hat] and (not IsValid(pl.Suit) or pl.Suit:GetHatType() ~= hat) and pl:Team() == TEAM_HUMAN 
 		and pl:GetItemsDataTable()[itemID] and (not shopData[itemID].AdminOnly or pl:IsAdmin()) then
 		GAMEMODE:DropSuit(pl)
 		pl.SelectedSuit = hat
@@ -591,7 +591,7 @@ function AdminRemove(pl,cmd,args)
 	
 	local tr = pl:GetEyeTrace()
 	
-	if tr.Hit and tr.Entity and ValidEntity(tr.Entity) and not tr.Entity:IsPlayer() and not tr.Entity.AmmoCrate then
+	if tr.Hit and tr.Entity and IsValid(tr.Entity) and not tr.Entity:IsPlayer() and not tr.Entity.AmmoCrate then
 		tr.Entity:Remove()
 		for k, v in pairs( player.GetAll() ) do
 			v:CustomChatPrint( {nil, Color(255,0,0),"[ADMIN] ", Color(245,245,255),"Admin ",Color(255,0,0),tostring ( pl:Name() ),Color(235,235,255)," removed entity ",Color(255,255,255),tostring(tr.Entity:GetClass()).." !"})
@@ -828,7 +828,7 @@ end
 --Where chat commands were. Duby: I removed them as having a big ass file is a horrible way of coding things..
 
 function ApplyLoadout(pl, com, args)
-	if not args or #args <= 0 or not ValidEntity(pl) then
+	if not args or #args <= 0 or not IsValid(pl) then
 		return
 	end
 	
@@ -849,7 +849,7 @@ end
 concommand.Add("_applyloadout",ApplyLoadout)
 
 function ApplySkillShopItem(pl,com,args)
-	if not args or #args <= 0 or not ValidEntity(pl) or not pl:IsNearCrate() then return end
+	if not args or #args <= 0 or not IsValid(pl) or not pl:IsNearCrate() then return end
 	
 	local weapon = args[1]
 	

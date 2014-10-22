@@ -23,7 +23,7 @@ function DrawTargetIDTurret ( MySelf, team )
 	local trace = util.TraceLine (tr)
 	
 	local entity = trace.Entity
-	if not ValidEntity (entity) or entity:GetClass() ~= "zs_turret" then return end
+	if not IsValid (entity) or entity:GetClass() ~= "zs_turret" then return end
 	
 	local team = MySelf:Team()
 	local otherteam = TEAM_HUMAN

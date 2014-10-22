@@ -36,7 +36,7 @@ function meta:GetHandsModel()
 end
 
 function meta:IsZombieInHorde()
-	if not ValidEntity(self) then return end
+	if not IsValid(self) then return end
 	if not self:Alive() then return end
 	if not self:IsZombie() then return end
 	
@@ -486,8 +486,8 @@ function meta:GiveAmmo( Amount, AmmoType )
 	local Pistol, Automatic = self:GetPistol(), self:GetAutomatic()
 	
 	-- Check which weapon we should clamp the ammo on
-	if WeaponType == "Pistol" then if ValidEntity ( Pistol ) then Gun = Pistol end end
-	if WeaponType == "Automatic" then if ValidEntity ( Automatic ) then Gun = Automatic end end
+	if WeaponType == "Pistol" then if IsValid ( Pistol ) then Gun = Pistol end end
+	if WeaponType == "Automatic" then if IsValid ( Automatic ) then Gun = Automatic end end
 	
 	if Gun then
 		local Clamper, Multiplier = 350, 8
@@ -733,7 +733,7 @@ function meta:CanRedeem()
 		return
 	end
 
-	if not ValidEntity(self) or ENDROUND or LASTHUMAN or self:Team() ~= TEAM_UNDEAD or team.NumPlayers(TEAM_HUMAN) == 1 or self:IsBossZombie() then
+	if not IsValid(self) or ENDROUND or LASTHUMAN or self:Team() ~= TEAM_UNDEAD or team.NumPlayers(TEAM_HUMAN) == 1 or self:IsBossZombie() then
 		return false
 	end
 		
@@ -758,7 +758,7 @@ if SERVER then
 end
 
 function meta:SetScore(newAmount)
-	if not ValidEntity(self) then
+	if not IsValid(self) then
 		return false
 	end
 	
@@ -832,7 +832,7 @@ function meta:IsInToxicFumes(ToxicFumeTable)
 end
 
 function meta:IsStuck( position, smallbox)
-	if not ValidEntity(self) or not self:Alive() then return end
+	if not IsValid(self) or not self:Alive() then return end
 	
 	-- Make things easier
 	local pl = self
@@ -988,7 +988,7 @@ function meta:SetHumanClass(cl)
 		
 	--Add one point to each class chosen every time someone changes class. (for endgame stats)
 	--timer.Simple( 0.1, function() 
-		--if ValidEntity ( self ) then
+		--if IsValid ( self ) then
 		--	local classname = HumanClasses[cl].Name
 		--	GAMEMODE.TeamMostChosenClass[ classname ] = GAMEMODE.TeamMostChosenClass[ classname ] + 1
 		--end
@@ -1014,7 +1014,7 @@ end
 
 
 function meta:GetXP()
-	if not ValidEntity(self) or self:IsBot() then
+	if not IsValid(self) or self:IsBot() then
 		return 0
 	end
 	
@@ -1067,7 +1067,7 @@ function meta:CurRankXP()
 end
 
 function meta:GetRank()
-	if not ValidEntity(self) or self:IsBot() then
+	if not IsValid(self) or self:IsBot() then
 		return 0
 	end
 	
@@ -1280,11 +1280,11 @@ function meta:HasBought(str)
 end
 
 function meta:GetSuit()
-	if not ValidEntity(self) or not self:Alive() then
+	if not IsValid(self) or not self:Alive() then
 		return
 	end
 	
-	if ValidEntity(self.Suit) then
+	if IsValid(self.Suit) then
 		return self.Suit:GetHatType() or "none"
 	end
 	
@@ -1431,7 +1431,7 @@ function meta:SetHealth(health)
 end
 
 function meta:IsSteroidZombie()
-	if ValidEntity(self:GetStatus("champion")) then
+	if IsValid(self:GetStatus("champion")) then
 		return true
 	end
 	return false

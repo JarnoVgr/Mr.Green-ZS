@@ -142,7 +142,7 @@ function ENT:PhysicsCollide( Data, Phys )
 	self:SetDTVector( 0, Data.HitNormal )
 	
 	-- Parent
-	if HitEnt ~= GetWorldEntity() then
+	if HitEnt ~= game.GetWorld() then
 		if IsValid( HitEnt ) then
 			self:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
 			self:SetParent( HitEnt )

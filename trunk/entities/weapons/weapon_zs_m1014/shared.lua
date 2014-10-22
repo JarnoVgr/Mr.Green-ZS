@@ -86,7 +86,7 @@ function SWEP:Reload()
 	if self.Weapon:Clip1() < self.Primary.ClipSize and self.Owner:GetAmmoCount(self.Primary.Ammo) > 0 then
 		self.Weapon:DefaultReload( ACT_VM_RELOAD )
 		timer.Simple( 0.25, function( self, owner ) 
-			if not ValidEntity ( self ) or not ValidEntity ( owner ) then return end
+			if not IsValid ( self ) or not IsValid ( owner ) then return end
 			
 			-- Don't play the animation if it isn't the active weapon anymore
 			local ActiveWeapon = owner:GetActiveWeapon()
@@ -138,7 +138,7 @@ function SWEP:Think()
 		self:SetClip1(self:Clip1() + 1)
 
 		
-	if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
+	if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
 			self:SetClip1(self:Clip1() + 4)
 		end
 		

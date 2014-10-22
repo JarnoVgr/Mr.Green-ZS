@@ -23,9 +23,9 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		
 		if mVictim.DiedFromFlare and mVictim.DiedFromFlare > CurTime() then
 			timer.Simple(0,function()
-				if not ValidEntity(mVictim) then return end
+				if not IsValid(mVictim) then return end
 				local rag = mVictim:GetRagdollEntity()
-				if ValidEntity(rag) then
+				if IsValid(rag) then
 					rag:Ignite(9)
 					rag:SetColor(Color(50,50,50,255))
 				end
@@ -242,7 +242,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	if (mVictim:IsPlayer() and (mAttacker:IsPlayer() or mAttacker:IsWorld())) then
 		
 		local weapon_name = "world"
-		if ValidEntity(mInflictor) then
+		if IsValid(mInflictor) then
 			if (mInflictor.Inflictor) then
 				weapon_name = mInflictor.Inflictor
 			else

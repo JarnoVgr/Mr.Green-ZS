@@ -5,7 +5,7 @@
           Admin Addon - Slay a player
 -------------------------------------------------]==]
 function SlayPlayer ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[1] == nil then return end
+	if not IsValid ( pl ) or args[1] == nil then return end
 	if not pl:IsAdmin() then return end
 	
 	-- Notice
@@ -27,11 +27,11 @@ concommand.Add ( "slay_player", SlayPlayer )
           Admin Addon - Redeem a player
 -------------------------------------------------]==]
 function RedeemPlayer ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[1] == nil then return end
+	if not IsValid ( pl ) or args[1] == nil then return end
 	if not pl:IsAdmin() then return end
 	
 	local Target = GetPlayerByUserID( tonumber( args[1] ) )
-	if not ValidEntity ( Target ) then return end
+	if not IsValid ( Target ) then return end
 	
 	-- Can't redeem a human or use the command at round end or lasthuman
 	if Target:Team() == TEAM_HUMAN then pl:ChatPrint ( "[ADMIN] You can't redeem a human >.< !" ) return end
@@ -61,7 +61,7 @@ concommand.Add ( "redeem_player", RedeemPlayer )
           Admin Addon - Add bots
 -------------------------------------------------]==]
 function AddBots ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[1] == nil then return end
+	if not IsValid ( pl ) or args[1] == nil then return end
 	if not pl:IsSuperAdmin() then return end
 	
 	-- Notice
@@ -83,14 +83,14 @@ concommand.Add ( "add_bots", AddBots )
         Admin Addon - Bitch slap a player
 -------------------------------------------------]==]
 function SlapPlayer ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[1] == nil or args[2] == nil then return end
+	if not IsValid ( pl ) or args[1] == nil or args[2] == nil then return end
 	if not pl:IsAdmin() then return end
 	
 	-- get the target player
 	local Target = GetPlayerByUserID( tonumber( args[1] ) )
 	
 	-- Some validity conditions
-	if not ValidEntity ( Target ) then return end
+	if not IsValid ( Target ) then return end
 	if not Target:Alive() then pl:ChatPrint ( "[ADMIN] The target is already dead !" ) return end
 	
 	local Damage = math.Round ( Target:GetMaximumHealth() * ( tonumber ( args[2] ) / 100 ) )
@@ -120,11 +120,11 @@ concommand.Add ( "slap_player", SlapPlayer )
           Admin Addon - Give weapons/swep
 -------------------------------------------------]==]
 function GiveWeaponPlayer ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[1] == nil or args[2] == nil then return end
+	if not IsValid ( pl ) or args[1] == nil or args[2] == nil then return end
 	if not pl:IsSuperAdmin() then return end
 	
 	local Target = GetPlayerByUserID( tonumber( args[1] ) )
-	if not ValidEntity ( Target ) then return end
+	if not IsValid ( Target ) then return end
 	
 	-- Dead man
 	if not Target:Alive() then pl:ChatPrint ( "[ADMIN] The target is already dead !" ) return end
@@ -149,7 +149,7 @@ concommand.Add ( "give_weapon", GiveWeaponPlayer )
           Admin Addon - Mute players
 -------------------------------------------------]==]
 function MutePlayer ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[1] == nil or args[2] == nil then return end
+	if not IsValid ( pl ) or args[1] == nil or args[2] == nil then return end
 	if not pl:IsAdmin() then return end
 	
 	-- Type - true means mute, false - unmute
@@ -181,7 +181,7 @@ concommand.Add ( "mute_player", MutePlayer )
           Admin Addon - Gag players
 -------------------------------------------------]==]
 function GagPlayer ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[1] == nil or args[2] == nil then return end
+	if not IsValid ( pl ) or args[1] == nil or args[2] == nil then return end
 	if not pl:IsAdmin() then return end
 	
 	-- Type - true means mute, false - unmute
@@ -213,7 +213,7 @@ concommand.Add ( "gag_player", GagPlayer )
      Admin Addon - Kick a player (may cause crash)
 ---------------------------------------------------------]==]
 function KickPlayer ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[1] == nil then return end
+	if not IsValid ( pl ) or args[1] == nil then return end
 	if not pl:IsAdmin() then return end
 	
 	-- No reason
@@ -245,7 +245,7 @@ concommand.Add( "kick_player", KickPlayer )
         Admin Addon - Ban a player (may cause crash)
 -----------------------------------------------------------]==]
 function BanPlayer( pl, cmd, args )
-	if not ValidEntity(pl) or args[2] == nil or not pl:IsAdmin() then
+	if not IsValid(pl) or args[2] == nil or not pl:IsAdmin() then
 		return
 	end
 	
@@ -295,7 +295,7 @@ concommand.Add("ban_player", BanPlayer)
              Admin Addon - Slay all the players
 ---------------------------------------------------------]==]
 function SlayAllPlayers ( pl, cmd, args )
-	if not ValidEntity ( pl ) then return end
+	if not IsValid ( pl ) then return end
 	if not pl:IsSuperAdmin() then return end
 	
 	-- Notice
@@ -315,7 +315,7 @@ concommand.Add( "slay_all", SlayAllPlayers )
                   Admin Addon - Changelevel
 -----------------------------------------------------------]==]
 function ChangeLevel ( pl, cmd, args )
-	if not ValidEntity ( pl ) or args[1] == nil then return end
+	if not IsValid ( pl ) or args[1] == nil then return end
 	if not pl:IsSuperAdmin() then return end
 	
 	-- Target map
@@ -341,7 +341,7 @@ util.AddNetworkString("UnlockAllUndeadClasses")
                   Admin Addon - Debugging
 -----------------------------------------------------------]==]
 function DoDebugCommands(pl, cmd, args)
-	if not ValidEntity(pl) or not pl:IsSuperAdmin() or args[1] == nil then
+	if not IsValid(pl) or not pl:IsSuperAdmin() or args[1] == nil then
 		return
 	end
 
@@ -391,7 +391,7 @@ function DoDebugCommands(pl, cmd, args)
 	elseif sCommand == "gravity" then
 		for k,v in pairs(ents.GetAll()) do
 			local Phys = v:GetPhysicsObject()
-			if ValidEntity(Phys) then
+			if IsValid(Phys) then
 				Phys:EnableGravity(tobool(bToggle))
 			end
 		end
@@ -401,7 +401,7 @@ function DoDebugCommands(pl, cmd, args)
 	elseif sCommand == "freeze" then
 		for k,v in pairs(ents.GetAll()) do
 			local Phys = v:GetPhysicsObject()
-			if ValidEntity(Phys) and not v:IsPlayer() then
+			if IsValid(Phys) and not v:IsPlayer() then
 				Phys:EnableMotion(tobool(bToggle))
 			end
 		end
@@ -415,7 +415,7 @@ concommand.Add("zs_admin_debug", DoDebugCommands)
         Admin Addon - Bring a player to your pos
 -----------------------------------------------------------]==]
 function BringPlayer ( pl, cmd, args )
-	if not ValidEntity ( pl ) then return end
+	if not IsValid ( pl ) then return end
 	if not pl:IsAdmin() then return end
 	
 	-- User id to player -> target
@@ -423,7 +423,7 @@ function BringPlayer ( pl, cmd, args )
 	local des = pl
 	
 	-- Target is not valid
-	if not ValidEntity ( target ) then return end
+	if not IsValid ( target ) then return end
 	
 	-- Count up the retries
 	if target.TeleportRetries == nil then target.TeleportRetries = 0 end
@@ -488,7 +488,7 @@ concommand.Add( "bring_player", BringPlayer )
                    Admin Addon - Go to a specific player
 -------------------------------------------------------------------]==]
 function GotoPlayer ( pl, cmd, args )
-	if not ValidEntity ( pl ) then return end
+	if not IsValid ( pl ) then return end
 	if not pl:IsAdmin() then return end
 	
 	-- User Id to entity
@@ -496,7 +496,7 @@ function GotoPlayer ( pl, cmd, args )
 	local des = GetPlayerByUserID( tonumber( args[1] ) )
 	
 	-- Target is not valid
-	if not ValidEntity ( des ) then return end
+	if not IsValid ( des ) then return end
 	
 	-- Count up the retries
 	if des.TeleportToRetries == nil then des.TeleportToRetries = 0 end

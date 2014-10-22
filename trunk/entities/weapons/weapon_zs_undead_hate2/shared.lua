@@ -117,12 +117,12 @@ function SWEP:PrimaryAttack()
 		--self.Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
 	end 
 	timer.Simple ( 0.4, function()
-		if not ValidEntity ( pl ) then return end
+		if not IsValid ( pl ) then return end
 			pl:DoAnimationEvent( CUSTOM_PRIMARY )
 		
 	end)
 	timer.Simple ( 2.1, function()
-		if not ValidEntity ( pl ) then return end
+		if not IsValid ( pl ) then return end
 		
 		-- Conditions
 		if not pl:Alive() then return end
@@ -132,7 +132,7 @@ function SWEP:PrimaryAttack()
 	 
 	-- Trace an object
 	local trace = pl:TraceLine( self.DistanceCheck, MASK_SHOT, trFilter )
-	if trace.Hit and ValidEntity ( trace.Entity ) and not trace.Entity:IsPlayer() then
+	if trace.Hit and IsValid ( trace.Entity ) and not trace.Entity:IsPlayer() then
 		self.PreHit = trace.Entity
 	end
 	
@@ -140,8 +140,8 @@ function SWEP:PrimaryAttack()
 	if SERVER then timer.Simple ( 0.7,function() if IsValid(self) and self.DoPrimaryAttack then self:DoPrimaryAttack(trace, pl, self.PreHit) end end ) end
 	if SERVER then timer.Simple ( 1.35,function() if IsValid(self) and self.DoPrimaryAttack then self:DoPrimaryAttack(trace, pl, self.PreHit) end end ) end
 	timer.Simple ( 0.55, function()
-			if not ValidEntity ( pl ) then return end
-			if not ValidEntity ( self.Weapon ) then return end
+			if not IsValid ( pl ) then return end
+			if not IsValid ( self.Weapon ) then return end
 			
 			if self.SwapAnims then self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER ) else self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK ) end
 			self.SwapAnims = not self.SwapAnims
@@ -151,8 +151,8 @@ function SWEP:PrimaryAttack()
 		end)
 
 	timer.Simple ( 1.35, function()
-			if not ValidEntity ( pl ) then return end
-			if not ValidEntity ( self.Weapon ) then return end
+			if not IsValid ( pl ) then return end
+			if not IsValid ( self.Weapon ) then return end
 			if SERVER then self.Owner:EmitSound("player/zombies/hate/sawrunner_attack1.wav", 120, math.random( 90, 100 ) ) end
 			if self.SwapAnims then self.Weapon:SendWeaponAnim( ACT_VM_HITCENTER ) else self.Weapon:SendWeaponAnim( ACT_VM_SECONDARYATTACK ) end
 			self.SwapAnims = not self.SwapAnims
@@ -165,7 +165,7 @@ end
 
 -- Primary attack function
 function SWEP:DoPrimaryAttack ( trace, pl, victim )
-	if not ValidEntity ( self.Owner ) then return end
+	if not IsValid ( self.Owner ) then return end
 	local mOwner = self.Owner
 	
 	-- Trace filter
@@ -184,19 +184,19 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	local trHull = util.TraceHull( { start = pl:GetShootPos(), endpos = pl:GetShootPos() --[==[+ ( pl:GetAimVector() * 50 )]==], filter = trFilter, mins = Vector( -15*size,-10*size,-18 ), maxs = Vector( 20*size,20*size,20 ) } )
 	
 	local tr
-	if not ValidEntity ( victim ) then	
+	if not IsValid ( victim ) then	
 		tr = pl:TraceLine ( self.DistanceCheck, MASK_SHOT, trFilter )
 		victim = tr.Entity
 	end
 	
-	TraceHit = ValidEntity ( victim )
-	HullHit = ValidEntity ( trHull.Entity )
+	TraceHit = IsValid ( victim )
+	HullHit = IsValid ( trHull.Entity )
 	
 	if SERVER then 
 	self.Owner:EmitSound("npc/zombie/claw_miss"..math.random(1, 2)..".wav", 90, math.random( 70, 80 ) ) end
 	
 	-- Punch the prop / damage the player if the pretrace is valid
-	if ValidEntity ( victim ) then
+	if IsValid ( victim ) then
 		local phys = victim:GetPhysicsObject()
 		
 		-- Break glass

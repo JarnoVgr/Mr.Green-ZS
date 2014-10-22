@@ -25,7 +25,7 @@ end
 
 function GM:ScoreboardHide()
 	if not pScoreBoard then return end 
-	if not ValidEntity (MySelf) then return end
+	if not IsValid (MySelf) then return end
 	if (MySelf:Team() == TEAM_SPECTATOR) then return end
 	if ENDROUND or ZOMBIE_CLASSES then return end
 	
@@ -60,7 +60,7 @@ end
 
 function GM:ScoreboardHide()
 	if not left_scoreboard or not right_scoreboard then return end 
-	if not ValidEntity (MySelf) then return end
+	if not IsValid (MySelf) then return end
 	if (MySelf:Team() == TEAM_SPECTATOR) then return end
 	if ENDROUND or ZOMBIE_CLASSES then return end
 	

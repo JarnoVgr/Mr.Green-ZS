@@ -35,13 +35,13 @@ function ENT:AcceptInput(name, activator, caller, arg)
 end
 
 function ENT:Think()
-	if not ValidEntity(self) then
+	if not IsValid(self) then
 		return
 	end
 	
 	-- In case the owner dies
 	local Owner = self:GetOwner()
-	if not ValidEntity ( Owner ) or not Owner:Alive() or Owner:Team() == TEAM_UNDEAD then 
+	if not IsValid ( Owner ) or not Owner:Alive() or Owner:Team() == TEAM_UNDEAD then 
 		local Effect = EffectData()
 			Effect:SetOrigin( self:GetPos() )
 			Effect:SetStart( self:GetPos() )
@@ -55,7 +55,7 @@ end
 
 function ENT:Explode()
 	-- BOOM!
-	if not ValidEntity(self.Entity) then
+	if not IsValid(self.Entity) then
 		return
 	end
 	

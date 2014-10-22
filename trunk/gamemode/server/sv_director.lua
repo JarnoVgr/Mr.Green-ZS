@@ -114,7 +114,7 @@ function SetTurretName(pl, command, args)
 	if not ValidTurretNick(pl,tostring(args[1])) then 
 		return 
 	end
-	if ValidEntity(pl.Turret) then
+	if IsValid(pl.Turret) then
 		pl.Turret:SetDTString(0,tostring(args[1]))
 	end
 end

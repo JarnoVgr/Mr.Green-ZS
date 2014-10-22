@@ -171,7 +171,7 @@ local function CollideCallbackSmall(particle, hitpos, hitnormal)
 if not particle.HitAlready then
 		particle.HitAlready = true
 	if math.random(1, 10) == 3 then
-		WorldSound("physics/flesh/flesh_bloody_impact_hard1.wav", hitpos, 50, math.random(95, 105))
+		sound.Play("physics/flesh/flesh_bloody_impact_hard1.wav", hitpos, 50, math.random(95, 105))
 	end
 		local rand = math.random(1,3)
 		if rand == 1 then
@@ -191,7 +191,7 @@ function CollideCallback(particle, hitpos, hitnormal)
 	local pos = hitpos + hitnormal
 
 	if math.random(1, 10) == 3 then
-		WorldSound("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav", hitpos, 50, math.random(95, 105))
+		sound.Play("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav", hitpos, 50, math.random(95, 105))
 	end
 	
 	if hitnormal.z < -0.5 then
@@ -213,9 +213,9 @@ local function CollideCallbackSimple(particle, hitpos, hitnormal)
 	local pos = hitpos + hitnormal
 
 	if math.random(1, 10) == 3 then
-		WorldSound("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav", hitpos, 50, math.random(95, 105))
+		sound.Play("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav", hitpos, 50, math.random(95, 105))
 	end
-	-- WorldSound("physics/flesh/flesh_bloody_impact_hard1.wav", hitpos, 60, math.random(95, 105))
+	-- sound.Play("physics/flesh/flesh_bloody_impact_hard1.wav", hitpos, 60, math.random(95, 105))
 	util.Decal("Blood", hitpos + hitnormal, hitpos - hitnormal)
 	
 	particle:SetDieTime(0)
@@ -223,7 +223,7 @@ local function CollideCallbackSimple(particle, hitpos, hitnormal)
 end
 
 function EFFECT:Think()
-if not ValidEntity(self.ent) then return end
+if not IsValid(self.ent) then return end
 	if self.ent:IsPlayer() then
 	local Rag = self.ent:GetRagdollEntity()
 		if Rag and IsValid(Rag) then

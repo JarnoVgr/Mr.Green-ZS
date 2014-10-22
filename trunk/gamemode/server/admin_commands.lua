@@ -365,7 +365,7 @@ local function AdminSay(pl, text, teamonly)
 		local theList = team.GetPlayers(TEAM_HUMAN)
 		
 		local unluckydude = theList[math.random(1,#theList)]
-		if ValidEntity(unluckydude) then
+		if IsValid(unluckydude) then
 			unluckydude:Kill()
 			
 			PrintMessageAll(HUD_PRINTTALK,"The condemned player for The Undead is..."..unluckydude:Nick())

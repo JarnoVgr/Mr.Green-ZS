@@ -1,34 +1,17 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-
---[[oldIsValid = IsValid
-
-function IsValid( object )
-
-	if ( not object ) then return false end
-	if type(object) == "number" or type(object) == "string" or type(object) == "boolean" then 
-		return false
-	end
-	return oldIsValid(object)
-
-end]]
-
 function IsValidSpecial( object )
-
-	if ( not object ) then return false end
+	if not object then
+		return false
+	end
+	
 	if type(object) == "number" or type(object) == "string" or type(object) == "boolean" then 
 		return false
 	end
+	
 	return IsValid(object)
-
 end
-
-ValidEntity = IsValid
-WorldSound = sound.Play
-GetWorldEntity = game.GetWorld
-SinglePlayer = game.SinglePlayer
-MaxPlayers = game.MaxPlayers
 
 --[=[---------------------------------------------------------
 	     Include the shared files
@@ -67,19 +50,6 @@ else
   		end
   	end
 
-	--[[function GM:loadMapCode()
-		local includeFile = "shared/maps/".. game.GetMap() ..".lua"
-
-		include(includeFile)
-
-		print("[MAPCODER] Included '".. includeFile .."'")
-	end
-
-	net.Receive("mapData", function(len)
-		
-		GAMEMODE:loadMapCode()
-		
-	end)]]
 end
 
 game.AddParticles("particles/butt_fart1.pcf")
@@ -97,7 +67,7 @@ include("modules/ravebreak/sh_ravebreak.lua")
 GM.Name = "Zombie Survival Green Apocalypse"
 GM.Author = "Limetric"
 GM.Email = "info@limetric.com"
-GM.Website = "www.limetric.com"
+GM.Website = "http://limetric.com"
 
 INFLICTION = 0
 
@@ -162,8 +132,6 @@ for i=1,5 do
 	util.PrecacheSound("weapons/fx/rics/ric"..i..".wav")
 end
 
-util.PrecacheSound("ambient/energy/whiteflash.wav")
-
 for k, v in pairs(HumanGibs) do
 	util.PrecacheModel(v)
 end
@@ -216,7 +184,7 @@ end
 local function StepSoundTime( pl, iType, bWalking )
 	pl.Footstep = iType
 end
-hook.Add ( "PlayerStepSoundTime", "FootSteps", StepSoundTime )
+hook.Add( "PlayerStepSoundTime", "FootSteps", StepSoundTime)
 	
 if SERVER then
 	function GM:PlayerFootstep(pl, vPos, iFoot, strSoundName, fVolume, pFilter)
@@ -287,13 +255,6 @@ elseif CLIENT then
 end
 	
 -- Play footstep sounds for some zombies
-
-
-util.PrecacheModel("models/props_debris/wood_board05a.mdl")
-
-local util = util
-local pairs = pairs
-local file = file
 
 for _,mdl in pairs (file.Find("models/player/*.mdl","GAME")) do
 	util.PrecacheModel( "models/player/"..mdl )
@@ -412,8 +373,9 @@ local tbPatern = { "%", "&", "(", ")", "+", "]", "[", "?" }
 local forbiddenwords = { "admin", "moderator", "host", "server", "fuck", "( ?° ?? ?°) " }
 function ValidTitle( pl, str )
 	-- 24 character limit
-	if not str then return false end
-	if (string.len(str) > 24) then return false end
+	if not str or string.len(str) > 24 then
+		return false
+	end
 	
 	-- Explode the string
 	local tbText = string.Explode ( "", str )
@@ -427,12 +389,16 @@ function ValidTitle( pl, str )
 		end
 		
 		-- Normal mechanism
-		if not string.find ( validchars, v ) then return false end
+		if not string.find ( validchars, v ) then
+			return false
+		end
 	end
 	
-	if not ( ( CLIENT and pl:IsAdmin() ) or ( SERVER and pl:IsAdmin() ) ) then
+	if not (CLIENT and pl:IsAdmin()) or (SERVER and pl:IsAdmin()) then
 		for k, word in pairs(forbiddenwords) do
-			if string.find( string.lower( str ),word ) then return false end
+			if string.find( string.lower( str ),word ) then
+				return false
+			end
 		end
 	end
 	
@@ -442,76 +408,23 @@ end
 local forbiddenwords2 = { "fuck", "nigger", "nawb", "admin", "shit", "server", "( ?° ?? ?°) ", "Duby", "gay" }
 
 function ValidTurretNick(pl,str)
-
-	if not str then return false end
-	if (string.len(str) > 15) then 
-	pl:ChatPrint("Maximum nickname length is 15 characters!")
-	return false 
+	if not str then
+		return false
 	end
 	
+	if string.len(str) > 15 then 
+		pl:ChatPrint("Maximum nickname length is 15 characters!")
+		return false 
+	end
 	
 	for k, word in pairs(forbiddenwords2) do
-		if string.find( string.lower( str ),word ) then return false end
+		if string.find( string.lower( str ),word ) then
+			return false
+		end
 	end
 	
 	return true
-	
 end
-
-function CalculateHordeStatus()
-	if ( NextHordeCalculate or 0 ) > CurTime() then return end
-
-	NextHordeCalculate = CurTime() + 0.13
-
-	if #team.GetPlayers( TEAM_UNDEAD ) == 0 then return end
-
-	for k, Zombies in pairs( team.GetPlayers( TEAM_UNDEAD ) ) do
-	--print("Found: "..k)
-		Zombies.InHorde = Zombies.InHorde or 0
-		if IsValid( Zombies ) and Zombies:Alive() then
-		print("Alive: "..Zombies:Nick())
-			for i, Zombie in pairs( ents.FindInSphere( Zombies:GetPos(), 230 ) ) do
-				print("Nearby: "..tostring(Zombie))
-				if Zombie:IsPlayer() and Zombie:Alive() then
-					print("Nearby alive: "..Zombie:Nick())
-					local iDistance = Zombies:GetPos():Distance( Zombie:GetPos() )
-					if iDistance <= 230 and Zombies ~= Zombie then
-						--print("Checked: "..Zombie:Nick())
-						if Zombie:IsZombie() then
-							Zombie.InHorde = CurTime() + 0.5
-							--print("Set shared: "..Zombie:Nick())
-							--print("Set "..Zombie:Nick())
-						end
-					end
-				end
-			end
-		end
-	end
-end
---hook.Add( "Think", "CalculateHordeStatus", CalculateHordeStatus )
-
-function CalculateHordeStatus1()
-	if ( NextHordeCalculate or 0 ) > CurTime() then return end
-	if LASTHUMAN then return end
-
-	NextHordeCalculate = CurTime() + 0.13
-
-	if #team.GetPlayers( TEAM_UNDEAD ) == 0 then return end
-
-	for k, pl in pairs( team.GetPlayers( TEAM_UNDEAD ) ) do
-		
-		if IsValid( pl ) and pl:Alive() then
-		pl.InHorde = pl.InHorde or 0
-			for i, Zombie in pairs( ents.FindInSphere( pl:GetPos(), 230 ) ) do
-				if IsValid( Zombie ) and Zombie:IsPlayer() and Zombie:Alive() and Zombie ~= pl then
-					pl.InHorde = CurTime() + 0.5 Zombie.InHorde = CurTime() + 0.5
-				end
-			end		
-		end
-	end
-end
--- hook.Add( "Think", "CalculateHordeStatus", CalculateHordeStatus1 )
-
 
 -- Amazing but SetNoCollideWithTeammates is shitty as fuck
 -- SO I have to use this thing (with player pushing from IW) :<
@@ -748,7 +661,7 @@ end
 
 function GM:IsBossAlive()
 	for _, z in pairs(team.GetPlayers(TEAM_UNDEAD)) do
-		if ValidEntity(z) and z:Alive() and z:IsBossZombie() then
+		if IsValid(z) and z:Alive() and z:IsBossZombie() then
 			return true
 		end
 	end
@@ -757,7 +670,7 @@ end
 
 function GM:GetBossZombie()
 	for _, z in pairs(team.GetPlayers(TEAM_UNDEAD)) do
-		if ValidEntity(z) and z:Alive() and z:IsBossZombie() then
+		if IsValid(z) and z:Alive() and z:IsBossZombie() then
 			return z
 		end
 	end

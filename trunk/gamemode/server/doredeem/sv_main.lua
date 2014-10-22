@@ -139,7 +139,7 @@ function GM:OnPlayerRedeem(pl, causer)
 	local RedeemPoints = ents.FindByClass("info_player_redeem")
 	if #RedeemPoints > 1 then 
 		for k,v in pairs(RedeemPoints) do
-			if ValidEntity(v) then
+			if IsValid(v) then
 				pl:SetPos(v:GetPos())
 			end
 		end

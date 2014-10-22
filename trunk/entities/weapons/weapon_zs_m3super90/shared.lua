@@ -97,7 +97,7 @@ function SWEP:Think()
 		self:SetClip1(self:Clip1() + 1)
 
 		
-	if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
+	if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
 			self:SetClip1(self:Clip1() + 3)
 		end
 		

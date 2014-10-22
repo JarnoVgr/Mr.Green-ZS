@@ -91,7 +91,7 @@ if CLIENT then
 
 function SWEP:ViewModelDrawn() 
 	local vm = self.Owner:GetViewModel();
-	if ValidEntity(self.Arms) then
+	if IsValid(self.Arms) then
 	render.SetBlend(1)
     self.Arms:DrawModel()
 	render.SetBlend(1)
@@ -103,7 +103,7 @@ function SWEP:MakeNewArms()
 	local vm = self.Owner:GetViewModel();
 	if not vm then return end
 	self.Arms = ClientsideModel(self.Owner:GetModel(), RENDER_GROUP_OPAQUE_ENTITY) --self.Owner:GetModel()
-	if (ValidEntity(self.Arms)) and (ValidEntity(vm)) then 
+	if (IsValid(self.Arms)) and (IsValid(vm)) then 
 		self.Arms:SetPos(self.Owner:GetPos() - self.Owner:GetForward()*56)
 		-- self.Arms:SetAngles(vm:GetAngles())
 		self.Arms:SetParent(vm) 
@@ -117,7 +117,7 @@ function SWEP:MakeNewArms()
 end
 
 function SWEP:RemoveNewArms()
-if (ValidEntity(self.Arms)) then
+if (IsValid(self.Arms)) then
 	self.Arms:Remove()
 end
 	self.Arms = nil

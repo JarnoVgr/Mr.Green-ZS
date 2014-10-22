@@ -12,7 +12,7 @@ function EFFECT:Init(data)
 
 	if not pos then return end
 	
-	WorldSound("physics/flesh/flesh_bloody_break.wav", pos, 80, math.random(50, 100))
+	sound.Play("physics/flesh/flesh_bloody_break.wav", pos, 80, math.random(50, 100))
 
 	local emitter = ParticleEmitter(pos)
 		for i=1, 16 do

@@ -262,7 +262,7 @@ end
 
 --small function that fixes weird errors
 function FixNotUpdatedSales(pl, cmd, args)
-	if not ValidEntity(pl) or ENDROUND then
+	if not IsValid(pl) or ENDROUND then
 		return
 	end
 	

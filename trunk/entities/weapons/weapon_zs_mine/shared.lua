@@ -169,7 +169,7 @@ function SWEP:PrimaryAttack()
 	-- local time = self:SequenceDuration()
 	self.NextPlant = ( CurTime() + 1 );
 
-		if not ValidEntity ( self.Owner ) then return end 
+		if not IsValid ( self.Owner ) then return end 
 		local trace = {}
 		local pos = self.Owner:GetPos()
 		local mines = 0
@@ -192,7 +192,7 @@ function SWEP:PrimaryAttack()
 				if 0 < self:Clip1() then 
 					--if CLIENT then
 					--	local vm = self.Owner:GetViewModel()
-					--	if not ValidEntity(vm) then return end
+					--	if not IsValid(vm) then return end
 					--	vm:SetSequence("detonator_draw")
 					--end
 					self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_DRAW )
@@ -251,7 +251,7 @@ function SWEP:SecondaryAttack()
 	end
 	-- if CLIENT then
 	-- 	local vm = self.Owner:GetViewModel()
-	-- 	if not ValidEntity(vm) then return end
+	-- 	if not IsValid(vm) then return end
 	-- 		vm:SetSequence("detonator_detonate")
 	-- end
 	

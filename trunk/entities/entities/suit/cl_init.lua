@@ -5,9 +5,9 @@ function ENT:Draw()
 end  
 
 function ENT:Think()
-	if ValidEntity(self:GetOwner()) then
+	if IsValid(self:GetOwner()) then
 		local owner = self:GetOwner()
-		if MySelf and owner == MySelf and not ValidEntity(MySelf.Suit) then
+		if MySelf and owner == MySelf and not IsValid(MySelf.Suit) then
 			MySelf.Suit = self.Entity
 			MySelf.Suit.IsSuit = true
 		end

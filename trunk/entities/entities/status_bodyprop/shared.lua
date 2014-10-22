@@ -14,7 +14,7 @@ end
 
 function ENT:Think()
 	if SERVER then
-		if not ValidEntity(self:GetOwner()) or not self:GetOwner():Alive() then
+		if not IsValid(self:GetOwner()) or not self:GetOwner():Alive() then
 			self:Remove()
 		end
 	end

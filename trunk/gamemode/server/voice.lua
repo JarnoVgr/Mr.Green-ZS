@@ -58,7 +58,7 @@ end
 -- To avoid akward situations, we check if it would be realitic for
 -- this person to start chatting
 function IsRealisticToVoice( ply )
-	return ValidEntity(ply) and
+	return IsValid(ply) and
 			ply:Alive() and
 				ply:Health() > 40 and 
 					ply:Team() == TEAM_HUMAN and 

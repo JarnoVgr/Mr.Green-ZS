@@ -81,7 +81,7 @@ function ENT:Touch(ent)
 		if owner:Team() ~= self.Entity.Team then return end
 		if owner == ent then return end
 		-- Make a splashing sound
-		WorldSound ("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav",ent:GetPos(),80,math.random (80,100))
+		sound.Play ("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav",ent:GetPos(),80,math.random (80,100))
 		self:Remove()
 	end
 end

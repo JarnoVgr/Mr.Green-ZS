@@ -89,12 +89,12 @@
  *
  ]==]
 
-ValidEntity = IsValid
+IsValid = IsValid
  
 --  not needed for clients
 if CLIENT then return end
 
-local ValidEntity = ValidEntity
+local IsValid = IsValid
 local Error = Error
 local string = string
 local type = type
@@ -160,7 +160,7 @@ end
 
 local function playerValid( pl )
 
-	return (ValidEntity( pl ) and pl:IsPlayer()) or pl:IsWorld()
+	return (IsValid( pl ) and pl:IsPlayer()) or pl:IsWorld()
 
 end
 

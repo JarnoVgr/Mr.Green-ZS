@@ -155,7 +155,7 @@ local SlotOrder = {
 }
 
 function FilterWeapons()
-	if not ValidEntity ( MySelf ) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND then
+	if not IsValid ( MySelf ) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND then
 		return
 	end
 	-- See what slots are present (what weapons do you actually have)
@@ -239,7 +239,7 @@ local StoredIcons = {}
 local storedicons = false
 local WeaponSelectionBackground = Material("mrgreen/hud/hudbackground.png") --Items for the HUD.
 function PaintNewWeaponSelection()
-	if util.tobool(GetConVarNumber("_zs_hidehud")) or not ValidEntity(MySelf) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND or not MySelf.ReadySQL then
+	if util.tobool(GetConVarNumber("_zs_hidehud")) or not IsValid(MySelf) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND or not MySelf.ReadySQL then
 		return
 	end
 
@@ -283,7 +283,7 @@ function PaintNewWeaponSelection()
 	
 	-- Make the active weapon panel enlarge!
 	local ActiveWeapon = MySelf:GetActiveWeapon()
-	if ValidEntity ( ActiveWeapon ) then
+	if IsValid ( ActiveWeapon ) then
 		local Slot = SlotOrder[GetWeaponCategory ( ActiveWeapon:GetClass() )] or 6-- ActiveWeapon.Slot or 6
 		for k, wep in pairs ( WeaponsRestricted ) do
 			if not string.find ( ActiveWeapon:GetClass(), wep ) then

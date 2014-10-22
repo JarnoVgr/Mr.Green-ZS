@@ -166,7 +166,7 @@ function DrawCustomDeath3 ( death )
 			text = death.attacker:Name()
 		end
 	end
-	if not ValidEntity(death.attacker) then return end
+	if not IsValid(death.attacker) then return end
 	if not death.attacker:OBBCenter() then return end
 	if death.attacker:IsZombie() then return end
 	

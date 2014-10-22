@@ -17,7 +17,7 @@ local function CollideCallback(particle, hitpos, hitnormal)
 		local pos = hitpos + hitnormal
 
 		if math.random(1, 3) == 3 then
-			WorldSound("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav", hitpos, 50, math.random(95, 105))
+			sound.Play("physics/flesh/flesh_squishy_impact_hard"..math.random(1,4)..".wav", hitpos, 50, math.random(95, 105))
 		end
 
 		util.Decal("Blood", pos, hitpos - hitnormal)

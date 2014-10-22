@@ -69,7 +69,7 @@ end
 -------------------------------------------------------]==]
 
 net.Receive("notice.GetNotice", function( len )
-	if not ValidEntity(MySelf) then
+	if not IsValid(MySelf) then
 		return
 	end
 

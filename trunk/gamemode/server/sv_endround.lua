@@ -4,6 +4,9 @@
 -- Web-Stats file
 include( "sv_endround_stats.lua" )
 
+--Get nextmap in case voting fails
+local NextMap = "zs_fortress_mod"
+
 local function CheckPlayerDeathNitwits ( pl, attacker, dmginfo )
 	local headshot = false
 	local attach = pl:GetAttachment(1)
@@ -231,7 +234,7 @@ function GetChosenMap( pl, cmd, args )
 	   return 
 	end
 	
-	if not ValidEntity ( pl ) then 
+	if not IsValid ( pl ) then 
 	   return 
 	end
 	
@@ -245,12 +248,12 @@ local VotePointTable = {}
 function GM:SendVotemaps ( to )
 	local VoteMaps = self:GetVoteMaps()
 	
-	if ( #VoteMaps < 6 ) then 
+	if #VoteMaps < 3 then 
 	   return -- Deluvas; what kind of error handling system is this
 	end
 
 	net.Start("ReceiveVoteMaps")
-	for i = 1, 6 do 
+	for i = 1, 3 do 
 		local key = VoteMaps[i][1]
 		VotePointTable[key] = { Votes = 0, Map = { FileName = VoteMaps[i][1], FriendlyName = VoteMaps[i][2] } }
 			
@@ -261,20 +264,20 @@ function GM:SendVotemaps ( to )
 	net.Broadcast()
 end
 
---Init netmessages
+--Init Net messages
 util.AddNetworkString("ReceiveVoteMaps")
 util.AddNetworkString("ReceiveVotePoints")
+util.AddNetworkString("ReceiveVoteMapWinner")
 
 --[==[---------------------------------------------------------
   Update client and server vote points for maps
 ---------------------------------------------------------]==]
 function UpdateClientVotePoints(pl, mapfilename)
-	if pl.Voted then 
+	if pl.Voted or not VotePointTable[mapfilename] then 
 	   return 
 	end
 		
 	-- Increment voting points for map
-	VotePointTable[mapfilename] = VotePointTable[mapfilename] or { Votes = 0 }
 	VotePointTable[mapfilename].Votes = VotePointTable[mapfilename].Votes + 1
 	
 	pl.Voted = true
@@ -287,7 +290,7 @@ end
 		   update for one player
 ---------------------------------------------------------]==]
 function UpdateClientVoteMaps(pl)
-	if not ValidEntity(pl) then
+	if not IsValid(pl) then
 		return
 	end
 	
@@ -303,66 +306,54 @@ end
 --[==[---------------------------------------------------------
 		Main Endgame Function
 ---------------------------------------------------------]==]
-function GM:OnEndRound ( winner )
-	if ENDROUND then return end
+function GM:OnEndRound(winner)
+	if ENDROUND then
+		return
+	end
 	ENDROUND = true
 	ENDTIME = CurTime()
-	WinnerMap = ""
 	
-	--  logging
 	log.WorldAction("Round_End")
 	
-	if (winner == TEAM_UNDEAD) then
+	if winner == TEAM_UNDEAD then
 		log.WorldAction("Undead_Win")
-	elseif (winner == TEAM_HUMAN) then
+	elseif winner == TEAM_HUMAN then
 		log.WorldAction("Survivor_Win")
 	end
 	
 	hook.Remove("SetupPlayerVisibility", "AddCratesToPVS")
 	
-	-- Enable all talk
-	RunConsoleCommand ( "sv_alltalk", "1" )
-		
-	-- Get nextmap in case voting fails
-	local NextMap = GAMEMODE:GetMapNext()
+	--Enable all talk
+	RunConsoleCommand("sv_alltalk", "1")
 	
 	timer.Simple(VOTE_TIME, function()
-		for k,pl in pairs (player.GetAll()) do
-			if pl:Team() ~= TEAM_SPECTATOR then
-				if not pl.Voted then 
-					UpdateClientVotePoints( pl, table.RandomEx( VotePointTable ).Map.FileName )
-					pl:SendLua ("MySelf.HasVotedMap = true")
-				end
+		--Force vote state for idlers
+		for k,pl in pairs(player.GetAll()) do
+			if pl:Team() == TEAM_SPECTATOR or pl.Voted then
+				continue
+			end
+
+			pl:SendLua("MySelf.HasVotedMap = true")
+		end
+		
+		--Calculate the map with most points
+		local MaximumPoints = -100
+		
+		--Find winner map
+		for k, v in pairs(VotePointTable) do
+			if v.Votes > MaximumPoints then
+				MaximumPoints = v.Votes
+				NextMap = k
 			end
 		end
-		
-		--- Calculate the map with most points
-		local MaximumPoint = -100
-		WinnerMap = "Unknown"
-		
-		-- Find winner map
-		for k, v in pairs ( VotePointTable ) do
-			if v.Votes > MaximumPoint then
-				MaximumPoint = v.Votes
-				WinnerMap = v.Map.FileName
-				WinnerMapName = v.Map.FriendlyName				
-				NextMap = WinnerMap
-			end
-		end
-		
-		-- Deluvas; what in Clavus' name is this
-		if NextMap == nil then 
-			NextMap = "zs_noir" 
-			WinnerMap = "zs_noir" 
-		end
-		
+	
 		--TODO: Use net messages
-		gmod.BroadcastLua("SetWinnerMap('"..WinnerMap.."','"..WinnerMapName.."')")
+		gmod.BroadcastLua("SetWinnerMap('".. NextMap .."')")
 	end)
 		
 	-- Change level after intermission time runs out
 	timer.Simple(INTERMISSION_TIME, function()
-		game.ConsoleCommand("changelevel "..NextMap.."\n");
+		game.ConsoleCommand("changelevel ".. NextMap .."\n");
 	end)
 	
 	-- We don't want to respawn anymore 
@@ -401,7 +392,7 @@ function GM:OnEndRound ( winner )
 	-- Send the information payload to the client ( all of them :o )
 	GAMEMODE:SendTopTimes()
 	GAMEMODE:SendTopZombies()
-	GAMEMODE:SendTopHumanDamages()
+	GAMEMODE:SendTopHumanDamages()	
 	GAMEMODE:SendTopZombieDamages()
 	GAMEMODE:SendVotemaps()
 	GAMEMODE:SendTopHealing()
@@ -421,38 +412,41 @@ function GM:OnEndRound ( winner )
 		
 		--Delay this so it doesn't give errors
 		timer.Simple(0.2, function() 
-			if ValidEntity ( pl ) then
-				local TimeLeft = INTERMISSION_TIME - ( CurTime() - ENDTIME )
-				pl:SendLua( "Intermission('"..GAMEMODE:GetMapNext().."', "..ROUNDWINNER..", "..TimeLeft.." )" )
+			if not IsValid(pl) then
+				return
+			end
+			
+			local TimeLeft = INTERMISSION_TIME - ( CurTime() - ENDTIME )
+			pl:SendLua( "Intermission('"..GAMEMODE:GetMapNext().."', "..ROUNDWINNER..", "..TimeLeft.." )" )
 				
-				--Update his votemaps
-				UpdateClientVoteMaps(pl)
-				if TimeLeft < INTERMISSION_TIME - VOTE_TIME then
-					pl:SendLua("SetWinnerMap( '"..WinnerMap.."' )")
-					pl:SendLua("MySelf.HasVotedMap = true")
+			--Update his votemaps
+			UpdateClientVoteMaps(pl)
+			if TimeLeft < INTERMISSION_TIME - VOTE_TIME then
+				pl:SendLua("SetWinnerMap('".. NextMap .."')")
+				pl:SendLua("MySelf.HasVotedMap = true")
+			end
+				
+			timer.Simple(0.4, function()
+				if not IsValid(pl) then
+					return
 				end
 				
-				timer.Simple(0.4, function()
-					if IsValid( pl ) then
-						pl:DrawViewModel ( false )
-						pl:Lock()
-					end 
-				end)
-			end
+				pl:DrawViewModel(false)
+				pl:Lock()
+			end)
 		end)
 	end)
 	
-	-- Send the actual panel in delay
+	--Send the actual panel in delay
 	timer.Simple(0.2, function()
 		gmod.BroadcastLua("Intermission('"..NextMap.."', "..winner..", "..INTERMISSION_TIME.." )")
 	end)
-	
+		
 	local playerCount = #player.GetAll()
 
 	local DamageUndead = 0
 	local DamageHuman = 0
-	for _, pl in ipairs( player.GetAll() ) do
-	
+	for _, pl in ipairs(player.GetAll()) do
 		-- Don't draw the weapon viewmodel for artistic purposes.
 		pl:DrawViewModel(false)
 		
@@ -472,7 +466,7 @@ function GM:OnEndRound ( winner )
 		
 		-- Saving data/stats over time
 		timer.Simple( _ * ( ( INTERMISSION_TIME - 3 ) / playerCount ), function()
-			if not IsValid( pl ) then
+			if not IsValid(pl) then
 				return 
 			end
 			
@@ -481,7 +475,7 @@ function GM:OnEndRound ( winner )
 
 			-- Greencoins
 			pl:SaveGreenCoins()
-		end )
+		end)
 	end
 end
 

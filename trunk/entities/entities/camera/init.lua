@@ -30,12 +30,12 @@ function ENT:Initialize()
 end
 
 function ENT:OnTakeDamage( dmginfo )
-	if not ValidEntity (self.Entity) or not ValidEntity (self:GetOwner()) then return end
+	if not IsValid (self.Entity) or not IsValid (self:GetOwner()) then return end
 	--[=[local attacker = dmginfo:GetAttacker()
 	local inflictor
 	local ent = self:GetOwner()
 	
-	if ValidEntity (dmginfo:GetAttacker()) and dmginfo:GetAttacker():IsPlayer() then
+	if IsValid (dmginfo:GetAttacker()) and dmginfo:GetAttacker():IsPlayer() then
 		attacker = dmginfo:GetAttacker()
 		inflictor = attacker:GetActiveWeapon()
 		if attacker:Team() == TEAM_UNDEAD then
@@ -65,7 +65,7 @@ function ENT:OnTakeDamage( dmginfo )
 end
 
 function ENT:Think()
-	if not ValidEntity(self:GetOwner()) or self:GetOwner():Alive() then 		
+	if not IsValid(self:GetOwner()) or self:GetOwner():Alive() then 		
 		-- Unspectate him first then remove the crow.
 		if self:GetOwner() and self:GetOwner():IsValid() then
 			self:GetOwner():UnSpectate()
@@ -87,7 +87,7 @@ end
 
 ENT.SecondaryAttackDelay = 0
 function ENT:SecondaryAttack()
-	if not ValidEntity (self:GetOwner()) then return end
+	if not IsValid (self:GetOwner()) then return end
 
 	local pl = self:GetOwner()
 	if self.SecondaryAttackDelay <= CurTime() then
@@ -127,7 +127,7 @@ function ENT:SpawnMechanism()
 end
 	 
 function ENT:Tick()
-	if not ValidEntity (self:GetOwner()) then return end
+	if not IsValid (self:GetOwner()) then return end
 	
 	self.Entity:NextThink(CurTime())
 	-- self:FrameAdvance( CurTime() - self.LastTick )+0.001

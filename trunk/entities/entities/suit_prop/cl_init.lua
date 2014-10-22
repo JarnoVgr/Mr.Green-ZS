@@ -12,7 +12,7 @@ function ENT:SetScaling()
 end
 
 function ENT:DrawTranslucent() 
-	if (not ValidEntity(self:GetOwner())) then return end
+	if (not IsValid(self:GetOwner())) then return end
 
 	local owner = self:GetOwner()
 	if not owner:IsValid() or not owner:Alive() or owner == MySelf or not ENABLE_HATS then return end

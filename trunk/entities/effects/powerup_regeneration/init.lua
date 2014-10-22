@@ -7,7 +7,7 @@ function EFFECT:Init(data)
 	local pos = data:GetOrigin()
 	if not pos then return end
 
-	WorldSound("weapons/physcannon/physcannon_pickup.wav", pos, 80, math.random(90, 110))
+	sound.Play("weapons/physcannon/physcannon_pickup.wav", pos, 80, math.random(90, 110))
 
 	local emitter = ParticleEmitter(pos)
 		for i=1, math.random(9, 14) do

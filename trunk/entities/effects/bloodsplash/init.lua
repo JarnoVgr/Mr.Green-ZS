@@ -32,7 +32,7 @@ function EFFECT:Init(data)
 	util.Decal("Blood", Pos + Norm*10, Pos - Norm*10)
 	
 	if math.random(0, 11) == 0 then
-		WorldSound("physics/flesh/flesh_bloody_impact_hard1.wav", Pos, 80, math.random(75, 110))
+		sound.Play("physics/flesh/flesh_bloody_impact_hard1.wav", Pos, 80, math.random(75, 110))
 		-- I replaced this with world sound because emit sound was causing the sound to be played from across the map, regardless of volume. This sounded VERY shitty because it sonded like it came from your ass or something.
 	end
 
@@ -48,7 +48,7 @@ local function CollideCallbackSmall(particle, hitpos, hitnormal)
 if not particle.HitAlready then
 		particle.HitAlready = true
 	if math.random(1, 11) == 3 then
-		WorldSound("ambient/water/rain_drip"..math.random(1,4)..".wav", hitpos, 90, math.random(95, 115))
+		sound.Play("ambient/water/rain_drip"..math.random(1,4)..".wav", hitpos, 90, math.random(95, 115))
 	end
 	util.Decal("Impact.Flesh", hitpos + hitnormal, hitpos - hitnormal)
 	particle:SetDieTime(0)

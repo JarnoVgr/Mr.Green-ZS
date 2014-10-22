@@ -46,7 +46,7 @@ end
 -------------------------------------------------]==]
 local AdminPanel, ToggleCooldown = nil, 0
 function DoAdminPanel()
-	if not ValidEntity ( MySelf ) then
+	if not IsValid ( MySelf ) then
 		return
 	end
 	
@@ -68,7 +68,7 @@ function DoAdminPanel()
 			local MenuList = SlapMenu:AddSubMenu ( j )
 			local Damage = { [1] = 0, [2] = 10, [3] = 30, [4] = 50, [5] = 100 }
 			for k,v in pairs ( PlayersAll ) do
-				if ValidEntity ( v ) then
+				if IsValid ( v ) then
 					MenuList:AddOption ( tostring ( v:Name() ).." - ["..GetStringTeam ( v ).."]", function() RunConsoleCommand ( "slap_player", tostring ( v:UserID() ), Damage[i] ) CloseAdminPanel() end )
 				end
 			end
@@ -77,7 +77,7 @@ function DoAdminPanel()
 		-- Slay player option
 		local SlayMenu = AdminPanel:AddSubMenu( "Slay Player >", function () CloseAdminPanel() end )
 		for k,v in pairs ( PlayersAll ) do
-			if ValidEntity ( v ) then
+			if IsValid ( v ) then
 				local Team = "[TEAM_HUMAN]" if v:Team() == TEAM_UNDEAD then Team = "[TEAM_UNDEAD]" end
 				SlayMenu:AddOption ( tostring ( v:Name() ).." - "..Team, function() RunConsoleCommand ( "slay_player", tostring ( v:UserID() ) ) CloseAdminPanel() end )
 			end
@@ -86,7 +86,7 @@ function DoAdminPanel()
 		-- Redeem player option
 		local RedeemMenu = AdminPanel:AddSubMenu( "Redeem Player >", function () CloseAdminPanel() end )
 		for k,v in pairs ( PlayersAll ) do
-			if ValidEntity ( v ) then
+			if IsValid ( v ) then
 				if v == MySelf or v:Team() == TEAM_UNDEAD then
 					RedeemMenu:AddOption ( tostring ( v:Name() ).." - ["..GetStringTeam ( v ).."]", function() RunConsoleCommand ( "redeem_player", tostring ( v:UserID() ) ) CloseAdminPanel() end )
 				end
@@ -104,7 +104,7 @@ function DoAdminPanel()
 		--Bring player option
 		local BringMenu = AdminPanel:AddSubMenu( "Bring Player >", function () CloseAdminPanel() end )
 		for k,v in pairs ( PlayersAll ) do
-			if ValidEntity ( v ) then
+			if IsValid ( v ) then
 				local Team = "[TEAM_HUMAN]" if v:Team() == TEAM_UNDEAD then Team = "[TEAM_UNDEAD]" end
 				BringMenu:AddOption ( tostring ( v:Name() ).." - "..Team, function() RunConsoleCommand ( "bring_player", tostring ( v:UserID() ) ) CloseAdminPanel() end )
 			end
@@ -113,7 +113,7 @@ function DoAdminPanel()
 		--GoTo player option
 		local GotoMenu = AdminPanel:AddSubMenu( "Teleport to Player >", function () CloseAdminPanel() end )
 		for k,v in pairs ( PlayersAll ) do
-			if ValidEntity ( v ) then
+			if IsValid ( v ) then
 				local Team = "[TEAM_HUMAN]" if v:Team() == TEAM_UNDEAD then Team = "[TEAM_UNDEAD]" end
 				GotoMenu:AddOption ( tostring ( v:Name() ).." - "..Team, function() RunConsoleCommand ( "goto_player", tostring ( v:UserID() ) ) CloseAdminPanel() end )
 			end
@@ -130,7 +130,7 @@ function DoAdminPanel()
 		-- Screen grab
 		local RedeemMenu = AdminPanel:AddSubMenu( "Grab Player Screen >", function () CloseAdminPanel() end )
 		for k,v in pairs ( PlayersAll ) do
-			if ValidEntity ( v ) then
+			if IsValid ( v ) then
 				RedeemMenu:AddOption ( tostring ( v:Name() ), function() RunConsoleCommand ( "scanplayer", tostring ( v:EntIndex() ) ) CloseAdminPanel() end )
 			end
 		end
@@ -140,7 +140,7 @@ function DoAdminPanel()
 		for i,j in pairs ( List ) do	
 			local MenuList = RestrictionChatMenu:AddSubMenu ( j )
 			for k,v in pairs ( PlayersAll ) do
-				if ValidEntity ( v ) then
+				if IsValid ( v ) then
 					local TypeCmd = "true"
 					if string.find ( j, "Ungag" ) then TypeCmd = "false" end
 					MenuList:AddOption ( tostring ( v:Name() ).." - ["..GetStringTeam ( v ).."]", function() RunConsoleCommand ( "gag_player", tostring ( v:UserID() ), TypeCmd ) CloseAdminPanel() end )
@@ -153,7 +153,7 @@ function DoAdminPanel()
 		for i,j in pairs ( List ) do	
 			local MenuList = RestrictionVoiceMenu:AddSubMenu ( j, function() CloseAdminPanel() end )
 			for k,v in pairs ( PlayersAll ) do
-				if ValidEntity ( v ) then
+				if IsValid ( v ) then
 					local TypeCmd = "true"
 					if string.find ( j, "Unmute" ) then TypeCmd = "false" end
 					MenuList:AddOption ( tostring ( v:Name() ).." - ["..GetStringTeam ( v ).."]", function() RunConsoleCommand ( "mute_player", tostring ( v:UserID() ), TypeCmd ) CloseAdminPanel() end )
@@ -172,7 +172,7 @@ function DoAdminPanel()
 		--Kick a player
 		local KickMenu = AdminPanel:AddSubMenu( "Kick Player [Use with caution] >", function () CloseAdminPanel() end )
 		for k,v in pairs ( PlayersAll ) do
-			if ValidEntity ( v ) then
+			if IsValid ( v ) then
 				KickMenu:AddOption ( tostring ( v:Name() ).." - ["..GetStringTeam ( v ).." - ".. v:SteamID() .."]", function() ConfirmAction ( "kick", v ) end )
 			end
 		end
@@ -185,7 +185,7 @@ function DoAdminPanel()
 			if string.find ( j, "Permaban" ) then TimeToBan = tostring ( j ) end
 			local TimeList = BanMenu:AddSubMenu ( tostring ( TimeToBan ), function()  CloseAdminPanel() end )
 			for l,m in ipairs ( PlayersAll ) do
-				if ValidEntity ( m ) then
+				if IsValid ( m ) then
 					local BanTime = tonumber ( j ) if j == "Permaban that sucker!" then BanTime = 0 end
 					TimeList:AddOption ( tostring ( m:Name() ).." - ["..GetStringTeam ( m ).." - ".. m:SteamID() .."]", function()
 						ConfirmAction("ban", m, true, BanTime, "No information given")
@@ -345,7 +345,7 @@ end
               Closes the Admin Panel
 -------------------------------------------------]==]
 function CloseAdminPanel()
-	if not ValidEntity(MySelf) or AdminPanel == nil then return end
+	if not IsValid(MySelf) or AdminPanel == nil then return end
 	
 	--Cooldown
 	ToggleCooldown = CurTime() + 0.25
@@ -361,7 +361,7 @@ end
               Called on KEY_C pressed
 -------------------------------------------------]==]
 local function OnKeyPressed ()
-	if not ValidEntity(MySelf) or not MySelf:IsAdmin() then
+	if not IsValid(MySelf) or not MySelf:IsAdmin() then
 		return
 	end
 	
@@ -383,7 +383,7 @@ hook.Add("OnContextMenuOpen", "ContextKeyPressedHook", OnKeyPressed )
               Called on KEY_C released
 -------------------------------------------------]==]
 local function OnKeyReleased ()
-	if not ValidEntity(MySelf) or not MySelf:IsAdmin() then
+	if not IsValid(MySelf) or not MySelf:IsAdmin() then
 		return
 	end
 	

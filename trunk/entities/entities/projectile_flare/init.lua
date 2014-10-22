@@ -35,7 +35,7 @@ function ENT:Think()
 	
 		-- In case the owner dies
 	local Owner = self:GetOwner()
-	if not ValidEntity ( Owner ) or not Owner:Alive() or Owner:Team() == TEAM_UNDEAD then 
+	if not IsValid ( Owner ) or not Owner:Alive() or Owner:Team() == TEAM_UNDEAD then 
 		self.Entity:Remove()
 	end
 end

@@ -17,7 +17,7 @@ local umsg = umsg
 --timer.Simple ( 0.5, function()
 --	local BaseSetPlayerSpeed = GM.SetPlayerSpeed
 	function GM:SetPlayerSpeed( pl, walk, run, max )
-		if not ValidEntity ( pl ) then return end
+		if not IsValid ( pl ) then return end
 		if not pl:IsPlayer() then return end
 		
 		-- Check for nulls
@@ -93,7 +93,7 @@ end]==]
       Used to call drop/strip weapon on client
 ----------------------------------------------------]==]
 function ClientDropWeapon( self, Class )
-	if not ValidEntity(self) or not self:IsPlayer() or not self.Ready then
+	if not IsValid(self) or not self:IsPlayer() or not self.Ready then
 		return
 	end
 

@@ -170,7 +170,7 @@ function ENT:CalculateMovement()
 		
 	local owner = self:GetOwner()
 	
-	if not ValidEntity(owner) then return end
+	if not IsValid(owner) then return end
 	
 	local pos = owner:GetPos()+(owner:Crouching() and vector_up*45 or vector_up*65)+(owner:GetAimVector():Angle()):Right()*7+(owner:GetAimVector():Angle()):Forward()*4
 		
@@ -203,7 +203,7 @@ end
 
 function ENT:CheckOwner()
 	local Owner = self:GetOwner()
-	if not ValidEntity ( Owner ) or not Owner:Alive() or Owner:Team() == TEAM_UNDEAD then 
+	if not IsValid ( Owner ) or not Owner:Alive() or Owner:Team() == TEAM_UNDEAD then 
 		self:Explode()
 		return
 	end
@@ -368,7 +368,7 @@ function ENT:OnTakeDamage( dmginfo )
 		
 		local dmg = dmginfo:GetDamage()
 		
-		if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "techsuit" then
+		if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "techsuit" then
 			dmg = dmg*1.5
 		end
 		

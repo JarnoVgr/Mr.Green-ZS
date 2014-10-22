@@ -99,7 +99,7 @@ function hud.InitFonts()
 	surface.CreateFont("Face Your Fears", ScreenScale(17), 400, true, true, "NewZombieFont17",false, true)
 	surface.CreateFont("Face Your Fears", ScreenScale(19), 400, true, true, "NewZombieFont19",false, true)
 	surface.CreateFont("Face Your Fears", ScreenScale(23), 400, true, true, "NewZombieFont23",false, true)
-	surface.CreateFont( "Face Your Fears", ScreenScale(27), 400, true, true, "NewZombieFont27",false, true)
+	surface.CreateFont("Face Your Fears", ScreenScale(27), 400, true, true, "NewZombieFont27",false, true)
 end
 hook.Add("Initialize", "hud.InitFonts", hud.InitFonts)
 
@@ -380,7 +380,7 @@ hook.Add("PostDrawTranslucentRenderables", "RenderWeaponLabels", hud.DrawWeaponL
 
 function hud.DrawAmmoPanel()
 	local ActiveWeapon = MySelf:GetActiveWeapon()
-	if not ValidEntity(ActiveWeapon) then
+	if not IsValid(ActiveWeapon) then
 		return
 	end
 	local currentClipSize, currentAmmo = MySelf:GetActiveWeapon():Clip1(), MySelf:GetAmmoCount(MySelf:GetActiveWeapon():GetPrimaryAmmoType())

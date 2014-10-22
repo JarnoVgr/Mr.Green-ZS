@@ -90,7 +90,7 @@ function ENT:Draw()
 end
 
 function ENT:Think()
-	if not ValidEntity(self.Crow) then
+	if not IsValid(self.Crow) then
 		self.Crow = ClientsideModel("models/crow.mdl")
 	end
 	

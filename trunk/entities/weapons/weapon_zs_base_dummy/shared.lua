@@ -290,7 +290,7 @@ if CLIENT then
 		end
 		
 		local vm = self.Owner:GetViewModel()
-		if not ValidEntity(vm) then return end
+		if not IsValid(vm) then return end
 		
 		if self.Owner.KnockedDown or (self.Owner.IsHolding and self.Owner:IsHolding()) then 
 			vm:SetColor(Color(255, 255, 255, 1))
@@ -373,7 +373,7 @@ if CLIENT then
 				continue
 			end
 			
-			if (v.type == "Model" and ValidEntity(model)) then
+			if (v.type == "Model" and IsValid(model)) then
 				model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
 				ang:RotateAroundAxis(ang:Up(), v.angle.y)
 				ang:RotateAroundAxis(ang:Right(), v.angle.p)
@@ -444,7 +444,7 @@ if CLIENT then
 		end
 		
 		if (self.ShowWorldModel == nil or self.ShowWorldModel) then
-				--[[if self.Owner.KnockedDown and ValidEntity(self.Owner:GetRagdollEntity()) then
+				--[[if self.Owner.KnockedDown and IsValid(self.Owner:GetRagdollEntity()) then
 					local bone1 = self.Owner:GetRagdollEntity():LookupBone("ValveBiped.Bip01_R_Hand")
 					if (bone1) then
 					pos1, ang1 = Vector(0,0,0), Angle(0,0,0)
@@ -480,8 +480,8 @@ if CLIENT then
 			end
 		end
 		
-		if (ValidEntity(self.Owner)) then
-			if self.Owner.KnockedDown and ValidEntity(self.Owner:GetRagdollEntity()) then
+		if (IsValid(self.Owner)) then
+			if self.Owner.KnockedDown and IsValid(self.Owner:GetRagdollEntity()) then
 				bone_ent = self.Owner:GetRagdollEntity()
 			else
 				bone_ent = self.Owner
@@ -514,7 +514,7 @@ if CLIENT then
 			local model = v.modelEnt
 			local sprite = v.spriteMaterial
 			
-			if (v.type == "Model" and ValidEntity(model)) then
+			if (v.type == "Model" and IsValid(model)) then
 
 				model:SetPos(pos + ang:Forward() * v.pos.x + ang:Right() * v.pos.y + ang:Up() * v.pos.z )
 				ang:RotateAroundAxis(ang:Up(), v.angle.y)
@@ -614,7 +614,7 @@ if CLIENT then
 				pos, ang = m:GetTranslation(), m:GetAngles()
 			end
 			
-			if (ValidEntity(self.Owner) and self.Owner:IsPlayer() and 
+			if (IsValid(self.Owner) and self.Owner:IsPlayer() and 
 				ent == self.Owner:GetViewModel() and self.ViewModelFlip) then
 				ang.r = -ang.r --  Fixes mirrored models
 			end
@@ -631,11 +631,11 @@ if CLIENT then
 
 		--  Create the clientside models here because Garry says we can't do it in the render hook
 		for k, v in pairs( tab ) do
-			if (v.type == "Model" and v.model and v.model ~= "" and (not ValidEntity(v.modelEnt) or v.createdModel ~= v.model) and 
+			if (v.type == "Model" and v.model and v.model ~= "" and (not IsValid(v.modelEnt) or v.createdModel ~= v.model) and 
 					string.find(v.model, ".mdl") and file.Exists (v.model,"GAME") ) then
 				
 				v.modelEnt = ClientsideModel(v.model, RENDER_GROUP_VIEW_MODEL_OPAQUE)
-				if (ValidEntity(v.modelEnt)) then
+				if (IsValid(v.modelEnt)) then
 					v.modelEnt:SetPos(self:GetPos())
 					v.modelEnt:SetAngles(self:GetAngles())
 					v.modelEnt:SetParent(self)
@@ -672,12 +672,12 @@ if CLIENT then
 	function SWEP:RemoveModels()
 		if (self.VElements) then
 			for k, v in pairs( self.VElements ) do
-				if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
+				if (IsValid( v.modelEnt )) then v.modelEnt:Remove() end
 			end
 		end
 		if (self.WElements) then
 			for k, v in pairs( self.WElements ) do
-				if (ValidEntity( v.modelEnt )) then v.modelEnt:Remove() end
+				if (IsValid( v.modelEnt )) then v.modelEnt:Remove() end
 			end
 		end
 		self.VElements = nil

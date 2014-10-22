@@ -23,6 +23,7 @@ hook.Add("Think", "GetLocal", function()
 end)
 
 -- gm13 workaround
+--TODO: Move to own utils lib
 surface.OldCreateFont = surface.CreateFont
 function surface.CreateFont(arg1,arg2,arg3,arg4,arg5,arg6)
 	--Call new style if there are only 2 arguments
@@ -42,19 +43,7 @@ function surface.CreateFont(arg1,arg2,arg3,arg4,arg5,arg6)
 	surface.OldCreateFont(name,fontdata)
 end
 
-GM.RewardIcons = {}
 w, h = ScrW(), ScrH()
-Threshold = 0
-
--- Remove when model decal crash is fixed.
-function util.Decal()
-end
-
-function GM:ClickedPlayerButton(pl, button)
-end
-
-function GM:ClickedEndBoardPlayerButton(pl, button)
-end
 
 --Third Party timer and hook profiler
 --include("modules/dbugprofiler/dbug_profiler.lua")
@@ -71,7 +60,7 @@ include("client/cl_targetid.lua")
 include("client/cl_selectionmenu.lua")
 include("client/cl_hudpickup.lua")
 include("client/cl_spawnmenu.lua")
-include("client/cl_endgame.lua")
+include("client/cl_intermission.lua")
 include("client/cl_postprocess.lua")
 include("client/cl_players.lua")
 include("client/cl_deathnotice.lua")
@@ -206,7 +195,6 @@ difficulty = 0
 
 TOTALGIBS = 0
 
-NearZombies = 0
 ActualNearZombies = 0
 
 -- Loading...
@@ -283,7 +271,7 @@ function GM:_PostDrawOpaqueRenderables()
 end
  
 hook.Add("HUDPaint", "DrawWaiting", function()
-	if ENDROUND or SinglePlayer() then
+	if ENDROUND or game.SinglePlayer() then
 		return
 	end
 	
@@ -613,7 +601,7 @@ local function LoopLastHuman()
 	end
 end
 
-local function DelayedLH()
+local function DelayedLastHumanAlert()
 	local MySelf = LocalPlayer()
 
 	if not ENDROUND then
@@ -633,16 +621,16 @@ function GM:LastHuman()
 
 	LASTHUMAN = true
 	
+	--Stop all sounds
 	RunConsoleCommand("stopsound")
-	timer.Simple(0.5, function()
-		LoopLastHuman()
-	end)
-	DrawingDanger = 1
-	timer.Simple(0.5, function()
-		DelayedLH()
-	end)
 	
-	GAMEMODE:SetLastHumanText()
+	timer.Simple(0.5, function()
+		--Loop music
+		LoopLastHuman()
+		
+		--Alert players
+		DelayedLastHumanAlert()
+	end)
 end
 
 function GM:PlayerShouldTakeDamage(pl, attacker)
@@ -699,7 +687,7 @@ usermessage.Hook( "SendTitles", ReceiveTitles )
       Receives updates data regarding the ammo regen timer
 ------------------------------------------------------------------]=]
 local function ReceiveAmmoTimer( um )
-	if not ValidEntity ( MySelf ) then
+	if not IsValid ( MySelf ) then
 		return
 	end
 
@@ -1081,7 +1069,7 @@ local halpha = {}
 halpha.box = 0
 halpha.text = 0
 function DrawHalloweenNotice ()
-	if not ValidEntity ( LocalPlayer() ) then return end
+	if not IsValid ( LocalPlayer() ) then return end
 	if not MySelf:Alive() then return end
 	
 	surface.SetFont ("ArialBoldFive")
@@ -1371,7 +1359,9 @@ end
 hook.Add("PlayerBindPress", "RestrictControl", RestrictControls)
 
 function SpectatorSay ( say )
-	return MySelf:Team() == TEAM_SPECTATOR
+	if MySelf:Team() == TEAM_SPECTATOR then
+		return true
+	end
 end
 hook.Add("StartChat", "Spectator", SpectatorSay)
 
@@ -2105,7 +2095,7 @@ end
 usermessage.Hook("mapexploits",RecMapExploits)
 
 function OnWeaponDropped(um)
-	if SERVER or not ValidEntity(MySelf) then
+	if SERVER or not IsValid(MySelf) then
 		return
 	end
 	
@@ -2114,7 +2104,7 @@ function OnWeaponDropped(um)
 	
 	--Call OnDrop function
 	local ActiveWeapon = MySelf:GetActiveWeapon()
-	if ValidEntity(ActiveWeapon) and isfunction(ActiveWeapon.OnDrop) then
+	if IsValid(ActiveWeapon) and isfunction(ActiveWeapon.OnDrop) then
 		ActiveWeapon:OnDrop()
 	end
 end

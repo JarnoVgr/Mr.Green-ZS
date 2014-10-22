@@ -404,7 +404,7 @@ function GM:OnHumanSpawn(pl)
 	--Reapply loadout to prevent spawn bug
 	--Disabled because it allows a weapon exploit at spawn (dropping all weapons quick and then getting them again)
 	--[[timer.Simple(2,function()
-		if ValidEntity(pl) then
+		if IsValid(pl) then
 			if #pl:GetWeapons() < 1 then
 				CalculatePlayerLoadout(pl)
 			end
@@ -524,7 +524,7 @@ function GM:OnZombieSpawn(pl)
 	--Fix late spawners
 	if #pl.Loadout <=1 then
 		timer.Simple(1,function()
-			if ValidEntity(pl) then
+			if IsValid(pl) then
 				pl:SendLua("LateSpawnLoadout()")
 			end
 		end)
@@ -619,7 +619,7 @@ end
 	    Called on player disconnect
 -------------------------------------------------]==]
 function GM:PlayerDisconnected( pl )
-	if not ValidEntity(pl) then
+	if not IsValid(pl) then
 		return
 	end
 	

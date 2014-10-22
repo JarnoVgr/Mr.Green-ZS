@@ -114,7 +114,7 @@ function SWEP:Think()
 				self.rechargerate = 0.1
 				self.rechargetimer = CurTime() + self.rechargerate 
 				
-				if ValidEntity(self:GetOwner()) and self:GetOwner():GetSuit() == "freeman" then --Ability for freeman suit!
+				if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "freeman" then --Ability for freeman suit!
 			self.Weapon:SetClip1(math.min(self.MaxClip,self.Weapon:Clip1() + 1))
 			self.rechargerate = 0.01
 					end

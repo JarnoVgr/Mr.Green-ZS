@@ -106,7 +106,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	if dmginfo:IsAttackerHuman() and pl:IsZombie() and dmginfo:IsBulletDamage() and pl:HasHowlerProtection() then
 		if math.random(3) == 3 then
 			--Play metal sound
-			WorldSound("physics/metal/metal_box_impact_bullet".. math.random(1, 3) ..".wav", pl:GetPos() + Vector(0, 0, 30), 80, math.random(90, 110))
+			sound.Play("physics/metal/metal_box_impact_bullet".. math.random(1, 3) ..".wav", pl:GetPos() + Vector(0, 0, 30), 80, math.random(90, 110))
 				
 			--Show spark effect
 			local Spark = EffectData()
@@ -157,7 +157,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		--One boss
 		if dmginfo:IsBulletDamage() and pl:GetZombieClass() == 11 and (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 then
 			if math.random(5) == 5 then
-				WorldSound( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
+				sound.Play( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
 
 				local Spark = EffectData()
 				Spark:SetOrigin( dmginfo:GetDamagePosition() )
@@ -267,7 +267,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		-- Metal sound
 		if iRandom == 1 then
 			fSound = "physics/metal/metal_box_impact_bullet"..math.random(1, 3)..".wav"
-			WorldSound(fSound, pl:GetPos() + Vector( 0,0,30 ), 80, math.random(90, 110))
+			sound.Play(fSound, pl:GetPos() + Vector( 0,0,30 ), 80, math.random(90, 110))
 		end
 			
 		-- Show spark effect

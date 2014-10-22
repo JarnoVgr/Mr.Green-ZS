@@ -18,7 +18,7 @@ end
 
 	local function SpawnLegs(ply)
 		local legs = ents.Create("player_legs")
-		if (ValidEntity(legs)) then
+		if (IsValid(legs)) then
 			if ply:InVehicle() then
 				legs:SetPos(ply:GetPos())
 			else
@@ -56,7 +56,7 @@ end
 						if legvar2:GetInt() ~= 0 then
 							if not ply:InVehicle() then
 								local legs2 = ents.Create("player_shadow")
-								if (ValidEntity(legs2)) then
+								if (IsValid(legs2)) then
 									legs2:SetPos(ply:GetPos() + ply:GetForward()*-20)
 									--legs2:SetAngles( Angle(0,(ply:GetAngles().y),0) )
 									legs2:SetParent(ply)

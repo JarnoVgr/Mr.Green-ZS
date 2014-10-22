@@ -77,22 +77,6 @@ for i=1,10 do
 	util.PrecacheSound(ZBeats[i][1])
 end
 
-local NextHordeCalculate = 0
-local DisplayHorde = 0
-local ActualHorde = 0
-local NextThump = 0
-
-function GM:SetLastHumanText()
-	if not LASTHUMAN then
-		return
-	end
-
-	NextHordeCalculate = 999999
-	NearZombies = 10
-	DisplayHorde = 10
-	ActualHorde = 10
-end
-
 function playBossMusic(insane)
 	--if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
 	
@@ -205,7 +189,7 @@ hook.Add("Think", "BeatsThink", BeatsThink)
 ---------------------------------------------------------]==]
 local NextAura = 0
 function ZombieAuraThink()
-	if not ValidEntity(MySelf) or not MySelf:Alive() or NextAura > CurTime() then
+	if not IsValid(MySelf) or not MySelf:Alive() or NextAura > CurTime() then
 		return
 	end
 	

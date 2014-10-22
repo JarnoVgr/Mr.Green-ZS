@@ -82,7 +82,7 @@ function SWEP:PrimaryAttack()
 		Owner:ViewPunch(Angle(math.Rand(-0.2,-0.1) * (self.Primary.Recoil * recoilMultiplier), math.Rand(-0.1,0.1) * (self.Primary.Recoil * recoilMultiplier), 0))
 	end
 
-	if ( ( SinglePlayer() and SERVER ) or ( not SinglePlayer() and CLIENT and IsFirstTimePredicted() ) ) then
+	if ( ( game.SinglePlayer() and SERVER ) or ( not game.SinglePlayer() and CLIENT and IsFirstTimePredicted() ) ) then
 		local eyeang = self.Owner:EyeAngles()
 		local recoil = math.Rand( 0.1, 0.2 )
 		eyeang.pitch = eyeang.pitch - recoil
@@ -266,7 +266,7 @@ function SWEP:Reload()
 				local rlsnd = VoiceSets[self.Owner.VoiceSet].ReloadSounds
 				if rlsnd then
 					timer.Simple( 0.2, function ()
-						if ValidEntity(self) then
+						if IsValid(self) then
 							self:EmitSound(rlsnd[math.random(1, #rlsnd)])
 						end
 					end, self)

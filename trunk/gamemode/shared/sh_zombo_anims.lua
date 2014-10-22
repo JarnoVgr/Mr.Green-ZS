@@ -47,7 +47,7 @@ end
 GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
 
 
-	if ValidEntity(pl:GetActiveWeapon()) then 
+	if IsValid(pl:GetActiveWeapon()) then 
 	--	local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) 
 		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_02" ) --Duby: I spent fucking ages guessing this...	
 		return iIdeal, iSeq
@@ -119,7 +119,7 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel )
 	--if fVelocity > 30 then iIdeal = ACT_WALK else iIdeal = ACT_IDLE end
 	
 	-- Moaning
-	if ValidEntity(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsMoaning and pl:GetActiveWeapon():IsMoaning() then 
+	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsMoaning and pl:GetActiveWeapon():IsMoaning() then 
 		--if fVelocity > 2 then 
 			--iIdeal = ACT_WALK_ON_FIRE 
 		--else 
@@ -201,7 +201,7 @@ GM.CalcMainActivityZombies[2] = function ( pl, vel )
 	
 	
 	
-	if ValidEntity(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsRoar and pl:GetActiveWeapon():IsRoar() then
+	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsRoar and pl:GetActiveWeapon():IsRoar() then
 		iSeq = pl:LookupSequence ( "idle_angry" ) 
 	end
 	
@@ -294,7 +294,7 @@ GM.CalcMainActivityZombies[5] = function ( pl, vel )
 	
 	local fVelocity = vel:Length2D()
 
-	if ValidEntity(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsScreaming and pl:GetActiveWeapon():IsScreaming() then 
+	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsScreaming and pl:GetActiveWeapon():IsScreaming() then 
 		--local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) 
 		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_02" ) 
 		return iIdeal, iSeq
@@ -318,7 +318,7 @@ GM.CalcMainActivityZombies[5] = function ( pl, vel )
 	if fVelocity > 30 then iIdeal = ACT_WALK else iIdeal = ACT_IDLE end
 	
 	-- Screaming
-	if ValidEntity(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsScreaming and pl:GetActiveWeapon():IsScreaming() then 
+	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsScreaming and pl:GetActiveWeapon():IsScreaming() then 
 		if fVelocity < 2 then 
 			iIdeal = ACT_IDLE_ON_FIRE 
 		end 
@@ -792,12 +792,12 @@ GM.CalcMainActivityZombies[13] = function ( pl, vel )
 		pl._PlayBackRate = 1
 	end
 	
-	if ValidEntity(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsRoar and pl:GetActiveWeapon():IsRoar() then
+	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsRoar and pl:GetActiveWeapon():IsRoar() then
 		--iIdeal = ACT_IDLE_ON_FIRE 
 		iSeq = pl:LookupSequence ( "idle_angry" ) 
 	end
 	
-	if ValidEntity(pl:GetActiveWeapon()) and pl:GetActiveWeapon().SlashAnimation and pl:GetActiveWeapon().SlashAnimation >= CurTime() then 
+	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().SlashAnimation and pl:GetActiveWeapon().SlashAnimation >= CurTime() then 
 		iSeq = pl:LookupSequence ( "BR2_Attack" ) 
 	end
 	

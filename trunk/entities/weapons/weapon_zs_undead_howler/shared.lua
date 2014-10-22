@@ -54,7 +54,7 @@ end
 function SWEP:DoAttack(bPull) 	
 	-- Get owner
 	local mOwner = self.Owner
-	if not ValidEntity(mOwner) then
+	if not IsValid(mOwner) then
 		return
 	end
 	
@@ -88,7 +88,7 @@ function SWEP:DoAttack(bPull)
 		local Trace = util.TraceLine ( { start = vPos, endpos = v:LocalToWorld( v:OBBCenter() ), filter = mOwner, mask = MASK_SOLID } )
 			
 		-- Exploit trace
-		if not Trace.Hit or not ValidEntity(Trace.Entity) or Trace.Entity ~= v then
+		if not Trace.Hit or not IsValid(Trace.Entity) or Trace.Entity ~= v then
 			continue
 		end
 		
@@ -136,7 +136,7 @@ function SWEP:DoAttack(bPull)
 		-- Play sound
 		timer.Simple(0.2, function()
 			if IsValid(v) then
-				WorldSound("npc/barnacle/barnacle_bark1.wav", v:GetPos() + Vector(0, 0, 20), 120, math.random(60, 75))
+				sound.Play("npc/barnacle/barnacle_bark1.wav", v:GetPos() + Vector(0, 0, 20), 120, math.random(60, 75))
 			end
 		end)
 	end

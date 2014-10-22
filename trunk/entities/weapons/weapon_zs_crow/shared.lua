@@ -191,7 +191,7 @@ function SWEP:OnRemove()
 		if self.FlySound then
 			self.FlySound:Stop()
 		end
-		if self.Owner and ValidEntity(self.Owner) then
+		if self.Owner and IsValid(self.Owner) then
 			self.Owner:SetCollisionGroup(COLLISION_GROUP_PLAYER)
 		end
 	end

@@ -145,7 +145,7 @@ if SERVER then
 		local ct = CurTime()
 
 		self:CheckOwner()
-		if not ValidEntity(self.Entity) then
+		if not IsValid(self.Entity) then
 			return
 		end
 
@@ -153,7 +153,7 @@ if SERVER then
 
 			if self:IsControlled() then
 					
-					if ValidEntity(self:GetTurretOwner():GetActiveWeapon()) and self:GetTurretOwner():GetActiveWeapon():GetClass() ~= "weapon_zs_tools_remote" then
+					if IsValid(self:GetTurretOwner():GetActiveWeapon()) and self:GetTurretOwner():GetActiveWeapon():GetClass() ~= "weapon_zs_tools_remote" then
 						self:SetControl(false)
 					end
 					
@@ -491,7 +491,7 @@ if SERVER then
 			
 			local dmg = dmginfo:GetDamage()
 			
-			if ValidEntity(self:GetTurretOwner()) and self:GetTurretOwner():GetSuit() == "techsuit" then
+			if IsValid(self:GetTurretOwner()) and self:GetTurretOwner():GetSuit() == "techsuit" then
 				dmg = dmg*1.5
 			end
 			
@@ -506,7 +506,7 @@ if SERVER then
 
 	function ENT:CheckOwner()
 	local Owner = self:GetTurretOwner()
-		if not ValidEntity ( Owner ) or not Owner:Alive() or Owner:Team() == TEAM_UNDEAD then 
+		if not IsValid ( Owner ) or not Owner:Alive() or Owner:Team() == TEAM_UNDEAD then 
 			self:Explode()
 		end
 	end

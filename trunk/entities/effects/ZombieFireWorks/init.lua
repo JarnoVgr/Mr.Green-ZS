@@ -6,7 +6,7 @@ function EFFECT:Init(data)
 	local ent = data:GetEntity()
 	self.Entity:SetPos(pos)
 	self.Entity:SetAngles(ent:GetAngles())
-	WorldSound("ambient/explosions/exp3.wav", pos, 80, math.random(100, 110))
+	sound.Play("ambient/explosions/exp3.wav", pos, 80, math.random(100, 110))
 	self.DieTime = RealTime() + math.Rand(3.5, 4)
 	self.Entity:SetModel(ent:GetModel())
 	self.Entity:PhysicsInitSphere(8)
@@ -29,7 +29,7 @@ function EFFECT:Think()
 		self.DieTime = 0
 	end
 	if RealTime() >= self.DieTime then
-		WorldSound("ambient/explosions/explode_"..math.random(2,5)..".wav", pos, 90, math.random(100, 110))
+		sound.Play("ambient/explosions/explode_"..math.random(2,5)..".wav", pos, 90, math.random(100, 110))
 		local emitter = ParticleEmitter(pos)
 			for i=1, math.random(200, 230) do			
 				particle = emitter:Add("sprites/light_glow02_add", pos + VectorRand():GetNormal() * 100)

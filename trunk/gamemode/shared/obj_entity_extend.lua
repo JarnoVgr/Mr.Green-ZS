@@ -105,7 +105,7 @@ function meta:TakeSpecialDamage(damage, damagetype, attacker, inflictor, hitpos)
 end
 
 function meta:TakeCustomDamage ( amount, attacker, bullettype, dmginfo, trTable )
-	if not ValidEntity ( self ) then return false end
+	if not IsValid ( self ) then return false end
 	
 	if not dmginfo then dmginfo = DamageInfo() end
 	

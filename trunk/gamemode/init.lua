@@ -46,9 +46,13 @@ AddCSLuaFile("client/vgui/phclasses.lua")
 AddCSLuaFile("client/vgui/pclassinfo.lua")
 AddCSLuaFile("client/vgui/pskillshop.lua")
 AddCSLuaFile("client/vgui/pmapmanager.lua")
+AddCSLuaFile("client/vgui/p_intermission_generalscore.lua")
+AddCSLuaFile("client/vgui/p_intermission_teamscore.lua")
+AddCSLuaFile("client/vgui/p_intermission_nitwits.lua")
+AddCSLuaFile("client/vgui/p_intermission_votemap.lua")
 AddCSLuaFile("client/cl_splitmessage.lua")
 AddCSLuaFile("client/cl_customdeathnotice.lua")
-AddCSLuaFile("client/cl_endgame.lua")
+AddCSLuaFile("client/cl_intermission.lua")
 AddCSLuaFile("client/cl_outline.lua")
 AddCSLuaFile("client/cl_selectionmenu.lua")
 AddCSLuaFile("client/cl_director.lua")
@@ -225,7 +229,7 @@ end
       Called when a weapon is deployed
 ---------------------------------------------------------]=]
 function GM:WeaponDeployed ( mOwner, mWeapon, bIron )
-	if not ValidEntity ( mOwner ) or not mWeapon:IsWeapon() then return end
+	if not IsValid ( mOwner ) or not mWeapon:IsWeapon() then return end
 	
 	-- We don't want bots
 	if mOwner:IsBot() then return end
@@ -435,7 +439,7 @@ local function DeleteEntitiesRestricted()
 				if not string.find ( MapRemoveEnts[i], "/" ) then table.Add ( TrashBin, ents.FindByClass ( tostring ( MapRemoveEnts[i] ) ) ) end
 				if string.find ( MapRemoveEnts[i], "/" ) then
 					local FormatEnt = string.gsub ( tostring ( MapRemoveEnts[i] ), "/", "" )
-					if ValidEntity ( Entity ( FormatEnt ) ) then 
+					if IsValid ( Entity ( FormatEnt ) ) then 
 						table.insert ( TrashBin, Entity ( FormatEnt ) ) 
 					end 
 				end
@@ -447,7 +451,7 @@ local function DeleteEntitiesRestricted()
 			for k,v in pairs ( ents.GetAll() ) do
 				for n,mdl in pairs(MapRemoveEntsByModel) do
 					if v:GetModel() == mdl then
-						if ValidEntity ( v ) then
+						if IsValid ( v ) then
 							SafeRemoveEntity ( v )	
 						Debug ( "[INIT] Safely removing entity "..tostring ( v ).." from map "..tostring ( game.GetMap() ) )
 						end		
@@ -462,7 +466,7 @@ local function DeleteEntitiesRestricted()
 			for k,v in pairs ( ents.GetAll() ) do
 				for n,pat in pairs(MapRemoveEntsByModelPattern) do
 					if v:GetModel() and string.find(v:GetModel(),pat) then
-						if ValidEntity ( v ) then
+						if IsValid ( v ) then
 							SafeRemoveEntity ( v )	
 						Debug ( "[INIT] Safely removing entity "..tostring ( v ).." from map "..tostring ( game.GetMap() ) )
 						end		
@@ -481,9 +485,9 @@ local function DeleteEntitiesRestricted()
 			if MapRemoveGlass then
 				for k,v in pairs ( ents.GetAll() ) do
 					if v:GetClass() == "func_breakable" then
-						if ValidEntity(v) then
+						if IsValid(v) then
 							local phys = v:GetPhysicsObject()
-							if ValidEntity(phys) and phys:GetMaterial() == "glass" then
+							if IsValid(phys) and phys:GetMaterial() == "glass" then
 								SafeRemoveEntity(v)	
 								Debug("[INIT] Safely removing entity "..tostring(v).." from map "..tostring(game.GetMap()))
 							end
@@ -517,7 +521,7 @@ local function DeleteEntitiesRestricted()
 	
 	-- Delete them all
 	for k,v in pairs ( TrashBin ) do
-		if ValidEntity ( v ) then
+		if IsValid ( v ) then
 			Debug ( "[INIT] Safely removing entity "..tostring ( v ).." from map "..tostring ( game.GetMap() ) )
 			SafeRemoveEntity ( v )
 		end
@@ -530,7 +534,7 @@ hook.Add ( "InitPostEntity", "DeleteRestricteEnts", DeleteEntitiesRestricted )
         another one, based on the original model
 ---------------------------------------------------------]=]
 function GM:ModelToEntity(ent)
-	if not ValidEntity(ent) then
+	if not IsValid(ent) then
 		return
 	end
 	
@@ -558,7 +562,7 @@ function GM:ModelToEntity(ent)
 
 	--Recreate entity
 	timer.Simple(1, function()
-		if ValidEntity(ent) then
+		if IsValid(ent) then
 			local newEnt = ents.Create(mEnt)
 			newEnt:SetPos(ent:GetPos())
 			newEnt:SetAngles(ent:GetAngles())
@@ -592,7 +596,7 @@ function GM:LastHuman()
 	
 	--Get the last human
 	local LastHuman = team.GetPlayers(TEAM_HUMAN)[1]
-	if not ValidEntity(LastHuman) then
+	if not IsValid(LastHuman) then
 		return
 	end
 	
@@ -626,7 +630,7 @@ function GM:LastHuman()
 	end
 	-- Strip the old weapon - melee for berserkers, automatic for rest
 	--if Class == 3 then WeaponToStrip = Melee end
-	if ValidEntity ( WeaponToStrip ) and WeaponToStrip:IsWeapon() then
+	if IsValid ( WeaponToStrip ) and WeaponToStrip:IsWeapon() then
 		LastHuman:StripWeapon ( tostring ( WeaponToStrip:GetClass() ) )
 	end
 	
@@ -649,7 +653,7 @@ local function RestrictFlashlight(pl, switch)
 	
 	-- Allow flashlight if the weapon is not melee
 	local Weapon = pl:GetActiveWeapon()
-	--if ValidEntity ( Weapon ) then if Weapon:GetType() == "melee" and pl:GetHumanClass() ~= 3 then return false end	end
+	--if IsValid ( Weapon ) then if Weapon:GetType() == "melee" and pl:GetHumanClass() ~= 3 then return false end	end
 
 	return pl:Alive() and pl:Team() == TEAM_HUMAN
 end
@@ -794,7 +798,7 @@ end
 
 --Spawn hats for players
 function GM:SpawnHat(pl, hattype)
-	if not ValidEntity ( pl ) then
+	if not IsValid ( pl ) then
 		return
 	end
 	if not pl:IsPlayer() then
@@ -838,7 +842,7 @@ function GM:SpawnHat(pl, hattype)
 	-- There isn't a hat with that name in the table
 	if not IsHatValid then return end
 
-	if not ValidEntity( pl.Hat ) and pl:Alive() then
+	if not IsValid( pl.Hat ) and pl:Alive() then
 		pl.Hat = ents.Create("sent_hat_new")
 		pl.Hat:SetOwner(pl)
 		pl.Hat:SetParent(pl)
@@ -871,7 +875,7 @@ hook.Add( "PlayerShouldTaunt", "Disable_Acts", function(pl)
 end)
 
 function GM:SpawnSuit( pl, hattype )
-	if not ValidEntity ( pl ) or not pl:IsPlayer() then
+	if not IsValid ( pl ) or not pl:IsPlayer() then
 		return
 	end
 
@@ -892,10 +896,10 @@ function GM:SpawnSuit( pl, hattype )
 	
 	local itemID = util.GetItemID(hattype )
 	
-	--[==[if suits[hattype] and (not ValidEntity(pl.Suit) or pl.Suit:GetHatType() ~= hattype) and pl:Team() == TEAM_HUMAN 
+	--[==[if suits[hattype] and (not IsValid(pl.Suit) or pl.Suit:GetHatType() ~= hattype) and pl:Team() == TEAM_HUMAN 
 	and pl:GetItemsDataTable()[itemID] and (not shopData[itemID].AdminOnly or pl:IsAdmin()) then]==]
 	
-		if not ValidEntity( pl.Suit ) and pl:Alive() then
+		if not IsValid( pl.Suit ) and pl:Alive() then
 			pl.Suit = ents.Create("suit_new")
 			pl.Suit:SetOwner(pl)
 			pl.Suit:SetParent(pl)
@@ -910,14 +914,14 @@ function GM:SpawnSuit( pl, hattype )
 end
 
 function GM:DropSuit(pl)
-	if ValidEntity(pl.Suit) and pl.Suit.IsSuit then
+	if IsValid(pl.Suit) and pl.Suit.IsSuit then
 		pl.Suit:Remove()
 		pl.Suit = nil
 	end
 end
 
 function GM:DropHat(pl)
-	if ValidEntity(pl.Hat) and not pl.Hat.IsSuit then
+	if IsValid(pl.Hat) and not pl.Hat.IsSuit then
 		pl.Hat:Remove()
 		pl.Hat = nil
 	end
@@ -927,7 +931,7 @@ HatCounter = 0
 
 --[==[
 function GM:DropHat(pl)
-	if ValidEntity(pl.Hat) and not pl.Hat.IsSuit and pl.Hat:GetModel() then
+	if IsValid(pl.Hat) and not pl.Hat.IsSuit and pl.Hat:GetModel() then
 		local boneindex = pl:LookupBone("ValveBiped.Bip01_Head1")
 		if boneindex and HatCounter < 10 then -- hatcounter is protection against hat drop spamming
 			local pos, ang = pl:GetBonePosition(boneindex)
@@ -945,7 +949,7 @@ function GM:DropHat(pl)
 				HatCounter = HatCounter + 1
 				
 				local phys = exhat:GetPhysicsObject()
-				if ValidEntity(phys) then
+				if IsValid(phys) then
 					phys:SetMass(1)
 					phys:ApplyForceCenter( pl:GetVelocity()+Vector(0,0,math.random(200,300)) )
 					phys:ApplyForceOffset( Vector(0,0,-math.random(20,50)), exhat:GetPos()+Vector(0,0,10) )
@@ -955,12 +959,12 @@ function GM:DropHat(pl)
 				
 				exhat:SetHealth ( 9999 )
 				
-				if not ValidEntity(phys) then
+				if not IsValid(phys) then
 					exhat:Remove()
 				end
 				
 				timer.Simple(10,function( ent ) 
-					if ValidEntity(ent) then
+					if IsValid(ent) then
 						ent:Remove() 
 					end
 					HatCounter = HatCounter - 1
@@ -1626,7 +1630,7 @@ hook.Add ( "InitPostEntity","InitDoorSpam",InitDoorSpam )
        Prevent door spam - Available for both teams
 ----------------------------------------------------------]=]
 local function PreventDoorSpam ( pl, ent )
-	if not ValidEntity ( ent ) then return end
+	if not IsValid ( ent ) then return end
 	
 	-- Only for prop_door_rotating
 	local Class = ent:GetClass()
