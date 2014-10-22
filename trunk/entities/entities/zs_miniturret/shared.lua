@@ -33,7 +33,6 @@ end
 if SERVER then
 
 function ENT:Initialize()
-	
 	self:SetModel(model)
 	
 	self:PhysicsInit(SOLID_VPHYSICS )
@@ -57,11 +56,11 @@ function ENT:Initialize()
 	self.LastShootTime = 0
 	
 	
-			if self:GetTurretOwner():GetPerk("_turretoverdrive") then --Combined the turret perks into one perk as requested by the community.
-			self.MaxBullets = math.Round(self.MaxBullets*1.5)
-			self.MaxHealth = math.Round(self.MaxHealth*1.5)
-			self.Damage = math.Round(self.Damage*1.5)
-			end
+	if self:GetOwner():GetPerk("_turretoverdrive") then --Combined the turret perks into one perk as requested by the community.
+		self.MaxBullets = math.Round(self.MaxBullets*1.5)
+		self.MaxHealth = math.Round(self.MaxHealth*1.5)
+		self.Damage = math.Round(self.Damage*1.5)
+	end
 	
 	--if self:GetOwner():GetPerk("_turretammo") then
 	--	self.MaxBullets = math.Round(self.MaxBullets*1.5)
