@@ -68,7 +68,7 @@ local GameHints = {
 	"As a Survivor, you have limited weapon slots. Press F3 to drop a weapon.",
 	"If you are injured, call a Medic or search for health vials in the map.",
 	"After redeeming, humans are protected for a short amount of time from all damage.",
-	"You can nail objects using the nailing hammer (nail-gun).",
+	"You can nail objects using the nailing hammer.",
 	"As a Medic, you can heal yourself by holding RIGHT-MOUSE button.",
 	"Press F1 for further game instructions.",
 	"When Survivors are camping, use the Poison Headcrab to take them out.",
@@ -153,26 +153,25 @@ function Intermission(nextmap, winner, timeleft)
 	   
 	--Play the team specific.sounds
 	timer.Simple(0.2, function()
-		--[[if MySelf:Team() == TEAM_HUMAN then
-			surface.PlaySound(Sound("mrgreen/music/gamestart1.mp3"))
-		else]]
+		if MySelf:Team() == TEAM_HUMAN then
 			surface.PlaySound(Sound("mrgreen/music/intermission.mp3"))
-		--end
+		else
+			surface.PlaySound(Sound("mrgreen/music/intermission_undead.mp3"))
+		end
 	end)
 	   
 	--Enable mouse
 	gui.EnableScreenClicker(true)
 	   
 	---Winner managment and team score
-	local congratulations, WinText = "You've failed surviving ...","The round was a withdraw."
+	local congratulations, WinText = "You've failed surviving","The round was a withdraw"
  	if winner == TEAM_HUMAN then
-		WinText = "Survivors win the round!"
+		WinText = "The Humans survived!"
 		if MySelf:Team() == TEAM_HUMAN then
 			congratulations = "We're safe ... for now!"
 		end
 	elseif winner == TEAM_UNDEAD then
-		congratulations = "We've failed surviving ..."
-		WinText = "The Undead rule the world!"
+		WinText = "The Undead rule the world"
 	end
 	   
 	--Create the votemap panel
@@ -268,12 +267,14 @@ function Intermission(nextmap, winner, timeleft)
 			draw.RoundedBox(8, panelx - (bounds / 2), panely - (bounds / 2), VoteMapPanel:GetWide() + bounds, VoteMapPanel:GetTall() + bounds, Color(123,24,24,255 * math.abs ( math.sin ( CurTime() * 2.3 ) ) ) )         
 		end
 			   
-		--Draw some blood on the screen
-		--[[surface.SetDrawColor(Color(150,30,30,255))
-		surface.SetTexture(RandomBlood1)
-		surface.DrawTexturedRect(0, 0, w, h)
-		surface.SetTexture(RandomBlood2)
-		surface.DrawTexturedRect(0, 0, w, h)]]
+		--Draw some blood on the screen when being an Undead
+		if MySelf:Team() == TEAM_UNDEAD then
+			surface.SetDrawColor(Color(150,30,30,255))
+			surface.SetTexture(RandomBlood1)
+			surface.DrawTexturedRect(0, 0, w, h)
+			--[[surface.SetTexture(RandomBlood2)
+			surface.DrawTexturedRect(0, 0, w, h)]]
+		end
 
 
 		--Next, prev buttons for hints
