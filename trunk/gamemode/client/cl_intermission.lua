@@ -1,15 +1,15 @@
 --Endgame scoreboard (Don't steal this from Cache, make your own >:P)
 
 --Colors
-local COLOR_SUBTITLE = Color ( 146,146,146,255 )
-local COLOR_TITLE = Color ( 255,245,245,255 )
-local COLOR_GREY_ONE = Color ( 99,99,99,255 )
-local COLOR_DARK_GREY = Color ( 35,35,35,255 )
-local COLOR_BLUE = Color ( 139,183,220,255 )
-local COLOR_LIGHT_GREY = Color ( 62,62,62,255 )
-local COLOR_LIGHT_RED = Color ( 116,26,26,255 )
-local COLOR_DARK_GREY_BUTTON = Color ( 12,72,122,255 )
-local COLOR_DARK_RED = Color ( 123,24,24,255 )
+local COLOR_SUBTITLE = Color(146,146,146,255 )
+local COLOR_TITLE = Color(255,245,245,255 )
+local COLOR_GREY_ONE = Color(99,99,99,255 )
+local COLOR_DARK_GREY = Color(35,35,35,255 )
+local COLOR_BLUE = Color(139,183,220,255 )
+local COLOR_LIGHT_GREY = Color(62,62,62,255 )
+local COLOR_LIGHT_RED = Color(116,26,26,255 )
+local COLOR_DARK_GREY_BUTTON = Color(12,72,122,255 )
+local COLOR_DARK_RED = Color(123,24,24,255 )
 
 --Do not change this. From one to 15 are the changable button colors
 IntermissionColorLabels = {}
@@ -121,46 +121,6 @@ function ScalePanel(nr)
 end
  
 --[[---------------------------------------------------------
-	--   Blur function taken from utils
----------------------------------------------------------]]
-local matBlurScreen = Material( "pp/blurscreen" )
-function DrawBlur(starttime, amount)
-	if starttime == 0 and amount == 0 then
-		return
-	end
- 
-	local Fraction = 1
-		 
-	if starttime then
-		Fraction = math.Clamp( (SysTime() - starttime) / 1, 0, 1 )
-	end
-	   
-	if amount then
-		Fraction = amount
-	end
-		 
-	x, y = 0, 0
-		 
-	DisableClipping(true)
-				   
-	surface.SetMaterial(matBlurScreen)
-	surface.SetDrawColor(Color(255, 255, 255, 255))
-								   
-	for i=0.33, 1, 0.33 do
-		matBlurScreen:SetMaterialFloat("$blur", Fraction * 5 * i)
-		if render then
-			render.UpdateScreenEffectTexture()
-		end
-		surface.DrawTexturedRect(x * -1, y * -1, ScrW(), ScrH())
-	end
-				   
-	surface.SetDrawColor(Color(10, 10, 10, 200 * Fraction))
-	surface.DrawRect(x * -1, y * -1, ScrW(), ScrH())
-				   
-	DisableClipping(false)
-end
- 
---[[---------------------------------------------------------
 		   Main Intermission Funciton
 ---------------------------------------------------------]]
  
@@ -173,6 +133,7 @@ timer.Simple(0.1, function()
 	MySelf.VotedMapSlot = nil
 end)
  
+local BlurStartTime = 0
 function Intermission(nextmap, winner, timeleft)
 	if ENDROUND then
 		return
@@ -180,6 +141,8 @@ function Intermission(nextmap, winner, timeleft)
  
 	ENDROUND = true
 	ENDTIME = CurTime()
+
+	BlurStartTime = SysTime()
 		
 	hook.Remove("RenderScreenspaceEffects", "PostProcess")
 		
@@ -271,6 +234,8 @@ function Intermission(nextmap, winner, timeleft)
 	local RandomBlood2 = bloodSplats[math.random(3,5)]
 
 	function GAMEMODE:HUDPaintBackground()
+		DrawBlur(BlurStartTime)
+
 		local TimeToChange = math.Clamp(math.Round(ENDTIME + timeleft - CurTime()), 0, 9999)
 		local HeaderText = "Travelling in ".. TimeToChange .." seconds"
 			   
@@ -300,15 +265,15 @@ function Intermission(nextmap, winner, timeleft)
 		if not MySelf.HasVotedMap and not MySelf.HideVoteMapFlash then
 			local panelx, panely = VoteMapPanel:GetPos()
 			local bounds = ScaleW(18)
-			draw.RoundedBox(8, panelx - (bounds / 2), panely - (bounds / 2), VoteMapPanel:GetWide() + bounds, VoteMapPanel:GetTall() + bounds, Color ( 123,24,24,255 * math.abs ( math.sin ( CurTime() * 2.3 ) ) ) )         
+			draw.RoundedBox(8, panelx - (bounds / 2), panely - (bounds / 2), VoteMapPanel:GetWide() + bounds, VoteMapPanel:GetTall() + bounds, Color(123,24,24,255 * math.abs ( math.sin ( CurTime() * 2.3 ) ) ) )         
 		end
 			   
 		--Draw some blood on the screen
-		surface.SetDrawColor(Color(150,30,30,255))
+		--[[surface.SetDrawColor(Color(150,30,30,255))
 		surface.SetTexture(RandomBlood1)
 		surface.DrawTexturedRect(0, 0, w, h)
 		surface.SetTexture(RandomBlood2)
-		surface.DrawTexturedRect(0, 0, w, h)
+		surface.DrawTexturedRect(0, 0, w, h)]]
 
 
 		--Next, prev buttons for hints
@@ -319,14 +284,14 @@ function Intermission(nextmap, winner, timeleft)
 			   
 		if SCREEN then
 			--??
-			surface.SetDrawColor(35, 35, 35, 255)
+			--[[surface.SetDrawColor(35, 35, 35, 255)
 			surface.DrawRect(0, 0, ScaleW(1280), ScaleH(148)) --Bara grii de sus, aia mare
-			surface.DrawRect(0,ScaleH(878), ScaleW(1280), ScaleH(148)) --bara grii de jos, aia mare
+			surface.DrawRect(0,ScaleH(878), ScaleW(1280), ScaleH(148)) --bara grii de jos, aia mare]]
 				  
 			--??
-			surface.SetDrawColor(62, 62, 62, 255)
+			--[[surface.SetDrawColor(62, 62, 62, 255)
 			surface.DrawRect(0, ScaleH(141), ScaleW(1280), ScaleH(7))
-			surface.DrawRect(0, ScaleH(878), ScaleW(1280), ScaleH(7))
+			surface.DrawRect(0, ScaleH(878), ScaleW(1280), ScaleH(7))]]
 				   
 			--The timer picture in the upper left corner
 			surface.SetDrawColor(Color(255,255,255,255))
@@ -348,9 +313,9 @@ function Intermission(nextmap, winner, timeleft)
 			draw.SimpleText(GameHintText,"ArialTwelve", ScrW() * 0.5,ScaleH(982), COLOR_GREY_ONE, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)
 		elseif WIDESCREEN then
 			--??
-			surface.SetDrawColor(Color(35,35,35,255))
+			--[[surface.SetDrawColor(Color(35,35,35,255))
 			surface.DrawRect ( 0,0,ScaleW(1280),ScaleW(124) ) --Bara grii de sus, aia mare
-			surface.DrawRect ( 0,ScaleH(866), ScaleW(1280), ScaleW(124) ) --bara grii de jos, aia mare
+			surface.DrawRect ( 0,ScaleH(866), ScaleW(1280), ScaleW(124) ) --bara grii de jos, aia mare]]
 					   
 			--The timer picture in the upper left corner
 			surface.SetDrawColor(Color(255,255,255,255))
@@ -365,9 +330,9 @@ function Intermission(nextmap, winner, timeleft)
 			draw.SimpleText(">","ArialBoldTwelv",ScrW() * 0.5 + ( hintwide / 2 ) + ScaleW(dist) ,ScaleH(978), IntermissionColorLabels[15],TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)
 			draw.SimpleText("<","ArialBoldTwelv",ScrW() * 0.5 - ( hintwide / 2 ) - ScaleW(dist) ,ScaleH(978), IntermissionColorLabels[16],TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)
 					   
-			surface.SetDrawColor( 62,62,62,255 )
+			--[[surface.SetDrawColor( 62,62,62,255 )
 			surface.DrawRect( 0, ScaleW(124 - 5), ScaleW(1280), ScaleH(7) ) --Bara aia subtire de sus
-			surface.DrawRect( 0, ScaleH(866), ScaleW(1280), ScaleH(7) ) --Bara subtire de jos
+			surface.DrawRect( 0, ScaleH(866), ScaleW(1280), ScaleH(7) ) --Bara subtire de jos]]
 			   
 			--draw.SimpleText("Waiting","ArialBoldTwenty", ScaleW(1022),ScaleH(75), COLOR_SUBTITLE, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)
 			draw.SimpleText(congratulations,"ArialTwentyTwo", ScaleW(136),ScaleH(54), COLOR_TITLE, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)

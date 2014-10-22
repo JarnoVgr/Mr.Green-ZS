@@ -12,7 +12,7 @@ local COLOR_DARK_RED = Color ( 123,24,24,255 )
 local VoteMapPanel
 
 hook.Add( "StartChat", "VoteMapStartChat", function()
-	if not ENDROUND then
+	if not ENDROUND or not MySelf then
 		return
 	end
 
@@ -23,7 +23,7 @@ end)
 
 
 hook.Add( "FinishChat", "VoteMapFinishChat", function()
-	if not ENDROUND then
+	if not ENDROUND or not MySelf then
 		return
 	end
 

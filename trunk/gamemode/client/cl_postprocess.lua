@@ -387,19 +387,19 @@ end
     Blur function taken from utils
 ---------------------------------------------------------]==]
 local matBlurScreen = Material( "pp/blurscreen" )
-
-function DrawBlur ( starttime, amount )
-    if starttime == 0 and amount == 0 then return end
+function DrawBlur(starttime, amount)
+    if starttime == 0 and amount == 0 then
+		return
+	end
  
     local Fraction = 1
-     
-    if ( starttime ) then
-        Fraction = math.Clamp( (SysTime() - starttime) / 1, 0, 1 )
-    end
     
-    if ( amount ) then  
+	if amount then  
         Fraction = amount
-    end
+    elseif starttime then
+        Fraction = math.Clamp((SysTime() - starttime) / 2, 0, 1)
+	end
+    
      
     x,y = 0,0
      
@@ -414,7 +414,7 @@ function DrawBlur ( starttime, amount )
         surface.DrawTexturedRect( x * -1, y * -1, ScrW(), ScrH() )
     end
            
-    surface.SetDrawColor( 10, 10, 10, 200 * Fraction )
+    surface.SetDrawColor( 10, 10, 10, 105 * Fraction )
     surface.DrawRect( x * -1, y * -1, ScrW(), ScrH() )
            
     DisableClipping( false )
