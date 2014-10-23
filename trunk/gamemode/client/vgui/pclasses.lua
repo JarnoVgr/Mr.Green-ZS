@@ -59,14 +59,10 @@ ZOMBIE_CLASSES = false
 ---------------------------------------------------------]=]
 function InitMenuFonts()
 	-- Bold Arials
-	surface.CreateFont("Arial", ScreenScale(16.4), 700, true, false, "ArialBoldThirty")
-	surface.CreateFont("Arial", ScreenScale(15), 700, true, false, "ZombieNameB")
-	surface.CreateFont("Arial", ScreenScale(11), 700, true, false, "ZombieDescription")
-	surface.CreateFont("Arial", ScreenScale(10), 600, true, false, "ZombieDescriptionGameplay")
-
-	-- Normal Arials
-	surface.CreateFont("Arial", ScreenScale(12.8), 500, true, false, "ArialTwelveNormal")
-	surface.CreateFont("Arial", ScreenScale(13.8), 500, true, false, "ClassDialog")
+	surface.CreateFontLegacy("Arial", ScreenScale(16.4), 700, true, false, "ArialBoldThirty")
+	surface.CreateFontLegacy("Arial", ScreenScale(15), 700, true, false, "ZombieNameB")
+	surface.CreateFontLegacy("Arial", ScreenScale(11), 700, true, false, "ZombieDescription")
+	surface.CreateFontLegacy("Arial", ScreenScale(10), 600, true, false, "ZombieDescriptionGameplay")
 end
 hook.Add("Initialize", "Fonts", InitMenuFonts)
 
@@ -124,7 +120,7 @@ function DrawClassMenu()
 	
 	-- Uperbox Text
 	draw.SimpleText("UNDEAD CLASSES","ArialBoldThirty", ScaleW(168),ScaleH(110), Colors.White, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
-	draw.SimpleText(zClasses.Title,"ArialTwelveNormal", ScaleW(168),ScaleH(149), Colors.Grey, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
+	draw.SimpleText(zClasses.Title,"ArialTwelve", ScaleW(168),ScaleH(149), Colors.Grey, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
 	
 	--Draw hovered classes
 	local posY = ScaleH(329)
@@ -214,7 +210,7 @@ function OnClassesMenuOpen()
 			zDialog[i].strText = "Respawn"
 		end
 
-		surface.SetFont("ClassDialog")
+		surface.SetFont("ArialFourteen")
 		local iTextWide, iTextTall = surface.GetTextSize(zDialog[i].strText)
 		zDialog[i]:SetSize(iTextWide, iTextTall)
 		zDialog[i]:SetPos(ScaleW(240 + iOffset) - (iTextWide * 0.5), ScaleH(900) - (iTextTall * 0.5))
@@ -274,7 +270,7 @@ function OnClassesMenuOpen()
 				end
 			end
 			
-			draw.SimpleText(zDialog[i].strText,"ClassDialog", Wide * 0.5,Tall * 0.5, DialogColors[i], TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)
+			draw.SimpleText(zDialog[i].strText,"ArialFourteen", Wide * 0.5,Tall * 0.5, DialogColors[i], TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)
 		end
 		
 		zDialog[i].OnMousePressed = function()

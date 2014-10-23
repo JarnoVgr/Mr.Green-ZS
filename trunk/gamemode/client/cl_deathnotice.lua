@@ -1,10 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
--- killicons
-surface.CreateFont("csd", ScreenScale(30), 500, true, true, "CSKillIcons")
-surface.CreateFont("csd", ScreenScale(60), 500, true, true, "CSSelectIcons")
-
 local hud_deathnotice_time = CreateConVar("hud_deathnotice_time", "6", FCVAR_REPLICATED)
 
 local Color_Icon = Color(255, 255, 255, 255) 

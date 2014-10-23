@@ -24,14 +24,7 @@ end)
 
 -- gm13 workaround
 --TODO: Move to own utils lib
-surface.OldCreateFont = surface.CreateFont
-function surface.CreateFont(arg1,arg2,arg3,arg4,arg5,arg6)
-	--Call new style if there are only 2 arguments
-	if arg3 == nil then
-		surface.OldCreateFont(arg1,arg2)
-		return
-	end
-
+function surface.CreateFontLegacy(arg1,arg2,arg3,arg4,arg5,arg6)
 	local name = arg6-- [6]-- or "None"
 	local fontdata = {
 		font = arg1,-- [1],-- or "Arial",
@@ -39,8 +32,8 @@ function surface.CreateFont(arg1,arg2,arg3,arg4,arg5,arg6)
 		weight = arg3,-- [3],-- or 500,
 		antialias = arg4,-- [4],-- or false, 
 		additive = arg5,-- [5],-- or true,
-		}
-	surface.OldCreateFont(name,fontdata)
+	}
+	surface.CreateFont(name,fontdata)
 end
 
 w, h = ScrW(), ScrH()
@@ -76,6 +69,7 @@ include("client/vgui/pweapons.lua")
 include("client/vgui/pclassinfo.lua")
 include("client/vgui/pskillshop.lua")
 include("client/vgui/pmapmanager.lua")
+include("client/vgui/dpingmeter.lua")
 include("client/cl_dermaskin.lua")
 include("client/vgui/phclasses.lua")
 include("greencoins/cl_greencoins.lua")
@@ -459,93 +453,53 @@ function GM:Initialize()
 	self.ShowScoreboard = false
 
 	--Initialize fonts
-	surface.CreateFont("akbar", 42, 500, true, false, "ScoreboardHead") --anthem
-	surface.CreateFont("akbar", 24, 500, true, false, "ScoreboardSub") --anthem
-	surface.CreateFont("Tahoma", 16, 1000, true, false, "ScoreboardText")
-
-	surface.CreateFont("csd", 42, 500, true, true, "Signs")
-
-	surface.CreateFont("akbar", ScreenScale(20), 250, true, true, "HUDFontTiny")
-	surface.CreateFont("akbar", 22, 400, false, true, "HUDFontSmaller")
-	surface.CreateFont("akbar", 28, 400, false, true, "HUDFontSmall") --anthem
-	surface.CreateFont("akbar", 42, 400, false, true, "HUDFont")
-	surface.CreateFont("akbar", 72, 400, false, true, "HUDFontBig")
-	surface.CreateFont("akbar", 20, 250, true, true, "HUDFontTinyAA")
-	surface.CreateFont("akbar", 28, 400, true, true, "HUDFontSmallAA")
-	surface.CreateFont("akbar", 42, 400, true, true, "HUDFontAA")
-	surface.CreateFont("akbar", 72, 400, true, true, "HUDFontBigAA")
-
-	surface.CreateFont("akbar", 20, 250, true, true, "HUDFontTiny2")
-	surface.CreateFont("akbar", 22, 500, true, true, "HUDFontSmaller2")
-	surface.CreateFont("akbar", 28, 500, true, true, "HUDFontSmall2")
-	surface.CreateFont("akbar", 42, 500, true, true, "HUDFont2")
-	surface.CreateFont("akbar", 72, 500, true, true, "HUDFontBig2")
+	surface.CreateFontLegacy("csd", 42, 500, true, true, "Signs")
 	
-	surface.CreateFont("akbar", 64, 500, true, true, "FUDAmmoBig")
+	surface.CreateFontLegacy("csd", ScreenScale(30), 500, true, true, "CSKillIcons") --Killicons 1 (cl_deathnotice)
+	surface.CreateFontLegacy("csd", ScreenScale(60), 500, true, true, "CSSelectIcons") --Killicons 2 (cl_deathnotice)
 
-	surface.CreateFont("akbar", ScreenScale(9), 500, true, true, "SSAKBAR")
-	surface.CreateFont("Future Rot", ScreenScale(11), 500, true, false, "L4DTIMER")
-	surface.CreateFont("Future Rot",ScreenScale(9), 500, true, false, "L4DDIFF")
-	surface.CreateFont("Future Rot", ScreenScale(15), 500, true, false, "L4DNUM")
-	surface.CreateFont("Future Rot", ScreenScale(8), 500, true, false, "BRAINS")
-	surface.CreateFont("Cooper Std Black", ScreenScale(13), 500, true, false, "AMMO")
-	surface.CreateFont("Future Rot", ScreenScale(6), 500, true, false, "GC")
-	surface.CreateFont("Future Rot", ScreenScale(8), 500, true, false, "FRAGS")
-	surface.CreateFont("Future Rot", ScreenScale(9), 500, true, false, "NINE")
+	surface.CreateFontLegacy("akbar", ScreenScale(20), 250, true, true, "HUDFontTiny") --MrGreenGaming.com intro
+	surface.CreateFontLegacy("akbar", 22, 400, false, true, "HUDFontSmaller") --Achievement 1
+	surface.CreateFontLegacy("akbar", 28, 400, false, true, "HUDFontSmall") --Achievement 2
+	surface.CreateFontLegacy("akbar", 28, 400, true, true, "HUDFontSmallAA")
 	
-	surface.CreateFont("Arial", ScreenScale(5), 700, true, false, "ArialBoldFour")
-	surface.CreateFont("Arial", ScreenScale(6), 700, true, false, "ArialBold4.5")
-	surface.CreateFont("Arial", ScreenScale(7), 700, true, false, "ArialBoldFive")	
-	surface.CreateFont("Arial", ScreenScale(9), 700, true, false, "ArialBoldSeven")	
-	surface.CreateFont("Arial", ScreenScale(18), 500, true, false, "ArialThirteen")
-	surface.CreateFont("Arial", ScreenScale(12), 700, true, false, "ArialBoldTwelve")
-	surface.CreateFont("Arial", ScreenScale(10), 700, true, false, "ArialBoldTen")
-	surface.CreateFont("Arial", ScreenScale(16), 500, true, false, "ArialFifteen")
-	surface.CreateFont("Arial", ScreenScale(15), 700, true, false, "ArialBoldFifteen")
-	surface.CreateFont("Arial", ScreenScale(20), 700, true, false, "ArialBoldTwenty")
-	
-	surface.CreateFont("Arial", ScreenScale(25), 700, true, false, "ArialBold_25")	
-	surface.CreateFont("Arial", ScreenScale(30), 700, true, false, "ArialBold_30")	
-	surface.CreateFont("Arial", ScreenScale(40), 700, true, false, "ArialBold_40")	
-	surface.CreateFont("Arial", ScreenScale(50), 700, true, false, "ArialBold_50")	
-	
-	surface.CreateFont("Future Rot", ScreenScale(7), 500, true, false, "SEVEN")
-	surface.CreateFont("Cooper Std Black", ScreenScale(7), 500, true, false, "CPRSEVEN")
-	surface.CreateFont("Cooper Std Black", ScreenScale(8), 500, true, false, "CPREIGHT")
+	--Used in some SWEPs
+	surface.CreateFontLegacy( "HL2MP", ScreenScale( 30 ), 500, true, true, "HL2KillIcons" )
+	surface.CreateFontLegacy( "HL2MP", ScreenScale( 60 ), 500, true, true, "HL2SelectIcons" )
 
-	surface.CreateFont("Cooper Std Black", ScreenScale(12), 500, true, false, "L4D_HP")
-	surface.CreateFont("anthem", 32, 500, true, false, "L4DUP")
 	
-	surface.CreateFont("akbar", ScreenScale(18), 250, true, true, "TARGETNAME")
-	surface.CreateFont("akbar", ScreenScale(12), 500, true, true, "TARGETCLASS")
-	surface.CreateFont("akbar", ScreenScale(12), 500, true, true, "TARGETHP")
+	surface.CreateFontLegacy("Arial", ScreenScale(5), 700, true, false, "ArialBoldFour")
+	surface.CreateFontLegacy("Arial", ScreenScale(7), 700, true, false, "ArialBoldFive")
+	surface.CreateFontLegacy("Arial", ScreenScale(9), 700, true, false, "ArialBoldSeven")
+	surface.CreateFontLegacy("Arial", ScreenScale(10), 700, true, false, "ArialBoldTen")
+	surface.CreateFontLegacy("Arial", ScreenScale(12), 700, true, false, "ArialBoldTwelve")
+	surface.CreateFontLegacy("Arial", ScreenScale(12), 500, true, false, "ArialTwelve")
+	surface.CreateFontLegacy("Arial", ScreenScale(14), 500, true, false, "ArialFourteen")
+	surface.CreateFontLegacy("Arial", ScreenScale(16), 500, true, false, "ArialFifteen")
+	surface.CreateFontLegacy("Arial", ScreenScale(15), 700, true, false, "ArialBoldFifteen")
+	surface.CreateFontLegacy("Arial", ScreenScale(20), 700, true, false, "ArialBoldTwenty")
 
 	--SkillPoints fonts
-	surface.CreateFont("CorpusCare", ScreenScale(6), 700, true, false, "CorpusCareFive")
-	surface.CreateFont("CorpusCare", ScreenScale(7), 700, true, false, "CorpusCareSeven")
-	surface.CreateFont("CorpusCare", ScreenScale(10), 700, true, false, "CorpusCareTen")
-	surface.CreateFont("CorpusCare", ScreenScale(13), 700, true, false, "CorpusCareThirteen")
-	surface.CreateFont("CorpusCare", ScreenScale(16), 500, true, false, "CorpusCareFifteen")
-
-	--Notifications used by split message
-	surface.CreateFont( "anthem", ScreenScale(19), 500, true, false, "Notifications" )
-
-	--Force normal gamma
-	if FORCE_NORMAL_GAMMA then
-		RunConsoleCommand("mat_monitorgamma", "1.7")
-		timer.Create("GammaChecker", 3, 0, function()
-			RunConsoleCommand("mat_monitorgamma", "1.7")
-		end)
-	end
+	surface.CreateFontLegacy("CorpusCare", ScreenScale(6), 700, true, false, "CorpusCareFive")
+	surface.CreateFontLegacy("CorpusCare", ScreenScale(7), 700, true, false, "CorpusCareSeven")
+	surface.CreateFontLegacy("CorpusCare", ScreenScale(10), 700, true, false, "CorpusCareTen")
+	surface.CreateFontLegacy("CorpusCare", ScreenScale(13), 700, true, false, "CorpusCareThirteen")
+	surface.CreateFontLegacy("CorpusCare", ScreenScale(16), 500, true, false, "CorpusCareFifteen")
 	
+	surface.CreateFontLegacy("ZS New", ScreenScale(19), 500, true, false, "ZSKillicons")
+
+	-- Default, DefaultBold, DefaultSmall, etc. were changed when gmod13 hit. These are renamed fonts that have the old values.
+	--surface.CreateFont("DefaultFontVerySmall", {font = "tahoma", size = 10, weight = 0, antialias = false})
+	surface.CreateFont("DefaultFontSmall", {font = "tahoma", size = 11, weight = 0, antialias = false})
+	--[[surface.CreateFont("DefaultFontSmallDropShadow", {font = "tahoma", size = 11, weight = 0, shadow = true, antialias = false})
+	surface.CreateFont("DefaultFont", {font = "tahoma", size = 13, weight = 500, antialias = false})
+	surface.CreateFont("DefaultFontBold", {font = "tahoma", size = 13, weight = 1000, antialias = false})
+	surface.CreateFont("DefaultFontLarge", {font = "tahoma", size = 16, weight = 0, antialias = false})]]
+
 	--Sync server setting
 	timer.Simple(4, function()
 		RunConsoleCommand("zs_setautoredeem", tostring(GetConVarNumber("_zs_autoredeem")))
 	end)
-	
-	--Force fast switch and some network vars
-	--RunConsoleCommand("hud_fastswitch", "1")
-	--RunConsoleCommand("mat_motion_blur_enabled", "1")
 end
 
 function HTTPChangelog(contents, size)
@@ -850,7 +804,7 @@ usermessage.Hook("SendMaximumHealth", SendMaximumHealth)
 
 -- Fonts
 local function InitializeFonts()
-	surface.CreateFont("Arial", ScreenScale(10), 500, true, false, "ProtectionTitle" )
+	surface.CreateFontLegacy("Arial", ScreenScale(10), 500, true, false, "ProtectionTitle" )
 end
 hook.Add("Initialize", "InitializeSpawnProtectionFonts", InitializeFonts)
 
@@ -1212,43 +1166,6 @@ function DrawBackgroundSelect()
 		end
 	end
 end
-
---Coin painting effect
-local amountAdded = 0
-local yAddAdd = 40
-local yAdd = 0
-function PaintCoinEffect()
-	yAdd = yAdd + FrameTime() * yAddAdd
-	yAddAdd = math.max(0, yAddAdd - FrameTime()*35)
-	local str
-	if amountAdded < 0 then
-		str = amountAdded
-	else
-		str = "+"..amountAdded
-	end
-	
-	draw.DrawText(str, "SSAKBAR", w*0.097, h*0.250-yAdd, Color(30,94,27,255), TEXT_ALIGN_CENTER) 
-end
-
-function KillCoinPaint()
-	amountAdded = 0
-	hook.Remove("HUDPaint","PaintCoinEffect")
-end
-
--- Disable this for a while
-local cnt = 1
-local function CoinEffect(um)
-	--[=[yAdd = 0
-	yAddAdd = 40
-	local add = um:ReadShort()
-	if add then
-		amountAdded = amountAdded + add
-		hook.Add("HUDPaint","PaintCoinEffect",PaintCoinEffect)
-		timer.Remove("CoinKillTimer")
-		timer.Create("CoinKillTimer",2,1,KillCoinPaint)
-	end]=]
-end
-usermessage.Hook("CoinEffect", CoinEffect)
 
 ----------------------
 

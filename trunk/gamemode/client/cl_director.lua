@@ -73,19 +73,19 @@ end
 hook.Add("Think", "PredictSpawn", PredictSpawn)
 
 -- Semi-predicted damage function
-function GM:PlayerTakeDamage( pl, attacker, damage )
+function GM:PlayerTakeDamage(pl, attacker, damage)
 end
 
 -- Redeem
-function GM:OnPlayerRedeem( pl )
+function GM:OnPlayerRedeem(pl)
 end
 
 -- Called on first spawn
-function GM:PlayerInitialSpawn( pl )
+function GM:PlayerInitialSpawn(pl)
 end
 
 -- Called on player spawn
-function GM:PlayerSpawn( pl )	
+function GM:PlayerSpawn(pl)	
 	--Play player spawn sound
 	if pl == MySelf then
 		pl:PlaySpawnMusic()

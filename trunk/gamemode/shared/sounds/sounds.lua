@@ -512,7 +512,7 @@ for _, tbl in pairs(Ambience) do
 	end
 end
 
-GameDeathHints = {
+--[[GameDeathHints = {
 	"Use props to kill humans at a longer distance!!",
 	"Stick together as a team to win the game!",
 	"You usually get 3 greencoins for a human kill.",
@@ -529,4 +529,4 @@ GameDeathHints = {
 	"If you are new or confused ask an admin! (Red titles)",
 	"Do you have any idea's or questions? Visit the forums!",
 	"Zombies have the dice as well, try your luck! !rtd",
-}	
+}]]

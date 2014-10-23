@@ -212,26 +212,15 @@ local SLOT_SIZE = {
 }
 
 function InitializeWeaponFonts ()
-	-- Unselected
-	surface.CreateFont("HL2MP", ScreenScale(25), 500, true, false, "WeaponUnselectedHL2") -- 30 and 45
-	surface.CreateFont("csd", ScreenScale(25), 500, true, false, "WeaponUnselectedCSS")
-	surface.CreateFont("ZS New", ScreenScale(25), 500, true, false, "WeaponUnselectedZS")
+	--Unselected
+	surface.CreateFontLegacy("HL2MP", ScreenScale(25), 500, true, false, "WeaponUnselectedHL2") -- 30 and 45
+	surface.CreateFontLegacy("csd", ScreenScale(25), 500, true, false, "WeaponUnselectedCSS")
+	surface.CreateFontLegacy("ZS New", ScreenScale(25), 500, true, false, "WeaponUnselectedZS")
 	
-	-- Selected
-	surface.CreateFont("HL2MP", ScreenScale(35), 500, true, false, "WeaponSelectedHL2")
-	surface.CreateFont("csd", ScreenScale(35), 500, true, false, "WeaponSelectedCSS")
-	surface.CreateFont("ZS New", ScreenScale(35), 500, true, false, "WeaponSelectedZS")
-	
-	-- Ammo count ( unselected )
-	surface.CreateFont("Arial", ScreenScale(11), 700, true, false, "ArialBoldTen")
-	surface.CreateFont("Arial", ScreenScale(9), 700, true, false, "InactiveAmmo")
-	
-	surface.CreateFont("Arial", ScreenScale(6), 700, true, false, "WeaponNames")
-	surface.CreateFont("Arial", ScreenScale(5), 700, true, false, "WeaponNamesTiny")
-	
-	surface.CreateFont("Marlett", ScreenScale(6), 700, true, false, "SysIcons")
-	
-	surface.CreateFont("ZS New", ScreenScale(19), 500, true, false, "ZSKillicons")
+	--Selected
+	surface.CreateFontLegacy("HL2MP", ScreenScale(35), 500, true, false, "WeaponSelectedHL2")
+	surface.CreateFontLegacy("csd", ScreenScale(35), 500, true, false, "WeaponSelectedCSS")
+	surface.CreateFontLegacy("ZS New", ScreenScale(35), 500, true, false, "WeaponSelectedZS")
 end
 hook.Add ( "Initialize", "InitFonts", InitializeWeaponFonts )
 
@@ -354,8 +343,7 @@ function PaintNewWeaponSelection()
 			surface.DrawTexturedRect(SLOT_POS[i].PosX-60, SLOT_POS[i].PosY-400, 340, 175-2, 180)
 
 					
-			-- Font stuff for weapons 
-			local AmmoFont = "ArialBoldTen"
+			-- Font stuff for weapons
 			local font, letter = "WeaponSelectedHL2", "0"
 			local Table = killicon.GetFont( MyWeapons[i]:GetClass() )
 			
@@ -378,7 +366,7 @@ function PaintNewWeaponSelection()
 			end
 
 			local ColorToDraw = Color(255, 255, 255, 255*Alpha)
-			draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "WeaponNames", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0, 0, 0, 255*Alpha))
+			draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "ArialBoldFive", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0, 0, 0, 255*Alpha))
 		end
 	end
 end

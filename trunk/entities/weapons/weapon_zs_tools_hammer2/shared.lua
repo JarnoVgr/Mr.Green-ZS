@@ -458,7 +458,6 @@ if CLIENT then
 		end
 
 		MeleeWeaponDrawHUD()
-		surface.SetFont("ArialBoldTen")
 
 		for _,nail in pairs (ents.FindByClass("nail")) do
 			if not nail or not nail:IsValid() then

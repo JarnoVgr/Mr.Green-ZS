@@ -28,12 +28,6 @@ if CLIENT then
 
         SWEP.IconLetter = "0"
 
-        surface.CreateFont( "HL2MP", ScreenScale( 30 ), 500, true, true, "HL2KillIcons" )
-
-        surface.CreateFont( "HL2MP", ScreenScale( 60 ), 500, true, true, "HL2SelectIcons" )
-
-        
-
         killicon.AddFont( "weapon_zs_minishotty", "HL2MPTypeDeath", SWEP.IconLetter, Color( 255, 255, 255, 255 ) )
 
 end

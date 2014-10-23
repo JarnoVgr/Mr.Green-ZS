@@ -25,9 +25,6 @@ function death.HumanDeath( pl, attacker )
 		MySelf.NextSpawn = ServerTime() + NextSpawn
 	end]]
 	
-	-- Shuffle random notice
-	death.ShuffleRandomNotice()
-	
 	-- Status
 	MySelf.FirstHumanDeath = true
 end
@@ -53,45 +50,26 @@ function death.ZomboDeath( pl, attacker )
 end
 hook.Add ( "DoPlayerDeath", "ZombieSpawnCountdown", death.ZomboDeath )
 
---[==[---------------------------------------------------------------
-               Shuffle our random notice text
---------------------------------------------------------------]==]
-function death.ShuffleRandomNotice()
-	sRandomNotice = "Hint: "..table.Random ( GameDeathHints )
-end
-
 --[==[----------------------------------------------------
           Draws the human death hud
 ----------------------------------------------------]==]
+--local TEX_GRADIENT_TOP = surface.GetTextureID("vgui/gradient-u")
 function death.DeathHumanHUD()
-	if not IsEntityValid ( MySelf ) then return end
-	if not MySelf:IsZombie() or IsClassesMenuOpen() or not MySelf.FirstHumanDeath or MySelf:Alive() then return end
+	if ENDROUND or not IsEntityValid ( MySelf ) then
+		return
+	end
+	if not MySelf:IsZombie() or IsClassesMenuOpen() or not MySelf.FirstHumanDeath or MySelf:Alive() then
+		return
+	end
 	
-	-- Don't draw on endround
-	if ENDROUND then return end
-	
-	-- Initialize the hint
-	----[[
-	if not sRandomNotice then sRandomNotice = "Hint: "..table.Random ( GameDeathHints ) end
-	
-	surface.SetFont("ArialBoldFifteen")
-	local textw, texth = surface.GetTextSize( sRandomNotice )
+	--local textw, texth = surface.GetTextSize( sRandomNotice )
 	
 	-- Draw the black boxes
 	surface.SetDrawColor(0,0,0,210)
-	surface.DrawRect(0,0, ScaleW(1280), ScaleH(162))
-	surface.DrawRect(0,ScaleH(864), ScaleW(1280), ScaleH(160))
-	
-	-- Draw the info material
-	surface.SetDrawColor (255,255,255,255)
-	surface.SetTexture( matInfo )
-	surface.DrawTexturedRectRotated(ScaleW(691 - 48) - ( textw / 2 ), ScaleH(941),ScaleW(64), ScaleW(64),0)
+	--surface.SetTexture(TEX_GRADIENT_TOP)
+	surface.DrawRect(0,0, ScaleW(1280), ScaleH(162)) --ScaleH(162)
 
-	--Draw hint
-	draw.DrawText( sRandomNotice, "ArialBoldFifteen", ScaleW(641 + 50), ScaleH(926), Color (255,255,255,255), TEXT_ALIGN_CENTER )
-	--]]
-
-	draw.DrawText( "YOU'VE BEEN INFECTED", "NewZombieFont27", ScaleW(642), ScaleH(44), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER )
+	draw.DrawText("You've failed to survive", "NewZombieFont27", ScaleW(642), ScaleH(44), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
 
 	local timeleft = math.max(0,math.Round(MySelf.NextSpawn - ServerTime())+1)
 	
@@ -114,25 +92,20 @@ hook.Add ( "HUDPaint", "DeathHumanHUD", death.DeathHumanHUD )
           Draws the zombie death hud
 -----------------------------------------------------]==]
 function death.DeathZombieHUD()
-	if not IsEntityValid ( MySelf ) then return end
+	if ENDROUND or not IsEntityValid ( MySelf ) then return end
 	if not MySelf:IsZombie() or MySelf.FirstHumanDeath or IsClassesMenuOpen() or (MySelf:OldAlive() and not MySelf:IsCrow()) then return end
 	
 	-- Never died
 	if not MySelf.InitialDeath then return end
 	
-	-- Don't draw on endround
-	if ENDROUND then return end
-	
 	-- Draw black box
 	surface.SetDrawColor (0,0,0,210)
-	surface.DrawRect (0,0, ScaleW(1280), ScaleH(162))
+	surface.DrawRect(0,0, ScaleW(1280), ScaleH(162))
 	
 	-- Draw death text
 	draw.DrawText( "YOU ARE DEAD", "NewZombieFont27", ScaleW(642), ScaleH(44), Color (255,255,255,255), TEXT_ALIGN_CENTER )
 	--draw.DrawText( "You will resurrect in "..( math.Round( math.Clamp ( MySelf.NextSpawn - CurTime(), 0, 100 ) ) ).." seconds.", "NewZombieFont27", ScaleW(641), ScaleH(150), Color (135,135,135,255), TEXT_ALIGN_CENTER)
-	draw.DrawText( "Try other zombie classes (F3)", "NewZombieFont27", ScaleW(641), ScaleH(150), Color (135,135,135,255), TEXT_ALIGN_CENTER)
-	
-	--local respleft = math.max(0, GAMEMODE:GetWaveStart() - CurTime())
+	draw.DrawText( "Try other Undead species by pressing F3", "NewZombieFont27", ScaleW(641), ScaleH(150), Color (135,135,135,255), TEXT_ALIGN_CENTER)
 	
 	local obsmode = MySelf:GetObserverMode()
 	if obsmode ~= OBS_MODE_NONE then
@@ -152,20 +125,16 @@ hook.Add ( "HUDPaint", "DeathZombieHUD", death.DeathZombieHUD )
 
 
 function death.Draw3DZombieHUD()
-	if not IsEntityValid ( MySelf ) then return end
-	if not MySelf:IsZombie() or MySelf.FirstHumanDeath or IsClassesMenuOpen() or MySelf:Alive() then return end
+	if ENDROUND or not IsEntityValid(MySelf) or not MySelf:IsZombie() or MySelf.FirstHumanDeath or IsClassesMenuOpen() or MySelf:Alive() then
+		return
+	end
 	
 	-- Never died
 	if not MySelf.InitialDeath then return end
 	
-	-- Don't draw on endround
-	if ENDROUND then return end
-	
 	if MySelf:IsFreeSpectating() then return end
 	
-	GAMEMODE:DrawCustomDeathNotice ( )
-	
-	
+	GAMEMODE:DrawCustomDeathNotice()	
 end
 hook.Add("PostDrawOpaqueRenderables","Draw3DZombieHUD",death.Draw3DZombieHUD)
 

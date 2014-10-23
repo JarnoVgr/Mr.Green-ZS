@@ -79,7 +79,9 @@ function DrawTargetIDTurret ( MySelf, team )
 end
 
 function GM:_HUDDrawTargetID(MySelf, team)
-	if not IsValid(MySelf) then return end
+	if not IsValid(MySelf) then
+		return
+	end
 	-- Draw target id for turrets
 	DrawTargetIDTurret (MySelf, team)
 	--DrawTargetIDMine (MySelf, team)
@@ -137,12 +139,4 @@ function GM:_HUDDrawTargetID(MySelf, team)
 			end
 		end
 	end
-	
 end
-
--- timer.Create("ShuffleNameBlur", 0.07, 0, function()
-	-- XNameBlur = math.random(-3, 3)
-	-- XNameBlur2 = math.random(-3, 3)
-	-- YNameBlur = math.random(-3, 3)
-	-- YNameBlur2 = math.random(-3, 3)
--- end)

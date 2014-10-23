@@ -46,60 +46,55 @@ hud.ZombieAvatarClass = {
 -----------------------------------------]==]
 function hud.InitFonts()
 	-- Health indication font
-	surface.CreateFont( "Arial", ScreenScale( 7.6 ), 600, true, true, "HUDBetaHealth" ) -- 14.6
+	surface.CreateFontLegacy( "Arial", ScreenScale( 7.6 ), 600, true, true, "HUDBetaHealth" ) -- 14.6
 	
 	-- Level font
-	surface.CreateFont( "Arial", ScreenScale( 7.6 ), 600, true, true, "HUDBetaLevel" ) -- 14.6
+	surface.CreateFontLegacy( "Arial", ScreenScale( 7.6 ), 600, true, true, "HUDBetaLevel" ) -- 14.6
 	
 	-- Level font 4:3
-	surface.CreateFont( "Arial", ScreenScale( 7.3 ), 600, true, true, "HUDBetaLevelNormal" ) -- 14.6
+	surface.CreateFontLegacy( "Arial", ScreenScale( 7.3 ), 600, true, true, "HUDBetaLevelNormal" ) -- 14.6
 	
 	-- Kills icon font
-	surface.CreateFont( "Arial", ScreenScale( 21.6 ), 500, true, true, "HUDBetaKills" ) -- 44.6
+	surface.CreateFontLegacy( "Arial", ScreenScale( 21.6 ), 500, true, true, "HUDBetaKills" ) -- 44.6
 
 	
 	-- Ammo regen icon font
-	surface.CreateFont( "csd", ScreenScale( 17.6 ), 500, true, true, "HUDBetaAmmo" ) -- 36/6
+	surface.CreateFontLegacy( "csd", ScreenScale( 17.6 ), 500, true, true, "HUDBetaAmmo" ) -- 36/6
 	
 	-- Kills and regen text font
-	surface.CreateFont( "Arial", ScreenScale( 11 ), 500, true, true, "HUDBetaStats" ) -- 16
+	surface.CreateFontLegacy( "Arial", ScreenScale( 11 ), 500, true, true, "HUDBetaStats" ) -- 16
 
 	-- Small level showout
-	surface.CreateFont ( "Arial", ScreenScale( 7 ), 700, true, true, "HUDBetaCorner" ) -- 14
+	surface.CreateFontLegacy( "Arial", ScreenScale( 7 ), 700, true, true, "HUDBetaCorner" ) -- 14
  -- ssNewAmmoFont13 ssNewAmmoFont5 HUDBetaZombieCount HUDBetaKills HUDBetaHeader
 	-- How much to survive font
-	surface.CreateFont ( "Arial", ScreenScale( 15 ), 500, true, true, "HUDBetaHeader" )
+	surface.CreateFontLegacy( "Arial", ScreenScale( 15 ), 500, true, true, "HUDBetaHeader" )
 	-- Zombie count
-	surface.CreateFont ( "Arial", ScreenScale( 25 ), 700, true, true, "HUDBetaZombieCount" )
+	surface.CreateFontLegacy( "Arial", ScreenScale( 25 ), 700, true, true, "HUDBetaZombieCount" )
 
 	-- Infliction percentage font
-	surface.CreateFont ( "Arial", ScreenScale( 10 ), 700, true, true, "HUDBetaInfliction" )
+	surface.CreateFontLegacy( "Arial", ScreenScale( 10 ), 700, true, true, "HUDBetaInfliction" )
 
 	-- Right upper box text font
-	surface.CreateFont ( "Arial", ScreenScale( 9.6 ), 700, true, true, "HUDBetaRightBox" )
+	surface.CreateFontLegacy( "Arial", ScreenScale( 9.6 ), 700, true, true, "HUDBetaRightBox" )
 
-	surface.CreateFont ( "DS-Digital", ScreenScale( 6 ), 700, true, true, "NewAmmoFont6" )
-	surface.CreateFont ( "DS-Digital", ScreenScale( 7.6 ), 700, true, true, "NewAmmoFont7" )
-	surface.CreateFont ( "DS-Digital", ScreenScale( 9 ), 700, true, true, "NewAmmoFont9" )
-	surface.CreateFont ( "DS-Digital", ScreenScale( 13 ), 700, true, true, "NewAmmoFont13" )
-	surface.CreateFont ( "DS-Digital", ScreenScale( 20 ), 700, true, true, "NewAmmoFont20" )
-	surface.CreateFont ( "Arial", ScreenScale( 7 ), 700, true, false, "ssNewAmmoFont5" )
-	surface.CreateFont ( "Arial", ScreenScale( 7.6 ), 700, true, false, "ssNewAmmoFont7" )
-	surface.CreateFont ( "Arial", ScreenScale( 7 ), 700, true, false, "ssNewAmmoFont6.5" )
-	surface.CreateFont ( "Arial", ScreenScale( 9 ), 700, true, false, "ssNewAmmoFont9" )
-	surface.CreateFont ( "Arial", ScreenScale( 16 ), 700, true, false, "ssNewAmmoFont13" )
-	surface.CreateFont ( "Arial", ScreenScale( 20 ), 700, true, false, "ssNewAmmoFont20" )	
+	surface.CreateFontLegacy( "Arial", ScreenScale( 7 ), 700, true, false, "ssNewAmmoFont5" )
+	surface.CreateFontLegacy( "Arial", ScreenScale( 7.6 ), 700, true, false, "ssNewAmmoFont7" )
+	surface.CreateFontLegacy( "Arial", ScreenScale( 7 ), 700, true, false, "ssNewAmmoFont6.5" )
+	surface.CreateFontLegacy( "Arial", ScreenScale( 9 ), 700, true, false, "ssNewAmmoFont9" )
+	surface.CreateFontLegacy( "Arial", ScreenScale( 16 ), 700, true, false, "ssNewAmmoFont13" )
+	surface.CreateFontLegacy( "Arial", ScreenScale( 20 ), 700, true, false, "ssNewAmmoFont20" )	
 	
 	--Undead HUD font
-	surface.CreateFont("Face Your Fears", ScreenScale(9), 400, true, true, "NewZombieFont7",false, true)
-	surface.CreateFont("Face Your Fears", ScreenScale(10), 400, true, true, "NewZombieFont10",false, true)
-	surface.CreateFont("Face Your Fears", ScreenScale(13), 400, true, true, "NewZombieFont13",false, true)
-	surface.CreateFont("Face Your Fears", ScreenScale(14), 400, true, true, "NewZombieFont14",false, true)
-	surface.CreateFont("Face Your Fears", ScreenScale(15), 400, true, true, "NewZombieFont15",false, true)
-	surface.CreateFont("Face Your Fears", ScreenScale(17), 400, true, true, "NewZombieFont17",false, true)
-	surface.CreateFont("Face Your Fears", ScreenScale(19), 400, true, true, "NewZombieFont19",false, true)
-	surface.CreateFont("Face Your Fears", ScreenScale(23), 400, true, true, "NewZombieFont23",false, true)
-	surface.CreateFont("Face Your Fears", ScreenScale(27), 400, true, true, "NewZombieFont27",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(9), 400, true, true, "NewZombieFont7",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(10), 400, true, true, "NewZombieFont10",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(13), 400, true, true, "NewZombieFont13",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(14), 400, true, true, "NewZombieFont14",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(15), 400, true, true, "NewZombieFont15",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(17), 400, true, true, "NewZombieFont17",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(19), 400, true, true, "NewZombieFont19",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(23), 400, true, true, "NewZombieFont23",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(27), 400, true, true, "NewZombieFont27",false, true)
 end
 hook.Add("Initialize", "hud.InitFonts", hud.InitFonts)
 

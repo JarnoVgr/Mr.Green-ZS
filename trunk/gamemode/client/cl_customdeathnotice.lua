@@ -31,121 +31,12 @@ function GM:AddCustomDeathNotice ( attacker, inflictor, victim, assist )
 end
 
 function GM:DrawCustomDeathNotice (x, y)
-	for k, Death in pairs( Deaths ) do
-		DrawCustomDeath3(Death)
+	for k, Death in pairs(Deaths) do
+		DrawCustomDeath(Death)
 	end
 end
 
-function DrawCustomDeath ( x, y, death )
-	--[=[local text 
-	
-	if death.attacker == "self" then
-		text = "You have suicided! That's awful!"
-	elseif death.assist and death.assist ~= "" then
-		text = "You've been killed by "..death.attacker.." and "..death.assist
-	else
-		text = "You've been killed by "..death.attacker.."! You are dead. Not a big surprise!"
-	end
-
-	surface.SetFont ("ArialBoldNine")
-	local textw, texth = surface.GetTextSize (text)
-	local boxw, boxh = textw + 28, texth + 12
-	
-	draw.RoundedBox( 6, x, y,boxw, boxh, Color (1,1,1,210) )
-	draw.SimpleText(text,"ArialBoldNine", x + (boxw/2), y + (boxh/2) ,Color (243,0,0,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER)]=]
-end
-
-function DrawCustomDeath2 ( death )
-	
-
-	local text
-	
-	if death.attacker == "self" then return end
-	
-	if death.assist and death.assist ~= "" then
-		text = ""..death.attacker:Name().." and "..death.assist..""
-	else
-		text = death.attacker:Name()
-	end
-
-	
-	local wsize,hsize = ScaleW(450), ScaleH(130)
-	local header = ScaleH(30)
-	local xpos,ypos = ScrW()/2 - wsize/2, ScrH() - 25 - hsize
-	
-	surface.SetDrawColor( 255, 255, 255, 255 )
-	surface.DrawOutlinedRect(xpos,ypos, wsize,header)
-	surface.SetDrawColor( 0, 0, 0, 255 )
-	surface.DrawOutlinedRect( xpos,ypos, wsize,hsize)
-	draw.RoundedBox( 0, xpos,ypos,wsize,hsize, Color (1,1,1,200) )
-	
-	local textX,textY = xpos+4,ypos+3
-	
-	-- text goes here
-	draw.SimpleTextOutlined("Killed by "..text, "ArialBoldFive", textX,textY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1,Color(0,0,0,255))
-	
-	local font, letter = "WeaponSelectedHL2", "0"
-	local Table = killicon.GetFont( death.inflictor )
-	
-	if Table then
-		letter = Table.letter
-				
-		if not Table.IsHl2 and not Table.IsZS then
-			font = "WeaponSelectedCSS"
-		elseif not Table.IsHL2 and Table.IsZS then
-			font = "WeaponSelectedZS"
-		end
-				
-	end
-	
-	if killicon.GetImage( death.inflictor ) then
-	
-		local name = death.inflictor
-		
-		if GAMEMODE.HumanWeapons[name] and GAMEMODE.HumanWeapons[name].Name then
-			name = GAMEMODE.HumanWeapons[name].Name
-		end
-		
-		textX,textY = xpos+4,ypos+header+0.5*(hsize-header)/5
-		
-		draw.SimpleTextOutlined(name, "ArialBoldFive", textX,textY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		local ImgTable = killicon.GetImage( death.inflictor ) 
-		
-		surface.SetTexture(surface.GetTextureID( ImgTable.mat ))	
-		local wd,hg = surface.GetTextureSize(surface.GetTextureID( ImgTable.mat ))
-		
-		textX,textY = xpos+4,ypos+header+1*(hsize-header)/5
-		
-		surface.SetDrawColor( 255, 255, 255, 255)
-		surface.DrawTexturedRect(textX,textY, wd, hg )
-	
-	else
-		
-		local name = death.inflictor
-		
-		if GAMEMODE.HumanWeapons[name] and GAMEMODE.HumanWeapons[name].Name then
-			name = GAMEMODE.HumanWeapons[name].Name
-		end
-		
-		textX,textY = xpos+4,ypos+header+0.5*(hsize-header)/5
-		
-		draw.SimpleTextOutlined(name, "ArialBoldFive", textX,textY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		surface.SetFont ( font )
-		local fWide, fTall = surface.GetTextSize ( letter )
-	
-		textX,textY = xpos+4,ypos+header+4*(hsize-header)/5
-	
-		draw.SimpleTextOutlined(letter, font, textX,textY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	
-	end
-
-	
-	
-end
-
-function DrawCustomDeath3 ( death )
+function DrawCustomDeath(death)
 	
 	-- PrintTable(death)
 	
@@ -202,7 +93,4 @@ function DrawCustomDeath3 ( death )
 		cam.IgnoreZ(false)
 		
 	cam.End3D2D()
-	
-	-- draw.SimpleTextOutlined(text, "ArialBoldTen", 50, 50, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-
 end

@@ -85,17 +85,17 @@ local GameHints = {
 ---------------------------------------------------------]]
 function InitializeFonts()
 	--Bold Arials
-	surface.CreateFont("Arial", ScreenScale(22.8), 700, true, false, "ArialBoldTwenty")
-	surface.CreateFont("Arial", ScreenScale(20.8), 700, true, false, "ArialBoldEighteen")
-	surface.CreateFont("Arial", ScreenScale(10.4), 700, true, false, "ArialBoldNine")
-	surface.CreateFont("Arial", ScreenScale(8.4), 700, true, false, "ArialBoldSix")
-	surface.CreateFont("Arial", ScreenScale(13.4), 700, true, false, "ArialBoldTwelv")
+	surface.CreateFontLegacy("Arial", ScreenScale(22.8), 700, true, false, "ArialBoldTwenty")
+	surface.CreateFontLegacy("Arial", ScreenScale(20.8), 700, true, false, "ArialBoldEighteen")
+	surface.CreateFontLegacy("Arial", ScreenScale(10.4), 700, true, false, "ArialBoldNine")
+	surface.CreateFontLegacy("Arial", ScreenScale(8.4), 700, true, false, "ArialBoldSix")
+	surface.CreateFontLegacy("Arial", ScreenScale(13.4), 700, true, false, "ArialBoldTwelv")
 	   
 	--Normal Arials
-	surface.CreateFont("Arial", ScreenScale(22.8), 500, true, false, "ArialTwenty")
-	surface.CreateFont("Arial", ScreenScale(25.4), 500, true, false, "ArialTwentyTwo")
-	surface.CreateFont("Arial", ScreenScale(11), 400, true, false, "ArialNine")
-	surface.CreateFont("Arial", ScreenScale(13.4), 500, true, false, "ArialTwelve")
+	surface.CreateFontLegacy("Arial", ScreenScale(22.8), 500, true, false, "ArialTwenty")
+	surface.CreateFontLegacy("Arial", ScreenScale(25.4), 500, true, false, "ArialTwentyTwo")
+	surface.CreateFontLegacy("Arial", ScreenScale(11), 400, true, false, "ArialNine")
+	surface.CreateFontLegacy("Arial", ScreenScale(13.4), 500, true, false, "ArialTwelve")
 end
 hook.Add("Initialize", "InitializeFonts", InitializeFonts)
  
