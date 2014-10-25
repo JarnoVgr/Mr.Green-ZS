@@ -1,9 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
--- Web-Stats file
-include( "sv_endround_stats.lua" )
-
 --Get nextmap in case voting fails
 local NextMap = "zs_fortress_mod"
 
@@ -22,6 +19,77 @@ local function CheckPlayerDeathNitwits ( pl, attacker, dmginfo )
 	
 end
 hook.Add("DoPlayerDeath","CheckNitwits",CheckPlayerDeathNitwits)
+
+
+--[[---------------------------------------------------------
+	 Send top greencoins ( both teams)
+---------------------------------------------------------]]
+function GM:SendTopGreencoins(to)
+	local PlayerSorted = {}
+
+	for _, pl in pairs( player.GetAll() ) do
+		pl.TotalGreencoins = pl.GreencoinsGained[TEAM_HUMAN] + pl.GreencoinsGained[TEAM_UNDEAD]
+		table.insert(PlayerSorted, pl)
+	end
+
+	if #PlayerSorted <= 0 then return end
+	table.sort(PlayerSorted,
+	function(a, b)
+		if a.TotalGreencoins == b.TotalGreencoins then
+			return a:UserID() > b:UserID()
+		end
+		return a.TotalGreencoins > b.TotalGreencoins
+	end
+	)
+
+	local x = 0
+	for _, pl in pairs(PlayerSorted) do
+		if x < 5 then
+			x = x + 1
+			umsg.Start("RcTopGreencoins", to)
+				umsg.Short(x)
+				umsg.String( pl:Name() )
+				umsg.String( tostring ( math.ceil( pl.TotalGreencoins ) ) )
+			umsg.End()
+		end
+	end
+end
+
+
+--[[---------------------------------------------------------
+	 Send top assisting players
+---------------------------------------------------------]]
+function GM:SendTopAssists(to)
+	local PlayerSorted = {}
+
+	for _, pl in pairs(player.GetAll()) do
+		if pl.Assists then
+			table.insert(PlayerSorted, pl)
+		end
+	end
+
+	if #PlayerSorted <= 0 then return end
+	table.sort(PlayerSorted,
+	function(a, b)
+		if a.Assists == b.Assists then
+			return a:UserID() > b:UserID()
+		end
+		return a.Assists > b.Assists
+	end
+	)
+
+	local x = 0
+	for _, pl in pairs(PlayerSorted) do
+		if x < 5 then
+			x = x + 1
+			umsg.Start("RcTopAssists", to)
+				umsg.Short(x)
+				umsg.String( pl:Name() )
+				umsg.String( tostring ( math.ceil(pl.Assists) ) ) 
+			umsg.End()
+		end
+	end
+end
 
 --[==[---------------------------------------------------------
 	 Send top surivival times to client
@@ -245,7 +313,7 @@ concommand.Add("VoteAddMap",GetChosenMap)
 
 local VotePointTable = {}
 
-function GM:SendVotemaps ( to )
+function GM:SendVotemaps(to)
 	local VoteMaps = self:GetVoteMaps()
 	
 	if #VoteMaps < 3 then 
@@ -326,10 +394,9 @@ function GM:OnEndRound(winner)
 	elseif winner == TEAM_HUMAN then
 		log.WorldAction("Survivor_Win")
 	end
-	
-	hook.Remove("SetupPlayerVisibility", "AddCratesToPVS")
-	
+
 	--Enable all talk
+	--TODO: Hide this from player chat
 	RunConsoleCommand("sv_alltalk", "1")
 	
 	timer.Simple(VOTE_TIME, function()
@@ -385,28 +452,30 @@ function GM:OnEndRound(winner)
 				
 			-- For the last 2 levels, the second achievement is to survive.
 			if team.NumPlayers(TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD) > 11 then
-				if not pl:IsBot() then
-					if pl:Alive() then
-						pl:AddXP(6000)
-					end
+				if not pl:IsBot() and pl:Alive() then
+					pl:AddXP(6000)
 				end
 			end
 		end
 	end
 
 	-- Send the information payload to the client ( all of them :o )
+	GAMEMODE:SendTopGreencoins()
+	GAMEMODE:SendTopAssists()
 	GAMEMODE:SendTopTimes()
 	GAMEMODE:SendTopZombies()
 	GAMEMODE:SendTopHumanDamages()	
 	GAMEMODE:SendTopZombieDamages()
 	GAMEMODE:SendVotemaps()
 	GAMEMODE:SendTopHealing()
-	GAMEMODE:SendTopZombiesKilled ()
+	GAMEMODE:SendTopZombiesKilled()
 	
 	--MapExploitWrite()
 	--Send the information to the player that joined in the intermission
 	hook.Add("PlayerReady", "LateJoin", function ( pl )
 		--Send all the info the that late join player
+		GAMEMODE:SendTopGreencoins()
+		GAMEMODE:SendTopAssists()
 		GAMEMODE:SendTopTimes(pl)
 		GAMEMODE:SendTopZombies(pl)
 		GAMEMODE:SendTopHumanDamages(pl)

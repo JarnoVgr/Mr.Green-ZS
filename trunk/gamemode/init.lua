@@ -114,7 +114,7 @@ include("server/doredeem/sv_main.lua")
 include("server/voice.lua") -- Team voice management
 include("server/sv_director.lua") -- Director (handles supply crates spawning etc.)
 include("greencoins/sv_greencoins.lua") -- Green-Coins
-include("server/sv_endround.lua") -- Intermission
+include("server/sv_intermission.lua")
 include("server/sv_maps.lua") -- Map specific
 include("server/sv_admin.lua") -- Admin commands
 -- include("shared/sh_animations.lua")

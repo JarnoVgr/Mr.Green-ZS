@@ -38,7 +38,7 @@ SWEP.Weight				= 5
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Deagle.Single" )
-SWEP.Primary.Recoil			= 0.4
+SWEP.Primary.Recoil			= 2
 SWEP.Primary.Damage			= 40
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 7
