@@ -324,6 +324,7 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 	end
 	SlotLabel[num].OnMousePressed = function () 
 		for i=1, 6 do
+
 			if i == num then
 				SlotLabel[i].Active = true 
 				
@@ -758,7 +759,7 @@ function DrawSelectClass()
 	end
 
 	--Play spawnscreen sound
-	local randSong = math.random(1,2,3,4)
+	local randSong = math.random(4,3)
 
 	--If christmas play xmas sound first and then the normal one
 	if CHRISTMAS then
