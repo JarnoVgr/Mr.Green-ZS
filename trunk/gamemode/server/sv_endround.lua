@@ -253,9 +253,18 @@ function GM:SendVotemaps ( to )
 	end
 
 	net.Start("ReceiveVoteMaps")
-	for i = 1, 3 do 
-		local key = VoteMaps[i][1]
-		VotePointTable[key] = { Votes = 0, Map = { FileName = VoteMaps[i][1], FriendlyName = VoteMaps[i][2] } }
+	for i = 1, 3 do
+		local key = VoteMaps[i].Map
+
+		if not VotePointTable[key] then
+			VotePointTable[key] = {
+				Votes = 0,
+				Map = {
+					FileName = key,
+					FriendlyName = VoteMaps[i].MapName
+				}
+			}
+		end
 			
 		-- Send the data
 		net.WriteString(VotePointTable[key].Map.FileName)
@@ -282,25 +291,22 @@ function UpdateClientVotePoints(pl, mapfilename)
 	
 	pl.Voted = true
 
-	UpdateClientVoteMaps(pl)
+	UpdateClientVoteMaps()
 end
 
 --[==[---------------------------------------------------------
 	Proper Server to client votemap 
 		   update for one player
 ---------------------------------------------------------]==]
-function UpdateClientVoteMaps(pl)
-	if not IsValid(pl) then
-		return
-	end
-	
+function UpdateClientVoteMaps()
 	-- Send change to all players
 	net.Start("ReceiveVotePoints")
 	for k,v in pairs(VotePointTable) do
 		net.WriteString(k)
 		net.WriteDouble(v.Votes)
 	end
-	net.Send(pl)
+	--net.Send(pl)
+	net.Broadcast()
 end	
 	
 --[==[---------------------------------------------------------
@@ -346,6 +352,9 @@ function GM:OnEndRound(winner)
 				NextMap = k
 			end
 		end
+
+		--Send final votings
+		UpdateClientVoteMaps(pl)
 	
 		--TODO: Use net messages
 		gmod.BroadcastLua("SetWinnerMap('".. NextMap .."')")
@@ -374,15 +383,11 @@ function GM:OnEndRound(winner)
 				pl:UnlockAchievement("dancingqueen")
 			end
 				
-			-- For the last 2 levels, the second achievment is to survive.
-			if team.NumPlayers (TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD) > 11 then
+			-- For the last 2 levels, the second achievement is to survive.
+			if team.NumPlayers(TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD) > 11 then
 				if not pl:IsBot() then
 					if pl:Alive() then
-						if self:IsRetroMode() then
-							pl:AddXP(8000)
-						else
-							pl:AddXP(6000)
-						end
+						pl:AddXP(6000)
 					end
 				end
 			end

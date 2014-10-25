@@ -54,16 +54,16 @@ function GM:GetVoteMaps()
 	randMapCycle = table.Shuffle(randMapCycle)
 	
 	--Get 6 random maps from the cycle
-	for i=1,6 do
+	--[[for i=1,6 do
 		local map = randMapCycle[i]
 		if not map then
 			continue
 		end
 
 		table.insert(VoteMaps, {map.Map, map.MapName})
-	end
+	end]]
 
-	return VoteMaps
+	return randMapCycle
 end
 
 --[==[---------------------------------------------------------
