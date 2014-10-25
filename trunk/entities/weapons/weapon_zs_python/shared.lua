@@ -1,10 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
-
-   -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
-    -- See LICENSE.txt for license information
      
-    AddCSLuaFile()
+AddCSLuaFile()
      
     if CLIENT then
             SWEP.PrintName = "'Python' Magnum"
@@ -109,4 +106,3 @@
                     end
             end    
     end
-            --GenericBulletCallback(attacker, tr, dmginfo)

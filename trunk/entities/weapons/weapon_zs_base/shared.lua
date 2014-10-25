@@ -345,12 +345,27 @@ end
 SWEP.BulletCallback = GenericBulletCallback
 function SWEP:ShootBullets(dmg, numbul, cone)
 	local owner = self.Owner
-	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)-- SendWeaponAnimation()
-	-- owner:DoAttackEvent()
-	owner:SetAnimation(PLAYER_ATTACK1)
+	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+	self.Owner:SetAnimation(PLAYER_ATTACK1)
+
+	--GetViewPunchAngles
+	local aim = self.Owner:GetAimVector()
+	local punch = self.Owner:GetViewPunchAngles():Forward()
+	punch.x = punch.x - 1
 
 	self:StartBulletKnockback()
-	owner:FireBullets({Num = numbul, Src = owner:GetShootPos(), Dir = owner:GetAimVector(), Spread = Vector(cone, cone, 0), Tracer = 1, TracerName = self.TracerName, Force = dmg * 0.015, Damage = dmg, Callback = self.BulletCallback})
+	self.Owner:FireBullets({
+		Num = numbul,
+		Src = self.Owner:GetShootPos(),
+		Dir = aim + punch,
+		Spread = Vector(cone, cone, 0),
+		Tracer = 1,
+		TracerName = self.TracerName,
+		Force = dmg * 0.015,
+		Damage = dmg,
+		Callback = self.BulletCallback
+	})
+
 	self:DoBulletKnockback()
 	self:EndBulletKnockback()
 end
