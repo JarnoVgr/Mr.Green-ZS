@@ -464,8 +464,8 @@ function GM:Initialize()
 	surface.CreateFontLegacy("akbar", 28, 400, true, true, "HUDFontSmallAA")
 	
 	--Used in some SWEPs
-	surface.CreateFontLegacy( "HL2MP", ScreenScale( 30 ), 500, true, true, "HL2KillIcons" )
-	surface.CreateFontLegacy( "HL2MP", ScreenScale( 60 ), 500, true, true, "HL2SelectIcons" )
+	surface.CreateFontLegacy("HL2MP", ScreenScale( 30 ), 500, true, true, "HL2KillIcons")
+	surface.CreateFontLegacy("HL2MP", ScreenScale( 60 ), 500, true, true, "HL2SelectIcons")
 
 	
 	surface.CreateFontLegacy("Arial", ScreenScale(5), 700, true, false, "ArialBoldFour")
@@ -479,6 +479,10 @@ function GM:Initialize()
 	surface.CreateFontLegacy("Arial", ScreenScale(15), 700, true, false, "ArialBoldFifteen")
 	surface.CreateFontLegacy("Arial", ScreenScale(20), 700, true, false, "ArialBoldTwenty")
 
+	--Used in Loadout screen
+	surface.CreateFontLegacy("Arial", ScreenScale(6), 700, true, false, "WeaponNames")
+	surface.CreateFontLegacy("Arial", ScreenScale(5), 700, true, false, "WeaponNamesTiny")
+
 	--SkillPoints fonts
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(6), 700, true, false, "CorpusCareFive")
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(7), 700, true, false, "CorpusCareSeven")
@@ -487,6 +491,8 @@ function GM:Initialize()
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(16), 500, true, false, "CorpusCareFifteen")
 	
 	surface.CreateFontLegacy("ZS New", ScreenScale(19), 500, true, false, "ZSKillicons")
+
+	
 
 	-- Default, DefaultBold, DefaultSmall, etc. were changed when gmod13 hit. These are renamed fonts that have the old values.
 	--surface.CreateFont("DefaultFontVerySmall", {font = "tahoma", size = 10, weight = 0, antialias = false})
