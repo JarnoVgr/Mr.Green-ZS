@@ -1744,8 +1744,8 @@ function meta:DrawCrosshairDot()
 	local y = ScrH() * 0.5
 
 	surface.SetDrawColor(Color(255,0,0,160))
-	surface.DrawRect(x - 1, y - 1, 2, 2)
+	surface.DrawRect(x - 2, y - 2, 4, 4)
 	surface.SetDrawColor(0, 0, 0, 160)
-	surface.DrawOutlinedRect(x - 1, y - 1, 2, 2)
+	surface.DrawOutlinedRect(x - 2, y - 2, 4, 4)
 end
 
