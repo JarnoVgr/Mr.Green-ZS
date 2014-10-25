@@ -403,7 +403,6 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 			end
 				
 			if killicon.GetImage( SlotLabel[num].Item ) then
-				
 				local ImgTable = killicon.GetImage( SlotLabel[num].Item ) 
 									
 
@@ -428,8 +427,6 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 					--Draw label
 					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[SlotLabel[num].Item].Name, "WeaponNames", ww/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))				
 				end
-			
-			
 		elseif string.sub(SlotLabel[num].Item, 1, 1) == "_" then
 				for perk, desc in pairs(GAMEMODE.Perks) do
 					if SlotLabel[num].Item == perk then
