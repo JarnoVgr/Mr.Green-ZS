@@ -84,6 +84,13 @@ function SWEP:PrimaryAttack()
 		Owner:ViewPunch(Angle(recoil * -1, math.random(0.2,-0.2), 0))
 	end
 
+	if (game.SinglePlayer() and SERVER) or (not game.SinglePlayer() and CLIENT and IsFirstTimePredicted() ) then
+		local eyeang = self.Owner:EyeAngles()
+		local permaRecoil = recoil * 0.07
+		eyeang.pitch = eyeang.pitch - permaRecoil
+		self.Owner:SetEyeAngles(eyeang)
+	end
+
 	if self:GetIronsights() then
 		if self.Owner:Crouching() then
 			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIronCrouching)
