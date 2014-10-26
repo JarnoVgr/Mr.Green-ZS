@@ -759,7 +759,7 @@ function DrawSelectClass()
 	end
 
 	--Play spawnscreen sound
-	local randSong = math.random(4,3)
+	local randSong = math.random(3,4)
 
 	--If christmas play xmas sound first and then the normal one
 	if CHRISTMAS then

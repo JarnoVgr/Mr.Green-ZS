@@ -106,10 +106,10 @@ function SWEP:PrimaryAttack()
 	--Delay next attack
 	if self.Primary.Next then
 		self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Next)
-		self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Next)
+		--self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Next)
 	else
 		self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Duration)
-		self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Duration)
+		--self.Weapon:SetNextSecondaryFire(CurTime() + self.Primary.Duration)
 	end
 
 	--Start swinging
@@ -254,11 +254,11 @@ function SWEP:SecondaryAttack()
 	end
 
 	--Delay next attack
-	if self.Primary.Next then
-		self.Weapon:SetNextPrimaryFire(CurTime() + self.Secondary.Next)
+	if self.Secondary.Next then
+		--self.Weapon:SetNextPrimaryFire(CurTime() + self.Secondary.Next)
 		self.Weapon:SetNextSecondaryFire(CurTime() + self.Secondary.Next)
 	else
-		self.Weapon:SetNextPrimaryFire(CurTime() + self.Secondary.Duration)
+		--self.Weapon:SetNextPrimaryFire(CurTime() + self.Secondary.Duration)
 		self.Weapon:SetNextSecondaryFire(CurTime() + self.Secondary.Duration)
 	end
 

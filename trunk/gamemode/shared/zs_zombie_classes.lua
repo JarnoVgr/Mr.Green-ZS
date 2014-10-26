@@ -36,7 +36,7 @@ ZombieClasses[0] =
 	--Speed = 173,
 	Speed = 140,
 	Description = "The backbone of the horde.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Hit a prop to push it away" },
 	PainSounds = {
 				Sound("npc/zombiegreen/been_shot_1.wav"),
 				Sound("npc/zombiegreen/been_shot_2.wav"),
@@ -195,7 +195,7 @@ ZombieClasses[3] =
 	Model = Model( "models/Zombie/Poison.mdl" ),
 	Speed = 165,
 	Description = "A hulking mass of flesh far more durable than any other zombie.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> SPECIAL: Propkill" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> SPECIAL: Hit a prop to kill" },
 	PainSounds = {
 				Sound("npc/zombie_poison/pz_pain1.wav"),
 				Sound("npc/zombie_poison/pz_pain2.wav"),
@@ -234,8 +234,8 @@ ZombieClasses[4] =
 	SWEP = "weapon_zs_undead_wraith",
 	Model = Model( "models/wraith.mdl" ),
 	Speed = 170,
-	Description = "A ghastly figure capable of disguising as a fellow human.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Disguise" },
+	Description = "A ghastly figure.",
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Teleport" },
 	PainSounds = {
 				Sound("npc/stalker/stalker_pain1.wav"),
 				Sound("npc/stalker/stalker_pain2.wav"),
@@ -352,7 +352,7 @@ ZombieClasses[7] =
 	Model = Model("models/headcrabblack.mdl"),
 	Speed = 125,
 	Description = "A headcrab that has evolved spit poison balls over dangerous distances.",
-	DescriptionGameplay = { "> PRIMARY: Spit", "> SPECIAL: Fits through small places", "> DEATH: Chance of dropping a Poison Bomb" },
+	DescriptionGameplay = { "> PRIMARY: Spit", "> SPECIAL: Fits through small holes", "> DEATH: Chance of dropping a Poison Bomb" },
 	PainSounds = {
 				Sound("npc/headcrab_poison/ph_pain1.wav"),
 				Sound("npc/headcrab_poison/ph_pain2.wav"),

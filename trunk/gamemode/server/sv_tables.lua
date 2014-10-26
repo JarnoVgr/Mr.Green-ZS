@@ -208,7 +208,7 @@ table.insert(ResourceFiles, "sound/mrgreen/ui/menu_countdown.wav")
 
 --Game start music
 --table.insert(ResourceFiles, "sound/mrgreen/music/gamestart1.mp3")
-table.insert(ResourceFiles, "sound/mrgreen/music/gamestart2.mp3")
+--table.insert(ResourceFiles, "sound/mrgreen/music/gamestart2.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/gamestart3.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/gamestart4.mp3")
 if CHRISTMAS then
@@ -470,6 +470,11 @@ table.insert(ResourceFiles, "sound/weapons/katana/katana_02.wav")
 table.insert(ResourceFiles, "sound/weapons/katana/katana_03.wav")
 table.insert(ResourceFiles, "sound/weapons/melee/melee_skull_break_01.wav")
 table.insert(ResourceFiles, "sound/weapons/melee/melee_skull_break_02.wav")
+
+--Alyx Gun
+for _, filename in pairs(file.Find("sound/weapons/alyxgun/*.*" , "GAME") ) do
+	table.insert ( ResourceFiles, "sound/weapons/alyxgun/"..string.lower(filename )  )
+end
 
 --Infected
 table.insert(ResourceFiles, "models/weapons/v_zombiearms.mdl")
