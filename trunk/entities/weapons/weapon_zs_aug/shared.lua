@@ -40,7 +40,7 @@ SWEP.PrintName			= "AUG"
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AUG.Single")
-SWEP.Primary.Recoil			= 2
+SWEP.Primary.Recoil			= 1.5
 SWEP.Primary.Damage			= 19
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 30
