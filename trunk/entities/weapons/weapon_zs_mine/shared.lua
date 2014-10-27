@@ -123,12 +123,16 @@ function SWEP:PrimaryAttack()
 		end
 	end
 	
+
+		
 	if mymines > 5 then
 		if SERVER then
 			self.Owner:Message("You can't place more than 5 mines per ground",1,"white")
 		end
 		return
 	end
+	
+	
 	
 	for k,v in pairs ( ActualMines ) do-- ents.FindInBox (Vector (pos.x - 100,pos.y - 100,pos.z - 100), Vector (pos.x + 100, pos.y + 100, pos.z + 100))
 		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 50 then

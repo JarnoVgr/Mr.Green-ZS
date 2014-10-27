@@ -7,7 +7,6 @@ SWEP.Author = "Duby"
 SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
 SWEP.UseHands = true
 SWEP.WorldModel = Model("models/weapons/w_hammer.mdl")
- 
 SWEP.Base = "weapon_zs_melee_base"
  
 -- Name, fov, etc
@@ -19,21 +18,41 @@ SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
  
 if CLIENT then
-        SWEP.ShowViewModel = false
-        SWEP.ShowWorldModel = true
+SWEP.ShowViewModel = false
+SWEP.ShowWorldModel = false
         killicon.AddFont("weapon_zs_tools_hammer", "ZSKillicons", "c", Color(255, 255, 255, 255))
  
-        SWEP.VElements = {
-                ["hammer"] = { type = "Model", model = "models/weapons/w_hammer.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.023, 1.764, -1.575), angle = Angle(0, 0, 180), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-                ["nail"] = { type = "Model", model = "models/crossbow_bolt.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(0.989, 2.296, -3.958), angle = Angle(62.951, 0, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-        }
+        
+SWEP.VElements = {
+	["Blowtorch5"] = { type = "Model", model = "models/effects/muzzleflash/minigunmuzzle.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "Blowtorch4", pos = Vector(-3.11, -0.369, -0.839), angle = Angle(-86.441, -5.233, -15.7), size = Vector(0.072, 0.072, 0.072), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Blowtorch4"] = { type = "Model", model = "models/props_pipes/valvewheel002a.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "Blowtorch3", pos = Vector(0.4, 0.234, -3.994), angle = Angle(93.817, -12.455, 5.25), size = Vector(0.13, 0.13, 0.13), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Blowtorch3"] = { type = "Model", model = "models/props_canal/mattpipe.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "Blowtorch2", pos = Vector(-0.08, -0.072, 0.95), angle = Angle(0.995, -79.477, 180), size = Vector(0.398, 0.398, 0.398), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Blowtorch2"] = { type = "Model", model = "models/props_junk/propane_tank001a.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(3.868, 1.633, 3.016), angle = Angle(-0.617, 43.426, 0), size = Vector(0.294, 0.294, 0.294), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Blowtorch"] = { type = "Model", model = "models/props/de_vostok/hammer01.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.499, 0.19, -4.874), angle = Angle(11.52, -2.665, 91.078), size = Vector(1.129, 1.449, 1.289), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	 ["hammer"] = { type = "Model", model = "models/weapons/w_hammer.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.023, 1.764, -1.575), angle = Angle(0, 0, 180), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+}
+
+
+SWEP.WElements = {
+	["Blowtorch5"] = { type = "Model", model = "models/effects/muzzleflash/minigunmuzzle.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "Blowtorch4", pos = Vector(-3.11, -0.369, -0.839), angle = Angle(-86.441, -5.233, -15.7), size = Vector(0.072, 0.072, 0.072), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Blowtorch4"] = { type = "Model", model = "models/props_pipes/valvewheel002a.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "Blowtorch3", pos = Vector(0.4, 0.234, -3.994), angle = Angle(93.817, -12.455, 5.25), size = Vector(0.13, 0.13, 0.13), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Blowtorch3"] = { type = "Model", model = "models/props_canal/mattpipe.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "Blowtorch2", pos = Vector(-0.08, -0.072, 0.95), angle = Angle(0.995, -79.477, 180), size = Vector(0.398, 0.398, 0.398), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Blowtorch2"] = { type = "Model", model = "models/props_junk/propane_tank001a.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(4.375, 1.396, 2.308), angle = Angle(-6.909, 108.7, 18.679), size = Vector(0.294, 0.294, 0.294), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Blowtorch"] = { type = "Model", model = "models/props/de_vostok/hammer01.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.969, 1.476, -3.918), angle = Angle(167.658, 137.264, -84.296), size = Vector(1.129, 1.449, 1.289), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+}
  
-        SWEP.ViewModelBoneMods = {
+       --[[ SWEP.ViewModelBoneMods = {
                 ["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(2.296, 1.378, -13.011), angle = Angle(0, -98.265, 8.265) },
                 ["ValveBiped.Bip01_L_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 22.958, 0) },
                 ["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -0.918, 0) },
                 ["ValveBiped.Bip01_L_Finger12"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-32.144, -52.348, 0) }
-        }
+        }]]--
+		
+		SWEP.ViewModelBoneMods = {
+	["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(6.594, -2.879, -15.155), angle = Angle(-174.849, 76.903, 180) },
+	["ValveBiped.Bip01_L_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(-0.276, 0.097, -0.897), angle = Angle(10.331, 0, 0) }
+}
+		
 end
  
 SWEP.DamageType = DMG_CLUB
@@ -47,7 +66,7 @@ SWEP.Primary.Damage = 0
 SWEP.Primary.DefaultClip = 3
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "gravity"
-SWEP.Primary.Delay = 1
+SWEP.Primary.Delay = 0.09
  
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
@@ -101,8 +120,9 @@ end
  
 SWEP.NextSwitch = 0
 function SWEP:Reload()
-    return false
+return
 end
+
  
 function SWEP:PrimaryAttack()
  
@@ -114,10 +134,8 @@ function SWEP:PrimaryAttack()
 		return
 	end
 		   
-	self.Weapon:SetNextPrimaryFire(CurTime() + 1)
-	self:SendWeaponAnim(ACT_VM_HITCENTER)
+	self.Weapon:SetNextPrimaryFire(CurTime() + 0.2)
 	self.Alternate = not self.Alternate
-	self.Owner:SetAnimation(PLAYER_ATTACK1)
    
 	if SERVER then
 		local tr = self.Owner:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_HUMAN))
@@ -128,7 +146,6 @@ function SWEP:PrimaryAttack()
 		end
 
 		if tr.Hit and not tr.HitWorld then
-			trent:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1,4)..".wav")
 			if trent.Nails and #trent.Nails > 0 then
 
 				for i=1, #trent.Nails do
@@ -136,18 +153,16 @@ function SWEP:PrimaryAttack()
 					   
 					if nail and nail:IsValid() then
 
-						if nail:GetNailHealth() < nail:GetDTInt(1) then -- nail:GetNWInt("MaxNailHealth")
-							if self.Owner:GetPerk("_trchregen") then      
-								--nail:SetMaxNailHealth(math.Clamp(nail:GetMaxNailHealth()-2,1))                                                        
+						if nail:GetNailHealth() < nail:GetDTInt(1) then
+							if self.Owner:GetPerk("_trchregen") then                                                           
 								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+7,1,nail:GetDTInt(1)))
-							else
-								--nail:SetMaxNailHealth(math.Clamp(nail:GetMaxNailHealth()-3,1))                                                        
+							else                                                       
 								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+5,1,nail:GetDTInt(1)))
 							end  					
 							
 							local pos = tr.HitPos
-							local norm = tr.HitNormal-- (tr.HitPos - self.Owner:GetShootPos()):Normalize():Angle()
-						   
+							local norm = tr.HitNormal
+		
 							local eff = EffectData()
 							eff:SetOrigin( pos )
 							eff:SetNormal( norm )
@@ -156,14 +171,19 @@ function SWEP:PrimaryAttack()
 							util.Effect( "StunstickImpact", eff, true, true )
 							
 							self.Owner._RepairScore = self.Owner._RepairScore + 1
-							if self.Owner._RepairScore == 5 then
-								skillpoints.AddSkillPoints(self.Owner, 15)
-								nail:FloatingTextEffect( 15, self.Owner )
-								self.Owner:AddXP(10)
+							if self.Owner._RepairScore == 2 then
+								skillpoints.AddSkillPoints(self.Owner, 2)
+								nail:FloatingTextEffect( 2, self.Owner )
+								self.Owner:AddXP(5)
+								self.Owner._RepairScore = 0
+								
+								elseif self.Owner and self.Owner:GetSuit() == "supportsuit" then
+								skillpoints.AddSkillPoints(self.Owner, 4)
+								nail:FloatingTextEffect( 4, self.Owner )
+								self.Owner:AddXP(5)
 								self.Owner._RepairScore = 0
 							end
-
-							self.Owner:EmitSound("npc/dog/dog_servo"..math.random(7, 8)..".wav", 70, math.random(100, 105))
+							self.Owner:EmitSound("ambient/energy/spark"..math.random(1,6)..".wav",math.random(86,110),math.random(86,110))
 							break
 						end
 					end

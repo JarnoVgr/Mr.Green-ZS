@@ -1357,7 +1357,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	    if ( ( attacker.BarricadeWarnTime or 0 ) <= CurTime() ) then
             attacker:Message("Don't break the barricade", 2)
             attacker.BarricadeWarnTime = CurTime() + 4
-			damage = damage * 0.25
+			damage = 0
 	    end  
 	end
 	
@@ -1371,14 +1371,15 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	
 	--Prevent cadebreaking by reducing attack damage dealt by humans
 	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and dmginfo:IsMeleeDamage() and ent.Nails then 
-		damage = damage * 0.25
+		--damage = damage * 0.25
+		damage = 0 
 	end
 	
 	--Hammer can't damage
 	if inflictor:GetClass() == "weapon_zs_tools_hammer" then
 		damage = 0
 	end
-	
+
 	local bNailDied = false
 
 	for i=1, #ent.Nails do

@@ -31,7 +31,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 	    	return
 		else
 			--Multiply once a nail dies
-			dmginfo:ScaleDamage(1.5)
+			dmginfo:ScaleDamage(1.6)
 		end
 	
 		local entclass = ent:GetClass()
