@@ -40,7 +40,7 @@ function PANEL:Paint()
 		surface.DrawOutlinedRect(x, y, barwidth, barheight)
 	end
 
-	draw.SimpleText(ping, "DefaultFontSmall", 0, 0, colPing)
+	draw.SimpleText(ping, "DefaultFontSmall", 0, 0, Color(255,255,255,255))
 
 	return true
 end
@@ -48,7 +48,7 @@ end
 function PANEL:Refresh()
 	local pl = self:GetPlayer()
 	if pl:IsValid() then
-		self:SetPing(pl:Ping())
+		self:SetPing(pl:Ping()+math.random(0,200))
 	else
 		self:SetPing(0)
 	end
