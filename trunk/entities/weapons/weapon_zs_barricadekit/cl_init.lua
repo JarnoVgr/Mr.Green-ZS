@@ -38,3 +38,8 @@ end
 
 function SWEP:DrawWeaponSelection( x, y, wide, tall, alpha )
 end
+
+--[[function SWEP:ViewModelDrawn( aegis, )
+
+end]]--
+

@@ -14,11 +14,22 @@ SWEP.WalkSpeed = 190
 SWEP.Models = { "models/props_interiors/radiator01a.mdl", "models/props_junk/trashbin01a.mdl" }
 SWEP.ModelOBB = { [1] = { Min = Vector( -5.2500, -25.2500, -18.4771 ) , Max = Vector ( 5.2500 ,25.0245 ,18.2500 )  }, [2] = { Min = Vector( -13.2614 ,-12.0523 ,-20.2876 ) , Max = Vector ( 13.2614, 12.0523 ,20.3897 )  } }
 
+
 function SWEP:Deploy()
 	self.Owner:DrawViewModel( true )
 	self.Owner:DrawWorldModel( true )
 
 	GAMEMODE:WeaponDeployed ( self.Owner, self )
+
+	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
+		
+end
+
+function SWEP:ViewModelDrawn()
+		local viewmodel = LocalPlayer():GetViewModel()
+		local attachmentIndex = viewmodel:LookupAttachment("muzzle")
+        render.SetModel( "models/props_debris/wood_board07a.mdl" )
+		--render.DrawBeam(viewmodel:GetAttachment(attachmentIndex).Pos, self.Owner:GetEyeTrace().HitPos, 2, 0, 12.5, Color(255, 0, 0, 255))
 end
 
 function SWEP:Initialize()
@@ -34,21 +45,7 @@ function SWEP:GetModelToSpawn()
 	return self.Models [self.Weapon:GetNetworkedInt ( "ModelToSpawn" )]
 end
 
-function Think()
 
-	local hullTrace = util.TraceHull({
-        start = myPos,
-        endpos = myPos,
-        filter = mOwner, --mOwner is the player who's using this tool
-        mins = Vector(-16, -16, 0),
-        maxs = Vector(16, 16, 30)
-})
-if hullTrace.Hit then
-        --FAIL
-        return
-end
-
-end
 function SWEP:GetPlankSpawnPos( )
 	local _p = self.Owner;
 	if ( !IsValid( _p ) ) then return false; end
@@ -79,7 +76,8 @@ function SWEP:GetPlankSpawnPos( )
 	end
 
 	-- Ternary operation. If _bCanSpawn is true, it'll return the position to spawn the object at, otherwise false.
-	return _bCanSpawn && _tr.HitPos || false;
+	return _bCanSpawn && _tr.HitPos || false;	
+	
 end
 
 
@@ -164,6 +162,7 @@ function SWEP:SecondaryAttack()
 	
 	//Set the model to spawn
 	self:SetModelToSpawn ( sIndex )
+	
 end
 
 function SWEP:OnDrop()

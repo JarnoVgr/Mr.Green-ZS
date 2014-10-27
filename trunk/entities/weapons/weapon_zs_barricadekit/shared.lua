@@ -45,3 +45,10 @@ function SWEP:CanPrimaryAttack()
 end
 
 util.PrecacheSound("npc/dog/dog_servo12.wav")
+
+
+
+
+
+
+
