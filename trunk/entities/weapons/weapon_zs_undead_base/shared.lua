@@ -103,6 +103,11 @@ function SWEP:PrimaryAttack()
 		return true
 	end
 
+	--Check if already attacking
+	if self:IsInPrimaryAttack() or self:IsInSecondaryAttack() then
+		return true
+	end
+
 	--Delay next attack
 	if self.Primary.Next then
 		self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Next)
@@ -250,6 +255,11 @@ end
 function SWEP:SecondaryAttack()
 	--Check if we have a secondary attack
 	if not self.Secondary.Duration or self.Secondary.Duration < 0 then
+		return true
+	end
+
+	--Check if already attacking
+	if self:IsInPrimaryAttack() or self:IsInSecondaryAttack() then
 		return true
 	end
 

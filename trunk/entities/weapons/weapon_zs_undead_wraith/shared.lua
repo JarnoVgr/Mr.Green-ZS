@@ -10,14 +10,10 @@ SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
 SWEP.PrintName = "Ethereal"
 
-
 if CLIENT then
 	SWEP.ViewModelFOV = 82
 	SWEP.ViewModelFlip = false
 end
-
-
- 
 
 SWEP.Primary.Duration = 1.5
 SWEP.Primary.Delay = 0.5
@@ -148,7 +144,7 @@ function SWEP:PerformSecondaryAttack()
 		filter = mOwner,
 		mask = MASK_PLAYERSOLID_BRUSHONLY
 	})
-	if not aimTrace.Hit or aimTrace.HitNormal ~= Vector(0, 0, 1) then
+	if not aimTrace.Hit then -- or aimTrace.HitNormal ~= Vector(0, 0, 1) then
 		self:TeleportFail()
 		return
 	end
@@ -158,16 +154,34 @@ function SWEP:PerformSecondaryAttack()
 		self:TeleportFail()
 		return
 	end
-	
+
 	--Hulltrace that position
-	local hullTrace = util.TraceHull({
-		start = aimTrace.HitPos,
-		endpos = aimTrace.HitPos,
-		filter = mOwner,
-		mins = Vector(-16, -16, 0),
-		maxs = Vector(16, 16, 72)
-	})
-	if hullTrace.Hit then
+	--Keep trying with higher Z-axis value to allow teleporting on steep spots
+	local safeHull, safeHullAttempts = false, 0
+	local hullTrace
+	while not safeHull and safeHullAttempts <= 26 do
+		print(aimTrace.HitPos.z)
+
+		hullTrace = util.TraceHull({
+			start = aimTrace.HitPos,
+			endpos = aimTrace.HitPos,
+			filter = mOwner,
+			mins = Vector(-16, -16, 0),
+			maxs = Vector(16, 16, 72)
+		})
+
+		if not hullTrace.Hit then
+			safeHull = true
+			break
+		end
+
+		--Raise Z-axis value with 1 unit for next loop
+		aimTrace.HitPos.z = aimTrace.HitPos.z + 0.5
+
+		safeHullAttempts = safeHullAttempts + 1
+	end
+
+	if not safeHull then
 		self:TeleportFail()
 		return
 	end
@@ -203,6 +217,7 @@ function SWEP:PerformSecondaryAttack()
 		mOwner:SetHealth(mOwner:Health() - (mOwner:GetMaximumHealth() * 0.1))
 		
 		--Pre-teleport smoke
+		--TODO: Fix. This ain't working
 		local eData = EffectData()
 		eData:SetEntity( mOwner )
 		eData:SetOrigin( mOwner:GetPos() )
