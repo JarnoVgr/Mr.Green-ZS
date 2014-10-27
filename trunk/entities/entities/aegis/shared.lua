@@ -12,16 +12,14 @@ ENT.AutomaticFrameAdvance = true
 
 -- Some precaching stuff
 
-for i=1,3 do
-	util.PrecacheSound("npc/turret_floor/shoot"..i..".wav")
-end
+
 util.PrecacheSound("physics/wood/wood_crate_break1.wav")
 for i=1,2 do
 	util.PrecacheSound("physics/wood/wood_crate_break"..i..".wav")
 end
 
 -- Options
-ENT.MaxHealth = 350
+ENT.MaxHealth = 400
 ENT.IgnoreClasses = {} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {}
 
@@ -43,13 +41,13 @@ if SERVER then
 	function ENT:Initialize()
 		
 		self._mOwner = self:GetTurretOwner()
-		--self.Entity:SetModel("models/props_debris/wood_board07a.mdl")
-		self.Entity:SetModel("models/props_c17/oildrum001.mdl")
+		self.Entity:SetModel("models/props_debris/wood_board07a.mdl")
+		--self.Entity:SetModel("models/props_c17/oildrum001.mdl")
 		self.Entity:PhysicsInit(SOLID_VPHYSICS )
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
 		self.Entity:SetSolid(SOLID_VPHYSICS)
 		self.Entity:SetCollisionGroup( COLLISION_GROUP_NONE )
-	    self.Entity:SetAngles(Angle(0, 0, 0))
+	    self.Entity:SetAngles(Angle(0,0,90))
 		local phys = self.Entity:GetPhysicsObject()
 		if (phys:IsValid()) then
 			phys:Wake()
@@ -174,11 +172,6 @@ if SERVER then
 end
 -- Server part ends here
 
-function ENT:GetScan()
-	local scan = team.GetPlayers(TEAM_UNDEAD)
-	return scan
-end
-
 ENT.NextCache = 0
 function ENT:GetCachedScan()
 	if CurTime() < self.NextCache and self.CachedFilter then return self.CachedFilter end
@@ -270,134 +263,7 @@ function ENT:ShouldIgnoreDamage(pl)
 	return table.HasValue( self.IgnoreDamage, pl:GetZombieClass() )
 end
 
-function ENT:IsBlocked()
-	return self.Blocked or false
-end
-
 function ENT:GetTurretOwner()
 	return self:GetDTEntity(0)
 	--return self:GetNWEntity("TurretOwner")
 end
-
--- ENT.GetOwner = ENT.GetTurretOwner
-
-function ENT:GetTurretName()
-	return self:GetDTString(0)
-end
-
-function ENT:GetAmmo()
-	return self:GetDTInt(0)
-end
-
-function ENT:GetMaxAmmo()
-	return self:GetDTInt(2)
-end
-
-function ENT:CanAttack()
-	return self:GetAmmo() > 0
-end
-
-function ENT:IsActive()
-	return self:GetDTBool(0)
-end
-
-function ENT:IsAttacking()
-	return self:GetDTBool(1)
-end
-
-function ENT:IsControlled()
-	return self:GetDTBool(2)
-end
-
--- Client part starts here
-if CLIENT then
-	-- Small piece of code from IW
-	local matLaser 		= Material( "sprites/bluelaser1" )
-	local matLight 				= Material( "models/roller/rollermine_glow" )
-	local colBeam				= Color( 50, 100, 210, 120 )
-	local colLaser				= Color( 50, 100, 240, 120 )
-
-	function ENT:Draw()
-		self.Entity:DrawModel() 
-		if not self.EndPos then
-			return
-		end
-		
-		if self:IsActive() then
-		render.SetMaterial( matLaser )
-
-		local TexOffset = CurTime() * 3
-
-		local Distance = self.EndPos:Distance( self:GetAttachment(self:LookupAttachment("eyes")).Pos )
-		
-		if not self:IsAttacking() then
-			if self:IsControlled() then
-				render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(5,8), TexOffset, TexOffset+Distance/8, Color( 0, 255, 0 , 255 ))
-				render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(3,5), TexOffset, TexOffset+Distance/8, Color( 0, 255, 0 , 255 ) )
-			else
-				render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(5,7), TexOffset, TexOffset+Distance/8, colBeam )
-				render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(3,5), TexOffset, TexOffset+Distance/8, Color( 255, 255, 255 , 255 ) )
-			end
-		else
-			render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(9,10), TexOffset, TexOffset+Distance/8, Color( 255, 0, 0 , 250 ))
-			render.DrawBeam( self.EndPos, self:GetAttachment(self:LookupAttachment("light")).Pos, math.Rand(8,9), TexOffset, TexOffset+Distance/8, Color( 255, 0, 0 , 255 ) )
-		end
-		
-		render.SetMaterial( matLight )
-		
-		local Size = math.Rand( 5, 8 )
-		-- local Normal = (self:GetAttachment(self:LookupAttachment("eyes")).Pos-self.EndPos):GetNormal() * 0.1
-		local Normal = self.FixNormal
-		
-		if not self:IsAttacking() then
-			if self:IsControlled() then
-				Size = math.Rand( 7, 10 )
-				render.DrawQuadEasy( self.EndPos + Normal, Normal, Size, Size, Color( 0, 255, 0 , 255 ), 0 )
-			else
-				render.DrawQuadEasy( self.EndPos + Normal, Normal, Size, Size, colLaser, 0 )
-			end
-		else
-			Size = math.Rand( 5, 8 )
-			render.DrawQuadEasy( self.EndPos + Normal, Normal, Size, Size, Color( 255, 0, 0 , 250 ), 0 )
-		end
-		
-		local Normal1 = ((self:GetAttachment(self:LookupAttachment("light")).Pos + self:GetAttachment(self:LookupAttachment("light")).Ang:Forward()*10)-self:GetAttachment(self:LookupAttachment("light")).Pos):GetNormal() * 0.1
-		Size = math.Rand( 2, 4 )
-		render.DrawQuadEasy( self:GetAttachment(self:LookupAttachment("light")).Pos, Normal1, Size, Size, Color( 255, 255, 255, 255 ), 0 )
-		end
-		
-			if self:GetDTInt(1) < self.MaxHealth/2 then --self:GetNWInt("TurretHealth")
-
-			self.SmokeTimer = self.SmokeTimer or (CurTime()+0.02)
-			if ( self.SmokeTimer <= CurTime() ) then 
-				self.SmokeTimer = CurTime() + 0.02
-				local spawnang = self:GetAttachment(self:LookupAttachment("light")).Ang
-				local spawnPos = self:GetAttachment(self:LookupAttachment("light")).Pos+ spawnang:Right()*-4+ spawnang:Up()*-10+Vector(math.random(0,8),math.random(0,8),math.random(0,8))
-				local emitter = ParticleEmitter( spawnPos )
-				local particle = emitter:Add( "particles/smokey", spawnPos )
-				particle:SetVelocity( Vector(math.Rand(0,1)/3,math.Rand(0,1)/3,1):GetNormal()*math.Rand( 10, 20 ) )
-				particle:SetDieTime( 0.7 )
-				particle:SetStartAlpha( math.Rand( 100, 150 ) )
-				particle:SetStartSize( math.Rand( 5, 10 ) )
-				particle:SetEndSize( math.Rand( 15, 30 ) )
-				particle:SetRoll( math.Rand( -0.2, 0.2 ) )
-				local ran = math.random(0,30)
-				particle:SetColor( 40+ran, 40+ran, 40+ran )
-						
-				emitter:Finish()
-			end
-		end
-
-
-	end
-
-	net.Receive("SendTurret", function( len )
-		if not IsValid(MySelf) then
-			return
-		end
-		
-		local t = net.ReadEntity()	
-		MySelf.Turret = t or nil
-	end)
-end
--- Client part ends here
