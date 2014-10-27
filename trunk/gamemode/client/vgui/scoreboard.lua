@@ -65,13 +65,12 @@ local function AddScoreboardItem(ply,list)
 	-- MainLabel[ply].Ping:SetTextColor( color_white )
 	-- MainLabel[ply].Ping:SetContentAlignment( 5 )
 	MainLabel[ply].Ping.Paint = function()
-		local col = Color (255,255,255,255)
+		local col = Color(255, 255, 255, 255)
 		
 		if not IsValid(ply) then return end
 		
-		--if ply:Team() == TEAM_UNDEAD then
-			col = team.GetColor( ply:Team() )
-		--end
+
+		col = team.GetColor(ply:Team())
 		draw.SimpleTextOutlined(ply:Ping() , "ArialBoldFive", MainLabel[ply].Ping:GetWide()/2,MainLabel[ply].Ping:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 
@@ -88,23 +87,22 @@ local function AddScoreboardItem(ply,list)
 		if not IsValid(ply) then
 			return
 		end
-		
-		--if ply:Team() == TEAM_UNDEAD then
-			col = team.GetColor( ply:Team() )
-		--end
-		
-		local txt = "+"..ply:Health()
+
+		col = team.GetColor( ply:Team() )
+		local txt
 		if ply:Health() <= 0 then
 			txt = "DEAD"
+		else
+			txt = "+"..ply:Health()
 		end
 		
 		draw.SimpleTextOutlined(txt, "ArialBoldFive", MainLabel[ply].Health:GetWide()/2,MainLabel[ply].Health:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 
 	MainLabel[ply].Kills = MainLabel[ply]:Add( "DLabel" )
-	MainLabel[ply].Kills:Dock( RIGHT )
+	MainLabel[ply].Kills:Dock(RIGHT)
 	MainLabel[ply].Kills:SetText("")
-	MainLabel[ply].Kills:SetWidth( 60 )
+	MainLabel[ply].Kills:SetWidth(60)
 	-- MainLabel[ply].Kills:SetFont( "ScoreboardDefault" )
 	-- MainLabel[ply].Kills:SetTextColor( color_white )
 	-- MainLabel[ply].Kills:SetContentAlignment( 5 )
@@ -125,8 +123,7 @@ local function AddScoreboardItem(ply,list)
 		end
 	
 		local self = MainLabel[ply]
-		if ( self.Muted == nil or self.Muted ~= self.Player:IsMuted() ) then
-
+		if self.Muted == nil or self.Muted ~= self.Player:IsMuted() then
 			self.Muted = self.Player:IsMuted()
 			if ( self.Muted ) then
 				self.Mute:SetImage( "icon32/muted.png" )
@@ -135,7 +132,6 @@ local function AddScoreboardItem(ply,list)
 			end
 
 			self.Mute.DoClick = function() self.Player:SetMuted( not self.Muted ) end
-
 		end
 	end
 	

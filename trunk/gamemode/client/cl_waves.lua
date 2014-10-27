@@ -161,10 +161,3 @@ function IsOnSale(item)
 	
 	return false
 end
-
-usermessage.Hook("Fun1", function(um)
-	local pl = um:ReadEntity()
-	local s = um:ReadShort()
-	
-	pl:SetModelScale(Vector(s,s,s))
-end)

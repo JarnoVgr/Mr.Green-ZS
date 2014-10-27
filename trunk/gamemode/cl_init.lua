@@ -492,16 +492,6 @@ function GM:Initialize()
 	
 	surface.CreateFontLegacy("ZS New", ScreenScale(19), 500, true, false, "ZSKillicons")
 
-	
-
-	-- Default, DefaultBold, DefaultSmall, etc. were changed when gmod13 hit. These are renamed fonts that have the old values.
-	--surface.CreateFont("DefaultFontVerySmall", {font = "tahoma", size = 10, weight = 0, antialias = false})
-	surface.CreateFont("DefaultFontSmall", {font = "tahoma", size = 11, weight = 0, antialias = false})
-	--[[surface.CreateFont("DefaultFontSmallDropShadow", {font = "tahoma", size = 11, weight = 0, shadow = true, antialias = false})
-	surface.CreateFont("DefaultFont", {font = "tahoma", size = 13, weight = 500, antialias = false})
-	surface.CreateFont("DefaultFontBold", {font = "tahoma", size = 13, weight = 1000, antialias = false})
-	surface.CreateFont("DefaultFontLarge", {font = "tahoma", size = 16, weight = 0, antialias = false})]]
-
 	--Sync server setting
 	timer.Simple(4, function()
 		RunConsoleCommand("zs_setautoredeem", tostring(GetConVarNumber("_zs_autoredeem")))

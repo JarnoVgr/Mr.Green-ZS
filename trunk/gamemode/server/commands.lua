@@ -90,7 +90,7 @@ function DropWeapon(pl, commandName, args)
 		GAMEMODE:SetPlayerSpeed(pl, 210)
 	end
 	
-	if string.sub( wepname,1,5 ) == "admin" or wepname == "weapon_frag" or wepname == "weapon_zs_punch" or wepname == "weapon_physcannon" or wepname == "weapon_physgun" or wepname == "christmas_snowball" then
+	if string.sub( wepname,1,5 ) == "admin" or wepname == "weapon_frag" or wepname == "weapon_zs_fists" or wepname == "weapon_zs_punch" or wepname == "weapon_physcannon" or wepname == "weapon_physgun" or wepname == "christmas_snowball" then
 		pl:Message("You can't drop this weapon")
 		return false
 	end
@@ -168,26 +168,6 @@ function PrintZSStats(ply,commandName,args)
 end
 concommand.Add("status_zs",PrintZSStats)
 
-function FunCommand1(pl,commandName,args)
-
-	if not IsValid(pl) or not pl:IsSuperAdmin() then
-		return
-	end
-	
-	local ent = pl:GetEyeTrace().Entity
-	
-	if not IsValid(ent) or not ent:IsPlayer() then
-		ent = pl
-	end
-	
-	umsg.Start("Fun1")
-		umsg.Entity(ent or pl)
-		umsg.Short(tonumber(args[1] or 1))
-	umsg.End()
-end
-concommand.Add("mrgreen_fun1",FunCommand1)
-
-
 -- Hats
 function SetPlayerHat(pl,commandName,args)
 	local h = args[1]
@@ -215,7 +195,6 @@ end
 concommand.Add("mrgreen_hat_set",SetPlayerHat) 
 
 function SetPlayerSuit(pl,commandName,args)
-
 	local hat = args[1]
 	local itemID = util.GetItemID(hat)
 
@@ -226,7 +205,6 @@ function SetPlayerSuit(pl,commandName,args)
 		pl:ConCommand("_zs_defaultsuit "..tostring(hat))
 		GAMEMODE:SpawnSuit(pl,hat)
 	end
-
 end
 concommand.Add("mrgreen_suit_set",SetPlayerSuit) 
 
@@ -253,7 +231,7 @@ function UnlockEventHat(pl)
 	pl:SaveShopItem( 64 )
 	stats.SendShopData( pl, pl )
 	
-	pl:ChatPrint("Congratulations! You have unlocked Winter Beanie hat in the shop!")
+	pl:ChatPrint("Congratulations! You have unlocked Winter Beanie hat in the shop.")
 end
 
 function BuyItem(pl,commandName,args)
