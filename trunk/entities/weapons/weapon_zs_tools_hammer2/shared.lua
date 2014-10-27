@@ -134,7 +134,7 @@ function SWEP:PrimaryAttack()
 		return
 	end
 		   
-	self.Weapon:SetNextPrimaryFire(CurTime() + 0.2)
+	self.Weapon:SetNextPrimaryFire(CurTime() + 0.3)
 	self.Alternate = not self.Alternate
    
 	if SERVER then
