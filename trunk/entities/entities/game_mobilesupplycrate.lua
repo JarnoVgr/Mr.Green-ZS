@@ -164,9 +164,9 @@ if SERVER then
 				--Give SP to crate owner		
 				local Owner = self:GetPlacer()
 				if activator ~= Owner and (IsValid(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
-					skillpoints.AddSkillPoints(Owner,6)
-					self:FloatingTextEffect(3, Owner)
-					Owner:AddXP(3)
+					skillpoints.AddSkillPoints(Owner,7)
+					self:FloatingTextEffect(7, Owner)
+					Owner:AddXP(5)
 				end
 
 				--Play sound
