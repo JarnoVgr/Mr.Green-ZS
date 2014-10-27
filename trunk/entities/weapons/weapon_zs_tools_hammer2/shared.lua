@@ -19,7 +19,7 @@ SWEP.CSMuzzleFlashes = false
  
 if CLIENT then
 SWEP.ShowViewModel = false
-SWEP.ShowWorldModel = false
+SWEP.ShowWorldModel = true
         killicon.AddFont("weapon_zs_tools_hammer", "ZSKillicons", "c", Color(255, 255, 255, 255))
  
         
