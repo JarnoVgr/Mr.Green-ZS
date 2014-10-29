@@ -15,7 +15,6 @@ end]]
            Called when the chat box is closed
 ---------------------------------------------------------]==]
 function GM:FinishChat()
-	print("Well bye")
 end
 
 --[==[---------------------------------------------------------
