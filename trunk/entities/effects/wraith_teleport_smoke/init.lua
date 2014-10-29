@@ -4,7 +4,6 @@
 EFFECT.ParticlesCount = 20
 
 function EFFECT:Init(data)
-	print("WraithEffect")
 	-- Get entity
 	self.Ent = data:GetEntity()
 	self.Pos = data:GetOrigin()
