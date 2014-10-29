@@ -231,7 +231,7 @@ function SWEP:StartSwinging()
 	local swingtime = self.SwingTime
 	
 	if self.Owner and self.Owner:GetSuit() == "meleesuit" then
-		swingtime = math.Clamp(self.SwingTime-0.11,0,self.SwingTime)
+		swingtime = math.Clamp(self.SwingTime-0.3,0,self.SwingTime)
 	end
 
 	--Viewpunch

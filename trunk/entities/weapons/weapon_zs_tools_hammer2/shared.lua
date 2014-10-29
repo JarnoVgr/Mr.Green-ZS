@@ -8,6 +8,7 @@ SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
 SWEP.UseHands = true
 SWEP.WorldModel = Model("models/weapons/w_hammer.mdl")
 SWEP.Base = "weapon_zs_melee_base"
+
  
 -- Name, fov, etc
 SWEP.PrintName = "Nailing Hammer"
@@ -61,15 +62,15 @@ SWEP.DamageType = DMG_CLUB
 SWEP.Slot = 3
 SWEP.SlotPos = 3
  
-SWEP.Primary.ClipSize = 10
+SWEP.Primary.ClipSize = 1
 SWEP.Primary.Damage = 0
 SWEP.Primary.DefaultClip = 3
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "gravity"
 SWEP.Primary.Delay = 0.09
- 
-SWEP.Secondary.ClipSize = 1
-SWEP.Secondary.DefaultClip = 1
+
+SWEP.Secondary.ClipSize = 10
+SWEP.Secondary.DefaultClip = 10
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
  
@@ -125,7 +126,7 @@ end
 
  
 function SWEP:PrimaryAttack()
- 
+	self:TakeSecondaryAmmo(1)
 	if not self:CanPrimaryAttack() then
         return	
 	end
@@ -167,13 +168,13 @@ function SWEP:PrimaryAttack()
 							eff:SetOrigin( pos )
 							eff:SetNormal( norm )
 							eff:SetScale( math.Rand(0.5,0.75) )
-							eff:SetMagnitude( math.random(5,10) )
+							eff:SetMagnitude( math.random(1,2) )
 							util.Effect( "StunstickImpact", eff, true, true )
 							
 							self.Owner._RepairScore = self.Owner._RepairScore + 1
 							if self.Owner._RepairScore == 2 then
-								skillpoints.AddSkillPoints(self.Owner, 2)
-								nail:FloatingTextEffect( 2, self.Owner )
+								skillpoints.AddSkillPoints(self.Owner, 1)
+								nail:FloatingTextEffect( 1, self.Owner )
 								self.Owner:AddXP(5)
 								self.Owner._RepairScore = 0
 								
@@ -202,7 +203,7 @@ function SWEP:PrimaryAttack()
 						self.Owner:AddXP(5)
 						self.Owner._RepairScore = 0
 					end
-		   
+					self:TakeSecondaryAmmo(1)
 					trent:SetDTInt(1,trent:GetDTInt(1)+1)
 				   
 					local pos = tr.HitPos
@@ -212,7 +213,7 @@ function SWEP:PrimaryAttack()
 					eff:SetOrigin(pos)
 					eff:SetNormal(norm)
 					eff:SetScale( math.Rand(0.5,0.75) )
-					eff:SetMagnitude( math.random(5,10) )
+					eff:SetMagnitude( math.random(1,2) )
 					util.Effect("StunstickImpact", eff, true, true)
 								   
 					self.Owner:EmitSound("npc/dog/dog_servo"..math.random(7, 8)..".wav", 70, math.random(100, 105))
@@ -243,7 +244,6 @@ function SWEP:SecondaryAttack()
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() or ARENA_MODE or CurTime() < self.NextNail then
 		return
 	end
-
 	if self:Clip1() <= 0 then
 		--Remove nail in hand
 		if CLIENT then
@@ -253,8 +253,9 @@ function SWEP:SecondaryAttack()
 		--Notice, cuz we're nice folks explaining how this game works
 		if SERVER then
 			self.Owner:Message("No nails left. Wait for the crate timer!", 2)
+			
 		end
-
+			
 		return
 	end
 
@@ -315,6 +316,7 @@ function SWEP:SecondaryAttack()
 
 				self.NextNail = CurTime() + 1
 				self:TakePrimaryAmmo(1)
+				--self:TakeSecondaryAmmo(1)
 			   
 				--Give XP for nailing
 				self.Owner:AddXP(5)
@@ -373,6 +375,7 @@ function SWEP:SecondaryAttack()
 
 							self.NextNail = CurTime() + 1
 							self:TakePrimaryAmmo(1)
+							--self:TakeSecondaryAmmo(1)
 						   
 							self.Owner:AddXP(5)
 								   
@@ -478,7 +481,7 @@ if CLIENT then
 		end
 
 		MeleeWeaponDrawHUD()
-
+		
 		for _,nail in pairs (ents.FindByClass("nail")) do
 			if not nail or not nail:IsValid() then
 				continue
@@ -489,6 +492,53 @@ if CLIENT then
 			end
 
 			draw.SimpleTextOutlined("+".. math.Round(nail:GetDTInt(0)) .."/".. math.Round(nail:GetDTInt(1)), "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			
+		end
+	end
+end
+
+
+
+SWEP.fired = false
+SWEP.lastfire = 0
+SWEP.rechargetimer = 0
+function SWEP:Think()
+	self.AppTo = self.IdleAngle
+		
+	if self.Owner:KeyDown(IN_ATTACK) and self:CanPrimaryAttack() then
+		self.AppTo = self.ActiveAngle
+	end
+	
+	-- ApproachAngle(self.TempAng,self.AppTo,FrameTime()*33)
+	
+	--[[if CLIENT then
+		ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
+	end]]
+	
+	local maxclip = 10
+	
+	if self.Owner and self.Owner:GetSuit() == "supportsuit" then
+		maxclip = 15
+		--rtime = rtime - 0.25
+	end
+	
+	if SERVER then
+		if self.Owner:KeyDown(IN_ATTACK) and self:CanPrimaryAttack() then	
+			self.fired = true
+			self.lastfire = CurTime()
+		else
+			if self.lastfire < CurTime() - 0.3 and self.rechargetimer < CurTime() then
+			--self.Owner:Message("Torch is recharging!", 2)
+				self.Weapon:SetClip2( math.min( maxclip,self.Weapon:Clip2() + 1 ) )
+				local rtime = 0.15
+				if self.Owner:GetPerk("_trchregen") then
+					rtime = 0.10
+				end
+				self.rechargetimer = CurTime() + rtime
+			end
+			if self.fired then 
+				self.fired = false
+			end
 		end
 	end
 end

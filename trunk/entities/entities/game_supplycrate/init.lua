@@ -12,9 +12,12 @@ include("shared.lua")
 -- Normal set data
 ENT.Table = {
 	--Duby: This is the new crate model.
-	["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 10.8135, 0 ), Angles = Angle ( 0, -180, 0 ) },
-	["Shotgun"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 31.8135, 0 ), Angles = Angle ( 0, -180, 0 ) },
-	["Ammo"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 15.8135, 24 ), Angles = Angle ( 0, -180, 0 ) },
+	--["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 10.8135, 0 ), Angles = Angle ( 0, -180, 0 ) },
+	["Ammo"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 16, 24 ), Angles = Angle ( 0, 180, 0 ) },
+	--["Shotgun"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 31.8135, 0 ), Angles = Angle ( 0, -180, 0 ) },
+	["Shotgun"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 34.8135, 0 ), Angles = Angle ( 0, 80, 0 ) },
+	--["Ammo"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 15.8135, 24 ), Angles = Angle ( 0, -180, 0 ) },
+	["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 10.8135, 0 ), Angles = Angle ( 0, -80, 0 ) },
 	["Vial"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( 16, 10.8135, 18 ), Angles = Angle ( 100, -90, 180 ) },
 	["Ammo2"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -18, 10.8135, 18 ), Angles = Angle ( 100, -90, 180 ) },
 	["AmmoUp5"] = { Model = "models/greenshat/greenshat.mdl", Position = Vector ( -0.1039, 10, 48 ), Angles = Angle ( 0, -180, 0 ) },

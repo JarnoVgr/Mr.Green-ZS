@@ -7,7 +7,7 @@ function ENT:Initialize()
     hook.Add("PreDrawHalos", "CustDrawHalos".. tostring(self), function()
         if util.tobool(GetConVarNumber("_zs_drawcrateoutline")) then
             if (IsValid(MySelf) and MySelf:Team() == TEAM_HUMAN and MySelf:Alive()) then
-                halo.Add(self:GetEntities(), self.LineColor, 1, 1, 1, true, true)
+                halo.Add(self:GetEntities(), self.LineColor, 2, 2, 2, true, true)
             end
         end
     end)
@@ -48,7 +48,7 @@ function ENT:Draw()
     cam.Start3D2D(pos,angle,0.26)
 
     --draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", 0, -10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --Old
-    draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", 0, -100, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
+    draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", -60, -100, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
 
     if not suppliesAvailable then
     	--Reset cache for once it's active again
@@ -57,7 +57,7 @@ function ENT:Draw()
     	--Calculate time for next supply use possibility
         local timeLeft = math.Round(MySelf.NextSupplyTime - ServerTime())
       --  draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(timeLeft + 1), "ArialBoldFour", 0, 10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))--Old
-        draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(timeLeft + 1), "ArialBoldFour", 0,-70, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
+        draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(timeLeft + 1), "ArialBoldFour", -60,-70, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
     else
     	
 
@@ -69,10 +69,10 @@ function ENT:Draw()
     	end
 
       --  draw.SimpleTextOutlined(text, "ArialBoldFive", 0, 10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --Old
-        draw.SimpleTextOutlined(text, "ArialBoldFive", 0, -50, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
+        draw.SimpleTextOutlined(text, "ArialBoldFive", -60, -50, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
 
        -- draw.SimpleTextOutlined("Earn more SP for different weapons", "ArialBoldFour", 0, 30, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --Old
-        draw.SimpleTextOutlined("Earn more SP for different weapons", "ArialBoldFour", 0, -85, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
+        draw.SimpleTextOutlined("Earn more SP for different weapons", "ArialBoldFour", -60, -85, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
     end
  
     cam.End3D2D()

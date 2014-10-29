@@ -16,11 +16,12 @@ if CLIENT then
 end
 
 SWEP.Primary.Duration = 1.5
-SWEP.Primary.Delay = 0.5
+SWEP.Primary.Delay = 0.3
 SWEP.Primary.Reach = 50
 SWEP.Primary.Damage = 30
 
-SWEP.Secondary.Next = 6.8
+--SWEP.Secondary.Next = 6.8
+SWEP.Secondary.Next = 2
 SWEP.Secondary.Duration = 1
 
 SWEP.EmitWraithSound = 0

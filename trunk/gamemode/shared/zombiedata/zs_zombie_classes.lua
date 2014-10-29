@@ -328,7 +328,7 @@ ZombieClasses[4] =
 	Model = Model( "models/wraith.mdl" ),
 	Speed = 170,
 	Description = "A ghastly figure capable of disguising as a fellow human.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Disguise" },
+	DescriptionGameplay = { "> PRIMARY: Hooks", "> SECONDARY:Teleport!!" },
 	PainSounds = {
 				--Sound("npc/stalker/stalker_pain1.wav"),
 				--Sound("npc/stalker/stalker_pain2.wav"),
@@ -345,7 +345,7 @@ ZombieClasses[4] =
 				 Sound("wraithdeath4.wav")
 				},
 	OnSpawn = function(pl)	
-	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(5,5,5,2))
+	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(11,11,11,6))
 		--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
 	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
 	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
@@ -378,7 +378,7 @@ ZombieClasses[5] =
 	CanGib = false,
 	Model = Model("models/player/group01/female_01.mdl"), 
 	Speed = 180,						
-	Description = "Schoolgirl that can scream so loud she can pull or push people.",
+	Description = "Schoolgirl that can scream so loud she can pull or push people. Closer you are the more damage done!",
 	DescriptionGameplay = { "> PRIMARY: Pulling Scream", "> SECONDARY: Pushing Scream" },
 	PlayerFootstep = true,
 	AttackSounds = { 

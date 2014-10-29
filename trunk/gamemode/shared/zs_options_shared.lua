@@ -58,6 +58,7 @@ BOSS_CLASS = {10,11,13,16,18} -- 12
 --BOSS_CLASS = {17} --Smoker class
 --BOSS_CLASS = {18} --Seeker2
 --BOSS_CLASS = {19} --REMEIL
+--BOSS_CLASS = {11} --Behemoth
 
 
 --??
