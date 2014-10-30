@@ -10,6 +10,7 @@ SWEP.UseHands			= true
 SWEP.ViewModel			= "models/weapons/c_arms_citizen.mdl"
 SWEP.WorldModel			= ""
 
+
 SWEP.ViewModelFOV		= 52
 
 SWEP.Primary.ClipSize		= -1
@@ -35,6 +36,9 @@ SWEP.DrawCrosshair		= false
 
 local SwingSound = Sound( "weapons/slam/throw.wav" )
 local HitSound = Sound( "Flesh.ImpactHard" )
+
+-- Killicons
+if CLIENT then killicon.AddFont( "weapon_zs_fists", "HL2MPTypeDeath", "6", Color( 255, 80, 0, 255 ) ) end
 
 
 if CLIENT then

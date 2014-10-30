@@ -449,7 +449,8 @@ function SWEP:Equip( NewOwner )
 	if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false
 	   
-		if self.Owner:GetPerk("_nailamount") then
+		--if self.Owner:GetPerk("_nailamount") then
+		if self.Owner:GetPerk("_engineer") then
 			self.Weapon:SetClip1( math.Round(self.Primary.DefaultClip*1.5) )
 		else
 			self.Weapon:SetClip1( self.Primary.DefaultClip )

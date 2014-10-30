@@ -122,7 +122,8 @@ function SWEP:PrimaryAttack()
 				local health, maxhealth = ent:Health(), 100-- owner:GetMaxHealth()
 				--if ent:GetPerk("_kevlar") then maxhealth = 110 elseif ent:GetPerk("_kevlar2") then maxhealth = 120 end
 				local multiplier = 0.8
-				if owner:GetPerk("_medupgr1" ) then
+				--if owner:GetPerk("_medupgr1" ) then
+				if owner:GetPerk("_medic" ) then
 					multiplier = 1.35
 				end
 				local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
@@ -181,7 +182,8 @@ function SWEP:SecondaryAttack()
 		local health, maxhealth = owner:Health(), 100-- owner:GetMaxHealth()
 		--if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 end
 		local multiplier = 1
-		if owner:GetPerk("_medupgr1") then
+		--if owner:GetPerk("_medupgr1") then
+		if owner:GetPerk("_medic") then
 			multiplier = 1.35
 		end
 		local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Secondary.Heal * multiplier, maxhealth - health)))
@@ -285,7 +287,8 @@ function SWEP:Equip ( NewOwner )
 	
 	if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false
-		if NewOwner:GetPerk("_medupgr2") then
+		--if NewOwner:GetPerk("_medupgr2") then
+		if NewOwner:GetPerk("_medic") then
 			NewOwner:GiveAmmo( 70, self:GetPrimaryAmmoTypeString() )
 		end
 	else

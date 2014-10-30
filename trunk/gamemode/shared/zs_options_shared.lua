@@ -382,36 +382,38 @@ MAX_RANK = 30
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
 	[0] = {"weapon_zs_usp","weapon_zs_fists2","_sboost2","_kevlar3","_comeback2","weapon_zs_p228"},
-	[1] = {"weapon_zs_melee_plank"},
-	[2] = {"weapon_zs_tools_hammer2"},
-	[3] = {"_nailamount"},
+	[1] = {"weapon_zs_melee_plank","weapon_zs_tools_plank"},
+	[2] = {"weapon_zs_tools_hammer2","_Support(MK1)"},
+	[3] = {"_engineer"},
 	[4] = {"weapon_zs_medkit"},
 	[5] = {"weapon_zs_tools_supplies"},
 	[6] = {"_kevlar","weapon_zs_melee_pipe"},
 	[7] = {"_imortalpro","weapon_zs_melee_keyboard"},
-	[8] = {"_nailhp","_kevlar2"},
-	[9] = {"_falldmg","_medupgr1"},
+	[8] = {"_kevlar2"},
+	[9] = {"_falldmg","_medic"},
 	--[10] = {"weapon_zs_python"},
 	--[11] = {"weapon_zs_barricadekit"},
-	[12] = {"_plankamount","weapon_zs_melee_pipe2"},
-	[13] = {"_freeman"},
-	[14] = {"_poisonprotect","weapon_zs_melee_hook"},
-	[15] = {"weapon_zs_turretplacer"},
-	[16] = {"weapon_zs_tools_remote"},
-	[17] = {"_turretoverdrive"},
-	[18] = {"_plankhp"},
-	[19] = {"weapon_zs_melee_pot"},
-	[20] = {"weapon_zs_grenade"},
-	[21] = {"weapon_zs_classic"},
-	[22] = {"_sboost"},
-	[23] = {"_medupgr2"},
-	[24] = {"weapon_zs_mine"},
-	[25] = {"_enhkevlar"},
-	[26] = {"weapon_zs_melee_combatknife"},
-	[27] = {"_comeback"},
-	[28] = {"_adrenaline"},
-	[29] = {"weapon_zs_melee_crowbar"},
-	[30] = {"weapon_zs_miniturret"},
+	--[12] = {"_plankamount","weapon_zs_melee_pipe2"},
+	[10] = {"weapon_zs_melee_pipe2"},
+	--[11] = {"_freeman"},
+	[11] = {"_beserker"},
+	[12] = {"_poisonprotect","weapon_zs_melee_hook"},
+	[13] = {"weapon_zs_turretplacer"},
+	[14] = {"weapon_zs_tools_remote"},
+	[15] = {"_turretoverdrive"},
+	--[18] = {"_plankhp"},
+	[16] = {"weapon_zs_melee_pot"},
+	[17] = {"weapon_zs_grenade"},
+	[18] = {"weapon_zs_classic"},
+	[19] = {"_sboost"},
+	--[20] = {"_medupgr2"},
+	[20] = {"weapon_zs_mine"},
+	--[22] = {"_enhkevlar"},
+	[21] = {"weapon_zs_melee_combatknife"},
+	[22] = {"_comeback"},
+	[23] = {"_adrenaline"},
+	[24] = {"weapon_zs_melee_crowbar"},
+	[25] = {"weapon_zs_miniturret"},
 	-- [90] = {"_professional"},-- hidden for a while
 }
 
@@ -438,32 +440,36 @@ GM.ArenaWeapons = {
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
 GM.Perks = {
 	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
-	["_kevlar2"] = {Name = "Full Kevlar", Description = "Gives you 30 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
+	["_kevlar2"] = {Name = "Full Kevlar", Description = "Gives you 30 more HP",Material = "VGUI/gfx/VGUI/kevlar_helmet", Slot = 1},
 	--["_turretammo"] = {Name = "Turret Ammo", Description = "50% more ammo for turret", Slot = 2},
 	--["_turrethp"] = {Name = "Turret Durability", Description = "50% more health for turret", Material = "VGUI/gfx/VGUI/defuser", Slot = 2},
 	--["_turretdmg"] = {Name = "Turret Power", Description = "50% more turret's damage", Slot = 2},
 	["_poisonprotect"] = {Name = "Poison Protection", Description = "30% less damage from Poison Headcrabs", Slot = 2},
-	["_nailamount"] = {Name = "Pack of nails", Description = "50% more starting nails", Slot = 2},
-	["_nailhp"] = {Name = "Upgraded nails", Description = "40% more health for nails", Slot = 2},
+	--["_nailamount"] = {Name = "Pack of nails", Description = "50% more starting nails", Slot = 2},
+	--["_nailhp"] = {Name = "Upgraded nails", Description = "40% more health for nails", Slot = 2},
 	["_falldmg"] = {Name = "Fall Protection", Description = "25% less fall damage", Slot = 1},
-	["_freeman"] = {Name = "Freeman's Spirit", Description = "Do 50% more melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 1},
-	["_enhkevlar"] = {Name = "Enhanced Kevlar", Description = "15% less damage from hits",Material = "VGUI/gfx/VGUI/kevlar_helmet", Slot = 1},
+	--["_freeman"] = {Name = "Freeman's Spirit", Description = "Do 50% more melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 1},
+	--["_enhkevlar"] = {Name = "Enhanced Kevlar", Description = "15% less damage from hits",Material = "VGUI/gfx/VGUI/kevlar_helmet", Slot = 1},
 	["_adrenaline"] = {Name = "Adrenaline Injection", Description = "Negates speed reduction on low health. Also your screen won't turn red when you are low on health", Slot = 1},
-	["_medupgr1"] = {Name = "Medical Efficiency", Description = "35% more healing power", Slot = 2},
-	["_medupgr2"] = {Name = "Medical Pack", Description = "Doubled maximum Medical Kit charges", Slot = 2},
+	--["_medupgr1"] = {Name = "Medical Efficiency", Description = "35% more healing power", Slot = 2},
+	--["_medupgr2"] = {Name = "Medical Pack", Description = "Doubled maximum Medical Kit charges", Slot = 2},
 	["_sboost"] = {Name = "Speed Boost", Description = "8% more walking speed", Slot = 1},
 	--["_trchregen"] = {Name = "Handy Man", Description = "Increased regeneration rate for torch", Material = "HUD/scoreboard_clock", Slot = 2},
 	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with hammer", Material = "HUD/scoreboard_clock", Slot = 2},
-	["_comeback"] = {Name = "Comeback", Description = "When you redeem you will spawn either with a P90 or a M4Al! (Only once.)", Slot = 1},
+	["_comeback"] = {Name = "Comeback", Description = "When you redeem you will spawn either with a P90 or a M4Al! (Only once.)", Material = "VGUI/logos/spray_elited", Slot = 1},
 	["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
-	["_plankamount"] = {Name = "Extra Plank", Description = "Ability to carry one more plank!", Slot = 2},
-	["_plankhp"] = {Name = "Stronger Planks", Description = "30% more health for planks", Slot = 2},
+	--["_plankamount"] = {Name = "Extra Plank", Description = "Ability to carry one more plank!", Slot = 2},
+	--["_plankhp"] = {Name = "Stronger Planks", Description = "30% more health for planks", Slot = 2},
 	["_imortalpro"] = {Name = "Immortal Protector!", Description = "You will spawn with the legendary Pulse SMG!", Slot = 1},
 	["_turretoverdrive"] = {Name = "Turret Overdrive!", Description = "Your turret has had an upgrade!", Material = "VGUI/gfx/VGUI/defuser", Slot = 2},
+	["_engineer"] = {Name = "Engineer", Description = "Upgraded hammer gives you more nails and nail health!", Slot = 1},
+	["_Support(MK1)"] = {Name = "Support (MK1)", Description = "You are given more planks and they have a greater amount of HP.", Slot = 1},
+	["_beserker"] = {Name = "Berserker", Description = "Increased melee damage, lower walk speed! Reduced damage from zombie hits!", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 1},
+	["_medic"] = {Name = "Medic", Description = "More medical charges and greater amounts of SP for healing!,", Slot = 1},
 	
 	["_sboost2"] = {Name = "Running Shoes", Description = "5% faster!", Slot = 1},
 	["_kevlar3"] = {Name = "Light Kevlar", Description = "Gives you 5 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
-	["_comeback2"] = {Name = "Reborn", Description = "When you redeem you will spawn either with a deagal or a pair of duel elites! (Only once.)", Slot = 1},
+	["_comeback2"] = {Name = "Reborn", Description = "When you redeem you will spawn either with a deagal or a pair of duel elites! (Only once.)", Material = "VGUI/logos/spray_elited", Slot = 1},
 }
 
 -- Leave this. This table will be filled at initialize hook
@@ -495,23 +501,16 @@ DIFFICULTY = 1.5
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
 CARRY_MAXIMUM_MASS = 300
---CARRY_MAXIMUM_MASS = 60
---CARRY_MAXIMUM_MASS = 120
 
 -- Objects with more mass than this will be dragged instead of carried.
 CARRY_DRAG_MASS = 145
---CARRY_DRAG_MASS = 130
---CARRY_DRAG_MASS = 60
+
 
 -- Anything bigger than this is dragged regardless of mass.
---CARRY_DRAG_VOLUME = 700
---CARRY_DRAG_VOLUME = 80
 CARRY_DRAG_VOLUME = 120
---CARRY_DRAG_VOLUME = 80
+
 
 -- Humans can not carry anything with a volume more than this (OBBMins():Length() + OBBMaxs():Length()).
---CARRY_MAXIMUM_VOLUME = 90
---CARRY_MAXIMUM_VOLUME = 100
 CARRY_MAXIMUM_VOLUME = 150
 
 -- Humans are slowed by this amount per kg carried.
@@ -642,7 +641,9 @@ util.PrecacheSound(LASTHUMANSOUND)
 WELCOME_TEXT =
 [[
 Select your loadout below and start to survive the Zombie Apocalypse.
+
 The more you play - the more unlocks you get for your loadout.
+
 Need help playing this gamemode? Press F1 while playing.
 
 Community: http://mrgreengaming.com
@@ -701,7 +702,7 @@ HELP_TXT[1] = {
 	
 	-- ADMINS ----------------------------------------------------
 	
-	> Damien, Duby, Gheii Ben, Reiska, The real freeman, Lameshot, Phychopeti.
+	> Damien, Duby, Reiska, Lameshot, Phychopeti,Jeremiah,Szl.
 	
 	-- SERVER CODERS ----------------------------------------------------
 	
@@ -725,6 +726,8 @@ HELP_TXT[2] = {
 		  - Exploiting after being warned several times
 		  - Ladder glitching
 		  - Cadebreaking
+		  - Bhopping
+		  - Spawn camping
 	
 	The following can result in kick or insta-death:
 		  - Being AFK for a long period of time
@@ -746,35 +749,30 @@ HELP_TXT[3] = {
 	title = "LV Unlocks", 
 	txt = [[
 		This is the Unlock tree for every unlock on the server. WorkHard PlayHard!! ^^
-	 [0] = USP, FISTS, SPEEDBOOST2, KEVLAR3, COMBACK3, P228    [1] = PLANK
-	 [2] = NAILING HAMMER    [3] = NAILAMOUNT
+	 [0] = USP, FISTS, SPEEDBOOST2, KEVLAR3, COMBACK3, P228    [1] = PLANK, TOOL PLANK
+	 [2] = NAILING HAMMER, SUPPORT (MK1) [3] = NAILAMOUNT, ENGINEER
 	 [4] = MEDKIT	
 	 [5] = MOBILE SUPPLIES
 	 [6] = KEVLAR1, PIPE1
 	 [7] = IMORTALPRO, KEYBOARD
 	 [8] = HAIL'HP', FULL KEVLAR
-	 [9] = FALLDAMAGE, MEDKIT UPGRADE1
-	[10] = PYTHON MAGNUM
-	[11] = BARRICADING KIT
-	[12] = PLANK AMOUNT, PIPE2
-	[13] = FREEMAN SPIRIT
-	[14] = POISON PROTECTION, HOOK
-	[15] = TURRET
-	[16] = TURRET REMOTE
-	[17] = TURRET OVERDRIVE
-	[18] = PLANK HP
-	[19] = POT
-	[20] = GRENADE
-	[21] = CLASSICE PISTOL
-	[22] = SPEED BOOST1
-	[23] = MEDICAL EFFICIENCY
-	[24] = C4
-	[25] = ENHANCED KEVLAR
-	[26] = COMBAT KNIFE
-	[27] = COMBACK
-	[28] = ADRENALINE INJECTION
-	[29] = CROWBAR
-	[30] = MINI TURRET
+	 [9] = FALLDAMAGE, MEDIC UPGRADE
+	[10] = PIPE2
+	[11] = BERSERKER
+	[12] = POISON PROTECTION, HOOK
+	[13] = TURRET
+	[14] = TURRET REMOTE
+	[15] = TURRET OVERDRIVE
+	[16] = POT
+	[17] = GRENADE
+	[18] = CLASSIC PISTOL
+	[19] = SPEED BOOST
+	[20] = C4
+	[21] = COMBAT KNIFE
+	[22] = COMEBACK
+	[23] = ADRENALINE INJECTION
+	[24] = CROWBAR
+	[25] = MINI TURRET
 	]]
 } 
 
