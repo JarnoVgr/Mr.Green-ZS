@@ -28,7 +28,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			
 	--	if not ent:IsBot() and ent:IsPlayer() and ent:Team() == TEAM_HUMAN and ent:Alive() and ent:GetPerk("_enhkevlar") and attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD then
 		if not ent:IsBot() and ent:IsPlayer() and ent:Team() == TEAM_HUMAN and ent:Alive() and ent:GetPerk("_beserker") and attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD then
-			dmginfo:SetDamage (damage - damage*0.25 ) 
+			dmginfo:SetDamage (damage - damage*0.23 ) 
 		end
 	end
 	
@@ -36,7 +36,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 	--if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and attacker:GetPerk("_freeman") and IsValid( inflictor ) then-- attacker:HasBought( "blessedfists" )
 	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and attacker:GetPerk("_beserker") and IsValid( inflictor ) then-- attacker:HasBought( "blessedfists" )
 		if inflictor:IsWeapon() and inflictor:GetType() == "melee" and not inflictor.IsTurretDmg then
-			dmginfo:SetDamage( damage * 1.7 )
+			dmginfo:SetDamage( damage * 1.5 )
 		end
 	end
 end
