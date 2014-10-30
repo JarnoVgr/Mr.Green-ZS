@@ -167,11 +167,6 @@ if SERVER then
 					skillpoints.AddSkillPoints(Owner,7)
 					self:FloatingTextEffect(7, Owner)
 					Owner:AddXP(5)
-					if self:Owner():GetPerk("_Support(MK1)") then
-					skillpoints.AddSkillPoints(Owner,10)
-					self:FloatingTextEffect(10, Owner)
-					Owner:AddXP(15)
-					end
 				end
 
 				--Play sound

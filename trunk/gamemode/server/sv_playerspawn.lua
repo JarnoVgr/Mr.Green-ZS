@@ -684,10 +684,6 @@ function CalculatePlayerSpeed ( pl )
 	
 	Speed = 190
 	
-	if pl:GetPerk("_beserker") then
-	Speed = 170
-	end
-	
 	return Speed, Speed
 end
 

@@ -91,8 +91,7 @@ if SERVER then
 		
 		self:SetMaterial(MaterialToApply)
 			
-			--if self:GetTurretOwner():GetPerk("_turretoverdrive") then --Combined the turret perks into one perk as requested by the community.
-			if self:GetTurretOwner():GetPerk("_engineer(MK2)") then --Combined the turret perks into one perk as requested by the community.
+			if self:GetTurretOwner():GetPerk("_turretoverdrive") then --Combined the turret perks into one perk as requested by the community.
 			self.MaxBullets = math.Round(self.MaxBullets*1.5)
 			self.MaxHealth = math.Round(self.MaxHealth*1.5)
 			self.Damage = math.Round(self.Damage*1.5)

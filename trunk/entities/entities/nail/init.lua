@@ -14,8 +14,7 @@ function ENT:Initialize()
 	self.Heal = 150
 	
 	--Increase health when having a perk
-	--if self:GetOwner():GetPerk("_nailhp") then
-	if self:GetOwner():GetPerk("_engineer") then
+	if self:GetOwner():GetPerk("_nailhp") then
 		self.Heal = math.Round(self.Heal + self.Heal*0.4)
 	end
 

@@ -32,22 +32,21 @@ SWEP.WorldModel = "models/props_junk/propane_tank001a.mdl"
 
 
 
-SWEP.Slot = 3
-SWEP.SlotPos = 3 
+SWEP.Slot = 5
+SWEP.SlotPos = 1 
 
 -- SWEP.Info = ""
 
 SWEP.Primary.ClipSize =4
 SWEP.Primary.DefaultClip = 4
 SWEP.Primary.Automatic = false
---SWEP.Primary.Ammo = "none"
-SWEP.Primary.Ammo = "SniperRound"
+SWEP.Primary.Ammo = "none"
 SWEP.Primary.Delay = 2.0
 
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = true
-SWEP.Secondary.Ammo = "SniperRound"
+SWEP.Secondary.Ammo = "none"
 SWEP.Secondary.Delay = 0.15
 
 SWEP.WalkSpeed = 175
@@ -109,9 +108,8 @@ function SWEP:PrimaryAttack()
 			ent:SetModel("models/props_debris/wood_board06a.mdl")
 			ent:Spawn()
 			local hp = 350
-			--if self.Owner:GetPerk("_plankhp") then
-			if self.Owner:GetPerk("_Support(MK1)") then
-				hp = hp+hp*0.5
+			if self.Owner:GetPerk("_plankhp") then
+				hp = hp+hp*0.3
 			end			
 			ent:SetHealth(hp)
 			ent.PropHealth = hp
@@ -119,7 +117,7 @@ function SWEP:PrimaryAttack()
 			
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
-				phys:SetMass(30)
+				phys:SetMass(50)
 			
 				phys:SetVelocityInstantaneous(self.Owner:GetVelocity())
 			end
@@ -128,19 +126,18 @@ function SWEP:PrimaryAttack()
 		end
 	end
 	
-	--[[if SERVER then		
+	if SERVER then		
 		if self and self:IsValid() and self.Weapon:Clip1() < 1 then
 			DropWeapon(self.Owner)
 		end
-	end]]--
+	end
 end
 
 function SWEP:Equip ( NewOwner )
 	if CLIENT then return end
 	
-	--if self.Owner:GetPerk("_plankamount") then
-	if self.Owner:GetPerk("_Support(MK1)") then
-		self.Weapon:SetClip1( 5 ) 	
+	if self.Owner:GetPerk("_plankamount") then
+		self.Weapon:SetClip1( 3 ) 	
 	end
 	
 	-- Call this function to update weapon slot and others

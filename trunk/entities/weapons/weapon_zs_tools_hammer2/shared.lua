@@ -1,7 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
  
-
 AddCSLuaFile()
  
 SWEP.Author = "Duby"
@@ -245,7 +244,7 @@ function SWEP:SecondaryAttack()
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() or ARENA_MODE or CurTime() < self.NextNail then
 		return
 	end
-	if self:Clip2() <= 0 then
+	if self:Clip1() <= 0 then
 		--Remove nail in hand
 		if CLIENT then
 			self:ResetBonePositions()
@@ -318,7 +317,7 @@ function SWEP:SecondaryAttack()
 				self.NextNail = CurTime() + 1
 				self:TakePrimaryAmmo(1)
 				--self:TakeSecondaryAmmo(1)
-			   self:TakeSecondaryAmmo(1)
+			   
 				--Give XP for nailing
 				self.Owner:AddXP(5)
 					   
@@ -376,7 +375,7 @@ function SWEP:SecondaryAttack()
 
 							self.NextNail = CurTime() + 1
 							self:TakePrimaryAmmo(1)
-							self:TakeSecondaryAmmo(1)
+							--self:TakeSecondaryAmmo(1)
 						   
 							self.Owner:AddXP(5)
 								   
@@ -450,7 +449,7 @@ function SWEP:Equip( NewOwner )
 	if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false
 	   
-		if self.Owner:GetPerk("_engineer") then
+		if self.Owner:GetPerk("_nailamount") then
 			self.Weapon:SetClip1( math.Round(self.Primary.DefaultClip*1.5) )
 		else
 			self.Weapon:SetClip1( self.Primary.DefaultClip )
