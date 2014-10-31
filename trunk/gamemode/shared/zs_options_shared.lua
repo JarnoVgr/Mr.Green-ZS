@@ -41,7 +41,7 @@ BONUS_RESISTANCE_WAVE = 5
 BONUS_RESISTANCE_AMOUNT = 20 -- %
 
 --EVENT: Halloween
-HALLOWEEN = false
+HALLOWEEN = true
 
 --EVENT: Christmas
 CHRISTMAS = false
@@ -51,7 +51,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 20
-BOSS_CLASS = {10,11,13,16,18} -- 12
+--BOSS_CLASS = {10,11,13,16,18} -- 12
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
 --BOSS_CLASS = {15} --Klinator
@@ -59,6 +59,7 @@ BOSS_CLASS = {10,11,13,16,18} -- 12
 --BOSS_CLASS = {18} --Seeker2
 --BOSS_CLASS = {19} --REMEIL
 --BOSS_CLASS = {11} --Behemoth
+BOSS_CLASS = {19} --Pumpking!
 
 
 --??
@@ -382,7 +383,7 @@ MAX_RANK = 30
 -- [rank] = {unlocks}
 GM.RankUnlocks = {
 	[0] = {"weapon_zs_usp","weapon_zs_fists2","_sboost2","_kevlar3","_comeback2","weapon_zs_p228"},
-	[1] = {"weapon_zs_melee_plank"},
+	[1] = {"weapon_zs_melee_plank","weapon_zs_tools_plank"},
 	[2] = {"weapon_zs_tools_hammer2"},
 	[3] = {"_nailamount"},
 	[4] = {"weapon_zs_medkit"},
@@ -393,6 +394,7 @@ GM.RankUnlocks = {
 	[9] = {"_falldmg","_medupgr1"},
 	--[10] = {"weapon_zs_python"},
 	--[11] = {"weapon_zs_barricadekit"},
+	--[11] = {""},
 	[12] = {"_plankamount","weapon_zs_melee_pipe2"},
 	[13] = {"_freeman"},
 	[14] = {"_poisonprotect","weapon_zs_melee_hook"},
@@ -454,7 +456,7 @@ GM.Perks = {
 	["_sboost"] = {Name = "Speed Boost", Description = "8% more walking speed", Slot = 1},
 	--["_trchregen"] = {Name = "Handy Man", Description = "Increased regeneration rate for torch", Material = "HUD/scoreboard_clock", Slot = 2},
 	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with hammer", Material = "HUD/scoreboard_clock", Slot = 2},
-	["_comeback"] = {Name = "Comeback", Description = "When you redeem you will spawn either with a P90 or a M4Al! (Only once.)", Slot = 1},
+	["_comeback"] = {Name = "Comeback", Description = "When you redeem you will spawn either with a P90 or a M4Al! (Only once.)", Material = "VGUI/logos/spray_elited", Slot = 1},
 	["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
 	["_plankamount"] = {Name = "Extra Plank", Description = "Ability to carry one more plank!", Slot = 2},
 	["_plankhp"] = {Name = "Stronger Planks", Description = "30% more health for planks", Slot = 2},
@@ -463,7 +465,7 @@ GM.Perks = {
 	
 	["_sboost2"] = {Name = "Running Shoes", Description = "5% faster!", Slot = 1},
 	["_kevlar3"] = {Name = "Light Kevlar", Description = "Gives you 5 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
-	["_comeback2"] = {Name = "Reborn", Description = "When you redeem you will spawn either with a deagal or a pair of duel elites! (Only once.)", Slot = 1},
+	["_comeback2"] = {Name = "Reborn", Description = "When you redeem you will spawn either with a deagal or a pair of duel elites! (Only once.)", Material = "VGUI/logos/spray_elited", Slot = 1},
 }
 
 -- Leave this. This table will be filled at initialize hook
@@ -642,7 +644,9 @@ util.PrecacheSound(LASTHUMANSOUND)
 WELCOME_TEXT =
 [[
 Select your loadout below and start to survive the Zombie Apocalypse.
+
 The more you play - the more unlocks you get for your loadout.
+
 Need help playing this gamemode? Press F1 while playing.
 
 Community: http://mrgreengaming.com
@@ -661,6 +665,7 @@ Enjoy your stay and have fun!
 SKILLSHOP_TEXT =
 [[
 At SkillShop you buy Weapons, Ammo and Supplies. Payment is done with SkillPoints (SP).
+
 To gain SkillPoints - simply kill the Undead and help your teammates.
 
 Please remember bought Weapons only last this round!
@@ -701,7 +706,7 @@ HELP_TXT[1] = {
 	
 	-- ADMINS ----------------------------------------------------
 	
-	> Damien, Duby, Gheii Ben, Reiska, The real freeman, Lameshot, Phychopeti.
+	> Damien, Duby, Reiska, Lameshot, Phychopeti,Jeremiah,Szl.
 	
 	-- SERVER CODERS ----------------------------------------------------
 	
@@ -725,7 +730,8 @@ HELP_TXT[2] = {
 		  - Exploiting after being warned several times
 		  - Ladder glitching
 		  - Cadebreaking
-	
+		  - B-hopping
+		  - Spawn camping
 	The following can result in kick or insta-death:
 		  - Being AFK for a long period of time
 		  - Spamming after being muted/gagged

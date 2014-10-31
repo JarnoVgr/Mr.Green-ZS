@@ -1229,15 +1229,15 @@ ZombieClasses[18] = --Creep and Play!
 
 ZombieClasses[19] =  --I love Evangelion. So lets make a boss based off of it! >< 
 {
-	Name = "RAMIEL",
-	Tag = "weapon_zs_undead_boss_raimel",
+	Name = "PUMPKING!",
+	Tag = "weapon_zs_undead_boss_pumpking",
 	Infliction = 0.7,
-	Health = math.random(6000, 7000 ),
+	Health = math.random(5000, 5500 ),
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
 	SP = 0,
-	Mass = DEFAULT_MASS * 8,
+	Mass = DEFAULT_MASS * 9,
 	Threshold = 4,
 	JumpPower = 180,
 	CanCrouch = true,
@@ -1245,17 +1245,26 @@ ZombieClasses[19] =  --I love Evangelion. So lets make a boss based off of it! >
 	Unlocked = true,
 	Hidden = true,
 	IsBoss = true,
-	SWEP = "weapon_zs_undead_boss_raimel",
-	Model = Model("models/player/zombie_classic.mdl"), 
+	SWEP = "weapon_zs_undead_boss_pumpking",
+	Model = Model("models/Zombie/Poison.mdl"), 
 	Speed = 170,
-	Description = "An angel has appeared! ",
+	Description = "A hellish Being! ",
 	Unique = "",
 	
 	OnSpawn = function(pl)	
-	--pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(239,16,16,225))
+	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(239,128,31,150))
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 5, 5), math.Rand( 11, 5)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 8, 5), math.Rand( -10, -10), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand left
 	
 
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 5, 5), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
 	
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 8, 5), math.Rand( 5, 5), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
+
 	end,
 	
 	OnRevive = function(pl)
@@ -1280,6 +1289,7 @@ ZombieClasses[19] =  --I love Evangelion. So lets make a boss based off of it! >
 				Sound("npc/zombine/striderx_alert5.wav"),
 				Sound("npc/zombine/striderx_alert6.wav"),
 				},
+				ModelScale = 1.2,-- Vector(1.15,1.15,1.15),
 }
 
 

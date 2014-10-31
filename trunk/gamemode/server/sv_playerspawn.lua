@@ -272,6 +272,7 @@ function GM:PlayerSpawn(pl)
 				pl:ChatPrint("You're now THE Santa Claus!")
 				pl:ChatPrint("Ho ho ho!")
 			end
+			
 
 			--Set global
 			self.IsSantaHere = true
@@ -282,6 +283,11 @@ function GM:PlayerSpawn(pl)
 		end
 	end
 
+	if HALLOWEEN and pl:Team() ~= TEAM_SPECTATOR then
+				--pl:ChatPrint("HAPPY HALLOWEEN!!! >:D")
+				pl:Message("HAPPY HALLOWEEN!!! >:D", 3)
+			end
+	
 	if pl:Team() == TEAM_SPECTATOR then
 		self:OnFirstHumanSpawn(pl)
 		return

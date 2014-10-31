@@ -140,6 +140,12 @@ if CHRISTMAS then
 	include("modules/christmas/snow.lua")
 end
 
+--Halloween
+if HALLOWEEN then
+	--Snow
+	include("modules/halloween/blood.lua")
+end
+
 --
 CreateClientConVar("_zs_redeemclass", 1, true, false)
 
@@ -2015,7 +2021,7 @@ local function cratemove()
 pl = LocalPlayer() 
 if pl:Team() == TEAM_HUMAN then
 surface.PlaySound("mrgreen/beep22.wav")	
-pl:Message("The Supplies have been used up. Await for supplies to be dropped.", 2, "white")
+pl:Message("The Supplies have been used up. Wait for the next drop off!", 2, "white")
 end
 if pl:Team() == TEAM_UNDEAD then
 surface.PlaySound("player/zombies/b/scream.wav")	

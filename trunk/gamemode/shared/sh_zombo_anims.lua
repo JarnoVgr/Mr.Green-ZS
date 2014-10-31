@@ -1022,8 +1022,34 @@ GM.DoAnimationEventZombies[16] = GM.DoAnimationEventZombies[0]
 GM.CalcMainActivityZombies[18] = GM.CalcMainActivityZombies[0]
 GM.DoAnimationEventZombies[18] = GM.DoAnimationEventZombies[0]
 
+--Attack for Pumpking!s
+--GM.CalcMainActivityZombies[19] = GM.CalcMainActivityZombies[0]
+--GM.DoAnimationEventZombies[19] = GM.DoAnimationEventZombies[0]
 
 --Ghouler!
 GM.CalcMainActivityZombies[1] = GM.CalcMainActivityZombies[0]
 GM.DoAnimationEventZombies[1] = GM.DoAnimationEventZombies[0]
 
+-- Poison Zombie - Activity handle
+GM.CalcMainActivityZombies[19] = function ( pl, vel )
+
+	-- Default zombie act
+	--local iSeq, iIdeal = -1
+	local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_04" )
+
+	local fVelocity = vel:Length2D()
+	if fVelocity > 30 then iIdeal = ACT_WALK else iIdeal = ACT_IDLE end
+	
+	return iIdeal, iSeq
+end
+
+--  Poison Zombie - Called on events like primary attack
+GM.DoAnimationEventZombies[19] = function ( pl, event, data )
+	if event == PLAYERANIMEVENT_ATTACK_PRIMARY then
+		pl:AnimRestartGesture( GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_MELEE_ATTACK1,true)
+		return ACT_INVALID
+	elseif event == PLAYERANIMEVENT_ATTACK_SECONDARY then
+		pl:AnimRestartGesture( GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_MELEE_ATTACK1,true)
+		return ACT_INVALID
+	end
+end

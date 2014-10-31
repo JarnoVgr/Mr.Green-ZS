@@ -189,6 +189,10 @@ if CHRISTMAS then
 	AddCSLuaFile("modules/christmas/snow.lua")
 end
 
+if HALLOWEEN then
+AddCSLuaFile("modules/halloween/blood.lua")
+end
+
 Thres = 0
 difficulty = 1 --default 1
 HEAD_NPC_SCALE = math.Clamp(3 - difficulty, 1.5, 4)
