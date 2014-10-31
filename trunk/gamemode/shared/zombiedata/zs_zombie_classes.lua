@@ -119,7 +119,7 @@ ZombieClasses[1] =
 	Health = 120,
 	MaxHealth = 120,
 	Bounty = 100,
-	SP = 5,
+	SP = 15,
 	Threshold = 99,	
 	SWEP = "weapon_zs_undead_ghoul",			
 	JumpPower = 200,
@@ -201,7 +201,7 @@ ZombieClasses[2] =
 	MaxHealth = 150,
 	TimeLimit = 300,
 	Bounty = 80,
-	SP = 10,
+	SP = 15,
 	Threshold = 2,
 	SWEP = "weapon_zs_undead_fastzombie",
 	JumpPower = 200,
@@ -266,7 +266,7 @@ ZombieClasses[3] =
 	MaxHealth = 650,
 	TimeLimit = 810,
 	Bounty = 130,
-	SP = 40,
+	SP = 45,
 	Mass = DEFAULT_MASS * 1.5,
 	Threshold = 4,
 	JumpPower = 200,
@@ -345,7 +345,8 @@ ZombieClasses[4] =
 				 Sound("wraithdeath4.wav")
 				},
 	OnSpawn = function(pl)	
-	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(11,11,11,6))
+	--pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(11,11,11,6))
+	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,100))
 		--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
 	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
 	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
@@ -466,7 +467,7 @@ ZombieClasses[7] =
 	Health = 70,
 	MaxHealth = 140,
 	Bounty = 70,
-	SP = 12,
+	SP = 30,
 	Mass = 40,
 	StepSize = 8,
 	TimeLimit = 780,

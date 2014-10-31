@@ -543,3 +543,10 @@ function SWEP:Think()
 		end
 	end
 end
+
+
+function SWEP:OnDrop() --Duby: Stop ammo glitch! 
+	if self and self:IsValid() then
+		self:Remove()
+	end
+end

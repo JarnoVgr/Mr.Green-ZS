@@ -248,7 +248,7 @@ function EnableEtherealMode ( pl, bool )
 	if bool == true then
 		pl:Lock()
 		pl:Freeze( true )
-		pl:SetColor( 1,1,1,1 )
+		pl:SetColor( 225,225,225,100 )
 		
 		-- Uh, just finish him
 		timer.Simple ( 0.05, function() 
