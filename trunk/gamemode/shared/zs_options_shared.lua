@@ -41,7 +41,7 @@ BONUS_RESISTANCE_WAVE = 5
 BONUS_RESISTANCE_AMOUNT = 20 -- %
 
 --EVENT: Halloween
-HALLOWEEN = true
+HALLOWEEN = false
 
 --EVENT: Christmas
 CHRISTMAS = false
