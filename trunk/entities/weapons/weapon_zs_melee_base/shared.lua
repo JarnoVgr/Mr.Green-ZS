@@ -52,7 +52,8 @@ function SWEP:Precache()
 end
 
 function SWEP:Initialize()
-	self:SetDeploySpeed(1.1)
+	--self:SetDeploySpeed(1.1)
+	self:SetDeploySpeed(0)
 	self:SetWeaponHoldType(self.HoldType)
 	self:SetWeaponSwingHoldType(self.SwingHoldType)
 	

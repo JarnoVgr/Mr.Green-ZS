@@ -33,7 +33,8 @@ end
 
 function SWEP:Initialize()
 	self:SetWeaponHoldType(self.HoldType)
-	self:SetDeploySpeed(1.1)
+	--self:SetDeploySpeed(1.1)
+	self:SetDeploySpeed(0)
 
 	if CLIENT then
 		--Create a new table for every weapon instance

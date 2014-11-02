@@ -30,6 +30,7 @@ SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
 SWEP.ViewModel			= Model ( "models/weapons/c_357.mdl" )
+
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_357.mdl" )
 
