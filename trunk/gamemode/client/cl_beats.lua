@@ -213,7 +213,7 @@ function ZombieAuraThink()
 
 		--
 		local HumanPosition = pl:GetPos()
-		if HumanPosition:Distance(Position) < 1024 and HumanPosition:ToScreen().visible then
+		if HumanPosition:Distance(Position) < 3024 and HumanPosition:ToScreen().visible then
 			AuraTable[pl] = HumanPosition
 			MaxAuras = MaxAuras + 1
 				
@@ -269,5 +269,5 @@ function ZombieAuraThink()
 	end
 	
 	-- Apply cooldown to the effect
-	NextAura = CurTime() + 0.4
+	NextAura = CurTime() + 0.3
 end

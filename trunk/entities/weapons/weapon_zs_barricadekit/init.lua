@@ -13,7 +13,7 @@ SWEP.UseHands = true
 SWEP.WalkSpeed = 190
 SWEP.Models = { "models/props_interiors/radiator01a.mdl", "models/props_junk/trashbin01a.mdl" }
 SWEP.ModelOBB = { [1] = { Min = Vector( -5.2500, -25.2500, -18.4771 ) , Max = Vector ( 5.2500 ,25.0245 ,18.2500 )  }, [2] = { Min = Vector( -13.2614 ,-12.0523 ,-20.2876 ) , Max = Vector ( 13.2614, 12.0523 ,20.3897 )  } }
-
+SWEP.DrawCrosshair = true
 
 function SWEP:Deploy()
 	self.Owner:DrawViewModel( true )
@@ -71,7 +71,7 @@ function SWEP:GetPlankSpawnPos( )
 
 	-- If our trace hit something, and the thing it his is the world
 	if ( _tr.Hit && _tr.HitWorld ) then
-		// Allow the spawn!
+		-- Allow the spawn!
 		_bCanSpawn = true;
 	end
 
@@ -104,22 +104,22 @@ function SWEP:PrimaryAttack( )
 
 	local _p = self.Owner;
 
-	--// Make sure the Owner is valid, and the owner is on the ground, and the CLIENT doesn't spam ( its how SWEPs work... )
+	-- Make sure the Owner is valid, and the owner is on the ground, and the CLIENT doesn't spam ( its how SWEPs work... )
 	if ( !IsValid( _p ) || !self:CanPrimaryAttack( ) || !_p:OnGround( ) || !IsFirstTimePredicted( ) ) then return; end
 
 
---	// Update next-fire time
+--	 Update next-fire time
 	self:SetNextPrimaryFire( CurTime( ) + 1 );
 
-	--// Take ammo ( Without IsFirstTimePredicted, this would desync on the client... )
+	-- Take ammo ( Without IsFirstTimePredicted, this would desync on the client... )
 	--self:TakePrimaryAmmo( 1 );
 
-	--// Server only code... This is where the entity gets spawned, client doesn't need this...
+	-- Server only code... This is where the entity gets spawned, client doesn't need this...
 	if ( SERVER ) then
-		--// Perform the test to see if we can spawn or not
+		-- Perform the test to see if we can spawn or not
 		local _pos = self:GetPlankSpawnPos( _p );
 
-		--// Because of how we set up the return statement, If it is set then it is a position, otherwise it is false and won't do anything
+		-- Because of how we set up the return statement, If it is set then it is a position, otherwise it is false and won't do anything
 		if ( _pos ) then
 			self:TakePrimaryAmmo( 1 );
 			local _ent = ents.Create( "aegis" );
@@ -129,6 +129,7 @@ function SWEP:PrimaryAttack( )
 
 			_ent:SetPos( _pos );
 			_ent:SetAngles( angle_zero );
+			_ent:EmitSound( "npc/dog/dog_servo12.wav" );
 			_ent:Spawn( );
 			_ent:Activate( );
 
@@ -151,17 +152,76 @@ local sIndex = 1
 function SWEP:SecondaryAttack()
 	self:SetNextSecondaryFire( CurTime() + self.Secondary.Delay )
 	
-	//Cycle through the models
-	if sIndex <= #self.Models then
-		sIndex = sIndex + 1
-	end
+	--Cycle through the models
+--	if sIndex <= #self.Models then
+	--	sIndex = sIndex + 1
+	--end
 				
-	if sIndex > #self.Models then
-		sIndex = 1
+	--if sIndex > #self.Models then
+	--	sIndex = 1
+--	end
+	
+	--Set the model to spawn
+	--self:SetModelToSpawn ( sIndex )
+	
+	local cades = 0
+	local planks = 0
+	
+	for k,v in pairs(ents.FindByClass("aegis2")) do --Lets limit the amount of planks they can spawn.
+		if v and v:GetOwner() == self.Owner then
+			planks = planks + 1
+		end
 	end
 	
-	//Set the model to spawn
-	self:SetModelToSpawn ( sIndex )
+	if planks > 5 then --More than five will just be spam! 
+		if SERVER then
+			self.Owner:Message("You can't place more than 5 planks on the ground!",1,"white")
+		end
+		return
+	end
+
+	local _p = self.Owner;
+
+	-- Make sure the Owner is valid, and the owner is on the ground, and the CLIENT doesn't spam ( its how SWEPs work... )
+	if ( !IsValid( _p ) || !self:CanPrimaryAttack( ) || !_p:OnGround( ) || !IsFirstTimePredicted( ) ) then return; end
+
+
+--	 Update next-fire time
+	self:SetNextPrimaryFire( CurTime( ) + 1 );
+
+	-- Take ammo ( Without IsFirstTimePredicted, this would desync on the client... )
+	--self:TakePrimaryAmmo( 1 );
+
+	-- Server only code... This is where the entity gets spawned, client doesn't need this...
+	if ( SERVER ) then
+		-- Perform the test to see if we can spawn or not
+		local _pos = self:GetPlankSpawnPos( _p );
+
+		-- Because of how we set up the return statement, If it is set then it is a position, otherwise it is false and won't do anything
+		if ( _pos ) then
+			self:TakePrimaryAmmo( 1 );
+			local _ent = ents.Create( "aegis2" );
+			if ( !IsValid( _ent ) ) then
+				error( "Error Spawning aegis; invalid entity name!" );
+			end
+
+			_ent:SetPos( _pos );
+			_ent:SetAngles( angle_zero );
+			_ent:Spawn( );
+			_ent:EmitSound( "npc/dog/dog_servo12.wav" );
+			_ent:Activate( );
+
+			--//Freeze it
+			local Phys = _ent:GetPhysicsObject( );
+			if ( Phys:IsValid( ) ) then
+				Phys:EnableMotion( false );
+			end
+		else
+			self.Owner:Message("You can't spawn planks there!",1,"white")
+			print( "Error spawning aegis... INVALID POSITION!" )
+			return
+		end
+	end
 	
 end
 

@@ -44,7 +44,7 @@ SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
-SWEP.HoldType = "ar2"
+SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("weapons/airboat/airboat_gun_lastshot"..math.random(1,2)..".wav")
 SWEP.Primary.Recoil			= 3
@@ -68,8 +68,8 @@ SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.9
 SWEP.IronSightsPos = Vector(-2, -4, 1.5)
 SWEP.IronSightsAng = Vector(0,0,0)
 
-SWEP.OverridePos = Vector(1.559, -3.116, 1.6)
-SWEP.OverrideAng = Vector(0, 0, 0)
+--SWEP.OverridePos = Vector(1.559, -3.116, 1.6)
+--SWEP.OverrideAng = Vector(0, 0, 0)
 
 
 

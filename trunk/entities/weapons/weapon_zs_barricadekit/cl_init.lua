@@ -2,7 +2,7 @@ include("shared.lua")
 
 SWEP.PrintName = "'Aegis' Barricade Kit"
 SWEP.DrawAmmo = true
-SWEP.DrawCrosshair = false
+SWEP.DrawCrosshair = true
 SWEP.ViewModelFOV = 60
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
@@ -26,9 +26,6 @@ function SWEP:GetModelToSpawn()
 end
 
 function SWEP:PrimaryAttack()
-	--if ValidEntity ( self.GhostEntity ) then
-		--self.GhostEntity:Remove()
-	--end
 end
 
 
