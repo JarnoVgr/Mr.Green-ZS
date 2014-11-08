@@ -21,7 +21,7 @@ SWEP.Primary.Reach = 50
 SWEP.Primary.Damage = 25
 SWEP.Primary.Next = 2
 --SWEP.Secondary.Next = 6.8
-SWEP.Secondary.Next = 2.5
+SWEP.Secondary.Next = 2.6
 SWEP.Secondary.Duration = 1
 
 SWEP.EmitWraithSound = 0
@@ -188,7 +188,7 @@ function SWEP:PerformSecondaryAttack()
 	end
 
 	--Change damage once teleported
-	self.Primary.Damage = 30
+	self.Primary.Damage = 15
 	
 	mOwner.IsWraithTeleporting = true
 	

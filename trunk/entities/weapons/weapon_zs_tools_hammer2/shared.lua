@@ -68,7 +68,7 @@ SWEP.Primary.Damage = 0
 SWEP.Primary.DefaultClip = 3
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "gravity"
-SWEP.Primary.Delay = 0.09
+SWEP.Primary.Delay = 0.07
 
 SWEP.Secondary.ClipSize = 10
 SWEP.Secondary.DefaultClip = 10
@@ -168,7 +168,7 @@ function SWEP:PrimaryAttack()
 							local eff = EffectData()
 							eff:SetOrigin( pos )
 							eff:SetNormal( norm )
-							eff:SetScale( math.Rand(0.5,0.75) )
+							eff:SetScale( math.Rand(0.9,1.2) )
 							eff:SetMagnitude( math.random(1,2) )
 							util.Effect( "StunstickImpact", eff, true, true )
 							
@@ -443,7 +443,7 @@ if SERVER then
 	end
 end
  
- 
+
 function SWEP:Equip( NewOwner )
 	if CLIENT then return end
    
@@ -467,7 +467,7 @@ function SWEP:Equip( NewOwner )
 	-- Call this function to update weapon slot and others
 	gamemode.Call("OnWeaponEquip", NewOwner, self)
 end
- 
+
 function SWEP:Precache()
 	util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-1.wav")
 	util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-2.wav")
@@ -547,6 +547,9 @@ end
 
 function SWEP:OnDrop() --Duby: Stop ammo glitch! 
 	if self and self:IsValid() then
-		self:Remove()
+	--	self:Remove()
+		self.Primary.DefaultClip = 2
+		self:TakePrimaryAmmo(1)
+		self:TakeSecondaryAmmo(1)
 	end
 end
