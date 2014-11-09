@@ -52,7 +52,7 @@ SWEP.Primary.Delay = 0.8
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = false
-SWEP.Secondary.Ammo = "none"
+SWEP.Secondary.Ammo = "gravity"
 
 SWEP.WalkSpeed = 205
 SWEP.HoldType = "melee"

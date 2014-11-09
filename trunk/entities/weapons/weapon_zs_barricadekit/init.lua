@@ -126,7 +126,6 @@ function SWEP:PrimaryAttack( )
 			if ( !IsValid( _ent ) ) then
 				error( "Error Spawning aegis; invalid entity name!" );
 			end
-
 			_ent:SetPos( _pos );
 			_ent:SetAngles( angle_zero );
 			_ent:EmitSound( "npc/dog/dog_servo12.wav" );

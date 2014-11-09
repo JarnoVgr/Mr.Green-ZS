@@ -131,7 +131,7 @@ function SWEP:PrimaryAttack()
 					
 					local delay = self.Primary.HealDelay
 					if owner:GetSuit() == "medicsuit" then
-						delay = math.Clamp(self.Primary.HealDelay - 10,0,self.Primary.HealDelay)
+						delay = math.Clamp(self.Primary.HealDelay - 6,0,self.Primary.HealDelay)
 					end
 					
 					self:SetNextCharge(CurTime() + delay)

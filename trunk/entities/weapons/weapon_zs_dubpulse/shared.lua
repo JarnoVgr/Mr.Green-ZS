@@ -73,7 +73,7 @@ function SWEP:Initialize()
 end
 
 
- function SWEP:Think()
+function SWEP:Think()
 local ct = CurTime()
 if (self.LastReload + 0.02 <= ct) then
 --self.LastReload = ct + 0.2

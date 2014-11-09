@@ -64,12 +64,14 @@ function ENT:Think()
 		
 		if (Ent1 and self.Ents[1]:GetPhysicsObject() and self.Ents[1]:GetPhysicsObject():GetVelocity():Length() > 580 and Ent1.Nails) then
 			sound.Play(Sound("ambient/machines/catapult_throw.wav"), self:GetPos(), 80, math.random(90, 110))
-			Ent1:TakeDamage(self.Entity:GetDTInt(0)+10,nil)
+		--	Ent1:TakeDamage(self.Entity:GetDTInt(0)+10,nil)
+			Ent1:TakeDamage(self.Entity:GetDTInt(0)+1,nil)
 			-- Ent1:TakeDamage(self.Entity:GetNWInt("NailHealth")+10,nil)
 		elseif (Ent2 and self.Ents[2]:GetPhysicsObject() and self.Ents[2]:GetPhysicsObject():GetVelocity():Length() > 580 and Ent2.Nails) then
 			sound.Play(Sound("ambient/machines/catapult_throw.wav"), self:GetPos(), 80, math.random(90, 110))
 			-- Ent2:TakeDamage(self.Entity:GetNWInt("NailHealth")+10,nil)
-			Ent2:TakeDamage(self.Entity:GetDTInt(0)+10,nil)
+			--Ent2:TakeDamage(self.Entity:GetDTInt(0)+10,nil)
+			Ent2:TakeDamage(self.Entity:GetDTInt(0)+1,nil)
 		end
 	end
 end
