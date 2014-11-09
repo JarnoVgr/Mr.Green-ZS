@@ -174,7 +174,7 @@ include("modules/boneanimlib_v2/boneanimlib.lua")
 include("extended/irc/sv_irc.lua")
 
 --Kill Rewards Thanks Josh 'Acecool'
-include("modules/kill_rewards/sv_kill_rewards.lua")
+--include("modules/kill_rewards/sv_kill_rewards.lua")
 
 --Unstuck
 --include("modules/unstuck/sh_unstuck.lua")

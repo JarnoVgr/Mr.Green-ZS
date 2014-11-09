@@ -48,8 +48,8 @@ GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
 
 
 	if IsValid(pl:GetActiveWeapon()) then 
-	--	local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) 
-		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_02" ) --Duby: I spent fucking ages guessing this...	
+	--	local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_02" ) --Duby: I spent ages finding this out...	
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_03")  --Duby: I spent ages finding this out...	
 		return iIdeal, iSeq
 	end
 	

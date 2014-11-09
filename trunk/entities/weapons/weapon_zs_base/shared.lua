@@ -33,7 +33,7 @@ end
 
 function SWEP:Initialize()
 	self:SetWeaponHoldType(self.HoldType)
-	--self:SetDeploySpeed(1.1)
+	self:SetDeploySpeed(1.1)
 
 
 	if CLIENT then
