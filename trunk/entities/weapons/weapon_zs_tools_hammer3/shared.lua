@@ -558,7 +558,7 @@ function SWEP:Think()
 	end
 	
 	
-	local ct = CurTime()a clip iof
+	local ct = CurTime()
 local maxclip = 1
 	if (self.LastReload + 40 <= ct) then
 		self.LastReload = ct + 40
