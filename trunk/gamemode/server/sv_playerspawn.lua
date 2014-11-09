@@ -356,6 +356,11 @@ function GM:OnHumanSpawn(pl)
 		return
 	end
 	
+	pl:GodEnable()
+	timer.Simple(5, function() 
+	pl:Message("Spawn protection removed.", 3)
+	pl:GodDisable() 
+	end)
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
@@ -476,7 +481,10 @@ function GM:OnZombieSpawn(pl)
 	
 	--Duby: Spawn protection :P
 	pl:GodEnable()
-	timer.Simple(5, function() pl:GodDisable() end)
+	timer.Simple(6, function()
+	pl:Message("Spawn protection removed.", 3)
+	pl:GodDisable() 
+	end)
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
@@ -687,7 +695,7 @@ function CalculatePlayerSpeed ( pl )
 	--	Speed = HumanClasses[Class].Speed
 	Speed = 190
 	end
-	
+
 	Speed = 190
 	
 	return Speed, Speed

@@ -269,5 +269,5 @@ function ENT:GetTurretOwner()
 end
 
 hook.Add( "PreDrawHalos", "AddHalos", function()
-	halo.Add( ents.FindByClass( "aegis" ), Color( 255, 0, 0 ), 0.25, 0.25, 2 )
+	halo.Add( ents.FindByClass( "aegis" ), Color( 0, 0, 225 ), 0.25, 0.25, 2 )
 end )
