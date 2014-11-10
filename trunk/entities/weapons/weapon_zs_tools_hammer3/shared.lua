@@ -63,9 +63,9 @@ SWEP.DamageType = DMG_CLUB
 SWEP.Slot = 3
 SWEP.SlotPos = 3
  
-SWEP.Primary.ClipSize = 30
+SWEP.Primary.ClipSize = 60
 SWEP.Primary.Damage = 0
-SWEP.Primary.DefaultClip = 30
+SWEP.Primary.DefaultClip = 60
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "gravity"
 SWEP.Primary.Delay = 0.05
@@ -73,7 +73,7 @@ SWEP.Primary.Delay = 0.05
 SWEP.Secondary.ClipSize = 3
 SWEP.Secondary.DefaultClip = 3
 SWEP.Secondary.Automatic = false
-SWEP.Secondary.Ammo = "thumper"
+SWEP.Secondary.Ammo = "none"
  
 SWEP.WalkSpeed = 225
 SWEP.HoldType = "melee"
@@ -263,7 +263,8 @@ function SWEP:SecondaryAttack()
 
 		--Notice, cuz we're nice folks explaining how this game works
 		if SERVER then
-			self.Owner:Message("No nails left. Wait for the crate timer!", 2)
+			--self.Owner:Message("No nails left. Wait for the crate timer!", 2)
+			self.Owner:Message("No nails left. Wait for the Hammer timer!", 2)
 			
 		end
 			
@@ -531,10 +532,10 @@ function SWEP:Think()
 		ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
 	end]]
 	
-	local maxclip = 30
+	local maxclip = 60
 	
 	if self.Owner and self.Owner:GetSuit() == "supportsuit" then
-		maxclip = 50
+		maxclip = 70
 		--rtime = rtime - 0.25
 	end
 	
@@ -543,7 +544,7 @@ function SWEP:Think()
 			self.fired = true
 			self.lastfire = CurTime()
 		else
-			if self.lastfire < CurTime() - 0.4 and self.rechargetimer < CurTime() then
+			if self.lastfire < CurTime() - 0.7 and self.rechargetimer < CurTime() then
 				self.Weapon:SetClip1( math.min( maxclip,self.Weapon:Clip1() + 1 ) )
 				local rtime = 0.15
 				if self.Owner:GetPerk("_trchregen") then
@@ -558,20 +559,25 @@ function SWEP:Think()
 	end
 	
 	
-	local ct = CurTime()
-local maxclip = 1
+local ct = CurTime()
+local maxclip = 3
+
 	if (self.LastReload + 40 <= ct) then
 		self.LastReload = ct + 40
 	
 		if (self:Clip2() < 1) then
 		timer.Simple( 40, function()
-		self:SetClip2(maxclip,self:Clip2() + 1) return
+		self:SetClip2(maxclip,self:Clip2() + 1) 
+		self.Owner:Message("Nails have been found!", 2, "white")
+		return
 		end)
 		
 	end
 		if (self:Clip2() < 2) then
 		timer.Simple( 40, function()
-		self:SetClip2(maxclip,self:Clip2() + 1) return
+		self:SetClip2(maxclip,self:Clip2() + 1) 
+		self.Owner:Message("Nails have been found!", 2, "white")
+		return
 		end)
 		
 	end
@@ -624,6 +630,13 @@ if CLIENT then
 			draw.SimpleTextOutlined("Nails will be given every 40s. (Maximum 3!)", "ssNewAmmoFont7", x+2, texty+30, COLOR_DARKRED, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		end
 
+		if charges > 1 then 
+			draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, COLOR_DARKRED, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			draw.SimpleTextOutlined("Nails will be given every 40s. (Maximum 3!)", "ssNewAmmoFont7", x+2, texty+30, COLOR_DARKRED, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		else
+			draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, COLOR_DARKRED, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			draw.SimpleTextOutlined("Nails will be given every 40s. (Maximum 3!)", "ssNewAmmoFont7", x+2, texty+30, COLOR_DARKRED, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		end
 		
 		MeleeWeaponDrawHUD()
 		

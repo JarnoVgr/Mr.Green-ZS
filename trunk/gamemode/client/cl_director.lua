@@ -452,7 +452,7 @@ if #team.GetPlayers( TEAM_UNDEAD ) == 0 then return end
 	end
 end
 hook.Add( "Think", "DoFirstZombieEffect", DoFirstZombieEffect )		
-		
+	
 
 if FIRSTAPRIL then
 

@@ -223,10 +223,7 @@ local function CalculateGivenSupplies(pl)
 	--local AmmoList = {"pistol", "ar2", "smg1", "buckshot", "xbowbolt", "357", "slam", "grenade", "Battery"}
 	for ammoType, ammoAmount in pairs(GAMEMODE.AmmoRegeneration) do
 		--Double for ammoman upgrade
-		--[[if pl:HasBought("ammoman") then
-			ammoAmount = ammoAmount * 2
-		end]]
-if pl:HasBought("ammoman") then
+			if pl:HasBought("ammoman") then
 			ammoAmount = ammoAmount * 2 --Ammo man perk
 		end
 		--Multiply with Infliction
@@ -518,17 +515,14 @@ function GM:SpawnCratesFromTable(crateSpawns,bAll)
      Dubys amazing method to the new crate!!
 ---------------------------------------------------------------------------]=]
 --Duby: Its not the best method, but it works well! ^^
-		--timer.Simple(30, function() --Remove the crate.
 		timer.Simple(300, function() --Remove the crate.
 	ents.FindByClass( "game_supplycrate" )[1]:Remove()
 	ents.FindByClass( "game_supplycrate" )[2]:Remove()
---PrintMessage( HUD_PRINTCENTER, "The crate has moved! !" )
 umsg.Start("cratemove")
 		umsg.End()	
 	end)
 	
 	
-	--timer.Simple(40, function() --Add the crate.
 	timer.Simple(330, function() --Add the crate.
 	for i=1,maxCrates do
 		--Loop through crate spawns
@@ -560,15 +554,14 @@ umsg.Start("cratemove")
 	end)
 	
 	timer.Simple(600, function() --Remove the crate.
-	--timer.Simple(50, function() --Remove the crate.
+	
 	ents.FindByClass( "game_supplycrate" )[1]:Remove()
 	ents.FindByClass( "game_supplycrate" )[2]:Remove()
---PrintMessage( HUD_PRINTCENTER, "The crate has moved! !" )
+
 umsg.Start("cratemove")
 		umsg.End()	
 	end)
 	
-	--timer.Simple(60, function() --Reset the crate spawn loctions. Also change the crate ID's again.
 	timer.Simple(620, function() --Reset the crate spawn loctions. Also change the crate ID's again.
 --Remove current supplies
 	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do
@@ -626,15 +619,15 @@ umsg.Start("cratemove")
 	
 	
 	timer.Simple(900, function() --Remove the crate.
-	--timer.Simple(70, function() --Remove the crate.
+
 	ents.FindByClass( "game_supplycrate" )[1]:Remove()
 	ents.FindByClass( "game_supplycrate" )[2]:Remove()
---PrintMessage( HUD_PRINTCENTER, "The crate has moved! !" )
+
 umsg.Start("cratemove")
 		umsg.End()	
 	end)
 	
-	--timer.Simple(80, function() --Reset the crate spawn loctions. Also change the crate ID's again.
+	
 	timer.Simple(925, function() --Reset the crate spawn loctions. Also change the crate ID's again.
 	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do
 		if IsValid(v) then			
@@ -694,12 +687,12 @@ umsg.Start("cratemove")
 	timer.Simple(1200, function() --Remove the crate.
 	ents.FindByClass( "game_supplycrate" )[1]:Remove()
 	ents.FindByClass( "game_supplycrate" )[2]:Remove()
---PrintMessage( HUD_PRINTCENTER, "The crate has moved! !" )
+
 umsg.Start("cratemove")
 		umsg.End()	
 	end)
 	
-	--timer.Simple(105, function() --Reset the crate spawn loctions. Also change the crate ID's again.
+	
 	timer.Simple(1215, function() --Reset the crate spawn loctions. Also change the crate ID's again.
 	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do
 		if IsValid(v) then			
@@ -757,6 +750,9 @@ umsg.Start("cratemove")
 	end)
 	--Duby: This is the end of a shitty method for moving crates. What we need to do really is add 10 crate spawn points instead of 4, then we can make something interesting!
 end
+
+
+
 
 -- Precache the gib models
 for i = 1, 9 do

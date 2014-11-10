@@ -142,7 +142,7 @@ end
 
 --Halloween
 if HALLOWEEN then
-	--Snow
+	--blood
 	include("modules/halloween/blood.lua")
 end
 
@@ -643,7 +643,7 @@ usermessage.Hook( "SendTitles", ReceiveTitles )
       Receives updates data regarding the ammo regen timer
 ------------------------------------------------------------------]=]
 local function ReceiveAmmoTimer( um )
-	if not IsValid ( MySelf ) then
+	--[[if not IsValid ( MySelf ) then
 		return
 	end
 
@@ -652,7 +652,7 @@ local function ReceiveAmmoTimer( um )
 	MySelf:SetAmmoTime(SetTimer or AMMO_REGENERATE_RATE)
 	
 	-- First regeneration
-	MySelf.IsFirstRegeneration = true
+	MySelf.IsFirstRegeneration = true]]--
 end
 usermessage.Hook("UpdateAmmoTime", ReceiveAmmoTimer)
 
@@ -1101,6 +1101,7 @@ function GM:_HUDPaint()
 end
 
 -- Dropped weapons glow/sparkles by Deluvas (thanks!)
+--[[
 function DrawBackgroundSelect()
 	--if ENDROUND then return end -- Don't draw anything when the intermission is busy.
 
@@ -1168,7 +1169,7 @@ function DrawBackgroundSelect()
 		end
 	end
 end
-
+]]--
 ----------------------
 
 BloodDraws = {}
@@ -1824,7 +1825,7 @@ usermessage.Hook("PlayClientsideSound", PlayClientsideSound)
 --[=[---------------------------------------------------
  			Deluvas - Global Painting Effect!  		
 -----------------------------------------------------]=]
-
+--[[
 --I'd rather eat my balls than rewrite this code down here
 local Notes = {}
 local NoteCount = 0
@@ -1889,7 +1890,7 @@ function PaintText(um)
 	GAMEMODE:AddNote(msg,len,col)
 end
 usermessage.Hook("PaintText", PaintText)
-
+]]--
 ---------------------------------------------------------
 
 function MeleeWeaponDrawHUD()
@@ -1919,6 +1920,7 @@ function MeleeWeaponDrawHUD()
 	surface.DrawLine(cW + 1, cH - hLength, cW + 1, cH + hLength)
 end
 
+--[[ --Duby: This doesn't actually do anything..
 --[=[------------------------------------------------
      Refresh Toxic Fumes Effect ( 7 sec )
 ------------------------------------------------]=]
@@ -1937,7 +1939,7 @@ function RefreshToxicFumes()
 	-- Refresh them
 	timer.Simple( 7, RefreshToxicFumes )
 end
-
+]]--
 -- Textures we need to draw the crosshair 
 local matCore, matOuter = surface.GetTextureID ( "zombiesurvival/crosshair/undead_crosshair_core" ), surface.GetTextureID ( "zombiesurvival/crosshair/undead_crosshair_outer" )
 
