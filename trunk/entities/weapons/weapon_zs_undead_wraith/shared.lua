@@ -106,15 +106,20 @@ function SWEP:Move(mv)
 		mv:SetMaxSpeed(self.Primary.Speed)
 		return true
 	end
+	
+local pl = self.Owner
+local e = EffectData()
+e:SetOrigin( self.Owner:GetShootPos() )
+util.Effect( "smokereffect", e )
 end
 
 function SWEP:SetDisguise(bl)
-	self:SetDTBool(0,bl)
-	self:DrawShadow(bl)
+	--self:SetDTBool(0,bl)
+	--self:DrawShadow(bl)
 end
 
 function SWEP:IsDisguised()
-	return self:GetDTBool(0)
+	--return self:GetDTBool(0)
 end
 
 function SWEP:PerformSecondaryAttack()

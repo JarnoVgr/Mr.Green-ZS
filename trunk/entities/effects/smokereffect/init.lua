@@ -6,24 +6,24 @@ function EFFECT:Init( data )
 	self.weapon = data:GetEntity()
 	self.attachment = data:GetAttachment()
 	self.pos = self:GetTracerShootPos( data:GetOrigin(), self.weapon, self.attachment )
-	for i = 1, 2 do
+	for i = 1, 1 do
 		local smoke = emitter:Add( "particle/particle_smokegrenade", self.pos )
 		if ( smoke ) then
-			smoke:SetVelocity( Vector( math.Rand( -20, 20 ), math.Rand( -20, 20 ), 22 ) )
-			smoke:SetLifeTime( 4 )
-			smoke:SetDieTime( 6 )
+			smoke:SetVelocity( Vector( math.Rand( 0, 2 ), math.Rand( 0, 2 ), 0 ) )
+			smoke:SetLifeTime( 1 )
+			smoke:SetDieTime( 2 )
 			smoke:SetColor( 75, 75, 75 )
-			smoke:SetStartAlpha( 115 )
-			smoke:SetEndAlpha( 600 )
-			smoke:SetStartSize( 150 )
-			smoke:SetEndSize( 250 )
+			smoke:SetStartAlpha( 5 )
+			smoke:SetEndAlpha( 10 )
+			smoke:SetStartSize( 5 )
+			smoke:SetEndSize( 10 )
 			smoke:SetRoll( math.Rand( 180, 480 ) )
-			smoke:SetGravity( Vector( 0, 0, 55 ) )
+			smoke:SetGravity( Vector( 0, 0, 0 ) )
 			smoke:SetCollide( false )
 			smoke:SetBounce( 0.45 )
 		end
 	end
-	for i = 1, 2 do
+	--[[for i = 1, 2 do
 		local smoke = emitter:Add( "particle/particle_smokegrenade", self.pos )
 		if ( smoke ) then
 			smoke:SetVelocity( Vector( math.Rand( -20, 20 ), math.Rand( -20, 20 ), 22 ) )
@@ -137,7 +137,7 @@ function EFFECT:Init( data )
 			smoke:SetRollDelta(math.Rand(-30, 30))
 		end
 	end
-	
+	]]--
 	
 	
 	emitter:Finish()

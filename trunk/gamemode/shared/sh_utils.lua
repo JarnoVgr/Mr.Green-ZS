@@ -234,7 +234,7 @@ end
 --[==[---------------------------------------------------------
 	Used to make players 'ethereal'
 ---------------------------------------------------------]==]
-function EnableEtherealMode ( pl, bool )
+--[[function EnableEtherealMode ( pl, bool )
 	if CLIENT then return end
 	if not IsValid ( pl ) then return end
 	
@@ -248,7 +248,7 @@ function EnableEtherealMode ( pl, bool )
 	if bool == true then
 		pl:Lock()
 		pl:Freeze( true )
-		pl:SetColor( 225,225,225,100 )
+		pl:SetColor( 225,225,225,225 )
 		
 		-- Uh, just finish him
 		timer.Simple ( 0.05, function() 
@@ -257,20 +257,20 @@ function EnableEtherealMode ( pl, bool )
 			end 
 		end, pl )
 	end
-	
+
 	-- Disable this mode
 	if bool == false then
 		pl:UnLock()
 		pl:Freeze ( false )
 		pl:SetCollisionGroup ( COLLISION_GROUP_PLAYER )
 		pl:SetBloodColor ( COLOR_RED )
-		pl:SetColor ( 255,255,255,255 )
+		pl:SetColor ( 225,225,225,255 )
 	end
 	
 	local bReady = pl.Ready
 	Debug ( "[SPAWN] "..tostring ( pl ).." 'Ready' status: "..tostring ( bReady )..". Settings him invisible/visible, whatever." )
 end
-
+]]--
 --[==[--------------------------------------------------------
       Used to add entities that don't have a phys.
       entity. Mostly the ones used for hull traces

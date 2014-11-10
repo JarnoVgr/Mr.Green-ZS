@@ -121,7 +121,7 @@ function SWEP:PrimaryAttack()
 
 				local health, maxhealth = ent:Health(), 100-- owner:GetMaxHealth()
 				--if ent:GetPerk("_kevlar") then maxhealth = 110 elseif ent:GetPerk("_kevlar2") then maxhealth = 120 end
-				local multiplier = 0.8
+				local multiplier = 1.0
 				if owner:GetPerk("_medupgr1" ) then
 					multiplier = 1.35
 				end
@@ -131,7 +131,7 @@ function SWEP:PrimaryAttack()
 					
 					local delay = self.Primary.HealDelay
 					if owner:GetSuit() == "medicsuit" then
-						delay = math.Clamp(self.Primary.HealDelay - 6,0,self.Primary.HealDelay)
+						delay = math.Clamp(self.Primary.HealDelay - 5,0,self.Primary.HealDelay)
 					end
 					
 					self:SetNextCharge(CurTime() + delay)

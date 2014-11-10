@@ -573,14 +573,14 @@ local maxclip = 3
 		end)
 		
 	end
-		if (self:Clip2() < 2) then
-		timer.Simple( 40, function()
-		self:SetClip2(maxclip,self:Clip2() + 1) 
-		self.Owner:Message("Nails have been found!", 2, "white")
-		return
-		end)
+		--if (self:Clip2() < 2) then
+		--timer.Simple( 40, function()
+		--self:SetClip2(maxclip,self:Clip2() + 1) 
+		--self.Owner:Message("Nails have been found!", 2, "white")
+		--return
+		--end)
 		
-	end
+	--end
 
 	
 end

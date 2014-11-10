@@ -96,10 +96,10 @@ function GiveSkillPointsSurvivors()
 	for _, h in pairs(team.GetPlayers(TEAM_HUMAN)) do
 		if h and h:IsValid() and h:Alive() then
 			--Give SP
-			skillpoints.AddSkillPoints(h,math.max(0,math.Round(130*GetInfliction()))) --This gives SP as the round  goes on. This was removed for balancing. -Duby
+			skillpoints.AddSkillPoints(h,math.max(0,math.Round(110*GetInfliction()))) --This gives SP as the round  goes on. This was removed for balancing. -Duby
 
 			--Give XP
-			h:AddXP(math.max(0,100*GetInfliction()))
+			h:AddXP(math.max(0,110*GetInfliction()))
 		end
 	end
 end

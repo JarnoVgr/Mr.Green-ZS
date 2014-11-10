@@ -22,7 +22,7 @@ ZombieClasses[0] =
 	Tag = "infected",	
 	Infliction = 0,
 	Revives = false,
-	Health = 220,
+	Health = 240,
 	MaxHealth = 600,
 	Bounty = 80,
 	SP = 20,
@@ -35,7 +35,7 @@ ZombieClasses[0] =
 	--Model = Model("models/player/group01/male_09.mdl"), 
 	Model = Model("models/player/zombie_classic.mdl"),
 	--Speed = 173,
-	Speed = 160,
+	Speed = 165,
 	Description = "The backbone of the horde.",
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill" },
 	PainSounds = {
@@ -346,7 +346,7 @@ ZombieClasses[4] =
 				},
 	OnSpawn = function(pl)	
 	--pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(11,11,11,6))
-	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,100))
+	--pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,225))
 		--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
 	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
 	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
