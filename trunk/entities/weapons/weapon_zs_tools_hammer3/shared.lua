@@ -144,7 +144,7 @@ function SWEP:PrimaryAttack()
 		return
 	end
 		   
-	self.Weapon:SetNextPrimaryFire(CurTime() + 0.05)
+	self.Weapon:SetNextPrimaryFire(CurTime() + 0.1)
 	self.Alternate = not self.Alternate
    
 	if SERVER then
@@ -181,7 +181,7 @@ function SWEP:PrimaryAttack()
 							util.Effect( "StunstickImpact", eff, true, true )
 							
 							self.Owner._RepairScore = self.Owner._RepairScore + 1
-							if self.Owner._RepairScore == 4 then
+							if self.Owner._RepairScore == 6 then
 								skillpoints.AddSkillPoints(self.Owner, 1)
 								nail:FloatingTextEffect( 1, self.Owner )
 								self.Owner:AddXP(5)
@@ -342,7 +342,10 @@ function SWEP:SecondaryAttack()
 				nail:SetOwner(self.Owner)
 				nail:Spawn()
 				trent:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1,4)..".wav")
-													   
+				
+					skillpoints.AddSkillPoints(self.Owner, 30)
+					trent:FloatingTextEffect( 30, self.Owner )
+					self.Owner:AddXP(10)								   
 				--??
 				trent:CollisionRulesChanged()
 					   
