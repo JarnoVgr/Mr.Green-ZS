@@ -63,9 +63,9 @@ SWEP.DamageType = DMG_CLUB
 SWEP.Slot = 3
 SWEP.SlotPos = 3
  
-SWEP.Primary.ClipSize = 60
+SWEP.Primary.ClipSize = 30
 SWEP.Primary.Damage = 0
-SWEP.Primary.DefaultClip = 60
+SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "gravity"
 SWEP.Primary.Delay = 0.05
@@ -181,7 +181,7 @@ function SWEP:PrimaryAttack()
 							util.Effect( "StunstickImpact", eff, true, true )
 							
 							self.Owner._RepairScore = self.Owner._RepairScore + 1
-							if self.Owner._RepairScore == 2 then
+							if self.Owner._RepairScore == 4 then
 								skillpoints.AddSkillPoints(self.Owner, 1)
 								nail:FloatingTextEffect( 1, self.Owner )
 								self.Owner:AddXP(5)
@@ -532,10 +532,10 @@ function SWEP:Think()
 		ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
 	end]]
 	
-	local maxclip = 60
+	local maxclip = 30
 	
 	if self.Owner and self.Owner:GetSuit() == "supportsuit" then
-		maxclip = 70
+		maxclip = 40
 		--rtime = rtime - 0.25
 	end
 	
@@ -544,7 +544,7 @@ function SWEP:Think()
 			self.fired = true
 			self.lastfire = CurTime()
 		else
-			if self.lastfire < CurTime() - 0.7 and self.rechargetimer < CurTime() then
+			if self.lastfire < CurTime() - 0.75 and self.rechargetimer < CurTime() then
 				self.Weapon:SetClip1( math.min( maxclip,self.Weapon:Clip1() + 1 ) )
 				local rtime = 0.15
 				if self.Owner:GetPerk("_trchregen") then
