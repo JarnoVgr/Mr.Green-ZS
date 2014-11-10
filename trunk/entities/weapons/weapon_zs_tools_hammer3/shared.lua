@@ -188,8 +188,8 @@ function SWEP:PrimaryAttack()
 								self.Owner._RepairScore = 0
 								
 								elseif self.Owner and self.Owner:GetSuit() == "supportsuit" then
-								skillpoints.AddSkillPoints(self.Owner, 4)
-								nail:FloatingTextEffect( 4, self.Owner )
+								skillpoints.AddSkillPoints(self.Owner, 1)
+								nail:FloatingTextEffect( 1, self.Owner )
 								self.Owner:AddXP(5)
 								self.Owner._RepairScore = 0
 							end
