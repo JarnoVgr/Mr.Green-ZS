@@ -1375,10 +1375,10 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		damage = 0 
 	end
 	
-	--Hammer can't damage
-	if inflictor:GetClass() == "weapon_zs_tools_hammer" then
-		damage = 0
-	end
+	--Hammer can't damage --Duby: Not used anymore.
+--	if inflictor:GetClass() == "weapon_zs_tools_hammer" then
+	--	damage = 0
+	--end
 
 	local bNailDied = false
 
@@ -1756,8 +1756,8 @@ end
 
 --[[----------------------------------------------------]]--
 
-util.AddNetworkString( "BoughtPointsWithCoins" )
-
+--util.AddNetworkString( "BoughtPointsWithCoins" )
+--[[
 function meta:HasBoughtPointsWithCoins()
     local tab = DataTableConnected[self:UniqueID()]
     if ( tab ) then
@@ -1779,9 +1779,9 @@ end
 function meta:CanBuyPointsWithCoins()
     return not self:HasBoughtPointsWithCoins() and self:GreenCoins() >= 200
 end
+]]--
 
---[[----------------------]]--
-
+--[[
 function meta:UpdateBoughtPointsWithCoins()
     net.Start( "BoughtPointsWithCoins" )
         net.WriteBit( self:HasBoughtPointsWithCoins() )
@@ -1802,5 +1802,5 @@ concommand.Add( "zs_boughtpointswithcoins", function( pl, cmd, args )
     end
 end )
 
---[[----------------------------------------------------]]--
 
+]]--

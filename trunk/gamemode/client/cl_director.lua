@@ -431,7 +431,7 @@ local function UpdateObjStage(um)
 
 end
 usermessage.Hook("UpdateObjStage",UpdateObjStage)
-		
+--[[		
 local function DoFirstZombieEffect()
 if #team.GetPlayers( TEAM_UNDEAD ) == 0 then return end
 	for k, FirstZombie in pairs( team.GetPlayers( TEAM_UNDEAD ) ) do
@@ -451,8 +451,8 @@ if #team.GetPlayers( TEAM_UNDEAD ) == 0 then return end
 		end
 	end
 end
-hook.Add( "Think", "DoFirstZombieEffect", DoFirstZombieEffect )		
-	
+hook.Add( "Think", "DoFirstZombieEffect", DoFirstZombieEffect )			
+]]--
 
 if FIRSTAPRIL then
 

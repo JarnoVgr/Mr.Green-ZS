@@ -15,7 +15,7 @@ SWEP.Base = "weapon_zs_melee_base"
 SWEP.PrintName = "Nailing Hammer"
 SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 60
+SWEP.ViewModelFOV = 80
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
  
@@ -127,7 +127,7 @@ end
 
 function SWEP:CanPrimaryAttack()
 	if self.Weapon:Clip1() <= 0 then 
-		self.Weapon:SetNextPrimaryFire(CurTime() + 1)
+		--self.Weapon:SetNextPrimaryFire(CurTime() + 1)
 		return false
 	end
 	return true
@@ -456,24 +456,24 @@ if SERVER then
 	end
 end]]--
  
---[[
+
 function SWEP:Equip( NewOwner )
 	if CLIENT then return end
    
 	if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false
 	   
-		if self.Owner:GetPerk("_engineer") then
+		--if self.Owner:GetPerk("_engineer") then
 		--	self.Weapon:SetClip2( math.Round(self.Primary.DefaultClip*1.5) )
-			self.Weapon:SetClip1( math.Round(self.Secondary.DefaultClip*1.5) )
-		else
+			--self.Weapon:SetClip2( math.Round(self.Secondary.DefaultClip*1.5) )
+		--else
 			--self.Weapon:SetClip2( self.Primary.DefaultClip )
-			self.Weapon:SetClip1( self.Secondary.DefaultClip )
-		end
-	else
-		if self.Weapon.Ammunition then
-			self.Weapon:SetClip2(self.Weapon.Ammunition)
-		end
+			--self.Weapon:SetClip2( self.Secondary.DefaultClip )
+		--end
+	--else
+	--	if self.Weapon.Ammunition then
+	--		self.Weapon:SetClip2(self.Weapon.Ammunition)
+	--	end
 	end
    
 	-- Update it just in case
@@ -482,7 +482,7 @@ function SWEP:Equip( NewOwner )
 	-- Call this function to update weapon slot and others
 	gamemode.Call("OnWeaponEquip", NewOwner, self)
 end
-]]--
+
 function SWEP:Precache()
 	util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-1.wav")
 	util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-2.wav")
@@ -594,7 +594,7 @@ function SWEP:GetNextCharge()
 end
 
 if CLIENT then
-	local texGradDown = surface.GetTextureID("VGUI/gradient_down")
+
 	function SWEP:DrawHUD()
 	
 		local wid, hei = ScaleW(150), ScaleH(33)
@@ -602,25 +602,8 @@ if CLIENT then
 		local x, y = ScrW() - 120, ScrH() - ScaleH(73) - 12
 		y = y + ScaleH(73)/2 - hei/2
 		surface.SetFont("ssNewAmmoFont13")
-		local tw, th = surface.GetTextSize("Medical Kit")
+		
 		local texty = y + hei/2 
-		
-		--surface.SetDrawColor( 0, 0, 0, 150)
-		
-		--surface.DrawRect(x, y, wid, hei)
-		--surface.DrawRect(x+3, y+3, wid-6, hei-6)
-
-	--	local timeleft = self:GetNextCharge() - CurTime()
-		--if 0 < timeleft then
-		--	surface.SetDrawColor(255, 255, 255, 180)
-		--	surface.SetTexture(texGradDown)
-		--	surface.DrawTexturedRect(x+3, y+3, math.min(1, timeleft / math.max(self.Primary.HealDelay, self.Secondary.HealDelay)) * (wid-6), hei-6)
-		--end
-
-		-- surface.SetDrawColor(255, 0, 0, 180)
-		-- surface.DrawOutlinedRect(x, y, wid, hei)
-
-		-- draw.SimpleText("Medical Kit", "ZSHUDFontSmall", x, texty, COLOR_GREEN, TEXT_ALIGN_LEFT)
 
 		local charges = self:GetSecondaryAmmoCount()
 		if charges > 0 then

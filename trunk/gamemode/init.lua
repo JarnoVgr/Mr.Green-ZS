@@ -1087,19 +1087,21 @@ function SpawnProtection(pl)
 end
 
 function DeSpawnProtection(pl)
+--[[ --Duby:Not in use anymore.
 	if not pl:IsValid() or not pl:IsPlayer() then
 		return
 	end
 	
 	if pl:Team() == TEAM_UNDEAD and pl:Alive() then
 		if pl:GetMaxSpeed() == math.Round(ZombieClasses[pl:GetZombieClass()].Speed * 1.3) then
-			-- print("Speed is "..pl:GetMaxSpeed().." Settin' to "..math.Round(ZombieClasses[pl:GetZombieClass()].Speed))
+			print("Speed is "..pl:GetMaxSpeed().." Settin' to "..math.Round(ZombieClasses[pl:GetZombieClass()].Speed))
 			GAMEMODE:SetPlayerSpeed(pl, ZombieClasses[pl:GetZombieClass()].Speed)
 			pl.SpawnProtected1 = false
 		end
 	elseif pl:Team() == TEAM_HUMAN then
 		pl.SpawnProtected1 = false
 	end
+	]]--
 end
 
 function GM:WeaponEquip(weapon)

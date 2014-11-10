@@ -7,7 +7,7 @@ function ENT:Initialize()
     hook.Add("PreDrawHalos", "CustDrawHalos".. tostring(self), function()
         if util.tobool(GetConVarNumber("_zs_drawcrateoutline")) then
             if (IsValid(MySelf) and MySelf:Team() == TEAM_HUMAN and MySelf:Alive()) then
-                halo.Add(self:GetEntities(), self.LineColor, 2, 2, 2, true, true)
+                halo.Add(self:GetEntities(), self.LineColor, 1, 1, 1, true, true)
             end
         end
     end)
@@ -17,15 +17,16 @@ function ENT:OnRemove()
     hook.Remove( "PreDrawHalos", "CustDrawHalos".. tostring( self ) )
 end
 
-ENT.LineColor = Color(210, 0, 0, 100)
+ENT.LineColor = Color(210, 0, 0, 50)
 function ENT:Draw()
     local suppliesAvailable = false
 
     if (MySelf.NextSupplyTime or 0) <= ServerTime() then
-        self.LineColor = Color(0, math.abs(200 * math.sin(CurTime() * 3)), 0, 100)
+        --self.LineColor = Color(0, math.abs(200 * math.sin(CurTime() * 3)), 0, 100)
+        self.LineColor = Color(0, math.abs(100 * math.sin(CurTime() * 2)), 0, 100)
         suppliesAvailable = true
-    elseif self.LineColor ~= Color(210, 0, 0, 100) then
-        self.LineColor = Color(210, 0, 0, 100)
+    elseif self.LineColor ~= Color(210, 0, 0, 50) then
+        self.LineColor = Color(210, 0, 0, 50)
     end
 
     self:DrawModel()
@@ -60,7 +61,6 @@ function ENT:Draw()
         draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(timeLeft + 1), "ArialBoldFour", -60,-70, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
     else
     	
-
     	--Get list of available weapons the player will most likely receive
     	local suppliesList = GetBestAvailableWeapons()
     	local text = "Press E for ".. suppliesList

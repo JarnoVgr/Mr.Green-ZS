@@ -655,12 +655,12 @@ function GM:PlayerDisconnected( pl )
 	
 	--Case 1: Disconnect as human
 	if pl:Team() == TEAM_HUMAN then 
-		DataTableConnected[ID] = { HasBoughtPointsWithCoins = DataTableConnected[ID].HasBoughtPointsWithCoins, IsDead = true, SuicideSickness = false, 
-		    HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
+	--	DataTableConnected[ID] = { HasBoughtPointsWithCoins = DataTableConnected[ID].HasBoughtPointsWithCoins, IsDead = true, SuicideSickness = false, --Duby: This is for the buy SP with GC.
+		   -- HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
 	--Case 2: Disconnect as zombie
 	elseif pl:Team() == TEAM_UNDEAD then
-		DataTableConnected[ID] = { HasBoughtPointsWithCoins = DataTableConnected[ID].HasBoughtPointsWithCoins, IsDead = true, 
-		    SuicideSickness = false, HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
+		--DataTableConnected[ID] = { HasBoughtPointsWithCoins = DataTableConnected[ID].HasBoughtPointsWithCoins, IsDead = true, --Duby: This is for the buy SP with GC.
+		    --SuicideSickness = false, HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
 		
 		if pl.Suicided then
 			DataTableConnected[ID].SuicideSickness = true
