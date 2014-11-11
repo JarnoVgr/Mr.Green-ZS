@@ -19,7 +19,7 @@ SWEP.Primary.Reach = 55
 SWEP.Primary.Duration = 1.8
 SWEP.Primary.Damage = 45
 
-SWEP.Secondary.Delay = 0.5
+SWEP.Secondary.Delay = 0.3
 SWEP.Secondary.Duration = 4
 SWEP.Secondary.Damage = math.random(30,40)
 
@@ -144,7 +144,7 @@ function SWEP:Move(mv)
 		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.8)
 		return true
 	elseif self:IsInSecondaryAttack() then
-		mv:SetMaxSpeed(0)
+		mv:SetMaxSpeed(20)
 		return true
 	end
 end
