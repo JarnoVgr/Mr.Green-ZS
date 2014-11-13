@@ -93,7 +93,8 @@ hook.Add ( "HUDPaint", "DeathHumanHUD", death.DeathHumanHUD )
 -----------------------------------------------------]==]
 function death.DeathZombieHUD()
 	if ENDROUND or not IsEntityValid ( MySelf ) then return end
-	if not MySelf:IsZombie() or MySelf.FirstHumanDeath or IsClassesMenuOpen() or (MySelf:OldAlive() and not MySelf:IsCrow()) then return end
+
+	if not MySelf:IsZombie() or MySelf.FirstHumanDeath or IsClassesMenuOpen() or (MySelf:OldAlive()) then return end  --Duby: Re-written when the crow was removed.
 	
 	-- Never died
 	if not MySelf.InitialDeath then return end

@@ -593,8 +593,7 @@ function GM:OnZombieSpawn(pl)
 	pl:SetBloodColor(BLOOD_COLOR_RED)
 
 	--Alert players they can change zombie class
-	--TODO: Alert once
-	if not pl:IsCrow() and Class == 0 and math.random(1,3) == 1 then
+	if Class == 0 and math.random(1,3) == 1 then --Duby: Re-written when the crow was removed.
 		pl:Message("Press F3 to play with a different Undead specie", 3)
 	end
 
@@ -828,7 +827,8 @@ function CalculateZombieHealth(pl)
 	
 	-- Case 2: if there are only 2 zombies double their HP
 	
-	if not pl:IsBossZombie() and not pl:IsCrow() then
+	--if not pl:IsBossZombie() and not pl:IsCrow() then
+	if not pl:IsBossZombie() then
 		local allPlayers = player.GetAll()
 		local numPlayers = #allPlayers
 

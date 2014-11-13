@@ -305,35 +305,7 @@ function PaintNewWeaponSelection()
 
 	--Calculate alpha level
 	local Alpha = math.Clamp((HideSelectionTime - CurTime()) / (HideSelectionTime - LastScroll),0,1)
-	
 
-	
-	--Small info box
-	
-	--[=[if MySelf:GetActiveWeapon() then
-		
-		local wep = MySelf:GetActiveWeapon()--weapons.Get(MySelf:GetActiveWeapon():GetClass())
-		surface.SetFont("NewAmmoFont9")
-		
-		if wep.Info then
-			local infW,infH = surface.GetTextSize(wep.Info)
-			
-			draw.RoundedBox( 3, ScrW()-205-(infW+15),ScrH()-100, infW+15,70, Color( 0, 0, 0, 150*Alpha ) )
-	
-			surface.SetTexture(Gradient)
-			surface.SetDrawColor(211, 238, 231, 10*math.Clamp(LastInfoScroll - CurTime(),0,1) )
-			surface.DrawTexturedRectRotated((ScrW()-205-(infW+15))+(infW+15)/2,(ScrH()-100)+70/2,70-2,(infW+15)-2,90)
-
-			-- surface.SetTextColor( 255,255,255,255 )
-			-- surface.SetTextPos( (ScrW()-205-(infW+6))+(infW+6)/2, (ScrH()-100)+35 ) 
-			-- surface.DrawText( wep.Info )
-			if string.find(wep.Info,"\n") then
-				draw.DrawText(wep.Info, "NewAmmoFont9", (ScrW()-205-(infW+15))+(infW+15)/2, (ScrH()-100)+8, Color(255,255,255,255*math.Clamp(LastInfoScroll - CurTime(),0,1)), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-			else
-				draw.DrawText(wep.Info, "NewAmmoFont9", (ScrW()-205-(infW+15))+(infW+15)/2, (ScrH()-100)+25, Color(255,255,255,255*math.Clamp(LastInfoScroll - CurTime(),0,1)), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-			end
-		end
-	end]=]
 
 	--Draw panels
 	for i = 0, MaximumSlots do

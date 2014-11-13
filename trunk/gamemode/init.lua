@@ -61,6 +61,7 @@ AddCSLuaFile("client/cl_admin.lua")
 AddCSLuaFile("shared/sh_animations.lua")
 AddCSLuaFile("shared/sh_zombo_anims.lua")
 AddCSLuaFile("client/cl_hud.lua")
+AddCSLuaFile("client/cl_cratemove.lua")
 AddCSLuaFile("modules/legs/cl_legs.lua")
 AddCSLuaFile("modules/news/cl_news.lua")
 
@@ -250,12 +251,8 @@ function GM:WeaponDeployed ( mOwner, mWeapon, bIron )
 		fSpeed = fSpeed*1.04
 	end
 	
-	-- Does player got adrenaline shop item or is player medic
-	-- if mOwner:HasBought("adrenaline") or iClass == 1 then
-	-- 	fHealthSpeed = 1
-	-- else
+	
 		fHealthSpeed = mOwner:GetPerk("_adrenaline") and 1 or math.Clamp ( ( fHealth / 50 ), 0.7, 1 )
-	-- end
 	
 	if bIron then
 		fSpeed = math.Round ( ( fSpeed * 0.6 ) * fHealthSpeed )
@@ -610,41 +607,6 @@ function GM:LastHuman()
 	
 	--Log
 	log.WorldAction("Last_Human")
-	
-	-- The rest goes to the "LastManStand" upgrade
-	--[[if not LastHuman:HasBought( "lastmanstand" ) then
-		return
-	end
-	
-	-- Reward and class to name translation table
-	local RewardTable = { [1] = "weapon_zs_m249", [2] = "weapon_zs_m249", [3] = "weapon_zs_g3sg1", [4] = "weapon_zs_pulserifle", [5] = "weapon_zs_m249" }
-	local ClassToName = { ["weapon_zs_shotgun"] = "Shotgun",["weapon_zs_crossbow"] = "Imba Crossbow", ["weapon_zs_annabelle"] = "Annabelle Shotgun", ["weapon_zs_melee_katana"] = "Katana", ["weapon_zs_pulserifle"] = "Pulse Rifle", ["weapon_zs_m3super90"] = "M3 Shotgun" }  
-	
-	-- Message printed to last human
-	local Class = LastHuman:GetHumanClass()
-	local Message = "Upgrade [Last Man Stand] gave you a(n) "..GAMEMODE.HumanWeapons[ RewardTable[ Class ] ].Name.."!"
-	
-	local Automatic, Melee = LastHuman:GetAutomatic(), LastHuman:GetMelee()
-	local WeaponToStrip = Automatic
-	local Reward = RewardTable [ Class ]
-	if Automatic then
-	if GetWeaponType ( Reward ) == "Automatic" and not ((GAMEMODE.HumanWeapons[ Reward ].DPS > GAMEMODE.HumanWeapons[ Automatic:GetClass() ].DPS) or Reward ~= Automatic:GetClass() ) then return end
-	end
-	if Melee then
-	if GetWeaponType ( Reward ) == "Melee" and not ((GAMEMODE.HumanWeapons[ Reward ].DPS > GAMEMODE.HumanWeapons[ Melee:GetClass() ].DPS) or Reward ~= Melee:GetClass()) then return end
-	end
-	-- Strip the old weapon - melee for berserkers, automatic for rest
-	--if Class == 3 then WeaponToStrip = Melee end
-	if IsValid ( WeaponToStrip ) and WeaponToStrip:IsWeapon() then
-		LastHuman:StripWeapon ( tostring ( WeaponToStrip:GetClass() ) )
-	end
-	
-	-- Notify
-	LastHuman:ChatPrint ( Message )
-	
-	-- Give the new weapon and select it
-	LastHuman:Give ( RewardTable [ Class ] )
-	LastHuman:SelectWeapon ( RewardTable [ Class ] )]]
 end
 
 --[=[--------------------------------------------------------------------
@@ -658,7 +620,6 @@ local function RestrictFlashlight(pl, switch)
 	
 	-- Allow flashlight if the weapon is not melee
 	local Weapon = pl:GetActiveWeapon()
-	--if IsValid ( Weapon ) then if Weapon:GetType() == "melee" and pl:GetHumanClass() ~= 3 then return false end	end
 
 	return pl:Alive() and pl:Team() == TEAM_HUMAN
 end
@@ -809,13 +770,6 @@ function GM:SpawnHat(pl, hattype)
 	if not pl:IsPlayer() then
 		return
 	end
-
-	-- Player is a bot - testing purposes
-	-- if pl:IsBot() then hattype = "rpresent" end
-	-- 	self:SpawnSuit( pl, "techsuit" )
-	--return end--
-	
-	-- if suits[hattype] then self:SpawnSuit(pl,hattype) return end
 	
 	if pl:IsBot() then
 		hattype = "cigar$homburg"
@@ -934,54 +888,6 @@ end
 
 HatCounter = 0
 
---[==[
-function GM:DropHat(pl)
-	if IsValid(pl.Hat) and not pl.Hat.IsSuit and pl.Hat:GetModel() then
-		local boneindex = pl:LookupBone("ValveBiped.Bip01_Head1")
-		if boneindex and HatCounter < 10 then -- hatcounter is protection against hat drop spamming
-			local pos, ang = pl:GetBonePosition(boneindex)
-			if pos and pos ~= pl:GetPos() then
-				local exhat = ents.Create("prop_physics_multiplayer")
-				exhat:SetModel(pl.Hat:GetModel())
-				exhat:SetPos(pos)
-				local hatAng = hats[pl.Hat:GetHatType()].Ang
-				ang:RotateAroundAxis(ang:Forward(), hatAng.p)
-				ang:RotateAroundAxis(ang:Up(), hatAng.y)
-				ang:RotateAroundAxis(ang:Right(), hatAng.r)
-				exhat:SetAngles(ang)
-				exhat:Spawn()
-				
-				HatCounter = HatCounter + 1
-				
-				local phys = exhat:GetPhysicsObject()
-				if IsValid(phys) then
-					phys:SetMass(1)
-					phys:ApplyForceCenter( pl:GetVelocity()+Vector(0,0,math.random(200,300)) )
-					phys:ApplyForceOffset( Vector(0,0,-math.random(20,50)), exhat:GetPos()+Vector(0,0,10) )
-				end
-				
-				exhat:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
-				
-				exhat:SetHealth ( 9999 )
-				
-				if not IsValid(phys) then
-					exhat:Remove()
-				end
-				
-				timer.Simple(10,function( ent ) 
-					if IsValid(ent) then
-						ent:Remove() 
-					end
-					HatCounter = HatCounter - 1
-				end,exhat)
-			end
-		end
-		pl.Hat:Remove()
-		pl.Hat = nil
-	end
-	
-end
-]==]
 
 function GM:PlayerNoClip(pl, on)	
 	if pl:IsAdmin() and ALLOW_ADMIN_NOCLIP and pl:Team() ~= TEAM_SPECTATOR and not pl:IsFreeSpectating() then
@@ -1082,26 +988,10 @@ end
 
 --Spawnprotection
 --OBSOLETE: Can this be removed?
---Duby: Made a work around for the human spawn protection in the player_spawn file.
+--Duby: Made a work around for the human/zombie spawn protection in the player_spawn file.
 function SpawnProtection(pl)
 end
-
 function DeSpawnProtection(pl)
---[[ --Duby:Not in use anymore.
-	if not pl:IsValid() or not pl:IsPlayer() then
-		return
-	end
-	
-	if pl:Team() == TEAM_UNDEAD and pl:Alive() then
-		if pl:GetMaxSpeed() == math.Round(ZombieClasses[pl:GetZombieClass()].Speed * 1.3) then
-			print("Speed is "..pl:GetMaxSpeed().." Settin' to "..math.Round(ZombieClasses[pl:GetZombieClass()].Speed))
-			GAMEMODE:SetPlayerSpeed(pl, ZombieClasses[pl:GetZombieClass()].Speed)
-			pl.SpawnProtected1 = false
-		end
-	elseif pl:Team() == TEAM_HUMAN then
-		pl.SpawnProtected1 = false
-	end
-	]]--
 end
 
 function GM:WeaponEquip(weapon)
@@ -1179,14 +1069,10 @@ function DoPoisoned( ent, owner, timername)
 	
 	local damage --  damage taken
 	local viewpunchangle = Angle (0,0,0) --  view punch for each poison tick
-	
-	--if ent:HasBought("naturalimmunity") then
-		--damage = math.random (1,2)
-		--viewpunchangle = Angle(math.random(-5, 5), math.random(-5, 5), math.random(-10, 10))
-	--else
-		damage = math.random (3,4)
-		viewpunchangle = Angle(math.random(-10, 10), math.random(-10, 10), math.random(-20, 20))
-	--end
+
+	damage = math.random (3,4)
+	viewpunchangle = Angle(math.random(-10, 10), math.random(-10, 10), math.random(-20, 20))
+
 	
 	ent:ViewPunch(viewpunchangle)
 
@@ -1665,23 +1551,17 @@ Debug("[MODULE] Loaded init.lua")
 --[=[----------------------------------------------------------------------
      Dubys amazing method to slowing people down while running backwards!
 ---------------------------------------------------------------------------]=]
-
  function GM:KeyPress( pl, key )
 
 if pl:Team() == TEAM_HUMAN then
 if( pl:KeyDown( IN_BACK ) )  then
-pl:SetWalkSpeed( 160 )
+pl:SetWalkSpeed( 150 )
  	
 else pl:SetWalkSpeed(200) 
 
 end
 end
 end 
-
---Speed change
---if SERVER then GAMEMODE:WeaponDeployed( self.Owner, self ) return true else self:SetViewModelColor ( 255,255,255,255 ) 
---end
-
 
 --[=[----------------------------------------------------------------------
      Dubys amazing method to the Grave digger suit!
@@ -1702,15 +1582,3 @@ hook.Add("PlayerDeath", "boxsexy", function(victim, inf, attack) if ( inf and in
 hook.Add("PlayerDeath", "boxsexy2", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 7 ) end end)
 hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 6 ) end end)
 hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_hook" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 7 ) end end)
-
---[=[----------------------------------------------------------------------
-     Dubys amazing method to the Combine Zombine suit!
----------------------------------------------------------------------------]=]
-
---Duby: I will do it one day.
-
---[=[----------------------------------------------------------------------
-     Dubys amazing method to the new crate!!
----------------------------------------------------------------------------]=]
-
---This is located in another file. I decided to make it a module rather than pilling more shit in here. 

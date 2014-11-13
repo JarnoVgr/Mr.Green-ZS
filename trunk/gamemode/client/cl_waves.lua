@@ -132,7 +132,7 @@ net.Receive("SendPlayerPerk", function(len)
 
 	table.insert(pl.Perk,perk)
 end)
-
+--[[ --Duby: Sales for the crates shop, not required anymore..
 net.Receive("SendSales", function(len)
 	if not IsValid( MySelf ) then return end
 	Debug("[SKILLSHOP] Received SendSales (net)")
@@ -160,4 +160,4 @@ function IsOnSale(item)
 	end
 	
 	return false
-end
+end ]]--

@@ -157,9 +157,6 @@ end
 --[=[-----------------------------------------------------------
        Returns the name of the active human class
 ------------------------------------------------------------]=]
---function meta:GetHumanClassString()
-	--return HumanClasses[ self:GetHumanClass() ].Name
---end
 
 --[=[--------------------------------------
        See if player is a human
@@ -415,12 +412,6 @@ end
       Return the amount time left to ammo regen
 ---------------------------------------------------------]==]
 function meta:GetAmmoTime() --Duby:Clear out the function as it isn't used any more.
---	if self:Team() ~= TEAM_HUMAN then return 0 end
-	
-	-- the variable is missing
-	--if self.AmmoRegenTime == nil then return 0 end
-	
-	--return self.AmmoRegenTime
 end
 
 --[==[----------------------------------------------------------
@@ -463,9 +454,7 @@ end
         Improved clientside/serverside FOV
 ----------------------------------------------------]==]
 meta.BaseGetFOV = meta.GetFOV
--- function meta:GetFOV()
--- 	if SERVER then return self:BaseGetFOV() else return self.ApproachFov or GetConVar("fov_desired"):GetInt() end
--- end
+
 
 --[==[---------------------------------------------------------
    Overwrite base give function so we can clamp it
@@ -513,7 +502,7 @@ end
 -----------------------------------------------]==]
 meta.OldAlive = meta.Alive
 function meta:Alive()
-	if self:GetObserverMode() ~= OBS_MODE_NONE or self:Team() == TEAM_UNDEAD and self:IsCrow() then return false end
+	if self:GetObserverMode() ~= OBS_MODE_NONE then return false end  --Duby: Re-written when the crow was removed.
 
 	return self:OldAlive()
 end
@@ -529,36 +518,6 @@ meta.OldSetRunSpeed = meta.SetRunSpeed
 function meta:SetRunSpeed( s )
 	self:OldSetRunSpeed( s + (s >= 2 and SHARED_SPEED_INCREASE or 0))
 end
-
---[=[function meta:Alive()
-	if self:GetMoveType() == MOVETYPE_OBSERVER then return false end
-
-	return self.BaseAlive
-end
-
-local oldspec = meta.Spectate
-function meta:Spectate(obsm)
-	self:StripWeapons()
-	oldspec(self, obsm)
-	print(tostring(self).." spectating")
-end
-
-local oldunspec = meta.UnSpectate
-function meta:UnSpectate()
-	if self:GetMoveType() == MOVETYPE_OBSERVER then
-		oldunspec(self, obsm)
-		print(tostring(self).." unspectated")
-	end
-end]=]
-
---[=[function meta:Alive()
-
-	-- Using only health verif.
-	local bAlive = true
-	if self:Health() <= 0 then bAlive = false end
-	
-	return bAlive
-end]=]
 
 --[==[----------------------------------------------------
 	    See if zombie is common type
@@ -611,12 +570,6 @@ function meta:IsPoisonCrab()
 	return self:GetZombieClass() == 7
 end
 
---OBSOLETE?
---Duby: Yes, yes it is. 
-function meta:IsCrow ()
---	return self:GetZombieClass() == 9
-end
-
 function meta:IsBoss()
 	return ZombieClasses[self:GetZombieClass()] and ZombieClasses[self:GetZombieClass()].IsBoss
 end
@@ -633,51 +586,12 @@ function meta:IsZombine()
 	return self:GetZombieClass() == 8
 end
 
---Duby: We don't have classes anymore. So its only sensible to remove this.
-
---[==[---------------------------------------
-	See if a human is medic
----------------------------------------]==]
---function meta:IsMedic()
-	--return self:GetHumanClass() == 1
---end
-
---[==[------------------------------------------
-	See if a human is commando
---------------------------------------------]==]
---function meta:IsCommando()
-	--return self:GetHumanClass() == 2
---end
-
---[==[--------------------------------------------
-	See if a human is berserker
-----------------------------------------------]==]
---function meta:IsBerserker()
-	--return self:GetHumanClass() == 3
---end
-
---[==[------------------------------------------
-	See if a human is engineer
---------------------------------------------]==]
---function meta:IsEngineer()
-	--return self:GetHumanClass() == 4
---end
-
---[==[------------------------------------------
-	See if a human is support
-------------------------------------------]==]
---function meta:IsSupport()
-	--return self:GetHumanClass() == 5
---end
-
 
 --[==[-----------------------
 	Return logging tag
 ------------------------]==]
 function meta:GetClassTag()
 	if (self:IsHuman()) then
-	--	return HumanClasses[self:GetHumanClass()].Tag
-	--else
 		return ZombieClasses[self:GetZombieClass()].Tag
 	end
 
@@ -687,26 +601,6 @@ end
       Set the amount of time left to ammo regen
 ---------------------------------------------------------]==]
 function meta:SetAmmoTime( Time, UpdateClient )
-	
-	--[==[if Time == nil then return end
-	if self:Team() ~= TEAM_HUMAN and SERVER then return end
-	
-	-- Initialize server-side checking variable since the timer is clientside
-	if SERVER then if self.ServerCheckTime == nil then self.ServerCheckTime = CurTime() + AMMO_REGENERATE_RATE end end
-
-	-- Update it
-	self.AmmoRegenTime = Time
-	
-	-- We can't update client with umsg if we are client
-	if CLIENT or UpdateClient == nil then return end
-	
-	-- Set it on the client
-	umsg.Start ( "UpdateAmmoTime", self )
-		umsg.Short ( self.AmmoRegenTime )
-	umsg.End()
-	
-	Debug ( "Updating client Ammo-Regeneration Timer. Countdown: "..tostring ( self.AmmoRegenTime ) )
-	]==]
 end
 
 --[==[----------------------------------------------------------------
@@ -812,23 +706,6 @@ if SERVER then
 	function meta:ScoreAdd(score)
 		return self:AddScore(score)
 	end
-end
-
---[==[----------------------------------------------------------
-  Used to see if a player is near toxic fumes (Shared)
-------------------------------------------------------------]==]
-function meta:IsInToxicFumes(ToxicFumeTable)
-	if not self:Alive() then return end
-	if ToxicFumeTable == nil then return false end
-	
-	for _, point in pairs( ToxicFumeTable ) do
-		local vPos if SERVER then vPos = point:GetPos() else vPos = point end
-		if self:GetPos():Distance( vPos + Vector( 0,0,40 ) ) < 140 then
-			return true
-		end
-	end
-		
-	return false
 end
 
 function meta:IsStuck( position, smallbox)
@@ -985,14 +862,6 @@ function meta:SetHumanClass(cl)
 	self.ClassHuman = cl
 	self.TempClassHuman = cl
 	self:ConCommand("_zs_redeemclass "..cl.."")
-		
-	--Add one point to each class chosen every time someone changes class. (for endgame stats)
-	--timer.Simple( 0.1, function() 
-		--if IsValid ( self ) then
-		--	local classname = HumanClasses[cl].Name
-		--	GAMEMODE.TeamMostChosenClass[ classname ] = GAMEMODE.TeamMostChosenClass[ classname ] + 1
-		--end
-	--end)
 end
 
 function meta:SetMaximumHealth ( Max )
@@ -1007,9 +876,9 @@ function meta:GetMaximumHealth ( Health )
 	return self:GetDTInt ( 0 )
 end
 
-if SERVER then
+--if SERVER then
 -- util.AddNetworkString( "SendZombieClass" )
-end
+--end
 
 
 
@@ -1430,22 +1299,6 @@ function meta:SetHealth(health)
 	end
 end
 
-function meta:IsSteroidZombie()
-	if IsValid(self:GetStatus("champion")) then
-		return true
-	end
-	return false
-end
-
-function meta:GetSteroidZombieType()
-	if self:IsSteroidZombie() then
-		local st = self:GetStatus("champion")
-		if st.GetType then
-			return st:GetType() or 0
-		end
-	end
-end
-
 
 if CLIENT then
 function meta:GetStatus(sType)
@@ -1566,30 +1419,6 @@ net.Receive( "DoHulls", function(len)
 		ent:DoHulls(classid, teamid)
 	end)
 end)
-
---Duby: More of this Skillpoints for coins which isn't used anymore. 
-
---[[----------------------------------------------------]]--
-
---function meta:HasBoughtPointsWithCoins()
- --   return MySelf.BoughtPointsWithCoins
---end
-
---function meta:CanBuyPointsWithCoins()
-  --  return not MySelf.BoughtPointsWithCoins and MySelf:GreenCoins() >= 200
---end
-
---function meta:SetBoughtPointsWithCoins( bool )
- --   MySelf.BoughtPointsWithCoins = bool
---end
-
---[[----------------------]]--
-
---net.Receive("BoughtPointsWithCoins", function(len)
- --   MySelf:SetBoughtPointsWithCoins(tobool(net.ReadBit()))
---end)
-
---[[----------------------------------------------------]]--
 
 end
 

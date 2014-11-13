@@ -81,6 +81,7 @@ include("client/cl_customdeathnotice.lua")
 include("client/cl_hud.lua")
 include("client/cl_voice.lua")
 include("client/cl_waves.lua")
+include("client/cl_cratemove.lua")
 
 
 
@@ -768,20 +769,6 @@ local function SendUpgradeNumbers(um)
 end
 usermessage.Hook("SendUpgradeNumbers", SendUpgradeNumbers)
 
---function UpdateHumanClass(um)
---	local pl
-	
-	-- Read interval
---	local tbStart = um:ReadShort()
-	
-	-- Set classes thoughout the interval
-	--for k = 1, tbStart do
-	--	pl = um:ReadEntity()
-		--pl.ClassHuman = um:ReadShort()
-	--end
---end
---usermessage.Hook("UpdateHumanClass", UpdateHumanClass)
-
 function SendZombieClass(um)
 	local playersclass, pl
 
@@ -803,7 +790,7 @@ end
 usermessage.Hook("SendMaximumHealth", SendMaximumHealth)
 
 ----------------------------- Spawn Protection Code for Humans  - Clientside  ------------------------------------ TODO: Fix
-
+--[[
 -- Fonts
 local function InitializeFonts()
 	surface.CreateFontLegacy("Arial", ScreenScale(10), 500, true, false, "ProtectionTitle" )
@@ -851,7 +838,8 @@ local function drawSpawnProtection(pl)
 	end)
 end
 hook.Add("OnPlayerRedeem", "HumanSpawnProtection", drawSpawnProtection)
-
+]]--
+--[[
 drawZombieBoost = drawZombieBoost or false
 local BoostTime = 0
 
@@ -919,7 +907,7 @@ local function EnableZombieBoost()
 	drawZombieBoost = true
 end
 usermessage.Hook("EnableZombieBoost", EnableZombieBoost)
-
+]]--
 ----------------------------------------------------------------------------------------------------------------------
 
 function draw.DrawTextShadow( text, font, x, y, color, shadowcolor, xalign )
@@ -1002,33 +990,6 @@ function GM:_HUDPaintBackground()
 end
 
 
--- HALLOWEEN!
-local HalloweenNoticeTimer = 3
-local halpha = {}
-halpha.box = 0
-halpha.text = 0
-function DrawHalloweenNotice ()
-	if not IsValid ( LocalPlayer() ) then return end
-	if not MySelf:Alive() then return end
-	
-	surface.SetFont ("ArialBoldFive")
-	local textsizeh, hheight = surface.GetTextSize ("Happy Halloween!")
-	local boxsizeh, hheightpos = textsizeh + 30, hheight + 10
-	draw.RoundedBox( 4, ( ScaleW(1282) - boxsizeh ), ( ScaleH(31) + 31/2 ) ,boxsizeh, ScaleH(31), Color (1,1,1,halpha.box) )
-	draw.SimpleText("Happy Halloween!","ArialBoldFive", ScaleW(1282) - (boxsizeh - 15),ScaleH(51 + hheight) ,Color (255,0,0,halpha.text), TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
-	
-	if HalloweenNoticeTimer < CurTime() + 15 then
-		halpha.box = math.Approach (halpha.box, 0, FrameTime() * 260)
-		halpha.text = math.Approach (halpha.text, 0, FrameTime() * 260)
-		
-		if halpha.box == 0 and halpha.text == 0 then
-			hook.Remove ("HUDPaint","DrawHalloweenNotice")
-		end
-	else
-		halpha.box = math.Approach (halpha.box, 230, FrameTime() * 210)
-		halpha.text = math.Approach (halpha.text, 255, FrameTime() * 210)
-	end
-end
 local WATER_DROWNTIME_CONST = 20
 local WATER_DROWNTIME = 20
 -- Draw HUD
@@ -1100,77 +1061,6 @@ function GM:_HUDPaint()
 	end
 end
 
--- Dropped weapons glow/sparkles by Deluvas (thanks!)
---[[
-function DrawBackgroundSelect()
-	--if ENDROUND then return end -- Don't draw anything when the intermission is busy.
-
-	local MySelf = LocalPlayer()
-	if not MySelf:IsValid() then return end
-	
-	if MySelf:Team() == TEAM_UNDEAD or MySelf:Alive() == false then return end
-	
-	local wepcolor = { }
-	wepcolor.r = 255
-	wepcolor.g = 255
-	wepcolor.b = 255
-	
-	for k, ent in pairs (ents.GetAll()) do
-		if ent:IsValid() then
-			if ent:IsWeapon() and not ent:GetOwner():IsPlayer() then --  I could have made a table :< 
-				if ent:GetClass() == "weapon_zs_melee_axe" or ent:GetClass() == "weapon_zs_combatknife" or ent:GetClass() == "weapon_zs_melee_crowbar" or ent:GetClass() == "weapon_zs_melee_fryingpan" or ent:GetClass() == "weapon_zs_tools_hammer" or ent:GetClass() == "weapon_zs_melee_keyboard"	or ent:GetClass() == "weapon_zs_melee_plank" or ent:GetClass() == "weapon_zs_melee_pot" or ent:GetClass() == "weapon_zs_shovel" or ent:GetClass() == "weapon_zs_sledgehammer" then
-				    wepcolor.r,wepcolor.g,wepcolor.b = 230,50,55
-				elseif ent:GetClass() == "weapon_zs_usp" or ent:GetClass() == "weapon_zs_p228" then
-					wepcolor.r,wepcolor.g,wepcolor.b = 233,202,23
-				elseif ent:GetClass() == "weapon_zs_deagle" or ent:GetClass() == "weapon_zs_elites" or ent:GetClass() == "weapon_zs_glock" or ent:GetClass() == "weapon_zs_fiveseven" or ent:GetClass() == "weapon_zs_magnum" then
-					wepcolor.r,wepcolor.g,wepcolor.b = 102,170,14
-				elseif ent:GetClass() == "weapon_zs_p90" or ent:GetClass() == "weapon_zs_mac10" or ent:GetClass() == "weapon_zs_ump" or ent:GetClass() == "weapon_zs_tmp" or ent:GetClass() == "weapon_zs_mp5" then	
-					wepcolor.r,wepcolor.g,wepcolor.b = 14,168,173
-				elseif ent:GetClass() == "weapon_zs_m4a1" or ent:GetClass() == "weapon_zs_aug" or ent:GetClass() == "weapon_zs_galil" or ent:GetClass() == "weapon_zs_famas" or ent:GetClass() == "weapon_zs_sg552" or ent:GetClass() == "weapon_zs_pulserifle" or ent:GetClass() == "weapon_zs_m249" or ent:GetClass() == "weapon_zs_ak47" then	
-					wepcolor.r,wepcolor.g,wepcolor.b = 35,38,163
-				elseif ent:GetClass() == "weapon_zs_m1014" or ent:GetClass() == "weapon_zs_m3super90" then
-					wepcolor.r,wepcolor.g,wepcolor.b = 165,93,22
-				elseif ent:GetClass() == "weapon_zs_scout" or ent:GetClass() == "weapon_zs_crossbow" or ent:GetClass() == "weapon_zs_awm" then
-					wepcolor.r,wepcolor.g,wepcolor.b = 170,177,40
-				end
-					
-				local mypos = MySelf:GetShootPos()
-				local ang = MySelf:GetAimVector()
-				local tracedata = {}
-				tracedata.start = mypos
-				tracedata.endpos = ent:GetPos()
-				--tracedata.filter = MASK_OPAQUE
-				--tracedata.filter = {MySelf, ent}
-				--tracedata.filter = CONTENTS_EMPTY --MASK_SOLID --MASK_SOLID
-				local trace = util.TraceLine(tracedata)
-				local distance = MySelf:GetPos():Distance(ent:GetPos())
-					
-				if distance < 500 and trace.HitWorld == false and math.random(1,12) == 1 then
-					local propname = ent:GetClass()
-					local cen = ent:LocalToWorld(ent:OBBCenter())
-					cenp = cen:ToScreen()
-					local pos = ent:GetPos()
-					local emitter = ParticleEmitter(pos)
-					local vNormal = VectorRand()
-					local particle = emitter:Add("sprites/light_glow02_add", Vector (pos.x+math.random(-10, 10),pos.y+math.random(-10, 10),pos.z+9) )
-					particle:SetVelocity(vNormal * math.random(50, 80) - Vector(0,0,math.random(-16, -4)))
-					particle:SetDieTime(0.6)
-					particle:SetStartAlpha(150)
-					particle:SetEndAlpha(0)
-					particle:SetStartSize(math.Rand(1,15))
-					particle:SetEndSize(math.Rand(5,10))
-					particle:SetColor(wepcolor.r, wepcolor.g, wepcolor.b) -- 155, 56, math.random(0, 50)
-					particle:SetRoll(math.random(90, 360))
-					particle:SetCollide(true)
-					particle:SetGravity(Vector(0,0,-60))
-					emitter:Finish()
-				end
-			end
-		end
-	end
-end
-]]--
-----------------------
 
 BloodDraws = {}
 function AddBloodSplat( severity )
@@ -1821,78 +1711,6 @@ function PlayClientsideSound(um)
 end
 usermessage.Hook("PlayClientsideSound", PlayClientsideSound) 
 
-
---[=[---------------------------------------------------
- 			Deluvas - Global Painting Effect!  		
------------------------------------------------------]=]
---[[
---I'd rather eat my balls than rewrite this code down here
-local Notes = {}
-local NoteCount = 0
-local NoteDecrementTime = 0
-
-function cl_DrawNote(k,v,i)
-	v.vely = v.vely + FrameTime()*150 --  Make it go up
-	v.a = math.Approach(v.a,0, FrameTime()*100*1.2) --  Make the text fade!
-	
-	draw.DrawText( v.msg, "ArialBoldFifteen", v.x, v.y-v.vely, Color(v.col.r,v.col.g,v.col.b,v.a), TEXT_ALIGN_CENTER) 
-end
-
-function GM:AddNote (msg,len,col)
-	NoteCount = NoteCount + 1 --  Increment when you add to the table.
-	
-	local note = {}
-	note.msg 	= msg  --  Message
-	note.rec 	= CurTime()  --  Time Added
-	note.len 	= len  --  Lenght
-	note.velx	= 0
-	note.vely	= 0
-	note.x		= ScrW() * 0.5  --  Pos x
-	note.y 		= ScrH() * 0.35 + (NoteCount * 25)  --  Pos Y - Don't touch this unless you have a very good reason :<
-	note.a		= 255 --  alpha
-	note.col	= Color (col[4],col[3],col[2],col[1])
-	table.insert( Notes, note ) --  Insert the table into the ...table
-end
-
-function DrawNotes ()
-	if not Notes then return end
-	if ENDROUND then return end
-	if not LocalPlayer():Alive() then return end
-
-	for k, v in pairs( Notes ) do
-		if v ~= 0 then --  If the note table from the Notes table isn't = to 0 then draw the shit.
-			cl_DrawNote(k,v,i)
-		end
-	end
-
-	for k, v in pairs( Notes ) do
-		if (v ~= 0 and v.rec + v.len < CurTime() and NoteCount > 0  )then --  If time's up, then substract it. If there are 0 items in the table, then reset it.
-			NoteCount = NoteCount - 1
-			-- Notes[k] = 0 -- MUST FIX THIS!
-			if NoteCount == 0 then 
-				Notes = { }
-			end
-			
-		end
-	end
-end
-hook.Add("HUDPaint", "DrawNotes", DrawNotes)
-
-function PaintText(um)
-	local col = { }
-
-	msg = um:ReadString()
-	len = um:ReadShort()
-	for i = 1, 4 do
-		col[i] = um:ReadShort()
-	end
-	
-	GAMEMODE:AddNote(msg,len,col)
-end
-usermessage.Hook("PaintText", PaintText)
-]]--
----------------------------------------------------------
-
 function MeleeWeaponDrawHUD()
 	local cW, cH = ScrW() * 0.5, ScrH() * 0.5
 	local wLength, hLength =  ScaleW(16),ScaleW(6)
@@ -1920,26 +1738,6 @@ function MeleeWeaponDrawHUD()
 	surface.DrawLine(cW + 1, cH - hLength, cW + 1, cH + hLength)
 end
 
---[[ --Duby: This doesn't actually do anything..
---[=[------------------------------------------------
-     Refresh Toxic Fumes Effect ( 7 sec )
-------------------------------------------------]=]
-function RefreshToxicFumes()
-	if ToxicPoints == nil or ENDROUND then
-		return
-	end
-
-	-- Spawn the effects clientside
-	for k, v in pairs( ToxicPoints ) do
-		local eData = EffectData()
-		eData:SetOrigin( v + Vector ( 0,0,15 ) )
-		util.Effect( "chemzombieambient", eData, true, true )
-	end
-	
-	-- Refresh them
-	timer.Simple( 7, RefreshToxicFumes )
-end
-]]--
 -- Textures we need to draw the crosshair 
 local matCore, matOuter = surface.GetTextureID ( "zombiesurvival/crosshair/undead_crosshair_core" ), surface.GetTextureID ( "zombiesurvival/crosshair/undead_crosshair_outer" )
 
@@ -2016,30 +1814,3 @@ usermessage.Hook("OnWeaponDropped", OnWeaponDropped)
 
 
 --------------------------------------------------------
-
---Duby: This is for when the crate moves. We need some sounds. :) 
-
-local function cratemove()
-pl = LocalPlayer() 
-if pl:Team() == TEAM_HUMAN then
-surface.PlaySound("mrgreen/beep22.wav")	
-pl:Message("The Supplies have been used up. Wait for the next drop off!", 2, "white")
-end
-if pl:Team() == TEAM_UNDEAD then
-surface.PlaySound("player/zombies/b/scream.wav")	
-pl:Message("Human supplies have moved", 2, "white")
-end
-end
-usermessage.Hook ( "cratemove", cratemove )
-
-local function cratemove2()
-pl = LocalPlayer() 
-if pl:Team() == TEAM_HUMAN then
-surface.PlaySound("mrgreen/beep22.wav")	
-pl:Message("Supplies have been dropped, go find them", 2, "white")
-timer.Simple(2, function()
-surface.PlaySound("mrgreen/supplycrates/thunder2.mp3")
-end)
-end
-end
-usermessage.Hook ( "spawn", cratemove2 )
