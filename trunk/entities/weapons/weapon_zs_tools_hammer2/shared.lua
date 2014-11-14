@@ -548,8 +548,8 @@ end
 function SWEP:OnDrop() --Duby: Stop ammo glitch! 
 	if self and self:IsValid() then
 	--	self:Remove()
-		self.Primary.DefaultClip = 2
-		self:TakePrimaryAmmo(1)
-		self:TakeSecondaryAmmo(1)
+		--self.Primary.DefaultClip = 2
+		--self:TakePrimaryAmmo(1)
+		--self:TakeSecondaryAmmo(1)
 	end
 end
