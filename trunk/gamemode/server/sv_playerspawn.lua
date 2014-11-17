@@ -358,8 +358,8 @@ function GM:OnHumanSpawn(pl)
 	
 	pl:GodEnable()
 	timer.Simple(5, function() 
-	pl:Message("Spawn protection removed.", 3)
-	pl:GodDisable() 
+		--pl:Message("Spawn protection removed.", 3)
+		pl:GodDisable() 
 	end)
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
@@ -482,8 +482,8 @@ function GM:OnZombieSpawn(pl)
 	--Duby: Spawn protection :P
 	pl:GodEnable()
 	timer.Simple(6, function()
-	pl:Message("Spawn protection removed.", 3)
-	pl:GodDisable() 
+		--pl:Message("Spawn protection removed.", 3)
+		pl:GodDisable() 
 	end)
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
