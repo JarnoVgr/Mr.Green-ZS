@@ -1009,7 +1009,6 @@ ZombieClasses[15] = --Everyone loves it ^^ Duby: R.I.P until you are loved once 
 				},
 	DeathSounds = {
 				Sound("npc/strider/striderx_die1.wav"),
-				--Sound("deadlife_mrgreen_insane.mp3"),
 				},
 	IdleSounds = {
 				Sound("npc/zombine/striderx_alert2.wav"),

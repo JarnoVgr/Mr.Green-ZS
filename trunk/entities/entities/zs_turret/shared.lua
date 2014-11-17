@@ -75,9 +75,8 @@ if SERVER then
 		
 		-- Lets make it much pretty
 		-- Why I dont use skins? Because I cant force a skin for turret model from original HL2 (unlike Ep2)
-		
-		
-		local RandomSkin = math.random(1,3)
+		--Ywa: This is disabled to preserve downloads count
+		--[[local RandomSkin = math.random(1,3)
 		local MaterialToApply = ""
 		
 		-- Skin 1
@@ -89,7 +88,7 @@ if SERVER then
 			MaterialToApply = "models/Combine_Turrets/Floor_turret/floor_turret_citizen4"
 		end
 		
-		self:SetMaterial(MaterialToApply)
+		self:SetMaterial(MaterialToApply)]]
 			
 			if self:GetTurretOwner():GetPerk("_turretoverdrive") then --Combined the turret perks into one perk as requested by the community.
 			self.MaxBullets = math.Round(self.MaxBullets*1.5)

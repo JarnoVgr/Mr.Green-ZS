@@ -148,12 +148,9 @@ function GM:SetBoss(value,isInsane,duration)
 	-- Disable unlife music for a while
 	if BOSSACTIVE then
 		--Play music
-		--[[timer.Simple(0.3, function()
-			playBossMusic(isInsane)
-		end)]]
 		timer.Simple(0.3, function()
 			playBossMusic(isInsane)
-			end)
+		end)
 		boss.duration = duration
 		boss.endTime = CurTime() + duration
 

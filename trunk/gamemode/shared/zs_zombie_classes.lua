@@ -763,25 +763,22 @@ ZombieClasses[15] =
 	Description = "",
 	Unique = "",
 	PainSounds = {
-				Sound( "npc/strider/striderx_pain2.wav" ),
-				Sound( "npc/strider/striderx_pain5.wav" ),
-				Sound( "npc/strider/striderx_pain7.wav" ),
-				Sound( "npc/strider/striderx_pain8.wav" ),
-				},
+		Sound( "npc/strider/striderx_pain2.wav" ),
+		Sound( "npc/strider/striderx_pain5.wav" ),
+		Sound( "npc/strider/striderx_pain7.wav" ),
+		Sound( "npc/strider/striderx_pain8.wav" ),
+	},
 	DeathSounds = {
-				Sound("npc/strider/striderx_die1.wav"),
-				--Sound("deadlife_mrgreen_insane.mp3"),
-				},
+		Sound("npc/strider/striderx_die1.wav"),
+	},
 	IdleSounds = {
-				Sound("npc/zombine/striderx_alert2.wav"),
-				Sound("npc/zombine/striderx_alert4.wav"),
-				Sound("npc/zombine/striderx_alert5.wav"),
-				Sound("npc/zombine/striderx_alert6.wav"),
-				},
+		Sound("npc/zombine/striderx_alert2.wav"),
+		Sound("npc/zombine/striderx_alert4.wav"),
+		Sound("npc/zombine/striderx_alert5.wav"),
+		Sound("npc/zombine/striderx_alert6.wav"),
+	},
 	OnRevive = function(pl)
-		
-		-- pl:AnimRestartMainSequence()		
-
+		-- pl:AnimRestartMainSequence()
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
 	ModelScale = 1,-- Vector(1.15,1.15,1.15),
