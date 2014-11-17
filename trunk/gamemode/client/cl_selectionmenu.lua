@@ -5,7 +5,6 @@
 
 --Duby: I moded this to fit the current zs hud. I think it looks great. Remove this comment if you disagree. 
 
---local SelectPanel = surface.GetTextureID( "zombiesurvival/hud/panel_texture" )
 local SelectPanel = surface.GetTextureID( "greencoins" )
 
 local Gradient = surface.GetTextureID( "gui/center_gradient" )
