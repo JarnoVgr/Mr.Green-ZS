@@ -44,7 +44,7 @@ BONUS_RESISTANCE_AMOUNT = 20 -- %
 HALLOWEEN = false
 
 --EVENT: Christmas
-CHRISTMAS = false
+CHRISTMAS = true
 
 --EVENT: Aprils Fools
 FIRSTAPRIL = false
