@@ -593,13 +593,13 @@ end
 
 --Duby:Removed as it doesn't even exist any more. :P 
 
---Santa Claus Boss
---if CHRISTMAS then
-	--table.insert(ResourceFiles, "models/Jaanus/santa.mdl")
-	--for _, filename in pairs(file.Find("materials/Jaanus/monk/*.*", "GAME")) do
---		table.insert(ResourceFiles, "materials/Jaanus/monk/".. filename)
---	end
---end
+--Santa Claus
+if CHRISTMAS then
+	table.insert(ResourceFiles, "models/Jaanus/santa.mdl")
+	for _, filename in pairs(file.Find("materials/Jaanus/monk/*.*", "GAME")) do
+		table.insert(ResourceFiles, "materials/Jaanus/monk/".. filename)
+	end
+end
 
 --HUD materials
 for _, filename in pairs(file.Find("materials/mrgreen/hud/*.*", "GAME")) do
