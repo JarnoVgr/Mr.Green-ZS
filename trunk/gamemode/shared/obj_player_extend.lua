@@ -1165,7 +1165,7 @@ function meta:IsGonnaBeABoss()
 end
 
 function meta:IsStartingZombie()
-	return self:IsZombie() and self:Alive() and self:Health() > ZombieClasses[self:GetZombieClass()].Health and not self:IsSteroidZombie() and not self:GetZombieClass() == 0
+	return self:IsZombie() and self:Alive() and self:Health() > ZombieClasses[self:GetZombieClass()].Health and not self:GetZombieClass() == 0
 end
 
 local function SkullCam(pl, ent)

@@ -84,7 +84,7 @@ function EFFECT:Finish()
 end
 
 function EFFECT:IsEntityValid()
-	return IsValid( self.Zombie ) and self.Zombie:IsPlayer() and self.Zombie:IsZombie() and self.Zombie:Alive() and (self.Zombie:IsZombieInAura() or (self.Zombie:Health() > ZombieClasses[self.Zombie:GetZombieClass()].Health and not self.Zombie:IsSteroidZombie())  )
+	return IsValid( self.Zombie ) and self.Zombie:IsPlayer() and self.Zombie:IsZombie() and self.Zombie:Alive() and (self.Zombie:IsZombieInAura() or (self.Zombie:Health() > ZombieClasses[self.Zombie:GetZombieClass()].Health)  )
 end
 
 function EFFECT:Think()
