@@ -445,25 +445,12 @@ function DrawSelectClass()
 	
 	--Options:
 	
-	local spawntimer = 300
+	local spawntimer = 40
 	local spawntimercd = 0
 
-	TopMenuW, TopMenuH = math.min(ScaleW(700), 1050), math.min(ScaleH(600), 650)
+	TopMenuW, TopMenuH = math.min(math.max(w-100,ScaleW(700)), 1050), math.min(ScaleH(600), 650)
 	TopMenuX, TopMenuY = (w / 2) - (TopMenuW / 2), (h / 2) - (TopMenuH / 2)
 
-	--[[BGPanel = vgui.Create( "DPanel" )
-	BGPanel:SetPos(TopMenuX*1.5,TopMenuY/1.7)
-	BGPanel:SetSize(TopMenuW/2,TopMenuH)
-	BGPanel:SetVisible(true)
-	
-	local DLabel = vgui.Create( "DLabel", BGPanel )
-	DLabel:SetVisible( true ) 
-	DLabel:SetPos( 40, 40 )
-	DLabel:SetText( "Mr.Green" )
-	DLabel:SetTextColor( Color( 0, 225, 0, 255 ) )
-	DLabel:SetFont( "LoadoutPistolPanel1" )
-	DLabel:SizeToContents()]]
-		
 	local BlurPanel = vgui.Create("DFrame")
 	BlurPanel:SetSize(w,h)
 	BlurPanel:SetPos(0,0)

@@ -315,16 +315,7 @@ function hud.DrawBrains()
 		requiredScore = REDEEM_FAST_KILLS
 	end
 
-	local brainsText = "BRAIN"
-
-	requiredScore = math.max(0,requiredScore - MySelf:GetScore())
-	if requiredScore > 0 then
-		requiredScore = math.ceil(requiredScore/2)
-	end
-
-	if requiredScore ~= 1 then
-		brainsText = brainsText .. "S"
-	end
+	local currentScore = math.max(0, math.ceil(MySelf:GetScore() / 2))
 
 	--Background
 	surface.SetMaterial(nHudBackgroundZombie) 
@@ -332,8 +323,8 @@ function hud.DrawBrains()
 	surface.DrawTexturedRect(ScaleW(-50), ScaleH(740), ScaleW(160), ScaleH(130))
 
 	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(795), ScaleH(825)
-	draw.SimpleText(requiredScore, "NewZombieFont23", textX, textValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleText(brainsText, "NewZombieFont15", textX, textKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText(currentScore .." of ".. requiredScore, "NewZombieFont19", textX, textValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText("BRAINS", "NewZombieFont15", textX, textKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 end
 
 
