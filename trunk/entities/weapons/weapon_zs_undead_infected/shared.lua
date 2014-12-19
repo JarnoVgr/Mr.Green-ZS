@@ -22,12 +22,11 @@ if CLIENT then
 		["ValveBiped.Bip01_R_Finger0"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(-6.42, 28.499, 7.317) }
 	}
 	
-	
+
 	
 end
 
 SWEP.Base = "weapon_zs_undead_base"
-
 
 SWEP.ViewModel = Model("models/Weapons/v_zombiearms.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
@@ -41,11 +40,10 @@ SWEP.Primary.Delay = 0.8
 --SWEP.Primary.Delay = 0.9
 --SWEP.Primary.Delay = 1.2
 --SWEP.Primary.Damage = 25
-SWEP.Primary.Damage = 35
+SWEP.Primary.Damage = 30
 SWEP.Primary.Reach = 45
 
 SWEP.SwapAnims = false
-
 
 
 function SWEP:StartPrimaryAttack()			
@@ -82,6 +80,22 @@ function SWEP:PostPerformPrimaryAttack(hit)
 		
 	end
 end
+
+SWEP.NextYell = 0
+function SWEP:SecondaryAttack()
+	if CurTime() < self.NextYell then return end
+	
+	local mOwner = self.Owner
+	
+	--//Thirdperson animation
+	mOwner:DoAnimationEvent( CUSTOM_SECONDARY )
+		
+	--//Emit both claw attack sound and weird funny sound
+	if SERVER then self.Owner:EmitSound("npc/zombie/zombie_voice_idle"..math.random(1, 14)..".wav") end
+
+	self.NextYell = CurTime() + 2
+end
+
 
 function SWEP:Initialize()
 	self.BaseClass.Initialize(self)

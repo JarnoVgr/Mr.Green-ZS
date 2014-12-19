@@ -115,7 +115,6 @@ if SERVER then
 		self.NextSwitch = 0
 		
 		self:SetDTString(0,self:GetTurretOwner():GetInfo("_zs_turretnicknamefix"))
-		-- self:SetNWString("TurretName",self:GetTurretOwner():GetInfo("_zs_turretnicknamefix"))
 		
 		-- switching to DT stuff
 		self:SetDTInt(0,self.MaxBullets) -- ammo
@@ -127,13 +126,13 @@ if SERVER then
 		
 		table.insert(ActualTurrets,self)
 		
-		timer.Simple(1,function()
+
 			if self and IsValid(self:GetOwner()) then
 				net.Start("SendTurret")
 					net.WriteEntity(self)
 				net.Send(self:GetOwner())
 			end
-		end)
+
 		
 	end
 
@@ -423,7 +422,7 @@ if SERVER then
 		bullet.Spread = Vector(0, 0, 0)  
 		bullet.Tracer = 3
 		bullet.Force = 0
-		bullet.Damage = 15
+		bullet.Damage = 14
 		bullet.TracerName = "AR2Tracer"
 		bullet.Callback = BulletCallback
 		
@@ -464,6 +463,7 @@ if SERVER then
 		if not IsValid(activator) then
 			return
 		end
+		
 
 		if activator:IsPlayer() and activator:IsHuman() and activator == self:GetTurretOwner() then
 			self.Target = nil
@@ -482,6 +482,33 @@ if SERVER then
 			self.NextSwitch = ct + 2
 			end
 		end
+		
+			if not IsValid(activator) then
+			return
+		end
+		
+		if not activator:IsPlayer() or not activator:IsHuman() then
+			return
+		end
+		
+
+
+		local owner = self:GetTurretOwner()
+			local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
+			if validOwner and activator == owner then
+				local placeWeapon = "weapon_zs_turretplacer"
+				activator:Give(placeWeapon)
+				activator:SelectWeapon(placeWeapon)
+				self:Remove()
+			--Check for claiming
+			elseif not validOwner then
+				--Claim crate
+				self:SetClaimed(true)
+
+				--Update owner
+				self:SetPlacer(activator)
+			end
+	
 	end
 
 	function ENT:OnTakeDamage( dmginfo )

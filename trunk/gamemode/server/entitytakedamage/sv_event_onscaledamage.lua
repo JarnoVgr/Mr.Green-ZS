@@ -321,33 +321,18 @@ function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)
 		-- Just to be sure that its fine
 		if not fFinalDamage then
 			fFinalDamage = fDamage*0.9
-		end
+		end	
 		
-		--[[if LASTHUMAN then
-			if attacker:HasBought("lastmanstand") then
-				fFinalDamage = fFinalDamage * 1.2
-			end
-		end]]
-		
-		--[[if dmginfo:IsBulletDamage() then
-			fFinalDamage = fFinalDamage * 1
-		end]]
-		
-		--
-		if attacker:HasSpawnProtection() and not LASTHUMAN then
-			fFinalDamage = fFinalDamage + fFinalDamage * pl:GetSpawnDamagePercent()
-		end
 		
 		local bonus = 0
 		
 		if BONUS_RESISTANCE then 
 			bonus = BONUS_RESISTANCE_AMOUNT/100
-		end
-		
+		end	
 		-- horde resistance
-		--[[if not ARENA_MODE then
+		if not ARENA_MODE then
 			fFinalDamage = fFinalDamage - fFinalDamage*(pl:GetHordePercent() + bonus)
-		end]]
+		end
 		
 		dmginfo:SetDamage(fFinalDamage)
 	-- Damage caused by zombies to humans
@@ -359,17 +344,13 @@ function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)
 		
 		-- Get zombo focus
 		local iZombies = 0
-		-- for k,v in pairs ( tbZombies ) do
-		-- 	if v:IsPlayer() and v:IsZombie() and v:Alive() then
-		-- 		iZombies = iZombies + 1
-		-- 	end
-		-- end
+
 		
 		-- Calculate final damage
-		fFinalDamage = fDamage -- math.Clamp( fDamage - ( fDamage * ( math.Clamp( iZombies, 0, 9 ) / 10 ) ), 1, 250 )
+		fFinalDamage = fDamage 
 				
 		-- Set damage
 		dmginfo:SetDamage( fFinalDamage )
-		-- print( "Damage for "..tostring( attacker ).." is "..tostring( fFinalDamage )..".Original: "..tostring( fDamage ) )
+		print( "Damage for "..tostring( attacker ).." is "..tostring( fFinalDamage )..".Original: "..tostring( fDamage ) )
 	end
 end

@@ -21,9 +21,10 @@ end
 
 SWEP.Author = "NECROSSIN"
 
-SWEP.ViewModel = "models/Weapons/v_Grenade.mdl"
+--SWEP.ViewModel = "models/Weapons/v_Grenade.mdl"
+SWEP.ViewModel = "models/Weapons/c_grenade.mdl"
 SWEP.WorldModel = "models/Weapons/w_grenade.mdl"
-
+SWEP.UseHands = true
 SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.Primary.ClipSize = 30

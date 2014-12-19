@@ -21,8 +21,7 @@ SWEP.AdminSpawnable	= true
 SWEP.PrintName = "Headcrab"
 SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 70
-SWEP.ViewModelFlip = false
+
 SWEP.CSMuzzleFlashes = false
 
 SWEP.Primary.ClipSize = -1
@@ -39,9 +38,10 @@ SWEP.Secondary.Ammo	= "none"
 
 SWEP.DistanceCheck = 250
 
+
 function SWEP:Deploy()
 	if SERVER then 
-		self.Owner:DrawViewModel( false )
+		self.Owner:DrawViewModel( true )
 		self.Owner:DrawWorldModel( false )
 	end
 end

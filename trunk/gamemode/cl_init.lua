@@ -75,13 +75,11 @@ include("client/vgui/phclasses.lua")
 include("greencoins/cl_greencoins.lua")
 include("client/cl_admin.lua")
 include("client/cl_customdeathnotice.lua")
--- include("shared/sh_animations.lua")
--- include("shared/sh_zombo_anims.lua")
--- include("shared/sh_human_anims.lua")
 include("client/cl_hud.lua")
 include("client/cl_voice.lua")
 include("client/cl_waves.lua")
 include("client/cl_cratemove.lua")
+include("client/cl_etherial_blend.lua")
 
 
 
@@ -100,14 +98,8 @@ include("modules/damage_indicator/cl_dmg_indicator.lua")
 --Dynamic walk speed
 include("modules/weightspeed/sh_weightspeed.lua")
 
---Buddy system
---include("modules/friends/cl_friends.lua")
-
 --New HUD
 include("modules/hud_beta/cl_hud_beta.lua")
-
---Nav Graph
---include( "modules/nav_graph/sh_nav_graph.lua" )
 
 --SkillPoints
 include("modules/skillpoints/cl_skillpoints.lua")
@@ -129,11 +121,10 @@ include("server/stats/sh_utils.lua")
 include("modules/fpsbuff/sh_buffthefps.lua")
 include("modules/fpsbuff/sh_nixthelag.lua")
 
---Guns for kills module
-
-
 --Custom Chat
 --include("modules/customchat/cl_customchat.lua")
+
+
 
 --Christmas
 if CHRISTMAS then
@@ -221,7 +212,8 @@ local RandomText = table.Random( {
 	"Inserting coin to start round...",  
 	"Waking up Behemoth...",  
 	"Spawning poison gas...",  
-	"Shuffling crate spawns..."  })
+	"Shuffling crate spawns...",
+	"Adding Necro bots.."  })
 
  
 function GM:HookGetLocal()
@@ -254,7 +246,7 @@ function GM:_PostDrawOpaqueRenderables()
 					local healthfrac = math.max(pl:Health(), 0) / 100
 					colHealth.r = math.Approach(255, 0, math.abs(255 - 0) * healthfrac)
 					colHealth.g = math.Approach(0, 255, math.abs(0 - 255) * healthfrac)
-
+					
 					local attach = pl:GetAttachment(pl:LookupAttachment("chest"))
 					local pos = attach and attach.Pos or pl:LocalToWorld(pl:OBBCenter())
 
@@ -640,23 +632,6 @@ local function ReceiveTitles(um)
 end
 usermessage.Hook( "SendTitles", ReceiveTitles )
 
---[=[----------------------------------------------------------------
-      Receives updates data regarding the ammo regen timer
-------------------------------------------------------------------]=]
-local function ReceiveAmmoTimer( um )
-	--[[if not IsValid ( MySelf ) then
-		return
-	end
-
-	-- Update the regeneration time
-	local SetTimer = um:ReadShort()
-	MySelf:SetAmmoTime(SetTimer or AMMO_REGENERATE_RATE)
-	
-	-- First regeneration
-	MySelf.IsFirstRegeneration = true]]--
-end
-usermessage.Hook("UpdateAmmoTime", ReceiveAmmoTimer)
-
 PlayerIsAdmin = false
 local function ReceiveAdmin(um)
 	PlayerIsAdmin = um:ReadBool()
@@ -788,127 +763,6 @@ local function SendMaximumHealth(um)
 	MySelf.MaximumHealth = um:ReadShort()
 end
 usermessage.Hook("SendMaximumHealth", SendMaximumHealth)
-
------------------------------ Spawn Protection Code for Humans  - Clientside  ------------------------------------ TODO: Fix
---[[
--- Fonts
-local function InitializeFonts()
-	surface.CreateFontLegacy("Arial", ScreenScale(10), 500, true, false, "ProtectionTitle" )
-end
-hook.Add("Initialize", "InitializeSpawnProtectionFonts", InitializeFonts)
-
-local function ResetProtectionBox(pl)
-	if pl ~= MySelf then
-		return
-	end
-	
-	hook.Remove( "HUDPaint", "DrawHumanSpawnProtection" )
-end
-hook.Add("PlayerSpawn", "ResetProtectionDrawBox", ResetProtectionBox)
-
-local function drawSpawnProtection(pl)
-	timer.Simple(0.25, function()
-		if IsValid( pl ) then
-			if pl == MySelf then
-				hook.Add("HUDPaint", "DrawHumanSpawnProtection", function()
-					if not IsValid( MySelf ) then
-						return
-					end
-					
-					-- Checks
-					if not MySelf:Alive() or not MySelf:IsHuman() or not MySelf:HasSpawnProtection() or ENDROUND then return end
-					
-					-- Get damage reduction
-					local CurrentReduction = MySelf:GetSpawnDamagePercent()
-					
-					local ww,wh = ScaleW(212),ScaleH(30)
-					local wx,wy = w/2-ww/2, h-wh*4
-					
-					surface.SetDrawColor( 0, 0, 0, 150)
-					surface.DrawRect(wx,wy,ww,wh)
-					surface.DrawRect(wx+5 , wy+5,  ww-10, wh-10 )
-					
-					surface.SetDrawColor(98,17,17,255)
-					surface.DrawRect(wx+5 , wy+5,(CurrentReduction*ww)-10, wh-10 )
-					
-					draw.SimpleTextOutlined("Spawn protection: "..math.Round(CurrentReduction * 100 ).."%", "ArialBoldFive", w/2, wy-2, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM,1,Color(0,0,0,255))
-				end)
-			end
-		end
-	end)
-end
-hook.Add("OnPlayerRedeem", "HumanSpawnProtection", drawSpawnProtection)
-]]--
---[[
-drawZombieBoost = drawZombieBoost or false
-local BoostTime = 0
-
-local function ResetBoostBox( pl )
-	if pl ~= MySelf then
-		return
-	end
-	
-	drawZombieBoost = false
-end
---hook.Add( "PlayerSpawn", "ResetBoostBox", ResetBoostBox )
-
-local boostmat = surface.GetTextureID ( "zombiesurvival/hud/hud_friend_splash" )
-local function DrawZombieBoost()
-	if not IsValid( MySelf ) then return end
-	if not drawZombieBoost then return end
-					
-	if not MySelf:Alive() or not MySelf:IsZombie() or ENDROUND then return end
-	
-	--local matSplash = surface.GetTextureID ( "zombiesurvival/hud/hud_friend_splash" )
-	
-	local swide,stall = ScaleW(166), ScaleH(17)
-	local sx,sy = w/2 - swide/2, 3.5*h/4
-	
-	--local matW, matH = surface.GetTextureSize( matSplash )
-	local matW, matH = ScaleW(315), ScaleH(315)
-	local matX, matY = w/2 - matW/2, 3.5*h/4 + stall/2 - matH/2
-	
-	local coefW, coefH = swide/matW,stall/matH
-	
-	surface.SetDrawColor ( 119, 10, 10, 255 )
-	surface.SetTexture ( boostmat )
-	surface.DrawTexturedRect ( matX, matY, matW, matH ) 
-
-	draw.SimpleTextOutlined("Speed boost", "ArialBoldFive", w/2 , sy-3, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	
-	sy = sy+5
-	
-	--draw.RoundedBox( 0, sx,sy,swide,stall, Color (1,1,1,200) )
-	
-	surface.SetDrawColor( 0, 0, 0, 150)
-	surface.DrawRect(sx,sy,swide,stall )
-	
-	surface.DrawRect(sx+3 , sy+2.5, swide-6, stall-6 )	
-	
-	surface.SetDrawColor( 230,1,1,160)
-	
-	surface.DrawRect(sx+3 , sy+2.5, ((BoostTime - CurTime())/TranslateMapTable[ game.GetMap() ].ZombieSpawnProtection)*(swide-6),stall-6 )
-	
-	--draw.RoundedBox( 0, sx,sy,((BoostTime - CurTime())/TranslateMapTable[ game.GetMap() ].ZombieSpawnProtection)*swide,stall, Color (230,1,1,160) )
-	
-	--surface.SetDrawColor( 0, 0, 0, 255 )
-	--surface.DrawOutlinedRect( sx,sy,swide,stall+1)
-	
-	--draw.SimpleText(math.Round(BoostTime - CurTime()), "ArialBoldTwelve", ScrW()/2 , ScrH()/2, Color (255,255,0,255), TEXT_ALIGN_CENTER)
-	
-	if BoostTime - CurTime() <= 0 then
-		drawZombieBoost = false
-	end
-end
-hook.Add("HUDPaint", "DrawZombieBoost", DrawZombieBoost)
-
-local function EnableZombieBoost()
-	BoostTime = CurTime() + TranslateMapTable[ game.GetMap() ].ZombieSpawnProtection
-	drawZombieBoost = true
-end
-usermessage.Hook("EnableZombieBoost", EnableZombieBoost)
-]]--
-----------------------------------------------------------------------------------------------------------------------
 
 function draw.DrawTextShadow( text, font, x, y, color, shadowcolor, xalign )
 	local tw, th = 0, 0
@@ -1061,7 +915,6 @@ function GM:_HUDPaint()
 	end
 end
 
-
 BloodDraws = {}
 function AddBloodSplat( severity )
 	local toDraw = bloodSplats[math.random(1,8)]
@@ -1189,37 +1042,6 @@ hook.Add("Think", "CheckFOV", function()
 	end
 end)
 
-local undomodelblend = false
-local undowraithblend = false
-function GM:_PrePlayerDraw(pl)
-	if pl.IsZombie and pl:IsZombie() and pl.IsWraith and pl:IsWraith() then
-		if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then
-			render.SetBlend(1)
-		else
-			local col = math.random( 1, 35 ) == 1 and 1 or 0.04
-			render.SetBlend(col)
-		end
-		undowraithblend = true
-	end
-
-	if pl.status_overridemodel and pl.status_overridemodel:IsValid() and self:ShouldDrawLocalPlayer(MySelf) then
-		undomodelblend = true
-		render.SetBlend(0)
-	end	
-end
-
-function GM:_PostPlayerDraw(pl)
-	if undomodelblend then
-		render.SetBlend(1)
-		render.ModelMaterialOverride()
-		render.SetColorModulation(1, 1, 1)
-		undomodelblend = false
-	end
-	if undowraithblend then
-		render.SetBlend(1)
-		undowraithblend = false
-	end
-end
 
 function GM:PreDrawViewModel(vm, pl, weapon)
 	if not weapon then
@@ -1264,15 +1086,6 @@ function GM:_CalcView ( pl, vPos, aAng, fFov )
 
 	-- Grab data
 	local Velocity, EyeAngle = pl:GetVelocity(), pl:EyeAngles()
-
-	-- Lower view position for crabs
-	--[[if MySelf:IsZombie() then
-		if MySelf:Health() > 0 then
-			if ZombieClasses[MySelf:GetZombieClass()].ViewOffset then
-				vPos = vPos + ZombieClasses[MySelf:GetZombieClass()].ViewOffset
-			end
-		end
-	end]]
 	
 	--Revive camera
 	if pl.Revive and pl.Revive.GetRagdollEyes then
@@ -1306,24 +1119,9 @@ function GM:_CalcView ( pl, vPos, aAng, fFov )
 			return {origin = pl:GetThirdPersonCameraPos(vPos, aAng), angles = aAng}
 		end
 	end
-	
-	-- FOV controller ( used with MySelf:SetFOV () )
 
 	fFov = fFov or GetConVar("fov_desired"):GetInt() or 75
-	--[[MySelf.Fov = MySelf.Fov or GetConVar("fov_desired"):GetInt()
-	 if MySelf.Fov then
-	 	MySelf.CurrentFov = MySelf.CurrentFov or GetConVar("fov_desired"):GetInt()
-	 	MySelf.CurrentFov = math.Approach ( MySelf.CurrentFov, MySelf.Fov, FrameTime() * 100 )
-	 	fFov = MySelf.Fov -- .CurrentFov
-	 end
-	 	fFov = math.Approach ( fFov, MySelf.Fov, FrameTime() * 100 ) 
-	
-	 MySelf.ApproachFov = MySelf.ApproachFov or GetConVar("fov_desired"):GetInt()-- 75
-	 
-	 if MySelf.Fov then MySelf.ApproachFov = math.Approach ( MySelf.ApproachFov, MySelf.Fov, FrameTime() * 100 ) fFov = MySelf.ApproachFov end
-	 MySelf.ApproachFov = math.Approach ( MySelf.ApproachFov, MySelf.Fov, FrameTime() * 100 ) 
-	 fFov = MySelf.ApproachFov]]
-	
+
 	-- Weapon calc. view management ( human only )
 	if MySelf:Team() == TEAM_HUMAN then
 		local Weapon, WeaponAngle, WeaponPos = pl:GetActiveWeapon()
@@ -1344,10 +1142,6 @@ function GM:_CalcView ( pl, vPos, aAng, fFov )
 	end
 
 	return { origin = vPos, angles = aAng, fov = fFov }
-end
-
-function GM:IsRetroMode()
-	return GetGlobalBool("retromode")
 end
 
 function render.GetLightRGB(pos)
@@ -1421,33 +1215,6 @@ function GM:ToggleZombieVision(onoff)
 	end
 end
 
-local staggerdir = VectorRand():GetNormal()
-function GM:_CreateMove(cmd)
-	local vel
-	if MYSELFVALID then 
-		vel = MySelf:GetVelocity() 
-	end
-
-	if MYSELFVALID and MySelf:Team() == TEAM_HUMAN and MySelf:Alive() and vel:Length() < 330 and vel:Length() > 27 then 
-	
-		local angl = cmd:GetViewAngles()
-		angl.pitch = (angl.pitch + math.sin(CurTime()*8)*0.06) 
-		angl.yaw = (angl.yaw + math.cos(CurTime()*4)*0.03) 	
-		
-		cmd:SetViewAngles(angl)
-		
-	elseif MYSELFVALID and MySelf:Team() == TEAM_UNDEAD and MySelf:Alive() and vel:Length() < 330 and vel:Length() > 27 then 
-	
-		if not MySelf:IsHeadcrab() or not MySelf:IsPoisonCrab() then
-			local zangl = cmd:GetViewAngles()
-			zangl.pitch = (zangl.pitch + math.sin(CurTime()*8)*0.06) 
-			zangl.yaw = (zangl.yaw + math.cos(CurTime()*4)*0.03) 	
-			
-			cmd:SetViewAngles(zangl)
-		end
-	end
-end
-
 function GM:ShutDown()
 	--self:RestoreMaterials()
 end
@@ -1463,39 +1230,6 @@ local mat_replace = {
 local Replace = Material("models/weapons/v_models/hands/v_hands")
 local This = Material("models/weapons/v_models/hands/Invisible")
 function GM:SwitchMaterials( team_index )
-	
-	-- Replace:SetMaterialFloat( "$no_draw", 1 )
---[=[if (team_index ~= last_mat) then
-		for k, texture in pairs( mat_replace ) do
-			for i, tex_type in pairs( tex_to_check ) do
-				if (not texture[orig_mat][tex_type]) then --  make sure the default textures are stored
-					if (texture[orig_mat].mat:GetMaterialString( tex_type )) then
-						texture[orig_mat][tex_type] = texture[orig_mat].mat:GetMaterialTexture( tex_type )
-					end
-				end
-			end
-
-			if (not texture[team_index]) then --  if team doesn't have a specific texture, revert to default
-				for i, tex_type in pairs( tex_to_check ) do
-					if (texture[orig_mat].mat:GetMaterialString( tex_type )) then
-						texture[orig_mat].mat:SetMaterialTexture( tex_type, texture[orig_mat][tex_type] )
-					end
-				end
-			else --  otherwise set team specific textures
-				for i, tex_type in pairs( tex_to_check ) do
-					if (texture[orig_mat].mat:GetMaterialString( tex_type )) then
-						if (not texture[team_index][tex_type]) then
-							texture[team_index][tex_type] = texture[team_index].mat:GetMaterialTexture( tex_type )
-						end
-						texture[orig_mat].mat:SetMaterialTexture( tex_type, texture[team_index][tex_type] )
-					end
-				end	
-			end			
-			
-		end
-		last_mat = team_index
-	end
-	]=]
 end
 
 function GM:RestoreMaterials()

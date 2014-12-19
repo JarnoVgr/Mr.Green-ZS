@@ -57,6 +57,7 @@ killicon.Add("weapon_zs_undead_boss_lilith", "killicon/zs_zombie", Color(255, 0,
 killicon.Add("weapon_zs_undead_boss_seeker2", "killicon/zs_zombie", Color(255, 0, 0, 255))
 killicon.Add("weapon_zs_undead_ghoul", "killicon/zs_zombie", Color(120, 120, 0, 255))
 killicon.Add("weapon_zs_undead_vomiter", "killicon/zs_zombie", Color(150, 150, 0, 255))
+killicon.Add("weapon_zs_undead_spitter", "killicon/zs_zombie", Color(0, 0, 225, 255))
 
 -- Unowned spit projectile
 killicon.AddFont( "projectile_spit", "HL2MPTypeDeath", "~", Color_Icon )
@@ -172,9 +173,7 @@ net.Receive("PlayerKilledSelfZS", function( len )
 	
 	if victim:IsValid() then
 		GAMEMODE:AddDeathNotice( nil, 0, "suicide", victim:Name(), victim:Team() )
-		--[[if victim:Name() == MySelf:Name() then
-			GAMEMODE:AddCustomDeathNotice ( "self", "suicide", victim:Name(), nil )
-		end]]
+
 	end
 
 end)
@@ -223,11 +222,7 @@ net.Receive("PlayerKilledZS", function(len)
 			break
 		end
 	end
-	
-	--[[if victim:Name() == MySelf:Name() then
-		GAMEMODE:AddCustomDeathNotice ( attacker, "something", victim:Name(), nil )
-	end]]
-	
+
 	GAMEMODE:AddDeathNotice(nil, -1, "random", victim:Name(), victim:Team())
 end)
 

@@ -6,7 +6,7 @@ function ScaleW ( sizew )
 end
 
 function ScaleH ( sizeh )
-	return ScrH() * (sizeh/1024) 
+	return ScrH() * (sizeh / 1024) 
 end
 
 

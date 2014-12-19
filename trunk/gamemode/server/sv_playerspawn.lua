@@ -18,6 +18,11 @@ function GM:PlayerInitialSpawn(pl)
 		net.Send(pl)
 	end
 
+	
+	if GasDump then
+	timer.Simple(4,function() RunConsoleCommand("stopsound") end)
+	end
+	
 	pl:SetCanZoom(false)
 
 	-- Bots are always ready, human players need to wait
@@ -34,7 +39,6 @@ function GM:PlayerInitialSpawn(pl)
 	--local HumanClassName, ZombieClassName = HumanClasses[1].Name, ZombieClasses[1].Name
 	
 	local  ZombieClassName = ZombieClasses[1].Name --Duby: I altered this as I removed the classes code. 
-	--self.TeamMostChosenClass[ HumanClassName ] = self.TeamMostChosenClass[ HumanClassName ] - 1 
 	self.TeamMostChosenClass[ ZombieClassName ] = self.TeamMostChosenClass[ ZombieClassName ] - 1
 	
 	pl.BrainsEaten = 0
@@ -103,10 +107,6 @@ function GM:PlayerInitialSpawn(pl)
 	
 	pl.AmmoMultiplier = {}
 	
-	for k,v in pairs (self.SkillShopAmmo) do
-		pl.AmmoMultiplier[k] = pl.AmmoMultiplier[k] or 1
-	end
-	
 	pl.LastRTD = 0 
 	pl.StuckTimer = 0
 	
@@ -116,7 +116,8 @@ function GM:PlayerInitialSpawn(pl)
 		
 	-- Used to control how many weapons you are allowed to pickup
 	-- pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tools = 0, Others = 0, Explosive = 0, Admin = 0 }
-	pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
+	--pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
+	pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Misc = 0, Admin = 0 }
 	
 	pl.AutoRedeem = util.tobool(pl:GetInfoNum("_zs_autoredeem",1)) or true
 	pl.IsFreeman = false
@@ -141,10 +142,6 @@ function GM:PlayerInitialSpawn(pl)
 		iTeam = TEAM_HUMAN
 	end
 
-	--Case 1: If the player disconnected while being in a team, it will correctly set him to the proper team.
-	--[[if pl:ConnectedIsDead() then
-		iTeam = TEAM_UNDEAD
-	end]]
 
 	if not pl:IsBot() then
 		if DataTableConnected[ID].IsDead then
@@ -221,18 +218,20 @@ function GM:PlayerSpawn(pl)
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+
 	
 	--Set model based on preferences
 	if pl:IsBot() then
 		--Random model
 		pl.PlayerModel = table.Random(PlayerModels)
-	else
+		else
 		--Get preferred model
 		local DesiredPlayerModelName = pl:GetInfo("cl_playermodel")
 		if #DesiredPlayerModelName > 0 and DesiredPlayerModelName ~= "none" then
 			pl.PlayerModel = string.lower(DesiredPlayerModelName)
 		else
-			pl.PlayerModel = table.Random(PlayerModels)
+			--pl.PlayerModel = table.Random(PlayerModels)
+			pl.PlayerModel = "kleiner"
 		end
 			
 		--Check if in PlayerModels list
@@ -249,6 +248,24 @@ function GM:PlayerSpawn(pl)
 			pl.PlayerModel = table.Random(PlayerModels)
 			Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredPlayerModelName ..". Which doesn't exist.")
 		end
+		
+	--[[	
+			
+	if pl:GetPerk("_medic") then	--Medic
+		pl.PlayerModel = "male02"	
+	--end
+	elseif pl:GetPerk("_hammerupgrade") or ("_turretoverdrive") then --Engineer
+		pl.PlayerModel = "kleiner" or "eli"
+	--end	
+	elseif pl:GetPerk("_adrenaline") or ("_imortalpro") then --Commando
+		pl.PlayerModel = "combie_soldier_prisonguard" or "combie_soldier"
+	--end	
+	elseif pl:GetPerk("_freeman") or ("_kevlar2") or ("_sboost") then --Berserker
+		pl.PlayerModel = "combine" or "alyx"	
+	end
+	]]--
+		
+		
 		
 		--Check if we can be THE Gordon Freeman
 		if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
@@ -284,9 +301,9 @@ function GM:PlayerSpawn(pl)
 	end
 
 	if HALLOWEEN and pl:Team() ~= TEAM_SPECTATOR then
-				--pl:ChatPrint("HAPPY HALLOWEEN!!! >:D")
-				pl:Message("HAPPY HALLOWEEN!!! >:D", 3)
+				pl:ChatPrint("HAPPY HALLOWEEN!!!")
 			end
+			
 	
 	if pl:Team() == TEAM_SPECTATOR then
 		self:OnFirstHumanSpawn(pl)
@@ -294,12 +311,12 @@ function GM:PlayerSpawn(pl)
 	end
 	
 	-- Return his original color to normal
-	if not FIRSTAPRIL then
-		pl:SetColor(Color(255,255,255,255))
-	else
-		umsg.Start("MakeBody")
-		umsg.End()
-	end
+--	if not FIRSTAPRIL then
+	--	pl:SetColor(Color(255,255,255,255))
+--	else
+	--	umsg.Start("MakeBody")
+	--	umsg.End()
+--	end
 
 	-- Unlock or unfreeze if neccesary and make him able to walk
 	pl:UnLock()
@@ -356,9 +373,36 @@ function GM:OnHumanSpawn(pl)
 		return
 	end
 	
+	if GasDump then --Duby: Gas Dump Obj Map special notices.
+			timer.Simple(10,function() 
+			pl:Message("The horde nest is bellow the building.", 1)	
+				timer.Simple(11,function() 
+				pl:Message("You need to blow it up..", 1)
+				end)
+					timer.Simple(13,function() 
+					pl:Message("These zombies are stronger..", 2)
+					end)
+						timer.Simple(15,function() 
+						pl:Message("But you are prepared.", 2)
+						end)
+			end)
+			end
+	
+	
+	if PUB then--Duby: Special messages for pub as these nitwhits find it hard to play this map.
+	timer.Simple(15,function() 
+	pl:Message("This is your last stand against the horde..", 1)
+	end)
+			timer.Simple(17,function() 
+			pl:Message("Make sure you barricade downstairs!", 1)
+			end)
+					timer.Simple(20,function() 
+					pl:Message("See you on the other side....", 1)
+					end)
+							end
+	
 	pl:GodEnable()
 	timer.Simple(5, function() 
-		--pl:Message("Spawn protection removed.", 3)
 		pl:GodDisable() 
 	end)
 	
@@ -377,9 +421,6 @@ function GM:OnHumanSpawn(pl)
 		pl:StripWeapons()
 	end
 	
-	--Reset the Ammo-Regeneration Timer and send it to the client
-	pl:SetAmmoTime(AMMO_REGENERATE_RATE, true)
-		
 	-- Change his player model and set up his voice set
 	local plModel = player_manager.TranslatePlayerModel(pl.PlayerModel)
 	pl:SetModel(plModel)
@@ -387,8 +428,7 @@ function GM:OnHumanSpawn(pl)
 	
 	pl.SelectedSuit = pl:GetInfo("_zs_defaultsuit") or "none"
 	pl.SelectedHat = pl:GetInfo("_zs_equippedhats") or "none"
-	--[[pl.SelectedSuit = "none"
-	pl.SelectedHat = "none"]]
+
 	
 	pl.ReviveCount = 0
 			
@@ -411,22 +451,7 @@ function GM:OnHumanSpawn(pl)
 			
 	--Apply loadout
 	CalculatePlayerLoadout(pl)
-	
-	--Reapply loadout to prevent spawn bug
-	--Disabled because it allows a weapon exploit at spawn (dropping all weapons quick and then getting them again)
-	--[[timer.Simple(2,function()
-		if IsValid(pl) then
-			if #pl:GetWeapons() < 1 then
-				CalculatePlayerLoadout(pl)
-			end
-		end
-	end)]]
-	
-	self:SendSalesToClient(pl) 
-	
-	-- GAMEMODE:SendRanks( { pl },player.GetAll() )
-	-- GAMEMODE:SendXP( { pl },player.GetAll() )
-	
+
 	--Blood color
 	pl:SetBloodColor(BLOOD_COLOR_RED)
 
@@ -462,11 +487,9 @@ function GM:OnHumanSpawn(pl)
 
 	--Auto-enable flashlight
 	--pl:Flashlight(true)
-
+	
 	--Log
 	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as a Survivor")
-	
-
 	
 end
 
@@ -481,8 +504,7 @@ function GM:OnZombieSpawn(pl)
 	
 	--Duby: Spawn protection :P
 	pl:GodEnable()
-	timer.Simple(6, function()
-		--pl:Message("Spawn protection removed.", 3)
+	timer.Simple(2, function()
 		pl:GodDisable() 
 	end)
 	
@@ -498,12 +520,7 @@ function GM:OnZombieSpawn(pl)
 		pl:SetZombieClass(pl.DeathClass)
 		pl.DeathClass = nil
 	end
-	
-	if pl.SpawnAsCrow then
-		pl:SetZombieClass(9)
-		pl.DeathClass = 0
-		pl.SpawnAsCrow = false
-	end
+
 	
 	--Enable the suicide system on the player if he had it
 	if pl:ConnectedHasSuicideSickness() then
@@ -583,7 +600,10 @@ function GM:OnZombieSpawn(pl)
 	self:SetPlayerSpeed(pl, Tab.Speed)
 	pl:SetCrouchedWalkSpeed(Tab.CrouchWalkSpeed or 0.80)
 
-	--Check for spawnprotection
+	if GasDump then
+	self:SetPlayerSpeed(pl, Tab.Speed*1.4)
+	end
+	
 		
 	pl:UnSpectate()		
 	-- Prevent health pickups and/or machines
@@ -651,20 +671,10 @@ function GM:PlayerDisconnected( pl )
 	if DataTableConnected[ID] == nil then
 		return
 	end
-	
-	--Case 1: Disconnect as human
-	if pl:Team() == TEAM_HUMAN then 
-	--	DataTableConnected[ID] = { HasBoughtPointsWithCoins = DataTableConnected[ID].HasBoughtPointsWithCoins, IsDead = true, SuicideSickness = false, --Duby: This is for the buy SP with GC.
-		   -- HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
-	--Case 2: Disconnect as zombie
-	elseif pl:Team() == TEAM_UNDEAD then
-		--DataTableConnected[ID] = { HasBoughtPointsWithCoins = DataTableConnected[ID].HasBoughtPointsWithCoins, IsDead = true, --Duby: This is for the buy SP with GC.
-		    --SuicideSickness = false, HumanClass = pl:GetHumanClass(), Health = pl:Health(), AlreadyGotWeapons = false }
-		
 		if pl.Suicided then
 			DataTableConnected[ID].SuicideSickness = true
 		end
-	end
+	--end
 	
 	--Delay calculation
 	timer.Simple(2, function()
@@ -678,23 +688,10 @@ end
 function CalculatePlayerSpeed ( pl )
 	local Class = pl:GetHumanClass()
 	local Speed = 0
-	
-	-- Case 1: Medic
-	--if Class == 1 then
-		--Speed = HumanClasses[Class].Speed + ( HumanClasses[Class].Speed * (HumanClasses[1].Coef[3] * (pl:GetTableScore ("medic","level") + 1 ) ) / 100 )
-	--end
-	
-	-- Case 2: Berserker
-	--if Class == 2 then
-		--Speed = HumanClasses[Class].Speed + ( HumanClasses[Class].Speed * (HumanClasses[3].Coef[2] * (pl:GetTableScore ("berserker","level") + 1 ) ) / 100 )
-	--end
-	
 	-- Case 3: Without bonus
 	if  pl:IsBot() then --This was changed as it worked off the medic class speeds. Which don't exist any more! 
-	--	Speed = HumanClasses[Class].Speed
 	Speed = 190
 	end
-
 	Speed = 190
 	
 	return Speed, Speed
@@ -725,6 +722,10 @@ function CalculatePlayerLoadout ( pl )
 		ToGive = {"weapon_zs_usp","weapon_zs_melee_keyboard"}
 		pl.Loadout = table.Copy(ToGive)
 	end
+	
+	if  pl:IsBot() then --This was changed as it worked off the medic class speeds. Which don't exist any more! 
+		ToGive = { "weapon_zs_tools_hammer","weapon_zs_melee_keyboard" }
+	end
 		
 	--Actually give the weapons
 	for k,v in pairs(ToGive) do
@@ -738,6 +739,12 @@ function CalculatePlayerLoadout ( pl )
 		pl:GiveAmmo(650,"buckshot")
 		pl:GiveAmmo(650,"pistol")
 		pl:GiveAmmo(650,"357")
+		end
+		
+		if GasDump then
+		pl:Give(table.Random(GAMEMODE.GasDump))	
+		pl:GiveAmmo(30,"buckshot")
+		pl:GiveAmmo(200,"ar2")
 	else
 		--Check if bought Magnum (give 1/3rd chance)
 		if pl:HasBought("magnumman") and math.random(1,3) == 1 then
@@ -755,10 +762,9 @@ function CalculatePlayerLoadout ( pl )
 		end
 	end
 
-	
 	 --IMORTAL PRO perk. Duby: Lets see how this works out. 
 	
-	if pl:GetPerk("_imortalpro") and math.random(1,1) == 1 then
+	if pl:GetPerk("_imortalpro") and math.random(1,2) == 1 then
 			--Strip previous pistol
 			local Pistol = pl:GetPistol()
 			if Pistol then
@@ -767,6 +773,8 @@ function CalculatePlayerLoadout ( pl )
 	
 		pl:Give("weapon_zs_pulsesmg")
 		ToGive[1] = "weapon_zs_pulsesmg"
+		else
+		ToGive[1] = "weapon_zs_smg" --Life ain't fair. (O)_(O) 	
 		end	
 	if ToGive and #ToGive > 0 then
 		pl:SelectWeapon(tostring(ToGive[1]))
@@ -827,7 +835,6 @@ function CalculateZombieHealth(pl)
 	
 	-- Case 2: if there are only 2 zombies double their HP
 	
-	--if not pl:IsBossZombie() and not pl:IsCrow() then
 	if not pl:IsBossZombie() then
 		local allPlayers = player.GetAll()
 		local numPlayers = #allPlayers
@@ -836,29 +843,19 @@ function CalculateZombieHealth(pl)
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+1) and team.NumPlayers(TEAM_HUMAN) >= 4) then
 			local IncreaseHealth = Tab.Health*(UNDEAD_START_AMOUNT_PERCENTAGE)*desiredzombies+10*(team.NumPlayers(TEAM_HUMAN))
 			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*2.0,510) )
-			--MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*2.5,710) )
-			pl:RemoveStatus("champion")
+			--pl:RemoveStatus("champion")
 		end
 	end
-	
-	--Case 3: If there are a nice amount of zombies give them a lovely buff, stop Regs being OP as shit!
-	
-	
-	
-	--Case 4: Boss zombos
-	if pl:IsBossZombie() then
-	   local humanCount = team.NumPlayers(TEAM_SURVIVORS)
-	   local zombieCount = team.NumPlayers(TEAM_UNDEAD)
-	   
-	  -- MaxHealth = (humanCount * (Tab.Health * math.Clamp(INFLICTION,0.2,1))) * math.Clamp(humanCount / zombieCount, 0.5, 2) --More health for bosses
-	 --  MaxHealth = (humanCount * (Tab.Health * math.Clamp(INFLICTION,0.1,1))) * math.Clamp(humanCount / zombieCount, 0.3, 2)
-	end
-
 	MaxHealth = math.Round(MaxHealth)
 
 	--Set
 	pl:SetMaximumHealth(MaxHealth)
 	pl:SetHealth(MaxHealth)
+	
+	if GasDump then
+	pl:SetMaximumHealth(MaxHealth*1.5)
+	pl:SetHealth(MaxHealth*1.5)
+	end
 end
 
 
@@ -876,9 +873,9 @@ function CalculatePlayerHealth(pl)
 	end
 	
 	--First kevlar upgrade
-	if pl:GetPerk("_kevlar") then
-		MaxHealth, Health = 110, 110
-	end
+	--if pl:GetPerk("_kevlar") then
+		--MaxHealth, Health = 110, 110
+	--end
 	
 	--Second kevlar upgrade
 	if pl:GetPerk("_kevlar2") then
@@ -886,9 +883,9 @@ function CalculatePlayerHealth(pl)
 	end
 	
 	--Third kevlar upgrade
-	if pl:GetPerk("_kevlar3") then
-		MaxHealth, Health = 105, 105
-	end
+	--if pl:GetPerk("_kevlar3") then
+	--	MaxHealth, Health = 105, 105
+	--end
 	
 	-- Actually set the health
 	pl:SetHealth(Health)
@@ -988,9 +985,6 @@ function GM:SetupSpawnPoints()
 		htab = table.Add(htab, ents.FindByClass("info_player_counterterrorist"))
 	end
 
-	--[[if string.find(mapname, "_obj_", 1, true) or string.find(mapname, "objective", 1, true) then
-		self:SetDynamicSpawning(false)
-	end]]
 
 	--Add deprecated GMod9 Zombie Survival spawns
 	for _, oldspawn in pairs(ents.FindByClass("gmod_player_start")) do
@@ -1014,15 +1008,6 @@ function GM:SetupSpawnPoints()
 	team.SetSpawnPoint(TEAM_ZOMBIE, ztab)
 	team.SetSpawnPoint(TEAM_HUMAN, htab)
 	team.SetSpawnPoint(TEAM_SPECTATOR, htab)
-end
-
-function GM:SetRetroMode(mode)
-	self.RetroMode = mode
-	SetGlobalBool("retromode", self.RetroMode)
-end
-
-function GM:IsRetroMode()
-	return self.RetroMode
 end
 
 --[==[------------------------------------------------------------------------------------------------

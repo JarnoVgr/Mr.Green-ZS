@@ -1,6 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
-
+--Duby:Re-built 01/12/2014
 local Colors = {}
 Colors.Black = Color ( 0,0,0,220 )
 Colors.White = Color ( 255,255,255,255 )
@@ -10,24 +10,29 @@ Colors.Red = Color ( 204,8,8,255 )
 Colors.DarkRed = Color ( 113,32,32,255 )
 Colors.Yellow = Color ( 88,213,62,255 )
 Colors.LightYellow = Color ( 226,224,24,255 )
+Colors.DarkGreen = Color ( 8,70,3,255 )
 
 Colors.ActivatedRed = Color ( 141,14,14,255 )
 Colors.ActivatedGreen = Color ( 20,140,4,255 )
 
 local Image = {
 	["arrow"] = surface.GetTextureID("zombiesurvival/classmenu/arrow"),
+	
 	[0] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
-	[1] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
-	[2] = surface.GetTextureID("zombiesurvival/classmenu/fastzombie"),
-	[3] = surface.GetTextureID("zombiesurvival/classmenu/poisonzombie"),
-	[4] = surface.GetTextureID("zombiesurvival/classmenu/wraith"),
-	[5] = surface.GetTextureID("zombiesurvival/classmenu/howler"),
-	[6] = surface.GetTextureID("zombiesurvival/classmenu/headcrab"),
-	[7] = surface.GetTextureID("zombiesurvival/classmenu/poisonheadcrab"),
+	--[1] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
+	[1] = surface.GetTextureID("zombiesurvival/classmenu/zombine2"),
+	[2] = surface.GetTextureID("zombiesurvival/classmenu/poisonzombie"),
 	[8] = surface.GetTextureID("zombiesurvival/classmenu/zombine"),
-	[9] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
-}
+	[4] = surface.GetTextureID("zombiesurvival/classmenu/chemzombie"),
 
+	
+	[5] = surface.GetTextureID("zombiesurvival/classmenu/wraith"),
+	[6] = surface.GetTextureID("zombiesurvival/classmenu/howler"),
+	[7] = surface.GetTextureID("zombiesurvival/classmenu/headcrab"),
+	[3] = surface.GetTextureID("zombiesurvival/classmenu/fastzombie"),
+	[9] = surface.GetTextureID("zombiesurvival/classmenu/poisonheadcrab"),
+
+}
 -- Initialize the colors needed for the 3 buttons
 local ButtonColors = {}
 for i = 1, 8 do
@@ -63,6 +68,7 @@ function InitMenuFonts()
 	surface.CreateFontLegacy("Arial", ScreenScale(15), 700, true, false, "ZombieNameB")
 	surface.CreateFontLegacy("Arial", ScreenScale(11), 700, true, false, "ZombieDescription")
 	surface.CreateFontLegacy("Arial", ScreenScale(10), 600, true, false, "ZombieDescriptionGameplay")
+	surface.CreateFontLegacy("Arial", ScreenScale(11), 600, true, false, "ZombieDescriptionGameplay2")
 end
 hook.Add("Initialize", "Fonts", InitMenuFonts)
 
@@ -106,6 +112,7 @@ function DrawClassMenu()
 		return
 	end
 
+	
 	--Draw the blood splats
 	surface.SetTexture( bloodrand1 )
 	surface.SetDrawColor( Color(140,0,0,255) )
@@ -117,6 +124,7 @@ function DrawClassMenu()
 	draw.RoundedBox( 0, 0, ScaleH(74), ScrW(), ScaleH(113), Colors.Black ) --  Upper blackbox
 	draw.RoundedBox( 0, 0, ScaleH(225), ScrW(), ScaleH(591), Colors.Black ) -- Center blackbox
 	draw.RoundedBox( 0, 0, ScaleH(855), ScrW(), ScaleH(86), Colors.Black ) --  Lower blackbox
+	--draw.RoundedBox( 0, ScaleW(750), ScaleH(250), ScaleW(500), ScaleH(345), Colors.DarkGreen ) --  Lower blackbox
 	
 	-- Uperbox Text
 	draw.SimpleText("UNDEAD CLASSES","ArialBoldThirty", ScaleW(168),ScaleH(110), Colors.White, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER)
@@ -124,7 +132,8 @@ function DrawClassMenu()
 	
 	--Draw hovered classes
 	local posY = ScaleH(329)
-	--for i = 0, 8 do
+	
+	--for i = 0, 9 do
 	for i = 0, 9 do
 		if not Buttons[i] then
 			continue
@@ -148,14 +157,15 @@ function DrawClassMenu()
 		end
 
 		-- Draw the title (zombie name)
-		draw.SimpleText(strTitle,"ZombieNameB", ScaleW(640),ScaleH(500), ButtonColors[i], TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText(strTitle,"ZombieNameB", ScaleW(880),ScaleH(300), ButtonColors[i], TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		
-		draw.SimpleText(ZombieClasses[i].Description, "ZombieDescription", ScaleW(640), ScaleH(500)+40, Colors.Grey, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText(ZombieClasses[i].Description, "ZombieDescription", ScaleW(1000), ScaleH(300)+40, Colors.Grey, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		--draw.SimpleText(ZombieClasses[i].DescriptionGameplay2, "ZombieDescriptionGameplay2", ScaleW(1000), ScaleH(300)+120, Colors.Grey, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
 		--Gameplay description
 		if ZombieClasses[i].DescriptionGameplay then
 			for lineIndex, lineValue in pairs(ZombieClasses[i].DescriptionGameplay) do
-				draw.SimpleText(lineValue, "ZombieDescriptionGameplay", ScaleW(640), ScaleH(500)+40+(40*lineIndex), Colors.Grey, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+				draw.SimpleText(lineValue, "ZombieDescriptionGameplay", ScaleW(1000), ScaleH(300)+40+(40*lineIndex), Colors.Grey, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 			end
 		end
 
@@ -163,6 +173,7 @@ function DrawClassMenu()
 
 		break
 	end
+	
 end
 hook.Add("HUDPaint","DrawClassMenu",DrawClassMenu)
 
@@ -194,8 +205,8 @@ function OnClassesMenuOpen()
 	zClasses:SetVisible(true)
 	
 	-- Title
-	zClasses.Title = "Choose the Undead specie you want to spawn with. Hover over the icons for more information."
-			
+	zClasses.Title = "Choose the Undead specie you want to spawn with. They are split up into categories!"
+
 	-- Create the 2 dialog buttons
 	local zDialog, iOffset = {}, 0
 	for i = 1, 2 do
@@ -214,6 +225,7 @@ function OnClassesMenuOpen()
 		local iTextWide, iTextTall = surface.GetTextSize(zDialog[i].strText)
 		zDialog[i]:SetSize(iTextWide, iTextTall)
 		zDialog[i]:SetPos(ScaleW(240 + iOffset) - (iTextWide * 0.5), ScaleH(900) - (iTextTall * 0.5))
+
 		
 		-- Move it to the right
 		iOffset = iOffset + 200
@@ -303,16 +315,18 @@ function OnClassesMenuOpen()
 
 	-- Create the class buttons
 	zButtons = {}
+
 			
 	--Initialize some other button vars
-	--for i = 0, 8 do
-	for i = 0, 9 do
+
+	for i = 0, 4 do
 		if ZombieClasses[i].Hidden then
 			continue
 		end
 
 		Buttons[i] = {}
 		zButtons[i] = {}
+
 		Buttons[i].CursorInside = false
 		Buttons[i].Activated = false
 		
@@ -322,27 +336,151 @@ function OnClassesMenuOpen()
 		end
 	end
 
-	local spaceBetweenButtons = ScaleW(10)
+
+	local spaceBetweenButtons = ScaleW(250)
 	local totalWidth = (#zButtons*ScaleW(116))+((#zButtons-1)*spaceBetweenButtons)
+	
 	
 	local DenySoundTimer = 0
 	local buttonPosX = (ScrW()-totalWidth)/2
 	--for i = 0, 8 do
-	for i = 0, 9 do
+	for i = 0, 4 do
 		--Disable hidden classes
 		if ZombieClasses[i].Hidden then
 			continue
 		end
 
 		zButtons[i] = vgui.Create("DButton", zClasses)
-		zButtons[i]:SetPos(buttonPosX, ScaleH(300))
+		zButtons[i]:SetPos(buttonPosX/2.7, ScaleH(250))
 		zButtons[i]:SetSize(ScaleW(116), ScaleW(116))
 		zButtons[i]:SetText("")
+		
+
 		
 		zButtons[i].OnMousePressed = function() 
 			if ZombieClasses[i].Unlocked then
 				--Deactivate all buttons first
-				--for j = 0, 8 do
+
+				--for j = 0, 9 do
+				for j = 0, 4 do
+					--
+					if not Buttons[j] or i == j then
+						continue
+					end
+
+					--Make others inactive
+					if Buttons[j].Activated then
+						Buttons[j].Activated = false
+					end
+				end
+
+				if not Buttons[i].Activated then
+					Buttons[i].Activated = true
+					ChangeZombieClass(ZombieClasses[i].Name)
+					zClasses.Title = "You have chosen to respawn as a ".. ZombieClasses[i].Name ..". Wise choice."
+					surface.PlaySound(Sounds.Click)
+				end
+			else
+				if DenySoundTimer <= CurTime() then
+					surface.PlaySound("buttons/weapon_cant_buy.wav")
+					DenySoundTimer = CurTime() + 0.5
+				end
+			end
+		end
+		
+		
+		-- Make them red/green lighter
+		zButtons[i].OnCursorEntered = function()
+			Buttons[i].CursorInside = true
+			
+			if not Buttons[i].Activated then
+				surface.PlaySound(Sounds.Over)
+			end
+			
+			if not ZombieClasses[i].Unlocked then
+				ButtonColors[i] = Colors.ActivatedRed
+			elseif not Buttons[i].Activated then
+				ButtonColors[i] = Colors.ActivatedGreen
+			end
+		end
+		
+		
+		-- Restore their original color
+		zButtons[i].OnCursorExited = function()
+			Buttons[i].CursorInside = false
+			
+			if not Buttons[i].Activated then
+				ButtonColors[i] = Colors.Green
+			end
+			
+			if not ZombieClasses[i].Unlocked then
+				ButtonColors[i] = Colors.DarkRed
+			end
+		end
+		
+
+		zButtons[i].Paint = function() 
+			-- Change its color to yellow if pushed
+			if Buttons[i].Activated then
+				ButtonColors[i] = Colors.Yellow
+			end
+
+			-- Draw the colored button
+			draw.RoundedBox(8, 0, 0, zButtons[i]:GetWide(), zButtons[i]:GetTall(), ButtonColors[i])
+					
+			-- Draw the picture of the class
+			surface.SetDrawColor(255, 255, 255, 255)
+			surface.SetTexture(Image[i])
+			surface.DrawTexturedRectRotated(zButtons[i]:GetWide() * 0.5, zButtons[i]:GetTall() * 0.5, zButtons[i]:GetWide()-12, zButtons[i]:GetTall()-12, 0)
+		end
+
+
+		
+		-- Next slot
+
+		buttonPosX = buttonPosX + ScaleW(110) + spaceBetweenButtons
+	end
+	
+	
+	
+	
+	
+	
+	
+	
+	--Duby: Don't look!! :<<<
+	
+	local spaceBetweenButtons2 = ScaleW(18500)
+	
+	
+	for i = 5, 9 do
+	
+		--Disable hidden classes
+		if ZombieClasses[i].Hidden then
+			continue
+		end
+
+		
+		Buttons[i] = {}
+		Buttons[i].CursorInside = false
+		Buttons[i].Activated = false
+		
+		--Get current Zombie Class
+		if MySelf:GetZombieClass() == i then
+			Buttons[i].Activated = true
+		end
+		
+		zButtons[i] = vgui.Create("DButton", zClasses)
+		zButtons[i]:SetPos(buttonPosX/140, ScaleH(430))
+		zButtons[i]:SetSize(ScaleW(116), ScaleW(116))
+		zButtons[i]:SetText("")
+		
+
+		
+		zButtons[i].OnMousePressed = function() 
+			if ZombieClasses[i].Unlocked then
+				--Deactivate all buttons first
+
 				for j = 0, 9 do
 					--
 					if not Buttons[j] or i == j then
@@ -369,6 +507,7 @@ function OnClassesMenuOpen()
 			end
 		end
 		
+		
 		-- Make them red/green lighter
 		zButtons[i].OnCursorEntered = function()
 			Buttons[i].CursorInside = true
@@ -384,6 +523,7 @@ function OnClassesMenuOpen()
 			end
 		end
 		
+		
 		-- Restore their original color
 		zButtons[i].OnCursorExited = function()
 			Buttons[i].CursorInside = false
@@ -396,6 +536,7 @@ function OnClassesMenuOpen()
 				ButtonColors[i] = Colors.DarkRed
 			end
 		end
+		
 
 		zButtons[i].Paint = function() 
 			-- Change its color to yellow if pushed
@@ -412,10 +553,27 @@ function OnClassesMenuOpen()
 			surface.DrawTexturedRectRotated(zButtons[i]:GetWide() * 0.5, zButtons[i]:GetTall() * 0.5, zButtons[i]:GetWide()-12, zButtons[i]:GetTall()-12, 0)
 		end
 
+	
+		
 		-- Next slot
-		--buttonPosX = buttonPosX + ScaleW(126) + spaceBetweenButtons
-		buttonPosX = buttonPosX + ScaleW(110) + spaceBetweenButtons
+
+		buttonPosX = buttonPosX + ScaleW(110) + spaceBetweenButtons2
 	end
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		
 	zClasses.Think = function()
 		-- Enable all the time the panel is open
@@ -427,7 +585,7 @@ function OnClassesMenuOpen()
 			zClasses:SetVisible(false)
 		end
 	
-	--	for i = 0, 8 do
+
 		for i = 0, 9 do
 			if not Buttons[i] then
 				continue
@@ -449,6 +607,9 @@ function OnClassesMenuOpen()
 	zClasses.Paint = function()
 	end
 end
+
+
+
 
 --[==[--------------------------------------------------------
       Called when the class menu is closed

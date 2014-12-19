@@ -148,9 +148,11 @@ function GM:SetBoss(value,isInsane,duration)
 	-- Disable unlife music for a while
 	if BOSSACTIVE then
 		--Play music
-		timer.Simple(0.3, function()
-			playBossMusic(isInsane)
-		end)
+			--timer.Simple(0.3, function()
+			--playBossMusic(isInsane)
+	--	end)
+			--end
+	
 		boss.duration = duration
 		boss.endTime = CurTime() + duration
 
@@ -169,10 +171,10 @@ function GM:SetBoss(value,isInsane,duration)
 		Debug("[CLIENT] Boss has risen")
 	else
 		--
-		timer.Destroy("LoopBossMusic")
+		--timer.Destroy("LoopBossMusic") --Duby: This loops the boss music
 	
 		--Stop music
-		RunConsoleCommand("stopsound")
+		--RunConsoleCommand("stopsound")
 		
 		Debug("[CLIENT] Boss ran off")
 	end
@@ -356,11 +358,6 @@ if ENDROUND then return end
 
 	if xpos == -vwide then return end
 	
-	--[=[surface.SetDrawColor( 0, 0, 0, 255)
-	surface.DrawOutlinedRect( xpos, ypos, vwide, vtall)
-	
-	draw.RoundedBox( 0, xpos, ypos, vwide, vtall, Color (1,1,1,200) )]=]
-	
 	DrawBlackBox(xpos, ypos, vwide, vtall)
 	
 	ypos = ypos+4
@@ -428,213 +425,3 @@ local function UpdateObjStage(um)
 
 end
 usermessage.Hook("UpdateObjStage",UpdateObjStage)
---[[		
-local function DoFirstZombieEffect()
-if #team.GetPlayers( TEAM_UNDEAD ) == 0 then return end
-	for k, FirstZombie in pairs( team.GetPlayers( TEAM_UNDEAD ) ) do
-		if IsValid( FirstZombie ) and FirstZombie:Alive() and not FirstZombie.Suicided and not FirstZombie:IsWraith() then
-			if FirstZombie:IsStartingZombie() then-- FirstZombie:Health() > ZombieClasses[FirstZombie:GetZombieClass()].Health
-				if not FirstZombie.EffectActive then
-					if MySelf ~= FirstZombie then
-						
-						local Effect = EffectData()
-						FirstZombie.EffectActive = true
-						Effect:SetEntity( FirstZombie )
-						util.Effect( "infection_cloud", Effect )
-						
-					end
-				end
-			end
-		end
-	end
-end
-hook.Add( "Think", "DoFirstZombieEffect", DoFirstZombieEffect )			
-]]--
-
-if FIRSTAPRIL then
-
-TrashbinForBodies = TrashbinForBodies or {}
-local Trash = Trash or {} --must. hate. because i cant remove entities without valid parent (ragdollentity). fuck this :<
--- Also 'TrashbinForBodies' - table where we store all usual clientside bodies (when player is alive). 'Trash' table is for corpses.
--- Main function where we ccreate bodies for all zombies, because garry doesn't let us to make it in Think hook or such :<
-local function MakeMahBody(um)
-if not IsValid ( MySelf ) then return end
-	for k,zombie in pairs(player.GetAll()) do
-		if zombie:IsZombie() and zombie:IsValid() then
-			if zombie:Alive() then
-				if not zombie.HasBody then
-					local Body
-					if zombie:IsHeadcrab() or zombie:IsPoisonCrab()	then
-					Body = ClientsideModel("models/props_junk/watermelon01.mdl", RENDERGROUP_OPAQUE) -- Melons for headcrabs :D
-					else
-					Body = ClientsideModel("models/player/gordon_classic.mdl", RENDERGROUP_OPAQUE)
-					end
-					
-						if not IsValid(Body) then return end
-						Body:SetPos(zombie:GetPos())
-						Body:SetAngles(zombie:GetAngles())
-						Body:SetParent(zombie) 
-						Body:AddEffects(bit.bor(EF_BONEMERGE , EF_BONEMERGE_FASTCULL , EF_PARENT_ANIMATES))
-						--Body:SetNoDraw(true) -- Not sure about that, however code works fine without this line
-						zombie.HasBody = true
-						TrashbinForBodies[zombie] = Body -- Make a reference for all created bodies, so we can easily delete them
-				end
-			end
-		end
-	end
-end
-usermessage.Hook ( "MakeBody", MakeMahBody )
-
--- Small function to avoid repeating code
-local function DeleteBodyEnt(owner,ent)
-if not IsValid(ent) then return end
-if not IsValid(owner) then return end
-ent:AddEffects(EF_NODRAW)
-ent:Remove()
-ent = nil
-owner.HasBody = false
-end
-
--- Use this only when player redeems
-local function DeletMahBody(um)
-if not IsValid ( MySelf ) then return end
-local owner = um:ReadEntity()
-if not owner.HasBody then return end
-DeleteBodyEnt(owner,TrashbinForBodies[owner])
-end
-usermessage.Hook ( "DeleteBody", DeletMahBody )
-
-
--- This thing allows us to make an illusion of real corpse.
-function AttachBodiesToCorpses(ent)
-if not IsValid(ent) then return end
-if not IsValid ( MySelf ) then return end
-		for k,zombie in pairs(player.GetAll()) do
-			if zombie:IsZombie() and zombie:IsValid() and not zombie:Alive() then
-				if IsValid(zombie:GetRagdollEntity()) and ent == zombie:GetRagdollEntity() then
-				
-					if zombie.HasBody then
-					-- Thanks Clavus for idea with timers!
-					timer.Simple(0,function() DeleteBodyEnt(zombie,TrashbinForBodies[zombie]) end) --  Delete body from dead player
-					timer.Simple(0, function()
-						zombie.corpse = zombie:GetRagdollEntity()
-						zombie.corpse:AddEffects(EF_NODRAW) -- Make a new one attached to corpse and of course hide the corpse
-						if zombie:IsHeadcrab() or zombie:IsPoisonCrab()	then
-						zombie.corpse.Body = ClientsideModel("models/props_junk/watermelon01.mdl", RENDERGROUP_OPAQUE)
-						else
-						zombie.corpse.Body = ClientsideModel("models/player/gordon_classic.mdl", RENDERGROUP_OPAQUE)
-						end
-						if not IsValid(zombie.corpse.Body) then return end
-						zombie.corpse.Body:SetPos(zombie.corpse:GetPos())
-						zombie.corpse.Body:SetAngles(zombie.corpse:GetAngles())
-						zombie.corpse.Body:SetParent(zombie.corpse) 
-						zombie.corpse.Body:AddEffects(EF_BONEMERGE)
-						zombie.corpse.Body.BuildBonePositions = zombie.corpse.BuildBonePositions -- Apply dismemberment effects from corpse to new body
-						--zombie.corpse:SetNoDraw(true)
-						Trash[zombie] = zombie.corpse.Body --  Make a reference again
-						end)
-					else
-						timer.Simple(0,function() DeleteBodyEnt(zombie,TrashbinForBodies[zombie]) end)--  just check
-					end
-				end
-			end
-		end
-
-end
-hook.Add("OnEntityCreated", "AttachBodiesToCorpses", AttachBodiesToCorpses)
-
--- Better way how to remove corpses
-function RemoveCorpses(ent)
-if not IsValid(ent) then return end
-if not IsValid ( MySelf ) then return end
-	for k,v in pairs(Trash) do
-			if IsValid(k) then
-				if ent == k:GetRagdollEntity() then
-					timer.Simple(0,function()
-						Trash[k]:Remove()
-						Trash[k] = nil
-						end)
-				end
-			end
-	end
-end
-hook.Add("EntityRemoved", "RemoveCorpses", RemoveCorpses)
-
--- This function always updates our bodies  and corpses
-function UpdateBodies()
-if not IsValid ( MySelf ) then return end
-	for k,zombie in pairs(player.GetAll()) do
-		if zombie:IsZombie() and zombie:IsValid() then
-			if zombie:Alive() then
-				if not zombie.HasBody then -- Just a small check
-				MakeMahBody()
-				elseif zombie.HasBody then
-				TrashbinForBodies[zombie]:SetParent(zombie) -- Fix the 'T-pose' bug
-				TrashbinForBodies[zombie]:DrawModel()
-				if zombie:IsWraith() then
-				TrashbinForBodies[zombie]:SetColor(zombie:GetColor())
-				end
-				end
-			end
-		else
-			if zombie:IsHuman() and zombie:IsValid() then
-				if zombie.HasBody then
-				timer.Simple(0,function() DeleteBodyEnt(zombie,TrashbinForBodies[zombie]) end)
-				end
-			end
-		end
-	end
-			
-			-- Remove bodies from corpses if they do not exist anymore
-			for k,v in pairs(Trash) do
-				if IsValid(k) then
-					if not IsValid(k:GetRagdollEntity()) then 
-						Trash[k]:Remove()
-						Trash[k] = nil
-					else
-						Trash[k]:SetParent(k:GetRagdollEntity()) 
-					end
-				end
-			end
--- Check if there are disconnected zombies			
-local TempBodyTable = {}			
-			for k,v in pairs(TrashbinForBodies) do
-				if IsValid(k) then
-					TempBodyTable[k] = TrashbinForBodies[k] -- All disconnected zombies will not be included in this table
-				end
-			end
-			table.Empty(TrashbinForBodies) -- Clean the disconnected ones
-			for k,v in pairs(TempBodyTable) do
-				if IsValid(k) then
-					TrashbinForBodies[k] = TempBodyTable[k] -- Refill it
-				end
-			end
-			
-end
-hook.Add("Think", "UpdateBodies", UpdateBodies)
--- Clean bodies of disconnected players
-local function RemoveDisconectedBodies(um)
-if not IsValid ( MySelf ) then return end
-local pl = um:ReadEntity()
-	if pl:IsZombie() and pl:IsValid() then
-		if not pl.HasBody then return end
-			TrashbinForBodies[pl]:Remove()
-			TrashbinForBodies[pl] = nil
-			pl.HasBody = false
-	end
-end
---usermessage.Hook ( "RemoveDisconectedBodies", RemoveDisconectedBodies )
-
--- Clean all bodies for disconnected player
-local function CleanDisconectedBodies(um)
-if not IsValid ( MySelf ) then return end
-for k,v in pairs(TrashbinForBodies) do
-DeleteBodyEnt(k,TrashbinForBodies[k])
-end
-for k,v in pairs(Trash) do
-		Trash[k]:Remove()
-		Trash[k] = nil
-	end
-end
-usermessage.Hook ( "CleanDisconectedBodies", CleanDisconectedBodies )
-end

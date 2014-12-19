@@ -233,7 +233,7 @@ function SWEP:OnHolster()
 end
 
 function SWEP:OnRemove()
-    RemoveNewArms(self)     
+  --  RemoveNewArms(self)     --Duby: I made some adjustments to obj_weapon_extended. This isn't required any more.
     if CLIENT then
 		self:ResetBonePositions()
         self:RemoveModels()

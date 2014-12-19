@@ -5,7 +5,8 @@ if SERVER then
 	AddCSLuaFile("shared.lua")
 end
 
-SWEP.PrintName = "Sub-Machine Gun"
+--SWEP.PrintName = "Sub-Machine Gun"
+SWEP.PrintName = "Classic SMG"
 
 if CLIENT then		
 	SWEP.Author	= "Deluvas"
@@ -14,13 +15,13 @@ if CLIENT then
 	SWEP.ViewModelFOV = 55
 	SWEP.ViewModelFlip = false
 	
-	SWEP.ShowViewModel = false
+	SWEP.ShowViewModel = true
 	SWEP.IgnoreBonemerge = false
 	SWEP.UseHL2Bonemerge = true
 	SWEP.ScaleDownLeftHand = true
 	
 	SWEP.VElements = {
-	-- 	["smg1"] = { type = "Model", model = "models/Weapons/w_smg1.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(-0.826, 0.95, 3.444), angle = Angle(88.787, 143.143, 126.155), size = Vector(0.837, 0.842, 0.856), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	 	["smg1"] = { type = "Model", model = "models/Weapons/w_smg1.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(-0.826, 0.95, 3.444), angle = Angle(88.787, 143.143, 126.155), size = Vector(0.837, 0.842, 0.856), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 	
 	SWEP.IconLetter = "/"
@@ -44,6 +45,7 @@ SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
 SWEP.ViewModel			= Model ( "models/weapons/c_smg1.mdl" )
+--SWEP.ViewModel			= Model ( "models/Weapons/v_smg1.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_smg1.mdl" )
 
@@ -54,15 +56,15 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AR2.NPC_Single")
-SWEP.Primary.Recoil			= 4
+SWEP.Primary.Recoil			= 1
 SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
-SWEP.Primary.Delay			= 0.15
+SWEP.Primary.Delay			= 0.16
 SWEP.Primary.DefaultClip	= 125
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
-SWEP.MaxBulletDistance 		= 3500
+SWEP.MaxBulletDistance 		= 2500
 SWEP.MaxAmmo			    = 250
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
@@ -72,8 +74,9 @@ SWEP.Cone = 0.068
 SWEP.ConeCrouching = 0.063
 
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = 165
 
-SWEP.IronSightsPos 		= Vector( -6.35, -11, 1 )
-SWEP.IronSightsAng 		= Vector( 0, 0, 0 )
+SWEP.IronSightsPos = Vector(-6.441, -6.049, 1.059)
+SWEP.IronSightsAng = Vector(0, 0, 0)
+
 

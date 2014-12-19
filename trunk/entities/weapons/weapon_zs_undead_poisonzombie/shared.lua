@@ -136,7 +136,7 @@ function SWEP:PerformSecondaryAttack()
 
 	pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
 
-	pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
+	--pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
 end
 
 function SWEP:Move(mv)
@@ -144,7 +144,7 @@ function SWEP:Move(mv)
 		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.8)
 		return true
 	elseif self:IsInSecondaryAttack() then
-		mv:SetMaxSpeed(20)
+		mv:SetMaxSpeed(150)
 		return true
 	end
 end

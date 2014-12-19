@@ -36,15 +36,8 @@ SWEP.DrawCrosshair		= false
 local SwingSound = Sound( "weapons/slam/throw.wav" )
 local HitSound = Sound( "Flesh.ImpactHard" )
 
+if CLIENT then killicon.AddFont( "weapon_zs_fists", "HL2MPTypeDeath", "6", Color( 255, 80, 0, 255 ) ) end
 
-if CLIENT then
-
---if self.Owner and self.Owner:GetSuit() == "meleesuit" then
---primary.damage = math.Clamp(self.primary.damage+15,0,self.Primary.Damage)
---end
-
-
-end
 function SWEP:Initialize()
 
 	self:SetWeaponHoldType( "fist" )

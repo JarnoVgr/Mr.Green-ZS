@@ -18,7 +18,7 @@ WeaponTypeToCategory["shotgun"] = "Automatic"
 WeaponTypeToCategory["pistol"] = "Pistol"
 WeaponTypeToCategory["melee"] = "Melee"
 WeaponTypeToCategory["tool1"] = "Tool1"
-WeaponTypeToCategory["tool2"] = "Tool2"
+--WeaponTypeToCategory["tool2"] = "Tool2"
 WeaponTypeToCategory["misc"] = "Misc"
 WeaponTypeToCategory["explosive"] = "Explosive"
 WeaponTypeToCategory["admin"] = "Admin"
@@ -205,9 +205,13 @@ table.insert(ResourceFiles, "sound/mrgreen/ui/menu_accept.wav")
 table.insert(ResourceFiles, "sound/mrgreen/ui/menu_click01.wav")
 table.insert(ResourceFiles, "sound/mrgreen/ui/menu_focus.wav")
 table.insert(ResourceFiles, "sound/mrgreen/ui/menu_countdown.wav")
+--table.insert(ResourceFiles, "sound/mrgreen/supplycrates/thunder3.mp3")
+
 
 --Game start music (random to improve download speed)
-table.insert(ResourceFiles, "sound/mrgreen/music/gamestart".. math.random(3,4) ..".mp3")
+--table.insert(ResourceFiles, "sound/mrgreen/music/gamestart".. math.random(3,4) ..".mp3")
+--table.insert(ResourceFiles, "sound/mrgreen/music/gamestart4.mp3") --Duby: We are only using this one as there is no point having loads of music etc..
+table.insert(ResourceFiles, "sound/mrgreen/music/gamestart2.mp3") --Duby: We are only using this one as there is no point having loads of music etc..
 
 if CHRISTMAS then
 	table.insert(ResourceFiles, "sound/mrgreen/music/gamestart_xmas.mp3")
@@ -223,6 +227,7 @@ table.insert(ResourceFiles, "sound/mrgreen/music/intermission_undead.mp3")
 --Unlife music (2 variants)
 table.insert(ResourceFiles, "sound/mrgreen/music/deadlife.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/deadlife_insane.mp3")
+table.insert(ResourceFiles, "sound/mrgreen/music/bosstheme.mp3")
 
 --Boss music (random to improve download speed)
 --[[local randDownloadId = math.random(1,3)
@@ -266,13 +271,14 @@ table.insert(ResourceFiles, "models/weapons/v_zombine.mdl")
 table.insert(ResourceFiles, "models/zombie/zombie_soldier.mdl")
 table.insert(ResourceFiles, "models/zombie/zombie_soldier_animations.mdl")
 table.insert(ResourceFiles, "models/zombie/zombie_soldier_animations.ani")
-local files = {"combinesoldiersheet.vmt", "combinesoldiersheet_zombie.vmt", "combinesoldiersheet_zombie.vtf", "combinesoldiersheet_zombie_normal.vtf", "combinesoldiersheet_zombie_phong.vtf"}
+local files = {"combinesoldiersheet.vmt", "combinesoldiersheet_zombie.vmt","combinesoldiersheet_zombie.vtf", "combinesoldiersheet_zombie_normal.vtf", "combinesoldiersheet_zombie_phong.vtf"}
 for _, filename in pairs(files) do
 	table.insert(ResourceFiles, "materials/models/zombie_classic/".. filename)
 end
 for _, filename in pairs(file.Find("sound/npc/zombine/*.wav", "GAME")) do
 	table.insert(ResourceFiles, "sound/npc/zombine/"..filename)
 end
+
 
 --Grenade Launcher
 table.insert(ResourceFiles, "models/weapons/c_sw_grenadelauncher.mdl")
@@ -331,8 +337,8 @@ table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/fastzombie.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/fastzombie.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/poisonzombie.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/poisonzombie.vtf")
---table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/chemzombie.vtf")
---table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/chemzombie.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/chemzombie.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/chemzombie.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/wraith.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/wraith.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/headcrab.vmt")
@@ -343,8 +349,11 @@ table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/poisonheadcrab.v
 --table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/torso.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine2.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine2.vmt")--New class
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/howler.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/howler.vtf")
+
 
 --Undead crosshair
 table.insert(ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair_core.vtf")  
@@ -544,6 +553,9 @@ table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01.vmt")
 table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01.vtf")
 table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01_normal.vtf")
 
+--CSS orange model for Poison Headcrab spit
+table.insert(ResourceFiles, "models/props/cs_italy/orange.mdl")
+
 --??
 table.insert(ResourceFiles, "models/effects/bday_gib01.mdl")
 
@@ -591,9 +603,9 @@ for _, filename in pairs( file.Find( "sound/npc/stalker/*.wav" , "GAME") ) do
 	table.insert(ResourceFiles, "sound/npc/stalker/"..filename  )
 end
 
---Duby:Removed as it doesn't even exist any more. :P 
 
---Santa Claus
+--Duby:This is actually just the Santa model
+--Santa Claus Boss
 if CHRISTMAS then
 	table.insert(ResourceFiles, "models/Jaanus/santa.mdl")
 	for _, filename in pairs(file.Find("materials/Jaanus/monk/*.*", "GAME")) do

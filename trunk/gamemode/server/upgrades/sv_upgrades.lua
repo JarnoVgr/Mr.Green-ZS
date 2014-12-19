@@ -17,19 +17,11 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 
 	local damage = dmginfo:GetDamage()
 
-	if attacker:IsPlayer() and ent:IsPlayer() then
-		
-		-- Spartan Upgrade
-		--[[if ent:Team() == TEAM_HUMAN and ent:HasBought ("spartanu") and attacker:Team() == TEAM_UNDEAD then
-			local entscore = ent:Frags() --GetScore()?
-			local damage = dmginfo:GetDamage()
-			dmginfo:SetDamage ( damage - ( damage * ( 0.15 + (entscore / 450) ) ) )
-		end]]
-			
+	--[[if attacker:IsPlayer() and ent:IsPlayer() then
 		if not ent:IsBot() and ent:IsPlayer() and ent:Team() == TEAM_HUMAN and ent:Alive() and ent:GetPerk("_enhkevlar") and attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD then
 			dmginfo:SetDamage (damage - damage*0.25 ) 
 		end
-	end
+	end]]--
 	
 	--  more damage when attacking with melee weapons
 	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and attacker:GetPerk("_freeman") and IsValid( inflictor ) then-- attacker:HasBought( "blessedfists" )

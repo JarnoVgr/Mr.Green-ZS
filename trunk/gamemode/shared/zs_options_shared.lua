@@ -26,6 +26,17 @@ if ARENA_MODE then
 	print("[MAPCODER] Arena map")
 end
 
+GasDump = tobool(string.find(tostring(game.GetMap()),"zm_gasdump_b4")) --Objective map.
+if GasDump then
+	print("[MAPCODER] GasDump (Obj) map")
+end
+
+PUB = tobool(string.find(tostring(game.GetMap()),"zs_pub")) --Objective map.
+if PUB then
+	print("[MAPCODER] PUB map")
+end
+
+
 DEFAULT_VIEW_OFFSET = Vector(0, 0, 64)
 DEFAULT_VIEW_OFFSET_DUCKED = Vector(0, 0, 28)
 DEFAULT_JUMP_POWER = 180
@@ -50,7 +61,7 @@ CHRISTMAS = false
 FIRSTAPRIL = false
 
 --Boss stuff
-BOSS_TOTAL_PLAYERS_REQUIRED = 20
+BOSS_TOTAL_PLAYERS_REQUIRED = 4
 BOSS_CLASS = {10,11,13,16,18} -- 12
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
@@ -62,51 +73,10 @@ BOSS_CLASS = {10,11,13,16,18} -- 12
 --BOSS_CLASS = {19} --Pumpking!
 
 
---??
 SHARED_SPEED_INCREASE = 13
---hate
 ----------------------------------
 --		STARTING LOADOUTS		--
 ----------------------------------
-
--- Only if they bought the Comeback shop item
---ComeBackReward = {}
---ComeBackReward[1] = { -- Medic
---[1] =  { "weapon_zs_elites", "weapon_zs_fiveseven"},
---[2] =  { "weapon_zs_deagle"  }, 
---[3] =  { "weapon_zs_ak47"  }, 
---[4] =  { "weapon_zs_ak47" }, 
---}
---ComeBackReward[2] = { -- Commando
---[1] =  { "weapon_zs_deagle", "weapon_zs_glock3"},
---[2] =  { "weapon_zs_galil", "weapon_zs_sg552" }, 
---[3] =  { "weapon_zs_ak47" }, 
---[4] =  { "weapon_zs_ak47"  }, 
---}
---ComeBackReward[3] = { -- Berserker
---[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
---[2] =  { "weapon_zs_scout" }, 
---[3] =  { "weapon_zs_sg550"}, 
---}
---ComeBackReward[4] = { -- Engineer
---[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
---[2] =  { "weapon_zs_pulsesmg"}, 
---[3] =  {"weapon_zs_ak47"}, 
---[4] =  { "weapon_zs_ak47"}, 
---}
---ComeBackReward[5] = { -- Support
---[1] =  { "weapon_zs_fiveseven", "weapon_zs_elites"},
---[2] =  { "weapon_zs_tmp","weapon_zs_ump", "weapon_zs_mac10"}, 
---[3] =  { "weapon_zs_smg"}, 
---}
-
---[[
-ComeBackReward = {}
-ComeBackReward[1] = { "weapon_zs_glock3", "weapon_zs_fiveseven", "weapon_zs_magnum" } -- humans outnumber zombies
-ComeBackReward[2] = { "weapon_zs_p90", "weapon_zs_smg" } -- zombies outnumber humans by a small marigin
-ComeBackReward[3] = { "weapon_zs_galil", "weapon_zs_ak47", "weapon_zs_m4a1" } -- zombies outnumber humans 2 to 1
-ComeBackReward[4] = { "weapon_zs_m1014", "weapon_zs_shotgun" } -- zombies outnumber humans 4 to 1
-]]
 
 -- Chat titles based on time spent on server
 GM.ChatTitles = {
@@ -168,101 +138,91 @@ GM.ChatTitles = {
 GM.HumanWeapons = {	
 	--Melee
 	["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 350 }, 
-	["weapon_zs_melee_katana"]  = { Name = "Katana", DPS = 90, Infliction = 0, Type = "melee", Price = 1040 },
+	["weapon_zs_melee_katana"]  = { Name = "Katana", DPS = 90, Infliction = 0, Type = "melee", Price = 1040, Description = "Handle with care. It's very sharp." },
 	["weapon_zs_melee_crowbar"]  = { Name = "Crowbar", DPS = 85, Infliction = 0.65, Type = "melee", Price = 290 },
-	["weapon_zs_melee_keyboard"]  = { Name = "Keyboard", DPS = 45, Infliction = 0, Type = "melee",Price = 50 },
+	["weapon_zs_melee_keyboard"]  = { Name = "Keyboard", DPS = 45, Infliction = 0, Type = "melee", Price = 50, Description = "There's no better way to express your online anger." },
 	["weapon_zs_melee_plank"]  = { Name = "Plank", DPS = 56, Infliction = 0, Type = "melee",Price = 140 }, 
 	["weapon_zs_melee_pot"]  = { Name = "Pot", DPS = 61, Infliction = 0, Type = "melee",Price = 200 }, 
-	["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee",Price = 150 },
+	["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee", Price = 150, Description = "Cooking by the book." },
 	["weapon_zs_melee_combatknife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee" , Price = 6000 },
-	["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Price = 6000 },
+	["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Price = 6000, Description = "" },
 	["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 800 },
 	["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 7000 },
 	["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee",Price = 7000 },
 	["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee",Price = 7000 },
-	["weapon_zs_melee_chainsaw"]  = { Name = "Chain SAW!", DPS = 30, Infliction = 0, Type = "melee" },
+	["weapon_zs_melee_chainsaw"]  = { Name = "Chain SAW!", DPS = 30, Infliction = 0, Type = "melee", Description = "This may become a bit gory." },
 
 	--Pistols
 	["weapon_zs_fiveseven"]  = { Name = "Five-Seven",Mat = "VGUI/gfx/VGUI/fiveseven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 90 },
 	["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120,Mat = "VGUI/gfx/VGUI/glock18", Infliction = 0.25, Type = "pistol", Price = 200 },
-	["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol", Price = 520 },
-	["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 390 },
+	["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol", Price = 520, Description = "High fire rate thanks to having two pistols in your hands." },
+	["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Description = "Russian Roulette Revolver" },
 	["weapon_zs_deagle"]  = { Name = "Desert Eagle",Mat = "VGUI/gfx/VGUI/deserteagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 630 },
 	
 	["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42,Mat = "VGUI/gfx/VGUI/usp45", Infliction = 0, Type = "pistol"},
 	["weapon_zs_p228"]  = { Name = "P228", DPS = 58,Mat = "VGUI/gfx/VGUI/p228", Infliction = 0, Type = "pistol" },
-	["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 40 },
-	--["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "misc",Price = 5000 },
-	["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol",Price = 5000 },
-	["weapon_zs_barreta"]  = { Name = "Barreta", DPS = 30,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol",Price = 450 },
-	--["weapon_zs_apistol"]  = { Name = "A Pistol", DPS = 30,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol",Price = 250 },
+	["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 40, Description = "Classic Half-Life 2 pistol." },
+	["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 5000, Description = "Alyx is hot. But her gun is even more hot." },
+	--["weapon_zs_barreta"]  = { Name = "Barreta", DPS = 30,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol",Price = 450 },
+
 
 	
 	--Light Guns
-	--["weapon_zs_p90"]  = { Name = "P90", DPS = 125,Mat = "VGUI/gfx/VGUI/p90", Infliction = 0.65, Type = "misc", Price = 6000 },
 	["weapon_zs_p90"]  = { Name = "P90", DPS = 125,Mat = "VGUI/gfx/VGUI/p90", Infliction = 0.65, Type = "smg", Price = 620 },
+	["weapon_zs_smg"]  = { Name = "Classic SMG", DPS = 125, Infliction = 0.65, Type = "smg"},
 	["weapon_zs_ump"]  = { Name = "UMP", DPS = 110,Mat = "VGUI/gfx/VGUI/ump45", Infliction = 0.60, Type = "smg", Price = 650 },
 	["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127,Mat = "VGUI/gfx/VGUI/mp5", Infliction = 0.58, Type = "smg", Price = 510 },
 	["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107,Mat = "VGUI/gfx/VGUI/tmp", Infliction = 0.56, Type = "smg", Price = 360 },
 	["weapon_zs_mac10"]  = { Name = "Mac 10", DPS = 126,Mat = "VGUI/gfx/VGUI/mac10", Infliction = 0.60, Type = "smg", Price = 250 },
-	["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle", Price = 210 },
+	["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle", Price = 210, Description = "Light-weight sniper." },
 
 			
 	--Medium Guns
-	
-	--["weapon_zs_g3sg1"]  = { Name = "G3-SG1", DPS = 106,Mat = "VGUI/gfx/VGUI/g3sg1", Infliction = 0.51, Type = "rifle", Price = 1600 },
 	["weapon_zs_famas"]  = { Name = "Famas", DPS = 140,Mat = "VGUI/gfx/VGUI/famas", Infliction = 0.7, Type = "rifle", Price = 750 },
 	["weapon_zs_sg552"]  = { Name = "SG552 Rifle", DPS = 106,Mat = "VGUI/gfx/VGUI/sg552", Infliction = 0.51, Type = "rifle", Price = 800 },
 	["weapon_zs_galil"]  = { Name = "Galil", DPS = 129,Mat = "VGUI/gfx/VGUI/galil", Infliction = 0.57, Type = "rifle", Price = 1000 },
-	--["weapon_zs_sg550"]  = { Name = "SG550", DPS = 106,Mat = "VGUI/gfx/VGUI/sg550", Infliction = 0.51, Type = "rifle", Price = 1100 },
-	--["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133,Mat = "VGUI/gfx/VGUI/ak47", Infliction = 0.7, Type = "misc", Price = 12000 },
-	["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133,Mat = "VGUI/gfx/VGUI/ak47", Infliction = 0.7, Type = "rifle", Price = 1100 },
-	["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138,Mat = "VGUI/gfx/VGUI/m4a1", Infliction = 0.65, Type = "rifle", Price = 1300 },
-	["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125,Mat = "VGUI/gfx/VGUI/aug", Infliction = 0.53, Type = "rifle", Price = 1500 },
+	["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133,Mat = "VGUI/gfx/VGUI/ak47", Infliction = 0.7, Type = "rifle", Price = 1100, Description = "" },
+	["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138,Mat = "VGUI/gfx/VGUI/m4a1", Infliction = 0.65, Type = "rifle", Price = 1290 },
+	["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125,Mat = "VGUI/gfx/VGUI/aug", Infliction = 0.53, Type = "rifle", Price = 1200 },
 	
 	--Heavy
-	--["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0,Class = "Support", Type = "shotgun", Price = 6000},
-	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0,Class = "Support", Type = "shotgun", Price = 1400},
-	--["weapon_zs_m249"]  = { Name = "M249", DPS = 200,Mat = "VGUI/gfx/VGUI/m249", Infliction = 0.85, Type = "misc", Price = 6000 },
+	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun", Price = 1300},
 	["weapon_zs_m249"]  = { Name = "M249", DPS = 200,Mat = "VGUI/gfx/VGUI/m249", Infliction = 0.85, Type = "rifle", Price = 1700 },
-	--["weapon_zs_m1014"]  = { Name = "M1014 Auto-Shotgun", DPS = 246,Mat = "VGUI/gfx/VGUI/xm1014", Infliction = 0.85, Type = "shotgun", Price = 6000},
-	["weapon_zs_m1014"]  = { Name = "M1014 Auto-Shotgun", DPS = 246,Mat = "VGUI/gfx/VGUI/xm1014", Infliction = 0.85, Type = "shotgun", Price = 1600},
-	["weapon_zs_awp"]  = { Name = "AWP", DPS = 200,Mat = "VGUI/gfx/VGUI/awp", Infliction = 0, Class = "Berserker", Type = "rifle", Price = 1600 },
-	["weapon_zs_grenadelauncher"]  = { Name = "Grenade Launcher", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 2000 },
+	["weapon_zs_m1014"]  = { Name = "M1014 Auto-Shotgun", DPS = 246,Mat = "VGUI/gfx/VGUI/xm1014", Infliction = 0.85, Type = "shotgun", Price = 1400},
+	["weapon_zs_awp"]  = { Name = "AWP", DPS = 200,Mat = "VGUI/gfx/VGUI/awp", Infliction = 0, Type = "rifle", Price = 1600, Description = "Heavy sniper." },
+--	["weapon_zs_grenadelauncher"]  = { Name = "Grenade Launcher", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 2000 },
 	["weapon_zs_boomerstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 2200 },
-	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Class = "Medic", Type = "rifle"},
-	
+--	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle"},
+
 
 	--Uncategorized
 	--["weapon_zs_minishotty"]  = { Name = "'Farter' Shotgun", DPS = 126, Infliction = 0, Type = "shotgun" },
-	["weapon_zs_fists"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
+	["weapon_zs_fists"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee", Description = "Punch a Zombie in the face." },
 	["weapon_zs_fists2"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
 	["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" }, -- 860
 	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 350},
-	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
-	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 2600 }, --Seems to work fine now.
-	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle" },
+--	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
+	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 6000 }, --Seems to work fine now.
+	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
 	["weapon_zs_minishotty"]  = { Name = "Farter shotgun", DPS = 143, Infliction = 0, Type = "shotgun" },
-	--["weapon_zs_python"]  = { Name = "Python", DPS = 143, Infliction = 0, Type = "pistol", Price = 80 },
 	
 	
 	--Tool1
-	["weapon_zs_tools_hammer"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", NoRetro = true },
-	["weapon_zs_tools_hammer2"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", NoRetro = true },
-	["weapon_zs_tools_hammer3"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", NoRetro = true },
-	["weapon_zs_medkit"]  = { Name = "Medkit", DPS = 8, Infliction = 0, Type = "tool1", NoRetro = true },
-	["weapon_zs_tools_supplies"] = { Name = "Mobile Supplies", DPS = 0, Infliction = 0, Type = "tool1", NoRetro = true },
+	["weapon_zs_tools_hammer"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", Description = "Stop! Hammer time. This will freeze props in their place." },
+	["weapon_zs_tools_hammer2"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1" },
+	["weapon_zs_tools_hammer3"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1" },
+	["weapon_zs_medkit"]  = { Name = "Medical Kit", DPS = 8, Infliction = 0, Type = "tool1", Description = "Be a good teammate. Or just heal yourself." },
+	["weapon_zs_tools_supplies"] = { Name = "Mobile Supplies", DPS = 0, Infliction = 0, Type = "tool1", Description = "Allows you to spawn a Supply Crate." },
 	["weapon_zs_tools_remote"] = { Name = "Remote Controller", DPS = 0, Infliction = 0, Type = "tool2" },
-	["weapon_zs_tools_torch"] = { Name = "Torch", DPS = 0, Infliction = 0, Type = "tool2", NoRetro = true },
-	["weapon_zs_barricadekit"] = { Name = "Agies Barricading kit", DPS = 0, Infliction = 0, Type = "tool1", NoRetro = true },
+	["weapon_zs_tools_torch"] = { Name = "Torch", DPS = 0, Infliction = 0, Type = "tool1", Description = "Fix broken nails to prevent barricades getting broken." },
+	["weapon_zs_barricadekit"] = { Name = "Agies Barricading kit", DPS = 0, Infliction = 0, Type = "tool1" },
 	
 	--Tool2
-	["weapon_zs_miniturret"] = { Name = "Combat Mini-Turret", DPS = 0, Infliction = 0, Type = "tool2" },
-	["weapon_zs_turretplacer"] = { Name = "Turret", DPS = 0, Infliction = 0, Type = "tool1", NoRetro = true },
-	["weapon_zs_grenade"]  = { Name = "Grenade", DPS = 8, Infliction = 0, Type = "tool2", NoRetro = true },
-	["weapon_zs_mine"]  = { Name = "Explosives", DPS = 8, Infliction = 0, Type = "tool1", NoRetro = true },
-	["weapon_zs_tools_plank"]  = { Name = "Pack of Planks", DPS = 0, Infliction = 0, Type = "tool2" },
-	["weapon_zs_tools_c42"]  = { Name = "C4", DPS = 0, Infliction = 0, Type = "tool2" },
+	["weapon_zs_miniturret"] = { Name = "Combat Mini-Turret", DPS = 0, Infliction = 0, Type = "tool1" },
+	["weapon_zs_turretplacer"] = { Name = "Turret", DPS = 0, Infliction = 0, Type = "tool1" },
+	["weapon_zs_grenade"]  = { Name = "Grenade", DPS = 8, Infliction = 0, Type = "tool1", Description = "BOOM!" },
+	["weapon_zs_mine"]  = { Name = "Explosives", DPS = 8, Infliction = 0, Type = "tool1" },
+	["weapon_zs_tools_plank"]  = { Name = "Pack of Planks", DPS = 0, Infliction = 0, Type = "tool1" },
 	
 
 	--Pickups
@@ -299,20 +259,6 @@ GM.HumanWeapons = {
 	["weapon_frag"]  = { Name = "Grenade", DPS = 1, Infliction = 0, Restricted = true, Type = "admin" },
 }
 
----
-
-GM.SkillShopAmmo = {
---	["pistol"]  = { Name = "12 Pistol Bullets", Model = "models/Items/BoxSRounds.mdl", Amount = 12, Price = 20},
-	--["357"]  = { Name = "6 Sniper Bullets", Model = "models/Items/357ammo.mdl", Amount = 6, Price = 35},
-	--["smg1"]  = { Name = "30 SMG Bullets", Model = "models/Items/BoxMRounds.mdl", Amount = 30, Price = 25},
---	["ar2"]  = { Name = "30 Rifle Bullets", Model = "models/Items/combine_rifle_cartridge01.mdl", Amount = 35, Price = 30},
---	["buckshot"]  = { Name = "12 Shotguns Shells", Model = "models/Items/BoxBuckshot.mdl", Amount = 12, Price = 30},
---	["slam"]  = { Name = "Refill 1 explosive", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_mine", Amount = 1, Price = 60, ToolTab = true},
---	["grenade"]  = { Name = "Refill 1 grenade", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_grenade", Amount = 1, Price = 70, ToolTab = true},
-	--["gravity"]  = { Name = "Refill 1 nail", Model = "models/Items/BoxBuckshot.mdl",Tool = "weapon_zs_tools_hammer", Amount = 1, Price = 30, ToolTab = true},
-	--["Battery"]  = { Name = "Refill 30 charge for Medkit", Model = "models/Items/BoxBuckshot.mdl", Amount = 30, Price = 35, ToolTab = true},
-}
-
 
 ----------------------------------
 --		AMMO REGENERATION		--
@@ -321,32 +267,6 @@ GM.SkillShopAmmo = {
 -- Players are given double these amounts if 75% or above Infliction.
 -- Changing these means you're an idiot.
 -- Duby: This is confusing when it has this name... Its the amount of ammo which the crate gives out. :P
---[[
-GM.AmmoRegeneration = {
-	["ar2"] = 80, --Rifle
-	["alyxgun"] = 16,
-	["pistol"] = 40, --Pistol
-	["smg1"] = 80, --SMG
-	["357"] = 20, --Sniper
-	["xbowbolt"] = 5,
-	["buckshot"] = 35, --Shotgun
-	["ar2altfire"] = 1,
-	["slam"] = 2, --Explosive
-	["rpg_round"] = 1,
-	["smg1_grenade"] = 1,
-	["sniperround"] = 1,
-	["sniperpenetratedround"] = 5,
-	["grenade"] = 1, --Grenade
-	["thumper"] = 1,
-	["gravity"] = 3, --Nail
-	["battery"] = 30, --Medkit
-	["gaussenergy"] = 50,
-	["combinecannon"] = 10,
-	["airboatgun"] = 100,
-	["striderminigun"] = 100,
-	["helicoptergun"] = 100
-}
-]]--
 
 GM.AmmoRegeneration = {
 	["ar2"] = 60, --Rifle
@@ -385,38 +305,30 @@ XP_PLAYERS_REQUIRED = 5
 MAX_RANK = 30
 
 -- -- -- -- -- -- -- -- -- -- /
--- [rank] = {unlocks}
+-- [rank] = {unlocks} 
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","_sboost2","_kevlar3","_comeback2","weapon_zs_p228","weapon_zs_tools_torch"},
-	[1] = {"weapon_zs_tools_hammer2","weapon_zs_tools_plank"},
-	--[2] = {"weapon_zs_tools_hammer2"},
-	[2] = {"weapon_zs_melee_plank"},
-	[3] = {"_nailamount"},
-	[4] = {"weapon_zs_medkit"},
-	[5] = {"weapon_zs_tools_supplies"},
-	[6] = {"_kevlar","weapon_zs_melee_pipe"},
-	[7] = {"_imortalpro","weapon_zs_melee_keyboard"},
-	[8] = {"_nailhp","_kevlar2"},
-	[9] = {"_falldmg","_medupgr1"},
-	--[10] = {"weapon_zs_python"},
-	--[11] = {"weapon_zs_barricadekit"},
-	--[11] = {""},
-	[12] = {"_plankamount","weapon_zs_melee_pipe2"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_p228","weapon_zs_tools_torch","weapon_zs_tools_hammer","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank"},
+	[1] = {"weapon_zs_tools_plank"},
+	[2] = {"_medic"},
+	[3] = {"_hammerupgrade"},
+	[4] = {"weapon_zs_smg"},
+	[5] = {"weapon_zs_melee_keyboard"},
+	[6] = {"weapon_zs_melee_pipe"},
+	[7] = {"_imortalpro"},
+	[9] = {"_falldmg",},
+	[10] = {"_support"},
+	[11] = {"_kevlar2"},
+	[12] = {"weapon_zs_melee_pipe2"},
 	[13] = {"_freeman"},
-	[14] = {"_poisonprotect","weapon_zs_melee_hook"},
-	[15] = {"weapon_zs_turretplacer"},
-	[16] = {"weapon_zs_tools_remote"},
+	[14] = {"_poisonprotect"},
+	[15] = {"weapon_zs_melee_hook"},
+	--[16] = {"weapon_zs_tools_remote"},
 	[17] = {"_turretoverdrive"},
-	[18] = {"_plankhp"},
 	[19] = {"weapon_zs_melee_pot"},
-	[20] = {"weapon_zs_grenade"},
 	[21] = {"weapon_zs_classic"},
 	[22] = {"_sboost"},
-	[23] = {"_medupgr2"},
-	[24] = {"weapon_zs_mine"},
-	[25] = {"_enhkevlar"},
-	[26] = {"weapon_zs_melee_combatknife"},
-	[27] = {"_comeback"},
+	[24] = {"weapon_zs_melee_combatknife"},
+	[26] = {"_comeback"},
 	[28] = {"_adrenaline"},
 	[29] = {"weapon_zs_melee_crowbar"},
 	[30] = {"weapon_zs_miniturret"},
@@ -425,53 +337,72 @@ GM.RankUnlocks = {
 
 
 
+--[[GM.RankUnlocks = {
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_p228","weapon_zs_tools_torch","weapon_zs_tools_hammer","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank",
+	"weapon_zs_tools_plank",
+	"_medic",
+	"_hammerupgrade",
+	"weapon_zs_melee_keyboard",
+	"weapon_zs_melee_pipe",
+	"_imortalpro",
+	"_falldmg",
+	"_support",
+	"_kevlar2",
+	"weapon_zs_melee_pipe2",
+	"_freeman",
+	"_poisonprotect",
+	"weapon_zs_melee_hook",
+	"weapon_zs_tools_remote",
+	"_turretoverdrive",
+	"weapon_zs_melee_pot",
+	"weapon_zs_classic",
+	"_sboost",
+	"weapon_zs_melee_combatknife",
+	"_comeback",
+	"_adrenaline",
+	"weapon_zs_melee_crowbar",
+	"weapon_zs_smg",
+	"weapon_zs_miniturret"},
+	-- [90] = {"_professional"},-- hidden for a while
+}]]
+
+
 --Weapons to spawn with in Arena Mode
 GM.ArenaWeapons = {
 	"weapon_zs_m249",
-	"weapon_zs_m1014",
-	"weapon_zs_shotgun",
-	"weapon_zs_ak47",
-	"weapon_zs_m4a1",
 	"weapon_zs_m3super90",
 	"weapon_zs_famas",
 	"weapon_zs_galil",
 	"weapon_zs_mp5",
-	"weapon_zs_grenadelauncher",
 	"weapon_zs_boomerstick",
 	"weapon_zs_boomstick",
-	"weapon_zs_crossbow",
-	
+}
+--Weapons to spawn with in GasDump (Obj)
+GM.GasDump = {
+	"weapon_zs_m3super90",
+	"weapon_zs_ak47",
+	"weapon_zs_m4a1",
+	"weapon_zs_galil"
 }
 
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
 GM.Perks = {
-	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
-	["_kevlar2"] = {Name = "Full Kevlar", Description = "Gives you 30 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
-	--["_turretammo"] = {Name = "Turret Ammo", Description = "50% more ammo for turret", Slot = 2},
-	--["_turrethp"] = {Name = "Turret Durability", Description = "50% more health for turret", Material = "VGUI/gfx/VGUI/defuser", Slot = 2},
-	--["_turretdmg"] = {Name = "Turret Power", Description = "50% more turret's damage", Slot = 2},
-	["_poisonprotect"] = {Name = "Poison Protection", Description = "30% less damage from Poison Headcrabs", Slot = 2},
-	["_nailamount"] = {Name = "Pack of nails", Description = "50% more starting nails", Slot = 2},
-	["_nailhp"] = {Name = "Upgraded nails", Description = "40% more health for nails", Slot = 2},
-	["_falldmg"] = {Name = "Fall Protection", Description = "25% less fall damage", Slot = 1},
-	["_freeman"] = {Name = "Freeman's Spirit", Description = "Do 30% more melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 1},
-	["_enhkevlar"] = {Name = "Enhanced Kevlar", Description = "15% less damage from hits",Material = "VGUI/gfx/VGUI/kevlar_helmet", Slot = 1},
-	["_adrenaline"] = {Name = "Adrenaline Injection", Description = "Negates speed reduction on low health. Also your screen won't turn red when you are low on health", Slot = 1},
-	["_medupgr1"] = {Name = "Medical Efficiency", Description = "35% more healing power", Slot = 2},
-	["_medupgr2"] = {Name = "Medical Pack", Description = "Doubled maximum Medical Kit charges", Slot = 2},
-	["_sboost"] = {Name = "Speed Boost", Description = "8% more walking speed", Slot = 1},
-	--["_trchregen"] = {Name = "Handy Man", Description = "Increased regeneration rate for torch", Material = "HUD/scoreboard_clock", Slot = 2},
-	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with hammer", Material = "HUD/scoreboard_clock", Slot = 2},
-	["_comeback"] = {Name = "Comeback", Description = "When you redeem you will spawn either with a P90 or a M4Al! (Only once.)", Material = "VGUI/logos/spray_elited", Slot = 1},
-	["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
-	["_plankamount"] = {Name = "Extra Plank", Description = "Ability to carry one more plank!", Slot = 2},
-	["_plankhp"] = {Name = "Stronger Planks", Description = "30% more health for planks", Slot = 2},
-	["_imortalpro"] = {Name = "Immortal Protector!", Description = "You will spawn with the legendary Pulse SMG!", Slot = 1},
-	["_turretoverdrive"] = {Name = "Turret Overdrive!", Description = "Your turret has had an upgrade!", Material = "VGUI/gfx/VGUI/defuser", Slot = 2},
+	["_kevlar2"] = {Name = "Kevlar", Description = "Gives you 30 more HP.", Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
+	["_freeman"] = {Name = "Berserker", Description = "Do 30% more damage and attack faster with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 1},
+	["_hammerupgrade"] = {Name = "Upgraded Hammer", Description = "40% more health for nails plus more nails at spawn.", Material = "HUD/scoreboard_clock", Slot = 1},
+	["_adrenaline"] = {Name = "Adrenaline Injection", Description = "Negates speed reduction on low health. Also your screen won't turn red when you are low on health.", Slot = 1},
+	["_medic"] = {Name = "Experienced medic", Description = "Doubled maximum Medical Kit charges and 35% more healing power. Also more SP gained for healing!", RequiresWeapon = "weapon_zs_medkit", Slot = 1},
+	["_sboost"] = {Name = "Running Shoes", Description = "8% increase in walking speed.", Slot = 1},
+	["_support"] = {Name = "Support", Description = "Five planks at the start of the round, with 30% more health.", Slot = 1},
+	["_turretoverdrive"] = {Name = "Turret Overdrive", Description = "Your turret has had an upgrade. Increased fire rate, damage and Turret HP.", Material = "VGUI/gfx/VGUI/defuser", RequiresWeapon = "weapon_zs_turretplacer", Slot = 1},
 	
-	["_sboost2"] = {Name = "Running Shoes", Description = "5% faster!", Slot = 1},
-	["_kevlar3"] = {Name = "Light Kevlar", Description = "Gives you 5 more HP",Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
-	["_comeback2"] = {Name = "Reborn", Description = "When you redeem you will spawn either with a deagal or a pair of duel elites! (Only once.)", Material = "VGUI/logos/spray_elited", Slot = 1},
+	["_poisonprotect"] = {Name = "Poison Protection", Description = "30% less damage from Poison Headcrabs.", Slot = 2},
+	["_falldmg"] = {Name = "Fall Protection", Description = "25% less fall damage.", Slot = 2},
+	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with Hammer.", Material = "HUD/scoreboard_clock", RequiresWeapon = "weapon_zs_tools_hammer", Slot = 2},
+	["_comeback"] = {Name = "Comeback", Description = "When redeeming you will spawn once with either a AUG, Famas, SG552 or M3super90.", Material = "VGUI/logos/spray_elited", Slot = 2},	
+	["_comeback2"] = {Name = "Reborn", Description = "When redeeming you will spawn once with either a Deagle or a pair of Dual Elites.", Material = "VGUI/logos/spray_elited", Slot = 2},
+	["_imortalpro"] = {Name = "Immortal Protector", Description = "50% chance you will spawn with the Pulse SMG.", Slot = 2}
+	--["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
 }
 
 -- Leave this. This table will be filled at initialize hook
@@ -503,23 +434,19 @@ DIFFICULTY = 1.5
 
 -- Humans can not carry OR drag anything heavier than this (in kg.)
 CARRY_MAXIMUM_MASS = 300
---CARRY_MAXIMUM_MASS = 60
---CARRY_MAXIMUM_MASS = 120
+
 
 -- Objects with more mass than this will be dragged instead of carried.
 CARRY_DRAG_MASS = 145
---CARRY_DRAG_MASS = 130
---CARRY_DRAG_MASS = 60
+
 
 -- Anything bigger than this is dragged regardless of mass.
---CARRY_DRAG_VOLUME = 700
---CARRY_DRAG_VOLUME = 80
+
 CARRY_DRAG_VOLUME = 120
---CARRY_DRAG_VOLUME = 80
+
 
 -- Humans can not carry anything with a volume more than this (OBBMins():Length() + OBBMaxs():Length()).
---CARRY_MAXIMUM_VOLUME = 90
---CARRY_MAXIMUM_VOLUME = 100
+
 CARRY_MAXIMUM_VOLUME = 150
 
 -- Humans are slowed by this amount per kg carried.
@@ -545,8 +472,6 @@ WARMUPTIME = 110
 
 -- In seconds, how long humans need to survive.
 ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes
---ROUNDTIME = (25*60) + WARMUPTIME -- 20 minutes
---ROUNDTIME = (1*60) + WARMUPTIME -- 5 minutes 'testing'
 
 -- Time in seconds between end round and next map.
 INTERMISSION_TIME = 46
@@ -628,7 +553,7 @@ WARMUP_MODE = false
 --Not sure if it will work as planned, but whatever. This thing will shuffle the mapcycle sometimes
 MAPS_RANDOMIZER = false
 
-
+--[[
 --Chance when the sale will occur
 SKILLSHOP_SALE = 70
 
@@ -638,7 +563,7 @@ SKILLSHOP_SALE_MAXITEMS = 6
 --Min and Max amount of discount
 SKILLSHOP_SALE_SALE_MINRANGE = 10
 SKILLSHOP_SALE_SALE_MAXRANGE = 25
-
+]]--
 if game.MaxPlayers() < 4 then
 	WARMUP_MODE = false
 end
@@ -649,12 +574,30 @@ util.PrecacheSound(LASTHUMANSOUND)
 
 WELCOME_TEXT =
 [[
-Select your loadout below and start to survive the Zombie Apocalypse.
+Basic Information:
+-DON'T FORGET TO PICK A LOADOUT!!!
+-F1 for other menu's and the GreenCoin shop!
+-GreenShop is located via F1 or !shop 'In chat'
+-Roll the dice to see what outcome you will get!! '!rtd'
 
-The more you play - the more unlocks you get for your loadout.
+HUMANS:
 
-Need help playing this gamemode? Press F1 while playing.
+-You gain SP for killing zombies and helping your team mates. Eg: Healing
+-The crate works on a timer. Once its ready and you press 'e' on it. 
+It will give you weapons == to the amount of SP you have.
+-The crate moves around the map. So make sure you are either on the move,
+or nice and snug behind a good cade!!
+-You gain Greencoins from killing humans!
 
+UNDEAD:
+
+-If you have 8 points from killing humans you can redeem via 'F2'
+-Who ever has the most points near the end of the round will become the boss!
+-You can change zombie class Via F3
+-Zombie classes unlock over time. So if its a hard game give it some time!
+-You gain GreenCoins for killing humans!
+
+Our forums if you want to join us or have any questions! ^^
 Community: http://mrgreengaming.com
 ]]
 --[=[
@@ -691,7 +634,7 @@ end
 HELP_TXT = {}
 
 HELP_TXT[1] = {
-	title = "Help", 
+ title = "Help", 
 	txt = [[
 	Mr. Green Zombie Survival
 	
@@ -718,9 +661,9 @@ HELP_TXT[1] = {
 	
 	>Ywa, Duby.
 	Any questions go to:  http://mrgreengaming.com
-	
-	]]
-} 
+]]
+}
+
 
 HELP_TXT[2] = {
 	title = "Rules", 
@@ -758,35 +701,35 @@ HELP_TXT[3] = {
 	title = "LV Unlocks", 
 	txt = [[
 		This is the Unlock tree for every unlock on the server. WorkHard PlayHard!! ^^
-	 [0] = USP, FISTS, SPEEDBOOST2, KEVLAR3, COMBACK3, P228    [1] = PLANK
-	 [2] = NAILING HAMMER    [3] = NAILAMOUNT
-	 [4] = MEDKIT	
-	 [5] = MOBILE SUPPLIES
-	 [6] = KEVLAR1, PIPE1
-	 [7] = IMORTALPRO, KEYBOARD
-	 [8] = HAIL'HP', FULL KEVLAR
-	 [9] = FALLDAMAGE, MEDKIT UPGRADE1
-	[10] = PYTHON MAGNUM
-	[11] = BARRICADING KIT
-	[12] = PLANK AMOUNT, PIPE2
-	[13] = FREEMAN SPIRIT
-	[14] = POISON PROTECTION, HOOK
-	[15] = TURRET
-	[16] = TURRET REMOTE
-	[17] = TURRET OVERDRIVE
-	[18] = PLANK HP
-	[19] = POT
-	[20] = GRENADE
-	[21] = CLASSICE PISTOL
-	[22] = SPEED BOOST1
-	[23] = MEDICAL EFFICIENCY
-	[24] = C4
-	[25] = ENHANCED KEVLAR
-	[26] = COMBAT KNIFE
-	[27] = COMBACK
-	[28] = ADRENALINE INJECTION
-	[29] = CROWBAR
-	[30] = MINI TURRET
+		Some levels don't have any unlocks. 
+		
+[0] = USP, FISTS, KEVLAR3, COMBACK2, P228, Torch, Hammer, 
+[0] = Medkit, Supplies, Turret, Granade, Mine, Plank 
+[1] = PLANK'tool'  	
+[2] = Experienced Medic 
+[3] = Upgraded Hammer	 
+[4] = 'Classic' SMG		
+[5] = Keyboard	
+[6] = PIPE1	 
+[7] = IMORTALPRO
+[8] = Nothing ;'(		 
+[9] = Fall Damage
+[10] = Support
+[11] = Kevlar	
+[12] = PIPE2	
+[13] = Berserker	
+[14] = POISON PROTECTION
+[15] = Hook	
+[17] = Turret Overdrive	
+[19] = Classic Pistol	
+[21] = CLASSICE PISTOL	
+[22] = SPEED BOOST1	
+[24] = Combat Knife	
+[26] = COMBAT KNIFE		
+[28] = ADRENALINE INJECTION	
+[29] = CROWBAR	
+[30] = MINI TURRET
+	
 	]]
 } 
 
@@ -801,40 +744,14 @@ HELP_TXT[3] = {
 		You can also gain XP by killing humans and zombies.
 		]]--
 
-HELP_TXT[4] = {
-	title = "Quick Guide", 
-	txt = [[
-		> How to change zombie class?
-		* Press F3 (also drops weapon as human)
-		
-		> How to become a human as a zombie?
-		* Kill 4 humans (score 8 points)
-		
-		> How to get new weapons?
-		* Guns for kills. It is what it says on the tin! ^^
-		* Kill zombies get SP and go to the crate when the timer is ready!
-		
-		> Where I can buy hats?
-		* GreenCoins Shop. Type !shop in chat to open it.
-		
-		> How to use hammer?
-		* Right click to nail a prop to something. (Read the screen!)
-		
-		> How to check my experience amount?
-		* Type !levelstats in chat
-		
-		> Where I can find options?
-		* Press F4
-		
-		> Who's awesome?
-		* You are!
-	]]
-} 
+
 ADMINS_HTTP = "http://left4green.com/serverinfo/zs_admins.php"
 HELP_TXT[5] = {
 	title = "Server", 
 	txt = [[]]
 } 
+
+
 --battery
 HELP_TEXT = {}
 HELP_TEXT[1] = { title = "Help", text = [[^rZombie Survival
@@ -861,6 +778,9 @@ HELP_TEXT[1] = { title = "Help", text = [[^rZombie Survival
 @Zombie Survival modified by Limetric Studios.
 @
 @Check out www.lef4green.com or www.limetric.com!]]}
+
+
+
 
 -- Append the changelog later on
 CHANGELOG_HTTP = "http://www.mr-green.nl/portal/serverinfo/zs_changelog.html"
@@ -941,29 +861,6 @@ HELP_TEXT[5] = { title = "Donate!", text = [[^yDONATE TO THIS SERVER!
 @
 ]]}
 
-HELP_TEXT[6] = { title = "Fun", text = [[^yFun stuff
-@
-@List of chat triggers. Differs per male/female/combine voicesets:
-@
-@	- "zombie"
-@   - "pills"
-@	- "headcrab"
-@	- "watch out"
-@	- "open the door"
-@	- "get out"
-@	- "nice"
-@	- "hacks"
-@	- "help"
-@	- "move" or "lets go"
-@	- "oh shi"
-@	- "leeroy"
-@	- "get down"
-@ 	- "ok"
-@ 	- Ask an admin for '!ravebreak' ^^
-@
-@ There are also quite a few secret ones too. ;)
-@
-]]}
 
 HELP_TEXT[7] = { title = "Quick Guide.", text = [[^Beginners Guide
 @
@@ -1101,6 +998,8 @@ PlayerModels = {
 		"css_riot",
 		"css_swat",
 		"css_urban",
+		"combie_soldier",
+		"combie_soldier_prisonguard"
 		--"santa"
 }
 
@@ -1120,7 +1019,7 @@ PlayerAdminModels = {
 
 HumanClasses = { } --Duby: Leave this table as it will cause errors in sv_tables.lua and in the init.lua. I will deal with it soon!
 					 --Duby: Removed it, seems ok. I removed a load of stuff in sv_playerspawn and obj_player_extended and also sv_tables.
-
+						--Duby: So Necro used one of the classes for the human class which is used now. Kinda lazy but it works...
 HumanClasses[1] =
 {
 	Name = "Medic",
@@ -1131,18 +1030,7 @@ HumanClasses[1] =
 	Models = {"models/player/group03/male_02.mdl","models/player/group03/Male_04.mdl","models/player/group03/male_06.mdl","models/player/group03/male_07.mdl"},
 	Speed = 200,
 }
-
---HumanClasses[2] =
---{
-	--Name = "Commando",
-	--Tag = "commando",
-	--Health = 100,
-	--Description = {"% increased rifle magazine size","% more health","% chance to spawn with rifle","Can see health of zombies and ethereals"},
-	--Coef = {5,2,3,""},
-	--Models = {"models/player/combine_soldier.mdl","models/player/combine_soldier_prisonguard.mdl","models/player/combine_super_soldier.mdl","models/player/police.mdl" },
-	--Speed = 190,
---}
-
+--[[
 HumanClasses[3] =
 {
 	Name = "Berserker",--Aka Marksman
@@ -1161,72 +1049,8 @@ HumanClasses[4] =
 	Description = {"% chance to spawn with turret","% increased clip for pulse weapons","% chance to spawn with pulse smg","% more turret's efficiency"},
 	Models = {"models/player/alyx.mdl","models/player/barney.mdl","models/player/eli.mdl","models/player/mossman.mdl","models/player/kleiner.mdl","models/player/breen.mdl" },
 	Speed = 190
-	}
+	}]]--
 
---HumanClasses[5] =
---{
---	Name = "Support",
---	Tag = "support",
-	--Health = 90,
---	Description = {"% increased smg damage.","% chance to spawn with smg","% chance to spawn with mobile supplies","more nail(s) for the hammer"},
---	Coef = {5,3,12,1},
---	Models = {"models/player/arctic.mdl","models/player/leet.mdl","models/player/guerilla.mdl","models/player/phoenix.mdl","models/player/riot.mdl","models/player/swat.mdl","models/player/urban.mdl" },
-	--Speed = 200
---}
-	
-	-- Human Class Description Tables
-	--ClassInfo = { }
---	ClassInfo[1] = { }
-	--ClassInfo[1].Ach = { }
---	ClassInfo[1].Ach[1] = {"Heal 10k hp", "Open 100 supply crates",10000,100}  -- What you need to do to get from level 0 to 1!
---	ClassInfo[1].Ach[2] = {"Heal 20k hp", "Open 250 supply crates",20000,250} -- What you need to do to get from level 1 to 2!
---	ClassInfo[1].Ach[3] = {"Heal 500 injured people", "Heal 1000 hp from supply crates",500,1000}
---	ClassInfo[1].Ach[4] = {"Heal 1000 injured people", "Heal 2100 hp from supply crates",1000,2100}
---	ClassInfo[1].Ach[5] = {"Heal 400 infected people", "Survive 150 rounds",400,150}
---	ClassInfo[1].Ach[6] = {"Heal 900 infected people", "Survive 300 rounds",900,300}
---	ClassInfo[1].Ach[7] = {"All Done", "All Done",4500,300}
-	
---	ClassInfo[2] = { }
---	ClassInfo[2].Ach = { }
---	ClassInfo[2].Ach[1] = {"Dismemberment 600 undead", "Do 150k dmg to undead",600,150000} -- 0 
---	ClassInfo[2].Ach[2] = {"Dismemberment 2000 undead", "Do 300k dmg to undead",2000,300000} -- 1  
---	ClassInfo[2].Ach[3] = {"Kill 300 howlers with rifle", "Kill 1500 zombies with rifle",300,1500} -- 2
---	ClassInfo[2].Ach[4] = {"Kill 600 howlers with rifle", "Kill 3000 zombies with rifle",600,3000} -- 3
---	ClassInfo[2].Ach[5] = {"Open 500 supply crates", "Survive 150 rounds",500,150} -- 4
---	ClassInfo[2].Ach[6] = {"Open 1200 supply crates", "Survive 300 rounds",1200,300} --5
---	ClassInfo[2].Ach[7] = {"All Done", "All Done",500,300}
-	
-	
---	ClassInfo[3] = { }
---	ClassInfo[3].Ach = { }
---	ClassInfo[3].Ach[1] = {"Get 1000 headshots", "Deal 170k sniper damage",1000,170000}
---	ClassInfo[3].Ach[2] = {"Get 2500 headshots", "Deal 450k sniper damage",2500,450000}
---	ClassInfo[3].Ach[3] = {"Deal 200k headshot damage", "Kill 1500 zombies",200000,1500}
---	ClassInfo[3].Ach[4] = {"Deal 600k headshot damage", "Kill 4000 zombies",600000,4000}
---	ClassInfo[3].Ach[5] = {"Get 700 long range headshots", "Survive 150 rounds",1337,150}
---	ClassInfo[3].Ach[6] = {"Get 1337 long range headshots", "Survive 300 rounds",4000,300}
---	ClassInfo[3].Ach[7] = {"All Done", "All Done",15000,300}
-	
-	
---	ClassInfo[4] = { }
---	ClassInfo[4].Ach = { }
---	ClassInfo[4].Ach[1] = {"Deploy 20 turrets", "Deploy 150 tripmines",20,150}
---	ClassInfo[4].Ach[2] = {"Deploy 60 turrets", "Deploy 350 tripmines",60,350}
---	ClassInfo[4].Ach[3] = {"Kill 600 undead with mine", "Deal 200k mine damage",600,200000} --
---	ClassInfo[4].Ach[4] = {"Kill 850 undead with mine", "Deal 500k mine damage",850,500000} --
---	ClassInfo[4].Ach[5] = {"Deal 250k damage with pulse", "Survive 150 rounds",250000,150}
---	ClassInfo[4].Ach[6] = {"Deal 500k damage with pulse", "Survive 300 rounds",500000,300}
---	ClassInfo[4].Ach[7] = {"All Done", "All Done",500000,300}
-	
---	ClassInfo[5] = { }
---	ClassInfo[5].Ach = { }
---	ClassInfo[5].Ach[1] = {"Take 25000 ammo from supply crates", "Nail 150 props",25000,150}
---	ClassInfo[5].Ach[2] = {"Take 100k ammo from supply crates", "Nail 400 props",100000,400}
---	ClassInfo[5].Ach[3] = {"Deal 150k dmg with smg", "Open 300 supply crates",150000,300}
---	ClassInfo[5].Ach[4] = {"Deal 300k dmg with smg", "Open 1100 supply crates",300000,1100}
---	ClassInfo[5].Ach[5] = {"Deal 200k dmg with shotgun", "Survive 150 rounds",200000,150}
---	ClassInfo[5].Ach[6] = {"Deal 400k dmg with shotgun", "Survive 300 rounds",400000,300}
---	ClassInfo[5].Ach[7] = {"All Done", "All Done",400000,300}
 
 --[=[--------------------------------------------
 		Achievement descriptions

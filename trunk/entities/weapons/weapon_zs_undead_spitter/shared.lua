@@ -101,7 +101,9 @@ local pl = self.Owner
 		end
 	end
 
-	pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
-
+	--pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
+	self.Owner:EmitSound("npc/barnacle/barnacle_die2.wav")
+	self.Owner:EmitSound("npc/barnacle/barnacle_digesting1.wav")
+	self.Owner:EmitSound("npc/barnacle/barnacle_digesting2.wav")
 	pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
 end

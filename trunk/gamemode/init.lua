@@ -62,6 +62,7 @@ AddCSLuaFile("shared/sh_animations.lua")
 AddCSLuaFile("shared/sh_zombo_anims.lua")
 AddCSLuaFile("client/cl_hud.lua")
 AddCSLuaFile("client/cl_cratemove.lua")
+AddCSLuaFile("client/cl_etherial_blend.lua")
 AddCSLuaFile("modules/legs/cl_legs.lua")
 AddCSLuaFile("modules/news/cl_news.lua")
 
@@ -99,6 +100,7 @@ include("modules/log/hl_log.lua")
 	Include the server and shared files
 ---------------------------------------------------------]=]
 include("shared.lua")
+include("shared/objectivemaps/zm_gasdump_b4.lua")
 include("shared/sh_utils.lua")
 include("server/zs_options_server.lua") -- Options
 include("server/sv_tables.lua")
@@ -125,6 +127,7 @@ include("server/anti_map_exploit.lua" )
 include("server/sv_poisongasses.lua" )
 include("server/sv_waves.lua" ) 
 include("server/sv_pickups.lua" )
+
 
 
 
@@ -178,11 +181,17 @@ include("extended/irc/sv_irc.lua")
 --include("modules/kill_rewards/sv_kill_rewards.lua")
 
 --Unstuck
---include("modules/unstuck/sh_unstuck.lua")
+include("modules/unstuck/sh_unstuck.lua")
 
 -- FPS buss
 include("modules/fpsbuff/sh_buffthefps.lua")
 include("modules/fpsbuff/sh_nixthelag.lua")
+
+--Umsg Messages to .Net 
+
+--include("modules/umsgtonet/umsgtonet.lua")
+--include("modules/umsgtonet/umsgtonet2.lua")
+--include("modules/umsgtonet/umsgtonet3.lua")
 
 --Christmas
 if CHRISTMAS then
@@ -295,7 +304,7 @@ function GM:Initialize()
 	GAMEMODE:SetMapList()
 	GAMEMODE:SetCrates()
 	GAMEMODE:SetExploitBoxes()
-	GAMEMODE:AddRandomSales()
+	--GAMEMODE:AddRandomSales()
 				
 	--Set few ConVars
 	game.ConsoleCommand("fire_dmgscale 1\nmp_flashlight 1\nmp_allowspectators 0\n")
@@ -411,7 +420,8 @@ end
 ---------------------------------------------------------------------]=]
 local function DeleteEntitiesRestricted()
 	-- Entities to delete on map (wildcards are supported)
-	local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", --[=["func_door", "func_door_rotating",]=] "weapon_*", "item_ammo_*", "item_box_buckshot" }
+	--local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", --[=["func_door", "func_door_rotating",]=] "weapon_*", "item_ammo_*", "item_box_buckshot" }
+	local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", --[=["func_door", "func_door_rotating",]=] "item_ammo_*", "item_box_buckshot" }
 	
 	-- Trash bin table, stores entities that will be removed
 	local TrashBin, CurrentMapTable = {}, MapProperties[game.GetMap()]-- TranslateMapTable[ game.GetMap() ]
@@ -433,8 +443,8 @@ local function DeleteEntitiesRestricted()
 	
 	-- Map specific filter for ents
 	if CurrentMapTable then
-		-- local MapRemoveEnts,MapRemoveEntsByModel, MapException, MapRemoveGlass,MapRemoveEntsByModelPattern = CurrentMapTable.RemoveEntities,CurrentMapTable.RemoveEntitiesByModel, CurrentMapTable.ExceptEntitiesRemoval, CurrentMapTable.RemoveGlass, CurrentMapTable.RemoveEntitiesByModelPattern
-		local MapRemoveEnts,MapRemoveEntsByModel, MapException, MapRemoveGlass,MapRemoveEntsByModelPattern = CurrentMapTable[1],CurrentMapTable[3], CurrentMapTable[2], CurrentMapTable[4], CurrentMapTable.RemoveEntitiesByModelPattern
+		 local MapRemoveEnts,MapRemoveEntsByModel, MapException, MapRemoveGlass,MapRemoveEntsByModelPattern = CurrentMapTable.RemoveEntities,CurrentMapTable.RemoveEntitiesByModel, CurrentMapTable.ExceptEntitiesRemoval, CurrentMapTable.RemoveGlass, CurrentMapTable.RemoveEntitiesByModelPattern
+		--local MapRemoveEnts,MapRemoveEntsByModel, MapException, MapRemoveGlass,MapRemoveEntsByModelPattern = CurrentMapTable[1],CurrentMapTable[3], CurrentMapTable[2], CurrentMapTable[4], CurrentMapTable.RemoveEntitiesByModelPattern
 		-- Add entities to trash bin table 
 		if MapRemoveEnts and #MapRemoveEnts > 0 then
 			for i = 1, #MapRemoveEnts do
@@ -788,16 +798,7 @@ function GM:SpawnHat(pl, hattype)
 			IsHatValid = false
 		end
 	end
-	
-	-- print("hat "..tostring(IsHatValid))
-	-- print(hattype)
-	--[==[for k,v in pairs ( hats ) do
-		if hattype == k then
-			IsHatValid = true
-			break
-		end
-	end]==]
-	
+
 	-- There isn't a hat with that name in the table
 	if not IsHatValid then return end
 
@@ -811,15 +812,6 @@ function GM:SpawnHat(pl, hattype)
 		if pl:IsBot() then
 			pl.Hat:SetHatType("cigar$homburg")-- "cigar"
 			--print("Setting hat to rpresent")
-			--[==[local randhat = math.random( 1,13 )
-			local cnt = 1
-			for k, v in pairs( hats ) do
-				if cnt == randhat then
-					pl.Hat:SetHatType(k)
-					break
-				end
-				cnt = cnt+1
-			end	]==]	
 		else
 			pl.Hat:SetHatType( hattype )
 		end
@@ -839,8 +831,7 @@ function GM:SpawnSuit( pl, hattype )
 	end
 
 	-- Player is a bot - testing purposes
-	-- if pl:IsBot() then hattype = "stalkersuit" end
-	
+
 	local IsHatValid = false
 	for k,v in pairs ( suits ) do
 		if hattype == k then
@@ -1002,9 +993,11 @@ function ThrowGib(owner, wep)
 		return
 	end
 
-	if owner:Alive() and owner:Team() == TEAM_UNDEAD and owner.Class == 3 then
+	--if owner:Alive() and owner:Team() == TEAM_UNDEAD and owner.Class == 3 then
+	if owner:Alive() and owner:Team() == TEAM_UNDEAD and owner.Class == 2 then
 		wep.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
-		GAMEMODE:SetPlayerSpeed(owner, ZombieClasses[3].Speed)
+	--	GAMEMODE:SetPlayerSpeed(owner, ZombieClasses[3].Speed)
+		GAMEMODE:SetPlayerSpeed(owner, ZombieClasses[2].Speed)
 		
 		local eyeangles = owner:EyeAngles()
 		local vel = eyeangles:Forward():GetNormal()
@@ -1568,17 +1561,17 @@ end
 ---------------------------------------------------------------------------]=]
 --Duby: I know this isn't the best method but it works well and its better than putting it in each SWEP. :P 
 
-hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 7 )  end end)
+hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 )  end end)
 hook.Add("PlayerDeath", "sexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_katana" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 3 ) end end)
 hook.Add("PlayerDeath", "Ywa'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_shovel" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "Duby'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_axe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 6 ) end end)
-hook.Add("PlayerDeath", "Necro'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_combatknife" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 9 ) end end)
-hook.Add("PlayerDeath", "Clavussexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_fryingpan" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 6 ) end end)
-hook.Add("PlayerDeath", "Devulassexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_keyboard" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 10 ) end end)
-hook.Add("PlayerDeath", "Benssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_plank" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 11 ) end end)
-hook.Add("PlayerDeath", "Robssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pot" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 6 ) end end)
+hook.Add("PlayerDeath", "Duby'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_axe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
+hook.Add("PlayerDeath", "Necro'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_combatknife" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
+hook.Add("PlayerDeath", "Clavussexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_fryingpan" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
+hook.Add("PlayerDeath", "Devulassexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_keyboard" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
+hook.Add("PlayerDeath", "Benssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_plank" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
+hook.Add("PlayerDeath", "Robssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pot" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5) end end)
 hook.Add("PlayerDeath", "Pufu'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_sledgehammer" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "boxsexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_fists2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 12 ) end end)
-hook.Add("PlayerDeath", "boxsexy2", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 7 ) end end)
-hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 6 ) end end)
-hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_hook" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 7 ) end end)
+hook.Add("PlayerDeath", "boxsexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_fists2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
+hook.Add("PlayerDeath", "boxsexy2", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
+hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
+hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_hook" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)

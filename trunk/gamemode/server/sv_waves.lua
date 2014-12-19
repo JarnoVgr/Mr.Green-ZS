@@ -60,15 +60,6 @@ function GM:CalculateInfliction()
 	if ENDROUND then
 		return
 	end
-
-	--[[local zombies = team.NumPlayers(TEAM_UNDEAD)
-	local humans = team.NumPlayers(TEAM_SURVIVORS)
-	local players = humans + zombies
-	
-	local progressTime = CurTime() / ROUNDTIME
-	
-	INFLICTION = math.Round(math.max(math.Clamp(zombies / players, 0.001, 1), progressTime),2)
-	CAPPED_INFLICTION = INFLICTION]]
 	
 	local progressTime = CurTime() / ROUNDTIME
 	
@@ -110,7 +101,8 @@ function GM:GetLivingZombies()
 	local tab = {}
 
 	for _, pl in pairs(player.GetAll()) do
-		if pl:Team() == TEAM_UNDEAD and pl:Alive() and not pl:IsCrow() and not timer.Exists(pl:UniqueID().."secondwind") then
+		--if pl:Team() == TEAM_UNDEAD and pl:Alive() and not pl:IsCrow() and not timer.Exists(pl:UniqueID().."secondwind") then
+		if pl:Team() == TEAM_UNDEAD and pl:Alive() and not timer.Exists(pl:UniqueID().."secondwind") then
 			table.insert(tab, pl)
 		end
 	end
@@ -200,73 +192,3 @@ function GM:TryHumanPickup(pl, entity)
 		end
 	end
 end
-
-
-function GM:AddRandomSales()
-	self.WeaponsOnSale = self.WeaponsOnSale or {}
-	
-	local salechance = 1/(SKILLSHOP_SALE/100)
-	
-	if math.random(1,salechance) ~= 1 then
-		return
-	end
-	
-	print("[SKILLSHOP] Sale chance is: "..SKILLSHOP_SALE.."%")
-	
-	-- if passed then
-	
-	self.Sale = true
-	
-	local actualitems = math.random(1,SKILLSHOP_SALE_MAXITEMS)
-	local TempWeps = {}
-	local counter = 0
-	
-	-- filter weapons with price
-	for wep,tab in pairs(GAMEMODE.HumanWeapons) do
-		if tab.Price then
-			table.insert(TempWeps,wep)
-		end
-	end
-	
-	print("[SKILLSHOP] Today there are ".. actualitems .." item(s) on sale")
-	
-	-- Add X random weapons
-	while counter < actualitems do
-		local wep = table.Random(TempWeps)
-		if not self.WeaponsOnSale[wep] then
-			self.WeaponsOnSale[wep] = math.random(SKILLSHOP_SALE_SALE_MINRANGE,SKILLSHOP_SALE_SALE_MAXRANGE)
-			counter = counter + 1
-			-- Change actual price 
-			GAMEMODE.HumanWeapons[wep].Price = math.ceil(GAMEMODE.HumanWeapons[wep].Price - GAMEMODE.HumanWeapons[wep].Price*(self.WeaponsOnSale[wep]/100))
-		end
-		
-	end
-	
-	self.ItemsOnSale = counter
-end
-util.AddNetworkString("SendSales")
-
-function GM:SendSalesToClient(pl)
-	if pl:IsBot() or not self.WeaponsOnSale then
-		return
-	end
-
-	net.Start("SendSales")
-		net.WriteDouble(self.ItemsOnSale or 0)
-			for wep, tab in pairs(self.WeaponsOnSale) do
-				net.WriteString(wep)
-				net.WriteDouble(self.WeaponsOnSale[wep])
-			end
-	net.Send(pl)
-end
-
---small function that fixes weird errors
-function FixNotUpdatedSales(pl, cmd, args)
-	if not IsValid(pl) or ENDROUND then
-		return
-	end
-	
-	GAMEMODE:SendSalesToClient(pl)
-	print("[SKILLSHOP] Player "..tostring(pl).." requested serverside sales because of error! Sending new ones.")
-end
-concommand.Add("mrgreen_fixdeadsales", FixNotUpdatedSales)

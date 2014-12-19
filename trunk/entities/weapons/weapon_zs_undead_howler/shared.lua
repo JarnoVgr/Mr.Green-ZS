@@ -110,21 +110,17 @@ function SWEP:DoAttack(bPull)
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-	--	local fFuckIntensity = fHitPercentage + 1
-		local fFuckIntensity = fHitPercentage + 1.1 --Duby test.
-	--	local fFuckIntensity = math.Clamp ( 4.5 - (  fDistance  * 10 ), 1, 2 )
+		local fFuckIntensity = fHitPercentage + 1.35 --Duby test.
 
 		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 
 		-- Calculate base velocity
-		--local Velocity = -1 * mOwner:GetForward() * 225
 		local Velocity = -1 * mOwner:GetForward() * 125
 		if not bPull then
 			Velocity = -1 * Velocity * 2
 		end
 		
-		--
-		--Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random(250, 270)
+		
 		Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random(190, 230)
 		if not bPull then
 			Velocity = Vector(Velocity.x * 0.45, Velocity.y * 0.45, Velocity.z)
@@ -156,7 +152,8 @@ function SWEP:PerformPrimaryAttack()
 end
 
 function SWEP:PerformSecondaryAttack()
-	self:DoAttack(false)
+	--self:DoAttack(false)
+	self:DoAttack(true)
 end
 
 function SWEP:Move(mv)

@@ -1,5 +1,6 @@
 AddCSLuaFile()
-SWEP.PrintName = "Turret Placer"
+--SWEP.PrintName = "Turret Placer"
+SWEP.PrintName = "Turret"
 
 SWEP.HoldType = "melee"
 
@@ -26,9 +27,9 @@ end
 
 SWEP.Author = "NECROSSIN"
 
-SWEP.ViewModel = "models/Weapons/v_Grenade.mdl"
+SWEP.ViewModel = "models/weapons/c_grenade.mdl"
 SWEP.WorldModel = "models/Weapons/w_grenade.mdl"
-
+SWEP.UseHands = true
 SWEP.Base				= "weapon_zs_base_dummy"
 
 SWEP.Slot = 5
@@ -228,3 +229,12 @@ function SWEP:Think()
 	end
 end
 
+if CLIENT then
+	function SWEP:DrawHUD()
+		if not self.Owner:Alive() or ENDROUND then
+			return
+		end
+		MeleeWeaponDrawHUD()
+		draw.SimpleTextOutlined("'e' to pick up the turret!!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	end
+end

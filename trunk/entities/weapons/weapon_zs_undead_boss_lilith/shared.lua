@@ -18,7 +18,6 @@ SWEP.Author = "Duby"
 if CLIENT then
 	SWEP.ViewModelFOV = 82
 	SWEP.ViewModelFlip = false
-	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = true
 
 	SWEP.ViewModelBoneMods = {
@@ -48,7 +47,7 @@ if CLIENT then
 		["hookleft"] = { type = "Model", model = "models/props_junk/meathook001a.mdl", bone = "ValveBiped.Bip01_L_Forearm", rel = "", pos = Vector(12.744, -0.601, -0.758), angle = Angle(-157.594, 90.811, -98.482), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["hook"] = { type = "Model", model = "models/props_junk/meathook001a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "body1", pos = Vector(-9.219, -4.031, 50), angle = Angle(-4.95, 95.3, -5.7), size = Vector(0.699, 0.699, 0.699), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["hookright"] = { type = "Model", model = "models/props_junk/meathook001a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.112, -0.732, -0.639), angle = Angle(-100.482, 105.314, -69.044), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["body1"] = { type = "Model", model = "models/Humans/Charple03.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-44, 0, 23.875), angle = Angle(67.311, 0.119, 180), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		["body1"] = { type = "Model", model = "models/Humans/Charple01.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-44, 0, 23.875), angle = Angle(67.311, 0.119, 180), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 		
 	
@@ -61,7 +60,7 @@ end
 SWEP.Primary.Duration = 1.50
 SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 48
-SWEP.Primary.Damage = 70
+SWEP.Primary.Damage = 38
 
 SWEP.EmitWraithSound = 0
 
@@ -178,4 +177,14 @@ function SWEP:Think()
 	end
 
 	return self.BaseClass.Think(self)
+end
+
+
+if CLIENT then
+	function SWEP:DrawHUD()
+		if not self.Owner:Alive() or ENDROUND then
+			return
+		end
+		MeleeWeaponDrawHUD()
+	end
 end

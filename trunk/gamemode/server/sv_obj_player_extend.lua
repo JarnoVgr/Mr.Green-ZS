@@ -115,7 +115,6 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 				return
 			end
 			
-			-- if Victim:HasBought("naturalimmunity") then
 			if Victim:GetPerk() == "_poisonprotect" then
 				iDamage = math.ceil(iDamage - iDamage*0.6)
 			end
@@ -165,7 +164,6 @@ function meta:TakeDamageOverTime( iDamage, fDelay, iTicks, Attacker, Inflictor )
 	self.TeamDOT, self.TickDOT = self:Team(), 0
 	
 	-- Start recursion timer
-	--timer.Simple( fDelay, takeDamageOverTime, self, iDamage, fDelay, iTicks, Attacker, Inflictor )
 	timer.Simple( fDelay,function()
 				takeDamageOverTime( self, iDamage, fDelay, iTicks, Attacker, Inflictor )
 				end)
@@ -201,12 +199,6 @@ function meta:SetFirstZombie()
 	self:Message("You've been selected to lead the Undead Army.", 3, "255,255,255,255")
 	self:Spawn()
 	
-	--Aprils first joke
-	if FIRSTAPRIL then
-		umsg.Start( "MakeBody" )
-		umsg.End()
-	end
-	
 	-- Correct any speed changes
 	local Class = self:GetZombieClass()
 	GAMEMODE:SetPlayerSpeed(self, ZombieClasses[Class].Speed)
@@ -234,17 +226,13 @@ function meta:SwitchToZombie()
 	skillpoints.SetupSkillPoints(self)
 	self:UnSpectate()
 	-- Spawn him
-	-- self:Message( "You've been randomly selected to lead the Undead Army.", 1, "255,255,255,255" )
+	self:Message( "You've been randomly selected to lead the Undead Army.", 1, "255,255,255,255" )
 	self:Spawn()
 	
 	-- Correct any speed changes
 	local Class = self:GetZombieClass()
 	GAMEMODE:SetPlayerSpeed ( self, ZombieClasses[Class].Speed )
-	
-	--  logging
-	--log.PlayerJoinTeam( self, TEAM_UNDEAD )
-	--log.PlayerRoleChange( self, self:GetClassTag() )
-	
+
 	-- Set him dead in the connect data table
 	local Table = DataTableConnected[ self:UniqueID() ]
 	if Table == nil then return end
@@ -259,12 +247,9 @@ function meta:RestoreHumanHealth(am,returnhealth)
 	end
 	
 	local health, maxhealth = self:Health(), 100
-	if self:GetPerk("_kevlar") then
-		maxhealth = 110
-	elseif self:GetPerk("_kevlar2") then
+
+	if self:GetPerk("_kevlar2") then
 		maxhealth = 130
-	elseif self:GetPerk("_kevlar3") then
-		maxhealth = 105
 	end
 	if health == maxhealth and returnhealth then
 		return false
@@ -357,8 +342,7 @@ meta.BaseStripWeapons = meta.StripWeapons
 function meta:StripWeapons()
 
 	-- Reset the human's weapon counter to 0, for all categories
-	-- self.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tools = 0, Others = 0, Explosive = 0, Admin = 0 }
-	self.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
+	self.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Misc = 0, Admin = 0 }
 	-- Remove the weapons
 	for k,v in pairs ( self:GetWeapons() ) do
 		if IsEntityValid( v ) then
@@ -464,8 +448,7 @@ function meta:Gib ( dmginfo )
 	end
 	
 	self.Gibbed = true
-	-- Sound effect
-	--self:EmitSound( Sound ( "physics/flesh/flesh_bloody_break.wav" ) )
+	self:EmitSound( Sound ( "physics/flesh/flesh_bloody_break.wav" ) )
 
 	-- Spawn meat/gibs
 	local vPos = self:GetPos() + Vector( 0, 0, 32 )
@@ -492,15 +475,11 @@ function meta:Gib ( dmginfo )
 	effectdata:SetNormal(self:GetVelocity():GetNormal())
 	effectdata:SetScale(0)
 	util.Effect( "gib_player", effectdata, true, true )
-	
-	--local amount = self:OBBMaxs():Length()
-	--local vel = self:GetVelocity()
-	--util.Blood(self:LocalToWorld(self:OBBCenter()), math.Rand(amount * 0.25, amount * 0.5), vel:GetNormalized(), vel:Length() * 0.75)
-	
-	
 end
+
 local typetoscale
 function meta:Dismember ( distype,dmginfo )
+	---if not dmginfo or not ValidEntity(self) then
 	if not dmginfo or not IsValid(self) then
 		return
 	end
@@ -512,7 +491,7 @@ function meta:Dismember ( distype,dmginfo )
 
 	if distype == "HEAD" then
 		typetoscale = 1	
-		--[==[for i=1,math.random(1,3) do
+		--[[for i=1,math.random(1,3) do
 			local brain =  ents.Create( "playergib" )
 			if brain:IsValid() then
 				brain:SetPos( self:GetAttachment( 1 ).Pos )
@@ -527,11 +506,11 @@ function meta:Dismember ( distype,dmginfo )
 					phys:ApplyForceCenter(VectorRand() * math.Rand(3, 10))
 				end
 		end
-	end	]==]	
+	end	]]--	
 	elseif distype == "DECAPITATION" then
 		typetoscale = 2
 		
-		--[==[local Gib = ents.Create( "playergib" )	
+		--[[local Gib = ents.Create( "playergib" )	
 		if Gib:IsValid() then
 			Gib:SetPos( self:GetAttachment( 1 ).Pos )
 			Gib:SetAngles( VectorRand():Angle() )
@@ -545,7 +524,7 @@ function meta:Dismember ( distype,dmginfo )
 				phys:Wake()
 				phys:ApplyForceCenter(Vector(0,0,50) * math.Rand(10, 38))
 			end
-		end]==]
+		end]]--
 	elseif distype == "LARM" then
 		typetoscale = 3
 	elseif distype == "RARM" then
@@ -570,19 +549,6 @@ function meta:Dismember ( distype,dmginfo )
 	util.Effect("detachbone", effectdata,nil,true)
 end
 
-function meta:GiveAmmoReward()
-	if not IsValid(self) or not IsValid(self:GetActiveWeapon()) or self:IsZombie() then
-		return
-	end
-
-	local WeaponToFill = self:GetActiveWeapon()
-	if GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" then
-		self:GiveAmmo ( math.random(5,15), WeaponToFill:GetPrimaryAmmoTypeString() )
-	elseif GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic" then
-		self:GiveAmmo ( math.random(5,20), WeaponToFill:GetPrimaryAmmoTypeString() )
-	end
-	self:EmitSound("items/ammo_pickup.wav")
-end
 
 function AddXP (pl, cmd, args)
 	if not IsValid (pl) then return end
@@ -623,12 +589,6 @@ function meta:SetPerk(key)
 		net.WriteEntity(self)
 		net.WriteString(key)
 	net.Broadcast()
-	
-	--[=[ umsg.Start("SendPlayerPerk")
-		umsg.Entity(self)
-		umsg.String(key)
-	umsg.End()  ]=]
-	
 end
 
 --*insert rage icon here please*
@@ -646,10 +606,7 @@ function meta:ValidateXP()
 		if xp < minxp then
 			print("[XP] Experience for player "..tostring(self).." corrupted. Restoring!")
 			self.DataTable["ClassData"]["default"].xp = minxp + restore
-		end
-		--[[else
-			print("Checking experience for player "..tostring(self)..". Experience is fine!")
-		end]]		
+		end	
 	end
 end
 util.AddNetworkString("SendPlayerXP")
@@ -783,181 +740,12 @@ function meta:CheckLevelUp ()
 	if self:IsBot() then return end
 	if self.DataTable["ClassData"] == nil then return end
 	
-	-- Commando Level UP!
-	--if self:GetHumanClass() == 2 then
-		--if self:GetTableScore("commando","achlevel0_2") >= 150000 and self:GetTableScore("commando","achlevel0_1") >= 600 and self:GetTableScore("commando","level") == 0 then
-		--	self:AddTableScore("commando","level",1)
-		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 Commando!")
-		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		--elseif self:GetTableScore("commando","achlevel0_2") >= 300000 and self:GetTableScore("commando","achlevel0_1") >= 2000 and self:GetTableScore("commando","level") == 1 then
-		--	self:AddTableScore("commando","level",1)
-		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 Commando!")
-		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		--elseif self:GetTableScore("commando","achlevel2_2") >= 1500 and self:GetTableScore("commando","achlevel2_1") >= 300 and self:GetTableScore("commando","level") == 2 then
-		--	self:AddTableScore("commando","level",1)
-		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 Commando!")
-		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("commando","achlevel2_2") >= 3000 and self:GetTableScore("commando","achlevel2_1") >= 600 and self:GetTableScore("commando","level") == 3 then
-		--	self:AddTableScore("commando","level",1)
-		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 Commando!")
-		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		--elseif self:GetTableScore("commando","achlevel4_2") >= 150 and self:GetTableScore("commando","achlevel4_1") >= 500 and self:GetTableScore("commando","level") == 4 then
-		--	self:AddTableScore("commando","level",1)
-		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 Commando!")
-		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("commando","achlevel4_2") >= 300 and self:GetTableScore("commando","achlevel4_1") >= 1200 and self:GetTableScore("commando","level") == 5 then
-		--	self:AddTableScore("commando","level",1)
-		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 Commando!")
-		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	end
-	--end	
-
-	-- Medic Level UP!
-	--if self:GetHumanClass() == 1 then
-	--	if self:GetTableScore("medic","achlevel0_2") >= 100 and self:GetTableScore("medic","achlevel0_1") >= 10000 and self:GetTableScore("medic","level") == 0 then
-	--		self:AddTableScore("medic","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 medic!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("medic","achlevel0_2") >= 250 and self:GetTableScore("medic","achlevel0_1") >= 20000 and self:GetTableScore("medic","level") == 1 then
-	--		self:AddTableScore("medic","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 medic!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("medic","achlevel2_2") >= 1000 and self:GetTableScore("medic","achlevel2_1") >= 500 and self:GetTableScore("medic","level") == 2 then
-	--		self:AddTableScore("medic","level",1)
-		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 medic!")
-		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		--elseif self:GetTableScore("medic","achlevel2_2") >= 2100 and self:GetTableScore("medic","achlevel2_1") >= 1000 and self:GetTableScore("medic","level") == 3 then
-		--	self:AddTableScore("medic","level",1)
-		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 medic!")
-		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		--elseif self:GetTableScore("medic","achlevel4_2") >= 150 and self:GetTableScore("medic","achlevel4_1") >= 400 and self:GetTableScore("medic","level") == 4 then
-		--	self:AddTableScore("medic","level",1)
-		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 medic!")
-		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		--elseif self:GetTableScore("medic","achlevel4_2") >= 300 and self:GetTableScore("medic","achlevel4_1") >= 900 and self:GetTableScore("medic","level") == 5 then
-			--self:AddTableScore("medic","level",1)
-		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 medic!")
-		--	self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-		--end
-	--end	
-
-	-- Berseker Level UP!
-	--if self:GetHumanClass() == 3 then
-		--if self:GetTableScore("berserker","achlevel0_1") >= 1000 and self:GetTableScore("berserker","achlevel0_2") >= 170000 and self:GetTableScore("berserker","level") == 0 then
-	--		self:AddTableScore("berserker","level",1)
-		--	self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 marksman!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("berserker","achlevel0_1") >= 2500 and self:GetTableScore("berserker","achlevel0_2") >= 450000 and self:GetTableScore("berserker","level") == 1 then
-	--		self:AddTableScore("berserker","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 marksman!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("berserker","achlevel2_1") >= 200000 and self:GetTableScore("berserker","achlevel2_2") >= 1500 and self:GetTableScore("berserker","level") == 2 then
-	--		self:AddTableScore("berserker","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 marksman!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("berserker","achlevel2_1") >= 600000 and self:GetTableScore("berserker","achlevel2_2") >= 4000 and self:GetTableScore("berserker","level") == 3 then
-	--		self:AddTableScore("berserker","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 marksman!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("berserker","achlevel4_1") >= 700 and self:GetTableScore("berserker","achlevel4_2") >= 150 and self:GetTableScore("berserker","level") == 4 then
-	--		self:AddTableScore("berserker","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 marksman!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("berserker","achlevel4_1") >= 1337 and self:GetTableScore("berserker","achlevel4_2") >= 300 and self:GetTableScore("berserker","level") == 5 then
-	--		self:AddTableScore("berserker","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 marksman!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	end
---	end		
-	
-	-- Engineer Level UP!
---	if self:GetHumanClass() == 4 then
---		if self:GetTableScore("engineer","achlevel0_1") >= 20 and self:GetTableScore("engineer","achlevel0_2") >= 150 and self:GetTableScore("engineer","level") == 0 then
---			self:AddTableScore("engineer","level",1)
---			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 engineer!")
---			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
---		elseif self:GetTableScore("engineer","achlevel0_1") >= 60 and self:GetTableScore("engineer","achlevel0_2") >= 350 and self:GetTableScore("engineer","level") == 1 then
---			self:AddTableScore("engineer","level",1)
---			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 engineer!")
---			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
---		elseif self:GetTableScore("engineer","achlevel2_1") >= 600 and self:GetTableScore("engineer","achlevel2_2") >= 200000 and self:GetTableScore("engineer","level") == 2 then
---			self:AddTableScore("engineer","level",1)
---			self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 engineer!")
---			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
---		elseif self:GetTableScore("engineer","achlevel2_1") >= 850 and self:GetTableScore("engineer","achlevel2_2") >= 500000 and self:GetTableScore("engineer","level") == 3 then
---			self:AddTableScore("engineer","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 engineer!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("engineer","achlevel4_1") >= 250000 and self:GetTableScore("engineer","achlevel4_2") >= 150 and self:GetTableScore("engineer","level") == 4 then
-	--		self:AddTableScore("engineer","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 engineer!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("engineer","achlevel4_1") >= 500000 and self:GetTableScore("engineer","achlevel4_2") >= 300 and self:GetTableScore("engineer","level") == 5 then
-	--		self:AddTableScore("engineer","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 engineer!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	end
---	end		
-	
-	-- Support Level UP!
---	if self:GetHumanClass() == 5 then
---		if self:GetTableScore("support","achlevel0_1") >= 25000 and self:GetTableScore("support","achlevel0_2") >= 150 and self:GetTableScore("support","level") == 0 then
-	--		self:AddTableScore("support","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 1 support!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("support","achlevel0_1") >= 100000 and self:GetTableScore("support","achlevel0_2") >= 400 and self:GetTableScore("support","level") == 1 then
-	--		self:AddTableScore("support","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 2 support!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("support","achlevel2_1") >= 150000 and self:GetTableScore("support","achlevel2_2") >= 300 and self:GetTableScore("support","level") == 2 then
-	--		self:AddTableScore("support","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 3 support!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("support","achlevel2_1") >= 300000 and self:GetTableScore("support","achlevel2_2") >= 1100 and self:GetTableScore("support","level") == 3 then
-	--		self:AddTableScore("support","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 4 support!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("support","achlevel4_1") >= 200000 and self:GetTableScore("support","achlevel4_2") >= 150 and self:GetTableScore("support","level") == 4 then
-	--		self:AddTableScore("support","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 5 support!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	elseif self:GetTableScore("support","achlevel4_1") >= 400000 and self:GetTableScore("support","achlevel4_2") >= 300 and self:GetTableScore("support","level") == 5 then
-	--		self:AddTableScore("support","level",1)
-	--		self:PrintMessage (HUD_PRINTTALK,"Congratulation, you have reached level 6 support!")
-	--		self:EmitSound("weapons/physcannon/physcannon_charge.wav")
-	--	end
-	--end	
 end
 
 function meta:GetTableScore( class,stat)
 	if self:IsBot() then return 0 end
 	if not class then return 0 end
 	return 0
-	-- No datatable present
-	--[==[if self.DataTable == nil then return end
-	if self.DataTable["ClassData"] == nil then return end
-	
-	if stat == "level" then
-		return self.DataTable["ClassData"][class].level
-	elseif stat == "achlevel0_1" or stat == "achlevel1_1" then
-		return self.DataTable["ClassData"][class].achlevel0_1
-	elseif stat == "achlevel0_2" or stat == "achlevel1_2" then
-		return self.DataTable["ClassData"][class].achlevel0_2
-	elseif stat == "achlevel2_1" or stat == "achlevel3_1" then
-		return self.DataTable["ClassData"][class].achlevel2_1
-	elseif stat == "achlevel2_2" or stat == "achlevel3_2" then
-		return self.DataTable["ClassData"][class].achlevel2_2
-	elseif stat == "achlevel4_1" or stat == "achlevel5_1" then
-		return self.DataTable["ClassData"][class].achlevel4_1
-	elseif stat == "achlevel4_2" or stat == "achlevel5_2" then
-		return self.DataTable["ClassData"][class].achlevel4_2
-	elseif stat == "achlevel6_1" then
-		return self.DataTable["ClassData"][class].achlevel4_1
-	elseif stat == "achlevel6_2" then
-		return self.DataTable["ClassData"][class].achlevel4_2
-	else
-		return 0
-	end]==]
 end
 --------------------------------------------------------------------------
 
@@ -1005,17 +793,6 @@ function meta:UnlockAchievement(stat)
 	end
 	
 	return true
-end
-
-function meta:SelectSpawnType(iscrow)
-	--[[if GAMEMODE:IsBossRequired() and GAMEMODE:GetPlayerForBossZombie() == self then
-		self:SpawnAsZombieBoss()
-	else]]
-		if iscrow then
-			self:SetZombieClass(self.DeathClass or 0)
-		end
-		self:UnSpectateAndSpawn()
-	--end
 end
 
 function meta:SpawnAsZombieBoss()			
@@ -1223,20 +1000,6 @@ if ( type( arg[1] ) == "Player" ) then self = arg[1] end
                 end
             end
         net.Send(self)
-	
-		--[==[umsg.Start("CustomChatAdd", self)
-            umsg.Short( #arg )
-            for _, v in pairs( arg ) do
-                if ( type( v ) == "string" ) then
-                    umsg.String( v )
-                elseif ( type ( v ) == "table" ) then
-                    umsg.Short( v.r )
-                    umsg.Short( v.g )
-                    umsg.Short( v.b )
-                    umsg.Short( v.a )
-                end
-            end
-        umsg.End( )]==]
 end
 
 ---
@@ -1370,16 +1133,11 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	end
 	
 	--Prevent cadebreaking by reducing attack damage dealt by humans
+--	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and dmginfo:IsMeleeDamage() and inflictor:GetClass() == "weapon_zs_grenade" or "weapon_zs_mine" and ent.Nails then --Duby: Stop nitwits destroying the cades with Grenades and C4..
 	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and dmginfo:IsMeleeDamage() and ent.Nails then 
 		--damage = damage * 0.25
 		damage = 0 
-	end
-	
-	--Hammer can't damage --Duby: Not used anymore.
---	if inflictor:GetClass() == "weapon_zs_tools_hammer" then
-	--	damage = 0
-	--end
-
+end
 	local bNailDied = false
 
 	for i=1, #ent.Nails do
@@ -1586,7 +1344,8 @@ util.AddNetworkString( "DoHulls" )
 ---
 -- FIXME: This function does way more than just 'hulls'.
 -- Called every PlayerSpawn, (re)setting hulls/offset/mass, sending net data. A disaster.
--- 
+--
+
 function meta:DoHulls(classid, teamid)
 	teamid = teamid or self:Team()
 	classid = classid or -10
@@ -1721,13 +1480,11 @@ function meta:CheckSpeedChange()
 	local fHealthSpeed = self:GetPerk("_adrenaline") and 1 or math.Clamp ( ( health / 50 ), 0.7, 1 )
 	
 	if self:IsHolding() then
-		-- for _, status in pairs(ents.FindByClass("status_human_holding")) do
 		local status = self.status_human_holding
 			if status and IsValid(status) and status:GetOwner() == self and status.GetObject and status:GetObject():IsValid() and status:GetObject():GetPhysicsObject():IsValid() then
 				speed = math.max(CARRY_SPEEDLOSS_MINSPEED, speed - status:GetObject():GetPhysicsObject():GetMass() * CARRY_SPEEDLOSS_PERKG)
 				-- break
 			end
-		-- end
 	else
 		speed = math.Round ( speed * fHealthSpeed )
 	end
@@ -1753,54 +1510,3 @@ function meta:SpawnMiniTurret()
 		self.MiniTurret = ent
 	end
 end
-
---[[----------------------------------------------------]]--
-
---util.AddNetworkString( "BoughtPointsWithCoins" )
---[[
-function meta:HasBoughtPointsWithCoins()
-    local tab = DataTableConnected[self:UniqueID()]
-    if ( tab ) then
-        return tab.HasBoughtPointsWithCoins or false
-    end
-    
-    return false
-end
-
-function meta:SetBoughtPointsWithCoins( bool )
-    local tab = DataTableConnected[self:UniqueID()]
-    if ( not tab ) then
-        DataTableConnected[self:UniqueID()] = {}    
-    end
-    
-    tab.HasBoughtPointsWithCoins = bool
-end
-
-function meta:CanBuyPointsWithCoins()
-    return not self:HasBoughtPointsWithCoins() and self:GreenCoins() >= 200
-end
-]]--
-
---[[
-function meta:UpdateBoughtPointsWithCoins()
-    net.Start( "BoughtPointsWithCoins" )
-        net.WriteBit( self:HasBoughtPointsWithCoins() )
-    net.Send( self )
-end
-
-hook.Add( "PlayerReady", "UpdatePlayerBoughtPointsWithCoins", function( pl )
-    pl:UpdateBoughtPointsWithCoins()
-end )
-
-concommand.Add( "zs_boughtpointswithcoins", function( pl, cmd, args )
-    if ( IsValid( pl ) ) then
-        if ( pl:CanBuyPointsWithCoins() ) then
-			skillpoints.AddSkillPoints(pl, 300)
-            pl:TakeGreenCoins(80)
-        end
-        pl:SetBoughtPointsWithCoins(true)
-    end
-end )
-
-
-]]--

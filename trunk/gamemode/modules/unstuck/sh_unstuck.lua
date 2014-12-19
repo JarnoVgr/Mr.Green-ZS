@@ -52,7 +52,7 @@ if SERVER then
 		local ang = ply:GetAimVector()
 		local forward = ply:GetForward()
 		local center = Vector( 0, 0, 30 )
-		local realpos = ( (pos + center ) + (forward * 75) )
+		local realpos = ( (pos + center ) + (forward * 40) )
 		
 		local chprop = ents.Create( "prop_physics" )
 		
@@ -149,5 +149,5 @@ if SERVER then
 		return ""
 		end
 	end)
- 
+
 end

@@ -78,6 +78,14 @@ function DrawTargetIDTurret ( MySelf, team )
 
 end
 
+
+
+
+
+
+
+
+
 function GM:_HUDDrawTargetID(MySelf, team)
 	if not IsValid(MySelf) then
 		return
@@ -123,6 +131,8 @@ function GM:_HUDDrawTargetID(MySelf, team)
 			col = Color(255,255,255,155)
 			col2 = Color(0,0,0,155)
 			col3 = Color(30,30,30,255)
+			col4 = Color(219,212,0,255)
+			col5 = Color(219,0,0,255)
 			for i=1, 4 do
 				rand = math.Rand(-2, 2)
 				rand2 = math.Rand(-2,2)
@@ -131,11 +141,29 @@ function GM:_HUDDrawTargetID(MySelf, team)
 					col = Color(255,255,255,255)
 					col2 = Color(0,0,0,255)
 					col3 = col
+					col4 = Color(219,212,0,255)
+					col5 = Color(219,0,0,255)
 					rand = 0 
 					rand2 = 0 
 				end
 				draw.SimpleText("F", "Signs", x+rand,y+rand2, col3, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
-				draw.SimpleTextOutlined(entityhealth, "ArialBoldSeven", x+rand, y +rand2- h*0.01, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER, 1, col2)
+				draw.SimpleTextOutlined(entityhealth, "ArialBoldSeven", x+rand, y +rand2- h*0.01, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER, 1, col2)	
+				
+				if entityhealth < 25 then 
+					local pl = LocalPlayer()
+					if pl:Team() == TEAM_HUMAN then
+					draw.SimpleTextOutlined("Requires Medic!","ArialBoldTwelve",x+rand,y+rand2-120,col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, col4)
+					end
+						if entityhealth < 10 then return end 
+					end					
+				if entityhealth < 10 then 	--Duby:Don't know why this works like it does. Really odd, need to look at this properly.. 
+					local pl = LocalPlayer()
+					if pl:Team() == TEAM_HUMAN then
+					draw.SimpleTextOutlined("Bleeding to death..","ArialBoldTwelve",x+rand,y+rand2-120,col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, col5)
+					end
+				end
+		
+				
 			end
 		end
 	end

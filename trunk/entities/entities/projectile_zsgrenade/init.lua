@@ -40,7 +40,7 @@ function ENT:Explode()
 	if owner:IsValid() and owner:IsPlayer() and owner:Team() == TEAM_HUMAN then
 		local pos = self:GetPos()
 
-		util.BlastDamage2(self, owner, pos, self.GrenadeRadius or 256, self.GrenadeDamage or 400)
+		util.BlastDamage2(self, owner, pos, self.GrenadeRadius or 350, self.GrenadeDamage or 500)
 
 		local effectdata = EffectData()
 		effectdata:SetOrigin(pos)

@@ -16,7 +16,7 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Primary.Delay = 0.2
 SWEP.Primary.Reach = 42
-SWEP.Primary.Damage = 6
+SWEP.Primary.Damage = 5.2
 SWEP.Primary.Duration = 0.8
 
 
@@ -207,7 +207,7 @@ function SWEP:SecondaryAttack()
 	self.Leaping = true
 	
 	--Leap cooldown
-	self.NextLeap = CurTime() + 5
+	self.NextLeap = CurTime() + 3
 	
 	--Fast zombie scream
 	if SERVER then
@@ -224,11 +224,13 @@ function SWEP:Precache()
 	util.PrecacheSound("physics/flesh/flesh_strider_impact_bullet1.wav")
 
 	-- Quick way to precache all sounds
-	for _, snd in pairs(ZombieClasses[2].PainSounds) do
+	--for _, snd in pairs(ZombieClasses[2].PainSounds) do
+	for _, snd in pairs(ZombieClasses[3].PainSounds) do
 		util.PrecacheSound(snd)
 	end
 	
-	for _, snd in pairs(ZombieClasses[2].DeathSounds) do
+	--for _, snd in pairs(ZombieClasses[2].DeathSounds) do
+	for _, snd in pairs(ZombieClasses[3].DeathSounds) do
 		util.PrecacheSound(snd)
 	end
 end

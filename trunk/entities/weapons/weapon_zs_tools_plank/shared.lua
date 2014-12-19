@@ -21,13 +21,14 @@ if ( CLIENT ) then
 	SWEP.IgnoreBonemerge = true
 	
 	SWEP.IgnoreThumbs = true
-
+	SWEP.UseHands = true
 	
 end
 
 SWEP.Author = "NECROSSIN"
 
 SWEP.ViewModel = "models/weapons/v_c4.mdl"
+--SWEP.ViewModel  = "models/weapons/c_grenade.mdl"
 SWEP.WorldModel = "models/props_junk/propane_tank001a.mdl"
 
 
@@ -69,6 +70,7 @@ function SWEP:InitializeClientsideModels()
 		["v_weapon.Left_Thumb03"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 52.168, 0) },
 		["v_weapon.c4"] = { scale = Vector(0.002, 0.002, 0.002), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["v_weapon.Left_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(-7.238, 12.175, -3.358), angle = Angle(58.224, -14.443, 76.694) }
+		--["v_weapon.Left_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(-7.238, 10.175, -3.358), angle = Angle(20.224, -14.443, 76.694) }
 	}
 
 
@@ -108,8 +110,9 @@ function SWEP:PrimaryAttack()
 			ent:SetModel("models/props_debris/wood_board06a.mdl")
 			ent:Spawn()
 			local hp = 350
-			if self.Owner:GetPerk("_plankhp") then
-				hp = hp+hp*0.3
+			--if self.Owner:GetPerk("_plankhp") then
+			if self.Owner:GetPerk("_support") then
+				hp = hp+hp*0.5
 			end			
 			ent:SetHealth(hp)
 			ent.PropHealth = hp
@@ -136,8 +139,9 @@ end
 function SWEP:Equip ( NewOwner )
 	if CLIENT then return end
 	
-	if self.Owner:GetPerk("_plankamount") then
-		self.Weapon:SetClip1( 3 ) 	
+	--if self.Owner:GetPerk("_plankamount") then
+	if self.Owner:GetPerk("_support") then
+		self.Weapon:SetClip1( 4 ) 	
 	end
 	
 	-- Call this function to update weapon slot and others

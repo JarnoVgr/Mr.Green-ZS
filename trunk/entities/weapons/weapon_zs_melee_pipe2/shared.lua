@@ -10,7 +10,7 @@ SWEP.Base = "weapon_zs_melee_base"
 SWEP.Author = "Duby"
 SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
 SWEP.WorldModel = "models/props_canal/mattpipe.mdl"
-SWEP.UseHands = false
+SWEP.UseHands = true
 
 if CLIENT then
 	SWEP.ShowViewModel = false 
@@ -23,7 +23,7 @@ SWEP.WElements = {
 }
 
 
-	killicon.AddFont( "weapon_zs_melee_pipe2", "HL2MPTypeDeath", "6", Color(255, 120, 120, 255 ) )
+	killicon.AddFont( "weapon_zs_melee_pipe2", "HL2MPTypeDeath", "6", Color(255, 225, 225, 255 ) )
 end
 
 -- Name and fov
@@ -43,10 +43,6 @@ SWEP.SwingTime = 1
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.ShowViewModel = false
 SWEP.ShowWorldModel = false
--- Killicons
-if CLIENT then
-	killicon.AddFont( "weapon_zs_melee_pipe", "HL2MPTypeDeath", "6", Color( 255, 80, 0, 255 ) )
-end
 
 function SWEP:PlayHitSound()
 self:EmitSound("physics/metal/metal_canister_impact_hard"..math.random(3)..".wav", 75, math.random(115, 125))

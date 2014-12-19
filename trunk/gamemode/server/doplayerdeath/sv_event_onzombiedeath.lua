@@ -42,7 +42,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 						effectdata:SetEntity( mVictim )
 					util.Effect( "headshot", effectdata, true, true )
 					
-					mVictim:Dismember("HEAD",dmginfo)
+					--mVictim:Dismember("HEAD",dmginfo)
 					
 					if not mInflictor.IsTurretDmg then
 						skillpoints.AddSkillPoints(mAttacker,15)
@@ -59,7 +59,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			if dmginfo:IsMeleeDamage() and not mInflictor.IsTurretDmg then
 				if dmginfo:IsDecapitationDamage() then
 					
-					if math.random(1,2) == 1 --[=[or mAttacker:HasBought("homerun") and math.random(1,2) == 1 ]=]then
+					if math.random(1,2) == 1 then
 						skillpoints.AddSkillPoints(mAttacker,5)
 
 						mVictim:Dismember("DECAPITATION",dmginfo)

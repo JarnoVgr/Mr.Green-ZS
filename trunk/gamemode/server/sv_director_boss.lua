@@ -5,7 +5,7 @@ boss.startTime = 0
 boss.duration = 0
 boss.endTime = 0
 boss.nextBossTime = 0
-boss.count = 0
+boss.count = 3
 boss.maxCount = math.random(4,5)
 
 
@@ -15,10 +15,10 @@ function GM:UnleashBoss()
 		return nil
 end]]
 
-	--No late bosses anymore
-	if CurTime() >= ROUNDTIME-60 then
-		return nil
-	end
+	--No late bosses anymore Duby: We want late bosses. Suspense!!! 
+--	if CurTime() >= ROUNDTIME-60 then
+		--return nil
+	--end
 
 	--Set full health on players when in Arena Mode
 	if ARENA_MODE then			
@@ -30,11 +30,6 @@ end]]
 			local hp = 100
 			if pl:GetPerk("_kevlar2") then
 				hp = 130
-			elseif pl:GetPerk("_kevlar") then
-				hp = 110
-			elseif pl:GetPerk("_kevlar3") then
-				hp = 105
-
 			pl:SetHealth(hp)
 		end
 	end end
@@ -52,7 +47,7 @@ end]]
 	boss.starTime = CurTime()
 		
 	--Calculate boss duration
-	--boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 120),ROUNDTIME-CurTime())
+	boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 120),ROUNDTIME-CurTime())
 
 	--Set End time
 	boss.endTime = CurTime() + boss.duration		
@@ -89,6 +84,8 @@ end]]
 		end
 	end)
 	
+
+	
 	return pl
 end
 
@@ -97,8 +94,7 @@ function GM:CheckBoss()
 		return false
 	end
 
-	--if GetInfliction() <= 0.15 then
-	if GetInfliction() <= 0.7 then
+	if GetInfliction() <= 0.2 then
 		return false
 	end
 
@@ -144,9 +140,6 @@ function GM:SetBoss(value)
 	if boss.active == tobool(value) then
 		return false
 	end
-	
- 
-
 
 	--Update global
 	boss.active = tobool(value)
@@ -182,7 +175,7 @@ function GM:SetBoss(value)
 		--Update end time
 		boss.endTime = CurTime()
 
-		boss.nextBossTime = boss.endTime + math.random(100,200)
+		boss.nextBossTime = boss.endTime + math.random(140,170)
 	
 		--Inform players
 		net.Start("StopBoss")

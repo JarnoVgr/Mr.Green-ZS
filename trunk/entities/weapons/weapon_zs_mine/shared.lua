@@ -52,26 +52,28 @@ SWEP.Author			= "" -- Original code by Amps
 SWEP.Instructions	= "Stand close to a wall to plant the mine. Detonates when enemy is within visible range." 
 SWEP.NextPlant = 0
 ------------------------------------------------------------------------------------------------------
-SWEP.ViewModelFOV	= 62
+SWEP.ViewModelFOV	= 60
 SWEP.ViewModelFlip	= false
 ------------------------------------------------------------------------------------------------------
 SWEP.Spawnable			= false
 SWEP.AdminSpawnable		= false
 ------------------------------------------------------------------------------------------------------
-SWEP.ViewModel      = Model ( "models/Weapons/v_slam.mdl")
+--SWEP.ViewModel      = Model ( "models/Weapons/v_slam.mdl")
+SWEP.ViewModel      = Model ( "models/Weapons/c_slam.mdl")
 SWEP.WorldModel   = Model ( "models/Weapons/w_package.mdl" )
+SWEP.UseHands = true
 ------------------------------------------------------------------------------------------------------
-SWEP.Primary.Delay			= 0.025 	
+SWEP.Primary.Delay			= 0.015 	
 SWEP.Primary.Recoil			= 0		
 SWEP.Primary.Damage			= 7	
 SWEP.Primary.NumShots		= 1		
 SWEP.Primary.Cone			= 0 	
 SWEP.Primary.ClipSize		= 3
-SWEP.Primary.DefaultClip	= 1
+SWEP.Primary.DefaultClip	= 2
 SWEP.Primary.Automatic   	= true
 SWEP.Primary.Ammo         	= "slam"	
 ------------------------------------------------------------------------------------------------------
-SWEP.Secondary.Delay		= 0.06
+SWEP.Secondary.Delay		= 0.04
 SWEP.Secondary.Recoil		= 0
 SWEP.Secondary.Damage		= 6
 SWEP.Secondary.NumShots		= 1

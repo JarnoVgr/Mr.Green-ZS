@@ -4,7 +4,7 @@
 --local matHealthBar = surface.GetTextureID("zombiesurvival/healthbar_fill")
 
 -- Replace beats with cuts of hl2_song2.mp3 here:
---[[
+
 local Beats = {}
 Beats[0] = {}
 Beats[1] = {"zombiesurvival/hbeat1.wav"}
@@ -17,8 +17,8 @@ Beats[7] = {"zombiesurvival/hbeat6.wav"}
 Beats[8] = {"zombiesurvival/hbeat7.wav"}
 Beats[9] = {"zombiesurvival/hbeat8.wav"}
 Beats[10] = {"zombiesurvival/hbeat9.wav"}
-]]--
-local Beats = {} --Duby: Lets make these beats more exciting!
+
+--[[local Beats = {} --Duby: Lets make these beats more exciting!
 Beats[0] = {}
 Beats[1] = {"zombiesurvival/hbeat1.wav"}
 Beats[2] = {"zombiesurvival/hbeat2.wav"}
@@ -29,7 +29,7 @@ Beats[6] = {"zombiesurvival/hbeat6.wav"}
 Beats[7] = {"zombiesurvival/hbeat7.wav"}
 Beats[8] = {"zombiesurvival/hbeat8.wav"}
 Beats[9] = {"zombiesurvival/hbeat9.wav"}
-Beats[10] = {"zombiesurvival/hbeat9.wav"}
+Beats[10] = {"mrgreen/music/bosstheme2.mp3"}]]--
 
 local BeatLength = {}
 BeatLength[0] = 1.0
@@ -42,7 +42,7 @@ BeatLength[6] = 1.7
 BeatLength[7] = 1.65
 BeatLength[8] = 1.7
 BeatLength[9] = 1.7
-BeatLength[10] = 21.8
+BeatLength[10] = 1.7
 
 local ZBeats = {}
 ZBeats[0] = {}
@@ -69,7 +69,8 @@ ZBeatLength[7] = 5.1
 ZBeatLength[8] = 10.3
 ZBeatLength[9] = 10.3
 --ZBeatLength[10] = 10.2
-ZBeatLength[10] = 21.8
+--ZBeatLength[10] = 21.8
+ZBeatLength[10] = 1.7
 
 --Precache beats
 for i=1,10 do
@@ -145,7 +146,8 @@ ENABLE_BLOOD = false
 local NextBeat = 0
 local LastBeatLevel = 0
 local function PlayBeats(teamid, am)
-	if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
+	--if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
+	if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
 		return
 	end
 	
@@ -246,7 +248,7 @@ function ZombieAuraThink()
 		-- Centered particle		
 		local particle = Emitter:Add( "Sprites/light_glow02_add_noz", attach.Pos )
 			particle:SetVelocity( vel )
-			particle:SetDieTime( math.Rand(0.4, 0.8) )
+			particle:SetDieTime( math.Rand(0.2, 0.4) )
 			particle:SetStartAlpha(255)
 			particle:SetStartSize( math.Rand(14, 18) )
 			particle:SetEndSize( 4 )

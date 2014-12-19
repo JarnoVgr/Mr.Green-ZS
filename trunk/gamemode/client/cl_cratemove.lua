@@ -23,7 +23,7 @@ if pl:Team() == TEAM_HUMAN then
 surface.PlaySound("mrgreen/beep22.wav")	
 pl:Message("Supplies have been dropped, go find them", 2, "white")
 timer.Simple(2, function()
-surface.PlaySound("mrgreen/supplycrates/thunder2.mp3")
+surface.PlaySound("mrgreen/supplycrates/thunder3.mp3")
 end)
 end
 end

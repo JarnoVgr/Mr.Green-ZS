@@ -215,19 +215,15 @@ local function CalculateGivenSupplies(pl)
 	if AutomaticToGive ~= nil and not pl:HasWeapon(AutomaticToGive) then
 		pl:Give(AutomaticToGive)
 		pl:SelectWeapon(AutomaticToGive) 
-	end
-	
-	--skillpoints.AddSkillPoints(pl, -1*GAMEMODE.HumanWeapons[weapon].Price)
-	
+	end	
 	--[[--------------------------- AMMUNITION ----------------------------]]
-	--local AmmoList = {"pistol", "ar2", "smg1", "buckshot", "xbowbolt", "357", "slam", "grenade", "Battery"}
+	
 	for ammoType, ammoAmount in pairs(GAMEMODE.AmmoRegeneration) do
 		--Double for ammoman upgrade
 			if pl:HasBought("ammoman") then
 			ammoAmount = ammoAmount * 2 --Ammo man perk
 		end
 		--Multiply with Infliction
-		--ammoAmount = math.Round(ammoAmount * (GetInfliction() + 0.5))
 		ammoAmount = math.Round(ammoAmount * (GetInfliction() + 0.9))
 		
 		pl:GiveAmmo(math.Clamp(ammoAmount, 1, 250), ammoType)
@@ -235,7 +231,7 @@ local function CalculateGivenSupplies(pl)
 	
 	--Special case : mines, nailing hammers, barricade kits
 	--local Special = { "weapon_zs_barricadekit" , "weapon_zs_tools_hammer", "mine", "grenade", "syringe", "supplies"}
-	--[[local Special = { "mine", "syringe", "supplies"}
+	local Special = { "weapon_zs_mine", "weapon_zs_medkit"}
 	for i,j in pairs ( pl:GetWeapons() ) do
 		for k,v in pairs ( Special ) do
 			if not string.find ( j:GetClass(), v ) then
@@ -248,26 +244,25 @@ local function CalculateGivenSupplies(pl)
 				j:SetClip2( 1 )
 			end
 			
-			if v == "weapon_zs_tools_hammer" or v == "syringe" then
+			if v == "weapon_zs_tools_hammer" or v == "weapon_zs_medkit" then
 				j:SetClip1( math.Clamp ( MaximumAmmo, 1, MaximumAmmo ) )
 			else
 				j:SetClip1( math.Clamp ( j:Clip1() + math.ceil( MaximumAmmo/2 ), 1, MaximumAmmo ) )
 			end
 		end
-	end]]
+	end
 	
 	--[[--------------------------- HEALTH ----------------------------]]
 	local currentHealth, maxHealth, healAmount = pl:Health(), pl:GetMaximumHealth(), 0
 	if currentHealth < maxHealth then
 		--healAmount = math.Round((maxHealth - currentHealth) * GetInfliction())
-		healAmount = 25 --Duby:Static health works better and zombies will not rage quit when a human gains 80 hp from a crate..
+		--healAmount = 25 --Duby:Static health works better and zombies will not rage quit when a human gains 80 hp from a crate..
+		--For now there will be no health, we will have enough medic nitwits running around.
 	end
 	
 	if healAmount > 5 then
 		pl:EmitSound(Sound("items/smallmedkit1.wav"))
-		pl:SetHealth(math.Clamp(currentHealth + healAmount, 0, maxHealth))
-	--	pl:PrintMessage ( HUD_PRINTTALK, "[CRATES] You just got ammunition for your weapons and tools and restored "..math.Round ( healAmount ).." health!" )
-		
+		pl:SetHealth(math.Clamp(currentHealth + healAmount, 0, maxHealth))	
 		--Clear dot damage
 		pl:ClearDamageOverTime()
 	end
@@ -381,8 +376,6 @@ function SpawnSupply(ID, Pos, Angles)
 	Crate:Spawn()
 	
 	return Crate
-
-	
 end
 
 --[==[-------------------------------------------------------------
@@ -499,7 +492,7 @@ function GM:SpawnCratesFromTable(crateSpawns,bAll)
 					table.insert(CrateSpawnsPositions,miniPositionTable)
 					
 					--Increase count					
-					--spawnedCratesCount = spawnedCratesCount + 1
+					spawnedCratesCount = spawnedCratesCount + 1
 					
 					break
 				end
@@ -516,17 +509,17 @@ function GM:SpawnCratesFromTable(crateSpawns,bAll)
 ---------------------------------------------------------------------------]=]
 --Duby: Its not the best method, but it works well! ^^
 		timer.Simple(300, function() --Remove the crate.
-	ents.FindByClass( "game_supplycrate" )[1]:Remove()
+	ents.FindByClass( "game_supplycrate" )[1]:Remove()--Remove the crate from these spawn points
 	ents.FindByClass( "game_supplycrate" )[2]:Remove()
 umsg.Start("cratemove")
-		umsg.End()	
+umsg.End()
 	end)
 	
 	
 	timer.Simple(330, function() --Add the crate.
 	for i=1,maxCrates do
 		--Loop through crate spawns
-		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
+		for crateSpawnID, crateSpawn in pairs(crateSpawns) do		--Get the crate IDs which are available	
 			if not table.HasValue(idTable,crateSpawnID) then	
 				if TraceHullSupplyCrate(crateSpawn.pos, false) then
 					crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
@@ -545,7 +538,7 @@ umsg.Start("cratemove")
 				end
 			end
 		end
-		umsg.Start("spawn")
+		umsg.Start("spawn")--Send client notification that it has been sent.
 		umsg.End()
 	end
 	
@@ -555,7 +548,7 @@ umsg.Start("cratemove")
 	
 	timer.Simple(600, function() --Remove the crate.
 	
-	ents.FindByClass( "game_supplycrate" )[1]:Remove()
+	ents.FindByClass( "game_supplycrate" )[1]:Remove()--Remove the crate from these spawn points
 	ents.FindByClass( "game_supplycrate" )[2]:Remove()
 
 umsg.Start("cratemove")
@@ -564,17 +557,13 @@ umsg.Start("cratemove")
 	
 	timer.Simple(620, function() --Reset the crate spawn loctions. Also change the crate ID's again.
 --Remove current supplies
-	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do
+	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do--Get the entity we are spawning.
 		if IsValid(v) then			
 			v:Remove()
 		end
 	end
 	
 	local idTable = {}
-	
-	--Get crate table and shuffle it
-	--local tab = table.Copy(crateSpawns)
-	--table.Shuffle(tab)
 	
 	table.Shuffle(crateSpawns)
 	
@@ -636,10 +625,6 @@ umsg.Start("cratemove")
 	end
 	local idTable = {}
 	
-	--Get crate table and shuffle it
-	--local tab = table.Copy(crateSpawns)
-	--table.Shuffle(tab)
-	
 	table.Shuffle(crateSpawns)
 	
 	local maxCrates = math.min(#crateSpawns)
@@ -700,10 +685,7 @@ umsg.Start("cratemove")
 		end
 	end
 	local idTable = {}
-	
-	--Get crate table and shuffle it
-	--local tab = table.Copy(crateSpawns)
-	--table.Shuffle(tab)
+
 	
 	table.Shuffle(crateSpawns)
 	
@@ -750,9 +732,6 @@ umsg.Start("cratemove")
 	end)
 	--Duby: This is the end of a shitty method for moving crates. What we need to do really is add 10 crate spawn points instead of 4, then we can make something interesting!
 end
-
-
-
 
 -- Precache the gib models
 for i = 1, 9 do

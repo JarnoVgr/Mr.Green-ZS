@@ -37,9 +37,10 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel = "models/Weapons/v_smg1.mdl"
+--SWEP.ViewModel = "models/Weapons/v_smg1.mdl"
+SWEP.ViewModel = "models/weapons/c_smg1.mdl" 
 SWEP.WorldModel = "models/Weapons/w_smg1.mdl"
-
+SWEP.UseHands = true
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
@@ -61,8 +62,8 @@ SWEP.Primary.Ammo			= "none"
 SWEP.Cone 			= 0.064
 SWEP.ConeMoving		 = SWEP.Cone *1.3
 SWEP.ConeCrouching 	 = SWEP.Cone *0.90
-SWEP.ConeIron 		 = SWEP.Cone *0.95
-SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.9
+--SWEP.ConeIron 		 = SWEP.Cone *0.95
+--SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.9
 --SWEP.ConeIronMoving	 = SWEP.Moving *0.9
 
 SWEP.IronSightsPos = Vector(-2, -4, 1.5)
@@ -77,7 +78,7 @@ SWEP.IronSightsAng = Vector(0,0,0)
 
 SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1
-SWEP.Secondary.Automatic	= false
+SWEP.Secondary.Automatic	= true
 SWEP.Secondary.Ammo			= "none"
 
 SWEP.MaxBulletDistance 		= 2900 -- Uses pulse power, FTW!
@@ -101,13 +102,13 @@ function SWEP:Think()
 			self.fired = true
 			self.lastfire = CurTime()
 		else
-			if self.Owner:IsPlayer() and self.Owner:GetHumanClass() == 4 then
-				self.MaxClip = self.Primary.DefaultClip + (self.Primary.DefaultClip * ((HumanClasses[4].Coef[2]*(self.Owner:GetTableScore ("engineer","level")+1)) / 100))
-				self.startcharge = 0.4
-			else 
-				self.MaxClip = self.Primary.DefaultClip
-				self.startcharge = 1
-			end
+			--if self.Owner:IsPlayer() and self.Owner:GetHumanClass() == 4 then
+				--self.MaxClip = self.Primary.DefaultClip + (self.Primary.DefaultClip * ((HumanClasses[4].Coef[2]*(self.Owner:GetTableScore ("engineer","level")+1)) / 100))
+				--self.startcharge = 0.4
+			--else 
+			---	self.MaxClip = self.Primary.DefaultClip
+			--	self.startcharge = 1
+		--	end
 			
 			if self.lastfire < CurTime()- self.startcharge and self.rechargetimer < CurTime() then
 				self.Weapon:SetClip1(math.min(self.MaxClip,self.Weapon:Clip1() + 1))

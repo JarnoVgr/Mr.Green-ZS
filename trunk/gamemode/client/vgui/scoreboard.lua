@@ -6,11 +6,9 @@ local texGradient = surface.GetTextureID("gui/center_gradient")
 local function SortFunc(a, b)
 	return a:GetScore() > b:GetScore()
 end
-
 local colBackground = Color(10, 10, 10, 220)
 
-
-local function AddScoreboardItem(ply,list)
+local function AddScoreboardItem(ply, list)
 	MainLabel = MainLabel or {}
 
 	if MainLabel[ply] then
@@ -28,27 +26,27 @@ local function AddScoreboardItem(ply,list)
 	MainLabel[ply].AvatarButton:DockMargin( 5, 4, 0, 4 )
 	MainLabel[ply].AvatarButton:SetSize( 32, 32 )
 	MainLabel[ply].AvatarButton:SetText("")
-	MainLabel[ply].AvatarButton.DoClick = function() MainLabel[ply].Player:ShowProfile() end
+	MainLabel[ply].AvatarButton.DoClick = function()
+		MainLabel[ply].Player:ShowProfile()
+	end
 	
 	MainLabel[ply].Avatar = vgui.Create( "AvatarImage", MainLabel[ply].AvatarButton)
-	MainLabel[ply].Avatar:SetSize( 32, 32 )
-	MainLabel[ply].Avatar:SetMouseInputEnabled( false )	
+	MainLabel[ply].Avatar:SetSize(32, 32)
+	MainLabel[ply].Avatar:SetMouseInputEnabled(false)	
 	
-	MainLabel[ply].Avatar:SetPlayer( ply )
+	MainLabel[ply].Avatar:SetPlayer(ply)
 	
-	MainLabel[ply].Name	= MainLabel[ply]:Add( "DLabel" )
-	MainLabel[ply].Name:Dock( FILL )
+	MainLabel[ply].Name	= MainLabel[ply]:Add("DLabel")
+	MainLabel[ply].Name:Dock(FILL)
 	MainLabel[ply].Name:SetText("")
 	-- MainLabel[ply].Name:SetFont( "ArialBoldFive" )
-	MainLabel[ply].Name:DockMargin( 15, 0, 0, 0 )
-	MainLabel[ply].Name.Paint = function()
-	local col = Color (255,255,255,255)
+	MainLabel[ply].Name:DockMargin(15, 0, 0, 0)
+	MainLabel[ply].Name.Paint = function()		
+		if not IsValid(ply) then
+			return
+		end
 		
-		if not IsValid(ply) then return end
-		
-		--if ply:Team() == TEAM_UNDEAD then
-			col = team.GetColor( ply:Team() )
-		--end
+		local col = team.GetColor(ply:Team())
 		draw.SimpleTextOutlined(ply:Nick() , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 	
@@ -65,12 +63,11 @@ local function AddScoreboardItem(ply,list)
 	-- MainLabel[ply].Ping:SetTextColor( color_white )
 	-- MainLabel[ply].Ping:SetContentAlignment( 5 )
 	MainLabel[ply].Ping.Paint = function()
-		local col = Color(255, 255, 255, 255)
-		
-		if not IsValid(ply) then return end
-		
+		if not IsValid(ply) then
+			return
+		end
 
-		col = team.GetColor(ply:Team())
+		local col = team.GetColor(ply:Team())
 		draw.SimpleTextOutlined(ply:Ping() , "ArialBoldFive", MainLabel[ply].Ping:GetWide()/2,MainLabel[ply].Ping:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 
@@ -81,14 +78,12 @@ local function AddScoreboardItem(ply,list)
 	-- MainLabel[ply].Deaths:SetFont( "ScoreboardDefault" )
 	-- MainLabel[ply].Deaths:SetTextColor( color_white )
 	-- MainLabel[ply].Deaths:SetContentAlignment( 5 )
-	MainLabel[ply].Health.Paint = function()
-		local col = Color(255,255,255,255)
-		
+	MainLabel[ply].Health.Paint = function()		
 		if not IsValid(ply) then
 			return
 		end
 
-		col = team.GetColor( ply:Team() )
+		local col = team.GetColor( ply:Team() )
 		local txt
 		if ply:Health() <= 0 then
 			txt = "DEAD"
@@ -107,13 +102,11 @@ local function AddScoreboardItem(ply,list)
 	-- MainLabel[ply].Kills:SetTextColor( color_white )
 	-- MainLabel[ply].Kills:SetContentAlignment( 5 )
 	MainLabel[ply].Kills.Paint = function()
-		local col = Color (255,255,255,255)
+		if not IsValid(ply) then
+			return
+		end
 		
-		if not IsValid(ply) then return end
-		
-		--if ply:Team() == TEAM_UNDEAD then
-			col = team.GetColor( ply:Team() )
-		--end
+		local col = team.GetColor(ply:Team())
 		draw.SimpleTextOutlined(ply:GetScore() , "ArialBoldFive", MainLabel[ply].Kills:GetWide()/2,MainLabel[ply].Kills:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 	
@@ -178,15 +171,15 @@ function GM:CreateScoreboardVGUI()
 	SCPanel = vgui.Create("DFrame")
 	SCPanel:SetSize(w,h)
 	SCPanel:SetPos(0,0)
-	SCPanel:SetDraggable ( false )
-	SCPanel:SetTitle ("")
+	SCPanel:SetDraggable(false)
+	SCPanel:SetTitle("")
 	-- SCPanel:SetSkin("ZSMG")
-	SCPanel:ShowCloseButton (false)
+	SCPanel:ShowCloseButton(false)
+	SCPanel:SetBackgroundBlur(true)
 	SCPanel.Paint = function() 
-		-- override this
-		draw.SimpleTextOutlined(GAMEMODE.Name , "ArialBoldTwenty", SCPanel:GetWide()/2,ScaleH(135), Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		draw.SimpleTextOutlined(GetGlobalString("servername") , "ArialBoldTwelve", SCPanel:GetWide()/2,ScaleH(180), Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
+		--Override
+		draw.SimpleText("MrGreenGaming.com", "HUDFontTiny", SCPanel:GetWide()/2,ScaleH(135), Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText("ZOMBIE SURVIVAL", "NewZombieFont27", SCPanel:GetWide()/2,ScaleH(180), Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)		
 	end
 	
 	scoreboard_w,scoreboard_h = ScaleW(340), ScaleH(670)

@@ -4,7 +4,7 @@ end
 
 if CLIENT then
 
-	SWEP.ViewModelFOV = 75
+	SWEP.ViewModelFOV = 60
 	SWEP.BobScale = 2
 	SWEP.SwayScale = 1.5
 	SWEP.PrintName = "Medkit"
@@ -40,11 +40,11 @@ SWEP.Base				= "weapon_zs_base_dummy"
 
 SWEP.Primary.Delay = 0.01
 
-SWEP.Primary.Heal = 15
-SWEP.Primary.HealDelay = 10
+SWEP.Primary.Heal = 7
+SWEP.Primary.HealDelay = 5
 
-SWEP.Primary.ClipSize = 30
-SWEP.Primary.DefaultClip = 40
+SWEP.Primary.ClipSize = 50
+SWEP.Primary.DefaultClip = 50
 SWEP.Primary.Ammo = "Battery"
 
 SWEP.Secondary.Delay = 0.01
@@ -120,9 +120,9 @@ function SWEP:PrimaryAttack()
 			if ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
 
 				local health, maxhealth = ent:Health(), 100-- owner:GetMaxHealth()
-				--if ent:GetPerk("_kevlar") then maxhealth = 110 elseif ent:GetPerk("_kevlar2") then maxhealth = 120 end
 				local multiplier = 1.0
-				if owner:GetPerk("_medupgr1" ) then
+
+				if owner:GetPerk("_medic" ) then
 					multiplier = 1.35
 				end
 				local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
@@ -181,7 +181,7 @@ function SWEP:SecondaryAttack()
 		local health, maxhealth = owner:Health(), 100-- owner:GetMaxHealth()
 		--if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 end
 		local multiplier = 1
-		if owner:GetPerk("_medupgr1") then
+		if owner:GetPerk("_medic") then
 			multiplier = 1.35
 		end
 		local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Secondary.Heal * multiplier, maxhealth - health)))
@@ -285,7 +285,7 @@ function SWEP:Equip ( NewOwner )
 	
 	if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false
-		if NewOwner:GetPerk("_medupgr2") then
+		if NewOwner:GetPerk("_medic") then
 			NewOwner:GiveAmmo( 70, self:GetPrimaryAmmoTypeString() )
 		end
 	else

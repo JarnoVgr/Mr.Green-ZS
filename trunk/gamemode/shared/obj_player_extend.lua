@@ -96,50 +96,6 @@ if CLIENT then
 	end
 end
 
--- Get spawn time
-function meta:GetSpawnTime()
-	return self.SpawnTime
-end
-
--- Is spawnprotected
-function meta:HasSpawnProtection()
-	return self:GetSpawnTime() + self:GetSpawnTimeLimit() >= CurTime()
-end
-
--- Get time limit
-function meta:GetSpawnTimeLimit()
-	if self:IsHuman() then
-		return 40
-	else
-		return 4
-	end
-end
-
--- Get spawn time protection
-function meta:GetSpawnTimeProtection()
-	-- Time limit for protection
-	local protectionTime, iDiff = self:GetSpawnTimeLimit()
-	
-	-- Calculate appropriate time
-	if self:IsHuman() then
-		iDiff = 0
-	else
-		iDiff = protectionTime
-	end
-	
-	return math.Clamp(math.abs(iDiff - (GetInfliction() * protectionTime)), 5, protectionTime)
-end
-
--- Get suitable damage
-function meta:GetSpawnDamagePercent()
-
-	-- Time limit for protection
-	local protectionTime = self:GetSpawnTime() + self:GetSpawnTimeLimit()
-
-	-- Percent damage reduction
-	return math.Clamp((protectionTime - math.abs(CurTime() - self:GetSpawnTime())) / protectionTime, 0, 1)
-end
-
 -- Hook on spawn
 hook.Add("PlayerSpawn", "SpawnTime", function(pl)
 	pl.SpawnTime = CurTime()
@@ -153,10 +109,6 @@ function meta:GetLevel()
 	
 	return self.DataTable["ClassData"][ string.lower ( self:GetHumanClassString() ) ].level
 end
-
---[=[-----------------------------------------------------------
-       Returns the name of the active human class
-------------------------------------------------------------]=]
 
 --[=[--------------------------------------
        See if player is a human
@@ -377,7 +329,7 @@ function meta:GetTools()
 
 	for k,v in pairs ( MyWeapons ) do
 		if v:IsValid() then
-			if v:GetType() == "tools" then
+			if v:GetType() == "tool1" then
 				table.insert ( Tools, v )
 			end
 		end
@@ -408,11 +360,6 @@ function meta:CompareMaxDPS ( Class1, Class2 )
 	return WeaponWin or "weapon_zs_usp"
 end
 
---[==[---------------------------------------------------------
-      Return the amount time left to ammo regen
----------------------------------------------------------]==]
-function meta:GetAmmoTime() --Duby:Clear out the function as it isn't used any more.
-end
 
 --[==[----------------------------------------------------------
              Shared get weapon function/method
@@ -532,42 +479,42 @@ end
 	  See if zombie is fast type
 ------------------------------------------------]==]
 function meta:IsFastZombie()
-	return self:GetZombieClass() == 2
+	return self:GetZombieClass() == 3
 end
 
 --[==[--------------------------------------------------
 	  See if zombie is poison type
 ---------------------------------------------------]==]
 function meta:IsPoisonZombie()
-	return self:GetZombieClass() == 3
+	return self:GetZombieClass() == 2
 end
 
 --[==[-----------------------------------------
 	See if zombie is apparation
 -----------------------------------------]==]
 function meta:IsWraith()
-	return self:GetZombieClass() == 4
+	return self:GetZombieClass() == 5
 end
 
 --[==[-----------------------------------------
 	See if zombie is a howler
 -----------------------------------------]==]
 function meta:IsHowler()
-	return self:GetZombieClass() == 5
+	return self:GetZombieClass() == 6
 end
 
 --[==[-------------------------------------------
 	See if zombie is a headcrab
 --------------------------------------------]==]
 function meta:IsHeadcrab()
-	return self:GetZombieClass() == 6
+	return self:GetZombieClass() == 7
 end
 
 --[==[-------------------------------------------
 	See if zombie is a p. crab
 --------------------------------------------]==]
 function meta:IsPoisonCrab()
-	return self:GetZombieClass() == 7
+	return self:GetZombieClass() == 9
 end
 
 function meta:IsBoss()
@@ -584,6 +531,13 @@ end
 ------------------------------------------]==]
 function meta:IsZombine()
 	return self:GetZombieClass() == 8
+end
+
+--[==[------------------------------------------
+	See if zombie is a zombine
+------------------------------------------]==]
+function meta:IsSpitter()
+	return self:GetZombieClass() == 4
 end
 
 
@@ -665,10 +619,6 @@ function meta:SetScore(newAmount)
 		net.WriteEntity(self)
 		net.WriteInt(self.Score,32)
 		net.Broadcast()
-		--[[net.Start("SetLocalPlayerScore")
-		net.WriteEntity(self)
-		net.WriteInt(self.Score,32)
-		net.Send(self)]]
 
 		--Clamp because of frags limitation bug
 		self:SetFrags(math.Clamp(self.Score,-1999,1999))
@@ -822,11 +772,6 @@ function meta:Message(sText, iType, Col, iDuration)
 			net.WriteDouble(iDuration or -1)
 		net.Send(self)
 		
-		--[==[umsg.Start( "notice.GetNotice", self )
-			umsg.String ( sText )
-			umsg.Short ( iType )
-			umsg.String ( Col )
-		umsg.End()]==]
 	end
 	
 	--Clientside
@@ -875,12 +820,6 @@ end
 function meta:GetMaximumHealth ( Health )
 	return self:GetDTInt ( 0 )
 end
-
---if SERVER then
--- util.AddNetworkString( "SendZombieClass" )
---end
-
-
 
 function meta:GetXP()
 	if not IsValid(self) or self:IsBot() then
@@ -964,27 +903,31 @@ function meta:GetPerk(prk)
 	return table.HasValue(self.Perk,prk) or false
 end
 
-
-
-function meta:IsBlocked( item )	
-	local blockedweapon = GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].IsBlocked == true 
-	local blockedperk = GAMEMODE.Perks[item] and GAMEMODE.Perks[item].IsBlocked == true 
-	
-	if blockedweapon or blockedperk then
+function meta:IsBlocked(item, SlotLabel)	
+	local BlockedWeapon = GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].IsBlocked == true 
+	local BlockedPerk = GAMEMODE.Perks[item] and GAMEMODE.Perks[item].IsBlocked == true
+	if BlockedWeapon or BlockedPerk then
 		return true
 	end
 	
-	return false
-end
-
-
-function meta:IsRetroOnly( item )
-	local allowedweapon = GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].OnlyRetro == true 
-	local allowedperk = GAMEMODE.Perks[item] and GAMEMODE.Perks[item].OnlyRetro == true 
-	
-	if GAMEMODE:IsRetroMode() and (allowedweapon or allowedperk) then
-		return true
+	--Check if required weapon is selected
+	if SlotLabel and GAMEMODE.Perks[item] and GAMEMODE.Perks[item].RequiresWeapon then
+		local RequiredWeapon, IsRequirementMet = GAMEMODE.Perks[item].RequiresWeapon, false
+		
+		for i=1, table.maxn(SlotLabel) do
+			if not SlotLabel[i].Item or SlotLabel[i].Item ~= RequiredWeapon then
+				continue
+			end
+			
+			IsRequirementMet = true
+		end
+		
+		--Requirements not met, yes it is blocked
+		if not IsRequirementMet then
+			return true
+		end
 	end
+	
 	
 	return false
 end
@@ -1233,21 +1176,6 @@ function meta:PlayPainSound()
 	else
 		local health = self:Health()
 		local set = VoiceSets[self.VoiceSet]
-
-		if self.IsSkeleton == true then
-			self:EmitSound(VoiceSetsGhost.PainSounds[math.random(1,#VoiceSetsGhost.PainSounds)])
-		else
-			if health > 68 then
-				local snds = set.PainSoundsLight
-				self:EmitSound(snds[math.random(1, #snds)])
-			elseif health > 36 then
-				local snds = set.PainSoundsMed
-				self:EmitSound(snds[math.random(1, #snds)])
-			else
-				local snds = set.PainSoundsHeavy
-				self:EmitSound(snds[math.random(1, #snds)])
-			end
-		end
 	end
 end
 
@@ -1271,7 +1199,7 @@ function meta:PlaySpawnMusic()
 	if self:IsSpectator() then
 		return
 	end
-	if ROUNDTIME*0.1 < ServerTime() then return end
+	if ROUNDTIME*0.11 < ServerTime() then return end
 	-- No music
 	if not Ambience then return end
 	if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].DisableMusic then return end
@@ -1279,13 +1207,12 @@ function meta:PlaySpawnMusic()
 	
 	-- Can't play dead
 	if not self:Alive() or ENDROUND or LASTHUMAN or UNLIFE or SERVER then return end
-	if FIRSTAPRIL then return end
+	--if FIRSTAPRIL then return end
 	-- Team check
 	local sSound = table.Random ( Ambience.Human )
 	if self:IsZombie() then sSound = table.Random ( Ambience.Zombie ) end
 
 	-- Delay it
-	-- RunConsoleCommand ( "stopsounds" )
 	timer.Simple( 0.2, function() surface.PlaySound ( sSound ) end )
 end
 
@@ -1367,19 +1294,6 @@ function meta:DoHulls(classid, teamid)
 			elseif self:GetStepSize() ~= DEFAULT_STEP_SIZE then
 				self:SetStepSize(DEFAULT_STEP_SIZE)
 			end
-			--[==[if classtab.ModelScale then
-				if tbl and tbl.Scale then
-					self:SetModelScale(classtab.ModelScale*tbl.Scale,0)
-				else
-					self:SetModelScale(classtab.ModelScale,0)
-				end
-			elseif self:GetModelScale() ~= DEFAULT_MODELSCALE then
-				if tbl and tbl.Scale then
-					self:SetModelScale(DEFAULT_MODELSCALE*tbl.Scale,0)
-				else
-					self:SetModelScale(DEFAULT_MODELSCALE,0)
-				end
-			end]==]
 
 			local phys = self:GetPhysicsObject()
 			if phys:IsValid() then
@@ -1391,7 +1305,6 @@ function meta:DoHulls(classid, teamid)
 		self:SetViewOffset(DEFAULT_VIEW_OFFSET)
 		self:SetViewOffsetDucked(DEFAULT_VIEW_OFFSET_DUCKED)
 		self:SetStepSize(DEFAULT_STEP_SIZE)
-		-- self:SetModelScale(DEFAULT_MODELSCALE,0)
 		
 		local phys = self:GetPhysicsObject()
 		if phys:IsValid() then

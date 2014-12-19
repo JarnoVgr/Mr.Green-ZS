@@ -22,7 +22,7 @@ SWEP.CSMuzzleFlashes = false
 if CLIENT then
 SWEP.ShowViewModel = false
 SWEP.ShowWorldModel = true
-        killicon.AddFont("weapon_zs_tools_hammer", "ZSKillicons", "c", Color(255, 255, 255, 255))
+       -- killicon.AddFont("weapon_zs_tools_hammer2", "ZSKillicons", "c", Color(255, 255, 255, 255))
  
         
 SWEP.VElements = {
@@ -42,15 +42,8 @@ SWEP.WElements = {
 	["Blowtorch2"] = { type = "Model", model = "models/props_junk/propane_tank001a.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(4.375, 1.396, 2.308), angle = Angle(-6.909, 108.7, 18.679), size = Vector(0.294, 0.294, 0.294), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["Blowtorch"] = { type = "Model", model = "models/props/de_vostok/hammer01.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.969, 1.476, -3.918), angle = Angle(167.658, 137.264, -84.296), size = Vector(1.129, 1.449, 1.289), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
- 
-       --[[ SWEP.ViewModelBoneMods = {
-                ["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(2.296, 1.378, -13.011), angle = Angle(0, -98.265, 8.265) },
-                ["ValveBiped.Bip01_L_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 22.958, 0) },
-                ["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -0.918, 0) },
-                ["ValveBiped.Bip01_L_Finger12"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-32.144, -52.348, 0) }
-        }]]--
-		
-		SWEP.ViewModelBoneMods = {
+	
+	SWEP.ViewModelBoneMods = {
 	["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(6.594, -2.879, -15.155), angle = Angle(-174.849, 76.903, 180) },
 	["ValveBiped.Bip01_L_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(-0.276, 0.097, -0.897), angle = Angle(10.331, 0, 0) }
 }
@@ -65,7 +58,7 @@ SWEP.SlotPos = 3
  
 SWEP.Primary.ClipSize = 1
 SWEP.Primary.Damage = 0
-SWEP.Primary.DefaultClip = 3
+SWEP.Primary.DefaultClip = 5
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "gravity"
 SWEP.Primary.Delay = 0.07

@@ -16,7 +16,7 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Primary.Delay = 0.4
 SWEP.Primary.Reach = 35
-SWEP.Primary.Damage = 35
+SWEP.Primary.Damage = 10
 SWEP.Primary.Duration = 1
 
 
@@ -246,5 +246,15 @@ function SWEP:Precache()
 	
 	for _, snd in pairs(ZombieClasses[2].DeathSounds) do
 		util.PrecacheSound(snd)
+	end
+end
+
+
+if CLIENT then
+	function SWEP:DrawHUD()
+		if not self.Owner:Alive() or ENDROUND then
+			return
+		end
+		MeleeWeaponDrawHUD()
 	end
 end

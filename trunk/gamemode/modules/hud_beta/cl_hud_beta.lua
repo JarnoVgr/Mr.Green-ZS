@@ -4,8 +4,11 @@
 --Function table
 hud = {}
 
+local nextLevelKeySwitch, currentLevelKey = CurTime()+10, false
+
 local hudElementBackground = Material("mrgreen/hud/hudbackground.png")
 local nHudBackground = Material("mrgreen/hud/hudbackgroundnew.png")
+local nHudBackgroundZombie = Material("mrgreen/hud/hudbackgroundnew_zombie.png")
 
 --Health indication statusses
 local healthIndication = { { Text = "Healthy as a horse", Percent = 1 }, { Text = "A few scratches..", Percent = 0.8 }, { Text = "Not looking good..", Percent = 0.6 }, { Text = "Search for a doctor", Percent = 0.45 }, { Text = "You lost your guts", Percent = 0.4 }, { Text = "Bleeding to death!", Percent = 0.25 } }
@@ -27,18 +30,6 @@ hud.ZombieDangerText = { [1] = "Kill all humans!", [2] = "Fistful of flesh..", [
 
 --Textures needed
 local matHealthSplash, matSplashTop = surface.GetTextureID ("zombiesurvival/hud/splash_health"), surface.GetTextureID ( "zombiesurvival/hud/splash_top" )
-
---Avatar for classes
-hud.ZombieAvatarClass = { 
-	[1] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
-	[2] = surface.GetTextureID("zombiesurvival/classmenu/fastzombie"),
-	[3] = surface.GetTextureID("zombiesurvival/classmenu/poisonzombie"),
-	[4] = surface.GetTextureID("zombiesurvival/classmenu/wraith"),
-	[5] = surface.GetTextureID("zombiesurvival/classmenu/howler"),
-	[6] = surface.GetTextureID("zombiesurvival/classmenu/headcrab"),
-	[7] = surface.GetTextureID("zombiesurvival/classmenu/poisonheadcrab"),
-	[8] = surface.GetTextureID("zombiesurvival/classmenu/zombine"),
-}
 
 
 --[==[----------------------------------------
@@ -95,6 +86,7 @@ function hud.InitFonts()
 	surface.CreateFontLegacy("Face Your Fears", ScreenScale(19), 400, true, true, "NewZombieFont19",false, true)
 	surface.CreateFontLegacy("Face Your Fears", ScreenScale(23), 400, true, true, "NewZombieFont23",false, true)
 	surface.CreateFontLegacy("Face Your Fears", ScreenScale(27), 400, true, true, "NewZombieFont27",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(35), 400, true, true, "NewZombieFont35",false, true)
 end
 hook.Add("Initialize", "hud.InitFonts", hud.InitFonts)
 
@@ -126,7 +118,11 @@ function hud.ZombieHUD()
 	end
 
 	hud.DrawBossHealth()
+	hud.DrawZombieHUDImages()
 	hud.DrawNewZombieHUD()
+	hud.DrawBrains()
+	hud.DrawZombieHUDTop()
+
 end
 hook.Add("HUDPaint", "hud.ZombieHUD", hud.ZombieHUD)
 
@@ -140,12 +136,8 @@ function hud.DrawBossHealth()
 	local BW,BH = ScaleW(440), ScaleW(440)
 	local BX,BY = w/2-BW/2, 20
 	
-	surface.SetDrawColor(119, 10, 10, 255)
-	surface.SetTexture(hud.BossBackground)
-	surface.DrawTexturedRect( BX,BY,BW,BH ) 
-	
 	local BarW,BarH = BW*0.75, ScaleH(36)
-	local BarX,BarY = w/2-BarW/2, ScaleH(100)
+	local BarX,BarY = w/2-BarW/2, ScaleH(120)
 	
 	surface.SetDrawColor( 0, 0, 0, 150)
 	surface.DrawRect(BarX,BarY,BarW,BarH)
@@ -156,15 +148,13 @@ function hud.DrawBossHealth()
 	if GAMEMODE:GetBossZombie() then
 		local health = GAMEMODE:GetBossZombie():Health() or 0
 		
-		local TX,TY = BarX+BarW/5,BarY+7
-		
-		--draw.SimpleText("Boss - ".. ZombieClasses[GAMEMODE:GetBossZombie():GetZombieClass()].Name or GAMEMODE:GetBossZombie():Name(), "NewZombieFont23", TX,TY, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
-		local str = (ZombieClasses[GAMEMODE:GetBossZombie():GetZombieClass()].Name or GAMEMODE:GetBossZombie():Name()) .. " Boss"
+		local TX,TY = BarX+BarW/5,BarY
+		local str = (ZombieClasses[GAMEMODE:GetBossZombie():GetZombieClass()].Name or GAMEMODE:GetBossZombie():Name())
 		if CurTime() <= GAMEMODE:GetBossEndTime() then
 			local timeLeft = GAMEMODE:GetBossEndTime() - CurTime()
 			str = str .." - ".. ToMinutesSeconds(timeLeft)
 		end
-		draw.SimpleText(str, "NewZombieFont23", ScrW()/2,TY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM)
+		draw.SimpleText(str, "NewZombieFont27", ScrW()/2,TY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM)
 		
 		local dif = math.Clamp(health/GAMEMODE:GetBossZombie():GetMaximumHealth(),0,1)
 		
@@ -174,8 +164,18 @@ function hud.DrawBossHealth()
 	
 end
 
+
+function hud.DrawZombieHUDImages()
+	--Draw background
+	surface.SetMaterial(nHudBackgroundZombie) 
+	surface.SetDrawColor(100, 0, 0, 260)
+	surface.DrawTexturedRect(ScaleW(450), ScaleH(-140), ScaleW(360), ScaleH(290)) --Middle
+	surface.DrawTexturedRect(ScaleW(650), ScaleH(-105), ScaleW(360), ScaleH(220)) --Right	
+	surface.DrawTexturedRect(ScaleW(280), ScaleH(-105), ScaleW(360), ScaleH(220)) --Left
+end
+
+local healthPercentageDrawn, healthStatusText = 1, zombieHealthIndication[1].Text
 local lastwarntim = -1
-hud.boostmat = surface.GetTextureID("zombiesurvival/hud/hud_friend_splash")
 local lastrefresh = -1
 local cached_humans = 0
 local cached_zombies = 0
@@ -185,125 +185,157 @@ function hud.DrawNewZombieHUD()
 		cached_zombies = team.NumPlayers(TEAM_UNDEAD)
 		lastrefresh = CurTime() + 1
 	end
-	
+
 	local tw, th = surface.GetTextureSize(matHealthSplash)
 	
-	local x,y = 30, ScrH()-tw+190
+	local x,y = 10, ScrH()-tw+190
 	
-	if not MySelf:IsFreeSpectating() then
-		surface.SetDrawColor ( 119, 0, 0, 255 )
-		surface.SetTexture ( matHealthSplash )
-		surface.DrawTexturedRect ( x,y, tw, th ) 
-		
-		local Table = string.FormattedTime(ROUNDTIME - CurTime())
-
-		if ( Table.s ) > 30 then
-			Table.m = Table.m - 1
-		end
-		
-		if ( Table.m ) < 10 then
-			Table.m = "0"..Table.m
-		end
-		if ( Table.s ) < 10 then
-			Table.s = "0"..Table.s
-		end
-
-		surface.SetDrawColor( 0, 0, 0, 150)
-		surface.DrawRect(x+70 , y+195, 260, 30 )
-		
-		x,y = x+70 , y+195
-
-		surface.DrawRect(x+5 , y+5, 260-10, 30-10 )	
-		
-		local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
-		
-		if not MySelf.HPBar then
-			MySelf.HPBar = 1
-		end
-		MySelf.HPBar = math.Clamp(math.Approach(MySelf.HPBar, fHealth / fMaxHealth, FrameTime() * 1.8), 0, 1)
-		
-		local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
-		
-		local colHealthBar = COLOR_HUD_HEALTHY
-		if 0.8 < iPercentage then
-			colHealthBar = Color(136, 29, 21, 255)
-		elseif 0.6 < iPercentage then
-			colHealthBar = Color(125, 29, 21, 255)
-		elseif 0.3 < iPercentage then
-			colHealthBar = Color(110, 11, 11, 255)
-		else
-			colHealthBar = Color(110, 11, 11, (math.sin(RealTime() * 8) * 127.5) + 127.5)
-		end
-		
-		surface.SetDrawColor(colHealthBar)
-		surface.DrawRect(x+5, y+5, 250*MySelf.HPBar, 20)
-		
-		draw.SimpleTextOutlined(fHealth, "NewZombieFont17", x+110, y+45, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	if MySelf:IsFreeSpectating() then
+		return
 	end
 
-	surface.SetFont("NewZombieFont15")
-	local fWide, fTall = surface.GetTextSize("Kill all humans in ")
-	
-	--
-	local text1x, text1y = 10, 10
-	local text2x, text2y = 10, text1y+fTall+1
-	draw.SimpleText(MySelf:GreenCoins() .." GREENCOINS", "NewZombieFont13", 10, text1y+fTall+20, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-	
-	--Check for WarmUp
-	if WARMUPTIME > ServerTime() then
-		--Warm Up
+	surface.SetMaterial(nHudBackgroundZombie) 
+	surface.SetDrawColor(100, 0, 0, 260)
+	surface.DrawTexturedRect(ScaleW(-133),ScaleH(880), ScaleW(475), ScaleH(300))
 
-		local timleft = math.max(0, WARMUPTIME - ServerTime())
+	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
+	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1005)
+	local barW, barH = ScaleW(190), ScaleH(35)
+	local barX, barY = healthTextX + ScaleW(30), ScaleH(880)+ScaleH(90)
+	local healthPercentage, healthChanged = math.Clamp(healthPoints / maxHealthPoints, 0, 1), false
+		
+	if healthPercentage ~= healthPercentageDrawn then
+		healthChanged = true
+	end
 
-		if timleft < 10 then
-			local glow = math.sin(RealTime() * 8) * 200 + 255
-			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255, glow, glow), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-			if lastwarntim ~= math.ceil(timleft) then
-				lastwarntim = math.ceil(timleft)
+	healthPercentageDrawn = math.Clamp(math.Approach(healthPercentageDrawn, healthPercentage, FrameTime() * 1.8), 0, 1) --Smooth
+
+	--Determine health bar foreground color
+	local healthBarColor = Color(137, 30, 30, 255)
+	if MySelf:IsTakingDOT() or healthPercentageDrawn < 0.3 then
+		healthBarColor = Color(healthBarColor.r, healthBarColor.g, healthBarColor.b, math.abs( math.sin( CurTime() * 4 ) ) * 255 )
+	end
+
+	--Background
+	if healthPercentageDrawn ~= 1 then
+		surface.SetDrawColor(70, 20, 20, 255)
+		surface.DrawRect(barX, barY, barW, barH)
+	end
+
+	--Foreground
+	surface.SetDrawColor(healthBarColor)
+	surface.DrawRect(barX, barY, barW * healthPercentageDrawn, barH)
+
+	--Only update text if health changed
+	if healthChanged then
+		for k, v in ipairs(zombieHealthIndication) do
+			if healthPercentage >= v.Percent then
+				healthStatusText = v.Text
+				break
+			end
+		end
+	end
+		
+	--Draw health status text
+	draw.SimpleText(healthStatusText, "NewZombieFont7", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)	
+	draw.SimpleText(healthPoints, "NewZombieFont23", healthTextX, healthTextValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText("HP", "NewZombieFont15", healthTextX, healthTextKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)		
+end
+
+function hud.DrawZombieHUDTop()
+	local keysStartY, valuesStartY = ScaleH(20), ScaleH(65)
+	local startX, keyStartY, valueStartY = ScaleW(640), ScaleH(20), ScaleH(65)
+	local timeLeft, keyText, valueColor = 0, "FEED", Color(255,255,255,255)
+
+	--Preparation (warmup)
+	if ServerTime() <= WARMUPTIME then
+		keyText = "PREPARING THE HORDE!"
+
+		timeLeft = math.max(0, WARMUPTIME - ServerTime())
+
+		if timeLeft < 10 then
+			local glow = math.sin(CurTime() * 8) * 200 + 255
+
+			valueColor.g, valueColor.b = glow, glow
+
+			if lastwarntim ~= math.ceil(timeLeft) then
+				lastwarntim = math.ceil(timeLeft)
 				if 0 < lastwarntim then
-					surface.PlaySound("mrgreen/ui/menu_countdown.wav")
+					surface.PlaySound(Sound("mrgreen/ui/menu_countdown.wav"))
 				end
 			end
-		else
-			draw.SimpleTextOutlined("Invasion starts in 0"..ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		end
 	else
-		--Actual ongoing round
-
-		local timleft = math.max(0, ROUNDTIME - ServerTime())
-
-		--Tell player how many survivors are needed to kill
-		local requiredScore = REDEEM_KILLS
-		if MySelf:HasBought("quickredemp") then
-			requiredScore = REDEEM_FAST_KILLS
-		end
-		requiredScore = math.max(0,requiredScore - MySelf:GetScore())
-		if requiredScore > 0 then
-			requiredScore = math.ceil(requiredScore/2)
-			if requiredScore == 1 then
-				requiredScore = "a survivor"
-			else
-				requiredScore = requiredScore .." survivors"
-			end
-		else
-			requiredScore = "all survivors"
-		end
-
-
-		--[[draw.SimpleTextOutlined("Kill ".. requiredScore .." in ".. ToMinutesSeconds(timleft + 1), "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		draw.SimpleTextOutlined("Infliction: ", "NewZombieFont15", text2x, text2y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))]]
-		draw.SimpleTextOutlined("Kill ".. requiredScore .." in ".. ToMinutesSeconds(timleft + 1), "NewZombieFont17", ScrW()/2, text1y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		draw.SimpleTextOutlined("Infection: ", "NewZombieFont15", text1x, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		
-		--Infliction
-		local space1 = surface.GetTextSize("Infliction: ")
-		draw.SimpleTextOutlined(cached_zombies, "NewZombieFont15", text1x+space1, text1y, team.GetColor(TEAM_UNDEAD), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		local space2 = surface.GetTextSize(cached_zombies)
-		draw.SimpleTextOutlined("/", "NewZombieFont15", text1x+space1+space2+1, text1y, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		local space3 = surface.GetTextSize("/")
-		draw.SimpleTextOutlined(cached_humans, "NewZombieFont15", text1x+space1+space2+space3+2, text1y, team.GetColor(TEAM_HUMAN), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
+		timeLeft = math.max(0, ROUNDTIME - ServerTime())
 	end
+
+	--Draw time
+	draw.SimpleText(keyText, "NewZombieFont15", startX, keyStartY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText(ToMinutesSeconds(timeLeft + 1), "NewZombieFont35", startX, valueStartY, valueColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+
+	--Green coins
+	local startX = 20+ScaleW(760)
+	draw.SimpleText("GREENCOINS", "NewZombieFont15", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleTextOutlined(MySelf:GreenCoins(), "NewZombieFont23", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(160, 0, 0, 170))
+	
+	local startX = 20+ScaleW(865)
+	--Handle level key switching for current level and level completion percentage
+	if nextLevelKeySwitch <= CurTime() then
+		currentLevelKey = not currentLevelKey
+		nextLevelKeySwitch = CurTime()+10
+	end
+
+	if currentLevelKey then
+		--Draw current level
+		draw.SimpleText("LEVEL", "NewZombieFont15", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleTextOutlined(MySelf:GetRank(), "NewZombieFont23", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(160, 0, 0, 170))
+	else
+		--Draw level completion percentage
+		draw.SimpleText("NEXT LEVEL", "NewZombieFont15", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+
+		local RequiredXP = MySelf:NextRankXP() - MySelf:CurRankXP()
+		local CurrentXP = MySelf:GetXP() - MySelf:CurRankXP()
+		draw.SimpleTextOutlined(math.Round((CurrentXP / RequiredXP) * 100) .."%", "NewZombieFont23", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(160, 0, 0, 170))
+	end
+
+	local startX = ScaleW(430)
+	draw.SimpleText("SURVIVORS", "NewZombieFont15", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleTextOutlined(cached_humans, "NewZombieFont23", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(160, 0, 0, 170))
+
+	--Draw Undead team count
+	local startX = ScaleW(530)	
+	draw.SimpleText("UNDEAD", "NewZombieFont15", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleTextOutlined(cached_zombies, "NewZombieFont23",startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(160, 0, 0, 170))
 end
+
+function hud.DrawBrains()
+	--Calculate amount of brains required
+	local requiredScore = REDEEM_KILLS
+	if MySelf:HasBought("quickredemp") then
+		requiredScore = REDEEM_FAST_KILLS
+	end
+
+	local brainsText = "BRAIN"
+
+	requiredScore = math.max(0,requiredScore - MySelf:GetScore())
+	if requiredScore > 0 then
+		requiredScore = math.ceil(requiredScore/2)
+	end
+
+	if requiredScore ~= 1 then
+		brainsText = brainsText .. "S"
+	end
+
+	--Background
+	surface.SetMaterial(nHudBackgroundZombie) 
+	surface.SetDrawColor(100, 0, 0, 260)
+	surface.DrawTexturedRect(ScaleW(-50), ScaleH(740), ScaleW(160), ScaleH(130))
+
+	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(795), ScaleH(825)
+	draw.SimpleText(requiredScore, "NewZombieFont23", textX, textValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText(brainsText, "NewZombieFont15", textX, textKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+end
+
 
 hud.LeftGradient = surface.GetTextureID("gui/gradient")
 hud.Arrow = surface.GetTextureID("gui/arrow")
@@ -521,7 +553,7 @@ local function DrawRoundTime()
 	--Preparation (warmup)
 	if ServerTime() <= WARMUPTIME then
 		keyText = "PREPARATION TIME"
-
+		draw.SimpleText("Get close to the Undead spawn to be sacrificed", "ssNewAmmoFont9", startX, keyStartY+100, Color(255,90,90,210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		timeLeft = math.max(0, WARMUPTIME - ServerTime())
 
 		if timeLeft < 10 then
@@ -543,10 +575,9 @@ local function DrawRoundTime()
 	--Draw time
 	draw.SimpleText(keyText, "ssNewAmmoFont5", startX, keyStartY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	draw.SimpleText(ToMinutesSeconds(timeLeft + 1), "HUDBetaZombieCount", startX, valueStartY, valueColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		--surface.PlaySound("mrgreen/beep22.wav")
+
 end
 
-local nextLevelKeySwitch, currentLevelKey = CurTime()+10, false
 function hud.DrawStats()
 	--Draw background
 	surface.SetMaterial(hudElementBackground) 

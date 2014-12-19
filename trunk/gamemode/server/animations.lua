@@ -70,7 +70,7 @@ local WraithATT = {}
 WraithATT[PLAYER_IDLE] = ACT_IDLE
 WraithATT[PLAYER_WALK] = ACT_WALK
 WraithATT[PLAYER_JUMP] = ACT_WALK
--- WraithATT[PLAYER_ATTACK1] = ACT_RANGE_ATTACK1
+ WraithATT[PLAYER_ATTACK1] = ACT_RANGE_ATTACK1
 
 local function WraithAnim(pl, anim)
 	local act = ACT_IDLE
@@ -88,6 +88,11 @@ local function WraithAnim(pl, anim)
 		pl:RestartGesture(act)
 		return true
 	end]==]
+	
+	if act == ACT_RANGE_ATTACK1 then
+		pl:SetPlaybackRate(2)
+		pl:RestartGesture(act)
+		return true end
 
 	local seq = pl:SelectWeightedSequence(act)
 	if act == ACT_IDLE then
@@ -347,13 +352,13 @@ local function ZombineAnim ( pl, anim )
 end
 
 --  These index numbers are related to the class numbers in zs_options.lua
+
 SpecialAnims = {}
 SpecialAnims[1] = ZombieAnim
-SpecialAnims[2] = FastZombieAnim
-SpecialAnims[3] = PoisonZombieAnim
-SpecialAnims[4] = WraithAnim
-SpecialAnims[5] = HowlerAnim
-SpecialAnims[6] = HeadcrabAnim
-SpecialAnims[7] = PoisonHeadcrabAnim
+SpecialAnims[3] = FastZombieAnim
+SpecialAnims[2] = PoisonZombieAnim
+SpecialAnims[5] = WraithAnim
+SpecialAnims[6] = HowlerAnim
+SpecialAnims[7] = HeadcrabAnim
+SpecialAnims[9] = PoisonHeadcrabAnim
 SpecialAnims[8] = ZombineAnim
-

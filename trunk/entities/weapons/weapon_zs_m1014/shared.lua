@@ -51,7 +51,7 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize * SWEP.Primary.Nu
 SWEP.IsShotgun = true
 
 
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = 160
 SWEP.MaxBulletDistance 		= 2300
 
 SWEP.IronSightsPos = Vector(-6.881, -11.261, 2.68)
@@ -60,7 +60,7 @@ SWEP.IronSightsAng = Vector(0, -0.828, 0)
 SWEP.OverridePos = Vector(2.559, -3.28, 1.399)
 SWEP.OverrideAng = Vector( 0,0,0 )
 
-if CLIENT then
+if CHRISTMAS then
 	SWEP.VElements = {
 		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.xm1014_Parent", rel = "", pos = Vector(0, -1.282, 2.513), angle = Angle(-90, 90, 0), size = Vector(0.5, 0.5, 1.126), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}

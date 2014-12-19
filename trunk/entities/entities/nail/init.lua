@@ -11,10 +11,11 @@ function ENT:Initialize()
 	-- self.Heal = 700 * math.Clamp(GetInfliction()+0.3,0.5,1)
 
 	--Initial and Maximum Health
-	self.Heal = 150
+	self.Heal = 130
 	
 	--Increase health when having a perk
-	if self:GetOwner():GetPerk("_nailhp") then
+	--if self:GetOwner():GetPerk("_nailhp") then
+	if self:GetOwner():GetPerk("_hammerupgrade") then
 		self.Heal = math.Round(self.Heal + self.Heal*0.4)
 	end
 
@@ -43,10 +44,6 @@ function ENT:SetNailHealth(am)
 	self.Entity:SetDTInt(0,am)
 end
 
---[[function ENT:UpdateTransmitState()
-	return TRANSMIT_PVS
-end]]
-
 function ENT:Think()
 	--And not a single fuck was given that beautiful day! :D
 	if self.toworld then
@@ -64,14 +61,12 @@ function ENT:Think()
 		
 		if (Ent1 and self.Ents[1]:GetPhysicsObject() and self.Ents[1]:GetPhysicsObject():GetVelocity():Length() > 580 and Ent1.Nails) then
 			sound.Play(Sound("ambient/machines/catapult_throw.wav"), self:GetPos(), 80, math.random(90, 110))
-		--	Ent1:TakeDamage(self.Entity:GetDTInt(0)+10,nil)
 			Ent1:TakeDamage(self.Entity:GetDTInt(0)+1,nil)
-			-- Ent1:TakeDamage(self.Entity:GetNWInt("NailHealth")+10,nil)
 		elseif (Ent2 and self.Ents[2]:GetPhysicsObject() and self.Ents[2]:GetPhysicsObject():GetVelocity():Length() > 580 and Ent2.Nails) then
 			sound.Play(Sound("ambient/machines/catapult_throw.wav"), self:GetPos(), 80, math.random(90, 110))
-			-- Ent2:TakeDamage(self.Entity:GetNWInt("NailHealth")+10,nil)
-			--Ent2:TakeDamage(self.Entity:GetDTInt(0)+10,nil)
 			Ent2:TakeDamage(self.Entity:GetDTInt(0)+1,nil)
 		end
 	end
 end
+
+

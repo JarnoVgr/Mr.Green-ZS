@@ -4,81 +4,83 @@
 local DAMAGE_BLUR = true
 local IRON_CROSSHAIR = false
 
-ColorModify = {}
-ColorModify["$pp_colour_addr"] = 0
-ColorModify["$pp_colour_addg" ] = 0
-ColorModify["$pp_colour_addb" ] = 0
-ColorModify["$pp_colour_brightness" ] = 0
-ColorModify["$pp_colour_contrast" ] = 1
-ColorModify["$pp_colour_colour" ] = 1
-ColorModify["$pp_colour_mulr" ] = 0
-ColorModify["$pp_colour_mulg" ] = 0
-ColorModify["$pp_colour_mulb" ] = 0
+ColorModify = {
+	["$pp_colour_brightness"] = 0,
+	["$pp_colour_contrast"] = 1,
+	["$pp_colour_colour"] = 1,
+	["$pp_colour_addr"] = 0,
+	["$pp_colour_addg"] = 0,
+	["$pp_colour_addb"] = 0,
+	["$pp_colour_mulr"] = 0,
+	["$pp_colour_mulg"] = 0,
+	["$pp_colour_mulb"] = 0.
+}
 
-ColorMod = {}
-ColorMod["$pp_colour_addr"] = 0
-ColorMod["$pp_colour_addg" ] = 0
-ColorMod["$pp_colour_addb" ] = 0
-ColorMod["$pp_colour_brightness" ] = 0
-ColorMod["$pp_colour_contrast" ] = 1
-ColorMod["$pp_colour_colour" ] = 1
-ColorMod["$pp_colour_mulr" ] = 0
-ColorMod["$pp_colour_mulg" ] = 0
-ColorMod["$pp_colour_mulb" ] = 0
+ColorMod = {
+	["$pp_colour_brightness"] = 0,
+	["$pp_colour_contrast"] = 1,
+	["$pp_colour_colour"] = 1,
+	["$pp_colour_addr"] = 0,
+	["$pp_colour_addg"] = 0,
+	["$pp_colour_addb"] = 0,
+	["$pp_colour_mulr"] = 0,
+	["$pp_colour_mulg"] = 0,
+	["$pp_colour_mulb"] = 0.
+}
 
---[[
 local ZombieCM = {
-	["$pp_colour_brightness"] = -0.1,
-	["$pp_colour_contrast"] = 1.2,
+	["$pp_colour_brightness"] = 0,
+	["$pp_colour_contrast"] = 1,
 	["$pp_colour_colour"] = 1,
 	["$pp_colour_addr"] = 0.25,
+	["$pp_colour_addg"] = 0.20,
+	["$pp_colour_addb"] = 0.0,
+	["$pp_colour_mulr"] = 1.15,
+	["$pp_colour_mulg"] = 0,
+	["$pp_colour_mulb"] = 0.
+}
+
+--[[
+--Alive Zombie ColourMod
+local ZombieCM = {
+	["$pp_colour_brightness"] = -5.5,
+	["$pp_colour_contrast"] = 0,
+	["$pp_colour_colour"] = 1,
+	["$pp_colour_addr"] = 0.5,
+	["$pp_colour_addg"] = 0.2,
+	["$pp_colour_addb"] = 0,
+	["$pp_colour_mulr"] = 1.5,
+	["$pp_colour_mulg"] = 0,
+	["$pp_colour_mulb"] = 0
+}
+]]--
+
+local ZombieHowlerCM = {
+	["$pp_colour_brightness"] = -0.20,
+	["$pp_colour_contrast"] = 1.2,
+	["$pp_colour_colour"] = 1,
+	["$pp_colour_addr"] = 0.31,
 	["$pp_colour_addg"] = 0.20,
 	["$pp_colour_addb"] = 0,
 	["$pp_colour_mulr"] = 0.15,
 	["$pp_colour_mulg"] = 0,
 	["$pp_colour_mulb"] = 0.
 }
-]]
 
---Alive Zombie ColourMod
-local ZombieCM = {
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 1.25,
+local ZombieRageCM = {
+	["$pp_colour_brightness"] = -0.18,
+	["$pp_colour_contrast"] = 1.5,
 	["$pp_colour_colour"] = 1,
-	["$pp_colour_addr"] = 0,
-	["$pp_colour_addg"] = 0,
+	["$pp_colour_addr"] = 0.27,
+	["$pp_colour_addg"] = 0.15,
 	["$pp_colour_addb"] = 0,
-	["$pp_colour_mulr"] = 1,
-	["$pp_colour_mulg"] = 1,
-	["$pp_colour_mulb"] = 1
+	["$pp_colour_mulr"] = 0.16,
+	["$pp_colour_mulg"] = 0,
+	["$pp_colour_mulb"] = 0
 }
 
-
-local ZombieHowlerCM = {}
-ZombieHowlerCM[ "$pp_colour_addb" ] 	= 0
-ZombieHowlerCM[ "$pp_colour_contrast" ] = 1.2
-ZombieHowlerCM[ "$pp_colour_colour" ] = 1
-ZombieHowlerCM["$pp_colour_mulg" ] = 0
-ZombieHowlerCM["$pp_colour_mulb" ] = 0
-ZombieHowlerCM[ "$pp_colour_brightness" ] = -0.20
-ZombieHowlerCM[ "$pp_colour_addr" ]	= 0.31
-ZombieHowlerCM[ "$pp_colour_mulr" ] 	= 0.15
-ZombieHowlerCM[ "$pp_colour_addg" ]	= 0.20
-
-local ZombieRageCM = {}
-ZombieRageCM["$pp_colour_addb" ] 	= 0
-ZombieRageCM["$pp_colour_contrast" ] = 1.5
-ZombieRageCM["$pp_colour_colour" ] = 1
-ZombieRageCM["$pp_colour_mulg" ] = 0
-ZombieRageCM["$pp_colour_mulb" ] = 0
-ZombieRageCM["$pp_colour_brightness" ] = -0.18
-ZombieRageCM["$pp_colour_addr" ] = 0.27
-ZombieRageCM["$pp_colour_mulr" ] = 0.16
-ZombieRageCM["$pp_colour_addg" ] = 0.15
-
-
 --Alive Human
-
+--[[
 --Oldest
 local HumanCM = {
 	["$pp_colour_addr"] = 0,
@@ -90,7 +92,7 @@ local HumanCM = {
 	["$pp_colour_mulr"] = 0,
 	["$pp_colour_mulg"] = 0,
 	["$pp_colour_mulb"] = 0
-}
+}]]
 --[[
 --Pre-Changes
 local HumanCM = {
@@ -104,7 +106,7 @@ local HumanCM = {
 	["$pp_colour_mulg"] = 1,
 	["$pp_colour_mulb"] = 1
 }]]
---[[
+
 local HumanCM = {
 	["$pp_colour_addr"] = 0,
 	["$pp_colour_addg"] = 0,
@@ -116,9 +118,22 @@ local HumanCM = {
 	["$pp_colour_mulg"] = 1,
 	["$pp_colour_mulb"] = 1
 }
-}]]
+
 --When spectating Zombies
 local SpectatorCM = {
+	["$pp_colour_addr"] = 0,
+	["$pp_colour_addg"] = 0,
+	["$pp_colour_addb"] = 0,
+	["$pp_colour_brightness"] = -0.08,
+	["$pp_colour_contrast"] = 1.25,
+	["$pp_colour_colour"] = 1,
+	["$pp_colour_mulr"] = 0,
+	["$pp_colour_mulg"] = 1,
+	["$pp_colour_mulb"] = 1
+}
+
+--When connecting
+local ConnectingCM = {
 	["$pp_colour_addr"] = 0,
 	["$pp_colour_addg"] = 0,
 	["$pp_colour_addb"] = 0,
@@ -130,10 +145,11 @@ local SpectatorCM = {
 	["$pp_colour_mulb"] = 1
 }
 
+
 --[==[---------------------------------------------------------
       Receives toxic zombie points from the server 
 ---------------------------------------------------------]==]
-ToxicPoints = {}
+--[[ToxicPoints = {}
 local function ReceiveToxicPositions(um)
 	if not IsValid ( MySelf ) then
 		return
@@ -160,7 +176,7 @@ local function ReceiveToxicPositions(um)
 	
 	Debug("[CLIENT] Successfully received toxic fumes positions from server.")
 end
-usermessage.Hook("ReceiveToxicPositions", ReceiveToxicPositions)
+usermessage.Hook("ReceiveToxicPositions", ReceiveToxicPositions)]]--
 
 --[==[--------------------------------------------------
         Used to calculate color mod values
@@ -257,9 +273,16 @@ function CalculateColorMod()
 		ColorMod["$pp_colour_colour"] = math.Approach( Color, iColor, ColorRate)
 	-- Dead post proccesing
 	elseif MySelf:Team() == TEAM_SPECTATOR and not ENDROUND then
-		for k,v in pairs(SpectatorCM) do
-			ColorMod[k] = v
+		if not MySelf.ReadySQL then
+			for k,v in pairs(ConnectingCM) do
+				ColorMod[k] = v
+			end
+		else
+			for k,v in pairs(SpectatorCM) do
+				ColorMod[k] = v
+			end
 		end
+
 	end
 	
 	-- Actually change colors

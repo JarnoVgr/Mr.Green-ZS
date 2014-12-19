@@ -9,27 +9,27 @@ SWEP.Base = "weapon_zs_melee_base"
 -- Model paths
 SWEP.Author = "Duby"
 
-
+SWEP.UseHands = true
 
 if CLIENT then
 	SWEP.ShowViewModel = false 
 
---SWEP.VElements = {
-	--["1"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.635, 1.118, -10.91), angle = Angle(-5.844, -10.52, 29.221), size = Vector(1.144, 1.144, 1.144), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} } 
---}
-
+SWEP.ViewModelBoneMods = {
+	--["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-13.594, -8, 5), angle = Angle(-174.849, 76.903, 180) },
+	["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(3.594, -8, 5), angle = Angle(140.849, 70.903, 180) },
+	["ValveBiped.Bip01_L_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(-0.276, 0.097, -0.897), angle = Angle(8.331, 0, 0) }
+}
 	
 SWEP.VElements = {
-	--["chainsaw"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.368, -2.464, 1.712), angle = Angle(4.574, 93.4, 0), size = Vector(1.088, 1.088, 1.088), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	["chainsaw"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.941, 2.631, -6.678), angle = Angle(180, 90, -53.116), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	
+	["chainsaw"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.941, 2.631, -6.678), angle = Angle(180, 90, -53.116), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Blowtorch2"] = { type = "Model", model = "models/props_pipes/valvewheel002a.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "chainsaw", pos = Vector(3.868, 2.633, -5.016), angle = Angle(-0.617, 33.426, 0), size = Vector(0.294, 0.294, 0.294), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 }
 
 SWEP.WElements = {
 	["1"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.752, 0, -5.715), angle = Angle(-3.507, 66.623, 75.973), size = Vector(0.82, 0.82, 0.82), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
-
-	--killicon.AddFont( "weapon_zs_melee_crowbar", "HL2MPTypeDeath", "6", Color(255, 255, 255, 255 ) )
 end
 
 SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
@@ -46,20 +46,35 @@ SWEP.SlotPos = 8
 
 -- Damage, distane, delay
 SWEP.Primary.Automatic	= true
-SWEP.Primary.Damage = 60
-SWEP.Primary.Delay = 0.5
+SWEP.Primary.Damage = 100
+SWEP.Primary.Delay = 0.7
 SWEP.Primary.Distance = 73
 SWEP.WalkSpeed = 177
-SWEP.SwingTime = 0
---SWEP.SwingRotation = Angle(30, -30, -30)
-SWEP.SwingRotation = Angle(0, 0, 0)
+SWEP.SwingTime = 0.9
+SWEP.SwingRotation = Angle(0, -40, 0)
 SWEP.ShowViewModel = false
 SWEP.ShowWorldModel = false
-SWEP.UseHands = true
--- Killicons
-if CLIENT then
-	killicon.AddFont( "weapon_zs_melee_pipe", "HL2MPTypeDeath", "6", Color( 255, 80, 0, 255 ) )
+--[[
+--//
+--// Logic to fix iron sights bug - Josh 'Acecool' Moser
+--//
+function SWEP:FixIronSightsBug( _time )
+if ( SERVER ) then
+timer.Create( "FixIronSightsBug", ( _time or 0 ) + 0.05, 1, function( )
+if ( !IsValid( self ) ) then return; end
+
+local _anim = ACT_VM_IDLE
+if ( self && self.GetSuppressed && self:GetSuppressed( ) ) then
+_anim = ACT_VM_IDLE_SILENCED
 end
+self:SendWeaponAnim( _anim )
+
+if ( !IsValid( self ) || !IsValid( self.Owner ) || !IsValid( self.Owner:GetViewModel() ) ) then return; end
+self.Owner:GetViewModel():SetPlaybackRate( 0 )
+end )
+end
+end]]--
+
 
 function SWEP:PlaySwingSound()
 	self:EmitSound("ambient/machines/slicer1.wav")
@@ -77,7 +92,7 @@ end
 
 function SWEP:OnDeploy()
 	if SERVER then
-		self.DeployTime = CurTime() + 0
+		self.DeployTime = CurTime() + 3.1
 		self.ChainSound = CreateSound( self.Owner, "weapons/melee/chainsaw_idle.wav" ) 
 		if not self.Deployed then
 			self.Owner:EmitSound("weapons/melee/chainsaw_start_0"..math.random(1,2)..".wav")
@@ -86,6 +101,7 @@ function SWEP:OnDeploy()
 	end
 	
 end
+
 
 function SWEP:_OnRemove() --Cheers Necro, this code is from the hate swep
 	if SERVER then

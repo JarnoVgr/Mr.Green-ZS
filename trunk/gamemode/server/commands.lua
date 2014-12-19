@@ -80,17 +80,13 @@ function DropWeapon(pl, commandName, args)
 	end
 	
 	-- you can't drop all of them!
-	--[[if Count == 1 then
-		pl:ChatPrint("You can't drop all of your weapons!")
-		return false
-	end]]
 
 	--
-	if Count == 1 then
-		GAMEMODE:SetPlayerSpeed(pl, 210)
-	end
+	--if Count == 1 then
+	--	GAMEMODE:SetPlayerSpeed(pl, 210)
+	--end
 	
-	if string.sub( wepname,1,5 ) == "admin" or wepname == "weapon_frag" or wepname == "weapon_zs_fists" or wepname == "weapon_zs_punch" or wepname == "weapon_physcannon" or wepname == "weapon_physgun" or wepname == "christmas_snowball" then
+	if string.sub( wepname,1,5 ) == "admin" or wepname == "weapon_physcannon" or wepname == "weapon_physgun" then
 		pl:Message("You can't drop this weapon")
 		return false
 	end
@@ -102,7 +98,8 @@ function DropWeapon(pl, commandName, args)
 	end
 	
 	--
-	if GetWeaponCategory(Weapon:GetClass()) == "Tool1" or GetWeaponCategory(Weapon:GetClass()) == "Tool2" then
+--	if GetWeaponCategory(Weapon:GetClass()) == "Tool1" or GetWeaponCategory(Weapon:GetClass()) == "Tool2" then
+	if GetWeaponCategory(Weapon:GetClass()) == "Tool1" then
 		Weapon.Ammunition = Weapon:Clip1()
 		if wepname == "weapon_zs_medkit" then
 			Weapon.RemainingAmmunition = pl:GetAmmoCount(Weapon:GetPrimaryAmmoTypeString())
@@ -300,42 +297,10 @@ function SellItem(pl,commandName,args)
 	
 	pl:ChatPrint("Selling items disabled")
 	-- voornamelijk protectie tegen mensen die direct via console items pogen aan te schaffen
-	--[==[
-	if shopData[item].AdminOnly and not pl:IsAdmin() then
-		pl:ChatPrint("Server-side validation bitch!")
-		return
-	end
-	if shopData[item].Sell < 1 then
-		pl:ChatPrint("You can't sell this item!")
-		return
-	end
-	if not pl.DataTable["shopitems"][item] then
-		pl:ChatPrint("You don't got this item!")
-		SendShopData(pl) -- update just in case
-		return
-	end
+	--mainly protection against people who directly via console items attempt to purchase
+	--Duby: Its gone as its not needed and its just sat here..
 	
-	-- sell the thing
-	pl.GreenCoins = pl.GreenCoins + shopData[item].Sell
-	pl.DataTable["shopitems"][item] = false
 	
-	GAMEMODE:SendCoins(pl)
-	SendShopData(pl)
-	
-	--  Substract total upgrades!
-	if shopData[item].Cost > 2500 then
-		pl.TotalUpgrades = pl.TotalUpgrades - 1
-		GAMEMODE:SendUpgradeNumber (pl)
-	end
-	
-	umsg.Start("CoinEffect",pl)
-		umsg.Short(shopData[item].Sell)
-	umsg.End()
-	
-	if item == "titlechanging" then
-		umsg.Start("removeOptions",pl)
-		umsg.End()
-	end]==]
 end
 concommand.Add("mrgreen_sellitem",SellItem) 
 
@@ -587,38 +552,6 @@ function ShowLevelStats (pl, cmd, args)
 	pl:PrintMessage(HUD_PRINTTALK,"Your rank is "..pl:GetRank() .." with "..pl:GetXP().."/"..pl:NextRankXP() .." XP.")
 end
 concommand.Add("zs_showlevel",ShowLevelStats)
-
---function ShowClassDescription (pl, cmd ,args) --Duby: There is no need for this old human classes command anymore. So removing it is the best option. :P
---	if not (pl:IsValid() and pl:Alive()) then return end
-	
---	if pl:IsZombie() then
-	--pl:SendLua("MakeZClassInfo()")
-	--return
-	--end
-	
-	--local leveladd = 1
-	--local pllevel = pl:GetHumanClass()
-		
-	--if pl:GetTableScore(string.lower(HumanClasses[pl:GetHumanClass()].Name),"level") <= 6 then 
-	--	leveladd = 1
-	--else
-	--	leveladd = 0
-	--end
-	
-	--if pllevel == 2 then
-	--	lastdesc = ""
-	--else
-	--	lastdesc = HumanClasses[pllevel].Coef[4]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd)
-	--end
-	
-	--  Don't use /n. It will screw the custom chat bot formatting
-	--pl:PrintMessage (HUD_PRINTTALK, "Class description: Only For Humans!")
-	--pl:PrintMessage (HUD_PRINTTALK, HumanClasses[pllevel].Coef[1]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd).." "..HumanClasses[pllevel].Description[1] )
-	--pl:PrintMessage (HUD_PRINTTALK, HumanClasses[pllevel].Coef[2]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd).." "..HumanClasses[pllevel].Description[2] )
-	--pl:PrintMessage (HUD_PRINTTALK, HumanClasses[pllevel].Coef[3]*(pl.DataTable["ClassData"][string.lower(HumanClasses[pllevel].Name)].level + leveladd).." "..HumanClasses[pllevel].Description[3] )
-	--pl:PrintMessage (HUD_PRINTTALK, lastdesc.." "..HumanClasses[pllevel].Description[4] )
---end
---concommand.Add("show_classdescription",ShowClassDescription)
 
 function RollTheDice ( pl,commandName,args )
 	if ENDROUND then

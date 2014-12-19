@@ -13,7 +13,8 @@ Objectives = Objectives or {}
 
 Objectives.Entities = {"battery1","battery2","battery3","c4"}
 
-Objectives.RemoveEntities = {"weapon_zm_shotgun","info_zombiespawn","info_player_zombiemaster","weapon_zm_rifle","weapon_zm_pistol","weapon_zm_sledge","trigger_blockspotcreate","weapon_zm_mac10","item_ammo_*"}
+--Objectives.RemoveEntities = {"weapon_zm_shotgun","info_zombiespawn","info_player_zombiemaster","weapon_zm_rifle","weapon_zm_pistol","weapon_zm_sledge","trigger_blockspotcreate","weapon_zm_mac10","item_ammo_*"}
+Objectives.RemoveEntities = {"weapon_zm_shotgun","info_player_zombiemaster","weapon_zm_rifle","weapon_zm_pistol","weapon_zm_sledge","trigger_blockspotcreate","weapon_zm_mac10","item_ammo_*"}
 
 ROUNDTIME = 16*60
 
@@ -48,7 +49,7 @@ Objectives[2] = {
 	TriggerOutputHook = "OnTrigger",
 	TriggerOutputFunction = function()
 	
-	--[=[PrintMessageAll( HUD_PRINTTALK, "You have activated optional function!" )
+	PrintMessageAll( HUD_PRINTTALK, "You have activated optional function!" )
 	local sledge1 = ents.Create( "weapon_zs_melee_sledgehammer" )
 	sledge1:SetPos(Vector(409.173767, 153.800476, -166.968750))
 	sledge1:Spawn()
@@ -63,7 +64,7 @@ Objectives[2] = {
 	
 	local sledge4 = ents.Create( "weapon_zs_melee_sledgehammer" )
 	sledge4:SetPos(Vector(449.173767, 173.800476, -156.968750))
-	sledge4:Spawn()]=]
+	sledge4:Spawn()
 	
 		local sledge = {}
 		for i=1,math.random(2,math.max(team.NumPlayers(TEAM_HUMAN),3)) do
@@ -194,6 +195,9 @@ Objectives[6] = {
 		
 	for _,zombie in pairs(team.GetPlayers(TEAM_UNDEAD)) do
 		zombie:Message ("Destroy the truck!",1,"white")
+		timer.Simple(5,function()      
+		zombie:Message ("Then Kill the Humans!",1,"white")
+		end)
 	end
 		
 	for _, ent in pairs (ents.GetAll()) do
@@ -212,27 +216,24 @@ Objectives[6] = {
 		end
 			
 	end
-	
+
 	--Add music for ambience
 	
-	local song
+	--[[local song
 	local rand = math.random(1,3)
 	if rand == 1 then
-		song = "music/HL1_song10.mp3"
+		song = "deadlife_mrgreen.mp3"
 	elseif rand == 2 then
-		song = "music/HL2_song29.mp3"
+		song = "deadlife_mrgreen.mp3"
 	else
 		song = "deadlife_mrgreen.mp3"
-	end
+	end]]--
 	
-
-	umsg.Start("PlayClientsideSound")
-		umsg.String(song)
-	umsg.End()	
+	--umsg.Start("PlayClientsideSound")
+	--	umsg.String(song)
+	--umsg.End()	
 	
-	local weps = {"weapon_zs_ak47","weapon_zs_deagle","weapon_zs_aug","weapon_zs_mp5","weapon_zs_shotgun","weapon_zs_melee_crowbar","weapon_zs_m249","weapon_zs_m4a1","weapon_zs_g3sg1","item_healthkit",
-	"item_healthkit","item_healthkit","item_healthkit","item_healthkit",
-	"weapon_zs_galil"
+	local weps = {"weapon_zs_ak47","weapon_zs_deagle","weapon_zs_aug","weapon_zs_mp5","weapon_zs_melee_crowbar","weapon_zs_m249","weapon_zs_m4a1","weapon_zs_galil"
 	}
 	
 	local ent = {}
@@ -244,7 +245,7 @@ Objectives[6] = {
 		end
 		
 	end,
-	Info = "Get back to the truck and defend it for 3 minutes!",
+	Info = "Get back to the truck and defend it, maybe help will come!",
 	PaintObjective = {"Defend the truck!", Vector(5729.058105, -1446.772949, -192.372635)},
 	ZombieSpawns = function()
 	

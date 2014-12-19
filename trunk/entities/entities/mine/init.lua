@@ -76,10 +76,11 @@ function ENT:Explode()
 	--Shaken, not stirred
 	local shake = ents.Create( "env_shake" )
 	shake:SetPos( self.Entity:GetPos() )
-	shake:SetKeyValue( "amplitude", "800" ) -- Power of the shake effect
-	shake:SetKeyValue( "radius", "400" )	-- Radius of the shake effect
-	shake:SetKeyValue( "duration", "3" )	-- Duration of shake
-	shake:SetKeyValue( "frequency", "128" )	-- Screenshake frequency
+	shake:SetKeyValue( "amplitude", "500" ) -- Power of the shake effect
+	shake:SetKeyValue( "radius", "450" )	-- Radius of the shake effect
+	shake:SetKeyValue( "duration", "4" )	-- Duration of shake
+	--shake:SetKeyValue( "frequency", "128" )	-- Screenshake frequency
+	shake:SetKeyValue( "frequency", "170" )	-- Screenshake frequency
 	shake:SetKeyValue( "spawnflags", "4" )	-- Spawnflags( In Air )
 	shake:Spawn()
 	shake:SetOwner( self:GetOwner() )

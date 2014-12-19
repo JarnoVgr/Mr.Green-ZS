@@ -18,7 +18,7 @@ function EFFECT:Init(data)
 	local LightColor = render.GetLightColor(Pos) * 255
 		LightColor.r = math.Clamp( LightColor.r, 70, 255 )
 		
-	--[=[local emitter = ParticleEmitter(Pos)
+	local emitter = ParticleEmitter(Pos)
 		local particle = emitter:Add("effects/blood_core", Pos)
 			particle:SetVelocity(Norm)
 			particle:SetDieTime(math.Rand(1.0, 2.0))
@@ -27,7 +27,7 @@ function EFFECT:Init(data)
 			particle:SetEndSize(math.Rand( 32, 64))
 			particle:SetRoll(math.Rand( 0, 360))
 			particle:SetColor(LightColor.r*0.5, 0, 0)	
-	emitter:Finish()]=]
+	emitter:Finish()
 
 	util.Decal("Blood", Pos + Norm*10, Pos - Norm*10)
 	
@@ -75,13 +75,45 @@ function EFFECT:Think()
 			particle:SetDieTime(math.Rand(3,5))
 			particle:SetStartAlpha(255)
 			particle:SetEndAlpha(255)
-			particle:SetStartSize(2)
+			--particle:SetStartSize(2)
+			particle:SetStartSize(4)
 			particle:SetEndSize(0)
 			particle:SetColor( LightColor.r*0.5, 0, 0 )
 			particle:SetCollide(true)
 			particle:SetCollideCallback(CollideCallbackSmall)
 			
 		end
+		
+		local particle = emitter:Add("effects/blooddrop", self.Pos + RandVel)
+		if particle then
+			particle:SetVelocity(Vector(0, 0, math.Rand(-300, -150)))
+			particle:SetDieTime(math.Rand(3,5))
+			particle:SetStartAlpha(255)
+			particle:SetEndAlpha(255)
+			--particle:SetStartSize(2)
+			particle:SetStartSize(30)
+			particle:SetEndSize(20)
+			particle:SetColor( LightColor.r*0.5, 0, 0 )
+			particle:SetCollide(true)
+			particle:SetCollideCallback(CollideCallbackSmall)
+			
+		end
+		
+		local particle = emitter:Add("effects/blooddrop", self.Pos + RandVel)
+		if particle then
+			particle:SetVelocity(Vector(0, 0, math.Rand(-300, -150)))
+			particle:SetDieTime(math.Rand(3,5))
+			particle:SetStartAlpha(255)
+			particle:SetEndAlpha(255)
+			--particle:SetStartSize(2)
+			particle:SetStartSize(20)
+			particle:SetEndSize(10)
+			particle:SetColor( LightColor.r*0.5, 0, 0 )
+			particle:SetCollide(true)
+			particle:SetCollideCallback(CollideCallbackSmall)
+			
+		end
+		
 	emitter:Finish()
 
 	return true

@@ -21,320 +21,324 @@ SpawnButtons.ColorRandom = Color(1,1,1,180)
 SpawnButtons.ColorRandomOver = Color(200,200,200,255)
 SpawnButtons.ColorRandomBack = Color(0,0,0,255)
 
-local achstat1
-local achstat2
-
 Loadout = Loadout or {}
 
-function IsWeapon(wep)
-	if not wep then return end
+local function IsWeapon(wep)
+	if not wep then
+		return false
+	end
+
 	if string.sub(wep, 1, 6) == "weapon" and GAMEMODE.HumanWeapons[wep] then
 		return true
 	end
+
 	return false
 end
 
-function IsPerk(wep)
-	if not wep then return end
+local function IsPerk(wep)
+	if not wep then
+		return false
+	end
+
 	if string.sub(wep, 1, 1) == "_" and GAMEMODE.Perks[wep] then
 		return true
 	end
+
 	return false
 end
 
-function GetPerkSlot(wep)
-	if not wep or not IsPerk(wep) then
-		return
+local function GetPerkSlot(item)
+	if not item or not IsPerk(item) then
+		return 0
 	end
 	
-	return GAMEMODE.Perks[wep].Slot or 0	
+	return GAMEMODE.Perks[item].Slot or 0	
 end
 
-local Gradient = surface.GetTextureID( "gui/center_gradient" )
+local Gradient = surface.GetTextureID("gui/center_gradient")
 
-local lock_icon = Material("icon16/lock.png")
-local heart_icon = Material("icon16/heart.png")
-
+local lockIcon = Material("icon16/lock.png")
 
 -- Lists
 Unlocks = {}
 SlotLabel = {}
-function DrawContextMenu(x,y,ww,hh,weptype,parent,num)
-	
-	Unlocks[num] = vgui.Create( "DPanelList", parent )
-	Unlocks[num]:SetPos( x,y )
-	Unlocks[num]:SetSize(ww,hh*6)
-	Unlocks[num]:SetSpacing( 0 )
-	Unlocks[num]:SetPadding(0)
-	Unlocks[num]:EnableHorizontal( true )
-	Unlocks[num]:EnableVerticalScrollbar( false )
-	-- Unlocks[num]:SetVisible ( false )
-	Unlocks[num].Paint = function ()
-		DrawPanelBlackBox(0,0,ww,hh*6)
+
+local function IsValidRankUnlock(item, weptype, num)
+	--Hide locked items
+	--[[if not MySelf:HasUnlocked(item) then
+		return false
+	end]]
+
+	local sItemType = GetWeaponCategory(item)
+
+	--Workaround for primary weapons
+	if sItemType == "Automatic" then
+		sItemType = "Pistol"
 	end
+
+	local IsValidWeapon = IsWeapon(item) and sItemType == weptype
+	local IsValidPerk = IsPerk(item) and ((GetPerkSlot(item) == 1 and num == 4) or (GetPerkSlot(item) == 2 and num == 5))
+
+	if not IsValidWeapon and not IsValidPerk then
+		return false
+	end
+
+	return true, IsValidWeapon, IsValidPerk
+end
+
+local function DrawContextMenu(x, y, weptype, parent, num)
+
+	Unlocks[num] = vgui.Create("DPanelList", parent)
+	--Unlocks[num]:SetPos(0, 0)
+	local ww, hh = parent:GetSize()
+	--ItemsPanel
+	--Unlocks[num]:SetPos(0, 0)
+	Unlocks[num]:SetSize(ww, hh)
+	Unlocks[num]:SetSpacing(4)
+	Unlocks[num]:SetPadding(0)
+	Unlocks[num]:EnableHorizontal(true)
+	Unlocks[num]:EnableVerticalScrollbar(false)
+	Unlocks[num].Paint = function()
+		--DrawPanelBlackBox(0, 0, ww, hh*6)
+	end
+
+	local count = 0
+
+	--Walk through items to count ones we'll display
+	for i=0, table.maxn(GAMEMODE.RankUnlocks) do
+		if not GAMEMODE.RankUnlocks[i] then
+			continue
+		end
+
+		for _, item in pairs(GAMEMODE.RankUnlocks[i]) do
+			local IsValidItem, IsValidWeapon, IsValidPerk = IsValidRankUnlock(item, weptype, num)
+			if not IsValidItem then
+				continue
+			end
+
+			count = count + 1
+		end
+	end
+
+	local itemWidth = math.Round(ww / 2) - 2
+	local itemHeight = ScaleH(50)
+
+	--Make columns smaller when needing a scrollbar
+	if (math.ceil(count/2) * (5 + itemHeight) - 5) > hh then
+		itemWidth = itemWidth - 10
+	end	
 	
 	local ItemLabel = {}
+
+	for i=0, table.maxn(GAMEMODE.RankUnlocks) do
+		if not GAMEMODE.RankUnlocks[i] then
+			continue
+		end
+
+		for _, item in pairs(GAMEMODE.RankUnlocks[i]) do
+			local IsValidItem, IsValidWeapon, IsValidPerk = IsValidRankUnlock(item, weptype, num)
+			if not IsValidItem then
+				continue
+			end 
+
+			ItemLabel[item] = vgui.Create("DLabel", Unlocks[num])
+			ItemLabel[item]:SetText("")
+			ItemLabel[item]:SetSize(itemWidth, itemHeight) 
+			ItemLabel[item].OnCursorEntered = function() 
+				ItemLabel[item].Overed = true 
+				surface.PlaySound(Sound("UI/buttonrollover.wav"))
+
+				--Set description
+				local Description = ""
+				if GAMEMODE.Perks[item] and GAMEMODE.Perks[item].Description then
+					Description = GAMEMODE.Perks[item].Description
+				elseif GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].Description then
+					Description = GAMEMODE.HumanWeapons[item].Description
+				end
+
+				--Extra info about unlocking items
+				if not MySelf:HasUnlocked(item) then
+					Description = Description .. "\nThis item will be unlocked at a higher level."
+				end
+
+				ItemDescription:SetText(Description)
+			end
+			
+			ItemLabel[item].OnCursorExited = function() 
+				ItemLabel[item].Overed = false
+
+				ItemDescription:SetValue("")
+			end
+
+			ItemLabel[item].OnMousePressed = function() 
+				if MySelf:IsBlocked(item, SlotLabel) or not MySelf:HasUnlocked(item) then
+					surface.PlaySound(Sound("buttons/weapon_cant_buy.wav"))
+					return
+				end					
+				
+				if not SlotLabel[num] then
+					return
+				end
+					
+				surface.PlaySound(Sound("mrgreen/ui/menu_click01.wav"))
+
+				SlotLabel[num].Item = item
+				Unlocks[num]:Remove()
+				Unlocks[num] = nil
+			end
+
+			if IsValidWeapon then
+				ItemLabel[item].Paint = function()
+					if ItemLabel[item].Overed then
+						surface.SetDrawColor(255, 255, 255, 255)
+						surface.DrawOutlinedRect(0, 0, itemWidth, itemHeight)
+						surface.DrawOutlinedRect(1, 1, itemWidth-2, itemHeight-2)
+					else
+						surface.SetDrawColor(30, 30, 30, 200)
+						surface.DrawOutlinedRect(0, 0, itemWidth, itemHeight)
+						surface.SetDrawColor(30, 30, 30, 255)
+						surface.DrawOutlinedRect(1, 1, itemWidth-2, itemHeight-2)
+					end
+
+					if item == "none" then
+						return
+					end
 	
-	-- if num ~= 6 then -- not a perk
-		for i=0,table.maxn(GAMEMODE.RankUnlocks) do
-			if GAMEMODE.RankUnlocks[i] then
-				for _,item in pairs(GAMEMODE.RankUnlocks[i]) do
-					if MySelf:HasUnlocked(item) then
-
-						local sItemType = GetWeaponCategory(item)
-
-						--Work-around for primary weapons
-						if sItemType == "Automatic" then
-							sItemType = "Pistol"
+					if string.sub(item, 1, 6) == "weapon" then
+						local font, letter = "WeaponSelectedHL2", "0"
+						local Table = killicon.GetFont(item)
+									
+						if Table then
+							letter = Table.letter
+										
+							if not Table.IsHl2 and not Table.IsZS then
+								font = "WeaponSelectedCSS"
+							elseif not Table.IsHl2 and Table.IsZS then
+								font = "WeaponSelectedZS"
+							end
 						end
-
-						if IsWeapon(item) and sItemType == weptype then
-							ItemLabel[item] = vgui.Create("DLabel",Unlocks[num])
-							ItemLabel[item]:SetText("")
-							-- ItemLabel[item]:SetSize(LoadoutMenuW,(LoadoutMenuH/6)*0.9) 
-							ItemLabel[item]:SetSize(ww/3,hh) 
-							ItemLabel[item].OnCursorEntered = function() 
-								ItemLabel[item].Overed = true 
-								surface.PlaySound ("UI/buttonrollover.wav") 
-							end
-							ItemLabel[item].OnCursorExited = function () 
-								ItemLabel[item].Overed = false
-							end
-							
-							ItemLabel[item].OnMousePressed = function () 
-								if MySelf:IsBlocked(item) then
-									surface.PlaySound ( "buttons/weapon_cant_buy.wav" )
-								else
-									if SlotLabel[num] then
-										SlotLabel[num].Item = item
-										Unlocks[num]:Remove()
-										Unlocks[num] = nil
-									end
-								end
-							end
-							
-							ItemLabel[item].Paint = function()
-								if ItemLabel[item].Overed then
-									surface.SetDrawColor( 255, 255, 255, 255)
-									surface.DrawOutlinedRect( 0, 0, ww/3, hh)
-									surface.DrawOutlinedRect( 1, 1, ww-2, hh-2 )
-								else
-									surface.SetDrawColor( 30, 30, 30, 200 )
-									surface.DrawOutlinedRect( 0, 0, ww/3, hh)
-									surface.SetDrawColor( 30, 30, 30, 255 )
-									surface.DrawOutlinedRect( 1, 1, ww/3-2, hh-2 )
-								end
-								
-								if item == "none" then
-									surface.SetDrawColor( 255, 255, 255, 255) 
-									draw.SimpleTextOutlined( "NO ITEM", "WeaponNames", (ww/3)/2, hh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-									return
-								end
-
-								if string.sub(item, 1, 6) == "weapon" then
-								local font, letter = "WeaponSelectedHL2", "0"
-								local Table = killicon.GetFont( item )
 										
-									if Table then
-										letter = Table.letter
-											
-										if not Table.IsHl2 and not Table.IsZS then
-											font = "WeaponSelectedCSS"
-										elseif not Table.IsHL2 and Table.IsZS then
-											font = "WeaponSelectedZS"
-										end
-									end
-										
-									if killicon.GetImage( item ) then
-										local ImgTable = killicon.GetImage( item ) 
-											surface.SetDrawColor( 255, 255, 255, 255) 
-																							
-											surface.SetTexture(surface.GetTextureID( ImgTable.mat ))	
-											local wd,hg = surface.GetTextureSize(surface.GetTextureID( ImgTable.mat ))
-											local clampedH = (ww/3*hg)/wd
-											surface.DrawTexturedRect( 57.5,12, wd, math.Clamp(hg,0,hh) )-- surface.DrawTexturedRect( x + 57.5,y + 12, wd, clampedH )
+						if killicon.GetImage(item) then
+							local ImgTable = killicon.GetImage(item) 
+							surface.SetDrawColor(255, 255, 255, 180) 
+																					
+							surface.SetTexture(surface.GetTextureID(ImgTable.mat))	
+							local wd, hg = surface.GetTextureSize(surface.GetTextureID(ImgTable.mat))
+							local clampedH = (itemWidth * hg) / wd
+							surface.DrawTexturedRect(57.5, 12, wd, math.Clamp(hg, 0, itemHeight))-- surface.DrawTexturedRect( x + 57.5,y + 12, wd, clampedH )
 
-											--Draw label
-											draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[item].Name, "WeaponNames", (ww/3)/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))										
-										else
-										
-											surface.SetFont ( font )
-											local fWide, fTall = surface.GetTextSize ( letter )
+							--Draw label
+							draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[item].Name, "WeaponNames", itemWidth/2, itemHeight/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))										
+						else
+							surface.SetFont(font)
+							local fWide, fTall = surface.GetTextSize(letter)
 
-											surface.SetDrawColor( 255, 255, 255, 255 )
-											
-											draw.SimpleTextOutlined ( letter, font, (ww/3)/2, 55, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+							surface.SetDrawColor(255, 255, 255, 255)
+									
+							draw.SimpleTextOutlined(letter, font, itemWidth/2, 55, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 
-											--Draw label
-											draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[item].Name, "WeaponNames", (ww/3)/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-										end
-								end
+							--Draw label
+							draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[item].Name, "WeaponNames", itemWidth/2, itemHeight/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+						end
+					end
 								
-								if MySelf:IsBlocked( item ) then
-									surface.SetDrawColor(255,255,255,255)
-									surface.SetMaterial( lock_icon )
-									surface.DrawTexturedRect((ww/3)-18,2,16,16)
-								end
-								
-								if MySelf:IsRetroOnly( item ) then
-									surface.SetDrawColor(255,255,255,255)
-									surface.SetMaterial( heart_icon )
-									surface.DrawTexturedRect((ww/3)-18,2,16,16)
-								end
-
-							end
-							
-							Unlocks[num]:AddItem(ItemLabel[item])
-							
-						elseif IsPerk(item) and ((GetPerkSlot(item) == 1 and num == 5) or (GetPerkSlot(item) == 2 and num == 6)) then
-							
-							ItemLabel[item] = vgui.Create("DLabel",Unlocks[num])
-							ItemLabel[item]:SetText("")
-							ItemLabel[item]:SetSize(ww/3,hh) 
-							-- ItemLabel[item]:SetSize(LoadoutMenuW,(LoadoutMenuH/6)*0.9) 
-							ItemLabel[item].OnCursorEntered = function() 
-								ItemLabel[item].Overed = true 
-								surface.PlaySound ("UI/buttonrollover.wav") 
-							end
-							ItemLabel[item].OnCursorExited = function () 
-								ItemLabel[item].Overed = false
-							end
-							
-							ItemLabel[item].OnMousePressed = function () 
-								if MySelf:IsBlocked(item) then
-									surface.PlaySound ( "buttons/weapon_cant_buy.wav" )
-								else
-									if SlotLabel[num] then
-										SlotLabel[num].Item = item
-										Unlocks[num]:Remove()
-										Unlocks[num] = nil
-									end
-								end
-							end
-							
-							ItemLabel[item].Think = function()
-								if GAMEMODE:IsRetroMode() then
-									if MySelf:IsBlocked(item) then
-										ItemLabel[item]:SetToolTip("Not available in retro mode!")
-									elseif MySelf:IsRetroOnly(item) then
-										ItemLabel[item]:SetToolTip("Available only in retro mode!")
-									else
-										ItemLabel[item]:SetToolTip(GAMEMODE.Perks[item].Description)
-									end
-								else
-									ItemLabel[item]:SetToolTip(GAMEMODE.Perks[item].Description)
-								end
-							end
-							
-							ItemLabel[item].Paint = function()
-								
-								if ItemLabel[item].Overed then
-									surface.SetDrawColor( 255, 255, 255, 255)
-									surface.DrawOutlinedRect( 0, 0, ww/3, hh)
-									surface.DrawOutlinedRect( 1, 1, ww/3-2, hh-2 )
-								else
-									surface.SetDrawColor( 30, 30, 30, 200 )
-									surface.DrawOutlinedRect( 0, 0, ww/3, hh)
-									surface.SetDrawColor( 30, 30, 30, 255 )
-									surface.DrawOutlinedRect( 1, 1, ww/3-2, hh-2 )
-								end
-								
-								if item == "none" then
-									surface.SetDrawColor( 255, 255, 255, 255) 
-									draw.SimpleTextOutlined ( "NO ITEM", "WeaponNames", (ww/3)/2, hh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-									return
-								end
-								
-								
-								if string.sub(item, 1, 1) == "_" then
-									for perk, desc in pairs(GAMEMODE.Perks) do
-										if item == perk then
-											if GAMEMODE.Perks[item].Material then		
-												surface.SetTexture(surface.GetTextureID( GAMEMODE.Perks[item].Material ))	
-												local wd,hg = surface.GetTextureSize(surface.GetTextureID( GAMEMODE.Perks[item].Material ))
-												local dif = (hh-14)/hg
-												surface.SetDrawColor(80,80,80,255)
-												surface.DrawTexturedRect( (ww/3)/2-(wd*dif)/2,12, wd*dif, math.Clamp(hg*dif,0,hh) )
-											end
-
-											surface.SetDrawColor( 255, 255, 255, 255) 
-											draw.SimpleTextOutlined ( GAMEMODE.Perks[item].Name, "WeaponNames", (ww/3)/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-										end
-									end
-								end
-								
-								if MySelf:IsBlocked( item ) then
-									surface.SetDrawColor(255,255,255,255)
-									surface.SetMaterial( lock_icon )
-									surface.DrawTexturedRect((ww/3)-18,2,16,16)
-								end
-								
-								if MySelf:IsRetroOnly( item ) then
-									surface.SetDrawColor(255,255,255,255)
-									surface.SetMaterial( heart_icon )
-									surface.DrawTexturedRect((ww/3)-18,2,16,16)
-								end
-
-							end
-						
-							Unlocks[num]:AddItem(ItemLabel[item])							
-						end-- back
+					if MySelf:IsBlocked(item, SlotLabel) or not MySelf:HasUnlocked(item) then
+						surface.SetDrawColor(255,255,255,255)
+						surface.SetMaterial(lockIcon)
+						surface.DrawTexturedRect(itemWidth-18,2,16,16)
 					end
 				end
-			end
-		end
-	-- end
-	
-	
+			elseif IsValidPerk then							
+				ItemLabel[item].Paint = function()
+					if ItemLabel[item].Overed then
+						surface.SetDrawColor(255, 255, 255, 255)
+						surface.DrawOutlinedRect( 0, 0, itemWidth, itemHeight)
+						surface.DrawOutlinedRect( 1, 1, itemWidth-2, itemHeight-2 )
+					else
+						surface.SetDrawColor(30, 30, 30, 200 )
+						surface.DrawOutlinedRect( 0, 0, itemWidth, itemHeight)
+						surface.SetDrawColor(30, 30, 30, 255 )
+						surface.DrawOutlinedRect( 1, 1, itemWidth-2, itemHeight-2 )
+					end
 
+					if item == "none" then
+						return
+					end					
+
+					if GAMEMODE.Perks[item].Material then		
+						local texture = surface.GetTextureID(GAMEMODE.Perks[item].Material)
+						surface.SetTexture(texture)
+						local wd, hg = surface.GetTextureSize(texture)
+						local dif = (itemHeight-14)/hg
+						surface.SetDrawColor(255, 255, 255, 180) -- 80, 80, 80, 255
+						surface.DrawTexturedRect( itemWidth/2-(wd*dif)/2,12, wd*dif, math.Clamp(hg*dif, 0, itemHeight))
+					end
+
+					surface.SetDrawColor(255, 255, 255, 255) 
+					draw.SimpleTextOutlined(GAMEMODE.Perks[item].Name, "WeaponNames", itemWidth/2, itemHeight/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+								
+					if MySelf:IsBlocked(item, SlotLabel) or not MySelf:HasUnlocked(item) then
+						surface.SetDrawColor(255,255,255,255)
+						surface.SetMaterial(lockIcon)
+						surface.DrawTexturedRect(itemWidth-18,2,16,16)
+					end
+				end				
+			end
+
+			Unlocks[num]:AddItem(ItemLabel[item])
+		end
+	end
 end
 
 -- Loadout
-function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
-			
+function DrawSlotIcon(x, y, ww, hh, wepclass, parent, num, weptype)
+	hh = hh - 30
+
 	SlotLabel[num] = vgui.Create("DLabel")
-	SlotLabel[num]:SetParent( parent )
+	SlotLabel[num]:SetParent(parent)
 	SlotLabel[num]:SetText("")
 	SlotLabel[num]:SetSkin("ZSMG")
-	SlotLabel[num]:SetSize (ww, hh) 
-	SlotLabel[num]:SetPos (x, y)
+	SlotLabel[num]:SetSize(ww, hh) 
+	SlotLabel[num]:SetPos(x, y)
 	SlotLabel[num].Item = wepclass
-	
-	if GAMEMODE:IsRetroMode() then
-		if MySelf:IsBlocked(SlotLabel[num].Item) then
-			SlotLabel[num]:SetToolTip("Not available in retro mode!")
-		end
-		if MySelf:IsRetroOnly(SlotLabel[num].Item) then
-			SlotLabel[num]:SetToolTip("Available only in retro mode!")
-		end
-	else
-		if IsPerk(SlotLabel[num].Item) then
-			SlotLabel[num]:SetToolTip(GAMEMODE.Perks[SlotLabel[num].Item].Description)
-		end
-	end
 	
 	SlotLabel[num].OnCursorEntered = function() 
 		SlotLabel[num].Overed = true 
-		surface.PlaySound ("UI/buttonrollover.wav") 
+		surface.PlaySound(Sound("UI/buttonrollover.wav"))
+
+		--Set description
+		local item = SlotLabel[num].Item
+		if GAMEMODE.Perks[item] and GAMEMODE.Perks[item].Description then
+			ItemDescription:SetText(GAMEMODE.Perks[item].Description)
+		elseif GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].Description then
+			ItemDescription:SetText(GAMEMODE.HumanWeapons[item].Description)
+		end
 	end
+
 	SlotLabel[num].OnCursorExited = function () 
 		SlotLabel[num].Overed = false
 		-- Colors[class].CButton = Color (0,0,0,255) 
 		-- Classes[class].Overed = false
-	end
-	SlotLabel[num].OnMousePressed = function () 
-		for i=1, 6 do
 
+		ItemDescription:SetText("")
+	end
+
+	SlotLabel[num].OnMousePressed = function () 
+		for i=1, 5 do
 			if i == num then
+				--Activate
 				SlotLabel[i].Active = true 
 				
 				if not Unlocks[i] then
-					DrawContextMenu(x+ww+ScaleH(20),30,TopMenuW-(ww+ScaleH(20)),hh,weptype,InvisiblePanel2,num)
+					DrawContextMenu(x+ww+ScaleH(20), 30, weptype, ItemsPanel, num)
 				else
 					Unlocks[i]:Remove()
 					Unlocks[i] = nil
 				end
+
+				surface.PlaySound(Sound("mrgreen/ui/menu_accept.wav"))
 			else
+				--Inactivate other tabs
 				SlotLabel[i].Active = false
 				if Unlocks[i] then
 					Unlocks[i]:Remove()
@@ -344,137 +348,91 @@ function DrawSlotIcon(x,y,ww,hh,wepclass,parent,num,weptype)
 		end
 	end
 	SlotLabel[num].Think = function() 
-		-- if IsPerk(SlotLabel[num].Item) then
-		-- 	SlotLabel[num]:SetToolTip(GAMEMODE.Perks[SlotLabel[num].Item].Description)
-		-- end
-		if GAMEMODE:IsRetroMode() then
-			if MySelf:IsBlocked(SlotLabel[num].Item) then
-				SlotLabel[num]:SetToolTip("Not available in retro mode!")
-			elseif MySelf:IsRetroOnly(SlotLabel[num].Item) then
-				SlotLabel[num]:SetToolTip("Available only in retro mode!")
-			elseif IsPerk(SlotLabel[num].Item) then
-				SlotLabel[num]:SetToolTip(GAMEMODE.Perks[SlotLabel[num].Item].Description)
-			end
-		else
-			if IsPerk(SlotLabel[num].Item) then
-				SlotLabel[num]:SetToolTip(GAMEMODE.Perks[SlotLabel[num].Item].Description)
-			end
-		end
 	end
 	
 	SlotLabel[num].Paint = function()
-	
 		if SlotLabel[num].Overed then
-			surface.SetDrawColor( 255, 255, 255, 255)
+			surface.SetDrawColor(255, 255, 255, 255)
+			surface.DrawOutlinedRect(0, 0, ww, hh)
+			surface.DrawOutlinedRect(1, 1, ww-2, hh-2)
+		elseif SlotLabel[num].Active then
+			surface.SetDrawColor(255, 255, 255, (math.sin(RealTime() * 5) * 95) + 150)
 			surface.DrawOutlinedRect( 0, 0, ww, hh)
-			surface.DrawOutlinedRect( 1, 1, ww-2, hh-2 )
-		else
-			if SlotLabel[num].Active then
-				surface.SetDrawColor( 255, 255, 255,( math.sin(RealTime() * 5) * 95 ) + 150 )-- 
-				surface.DrawOutlinedRect( 0, 0, ww, hh)
-				surface.DrawOutlinedRect( 1, 1, ww-2, hh-2 )
-			else
-				surface.SetDrawColor( 30, 30, 30, 200 )
-				surface.DrawOutlinedRect( 0, 0, ww, hh)
-				surface.SetDrawColor( 30, 30, 30, 255 )
-				surface.DrawOutlinedRect( 1, 1, ww-2, hh-2 )
-			end
+			surface.DrawOutlinedRect( 1, 1, ww-2, hh-2)
 		end
 		
 		if SlotLabel[num].Item == "none" then
-			surface.SetDrawColor( 255, 255, 255, 255) 
-			draw.SimpleTextOutlined( "NO ITEM", "WeaponNames", ww/2, hh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 			return
 		end
-		
-		
+
 		if string.sub(SlotLabel[num].Item, 1, 6) == "weapon" then
-		local font, letter = "WeaponSelectedHL2", "0"
-		local Table = killicon.GetFont( SlotLabel[num].Item )
-				
+			local font, letter = "WeaponSelectedHL2", "0"
+			local Table = killicon.GetFont( SlotLabel[num].Item )
 			if Table then
 				letter = Table.letter
 					
 				if not Table.IsHl2 and not Table.IsZS then
 					font = "WeaponSelectedCSS"
-				elseif not Table.IsHL2 and Table.IsZS then
+				elseif not Table.IsHl2 and Table.IsZS then
 					font = "WeaponSelectedZS"
 				end
-					
 			end
 				
 			if killicon.GetImage( SlotLabel[num].Item ) then
-				local ImgTable = killicon.GetImage( SlotLabel[num].Item ) 
+				local ImgTable = killicon.GetImage( SlotLabel[num].Item ) 				
+
+				surface.SetDrawColor(255, 255, 255, 255) 
 									
+				surface.SetTexture(surface.GetTextureID( ImgTable.mat ))	
+				local wd,hg = surface.GetTextureSize(surface.GetTextureID( ImgTable.mat ))
+				local clampedH = (ww*hg)/wd
+				surface.DrawTexturedRect( 57.5,12, wd, math.Clamp(hg,0,hh) )
 
-					surface.SetDrawColor( 255, 255, 255, 255) 
-									
-					surface.SetTexture(surface.GetTextureID( ImgTable.mat ))	
-					local wd,hg = surface.GetTextureSize(surface.GetTextureID( ImgTable.mat ))
-					local clampedH = (ww*hg)/wd
-					surface.DrawTexturedRect( 57.5,12, wd, math.Clamp(hg,0,hh) )
-
-					--Draw label
-					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[SlotLabel[num].Item].Name, "WeaponNames", ww/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-				else
-				
-					surface.SetFont ( font )
-					local fWide, fTall = surface.GetTextSize ( letter )
+				--Draw label
+				draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[SlotLabel[num].Item].Name, "WeaponNames", ww/2, hh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			else				
+				surface.SetFont ( font )
+				local fWide, fTall = surface.GetTextSize ( letter )
 					
-					surface.SetDrawColor( 255, 255, 255, 255 )						
+				surface.SetDrawColor( 255, 255, 255, 255 )						
 					
-					draw.SimpleTextOutlined ( letter, font, ww/2, 55, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+				draw.SimpleTextOutlined ( letter, font, ww/2, 55, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 
-					--Draw label
-					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[SlotLabel[num].Item].Name, "WeaponNames", ww/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))				
-				end
+				--Draw label
+				draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[SlotLabel[num].Item].Name, "WeaponNames", ww/2, hh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))				
+			end
 		elseif string.sub(SlotLabel[num].Item, 1, 1) == "_" then
-				for perk, desc in pairs(GAMEMODE.Perks) do
-					if SlotLabel[num].Item == perk then
-						if GAMEMODE.Perks[SlotLabel[num].Item].Material then		
-							surface.SetTexture(surface.GetTextureID( GAMEMODE.Perks[SlotLabel[num].Item].Material ))	
-							local wd,hg = surface.GetTextureSize(surface.GetTextureID( GAMEMODE.Perks[SlotLabel[num].Item].Material ))
-							local dif = (hh-14)/hg
-							-- local clampedH = (ww*hg)/wd
-							surface.SetDrawColor(80,80,80,255)
-							surface.DrawTexturedRect( ww/2-(wd*dif)/2,12, wd*dif, math.Clamp(hg*dif,0,hh) )
-						end
+			if GAMEMODE.Perks[SlotLabel[num].Item].Material then		
+				surface.SetTexture(surface.GetTextureID( GAMEMODE.Perks[SlotLabel[num].Item].Material ))	
+				local wd,hg = surface.GetTextureSize(surface.GetTextureID( GAMEMODE.Perks[SlotLabel[num].Item].Material ))
+				local dif = (hh-14)/hg
+				-- local clampedH = (ww*hg)/wd
+				surface.SetDrawColor(255, 255, 255, 255)
+				surface.DrawTexturedRect( ww/2-(wd*dif)/2,12, wd*dif, math.Clamp(hg*dif,0,hh) )
+			end
 
-						--Draw label
-						surface.SetDrawColor( 255, 255, 255, 255) 
-						draw.SimpleTextOutlined ( GAMEMODE.Perks[SlotLabel[num].Item].Name, "WeaponNames", ww/2, 7, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-					end
-				end
+			--Draw label
+			surface.SetDrawColor(255, 255, 255, 255) 
+			draw.SimpleTextOutlined(GAMEMODE.Perks[SlotLabel[num].Item].Name, "WeaponNames", ww/2, hh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		end
 
-		if MySelf:IsBlocked( SlotLabel[num].Item ) then
+		if MySelf:IsBlocked(SlotLabel[num].Item, SlotLabel) then
 			surface.SetDrawColor(255,255,255,255)
-			surface.SetMaterial( lock_icon )
+			surface.SetMaterial(lockIcon)
 			surface.DrawTexturedRect(ww-18,2,16,16)
 		end
-		
-		if MySelf:IsRetroOnly( SlotLabel[num].Item ) then
-			surface.SetDrawColor(255,255,255,255)
-			surface.SetMaterial( heart_icon )
-			surface.DrawTexturedRect(ww-18,2,16,16)
-		end
-		
 	end
 end
 
-local DescNames = {"Weapon","Melee","Tool #1","Tool #2","Perk #1","Perk #2"}
-
 function DrawSelectClass()
-	
 	local filename = "zombiesurvival/loadouts/default.txt"
-	if file.Exists (filename,"DATA") then
+	if file.Exists(filename,"DATA") then
 		local tbl = util.JSONToTable(file.Read(filename))
 		if tbl then
 			Loadout = table.Copy(tbl)
-			for _,v in pairs (Loadout) do
+			for _,v in pairs(Loadout) do
 				if not MySelf:HasUnlocked(v) then
-					table.remove( Loadout, _ )
-					-- Loadout[_] = nil
+					table.remove(Loadout, _)
 				end
 			end
 		else
@@ -487,258 +445,273 @@ function DrawSelectClass()
 	
 	--Options:
 	
-	local spawntimer = 40
+	local spawntimer = 300
 	local spawntimercd = 0
 
-	TopMenuW,TopMenuH = ScaleW(550), 140 -- ScaleH(136)
-	TopMenuX,TopMenuY = w/2-TopMenuW/2,h/5-TopMenuH/1.6
+	TopMenuW, TopMenuH = math.min(ScaleW(700), 1050), math.min(ScaleH(600), 650)
+	TopMenuX, TopMenuY = (w / 2) - (TopMenuW / 2), (h / 2) - (TopMenuH / 2)
 
-	TopMenuH1 = ScaleH(136)
+	--[[BGPanel = vgui.Create( "DPanel" )
+	BGPanel:SetPos(TopMenuX*1.5,TopMenuY/1.7)
+	BGPanel:SetSize(TopMenuW/2,TopMenuH)
+	BGPanel:SetVisible(true)
 	
-	local BlurMenu = vgui.Create("DFrame")
-	BlurMenu:SetSize(TopMenuW,TopMenuH)
-	BlurMenu:SetPos(TopMenuX,TopMenuY)
-	BlurMenu:SetSkin("ZSMG")
-	BlurMenu:SetTitle( "Mr. Green Zombie Survival" ) 
-	BlurMenu:SetDraggable ( false )
-	BlurMenu:SetBackgroundBlur( true )
-	BlurMenu:SetSizable(false)
-	BlurMenu:SetDraggable(false)
-	BlurMenu:ShowCloseButton(false)
-	
-	local welcomebox = vgui.Create("DTextEntry",BlurMenu)
-	welcomebox:SetPos( 5, 25 ) 
-	welcomebox:SetSize( TopMenuW-10, TopMenuH-30 ) 
-	welcomebox:SetEditable( false )
-	welcomebox:SetValue(WELCOME_TEXT)
-	welcomebox:SetMultiline( true )
-	
-	BlurMenu.Think = function ()
-		gui.EnableScreenClicker(true)
-	end
-	
-	local InvisiblePanel = vgui.Create("DFrame")
-	InvisiblePanel:SetSize(w,h)
-	InvisiblePanel:SetPos(0,0)
-	InvisiblePanel:SetDraggable ( false )
-	InvisiblePanel:SetTitle ("")
-	InvisiblePanel:SetSkin("ZSMG")
-	InvisiblePanel:ShowCloseButton (false)
-	InvisiblePanel.Paint = function() 
-		-- override this
-	end
-	
-	LoadoutMenuW,LoadoutMenuH = TopMenuW/4, ScaleH(500)
-	-- invisible panel for lists
-	InvisiblePanel2 = vgui.Create("DFrame")
-	InvisiblePanel2:SetSize(TopMenuW,LoadoutMenuH)
-	InvisiblePanel2:SetPos(TopMenuX,TopMenuY+TopMenuH+ScaleH(20))
-	InvisiblePanel2:SetDraggable ( false )
-	InvisiblePanel2:SetTitle ("")
-	InvisiblePanel2:ShowCloseButton (false)
-	InvisiblePanel2:SetDraggable ( false )
-	InvisiblePanel2:SetSizable(false)
-	InvisiblePanel2.Paint = function() 
-		-- override this
-	end
-	
-	LoadoutMenu = vgui.Create("DFrame")
-	LoadoutMenu:SetSize(LoadoutMenuW,LoadoutMenuH)
-	LoadoutMenu:SetPos(TopMenuX,TopMenuY+TopMenuH+ScaleH(20))
-	LoadoutMenu:SetSkin("ZSMG")
-	LoadoutMenu:SetTitle( "Current Loadout" ) 
-	LoadoutMenu:SetDraggable ( false )
-	LoadoutMenu:SetSizable(false)
-	LoadoutMenu:SetDraggable(false)
-	LoadoutMenu:ShowCloseButton(false)
+	local DLabel = vgui.Create( "DLabel", BGPanel )
+	DLabel:SetVisible( true ) 
+	DLabel:SetPos( 40, 40 )
+	DLabel:SetText( "Mr.Green" )
+	DLabel:SetTextColor( Color( 0, 225, 0, 255 ) )
+	DLabel:SetFont( "LoadoutPistolPanel1" )
+	DLabel:SizeToContents()]]
 		
+	local BlurPanel = vgui.Create("DFrame")
+	BlurPanel:SetSize(w,h)
+	BlurPanel:SetPos(0,0)
+	BlurPanel:SetDraggable(false)
+	BlurPanel:SetTitle("")
+	BlurPanel:SetBackgroundBlur(true)
+	BlurPanel:SetSkin("ZSMG")
+	BlurPanel:ShowCloseButton(false)
+	BlurPanel.Paint = function() 
+		--Override
+		draw.SimpleText("MrGreenGaming.com", "HUDFontTiny", TopMenuX + (TopMenuW / 2), TopMenuY - ScaleH(100), Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText("ZOMBIE SURVIVAL", "NewZombieFont27", TopMenuX + (TopMenuW / 2), TopMenuY - ScaleH(40), Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	end
 	
 	-- Long shitty code :<
-	local primary,secondary,melee,tool1,tool2,perk,perk2 = "none","none","none","none","none","none","none"
-	
-	-- Get primary
+	local secondary, melee, tool1, perk1, perk2 = "none", "none", "none", "none", "none"
+
+	--Get Secondary
 	for k, v in pairs(Loadout) do
 		if IsWeapon(v) then
-			if GetWeaponCategory ( v ) == "Automatic" then
-				primary = v
+			if GetWeaponCategory(v) == "Pistol" then
 				secondary = v
 				break
 			end
 		end
 	end
 	
-	-- Get Secondary
+	--Get Melee
 	for k, v in pairs(Loadout) do
 		if IsWeapon(v) then
-			if GetWeaponCategory ( v ) == "Pistol" then
-				secondary = v
-				break
-			end
-		end
-	end
-	
-	-- Get Melee
-	for k, v in pairs(Loadout) do
-		if IsWeapon(v) then
-			if GetWeaponCategory ( v ) == "Melee" then
+			if GetWeaponCategory(v) == "Melee" then
 				melee = v
 				break
 			end
 		end
 	end
 	
-	-- Get Tool 1
+	--Get Tool 1
 	for k, v in pairs(Loadout) do
 		if IsWeapon(v) then
-			if GetWeaponCategory ( v ) == "Tool1" then
+			if GetWeaponCategory(v) == "Tool1" then
 				tool1 = v
 				break
 			end
 		end
 	end
 	
-	-- Get Tool 2
-	for k, v in pairs(Loadout) do
-		if IsWeapon(v) then
-			if GetWeaponCategory ( v ) == "Tool2" then
-				tool2 = v
-				break
-			end
-		end
-	end
-	
-	-- Get Perk
+	--Get Perk1
 	for k, v in pairs(Loadout) do
 		if IsPerk(v) and GetPerkSlot(v) == 1 then
-			perk = v
+			perk1 = v
 			break
 		end
 	end
 	
-	-- Get Perk2
+	--Get Perk2
 	for k, v in pairs(Loadout) do
 		if IsPerk(v) and GetPerkSlot(v) == 2 then
 			perk2 = v
 			break
 		end
 	end
+
+	local stepY = 0
+	local marginY = 4
+	local SlotHeight = math.Round((TopMenuH - (marginY * 4)) / 5)
+
+	local function IncreasestepY()
+		stepY = stepY + SlotHeight + marginY
+	end
+
+	local SlotWidth = TopMenuW / 4
 	
-	-- And clean table since we dont need yet
+	local LoadoutPistolPanel = vgui.Create("DFrame")
+	LoadoutPistolPanel:SetSize(SlotWidth, SlotHeight)
+	LoadoutPistolPanel:SetPos(TopMenuX,TopMenuY + stepY)
+	LoadoutPistolPanel:SetSkin("ZSMG")
+	LoadoutPistolPanel:SetTitle("PISTOL") 
+	LoadoutPistolPanel:SetDraggable(false)
+	LoadoutPistolPanel:SetSizable(false)
+	LoadoutPistolPanel:SetDraggable(false)
+	LoadoutPistolPanel:ShowCloseButton(false)
+	DrawSlotIcon(0, 30, SlotWidth, SlotHeight, secondary, LoadoutPistolPanel,1,"Pistol")
+	IncreasestepY()
+		
+	local LoadoutMeleePanel = vgui.Create("DFrame")
+	LoadoutMeleePanel:SetSize(SlotWidth, SlotHeight)
+	LoadoutMeleePanel:SetPos(TopMenuX,TopMenuY + stepY)
+	LoadoutMeleePanel:SetSkin("ZSMG")
+	LoadoutMeleePanel:SetTitle( "MELEE" ) 
+	LoadoutMeleePanel:SetDraggable ( false )
+	LoadoutMeleePanel:SetSizable(false)
+	LoadoutMeleePanel:SetDraggable(false)
+	LoadoutMeleePanel:ShowCloseButton(false)
+	DrawSlotIcon(0, 30, SlotWidth, SlotHeight,melee,LoadoutMeleePanel,2,"Melee")
+	IncreasestepY()
+	
+	local LoadoutToolPanel = vgui.Create("DFrame")
+	LoadoutToolPanel:SetSize(SlotWidth, SlotHeight)
+	LoadoutToolPanel:SetPos(TopMenuX,TopMenuY + stepY)
+	LoadoutToolPanel:SetSkin("ZSMG")
+	LoadoutToolPanel:SetTitle( "TOOL" ) 
+	LoadoutToolPanel:SetDraggable ( false )
+	LoadoutToolPanel:SetSizable(false)
+	LoadoutToolPanel:SetDraggable(false)
+	LoadoutToolPanel:ShowCloseButton(false)
+	DrawSlotIcon(0, 30, SlotWidth, SlotHeight,tool1,LoadoutToolPanel,3,"Tool1")
+	IncreasestepY()
+	
+	local LoadoutPerk1Panel = vgui.Create("DFrame")
+	LoadoutPerk1Panel:SetSize(SlotWidth, SlotHeight)
+	LoadoutPerk1Panel:SetPos(TopMenuX,TopMenuY + stepY)
+	LoadoutPerk1Panel:SetSkin("ZSMG")
+	LoadoutPerk1Panel:SetTitle( "FIRST PERK" ) 
+	LoadoutPerk1Panel:SetDraggable ( false )
+	LoadoutPerk1Panel:SetSizable(false)
+	LoadoutPerk1Panel:SetDraggable(false)
+	LoadoutPerk1Panel:ShowCloseButton(false)
+	DrawSlotIcon(0, 30, SlotWidth, SlotHeight,perk1, LoadoutPerk1Panel, 4, "Perk1")
+	IncreasestepY()	
+	
+	local LoadoutPerk2Panel = vgui.Create("DFrame")
+	LoadoutPerk2Panel:SetSize(SlotWidth, SlotHeight)
+	LoadoutPerk2Panel:SetPos(TopMenuX,TopMenuY + stepY)
+	LoadoutPerk2Panel:SetSkin("ZSMG")
+	LoadoutPerk2Panel:SetTitle( "SECOND PERK" ) 
+	LoadoutPerk2Panel:SetDraggable ( false )
+	LoadoutPerk2Panel:SetSizable(false)
+	LoadoutPerk2Panel:SetDraggable(false)
+	LoadoutPerk2Panel:ShowCloseButton(false)
+	DrawSlotIcon(0, 30, SlotWidth, SlotHeight,perk2,LoadoutPerk2Panel, 5, "Perk2")
+
+	local SecondColumnWidth = math.Round((TopMenuW - (SlotWidth + 20)) / 2)
+
+	ItemDescriptionPanel = vgui.Create("DFrame")
+	ItemDescriptionPanel:SetSize(SecondColumnWidth, SlotHeight)
+	ItemDescriptionPanel:SetPos(TopMenuX + (SlotWidth + 10), TopMenuY)
+	ItemDescriptionPanel:SetSkin("ZSMG")
+	ItemDescriptionPanel:SetTitle("Item Description")
+	ItemDescriptionPanel:SetDraggable(false)
+	ItemDescriptionPanel:SetSizable(false)
+	ItemDescriptionPanel:SetDraggable(false)
+	ItemDescriptionPanel:ShowCloseButton(false)
+	
+	ItemDescription = vgui.Create("DTextEntry", ItemDescriptionPanel)
+	ItemDescription:SetPos(5, 25)
+	local ParentW, ParentH = ItemDescriptionPanel:GetSize()
+	ItemDescription:SetSize(ParentW - 10,ParentH - 30) 
+	ItemDescription:SetEditable(false)
+	ItemDescription:SetValue("")
+	ItemDescription:SetMultiline(true)
+	--ItemDescription:EnableVerticalScrollbar(true)
+
+	ItemsPanel = vgui.Create("DFrame")
+	ItemsPanel:SetSize(SecondColumnWidth, TopMenuH - (SlotHeight + 10))
+	ItemsPanel:SetPos(TopMenuX + (SlotWidth + 10), TopMenuY + SlotHeight + 10)
+	ItemsPanel:SetDraggable(false)
+	ItemsPanel:SetTitle("")
+	ItemsPanel:ShowCloseButton(false)
+	ItemsPanel:SetDraggable(false)
+	ItemsPanel:SetSizable(false)
+	ItemsPanel.Paint = function()
+		--Override
+	end
+	
+	--And clean table since we dont need yet
 	Loadout = {}
+
+	--Spawn button
+	SpawnButtonW, SpawnButtonH = SlotWidth * 1.5, ScaleH(58)
+	SpawnButtonX, SpawnButtonY = TopMenuX + ((TopMenuW / 2) - (SpawnButtonW / 2)), TopMenuY + TopMenuH + ScaleH(20)
 	
-	local step = 30
 	
-	-- Rifles and etc
-	--[==[DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,primary,LoadoutMenu,1,"Automatic")	
-	step = step+(LoadoutMenuH/6)*0.9
-	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,secondary,LoadoutMenu,2,"Pistol")
-	step = step+(LoadoutMenuH/6)*0.9
-	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,melee,LoadoutMenu,3,"Melee")
-	step = step+(LoadoutMenuH/6)*0.9
-	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,tool1,LoadoutMenu,4,"Tool1")
-	step = step+(LoadoutMenuH/6)*0.9
-	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,tool2,LoadoutMenu,5,"Tool2")
-	step = step+(LoadoutMenuH/6)*0.9
-	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,perk,LoadoutMenu,6,"Perk")]==]
-	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,secondary,LoadoutMenu,1,"Pistol")	
-	step = step+(LoadoutMenuH/6)*0.9
-	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,melee,LoadoutMenu,2,"Melee")
-	step = step+(LoadoutMenuH/6)*0.9
-	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,tool1,LoadoutMenu,3,"Tool1")
-	step = step+(LoadoutMenuH/6)*0.9
-	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,tool2,LoadoutMenu,4,"Tool2")
-	step = step+(LoadoutMenuH/6)*0.9
-	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,perk,LoadoutMenu,5,"Perk")
-	step = step+(LoadoutMenuH/6)*0.9
-	
-	DrawSlotIcon(0,step,LoadoutMenuW,(LoadoutMenuH/6)*0.9,perk2,LoadoutMenu,6,"Perk2")
-	
-	-- Spawn button
-	
-	SpawnButtonX, SpawnButtonY = TopMenuX,TopMenuY+TopMenuH+ScaleH(20)+LoadoutMenuH+ScaleH(20) -- nice and shiny
-	SpawnButtonW, SpawnButtonH = LoadoutMenuW, TopMenuH1/1.1
-	
-	SpawnButton = vgui.Create("DButton",InvisiblePanel)
+	SpawnButton = vgui.Create("DButton", BlurPanel)
 	SpawnButton:SetText("")
 	SpawnButton:SetPos(SpawnButtonX, SpawnButtonY)
-	SpawnButton:SetSize (SpawnButtonW, SpawnButtonH)
+	SpawnButton:SetSize(SpawnButtonW, SpawnButtonH)
+
+	local function CloseSpawnMenu(class)
+		ChangeClassClient(1)
+		QuickGuidePanel:Close()
+		BlurPanel:Close()
+		ItemsPanel:Close()
+		LoadoutPistolPanel:Close()
+		LoadoutMeleePanel:Close()
+		LoadoutToolPanel:Close()
+		LoadoutPerk1Panel:Close()
+		LoadoutPerk2Panel:Close()
+		PlayerProgressPanel:Close()
+		ItemDescriptionPanel:Close()
+	end
+
 	SpawnButton.Think = function () 
-		if spawntimercd <= CurTime() then 
-			spawntimer = spawntimer - 1
-			if spawntimer <= 0 then
-				local randomclass = math.random (1,5)
-				ChangeClassClient (1)
-				BlurMenu:Close()
-				InvisiblePanel:Close()
-				InvisiblePanel2:Close()
-				LoadoutMenu:Close()
-				StatsMenu:Close()
-			end
-			spawntimercd = CurTime() + 1
+		if spawntimercd > CurTime() then 
+			return
 		end
+
+		spawntimer = spawntimer - 1
+		if spawntimer <= 0 then
+			CloseSpawnMenu(math.random(1,5))
+		end
+		
+		spawntimercd = CurTime() + 1
 	end
 	
 	SpawnButton.PaintOver = function ()
-		draw.SimpleTextOutlined("SPAWN ("..( spawntimer )..")" , "ArialBoldTwelve", SpawnButtonW/2, SpawnButtonH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("START (".. spawntimer ..")" , "ArialBoldTwelve", SpawnButtonW/2, SpawnButtonH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 	SpawnButton.DoClick = function ()
-		ChangeClassClient (1)
-		BlurMenu:Close()
-		InvisiblePanel:Close()
-		InvisiblePanel2:Close()
-		LoadoutMenu:Close()
-		StatsMenu:Close()
-	end	
+		CloseSpawnMenu(1)
+	end
 	
-	-- Stats
-	
+	--Stats
 	StatsX, StatsY = SpawnButtonX+SpawnButtonW+ScaleH(20),SpawnButtonY
-	StatsW, StatsH = TopMenuW-(SpawnButtonW+ScaleH(20)), SpawnButtonH
+	StatsW, StatsH = SecondColumnWidth, SlotHeight
 	
-	StatsMenu = vgui.Create("DFrame")
-	StatsMenu:SetSize(StatsW, StatsH)
-	StatsMenu:SetPos(StatsX, StatsY)
-	StatsMenu:SetSkin("ZSMG")
-	StatsMenu:SetTitle( "Player stats" ) 
-	StatsMenu:SetDraggable ( false )
-	StatsMenu:SetSizable(false)
-	StatsMenu:SetDraggable(false)
-	StatsMenu:ShowCloseButton(false)
+	PlayerProgressPanel = vgui.Create("DFrame")
+	PlayerProgressPanel:SetSize(StatsW, StatsH)
+	PlayerProgressPanel:SetPos(TopMenuX + (SlotWidth+10) + (SecondColumnWidth + 10), TopMenuY)
+	PlayerProgressPanel:SetSkin("ZSMG")
+	PlayerProgressPanel:SetTitle("Your Progress") 
+	PlayerProgressPanel:SetDraggable(false)
+	PlayerProgressPanel:SetSizable(false)
+	PlayerProgressPanel:SetDraggable(false)
+	PlayerProgressPanel:ShowCloseButton(false)
+
+	PlayerProgressPanel.PaintOver = function()
+		local Rank1X, Rank1Y = ScaleW(30), StatsH/2
+		local Rank2X, Rank2Y = StatsW-Rank1X, Rank1Y
+		
+		draw.SimpleTextOutlined(MySelf:GetRank(), "ArialBoldFifteen", Rank1X, Rank1Y, Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("level" , "WeaponNames", Rank1X,Rank1Y+ScaleH(25), Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		
+		draw.SimpleTextOutlined(MySelf:GetRank()+1, "ArialBoldFifteen", Rank2X, Rank2Y, Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("level" , "WeaponNames", Rank2X,Rank2Y+ScaleH(25), Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+
+		--Progress bar
+		local BarW, BarH = StatsW/2, StatsH * 0.3
+		local BarX, BarY = StatsW/2 - BarW/2,StatsH/2 - BarH/2
+		
+		--Background
+		surface.SetDrawColor(0, 0, 0, 150)
+		surface.DrawRect(BarX,BarY, BarW,BarH)
 	
-	StatsMenu.PaintOver = function()
-		
-		local Rank1X,Rank1Y = ScaleW(30),StatsH/2
-		local Rank2X,Rank2Y = StatsW-Rank1X,Rank1Y
-		
-		draw.SimpleTextOutlined(MySelf:GetRank() , "ArialBoldFifteen", Rank1X,Rank1Y, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		draw.SimpleTextOutlined("rank" , "WeaponNames", Rank1X,Rank1Y+ScaleH(25), Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		draw.SimpleTextOutlined(MySelf:GetRank()+1 , "ArialBoldFifteen", Rank2X,Rank2Y, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		draw.SimpleTextOutlined("rank" , "WeaponNames", Rank2X,Rank2Y+ScaleH(25), Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		
-		
-		-- Progress bar
-		
-		local BarW,BarH = StatsW*0.7,StatsH*.3
-		local BarX,BarY = StatsW/2-BarW/2,StatsH/2-BarH/2
-		
-		surface.SetDrawColor( 0, 0, 0, 150)
-		surface.DrawRect(BarX,BarY, BarW,BarH )
-	
-		surface.DrawRect(BarX+5 , BarY+5,  BarW-10, BarH-10 )	
+		surface.DrawRect(BarX, BarY+5, BarW-10, BarH-10)	
 		
 		local full = MySelf:NextRankXP() - MySelf:CurRankXP()
-		local actual = MySelf:GetXP()- MySelf:CurRankXP()
+		local actual = MySelf:GetXP() - MySelf:CurRankXP()
 		
 		if MySelf:GetRank() == 0 then
 			full = 3000
@@ -746,33 +719,49 @@ function DrawSelectClass()
 		end
 				
 		local rel = math.Clamp(actual/full,0,1)
-		
+
 		surface.SetDrawColor(Color(255,255,255,255))
 		surface.DrawRect(BarX+5 , BarY+5, (rel)*(BarW-10), BarH-10 )
-		
-		draw.SimpleTextOutlined("Experience: "..actual.."/"..full , "WeaponNames", StatsW/2,Rank2Y+ScaleH(25), Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		-- draw.SimpleTextOutlined("Total experience: "..MySelf:GetXP().."/"..MySelf:NextRankXP() , "WeaponNames", StatsW/2,Rank2Y+ScaleH(40), Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	
-		-- 
-		-- surface.DrawRect(ActualX+5 , ActualY+5, (HPBarSizeW-10)*MySelf.HPBar, HPBarSizeH-10 )
-	
+
+		draw.SimpleTextOutlined("Experience: ".. actual .." / ".. full, "WeaponNames", StatsW/2,Rank2Y+ScaleH(25), Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 
-	--Play spawnscreen sound
-	local randSong = math.random(3,4)
+	QuickGuidePanel = vgui.Create("DFrame")
+	QuickGuidePanel:SetSize(SecondColumnWidth, TopMenuH - (SlotHeight + 10))
+	QuickGuidePanel:SetPos(TopMenuX + (SlotWidth+10) + (SecondColumnWidth + 10), TopMenuY + SlotHeight + 10)
+	QuickGuidePanel:SetSkin("ZSMG")
+	QuickGuidePanel:SetTitle("Quick Guide")
+	QuickGuidePanel:SetDraggable(false)
+	QuickGuidePanel:SetSizable(false)
+	QuickGuidePanel:SetDraggable(false)
+	QuickGuidePanel:ShowCloseButton(false)
+	
+	local QuickGuideText = vgui.Create("DTextEntry", QuickGuidePanel)
+	QuickGuideText:SetPos(5, 25)
+	local ParentW, ParentH = QuickGuidePanel:GetSize()
+	QuickGuideText:SetSize(ParentW - 10, ParentH - 30) 
+	QuickGuideText:SetEditable(false)
+	QuickGuideText:SetValue(WELCOME_TEXT)
+	QuickGuideText:SetMultiline(true)
+	--QuickGuideText:EnableVerticalScrollbar(true)
+	
+	--What is this doing here?
+	QuickGuidePanel.Think = function()
+		gui.EnableScreenClicker(true)
+	end
 
 	--If christmas play xmas sound first and then the normal one
 	if CHRISTMAS then
 		surface.PlaySound("mrgreen/music/gamestart_xmas.mp3")
 		timer.Simple(22, function()
-			surface.PlaySound("mrgreen/music/gamestart".. randSong ..".mp3")
+			surface.PlaySound("mrgreen/music/gamestart4.mp3")
 		end)
 	else
-		surface.PlaySound("mrgreen/music/gamestart".. randSong ..".mp3")
+		surface.PlaySound("mrgreen/music/gamestart4.mp3")
 	end
 end
 
-function ChangeClassClient ( class )
+function ChangeClassClient(class)
 	gui.EnableScreenClicker(false)
 	
 	local filename = "zombiesurvival/loadouts/default.txt"
@@ -788,12 +777,12 @@ function ChangeClassClient ( class )
 	local tbl = util.TableToJSON(Loadout)
 	file.Write(filename,tbl)
 	
-	RunConsoleCommand ("_applyloadout",unpack(Loadout))
+	RunConsoleCommand("_applyloadout",unpack(Loadout))
 	
 	RunConsoleCommand("ChangeClass", class)
 	
 	-- Only one call after choosing loadout
-	gamemode.Call( "PostPlayerChooseLoadout", MySelf )
+	gamemode.Call("PostPlayerChooseLoadout", MySelf)
 end
 usermessage.Hook("DrawSelectClass", DrawNewSelectClass2) 
 -- concommand.Add("open_testmenu",DrawNewSelectClass2)
@@ -919,9 +908,6 @@ function LateSpawnLoadout()
 	else
 		Loadout = {"weapon_zs_usp","weapon_zs_melee_keyboard"}
 	end
-	
-	--[[print("Resending loadout")
-	PrintTable(Loadout)]]
-	
-	RunConsoleCommand ("_applyloadout",unpack(Loadout))
+
+	RunConsoleCommand("_applyloadout", unpack(Loadout))
 end

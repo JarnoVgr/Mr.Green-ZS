@@ -20,11 +20,11 @@ shopData = {
 	[1] = { Cost = 800, Type = "hat", AdminOnly = false, Desc = "Eating too many eggs in the morning? No problem. This is your solution! Now you can eat eggs, in-game, too!", Key = "egg", ID = 1, Sell = 0, Requires = 0, Name = "Egg Hat",  },
 	[2] = { Cost = 800, Type = "hat", AdminOnly = false, Desc = "If you wear this, you'll look like that anime character,Kanti Sama.", Key = "monitor", ID = 2, Sell = 0, Requires = 0, Name = "TV Head",  },
 	[3] = { Cost = 5000, Type = "misc", Hidden = false, AdminOnly = false, Desc = "Join the group with your only friend, Mister .357 cal. Have a 1/3 chance of starting the round with a magnum.", Key = "magnumman", ID = 3, Sell = 0, Requires = 0, Name = "Mysterious Stranger",  },
-	[4] = { Cost = 6000, Hidden = true, AdminOnly = false, Desc = "You kill humans for a living. Literally. Restores half your HP after killing a human!", Key = "steamroller", ID = 4, Sell = 0, Requires = 0, Name = "Steamroller",  },
-	[5] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "Get an additional weapon after redeeming. More zombies, better weapon.", Key = "comeback", ID = 5, Sell = 0, Requires = 0, Name = "Comeback",  },
+	--[4] = { Cost = 6000, Hidden = true, AdminOnly = false, Desc = "You kill humans for a living. Literally. Restores half your HP after killing a human!", Key = "steamroller", ID = 4, Sell = 0, Requires = 0, Name = "Steamroller",  },
+	--[5] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "Get an additional weapon after redeeming. More zombies, better weapon.", Key = "comeback", ID = 5, Sell = 0, Requires = 0, Name = "Comeback",  },
 	[6] = { Cost = 1000, Type = "other", AdminOnly = false, Desc = "Being a bit paranoid about those toxic fumes? No worries, carry this mask! (note: it doesn't work against toxis fumes).", Key = "mask", ID = 6, Sell = 0, Requires = 0, Name = "Mask",  },
 	[7] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "Time to hit a homerun! All you need is a headcrab and a crowbar...", Key = "ushat", ID = 7, Sell = 0, Requires = 0, Name = "Baseball cap",  },
-	[8] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "Human spines are like toothpicks to you. Do more damage when attacking a human from behind!", Key = "backbreaker", ID = 8, Sell = 0, Requires = 0, Name = "Backbreaker",  },
+--	[8] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "Human spines are like toothpicks to you. Do more damage when attacking a human from behind!", Key = "backbreaker", ID = 8, Sell = 0, Requires = 0, Name = "Backbreaker",  },
 	[9] = { Cost = 100, Type = "hat", AdminOnly = false, Desc = "Trick 'r' treat! Make sure you put this hat on to look cool on Halloween :) (Permanent hat)", Key = "pumpkin", ID = 9, Sell = 0, Requires = 0, Name = "Pumpkin Hat",  },
 	[10] = { Cost = 750, Type = "hat", AdminOnly = false, Desc = "Easter eggs. Lol.", Key = "bunnyears", ID = 10, Sell = 0, Requires = 0, Name = "Bunny Ears",  },
 	[11] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "Bringing your bare hands to a gun fight? Why not! You'll get an extra boost with melee weapons and your fists.", Key = "blessedfists", ID = 11, Sell = 0, Requires = 0, Name = "Blessed Fists",  },
@@ -33,36 +33,36 @@ shopData = {
 	[14] = { Cost = 1, Type = "hat", AdminOnly = true, Desc = "Hat for admins! Nope, normal players cannot see this in the list.", Key = "greenshat", ID = 14, Sell = 0, Requires = 0, Name = "Greens Hat",  },
 	[15] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "With this big eye-catching thing lodged on your head you're sure to attract some attention. Too bad it doesn't shoot lasers.", Key = "roboteye", ID = 15, Sell = 0, Requires = 0, Name = "Robot hat",  },
 	
-	[17] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "Rambo's your bitch. As last human you do more damage to zombie and receive the powerful M249!", Key = "lastmanstand", ID = 17, Sell = 0, Requires = 0, Name = "Last Man Stand",  },
+	--[17] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "Rambo's your bitch. As last human you do more damage to zombie and receive the powerful M249!", Key = "lastmanstand", ID = 17, Sell = 0, Requires = 0, Name = "Last Man Stand",  },
 	[18] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "Ho ho ho! Merry Christmas! It's that time of the year again .. (Permanent hat)", Key = "snowhat", ID = 18, Sell = 0, Requires = 0, Name = "Snowman Hat",  },
 	[19] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "Greencoins make Santa Claus's World go round! That's why you should buy this lovely hat right from Santa's Bag!  .. (Permanent hat)", Key = "present", ID = 19, Sell = 0, Requires = 0, Name = "Present Hat",  },
 	[20] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "A sawblade sombrero, how cool can it get? Chuck Norris has one you know.", Key = "sombrero", ID = 20, Sell = 0, Requires = 0, Name = "Sombrero",  },
 	[21] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "You won't die of starvation with this thing on.", Key = "melonhead", ID = 21, Sell = 0, Requires = 0, Name = "Melonhead",  },
 	[22] = { Cost = 8000,Type = "misc", AdminOnly = false, Desc = "You get twice as much ammunition from the Supply Crates!", Key = "ammoman", ID = 22, Sell = 0, Requires = 0, Name = "Ammunition Man",  },
-	[23] = { Cost = 7000, Hidden = true, AdminOnly = false, Desc = "You get thirsty and want to suck the blood out of your victims. With this sucker,you'll leech health from your victims. The greater the damage, the greater the leech!", Key = "vampire", ID = 23, Sell = 0, Requires = 5, Name = "Blood Sucker",  },
+	--[23] = { Cost = 7000, Hidden = true, AdminOnly = false, Desc = "You get thirsty and want to suck the blood out of your victims. With this sucker,you'll leech health from your victims. The greater the damage, the greater the leech!", Key = "vampire", ID = 23, Sell = 0, Requires = 5, Name = "Blood Sucker",  },
 	[24] = { Cost = 6500, Hidden = false, Type = "misc", AdminOnly = false, Desc = "Have a chance to start the round as THE Gordon Freeman. You'll do more Melee damage as Gordon.", Key = "gordonfreeman", ID = 24, Sell = 0, Requires = 0, Name = "Crowbar Wielding God",  },
-	[25] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "When having low health you won't walk as slow as without adrenaline.", Key = "adrenaline", ID = 25, Sell = 0, Requires = 0, Name = "Adrenaline",  },
-	[26] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "A few bandages should hold. Health regenerates when below 30 hp when you're still human!", Key = "quickcure", ID = 26, Sell = 0, Requires = 0, Name = "Quick Cure",  },
+	--[25] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "When having low health you won't walk as slow as without adrenaline.", Key = "adrenaline", ID = 25, Sell = 0, Requires = 0, Name = "Adrenaline",  },
+	--[26] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "A few bandages should hold. Health regenerates when below 30 hp when you're still human!", Key = "quickcure", ID = 26, Sell = 0, Requires = 0, Name = "Quick Cure",  },
 	[27] = { Cost = 1500, Type = "misc", AdminOnly = false, Desc = "Ability to change your player title in the Options (F4) menu.", Key = "titlechanging", ID = 27, Sell = 0, Requires = 0, Name = "Title Editor",  },
 	[28] = { Cost = 7200, Hidden = true, AdminOnly = false, Desc = "When your health is 30 or below, and you get hit by zombies that do damage greater than 25, then you have a 30% chance to not take damage. Occurs once in 5 minutes. You must have atleast 4 upgrades to buy this one.", Key = "cheatdeath", ID = 28, Sell = 0, Requires = 4, Name = "Cheat Death",  },
-	[29] = { Cost = 3500, Hidden = true, AdminOnly = false, Desc = "Health vials and packs heal you for 50% more health.", Key = "surgery", ID = 29, Sell = 0, Requires = 3, Name = "Surgery",  },
+	--[29] = { Cost = 3500, Hidden = true, AdminOnly = false, Desc = "Health vials and packs heal you for 50% more health.", Key = "surgery", ID = 29, Sell = 0, Requires = 3, Name = "Surgery",  },
 	[30] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "A cooking pot is THE perfect household head protection when fighting anything unnatural!", Key = "pothat", ID = 30, Sell = 0, Requires = 0, Name = "Pot hat",  },
-	[31] = { Cost = 4000, Hidden = true, AdminOnly = false, Desc = "Cannibalism is healthy. Get more health from eating flesh gibs when zombie.", Key = "fleshfreak", ID = 31, Sell = 0, Requires = 0, Name = "Flesh Freak",  },
+	--[31] = { Cost = 4000, Hidden = true, AdminOnly = false, Desc = "Cannibalism is healthy. Get more health from eating flesh gibs when zombie.", Key = "fleshfreak", ID = 31, Sell = 0, Requires = 0, Name = "Flesh Freak",  },
 	[32] = { Cost = 800, Type = "hat", AdminOnly = false, Desc = "Your ICING? Uhm, dude you got something on your head! This hat doesn't turn you into a zombie!", Key = "crab", ID = 32, Sell = 0, Requires = 0, Name = "Headcrab Hat",  },
 	[33] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "Christmas, it's that time of the year again!", Key = "santahat", ID = 33, Sell = 0, Requires = 0, Name = "Santa hat",  },
 	[34] = { Cost = 4000, Type = "misc", AdminOnly = false, Desc = "Luck is not for sale? Well it is here! The chance of a good outcome with roll-the-dice is increased.", Key = "ladyluck", ID = 34, Sell = 0, Requires = 0, Name = "Lady Luck",  },
-	[35] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "Retrieve all weapons from your previous life after redeeming as zombie.", Key = "retrieval", ID = 35, Sell = 0, Requires = 0, Name = "Might Of A Previous Life ",  },
+	--[35] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "Retrieve all weapons from your previous life after redeeming as zombie.", Key = "retrieval", ID = 35, Sell = 0, Requires = 0, Name = "Might Of A Previous Life ",  },
 	[36] = { Cost = 800, Type = "hat", AdminOnly = false, Desc = "You'd be Nicolas Cage - Death Rider with this hat on!", Key = "skull", ID = 36, Sell = 0, Requires = 0, Name = "Skull Hat",  },
-	[37] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "As human, if you get hit by a poison headcrab spit or hump, you will get 40% less damage.", Key = "naturalimmunity", ID = 37, Sell = 0, Requires = 4, Name = "Natural Immunity",  },
+	--[37] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "As human, if you get hit by a poison headcrab spit or hump, you will get 40% less damage.", Key = "naturalimmunity", ID = 37, Sell = 0, Requires = 4, Name = "Natural Immunity",  },
 	[38] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "Pirates are the mortal enemy of ninjas, but they love to pick off a zombie on their way.", Key = "piratehat", ID = 38, Sell = 0, Requires = 0, Name = "Pirate hat",  },
 	[39] = { Cost = 1500, Type = "hat", AdminOnly = false, Desc = "Raises your intelligence-aura by 100%! Note that it does not scare off zombies.", Key = "tophat", ID = 39, Sell = 0, Requires = 0, Name = "Top hat",  },
 	[40] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "Bring some old-fashioned style to the apocalypse. Probably stolen from a dead Brit.", Key = "homburg", ID = 40, Sell = 0, Requires = 0, Name = "Homburg hat",  },
 	[41] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "A bucket hat. Works better than kevlar according to the local bums.", Key = "buckethat", ID = 41, Sell = 0, Requires = 0, Name = "Bucket hat",  },
-	[42] = { Cost = 5500, Hidden = true, AdminOnly = false, Desc = "As human, you receive [15 + your total score divided by 5] percent less damage from Normal and Poison zombies. Requires 7 other upgrades.", Key = "spartanu", ID = 42, Sell = 0, Requires = 7, Name = "Spartan",  },
+	--[42] = { Cost = 5500, Hidden = true, AdminOnly = false, Desc = "As human, you receive [15 + your total score divided by 5] percent less damage from Normal and Poison zombies. Requires 7 other upgrades.", Key = "spartanu", ID = 42, Sell = 0, Requires = 7, Name = "Spartan",  },
 	[43] = { Cost = 6500, Type = "misc", Hidden = false, AdminOnly = false, Desc = "Bring more destruction power! You will deal 50% more damage to barricades and nailed props.", Key = "cadebuster", ID = 43, Sell = 0, Requires = 0, Name = "Cade Buster",  },
 	[44] = { Cost = 7000, Type = "misc", AdminOnly = false, Desc = "Screw the gravity! You have a 1 in 3 chance of not taking fall damage! 'Retro! :O '", Key = "bootsofsteel", ID = 44, Sell = 0, Requires = 0, Name = "Boots of Steel (Retro)",  },
-	[45] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "Bonk! Receive additional 20% chance to decapitate a zombie! Requires 6 other upgrades.", Key = "homerun", ID = 45, Sell = 0, Requires = 6, Name = "Home Run (NEW)",  },
-	[46] = { Cost = 1100, Hidden = true, Type = "suit", AdminOnly = false, Desc = "Classic suit from IW!", Key = "testsuit", ID = 46, Sell = 0, Requires = 0, Name = "IW test suit",  },
+	--[45] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "Bonk! Receive additional 20% chance to decapitate a zombie! Requires 6 other upgrades.", Key = "homerun", ID = 45, Sell = 0, Requires = 6, Name = "Home Run (NEW)",  },
+	--[46] = { Cost = 1100, Hidden = true, Type = "suit", AdminOnly = false, Desc = "Classic suit from IW!", Key = "testsuit", ID = 46, Sell = 0, Requires = 0, Name = "IW test suit",  },
 	[47] = { Cost = 1, Type = "suit", AdminOnly = true, Desc = "Special suit just for admins! (not finished yet)", Key = "greenssuit", ID = 47, Sell = 0, Requires = 0, Name = "Admin's Suit",  },
 	
 	[53] = { Cost = 2400, Type = "other", AdminOnly = false, Desc = "It glows!", Key = "techeyes", ID = 53, Sell = 0, Requires = 0, Name = "Techno Eyes" },
@@ -108,13 +108,13 @@ shopData = {
 	
 	
 	--Suits
-	[48] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "Heal your comrads! For doing this you have extra health to stand the brutal battles which face you!", Key = "medicsuit", ID = 48, Sell = 0, Requires = 0, Name = "Medic's Suit",  }, --11000
-	[49] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "Crush. Pound. Suit Bonus: Faster swing speed (heavy weapons only)", Key = "meleesuit", ID = 49, Sell = 0, Requires = 0, Name = "Close combat Suit",  },
-	[50] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "If shooting zombies aint enough - use more gun. Suit Bonus: Turret damage is increased by 25%!", Key = "techsuit", ID = 50, Sell = 0, Requires = 0, Name = "Tech Suit",  },
+	[48] = { Cost = 7000, Type = "suit", AdminOnly = false, Desc = "Heal your comrads! For doing this you have extra health to stand the brutal battles which face you!", Key = "medicsuit", ID = 48, Sell = 0, Requires = 0, Name = "Medic's Suit",  }, --11000
+	[49] = { Cost = 8000, Type = "suit", AdminOnly = false, Desc = "Crush. Pound. Suit Bonus: Faster swing speed (heavy weapons only)", Key = "meleesuit", ID = 49, Sell = 0, Requires = 0, Name = "Close combat Suit",  },
+	[50] = { Cost = 9500, Type = "suit", AdminOnly = false, Desc = "If shooting zombies aint enough - use more gun. Suit Bonus: Turret damage is increased by 25%!", Key = "techsuit", ID = 50, Sell = 0, Requires = 0, Name = "Tech Suit",  },
 	[51] = { Cost = 9000, Type = "suit", AdminOnly = false, Desc = "If you've mastered cading skills - this suit is for you. Suit Bonus: Double SP when healing nails!!", Key = "supportsuit", ID = 51, Sell = 0, Requires = 0, Name = "Barricade Guy Suit",  },
-	[52] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "Nothing feels better than killing zombies over and over again. Suit Bonus: Increased grenade damage/radius", Key = "assaultsuit", ID = 52, Sell = 0, Requires = 0, Name = "Zombie killer Suit",  },
+	[52] = { Cost = 8000, Type = "suit", AdminOnly = false, Desc = "Nothing feels better than killing zombies over and over again. Suit Bonus: Increased grenade damage/radius", Key = "assaultsuit", ID = 52, Sell = 0, Requires = 0, Name = "Zombie killer Suit",  },
 	[69] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "'You can run, but you can't hide!'. Suit bonus: Hides your heartbeat when standing still.", Key = "stalkersuit", ID = 69, Sell = 0, Requires = 0, Name = "Stalker Suit" },
-	[80] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "You love zerking well this is the suit for you!! Gain hp for every melee kill depending on the weapon. ", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
+	[80] = { Cost = 10000, Type = "suit", AdminOnly = false, Desc = "You love zerking well this is the suit for you!! Gain hp for every melee kill depending on the weapon. ", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
 	[81] = { Cost = 1000, Type = "suit", AdminOnly = false, Desc = "Become one of the elite forces and fight for the Dubyans!", Key = "Combine", ID = 81, Sell = 0, Requires = 0, Name = "Combine the Zombine!",  },
 	[82] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Improves the Pulse rifle and smg ammo recharge rate!", Key = "freeman", ID = 82, Sell = 0, Requires = 0, Name = "Freeman Rage!",  },
 	[83] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Live for nothing or die for something. Reload more bullets in your shotgun at one time!", Key = "Rambo", ID = 83, Sell = 0, Requires = 0, Name = "Rambo Roar",  },
@@ -122,12 +122,6 @@ shopData = {
 	[97] = { Cost = 20 , Type = "suit", AdminOnly = false, Desc = "Another day at the office...", Key = "officesuit", ID = 97, Sell = 0, Requires = 0, Name = "Office",  },
 	--[98] = { Cost = 20000, Type = "misc", AdminOnly = false, Desc = "If your health goes lower than 30 hp your health with regenerate back up to 30 hp! This is the perfect perk for if your a new to the server!! ", Key = "horse", ID = 98, Sell = 0, Requires = 0, Name = "Horse Health! (Classic perk!) ",  },
 	--[16] = { Cost = 0, Type = "misc", AdminOnly = true, Desc = "You are healthy as a horse and you regenerate an additional 10 hp of health, if under 40 health.", Key = "horse", ID = 16, Sell = 0, Requires = 3, Name = "Horse Health",  }, --Horse health
-	
-	--New Classes stuff :P
-	
-	--[99] = { Cost = 0, Type = "suit", AdminOnly = false, Desc = "", Key = "engineer", ID = 99, Sell = 0, Requires = 0, Name = "Engineer",  },
-	--[100] = { Cost = 0, Type = "suit", AdminOnly = false, Desc = "", Key = "berserker", ID = 100, Sell = 0, Requires = 0, Name = "Berserker",  },
-	--[101] = { Cost = 0, Type = "suit", AdminOnly = false, Desc = "", Key = "medic", ID = 101, Sell = 0, Requires = 0, Name = "Medic",  },
 	[102] = { Cost = 200, Type = "hat", AdminOnly = false, Desc = "", Key = "Ammo Hoarder", ID = 102, Sell = 0, Requires = 0, Name = "Ammo Hoarder",  },
 	[103] = { Cost = 50, Type = "hat", AdminOnly = false, Desc = "", Key = "Stoner", ID = 103, Sell = 0, Requires = 0, Name = "Stone Head",  },
 	[104] = { Cost = 150, Type = "hat", AdminOnly = false, Desc = "", Key = "BreenHead", ID = 104, Sell = 0, Requires = 0, Name = "Traffic Stop",  },
@@ -397,34 +391,6 @@ hats_old = {
 
 suits = {
 
---Duby: New zs classes work with suits as the main engine for powers etc... 
-
-
-	["engineer"] = {
-		["1"] = { type = "Model", model = "models/combine_turrets/floor_turret.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-24.925, -0.625, -4.42), angle = Angle(-97.112, 176.037, -173.445), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/Combine_Turrets/Floor_turret/floor_turret_citizen4", skin = 0, bodygroup = {} },
-		["3"] = { type = "Model", model = "models/Weapons/w_annabelle.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(4.756, 3.042, 3.18), angle = Angle(7.794, 179.805, -171.65), size = Vector(0.794, 0.794, 0.794), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["2"] = { type = "Model", model = "models/weapons/w_pistol.mdl", bone = "ValveBiped.Bip01_L_Thigh", rel = "", pos = Vector(9.519, 2.732, 3.036), angle = Angle(1.743, 180, -103.357), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["5"] = { type = "Model", model = "models/props_combine/combine_light002a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "4", pos = Vector(2.47, 0.025, 3.65), angle = Angle(0, -180, 0), size = Vector(0.059, 0.109, 0.109), color = Color(155, 155, 155, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["4"] = { type = "Model", model = "models/props_combine/combine_teleportplatform.mdl", bone = "ValveBiped.Bip01_R_Forearm", rel = "", pos = Vector(1.238, 0.194, 0.018), angle = Angle(-90.595, 0, 0), size = Vector(0.05, 0.05, 0.059), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	},
-
-	["berserker"] = { --Thanks brain dawg
-	
-	["GraveDigger"] = { type = "Model", model = "models/props_c17/gravestone_coffinpiece001a.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-7.329, 3.148, 0), angle = Angle(2.003, -4.893, 88.582), size = Vector(0.216, 0.216, 0.216), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["GraveDigger3"] = { type = "Model", model = "models/weapons/v_fza.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "GraveDigger2", pos = Vector(0.649, -6.95, 10.17), angle = Angle(116.171, 7.475, -4.185), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["GraveDigger2"] = { type = "Model", model = "models/props_junk/shovel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "GraveDigger", pos = Vector(3.476, 2.934, 0), angle = Angle(-91.389, 133.335, 3.608), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["GraveDigger2+"] = { type = "Model", model = "models/props_junk/shovel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "GraveDigger", pos = Vector(3.476, -1.982, 0.048), angle = Angle(-91.389, -127.024, 3.608), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-
-	},
-	
-	["medic"] = {
-		["1"] = { type = "Model", model = "models/healthvial.mdl", bone = "ValveBiped.Bip01_Pelvis", rel = "", pos = Vector(-7.432, -1.969, -2.287), angle = Angle(-3.362, 180, -85.087), size = Vector(0.75, 0.75, 0.75), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["3"] = { type = "Model", model = "models/weapons/w_eq_eholster_elite.mdl", bone = "ValveBiped.Bip01_L_Thigh", rel = "", pos = Vector(11.281, -1.507, 2.78), angle = Angle(18.736, -92.639, 94.268), size = Vector(0.718, 0.718, 0.718), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["2"] = { type = "Model", model = "models/items/healthkit.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(6.775, 3.068, 2.299), angle = Angle(2.375, 171.6, -74.189), size = Vector(0.688, 0.688, 0.688), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["5"] = { type = "Model", model = "models/weapons/w_rif_sg552.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(-3.22, 2.112, -6.369), angle = Angle(-1.589, -3.97, 26.544), size = Vector(0.593, 0.593, 0.593), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["4"] = { type = "Model", model = "models/weapons/w_defuser.mdl", bone = "ValveBiped.Bip01_Pelvis", rel = "", pos = Vector(0.723, 1.593, -6.757), angle = Angle(98.436, -92.312, 0.13), size = Vector(0.763, 0.763, 0.763), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	},
-
 
 	["greenssuit"] = {
 		--["1"] = { type = "Model", model = "models/weapons/w_sledgehammer.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(13.043, 2.974, -7.763), angle = Angle(51.706, -14.294, 16.419), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
@@ -547,50 +513,3 @@ suits = {
 		["1"] = { type = "Model", model = "models/Weapons/W_crossbow.mdl", bone = "ValveBiped.Bip01_Spine2", rel = "", pos = Vector(-2.425, 2.528, 1.911), angle = Angle(-1.489, -1.742, 79.861), size = Vector(0.689, 0.689, 0.689), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 }
-
---suits_old = {
---	["testsuit"] = {
---		{ model = "models/props_combine/combine_light002a.mdl", scale = Vector(0.5,0.5,0.5), bone = "ValveBiped.Bip01_Spine2", pos = Vector(-8.4397354125977, -4.2856278419495, -4.8038859367371), ang = Angle(-20.218063354492, 89.163124084473, 92.542297363281) },
---		{ model = "models/props_combine/tprotato2.mdl", scale = Vector(0.15,0.15,0.15), bone = "ValveBiped.Bip01_Spine2", pos = Vector(2.9495055675507, 11.850051879883, 0.18194548785686), ang = Angle(1.8538411855698, 73.883186340332, -92.593276977539) },
---		{ model = "models/props_combine/combine_intwallunit.mdl", scale = Vector(0.25,0.25,0.25), bone = "ValveBiped.Bip01_Spine2", pos = Vector(7.4525828361511, -5.0034132003784, 0.57272636890411), ang = Angle(-3.9635679721832, -86.458190917969, 176.28259277344) },
---		{ model = "models/weapons/w_alyx_gun.mdl", scale = Vector(1,1,1), bone = "ValveBiped.Bip01_R_UpperArm", pos = Vector(5.7516212463379, -1.9248474836349, -4.1494512557983), ang = Angle(-5.7085776329041, -170.07400512695, -165.52563476563) },
---		{ model = "models/gibs/manhack_gib02.mdl", scale = Vector(0.8,0.8,0.8), bone = "ValveBiped.Bip01_Head1", pos = Vector(2.4370293617249, -2.6262662410736, -3.7462885379791), ang = Angle(-2.652161359787, -73.73762512207, 90.886138916016) }
---	},
---	["greenssuit"] = {
---		--{ model = "models/greenshat/greenshat.mdl", scale = Vector(1, 1, 1), bone = "ValveBiped.Bip01_Head1", pos = Vector(4.7985687255859, -0.3487548828125, -0.0367431640625), ang = Angle(-1.5857821702957, 99.832473754883, 88.898849487305) },
---		{ model = "models/weapons/w_sledgehammer.mdl", scale = Vector(0.8, 0.8, 0.8), bone = "ValveBiped.Bip01_Spine2", pos = Vector(16.047988891602, -2.2593566894531, -7.4102783203125), ang = Angle(55.588428497314, 179.62707519531, -7.3176641464233) },
---		{ model = "models/gibs/shield_scanner_gib4.mdl", scale = Vector(0.5, 0.5, 0.5), bone = "ValveBiped.Bip01_R_Forearm", pos = Vector(10.531005859375, -0.38937377929688, -3.1612548828125), ang = Angle(-45.036098480225, -0.81545609235764, 7.7072429656982) }
---	},
---	["medicsuit"] = {
---		{ model = "models/healthvial.mdl", scale = Vector(0.75, 0.75, 0.75), bone = "ValveBiped.Bip01_Pelvis", pos = Vector(-9.3896636962891, -5.8730239868164, -0.4644775390625), ang = Angle(-5.9380683898926, 177.3962097168, 87.504753112793) },
---		{ model = "models/items/healthkit.mdl", scale = Vector(0.75, 0.75, 0.75), bone = "ValveBiped.Bip01_Spine2", pos = Vector(7.3329620361328, -3.7342529296875, -1.1940460205078), ang = Angle(-17.783504486084, -174.82952880859, -88.17741394043) },
---		{ model = "models/weapons/w_eq_eholster_elite.mdl", scale = Vector(0.6, 0.6, 0.6), bone = "ValveBiped.Bip01_L_Thigh", pos = Vector(13.132080078125, -0.203125, 3.4675827026367), ang = Angle(8.3461780548096, -95.820625305176, 85.483924865723) },
---		{ model = "models/weapons/w_defuser.mdl", scale = Vector(0.7, 0.7, 0.7), bone = "ValveBiped.Bip01_Pelvis", pos = Vector(7.1811981201172, -1.722526550293, -3.1448974609375), ang = Angle(-26.365127563477, 179.97027587891, 96.087631225586) },
---	},
---	["meleesuit"] = {
---		{ model = "models/weapons/w_crowbar.mdl", scale = Vector(1, 1, 1), bone = "ValveBiped.Bip01_Spine2", pos = Vector(6.231819152832, -3.5177612304688, -1.8016738891602), ang = Angle(43.045528411865, 5.8933568000793, 145.62739562988) },
---		{ model = "models/weapons/w_knife_ct.mdl", scale = Vector(0.75, 0.75, 0.75), bone = "ValveBiped.Bip01_L_Thigh", pos = Vector(7.3256301879883, -1.5550537109375, 3.533088684082), ang = Angle(3.7624142169952, 49.689037322998, 89.807983398438) },
---		{ model = "models/weapons/w_defuser.mdl", scale = Vector(0.7, 0.7, 0.7), bone = "ValveBiped.Bip01_Pelvis", pos = Vector(-5.5647258758545, 0.091384887695313, -4.556396484375), ang = Angle(-44.3967628479, 5.108145236969, -95.67423248291) },
---		{ model = "models/weapons/w_axe.mdl", scale = Vector(1, 1, 1), bone = "ValveBiped.Bip01_Spine2", pos = Vector(-4.7819671630859, -4.3813323974609, -5.0008544921875), ang = Angle(-59.132465362549, -175.11282348633, -1.0494492053986), mat = "" },
---	},
---	["techsuit"] = {
---		{ model = "models/combine_turrets/floor_turret.mdl", scale = Vector(0.65, 0.65, 0.65), bone = "ValveBiped.Bip01_Spine2", pos = Vector(-16.249351501465, -8.5250854492188, 10.013265609741), ang = Angle(-52.792457580566, 9.0308504104614, -177.92620849609) },
---		{ model = "models/weapons/w_pistol.mdl", scale = Vector(0.8, 0.8, 0.8), bone = "ValveBiped.Bip01_L_Thigh", pos = Vector(12.181709289551, -0.4613037109375, 3.9242324829102), ang = Angle(-4.9796981811523, 176.87321472168, -81.989204406738) },
---		{ model = "models/props_c17/tools_wrench01a.mdl", scale = Vector(0.75, 0.75, 0.75), bone = "ValveBiped.Bip01_Pelvis", pos = Vector(-8.8688278198242, -3.1391754150391, -1.1537475585938), ang = Angle(-46.818305969238, 87.676483154297, 87.161766052246), mat = "models/props_c17/metalladder001" },
---		{ model = "models/props_c17/tools_pliers01a.mdl", scale = Vector(1, 1, 1), bone = "ValveBiped.Bip01_Pelvis", pos = Vector(-10.238813400269, -4.3920974731445, 1.4630126953125), ang = Angle(-60.661434173584, -133.55381774902, -62.927299499512) },
---		{ model = "models/gibs/shield_scanner_gib1.mdl", scale = Vector(0.75, 0.75, 0.75), bone = "ValveBiped.Bip01_R_Forearm", pos = Vector(6.7405700683594, -0.96442413330078, -1.2118835449219), ang = Angle(1.7456701993942, 60.498374938965, 165.4289855957), mat = "" },
---	},
---	["supportsuit"] = {
---		{ model = "models/items/boxsrounds.mdl", scale = Vector(1, 1, 1), bone = "ValveBiped.Bip01_Spine2", pos = Vector(-7.9963302612305, -6.3760375976563, -2.2481060028076), ang = Angle(-1.7087403535843, -89.774269104004, -64.968193054199) },
---		{ model = "models/weapons/w_hammer.mdl", scale = Vector(0.75, 0.75, 0.75), bone = "ValveBiped.Bip01_Pelvis", pos = Vector(-8.1949787139893, 1.0550079345703, -2.9791870117188), ang = Angle(46.68924331665, -90.599281311035, 3.1780381202698) },
---		{ model = "models/props_debris/wood_board06a.mdl", scale = Vector(0.5, 0.5, 0.5), bone = "ValveBiped.Bip01_Spine2", pos = Vector(2.9047775268555, -3.678466796875, 0.20827960968018), ang = Angle(3.8104009628296, -86.105697631836, 129.0941619873) },
---		{ model = "models/items/crossbowrounds.mdl", scale = Vector(0.65, 0.65, 0.65), bone = "ValveBiped.Bip01_Pelvis", pos = Vector(8.206693649292, -3.7448501586914, -0.17242431640625), ang = Angle(23.519021987915, -81.454879760742, 61.945243835449) },
---	},
---	["assaultsuit"] = {
---		{ model = "models/weapons/w_rif_ak47.mdl", scale = Vector(1, 1, 1), bone = "ValveBiped.Bip01_Spine2", pos = Vector(5.8207550048828, -3.7877807617188, -5.5291147232056), ang = Angle(-39.557312011719, -176.11592102051, 1.1124407052994) },
---		{ model = "models/items/grenadeammo.mdl", scale = Vector(0.8, 0.8, 0.8), bone = "ValveBiped.Bip01_Pelvis", pos = Vector(-9.5070037841797, -3.4014358520508, -1.3558349609375), ang = Angle(7.0540013313293, 9.3924551010132, -54.073848724365) },
---		{ model = "models/gibs/scanner_gib02.mdl", scale = Vector(0.75, 0.75, 0.75), bone = "ValveBiped.Bip01_L_UpperArm", pos = Vector(1.9710693359375, -0.96748352050781, 0.96389770507813), ang = Angle(-36.684658050537, -34.976982116699, 93.18497467041), mat = "models/props_combine/metal_combinebridge001" },
---		{ model = "models/gibs/scanner_gib02.mdl", scale = Vector(0.75, 0.75, 0.75), bone = "ValveBiped.Bip01_R_UpperArm", pos = Vector(2.266845703125, -0.34785461425781, -1.2991333007813), ang = Angle(46.084629058838, -15.180951118469, -150.51264953613), mat = "models/props_combine/metal_combinebridge001" },
---		{ model = "models/weapons/w_pist_deagle.mdl", scale = Vector(0.9, 0.9, 0.9), bone = "ValveBiped.Bip01_Pelvis", pos = Vector(6.8150939941406, -0.15524291992188, -3.9432439804077), ang = Angle(-22.379274368286, -80.852088928223, -13.983214378357), mat = "" },
---	},
---}

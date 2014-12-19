@@ -153,7 +153,8 @@ end
 
 -- Define footstep sounds
 local tbFootSteps = { 
-	[1] = { Sound ( "npc/zombie/foot1.wav" ), Sound ( "npc/zombie/foot2.wav" ), Sound ( "npc/zombie/foot3.wav" ) }, 
+	[0] = { Sound ( "npc/zombie/foot1.wav" ), Sound ( "npc/zombie/foot2.wav" ), Sound ( "npc/zombie/foot3.wav" ) }, 
+	[1] = { Sound ( "npc/zombine/gear1.wav" ), Sound ( "npc/zombine/gear2.wav" ), Sound ( "npc/zombine/gear3.wav" ),Sound ( "npc/zombie/foot1.wav" ), Sound ( "npc/zombie/foot2.wav" ) }, 
 	[2] = { Sound ( "player/footsteps/ladder1.wav" ), Sound ( "player/footsteps/ladder2.wav" ), Sound ( "player/footsteps/ladder3.wav" ), Sound ( "player/footsteps/ladder4.wav" ) },
 	[3] = { Sound ( "npc/zombine/gear1.wav" ), Sound ( "npc/zombine/gear2.wav" ), Sound ( "npc/zombine/gear3.wav" ),Sound ( "npc/zombie/foot1.wav" ), Sound ( "npc/zombie/foot2.wav" ) },-- zombine
 	[4] = { Sound ( "npc/zombie_poison/pz_right_foot1.wav" ), Sound ( "npc/zombie_poison/pz_left_foot1.wav" ) },-- poison zombie
@@ -162,16 +163,6 @@ local tbFootSteps = {
 	-- [11] = { Sound("physics/metal/metal_barrel_impact_hard5.wav"),Sound("physics/metal/metal_barrel_impact_hard6.wav")}
 	[11] = { Sound("npc/strider/strider_step1.wav"),Sound("npc/strider/strider_step2.wav"),Sound("npc/strider/strider_step3.wav"),Sound("npc/strider/strider_step4.wav"),Sound("npc/strider/strider_step5.wav"),Sound("npc/strider/strider_step6.wav")}
 }
-
---[[local tbFootSteps = { 
-	[1] = { "Zombie.FootstepLeft","Zombie.FootstepRight" }, 
-	[2] = { "Ladder.StepLeft","Ladder.StepRight" },
-	[3] = { "NPC_CombineS.RunFootstepLeft", "NPC_CombineS.RunFootstepRight" },-- zombine
-	[4] = { "NPC_PoisonZombie.FootstepLeft", "NPC_PoisonZombie.FootstepRight"},-- poison zombie
-	[5] = { "NPC_FastZombie.FootstepLeft", "NPC_FastZombie.FootstepRight" },-- fast zombie
-	[6] = { "NPC_BlackHeadcrab.Footstep", "NPC_BlackHeadcrab.Footstep" },-- poison headcrab
-	[11] = { "NPC_Strider.Footstep","NPC_Strider.Footstep"}
-}]]
 
 for i=1, 6 do
 	for _,snd in pairs(tbFootSteps[i]) do
@@ -208,9 +199,12 @@ elseif CLIENT then
 			local ftime
 			
 			-- Walk on something zombie footstep
-			if pl:IsCommonZombie() or pl:GetZombieClass() == 0 or pl:GetZombieClass() == 14 then
-				sSound = tbFootSteps[1][iFoot+1]
+			if pl:IsCommonZombie2() or pl:GetZombieClass() == 14 then
+				sSound = tbFootSteps[0][iFoot+1]
 				ftime = 0.1
+			elseif pl:IsCommonZombie() then
+				sSound = tbFootSteps[1][iFoot+1]
+				ftime = 0.365
 			elseif pl:IsZombine() then
 				sSound = tbFootSteps[3][iFoot+1]
 				ftime = 0.365
@@ -271,11 +265,6 @@ for _,mdl in pairs (file.Find("models/player/hostage/*.mdl","GAME")) do
 	util.PrecacheModel( "models/player/hostage/"..mdl )
 end
 
---[==[for k, v in pairs(suits) do
-	for j, prop in pairs(v) do
-		util.PrecacheModel( prop.model )
-	end
-end]==]
 
 for k=1, #ZombieClasses do
 	util.PrecacheModel( ZombieClasses[k].Model )
@@ -309,13 +298,6 @@ for k=1, #ZombieClasses do
 	end
 	
 end
-
-
---for k=1, #HumanClasses do --Duby: Old classes not which isn't needed anymore. 
---	for _, v in pairs(HumanClasses[k].Models) do
-	--	util.PrecacheModel( v )
-	--end
---end
 
 -- Identifier for hat adjustment
 TModels = {

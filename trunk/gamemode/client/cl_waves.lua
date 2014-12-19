@@ -65,7 +65,8 @@ function GM:GetLivingZombies()
 	local tab = {}
 
 	for _, pl in pairs(player.GetAll()) do
-		if pl:Team() == TEAM_UNDEAD and 0.500001 <= pl:Health() and not pl:IsCrow() then
+		--if pl:Team() == TEAM_UNDEAD and 0.500001 <= pl:Health() and not pl:IsCrow() then
+		if pl:Team() == TEAM_UNDEAD and 0.500001 <= pl:Health() then
 			table.insert(tab, pl)
 		end
 	end
@@ -132,32 +133,3 @@ net.Receive("SendPlayerPerk", function(len)
 
 	table.insert(pl.Perk,perk)
 end)
---[[ --Duby: Sales for the crates shop, not required anymore..
-net.Receive("SendSales", function(len)
-	if not IsValid( MySelf ) then return end
-	Debug("[SKILLSHOP] Received SendSales (net)")
-	
-	local amount = net.ReadDouble()
-
-	local wep, disc
-	for i=1, amount do
-		wep = net.ReadString()
-		disc = net.ReadDouble()
-		if not GAMEMODE.HumanWeapons[wep] then
-			Debug("[SKILLSHOP] Sales error. Requesting an update.")
-			timer.Simple(1,function() RunConsoleCommand("mrgreen_fixdeadsales") end)
-			break
-		else
-			GAMEMODE.WeaponsOnSale[wep] = disc
-			GAMEMODE.HumanWeapons[wep].Price = math.ceil(GAMEMODE.HumanWeapons[wep].Price - GAMEMODE.HumanWeapons[wep].Price*(GAMEMODE.WeaponsOnSale[wep]/100))
-		end
-	end
-end)
-
-function IsOnSale(item)
-	if GAMEMODE.WeaponsOnSale[item] then
-		return true
-	end
-	
-	return false
-end ]]--

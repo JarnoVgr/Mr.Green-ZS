@@ -51,9 +51,9 @@ end
 
 function EFFECT:Render()
 	self.Entity:DrawModel()
-	--[=[if self.Entity:GetVelocity():Length() > 20 then
+	if self.Entity:GetVelocity():Length() > 20 then
 		-- local emitter = ParticleEmitter(self.Entity:GetPos())
-		local particle = self.Emitter:Add("decals/blood_spray"..math.random(1,8), self.Entity:GetPos())
+		--[[local particle = self.Emitter:Add("decals/blood_spray"..math.random(1,8), self.Entity:GetPos())
 			particle:SetVelocity(VectorRand() * 16)
 			particle:SetDieTime(0.6)
 			particle:SetStartAlpha(255)
@@ -61,6 +61,6 @@ function EFFECT:Render()
 			particle:SetEndSize(8)
 			particle:SetRoll(180)
 			particle:SetColor(255, 0, 0)
-			particle:SetLighting(true)
-	end]=]
+			particle:SetLighting(true)]]--
+	end
 end

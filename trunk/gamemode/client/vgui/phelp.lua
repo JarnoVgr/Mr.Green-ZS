@@ -232,7 +232,7 @@ HelpBtn[#HELP_TXT+1] = {
 			
 	end
 }
-
+ --Duby: Out of date, Damien will need to do an update on this one..
 HelpBtn[#HELP_TXT+2] = {
 	name = "Adv. Guide",
 	action = function()

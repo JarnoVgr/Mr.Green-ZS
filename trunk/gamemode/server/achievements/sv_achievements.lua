@@ -11,29 +11,6 @@ function GM:DoDamageAchievements ( ent, attacker, inflictor, dmginfo )
 	if ( inflictor == attacker ) then
 		if inflictor:IsPlayer() then inflictor = attacker:GetActiveWeapon() else inflictor = attacker end
 	end
-	
-
---[=[  -- No more turrets :(
-	-- turret damage
-	if inflictor:IsPlayer() and inflictor:Team() == TEAM_HUMAN then
-		if attacker:GetClass() == "turret" and attacker:GetOwner():IsValid() and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Alive() and attacker:GetOwner():Team() == TEAM_HUMAN then
-			local pl = attacker:GetOwner()
-			dmginfo:SetDamage ( damage + ( damage * ((pl:GetTableScore("engineer","level")+1)*HumanClasses[4].Coef[1] ) / 100 ) )
-			
-			-- Engineer Achievments stuff - turret damage
-			if pl:GetHumanClass() == 4 then
-				if pl:GetTableScore("engineer","level") == 2 and pl:GetTableScore("engineer","achlevel2_2") < 30000 then
-					pl:AddTableScore("engineer","achlevel2_2", math.ceil ( damage ) )
-				elseif pl:GetTableScore("engineer","level") == 3 and pl:GetTableScore("engineer","achlevel2_2") < 90000 then
-					pl:AddTableScore("engineer","achlevel2_2", math.ceil ( damage ) )
-				end
-				
-				pl:CheckLevelUp()
-			end
-		end
-	end
-]=]
-	
 
 	-- Last time when the victim was hurt
 	ent.LastHurt = CurTime()

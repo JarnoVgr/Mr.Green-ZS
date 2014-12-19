@@ -18,7 +18,7 @@ end
 SWEP.Primary.Duration = 1.5
 SWEP.Primary.Delay = 0.3
 SWEP.Primary.Reach = 50
-SWEP.Primary.Damage = 25
+SWEP.Primary.Damage = 30
 SWEP.Primary.Next = 2
 --SWEP.Secondary.Next = 6.8
 SWEP.Secondary.Next = 2.6
@@ -106,11 +106,6 @@ function SWEP:Move(mv)
 		mv:SetMaxSpeed(self.Primary.Speed)
 		return true
 	end
-	
-local pl = self.Owner
-local e = EffectData()
-e:SetOrigin( self.Owner:GetShootPos() )
-util.Effect( "smokereffect", e )
 end
 
 function SWEP:SetDisguise(bl)
@@ -193,7 +188,7 @@ function SWEP:PerformSecondaryAttack()
 	end
 
 	--Change damage once teleported
-	self.Primary.Damage = 15
+	self.Primary.Damage = 20
 	
 	mOwner.IsWraithTeleporting = true
 	

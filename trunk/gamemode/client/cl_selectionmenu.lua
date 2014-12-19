@@ -31,7 +31,7 @@ LastInfoScroll = LastInfoScroll or 0
 --[==[---------------------------------------------------------
         Called to check if the slot bind is pressed
 ---------------------------------------------------------]==]
-local sIndex, ScrollSpeed = 0, 0.2
+local sIndex, ScrollSpeed = 0, 0.01
 local function ManageSlotBinds ( pl, bind, pressed ) 
 	if pl:Team() ~= TEAM_HUMAN or not string.find(bind,"slot") then
 		return
@@ -310,10 +310,11 @@ function PaintNewWeaponSelection()
 	for i = 0, MaximumSlots do
 		if IsSlot[i] then		
 			surface.SetMaterial(WeaponSelectionBackground)
-			surface.SetDrawColor(100, 225, 225, 255*Alpha)
+			--surface.SetDrawColor(100, 225, 225, 255*Alpha)
+			surface.SetDrawColor(100, 225, 225, 255)
 			surface.DrawTexturedRect(SLOT_POS[i].PosX-60, SLOT_POS[i].PosY-400, 340, 175-2, 180)
-
-					
+				
+			
 			-- Font stuff for weapons
 			local font, letter = "WeaponSelectedHL2", "0"
 			local Table = killicon.GetFont( MyWeapons[i]:GetClass() )
@@ -329,15 +330,22 @@ function PaintNewWeaponSelection()
 			end
 
 			--Weapon icon
-			local ColorToDraw = Color(255, 255, 255, 255*Alpha )
-			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -300, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(30, 140, 30, 200*Alpha))
-
+		
+				
 			if not IsSlotActive[i] then
 				continue
 			end
-
+			
+			
 			local ColorToDraw = Color(255, 255, 255, 255*Alpha)
+			surface.DrawTexturedRect(SLOT_POS[i].PosX-80, SLOT_POS[i].PosY-400, 360, 175-2, 280)
 			draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "ArialBoldFive", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0, 0, 0, 255*Alpha))
+			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -300, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(30, 140, 30, 200*Alpha))	
+		
+			--local ColorToDraw = Color(255, 255, 255, 255*Alpha )
+			
+			
+			
 		end
 	end
 end

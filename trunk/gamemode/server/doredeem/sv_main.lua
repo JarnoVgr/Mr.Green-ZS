@@ -110,7 +110,7 @@ function GM:OnPlayerRedeem(pl, causer)
 			if pl:GetPistol() then
 				pl:StripWeapon(pl:GetPistol():GetClass())
 			end
-			local wep = table.Random({"weapon_zs_m4a1","weapon_zs_aug"})
+			local wep = table.Random({"weapon_zs_aug","weapon_zs_m3super90","weapon_zs_famas","weapon_zs_sg552"})
 
 			pl:Give(wep)
 

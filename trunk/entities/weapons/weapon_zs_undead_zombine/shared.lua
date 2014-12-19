@@ -15,7 +15,6 @@ if CLIENT then
 end
 
 SWEP.Primary.Delay = 1
---SWEP.Primary.Duration = 1.2
 SWEP.Primary.Duration = 2
 SWEP.Primary.Reach = 50
 SWEP.Primary.Damage = 35
@@ -41,7 +40,7 @@ function SWEP:Deploy()
 	mOwner.bCanSprint, mOwner.Sprint = false, 100
 	
 	-- Set speed
-	GAMEMODE:SetPlayerSpeed(mOwner, ZombieClasses[8].Speed, ZombieClasses[8].RunSpeed, ZombieClasses[8].RunSpeed )
+	GAMEMODE:SetPlayerSpeed(mOwner, ZombieClasses[8].Speed, ZombieClasses[8].RunSpeed, ZombieClasses[3].RunSpeed )
 	
 	--Idle animation
 	self.Weapon:SendWeaponAnim(ACT_VM_IDLE)
@@ -117,7 +116,6 @@ function SWEP:StartPrimaryAttack()
 
 		GAMEMODE:SetPlayerSpeed ( mOwner, 0,0)
 		mOwner:SetLocalVelocity ( Vector ( 50,100,50 ) )
-		--mOwner:SetLocalVelocity ( Vector ( 0,0,0 ) )
 	end
 
 	--Sequence to play
@@ -303,6 +301,7 @@ function SWEP:AlertVOX()
 	if not mOwner:Alive() then return end
 	
 	-- Emit idle sounds
+	--local mSound = table.Random ( ZombieClasses[8].AlertSounds )
 	local mSound = table.Random ( ZombieClasses[8].AlertSounds )
 
 	-- Sound duration
@@ -330,18 +329,22 @@ function SWEP:Precache()
 	util.PrecacheModel(self.ViewModel)
 	
 	-- Quick way to precache all sounds
+	--for _, snd in pairs(ZombieClasses[8].PainSounds) do
 	for _, snd in pairs(ZombieClasses[8].PainSounds) do
 		util.PrecacheSound(snd)
 	end
 	
+	--for _, snd in pairs(ZombieClasses[8].DeathSounds) do
 	for _, snd in pairs(ZombieClasses[8].DeathSounds) do
 		util.PrecacheSound(snd)
 	end
 	
+	--for _, snd in pairs(ZombieClasses[8].IdleSounds) do
 	for _, snd in pairs(ZombieClasses[8].IdleSounds) do
 		util.PrecacheSound(snd)
 	end
 	
+	--for _, snd in pairs(ZombieClasses[8].AlertSounds) do
 	for _, snd in pairs(ZombieClasses[8].AlertSounds) do
 		util.PrecacheSound(snd)
 	end

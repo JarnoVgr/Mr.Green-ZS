@@ -175,7 +175,7 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	local trFilter = self.Owner-- team.GetPlayers( TEAM_UNDEAD )
 	
 	-- Calculate damage done
-	local Damage = math.random( 90, 85 )
+	local Damage = math.random( 45, 60 )
 
 	local TraceHit, HullHit = false, false
 	
@@ -348,8 +348,17 @@ if CLIENT then
 	function SWEP:DrawHUD() GAMEMODE:DrawZombieCrosshair ( self.Owner, self.DistanceCheck ) end
 	
 	function SWEP:DrawWorldModel()
-		--self:SetMaterial("models/flesh")
 		self:DrawModel()
 	end
 	
+end
+
+
+if CLIENT then
+	function SWEP:DrawHUD()
+		if not self.Owner:Alive() or ENDROUND then
+			return
+		end
+		MeleeWeaponDrawHUD()
+	end
 end

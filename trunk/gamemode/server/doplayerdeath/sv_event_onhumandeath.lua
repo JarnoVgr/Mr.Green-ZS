@@ -13,6 +13,7 @@ end )
 
 -- Called when a human is killed
 local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
+
 	--Smash off current hat
 	GAMEMODE:DropHat( mVictim )
 	GAMEMODE:DropSuit( mVictim )
@@ -30,7 +31,8 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				end
 					
 				--
-				if wepCategory == "Tool1" or wepCategory == "Tool2" then
+				--if wepCategory == "Tool1" or wepCategory == "Tool2" then
+				if wepCategory == "Tool1" then
 					j.Ammunition = j:Clip1()
 					if wepname == "weapon_zs_medkit" then
 						j.RemainingAmmunition = mVictim:GetAmmoCount(j:GetPrimaryAmmoTypeString())
@@ -103,25 +105,9 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		mAttacker:AddScore(2)
 		mAttacker:AddToCounter("humanskilled", 1)
 		
-		-- skillpoints.AchieveSkillShot(mAttacker,mVictim,"freshfood")
+		skillpoints.AchieveSkillShot(mAttacker,mVictim,"freshfood")
 		mAttacker:AddXP(100)
-		if FromBehind(mAttacker,mVictim) and not (mAttacker:IsHeadcrab() or mAttacker:IsPoisonCrab() or mAttacker:IsHowler()) then
-			skillpoints.AchieveSkillShot(mAttacker,mVictim,"backbreaker")
-		end
-		
-		--[[if mAttacker:IsHeadcrab() then
-			skillpoints.AchieveSkillShot(mAttacker,mVictim,"brainsucker")
-		elseif mAttacker:IsPoisonCrab() then
-			skillpoints.AchieveSkillShot(mAttacker,mVictim,"bleeder")
-		end]]
-		
-		--[[if mVictim.IsInfected and not mAttacker:IsPoisonCrab() then
-			skillpoints.AchieveSkillShot(mAttacker,mVictim,"detoxication")
-		end]]
-		
-		--[[if mVictim:IsAdmin() then
-			skillpoints.AchieveSkillShot(mAttacker,mVictim,"noregrets")
-		end]]
+	
 		
 		-- Add brains eaten and greencoins
 		mAttacker.BrainsEaten = mAttacker.BrainsEaten + 1
@@ -136,14 +122,6 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				end
 			end)
 		end
-		
-		-- Steamroller upgrade
-		--if mAttacker:HasBought("steamroller") then
-			--if mAttacker:Alive() then
-			--	local MaxHealth = ZombieClasses[mAttacker:GetZombieClass()].Health
-			--	mAttacker:SetHealth( math.min( MaxHealth, mAttacker:Health() + math.floor ( MaxHealth / 2 ) ) )
-			--end
-		--end
 	end
 		
 	--Survival times (TODO : FIX)
@@ -182,8 +160,5 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	mVictim.SupplyCart.Ammo = {}
 	
-	for k,v in pairs (GAMEMODE.SkillShopAmmo) do
-		mVictim.AmmoMultiplier[k] = 1
-	end
 end
 hook.Add( "OnHumanDeath", "OnHumanKilled", OnHumanDeath )
