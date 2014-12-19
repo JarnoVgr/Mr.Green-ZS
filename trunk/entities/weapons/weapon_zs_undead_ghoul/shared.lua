@@ -72,14 +72,12 @@ function SWEP:StartPrimaryAttack()
 	
 	--Set the thirdperson animation and emit zombie attack sound
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
-  
-	
-local pl = self.Owner
-local e = EffectData()
-e:SetOrigin( self.Owner:GetShootPos() )
-util.Effect( "chemzombieambient", e )	
-	
-  
+ 
+	local pl = self.Owner
+	local e = EffectData()
+	e:SetOrigin( self.Owner:GetShootPos() )
+	util.Effect( "chemzombieambient", e )	
+
 	--Emit sound
 	if SERVER and #self.AttackSounds > 0 then
 		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))

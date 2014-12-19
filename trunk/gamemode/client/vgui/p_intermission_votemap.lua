@@ -139,23 +139,16 @@ function VOTEMAP_PANEL:Think()
 end
  
 function VOTEMAP_PANEL:PerformLayout()
-	local wNitwit, hNitwit = NITWITS:GetPos()
-	local h = hNitwit - ( NITWITS:GetTall() * 0.1 ) - ( self:GetTall() * 0.5 )
- 
 	if SCREEN then
-		if not NITWITS:IsVisible() then
-			h = ScaleH(485)
-		end
+		local h = ScaleH(485)
 	
-		self:SetSize ( ScaleW(440),ScaleH(214) )
-		self:SetPos ( ScaleW(269), h)
+		self:SetSize(ScaleW(440), ScaleH(214))
+		self:SetPos(ScaleW(269), h)
 	elseif WIDESCREEN then
-		if not NITWITS:IsVisible() then
-			h = ScaleH(476)
-		end
+		local h = ScaleH(476)
 	
-		self:SetSize ( ScalePanel(440),ScalePanel(214) )
-		self:SetPos ( ScaleW(260),h )
+		self:SetSize(ScalePanel(440), ScalePanel(214))
+		self:SetPos(ScaleW(260), h)
 	end
 	   
 	--Align the panel to the center.
@@ -204,7 +197,7 @@ function ManageVoteMap(panel)
 		if WIDESCREEN then
 			increment = ScalePanel(34)
 		else
-			incremenet = ScaleH(34)
+			increment = ScaleH(34)
 		end
 		h = h + increment
 	end

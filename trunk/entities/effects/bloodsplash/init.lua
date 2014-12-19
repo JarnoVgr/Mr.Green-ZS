@@ -11,7 +11,9 @@ function EFFECT:Init(data)
 	local Pos = data:GetOrigin()
 	local Norm = data:GetNormal()
 	
-	if CurTime() < NextEffect then return end
+	if CurTime() < NextEffect then
+		return
+	end
 	NextEffect = CurTime() + 0.2
 	
 	

@@ -56,12 +56,10 @@ function EFFECT:Init(data)
 		effectdata:SetOrigin(pos)
 		effectdata:SetMagnitude(math.random(3, 6))
 	util.Effect("bloodstream", effectdata)
-
-	
 end
 
 function EFFECT:Think()
-return false
+	return false
 end
 
 function EFFECT:Render()

@@ -1,9 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local util = util
-local math = math
-
 util.PrecacheSound("physics/flesh/flesh_bloody_impact_hard1.wav")
 util.PrecacheSound("physics/flesh/flesh_squishy_impact_hard1.wav")
 util.PrecacheSound("physics/flesh/flesh_squishy_impact_hard2.wav")
@@ -64,7 +61,6 @@ function EFFECT:Init(data)
 		particle:SetCollideCallback(CollideCallback)
 		particle:SetLighting(true)
 		particle:SetColor(255, 0, 0)
-
 	end
 	emitter:Finish()
 end
