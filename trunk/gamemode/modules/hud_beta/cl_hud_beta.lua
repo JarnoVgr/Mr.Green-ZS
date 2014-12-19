@@ -315,6 +315,9 @@ function hud.DrawBrains()
 		requiredScore = REDEEM_FAST_KILLS
 	end
 
+	--Divide by 2
+	requiredScore = math.ceil(requiredScore / 2)
+
 	local currentScore = math.max(0, math.ceil(MySelf:GetScore() / 2))
 
 	--Background
