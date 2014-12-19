@@ -65,7 +65,6 @@ include("client/vgui/poptions.lua")
 include("client/vgui/phelp.lua")
 include("client/vgui/pclasses.lua")
 include("client/vgui/pshop.lua")
-include("client/vgui/pweapons.lua")
 include("client/vgui/pclassinfo.lua")
 include("client/vgui/pskillshop.lua")
 include("client/vgui/pmapmanager.lua")
@@ -80,6 +79,7 @@ include("client/cl_voice.lua")
 include("client/cl_waves.lua")
 include("client/cl_cratemove.lua")
 include("client/cl_etherial_blend.lua")
+include("client/cl_achievements.lua")
 
 
 
@@ -458,8 +458,6 @@ function GM:Initialize()
 	surface.CreateFontLegacy("csd", ScreenScale(60), 500, true, true, "CSSelectIcons") --Killicons 2 (cl_deathnotice)
 
 	surface.CreateFontLegacy("akbar", ScreenScale(20), 250, true, true, "HUDFontTiny") --MrGreenGaming.com intro
-	surface.CreateFontLegacy("akbar", 22, 400, false, true, "HUDFontSmaller") --Achievement 1
-	surface.CreateFontLegacy("akbar", 28, 400, false, true, "HUDFontSmall") --Achievement 2
 	surface.CreateFontLegacy("akbar", 28, 400, true, true, "HUDFontSmallAA")
 	
 	--Used in some SWEPs
@@ -1318,104 +1316,6 @@ function GM:Rewarded(wep)
 	end
 end
 rW = Rewarded
-
---[=[---------------------------------------------------------
-					Unlock achievement
----------------------------------------------------------]=]
-local unlockSound = Sound("weapons/physcannon/energy_disintegrate5.wav")
-local achvStack = 0
-local achievTime = 0
-
-function DrawAchievement()
-	endX = w/2-200
-	endY = h/2-150
-	textEndX = w/2-90
-	textEndY = h/2-150
-	
-	achievAlpha = achievAlpha or 255
-	achievX = achievX or {}
-	achievY = achievY or {}
-	achievX[1] = achievX[1] or endX-w -- four text location
-	achievY[1] = achievY[1] or endY
-	achievX[2] = achievX[2] or endX+w
-	achievY[2] = achievY[2] or endY
-	achievX[3] = achievX[3] or endX
-	achievY[3] = achievY[3] or endY-h
-	achievX[4] = achievX[4] or endX
-	achievY[4] = achievY[4] or endY+h
-	achievX[5] = achievX[5] or endX-w -- image location
-	achievY[5] = achievY[5] or endY	
-	
-	local rand = 0
-	local rand2 = 0
-	
-	col = Color(255,255,255,achievAlpha)
-	col2 = Color(0,0,0,achievAlpha)
-	
-	for k=1, 4 do
-		rand = -2+math.Rand(0,4)
-		rand2 = -2+math.Rand(0,4)
-		col = Color(220,10,10,achievAlpha/1.5)
-		if k == 4 then 
-			col = Color(255,255,255,achievAlpha)
-			rand = 0 
-			rand2 = 0 
-		end
-		draw.SimpleTextOutlined("Achievement attained","HUDFontSmaller",achievX[k]+rand,achievY[k]+rand2,col, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 1, col2)
-		draw.SimpleTextOutlined(achievName,"HUDFontSmall",achievX[k]+rand,achievY[k]+20+rand2,col, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 1, col2)
-	end
-	
-	col = Color(255,255,255,achievAlpha)
-	
-	surface.SetTexture( achievImage )
-	surface.SetDrawColor( col )
-	surface.DrawTexturedRect( achievX[5], achievY[5],100,100 )
-	
-	for k=1,4 do
-		achievX[k] = math.Approach(achievX[k], textEndX, w*3*FrameTime())
-		achievY[k] = math.Approach(achievY[k], textEndY, h*3*FrameTime())
-	end
-	achievX[5] = math.Approach(achievX[5], endX, w*3*FrameTime())
-	achievY[5] = math.Approach(achievY[5], endY, h*3*FrameTime())	
-	
-	if (achievTime < CurTime()+1) then
-		achievAlpha = math.Approach(achievAlpha, 0, 255*FrameTime())
-	end
-	
-	if (achievTime < CurTime()) then
-		hook.Remove("HUDPaint","DrawAchievement")
-		for k=1, 5 do
-			achievX[k] = nil
-			achievY[k] = nil
-			achievAlpha = nil
-		end
-	end
-end
-
-function UnlockEffect(achv)
-	achvStack = achvStack+1
-	if achievTime < CurTime() then
-		if MySelf.DataTable then
-			MySelf.DataTable["Achievements"][achv] = true
-		end
-		
-		local statID = util.GetAchievementID( achv )
-		
-		achvStack = achvStack-1
-		achievName = achievementDesc[statID].Name
-		achievImage = surface.GetTextureID(achievementDesc[statID].Image)
-		achievTime = CurTime()+5
-		
-		surface.PlaySound(unlockSound)
-		
-		hook.Add("HUDPaint","DrawAchievement",DrawAchievement)
-	else
-		timer.Simple((achievTime-CurTime()+0.2)+5*(achvStack-1),function( str ) 
-			UnlockEffect(achv) 
-			achvStack = achvStack-1
-		end) -- Achievement display delays
-	end
-end
 
 -- Receive spray locations
 Sprays = {}

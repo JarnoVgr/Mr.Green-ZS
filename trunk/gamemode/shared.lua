@@ -719,3 +719,7 @@ function GM:GetPlayerForBossZombie()
 	return table.Random(zombies)
 end
 
+
+function GameSpeed()
+	return (1/FrameTime()) / 66
+end

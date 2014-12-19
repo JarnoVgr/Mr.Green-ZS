@@ -4,8 +4,6 @@
 AddCSLuaFile("shared.lua")
 AddCSLuaFile("cl_init.lua")
 
-
-
 include("shared.lua")
 
 
@@ -23,16 +21,15 @@ ENT.Table = {
 	["AmmoUp5"] = { Model = "models/greenshat/greenshat.mdl", Position = Vector ( -0.1039, 10, 48 ), Angles = Angle ( 0, -180, 0 ) },
 	
 	--Necros old crate:
-	--	["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 18.8135, 0 ), Angles = Angle ( 0, -180, 0 ) }, --Old
+	--["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 18.8135, 0 ), Angles = Angle ( 0, -180, 0 ) }, --Old
 	--["Shotgun"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -7.1762, -10.9928, 24 ), Angles = Angle ( -1.297 ,60 ,-89.158 ) }, --Old
 	--["Ammo"] = { Model = "models/items/boxbuckshot.mdl", Position = Vector ( 4.6052 ,-6.7138, 23 ), Angles = Angle ( -0.336 , -115 ,0.072 ) }, --Old
 	["Vial2"] = { Model = "models/healthvial.mdl", Position = Vector ( -11.5952, -10, 25.5 ), Angles = Angle ( 0.726, -66.560, -90.018 ) }, --Old 
-
 }
 
 -- Precache their models
-for k,v in pairs ( ENT.Table ) do
-    util.PrecacheModel ( v.Model )
+for k,v in pairs(ENT.Table) do
+	util.PrecacheModel(v.Model)
 end
 
 --Check penetration
@@ -68,8 +65,8 @@ function ENT:Initialize()
 	for k,v in pairs ( self.Table ) do
 		if k ~= "AmmoUp" then
 
-		    i = i + 1
-		    
+			i = i + 1
+			
 			local Ent = ents.Create ("prop_physics")-- _multiplayer
 			Ent:SetModel ( v.Model )
 			Ent:SetAngles ( v.Angles )
@@ -111,41 +108,48 @@ function ENT:Initialize()
 			-- Sync
 			self:SetDTEntity( i, Ent )
 		end
-		
-		
-		
 	end
 end
 
 function ENT:Think()
-    if ( ( self.PenetrationCheckTime or 0 ) < CurTime() ) then
-        if ( self:GetCreationTime() + ( self.PenetrationCheckTimes or 4 ) > CurTime() ) then
-            local blocks = ents.FindInBox( self:LocalToWorld( self:OBBMins() * 0.7 ), self:LocalToWorld( self:OBBMaxs() * 0.7 ) )
-    
-            for k,v in pairs( blocks ) do
-               if ( v:IsPlayer() ) then
-                   local phys = v:GetPhysicsObject()
-                   if ( IsValid( phys ) ) then
-                       local vel = VectorRand() * 10000
-                       vel.z = 0
-                       
-                       phys:SetVelocity( vel )
-                   end
-               end
-            end
-            
-            self.PenetrationCheckTime = CurTime() + 1
-        end
-    end
+	if (self.PenetrationCheckTime or 0) >= CurTime() then
+		return
+	end
+
+	if self.GetCreationTime and (self:GetCreationTime() + ( self.PenetrationCheckTimes or 4 )) <= CurTime() then
+		return
+	end
+
+	local blocks = ents.FindInBox(self:LocalToWorld(self:OBBMins() * 0.7), self:LocalToWorld(self:OBBMaxs() * 0.7))
+	
+	for k,v in pairs(blocks) do
+		if not v:IsPlayer() then
+			continue
+		end
+
+		local phys = v:GetPhysicsObject()
+		if not IsValid( phys ) then
+			continue
+		end
+		
+		local vel = VectorRand() * 10000
+		vel.z = 0
+					   
+		phys:SetVelocity(vel)
+	end
+			
+	self.PenetrationCheckTime = CurTime() + 1
 end
 
 function ENT:OnRemove()
-    local children = self:GetEntities()
-    for k,v in pairs ( children ) do
-        if ( IsValid( v ) ) then
-            v:Remove()
-        end
-    end
+	local children = self:GetEntities()
+	for k,v in pairs(children) do
+		if not IsValid(v) then
+			continue
+		end
+		
+		v:Remove()
+	end
 end
 
 function ENT:UpdateTransmitState()

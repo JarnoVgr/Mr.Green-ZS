@@ -635,8 +635,10 @@ function meta:AddXP(amount)
 		
 		if self:GetXP() >= self:NextRankXP() then
 			self:AddRank(1)
-			self:PrintMessage(HUD_PRINTTALK,"Congratulations, you have reached Rank "..self:GetRank())
-			self:EmitSound("weapons/physcannon/physcannon_charge.wav")
+			
+			self:SendLua("UnlockEffect(2, ".. self:GetRank() ..")")
+			
+			PrintMessageAll(HUD_PRINTTALK, self:Name() .." went up to level ".. self:GetRank())
 		end
 			
 		--- 
@@ -750,7 +752,8 @@ end
 --------------------------------------------------------------------------
 
 function meta:UnlockNotify(item)
-	self:SendLua('UnlockEffect2("'..item..'")')
+	print("Not used anymore - UnlockNotify")
+	--self:SendLua('UnlockEffectNotify("'..item..'")')
 end
 
 function meta:UnlockAchievement(stat)
@@ -768,9 +771,9 @@ function meta:UnlockAchievement(stat)
 	
 	--YAY! Achievements
 	self.DataTable["Achievements"][statID] = true
-	self:SendLua('UnlockEffect("'..stat..'")')
+	self:SendLua('UnlockEffect(1, "'..stat..'")')
 	self.DataTable["progress"] = math.floor(self:GetAchvProgress())
-	PrintMessageAll(HUD_PRINTTALK,self:Name() .." attained the '"..achievementDesc[statID].Name.."' achievements!")
+	PrintMessageAll(HUD_PRINTTALK,self:Name() .." attained the '"..achievementDesc[statID].Name.."' achievement")
 	--self:AddScore(1)
 	
 	--Save DB data
@@ -783,6 +786,8 @@ function meta:UnlockAchievement(stat)
 		for k, v in pairs(self.DataTable["Achievements"]) do
 			if not v and k ~= util.GetAchievementID("masterofzs") then
 				hasAll = false
+				
+				break
 			end
 		end
 		

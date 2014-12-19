@@ -437,7 +437,15 @@ local function AdminSay(pl, text, teamonly)
 		elseif text == "!fuckme" then
 			pl:SendLua("StalkerFuck(5)")
 			return ""
-			
+		elseif text == "!testunlock" then
+			pl:SendLua("UnlockEffect(0, \"Unlock Title\", \"This is the description\")")
+			return ""
+		elseif text == "!testachievement" then
+			pl:SendLua("UnlockEffect(1, \"masterofzs\")")
+			return ""
+		elseif text == "!testlevelup" then
+			pl:SendLua("UnlockEffect(2, 22)")
+			return ""
 		elseif text == "!ornament" then
 			for k, v in pairs(ents.FindByClass("prop_dynamic_ornament")) do
 				print(k..": Pos = "..tostring(v:GetPos()).."; Parent = "..v:GetParent():GetClass())

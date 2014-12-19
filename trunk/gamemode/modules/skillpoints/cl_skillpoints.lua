@@ -335,7 +335,7 @@ function MakeSkillShotsList()
 	label3:SetFont("HUDFontSmallAA")
 	label3:SetText("Note: More SkillShots will be avalaible later")
 	surface.SetFont("HUDFontSmallAA")
-	local texw, texh = surface.GetTextSize("Note: More SkillShots will be avalaible later")
+	local texw, texh = surface.GetTextSize("Note: More SkillShots will be available later")
 	label3:SetSize(texw, texh)
 	label3:SetPos( xpos,ypos )
 	

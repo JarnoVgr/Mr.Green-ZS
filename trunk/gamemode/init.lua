@@ -42,7 +42,6 @@ AddCSLuaFile("client/vgui/poptions.lua")
 AddCSLuaFile("client/vgui/phelp.lua")
 AddCSLuaFile("client/vgui/pclasses.lua")
 AddCSLuaFile("client/vgui/pshop.lua")
-AddCSLuaFile("client/vgui/pweapons.lua")
 AddCSLuaFile("client/vgui/phclasses.lua")
 AddCSLuaFile("client/vgui/pclassinfo.lua")
 AddCSLuaFile("client/vgui/pskillshop.lua")
@@ -63,12 +62,9 @@ AddCSLuaFile("shared/sh_zombo_anims.lua")
 AddCSLuaFile("client/cl_hud.lua")
 AddCSLuaFile("client/cl_cratemove.lua")
 AddCSLuaFile("client/cl_etherial_blend.lua")
+AddCSLuaFile("client/cl_achievements.lua")
 AddCSLuaFile("modules/legs/cl_legs.lua")
 AddCSLuaFile("modules/news/cl_news.lua")
-
-
-
-
 
 --[=[---------------------------------------------------------
           Add them to download list (Shared)
@@ -304,7 +300,6 @@ function GM:Initialize()
 	GAMEMODE:SetMapList()
 	GAMEMODE:SetCrates()
 	GAMEMODE:SetExploitBoxes()
-	--GAMEMODE:AddRandomSales()
 				
 	--Set few ConVars
 	game.ConsoleCommand("fire_dmgscale 1\nmp_flashlight 1\nmp_allowspectators 0\n")

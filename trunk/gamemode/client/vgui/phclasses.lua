@@ -87,7 +87,6 @@ local function IsValidRankUnlock(item, weptype, num)
 end
 
 local function DrawContextMenu(x, y, weptype, parent, num)
-
 	Unlocks[num] = vgui.Create("DPanelList", parent)
 	--Unlocks[num]:SetPos(0, 0)
 	local ww, hh = parent:GetSize()
@@ -129,6 +128,20 @@ local function DrawContextMenu(x, y, weptype, parent, num)
 	end	
 	
 	local ItemLabel = {}
+
+	local function DrawBorder(item)
+		--Border
+		if item.Overed then
+			surface.SetDrawColor(255, 255, 255, 255)
+			surface.DrawOutlinedRect(0, 0, itemWidth, itemHeight)
+			surface.DrawOutlinedRect(1, 1, itemWidth-2, itemHeight-2)
+		else
+			surface.SetDrawColor(30, 30, 30, 200)
+			surface.DrawOutlinedRect(0, 0, itemWidth, itemHeight)
+			surface.SetDrawColor(30, 30, 30, 255)
+			surface.DrawOutlinedRect(1, 1, itemWidth-2, itemHeight-2)
+		end
+	end
 
 	for i=0, table.maxn(GAMEMODE.RankUnlocks) do
 		if not GAMEMODE.RankUnlocks[i] then
@@ -183,24 +196,19 @@ local function DrawContextMenu(x, y, weptype, parent, num)
 				surface.PlaySound(Sound("mrgreen/ui/menu_click01.wav"))
 
 				SlotLabel[num].Item = item
-				Unlocks[num]:Remove()
-				Unlocks[num] = nil
+				--Unlocks[num]:Remove()
+				--Unlocks[num] = nil
 			end
 
 			if IsValidWeapon then
 				ItemLabel[item].Paint = function()
-					if ItemLabel[item].Overed then
-						surface.SetDrawColor(255, 255, 255, 255)
-						surface.DrawOutlinedRect(0, 0, itemWidth, itemHeight)
-						surface.DrawOutlinedRect(1, 1, itemWidth-2, itemHeight-2)
-					else
-						surface.SetDrawColor(30, 30, 30, 200)
-						surface.DrawOutlinedRect(0, 0, itemWidth, itemHeight)
-						surface.SetDrawColor(30, 30, 30, 255)
-						surface.DrawOutlinedRect(1, 1, itemWidth-2, itemHeight-2)
-					end
+					--Background
+					DrawPanelBlackBox(0,0,itemWidth, itemHeight)
 
 					if item == "none" then
+						--Border
+						DrawBorder(ItemLabel[item])
+
 						return
 					end
 	
@@ -241,7 +249,11 @@ local function DrawContextMenu(x, y, weptype, parent, num)
 							draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[item].Name, "WeaponNames", itemWidth/2, itemHeight/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 						end
 					end
+
+					--Border
+					DrawBorder(ItemLabel[item])
 								
+					--Lock
 					if MySelf:IsBlocked(item, SlotLabel) or not MySelf:HasUnlocked(item) then
 						surface.SetDrawColor(255,255,255,255)
 						surface.SetMaterial(lockIcon)
@@ -250,18 +262,13 @@ local function DrawContextMenu(x, y, weptype, parent, num)
 				end
 			elseif IsValidPerk then							
 				ItemLabel[item].Paint = function()
-					if ItemLabel[item].Overed then
-						surface.SetDrawColor(255, 255, 255, 255)
-						surface.DrawOutlinedRect( 0, 0, itemWidth, itemHeight)
-						surface.DrawOutlinedRect( 1, 1, itemWidth-2, itemHeight-2 )
-					else
-						surface.SetDrawColor(30, 30, 30, 200 )
-						surface.DrawOutlinedRect( 0, 0, itemWidth, itemHeight)
-						surface.SetDrawColor(30, 30, 30, 255 )
-						surface.DrawOutlinedRect( 1, 1, itemWidth-2, itemHeight-2 )
-					end
+					--Background
+					DrawPanelBlackBox(0,0,itemWidth, itemHeight)
 
 					if item == "none" then
+						--Border
+						DrawBorder(ItemLabel[item])
+						
 						return
 					end					
 
@@ -276,12 +283,16 @@ local function DrawContextMenu(x, y, weptype, parent, num)
 
 					surface.SetDrawColor(255, 255, 255, 255) 
 					draw.SimpleTextOutlined(GAMEMODE.Perks[item].Name, "WeaponNames", itemWidth/2, itemHeight/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-								
+
+					--Border
+					DrawBorder(ItemLabel[item])
+					
+					--Lock		
 					if MySelf:IsBlocked(item, SlotLabel) or not MySelf:HasUnlocked(item) then
 						surface.SetDrawColor(255,255,255,255)
 						surface.SetMaterial(lockIcon)
 						surface.DrawTexturedRect(itemWidth-18,2,16,16)
-					end
+					end					
 				end				
 			end
 
@@ -445,7 +456,7 @@ function DrawSelectClass()
 	
 	--Options:
 	
-	local spawntimer = 40
+	local spawntimer = 50
 	local spawntimercd = 0
 
 	TopMenuW, TopMenuH = math.min(math.max(w-100,ScaleW(700)), 1050), math.min(ScaleH(600), 650)
@@ -739,12 +750,12 @@ function DrawSelectClass()
 
 	--If christmas play xmas sound first and then the normal one
 	if CHRISTMAS then
-		surface.PlaySound("mrgreen/music/gamestart_xmas.mp3")
+		surface.PlaySound(Sound("mrgreen/music/gamestart_xmas.mp3"))
 		timer.Simple(22, function()
-			surface.PlaySound("mrgreen/music/gamestart4.mp3")
+			surface.PlaySound(Sound("mrgreen/music/gamestart4.mp3"))
 		end)
 	else
-		surface.PlaySound("mrgreen/music/gamestart4.mp3")
+		surface.PlaySound(Sound("mrgreen/music/gamestart4.mp3"))
 	end
 end
 
@@ -772,108 +783,6 @@ function ChangeClassClient(class)
 	gamemode.Call("PostPlayerChooseLoadout", MySelf)
 end
 usermessage.Hook("DrawSelectClass", DrawNewSelectClass2) 
--- concommand.Add("open_testmenu",DrawNewSelectClass2)
-
--- Include unlock draw effect too
-local UnlockStack = 0
-local UnlockTime = 0
-
-function DrawUnlock()
-	endX = w/2-200
-	endY = h/2-150
-	textEndX = w/2-90
-	textEndY = h/2-150
-	
-	UnlockAlpha = achievAlpha or 255
-	UnlockX = UnlockX or {}
-	UnlockY = UnlockY or {}
-	UnlockX[1] = UnlockX[1] or endX-w -- four text location
-	UnlockY[1] = UnlockY[1] or endY
-	UnlockX[2] = UnlockX[2] or endX+w
-	UnlockY[2] = UnlockY[2] or endY
-	UnlockX[3] = UnlockX[3] or endX
-	UnlockY[3] = UnlockY[3] or endY-h
-	UnlockX[4] = UnlockX[4] or endX
-	UnlockY[4] = UnlockY[4] or endY+h
-	UnlockX[5] = UnlockX[5] or endX-w -- image location
-	UnlockY[5] = UnlockY[5] or endY	
-	
-	local rand = 0
-	local rand2 = 0	
-	
-	col = Color(255,255,255,UnlockAlpha)
-	col2 = Color(0,0,0,UnlockAlpha)
-	
-	for k=1, 4 do
-		rand = -2+math.Rand(0,4)
-		rand2 = -2+math.Rand(0,4)
-		col = Color(220,10,10,UnlockAlpha/1.5)
-		if k == 4 then 
-			col = Color(255,255,255,UnlockAlpha)
-			rand = 0 
-			rand2 = 0 
-		end
-		draw.SimpleTextOutlined(UnlockType.." unlocked!","ArialBoldTen",UnlockX[k]+rand,UnlockY[k]+rand2,col, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 1, col2)
-		draw.SimpleTextOutlined(UnlockName,"ArialBoldFifteen",UnlockX[k]+rand,UnlockY[k]+30+rand2,col, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, 1, col2)
-	end
-	
-	col = Color(255,255,255,UnlockAlpha)
-	
-	--[[surface.SetTexture( achievImage )
-	surface.SetDrawColor( col )
-	surface.DrawTexturedRect( achievX[5], achievY[5],100,100 )]]
-	
-	for k=1,4 do
-		UnlockX[k] = math.Approach(UnlockX[k], textEndX, w*3*FrameTime())
-		UnlockY[k] = math.Approach(UnlockY[k], textEndY, h*3*FrameTime())
-	end
-	UnlockX[5] = math.Approach(UnlockX[5], endX, w*3*FrameTime())
-	UnlockY[5] = math.Approach(UnlockY[5], endY, h*3*FrameTime())	
-	
-	if (UnlockTime < CurTime()+1) then
-		UnlockAlpha = math.Approach(UnlockAlpha, 0, 255*FrameTime())
-	end
-	
-	if (UnlockTime < CurTime()) then
-		hook.Remove("HUDPaint","DrawUnlock")
-		for k=1, 5 do
-			UnlockX[k] = nil
-			UnlockY[k] = nil
-			UnlockAlpha = nil
-		end
-	end
-end
-
-function UnlockEffect2( Unlock )
-	UnlockStack = UnlockStack+1
-	if UnlockTime < CurTime() then
-		
-		
-		UnlockStack = UnlockStack-1
-		UnlockName = "I am error"
-		UnlockType = "Error"
-		if IsWeapon(Unlock) then
-			UnlockName = GAMEMODE.HumanWeapons[Unlock].Name
-			UnlockType = "Weapon"
-		elseif IsPerk(Unlock) then
-			UnlockName = GAMEMODE.Perks[Unlock].Name
-			UnlockType = "Perk"
-		end
-		
-		-- UnlockImage = surface.GetTextureID(achievementDesc[statID].Image)
-		UnlockTime = CurTime()+4
-		
-		-- surface.PlaySound("physics/metal/sawblade_stick"..math.random(1,3)..".wav")
-		surface.PlaySound("ambient/levels/citadel/pod_close1.wav")
-		
-		hook.Add("HUDPaint","DrawUnlock",DrawUnlock)
-	else
-		timer.Simple((UnlockTime-CurTime()+0.2)+5*(UnlockStack-1),function( str ) 
-			UnlockEffect2(str) 
-			UnlockStack = UnlockStack-1
-		end,Unlock) -- Achievement display delays
-	end
-end
 	
 function LateSpawnLoadout()
 	Loadout = Loadout or {}
