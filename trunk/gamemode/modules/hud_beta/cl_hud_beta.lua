@@ -323,7 +323,7 @@ function hud.DrawBrains()
 	surface.DrawTexturedRect(ScaleW(-50), ScaleH(740), ScaleW(160), ScaleH(130))
 
 	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(795), ScaleH(825)
-	draw.SimpleText(currentScore .." of ".. requiredScore, "NewZombieFont19", textX, textValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText(currentScore .." of ".. requiredScore, "NewZombieFont17", textX, textValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	draw.SimpleText("BRAINS", "NewZombieFont15", textX, textKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 end
 
