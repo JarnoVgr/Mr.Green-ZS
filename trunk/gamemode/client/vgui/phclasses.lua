@@ -752,10 +752,10 @@ function DrawSelectClass()
 	if CHRISTMAS then
 		surface.PlaySound(Sound("mrgreen/music/gamestart_xmas.mp3"))
 		timer.Simple(22, function()
-			surface.PlaySound(Sound("mrgreen/music/gamestart4.mp3"))
+			surface.PlaySound(Sound("mrgreen/music/gamestart2.mp3"))
 		end)
 	else
-		surface.PlaySound(Sound("mrgreen/music/gamestart4.mp3"))
+		surface.PlaySound(Sound("mrgreen/music/gamestart2.mp3"))
 	end
 end
 

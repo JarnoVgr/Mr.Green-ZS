@@ -40,7 +40,7 @@ SWEP.Primary.Delay = 0.8
 --SWEP.Primary.Delay = 0.9
 --SWEP.Primary.Delay = 1.2
 --SWEP.Primary.Damage = 25
-SWEP.Primary.Damage = 30
+SWEP.Primary.Damage = 28
 SWEP.Primary.Reach = 45
 
 SWEP.SwapAnims = false

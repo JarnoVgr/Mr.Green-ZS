@@ -344,9 +344,9 @@ function SWEP:SecondaryAttack()
 				nail:Spawn()
 				trent:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1,4)..".wav")
 				
-					skillpoints.AddSkillPoints(self.Owner, 30)
-					trent:FloatingTextEffect( 30, self.Owner )
-					self.Owner:AddXP(10)								   
+					--skillpoints.AddSkillPoints(self.Owner, 30) --nah this was a bad idea..
+					--trent:FloatingTextEffect( 30, self.Owner )
+					--self.Owner:AddXP(10)								   
 				--??
 				trent:CollisionRulesChanged()
 					   
