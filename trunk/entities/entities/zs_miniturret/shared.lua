@@ -13,7 +13,7 @@ ENT.MaxHealth = 60
 ENT.MaxBullets = 150
 ENT.RechargeDelay = 0.5
 ENT.SpotDistance = 190
-ENT.Damage = 2
+ENT.Damage = 4
 
 local model = Model("models/Combine_Scanner.mdl")
 
@@ -292,7 +292,7 @@ function ENT:Shoot()
 	bullet.Spread = Vector(0.1, 0.1, 0.1)  
 	bullet.Tracer = 6
 	bullet.Force = 1
-	bullet.Damage = 2
+	bullet.Damage = 4
 	bullet.TracerName = "Tracer"
 	bullet.Callback = BulletCallback
 	

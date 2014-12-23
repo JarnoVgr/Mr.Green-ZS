@@ -130,9 +130,9 @@ function SWEP:PrimaryAttack()
 				if toheal > 0 then
 					
 					local delay = self.Primary.HealDelay
-					if owner:GetSuit() == "medicsuit" then
-						delay = math.Clamp(self.Primary.HealDelay - 5,0,self.Primary.HealDelay)
-					end
+					--if owner:GetSuit() == "medicsuit" then
+						--delay = math.Clamp(self.Primary.HealDelay - 5,0,self.Primary.HealDelay)
+					--end
 					
 					self:SetNextCharge(CurTime() + delay)
 					owner.NextMedKitUse = self:GetNextCharge()
@@ -189,9 +189,9 @@ function SWEP:SecondaryAttack()
 		if toheal > 0 then
 		
 			local delay = self.Secondary.HealDelay
-			if owner:GetSuit() == "medicsuit" then
-				delay = math.Clamp(self.Secondary.HealDelay - 5,0,self.Secondary.HealDelay)
-			end
+			--if owner:GetSuit() == "medicsuit" then
+			--	delay = math.Clamp(self.Secondary.HealDelay - 5,0,self.Secondary.HealDelay)
+			--end
 			
 			self:SetNextCharge(CurTime() + delay)
 			owner.NextMedKitUse = self:GetNextCharge()

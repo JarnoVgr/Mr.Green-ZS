@@ -5,9 +5,9 @@ if CLIENT then
 	SWEP.PrintName = "Toxic Zombie"
 	SWEP.ViewModelFOV = 75
 	SWEP.ViewModelFlip = false
-	SWEP.ShowViewModel = true
+	SWEP.ShowViewModel = false
 
-	SWEP.FakeArms = false
+	SWEP.FakeArms = true
 
 	SWEP.ViewModelBoneMods = {
 		-- ["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(-10.202, 19.533, 0) },
@@ -49,8 +49,8 @@ SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
 
-SWEP.Primary.Duration = 1.50
-SWEP.Primary.Delay = 0.5
+SWEP.Primary.Duration = 1.5
+SWEP.Primary.Delay = 0.8
 SWEP.Primary.Damage = math.random(25,27)
 SWEP.Primary.Reach = 50
 
