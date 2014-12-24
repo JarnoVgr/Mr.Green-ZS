@@ -40,23 +40,23 @@ SWEP.Base				= "weapon_zs_base_dummy"
 
 SWEP.Primary.Delay = 0.01
 
-SWEP.Primary.Heal = 7
-SWEP.Primary.HealDelay = 5
+SWEP.Primary.Heal = 13
+SWEP.Primary.HealDelay = 7
 
-SWEP.Primary.ClipSize = 50
-SWEP.Primary.DefaultClip = 50
+SWEP.Primary.ClipSize = 70
+SWEP.Primary.DefaultClip = 70
 SWEP.Primary.Ammo = "Battery"
 
 SWEP.Secondary.Delay = 0.01
 
 SWEP.Secondary.Heal = 10
-SWEP.Secondary.HealDelay = 20
+SWEP.Secondary.HealDelay = 15
 
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Ammo = "CombineCannon"
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = 180
 
 SWEP.NoMagazine = true
 
@@ -130,9 +130,10 @@ function SWEP:PrimaryAttack()
 				if toheal > 0 then
 					
 					local delay = self.Primary.HealDelay
-					--if owner:GetSuit() == "medicsuit" then
+					if owner:GetSuit() == "medicsuit" then
 						--delay = math.Clamp(self.Primary.HealDelay - 5,0,self.Primary.HealDelay)
-					--end
+						multiplier = 1.45
+					end
 					
 					self:SetNextCharge(CurTime() + delay)
 					owner.NextMedKitUse = self:GetNextCharge()

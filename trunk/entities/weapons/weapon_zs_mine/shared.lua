@@ -300,3 +300,16 @@ function SWEP:Think()
 	
 	return true
 end
+
+if CLIENT then
+	function SWEP:DrawHUD()
+		if not self.Owner:Alive() or ENDROUND then
+			return
+		end
+		MeleeWeaponDrawHUD()
+
+		draw.SimpleTextOutlined("How to use:", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Look at the floor, LMB to place. ", "ArialBoldFive", w-ScaleW(150), h-ScaleH(40), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("RMB to blow it up! Be careful when using it near cades!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(25), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	end
+end

@@ -188,11 +188,11 @@ function SWEP:PrimaryAttack()
 								self.Owner:AddXP(5)
 								self.Owner._RepairScore = 0
 								
-								elseif self.Owner and self.Owner:GetSuit() == "supportsuit" then
-								skillpoints.AddSkillPoints(self.Owner, 1)
-								nail:FloatingTextEffect( 1, self.Owner )
-								self.Owner:AddXP(20)
-								self.Owner._RepairScore = 0
+								--elseif self.Owner and self.Owner:GetSuit() == "supportsuit" then
+								--skillpoints.AddSkillPoints(self.Owner, 1)
+								--nail:FloatingTextEffect( 1, self.Owner )
+								--self.Owner:AddXP(20)
+								--self.Owner._RepairScore = 0
 							end
 							self.Owner:EmitSound("ambient/energy/spark"..math.random(1,6)..".wav",math.random(86,110),math.random(86,110))
 							break
@@ -545,7 +545,11 @@ local maxclip = 3
 	
 		if (self:Clip2() < 1) then
 		timer.Simple( 10, function()
+		if self.Owner and self.Owner:GetSuit() == "supportsuit" then
+				maxclip = 4
+			end
 		self:SetClip2(maxclip,self:Clip2() + 1) 
+			
 		--self.Owner:Message("Nails have been found!", 2, "white")
 		return
 		end)

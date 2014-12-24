@@ -11,14 +11,15 @@ function ENT:Initialize()
 	-- self.Heal = 700 * math.Clamp(GetInfliction()+0.3,0.5,1)
 
 	--Initial and Maximum Health
-	self.Heal = 150
+	self.Heal = 160
 	
 	--Increase health when having a perk
-	--if self:GetOwner():GetPerk("_nailhp") then
 	if self:GetOwner():GetPerk("_hammerupgrade") then
 		self.Heal = math.Round(self.Heal + self.Heal*0.4)
 	end
-
+	if self.Owner and self.Owner:GetSuit() == "supportsuit" then
+		self.Heal = math.Round(self.Heal + self.Heal*0.6)
+	end
 	--Health
 	self.Entity:SetDTInt(0,self.Heal)
 	

@@ -94,7 +94,7 @@ function GM:CheckBoss()
 		return false
 	end
 
-	if GetInfliction() <= 0.2 then
+	if GetInfliction() <= 0.3 then
 		return false
 	end
 

@@ -65,9 +65,9 @@ shopData = {
 	--[46] = { Cost = 1100, Hidden = true, Type = "suit", AdminOnly = false, Desc = "Classic suit from IW!", Key = "testsuit", ID = 46, Sell = 0, Requires = 0, Name = "IW test suit",  },
 	[47] = { Cost = 1, Type = "suit", AdminOnly = true, Desc = "Special suit just for admins! (not finished yet)", Key = "greenssuit", ID = 47, Sell = 0, Requires = 0, Name = "Admin's Suit",  },
 	
-	[53] = { Cost = 2400, Type = "other", AdminOnly = false, Desc = "It glows!", Key = "techeyes", ID = 53, Sell = 0, Requires = 0, Name = "Techno Eyes" },
+	[53] = { Cost = 1600, Type = "other", AdminOnly = false, Desc = "It glows!", Key = "techeyes", ID = 53, Sell = 0, Requires = 0, Name = "Techno Eyes" },
 	[54] = { Cost = 1800, Type = "hat", AdminOnly = false, Desc = "What the... How the hell you are still alive with that thing in your head?!", Key = "cleaver", ID = 54, Sell = 0, Requires = 0, Name = "Nasty Cleaver" },
-	[55] = { Cost = 2000, Type = "hat", AdminOnly = false, Desc = "Augmentations ftw. However this hat will not increase your accuracy :O", Key = "magnlamp", ID = 55, Sell = 0, Requires = 0, Name = "Magnifying lamp" },
+	[55] = { Cost = 1200, Type = "hat", AdminOnly = false, Desc = "Augmentations ftw. However this hat will not increase your accuracy :O", Key = "magnlamp", ID = 55, Sell = 0, Requires = 0, Name = "Magnifying lamp" },
 	[56] = { Cost = 2100, Type = "hat", AdminOnly = false, Desc = "It HUNGERS for more!", Key = "scannerhelm", ID = 56, Sell = 0, Requires = 0, Name = "Scanner Helmet" },
 	[57] = { Cost = 5200, Type = "misc", AdminOnly = false, Desc = "Ability to change the color of your hat (not suit) in F4 menu!", Key = "hatpainter", ID = 57, Sell = 0, Requires = 0, Name = "Hat Painter" },--5200
 	[58] = { Cost = 900, Type = "hat", AdminOnly = false, Desc = "'I love the smell of cooked zombies in the morning!'", Key = "chef", ID = 58, Sell = 0, Requires = 0, Name = "Chef's Hat" },
@@ -103,7 +103,7 @@ shopData = {
 	[91] = { Cost = 1200, Type = "hat", AdminOnly = false, Desc = "A sheild against your head getting bitten off!", Key = "combinething", ID = 91, Sell = 0, Requires = 0, Name = "The Combine Thing",  },
 	[92] = { Cost = 400, Type = "hat", AdminOnly = false, Desc = "Blame Pufulet", Key = "fence", ID = 92, Sell = 0, Requires = 0, Name = "Da fence",  },
 	[93] = { Cost = 650, Type = "hat", AdminOnly = false, Desc = "Jiggle Jiggle", Key = "noveltyhead", ID = 93, Sell = 0, Requires = 0, Name = "Novelty Head 1",  },
-	[94] = { Cost = 400, Type = "hat", AdminOnly = false, Desc = "Boggle boggle", Key = "noveltyhead2", ID = 94, Sell = 0, Requires = 0, Name = "Novelty Head 2",  },
+	[94] = { Cost = 200, Type = "hat", AdminOnly = false, Desc = "Boggle boggle", Key = "noveltyhead2", ID = 94, Sell = 0, Requires = 0, Name = "Novelty Head 2",  },
 	[95] = { Cost = 560, Type = "hat", AdminOnly = false, Desc = "I am like valve but better! ^^", Key = "steamhead", ID = 95, Sell = 0, Requires = 0, Name = "Steam Head",  },
 	
 	
@@ -111,7 +111,7 @@ shopData = {
 	[48] = { Cost = 7000, Type = "suit", AdminOnly = false, Desc = "Heal your comrads! For doing this you have extra health to stand the brutal battles which face you!", Key = "medicsuit", ID = 48, Sell = 0, Requires = 0, Name = "Medic's Suit",  }, --11000
 	[49] = { Cost = 8000, Type = "suit", AdminOnly = false, Desc = "Crush. Pound. Suit Bonus: Faster swing speed (heavy weapons only)", Key = "meleesuit", ID = 49, Sell = 0, Requires = 0, Name = "Close combat Suit",  },
 	[50] = { Cost = 9500, Type = "suit", AdminOnly = false, Desc = "If shooting zombies aint enough - use more gun. Suit Bonus: Turret damage is increased by 25%!", Key = "techsuit", ID = 50, Sell = 0, Requires = 0, Name = "Tech Suit",  },
-	[51] = { Cost = 9000, Type = "suit", AdminOnly = false, Desc = "If you've mastered cading skills - this suit is for you. Suit Bonus: Double SP when healing nails!!", Key = "supportsuit", ID = 51, Sell = 0, Requires = 0, Name = "Barricade Guy Suit",  },
+	[51] = { Cost = 7000, Type = "suit", AdminOnly = false, Desc = "If you've mastered cading skills - this suit is for you. Suit Bonus: More nail HP, more nails at one time.", Key = "supportsuit", ID = 51, Sell = 0, Requires = 0, Name = "Barricade Guy Suit",  },
 	[52] = { Cost = 8000, Type = "suit", AdminOnly = false, Desc = "Nothing feels better than killing zombies over and over again. Suit Bonus: Increased grenade damage/radius", Key = "assaultsuit", ID = 52, Sell = 0, Requires = 0, Name = "Zombie killer Suit",  },
 	[69] = { Cost = 11000, Type = "suit", AdminOnly = false, Desc = "'You can run, but you can't hide!'. Suit bonus: Hides your heartbeat when standing still.", Key = "stalkersuit", ID = 69, Sell = 0, Requires = 0, Name = "Stalker Suit" },
 	[80] = { Cost = 10000, Type = "suit", AdminOnly = false, Desc = "You love zerking well this is the suit for you!! Gain hp for every melee kill depending on the weapon. ", Key = "gravedigger", ID = 80, Sell = 0, Requires = 0, Name = "Grave digger",  },
@@ -120,8 +120,6 @@ shopData = {
 	[83] = { Cost = 4000, Type = "suit", AdminOnly = false, Desc = "Live for nothing or die for something. Reload more bullets in your shotgun at one time!", Key = "Rambo", ID = 83, Sell = 0, Requires = 0, Name = "Rambo Roar",  },
 	[96] = { Cost = 1, Type = "suit", AdminOnly = true, Desc = "", Key = "pistolsuit", ID = 96, Sell = 0, Requires = 0, Name = "Test suit",  },
 	[97] = { Cost = 20 , Type = "suit", AdminOnly = false, Desc = "Another day at the office...", Key = "officesuit", ID = 97, Sell = 0, Requires = 0, Name = "Office",  },
-	--[98] = { Cost = 20000, Type = "misc", AdminOnly = false, Desc = "If your health goes lower than 30 hp your health with regenerate back up to 30 hp! This is the perfect perk for if your a new to the server!! ", Key = "horse", ID = 98, Sell = 0, Requires = 0, Name = "Horse Health! (Classic perk!) ",  },
-	--[16] = { Cost = 0, Type = "misc", AdminOnly = true, Desc = "You are healthy as a horse and you regenerate an additional 10 hp of health, if under 40 health.", Key = "horse", ID = 16, Sell = 0, Requires = 3, Name = "Horse Health",  }, --Horse health
 	[102] = { Cost = 200, Type = "hat", AdminOnly = false, Desc = "", Key = "Ammo Hoarder", ID = 102, Sell = 0, Requires = 0, Name = "Ammo Hoarder",  },
 	[103] = { Cost = 50, Type = "hat", AdminOnly = false, Desc = "", Key = "Stoner", ID = 103, Sell = 0, Requires = 0, Name = "Stone Head",  },
 	[104] = { Cost = 150, Type = "hat", AdminOnly = false, Desc = "", Key = "BreenHead", ID = 104, Sell = 0, Requires = 0, Name = "Traffic Stop",  },

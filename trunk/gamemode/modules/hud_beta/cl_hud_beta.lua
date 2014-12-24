@@ -478,9 +478,15 @@ function hud.DrawHealth()
 	healthPercentageDrawn = math.Clamp(math.Approach(healthPercentageDrawn, healthPercentage, FrameTime() * 1.8), 0, 1) --Smooth
 
 	--Determine health bar foreground color
+	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
+	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
 	local healthBarColor = Color(137, 30, 30, 255)
+	local healthBarColor2 = Color(24, 140, 30, 255)
+	
 	if MySelf:IsTakingDOT() or healthPercentageDrawn < 0.3 then
 		healthBarColor = Color(healthBarColor.r, healthBarColor.g, healthBarColor.b, math.abs( math.sin( CurTime() * 4 ) ) * 255 )
+	elseif 0.7 < iPercentage then
+			healthBarColor = Color(healthBarColor2.r, healthBarColor2.g, healthBarColor2.b, 225)
 	end
 
 	--Background
