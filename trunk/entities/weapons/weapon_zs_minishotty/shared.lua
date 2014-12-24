@@ -34,7 +34,7 @@ end
 
 SWEP.Base                                = "weapon_zs_base"
 
-SWEP.UseHands = false
+SWEP.UseHands = true
 
 SWEP.Spawnable                        = true
 
@@ -46,9 +46,9 @@ SWEP.WorldModel                        = Model ( "models/weapons/w_supershorty.m
 
 SWEP.Weight                                = 5
 
-SWEP.AutoSwitchTo                = false
+SWEP.AutoSwitchTo                = true
 
-SWEP.AutoSwitchFrom                = false
+SWEP.AutoSwitchFrom                = true
 
 SWEP.HoldType = "shotgun"
 
@@ -66,7 +66,7 @@ SWEP.Primary.ClipSize                = 6
 
 SWEP.Primary.Delay                        = 0.8
 
-SWEP.Primary.DefaultClip        = 30
+SWEP.Primary.DefaultClip        = 40
 
 SWEP.Primary.Automatic                = false
 
@@ -86,7 +86,7 @@ SWEP.WalkSpeed = 185 //but it has better speed
 
 ---SWEP.IronSightsAng = Vector(0, 0, 0)
 
-SWEP.ReloadDelay = 0.3
+SWEP.ReloadDelay = 0.5
 
 SWEP.reloadtimer = 0
 

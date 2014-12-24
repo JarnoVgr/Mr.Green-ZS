@@ -5,13 +5,13 @@ if SERVER then
 	AddCSLuaFile("shared.lua")
 end
 
---SWEP.PrintName = "Sub-Machine Gun"
 SWEP.PrintName = "Classic SMG"
 
 if CLIENT then		
 	SWEP.Author	= "Deluvas"
 	SWEP.Slot = 0
-	SWEP.SlotPos = 18
+	--SWEP.SlotPos = 18
+	SWEP.SlotPos = 6
 	SWEP.ViewModelFOV = 55
 	SWEP.ViewModelFlip = false
 	
@@ -61,7 +61,7 @@ SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
 SWEP.Primary.Delay			= 0.16
-SWEP.Primary.DefaultClip	= 125
+SWEP.Primary.DefaultClip	= 150
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
 SWEP.MaxBulletDistance 		= 2500
