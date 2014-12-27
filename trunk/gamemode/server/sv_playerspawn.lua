@@ -439,8 +439,8 @@ function GM:OnHumanSpawn(pl)
 	pl:SetCrouchedWalkSpeed(0.65)
 	
 	--Set jump power
-	if pl:GetJumpPower() ~= 190 then
-		pl:SetJumpPower(190) 
+	if pl:GetJumpPower() ~= 200 then
+		pl:SetJumpPower(200) 
 	end
 	
 	--Calculate maximum health for human
@@ -486,7 +486,7 @@ function GM:OnHumanSpawn(pl)
 	end	
 
 	--Auto-enable flashlight
-	--pl:Flashlight(true)
+	pl:Flashlight(true)
 	
 	--Log
 	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as a Survivor")

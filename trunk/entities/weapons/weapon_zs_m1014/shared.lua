@@ -32,10 +32,10 @@ SWEP.ReloadDelay = 0.4
 
 SWEP.Primary.Sound			= Sound("Weapon_XM1014.Single")
 SWEP.Primary.Recoil			= 8
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 7
 SWEP.Primary.ClipSize		= 8
-SWEP.Primary.Delay			= 0.3
+SWEP.Primary.Delay			= 0.33
 SWEP.Primary.DefaultClip	= 16
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "buckshot"

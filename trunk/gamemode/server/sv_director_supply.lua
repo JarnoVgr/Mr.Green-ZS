@@ -256,7 +256,7 @@ local function CalculateGivenSupplies(pl)
 	local currentHealth, maxHealth, healAmount = pl:Health(), pl:GetMaximumHealth(), 0
 	if currentHealth < maxHealth then
 		--healAmount = math.Round((maxHealth - currentHealth) * GetInfliction())
-		healAmount = 20 --Duby:Static health works better and zombies will not rage quit when a human gains 80 hp from a crate..
+		healAmount = 25 --Duby:Static health works better and zombies will not rage quit when a human gains 80 hp from a crate..
 		--For now there will be no health, we will have enough medic nitwits running around.
 	end
 	

@@ -59,13 +59,12 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound 			= Sound("Weapon_Shotgun.Single")
-SWEP.Primary.Recoil			= 0.05
-SWEP.Primary.Damage			= 15
-SWEP.Primary.NumShots		= 8
-SWEP.Primary.ClipSize		= 4
---SWEP.Primary.Delay			= 0.8
-SWEP.Primary.Delay			= 1.1
-SWEP.Primary.DefaultClip	= 30
+SWEP.Primary.Recoil			= 5
+SWEP.Primary.Damage			= 7
+SWEP.Primary.NumShots		= 6
+SWEP.Primary.ClipSize		= 6
+SWEP.Primary.Delay			= 0.8
+SWEP.Primary.DefaultClip	= 40
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "buckshot"
 
@@ -114,10 +113,6 @@ function SWEP:Think()
 		self:SendWeaponAnim(ACT_VM_RELOAD)
 
 		if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
-			self:SetClip1(self:Clip1() + 3)
-		end
-		
-		if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "berserker" then
 			self:SetClip1(self:Clip1() + 3)
 		end
 		

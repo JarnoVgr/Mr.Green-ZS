@@ -147,7 +147,7 @@ if SERVER then
 					local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
 									
 					--Multiplier for infliction
-					HowMuch = math.Round(HowMuch * (INFLICTION + 0.5))
+					HowMuch = math.Round(HowMuch * (INFLICTION + 0.6))
 
 					--Finally give it
 					activator:GiveAmmo(HowMuch, AmmoType)
@@ -164,8 +164,8 @@ if SERVER then
 				--Give SP to crate owner		
 				local Owner = self:GetPlacer()
 				if activator ~= Owner and (IsValid(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
-					skillpoints.AddSkillPoints(Owner,7)
-					self:FloatingTextEffect(7, Owner)
+					skillpoints.AddSkillPoints(Owner,9)
+					self:FloatingTextEffect(9, Owner)
 					Owner:AddXP(5)
 				end
 

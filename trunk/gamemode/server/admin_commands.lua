@@ -345,7 +345,10 @@ local function AdminSay(pl, text, teamonly)
 		PrintMessageAll( HUD_PRINTADMINCHAT, "(ADMINCHAT) "..pl:Name()..": "..text )
 		return ""
 	end
-
+	if text == "!mapmanager" and pl:IsSuperAdmin() then
+		pl:SendLua("OpenMapManager()")
+		return ""
+		end
 	local sep = string.Explode(" ",text)
 	
 	if (text == "!sweplist") then   -- prints the list of available weapons

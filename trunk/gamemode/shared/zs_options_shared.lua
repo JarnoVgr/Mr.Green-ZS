@@ -188,7 +188,7 @@ GM.HumanWeapons = {
 	--Heavy
 	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun", Price = 1300},
 	["weapon_zs_m249"]  = { Name = "M249", DPS = 200,Mat = "VGUI/gfx/VGUI/m249", Infliction = 0.85, Type = "rifle", Price = 1700 },
-	["weapon_zs_m1014"]  = { Name = "M1014 Auto-Shotgun", DPS = 246,Mat = "VGUI/gfx/VGUI/xm1014", Infliction = 0.85, Type = "shotgun", Price = 1400},
+	["weapon_zs_m1014"]  = { Name = "M1014 Auto-Shotgun", DPS = 246,Mat = "VGUI/gfx/VGUI/xm1014", Infliction = 0.85, Type = "shotgun", Price = 950},
 	["weapon_zs_awp"]  = { Name = "AWP", DPS = 200,Mat = "VGUI/gfx/VGUI/awp", Infliction = 0, Type = "rifle", Price = 1600, Description = "Heavy sniper." },
 --	["weapon_zs_grenadelauncher"]  = { Name = "Grenade Launcher", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 2000 },
 	["weapon_zs_boomerstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 2200 },
@@ -230,7 +230,7 @@ GM.HumanWeapons = {
 	["weapon_zs_pickup_propane"]  = { Name = "Dangerous Propane Tank", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_pickup_flare"]  = { Name = "Rusty Flare", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_pickup_gasmask"]  = { Name = "Old Gas Mask", DPS = 0, Infliction = 0, Type = "misc" },
-	["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun",Price = 500  },
+	["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun" },
 
 	--HL2 weapons
 	["weapon_357"] = { Name = ".357 Original", DPS = 0, Infliction = 0.2, Type = "admin", Restricted = true  },
@@ -307,7 +307,7 @@ MAX_RANK = 30
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks} 
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_p228","weapon_zs_tools_torch","weapon_zs_tools_hammer","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","weapon_zs_smg","weapon_zs_minishotty"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_p228","weapon_zs_tools_torch","weapon_zs_tools_hammer","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","weapon_zs_smg","weapon_zs_chipper"},
 	[1] = {"weapon_zs_tools_plank"},
 	[2] = {"_medic"},
 	[3] = {"_hammerupgrade"},
@@ -322,10 +322,10 @@ GM.RankUnlocks = {
 	[13] = {"_freeman"},
 	[14] = {"_poisonprotect"},
 	[15] = {"weapon_zs_melee_hook"},
-	--[16] = {"weapon_zs_tools_remote"},
+	[16] = {"weapon_zs_classic"},
 	[17] = {"_turretoverdrive"},
 	[19] = {"weapon_zs_melee_pot"},
-	[21] = {"weapon_zs_classic"},
+	[21] = {"weapon_zs_fiveseven"},
 	[22] = {"_sboost"},
 	[24] = {"weapon_zs_melee_combatknife"},
 	[26] = {"_comeback"},
