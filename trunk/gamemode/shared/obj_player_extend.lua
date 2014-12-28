@@ -569,7 +569,8 @@ function meta:HasVoted(VOTES)
 end
 
 function meta:HasGasMask()
-	return false-- self:Alive() and self:IsHuman() and self:GetWeapon("weapon_zs_pickup_gasmask") and IsValid(self:GetWeapon("weapon_zs_pickup_gasmask"))
+	return false
+	 --self:Alive() and self:IsHuman() and self:GetWeapon("weapon_zs_pickup_gasmask") and IsValid(self:GetWeapon("weapon_zs_pickup_gasmask"))
 end
 
 function meta:IsHolding()

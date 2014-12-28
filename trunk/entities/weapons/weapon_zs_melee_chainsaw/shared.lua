@@ -46,10 +46,10 @@ SWEP.SlotPos = 8
 
 -- Damage, distane, delay
 SWEP.Primary.Automatic	= true
-SWEP.Primary.Damage = 100
+SWEP.Primary.Damage = 400
 SWEP.Primary.Delay = 0.7
-SWEP.Primary.Distance = 73
-SWEP.WalkSpeed = 177
+SWEP.Primary.Distance = 60
+SWEP.WalkSpeed = 167
 SWEP.SwingTime = 0.9
 SWEP.SwingRotation = Angle(0, -40, 0)
 SWEP.ShowViewModel = false
