@@ -62,7 +62,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 4
-BOSS_CLASS = {10,11,13,16} -- 12
+BOSS_CLASS = {10,11,13,16,20} -- 12
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
 --BOSS_CLASS = {15} --Klinator
@@ -71,6 +71,7 @@ BOSS_CLASS = {10,11,13,16} -- 12
 --BOSS_CLASS = {19} --REMEIL
 --BOSS_CLASS = {11} --Behemoth
 --BOSS_CLASS = {19} --Pumpking!
+--BOSS_CLASS = {20} --HateII
 
 
 SHARED_SPEED_INCREASE = 13

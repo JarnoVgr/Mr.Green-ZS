@@ -534,7 +534,7 @@ function meta:IsZombine()
 end
 
 --[==[------------------------------------------
-	See if zombie is a zombine
+	See if zombie is a Spitter
 ------------------------------------------]==]
 function meta:IsSpitter()
 	return self:GetZombieClass() == 4

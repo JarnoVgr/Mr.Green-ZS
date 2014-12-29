@@ -83,7 +83,6 @@ function meta:SetHeadcrabBodyGroup()
 	-- 3 for everyone except posion zombo
 	if self:IsPoisonZombie() then iGroup = 11 end
 	
-	
 	-- Set it for all except headcrabs, howlers, wraith and poison crabs
 	if not self:IsHeadcrab() and not self:IsHowler() and not self:IsZombine() and not self:IsWraith()  and not self:IsPoisonCrab() then self:Fire( "setbodygroup", tostring ( iGroup ) ) end
 end
@@ -810,7 +809,7 @@ function meta:SpawnAsZombieBoss()
 	if curclass == 10 or curclass == 11 then
 		curclass = 1
 	end
-	
+
 	self:SetZombieClass(table.Random(BOSS_CLASS))
 	
 	self.DeathClass = nil

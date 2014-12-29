@@ -26,25 +26,25 @@ function ENT:Initialize()
 	if pPlayer and IsValid(pPlayer) then
 		pPlayer.status_overridemodel = self
 		pPlayer:SetRenderMode(RENDERMODE_NONE)
-		--[==[if pPlayer.Team and pPlayer:Team() == TEAM_UNDEAD and SERVER then
+			--[[if pPlayer.Team and pPlayer:Team() == TEAM_UNDEAD and SERVER then --test
 			if pPlayer:IsWraith() then
-				-- self:SetBoneMods("ethereal")
+				 self:SetBoneMods("ethereal")
 			elseif pPlayer:GetZombieClass() == 10 then
-				if ZombieClasses[pPlayer:GetZombieClass()].IsSuperBoss then
+				--if ZombieClasses[pPlayer:GetZombieClass()].IsSuperBoss then
 					-- self:SetBoneMods("hate2")
-				else
+				--else
 					self:SetBoneMods("hate")
 				end
 			elseif pPlayer:GetZombieClass() == 11 then
-				-- self:SetBoneMods("behe")
+				 self:SetBoneMods("behe")
 			elseif pPlayer:GetZombieClass() == 12 then
 				-- self:SetBoneMods("seeker")
 			elseif pPlayer:GetZombieClass() == 13 then
-				-- self:SetBoneMods("nerf")
+				 self:SetBoneMods("nerf")
 			else
 				self:ResetBoneMods()
 			end
-		end]==]
+		end]]----test
 	end
 	
 	

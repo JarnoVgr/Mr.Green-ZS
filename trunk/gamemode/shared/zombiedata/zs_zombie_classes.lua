@@ -95,17 +95,47 @@ ZombieClasses[0] =
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 		--Force human player model
 		if pl.ForcePlayerModel then
 			--Reset
 			pl.ForcePlayerModel = false
 
+			local status2 = pl:GiveStatus("simple_revive2")
+		if status2 then
+			status2:SetReviveTime(CurTime() + 2)
+			status2:SetReviveDuration(1.37)
+			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
+		end
+			
 			--Set model and face
 			--pl:SetModel(player_manager.TranslatePlayerModel(pl.PlayerModel))
 			--pl:SetRandomFace()
 		end
 	end,
 	-- ModelScale = Vector(1.35,1.35,1.35),
+	ModelScale = 1
 }
 
 
@@ -179,6 +209,28 @@ ZombieClasses[1] =
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 		else
 			return
 				end
@@ -186,6 +238,7 @@ ZombieClasses[1] =
 	--Unique = "Can be deadly in numbers. Can Propkill.",	
 	PlayerFootstep = false,
 	-- ModelScale = 0.9
+	ModelScale = 1
 }
 
 
@@ -220,9 +273,31 @@ ZombieClasses[2] =
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 	end,
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> SPECIAL: Propkill" },
-	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
 				Sound("npc/zombie_poison/pz_pain1.wav"),
 				Sound("npc/zombie_poison/pz_pain2.wav"),
@@ -241,8 +316,8 @@ ZombieClasses[2] =
 				},
 	-- ViewOffset = Vector( 0, 0, 0 ),
 	
-	  ViewOffset = Vector( 0,0,50 )
-
+	  ViewOffset = Vector( 0,0,50 ),
+	ModelScale = 1
 }
 
 
@@ -276,9 +351,31 @@ ZombieClasses[8] =
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 	end,
 	DescriptionGameplay = { "> PRIMARY: Upgraded Bloody CLAWS", "> SPECIAL: Pulls out grenade, poison or normal", "> SPECIAL: Enrage when taken enough damage" },
-	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
 				Sound( "npc/zombine/zombine_pain1.wav" ),
 				Sound( "npc/zombine/zombine_pain2.wav" ),
@@ -304,6 +401,7 @@ ZombieClasses[8] =
 				Sound ( "npc/zombine/zombine_alert6.wav" ),
 				Sound ( "npc/zombine/zombine_alert7.wav" ),
 				},
+				ModelScale = 1
 }
 
 
@@ -350,7 +448,30 @@ ZombieClasses[4] = --Duby: You will all love my labs new creation.
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
 
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 	end,
+	ModelScale = 1.2
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
@@ -403,7 +524,30 @@ ZombieClasses[5] =
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 	end,
+	ModelScale = 1
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
@@ -453,12 +597,36 @@ ZombieClasses[6] =
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 		local status = pl:GiveStatus("overridemodel")
 		
 		if status and status:IsValid() then
 			status:SetModel("models/mrgreen/howler.mdl")
 		end
 	end,
+	ModelScale = 1
 	-- ViewOffset = Vector( 0, 0, 0 )
 }
 
@@ -493,6 +661,29 @@ ZombieClasses[7] =
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 	end,
 	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes" },
 	PainSounds = {
@@ -505,7 +696,8 @@ ZombieClasses[7] =
 				Sound("npc/headcrab/die2.wav")
 				},
 	ViewOffset = Vector( 0,0,10 ),
-	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1)}
+	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1)},
+	ModelScale = 1
 }
 
 
@@ -540,6 +732,29 @@ ZombieClasses[3] =
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 	end,
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap" },
 	PainSounds = {
@@ -571,7 +786,8 @@ ZombieClasses[3] =
 	ViewOffset = Vector( 0, 0, 50 ),
 	ViewOffsetDucked = Vector( 0, 0, 24 ),
 	Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
-	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)},
+	ModelScale = 1
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
@@ -609,6 +825,29 @@ ZombieClasses[9] =
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 	end,
 	DescriptionGameplay = { "> PRIMARY: Spit", "> SPECIAL: Fits through small places", "> DEATH: Chance of dropping a Poison Bomb" },
 	PainSounds = {
@@ -622,7 +861,8 @@ ZombieClasses[9] =
 				Sound("npc/headcrab_poison/ph_rattle3.wav")
 				},
 	ViewOffset = Vector( 0,0,10 ),
-	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1) }
+	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1) },
+	ModelScale = 1
 }
 
 
@@ -716,6 +956,29 @@ ZombieClasses[10] =
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,88,-90)  )
+		pl:ManipulateBoneScale( Bone, Vector(1.1,1.1,1.1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(90,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1.6,1.6,1.6)  )
+	end
+	
 		-- if not pl.Revive then
 			local status = pl:GiveStatus("overridemodel")
 		
@@ -737,13 +1000,125 @@ ZombieClasses[10] =
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 		
 	end,
-	ModelScale = 1.35,-- Vector(1.35,1.35,1.35),
+	ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
 	ViewOffset = Vector(0, 0, 84),
 	ViewOffsetDucked = Vector(0,0,38),
 	--Hull = { Vector(-21,-21, 0), Vector(21,21,97) },
 	Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
 }
+
+ZombieClasses[20] =										
+{
+	Name = "HateII",	
+	Tag = "hate2",	
+	Infliction = 0,
+	Health = 4000,
+	MaxHealth = 10000,
+	Bounty = 1000,
+	SP = 200,
+	IsBoss = true,
+	Mass = DEFAULT_MASS * 4,
+	Threshold = 0,	
+	SWEP = "weapon_zs_undead_hate2",			
+	JumpPower = 220,
+	CanCrouch = true,
+	CanGib = true,
+	Model = Model("models/Zombie/Classic.mdl"), 
+	Speed = 185,
+	Hidden = true,	
+	AngleFix = true,
+	Description = "",
+	Unique = "",
+	AttackSounds = {
+				Sound("player/zombies/hate/chainsaw_attack_miss.wav"),
+				Sound("player/zombies/hate/chainsaw_attack_hit.wav"),
+				}, 
+	PainSounds = {
+				Sound("player/zombies/hate/sawrunner_pain1.wav"),
+				Sound("player/zombies/hate/sawrunner_pain2.wav"),
+				}, 
+	DeathSounds = {
+				Sound("npc/zombie_poison/pz_die1.wav"),
+				Sound("npc/zombie_poison/pz_die2.wav")
+				},
+	IdleSounds = {
+				Sound("player/zombies/hate/sawrunner_alert10.wav"),
+				Sound("player/zombies/hate/sawrunner_alert20.wav"),
+				Sound("player/zombies/hate/sawrunner_alert30.wav"),
+				Sound("player/zombies/hate/sawrunner_attack2.wav"),
+				},
+	PlayerFootstep = true,
+	Unlocked = false,
+	-- ViewOffset = Vector( 0, 0, 0 ),
+	OnSpawn = function(pl)
+	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
+	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
+	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	
+	
+
+local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(30,95,-190)  )
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.1,1.1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(-180,90,90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Pelvis")
+	if Bone then
+	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,10)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		--pl:ManipulateBoneScale( Bone, Vector(1.6,1.6,1.6)  )
+	end
+	
+
+
+	
+	local status = pl:GiveStatus("overridemodel")
+		
+			if status and status:IsValid() then
+				status:SetModel("models/Zombie/Poison.mdl")
+			end
+		
+		local status2 = pl:GiveStatus("simple_revive")
+		if status2 then
+			status2:SetReviveTime(CurTime() + 4)
+			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
+		end
+	
+
+	end,
+	OnRevive = function(pl)
+		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
+		
+	end,
+	ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
+	ViewOffset = Vector(0, 0, 84),
+	ViewOffsetDucked = Vector(0,0,38),
+	--Hull = { Vector(-21,-21, 0), Vector(21,21,97) },
+	Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
+	HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
+}
+
+
 
 ZombieClasses[11] =
 {
@@ -793,6 +1168,29 @@ ZombieClasses[11] =
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 		local status = pl:GiveStatus("overridemodel")
 		
 		if status and status:IsValid() then
@@ -921,6 +1319,29 @@ ZombieClasses[13] =
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+	
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
 		local status = pl:GiveStatus("overridemodel")
 		
 		if status and status:IsValid() then
@@ -1076,6 +1497,29 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 		pl:SetRandomFace()		
+		
+			local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+		
 	end,
 	Speed = 180,
 	Description = "",
@@ -1306,6 +1750,7 @@ ZombieClasses[19] =
 				},
 				ModelScale = 1.2,-- Vector(1.15,1.15,1.15),
 }
+
 
 
 --[[local SantaStart = {

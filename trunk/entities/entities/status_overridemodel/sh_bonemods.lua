@@ -1,4 +1,5 @@
 -- Store all bone shit in different file
+--[[
 ENT.BoneMods = {}
 
 local pairs = pairs
@@ -11,7 +12,7 @@ UndeadBuildBonePositions[10] = function(s)
 	local Bone = s:LookupBone("ValveBiped.Bip01_Spine4")
 	if Bone then
 		s:ManipulateBoneAngles( Bone, Angle(0,88,-90)  )
-		-- s:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		s:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
 	end
 	local Bone = s:LookupBone("ValveBiped.Bip01_L_UpperArm")
 	if Bone then
@@ -19,11 +20,11 @@ UndeadBuildBonePositions[10] = function(s)
 	end
 	local Bone = s:LookupBone("ValveBiped.Bip01_Spine1")
 	if Bone then
-	-- 	s:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	 	s:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
 	end
 	local Bone = s:LookupBone("ValveBiped.Bip01_Spine")
 	if Bone then
-	-- 	s:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	 	s:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
 	end
 	for i = 0, s:GetBoneCount() - 1 do
 		s:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
@@ -92,8 +93,9 @@ ENT.BoneMods["hate"] = function(s)
 			s:ManipulateBoneScale( Bone, Vector(1.2,1.2,1.2)  )
 		end
 	end
-	
-	
+
+
+
 --Hate II
 ENT.BoneMods["hate2"] = function(s)
 
@@ -280,4 +282,4 @@ function ENT:ResetBoneMods()
 	end
 end	
 
-	
+	]]--

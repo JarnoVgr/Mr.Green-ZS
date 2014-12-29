@@ -470,8 +470,8 @@ local function AdminSay(pl, text, teamonly)
 
 			return ""
 			
-			
-		--[[	elseif text == "!alltalk" then
+			--[[
+			elseif text == "!alltalk" then
 			for k, v in pairs(player.GetAll()) do
 				if v ~= pl then
 					RunConsoleCommand ( "sv_alltalk", "1" )
@@ -488,8 +488,8 @@ local function AdminSay(pl, text, teamonly)
 			end
 
 			return ""
-			
-		end]]--
+			]]--
+		--end
 		end
 	end
 

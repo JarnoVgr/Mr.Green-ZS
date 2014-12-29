@@ -582,9 +582,9 @@ GM.DoAnimationEventZombies[4] = function ( pl, event, data )
 		return ACT_INVALID
 	--end
 end
-
+--[[
 function MainActivityHate2(pl,vel)
-	
+--GM.CalcMainActivityZombies[20] = function ( pl, vel )	
 	-- Default zombie act
 	local iSeq, iIdeal = -1
 
@@ -611,6 +611,7 @@ end
 
 local Attacks = { "Breakthrough" }
 function AnimEventHate2(pl, event, data)
+--GM.DoAnimationEventZombies[20] = function ( pl, event, data )
 	if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
 		if ( data == CUSTOM_PRIMARY ) then
 			-- pl:AnimRestartGesture( GESTURE_SLOT_CUSTOM, ACT_MELEE_ATTACK1 )
@@ -631,6 +632,55 @@ function AnimEventHate2(pl, event, data)
 		end
 	end
 end
+]]--
+
+-- Hate2
+GM.CalcMainActivityZombies[20] = function ( pl, vel )	
+	-- Default zombie act
+	local iSeq, iIdeal = -1
+
+	local fVelocity = vel:Length2D()
+	
+	-- Walk animation or idle
+	if fVelocity > 30 then iIdeal = ACT_WALK_ON_FIRE else iIdeal = ACT_IDLE_ON_FIRE end
+	
+	--if (pl.IsAttacking and pl.IsAttacking >= CurTime() ) then iSeq = pl:LookupSequence ( pl.AttackSequence ) end
+	if (pl.IsAttacking and pl.IsAttacking >= CurTime() ) then iSeq = pl:LookupSequence ( pl.AttackSequence ) else pl._PlayBackRate = nil end
+	
+	local revive = pl.Revive
+	if revive and revive:IsValid() then
+		if revive:IsRising() then
+			iSeq = 25 --27
+		else
+			iSeq = 22 --26
+		end
+	end
+	
+	return iIdeal, iSeq
+end
+
+local Attacks = { "Breakthrough" }
+GM.DoAnimationEventZombies[20] = function ( pl, event, data )
+	if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
+		if ( data == CUSTOM_PRIMARY ) then
+			 --pl:AnimRestartGesture( GESTURE_SLOT_CUSTOM, ACT_MELEE_ATTACK1 )
+			--pl.IsAttacking = true
+			pl.AttackSequence = table.Random ( Attacks )
+			pl._PlayBackRate = 0.95--Hate2
+			-- Get sequence and restart it
+			pl:AnimRestartMainSequence()
+			
+			pl.IsAttacking = CurTime() + 1.3
+			--timer.Simple ( 1.3, function( pl ) if IsEntityValid ( pl ) then pl.IsAttacking = false end end, pl )
+
+			return ACT_VM_PRIMARYATTACK
+		elseif ( data == CUSTOM_SECONDARY ) then
+
+			return ACT_INVALID
+		end
+	end
+end
+
 
 
 -- Hate
@@ -664,7 +714,6 @@ GM.DoAnimationEventZombies[10] = function ( pl, event, data )
 			 --pl:AnimRestartGesture( GESTURE_SLOT_CUSTOM, ACT_MELEE_ATTACK1 )
 			--pl.IsAttacking = true
 			pl.AttackSequence = table.Random ( Attacks )
-			
 			-- Get sequence and restart it
 			pl:AnimRestartMainSequence()
 			
@@ -678,6 +727,10 @@ GM.DoAnimationEventZombies[10] = function ( pl, event, data )
 		end
 	end
 end
+
+
+
+
 
 GM.CalcMainActivityZombies[11] = function ( pl, vel )
 	-- Default zombie act
@@ -1047,6 +1100,9 @@ GM.DoAnimationEventZombies[18] = GM.DoAnimationEventZombies[0]
 --Ghouler!
 GM.CalcMainActivityZombies[1] = GM.CalcMainActivityZombies[0]
 GM.DoAnimationEventZombies[1] = GM.DoAnimationEventZombies[0]
+
+GM.CalcMainActivityZombies[10] = GM.CalcMainActivityZombies[20]
+GM.DoAnimationEventZombies[10] = GM.DoAnimationEventZombies[20]
 
 -- Poison Zombie - Activity handle
 GM.CalcMainActivityZombies[19] = function ( pl, vel )
