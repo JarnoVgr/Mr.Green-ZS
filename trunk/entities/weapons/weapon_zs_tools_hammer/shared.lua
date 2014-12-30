@@ -524,10 +524,10 @@ function SWEP:Think()
 		else
 			if self.lastfire < CurTime() - 0.75 and self.rechargetimer < CurTime() then
 				self.Weapon:SetClip1( math.min( maxclip,self.Weapon:Clip1() + 1 ) )
-				local rtime = 0.15
-				if self.Owner:GetPerk("_trchregen") then
-					rtime = 0.10
-				end
+				local rtime = 0.19
+				--if self.Owner:GetPerk("_trchregen") then
+					--rtime = 0.10
+				--end
 				self.rechargetimer = CurTime() + rtime
 			end
 			if self.fired then 
