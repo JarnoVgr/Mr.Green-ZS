@@ -47,7 +47,8 @@ end]]
 	boss.starTime = CurTime()
 		
 	--Calculate boss duration
-	boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 120),ROUNDTIME-CurTime())
+	--boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 120),ROUNDTIME-CurTime())
+	boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 140),ROUNDTIME-CurTime())
 
 	--Set End time
 	boss.endTime = CurTime() + boss.duration		
@@ -175,7 +176,7 @@ function GM:SetBoss(value)
 		--Update end time
 		boss.endTime = CurTime()
 
-		boss.nextBossTime = boss.endTime + math.random(140,170)
+		boss.nextBossTime = boss.endTime + math.random(140,160)
 	
 		--Inform players
 		net.Start("StopBoss")
