@@ -588,7 +588,7 @@ function meta:CanRedeem()
 		
 	if REDEEM and AUTOREDEEM and util.tobool(self:GetInfoNum("_zs_autoredeem",1)) then
 		local requiredScore = REDEEM_KILLS
-		if self:HasBought("quickredemp") then
+		if self:HasBought("quickredemp") or self:GetRank() < REDEEM_FAST_LEVEL then
 			requiredScore = REDEEM_FAST_KILLS
 		end
 		

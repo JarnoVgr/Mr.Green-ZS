@@ -311,7 +311,7 @@ end
 function hud.DrawBrains()
 	--Calculate amount of brains required
 	local requiredScore = REDEEM_KILLS
-	if MySelf:HasBought("quickredemp") then
+	if MySelf:HasBought("quickredemp") or MySelf:GetRank() < REDEEM_FAST_LEVEL then
 		requiredScore = REDEEM_FAST_KILLS
 	end
 

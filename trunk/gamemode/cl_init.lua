@@ -1298,11 +1298,6 @@ local function SetDrop(um)
 end
 usermessage.Hook("SetDrop", SetDrop)
 
-function Died()
-	LASTDEATH = RealTime()
-	surface.PlaySound(DEATHSOUND)
-end
-
 function GM:Rewarded(wep)
 	local MySelf = LocalPlayer()
 	if not MySelf:IsValid() then return end

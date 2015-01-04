@@ -516,10 +516,6 @@ LASTHUMANSOUND = "mrgreen/music/lasthuman.mp3"
 LASTHUMANSOUNDLENGTH = 159 -- 2:39
 --Song which is played during the middle of a round! Duh! :P 
 
-
--- Sound played to a person when they die as a human.
-DEATHSOUND = "music/stingers/HL1_stinger_song28.mp3"
-
 -- Rave sound; people will hate me for making this :')
 RAVESOUND = "mrgreen/ravebreak_fix.mp3"
 
@@ -532,10 +528,13 @@ REDEEM = true
 -- Players don't have a choice if they want to redeem or not. Setting to false makes them press F2.
 AUTOREDEEM = true
 
--- Human kills needed for a zombie player to redeem (resurrect). Do not set this to 0. If you want to turn this
--- system off, set AUTOREDEEM to false. (Deluvas: using Score System)
+--Human kills needed for a zombie player to redeem (resurrect). Do not set this to 0. If you want to turn this
+--system off, set AUTOREDEEM to false. (Deluvas: using Score System)
 REDEEM_KILLS = 8
 REDEEM_FAST_KILLS = 6
+
+--Maximum level to be fit for fast redeem
+REDEEM_FAST_LEVEL = 10
 
 --Players cant redeem near end of round
 REDEEM_PUNISHMENT = true
@@ -547,6 +546,9 @@ REDEEM_PUNISHMENT_TIME = 6
 SOFT_COLLISIONS = false
 
 -- If a person dies when there are less than the above amount of people, don't set them on the undead team if this is true. This should generally be true on public / big servers.
+--[[if game.MaxPlayers() < 4 then
+	WARMUP_MODE = false
+end]]
 WARMUP_MODE = false
 
 --Not sure if it will work as planned, but whatever. This thing will shuffle the mapcycle sometimes
@@ -563,9 +565,7 @@ SKILLSHOP_SALE_MAXITEMS = 6
 SKILLSHOP_SALE_SALE_MINRANGE = 10
 SKILLSHOP_SALE_SALE_MAXRANGE = 25
 ]]--
-if game.MaxPlayers() < 4 then
-	WARMUP_MODE = false
-end
+
 
 util.PrecacheSound(LASTHUMANSOUND)
 

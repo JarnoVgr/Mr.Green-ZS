@@ -319,7 +319,7 @@ end
 -- Player presses F2
 function OnPressF2(pl)	
 	local requiredScore = REDEEM_KILLS
-	if pl:HasBought("quickredemp") then
+	if pl:HasBought("quickredemp") or pl:GetRank() < REDEEM_FAST_LEVEL then
 		requiredScore = REDEEM_FAST_KILLS
 	end
 	if not LASTHUMAN then
