@@ -24,6 +24,15 @@ function EFFECT:Init( data )
 		
 	end
 	
+	for i = 0, math.random(1,2) do --More Gore!!
+	
+		local effectdata = EffectData()
+			effectdata:SetOrigin( Pos + i * Vector(0,0,5) + VectorRand() * 9 )
+			effectdata:SetNormal( Normal )
+		util.Effect( "gib", effectdata )
+		
+	end
+	
 	for i = 0, math.random(1,2) do
 	
 		local effectdata = EffectData()
@@ -35,10 +44,10 @@ function EFFECT:Init( data )
 	
 	self.Emitter = ParticleEmitter(self.Entity:GetPos())
 
-	for i=1, math.random(3,15) do
+	for i=1, math.random(3,9) do
 		local particle = self.Emitter:Add("effects/blood_core", Pos-Vector(0,0,20)+Vector(0,0,4)*i+VectorRand()*6)
 		particle:SetVelocity(VectorRand()+Vector(0,0,-10)*math.Rand(0.1,1))
-		particle:SetDieTime(math.Rand(20,30))
+		particle:SetDieTime(math.Rand(5,6))
 		particle:SetStartAlpha(255)
 		particle:SetEndAlpha(50)
 		particle:SetStartSize(math.random(40,60))
@@ -49,10 +58,10 @@ function EFFECT:Init( data )
 		particle:SetLighting(true)
 	end
 	
-	for i=1, math.random(3,15) do
+	for i=1, math.random(3,5) do
 		local particle = self.Emitter:Add("effects/blood_core", Pos-Vector(0,0,20)+Vector(0,0,4)*i+VectorRand()*6)
 		particle:SetVelocity(VectorRand()+Vector(0,0,-10)*math.Rand(0.1,1))
-		particle:SetDieTime(math.Rand(10,20))
+		particle:SetDieTime(math.Rand(3,5))
 		particle:SetStartAlpha(255)
 		particle:SetEndAlpha(50)
 		particle:SetStartSize(math.random(40,60))

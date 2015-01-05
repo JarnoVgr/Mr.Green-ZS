@@ -14,6 +14,20 @@ end )
 -- Called when a human is killed
 local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 
+
+local tr = mVictim:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_HUMAN)) --Duby: Zombie hit gore!
+							local pos = tr.HitPos
+							local norm = tr.HitNormal
+
+							local eff = EffectData()
+							eff:SetOrigin( pos )
+							eff:SetNormal( norm )
+							eff:SetScale( math.Rand(0.9,1.2) )
+							eff:SetMagnitude( math.random(5,20) )
+							util.Effect( "gib_player", eff, true, true )	
+
+
+
 	--Smash off current hat
 	GAMEMODE:DropHat( mVictim )
 	GAMEMODE:DropSuit( mVictim )
@@ -159,6 +173,9 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	mVictim.GotWeapon.Melee = false
 	
 	mVictim.SupplyCart.Ammo = {}
+	
+	
+	
 	
 end
 hook.Add( "OnHumanDeath", "OnHumanKilled", OnHumanDeath )

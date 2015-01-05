@@ -115,7 +115,7 @@ function SWEP:DoAttack(bPull)
 		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 
 		-- Calculate base velocity
-		local Velocity = -1 * mOwner:GetForward() * 125
+		local Velocity = -1 * mOwner:GetForward() * 120
 		if not bPull then
 			Velocity = -1 * Velocity * 2
 		end
@@ -152,12 +152,16 @@ function SWEP:PerformPrimaryAttack()
 end
 
 function SWEP:PerformSecondaryAttack()
-	--self:DoAttack(false)
-	self:DoAttack(true)
+	self:DoAttack(false)
+	--self:DoAttack(true)
 end
 
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
+		mv:SetMaxSpeed(1)
+		return true
+	end
+	if self:IsInSecondaryAttack() then
 		mv:SetMaxSpeed(1)
 		return true
 	end

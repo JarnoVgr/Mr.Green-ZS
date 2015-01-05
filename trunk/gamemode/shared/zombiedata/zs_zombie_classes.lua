@@ -681,7 +681,7 @@ ZombieClasses[7] =
 	end
 	for i = 0, pl:GetBoneCount() - 1 do
 		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+		--pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
 	end
 	
 	end,
@@ -908,7 +908,7 @@ ZombieClasses[10] =
 	Name = "Hate",	
 	Tag = "hate",	
 	Infliction = 0,
-	Health = 3000,
+	Health = 3500,
 	MaxHealth = 10000,
 	Bounty = 1000,
 	SP = 150,

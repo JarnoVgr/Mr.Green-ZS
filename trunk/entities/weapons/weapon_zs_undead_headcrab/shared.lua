@@ -41,7 +41,7 @@ SWEP.DistanceCheck = 250
 
 function SWEP:Deploy()
 	if SERVER then 
-		self.Owner:DrawViewModel( true )
+		self.Owner:DrawViewModel( false )
 		self.Owner:DrawWorldModel( false )
 	end
 end

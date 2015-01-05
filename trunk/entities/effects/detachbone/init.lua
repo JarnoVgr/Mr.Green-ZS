@@ -273,7 +273,7 @@ function EFFECT:Render()
 			local emitter = ParticleEmitter(rendRag:GetPos())
 			
 			local bone = Bones[self.BoneType].BScale[1] or "ValveBiped.Bip01_Head1"
-			
+		
 			if Bones[self.BoneType].Combined then
 				bone = Bones[table.Random(Bones[self.BoneType].Combined)].BScale[1] or "ValveBiped.Bip01_Head1"
 			end
