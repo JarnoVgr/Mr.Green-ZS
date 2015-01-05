@@ -67,6 +67,11 @@ end
 function SWEP:Deploy()
 	self.BaseClass.Deploy(self)
 
+	--Hide
+	if CLIENT then
+		self.Owner:DestroyShadow()
+	end
+
 	if SERVER then
 		self.ScarySound = CreateSound(self.Owner, Sound("ambient/voices/crying_loop1.wav"))
 	end
@@ -87,12 +92,8 @@ function SWEP:StartPrimaryAttack()
 	 
 	local stopPlayer = true
 
-	if self:IsDisguised() then
-		self.Primary.Speed = 80
-		stopPlayer = false
-	else
-		self.Primary.Speed = 1
-	end
+	--Stop movement
+	self.Primary.Speed = 1
 	 
 	if SERVER then
 		if stopPlayer then
@@ -106,15 +107,6 @@ function SWEP:Move(mv)
 		mv:SetMaxSpeed(self.Primary.Speed)
 		return true
 	end
-end
-
-function SWEP:SetDisguise(bl)
-	--self:SetDTBool(0,bl)
-	--self:DrawShadow(bl)
-end
-
-function SWEP:IsDisguised()
-	--return self:GetDTBool(0)
 end
 
 function SWEP:PerformSecondaryAttack()

@@ -494,7 +494,7 @@ ZombieClasses[5] =
 	Model = Model( "models/wraith.mdl" ),
 	Speed = 170,
 	Description = "A ghastly figure capable of Teleporting!",
-	DescriptionGameplay = { "> PRIMARY: Hooks", "> SECONDARY:Teleport!!" },
+	DescriptionGameplay = { "> PRIMARY: Hooks", "> SECONDARY: Teleport" },
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	PainSounds = {
 				--Sound("npc/stalker/stalker_pain1.wav"),
@@ -511,41 +511,10 @@ ZombieClasses[5] =
 				 Sound("wraithdeath3.wav"),
 				 Sound("wraithdeath4.wav")
 				},
-	OnSpawn = function(pl)	
-	--pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(11,11,11,6))
-	--pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,225))
-		--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
+	OnSpawn = function(pl)
+		pl:DrawShadow(false)
+		--pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(11,11,11,6))
+		--pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,225))
 	end,
 	ModelScale = 1
 	-- ViewOffset = Vector(0, 0, 0)
@@ -588,38 +557,6 @@ ZombieClasses[6] =
 				Sound( "player/zombies/howler/howler_death_01.wav" ),
 				}, 
 	OnSpawn = function(pl)
-			--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
 		local status = pl:GiveStatus("overridemodel")
 		
 		if status and status:IsValid() then
@@ -651,39 +588,7 @@ ZombieClasses[7] =
 	Speed = 190,
 	Description = "Head Humper! What is this creature!",
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
-		OnSpawn = function(pl)
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		--pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
+	OnSpawn = function(pl)
 	end,
 	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes" },
 	PainSounds = {
@@ -723,38 +628,6 @@ ZombieClasses[3] =
 	Description = "Skin and bones predator.",
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	OnSpawn = function(pl)
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
 	end,
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap" },
 	PainSounds = {
@@ -815,40 +688,7 @@ ZombieClasses[9] =
 	Speed = 140,
 	Description = "A headcrab that has evolved spit poison balls.",
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
-		OnSpawn = function(pl)
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		local Bone = 
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
+	OnSpawn = function(pl)	
 	end,
 	DescriptionGameplay = { "> PRIMARY: Spit", "> SPECIAL: Fits through small places", "> DEATH: Chance of dropping a Poison Bomb" },
 	PainSounds = {
@@ -948,58 +788,9 @@ ZombieClasses[10] =
 	Unlocked = false,
 	-- ViewOffset = Vector( 0, 0, 0 ),
 	OnSpawn = function(pl)
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,88,-90)  )
-		pl:ManipulateBoneScale( Bone, Vector(1.1,1.1,1.1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(90,0,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1.6,1.6,1.6)  )
-	end
-	
-		-- if not pl.Revive then
-			local status = pl:GiveStatus("overridemodel")
-		
-			if status and status:IsValid() then
-				status:SetModel("models/Zombie/Poison.mdl")
-			end
-		-- end
-
-		
-		local status2 = pl:GiveStatus("simple_revive")
-		if status2 then
-			status2:SetReviveTime(CurTime() + 4)
-			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
-		end
-	
-
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-		
 	end,
 	ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
 	ViewOffset = Vector(0, 0, 84),
@@ -1052,60 +843,18 @@ ZombieClasses[20] =
 	PlayerFootstep = true,
 	Unlocked = false,
 	-- ViewOffset = Vector( 0, 0, 0 ),
-	OnSpawn = function(pl)
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	
-	
-
-local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(30,95,-190)  )
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.1,1.1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(-180,90,90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Pelvis")
-	if Bone then
-	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,10)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		--pl:ManipulateBoneScale( Bone, Vector(1.6,1.6,1.6)  )
-	end
-	
-
-
-	
-	local status = pl:GiveStatus("overridemodel")
+	OnSpawn = function(pl)	
+		local status = pl:GiveStatus("overridemodel")
 		
-			if status and status:IsValid() then
-				status:SetModel("models/Zombie/Poison.mdl")
-			end
-		
+		if status and status:IsValid() then
+			status:SetModel("models/Zombie/Poison.mdl")
+		end
+	
 		local status2 = pl:GiveStatus("simple_revive")
 		if status2 then
 			status2:SetReviveTime(CurTime() + 4)
 			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
 		end
-	
-
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
@@ -1160,38 +909,6 @@ ZombieClasses[11] =
 				Sound("npc/zombine/striderx_alert6.wav"),
 				},
 	OnSpawn = function(pl)
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
 		local status = pl:GiveStatus("overridemodel")
 		
 		if status and status:IsValid() then
@@ -1205,7 +922,6 @@ ZombieClasses[11] =
 			status2:SetReviveDuration(3.37)
 			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
 		end
-		
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
@@ -1257,8 +973,7 @@ ZombieClasses[12] =
 				Sound("npc/zombie_poison/pz_call1.wav"),
 				},
 	OnSpawn = function(pl)
-	
-	local status = pl:GiveStatus("overridemodel")
+		local status = pl:GiveStatus("overridemodel")
 
 		if status and status:IsValid() then
 			status:SetModel("models/player/charple01.mdl")
@@ -1311,38 +1026,6 @@ ZombieClasses[13] =
 
 				},
 	OnSpawn = function(pl)
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
 		local status = pl:GiveStatus("overridemodel")
 		
 		if status and status:IsValid() then
@@ -1487,40 +1170,7 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_lilith",
 	Model = Model("models/player/corpse1.mdl"), 
-	OnSpawn = function(pl)
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-		pl:SetRandomFace()		
-		
-			local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( i, Vector(1,1,1)  )
-	end
-		
+	OnSpawn = function(pl)		
 	end,
 	Speed = 180,
 	Description = "",
@@ -1588,21 +1238,17 @@ ZombieClasses[17] = --Smoke shit up :P
 				--Sound( "player/zombies/seeker/pain2.wav" ),
 				},
 	OnSpawn = function(pl)
-		
 	end,
-	
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 		-- pl:AnimRestartMainSequence()		
 	end,
-	
-	
-	--PainSounds = {
-	--			Sound( "npc/strider/striderx_pain2.wav" ),
-	--			Sound( "npc/strider/striderx_pain5.wav" ),
-	--			Sound( "npc/strider/striderx_pain7.wav" ),
-	--			Sound( "npc/strider/striderx_pain8.wav" ),
-	--			},
+	--[[PainSounds = {
+				Sound( "npc/strider/striderx_pain2.wav" ),
+				Sound( "npc/strider/striderx_pain5.wav" ),
+				Sound( "npc/strider/striderx_pain7.wav" ),
+				Sound( "npc/strider/striderx_pain8.wav" ),
+				},]]
 	DeathSounds = {
 				Sound("npc/strider/striderx_die1.wav"),
 				},
@@ -1642,37 +1288,24 @@ ZombieClasses[18] = --Creep and Play!
 	Hidden = true,
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_seeker2",
-
 	Model = Model("models/player/zombie_classic.mdl"), 
 	Speed = 140,
 	Description = "An experiment gone wrong, its now out hunting the elite!",
 	Unique = "",
-	
 	OnSpawn = function(pl)	
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(1,1,1,2))
+		pl:SetRenderMode(RENDERMODE_GLOW)
+		pl:SetColor(Color(1,1,1,2))
 	end,
-	
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 		-- pl:AnimRestartMainSequence()		
 	end,
-	
-	
-	--PainSounds = {
-	--			Sound( "npc/strider/striderx_pain2.wav" ),
-	--			Sound( "npc/strider/striderx_pain5.wav" ),
-	--			Sound( "npc/strider/striderx_pain7.wav" ),
-	--			Sound( "npc/strider/striderx_pain8.wav" ),
-	--			},
+	--[[PainSounds = {
+				Sound( "npc/strider/striderx_pain2.wav" ),
+				Sound( "npc/strider/striderx_pain5.wav" ),
+				Sound( "npc/strider/striderx_pain7.wav" ),
+				Sound( "npc/strider/striderx_pain8.wav" ),
+				},]]
 	DeathSounds = {
 				Sound("npc/barnacle/neck_snap1.wav"),
 				Sound("player/zombies/b/scream.wav"),
@@ -1689,7 +1322,7 @@ ZombieClasses[18] = --Creep and Play!
 
 ZombieClasses[19] = 
 {
-	Name = "PUMPKING!",
+	Name = "PUMPKING",
 	Tag = "weapon_zs_undead_boss_pumpking",
 	Infliction = 0.7,
 	Health = math.random(5000, 5500 ),
@@ -1710,35 +1343,20 @@ ZombieClasses[19] =
 	Speed = 170,
 	Description = "A hellish Being! ",
 	Unique = "",
-	
 	OnSpawn = function(pl)	
-	pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(239,128,31,150))
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 5, 5), math.Rand( 11, 5)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 8, 5), math.Rand( -10, -10), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand left
-	
-
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 5, 5), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 8, 5), math.Rand( 5, 5), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
-
+		pl:SetRenderMode(RENDERMODE_GLOW)
+		pl:SetColor(Color(239,128,31,150))
 	end,
-	
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 		-- pl:AnimRestartMainSequence()		
 	end,
-	
-	
-	--PainSounds = {
-	--			Sound( "npc/strider/striderx_pain2.wav" ),
-	--			Sound( "npc/strider/striderx_pain5.wav" ),
-	--			Sound( "npc/strider/striderx_pain7.wav" ),
-	--			Sound( "npc/strider/striderx_pain8.wav" ),
-	--			},
+	--[[PainSounds = {
+				Sound( "npc/strider/striderx_pain2.wav" ),
+				Sound( "npc/strider/striderx_pain5.wav" ),
+				Sound( "npc/strider/striderx_pain7.wav" ),
+				Sound( "npc/strider/striderx_pain8.wav" ),
+				},]]
 	DeathSounds = {
 				Sound("npc/barnacle/neck_snap1.wav"),
 				Sound("player/zombies/b/scream.wav"),
