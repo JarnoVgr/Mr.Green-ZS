@@ -253,27 +253,29 @@ function SaveGreenCoinsStep1Callback(pltab, result, status, err)
 	end
 end
 
---  Save GC at intervals
-NextGCSaveTime = 0
-local function SaveInterval()
-	if (NextGCSaveTime < CurTime() and not ENDROUND) then
-		NextGCSaveTime = CurTime()+120 --  save every two minutes
+--Save GC at interval
+timer.Create("GCSaving", 120, 0, function()
+	if ENDROUND then
+		return
+	end
 		
-		for k, pl in pairs(player.GetAll()) do
-			if IsValid(pl) and pl.GCData then
-				pl:SaveGreenCoins()
-			end
+	--Save every 2 minutes
+	NextGCSaveTime = CurTime()+120
+		
+	for k, pl in pairs(player.GetAll()) do
+		if IsValid(pl) and pl.GCData then
+			pl:SaveGreenCoins()
 		end
 	end
-end
-hook.Add("Think","GCSaving",SaveInterval)
+end)
 
 --  Check if a game connection was requested
 local function GameConnectionCallback( pl, result, status, err )
-
-	if not IsValid(pl) then return end
-	if (type(err) == "number" and err == 0) then
-		
+	if not IsValid(pl) then
+		return
+	end
+	
+	if type(err) == "number" and err == 0 then	
 		if (#result == 0) then
 			return
 		end
@@ -288,14 +290,16 @@ local function GameConnectionCallback( pl, result, status, err )
 			umsg.Long(pl.ForumIDRequested)
 			umsg.String(conrequest["forum_name"])
 		umsg.End()
-		
 	else
 		WriteSQLLog("ERROR WHEN ATTEMPTING QUERY (GCC) pl: "..pl:Name().."; status: "..tostring(status).."; error: "..tostring(err))
 	end
 end
 
 function CheckGameConnection( pl )
-	if not (IsValid(pl) and pl:IsPlayer() and not pl:IsBot() and pl.Ready and not pl.GameCChecked) then return end
+	if not (IsValid(pl) and pl:IsPlayer() and not pl:IsBot() and pl.Ready and not pl.GameCChecked) then
+		return
+	end
+	
 	local query = "SELECT * FROM game_connections WHERE game_id_type = 'STEAM' AND game_id = '"..pl:SteamID().."' AND status = 'PENDING' AND valid = 1"
 	SQLQuery( query, GameConnectionCallback, pl )
 	pl.GameCChecked = true
@@ -388,8 +392,7 @@ concommand.Add("game_conn_answer",ConnectionRequestAnswer)
 -- --  Database error log functions -- -- 
 
 function WriteSQLLog( str )
-	
-	local content = "--- Green-Coins MySQL log ---"
+	local content = "--- GreenCoins MySQL log ---"
 	if (file.Exists("mysqllog.txt","DATA")) then
 		content = file.Read("mysqllog.txt","DATA")
 	end

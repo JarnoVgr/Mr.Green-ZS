@@ -92,9 +92,9 @@ team.SetUp(TEAM_SURVIVORS, "Survivors", Color(43, 129, 198))
 team.SetUp(TEAM_SPECTATOR, "Connecting", Color(128, 155, 21, 255))
 
 -- Initialize team tags for log
-if SERVER then
+--[[if SERVER then
 	log.InitializeTeamBased( {TEAM_ZOMBIE, "Undead", TEAM_SURVIVORS, "Survivor"} )
-end
+end]]
 
 HumanGibs = {"models/gibs/HGIBS.mdl",
 "models/gibs/HGIBS_spine.mdl",

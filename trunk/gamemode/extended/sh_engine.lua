@@ -63,6 +63,3 @@ function engine.IsGameBought( appid )
     
     return false
 end
-
-
-

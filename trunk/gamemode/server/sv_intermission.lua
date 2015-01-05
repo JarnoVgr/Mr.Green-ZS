@@ -387,13 +387,13 @@ function GM:OnEndRound(winner)
 	ENDROUND = true
 	ENDTIME = CurTime()
 	
-	log.WorldAction("Round_End")
+	--log.WorldAction("Round_End")
 	
-	if winner == TEAM_UNDEAD then
+	--[[if winner == TEAM_UNDEAD then
 		log.WorldAction("Undead_Win")
 	elseif winner == TEAM_HUMAN then
 		log.WorldAction("Survivor_Win")
-	end
+	end]]
 
 	--Enable all talk
 	--TODO: Hide this from player chat

@@ -778,11 +778,7 @@ HELP_TEXT[1] = { title = "Help", text = [[^rZombie Survival
 @
 @Check out www.lef4green.com or www.limetric.com!]]}
 
-
-
-
 -- Append the changelog later on
-CHANGELOG_HTTP = "http://www.mr-green.nl/portal/serverinfo/zs_changelog.html"
 HELP_TEXT[2] = { title = "Changelog", text = [[^rGamemode changelog
 @Some changes from JetBoom's original Zombie Survival v1.11 are listed here.
 @
@@ -799,7 +795,6 @@ HELP_TEXT[2] = { title = "Changelog", text = [[^rGamemode changelog
 @
 ]]}
 
-
 HELP_TEXT[3] = { title = "Server", text = [[^rServer information
 @^yThe Mr. Green forums can be found at http://www.left4green.com
 @
@@ -809,7 +804,6 @@ HELP_TEXT[3] = { title = "Server", text = [[^rServer information
 @
 @
 ]]}
-
 
 HELP_TEXT[4] = { title = "Rules", text = [[^rRules
 @
@@ -859,7 +853,6 @@ HELP_TEXT[5] = { title = "Donate!", text = [[^yDONATE TO THIS SERVER!
 @^yYou will need your SteamID to connect your Steam account to the forum account. Type "!steamid" in chat to view yours.
 @
 ]]}
-
 
 HELP_TEXT[7] = { title = "Quick Guide.", text = [[^Beginners Guide
 @
@@ -921,7 +914,9 @@ end
 
 --Add custom player models and hands
 player_manager.AddValidModel("gordon", "models/player/gordon_classic.mdl")
-player_manager.AddValidModel("santa", "models/Jaanus/santa.mdl")
+if CHRISTMAS then
+	player_manager.AddValidModel("santa", "models/Jaanus/santa.mdl")
+end
 player_manager.AddValidHands("gordon", "models/weapons/c_arms_hev.mdl", 0, "00000000")
 
 --Add models for players to allow (and randomly be picked from when having no preference)

@@ -89,4 +89,3 @@ irc.Handles["QUIT"] = function( response )
 	local user, reason = irc:ParsePrefix( response.Prefix ), response.Trailing
 	hook.Call( "irc.OnUserQuit", nil, user, reason )
 end
-

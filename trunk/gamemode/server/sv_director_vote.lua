@@ -46,14 +46,29 @@ function metaPlayer:UnMute( )
 end
 
 -- Handle mute
-local function HandleMute( listener, talker )
+--[[local function HandleMute( listener, talker )
+	print("Handlemute.. ".. talker:SteamID() ..", ".. listener:SteamID())
+
 	if MutedTbl[talker:SteamID()] then
 	--if talker.IsMuted then
 		-- The talker is muted, let the listener not hear him
 		return false
 	end
+	
+	return true
 end
-hook.Add( "PlayerCanHearPlayersVoice", "HandleMute", HandleMute )
+hook.Add( "PlayerCanHearPlayersVoice", "HandleMute", HandleMute )]]
+
+--Handle mute (this is called way too often!)
+function GM:PlayerCanHearPlayersVoice(listener, talker)
+	if MutedTbl[talker:SteamID()] then
+	--if talker.IsMuted then
+		-- The talker is muted, let the listener not hear him
+		return false
+	end
+	
+	return true
+end
 
 --[==[-------------------------------------------------------------
     Check the chat to see if someone triggers a vote	

@@ -89,9 +89,6 @@ include("modules/sql/sv_sql.lua")
 --Debug
 include("modules/debug/sv_debug.lua")
 
-include("modules/log/hl_log.lua")
---require("log")
-
 --[=[---------------------------------------------------------
 	Include the server and shared files
 ---------------------------------------------------------]=]
@@ -171,7 +168,9 @@ include("modules/boneanimlib_v2/sh_boneanimlib.lua")
 include("modules/boneanimlib_v2/boneanimlib.lua")
 
 --IRC
-include("extended/irc/sv_irc.lua")
+if IRC_RELAY_ENABLED then
+	include("extended/irc/sv_irc.lua")
+end
 
 --Kill Rewards Thanks Josh 'Acecool'
 --include("modules/kill_rewards/sv_kill_rewards.lua")
@@ -183,12 +182,6 @@ include("modules/unstuck/sh_unstuck.lua")
 include("modules/fpsbuff/sh_buffthefps.lua")
 include("modules/fpsbuff/sh_nixthelag.lua")
 
---Umsg Messages to .Net 
-
---include("modules/umsgtonet/umsgtonet.lua")
---include("modules/umsgtonet/umsgtonet2.lua")
---include("modules/umsgtonet/umsgtonet3.lua")
-
 --Christmas
 if CHRISTMAS then
 	--Snow
@@ -196,7 +189,7 @@ if CHRISTMAS then
 end
 
 if HALLOWEEN then
-AddCSLuaFile("modules/halloween/blood.lua")
+	AddCSLuaFile("modules/halloween/blood.lua")
 end
 
 Thres = 0
@@ -391,7 +384,7 @@ function GM:InitPostEntity()
 	self:CreateZombieFlashLight()
 	
 	--Log
-	log.WorldAction("Round_Start")
+	--log.WorldAction("Round_Start")
 end
 
 function GM:CreateZombieFlashLight()
@@ -611,7 +604,7 @@ function GM:LastHuman()
 	LastHuman.LastHumanTime = CurTime()
 	
 	--Log
-	log.WorldAction("Last_Human")
+	--log.WorldAction("Last_Human")
 end
 
 --[=[--------------------------------------------------------------------

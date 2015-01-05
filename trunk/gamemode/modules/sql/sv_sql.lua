@@ -106,7 +106,6 @@ end
 
 -- Query
 mysql.Query = function( sQuery, fCallback, bDebug )
-
 	-- Check for module
 	if not mysql.IsModuleActive() then
 		Debug( "[SQL] ".. mysql.Warnings["module_no_load_query"] )
@@ -123,19 +122,16 @@ mysql.Query = function( sQuery, fCallback, bDebug )
 end
 
 -- Implementation
-hook.Add( "Initialize", "ConnectToDB", function()
+hook.Add("Initialize", "ConnectToDB", function()
 	timer.Simple( 0.8, function()
 		mysql.Connect()
-	end )
-end )
+	end)
+end)
 
 -- On connect event
-timer.Simple( 0.1, function()
+timer.Simple(0.1, function()
 	if GAMEMODE then
 		GAMEMODE.OnConnectSQL = function()
 		end
 	end
-end )
-
-
-
+end)
