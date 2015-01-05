@@ -15,12 +15,11 @@ local function AmbientThink()
 		return
 	end
 
-	local team = LocalPlayer():Team()
-
-	if team == TEAM_HUMAN then
-		local sFile = RandomAmbientSounds[math.random(1, #RandomAmbientSounds)]
+	--local team = LocalPlayer():Team()
+	--if team == TEAM_HUMAN then
+	local sFile = RandomAmbientSounds[math.random(1, #RandomAmbientSounds)]
+	if sFile then
 		LocalPlayer():EmitSound(Sound(sFile), math.random(30,90), math.random(80,120))
-
 		Debug("[AMBIENT] Played '".. sFile .."'")
 	end
 	
