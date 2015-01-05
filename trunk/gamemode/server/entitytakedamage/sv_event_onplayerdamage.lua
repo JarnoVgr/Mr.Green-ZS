@@ -33,7 +33,7 @@ local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
 							eff:SetNormal( norm )
 							eff:SetScale( math.Rand(0.9,1.2) )
 							eff:SetMagnitude( math.random(5,20) )
-							util.Effect( "headshot", eff, true, true )	
+							util.Effect( "bloodsplash", eff, true, true )	
 							
 end
 hook.Add( "OnPlayerTakeDamage", "PlayerTakeDamage", OnPlayerDamage )
