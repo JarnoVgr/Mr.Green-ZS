@@ -548,7 +548,6 @@ end
 
 if CLIENT then
 	function SWEP:CacheNails()
-		print("Caching nails")
 		self.CachedNails = {}
 		self.NextNailCache = CurTime()+5
 
@@ -564,8 +563,6 @@ if CLIENT then
 
 			table.insert(self.CachedNails, nail)
 		end
-
-		print("Cached ".. table.getn(self.CachedNails))
 	end
 
 	function SWEP:DrawHUD()
