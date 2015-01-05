@@ -104,17 +104,17 @@ ZombieClasses[0] =
 	if Bone then
 		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
 	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
 	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end]]
+	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
 	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end]]
 	for i = 0, pl:GetBoneCount() - 1 do
 		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+		pl:ManipulateBoneScale(i, Vector(1,1,1))
 	end
 	
 		--Force human player model
@@ -218,17 +218,17 @@ ZombieClasses[1] =
 	if Bone then
 		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
 	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
 	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end]]
+	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
 	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end]]
 	for i = 0, pl:GetBoneCount() - 1 do
 		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+		pl:ManipulateBoneScale(i, Vector(1,1,1))
 	end
 	
 		else
@@ -835,16 +835,17 @@ ZombieClasses[9] =
 	if Bone then
 		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
 	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
 	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end]]
+	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
 	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end]]
 	for i = 0, pl:GetBoneCount() - 1 do
 		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		local Bone = 
 		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
 	end
 	
@@ -1507,17 +1508,17 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	if Bone then
 		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
 	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
 	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end]]
+	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
 	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end]]
 	for i = 0, pl:GetBoneCount() - 1 do
 		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+		pl:ManipulateBoneScale( i, Vector(1,1,1)  )
 	end
 		
 	end,
