@@ -55,11 +55,12 @@ local function PredictSpawn()
     			end 
 			elseif v:Deaths() == PREDICT_SPAWN_END then 
 			    if v.bSpawning == nil then 
-			        v.bSpawned = nil v.bSpawning = true 
+			        v.bSpawned = nil
+					v.bSpawning = true 
 			    end 
 		    end
 			
-			-- Predict health loss
+			--Predict health loss
 			if v.LastHealth and v.LastHealth ~= v:Health() and v:Alive() then 
 				local iAdd = v.LastHealth - v:Health()
 				if iAdd > 0 then
@@ -70,7 +71,7 @@ local function PredictSpawn()
 		end
 	end
 end
-hook.Add("Think", "PredictSpawn", PredictSpawn)
+--hook.Add("Think", "PredictSpawn", PredictSpawn)
 
 -- Semi-predicted damage function
 function GM:PlayerTakeDamage(pl, attacker, damage)

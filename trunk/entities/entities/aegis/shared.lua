@@ -37,7 +37,17 @@ end
 
 -- Server part goes here
 
-if SERVER then
+if CLIENT then
+	function ENT:Initialize()
+		hook.Add("PreDrawHalos", "AddAegisHalos".. tostring(self), function()
+			halo.Add( ents.FindByClass( "aegis" ), Color( 0, 0, 225 ), 0.25, 0.25, 2)
+		end)
+	end
+	
+	function ENT:OnRemove()
+		hook.Remove( "PreDrawHalos", "AddAegisHalos".. tostring(self))
+	end
+elseif SERVER then
 	function ENT:Initialize()
 		
 		self._mOwner = self:GetTurretOwner()
@@ -267,7 +277,3 @@ function ENT:GetTurretOwner()
 	return self:GetDTEntity(0)
 	--return self:GetNWEntity("TurretOwner")
 end
-
-hook.Add( "PreDrawHalos", "AddHalos", function()
-	halo.Add( ents.FindByClass( "aegis" ), Color( 0, 0, 225 ), 0.25, 0.25, 2 )
-end )

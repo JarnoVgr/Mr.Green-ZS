@@ -38,11 +38,15 @@ function ENT:Initialize()
 
 	if CLIENT then
 		hook.Add("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self), function()
-			if util.tobool(GetConVarNumber("_zs_drawcrateoutline")) then
-				if (IsValid(MySelf) and MySelf:Team() == TEAM_HUMAN and MySelf:Alive()) then
-					halo.Add({self}, self.LineColor, 1, 1, 1, true, false)
-				end
+			if not util.tobool(GetConVarNumber("_zs_drawcrateoutline")) then
+				return
 			end
+			
+			if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN or not MySelf:Alive() then
+				return
+			end
+			
+			halo.Add({self}, self.LineColor, 1, 1, 1, true, false)
 		end)
 	end
 end	
