@@ -481,17 +481,26 @@ function hud.DrawHealth()
 	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
 	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
 	local healthBarColor = Color(137, 30, 30, 255)
-	local healthBarColor2 = Color(24, 140, 30, 255)
+	local healthBarBGColor = Color(70, 20, 20, 255)
 	
+	
+	--Different colors
+	if iPercentage > 0.75 then
+		healthBarColor = Color(24, 140, 30, 255)
+		healthBarBGColor = Color(52, 68, 15, 255)
+	elseif iPercentage > 0.5 then
+		healthBarColor = Color(137, 116, 24, 255)
+		healthBarBGColor = Color(86, 73, 15, 255)
+	end
+
+	--Flash under certain conditions
 	if MySelf:IsTakingDOT() or healthPercentageDrawn < 0.3 then
-		healthBarColor = Color(healthBarColor.r, healthBarColor.g, healthBarColor.b, math.abs( math.sin( CurTime() * 4 ) ) * 255 )
-	elseif 0.7 < iPercentage then
-			healthBarColor = Color(healthBarColor2.r, healthBarColor2.g, healthBarColor2.b, 225)
+		healthBarColor = Color(healthBarColor.r, healthBarColor.g, healthBarColor.b, math.abs( math.sin( CurTime() * 4 ) ) * 255)
 	end
 
 	--Background
 	if healthPercentageDrawn ~= 1 then
-		surface.SetDrawColor(70, 20, 20, 255)
+		surface.SetDrawColor(healthBarBGColor)
 		surface.DrawRect(barX, barY, barW, barH)
 	end
 

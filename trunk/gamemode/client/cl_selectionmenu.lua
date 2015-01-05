@@ -292,8 +292,10 @@ function PaintNewWeaponSelection()
 			end
 	end
 
+	local AlphaLockTime = 1.5
+
 	--Check if we still need to display the weapons
-	if HideSelectionTime <= CurTime() then
+	if HideSelectionTime <= (CurTime()-AlphaLockTime) then
 		ShowWeapons = false
 	end
 	
@@ -302,19 +304,37 @@ function PaintNewWeaponSelection()
 		return
 	end
 
-	--Calculate alpha level
-	local Alpha = math.Clamp((HideSelectionTime - CurTime()) / (HideSelectionTime - LastScroll),0,1)
+	--Calculate alpha levels
+	local AlphaSelected = math.Clamp((HideSelectionTime - (CurTime()-AlphaLockTime)) / (HideSelectionTime - LastScroll),0,1)
+	local AlphaNonSelected = math.Clamp((HideSelectionTime - (CurTime()-(AlphaLockTime/2))) / (HideSelectionTime - LastScroll),0,1)
 
 
 	--Draw panels
 	for i = 0, MaximumSlots do
-		if IsSlot[i] then		
-			surface.SetMaterial(WeaponSelectionBackground)
-			--surface.SetDrawColor(100, 225, 225, 255*Alpha)
-			surface.SetDrawColor(100, 225, 225, 255)
-			surface.DrawTexturedRect(SLOT_POS[i].PosX-60, SLOT_POS[i].PosY-400, 340, 175-2, 180)
-				
-			
+		if not IsSlot[i] then
+			continue
+		end
+
+		--Specify what alpha formula to use
+		local Alpha
+		if IsSlotActive[i] then
+			Alpha = AlphaSelected
+		else
+			Alpha = AlphaNonSelected
+		end
+
+		--Background	
+		surface.SetMaterial(WeaponSelectionBackground)
+		surface.SetDrawColor(100, 225, 225, 255*Alpha)
+		surface.DrawTexturedRect(SLOT_POS[i].PosX-60, SLOT_POS[i].PosY-400, 340, 175-2, 180)
+
+		--Weapon icon			
+		local ColorToDraw = Color(255, 255, 255, 255*Alpha)
+		local NameHeight = SLOT_POS[i].PosY - 330
+		if IsSlotActive[i] then
+			--Put text higher
+			NameHeight = NameHeight - 20
+
 			-- Font stuff for weapons
 			local font, letter = "WeaponSelectedHL2", "0"
 			local Table = killicon.GetFont( MyWeapons[i]:GetClass() )
@@ -329,24 +349,12 @@ function PaintNewWeaponSelection()
 				end
 			end
 
-			--Weapon icon
-		
-				
-			if not IsSlotActive[i] then
-				continue
-			end
-			
-			
-			local ColorToDraw = Color(255, 255, 255, 255*Alpha)
 			surface.DrawTexturedRect(SLOT_POS[i].PosX-80, SLOT_POS[i].PosY-400, 360, 175-2, 280)
-			draw.SimpleTextOutlined( GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "ArialBoldFive", SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -350, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0, 0, 0, 255*Alpha))
-			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY -300, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(30, 140, 30, 200*Alpha))	
-		
-			--local ColorToDraw = Color(255, 255, 255, 255*Alpha )
-			
-			
-			
+			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY - 300, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(30, 140, 30, 200*Alpha))
 		end
+
+		--Weapon name
+		draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "ArialBoldFive", SLOT_POS[i].PosX + MySelf.WepW/2, NameHeight, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0, 0, 0, 255*Alpha))
 	end
 end
 hook.Add("HUDPaintBackground", "PaintSelection", PaintNewWeaponSelection)
