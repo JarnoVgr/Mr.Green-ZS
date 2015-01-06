@@ -234,21 +234,23 @@ local function HeartbeatGlow()
 
 	local eyepos = EyePos()
 	for _, pl in pairs(CachedHumans) do
-		if IsValid(pl) and pl:Alive() and pl:GetPos():Distance(eyepos) <= 1024 and not (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
-			local healthfrac = math.max(pl:Health(), 0) / 100
-			colHealth.r = math.Approach(255, 0, math.abs(255 - 0) * healthfrac)
-			colHealth.g = math.Approach(0, 255, math.abs(0 - 255) * healthfrac)
+		if not IsValid(pl) or pl:Team() ~= TEAM_HUMAN or not pl:Alive() or pl:GetPos():Distance(eyepos) > 1024 or (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
+			continue
+		end			
+		
+		local healthfrac = math.max(pl:Health(), 0) / 100
+		colHealth.r = math.Approach(255, 0, math.abs(255 - 0) * healthfrac)
+		colHealth.g = math.Approach(0, 255, math.abs(0 - 255) * healthfrac)
 					
-			local attach = pl:GetAttachment(pl:LookupAttachment("chest"))
-			local pos = attach and attach.Pos or pl:LocalToWorld(pl:OBBCenter())
+		local attach = pl:GetAttachment(pl:LookupAttachment("chest"))
+		local pos = attach and attach.Pos or pl:LocalToWorld(pl:OBBCenter())
 
-			render.SetMaterial(matGlow)
-			render.DrawSprite(pos, 13, 13, colHealth)
-			local size = math.sin(RealTime()*3 + pl:EntIndex()) * 50 - 21
-			if size > 0 then
-				render.DrawSprite(pos, size * 1.5, size, colHealth)
-				render.DrawSprite(pos, size, size * 1.5, colHealth)
-			end
+		render.SetMaterial(matGlow)
+		render.DrawSprite(pos, 13, 13, colHealth)
+		local size = math.sin(RealTime()*3 + pl:EntIndex()) * 50 - 21
+		if size > 0 then
+			render.DrawSprite(pos, size * 1.5, size, colHealth)
+			render.DrawSprite(pos, size, size * 1.5, colHealth)
 		end
 	end	
 end

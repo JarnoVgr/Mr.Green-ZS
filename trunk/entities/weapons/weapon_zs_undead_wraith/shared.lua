@@ -153,8 +153,6 @@ function SWEP:PerformSecondaryAttack()
 	local safeHull, safeHullAttempts = false, 0
 	local hullTrace
 	while not safeHull and safeHullAttempts <= 26 do
-		print(aimTrace.HitPos.z)
-
 		hullTrace = util.TraceHull({
 			start = aimTrace.HitPos,
 			endpos = aimTrace.HitPos,

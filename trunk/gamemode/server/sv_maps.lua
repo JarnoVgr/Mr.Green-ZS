@@ -288,28 +288,27 @@ function GM:MakeBlankMapProperties()
 		MapProperties[map] = { stuff.RemoveEntities or {}, stuff.ExceptEntitiesRemoval or {}, stuff.RemoveEntitiesByModel or {}, stuff.RemoveGlass or false, stuff.ZombieSpawnProtection or 3 }
 	end
 	
-	
 	print("-< Created new Map Properties! >-")
 	
 	file.Write(filename,util.TableToJSON(MapProperties))	
-
-	
 end
 
 function GM:LoadMapProperties()
-	
 	local filename = "zombiesurvival/zsmapproperties.txt"
 	
 	MapProperties = util.JSONToTable(file.Read(filename))
 	
 	print("-< Loaded Map Properties! >-")
-	--PrintTable(MapProperties)
-	
 end
 
 function SendMapPropertiesToClient ( pl,commandName,args )
-	if not pl:IsAdmin() then return end
-	if MapProperties == nil then return end
+	if not pl:IsAdmin() then
+		return
+	end
+	
+	if MapProperties == nil then
+		return
+	end
 	
 	for map, tables in pairs( MapProperties ) do	
 		umsg.Start( "SendMapProperties", pl )
@@ -317,7 +316,6 @@ function SendMapPropertiesToClient ( pl,commandName,args )
 			umsg.String( util.TableToJSON(tables) )
 		umsg.End()
 	end
-	
 end
 concommand.Add("send_mapproperties",SendMapPropertiesToClient) 
 

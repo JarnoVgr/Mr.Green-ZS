@@ -74,7 +74,6 @@ function ENT:PhysicsCollide(data, phys)
 end
 
 function ENT:Touch(ent)
-	--print (ent)
 	if ent.TakeDamage then
 		local owner = self.Entity:GetOwner()
 		if not (IsValid(owner) and owner:IsPlayer()) then return end
