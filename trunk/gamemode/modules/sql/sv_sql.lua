@@ -149,8 +149,8 @@ mysql.Query = function( sQuery, fCallback, bDebug )
 		end
 
 		if Results[1].errorid then
-			WriteSQLLog("Query error #".. Results.errorid ..": ".. sQuery)
-			print("[SQL] Query error (#".. Results.errorid .."):".. sQuery)
+			WriteSQLLog("Query error #".. Results[1].errorid ..": ".. sQuery)
+			print("[SQL] Query error (#".. Results[1].errorid .."):".. sQuery)
 			PrintTable(Results)
 		end
 
