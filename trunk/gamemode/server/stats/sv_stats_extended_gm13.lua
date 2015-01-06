@@ -173,7 +173,7 @@ function metaPlayer:SaveShopItem( ID )
 		if Table then
 			if not Table[1] then
 				mysql.Query( [[ INSERT INTO zs_player_shop_items ( steamid, itembought ) VALUES( ']]..tostring( SteamID )..[[',]]..tostring( ID )..[[ ) ]], function ( a,b,c )
-					WriteSQLLog( "[SHOPITEMS] Query insert "..( ( not tonumber( c ) and "FAILED" ) or ( tonumber( c ) and "SUCCEDED"  ) ).." with item id: "..tostring( ID ).." and player steam: "..tostring( SteamID ) )
+					--WriteSQLLog( "[SHOPITEMS] Query insert "..( ( not tonumber( c ) and "FAILED" ) or ( tonumber( c ) and "SUCCEDED"  ) ).." with item id: "..tostring( ID ).." and player steam: "..tostring( SteamID ) )
 				end )
 			end
 		end
@@ -232,7 +232,7 @@ function metaPlayer:SaveAchievement( ID )
 		if Table then
 			if not Table[1] then
 				mysql.Query( [[ INSERT INTO zs_player_achievements ( steamid, achievements ) VALUES( ']]..tostring( SteamID )..[[',]]..tostring( ID )..[[ ) ]], function ( a,b,c )
-					WriteSQLLog( "[ACHIEVS] Query insert "..( ( not tonumber( c ) and "FAILED" ) or ( tonumber( c ) and "SUCCEDED"  ) ).." with achievement id: "..tostring( ID ).." and player steam: "..tostring( SteamID ) )
+					--WriteSQLLog( "[ACHIEVS] Query insert "..( ( not tonumber( c ) and "FAILED" ) or ( tonumber( c ) and "SUCCEDED"  ) ).." with achievement id: "..tostring( ID ).." and player steam: "..tostring( SteamID ) )
 				end )
 			end
 		end
