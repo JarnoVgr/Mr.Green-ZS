@@ -324,6 +324,8 @@ table.insert(ResourceFiles, "materials/hud3/hud_warning2.vtf")
 table.insert(ResourceFiles, "materials/hud3/hud_warning2.vmt")
 table.insert(ResourceFiles, "materials/hud3/hud_info.vtf")
 table.insert(ResourceFiles, "materials/hud3/hud_info.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/hud/danger_sign.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/hud/danger_sign.vmt")
 
 
 --TODO: Check if needed
