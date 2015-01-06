@@ -224,8 +224,10 @@ end
 --[=[---------------------------------------------------------
       Called when a weapon is deployed
 ---------------------------------------------------------]=]
-function GM:WeaponDeployed ( mOwner, mWeapon, bIron )
-	if not IsValid ( mOwner ) or not mWeapon:IsWeapon() then return end
+function GM:WeaponDeployed(mOwner, mWeapon, bIron)
+	if not IsValid ( mOwner ) or not mWeapon:IsWeapon() then
+		return
+	end
 	
 	-- We don't want bots
 	if mOwner:IsBot() then return end

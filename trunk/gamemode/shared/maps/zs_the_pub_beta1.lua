@@ -13,7 +13,7 @@ MAPCODER_CLIENT_ACTIVE = true
 if SERVER then
 	hook.Add("InitPostEntity", "MapC_Init", function()
 		--Find or create fog entity
-		Fog:FindFogEntity()
+		--Fog:FindFogEntity()
 
 		env_skypaint = ents.Create("env_skypaint")
 		env_skypaint:Spawn()

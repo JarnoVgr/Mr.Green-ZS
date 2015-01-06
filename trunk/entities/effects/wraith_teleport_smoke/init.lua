@@ -68,7 +68,7 @@ function EFFECT:Finish()
 end
 
 function EFFECT:Think()
-	if self.DieTime <= CurTime() then
+	if self.DieTime and self.DieTime <= CurTime() then
 		return self:Finish()
 	end
 end

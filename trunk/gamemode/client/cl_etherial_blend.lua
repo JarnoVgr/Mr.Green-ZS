@@ -6,7 +6,7 @@
 
 local undomodelblend = false
 local undowraithblend = false
-function GM:_PrePlayerDraw(pl)
+local function PrePlayerDraw(pl)
 	if pl.IsZombie and pl:IsZombie() and pl.IsWraith and pl:IsWraith() then
 		if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then
 			render.SetBlend(1)
@@ -18,13 +18,13 @@ function GM:_PrePlayerDraw(pl)
 		undowraithblend = true
 	end
 
-	if pl.status_overridemodel and pl.status_overridemodel:IsValid() and self:ShouldDrawLocalPlayer(MySelf) then
+	if pl.status_overridemodel and pl.status_overridemodel:IsValid() and GAMEMODE:ShouldDrawLocalPlayer(MySelf) then
 		undomodelblend = true
 		render.SetBlend(0)
 	end	
 end
 
-function GM:_PostPlayerDraw(pl)
+local function PostPlayerDraw(pl)
 	if undomodelblend then
 		render.SetBlend(1)
 		render.ModelMaterialOverride()
@@ -36,3 +36,7 @@ function GM:_PostPlayerDraw(pl)
 		undowraithblend = false
 	end
 end
+
+--Ethereal hiding
+hook.Add("PrePlayerDraw", "EtherealPreDraw", PrePlayerDraw)
+hook.Add("PostPlayerDraw", "EtherealPreDraw", PostPlayerDraw)

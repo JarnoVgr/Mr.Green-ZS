@@ -6,7 +6,7 @@ include("shared.lua")
 local matOutlineWhite = Material("white_outline")
 function ENT:Draw() 
 	--Only draw model when far way or being an Undead
-	if self:GetPos():Distance(EyePos()) > 105 or MySelf:IsZombie() then
+	if self:GetPos():Distance(EyePos()) > 105 or not IsValid(MySelf) or MySelf:IsZombie() then
 		self:DrawModel()
 		return
 	end

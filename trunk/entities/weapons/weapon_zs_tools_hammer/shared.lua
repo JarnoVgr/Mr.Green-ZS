@@ -438,11 +438,15 @@ function SWEP:SecondaryAttack()
 
 	--Restore 1 nail
 	if self:Clip2() < 1 then
+		local this = self
 		timer.Simple(10, function()
 			--[[if self.Owner and self.Owner:GetSuit() == "supportsuit" then
 				maxclip = 4
 			end]]
-			self:SetClip2(self:Clip2() + 1)
+			this:SetClip2(this:Clip2() + 1)
+
+			--Alert player
+			this:EmitSound(Sound("weapons/crossbow/reload1.wav"))
 		end)
 	end
 end
@@ -468,6 +472,7 @@ function SWEP:Precache()
 	util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-2.wav")
 	util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-3.wav")
 	util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-4.wav")
+	util.PrecacheSound("weapons/crossbow/reload1.wav")
 end
 
 if CLIENT then

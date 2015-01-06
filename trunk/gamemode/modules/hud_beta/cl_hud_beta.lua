@@ -32,6 +32,21 @@ hud.ZombieDangerText = { [1] = "Kill all humans!", [2] = "Fistful of flesh..", [
 local matHealthSplash, matSplashTop = surface.GetTextureID ("zombiesurvival/hud/splash_health"), surface.GetTextureID ( "zombiesurvival/hud/splash_top" )
 
 
+local PlrData, NextPlrDataCache = {}, 0
+local function RecachePlayerData()
+	--5 seconds till next cache
+	NextPlrDataCache = RealTime() + 5
+
+	local RequiredXP = MySelf:NextRankXP() - MySelf:CurRankXP()
+	local CurrentXP = MySelf:GetXP() - MySelf:CurRankXP()
+
+	PlrData = {
+		GreenCoins = MySelf:GreenCoins(),
+		Rank = MySelf:GetRank(),
+		NextRankPerc = math.Round((CurrentXP / RequiredXP) * 100)
+	}
+end
+
 --[==[----------------------------------------
 	 Initialize fonts we need
 -----------------------------------------]==]
@@ -109,7 +124,7 @@ local matDangerSign = surface.GetTextureID ( "zombiesurvival/hud/danger_sign" )
 		 Zombie HUD main
 -----------------------------------------]==]
 function hud.ZombieHUD()
-	if not IsEntityValid(MySelf) or ENDROUND then
+	if not IsValid(MySelf) or ENDROUND then
 		return
 	end
 
@@ -117,12 +132,24 @@ function hud.ZombieHUD()
 		return
 	end
 
+	--Cache
+	if RealTime() >= NextPlrDataCache then
+		RecachePlayerData()
+	end
+
+	local time, dec = SysTime(), 7
 	hud.DrawBossHealth()
 	hud.DrawZombieHUDImages()
-	hud.DrawNewZombieHUD()
-	hud.DrawBrains()
-	hud.DrawZombieHUDTop()
 
+	time = SysTime()
+	hud.DrawNewZombieHUD() --Heavy
+	print("DrawNewZombieHUD: ".. math.Round(SysTime() - time, dec))
+
+	hud.DrawBrains()
+
+	time = SysTime()
+	hud.DrawZombieHUDTop() --Heavy
+	print("DrawZombieHUDTop: ".. math.Round(SysTime() - time, dec))
 end
 hook.Add("HUDPaint", "hud.ZombieHUD", hud.ZombieHUD)
 
@@ -249,7 +276,7 @@ function hud.DrawZombieHUDTop()
 
 	--Preparation (warmup)
 	if ServerTime() <= WARMUPTIME then
-		keyText = "PREPARING THE HORDE!"
+		keyText = "PREPARING HORDE"
 
 		timeLeft = math.max(0, WARMUPTIME - ServerTime())
 
@@ -276,7 +303,7 @@ function hud.DrawZombieHUDTop()
 	--Green coins
 	local startX = 20+ScaleW(760)
 	draw.SimpleText("GREENCOINS", "NewZombieFont15", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleTextOutlined(MySelf:GreenCoins(), "NewZombieFont23", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(160, 0, 0, 170))
+	draw.SimpleTextOutlined(PlrData.GreenCoins, "NewZombieFont23", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(160, 0, 0, 170))
 	
 	local startX = 20+ScaleW(865)
 	--Handle level key switching for current level and level completion percentage
@@ -288,14 +315,11 @@ function hud.DrawZombieHUDTop()
 	if currentLevelKey then
 		--Draw current level
 		draw.SimpleText("LEVEL", "NewZombieFont15", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		draw.SimpleTextOutlined(MySelf:GetRank(), "NewZombieFont23", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(160, 0, 0, 170))
+		draw.SimpleTextOutlined(PlrData.Rank, "NewZombieFont23", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(160, 0, 0, 170))
 	else
 		--Draw level completion percentage
-		draw.SimpleText("NEXT LEVEL", "NewZombieFont15", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-
-		local RequiredXP = MySelf:NextRankXP() - MySelf:CurRankXP()
-		local CurrentXP = MySelf:GetXP() - MySelf:CurRankXP()
-		draw.SimpleTextOutlined(math.Round((CurrentXP / RequiredXP) * 100) .."%", "NewZombieFont23", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(160, 0, 0, 170))
+		draw.SimpleText("NEXT LEVEL", "NewZombieFont15", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)		
+		draw.SimpleTextOutlined(PlrData.NextRankPerc .."%", "NewZombieFont23", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(160, 0, 0, 170))
 	end
 
 	local startX = ScaleW(430)
@@ -338,6 +362,11 @@ function hud.DrawNewHumanHUD()
 		cached_humans = team.NumPlayers(TEAM_HUMAN)
 		cached_zombies = team.NumPlayers(TEAM_UNDEAD)
 		lastrefresh = CurTime() + 1
+	end
+
+	--Cache
+	if RealTime() >= NextPlrDataCache then
+		RecachePlayerData()
 	end
 	
 	--Draw!
@@ -614,7 +643,7 @@ function hud.DrawStats()
 	--Draw GreenCoins
 	local startX = 20+ScaleW(780)
 	draw.SimpleText("GREENCOINS", "ssNewAmmoFont5", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleTextOutlined(MySelf:GreenCoins(), "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 135, 49, 170))
+	draw.SimpleTextOutlined(PlrData.GreenCoins, "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 135, 49, 170))
 
 	--Handle level key switching for current level and level completion percentage
 	if nextLevelKeySwitch <= CurTime() then
@@ -626,15 +655,13 @@ function hud.DrawStats()
 		--Draw current level
 		local startX = ScaleW(900)
 		draw.SimpleText("LEVEL", "ssNewAmmoFont5", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		draw.SimpleTextOutlined(MySelf:GetRank(), "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 135, 49, 170))
+		draw.SimpleTextOutlined(PlrData.Rank, "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 135, 49, 170))
 	else
 		--Draw level completion percentage
 		local startX = ScaleW(900)
 		draw.SimpleText("NEXT LEVEL", "ssNewAmmoFont5", startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
-		local RequiredXP = MySelf:NextRankXP() - MySelf:CurRankXP()
-		local CurrentXP = MySelf:GetXP() - MySelf:CurRankXP()
-		draw.SimpleTextOutlined(math.Round((CurrentXP / RequiredXP) * 100) .."%", "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 135, 49, 170))
+		draw.SimpleTextOutlined(PlrData.NextRankPerc .."%", "ssNewAmmoFont13", startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(29, 135, 49, 170))
 	end
 
 	DrawRoundTime()

@@ -57,39 +57,28 @@ function DrawTargetIDTurret ( MySelf, team )
 		col2 = Color(0,0,0,125)
 
 		for k=1, 4 do
-				rand = math.Rand(-2, 2)
-				rand2 = math.Rand(-2,2)
-				col = Color(220,10,10,125)
-				if k == 4 then 
-					col = Color(255,255,255,255)
-					col2 = Color(0,0,0,255)
-					rand = 0 
-					rand2 = 0 
-				end
+			rand = math.Rand(-2, 2)
+			rand2 = math.Rand(-2,2)
+			col = Color(220,10,10,125)
+			if k == 4 then 
+				col = Color(255,255,255,255)
+				col2 = Color(0,0,0,255)
+				rand = 0 
+				rand2 = 0 
+			end
 				
-				draw.SimpleTextOutlined(nick, "ArialBoldSeven", cenp.x + rand, cemp.y - 90 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
-				
-				draw.SimpleTextOutlined(name, "ArialBoldFive", cenp.x + rand, cemp.y - 62 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
-				
-				draw.SimpleTextOutlined(ammo, "ArialBoldFive", cenp.x + rand, cemp.y - 35 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)	
-				
+			draw.SimpleTextOutlined(nick, "ArialBoldSeven", cenp.x + rand, cemp.y - 90 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
+			draw.SimpleTextOutlined(name, "ArialBoldFive", cenp.x + rand, cemp.y - 62 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
+			draw.SimpleTextOutlined(ammo, "ArialBoldFive", cenp.x + rand, cemp.y - 35 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)	
 		end
 	end
-
 end
 
-
-
-
-
-
-
-
-
-function GM:_HUDDrawTargetID(MySelf, team)
+function GM:HUDDrawTargetID(MySelf, team)
 	if not IsValid(MySelf) then
 		return
 	end
+	
 	-- Draw target id for turrets
 	DrawTargetIDTurret (MySelf, team)
 	--DrawTargetIDMine (MySelf, team)

@@ -1141,28 +1141,28 @@ local matPullBeam = Material("cable/rope")
 local colPullBeam = Color(255, 255, 255, 255)
 hook.Add("PostDrawOpaqueRenderables","DrawCarryRope",function()
 	local holding = MySelf.status_human_holding
-	if holding and holding:IsValid() and holding:GetIsHeavy() then
-		local object = holding:GetObject()
-		if object:IsValid() then
-			local pullpos = holding:GetPullPos()
-			local hingepos = holding:GetHingePos()
-			local r, g, b = render.GetLightRGB(hingepos)
-			colPullBeam.r = r * 255
-			colPullBeam.g = g * 255
-			colPullBeam.b = b * 255
-			render.SetMaterial(matPullBeam)
-			render.DrawBeam(hingepos, pullpos, 0.5, 0, pullpos:Distance(hingepos) / 128, colPullBeam)
-		end
+	if not holding or not IsValid(holding) or not holding:GetIsHeavy() then
+		return
+	end
+	
+	local object = holding:GetObject()
+	if IsValid(object) then
+		local pullpos = holding:GetPullPos()
+		local hingepos = holding:GetHingePos()
+		local r, g, b = render.GetLightRGB(hingepos)
+		colPullBeam.r = r * 255
+		colPullBeam.g = g * 255
+		colPullBeam.b = b * 255
+		render.SetMaterial(matPullBeam)
+		render.DrawBeam(hingepos, pullpos, 0.5, 0, pullpos:Distance(hingepos) / 128, colPullBeam)
 	end
 end)
 
 local vecfake = Vector(0, 0, 32000)
-local nodraw = false
 hook.Add("Think", "DrawZombieFlashLight", function()
 	local light = Entity(0):GetDTEntity(0)
 	
 	if light and IsValid(light) then
-		
 		local todraw = MySelf and IsValid(MySelf) and MySelf.IsZombie and MySelf:IsZombie() and MySelf:OldAlive() and GAMEMODE.m_ZombieVision
 		
 		if todraw then
@@ -1179,57 +1179,24 @@ hook.Add("Think", "DrawZombieFlashLight", function()
 			light:SetPos(vecfake)
 		end
 	end
-
 end)
 
-local light = DynamicLight
-local traceline = util.TraceLine
-
-function GM:ToggleZombieVision(onoff)
-	if onoff == nil then
-		onoff = not self.m_ZombieVision
+function GM:ToggleZombieVision(toggle)
+	if toggle == nil then
+		toggle = not self.m_ZombieVision
 	end
 
-	if onoff then
+	if toggle then
 		if not self.m_ZombieVision then
 			self.m_ZombieVision = true
-			MySelf:EmitSound("npc/stalker/breathing3.wav", 0, 230)
+			MySelf:EmitSound(Sound("npc/stalker/breathing3.wav"), 0, 230)
 			-- MySelf:SetDSP(5)
 		end
 	elseif self.m_ZombieVision then
 		self.m_ZombieVision = nil
-		MySelf:EmitSound("npc/zombie/zombie_pain6.wav", 0, 110)
+		MySelf:EmitSound(Sound("npc/zombie/zombie_pain6.wav"), 0, 110)
 		-- MySelf:SetDSP(0)
 	end
-end
-
-function GM:ShutDown()
-	--self:RestoreMaterials()
-end
-
-local last_mat = TEAM_UNASSIGNED
-local orig_mat = TEAM_UNASSIGNED --  key of the original texture in the mat_replace table
-local tex_to_check = { "$basetexture", "$bumpmap", "$phongexponenttexture", "$normalmap", "$no_draw"}
-local mat_replace = { 
-	{ [TEAM_UNASSIGNED] = { mat = Material("models/weapons/v_models/hands/v_hands") }, [TEAM_HUMAN] = { mat = Material("models/weapons/v_hand/v_hands_invisible") } },
-	{ [TEAM_UNASSIGNED] = { mat = Material("models/weapons/v_hand/armtexture") }, [TEAM_HUMAN] = { mat = Material("models/weapons/v_hand/armtexture_cturban") } },
-	{ [TEAM_UNASSIGNED] = { mat = Material("models/weapons/v_hand/v_hand_sheet") }, [TEAM_HUMAN] = { mat = Material("models/weapons/v_hand/v_hand_sheet_cturban") } }
-}
-local Replace = Material("models/weapons/v_models/hands/v_hands")
-local This = Material("models/weapons/v_models/hands/Invisible")
-function GM:SwitchMaterials( team_index )
-end
-
-function GM:RestoreMaterials()
-
-	for k, texture in pairs( mat_replace ) do
-		for i, tex_type in pairs( tex_to_check ) do
-			if (texture[orig_mat].mat:GetMaterialString( tex_type ) and texture[orig_mat][tex_type]) then
-				texture[orig_mat].mat:SetMaterialTexture( tex_type, texture[orig_mat][tex_type] )
-			end
-		end
-	end
-	
 end
 
 function GM:GetTeamColor(ent)
@@ -1244,7 +1211,7 @@ function GM:GetTeamNumColor(num)
 	return team.GetColor(num) or color_white
 end
 
-function GM:OnChatTab(str)
+local function PredictChatNickName(str)
 	local LastWord
 	for word in string.gmatch(str, "%a+") do
 	     LastWord = word
@@ -1261,6 +1228,7 @@ function GM:OnChatTab(str)
 	end
 	return str
 end
+hook.Add("OnChatTab", "PredictChatNickName", PredictChatNickName)
 
 function GM:GetSWEPMenu()
 	return {}
@@ -1270,9 +1238,10 @@ function GM:GetSENTMenu()
 	return {}
 end
 
-function GM:PostProcessPermitted(str)
+local function BlockPP(ppeffect)
 	return false
 end
+hook.Add("PostProcessPermitted", "BlockPP", BlockPP)
 
 function GM:PostRenderVGUI()
 end
@@ -1283,24 +1252,20 @@ end
 -- 2 second tick
 local tbWarnings = { Sound ( "npc/zombie_poison/pz_alert1.wav" ), Sound ( "npc/zombie_poison/pz_call1.wav" ), Sound ( "npc/fast_zombie/fz_alert_far1.wav" ), Sound ( "ambient/creatures/town_zombie_call1.wav" ) }
 
-local function SetDrop(um)
-	local DropCount = um:ReadLong()
-end
-usermessage.Hook("SetDrop", SetDrop)
-
 function GM:Rewarded(wep)
 	local MySelf = LocalPlayer()
-	if not MySelf:IsValid() then return end
+	if not MySelf:IsValid() then
+		return
+	end
 	
-	surface.PlaySound("mrgreen/new/weppickup"..math.random(1,3)..".wav")
+	surface.PlaySound(Sound("mrgreen/new/weppickup"..math.random(1,3)..".wav"))
 
 	if wep and wep.PrintName then
-		MySelf:Message( "Picked up a ".. wep.PrintName, nil, 1, 2.5 )
+		MySelf:Message("Picked up a ".. wep.PrintName, nil, 1, 2.5)
 	else
-		MySelf:Message( "Arsenal upgraded", 2.5 )
+		MySelf:Message("Arsenal upgraded", 2.5)
 	end
 end
-rW = Rewarded
 
 -- Receive spray locations
 Sprays = {}
@@ -1316,15 +1281,15 @@ function ReceiveSprays(um)
 end
 usermessage.Hook("SendSprays",ReceiveSprays)
 
-function PlaySoundClient(sound)
-	local sound = sound:ReadString()
+local function PlaySoundClient(um)
+	local sound = um:ReadString()
 	if LocalPlayer() and LocalPlayer():IsValid() then
 		LocalPlayer():EmitSound(sound,130,100)
 	end
 end
 usermessage.Hook("PlaySoundClient", PlaySoundClient) 
 
-function PlayClientsideSound(um)
+local function PlayClientsideSound(um)
 	local sound = um:ReadString()
 	surface.PlaySound(sound)
 end
@@ -1457,10 +1422,7 @@ function GM:HookGetLocal()
 	--TODO: Check if this empty function is required
 	self.HUDPaintBackground = function()
 	end
-	
-	self.CreateMove = self._CreateMove
-	self.PrePlayerDraw = self._PrePlayerDraw
-	self.PostPlayerDraw = self._PostPlayerDraw
+
+	--Small function. No hook needed
 	self.HUDWeaponPickedUp = self._HUDWeaponPickedUp
-	self.HUDDrawTargetID = self._HUDDrawTargetID
 end
