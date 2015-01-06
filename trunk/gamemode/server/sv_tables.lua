@@ -314,8 +314,8 @@ table.insert(ResourceFiles, "materials/killicon/laser.vtf")
 table.insert(ResourceFiles, "materials/killicon/laser.vmt")
 table.insert(ResourceFiles, "materials/killicon/turret.vtf")
 table.insert(ResourceFiles, "materials/killicon/turret.vmt")
-table.insert(ResourceFiles, "materials/killicon/zs_shovel.vtf")
-table.insert(ResourceFiles, "materials/killicon/zs_shovel.vmt")
+--table.insert(ResourceFiles, "materials/killicon/zs_shovel.vtf")
+--table.insert(ResourceFiles, "materials/killicon/zs_shovel.vmt")
 
 --More materials
 table.insert(ResourceFiles, "materials/hud3/hud_warning1.vtf")
