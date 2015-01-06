@@ -578,8 +578,11 @@ function GM:PlayerShouldTakeDamage(pl, attacker)
 	return true
 end
 
-function GM:_HUDShouldDraw( name )
-	return name ~= "CHudHealth" and name ~= "CHudBattery" and name ~= "CHudSecondaryAmmo" and name ~= "CHudAmmo" and name ~= "CHudDamageIndicator" and name ~= "CHudWeapon" and name ~= "CHudHintDisplay"
+local function HUDShouldDraw( name )
+	local result = name ~= "CHudHealth" and name ~= "CHudBattery" and name ~= "CHudSecondaryAmmo" and name ~= "CHudAmmo" and name ~= "CHudDamageIndicator" and name ~= "CHudWeapon" and name ~= "CHudHintDisplay"
+	if not result then
+		return result
+	end
 end
 
 local function ReceiveHeadcrabScale(um)
@@ -829,28 +832,24 @@ function draw.SimpleTextShadow( text, font, x, y, color, shadowcolor, xalign, ya
 	return tw, th
 end
 
-function GM:_HUDPaintBackground()
-end
-
-
 local WATER_DROWNTIME_CONST = 20
 local WATER_DROWNTIME = 20
 -- Draw HUD
-function GM:_HUDPaint()
+local function HUDPaint()
 	local MySelf = LocalPlayer()
-	if not MySelf:IsValid() then return end
-	local myteam = MySelf:Team()
+	if not MySelf:IsValid() or not MySelf.ReadySQL then
+		return
+	end
+	local MyTeam = MySelf:Team()
 	
 	h = ScrH()
 	w = ScrW()
+
 	
-	-- Not ready
-	if not MySelf.ReadySQL then return end
-	
-	if myteam ~= TEAM_SPECTATOR then
+	if MyTeam ~= TEAM_SPECTATOR then
 		if MySelf:Alive() and not IsClassesMenuOpen() then
-			self:DrawDeathNotice( 0.83, 0.07 )
-			self:HUDDrawTargetID( MySelf, myteam )
+			GAMEMODE:DrawDeathNotice(0.83, 0.07)
+			GAMEMODE:HUDDrawTargetID(MySelf, MyTeam)
 		end
 	end
 	
@@ -1063,12 +1062,12 @@ local maxfov = fovlerp
 local minfov = fovlerp * 0.6
 local staggerdir = VectorRand():GetNormal()
 
-function GM:_ShouldDrawLocalPlayer(pl)
+local function ShouldDrawLocalPlayer(pl)
 	local weapon = pl:GetActiveWeapon()
-	return pl.Team and pl:Team() == TEAM_UNDEAD and ((self.ZombieThirdPerson or (IsValid(weapon) and weapon.GetClimbing and weapon:GetClimbing())) or (pl.Revive and pl.Revive:IsValid()))--  and pl.Revive:IsRising()
+	return pl.Team and pl:Team() == TEAM_UNDEAD and ((GAMEMODE.ZombieThirdPerson or (IsValid(weapon) and weapon.GetClimbing and weapon:GetClimbing())) or (pl.Revive and pl.Revive:IsValid()))--  and pl.Revive:IsRising()
 end
 
-function GM:_CalcView ( pl, vPos, aAng, fFov )
+local function CalculateView(pl, vPos, aAng, fFov)
 	if not IsValid(MySelf) then
 		return
 	end
@@ -1086,7 +1085,7 @@ function GM:_CalcView ( pl, vPos, aAng, fFov )
 	
 	--Skull camera for dead humans
 	if MySelf:GetRagdollEntity() and not (MySelf:GetObserverMode() == OBS_MODE_ROAMING or MySelf:GetObserverMode() == OBS_MODE_FREEZECAM or MySelf:GetObserverMode() == OBS_MODE_CHASE ) then
-		local rpos, rang = self:GetRagdollEyes(MySelf)
+		local rpos, rang = GAMEMODE:GetRagdollEyes(MySelf)
 		if rpos then
 			return { origin = rpos, angles = rang }
 		end
@@ -1095,7 +1094,7 @@ function GM:_CalcView ( pl, vPos, aAng, fFov )
 	--
 	if pl:ShouldDrawLocalPlayer() and pl:OldAlive() then
 		local wep = pl:GetActiveWeapon()
-		if IsValid(wep) and wep.GetClimbing and wep:GetClimbing() and not self.ZombieThirdPerson then
+		if IsValid(wep) and wep.GetClimbing and wep:GetClimbing() and not GAMEMODE.ZombieThirdPerson then
 			local bone = pl:LookupBone("ValveBiped.HC_BodyCube")
 			if bone then
 				local pos,ang = pl:GetBonePosition(bone)
@@ -1439,16 +1438,26 @@ usermessage.Hook("OnWeaponDropped", OnWeaponDropped)
 function GM:HookGetLocal()
 	MYSELFVALID = true
 
-	--self.Think = self._Think
-	self.HUDShouldDraw = self._HUDShouldDraw
-	self.RenderScreenspaceEffects = self._RenderScreenspaceEffects -- Deluvas; WTF?
-	self.CalcView = self._CalcView
-	self.ShouldDrawLocalPlayer = self._ShouldDrawLocalPlayer
+	--[[self.Think = function()
+	end]]
 
+	hook.Add("HUDShouldDraw", "DrawHUD", HUDShouldDraw)
+	hook.Add("RenderScreenspaceEffects", "PostProcess", self._RenderScreenspaceEffects)
+	hook.Add("CalcView", "CalculateView", CalculateView)
+	hook.Add("ShouldDrawLocalPlayer", "ShouldDrawLocalPlayer", ShouldDrawLocalPlayer)
 	hook.Add("PostDrawOpaqueRenderables", "HeartbeatGlow", HeartbeatGlow)
-	--self.PostDrawOpaqueRenderables = self._PostDrawOpaqueRenderables
-	self.HUDPaint = self._HUDPaint
-	self.HUDPaintBackground = self._HUDPaintBackground
+
+	--This empty function is required to prevent double killmessages being printed
+	--TODO: Proper fix by checking HUDPaint for killmessages
+	self.HUDPaint = function()
+	end
+
+	hook.Add("HUDPaint", "HUDPaint", HUDPaint)
+
+	--TODO: Check if this empty function is required
+	self.HUDPaintBackground = function()
+	end
+	
 	self.CreateMove = self._CreateMove
 	self.PrePlayerDraw = self._PrePlayerDraw
 	self.PostPlayerDraw = self._PostPlayerDraw

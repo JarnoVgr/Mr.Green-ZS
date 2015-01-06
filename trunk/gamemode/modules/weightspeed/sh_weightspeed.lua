@@ -182,15 +182,16 @@ end
 local cMove = {}
 cMove.ZomboMove = {}
 
-cMove.ZomboMove[8] = function ( pl, CMove )
+cMove.ZomboMove[8] = function(pl, CMove)
 	local iForward = CMove:GetForwardSpeed()
 	local iSide = CMove:GetSideSpeed()
 	
 	-- Sprinting
-	if pl.bCanSprint == true then
-	
+	if pl.bCanSprint then
 		-- Slow down side move
-		if CMove:Strafe() then CMove:SetSideSpeed ( iSide * 0.4 ) end
+		if CMove:Strafe() then
+			CMove:SetSideSpeed(iSide * 0.4)
+		end
 		
 		-- Backwards walk is slower
 		if iForward < 0 then

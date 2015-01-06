@@ -113,15 +113,10 @@ include("server/sv_admin.lua") -- Admin commands
 -- include("shared/sh_animations.lua")
 -- include("shared/sh_zombo_anims.lua")
 -- include("shared/sh_human_anims.lua")
-include("server/anti_map_exploit.lua" )
-include("server/sv_poisongasses.lua" )
-include("server/sv_waves.lua" ) 
-include("server/sv_pickups.lua" )
-
-
-
-
-
+include("server/anti_map_exploit.lua")
+include("server/sv_poisongasses.lua")
+include("server/sv_waves.lua") 
+include("server/sv_pickups.lua")
 
 --[=[---------------------------------------------------------
 	        Include stand alone modules
@@ -1514,51 +1509,63 @@ local function PreventDoorSpam ( pl, ent )
 	
 	return false
 end
-hook.Add ( "PlayerUse", "PreventDoorSpam", PreventDoorSpam )
+hook.Add("PlayerUse", "PreventDoorSpam", PreventDoorSpam)
 
 --[=[---------------------------------------------------------
       Called when the Lua System shuts down
 ---------------------------------------------------------]=]
-function OnShutDown ()
-	Debug ( "Lua system is shutting down." )
+function OnShutDown()
+	Debug("Lua system is shutting down")
 end
-hook.Add ( "ShutDown", "OnShutDown", OnShutDown )
-
-Debug("[MODULE] Loaded init.lua")
-
-
+hook.Add("ShutDown", "OnShutDown", OnShutDown)
 
 --[=[----------------------------------------------------------------------
      Dubys amazing method to slowing people down while running backwards!
 ---------------------------------------------------------------------------]=]
- function GM:KeyPress( pl, key )
+--TODO: This should go somewhere else. To optimize it
+function GM:KeyPress(pl, key)
+	if pl:Team() ~= TEAM_HUMAN then
+		return
+	end
 
-if pl:Team() == TEAM_HUMAN then
-if( pl:KeyDown( IN_BACK ) )  then
-pl:SetWalkSpeed( 150 )
- 	
-else pl:SetWalkSpeed(200) 
-
-end
-end
+	if pl:KeyDown(IN_BACK) then
+		if pl:GetWalkSpeed() ~= 150 then
+			pl:SetWalkSpeed(150)
+		end
+	else
+		if pl:GetWalkSpeed() ~= 200 then
+			pl:SetWalkSpeed(200)
+		end
+	end
 end 
 
 --[=[----------------------------------------------------------------------
-     Dubys amazing method to the Grave digger suit!
+     Grave Digger suit health on death
 ---------------------------------------------------------------------------]=]
---Duby: I know this isn't the best method but it works well and its better than putting it in each SWEP. :P 
+--TODO: Move to somewhere else
+local SpecialWeapons = {
+	["weapon_zs_melee_crowbar"] = true,
+	["weapon_zs_melee_shovel"] = true,
+	["weapon_zs_melee_axe"] = true,
+	["weapon_zs_melee_combatknife"] = true,
+	["weapon_zs_melee_fryingpan"] = true,
+	["weapon_zs_melee_keyboard"] = true,
+	["weapon_zs_melee_plank"] = true,
+	["weapon_zs_melee_pot"] = true,
+	["weapon_zs_melee_sledgehammer"] = true,
+	["weapon_zs_fists2"] = true,
+	["weapon_zs_melee_pipe"] = true,
+	["weapon_zs_melee_pipe2"] = true,
+	["weapon_zs_melee_hook"] = true
+}
+hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inf, attack)
+	if not inf or not attack or not SpecialWeapons[inf:GetClass()] then
+		return
+	end
 
-hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 )  end end)
-hook.Add("PlayerDeath", "sexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_katana" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 3 ) end end)
-hook.Add("PlayerDeath", "Ywa'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_shovel" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "Duby'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_axe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "Necro'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_combatknife" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "Clavussexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_fryingpan" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "Devulassexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_keyboard" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "Benssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_plank" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "Robssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pot" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5) end end)
-hook.Add("PlayerDeath", "Pufu'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_sledgehammer" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "boxsexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_fists2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "boxsexy2", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
-hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_hook" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
+	if not attack:IsValid() or not attack:IsPlayer() or attack:Team() ~= TEAM_HUMAN or not attack:GetSuit() == "gravedigger" then
+		return
+	end
+
+	attack:SetHealth(attack:Health() + 5)
+end)

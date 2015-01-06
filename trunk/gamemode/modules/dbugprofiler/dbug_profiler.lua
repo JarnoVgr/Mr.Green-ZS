@@ -275,6 +275,9 @@ end
 function DBug.AttachTimer( func, name, _type )
 	local f = function( ... )
 		local start = SysTime()
+		if not func then
+			print("Function doesn't exist for hook with name ".. name)
+		end
 		local ret = func( ... )
 
 		DBug.logData[ _type ][ name ] = {
