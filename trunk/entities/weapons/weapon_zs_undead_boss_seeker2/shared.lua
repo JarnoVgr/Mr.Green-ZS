@@ -81,19 +81,19 @@ function SWEP:StartPrimaryAttack()
 local pl = self.Owner
 
 if SERVER then--Duby: Lets slow the player down a bit
-		GAMEMODE:SetPlayerSpeed( self.Owner, 50 )
+		--GAMEMODE:SetPlayerSpeed( self.Owner, 50 )
 		self:SetAttacking(true)	
 		self.Owner:EmitSound(Sound("ambient/machines/slicer1.wav"),math.random(100,130),math.random(95,100))--Only play the sound when his speed is reduced.
 	end 
 
-		timer.Simple ( 1.3, function()
+	--[[	timer.Simple ( 1.3, function()
 		if not IsValid ( pl ) then return end
 		
 		-- Conditions
 		if not pl:Alive() then return end
 		GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed )
 		if self and self.Weapon then self:SetAttacking(false) end
-	end)
+	end)]]--
 	
 	if self.SwapAnims then
 		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)

@@ -248,8 +248,8 @@ function GM:PlayerSpawn(pl)
 		pl:ManipulateBoneScale(i, Vector(1,1,1))
 	end
 
-	pl:SetRenderMode(RENDERMODE_GLOW)
-	pl:SetColor(Color(225,225,225,225))
+--	pl:SetRenderMode(RENDERMODE_GLOW)
+--	pl:SetColor(Color(225,225,225,225))
 	-------------------------END DUBY'S FIX
 
 
@@ -282,25 +282,7 @@ function GM:PlayerSpawn(pl)
 			pl.PlayerModel = table.Random(PlayerModels)
 			Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredPlayerModelName ..". Which doesn't exist.")
 		end
-		
-	--[[	
-			
-	if pl:GetPerk("_medic") then	--Medic
-		pl.PlayerModel = "male02"	
-	--end
-	elseif pl:GetPerk("_hammerupgrade") or ("_turretoverdrive") then --Engineer
-		pl.PlayerModel = "kleiner" or "eli"
-	--end	
-	elseif pl:GetPerk("_adrenaline") or ("_imortalpro") then --Commando
-		pl.PlayerModel = "combie_soldier_prisonguard" or "combie_soldier"
-	--end	
-	elseif pl:GetPerk("_freeman") or ("_kevlar2") or ("_sboost") then --Berserker
-		pl.PlayerModel = "combine" or "alyx"	
-	end
-	]]--
-		
-		
-		
+
 		--Check if we can be THE Gordon Freeman
 		if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
 			--Only display message when being human
@@ -406,8 +388,7 @@ function GM:OnHumanSpawn(pl)
 	if not pl:IsHuman() then
 		return
 	end
-				pl:SetRenderMode(RENDERMODE_GLOW)
-				pl:SetColor(Color(225,225,225,225))
+			pl:SetColor(Color(225,225,225,400))
 	if GasDump then --Duby: Gas Dump Obj Map special notices.
 			timer.Simple(10,function() 
 			pl:Message("The horde nest is bellow the building.", 1)	
@@ -544,8 +525,8 @@ function GM:OnZombieSpawn(pl)
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-				pl:SetRenderMode(RENDERMODE_GLOW)
-				pl:SetColor(Color(225,225,225,225))
+			--	pl:SetRenderMode(RENDERMODE_GLOW)
+				pl:SetColor(Color(225,225,225,400))
 	--Duby: Spawn protection :P
 	pl:GodEnable()
 	timer.Simple(2, function()
@@ -644,9 +625,9 @@ function GM:OnZombieSpawn(pl)
 	self:SetPlayerSpeed(pl, Tab.Speed)
 	pl:SetCrouchedWalkSpeed(Tab.CrouchWalkSpeed or 0.80)
 
-	if GasDump then
-	self:SetPlayerSpeed(pl, Tab.Speed*1.4)
-	end
+	--if GasDump then--Something is wrong with this
+	--self:SetPlayerSpeed(pl, Tab.Speed*1.4)
+	--end
 	
 		
 	pl:UnSpectate()		

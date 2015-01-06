@@ -1280,7 +1280,7 @@ ZombieClasses[17] = --Smoke shit up :P
 				Sound("npc/zombine/striderx_alert6.wav"),
 				},
 				
-	ModelScale = 1.40,-- Vector(1.15,1.15,1.15),
+	ModelScale = 1.10,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
 	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
@@ -1343,6 +1343,12 @@ ZombieClasses[18] = --Creep and Play!
 				Sound("ambient/creatures/town_child_scream1.wav"),
 				Sound("npc/zombie_poison/pz_call1.wav"),
 				},
+	ModelScale = 1.10,-- Vector(1.15,1.15,1.15),
+	ViewOffset = Vector(0, 0, 73),
+	ViewOffsetDucked = Vector(0,0,32.2),
+	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
+	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 
