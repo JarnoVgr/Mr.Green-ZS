@@ -137,19 +137,11 @@ function hud.ZombieHUD()
 		RecachePlayerData()
 	end
 
-	local time, dec = SysTime(), 7
 	hud.DrawBossHealth()
 	hud.DrawZombieHUDImages()
-
-	time = SysTime()
 	hud.DrawNewZombieHUD() --Heavy
-	print("DrawNewZombieHUD: ".. math.Round(SysTime() - time, dec))
-
 	hud.DrawBrains()
-
-	time = SysTime()
 	hud.DrawZombieHUDTop() --Heavy
-	print("DrawZombieHUDTop: ".. math.Round(SysTime() - time, dec))
 end
 hook.Add("HUDPaint", "hud.ZombieHUD", hud.ZombieHUD)
 
