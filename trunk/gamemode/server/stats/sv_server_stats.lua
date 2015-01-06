@@ -52,7 +52,7 @@ function stats.GetUpdateTableQuery( Table, Content, Condition )
 	for k,v in pairs ( Content ) do
 		if ( v ) then
 			iIndex = iIndex + 1
-			sQuery = sQuery..( k )..[[ = ]]..( ( type( v ) == "string" and [["]]..( v )..[["]] ) or ( tostring( v ) ) )..( ( iIndex == table.Count( Content ) and " " ) or " , " )
+			sQuery = sQuery..( k )..[[ = ]]..( ( type( v ) == "string" and [[']].. mysql.escape(v)..[[']] ) or ( tostring( v ) ) )..( ( iIndex == table.Count( Content ) and " " ) or " , " )
 		end
 	end
 	
@@ -84,7 +84,7 @@ function stats.GetInsertTableQuery( Table, Content )
 			iIndex = iIndex + 1
 			
 			sQuery = sQuery..( k )..( ( iIndex == table.Count( Content ) and " ) " ) or " , " )
-			sValues = sValues..( ( type( v ) == "string" and [["]]..( v )..[["]] ) or ( tostring( v ) ) )..( ( iIndex == table.Count( Content ) and " ) " ) or " , " )
+			sValues = sValues..( ( type( v ) == "string" and [[']].. mysql.escape(v)..[[']] ) or ( tostring( v ) ) )..( ( iIndex == table.Count( Content ) and " ) " ) or " , " )
 		end
 	end
 	
@@ -116,7 +116,7 @@ local function InsertTextDataToSQL()
 							for sItem, bBought in pairs( Table.shopitems ) do
 								if util.GetItemTableByKey( sItem ) then
 									if tobool( bBought ) then
-										mysql.Query( [[INSERT INTO zs_player_shop_items ( steamid, itembought ) VALUES ( ']]..tostring( steamID )..[[' , ]]..tostring( util.GetItemTableByKey( sItem ).ID )..[[ )]] )
+										mysql.Query( [[INSERT INTO zs_player_shop_items ( steamid, itembought ) VALUES ( ']].. mysql.escape(tostring( steamID ))..[[' , ]]..tostring( util.GetItemTableByKey( sItem ).ID )..[[ )]] )
 									end
 								end
 							end
@@ -126,7 +126,7 @@ local function InsertTextDataToSQL()
 						if Table.achievements then
 							for sName, bUnlocked in pairs ( Table.achievements ) do
 								if tobool( bUnlocked ) then
-									mysql.Query( [[INSERT INTO zs_player_achievements ( steamid, achievements ) VALUES ( ']]..tostring( steamID )..[[' , ]]..tostring( util.GetAchievementTableByKey( sName ).ID )..[[ )]] )
+									mysql.Query( [[INSERT INTO zs_player_achievements ( steamid, achievements ) VALUES ( ']]..mysql.escape(tostring( steamID ))..[[' , ]]..tostring( util.GetAchievementTableByKey( sName ).ID )..[[ )]] )
 								end
 							end
 						end
@@ -225,7 +225,6 @@ end
 function stats.QueryFreeStatsSQL( SteamID, fCallback )
 	if stats.IsSteamID( SteamID ) then
 		mysql.Query( "SELECT * FROM zs_player_stats WHERE steamid = '"..tostring( SteamID ).."' LIMIT 1", fCallback )
-		--mysql.Query( [[SELECT * FROM zs_player_stats WHERE steamid = STEAM_0:0:13286202]], fCallback )
 	end
 end
 

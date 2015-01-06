@@ -47,6 +47,10 @@ end
 mysql.safeGame = true
 
 mysql.escape = function(Str)
+	if not mysql.Database then
+		return
+	end
+	
 	return mysql.Database:Escape(Str)
 end
 
