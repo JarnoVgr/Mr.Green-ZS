@@ -1062,9 +1062,9 @@ local maxfov = fovlerp
 local minfov = fovlerp * 0.6
 local staggerdir = VectorRand():GetNormal()
 
-local function ShouldDrawLocalPlayer(pl)
+function GM:_ShouldDrawLocalPlayer(pl)
 	local weapon = pl:GetActiveWeapon()
-	return pl.Team and pl:Team() == TEAM_UNDEAD and ((GAMEMODE.ZombieThirdPerson or (IsValid(weapon) and weapon.GetClimbing and weapon:GetClimbing())) or (pl.Revive and pl.Revive:IsValid()))--  and pl.Revive:IsRising()
+	return pl.Team and pl:Team() == TEAM_UNDEAD and ((self.ZombieThirdPerson or (IsValid(weapon) and weapon.GetClimbing and weapon:GetClimbing())) or (pl.Revive and pl.Revive:IsValid()))--  and pl.Revive:IsRising()
 end
 
 local function CalculateView(pl, vPos, aAng, fFov)
@@ -1409,14 +1409,17 @@ function GM:HookGetLocal()
 	hook.Add("HUDShouldDraw", "DrawHUD", HUDShouldDraw)
 	hook.Add("RenderScreenspaceEffects", "PostProcess", self._RenderScreenspaceEffects)
 	hook.Add("CalcView", "CalculateView", CalculateView)
-	hook.Add("ShouldDrawLocalPlayer", "ShouldDrawLocalPlayer", ShouldDrawLocalPlayer)
+
+	--Required empty function
+	self.ShouldDrawLocalPlayer = function()
+	end
+	hook.Add("ShouldDrawLocalPlayer", "ShouldDrawLocalPlayer", self._ShouldDrawLocalPlayer)
+
 	hook.Add("PostDrawOpaqueRenderables", "HeartbeatGlow", HeartbeatGlow)
 
-	--This empty function is required to prevent double killmessages being printed
-	--TODO: Proper fix by checking HUDPaint for killmessages
+	--Required empty function
 	self.HUDPaint = function()
 	end
-
 	hook.Add("HUDPaint", "HUDPaint", HUDPaint)
 
 	--TODO: Check if this empty function is required

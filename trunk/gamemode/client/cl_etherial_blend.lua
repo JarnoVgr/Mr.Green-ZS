@@ -18,7 +18,7 @@ local function PrePlayerDraw(pl)
 		undowraithblend = true
 	end
 
-	if pl.status_overridemodel and pl.status_overridemodel:IsValid() and GAMEMODE:ShouldDrawLocalPlayer(MySelf) then
+	if pl.status_overridemodel and pl.status_overridemodel:IsValid() and GAMEMODE:_ShouldDrawLocalPlayer(MySelf) then
 		undomodelblend = true
 		render.SetBlend(0)
 	end	

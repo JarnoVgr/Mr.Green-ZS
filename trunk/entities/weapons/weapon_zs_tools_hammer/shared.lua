@@ -443,6 +443,10 @@ function SWEP:SecondaryAttack()
 			--[[if self.Owner and self.Owner:GetSuit() == "supportsuit" then
 				maxclip = 4
 			end]]
+			if not IsValid(this) then
+				return
+			end
+
 			this:SetClip2(this:Clip2() + 1)
 
 			--Alert player
