@@ -788,8 +788,6 @@ ZombieClasses[10] =
 	Unlocked = false,
 	-- ViewOffset = Vector( 0, 0, 0 ),
 	OnSpawn = function(pl)
-				pl:SetRenderMode(RENDERMODE_GLOW)
-				pl:SetColor(Color(225,225,225,225))
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
@@ -847,8 +845,6 @@ ZombieClasses[20] =
 	-- ViewOffset = Vector( 0, 0, 0 ),
 	OnSpawn = function(pl)	
 		local status = pl:GiveStatus("overridemodel")
-				pl:SetRenderMode(RENDERMODE_GLOW)
-				pl:SetColor(Color(225,225,225,225))
 		if status and status:IsValid() then
 			status:SetModel("models/Zombie/Poison.mdl")
 		end
@@ -913,8 +909,6 @@ ZombieClasses[11] =
 				},
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
-				pl:SetRenderMode(RENDERMODE_GLOW)
-				pl:SetColor(Color(225,225,225,225))
 		if status and status:IsValid() then
 			status:SetModel("models/zombie/zombie_soldier.mdl")
 		end
@@ -1031,8 +1025,6 @@ ZombieClasses[13] =
 				},
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
-				pl:SetRenderMode(RENDERMODE_GLOW)
-				pl:SetColor(Color(225,225,225,225))
 		if status and status:IsValid() then
 			status:SetModel(Model("models/Zombie/Fast.mdl"))
 		end		

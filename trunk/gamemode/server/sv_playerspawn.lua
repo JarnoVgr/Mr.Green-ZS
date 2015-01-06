@@ -209,7 +209,7 @@ function GM:PlayerSpawn(pl)
 	--Predicting spawn, don't erase
 	pl:SetDeaths(PREDICT_SPAWN)
 	
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	-------------------------BEGIN DUBY'S FIX
 	pl:ManipulateBonePosition(math.Rand(1, 1) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
 	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
 	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
@@ -221,8 +221,38 @@ function GM:PlayerSpawn(pl)
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-				pl:SetRenderMode(RENDERMODE_GLOW)
-				pl:SetColor(Color(225,225,225,225))
+
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	
+	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end]]
+	
+	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
+	end]]
+	
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale(i, Vector(1,1,1))
+	end
+
+	pl:SetRenderMode(RENDERMODE_GLOW)
+	pl:SetColor(Color(225,225,225,225))
+	-------------------------END DUBY'S FIX
+
+
 	
 	--Set model based on preferences
 	if pl:IsBot() then
@@ -605,44 +635,6 @@ function GM:OnZombieSpawn(pl)
 	pl:SetPlayerColor(Vector(col))
 
 	pl:SetWeaponColor(Vector(col))
-	
-	
-	------------------------- BEGIN DUBY'S FIX
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-		
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
-	
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
-	
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale(i, Vector(1,1,1))
-	end
-	------------------------- END DUBY'S FIX
 
 	if Tab.OnSpawn then
 		Tab.OnSpawn(pl)

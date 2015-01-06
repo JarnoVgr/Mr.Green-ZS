@@ -92,7 +92,7 @@ mysql.Connect = function()
 	Debug("[SQL] Connecting to ".. Login.Host ..":".. Login.Port .."...")
 	
 	local ErrorStr
-	mysql.Database, ErrorStr = tmysql.initialize( Login.Host, Login.User, Login.Pass, Login.Database, Login.Port)
+	mysql.Database, ErrorStr = tmysql.initialize(Login.Host, Login.User, Login.Pass, Login.Database, Login.Port, nil, CLIENT_INTERACTIVE)
 	if ErrorStr then
 		Debug( "[SQL] TMySQL returned error: ".. errorStr )
 		return
