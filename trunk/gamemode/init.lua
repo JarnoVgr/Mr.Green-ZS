@@ -4,9 +4,6 @@
 --Third Party timer and hook profiler
 --include("modules/dbugprofiler/dbug_profiler.lua")
 
---Very important script
-include("modules/debug/sh_debug.lua")
-
 --[=[---------------------------------------------------------
           Add them to download list (Client)
 ---------------------------------------------------------]=]
@@ -83,11 +80,11 @@ AddCSLuaFile("shared/sh_maps.lua")
 --JSON support
 AddCSLuaFile("modules/json/json.lua")
 
---SQL 
-include("modules/sql/sv_sql.lua")
-
 --Debug
 include("modules/debug/sv_debug.lua")
+
+--SQL 
+include("modules/sql/sv_sql.lua")
 
 --[=[---------------------------------------------------------
 	Include the server and shared files
@@ -303,10 +300,12 @@ end
 
 -- Player presses F1
 function OnPressF1(pl)
-	-- Display help menu
-	if not ENDROUND then
-		pl:SendLua("MakepHelp()")
+	if ENDROUND then
+		return
 	end
+
+	-- Display help menu	
+	pl:SendLua("MakepHelp()")
 end
 
 -- Player presses F2
@@ -333,7 +332,7 @@ function OnPressF2(pl)
 end
 
 -- Player presses F3
-local function OnPressedF3( pl )
+local function OnPressedF3(pl)
 	if ENDROUND then
 		return
 	end
@@ -351,7 +350,7 @@ end
 hook.Add("ShowSpare1", "PressedF3", OnPressedF3)
 
 -- Player presses F4
-function GM:ShowSpare2( pl )
+function GM:ShowSpare2(pl)
 	-- Options menu
 	pl:SendLua("MakepOptions()")
 end

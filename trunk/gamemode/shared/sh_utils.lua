@@ -1,7 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then
+--[[if SERVER then
     util.AddNetworkString( "ServerTime" )
     hook.Add("PlayerInitialSpawn", "loldeluvasawesomefix", function( pl )
         net.Start("ServerTime")
@@ -21,7 +21,8 @@ if CLIENT then
     end
 else
     ServerTime = CurTime
-end
+end]]
+ServerTime = CurTime
 
 --Case Insensitive HasValue variant
 function table.HasValueCI( t, val )

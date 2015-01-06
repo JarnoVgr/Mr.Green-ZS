@@ -1,10 +1,16 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
+AddCSLuaFile()
+
 if CLIENT then
 	--Initialize debug convars 
 	DEBUG_VARS = { "zs_debug" }
 	for k,v in pairs ( DEBUG_VARS ) do
+		if ConVarExists(v) then 
+			continue
+		end
+
 		local bValue = 1
 
 		if v == "zs_debug" then
@@ -24,7 +30,7 @@ local function WriteDebugToFile ()
 	if LogTable == "" then return end
 	
 	-- Debug is off
-	if GetConVarNumber ( "zs_debug" ) == 0 then return end
+	if GetConVarNumber( "zs_debug" ) == 0 then return end
 	
 	-- Get the current time and date
 	if Time == nil or Date == nil then Time, Date = os.date("%X"), os.date("%x") end
@@ -54,7 +60,7 @@ function Debug(Text)
 	local Time, Date = os.date("%X"), os.date("%x")
 	local NewMessage = Text
 
-	local bLogSave = 0
+	local bLogSave = false
 	
 	--Check debug convars
 	if SERVER then
@@ -67,7 +73,7 @@ function Debug(Text)
 	end
 	
 	--Print the message to the console
-	if (SERVER and bLogSave == 0) or CLIENT then
+	if (SERVER and not bLogSave) or CLIENT then
 		print("["..Date.."]["..Time.."] "..tostring(NewMessage))
 	else
 		ServerLog(tostring(NewMessage).."\n")
@@ -87,9 +93,9 @@ end
 
 -- Save debug each 3 seconds
 --TODO: Use zs_debug_saveatinterval
---[[if SERVER then
-	timer.Create("DebugToFileTimer", 3, 0, WriteDebugToFile)
-end]]
+if SERVER then
+	timer.Create("DebugToFileTimer", 10, 0, WriteDebugToFile)
+end
 
 -- Write the debug file on lua shutdown
 hook.Add("ShutDown", "WriteDebugToFile", function()

@@ -15,19 +15,26 @@ mysql.Warnings = {
 ["module_no_load_query"] = "[SQL] Couldn't query server because module not loaded.",
 ["no_connection"] = "[SQL] Unable to connect to database host",
 ["module_loaded"] = "[SQL] Successfully loaded SQL module",
-["module_not_loaded"] = "[SQL] Couldn't load SQL module!",
+["module_not_loaded"] = "[SQL] Couldn't load SQL module",
 ["connection_on"] = "[SQL] Successfully connected to the DB",
+["verified"] = "[SQL] Database verified",
 }
 
--- Try to load module
-mysql.bLoaded = require( "tmysql" )
-if mysql.bLoaded then Debug( mysql.Warnings["module_loaded"] ) end
-if not mysql.bLoaded then Debug( mysql.Warnings["module_not_loaded"] ) end
+if file.Exists("bin/gmsv_tmysql4_*.dll", "LUA") then
+	-- Try to load module
+	require( "tmysql4" )
+	mysql.bLoaded = true
+else
+	Debug(mysql.Warnings["module_not_loaded"])
+	mysql.bLoaded = false
+end
+
+
 
 -- Returns if sql module has loaded
 mysql.IsModuleActive = function()
-	--return mysql.bLoaded
-	return true
+	return mysql.bLoaded
+	--return true
 end
 
 -- Returns if its connected
@@ -39,6 +46,10 @@ end
 --Default to true
 mysql.safeGame = true
 
+mysql.escape = function(Str)
+	return mysql.Database:Escape(Str)
+end
+
 -- Replace forbidden chars with *
 mysql.ReplaceEscape = function( sText, Char )
 	if not sText or not Char then return end
@@ -47,7 +58,7 @@ mysql.ReplaceEscape = function( sText, Char )
 	local tbText = string.Explode ( "", sText )
 	
 	-- Replace lua patterns first
-	for k,v in pairs ( tbText ) do
+	for k,v in pairs(tbText) do
 		for i,j in ipairs ( mysql.LuaPatterns ) do
 			if v == j then 
 				sText = string.Replace( sText, v, Char )
@@ -70,11 +81,24 @@ end
 
 -- Connect function
 mysql.Connect = function()
-	local Login = { Host = "ares.limetric.com", User = "mrgreen_gczs", Pass = "WG0gcZSr", Database = "mrgreen_gc", Port = 3306 }
+	local Login = {
+		Host = "ares.limetric.com",
+		User = "mrgreen_gczs",
+		Pass = "WG0gcZSr",
+		Database = "mrgreen_gc",
+		Port = 3306
+	}
+
+	Debug("[SQL] Connecting to ".. Login.Host ..":".. Login.Port .."...")
 	
-	-- Check for module and try to connect
-	if not mysql.IsModuleActive() then Debug( mysql.Warnings["connect_module_not_loaded"] ) return end
-	tmysql.initialize( Login.Host, Login.User, Login.Pass, Login.Database, Login.Port, 2, 2 )
+	local ErrorStr
+	mysql.Database, ErrorStr = tmysql.initialize( Login.Host, Login.User, Login.Pass, Login.Database, Login.Port)
+	if ErrorStr then
+		Debug( "[SQL] TMySQL returned error: ".. errorStr )
+		return
+	end
+
+	Debug( mysql.Warnings["connection_on"] )
 	
 	-- Check connection
 	mysql.CheckConnection()
@@ -86,44 +110,63 @@ mysql.Connect = function()
 			gamemode.Call( "OnConnectSQL" )
 			Debug( mysql.Warnings["connection_on"] )
 		end
-	end )
+	end)
 end
 
 -- Check connection
 mysql.CheckConnection = function()
-	mysql.Query( "SELECT * FROM whitelist WHERE comment LIKE 'Deluvas%' LIMIT 0,1", mysql.CheckCallback )
-	Debug( "[SQL] Checking connection..." )
+	Debug( "[SQL] Verificating database..." )
+	mysql.Query( "SELECT * FROM whitelist WHERE comment LIKE 'Deluvas%' LIMIT 0,1", mysql.CheckCallback)
 end	
 
 -- Connection callback
-mysql.CheckCallback = function( Result, Status, sError )
-	mysql.bConnected = ( type( Result ) == "table" and Result )
-end		
+mysql.CheckCallback = function(Table, Status, sError)
+	if Status then
+		Debug(mysql.Warnings["verified"])
+		mysql.bConnected = true
 
--- Default callback
-mysql.DefaultCallback = function( Result, Status, sError )
-end
+		return
+	end
+
+	Debug(mysql.Warnings["no_connection"])
+	mysql.bConnected = false
+end		
 
 -- Query
 mysql.Query = function( sQuery, fCallback, bDebug )
 	-- Check for module
-	if not mysql.IsModuleActive() then
+	if not mysql.IsModuleActive() or not mysql.Database then
 		Debug( "[SQL] ".. mysql.Warnings["module_no_load_query"] )
 		return
 	end
-	
-	-- No callback
-	if not fCallback then
-		fCallback = mysql.DefaultCallback
-	end
-	
-	-- Query
-	tmysql.query( sQuery, fCallback, 1 )
+
+	--Query
+	mysql.Database:Query(sQuery, function(Results)
+		if type(Results) ~= "table" or not Results[1] or type(Results[1]) ~= "table" then
+			print("[SQL] No result for query: ".. sQuery)
+			WriteSQLLog("No result for query: ".. sQuery)
+			return
+		end
+
+		if Results[1].errorid then
+			WriteSQLLog("Query error #".. Results.errorid ..": ".. sQuery)
+			print("[SQL] Query error (#".. Results.errorid .."):".. sQuery)
+			PrintTable(Results)
+		end
+
+		if not fCallback then
+			return
+		end
+
+		fCallback(Results[1].data or {}, Results[1].status or false, Results.errorid or 0, Results[1].affected or 0)
+	end)
 end
 
 -- Implementation
 hook.Add("Initialize", "ConnectToDB", function()
-	timer.Simple( 0.8, function()
+	Debug("[SQL] Timer activated")
+	timer.Simple(1, function()
+		Debug("[SQL] Calling mysql.Connect")
 		mysql.Connect()
 	end)
 end)
@@ -135,3 +178,18 @@ timer.Simple(0.1, function()
 		end
 	end
 end)
+
+-- --  Database error log functions -- -- 
+function WriteSQLLog( str )
+	local content = "--- GreenCoins MySQL log ---"
+	if (file.Exists("mysqllog.txt","DATA")) then
+		content = file.Read("mysqllog.txt","DATA")
+	end
+	
+	print("MySQL log message: "..str)
+	
+	local date = os.date()
+	content = content.."\n"..date..": "..str
+	
+	file.Write("mysqllog.txt", content)
+end

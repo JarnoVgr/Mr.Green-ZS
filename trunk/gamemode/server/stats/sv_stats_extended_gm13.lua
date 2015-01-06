@@ -72,28 +72,30 @@ function metaPlayer:ReadDataSQL()
 
 	
 	-- Waiting for reading data...
-	local SteamID = self:SteamID()
-	hook.Add( "Think", "SQLPlayerReadyThink"..SteamID, function()
-		if IsValidSpecial( self ) then
-			if self:GotSQLData() then
-				if ( self.IsClientValid ) then
-					gamemode.Call( "OnPlayerReadySQL", self )
-					Debug( "[SQL] Successfully got SQL player table for "..tostring( self ) )
-					
-					-- Datatable @ join
-					if not self.JoinDataTable then
-						self.JoinDataTable = table.Copy( self.DataTable )
-					end
-					
-					--Remove hook
-					hook.Remove( "Think", "SQLPlayerReadyThink"..SteamID )
-				end
-			end
-		else
+	local UserID = self:UserID()
+	hook.Add( "Think", "SQLPlayerReadyThink".. UserID, function()
+		if not IsValidSpecial(self) then
 			--Remove hook
-			hook.Remove( "Think", "SQLPlayerReadyThink"..SteamID )
+			hook.Remove("Think", "SQLPlayerReadyThink".. UserID)
+			
+			return
 		end
-	end )
+		
+		if not self:GotSQLData() or not self.IsClientValid then
+			return
+		end
+		
+		gamemode.Call("OnPlayerReadySQL", self)
+		Debug("[SQL] Successfully got SQL player table for "..tostring(self))
+					
+		--Datatable @ join
+		if not self.JoinDataTable then
+			self.JoinDataTable = table.Copy(self.DataTable)
+		end
+					
+		--Remove hook
+		hook.Remove("Think", "SQLPlayerReadyThink".. UserID)
+	end)
 	
 end
 
@@ -437,7 +439,7 @@ function metaPlayer:SaveClassDataSQL()
 				local UpdateQ = stats.GetUpdateTableQuery( "zs_player_classes", aTemp, [[ WHERE steamid = ']]..self:SteamID()..[[']] )
 	
 				if ( UpdateQ ) then
-					tmysql.query( UpdateQ, function ( nIndex, Table, Status, sError ) 
+					mysql.Query(UpdateQ, function(Table, Status, sError, nIndex) 
 						if not IsValidSpecial( self ) then
 							return
 						end

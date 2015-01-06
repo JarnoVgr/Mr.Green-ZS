@@ -9,24 +9,21 @@ AddCSLuaFile("cl_greencoins.lua")
 
 include( 'sh_greencoins.lua' )
 
---  Debug setting
+--Debug setting
 local DEBUG = false
-local GC_SUPERSECRET_ZSCODE = "wutL0l44xW"
-
--- Deluvas; lol :V
-function GM:GetFirstKey( iCode )
-	return GC_SUPERSECRET_ZSCODE
-end
 
 -- --  Metatable expanding -- -- 
 local meta = FindMetaTable("Player")
 if meta then
-
 	function meta:GiveGreenCoins( amount, hash )
-		if self:IsBot() then return end
+		if self:IsBot() then
+			return
+		end
 		
 		-- Loaded module or not
-		if not mysql.IsModuleActive() or not self.GCData then return end
+		if not mysql.IsModuleActive() or not self.GCData then
+			return
+		end
 		
 		-- No current amount
 		if not self.GCData["amount_current"] then return end
@@ -56,16 +53,19 @@ if meta then
 	
 	-- Save GC
 	function meta:SaveGreenCoins()
-		if not self.Ready then return end
-		if self:IsBot() then return end
+		if not self.Ready or self:IsBot() then
+			return
+		end
 				
-		-- Loaded module or not
-		if not mysql.IsModuleActive() then return end
+		--Loaded module or not
+		if not mysql.IsModuleActive() then
+			return
+		end
 		
-		local query = "SELECT * FROM green_coins WHERE steam_id = '"..self:SteamID().."' AND valid = 1 LIMIT 0,1"
+		local query = "SELECT * FROM green_coins WHERE steam_id = '".. self:SteamID() .."' AND valid = 1 LIMIT 0,1"
 		
-		--  we send a table with player data, so player doesnt have to be valid afterwards for the data to save
-		SQLQuery( query, SaveGreenCoinsStep1Callback, {ent = self, name = self:Name(), steamid = self:SteamID(), earned = self.EarnedGreenCoins} )
+		--We send a table with player data, so player doesnt have to be valid afterwards for the data to save
+		SQLQuery(query, SaveGreenCoinsStep1Callback, {ent = self, name = self:Name(), steamid = self:SteamID(), earned = self.EarnedGreenCoins} )
 	end
 end
 
@@ -102,19 +102,6 @@ valid				int(1)
 ]==]
 
 -- --  Database functions -- -- 
-
--- function ConnectToGCDatabase()
-	-- local host = "87.238.175.104"
-	-- local username = "admin_gcaccount" --  account doesn't have permission to delete or drop tables
-	-- local password = "X0efU6hO" --  FOR YO EYES ONLY
-	-- local database = "admin_source"
-	-- local port = 3306
-	
-	-- --  tmysql.initialize(host, user, pass, database, [port], [number of connections], [number of threads])
-	-- tmysql.initialize(host, username, password, database, port, 1, 1)
--- end
--- -- hook.Add("Initialize","ConnectToGCDB",ConnectToGCDatabase)
-
 local function SQLReceive(callbackarg, result, status, err)
 	if (type(err) == "number" and err == 0) then
 		if DEBUG then
@@ -132,7 +119,6 @@ local function SQLReceive(callbackarg, result, status, err)
 end
 
 function SQLQuery( query, callback, callbackarg )
-	
 	if callback == nil then 
 		callback = SQLReceive
 	end
@@ -143,9 +129,11 @@ function SQLQuery( query, callback, callbackarg )
 		Debug("[SQL] Query start at "..time..", query: '"..query.."'")
 	end
 	
-	tmysql.query(query, callback, 1, callbackarg)
+	mysql.Query(query, function(Table, Status, Err)
+		callback(callbackarg, Table, Status, Err)
+	end)
 	
-	return result
+	return true
 end
 
 -- --  Game functions -- -- 
@@ -153,7 +141,7 @@ end
 local function CreateGreenCoinsEntry( pl )
 	if not IsValid(pl) then return end
 
-	local name = tmysql.escape(pl:Name())
+	local name = mysql.escape(pl:Name())
 	local steamid = pl:SteamID()
 	local currentdate = os.date("%Y-%m-%d %H:%M:%S")
 	local query = "INSERT INTO green_coins (steam_id, amount_current, steam_name, last_edit, created_on, valid) VALUES ('"..steamid.."', 0, '"..name.."', '"..currentdate.."', '"..currentdate.."', 1)"
@@ -207,14 +195,13 @@ function SendGCOnSpawn( pl )
 end
 hook.Add( "PlayerReady","SendGC",SendGCOnSpawn )
 
---  GC saving
+--GC saving
 local function SaveGreenCoinsStep2Callback(pltab, result, status, err)
 	if (type(err) == "number" and err == 0) then
 		local pl = pltab.ent
 		if IsValid(pl) then
 			pl.EarnedGreenCoins = 0
 			GAMEMODE:SendCoins(pl)
-			
 			--Saved!
 		end
 	else
@@ -224,33 +211,31 @@ end
 
 -- I'll make a local functions table, don't worry.
 function SaveGreenCoinsStep1Callback(pltab, result, status, err)
-	
-	if (type(err) == "number" and err == 0) then
-	
-		local pl = pltab.ent
-		local query = ""
-		if (#result == 0) then
-			CreateGreenCoinsEntry( pltab.ent )
-			return
-		end
-		
-		local currentdate = os.date("%Y-%m-%d %H:%M:%S")
-		if IsValid(pl) then
-			--  this resets pl.GCData["amount_current"], but we saved the amount of earned GC in another var
-			pl.GCData = result[1]
-			pl.EarnedGreenCoins = pl.EarnedGreenCoins or 0
-			pl.GCData["amount_current"] = math.max(0,pl.GCData["amount_current"] + pl.EarnedGreenCoins)
-			query = "UPDATE green_coins SET amount_current = "..pl.GCData["amount_current"]..", steam_name = '"..tmysql.escape(pl:Name()).."', last_edit = '"..currentdate.."' WHERE steam_id = '"..pl:SteamID().."' AND valid = 1"
-		else
-			local tab = result[1]
-			tab["amount_current"] = math.max(0,tab["amount_current"]+ pltab.earned)
-			query = "UPDATE green_coins SET amount_current = "..tab["amount_current"]..", steam_name = '"..tmysql.escape(pltab.name).."', last_edit = '"..currentdate.."' WHERE steam_id = '"..pltab.steamid.."' AND valid = 1"
-		end
-		
-		SQLQuery( query, SaveGreenCoinsStep2Callback, pltab )
-	else
+	if type(err) ~= "number" or err ~= 0 then
 		WriteSQLLog("ERROR WHEN ATTEMPTING QUERY (SGCS1C) pl: "..pltab.name.."; status: "..tostring(status).."; error: "..tostring(err))
 	end
+
+	local pl = pltab.ent
+	local query = ""
+	if #result == 0 then
+		CreateGreenCoinsEntry( pltab.ent )
+		return
+	end
+		
+	local currentdate = os.date("%Y-%m-%d %H:%M:%S")
+	if IsValid(pl) then
+		--  this resets pl.GCData["amount_current"], but we saved the amount of earned GC in another var
+		pl.GCData = result[1]
+		pl.EarnedGreenCoins = pl.EarnedGreenCoins or 0
+		pl.GCData["amount_current"] = math.max(0,pl.GCData["amount_current"] + pl.EarnedGreenCoins)
+		query = "UPDATE green_coins SET amount_current = "..pl.GCData["amount_current"]..", steam_name = '"..mysql.escape(pl:Name()).."', last_edit = '"..currentdate.."' WHERE steam_id = '"..pl:SteamID().."' AND valid = 1"
+	else
+		local tab = result[1]
+		tab["amount_current"] = math.max(0,tab["amount_current"]+ pltab.earned)
+		query = "UPDATE green_coins SET amount_current = "..tab["amount_current"]..", steam_name = '"..mysql.escape(pltab.name).."', last_edit = '"..currentdate.."' WHERE steam_id = '"..pltab.steamid.."' AND valid = 1"
+	end
+		
+	SQLQuery(query, SaveGreenCoinsStep2Callback, pltab)
 end
 
 --Save GC at interval
@@ -259,13 +244,12 @@ timer.Create("GCSaving", 120, 0, function()
 		return
 	end
 		
-	--Save every 2 minutes
-	NextGCSaveTime = CurTime()+120
-		
 	for k, pl in pairs(player.GetAll()) do
-		if IsValid(pl) and pl.GCData then
-			pl:SaveGreenCoins()
+		if not IsValid(pl) or not pl.GCData then
+			continue
 		end
+
+		pl:SaveGreenCoins()
 	end
 end)
 
@@ -388,19 +372,3 @@ function ConnectionRequestAnswer( pl, command, args )
 
 end
 concommand.Add("game_conn_answer",ConnectionRequestAnswer)
-
--- --  Database error log functions -- -- 
-
-function WriteSQLLog( str )
-	local content = "--- GreenCoins MySQL log ---"
-	if (file.Exists("mysqllog.txt","DATA")) then
-		content = file.Read("mysqllog.txt","DATA")
-	end
-	
-	print("MySQL log message: "..str)
-	
-	local date = os.date()
-	content = content.."\n"..date..": "..str
-	
-	file.Write("mysqllog.txt", content)
-end

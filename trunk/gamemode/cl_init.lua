@@ -237,30 +237,38 @@ end
 local matGlow = Material("Sprites/light_glow02_add_noz")
 local colHealth = Color(255, 255, 0, 255)
 
+local CachedHumans, NextHumansCache = {}, 0
 function GM:_PostDrawOpaqueRenderables()
-	
-	if MySelf:Team() == TEAM_UNDEAD then
-			local eyepos = EyePos()
-			for _, pl in pairs(team.GetPlayers(TEAM_HUMAN)) do
-				if pl:Alive() and pl:GetPos():Distance(eyepos) <= 1024 and not (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
-					local healthfrac = math.max(pl:Health(), 0) / 100
-					colHealth.r = math.Approach(255, 0, math.abs(255 - 0) * healthfrac)
-					colHealth.g = math.Approach(0, 255, math.abs(0 - 255) * healthfrac)
-					
-					local attach = pl:GetAttachment(pl:LookupAttachment("chest"))
-					local pos = attach and attach.Pos or pl:LocalToWorld(pl:OBBCenter())
-
-					render.SetMaterial(matGlow)
-					render.DrawSprite(pos, 13, 13, colHealth)
-					local size = math.sin(RealTime()*3 + pl:EntIndex()) * 50 - 21
-					if size > 0 then
-						render.DrawSprite(pos, size * 1.5, size, colHealth)
-						render.DrawSprite(pos, size, size * 1.5, colHealth)
-					end
-				end
-			end
+	if MySelf:Team() ~= TEAM_UNDEAD then
+		return
 	end
-	
+
+
+	--Recache
+	if RealTime() > NextHumansCache then
+		CachedHumans = team.GetPlayers(TEAM_HUMAN)
+		NextHumansCache = RealTime() + 10
+	end
+
+	local eyepos = EyePos()
+	for _, pl in pairs(CachedHumans) do
+		if pl:Alive() and pl:GetPos():Distance(eyepos) <= 1024 and not (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
+			local healthfrac = math.max(pl:Health(), 0) / 100
+			colHealth.r = math.Approach(255, 0, math.abs(255 - 0) * healthfrac)
+			colHealth.g = math.Approach(0, 255, math.abs(0 - 255) * healthfrac)
+					
+			local attach = pl:GetAttachment(pl:LookupAttachment("chest"))
+			local pos = attach and attach.Pos or pl:LocalToWorld(pl:OBBCenter())
+
+			render.SetMaterial(matGlow)
+			render.DrawSprite(pos, 13, 13, colHealth)
+			local size = math.sin(RealTime()*3 + pl:EntIndex()) * 50 - 21
+			if size > 0 then
+				render.DrawSprite(pos, size * 1.5, size, colHealth)
+				render.DrawSprite(pos, size, size * 1.5, colHealth)
+			end
+		end
+	end	
 end
  
 hook.Add("HUDPaint", "DrawWaiting", function()
@@ -268,25 +276,24 @@ hook.Add("HUDPaint", "DrawWaiting", function()
 		return
 	end
 	
-	draw.SimpleText("Please wait... "..RandomText, "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.5, Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		
+	draw.SimpleText("Please wait... ".. RandomText, "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.5, Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	draw.SimpleText("MrGreenGaming.com", "HUDFontTiny", ScrW() * 0.5, ScrH() * 0.55, Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
 	if not IsValid(MySelf) then
 		return
 	end
 
-	if (CurTime() - MySelf.ReadyTime) > 20 then
-		MySelf.ReconnectTime = MySelf.ReconnectTime or CurTime() + 6
-		draw.SimpleText("There are some troubles. Reconnecting in "..math.Clamp(math.Round(MySelf.ReconnectTime - CurTime()), 0, 10), "ArialFifteen", ScrW() * 0.5, ScrH() * 0.6, Color( 230,50,38,235 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+	if (RealTime() - MySelf.ReadyTime) > 20 then
+		MySelf.ReconnectTime = MySelf.ReconnectTime or RealTime() + 6
+		draw.SimpleText("There are some troubles. Reconnecting in "..math.Clamp(math.Round(MySelf.ReconnectTime - RealTime()), 0, 10), "ArialFifteen", ScrW() * 0.5, ScrH() * 0.6, Color( 230,50,38,235 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 				
 		--Run the 'ready' command (bugged from GMod update)
-		if (CurTime() - MySelf.ReadyTime) > 25 then
+		if (RealTime() - MySelf.ReadyTime) > 25 then
 			RunConsoleCommand("PostPlayerInitialSpawn")
 		end
 				
 		--Reconnect after 20 seconds
-		if math.Round(MySelf.ReconnectTime - CurTime()) <= 0 then
+		if math.Round(MySelf.ReconnectTime - RealTime()) <= 0 then
 			RunConsoleCommand("retry")
 		end
 	end
@@ -299,7 +306,7 @@ end
 
 -- Called when myself is ready
 function GM:OnSelfReady()
-	MySelf.Ready, MySelf.ReadyTime = true, CurTime()
+	MySelf.Ready, MySelf.ReadyTime = true, RealTime()
 end
 
 --Called when myself got SQL gata

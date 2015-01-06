@@ -185,7 +185,6 @@ end
 	The console scren.
 ]]
 function DBug.DumpLog( ply, cmd, args )
-	print("DumpLog1")
 	if SERVER then
 		if ply and ply:IsPlayer() then
 			if not ply:IsAdmin() then
@@ -194,35 +193,32 @@ function DBug.DumpLog( ply, cmd, args )
 		end
 	end
 
-	print("DumpLog2")
-
 	--Arg cloud, contains all arguments passed to the function in a nice format
 
-	local argCloud = {};
+	local argCloud = {}
 
-	for _, arg in pairs( args ) do argCloud[ arg ] = true; end
-
+	for _, arg in pairs( args ) do
+		argCloud[ arg ] = true
+	end
 	--Create folders and files if logging is enabled
 
-	local pr, obj = 0;
-	if ( argCloud[ "/log" ] ) then
+	local pr, obj = 0
+	if argCloud[ "/log" ] then
+		if not file.IsDir(prefix .. "dbug", "DATA") then
+			file.CreateDir(prefix .. "dbug", "DATA")
+		end
 
-		if ( !file.IsDir( prefix .. "dbug", "DATA" ) ) then file.CreateDir( prefix .. "dbug", "DATA" ); end
-
-		while ( file.Exists( prefix .. "dbug/profile_" .. pr .. ".txt", "DATA" ) ) do 
-
+		while file.Exists(prefix .. "dbug/profile_" .. pr .. ".txt", "DATA") do 
 			pr = pr + 1;
-
 		end
 
 		--Create the file
-
-		file.Write( prefix .. "dbug/profile_" .. pr .. ".txt", " == DBug profile, created @ " .. os.date() .. " == \n\n" );
+		file.Write(prefix .. "dbug/profile_" .. pr .. ".txt", " == DBug profile, created @ " .. os.date() .. " == \n\n");
 
 		--Open the file (this is such a gay method..)
-		fobj = file.Open( prefix .. "dbug/profile_" .. pr .. ".txt", "a", "DATA" );
+		fobj = file.Open(prefix .. "dbug/profile_" .. pr .. ".txt", "a", "DATA");
 
-		if ( !fobj ) then
+		if not fobj then
 			ErrorNoHalt( "File object invalid!" )
 			return
 		end
@@ -231,64 +227,65 @@ function DBug.DumpLog( ply, cmd, args )
 	--Log to the console screen, a file both or neither
 
 	local lFunction = function( str, col )
-
-		if ( !argCloud[ "/nomsg" ] ) then MsgC( col, str.. '\n' ); end
-		if ( argCloud[ "/log" ] ) then 
-
-			fobj:Write( str .. '\n');
-
+		if ( !argCloud[ "/nomsg" ] ) then
+			MsgC( col, str.. '\n' )
 		end
-
+		if ( argCloud[ "/log" ] ) then 
+			fobj:Write( str .. '\n');
+		end
 	end
 
-	// Itterate through the dara
+	--Iterate through the data
 
 	local val = argCloud[ "/time" ] and "runTime" or "usage"
 	for _type, time in pairs( DBug.tTime ) do 
+		lFunction( _type .. " (" .. DBug.tTime[ _type ]  .. "ms, ".. math.Round(DBug.tTime[ _type ], 4) .." ms): \n", CLIENT and Color( 255, 255, 0, 255 ) or Color( 0, 175, 255, 255 ) )
 
-		lFunction( _type .. " (" .. DBug.tTime[ _type ]  .. "ms): \n", CLIENT and Color( 255, 255, 0, 255 ) or Color( 0, 175, 255, 255 ) );
-
-		local count = 0;
+		local count = 0
 		
-		for name, data in SortedPairsByMemberValue( argCloud[ "/time" ] and DBug.logData[ _type ] or DBug.percLogData[ _type ] , val, true ) do 
+		for name, data in SortedPairsByMemberValue(argCloud[ "/time" ] and DBug.logData[ _type ] or DBug.percLogData[ _type ] , val, true) do
+			if count >= DBug.maxResults and not argCloud["/all"] then
+				break
+			end
+			if not data[val] or not name then
+				continue
+			end
 
-			if ( count >= DBug.maxResults && !argCloud[ "/all" ] ) then break; end
-			if ( !data[ val ] || !name ) then continue; end
+			local colVar = math.Clamp(DBug.percLogData[ _type ][ name ].usage * 2.55, 0, 255)
+			local col = Color(colVar, 255 - colVar, 0, 255)
+			--local col = Color(255, 255, 255, 255)
 
-			local col = DBug.percLogData[ _type ][ name ].usage * 2.55
-
-			lFunction( "\t" .. ( !argCloud[ "/time" ] and "%" or "" ) .. data[ val ] .. "\t\t" .. data.loc .. "\t\t" .. name, Color( col , 255 - col, 0, 255 )  );
+			lFunction("\t" .. (not argCloud[ "/time" ] and "%" or "") .. data[ val ] .. "\t\t" .. data.loc .. "\t\t" .. name, col  );
 
 			count = count + 1;
-
 		end 
 
 	end
 
-	// GC
-
-	if ( fobj ) then fobj:Close(); end
-
+	--GC
+	if fobj then
+		fobj:Close()
+	end
 end
 
-/**
+--[[
 	Attaches some code that records the amount of the time the original
 	function took to complete.
-*/
-
+]]
 function DBug.AttachTimer( func, name, _type )
 	local f = function( ... )
+		local start = SysTime()
+		local ret = func( ... )
 
-		local start = SysTime();
+		DBug.logData[ _type ][ name ] = {
+			runTime = SysTime() - start,
+			loc = debug.getinfo( func ).source
+		}
 
-		local ret = func( ... );
-
-		DBug.logData[ _type ][ name ] = { runTime = SysTime() - start, loc = debug.getinfo( func ).source };
-
-		return ret;
+		return ret
 	end
 
-	return f;
+	return f
 end
 
 --Timer detour
@@ -319,7 +316,7 @@ if CLIENT then
 end
 
 --Console Commands
-concommand.Add( prefix .. "dbug_dump", DBug.DumpLog )
+concommand.Add(prefix .. "dbug_dump", DBug.DumpLog )
 
 --Timers & Clean-up
 timer.Simple( 1, DBug.ImplantDetours )
