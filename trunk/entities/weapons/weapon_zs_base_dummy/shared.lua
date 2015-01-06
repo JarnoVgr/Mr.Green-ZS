@@ -187,19 +187,21 @@ end
 
 function SWEP:CheckModelElements()
 	if not self.VElements then
+		local this = self
 		timer.Simple(0,function()
-			self:InitializeClientsideModels()
-			self:CreateViewModelElements()
-			self:CreateWorldModelElements()
+			this:InitializeClientsideModels()
+			this:CreateViewModelElements()
+			this:CreateWorldModelElements()
 		end)
 	end
 end
 
 function SWEP:CheckWorldModelElements()
 	if not self.WElements then
+		local this = self
 		timer.Simple(0,function()
-			self:InitializeClientsideModels()
-			self:CreateWorldModelElements()
+			this:InitializeClientsideModels()
+			this:CreateWorldModelElements()
 		end)
 	end
 end
