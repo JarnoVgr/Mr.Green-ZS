@@ -12,6 +12,8 @@ hook.Add("Think", "GetLocal", function()
 	if MySelf:IsValid() then
 		--MYSELFVALID = true
 		hook.Remove("Think", "GetLocal")
+		
+		--Placeholder when there's none
 		if not GAMEMODE.HookGetLocal then
 			GAMEMODE.HookGetLocal = function(g)
 			end
@@ -215,34 +217,14 @@ local RandomText = table.Random( {
 	"Shuffling crate spawns...",
 	"Adding Necro bots.."  })
 
- 
-function GM:HookGetLocal()
-	MYSELFVALID = true
-
-	self.Think = self._Think
-	self.HUDShouldDraw = self._HUDShouldDraw
-	self.RenderScreenspaceEffects = self._RenderScreenspaceEffects -- Deluvas; WTF?
-	self.CalcView = self._CalcView
-	self.ShouldDrawLocalPlayer = self._ShouldDrawLocalPlayer
-	self.PostDrawOpaqueRenderables = self._PostDrawOpaqueRenderables
-	self.HUDPaint = self._HUDPaint
-	self.HUDPaintBackground = self._HUDPaintBackground
-	self.CreateMove = self._CreateMove
-	self.PrePlayerDraw = self._PrePlayerDraw
-	self.PostPlayerDraw = self._PostPlayerDraw
-	self.HUDWeaponPickedUp = self._HUDWeaponPickedUp
-	self.HUDDrawTargetID = self._HUDDrawTargetID
-end
-
 local matGlow = Material("Sprites/light_glow02_add_noz")
 local colHealth = Color(255, 255, 0, 255)
 
 local CachedHumans, NextHumansCache = {}, 0
-function GM:_PostDrawOpaqueRenderables()
+local function HeartbeatGlow()
 	if MySelf:Team() ~= TEAM_UNDEAD then
 		return
 	end
-
 
 	--Recache
 	if RealTime() > NextHumansCache then
@@ -252,7 +234,7 @@ function GM:_PostDrawOpaqueRenderables()
 
 	local eyepos = EyePos()
 	for _, pl in pairs(CachedHumans) do
-		if pl:Alive() and pl:GetPos():Distance(eyepos) <= 1024 and not (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
+		if IsValid(pl) and pl:Alive() and pl:GetPos():Distance(eyepos) <= 1024 and not (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
 			local healthfrac = math.max(pl:Health(), 0) / 100
 			colHealth.r = math.Approach(255, 0, math.abs(255 - 0) * healthfrac)
 			colHealth.g = math.Approach(0, 255, math.abs(0 - 255) * healthfrac)
@@ -1450,3 +1432,24 @@ usermessage.Hook("OnWeaponDropped", OnWeaponDropped)
 
 
 --------------------------------------------------------
+
+
+function GM:HookGetLocal()
+	MYSELFVALID = true
+
+	--self.Think = self._Think
+	self.HUDShouldDraw = self._HUDShouldDraw
+	self.RenderScreenspaceEffects = self._RenderScreenspaceEffects -- Deluvas; WTF?
+	self.CalcView = self._CalcView
+	self.ShouldDrawLocalPlayer = self._ShouldDrawLocalPlayer
+
+	hook.Add("PostDrawOpaqueRenderables", "HeartbeatGlow", HeartbeatGlow)
+	--self.PostDrawOpaqueRenderables = self._PostDrawOpaqueRenderables
+	self.HUDPaint = self._HUDPaint
+	self.HUDPaintBackground = self._HUDPaintBackground
+	self.CreateMove = self._CreateMove
+	self.PrePlayerDraw = self._PrePlayerDraw
+	self.PostPlayerDraw = self._PostPlayerDraw
+	self.HUDWeaponPickedUp = self._HUDWeaponPickedUp
+	self.HUDDrawTargetID = self._HUDDrawTargetID
+end
