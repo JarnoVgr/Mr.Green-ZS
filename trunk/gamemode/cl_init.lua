@@ -1063,6 +1063,10 @@ local minfov = fovlerp * 0.6
 local staggerdir = VectorRand():GetNormal()
 
 function GM:_ShouldDrawLocalPlayer(pl)
+	if not IsValid(pl) then
+		return
+	end
+
 	local weapon = pl:GetActiveWeapon()
 	return pl.Team and pl:Team() == TEAM_UNDEAD and ((self.ZombieThirdPerson or (IsValid(weapon) and weapon.GetClimbing and weapon:GetClimbing())) or (pl.Revive and pl.Revive:IsValid()))--  and pl.Revive:IsRising()
 end
@@ -1413,7 +1417,9 @@ function GM:HookGetLocal()
 	--Required empty function
 	self.ShouldDrawLocalPlayer = function()
 	end
-	hook.Add("ShouldDrawLocalPlayer", "ShouldDrawLocalPlayer", self._ShouldDrawLocalPlayer)
+	hook.Add("ShouldDrawLocalPlayer", "ShouldDrawLocalPlayer", function(pl)
+		self:_ShouldDrawLocalPlayer(pl)
+	end)
 
 	hook.Add("PostDrawOpaqueRenderables", "HeartbeatGlow", HeartbeatGlow)
 
