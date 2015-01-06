@@ -93,8 +93,6 @@ function SWEP:PostPerformPrimaryAttack(hit)
 	if CLIENT then
 		return
 	end
-
-	self.Owner:EmitSound(Sound("player/zombies/b/hitflesh.wav"),math.random(100,130),math.random(95,100))
 end
 
 function SWEP:PrimaryAttackHit(trace, ent)

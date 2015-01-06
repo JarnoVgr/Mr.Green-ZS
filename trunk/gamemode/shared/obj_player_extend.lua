@@ -463,7 +463,7 @@ end
 meta.OldSetRunSpeed = meta.SetRunSpeed
 
 function meta:SetRunSpeed( s )
-	self:OldSetRunSpeed( s + (s >= 2 and SHARED_SPEED_INCREASE or 0))
+	--self:OldSetRunSpeed( s + (s >= 2 and SHARED_SPEED_INCREASE or 0))
 end
 
 --[==[----------------------------------------------------

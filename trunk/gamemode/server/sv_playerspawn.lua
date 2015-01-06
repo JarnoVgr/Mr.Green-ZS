@@ -210,6 +210,9 @@ function GM:PlayerSpawn(pl)
 	pl:SetDeaths(PREDICT_SPAWN)
 	
 	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
+	pl:ManipulateBonePosition(math.Rand(1, 1) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
+	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
 	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
 	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
 	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
@@ -218,7 +221,8 @@ function GM:PlayerSpawn(pl)
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-
+				pl:SetRenderMode(RENDERMODE_GLOW)
+				pl:SetColor(Color(225,225,225,225))
 	
 	--Set model based on preferences
 	if pl:IsBot() then
@@ -372,7 +376,8 @@ function GM:OnHumanSpawn(pl)
 	if not pl:IsHuman() then
 		return
 	end
-	
+				pl:SetRenderMode(RENDERMODE_GLOW)
+				pl:SetColor(Color(225,225,225,225))
 	if GasDump then --Duby: Gas Dump Obj Map special notices.
 			timer.Simple(10,function() 
 			pl:Message("The horde nest is bellow the building.", 1)	
@@ -509,6 +514,8 @@ function GM:OnZombieSpawn(pl)
 	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
 	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
+				pl:SetRenderMode(RENDERMODE_GLOW)
+				pl:SetColor(Color(225,225,225,225))
 	--Duby: Spawn protection :P
 	pl:GodEnable()
 	timer.Simple(2, function()

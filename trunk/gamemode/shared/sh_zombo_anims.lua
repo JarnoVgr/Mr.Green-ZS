@@ -783,19 +783,19 @@ GM.DoAnimationEventZombies[11] = function ( pl, event, data )
 		end
 	end
 end
-
-
+--[[
 -- Seeker
 GM.CalcMainActivityZombies[12] = function ( pl, vel )
 
-	local iSeq, iIdeal = pl:LookupSequence ( "Idle01" )
+	local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_04" )
 
 	local fVelocity = vel:Length2D()
 	
 	-- Walk animation or idle
-	if fVelocity > 30 then iSeq = pl:LookupSequence ( "Run" ) else iSeq = pl:LookupSequence ( "Idle01" ) end
+--	if fVelocity > 30 then iSeq = pl:LookupSequence ( "Run" ) else iSeq = pl:LookupSequence ( "Idle01" ) end
+	if fVelocity > 30 then iSeq = pl:LookupSequence ( "zombie_walk_04" ) else iSeq = pl:LookupSequence ( "zombie_walk_04" ) end
 	
-	if (pl.IsAttacking and pl.IsAttacking >= CurTime() ) then iSeq = pl:LookupSequence ( pl.AttackSequence ) else pl._PlayBackRate = nil end
+	--if (pl.IsAttacking and pl.IsAttacking >= CurTime() ) then iSeq = pl:LookupSequence ( pl.AttackSequence ) else pl._PlayBackRate = nil end
 	
 	local revive = pl.Revive
 	if revive and revive:IsValid() then
@@ -814,9 +814,9 @@ local Attacks = { "melee_01" }
 GM.DoAnimationEventZombies[12] = function ( pl, event, data )
 	if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
 		if ( data == CUSTOM_PRIMARY ) then
-			-- pl:AnimRestartGesture( GESTURE_SLOT_CUSTOM, ACT_MELEE_ATTACK1 )
+			--pl:AnimRestartGesture( GESTURE_SLOT_CUSTOM, ACT_MELEE_ATTACK1 )
 			--pl.IsAttacking = true
-			pl.AttackSequence = table.Random ( Attacks )
+			--pl.AttackSequence = table.Random ( Attacks )
 			pl._PlayBackRate = 0.95
 			-- Get sequence and restart it
 			pl:AnimRestartMainSequence()
@@ -830,7 +830,7 @@ GM.DoAnimationEventZombies[12] = function ( pl, event, data )
 			return ACT_INVALID
 		end
 	end
-end
+end]]--
 
 GM.CalcMainActivityZombies[13] = function ( pl, vel )
 
@@ -1092,6 +1092,9 @@ GM.DoAnimationEventZombies[16] = GM.DoAnimationEventZombies[0]
 --Attack for SeekerII
 GM.CalcMainActivityZombies[18] = GM.CalcMainActivityZombies[0]
 GM.DoAnimationEventZombies[18] = GM.DoAnimationEventZombies[0]
+
+GM.CalcMainActivityZombies[15] = GM.CalcMainActivityZombies[1]
+GM.DoAnimationEventZombies[15] = GM.DoAnimationEventZombies[1]
 
 --Attack for Pumpking!s
 --GM.CalcMainActivityZombies[19] = GM.CalcMainActivityZombies[0]

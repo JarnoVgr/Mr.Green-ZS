@@ -788,6 +788,8 @@ ZombieClasses[10] =
 	Unlocked = false,
 	-- ViewOffset = Vector( 0, 0, 0 ),
 	OnSpawn = function(pl)
+				pl:SetRenderMode(RENDERMODE_GLOW)
+				pl:SetColor(Color(225,225,225,225))
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
@@ -845,7 +847,8 @@ ZombieClasses[20] =
 	-- ViewOffset = Vector( 0, 0, 0 ),
 	OnSpawn = function(pl)	
 		local status = pl:GiveStatus("overridemodel")
-		
+				pl:SetRenderMode(RENDERMODE_GLOW)
+				pl:SetColor(Color(225,225,225,225))
 		if status and status:IsValid() then
 			status:SetModel("models/Zombie/Poison.mdl")
 		end
@@ -910,11 +913,12 @@ ZombieClasses[11] =
 				},
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
-		
+				pl:SetRenderMode(RENDERMODE_GLOW)
+				pl:SetColor(Color(225,225,225,225))
 		if status and status:IsValid() then
 			status:SetModel("models/zombie/zombie_soldier.mdl")
 		end
-	
+		
 	
 		local status2 = pl:GiveStatus("simple_revive2")
 		if status2 then
@@ -1027,7 +1031,8 @@ ZombieClasses[13] =
 				},
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
-		
+				pl:SetRenderMode(RENDERMODE_GLOW)
+				pl:SetColor(Color(225,225,225,225))
 		if status and status:IsValid() then
 			status:SetModel(Model("models/Zombie/Fast.mdl"))
 		end		
@@ -1095,10 +1100,10 @@ ZombieClasses[14] =
 
 ZombieClasses[15] = --Everyone loves it ^^ Duby: R.I.P until you are loved once more! :<
 {
-	Name = "Klinator",
-	Tag = "klinator",
+	Name = "Rameil",
+	Tag = "rameil",
 	Infliction = 0,
-	Health = 2000,
+	Health = 6500,
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -1111,14 +1116,38 @@ ZombieClasses[15] = --Everyone loves it ^^ Duby: R.I.P until you are loved once 
 	Unlocked = false,
 	Hidden = true,
 	IsBoss = true,
-	SWEP = "weapon_zs_undead_boss_klinator",
-	Model = Model("models/player/group01/male_09.mdl"), 
+	SWEP = "weapon_zs_undead_boss_rameil",
+	Model = Model("models/player/corpse1.mdl"), 
 	OnSpawn = function(pl)
-		pl:SetModel(Model(player_manager.TranslatePlayerModel("kleiner")))
-		pl:SetColor( 39, 148, 6 )	
-		pl:SetRandomFace()		
+
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		--pl:ManipulateBoneAngles( Bone, Angle(30,95,-190)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+	if Bone then
+	 	 pl:ManipulateBoneAngles( Bone, Angle(0,40,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine2")
+	if Bone then
+	pl:ManipulateBoneAngles( Bone, Angle(0,10,0)  )
+	end
+	local Bone = pl:LookupBone("ValveBiped.Bip01_Head1")
+	if Bone then
+	pl:ManipulateBoneAngles( Bone, Angle(0,-40,0)  )
+	end
+	for i = 0, pl:GetBoneCount() - 1 do
+		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+	end
+		
 	end,
-	Speed = 125,
+	Speed = 120,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -1274,7 +1303,7 @@ ZombieClasses[18] = --Creep and Play!
 	Name = "SeekerII",
 	Tag = "weapon_zs_undead_boss_seeker2",
 	Infliction = 0.2,
-	Health = math.random(3500, 4200 ),
+	Health = math.random(6000, 6500 ),
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -1288,33 +1317,39 @@ ZombieClasses[18] = --Creep and Play!
 	Hidden = true,
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_seeker2",
-	Model = Model("models/player/zombie_classic.mdl"), 
+	Model = Model("models/player/corpse1.mdl"), 
 	Speed = 140,
-	Description = "An experiment gone wrong, its now out hunting the elite!",
+	Description = "An experiment gone wrong, and its now out hunting the elite!",
 	Unique = "",
 	OnSpawn = function(pl)	
 		pl:SetRenderMode(RENDERMODE_GLOW)
 		pl:SetColor(Color(1,1,1,2))
+		pl:SetModel("models/player/charple01.mdl")
+		
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1") --Bend him over a bit....
+	if Bone then
+	 	 pl:ManipulateBoneAngles( Bone, Angle(0,40,0)  )
+	end
+		
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 		-- pl:AnimRestartMainSequence()		
 	end,
-	--[[PainSounds = {
-				Sound( "npc/strider/striderx_pain2.wav" ),
-				Sound( "npc/strider/striderx_pain5.wav" ),
-				Sound( "npc/strider/striderx_pain7.wav" ),
-				Sound( "npc/strider/striderx_pain8.wav" ),
-				},]]
+	PainSounds = {
+				Sound( "player/zombies/seeker/pain1.wav" ),
+				Sound( "player/zombies/seeker/pain2.wav" ),
+				},
 	DeathSounds = {
-				Sound("npc/barnacle/neck_snap1.wav"),
-				Sound("player/zombies/b/scream.wav"),
+				Sound("npc/stalker/go_alert2a.wav"),
 				},
 	IdleSounds = {
-				Sound("npc/zombine/striderx_alert2.wav"),
-				Sound("npc/zombine/striderx_alert4.wav"),
-				Sound("npc/zombine/striderx_alert5.wav"),
-				Sound("npc/zombine/striderx_alert6.wav"),
+				Sound("bot/come_out_and_fight_like_a_man.wav"),
+				Sound("bot/come_out_wherever_you_are.wav"),
+				Sound("vo/ravenholm/madlaugh03.wav"),
+				Sound("vo/NovaProspekt/eli_nevermindme01.wav"),
+				Sound("ambient/creatures/town_child_scream1.wav"),
+				Sound("npc/zombie_poison/pz_call1.wav"),
 				},
 }
 

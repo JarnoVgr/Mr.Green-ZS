@@ -365,6 +365,7 @@ table.insert(ResourceFiles, "materials/zombiesurvival/crosshair/undead_crosshair
 table.insert(ResourceFiles, "materials/effects/hazard_icon.vtf")
 table.insert(ResourceFiles, "materials/effects/hazard_icon.vmt")
 
+
 --Sniper Scope
 table.insert(ResourceFiles, "materials/zombiesurvival/scope/sniper_scope.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/scope/sniper_scope.vmt")
