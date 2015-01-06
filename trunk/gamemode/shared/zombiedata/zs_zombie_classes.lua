@@ -1316,12 +1316,12 @@ ZombieClasses[18] = --Creep and Play!
 	OnSpawn = function(pl)	
 		pl:SetRenderMode(RENDERMODE_GLOW)
 		pl:SetColor(Color(1,1,1,2))
-		pl:SetModel("models/player/charple01.mdl")
+		pl:SetModel("models/player/charple.mdl")
 		
 		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1") --Bend him over a bit....
-	if Bone then
-	 	 pl:ManipulateBoneAngles( Bone, Angle(0,40,0)  )
-	end
+		if Bone then
+		 	 pl:ManipulateBoneAngles( Bone, Angle(0,40,0)  )
+		end
 		
 	end,
 	OnRevive = function(pl)
