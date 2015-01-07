@@ -1,4 +1,4 @@
-local cl_legs = CreateConVar( "cl_legs", "1", { FCVAR_ARCHIVE, }, "Enable/Disable the rendering of the legs" )
+local cl_legs = CreateConVar( "cl_legs", "0", { FCVAR_ARCHIVE, }, "Enable/Disable the rendering of the legs" )
 local cl_legs_vehicle = CreateConVar( "cl_legs_vehicle", "0", { FCVAR_ARCHIVE, }, "Enable/Disable the rendering of the legs in a vehicle" )
 
 local Legs = {
@@ -124,6 +124,8 @@ local function CreateLegs() -- Creates our legs
 	ent:SetNoDraw( true ) -- We render the model differently
 	ent:SetSkin( LocalPlayer():GetSkin() )
 	ent:SetMaterial( LocalPlayer():GetMaterial() )
+	ent:SetRenderMode(RENDERMODE_NORMAL)
+	ent:SetColor(Color(225,225,225,225))
 	ent.GetPlayerColor = function() return LocalPlayer():GetPlayerColor() end -- Tanks to samm5506 from the Elevator: Source team
 
 	return setmetatable( {
@@ -143,25 +145,25 @@ function _R.Legs:ShouldDraw()
 	return	cl_legs:GetBool() and
 			self:IsValid() and
 			LocalPlayer():Alive() and
-			( LocalPlayer():InVehicle() and cl_legs_vehicle:GetBool() or !LocalPlayer():InVehicle() ) and
+			( LocalPlayer():InVehicle() and cl_legs_vehicle:GetBool() or not LocalPlayer():InVehicle() ) and
 			GetViewEntity() == LocalPlayer() and
-			!LocalPlayer():ShouldDrawLocalPlayer() and
-			!LocalPlayer():GetObserverTarget() and
-			!LocalPlayer().ShouldDisableLegs and
-			!LocalPlayer():IsZombie()
+			not LocalPlayer():ShouldDrawLocalPlayer() and
+			not LocalPlayer():GetObserverTarget() and
+			not LocalPlayer().ShouldDisableLegs and
+			not LocalPlayer():IsZombie()
 end
 
 function _R.Legs:UpdateAnimation( groundSpeed )
-	if !self:IsValid() then
+	if not self:IsValid() then
 		return
 	end
 	
-	if LocalPlayer():GetActiveWeapon() != self.LastWeapon then  -- Player switched weapons, change the bones for new weapon
+	if LocalPlayer():GetActiveWeapon() ~= self.LastWeapon then  -- Player switched weapons, change the bones for new weapon
 		self.LastWeapon = LocalPlayer():GetActiveWeapon()
 		self:OnSwitchedWeapon( self.LastWeapon )
 	end
 
-	if self.Entity:GetModel() != LocalPlayer():GetFixedModel() then -- Player changed model without spawning?
+	if self.Entity:GetModel() ~= LocalPlayer():GetFixedModel() then -- Player changed model without spawning?
 		self.Entity:SetModel( LocalPlayer():GetFixedModel() )
 	end
 
@@ -188,7 +190,7 @@ function _R.Legs:UpdateAnimation( groundSpeed )
 
 	local seq = LocalPlayer():GetSequence()
 
-	if self.LastSeq != seq then
+	if self.LastSeq ~= seq then
 		self.LastSeq = seq
 		self.Entity:ResetSequence( seq ) -- If the player changes sequences, change the legs too
 	end
@@ -216,7 +218,7 @@ end
 vector_down = vector_up * -1
 
 function _R.Legs:Render()
-	if !self:ShouldDraw() then -- Should the legs be visible this frame?
+	if not self:ShouldDraw() then -- Should the legs be visible this frame?
 		return
 	end
 	 
@@ -283,7 +285,7 @@ function _R.Legs:OnSwitchedWeapon( weap ) -- Different bones will be visible for
 		"ValveBiped.Bip01_Head1"
 	}
 	
-	if !LocalPlayer():InVehicle() then
+	if not LocalPlayer():InVehicle() then
 		bonesToRemove = Legs.BoneHoldTypes[ holdType ] or Legs.BoneHoldTypes[ "default" ]
 	else
 		bonesToRemove = Legs.BoneHoldTypes[ "vehicle" ]
@@ -299,7 +301,7 @@ function _R.Legs:OnSwitchedWeapon( weap ) -- Different bones will be visible for
 end
  
 hook.Add( "UpdateAnimation", "Legs:UpdateAnimation", function( ply, vel, groundSpeed )
-    if ply != LocalPlayer() then
+    if ply ~= LocalPlayer() then
 		return
 	end
 	
@@ -311,7 +313,7 @@ hook.Add( "UpdateAnimation", "Legs:UpdateAnimation", function( ply, vel, groundS
 end )
 
 hook.Add( "PostDrawTranslucentRenderables", "Legs:Render", function()
-	if !LocalPlayer().Legs then
+	if not LocalPlayer().Legs then
 		return
 	end
 	
