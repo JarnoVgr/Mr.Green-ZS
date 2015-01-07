@@ -124,8 +124,7 @@ if SERVER then
 	
 	end
 
-	hook.Add("PlayerSay", "playersaystuck", function(ply, text)
-
+	--[[hook.Add("PlayerSay", "playersaystuck", function(ply, text)
 		if ( text == "!unstuck" or text == "!stuck" ) then
 		
 			if ply.UnStuckCooldown == nil then
@@ -148,6 +147,5 @@ if SERVER then
 			
 		return ""
 		end
-	end)
-
+	end)]]
 end
