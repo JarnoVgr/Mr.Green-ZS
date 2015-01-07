@@ -14,11 +14,15 @@ function ENT:Initialize()
 	self.Heal = 150
 	
 	--Increase health when having a perk
-	if self:GetOwner():GetPerk("_hammerupgrade") then
-		self.Heal = math.Round(self.Heal + self.Heal*0.4)
-	end
-	if self.Owner and self.Owner:GetSuit() == "supportsuit" then
-		self.Heal = math.Round(self.Heal + self.Heal*0.6)
+	
+	local owner = self:GetOwner()
+	if IsValid(owner) then
+		if owner:GetPerk("_hammerupgrade") then
+			self.Heal = math.Round(self.Heal + self.Heal*0.4)
+		end
+		if owner:GetSuit() == "supportsuit" then
+			self.Heal = math.Round(self.Heal + self.Heal*0.6)
+		end
 	end
 	--Health
 	self.Entity:SetDTInt(0,self.Heal)

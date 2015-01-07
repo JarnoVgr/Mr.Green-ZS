@@ -88,11 +88,7 @@ SWEP.SwingOffset = Vector(0, -30, 0)
 SWEP.SwingHoldType = "grenade"
  
 SWEP.Mode = 1
- 
-for i=1,4 do
-	util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-"..i..".wav")
-end
- 
+
 function SWEP:PlayHitSound()
 	self:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1, 4)..".wav", 75, math.random(110, 115))
 end
@@ -101,17 +97,21 @@ function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
 
 	self:SetDeploySpeed(1.1)
-	if SERVER then
-			self.Weapon.FirstSpawn = true
-	end
+
 	self.NextNail = 0
 end
  
 function SWEP:OnDeploy()
 	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
+
+	--Double amount of nails when having the upgrade   
+	if IsValid(self.Owner) and self.Owner:GetPerk("_hammerupgrade") and not self.Weapon.HadFirstDeploy then
+		self.Weapon.HadFirstDeploy = true
+		self:SetClip2(self:Clip2() * 2)
+	end
 	
 	if SERVER then
-		self.Owner. _RepairScore = self.Owner. _RepairScore or 0
+		self.Owner._RepairScore = self.Owner._RepairScore or 0
 	end
 end
  
@@ -460,12 +460,8 @@ function SWEP:Equip(NewOwner)
 		return
 	end
    
-	if self.Weapon.FirstSpawn then
-		self.Weapon.FirstSpawn = false
-	end
-   
 	-- Update it just in case
-	self.MaximumNails = self:Clip2()               
+	self.MaximumNails = self:Clip2()             
    
 	-- Call this function to update weapon slot and others
 	gamemode.Call("OnWeaponEquip", NewOwner, self)

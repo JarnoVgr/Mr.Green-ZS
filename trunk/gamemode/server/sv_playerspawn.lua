@@ -283,24 +283,6 @@ function GM:PlayerSpawn(pl)
 			Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredPlayerModelName ..". Which doesn't exist.")
 		end
 		
-	--[[	
-			
-	if pl:GetPerk("_medic") then	--Medic
-		pl.PlayerModel = "male02"	
-	--end
-	elseif pl:GetPerk("_hammerupgrade") or ("_turretoverdrive") then --Engineer
-		pl.PlayerModel = "kleiner" or "eli"
-	--end	
-	elseif pl:GetPerk("_adrenaline") or ("_imortalpro") then --Commando
-		pl.PlayerModel = "combie_soldier_prisonguard" or "combie_soldier"
-	--end	
-	elseif pl:GetPerk("_freeman") or ("_kevlar2") or ("_sboost") then --Berserker
-		pl.PlayerModel = "combine" or "alyx"	
-	end
-	]]--
-		
-		
-		
 		--Check if we can be THE Gordon Freeman
 		if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
 			--Only display message when being human
