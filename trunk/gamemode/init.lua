@@ -1545,6 +1545,7 @@ end
      Grave Digger suit health on death
 ---------------------------------------------------------------------------]=]
 --TODO: Move to somewhere else
+--[[ This is broken so you will need to look at this again. I didn't want to touch it as you would only want to change it anyway! ;)
 local SpecialWeapons = {
 	["weapon_zs_melee_crowbar"] = true,
 	["weapon_zs_melee_shovel"] = true,
@@ -1569,5 +1570,23 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inf, attack)
 		return
 	end
 
+
 	attack:SetHealth(attack:Health() + 5)
-end)
+end)]]--
+
+--Add the old method until its fixed as it was causing massive issues on the server...
+hook.Add("PlayerDeath", "sex", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_crowbar" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 8 )  end end)
+hook.Add("PlayerDeath", "sexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_katana" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 4 ) end end)
+hook.Add("PlayerDeath", "Ywa'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_shovel" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 6 ) end end)
+hook.Add("PlayerDeath", "Duby'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_axe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 7 ) end end)
+hook.Add("PlayerDeath", "Necro'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_combatknife" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 9 ) end end)
+hook.Add("PlayerDeath", "Clavussexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_fryingpan" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 9 ) end end)
+hook.Add("PlayerDeath", "Devulassexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_keyboard" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 13 ) end end)
+hook.Add("PlayerDeath", "Benssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_plank" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 12 ) end end)
+hook.Add("PlayerDeath", "Robssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pot" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 8 ) end end)
+hook.Add("PlayerDeath", "Pufu'ssexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_sledgehammer" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 5 ) end end)
+hook.Add("PlayerDeath", "boxsexy", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_fists2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 12 ) end end)
+hook.Add("PlayerDeath", "boxsexy2", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 12 ) end end)
+hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_pipe2" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 6 ) end end)
+hook.Add("PlayerDeath", "boxsexy3", function(victim, inf, attack) if ( inf and inf:GetClass() == "weapon_zs_melee_hook" and attack and attack:IsValid() and attack:IsPlayer() and attack:GetSuit() == "gravedigger" ) then attack:SetHealth( attack:Health() + 7 ) end end)
+
