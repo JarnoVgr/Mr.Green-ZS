@@ -155,7 +155,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 		
 		--One boss
-		if dmginfo:IsBulletDamage() and pl:GetZombieClass() == 11 and (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 then
+		if dmginfo:IsBulletDamage() and pl:GetZombieClass() == 11 or pl:GetZombieClass() == 18 and (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 then --Added armor for SeekerII as well..
 			if math.random(5) == 5 then
 				sound.Play( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
 

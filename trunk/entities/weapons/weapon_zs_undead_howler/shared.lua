@@ -152,8 +152,8 @@ function SWEP:PerformPrimaryAttack()
 end
 
 function SWEP:PerformSecondaryAttack()
-	self:DoAttack(false)
-	--self:DoAttack(true)
+	--self:DoAttack(false)
+	self:DoAttack(true)
 end
 
 function SWEP:Move(mv)
