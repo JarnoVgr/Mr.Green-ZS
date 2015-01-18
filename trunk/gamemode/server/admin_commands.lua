@@ -318,7 +318,7 @@ end
 hook.Add("PlayerSay", "ChatCommands1", CommandSay)
 
 --List of weapons available for admins
-local weaponList = { "weapon_zs_mac10", "weapon_zs_grenadelauncher", "weapon_zs_barricadekit", "weapon_zs_turretplacer","weapon_zs_shotgun","weapon_zs_syringe","weapon_zs_melee_crowbar", "weapon_zs_classic", "weapon_zs_melee_keyboard", "weapon_zs_usp", "weapon_zs_p228", "weapon_zs_combatknife",       -- list all weapons you can give
+local weaponList = { "map_tool", "dev_points", "admin_map_tool", "weapon_zs_mac10", "weapon_zs_grenadelauncher", "weapon_zs_barricadekit", "weapon_zs_turretplacer","weapon_zs_shotgun","weapon_zs_syringe","weapon_zs_melee_crowbar", "weapon_zs_classic", "weapon_zs_melee_keyboard", "weapon_zs_usp", "weapon_zs_p228", "weapon_zs_combatknife",       -- list all weapons you can give
 "weapon_zs_glock3", "weapon_zs_deagle", "weapon_zs_fiveseven", "weapon_zs_elites", "weapon_zs_magnum","weapon_zs_tmp", "weapon_zs_mp5", "weapon_zs_p90","weapon_zs_smg", "weapon_zs_ump",
 "weapon_zs_crossbow", "weapon_zs_scout", "weapon_zs_aug", "weapon_zs_galil", "weapon_zs_ak47", "weapon_zs_m4a1",
 "weapon_zs_m3super90", "weapon_zs_m1014", "weapon_zs_m249","weapon_zs_mine", "weapon_zs_sg552", "weapon_zs_famas", "weapon_zs_tools_torch", "weapon_zs_tools_supplies", "weapon_zs_tools_remote",

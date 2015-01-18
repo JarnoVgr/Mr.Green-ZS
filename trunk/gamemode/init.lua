@@ -427,7 +427,7 @@ local function DeleteEntitiesRestricted()
 	
 	-- Map specific filter for ents
 	if CurrentMapTable then
-		 local MapRemoveEnts,MapRemoveEntsByModel, MapException, MapRemoveGlass,MapRemoveEntsByModelPattern = CurrentMapTable.RemoveEntities,CurrentMapTable.RemoveEntitiesByModel, CurrentMapTable.ExceptEntitiesRemoval, CurrentMapTable.RemoveGlass, CurrentMapTable.RemoveEntitiesByModelPattern
+		local MapRemoveEnts,MapRemoveEntsByModel, MapException, MapRemoveGlass,MapRemoveEntsByModelPattern = CurrentMapTable.RemoveEntities,CurrentMapTable.RemoveEntitiesByModel, CurrentMapTable.ExceptEntitiesRemoval, CurrentMapTable.RemoveGlass, CurrentMapTable.RemoveEntitiesByModelPattern
 		--local MapRemoveEnts,MapRemoveEntsByModel, MapException, MapRemoveGlass,MapRemoveEntsByModelPattern = CurrentMapTable[1],CurrentMapTable[3], CurrentMapTable[2], CurrentMapTable[4], CurrentMapTable.RemoveEntitiesByModelPattern
 		-- Add entities to trash bin table 
 		if MapRemoveEnts and #MapRemoveEnts > 0 then
@@ -443,35 +443,34 @@ local function DeleteEntitiesRestricted()
 		end
 		--Remove entities by model
 		timer.Simple(1,function()
-		if MapRemoveEntsByModel and #MapRemoveEntsByModel > 0 then
-			for k,v in pairs ( ents.GetAll() ) do
-				for n,mdl in pairs(MapRemoveEntsByModel) do
-					if v:GetModel() == mdl then
-						if IsValid ( v ) then
-							SafeRemoveEntity ( v )	
-						Debug ( "[INIT] Safely removing entity "..tostring ( v ).." from map "..tostring ( game.GetMap() ) )
-						end		
+			if MapRemoveEntsByModel and #MapRemoveEntsByModel > 0 then
+				for k,v in pairs ( ents.GetAll() ) do
+					for n,mdl in pairs(MapRemoveEntsByModel) do
+						if v:GetModel() == mdl then
+							if IsValid ( v ) then
+								SafeRemoveEntity ( v )	
+							Debug ( "[INIT] Safely removing entity "..tostring ( v ).." from map "..tostring ( game.GetMap() ) )
+							end		
+						end
 					end
 				end
-			end
-		end	
+			end	
 		end)
 		--Remove complicated models
 		timer.Simple(1,function()
-		if MapRemoveEntsByModelPattern and #MapRemoveEntsByModelPattern > 0 then
-			for k,v in pairs ( ents.GetAll() ) do
-				for n,pat in pairs(MapRemoveEntsByModelPattern) do
-					if v:GetModel() and string.find(v:GetModel(),pat) then
-						if IsValid ( v ) then
-							SafeRemoveEntity ( v )	
-						Debug ( "[INIT] Safely removing entity "..tostring ( v ).." from map "..tostring ( game.GetMap() ) )
-						end		
+			if MapRemoveEntsByModelPattern and #MapRemoveEntsByModelPattern > 0 then
+				for k,v in pairs ( ents.GetAll() ) do
+					for n,pat in pairs(MapRemoveEntsByModelPattern) do
+						if v:GetModel() and string.find(v:GetModel(),pat) then
+							if IsValid ( v ) then
+								SafeRemoveEntity ( v )	
+							Debug ( "[INIT] Safely removing entity "..tostring ( v ).." from map "..tostring ( game.GetMap() ) )
+							end		
+						end
 					end
 				end
-			end
-		end	
+			end	
 		end)
-		
 		
 		--Temp force
 		MapRemoveGlass = true
