@@ -171,7 +171,7 @@ end
 
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then --Slower him on the primary attack
-		mv:SetMaxSpeed(50)
+		mv:SetMaxSpeed(145)
 		return true
 	end
 end
