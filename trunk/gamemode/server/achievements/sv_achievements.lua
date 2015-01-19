@@ -11,9 +11,6 @@ function GM:DoDamageAchievements ( ent, attacker, inflictor, dmginfo )
 	if ( inflictor == attacker ) then
 		if inflictor:IsPlayer() then inflictor = attacker:GetActiveWeapon() else inflictor = attacker end
 	end
-
-	-- Last time when the victim was hurt
-	ent.LastHurt = CurTime()
 	
 	if attacker:IsPlayer() and attacker:Team() ~= ent:Team() then
 		--attacker:PrintMessage (HUD_PRINTTALK, "Damage done: "..dmginfo:GetDamage().." by "..inflictor:GetClass().."")

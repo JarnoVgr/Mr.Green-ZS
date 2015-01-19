@@ -215,22 +215,29 @@ function GM:CreateScoreboardVGUI()
 	end
 	
 	left_scoreboard.Think = function()
-
 		local HumanPlayers = team.GetPlayers(TEAM_HUMAN)
 		local UndeadPlayers = team.GetPlayers(TEAM_UNDEAD)
 		table.sort(HumanPlayers, SortFunc)
 	
-		for i, pl in ipairs(HumanPlayers) do
-			AddScoreboardItem(pl,left_scoreboard,right_scoreboard,TEAM_HUMAN)
+		for i=1, #HumanPlayers do
+			local pl = HumanPlayers[i]
+			if not IsValid(pl) then
+				continue
+			end
+		
+			AddScoreboardItem(pl, left_scoreboard, right_scoreboard, TEAM_HUMAN)
 		end		
-		-- left_scoreboard:Rebuild()
-		for i, pl in ipairs(UndeadPlayers) do
+
+		for i=1, #UndeadPlayers do
+			local pl = UndeadPlayers[i]
+			if not IsValid(pl) then
+				continue
+			end
+			
 			for k,v in pairs(left_scoreboard:GetItems()) do
 				if pl == v.Player then
-				-- RemoveScoreboardItem(pl,left_scoreboard)
-				-- AddScoreboardItem(pl,right_scoreboard)
-				SwitchScoreboardItem(pl,left_scoreboard,right_scoreboard)
-				break
+					SwitchScoreboardItem(pl,left_scoreboard,right_scoreboard)
+					break
 				end
 			end
 		end
@@ -243,25 +250,31 @@ function GM:CreateScoreboardVGUI()
 		end
 		
 	end
-	-- ..............
 
-	
 	right_scoreboard.Think = function()
 		local HumanPlayers = team.GetPlayers(TEAM_HUMAN)
 		local UndeadPlayers = team.GetPlayers(TEAM_UNDEAD)
 	
 		table.sort(UndeadPlayers, SortFunc)
 	
-		for i, pl in pairs(UndeadPlayers) do
-			AddScoreboardItem(pl,right_scoreboard,left_scoreboard,TEAM_UNDEAD)	
+		for i=1, #UndeadPlayers do
+			local pl = UndeadPlayers[i]
+			if not IsValid(pl) then
+				continue
+			end
+			
+			AddScoreboardItem(pl, right_scoreboard, left_scoreboard, TEAM_UNDEAD)	
 		end
 		
 		-- right_scoreboard:Rebuild()
-		for i, pl in pairs(HumanPlayers) do
+		for i=1, #HumanPlayers do
+			local pl = HumanPlayers[i]
+			if not IsValid(pl) then
+				continue
+			end
+			
 			for k,v in pairs(right_scoreboard:GetItems()) do
 				if pl == v.Player then
-					-- RemoveScoreboardItem(pl,right_scoreboard)
-					-- AddScoreboardItem(pl,left_scoreboard)
 					SwitchScoreboardItem(pl,right_scoreboard,left_scoreboard)
 					break
 				end
@@ -274,10 +287,7 @@ function GM:CreateScoreboardVGUI()
 				MainLabel[v.Player] = nil
 			end
 		end
-	
-	end	
-	-- ................
-	
+	end
 end
 
 function GM:RemoveScoreboardVGUI()

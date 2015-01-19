@@ -8,7 +8,7 @@ hook.Add( "Initialize","VoiceInit",VoiceInit)
 
 function VoiceToQuestion()
 	local humans = team.GetPlayers(TEAM_HUMAN)
-	if (#humans > 1) then
+	if #humans > 1 then
 		local ply = humans[math.random(1,#humans)]
 		if IsRealisticToVoice(ply) then
 			ply:VoiceQuestion()

@@ -233,7 +233,7 @@ function SWEP:PrimaryAttack()
 				self:RemoveAmmoBox(Ent)
 				self.Owner:Message("Removed Supply Crate")
 			else
-				self.Owner:Message("Can't remove a non Supply Crate entity")
+				self.Owner:Message("Can't remove a non-Supply Crate entity")
 			end
 		elseif tr.HitWorld then
 			self:SpawnAmmoBox(self:GetDTBool(0))

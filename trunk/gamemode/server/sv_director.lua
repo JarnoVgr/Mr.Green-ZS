@@ -6,6 +6,7 @@ include("sv_director_supply.lua")
 include("sv_director_vote.lua")
 include("sv_director_titles.lua")
 include("sv_director_boss.lua")
+include("sv_director_heal_undead.lua")
 
 GAMEACTIVE = false
 --GiveSkillPointsSurvivors
@@ -31,10 +32,14 @@ local function ManageEvents()
 			timer.Create("GiveSkillPointsSurvivors", math.Round(ROUNDTIME/12), 0, GiveSkillPointsSurvivors)
 
 			--
-			for k,v in pairs(team.GetPlayers(TEAM_HUMAN)) do
-				if IsEntityValid(v) then
-					v:SendLua("surface.PlaySound(Sound(\"ambient/creatures/town_zombie_call1.wav\")) GAMEMODE:Add3DMessage(140,\"The Undead are rising\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh\",nil,\"ArialBoldTen\")")
+			local Survivors = team.GetPlayers(TEAM_HUMAN)
+			for i=1, #Survivors do
+				local pl = Survivors[i]
+				if not IsValid(pl) then
+					continue
 				end
+				
+				pl:SendLua("surface.PlaySound(Sound(\"ambient/creatures/town_zombie_call1.wav\")) GAMEMODE:Add3DMessage(140,\"The Undead are rising\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh\",nil,\"ArialBoldTen\")")
 			end
 
 			Debug("[DIRECTOR] Game is now active")
@@ -93,14 +98,18 @@ timer.Create("ManageMinorEvents", 5, 0, ManageMinorEvents)
 --Timer creator for this function is at ManageEvents
 function GiveSkillPointsSurvivors()
 	--Give skillpoints to all players for still being alive
-	for _, h in pairs(team.GetPlayers(TEAM_HUMAN)) do
-		if h and h:IsValid() and h:Alive() then
-			--Give SP
-			skillpoints.AddSkillPoints(h,math.max(0,math.Round(40*GetInfliction()))) --This gives SP as the round  goes on. 
-
-			--Give XP
-			h:AddXP(math.max(0,110*GetInfliction()))
+	local Survivors = team.GetPlayers(TEAM_HUMAN)
+	for i=1, #Survivors do
+		local pl = Survivors[i]
+		if not IsValid(pl) or not pl:Alive() then
+			continue
 		end
+
+		--Give SP
+		skillpoints.AddSkillPoints(pl, math.max(0,math.Round(40*GetInfliction()))) --This gives SP as the round  goes on. 
+
+		--Give XP
+		pl:AddXP(math.max(0, 110*GetInfliction()))
 	end
 end
 
@@ -173,17 +182,16 @@ function GM:HandleObjEnts()
 					if objent:GetKeyValues().origin == Objectives[i].Trigger then
 						print("Doing entity "..tostring(objent))
 						objent:HookOutput(Objectives[i].TriggerOutputHook, "Objective"..tostring(v), function(self,activator,data) 
-																										if Objectives[i].TriggerOutputFunction then 
-																											Objectives[i].TriggerOutputFunction() 
-																										end 
-																										-- hacky way how to check if one of few stages were bypassed
-																										if GAMEMODE:GetObjStage() ~= math.Clamp(i-1,1,#Objectives) then
-																											GAMEMODE:SetObjStage(i)
-																										else
-																											GAMEMODE:NextObjStage() 
-																										end
-																										
-																									  end)
+							if Objectives[i].TriggerOutputFunction then 
+								Objectives[i].TriggerOutputFunction() 
+							end 
+							-- hacky way how to check if one of few stages were bypassed
+							if GAMEMODE:GetObjStage() ~= math.Clamp(i-1,1,#Objectives) then
+								GAMEMODE:SetObjStage(i)
+							else
+								GAMEMODE:NextObjStage() 
+							end
+						end)
 					end
 				end
 			elseif Objectives[i].TriggerOutputHook and Objectives[i].TriggerTargetName then
@@ -192,23 +200,20 @@ function GM:HandleObjEnts()
 					if objent:GetKeyValues().targetname == Objectives[i].TriggerTargetName then
 						print("Doing entity "..tostring(objent))
 						objent:HookOutput(Objectives[i].TriggerOutputHook, "Objective"..tostring(v), function(self,activator,data) 
-																										if Objectives[i].TriggerOutputFunction then 
-																											Objectives[i].TriggerOutputFunction() 
-																										end 
-																										if GAMEMODE:GetObjStage() ~= math.Clamp(i-1,1,#Objectives) then
-																											GAMEMODE:SetObjStage(i)
-																										else
-																											GAMEMODE:NextObjStage() 
-																										end
-																										
-																									  end)
+							if Objectives[i].TriggerOutputFunction then 
+								Objectives[i].TriggerOutputFunction() 
+							end 
+							if GAMEMODE:GetObjStage() ~= math.Clamp(i-1,1,#Objectives) then
+								GAMEMODE:SetObjStage(i)
+							else
+								GAMEMODE:NextObjStage() 
+							end
+		  				end)
 					end
-				end
-				
+				end	
 			end
 		end
 	end
-
 end
 
 function PrintEnts(p, cmd, arguments)

@@ -186,13 +186,14 @@ function ZombieAuraThink()
 	local Position, MaxAuras, AuraTable = MySelf:GetPos(), 0, {}
 	
 	-- Run through the humans and check who is alive
-	local survivors = team.GetPlayers(TEAM_HUMAN)
+	local Survivors = team.GetPlayers(TEAM_HUMAN)
 
 	--Shuffle to make it more random
-	survivors = table.Shuffle(survivors)
+	Survivors = table.Shuffle(Survivors)
 
-	for _, pl in pairs(survivors) do
-		if not pl:Alive() then
+	for i=1, #Survivors do
+		local pl = Survivors[i]
+		if not IsValid(pl) or not pl:Alive() then
 			continue
 		end
 

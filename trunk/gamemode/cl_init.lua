@@ -233,7 +233,8 @@ local function HeartbeatGlow()
 	end
 
 	local eyepos = EyePos()
-	for _, pl in pairs(CachedHumans) do
+	for i=1, #CachedHumans do
+		local pl = CachedHumans[i]
 		if not IsValid(pl) or pl:Team() ~= TEAM_HUMAN or not pl:Alive() or pl:GetPos():Distance(eyepos) > 1024 or (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
 			continue
 		end			

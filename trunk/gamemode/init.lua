@@ -916,7 +916,13 @@ end
 function SoMuchBlood(point, kill, distance)
 	local hax = {}
 	local dirvec
-	for k, v in pairs(team.GetPlayers(TEAM_HUMAN)) do
+	local Humans = team.GetPlayers(TEAM_HUMAN)
+	for i=1, #Humans do
+		local pl = Humans[i]
+		if not IsValid(pl) then
+			continue
+		end
+	
 		dirvec = v:GetPos()-point
 		if (dirvec:Length() <= distance) then
 			table.insert(hax, { pl = v, severity = math.Clamp(math.Round(1-distance/dirvec:Length())*5,1,5 )} )

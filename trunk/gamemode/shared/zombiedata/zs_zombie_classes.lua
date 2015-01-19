@@ -1,8 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
---File optimization by Duby
-
 ----------------------------
 -- ZOMBIE CLASSES --
 -----------------------------
@@ -39,95 +37,63 @@ ZombieClasses[0] =
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
-				Sound("npc/zombiegreen/been_shot_1.wav"),
-				Sound("npc/zombiegreen/been_shot_2.wav"),
-				Sound("npc/zombiegreen/been_shot_3.wav"),
-				Sound("npc/zombiegreen/been_shot_4.wav"),
-				Sound("npc/zombiegreen/been_shot_5.wav"),
-				Sound("npc/zombiegreen/been_shot_6.wav"),
-				Sound("npc/zombiegreen/been_shot_7.wav"),
-				Sound("npc/zombiegreen/been_shot_8.wav"),
-				Sound("npc/zombiegreen/been_shot_9.wav"),
-				Sound("npc/zombiegreen/been_shot_10.wav"),
-				Sound("npc/zombiegreen/been_shot_11.wav"),
-				Sound("npc/zombiegreen/been_shot_12.wav"),
-				Sound("npc/zombiegreen/been_shot_13.wav"),
-				Sound("npc/zombiegreen/been_shot_14.wav"),
-				Sound("npc/zombiegreen/been_shot_15.wav"),
-				Sound("npc/zombiegreen/been_shot_16.wav"),
-				Sound("npc/zombiegreen/been_shot_17.wav"),
-				Sound("npc/zombiegreen/been_shot_18.wav"),
-				Sound("npc/zombiegreen/been_shot_19.wav"),
-				Sound("npc/zombiegreen/been_shot_20.wav"),
-				Sound("npc/zombiegreen/been_shot_21.wav")
-				}, 
+		Sound("npc/zombiegreen/been_shot_1.wav"),
+		Sound("npc/zombiegreen/been_shot_2.wav"),
+		Sound("npc/zombiegreen/been_shot_3.wav"),
+		Sound("npc/zombiegreen/been_shot_4.wav"),
+		Sound("npc/zombiegreen/been_shot_5.wav"),
+		Sound("npc/zombiegreen/been_shot_6.wav"),
+		Sound("npc/zombiegreen/been_shot_7.wav"),
+		Sound("npc/zombiegreen/been_shot_8.wav"),
+		Sound("npc/zombiegreen/been_shot_9.wav"),
+		Sound("npc/zombiegreen/been_shot_10.wav"),
+		Sound("npc/zombiegreen/been_shot_11.wav"),
+		Sound("npc/zombiegreen/been_shot_12.wav"),
+		Sound("npc/zombiegreen/been_shot_13.wav"),
+		Sound("npc/zombiegreen/been_shot_14.wav"),
+		Sound("npc/zombiegreen/been_shot_15.wav"),
+		Sound("npc/zombiegreen/been_shot_16.wav"),
+		Sound("npc/zombiegreen/been_shot_17.wav"),
+		Sound("npc/zombiegreen/been_shot_18.wav"),
+		Sound("npc/zombiegreen/been_shot_19.wav"),
+		Sound("npc/zombiegreen/been_shot_20.wav"),
+		Sound("npc/zombiegreen/been_shot_21.wav")
+	}, 
 	DeathSounds = {
-				Sound("npc/zombiegreen/death_17.wav"),
-				Sound("npc/zombiegreen/death_18.wav"),
-				Sound("npc/zombiegreen/death_19.wav"),
-				Sound("npc/zombiegreen/death_20.wav"),
-				Sound("npc/zombiegreen/death_21.wav"),
-				Sound("npc/zombiegreen/death_22.wav"),
-				Sound("npc/zombiegreen/death_23.wav"),
-				Sound("npc/zombiegreen/death_24.wav"),
-				Sound("npc/zombiegreen/death_25.wav"),
-				Sound("npc/zombiegreen/death_26.wav"),
-				Sound("npc/zombiegreen/death_27.wav"),
-				Sound("npc/zombiegreen/death_28.wav"),
-				Sound("npc/zombiegreen/death_29.wav"),
-				Sound("npc/zombiegreen/death_30.wav"),
-				Sound("npc/zombiegreen/death_31.wav"),
-				Sound("npc/zombiegreen/death_32.wav"),
-				Sound("npc/zombiegreen/death_33.wav"),
-				Sound("npc/zombiegreen/death_34.wav"),
-				Sound("npc/zombiegreen/death_35.wav")
-				}, 	
+		Sound("npc/zombiegreen/death_17.wav"),
+		Sound("npc/zombiegreen/death_18.wav"),
+		Sound("npc/zombiegreen/death_19.wav"),
+		Sound("npc/zombiegreen/death_20.wav"),
+		Sound("npc/zombiegreen/death_21.wav"),
+		Sound("npc/zombiegreen/death_22.wav"),
+		Sound("npc/zombiegreen/death_23.wav"),
+		Sound("npc/zombiegreen/death_24.wav"),
+		Sound("npc/zombiegreen/death_25.wav"),
+		Sound("npc/zombiegreen/death_26.wav"),
+		Sound("npc/zombiegreen/death_27.wav"),
+		Sound("npc/zombiegreen/death_28.wav"),
+		Sound("npc/zombiegreen/death_29.wav"),
+		Sound("npc/zombiegreen/death_30.wav"),
+		Sound("npc/zombiegreen/death_31.wav"),
+		Sound("npc/zombiegreen/death_32.wav"),
+		Sound("npc/zombiegreen/death_33.wav"),
+		Sound("npc/zombiegreen/death_34.wav"),
+		Sound("npc/zombiegreen/death_35.wav")
+	}, 	
 	PlayerFootstep = false,
 	Unlocked = true,
-	OnSpawn = function(pl)
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale(i, Vector(1,1,1))
-	end
-	
+	OnSpawn = function(pl)	
 		--Force human player model
 		if pl.ForcePlayerModel then
 			--Reset
 			pl.ForcePlayerModel = false
 
 			local status2 = pl:GiveStatus("simple_revive2")
-		if status2 then
-			status2:SetReviveTime(CurTime() + 2)
-			status2:SetReviveDuration(1.37)
-			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
-		end
+			if status2 then
+				status2:SetReviveTime(CurTime() + 2)
+				status2:SetReviveDuration(1.37)
+				-- status2:SetZombieInitializeTime(CurTime() + 0.1)
+			end
 			
 			--Set model and face
 			--pl:SetModel(player_manager.TranslatePlayerModel(pl.PlayerModel))
@@ -165,75 +131,33 @@ ZombieClasses[1] =
 	DescriptionGameplay = { "> PRIMARY: Bare Claws", "> SECONDARY: War Cry!" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
-				Sound( "npc/zombine/zombine_pain1.wav" ),
-				Sound( "npc/zombine/zombine_pain2.wav" ),
-				Sound( "npc/zombine/zombine_pain3.wav" ),
-				Sound( "npc/zombine/zombine_pain4.wav" ),
-				},
+		Sound( "npc/zombine/zombine_pain1.wav" ),
+		Sound( "npc/zombine/zombine_pain2.wav" ),
+		Sound( "npc/zombine/zombine_pain3.wav" ),
+		Sound( "npc/zombine/zombine_pain4.wav" ),
+	},
 	DeathSounds = {
-				Sound("npc/zombine/zombine_die1.wav"),
-				Sound("npc/zombine/zombine_die2.wav"),
-				},
+		Sound("npc/zombine/zombine_die1.wav"),
+		Sound("npc/zombine/zombine_die2.wav"),
+	},
 	IdleSounds = {
-				Sound("npc/zombine/zombine_idle1.wav"),
-				Sound("npc/zombine/zombine_idle2.wav"),
-				Sound("npc/zombine/zombine_idle3.wav"),
-				Sound("npc/zombine/zombine_idle4.wav"),
-				},
+		Sound("npc/zombine/zombine_idle1.wav"),
+		Sound("npc/zombine/zombine_idle2.wav"),
+		Sound("npc/zombine/zombine_idle3.wav"),
+		Sound("npc/zombine/zombine_idle4.wav"),
+	},
 	AlertSounds = {
-				Sound ( "npc/zombine/zombine_alert1.wav" ),
-				Sound ( "npc/zombine/zombine_alert2.wav" ),
-				Sound ( "npc/zombine/zombine_alert3.wav" ),
-				Sound ( "npc/zombine/zombine_alert4.wav" ),
-				Sound ( "npc/zombine/zombine_alert5.wav" ),
-				Sound ( "npc/zombine/zombine_alert6.wav" ),
-				Sound ( "npc/zombine/zombine_alert7.wav" ),
-				},
+		Sound ( "npc/zombine/zombine_alert1.wav" ),
+		Sound ( "npc/zombine/zombine_alert2.wav" ),
+		Sound ( "npc/zombine/zombine_alert3.wav" ),
+		Sound ( "npc/zombine/zombine_alert4.wav" ),
+		Sound ( "npc/zombine/zombine_alert5.wav" ),
+		Sound ( "npc/zombine/zombine_alert6.wav" ),
+		Sound ( "npc/zombine/zombine_alert7.wav" ),
+	},
 	Unique = "",
-	Description = "A tainted prison guard who wonders the land.. 	",
+	Description = "A tainted prison guard who wonders the land..",
 	OnSpawn = function(pl)
-			if pl:Team() == TEAM_UNDEAD and pl:GetZombieClass() == 1 then
-			
-	--	pl:SetModel(Model(player_manager.TranslatePlayerModel("kleiner")))
-	--	pl:SetModel(Model(player_manager.TranslatePlayerModel("combine_elite_normal")))
-	--	pl:SetColor( 200, 0, 0 )	
-		pl:SetRandomFace()		
-			
-		--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale(i, Vector(1,1,1))
-	end
-	
-		else
-			return
-				end
 	end,
 	--Unique = "Can be deadly in numbers. Can Propkill.",	
 	PlayerFootstep = false,
@@ -264,60 +188,26 @@ ZombieClasses[2] =
 	Speed = 155,
 	--Description = "A hulking mass of flesh far more durable than any other zombie.",
 	Description = "A hulking mass of flesh.",
-		OnSpawn = function(pl)
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
+	OnSpawn = function(pl)
 	end,
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> SPECIAL: Propkill" },
 	PainSounds = {
-				Sound("npc/zombie_poison/pz_pain1.wav"),
-				Sound("npc/zombie_poison/pz_pain2.wav"),
-				Sound("npc/zombie_poison/pz_pain3.wav")
-				},
+		Sound("npc/zombie_poison/pz_pain1.wav"),
+		Sound("npc/zombie_poison/pz_pain2.wav"),
+		Sound("npc/zombie_poison/pz_pain3.wav")
+	},
 	IdleSounds = {
-				Sound("npc/zombie_poison/pz_alert1.wav"),
-				Sound("npc/zombie_poison/pz_alert2.wav"),
-				Sound("npc/zombie_poison/pz_idle2.wav"),
-				Sound("npc/zombie_poison/pz_idle3.wav"),
-				Sound("npc/zombie_poison/pz_idle4.wav"),
-				},
+		Sound("npc/zombie_poison/pz_alert1.wav"),
+		Sound("npc/zombie_poison/pz_alert2.wav"),
+		Sound("npc/zombie_poison/pz_idle2.wav"),
+		Sound("npc/zombie_poison/pz_idle3.wav"),
+		Sound("npc/zombie_poison/pz_idle4.wav"),
+	},
 	DeathSounds = {
-				Sound("npc/zombie_poison/pz_die1.wav"),
-				Sound("npc/zombie_poison/pz_die2.wav")
-				},
-	-- ViewOffset = Vector( 0, 0, 0 ),
-	
-	  ViewOffset = Vector( 0,0,50 ),
+		Sound("npc/zombie_poison/pz_die1.wav"),
+		Sound("npc/zombie_poison/pz_die2.wav")
+	},
+	ViewOffset = Vector(0, 0, 50),
 	ModelScale = 1
 }
 
@@ -343,67 +233,35 @@ ZombieClasses[8] =
 	Speed = 160,
 	RunSpeed = 190,
 	Description = "A heavily armoured soldier with bullet resistance!",
-		OnSpawn = function(pl)
-	--Duby: This is required as the spitter will mess up the model :P Need to fix this properly.
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
+	OnSpawn = function(pl)
 	end,
 	DescriptionGameplay = { "> PRIMARY: Upgraded Bloody CLAWS", "> SPECIAL: Pulls out grenade, poison or normal", "> SPECIAL: Enrage when taken enough damage" },
 	PainSounds = {
-				Sound( "npc/zombine/zombine_pain1.wav" ),
-				Sound( "npc/zombine/zombine_pain2.wav" ),
-				Sound( "npc/zombine/zombine_pain3.wav" ),
-				Sound( "npc/zombine/zombine_pain4.wav" ),
-				},
+		Sound( "npc/zombine/zombine_pain1.wav" ),
+		Sound( "npc/zombine/zombine_pain2.wav" ),
+		Sound( "npc/zombine/zombine_pain3.wav" ),
+		Sound( "npc/zombine/zombine_pain4.wav" ),
+	},
 	DeathSounds = {
-				Sound("npc/zombine/zombine_die1.wav"),
-				Sound("npc/zombine/zombine_die2.wav"),
-				},
+		Sound("npc/zombine/zombine_die1.wav"),
+		Sound("npc/zombine/zombine_die2.wav"),
+	},
 	IdleSounds = {
-				Sound("npc/zombine/zombine_idle1.wav"),
-				Sound("npc/zombine/zombine_idle2.wav"),
-				Sound("npc/zombine/zombine_idle3.wav"),
-				Sound("npc/zombine/zombine_idle4.wav"),
-				},
+		Sound("npc/zombine/zombine_idle1.wav"),
+		Sound("npc/zombine/zombine_idle2.wav"),
+		Sound("npc/zombine/zombine_idle3.wav"),
+		Sound("npc/zombine/zombine_idle4.wav"),
+	},
 	AlertSounds = {
-				Sound ( "npc/zombine/zombine_alert1.wav" ),
-				Sound ( "npc/zombine/zombine_alert2.wav" ),
-				Sound ( "npc/zombine/zombine_alert3.wav" ),
-				Sound ( "npc/zombine/zombine_alert4.wav" ),
-				Sound ( "npc/zombine/zombine_alert5.wav" ),
-				Sound ( "npc/zombine/zombine_alert6.wav" ),
-				Sound ( "npc/zombine/zombine_alert7.wav" ),
-				},
-				ModelScale = 1
+		Sound ( "npc/zombine/zombine_alert1.wav" ),
+		Sound ( "npc/zombine/zombine_alert2.wav" ),
+		Sound ( "npc/zombine/zombine_alert3.wav" ),
+		Sound ( "npc/zombine/zombine_alert4.wav" ),
+		Sound ( "npc/zombine/zombine_alert5.wav" ),
+		Sound ( "npc/zombine/zombine_alert6.wav" ),
+		Sound ( "npc/zombine/zombine_alert7.wav" ),
+	},
+	ModelScale = 1
 }
 
 
@@ -429,49 +287,15 @@ ZombieClasses[4] = --Duby: You will all love my labs new creation.
 	DescriptionGameplay = { "> PRIMARY: Fresh Vomit!", "> SECONDARY: " },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
-				Sound("npc/zombie_poison/pz_pain1.wav"),
-				Sound("npc/zombie_poison/pz_pain2.wav"),
-				Sound("npc/zombie_poison/pz_pain3.wav")
-				},
+		Sound("npc/zombie_poison/pz_pain1.wav"),
+		Sound("npc/zombie_poison/pz_pain2.wav"),
+		Sound("npc/zombie_poison/pz_pain3.wav")
+	},
 	DeathSounds = {
-				Sound("npc/zombie_poison/pz_die1.wav"),
-				Sound("npc/zombie_poison/pz_die2.wav")
-				},
-	OnSpawn = function(pl)	
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 5, 5), math.Rand( 11, 5)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 8, 5), math.Rand( -10, -10), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand left
-	
-
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 5, 5), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 8, 5), math.Rand( 5, 5), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 8, 5), math.Rand( 0, 0), math.Rand( -10, -10)) )	--hand right
-
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	--pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-	 --	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
+		Sound("npc/zombie_poison/pz_die1.wav"),
+		Sound("npc/zombie_poison/pz_die2.wav")
+	},
+	OnSpawn = function(pl)
 	end,
 	ModelScale = 1.2
 	-- ViewOffset = Vector(0, 0, 0)
@@ -499,24 +323,22 @@ ZombieClasses[5] =
 	DescriptionGameplay = { "> PRIMARY: Hooks", "> SECONDARY: Teleport" },
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	PainSounds = {
-				--Sound("npc/stalker/stalker_pain1.wav"),
-				--Sound("npc/stalker/stalker_pain2.wav"),
-				--Sound("npc/stalker/stalker_pain3.wav"),
-				Sound("npc/stalker/stalker_alert1b.wav"),
-				Sound("npc/stalker/stalker_alert12.wav"),
-				Sound("npc/stalker/stalker_alert13.wav"),
-				-- Sound("npc/barnacle/barnacle_pull4.wav")
-				},
+		--[[Sound("npc/stalker/stalker_pain1.wav"),
+		Sound("npc/stalker/stalker_pain2.wav"),
+		Sound("npc/stalker/stalker_pain3.wav"),]]
+		Sound("npc/stalker/stalker_alert1b.wav"),
+		Sound("npc/stalker/stalker_alert12.wav"),
+		Sound("npc/stalker/stalker_alert13.wav"),
+		-- Sound("npc/barnacle/barnacle_pull4.wav")
+	},
 	DeathSounds = {
-				Sound("npc/stalker/stalker_die1.wav"),
-				Sound("npc/stalker/stalker_die2.wav"),
-				 Sound("wraithdeath3.wav"),
-				 Sound("wraithdeath4.wav")
-				},
+		Sound("npc/stalker/stalker_die1.wav"),
+		Sound("npc/stalker/stalker_die2.wav"),
+		Sound("wraithdeath3.wav"),
+		Sound("wraithdeath4.wav")
+	},
 	OnSpawn = function(pl)
 		pl:DrawShadow(false)
-		--pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(11,11,11,6))
-		--pl:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,225))
 	end,
 	ModelScale = 1
 	-- ViewOffset = Vector(0, 0, 0)
@@ -546,18 +368,18 @@ ZombieClasses[6] =
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	PlayerFootstep = true,
 	AttackSounds = { 
-				Sound("player/zombies/howler/howler_scream_01.wav"),
-				Sound("player/zombies/howler/howler_scream_02.wav"),
-				},
+		Sound("player/zombies/howler/howler_scream_01.wav"),
+		Sound("player/zombies/howler/howler_scream_02.wav"),
+	},
 	PainSounds = { 
-				Sound("player/zombies/howler/howler_mad_01.wav" ),
-				Sound("player/zombies/howler/howler_mad_02.wav" ),
-				Sound("player/zombies/howler/howler_mad_03.wav" ),
-				Sound("player/zombies/howler/howler_mad_04.wav" ),
-				},
+		Sound("player/zombies/howler/howler_mad_01.wav" ),
+		Sound("player/zombies/howler/howler_mad_02.wav" ),
+		Sound("player/zombies/howler/howler_mad_03.wav" ),
+		Sound("player/zombies/howler/howler_mad_04.wav" ),
+	},
 	DeathSounds = {
-				Sound( "player/zombies/howler/howler_death_01.wav" ),
-				}, 
+		Sound( "player/zombies/howler/howler_death_01.wav" ),
+	}, 
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
 		
@@ -594,20 +416,18 @@ ZombieClasses[7] =
 	end,
 	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes" },
 	PainSounds = {
-				Sound("npc/headcrab/pain1.wav"),
-				Sound("npc/headcrab/pain2.wav"),
-				Sound("npc/headcrab/pain3.wav")
-				},
+		Sound("npc/headcrab/pain1.wav"),
+		Sound("npc/headcrab/pain2.wav"),
+		Sound("npc/headcrab/pain3.wav")
+	},
 	DeathSounds = {
-				Sound("npc/headcrab/die1.wav"),
-				Sound("npc/headcrab/die2.wav")
-				},
+		Sound("npc/headcrab/die1.wav"),
+		Sound("npc/headcrab/die2.wav")
+	},
 	ViewOffset = Vector( 0,0,10 ),
 	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1)},
 	ModelScale = 1
 }
-
-
 
 ZombieClasses[3] = 
 {
@@ -633,30 +453,30 @@ ZombieClasses[3] =
 	end,
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap" },
 	PainSounds = {
-				Sound("mrgreen/undead/fastzombie/pain1.wav"),
-				Sound("mrgreen/undead/fastzombie/pain2.wav"),
-				Sound("mrgreen/undead/fastzombie/pain3.wav"),
-				Sound("mrgreen/undead/fastzombie/pain4.wav"),
-				Sound("mrgreen/undead/fastzombie/pain5.wav"),
-				Sound("mrgreen/undead/fastzombie/pain6.wav"),
-				Sound("mrgreen/undead/fastzombie/pain7.wav"),
-				Sound("mrgreen/undead/fastzombie/pain8.wav"),
-				Sound("mrgreen/undead/fastzombie/pain9.wav"),
-				Sound("mrgreen/undead/fastzombie/pain10.wav"),
-				Sound("mrgreen/undead/fastzombie/pain11.wav"),
-				Sound("mrgreen/undead/fastzombie/pain12.wav"),
-				Sound("mrgreen/undead/fastzombie/pain13.wav"),
-				Sound("mrgreen/undead/fastzombie/pain14.wav"),
-				Sound("mrgreen/undead/fastzombie/pain15.wav"),
-				Sound("mrgreen/undead/fastzombie/pain16.wav"),
-				},
+		Sound("mrgreen/undead/fastzombie/pain1.wav"),
+		Sound("mrgreen/undead/fastzombie/pain2.wav"),
+		Sound("mrgreen/undead/fastzombie/pain3.wav"),
+		Sound("mrgreen/undead/fastzombie/pain4.wav"),
+		Sound("mrgreen/undead/fastzombie/pain5.wav"),
+		Sound("mrgreen/undead/fastzombie/pain6.wav"),
+		Sound("mrgreen/undead/fastzombie/pain7.wav"),
+		Sound("mrgreen/undead/fastzombie/pain8.wav"),
+		Sound("mrgreen/undead/fastzombie/pain9.wav"),
+		Sound("mrgreen/undead/fastzombie/pain10.wav"),
+		Sound("mrgreen/undead/fastzombie/pain11.wav"),
+		Sound("mrgreen/undead/fastzombie/pain12.wav"),
+		Sound("mrgreen/undead/fastzombie/pain13.wav"),
+		Sound("mrgreen/undead/fastzombie/pain14.wav"),
+		Sound("mrgreen/undead/fastzombie/pain15.wav"),
+		Sound("mrgreen/undead/fastzombie/pain16.wav"),
+	},
 	DeathSounds = {
-				Sound("mrgreen/undead/fastzombie/death1.wav"),
-				Sound("mrgreen/undead/fastzombie/death2.wav"),
-				Sound("mrgreen/undead/fastzombie/death3.wav"),
-				Sound("mrgreen/undead/fastzombie/death4.wav"),
-				Sound("mrgreen/undead/fastzombie/death5.wav")
-				},
+		Sound("mrgreen/undead/fastzombie/death1.wav"),
+		Sound("mrgreen/undead/fastzombie/death2.wav"),
+		Sound("mrgreen/undead/fastzombie/death3.wav"),
+		Sound("mrgreen/undead/fastzombie/death4.wav"),
+		Sound("mrgreen/undead/fastzombie/death5.wav")
+	},
 	PlayerFootstep = true,
 	ViewOffset = Vector( 0, 0, 50 ),
 	ViewOffsetDucked = Vector( 0, 0, 24 ),
@@ -694,57 +514,19 @@ ZombieClasses[9] =
 	end,
 	DescriptionGameplay = { "> PRIMARY: Spit", "> SPECIAL: Fits through small places", "> DEATH: Chance of dropping a Poison Bomb" },
 	PainSounds = {
-				Sound("npc/headcrab_poison/ph_pain1.wav"),
-				Sound("npc/headcrab_poison/ph_pain2.wav"),
-				Sound("npc/headcrab_poison/ph_pain3.wav")
-				},
+		Sound("npc/headcrab_poison/ph_pain1.wav"),
+		Sound("npc/headcrab_poison/ph_pain2.wav"),
+		Sound("npc/headcrab_poison/ph_pain3.wav")
+	},
 	DeathSounds = {
-				Sound("npc/headcrab_poison/ph_rattle1.wav"),
-				Sound("npc/headcrab_poison/ph_rattle2.wav"),
-				Sound("npc/headcrab_poison/ph_rattle3.wav")
-				},
+		Sound("npc/headcrab_poison/ph_rattle1.wav"),
+		Sound("npc/headcrab_poison/ph_rattle2.wav"),
+		Sound("npc/headcrab_poison/ph_rattle3.wav")
+	},
 	ViewOffset = Vector( 0,0,10 ),
 	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1) },
 	ModelScale = 1
 }
-
-
---[[
-ZombieClasses[9] =
-{
-	Name = "Crow",
-	Health = 30,
-	Infliction = 0,
-	Tag = "crow",
-	Bounty = 1,
-	SP = 1,
-	Mass = 2,
-	Threshold = 0,
-	CanGib = true,
-	CanCrouch = false,
-	SWEP = "weapon_zs_crow",
-	Model = Model("models/crow.mdl"),
-	Speed = 60,
-	RunSpeed = 125,
-	Description = "Use this Infected crow to sneak up humans.",
-	PainSounds = {
-				Sound("npc/crow/pain1.wav"),
-				Sound("npc/crow/pain2.wav")
-				},
-	DeathSounds = {
-				Sound("npc/crow/die1.wav"),
-				Sound("npc/crow/die2.wav")
-				},
-	ViewOffset = Vector(0,0,8),
-	Hull = { Vector(-5,-5, 0), Vector(5,5,5) },
-	NoPhysics = true,
-	Hidden = true
-}
-
-
-]]--
-
-
 
 ZombieClasses[10] =										
 {
@@ -769,23 +551,23 @@ ZombieClasses[10] =
 	Description = "",
 	Unique = "",
 	AttackSounds = {
-				Sound("player/zombies/hate/chainsaw_attack_miss.wav"),
-				Sound("player/zombies/hate/chainsaw_attack_hit.wav"),
-				}, 
+		Sound("player/zombies/hate/chainsaw_attack_miss.wav"),
+		Sound("player/zombies/hate/chainsaw_attack_hit.wav"),
+	}, 
 	PainSounds = {
-				Sound("player/zombies/hate/sawrunner_pain1.wav"),
-				Sound("player/zombies/hate/sawrunner_pain2.wav"),
-				}, 
+		Sound("player/zombies/hate/sawrunner_pain1.wav"),
+		Sound("player/zombies/hate/sawrunner_pain2.wav"),
+	}, 
 	DeathSounds = {
-				Sound("npc/zombie_poison/pz_die1.wav"),
-				Sound("npc/zombie_poison/pz_die2.wav")
-				},
+		Sound("npc/zombie_poison/pz_die1.wav"),
+		Sound("npc/zombie_poison/pz_die2.wav")
+	},
 	IdleSounds = {
-				Sound("player/zombies/hate/sawrunner_alert10.wav"),
-				Sound("player/zombies/hate/sawrunner_alert20.wav"),
-				Sound("player/zombies/hate/sawrunner_alert30.wav"),
-				Sound("player/zombies/hate/sawrunner_attack2.wav"),
-				},
+		Sound("player/zombies/hate/sawrunner_alert10.wav"),
+		Sound("player/zombies/hate/sawrunner_alert20.wav"),
+		Sound("player/zombies/hate/sawrunner_alert30.wav"),
+		Sound("player/zombies/hate/sawrunner_attack2.wav"),
+	},
 	PlayerFootstep = true,
 	Unlocked = false,
 	-- ViewOffset = Vector( 0, 0, 0 ),
@@ -825,23 +607,23 @@ ZombieClasses[20] =
 	Description = "",
 	Unique = "",
 	AttackSounds = {
-				Sound("player/zombies/hate/chainsaw_attack_miss.wav"),
-				Sound("player/zombies/hate/chainsaw_attack_hit.wav"),
-				}, 
+		Sound("player/zombies/hate/chainsaw_attack_miss.wav"),
+		Sound("player/zombies/hate/chainsaw_attack_hit.wav"),
+	}, 
 	PainSounds = {
-				Sound("player/zombies/hate/sawrunner_pain1.wav"),
-				Sound("player/zombies/hate/sawrunner_pain2.wav"),
-				}, 
+		Sound("player/zombies/hate/sawrunner_pain1.wav"),
+		Sound("player/zombies/hate/sawrunner_pain2.wav"),
+	}, 
 	DeathSounds = {
-				Sound("npc/zombie_poison/pz_die1.wav"),
-				Sound("npc/zombie_poison/pz_die2.wav")
-				},
+		Sound("npc/zombie_poison/pz_die1.wav"),
+		Sound("npc/zombie_poison/pz_die2.wav")
+	},
 	IdleSounds = {
-				Sound("player/zombies/hate/sawrunner_alert10.wav"),
-				Sound("player/zombies/hate/sawrunner_alert20.wav"),
-				Sound("player/zombies/hate/sawrunner_alert30.wav"),
-				Sound("player/zombies/hate/sawrunner_attack2.wav"),
-				},
+		Sound("player/zombies/hate/sawrunner_alert10.wav"),
+		Sound("player/zombies/hate/sawrunner_alert20.wav"),
+		Sound("player/zombies/hate/sawrunner_alert30.wav"),
+		Sound("player/zombies/hate/sawrunner_attack2.wav"),
+	},
 	PlayerFootstep = true,
 	Unlocked = false,
 	-- ViewOffset = Vector( 0, 0, 0 ),
@@ -859,7 +641,6 @@ ZombieClasses[20] =
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-		
 	end,
 	ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
 	ViewOffset = Vector(0, 0, 84),
@@ -868,8 +649,6 @@ ZombieClasses[20] =
 	Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
 }
-
-
 
 ZombieClasses[11] =
 {
@@ -895,27 +674,26 @@ ZombieClasses[11] =
 	Description = "",
 	Unique = "",
 	PainSounds = {
-				Sound( "npc/strider/striderx_pain2.wav" ),
-				Sound( "npc/strider/striderx_pain5.wav" ),
-				Sound( "npc/strider/striderx_pain7.wav" ),
-				Sound( "npc/strider/striderx_pain8.wav" ),
-				},
+		Sound( "npc/strider/striderx_pain2.wav" ),
+		Sound( "npc/strider/striderx_pain5.wav" ),
+		Sound( "npc/strider/striderx_pain7.wav" ),
+		Sound( "npc/strider/striderx_pain8.wav" ),
+	},
 	DeathSounds = {
-				Sound("npc/strider/striderx_die1.wav"),
-				},
+		Sound("npc/strider/striderx_die1.wav"),
+	},
 	IdleSounds = {
-				Sound("npc/zombine/striderx_alert2.wav"),
-				Sound("npc/zombine/striderx_alert4.wav"),
-				Sound("npc/zombine/striderx_alert5.wav"),
-				Sound("npc/zombine/striderx_alert6.wav"),
-				},
+		Sound("npc/zombine/striderx_alert2.wav"),
+		Sound("npc/zombine/striderx_alert4.wav"),
+		Sound("npc/zombine/striderx_alert5.wav"),
+		Sound("npc/zombine/striderx_alert6.wav"),
+	},
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
 		if status and status:IsValid() then
 			status:SetModel("models/zombie/zombie_soldier.mdl")
 		end
 		
-	
 		local status2 = pl:GiveStatus("simple_revive2")
 		if status2 then
 			status2:SetReviveTime(CurTime() + 4)
@@ -925,7 +703,6 @@ ZombieClasses[11] =
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-		-- pl:AnimRestartMainSequence()		
 	end,
 	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
@@ -958,20 +735,20 @@ ZombieClasses[12] =
 	Speed = 195,
 	Description = "",
 	PainSounds = {
-				Sound( "player/zombies/seeker/pain1.wav" ),
-				Sound( "player/zombies/seeker/pain2.wav" ),
-				},
+		Sound( "player/zombies/seeker/pain1.wav" ),
+		Sound( "player/zombies/seeker/pain2.wav" ),
+	},
 	DeathSounds = {
-				Sound("npc/stalker/go_alert2a.wav"),
-				},
+		Sound("npc/stalker/go_alert2a.wav"),
+	},
 	IdleSounds = {
-				Sound("bot/come_out_and_fight_like_a_man.wav"),
-				Sound("bot/come_out_wherever_you_are.wav"),
-				Sound("vo/ravenholm/madlaugh03.wav"),
-				Sound("vo/NovaProspekt/eli_nevermindme01.wav"),
-				Sound("ambient/creatures/town_child_scream1.wav"),
-				Sound("npc/zombie_poison/pz_call1.wav"),
-				},
+		Sound("bot/come_out_and_fight_like_a_man.wav"),
+		Sound("bot/come_out_wherever_you_are.wav"),
+		Sound("vo/ravenholm/madlaugh03.wav"),
+		Sound("vo/NovaProspekt/eli_nevermindme01.wav"),
+		Sound("ambient/creatures/town_child_scream1.wav"),
+		Sound("npc/zombie_poison/pz_call1.wav"),
+	},
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
 
@@ -1015,16 +792,14 @@ ZombieClasses[13] =
 	Description = "",
 	Unique = "",
 	PainSounds = {
-				Sound("npc/fast_zombie/leap1.wav"),
-				Sound("npc/fast_zombie/wake1.wav")
-				},
+		Sound("npc/fast_zombie/leap1.wav"),
+		Sound("npc/fast_zombie/wake1.wav")
+	},
 	DeathSounds = {
-				Sound("npc/antlion_guard/antlion_guard_die1.wav"),
-				Sound("npc/antlion_guard/antlion_guard_die2.wav"),
-				},
-	IdleSounds = {
-
-				},
+		Sound("npc/antlion_guard/antlion_guard_die1.wav"),
+		Sound("npc/antlion_guard/antlion_guard_die2.wav"),
+	},
+	IdleSounds = {},
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
 		if status and status:IsValid() then
@@ -1032,10 +807,8 @@ ZombieClasses[13] =
 		end		
 	end,
 	OnRevive = function(pl)
-		--pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-		-- pl:AnimRestartMainSequence()		
 	end,
-	ModelScale = 0.85,-- Vector(0.85,0.85,0.85),
+	ModelScale = 0.85,
 	ViewOffset = Vector( 0, 0, 50 ),
 	ViewOffsetDucked = Vector( 0, 0, 24 ),
 	Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
@@ -1066,20 +839,20 @@ ZombieClasses[14] =
 	Description = "",
 	Unique = "",
 	PainSounds = {
-				Sound( "npc/strider/striderx_pain2.wav" ),
-				Sound( "npc/strider/striderx_pain5.wav" ),
-				Sound( "npc/strider/striderx_pain7.wav" ),
-				Sound( "npc/strider/striderx_pain8.wav" ),
-				},
+		Sound( "npc/strider/striderx_pain2.wav" ),
+		Sound( "npc/strider/striderx_pain5.wav" ),
+		Sound( "npc/strider/striderx_pain7.wav" ),
+		Sound( "npc/strider/striderx_pain8.wav" ),
+	},
 	DeathSounds = {
-				Sound("npc/strider/striderx_die1.wav"),
-				},
+		Sound("npc/strider/striderx_die1.wav"),
+	},
 	IdleSounds = {
-				Sound("npc/zombine/striderx_alert2.wav"),
-				Sound("npc/zombine/striderx_alert4.wav"),
-				Sound("npc/zombine/striderx_alert5.wav"),
-				Sound("npc/zombine/striderx_alert6.wav"),
-				},
+		Sound("npc/zombine/striderx_alert2.wav"),
+		Sound("npc/zombine/striderx_alert4.wav"),
+		Sound("npc/zombine/striderx_alert5.wav"),
+		Sound("npc/zombine/striderx_alert6.wav"),
+	},
 	OnSpawn = function(pl)
 	end,
 	OnRevive = function(pl)
@@ -1113,56 +886,51 @@ ZombieClasses[15] = --Everyone loves it ^^ Duby: R.I.P until you are loved once 
 	SWEP = "weapon_zs_undead_boss_rameil",
 	Model = Model("models/player/corpse1.mdl"), 
 	OnSpawn = function(pl)
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
+		if Bone then
+			--pl:ManipulateBoneAngles( Bone, Angle(30,95,-190)  )
+			pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+		end
 
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		--pl:ManipulateBoneAngles( Bone, Angle(30,95,-190)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	 pl:ManipulateBoneAngles( Bone, Angle(0,40,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine2")
-	if Bone then
-	pl:ManipulateBoneAngles( Bone, Angle(0,10,0)  )
-	end
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Head1")
-	if Bone then
-	pl:ManipulateBoneAngles( Bone, Angle(0,-40,0)  )
-	end
-	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-		
+		local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
+		if Bone then
+			pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+		end
+
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
+		if Bone then
+		 	 pl:ManipulateBoneAngles( Bone, Angle(0,40,0)  )
+		end
+
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine2")
+		if Bone then
+			pl:ManipulateBoneAngles( Bone, Angle(0,10,0)  )
+		end
+
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Head1")
+		if Bone then
+			pl:ManipulateBoneAngles( Bone, Angle(0,-40,0)  )
+		end
 	end,
 	Speed = 120,
 	Description = "",
 	Unique = "",
 	PainSounds = {
-				Sound( "npc/strider/striderx_pain2.wav" ),
-				Sound( "npc/strider/striderx_pain5.wav" ),
-				Sound( "npc/strider/striderx_pain7.wav" ),
-				Sound( "npc/strider/striderx_pain8.wav" ),
-				},
+		Sound( "npc/strider/striderx_pain2.wav" ),
+		Sound( "npc/strider/striderx_pain5.wav" ),
+		Sound( "npc/strider/striderx_pain7.wav" ),
+		Sound( "npc/strider/striderx_pain8.wav" ),
+	},
 	DeathSounds = {
-				Sound("npc/strider/striderx_die1.wav"),
-				},
+		Sound("npc/strider/striderx_die1.wav"),
+	},
 	IdleSounds = {
-				Sound("npc/zombine/striderx_alert2.wav"),
-				Sound("npc/zombine/striderx_alert4.wav"),
-				Sound("npc/zombine/striderx_alert5.wav"),
-				Sound("npc/zombine/striderx_alert6.wav"),
-				},
+		Sound("npc/zombine/striderx_alert2.wav"),
+		Sound("npc/zombine/striderx_alert4.wav"),
+		Sound("npc/zombine/striderx_alert5.wav"),
+		Sound("npc/zombine/striderx_alert6.wav"),
+	},
 	OnRevive = function(pl)
-		
-		-- pl:AnimRestartMainSequence()		
-
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
 	ModelScale = 1,-- Vector(1.15,1.15,1.15),
@@ -1199,35 +967,29 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	Description = "",
 	Unique = "",
 	PainSounds = {
-				Sound( "player/zombies/seeker/pain1.wav" ),
-		
-				Sound( "player/zombies/seeker/pain2.wav" ),
-				},
+		Sound( "player/zombies/seeker/pain1.wav" ),
+		Sound( "player/zombies/seeker/pain2.wav" ),
+	},
 	DeathSounds = {
-				Sound("npc/stalker/go_alert2a.wav"),
-				},
+		Sound("npc/stalker/go_alert2a.wav"),
+	},
 	IdleSounds = {
-				Sound("bot/come_out_and_fight_like_a_man.wav"),
-				Sound("bot/come_out_wherever_you_are.wav"),
-				Sound("vo/ravenholm/madlaugh03.wav"),
-				Sound("vo/NovaProspekt/eli_nevermindme01.wav"),
-				Sound("ambient/creatures/town_child_scream1.wav"),
-				Sound("npc/zombie_poison/pz_call1.wav"),
-				},
+		Sound("bot/come_out_and_fight_like_a_man.wav"),
+		Sound("bot/come_out_wherever_you_are.wav"),
+		Sound("vo/ravenholm/madlaugh03.wav"),
+		Sound("vo/NovaProspekt/eli_nevermindme01.wav"),
+		Sound("ambient/creatures/town_child_scream1.wav"),
+		Sound("npc/zombie_poison/pz_call1.wav"),
+	},
 	OnRevive = function(pl)
-		
-		-- pl:AnimRestartMainSequence()		
-
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
-	
 	ModelScale = 1,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
 	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
-
 
 ZombieClasses[17] = --Smoke shit up :P
 {
@@ -1253,13 +1015,11 @@ ZombieClasses[17] = --Smoke shit up :P
 	Description = "Uses smoke to blind humans for the horde to commence its attack!",
 	Unique = "",
 	PainSounds = {
-				Sound( "npc/zombine/zombine_pain1.wav" ),
-				Sound( "npc/zombine/zombine_pain2.wav" ),
-				Sound( "npc/zombine/zombine_pain3.wav" ),
-				Sound( "npc/zombine/zombine_pain4.wav" ),
-		
-				--Sound( "player/zombies/seeker/pain2.wav" ),
-				},
+		Sound( "npc/zombine/zombine_pain1.wav" ),
+		Sound( "npc/zombine/zombine_pain2.wav" ),
+		Sound( "npc/zombine/zombine_pain3.wav" ),
+		Sound( "npc/zombine/zombine_pain4.wav" ),
+	},
 	OnSpawn = function(pl)
 	end,
 	OnRevive = function(pl)
@@ -1267,28 +1027,26 @@ ZombieClasses[17] = --Smoke shit up :P
 		-- pl:AnimRestartMainSequence()		
 	end,
 	--[[PainSounds = {
-				Sound( "npc/strider/striderx_pain2.wav" ),
-				Sound( "npc/strider/striderx_pain5.wav" ),
-				Sound( "npc/strider/striderx_pain7.wav" ),
-				Sound( "npc/strider/striderx_pain8.wav" ),
-				},]]
+		Sound( "npc/strider/striderx_pain2.wav" ),
+		Sound( "npc/strider/striderx_pain5.wav" ),
+		Sound( "npc/strider/striderx_pain7.wav" ),
+		Sound( "npc/strider/striderx_pain8.wav" ),
+	},]]
 	DeathSounds = {
-				Sound("npc/strider/striderx_die1.wav"),
-				},
+		Sound("npc/strider/striderx_die1.wav"),
+	},
 	IdleSounds = {
-				Sound("npc/zombine/striderx_alert2.wav"),
-				Sound("npc/zombine/striderx_alert4.wav"),
-				Sound("npc/zombine/striderx_alert5.wav"),
-				Sound("npc/zombine/striderx_alert6.wav"),
-				},
-				
+		Sound("npc/zombine/striderx_alert2.wav"),
+		Sound("npc/zombine/striderx_alert4.wav"),
+		Sound("npc/zombine/striderx_alert5.wav"),
+		Sound("npc/zombine/striderx_alert6.wav"),
+	},		
 	ModelScale = 1.10,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
 	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
 	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
-	
 }
 
 
@@ -1320,31 +1078,30 @@ ZombieClasses[18] = --Creep and Play!
 		pl:SetColor(Color(1,1,1,2))
 		pl:SetModel("models/player/charple.mdl")
 		
-		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1") --Bend him over a bit....
+		--Bend him over a bit....
+		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
 		if Bone then
-		 	 pl:ManipulateBoneAngles( Bone, Angle(0,40,0)  )
-		end
-		
+		 	 pl:ManipulateBoneAngles(Bone, Angle(0,40,0))
+		end	
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-		-- pl:AnimRestartMainSequence()		
 	end,
 	PainSounds = {
-				Sound( "player/zombies/seeker/pain1.wav" ),
-				Sound( "player/zombies/seeker/pain2.wav" ),
-				},
+		Sound( "player/zombies/seeker/pain1.wav" ),
+		Sound( "player/zombies/seeker/pain2.wav" ),
+	},
 	DeathSounds = {
-				Sound("npc/stalker/go_alert2a.wav"),
-				},
+		Sound("npc/stalker/go_alert2a.wav"),
+	},
 	IdleSounds = {
-				Sound("bot/come_out_and_fight_like_a_man.wav"),
-				Sound("bot/come_out_wherever_you_are.wav"),
-				Sound("vo/ravenholm/madlaugh03.wav"),
-				Sound("vo/NovaProspekt/eli_nevermindme01.wav"),
-				Sound("ambient/creatures/town_child_scream1.wav"),
-				Sound("npc/zombie_poison/pz_call1.wav"),
-				},
+		Sound("bot/come_out_and_fight_like_a_man.wav"),
+		Sound("bot/come_out_wherever_you_are.wav"),
+		Sound("vo/ravenholm/madlaugh03.wav"),
+		Sound("vo/NovaProspekt/eli_nevermindme01.wav"),
+		Sound("ambient/creatures/town_child_scream1.wav"),
+		Sound("npc/zombie_poison/pz_call1.wav"),
+	},
 	ModelScale = 1.10,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
@@ -1376,7 +1133,7 @@ ZombieClasses[19] =
 	SWEP = "weapon_zs_undead_boss_pumpking",
 	Model = Model("models/Zombie/Poison.mdl"), 
 	Speed = 170,
-	Description = "A hellish Being! ",
+	Description = "A hellish Being!",
 	Unique = "",
 	OnSpawn = function(pl)	
 		pl:SetRenderMode(RENDERMODE_GLOW)
@@ -1384,89 +1141,22 @@ ZombieClasses[19] =
 	end,
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
-		-- pl:AnimRestartMainSequence()		
 	end,
 	--[[PainSounds = {
-				Sound( "npc/strider/striderx_pain2.wav" ),
-				Sound( "npc/strider/striderx_pain5.wav" ),
-				Sound( "npc/strider/striderx_pain7.wav" ),
-				Sound( "npc/strider/striderx_pain8.wav" ),
-				},]]
+		Sound( "npc/strider/striderx_pain2.wav" ),
+		Sound( "npc/strider/striderx_pain5.wav" ),
+		Sound( "npc/strider/striderx_pain7.wav" ),
+		Sound( "npc/strider/striderx_pain8.wav" ),
+	},]]
 	DeathSounds = {
-				Sound("npc/barnacle/neck_snap1.wav"),
-				Sound("player/zombies/b/scream.wav"),
-				},
+		Sound("npc/barnacle/neck_snap1.wav"),
+		Sound("player/zombies/b/scream.wav"),
+	},
 	IdleSounds = {
-				Sound("npc/zombine/striderx_alert2.wav"),
-				Sound("npc/zombine/striderx_alert4.wav"),
-				Sound("npc/zombine/striderx_alert5.wav"),
-				Sound("npc/zombine/striderx_alert6.wav"),
-				},
-				ModelScale = 1.2,-- Vector(1.15,1.15,1.15),
+		Sound("npc/zombine/striderx_alert2.wav"),
+		Sound("npc/zombine/striderx_alert4.wav"),
+		Sound("npc/zombine/striderx_alert5.wav"),
+		Sound("npc/zombine/striderx_alert6.wav"),
+	},
+	ModelScale = 1.2,-- Vector(1.15,1.15,1.15),
 }
-
-
-
---[[local SantaStart = {
-	Sound("vo/ravenholm/engage06.wav"),
-	Sound("vo/ravenholm/engage01.wav"),
-}]]
-
---Christmas boss
---[[ZombieClasses[14] =
-{
-	Name = "Santa Claws",
-	Tag = "santa",
-	Wave = 0,
-	Health = 5000,
-	MaxHealth = 5000,
-	TimeLimit = 1020,
-	Infliction = 0,
-	Bounty = 600,
-	SP = 600,
-	Mass = DEFAULT_MASS * 2,
-	Threshold = 4,
-	JumpPower = 100,
-	CanCrouch = true,
-	CanGib = true,
-	Unlocked = false,
-	Hidden = true,
-	IsBoss = true,
-	SWEP = "weapon_zs_undead_infected",
-	--Model = Model("models/Jaanus/santa.mdl"),
-	Model = Model("models/player/group01/male_09.mdl"),
-	Speed = 185,
-	Description = "",
-	Unique = "",
-	PainSounds = {
-				Sound("vo/ravenholm/madlaugh01.wav"),
-				Sound("vo/ravenholm/madlaugh02.wav"),
-				Sound("vo/ravenholm/madlaugh03.wav"),
-				Sound("vo/ravenholm/madlaugh04.wav"),
-				Sound("vo/ravenholm/monk_blocked01.wav");
-				},
-	DeathSounds = {
-				Sound("vo/ravenholm/monk_helpme01.wav"),
-				Sound("vo/ravenholm/monk_helpme02.wav"),
-				Sound("vo/ravenholm/monk_helpme03.wav"),
-				Sound("vo/ravenholm/monk_helpme04.wav"),
-				Sound("vo/ravenholm/monk_helpme05.wav"),
-				},
-	IdleSounds = {
-
-				},
-	OnSpawn = function(pl)
-		pl:EmitSound(SantaStart[math.random(1,#SantaStart)],110,math.random(80,90))
-		--pl:SetRandomFace()
-		pl:SetModel(Model(player_manager.TranslatePlayerModel("santa")))
-			
-		pl:SetRandomFace()
-		--Set red color
-		--pl:SetColor(math.random(150,180),0,0,255)
-	end,
-	ModelScale = 1.2,//Vector(1.1,1.1,1.1),
-	ViewOffset = Vector( 0, 0, 72 ),
-	ViewOffsetDucked = Vector( 0, 0, 32 ),
-	Hull = { Vector(-16, -16, 0), Vector(16, 16, 74) },
-	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
-}]]

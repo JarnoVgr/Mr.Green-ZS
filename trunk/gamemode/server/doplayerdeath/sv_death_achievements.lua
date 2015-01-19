@@ -51,9 +51,8 @@ function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 			end
 		end
 
-		if attacker.Class == 7 and not suicide then -- poison headcrab kill
+		if attacker.Class == 7 and not dmginfo:IsSuicide(pl) then -- poison headcrab kill
 			attacker:UnlockAchievement("slowdeath")
-			
 		end
 		
 		if not attacker.TookHit then
@@ -70,6 +69,7 @@ function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 	end
 		
 	if attacker:Team() == TEAM_HUMAN then
+		--Score for this round
 		local kills = attacker.ZombiesKilled
 		if kills >= 20 then
 			attacker:UnlockAchievement("private")
@@ -83,7 +83,8 @@ function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 				end
 			end
 		end	
-			
+		
+		--Total killed
 		kills = attacker:GetScore("undeadkilled")
 		if kills and kills >= 300 then
 			attacker:UnlockAchievement("spartan")
@@ -94,57 +95,44 @@ function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 				end
 			end
 		end	
-			
-		if pl.Class == 2 and not pl:OnGround() and pl:GetVelocity():Length() >= 1000 then -- kill a fast zombie in mid-air
-			attacker:UnlockAchievement("marksman")
-			-- skillpoints.AchieveSkillShot(attacker,pl,"deadflight")
-		end
 		
-		if pl.Class == 10 and not dmginfo:IsSuicide( pl ) then
-			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-				h:UnlockAchievement("hate")
-			end
-		end
-		
-		if pl.Class == 11 and not dmginfo:IsSuicide( pl ) then
-			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-				h:UnlockAchievement("bhkill")
-			end
-		end
-		
-		if pl.Class == 12 and not dmginfo:IsSuicide( pl ) then
-			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-				h:UnlockAchievement("seek")
-			end
-		end
-		
-		if pl.Class == 13 and not dmginfo:IsSuicide( pl ) then
-			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-				h:UnlockAchievement("nerf")
-			end
-		end
-		
-		if pl.Class == 15 and not dmginfo:IsSuicide( pl ) then
-			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-				h:UnlockAchievement("klinator")
-			end
-		end
-		
-		if pl.Class == 16 and not dmginfo:IsSuicide( pl ) then
-			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-				h:UnlockAchievement("lilith")
-			end
-		end
-		
-		if pl.Class == 17 and not dmginfo:IsSuicide( pl ) then
-			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-				h:UnlockAchievement("smoker")
-			end
-		end
-		
-		if pl.Class == 18 and not dmginfo:IsSuicide( pl ) then
-			for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-				h:UnlockAchievement("seekerII")
+		--TODO: Optimize this more
+		if not dmginfo:IsSuicide(pl) then
+			if pl.Class == 2 and not pl:OnGround() and pl:GetVelocity():Length() >= 1000 then -- kill a fast zombie in mid-air
+				attacker:UnlockAchievement("marksman")
+				-- skillpoints.AchieveSkillShot(attacker,pl,"deadflight")
+			elseif pl.Class == 10 then
+				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+					h:UnlockAchievement("hate")
+				end
+			elseif pl.Class == 11 then
+				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+					h:UnlockAchievement("bhkill")
+				end
+			elseif pl.Class == 12 then
+				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+					h:UnlockAchievement("seek")
+				end
+			elseif pl.Class == 13 then
+				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+					h:UnlockAchievement("nerf")
+				end
+			elseif pl.Class == 15 then
+				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+					h:UnlockAchievement("klinator")
+				end
+			elseif pl.Class == 16 then
+				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+					h:UnlockAchievement("lilith")
+				end
+			elseif pl.Class == 17 then
+				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+					h:UnlockAchievement("smoker")
+				end
+			elseif pl.Class == 18 then
+				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+					h:UnlockAchievement("seekerII")
+				end
 			end
 		end
 		

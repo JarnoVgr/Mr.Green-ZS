@@ -54,14 +54,18 @@ function meta:SpawnHeadcrabNPC( tbDmginfo )
 	if not mNPC:IsValid() then return end
 	
 	-- Make it friendly to other zombos
-	for k,v in pairs ( team.GetPlayers ( TEAM_UNDEAD ) ) do
-		if IsEntityValid ( v ) then
-			mNPC:AddEntityRelationship( v, D_FR, 99 ) 
+	local Zombies = team.GetPlayers(TEAM_UNDEAD)
+	for i=1, #Zombies do
+		local pl = Zombies[i]
+		if not IsValid(pl) then
+			continue
 		end
+		
+		mNPC:AddEntityRelationship(pl, D_FR, 99) 
 	end
 	
 	-- Spawn it
-	mNPC:SetPos( self:GetPos() )
+	mNPC:SetPos(self:GetPos())
 	mNPC:Spawn()
 	
 	-- Hop the attacker :C

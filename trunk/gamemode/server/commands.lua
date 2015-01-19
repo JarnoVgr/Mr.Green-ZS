@@ -411,68 +411,6 @@ function BringPlayer(pl,commandName,args)
 end
 concommand.Add("bring_player",BringPlayer) 
 
--- Unstuck script ! FULLY WORKING!
-function PlayerStuck (pl,commandName,args)
-	if not pl:IsValid() then return end
-	if ENDROUND then return end
-	if not pl:IsStuck( pl:GetPos() ) then pl:PrintMessage(HUD_PRINTTALK, "You are not stuck! Abusing this command will result in a kick/ban!") return end -- (pl:IsInWorld() and pl:IsOnGround()) or pl:Crouching() then pl:PrintMessage(HUD_PRINTTALK, "You are not stuck!") return end
-
-	if pl:Team() == TEAM_UNDEAD and pl:GetZombieClass() == 10 then
-		pl:PrintMessage(HUD_PRINTTALK, "This command isn't available as a crow!")
-		return
-	end
-	
-	local teleportto = pl
-	local myteam = pl:Team()
-	local pos = pl:GetPos()
-	
-	local newpos = false
-	--keep searching for more and more until you find the perfect site and break.
-	for i = 1,5 do
-		for k,v in pairs (ents.FindInBox ( Vector (pos.x - (250*i),pos.y - (250*i),pos.z), Vector (pos.x + (250*i), pos.y + (250*i), pos.z + 300) )) do
-			if string.find (v:GetClass(), "prop") then
-				newpos = playerSend( pl,v,pl:GetMoveType() == MOVETYPE_NOCLIP )
-				if newpos ~= false and not pl:IsStuck ( newpos ) then
-					break
-				end
-			end
-		end
-		
-		if newpos ~= false then
-			break
-		end
-	end
-	
-	--- If there still isn't a position then go to players!
-	if not newpos then
-		for _,target in pairs (team.GetPlayers (myteam)) do
-			if target:IsValid() and target:Alive() and target ~= pl and not newpos then
-				if target:IsAdmin() then 
-					teleportto = target
-					newpos = playerSend( pl,teleportto,pl:GetMoveType() == MOVETYPE_NOCLIP )
-				end
-				
-				if newpos == false then
-					teleportto = target
-					newpos = playerSend( pl,teleportto,pl:GetMoveType() == MOVETYPE_NOCLIP )
-				end
-			end
-		end
-	end
-	
-	-- Damn :(
-	if not newpos then pl:PrintMessage (HUD_PRINTTALK,"Unstuck failed. Please try again!") return end
-	local newang = (pl:GetPos() - newpos):Angle()
-
-	pl:SetPos( newpos )
-	pl:SetEyeAngles( newang )
-	pl:SetLocalVelocity( Vector( 0, 0, 0 ) ) -- Stop!
-	
-	pl:PrintMessage( HUD_PRINTTALK, "You were unstuck!")
-	pl.StuckTimer = CurTime() + 20
-end
-concommand.Add("PlayerStuck",PlayerStuck) 
-
 -- Goto player
 function GotoPlayer(pl,commandName,args)
 
@@ -596,92 +534,84 @@ function RollTheDice ( pl,commandName,args )
 		--pl:GodDisable() -- no spawnprotection can save you now!
 		
 		if pl:Team() == TEAM_HUMAN then
-		local Ent = ents.Create("env_explosion")
-		Ent:SetPos(pl:GetPos())
-		Ent:Spawn()
-		Ent:Activate()
-		Ent:SetKeyValue("iMagnitude", 0) -- No actual explosion damage
-		Ent:SetKeyValue("iRadiusOverride", 1)
-		Ent:Fire("explode", "", 0)
-		pl:SetVelocity( Vector(0,0,400) )
-		pl:TakeDamage( pl:Health()*2, nil, nil ) -- make sure he dies
-		message = message .." rolled the dice and is turned inside out!"
-		end
-		if pl:Team() == TEAM_UNDEAD then	
-		pl:AddScore(1)
-		message = message .." rolled the dice and has found a piece of brain!"
+			local Ent = ents.Create("env_explosion")
+			Ent:SetPos(pl:GetPos())
+			Ent:Spawn()
+			Ent:Activate()
+			Ent:SetKeyValue("iMagnitude", 0) -- No actual explosion damage
+			Ent:SetKeyValue("iRadiusOverride", 1)
+			Ent:Fire("explode", "", 0)
+			pl:SetVelocity( Vector(0,0,400) )
+			pl:TakeDamage( pl:Health()*2, nil, nil ) -- make sure he dies
+			message = message .." rolled the dice and is turned inside out!"
+		elseif pl:Team() == TEAM_UNDEAD then	
+			pl:AddScore(1)
+			message = message .." rolled the dice and has found a piece of brain!"
 		end
 	elseif choise == 2 then
 		if pl:Team() == TEAM_HUMAN then
 			pl:SetHealth(150)
-		message = message .." rolled the dice and has had a steroid boost!"
-		end
-		if pl:Team() == TEAM_UNDEAD then
-		local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
-		local randhealth = math.random( 25, math.Round ( calchealth ) )
-		pl:SetHealth( math.min( pl:Health() + randhealth ) )
-		message = message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
+			message = message .." rolled the dice and has had a steroid boost!"
+		elseif pl:Team() == TEAM_UNDEAD then
+			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+			pl:SetHealth(pl:Health() + randhealth)
+			message = message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
 		end
 	elseif choise == 3 then
-	if pl:Team() == TEAM_HUMAN then
-		pl:GiveAmmo( 90, "pistol" )	
-		pl:GiveAmmo( 60, "ar2" )
-		pl:GiveAmmo( 90, "SMG1" )	
-		pl:GiveAmmo( 60, "buckshot" )		
-		pl:GiveAmmo( 5, "XBowBolt" )
-		pl:GiveAmmo( 30, "357" )
-		message = message .." rolled the dice and received some ammo!"	
-		end
-		if pl:Team() == TEAM_UNDEAD then
-		local calchealth = math.Clamp ( 100 - pl:Health(),60,100 )
-		local randhealth = math.random( 25, math.Round ( calchealth ) )
-		pl:SetHealth( math.min( pl:Health() - randhealth) ) 
-		message = message .." rolled the dice and lost ".. randhealth .."KG of flesh!!"
+		if pl:Team() == TEAM_HUMAN then
+			pl:GiveAmmo( 90, "pistol" )	
+			pl:GiveAmmo( 60, "ar2" )
+			pl:GiveAmmo( 90, "SMG1" )	
+			pl:GiveAmmo( 60, "buckshot" )		
+			pl:GiveAmmo( 5, "XBowBolt" )
+			pl:GiveAmmo( 30, "357" )
+			message = message .." rolled the dice and received some ammo!"	
+		elseif pl:Team() == TEAM_UNDEAD then
+			local calchealth = math.Clamp ( 100 - pl:Health(),60,100 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+			pl:SetHealth(math.max(pl:Health() - randhealth, 1))
+			message = message .." rolled the dice and lost ".. randhealth .."KG of flesh!!"
 		end
 	elseif choise == 4 and pl:Health() < pl:GetMaximumHealth() then
 		if pl:Team() == TEAM_HUMAN then
-		local calchealth = math.Clamp ( 100 - pl:Health(),25,100 )
-		local randhealth = math.random( 25, math.Round ( calchealth ) )
-		pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
-		message = message .." rolled the dice and gained ".. randhealth .." health!"
-		end
-		if pl:Team() == TEAM_UNDEAD then
-		local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
-		local randhealth = math.random( 25, math.Round ( calchealth ) )
-		pl:SetHealth( math.min( pl:Health() + randhealth ) )
-		message = message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
+			local calchealth = math.Clamp ( 100 - pl:Health(),25,100 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+			pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
+			message = message .." rolled the dice and gained ".. randhealth .." health!"
+		elseif pl:Team() == TEAM_UNDEAD then
+			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+			pl:SetHealth( pl:Health() + randhealth)
+			message = message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
 		end
 	elseif choise == 5 then
 		if pl:Team() == TEAM_HUMAN then
-		message = message ..("..You've been set to half life!")
-		pl:SetHealth(50)
+			message = message .. ".. You've been set to half life!"
+			pl:SetHealth(50)
+		elseif pl:Team() == TEAM_UNDEAD then
+			pl:AddScore(2)
+			message = message .." rolled the dice and has found a whole brain!"
 		end
-		if pl:Team() == TEAM_UNDEAD then
-		pl:AddScore(2)
-		message = message .." rolled the dice and has found a whole brain!"
-		end
-		else
+	else
 		if pl:Team() == TEAM_HUMAN then
-		message = message .." rolled the dice and got raped in the ass."
-		pl:SetHealth(1)
-		end
-		if pl:Team() == TEAM_UNDEAD then
-		local calchealth = math.Clamp ( 100 - pl:Health(),60,100 )
-		local randhealth = math.random( 25, math.Round ( calchealth ) )
-		pl:SetHealth( math.min( pl:Health() - randhealth ) )
-		message = message .." rolled the dice and lost ".. randhealth .."KG of flesh!!"
+			message = message .." rolled the dice and got raped in the ass."
+			pl:SetHealth(1)
+		elseif pl:Team() == TEAM_UNDEAD then
+			local calchealth = math.Clamp ( 100 - pl:Health(),60,100 )
+			local randhealth = math.random( 25, math.Round ( calchealth ) )
+			pl:SetHealth(math.max(pl:Health() - randhealth, 1))
+			message = message .." rolled the dice and lost ".. randhealth .."KG of flesh!!"
 		end
 	end
-	
-	
+		
 	pl.LastRTD = CurTime() + RTD_TIME
 
-	PrintMessageAll( HUD_PRINTTALK, message )
+	PrintMessageAll(HUD_PRINTTALK, message)
 end
 concommand.Add("zs_rollthedice",RollTheDice) 
 
 function ShowShop(pl,commandName,args)
-	-- pl:SendLua("MakepShop()")
 	pl:SendLua("DrawGreenShop()")
 end
 concommand.Add("open_shop",ShowShop)

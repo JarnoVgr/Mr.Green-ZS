@@ -17,10 +17,12 @@ function GM:PlayerInitialSpawn(pl)
 		net.WriteBit(true)
 		net.Send(pl)
 	end
-
 	
+	--TODO: Move this
 	if GasDump then
-	timer.Simple(4,function() RunConsoleCommand("stopsound") end)
+		timer.Simple(4,function()
+			RunConsoleCommand("stopsound")
+		end)
 	end
 	
 	pl:SetCanZoom(false)
@@ -38,7 +40,7 @@ function GM:PlayerInitialSpawn(pl)
 	-- Substract one point from the most chosen class table to compensate for the setzombie/human class above
 	--local HumanClassName, ZombieClassName = HumanClasses[1].Name, ZombieClasses[1].Name
 	
-	local  ZombieClassName = ZombieClasses[1].Name --Duby: I altered this as I removed the classes code. 
+	local ZombieClassName = ZombieClasses[1].Name --Duby: I altered this as I removed the classes code. 
 	self.TeamMostChosenClass[ ZombieClassName ] = self.TeamMostChosenClass[ ZombieClassName ] - 1
 	
 	pl.BrainsEaten = 0
@@ -52,6 +54,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.DamageDealt[TEAM_HUMAN] = 0
 	pl.VoiceSet = "male" 
 	pl.LastHurt = 0
+	pl.LastHit = 0
 	pl.LastVoice = 0
 	pl.HighestAmmoType = "pistol"
 	
@@ -115,8 +118,6 @@ function GM:PlayerInitialSpawn(pl)
 	-- pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
 		
 	-- Used to control how many weapons you are allowed to pickup
-	-- pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tools = 0, Others = 0, Explosive = 0, Admin = 0 }
-	--pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
 	pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Misc = 0, Admin = 0 }
 	
 	pl.AutoRedeem = util.tobool(pl:GetInfoNum("_zs_autoredeem",1)) or true
@@ -191,7 +192,7 @@ util.AddNetworkString("mapData")
      Mainly for debug purposes -- record everything in logs
 ------------------------------------------------------------------]==]
 local function PlayerConnected ( pl, ip )
-	Debug("[CONNECTED] "..tostring(pl).." connecting from "..tostring(ip))
+	Debug("[CONNECTED] ".. tostring(pl) .." connecting from "..tostring(ip))
 end
 hook.Add("PlayerConnect", "Connected", PlayerConnected)
 
@@ -258,7 +259,7 @@ function GM:PlayerSpawn(pl)
 	if pl:IsBot() then
 		--Random model
 		pl.PlayerModel = table.Random(PlayerModels)
-		else
+	else
 		--Get preferred model
 		local DesiredPlayerModelName = pl:GetInfo("cl_playermodel")
 		if #DesiredPlayerModelName > 0 and DesiredPlayerModelName ~= "none" then
@@ -317,22 +318,14 @@ function GM:PlayerSpawn(pl)
 	end
 
 	if HALLOWEEN and pl:Team() ~= TEAM_SPECTATOR then
-				pl:ChatPrint("HAPPY HALLOWEEN!!!")
-			end
+		pl:ChatPrint("HAPPY HALLOWEEN!!!")
+	end
 			
 	
 	if pl:Team() == TEAM_SPECTATOR then
 		self:OnFirstHumanSpawn(pl)
 		return
 	end
-	
-	-- Return his original color to normal
---	if not FIRSTAPRIL then
-	--	pl:SetColor(Color(255,255,255,255))
---	else
-	--	umsg.Start("MakeBody")
-	--	umsg.End()
---	end
 
 	-- Unlock or unfreeze if neccesary and make him able to walk
 	pl:UnLock()
@@ -365,8 +358,6 @@ function GM:PlayerSpawn(pl)
 		self:OnZombieSpawn(pl)
 		pl:StopAllLuaAnimations()
 	end
-
-	
 end
 
 --[==[---------------------------------------------------------
@@ -389,6 +380,7 @@ function GM:OnHumanSpawn(pl)
 		return
 	end
 
+	--TODO: Move notices to map specific files
 	--Gas Dump Obj Map special notices.
 	if GasDump then
 		timer.Simple(10,function() 
@@ -423,6 +415,7 @@ function GM:OnHumanSpawn(pl)
 		end)
 	end
 	
+	--Spawn protection
 	pl:GodEnable()
 	timer.Simple(5, function() 
 		if IsValid(pl) then
@@ -487,26 +480,24 @@ function GM:OnHumanSpawn(pl)
 	self:ProceedCustomSpawn(pl)
 
 	--Set hat and suit
-	if (pl.SelectedHat ~= "none") or pl:IsBot() then
+	if pl.SelectedHat ~= "none" or pl:IsBot() then
 		self:SpawnHat(pl, pl.SelectedHat)
 	end
-	if (pl.SelectedSuit ~= "none") or pl:IsBot() then
+	if pl.SelectedSuit ~= "none" or pl:IsBot() then
 		self:SpawnSuit(pl, pl.SelectedSuit)
 	end
-	
-	
-	
+
 	--Hands test
-	local oldhands = pl:GetHands()
-	if IsValid(oldhands) then
-		oldhands:Remove()
+	local OldHans = pl:GetHands()
+	if IsValid(OldHans) then
+		OldHans:Remove()
 	end
 
 	--Hands for c_model usage
-	local hands = ents.Create("zs_hands")
-	if IsValid(hands) then
-		hands:DoSetup(pl)
-		hands:Spawn()
+	local Hands = ents.Create("zs_hands")
+	if IsValid(Hands) then
+		Hands:DoSetup(pl)
+		Hands:Spawn()
 	end	
 
 	--Auto-enable flashlight
@@ -514,7 +505,6 @@ function GM:OnHumanSpawn(pl)
 	
 	--Log
 	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as a Survivor")
-	
 end
 
 
@@ -526,7 +516,7 @@ function GM:OnZombieSpawn(pl)
 		return
 	end
 
-	--Duby: Spawn protection :P
+	--Spawn protection
 	pl:GodEnable()
 	timer.Simple(2, function()
 		if IsValid(pl) then
@@ -546,7 +536,6 @@ function GM:OnZombieSpawn(pl)
 		pl:SetZombieClass(pl.DeathClass)
 		pl.DeathClass = nil
 	end
-
 	
 	--Enable the suicide system on the player if he had it
 	if pl:ConnectedHasSuicideSickness() then
@@ -560,9 +549,6 @@ function GM:OnZombieSpawn(pl)
 	-- Calculate zombie's health
 	CalculateZombieHealth(pl)
 
-	
-	
-	-- pl:CalculateViewOffsets()
 	pl:DoHulls(Class, TEAM_UNDEAD)
 	
 	--Attach crabs to zombos
@@ -613,11 +599,12 @@ function GM:OnZombieSpawn(pl)
 		pl:SelectWeapon(Tab.SWEP)
 	end
 	
+	--Set skin color
 	local col = pl:GetInfo( "cl_playercolor" )
 	pl:SetPlayerColor(Vector(col))
-
 	pl:SetWeaponColor(Vector(col))
 
+	--Call class spawn function
 	if Tab.OnSpawn then
 		Tab.OnSpawn(pl)
 	end
@@ -626,20 +613,19 @@ function GM:OnZombieSpawn(pl)
 	self:SetPlayerSpeed(pl, Tab.Speed)
 	pl:SetCrouchedWalkSpeed(Tab.CrouchWalkSpeed or 0.80)
 
+	--TODO: Move to map specific file
 	if GasDump then
-	self:SetPlayerSpeed(pl, Tab.Speed*1.4)
+		self:SetPlayerSpeed(pl, Tab.Speed*1.4)
 	end
-	
 		
 	pl:UnSpectate()		
 	-- Prevent health pickups and/or machines
 	pl:SetMaxHealth(1) 
 	
-	--pl:SetBloodColor(BLOOD_COLOR_YELLOW)
 	pl:SetBloodColor(BLOOD_COLOR_RED)
 
 	--Alert players they can change zombie class
-	if Class == 0 and math.random(1,3) == 1 then --Duby: Re-written when the crow was removed.
+	if Class == 0 and pl:GetRank() <= 5 and math.random(1,3) == 1 then
 		pl:Message("Press F3 to play with a different Undead specie", 3)
 	end
 
@@ -651,7 +637,7 @@ function GM:OnZombieSpawn(pl)
 		end)
 	end
 
-	Debug("[SPAWN] "..tostring ( pl:Name() ).." spawned as an Undead")
+	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as an Undead")
 end
 
 -- Human's dynamic spawn
@@ -855,10 +841,7 @@ function CalculateZombieHealth(pl)
 	
 	local classId = pl:GetZombieClass()
 	local Tab = ZombieClasses[classId]
-	local MaxHealth = 0
-	
-	-- Case 1: Normal case
-	MaxHealth = Tab.Health
+	local MaxHealth = Tab.Health
 	
 	--if GetInfliction() <= 0.6 then --Duby: Lets make the health for normal zombies increased later in the game. 
 	--	if IsCommonZombie() or IsCommonZombie2() then
@@ -880,13 +863,13 @@ function CalculateZombieHealth(pl)
 	end
 	MaxHealth = math.Round(MaxHealth)
 
-	--Set
+	--Set health
 	pl:SetMaximumHealth(MaxHealth)
 	pl:SetHealth(MaxHealth)
 	
 	if GasDump then
-	pl:SetMaximumHealth(MaxHealth*1.5)
-	pl:SetHealth(MaxHealth*1.5)
+		pl:SetMaximumHealth(MaxHealth*1.5)
+		pl:SetHealth(MaxHealth*1.5)
 	end
 end
 
@@ -1053,20 +1036,29 @@ function GM:ProcessHumanSpawn( pl, tbPoints, tbAngles )
 	
 	-- Filters
 	local Filter = {} 
-	if pl:Team() == TEAM_HUMAN then Filter = team.GetPlayers ( TEAM_HUMAN ) else Filter = team.GetPlayers ( TEAM_UNDEAD ) end
+	if pl:Team() == TEAM_HUMAN then
+		Filter = team.GetPlayers(TEAM_HUMAN)
+	else
+		Filter = team.GetPlayers(TEAM_UNDEAD)
+	end
 	
-	-- Hull trace spawnpoints
+	--Hull trace spawnpoints
 	for i = 1, #tbPoints do
 		if i < 5 then
 		
-			-- Stuck bool
-			-- local bStuck = IsStuck ( vPos, HULL_PLAYER[1], HULL_PLAYER[2], Filter )
+			--Stuck bool
+			--local bStuck = IsStuck ( vPos, HULL_PLAYER[1], HULL_PLAYER[2], Filter )
+			local bStuck = false
 			
-			-- Point is clear
-			if not bStuck then return vPos, angSpawn end
-				
-			-- Point is not clear
-			if bStuck then pl.SpawnRetryCounter = pl.SpawnRetryCounter + 1 local iRandom = math.random ( 1,#tbPoints ) vPos, angSpawn = tbPoints[iRandom], tbAngles[iRandom] end
+			--Point is clear
+			if not bStuck then
+				return vPos, angSpawn
+			--Point is not clear
+			elseif bStuck then
+				pl.SpawnRetryCounter = pl.SpawnRetryCounter + 1
+				local iRandom = math.random ( 1,#tbPoints )
+				vPos, angSpawn = tbPoints[iRandom], tbAngles[iRandom]
+			end
 		end
 	end
 	
@@ -1089,15 +1081,20 @@ function GM:ProcessZombieSpawn( pl, tbPoints, tbAngles )
 	
 	-- Hull trace spawnpoints
 	for i = 1, 2 do
-
-		-- Stuck bool
+		--Stuck bool
 		bStuck, bIsVisible = IsStuck ( vPos, HULL_PLAYER[1], HULL_PLAYER[2], Filter ), VisibleToHumans ( vPos, pl )
 			
 		-- Point is clear
-		if not bStuck then if not bIsVisible then return vPos, angSpawn end end
+		if not bStuck and not bIsVisible then
+			return vPos, angSpawn
+		end
 				
 		-- Point is not clear
-		if bStuck or bIsVisible then pl.SpawnRetryCounter = pl.SpawnRetryCounter + 1 local iRandom = math.random ( 1,#tbPoints ) vPos, angSpawn = tbPoints[iRandom], tbAngles[iRandom] end
+		if bStuck or bIsVisible then
+			pl.SpawnRetryCounter = pl.SpawnRetryCounter + 1
+			local iRandom = math.random(1, #tbPoints)
+			vPos, angSpawn = tbPoints[iRandom], tbAngles[iRandom]
+		end
 	end
 	
 	return vPos, angSpawn

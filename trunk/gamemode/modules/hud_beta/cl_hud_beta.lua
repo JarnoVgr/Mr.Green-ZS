@@ -702,8 +702,12 @@ local function cacheFriends(max)
 	nextFriendsCache = CurTime() + 5
 
 	nearPlayers = {}
+	
+	local Survivors = team.GetPlayers(TEAM_SURVIVORS)
 
-	for k, pl in ipairs(team.GetPlayers(TEAM_SURVIVORS)) do
+	for i=1, #Survivors do
+		local pl = Survivors[i]
+		
 		if #nearPlayers >= max then
 			continue
 		end
@@ -714,7 +718,10 @@ local function cacheFriends(max)
 
 		local distance = pl:GetPos():Distance(MySelf:GetPos())
 		if distance < 80 then
-			table.insert(nearPlayers,{pl = pl, distance = distance})
+			table.insert(nearPlayers, {
+				pl = pl,
+				distance = distance
+			})
 		end
 	end
 

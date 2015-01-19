@@ -54,8 +54,10 @@ function meta:IsZombieInHorde()
 	
 	self._LastHordeTime = ct + 4
 	
-	for _, Zombie in ipairs( team.GetPlayers(TEAM_UNDEAD) ) do
-		if IsValid( Zombie ) and Zombie:Alive() and Zombie ~= self and self:GetPos():Distance(Zombie:GetPos()) <= HORDE_MAX_DISTANCE then
+	local Zombies = team.GetPlayers(TEAM_UNDEAD)
+	for i=1, #Zombies do
+		local Zombie = Zombies[i]
+		if IsValid(Zombie) and Zombie:Alive() and Zombie ~= self and self:GetPos():Distance(Zombie:GetPos()) <= HORDE_MAX_DISTANCE then
 			return true
 		end
 	end
@@ -71,7 +73,9 @@ if CLIENT then
 		end
 
 		local returnCount = 0
-		for k, pl in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
+		local Zombies = team.GetPlayers(TEAM_UNDEAD)
+		for i=1, #Zombies do
+			local pl = Zombies[i]
 			if not IsValid(pl) or not pl:Alive() then
 				continue
 			end
@@ -685,8 +689,14 @@ function meta:IsStuck( position, smallbox)
 	end
 		
 	-- Filter Team members
-	for k,filterteam in pairs (team.GetPlayers (pl:Team()) ) do
-		table.insert (filters, filterteam)
+	local TeamMates = team.GetPlayers(pl:Team())
+	for i=1, #TeamMates do
+		local filterteam = TeamMates[i]
+		if not IsValid(filterteam) then
+			continue
+		end
+		
+		table.insert(filters, filterteam)
 	end
 
 	-- print ("Filters are  :\n")
@@ -808,16 +818,18 @@ function meta:SetHumanClass(cl)
 	self:ConCommand("_zs_redeemclass "..cl.."")
 end
 
-function meta:SetMaximumHealth ( Max )
-	if CLIENT then return end
+function meta:SetMaximumHealth(Max)
+	if CLIENT then
+		return
+	end
 	
-	self:SetMaxHealth ( Max )
+	self:SetMaxHealth(Max)
 	self.MaximumHealth = Max
-	self:SetDTInt ( 0, math.Round ( Max ) )
+	self:SetDTInt(0, math.Round(Max))
 end
 
-function meta:GetMaximumHealth ( Health )
-	return self:GetDTInt ( 0 )
+function meta:GetMaximumHealth()
+	return self:GetDTInt(0)
 end
 
 function meta:GetXP()

@@ -500,7 +500,13 @@ function GM:DynamicSpawnIsValid(zombie, humans, allplayers)
 	if zombie:Alive() and zombie:GetMoveType() == MOVETYPE_WALK and zombie:WaterLevel() < 2 and not util.TraceHull({start = pos, endpos = pos + playerheight, mins = playermins, maxs = playermaxs, mask = MASK_SOLID, filter = allplayers}).Hit then
 		local valid = true
 
-		for ___, human in pairs(humans) do
+		
+		for i=1, #humans do
+			local human = humans[i]
+			if not IsValid(human) then
+				continue
+			end
+			
 			local eyepos = human:EyePos()
 			local nearest = zombie:NearestPoint(eyepos)
 			local dist = eyepos:Distance(nearest)
@@ -526,10 +532,13 @@ function GM:GetTeamEpicentre(teamid, nocache)
 
 	local plys = team.GetPlayers(teamid)
 	local vVec = Vector(0, 0, 0)
-	for _, pl in pairs(plys) do
-		if pl:Alive() then
-			vVec = vVec + pl:GetPos()
+	for i=1, #plys do
+		local pl = plys[i]
+		if not IsValid(pl) or not pl:Alive() then
+			continue
 		end
+
+		vVec = vVec + pl:GetPos()
 	end
 
 	local epicentre = vVec / #plys
@@ -573,7 +582,14 @@ function GM:GetDynamicSpawns(pl)
 
 	local allplayers = player.GetAll()
 	local humans = team.GetPlayers(TEAM_HUMAN)
-	for _, zombie in pairs(team.GetPlayers(TEAM_UNDEAD)) do
+	local zombies = team.GetPlayers(TEAM_UNDEAD)
+
+	for i=1, #zombies do
+		local zombie = zombies[i]
+		if not IsValid(zombie) then
+			continue
+		end
+		
 		local pos = zombie:GetPos() + Vector(0, 0, 1)
 		if zombie ~= pl and self:DynamicSpawnIsValid(zombie, humans, allplayers) then
 			table.insert(tab, zombie)
@@ -613,18 +629,23 @@ end
 
 
 function GM:GetNiceHumanSpawn(pl)
-	
 	local tab = {}
 	
 	local humans = team.GetPlayers(TEAM_HUMAN)
-	for _, hm in pairs(humans) do
+	local buddies = team.GetPlayers(TEAM_HUMAN)-- ents.FindInSphere( hm:GetPos(), 290 )
+
+	for i=1, #humans do
+		local hm = humans[i]
+
 		if IsValid(hm) and hm:Alive() and pl ~= hm then
 			local pos = hm:GetPos() + Vector(0, 0, 1)
 			if not util.TraceHull({start = pos, endpos = pos + playerheight, mins = playermins, maxs = playermaxs, mask = MASK_SOLID, filter = player.GetAll()}).Hit then
 				-- count humans
 				hm._Humans = 0
-				local buddies = team.GetPlayers(TEAM_HUMAN)-- ents.FindInSphere( hm:GetPos(), 290 )
-				for k, bud in pairs(buddies) do
+				
+				for i=1, #buddies do
+					local bud = buddies[i]
+
 					if IsValid(bud) and bud:IsPlayer() and bud:Alive() and bud ~= hm and bud:IsHuman() and hm:GetPos():Distance(bud:GetPos()) <= 290 then
 						hm._Humans = hm._Humans + 1
 					end
@@ -637,20 +658,26 @@ function GM:GetNiceHumanSpawn(pl)
 	table.sort(tab, SortByHumans)
 	
 	return tab[1] or nil
-
 end
 
 function GM:IsBossAlive()
-	for _, z in pairs(team.GetPlayers(TEAM_UNDEAD)) do
+	--TODO: Use GetBossZombie for this
+	local Zombies = team.GetPlayers(TEAM_UNDEAD)
+	for i=1, #Zombies do
+		local z = Zombies[i]
 		if IsValid(z) and z:Alive() and z:IsBossZombie() then
 			return true
 		end
 	end
+	
 	return false
 end
 
 function GM:GetBossZombie()
-	for _, z in pairs(team.GetPlayers(TEAM_UNDEAD)) do
+	local Zombies = team.GetPlayers(TEAM_UNDEAD)
+	for i=1, #Zombies do
+		local z = Zombies[i]
+		
 		if IsValid(z) and z:Alive() and z:IsBossZombie() then
 			return z
 		end
@@ -690,7 +717,8 @@ function GM:GetPlayerForBossZombie()
 	local tab = {}
 		
 	--Check if players meet requirements
-	for _, zmb in pairs(zombies) do
+	for i=1, #zombies do
+		local zmb = zombies[i]
 		if IsValid(zmb) then-- and zmb:Alive() 
 			if zmb.DamageDealt and zmb.DamageDealt[TEAM_UNDEAD] and zmb.DamageDealt[TEAM_UNDEAD] > 0 and not zmb.bIsAFK then
 				table.insert(tab, zmb)

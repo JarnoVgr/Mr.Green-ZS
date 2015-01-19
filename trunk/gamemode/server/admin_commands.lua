@@ -371,7 +371,7 @@ local function AdminSay(pl, text, teamonly)
 		if IsValid(unluckydude) then
 			unluckydude:Kill()
 			
-			PrintMessageAll(HUD_PRINTTALK,"The condemned player for The Undead is..."..unluckydude:Nick())
+			PrintMessageAll(HUD_PRINTTALK,"The condemned player for The Undead is...".. unluckydude:Nick())
 		end
 		return ""
 	elseif (sep[1] == "!nametrack") then
