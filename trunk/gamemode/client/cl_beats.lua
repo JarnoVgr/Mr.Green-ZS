@@ -18,19 +18,6 @@ Beats[8] = {"zombiesurvival/hbeat7.wav"}
 Beats[9] = {"zombiesurvival/hbeat8.wav"}
 Beats[10] = {"zombiesurvival/hbeat9.wav"}
 
---[[local Beats = {} --Duby: Lets make these beats more exciting!
-Beats[0] = {}
-Beats[1] = {"zombiesurvival/hbeat1.wav"}
-Beats[2] = {"zombiesurvival/hbeat2.wav"}
-Beats[3] = {"zombiesurvival/hbeat3.wav"}
-Beats[4] = {"zombiesurvival/hbeat4.wav"}
-Beats[5] = {"zombiesurvival/hbeat5.wav"}
-Beats[6] = {"zombiesurvival/hbeat6.wav"}
-Beats[7] = {"zombiesurvival/hbeat7.wav"}
-Beats[8] = {"zombiesurvival/hbeat8.wav"}
-Beats[9] = {"zombiesurvival/hbeat9.wav"}
-Beats[10] = {"mrgreen/music/bosstheme2.mp3"}]]--
-
 local BeatLength = {}
 BeatLength[0] = 1.0
 BeatLength[1] = 1.7
@@ -68,8 +55,6 @@ ZBeatLength[6] = 7.4
 ZBeatLength[7] = 5.1
 ZBeatLength[8] = 10.3
 ZBeatLength[9] = 10.3
---ZBeatLength[10] = 10.2
---ZBeatLength[10] = 21.8
 ZBeatLength[10] = 1.7
 
 --Precache beats
@@ -97,7 +82,7 @@ function playBossMusic(insane)
 	end
 	
 	--Delayed play because of stopsound in same frame
-	timer.Simple(0.3, function()
+	timer.Simple(1, function()
 		surface.PlaySound(Sound(song))
 	end)
 	
@@ -108,6 +93,8 @@ function playBossMusic(insane)
 		end
 		surface.PlaySound(Sound(song))
 	end)
+
+	
 end
 
 
@@ -146,8 +133,8 @@ ENABLE_BLOOD = false
 local NextBeat = 0
 local LastBeatLevel = 0
 local function PlayBeats(teamid, am)
-	--if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
-	if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
+	if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
+	--if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
 		return
 	end
 	
@@ -171,7 +158,6 @@ local function PlayBeats(teamid, am)
 	local snd = beats[LastBeatLevel][1]
 	if snd then
 		MySelf:EmitSound(snd, 0, 100, 0.8)
-	--	NextBeat = RealTime() + SoundDuration(snd) - 0.025
 		NextBeat = RealTime() + SoundDuration(snd) - 0.025
 	end
 end

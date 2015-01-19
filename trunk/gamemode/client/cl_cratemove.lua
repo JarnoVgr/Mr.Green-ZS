@@ -28,3 +28,15 @@ end)
 end
 end
 usermessage.Hook ( "spawn", cratemove2 )
+
+--Adding the Slowmo sounds receiver in here to keep the main Client files tidy.
+
+net.Receive("slowmo", function()
+RunConsoleCommand("stopsound")
+	timer.Simple(0.05,function() 
+	surface.PlaySound(Sound("mrgreen/new/slowmo_up.mp3"))
+	end)
+				timer.Simple(0.7,function() 
+				surface.PlaySound(Sound("mrgreen/new/slowmo_down.mp3"))
+				end)
+end)

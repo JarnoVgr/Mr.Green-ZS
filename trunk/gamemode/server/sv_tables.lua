@@ -224,6 +224,11 @@ table.insert(ResourceFiles, "sound/mrgreen/music/lasthuman.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/intermission.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/intermission_undead.mp3")
 
+--Slowmo
+table.insert(ResourceFiles, "sound/mrgreen/new/slowmo_down.mp3")
+table.insert(ResourceFiles, "sound/mrgreen/new/slowmo_up.mp3")
+
+
 --Unlife music (2 variants)
 table.insert(ResourceFiles, "sound/mrgreen/music/deadlife.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/deadlife_insane.mp3")

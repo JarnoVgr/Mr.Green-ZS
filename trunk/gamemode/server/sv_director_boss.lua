@@ -47,7 +47,6 @@ end]]
 	boss.starTime = CurTime()
 		
 	--Calculate boss duration
-	--boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 120),ROUNDTIME-CurTime())
 	boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 140),ROUNDTIME-CurTime())
 
 	--Set End time
@@ -148,6 +147,12 @@ function GM:SetBoss(value)
 	if boss.active then
 		boss.pl = GAMEMODE:UnleashBoss()
 		
+		net.Start("slowmo")
+		net.Broadcast()
+		game.SetTimeScale(0.25)
+		timer.Simple(1.1, function() 
+		game.SetTimeScale(1)
+		end)
 		if not boss.pl then
 			return false
 		end
@@ -187,3 +192,4 @@ function GM:SetBoss(value)
 end
 util.AddNetworkString("StartBoss")
 util.AddNetworkString("StopBoss")
+util.AddNetworkString("slowmo")

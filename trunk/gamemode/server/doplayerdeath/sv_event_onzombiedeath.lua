@@ -121,5 +121,16 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			end
 		end
 	end
+	
+	--[[if (math.random(1,50) == 1) then
+		net.Start("slowmo")
+		net.Broadcast()
+		game.SetTimeScale(0.25)
+		timer.Simple(1.1, function() 
+		game.SetTimeScale(1)
+		end)
+	end]]--
+	
 end
 hook.Add( "OnZombieDeath", "OnZombieKilled", OnZombieDeath )
+--util.AddNetworkString("slowmo")

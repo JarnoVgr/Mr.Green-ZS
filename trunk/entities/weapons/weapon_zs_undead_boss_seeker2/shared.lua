@@ -1,8 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
---Duby: I'm the puuusey boosss!
-
 if CLIENT then
 
 SWEP.ViewModelFOV = 65
@@ -80,8 +78,7 @@ end
 function SWEP:StartPrimaryAttack()
 local pl = self.Owner
 
-if SERVER then--Duby: Lets slow the player down a bit
-		--GAMEMODE:SetPlayerSpeed( self.Owner, 50 )
+if SERVER then
 		self:SetAttacking(true)	
 		self.Owner:EmitSound(Sound("ambient/machines/slicer1.wav"),math.random(100,130),math.random(95,100))--Only play the sound when his speed is reduced.
 	end 
@@ -170,6 +167,13 @@ function SWEP:OnDeploy()
 			vm:SetMaterial("Models/Charple/Charple1_sheet")
 		end
 	
+end
+
+function SWEP:Move(mv)
+	if self:IsInPrimaryAttack() then --Slower him on the primary attack
+		mv:SetMaxSpeed(50)
+		return true
+	end
 end
 	
 function SWEP:_OnRemove()

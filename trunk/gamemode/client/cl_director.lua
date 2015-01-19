@@ -148,10 +148,11 @@ function GM:SetBoss(value,isInsane,duration)
 	-- Stop sounds and delay the unlife song (Automtically loops)
 	-- Disable unlife music for a while
 	if BOSSACTIVE then
+	
 		--Play music
 			--timer.Simple(0.3, function()
-			--playBossMusic(isInsane)
-	--	end)
+			playBossMusic(isInsane)
+		--end)
 			--end
 	
 		boss.duration = duration
@@ -162,8 +163,8 @@ function GM:SetBoss(value,isInsane,duration)
 		timer.Simple(0.5, function()
 			local bossPl = GAMEMODE:GetBossZombie()
 			--print("bossPl: ".. bossPl)
-			if bossPl and IsValid(bossPl) then
-				surface.PlaySound(Sound("ambient/creatures/town_zombie_call1.wav"))
+			if bossPl and IsValid(bossPl) then		
+				--surface.PlaySound(Sound("ambient/creatures/town_zombie_call1.wav"))						
 				GAMEMODE:Add3DMessage(140, bossPl:Name() .." has risen as ".. ZombieClasses[bossPl:GetZombieClass()].Name .." Boss", nil, "ArialBoldFifteen")
 			end
 		end)
@@ -175,7 +176,7 @@ function GM:SetBoss(value,isInsane,duration)
 		--timer.Destroy("LoopBossMusic") --Duby: This loops the boss music
 	
 		--Stop music
-		--RunConsoleCommand("stopsound")
+		RunConsoleCommand("stopsound")
 		
 		Debug("[CLIENT] Boss ran off")
 	end

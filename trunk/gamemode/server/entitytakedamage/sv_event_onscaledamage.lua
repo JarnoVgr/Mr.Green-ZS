@@ -147,13 +147,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			pl:SendLua("WraithScream()")
 			pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
 		end
-		
-		if GetInfliction() >= 0.6 and pl:IsZombie() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.17) and pl:Health() ~= 0 and pl.bCanSprint == false then --Duby: Lets add a little bit of extra health at the beginning of the game. 
-			pl.bCanSprint = true
-			pl:SendLua("WraithScream()")
-			pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
-		end
-		
+
 		--One boss
 		if dmginfo:IsBulletDamage() and pl:GetZombieClass() == 11 or pl:GetZombieClass() == 18 and (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 then --Added armor for SeekerII as well..
 			if math.random(5) == 5 then
@@ -195,7 +189,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			dmginfo:AddDamage(Damage)
 		end
 		
-		if pl:HasBought("bootsofsteel")	and math.random(1,3) == 1 then
+		if pl:HasBought("bootsofsteel")	and math.random(1,2) == 1 then
 			 dmginfo:SetDamage( 0 )
 			 end
 		--if pl:Alive() then
@@ -238,7 +232,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			if phys:IsValid() then
 				if phys:GetVelocity():Length() > 320 then
 					--if pl:Alive() then 		
-					--	pl:GiveStatus("knockdown",math.Rand(2.1,3)) --Duby: Who ever put this here needs to be shot. What a load of shit.. 
+					--	pl:GiveStatus("knockdown",math.Rand(2.1,3)) --Duby: poooop
 					--end
 				end
 			end

@@ -20,7 +20,7 @@ SWEP.Primary.Damage = 10
 SWEP.Primary.Duration = 1
 
 
-SWEP.Secondary.Damage = 5
+SWEP.Secondary.Damage = 10
 SWEP.Secondary.PounceVelocity = 200
 SWEP.Secondary.PounceReach = 35
 SWEP.Secondary.PounceSize = 20
@@ -210,9 +210,9 @@ function SWEP:SecondaryAttack()
 	end
 	
 	--Set flying velocity
-	local Velocity = self.Owner:GetAngles():Forward() * 800
+	local Velocity = self.Owner:GetAngles():Forward() * 900
 	if Velocity.z < 200 then
-		Velocity.z = 200
+		Velocity.z = 300
 	end
 	
 	--Apply velocity and set leap status to true

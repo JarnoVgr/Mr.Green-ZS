@@ -8,7 +8,7 @@ SWEP.PrintName = "Behemoth"
 if CLIENT then
 
 SWEP.ShowViewModel = true --DO NOT MODIFY THIS
-SWEP.ShowWorldModel = true --DO NOT MODIFY THIS
+SWEP.ShowWorldModel = false --DO NOT MODIFY THIS
 SWEP.ViewModelBoneMods = {
 	["ValveBiped.Bip01_R_Finger31"] = { scale = Vector(1.202, 1.202, 1.202), pos = Vector(-1.769, -1.145, 0.032), angle = Angle(18.652, -69.49, -13.641) },
 	["ValveBiped.Bip01_R_Finger11"] = { scale = Vector(1, 1, 1), pos = Vector(0.151, 0.326, 0), angle = Angle(-7.047, -33.475, 50.738) },

@@ -779,7 +779,6 @@ function CalculatePlayerLoadout ( pl )
 			if Pistol then
 				pl:StripWeapon(Pistol:GetClass())
 			end
-			
 			--Give new magnum
 			pl:Give("weapon_zs_magnum")
 
@@ -790,13 +789,17 @@ function CalculatePlayerLoadout ( pl )
 
 	 --IMORTAL PRO perk. Duby: Lets see how this works out. 
 	
-	if pl:GetPerk("_imortalpro") and math.random(1,2) == 1 then
+	--if pl:GetPerk("_imortalpro") and math.random(1,2) == 1 then
+	if pl:GetPerk("_imortalpro") then
 			--Strip previous pistol
 			local Pistol = pl:GetPistol()
+			local Auto = pl:GetAutomatic()
 			if Pistol then
 				pl:StripWeapon(Pistol:GetClass()) --We remove their pistol as its the price they pay for having the pulse smg!
 			end
-	
+			if Auto then
+				pl:StripWeapon(Auto:GetClass())
+			end
 		pl:Give("weapon_zs_pulsesmg")
 		ToGive[1] = "weapon_zs_pulsesmg"
 		else
