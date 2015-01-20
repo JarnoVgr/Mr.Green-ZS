@@ -1163,17 +1163,17 @@ local ZombieTypes = { --Going to index the inflictor's bellow into this table, b
 ["6"] = "weapon_zs_undead_poisonzombie"
 }
 	if attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_infected" and ent.Nails then --Certain zombies will do more damage to (NAILED) props
-		damage = 30
-	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_ghoul" and ent.Nails then 
-		damage = 25
-	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_fastzombie" and ent.Nails then 
-		damage = 20
-	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_headcrab" and ent.Nails then 
-		damage = 10
-	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_wraith" and ent.Nails then 
-		damage = 20
-	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_poisonzombie" and ent.Nails then 
 		damage = 40
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_ghoul" and ent.Nails then 
+		damage = 35
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_fastzombie" and ent.Nails then 
+		damage = 30
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_headcrab" and ent.Nails then 
+		damage = 20
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_wraith" and ent.Nails then 
+		damage = 30
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_poisonzombie" and ent.Nails then 
+		damage = 50
 		
 	end
 
