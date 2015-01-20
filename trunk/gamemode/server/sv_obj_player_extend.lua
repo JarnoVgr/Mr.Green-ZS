@@ -1141,11 +1141,58 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	end
 	
 	--Prevent cadebreaking by reducing attack damage dealt by humans
---	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and dmginfo:IsMeleeDamage() and inflictor:GetClass() == "weapon_zs_grenade" or "weapon_zs_mine" and ent.Nails then --Duby: Stop nitwits destroying the cades with Grenades and C4..
 	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and dmginfo:IsMeleeDamage() and ent.Nails then 
 		--damage = damage * 0.25
 		damage = 0 
+		
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and inflictor:GetClass() == "weapon_zs_grenade" and ent.Nails then  --Stop cade breaking with the tools
+	
+		damage = 0 		
+		
+	elseif 	attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and inflictor:GetClass() == "weapon_zs_mine" and ent.Nails then
+	
+		damage = 0
 end
+
+local ZombieTypes = { --Going to index the inflictor's bellow into this table, but we will see how it goes first..
+["1"] = "weapon_zs_undead_infected",
+["2"] = "weapon_zs_undead_ghoul",
+["3"] = "weapon_zs_undead_fastzombie",
+["4"] = "weapon_zs_undead_headcrab",
+["5"] = "weapon_zs_undead_wraith",
+["6"] = "weapon_zs_undead_poisonzombie"
+}
+	if attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_infected" and ent.Nails then --Certain zombies will do more damage to (NAILED) props
+		damage = 30
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_ghoul" and ent.Nails then 
+		damage = 25
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_fastzombie" and ent.Nails then 
+		damage = 20
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_headcrab" and ent.Nails then 
+		damage = 10
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_wraith" and ent.Nails then 
+		damage = 20
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_poisonzombie" and ent.Nails then 
+		damage = 40
+		
+	end
+
+--[[
+	if attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent.Nails then 
+	
+	local curclass = self:GetZombieClass()
+	
+		if curclass == 0 or curclass == 1 or curclass == 3 then --Normal zombie and Toxic zombie and fast zombie
+			damage = 30
+		elseif	curclass == 2 or curclass == 8 then --Poison zombie and zombine
+			damage = 40
+		elseif	curclass == 5 or curclass == 7 then --Etherial and Headcrabs
+			damage = 25
+		elseif	curclass == 10 or curclass == 11 or curclass == 13 or curclass == 18 then --Bosses
+			damage = 45
+		end
+end
+]]--
 	local bNailDied = false
 
 	for i=1, #ent.Nails do
@@ -1218,7 +1265,8 @@ end
 				else
 					if bNailDied == false then
 						--Nails prevent prop getting damaged
-						dmginfo:SetDamage(0)
+						--dmginfo:SetDamage(0)
+						dmginfo:SetDamage(30)
 					end
 				end
 	
