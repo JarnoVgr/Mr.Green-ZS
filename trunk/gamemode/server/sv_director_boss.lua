@@ -47,7 +47,8 @@ end]]
 	boss.starTime = CurTime()
 		
 	--Calculate boss duration
-	boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 140),ROUNDTIME-CurTime())
+--	boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 140),ROUNDTIME-CurTime())
+	boss.duration = math.min(math.Round(230),ROUNDTIME-CurTime()) --Make it static so that we don't have a boss spawn for 10 seconds.
 
 	--Set End time
 	boss.endTime = CurTime() + boss.duration		

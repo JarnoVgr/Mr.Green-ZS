@@ -134,12 +134,6 @@ if CHRISTMAS then
 	include("modules/christmas/snow.lua")
 end
 
---Halloween
-if HALLOWEEN then
-	--blood
-	include("modules/halloween/blood.lua")
-end
-
 --
 CreateClientConVar("_zs_redeemclass", 1, true, false)
 

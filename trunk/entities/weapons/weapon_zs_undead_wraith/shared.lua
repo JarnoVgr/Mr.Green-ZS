@@ -328,3 +328,12 @@ util.PrecacheSound("ambient/machines/slicer4.wav")
 util.PrecacheSound("npc/zombie/claw_miss1.wav")
 util.PrecacheSound("npc/zombie/claw_miss2.wav")
 
+if CLIENT then
+	function SWEP:DrawHUD()
+		if not self.Owner:Alive() or ENDROUND then
+			return
+		end
+		MeleeWeaponDrawHUD()
+		draw.SimpleTextOutlined("Right click to Teleport!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	end
+end

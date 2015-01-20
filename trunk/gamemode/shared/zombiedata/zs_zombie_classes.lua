@@ -170,7 +170,7 @@ ZombieClasses[2] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
-	Infliction = 0.55,
+	Infliction = 0.53,
 	--Health = 400,
 	--Health = 750,
 	Health = math.random(750, 800 ),
