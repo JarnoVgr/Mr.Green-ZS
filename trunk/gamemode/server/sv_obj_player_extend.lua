@@ -1,18 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-local ents = ents
-local gmod = gmod
-
 local meta = FindMetaTable("Player")
 if not meta then return end
 
@@ -31,7 +19,7 @@ function meta:LegsGib()
 end
 
 --[==[--------------------------------------------------------------------------
-           Spawns an NPC headcrab based on the player class
+		   Spawns an NPC headcrab based on the player class
 ---------------------------------------------------------------------------]==]
 function meta:SpawnHeadcrabNPC( tbDmginfo )
 	if not self:IsZombie() then return end
@@ -77,7 +65,7 @@ function meta:SpawnHeadcrabNPC( tbDmginfo )
 end
 
 --[==[-------------------------------------------------------------
-               Makes the zombies have headcrabs
+			   Makes the zombies have headcrabs
 --------------------------------------------------------------]==]
 function meta:SetHeadcrabBodyGroup()
 	if not self:IsZombie() then return end
@@ -181,7 +169,7 @@ hook.Add( "OnTeamChange", "ClearDamageOverTime", function( pl )
 end )
 
 --[==[---------------------------------------------------
-                Spawns the first zombie/s
+				Spawns the first zombie/s
 ---------------------------------------------------]==]
 function meta:SetFirstZombie()
 	if self:Team() == TEAM_UNDEAD then
@@ -275,7 +263,7 @@ function meta:Give ( Weapon )
 end
 
 --[==[-------------------------------------------------------------
-       Rewrite this so we can do various stuff easily
+	   Rewrite this so we can do various stuff easily
 --------------------------------------------------------------]==]
 meta.BaseDropWeapon = meta.DropWeapon
 function meta:DropWeapon(Weapon)
@@ -322,7 +310,7 @@ function meta:DropWeapon(Weapon)
 end
 
 --[==[----------------------------------------------------------------
-    Check to see if player can drop weapon (prevent crash) 
+	Check to see if player can drop weapon (prevent crash) 
 ------------------------------------------------------------------]==]
 function meta:CanDropWeapon ( Weapon )
 	if Weapon == nil then return false end
@@ -339,7 +327,7 @@ function meta:CanDropWeapon ( Weapon )
 end
 
 --[==[-------------------------------------------------------------
-       Rewrite this so we can do various stuff easily
+	   Rewrite this so we can do various stuff easily
 --------------------------------------------------------------]==]
 meta.BaseStripWeapons = meta.StripWeapons
 function meta:StripWeapons()
@@ -360,7 +348,7 @@ function meta:StripWeapons()
 end
 
 --[==[--------------------------------------------------------------------
-           Rewrite this so we can do various stuff easily
+		   Rewrite this so we can do various stuff easily
 ---------------------------------------------------------------------]==]
 meta.BaseStripWeapon = meta.StripWeapon
 function meta:StripWeapon ( Class )
@@ -396,7 +384,7 @@ function meta:StripWeapon ( Class )
 end
 
 --[==[-------------------------------------------------------------
-       Add some tweaks to the drop weapon function
+	   Add some tweaks to the drop weapon function
 --------------------------------------------------------------]==]
 function meta:DropWeaponNamed ( class ) 
 	local ClassToType = GetWeaponType ( class )
@@ -437,7 +425,7 @@ function meta:ConnectedHumanClass()
 end
 
 --[==[-------------------------------------------------
-             Gibs a player - splashes him
+			 Gibs a player - splashes him
 --------------------------------------------------]==]
 function meta:Gib ( dmginfo )
 	if not IsValid ( self ) then return end
@@ -996,18 +984,18 @@ if ( type( arg[1] ) == "Player" ) then self = arg[1] end
 	
 		
 		net.Start("CustomChatAdd")
-            net.WriteDouble( #arg )
-            for _, v in pairs( arg ) do
-                if ( type( v ) == "string" ) then
-                    net.WriteString( v )
-                elseif ( type ( v ) == "table" ) then
-                    net.WriteDouble( v.r )
-                    net.WriteDouble( v.g )
-                    net.WriteDouble( v.b )
-                    net.WriteDouble( v.a )
-                end
-            end
-        net.Send(self)
+			net.WriteDouble( #arg )
+			for _, v in pairs( arg ) do
+				if ( type( v ) == "string" ) then
+					net.WriteString( v )
+				elseif ( type ( v ) == "table" ) then
+					net.WriteDouble( v.r )
+					net.WriteDouble( v.g )
+					net.WriteDouble( v.b )
+					net.WriteDouble( v.a )
+				end
+			end
+		net.Send(self)
 end
 
 ---
@@ -1024,12 +1012,12 @@ end
 
 -- 2 useful functions
 function meta:GetHeldObject()
-    return self:GetSaveTable().m_hMoveChild
+	return self:GetSaveTable().m_hMoveChild
 end
  
 function meta:HoldingObject()
-    local object = self:GetSaveTable().m_hMoveChild
-    return object and object:GetClass() == "player_pickup"
+	local object = self:GetSaveTable().m_hMoveChild
+	return object and object:GetClass() == "player_pickup"
 end
 
 --[==[---------------------------------------------------------
@@ -1109,90 +1097,40 @@ local keyvalues = {}
  
 hook.Add("EntityKeyValue","KVFix",function(e,k,v)
  
-    keyvalues[e] = keyvalues[e] or {}
-    keyvalues[e][k] = v
+	keyvalues[e] = keyvalues[e] or {}
+	keyvalues[e][k] = v
 end)
  
 function metaEntity:GetKeyValues()
-    return keyvalues[self] or {}
+	return keyvalues[self] or {}
 end
 
 
 function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	if not self.Nails then 
-	    return false
+		return false
 	end
 	
 	--Cadebreaker warning
-	if (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN) then
-	    if ( ( attacker.BarricadeWarnTime or 0 ) <= CurTime() ) then
-            attacker:Message("Don't break the barricade", 2)
-            attacker.BarricadeWarnTime = CurTime() + 4
-			damage = 0
-	    end  
+	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and ( attacker.BarricadeWarnTime or 0 ) <= CurTime() then
+		attacker:Message("Don't break the barricade", 2)
+		attacker.BarricadeWarnTime = CurTime() + 4
+		damage = 0  
 	end
 	
 	local ent = self
 	
 	ent._LastAttackerIsHuman = false
 	
-	if IsValid( attacker ) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and IsValid(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
+	if IsValid(attacker) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and IsValid(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
 		ent._LastAttackerIsHuman = true
 	end
 	
 	--Prevent cadebreaking by reducing attack damage dealt by humans
-	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and dmginfo:IsMeleeDamage() and ent.Nails then 
-		--damage = damage * 0.25
+	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and ent.Nails or (dmginfo:IsMeleeDamage() or inflictor:GetClass() == "weapon_zs_grenade" or inflictor:GetClass() == "weapon_zs_mine") then
 		damage = 0 
-		
-	elseif attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and inflictor:GetClass() == "weapon_zs_grenade" and ent.Nails then  --Stop cade breaking with the tools
-	
-		damage = 0 		
-		
-	elseif 	attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and inflictor:GetClass() == "weapon_zs_mine" and ent.Nails then
-	
-		damage = 0
-end
-
-local ZombieTypes = { --Going to index the inflictor's bellow into this table, but we will see how it goes first..
-["1"] = "weapon_zs_undead_infected",
-["2"] = "weapon_zs_undead_ghoul",
-["3"] = "weapon_zs_undead_fastzombie",
-["4"] = "weapon_zs_undead_headcrab",
-["5"] = "weapon_zs_undead_wraith",
-["6"] = "weapon_zs_undead_poisonzombie"
-}
-	if attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_infected" and ent.Nails then --Certain zombies will do more damage to (NAILED) props
-		damage = 40
-	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_ghoul" and ent.Nails then 
-		damage = 35
-	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_fastzombie" and ent.Nails then 
-		damage = 30
-	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_headcrab" and ent.Nails then 
-		damage = 20
-	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_wraith" and ent.Nails then 
-		damage = 30
-	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and inflictor:GetClass() == "weapon_zs_undead_poisonzombie" and ent.Nails then 
-		damage = 50
-		
 	end
-
---[[
-	if attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent.Nails then 
-	
-	local curclass = self:GetZombieClass()
-	
-		if curclass == 0 or curclass == 1 or curclass == 3 then --Normal zombie and Toxic zombie and fast zombie
-			damage = 30
-		elseif	curclass == 2 or curclass == 8 then --Poison zombie and zombine
-			damage = 40
-		elseif	curclass == 5 or curclass == 7 then --Etherial and Headcrabs
-			damage = 25
-		elseif	curclass == 10 or curclass == 11 or curclass == 13 or curclass == 18 then --Bosses
-			damage = 45
-		end
-end
-]]--
+		
 	local bNailDied = false
 
 	for i=1, #ent.Nails do
