@@ -4,7 +4,7 @@
 local DAMAGE_BLUR = true
 local IRON_CROSSHAIR = false
 
-ColorModify = {
+local ColorModify = {
 	["$pp_colour_brightness"] = 0,
 	["$pp_colour_contrast"] = 1,
 	["$pp_colour_colour"] = 1,
@@ -16,7 +16,7 @@ ColorModify = {
 	["$pp_colour_mulb"] = 0.
 }
 
-ColorMod = {
+local ColorMod = {
 	["$pp_colour_brightness"] = 0,
 	["$pp_colour_contrast"] = 1,
 	["$pp_colour_colour"] = 1,
@@ -28,7 +28,7 @@ ColorMod = {
 	["$pp_colour_mulb"] = 0.
 }
 
-local ZombieCM = {
+--[[local ZombieCM = {
 	["$pp_colour_brightness"] = 0,
 	["$pp_colour_contrast"] = 1,
 	["$pp_colour_colour"] = 1,
@@ -38,22 +38,19 @@ local ZombieCM = {
 	["$pp_colour_mulr"] = 1.15,
 	["$pp_colour_mulg"] = 0,
 	["$pp_colour_mulb"] = 0.
-}
+}]]
 
---[[
---Alive Zombie ColourMod
 local ZombieCM = {
-	["$pp_colour_brightness"] = -5.5,
-	["$pp_colour_contrast"] = 0,
-	["$pp_colour_colour"] = 1,
-	["$pp_colour_addr"] = 0.5,
-	["$pp_colour_addg"] = 0.2,
+	["$pp_colour_brightness"] = 0,
+	["$pp_colour_contrast"] = 1,
+	["$pp_colour_colour"] = 1.3,
+	["$pp_colour_addr"] = 0.1,
+	["$pp_colour_addg"] = 0,
 	["$pp_colour_addb"] = 0,
-	["$pp_colour_mulr"] = 1.5,
-	["$pp_colour_mulg"] = 0,
-	["$pp_colour_mulb"] = 0
+	["$pp_colour_mulr"] = 1.3,
+	["$pp_colour_mulg"] = 1,
+	["$pp_colour_mulb"] = 1.
 }
-]]--
 
 local ZombieHowlerCM = {
 	["$pp_colour_brightness"] = -0.20,
@@ -145,39 +142,6 @@ local ConnectingCM = {
 	["$pp_colour_mulb"] = 1
 }
 
-
---[==[---------------------------------------------------------
-      Receives toxic zombie points from the server 
----------------------------------------------------------]==]
---[[ToxicPoints = {}
-local function ReceiveToxicPositions(um)
-	if not IsValid ( MySelf ) then
-		return
-	end
-	
-	-- Table length
-	local tbStart = um:ReadShort()
-	local tbEnd = um:ReadShort()
-	
-	-- Grab the data
-	for i = tbStart, tbEnd do
-		local vPos = um:ReadVector() 
-		table.insert ( ToxicPoints, vPos )
-	end
-	
-	-- Initialize toxic fumes effect
-	timer.Simple(1.5, function()
-		if not bInitFumes then
-			RefreshToxicFumes()
-			bInitFumes = true
-			Debug("[FUMES] Initialized toxic fumes effects.")
-		end
-	end)
-	
-	Debug("[CLIENT] Successfully received toxic fumes positions from server.")
-end
-usermessage.Hook("ReceiveToxicPositions", ReceiveToxicPositions)]]--
-
 --[==[--------------------------------------------------
         Used to calculate color mod values
 ---------------------------------------------------]==]
@@ -244,13 +208,8 @@ function CalculateColorMod()
 				iRedAmount, iGreenAmount = 0.05, 0.05		
 			end
 		end
-
-		-- Color the screen green-yellow if the player is in toxic fumes
-		--[[if MySelf:Health() > 30 and MySelf:IsInToxicFumes(ToxicPoints) then
-			iRedAmount, iGreenAmount, Rate = 0.2, 0.2, FrameTime() * 0.18
-		end]]
 		
-		-- Exploit color change
+		--Exploit color change
 		if MySelf:GetDTInt(3) > 0 then
 			iRedAmount, iGreenAmount = 0.25, 0.1
 		end
@@ -294,7 +253,7 @@ end
      Render screen effects/ post proccesing here
 ---------------------------------------------------------]==]
 function GM:_RenderScreenspaceEffects()
-	if not IsValid ( MySelf ) or render.GetDXLevel() < 80 then
+	if not IsValid(MySelf) or render.GetDXLevel() < 80 then
 		return
 	end
 
@@ -312,7 +271,7 @@ function GM:_RenderScreenspaceEffects()
 	-- Dynamic color mod
 	CalculateColorMod()
 	
-	-- Sobel post-process
+	--Sobel post-process
 	ManageSobelEffect()
 end
 
@@ -471,8 +430,7 @@ end
 
 local FuckedTime = 0
 local FuckedLength = 0
-local FuckColTab = 
-{
+local FuckColTab = {
 	[ "$pp_colour_addr" ] 		= 0,
 	[ "$pp_colour_addg" ] 		= 0,
 	[ "$pp_colour_addb" ] 		= 0,
