@@ -47,7 +47,7 @@ local ZombieCM = {
 	["$pp_colour_addr"] = 0.1,
 	["$pp_colour_addg"] = 0,
 	["$pp_colour_addb"] = 0,
-	["$pp_colour_mulr"] = 1.3,
+	["$pp_colour_mulr"] = 1,
 	["$pp_colour_mulg"] = 1,
 	["$pp_colour_mulb"] = 1.
 }
