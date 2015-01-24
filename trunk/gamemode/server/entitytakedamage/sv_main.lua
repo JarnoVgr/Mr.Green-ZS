@@ -3,11 +3,13 @@
 
 -- Include all files inside this folder
 for k, sFile in pairs ( file.Find( "zombiesurvival/gamemode/server/entitytakedamage/*.lua","lsv" ) ) do
-	if not string.find( sFile, "main" ) then include( sFile ) end
+	if not string.find( sFile, "main" ) then
+		include( sFile )
+	end
 end
 
 -- Main damage event
-function GM:EntityTakeDamage(ent, dmginfo)
+function GM:EntityTakeDamage(ent, dmginfo)	
 	local damage = dmginfo:GetDamage()
 	
 	--End on null damage or at intermission
@@ -22,13 +24,13 @@ function GM:EntityTakeDamage(ent, dmginfo)
 	if not ent:IsPlayer() then
 		--Scale damage for Cade Buster item
 		if (attacker:IsPlayer() and attacker:IsZombie() and attacker:HasBought("cadebuster")) or (attacker:GetOwner():IsPlayer() and attacker:GetOwner():HasBought("cadebuster") and attacker:GetOwner():IsZombie()) then  
-			dmginfo:ScaleDamage(2.0)
+			dmginfo:ScaleDamage(2)
 		end
-
+		
 		--Damage nails and check if a nail died
 		if ent:DamageNails(attacker, inflictor, damage, dmginfo) then 
 			--Nails are fine. Let's not damage the prop
-	    	return
+	    	return true
 		else
 			--Multiply once a nail dies
 			dmginfo:ScaleDamage(1.9)

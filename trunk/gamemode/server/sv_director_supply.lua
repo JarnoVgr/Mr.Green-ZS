@@ -355,8 +355,8 @@ hook.Add("KeyPress", "UseKeyPressedHook", OnPlayerUse)
 --[==[-------------------------------------------------------------
       Disable default use for the parent entity
 --------------------------------------------------------------]==]
-local function DisableDefaultUseOnSupply(pl, entity)
-	if IsValid(entity) and entity:GetClass() == "game_supplycrate" then
+local function DisableDefaultUseOnSupply(pl, ent)
+	if IsValid(ent) and ent:GetClass() == "game_supplycrate" then
 		return false
 	end
 end

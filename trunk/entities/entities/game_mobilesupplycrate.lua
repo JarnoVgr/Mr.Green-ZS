@@ -8,7 +8,6 @@ ENT.AmmoDelay = 90
 ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 
 util.PrecacheSound("items/ammo_pickup.wav")
-util.PrecacheSound("mrgreen/supplycrates/mobile_use.mp3")
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Entity", 0, "Placer")
@@ -75,6 +74,9 @@ function ENT:Think()
 	end
 
 	self:NextThink(ct+1)
+	if CLIENT then
+		self:SetNextClientThink(ct+1)
+	end
 	return true
 end
 

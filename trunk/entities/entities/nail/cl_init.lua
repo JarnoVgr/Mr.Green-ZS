@@ -54,7 +54,7 @@ function ENT:OnRemove()
 	local normal = self:GetForward() * -1
 	local pos = self:GetPos() + normal * 8
 
-	sound.Play(Sound("physics/metal/metal_box_impact_bullet"..math.random(1, 3)..".wav"), pos, 80, math.random(90, 110))
+	sound.Play(Sound("physics/metal/metal_box_impact_bullet".. math.random(1, 3) ..".wav"), pos, 80, math.random(90, 110))
 
 	local emitter = ParticleEmitter(pos)
 	emitter:SetNearClip(28, 32)

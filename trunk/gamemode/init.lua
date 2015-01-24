@@ -1495,26 +1495,27 @@ hook.Add( "InitPostEntity", "RemovePowerups", RemovePowerups )
        Prevent door spam - Initialize cooldown
 ----------------------------------------------------------]=]
 local function InitDoorSpam()
-	for _, ent in pairs( ents.FindByClass("prop_door_rotating") ) do
-		ent.AntiDoorSpam = 0
+	for _, ent in pairs(ents.FindByClass("prop_door_rotating")) do
+		ent.NextUse = 0
 	end
 end
-hook.Add ( "InitPostEntity","InitDoorSpam",InitDoorSpam )
+hook.Add("InitPostEntity", "InitDoorSpam", InitDoorSpam)
 
 --[=[---------------------------------------------------------
        Prevent door spam - Available for both teams
 ----------------------------------------------------------]=]
-local function PreventDoorSpam ( pl, ent )
-	if not IsValid ( ent ) then return end
+local function PreventDoorSpam(pl, ent)
+	if not IsValid(ent) or ent:GetClass() ~= "prop_door_rotating" then
+		return
+	end
+
+	--Cooldown
+	if CurTime() <= ent.NextUse then
+		return false
+	end
 	
-	-- Only for prop_door_rotating
-	local Class = ent:GetClass()
-	if Class ~= "prop_door_rotating" then return end
-	
-	-- Cooldown
-	if ent.AntiDoorSpam <= CurTime() then ent.AntiDoorSpam = CurTime() + 0.85 return true end
-	
-	return false
+	ent.NextUse = CurTime() + 0.85
+	return true
 end
 hook.Add("PlayerUse", "PreventDoorSpam", PreventDoorSpam)
 

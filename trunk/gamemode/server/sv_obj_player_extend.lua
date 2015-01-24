@@ -1111,53 +1111,77 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		return false
 	end
 	
-	--Cadebreaker warning
-	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and ( attacker.BarricadeWarnTime or 0 ) <= CurTime() then
-		attacker:Message("Don't break the barricade", 2)
-		attacker.BarricadeWarnTime = CurTime() + 4
-		damage = 0  
-	end
+	--Cadebreaking
+	if IsValid(attacker) and attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
+		--Warning
+		if (attacker.BarricadeWarnTime or 0) <= CurTime() then
+			attacker:Message("Don't break the barricade", 2)
+			attacker.BarricadeWarnTime = CurTime() + 6
+		end
 	
+		--Prevent damage with melees and certain weapons
+		if (dmginfo:IsMeleeDamage() or inflictor:GetClass() == "weapon_zs_grenade" or inflictor:GetClass() == "weapon_zs_mine") then
+			return true
+		--Scale down
+		else
+			dmginfo:ScaleDamage(0.5)
+		end
+	end
+
 	local ent = self
 	
 	ent._LastAttackerIsHuman = false
 	
-	if IsValid(attacker) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and IsValid(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
+	if (IsValid(attacker) and attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN) or (attacker.GetOwner and IsValid(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
 		ent._LastAttackerIsHuman = true
 	end
 	
-	--Prevent cadebreaking by reducing attack damage dealt by humans
-	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and ent.Nails or (dmginfo:IsMeleeDamage() or inflictor:GetClass() == "weapon_zs_grenade" or inflictor:GetClass() == "weapon_zs_mine") then
-		damage = 0 
-	end
-		
 	local bNailDied = false
 
 	for i=1, #ent.Nails do
 		local nail = ent.Nails[i]
-		if nail then
-			if nail:IsValid() then
-				nail:SetNailHealth(nail:GetNailHealth() - damage)
-				
-				--Check for nail heath
-				if nail:GetNailHealth() <= 0 then
-					bNailDied = true
+		if not IsValid(nail) then
+			--TODO: Remove in future since this is just a failsafe which will SHOULD never happen
+			table.remove(ent.Nails, i)
+			i = i - 1
 
-					local findcons = nail.constraint
-					local numcons = 0
-					for _, theent in ipairs(ent.Nails) do
-						if theent.constraint == findcons then
-							numcons = numcons + 1
-						end
-					end
+			continue
+		end
+
+		nail:SetNailHealth(nail:GetNailHealth() - damage)
+				
+		--Check for nail heath
+		if nail:GetNailHealth() > 0 then
+			break
+		end
+		
+		bNailDied = true
+
+		--????
+		local findcons = nail.constraint
+		local numcons = 0
+		for _, theent in ipairs(ent.Nails) do
+			if theent.constraint == findcons then
+				numcons = numcons + 1
+			end
+		end
 					
-					if numcons == 1 then
-						findcons:Remove()
-					else
-						nail:Remove()
-					end
+		if numcons == 1 then
+			findcons:Remove()
+		else
+			nail:Remove()
+		end
+		
+		--Remove from table
+		table.remove(ent.Nails, i)
+		i = i - 1
+		
+		--Stop execution since we don't want to damage multiple nails in 1 hit
+		break
+			
+			
 								
-					local toworld = false
+					--[[local toworld = false
 					if nail.toworld then
 						toworld = true
 					end
@@ -1203,19 +1227,24 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 				else
 					if bNailDied == false then
 						--Nails prevent prop getting damaged
-						--dmginfo:SetDamage(0)
 						dmginfo:SetDamage(30)
 					end
 				end
 	
-				break
-			else	
-				table.remove(ent.Nails, i)
-				i = i - 1
-			end
+				break]]
+	end
+	
+	if bNailDied then
+		--Damage prop a bit to prevent nail abuse
+		dmginfo:ScaleDamage(0.5)
+		
+		--Reset for optimization
+		if #self.Nails == 0 then
+			self.Nails = nil
 		end
 	end
-	return bNailDied == false
+	
+	return not bNailDied
 end
 
 meta.OldDrawViewModel = meta.DrawViewModel
