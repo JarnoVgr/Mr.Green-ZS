@@ -1406,7 +1406,6 @@ function GM:HookGetLocal()
 	end]]
 
 	hook.Add("HUDShouldDraw", "DrawHUD", HUDShouldDraw)
-	hook.Add("RenderScreenspaceEffects", "PostProcess", self._RenderScreenspaceEffects)
 	hook.Add("CalcView", "CalculateView", CalculateView)
 
 	--Required empty function

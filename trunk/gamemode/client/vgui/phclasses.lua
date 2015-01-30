@@ -435,6 +435,8 @@ function DrawSlotIcon(x, y, ww, hh, wepclass, parent, num, weptype)
 	end
 end
 
+local LoadoutOpen = false
+
 function DrawSelectClass()
 	local filename = "zombiesurvival/loadouts/default.txt"
 	if file.Exists(filename,"DATA") then
@@ -453,6 +455,8 @@ function DrawSelectClass()
 		file.CreateDir("zombiesurvival/loadouts")
 		Loadout = {"weapon_zs_usp","weapon_zs_melee_keyboard"}
 	end
+
+	LoadoutOpen = true
 	
 	--Options:
 	
@@ -759,15 +763,20 @@ function DrawSelectClass()
 	end
 end
 
+function IsLoadoutOpen()
+	return LoadoutOpen
+end
+
 function ChangeClassClient(class)
 	gui.EnableScreenClicker(false)
+	LoadoutOpen = false
 	
 	local filename = "zombiesurvival/loadouts/default.txt"
 	
 	if SlotLabel then
 		for i=1,6 do
 			if SlotLabel[i] and SlotLabel[i].Item and SlotLabel[i].Item ~= "none" then
-				table.insert(Loadout,SlotLabel[i].Item)
+				table.insert(Loadout, SlotLabel[i].Item)
 			end
 		end
 	end
@@ -782,7 +791,6 @@ function ChangeClassClient(class)
 	-- Only one call after choosing loadout
 	gamemode.Call("PostPlayerChooseLoadout", MySelf)
 end
-usermessage.Hook("DrawSelectClass", DrawNewSelectClass2) 
 	
 function LateSpawnLoadout()
 	Loadout = Loadout or {}

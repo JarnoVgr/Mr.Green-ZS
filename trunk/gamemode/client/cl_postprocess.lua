@@ -156,7 +156,7 @@ function CalculateColorMod()
 	end
 	
 	-- Undead side post proccesing
-	if MySelf:Team() == TEAM_UNDEAD then
+	if MySelf:Team() == TEAM_UNDEAD and not ENDROUND then
 		local max = math.min(team.NumPlayers(TEAM_UNDEAD),HORDE_MAX_ZOMBIES)
 		zombies = math.Approach(zombies, math.Clamp(MySelf:GetNearUndead(HORDE_MAX_DISTANCE),0,10), FrameTime() * 5)
 		ZombieCM["$pp_colour_colour"] = math.min(1, 0.25 + 1.75 * (zombies/max))
@@ -178,7 +178,7 @@ function CalculateColorMod()
 			ColorMod[k] = math.Approach ( ColorMod[k], ApproachTo, ApproachTo * ApproachMul )
 		end
 	-- Human side post proccesing
-	elseif MySelf:Team() == TEAM_HUMAN then
+	elseif MySelf:Team() == TEAM_HUMAN and not ENDROUND then
 		--Draw bloom
 		--DrawBloom( .65, 1, 9, 9, 1, .65, 1, 1, 1 )
 		
@@ -231,8 +231,8 @@ function CalculateColorMod()
 		ColorMod["$pp_colour_addb"] = math.Approach( Blue, iBlueAmount, Rate)
 		ColorMod["$pp_colour_colour"] = math.Approach( Color, iColor, ColorRate)
 	-- Dead post proccesing
-	elseif MySelf:Team() == TEAM_SPECTATOR and not ENDROUND then
-		if not MySelf.ReadySQL then
+	elseif MySelf:Team() == TEAM_SPECTATOR or ENDROUND then
+		if not MySelf.ReadySQL or IsLoadoutOpen() or ENDROUND then
 			for k,v in pairs(ConnectingCM) do
 				ColorMod[k] = v
 			end
@@ -262,6 +262,7 @@ function GM:_RenderScreenspaceEffects()
 		DrawBlur(5, 1.2)
 	--Blur for zombie classes menu background
 	elseif IsClassesMenuOpen() then
+		print("_RenderScreenspaceEffects-3")
 		DrawBlur(5, 3)
 	end
 		
@@ -274,6 +275,9 @@ function GM:_RenderScreenspaceEffects()
 	--Sobel post-process
 	ManageSobelEffect()
 end
+hook.Add("RenderScreenspaceEffects", "PostProcess", function()
+	GAMEMODE:_RenderScreenspaceEffects()
+end)
 
 --[==[----------------------------------------------------
 	Used to manage sobel effect
