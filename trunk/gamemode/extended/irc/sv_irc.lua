@@ -89,4 +89,3 @@ function irc:Disconnect( arg )
 		self.Socket = nil
 	end
 end
-

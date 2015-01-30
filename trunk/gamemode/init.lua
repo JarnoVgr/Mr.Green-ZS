@@ -161,16 +161,20 @@ include("modules/boneanimlib_v2/boneanimlib.lua")
 
 --IRC
 if IRC_RELAY_ENABLED then
+	print("[IRC] Module enabled")
 	include("extended/irc/sv_irc.lua")
+	include("modules/ircrelay/sv_ircrelay.lua")
+else
+	print("[IRC] Module disabled")
 end
 
---Kill Rewards Thanks Josh 'Acecool'
+--Kill Rewards
 --include("modules/kill_rewards/sv_kill_rewards.lua")
 
 --Unstuck
 include("modules/unstuck/sh_unstuck.lua")
 
--- FPS buss
+--FPS buff
 include("modules/fpsbuff/sh_buffthefps.lua")
 include("modules/fpsbuff/sh_nixthelag.lua")
 
@@ -192,7 +196,9 @@ HEAD_NPC_SCALE = math.Clamp(3 - difficulty, 1.5, 4)
          Custom broadcast lua function
 ---------------------------------------------------------]=]
 gmod.BroadcastLua = gmod.BroadcastLua or function( lua )
-	for _, pl in pairs( player.GetAll() ) do
+	local players = player.GetAll()
+	for i=1,#players do
+		local pl = players[i]
 		pl:SendLua(lua)
 	end
 end

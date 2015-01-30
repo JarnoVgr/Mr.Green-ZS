@@ -13,6 +13,16 @@ function IsValidSpecial( object )
 	return IsValid(object)
 end
 
+local _CreateConVar = CreateConVar
+function CreateConVar(name, value, flags, helptext)
+	if ConVarExists(name) then
+		print("[CVAR] ".. name .." exists. Not recreated.")
+		return GetConVar(name)
+	else
+		return _CreateConVar(name, value, flags, helptext)
+	end
+end
+
 --[=[---------------------------------------------------------
 	     Include the shared files
 ---------------------------------------------------------]=]

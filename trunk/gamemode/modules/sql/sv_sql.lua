@@ -98,11 +98,12 @@ mysql.Connect = function()
 	local ErrorStr
 	mysql.Database, ErrorStr = tmysql.initialize(Login.Host, Login.User, Login.Pass, Login.Database, Login.Port, nil, 1024)
 	if ErrorStr then
-		Debug( "[SQL] TMySQL returned error: ".. errorStr )
+		Debug( "[SQL] TMySQL returned error: ")
+		print(errorStr)
 		return
 	end
 
-	Debug( mysql.Warnings["connection_on"] )
+	Debug(mysql.Warnings["connection_on"])
 	
 	-- Check connection
 	mysql.CheckConnection()
@@ -112,7 +113,6 @@ mysql.Connect = function()
 			mysql.safeGame = false
 		else 
 			gamemode.Call( "OnConnectSQL" )
-			Debug( mysql.Warnings["connection_on"] )
 		end
 	end)
 end
