@@ -188,6 +188,15 @@ if HALLOWEEN then
 	AddCSLuaFile("modules/halloween/blood.lua")
 end
 
+--Disable sv_alltalk chat notification
+if file.Exists("bin/gmsv_cvar3_*.dll", "LUA") then
+	require("cvar3")
+	local cvAllTalk = GetConVar("sv_alltalk")
+	if cvAllTalk then
+		cvAllTalk:SetFlags(cvAllTalk:GetFlags() - FCVAR_NOTIFY)
+	end
+end
+
 Thres = 0
 difficulty = 1 --default 1
 HEAD_NPC_SCALE = math.Clamp(3 - difficulty, 1.5, 4)
