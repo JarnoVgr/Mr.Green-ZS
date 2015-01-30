@@ -162,9 +162,8 @@ function Sheet_MapCycle()
 	
 	DMapProp:AddItem(EmptySpace)]==]
 	
-	--Buttons!
-
-	DMapSButton = vgui.Create("DButton")
+	--Obsolete
+	--[[DMapSButton = vgui.Create("DButton")
 	DMapSButton:SetSize(DMapProp:GetWide(), ScaleH(25))
 	DMapSButton:SetText("Shuffle Map Cycle")
 	DMapSButton:SetSkin("ZSMG")
@@ -172,7 +171,7 @@ function Sheet_MapCycle()
 		RunConsoleCommand("zs_mapmanager_shuffle")
 	end
 	
-	DMapProp:AddItem(DMapSButton)
+	DMapProp:AddItem(DMapSButton)]]
 	
 	DMapLoadButton = vgui.Create("DButton")
 	DMapLoadButton:SetSize(DMapProp:GetWide(), ScaleH(25))
@@ -296,6 +295,12 @@ usermessage.Hook("SendMapList",function(um)
 	
 end)
 
+net.Receive( "MapManager-UpdateInfo", function( len )
+	local ID = net.ReadInt(32)
+
+	MapCycle_cl[ID] = net.ReadTable()
+end) 
+
 function RefreshMapProp()
 	if MapSelected then
 		DMapPropName:SetText(MapCycle_cl[MapSelected].MapName)
@@ -359,41 +364,13 @@ function RebuildMapCycle()
 					
 		end
 		
-		--Small buttons
-		
-		if i ~= #MapCycle_cl then
-			MapTab[i].SwapDown = vgui.Create("DButton", MapTab[i])
-			MapTab[i].SwapDown:SetSkin("ZSMG")
-			MapTab[i].SwapDown:SetFont("Marlett")
-			MapTab[i].SwapDown:SetText("u")
-			MapTab[i].SwapDown:SetSize(MapTab[i]:GetTall()/2.1,MapTab[i]:GetTall()/2.1)
-			MapTab[i].SwapDown:SetPos(MapTab[i]:GetWide()-(MapTab[i]:GetTall()/2.1)*1 - 30,MapTab[i]:GetTall()/2-(MapTab[i]:GetTall()/2.1)/2)
-			MapTab[i].SwapDown.PaintOver = function()
-				-- draw.SimpleTextOutlined ( "u", "SysIcons", MapTab[i].SwapDown:GetWide()/2, MapTab[i].SwapDown:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-			end
-			MapTab[i].SwapDown.DoClick = function()
-				Map_Swap(i,true)
-			end
-		end
-		
-		if i~= 1 then
-			MapTab[i].SwapUp = vgui.Create("DButton", MapTab[i])
-			MapTab[i].SwapUp:SetSkin("ZSMG")
-			MapTab[i].SwapUp:SetFont("Marlett")
-			MapTab[i].SwapUp:SetText("t")
-			MapTab[i].SwapUp:SetSize(MapTab[i]:GetTall()/2.1,MapTab[i]:GetTall()/2.1)
-			MapTab[i].SwapUp:SetPos(MapTab[i]:GetWide()-(MapTab[i]:GetTall()/2.1)*2 - 32,MapTab[i]:GetTall()/2-(MapTab[i]:GetTall()/2.1)/2)
-			MapTab[i].SwapUp.DoClick = function()
-				Map_Swap(i,false)
-			end
-		end
-		
+		--Delete button		
 		MapTab[i].Del = vgui.Create("DButton", MapTab[i])
 		MapTab[i].Del:SetSkin("ZSMG")
 		MapTab[i].Del:SetFont("Marlett")
 		MapTab[i].Del:SetText("r")
 		MapTab[i].Del:SetSize(MapTab[i]:GetTall()/2.1,MapTab[i]:GetTall()/2.1)
-		MapTab[i].Del:SetPos(MapTab[i]:GetWide()-(MapTab[i]:GetTall()/2.1)*3 - 36,MapTab[i]:GetTall()/2-(MapTab[i]:GetTall()/2.1)/2)
+		MapTab[i].Del:SetPos(MapTab[i]:GetWide()-(MapTab[i]:GetTall()/2.1) - 36,MapTab[i]:GetTall()/2-(MapTab[i]:GetTall()/2.1)/2)
 		MapTab[i].Del.DoClick = function()
 			Map_Delete(i)
 		end
@@ -401,34 +378,6 @@ function RebuildMapCycle()
 				
 		DMapList:AddItem(MapTab[i])
 	end
-	
-end
-
-function Map_Swap(index,down)
-
-	local tbl = {tostring(index),tostring(down)}
-	
-	RunConsoleCommand("zs_mapmanager_swap",unpack(tbl))
-	
-	local temp
-	
-	if down then
-		temp = MapCycle_cl[index+1] 
-		MapCycle_cl[index+1] = MapCycle_cl[index]
-		MapCycle_cl[index] = temp
-		temp = nil
-	else
-		temp = MapCycle_cl[index-1] 
-		MapCycle_cl[index-1] = MapCycle_cl[index]
-		MapCycle_cl[index] = temp
-		temp = nil
-	end
-	
-	RefreshMapProp()
-	
-	RebuildMapCycle()
-	-- TODO: add serverside shit
-	
 end
 
 function Map_Delete(index)
@@ -453,7 +402,6 @@ function Map_Delete(index)
 end
 
 function Map_Add()
-	
 	local name = DMapPropName3:GetValue() or "Invalid Name!"
 	local filename = DMapPropName4:GetValue() or "zs_please" -- lol
 	
@@ -463,10 +411,9 @@ function Map_Add()
 	
 	RunConsoleCommand("zs_mapmanager_add",unpack(tbl))
 	
-	MapCycle_cl[#MapCycle_cl+1] = {Map = filename, MapName = name}
+	MapCycle_cl[#MapCycle_cl+1] = {Map = filename, MapName = name, Exists = false}
 	
 	RebuildMapCycle()
-	
 end 
 
 function LoadMapCycle()

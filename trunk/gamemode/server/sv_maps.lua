@@ -14,6 +14,9 @@ function GM:SetMapList()
 	else
 		self:MakeBlankMapList()
 	end
+
+	--Sort by filename
+	table.SortByMember(MapCycle, "Map")
 	
 	self:MapProperties()
 end
@@ -99,7 +102,9 @@ function GM:MakeBlankMapList()
 	table.Resequence ( maps )
 	
 	for index=1,#maps do
-		MapCycle[index] = {Map = maps[index], MapName = ((TranslateMapTable[maps[index]] and TranslateMapTable[maps[index]].Name) or maps[index]) }
+		local MapFileName = maps[index]
+		local Exists = file.Exists("maps/".. MapFileName ..".bsp", "GAME")
+		MapCycle[index] = {Map = MapFileName, MapName = ((TranslateMapTable[maps[index]] and TranslateMapTable[maps[index]].Name) or maps[index]), Exists = Exists}
 	end
 	
 	
@@ -112,6 +117,12 @@ function GM:LoadMapList()
 	local filename = "zombiesurvival/zsmapcycle.txt"
 	
 	MapCycle = util.JSONToTable(file.Read(filename))
+	
+	--Check if map file really exists
+	for i=1,#MapCycle do
+		local v = MapCycle[i]
+		v.Exists = file.Exists("maps/".. v.Map ..".bsp", "GAME")
+	end		
 	
 	Debug("[MAPS] Loaded Map List")
 end
@@ -147,13 +158,12 @@ function SendMapListToClient(pl, commandName, args)
 	for k, v in pairs( MapCycle ) do	
 		umsg.Start( "SendMapList", pl )
 			umsg.Short( x )
-			umsg.String( v.Map )
-			umsg.String( v.MapName)
-			umsg.Bool(file.Exists("maps/".. v.Map ..".bsp", "GAME"))
+			umsg.String(v.Map)
+			umsg.String(v.MapName)
+			umsg.Bool(file.Exists("maps/".. v.Map ..".bsp", "GAME")) --Or use v.Exists
 		umsg.End()
 		x = x + 1
 	end
-	
 end
 concommand.Add("send_maplist",SendMapListToClient) 
 
@@ -219,12 +229,20 @@ function Map_AddNew(pl,cmd,args)
 	
 	if not filename or not name then return end
 	
-	MapCycle[#MapCycle+1] = {Map = filename, MapName = name}
-	
-	table.Resequence ( MapCycle )
+	local Exists = file.Exists("maps/".. filename ..".bsp", "GAME")
+	MapCycle[#MapCycle+1] = {Map = filename, MapName = name, Exists = Exists}
 
+	table.Resequence(MapCycle)
+
+
+	net.Start("MapManager-UpdateInfo")
+	net.WriteInt(#MapCycle, 32)
+	net.WriteTable(MapCycle[#MapCycle])
+	net.Send(pl)
 end
-concommand.Add("zs_mapmanager_add",Map_AddNew) 
+concommand.Add("zs_mapmanager_add",Map_AddNew)
+
+util.AddNetworkString("MapManager-UpdateInfo")
 
 function Map_RenewName(pl,cmd,args)
 	

@@ -46,23 +46,6 @@ function draw.RoundedTextBox ( strText, strFont, xPos, yPos, fDistance, tbColorB
 	draw.SimpleText( strText, strFont, xPos + ( fBoxWidth / 2 ) ,yPos + ( fBoxHeight / 2 ),tbColorText, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 end
 
---[==[---------------------------------------------------------
-	Resequence a table from key 1 to n
----------------------------------------------------------]==]
-function table.Resequence ( oldtable )
-	local newtable = table.Copy ( oldtable )
-	local id = 0
-	
-	--Clear old table
-	table.Empty ( oldtable )
-	
-	--Write the new one
-	for k,v in pairs ( newtable ) do
-		id = id + 1
-		oldtable[id] = newtable[k]
-	end
-end
-
 function draw.SimpleColoredText (text, font, x, y, colour, xalign, yalign, _return)
 	font 	= font 		or "Default"
 	x 		= x 		or 0

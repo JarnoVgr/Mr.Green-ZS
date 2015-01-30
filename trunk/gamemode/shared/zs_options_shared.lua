@@ -102,7 +102,7 @@ GM.ChatTitles = {
 		[215] = "[Last Human]",
 		[250] = "[Survivalist]",
 		[300] = "[Zombie Meister]",
-		[350] = "[Dr Zombo]",
+		[350] = "[Dr. Zombo]",
 	},
 	
 	-- Undead titles

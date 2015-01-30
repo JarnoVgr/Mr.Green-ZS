@@ -138,8 +138,8 @@ local ConnectingCM = {
 	["$pp_colour_contrast"] = 1.25,
 	["$pp_colour_colour"] = 0,
 	["$pp_colour_mulr"] = 0,
-	["$pp_colour_mulg"] = 1,
-	["$pp_colour_mulb"] = 1
+	["$pp_colour_mulg"] = 0,
+	["$pp_colour_mulb"] = 0
 }
 
 --[==[--------------------------------------------------
