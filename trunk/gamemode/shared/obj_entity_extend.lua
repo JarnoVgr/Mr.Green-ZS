@@ -169,7 +169,10 @@ function meta:GetOwner()
 end
 
 function meta:IsNailed()
-if CLIENT then return end
+	if CLIENT then
+		return
+	end
+
 	return self.Nails
 end
 

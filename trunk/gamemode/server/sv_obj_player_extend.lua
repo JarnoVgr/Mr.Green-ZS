@@ -1175,7 +1175,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		--Remove from table
 		table.remove(ent.Nails, i)
 		i = i - 1
-		
+				
 		--Stop execution since we don't want to damage multiple nails in 1 hit
 		break
 			
@@ -1238,8 +1238,10 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		--Damage prop a bit to prevent nail abuse
 		dmginfo:ScaleDamage(0.5)
 		
-		--Reset for optimization
+		--Enable motion and reset for optimization
 		if #self.Nails == 0 then
+			self:GetPhysicsObject():EnableMotion(true)
+		
 			self.Nails = nil
 		end
 	end

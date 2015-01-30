@@ -149,18 +149,16 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 
 		--One boss
-		if dmginfo:IsBulletDamage() and pl:GetZombieClass() == 11 or pl:GetZombieClass() == 18 and (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 then --Added armor for SeekerII as well..
-			if math.random(5) == 5 then
-				sound.Play( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
+		if dmginfo:IsBulletDamage() and (pl:GetZombieClass() == 11 or pl:GetZombieClass() == 18) and (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 and math.random(5) == 5 then --Added armor for SeekerII as well..
+			sound.Play( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
 
-				local Spark = EffectData()
-				Spark:SetOrigin( dmginfo:GetDamagePosition() )
-				Spark:SetMagnitude( 50 )
-				Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
-				util.Effect( "MetalSpark", Spark, true, true )
+			local Spark = EffectData()
+			Spark:SetOrigin( dmginfo:GetDamagePosition() )
+			Spark:SetMagnitude( 50 )
+			Spark:SetNormal( -1 * ( dmginfo:GetDamagePosition() - dmginfo:GetAttacker():GetPos() ):GetNormal()  )
+			util.Effect( "MetalSpark", Spark, true, true )
 
-				dmginfo:ScaleDamage(0.07)
-			end	
+			dmginfo:ScaleDamage(0.07)
 		end
 	end
 	

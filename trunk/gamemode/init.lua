@@ -192,8 +192,8 @@ end
 if file.Exists("bin/gmsv_cvar3_*.dll", "LUA") then
 	require("cvar3")
 	local cvAllTalk = GetConVar("sv_alltalk")
-	if cvAllTalk then
-		cvAllTalk:SetFlags(cvAllTalk:GetFlags() - FCVAR_NOTIFY)
+	if cvAllTalk:GetFlags() ~= FCVAR_NOTIFY then
+		cvAllTalk:SetFlags(FCVAR_NOTIFY)
 	end
 end
 
