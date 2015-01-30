@@ -4,7 +4,7 @@
 local DAMAGE_BLUR = true
 local IRON_CROSSHAIR = false
 
-local ColorModify = {
+ColorModify = {
 	["$pp_colour_brightness"] = 0,
 	["$pp_colour_contrast"] = 1,
 	["$pp_colour_colour"] = 1,
