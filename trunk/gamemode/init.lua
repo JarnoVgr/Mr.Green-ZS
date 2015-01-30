@@ -130,9 +130,6 @@ include("modules/afk/sv_afk.lua") -- AFK manager
 --Damage indicator
 include("modules/damage_indicator/sv_dmg_indicator.lua")
 
---News flash
-include("modules/news/sv_news.lua")
-
 --Spectate(?)
 include("modules/spectate/sv_spectate.lua")
 
