@@ -2,7 +2,4 @@
 {
 	"$baseTexture" "models/weapons/v_pza/blackcrab_sheet"
 	"$bumpmap" "models/weapons/v_pza/blackcrab_sheet_normal"
-	"$envmap" "env_cubemap"
-	"$normalmapalphaenvmapmask" 1
-	"$selfillum" "1"
 }

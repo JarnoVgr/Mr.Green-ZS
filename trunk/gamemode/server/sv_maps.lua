@@ -149,6 +149,7 @@ function SendMapListToClient(pl, commandName, args)
 			umsg.Short( x )
 			umsg.String( v.Map )
 			umsg.String( v.MapName)
+			umsg.Bool(file.Exists("maps/".. v.Map ..".bsp", "GAME"))
 		umsg.End()
 		x = x + 1
 	end

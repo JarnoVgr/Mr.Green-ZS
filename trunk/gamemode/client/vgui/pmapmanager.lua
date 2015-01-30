@@ -95,6 +95,7 @@ function Sheet_MapCycle()
 	-- DMapPropName:SetPos(0,ScaleH(25))
 	DMapPropName:SetValue("")
 	DMapPropName:SetSkin("ZSMG")
+	DMapPropName:SetTextColor(Color(255,255,255))
 	DMapPropName:SetEditable(true)
 	DMapPropName:SetMultiline( false )
 	DMapPropName:SetEnterAllowed( true )
@@ -133,6 +134,7 @@ function Sheet_MapCycle()
 	-- DMapPropName2:SetPos(0,ScaleH(85))
 	DMapPropName2:SetValue("")
 	DMapPropName2:SetSkin("ZSMG")
+	DMapPropName2:SetTextColor(Color(255,255,255))
 	DMapPropName2:SetEditable(true)
 	DMapPropName2:SetMultiline( false )
 	DMapPropName2:SetEnterAllowed( true )
@@ -195,21 +197,45 @@ function Sheet_MapCycle()
 	
 	DMapPropName3 = vgui.Create("DTextEntry")
 	DMapPropName3:SetSize(DMapProp:GetWide(), ScaleH(25))
-	DMapPropName3:SetValue("< New Map Name >")
+	DMapPropName3.DefValue = "< New Map Name >"
+	DMapPropName3:SetValue(DMapPropName3.DefValue)
 	DMapPropName3:SetSkin("ZSMG")
+	DMapPropName3:SetTextColor(Color(255,255,255))
 	DMapPropName3:SetEditable(true)
 	DMapPropName3:SetMultiline( false )
 	DMapPropName3:SetEnterAllowed( true )
+	DMapPropName3.OnGetFocus = function(self)
+		if self:GetValue() == self.DefValue then
+			self:SetValue("")
+		end
+	end
+	DMapPropName3.OnLoseFocus = function(self)
+		if self:GetValue() == "" then
+			self:SetValue(DMapPropName3.DefValue)
+		end
+	end
 	
 	DMapProp:AddItem(DMapPropName3)
 	
 	DMapPropName4 = vgui.Create("DTextEntry")
 	DMapPropName4:SetSize(DMapProp:GetWide(), ScaleH(25))
-	DMapPropName4:SetValue("< zs_mynewmap >")
+	DMapPropName4.DefValue = "< zs_mynewmap >"
+	DMapPropName4:SetValue(DMapPropName4.DefValue)
 	DMapPropName4:SetSkin("ZSMG")
+	DMapPropName4:SetTextColor(Color(255,255,255))
 	DMapPropName4:SetEditable(true)
 	DMapPropName4:SetMultiline( false )
 	DMapPropName4:SetEnterAllowed( true )
+	DMapPropName4.OnGetFocus = function(self)
+		if self:GetValue() == self.DefValue then
+			self:SetValue("")
+		end
+	end
+	DMapPropName4.OnLoseFocus = function(self)
+		if self:GetValue() == "" then
+			self:SetValue(DMapPropName4.DefValue)
+		end
+	end
 	
 	DMapProp:AddItem(DMapPropName4)
 	
@@ -235,14 +261,26 @@ function Sheet_MapCycle()
 	DMapSaveButton:SetText("Save all changes on server (important!)")
 	DMapSaveButton:SetSkin("ZSMG")
 	DMapSaveButton.DoClick = function()
+		local AllExist = true
+		for i=1, #MapCycle_cl do
+			if not MapCycle_cl[i] or not MapCycle_cl[i].Exists then
+				chat.AddText(Color( 255, 0, 0), "Failed to save map cycle. Map '".. MapCycle_cl[i].Map .."' doesn't exist on the server.")
+				AllExist = false
+			end
+		end
+
+		if not AllExist then
+			surface.PlaySound(Sound("buttons/button10.wav"))
+			return
+		end
+
 		RunConsoleCommand("zs_mapmanager_save")
-		surface.PlaySound("buttons/button24.wav")
+		surface.PlaySound(Sound("buttons/button24.wav"))
 	end
 	
 	DMapProp:AddItem(DMapSaveButton)
 	
 	MapSheet:AddSheet( "Map Cycle", DMapLabel, nil, false, false, nil )
-
 end
 
 --Import maps----------------------------------
@@ -252,18 +290,17 @@ usermessage.Hook("SendMapList",function(um)
 	local index = um:ReadShort()
 	local map = um:ReadString()
 	local mapname = um:ReadString()
+	local exists = um:ReadBool()
 	
-	MapCycle_cl[index] = {Map = map, MapName = mapname}
+	MapCycle_cl[index] = {Map = map, MapName = mapname, Exists = exists}
 	
 end)
 
 function RefreshMapProp()
-	
 	if MapSelected then
 		DMapPropName:SetText(MapCycle_cl[MapSelected].MapName)
 		DMapPropName2:SetText(MapCycle_cl[MapSelected].Map)
 	end
-	
 end
 
 function RebuildMapCycle()
@@ -303,11 +340,22 @@ function RebuildMapCycle()
 			-- index
 			draw.SimpleTextOutlined ( i, "WeaponNames", 5, MapTab[i]:GetTall()*0.25, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 					
-			-- Name if exists
+			--Pretty Name if exists
 			draw.SimpleTextOutlined ( MapCycle_cl[i].MapName, "WeaponNames", 25, MapTab[i]:GetTall()*0.25, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-					
-			-- Actual name
-			draw.SimpleTextOutlined ( MapCycle_cl[i].Map, "WeaponNames", 25, MapTab[i]:GetTall()*0.75, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			
+			local col, borderCol
+			local ExtraStr = ""
+			if MapCycle_cl[i].Exists then
+				col = Color(255, 255, 255, 255)
+				borderCol = Color(0,0,0,255)
+			else
+				col = Color(255, 0, 0, 255)
+				borderCol = Color(255, 255, 255,255)
+				ExtraStr = " (missing)"
+			end
+
+			--Actual filename
+			draw.SimpleTextOutlined ( MapCycle_cl[i].Map .. ExtraStr, "WeaponNames", 25, MapTab[i]:GetTall()*0.75, col, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, borderCol)
 					
 		end
 		
