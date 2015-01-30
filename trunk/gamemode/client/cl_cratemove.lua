@@ -1,4 +1,4 @@
-local function CrateRemoved()
+local function CratesRemoved()
 	local pl = LocalPlayer()
 	if not IsValid(pl) then
 		return
@@ -6,30 +6,30 @@ local function CrateRemoved()
 	
 	if pl:Team() == TEAM_HUMAN then
 		surface.PlaySound(Sound("mrgreen/beep22.wav"))
-		pl:Message("The Supplies have been used up. Wait for the next drop off!", 2, "white")
+		pl:Message("The Supplies have been used up. Wait for the next drop off.", 2, "white")
 	elseif pl:Team() == TEAM_UNDEAD then
 		surface.PlaySound(Sound("player/zombies/b/scream.wav"))
-		pl:Message("Human supplies have moved", 2, "white")
+		pl:Message("Human Supplies have been used up for now.", 2, "white")
 	end
 end
-usermessage.Hook("cratemove", CrateRemoved)
+net.Receive("SupplyCratesRemoved", CratesRemoved)
 
-local function CrateDropped()
+
+local function CratesDropped()
 	local pl = LocalPlayer() 
 	if not IsValid(pl) or pl:Team() ~= TEAM_HUMAN then
 		return
 	end
 
 	surface.PlaySound(Sound("mrgreen/beep22.wav"))
-	pl:Message("Supplies have been dropped, go find them", 2, "white")
-	timer.Simple(2, function()
+	pl:Message("Supplies have been dropped, go find the crates.", 2, "white")
+	timer.Simple(0.1, function()
 		surface.PlaySound(Sound("mrgreen/supplycrates/thunder3.mp3"))
 	end)
 end
-usermessage.Hook("spawn", CrateDropped)
+net.Receive("SupplyCratesDropped", CratesDropped)
 
---Adding the Slowmo sounds receiver in here to keep the main Client files tidy.
-
+--TODO: Move to somewhere else
 net.Receive("slowmo", function()
 	RunConsoleCommand("stopsound")
 	timer.Simple(0.05,function() 

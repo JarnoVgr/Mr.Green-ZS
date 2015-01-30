@@ -1,7 +1,8 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-util.AddNetworkString( "cratemove" )
+util.AddNetworkString("SupplyCratesRemoved")
+util.AddNetworkString("SupplyCratesDropped")
 
 AmmoDropPoints = { X = {}, Y = {}, Z = {}, Switch = {}, ID = {} }
 CrateSpawnsPositions = {}
@@ -16,7 +17,7 @@ function GM:SetCrates()
 		
 		for i,stuff in pairs(tbl) do
 			if not stuff.Pos then
-				Debug("[DIRECTOR] Skipped loading Supply Crate due to missing Pos")
+				Debug("[DIRECTOR] Skipped loading Supply Crate due to missing position")
 				continue
 			end
 
@@ -30,10 +31,12 @@ function GM:SetCrates()
 				angles = Angle(stuff.Angles[1] or 0, stuff.Angles[2] or 0, stuff.Angles[3] or 0),
 				switch = false
 			}
-			table.insert(AllCrateSpawns,miniTable)
+			table.insert(AllCrateSpawns, miniTable)
 		end
 				
-		Debug("[DIRECTOR] Loaded Crate Spawnpoints")
+		Debug("[DIRECTOR] Loaded ".. #AllCrateSpawns .." Supply Crate spawnpoints")
+	else
+		Debug("[DIRECTOR] Missing Supply Crate spawnpoints!")
 	end
 end
 
@@ -278,20 +281,15 @@ local function CalculateGivenSupplies(pl)
 	end
 	
 	--Debug
-	--Debug("[CRATES] Given supplies to ".. tostring(pl))
+	Debug("[CRATES] Given Supplies to ".. tostring(pl))
 end
 
 --[==[-------------------------------------------------------------
       Manage player +USE on the ammo supply boxes
 --------------------------------------------------------------]==]
 local function OnPlayerUse(pl, key)
-	--Ignore all keys but IN_USE
-	if key ~= IN_USE or not IsValid(pl) then
-		return
-	end
-		
-	--Check if player is zombie
-	if pl:Team() ~= TEAM_HUMAN then
+	--Ignore all keys but IN_USE and team check
+	if key ~= IN_USE or not IsValid(pl) or pl:Team() ~= TEAM_HUMAN then
 		return
 	end
 		
@@ -431,7 +429,7 @@ local function TraceHullSupplyCrate(Pos, Switch)
 		end
 	end
 	
-	-- We are blocked	
+	--We are blocked	
 	if #Ents > 0 then
 		return false
 	end
@@ -439,7 +437,20 @@ local function TraceHullSupplyCrate(Pos, Switch)
 	return true
 end
 
-function GM:CalculateSupplyDrops()
+local function RemoveSupplyCrates()
+	local ents = ents.FindByClass("game_supplycrate")
+
+	for i=1,#ents do
+		local ent = ents[i]
+		if not IsValid(ent) then
+			continue
+		end
+
+		ent:Remove()
+	end
+end
+
+function GM:SpawnSupplyCrates()
 	--Check if we should calculate crates
 	if ENDROUND or #AllCrateSpawns < 1 then
 		return
@@ -447,27 +458,46 @@ function GM:CalculateSupplyDrops()
 		
 	--Spawn crates
 	self:SpawnCratesFromTable(AllCrateSpawns)
+
+	--Timer to remove crates
+	timer.Simple(120, function()
+		if ENDROUND then
+			return
+		end
+
+		--Remove current supplies
+		RemoveSupplyCrates()
+
+		net.Start("SupplyCratesRemoved")
+		net.Broadcast()
+
+		--Resupply in short while
+		timer.Simple(40, function()
+			if ENDROUND then
+				return
+			end
+
+			GAMEMODE:SpawnSupplyCrates()
+			net.Start("SupplyCratesDropped")
+			net.Broadcast()
+		end)
+	end)
 end
 
 local function SortByHumens(a, b)
 	return a._Hum > b._Hum
 end
 
-function GM:SpawnCratesFromTable(crateSpawns,bAll)
+
+
+function GM:SpawnCratesFromTable(crateSpawns, bAll)
 	--Remove current supplies
-	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do
-		if IsValid(v) then			
-			v:Remove()
-		end
-	end
+	RemoveSupplyCrates()
 	
 	local idTable = {}
 	
-	--Get crate table and shuffle it
-	--local tab = table.Copy(crateSpawns)
-	--table.Shuffle(tab)
-	
-	table.Shuffle(crateSpawns)
+	--Shuffle crates
+	crateSpawns = table.Shuffle(crateSpawns)
 	
 	local maxCrates = math.min(#crateSpawns,MAXIMUM_CRATES)
 	if bAll then
@@ -480,257 +510,31 @@ function GM:SpawnCratesFromTable(crateSpawns,bAll)
 	for i=1,maxCrates do
 		--Loop through crate spawns
 		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
-			if not table.HasValue(idTable,crateSpawnID) then	
-				if TraceHullSupplyCrate(crateSpawn.pos, false) then
-					crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
-					
-					--Add to table to prevent it being used again
-					table.insert(idTable,crateSpawnID)
-					
-					--Add crate position to easy-position table
-					local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
-					table.insert(CrateSpawnsPositions,miniPositionTable)
-					
-					--Increase count					
-					spawnedCratesCount = spawnedCratesCount + 1
-					
-					break
-				end
+			if table.HasValue(idTable, crateSpawnID) then
+				continue
 			end
+			
+			if not TraceHullSupplyCrate(crateSpawn.pos, false) then
+				continue
+			end
+
+			crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
+					
+			--Add to table to prevent it being used again
+			table.insert(idTable,crateSpawnID)
+					
+			--Add crate position to easy-position table
+			local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
+			table.insert(CrateSpawnsPositions,miniPositionTable)
+					
+			--Increase count					
+			spawnedCratesCount = spawnedCratesCount + 1
+					
+			break
 		end
 	end
 	
 	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
-	
-	
-	
---[=[----------------------------------------------------------------------
-     Dubys amazing method to the new crate!!
----------------------------------------------------------------------------]=]
---Duby: Its not the best method, but it works well! ^^
-		timer.Simple(300, function() --Remove the crate.
-	ents.FindByClass( "game_supplycrate" )[1]:Remove()--Remove the crate from these spawn points
-	ents.FindByClass( "game_supplycrate" )[2]:Remove()
-umsg.Start("cratemove")
-umsg.End()
-	end)
-	
-	
-	timer.Simple(330, function() --Add the crate.
-	for i=1,maxCrates do
-		--Loop through crate spawns
-		for crateSpawnID, crateSpawn in pairs(crateSpawns) do		--Get the crate IDs which are available	
-			if not table.HasValue(idTable,crateSpawnID) then	
-				if TraceHullSupplyCrate(crateSpawn.pos, false) then
-					crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
-					
-					--Add to table to prevent it being used again
-					table.insert(idTable,crateSpawnID)
-					
-					--Add crate position to easy-position table
-					local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
-					table.insert(CrateSpawnsPositions,miniPositionTable)
-					
-					--Increase count					
-					spawnedCratesCount = spawnedCratesCount + 1
-					
-					break
-				end
-			end
-		end
-		umsg.Start("spawn")--Send client notification that it has been sent.
-		umsg.End()
-	end
-	
-	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
-	
-	end)
-	
-	timer.Simple(600, function() --Remove the crate.
-	
-	ents.FindByClass( "game_supplycrate" )[1]:Remove()--Remove the crate from these spawn points
-	ents.FindByClass( "game_supplycrate" )[2]:Remove()
-
-umsg.Start("cratemove")
-		umsg.End()	
-	end)
-	
-	timer.Simple(620, function() --Reset the crate spawn loctions. Also change the crate ID's again.
---Remove current supplies
-	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do--Get the entity we are spawning.
-		if IsValid(v) then			
-			v:Remove()
-		end
-	end
-	
-	local idTable = {}
-	
-	table.Shuffle(crateSpawns)
-	
-	local maxCrates = math.min(#crateSpawns,MAXIMUM_CRATES)
-	if bAll then
-		maxCrates = #crateSpawns
-	end
-	
-	local spawnedCratesCount = 0
-	
-	--Loop through crate requests
-	for i=1,maxCrates do
-		--Loop through crate spawns
-		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
-			if not table.HasValue(idTable,crateSpawnID) then	
-				if TraceHullSupplyCrate(crateSpawn.pos, false) then
-					crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
-					
-					--Add to table to prevent it being used again
-					table.insert(idTable,crateSpawnID)
-					
-					--Add crate position to easy-position table
-					local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
-					table.insert(CrateSpawnsPositions,miniPositionTable)
-					
-					--Increase count					
-					spawnedCratesCount = spawnedCratesCount + 1
-					
-					break
-				end
-			end
-		end
-		umsg.Start("spawn")
-		umsg.End()
-	end
-	
-	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
-	
-	
-	end)	
-	
-	
-	
-	timer.Simple(900, function() --Remove the crate.
-
-	ents.FindByClass( "game_supplycrate" )[1]:Remove()
-	ents.FindByClass( "game_supplycrate" )[2]:Remove()
-
-umsg.Start("cratemove")
-		umsg.End()	
-	end)
-	
-	
-	timer.Simple(925, function() --Reset the crate spawn loctions. Also change the crate ID's again.
-	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do
-		if IsValid(v) then			
-			v:Remove()
-		end
-	end
-	local idTable = {}
-	
-	table.Shuffle(crateSpawns)
-	
-	local maxCrates = math.min(#crateSpawns)
-	if bAll then
-		maxCrates = #crateSpawns
-	end
-	
-	local spawnedCratesCount = 0
-	
-	--Loop through crate requests
-	for i=1,maxCrates do
-		--Loop through crate spawns
-		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
-			if not table.HasValue(idTable,crateSpawnID) then	
-				if TraceHullSupplyCrate(crateSpawn.pos, false) then
-					crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
-					
-					--Add to table to prevent it being used again
-					table.insert(idTable,crateSpawnID)
-					
-					--Add crate position to easy-position table
-					local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
-					table.insert(CrateSpawnsPositions,miniPositionTable)
-					
-					--Increase count					
-					spawnedCratesCount = spawnedCratesCount + 1
-					
-					break
-				end
-			end
-		end
-		umsg.Start("spawn")
-		umsg.End()
-	end
-	
-	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
-	
-	
-	end)
-	timer.Simple(925, function() --Remove the crates as we have 4 spawned now. We only want two!
-	ents.FindByClass( "game_supplycrate" )[1]:Remove()
-	ents.FindByClass( "game_supplycrate" )[2]:Remove()
-	end)
-	
-	timer.Simple(1200, function() --Remove the crate.
-	ents.FindByClass( "game_supplycrate" )[1]:Remove()
-	ents.FindByClass( "game_supplycrate" )[2]:Remove()
-
-umsg.Start("cratemove")
-		umsg.End()	
-	end)
-	
-	
-	timer.Simple(1215, function() --Reset the crate spawn loctions. Also change the crate ID's again.
-	for k,v in ipairs(ents.FindByClass("game_supplycrate")) do
-		if IsValid(v) then			
-			v:Remove()
-		end
-	end
-	local idTable = {}
-
-	
-	table.Shuffle(crateSpawns)
-	
-	local maxCrates = math.min(#crateSpawns)
-	if bAll then
-		maxCrates = #crateSpawns
-	end
-	
-	local spawnedCratesCount = 0
-	
-	--Loop through crate requests
-	for i=1,maxCrates do
-		--Loop through crate spawns
-		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
-			if not table.HasValue(idTable,crateSpawnID) then	
-				if TraceHullSupplyCrate(crateSpawn.pos, false) then
-					crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
-					
-					--Add to table to prevent it being used again
-					table.insert(idTable,crateSpawnID)
-					
-					--Add crate position to easy-position table
-					local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
-					table.insert(CrateSpawnsPositions,miniPositionTable)
-					
-					--Increase count					
-					spawnedCratesCount = spawnedCratesCount + 1
-					
-					break
-				end
-			end
-		end
-		umsg.Start("spawn")
-		umsg.End()
-	end
-	
-	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
-	
-	
-	end)
-	timer.Simple(1215, function() --Remove the crates as we have 4 spawned now. We only want two!
-	ents.FindByClass( "game_supplycrate" )[3]:Remove()
-	ents.FindByClass( "game_supplycrate" )[4]:Remove()
-	end)
-	--Duby: This is the end of a shitty method for moving crates. What we need to do really is add 10 crate spawn points instead of 4, then we can make something interesting!
 end
 
 -- Precache the gib models

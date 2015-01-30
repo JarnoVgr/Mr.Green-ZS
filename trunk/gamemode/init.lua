@@ -385,8 +385,8 @@ function GM:InitPostEntity()
 		self:SetObjStage(1)
 	end
 	
-	--Spawn crate
-	self:CalculateSupplyDrops()
+	--Spawn initial supply crates
+	self:SpawnSupplyCrates()
 	
 	--Create zombie Flashlight
 	self:CreateZombieFlashLight()
