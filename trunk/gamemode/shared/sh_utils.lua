@@ -1,27 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
---[[if SERVER then
-    util.AddNetworkString( "ServerTime" )
-    hook.Add("PlayerInitialSpawn", "loldeluvasawesomefix", function( pl )
-        net.Start("ServerTime")
-            net.WriteFloat(CurTime())
-        net.Send(pl)
-    end)
-end
-
-if CLIENT then
-    net.Receive( "ServerTime", function( len, cl )
-        g_ServerTime = net.ReadFloat()
-        g_ServerTimeReceiveTime = CurTime()
-    end)
-
-    function ServerTime()
-        return (g_ServerTime or 0) + ( (CurTime() - g_ServerTimeReceiveTime) or 0 )
-    end
-else
-    ServerTime = CurTime
-end]]
 ServerTime = CurTime
 
 --Case Insensitive HasValue variant

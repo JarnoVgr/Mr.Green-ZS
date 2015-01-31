@@ -96,7 +96,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	end
 	
-	if dmginfo:IsSuicide( mVictim ) and ServerTime() < ROUNDTIME * 0.12 then
+	if dmginfo:IsSuicide( mVictim ) and CurTime() < ROUNDTIME * 0.12 then
 		if mVictim:IsHuman() then
 			mVictim.Suicided = true
 		end

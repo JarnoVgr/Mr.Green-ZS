@@ -47,7 +47,7 @@ end
 
 meta.OldSetModelScale = meta.SetModelScale
 
-function meta:SetModelScale(sz,time)
+--[[function meta:SetModelScale(sz,time)
 	
 	if SERVER then
 		if self:IsPlayer() then
@@ -62,7 +62,7 @@ function meta:SetModelScale(sz,time)
 		self:OldSetModelScale(sz,time)
 	end
 	
-end
+end]]
 
 -- Check if the entity is on the ground
 --[==[function meta:IsOnGround()

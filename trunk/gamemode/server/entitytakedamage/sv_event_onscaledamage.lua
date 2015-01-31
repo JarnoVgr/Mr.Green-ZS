@@ -142,14 +142,14 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
 		end
 
-		if GetInfliction() >= 0.15 and pl:IsZombie() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.15) and pl:Health() ~= 0 and pl.bCanSprint == false then --Duby: Lets add a little bit of extra health at the beginning of the game. 
+		if GetInfliction() >= 0.15 and pl:IsZombie() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.15) and pl:Health() ~= 0 and pl.bCanSprint == false then
 			pl.bCanSprint = true
 			pl:SendLua("WraithScream()")
 			pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
 		end
 
 		--One boss
-		if dmginfo:IsBulletDamage() and (pl:GetZombieClass() == 11 or pl:GetZombieClass() == 18) and (dmginfo:GetDamagePosition():Distance( pl:GetAttachment( pl:LookupAttachment("head") ).Pos )) > 6.5 and math.random(5) == 5 then --Added armor for SeekerII as well..
+		--[[if dmginfo:IsBulletDamage() and (pl:GetZombieClass() == 11 or pl:GetZombieClass() == 18) and (dmginfo:GetDamagePosition():Distance( pl:GetAttachment(pl:LookupAttachment("head")).Pos )) > 6.5 and math.random(5) == 5 then
 			sound.Play( "weapons/fx/rics/ric"..math.random(1,5)..".wav", pl:GetPos() + Vector( 0,0,30 ), 80, math.random( 90, 110 ) )
 
 			local Spark = EffectData()
@@ -159,7 +159,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			util.Effect( "MetalSpark", Spark, true, true )
 
 			dmginfo:ScaleDamage(0.07)
-		end
+		end]]
 	end
 	
 	--Fall damage

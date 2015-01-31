@@ -18,11 +18,11 @@ function death.HumanDeath( pl, attacker )
 		return
 	end
 
-	--[[if ServerTime() <= WARMUPTIME then
+	--[[if CurTime() <= WARMUPTIME then
 		MySelf.NextSpawn = WARMUPTIME+2
 	else
 		local NextSpawn = math.Clamp(GetInfliction() * 14, 1, 4)
-		MySelf.NextSpawn = ServerTime() + NextSpawn
+		MySelf.NextSpawn = CurTime() + NextSpawn
 	end]]
 	
 	-- Status
@@ -38,11 +38,11 @@ function death.ZomboDeath( pl, attacker )
 	if not pl:IsZombie() or pl ~= MySelf then return end
 	
 	-- Spawn timer
-	if ServerTime() <= WARMUPTIME then
+	if CurTime() <= WARMUPTIME then
 		MySelf.NextSpawn = WARMUPTIME+2
 	else
 		local NextSpawn = math.Clamp(GetInfliction() * 14, 1, 4)
-		MySelf.NextSpawn = ServerTime() + NextSpawn
+		MySelf.NextSpawn = CurTime() + NextSpawn
 	end
 	
 	-- Status
@@ -71,7 +71,7 @@ function death.DeathHumanHUD()
 
 	draw.DrawText("You've failed to survive", "NewZombieFont27", ScaleW(642), ScaleH(44), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
 
-	local timeleft = math.max(0,math.Round(MySelf.NextSpawn - ServerTime())+1)
+	local timeleft = math.max(0,math.Round(MySelf.NextSpawn - CurTime())+1)
 	
 	local bCanSpawn = false
 
@@ -112,9 +112,9 @@ function death.DeathZombieHUD()
 	if obsmode ~= OBS_MODE_NONE then
 		GAMEMODE:ZombieObserverHUD(obsmode,true)
 	else	
-		local timeleft = math.max(0,math.Round(MySelf.NextSpawn - ServerTime())+1)
+		local timeleft = math.max(0,math.Round(MySelf.NextSpawn - CurTime())+1)
 
-		--print("NextSpawn: ".. tostring(MySelf.NextSpawn) .. " - ServerTime: ".. tostring(ServerTime()) .." - Diff:" .. tostring(MySelf.NextSpawn - ServerTime()))
+		--print("NextSpawn: ".. tostring(MySelf.NextSpawn) .. " - ServerTime: ".. tostring(CurTime()) .." - Diff:" .. tostring(MySelf.NextSpawn - CurTime()))
 		--TODO: Figure out why +2 is needed
 
 		if timeleft ~= 0 then

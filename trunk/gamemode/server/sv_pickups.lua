@@ -108,7 +108,10 @@ function GM:CalculateRandomLocations()
 	
 	local spawns = team.GetSpawnPoint(TEAM_HUMAN)
 	
-	local cratespawns = CrateSpawnsPositions or {}
+	--TODO: Fix code here.
+	--local cratespawns = CrateSpawnsPositions or {}
+	
+	print("[PICKUPS] Check CalculateRandomLocations code")
 	
 	for i, spwn in pairs(spawns) do
 		table.insert(self.PickupsLocations,spwn:GetPos()+Vector(VectorRand().x*40,VectorRand().y*40,math.random(50,90)))

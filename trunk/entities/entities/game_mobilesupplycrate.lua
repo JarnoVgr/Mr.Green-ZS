@@ -37,7 +37,7 @@ function ENT:Initialize()
 
 	if CLIENT then
 		hook.Add("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self), function()
-			if not util.tobool(GetConVarNumber("_zs_drawcrateoutline")) then
+			if not util.tobool(GetConVarNumber("zs_drawcrateoutline")) then
 				return
 			end
 			

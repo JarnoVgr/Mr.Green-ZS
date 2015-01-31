@@ -9,8 +9,7 @@ hook.Add("Think", "GetLocal", function()
 	end
 	
 	MySelf = LocalPlayer()
-	if MySelf:IsValid() then
-		--MYSELFVALID = true
+	if IsValid(MySelf) then
 		hook.Remove("Think", "GetLocal")
 		
 		--Placeholder when there's none
@@ -110,7 +109,7 @@ include("modules/skillpoints/sh_skillpoints.lua")
 --Player legs
 include("modules/legs/cl_legs.lua")
 
---News flash
+--Chat news and game hints
 include("modules/news/cl_news.lua")
 
 --Bone Animation Library
@@ -119,14 +118,12 @@ include("modules/boneanimlib_v2/cl_boneanimlib.lua")
 --SQL-stats related
 include("server/stats/sh_utils.lua")
 
--- FPS buss
+--FPS buff
 include("modules/fpsbuff/sh_buffthefps.lua")
 include("modules/fpsbuff/sh_nixthelag.lua")
 
---Custom Chat
---include("modules/customchat/cl_customchat.lua")
-
-
+--Compass
+include("modules/compass/cl_compass.lua")
 
 --Christmas
 if CHRISTMAS then
@@ -186,7 +183,7 @@ TOTALGIBS = 0
 ActualNearZombies = 0
 
 -- Loading...
-local RandomText = table.Random( { 
+local RandomText = table.Random({ 
 	"Fetching your braaainns!", 
 	"Messing with your data!", 
 	"Braaaainnns...", 
@@ -197,19 +194,18 @@ local RandomText = table.Random( {
 	"I'll load your profile right now!",
 	"Don't worry, we know what we're doing!",
 	"Breeding headcrab eggs...",
-	"Searching for zombie antidote...",
+	"Searching for Zombie antidote...",
 	"Removing blood from the map...",
 	"Piling up meat...",
 	"Mixing fake blood...",
-	"Putting supplies into supply crates...",
+	"Putting supplies into crates...",
 	"Starting zombie apocalypse...",
-	"Sewing zombie parts together...", 
-	"Hitting Duby to code zs...",  
-	"Inserting coin to start round...",  
-	"Waking up Behemoth...",  
+	"Sewing zombie parts together...",
+	"Inserting a coin...",
+	"Waking up the Behemoth...",  
 	"Spawning poison gas...",  
-	"Shuffling crate spawns...",
-	"Adding Necro bots.."  })
+	"Shuffling crate spawns..."
+})
 
 local matGlow = Material("Sprites/light_glow02_add_noz")
 local colHealth = Color(255, 255, 0, 255)
@@ -535,8 +531,6 @@ local function LoopLastHuman()
 end
 
 local function DelayedLastHumanAlert()
-	local MySelf = LocalPlayer()
-
 	if not ENDROUND then
 		if MySelf:Team() == TEAM_UNDEAD or not MySelf:Alive() then
 			GAMEMODE:Add3DMessage(140, "Kill the Last Human", nil, "ArialBoldFifteen")
@@ -581,8 +575,6 @@ local function HUDShouldDraw( name )
 end
 
 local function ReceiveHeadcrabScale(um)
-	local MySelf = LocalPlayer()
-
 	local pl = um:ReadEntity()
 	if pl:IsValid() then
 		if pl == MySelf then
@@ -831,7 +823,6 @@ local WATER_DROWNTIME_CONST = 20
 local WATER_DROWNTIME = 20
 -- Draw HUD
 local function HUDPaint()
-	local MySelf = LocalPlayer()
 	if not MySelf:IsValid() or not MySelf.ReadySQL then
 		return
 	end
@@ -1252,7 +1243,6 @@ end
 local tbWarnings = { Sound ( "npc/zombie_poison/pz_alert1.wav" ), Sound ( "npc/zombie_poison/pz_call1.wav" ), Sound ( "npc/fast_zombie/fz_alert_far1.wav" ), Sound ( "ambient/creatures/town_zombie_call1.wav" ) }
 
 function GM:Rewarded(wep)
-	local MySelf = LocalPlayer()
 	if not MySelf:IsValid() then
 		return
 	end

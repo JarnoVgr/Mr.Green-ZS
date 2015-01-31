@@ -500,7 +500,7 @@ function RollTheDice ( pl,commandName,args )
 		return
 	end
 	
-	if ServerTime() < (WARMUPTIME+10) then
+	if CurTime() < (WARMUPTIME+10) then
 		pl:ChatPrint("Dice temporarily disabled at round start")
 		return
 	end

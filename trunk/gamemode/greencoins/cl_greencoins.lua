@@ -61,16 +61,3 @@ function CreateRequestPopup( id, name )
 	lab:SetSize(280,60)
 	lab:SizeToContents()
 end
-
---  ZS already has its own draw functions
---[==[function DrawGC()
-	local MySelf = LocalPlayer()
-	if not (MySelf:IsValid() and MySelf.Class and MySelf.Class ~= 0) then return end
-	if ENDROUND then return end
-	local coins = MySelf:GreenCoins()
-	draw.RoundedBox(5, 3, 120, 200, 24, Color(0, 0, 0, 180))
-	local drawcol = Color(115,160,150,185)
-	draw.DrawText("Green-Coins: "..coins, "InfoSmall", 10, 124, drawcol, TEXT_ALIGN_LEFT)
-	draw.DrawText("Green-Coins: "..coins, "InfoSmall", 10, 124, drawcol, TEXT_ALIGN_LEFT)
-end
-hook.Add("HUDPaint","DrawGreenCoins",DrawGC)]==]

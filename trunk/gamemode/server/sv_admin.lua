@@ -367,7 +367,7 @@ function DoDebugCommands(pl, cmd, args)
 		WARMUPTIME = CurTime()
 
 		--Broadcast to players
-		gmod.BroadcastLua("WARMUPTIME = ServerTime()")
+		gmod.BroadcastLua("WARMUPTIME = CurTime()")
 		
 		--Debug
 		Debug("[DEBUG] Started round")
@@ -375,7 +375,7 @@ function DoDebugCommands(pl, cmd, args)
 		net.Start("UnlockAllUndeadClasses")
 		net.Broadcast()
 
-		--TODO: Check if serverside is needed
+		--TODO: Also apply this for clientside
 		for i, tab in ipairs(ZombieClasses) do
 			--Check for unlock
 			if not tab.Unlocked and not tab.Hidden then

@@ -912,7 +912,6 @@ end
 -----------------------------------------------------]==]
 concommand.Add( "PostPlayerInitialSpawn", function(sender, command, arguments)
 	if not sender.PostPlayerInitialSpawn then
-		Debug("[SPAWN] PostPlayerInitialSpawn ConCommand called. It's still needed.")
 		sender.PostPlayerInitialSpawn = true
 		gamemode.Call("PlayerReady", sender)
 	end

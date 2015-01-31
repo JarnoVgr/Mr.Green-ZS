@@ -267,10 +267,10 @@ function hud.DrawZombieHUDTop()
 	local timeLeft, keyText, valueColor = 0, "FEED", Color(255,255,255,255)
 
 	--Preparation (warmup)
-	if ServerTime() <= WARMUPTIME then
+	if CurTime() <= WARMUPTIME then
 		keyText = "PREPARING HORDE"
 
-		timeLeft = math.max(0, WARMUPTIME - ServerTime())
+		timeLeft = math.max(0, WARMUPTIME - CurTime())
 
 		if timeLeft < 10 then
 			local glow = math.sin(CurTime() * 8) * 200 + 255
@@ -285,7 +285,7 @@ function hud.DrawZombieHUDTop()
 			end
 		end
 	else
-		timeLeft = math.max(0, ROUNDTIME - ServerTime())
+		timeLeft = math.max(0, ROUNDTIME - CurTime())
 	end
 
 	--Draw time
@@ -581,10 +581,10 @@ local function DrawRoundTime()
 	local timeLeft, keyText, valueColor = 0, "EVACUATION TIME", Color(255,255,255,255)
 
 	--Preparation (warmup)
-	if ServerTime() <= WARMUPTIME then
+	if CurTime() <= WARMUPTIME then
 		keyText = "PREPARATION TIME"
 		draw.SimpleText("Get close to the Undead spawn to be sacrificed", "ssNewAmmoFont9", startX, keyStartY+100, Color(255,90,90,210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		timeLeft = math.max(0, WARMUPTIME - ServerTime())
+		timeLeft = math.max(0, WARMUPTIME - CurTime())
 
 		if timeLeft < 10 then
 			local glow = math.sin(CurTime() * 8) * 200 + 255
@@ -599,7 +599,7 @@ local function DrawRoundTime()
 			end
 		end
 	else
-		timeLeft = math.max(0, ROUNDTIME - ServerTime())
+		timeLeft = math.max(0, ROUNDTIME - CurTime())
 	end
 	
 	--Draw time

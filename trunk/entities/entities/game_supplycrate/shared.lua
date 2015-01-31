@@ -13,8 +13,15 @@ util.PrecacheModel("models/greenshat/greenshat.mdl")
    Returns entity children / shared
 ---------------------------------------------]==]
 function ENT:GetEntities()
-    self.Entities = self.Entities or { self, self:GetDTEntity( 1 ), self:GetDTEntity( 2 ), 
-        self:GetDTEntity( 3 ), self:GetDTEntity( 4 ), self:GetDTEntity( 5 ), self:GetDTEntity( 6 )   } 
+    self.Entities = self.Entities or {
+    	self,
+    	self:GetDTEntity(1),
+    	self:GetDTEntity(2), 
+        self:GetDTEntity(3),
+        self:GetDTEntity(4),
+        self:GetDTEntity(5),
+        self:GetDTEntity(6)
+    } 
         
     return self.Entities
 end

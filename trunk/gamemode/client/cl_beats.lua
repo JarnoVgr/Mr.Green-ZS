@@ -165,7 +165,6 @@ end
 
 -- Good old beats :D
 local function BeatsThink()
-	MySelf = LocalPlayer()
 	if not MySelf:IsValid() then
 		return
 	end

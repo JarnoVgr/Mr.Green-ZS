@@ -631,6 +631,10 @@ for _, filename in pairs(file.Find("materials/mrgreen/intermission/*.*", "GAME")
 	table.insert(ResourceFiles, "materials/mrgreen/intermission/".. filename)
 end
 
+--HUD arrow
+table.insert(ResourceFiles, "materials/models/props_mrgreen/arrow/debugwhite.vmt")
+table.insert(ResourceFiles, "models/props_mrgreen/arrow.mdl")
+
 --Precache all models from resources
 for k,v in pairs(ResourceFiles) do
 	if string.find( v, ".mdl") then
@@ -638,4 +642,4 @@ for k,v in pairs(ResourceFiles) do
 	end
 end
 
-Debug("[MODULE] Loaded General Tables and Resource Files.")
+Debug("[MODULE] Loaded General Tables and Resource Files")

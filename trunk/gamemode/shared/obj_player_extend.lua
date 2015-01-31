@@ -1210,7 +1210,7 @@ function meta:PlaySpawnMusic()
 	if self:IsSpectator() then
 		return
 	end
-	if ROUNDTIME*0.11 < ServerTime() then return end
+	if ROUNDTIME*0.11 < CurTime() then return end
 	-- No music
 	if not Ambience then return end
 	if TranslateMapTable[ game.GetMap() ] and TranslateMapTable[ game.GetMap() ].DisableMusic then return end

@@ -4,9 +4,7 @@
 util.AddNetworkString("SupplyCratesRemoved")
 util.AddNetworkString("SupplyCratesDropped")
 
-AmmoDropPoints = { X = {}, Y = {}, Z = {}, Switch = {}, ID = {} }
-CrateSpawnsPositions = {}
-AllCrateSpawns = {}
+local SupplyCratePositions = {}
 
 --Load crates from map file
 function GM:SetCrates()
@@ -31,10 +29,10 @@ function GM:SetCrates()
 				angles = Angle(stuff.Angles[1] or 0, stuff.Angles[2] or 0, stuff.Angles[3] or 0),
 				switch = false
 			}
-			table.insert(AllCrateSpawns, miniTable)
+			table.insert(SupplyCratePositions, miniTable)
 		end
 				
-		Debug("[DIRECTOR] Loaded ".. #AllCrateSpawns .." Supply Crate spawnpoints")
+		Debug("[DIRECTOR] Loaded ".. #SupplyCratePositions .." Supply Crate spawnpoints")
 	else
 		Debug("[DIRECTOR] Missing Supply Crate spawnpoints!")
 	end
@@ -440,6 +438,8 @@ end
 local function RemoveSupplyCrates()
 	local ents = ents.FindByClass("game_supplycrate")
 
+	local Removed = false
+
 	for i=1,#ents do
 		local ent = ents[i]
 		if not IsValid(ent) then
@@ -447,17 +447,81 @@ local function RemoveSupplyCrates()
 		end
 
 		ent:Remove()
+
+		if not Removed then
+			Removed = true
+		end
 	end
+
+	if Removed then
+		--Hook
+		hook.Call("RemovedSupplyCrates", nil)
+	end
+end
+
+local function SpawnCratesFromTable(crateSpawns, maxCrates)
+	--Remove current supplies
+	RemoveSupplyCrates()
+	
+	local idTable = {}
+	
+	--Shuffle crates
+	crateSpawns = table.Shuffle(crateSpawns)
+		
+	local spawnedCratesCount = 0
+	local NewEnts = {}
+	
+	--Loop through crate requests
+	for i=1,maxCrates do
+		--Loop through crate spawns
+		for crateSpawnID, crateSpawn in pairs(crateSpawns) do
+			--Skip if we already spawned this one			
+			if table.HasValue(idTable, crateSpawnID) then
+				continue
+			end
+			
+			if not TraceHullSupplyCrate(crateSpawn.pos, false) then
+				continue
+			end
+
+			local Ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
+					
+			--Add to table to prevent it being used again
+			table.insert(idTable, crateSpawnID)
+					
+			--Add crate position to easy-position table
+			--local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
+			--table.insert(CrateSpawnsPositions, miniPositionTable)
+
+			--Add ent to crates
+			table.insert(NewEnts, Ent)
+					
+			--Increase count					
+			spawnedCratesCount = spawnedCratesCount + 1
+					
+			break
+		end
+	end
+	
+	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
+
+	return NewEnts
 end
 
 function GM:SpawnSupplyCrates()
 	--Check if we should calculate crates
-	if ENDROUND or #AllCrateSpawns < 1 then
+	if ENDROUND or #SupplyCratePositions < 1 then
 		return
 	end
+
+	--Decide which amount of crates to spawn
+	local maxCrates = math.min(#SupplyCratePositions, MAXIMUM_CRATES)
 		
 	--Spawn crates
-	self:SpawnCratesFromTable(AllCrateSpawns)
+	local SupplyCrates = SpawnCratesFromTable(SupplyCratePositions, maxCrates)
+
+	--Hook
+	hook.Call("SpawnedSupplyCrates", nil, SupplyCrates)
 
 	--Timer to remove crates
 	timer.Simple(120, function()
@@ -484,60 +548,8 @@ function GM:SpawnSupplyCrates()
 	end)
 end
 
-local function SortByHumens(a, b)
-	return a._Hum > b._Hum
-end
-
-
-
-function GM:SpawnCratesFromTable(crateSpawns, bAll)
-	--Remove current supplies
-	RemoveSupplyCrates()
-	
-	local idTable = {}
-	
-	--Shuffle crates
-	crateSpawns = table.Shuffle(crateSpawns)
-	
-	local maxCrates = math.min(#crateSpawns,MAXIMUM_CRATES)
-	if bAll then
-		maxCrates = #crateSpawns
-	end
-	
-	local spawnedCratesCount = 0
-	
-	--Loop through crate requests
-	for i=1,maxCrates do
-		--Loop through crate spawns
-		for crateSpawnID, crateSpawn in pairs(crateSpawns) do			
-			if table.HasValue(idTable, crateSpawnID) then
-				continue
-			end
-			
-			if not TraceHullSupplyCrate(crateSpawn.pos, false) then
-				continue
-			end
-
-			crateSpawn.ent = SpawnSupply(crateSpawnID, crateSpawn.pos, crateSpawn.angles)
-					
-			--Add to table to prevent it being used again
-			table.insert(idTable,crateSpawnID)
-					
-			--Add crate position to easy-position table
-			local miniPositionTable = Vector(crateSpawn.pos.x or 0, crateSpawn.pos.y or 0, crateSpawn.pos.z or 0)
-			table.insert(CrateSpawnsPositions,miniPositionTable)
-					
-			--Increase count					
-			spawnedCratesCount = spawnedCratesCount + 1
-					
-			break
-		end
-	end
-	
-	Debug("[DIRECTOR] Spawned ".. tostring(spawnedCratesCount) .."/".. tostring(maxCrates) .." Supply Crate(s)")
-end
-
--- Precache the gib models
+--Precache the gib models
+--TODO: Is this needed?
 for i = 1, 9 do
 	util.PrecacheModel("models/items/item_item_crate_chunk0"..i..".mdl")
 end

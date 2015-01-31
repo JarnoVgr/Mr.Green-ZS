@@ -175,6 +175,9 @@ include("modules/unstuck/sh_unstuck.lua")
 include("modules/fpsbuff/sh_buffthefps.lua")
 include("modules/fpsbuff/sh_nixthelag.lua")
 
+--Compass
+include("modules/compass/sv_compass.lua")
+
 --Christmas
 if CHRISTMAS then
 	--Snow
