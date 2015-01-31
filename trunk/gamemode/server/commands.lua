@@ -278,13 +278,9 @@ function BuyItem(pl,commandName,args)
 	end
 
 	stats.SendShopData( pl, pl )
-	
-	umsg.Start("CoinEffect",pl)
-		umsg.Short(-shopData[item].Cost)
-	umsg.End()
-	
+		
 	if item == 27 then
-		umsg.Start( "removeOptions",pl )
+		umsg.Start("removeOptions", pl)
 		umsg.End()
 	end
 end

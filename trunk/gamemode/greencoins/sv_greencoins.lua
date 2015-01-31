@@ -76,14 +76,7 @@ function GM:SendCoins(pl, amount)
 	if not pl.GCData then return end
 	umsg.Start("SendGC",pl)
 		umsg.Long(pl.GCData["amount_current"])
-	umsg.End()	
-	
-	--  coin effect
-	if amount then
-		umsg.Start("CoinEffect",pl)
-			umsg.Short(amount)
-		umsg.End()
-	end
+	umsg.End()
 end
 
 -- Load limit ends here
