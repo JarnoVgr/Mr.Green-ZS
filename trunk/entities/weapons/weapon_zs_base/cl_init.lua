@@ -2,7 +2,7 @@ include("shared.lua")
 
 SWEP.DrawAmmo = true
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 65
+SWEP.ViewModelFOV = 75
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = true
 SWEP.BobScale = 2
@@ -134,18 +134,15 @@ end
 		
 SWEP.vRenderOrder = nil
 	function SWEP:ViewModelDrawn()
-		--Init view model bone build function
-		if IsValid(self.Owner) then
-			local vm = self.Owner:GetViewModel()
-			if IsValid(vm) then
-				
-			end 
+		--Make FOV movable
+		if self.ViewModelDefaultFOV then
+			local TargetFOV = self.ViewModelDefaultFOV + GetConVarNumber("zs_viewmodel_fov")
+			if self.ViewModelFOV ~= TargetFOV then
+				self.ViewModelFOV = TargetFOV
+			end
 		end
-
-		--Prefer SWEP
-		self.ViewModelFOV = self.ViewModelFOV or GetConVarNumber("zs_wepfov")
 		
-		if not self.Owner or not self.Owner:IsValid() or not self.Owner:IsPlayer() then
+		if not IsValid(self.Owner) or not self.Owner:IsPlayer() then
 			return
 		end
 

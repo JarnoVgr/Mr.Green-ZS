@@ -57,6 +57,11 @@ function SWEP:Initialize()
 	self:SetWeaponSwingHoldType(self.SwingHoldType)
 	
 	if CLIENT then
+		--Set default FOV
+		if self.ViewModelFOV then
+			self.ViewModelDefaultFOV = self.ViewModelFOV
+		end
+		
 		--Create a new table for every weapon instance
 		self.VElements = table.FullCopy(self.VElements)
 		self.WElements = table.FullCopy(self.WElements)
@@ -343,18 +348,15 @@ end
 if CLIENT then	
 	SWEP.vRenderOrder = nil
 	function SWEP:ViewModelDrawn()
-		--Init view model bone build function
-		if IsValid(self.Owner) then
-			local vm = self.Owner:GetViewModel()
-			if IsValid(vm) then
-				
-			end 
+		--Make FOV movable
+		if self.ViewModelDefaultFOV then
+			local TargetFOV = self.ViewModelDefaultFOV + GetConVarNumber("zs_viewmodel_fov")
+			if self.ViewModelFOV ~= TargetFOV then
+				self.ViewModelFOV = TargetFOV
+			end
 		end
-
-		--Prefer SWEP
-		self.ViewModelFOV = self.ViewModelFOV or GetConVarNumber("zs_wepfov")
 		
-		if not self.Owner or not self.Owner:IsValid() or not self.Owner:IsPlayer() then
+		if not IsValid(self.Owner) or not self.Owner:IsPlayer() then
 			return
 		end
 

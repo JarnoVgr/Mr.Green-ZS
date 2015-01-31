@@ -126,7 +126,8 @@ concommand.Add("zs_turretnickname",SetTurretNick)
 
 HCOLORMOD = true
 
-CreateClientConVar("zs_wepfov", 57, true, true)
+CreateClientConVar("zs_viewmodel_fov", 0, true, true)
+CreateClientConVar("zs_wepfov", 57, true, true) --Obsolete
 
 ENABLE_BLOOD = false
 
