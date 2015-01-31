@@ -162,8 +162,8 @@ local function ShouldDrawCompass()
 		elseif Distance >= 32000 then
 			ArrowVisible = false
 		--Already got supplies
-		--elseif CurTime() < (MySelf.NextSupplyTime or 0) then
-		--	ArrowVisible = false
+		elseif CurTime() < (MySelf.NextSupplyTime or 0) then
+			ArrowVisible = false
 		--Endround
 		elseif ENDROUND then
 			ArrowVisible = false
