@@ -37,6 +37,9 @@ Sounds.Over = Sound("mrgreen/ui/menu_accept.wav")
 --Screen (3:4) and Widescreen (the rest)
 SCREEN = w/h > 1.24 and w/h < 1.35
 WIDESCREEN = w/h > 1.45 and w/h < 1.8 or w/h == 1.6
+if not WIDECREEN then
+	SCREEN = true
+end
 
 
 --Include panels
