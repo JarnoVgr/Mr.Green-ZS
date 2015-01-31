@@ -235,6 +235,5 @@ if CLIENT then
 			return
 		end
 		MeleeWeaponDrawHUD()
-		draw.SimpleTextOutlined("'e' to pick up the turret!!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 end
