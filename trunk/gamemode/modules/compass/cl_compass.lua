@@ -121,7 +121,7 @@ function SupplyArrowModelPanel:LayoutEntity(Arrow)
 	nAng = nAng - ang
 
 	--Correct it for arrow model
-	nAng = nAng - Angle(0, 90, 0)
+	nAng = nAng - Angle(-50, 90, 0)
 
 	--Smoothen
 	local OldAngles, ApproachRate = Arrow:GetAngles(), 3
