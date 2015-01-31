@@ -148,9 +148,9 @@ if SERVER then
 		return
 	end
 	
-	for _, point in pairs(CrateSpawnsPositions) do
+	for _, Ent in pairs(ents.FindByClass("game_supplycrate")) do
 		if tr.HitPos then
-			if tr.HitPos:Distance(point) < 40 then
+			if tr.HitPos:Distance(Ent:GetPos()) < 40 then
 				self.Owner:Message("Place the turret more away from the Supply Crate!", 2)
 				return
 			end
