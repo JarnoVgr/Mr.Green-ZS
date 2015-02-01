@@ -1,9 +1,6 @@
-if SERVER then
-	AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
 
 if CLIENT then
-
 	SWEP.ViewModelFOV = 60
 	SWEP.BobScale = 2
 	SWEP.SwayScale = 1.5
@@ -36,7 +33,7 @@ SWEP.WorldModel = "models/Weapons/w_package.mdl"
 SWEP.ViewModel = "models/weapons/v_c4.mdl"--models/weapons/v_hands.mdlmodels/weapons/v_healthkit.mdl
 
 
-SWEP.Base				= "weapon_zs_base_dummy"
+SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.Primary.Delay = 0.01
 
@@ -149,7 +146,7 @@ function SWEP:PrimaryAttack()
 						self:TakeCombinedPrimaryAmmo(totake)
 
 						ent:SetHealth(health + toheal)
-						ent:EmitSound("items/medshot4.wav")
+						ent:EmitSound(Sound("items/medshot4.wav"))
 						
 						if math.random(9) == 9 then
 							if VoiceSets[owner.VoiceSet] then
@@ -172,7 +169,9 @@ function SWEP:PrimaryAttack()
 			end
 		end
 	else
-		if SERVER then self.Owner:EmitSound("items/medshotno1.wav") end
+		if SERVER then
+			self.Owner:EmitSound(Sound("items/medshotno1.wav"))
+		end
 	end
 end
 
@@ -251,11 +250,6 @@ if CLIENT then
 			surface.SetTexture(texGradDown)
 			surface.DrawTexturedRect(x+3, y+3, math.min(1, timeleft / math.max(self.Primary.HealDelay, self.Secondary.HealDelay)) * (wid-6), hei-6)
 		end
-
-		-- surface.SetDrawColor(255, 0, 0, 180)
-		-- surface.DrawOutlinedRect(x, y, wid, hei)
-
-		-- draw.SimpleText("Medical Kit", "ZSHUDFontSmall", x, texty, COLOR_GREEN, TEXT_ALIGN_LEFT)
 
 		local charges = self:GetPrimaryAmmoCount()
 		if charges > 0 then

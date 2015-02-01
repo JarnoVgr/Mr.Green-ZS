@@ -21,7 +21,6 @@ ClientsideConvars["zs_drawsharpeneffect"] = {Value = 1, ShouldSave = true, UserD
 
 ClientsideConvars["_zs_autoredeem"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Automatic redeem"}
 ClientsideConvars["_zs_humanspawn"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Spawn on Survivors when possible"}
-ClientsideConvars["_zs_humanspawnrdm"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Redeem on Survivors when possible"}
 
 
 -- finally get rid of readding shitload of code for single fucking convar

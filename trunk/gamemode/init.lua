@@ -7,13 +7,6 @@
 --[=[---------------------------------------------------------
           Add them to download list (Client)
 ---------------------------------------------------------]=]
---Swag we have a faster dl now. We should have people connecting a lot faster!
-
---resource.AddWorkshop("299110437") --Sound 1
---resource.AddWorkshop("299111187") --Sound 2
---resource.AddWorkshop("299079647") --Content
---resource.AddWorkshop("306782797") --Content 2
-
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("client/cl_chat.lua")
 AddCSLuaFile("client/cl_utils.lua")
@@ -278,22 +271,25 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	end
 	
 	-- Change speed
-	self:SetPlayerSpeed( mOwner, fSpeed )
+	self:SetPlayerSpeed(mOwner, fSpeed)
 end
 
 --[=[---------------------------------------------------------
 	      Called at map load
 ---------------------------------------------------------]=]
 function GM:Initialize()
+	--Debug
+	Debug("[MAP] Travelled to: ".. tostring(game.GetMap()))
+
 	--Creates the data/zombiesurvival folder when it doesn't exist
-	if (not file.IsDir("zombiesurvival","DATA")) then
+	if not file.IsDir("zombiesurvival","DATA") then
 		file.CreateDir("zombiesurvival")
 	end 
 	
 	--Add resource files to download
 	for k,v in pairs(ResourceFiles) do
-		if not file.Exists( v, "GAME") then
-			Debug("[RESOURCE] Couldn't add/find file "..tostring ( v ).." to add to resource files")
+		if not file.Exists(v, "GAME") then
+			Debug("[RESOURCES] Unable to add file: "..tostring(v))
 		else
 			resource.AddFile(v)
 		end
@@ -305,9 +301,6 @@ function GM:Initialize()
 				
 	--Set few ConVars
 	game.ConsoleCommand("fire_dmgscale 1\nmp_flashlight 1\nmp_allowspectators 0\n")
-	
-	--Debug
-	Debug("[MAP] Travelled to: ".. tostring(game.GetMap()))
 end
 
 -- Player presses F1
@@ -351,11 +344,11 @@ local function OnPressedF3(pl)
 	
 	if pl:Team() == TEAM_UNDEAD then
 		-- If undead show classes menu
-		if not (pl:IsBossZombie() and pl:Alive()) then
+		if not pl:IsBossZombie() and pl:Alive() then
 			pl:SendLua("DoClassesMenu()")
 		end
 	elseif pl:Team() == TEAM_HUMAN then
-		-- If survivor drop weapon
+		--Drop weapon
 		DropWeapon(pl)
 	end
 end

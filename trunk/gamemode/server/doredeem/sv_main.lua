@@ -1,33 +1,22 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-local umsg = umsg
-local ents = ents
-
--- Include all files inside this folder
-for k, sFile in pairs ( file.Find( "zombiesurvival/gamemode/server/doredeem/*.lua","lsv" ) ) do
-	if not string.find( sFile, "main" ) then include( sFile ) end
+--Include all files inside this folder
+for k, sFile in pairs(file.Find("zombiesurvival/gamemode/server/doredeem/*.lua","lsv")) do
+	if not string.find(sFile, "main") then
+		include(sFile)
+	end
 end
 
-
 function GM:ProceedRedeemSpawn(pl)
-	if not IsValid(pl) then return end
-	if pl:IsZombie() then return end
+	if not IsValid(pl) or pl:IsZombie() then
+		return
+	end
 	
-	local newspawn = self:GetNiceHumanSpawn(pl)
-	
-	if not util.tobool(pl:GetInfoNum("_zs_humanspawnrdm",0)) then return end
-	
-	if newspawn then
-		pl:SetPos(newspawn:GetPos())
+	local NewSpawn = self:GetNiceHumanSpawn(pl)
+
+	if NewSpawn then
+		pl:SetPos(NewSpawn:GetPos())
 	end
 end
 util.AddNetworkString( "PlayerRedeemed" )
@@ -42,7 +31,7 @@ function GM:OnPlayerRedeem(pl, causer)
 
 	--Send status to everybody
 	net.Start("PlayerRedeemed")
-		net.WriteEntity(pl)
+	net.WriteEntity(pl)
 	net.Broadcast()
 	
 	--
@@ -50,8 +39,9 @@ function GM:OnPlayerRedeem(pl, causer)
 	
 	--Check if it wasn't an admin redeem
 	if not IsValid(causer) then
-		for k,v in pairs( player.GetAll() ) do
-			v:ChatPrint(pl:Name() .." redeemed")
+		local Text = pl:Name() .." redeemed"
+		for _,v in pairs(player.GetAll()) do
+			v:ChatPrint(Text)
 		end
 	
 		pl.Redeems = pl.Redeems + 1
@@ -74,13 +64,13 @@ function GM:OnPlayerRedeem(pl, causer)
 	-- Resets last damage table
 	pl:ClearLastDamage()
 	
-	-- Clear assist 
+	--Clear assist 
 	pl.AttackerAssistant, pl.Shooters = nil, nil
 	
-	-- Redeem time
+	--Redeem time
 	pl.LastRedeemTime = CurTime()
 
-	-- Reset the human's weapon counter to 0, for all categories
+	--Reset the human's weapon counter to 0, for all categories
 	pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
 	-- Reset check time for ammo regen
 	pl.ServerCheckTime = nil
@@ -105,25 +95,29 @@ function GM:OnPlayerRedeem(pl, causer)
 	pl:DrawViewModel(true)
 	skillpoints.SetupSkillPoints(pl)
 	
-	if pl:GetPerk("_comeback") then --Duby: Lets add some cool redeem perks! :P 
-		if not pl._ComebackUsed then
-			if pl:GetPistol() then
-				pl:StripWeapon(pl:GetPistol():GetClass())
+	--Comebacks
+	if not pl._ComebackUsed then
+		--Comeback primary weapon
+		if pl:GetPerk("_comeback") then
+			--Strip current automatic gun
+			if pl:GetAutomatic() then
+				pl:StripWeapon(pl:GetAutomatic():GetClass())
 			end
+				
 			local wep = table.Random({"weapon_zs_aug","weapon_zs_m3super90","weapon_zs_famas","weapon_zs_sg552"})
 
 			pl:Give(wep)
-
 			pl:SelectWeapon(wep)
 			pl._ComebackUsed = true
 		end
-	end
-	
-	if pl:GetPerk("_comeback2") then
-		if not pl._ComebackUsed then
+		
+		--Comeback pistol
+		if pl:GetPerk("_comeback2") then
+			--Strip current pistol
 			if pl:GetPistol() then
 				pl:StripWeapon(pl:GetPistol():GetClass())
 			end
+				
 			local wep = table.Random({"weapon_zs_deagle","weapon_zs_elites"})
 			pl:Give(wep)
 			pl:SelectWeapon(wep)
@@ -137,20 +131,9 @@ function GM:OnPlayerRedeem(pl, causer)
 	pl.RecBrain = 0
 	pl.BrainDamage = 0
 	
-	-- if the map has info_player_redeem then spawn him there
-	local RedeemPoints = ents.FindByClass("info_player_redeem")
-	if #RedeemPoints > 1 then 
-		for k,v in pairs(RedeemPoints) do
-			if IsValid(v) then
-				pl:SetPos(v:GetPos())
-			end
-		end
-	end
-	
 	--Give SP for redeeming
 	if CurTime() > (WARMUPTIME+240) then
-		--skillpoints.AddSkillPoints(pl,math.max(0,math.Round(550*GetInfliction())))
-		skillpoints.AddSkillPoints(pl,math.max(20,math.Round(600*GetInfliction())))
+		skillpoints.AddSkillPoints(pl, math.max(20,math.Round(600*GetInfliction())))
 	end
 	
 	--Process
