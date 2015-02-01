@@ -6,7 +6,7 @@ GM.SubVersion = ""
 --Testing shop
 
 function ToMinutesSeconds(TimeInSeconds)
-	local iMinutes = math.floor(TimeInSeconds / 60.0)
+	local iMinutes = math.floor(TimeInSeconds / 60)
 	return string.format("%0d:%02d", iMinutes, math.floor(TimeInSeconds - iMinutes*60))
 end
 
@@ -23,17 +23,17 @@ end
 
 ARENA_MODE = tobool(string.find(tostring(game.GetMap()),"zs_arena"))
 if ARENA_MODE then
-	print("[MAPCODER] Arena map")
+	Debug("[MAPCODER] Arena map")
 end
 
 GasDump = tobool(string.find(tostring(game.GetMap()),"zm_gasdump_b4")) --Objective map.
 if GasDump then
-	print("[MAPCODER] GasDump (Obj) map")
+	Debug("[MAPCODER] GasDump (Obj) map")
 end
 
 PUB = tobool(string.find(tostring(game.GetMap()),"zs_pub")) --Objective map.
 if PUB then
-	print("[MAPCODER] PUB map")
+	Debug("[MAPCODER] PUB map")
 end
 
 
