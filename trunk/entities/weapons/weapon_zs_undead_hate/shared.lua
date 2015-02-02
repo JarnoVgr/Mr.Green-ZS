@@ -141,8 +141,9 @@ function SWEP:PrimaryAttack()
 	
 	--Delayed attack function (claw mechanism)
 	if SERVER then
+		local that = self
 		timer.Simple(0.7, function()
-			self:DoPrimaryAttack(trace, pl, self.PreHit)
+			that:DoPrimaryAttack(trace, pl, self.PreHit)
 		end)
 	end
 
@@ -165,7 +166,7 @@ function SWEP:PrimaryAttack()
 end
 
 -- Primary attack function
-function SWEP:DoPrimaryAttack ( trace, pl, victim )
+function SWEP:DoPrimaryAttack( trace, pl, victim )
 	if not IsValid ( self.Owner ) then
 		return
 	end

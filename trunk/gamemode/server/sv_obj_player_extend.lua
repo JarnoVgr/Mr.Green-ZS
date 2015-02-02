@@ -603,7 +603,9 @@ end
 util.AddNetworkString("SendPlayerXP")
 
 function meta:AddXP(amount)
-	if #player.GetAll() < XP_PLAYERS_REQUIRED or not IsValid(self) or self:IsBot() then return end
+	if #player.GetAll() < XP_PLAYERS_REQUIRED or not IsValid(self) or self:IsBot() then
+		return
+	end
 	
 	if DOUBLE_XP then
 		amount = amount*2

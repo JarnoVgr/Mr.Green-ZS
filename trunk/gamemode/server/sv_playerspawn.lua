@@ -712,7 +712,7 @@ end
 --[==[------------------------------------------------
      Loadout Director - Called on h spawn
 -------------------------------------------------]==]
-function CalculatePlayerLoadout ( pl )
+function CalculatePlayerLoadout(pl)
 	if pl:Team() ~= TEAM_HUMAN then
 		return
 	end
@@ -720,22 +720,16 @@ function CalculatePlayerLoadout ( pl )
 	local Class = pl:GetHumanClass()
 	local ToGive = {}
 	
-	if pl.Loadout then
-		if #pl.Loadout > 0 then
-			--PrintTable(pl.Loadout)
-			ToGive = table.Copy(pl.Loadout)
-		else
-			--PrintTable(pl.Loadout)
-			ToGive = {"weapon_zs_usp","weapon_zs_melee_keyboard"}
-			pl.Loadout = table.Copy(ToGive)
-		end
+	--Give own loadout
+	if pl.Loadout and #pl.Loadout > 0 then
+		ToGive = table.Copy(pl.Loadout)
+	--Default loadout
 	else
-		--PrintTable(pl.Loadout)
 		ToGive = {"weapon_zs_usp","weapon_zs_melee_keyboard"}
 		pl.Loadout = table.Copy(ToGive)
 	end
 	
-	if  pl:IsBot() then --This was changed as it worked off the medic class speeds. Which don't exist any more! 
+	if pl:IsBot() then --This was changed as it worked off the medic class speeds. Which doesn't exist any more!
 		ToGive = { "weapon_zs_tools_hammer","weapon_zs_melee_keyboard" }
 	end
 		
@@ -751,9 +745,9 @@ function CalculatePlayerLoadout ( pl )
 		pl:GiveAmmo(650,"buckshot")
 		pl:GiveAmmo(650,"pistol")
 		pl:GiveAmmo(650,"357")
-		end
+	end
 		
-		if GasDump then
+	if GasDump then
 		pl:Give(table.Random(GAMEMODE.GasDump))	
 		pl:GiveAmmo(30,"buckshot")
 		pl:GiveAmmo(200,"ar2")
@@ -773,31 +767,33 @@ function CalculatePlayerLoadout ( pl )
 		end
 	end
 
-	 --IMORTAL PRO perk. Duby: Lets see how this works out. 
-	
-	--if pl:GetPerk("_imortalpro") and math.random(1,2) == 1 then
+	--IMORTAL PRO perk
 	if pl:GetPerk("_imortalpro") then
-			--Strip previous pistol
-			local Pistol = pl:GetPistol()
-			local Auto = pl:GetAutomatic()
-			if Pistol then
-				pl:StripWeapon(Pistol:GetClass()) --We remove their pistol as its the price they pay for having the pulse smg!
-			end
-			if Auto then
-				pl:StripWeapon(Auto:GetClass())
-			end
+		--Strip previous pistol
+		local Pistol = pl:GetPistol()
+		local Auto = pl:GetAutomatic()
+		if Pistol then
+			pl:StripWeapon(Pistol:GetClass()) --We remove their pistol as its the price they pay for having the pulse smg!
+		end
+		if Auto then
+			pl:StripWeapon(Auto:GetClass())
+		end
 		pl:Give("weapon_zs_pulsesmg")
 		ToGive[1] = "weapon_zs_pulsesmg"
-		else
+	else
 		ToGive[1] = "weapon_zs_smg" --Life ain't fair. (O)_(O) 	
-		end	
+	end	
+	
+	--Select a weapon
 	if ToGive and #ToGive > 0 then
 		pl:SelectWeapon(tostring(ToGive[1]))
 	end
 end
 
-function CalculateZombieHull ( pl )
-	if pl:Team() ~= TEAM_UNDEAD then return end
+function CalculateZombieHull(pl)
+	if pl:Team() ~= TEAM_UNDEAD then
+		return
+	end
 
 	local Tab = ZombieClasses[ pl:GetZombieClass() ]
 	
@@ -806,19 +802,28 @@ function CalculateZombieHull ( pl )
 	if Tab.Hull then
 		HullTab = Tab.Hull
 	else
-		HullTab = {Vector ( -16, -16, 0 ), Vector ( 16, 16, 72 )}
+		HullTab = {
+			Vector(-16, -16, 0),
+			Vector(16, 16, 72)
+		}
 	end
 	
 	ChangeHullSize(pl,HullTab)
 end
 
 function CalculateHumanHull ( pl )
-	if pl:Team() ~= TEAM_HUMAN then return end
+	if pl:Team() ~= TEAM_HUMAN then
+		return
+	end
 
-	local Tab = {Vector ( -16, -16, 0 ), Vector ( 16, 16, 72 )}
+	local Tab = {
+		Vector(-16, -16, 0),
+		Vector(16, 16, 72)
+	}
 	
 	ChangeHullSize(pl,Tab)
 end
+
 -- TODO: Use spawn prediction on client instead
 function ChangeHullSize(pl,tab)
 if not IsValid(pl) then return end
@@ -881,7 +886,7 @@ function CalculatePlayerHealth(pl)
 
 	local MaxHealth, Health = 100, 100
 	
-	-- Case 3: If player got hurt and reconnected as human
+	--Case 3: If player got hurt and reconnected as human
 	if pl:ConnectedHealth() ~= false then
 		Health = pl:ConnectedHealth()
 		DataTableConnected[pl:UniqueID() or "UNCONNECTED"].Health = false
@@ -987,6 +992,7 @@ function GM:SetupSpawnPoints()
 	
 	local htab = {}
 	htab = ents.FindByClass("info_player_human")
+	htab = table.Add(htab, ents.FindByClass("info_player_survivor"))
 	htab = table.Add(htab, ents.FindByClass("info_player_combine"))
 
 	local mapname = string.lower(game.GetMap())
@@ -998,7 +1004,6 @@ function GM:SetupSpawnPoints()
 		ztab = table.Add(ztab, ents.FindByClass("info_player_terrorist"))
 		htab = table.Add(htab, ents.FindByClass("info_player_counterterrorist"))
 	end
-
 
 	--Add deprecated GMod9 Zombie Survival spawns
 	for _, oldspawn in pairs(ents.FindByClass("gmod_player_start")) do
@@ -1027,19 +1032,18 @@ end
 --[==[------------------------------------------------------------------------------------------------
                       Selects a location for the human/spectator to spawn
 -------------------------------------------------------------------------------------------------]==]
-function GM:ProcessHumanSpawn( pl, tbPoints, tbAngles )
-
+function GM:ProcessHumanSpawn(pl, tbPoints, tbAngles)
 	-- Get random points for first time
-	local iRandom = math.random ( 1, #tbPoints )
+	local iRandom = math.random(1, #tbPoints)
 	local vPos, angSpawn = tbPoints[iRandom], tbAngles[iRandom]
 	
 	-- Filters
-	local Filter = {} 
+	--[[local Filter = {} 
 	if pl:Team() == TEAM_HUMAN then
 		Filter = team.GetPlayers(TEAM_HUMAN)
 	else
 		Filter = team.GetPlayers(TEAM_UNDEAD)
-	end
+	end]]
 	
 	--Hull trace spawnpoints
 	for i = 1, #tbPoints do
@@ -1055,7 +1059,7 @@ function GM:ProcessHumanSpawn( pl, tbPoints, tbAngles )
 			--Point is not clear
 			elseif bStuck then
 				pl.SpawnRetryCounter = pl.SpawnRetryCounter + 1
-				local iRandom = math.random ( 1,#tbPoints )
+				local iRandom = math.random(1, #tbPoints)
 				vPos, angSpawn = tbPoints[iRandom], tbAngles[iRandom]
 			end
 		end
@@ -1067,28 +1071,30 @@ end
 --[==[------------------------------------------------------------------------------------------------
                              Selects a location for the undead to spawn
 -------------------------------------------------------------------------------------------------]==]
-
-function GM:ProcessZombieSpawn( pl, tbPoints, tbAngles )
-	
+function GM:ProcessZombieSpawn(pl, tbPoints, tbAngles)
 	-- Get random points for first time
-	local iRandom = math.random ( 1, #tbPoints )
+	local iRandom = math.random(1, #tbPoints)
 	local vPos, angSpawn, bStuck, bIsVisible = tbPoints[iRandom], tbAngles[iRandom]
 	
-	-- Filters
+	--Filters
 	local Filter = {} 
-	if pl:Team() == TEAM_HUMAN then Filter = team.GetPlayers ( TEAM_HUMAN ) else Filter = team.GetPlayers ( TEAM_UNDEAD ) end
+	if pl:Team() == TEAM_HUMAN then
+		Filter = team.GetPlayers(TEAM_HUMAN)
+	else
+		Filter = team.GetPlayers(TEAM_UNDEAD)
+	end
 	
-	-- Hull trace spawnpoints
+	--Hull trace spawnpoints
 	for i = 1, 2 do
 		--Stuck bool
-		bStuck, bIsVisible = IsStuck ( vPos, HULL_PLAYER[1], HULL_PLAYER[2], Filter ), VisibleToHumans ( vPos, pl )
+		bStuck, bIsVisible = IsStuck(vPos, HULL_PLAYER[1], HULL_PLAYER[2], Filter), VisibleToHumans ( vPos, pl )
 			
-		-- Point is clear
+		--Point is clear
 		if not bStuck and not bIsVisible then
 			return vPos, angSpawn
 		end
 				
-		-- Point is not clear
+		--Point is not clear
 		if bStuck or bIsVisible then
 			pl.SpawnRetryCounter = pl.SpawnRetryCounter + 1
 			local iRandom = math.random(1, #tbPoints)
@@ -1143,18 +1149,16 @@ function GM:SelectSpawn ( pl, SpawnTable, Team )
 	pl.SpawnRetryCounter = 0
 end
 
-
-
 local playermins = Vector(-17, -17, 0)
 local playermaxs = Vector(17, 17, 4)
 local LastSpawnPoints = {}
 
 function GM:PlayerSelectSpawn(pl)
-	local teamid = pl:Team()
+	local Team = pl:Team()
 	local tab = {}
 	
 	--Undead spawn
-	if teamid == TEAM_UNDEAD then
+	if Team == TEAM_UNDEAD then
 		local dyn = pl.ForceDynamicSpawn
 		if dyn then
 			pl.ForceDynamicSpawn = nil
@@ -1173,14 +1177,14 @@ function GM:PlayerSelectSpawn(pl)
 		end
 	--Human spawn
 	else
-		tab = team.GetSpawnPoint(teamid)
+		tab = team.GetSpawnPoint(Team)
 	end
 
 	local result = tab and #tab > 0 and tab[math.random(1, #tab)] or pl
 	
 	-- print("Result "..tostring(result))
 	-- PrintTable(tab)
-	--return LastSpawnPoints[teamid] or #tab > 0 and tab[math.random(1, #tab)] or pl
+	--return LastSpawnPoints[Team] or #tab > 0 and tab[math.random(1, #tab)] or pl
 	return result
 end
 

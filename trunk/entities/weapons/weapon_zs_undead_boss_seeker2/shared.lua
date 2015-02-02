@@ -96,8 +96,11 @@ function SWEP:StartPrimaryAttack()
 	local pl = self.Owner
 	self.Owner:SetRenderMode(RENDERMODE_GLOW)
 	pl:SetColor(Color(225,225,225,225))
-	timer.Simple(0.8, function() 
-		self.Owner:SetRenderMode(RENDERMODE_GLOW)
+	timer.Simple(0.8, function()
+		if not IsValid(pl) or not pl:Alive() then
+			return
+		end
+		pl:SetRenderMode(RENDERMODE_GLOW)
 		pl:SetColor(Color(225,225,225,1))
 	end)
 end

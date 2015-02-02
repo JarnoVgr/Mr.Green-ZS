@@ -485,7 +485,6 @@ function GM:ComputeZombieSpawn()
 	
 	-- Reset zombie spawn table and disable fumes
 	SpawnPoints = {}
-	TOXIC_SPAWN = true
 	
 	-- Get all props in the map
 	local tbProps = ents.FindByClass ( "prop_physics_multiplayer" )
