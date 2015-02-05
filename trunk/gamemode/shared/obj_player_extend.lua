@@ -1187,6 +1187,16 @@ function meta:PlayPainSound()
 	else
 		local health = self:Health()
 		local set = VoiceSets[self.VoiceSet]
+
+		local snds
+		if health > 68 then
+			snds = set.PainSoundsLight
+		elseif health > 36 then
+			snds = set.PainSoundsMed
+		else
+			snds = set.PainSoundsHeavy
+		end
+		self:EmitSound(snds[math.random(1, #snds)])
 	end
 end
 
