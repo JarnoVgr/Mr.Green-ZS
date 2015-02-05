@@ -53,9 +53,10 @@ SWEP.AttackSounds = {}
 function SWEP:Deploy()
 	--Idle VOX sounds
 	if SERVER then
+		local that = self
 		timer.Simple(1.5, function()
-			if IsValid(self) then
-				self:IdleVOX()
+			if IsValid(that) and that.IdleVOX then
+				that:IdleVOX()
 			end
 		end)
 	end
@@ -868,10 +869,13 @@ function SWEP:IdleVOX()
 	local fDuration = math.Rand( 1.6, 7 ) + 1.7
 
 	--Cooldown for new sound
+	local that = self
 	timer.Simple(fDuration, function()
-		if IsValid(self) and self.IdleVOX then
-			self:IdleVOX()
+		if not IsValid(that) or not that.IdleVOX then
+			return
 		end
+		
+		that:IdleVOX()
 	end)
 
 	if not IsValid(self.Owner) or ENDROUND or not self.IdleSounds or #self.IdleSounds == 0 then
@@ -890,8 +894,6 @@ function SWEP:IdleVOX()
 	local mSound = table.Random(self.IdleSounds)
 	mOwner:EmitSound(Sound(mSound))
 end
-
-
 
 if CLIENT then
 	function SWEP:MakeArms()

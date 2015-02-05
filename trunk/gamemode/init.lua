@@ -133,7 +133,7 @@ include("modules/weightspeed/sv_weightspeed.lua")
 --include("modules/friends/sv_friends.lua")
 
 --New HUD
-include("modules/hud_beta/sv_hud_beta.lua")
+include("modules/hud/sv_init.lua")
 
 --Nav Graph
 -- include("modules/nav_graph/sh_nav_graph.lua")
@@ -215,18 +215,20 @@ end
 		Called when a player receives a SWEP
 -----------------------------------------------------------------------]=]
 function GM:OnWeaponEquip(pl, mWeapon)
-	if not IsEntityValid ( pl ) then return end
+	if not IsValid(pl) or not pl:IsPlayer() or pl:Team() ~= TEAM_HUMAN then
+		return
+	end
 
 	-- Hacky way to update weapon slot count
 	local EntClass = mWeapon:GetClass()
 	local PrintName = mWeapon.PrintName or "weapon"
-	if pl:IsPlayer() then
-		if pl:Team() == TEAM_HUMAN then
-			local category = WeaponTypeToCategory[ mWeapon:GetType() ]
-			pl.CurrentWeapons[ category ] = pl.CurrentWeapons[ category ] + 1				
-				
-		end
+
+	local category = WeaponTypeToCategory[mWeapon:GetType()]
+	if not category or not pl.CurrentWeapons[category] then
+		return
 	end
+	
+	pl.CurrentWeapons[category] = pl.CurrentWeapons[category] + 1
 end
 
 --[=[---------------------------------------------------------
@@ -252,7 +254,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	end
 	
 	
-		fHealthSpeed = mOwner:GetPerk("_adrenaline") and 1 or math.Clamp ( ( fHealth / 50 ), 0.7, 1 )
+	fHealthSpeed = mOwner:GetPerk("_adrenaline") and 1 or math.Clamp ( ( fHealth / 50 ), 0.7, 1 )
 	
 	if bIron then
 		fSpeed = math.Round ( ( fSpeed * 0.6 ) * fHealthSpeed )

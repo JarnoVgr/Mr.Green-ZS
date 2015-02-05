@@ -155,7 +155,8 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			if holder then status:Remove() end
 
 			if ent:GetKeyValues().damagefilter == "invul" then return end
-			if ARENA_MODE then return end
+			
+			if self:GetGameMode() == GAMEMODE_ARENA then return end
 
 			ent.Heal = ent.Heal or ent:BoundingRadius() * 35
 			ent.TotalHeal = ent.TotalHeal or ent.Heal
@@ -263,7 +264,10 @@ function GM:EntityTakeDamage(ent, dmginfo)
 end
 
 function GM:SetupProps()
-	if ARENA_MODE then return end
+	if self:GetGameMode() == GAMEMODE_ARENA then
+		return
+	end
+	
 	for _, ent in pairs(ents.FindByClass("prop_physics*")) do
 		local mdl = ent:GetModel()
 		if mdl then

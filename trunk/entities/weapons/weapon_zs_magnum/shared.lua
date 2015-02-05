@@ -29,9 +29,9 @@ SWEP.Base = "weapon_zs_base"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= Model ( "models/weapons/c_357.mdl" )
+SWEP.ViewModel			= Model("models/weapons/c_357.mdl")
 SWEP.UseHands = true
-SWEP.WorldModel			= Model ( "models/weapons/w_357.mdl" )
+SWEP.WorldModel			= Model("models/weapons/w_357.mdl")
 
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
@@ -39,7 +39,7 @@ SWEP.AutoSwitchFrom		= false
 
 SWEP.HoldType = "pistol"
 
-SWEP.Primary.Sound			= Sound( "Weapon_357.Single" )
+SWEP.Primary.Sound			= Sound("Weapon_357.Single")
 SWEP.Primary.Recoil			= 2
 SWEP.Primary.Damage			= 55
 SWEP.Primary.NumShots		= 1

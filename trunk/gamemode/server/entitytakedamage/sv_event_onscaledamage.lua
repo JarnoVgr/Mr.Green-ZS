@@ -322,7 +322,7 @@ function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)
 			bonus = BONUS_RESISTANCE_AMOUNT/100
 		end	
 		-- horde resistance
-		if not ARENA_MODE then
+		if self:GetGameMode() ~= GAMEMODE_ARENA then
 			fFinalDamage = fFinalDamage - fFinalDamage*(pl:GetHordePercent() + bonus)
 		end
 		

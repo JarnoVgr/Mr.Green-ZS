@@ -30,7 +30,7 @@ end
 net.Receive("SupplyCratesDropped", CratesDropped)
 
 --TODO: Move to somewhere else
-net.Receive("slowmo", function()
+net.Receive("SlowMoEffect", function()
 	RunConsoleCommand("stopsound")
 	timer.Simple(0.05,function() 
 		surface.PlaySound(Sound("mrgreen/new/slowmo_up.mp3"))

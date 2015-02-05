@@ -159,7 +159,7 @@ function SWEP:Deploy()
 	self:SetNextReload(0)
 	self:SetIronsights(false)
 
-	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
+	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
 
 	if CLIENT then
@@ -260,28 +260,35 @@ function SWEP:Reload()
 		self:SetIronsights(false)
 	end
 
-	if self:GetNextReload() <= CurTime() and self:DefaultReload(ACT_VM_RELOAD) then
-		self.IdleAnimation = CurTime() + self:SequenceDuration()
-		self:SetNextReload(self.IdleAnimation)
-		self.Owner:DoReloadEvent()
-		if self.ReloadSound then
-			self:EmitSound(self.ReloadSound)
-		end
+	if CurTime() < self:GetNextReload() or not self:DefaultReload(ACT_VM_RELOAD) then
+		return
+	end
 
-		--Reload sounds
-		if SERVER then
-			if self.Weapon:Clip1() <= math.floor(self.Primary.ClipSize / 1.5) and math.random(1,2) == 1 then
-				local rlsnd = VoiceSets[self.Owner.VoiceSet].ReloadSounds
-				if rlsnd then
-					timer.Simple( 0.2, function ()
-						if IsValid(self) then
-							self:EmitSound(rlsnd[math.random(1, #rlsnd)])
-						end
-					end, self)
-				end
+	self.IdleAnimation = CurTime() + self:SequenceDuration()
+	self:SetNextReload(self.IdleAnimation)
+
+	--3rdperson view animation
+	self.Owner:DoReloadEvent()
+
+	--Emit sound
+	if self.ReloadSound then
+		self:EmitSound(Sound(self.ReloadSound))
+	end
+
+	--Voice
+	if SERVER then
+		if self.Weapon:Clip1() <= math.floor(self.Primary.ClipSize / 1.5) and math.random(1, 2) == 1 then
+			local rlsnd = VoiceSets[self.Owner.VoiceSet].ReloadSounds
+			if rlsnd then
+				local that = self
+				timer.Simple(0.2, function ()
+					if IsValid(that) then
+						self:EmitSound(rlsnd[math.random(1, #rlsnd)])
+					end
+				end)
 			end
 		end
-	end	
+	end
 end
 
 function SWEP:GetIronsights()
@@ -294,7 +301,7 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	if self:Clip1() <= 0 then
-		self:EmitSound("Weapon_Pistol.Empty")
+		self:EmitSound(Sound("Weapon_Pistol.Empty"))
 		self.Weapon:SetNextPrimaryFire(CurTime() + math.max(0.25, self.Primary.Delay))
 
 		--Auto-reloading

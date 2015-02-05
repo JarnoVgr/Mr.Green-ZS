@@ -11,7 +11,7 @@ ClientsideConvars["_zs_ironsight"] = {Value = 0, ShouldSave = true, UserData = f
 ClientsideConvars["_zs_enablehats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hats"}
 ClientsideConvars["_zs_headbob"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Head-bobbing"}
 ClientsideConvars["cl_legs"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Show legs"}
-ClientsideConvars["_zs_hidehud"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hide HUD"}
+ClientsideConvars["zs_hidehud"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hide HUD"}
 ClientsideConvars["_zs_hidecrosshair"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Disable crosshair"}
 ClientsideConvars["zs_drawcrateoutline"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Supply Crate outline"}
 ClientsideConvars["zs_drawarrow"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Draw arrow leading to Supply Crate"}

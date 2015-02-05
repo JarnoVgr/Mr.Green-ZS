@@ -100,7 +100,7 @@ include("modules/damage_indicator/cl_dmg_indicator.lua")
 include("modules/weightspeed/sh_weightspeed.lua")
 
 --New HUD
-include("modules/hud_beta/cl_hud_beta.lua")
+include("modules/hud/cl_init.lua")
 
 --SkillPoints
 include("modules/skillpoints/cl_skillpoints.lua")

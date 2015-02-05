@@ -1,12 +1,20 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-function ScaleW ( sizew )
+function ScaleW(sizew)
 	return ScrW() * ( sizew / 1280 )
 end
 
-function ScaleH ( sizeh )
+function RevertScaleW(AbsoluteWidth)
+	return (AbsoluteWidth / ScrW()) * 1280
+end
+
+function ScaleH(sizeh)
 	return ScrH() * (sizeh / 1024) 
+end
+
+function RevertScaleH(AbsoluteHeight)
+	return (AbsoluteHeight / ScrH()) * 1024
 end
 
 

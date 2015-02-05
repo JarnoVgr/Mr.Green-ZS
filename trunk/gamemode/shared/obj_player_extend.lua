@@ -442,7 +442,7 @@ function meta:GiveAmmo( Amount, AmmoType )
 	end
 		
 	-- Clamp it
-	Amount = ARENA_MODE and Amount or math.Clamp ( Amount, 1, ( ( MaximumLoad or 750 ) - AmmoCount ) )
+	Amount = GAMEMODE:GetGameMode() == GAMEMODE_ARENA and Amount or math.Clamp ( Amount, 1, ( ( MaximumLoad or 750 ) - AmmoCount ) )
 	
 	-- Actually give the player ammunition
 	self:BaseGiveAmmo( Amount, AmmoType )

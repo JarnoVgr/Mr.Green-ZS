@@ -23,6 +23,9 @@ function CreateConVar(name, value, flags, helptext)
 	end
 end
 
+--GameModes
+include("shared/sh_gamemode.lua")
+
 --[=[---------------------------------------------------------
 	     Include the shared files
 ---------------------------------------------------------]=]
@@ -45,7 +48,7 @@ if SERVER then
 		include(path)
 		AddCSLuaFile(path)
 
-		print("[MAPCODER] Included '".. path .."'")
+		Debug("[MAPCODER] Included '".. path .."'")
 	end
 else
 	local mapcoderMaps = {"zs_fortress_mod","zs_prc_wurzel_v2","zs_storm_fixed","zs_the_pub_beta1","zs_yp_jungle"}
@@ -54,7 +57,7 @@ else
   			local includeFile = "shared/maps/".. v ..".lua"
 			include(includeFile)
 
-			print("[MAPCODER] Included '".. includeFile .."'")
+			Debug("[MAPCODER] Included '".. includeFile .."'")
 
   			break
   		end
@@ -62,6 +65,7 @@ else
 
 end
 
+--Some particles
 game.AddParticles("particles/butt_fart1.pcf")
 PrecacheParticleSystem("BUTT_FART2")
 PrecacheParticleSystem("BUTT_FART3")
@@ -72,9 +76,8 @@ include("modules/screentaker/screentaker.lua")
 --Clavus' Ravebreak
 include("modules/ravebreak/sh_ravebreak.lua")
 
---This stuff isn't for you to change. You should only edit the stuff in zs_options.lua
---GM.Name = "Zombie Survival "..GM.Version.." "..GM.SubVersion
-GM.Name = "Zombie Survival Green Apocalypse"
+--
+GM.Name = "Zombie Survival"
 GM.Author = "Limetric"
 GM.Email = "info@limetric.com"
 GM.Website = "http://limetric.com"
@@ -99,7 +102,7 @@ TEAM_SPECTATOR = 0
 -- Setup teams
 team.SetUp(TEAM_ZOMBIE, "The Undead", Color(198, 43, 43))
 team.SetUp(TEAM_SURVIVORS, "Survivors", Color(43, 129, 198))
-team.SetUp(TEAM_SPECTATOR, "Connecting", Color(128, 155, 21, 255))
+team.SetUp(TEAM_SPECTATOR, "Spectators", Color(128, 155, 21, 255))
 
 -- Initialize team tags for log
 --[[if SERVER then
@@ -419,22 +422,12 @@ end
 
 -- Amazing but SetNoCollideWithTeammates is shitty as fuck
 -- SO I have to use this thing (with player pushing from IW) :<
-function GM:ShouldCollide( ent1, ent2 )
-	if IsValid(ent1) and IsValid(ent2) and ent1:IsPlayer() and ent2:IsPlayer() and ent1:Team() == ent2:Team() or ent1.NoCollideAll or ent2.NoCollideAll then
-	   	-- Soft collision for humans
-	   	--[[if ( ent1:GetPos():Distance( ent2:GetPos() ) <= 30 ) and ent1:Team() == TEAM_HUMAN then
-            local dir = ( ent1:GetPos() - ent2:GetPos() ):GetNormal()
-            
-            -- Now PUSH
-            if ( ent1:GetVelocity():Length() > 0 ) then
-                ent1:SetVelocity( dir * 33 )  
-            end
-        end]]
-	
+--[[function GM:ShouldCollide(ent1, ent2)
+	if IsValid(ent1) and IsValid(ent2) and ent1:IsPlayer() and ent2:IsPlayer() and ent1:Team() == ent2:Team() or ent1.NoCollideAll or ent2.NoCollideAll then	
 		return false
 	end
 	return true
-end
+end]]
 
 --------------------------------------------
 --Include some objective stuff

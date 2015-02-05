@@ -21,9 +21,8 @@ function ConVarIsTrue(convar)
 	return GetConVar(convar):GetBool()
 end
 
-ARENA_MODE = tobool(string.find(tostring(game.GetMap()),"zs_arena"))
-if ARENA_MODE then
-	Debug("[MAPCODER] Arena map")
+if SERVER and tobool(string.find(tostring(game.GetMap()),"zs_arena")) then
+	GM:SetGameMode(GAMEMODE_ARENA)
 end
 
 GasDump = tobool(string.find(tostring(game.GetMap()),"zm_gasdump_b4")) --Objective map.
@@ -193,6 +192,7 @@ GM.HumanWeapons = {
 	["weapon_zs_awp"]  = { Name = "AWP", DPS = 200,Mat = "VGUI/gfx/VGUI/awp", Infliction = 0, Type = "rifle", Price = 1600, Description = "Heavy sniper." },
 --	["weapon_zs_grenadelauncher"]  = { Name = "Grenade Launcher", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 2000 },
 	["weapon_zs_boomerstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 2200 },
+	["weapon_zs_boomstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun" },
 --	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle"},
 
 

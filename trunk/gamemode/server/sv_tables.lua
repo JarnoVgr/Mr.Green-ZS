@@ -210,8 +210,8 @@ table.insert(ResourceFiles, "sound/mrgreen/ui/menu_countdown.wav")
 
 --Game start music (random to improve download speed)
 --table.insert(ResourceFiles, "sound/mrgreen/music/gamestart".. math.random(3,4) ..".mp3")
---table.insert(ResourceFiles, "sound/mrgreen/music/gamestart4.mp3") --Duby: We are only using this one as there is no point having loads of music etc..
-table.insert(ResourceFiles, "sound/mrgreen/music/gamestart2.mp3") --Duby: We are only using this one as there is no point having loads of music etc..
+--table.insert(ResourceFiles, "sound/mrgreen/music/gamestart4.mp3")
+table.insert(ResourceFiles, "sound/mrgreen/music/gamestart2.mp3")
 
 if CHRISTMAS then
 	table.insert(ResourceFiles, "sound/mrgreen/music/gamestart_xmas.mp3")
@@ -224,10 +224,9 @@ table.insert(ResourceFiles, "sound/mrgreen/music/lasthuman.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/intermission.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/intermission_undead.mp3")
 
---Slowmo
+--SlowMo effect sound
 table.insert(ResourceFiles, "sound/mrgreen/new/slowmo_down.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/new/slowmo_up.mp3")
-
 
 --Unlife music (2 variants)
 table.insert(ResourceFiles, "sound/mrgreen/music/deadlife.mp3")
@@ -283,7 +282,6 @@ end
 for _, filename in pairs(file.Find("sound/npc/zombine/*.wav", "GAME")) do
 	table.insert(ResourceFiles, "sound/npc/zombine/"..filename)
 end
-
 
 --Grenade Launcher
 table.insert(ResourceFiles, "models/weapons/c_sw_grenadelauncher.mdl")
@@ -564,7 +562,7 @@ table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01_normal.vtf
 --CSS orange model for Poison Headcrab spit
 table.insert(ResourceFiles, "models/props/cs_italy/orange.mdl")
 
---??
+--Present hat
 table.insert(ResourceFiles, "models/effects/bday_gib01.mdl")
 
 --Howler
@@ -603,7 +601,7 @@ end
 table.insert(ResourceFiles, "models/mrgreen/creepr.mdl")
 player_manager.AddValidModel("creepr", "models/mrgreen/creepr.mdl")]]
 
---Wraith
+--Wraith/Ethereal
 table.insert(ResourceFiles, "models/wraith.mdl")
 table.insert(ResourceFiles, "models/wraith__animations.mdl")
 table.insert(ResourceFiles, "models/weapons/v_wraith.mdl")
@@ -611,8 +609,6 @@ for _, filename in pairs( file.Find( "sound/npc/stalker/*.wav" , "GAME") ) do
 	table.insert(ResourceFiles, "sound/npc/stalker/"..filename  )
 end
 
-
---Duby:This is actually just the Santa model
 --Santa Claus Boss
 if CHRISTMAS then
 	table.insert(ResourceFiles, "models/Jaanus/santa.mdl")
@@ -637,7 +633,7 @@ table.insert(ResourceFiles, "models/props_mrgreen/arrow.mdl")
 
 --Precache all models from resources
 for k,v in pairs(ResourceFiles) do
-	if string.find( v, ".mdl") then
+	if string.find(v, ".mdl") then
 		util.PrecacheModel(v)
 	end
 end

@@ -156,7 +156,7 @@ function Intermission(nextmap, winner, timeleft)
 	   
 	--Play the team specific.sounds
 	timer.Simple(0.2, function()
-		if MySelf:Team() == TEAM_HUMAN then
+		if IsValid(MySelf) and MySelf:Team() == TEAM_HUMAN then
 			surface.PlaySound(Sound("mrgreen/music/intermission.mp3"))
 		else
 			surface.PlaySound(Sound("mrgreen/music/intermission_undead.mp3"))
@@ -170,7 +170,7 @@ function Intermission(nextmap, winner, timeleft)
 	local congratulations, WinText = "You've failed surviving","The round was a withdraw"
  	if winner == TEAM_HUMAN then
 		WinText = "The Humans survived!"
-		if MySelf:Team() == TEAM_HUMAN then
+		if IsValid(MySelf) and MySelf:Team() == TEAM_HUMAN then
 			congratulations = "We're safe ... for now!"
 		end
 	elseif winner == TEAM_UNDEAD then

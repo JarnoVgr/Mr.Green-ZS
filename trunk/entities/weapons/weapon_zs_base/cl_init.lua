@@ -110,26 +110,7 @@ function SWEP:CheckCustomIronSights()
 		return
 	end
 
-	local filename = "ironsights/"..class..".txt"
-	if file.Exists(filename, "DATA") then
-		local pos = Vector(0, 0, 0)
-		local ang = Vector(0, 0, 0)
-
-		local tab = string.Explode(" ", file.Read(filename, "DATA"))
-		pos.x = tonumber(tab[1]) or 0
-		pos.y = tonumber(tab[2]) or 0
-		pos.z = tonumber(tab[3]) or 0
-		ang.x = tonumber(tab[4]) or 0
-		ang.y = tonumber(tab[5]) or 0
-		ang.z = tonumber(tab[6]) or 0
-
-		OverrideIronSights[class] = {Pos = pos, Ang = ang}
-
-		self.IronSightsPos = pos
-		self.IronSightsAng = ang
-	else
-		OverrideIronSights[class] = true
-	end
+	OverrideIronSights[class] = true
 end
 		
 SWEP.vRenderOrder = nil

@@ -1,17 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-local table = table
-local surface = surface
-local draw = draw
-local math = math
-local string = string
-local util = util
-local pairs = pairs
-local team = team
-local player = player
-local timer = timer
-
 -- Local variables
 local iDuration = 3
 
@@ -72,6 +61,9 @@ end)
 
 -- Adds bloodsplats to screen
 function SoMuchBlood( point, kill, distance )
+	if not IsValid(MySelf) then
+		return
+	end
 
 	local tbHax, vDir = {}
 	vDir = MySelf:GetPos() - point
@@ -91,7 +83,9 @@ end
 
 -- Here we call the blood on screen thing
 local function OnPlayerDeath ( pl, attacker )
-	if not IsEntityValid ( pl ) or not IsEntityValid ( attacker ) then return end
+	if not IsValid(pl) or not IsValid(attacker) then
+		return
+	end
 
 	-- Add bloodsplats to the screen
 	SoMuchBlood( pl:GetPos(), true, 100 )

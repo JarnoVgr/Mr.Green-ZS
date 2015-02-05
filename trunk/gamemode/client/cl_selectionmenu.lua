@@ -227,7 +227,7 @@ local StoredIcons = {}
 local storedicons = false
 local WeaponSelectionBackground = Material("mrgreen/hud/hudbackground.png") --Items for the HUD.
 function PaintNewWeaponSelection()
-	if util.tobool(GetConVarNumber("_zs_hidehud")) or not IsValid(MySelf) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND or not MySelf.ReadySQL then
+	if util.tobool(GetConVarNumber("zs_hidehud")) or not IsValid(MySelf) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND or not MySelf.ReadySQL then
 		return
 	end
 

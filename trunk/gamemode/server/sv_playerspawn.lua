@@ -113,8 +113,8 @@ function GM:PlayerInitialSpawn(pl)
 	pl.LastRTD = 0 
 	pl.StuckTimer = 0
 	
-	pl:SetCustomCollisionCheck(true)
-	-- pl:SetNoCollideWithTeammates(true)
+	--pl:SetCustomCollisionCheck(true)
+	pl:SetNoCollideWithTeammates(true)
 	-- pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
 		
 	-- Used to control how many weapons you are allowed to pickup
@@ -717,10 +717,9 @@ function CalculatePlayerLoadout(pl)
 		return
 	end
 
-	local Class = pl:GetHumanClass()
 	local ToGive = {}
 	
-	--Give own loadout
+	--Give preferred loadout
 	if pl.Loadout and #pl.Loadout > 0 then
 		ToGive = table.Copy(pl.Loadout)
 	--Default loadout
@@ -730,64 +729,72 @@ function CalculatePlayerLoadout(pl)
 	end
 	
 	if pl:IsBot() then --This was changed as it worked off the medic class speeds. Which doesn't exist any more!
-		ToGive = { "weapon_zs_tools_hammer","weapon_zs_melee_keyboard" }
+		ToGive = {"weapon_zs_tools_hammer", "weapon_zs_melee_keyboard"}
 	end
 		
-	--Actually give the weapons
+	--Actually give the loadout weapons
 	for k,v in pairs(ToGive) do
 		pl:Give(tostring(v))
 	end
 	
-	if ARENA_MODE then
-		pl:Give(table.Random(GAMEMODE.ArenaWeapons))
-		pl:GiveAmmo(650,"ar2")
-		pl:GiveAmmo(650,"smg1")
-		pl:GiveAmmo(650,"buckshot")
-		pl:GiveAmmo(650,"pistol")
-		pl:GiveAmmo(650,"357")
+	local SelectWeapon
+	if ToGive and #ToGive >= 1 then
+		SelectWeapon = ToGive[1]
 	end
+	
+	--Arena gives a primary gun
+	if GAMEMODE:GetGameMode() == GAMEMODE_ARENA then
+		local RandomWeapon = table.Random(GAMEMODE.ArenaWeapons)
+		pl:Give(RandomWeapon)
+		SelectWeapon = RandomWeapon
 		
-	if GasDump then
-		pl:Give(table.Random(GAMEMODE.GasDump))	
-		pl:GiveAmmo(30,"buckshot")
-		pl:GiveAmmo(200,"ar2")
+		pl:GiveAmmo(6500, "ar2", false)
+		pl:GiveAmmo(6500, "smg1", false)
+		pl:GiveAmmo(6500, "buckshot", false)
+		pl:GiveAmmo(6500, "pistol", false)
+		pl:GiveAmmo(6500, "357", false)
 	else
-		--Check if bought Magnum (give 1/3rd chance)
-		if pl:HasBought("magnumman") and math.random(1,3) == 1 then
-			--Strip previous pistol
+		--IMORTAL PRO perk
+		if pl:GetPerk("_imortalpro") then
+			--Strip pistol as its the price they pay for having the PulseSMG!
 			local Pistol = pl:GetPistol()
-			if Pistol then
+			if IsValid(Pistol) then
 				pl:StripWeapon(Pistol:GetClass())
 			end
-			--Give new magnum
-			pl:Give("weapon_zs_magnum")
-
-			--Override old pistol for auto-deploy (selecting)
-			ToGive[1] = "weapon_zs_magnum"
+			
+			local Auto = pl:GetAutomatic()
+			if IsValid(Auto) then
+				pl:StripWeapon(Auto:GetClass())
+			end
+			
+			pl:Give("weapon_zs_pulsesmg")
+			SelectWeapon = "weapon_zs_pulsesmg"
 		end
 	end
-
-	--IMORTAL PRO perk
-	if pl:GetPerk("_imortalpro") then
+	
+	--TODO: Get rid of this here
+	if GasDump then
+		pl:Give(table.Random(GAMEMODE.GasDump))
+		pl:GiveAmmo(30, "buckshot")
+		pl:GiveAmmo(200, "ar2")
+	end
+	
+	--Check if bought Magnum (give 1/3rd chance)
+	if pl:HasBought("magnumman") and math.random(1,3) == 1 then
 		--Strip previous pistol
 		local Pistol = pl:GetPistol()
-		local Auto = pl:GetAutomatic()
 		if Pistol then
-			pl:StripWeapon(Pistol:GetClass()) --We remove their pistol as its the price they pay for having the pulse smg!
+			pl:StripWeapon(Pistol:GetClass())
 		end
-		if Auto then
-			pl:StripWeapon(Auto:GetClass())
-		end
-		pl:Give("weapon_zs_pulsesmg")
-		ToGive[1] = "weapon_zs_pulsesmg"
-	else
-		ToGive[1] = "weapon_zs_smg" --Life ain't fair. (O)_(O) 	
-	end	
+		--Give new magnum
+		pl:Give("weapon_zs_magnum")
+
+		--Override old pistol for auto-deploy (selecting)
+		ToGive[1] = "weapon_zs_magnum"
+	end
 	
 	--Select a weapon
-	if ToGive and #ToGive > 0 then
-		pl:SelectWeapon(tostring(ToGive[1]))
-	end
+	pl:SelectWeapon(SelectWeapon)
 end
 
 function CalculateZombieHull(pl)

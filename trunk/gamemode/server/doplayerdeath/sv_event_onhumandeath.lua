@@ -25,17 +25,17 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	util.Effect( "gib_player", eff, true, true )
 
 	--Smash off current hat
-	GAMEMODE:DropHat( mVictim )
-	GAMEMODE:DropSuit( mVictim )
+	GAMEMODE:DropHat(mVictim)
+	GAMEMODE:DropSuit(mVictim)
 		
 	--Drop active weapon
 	if mVictim:GetActiveWeapon() ~= NULL and CurTime() > WARMUPTIME then
 		--Loop through all player weapons
-		for i,j in pairs (mVictim:GetWeapons()) do
+		for i,j in pairs(mVictim:GetWeapons()) do
 			local wepCategory = GetWeaponCategory(j:GetClass())
 			if (wepCategory == "Pistol" or wepCategory == "Automatic" or wepCategory == "Melee") and mVictim:CanDropWeapon(j) then
 				--Save ammo information from weapon
-				if wepCategory ~= "Melee" then
+				if wepCategory ~= "Melee" and j.Primary then
 					j.Primary.RemainingAmmo = j:Clip1()
 					j.Primary.Magazine = mVictim:GetAmmoCount(j:GetPrimaryAmmoTypeString())
 				end
@@ -64,15 +64,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	skillpoints.Clean(mVictim)
 	
 	mVictim:PlayDeathSound()
-	
-	if CurTime() <= WARMUPTIME then
-		mVictim.NextSpawn = WARMUPTIME+2
-		mVictim:SendLua("MySelf.NextSpawn = ".. (WARMUPTIME+2))
-	else
-		mVictim.NextSpawn = CurTime() + 2
-		mVictim:SendLua("MySelf.NextSpawn = CurTime() + 2")
-	end
-	
+		
 	--Revival
 	if not mVictim.Gibbed and not dmginfo:IsSuicide(mVictim) then
 		mVictim:SetZombieClass(0)

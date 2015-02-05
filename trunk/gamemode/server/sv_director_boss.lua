@@ -10,32 +10,13 @@ boss.maxCount = math.random(4,5)
 
 
 function GM:UnleashBoss()
-	
-	--[[if not GAMEMODE:IsBossRequired() then
+	--No late bosses
+	--[[if CurTime() >= ROUNDTIME-60 then
 		return nil
-end]]
-
-	--No late bosses anymore Duby: We want late bosses. Suspense!!! 
---	if CurTime() >= ROUNDTIME-60 then
-		--return nil
-	--end
-
-	--Set full health on players when in Arena Mode
-	if ARENA_MODE then			
-		for _, pl in pairs(player.GetAll()) do
-			if pl:Team() ~= TEAM_HUMAN or not pl:Alive() then
-				continue
-			end
-			
-			local hp = 100
-			if pl:GetPerk("_kevlar2") then
-				hp = 130
-			pl:SetHealth(hp)
-		end
-	end end
+	end]]
 
 	pl = GAMEMODE:GetPlayerForBossZombie() --Duby: Lets disable bosses for now
-	if not pl then
+	if not IsValid(pl) then
 		return nil
 	end
 	
@@ -48,7 +29,7 @@ end]]
 		
 	--Calculate boss duration
 --	boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 140),ROUNDTIME-CurTime())
-	boss.duration = math.min(math.Round(230),ROUNDTIME-CurTime()) --Make it static so that we don't have a boss spawn for 10 seconds.
+	boss.duration = math.min(230,ROUNDTIME-CurTime()) --Make it static so that we don't have a boss spawn for 10 seconds.
 
 	--Set End time
 	boss.endTime = CurTime() + boss.duration		
@@ -148,15 +129,19 @@ function GM:SetBoss(value)
 	if boss.active then
 		boss.pl = GAMEMODE:UnleashBoss()
 		
-		net.Start("slowmo")
-		net.Broadcast()
-		game.SetTimeScale(0.25)
-		timer.Simple(1.1, function() 
-		game.SetTimeScale(1)
-		end)
-		if not boss.pl then
+		if not IsValid(boss.pl) then
 			return false
 		end
+		
+		--Start the slowmo
+		net.Start("SlowMoEffect")
+		net.Broadcast()
+		game.SetTimeScale(0.25)
+		
+		--Restore from slowmo
+		timer.Simple(1.1, function() 
+			game.SetTimeScale(1)
+		end)
 
 		--Insane mode for last boss
 		local isInsane = false
@@ -193,4 +178,4 @@ function GM:SetBoss(value)
 end
 util.AddNetworkString("StartBoss")
 util.AddNetworkString("StopBoss")
-util.AddNetworkString("slowmo")
+util.AddNetworkString("SlowMoEffect")

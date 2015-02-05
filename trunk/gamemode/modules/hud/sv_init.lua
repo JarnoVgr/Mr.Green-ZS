@@ -2,7 +2,10 @@
 -- See LICENSE.txt for license information
 
 -- Add client-side
-AddCSLuaFile ( "cl_hud_beta.lua" )
+AddCSLuaFile("cl_init.lua")
+AddCSLuaFile("cl_human.lua")
+AddCSLuaFile("cl_human_friends.lua")
+AddCSLuaFile("cl_zombie.lua")
 
 -- Resource files
 resource.AddFile("materials/zombiesurvival/hud/splash_health.vmt")

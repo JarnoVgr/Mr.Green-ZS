@@ -553,8 +553,12 @@ concommand.Add( "goto_player", GotoPlayer )
 
 local vSpawnPos = 0
 local function NextSpawn( pl, bind )
-	if not pl:IsSuperAdmin() or bind ~= IN_USE then return end
-	if EDITOR_SPAWN_MODE == false then return end
+	if not pl:IsSuperAdmin() or bind ~= IN_USE then
+		return
+	end
+	if EDITOR_SPAWN_MODE == false then
+		return
+	end
 	
 	if vSpawnPos <= #SpawnPoints then
 	

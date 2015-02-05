@@ -525,7 +525,7 @@ function GM:OnEndRound(winner)
 		pl:DrawViewModel(false)
 		
 		--Lock the player and make him unable to spawn
-		pl.NextSpawn = CurTime()+500
+		pl.NextSpawn = CurTime() + 500
 
 		pl:Lock()
 	

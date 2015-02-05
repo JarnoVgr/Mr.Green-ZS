@@ -5,7 +5,17 @@
 local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	-- Check original achievments
 	if mAttacker:IsPlayer() then
-		GAMEMODE:DoAchievementsCheck ( mVictim, mAttacker, mInflictor, dmginfo )
+		--Set next spawn
+		if CurTime() <= WARMUPTIME then
+			mVictim.NextSpawn = WARMUPTIME + 2
+		else
+			mVictim.NextSpawn = CurTime() + 2
+		end
+		mVictim:SendLua("MySelf.NextSpawn = ".. mVictim.NextSpawn)
+
+		--Achievements
+		--TODO: Check if we can do this at a later point (in a timer or so)
+		GAMEMODE:DoAchievementsCheck(mVictim, mAttacker, mInflictor, dmginfo)
 	end
 
 	local headshot = false
@@ -22,7 +32,10 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		
 		if mVictim.DiedFromFlare and mVictim.DiedFromFlare > CurTime() then
 			timer.Simple(0,function()
-				if not IsValid(mVictim) then return end
+				if not IsValid(mVictim) then
+					return
+				end
+				
 				local rag = mVictim:GetRagdollEntity()
 				if IsValid(rag) then
 					rag:Ignite(9)
@@ -72,13 +85,12 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	end
 
-	-- Clear the weapons limit number
+	--Clear the weapons limit number
 	for k,v in pairs ( mVictim.CurrentWeapons ) do
 		mVictim.CurrentWeapons[k] = 0
 	end
 	
-	--  Make the player splash (gib) if damage is very big or if it's a chem zombie otherwise make the ragdolls.
-	
+	--Make the player splash (gib) if damage is very big or if it's a chem zombie otherwise make the ragdolls.
 	if mVictim:IsZombie() then
 		if mVictim:Health() < -45 and not (dmginfo:IsMeleeDamage() or dmginfo:IsExplosionDamage() or dmginfo:IsFallDamage()) then
 			-- Gib the player
