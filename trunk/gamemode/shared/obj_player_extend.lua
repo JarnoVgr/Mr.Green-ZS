@@ -621,6 +621,7 @@ function meta:SetScore(newAmount)
 		net.Start("SetPlayerScore")
 		net.WriteEntity(self)
 		net.WriteInt(self.Score, 32)
+		net.WriteInt(self:GetRank() or 0, 32)
 		net.Broadcast()
 
 		--Clamp because of frags limitation bug

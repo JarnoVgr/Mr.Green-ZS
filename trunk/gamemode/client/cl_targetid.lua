@@ -132,7 +132,7 @@ function GM:HUDDrawTargetID()
 			if ImportantMessage then
 				draw.SimpleTextOutlined(ImportantMessage, "ArialBoldTwelve", x+rand, newY+rand2-100, col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, col2)
 			--Else, draw level
-			else
+			elseif EntRank > 0 then
 				newY = newY + HealthTextHeight + 2
 				draw.SimpleTextOutlined("Level ".. EntRank, "ArialBoldSeven", x+rand, newY+rand2, col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, col2)
 			end

@@ -6,8 +6,10 @@ net.Receive("SetPlayerScore", function(len)
 	end
 	
 	local newScore = net.ReadInt(32)
-	
 	pl:SetScore(newScore)
+	
+	local newLevel = net.ReadInt(32)
+	pl.InternalRank = newLevel
 end)
 
 net.Receive("SetLocalPlayerScore", function(len)
