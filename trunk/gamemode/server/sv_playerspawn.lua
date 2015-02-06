@@ -143,7 +143,7 @@ function GM:PlayerInitialSpawn(pl)
 		iTeam = TEAM_HUMAN
 	end
 
-
+	--??
 	if not pl:IsBot() then
 		if DataTableConnected[ID].IsDead then
 			pl.SpawnedTime = CurTime()
@@ -157,9 +157,8 @@ function GM:PlayerInitialSpawn(pl)
 		DataTableConnected[ID].IsDead = true
 	end
 		
-	-- Set the player's team
+	--Set team and class
 	pl:SetTeam(iTeam)
-	
 	pl:SetZombieClass(0)
 	
 	--Call PlayerReady if player is a bot
@@ -358,7 +357,14 @@ function GM:PlayerSpawn(pl)
 		self:OnZombieSpawn(pl)
 		pl:StopAllLuaAnimations()
 	end
+
+	net.Start("SetPlayerLevel")
+	net.WriteEntity(pl)
+	net.WriteInt(pl:GetRank(), 32)
+	net.Broadcast()
 end
+
+util.AddNetworkString("SetPlayerLevel")
 
 --[==[---------------------------------------------------------
    Called right when the human classes menu appears
@@ -947,7 +953,7 @@ hook.Add("OnPlayerReadySQL", "UpdateDataTableJoin", function(pl)
 	GAMEMODE:SendTitle(player.GetAll(), {pl})
 	GAMEMODE:SendTitle({pl}, player.GetAll())
 	
-	-- Send gc amount
+	--Send gc amount
 	GAMEMODE:SendCoins(pl)
 
 	-- Send shop items and ClassData

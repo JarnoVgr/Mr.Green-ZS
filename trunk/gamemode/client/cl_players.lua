@@ -1,10 +1,11 @@
 net.Receive("SetPlayerScore", function(len)
 	local pl = net.ReadEntity()
-	local newScore = net.ReadInt(32)
 	
 	if not IsValid(pl) then
 		return
 	end
+	
+	local newScore = net.ReadInt(32)
 	
 	pl:SetScore(newScore)
 end)
@@ -17,4 +18,16 @@ net.Receive("SetLocalPlayerScore", function(len)
 	local newScore = net.ReadInt(32)
 	
 	MySelf:SetScore(newScore)
+end)
+
+net.Receive("SetPlayerLevel", function(len)
+	local pl = net.ReadEntity()
+	
+	if not IsValid(pl) then
+		return
+	end
+	
+	local newLevel = net.ReadInt(32)
+	
+	pl.InternalRank = newLevel
 end)

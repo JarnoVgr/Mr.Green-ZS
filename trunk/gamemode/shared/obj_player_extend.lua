@@ -620,7 +620,7 @@ function meta:SetScore(newAmount)
 		--Send new score to clients
 		net.Start("SetPlayerScore")
 		net.WriteEntity(self)
-		net.WriteInt(self.Score,32)
+		net.WriteInt(self.Score, 32)
 		net.Broadcast()
 
 		--Clamp because of frags limitation bug
@@ -897,12 +897,16 @@ function meta:GetRank()
 		
 		return self.DataTable["ClassData"]["default"].rank
 	elseif CLIENT then
-		if not MySelf.DataTable then
-			return 0 --temp fix
-		end
-		
-		if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["default"] then
-			return MySelf.DataTable["ClassData"]["default"].rank
+		if MySelf == self then
+			if not MySelf.DataTable then
+				return 0 --temp fix
+			end
+			
+			if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["default"] then
+				return MySelf.DataTable["ClassData"]["default"].rank
+			end
+		else
+			return self.InternalRank or 0
 		end
 	end
 	
