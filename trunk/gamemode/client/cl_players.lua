@@ -30,4 +30,6 @@ net.Receive("SetPlayerLevel", function(len)
 	local newLevel = net.ReadInt(32)
 	
 	pl.InternalRank = newLevel
+	
+	Debug("Received SetPlayerLevel with level ".. newLevel)
 end)
