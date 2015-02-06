@@ -35,7 +35,7 @@ function GM:OnPlayerRedeem(pl, causer)
 	net.Broadcast()
 	
 	--
-	pl:RemoveAllStatus(true,true)
+	pl:RemoveAllStatus(true, true)
 	
 	--Check if it wasn't an admin redeem
 	if not IsValid(causer) then
@@ -50,17 +50,14 @@ function GM:OnPlayerRedeem(pl, causer)
 			pl:AddToCounter("redeems", 1)
 			pl:UnlockAchievement("payback")
 			if pl.Redeems >= 3 then
-				pl:UnlockAchievement( "dealwiththedevil" )
+				pl:UnlockAchievement("dealwiththedevil")
 			end
 			if pl:GetScore("redeems") >= 100 then
-				pl:UnlockAchievement( "stuckinpurgatory" )
+				pl:UnlockAchievement("stuckinpurgatory")
 			end
 		end
 	end
-	
-	-- Clear poison in aura status
-	pl.IsInAura = false
-	
+
 	-- Resets last damage table
 	pl:ClearLastDamage()
 	
@@ -131,10 +128,34 @@ function GM:OnPlayerRedeem(pl, causer)
 	pl.RecBrain = 0
 	pl.BrainDamage = 0
 	
-	--Give SP for redeeming
-	if CurTime() > (WARMUPTIME+240) then
-		skillpoints.AddSkillPoints(pl, math.max(20,math.Round(600*GetInfliction())))
+	--Give average SP
+	local Humans = team.GetPlayers(TEAM_HUMAN)
+	local TotalSkillPoints, ValidPlayers = 0, 0
+	for i=1,#Humans do
+		local target = Humans[i]
+		if not IsValid(target) or not target:Alive() then
+			continue
+		end
+
+		local Points = skillpoints.GetSkillPoints(target)
+		if not Points or Points <= 0 then
+			continue
+		end
+
+		TotalSkillPoints = TotalSkillPoints + Points
+		ValidPlayers = ValidPlayers + 1
 	end
+	if ValidPlayers > 0 then
+		local AverageSP = math.Round(TotalSkillPoints / ValidPlayers)
+		if AverageSP > 0 then
+			skillpoints.AddSkillPoints(target, AverageSP)
+		end
+	end
+	
+	--Give SP for redeeming
+	--[[if CurTime() > (WARMUPTIME+240) then
+		skillpoints.AddSkillPoints(pl, math.max(20,math.Round(600*GetInfliction())))
+	end]]
 	
 	--Process
 	self:ProceedRedeemSpawn(pl)

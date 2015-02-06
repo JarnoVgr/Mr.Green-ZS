@@ -60,9 +60,9 @@ function skillpoints.SetupSkillPoints(pl)
 	pl:SetScore(0)	
 end
 
--- Add nessesary amount of skill points
+--Add nessesary amount of skill points
 function skillpoints.AddSkillPoints(pl, amount)
-	if amount == nil or amount == 0 or not IsEntityValid(pl) or not pl:IsPlayer() then
+	if amount == nil or amount == 0 or not IsValid(pl) or not pl:IsPlayer() then
 		return false
 	end
 	
@@ -73,7 +73,7 @@ end
 
 --Get
 function skillpoints.GetSkillPoints(pl)
-	if not IsEntityValid(pl) or not pl:IsPlayer() or not pl.SkillPoints then
+	if not IsValid(pl) or not pl:IsPlayer() or not pl.SkillPoints then
 		return false
 	end
 	

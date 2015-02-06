@@ -107,14 +107,14 @@ function death.DeathZombieHUD()
 	local timeleft = math.max(0, math.Round(MySelf.NextSpawn - CurTime()) + 1)
 	if timeleft ~= 0 then
 		draw.DrawText("You can resurrect in ".. timeleft .." seconds", "NewZombieFont27", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
-	else
-		draw.DrawText("You can resurrect shortly", "NewZombieFont27", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 	
 	--Spectate
 	local obsmode = MySelf:GetObserverMode()
 	if obsmode ~= OBS_MODE_NONE then
 		GAMEMODE:ZombieObserverHUD(obsmode, timeleft == 0)
+	elseif timeleft == 0 then
+		draw.DrawText("You can resurrect shortly", "NewZombieFont27", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 end
 hook.Add("HUDPaint", "DeathZombieHUD", death.DeathZombieHUD)	
