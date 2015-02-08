@@ -579,9 +579,8 @@ ZombieClasses[10] =
 	ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
 	ViewOffset = Vector(0, 0, 84),
 	ViewOffsetDucked = Vector(0,0,38),
-	--Hull = { Vector(-21,-21, 0), Vector(21,21,97) },
-	Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
+	--Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
+	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
 }
 
 ZombieClasses[20] =										
@@ -645,9 +644,8 @@ ZombieClasses[20] =
 	ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
 	ViewOffset = Vector(0, 0, 84),
 	ViewOffsetDucked = Vector(0,0,38),
-	--Hull = { Vector(-21,-21, 0), Vector(21,21,97) },
-	Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
+	--Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
+	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
 }
 
 ZombieClasses[11] =
@@ -707,9 +705,8 @@ ZombieClasses[11] =
 	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
-	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 ZombieClasses[12] =
@@ -764,8 +761,8 @@ ZombieClasses[12] =
 	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 ZombieClasses[13] =
@@ -811,8 +808,8 @@ ZombieClasses[13] =
 	ModelScale = 0.85,
 	ViewOffset = Vector( 0, 0, 50 ),
 	ViewOffsetDucked = Vector( 0, 0, 24 ),
-	Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
-	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
+	--Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
+	--HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
 }
 
 ZombieClasses[14] =
@@ -861,8 +858,8 @@ ZombieClasses[14] =
 	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 ZombieClasses[15] = --Everyone loves it ^^ Duby: R.I.P until you are loved once more! :<
@@ -936,9 +933,8 @@ ZombieClasses[15] = --Everyone loves it ^^ Duby: R.I.P until you are loved once 
 	ModelScale = 1,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
-	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity. 
@@ -987,8 +983,8 @@ ZombieClasses[16] = --Wife of Adam and deemed to stay in hell for eternity.
 	ModelScale = 1,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 ZombieClasses[17] = --Smoke shit up :P
@@ -1044,9 +1040,8 @@ ZombieClasses[17] = --Smoke shit up :P
 	ModelScale = 1.10,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
-	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 
@@ -1105,9 +1100,8 @@ ZombieClasses[18] = --Creep and Play!
 	ModelScale = 1.10,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	-- Hull = { Vector(-18,-18, 0), Vector(18,18,83) },
-	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 
