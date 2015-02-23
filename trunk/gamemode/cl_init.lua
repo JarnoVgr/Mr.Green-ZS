@@ -936,15 +936,14 @@ util.PrecacheSound("npc/stalker/breathing3.wav")
 util.PrecacheSound("npc/zombie/zombie_pain6.wav")
 
 GM.ZombieThirdPerson = false
-
 function GM:PlayerBindPress(pl, bind, pressed)
-	if string.find( bind, "speed" ) and pl:Team() ~= TEAM_UNDEAD and not pl:IsZombine() then
+	if pl:Team() ~= TEAM_UNDEAD and not pl:IsZombine() and string.find(bind, "speed") then
 		return true
-	elseif pl:Team() == TEAM_SPECTATOR and (string.find (bind, "messagemode") or string.find (bind,"messagemode2") or string.find (bind,"+voicerecord")) then 
+	elseif pl:Team() == TEAM_SPECTATOR and (string.find (bind, "messagemode") or string.find (bind,"messagemode2") or string.find(bind,"+voicerecord")) then 
 		return true
 	end
 	
-	--Third person view
+	--Third person view toggle
 	if bind == "+menu_context" then
 		self.ZombieThirdPerson = not self.ZombieThirdPerson
 	end
@@ -1082,7 +1081,7 @@ local function CalculateView(pl, vPos, aAng, fFov)
 	end
 	
 	--
-	if pl:ShouldDrawLocalPlayer() and pl:OldAlive() then
+	if pl:ShouldDrawLocalPlayer() and pl:Alive() then
 		local wep = pl:GetActiveWeapon()
 		if IsValid(wep) and wep.GetClimbing and wep:GetClimbing() and not GAMEMODE.ZombieThirdPerson then
 			local bone = pl:LookupBone("ValveBiped.HC_BodyCube")
@@ -1090,7 +1089,10 @@ local function CalculateView(pl, vPos, aAng, fFov)
 				local pos,ang = pl:GetBonePosition(bone)
 				if pos and ang then
 					ang:RotateAroundAxis(ang:Up(),-90)
-					return {origin = pos+pl:SyncAngles():Forward()*4+pl:SyncAngles():Up()*-3, angles = Angle(math.Clamp(aAng.p,-45,45),aAng.y,ang.r/6)}
+					return {
+						origin = pos+pl:SyncAngles():Forward()*4+pl:SyncAngles():Up()*-3,
+						angles = Angle(math.Clamp(aAng.p,-45,45), aAng.y, ang.r/6)
+					}
 				end
 			end
 		else
@@ -1398,12 +1400,8 @@ function GM:HookGetLocal()
 	hook.Add("HUDShouldDraw", "DrawHUD", HUDShouldDraw)
 	hook.Add("CalcView", "CalculateView", CalculateView)
 
-	--Required empty function
-	self.ShouldDrawLocalPlayer = function()
-	end
-	hook.Add("ShouldDrawLocalPlayer", "ShouldDrawLocalPlayer", function(pl)
-		self:_ShouldDrawLocalPlayer(pl)
-	end)
+	--
+	self.ShouldDrawLocalPlayer = self._ShouldDrawLocalPlayer
 
 	hook.Add("PostDrawOpaqueRenderables", "HeartbeatGlow", HeartbeatGlow)
 

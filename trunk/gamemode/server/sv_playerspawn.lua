@@ -18,13 +18,6 @@ function GM:PlayerInitialSpawn(pl)
 		net.Send(pl)
 	end
 	
-	--TODO: Move this
-	if GasDump then
-		timer.Simple(4,function()
-			RunConsoleCommand("stopsound")
-		end)
-	end
-	
 	pl:SetCanZoom(false)
 
 	-- Bots are always ready, human players need to wait
@@ -126,7 +119,7 @@ function GM:PlayerInitialSpawn(pl)
 	local balance = team.NumPlayers(TEAM_HUMAN) / team.NumPlayers(TEAM_UNDEAD)
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
-	-- Team
+	--Team
 	local iTeam = TEAM_SPECTATOR
 	
 	if pl:IsBot() then
@@ -190,7 +183,7 @@ util.AddNetworkString("mapData")
 --[==[-----------------------------------------------------------------
      Mainly for debug purposes -- record everything in logs
 ------------------------------------------------------------------]==]
-local function PlayerConnected ( pl, ip )
+local function PlayerConnected(pl, ip)
 	Debug("[CONNECTED] ".. tostring(pl) .." connecting from "..tostring(ip))
 end
 hook.Add("PlayerConnect", "Connected", PlayerConnected)
@@ -300,26 +293,20 @@ function GM:PlayerSpawn(pl)
 
 		--Check if we can be Santa Claus
 		if CHRISTMAS and pl:Team() ~= TEAM_SPECTATOR and ((not self.IsSantaHere and math.random(1,7) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsSanta) and not pl.IsFreeman then
-			--Only display message when being human
-			if pl:Team() == TEAM_SURVIVORS then
-				pl:ChatPrint("You're now THE Santa Claus!")
-				pl:ChatPrint("Ho ho ho!")
-			end
-			
-
 			--Set global
 			self.IsSantaHere = true
 			
 			--Set model for player
 			pl.IsSanta = true
 			pl.PlayerModel = "santa"
+
+			--
+			if pl:Team() == TEAM_SURVIVORS then
+				pl:ChatPrint("You're now THE Santa Claus!")
+				pl:ChatPrint("Ho ho ho!")
+			end
 		end
 	end
-
-	if HALLOWEEN and pl:Team() ~= TEAM_SPECTATOR then
-		pl:ChatPrint("HAPPY HALLOWEEN!!!")
-	end
-			
 	
 	if pl:Team() == TEAM_SPECTATOR then
 		self:OnFirstHumanSpawn(pl)
@@ -384,26 +371,6 @@ end
 function GM:OnHumanSpawn(pl)
 	if not pl:IsHuman() then
 		return
-	end
-
-	--TODO: Move notices to map specific files
-	--Gas Dump Obj Map special notices.
-	if GasDump then
-		timer.Simple(10,function() 
-			pl:Message("The horde nest is bellow the building.", 1)
-		end)
-
-		timer.Simple(11,function() 
-			pl:Message("You need to blow it up..", 1)
-		end)
-
-		timer.Simple(13,function() 
-			pl:Message("These zombies are stronger..", 2)
-		end)
-
-		timer.Simple(15,function() 
-			pl:Message("But you are prepared.", 2)
-		end)
 	end
 	
 	--Special messages for pub as these nitwhits find it hard to play this map.
@@ -618,22 +585,12 @@ function GM:OnZombieSpawn(pl)
 	-- Set the zombie's walk and crouch speed
 	self:SetPlayerSpeed(pl, Tab.Speed)
 	pl:SetCrouchedWalkSpeed(Tab.CrouchWalkSpeed or 0.80)
-
-	--TODO: Move to map specific file
-	if GasDump then
-		self:SetPlayerSpeed(pl, Tab.Speed*1.4)
-	end
 		
 	pl:UnSpectate()		
 	-- Prevent health pickups and/or machines
 	pl:SetMaxHealth(1) 
 	
 	pl:SetBloodColor(BLOOD_COLOR_RED)
-
-	--Alert players they can change zombie class
-	if Class == 0 and pl:GetRank() <= 5 and math.random(1,3) == 1 then
-		pl:Message("Press F3 to play with a different Undead specie", 3)
-	end
 
 	--Auto enable zombie vision at first spawn
 	if pl.m_ZombieVision == nil or pl.m_ZombieVision == true then
@@ -778,13 +735,6 @@ function CalculatePlayerLoadout(pl)
 		end
 	end
 	
-	--TODO: Get rid of this here
-	if GasDump then
-		pl:Give(table.Random(GAMEMODE.GasDump))
-		pl:GiveAmmo(30, "buckshot")
-		pl:GiveAmmo(200, "ar2")
-	end
-	
 	--Check if bought Magnum (give 1/3rd chance)
 	if pl:HasBought("magnumman") and math.random(1,3) == 1 then
 		--Strip previous pistol
@@ -838,12 +788,20 @@ function CalculateHumanHull ( pl )
 end
 
 -- TODO: Use spawn prediction on client instead
-function ChangeHullSize(pl,tab)
-if not IsValid(pl) then return end
-if pl:IsBot() then return end
-if not tab then tab = {Vector ( -16, -16, 0 ), Vector ( 16, 16, 72 )} end
+function ChangeHullSize(pl, tab)
+	if not IsValid(pl) or pl:IsBot() then
+		return
+	end
 
-	pl:SetHull( tab[1],tab[2] )
+	--Set default
+	if not tab then
+		tab = {
+			Vector(-16, -16, 0),
+			Vector(16, 16, 72)
+		}
+	end
+
+	pl:SetHull(tab[1], tab[2])
 	
 	umsg.Start("ChangeHullSize")
 	umsg.Entity(pl)
@@ -884,11 +842,6 @@ function CalculateZombieHealth(pl)
 	--Set health
 	pl:SetMaximumHealth(MaxHealth)
 	pl:SetHealth(MaxHealth)
-	
-	if GasDump then
-		pl:SetMaximumHealth(MaxHealth*1.5)
-		pl:SetHealth(MaxHealth*1.5)
-	end
 end
 
 

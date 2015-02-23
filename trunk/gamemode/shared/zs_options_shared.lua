@@ -25,11 +25,6 @@ if SERVER and tobool(string.find(tostring(game.GetMap()),"zs_arena")) then
 	GM:SetGameMode(GAMEMODE_ARENA)
 end
 
-GasDump = tobool(string.find(tostring(game.GetMap()),"zm_gasdump_b4")) --Objective map.
-if GasDump then
-	Debug("[MAPCODER] GasDump (Obj) map")
-end
-
 PUB = tobool(string.find(tostring(game.GetMap()),"zs_pub")) --Objective map.
 if PUB then
 	Debug("[MAPCODER] PUB map")
@@ -377,13 +372,6 @@ GM.ArenaWeapons = {
 	"weapon_zs_mp5",
 	"weapon_zs_boomerstick",
 	"weapon_zs_boomstick",
-}
---Weapons to spawn with in GasDump (Obj)
-GM.GasDump = {
-	"weapon_zs_m3super90",
-	"weapon_zs_ak47",
-	"weapon_zs_m4a1",
-	"weapon_zs_galil"
 }
 
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}

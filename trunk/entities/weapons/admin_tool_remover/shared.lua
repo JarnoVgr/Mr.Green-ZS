@@ -40,15 +40,15 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo	= "none"
 
-SWEP.Primary.Sound			= Sound("Weapon_357.Single")
+SWEP.Primary.Sound = Sound("Weapon_357.Single")
 
 
-local function RemoveEntity( ent )
-
-	if (ent:IsValid()) then
-		ent:Remove()
+local function RemoveEntity(ent)
+	if not IsValid(ent) then
+		return
 	end
-
+	
+	ent:Remove()
 end
 
 -- Hacky way to update weapon slot count
@@ -60,25 +60,30 @@ function SWEP:Equip ( NewOwner )
 			if NewOwner:Team() == TEAM_HUMAN then
 				local category = WeaponTypeToCategory[ self:GetType() ]
 				NewOwner.CurrentWeapons[ category ] = NewOwner.CurrentWeapons[ category ] + 1
-				WeaponPickupNotify ( NewOwner, PrintName )				
+				--WeaponPickupNotify ( NewOwner, PrintName )				
 			end
 		end
 	end
 end
 
 local function DoRemoveEntity( Entity )
+	--Nothing for the client to do here
+	if CLIENT then
+		return true
+	end
 
-	if (not Entity) then return false end
-	if (not Entity:IsValid()) then return false end
-	if (Entity:IsPlayer()) then return false end
+	if not IsValid(Entity) or Entity:IsPlayer() then
+		return false
+	end
 
-	--  Nothing for the client to do here
-	if ( CLIENT ) then return true end
+
 	
-	--  Remove it properly in 1 second
-	timer.Simple( 1, RemoveEntity, Entity )
+	--Remove it properly in 1 second
+	timer.Simple( 1, function()
+		RemoveEntity(Entity)
+	end)
 	
-	--  Make it non solid
+	--Make it non solid
 	Entity:SetNotSolid( true )
 	Entity:SetMoveType( MOVETYPE_NONE )
 	Entity:SetNoDraw( true )
@@ -113,11 +118,11 @@ function SWEP:PrimaryAttack()
 end
 
 
-function SWEP:Holster( wep )
+function SWEP:Holster(wep)
 	return true
 end 
 
 function SWEP:Deploy()
 	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 	return true
-end 
+end

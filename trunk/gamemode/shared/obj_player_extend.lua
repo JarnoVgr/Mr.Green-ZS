@@ -989,8 +989,9 @@ function meta:IsNearCrate()
 end
 
 function meta:PlaySound(sound)
-	if CLIENT then return end
-	if not self:IsValid() then return end 
+	if CLIENT or not IsValid(self) then
+		return
+	end
 	
 	umsg.Start("PlaySoundClient", self)
 		umsg.String(sound)
@@ -1001,7 +1002,14 @@ local ViewHullMins = Vector(-8, -8, -8)
 local ViewHullMaxs = Vector(8, 8, 8)
 function meta:GetThirdPersonCameraPos(origin, angles)
 	local allplayers = player.GetAll()
-	local tr = util.TraceHull({start = origin, endpos = origin + angles:Forward() * -math.max(50, self:BoundingRadius()), mask = MASK_SHOT, filter = allplayers, mins = ViewHullMins, maxs = ViewHullMaxs})
+	local tr = util.TraceHull({
+		start = origin,
+		endpos = origin + angles:Forward() * -math.max(50, self:BoundingRadius()),
+		mask = MASK_SHOT,
+		filter = allplayers,
+		mins = ViewHullMins,
+		maxs = ViewHullMaxs
+	})
 	return tr.HitPos + tr.HitNormal * 5
 end
 
