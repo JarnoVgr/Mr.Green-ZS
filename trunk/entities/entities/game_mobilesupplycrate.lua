@@ -24,7 +24,7 @@ function ENT:Initialize()
 		self.Entity:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 			
 		local phys = self.Entity:GetPhysicsObject()
-		if (phys:IsValid()) then
+		if IsValid(phys) then
 			phys:Wake()
 			phys:EnableMotion(false) 
 		end
@@ -48,7 +48,7 @@ function ENT:Initialize()
 			halo.Add({self}, self.LineColor, 1, 1, 1, true, false)
 		end)
 	end
-end	
+end
 
 function ENT:Think()
 	--TODO: Rework this code to make it unneeded
@@ -269,5 +269,20 @@ if CLIENT then
 
 	function ENT:OnRemove()
 	    hook.Remove("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self))
+	end
+end
+
+function ENT:ShouldCollide(Ent)
+	if Ent:IsPlayer() then
+		if Ent:GetPos():Distance(self:GetPos()) <= 30 then
+			local dir = (Ent:GetPos() - self:GetPos()):GetNormal()
+
+			--Push
+			if Ent:GetVelocity():Length() > 0 then
+				Ent:SetVelocity(dir * 66)  
+			end
+		end
+
+		return false
 	end
 end

@@ -420,20 +420,30 @@ function ValidTurretNick(pl,str)
 	return true
 end
 
--- Amazing but SetNoCollideWithTeammates is shitty as fuck
--- SO I have to use this thing (with player pushing from IW) :<
---[[function GM:ShouldCollide(ent1, ent2)
-	if IsValid(ent1) and IsValid(ent2) and ent1:IsPlayer() and ent2:IsPlayer() and ent1:Team() == ent2:Team() or ent1.NoCollideAll or ent2.NoCollideAll then	
-		return false
+--Amazing but SetNoCollideWithTeammates is shitty as fuck
+function GM:ShouldCollide(ent1, ent2)
+	if IsValid(ent1) and IsValid(ent2) then
+		if (ent1:IsPlayer() and ent2:IsPlayer() and ent1:Team() == ent2:Team()) or ent1.NoCollideAll or ent2.NoCollideAll then	
+			return false
+		elseif ent1.ShouldCollide then
+			local result = ent1:ShouldCollide(ent2)
+			if result == false then
+				return false
+			end
+		elseif ent2.ShouldCollide then
+			local result = ent2:ShouldCollide(ent1)
+			if result == false then
+				return false
+			end
+		end
 	end
+
 	return true
-end]]
+end
 
 --------------------------------------------
 --Include some objective stuff
 --------------------------------------------
-
-
 function GM:SetObjStage(num)
 	SetGlobalInt("objstage", num)
 	self.ObjectiveStage = num

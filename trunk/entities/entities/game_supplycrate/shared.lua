@@ -13,15 +13,30 @@ util.PrecacheModel("models/greenshat/greenshat.mdl")
    Returns entity children / shared
 ---------------------------------------------]==]
 function ENT:GetEntities()
-    self.Entities = self.Entities or {
-    	self,
-    	self:GetDTEntity(1),
-    	self:GetDTEntity(2), 
-        self:GetDTEntity(3),
-        self:GetDTEntity(4),
-        self:GetDTEntity(5),
-        self:GetDTEntity(6)
-    } 
-        
-    return self.Entities
+	self.Entities = self.Entities or {
+		self,
+		self:GetDTEntity(1),
+		self:GetDTEntity(2), 
+		self:GetDTEntity(3),
+		self:GetDTEntity(4),
+		self:GetDTEntity(5),
+		self:GetDTEntity(6)
+	} 
+		
+	return self.Entities
+end
+
+function ENT:ShouldCollide(Ent)
+	if Ent:IsPlayer() then
+		if Ent:GetPos():Distance(self:GetPos()) <= 30 then
+			local dir = (Ent:GetPos() - self:GetPos()):GetNormal()
+
+			--Push
+			if Ent:GetVelocity():Length() > 0 then
+				Ent:SetVelocity(dir * 66)  
+			end
+		end
+
+		return false
+	end
 end

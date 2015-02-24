@@ -218,7 +218,11 @@ function OnClassesMenuOpen()
 		if i == 1 then
 			zDialog[i].strText = "Done"
 		else
-			zDialog[i].strText = "Respawn"
+			if IsValid(MySelf) and not MySelf:Alive() then
+				zDialog[i].strText = "Spawn"
+			else
+				zDialog[i].strText = "Respawn"
+			end
 		end
 
 		surface.SetFont("ArialFourteen")

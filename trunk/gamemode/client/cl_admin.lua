@@ -5,7 +5,9 @@
             Confirm an important action
 -------------------------------------------------]==]
 local function ConfirmAction ( Action, Pl, IsBan, BanTime, Reason ) 
-	if Action == nil then return end
+	if Action == nil then
+		return
+	end
 	
 	-- Changemap
 	if type ( Pl ) == "string" then
@@ -33,7 +35,7 @@ local function ConfirmAction ( Action, Pl, IsBan, BanTime, Reason )
 		return
 	end	
 	
-	Derma_Query( "You are trying to "..Action.." player "..tostring ( Pl:Name() ).." ! Please confirm :", "Warning!","Yes", function()
+	Derma_Query("You are trying to "..Action.." player "..tostring ( Pl:Name() )..". Please confirm:", "Warning!","Yes", function()
 		RunConsoleCommand(Action.."_player", tostring ( Pl:UserID()))
 		CloseAdminPanel()
 	end, "No", function()
@@ -46,11 +48,11 @@ end
 -------------------------------------------------]==]
 local AdminPanel, ToggleCooldown = nil, 0
 function DoAdminPanel()
-	if not IsValid ( MySelf ) then
+	if not IsValid(MySelf) then
 		return
 	end
 	
-	if AdminPanel == nil then
+	if not IsValid(AdminPanel) then
 		AdminPanel = DermaMenu() 
 	end
 	
@@ -58,7 +60,7 @@ function DoAdminPanel()
 	local PlayersAll = player.GetAll()
 	
 	timer.Simple(0.01, function()
-		if AdminPanel == nil then
+		if not IsValid(AdminPanel) then
 			return
 		end
 
@@ -95,7 +97,7 @@ function DoAdminPanel()
 	end)
 	
 	timer.Simple( 0.03, function()
-		if AdminPanel == nil then
+		if not IsValid(AdminPanel) then
 			return
 		end
 	
@@ -121,7 +123,7 @@ function DoAdminPanel()
 	end)
 
 	timer.Simple(0.04, function()
-		if AdminPanel == nil then
+		if not IsValid(AdminPanel) then
 			return
 		end
 	
@@ -163,7 +165,7 @@ function DoAdminPanel()
 	end)
 		
 	timer.Simple(0.05, function()
-		if AdminPanel == nil then
+		if not IsValid(AdminPanel) then
 			return
 		end	
 	
@@ -198,7 +200,7 @@ function DoAdminPanel()
 
 
 	timer.Simple(0.06, function() 
-		if AdminPanel == nil then
+		if not IsValid(AdminPanel) then
 			return
 		end
 
@@ -213,7 +215,7 @@ function DoAdminPanel()
 	end)
 
 	timer.Simple(0.07, function()
-		if AdminPanel == nil then
+		if not IsValid(AdminPanel) then
 			return
 		end
 		
@@ -324,7 +326,7 @@ function DoAdminPanel()
 
 	-- finally open the panel
 	timer.Simple(0.1, function() 
-		if AdminPanel == nil then
+		if not IsValid(AdminPanel) then
 			return
 		end
 	
@@ -345,7 +347,9 @@ end
               Closes the Admin Panel
 -------------------------------------------------]==]
 function CloseAdminPanel()
-	if not IsValid(MySelf) or AdminPanel == nil then return end
+	if not IsValid(MySelf) or not IsValid(AdminPanel) then
+		return
+	end
 	
 	--Cooldown
 	ToggleCooldown = CurTime() + 0.25
@@ -360,7 +364,7 @@ end
 --[==[------------------------------------------------
               Called on KEY_C pressed
 -------------------------------------------------]==]
-local function OnKeyPressed ()
+local function OnKeyPressed()
 	if not IsValid(MySelf) or not MySelf:IsAdmin() then
 		return
 	end
@@ -382,7 +386,7 @@ hook.Add("OnContextMenuOpen", "ContextKeyPressedHook", OnKeyPressed )
 --[==[------------------------------------------------
               Called on KEY_C released
 -------------------------------------------------]==]
-local function OnKeyReleased ()
+local function OnKeyReleased()
 	if not IsValid(MySelf) or not MySelf:IsAdmin() then
 		return
 	end
@@ -392,4 +396,4 @@ local function OnKeyReleased ()
 end
 hook.Add("OnContextMenuClose", "ContextKeyReleasedHook", OnKeyReleased )
 
-Debug("[MODULE] Loaded client-side admin panel module.")
+Debug("[MODULE] Loaded admin panel")

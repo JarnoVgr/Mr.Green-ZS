@@ -38,74 +38,79 @@ function ENT:Initialize()
 	self:SetModel(self.Table["AmmoUp"].Model)
 	self:SetAngles(self.Table["AmmoUp"].Angles)
 
-	
-	--self:PhysicsInit(SOLID_VPHYSICS)
 	self:PhysicsInit(SOLID_BBOX)
 	self:SetMoveType(MOVETYPE_NONE)
+	self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+
 	self:SetUseType(SIMPLE_USE)
 	self:DrawShadow(false)
 	self.AmmoCrate = true
 	
 	--Effect for parent
 	local effectdata = EffectData()
-	effectdata:SetEntity( self )
+	effectdata:SetEntity(self)
 	util.Effect("ammo_spawn_effect", effectdata, nil, true)
 	
-	-- Freeze the main prop
+	--Freeze the main prop
 	local Phys = self:GetPhysicsObject()
-	if Phys:IsValid() then 
-		Phys:EnableMotion ( false )
+	if IsValid(Phys) then 
+		Phys:EnableMotion(false)
 	end
 	
 	local i = 0
 	
-	-- Now spawn the rest
-	for k,v in pairs ( self.Table ) do
-		if k ~= "AmmoUp" then
-
-			i = i + 1
-			
-			local Ent = ents.Create ("prop_physics")-- _multiplayer
-			Ent:SetModel ( v.Model )
-			Ent:SetAngles ( v.Angles )
-			
-			-- Actually set position
-			Ent:SetPos ( self:GetPos() + Vector ( v.Position.x, v.Position.y, v.Position.z ) )
-			Ent:SetKeyValue ( "minhealthdmg", 600 )
-			-- Ent:SetKeyValue ( "PerformanceMode", 3 ) 
-			
-			-- Delete the children when the parent is removed
-			Ent:SetOwner ( self )
-			
-			-- Physics properties
-			Ent:PhysicsInit( SOLID_VPHYSICS )
-			Ent:SetMoveType( MOVETYPE_NONE )
-			Ent:DrawShadow ( false )
-			Ent:SetUseType( SIMPLE_USE )
-			
-			-- Prevent unnecessary collisions
-			 if k == "Ammo" or k == "Shotgun" or k == "Vial" or k == "AmmoUp5" or k == "Ammo2" or k == "Vial2" or k == ""  then
-				--Ent:SetCollisionGroup ( COLLISION_GROUP_DEBRIS_TRIGGER )
-				Ent:SetCollisionGroup ( SOLID_VPHYSICS )
-			end
-			
-			Ent:Spawn()
-			Ent.AmmoCrate = true
-			
-			-- Effect for parent
-			local effectdata = EffectData()
-			effectdata:SetEntity( Ent )
-			util.Effect( "ammo_spawn_effect", effectdata, nil, true )
-			
-			-- Freeze them
-			local Phys = Ent:GetPhysicsObject()
-			if Phys:IsValid() then 
-				Phys:EnableMotion ( false )
-			end
-			
-			-- Sync
-			self:SetDTEntity( i, Ent )
+	--Now spawn the rest
+	for k,v in pairs(self.Table) do
+		if k == "AmmoUp" then
+			continue
 		end
+
+		i = i + 1
+			
+		local Ent = ents.Create("prop_physics")
+		Ent:SetModel(v.Model)
+		Ent:SetAngles(v.Angles)
+			
+		--Actually set position
+		Ent:SetPos(self:GetPos() + Vector(v.Position.x, v.Position.y, v.Position.z))
+		Ent:SetKeyValue("minhealthdmg", 600)
+		--Ent:SetKeyValue ( "PerformanceMode", 3 ) 
+			
+		--Delete the children when the parent is removed
+		Ent:SetOwner(self)
+			
+		--Physics properties
+		Ent:PhysicsInit(SOLID_VPHYSICS)
+		Ent:SetMoveType(MOVETYPE_NONE)
+		Ent:DrawShadow(false)
+		Ent:SetUseType(SIMPLE_USE)
+			
+		--Prevent unnecessary collisions
+		Ent:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+		--[[ if k == "Ammo" or k == "Shotgun" or k == "Vial" or k == "AmmoUp5" or k == "Ammo2" or k == "Vial2" or k == ""  then
+			--Ent:SetCollisionGroup ( COLLISION_GROUP_DEBRIS_TRIGGER )
+			Ent:SetCollisionGroup ( SOLID_VPHYSICS )
+		end]]
+
+		--Copy function from parent
+		Ent.ShouldCollide = self.ShouldCollide
+			
+		Ent:Spawn()
+		Ent.AmmoCrate = true
+			
+		--Effect for parent
+		local effectdata = EffectData()
+		effectdata:SetEntity(Ent)
+		util.Effect("ammo_spawn_effect", effectdata, nil, true)
+			
+		--Freeze them
+		local Phys = Ent:GetPhysicsObject()
+		if IsValid(Phys) then 
+			Phys:EnableMotion ( false )
+		end
+			
+		--Sync
+		self:SetDTEntity(i, Ent)
 	end
 end
 

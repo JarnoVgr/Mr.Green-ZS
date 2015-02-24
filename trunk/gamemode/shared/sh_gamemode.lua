@@ -80,7 +80,6 @@ end
 --Include all gamemode files
 if SERVER then
 	for k, GMData in pairs(Data) do
-		print("WOOP")
 		if GMData.Script then
 			print("gamemodes/".. GMData.Script)
 			AddCSLuaFile("gamemodes/".. GMData.Script)

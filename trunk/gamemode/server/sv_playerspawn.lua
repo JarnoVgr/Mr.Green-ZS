@@ -106,8 +106,8 @@ function GM:PlayerInitialSpawn(pl)
 	pl.LastRTD = 0 
 	pl.StuckTimer = 0
 	
-	--pl:SetCustomCollisionCheck(true)
-	pl:SetNoCollideWithTeammates(true)
+	pl:SetCustomCollisionCheck(true)
+	--pl:SetNoCollideWithTeammates(true)
 	-- pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
 		
 	-- Used to control how many weapons you are allowed to pickup
