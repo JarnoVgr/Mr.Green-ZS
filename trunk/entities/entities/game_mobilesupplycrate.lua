@@ -272,7 +272,7 @@ if CLIENT then
 	end
 end
 
-function ENT:ShouldCollide(Ent)
+--[[function ENT:ShouldCollide(Ent)
 	if Ent:IsPlayer() then
 		if Ent:GetPos():Distance(self:GetPos()) <= 30 then
 			local dir = (Ent:GetPos() - self:GetPos()):GetNormal()
@@ -285,4 +285,4 @@ function ENT:ShouldCollide(Ent)
 
 		return false
 	end
-end
+end]]
