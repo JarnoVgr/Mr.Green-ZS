@@ -625,7 +625,7 @@ function meta:SetScore(newAmount)
 		net.Broadcast()
 
 		--Clamp because of frags limitation bug
-		self:SetFrags(math.Clamp(self.Score,-1999,1999))
+		self:SetFrags(math.Clamp(self.Score, -1999, 1999))
 	end
 
 	return true
@@ -637,11 +637,11 @@ end
 
 if SERVER then
 	function meta:AddScore(amountToAdd)
-		if type (amountToAdd) ~= "number" then
-			ErrorNoHalt( "Wrongly called AddScore. AmountToAdd: ".. amountToAdd )
+		if type(amountToAdd) ~= "number" then
+			ErrorNoHalt("Wrongly called AddScore. AmountToAdd: ".. amountToAdd)
 		end
 
-		if amountToAdd == 0 or not amountToAdd then
+		if amountToAdd == 0 then
 			return 0
 		end
 

@@ -166,8 +166,13 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 	if dmginfo:IsFallDamage() then
 		dmginfo:SetDamage(0)
 			
-		--Fall damage for humans
+		--Fall damage is only for humans
 		if not pl:IsHuman() then
+			return true
+		end
+
+		--Prevent falldamage with Boots of Steel
+		if pl:HasBought("bootsofsteel")	and math.random(1, 2) == 1 then
 			return true
 		end
 		
@@ -180,16 +185,12 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end 
 			
 		if pl:GetPerk("_falldmg") then
-			dmginfo:AddDamage( Damage*0.75 )
-		 
+			dmginfo:AddDamage(Damage*0.75)
 		else
-			-- Add new damage
+			--Add new damage
 			dmginfo:AddDamage(Damage)
 		end
 		
-		if pl:HasBought("bootsofsteel")	and math.random(1,2) == 1 then
-			 dmginfo:SetDamage( 0 )
-			 end
 		--if pl:Alive() then
 			--pl:GiveStatus("knockdown",3)
 		--end
@@ -225,15 +226,11 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			-- Apply damage
 			dmginfo:SetDamage(NewDamage)
 				
-			local phys = Inflictor:GetPhysicsObject()
+			--[[local phys = Inflictor:GetPhysicsObject()
 
-			if phys:IsValid() then
-				if phys:GetVelocity():Length() > 320 then
-					--if pl:Alive() then 		
-					--	pl:GiveStatus("knockdown",math.Rand(2.1,3)) --Duby: poooop
-					--end
-				end
-			end
+			if phys:IsValid() and pl:Alive() and phys:GetVelocity():Length() > 320 then
+				pl:GiveStatus("knockdown",math.Rand(2.1,3))
+			end]]
 		end
 	end
 	

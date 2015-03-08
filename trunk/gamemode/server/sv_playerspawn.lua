@@ -20,7 +20,7 @@ function GM:PlayerInitialSpawn(pl)
 	
 	pl:SetCanZoom(false)
 
-	-- Bots are always ready, human players need to wait
+	--Bots are always ready, human players need to wait
 	if pl:IsBot() then
 		pl.Ready = true
 	else
@@ -69,11 +69,20 @@ function GM:PlayerInitialSpawn(pl)
 	pl.Screamlist = {}
 	pl.ScreensFucked = 0
 	pl.Headshots = 0
+
 	pl.GreencoinsGained = {}
 	pl.GreencoinsGained[TEAM_UNDEAD] = 0
 	pl.GreencoinsGained[TEAM_HUMAN] = 0
-	pl.HealingDone = 0
-	pl.Assists = 0
+
+	if pl:IsBot() then
+		--Used for testing intermission screen scores
+		pl.HealingDone = math.random(1, 200)
+		pl.Assists = math.random(1, 200)
+	else
+		pl.HealingDone = 0
+		pl.Assists = 0
+	end
+	
 	pl.Hornyness = 0
 	pl.WeaponTable = {}
 	pl.NextHold = 0

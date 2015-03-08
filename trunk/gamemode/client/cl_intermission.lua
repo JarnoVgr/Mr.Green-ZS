@@ -510,7 +510,7 @@ usermessage.Hook("RcTopZombiesKilled", ReceiveTopZombiesKilled)
 			   Receive Top Assists
 ---------------------------------------------------------]]
 TopAssists = {}
-local function ReceiveTopAssists ( um )
+local function ReceiveTopAssists(um)
 	local index = um:ReadShort()
 	TopAssists[index] = {}
 	TopAssists[index].Name = um:ReadString()
@@ -716,3 +716,5 @@ function DoLabel(id, parent, font, text, posx, posy, colorenter, buttontype, col
 				end
 		end
 end
+
+Debug("[MODULE] Loaded Intermission")

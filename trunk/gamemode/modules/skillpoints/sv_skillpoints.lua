@@ -1,7 +1,6 @@
 -- Eat with skill!
 -- Serverside functions goes here
 -- TODO: Make it better 
-
 AddCSLuaFile("cl_skillpoints.lua")
 AddCSLuaFile("sh_skillpoints.lua")
 
@@ -51,73 +50,66 @@ function GM:CheckPlayerScore(pl)
 	end
 end
 
--- Called in PlayerInitialSpawn
+--Called in PlayerInitialSpawn
 function skillpoints.SetupSkillPoints(pl)
-	if not IsEntityValid(pl) then
+	if not IsValid(pl) or not pl:IsPlayer() then
 		return
 	end
 
-	pl:SetScore(0)	
+	if pl:IsBot() then
+		--Used for testing purposes
+		pl:SetScore(math.random(0, 600))
+	else
+		pl:SetScore(0)
+	end
 end
+
+--Alias
+skillpoints.Clean = skillpoints.SetupSkillPoints
 
 --Add nessesary amount of skill points
 function skillpoints.AddSkillPoints(pl, amount)
-	if amount == nil or amount == 0 or not IsValid(pl) or not pl:IsPlayer() then
+	if not amount or amount == 0 or not IsValid(pl) or not pl:IsPlayer() then
 		return false
 	end
 	
 	pl:AddScore(amount)
-
 	return true
 end
 
 --Get
 function skillpoints.GetSkillPoints(pl)
-	if not IsValid(pl) or not pl:IsPlayer() or not pl.SkillPoints then
+	if not IsValid(pl) or not pl:IsPlayer() then
 		return false
 	end
 	
-	--[[local totalAmount = pl.SkillPoints + amount
-	pl:SetFrags(math.min(2048,totalAmount))
-	pl.SkillPoints = totalAmount]]
 	return pl:GetScore()
 end
 
--- Use it when you want player to achieve skillshot
-function skillpoints.AchieveSkillShot(pl,victim, name)
-	if not IsEntityValid(pl) then return end
-	if not pl:IsPlayer() then return end -- Check it anyway, because I have a bad feeling that attacker can be not a player and such.
-	
-	if not IsEntityValid(victim) then return end
-	if not victim:IsPlayer() then return end  -- Same here
+--Use it when you want player to achieve skillshot
+function skillpoints.AchieveSkillShot(pl, victim, name)
+	if not IsValid(pl) or not pl:IsPlayer() or not IsValid(victim) or not victim:IsPlayer() then
+		return
+	end
 	
 	local Team
 	
 	if pl:IsHuman() then
 		Team = "Humans"
-	else
+	elseif pl:IsZombie() then
 		Team = "Zombies"
-	end
-	
-	if Team == nil then return end
-	
-	if not SkillPointsTable[Team][name] then return end
-	
-	local Amount = SkillPointsTable[Team][name].Points
-	local Name = SkillPointsTable[Team][name].Name
-	local Col = SkillPointsTable[Team][name].Color
-	local Pos = victim:GetPos() + Vector(0,0,math.random(55,77))
-
-	skillpoints.AddSkillPoints(pl, Amount)
-end
-
--- Same as skillpoints.SetupSkillPoints :/
-function skillpoints.Clean(pl)
-	if not IsEntityValid(pl) then
+	else
 		return
 	end
 	
-	pl:SetScore(0)	
+	if not SkillPointsTable[Team][name] then
+		return
+	end
+	
+	local Amount = SkillPointsTable[Team][name].Points
+	--[[local Name = SkillPointsTable[Team][name].Name
+	local Col = SkillPointsTable[Team][name].Color
+	local Pos = victim:GetPos() + Vector(0,0,math.random(55,77))]]
+
+	skillpoints.AddSkillPoints(pl, Amount)
 end
-
-

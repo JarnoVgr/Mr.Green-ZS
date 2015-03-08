@@ -145,11 +145,11 @@ function GM:OnPlayerRedeem(pl, causer)
 		TotalSkillPoints = TotalSkillPoints + Points
 		ValidPlayers = ValidPlayers + 1
 	end
-	Debug("[REDEEM] SP giving: ".. ValidPlayers .." valid players with ".. TotalSkillPoints .." SP")
+
 	if ValidPlayers > 0 then
 		local AverageSP = math.Round(TotalSkillPoints / ValidPlayers)
 		if AverageSP > 0 then
-			skillpoints.AddSkillPoints(target, AverageSP)
+			skillpoints.AddSkillPoints(pl, AverageSP)
 		end
 	end
 	

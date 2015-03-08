@@ -4,19 +4,16 @@
 --Get nextmap in case voting fails
 local NextMap = "zs_fortress_mod"
 
-local function CheckPlayerDeathNitwits ( pl, attacker, dmginfo )
-	local headshot = false
-	local attach = pl:GetAttachment(1)
-	
-	--  Headshots nitwit
+local function CheckPlayerDeathNitwits(pl, attacker, dmginfo)	
+	--Headshots nitwit
 	if pl:IsPlayer() and attacker:IsPlayer() then
+		--local headshot = false
+		local attach = pl:GetAttachment(1)
 		if attach then
-			headshot = dmginfo:IsBulletDamage() and dmginfo:GetDamagePosition():Distance( pl:GetAttachment(1).Pos ) < 15
+			--headshot = dmginfo:IsBulletDamage() and dmginfo:GetDamagePosition():Distance( pl:GetAttachment(1).Pos ) < 15
 			pl.Headshots = pl.Headshots + 1
 		end
 	end
-	
-	
 end
 hook.Add("DoPlayerDeath","CheckNitwits",CheckPlayerDeathNitwits)
 
@@ -69,14 +66,13 @@ function GM:SendTopAssists(to)
 	end
 
 	if #PlayerSorted <= 0 then return end
-	table.sort(PlayerSorted,
-	function(a, b)
+	table.sort(PlayerSorted, function(a, b)
 		if a.Assists == b.Assists then
 			return a:UserID() > b:UserID()
 		end
+
 		return a.Assists > b.Assists
-	end
-	)
+	end)
 
 	local x = 0
 	for _, pl in pairs(PlayerSorted) do
@@ -84,8 +80,8 @@ function GM:SendTopAssists(to)
 			x = x + 1
 			umsg.Start("RcTopAssists", to)
 				umsg.Short(x)
-				umsg.String( pl:Name() )
-				umsg.String( tostring ( math.ceil(pl.Assists) ) ) 
+				umsg.String(pl:Name())
+				umsg.String(tostring(math.ceil(pl.Assists))) 
 			umsg.End()
 		end
 	end
@@ -472,17 +468,17 @@ function GM:OnEndRound(winner)
 	
 	--MapExploitWrite()
 	--Send the information to the player that joined in the intermission
-	hook.Add("PlayerReady", "LateJoin", function ( pl )
+	hook.Add("PlayerReady", "LateJoin", function(pl)
 		--Send all the info the that late join player
-		GAMEMODE:SendTopGreencoins()
-		GAMEMODE:SendTopAssists()
+		GAMEMODE:SendTopGreencoins(pl)
+		GAMEMODE:SendTopAssists(pl)
 		GAMEMODE:SendTopTimes(pl)
 		GAMEMODE:SendTopZombies(pl)
 		GAMEMODE:SendTopHumanDamages(pl)
 		GAMEMODE:SendTopZombieDamages(pl)
 		GAMEMODE:SendVotemaps(pl)
-		GAMEMODE:SendTopHealing (pl)
-		GAMEMODE:SendTopZombiesKilled (pl)
+		GAMEMODE:SendTopHealing(pl)
+		GAMEMODE:SendTopZombiesKilled(pl)
 		
 		--Delay this so it doesn't give errors
 		timer.Simple(0.2, function() 
@@ -491,7 +487,7 @@ function GM:OnEndRound(winner)
 			end
 			
 			local TimeLeft = INTERMISSION_TIME - ( CurTime() - ENDTIME )
-			pl:SendLua( "Intermission('"..GAMEMODE:GetMapNext().."', "..ROUNDWINNER..", "..TimeLeft.." )" )
+			pl:SendLua("Intermission('"..GAMEMODE:GetMapNext().."', "..ROUNDWINNER..", "..TimeLeft.." )")
 				
 			--Update his votemaps
 			UpdateClientVoteMaps(pl)
@@ -553,4 +549,4 @@ function GM:OnEndRound(winner)
 	end
 end
 
-Debug ( "[MODULE] Loaded End-Round file." )
+Debug("[MODULE] Loaded Intermission")
