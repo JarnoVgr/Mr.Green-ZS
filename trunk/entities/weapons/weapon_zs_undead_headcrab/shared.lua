@@ -1,7 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then AddCSLuaFile ( "shared.lua" ) end
+AddCSLuaFile()
 
 SWEP.Author = "Deluvas"
 SWEP.Contact = ""
@@ -41,8 +41,8 @@ SWEP.DistanceCheck = 250
 
 function SWEP:Deploy()
 	if SERVER then 
-		self.Owner:DrawViewModel( false )
-		self.Owner:DrawWorldModel( false )
+		self.Owner:DrawViewModel(false)
+		self.Owner:DrawWorldModel(false)
 	end
 end
 

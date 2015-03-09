@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "Infected"
-	SWEP.ViewModelFOV = 65
+	SWEP.ViewModelFOV = 75
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = false
 
@@ -34,13 +34,9 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
---SWEP.Primary.Duration = 1.75
 SWEP.Primary.Duration = 1.50
 SWEP.Primary.Delay = 0.8
---SWEP.Primary.Delay = 0.9
---SWEP.Primary.Delay = 1.2
---SWEP.Primary.Damage = 25
-SWEP.Primary.Damage = 27
+SWEP.Primary.Damage = 25
 SWEP.Primary.Reach = 45
 
 SWEP.SwapAnims = false

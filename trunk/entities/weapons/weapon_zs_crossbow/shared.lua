@@ -96,7 +96,7 @@ if SERVER then
 			if ent:IsValid() then
 				local pl = self.Owner
 				ent:SetOwner(pl)
-				ent:SetPos(pl:GetShootPos()) --+ pl:GetAimVector() * 40)
+				ent:SetPos((pl:GetShootPos()) + pl:GetAimVector() * 40)
 				ent:Spawn()
 				ent:Activate()
 				ent:SetPhysicsAttacker(self.Owner)

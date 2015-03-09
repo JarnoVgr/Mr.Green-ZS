@@ -27,7 +27,7 @@ if CLIENT then
 		["hookright"] = { type = "Model", model = "models/props_junk/meathook001a.mdl", bone = "ValveBiped.Bip01_R_Forearm", rel = "", pos = Vector(23.111, 0.048, 1.35), angle = Angle(0, 90, -85.6), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["hookleft"] = { type = "Model", model = "models/props_junk/meathook001a.mdl", bone = "ValveBiped.Bip01_L_Forearm", rel = "", pos = Vector(23.305, 0.048, -1.05), angle = Angle(180, 90, -85.6), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
-	--[[
+	
 	SWEP.WElements = {
 		["body2"] = { type = "Model", model = "models/Humans/Charple02.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "body1", pos = Vector(4.162, -1.362, 0.55), angle = Angle(-13.912, -180, -1.675), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["cleaver"] = { type = "Model", model = "models/props_lab/Cleaver.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "body1", pos = Vector(-16.514, 3.124, 34), angle = Angle(-67.575, -152.163, 24.312), size = Vector(0.563, 0.563, 0.563), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
@@ -36,7 +36,7 @@ if CLIENT then
 		["hookright"] = { type = "Model", model = "models/props_junk/meathook001a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.112, -0.732, -0.639), angle = Angle(-100.482, 105.314, -69.044), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["body1"] = { type = "Model", model = "models/Humans/Charple03.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "", pos = Vector(-44, 0, 23.875), angle = Angle(67.311, 0.119, 180), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
-	]]--
+	
 	
 end
 
@@ -66,10 +66,22 @@ SWEP.Primary.Damage = math.random(45,50)
 
 SWEP.ShowWorldModel = false
 
+function SWEP:IsAttacking()
+	return self:GetDTBool(0) or false
+end
+
+function SWEP:SetAttacking(bl)
+	self:SetDTBool(0,bl)
+end
+
 function SWEP:StartPrimaryAttack()
-	if SERVER then
+local pl = self.Owner
+
+if SERVER then
+		self:SetAttacking(true)	
 		self.Owner:EmitSound(Sound("ambient/machines/slicer1.wav"),math.random(100,130),math.random(95,100))--Only play the sound when his speed is reduced.
-	end
+	end 
+
 	
 	if self.SwapAnims then
 		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
@@ -81,59 +93,67 @@ function SWEP:StartPrimaryAttack()
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
 
 	if CLIENT then
-		if self.WElements then-- This is for making the world props which are on him invisible.
-			for k,v in pairs(self.WElements) do --Make him visible, but I need to re-write this!
-				if self:IsInPrimaryAttack() then
-					v.color = Color(255,255,255,225)
-				else
-					v.color = Color(255,255,255,225)
+	if self.WElements then-- This is for making the world props which are on him invisible.
+						for k,v in pairs(self.WElements) do --Make him visible, but I need to re-write this!
+							if self:IsAttacking() then
+								 v.color = Color(255,255,255,225)
+							else
+								 v.color = Color(255,255,255,1)
+							end
+						end
+					end
 				end
-			end
-		end
-	end
 
-	--Lets make him visible then not visible. :O Spooky!
-	local pl = self.Owner
-	self.Owner:SetRenderMode(RENDERMODE_GLOW)
-	pl:SetColor(Color(225,225,225,225))
-	timer.Simple(0.8, function()
-		if not IsValid(pl) or not pl:Alive() then
-			return
-		end
-		pl:SetRenderMode(RENDERMODE_GLOW)
-		pl:SetColor(Color(225,225,225,1))
+--Lets make him visible then not visible. :O Spooky!
+self.Owner:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,225))
+timer.Simple(0.8, function() 
+	self.Owner:SetRenderMode(RENDERMODE_GLOW) pl:SetColor(Color(225,225,225,1))
+	if CLIENT then--Has to be in an if CLIENT
+	for k,v in pairs(self.WElements) do
+	v.color = Color(255,255,255,1)--Make him invisible
+	end
+	end
 	end)
 end
 
+function SWEP:PostPerformPrimaryAttack(hit)
+
+end
+
+
 function SWEP:PrimaryAttackHit(trace, ent)
-	self.Owner:EmitSound(Sound("player/zombies/seeker/melee_0"..math.random(1,2)..".wav"),math.random(100,130),math.random(95,100))
+
+	pl:EmitSound(Sound("player/zombies/seeker/melee_0"..math.random(1,2)..".wav"),math.random(100,130),math.random(95,100))
 	util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
 end
 
+
 SWEP.NextYell = 0
 function SWEP:SecondaryAttack()
-	if CurTime() < self.NextYell then
+	
+if CurTime() < self.NextYell then
 		return
 	end
 
 	if SERVER then
-		self.Owner:EmitSound(Sound("ambient/creatures/town_child_scream1.wav"), math.random(130, 150), math.random(80, 110))
+		self.Owner:EmitSound("ambient/creatures/town_child_scream1.wav", math.random(130, 150), math.random(80, 110))
 	end
 	
 	self.NextYell = CurTime() + math.random(8,13)
 end
 
-function SWEP:Deploy()
-	self.BaseClass.Deploy(self)
-
+function SWEP:OnDeploy()
+		self.BaseClass.Deploy(self)
 	if SERVER then
-		self.Owner:EmitSound(Sound("player/zombies/seeker/pain1.wav"), math.random(100,160), math.random(50,55))
+		self:SetAttacking(false)
+		self.Owner:EmitSound(Sound("player/zombies/seeker/pain1.wav"),math.random(100,160),math.random(50,55))
 	end
 
 	local vm = self.Owner:GetViewModel()
 	if vm:GetMaterial() == "" then
-		vm:SetMaterial("Models/Charple/Charple1_sheet")
-	end
+			vm:SetMaterial("Models/Charple/Charple1_sheet")
+		end
+	
 end
 
 function SWEP:Move(mv)
@@ -142,12 +162,11 @@ function SWEP:Move(mv)
 		return true
 	end
 end
-
-if CLIENT then
-	function SWEP:DrawHUD()
-		if not self.Owner:Alive() or ENDROUND then
-			return
-		end
-		MeleeWeaponDrawHUD()
+	
+function SWEP:_OnRemove()
+	if SERVER then
+		self.GrowlSound:Stop()
 	end
+	
 end
+

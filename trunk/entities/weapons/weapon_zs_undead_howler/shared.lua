@@ -24,7 +24,7 @@ SWEP.Primary.Delay = 0
 SWEP.Primary.Next = 4
 SWEP.Primary.Duration = 1.2
 --SWEP.Primary.Reach = 400
-SWEP.Primary.Reach = 360
+SWEP.Primary.Reach = 380
 
 --Mimic primary
 SWEP.Secondary.Duration = SWEP.Primary.Duration

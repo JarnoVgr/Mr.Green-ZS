@@ -16,11 +16,11 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Primary.Delay = 0.2
 SWEP.Primary.Reach = 42
-SWEP.Primary.Damage = 5.4
+SWEP.Primary.Damage = 5.2
 SWEP.Primary.Duration = 0.8
 
 
-SWEP.Secondary.Damage = 5
+SWEP.Secondary.Damage = 4
 SWEP.Secondary.PounceVelocity = 500
 SWEP.Secondary.PounceReach = 32
 SWEP.Secondary.PounceSize = 8
@@ -194,8 +194,7 @@ function SWEP:SecondaryAttack()
 	end
 	
 	--Set flying velocity
-	--local Velocity = self.Owner:GetAngles():Forward() * 800
-	local Velocity = self.Owner:GetAngles():Forward() * 900
+	local Velocity = self.Owner:GetAngles():Forward() * 800
 	if Velocity.z < 200 then
 		Velocity.z = 200
 	end
@@ -208,7 +207,7 @@ function SWEP:SecondaryAttack()
 	self.Leaping = true
 	
 	--Leap cooldown
-	self.NextLeap = CurTime() + 1.3
+	self.NextLeap = CurTime() + 3
 	
 	--Fast zombie scream
 	if SERVER then

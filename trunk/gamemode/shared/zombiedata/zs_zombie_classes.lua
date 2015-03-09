@@ -109,7 +109,7 @@ ZombieClasses[0] =
 ZombieClasses[1] =						
 {
 	--Name = "Ghouler",
-	Name = "Toxic Zombie",
+	Name = "Obsolete",
 	Tag = "zombie",	
 	Infliction = 0.17,
 	Revives = false,
@@ -120,14 +120,13 @@ ZombieClasses[1] =
 	Threshold = 99,	
 	SWEP = "weapon_zs_undead_ghoul",			
 	JumpPower = 200,
-	Unlocked = true,
-	--Hidden = true,
+	Unlocked = false,
+	Hidden = true,
 	CanCrouch = true,
 	CanGib = true, 
 	Model = Model("models/player/combine_soldier.mdl"), 
 	Speed = 150,	
 	AngleFix = true,
-	Description = "A fast and deadly zombie in numbers",
 	DescriptionGameplay = { "> PRIMARY: Bare Claws", "> SECONDARY: War Cry!" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
@@ -235,7 +234,7 @@ ZombieClasses[8] =
 	Description = "A heavily armoured soldier with bullet resistance!",
 	OnSpawn = function(pl)
 	end,
-	DescriptionGameplay = { "> PRIMARY: Upgraded Bloody CLAWS", "> SPECIAL: Pulls out grenade, poison or normal", "> SPECIAL: Enrage when taken enough damage" },
+	DescriptionGameplay = { "> PRIMARY: Bloody claws", "> SPECIAL: Pulls out grenade, poison or normal", "> SPECIAL: Enrage when taken enough damage" },
 	PainSounds = {
 		Sound( "npc/zombine/zombine_pain1.wav" ),
 		Sound( "npc/zombine/zombine_pain2.wav" ),
@@ -265,11 +264,11 @@ ZombieClasses[8] =
 }
 
 
-ZombieClasses[4] = --Duby: You will all love my labs new creation. 
+ZombieClasses[4] =
 {
 	Name = "Spitter",
 	Tag = "spitterzombie",
-	Infliction = 0.6,
+	Infliction = 1.2,
 	Health = 550,
 	MaxHealth = 100,
 	TimeLimit = 200,
@@ -278,12 +277,12 @@ ZombieClasses[4] = --Duby: You will all love my labs new creation.
 	Threshold = 2,
 	JumpPower = 200,
 	CanCrouch = true,
-	Hidden = false,
+	Hidden = true,
 	CanGib = true,
 	SWEP = "weapon_zs_undead_spitter",
 	Model = Model( "models/Zombie/Poison.mdl" ),
 	Speed = 150,
-	Description = "A flesh spitting monster!",
+	Description = "A flesh spitting monster",
 	DescriptionGameplay = { "> PRIMARY: Fresh Vomit!", "> SECONDARY: " },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
@@ -320,8 +319,8 @@ ZombieClasses[5] =
 	Model = Model( "models/wraith.mdl" ),
 	Speed = 170,
 	Description = "A ghastly figure capable of Teleporting!",
-	DescriptionGameplay = { "> PRIMARY: Hooks", "> SECONDARY: Teleport" },
-	DescriptionGameplay2 = { "TYPE: Support class for horde" },
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport to spot you're looking at"},
+	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),
 		Sound("npc/stalker/stalker_pain2.wav"),
@@ -364,7 +363,7 @@ ZombieClasses[6] =
 	Model = Model("models/player/group01/female_01.mdl"), 
 	Speed = 180,						
 	Description = "A School girl that screams!",
-	DescriptionGameplay = { "> PRIMARY: Pulling Scream", "> SECONDARY: Pushing Scream" },
+	DescriptionGameplay = {"> PRIMARY: Scream that pulls humans", "> SECONDARY: Scream that pushes humans"},
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	PlayerFootstep = true,
 	AttackSounds = { 

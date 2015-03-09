@@ -37,16 +37,17 @@ SWEP.AdminSpawnable = true
 
 SWEP.Primary.Automatic = true
 SWEP.Primary.Duration = 0.5
-SWEP.Primary.Delay = 0.5
-SWEP.Primary.Damage = math.random(1,1.1)
+SWEP.Primary.Delay = 1.5
+SWEP.Primary.Damage = 1.1
 SWEP.Primary.Reach = 45
 
 SWEP.SwapAnims = false
 
 function SWEP:StartPrimaryAttack()			
 	local pl = self.Owner
-	
-	if pl:GetAngles().pitch > 10 or pl:GetAngles().pitch < -10 then
+	local angles = pl:GetAngles()
+
+	if angles.pitch < -10 or angles.pitch > 10 then
 		--pl:EmitSound(Sound("npc/zombie_poison/pz_idle"..math.random(2,4)..".wav"))
 		return
 	end
@@ -54,16 +55,16 @@ function SWEP:StartPrimaryAttack()
 	self.Owner:SetAnimation( PLAYER_ATTACK1 )
 			
 	if SERVER then
-		--pl:EmitSound(Sound("npc/zombie_poison/pz_throw".. math.random(2,3) ..".wav"))
+		pl:EmitSound(Sound("npc/zombie_poison/pz_throw".. math.random(2,3) ..".wav"))
 	end
 	
 end
 
 function SWEP:PostPerformPrimaryAttack(hit)
-local pl = self.Owner
+	local pl = self.Owner
+	local angles = pl:GetAngles()
 
-	if pl:GetAngles().pitch > 55 or pl:GetAngles().pitch < -55 then 
-
+	if angles.pitch > 55 or angles.pitch < -55 then
 		return 
 	end
 		
@@ -85,25 +86,25 @@ local pl = self.Owner
 	local aimvec = pl:GetAimVector()
 	aimvec.z = math.max(aimvec.z, 0.01)
 	
-	for i=1, 1 do
-		local ent = ents.Create("projectile_spitterspit")
-		if ent:IsValid() then
-			local heading = (aimvec)
-			ent:SetPos(startpos + heading * 10)
-			ent:SetOwner(pl)
-			ent:Spawn()
-			ent.TeamID = pl:Team()
-			local phys = ent:GetPhysicsObject()
-			if phys:IsValid() then
-				phys:SetVelocityInstantaneous(heading * math.Rand(520, 550))
-			end
-			ent:SetPhysicsAttacker(pl)
+
+	local ent = ents.Create("projectile_spitterspit")
+	if IsValid(ent) then
+		local heading = aimvec
+		ent:SetPos(startpos + heading * 10)
+		ent:SetOwner(pl)
+		ent:Spawn()
+		ent.TeamID = pl:Team()
+		local phys = ent:GetPhysicsObject()
+		if phys:IsValid() then
+			phys:SetVelocityInstantaneous(heading * math.Rand(520, 550))
 		end
+		ent:SetPhysicsAttacker(pl)
 	end
 
 	--pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
 	self.Owner:EmitSound("npc/barnacle/barnacle_die2.wav")
-	self.Owner:EmitSound("npc/barnacle/barnacle_digesting1.wav")
-	self.Owner:EmitSound("npc/barnacle/barnacle_digesting2.wav")
-	pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
+	--self.Owner:EmitSound("npc/barnacle/barnacle_digesting1.wav")
+	--self.Owner:EmitSound("npc/barnacle/barnacle_digesting2.wav")
+
+	--pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
 end

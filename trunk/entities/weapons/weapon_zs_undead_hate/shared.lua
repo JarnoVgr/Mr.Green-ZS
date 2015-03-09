@@ -36,7 +36,7 @@ SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 1.6
+SWEP.Primary.Delay = 1.5
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
@@ -141,9 +141,8 @@ function SWEP:PrimaryAttack()
 	
 	--Delayed attack function (claw mechanism)
 	if SERVER then
-		local that = self
 		timer.Simple(0.7, function()
-			that:DoPrimaryAttack(trace, pl, self.PreHit)
+			self:DoPrimaryAttack(trace, pl, self.PreHit)
 		end)
 	end
 
@@ -166,7 +165,7 @@ function SWEP:PrimaryAttack()
 end
 
 -- Primary attack function
-function SWEP:DoPrimaryAttack( trace, pl, victim )
+function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	if not IsValid ( self.Owner ) then
 		return
 	end
@@ -176,7 +175,7 @@ function SWEP:DoPrimaryAttack( trace, pl, victim )
 	local trFilter = self.Owner-- team.GetPlayers( TEAM_UNDEAD )
 	
 	-- Calculate damage done
-	local Damage = math.random( 45, 60 )
+	local Damage = math.random( 70, 75 )
 
 	local TraceHit, HullHit = false, false
 	
@@ -349,6 +348,7 @@ if CLIENT then
 	function SWEP:DrawHUD() GAMEMODE:DrawZombieCrosshair ( self.Owner, self.DistanceCheck ) end
 	
 	function SWEP:DrawWorldModel()
+		--self:SetMaterial("models/flesh")
 		self:DrawModel()
 	end
 	
@@ -361,5 +361,6 @@ if CLIENT then
 			return
 		end
 		MeleeWeaponDrawHUD()
+		draw.SimpleTextOutlined("'c' to change perspective", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 end

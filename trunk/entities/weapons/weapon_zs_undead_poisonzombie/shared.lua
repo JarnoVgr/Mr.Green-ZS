@@ -80,7 +80,7 @@ function SWEP:StartSecondaryAttack()
 		return
 	end
 	
-	self.Owner:SetAnimation( PLAYER_ATTACK1 )
+	self.Owner:SetAnimation(PLAYER_ATTACK1)
 			
 	if SERVER then
 		pl:EmitSound(Sound("npc/zombie_poison/pz_throw".. math.random(2,3) ..".wav"))

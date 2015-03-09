@@ -23,21 +23,21 @@ end
 
 -- Name and fov
 SWEP.PrintName = "Katana"
-SWEP.ViewModelFOV = 67
+SWEP.ViewModelFOV = 50
 SWEP.HoldType = "melee2"
 -- Position
 SWEP.Slot = 2
 SWEP.SlotPos = 6
 SWEP.DeploySpeed = 0.6
 -- Damage, distane, delay
-SWEP.SwingRotation = Angle(2, -40, 2)
-SWEP.MeleeDamage = 120
+
+SWEP.MeleeDamage = 90
 SWEP.MeleeRange = 64
 SWEP.MeleeSize = 1.25
-SWEP.Primary.Delay = 0.8
+SWEP.Primary.Delay = 0.6
 SWEP.TotalDamage = SWEP.Primary.Damage
 --SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
-SWEP.WalkSpeed = 150
+SWEP.WalkSpeed = 200
 
 
 function SWEP:Precache()
