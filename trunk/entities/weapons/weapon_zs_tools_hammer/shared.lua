@@ -257,7 +257,7 @@ function SWEP:SecondaryAttack()
 		--Notice, cuz we're nice folks explaining how this game works
 		if SERVER then
 			--self.Owner:Message("No nails left. Wait for the crate timer!", 2)
-			self.Owner:Message("No nails left. Wait for the Hammer Timer!", 2)
+			self.Owner:Message("No nails left. Buy nails at the Supply Crate.", 2)
 			
 		end
 			
@@ -435,24 +435,6 @@ function SWEP:SecondaryAttack()
 			end
 		end
 	end
-
-	--Restore 1 nail
-	if self:Clip2() < 1 then
-		local this = self
-		timer.Simple(10, function()
-			--[[if self.Owner and self.Owner:GetSuit() == "supportsuit" then
-				maxclip = 4
-			end]]
-			if not IsValid(this) then
-				return
-			end
-
-			this:SetClip2(this:Clip2() + 1)
-
-			--Alert player
-			this:EmitSound(Sound("weapons/crossbow/reload1.wav"))
-		end)
-	end
 end
 
 function SWEP:Equip(NewOwner)
@@ -617,28 +599,3 @@ if CLIENT then
 		end
 	end
 end
-
-
-
---[[
-SWEP.LastReload = 0
-function SWEP:Think()
-local ct = CurTime()
-local maxclip = 1
-	if (self.LastReload + 60 <= ct) then
-		self.LastReload = ct + 60
-	
-		if (self:Clip2() < 1) then
-		timer.Simple( 60, function()
-		self:SetClip2(maxclip,self:Clip2() + 1) return
-		end)
-		
-	end
-end
-
---if (self:Clip2() < 1) then
---self.Weapon:EmitSound(Sound("weapons/grenade/tick1.wav"))
---end
-
-end
-]]--
