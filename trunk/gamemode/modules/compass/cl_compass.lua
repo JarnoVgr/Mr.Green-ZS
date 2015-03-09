@@ -139,7 +139,7 @@ function SupplyArrowModelPanel:PerformLayout()
 end  
   
 --The model panel
-local Compass = vgui.CreateFromTable(vgui.RegisterTable(SupplyArrowModelPanel, "DModelPanel")) 
+local Compass = vgui.CreateFromTable(vgui.RegisterTable(SupplyArrowModelPanel, "DModelPanel"))
 
 --[[---------------------------------------------------------  
          Manages the visibility of the arrow

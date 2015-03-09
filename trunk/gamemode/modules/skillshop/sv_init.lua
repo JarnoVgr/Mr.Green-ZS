@@ -121,9 +121,19 @@ function ApplySkillShopItem(pl, com, args)
 			CurrentWeapon = Melee
 		end
 		
-		--Strip existing weapon in same class
-		if CurrentWeapon then
+		--Strip current weapon in same class
+		--[[if CurrentWeapon then
 			pl:StripWeapon(CurrentWeapon:GetClass())
+		end]]
+
+		--Drop current weapon in same class
+		if CurrentWeapon then
+			for i,j in pairs(pl:GetWeapons()) do
+				if j:GetClass() == CurrentWeapon:GetClass() then
+					pl:DropWeapon(j)
+					break
+				end
+			end
 		end
 
 		pl:Give(item)
