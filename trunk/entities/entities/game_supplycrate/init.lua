@@ -106,7 +106,7 @@ function ENT:Initialize()
 		--Freeze them
 		local Phys = Ent:GetPhysicsObject()
 		if IsValid(Phys) then 
-			Phys:EnableMotion ( false )
+			Phys:EnableMotion(false)
 		end
 			
 		--Sync

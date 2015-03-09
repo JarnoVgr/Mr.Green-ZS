@@ -351,21 +351,19 @@ end
 		   Rewrite this so we can do various stuff easily
 ---------------------------------------------------------------------]==]
 meta.BaseStripWeapon = meta.StripWeapon
-function meta:StripWeapon ( Class )
-	if not self:HasWeapon ( Class ) then return end
+function meta:StripWeapon( Class )
+	if not self:HasWeapon( Class ) then
+		return
+	end
 	
 	-- Substract a slot from the category and remove it
 	local strCategory = GetWeaponCategory ( Class )
-	if strCategory == nil then return end
+	if strCategory == nil then
+		return
+	end
 	
 	-- Get the weapon to strip
 	local Weapon, ActiveWeapon = self:GetWeapon ( Class ), self:GetActiveWeapon()
-	
-	-- We can't spawn in void/world
-	if not self:CanDropWeapon(Weapon) then
-		Debug("[DEBUG] Weapon trying to spawn in world/outside world. Preventing...")
-		return
-	end
 	
 	-- Only disable clientside ironsights if it's the active weapon otherwise don't do it
 	if IsValid(ActiveWeapon ) and ActiveWeapon == Weapon then
@@ -1526,7 +1524,7 @@ end
 function meta:SpawnMiniTurret()
 	if IsValid(self.MiniTurret) then
 		return
-		end
+	end
 	
 	local ent = ents.Create("zs_miniturret")
 	if ent then

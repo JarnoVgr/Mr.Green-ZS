@@ -1,8 +1,8 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
--- Player take damage
-local function OnPlayerDamage( pl, attacker, inflictor, dmginfo )
+--Player take damage
+local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 	local Time = CurTime()
 	--Last time when the victim was hurt
 	pl.LastHurt = Time

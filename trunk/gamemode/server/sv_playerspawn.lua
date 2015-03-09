@@ -381,22 +381,7 @@ function GM:OnHumanSpawn(pl)
 	if not pl:IsHuman() then
 		return
 	end
-	
-	--Special messages for pub as these nitwhits find it hard to play this map.
-	if PUB then
-		timer.Simple(15,function() 
-			pl:Message("This is your last stand against the horde", 1)
-		end)
-
-		timer.Simple(17,function() 
-			pl:Message("Make sure you barricade downstairs!", 1)
-		end)
-
-		timer.Simple(20,function() 
-			pl:Message("See you on the other side", 1)
-		end)
-	end
-	
+		
 	--Spawn protection
 	pl:GodEnable()
 	timer.Simple(5, function() 

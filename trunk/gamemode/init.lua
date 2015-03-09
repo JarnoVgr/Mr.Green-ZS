@@ -34,7 +34,6 @@ AddCSLuaFile("client/vgui/pclasses.lua")
 AddCSLuaFile("client/vgui/pshop.lua")
 AddCSLuaFile("client/vgui/phclasses.lua")
 AddCSLuaFile("client/vgui/pclassinfo.lua")
-AddCSLuaFile("client/vgui/pskillshop.lua")
 AddCSLuaFile("client/vgui/pmapmanager.lua")
 AddCSLuaFile("client/vgui/p_intermission_generalscore.lua")
 AddCSLuaFile("client/vgui/p_intermission_teamscore.lua")
@@ -144,6 +143,9 @@ include("server/stats/sv_server_stats.lua")
 --SkillPoints
 include("modules/skillpoints/sv_skillpoints.lua")
 include("modules/skillpoints/sh_skillpoints.lua")
+
+--SkillShop
+include("modules/skillshop/sv_init.lua")
 
 --Bone Anim Library
 include("modules/boneanimlib_v2/sh_boneanimlib.lua")

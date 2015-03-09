@@ -25,12 +25,6 @@ if SERVER and tobool(string.find(tostring(game.GetMap()),"zs_arena")) then
 	GM:SetGameMode(GAMEMODE_ARENA)
 end
 
-PUB = tobool(string.find(tostring(game.GetMap()),"zs_pub")) --Objective map.
-if PUB then
-	Debug("[MAPCODER] PUB map")
-end
-
-
 DEFAULT_VIEW_OFFSET = Vector(0, 0, 64)
 DEFAULT_VIEW_OFFSET_DUCKED = Vector(0, 0, 28)
 DEFAULT_JUMP_POWER = 180
@@ -56,7 +50,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 4
-BOSS_CLASS = {10,11,13,18}
+BOSS_CLASS = {10, 11, 13, 18}
 --BOSS_CLASS = {12} --Seeker
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
@@ -77,7 +71,6 @@ SHARED_SPEED_INCREASE = 13
 
 -- Chat titles based on time spent on server
 GM.ChatTitles = {
-
 	-- Human titles
 	Human = {
 		[5] = "[Fresh Meat]",
@@ -141,25 +134,25 @@ GM.HumanWeapons = {
 	["weapon_zs_melee_plank"]  = { Name = "Plank", DPS = 56, Infliction = 0, Type = "melee",Price = 140, Description = "The noobs ultimate weapon."  }, 
 	["weapon_zs_melee_pot"]  = { Name = "Pot", DPS = 61, Infliction = 0, Type = "melee",Price = 200, Description = "Don't do school stay in drugs, live the pot!" }, 
 	["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee", Price = 150, Description = "Cooking by the book." },
-	["weapon_zs_melee_combatknife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee" , Price = 6000 },
-	["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Price = 6000, Description = "" },
+	["weapon_zs_melee_combatknife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee" , Price = 150 },
+	["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Price = 650, Description = "" },
 	["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 800 },
-	["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 7000, Description = "Bish bash bosh, fast smacking and hard hitting!"  },
-	["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee",Price = 7000, Description = "Whoops. Looks like I shouldn't of hit him so hard.."  },
-	["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee",Price = 7000, Description = "Clunk, oh look his head fell off.."  },
+	["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 200, Description = "Bish bash bosh, fast smacking and hard hitting!"  },
+	["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee", Price = 190, Description = "Whoops. Looks like I shouldn't of hit him so hard.."  },
+	["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee", Price = 180, Description = "Clunk, oh look his head fell off.."  },
 	["weapon_zs_melee_chainsaw"]  = { Name = "Chain SAW!", DPS = 30, Infliction = 0, Type = "melee", Description = "This may become a bit gory." },
 
 	--Pistols
 	["weapon_zs_fiveseven"]  = { Name = "Five-Seven",Mat = "VGUI/gfx/VGUI/fiveseven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 90 },
 	["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120,Mat = "VGUI/gfx/VGUI/glock18", Infliction = 0.25, Type = "pistol", Price = 200 },
 	["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol", Price = 520, Description = "High fire rate thanks to having two pistols in your hands." },
-	["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 7000, Description = "Russian Roulette Revolver" },
+	["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 450, Description = "Russian Roulette Revolver" },
 	["weapon_zs_deagle"]  = { Name = "Desert Eagle",Mat = "VGUI/gfx/VGUI/deserteagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 630 },
 	
 	["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42,Mat = "VGUI/gfx/VGUI/usp45", Infliction = 0, Type = "pistol", Description = "Fast firing lower damage." },
 	["weapon_zs_p228"]  = { Name = "P228", DPS = 58,Mat = "VGUI/gfx/VGUI/p228", Infliction = 0, Type = "pistol", Description = "More power, slower fire rate."  },
 	["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 40, Description = "Classic Half-Life 2 pistol." },
-	["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 5000, Description = "Alyx is hot. But her gun is even more hot." },
+	["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 280, Description = "Alyx is hot. But her gun is even more hot." },
 	--["weapon_zs_barreta"]  = { Name = "Barreta", DPS = 30,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol",Price = 450 },
 	
 	--Light Guns
@@ -188,7 +181,7 @@ GM.HumanWeapons = {
 --	["weapon_zs_grenadelauncher"]  = { Name = "Grenade Launcher", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 2000 },
 	["weapon_zs_boomerstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 2200 },
 	["weapon_zs_boomstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun" },
---	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle"},
+	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle"},
 
 
 	--Uncategorized
@@ -198,7 +191,7 @@ GM.HumanWeapons = {
 	["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" }, -- 860
 	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 350},
 --	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
-	["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 6000 }, --Seems to work fine now.
+	--["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 6000 }, --Seems to work fine now.
 	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
 	--["weapon_zs_minishotty"]  = { Name = "Farter shotgun", DPS = 143, Infliction = 0, Type = "shotgun" },
 	
@@ -220,7 +213,6 @@ GM.HumanWeapons = {
 	["weapon_zs_mine"]  = { Name = "Explosives", DPS = 8, Infliction = 0, Type = "tool1", Description = "BOOM, get your team out a tough spot.."  },
 	["weapon_zs_tools_plank"]  = { Name = "Pack of Planks", DPS = 0, Infliction = 0, Type = "tool1", Description = "Help your team mates, bring extra planks!"  },
 	
-
 	--Pickups
 	["weapon_zs_pickup_gascan2"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_pickup_propane"]  = { Name = "Dangerous Propane Tank", DPS = 0, Infliction = 0, Type = "misc" },

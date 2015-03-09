@@ -4,12 +4,13 @@ end
 
 local cachedBestAvailableWeaponsResult = {}
 
-function ResetBestAvailableWeaponsCache()
+local function ResetBestAvailableWeaponsCache()
 	if cachedBestAvailableWeaponsResult.score and cachedBestAvailableWeaponsResult.score > 0 then
 		cachedBestAvailableWeaponsResult.score = -1
 		cachedBestAvailableWeaponsResult.result = ""
 	end
 end
+timer.Create("ResetBestAvailableWeaponsCache", 7, 0, ResetBestAvailableWeaponsCache)
 
 function GetBestAvailableWeapons()
 	if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then

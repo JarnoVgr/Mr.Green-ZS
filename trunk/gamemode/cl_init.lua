@@ -67,7 +67,6 @@ include("client/vgui/phelp.lua")
 include("client/vgui/pclasses.lua")
 include("client/vgui/pshop.lua")
 include("client/vgui/pclassinfo.lua")
-include("client/vgui/pskillshop.lua")
 include("client/vgui/pmapmanager.lua")
 include("client/vgui/dpingmeter.lua")
 include("client/cl_dermaskin.lua")
@@ -105,6 +104,9 @@ include("modules/hud/cl_init.lua")
 --SkillPoints
 include("modules/skillpoints/cl_skillpoints.lua")
 include("modules/skillpoints/sh_skillpoints.lua")
+
+--SkillShop
+include("modules/skillshop/cl_init.lua")
 
 --Player legs
 include("modules/legs/cl_legs.lua")

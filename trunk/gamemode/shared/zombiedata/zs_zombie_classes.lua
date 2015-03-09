@@ -1049,7 +1049,7 @@ ZombieClasses[18] = --Creep and Play!
 	Name = "SeekerII",
 	Tag = "weapon_zs_undead_boss_seeker2",
 	Infliction = 0.2,
-	Health = math.random(6000, 6500 ),
+	Health = math.random(6000, 6500),
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -1075,7 +1075,7 @@ ZombieClasses[18] = --Creep and Play!
 		--Bend him over a bit....
 		local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
 		if Bone then
-		 	 pl:ManipulateBoneAngles(Bone, Angle(0,40,0))
+		 	pl:ManipulateBoneAngles(Bone, Angle(0,40,0))
 		end	
 	end,
 	OnRevive = function(pl)

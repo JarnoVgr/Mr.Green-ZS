@@ -1,8 +1,11 @@
 -- Blah. Moved some code from human's and zombie's classes so I can work much easier
 
-CreateClientConVar("_zs_skillshopsort", "available", true, false)
+local SortByCVar = CreateConVar("zs_skillshop_sort", "available", {FCVAR_ARCHIVE}, "Sort SkillShop items by")
 
-SKILLSHOP_OPENED = false
+local BuyPointsAmount = GetConVar("zs_skillshop_buypoints_amount")
+local BuyPointsCost = GetConVar("zs_skillshop_buypoints_cost")
+
+local IsSkillShopNowOpen = false
 
 WeaponTypeToCategory = {}
 WeaponTypeToCategory["rifle"] = "Automatic"
@@ -25,29 +28,23 @@ local WeaponStats = {}
 local AlreadyStored = false
 
 function StoreWeaponStats()
-	
 	-- max stats
 	MaxWeaponStats["Automatic"] = GetMaxWeaponStats("Automatic")
 	MaxWeaponStats["Pistol"] = GetMaxWeaponStats("Pistol")
 	MaxWeaponStats["Melee"] = GetMaxWeaponStats("Melee")
 	
 	-- usual stats
-	for wep,tab in pairs(GAMEMODE.HumanWeapons) do
+	for wep, tab in pairs(GAMEMODE.HumanWeapons) do
 		WeaponStats[wep] = GetWeaponStats(wep)
 	end
-
 end
 
 function GetMaxWepStats(category)
-
-	return MaxWeaponStats[category] or {0.1,0.65,0.1}
-
+	return MaxWeaponStats[category] or {0.1, 0.65, 0.1}
 end
 
 function GetWepStats(wep)
-
 	return WeaponStats[wep] or {0.1,0.65,0.1}
-
 end
 
 function GetMaxWeaponStats(category)
@@ -56,7 +53,7 @@ function GetMaxWeaponStats(category)
 	
 	local dmg, acc, rof = 0.1, 0.001, 0.01
 	
-	for wep,tab in pairs(GAMEMODE.HumanWeapons) do -- GAMEMODE.HumanWeapons
+	for wep,tab in pairs(GAMEMODE.HumanWeapons) do
 		if tab.Price then
 			if GetWeaponCategory ( wep ) == category then
 				table.insert(weps,wep)
@@ -69,7 +66,6 @@ function GetMaxWeaponStats(category)
 		local tbl = weapons.Get(weapon)
 		if tbl then
 			if tbl.Primary.Damage and not tbl.IsShotgun then
-			
 				local dmg1 = tbl.Primary.Damage
 				if tbl.Primary.NumShots then 
 					dmg1 = tbl.Primary.Damage * tbl.Primary.NumShots 
@@ -153,18 +149,14 @@ function GetMaxWeaponStats(category)
 				end
 			end
 		end
-		
+
 		rof = 1--1.3
-	
-	
 	end
 	
 	return {dmg, acc, rof}
-	
 end
 
 function GetWeaponStats(wep)
-	
 	local dmg, acc, rof = 0.1, 0.001, 0.1
 	
 	local tbl = weapons.Get(wep)
@@ -200,50 +192,30 @@ function GetWeaponStats(wep)
 	end
 	
 	return {dmg, acc, rof}
-	
 end
-
 util.PrecacheSound("UI/buttonrollover.wav")
 
-
 function InsertWeaponsTab()
-
-	-- Primary
-	WeaponsList1 = vgui.Create("DScrollPanel")-- "DPanelList"
+	--Primary
+	WeaponsList1 = vgui.Create("DScrollPanel")
 	WeaponsList1:SetSize(MainSheetW,MainSheetH)
 	WeaponsList1:SetSkin("ZSMG")
-	-- WeaponsList1:SetSpacing(0)
-	-- WeaponsList1:SetPadding(0)
-	-- WeaponsList1:EnableHorizontal( false )
-	-- WeaponsList1:EnableVerticalScrollbar( true )
 	WeaponsList1.Paint = function()
-	
 	end
 	
-	-- Secondary
+	--Secondary
 	WeaponsList2 = vgui.Create( "DScrollPanel")
 	WeaponsList2:SetSize(MainSheetW,MainSheetH)
 	WeaponsList2:SetSkin("ZSMG")
-	-- WeaponsList2:SetSpacing(0)
-	-- WeaponsList2:SetPadding(0)
-	-- WeaponsList2:EnableHorizontal( false )
-	-- WeaponsList2:EnableVerticalScrollbar( true )
 	WeaponsList2.Paint = function()
-	
 	end
 	
-	-- Melee
+	--Melee
 	WeaponsList3 = vgui.Create( "DScrollPanel")
 	WeaponsList3:SetSize(MainSheetW,MainSheetH)
 	WeaponsList3:SetSkin("ZSMG")
-	-- WeaponsList3:SetSpacing(0)
-	-- WeaponsList3:SetPadding(0)
-	-- WeaponsList3:EnableHorizontal( false )
-	-- WeaponsList3:EnableVerticalScrollbar( true )
 	WeaponsList3.Paint = function()
-	
 	end
-
 
 	local WeaponTab = {}
 	
@@ -265,24 +237,29 @@ function InsertWeaponsTab()
 			WeaponTab[wep]:SetSkin("ZSMG")
 			WeaponTab[wep]:SetSize(MainSheetW,MainSheetH/5)
 			WeaponTab[wep]:Dock(TOP)
+
 			WeaponTab[wep].Think = function()
-				if GetConVarString("_zs_skillshopsort") == "mcheap" then
+				local SortBy = SortByCVar:GetString()
+				if SortBy == "mcheap" then
 					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price )
-				elseif GetConVarString("_zs_skillshopsort") == "expensive" then
+				elseif SortBy == "expensive" then
 					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price*-1 )
-				elseif GetConVarString("_zs_skillshopsort") == "onsale" then
+				elseif SortBy == "onsale" then
 					WeaponTab[wep]:SetZPos( IsOnSale(wep) and -2000 or 2000 )
 				else --available
 					WeaponTab[wep]:SetZPos( GAMEMODE.HumanWeapons[wep].Price <= MySelf:GetScore() and GAMEMODE.HumanWeapons[wep].Price*-1 or GAMEMODE.HumanWeapons[wep].Price )
 				end				
 			end
+
 			WeaponTab[wep].OnCursorEntered = function() 
 				WeaponTab[wep].Overed = true 
 				surface.PlaySound ("UI/buttonrollover.wav") 
 			end
+
 			WeaponTab[wep].OnCursorExited = function () 
 				WeaponTab[wep].Overed = false
 			end
+
 			WeaponTab[wep].Paint = function()
 				if WeaponTab[wep].Overed then
 					surface.SetDrawColor( 255, 255, 255, 255)
@@ -335,14 +312,10 @@ function InsertWeaponsTab()
 					surface.DrawRect(barx+2 , bary+2, rel*barw-4, barh-4 )
 					
 					draw.SimpleTextOutlined ( labels[i][num], "WeaponNamesTiny",  barx-7, bary+barh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-					
-					
-					bary = bary + barh*1.5
-					
+
+					bary = bary + barh*1.5		
 				end
-				
-				
-				
+
 				---------
 				if MySelf:GetScore() < tab.Price then --MySelf.SkillPoints
 					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[wep].Price.." SP", "ArialBoldSeven",  WeaponTab[wep]:GetWide()/2+70, WeaponTab[wep]:GetTall()/2, Color(180, 11, 11, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255)) -- WeaponTab[wep]:GetWide()/2-35
@@ -350,14 +323,11 @@ function InsertWeaponsTab()
 					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[wep].Price.." SP", "ArialBoldSeven",  WeaponTab[wep]:GetWide()/2+70, WeaponTab[wep]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				end
 				-- Add sale thingy
-				if IsOnSale(wep) then
+				local Sale = GetSale(wep)
+				if Sale then
 					local s = surface.GetTextSize ( GAMEMODE.HumanWeapons[wep].Price.." SP" )
-					draw.SimpleTextOutlined ( "(ON SALE: -"..GAMEMODE.WeaponsOnSale[wep].."%)", "WeaponNames",  WeaponTab[wep]:GetWide()/2+70+s+6, WeaponTab[wep]:GetTall()/2, Color(( math.sin(RealTime() * 5) * 95 ) + 150 , 30, 30, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined("(ON SALE: -".. Sale .."%)", "WeaponNames",  WeaponTab[wep]:GetWide()/2+70+s+6, WeaponTab[wep]:GetTall()/2, Color(( math.sin(RealTime() * 5) * 95 ) + 150 , 30, 30, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				end
-				
-				
-				
-				
 			end
 			
 			WeaponTab[wep].Btn = vgui.Create("DButton",WeaponTab[wep])
@@ -376,60 +346,33 @@ function InsertWeaponsTab()
 			end
 			
 			WeaponTab[wep].Btn.DoClick = function()	
-				RunConsoleCommand ("_applyskillshopitem",wep)
+				RunConsoleCommand ("zs_skillshop_buy",wep)
 			end
-			
-			-- Add to nessesary list
-			--[==[if GetWeaponCategory ( wep ) == "Automatic" then
-				WeaponsList1:AddItem(WeaponTab[wep])
-			elseif GetWeaponCategory ( wep ) == "Pistol" then
-				WeaponsList2:AddItem(WeaponTab[wep])
-			elseif GetWeaponCategory ( wep ) == "Melee" then
-				WeaponsList3:AddItem(WeaponTab[wep])
-			end]==]
-			
 		end
 	end
 	
 	MainSheet:AddSheet( "Primary", WeaponsList1, nil, false, false, nil )
 	MainSheet:AddSheet( "Pistols", WeaponsList2, nil, false, false, nil )
 	MainSheet:AddSheet( "Melee", WeaponsList3, nil, false, false, nil )
-	
 end
 
 function InsertAmmoTab()
-
 	AmmoList = vgui.Create( "DScrollPanel")
 	AmmoList:SetSize(MainSheetW,MainSheetH)
 	AmmoList:SetSkin("ZSMG")
-	-- AmmoList:SetSpacing(0)
-	-- AmmoList:SetPadding(0)
-	-- AmmoList:EnableHorizontal( false )
-	-- AmmoList:EnableVerticalScrollbar( true )
 	AmmoList.Paint = function()
-	
 	end
 	
 	ToolList = vgui.Create( "DScrollPanel")
 	ToolList:SetSize(MainSheetW,MainSheetH)
 	ToolList:SetSkin("ZSMG")
-	-- ToolList:SetSpacing(0)
-	-- ToolList:SetPadding(0)
-	-- ToolList:EnableHorizontal( false )
-	-- ToolList:EnableVerticalScrollbar( true )
 	ToolList.Paint = function()
-	
 	end
-	
-	
-
 
 	local AmmoTab = {}
 	
 	for ammo,tab in pairs(GAMEMODE.SkillShopAmmo) do
-	
-		if tab.Price then
-			
+		if tab.Price then			
 			AmmoTab[ammo] = vgui.Create("DLabel")
 			
 			if tab.ToolTab then
@@ -444,10 +387,11 @@ function InsertAmmoTab()
 			
 			AmmoTab[ammo]:Dock(TOP)
 			AmmoTab[ammo].Think = function()
-				if GetConVarString("_zs_skillshopsort") == "mcheap" then
-					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price )
-				elseif GetConVarString("_zs_skillshopsort") == "expensive" then
-					AmmoTab[ammo]:SetZPos( GAMEMODE.SkillShopAmmo[ammo].Price*-1 )
+				local SortBy = SortByCVar:GetString()
+				if SortBy == "mcheap" then
+					AmmoTab[ammo]:SetZPos(GAMEMODE.SkillShopAmmo[ammo].Price)
+				elseif SortBy == "expensive" then
+					AmmoTab[ammo]:SetZPos(GAMEMODE.SkillShopAmmo[ammo].Price*-1)
 				else --available
 					AmmoTab[ammo]:SetZPos(GAMEMODE.SkillShopAmmo[ammo].Price <= MySelf:GetScore() and GAMEMODE.SkillShopAmmo[ammo].Price*-1 or GAMEMODE.SkillShopAmmo[ammo].Price)
 				end				
@@ -455,7 +399,7 @@ function InsertAmmoTab()
 			
 			AmmoTab[ammo].OnCursorEntered = function() 
 				AmmoTab[ammo].Overed = true 
-				surface.PlaySound ("UI/buttonrollover.wav") 
+				surface.PlaySound("UI/buttonrollover.wav") 
 			end
 			AmmoTab[ammo].OnCursorExited = function () 
 				AmmoTab[ammo].Overed = false
@@ -473,15 +417,12 @@ function InsertAmmoTab()
 				end
 			
 				surface.SetDrawColor( 255, 255, 255, 255) 
-				draw.SimpleTextOutlined ( GAMEMODE.SkillShopAmmo[ammo].Name, "WeaponNames", 15, AmmoTab[ammo]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+				draw.SimpleTextOutlined(GAMEMODE.SkillShopAmmo[ammo].Name, "WeaponNames", 15, AmmoTab[ammo]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				if MySelf:GetScore() < tab.Price then
-					draw.SimpleTextOutlined ( GAMEMODE.SkillShopAmmo[ammo].Price.." SP", "ArialBoldSeven",  AmmoTab[ammo]:GetWide()/2-35, AmmoTab[ammo]:GetTall()/2, Color(180, 11, 11, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined(GAMEMODE.SkillShopAmmo[ammo].Price.." SP", "ArialBoldSeven",  AmmoTab[ammo]:GetWide()/2-35, AmmoTab[ammo]:GetTall()/2, Color(180, 11, 11, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				else
-					draw.SimpleTextOutlined ( GAMEMODE.SkillShopAmmo[ammo].Price.." SP", "ArialBoldSeven",  AmmoTab[ammo]:GetWide()/2-35, AmmoTab[ammo]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined(GAMEMODE.SkillShopAmmo[ammo].Price.." SP", "ArialBoldSeven",  AmmoTab[ammo]:GetWide()/2-35, AmmoTab[ammo]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				end
-				
-				
-				
 			end
 			
 			AmmoTab[ammo].Btn = vgui.Create("DButton",AmmoTab[ammo])
@@ -500,14 +441,13 @@ function InsertAmmoTab()
 			end
 			
 			AmmoTab[ammo].Btn.DoClick = function()	
-				RunConsoleCommand ("_applyskillshopitem",ammo)
+				RunConsoleCommand("zs_skillshop_buy", ammo)
 			end	
 		end
 	end
 	
-	MainSheet:AddSheet( "Ammunition", AmmoList, nil, false, false, nil )
-	MainSheet:AddSheet( "Tools", ToolList, nil, false, false, nil )
-
+	MainSheet:AddSheet("Ammunition", AmmoList, nil, false, false, nil)
+	MainSheet:AddSheet("Tools", ToolList, nil, false, false, nil)
 end
 
 local Sorting = {}
@@ -553,7 +493,6 @@ function DrawSkillShop()
 		if MySelf:KeyDown(IN_FORWARD) or MySelf:KeyDown(IN_BACK) or MySelf:KeyDown(IN_MOVELEFT) or MySelf:KeyDown(IN_MOVERIGHT) then
 			DoSkillShopMenu()
 		end
-		
 	end
 	
 	InvisiblePanel = vgui.Create("DFrame")
@@ -590,15 +529,16 @@ function DrawSkillShop()
 	
 	local def = "available"
 	local choice = Sorting[def][1]
-	if Sorting[GetConVarString("_zs_skillshopsort")] then
-		choice = Sorting[GetConVarString("_zs_skillshopsort")][1]
+	if Sorting[SortByCVar:GetString()] then
+		choice = Sorting[SortByCVar:GetString()][1]
 	end
 	
 	SortingBox:ChooseOption(choice)
 	
-	SortingBox.OnSelect = function(self,ind,val,data)
+	SortingBox.OnSelect = function(self, ind, val, data)
 		if Sorting[data] then
-			RunConsoleCommand("_zs_skillshopsort",data)
+			--Set sorting
+			RunConsoleCommand("zs_skillshop_sort",data)
 		end
 	end
 	
@@ -615,90 +555,108 @@ function DrawSkillShop()
 	CloseButtonX, CloseButtonY = TopMenuX, TopMenuY+TopMenuH+ScaleH(20)+MainPanelH+ScaleH(20) -- nice and shiny
 	CloseButtonW, CloseButtonH = TopMenuW/5, ScaleH(76)
 	
-	CloseButton = vgui.Create("DButton",InvisiblePanel)
+	local CloseButton = vgui.Create("DButton",InvisiblePanel)
 	CloseButton:SetText("")
 	CloseButton:SetPos(CloseButtonX, CloseButtonY)
 	CloseButton:SetSize (CloseButtonW, CloseButtonH)
 	
 	CloseButton.PaintOver = function ()
-		draw.SimpleTextOutlined("CLOSE" , "ArialBoldTwelve", CloseButtonW/2, CloseButtonH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Close" , "ArialBoldTwelve", CloseButtonW/2, CloseButtonH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 	CloseButton.DoClick = function()
 		DoSkillShopMenu()
 	end	
 	
-    local coinsToPointsButtonX = CloseButtonX + CloseButtonW + ScaleH( 20 )
-    local coinsToPointsW = TopMenuW / 2.4
+	local AmmoButtonX = CloseButtonX + CloseButtonW + ScaleH( 20 )
+	local AmmoButtonW = TopMenuW / 2.4
 	
 	-- Greencoins to Skillpoints button
-    btnCoinsToPoints = vgui.Create( "DButton", InvisiblePanel )
-    btnCoinsToPoints:SetText("")
-    btnCoinsToPoints:SetSkin("ZSMG")
-    btnCoinsToPoints:SetPos( coinsToPointsButtonX, CloseButtonY )
-    btnCoinsToPoints:SetSize( coinsToPointsW, CloseButtonH )
-    
-    btnCoinsToPoints.PaintOver = function( self )
-        if ( not MySelf:CanBuyPointsWithCoins() ) then
-            draw.SimpleTextOutlined( "WAIT NEXT ROUND", "ArialBoldTwelve", coinsToPointsW / 2, CloseButtonH / 2, Color (255,0,0,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
-        else
-            draw.SimpleTextOutlined( "BUY 300SP (80GC)", "ArialBoldTwelve", coinsToPointsW / 2, CloseButtonH / 2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
-        end
-    end
-    
-    btnCoinsToPoints.DoClick = function()
-        if ( not MySelf:HasBoughtPointsWithCoins() ) then
-            MySelf:SetBoughtPointsWithCoins( true )
-            RunConsoleCommand( "zs_boughtpointswithcoins" )   
-        end  
-    end
+	local btnAutoBuyAmmo = vgui.Create("DButton", InvisiblePanel)
+	btnAutoBuyAmmo:SetText("")
+	btnAutoBuyAmmo:SetSkin("ZSMG")
+	btnAutoBuyAmmo:SetPos(AmmoButtonX, CloseButtonY)
+	btnAutoBuyAmmo:SetSize(AmmoButtonW, CloseButtonH)
+	btnAutoBuyAmmo.PaintOver = function( self )
+		draw.SimpleTextOutlined("Auto-Buy Ammo", "ArialBoldTwelve", AmmoButtonW / 2, CloseButtonH / 2, Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
+	end
+	btnAutoBuyAmmo.DoClick = function()
+		RunConsoleCommand("zs_skillshop_buy", "current-ammo")
+	end
 	
-	-- Skillpoints label
-	SPLabelX, SPLabelY = coinsToPointsButtonX + coinsToPointsW + ScaleH(20), CloseButtonY
-	SPLabelW, SPLabelH = TopMenuW-( CloseButtonW + coinsToPointsW + ScaleH(40) ), CloseButtonH
+	--Skillpoints label
+	SPLabelX, SPLabelY = AmmoButtonX + AmmoButtonW + ScaleH(20), CloseButtonY
+	SPLabelW, SPLabelH = TopMenuW-( CloseButtonW + AmmoButtonW + ScaleH(40) ), CloseButtonH
 	
-	SPLabel = vgui.Create("DLabel",InvisiblePanel)
+	local SPLabel = vgui.Create("DLabel",InvisiblePanel)
 	SPLabel:SetText("")
 	SPLabel:SetSkin("ZSMG")
-	SPLabel:SetSize (SPLabelW, SPLabelH) 
-	SPLabel:SetPos (SPLabelX, SPLabelY)
+	SPLabel:SetPos(SPLabelX, SPLabelY)
+	SPLabel:SetSize(SPLabelW, SPLabelH) 
 	SPLabel.Paint = function()
-		DrawPanelBlackBox(0,0,SPLabelW, SPLabelH)
+		DrawPanelBlackBox(0, 0, SPLabelW, SPLabelH)
 		draw.SimpleTextOutlined(MySelf:GetScore() .." SP", "ArialBoldTwelve", SPLabelW/2, SPLabelH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	end
+
+	btnCoinsToPoints = vgui.Create( "DButton", InvisiblePanel )
+	btnCoinsToPoints:SetText("")
+	btnCoinsToPoints:SetSkin("ZSMG")
+	btnCoinsToPoints:SetPos(SPLabelX, SPLabelY + SPLabelH + 5)
+	btnCoinsToPoints:SetSize(SPLabelW, SPLabelH/2)
+	
+	btnCoinsToPoints.PaintOver = function( self )
+		if not MySelf:CanBuyPointsWithCoins() then
+			if self:IsVisible() then
+				self:SetVisible(false)
+			end
+		else
+			if not self:IsVisible() then
+				self:SetVisible(true)
+			end
+			draw.SimpleTextOutlined("Buy ".. BuyPointsAmount:GetInt() .."SP for ".. BuyPointsCost:GetInt() .."GC", "ArialBoldNine", SPLabelW/2, SPLabelH/4, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
+		end
+	end
+	
+	btnCoinsToPoints.DoClick = function()
+		if not MySelf:HasBoughtPointsWithCoins() then
+			MySelf:SetBoughtPointsWithCoins(true)
+			RunConsoleCommand("zs_skillshop_buypoints")   
+		end  
 	end
 end
 
 function CloseSkillShop()
-	-- Disable the cursor
-	gui.EnableScreenClicker( false )
+	--Disable the cursor
+	gui.EnableScreenClicker(false)
 	
-	-- Close the menu
-	--[[if not BlurMenu:Close() then
-		SKILLSHOP_OPENED = false
-		DrawSkillShop()
-	end]]
-
-    if ( IsValid( BlurMenu ) ) then
-        BlurMenu:Close()
-    end
+	if IsValid(BlurMenu) then
+		BlurMenu:Close()
+	end
 	
-	if ( IsValid( InvisiblePanel ) ) then
-        InvisiblePanel:Close()
-    end
-    
-    if ( IsValid( MainPanel ) ) then
-        MainPanel:Close()
-    end
-
-	--SKILLSHOP_OPENED = false
+	if IsValid(InvisiblePanel) then
+		InvisiblePanel:Close()
+	end
+	
+	if IsValid(MainPanel) then
+		MainPanel:Close()
+	end
 end
 
 function IsSkillShopOpen()
-	return SKILLSHOP_OPENED
+	return IsSkillShopNowOpen
 end
 
 function DoSkillShopMenu()
-	SKILLSHOP_OPENED = not SKILLSHOP_OPENED
-	-- This is not wrong
+	--Toggle
+	IsSkillShopNowOpen = not IsSkillShopNowOpen
+
+	--Inform server
+	if not IsSkillShopOpen() then
+		net.Start("PlayerSkillShopStatus")
+		net.WriteBool(false)
+		net.SendToServer()
+	end
+
+	--This is not wrong
 	if IsSkillShopOpen() then
 		--Play funky sound
 		surface.PlaySound("items/ammocrate_open.wav")

@@ -685,68 +685,6 @@ function ApplyLoadout(pl, com, args)
 end
 concommand.Add("_applyloadout",ApplyLoadout)
 
-function ApplySkillShopItem(pl,com,args)
-	if not args or #args <= 0 or not IsValid(pl) or not pl:IsNearCrate() then return end
-	
-	local weapon = args[1]
-	
-	local Automatic, Pistol, Melee = pl:GetAutomatic(), pl:GetPistol(), pl:GetMelee()
-	
-	if string.sub(weapon, 1, 6) == "weapon" then
-		if GAMEMODE.HumanWeapons[weapon] and GAMEMODE.HumanWeapons[weapon].Price then
-			if pl:GetScore() >= GAMEMODE.HumanWeapons[weapon].Price then
-				local StrCategory = GetWeaponCategory ( weapon )
-				local StrWep = nil
-				
-				if StrCategory == "Automatic" then
-					if Automatic then
-						StrWep = Automatic
-					end
-				elseif StrCategory == "Pistol" then
-					if Pistol then
-						StrWep = Pistol
-					end
-				elseif StrCategory == "Melee" then
-					if Melee then
-						StrWep = Melee
-					end
-				end
-				
-				if StrWep then
-					for i,j in pairs ( pl:GetWeapons() ) do
-						if j:GetClass() == StrWep:GetClass() then
-							pl:DropWeapon(j)
-							break
-						end
-					end 
-				end
-				pl:Give(weapon)
-				skillpoints.AddSkillPoints(pl,-1*GAMEMODE.HumanWeapons[weapon].Price)
-			end
-		end
-	else
-		if GAMEMODE.SkillShopAmmo[weapon] and GAMEMODE.SkillShopAmmo[weapon].Price then
-			if pl:GetScore() >= GAMEMODE.SkillShopAmmo[weapon].Price then
-				-- check for tools
-				if GAMEMODE.SkillShopAmmo[weapon].Tool then
-					for i,j in pairs ( pl:GetWeapons() ) do
-						if j:GetClass() == GAMEMODE.SkillShopAmmo[weapon].Tool then
-							j:SetClip1(j:Clip1() + GAMEMODE.SkillShopAmmo[weapon].Amount )
-							skillpoints.AddSkillPoints(pl,-1*GAMEMODE.SkillShopAmmo[weapon].Price)
-							pl:EmitSound("items/ammo_pickup.wav") -- add missing sound
-							break
-						end
-					end
-				else
-					pl:GiveAmmo( math.Clamp (GAMEMODE.SkillShopAmmo[weapon].Amount,1,1000) , weapon )
-					skillpoints.AddSkillPoints(pl,-1*GAMEMODE.SkillShopAmmo[weapon].Price)
-				end
-				
-			end
-		end
-	end
-end
-concommand.Add("_applyskillshopitem",ApplySkillShopItem)
 
 local function RestartCommand( pl, cmd, args )
     RunConsoleCommand("changelevel", tostring(game.GetMap()))

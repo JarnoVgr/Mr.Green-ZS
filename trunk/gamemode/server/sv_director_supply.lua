@@ -108,9 +108,9 @@ local function CalculateGivenSupplies(pl)
 		end
 	end
 
-	table.sort(Available.Pistols,sortByItemPricing)
-	table.sort(Available.Automatic,sortByItemPricing)
-	table.sort(Available.Melee,sortByItemPricing)
+	table.sort(Available.Pistols, sortByItemPricing)
+	table.sort(Available.Automatic, sortByItemPricing)
+	table.sort(Available.Melee, sortByItemPricing)
 	
 	--[[--------------------------- PISTOLS ----------------------------]]
 	if #Available.Pistols >= 1 then
@@ -127,7 +127,7 @@ local function CalculateGivenSupplies(pl)
 				continue
 			end
 
-			--Drop current item
+			--Strip current item
 			if holdingItem and IsValid(holdingItem) then
 				pl:StripWeapon(holdingItem:GetClass())
 			end
@@ -146,7 +146,7 @@ local function CalculateGivenSupplies(pl)
 
 		for k, item in pairs(Available.Automatic) do
 			--Skip when score is insufficient
-			if (pl:GetScore() < item.Price)  then
+			if pl:GetScore() < item.Price then
 				continue
 			end			
 
@@ -316,12 +316,19 @@ local function OnPlayerUse(pl, key)
 	if entity:GetClass() == "prop_physics" and ( Parent == NULL or ( IsValid ( Parent ) and Parent:GetClass() ~= "game_supplycrate" ) ) then
 		return
 	end
-		
+
 	--Open shop menu
-	--pl:SendLua("DoSkillShopMenu()")
-	
-	--Give weap0nz
-	if not pl.SupplyMessageTimer then
+	pl:SendLua("DoSkillShopMenu()")
+
+	--Cooldown
+	local nextUseDelay = math.Round(SUPPLYCRATE_RECHARGE_TIME) -- + ((1 - GetInfliction()) * 10))
+	pl.NextSupplyUse = CurTime() + nextUseDelay
+	pl:SendLua("MySelf.NextSupplyTime = ".. pl.NextSupplyUse)
+
+	--Used for damage reduction
+	pl.IsSkillShopOpen = true
+		
+	--[[if not pl.SupplyMessageTimer then
 		pl.SupplyMessageTimer = 0
 	end
 
@@ -335,13 +342,9 @@ local function OnPlayerUse(pl, key)
 		return
 	end
 	
+	--Give supplies
 	pl:EmitSound(Sound("mrgreen/supplycrates/mobile_use.mp3"))
-	CalculateGivenSupplies(pl)
-
-	--Cooldown
-	local nextUseDelay = math.Round(SUPPLYCRATE_RECHARGE_TIME + ((1 - GetInfliction()) * 10))
-	pl.NextSupplyUse = CurTime() + nextUseDelay
-	pl:SendLua("MySelf.NextSupplyTime = ".. pl.NextSupplyUse)
+	CalculateGivenSupplies(pl)]]
 	
 	--Debug
 	Debug("[CRATES] ".. tostring(pl) .." used Supply Crate")

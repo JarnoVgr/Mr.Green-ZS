@@ -77,6 +77,16 @@ function skillpoints.AddSkillPoints(pl, amount)
 	return true
 end
 
+--Take nessesary amount of skill points
+function skillpoints.TakeSkillPoints(pl, amount)
+	if not amount or amount == 0 or not IsValid(pl) or not pl:IsPlayer() then
+		return false
+	end
+	
+	pl:AddScore(-1 * amount)
+	return true
+end
+
 --Get
 function skillpoints.GetSkillPoints(pl)
 	if not IsValid(pl) or not pl:IsPlayer() then

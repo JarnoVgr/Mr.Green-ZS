@@ -4,7 +4,7 @@
 BONUS_RESISTANCE = false
 
 -- Scales player damage (called before others)
-local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
+local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	--Player not ready
 	if not pl.Ready then
 		dmginfo:SetDamage(0)
@@ -234,7 +234,7 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 		end
 	end
 	
-	-- Zombies with howler prot have reduced damage by 80%
+	--Zombies with howler prot have reduced damage by 80%
 	if dmginfo:IsAttackerZombie() and pl:IsHuman() then
 		if dmginfo:GetAttacker():HasHowlerProtection() then
 			dmginfo:SetDamage( dmginfo:GetDamage() * 0.2 )
@@ -276,70 +276,13 @@ local function ScalePlayerDamage( pl, attacker, inflictor, dmginfo )
 			dmginfo:SetDamage(dmginfo:GetDamage() * 0.5)
 		end
 	end
-	
-	--Multi damage scale
-	--[[if attacker:IsPlayer() then
-		GAMEMODE:ScalePlayerMultiDamage( pl, attacker, inflictor, dmginfo )	
-	end]]
-	
-	-- Identify our last attacker and inflictor
+
+	--Reduce damage when SkillShop is open
+	if pl:IsHuman() and pl.IsSkillShopOpen then
+		dmginfo:SetDamage(dmginfo:GetDamage() * 0.25)
+	end
+
+	--Identify our last attacker and inflictor
 	pl:InsertLastDamage(dmginfo:GetPlayerAttacker(), dmginfo:GetInflictor())
 end
 hook.Add("ScalePlayersDamage", "ScalePlayersDamage", ScalePlayerDamage)
-
--- Multi-damage nerf
-function GM:ScalePlayerMultiDamage(pl, attacker, inflictor, dmginfo)
-	-- Damage caused by humans to zombos
-	if attacker:IsHuman() and pl:IsZombie() then
-		local vHumanPos = attacker:GetPos()
-		
-		-- Ents around attacker, damage
-		local fDamage, fFinalDamage = dmginfo:GetDamage()
-		
-		-- Calcualte final damage
-		if dmginfo:IsBulletDamage() then
-			fFinalDamage = fDamage
-			--fFinalDamage = fFinalDamage*1			
-		elseif dmginfo:IsMeleeDamage() then
-			fFinalDamage = fDamage*0.9
-		else
-			fFinalDamage = fDamage*0.9
-		end
-		-- Set the damage
-		
-		-- Just to be sure that its fine
-		if not fFinalDamage then
-			fFinalDamage = fDamage*0.9
-		end	
-		
-		
-		local bonus = 0
-		
-		if BONUS_RESISTANCE then 
-			bonus = BONUS_RESISTANCE_AMOUNT/100
-		end	
-		-- horde resistance
-		if self:GetGameMode() ~= GAMEMODE_ARENA then
-			fFinalDamage = fFinalDamage - fFinalDamage*(pl:GetHordePercent() + bonus)
-		end
-		
-		dmginfo:SetDamage(fFinalDamage)
-	-- Damage caused by zombies to humans
-	elseif attacker:IsZombie() and pl:IsHuman() then
-		local vZombiePos = attacker:GetPos()
-		
-		-- Ents around the attacker
-		local fDamage, fFinalDamage = dmginfo:GetDamage()
-		
-		-- Get zombo focus
-		local iZombies = 0
-
-		
-		-- Calculate final damage
-		fFinalDamage = fDamage 
-				
-		-- Set damage
-		dmginfo:SetDamage( fFinalDamage )
-		print( "Damage for "..tostring( attacker ).." is "..tostring( fFinalDamage )..".Original: "..tostring( fDamage ) )
-	end
-end
