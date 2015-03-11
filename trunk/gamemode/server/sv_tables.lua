@@ -226,7 +226,9 @@ table.insert(ResourceFiles, "sound/mrgreen/music/intermission_undead.mp3")
 
 --SlowMo effect sound
 table.insert(ResourceFiles, "sound/mrgreen/new/slowmo_down.mp3")
-table.insert(ResourceFiles, "sound/mrgreen/new/slowmo_up.mp3")
+if math.random(1, 3) == 1 then
+	table.insert(ResourceFiles, "sound/mrgreen/new/slowmo_up.mp3")
+end
 
 --Unlife music (2 variants)
 table.insert(ResourceFiles, "sound/mrgreen/music/deadlife.mp3")
@@ -391,22 +393,28 @@ table.insert(ResourceFiles, "sound/weapons/melee/chainsaw_gore_03.wav")
 table.insert(ResourceFiles, "sound/weapons/melee/chainsaw_gore_04.wav")
 
 --Golf club
-table.insert(ResourceFiles, "sound/weapons/melee/golf club/golf_hit-01.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/golf club/golf_hit-02.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/golf club/golf_hit-03.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/golf club/golf_hit-04.wav")
+if math.random(1, 3) == 1 then
+	table.insert(ResourceFiles, "sound/weapons/melee/golf club/golf_hit-01.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/golf club/golf_hit-02.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/golf club/golf_hit-03.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/golf club/golf_hit-04.wav")
+end
 
 --Crowbar
-table.insert(ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-1.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-2.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-3.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-4.wav")
+if math.random(1, 3) == 1 then
+	table.insert(ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-1.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-2.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-3.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/crowbar/crowbar_hit-4.wav")
+end
 
 --Shovel
-table.insert(ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-01.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-02.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-03.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-04.wav")
+if math.random(1, 3) == 1 then
+	table.insert(ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-01.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-02.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-03.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/shovel/shovel_hit-04.wav")
+end
 
 --Sledgehammer
 table.insert(ResourceFiles, "models/weapons/w_sledgehammer.mdl")
@@ -435,10 +443,12 @@ table.insert(ResourceFiles, "models/weapons/w_plank.mdl")
 
 --Frying Pan
 table.insert(ResourceFiles, "models/weapons/w_fryingpan.mdl")
-table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-01.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-02.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-03.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-04.wav")
+if math.random(1, 3) == 1 then
+	table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-01.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-02.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-03.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/frying_pan/pan_hit-04.wav")
+end
 
 --Pot
 table.insert(ResourceFiles, "models/weapons/w_pot.mdl")
@@ -447,24 +457,28 @@ table.insert(ResourceFiles, "materials/models/weapons/pot.vmt")
 
 --Keyboard
 table.insert(ResourceFiles, "models/weapons/w_keyboard.mdl")
-table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-01.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-02.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-03.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-04.wav")
-table.insert(ResourceFiles, "materials/models/weapons/computer.vtf")
-table.insert(ResourceFiles, "materials/models/weapons/computer.vmt")
+if math.random(1, 3) == 1 then
+	table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-01.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-02.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-03.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/keyboard/keyboard_hit-04.wav")
+	table.insert(ResourceFiles, "materials/models/weapons/computer.vtf")
+	table.insert(ResourceFiles, "materials/models/weapons/computer.vmt")
+end
 
 --Katana
 table.insert(ResourceFiles, "models/weapons/w_katana.mdl")
 for _, filename in pairs(file.Find("materials/models/weapons/v_katana/*.*" , "GAME") ) do
 	table.insert(ResourceFiles, "materials/models/weapons/v_katana/"..string.lower(filename )  )
 end
-table.insert(ResourceFiles, "sound/weapons/katana/draw.wav")
-table.insert(ResourceFiles, "sound/weapons/katana/katana_01.wav")
-table.insert(ResourceFiles, "sound/weapons/katana/katana_02.wav")
-table.insert(ResourceFiles, "sound/weapons/katana/katana_03.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/melee_skull_break_01.wav")
-table.insert(ResourceFiles, "sound/weapons/melee/melee_skull_break_02.wav")
+if math.random(1, 3) == 1 then
+	table.insert(ResourceFiles, "sound/weapons/katana/draw.wav")
+	table.insert(ResourceFiles, "sound/weapons/katana/katana_01.wav")
+	table.insert(ResourceFiles, "sound/weapons/katana/katana_02.wav")
+	table.insert(ResourceFiles, "sound/weapons/katana/katana_03.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/melee_skull_break_01.wav")
+	table.insert(ResourceFiles, "sound/weapons/melee/melee_skull_break_02.wav")
+end
 
 --Alyx Gun
 local files = {"fire01.wav", "fire02.wav"}
@@ -499,47 +513,51 @@ for _, filename in pairs(file.Find("materials/models/weapons/v_pza/*.*", "GAME")
 	table.insert(ResourceFiles, "materials/models/weapons/v_pza/"..string.lower(filename )  )
 end
 
---Homburg hat
-table.insert(ResourceFiles, "models/katharsmodels/hats/homburg/homburg.mdl")
-table.insert(ResourceFiles, "materials/katharsmodels/hats/homburg/homburg_all.vmt")
-table.insert(ResourceFiles, "materials/katharsmodels/hats/homburg/homburg_all.vtf")
+if math.random(1, 3) == 1 then
+	--Homburg hat
+	table.insert(ResourceFiles, "models/katharsmodels/hats/homburg/homburg.mdl")
+	table.insert(ResourceFiles, "materials/katharsmodels/hats/homburg/homburg_all.vmt")
+	table.insert(ResourceFiles, "materials/katharsmodels/hats/homburg/homburg_all.vtf")
 
---Tophat
-table.insert(ResourceFiles, "models/tophat/tophat.mdl")
-table.insert(ResourceFiles, "materials/models/tophat/tophat.vmt")
-table.insert(ResourceFiles, "materials/models/tophat/tophat.vtf")
+	--Tophat
+	table.insert(ResourceFiles, "models/tophat/tophat.mdl")
+	table.insert(ResourceFiles, "materials/models/tophat/tophat.vmt")
+	table.insert(ResourceFiles, "materials/models/tophat/tophat.vtf")
 
---Pirate Hat
-table.insert(ResourceFiles, "models/piratehat/piratehat.mdl")
-table.insert(ResourceFiles, "materials/models/piratehat/piratehat.vmt")
-table.insert(ResourceFiles, "materials/models/piratehat/piratehat.vtf")
+	--Pirate Hat
+	table.insert(ResourceFiles, "models/piratehat/piratehat.mdl")
+	table.insert(ResourceFiles, "materials/models/piratehat/piratehat.vmt")
+	table.insert(ResourceFiles, "materials/models/piratehat/piratehat.vtf")
 
---Green Admin hat
-table.insert(ResourceFiles, "models/greenshat/greenshat.mdl")
-table.insert(ResourceFiles, "materials/models/greenshat/greenshat.vmt")
-table.insert(ResourceFiles, "materials/models/greenshat/greenshat.vtf")
+	--Green Admin hat
+	table.insert(ResourceFiles, "models/greenshat/greenshat.mdl")
+	table.insert(ResourceFiles, "materials/models/greenshat/greenshat.vmt")
+	table.insert(ResourceFiles, "materials/models/greenshat/greenshat.vtf")
+end
 
---Santa Hat
-table.insert(ResourceFiles, "models/cloud/kn_santahat.mdl")
-table.insert(ResourceFiles, "materials/models/cloud/santahat/kn_santahat.vmt")
-table.insert(ResourceFiles, "materials/models/cloud/santahat/kn_santahat.vtf")
+if math.random(1, 3) == 1 then
+	--Santa Hat
+	table.insert(ResourceFiles, "models/cloud/kn_santahat.mdl")
+	table.insert(ResourceFiles, "materials/models/cloud/santahat/kn_santahat.vmt")
+	table.insert(ResourceFiles, "materials/models/cloud/santahat/kn_santahat.vtf")
 
---Bunny Ears hat
-table.insert(ResourceFiles, "models/bunnyears/bunnyears.mdl")
-table.insert(ResourceFiles, "materials/models/bunnyears/bunnyears.vmt")
-table.insert(ResourceFiles, "materials/models/bunnyears/bunnyears.vtf")
+	--Bunny Ears hat
+	table.insert(ResourceFiles, "models/bunnyears/bunnyears.mdl")
+	table.insert(ResourceFiles, "materials/models/bunnyears/bunnyears.vmt")
+	table.insert(ResourceFiles, "materials/models/bunnyears/bunnyears.vtf")
 
---Egg hat
-table.insert(ResourceFiles, "models/props_phx/misc/egg.mdl")
-table.insert(ResourceFiles, "materials/phoenix_storms/egg.vtf")
-table.insert(ResourceFiles, "materials/phoenix_storms/egg.vmt")
-table.insert(ResourceFiles, "materials/phoenix_storms/egg_bump.vtf")
+	--Egg hat
+	table.insert(ResourceFiles, "models/props_phx/misc/egg.mdl")
+	table.insert(ResourceFiles, "materials/phoenix_storms/egg.vtf")
+	table.insert(ResourceFiles, "materials/phoenix_storms/egg.vmt")
+	table.insert(ResourceFiles, "materials/phoenix_storms/egg_bump.vtf")
 
---Pumpkin Hat
-table.insert(ResourceFiles, "models/props_outland/pumpkin01.mdl")
-table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01.vmt")
-table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01.vtf")
-table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01_normal.vtf")
+	--Pumpkin Hat
+	table.insert(ResourceFiles, "models/props_outland/pumpkin01.mdl")
+	table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01.vmt")
+	table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01.vtf")
+	table.insert(ResourceFiles, "materials/models/props_outland/pumpkin01_normal.vtf")
+end
 
 --CSS orange model for Poison Headcrab spit
 table.insert(ResourceFiles, "models/props/cs_italy/orange.mdl")

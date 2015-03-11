@@ -62,7 +62,7 @@ function death.DeathHumanHUD()
 
 	draw.DrawText("You've failed to survive", "NewZombieFont27", ScaleW(642), ScaleH(34), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
 
-	local timeleft = math.max(0,math.Round(MySelf.NextSpawn - CurTime()) + 1)
+	local timeleft = math.max(0,math.Round((MySelf.NextSpawn or 0) - CurTime()) + 1)
 	
 	local bCanSpawn = false
 
