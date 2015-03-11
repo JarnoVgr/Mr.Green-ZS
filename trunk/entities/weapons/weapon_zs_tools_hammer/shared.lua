@@ -143,7 +143,7 @@ function SWEP:PrimaryAttack()
 		local tr = self.Owner:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_HUMAN))
 
 		local trent = tr.Entity
-		if not IsEntityValid(trent) then
+		if not IsValid(trent) then
 			return
 		end
 
@@ -153,8 +153,7 @@ function SWEP:PrimaryAttack()
 				for i=1, #trent.Nails do
 					local nail = trent.Nails[i]
 					   
-					if nail and nail:IsValid() then
-
+					if IsValid(nail) then
 						if nail:GetNailHealth() < nail:GetDTInt(1) then
 							if self.Owner:GetPerk("_trchregen") then                                                           
 								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+1,1,nail:GetDTInt(1)))
@@ -187,7 +186,8 @@ function SWEP:PrimaryAttack()
 								--self.Owner:AddXP(20)
 								--self.Owner._RepairScore = 0
 							end
-							self.Owner:EmitSound("ambient/energy/spark"..math.random(1,6)..".wav",math.random(86,110),math.random(86,110))
+							self.Owner:EmitSound("ambient/energy/spark"..math.random(1,6)..".wav", math.random(86, 110), math.random(86, 110))
+
 							break
 						end
 					end
@@ -202,7 +202,7 @@ function SWEP:PrimaryAttack()
 										   
 					if self.Owner._RepairScore == 5 then
 						skillpoints.AddSkillPoints(self.Owner, 10)
-						trent:FloatingTextEffect( 10, self.Owner )
+						trent:FloatingTextEffect(10, self.Owner )
 						self.Owner:AddXP(5)
 						self.Owner._RepairScore = 0
 					end
@@ -256,9 +256,7 @@ function SWEP:SecondaryAttack()
 
 		--Notice, cuz we're nice folks explaining how this game works
 		if SERVER then
-			--self.Owner:Message("No nails left. Wait for the crate timer!", 2)
 			self.Owner:Message("No nails left. Buy nails at the Supply Crate.", 2)
-			
 		end
 			
 		return
@@ -267,20 +265,21 @@ function SWEP:SecondaryAttack()
 	local tr = self.Owner:TraceLine(64, MASK_SHOT, player.GetAll())
 
 	local trent = tr.Entity
-	if not IsEntityValid(trent) then
+	if not IsValid(trent) then
 		return
 	end
 		   
 	--Get phys object
 	local PhysEnt = trent:GetPhysicsObject()
-		   
-	if not trent:IsValid() and string.find(trent:GetClass(), "prop_physics") and IsEntityValid(PhysEnt) then
+
+	--??
+	if not string.find(trent:GetClass(), "prop_physics") and IsValid(PhysEnt) then
 		return
 	end
 
 	if SERVER then
 		if not IsValid(PhysEnt) or (not PhysEnt:IsMoveable() and not trent.Nails) or trent.IsObjEntity then
-				return
+			return
 		end
 
 		if NONAILS[tr.MatType or 0] then
@@ -298,17 +297,17 @@ function SWEP:SecondaryAttack()
 	if trtwo.HitWorld or IsValid(ent) and string.find(ent:GetClass(), "prop_physics") and ent:GetPhysicsObject():IsValid() and (ent:GetPhysicsObject():IsMoveable() or not ent:GetPhysicsObject():IsMoveable() and ent.Nails ) or ent:IsValid() and ent:GetClass() == "func_physbox" and ent:GetMoveType() == MOVETYPE_VPHYSICS and ent:GetPhysicsObject():IsValid() and (ent:GetPhysicsObject():IsMoveable() or not ent:GetPhysicsObject():IsMoveable() and ent.Nails ) then
 		if SERVER then
 			if ent.IsObjEntity then
-					return
+				return
 			end
 		   
 			if NONAILS[trtwo.MatType or 0] then
-					self.Owner:PrintMessage(HUD_PRINTCENTER, NONAILS[trtwo.MatType])
-					return
+				self.Owner:PrintMessage(HUD_PRINTCENTER, NONAILS[trtwo.MatType])
+				return
 			end    
 
 			--Ignore doors
 			if string.find(trent:GetClass(), "door") then
-					return
+				return
 			end
 
 			local cons = constraint.Weld(trent, ent, tr.PhysicsBone, trtwo.PhysicsBone, 0, true)
@@ -322,9 +321,7 @@ function SWEP:SecondaryAttack()
 				self.NextNail = CurTime() + 1
 				--self:TakePrimaryAmmo(1)
 				--self:TakeSecondaryAmmo(1)
-			   self:TakeSecondaryAmmo(1)
-				--Give XP for nailing
-				self.Owner:AddXP(5)
+				self:TakeSecondaryAmmo(1)
 					   
 				local nail = ents.Create("nail")
 				local aimvec = self.Owner:GetAimVector()
@@ -334,11 +331,13 @@ function SWEP:SecondaryAttack()
 				nail:SetParent(trent)
 				nail:SetOwner(self.Owner)
 				nail:Spawn()
-				trent:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1,4)..".wav")
+				trent:EmitSound("weapons/melee/crowbar/crowbar_hit-".. math.random(1, 4) ..".wav")
 				
-					--skillpoints.AddSkillPoints(self.Owner, 30) --nah this was a bad idea..
-					--trent:FloatingTextEffect( 30, self.Owner )
-					--self.Owner:AddXP(10)								   
+				--Reward with SP and XP
+				skillpoints.AddSkillPoints(self.Owner, 16)
+				trent:FloatingTextEffect(16, self.Owner)
+				self.Owner:AddXP(10)
+
 				--??
 				trent:CollisionRulesChanged()
 					   
@@ -382,10 +381,12 @@ function SWEP:SecondaryAttack()
 							self.Owner:SetAnimation(PLAYER_ATTACK1)
 
 							self.NextNail = CurTime() + 1
-							--self:TakePrimaryAmmo(1)
 							self:TakeSecondaryAmmo(1)
 						   
-							self.Owner:AddXP(5)
+							--Reward with SP and XP
+							skillpoints.AddSkillPoints(self.Owner, 16)
+							trent:FloatingTextEffect(16, self.Owner)
+							self.Owner:AddXP(10)
 								   
 							local nail = ents.Create("nail")
 							local aimvec = self.Owner:GetAimVector()
@@ -397,9 +398,9 @@ function SWEP:SecondaryAttack()
 							nail:Spawn()
 							trent:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1,4)..".wav")
 							trent:CollisionRulesChanged()
-							-- store entities
+							--Store entities
 							nail.Ents = {}
-							-- store 1st ent
+							--Store first ent
 							table.insert(nail.Ents, trent)
 						   
 							table.insert(trent.Nails, nail)

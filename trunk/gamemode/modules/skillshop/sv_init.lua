@@ -184,9 +184,16 @@ function ApplySkillShopItem(pl, com, args)
 
 		--Check for tools
 		if GAMEMODE.SkillShopAmmo[item].Tool then
-			for i,j in pairs (pl:GetWeapons()) do
-				if j:GetClass() == GAMEMODE.SkillShopAmmo[item].Tool then
-					j:SetClip1(j:Clip1() + GAMEMODE.SkillShopAmmo[item].Amount)
+			for i,j in pairs(pl:GetWeapons()) do
+				local class = j:GetClass()
+				if class == GAMEMODE.SkillShopAmmo[item].Tool then
+					if class == "weapon_zs_tools_hammer" then
+						--Assign ammo to second ammo
+						j:SetClip2(j:Clip2() + GAMEMODE.SkillShopAmmo[item].Amount)
+					else
+						--Normal behavior
+						j:SetClip1(j:Clip1() + GAMEMODE.SkillShopAmmo[item].Amount)
+					end
 					skillpoints.TakeSkillPoints(pl, GAMEMODE.SkillShopAmmo[item].Price)
 
 					pl:EmitSound("items/ammo_pickup.wav")
