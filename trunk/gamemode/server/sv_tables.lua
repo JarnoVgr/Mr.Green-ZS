@@ -145,7 +145,7 @@ end
 
 --Sound files here
 for _, filename in pairs(file.Find("sound/mrgreen/*.*", "GAME") ) do
-	if string.find ( filename, "mp3") or string.find ( filename, "wav") then
+	if string.find(filename, "mp3") or string.find(filename, "wav") then
 		table.insert(ResourceFiles, "sound/mrgreen/"..filename  )
 	end
 end
@@ -237,8 +237,8 @@ table.insert(ResourceFiles, "sound/mrgreen/music/bosstheme.mp3")
 --[[local randDownloadId = math.random(1,3)
 table.insert(ResourceFiles, "sound/mrgreen/music/bosstheme".. randDownloadId ..".mp3")]]
 
---Christmas lights
 if CHRISTMAS then
+	--Christmas lights
 	table.insert(ResourceFiles, "materials/effects/tiledfile/firelayeredslowtiled512.vtf")
 	table.insert(ResourceFiles, "materials/models/lightwarps/weapon_lightwarp.vtf")
 	table.insert(ResourceFiles, "materials/models/player/items/heavy/xms_colored_lights.vmt")
@@ -257,10 +257,8 @@ if CHRISTMAS then
 	table.insert(ResourceFiles, "models/player/items/scout/xms_wrench.mdl")
 	table.insert(ResourceFiles, "models/player/items/medic/xms_medigun.mdl")
 	table.insert(ResourceFiles, "models/player/items/sniper/xms_sniperrifle.mdl")
-end
 
---Christmas snow
-if CHRISTMAS then
+	--Christmas snow
 	table.insert(ResourceFiles, "materials/particle/cloud.vtf")
 	table.insert(ResourceFiles, "materials/particle/cloud.vmt")
 	table.insert(ResourceFiles, "materials/particle/snow.vmt")
@@ -281,15 +279,6 @@ for _, filename in pairs(files) do
 end
 for _, filename in pairs(file.Find("sound/npc/zombine/*.wav", "GAME")) do
 	table.insert(ResourceFiles, "sound/npc/zombine/"..filename)
-end
-
---Grenade Launcher
-table.insert(ResourceFiles, "models/weapons/c_sw_grenadelauncher.mdl")
-table.insert(ResourceFiles, "models/weapons/w_sw_grenadelauncher.mdl")
-table.insert(ResourceFiles, "sound/weapons/sw_grenadelauncher/sw_gl_fire.wav")
-table.insert(ResourceFiles, "sound/weapons/sw_grenadelauncher/sw_gl_reload.wav")
-for _, filename in pairs(file.Find("materials/models/weapons/sw_grenadelauncher/*.*", "GAME")) do
-	table.insert(ResourceFiles, "materials/models/weapons/sw_grenadelauncher/"..filename)
 end
 
 --Infected sounds
@@ -330,11 +319,6 @@ table.insert(ResourceFiles, "materials/hud3/hud_info.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/hud/danger_sign.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/hud/danger_sign.vmt")
 
-
---TODO: Check if needed
-table.insert(ResourceFiles, "materials/models/weapons/temptexture/handsmesh1.vtf")
-table.insert(ResourceFiles, "materials/models/weapons/temptexture/handsmesh1.vmt")
-
 --Class menu icons
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombie.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombie.vmt")
@@ -354,8 +338,6 @@ table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/poisonheadcrab.v
 --table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/torso.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vtf")
-table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine2.vtf")
-table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine2.vmt")--New class
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/howler.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/howler.vtf")
 
