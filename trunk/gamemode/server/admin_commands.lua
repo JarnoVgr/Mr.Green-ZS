@@ -399,17 +399,17 @@ local function AdminSay(pl, text, teamonly)
 	elseif text == "!maptool" and pl:IsSuperAdmin() then
 		pl:Give("admin_maptool")
 		return ""	
-	elseif text == "!DubyIsSexy" then
-		--if LASTHUMAN or ENDROUND then
+	elseif text == "!ravebreak" then
+		if LASTHUMAN then
 			if not Raving then
 				RaveBreak()
 			else
 				pl:Message("You're already raving dude")
-		--	end
+			end
 			return text
-		--else
-		--	pl:Message("RaveBreak not available at this time")
-		--	return ""
+		else
+			pl:Message("RaveBreak not available at this time")
+			return ""
 		end
 		
 	elseif (text:sub(1,5) == "!asay") then

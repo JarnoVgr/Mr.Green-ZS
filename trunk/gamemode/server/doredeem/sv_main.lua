@@ -101,7 +101,7 @@ function GM:OnPlayerRedeem(pl, causer)
 				pl:StripWeapon(pl:GetAutomatic():GetClass())
 			end
 				
-			local wep = table.Random({"weapon_zs_aug","weapon_zs_m3super90","weapon_zs_famas","weapon_zs_sg552"})
+			local wep = table.Random({"weapon_zs_p90", "weapon_zs_ump", "weapon_zs_tmp", "weapon_zs_mp5", "weapon_zs_mac10", "weapon_zs_scout"}) --{"weapon_zs_aug","weapon_zs_m3super90","weapon_zs_famas","weapon_zs_sg552"})
 
 			pl:Give(wep)
 			pl:SelectWeapon(wep)

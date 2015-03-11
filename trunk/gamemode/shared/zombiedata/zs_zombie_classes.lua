@@ -340,8 +340,6 @@ ZombieClasses[5] =
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
-
-util.PrecacheModel("models/mrgreen/howler.mdl")
 ZombieClasses[6] =						
 {
 	Name = "Howler",
@@ -380,7 +378,7 @@ ZombieClasses[6] =
 		local status = pl:GiveStatus("overridemodel")
 		
 		if status and status:IsValid() then
-			status:SetModel("models/mrgreen/howler.mdl")
+			status:SetModel(Model("models/mrgreen/howler.mdl"))
 		end
 	end,
 	ModelScale = 1
@@ -481,7 +479,6 @@ ZombieClasses[3] =
 	ModelScale = 1
 	-- ViewOffset = Vector(0, 0, 0)
 }
-
 
 ZombieClasses[9] =
 {
@@ -624,12 +621,12 @@ ZombieClasses[20] =
 	-- ViewOffset = Vector( 0, 0, 0 ),
 	OnSpawn = function(pl)	
 		local status = pl:GiveStatus("overridemodel")
-		if status and status:IsValid() then
+		if IsValid(status) then
 			status:SetModel("models/Zombie/Poison.mdl")
 		end
 	
 		local status2 = pl:GiveStatus("simple_revive")
-		if status2 then
+		if IsValid(status2) then
 			status2:SetReviveTime(CurTime() + 4)
 			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
 		end
@@ -684,12 +681,12 @@ ZombieClasses[11] =
 	},
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
-		if status and status:IsValid() then
+		if IsValid(status) then
 			status:SetModel("models/zombie/zombie_soldier.mdl")
 		end
 		
 		local status2 = pl:GiveStatus("simple_revive2")
-		if status2 then
+		if IsValid(status2) then
 			status2:SetReviveTime(CurTime() + 4)
 			status2:SetReviveDuration(3.37)
 			-- status2:SetZombieInitializeTime(CurTime() + 0.1)
@@ -745,7 +742,7 @@ ZombieClasses[12] =
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
 
-		if status and status:IsValid() then
+		if IsValid(status) then
 			status:SetModel("models/player/charple01.mdl")
 			status:UsePlayerAlpha(true)
 		end		
@@ -795,7 +792,7 @@ ZombieClasses[13] =
 	IdleSounds = {},
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
-		if status and status:IsValid() then
+		if IsValid(status) then
 			status:SetModel(Model("models/Zombie/Fast.mdl"))
 		end		
 	end,
