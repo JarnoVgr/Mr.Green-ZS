@@ -51,12 +51,13 @@ end
 local metapl = FindMetaTable ("Player")
 
 function metapl:MinDPS ()
-	if not IsValid (self) then return end
-	if not self:Alive() then return end
+	if not IsValid(self) or not self:Alive() then
+		return
+	end
 
 	local DPS_MIN = 99999 
-	for _,weapon in pairs ( self:GetWeapons() ) do
-		if weapon:IsValid() and weapon:IsWeapon() and not string.find (weapon:GetClass(), "admin") then
+	for _,weapon in pairs(self:GetWeapons()) do
+		if IsValid(weapon) and weapon:IsWeapon() and not string.find(weapon:GetClass(), "admin") then
 			local DPS_CURRENT = weapon:GetDPS()
 			if DPS_CURRENT < DPS_MIN then
 				DPS_MIN = DPS_CURRENT
@@ -68,13 +69,14 @@ function metapl:MinDPS ()
 end
 
 function metapl:MinWeaponDPS ()
-	if not IsValid (self) then return end
-	if not self:Alive() then return end		
+	if not IsValid(self) or not self:Alive() then
+		return
+	end
 		
 	local DPS_MIN = 99999 
 	local DPS_WEAPON
-	for _,weapon in pairs ( self:GetWeapons() ) do
-		if weapon:IsValid() and weapon:IsWeapon() and not string.find (weapon:GetClass(), "admin") and not string.find(weapon:GetClass(), "punch") and not string.find(weapon:GetClass(), "syringe") and not string.find(weapon:GetClass(), "turret") and not string.find(weapon:GetClass(), "barricade") and not string.find(weapon:GetClass(), "mine") and not string.find(weapon:GetClass(), "hammer") then
+	for _,weapon in pairs(self:GetWeapons()) do
+		if IsValid(weapon) and weapon:IsWeapon() and not string.find(weapon:GetClass(), "admin") and not string.find(weapon:GetClass(), "punch") and not string.find(weapon:GetClass(), "syringe") and not string.find(weapon:GetClass(), "turret") and not string.find(weapon:GetClass(), "barricade") and not string.find(weapon:GetClass(), "mine") and not string.find(weapon:GetClass(), "hammer") then
 			local DPS_CURRENT = weapon:GetDPS()
 			if DPS_CURRENT < DPS_MIN then
 				DPS_MIN = DPS_CURRENT
@@ -83,12 +85,15 @@ function metapl:MinWeaponDPS ()
 		end
 	end
 		
-	if DPS_WEAPON:IsWeapon() then return DPS_WEAPON end
+	if DPS_WEAPON:IsWeapon() then
+		return DPS_WEAPON
+	end
 end
 
 function metapl:MaxWeaponDPS ()
-	if not IsValid (self) then return end
-	if not self:Alive() then return end		
+	if not IsValid(self) or not self:Alive() then
+		return
+	end
 		
 	local DPS_MAX = -9999 
 	local DPS_WEAPON
@@ -102,19 +107,21 @@ function metapl:MaxWeaponDPS ()
 		end
 	end
 		
-	if DPS_WEAPON:IsWeapon() then return DPS_WEAPON end
+	if DPS_WEAPON:IsWeapon() then
+		return DPS_WEAPON
+	end
 end
 
 if SERVER then
-	function metapl:DropWeakestWeapon ()
-		if not IsValid (self) then
+	function metapl:DropWeakestWeapon()
+		if not IsValid(self) then
 			return
 		end
 		
-		-- Grab data
+		--Grab data
 		local minwep = self:MinWeaponDPS()
 		
-		-- Drop the weapon from the right category
+		--Drop the weapon from the right category
 		self:DropWeapon(minwep)
 	end
 end

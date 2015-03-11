@@ -526,8 +526,8 @@ function GM:SpawnSupplyCrates()
 	--Hook
 	hook.Call("SpawnedSupplyCrates", nil, SupplyCrates)
 
-	--Timer to remove crates
-	timer.Simple(120, function()
+	--Respawn crates after a while
+	--[[timer.Simple(120, function()
 		if ENDROUND then
 			return
 		end
@@ -548,7 +548,7 @@ function GM:SpawnSupplyCrates()
 			net.Start("SupplyCratesDropped")
 			net.Broadcast()
 		end)
-	end)
+	end)]]
 end
 
 --Precache the gib models

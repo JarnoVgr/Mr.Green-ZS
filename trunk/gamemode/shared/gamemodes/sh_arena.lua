@@ -19,5 +19,14 @@ if SERVER then
 	end)
 end
 
-Debug("JeMoeder-1")
-print("JeMoeder-2")
+--Weapons to spawn with in Arena Mode
+local Mode = GM or GAMEMODE
+Mode.ArenaWeapons = {
+	"weapon_zs_m249",
+	"weapon_zs_m3super90",
+	"weapon_zs_famas",
+	"weapon_zs_galil",
+	"weapon_zs_mp5",
+	"weapon_zs_boomerstick",
+	"weapon_zs_boomstick",
+}

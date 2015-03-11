@@ -98,6 +98,7 @@ function InitializeFonts()
 	surface.CreateFontLegacy("Arial", ScreenScale(22.8), 500, true, false, "ArialTwenty")
 	surface.CreateFontLegacy("Arial", ScreenScale(25.4), 500, true, false, "ArialTwentyTwo")
 	surface.CreateFontLegacy("Arial", ScreenScale(11), 400, true, false, "ArialNine")
+	surface.CreateFontLegacy("Arial", ScreenScale(9.5), 400, true, false, "ArialEight")
 	surface.CreateFontLegacy("Arial", ScreenScale(13.4), 500, true, false, "ArialTwelve")
 end
 hook.Add("Initialize", "InitializeFonts", InitializeFonts)

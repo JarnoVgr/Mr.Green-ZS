@@ -27,6 +27,8 @@ local WeaponStats = {}
 
 local AlreadyStored = false
 
+local AutoBuyAmmoData = false
+
 function StoreWeaponStats()
 	-- max stats
 	MaxWeaponStats["Automatic"] = GetMaxWeaponStats("Automatic")
@@ -351,9 +353,9 @@ function InsertWeaponsTab()
 		end
 	end
 	
-	MainSheet:AddSheet( "Primary", WeaponsList1, nil, false, false, nil )
-	MainSheet:AddSheet( "Pistols", WeaponsList2, nil, false, false, nil )
-	MainSheet:AddSheet( "Melee", WeaponsList3, nil, false, false, nil )
+	MainSheet:AddSheet("Primary", WeaponsList1, nil, false, false, nil )
+	MainSheet:AddSheet("Pistols", WeaponsList2, nil, false, false, nil )
+	MainSheet:AddSheet("Melee", WeaponsList3, nil, false, false, nil )
 end
 
 function InsertAmmoTab()
@@ -505,6 +507,7 @@ function DrawSkillShop()
 	InvisiblePanel.Paint = function() 
 		-- override this
 	end
+	--Think function for InvisiblePanel is at the end of this function
 	
 	MainPanelW,MainPanelH = TopMenuW, ScaleH(500)
 	
@@ -553,7 +556,7 @@ function DrawSkillShop()
 	InsertAmmoTab()
 	
 	CloseButtonX, CloseButtonY = TopMenuX, TopMenuY+TopMenuH+ScaleH(20)+MainPanelH+ScaleH(20) -- nice and shiny
-	CloseButtonW, CloseButtonH = TopMenuW/5, ScaleH(76)
+	CloseButtonW, CloseButtonH = TopMenuW/5, ScaleH(56)
 	
 	local CloseButton = vgui.Create("DButton",InvisiblePanel)
 	CloseButton:SetText("")
@@ -576,8 +579,30 @@ function DrawSkillShop()
 	btnAutoBuyAmmo:SetSkin("ZSMG")
 	btnAutoBuyAmmo:SetPos(AmmoButtonX, CloseButtonY)
 	btnAutoBuyAmmo:SetSize(AmmoButtonW, CloseButtonH)
-	btnAutoBuyAmmo.PaintOver = function( self )
-		draw.SimpleTextOutlined("Auto-Buy Ammo", "ArialBoldTwelve", AmmoButtonW / 2, CloseButtonH / 2, Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
+	btnAutoBuyAmmo.ThinkBackground = function(self)
+		if AutoBuyAmmoData then
+			if not self:IsVisible() then
+				self:SetVisible(true)
+			end
+		else
+			if self:IsVisible() then
+				self:SetVisible(false)
+			end
+		end
+	end
+	btnAutoBuyAmmo.PaintOver = function(self)
+		local TextColor
+		if AutoBuyAmmoData and AutoBuyAmmoData.CanBuy then
+			TextColor = Color(255, 255, 255, 255)
+		else
+			TextColor = Color(255, 0, 0, 255)
+		end
+
+		if not AutoBuyAmmoData then
+			return
+		end
+
+		draw.SimpleTextOutlined("Buy ".. AutoBuyAmmoData.Name .." ammo for ".. AutoBuyAmmoData.Price .." SP", "ArialBoldSix", AmmoButtonW / 2, CloseButtonH / 2, TextColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 255))
 	end
 	btnAutoBuyAmmo.DoClick = function()
 		RunConsoleCommand("zs_skillshop_buy", "current-ammo")
@@ -587,7 +612,7 @@ function DrawSkillShop()
 	SPLabelX, SPLabelY = AmmoButtonX + AmmoButtonW + ScaleH(20), CloseButtonY
 	SPLabelW, SPLabelH = TopMenuW-( CloseButtonW + AmmoButtonW + ScaleH(40) ), CloseButtonH
 	
-	local SPLabel = vgui.Create("DLabel",InvisiblePanel)
+	local SPLabel = vgui.Create("DLabel", InvisiblePanel)
 	SPLabel:SetText("")
 	SPLabel:SetSkin("ZSMG")
 	SPLabel:SetPos(SPLabelX, SPLabelY)
@@ -597,13 +622,13 @@ function DrawSkillShop()
 		draw.SimpleTextOutlined(MySelf:GetScore() .." SP", "ArialBoldTwelve", SPLabelW/2, SPLabelH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 
-	btnCoinsToPoints = vgui.Create( "DButton", InvisiblePanel )
+	btnCoinsToPoints = vgui.Create("DButton", InvisiblePanel)
 	btnCoinsToPoints:SetText("")
 	btnCoinsToPoints:SetSkin("ZSMG")
 	btnCoinsToPoints:SetPos(SPLabelX, SPLabelY + SPLabelH + 5)
-	btnCoinsToPoints:SetSize(SPLabelW, SPLabelH/2)
-	
-	btnCoinsToPoints.PaintOver = function( self )
+	local CTPHeight = (SPLabelH / 2) + (SPLabelH/4)
+	btnCoinsToPoints:SetSize(SPLabelW, CTPHeight)
+	btnCoinsToPoints.ThinkBackground = function(self)
 		if not MySelf:CanBuyPointsWithCoins() then
 			if self:IsVisible() then
 				self:SetVisible(false)
@@ -612,8 +637,15 @@ function DrawSkillShop()
 			if not self:IsVisible() then
 				self:SetVisible(true)
 			end
-			draw.SimpleTextOutlined("Buy ".. BuyPointsAmount:GetInt() .."SP for ".. BuyPointsCost:GetInt() .."GC", "ArialBoldNine", SPLabelW/2, SPLabelH/4, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
 		end
+	end
+	
+	btnCoinsToPoints.PaintOver = function(self)
+		if not MySelf:CanBuyPointsWithCoins() then
+			return
+		end
+
+		draw.SimpleTextOutlined("Buy ".. BuyPointsAmount:GetInt() .."SP for ".. BuyPointsCost:GetInt() .."GC", "ArialEight", SPLabelW/2, CTPHeight/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255) )
 	end
 	
 	btnCoinsToPoints.DoClick = function()
@@ -622,6 +654,73 @@ function DrawSkillShop()
 			RunConsoleCommand("zs_skillshop_buypoints")   
 		end  
 	end
+
+	----------------------
+	--Make some panels think about their visibility
+	InvisiblePanel.Think = function()
+		btnAutoBuyAmmo:ThinkBackground()
+		btnCoinsToPoints:ThinkBackground()
+	end
+end
+
+local function CalculateAutoBuyAmmoData()
+	local pl = MySelf
+	if not IsValid(pl) then
+		AutoBuyAmmoData = false
+		return
+	end
+
+	local FoundValid = false
+
+	local Weapons = {
+		pl:GetActiveWeapon(),
+		pl:GetAutomatic(),
+		pl:GetPistol()
+	}
+
+	for _,Weapon in pairs(Weapons) do
+		if not IsValid(Weapon) then
+			continue
+		end
+
+		local Category = GetWeaponCategory(Weapon:GetClass())
+		local AmmoType
+
+		--Determine ammo type to give
+		if Category == "Pistol" or Category == "Automatic" then
+			AmmoType = Weapon:GetPrimaryAmmoTypeString() or false
+		end
+
+		if not AmmoType then
+			continue
+		end
+
+		local ItemTable = GAMEMODE.SkillShopAmmo[AmmoType]
+
+		if not ItemTable or not ItemTable.Price then
+			continue
+		end
+
+		AutoBuyAmmoData = {
+			Name = Weapon:GetPrintName(),
+			Type = AmmoType,
+			Amount = ItemTable.Amount,
+			Price = ItemTable.Price,
+			CanBuy = (pl:GetScore() >= ItemTable.Price)
+		}
+
+		FoundValid = true
+		break
+	end
+
+	if not FoundValid then
+		AutoBuyAmmoData = false
+	end
+end
+
+function OpenSkillShop()
+	CalculateAutoBuyAmmoData()
+	timer.Create("SS-CalculateAutoBuyAmmoData", 1, 0, CalculateAutoBuyAmmoData)
 end
 
 function CloseSkillShop()
@@ -639,6 +738,8 @@ function CloseSkillShop()
 	if IsValid(MainPanel) then
 		MainPanel:Close()
 	end
+
+	timer.Stop("SS-CalculateAutoBuyAmmoData")
 end
 
 function IsSkillShopOpen()
@@ -662,6 +763,7 @@ function DoSkillShopMenu()
 		surface.PlaySound("items/ammocrate_open.wav")
 
 		--
+		OpenSkillShop()
 		DrawSkillShop()
 	else
 		--Play funky sound

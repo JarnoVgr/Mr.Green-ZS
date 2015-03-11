@@ -323,49 +323,6 @@ GM.RankUnlocks = {
 	-- [90] = {"_professional"},-- hidden for a while
 }
 
-
-
---[[GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_p228","weapon_zs_tools_torch","weapon_zs_tools_hammer","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank",
-	"weapon_zs_tools_plank",
-	"_medic",
-	"_hammerupgrade",
-	"weapon_zs_melee_keyboard",
-	"weapon_zs_melee_pipe",
-	"_imortalpro",
-	"_falldmg",
-	"_support",
-	"_kevlar2",
-	"weapon_zs_melee_pipe2",
-	"_freeman",
-	"_poisonprotect",
-	"weapon_zs_melee_hook",
-	"weapon_zs_tools_remote",
-	"_turretoverdrive",
-	"weapon_zs_melee_pot",
-	"weapon_zs_classic",
-	"_sboost",
-	"weapon_zs_melee_combatknife",
-	"_comeback",
-	"_adrenaline",
-	"weapon_zs_melee_crowbar",
-	"weapon_zs_smg",
-	"weapon_zs_miniturret"},
-	-- [90] = {"_professional"},-- hidden for a while
-}]]
-
-
---Weapons to spawn with in Arena Mode
-GM.ArenaWeapons = {
-	"weapon_zs_m249",
-	"weapon_zs_m3super90",
-	"weapon_zs_famas",
-	"weapon_zs_galil",
-	"weapon_zs_mp5",
-	"weapon_zs_boomerstick",
-	"weapon_zs_boomstick",
-}
-
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
 GM.Perks = {
 	["_kevlar2"] = {Name = "Kevlar", Description = "Gives you 30 more HP.", Material = "VGUI/gfx/VGUI/kevlar", Slot = 1},
@@ -439,11 +396,10 @@ CARRY_SPEEDLOSS_MINSPEED = 88
 -- -- -- -- -- -- -- -- /
 
 -- Maximum crates per map
-MAXIMUM_CRATES = math.random(2, 2)
+MAXIMUM_CRATES = math.random(2, 3)
 
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = false
-
 
 -- In seconds, repeatatively, the gamemode gives all humans get a box of whatever ammo of the weapon they use.
 AMMO_REGENERATE_RATE = 2056744
@@ -496,7 +452,6 @@ RTD_TIME = 180
 --Sound to play for last human.
 LASTHUMANSOUND = "mrgreen/music/lasthuman.mp3"
 LASTHUMANSOUNDLENGTH = 159 -- 2:39
---Song which is played during the middle of a round! Duh! :P 
 
 -- Rave sound; people will hate me for making this :')
 RAVESOUND = "mrgreen/ravebreak_fix.mp3"
@@ -535,19 +490,6 @@ WARMUP_MODE = false
 
 --Not sure if it will work as planned, but whatever. This thing will shuffle the mapcycle sometimes
 MAPS_RANDOMIZER = false
-
---[[
---Chance when the sale will occur
-SKILLSHOP_SALE = 70
-
---Max amount of items that can be on sale
-SKILLSHOP_SALE_MAXITEMS = 6
-
---Min and Max amount of discount
-SKILLSHOP_SALE_SALE_MINRANGE = 10
-SKILLSHOP_SALE_SALE_MAXRANGE = 25
-]]--
-
 
 util.PrecacheSound(LASTHUMANSOUND)
 
@@ -594,11 +536,9 @@ Enjoy your stay and have fun!
 
 SKILLSHOP_TEXT =
 [[
-At SkillShop you buy Weapons, Ammo and Supplies. Payment is done with SkillPoints (SP).
+At SkillShop you buy Weapons, Ammo and Supplies with SkillPoints (SP). These points are earned by killing Zombies and helping teammates.
 
-To gain SkillPoints - simply kill the Undead and help your teammates.
-
-Please remember bought Weapons only last this round!
+Please remember bought items and weapons only last this round!
 ]]	
 
 local shit = ""

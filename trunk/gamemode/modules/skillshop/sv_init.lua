@@ -142,36 +142,42 @@ function ApplySkillShopItem(pl, com, args)
 		pl:SelectWeapon(item)
 	--Give ammo for current weapon
 	elseif item == "current-ammo" then
-		local Automatic, Pistol = pl:GetAutomatic(), pl:GetPistol()
-	
-		if not Automatic and not Pistol then
-			return
-		end
+		--Loop through all possible weapons with preference for current weapon
+		local Weapons = {
+			pl:GetActiveWeapon(),
+			pl:GetAutomatic(),
+			pl:GetPistol()
+		}
 
-		local WeaponToFill = pl:GetActiveWeapon()
-
-		--Determine ammo type to give
-		if IsValid(WeaponToFill) and (GetWeaponCategory(WeaponToFill:GetClass()) == "Pistol" or GetWeaponCategory(WeaponToFill:GetClass()) == "Automatic") then
-			item = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
-		else
-			if pl:HasWeapon("weapon_zs_magnum") then
-				item = "357"
-			else
-				item = "pistol"
+		for _,Weapon in pairs(Weapons) do
+			if not IsValid(Weapon) then
+				continue
 			end
-		end
 
-		if not GAMEMODE.SkillShopAmmo[item] or not GAMEMODE.SkillShopAmmo[item].Price then
-			return
-		end
+			local Category = GetWeaponCategory(Weapon:GetClass())
+			local AmmoType
 
-		--Sufficient points?
-		if pl:GetScore() < GAMEMODE.SkillShopAmmo[item].Price then
-			return
-		end
+			--Determine ammo type to give
+			if Category == "Pistol" or Category == "Automatic" then
+				AmmoType = Weapon:GetPrimaryAmmoTypeString() or false
+			end
 
-		pl:GiveAmmo(math.Clamp(GAMEMODE.SkillShopAmmo[item].Amount, 1, 1000), item)
-		skillpoints.TakeSkillPoints(pl, GAMEMODE.SkillShopAmmo[item].Price)
+			if not AmmoType then
+				continue
+			end
+
+			local ItemTable = GAMEMODE.SkillShopAmmo[AmmoType]
+
+			if not ItemTable or not ItemTable.Price or pl:GetScore() < ItemTable.Price then
+				continue
+			end
+
+			--Give actual ammo
+			pl:GiveAmmo(math.Clamp(ItemTable.Amount, 1, 1000), AmmoType)
+			skillpoints.TakeSkillPoints(pl, ItemTable.Price)
+
+			break
+		end		
 	else
 		if not GAMEMODE.SkillShopAmmo[item] or not GAMEMODE.SkillShopAmmo[item].Price then
 			return
