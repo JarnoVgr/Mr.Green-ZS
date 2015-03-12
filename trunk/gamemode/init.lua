@@ -1482,12 +1482,13 @@ local SpecialWeapons = {
 	["weapon_zs_melee_keyboard"] = true,
 	["weapon_zs_melee_plank"] = true,
 	["weapon_zs_melee_pot"] = true,
-	["weapon_zs_melee_sledgehammer"] = true,
+	["weapon_zs_melee_katana"] = true,
 	["weapon_zs_fists2"] = true,
 	["weapon_zs_melee_pipe"] = true,
 	["weapon_zs_melee_pipe2"] = true,
 	["weapon_zs_melee_hook"] = true
 }
+
 hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacker)
 	if not inflictor or not SpecialWeapons[inflictor:GetClass()] then
 		return
