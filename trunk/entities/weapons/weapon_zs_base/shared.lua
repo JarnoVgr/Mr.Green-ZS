@@ -26,15 +26,12 @@ SWEP.IronSightsHoldType = "ar2"
 SWEP.IronSightsPos = Vector(0, 0, 0)
 
 function SWEP:Precache()
-	--util.PrecacheModel(self.ViewModel)
-	--util.PrecacheModel(self.WorldModel)
 	util.PrecacheSound(self.Primary.Sound)
 end
 
 function SWEP:Initialize()
 	self:SetWeaponHoldType(self.HoldType)
 	self:SetDeploySpeed(1.1)
-
 
 	if CLIENT then
 		--Set default FOV
@@ -378,7 +375,7 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 		Num = numbul,
 		Src = self.Owner:GetShootPos(),
 		Dir = aim + punch,
-		Spread = Vector(cone, cone, 0),
+		Spread = Vector(cone * 0.8, cone * 0.8, 0),
 		Tracer = 1,
 		TracerName = self.TracerName,
 		Force = dmg * 0.015,

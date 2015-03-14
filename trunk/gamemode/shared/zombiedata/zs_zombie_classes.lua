@@ -169,7 +169,7 @@ ZombieClasses[2] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
-	Infliction = 0.53,
+	Infliction = 0.43,
 	Health = 450,
 	MaxHealth = 650,
 	TimeLimit = 810,
@@ -213,7 +213,7 @@ ZombieClasses[8] =
 {
 	Name = "Zombine",
 	Tag = "zombine",
-	Infliction = 0.65,
+	Infliction = 0.55,
 	Health = 350,
 	MaxHealth = 320, 
 	TimeLimit = 1020,

@@ -9,7 +9,6 @@ include("sv_director_boss.lua")
 include("sv_director_heal_undead.lua")
 
 GAMEACTIVE = false
---GiveSkillPointsSurvivors
 --[==[---------------------------------------------------------
    Event Director - Unlife/ Last human/ Endround
 ---------------------------------------------------------]==]
@@ -72,7 +71,7 @@ local function ManageEvents()
 		GAMEMODE:OnEndRound(TEAM_UNDEAD)
 	end
 
-	GAMEMODE:CheckBoss()
+	--GAMEMODE:CheckBoss()
 
 	--Pick random zombie(s) if there aren't any
 	if numUndead == 0 and numSurvivors >= 5 then
@@ -106,7 +105,7 @@ function GiveSkillPointsSurvivors()
 		end
 
 		--Give SP
-		skillpoints.AddSkillPoints(pl, math.max(0,math.Round(40*GetInfliction()))) --This gives SP as the round  goes on. 
+		skillpoints.AddSkillPoints(pl, math.max(0,math.Round(70*GetInfliction())))
 
 		--Give XP
 		pl:AddXP(math.max(0, 110*GetInfliction()))
