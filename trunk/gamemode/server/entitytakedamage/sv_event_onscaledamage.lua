@@ -279,7 +279,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 
 	--Reduce damage when SkillShop is open
 	if pl:IsHuman() and pl.IsSkillShopOpen then
-		dmginfo:SetDamage(dmginfo:GetDamage() * 0.25)
+		dmginfo:SetDamage(dmginfo:GetDamage() * 0.1)
 	end
 
 	--Identify our last attacker and inflictor
