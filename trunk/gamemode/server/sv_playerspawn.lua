@@ -813,12 +813,6 @@ function CalculateZombieHealth(pl)
 	local Tab = ZombieClasses[classId]
 	local MaxHealth = Tab.Health
 	
-	--if GetInfliction() <= 0.6 then --Duby: Lets make the health for normal zombies increased later in the game. 
-	--	if IsCommonZombie() or IsCommonZombie2() then
-		--	pl:SetHealth(MaxHealth*1.5)
-	--	end
-	--end
-	
 	-- Case 2: if there are only 2 zombies double their HP
 	
 	if not pl:IsBossZombie() then
@@ -827,8 +821,8 @@ function CalculateZombieHealth(pl)
 
 		local desiredzombies = math.max(1, math.ceil(numPlayers * UNDEAD_START_AMOUNT_PERCENTAGE))
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+1) and team.NumPlayers(TEAM_HUMAN) >= 4) then
-			local IncreaseHealth = Tab.Health*(UNDEAD_START_AMOUNT_PERCENTAGE)*desiredzombies+10*(team.NumPlayers(TEAM_HUMAN))
-			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, math.min(Tab.Health*2.0,510) )
+			local IncreaseHealth = (Tab.Health * UNDEAD_START_AMOUNT_PERCENTAGE) * (team.NumPlayers(TEAM_HUMAN) / 4)
+			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, Tab.Health*2)
 		end
 	end
 	MaxHealth = math.Round(MaxHealth)
