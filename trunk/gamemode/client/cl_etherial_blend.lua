@@ -18,6 +18,17 @@ local function PrePlayerDraw(pl)
 		undowraithblend = true
 	end
 
+	if pl.IsZombie and pl:IsZombie() and pl.IsWraith2 and pl:IsWraith2() then
+		if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then
+			render.SetBlend(1)
+		else
+			--local col = math.random( 1, 35 ) == 1 and 1 or 0.04
+			local col = math.random( 1, 70 ) == 1 and 1 or 0.17
+			render.SetBlend(col)
+		end
+		undowraithblend = true
+	end
+	
 	if pl.status_overridemodel and pl.status_overridemodel:IsValid() and GAMEMODE:_ShouldDrawLocalPlayer(MySelf) then
 		undomodelblend = true
 		render.SetBlend(0)

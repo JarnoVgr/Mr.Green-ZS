@@ -485,7 +485,7 @@ function GM:OnZombieSpawn(pl)
 
 	--Spawn protection
 	pl:GodEnable()
-	timer.Simple(2, function()
+	timer.Simple(1, function()
 		if IsValid(pl) then
 			pl:GodDisable()
 		end
@@ -681,7 +681,7 @@ function CalculatePlayerLoadout(pl)
 		ToGive = table.Copy(pl.Loadout)
 	--Default loadout
 	else
-		ToGive = {"weapon_zs_usp","weapon_zs_melee_keyboard"}
+		ToGive = {"weapon_zs_usp","weapon_zs_melee_keyboard","weapon_zs_tools_torch"}
 		pl.Loadout = table.Copy(ToGive)
 	end
 	
@@ -730,7 +730,7 @@ function CalculatePlayerLoadout(pl)
 	end
 	
 	--Check if bought Magnum (give 1/3rd chance)
-	if pl:HasBought("magnumman") and math.random(1,3) == 1 then
+	if pl:HasBought("magnumman") and math.random(1,5) == 1 then
 		--Strip previous pistol
 		local Pistol = pl:GetPistol()
 		if Pistol then
@@ -822,7 +822,7 @@ function CalculateZombieHealth(pl)
 		local desiredzombies = math.max(1, math.ceil(numPlayers * UNDEAD_START_AMOUNT_PERCENTAGE))
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+1) and team.NumPlayers(TEAM_HUMAN) >= 4) then
 			local IncreaseHealth = (Tab.Health * UNDEAD_START_AMOUNT_PERCENTAGE) * (team.NumPlayers(TEAM_HUMAN) / 4)
-			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, Tab.Health*2)
+			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, Tab.Health*1.3)
 		end
 	end
 	MaxHealth = math.Round(MaxHealth)

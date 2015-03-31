@@ -530,7 +530,8 @@ function RollTheDice ( pl,commandName,args )
 		--pl:GodDisable() -- no spawnprotection can save you now!
 		
 		if pl:Team() == TEAM_HUMAN then
-			local Ent = ents.Create("env_explosion")
+		
+		--[[	local Ent = ents.Create("env_explosion") --So much rage from this outcome!
 			Ent:SetPos(pl:GetPos())
 			Ent:Spawn()
 			Ent:Activate()
@@ -539,7 +540,12 @@ function RollTheDice ( pl,commandName,args )
 			Ent:Fire("explode", "", 0)
 			pl:SetVelocity( Vector(0,0,400) )
 			pl:TakeDamage( pl:Health()*2, nil, nil ) -- make sure he dies
-			message = message .." rolled the dice and is turned inside out!"
+			message = message .." rolled the dice and is turned inside out!" ]]--
+			
+			
+			InfectedZombiemodels = { "weapon_zs_chembomb", "weapon_zs_vodka", }
+			message = message .." rolled the dice and got a special item!"
+			pl:Give(table.Random(InfectedZombiemodels))		
 		elseif pl:Team() == TEAM_UNDEAD then	
 			pl:AddScore(1)
 			message = message .." rolled the dice and has found a piece of brain!"
@@ -586,8 +592,8 @@ function RollTheDice ( pl,commandName,args )
 			message = message .. ".. You've been set to half life!"
 			pl:SetHealth(50)
 		elseif pl:Team() == TEAM_UNDEAD then
-			pl:AddScore(2)
-			message = message .." rolled the dice and has found a whole brain!"
+			pl:AddScore(-1)
+			message = message .." rolled the dice and has lost a peice of brain!"
 		end
 	else
 		if pl:Team() == TEAM_HUMAN then

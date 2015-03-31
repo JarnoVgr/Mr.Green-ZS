@@ -116,7 +116,7 @@ function SWEP:PerformSecondaryAttack()
 	end
 
 	--Delay next teleport
-	self.Weapon:SetNextSecondaryFire(CurTime() + 1)
+	self.Weapon:SetNextSecondaryFire(CurTime() + 2)
 	
 	--Not enough health
 	if mOwner:Health() < mOwner:GetMaximumHealth() * 0.15 then

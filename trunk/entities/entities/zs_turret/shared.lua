@@ -36,8 +36,8 @@ ENT.MaxBullets = 150
 ENT.RechargeDelay = 0.7 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 650
 ENT.Damage = 15
-ENT.IgnoreClasses = {4,6,7,9,18} -- Index of zombie's classes that turret should ignore
-ENT.IgnoreDamage = {6,7}
+ENT.IgnoreClasses = {5,7,9,18} -- Index of zombie's classes that turret should ignore
+ENT.IgnoreDamage = {7,9}
 
 ENT.MinimumAimDot = 0.5
 
@@ -158,9 +158,11 @@ if SERVER then
 					local tr = self:GetTurretOwner():GetEyeTrace()
 
 					TargetAngles = ((tr.HitPos + tr.HitNormal*2) - self:GetAttachment(self:LookupAttachment("eyes")).Pos):Angle()
+
 					
 					AngleYaw = math.Clamp(self:WorldToLocalAngles(TargetAngles).y,-60,60)
 					AnglePitch = math.Clamp(self:WorldToLocalAngles(TargetAngles).p,-15,15)
+
 					
 					self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),AngleYaw,10))
 					self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),AnglePitch,7.5))

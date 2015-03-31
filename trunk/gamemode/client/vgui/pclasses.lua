@@ -19,11 +19,11 @@ local Image = {
 	["arrow"] = surface.GetTextureID("zombiesurvival/classmenu/arrow"),
 	
 	[0] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
-	--[1] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
-	[1] = surface.GetTextureID("zombiesurvival/classmenu/zombine2"),
+	[1] = surface.GetTextureID("zombiesurvival/classmenu/zombie"),
+	--[1] = surface.GetTextureID("zombiesurvival/classmenu/zombine2"),
 	[2] = surface.GetTextureID("zombiesurvival/classmenu/poisonzombie"),
 	[8] = surface.GetTextureID("zombiesurvival/classmenu/zombine"),
-	[4] = surface.GetTextureID("zombiesurvival/classmenu/chemzombie"),
+	[4] = surface.GetTextureID("zombiesurvival/classmenu/wraith"),
 
 	
 	[5] = surface.GetTextureID("zombiesurvival/classmenu/wraith"),

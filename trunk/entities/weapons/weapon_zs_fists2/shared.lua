@@ -32,7 +32,7 @@ SWEP.Slot				= 0
 SWEP.SlotPos			= 5
 SWEP.DrawAmmo			= false
 SWEP.DrawCrosshair		= false
-
+SWEP.WalkSpeed = 200
 local SwingSound = Sound( "weapons/slam/throw.wav" )
 local HitSound = Sound( "Flesh.ImpactHard" )
 

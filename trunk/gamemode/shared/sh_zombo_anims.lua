@@ -48,7 +48,8 @@ GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
 
 	pl._PlayBackRate = nil
 	if IsValid(pl:GetActiveWeapon()) then 
-		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_02" ) --Duby: I spent ages finding this out...	
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_01" ) --Duby: I spent ages finding this out...	
+		--local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) --Duby: I spent ages finding this out...	
 		return iIdeal, iSeq
 	end
 	
@@ -115,7 +116,8 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel )
 	if --[=[pl:GetAngles().pitch > 40 and]=] util.TraceLine({start = pl:GetShootPos(), endpos = pl:GetShootPos() + pl:GetAimVector() * 32, filter = pl}).Hit then canwallpound = true end
 
 	-- Default zombie act
-	--local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_05" )
+
+	
 	local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" )
 	pl._PlayBackRate = nil
 	local fVelocity = vel:Length2D()
@@ -131,7 +133,7 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel )
 			if canwallpound then 
 				iSeq, iIdeal = pl:LookupSequence ( "zombie_run" )
 			else 
-				iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_01" )
+				iSeq, iIdeal = pl:LookupSequence ( "zombie_run" )
 			end 
 		end 
 	end 
@@ -153,6 +155,7 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel )
 	end
 	
 	return iIdeal, iSeq
+
 end
 
 --  Normal zombie - Called on events like primary attack
@@ -558,13 +561,24 @@ end
 
 ]]--
 
-
--- Poison Zombie - Activity handle
+-- Ethereal - Activity handle
 GM.CalcMainActivityZombies[4] = function ( pl, vel )
-
+	
+	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then
+		
+		local iSeq, iIdeal = pl:LookupSequence ( "idle_all_cower" ) 
+		
+		local fVelocity = vel:Length2D()
+		if fVelocity >= 0.5 then 
+			iSeq = pl:LookupSequence ( "run_all_panicked_03" ) 
+		end
+		
+		return iIdeal, iSeq
+		
+	end
+	
 	-- Default zombie act
-	--local iSeq, iIdeal = -1
-	local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_06" )
+	local iSeq, iIdeal = -1
 
 	local fVelocity = vel:Length2D()
 	if fVelocity > 30 then iIdeal = ACT_WALK else iIdeal = ACT_IDLE end
@@ -572,16 +586,18 @@ GM.CalcMainActivityZombies[4] = function ( pl, vel )
 	return iIdeal, iSeq
 end
 
---  Poison Zombie - Called on events like primary attack
+--  Ethereal - Called on events like primary attack
 GM.DoAnimationEventZombies[4] = function ( pl, event, data )
-	--if event == PLAYERANIMEVENT_ATTACK_PRIMARY then
-	--	pl:AnimRestartGesture( GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_MELEE_ATTACK1,true)
-	--	return ACT_INVALID
-	--elseif event == PLAYERANIMEVENT_ATTACK_SECONDARY then
-	--	pl:AnimRestartGesture( GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_MELEE_ATTACK1,true)
+	if event == PLAYERANIMEVENT_ATTACK_PRIMARY then
+		if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then
+			pl:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_GMOD_GESTURE_RANGE_ZOMBIE, true)
+		else
+			pl:AnimRestartGesture( GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_MELEE_ATTACK1,true )
+		end
 		return ACT_INVALID
-	--end
+	end
 end
+
 --[[
 function MainActivityHate2(pl,vel)
 --GM.CalcMainActivityZombies[20] = function ( pl, vel )	

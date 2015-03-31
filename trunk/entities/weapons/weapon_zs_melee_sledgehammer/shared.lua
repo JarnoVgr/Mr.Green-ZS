@@ -20,6 +20,7 @@ end
 
 -- Model paths
 SWEP.Author = "NECROSSIN"
+
 SWEP.ViewModel = "models/weapons/c_crowbar.mdl"
 SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_sledgehammer.mdl" 

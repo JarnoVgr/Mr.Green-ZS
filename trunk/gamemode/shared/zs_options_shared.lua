@@ -127,7 +127,7 @@ GM.ChatTitles = {
 
 GM.HumanWeapons = {	
 	--Melee
-	["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 320 }, 
+	["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 300 }, 
 	["weapon_zs_melee_katana"]  = { Name = "Katana", DPS = 90, Infliction = 0, Type = "melee", Price = 800, Description = "Handle with care. It's very sharp." },
 	["weapon_zs_melee_crowbar"]  = { Name = "Crowbar", DPS = 85, Infliction = 0.65, Type = "melee", Price = 290 },
 	["weapon_zs_melee_keyboard"]  = { Name = "Keyboard", DPS = 45, Infliction = 0, Type = "melee", Price = 50, Description = "There's no better way to express your online anger." },
@@ -138,31 +138,31 @@ GM.HumanWeapons = {
 	["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Price = 550, Description = "" },
 	["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 770 },
 	["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 200, Description = "Bish bash bosh, fast smacking and hard hitting!"  },
-	["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee", Price = 190, Description = "Whoops. Looks like I shouldn't of hit him so hard.."  },
+	["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee", Price = 130, Description = "Whoops. Looks like I shouldn't of hit him so hard.."  },
 	["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee", Price = 180, Description = "Clunk, oh look his head fell off.."  },
 	["weapon_zs_melee_chainsaw"]  = { Name = "Chain SAW!", DPS = 30, Infliction = 0, Type = "melee", Description = "This may become a bit gory." },
 
 	--Pistols
 	["weapon_zs_fiveseven"]  = { Name = "Five-Seven",Mat = "VGUI/gfx/VGUI/fiveseven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 90 },
 	["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120,Mat = "VGUI/gfx/VGUI/glock18", Infliction = 0.25, Type = "pistol", Price = 180 },
-	["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol", Price = 400, Description = "High fire rate thanks to having two pistols in your hands." },
+	["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol", Price = 240, Description = "High fire rate thanks to having two pistols in your hands." },
 	["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 320, Description = "Russian Roulette Revolver" },
-	["weapon_zs_deagle"]  = { Name = "Desert Eagle",Mat = "VGUI/gfx/VGUI/deserteagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 420 },
+	["weapon_zs_deagle"]  = { Name = "Desert Eagle",Mat = "VGUI/gfx/VGUI/deserteagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 390 },
 	
-	["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42,Mat = "VGUI/gfx/VGUI/usp45", Infliction = 0, Type = "pistol", Description = "Fast firing lower damage." },
-	["weapon_zs_p228"]  = { Name = "P228", DPS = 58,Mat = "VGUI/gfx/VGUI/p228", Infliction = 0, Type = "pistol", Description = "More power, slower fire rate."  },
+	["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42,Mat = "VGUI/gfx/VGUI/usp45", Infliction = 0, Type = "pistol", Price = 70, Description = "Fast firing lower damage." },
+	["weapon_zs_p228"]  = { Name = "P228", DPS = 58,Mat = "VGUI/gfx/VGUI/p228", Infliction = 0, Type = "pistol", Price = 80, Description = "More power, slower fire rate."  },
 	["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 40, Description = "Classic Half-Life 2 pistol." },
-	["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 190, Description = "Alyx is hot. But her gun is even more hot." },
+	--["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 190, Description = "Alyx is hot. But her gun is even more hot." },
 	--["weapon_zs_barreta"]  = { Name = "Barreta", DPS = 30,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol",Price = 450 },
 	
 	--Light Guns
-	["weapon_zs_p90"]  = { Name = "P90", DPS = 125,Mat = "VGUI/gfx/VGUI/p90", Infliction = 0.65, Type = "smg", Price = 320 },
-	["weapon_zs_smg"]  = { Name = "Classic SMG", DPS = 125, Infliction = 0.65, Type = "smg"},
+	["weapon_zs_p90"]  = { Name = "P90", DPS = 125,Mat = "VGUI/gfx/VGUI/p90", Infliction = 0.65, Type = "smg", Price = 360 },
+	["weapon_zs_smg"]  = { Name = "Classic SMG", DPS = 125, Infliction = 0.65, Type = "smg", Price = 100},
 	["weapon_zs_ump"]  = { Name = "UMP", DPS = 110,Mat = "VGUI/gfx/VGUI/ump45", Infliction = 0.60, Type = "smg", Price = 400 },
 	["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127,Mat = "VGUI/gfx/VGUI/mp5", Infliction = 0.58, Type = "smg", Price = 420 },
 	["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107,Mat = "VGUI/gfx/VGUI/tmp", Infliction = 0.56, Type = "smg", Price = 250 },
 	["weapon_zs_mac10"]  = { Name = "Mac 10", DPS = 126,Mat = "VGUI/gfx/VGUI/mac10", Infliction = 0.60, Type = "smg", Price = 210 },
-	["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle", Price = 190, Description = "Light-weight sniper." },
+	["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle", Price = 800, Description = "Light-weight sniper." },
 
 			
 	--Medium Guns
@@ -180,7 +180,8 @@ GM.HumanWeapons = {
 	["weapon_zs_awp"]  = { Name = "AWP", DPS = 200,Mat = "VGUI/gfx/VGUI/awp", Infliction = 0, Type = "rifle", Price = 1400, Description = "Heavy sniper." },
 	["weapon_zs_boomerstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 1700 },
 	["weapon_zs_boomstick"]  = { Name = "Boom Stick", DPS = 215, Infliction = 0.85, Type = "shotgun" },
-	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle"},
+	
+	["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle",Price = 1600 },
 
 
 	--Uncategorized
@@ -197,8 +198,6 @@ GM.HumanWeapons = {
 	
 	--Tool1
 	["weapon_zs_tools_hammer"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", Description = "Stop! Hammer time. This will freeze props in their place." },
-	["weapon_zs_tools_hammer2"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1" },
-	["weapon_zs_tools_hammer3"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1" },
 	["weapon_zs_medkit"]  = { Name = "Medical Kit", DPS = 8, Infliction = 0, Type = "tool1", Description = "Be a good teammate. Or just heal yourself." },
 	["weapon_zs_tools_supplies"] = { Name = "Mobile Supplies", DPS = 0, Infliction = 0, Type = "tool1", Description = "Allows you to spawn a Supply Crate." },
 	["weapon_zs_tools_remote"] = { Name = "Remote Controller", DPS = 0, Infliction = 0, Type = "tool2" },
@@ -217,8 +216,14 @@ GM.HumanWeapons = {
 	["weapon_zs_pickup_propane"]  = { Name = "Dangerous Propane Tank", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_pickup_flare"]  = { Name = "Rusty Flare", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_pickup_gasmask"]  = { Name = "Old Gas Mask", DPS = 0, Infliction = 0, Type = "misc" },
-	["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun" },
+	["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun", Price = 100 },
 
+	--Special Items
+
+	["weapon_zs_vodka"]  = { Name = "Bottle ol Vodka", DPS = 0, Infliction = 0, Type = "misc" },
+	["weapon_zs_chembomb"]  = { Name = "Chemical Nade", DPS = 0, Infliction = 0, Type = "misc" },
+	
+	
 	--HL2 weapons
 	["weapon_357"] = { Name = ".357 Original", DPS = 0, Infliction = 0.2, Type = "admin", Restricted = true  },
 	["weapon_ar2"] = { Name = "AR2 Rifle", DPS = 0, Infliction = 0.2, Type = "admin", Restricted = true  },
@@ -285,16 +290,16 @@ GM.AmmoRegeneration = {
 -- -- -- -- -- -- -- -- -- -- /
 XP_BLANK = 500
 
-XP_INCREASE_BY = 2000
+XP_INCREASE_BY = 2550
 
-XP_PLAYERS_REQUIRED = 5
+XP_PLAYERS_REQUIRED = 6
 
 MAX_RANK = 30
 
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks} 
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_p228","weapon_zs_tools_torch","weapon_zs_tools_hammer","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","weapon_zs_smg","weapon_zs_chipper"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_p228","weapon_zs_tools_torch","weapon_zs_tools_hammer","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank"},
 	[1] = {"weapon_zs_tools_plank"},
 	[2] = {"_medic"},
 	[3] = {"_hammerupgrade"},
@@ -315,7 +320,6 @@ GM.RankUnlocks = {
 	[21] = {"weapon_zs_fiveseven"},
 	[22] = {"_sboost"},
 	[24] = {"weapon_zs_melee_combatknife"},
-	[26] = {"_comeback"},
 	[28] = {"_adrenaline"},
 	[29] = {"weapon_zs_melee_crowbar"},
 	[30] = {"weapon_zs_miniturret"},
@@ -330,14 +334,14 @@ GM.Perks = {
 	["_adrenaline"] = {Name = "Adrenaline Injection", Description = "Negates speed reduction on low health. Also your screen won't turn red when you are low on health.", Slot = 1},
 	["_medic"] = {Name = "Experienced medic", Description = "Doubled maximum Medical Kit charges and 35% more healing power. Also more SP gained for healing!", RequiresWeapon = "weapon_zs_medkit", Slot = 1},
 	["_sboost"] = {Name = "Running Shoes", Description = "8% increase in walking speed.", Slot = 1},
-	["_support"] = {Name = "Support", Description = "Five planks at the start of the round, with 30% more health.", Slot = 1},
+	["_support"] = {Name = "Support", Description = "Five planks at the start of the round, with 30% more health.", Slot = 2},
 	["_turretoverdrive"] = {Name = "Turret Overdrive", Description = "Your turret has had an upgrade. Increased fire rate, damage and Turret HP.", Material = "VGUI/gfx/VGUI/defuser", RequiresWeapon = "weapon_zs_turretplacer", Slot = 1},
 	
 	["_poisonprotect"] = {Name = "Poison Protection", Description = "30% less damage from Poison Headcrabs.", Slot = 2},
 	["_falldmg"] = {Name = "Fall Protection", Description = "25% less fall damage.", Slot = 2},
 	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with Hammer.", Material = "HUD/scoreboard_clock", RequiresWeapon = "weapon_zs_tools_hammer", Slot = 2},
-	["_comeback"] = {Name = "Comeback", Description = "When redeeming you will spawn once with either a AUG, Famas, SG552 or M3super90.", Material = "VGUI/logos/spray_elited", Slot = 2},	
-	["_comeback2"] = {Name = "Reborn", Description = "When redeeming you will spawn once with either a Deagle or a pair of Dual Elites.", Material = "VGUI/logos/spray_elited", Slot = 2},
+	--["_comeback"] = {Name = "Comeback", Description = "When redeeming you will spawn once with either a AUG, Famas, SG552 or M3super90.", Material = "VGUI/logos/spray_elited", Slot = 2},	
+	["_comeback2"] = {Name = "Reborn", Description = "When redeeming you will spawn once with either a Deagle or a pair of Dual Elites.", Material = "VGUI/logos/spray_elited", Slot = 1},
 	["_imortalpro"] = {Name = "Immortal Protector", Description = "You will spawn with the Pulse SMG!", Slot = 2}
 	--["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
 }

@@ -117,7 +117,7 @@ function SWEP:PrimaryAttack()
 			if ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
 
 				local health, maxhealth = ent:Health(), 100-- owner:GetMaxHealth()
-				local multiplier = 1.0
+				local multiplier = 1.1
 
 				if owner:GetPerk("_medic" ) then
 					multiplier = 1.35
@@ -128,7 +128,7 @@ function SWEP:PrimaryAttack()
 					
 					local delay = self.Primary.HealDelay
 					if owner:GetSuit() == "medicsuit" then
-						--delay = math.Clamp(self.Primary.HealDelay - 5,0,self.Primary.HealDelay)
+						delay = math.Clamp(self.Primary.HealDelay - 1.6,0,self.Primary.HealDelay)
 						multiplier = 1.45
 					end
 					
@@ -136,9 +136,9 @@ function SWEP:PrimaryAttack()
 					owner.NextMedKitUse = self:GetNextCharge()
 					
 					if SERVER then
-						owner.HealingDone = owner.HealingDone + (toheal or 10)
-						skillpoints.AddSkillPoints(owner,toheal or 50)
-						ent:FloatingTextEffect( toheal or 10, owner )
+						owner.HealingDone = owner.HealingDone + (toheal or 20)
+						skillpoints.AddSkillPoints(owner,toheal or 20)
+						ent:FloatingTextEffect( toheal or 20, owner )
 						owner:AddXP(toheal or 5)
 						
 						--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})
@@ -189,9 +189,9 @@ function SWEP:SecondaryAttack()
 		if toheal > 0 then
 		
 			local delay = self.Secondary.HealDelay
-			--if owner:GetSuit() == "medicsuit" then
-			--	delay = math.Clamp(self.Secondary.HealDelay - 5,0,self.Secondary.HealDelay)
-			--end
+			if owner:GetSuit() == "medicsuit" then
+				delay = math.Clamp(self.Secondary.HealDelay - 1.3,0,self.Secondary.HealDelay)
+			end
 			
 			self:SetNextCharge(CurTime() + delay)
 			owner.NextMedKitUse = self:GetNextCharge()

@@ -77,23 +77,18 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	--Self-inflicted phys damage
 	if dmginfo:IsPhysHurtingSelf(pl) then
 		dmginfo:SetDamage(0)
-
 		return true
 	end
 
 	--remove unnesessary damage
 	if dmginfo:IsPhysDamage() and not dmginfo:IsAttackerPlayer() and not dmginfo:IsInflictorPlayer() and dmginfo:GetAttacker().IsObjEntity then
-		dmginfo:SetDamage(1)--Duby:Test
-		--dmginfo:SetDamage(0)
-
+		dmginfo:SetDamage(0)
 		return true
 	end
 
 	-- No phys damage between humans and zombies
 	if dmginfo:IsAttackerHuman() and pl:IsZombie() and dmginfo:IsPhysDamage() then
-		dmginfo:SetDamage(1)--Duby:Test
-		--dmginfo:SetDamage(0)
-
+		dmginfo:SetDamage(0)
 		return true
 	end
 	
@@ -142,10 +137,10 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
 		end
 
-		if GetInfliction() >= 0.15 and pl:IsZombie() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.15) and pl:Health() ~= 0 and pl.bCanSprint == false then
+		if GetInfliction() >= 0.15 and pl:IsZombie() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.11) and pl:Health() ~= 0 and pl.bCanSprint == false then
 			pl.bCanSprint = true
 			pl:SendLua("WraithScream()")
-			pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
+			--pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
 		end
 
 		--One boss
@@ -191,9 +186,9 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			dmginfo:AddDamage(Damage)
 		end
 		
-		--if pl:Alive() then
-			--pl:GiveStatus("knockdown",3)
-		--end
+		if pl:Alive() then
+			pl:GiveStatus("knockdown",3)
+		end
 	end
 	
 	-- Clamp phys damage
@@ -226,11 +221,11 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			-- Apply damage
 			dmginfo:SetDamage(NewDamage)
 				
-			--[[local phys = Inflictor:GetPhysicsObject()
+			local phys = Inflictor:GetPhysicsObject()
 
 			if phys:IsValid() and pl:Alive() and phys:GetVelocity():Length() > 320 then
 				pl:GiveStatus("knockdown",math.Rand(2.1,3))
-			end]]
+			end
 		end
 	end
 	

@@ -108,7 +108,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		mAttacker:AddToCounter("humanskilled", 1)
 		
 		skillpoints.AchieveSkillShot(mAttacker,mVictim,"freshfood")
-		mAttacker:AddXP(100)
+		mAttacker:AddXP(90)
 	
 		
 		-- Add brains eaten and greencoins

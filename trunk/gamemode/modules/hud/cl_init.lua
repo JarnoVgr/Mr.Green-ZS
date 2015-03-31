@@ -139,7 +139,7 @@ end
 
 local function DrawRoundTime(DescriptionFont, ValueFont)
 	--Initialize variables
-	local startX, keyStartY, valueStartY = ScrW()/2, ScaleH(10), ScaleH(50)
+	local startX, keyStartY, valueStartY = ScrW()/2, ScaleH(15), ScaleH(55)
 	local timeLeft, valueColor = 0, Color(255,255,255,255)
 
 	local keyText
@@ -193,7 +193,7 @@ function hud.DrawStats()
 		surface.SetMaterial(hud.ZombieTopBackground)
 		surface.SetDrawColor(100, 0, 0, 260)
 		TeamColor = Color(255, 0, 0, 170)
-		DescriptionFont = "NewZombieFont7"
+		DescriptionFont = "NewZombieFont15"
 		ValueFont = "NewZombieFont23"
 		ValueBigFont = "NewZombieFont35"
 	else
@@ -209,7 +209,7 @@ function hud.DrawStats()
 	--surface.SetFont("ssNewAmmoFont6.5")
 
 	--Define Y-axis positions of keys and values
-	local keysStartY, valuesStartY = ScaleH(10), ScaleH(50)
+	local keysStartY, valuesStartY = ScaleH(15), ScaleH(55)
 
 	--Draw Survivor team count
 	local startX = ScaleW(430)

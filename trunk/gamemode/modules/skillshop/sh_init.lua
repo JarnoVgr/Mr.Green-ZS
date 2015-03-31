@@ -33,6 +33,7 @@ GM.SkillShopAmmo = {
 		Amount = 35,
 		Price = 25
 	},
+	
 	["buckshot"] = {
 		Name = "12 Shotguns Shells",
 		Model = "models/Items/BoxBuckshot.mdl",
@@ -44,7 +45,7 @@ GM.SkillShopAmmo = {
 		Model = "models/Items/BoxBuckshot.mdl",
 		Tool = "weapon_zs_mine",
 		Amount = 1,
-		Price = 55,
+		Price = 30,
 		ToolTab = true
 	},
 	["grenade"] = {
@@ -69,5 +70,7 @@ GM.SkillShopAmmo = {
 		Amount = 30,
 		Price = 35,
 		ToolTab = true
-	}
+	},
+
+	
 }

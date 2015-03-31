@@ -23,8 +23,8 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 SWEP.Primary.Delay = 0
 SWEP.Primary.Next = 4
 SWEP.Primary.Duration = 1.2
---SWEP.Primary.Reach = 400
-SWEP.Primary.Reach = 380
+SWEP.Primary.Reach = 480
+--SWEP.Primary.Reach = 380
 
 --Mimic primary
 SWEP.Secondary.Duration = SWEP.Primary.Duration
@@ -96,7 +96,8 @@ function SWEP:DoAttack(bPull)
 		local fHitPercentage = math.Clamp(1 - (fDistance / self.Primary.Reach), 0, 1)
 															
 		--Inflict damage
-		local fDamage = math.Round(24 * fHitPercentage, 0, 10)
+	--	local fDamage = math.Round(24 * fHitPercentage, 0, 10)
+		local fDamage = math.Round(20 * fHitPercentage, 0, 10)
 		if fDamage > 0 then
 			v:TakeDamage(fDamage, self.Owner, self)
 		end
@@ -110,7 +111,7 @@ function SWEP:DoAttack(bPull)
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage + 1.35 --Duby test.
+		local fFuckIntensity = fHitPercentage + 1.4 --Duby test.
 
 		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 

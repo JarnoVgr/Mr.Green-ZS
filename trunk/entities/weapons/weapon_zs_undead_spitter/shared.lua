@@ -1,110 +1,183 @@
+-- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
+-- See LICENSE.txt for license information
+
 AddCSLuaFile()
---Made by Duby :P
-if CLIENT then
-	SWEP.PrintName = "Spitter"
-	SWEP.ViewModelFOV = 0
-	SWEP.ViewModelFlip = false
-	SWEP.ShowViewModel = false
-
-	SWEP.FakeArms = true
-
-	SWEP.ViewModelBoneMods = {
-		-- ["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(-10.202, 19.533, 0) },
-		["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1.2, 1.2, 1.2), pos = Vector(0, 0, 0), angle = Angle(0, -7.493, -45.569) },
-		["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(5.802, 1.06, 0.335), angle = Angle(0, 0, 0) },
-		["ValveBiped.Bip01_R_Finger02"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(52.678, 0, 0) },
-		["ValveBiped.Bip01_R_Finger01"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(45.873, -0.348, 0) },
-		["ValveBiped.Bip01_L_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-59.774, -9.223, 18.572) },
-		["ValveBiped.Bip01_L_Forearm"] = { scale = Vector(1.2, 1.2, 1.2), pos = Vector(0, 0, 0), angle = Angle(10.701, -7.301, 42.666) },
-		["ValveBiped.Bip01_L_Finger0"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(0, 9.659, 6.218) },
-		["ValveBiped.Bip01_R_Finger0"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(-6.42, 28.499, 7.317) }
-	}
-	
-	
-end
-
 
 SWEP.Base = "weapon_zs_undead_base"
 
-SWEP.ViewModel = Model("models/Weapons/v_zombiearms.mdl")
---SWEP.ViewModel = Model("")
-SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
+SWEP.ViewModel = Model("models/weapons/v_wraith.mdl")
+SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
-SWEP.Spawnable = true
-SWEP.AdminSpawnable = true
+SWEP.PrintName = "Ethereal"
 
-SWEP.Primary.Automatic = true
-SWEP.Primary.Duration = 0.5
-SWEP.Primary.Delay = 1.5
-SWEP.Primary.Damage = 1.1
-SWEP.Primary.Reach = 45
 
-SWEP.SwapAnims = false
-
-function SWEP:StartPrimaryAttack()			
-	local pl = self.Owner
-	local angles = pl:GetAngles()
-
-	if angles.pitch < -10 or angles.pitch > 10 then
-		--pl:EmitSound(Sound("npc/zombie_poison/pz_idle"..math.random(2,4)..".wav"))
-		return
-	end
-	
-	self.Owner:SetAnimation( PLAYER_ATTACK1 )
-			
-	if SERVER then
-		pl:EmitSound(Sound("npc/zombie_poison/pz_throw".. math.random(2,3) ..".wav"))
-	end
-	
+if CLIENT then
+	SWEP.ViewModelFOV = 82
+	SWEP.ViewModelFlip = false
 end
 
-function SWEP:PostPerformPrimaryAttack(hit)
-	local pl = self.Owner
-	local angles = pl:GetAngles()
+SWEP.Primary.Duration = 1.5
+SWEP.Primary.Delay = 0.6
+SWEP.Primary.Reach = 48
+SWEP.Primary.Damage = 50
 
-	if angles.pitch > 55 or angles.pitch < -55 then
-		return 
+SWEP.EmitWraithSound = 0
+SWEP.Screams = {
+	Sound("npc/stalker/stalker_alert1b.wav"),
+	Sound("npc/stalker/stalker_alert2b.wav"),
+	Sound("npc/stalker/stalker_alert3b.wav")
+}
+
+-- Human scream sounds
+SWEP.HumanScreams = {
+	Sound("ambient/voices/m_scream1.wav"),
+	Sound("ambient/voices/f_scream1.wav")
+}
+
+function SWEP:Precache()
+	self.BaseClass.Precache(self)
+
+	util.PrecacheSound("npc/stalker/breathing3.wav")
+	
+	-- Quick way to precache all sounds
+	for _, snd in pairs(ZombieClasses[4].PainSounds) do
+		util.PrecacheSound(snd)
 	end
-		
-	--Swap Anims
+	
+	for _, snd in pairs(ZombieClasses[4].DeathSounds) do
+		util.PrecacheSound(snd)
+	end
+	
+	for _, snd in pairs(self.Screams) do
+		util.PrecacheSound(snd)
+	end
+	
+	for _, snd in pairs(self.HumanScreams) do
+		util.PrecacheSound(snd)
+	end
+	
+	for i=1, 4 do
+		util.PrecacheSound("npc/stalker/stalker_scream"..i..".wav")
+	end
+end
+
+function SWEP:Deploy()
+	self.BaseClass.Deploy(self)
+
+	if SERVER then
+		self.ScarySound = CreateSound(self.Owner, Sound("ambient/voices/crying_loop1.wav"))
+	end
+end
+
+function SWEP:StartPrimaryAttack()		
+	-- Hacky way for the animations
 	if self.SwapAnims then
-		self:SendWeaponAnim(ACT_VM_HITCENTER)
+		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
 	else
-		self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
 	end
 	self.SwapAnims = not self.SwapAnims
-		
-	if CLIENT then
+	
+	-- Set the thirdperson animation and emit zombie attack sound
+	self.Owner:SetAnimation(PLAYER_ATTACK1)
+	self:EmitSound(Sound("npc/antlion/distract1.wav"), 100, math.random(92, 107))
+	 
+	local stopPlayer = true
+
+	if self:IsDisguised() then
+		self.Primary.Speed = 100
+		stopPlayer = false
+	else
+		self.Primary.Speed = 1
+	end
+	 
+	if SERVER then
+		if stopPlayer then
+			self.Owner:SetLocalVelocity(Vector(0, 0, 0))
+		end
+	end
+end
+
+function SWEP:Move(mv)
+	if self:IsInPrimaryAttack() then
+		mv:SetMaxSpeed(self.Primary.Speed)
+		return true
+	end
+end
+
+function SWEP:SetDisguise(bl)
+	self:SetDTBool(0,bl)
+	self:DrawShadow(bl)
+end
+
+function SWEP:IsDisguised()
+	return self:GetDTBool(0)
+end
+
+function SWEP:SecondaryAttack()
+	-- if self.Disguised then return end
+	if self:IsDisguised() then
 		return
 	end
 
-	local shootpos = pl:GetShootPos()
-	local startpos = pl:GetPos()
-	startpos.z = shootpos.z
-	local aimvec = pl:GetAimVector()
-	aimvec.z = math.max(aimvec.z, 0.01)
-	
+	self:SetDisguise(true)
 
-	local ent = ents.Create("projectile_spitterspit")
-	if IsValid(ent) then
-		local heading = aimvec
-		ent:SetPos(startpos + heading * 10)
-		ent:SetOwner(pl)
-		ent:Spawn()
-		ent.TeamID = pl:Team()
-		local phys = ent:GetPhysicsObject()
-		if phys:IsValid() then
-			phys:SetVelocityInstantaneous(heading * math.Rand(520, 550))
+	--Pick random human model
+	if SERVER then	
+		local survivors = team.GetPlayers(TEAM_HUMAN)
+		local model = "models/player/kleiner.mdl"
+		if #survivors > 0 then
+			model = table.Random(survivors):GetModel()
 		end
-		ent:SetPhysicsAttacker(pl)
+		
+		self.Owner:SetModel(model)
+		
+		self.Owner:EmitSound(Sound("npc/stalker/stalker_scream"..math.random(1,4)..".wav"), 80, math.random(100, 115))
+	end
+	
+	
+end
+
+-- Play teleport fail sound
+--[[function SWEP:TeleportFail()
+	if SERVER then
+		if ( self.TeleportWarnTime or 0 ) <= CurTime() then
+			-- self.Owner:EmitSound( "npc/zombie_poison/pz_idle4.wav", 70, math.random( 92, 105 ) ) --Moo
+			self.Owner:EmitSound( "npc/stalker/stalker_ambient01.wav", 70, 100 ) 
+			self.TeleportWarnTime = CurTime() + 0.97
+		end
+	end
+end]]
+
+
+function SWEP:OnRemove()
+	if SERVER then
+		self.ScarySound:Stop()
 	end
 
-	--pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
-	self.Owner:EmitSound("npc/barnacle/barnacle_die2.wav")
-	--self.Owner:EmitSound("npc/barnacle/barnacle_digesting1.wav")
-	--self.Owner:EmitSound("npc/barnacle/barnacle_digesting2.wav")
+	self.BaseClass.OnRemove(self)
+end 
 
-	--pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
+-- Main think
+function SWEP:Think()
+	self.BaseClass.Think(self)
+
+	if SERVER then
+		if self.ScarySound then
+			self.ScarySound:PlayEx(0.2, 95 + math.sin(RealTime())*8) 
+		end 
+	end
 end
+
+-- Precache sounds
+util.PrecacheSound("npc/antlion/distract1.wav")
+util.PrecacheSound("ambient/machines/slicer1.wav")
+util.PrecacheSound("ambient/machines/slicer2.wav")
+util.PrecacheSound("ambient/machines/slicer3.wav")
+util.PrecacheSound("ambient/machines/slicer4.wav")
+util.PrecacheSound("npc/zombie/claw_miss1.wav")
+util.PrecacheSound("npc/zombie/claw_miss2.wav")
+
+
+
+  

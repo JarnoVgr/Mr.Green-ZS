@@ -21,7 +21,7 @@ ZombieClasses[0] =
 	Infliction = 0,
 	Revives = true,
 	Health = 260,
-	MaxHealth = 600,
+	MaxHealth = 330,
 	Bounty = 80,
 	SP = 20,
 	Threshold = 0,	
@@ -105,30 +105,42 @@ ZombieClasses[0] =
 }
 
 
+InfectedZombiemodels = { 	
+"models/player/group03/male_02.mdl",
+"models/player/group03/Male_04.mdl",
+"models/player/group03/male_06.mdl",
+"models/player/group03/male_07.mdl",
+"models/player/alyx.mdl",
+"models/player/barney.mdl",
+"models/player/eli.mdl",
+"models/player/mossman.mdl",
+"models/player/kleiner.mdl",
+"models/player/breen.mdl"
+}
 --Obsolete class (not removed to prevent gamemode from breaking)
-ZombieClasses[1] =						
+ZombieClasses[1] =		--I re-added this class to add some diversity into the game. We need faster classes				
 {
-	--Name = "Ghouler",
-	Name = "Obsolete",
+	Name = "Ghouler",
+	--Name = "Obsolete",
 	Tag = "zombie",	
-	Infliction = 0.17,
+	Infliction = 0,
 	Revives = false,
-	Health = 270,
-	MaxHealth = 300,
+	Health = 80,
+	MaxHealth = 80,
 	Bounty = 100,
-	SP = 25,
+	SP = 10,
 	Threshold = 99,	
 	SWEP = "weapon_zs_undead_ghoul",			
 	JumpPower = 200,
 	Unlocked = false,
-	Hidden = true,
+	Hidden = false,
 	CanCrouch = true,
 	CanGib = true, 
-	Model = Model("models/player/combine_soldier.mdl"), 
-	Speed = 150,	
+	Model = table.Random(InfectedZombiemodels), 
+	Speed = 195,	
 	AngleFix = true,
 	DescriptionGameplay = { "> PRIMARY: Bare Claws", "> SECONDARY: War Cry!" },
-	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
+	DescriptionGameplay2 = { "TYPE: Back bone of a horde! " },
 	PainSounds = {
 		Sound( "npc/zombine/zombine_pain1.wav" ),
 		Sound( "npc/zombine/zombine_pain2.wav" ),
@@ -155,7 +167,7 @@ ZombieClasses[1] =
 		Sound ( "npc/zombine/zombine_alert7.wav" ),
 	},
 	Unique = "",
-	Description = "A tainted prison guard who wonders the land..",
+	Description = "A tainted Human who wonders the land..",
 	OnSpawn = function(pl)
 	end,
 	--Unique = "Can be deadly in numbers. Can Propkill.",	
@@ -171,10 +183,10 @@ ZombieClasses[2] =
 	Tag = "poisonzombie",
 	Infliction = 0.43,
 	Health = 450,
-	MaxHealth = 650,
+	MaxHealth = 500,
 	TimeLimit = 810,
 	Bounty = 130,
-	SP = 50,
+	SP = 45,
 	Mass = DEFAULT_MASS * 1.5,
 	Threshold = 4,
 	JumpPower = 200,
@@ -215,10 +227,10 @@ ZombieClasses[8] =
 	Tag = "zombine",
 	Infliction = 0.55,
 	Health = 380,
-	MaxHealth = 320, 
+	MaxHealth = 400, 
 	TimeLimit = 1020,
 	Bounty = 150,
-	SP = 40,
+	SP = 35,
 	Mass = DEFAULT_MASS * 1.2,
 	Threshold = 4,
 	JumpPower = 200,
@@ -226,8 +238,10 @@ ZombieClasses[8] =
 	CanGib = true,
 	SWEP = "weapon_zs_undead_zombine",
 	Model = Model("models/zombie/zombie_soldier.mdl"),
-	Speed = 160,
-	RunSpeed = 190,
+	--Speed = 160,
+	Speed = 170,
+--	RunSpeed = 190,
+	RunSpeed = 200,
 	Description = "A heavily armoured soldier with bullet resistance!",
 	OnSpawn = function(pl)
 	end,
@@ -263,37 +277,43 @@ ZombieClasses[8] =
 
 ZombieClasses[4] =
 {
-	Name = "Spitter",
-	Tag = "spitterzombie",
-	Infliction = 1.2,
-	Health = 550,
+	Name = "Wraith",
+	Tag = "etherealzombie",
+	Infliction = 0.23,
+	Health = 110,
 	MaxHealth = 100,
 	TimeLimit = 200,
 	Bounty = 60,
-	SP = 55,
+	SP = 15,
 	Threshold = 2,
 	JumpPower = 200,
 	CanCrouch = true,
-	Hidden = true,
 	CanGib = true,
 	SWEP = "weapon_zs_undead_spitter",
-	Model = Model( "models/Zombie/Poison.mdl" ),
-	Speed = 150,
-	Description = "A flesh spitting monster",
-	DescriptionGameplay = { "> PRIMARY: Fresh Vomit!", "> SECONDARY: " },
-	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
+	Model = Model( "models/wraith.mdl" ),
+	Speed = 170,
+	Description = "A ghastly figure which can disguise itself as a human!",
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Disguise as a human!"},
+	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
-		Sound("npc/zombie_poison/pz_pain1.wav"),
-		Sound("npc/zombie_poison/pz_pain2.wav"),
-		Sound("npc/zombie_poison/pz_pain3.wav")
+		--[[Sound("npc/stalker/stalker_pain1.wav"),
+		Sound("npc/stalker/stalker_pain2.wav"),
+		Sound("npc/stalker/stalker_pain3.wav"),]]
+		Sound("npc/stalker/stalker_alert1b.wav"),
+		Sound("npc/stalker/stalker_alert12.wav"),
+		Sound("npc/stalker/stalker_alert13.wav"),
+		-- Sound("npc/barnacle/barnacle_pull4.wav")
 	},
 	DeathSounds = {
-		Sound("npc/zombie_poison/pz_die1.wav"),
-		Sound("npc/zombie_poison/pz_die2.wav")
+		Sound("npc/stalker/stalker_die1.wav"),
+		Sound("npc/stalker/stalker_die2.wav"),
+		Sound("wraithdeath3.wav"),
+		Sound("wraithdeath4.wav")
 	},
 	OnSpawn = function(pl)
+		pl:DrawShadow(false)
 	end,
-	ModelScale = 1.2
+	ModelScale = 1
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
@@ -316,7 +336,7 @@ ZombieClasses[5] =
 	Model = Model( "models/wraith.mdl" ),
 	Speed = 170,
 	Description = "A ghastly figure capable of Teleporting!",
-	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport to spot you're looking at"},
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport to spot you're looking at!"},
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),
@@ -393,7 +413,7 @@ ZombieClasses[7] =
 	Health = 40,
 	MaxHealth = 80,
 	Bounty = 50,
-	SP = 20,
+	SP = 15,
 	Mass = 25,
 	TimeLimit = 130,
 	IsHeadcrab = true,
@@ -427,8 +447,8 @@ ZombieClasses[3] =
 {
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
-	Infliction = 0.37,
-	Health = 140,
+	Infliction = 0.35,
+	Health = 160,
 	MaxHealth = 150,
 	TimeLimit = 300,
 	Bounty = 80,

@@ -163,8 +163,8 @@ function ENT:Explode()
 	--  Shaken, not stirred
 	local shake = ents.Create( "env_shake" )
 	shake:SetPos( vPos )
-	shake:SetKeyValue( "amplitude", "800" ) -- Power of the shake effect
-	shake:SetKeyValue( "radius", "280" )	-- Radius of the shake effect
+	shake:SetKeyValue( "amplitude", "820" ) -- Power of the shake effect
+	shake:SetKeyValue( "radius", "290" )	-- Radius of the shake effect
 	shake:SetKeyValue( "duration", "3" )	-- Duration of shake
 	shake:SetKeyValue( "frequency", "128" )	-- Screenshake frequency
 	shake:SetKeyValue( "spawnflags", "4" )	-- Spawnflags( In Air )
@@ -197,14 +197,14 @@ function ENT:Explode()
 	Ent:Fire("explode", "", 0)
 	
 	-- Damage humans nearby
-	--[=[for k,v in pairs ( tbHumans ) do
+	for k,v in pairs ( tbHumans ) do
 		if IsEntityVisible ( v, vPos + Vector ( 0,0,3 ), Filter ) then
 			table.insert( Filter, v )
 			local fDistance = self:GetPos():Distance( v:GetPos() )
 			v:TakeDamage ( math.Clamp ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 37,0, 47 ), self.ZombieOwner, mOwnerWeapon )
 		end
 	end
-	]=]
+	
 	-- Effect
 	local eData = EffectData()
 		eData:SetOrigin( vPos )

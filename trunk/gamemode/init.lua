@@ -1453,6 +1453,7 @@ hook.Add("ShutDown", "OnShutDown", OnShutDown)
      Dubys amazing method to slowing people down while running backwards!
 ---------------------------------------------------------------------------]=]
 --TODO: This should go somewhere else. To optimize it
+--[[
 function GM:KeyPress(pl, key)
 	if pl:Team() ~= TEAM_HUMAN then
 		return
@@ -1467,7 +1468,7 @@ function GM:KeyPress(pl, key)
 			pl:SetWalkSpeed(200)
 		end
 	end
-end 
+end ]]--
 
 --[=[----------------------------------------------------------------------
      Grave Digger suit health on death

@@ -1,8 +1,8 @@
 AddCSLuaFile()
 --Made by Duby :P
 if CLIENT then
-	--SWEP.PrintName = "Ghouler"
-	SWEP.PrintName = "Infected Zombie"
+	SWEP.PrintName = "Ghouler"
+	--SWEP.PrintName = "Infected Zombie"
 	SWEP.ViewModelFOV = 80
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = false
@@ -49,9 +49,9 @@ SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
 
-SWEP.Primary.Duration = 1.45
-SWEP.Primary.Delay = 0.7
-SWEP.Primary.Damage = math.random(25,27)
+SWEP.Primary.Duration = 1.38
+SWEP.Primary.Delay = 0.6
+SWEP.Primary.Damage = math.random(20,22)
 SWEP.Primary.Reach = 58
 
 SWEP.SwapAnims = false

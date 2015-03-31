@@ -494,8 +494,13 @@ end
 --[==[-----------------------------------------
 	See if zombie is apparation
 -----------------------------------------]==]
+
+function meta:IsWraith2()
+	return self:GetZombieClass() == 4  
+end
+
 function meta:IsWraith()
-	return self:GetZombieClass() == 5
+	return self:GetZombieClass() == 5  
 end
 
 --[==[-----------------------------------------
@@ -534,14 +539,6 @@ end
 function meta:IsZombine()
 	return self:GetZombieClass() == 8
 end
-
---[==[------------------------------------------
-	See if zombie is a Spitter
-------------------------------------------]==]
-function meta:IsSpitter()
-	return self:GetZombieClass() == 4
-end
-
 
 --[==[-----------------------
 	Return logging tag
