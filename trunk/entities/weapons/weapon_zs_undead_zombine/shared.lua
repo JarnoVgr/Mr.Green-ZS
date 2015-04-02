@@ -14,7 +14,7 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 end
 
-SWEP.Primary.Delay = 1
+SWEP.Primary.Delay = 0.5
 SWEP.Primary.Duration = 2
 SWEP.Primary.Reach = 50
 SWEP.Primary.Damage = 35
