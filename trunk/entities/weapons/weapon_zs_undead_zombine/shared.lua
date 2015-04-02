@@ -114,7 +114,7 @@ function SWEP:StartPrimaryAttack()
 		
 		-- Stop when we get grenade
 
-		GAMEMODE:SetPlayerSpeed ( mOwner, 0,0)
+		GAMEMODE:SetPlayerSpeed ( mOwner, 60,60)
 		mOwner:SetLocalVelocity ( Vector ( 50,100,50 ) )
 	end
 

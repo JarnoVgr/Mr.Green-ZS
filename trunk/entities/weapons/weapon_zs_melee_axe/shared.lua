@@ -11,7 +11,7 @@ if CLIENT then
 	SWEP.ShowWorldModel = true
 
 	SWEP.VElements = {
-		["axe"] = { type = "Model", model = "models/props/CS_militia/axe.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.885, 1.679, -4.541), angle = Angle(0, -6.658, 88.976), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		["axe"] = { type = "Model", model = "models/props/CS_militia/axe.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(1.885, 2.0, -4.541), angle = Angle(0, -6.658, 88.976), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 
 	--[[SWEP.WElements = {
@@ -23,7 +23,8 @@ end
 
 -- Model paths
 SWEP.Author = "Deluvas"
-SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
+--SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
+SWEP.ViewModel = Model ( "models/weapons/c_stunstick.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel = Model("models/weapons/w_axe.mdl")
 

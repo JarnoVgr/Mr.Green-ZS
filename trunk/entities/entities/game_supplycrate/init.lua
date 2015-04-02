@@ -86,11 +86,11 @@ function ENT:Initialize()
 		Ent:SetUseType(SIMPLE_USE)
 			
 		--Prevent unnecessary collisions
-		Ent:SetCollisionGroup(COLLISION_GROUP_WEAPON)
-		--[[ if k == "Ammo" or k == "Shotgun" or k == "Vial" or k == "AmmoUp5" or k == "Ammo2" or k == "Vial2" or k == ""  then
+		--Ent:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+		 if k == "Ammo" or k == "Shotgun" or k == "Vial" or k == "AmmoUp5" or k == "Ammo2" or k == "Vial2" or k == ""  then
 			--Ent:SetCollisionGroup ( COLLISION_GROUP_DEBRIS_TRIGGER )
 			Ent:SetCollisionGroup ( SOLID_VPHYSICS )
-		end]]
+		end
 
 		--Copy function from parent
 		Ent.ShouldCollide = self.ShouldCollide

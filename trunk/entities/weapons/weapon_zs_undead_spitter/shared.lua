@@ -8,7 +8,7 @@ SWEP.Base = "weapon_zs_undead_base"
 SWEP.ViewModel = Model("models/weapons/v_wraith.mdl")
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
-SWEP.PrintName = "Ethereal"
+SWEP.PrintName = "Ghast"
 
 
 if CLIENT then

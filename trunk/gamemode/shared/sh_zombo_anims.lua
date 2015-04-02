@@ -182,6 +182,7 @@ GM.DoAnimationEventZombies[1] = function ( pl, event, data )
 end
 
 
+
 -- Fast zombie - Activity handle
 GM.CalcMainActivityZombies[3] = function ( pl, vel )
 
@@ -561,16 +562,19 @@ end
 
 ]]--
 
--- Ethereal - Activity handle
+local Walk = {"walk_All","Run_All"}
+-- Ghast - Activity handle
 GM.CalcMainActivityZombies[4] = function ( pl, vel )
 	
 	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then
 		
-		local iSeq, iIdeal = pl:LookupSequence ( "idle_all_cower" ) 
+		--local iSeq, iIdeal = pl:LookupSequence ( "idle_all_cower" ) 
+		local iSeq, iIdeal = pl:LookupSequence ( "idle_all_angry" ) 
 		
 		local fVelocity = vel:Length2D()
 		if fVelocity >= 0.5 then 
-			iSeq = pl:LookupSequence ( "run_all_panicked_03" ) 
+			--iSeq = pl:LookupSequence ( "run_all_panicked_03" ) 
+			iSeq = pl:LookupSequence ( "walk_All")
 		end
 		
 		return iIdeal, iSeq
@@ -586,7 +590,7 @@ GM.CalcMainActivityZombies[4] = function ( pl, vel )
 	return iIdeal, iSeq
 end
 
---  Ethereal - Called on events like primary attack
+--  Ghast - Called on events like primary attack
 GM.DoAnimationEventZombies[4] = function ( pl, event, data )
 	if event == PLAYERANIMEVENT_ATTACK_PRIMARY then
 		if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then

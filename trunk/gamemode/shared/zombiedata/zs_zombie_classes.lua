@@ -120,7 +120,7 @@ InfectedZombiemodels = {
 --Obsolete class (not removed to prevent gamemode from breaking)
 ZombieClasses[1] =		--I re-added this class to add some diversity into the game. We need faster classes				
 {
-	Name = "Ghouler",
+	Name = "Fresh Dead",
 	--Name = "Obsolete",
 	Tag = "zombie",	
 	Infliction = 0,
@@ -277,7 +277,7 @@ ZombieClasses[8] =
 
 ZombieClasses[4] =
 {
-	Name = "Wraith",
+	Name = "Ghast",
 	Tag = "etherealzombie",
 	Infliction = 0.23,
 	Health = 110,
@@ -504,9 +504,9 @@ ZombieClasses[9] =
 {
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
-	Infliction = 0.4,
-	Health = 70,
-	MaxHealth = 150,
+	Infliction = 0.43,
+	Health = 120,
+	MaxHealth = 120,
 	Bounty = 70,
 	SP = 20,
 	Mass = 40,

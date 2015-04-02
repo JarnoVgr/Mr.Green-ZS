@@ -37,17 +37,17 @@ SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.Primary.Delay = 0.01
 
-SWEP.Primary.Heal = 13
+SWEP.Primary.Heal = 10
 SWEP.Primary.HealDelay = 7
 
-SWEP.Primary.ClipSize = 70
-SWEP.Primary.DefaultClip = 70
+SWEP.Primary.ClipSize = 50
+SWEP.Primary.DefaultClip = 50
 SWEP.Primary.Ammo = "Battery"
 
 SWEP.Secondary.Delay = 0.01
 
 SWEP.Secondary.Heal = 10
-SWEP.Secondary.HealDelay = 15
+SWEP.Secondary.HealDelay = 14
 
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
@@ -136,9 +136,9 @@ function SWEP:PrimaryAttack()
 					owner.NextMedKitUse = self:GetNextCharge()
 					
 					if SERVER then
-						owner.HealingDone = owner.HealingDone + (toheal or 20)
-						skillpoints.AddSkillPoints(owner,toheal or 20)
-						ent:FloatingTextEffect( toheal or 20, owner )
+						owner.HealingDone = owner.HealingDone + (toheal or 14)
+						skillpoints.AddSkillPoints(owner,toheal or 14)
+						ent:FloatingTextEffect( toheal or 14, owner )
 						owner:AddXP(toheal or 5)
 						
 						--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})

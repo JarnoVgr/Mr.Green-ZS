@@ -159,11 +159,11 @@ end
 
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
-		mv:SetMaxSpeed(1)
+		mv:SetMaxSpeed(80)
 		return true
 	end
 	if self:IsInSecondaryAttack() then
-		mv:SetMaxSpeed(1)
+		mv:SetMaxSpeed(80)
 		return true
 	end
 end

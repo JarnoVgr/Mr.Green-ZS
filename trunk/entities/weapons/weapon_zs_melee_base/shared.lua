@@ -4,6 +4,11 @@ AddCSLuaFile("cl_init.lua")
 SWEP.ViewModel = "models/weapons/v_crowbar.mdl"
 SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
+if CLIENT then
+	SWEP.ShowViewModel = true
+
+end
+
 SWEP.DrawCrosshair = false
 SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
@@ -236,7 +241,7 @@ function SWEP:StartSwinging()
 	local swingtime = self.SwingTime
 	
 	if self.Owner and self.Owner:GetSuit() == "meleesuit" then
-		swingtime = math.Clamp(self.SwingTime-0.3,0,self.SwingTime)
+		swingtime = math.Clamp(self.SwingTime-0.5,0,self.SwingTime)
 	end
 
 	--Viewpunch
@@ -767,3 +772,4 @@ if CLIENT then
 		end
 	end
 end
+

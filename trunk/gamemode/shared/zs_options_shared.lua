@@ -321,7 +321,7 @@ GM.RankUnlocks = {
 	[22] = {"_sboost"},
 	[24] = {"weapon_zs_melee_combatknife"},
 	[28] = {"_adrenaline"},
-	[29] = {"weapon_zs_melee_crowbar"},
+	[29] = {"weapon_zs_melee_axe"},
 	[30] = {"weapon_zs_miniturret"},
 	-- [90] = {"_professional"},-- hidden for a while
 }

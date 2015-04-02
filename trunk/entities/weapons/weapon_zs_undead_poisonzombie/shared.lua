@@ -19,7 +19,7 @@ SWEP.Primary.Reach = 55
 SWEP.Primary.Duration = 1.8
 SWEP.Primary.Damage = 45
 
-SWEP.Secondary.Delay = 0.3
+SWEP.Secondary.Delay = 0.28
 SWEP.Secondary.Duration = 4
 SWEP.Secondary.Damage = math.random(30,40)
 
@@ -118,6 +118,7 @@ function SWEP:PerformSecondaryAttack()
 	local aimvec = pl:GetAimVector()
 	aimvec.z = math.max(aimvec.z, -0.7)
 	
+	
 	for i=1, 8 do
 		local ent = ents.Create("projectile_poisonpuke")
 		if ent:IsValid() then
@@ -128,7 +129,8 @@ function SWEP:PerformSecondaryAttack()
 			ent.TeamID = pl:Team()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
-				phys:SetVelocityInstantaneous(heading * math.Rand(310, 560))
+				--phys:SetVelocityInstantaneous(heading * math.Rand(310, 560))
+				phys:SetVelocityInstantaneous(heading * math.Rand(350, 580))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end

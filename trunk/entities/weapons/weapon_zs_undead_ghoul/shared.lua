@@ -1,8 +1,7 @@
 AddCSLuaFile()
 --Made by Duby :P
 if CLIENT then
-	SWEP.PrintName = "Ghouler"
-	--SWEP.PrintName = "Infected Zombie"
+	SWEP.PrintName = "Infected Zombie"
 	SWEP.ViewModelFOV = 80
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = false
