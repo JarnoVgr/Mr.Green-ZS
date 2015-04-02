@@ -306,7 +306,7 @@ GM.RankUnlocks = {
 	--[4] = {"weapon_zs_smg"},
 	[5] = {"weapon_zs_melee_keyboard"},
 	[6] = {"weapon_zs_melee_pipe"},
-	[7] = {"_imortalpro"},
+	--[7] = {"_imortalpro"},
 	[9] = {"_falldmg",},
 	[10] = {"_support"},
 	[11] = {"_kevlar2"},
@@ -342,7 +342,7 @@ GM.Perks = {
 	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with Hammer.", Material = "HUD/scoreboard_clock", RequiresWeapon = "weapon_zs_tools_hammer", Slot = 2},
 	--["_comeback"] = {Name = "Comeback", Description = "When redeeming you will spawn once with either a AUG, Famas, SG552 or M3super90.", Material = "VGUI/logos/spray_elited", Slot = 2},	
 	["_comeback2"] = {Name = "Reborn", Description = "When redeeming you will spawn once with either a Deagle or a pair of Dual Elites.", Material = "VGUI/logos/spray_elited", Slot = 1},
-	["_imortalpro"] = {Name = "Immortal Protector", Description = "You will spawn with the Pulse SMG!", Slot = 2}
+--	["_imortalpro"] = {Name = "Immortal Protector", Description = "You will spawn with the Pulse SMG!", Slot = 2}
 	--["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
 }
 

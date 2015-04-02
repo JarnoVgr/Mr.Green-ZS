@@ -64,13 +64,20 @@ GM.SkillShopAmmo = {
 		Price = 30,
 		ToolTab = true
 	},
-	["Battery"] = {
+	--[[["Battery"] = {
 		Name = "Refill 30 charge for Medkit",
 		Model = "models/Items/BoxBuckshot.mdl",
 		Amount = 30,
 		Price = 35,
 		ToolTab = true
-	},
+	},]]--
 
+	["Battery"] = {
+		Name = "Refill 30 charge for Medkit",
+		Model = "models/Items/BoxBuckshot.mdl",
+		Amount = 30,
+		Price = 70,
+		ToolTab = true
+	},
 	
 }
