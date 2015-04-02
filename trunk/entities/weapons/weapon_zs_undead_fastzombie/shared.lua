@@ -111,7 +111,7 @@ function SWEP:Think()
 			self.Owner:SetLocalVelocity(Vector(0, 0, 0))
 			
 			--Leap Cooldown
-			self.NextLeap = CurTime() + 5
+			self.NextLeap = CurTime() + 3
 		end
 		
 		--Always update leap status

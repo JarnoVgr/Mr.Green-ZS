@@ -53,7 +53,7 @@ SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Ammo = "CombineCannon"
 
-SWEP.WalkSpeed = 180
+SWEP.WalkSpeed = 195
 
 SWEP.NoMagazine = true
 

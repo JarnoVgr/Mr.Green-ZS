@@ -49,7 +49,7 @@ SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "CombineCannon"
 SWEP.Secondary.Delay = 0.15
 
-SWEP.WalkSpeed = 150
+SWEP.WalkSpeed = 200
 
 function SWEP:InitializeClientsideModels()
 	

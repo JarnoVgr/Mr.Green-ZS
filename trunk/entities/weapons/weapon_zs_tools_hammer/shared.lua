@@ -70,7 +70,7 @@ SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 --SWEP.Secondary.Ammo = "gravity"
  
-SWEP.WalkSpeed = 225
+SWEP.WalkSpeed = 200
 SWEP.HoldType = "melee"
  
 SWEP.MeleeDamage = 0
