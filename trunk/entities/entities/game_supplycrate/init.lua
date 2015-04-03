@@ -38,9 +38,11 @@ function ENT:Initialize()
 	self:SetModel(self.Table["AmmoUp"].Model)
 	self:SetAngles(self.Table["AmmoUp"].Angles)
 
-	self:PhysicsInit(SOLID_BBOX)
+	--self:PhysicsInit(SOLID_BBOX)
+	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_NONE)
-	self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+--	self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+	self:SetCollisionGroup(SOLID_VPHYSICS)
 
 	self:SetUseType(SIMPLE_USE)
 	self:DrawShadow(false)
@@ -158,3 +160,4 @@ end
 function ENT:UpdateTransmitState()
 	return TRANSMIT_ALWAYS
 end
+

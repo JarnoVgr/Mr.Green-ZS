@@ -31,7 +31,7 @@ ZombieClasses[0] =
 	CanCrouch = true,
 	CanGib = true, 
 	Model = Model("models/player/zombie_classic.mdl"),
-	Speed = 155,
+	Speed = 160,
 	AngleFix = true,
 	Description = "The backbone of the horde.",
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill" },
@@ -125,8 +125,8 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	Tag = "zombie",	
 	Infliction = 0,
 	Revives = false,
-	Health = 80,
-	MaxHealth = 80,
+	Health = 120,
+	MaxHealth = 120,
 	Bounty = 100,
 	SP = 10,
 	Threshold = 99,	
@@ -221,6 +221,233 @@ ZombieClasses[2] =
 }
 
 
+ZombieClasses[3] = 
+{
+	Name = "Fast Zombie",
+	Tag = "fastzombie",
+	Infliction = 0.35,
+	Health = 160,
+	MaxHealth = 160,
+	TimeLimit = 160,
+	Bounty = 80,
+	SP = 20,
+	Threshold = 2,
+	SWEP = "weapon_zs_undead_fastzombie",
+	JumpPower = 200,
+	CanCrouch = true,
+	CanGib = true,
+	AngleFix = true,
+	Model = Model("models/Zombie/Fast.mdl"),
+	Speed = 280,
+	Description = "Skin and bones predator.",
+	DescriptionGameplay2 = { "TYPE: Support class for horde" },
+	OnSpawn = function(pl)
+	end,
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap" },
+	PainSounds = {
+		Sound("mrgreen/undead/fastzombie/pain1.wav"),
+		Sound("mrgreen/undead/fastzombie/pain2.wav"),
+		Sound("mrgreen/undead/fastzombie/pain3.wav"),
+		Sound("mrgreen/undead/fastzombie/pain4.wav"),
+		Sound("mrgreen/undead/fastzombie/pain5.wav"),
+		Sound("mrgreen/undead/fastzombie/pain6.wav"),
+		Sound("mrgreen/undead/fastzombie/pain7.wav"),
+		Sound("mrgreen/undead/fastzombie/pain8.wav"),
+		Sound("mrgreen/undead/fastzombie/pain9.wav"),
+		Sound("mrgreen/undead/fastzombie/pain10.wav"),
+		Sound("mrgreen/undead/fastzombie/pain11.wav"),
+		Sound("mrgreen/undead/fastzombie/pain12.wav"),
+		Sound("mrgreen/undead/fastzombie/pain13.wav"),
+		Sound("mrgreen/undead/fastzombie/pain14.wav"),
+		Sound("mrgreen/undead/fastzombie/pain15.wav"),
+		Sound("mrgreen/undead/fastzombie/pain16.wav"),
+	},
+	DeathSounds = {
+		Sound("mrgreen/undead/fastzombie/death1.wav"),
+		Sound("mrgreen/undead/fastzombie/death2.wav"),
+		Sound("mrgreen/undead/fastzombie/death3.wav"),
+		Sound("mrgreen/undead/fastzombie/death4.wav"),
+		Sound("mrgreen/undead/fastzombie/death5.wav")
+	},
+	PlayerFootstep = true,
+	ViewOffset = Vector( 0, 0, 50 ),
+	ViewOffsetDucked = Vector( 0, 0, 24 ),
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)},
+	ModelScale = 1
+	-- ViewOffset = Vector(0, 0, 0)
+}
+
+
+
+ZombieClasses[4] =
+{
+	Name = "Ghast",
+	Tag = "etherealzombie",
+	Infliction = 0.2,
+	Health = 110,
+	MaxHealth = 110,
+	TimeLimit = 200,
+	Bounty = 60,
+	SP = 15,
+	Threshold = 2,
+	JumpPower = 200,
+	CanCrouch = true,
+	CanGib = true,
+	SWEP = "weapon_zs_undead_spitter",
+	Model = Model( "models/wraith.mdl" ),
+	Speed = 170,
+	Description = "A ghastly figure which can disguise itself as a human!",
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Disguise as a human!"},
+	DescriptionGameplay2 = {"TYPE: Support class for horde"},
+	PainSounds = {
+		--[[Sound("npc/stalker/stalker_pain1.wav"),
+		Sound("npc/stalker/stalker_pain2.wav"),
+		Sound("npc/stalker/stalker_pain3.wav"),]]
+		Sound("npc/stalker/stalker_alert1b.wav"),
+		Sound("npc/stalker/stalker_alert12.wav"),
+		Sound("npc/stalker/stalker_alert13.wav"),
+		-- Sound("npc/barnacle/barnacle_pull4.wav")
+	},
+	DeathSounds = {
+		Sound("npc/stalker/stalker_die1.wav"),
+		Sound("npc/stalker/stalker_die2.wav"),
+		Sound("wraithdeath3.wav"),
+		Sound("wraithdeath4.wav")
+	},
+	OnSpawn = function(pl)
+		pl:DrawShadow(false)
+	end,
+	ModelScale = 1
+	-- ViewOffset = Vector(0, 0, 0)
+}
+
+
+ZombieClasses[5] =
+{
+	Name = "Ethereal",
+	Tag = "etherealzombie",
+	Infliction = 0.23,
+	Health = 110,
+	MaxHealth = 110,
+	TimeLimit = 200,
+	Bounty = 60,
+	SP = 20,
+	Threshold = 2,
+	JumpPower = 200,
+	CanCrouch = true,
+	CanGib = true,
+	SWEP = "weapon_zs_undead_wraith",
+	Model = Model( "models/wraith.mdl" ),
+	Speed = 170,
+	Description = "A ghastly figure capable of Teleporting!",
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport to spot you're looking at!"},
+	DescriptionGameplay2 = {"TYPE: Support class for horde"},
+	PainSounds = {
+		--[[Sound("npc/stalker/stalker_pain1.wav"),
+		Sound("npc/stalker/stalker_pain2.wav"),
+		Sound("npc/stalker/stalker_pain3.wav"),]]
+		Sound("npc/stalker/stalker_alert1b.wav"),
+		Sound("npc/stalker/stalker_alert12.wav"),
+		Sound("npc/stalker/stalker_alert13.wav"),
+		-- Sound("npc/barnacle/barnacle_pull4.wav")
+	},
+	DeathSounds = {
+		Sound("npc/stalker/stalker_die1.wav"),
+		Sound("npc/stalker/stalker_die2.wav"),
+		Sound("wraithdeath3.wav"),
+		Sound("wraithdeath4.wav")
+	},
+	OnSpawn = function(pl)
+		pl:DrawShadow(false)
+	end,
+	ModelScale = 1
+	-- ViewOffset = Vector(0, 0, 0)
+}
+
+ZombieClasses[6] =						
+{
+	Name = "Howler",
+	Tag = "howler",	
+	Infliction = 0.28,
+	Health = 130,
+	MaxHealth = 130,
+	TimeLimit = 460,
+	Bounty = 70,
+	SP = 20,
+	Threshold = 4,			
+	SWEP = "weapon_zs_undead_howler",			
+	JumpPower = 200,
+	CanCrouch = true,
+	CanGib = true,
+	Model = Model("models/player/group01/female_01.mdl"), 
+	Speed = 180,						
+	Description = "A School girl that screams!",
+	DescriptionGameplay = {"> PRIMARY: Scream that pulls humans", "> SECONDARY: Scream that pushes humans"},
+	DescriptionGameplay2 = { "TYPE: Support class for horde" },
+	PlayerFootstep = true,
+	AttackSounds = { 
+		Sound("player/zombies/howler/howler_scream_01.wav"),
+		Sound("player/zombies/howler/howler_scream_02.wav"),
+	},
+	PainSounds = { 
+		Sound("player/zombies/howler/howler_mad_01.wav" ),
+		Sound("player/zombies/howler/howler_mad_02.wav" ),
+		Sound("player/zombies/howler/howler_mad_03.wav" ),
+		Sound("player/zombies/howler/howler_mad_04.wav" ),
+	},
+	DeathSounds = {
+		Sound( "player/zombies/howler/howler_death_01.wav" ),
+	}, 
+	OnSpawn = function(pl)
+		local status = pl:GiveStatus("overridemodel")
+		
+		if status and status:IsValid() then
+			status:SetModel(Model("models/mrgreen/howler.mdl"))
+		end
+	end,
+	ModelScale = 1
+	-- ViewOffset = Vector( 0, 0, 0 )
+}
+
+ZombieClasses[7] =
+{
+	Name = "Headcrab",
+	Tag = "headcrab",
+	Infliction = 0,
+	Health = 65,
+	MaxHealth = 65,
+	Bounty = 50,
+	SP = 15,
+	Mass = 25,
+	TimeLimit = 130,
+	IsHeadcrab = true,
+	JumpPower = 200,
+	CanCrouch = false,
+	CanGib = false,
+	Threshold = 1,
+	SWEP = "weapon_zs_undead_headcrab",
+	Model = Model("models/headcrabclassic.mdl"),
+	Speed = 190,
+	Description = "Head Humper! What is this creature!",
+	DescriptionGameplay2 = { "TYPE: Support class for horde" },
+	OnSpawn = function(pl)
+	end,
+	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes" },
+	PainSounds = {
+		Sound("npc/headcrab/pain1.wav"),
+		Sound("npc/headcrab/pain2.wav"),
+		Sound("npc/headcrab/pain3.wav")
+	},
+	DeathSounds = {
+		Sound("npc/headcrab/die1.wav"),
+		Sound("npc/headcrab/die2.wav")
+	},
+	ViewOffset = Vector( 0,0,10 ),
+	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1)},
+	ModelScale = 1
+}
+
 ZombieClasses[8] =
 {
 	Name = "Zombine",
@@ -275,230 +502,6 @@ ZombieClasses[8] =
 }
 
 
-ZombieClasses[4] =
-{
-	Name = "Ghast",
-	Tag = "etherealzombie",
-	Infliction = 0.23,
-	Health = 110,
-	MaxHealth = 100,
-	TimeLimit = 200,
-	Bounty = 60,
-	SP = 15,
-	Threshold = 2,
-	JumpPower = 200,
-	CanCrouch = true,
-	CanGib = true,
-	SWEP = "weapon_zs_undead_spitter",
-	Model = Model( "models/wraith.mdl" ),
-	Speed = 170,
-	Description = "A ghastly figure which can disguise itself as a human!",
-	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Disguise as a human!"},
-	DescriptionGameplay2 = {"TYPE: Support class for horde"},
-	PainSounds = {
-		--[[Sound("npc/stalker/stalker_pain1.wav"),
-		Sound("npc/stalker/stalker_pain2.wav"),
-		Sound("npc/stalker/stalker_pain3.wav"),]]
-		Sound("npc/stalker/stalker_alert1b.wav"),
-		Sound("npc/stalker/stalker_alert12.wav"),
-		Sound("npc/stalker/stalker_alert13.wav"),
-		-- Sound("npc/barnacle/barnacle_pull4.wav")
-	},
-	DeathSounds = {
-		Sound("npc/stalker/stalker_die1.wav"),
-		Sound("npc/stalker/stalker_die2.wav"),
-		Sound("wraithdeath3.wav"),
-		Sound("wraithdeath4.wav")
-	},
-	OnSpawn = function(pl)
-		pl:DrawShadow(false)
-	end,
-	ModelScale = 1
-	-- ViewOffset = Vector(0, 0, 0)
-}
-
-
-ZombieClasses[5] =
-{
-	Name = "Ethereal",
-	Tag = "etherealzombie",
-	Infliction = 0.23,
-	Health = 110,
-	MaxHealth = 100,
-	TimeLimit = 200,
-	Bounty = 60,
-	SP = 20,
-	Threshold = 2,
-	JumpPower = 200,
-	CanCrouch = true,
-	CanGib = true,
-	SWEP = "weapon_zs_undead_wraith",
-	Model = Model( "models/wraith.mdl" ),
-	Speed = 170,
-	Description = "A ghastly figure capable of Teleporting!",
-	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport to spot you're looking at!"},
-	DescriptionGameplay2 = {"TYPE: Support class for horde"},
-	PainSounds = {
-		--[[Sound("npc/stalker/stalker_pain1.wav"),
-		Sound("npc/stalker/stalker_pain2.wav"),
-		Sound("npc/stalker/stalker_pain3.wav"),]]
-		Sound("npc/stalker/stalker_alert1b.wav"),
-		Sound("npc/stalker/stalker_alert12.wav"),
-		Sound("npc/stalker/stalker_alert13.wav"),
-		-- Sound("npc/barnacle/barnacle_pull4.wav")
-	},
-	DeathSounds = {
-		Sound("npc/stalker/stalker_die1.wav"),
-		Sound("npc/stalker/stalker_die2.wav"),
-		Sound("wraithdeath3.wav"),
-		Sound("wraithdeath4.wav")
-	},
-	OnSpawn = function(pl)
-		pl:DrawShadow(false)
-	end,
-	ModelScale = 1
-	-- ViewOffset = Vector(0, 0, 0)
-}
-
-ZombieClasses[6] =						
-{
-	Name = "Howler",
-	Tag = "howler",	
-	Infliction = 0.3,
-	Health = 120,
-	MaxHealth = 120,
-	TimeLimit = 460,
-	Bounty = 70,
-	SP = 20,
-	Threshold = 4,			
-	SWEP = "weapon_zs_undead_howler",			
-	JumpPower = 200,
-	CanCrouch = true,
-	CanGib = true,
-	Model = Model("models/player/group01/female_01.mdl"), 
-	Speed = 180,						
-	Description = "A School girl that screams!",
-	DescriptionGameplay = {"> PRIMARY: Scream that pulls humans", "> SECONDARY: Scream that pushes humans"},
-	DescriptionGameplay2 = { "TYPE: Support class for horde" },
-	PlayerFootstep = true,
-	AttackSounds = { 
-		Sound("player/zombies/howler/howler_scream_01.wav"),
-		Sound("player/zombies/howler/howler_scream_02.wav"),
-	},
-	PainSounds = { 
-		Sound("player/zombies/howler/howler_mad_01.wav" ),
-		Sound("player/zombies/howler/howler_mad_02.wav" ),
-		Sound("player/zombies/howler/howler_mad_03.wav" ),
-		Sound("player/zombies/howler/howler_mad_04.wav" ),
-	},
-	DeathSounds = {
-		Sound( "player/zombies/howler/howler_death_01.wav" ),
-	}, 
-	OnSpawn = function(pl)
-		local status = pl:GiveStatus("overridemodel")
-		
-		if status and status:IsValid() then
-			status:SetModel(Model("models/mrgreen/howler.mdl"))
-		end
-	end,
-	ModelScale = 1
-	-- ViewOffset = Vector( 0, 0, 0 )
-}
-
-ZombieClasses[7] =
-{
-	Name = "Headcrab",
-	Tag = "headcrab",
-	Infliction = 0,
-	Health = 40,
-	MaxHealth = 80,
-	Bounty = 50,
-	SP = 15,
-	Mass = 25,
-	TimeLimit = 130,
-	IsHeadcrab = true,
-	JumpPower = 200,
-	CanCrouch = false,
-	CanGib = false,
-	Threshold = 1,
-	SWEP = "weapon_zs_undead_headcrab",
-	Model = Model("models/headcrabclassic.mdl"),
-	Speed = 190,
-	Description = "Head Humper! What is this creature!",
-	DescriptionGameplay2 = { "TYPE: Support class for horde" },
-	OnSpawn = function(pl)
-	end,
-	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes" },
-	PainSounds = {
-		Sound("npc/headcrab/pain1.wav"),
-		Sound("npc/headcrab/pain2.wav"),
-		Sound("npc/headcrab/pain3.wav")
-	},
-	DeathSounds = {
-		Sound("npc/headcrab/die1.wav"),
-		Sound("npc/headcrab/die2.wav")
-	},
-	ViewOffset = Vector( 0,0,10 ),
-	Hull = { Vector(-12, -12, 0), Vector(12, 12, 18.1)},
-	ModelScale = 1
-}
-
-ZombieClasses[3] = 
-{
-	Name = "Fast Zombie",
-	Tag = "fastzombie",
-	Infliction = 0.35,
-	Health = 160,
-	MaxHealth = 150,
-	TimeLimit = 300,
-	Bounty = 80,
-	SP = 20,
-	Threshold = 2,
-	SWEP = "weapon_zs_undead_fastzombie",
-	JumpPower = 200,
-	CanCrouch = true,
-	CanGib = true,
-	AngleFix = true,
-	Model = Model("models/Zombie/Fast.mdl"),
-	Speed = 280,
-	Description = "Skin and bones predator.",
-	DescriptionGameplay2 = { "TYPE: Support class for horde" },
-	OnSpawn = function(pl)
-	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap" },
-	PainSounds = {
-		Sound("mrgreen/undead/fastzombie/pain1.wav"),
-		Sound("mrgreen/undead/fastzombie/pain2.wav"),
-		Sound("mrgreen/undead/fastzombie/pain3.wav"),
-		Sound("mrgreen/undead/fastzombie/pain4.wav"),
-		Sound("mrgreen/undead/fastzombie/pain5.wav"),
-		Sound("mrgreen/undead/fastzombie/pain6.wav"),
-		Sound("mrgreen/undead/fastzombie/pain7.wav"),
-		Sound("mrgreen/undead/fastzombie/pain8.wav"),
-		Sound("mrgreen/undead/fastzombie/pain9.wav"),
-		Sound("mrgreen/undead/fastzombie/pain10.wav"),
-		Sound("mrgreen/undead/fastzombie/pain11.wav"),
-		Sound("mrgreen/undead/fastzombie/pain12.wav"),
-		Sound("mrgreen/undead/fastzombie/pain13.wav"),
-		Sound("mrgreen/undead/fastzombie/pain14.wav"),
-		Sound("mrgreen/undead/fastzombie/pain15.wav"),
-		Sound("mrgreen/undead/fastzombie/pain16.wav"),
-	},
-	DeathSounds = {
-		Sound("mrgreen/undead/fastzombie/death1.wav"),
-		Sound("mrgreen/undead/fastzombie/death2.wav"),
-		Sound("mrgreen/undead/fastzombie/death3.wav"),
-		Sound("mrgreen/undead/fastzombie/death4.wav"),
-		Sound("mrgreen/undead/fastzombie/death5.wav")
-	},
-	PlayerFootstep = true,
-	ViewOffset = Vector( 0, 0, 50 ),
-	ViewOffsetDucked = Vector( 0, 0, 24 ),
-	Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
-	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)},
-	ModelScale = 1
-	-- ViewOffset = Vector(0, 0, 0)
-}
 
 ZombieClasses[9] =
 {
@@ -558,7 +561,7 @@ ZombieClasses[10] =
 	CanCrouch = true,
 	CanGib = true,
 	Model = Model("models/Zombie/Classic.mdl"), 
-	Speed = 180,
+	Speed = 185,
 	Hidden = true,	
 	AngleFix = true,
 	Description = "",

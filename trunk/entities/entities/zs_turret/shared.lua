@@ -423,7 +423,7 @@ if SERVER then
 		bullet.Dir = self:GetShootDir()
 		bullet.Spread = Vector(0, 0, 0)  
 		bullet.Tracer = 3
-		bullet.Force = 1.1
+		bullet.Force = 1.09
 		bullet.Damage = 13
 		bullet.TracerName = "AR2Tracer"
 		bullet.Callback = BulletCallback
