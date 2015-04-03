@@ -92,7 +92,7 @@ function SWEP:PerformSecondaryAttack()
 	local pl = self.Owner
 
 	-- GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed ) 
-	if pl:GetAngles().pitch > 55 or pl:GetAngles().pitch < -55 then 
+	if pl:GetAngles().pitch > 90 or pl:GetAngles().pitch < -90 then 
 		if SERVER then
 			pl:EmitSound(Sound("npc/zombie_poison/pz_idle".. math.random(2,4) ..".wav"))
 		end

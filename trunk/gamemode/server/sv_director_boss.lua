@@ -29,13 +29,13 @@ function GM:UnleashBoss()
 		
 	--Calculate boss duration
 --	boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 140),ROUNDTIME-CurTime())
-	boss.duration = math.min(230,ROUNDTIME-CurTime()) --Make it static so that we don't have a boss spawn for 10 seconds.
+--	boss.duration = math.min(230,ROUNDTIME-CurTime()) --Make it static so that we don't have a boss spawn for 10 seconds.
 
 	--Set End time
 	boss.endTime = CurTime() + boss.duration		
 
 	--Create timer to kill boss and end of duration
-	if boss.duration and boss.duration > 0 then
+	--[[if boss.duration and boss.duration > 0 then
 		timer.Create("EndBoss", boss.duration, 1, function() 
 			if not boss.pl or not IsValid(boss.pl) or not boss.pl:IsBoss() or not boss.pl:Alive() then
 				--Just force disable it then
@@ -51,7 +51,7 @@ function GM:UnleashBoss()
 			pl:SetPhysicsAttacker(nil)
 			pl:Kill()
 		end)
-	end
+	end]]--
 
 	--Check if boss is still valid
 	timer.Create("BossValidityCheck", 5, 0, function() 
@@ -76,7 +76,7 @@ function GM:CheckBoss()
 		return false
 	end
 
-	if GetInfliction() <= 0.3 then
+	if GetInfliction() <= 0.7 then
 		return false
 	end
 

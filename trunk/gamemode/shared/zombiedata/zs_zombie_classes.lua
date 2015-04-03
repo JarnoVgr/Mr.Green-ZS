@@ -546,7 +546,7 @@ ZombieClasses[10] =
 	Name = "Hate",	
 	Tag = "hate",	
 	Infliction = 0,
-	Health = 3500,
+	Health = 10000,
 	MaxHealth = 10000,
 	Bounty = 1000,
 	SP = 150,
@@ -592,8 +592,8 @@ ZombieClasses[10] =
 	ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
 	ViewOffset = Vector(0, 0, 84),
 	ViewOffsetDucked = Vector(0,0,38),
-	--Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
-	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
+	Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
+	HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
 }
 
 ZombieClasses[20] =										
@@ -657,8 +657,8 @@ ZombieClasses[20] =
 	ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
 	ViewOffset = Vector(0, 0, 84),
 	ViewOffsetDucked = Vector(0,0,38),
-	--Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
-	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
+	Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
+	HullDuck = { Vector(-16,-16, 0), Vector(16,16,69) },
 }
 
 ZombieClasses[11] =
@@ -666,7 +666,7 @@ ZombieClasses[11] =
 	Name = "Behemoth",
 	Tag = "behemoth",
 	Infliction = 0.1,
-	Health = math.random(3000, 3400 ),
+	Health = math.random(10000, 12000 ),
 	MaxHealth = 4000,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -718,8 +718,8 @@ ZombieClasses[11] =
 	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 ZombieClasses[12] =
@@ -774,8 +774,8 @@ ZombieClasses[12] =
 	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 ZombieClasses[13] =
@@ -783,7 +783,7 @@ ZombieClasses[13] =
 	Name = "Nerf",
 	Tag = "nerf",
 	Infliction = 0,
-	Health = 3500,
+	Health = 10000,
 	MaxHealth = 7000,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -821,8 +821,8 @@ ZombieClasses[13] =
 	ModelScale = 0.85,
 	ViewOffset = Vector( 0, 0, 50 ),
 	ViewOffsetDucked = Vector( 0, 0, 24 ),
-	--Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
-	--HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
 }
 
 ZombieClasses[14] =
@@ -1060,10 +1060,10 @@ ZombieClasses[17] = --Smoke shit up :P
 
 ZombieClasses[18] = --Creep and Play!
 {
-	Name = "SeekerII",
+	Name = "Seeker",
 	Tag = "weapon_zs_undead_boss_seeker2",
 	Infliction = 0.2,
-	Health = math.random(6000, 6500),
+	Health = math.random(10000, 11000),
 	MaxHealth = 8100,
 	TimeLimit = 1020,
 	Bounty = 1000,
@@ -1082,7 +1082,7 @@ ZombieClasses[18] = --Creep and Play!
 	Description = "An experiment gone wrong, and its now out hunting the elite!",
 	Unique = "",
 	OnSpawn = function(pl)	
-		pl:SetRenderMode(RENDERMODE_GLOW)
+		pl:SetRenderMode(RENDERMODE_NORMAL)
 		pl:SetColor(Color(1,1,1,2))
 		pl:SetModel("models/player/charple.mdl")
 		
@@ -1113,8 +1113,8 @@ ZombieClasses[18] = --Creep and Play!
 	ModelScale = 1.10,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 
