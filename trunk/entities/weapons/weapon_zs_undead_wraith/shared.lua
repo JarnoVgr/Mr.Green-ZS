@@ -94,11 +94,11 @@ function SWEP:StartPrimaryAttack()
 
 	--Stop movement
 	--self.Primary.Speed = 1
-	self.Primary.Speed = 30
+	self.Primary.Speed = 80
 	 
 	if SERVER then
 		if stopPlayer then
-			self.Owner:SetLocalVelocity(Vector(20, 20, 20))
+			self.Owner:SetLocalVelocity(Vector(80, 80, 80))
 		end
 	end
 end

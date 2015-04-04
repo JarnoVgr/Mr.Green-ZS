@@ -573,7 +573,7 @@ ZombieClasses[10] =
 	CanCrouch = true,
 	CanGib = true,
 	Model = Model("models/Zombie/Classic.mdl"), 
-	Speed = 185,
+	Speed = 190,
 	Hidden = true,	
 	AngleFix = true,
 	Description = "",
@@ -642,7 +642,7 @@ ZombieClasses[20] =
 	CanCrouch = true,
 	CanGib = true,
 	Model = Model("models/Zombie/Classic.mdl"), 
-	Speed = 190,
+	Speed = 210,
 	Hidden = true,	
 	AngleFix = true,
 	Description = "",
@@ -711,7 +711,7 @@ ZombieClasses[11] =
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_behemoth",
 	Model = Model("models/zombie/zombie_soldier.mdl"),
-	Speed = 180,
+	Speed = 190,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -832,8 +832,8 @@ ZombieClasses[13] =
 	Description = "",
 	Unique = "",
 	PainSounds = {
-		Sound("npc/fast_zombie/leap1.wav"),
-		Sound("npc/fast_zombie/wake1.wav")
+		Sound("npc/antlion_guard/growl_high.wav"),
+
 	},
 	DeathSounds = {
 		Sound("npc/antlion_guard/antlion_guard_die1.wav"),
@@ -841,7 +841,8 @@ ZombieClasses[13] =
 	},
 	IdleSounds = {},
 	OnSpawn = function(pl)
-		pl:SetBodyPositions()
+		--pl:SetBodyPositions()
+		pl:SetNerfBodyPositions()
 		local status = pl:GiveStatus("overridemodel")
 		if IsValid(status) then
 			status:SetModel(Model("models/Zombie/Fast.mdl"))

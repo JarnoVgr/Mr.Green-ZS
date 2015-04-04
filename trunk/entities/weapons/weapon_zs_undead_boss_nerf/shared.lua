@@ -11,7 +11,8 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 	
 	
-SWEP.ViewModelBoneMods = {
+--SWEP.ViewModelBoneMods = {
+	local bonemods ={
 	["ValveBiped.Bip01_R_Finger31"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 75.605, 0) },
 	["ValveBiped.Bip01_R_Finger11"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 49.916, 0) },
 	["ValveBiped.Bip01_L_Finger2"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 20.795, 0) },
@@ -34,6 +35,7 @@ SWEP.ViewModelBoneMods = {
 	["ValveBiped.Bip01_R_Finger3"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 38.962, 0) },
 	["ValveBiped.Bip01_L_Finger11"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 44.536, 0) }
 }		
+
 	
 end
 
@@ -60,14 +62,19 @@ function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
 
 	--Attack sounds
-	for i = 1, 11 do
-		table.insert(self.AttackSounds,Sound("mrgreen/undead/fastzombie/attack"..i..".wav"))
+	for i = 1, 1 do
+		table.insert(self.AttackSounds,Sound("npc/antlion/attack_double1.wav"))
 	end
 
+	
+	
 	--Idle sounds
-	for i = 1, 12 do
-		table.insert(self.IdleSounds,Sound("mrgreen/undead/fastzombie/idle"..i..".wav"))
+	for i = 1, 1 do
+		table.insert(self.IdleSounds,Sound("npc/antlion_guard/growl_idle.wav"))
 	end
+	
+	--self.IdleSounds,Sound("npc/antlion_guard/growl_idle.wav")
+	
 end
 
 function SWEP:Think()
@@ -239,7 +246,8 @@ function SWEP:SecondaryAttack()
 	
 	--Fast zombie scream
 	if SERVER then
-		Owner:EmitSound(Sound("mrgreen/undead/fastzombie/leap".. math.random(1,5) ..".wav"))
+		--Owner:EmitSound(Sound("mrgreen/undead/fastzombie/leap".. math.random(1,5) ..".wav"))
+		Owner:EmitSound(Sound("npc/antlion_guard/angry".. math.random(1,3) ..".wav"))
 	end
 end
 
