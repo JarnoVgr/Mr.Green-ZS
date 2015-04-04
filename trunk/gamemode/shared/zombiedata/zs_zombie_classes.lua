@@ -462,7 +462,7 @@ ZombieClasses[8] =
 {
 	Name = "Zombine",
 	Tag = "zombine",
-	Infliction = 0.55,
+	Infliction = 0.65,
 	Health = 380,
 	MaxHealth = 400, 
 	TimeLimit = 1020,

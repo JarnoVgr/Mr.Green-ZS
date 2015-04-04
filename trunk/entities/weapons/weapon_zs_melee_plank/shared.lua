@@ -46,7 +46,7 @@ SWEP.MeleeSize = 0.875
 SWEP.WalkSpeed = 204
 
 SWEP.UseMelee1 = true
-
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 SWEP.HitGesture = ACT_HL2MP_GESTURE_RANGE_ATTACK_MELEE
 SWEP.MissGesture = SWEP.HitGesture
 

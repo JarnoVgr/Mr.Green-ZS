@@ -1,11 +1,12 @@
 AddCSLuaFile()
 AddCSLuaFile("cl_init.lua")
 
-SWEP.ViewModel = "models/weapons/v_crowbar.mdl"
+--SWEP.ViewModel = "models/weapons/v_crowbar.mdl"
+SWEP.ViewModel = ""
 SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
 if CLIENT then
-	SWEP.ShowViewModel = true
+	SWEP.ShowViewModel = false
 
 end
 
@@ -204,6 +205,7 @@ end
 
 function SWEP:PlayHitSound()
 	self:EmitSound("weapons/melee/golf club/golf_hit-0"..math.random(1, 4)..".wav")
+	self:EmitSound("physics/body/body_medium_break"..math.random(2, 4)..".wav")
 end
 
 function SWEP:PlayHitFleshSound()

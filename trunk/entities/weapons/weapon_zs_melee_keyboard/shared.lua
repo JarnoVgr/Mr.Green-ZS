@@ -65,6 +65,7 @@ SWEP.SwingTime = 0.3
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingOffset = Vector(0, -30, 0)
 SWEP.SwingHoldType = "melee"
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 
 function SWEP:PlayHitSound()
 	self:EmitSound("weapons/melee/keyboard/keyboard_hit-0"..math.random(1, 4)..".wav")

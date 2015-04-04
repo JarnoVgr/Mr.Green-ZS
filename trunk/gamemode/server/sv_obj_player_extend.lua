@@ -480,7 +480,7 @@ function meta:Dismember ( distype,dmginfo )
 
 	if distype == "HEAD" then
 		typetoscale = 1	
-		--[[for i=1,math.random(1,3) do
+		for i=1,math.random(1,3) do
 			local brain =  ents.Create( "playergib" )
 			if brain:IsValid() then
 				brain:SetPos( self:GetAttachment( 1 ).Pos )
@@ -495,11 +495,11 @@ function meta:Dismember ( distype,dmginfo )
 					phys:ApplyForceCenter(VectorRand() * math.Rand(3, 10))
 				end
 		end
-	end	]]--	
+	end		
 	elseif distype == "DECAPITATION" then
 		typetoscale = 2
 		
-		--[[local Gib = ents.Create( "playergib" )	
+		local Gib = ents.Create( "playergib" )	
 		if Gib:IsValid() then
 			Gib:SetPos( self:GetAttachment( 1 ).Pos )
 			Gib:SetAngles( VectorRand():Angle() )
@@ -513,7 +513,7 @@ function meta:Dismember ( distype,dmginfo )
 				phys:Wake()
 				phys:ApplyForceCenter(Vector(0,0,50) * math.Rand(10, 38))
 			end
-		end]]--
+		end
 	elseif distype == "LARM" then
 		typetoscale = 3
 	elseif distype == "RARM" then

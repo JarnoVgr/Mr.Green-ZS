@@ -47,6 +47,7 @@ SWEP.MissGesture = SWEP.HitGesture
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingTime = 0.35
 SWEP.SwingHoldType = "grenade"
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 
 function SWEP:PlayHitSound()
 	self:EmitSound("weapons/melee/frying_pan/pan_hit-0"..math.random(1,4)..".wav")

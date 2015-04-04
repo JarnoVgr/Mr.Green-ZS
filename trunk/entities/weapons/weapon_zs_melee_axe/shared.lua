@@ -23,7 +23,6 @@ end
 
 -- Model paths
 SWEP.Author = "Deluvas"
---SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
 SWEP.ViewModel = Model ( "models/weapons/c_stunstick.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel = Model("models/weapons/w_axe.mdl")
@@ -44,7 +43,7 @@ SWEP.TotalDamage = SWEP.Primary.Damage
 SWEP.MeleeDamage = 50
 SWEP.MeleeRange = 56
 SWEP.MeleeSize = 1.5
---SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 SWEP.WalkSpeed = 200
 
 SWEP.SwingTime = 0.65

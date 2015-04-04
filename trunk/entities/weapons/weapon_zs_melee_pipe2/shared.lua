@@ -35,7 +35,7 @@ SWEP.Slot = 2
 SWEP.SlotPos = 8
 
 -- Damage, distane, delay
-SWEP.Primary.Damage = 80
+SWEP.MeleeDamage = 80
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Distance = 73
 SWEP.WalkSpeed = 177
@@ -43,6 +43,7 @@ SWEP.SwingTime = 1
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.ShowViewModel = false
 SWEP.ShowWorldModel = false
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 
 function SWEP:PlayHitSound()
 self:EmitSound("physics/metal/metal_canister_impact_hard"..math.random(3)..".wav", 75, math.random(115, 125))

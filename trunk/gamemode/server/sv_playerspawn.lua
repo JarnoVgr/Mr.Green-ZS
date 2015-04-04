@@ -267,6 +267,7 @@ function GM:PlayerSpawn(pl)
 			--Set model for player
 			pl.IsFreeman = true
 			pl.PlayerModel = "gordon"
+			pl:Give("weapon_zs_melee_crowbar")
 		end
 
 		--Check if we can be Santa Claus
@@ -700,8 +701,8 @@ function CalculatePlayerLoadout(pl)
 		end
 	end
 	
-	--Check if bought Magnum (give 1/3rd chance)
-	if pl:HasBought("magnumman") and math.random(1,5) == 1 then
+	--Check if bought Magnum (give 1/6th chance)
+	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
 		--Strip previous pistol
 		local Pistol = pl:GetPistol()
 		if Pistol then

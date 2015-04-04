@@ -38,7 +38,7 @@ SWEP.MeleeDamage = 37
 SWEP.MeleeRange = 54
 SWEP.MeleeSize = 1.0
 SWEP.WalkSpeed = 207
---SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.1
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.1
 
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingTime = 0.38
