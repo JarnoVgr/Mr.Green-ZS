@@ -552,8 +552,8 @@ function RollTheDice ( pl,commandName,args )
 		end
 	elseif choise == 2 then
 		if pl:Team() == TEAM_HUMAN then
-			pl:SetHealth(150)
-			message = message .." rolled the dice and has had a steroid boost!"
+			message = message .." rolled the dice and got raped in the ass."
+			pl:SetHealth(1)
 		elseif pl:Team() == TEAM_UNDEAD then
 			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )

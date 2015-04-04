@@ -105,7 +105,7 @@ function GiveSkillPointsSurvivors()
 		end
 
 		--Give SP
-		skillpoints.AddSkillPoints(pl, math.max(0,math.Round(90*GetInfliction())))
+		skillpoints.AddSkillPoints(pl, math.max(0,math.Round(60*GetInfliction())))
 
 		--Give XP
 		pl:AddXP(math.max(0, 110*GetInfliction()))
