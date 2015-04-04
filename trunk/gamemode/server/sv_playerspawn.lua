@@ -69,7 +69,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.Screamlist = {}
 	pl.ScreensFucked = 0
 	pl.Headshots = 0
-
+	
 	pl.GreencoinsGained = {}
 	pl.GreencoinsGained[TEAM_UNDEAD] = 0
 	pl.GreencoinsGained[TEAM_HUMAN] = 0
@@ -211,39 +211,8 @@ function GM:PlayerSpawn(pl)
 	--Predicting spawn, don't erase
 	pl:SetDeaths(PREDICT_SPAWN)
 	
-	-------------------------BEGIN DUBY'S FIX
-	pl:ManipulateBonePosition(math.Rand(1, 1) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(4, 4) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine
-	pl:ManipulateBonePosition(math.Rand(5, 5) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--arm left
-	pl:ManipulateBonePosition(math.Rand(9, 9) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand left
-	pl:ManipulateBonePosition(math.Rand(2, 2) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(3, 3) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--spine upwards
-	pl:ManipulateBonePosition(math.Rand(16, 16) , Vector( math.Rand( 0, 0), math.Rand(0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(15, 15) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-	pl:ManipulateBonePosition(math.Rand(20, 20) , Vector( math.Rand( 0, 0), math.Rand( 0, 0), math.Rand( 0, 0)) )	--hand right
-
-	local Bone = pl:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		pl:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
+	pl:SetHumanBonePositions()	--Reset the bone mods 
 	
-	local Bone = pl:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-	end
-	
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone then
-	 	pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
-	
-	--[[local Bone = pl:LookupBone("ValveBiped.Bip01_Spine")
-	if Bone then
-		pl:ManipulateBoneAngles( Bone, Angle(0,0,-90)  )
-	end]]
 	
 	for i = 0, pl:GetBoneCount() - 1 do
 		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
@@ -395,6 +364,8 @@ function GM:OnHumanSpawn(pl)
 	--Time the player spawned
 	pl.SpawnedTime = CurTime()
 	
+	pl:SetHumanBonePositions()	
+	
 	--Case 1: If the player already got the class menu as human and disconnected then set his same class back and/or hp
 	if pl:ConnectedAlreadyGotWeapons() and pl:ConnectedHumanClass() ~= false then
 		DataTableConnected[ID].HumanClass = false
@@ -482,7 +453,7 @@ function GM:OnZombieSpawn(pl)
 	if pl:Team() ~= TEAM_UNDEAD then
 		return
 	end
-
+	pl:SetHumanBonePositions()
 	--Spawn protection
 	pl:GodEnable()
 	timer.Simple(1, function()
@@ -512,7 +483,7 @@ function GM:OnZombieSpawn(pl)
 	
 	local Class = pl:GetZombieClass()
 	local Tab = ZombieClasses[Class]
-		
+			
 	-- Calculate zombie's health
 	CalculateZombieHealth(pl)
 

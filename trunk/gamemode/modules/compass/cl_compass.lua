@@ -97,15 +97,17 @@ function SupplyArrowModelPanel:LayoutEntity(Arrow)
 	--camera related stuff
     self:SetCamPos(Vector(0, 20, -6))  
 	self:SetLookAt(Vector(0, 0, 0))  
-    Arrow:SetModelScale(0.5, 0)
+    Arrow:SetModelScale(0.4, 0)
       
 	self:SetPos(w * 0.5 - (self:GetWide() / 2), h - self:GetTall())
 
 	--Color the arrow
-	self:SetColor(Color(200, 30, 30, 255))
+	--self:SetColor(Color(200, 30, 30, 255))
+	self:SetColor(Color(24, 140, 30, 255))
 	
 	--Original vector pointing to
 	local AreThereCrates, Distance, CratePosition = AreThereSupplyCrates()
+	
 	
 	--No crates
 	if not AreThereCrates then
@@ -199,6 +201,7 @@ local function DrawArrowText()
 	end
 	
 	--Draw the shit
-	draw.SimpleTextOutlined("Supplies: "..DistanceCrate.." m", "ArialBoldTen", CrateW + (ArrowWide * 0.5), (CrateH + ArrowTall) - 20, Color(200, 30, 30, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 200))
+--	draw.SimpleTextOutlined("Supplies: "..DistanceCrate.." m", "ArialBoldTen", CrateW + (ArrowWide * 0.5), (CrateH + ArrowTall) - 20, Color(200, 30, 30, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 200))
+	draw.SimpleTextOutlined("Supplies: "..DistanceCrate.." m", "ArialBoldTen", CrateW + (ArrowWide * 0.5), (CrateH + ArrowTall) - 20, Color(24, 140, 30, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 200))
 end
 hook.Add("HUDPaint", "DrawArrowText", DrawArrowText)

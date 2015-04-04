@@ -884,17 +884,66 @@ end
 
 function meta:SetRandomFace()
 	
+
 	local FlexNum = self:GetFlexNum() - 1
 	if ( FlexNum <= 0 ) then return end
 	
 	for i=0, FlexNum-1 do
 	
 		self:SetFlexWeight( i, math.Clamp( math.Rand(0.1,2), 0, 2 ) )
+
 		
 	end
 	
 	self:SetFlexScale(math.random(-4,4))
+
 	
+end
+
+---[[ Dubys Temp Bone Mod ]]---
+
+function meta:SetBodyPositions() --Bosses bone positions
+
+
+local Bone = self:LookupBone("ValveBiped.Bip01_Spine4")
+
+	if Bone then
+		self:ManipulateBoneAngles( Bone, Angle(30,95,-190)  )
+	end
+	
+	local Bone = self:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	
+	if Bone then
+		self:ManipulateBoneAngles( Bone, Angle(-180,90,90)  )
+	end
+
+	local Bone = self:LookupBone("ValveBiped.Bip01_Pelvis")
+	
+	if Bone then
+	 	self:ManipulateBoneAngles( Bone, Angle(0,0,10)  )
+	end
+	for i = 0, self:GetBoneCount() - 1 do
+		self:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+	end
+
+	
+end
+
+function meta:SetHumanBonePositions() --Revert the bone positions back
+
+local Bone = self:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		self:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+local Bone = self:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		self:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+local Bone = self:LookupBone("ValveBiped.Bip01_Pelvis")
+	if Bone then
+	 	self:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
+	end
+
 end
 
 function meta:CalculateViewOffsets()
