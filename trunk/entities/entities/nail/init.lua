@@ -17,7 +17,7 @@ function ENT:Initialize()
 	--Increase health when having a perk
 	local Owner = self:GetOwner()
 	if IsValid(Owner) then
-		if Owner:GetPerk("_hammerupgrade") then
+		if Owner:GetPerk("_nailhp") then
 			self.Heal = math.Round(self.Heal + (self.Heal*0.4))
 		end
 		if Owner:GetSuit() == "supportsuit" then

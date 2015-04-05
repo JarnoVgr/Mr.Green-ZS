@@ -27,9 +27,9 @@ function ENT:Initialize()
 	if not IsEntityValid ( self.ZombieOwner ) then return end
 	
 	-- Set grenade type (poison or damage)
-	--self:SetType( 1 )
+	self:SetType( 1 )
 	--self:SetType( 2 )
-	self:SetType(table1[math.random(1,#table1)])
+	--self:SetType(table1[math.random(1,#table1)])
 	
 	-- Set position on hand
 	self:SetPos ( self.ZombieOwner:GetPos() + Vector ( 0,0,40 ) )

@@ -124,7 +124,7 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	Name = "Fresh Dead",
 	--Name = "Obsolete",
 	Tag = "zombie",	
-	Infliction = 0,
+	Infliction = 0.35,
 	Revives = false,
 	Health = 120,
 	MaxHealth = 120,
@@ -185,7 +185,7 @@ ZombieClasses[2] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
-	Infliction = 0.43,
+	Infliction = 0.6,
 	Health = 450,
 	MaxHealth = 500,
 	TimeLimit = 810,
@@ -230,7 +230,7 @@ ZombieClasses[3] =
 {
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
-	Infliction = 0.35,
+	Infliction = 0.45,
 	Health = 160,
 	MaxHealth = 160,
 	TimeLimit = 160,
@@ -290,7 +290,7 @@ ZombieClasses[4] =
 {
 	Name = "Ghast",
 	Tag = "etherealzombie",
-	Infliction = 0.2,
+	Infliction = 0.25,
 	Health = 110,
 	MaxHealth = 110,
 	TimeLimit = 200,
@@ -334,7 +334,7 @@ ZombieClasses[5] =
 {
 	Name = "Ethereal",
 	Tag = "etherealzombie",
-	Infliction = 0.23,
+	Infliction = 0.35,
 	Health = 110,
 	MaxHealth = 110,
 	TimeLimit = 200,
@@ -377,7 +377,7 @@ ZombieClasses[6] =
 {
 	Name = "Howler",
 	Tag = "howler",	
-	Infliction = 0.28,
+	Infliction = 0.25,
 	Health = 130,
 	MaxHealth = 130,
 	TimeLimit = 460,
@@ -462,7 +462,7 @@ ZombieClasses[8] =
 {
 	Name = "Zombine",
 	Tag = "zombine",
-	Infliction = 0.65,
+	Infliction = 0.7,
 	Health = 380,
 	MaxHealth = 400, 
 	TimeLimit = 1020,
@@ -518,7 +518,7 @@ ZombieClasses[9] =
 {
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
-	Infliction = 0.43,
+	Infliction = 0.6,
 	Health = 120,
 	MaxHealth = 120,
 	Bounty = 70,

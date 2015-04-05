@@ -10,7 +10,7 @@ if ( CLIENT ) then
 	SWEP.DrawCrosshair = false
 	SWEP.ViewModelFlip = false
 
-	SWEP.Slot = 3
+	SWEP.Slot = 6
 	SWEP.SlotPos = 1 
 	
 	killicon.AddFont("weapon_zs_tools_remote", "CSKillIcons", "D", Color(255, 255, 255, 255 ))

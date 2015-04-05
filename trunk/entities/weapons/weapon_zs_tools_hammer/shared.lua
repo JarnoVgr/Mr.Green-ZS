@@ -105,7 +105,7 @@ function SWEP:OnDeploy()
 	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 
 	--Double amount of nails when having the upgrade   
-	if IsValid(self.Owner) and self.Owner:GetPerk("_hammerupgrade") and not self.Weapon.HadFirstDeploy then
+	if IsValid(self.Owner) and self.Owner:GetPerk("_extranails") and not self.Weapon.HadFirstDeploy then
 		self.Weapon.HadFirstDeploy = true
 		self:SetClip2(self:Clip2() * 2)
 	end
@@ -181,10 +181,7 @@ function SWEP:PrimaryAttack()
 								self.Owner._RepairScore = 0
 								
 								--elseif self.Owner and self.Owner:GetSuit() == "supportsuit" then
-								--skillpoints.AddSkillPoints(self.Owner, 1)
-								--nail:FloatingTextEffect( 1, self.Owner )
-								--self.Owner:AddXP(20)
-								--self.Owner._RepairScore = 0
+								--self.Owner:AddXP(10)
 							end
 							self.Owner:EmitSound("ambient/energy/spark"..math.random(1,6)..".wav", math.random(86, 110), math.random(86, 110))
 
@@ -239,7 +236,7 @@ local NONAILS = {}
 NONAILS[0] = "It's impossible to put nails here."
 NONAILS[0] = "Computer says no. Btw check you're nail count."
 NONAILS[MAT_GRATE] = "It's impossible to put nails here."
-NONAILS[MAT_GRATE] = "You're doing a Duby aren't you?"
+NONAILS[MAT_GRATE] = "You cannot nail objects here¬!"
 NONAILS[MAT_CLIP] = "It's impossible to put nails here."
 NONAILS[MAT_GLASS] = "Trying to put nails in glass is a silly thing to do."
 

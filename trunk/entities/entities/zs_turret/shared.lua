@@ -90,23 +90,23 @@ if SERVER then
 		
 		self:SetMaterial(MaterialToApply)]]
 			
-			if self:GetTurretOwner():GetPerk("_turretoverdrive") then --Combined the turret perks into one perk as requested by the community.
+			--[[if self:GetTurretOwner():GetPerk("_turretoverdrive") then --Combined the turret perks into one perk as requested by the community.
 			self.MaxBullets = math.Round(self.MaxBullets*1.5)
 			self.MaxHealth = math.Round(self.MaxHealth*1.5)
 			self.Damage = math.Round(self.Damage*1.5)
-			end
+			end]]--
 		
-		--if self:GetTurretOwner():GetPerk("_turretammo") then
-		--	self.MaxBullets = math.Round(self.MaxBullets*1.5)
-		--end
+		if self:GetTurretOwner():GetPerk("_turretammo") then
+			self.MaxBullets = math.Round(self.MaxBullets*1.5)
+		end
 		
-		--if self:GetTurretOwner():GetPerk("_turrethp") then
-		--	self.MaxHealth = math.Round(self.MaxHealth*1.5)
-		--end
+		if self:GetTurretOwner():GetPerk("_turrethp") then
+			self.MaxHealth = math.Round(self.MaxHealth*1.5)
+		end
 		
-		--if self:GetTurretOwner():GetPerk("_turretdmg") then
-			--self.Damage = math.Round(self.Damage*1.5)
-		--end
+		if self:GetTurretOwner():GetPerk("_turretdmg") then
+			self.Damage = math.Round(self.Damage*1.5)
+		end
 		
 		-- Set few things
 		self.Target = nil

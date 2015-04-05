@@ -108,8 +108,9 @@ function SWEP:OnDeploy()
 		util.Effect("turretghost", effectdata, nil, true)
 		
 	end
-
+	
 	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
+	
 end
 
 function SWEP:PrimaryAttack()
@@ -176,10 +177,12 @@ if SERVER then
 			self.Owner.Turret = ent
 			self:TakePrimaryAmmo( 1 )
 						
+				
 			if self and self:IsValid() then
 				DropWeapon(self.Owner)
 			end
 		end
+		
 	end
 end
 	

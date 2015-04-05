@@ -715,6 +715,10 @@ function CalculatePlayerLoadout(pl)
 		ToGive[1] = "weapon_zs_magnum"
 	end
 	
+	if pl:GetPerk("_remote") then
+		pl:Give("weapon_zs_tools_remote")
+	end
+	
 	--Select a weapon
 	pl:SelectWeapon(SelectWeapon)
 end
