@@ -841,8 +841,8 @@ ZombieClasses[13] =
 	},
 	IdleSounds = {},
 	OnSpawn = function(pl)
-		--pl:SetBodyPositions()
-		pl:SetNerfBodyPositions()
+		pl:SetBodyPositions()
+		--pl:SetNerfBodyPositions()
 		local status = pl:GiveStatus("overridemodel")
 		if IsValid(status) then
 			status:SetModel(Model("models/Zombie/Fast.mdl"))
