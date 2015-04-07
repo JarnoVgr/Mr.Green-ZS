@@ -1114,7 +1114,7 @@ ZombieClasses[18] = --Creep and Play!
 	Description = "An experiment gone wrong, and its now out hunting the elite!",
 	Unique = "",
 	OnSpawn = function(pl)	
-		pl:SetRenderMode(RENDERMODE_NORMAL)
+		pl:SetRenderMode(RENDERMODE_GLOW)
 		pl:SetColor(Color(1,1,1,2))
 		pl:SetModel("models/player/charple.mdl")
 		

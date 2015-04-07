@@ -1112,8 +1112,70 @@ GM.CalcMainActivityZombies[16] = GM.CalcMainActivityZombies[0]
 GM.DoAnimationEventZombies[16] = GM.DoAnimationEventZombies[0]
 
 --Attack for SeekerII
-GM.CalcMainActivityZombies[18] = GM.CalcMainActivityZombies[0]
-GM.DoAnimationEventZombies[18] = GM.DoAnimationEventZombies[0]
+--GM.CalcMainActivityZombies[18] = GM.CalcMainActivityZombies[0]
+--GM.DoAnimationEventZombies[18] = GM.DoAnimationEventZombies[0]
+
+
+GM.CalcMainActivityZombies[18] = function ( pl, vel, key )
+
+	pl._PlayBackRate = nil
+	if IsValid(pl:GetActiveWeapon()) then 
+		--local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_01" ) --Duby: I spent ages finding this out...	
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) --Duby: I spent ages finding this out...	
+		return iIdeal, iSeq
+	end
+	
+	--local iSeq, iIdeal = pl:LookupSequence("zombie_run")
+		
+	local wep = pl:GetActiveWeapon()
+	if IsValid(wep) and wep.GetClimbing and wep:GetClimbing() then
+		iSeq = 10
+	end
+
+	if pl:GetMoveType() == MOVETYPE_LADDER then
+		iSeq = pl:LookupSequence ( "climbloop" ) 
+		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)
+	end
+	
+	local revive = pl.Revive
+	if revive and revive:IsValid() then
+	pl:LookupSequence("zombie_slump_rise_01")
+	end
+	
+	
+	return iIdeal, iSeq
+	
+end
+
+
+GM.DoAnimationEventZombies[18] = function ( pl, event, data )
+	if event == PLAYERANIMEVENT_CUSTOM_GESTURE then
+		if ( data == CUSTOM_PRIMARY ) then
+			pl:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_GMOD_GESTURE_RANGE_ZOMBIE, true)
+			return ACT_INVALID
+		end
+	end
+	
+end
+
+GM.UpdateClassAnimation[18] = function(pl, vel, maxseqgroundspeed)
+
+	local revive = pl.Revive
+	if revive and revive:IsValid() then
+		pl:SetCycle(0.4 + (1 - math.Clamp((revive:GetReviveTime() - CurTime()) / 1.9, 0, 1)) * 0.6)
+		--pl:SetPlaybackRate(0)
+		pl:SetPlaybackRate(2)
+	end 
+	
+	if pl:GetSequence() == 2 then
+		local zvel = pl:GetVelocity().z
+		if math.abs(zvel) < 8 then zvel = 0 end
+		pl:SetPlaybackRate(math.Clamp(zvel / 60 * 0.25, -1, 1))
+	end
+	
+	
+
+end
 
 GM.CalcMainActivityZombies[15] = GM.CalcMainActivityZombies[1]
 GM.DoAnimationEventZombies[15] = GM.DoAnimationEventZombies[1]

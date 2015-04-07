@@ -50,7 +50,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 2
-BOSS_CLASS = {10, 11, 13, 20}
+BOSS_CLASS = {10, 11, 13, 18, 20}
 --BOSS_CLASS = {12} --Seeker
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
