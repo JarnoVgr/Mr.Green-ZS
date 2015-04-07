@@ -140,7 +140,7 @@ GM.HumanWeapons = {
 	["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 130, Description = "Bish bash bosh, fast smacking and hard hitting!"  },
 	["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee", Price = 80, Description = "Whoops. Looks like I shouldn't of hit him so hard.."  },
 	["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee", Price = 90, Description = "Clunk, oh look his head fell off.."  },
-	["weapon_zs_melee_chainsaw"]  = { Name = "Chain SAW!", DPS = 30, Infliction = 0, Type = "melee", Description = "This may become a bit gory." },
+	["weapon_zs_melee_chainsaw"]  = { Name = "Chain SAW!", DPS = 30, Infliction = 0, Type = "melee", Price = 850, Description = "This may become a bit gory." },
 
 	--Pistols
 	["weapon_zs_fiveseven"]  = { Name = "Five-Seven",Mat = "VGUI/gfx/VGUI/fiveseven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 90 },
