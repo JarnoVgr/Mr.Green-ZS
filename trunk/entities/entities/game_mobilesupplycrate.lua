@@ -156,6 +156,9 @@ if SERVER then
 					HowMuch = math.Round(HowMuch * (INFLICTION + 0.6))
 
 					--Finally give it
+					--if activator:HasBought("ammoman") then
+					--	HowMuch = HowMuch * 2 --Ammo man perk
+					--end
 					activator:GiveAmmo(HowMuch, AmmoType)
 				end
 
@@ -170,8 +173,8 @@ if SERVER then
 				--Give SP to crate owner		
 				local Owner = self:GetPlacer()
 				if activator ~= Owner and (IsValid(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
-					skillpoints.AddSkillPoints(Owner,6)
-					self:FloatingTextEffect(6, Owner)
+					skillpoints.AddSkillPoints(Owner,10)
+					self:FloatingTextEffect(10, Owner)
 					Owner:AddXP(5)
 				end
 

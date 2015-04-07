@@ -288,7 +288,7 @@ GM.AmmoRegeneration = {
 -- -- -- -- -- -- -- -- -- -- /
 -- Ranks, xp, drugs and etc
 -- -- -- -- -- -- -- -- -- -- /
-XP_BLANK = 500
+XP_BLANK = 350
 
 XP_INCREASE_BY = 2550
 
@@ -299,8 +299,8 @@ MAX_RANK = 30
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks} 
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_tools_torch","weapon_zs_tools_hammer","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote"},
-	[1] = {"weapon_zs_tools_plank"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote"},
+	[1] = {"weapon_zs_tools_plank","weapon_zs_tools_hammer"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_extranails"},
 	[4] = {"_turretammo"},
