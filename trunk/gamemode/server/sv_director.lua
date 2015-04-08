@@ -7,6 +7,7 @@ include("sv_director_vote.lua")
 include("sv_director_titles.lua")
 include("sv_director_boss.lua")
 include("sv_director_heal_undead.lua")
+include("sv_director_heal_human.lua")
 
 GAMEACTIVE = false
 --[==[---------------------------------------------------------
@@ -105,7 +106,7 @@ function GiveSkillPointsSurvivors()
 		end
 
 		--Give SP
-		skillpoints.AddSkillPoints(pl, math.max(0,math.Round(50*GetInfliction())))
+		skillpoints.AddSkillPoints(pl, math.max(0,math.Round(70*GetInfliction())))
 
 		--Give XP
 		pl:AddXP(math.max(0, 110*GetInfliction()))

@@ -52,7 +52,7 @@ SWEP.Primary.DefaultClip = 1
 --SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "gravity"
-SWEP.Primary.Delay = 0.05
+SWEP.Primary.Delay = 0.04
 
 SWEP.Secondary.ClipSize = 5
 SWEP.Secondary.DefaultClip = 5
@@ -135,7 +135,7 @@ function SWEP:PrimaryAttack()
 	self.Alternate = not self.Alternate
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
 	
-	self.Weapon:SetNextPrimaryFire(CurTime() + 1.3)
+	self.Weapon:SetNextPrimaryFire(CurTime() + 1.1)
 	--self.Alternate = not self.Alternate
 				
 	if SERVER then
@@ -162,7 +162,7 @@ function SWEP:PrimaryAttack()
 							if self.Owner:GetPerk("_trchregen") then                                                           
 								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+10,1,nail:GetDTInt(1)))
 							else                                                       
-								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+5,1,nail:GetDTInt(1)))
+								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+6,1,nail:GetDTInt(1)))
 							end  					
 							
 							local pos = tr.HitPos
@@ -178,9 +178,9 @@ function SWEP:PrimaryAttack()
 							self.Owner._RepairScore = self.Owner._RepairScore + 1
 							--self:TakePrimaryAmmo(1)
 
-							if self.Owner._RepairScore == 7 then
-								skillpoints.AddSkillPoints(self.Owner, 1)
-								nail:FloatingTextEffect( 1, self.Owner )
+							if self.Owner._RepairScore == 4 then
+								skillpoints.AddSkillPoints(self.Owner, 5)
+								nail:FloatingTextEffect( 5, self.Owner )
 								self.Owner:AddXP(5)
 								self.Owner._RepairScore = 0
 								

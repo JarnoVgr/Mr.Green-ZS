@@ -179,8 +179,8 @@ function SWEP:SecondaryAttack()
 	local owner = self.Owner
 	if self:CanPrimaryAttack() then
 		local health, maxhealth = owner:Health(), 100-- owner:GetMaxHealth()
-		--if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 end
-		if owner:GetPerk("_kevlar2") then maxhealth = 130 end
+		if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 end
+		--if owner:GetPerk("_kevlar2") then maxhealth = 130 end
 		local multiplier = 1
 		if owner:GetPerk("_medupgr1") then
 			multiplier = 1.35

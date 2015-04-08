@@ -303,14 +303,14 @@ GM.RankUnlocks = {
 	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote"},
 	[1] = {"weapon_zs_tools_plank","weapon_zs_tools_hammer"},
 	[2] = {"weapon_zs_p228","_nade"},
-	[3] = {"_extranails"},
+	[3] = {"_extranails","_kevlar"},
 	[4] = {"_turretammo"},
 	[5] = {"weapon_zs_melee_keyboard"},
 	[6] = {"weapon_zs_melee_pipe"},
 	[7] = {"_turrethp"},
 	[9] = {"_falldmg",},
 	[10] = {"_falldown"},
-	[11] = {"_kevlar2"},
+	[11] = {"_kevlar2","_horse"},
 	[12] = {"weapon_zs_melee_pipe2"},
 	[13] = {"_nailhp"},
 	[14] = {"_poisonprotect"},
@@ -334,7 +334,8 @@ GM.RankUnlocks = {
 
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
 GM.Perks = {
-	["_kevlar2"] = {Name = "Kevlar", Description = "Gives you 30 more HP.", Material = "VGUI/gfx/VGUI/kevlar", Slot = 2},
+	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more HP.", Material = "VGUI/gfx/VGUI/kevlar", Slot = 2},
+	["_kevlar2"] = {Name = "Kevlar2", Description = "Gives you 20 more HP.", Material = "VGUI/gfx/VGUI/kevlar", Slot = 2},
 	["_freeman"] = {Name = "Berserker", Description = "Do 30% more damage and attack faster with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 2},
 	["_adrenaline"] = {Name = "Adrenaline Injection", Description = "Negates speed reduction on low health. Also your screen won't turn red when you are low on health.", Slot = 2},
 	["_sboost"] = {Name = "SpeedBoost", Description = "8% increase in walking speed.", Slot = 2},	
@@ -343,6 +344,7 @@ GM.Perks = {
 	["_falldmg"] = {Name = "Fall Protection", Description = "25% less fall damage.", Slot = 2},
 	["_comeback2"] = {Name = "Reborn", Description = "When redeeming you will spawn once with either a Deagle or a pair of Dual Elites.", Material = "VGUI/logos/spray_elited", Slot = 2},
 	["_remote"] = {Name = "Turret Remote", Description = "Gives you the turret remote 'Requires turret'", RequiresWeapon = "weapon_zs_turretplacer", Slot = 2},
+	["_horse"] = {Name = "Health Regenerate", Description = "If you take damage after 60 seconds you will regain the HP!", Slot = 2},
 	
 	["_support"] = {Name = "Extra Planls", Description = "Five planks at the start of the round, with 30% more health.", RequiresWeapon = "weapon_zs_tools_plank", Slot = 1},
 	["_extranails"] = {Name = "Pack of Nails", Description = "Double the amount of nails for your hammer!", RequiresWeapon = "weapon_zs_tools_hammer", Slot = 1},

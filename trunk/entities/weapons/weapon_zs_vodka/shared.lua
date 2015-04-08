@@ -135,7 +135,7 @@ function SWEP:PrimaryAttack()
 		local owner = self.Owner
 	if self:CanPrimaryAttack() then
 		local health, maxhealth = owner:Health(), 100-- owner:GetMaxHealth()
-		if owner:GetPerk("_kevlar2") then maxhealth = 120 end
+		if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 end
 		local multiplier = 1
 		local toheal = 50
 		local totake = math.ceil(toheal / multiplier)

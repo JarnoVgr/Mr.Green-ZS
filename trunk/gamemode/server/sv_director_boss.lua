@@ -15,7 +15,26 @@ function GM:UnleashBoss()
 		return nil
 	end]]
 
-	pl = GAMEMODE:GetPlayerForBossZombie() --Duby: Lets disable bosses for now
+	--Set full health on players when in Arena Mode
+	if ARENA_MODE then			
+		for _, pl in pairs(player.GetAll()) do
+			if pl:Team() ~= TEAM_HUMAN or not pl:Alive() then
+				continue
+			end
+			
+			local hp = 100
+			if pl:GetPerk("_kevlar2") then
+				hp = 120
+			elseif pl:GetPerk("_kevlar") then
+				hp = 110
+			end
+
+			pl:SetHealth(hp)
+		end
+	end
+	
+	
+	pl = GAMEMODE:GetPlayerForBossZombie()
 	if not IsValid(pl) then
 		return nil
 	end
