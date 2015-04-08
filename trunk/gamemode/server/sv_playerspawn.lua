@@ -683,8 +683,9 @@ function CalculatePlayerLoadout(pl)
 		pl:GiveAmmo(6500, "pistol", false)
 		pl:GiveAmmo(6500, "357", false)
 	else
+		return
 		--IMORTAL PRO perk
-		if pl:GetPerk("_imortalpro") then
+		--[[if pl:GetPerk("_imortalpro") then
 			--Strip pistol as its the price they pay for having the PulseSMG!
 			local Pistol = pl:GetPistol()
 			if IsValid(Pistol) then
@@ -698,7 +699,7 @@ function CalculatePlayerLoadout(pl)
 			
 			pl:Give("weapon_zs_pulsesmg")
 			SelectWeapon = "weapon_zs_pulsesmg"
-		end
+		end]]--
 	end
 	
 	--Check if bought Magnum (give 1/6th chance)

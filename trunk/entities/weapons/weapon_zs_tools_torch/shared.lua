@@ -50,9 +50,10 @@ SWEP.WalkSpeed = 200
 function SWEP:InitializeClientsideModels()
 	self.ViewModelBoneMods = {
 		["ValveBiped.Bip01_L_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0.694, 0, 0) },
-		["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-5.382, 0, 0) },
+	--	["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-5.382, 0, 0) },
+		["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(5.382, 0, 0) },
 		["ValveBiped.Grenade_body"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		--["ValveBiped.Bip01_R_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(2.118, 3.861, 7.106), angle = Angle(7.105, -8.9, 1.98) },
+		["ValveBiped.Bip01_R_Clavicle"] = { scale = Vector(1, 1, 1), pos = Vector(0.118, 0.861, 1.106), angle = Angle(7.105, -8.9, 1.98) },
 		["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(3.788, 9.413, 7.656) }
 	}
 	
@@ -234,9 +235,9 @@ function SWEP:Think()
 	
 	-- ApproachAngle(self.TempAng,self.AppTo,FrameTime()*33)
 	
-	--[[if CLIENT then
+	if CLIENT then
 		ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
-	end]]
+	end
 	
 	local maxclip = 30
 	

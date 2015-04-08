@@ -79,7 +79,7 @@ GM.PickupsTable = {
 
 function GM:SpawnPickup(max)
 	
-	--[==[self:CalculateRandomLocations()
+	self:CalculateRandomLocations()
 	
 	max = max or #self.PickupsTable
 	
@@ -98,7 +98,7 @@ function GM:SpawnPickup(max)
 		end
 		
 		--PrintTable(result)
-	end	]==]
+	end	
 	
 end
 
