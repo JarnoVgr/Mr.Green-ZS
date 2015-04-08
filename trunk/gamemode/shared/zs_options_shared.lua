@@ -144,7 +144,7 @@ GM.HumanWeapons = {
 	["weapon_zs_melee_chainsaw"]  = { Name = "Chain SAW!", DPS = 30, Infliction = 0, Type = "melee", Price = 850, Description = "This may become a bit gory." },
 
 	--Pistols
-	["weapon_zs_fiveseven"]  = { Name = "Five-Seven",Mat = "VGUI/gfx/VGUI/fiveseven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 90 },
+	["weapon_zs_fiveseven"]  = { Name = "Five-Seven",Mat = "VGUI/gfx/VGUI/fiveseven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 130 },
 	["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120,Mat = "VGUI/gfx/VGUI/glock18", Infliction = 0.25, Type = "pistol", Price = 260 },
 	["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol", Price = 260, Description = "High fire rate thanks to having two pistols in your hands." },
 	["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 350, Description = "Russian Roulette Revolver" },
@@ -152,7 +152,7 @@ GM.HumanWeapons = {
 	
 	["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42,Mat = "VGUI/gfx/VGUI/usp45", Infliction = 0, Type = "pistol", Price = 70, Description = "Fast firing lower damage." },
 	["weapon_zs_p228"]  = { Name = "P228", DPS = 58,Mat = "VGUI/gfx/VGUI/p228", Infliction = 0, Type = "pistol", Price = 80, Description = "More power, slower fire rate."  },
-	["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 40, Description = "Classic Half-Life 2 pistol." },
+	["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 120, Description = "Classic Half-Life 2 pistol." },
 	--["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 190, Description = "Alyx is hot. But her gun is even more hot." },
 	--["weapon_zs_barreta"]  = { Name = "Barreta", DPS = 30,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol",Price = 450 },
 	
@@ -302,7 +302,7 @@ MAX_RANK = 30
 GM.RankUnlocks = {
 	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote"},
 	[1] = {"weapon_zs_tools_plank","weapon_zs_tools_hammer"},
-	[2] = {"weapon_zs_p228"},
+	[2] = {"weapon_zs_p228","_nade"},
 	[3] = {"_extranails"},
 	[4] = {"_turretammo"},
 	[5] = {"weapon_zs_melee_keyboard"},
@@ -318,7 +318,7 @@ GM.RankUnlocks = {
 	[16] = {"_support"},
 	[17] = {"_turretdmg"},
 	[19] = {"weapon_zs_melee_pot"},
-	[21] = {"weapon_zs_fiveseven"},
+	[21] = {"_mine"},
 	[22] = {"_sboost"},
 	[24] = {"weapon_zs_melee_combatknife"},
 	[28] = {"_adrenaline"},
@@ -342,9 +342,9 @@ GM.Perks = {
 	["_falldown"] = {Name = "Fall Down", Description = "Prevents you from falling over from high jumps or being hit by props.", Slot = 2},
 	["_falldmg"] = {Name = "Fall Protection", Description = "25% less fall damage.", Slot = 2},
 	["_comeback2"] = {Name = "Reborn", Description = "When redeeming you will spawn once with either a Deagle or a pair of Dual Elites.", Material = "VGUI/logos/spray_elited", Slot = 2},
-	["_remote"] = {Name = "Turret Remote", Description = "Gives you the turret remote", Slot = 2},
+	["_remote"] = {Name = "Turret Remote", Description = "Gives you the turret remote 'Requires turret'", RequiresWeapon = "weapon_zs_turretplacer", Slot = 2},
 	
-	["_support"] = {Name = "Support", Description = "Five planks at the start of the round, with 30% more health.", Slot = 1},
+	["_support"] = {Name = "Extra Planls", Description = "Five planks at the start of the round, with 30% more health.", RequiresWeapon = "weapon_zs_tools_plank", Slot = 1},
 	["_extranails"] = {Name = "Pack of Nails", Description = "Double the amount of nails for your hammer!", RequiresWeapon = "weapon_zs_tools_hammer", Slot = 1},
 	["_nailhp"] = {Name = "Nail HP", Description = "Double the health of your nails!", Material = "HUD/scoreboard_clock", RequiresWeapon = "weapon_zs_tools_hammer", Slot = 1},
 	["_turretammo"] = {Name = "Turret Ammo", Description = "50% more ammo for turret", RequiresWeapon = "weapon_zs_turretplacer", Slot = 1},
@@ -352,8 +352,10 @@ GM.Perks = {
 	["_turretdmg"] = {Name = "Turret Power", Description = "50% more turret's damage", RequiresWeapon = "weapon_zs_turretplacer", Slot = 1},	
 	["_medupgr1"] = {Name = "Medical Efficiency", Description = "35% more healing power", RequiresWeapon = "weapon_zs_medkit", Slot = 1},
 	["_medupgr2"] = {Name = "Medical Pack", Description = "Doubled maximum Medical Kit charges", RequiresWeapon = "weapon_zs_medkit", Slot = 1},
+	["_nade"] = {Name = "Grenades tosser", Description = "Throw Grenades twice as quickly! ", RequiresWeapon = "weapon_zs_grenade", Slot = 1},
+	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with Torch.", Material = "HUD/scoreboard_clock", RequiresWeapon = "weapon_zs_tools_torch", Slot = 1},
+	["_mine"] = {Name = "Multi Mine", Description = "Place up to 10 mines on the floor! ", Material = "HUD/scoreboard_clock", RequiresWeapon = "weapon_zs_mine", Slot = 1},
 	
-	--["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with Hammer.", Material = "HUD/scoreboard_clock", RequiresWeapon = "weapon_zs_tools_hammer", Slot = 1},
 --	["_imortalpro"] = {Name = "Immortal Protector", Description = "You will spawn with the Pulse SMG!", Slot = 2}
 	--["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
 }
@@ -403,10 +405,10 @@ CARRY_DRAG_VOLUME = 120
 CARRY_MAXIMUM_VOLUME = 150
 
 -- Humans are slowed by this amount per kg carried.
-CARRY_SPEEDLOSS_PERKG = 1.3
+CARRY_SPEEDLOSS_PERKG = 1.1
 
 -- But never slower than this.
-CARRY_SPEEDLOSS_MINSPEED = 88
+CARRY_SPEEDLOSS_MINSPEED = 150
 
 -- -- -- -- -- -- -- -- /
 
@@ -426,7 +428,7 @@ WARMUPTIME = 110
 ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes
 
 -- Time in seconds between end round and next map.
-INTERMISSION_TIME = 25
+INTERMISSION_TIME = 35
 
 --Amount of time players have to vote for next map(seconds)
 VOTE_TIME = 18
@@ -487,12 +489,6 @@ REDEEM_FAST_KILLS = 6
 
 --Maximum level to be fit for fast redeem
 REDEEM_FAST_LEVEL = 10
-
---Players cant redeem near end of round
-REDEEM_PUNISHMENT = true
-
---Number of wave or above when zombies cant redeem
-REDEEM_PUNISHMENT_TIME = 6
 
 -- Use soft collisions for teammates
 SOFT_COLLISIONS = false

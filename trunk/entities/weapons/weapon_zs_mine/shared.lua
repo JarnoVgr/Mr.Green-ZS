@@ -63,12 +63,12 @@ SWEP.ViewModel      = Model ( "models/Weapons/c_slam.mdl")
 SWEP.WorldModel   = Model ( "models/Weapons/w_package.mdl" )
 SWEP.UseHands = true
 ------------------------------------------------------------------------------------------------------
-SWEP.Primary.Delay			= 0.015 	
+SWEP.Primary.Delay			= 0.01 	
 SWEP.Primary.Recoil			= 0		
 SWEP.Primary.Damage			= 7	
 SWEP.Primary.NumShots		= 1		
 SWEP.Primary.Cone			= 0 	
-SWEP.Primary.ClipSize		= 3
+SWEP.Primary.ClipSize		= 10
 SWEP.Primary.DefaultClip	= 2
 SWEP.Primary.Automatic   	= true
 SWEP.Primary.Ammo         	= "slam"	
@@ -83,7 +83,7 @@ SWEP.Secondary.DefaultClip	= 1
 SWEP.Secondary.Automatic   	= false
 SWEP.Secondary.Ammo         = "none"
 ------------------------------------------------------------------------------------------------------
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = 200
 
 -- Preload
 util.PrecacheSound("weapons/c4/c4_beep1.wav")
@@ -101,6 +101,7 @@ function SWEP:On_Deploy()
 end
 
 function SWEP:PrimaryAttack()
+local owner = self.Owner
 	if( CurTime() < self.NextPlant ) or not self:CanPrimaryAttack() then return end
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return false end
 		self.NextPlant = ( CurTime() + 1.2 );
@@ -126,7 +127,16 @@ function SWEP:PrimaryAttack()
 	end
 	
 
-		
+		if owner:GetPerk("_mine") then
+			if mymines > 10 then
+		if SERVER then
+			self.Owner:Message("You can't place more than 10 mines per ground",1,"white")
+		end
+		return
+	end
+	
+		else	
+			
 	if mymines > 5 then
 		if SERVER then
 			self.Owner:Message("You can't place more than 5 mines per ground",1,"white")
@@ -134,6 +144,7 @@ function SWEP:PrimaryAttack()
 		return
 	end
 	
+	end
 	
 	
 	for k,v in pairs ( ActualMines ) do-- ents.FindInBox (Vector (pos.x - 100,pos.y - 100,pos.z - 100), Vector (pos.x + 100, pos.y + 100, pos.z + 100))

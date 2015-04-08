@@ -54,8 +54,8 @@ SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "gravity"
 SWEP.Primary.Delay = 0.05
 
-SWEP.Secondary.ClipSize = 3
-SWEP.Secondary.DefaultClip = 3
+SWEP.Secondary.ClipSize = 5
+SWEP.Secondary.DefaultClip = 5
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 --SWEP.Secondary.Ammo = "gravity"

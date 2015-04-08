@@ -82,10 +82,11 @@ function SWEP:Think()
 	if SERVER then
 		local ammocount = self.Owner:GetAmmoCount(self.Primary.Ammo)
 		if 0 < ammocount then
+
 			self:SetClip1(ammocount + self:Clip1())
 			self.Owner:RemoveAmmo(ammocount, self.Primary.Ammo)
 		end
-
+	
 		if self.NextDeploy and self.NextDeploy < CurTime() then
 			if 0 < self:Clip1() then
 				self:SendWeaponAnim(ACT_VM_DRAW)
@@ -98,10 +99,17 @@ end
 
 
 function SWEP:PrimaryAttack()
+local owner = self.Owner
+
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
 	if not self:CanPrimaryAttack() then return end
-	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-
+		if owner:GetPerk("_nade") then
+		
+		self:SetNextPrimaryFire(CurTime() + self.Primary.Delay / 2 )
+	else
+		self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+	end
+	
 	local owner = self.Owner
 	if SERVER then
 		local ent = ents.Create("projectile_zsgrenade")

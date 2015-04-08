@@ -1608,7 +1608,8 @@ function meta:CheckSpeedChange()
 		speed = speed*1.04
 	end
 	
-	local fHealthSpeed = self:GetPerk("_adrenaline") and 1 or math.Clamp ( ( health / 50 ), 0.7, 1 )
+--	local fHealthSpeed = self:GetPerk("_adrenaline") and 1 or math.Clamp ( ( health / 50 ), 0.7, 1 )
+	local fHealthSpeed = self:GetPerk("_adrenaline") and 1 or math.Clamp ( ( health / 50 ), 0.85, 1 )
 	
 	if self:IsHolding() then
 		local status = self.status_human_holding
