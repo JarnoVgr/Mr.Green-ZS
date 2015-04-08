@@ -48,7 +48,8 @@ SWEP.HoldType = "pistol" --DO NOT MODIFY THIS
 SWEP.ViewModelFOV = 70 --KEEP THIS AT 65-70
 SWEP.ViewModelFlip = true --MAKE SURE THIS IS SET TO TRUE
 SWEP.ViewModel = "models/weapons/v_zombine.mdl" --
-SWEP.WorldModel = "models/weapons/w_crowbar.mdl" --DO NOT MODIFY THIS
+--SWEP.WorldModel = "models/weapons/w_crowbar.mdl" --DO NOT MODIFY THIS
+SWEP.WorldModel = "models/weapons/w_grenade.mdl" --DO NOT MODIFY THIS
 
 SWEP.Primary.Reach = 45
 SWEP.Primary.Duration = 2.1

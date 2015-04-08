@@ -11,8 +11,7 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 	
 	
---SWEP.ViewModelBoneMods = {
-	local bonemods ={
+SWEP.ViewModelBoneMods = {
 	["ValveBiped.Bip01_R_Finger31"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 75.605, 0) },
 	["ValveBiped.Bip01_R_Finger11"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 49.916, 0) },
 	["ValveBiped.Bip01_L_Finger2"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 20.795, 0) },
@@ -37,12 +36,18 @@ if CLIENT then
 }		
 
 	
+function SWEP:DrawWorldModel()
+		self:SetMaterial("models/flesh")
+		self:DrawModel()
+	end	
+	
 end
 
 SWEP.Base = "weapon_zs_undead_base"
 
 SWEP.ViewModel = Model("models/Weapons/v_fza.mdl")
-SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
+--SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
+SWEP.WorldModel = Model("models/weapons/w_grenade.mdl")
 
 SWEP.Primary.Delay = 0.4
 SWEP.Primary.Reach = 35
