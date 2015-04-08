@@ -66,7 +66,7 @@ function GM:UnleashBoss()
 		end
 	end)
 	
-
+	RunConsoleCommand("sv_alltalk", "1")
 	
 	return pl
 end

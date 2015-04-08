@@ -852,6 +852,7 @@ concommand.Add( "PostPlayerInitialSpawn", function(sender, command, arguments)
 	end
 end)
 
+
 util.AddNetworkString("OnReadySQL")
 
 hook.Add("OnPlayerReadySQL", "UpdateDataTableJoin", function(pl)

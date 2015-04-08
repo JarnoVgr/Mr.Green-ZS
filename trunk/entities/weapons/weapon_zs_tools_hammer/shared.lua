@@ -20,7 +20,7 @@ SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
  
 if CLIENT then
-	SWEP.NailTextDrawDistance = 105
+	SWEP.NailTextDrawDistance = 170
 
 	SWEP.ShowViewModel = false
 	SWEP.ShowWorldModel = true
@@ -47,7 +47,7 @@ SWEP.SlotPos = 3
  
 --SWEP.Primary.ClipSize = 30
 SWEP.Primary.ClipSize = 1
-SWEP.Primary.Damage = 0
+SWEP.Primary.Damage = 30
 SWEP.Primary.DefaultClip = 1
 --SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Automatic = true
@@ -78,6 +78,10 @@ SWEP.SwingOffset = Vector(0, -30, 0)
 SWEP.SwingHoldType = "grenade"
  
 SWEP.Mode = 1
+
+function SWEP:PlaySwingSound()
+	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(65, 70))
+end
 
 function SWEP:PlayHitSound()
 	self:EmitSound("weapons/melee/crowbar/crowbar_hit-"..math.random(1, 4)..".wav", 75, math.random(110, 115))
@@ -126,6 +130,11 @@ function SWEP:PrimaryAttack()
 		return
 	end
 
+	
+	self:SendWeaponAnim(ACT_VM_HITCENTER) --Hit animation
+	self.Alternate = not self.Alternate
+	self.Owner:SetAnimation(PLAYER_ATTACK1)
+	
 	self.Weapon:SetNextPrimaryFire(CurTime() + 1.3)
 	--self.Alternate = not self.Alternate
 				

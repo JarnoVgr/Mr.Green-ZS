@@ -583,6 +583,7 @@ NextAmmoDropOff = AMMO_REGENERATE_RATE
 NextHeal = 0
 NextQuickHeal = 0
 
+
 --[=[--------------------------------------
              Last Human Event
 ---------------------------------------]=]

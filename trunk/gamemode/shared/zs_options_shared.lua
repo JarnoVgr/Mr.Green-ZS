@@ -48,6 +48,7 @@ CHRISTMAS = false
 --EVENT: Aprils Fools
 FIRSTAPRIL = false
 
+
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 2
 BOSS_CLASS = {10, 11, 13, 18, 20}

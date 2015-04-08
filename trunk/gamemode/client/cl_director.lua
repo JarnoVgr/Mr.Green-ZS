@@ -176,7 +176,7 @@ function GM:SetBoss(value,isInsane,duration)
 		Debug("[CLIENT] Boss has risen")
 	else
 		--
-		--timer.Destroy("LoopBossMusic") --Duby: This loops the boss music
+		timer.Destroy("LoopBossMusic") --Duby: This loops the boss music
 	
 		--Stop music
 		RunConsoleCommand("stopsound")
