@@ -241,9 +241,7 @@ function meta:RestoreHumanHealth(am,returnhealth)
 
 	if self:GetPerk("_kevlar") then
 		maxhealth = 110
-	end
-	
-	if self:GetPerk("_kevlar2") then
+	elseif self:GetPerk("_kevlar2") then
 		maxhealth = 120
 	end
 	if health == maxhealth and returnhealth then
@@ -929,61 +927,6 @@ function meta:SetBodyPositions() --Bosses bone positions
 
 	
 end
-
-
-function meta:SetNerfBodyPositions() --The nerf boss has a complex body structure..
-
-	local Bone1 = self:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone1 then
-		self:ManipulateBoneAngles( Bone1, Angle(0, -14.207, 180)  )
-		self:ManipulateBoneScale( Bone1, Vector(1,1,1)  )
-	end
-	
-	local Bone2 = self:LookupBone("ValveBiped.Bip01_Spine2")
-	if Bone2 then
-		self:ManipulateBoneAngles( Bone2, Angle(0, 4.736, 0)  )
-		self:ManipulateBoneScale( Bone2, Vector(1.44, 2.194, 1.546)  )
-	end
-
-	local Bone3 = self:LookupBone("ValveBiped.Bip01_Spine1")
-	if Bone3 then
-		self:ManipulateBoneAngles( Bone3, Angle(0, 0, 0  ) )
-		self:ManipulateBoneScale( Bone3, Vector(0.865, 2.506, 0.754)  )
-	end
-	
-	local Bone4 = self:LookupBone("ValveBiped.Bip01_Head1")
-	if Bone4 then
-		self:ManipulateBoneAngles( Bone4, Angle(0, -30, 180 ) )
-		self:ManipulateBoneScale( Bone4, Vector(1.236, 1.236, 1.236) )
-	end
-	
-	local Bone5 = self:LookupBone("ValveBiped.Bip01_R_Hand")
-	if Bone5 then
-		self:ManipulateBoneAngles( Bone5, Angle(42.909, 24.655, 0 ) )
-		self:ManipulateBoneScale( Bone5, Vector(0.519, 0.519, 0.519) )
-	end
-	
-	local Bone6 = self:LookupBone("ValveBiped.Bip01_L_Hand")
-	if Bone6 then
-		self:ManipulateBoneAngles( Bone6, Angle(-33.896, 23.006, 0 ) )
-		self:ManipulateBoneScale( Bone6, Vector(1.855, 1.855, 1.855) )
-	end
-	
-	local Bone7 = self:LookupBone("ValveBiped.Bip01_L_Clavicle")
-	if Bone7 then
-		self:ManipulateBoneAngles( Bone7, Angle(17.159, 0, 0 ) )
-		self:ManipulateBoneScale( Bone7, Vector(1.381, 1.381, 1.381) )
-	end
-	
-	local Bone8 = self:LookupBone("ValveBiped.Bip01_R_Clavicle")
-	if Bone8 then
-		self:ManipulateBoneAngles( Bone8, Angle(-33.003, -33.201, 32.219 ) )
-		self:ManipulateBoneScale( Bone8, Vector(1, 1, 1) )
-	end
-	
-	
-end
-
 
 
 function meta:SetHumanBonePositions() --Revert the bone positions back

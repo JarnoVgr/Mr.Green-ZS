@@ -346,7 +346,7 @@ GM.Perks = {
 	["_remote"] = {Name = "Turret Remote", Description = "Gives you the turret remote 'Requires turret'", RequiresWeapon = "weapon_zs_turretplacer", Slot = 2},
 	["_horse"] = {Name = "Health Regenerate", Description = "If you take damage after 60 seconds you will regain the HP!", Slot = 2},
 	
-	["_support"] = {Name = "Extra Planls", Description = "Five planks at the start of the round, with 30% more health.", RequiresWeapon = "weapon_zs_tools_plank", Slot = 1},
+	["_support"] = {Name = "Extra Planks", Description = "Five planks at the start of the round, with 30% more health.", RequiresWeapon = "weapon_zs_tools_plank", Slot = 1},
 	["_extranails"] = {Name = "Pack of Nails", Description = "Double the amount of nails for your hammer!", RequiresWeapon = "weapon_zs_tools_hammer", Slot = 1},
 	["_nailhp"] = {Name = "Nail HP", Description = "Double the health of your nails!", Material = "HUD/scoreboard_clock", RequiresWeapon = "weapon_zs_tools_hammer", Slot = 1},
 	["_turretammo"] = {Name = "Turret Ammo", Description = "50% more ammo for turret", RequiresWeapon = "weapon_zs_turretplacer", Slot = 1},

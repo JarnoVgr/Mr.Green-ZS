@@ -67,7 +67,7 @@ function SWEP:InitializeClientsideModels()
 		["v_weapon.Left_Thumb02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 10.953, 0) },
 		["v_weapon.Left_Thumb01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 5.278, 0) },
 		["v_weapon.Left_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(26.527, 30.117, -1.349) },
-		["v_weapon.Left_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(3.184, 8.116, -3.767), angle = Angle(27.763, -12.801, -26.563) },
+		--["v_weapon.Left_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(3.184, 8.116, -3.767), angle = Angle(27.763, -12.801, -26.563) },
 		["v_weapon.button1"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 		["v_weapon.Right_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(3.591, 10.23, 7.918) },
 		["v_weapon.button4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
@@ -80,6 +80,7 @@ function SWEP:InitializeClientsideModels()
 		["part1"] = { type = "Model", model = "models/props_lab/reciever01b.mdl", bone = "v_weapon", rel = "hand", pos = Vector(2.151, -0.26, 0.282), angle = Angle(4.462, -86.359, -0.524), size = Vector(0.268, 0.268, 0.268), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["hand"] = { type = "Model", model = "models/Weapons/W_pistol.mdl", bone = "v_weapon.Right_Hand", rel = "", pos = Vector(5.271, -1.137, -2.896), angle = Angle(23.625, 164.044, 101.749), size = Vector(0.882, 0.882, 0.882), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["part2"] = { type = "Model", model = "models/props_c17/grinderclamp01a.mdl", bone = "v_weapon", rel = "hand", pos = Vector(-0.922, -0.543, 0.546), angle = Angle(-5.014, 90.796, -87.232), size = Vector(0.579, 0.579, 0.579), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		
 	}
 	
 	self.WElements = {

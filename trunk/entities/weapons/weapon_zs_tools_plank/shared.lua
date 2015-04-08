@@ -69,7 +69,7 @@ function SWEP:InitializeClientsideModels()
 		["v_weapon.Left_Middle02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 22.256, 0) },
 		["v_weapon.Left_Thumb03"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 52.168, 0) },
 		["v_weapon.c4"] = { scale = Vector(0.002, 0.002, 0.002), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.Left_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(-7.238, 12.175, -3.358), angle = Angle(58.224, -14.443, 76.694) }
+	--	["v_weapon.Left_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(-7.238, 12.175, -3.358), angle = Angle(58.224, -14.443, 76.694) }
 	}
 
 

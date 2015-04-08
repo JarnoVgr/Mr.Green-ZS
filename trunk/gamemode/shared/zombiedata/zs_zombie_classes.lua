@@ -200,7 +200,7 @@ ZombieClasses[2] =
 	Model = Model( "models/Zombie/Poison.mdl" ),
 	Speed = 155,
 	--Description = "A hulking mass of flesh far more durable than any other zombie.",
-	Description = "A hulking mass of flesh.",
+	Description = "A hulking mass of flesh, which can claw or spit on you!",
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
@@ -245,7 +245,6 @@ ZombieClasses[3] =
 	Model = Model("models/Zombie/Fast.mdl"),
 	Speed = 280,
 	Description = "Skin and bones predator.",
-	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
