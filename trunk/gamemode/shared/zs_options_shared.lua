@@ -173,6 +173,7 @@ GM.HumanWeapons = {
 	["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133,Mat = "VGUI/gfx/VGUI/ak47", Infliction = 0.7, Type = "rifle", Price = 900 },
 	["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138,Mat = "VGUI/gfx/VGUI/m4a1", Infliction = 0.65, Type = "rifle", Price = 950 },
 	["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125,Mat = "VGUI/gfx/VGUI/aug", Infliction = 0.53, Type = "rifle", Price = 1000 },
+	["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70,Mat = "VGUI/gfx/VGUI/sg550", Infliction = 0.65, Type = "rifle", Price = 900  },
 	
 	--Heavy
 	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun", Price = 1200},
