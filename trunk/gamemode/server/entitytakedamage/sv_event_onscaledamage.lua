@@ -227,13 +227,13 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 				
 			local phys = Inflictor:GetPhysicsObject()
 
-			if phys:IsValid() and pl:Alive() and phys:GetVelocity():Length() > 180 then
+			--[[if phys:IsValid() and pl:Alive() and phys:GetVelocity():Length() > 180 then
 						if pl:GetPerk("_falldown") then
 					return
 				else
 				pl:GiveStatus("knockdown",math.Rand(2.1,3))
 				end
-			end
+			end]]--
 		end
 	end
 	
