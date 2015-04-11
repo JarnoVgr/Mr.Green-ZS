@@ -72,11 +72,11 @@ local function ManageEvents()
 		GAMEMODE:OnEndRound(TEAM_UNDEAD)
 	end
 
-	 if GAMEMODE_ARENA then--If its arena mode then don't spawn bosses
-		return	
-	else
-		GAMEMODE:CheckBoss()
-	end
+	-- if GAMEMODE_ARENA then--If its arena mode then don't spawn bosses
+		--return	
+	--else
+		GAMEMODE:CheckBoss()		
+	--end
 
 	--Pick random zombie(s) if there aren't any
 	if numUndead == 0 and numSurvivors >= 5 then

@@ -117,6 +117,8 @@ function GM:CheckBoss()
 	return true
 end
 
+
+
 function GM:GetBoss()
 	return boss.active or false
 end
