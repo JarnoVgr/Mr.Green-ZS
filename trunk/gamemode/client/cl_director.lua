@@ -193,6 +193,7 @@ end)
 
 net.Receive("StopBoss", function(len)
 	GAMEMODE:SetBoss(false)
+	RunConsoleCommand("sv_alltalk", "0")
 end)
 
 --[==[---------------------------------------------------------

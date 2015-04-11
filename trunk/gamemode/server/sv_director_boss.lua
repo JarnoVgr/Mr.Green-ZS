@@ -95,7 +95,8 @@ function GM:CheckBoss()
 		return false
 	end
 
-	if GetInfliction() <= 0.7 then
+	if GetInfliction() <= 0.3 then
+	RunConsoleCommand("sv_alltalk", "0")
 		return false
 	end
 
@@ -188,7 +189,7 @@ function GM:SetBoss(value)
 		--Update end time
 		boss.endTime = CurTime()
 
-		boss.nextBossTime = boss.endTime + math.random(120,140)
+		boss.nextBossTime = boss.endTime + math.random(300,310)
 	
 		--Inform players
 		net.Start("StopBoss")

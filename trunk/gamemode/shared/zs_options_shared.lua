@@ -301,7 +301,7 @@ MAX_RANK = 30
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks} 
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote","weapon_zs_chipper","weapon_zs_smg"},
 	[1] = {"weapon_zs_tools_plank","weapon_zs_tools_hammer"},
 	[2] = {"weapon_zs_p228","_nade"},
 	[3] = {"_extranails","_kevlar"},
