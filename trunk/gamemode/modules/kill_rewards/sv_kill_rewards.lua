@@ -51,11 +51,11 @@ gun_race.config = {
 	
 	weapon_upgrades = {
 		[ 0 ] 	= { };
-		[ 5 ] 	= { "weapon_zs_alyx" };
-		[ 10 ] 	= { "weapon_zs_chipper"};
-		[ 16 ] 	= { "weapon_zs_p90"};
-		[ 25 ] 	= { "weapon_zs_ak47" };
-		[ 40 ] 	= { "weapon_zs_m249" };
+		[ 5 ] 	= { "weapon_zs_chembomb" };
+		[ 10 ] 	= { "weapon_zs_chembomb"};
+		[ 16 ] 	= { "weapon_zs_vodka"};
+	--	[ 25 ] 	= { "weapon_zs_ak47" };
+	--	[ 40 ] 	= { "weapon_zs_m249" };
 
 	};
 };

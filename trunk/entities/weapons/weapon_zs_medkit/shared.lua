@@ -40,8 +40,8 @@ SWEP.Primary.Delay = 0.01
 SWEP.Primary.Heal = 10
 SWEP.Primary.HealDelay = 7
 
-SWEP.Primary.ClipSize = 50
-SWEP.Primary.DefaultClip = 50
+SWEP.Primary.ClipSize = 60
+SWEP.Primary.DefaultClip = 60
 SWEP.Primary.Ammo = "Battery"
 
 SWEP.Secondary.Delay = 0.01

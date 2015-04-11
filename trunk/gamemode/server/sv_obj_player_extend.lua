@@ -1552,7 +1552,7 @@ function meta:CheckSpeedChange()
 	end
 	
 	if self:GetPerk() == "_sboost2" then
-		speed = speed*1.04
+		speed = speed*1.05
 	end
 	
 --	local fHealthSpeed = self:GetPerk("_adrenaline") and 1 or math.Clamp ( ( health / 50 ), 0.7, 1 )

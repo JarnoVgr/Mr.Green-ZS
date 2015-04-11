@@ -29,15 +29,15 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_Scout.Single")
-SWEP.Primary.Recoil			= 9
-SWEP.Primary.Damage			= 170
+SWEP.Primary.Recoil			= 5
+SWEP.Primary.Damage			= 70
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
-SWEP.Primary.Delay			= 1.5
+SWEP.Primary.Delay			= 1.6
 SWEP.Primary.DefaultClip	= 12
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "357"
-SWEP.Primary.ReloadDelay	= 1.5
+SWEP.Primary.ReloadDelay	= 1.6
 
 SWEP.Cone = 0.036
 SWEP.ConeMoving = SWEP.Cone *1.5

@@ -163,7 +163,7 @@ GM.HumanWeapons = {
 	["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127,Mat = "VGUI/gfx/VGUI/mp5", Infliction = 0.58, Type = "smg", Price = 440 },
 	["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107,Mat = "VGUI/gfx/VGUI/tmp", Infliction = 0.56, Type = "smg", Price = 350 },
 	["weapon_zs_mac10"]  = { Name = "Mac 10", DPS = 126,Mat = "VGUI/gfx/VGUI/mac10", Infliction = 0.60, Type = "smg", Price = 330 },
-	["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle", Price = 800, Description = "Light-weight sniper." },
+	["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle", Price = 120, Description = "Light-weight sniper." },
 
 			
 	--Medium Guns
@@ -174,6 +174,7 @@ GM.HumanWeapons = {
 	["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138,Mat = "VGUI/gfx/VGUI/m4a1", Infliction = 0.65, Type = "rifle", Price = 950 },
 	["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125,Mat = "VGUI/gfx/VGUI/aug", Infliction = 0.53, Type = "rifle", Price = 1000 },
 	["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70,Mat = "VGUI/gfx/VGUI/sg550", Infliction = 0.65, Type = "rifle", Price = 900  },
+	["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70,Mat = "VGUI/gfx/VGUI/g3sg1", Infliction = 0.65, Type = "rifle", Price = 940  },
 	
 	--Heavy
 	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun", Price = 1200},
@@ -290,23 +291,23 @@ GM.AmmoRegeneration = {
 -- -- -- -- -- -- -- -- -- -- /
 -- Ranks, xp, drugs and etc
 -- -- -- -- -- -- -- -- -- -- /
-XP_BLANK = 350
+XP_BLANK = 300
 
 XP_INCREASE_BY = 2550
 
-XP_PLAYERS_REQUIRED = 6
+XP_PLAYERS_REQUIRED = 3
 
 MAX_RANK = 30
 
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks} 
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote","weapon_zs_chipper","weapon_zs_smg","_kevlar","_horse","_turretammo"},
+	[0] = {"weapon_zs_usp","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote","weapon_zs_chipper","weapon_zs_smg","_kevlar","_horse","_turretammo","weapon_zs_scout","_sboost2","weapon_zs_melee_combatknife","weapon_zs_melee_keyboard"},
 	[1] = {"weapon_zs_tools_plank","weapon_zs_tools_hammer"},
-	[2] = {"weapon_zs_p228","_nade"},
+	[2] = {"weapon_zs_p228"},
 	[3] = {"_extranails"},
-	--[4] = {"_turretammo"},
-	[5] = {"weapon_zs_melee_keyboard"},
+	[4] = {"_nade"},
+	--[5] = {"weapon_zs_melee_keyboard"},
 	[6] = {"weapon_zs_melee_pipe"},
 	[7] = {"_turrethp"},
 	[9] = {"_falldmg",},
@@ -321,7 +322,7 @@ GM.RankUnlocks = {
 	[19] = {"weapon_zs_melee_pot"},
 	[21] = {"_mine"},
 	[22] = {"_sboost"},
-	[24] = {"weapon_zs_melee_combatknife"},
+	--[24] = {"weapon_zs_melee_combatknife"},
 	[28] = {"_adrenaline"},
 	[29] = {"weapon_zs_melee_axe"},
 	[31] = {"_medupgr1"},
@@ -340,7 +341,8 @@ GM.Perks = { --Required weapons removed as it was confusing players as they thou
 	["_kevlar2"] = {Name = "Kevlar2", Description = "Gives you 20 more HP.", Material = "VGUI/gfx/VGUI/kevlar", Slot = 2},
 	["_freeman"] = {Name = "Berserker", Description = "Do 30% more damage and attack faster with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 2},
 	["_adrenaline"] = {Name = "Adrenaline Injection", Description = "Negates speed reduction on low health. Also your screen won't turn red when you are low on health.", Slot = 2},
-	["_sboost"] = {Name = "SpeedBoost", Description = "8% increase in walking speed.", Slot = 2},	
+	["_sboost"] = {Name = "Mega SpeedBoost", Description = "8% increase in walking speed.", Slot = 2},	
+	["_sboost2"] = {Name = "SpeedBoost", Description = "5% increase in walking speed.", Slot = 2},	
 	["_poisonprotect"] = {Name = "Poison Protection", Description = "30% less damage from Poison Headcrabs.", Slot = 2},
 	["_falldown"] = {Name = "Fall Down", Description = "Prevents you from falling over from high jumps or being hit by props.", Slot = 2},
 	["_falldmg"] = {Name = "Fall Protection", Description = "25% less fall damage.", Slot = 2},

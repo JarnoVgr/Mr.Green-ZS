@@ -137,11 +137,11 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
 		end
 
-		if GetInfliction() >= 0.15 and pl:IsZombie() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.11) and pl:Health() ~= 0 and pl.bCanSprint == false then
-			pl.bCanSprint = true
-			pl:SendLua("WraithScream()")
+		--if GetInfliction() >= 0.15 and pl:IsZombie() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.11) and pl:Health() ~= 0 and pl.bCanSprint == false then
+		--	pl.bCanSprint = true
+		--	pl:SendLua("WraithScream()")
 			--pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
-		end
+		--end
 
 		--One boss
 		--[[if dmginfo:IsBulletDamage() and (pl:GetZombieClass() == 11 or pl:GetZombieClass() == 18) and (dmginfo:GetDamagePosition():Distance( pl:GetAttachment(pl:LookupAttachment("head")).Pos )) > 6.5 and math.random(5) == 5 then

@@ -556,7 +556,8 @@ function GM:OnZombieSpawn(pl)
 	-- Prevent health pickups and/or machines
 	pl:SetMaxHealth(1) 
 	
-	pl:SetBloodColor(BLOOD_COLOR_RED)
+	--pl:SetBloodColor(BLOOD_COLOR_RED)
+	pl:SetBloodColor(BLOOD_COLOR_YELLOW)
 
 	--Auto enable zombie vision at first spawn
 	if pl.m_ZombieVision == nil or pl.m_ZombieVision == true then
