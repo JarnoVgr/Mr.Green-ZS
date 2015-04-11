@@ -913,7 +913,7 @@ end
 
 function meta:GetPerk(prk)
 	self.Perk = self.Perk or {}
-	return table.HasValue(self.Perk,perk) or false
+	return table.HasValue(self.Perk,prk) or false
 end
 
 function meta:IsBlocked(item, SlotLabel)	

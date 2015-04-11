@@ -301,17 +301,17 @@ MAX_RANK = 30
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks} 
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote","weapon_zs_chipper","weapon_zs_smg"},
+	[0] = {"weapon_zs_usp","weapon_zs_fists2","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote","weapon_zs_chipper","weapon_zs_smg","_kevlar","_horse","_turretammo"},
 	[1] = {"weapon_zs_tools_plank","weapon_zs_tools_hammer"},
 	[2] = {"weapon_zs_p228","_nade"},
-	[3] = {"_extranails","_kevlar"},
-	[4] = {"_turretammo"},
+	[3] = {"_extranails"},
+	--[4] = {"_turretammo"},
 	[5] = {"weapon_zs_melee_keyboard"},
 	[6] = {"weapon_zs_melee_pipe"},
 	[7] = {"_turrethp"},
 	[9] = {"_falldmg",},
 	[10] = {"_falldown"},
-	[11] = {"_kevlar2","_horse"},
+	[11] = {"_kevlar2"},
 	[12] = {"weapon_zs_melee_pipe2"},
 	[13] = {"_nailhp"},
 	[14] = {"_poisonprotect"},
@@ -334,7 +334,8 @@ GM.RankUnlocks = {
 }
 
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
-GM.Perks = {
+--RequiresWeapon = "weapon_zs_tools_hammer",
+GM.Perks = { --Required weapons removed as it was confusing players as they thought they had unlocked something and it was broken or something. Nice idea but it needs to be more clear! On the todo list.
 	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more HP.", Material = "VGUI/gfx/VGUI/kevlar", Slot = 2},
 	["_kevlar2"] = {Name = "Kevlar2", Description = "Gives you 20 more HP.", Material = "VGUI/gfx/VGUI/kevlar", Slot = 2},
 	["_freeman"] = {Name = "Berserker", Description = "Do 30% more damage and attack faster with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 2},
@@ -344,20 +345,20 @@ GM.Perks = {
 	["_falldown"] = {Name = "Fall Down", Description = "Prevents you from falling over from high jumps or being hit by props.", Slot = 2},
 	["_falldmg"] = {Name = "Fall Protection", Description = "25% less fall damage.", Slot = 2},
 	["_comeback2"] = {Name = "Reborn", Description = "When redeeming you will spawn once with either a Deagle or a pair of Dual Elites.", Material = "VGUI/logos/spray_elited", Slot = 2},
-	["_remote"] = {Name = "Turret Remote", Description = "Gives you the turret remote 'Requires turret'", RequiresWeapon = "weapon_zs_turretplacer", Slot = 2},
+	["_remote"] = {Name = "Turret Remote", Description = "Gives you the turret remote 'Requires turret'", Slot = 2},
 	["_horse"] = {Name = "Health Regenerate", Description = "If you take damage after 60 seconds you will regain the HP!", Slot = 2},
 	
-	["_support"] = {Name = "Extra Planks", Description = "Five planks at the start of the round, with 30% more health.", RequiresWeapon = "weapon_zs_tools_plank", Slot = 1},
-	["_extranails"] = {Name = "Pack of Nails", Description = "Double the amount of nails for your hammer!", RequiresWeapon = "weapon_zs_tools_hammer", Slot = 1},
-	["_nailhp"] = {Name = "Nail HP", Description = "Double the health of your nails!", Material = "HUD/scoreboard_clock", RequiresWeapon = "weapon_zs_tools_hammer", Slot = 1},
-	["_turretammo"] = {Name = "Turret Ammo", Description = "50% more ammo for turret", RequiresWeapon = "weapon_zs_turretplacer", Slot = 1},
-	["_turrethp"] = {Name = "Turret Durability", Description = "50% more health for turret", Material = "VGUI/gfx/VGUI/defuser", RequiresWeapon = "weapon_zs_turretplacer", Slot = 1},
-	["_turretdmg"] = {Name = "Turret Power", Description = "50% more turret's damage", RequiresWeapon = "weapon_zs_turretplacer", Slot = 1},	
-	["_medupgr1"] = {Name = "Medical Efficiency", Description = "35% more healing power", RequiresWeapon = "weapon_zs_medkit", Slot = 1},
-	["_medupgr2"] = {Name = "Medical Pack", Description = "Doubled maximum Medical Kit charges", RequiresWeapon = "weapon_zs_medkit", Slot = 1},
-	["_nade"] = {Name = "Grenades tosser", Description = "Throw Grenades twice as quickly! ", RequiresWeapon = "weapon_zs_grenade", Slot = 1},
-	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with Torch.", Material = "HUD/scoreboard_clock", RequiresWeapon = "weapon_zs_tools_torch", Slot = 1},
-	["_mine"] = {Name = "Multi Mine", Description = "Place up to 10 mines on the floor! ", Material = "HUD/scoreboard_clock", RequiresWeapon = "weapon_zs_mine", Slot = 1},
+	["_support"] = {Name = "Extra Planks", Description = "Five planks at the start of the round, with 30% more health.", Slot = 1},
+	["_extranails"] = {Name = "Pack of Nails", Description = "Double the amount of nails for your hammer!", Slot = 1},
+	["_nailhp"] = {Name = "Nail HP", Description = "Double the health of your nails!", Material = "HUD/scoreboard_clock",  Slot = 1},
+	["_turretammo"] = {Name = "Turret Ammo", Description = "50% more ammo for turret", Slot = 1},
+	["_turrethp"] = {Name = "Turret Durability", Description = "50% more health for turret", Material = "VGUI/gfx/VGUI/defuser", Slot = 1},
+	["_turretdmg"] = {Name = "Turret Power", Description = "50% more turret's damage", Slot = 1},	
+	["_medupgr1"] = {Name = "Medical Efficiency", Description = "35% more healing power", Slot = 1},
+	["_medupgr2"] = {Name = "Medical Pack", Description = "Doubled maximum Medical Kit charges", Slot = 1},
+	["_nade"] = {Name = "Grenades tosser", Description = "Throw Grenades twice as quickly! ", Slot = 1},
+	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with Torch.", Material = "HUD/scoreboard_clock", Slot = 1},
+	["_mine"] = {Name = "Multi Mine", Description = "Place up to 10 mines on the floor! ", Material = "HUD/scoreboard_clock", Slot = 1},
 	
 --	["_imortalpro"] = {Name = "Immortal Protector", Description = "You will spawn with the Pulse SMG!", Slot = 2}
 	--["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
