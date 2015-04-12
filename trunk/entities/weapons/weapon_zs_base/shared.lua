@@ -380,7 +380,7 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 		Spread = Vector(cone * 0.8, cone * 0.8, 0),
 		Tracer = 1,
 		TracerName = self.TracerName,
-		Force = dmg * 0.03,
+		Force = dmg * 0.04,
 		Damage = dmg,
 		Callback = self.BulletCallback
 	})

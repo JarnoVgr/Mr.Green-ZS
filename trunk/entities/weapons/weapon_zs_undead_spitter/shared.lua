@@ -19,7 +19,7 @@ end
 SWEP.Primary.Duration = 1.5
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
-SWEP.Primary.Damage = 50
+SWEP.Primary.Damage = 35
 
 SWEP.EmitWraithSound = 0
 SWEP.Screams = {

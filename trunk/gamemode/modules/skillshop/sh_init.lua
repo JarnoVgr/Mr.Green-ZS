@@ -76,7 +76,7 @@ GM.SkillShopAmmo = {
 		Name = "Refill 30 charge for Medkit",
 		Model = "models/Items/BoxBuckshot.mdl",
 		Amount = 30,
-		Price = 40,
+		Price = 35,
 		ToolTab = true
 	},
 	
