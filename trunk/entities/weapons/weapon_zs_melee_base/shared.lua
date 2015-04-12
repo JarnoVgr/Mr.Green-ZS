@@ -1,8 +1,8 @@
 AddCSLuaFile()
 AddCSLuaFile("cl_init.lua")
 
---SWEP.ViewModel = "models/weapons/v_crowbar.mdl"
-SWEP.ViewModel = ""
+SWEP.ViewModel = "models/weapons/v_crowbar.mdl"
+--SWEP.ViewModel = ""
 SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
 if CLIENT then

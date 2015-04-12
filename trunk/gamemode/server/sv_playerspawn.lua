@@ -491,7 +491,7 @@ function GM:OnZombieSpawn(pl)
 	pl:DoHulls(Class, TEAM_UNDEAD)
 	
 	--Attach crabs to zombos
-	pl:SetHeadcrabBodyGroup()
+	--pl:SetHeadcrabBodyGroup()
 	
 	--Set the zombies model
 	pl:SetModel(Tab.Model)

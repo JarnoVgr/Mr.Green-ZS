@@ -7,7 +7,7 @@ AddCSLuaFile()
 SWEP.Base = "weapon_zs_melee_base"
 
 if CLIENT then
-	SWEP.ShowViewModel = false
+	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = true
 
 	killicon.AddFont("weapon_zs_melee_pot", "HL2MPTypeDeath", "f", Color(255, 255, 255, 255))

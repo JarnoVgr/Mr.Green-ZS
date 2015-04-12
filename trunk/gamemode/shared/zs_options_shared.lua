@@ -164,6 +164,7 @@ GM.HumanWeapons = {
 	["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107,Mat = "VGUI/gfx/VGUI/tmp", Infliction = 0.56, Type = "smg", Price = 350 },
 	["weapon_zs_mac10"]  = { Name = "Mac 10", DPS = 126,Mat = "VGUI/gfx/VGUI/mac10", Infliction = 0.60, Type = "smg", Price = 330 },
 	["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle", Price = 120, Description = "Light-weight sniper." },
+	["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun", Price = 100 },
 
 			
 	--Medium Guns
@@ -215,11 +216,12 @@ GM.HumanWeapons = {
 	["weapon_zs_tools_plank"]  = { Name = "Pack of Planks", DPS = 0, Infliction = 0, Type = "tool1", Description = "Help your team mates, bring extra planks!"  },
 	
 	--Pickups
-	["weapon_zs_pickup_gascan2"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },
+	["weapon_zs_pickup_gascan"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },
+	["weapon_zs_pickup_gascan2"]  = { Name = "Dangerous Gas Can2", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_pickup_propane"]  = { Name = "Dangerous Propane Tank", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_pickup_flare"]  = { Name = "Rusty Flare", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_pickup_gasmask"]  = { Name = "Old Gas Mask", DPS = 0, Infliction = 0, Type = "misc" },
-	["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun", Price = 100 },
+	
 
 	--Special Items
 
@@ -302,8 +304,8 @@ MAX_RANK = 30
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks} 
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote","weapon_zs_chipper","weapon_zs_smg","_kevlar","_horse","_turretammo","weapon_zs_scout","_sboost2","weapon_zs_melee_combatknife","weapon_zs_melee_keyboard"},
-	[1] = {"weapon_zs_tools_plank","weapon_zs_tools_hammer"},
+	[0] = {"weapon_zs_usp","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote","weapon_zs_chipper","weapon_zs_smg","_kevlar","_horse","_turretammo","weapon_zs_scout","_sboost2","weapon_zs_melee_combatknife","weapon_zs_melee_keyboard","weapon_zs_tools_hammer"},
+	[1] = {"weapon_zs_tools_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_extranails"},
 	[4] = {"_nade"},
@@ -388,7 +390,7 @@ NPCS_COUNT_AS_KILLS = false
 -- INCOMING!-- -- 
 -- Fraction of people that should be set as zombies at the beginning of the game.
 UNDEAD_START_AMOUNT_PERCENTAGE = 0.20
-UNDEAD_START_AMOUNT_MINIMUM = 1
+UNDEAD_START_AMOUNT_MINIMUM = 2
 
 -- Good values are 1 to 3. 0.5 is about the same as the default HL2. 1 is about ZS difficulty. This is mainly for NPC healths and damages.
 DIFFICULTY = 1.5
@@ -414,7 +416,7 @@ CARRY_MAXIMUM_VOLUME = 150
 CARRY_SPEEDLOSS_PERKG = 1.1
 
 -- But never slower than this.
-CARRY_SPEEDLOSS_MINSPEED = 150
+CARRY_SPEEDLOSS_MINSPEED = 160
 
 -- -- -- -- -- -- -- -- /
 

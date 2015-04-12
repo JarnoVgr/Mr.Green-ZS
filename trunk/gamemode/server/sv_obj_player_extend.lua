@@ -17,7 +17,7 @@ function meta:LegsGib()
 
 	self:Gib()
 end
-
+--[[
 --[==[--------------------------------------------------------------------------
 		   Spawns an NPC headcrab based on the player class
 ---------------------------------------------------------------------------]==]
@@ -78,7 +78,7 @@ function meta:SetHeadcrabBodyGroup()
 	-- Set it for all except headcrabs, howlers, wraith and poison crabs
 	if not self:IsHeadcrab() and not self:IsHowler() and not self:IsZombine() and not self:IsWraith()  and not self:IsPoisonCrab() then self:Fire( "setbodygroup", tostring ( iGroup ) ) end
 end
-
+]]--
 -- Set team event
 function GM:OnTeamChange( pl, iFromTeam, iToTeam )
 end
@@ -1289,7 +1289,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	
 	if bNailDied then
 		--Damage prop a bit to prevent nail abuse
-		dmginfo:ScaleDamage(0.5)
+		dmginfo:ScaleDamage(0.6)
 		
 		--Enable motion and reset for optimization
 		if #self.Nails == 0 then

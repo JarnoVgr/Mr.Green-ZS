@@ -69,7 +69,7 @@ SWEP.Primary.Damage			= 7
 SWEP.Primary.NumShots		= 1		
 SWEP.Primary.Cone			= 0 	
 SWEP.Primary.ClipSize		= 10
-SWEP.Primary.DefaultClip	= 2
+SWEP.Primary.DefaultClip	= 3
 SWEP.Primary.Automatic   	= true
 SWEP.Primary.Ammo         	= "slam"	
 ------------------------------------------------------------------------------------------------------
@@ -163,13 +163,14 @@ local owner = self.Owner
 		return
 	end
 	
-	-- for k,v in pairs (ents.FindInBox (Vector (pos.x - 150,pos.y - 150,pos.z - 150), Vector (pos.x + 150, pos.y + 150, pos.z + 150)) ) do
-	-- 	if IsValid( v ) then
-	-- 		if v.IsBarricade and v.Nails then
-				-- cades = cades + 1
-	-- 		end
-	-- 	end
-	-- end
+	--[[ for k,v in pairs (ents.FindInBox (Vector (pos.x - 150,pos.y - 150,pos.z - 150), Vector (pos.x + 150, pos.y + 150, pos.z + 150)) ) do
+	 	if IsValid( v ) then
+			if v.IsBarricade and v.Nails then
+				 cades = cades + 1
+			end
+		end
+	 end]]--
+	
 	
 	if cades >= 1 then
 		if SERVER then 

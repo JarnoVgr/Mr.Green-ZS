@@ -77,7 +77,7 @@ include("client/cl_customdeathnotice.lua")
 include("client/cl_hud.lua")
 include("client/cl_voice.lua")
 include("client/cl_waves.lua")
-include("client/cl_cratemove.lua")
+--include("client/cl_cratemove.lua")
 include("client/cl_etherial_blend.lua")
 include("client/cl_achievements.lua")
 

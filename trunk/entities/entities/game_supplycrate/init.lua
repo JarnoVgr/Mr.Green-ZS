@@ -10,18 +10,19 @@ include("shared.lua")
 -- Normal set data
 ENT.Table = {
 	--Duby: This is the new crate model.
-	["Ammo"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 16, 24 ), Angles = Angle ( 0, 180, 0 ) },
-	["Shotgun"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 34.8135, 0 ), Angles = Angle ( 0, 80, 0 ) },
-	["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 10.8135, 0 ), Angles = Angle ( 0, -80, 0 ) },
-	["Vial"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( 16, 10.8135, 18 ), Angles = Angle ( 100, -90, 180 ) },
-	["Ammo2"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -18, 10.8135, 18 ), Angles = Angle ( 100, -90, 180 ) },
-	["AmmoUp5"] = { Model = "models/greenshat/greenshat.mdl", Position = Vector ( -0.1039, 10, 48 ), Angles = Angle ( 0, -180, 0 ) },
+	--["Ammo"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 16, 24 ), Angles = Angle ( 0, 180, 0 ) },
+	--["Shotgun"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -0.1039, 34.8135, 0 ), Angles = Angle ( 0, 80, 0 ) },
+	--["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 10.8135, 0 ), Angles = Angle ( 0, -80, 0 ) },
+	--["Vial"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( 16, 10.8135, 18 ), Angles = Angle ( 100, -90, 180 ) },
+	--["Ammo2"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -18, 10.8135, 18 ), Angles = Angle ( 100, -90, 180 ) },
+	--["AmmoUp5"] = { Model = "models/greenshat/greenshat.mdl", Position = Vector ( -0.1039, 10, 48 ), Angles = Angle ( 0, -180, 0 ) },
 	
 	--Necros old crate:
-	--["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 18.8135, 0 ), Angles = Angle ( 0, -180, 0 ) }, --Old
-	--["Shotgun"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -7.1762, -10.9928, 24 ), Angles = Angle ( -1.297 ,60 ,-89.158 ) }, --Old
-	--["Ammo"] = { Model = "models/items/boxbuckshot.mdl", Position = Vector ( 4.6052 ,-6.7138, 23 ), Angles = Angle ( -0.336 , -115 ,0.072 ) }, --Old
-	["Vial2"] = { Model = "models/healthvial.mdl", Position = Vector ( -11.5952, -10, 25.5 ), Angles = Angle ( 0.726, -66.560, -90.018 ) }, --Old 
+	["AmmoUp"] = { Model = "models/items/item_item_crate.mdl", Position = Vector ( -2.1039, 18.8135, 0 ), Angles = Angle ( 0, -180, 0 ) }, --Old
+	["Shotgun"] = { Model = "models/weapons/w_shot_xm1014.mdl", Position = Vector ( -7.1762, -10.9928, 24 ), Angles = Angle ( -1.297 ,60 ,-89.158 ) }, --Old
+	["Ammo"] = { Model = "models/items/boxbuckshot.mdl", Position = Vector ( 4.6052 ,-6.7138, 23 ), Angles = Angle ( -0.336 , -115 ,0.072 ) }, --Old
+	["Vial2"] = { Model = "models/greenshat/greenshat.mdl", Position = Vector (  -7.1762, 10.9928, 24 ), Angles = Angle ( 0, -180, 0 ) }, --Old 
+	--["Vial2"] = { Model = "models/healthvial.mdl", Position = Vector ( -11.5952, -10, 25.5 ), Angles = Angle ( 0.726, -66.560, -90.018 ) }, --Old 
 }
 
 -- Precache their models

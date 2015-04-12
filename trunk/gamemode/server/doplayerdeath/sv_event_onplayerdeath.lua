@@ -48,7 +48,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			mVictim.DiedFromFlare = nil
 		end
 		
-		if mVictim:IsHuman() and mAttacker:IsZombie() then
+		--[[if mVictim:IsHuman() and mAttacker:IsZombie() then
 			if mAttacker:GetZombieClass() == 5 then
 				mVictim:Dismember("HEAD",dmginfo)
 			else
@@ -56,13 +56,13 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 					mVictim:Dismember("SAWED",dmginfo)
 				end
 			end
-		end
+		end]]--
 		
-		if mVictim:IsZombie() and mAttacker:IsZombie() then
+		--[[if mVictim:IsZombie() and mAttacker:IsZombie() then
 			if mAttacker:GetZombieClass() == 10 then
 				mVictim:Dismember("SAWED",dmginfo)
 			end
-		end
+		end]]--
 		
 		-- Melee kill
 		if dmginfo:IsMeleeDamage() and not mInflictor.IsTurretDmg then
@@ -142,6 +142,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			end
 		elseif dmginfo:IsExplosionDamage() then
 		local randonwound = math.random(1,4)
+		--	mVictim:CreateRagdoll()
 			if math.random(1,3) == 1 then
 				mVictim:CreateRagdoll()
 				if randonwound == 1 then
@@ -178,6 +179,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	else
 		if dmginfo:IsExplosionDamage() then
+			mVictim:CreateRagdoll()
 		local randonwound = math.random(1,4)
 			mVictim:CreateRagdoll()
 			
@@ -196,7 +198,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		elseif dmginfo:IsFallDamage() then
 			if math.random(1,2) == 1 then
 				mVictim:CreateRagdoll()
-				mVictim:Dismember("BOTHLEGS",dmginfo)
+			--	mVictim:Dismember("BOTHLEGS",dmginfo)
 				mVictim:Gib( dmginfo ) 
 			else
 				mVictim:Gib( dmginfo ) 
