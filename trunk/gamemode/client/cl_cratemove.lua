@@ -1,4 +1,4 @@
-local function CratesRemoved()
+--[[local function CratesRemoved()
 	local pl = LocalPlayer()
 	if not IsValid(pl) then
 		return
@@ -28,7 +28,7 @@ local function CratesDropped()
 	end)
 end
 net.Receive("SupplyCratesDropped", CratesDropped)
-
+]]--
 --TODO: Move to somewhere else
 net.Receive("SlowMoEffect", function()
 	RunConsoleCommand("stopsound")

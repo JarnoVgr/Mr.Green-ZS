@@ -18,6 +18,7 @@ SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
 
+
 SWEP.WalkSpeed = SPEED_NORMAL
 
 SWEP.HoldType = "pistol"
@@ -68,6 +69,7 @@ function SWEP:PrimaryAttack()
 
 	local bullet = {}
 	bullet.Force = 3000
+
 	
 	
 	--Recoil multiplier
@@ -378,7 +380,7 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 		Spread = Vector(cone * 0.8, cone * 0.8, 0),
 		Tracer = 1,
 		TracerName = self.TracerName,
-		Force = dmg * 0.015,
+		Force = dmg * 0.03,
 		Damage = dmg,
 		Callback = self.BulletCallback
 	})
