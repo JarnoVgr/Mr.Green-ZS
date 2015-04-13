@@ -299,7 +299,7 @@ XP_INCREASE_BY = 2550
 
 XP_PLAYERS_REQUIRED = 3
 
-MAX_RANK = 30
+MAX_RANK = 36
 
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks} 
