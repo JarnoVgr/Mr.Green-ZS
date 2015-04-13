@@ -6,8 +6,8 @@ local ItemsOnSale = 0
 
 local SaleChance = CreateConVar("zs_skillshop_sale_chance", "70", {}, "")
 local MaxItems = CreateConVar("zs_skillshop_sale_maxitems", "6", {}, "")
-local MinDiscountRange = CreateConVar("zs_skillshop_sale_mindiscount", "10", {}, "")
-local MaxDiscountRange = CreateConVar("zs_skillshop_sale_maxdiscount", "25", {}, "")
+local MinDiscountRange = CreateConVar("zs_skillshop_sale_mindiscount", "15", {}, "")
+local MaxDiscountRange = CreateConVar("zs_skillshop_sale_maxdiscount", "30", {}, "")
 
 local function SelectSales()	
 	local salechance = 1 / (SaleChance:GetInt() / 100)

@@ -5,7 +5,7 @@ AddCSLuaFile()
 if CLIENT then
 	SWEP.PrintName = "Pulse SMG"
 	SWEP.Author	= "NECROSSIN and Deluvas"	
-	SWEP.Slot = 0
+	SWEP.Slot = 5
 	SWEP.SlotPos = 14
 	SWEP.ViewModelFlip = false
 	SWEP.ViewModelFOV = 55

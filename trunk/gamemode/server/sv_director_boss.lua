@@ -95,7 +95,7 @@ function GM:CheckBoss()
 		return false
 	end
 
-	if GetInfliction() <= 0.3 then
+	if GetInfliction() <= 0.28 then
 	RunConsoleCommand("sv_alltalk", "0")
 		return false
 	end

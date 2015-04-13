@@ -52,8 +52,8 @@ gun_race.config = {
 	weapon_upgrades = {
 		[ 0 ] 	= { };
 		[ 5 ] 	= { "weapon_zs_chembomb" };
-		[ 10 ] 	= { "weapon_zs_chembomb"};
-		[ 16 ] 	= { "weapon_zs_vodka"};
+		[ 10 ] 	= { "weapon_zs_special_bottleofwine"};
+		[ 20 ] 	= { "weapon_zs_vodka"};
 	--	[ 25 ] 	= { "weapon_zs_ak47" };
 	--	[ 40 ] 	= { "weapon_zs_m249" };
 

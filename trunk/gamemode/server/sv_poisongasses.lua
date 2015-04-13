@@ -21,6 +21,8 @@ function MapPoisonGassesWrite()
 	file.Write( path, contentstring )
 end	
 
+ToxicTime = 0
+ToxicWarningTime = 0
 function GM:SpawnPoisonGasses()
 	--Gasses
 	local spawnedGasPositions = {}
@@ -61,4 +63,38 @@ function GM:SpawnPoisonGasses()
 			table.insert(spawnedGasPositions,spawnPos)
 		end
 	end
+	
 end
+
+--[[ --I will fix this and integrate it into this system above perhaps..
+-- Toxic damage
+ToxicPoints = {}
+ToxicTime = 0
+ToxicWarningTime = 0
+function ToxicDamager() 
+	if ToxicTime > CurTime() then return end
+	
+	--Damage humans that enter toxic fumes, but don't kill them
+	for _,pl in pairs ( team.GetPlayers( TEAM_HUMAN ) ) do
+		if pl:IsInToxicFumes ( ToxicPoints ) then
+			local MaxHealth = pl:GetMaximumHealth()
+			if pl:Health() > MaxHealth * 0.15 then
+				pl:TakeDamage ( MaxHealth * 0.05, nil, nil )
+				pl:Message ("Stay out of the infected areas as they might get you killed!", 2, "white")
+			end
+		end
+	end
+	
+	--Heal the undead within the toxic fumes
+	for _,pl in pairs ( team.GetPlayers( TEAM_UNDEAD ) ) do
+		if pl:IsInToxicFumes ( ToxicPoints ) then
+			local MaxHealth = pl:GetMaximumHealth()
+			if pl:Health() < MaxHealth then
+				pl:SetHealth ( math.Clamp ( pl:Health() + ( MaxHealth * 0.25 ), 0, MaxHealth ) )
+			end
+		end
+	end
+	
+	ToxicTime = CurTime() + 1
+end
+]]--

@@ -137,7 +137,7 @@ function CreatePickup(mdl,name,pos,override)
 	end
 		pickup:SetPos(pos)
 		pickup:Spawn()
-		--pickup:DropToFloor()
+		pickup:DropToFloor()
 	
 	return pickup
 end

@@ -6,8 +6,6 @@ AddCSLuaFile()
     if CLIENT then
             SWEP.PrintName = "'Python' Magnum"
             SWEP.Author     = "Pufulet"
-            SWEP.Slot = 1
-            SWEP.SlotPos = 7
             SWEP.ViewModelFlip = false
      
     SWEP.ViewModelBoneMods = {
@@ -54,7 +52,8 @@ AddCSLuaFile()
     end
      
     SWEP.Base = "weapon_zs_base"
-     
+            SWEP.Slot = 5
+            SWEP.SlotPos = 1
     SWEP.Spawnable                  = true
     SWEP.AdminSpawnable             = true
     SWEP.ViewModel                  = Model ( "models/weapons/c_357.mdl" )
@@ -65,7 +64,7 @@ AddCSLuaFile()
     SWEP.HoldType = "revolver"
     SWEP.Primary.Sound                      = Sound( "Weapon_357.Single" )
     SWEP.Primary.Recoil                     = 20
-    SWEP.Primary.Damage                     = 50
+    SWEP.Primary.Damage                     = 70
     SWEP.Primary.NumShots           = 2
     SWEP.Primary.ClipSize           = 2
     SWEP.Primary.Delay                      = 0.3
@@ -89,7 +88,7 @@ AddCSLuaFile()
             return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.15 <= CurTime()
     end
      
-    if CLIENT then
+   --[[ if CLIENT then
             SWEP.IronsightsMultiplier = 0.50
      
             function SWEP:GetViewModelPosition(pos, ang)
@@ -105,4 +104,44 @@ AddCSLuaFile()
                             self:DrawScope()
                     end
             end    
-    end
+    end]]--
+	
+	if CLIENT then
+	local texGradDown = surface.GetTextureID("VGUI/gradient_down")
+	function SWEP:DrawHUD()
+	
+		local wid, hei = ScaleW(150), ScaleH(32)
+		--local space = 12+ScaleW(7)
+		local space = 12+ScaleW(-120)
+		local x, y = ScrW() - wid - 12, ScrH() - ScaleH(73) - 12
+		y = y + ScaleH(73)/2 - hei/2
+		surface.SetFont("ssNewAmmoFont13")
+		local tw, th = surface.GetTextSize("Magnum Python")
+		local texty = y + hei/2 
+		
+		 draw.SimpleText("You only have 30 shots make them count!", "ssNewAmmoFont7", x+space, texty, Color(255,255,255,255), TEXT_ALIGN_LEFT)
+		 draw.SimpleText("Magnum Python", "ssNewAmmoFont7", x+space, texty+20, Color(255,255,255,255), TEXT_ALIGN_LEFT)
+
+		--local charges = self:GetPrimaryAmmoCount()
+		--[[if charges > 0 then
+			draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		else
+			draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, COLOR_DARKRED, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		end]]--
+		
+		 if self:IsScoped() then
+                            self:DrawScope()
+                    end
+		
+	end
+	
+	SWEP.IronsightsMultiplier = 0.50
+     
+            function SWEP:GetViewModelPosition(pos, ang)
+                    if self:IsScoped() then
+                            return pos + ang:Up() * 256
+                    end
+     
+                    return self.BaseClass.GetViewModelPosition(self, pos, ang)
+            end
+end

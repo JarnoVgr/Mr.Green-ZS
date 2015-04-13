@@ -149,6 +149,7 @@ GM.HumanWeapons = {
 	["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol", Price = 260, Description = "High fire rate thanks to having two pistols in your hands." },
 	["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 350, Description = "Russian Roulette Revolver" },
 	["weapon_zs_deagle"]  = { Name = "Desert Eagle",Mat = "VGUI/gfx/VGUI/deserteagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 390 },
+
 	
 	["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42,Mat = "VGUI/gfx/VGUI/usp45", Infliction = 0, Type = "pistol", Price = 70, Description = "Fast firing lower damage." },
 	["weapon_zs_p228"]  = { Name = "P228", DPS = 58,Mat = "VGUI/gfx/VGUI/p228", Infliction = 0, Type = "pistol", Price = 80, Description = "More power, slower fire rate."  },
@@ -193,7 +194,7 @@ GM.HumanWeapons = {
 	["weapon_zs_fists"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee", Description = "Punch a Zombie in the face." },
 	["weapon_zs_fists2"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
 	["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" }, -- 860
-	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 350},
+	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "misc"},
 --	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
 	--["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 6000 }, --Seems to work fine now.
 	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
@@ -224,9 +225,10 @@ GM.HumanWeapons = {
 	
 
 	--Special Items
-
-	["weapon_zs_vodka"]  = { Name = "Bottle ol Vodka", DPS = 0, Infliction = 0, Type = "misc" },
-	["weapon_zs_chembomb"]  = { Name = "Chemical Nade", DPS = 0, Infliction = 0, Type = "misc" },
+	["weapon_zs_special_vodka"]  = { Name = "Bottle ol Vodka", DPS = 0, Infliction = 0, Type = "misc" },
+	["weapon_zs_special_bottleofwine"]  = { Name = "Bottle ol Wine", DPS = 0, Infliction = 0, Type = "misc" },
+	["weapon_zs_special_chembomb"]  = { Name = "Chemical Nade", DPS = 0, Infliction = 0, Type = "misc" },
+	["weapon_zs_python"]  = { Name = "Python 'Magnum'", DPS = 93, Infliction = 0.2, Type = "misc"},
 	
 	
 	--HL2 weapons
@@ -421,7 +423,8 @@ CARRY_SPEEDLOSS_MINSPEED = 160
 -- -- -- -- -- -- -- -- /
 
 -- Maximum crates per map
-MAXIMUM_CRATES = 4 -- math.random(2, 3)
+--MAXIMUM_CRATES = 4 -- math.random(2, 3)
+MAXIMUM_CRATES = 7 -- math.random(2, 3)
 
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = false
@@ -473,6 +476,7 @@ SMALLPROPCOLLISIONS = false
 
 --Time untill roll-the-dice is re-enabled
 RTD_TIME = 180
+--RTD_TIME = 1
 
 --Sound to play for last human.
 LASTHUMANSOUND = "mrgreen/music/lasthuman.mp3"
