@@ -1261,7 +1261,7 @@ end
 if CLIENT then
 function meta:GetStatus(sType)
 	local ent = self["status_"..sType]
-	if ent --[=[and ent:GetOwner() == self]=] then return ent end
+	if ent then return ent end
 end
 
 function meta:DoHulls(classid, teamid)

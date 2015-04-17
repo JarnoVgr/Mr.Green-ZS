@@ -227,7 +227,7 @@ local function HeartbeatGlow()
 	local eyepos = EyePos()
 	for i=1, #CachedHumans do
 		local pl = CachedHumans[i]
-		if not IsValid(pl) or pl:Team() ~= TEAM_HUMAN or not pl:Alive() or pl:GetPos():Distance(eyepos) > 1024 or (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
+		if not IsValid(pl) or pl:Team() ~= TEAM_HUMAN or not pl:Alive() or pl:GetPos():Distance(eyepos) > 2500 or (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
 			continue
 		end			
 		
@@ -538,7 +538,7 @@ local function DelayedLastHumanAlert()
 			GAMEMODE:Add3DMessage(140, "Kill the Last Human", nil, "ArialBoldFifteen")
 		else
 			GAMEMODE:Add3DMessage(140, "You are the LAST HUMAN", nil, "ArialBoldFifteen")
-			GAMEMODE:Add3DMessage(140, "Run for your life", nil, "ArialBoldTen")
+			GAMEMODE:Add3DMessage(140, "Run for your LIFE", nil, "ArialBoldTen")
 		end
 	end
 end
@@ -890,7 +890,6 @@ local function HUDPaint()
 		end
 	end
 end
-
 BloodDraws = {}
 function AddBloodSplat( severity )
 	local toDraw = bloodSplats[math.random(1,8)]

@@ -93,21 +93,7 @@ function GM:OnPlayerRedeem(pl, causer)
 	skillpoints.SetupSkillPoints(pl)
 	
 	--Comebacks
-	if not pl._ComebackUsed then
-		--Comeback primary weapon
-		if pl:GetPerk("_comeback") then
-			--Strip current automatic gun
-			if pl:GetAutomatic() then
-				pl:StripWeapon(pl:GetAutomatic():GetClass())
-			end
-				
-			local wep = table.Random({"weapon_zs_p90", "weapon_zs_ump", "weapon_zs_tmp", "weapon_zs_mp5", "weapon_zs_mac10", "weapon_zs_scout"}) --{"weapon_zs_aug","weapon_zs_m3super90","weapon_zs_famas","weapon_zs_sg552"})
-
-			pl:Give(wep)
-			pl:SelectWeapon(wep)
-			pl._ComebackUsed = true
-		end
-		
+	if not pl._ComebackUsed then		
 		--Comeback pistol
 		if pl:GetPerk("_comeback2") then
 			--Strip current pistol

@@ -3,7 +3,6 @@
 
 GM.Version  = "Green Apocalypse"
 GM.SubVersion = ""
---Testing shop
 
 function ToMinutesSeconds(TimeInSeconds)
 	local iMinutes = math.floor(TimeInSeconds / 60)
@@ -195,10 +194,7 @@ GM.HumanWeapons = {
 	["weapon_zs_fists2"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
 	["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" }, -- 860
 	["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "misc"},
---	["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle" },
-	--["weapon_zs_dubpulse"]  = { Name = "Super Pulse Rifle", DPS = 143, Infliction = 0, Type = "rifle", Price = 6000 }, --Seems to work fine now.
 	["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
-	--["weapon_zs_minishotty"]  = { Name = "Farter shotgun", DPS = 143, Infliction = 0, Type = "shotgun" },
 	
 	
 	--Tool1
@@ -225,7 +221,7 @@ GM.HumanWeapons = {
 	
 
 	--Special Items
-	["weapon_zs_special_vodka"]  = { Name = "Bottle ol Vodka", DPS = 0, Infliction = 0, Type = "misc" },
+	["weapon_zs_special_vodka"]  = { Name = "Bottle ol Vodka", DPS = 0, Infliction = 0, Type = "misc" }, --Duby: I essentially wanted to get some interest back into the dice and the game. This did the trick!
 	["weapon_zs_special_bottleofwine"]  = { Name = "Bottle ol Wine", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_special_chembomb"]  = { Name = "Chemical Nade", DPS = 0, Infliction = 0, Type = "misc" },
 	["weapon_zs_python"]  = { Name = "Python 'Magnum'", DPS = 93, Infliction = 0.2, Type = "misc"},
@@ -265,7 +261,6 @@ GM.HumanWeapons = {
 -- This is how much ammo a player is given for whatever type it is on ammo regeneration.
 -- Players are given double these amounts if 75% or above Infliction.
 -- Changing these means you're an idiot.
--- Duby: This is confusing when it has this name... Its the amount of ammo which the crate gives out. :P
 
 GM.AmmoRegeneration = {
 	["ar2"] = 60, --Rifle
@@ -365,8 +360,6 @@ GM.Perks = { --Required weapons removed as it was confusing players as they thou
 	["_nade"] = {Name = "Grenades tosser", Description = "Throw Grenades twice as quickly! ", Slot = 1},
 	["_trchregen"] = {Name = "Handy Man", Description = "40% increased repair with Torch.", Material = "HUD/scoreboard_clock", Slot = 1},
 	["_mine"] = {Name = "Multi Mine", Description = "Place up to 10 mines on the floor! ", Material = "HUD/scoreboard_clock", Slot = 1},
-	
---	["_imortalpro"] = {Name = "Immortal Protector", Description = "You will spawn with the Pulse SMG!", Slot = 2}
 	--["_professional"] = {Name = "Professional", Description = "This perk has no effect yet!", Material = "VGUI/logos/spray_elited", Slot = 1},
 }
 
@@ -529,11 +522,9 @@ Basic Information:
 HUMANS:
 
 -You gain SP for killing zombies and helping your team mates. Eg: Healing
--The crate works on a timer. Once its ready and you press 'e' on it. 
-It will give you weapons == to the amount of SP you have.
--The crate moves around the map. So make sure you are either on the move,
-or nice and snug behind a good cade!!
--You gain Greencoins from killing humans!
+-You gain Greencoins from killing zombies and doing team based roles Eg: Hammer!
+-Press 'E' on the supply crate to gain access to the shop!
+-!shop in chat to open the GreenShop
 
 UNDEAD:
 
@@ -559,7 +550,8 @@ Enjoy your stay and have fun!
 
 SKILLSHOP_TEXT =
 [[
-At SkillShop you buy Weapons, Ammo and Supplies with SkillPoints (SP). These points are earned by killing Zombies and helping teammates.
+At SkillShop you buy Weapons, Ammo and Supplies with SkillPoints (SP). 
+These points are earned by killing Zombies and helping teammates.
 
 Please remember bought items and weapons only last this round!
 ]]	
@@ -599,7 +591,7 @@ HELP_TXT[1] = {
 	
 	-- ADMINS ----------------------------------------------------
 	
-	> Damien, Duby, Reiska, Lameshot, Phychopeti,Jeremiah,Szl.
+	> Damien, Duby, Reiska, Lameshot, Phychopeti,Jeremiah.
 	
 	-- SERVER CODERS ----------------------------------------------------
 	
@@ -644,36 +636,12 @@ HELP_TXT[2] = {
 HELP_TXT[3] = {
 	title = "LV Unlocks", 
 	txt = [[
-		This is the Unlock tree for every unlock on the server. WorkHard PlayHard!! ^^
-		Some levels don't have any unlocks. 
+		-At Mr.Green we reward you for playing on the server for long periods of time.
 		
-[0] = USP, FISTS, KEVLAR3, COMBACK2, P228, Torch, Hammer, 
-[0] = Medkit, Supplies, Turret, Granade, Mine, Plank 
-[1] = PLANK'tool'  	
-[2] = Experienced Medic 
-[3] = Upgraded Hammer	 
-[4] = 'Classic' SMG		
-[5] = Keyboard	
-[6] = PIPE1	 
-[7] = IMORTALPRO
-[8] = Nothing ;'(		 
-[9] = Fall Damage
-[10] = Support
-[11] = Kevlar	
-[12] = PIPE2	
-[13] = Berserker	
-[14] = POISON PROTECTION
-[15] = Hook	
-[17] = Turret Overdrive	
-[19] = Classic Pistol	
-[21] = CLASSICE PISTOL	
-[22] = SPEED BOOST1	
-[24] = Combat Knife	
-[26] = COMBAT KNIFE		
-[28] = ADRENALINE INJECTION	
-[29] = CROWBAR	
-[30] = MINI TURRET
-	
+		-You are rewarded with XP which allows you to level up and unlock new perks,
+		and also equipment!
+		
+		-You can level up quicker if you win round and kill bosses!
 	]]
 } 
 
@@ -969,26 +937,6 @@ HumanClasses[1] =
 	Models = {"models/player/group03/male_02.mdl","models/player/group03/Male_04.mdl","models/player/group03/male_06.mdl","models/player/group03/male_07.mdl"},
 	Speed = 200,
 }
---[[
-HumanClasses[3] =
-{
-	Name = "Berserker",--Aka Marksman
-	Tag = "berserker",
-	Health = 90,
-	Description = {"% increased scope zoom","% chance to spawn with scout","% more bullet force"," more long range hs dmg"},
-	Coef = {7,3,18,4},
-	Models = {"models/player/gasmask.mdl","models/player/odessa.mdl","models/player/group01/male_04.mdl","models/player/hostage/hostage_02.mdl"},
-	Speed = 200
-}
-
-HumanClasses[4] =
-{
-	Name = "Engineer",
-	Health = 100,
-	Description = {"% chance to spawn with turret","% increased clip for pulse weapons","% chance to spawn with pulse smg","% more turret's efficiency"},
-	Models = {"models/player/alyx.mdl","models/player/barney.mdl","models/player/eli.mdl","models/player/mossman.mdl","models/player/kleiner.mdl","models/player/breen.mdl" },
-	Speed = 190
-	}]]--
 
 
 --[=[--------------------------------------------
@@ -1087,13 +1035,8 @@ recordData = {
 		Class data
 ------------------------------------]=]
 
-classData = {
+classData = { --Seems that the medic class is used as the main human class now. Lazy lazy Necro!
 	["medic"] = { level = 0, achlevel0_1 = 0, achlevel0_2 = 0, achlevel2_1 = 0, achlevel2_2 = 0, achlevel4_1 = 0, achlevel4_2 = 0 } ,
-	["commando"] = { level = 0, achlevel0_1 = 0, achlevel0_2 = 0, achlevel2_1 = 0, achlevel2_2 = 0, achlevel4_1 = 0, achlevel4_2 = 0 },
-	["berserker"] = { level = 0, achlevel0_1 = 0, achlevel0_2 = 0, achlevel2_1 = 0, achlevel2_2 = 0, achlevel4_1 = 0, achlevel4_2 = 0 },
-	["engineer"] = { level = 0, achlevel0_1 = 0, achlevel0_2 = 0, achlevel2_1 = 0, achlevel2_2 = 0, achlevel4_1 = 0, achlevel4_2 = 0 },
-	["support"] = { level = 0, achlevel0_1 = 0, achlevel0_2 = 0, achlevel2_1 = 0, achlevel2_2 = 0, achlevel4_1 = 0, achlevel4_2 = 0 },
-	["default"] = { rank = 0, xp = 0 },
 }
 
 --[=[---------------------------------

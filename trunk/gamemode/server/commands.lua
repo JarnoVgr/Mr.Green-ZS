@@ -552,6 +552,16 @@ function RollTheDice ( pl,commandName,args )
 		end
 	elseif choise == 3 then
 		if pl:Team() == TEAM_HUMAN then
+				if pl:HasBought("ladyluck") or math.random (1,2) == 1 then
+		
+			pl:GiveAmmo( 120, "pistol" )	
+			pl:GiveAmmo( 80, "ar2" )
+			pl:GiveAmmo( 120, "SMG1" )	
+			pl:GiveAmmo( 80, "buckshot" )		
+			pl:GiveAmmo( 8, "XBowBolt" )
+			pl:GiveAmmo( 50, "357" )
+			message = "WIN: ".. message .." rolled the dice and received extra ammo from lady luck!"		
+		else
 			pl:GiveAmmo( 90, "pistol" )	
 			pl:GiveAmmo( 60, "ar2" )
 			pl:GiveAmmo( 90, "SMG1" )	
@@ -559,6 +569,7 @@ function RollTheDice ( pl,commandName,args )
 			pl:GiveAmmo( 5, "XBowBolt" )
 			pl:GiveAmmo( 30, "357" )
 			message = "WIN: ".. message .." rolled the dice and received some ammo!"	
+		end	
 		elseif pl:Team() == TEAM_UNDEAD then
 			local calchealth = math.Clamp ( 100 - pl:Health(),60,100 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
@@ -584,7 +595,6 @@ function RollTheDice ( pl,commandName,args )
 			pl:Ignite( math.random(1,5), 0)
 			message = "LOSE: "..message.." was put on fire by the dice."
 		elseif pl:Team() == TEAM_UNDEAD then
-		--	pl:AddScore(-1)
 			pl.BrainsEaten = pl.BrainsEaten - 1
 			message = "LOSE: ".. message .." rolled the dice and has lost a piece of brain!"
 		end

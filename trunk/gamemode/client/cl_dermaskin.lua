@@ -24,15 +24,11 @@ SKIN.tooltip					= Color(40,40,40,140)
 local Gradient = surface.GetTextureID( "gui/center_gradient" )
 
 function SKIN:PaintFrame(panel)
-	--self:DrawGenericBackground( 0, 0, panel:GetWide(), panel:GetTall(), Color(110,110,110,240) ) 
 		
 	 self:DrawGenericBackground( 0, 0, panel:GetWide(), panel:GetTall(), Color(40,40,40,140) ) 
 	 	 
 	 surface.SetDrawColor( 30, 30, 30, 255 ) 
 	 surface.DrawRect( 1, 21, panel:GetWide()-2, 1 ) 
-	--surface.SetDrawColor(150, 150, 150, 255)
-	--surface.DrawRect(0, 22, panel:GetWide(), 1)
-	--surface.DrawOutlinedRect(0, 0, panel:GetWide(), panel:GetTall())
 end
 
 function SKIN:DrawGenericBackground( x, y, w, h, color ) 

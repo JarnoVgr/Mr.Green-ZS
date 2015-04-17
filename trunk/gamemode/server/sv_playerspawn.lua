@@ -215,7 +215,6 @@ function GM:PlayerSpawn(pl)
 	
 	
 	for i = 0, pl:GetBoneCount() - 1 do
-		--pl:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
 		pl:ManipulateBoneScale(i, Vector(1,1,1))
 	end
 
@@ -267,7 +266,14 @@ function GM:PlayerSpawn(pl)
 			--Set model for player
 			pl.IsFreeman = true
 			pl.PlayerModel = "gordon"
+			
+			local Melee = pl:GetMelee()
+			
+			if Melee then --Duby: I have fixed the freeman perk not giving the crowbar. Had to strip the player naked first! 
+			pl:StripWeapon(Melee:GetClass())
 			pl:Give("weapon_zs_melee_crowbar")
+			end
+			
 		end
 
 		--Check if we can be Santa Claus
@@ -685,22 +691,6 @@ function CalculatePlayerLoadout(pl)
 		pl:GiveAmmo(6500, "357", false)
 	else
 		return
-		--IMORTAL PRO perk
-		--[[if pl:GetPerk("_imortalpro") then
-			--Strip pistol as its the price they pay for having the PulseSMG!
-			local Pistol = pl:GetPistol()
-			if IsValid(Pistol) then
-				pl:StripWeapon(Pistol:GetClass())
-			end
-			
-			local Auto = pl:GetAutomatic()
-			if IsValid(Auto) then
-				pl:StripWeapon(Auto:GetClass())
-			end
-			
-			pl:Give("weapon_zs_pulsesmg")
-			SelectWeapon = "weapon_zs_pulsesmg"
-		end]]--
 	end
 	
 	--Check if bought Magnum (give 1/6th chance)
@@ -833,12 +823,7 @@ function CalculatePlayerHealth(pl)
 	if pl:GetPerk("_kevlar2") then
 		MaxHealth, Health = 120, 120
 	end
-	
-	--Third kevlar upgrade
-	--if pl:GetPerk("_kevlar3") then
-	--	MaxHealth, Health = 105, 105
-	--end
-	
+
 	-- Actually set the health
 	pl:SetHealth(Health)
 	pl:SetMaximumHealth(MaxHealth)

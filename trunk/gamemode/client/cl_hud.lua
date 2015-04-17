@@ -211,3 +211,4 @@ function DrawPanelBlackBox(x,y,w,h,overridealpha)
 	surface.SetDrawColor( 30, 30, 30, 255*a )
 	surface.DrawOutlinedRect( x+1, y+1, w-2, h-2 )
 end
+

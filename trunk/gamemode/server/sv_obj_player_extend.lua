@@ -107,7 +107,7 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 			end
 			
 			if Victim:GetPerk() == "_poisonprotect" then
-				iDamage = math.ceil(iDamage - iDamage*0.6)
+				iDamage = math.ceil(iDamage - iDamage*0.75)
 			end
 			-- Default take damage only when low on health
 			if not IsValid( Inflictor ) then Inflictor = Attacker:GetActiveWeapon() or Attacker end
@@ -767,14 +767,12 @@ function meta:UnlockAchievement(stat)
 	self:SendLua('UnlockEffect(1, "'..stat..'")')
 	self.DataTable["progress"] = math.floor(self:GetAchvProgress())
 	PrintMessageAll(HUD_PRINTTALK,self:Name() .." attained the '"..achievementDesc[statID].Name.."' achievement")
-	--self:AddScore(1)
 	
 	--Save DB data
 	self:SaveAchievement(statID)
 	
 	--Only check for this when it's not Master of ZS
 	if stat ~= "masterofzs" then
-		--Check if all achievements are attained (excluding masterofzs)
 		local hasAll = true
 		for k, v in pairs(self.DataTable["Achievements"]) do
 			if not v and k ~= util.GetAchievementID("masterofzs") then
@@ -868,14 +866,12 @@ function meta:SecondWind(pl)
 
 	local pos = self:GetPos()
 	local angles = self:EyeAngles()
-	-- local lastattacker = self:GetLastAttacker()
 	local dclass = self.DeathClass
 	self.DeathClass = nil
 	self.Revived = true
 	self:UnSpectateAndSpawn()
 	self.Revived = nil
 	self.DeathClass = dclass
-	-- self:SetLastAttacker(lastattacker)
 	self:SetPos(pos)
 	self:SetHealth(self:Health() * 0.2)
 	self:SetEyeAngles(angles)
@@ -903,7 +899,7 @@ function meta:SetRandomFace()
 end
 
 ---[[ Duby's Temp Bone Mod ]]---
----[[ I will move this else where and make it more optimized soon! ]]---
+---[[ I'll move this else where and make it more optimized soon! ]]---
 
 function meta:SetBodyPositions() --Bosses bone positions
 
@@ -1173,7 +1169,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		end
 	
 		--Prevent damage with melees and certain weapons
-		if (dmginfo:IsMeleeDamage() or inflictor:GetClass() == "weapon_zs_grenade" or inflictor:GetClass() == "weapon_zs_mine") then
+		if dmginfo:IsMeleeDamage() then
 			return true
 		--Scale down
 		else
@@ -1232,64 +1228,11 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		--Stop execution since we don't want to damage multiple nails in 1 hit
 		break
 			
-			
-								
-					--[[local toworld = false
-					if nail.toworld then
-						toworld = true
-					end
-								
-					if IsValid ( ent:GetPhysicsObject() ) and not ent:GetPhysicsObject():IsMoveable() then
-						if nail.toworld then
-							local unfreeze = false
-							for num=1, #ent.Nails do
-								local nl = ent.Nails[num]
-								if nl.toworld then
-									if nail ~= nl then
-										unfreeze = false
-										break
-									else
-										unfreeze = true
-									end
-								end
-							end
-										
-							if unfreeze then
-								ent:GetPhysicsObject():EnableMotion( true )
-							end
-						end
-					end
-								
-					if toworld then		
-						table.remove(ent.Nails, i)
-											
-						if #ent.Nails <= 0 then
-							ent.Nails = nil							
-						end
-					else
-						for _, entity in ipairs(nail.Ents) do
-							if entity.Nails then		
-								table.remove(entity.Nails, i)
-											
-								if #entity.Nails <= 0 then
-									entity.Nails = nil							
-								end
-							end
-						end
-					end
-				else
-					if bNailDied == false then
-						--Nails prevent prop getting damaged
-						dmginfo:SetDamage(30)
-					end
-				end
-	
-				break]]
 	end
 	
 	if bNailDied then
 		--Damage prop a bit to prevent nail abuse
-		dmginfo:ScaleDamage(0.6)
+		dmginfo:ScaleDamage(0.7)
 		
 		--Enable motion and reset for optimization
 		if #self.Nails == 0 then
@@ -1554,8 +1497,7 @@ function meta:CheckSpeedChange()
 	if self:GetPerk() == "_sboost2" then
 		speed = speed*1.05
 	end
-	
---	local fHealthSpeed = self:GetPerk("_adrenaline") and 1 or math.Clamp ( ( health / 50 ), 0.7, 1 )
+
 	local fHealthSpeed = self:GetPerk("_adrenaline") and 1 or math.Clamp ( ( health / 50 ), 0.85, 1 )
 	
 	if self:IsHolding() then

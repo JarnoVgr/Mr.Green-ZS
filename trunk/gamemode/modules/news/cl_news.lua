@@ -26,7 +26,9 @@ HumanHints = table.Shuffle(HumanHints)
 local UndeadHints = {
 	"Press F3 to open the Zombie Species menu. More classes will unlock as Humans die.",
 	"Kill multiple Humans to become one of them again.",
-	"Zombie Bosses spawn every couple minutes to give the Undead power."
+	"Zombie Bosses spawn every now and then to give the Undead power.",
+	"As more time goes on the more zombie classes unlock!",
+
 }
 UndeadHints = table.Shuffle(UndeadHints)
 

@@ -136,7 +136,7 @@ local function CommandSay(pl, text, teamonly)
 			server_RunCommand(pl, "open_bugpanel")
 			return ""
 		end]]
-		elseif (text:sub(1,4) == "!rtd") then
+		elseif (text:sub(1,4) == "!rtd") or (text:sub(1,4) == "/rtd") or (text:sub(1,4) == "rtd") or(text:sub(1,4) == "!Rtd") then
 			server_RunCommand(pl, "zs_rollthedice")
 			return ""
 		-- Level stats! :D

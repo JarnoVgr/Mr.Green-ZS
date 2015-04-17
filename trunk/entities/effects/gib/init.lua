@@ -4,7 +4,7 @@
 local math = math
 local table = table
 
-EFFECT.Time = math.Rand(5, 10)
+EFFECT.Time = math.Rand(7, 15)
 --TOTALGIBS = TOTALGIBS or 0
 function EFFECT:Init(data)
 	if TOTALGIBS > 25 then return end
