@@ -112,17 +112,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 					timer.Simple(1, function()
 						VoiceToKillCheer(mAttacker)
 					end)
-				end
-			if math.random(1,28) == 1 then	--Make it a rare occurance
-		--Start the slowmo
-		game.SetTimeScale(0.15)	
-		--Restore from slowmo
-		timer.Simple(0.6, function() 
-			game.SetTimeScale(1)
-		end)
-				
-			end
-			
+				end		
 		end	
 	end end
 end
