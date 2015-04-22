@@ -5,9 +5,10 @@ AddCSLuaFile()
 
 if CLIENT then
 	--Initialize debug convars 
-	DEBUG_VARS = { "zs_debug" }
-	for k,v in pairs ( DEBUG_VARS ) do
-		if ConVarExists(v) then 
+	DEBUG_VARS = {"zs_debug"}
+	for k,v in pairs(DEBUG_VARS) do
+		if ConVarExists(v) then
+			print("ConVarExists: ".. v)
 			continue
 		end
 
@@ -21,6 +22,12 @@ if CLIENT then
 	end
 end
 
+--Fixes bug with debug cvar
+local ForceStartLog = true
+timer.Simple(0, function()
+	ForceStartLog = false
+end)
+
 --[==[--------------------------------------------------------
 	Save the debug reports from debug file
 ---------------------------------------------------------]==]
@@ -30,7 +37,9 @@ local function WriteDebugToFile ()
 	if LogTable == "" then return end
 	
 	-- Debug is off
-	if GetConVarNumber( "zs_debug" ) == 0 then return end
+	if GetConVarNumber("zs_debug") == 0 then
+		return
+	end
 	
 	-- Get the current time and date
 	if Time == nil or Date == nil then Time, Date = os.date("%X"), os.date("%x") end
@@ -52,7 +61,7 @@ function Debug(Text)
 		return
 	end
 
-	if GetConVarNumber("zs_debug") == 0 then
+	if GetConVarNumber("zs_debug") == 0 and not ForceStartLog then
 		return
 	end
 

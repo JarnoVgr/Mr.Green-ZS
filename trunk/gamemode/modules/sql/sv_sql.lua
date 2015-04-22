@@ -83,14 +83,21 @@ mysql.ReplaceEscape = function( sText, Char )
 	return sText
 end
 
+local mysqlDetails = {}
+mysqlDetails.HostName = CreateConVar("zs_sql_hostname", "127.0.0.1", {FCVAR_PROTECTED}, "Database Host Name")
+mysqlDetails.HostPort = CreateConVar("zs_sql_hostport", "3306", {FCVAR_PROTECTED}, "Database Host Port")
+mysqlDetails.User = CreateConVar("zs_sql_username", "", {FCVAR_PROTECTED}, "Database Login Username")
+mysqlDetails.Pass = CreateConVar("zs_sql_password", "", {FCVAR_PROTECTED}, "Database Login Password")
+mysqlDetails.Name = CreateConVar("zs_sql_database", "", {FCVAR_PROTECTED}, "Database Name")
+
 -- Connect function
-mysql.Connect = function()
+mysql.Connect = function()	
 	local Login = {
-		Host = "ares.limetric.com",
-		User = "mrgreen_gczs",
-		Pass = "WG0gcZSr",
-		Database = "mrgreen_gc",
-		Port = 3306
+		Host = mysqlDetails.HostName:GetString(),
+		User = mysqlDetails.User:GetString(),
+		Pass = mysqlDetails.Pass:GetString(),
+		Database = mysqlDetails.Name:GetString(),
+		Port = mysqlDetails.HostPort:GetInt()
 	}
 
 	Debug("[SQL] Connecting to ".. Login.Host ..":".. Login.Port .."...")
@@ -98,8 +105,8 @@ mysql.Connect = function()
 	local ErrorStr
 	mysql.Database, ErrorStr = tmysql.initialize(Login.Host, Login.User, Login.Pass, Login.Database, Login.Port, nil, 1024)
 	if ErrorStr then
-		Debug( "[SQL] TMySQL returned error: ")
-		print(errorStr)
+		Debug("[SQL] TMySQL returned error:")
+		print(ErrorStr)
 		return
 	end
 
@@ -168,9 +175,8 @@ end
 
 -- Implementation
 hook.Add("Initialize", "ConnectToDB", function()
-	Debug("[SQL] Timer activated")
 	timer.Simple(1, function()
-		Debug("[SQL] Calling mysql.Connect")
+		Debug("[SQL] Calling connect")
 		mysql.Connect()
 	end)
 end)
