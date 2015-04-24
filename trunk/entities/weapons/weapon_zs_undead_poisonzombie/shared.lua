@@ -122,7 +122,7 @@ function SWEP:PerformSecondaryAttack()
 	for i=1, 10 do
 		local ent = ents.Create("projectile_poisonpuke")
 		if ent:IsValid() then
-			local heading = (aimvec + VectorRand() * 0.3):GetNormal()
+			local heading = (aimvec + VectorRand() * 0.25):GetNormal()
 			ent:SetPos(startpos + heading * 8)
 			ent:SetOwner(pl)
 			ent:Spawn()
@@ -130,7 +130,7 @@ function SWEP:PerformSecondaryAttack()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
 				--phys:SetVelocityInstantaneous(heading * math.Rand(310, 560))
-				phys:SetVelocityInstantaneous(heading * math.Rand(400, 500))
+				phys:SetVelocityInstantaneous(heading * math.Rand(420, 490))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end
