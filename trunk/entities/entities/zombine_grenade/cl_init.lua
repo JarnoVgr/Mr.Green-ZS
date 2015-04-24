@@ -15,7 +15,7 @@ function ENT:Think()
 	if not IsEntityValid ( self:GetOwner() ) then return end
 	
 	-- Owner died before nade xploded
-	if not self.OwnerDied and not self:GetOwner():Alive() then self.OwnerDied = true self:GetOwner().HoldingGrenade = false end
+	if self.OwnerDied and not self:GetOwner():Alive() then self.OwnerDied = true self:GetOwner().HoldingGrenade = false end
 	
 	-- BOOM time
 	if CurTime() < self.BoomTime then return end

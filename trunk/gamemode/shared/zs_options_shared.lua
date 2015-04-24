@@ -155,7 +155,7 @@ GM.HumanWeapons = {
 	["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee", Price = 90, Description = "Clunk, oh look his head fell off.."  },
 	["weapon_zs_melee_chainsaw"]  = { Name = "Chain SAW!", DPS = 30, Infliction = 0, Type = "melee", Price = 850, Description = "This may become a bit gory." },
 	
-	["weapon_zs_beerbottle"]  = { Name = "Beer Bottle", DPS = 30, Infliction = 0, Type = "melee", Price = 850, Description = "Alcohol!" },	
+	["weapon_zs_beerbottle"]  = { Name = "Beer Bottle", DPS = 30, Infliction = 0, Type = "melee", Description = "Alcohol!" },	
 
 	--Pistols
 	["weapon_zs_fiveseven"]  = { Name = "Five-Seven",Mat = "VGUI/gfx/VGUI/fiveseven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 130 },
@@ -172,7 +172,7 @@ GM.HumanWeapons = {
 	--["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 190, Description = "Alyx is hot. But her gun is even more hot." },
 	--["weapon_zs_barreta"]  = { Name = "Barreta", DPS = 30,Mat = "VGUI/gfx/VGUI/elites", Infliction = 0.25, Type = "pistol",Price = 450 },
 	
-	["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol",Mat = "VGUI/gfx/VGUI/fiveseven", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 390 },		
+	["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol",Mat = "VGUI/gfx/VGUI/fiveseven", DPS = 93, Infliction = 0.2, Type = "pistol"},		
 	
 	--Light Guns
 	["weapon_zs_p90"]  = { Name = "P90", DPS = 125,Mat = "VGUI/gfx/VGUI/p90", Infliction = 0.65, Type = "smg", Price = 450 },
@@ -184,7 +184,7 @@ GM.HumanWeapons = {
 	["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle", Price = 120, Description = "Light-weight sniper." },
 	["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun", Price = 100 },
 
-	["weapon_zs_musket"]  = { Name = "Musket", DPS = 143,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle", Price = 100 },	
+	["weapon_zs_musket"]  = { Name = "Musket", DPS = 143,Mat = "VGUI/gfx/VGUI/scout", Infliction = 0, Type = "rifle"},	
 	
 			
 	--Medium Guns
@@ -197,7 +197,7 @@ GM.HumanWeapons = {
 	["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70,Mat = "VGUI/gfx/VGUI/sg550", Infliction = 0.65, Type = "rifle", Price = 900  },
 	["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70,Mat = "VGUI/gfx/VGUI/g3sg1", Infliction = 0.65, Type = "rifle", Price = 940  },
 	
-	["weapon_zs_defender"]  = { Name = "Defender Rifle",Mat = "VGUI/gfx/VGUI/ak47", DPS = 93, Infliction = 0.2, Type = "rifle", Price = 390 },	
+	["weapon_zs_defender"]  = { Name = "Defender Rifle",Mat = "VGUI/gfx/VGUI/ak47", DPS = 93, Infliction = 0.2, Type = "rifle"},	
 	
 	--Heavy
 	["weapon_zs_m3super90"]  = { Name = "M3-Super90 Shotgun", DPS = 149,Mat = "VGUI/gfx/VGUI/m3", Infliction = 0, Type = "shotgun", Price = 1200},

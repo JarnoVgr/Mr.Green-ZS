@@ -104,7 +104,7 @@ SWEP.ZombineAttacks = { "attackD", "attackE", "attackF", "attackB" }
 function SWEP:StartPrimaryAttack()	
 	--Make things easier
 	local pl = self.Owner
-
+	self.IdleAnimation = CurTime() + self:SequenceDuration()
 	--Owner
 	local mOwner, mWeapon = self.Owner, self.Weapon
 	
