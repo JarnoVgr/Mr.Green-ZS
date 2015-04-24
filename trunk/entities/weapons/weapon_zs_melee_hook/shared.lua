@@ -41,7 +41,7 @@ end
 SWEP.DeploySpeed = 0.6
 -- Name and fov
 SWEP.PrintName = "Meat Hook"
-SWEP.ViewModelFOV = 65
+SWEP.ViewModelFOV = 60
 
 -- Slot pos
 SWEP.Slot = 2
@@ -54,7 +54,7 @@ SWEP.TotalDamage = SWEP.Primary.Damage
 SWEP.MeleeDamage = 40
 SWEP.MeleeRange = 35
 SWEP.MeleeSize = 1.45
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = SPEED_MELEE
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 
 SWEP.SwingTime = 0.55

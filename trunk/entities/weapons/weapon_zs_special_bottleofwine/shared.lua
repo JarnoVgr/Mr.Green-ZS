@@ -12,7 +12,7 @@ if ( CLIENT ) then
 	SWEP.DrawCrosshair = false
 	SWEP.ViewModelFlip = false
 
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 	SWEP.NoHUD = true
 	
 	killicon.AddFont( "weapon_zs_pickup_flare", "HL2MPTypeDeath", "9", Color(255, 255, 255, 255 ) )

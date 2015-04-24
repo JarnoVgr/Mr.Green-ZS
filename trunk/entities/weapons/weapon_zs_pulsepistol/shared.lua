@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.Author	= "Pufulet"	
 	SWEP.Slot = 1
 	SWEP.SlotPos = 2
-
+	SWEP.ViewModelFOV = 60
 	SWEP.WElements = {
 	["battery"] = { type = "Model", model = "models/items/battery.mdl", bone = "ValveBiped.Anim_Attachment_RH", rel = "", pos = Vector(-0.201, -3.201, 1.557), angle = Angle(0, 90, -176.495), size = Vector(0.449, 0.4, 0.6), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["front"] = { type = "Model", model = "models/Items/combine_rifle_ammo01.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "battery", pos = Vector(0.5, 0, -2.597), angle = Angle(0, 0, 180), size = Vector(0.349, 0.349, 0.335), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
@@ -39,9 +39,9 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
 SWEP.Primary.Recoil			= 0.25
-SWEP.Primary.Damage			= 12
+SWEP.Primary.Damage			= 10
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 12
+SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Delay			= 0.12
 SWEP.Primary.DefaultClip	= 12
 SWEP.Primary.Automatic		= false
@@ -55,8 +55,8 @@ SWEP.ConeIron 		 = SWEP.Cone *0.95
 SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.9
 SWEP.ConeIronMoving	 = SWEP.ConeMoving *0.9
 
-SWEP.IronSightsPos = Vector(-2, -4, 1.5)
-SWEP.IronSightsAng = Vector(0,0,0)
+SWEP.IronSightsPos = Vector(-5.95, 7, 2 )
+SWEP.IronSightsAng = Vector( 0, 0, 0 )
 
 SWEP.OverridePos = Vector(1.559, -3.116, 1.6)
 SWEP.OverrideAng = Vector(0, 0, 0)
@@ -69,7 +69,7 @@ SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
 SWEP.MaxBulletDistance 		= 2900 -- Uses pulse power, FTW!
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = SPEED_PISTOL
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
@@ -108,7 +108,7 @@ function SWEP:Think()
 end
 
 function SWEP:EmitFireSound()
-	self:EmitSound(self.Primary.Sound, 80, math.random(115,125))
+	self:EmitSound(self.Primary.Sound, 80, math.random(120,130))
 end
 
 function SWEP:Reload()

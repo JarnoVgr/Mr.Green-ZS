@@ -25,7 +25,7 @@ SWEP.WorldModel = Model ( "models/weapons/w_fryingpan.mdl" )
 
 -- Name
 SWEP.PrintName = "Frying Pan"
-SWEP.ViewModelFOV = 50
+SWEP.ViewModelFOV = 60
 
 -- Position
 SWEP.Slot = 2
@@ -37,7 +37,7 @@ SWEP.DamageType = DMG_CLUB
 SWEP.MeleeDamage = 37
 SWEP.MeleeRange = 54
 SWEP.MeleeSize = 1.0
-SWEP.WalkSpeed = 207
+SWEP.WalkSpeed = SPEED_MELEE
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.1
 
 SWEP.SwingRotation = Angle(30, -30, -30)

@@ -5,6 +5,7 @@ if CLIENT then
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 1
 	SWEP.SlotPos = 6
+	SWEP.ViewModelFOV = 60
 	SWEP.IconLetter = "s"
 	killicon.AddFont("weapon_zs_elites", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 	SWEP.ShowViewModel = true
@@ -19,8 +20,6 @@ SWEP.AdminSpawnable		= true
 SWEP.ViewModel			= Model("models/weapons/cstrike/c_pist_elite.mdl")
 SWEP.UseHands = true
 SWEP.WorldModel			= Model("models/weapons/w_pist_elite.mdl")
-
-SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "duel"
@@ -43,7 +42,7 @@ SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8
 --SWEP.ConeIronMoving = SWEP.Moving *0.8
 
-SWEP.WalkSpeed = 205
+SWEP.WalkSpeed = SPEED_PISTOL
 --SWEP.IronSightsPos = Vector(0,0,0)
 --SWEP.IronSightsAng = Vector(0,0,0)
 --SWEP.IronSightsPos = Vector(0, -0.094, 1.205)

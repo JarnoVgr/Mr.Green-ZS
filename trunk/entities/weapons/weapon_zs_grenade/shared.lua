@@ -6,7 +6,7 @@ if CLIENT then
 	SWEP.SlotPos = 1
 	SWEP.DrawCrosshair = false
 	SWEP.ViewModelFlip = false
-
+	SWEP.ViewModelFOV = 60
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = true
 	
@@ -42,7 +42,7 @@ SWEP.Secondary.DefaultClip = 4
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
 
-SWEP.WalkSpeed = 205
+SWEP.WalkSpeed = SPEED_LIGHT
 
 function SWEP:Initialize()
 	self:SetDeploySpeed(1.1)

@@ -26,10 +26,23 @@ end
 
 DEFAULT_VIEW_OFFSET = Vector(0, 0, 64)
 DEFAULT_VIEW_OFFSET_DUCKED = Vector(0, 0, 28)
-DEFAULT_JUMP_POWER = 180
+DEFAULT_JUMP_POWER = 160
 DEFAULT_STEP_SIZE = 18
 DEFAULT_MASS = 80
 DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
+
+-- Movement stuff
+
+SPEED = 200
+SPEED_LIGHT = SPEED - 10
+SPEED_MELEE_LIGHT = SPEED - 5
+SPEED_MELEE = SPEED - 15
+SPEED_MELEE_HEAVY = SPEED - 20
+SPEED_PISTOL = SPEED - 15
+SPEED_SMG = SPEED - 25
+SPEED_SHOTGUN = SPEED - 30
+SPEED_RIFLE = SPEED - 30
+SPEED_HEAVY = SPEED - 35
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 15
@@ -310,7 +323,7 @@ MAX_RANK = 36
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks} 
 GM.RankUnlocks = {
-	[0] = {"weapon_zs_usp","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote","weapon_zs_chipper","weapon_zs_smg","_kevlar","_horse","_turretammo","weapon_zs_scout","_sboost2","weapon_zs_melee_combatknife","weapon_zs_melee_keyboard","weapon_zs_tools_hammer"},
+	[0] = {"weapon_zs_pulsepistol","weapon_zs_usp","_comeback2","weapon_zs_tools_torch","weapon_zs_medkit","weapon_zs_tools_supplies","weapon_zs_turretplacer","weapon_zs_grenade","weapon_zs_mine","weapon_zs_melee_plank","_remote","weapon_zs_chipper","weapon_zs_smg","_kevlar","_horse","_turretammo","weapon_zs_scout","_sboost2","weapon_zs_melee_combatknife","weapon_zs_melee_keyboard","weapon_zs_tools_hammer"},
 	[1] = {"weapon_zs_tools_plank"},
 	[2] = {"weapon_zs_p228"},
 	[3] = {"_extranails"},

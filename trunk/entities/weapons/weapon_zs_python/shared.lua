@@ -7,7 +7,8 @@ AddCSLuaFile()
             SWEP.PrintName = "'Python' Magnum"
             SWEP.Author     = "Pufulet"
             SWEP.ViewModelFlip = false
-     
+			SWEP.ViewModelFOV = 60
+	 
     SWEP.ViewModelBoneMods = {
             ["Bullet4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
             ["Bullet3"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
@@ -52,8 +53,8 @@ AddCSLuaFile()
     end
      
     SWEP.Base = "weapon_zs_base"
-            SWEP.Slot = 5
-            SWEP.SlotPos = 1
+    SWEP.Slot = 5
+    SWEP.SlotPos = 1
     SWEP.Spawnable                  = true
     SWEP.AdminSpawnable             = true
     SWEP.ViewModel                  = Model ( "models/weapons/c_357.mdl" )
@@ -63,16 +64,16 @@ AddCSLuaFile()
     SWEP.AutoSwitchFrom             = false
     SWEP.HoldType = "revolver"
     SWEP.Primary.Sound                      = Sound( "Weapon_357.Single" )
-    SWEP.Primary.Recoil                     = 20
+    SWEP.Primary.Recoil                     = 2
     SWEP.Primary.Damage                     = 70
-    SWEP.Primary.NumShots           = 2
+    SWEP.Primary.NumShots           = 1
     SWEP.Primary.ClipSize           = 2
     SWEP.Primary.Delay                      = 0.3
     SWEP.Primary.DefaultClip        = 28
     SWEP.Primary.Automatic          = false
     SWEP.Primary.Ammo                       = "357"
-    SWEP.WalkSpeed = 200
-    SWEP.MaxBulletDistance          = 200
+    SWEP.WalkSpeed = SPEED_PISTOL
+    SWEP.MaxBulletDistance          = 2000
      
     SWEP.Cone = 0.03
     SWEP.ConeMoving = SWEP.Cone *1.4
@@ -118,9 +119,6 @@ AddCSLuaFile()
 		surface.SetFont("ssNewAmmoFont13")
 		local tw, th = surface.GetTextSize("Magnum Python")
 		local texty = y + hei/2 
-		
-		 draw.SimpleText("You only have 30 shots make them count!", "ssNewAmmoFont7", x+space, texty, Color(255,255,255,255), TEXT_ALIGN_LEFT)
-		 draw.SimpleText("Magnum Python", "ssNewAmmoFont7", x+space, texty+20, Color(255,255,255,255), TEXT_ALIGN_LEFT)
 
 		--local charges = self:GetPrimaryAmmoCount()
 		--[[if charges > 0 then

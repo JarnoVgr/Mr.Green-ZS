@@ -28,7 +28,7 @@ SWEP.WorldModel = "models/weapons/w_sledgehammer.mdl"
 
 -- Name and fov
 SWEP.PrintName = "Sledgehammer"
-SWEP.ViewModelFOV = 50
+SWEP.ViewModelFOV = 60
 
 -- Slot pos
 SWEP.Slot = 2
@@ -46,7 +46,7 @@ SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 
 SWEP.Primary.Delay = 1.3
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = SPEED_MELEE_HEAVY
 
 SWEP.SwingRotation = Angle(60, 0, -80)
 SWEP.SwingOffset = Vector(0, -30, 0)

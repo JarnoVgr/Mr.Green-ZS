@@ -13,14 +13,15 @@ SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "pistol"
-
+SWEP.AutoSwitchTo		= false
+SWEP.AutoSwitchFrom		= false
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
 
 
-SWEP.WalkSpeed = SPEED_NORMAL
+SWEP.WalkSpeed = SPEED
 
 SWEP.HoldType = "pistol"
 SWEP.IronSightsHoldType = "ar2"

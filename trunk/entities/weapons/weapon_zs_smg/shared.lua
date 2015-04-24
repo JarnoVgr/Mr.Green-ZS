@@ -12,7 +12,7 @@ if CLIENT then
 	SWEP.Author	= "Deluvas"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 18
-	SWEP.ViewModelFOV = 55
+	SWEP.ViewModelFOV = 60
 	SWEP.ViewModelFlip = false
 	
 	SWEP.ShowViewModel = true
@@ -57,7 +57,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AR2.NPC_Single")
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 9
+SWEP.Primary.Damage			= 10
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
 SWEP.Primary.Delay			= 0.1
@@ -74,7 +74,7 @@ SWEP.Cone = 0.068
 SWEP.ConeCrouching = 0.063
 
 
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = SPEED_SMG
 
 SWEP.IronSightsPos = Vector(-6.441, -6.049, 1.059)
 SWEP.IronSightsAng = Vector(0, 0, 0)

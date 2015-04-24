@@ -46,7 +46,7 @@ SWEP.ConeIron = SWEP.Cone *0.1
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.1
 --SWEP.ConeIronMoving = SWEP.Moving *0.1
 
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = SPEED_LIGHT
 
 SWEP.MaxAmmo			    = 40
 

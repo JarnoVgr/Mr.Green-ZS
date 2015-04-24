@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.PrintName = "P228"
 	SWEP.Author	= "JetBoom"
 	SWEP.Slot = 1
-	SWEP.ViewModelFOV = 70
+	SWEP.ViewModelFOV = 60
 	SWEP.SlotPos = 1
 	killicon.AddFont("weapon_zs_p228", "CSKillIcons", "a", Color(255, 255, 255, 255 ))
 end
@@ -32,7 +32,7 @@ SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_pist_p228.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_pist_p228.mdl" )
 
-SWEP.Weight				= 5
+
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -40,17 +40,17 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound("Weapon_P228.Single")
 SWEP.Primary.Recoil			= 1.1
-SWEP.Primary.Damage 		= 17.5
+SWEP.Primary.Damage 		= 15
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 18
-SWEP.Primary.Delay			= 0.15
+SWEP.Primary.Delay			= 0.10
 SWEP.Primary.DefaultClip	= 90
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
-
-SWEP.Cone = 0.031
-SWEP.ConeMoving = SWEP.Cone *1.3
+SWEP.WalkSpeed = SPEED_PISTOL
+SWEP.Cone = 0.027
+SWEP.ConeMoving = SWEP.Cone *1.2
 SWEP.ConeCrouching = SWEP.Cone *0.75
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80

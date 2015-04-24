@@ -4,7 +4,7 @@ AddCSLuaFile("shared.lua")
 include('shared.lua')
 
 function ENT:Initialize()
-	self.DieTime = CurTime() + 7
+	self.DieTime = CurTime() + 10
 
 	self:DrawShadow(false)
 	self:PhysicsInitSphere(1)
@@ -29,11 +29,11 @@ function ENT:Think()
 				local owner = self:GetOwner()
 				if IsValid(owner) then
 					if not (hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive()) then
-						hitent:TakeDamage(5, owner, self)
+						hitent:TakeDamage(4, owner, self)
 					end
 				else
 					if not (hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive()) then
-						hitent:TakeDamage(5, self, self)
+						hitent:TakeDamage(4, self, self)
 					end
 				end
 			end
@@ -46,6 +46,7 @@ function ENT:Think()
 end
 
 function ENT:PhysicsCollide(data, phys)
+
 	if self.HitData then return end
 
 	self.HitData = data

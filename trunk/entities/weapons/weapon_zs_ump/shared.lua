@@ -8,7 +8,7 @@ if CLIENT then
 	SWEP.Author	= "JetBoom"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 20
-	SWEP.ViewModelFOV = 65
+	SWEP.ViewModelFOV = 60
 	SWEP.IconLetter = "q"
 	killicon.AddFont("weapon_zs_ump", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
@@ -49,7 +49,7 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
 
 SWEP.MaxAmmo			    = 250
 
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = SPEED_SMG
 SWEP.MaxBulletDistance 		= 2240
 
 SWEP.IronSightsPos = Vector(-2, 8, 1.5)

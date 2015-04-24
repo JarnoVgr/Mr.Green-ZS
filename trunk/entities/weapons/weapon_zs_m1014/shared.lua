@@ -9,6 +9,7 @@ if CLIENT then
 	SWEP.Slot = 0
 	SWEP.SlotPos = 10
 	SWEP.IconLetter = "B"
+	SWEP.ViewModelFOV = 60	
 	killicon.AddFont("weapon_zs_m1014", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
 
@@ -21,7 +22,6 @@ SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_shot_xm1014.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_shot_xm1014.mdl" )
 
-SWEP.Weight				= 10
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -51,7 +51,7 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize * SWEP.Primary.Nu
 SWEP.IsShotgun = true
 
 
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = SPEED_SHOTGUN
 SWEP.MaxBulletDistance 		= 2300
 
 SWEP.IronSightsPos = Vector(-6.881, -11.261, 2.68)

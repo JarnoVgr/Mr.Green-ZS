@@ -4,7 +4,7 @@ if CLIENT then
 	SWEP.PrintName = "SG550"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 6
-	
+	SWEP.ViewModelFOV = 60	
 	SWEP.IconLetter = "o"
 	killicon.AddFont("weapon_zs_sg550", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
@@ -38,7 +38,7 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.1
 
 SWEP.Secondary.Delay = 0.5
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = SPEED_RIFLE
 
 SWEP.IronSightsPos = Vector(-7.441, -15.039, 1.559)
 SWEP.IronSightsAng = Vector(0, 0, 0)

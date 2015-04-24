@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.SlotPos = 1
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = true
-	
+	SWEP.ViewModelFOV = 60
 	SWEP.IconLetter = "b"
 	killicon.AddFont( "weapon_zs_ak47", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
 end
@@ -25,30 +25,23 @@ if CHRISTMAS then
 end
 
 SWEP.MenuSlot 			= 0
-
 SWEP.Base				= "weapon_zs_base"
-
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
-
-SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_rif_ak47.mdl" )
 SWEP.UseHands = true
+SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_rif_ak47.mdl" )
 SWEP.WorldModel			= Model ( "models/weapons/w_rif_ak47.mdl" )
-
-SWEP.Weight				= 5
-SWEP.AutoSwitchTo		= false
-SWEP.AutoSwitchFrom		= false
 SWEP.PrintName			= "AK-47"
 
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AK47.Single")
-SWEP.Primary.Recoil			= 2.7
+SWEP.Primary.Recoil			= 1.5
 SWEP.Primary.Damage			= 19
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
 SWEP.storeclipsize			= 25
-SWEP.Primary.Delay			= 0.12
+SWEP.Primary.Delay			= 0.1
 SWEP.Primary.DefaultClip	= 100
 SWEP.Primary.Automatic		= true
 --SWEP.Primary.Ammo			= "ar2"
@@ -66,8 +59,7 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
 
 SWEP.MaxAmmo			    = 9999
 
-
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = SPEED_RIFLE
 
 SWEP.IronSightsPos = Vector(-2, -4, 1.5)
 SWEP.IronSightsAng = Vector(0,0,0)

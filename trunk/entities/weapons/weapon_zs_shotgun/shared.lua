@@ -11,7 +11,7 @@ if CLIENT then
 	SWEP.Author	= "Deluvas"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 17
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 	SWEP.ViewModelFlip = false
 	
 	SWEP.ShowViewModel = false
@@ -42,7 +42,7 @@ SWEP.HoldType = "shotgun"
 SWEP.ReloadDelay = 0.4
 
 SWEP.Primary.Sound			= Sound("Weapon_Shotgun.Single")
-SWEP.Primary.Recoil			= 20
+SWEP.Primary.Recoil			= 2
 SWEP.Primary.Damage			= 24
 SWEP.Primary.NumShots		= 7
 SWEP.Primary.ClipSize		= 6
@@ -50,15 +50,15 @@ SWEP.Primary.Delay			= 0.5
 SWEP.Primary.DefaultClip	= 12
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo	= "buckshot"
-SWEP.ConeMoving = 0.175
-SWEP.Cone = 0.163
-SWEP.ConeCrouching = 0.157
+SWEP.ConeMoving = 0.125
+SWEP.Cone = 0.113
+SWEP.ConeCrouching = 0.107
 SWEP.IsShotgun = true
 SWEP.MaxAmmo			    = 50
-SWEP.WalkSpeed = 192
+SWEP.WalkSpeed = SPEED_SHOTGUN
 
-SWEP.IronSightsPos = Vector (-9.0313, -11.1282, 4.0295)
-SWEP.IronSightsAng = Vector (0.2646, -0.0374, 0)
+--.IronSightsPos = Vector (-9.0313, -11.1282, 4.0295)
+--SWEP.IronSightsAng = Vector (0.2646, -0.0374, 0)
 
 SWEP.OverridePos = Vector(-3.36, -9.016, 2.2)
 SWEP.OverrideAng = Vector(0, 0, 0)

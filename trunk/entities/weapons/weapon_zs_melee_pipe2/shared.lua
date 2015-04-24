@@ -27,7 +27,7 @@ SWEP.WElements = {
 end
 
 -- Name and fov
-SWEP.PrintName = "Improved Pipe"
+SWEP.PrintName = "Lead Pipe"
 SWEP.ViewModelFOV = 60
 SWEP.DeploySpeed = 0.6
 -- Slot pos
@@ -38,7 +38,7 @@ SWEP.SlotPos = 8
 SWEP.MeleeDamage = 80
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Distance = 73
-SWEP.WalkSpeed = 177
+SWEP.WalkSpeed = SPEED_MELEE_HEAVY
 SWEP.SwingTime = 1
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.ShowViewModel = false

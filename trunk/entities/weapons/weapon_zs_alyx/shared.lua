@@ -5,12 +5,10 @@ if CLIENT then
         SWEP.Author = "Duby"
         SWEP.Slot = 1
         SWEP.SlotPos = 3
-        SWEP.ViewModelFlip = false
-        SWEP.ViewModelFOV = 50
-       
         SWEP.OverrideAngle = {}
-		
 		SWEP.ShowViewModel = false 
+		SWEP.ViewModelFOV = 60		
+		
 	SWEP.ViewModelBoneMods = {
 	["v_weapon.FIVESEVEN_PARENT"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
 }
@@ -34,10 +32,7 @@ SWEP.Base = "weapon_zs_base"
 SWEP.Spawnable                  = true
 SWEP.AdminSpawnable             = true
  
-SWEP.Weight                             = 5
- 
 SWEP.HoldType = "pistol"
- 
 SWEP.Primary.Sound  = Sound("weapons/alyxgun/fire01.wav")
 SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
 SWEP.Primary.Recoil  = 2
@@ -49,7 +44,7 @@ SWEP.Primary.DefaultClip        = 150
 SWEP.Primary.Automatic = false
 SWEP.MaxAmmo                        = 160
 SWEP.Primary.Ammo                       = "pistol"
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = SPEED_PISTOL
 SWEP.UseHands = true
 SWEP.Cone = 0.045
 SWEP.ConeMoving = SWEP.Cone *1.3
@@ -61,8 +56,7 @@ SWEP.IronSightsPos = Vector(-4.59,25,0.65)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
  
 SWEP.HoldType = "pistol"
-SWEP.ViewModelFOV = 57
-SWEP.ViewModelFlip = false
+
 SWEP.ViewModel = "models/weapons/cstrike/c_pist_fiveseven.mdl"
 --SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_alyx_gun.mdl"

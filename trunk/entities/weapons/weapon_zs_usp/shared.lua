@@ -8,7 +8,7 @@ if CLIENT then
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 1
 	SWEP.SlotPos = 2
-	SWEP.ViewModelFOV = 68
+	SWEP.ViewModelFOV = 60
 	killicon.AddFont( "weapon_zs_usp", "CSKillIcons", "a", Color(255, 255, 255, 255 ) )
 	
 	SWEP.IgnoreThumbs = true
@@ -25,7 +25,7 @@ end
 
 SWEP.Base = "weapon_zs_base"
 
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = SPEED_PISTOL
 
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
@@ -42,7 +42,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_USP.Single" )
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 12
 SWEP.Primary.Delay			= 0.15
@@ -52,7 +52,7 @@ SWEP.Primary.Ammo			= "pistol"
 
 SWEP.FlipYaw = true
 
-SWEP.Cone = 0.038
+SWEP.Cone = 0.04
 SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.75
 SWEP.ConeIron = SWEP.Cone *0.8

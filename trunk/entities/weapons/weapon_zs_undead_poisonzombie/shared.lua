@@ -7,7 +7,7 @@ SWEP.Base = "weapon_zs_undead_base"
 
 SWEP.PrintName = "Poison Zombie"
 if CLIENT then
-	SWEP.ViewModelFOV = 52
+	SWEP.ViewModelFOV = 50
 	SWEP.ViewModelFlip = false
 end
 
@@ -19,7 +19,7 @@ SWEP.Primary.Reach = 55
 SWEP.Primary.Duration = 1.8
 SWEP.Primary.Damage = 45
 
-SWEP.Secondary.Delay = 0.25
+SWEP.Secondary.Delay = 0.8
 SWEP.Secondary.Duration = 3.8
 SWEP.Secondary.Damage = math.random(30,40)
 
@@ -27,13 +27,13 @@ SWEP.SwapAnims = false
 
 function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
-
-	if CLIENT then
-		self.BreathSound = CreateSound(self.Weapon,Sound("npc/zombie_poison/pz_breathe_loop1.wav"));
-		if self.BreathSound then
-			self.BreathSound:Play()
-		end
-	end
+	--anno
+	--if CLIENT then
+	--	self.BreathSound = CreateSound(self.Weapon,Sound("npc/zombie_poison/pz_breathe_loop1.wav"));
+	--	if self.BreathSound then
+	--		self.BreathSound:Play()
+	--	end
+	--end
 end
 
 function SWEP:StartPrimaryAttack()			
@@ -119,10 +119,10 @@ function SWEP:PerformSecondaryAttack()
 	aimvec.z = math.max(aimvec.z, -0.7)
 	
 	
-	for i=1, 8 do
+	for i=1, 10 do
 		local ent = ents.Create("projectile_poisonpuke")
 		if ent:IsValid() then
-			local heading = (aimvec + VectorRand() * 0.2):GetNormal()
+			local heading = (aimvec + VectorRand() * 0.3):GetNormal()
 			ent:SetPos(startpos + heading * 8)
 			ent:SetOwner(pl)
 			ent:Spawn()
@@ -130,7 +130,7 @@ function SWEP:PerformSecondaryAttack()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
 				--phys:SetVelocityInstantaneous(heading * math.Rand(310, 560))
-				phys:SetVelocityInstantaneous(heading * math.Rand(350, 580))
+				phys:SetVelocityInstantaneous(heading * math.Rand(400, 500))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end

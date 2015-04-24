@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.PrintName = "TMP SMG"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
-	SWEP.ViewModelFOV = 65
+	SWEP.ViewModelFOV = 60
 	SWEP.SlotPos = 19
 	SWEP.IconLetter = "d"
 	killicon.AddFont("weapon_zs_tmp", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
@@ -30,7 +30,7 @@ SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_TMP.Single")
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 13.5
+SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
 SWEP.Primary.Delay 		= 0.06
@@ -50,7 +50,7 @@ SWEP.ConeIron = SWEP.Cone *0.85
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
 --SWEP.ConeIronMoving = SWEP.Moving *0.80
 
-SWEP.WalkSpeed = 197
+SWEP.WalkSpeed = SPEED_SMG
 SWEP.MaxBulletDistance 		= 2250
 
 SWEP.IronSightsPos = Vector(-3.5, 5, 2)

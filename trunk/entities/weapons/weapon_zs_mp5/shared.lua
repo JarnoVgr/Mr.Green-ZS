@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.SlotPos = 12
 	SWEP.ViewModelFlip = false
 	SWEP.IconLetter = "x"
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 	killicon.AddFont("weapon_zs_mp5", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
 
@@ -32,7 +32,6 @@ SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_smg_mp5.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_smg_mp5.mdl" )
 
-SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -57,7 +56,7 @@ SWEP.ConeIron = SWEP.Cone *0.85
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
 --SWEP.ConeIronMoving = SWEP.Moving *0.85
 
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = SPEED_SMG
 SWEP.MaxBulletDistance 		= 2300
 
 --SWEP.IronSightsPos = Vector(4.72,-2,1.86)

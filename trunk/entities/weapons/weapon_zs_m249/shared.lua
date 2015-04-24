@@ -8,9 +8,8 @@ if CLIENT then
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 9
-	SWEP.ViewModelFOV = 68
+	SWEP.ViewModelFOV = 60
 	SWEP.IconLetter = "z"
-	SWEP.ViewModelFlip = false
 	SWEP.FlipYaw = true
 	killicon.AddFont("weapon_zs_m249", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
@@ -24,7 +23,6 @@ SWEP.ViewModel			= Model("models/weapons/cstrike/c_mach_m249para.mdl")
 SWEP.UseHands = true
 SWEP.WorldModel			= Model("models/weapons/w_mach_m249para.mdl")
 
-SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -50,7 +48,7 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
 --SWEP.ConeIronMoving = SWEP.Moving *0.9
 
 
-SWEP.WalkSpeed = 191
+SWEP.WalkSpeed = SPEED_HEAVY
 SWEP.MaxBulletDistance = 2450
 
 SWEP.IronSightsPos = Vector(-5.9, 19, 2)

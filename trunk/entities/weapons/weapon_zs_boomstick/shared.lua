@@ -5,8 +5,7 @@ if CLIENT then
 	SWEP.Author = "JetBoom"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 17
-	SWEP.ViewModelFlip = false
-	
+	SWEP.ViewModelFOV = 60	
 	killicon.AddFont( "weapon_zs_boomstick", "HL2MPTypeDeath", "0", Color( 255, 255, 255, 255 ) )
 end
 
@@ -33,7 +32,7 @@ SWEP.ConeCrouching = 0.061
 
 SWEP.IsShotgun = true
 SWEP.MaxAmmo = 55
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = SPEED_HEAVY
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0
@@ -57,8 +56,6 @@ SWEP.WElements = {
 }
 
 SWEP.HoldType = "shotgun"
-SWEP.ViewModelFOV = 57
-SWEP.ViewModelFlip = false
 SWEP.ViewModel = "models/weapons/cstrike/c_shot_m3super90.mdl"
 SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_shot_m3super90.mdl"

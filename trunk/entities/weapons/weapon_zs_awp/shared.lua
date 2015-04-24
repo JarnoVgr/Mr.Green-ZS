@@ -5,9 +5,7 @@ if CLIENT then
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 4
-	SWEP.ViewModelFOV = 70
-	SWEP.ViewModelFlip = false
-	
+	SWEP.ViewModelFOV = 60	
 	SWEP.IconLetter = "r"
 	killicon.AddFont("weapon_zs_awp", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
@@ -28,9 +26,6 @@ SWEP.Base				= "weapon_zs_base"
 SWEP.ViewModel			= "models/weapons/cstrike/c_snip_awp.mdl"
 SWEP.UseHands = true
 SWEP.WorldModel			= "models/weapons/w_snip_awp.mdl"
-
-SWEP.Weight				= 6
-
 SWEP.Primary.Sound			= Sound("Weapon_AWP.Single")
 SWEP.Primary.Recoil			= 6
 SWEP.Primary.Damage			= 130
@@ -52,7 +47,7 @@ SWEP.ConeIron = SWEP.Cone *0.1
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.1
 --SWEP.ConeIronMoving = SWEP.Moving *0.1
 
-SWEP.WalkSpeed = 180
+SWEP.WalkSpeed = SPEED_RIFLE
 
 function SWEP:IsScoped()
 	return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.25 <= CurTime()

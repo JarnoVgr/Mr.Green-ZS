@@ -1164,8 +1164,9 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	if IsValid(attacker) and attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
 		--Warning
 		if (attacker.BarricadeWarnTime or 0) <= CurTime() then
-			attacker:Message("Don't break the barricade", 2)
-			attacker.BarricadeWarnTime = CurTime() + 6
+			--repairing prop is currently considered breaking..
+			--attacker:Message("Don't break the barricade", 2)
+			--attacker.BarricadeWarnTime = CurTime() + 6
 		end
 	
 		--Prevent damage with melees and certain weapons

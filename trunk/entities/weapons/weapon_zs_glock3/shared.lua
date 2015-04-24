@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.PrintName = "Glock"
 	SWEP.Author	= "JetBoom"
 	SWEP.Slot = 1
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 	SWEP.SlotPos = 6
 	SWEP.IconLetter = "c"
 	killicon.AddFont( "weapon_zs_glock3", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
@@ -31,7 +31,6 @@ SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_pist_glock18.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_pist_glock18.mdl" )
 
-SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -39,7 +38,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Glock.Single" )
 SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 15
+SWEP.Primary.Damage			= 13
 SWEP.Primary.NumShots		= 3
 SWEP.Primary.ClipSize		= 7
 SWEP.Primary.Delay			= 0.35
@@ -47,7 +46,7 @@ SWEP.Primary.DefaultClip	= 45
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
 SWEP.MaxAmmo			    = 100
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = SPEED_PISTOL
 
 
 SWEP.Cone = 0.058

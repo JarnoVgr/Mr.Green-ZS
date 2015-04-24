@@ -5,8 +5,7 @@ if CLIENT then
         SWEP.Author = "NECROSSIN"
         SWEP.Slot = 1
         SWEP.SlotPos = 3
-        SWEP.ViewModelFlip = false
-        SWEP.ViewModelFOV = 50
+        SWEP.ViewModelFOV = 60
        
         SWEP.OverrideAngle = {}
  
@@ -17,11 +16,7 @@ SWEP.Base = "weapon_zs_base"
  
 SWEP.Spawnable                  = true
 SWEP.AdminSpawnable             = true
- 
-SWEP.Weight                             = 5
- 
 SWEP.HoldType = "pistol"
- 
 SWEP.Primary.Sound  = Sound("Weapon_Pistol.NPC_Single")
 SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
 SWEP.Primary.Recoil  = 1
@@ -33,7 +28,7 @@ SWEP.Primary.DefaultClip        = 60
 SWEP.MaxAmmo                        = 160
 SWEP.Primary.Automatic          = false
 SWEP.Primary.Ammo                       = "pistol"
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = SPEED_PISTOL
  
 SWEP.Cone = 0.045
 SWEP.ConeMoving = SWEP.Cone *1.3

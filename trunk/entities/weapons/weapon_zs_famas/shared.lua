@@ -8,6 +8,7 @@ if CLIENT then
 	SWEP.Author	= "ClavusElite"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 5
+	SWEP.ViewModelFOV = 60
 	SWEP.ViewModelFlip = true
 	SWEP.FlipYaw = true
 	SWEP.IconLetter = "t"
@@ -24,16 +25,11 @@ if CHRISTMAS then
 end
 
 SWEP.Base				= "weapon_zs_base"
-SWEP.ViewModelFlip		= false
-
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
-
 SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_rif_famas.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_rif_famas.mdl" )
-
-SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -51,6 +47,7 @@ SWEP.Primary.DefaultClip	= 60
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.Primary.Cone			= 0.04
+
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.Cone = 0.06
@@ -60,7 +57,7 @@ SWEP.ConeIron = SWEP.Cone *0.7
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
 --SWEP.ConeIronMoving = SWEP.Moving *0.7
 
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = SPEED_RIFLE
 SWEP.MaxBulletDistance 		= 2300
 
 SWEP.IronSightsPos = Vector(-2, 10, 1.5)

@@ -8,10 +8,8 @@ if CLIENT then
 	SWEP.Author	= "JetBoom"
 	SWEP.Slot = 1
 	SWEP.SlotPos = 7
-	SWEP.ViewModelFlip = false
-
 	killicon.AddFont( "weapon_zs_magnum", "HL2MPTypeDeath", ".",Color(255, 255, 255, 255 ) )
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 end
 
 if CHRISTMAS then
@@ -41,21 +39,21 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_357.Single" )
 SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 37
+SWEP.Primary.Damage			= 42
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.6
 SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"--?
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = SPEED_PISTOL
 SWEP.MaxAmmo			    = 60
 
-SWEP.Cone = 0.042
-SWEP.ConeMoving = SWEP.Cone *1.35
-SWEP.ConeCrouching = SWEP.Cone *0.8
-SWEP.ConeIron = SWEP.Cone *0.8
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8
+SWEP.Cone = 0.041
+SWEP.ConeMoving = SWEP.Cone *1.30
+SWEP.ConeCrouching = SWEP.Cone *0.7
+SWEP.ConeIron = SWEP.Cone *0.7
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
 
 SWEP.IronSightsPos = Vector(-4.59,25,0.65)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
@@ -66,14 +64,14 @@ local function DoRicochet(attacker, hitpos, hitnormal, normal, damage)
 	attacker.RicochetBullet = nil
 end
 
---function SWEP.BulletCallback(attacker, tr, dmginfo)
---	if SERVER and tr.HitWorld and not tr.HitSky then
---		timer.Simple(0, function()
-	--		DoRicochet( attacker, tr.HitPos, tr.HitNormal, tr.Normal, dmginfo:GetDamage() * 2)
-	--	end)
-	--end
+function SWEP.BulletCallback(attacker, tr, dmginfo)
+	if SERVER and tr.HitWorld and not tr.HitSky then
+		timer.Simple(0, function()
+			DoRicochet( attacker, tr.HitPos, tr.HitNormal, tr.Normal, dmginfo:GetDamage() * 2)
+		end)
+	end
 
---	GenericBulletCallback(attacker, tr, dmginfo)
---end
+	GenericBulletCallback(attacker, tr, dmginfo)
+end
 
 

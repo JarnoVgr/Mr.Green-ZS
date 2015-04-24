@@ -5,7 +5,7 @@ if CLIENT then
 	SWEP.Author = "NECROSSIN"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 12
-	SWEP.ViewModelFOV = 65
+	SWEP.ViewModelFOV = 60
 	SWEP.ViewModelFlip = false
 	
 	SWEP.ShowViewModel = true
@@ -46,7 +46,7 @@ SWEP.ConeIron = SWEP.Cone *0.85
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.85
 --SWEP.ConeIronMoving = SWEP.Moving *0.85
 
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = SPEED_SMG
 
 SWEP.IronSightsPos = Vector(-2, 10, 1.5)
 SWEP.IronSightsAng = Vector(0,0,0)

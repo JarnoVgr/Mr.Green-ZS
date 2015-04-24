@@ -38,7 +38,7 @@ if CLIENT then
 		["shell"] = { type = "Model", model = "models/props_docks/piling_cluster01a.mdl", bone = "v_weapon.M3_SHELL", rel = "", pos = Vector(0, 0, -0.7), angle = Angle(0, 90, 0), size = Vector(0.017, 0.017, 0.009), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 		["barrel+"] = { type = "Model", model = "models/props_docks/dock03_pole01a_256.mdl", bone = "v_weapon.M3_PARENT", rel = "", pos = Vector(0, -4.5, -9.87), angle = Angle(0, 0, 180), size = Vector(0.059, 0.059, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}	
-	SWEP.ViewModelFOV = 55
+	SWEP.ViewModelFOV = 60
 	killicon.AddFont("weapon_zs_chipper", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
 
@@ -51,15 +51,13 @@ SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_shot_m3super90.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_shot_m3super90.mdl" )
 
---SWEP.Weight				= 10
-SWEP.Weight				= 40
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
 SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound 			= Sound("Weapon_Shotgun.Single")
-SWEP.Primary.Recoil			= 4
+SWEP.Primary.Recoil			= 2
 SWEP.Primary.Damage			= 10
 SWEP.Primary.NumShots		= 6
 SWEP.Primary.ClipSize		= 6
@@ -72,11 +70,11 @@ SWEP.MaxAmmo			    = 70
 SWEP.IsShotgun = true
  
 
-SWEP.Cone  = 0.13
+SWEP.Cone  = 0.11
 SWEP.ConeMoving = SWEP.Cone *1.15
 SWEP.ConeCrouching = SWEP.Cone *0.95
 
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = SPEED_SHOTGUN
 
 SWEP.IronSightsPos = Vector(-7.64, -10.315, 3.319)
 SWEP.IronSightsAng = Vector(0, 0, 0)
@@ -85,7 +83,7 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.OverridePos = Vector(2.839, -4.591, 2)
 SWEP.OverrideAng = Vector( 0,0,0 )
 
-SWEP.ReloadDelay = 0.4
+SWEP.ReloadDelay = 0.45
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0

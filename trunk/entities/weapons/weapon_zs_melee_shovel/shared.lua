@@ -29,7 +29,7 @@ SWEP.MeleeRange = 70
 SWEP.MeleeSize = 1.3
 
 SWEP.Primary.Delay = 1.25
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = SPEED_MELEE_HEAVY
 
 SWEP.SwingRotation = Angle(0, -90, -60)
 SWEP.SwingOffset = Vector(0, 30, -40)

@@ -52,7 +52,7 @@ SWEP.Author			= "" -- Original code by Amps
 SWEP.Instructions	= "Stand close to a wall to plant the mine. Detonates when enemy is within visible range." 
 SWEP.NextPlant = 0
 ------------------------------------------------------------------------------------------------------
-SWEP.ViewModelFOV	= 60
+SWEP.ViewModelFOV	= 50
 SWEP.ViewModelFlip	= false
 ------------------------------------------------------------------------------------------------------
 SWEP.Spawnable			= false
@@ -83,7 +83,7 @@ SWEP.Secondary.DefaultClip	= 1
 SWEP.Secondary.Automatic   	= false
 SWEP.Secondary.Ammo         = "none"
 ------------------------------------------------------------------------------------------------------
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = SPEED
 
 -- Preload
 util.PrecacheSound("weapons/c4/c4_beep1.wav")

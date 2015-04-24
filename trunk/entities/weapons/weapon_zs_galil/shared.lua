@@ -12,7 +12,7 @@ if CLIENT then
 	SWEP.FlipYaw = true
 	SWEP.IconLetter = "v"
 	killicon.AddFont("weapon_zs_galil", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 end
 
 if CHRISTMAS then
@@ -54,7 +54,7 @@ SWEP.Primary.Ammo			= "ar2"
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = SPEED_RIFLE
 SWEP.MaxBulletDistance 		= 2750 
 
 SWEP.Cone = 0.059

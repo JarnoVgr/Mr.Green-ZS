@@ -19,7 +19,7 @@ if CLIENT then
 	SWEP.OverrideAngle["v_weapon.Right_Arm"] = Angle(0,0,80)
 
 	killicon.AddFont("weapon_zs_m4a1", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 end
 
 if CHRISTMAS then
@@ -40,7 +40,6 @@ SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_rif_m4a1.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_rif_m4a1.mdl" )
 
-SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -67,7 +66,7 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.75
 
 SWEP.MaxAmmo			    = 250
 
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = SPEED_RIFLE
 SWEP.MaxBulletDistance 		= 2600
 
 SWEP.IronSightsPos = Vector(-4, 13, 2)

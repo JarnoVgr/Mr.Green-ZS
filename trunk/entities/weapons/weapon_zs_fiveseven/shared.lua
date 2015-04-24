@@ -4,10 +4,10 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "Five-Seven"			
+	SWEP.PrintName = "Five-SeveN"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 1
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 	SWEP.SlotPos = 4
 	SWEP.IconLetter = "u"
 	killicon.AddFont("weapon_zs_fiveseven", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
@@ -33,7 +33,6 @@ SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_pist_fiveseven.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_pist_fiveseven.mdl" )
 
-SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -41,7 +40,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_FiveSeven.Single" )
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 16
+SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 12
 SWEP.Primary.Delay			= 0.15
@@ -52,12 +51,12 @@ SWEP.MaxBulletDistance 		= 1900
 SWEP.MaxAmmo			    = 60
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.034
+SWEP.Cone = 0.032
 SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.75
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = SPEED_PISTOL
 
 SWEP.IronSightsPos = Vector(-5.9,17,2.5)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )

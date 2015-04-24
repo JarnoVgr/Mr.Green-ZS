@@ -20,7 +20,7 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 -- Name and fov
 SWEP.PrintName = "Crowbar"
-SWEP.ViewModelFOV = 50
+SWEP.ViewModelFOV = 60
 
 -- Slot pos
 SWEP.Slot = 2
@@ -30,10 +30,10 @@ SWEP.SlotPos = 3
 SWEP.Primary.Delay = 0.80
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 45
+SWEP.MeleeDamage = 50
 SWEP.MeleeRange = 55
 SWEP.MeleeSize = 1.45
-SWEP.WalkSpeed = 197
+SWEP.WalkSpeed = SPEED_MELEE
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 
 SWEP.SwingTime = 0.55

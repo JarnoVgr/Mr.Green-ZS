@@ -8,7 +8,7 @@ if CLIENT then
 	SWEP.Author = "JetBoom"
 	SWEP.Slot = 1
 	SWEP.SlotPos = 3
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 	killicon.AddFont( "weapon_zs_deagle", "CSKillIcons", "f", Color(255, 255, 255, 255 ) )
 
 	SWEP.IgnoreThumbs = true
@@ -32,9 +32,6 @@ SWEP.AdminSpawnable		= true
 SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_pist_deagle.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_pist_deagle.mdl" )
-
-SWEP.Weight				= 5
-
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Deagle.Single" )
@@ -47,7 +44,7 @@ SWEP.Primary.DefaultClip	= 45
 SWEP.MaxAmmo			    = 70
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = SPEED_PISTOL
 
 --SWEP.Cone = 0.04
 --SWEP.ConeMoving = SWEP.Cone *1.3

@@ -9,7 +9,7 @@ if CLIENT then
 	SWEP.Slot = 0
 	SWEP.SlotPos = 7
 	SWEP.IconLetter = "k"
-	
+	SWEP.ViewModelFOV = 60
 	
 	killicon.AddFont("weapon_zs_m3super90", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
 end
@@ -23,7 +23,6 @@ SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_shot_m3super90.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_shot_m3super90.mdl" )
 
-SWEP.Weight				= 10
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -46,7 +45,7 @@ SWEP.Cone = 0.09
 SWEP.ConeMoving = SWEP.Cone *1.15
 SWEP.ConeCrouching = SWEP.Cone *0.95
 
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = SPEED_SHOTGUN
 SWEP.MaxBulletDistance 		= 1750
 
 SWEP.IronSightsPos = Vector(-7.64, -10.315, 3.319)

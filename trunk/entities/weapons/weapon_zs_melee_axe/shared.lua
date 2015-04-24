@@ -29,7 +29,7 @@ SWEP.WorldModel = Model("models/weapons/w_axe.mdl")
 
 -- Name and fov
 SWEP.PrintName = "Axe"
-SWEP.ViewModelFOV = 50
+SWEP.ViewModelFOV = 60
 
 -- Slot pos
 SWEP.Slot = 2
@@ -44,7 +44,7 @@ SWEP.MeleeDamage = 50
 SWEP.MeleeRange = 56
 SWEP.MeleeSize = 1.5
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = SPEED_MELEE
 
 SWEP.SwingTime = 0.65
 SWEP.SwingRotation = Angle(0, -20, -40)

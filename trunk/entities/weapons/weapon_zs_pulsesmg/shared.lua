@@ -8,7 +8,7 @@ if CLIENT then
 	SWEP.Slot = 5
 	SWEP.SlotPos = 14
 	SWEP.ViewModelFlip = false
-	SWEP.ViewModelFOV = 55
+	SWEP.ViewModelFOV = 60
 	SWEP.IconLetter = "/"
 	SWEP.SelectFont = "HL2MPTypeDeath"
 	
@@ -52,7 +52,7 @@ SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Delay			= 0.085
 SWEP.Primary.DefaultClip	= 20
 SWEP.Primary.Automatic		= true
-
+SWEP.TracerName = "AR2Tracer"
 
 SWEP.Primary.Ammo			= "none"
 
@@ -69,10 +69,6 @@ SWEP.IronSightsAng = Vector(0,0,0)
 --SWEP.OverridePos = Vector(1.559, -3.116, 1.6)
 --SWEP.OverrideAng = Vector(0, 0, 0)
 
-
-
-
-
 SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= true
@@ -80,7 +76,7 @@ SWEP.Secondary.Ammo			= "none"
 
 SWEP.MaxBulletDistance 		= 2900 -- Uses pulse power, FTW!
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = SPEED_SMG
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0

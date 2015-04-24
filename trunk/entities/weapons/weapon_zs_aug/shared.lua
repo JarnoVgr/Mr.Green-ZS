@@ -7,11 +7,10 @@ if CLIENT then
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
 	SWEP.SlotPos = 2
-	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = true
-	SWEP.IconLetter = "e"
+	SWEP.ViewModelFOV = 60	
+	SWEP.IconLetter = "e"	
 	killicon.AddFont("weapon_zs_aug", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
-	SWEP.ViewModelFOV = 50
 end
 
 if CHRISTMAS then
@@ -31,10 +30,6 @@ SWEP.AdminSpawnable		= true
 SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_rif_aug.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_rif_aug.mdl" )
-
-SWEP.Weight				= 5
-SWEP.AutoSwitchTo		= false
-SWEP.AutoSwitchFrom		= false
 SWEP.PrintName			= "AUG"
 
 SWEP.HoldType = "ar2"
@@ -52,22 +47,15 @@ SWEP.Primary.Cone			= 0.05
 SWEP.MaxBulletDistance 		= 3500
 SWEP.MaxAmmo			    = 250
 
---SWEP.Cone = 0.060
---SWEP.ConeMoving = SWEP.Cone *1.4
---SWEP.ConeCrouching = SWEP.Cone *0.80
---SWEP.ConeIron = SWEP.Cone *0.7
---SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
-
 SWEP.Cone = 0.06
 SWEP.ConeMoving = SWEP.Cone *1.35
 SWEP.ConeCrouching = SWEP.Cone *0.75
 SWEP.ConeIron = SWEP.Cone *0.7
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
 
-
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = SPEED_RIFLE
 
 SWEP.IronSightsPos = Vector(-4, 16, 2)
 SWEP.IronSightsAng = Vector(0,0,0)

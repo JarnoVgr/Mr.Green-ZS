@@ -25,7 +25,7 @@ SWEP.WorldModel = Model ( "models/weapons/w_pot.mdl" )
 
 -- Name and fov
 SWEP.PrintName = "Pot"
-SWEP.ViewModelFOV = 50
+SWEP.ViewModelFOV = 60
 
 -- Slot
 SWEP.Slot = 2
@@ -34,10 +34,10 @@ SWEP.SlotPos = 7
 -- Damage, distane, delay
 SWEP.Primary.Delay = 0.70
 SWEP.DamageType = DMG_CLUB
-SWEP.MeleeDamage = 40
+SWEP.MeleeDamage = 30
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 1.0
-SWEP.WalkSpeed = 202
+SWEP.WalkSpeed = SPEED_MELEE
 
 SWEP.UseMelee1 = true
 

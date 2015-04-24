@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.SlotPos = 16
 	SWEP.IconLetter = "A"
 	killicon.AddFont("weapon_zs_sg552", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 60
 end
 
 if CHRISTMAS then
@@ -50,7 +50,7 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.MaxAmmo			    = 250
 SWEP.Secondary.Delay = 0.5
 
-SWEP.WalkSpeed = 195
+SWEP.WalkSpeed = SPEED_RIFLE
 
 SWEP.Cone = 0.061
 SWEP.ConeMoving = SWEP.Cone *1.3
