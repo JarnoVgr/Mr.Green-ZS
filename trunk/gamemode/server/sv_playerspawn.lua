@@ -253,28 +253,7 @@ function GM:PlayerSpawn(pl)
 			Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredPlayerModelName ..". Which doesn't exist.")
 		end
 		
-		--Check if we can be THE Gordon Freeman
-		if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
-			--Only display message when being human
-			if pl:Team() == TEAM_SURVIVORS then
-				pl:ChatPrint("You're now THE Gordon Freeman!")
-			end
 
-			--Set global
-			self.IsGordonHere = true
-			
-			--Set model for player
-			pl.IsFreeman = true
-			pl.PlayerModel = "gordon"
-			
-			local Melee = pl:GetMelee()
-			
-			if Melee then --Duby: I have fixed the freeman perk not giving the crowbar. Had to strip the player naked first! 
-			pl:StripWeapon(Melee:GetClass())
-			pl:Give("weapon_zs_melee_crowbar")
-			end
-			
-		end
 
 		--Check if we can be Santa Claus
 		if CHRISTMAS and pl:Team() ~= TEAM_SPECTATOR and ((not self.IsSantaHere and math.random(1,7) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsSanta) and not pl.IsFreeman then
@@ -692,6 +671,32 @@ function CalculatePlayerLoadout(pl)
 	else
 		return
 	end
+	
+	--Freeman
+	--Check if we can be THE Gordon Freeman
+	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+		--Only display message when being human
+		if pl:Team() == TEAM_SURVIVORS then
+			pl:ChatPrint("You're now THE Gordon Freeman!")
+		end
+
+		--Set global
+		self.IsGordonHere = true
+		
+		--Set model for player
+		pl.IsFreeman = true
+		pl.PlayerModel = "gordon"
+		
+		local Melee = pl:GetMelee()
+		
+		if Melee then --Duby: I have fixed the freeman perk not giving the crowbar. Had to strip the player naked first! 
+		pl:StripWeapon(Melee:GetClass())
+		pl:Give("weapon_zs_melee_crowbar")
+		ToGive[1] = "weapon_zs_melee_crowbar"		
+		end
+		
+	end	
+	
 	
 	--Check if bought Magnum (give 1/6th chance)
 	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
