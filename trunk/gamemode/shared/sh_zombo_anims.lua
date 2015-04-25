@@ -48,7 +48,7 @@ GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
 
 	pl._PlayBackRate = nil
 	if IsValid(pl:GetActiveWeapon()) then 
-		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_01" ) --Duby: I spent ages finding this out...	
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) --Duby: I spent ages finding this out...	
 		--local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) --Duby: I spent ages finding this out...	
 		return iIdeal, iSeq
 	end
@@ -355,8 +355,8 @@ GM.CalcMainActivityZombies[6] = function ( pl, vel )
 	local fVelocity = vel:Length2D()
 	pl._PlayBackRate = nil
 	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsScreaming and pl:GetActiveWeapon():IsScreaming() then 
-		--local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" )  
-		iIdeal = ACT_IDLE_ON_FIRE 
+		iSeq, iIdeal = pl:LookupSequence ( "zombie_run" )
+		--iIdeal = ACT_IDLE_ON_FIRE 
 		return iIdeal, iSeq
 	end
 

@@ -124,7 +124,7 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	Name = "Fresh Dead",
 	--Name = "Obsolete",
 	Tag = "zombie",	
-	Infliction = 0.1,
+	Infliction = 0.0,
 	Revives = false,
 	Health = 120,
 	MaxHealth = 120,
@@ -195,7 +195,7 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	},
 	
 	Unique = "",
-	Description = "A tainted Human who wonders the land..",
+	Description = "A tainted innocent who wanders the land..",
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	pl:SetRandomFace()
@@ -212,7 +212,7 @@ ZombieClasses[2] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
-	Infliction = 0.65,
+	Infliction = 0.60,
 	Health = 450,
 	MaxHealth = 500,
 	TimeLimit = 810,
@@ -316,8 +316,8 @@ ZombieClasses[4] =
 {
 	Name = "Ghast",
 	Tag = "etherealzombie",
-	Infliction = 0.25,
-	Health = 110,
+	Infliction = 0.0,
+	Health = 100,
 	MaxHealth = 110,
 	TimeLimit = 200,
 	Bounty = 100,
@@ -328,7 +328,7 @@ ZombieClasses[4] =
 	CanGib = true,
 	SWEP = "weapon_zs_undead_spitter",
 	Model = Model( "models/wraith.mdl" ),
-	Speed = 170,
+	Speed = 190,
 	Description = "A ghastly figure which can disguise itself as a human!",
 	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Disguise as a human!"},
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
@@ -361,7 +361,7 @@ ZombieClasses[5] =
 	Name = "Ethereal",
 	Tag = "etherealzombie",
 	Infliction = 0.25,
-	Health = 110,
+	Health = 120,
 	MaxHealth = 110,
 	TimeLimit = 200,
 	Bounty = 60,
@@ -372,9 +372,9 @@ ZombieClasses[5] =
 	CanGib = true,
 	SWEP = "weapon_zs_undead_wraith",
 	Model = Model( "models/wraith.mdl" ),
-	Speed = 170,
+	Speed = 190,
 	Description = "A ghastly figure capable of Teleporting!",
-	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport to spot you're looking at!"},
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport"},
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),
@@ -488,7 +488,7 @@ ZombieClasses[8] =
 {
 	Name = "Zombine",
 	Tag = "zombine",
-	Infliction = 0.8,
+	Infliction = 0.75,
 	Health = 380,
 	MaxHealth = 400, 
 	TimeLimit = 1020,
@@ -505,7 +505,7 @@ ZombieClasses[8] =
 	Speed = 160,
 --	RunSpeed = 190,
 	RunSpeed = 200,
-	Description = "A heavily armoured soldier with bullet resistance!",
+	Description = "A combine that took a turn to the worse.",
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
@@ -544,7 +544,7 @@ ZombieClasses[9] =
 {
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
-	Infliction = 0.65,
+	Infliction = 0.60,
 	Health = 100,
 	MaxHealth = 120,
 	Bounty = 75,

@@ -12,14 +12,14 @@ SWEP.PrintName = "Ghast"
 
 
 if CLIENT then
-	SWEP.ViewModelFOV = 82
+	SWEP.ViewModelFOV = 80
 	SWEP.ViewModelFlip = false
 end
 
 SWEP.Primary.Duration = 1.5
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
-SWEP.Primary.Damage = 35
+SWEP.Primary.Damage = 30
 
 SWEP.EmitWraithSound = 0
 SWEP.Screams = {
@@ -80,15 +80,20 @@ function SWEP:StartPrimaryAttack()
 	
 	-- Set the thirdperson animation and emit zombie attack sound
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
-	self:EmitSound(Sound("npc/antlion/distract1.wav"), 100, math.random(92, 107))
-	 
+	
+	if self:IsDisguised() then
+		self:EmitSound(Sound("npc/antlion/distract1.wav"), 100, math.random(82, 92))
+	else
+		self:EmitSound(Sound("npc/antlion/distract1.wav"), 100, math.random(92, 107))
+	end
+	
 	local stopPlayer = true
 
 	if self:IsDisguised() then
-		self.Primary.Speed = 100
+		self.Primary.Speed = 160
 		stopPlayer = false
 	else
-		self.Primary.Speed = 1
+		self.Primary.Speed = 0
 	end
 	 
 	if SERVER then
@@ -115,13 +120,16 @@ function SWEP:IsDisguised()
 end
 
 function SWEP:SecondaryAttack()
+	self.Weapon:SetNextSecondaryFire(CurTime() + 3)
 	-- if self.Disguised then return end
 	if self:IsDisguised() then
+		self:EmitSound(Sound("npc/fast_zombie/idle"..math.random(1,3)..".wav"), 80)	
 		return
 	end
 
 	self:SetDisguise(true)
 
+	
 	--Pick random human model
 	if SERVER then	
 		local survivors = team.GetPlayers(TEAM_HUMAN)
@@ -132,7 +140,7 @@ function SWEP:SecondaryAttack()
 		
 		self.Owner:SetModel(model)
 		
-		self.Owner:EmitSound(Sound("npc/stalker/stalker_scream"..math.random(1,4)..".wav"), 80, math.random(100, 115))
+		self.Owner:EmitSound(Sound("npc/stalker/stalker_scream"..math.random(1,4)..".wav"), 80)
 	end
 	
 	

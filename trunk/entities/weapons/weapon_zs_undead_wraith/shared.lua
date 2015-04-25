@@ -11,17 +11,17 @@ SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 SWEP.PrintName = "Ethereal"
 
 if CLIENT then
-	SWEP.ViewModelFOV = 82
+	SWEP.ViewModelFOV = 80
 	SWEP.ViewModelFlip = false
 end
 
 SWEP.Primary.Duration = 1.5
-SWEP.Primary.Delay = 0.3
-SWEP.Primary.Reach = 56
+SWEP.Primary.Delay = 0.6
+SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 30
-SWEP.Primary.Next = 2
+SWEP.Primary.Next = 1.5
 --SWEP.Secondary.Next = 6.8
-SWEP.Secondary.Next = 2.6
+SWEP.Secondary.Next = 3
 SWEP.Secondary.Duration = 1
 
 SWEP.EmitWraithSound = 0
@@ -94,11 +94,11 @@ function SWEP:StartPrimaryAttack()
 
 	--Stop movement
 	--self.Primary.Speed = 1
-	self.Primary.Speed = 80
+	self.Primary.Speed = 0
 	 
 	if SERVER then
 		if stopPlayer then
-			self.Owner:SetLocalVelocity(Vector(80, 80, 80))
+			self.Owner:SetLocalVelocity(Vector(0, 0, 0))
 		end
 	end
 end
@@ -120,10 +120,10 @@ function SWEP:PerformSecondaryAttack()
 	self.Weapon:SetNextSecondaryFire(CurTime() + 0.5)
 	
 	--Not enough health
-	if mOwner:Health() < mOwner:GetMaximumHealth() * 0.15 then
-		self:TeleportFail()
-		return
-	end
+	--if mOwner:Health() < mOwner:GetMaximumHealth() * 0.15 then
+	--	self:TeleportFail()
+	--	return
+	--end
 	
 	--Don't teleport in air
 	if not mOwner:OnGround() then
@@ -179,7 +179,7 @@ function SWEP:PerformSecondaryAttack()
 	end
 
 	--Change damage once teleported
-	self.Primary.Damage = 20
+	--self.Primary.Damage = 20
 	
 	mOwner.IsWraithTeleporting = true
 	
@@ -206,7 +206,7 @@ function SWEP:PerformSecondaryAttack()
 	
 	--Take damage
 	if SERVER then
-		mOwner:SetHealth(mOwner:Health() - (mOwner:GetMaximumHealth() * 0.1))
+		--mOwner:SetHealth(mOwner:Health() - (mOwner:GetMaximumHealth() * 0.1))
 		
 		--Pre-teleport smoke
 		--TODO: Fix. This ain't working
@@ -223,7 +223,6 @@ function SWEP:PerformSecondaryAttack()
 	end
 
 	self.Weapon:SetNextSecondaryFire(CurTime() + self.Secondary.Next)
-	
 	--Post teleport smoke
 	timer.Simple(0.1, function()
 		if not IsValid(mOwner) then
@@ -335,6 +334,5 @@ if CLIENT then
 			return
 		end
 		MeleeWeaponDrawHUD()
-		draw.SimpleTextOutlined("Right click to Teleport!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 end
