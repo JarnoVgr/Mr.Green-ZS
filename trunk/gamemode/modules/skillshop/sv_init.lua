@@ -173,7 +173,11 @@ function ApplySkillShopItem(pl, com, args)
 			end
 
 			--Give actual ammo
-			pl:GiveAmmo(math.Clamp(ItemTable.Amount, 1, 1000), AmmoType)
+			if pl:HasBought("ammoman") then
+				pl:GiveAmmo(math.Clamp(ItemTable.Amount*2, 1, 1000), AmmoType)
+			else
+				pl:GiveAmmo(math.Clamp(ItemTable.Amount, 1, 1000), AmmoType)
+			end			
 			skillpoints.TakeSkillPoints(pl, ItemTable.Price)
 
 			break
