@@ -155,7 +155,7 @@ if SERVER then
 					--Multiplier for infliction
 					HowMuch = math.Round(HowMuch * (INFLICTION + 0.6))
 
-					Finally give it
+					--Finally give it
 					if activator:HasBought("ammoman") then
 						HowMuch = HowMuch * 2 --Ammo man perk
 					end
