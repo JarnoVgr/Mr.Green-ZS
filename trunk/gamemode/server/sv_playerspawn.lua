@@ -699,7 +699,7 @@ function CalculatePlayerLoadout(pl)
 		return
 	end
 
-	if pl:IsFreeman == true then
+	if pl.IsFreeman == true then
 			pl:ChatPrint("Crowbar!")	
 		pl:StripWeapon(Melee:GetClass())
 		ToGive[1] = "weapon_zs_melee_crowbar"	
