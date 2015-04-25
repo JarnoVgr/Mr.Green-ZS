@@ -138,13 +138,14 @@ local function PlayBeats(teamid, am)
 	--if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
 		return
 	end
-	
+	print(am)
 	local ENABLE_BEATS = util.tobool(GetConVarNumber("_zs_enablebeats"))
 	if not ENABLE_BEATS then
 		return
 	end
 	
-	if am <= 0 then
+	-- Apparently it takes ourselves into consideration..
+	if am <= 1 then
 		return
 	end
 
