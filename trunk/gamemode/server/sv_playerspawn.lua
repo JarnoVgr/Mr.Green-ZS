@@ -313,6 +313,8 @@ function GM:PlayerSpawn(pl)
 	net.WriteEntity(pl)
 	net.WriteInt(pl:GetRank(), 32)
 	net.Broadcast()
+	
+	
 end
 
 util.AddNetworkString("SetPlayerLevel")
@@ -337,9 +339,34 @@ function GM:OnHumanSpawn(pl)
 		return
 	end
 		
+	--Freeman
+	--Check if we can be THE Gordon Freeman
+	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+		--Only display message when being human
+		if pl:Team() == TEAM_SURVIVORS then
+			pl:ChatPrint("You're now THE Gordon Freeman!")
+		end
+
+		--Set global
+		self.IsGordonHere = true
+		
+		--Set model for player
+		pl.IsFreeman = true
+		pl.PlayerModel = "gordon"
+		
+		local Melee = pl:GetMelee()
+		
+		if Melee then --Duby: I have fixed the freeman perk not giving the crowbar. Had to strip the player naked first! 
+		pl:StripWeapon(Melee:GetClass())
+		pl:Give("weapon_zs_melee_crowbar")
+		ToGive[1] = "weapon_zs_melee_crowbar"		
+		end
+		
+	end			
+		
 	--Spawn protection
 	pl:GodEnable()
-	timer.Simple(5, function() 
+	timer.Simple(3, function() 
 		if IsValid(pl) then
 			pl:GodDisable() 
 		end
@@ -671,33 +698,13 @@ function CalculatePlayerLoadout(pl)
 	else
 		return
 	end
-	
-	--Freeman
-	--Check if we can be THE Gordon Freeman
-	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
-		--Only display message when being human
-		if pl:Team() == TEAM_SURVIVORS then
-			pl:ChatPrint("You're now THE Gordon Freeman!")
-		end
 
-		--Set global
-		self.IsGordonHere = true
-		
-		--Set model for player
-		pl.IsFreeman = true
-		pl.PlayerModel = "gordon"
-		
-		local Melee = pl:GetMelee()
-		
-		if Melee then --Duby: I have fixed the freeman perk not giving the crowbar. Had to strip the player naked first! 
+	if pl.IsFreeman == true then
 		pl:StripWeapon(Melee:GetClass())
-		pl:Give("weapon_zs_melee_crowbar")
+		pl:Give("weapon_zs_melee_crowbar")	
 		ToGive[1] = "weapon_zs_melee_crowbar"		
-		end
+	end
 		
-	end	
-	
-	
 	--Check if bought Magnum (give 1/6th chance)
 	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
 		--Strip previous pistol

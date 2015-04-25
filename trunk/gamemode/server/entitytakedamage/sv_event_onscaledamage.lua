@@ -124,7 +124,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
 				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),110,math.random(95,105))	
 				if dmginfo:IsBulletDamage() then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 2) --Duby: Reduced it as it was far to high
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.5) --Duby: Reduced it as it was far to high
 				elseif dmginfo:IsMeleeDamage() then
 					dmginfo:SetDamage(dmginfo:GetDamage() * 2)  --Duby: Reduced it as it was far to high
 				end
