@@ -29,8 +29,6 @@ Sound("vo/npc/Barney/ba_ohshit03.wav"),
 Sound("vo/npc/Barney/ba_ohshit03.wav"),
 Sound("vo/npc/Barney/ba_no01.wav"),
 Sound("vo/npc/Barney/ba_no02.wav"),
-Sound("vo/coast/odessa/male01/nlo_cubdeath01.wav"),
-Sound("vo/coast/odessa/male01/nlo_cubdeath02.wav")
 }
 
 VoiceSets["male"].Frightened = {
@@ -237,8 +235,6 @@ VoiceSets["female"].DeathSounds = {
 Sound("vo/npc/female01/no01.wav"),
 Sound("vo/npc/female01/ow01.wav"),
 Sound("vo/npc/female01/ow02.wav"),
-Sound("vo/coast/odessa/female01/nlo_cubdeath01.wav"),
-Sound("vo/coast/odessa/female01/nlo_cubdeath02.wav")
 }
 
 VoiceSets["female"].Frightened = {

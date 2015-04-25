@@ -39,7 +39,7 @@ function VoiceToQuestion()
 	timer.Adjust("voice_question",30+math.random(1,10)-math.min(#humans,20),1,VoiceToQuestion)
 	timer.Start("voice_question")
 end
---[[
+
 function VoiceToPanic( ply )
 
 	local humans = team.GetPlayers(TEAM_HUMAN)
@@ -58,7 +58,7 @@ function VoiceToPanic( ply )
 	local hum = pos_humans[math.random(1,#pos_humans)]	
 	hum:VoicePanic()	
 end
---]]
+
 function VoiceToAnswer( ply )
 	if not IsRealisticToVoice( ply ) then return end
 	ply:VoiceAnswer()

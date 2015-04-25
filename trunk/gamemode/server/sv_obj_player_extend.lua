@@ -1023,7 +1023,7 @@ function meta:VoiceKillCheer()
 		self.LastVoice = CurTime()
 	end
 end
---[[
+
 function meta:VoicePanic()
 	local set = VoiceSets[self.VoiceSet].Panic
 	if set then
@@ -1031,7 +1031,7 @@ function meta:VoicePanic()
 		self.LastVoice = CurTime()
 	end
 end
---]]
+
 util.AddNetworkString( "CustomChatAdd" )
 
 -- NOTE: Function not network-friendly
