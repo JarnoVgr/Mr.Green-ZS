@@ -28,7 +28,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		return true
 	--Scale damage for THE Gordon Freeman
 	elseif attacker.IsFreeman and attacker:IsHuman() and dmginfo:IsMeleeDamage() then
-		dmginfo:ScaleDamage(1.2)
+		dmginfo:ScaleDamage(1.5)
 	end
 	
 	--Physbox team-damage bug
@@ -47,10 +47,10 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		return true
 	--Scale down own AR2 grenades (grenade launcher) shots
 	elseif (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
-		dmginfo:ScaleDamage(0.05)
+		dmginfo:ScaleDamage(0.80)
 	--Scale down explosion damage if it's the owner
 	elseif (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) then
-		dmginfo:ScaleDamage(0.45)
+		dmginfo:ScaleDamage(0.80)
 	--Turret damage
 	elseif attacker:GetClass() == "zs_turret" then
 		if pl:IsHuman() then
@@ -94,7 +94,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	
 	--Check for explosion damage immunity
 	if dmginfo:IsExplosionDamage() and pl.NoExplosiveDamage and pl.NoExplosiveDamage >= CurTime() then
-		dmginfo:ScaleDamage(0.5)
+		dmginfo:ScaleDamage(0.75)
 	end
 		
 	--Zombies with howler protection
@@ -122,13 +122,16 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
+				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),110,math.random(95,105))	
 				if dmginfo:IsBulletDamage() then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1.01) --Duby: Reduced it as it was far to high
+					dmginfo:SetDamage(dmginfo:GetDamage() * 2) --Duby: Reduced it as it was far to high
 				elseif dmginfo:IsMeleeDamage() then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1)  --Duby: Reduced it as it was far to high
+					dmginfo:SetDamage(dmginfo:GetDamage() * 2)  --Duby: Reduced it as it was far to high
 				end
 			end
 		end
+		
+		
 
 		--35% damage for zombine (armor)
 		if pl:IsZombine() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.75) and pl:Health() ~= 0 and pl.bCanSprint == false then

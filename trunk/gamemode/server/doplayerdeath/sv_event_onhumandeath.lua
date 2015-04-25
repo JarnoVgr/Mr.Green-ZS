@@ -13,6 +13,11 @@ end )
 
 -- Called when a human is killed
 local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
+
+	--timer.Simple(1, function()
+	--	VoiceToPanic(mVictim)
+	--end)
+
 	local tr = mVictim:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_HUMAN))
 	local pos = tr.HitPos
 	local norm = tr.HitNormal

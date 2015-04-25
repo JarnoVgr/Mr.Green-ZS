@@ -2,7 +2,7 @@
 -- See LICENSE.txt for license information
 
 -- Time limit (seconds)
-TIME_CHECK, TIME_AFK = 1, 25
+TIME_CHECK, TIME_AFK = 1, 60
 
 -- Local vars
 local TimerAFK = 0

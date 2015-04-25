@@ -4,7 +4,8 @@
 AddCSLuaFile ( "cl_afk.lua" )
 
 -- Time to kick
-TIME_KICK = 360
+--TIME_KICK = 360 Pufulet: we want to keep players in longer
+TIME_KICK = 1000
 
 --[==[------------------------------------------------------------
 	      Kicks a player if afk is overtime
@@ -24,7 +25,7 @@ local function CheckPlayerAFK( pl )
 
 	-- Kick player
 	if pl.KickTime <= CurTime() then
-		PrintMessageAll ( HUD_PRINTTALK, "[AFK] "..tostring (pl:Name()).." has been kicked because he was away for too long!" )
+		PrintMessageAll ( HUD_PRINTTALK, "[AFK] "..tostring (pl:Name()).." has been kicked because they were away for too long!" )
 		server_RunCommand(pl, "disconnect")
 	end
 

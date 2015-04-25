@@ -1501,6 +1501,9 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 	if not IsValid(attacker) or not attacker:IsPlayer() or attacker:Team() ~= TEAM_HUMAN or attacker:GetSuit() ~= "gravedigger" then
 		return
 	end
-
-	attacker:SetHealth(attacker:Health() + 5)
+	
+	if (attacker:GetHealth() > 100) then return
+	else
+		attacker:SetHealth(attacker:Health() + 5)
+	end
 end)

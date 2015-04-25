@@ -28,7 +28,9 @@ Sound("vo/npc/male01/no02.wav"),
 Sound("vo/npc/Barney/ba_ohshit03.wav"),
 Sound("vo/npc/Barney/ba_ohshit03.wav"),
 Sound("vo/npc/Barney/ba_no01.wav"),
-Sound("vo/npc/Barney/ba_no02.wav")
+Sound("vo/npc/Barney/ba_no02.wav"),
+Sound("vo/coast/odessa/male01/nlo_cubdeath01.wav"),
+Sound("vo/coast/odessa/male01/nlo_cubdeath02.wav")
 }
 
 VoiceSets["male"].Frightened = {
@@ -150,6 +152,11 @@ Sound("vo/npc/male01/gotone01.wav"),
 Sound("vo/npc/male01/gotone02.wav")
 }
 
+VoiceSets["male"].Panic = {
+Sound("vo/coast/odessa/male01/nlo_cubdeath01.wav"),
+Sound("vo/coast/odessa/male01/nlo_cubdeath02.wav")
+}
+
 VoiceSets["male"].ReloadSounds = {
 Sound("vo/npc/male01/coverwhilereload01.wav"),
 Sound("vo/npc/male01/coverwhilereload02.wav"),
@@ -229,7 +236,9 @@ Sound("vo/npc/female01/pain09.wav")
 VoiceSets["female"].DeathSounds = {
 Sound("vo/npc/female01/no01.wav"),
 Sound("vo/npc/female01/ow01.wav"),
-Sound("vo/npc/female01/ow02.wav")
+Sound("vo/npc/female01/ow02.wav"),
+Sound("vo/coast/odessa/female01/nlo_cubdeath01.wav"),
+Sound("vo/coast/odessa/female01/nlo_cubdeath02.wav")
 }
 
 VoiceSets["female"].Frightened = {
@@ -306,6 +315,11 @@ VoiceSets["female"].SupplySounds = {
 Sound("vo/npc/female01/ammo04.wav"),
 Sound("vo/npc/female01/ammo05.wav"),
 Sound("vo/npc/female01/yeah02.wav"),
+}
+
+VoiceSets["female"].Panic = {
+Sound("vo/coast/odessa/female01/nlo_cubdeath01.wav"),
+Sound("vo/coast/odessa/female01/nlo_cubdeath02.wav")
 }
 
 VoiceSets["female"].WaveSounds = {
