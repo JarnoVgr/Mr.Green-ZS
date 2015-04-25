@@ -45,7 +45,7 @@ SWEP.Primary.Delay			= 0.1
 SWEP.Primary.DefaultClip	= 100
 SWEP.Primary.Automatic		= true
 --SWEP.Primary.Ammo			= "ar2"
-SWEP.Primary.Ammo			= "buckshot"
+SWEP.Primary.Ammo			= "ar2"
 SWEP.MaxBulletDistance 		= 3500
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
