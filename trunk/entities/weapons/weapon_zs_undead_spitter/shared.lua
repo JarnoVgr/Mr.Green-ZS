@@ -19,9 +19,10 @@ end
 SWEP.Primary.Duration = 1.5
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
-SWEP.Primary.Damage = 30
-
+SWEP.Primary.Damage = 25
+SWEP.DisguiseChoice = 0
 SWEP.EmitWraithSound = 0
+
 SWEP.Screams = {
 	Sound("npc/stalker/stalker_alert1b.wav"),
 	Sound("npc/stalker/stalker_alert2b.wav"),
@@ -90,7 +91,7 @@ function SWEP:StartPrimaryAttack()
 	local stopPlayer = true
 
 	if self:IsDisguised() then
-		self.Primary.Speed = 160
+		self.Primary.Speed = 200
 		stopPlayer = false
 	else
 		self.Primary.Speed = 0
@@ -129,9 +130,9 @@ function SWEP:SecondaryAttack()
 
 	self:SetDisguise(true)
 
-	
 	--Pick random human model
 	if SERVER then	
+		self.DisguiseChoice = math.random(1,2)	
 		local survivors = team.GetPlayers(TEAM_HUMAN)
 		local model = "models/player/kleiner.mdl"
 		if #survivors > 0 then

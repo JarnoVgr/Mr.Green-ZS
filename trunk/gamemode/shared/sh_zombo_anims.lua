@@ -45,12 +45,32 @@ function GM:UpdateZombieAnimation( pl, vel, maxseqgroundspeed )
 end
 
 GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
-
+	local fVelocity = vel:Length2D()
 	pl._PlayBackRate = nil
 	if IsValid(pl:GetActiveWeapon()) then 
-		local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) --Duby: I spent ages finding this out...	
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_01" ) --Duby: I spent ages finding this out...	
 		--local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) --Duby: I spent ages finding this out...	
-		return iIdeal, iSeq
+		
+		if fVelocity == 0 then 
+			if pl:Crouching() then
+				iSeq = pl:LookupSequence ( "zombie_cidle_01" )	
+			else
+				iSeq = pl:LookupSequence ( "zombie_idle_01" ) 
+			end
+		end	
+		
+		if fVelocity >= 0.5 then 
+			if pl:Crouching() then			
+				iSeq = pl:LookupSequence ( "zombie_cwalk_01" )
+			else					
+				iSeq = pl:LookupSequence ( "zombie_walk_01" )
+			end	
+		end
+		
+		if pl:GetMoveType()==MOVETYPE_LADDER then
+			iSeq = pl:LookupSequence ( "zombie_climb_loop" )
+		end
+		return iIdeal, iSeq		
 	end
 	
 	--local iSeq, iIdeal = pl:LookupSequence("zombie_run")
@@ -275,21 +295,84 @@ local Walk = {"walk_All","Run_All"}
 -- Ghast - Activity handle
 GM.CalcMainActivityZombies[4] = function ( pl, vel )
 	
-	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then
-		
-		--local iSeq, iIdeal = pl:LookupSequence ( "idle_all_cower" ) 
-		local iSeq, iIdeal = pl:LookupSequence ( "idle_all_angry" ) 
-		
-		local fVelocity = vel:Length2D()
-		if fVelocity >= 0.5 then 
-			--iSeq = pl:LookupSequence ( "run_all_panicked_03" ) 
-			iSeq = pl:LookupSequence ( "walk_All")
-		end
-		
-		return iIdeal, iSeq
-		
-	end
+	local fVelocity = vel:Length2D()
 	
+	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then
+		local iSeq, iIdeal = pl:LookupSequence ( "idle_melee1" )
+
+		--local i = pl:GetActiveWeapon().DisguiseChoice
+		--print(i)
+		--if i == 1 then
+			if fVelocity == 0 then 
+				iSeq = pl:LookupSequence ( "idle_smg1" ) 
+			end	
+			
+			if fVelocity >= 0.5 then 
+				iSeq = pl:LookupSequence ( "run_smg1" )
+			end
+
+			if pl:Crouching() and fVelocity == 0 then
+				iSeq = pl:LookupSequence ( "cidle_smg1" )			
+			end
+			
+			if pl:Crouching() and fVelocity >= 0.5 then
+				iSeq = pl:LookupSequence ( "cwalk_smg1" )			
+			end
+			return iIdeal, iSeq
+	--	end
+		
+		--[[if i == 2 then
+			if fVelocity == 0 then 
+				iSeq = pl:LookupSequence ( "idle_melee2" ) 
+			end	
+			
+			if fVelocity >= 0.5 then 
+				iSeq = pl:LookupSequence ( "run_melee2" )
+			end
+
+			if pl:Crouching() and fVelocity == 0 then
+				iSeq = pl:LookupSequence ( "cidle_melee2" )			
+			end
+			
+			if pl:Crouching() and fVelocity >= 0.5 then
+				iSeq = pl:LookupSequence ( "cwalk_melee2" )			
+			end
+			return iIdeal, iSeq
+		end		
+		
+		]]--
+
+	
+
+	
+		--end
+		--[[
+		if i == 2 then
+			local iSeq, iIdeal = pl:LookupSequence ( "idle_melee2" )
+			if fVelocity >= 0.5 then 
+				iSeq = pl:LookupSequence ( "run_melee2" ) 
+			end
+			return iIdeal, iSeq
+		end	
+		
+		if i == 3 then
+			local iSeq, iIdeal = pl:LookupSequence ( "idle_revolver" )
+			if fVelocity >= 0.5 then 
+				iSeq = pl:LookupSequence ( "run_revolver" ) 
+			end
+			return iIdeal, iSeq
+		end			
+		
+		if i == 4 then
+			local iSeq, iIdeal = pl:LookupSequence ( "idle_pistol" )
+			if fVelocity >= 0.5 then 
+				iSeq = pl:LookupSequence ( "run_pistol" ) 
+			end
+			return iIdeal, iSeq
+		end				
+		]]--
+		
+end
 	-- Default zombie act
 	local iSeq, iIdeal = -1
 
@@ -298,6 +381,7 @@ GM.CalcMainActivityZombies[4] = function ( pl, vel )
 	
 	return iIdeal, iSeq
 end
+
 
 --  Ghast - Called on events like primary attack
 GM.DoAnimationEventZombies[4] = function ( pl, event, data )

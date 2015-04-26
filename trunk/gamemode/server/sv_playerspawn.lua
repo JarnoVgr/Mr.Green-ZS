@@ -696,7 +696,7 @@ function CalculatePlayerLoadout(pl)
 	end
 		
 	--Check if bought Magnum (give 1/6th chance)
-	if pl:HasBought("magnumman") and math.random(1,1) == 1 then
+	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
 		--Strip previous pistol
 		local Pistol = pl:GetPistol()
 		if Pistol then
