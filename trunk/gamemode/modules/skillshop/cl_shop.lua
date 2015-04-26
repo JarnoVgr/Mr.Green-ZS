@@ -310,12 +310,12 @@ function InsertWeaponsTab()
 					surface.SetDrawColor(Color(255,255,255,255))
 					
 					local rel = math.Clamp(GetWepStats(wep)[i]/GetMaxWepStats(GetWeaponCategory(wep))[i],0,1)
-					local rel = math.Clamp(GetWepStats(wep)[i]/GetMaxWepStats(GetWeaponCategory(wep))[i],0,1)
+					local stat = math.Clamp(GetWepStats(wep)[i],0,1000)
 					
 					
 					surface.DrawRect(barx+2 , bary+2, rel*barw-4, barh-4 )
 					
-					draw.SimpleTextOutlined ( rel, "WeaponNamesTiny", barx-7,bary+barh/2, Color (255,255,0,0) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined ( stat, "WeaponNamesTiny", barx+20,bary+barh/2, Color (255,255,255,255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(255,255,255,255))
 					draw.SimpleTextOutlined ( labels[i][num], "WeaponNamesTiny",  barx-7, bary+barh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 
 					bary = bary + barh*1.5		
