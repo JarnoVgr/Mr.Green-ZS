@@ -346,22 +346,12 @@ function GM:OnHumanSpawn(pl)
 		if pl:Team() == TEAM_SURVIVORS then
 			pl:ChatPrint("You're now THE Gordon Freeman!")
 		end
-
 		--Set global
 		self.IsGordonHere = true
 		
 		--Set model for player
 		pl.IsFreeman = true
 		pl.PlayerModel = "gordon"
-		
-		local Melee = pl:GetMelee()
-		
-		if Melee then --Duby: I have fixed the freeman perk not giving the crowbar. Had to strip the player naked first! 
-		pl:StripWeapon(Melee:GetClass())
-		pl:Give("weapon_zs_melee_crowbar")
-		ToGive[1] = "weapon_zs_melee_crowbar"		
-		end
-		
 	end			
 		
 	--Spawn protection
@@ -698,15 +688,14 @@ function CalculatePlayerLoadout(pl)
 	else
 		return
 	end
-	
-	--Select a weapon
-	pl:SelectWeapon(SelectWeapon)	
 
 	if pl.IsFreeman then
-		pl:ChatPrint("Crowbar for you!")	
-		pl:StripWeapon(Melee:GetClass())	
-		pl:Give("weapon_zs_melee_crowbar")	
+		local Melee = pl:GetMelee()
+		if Melee then
+		pl:StripWeapon(Melee:GetClass())
+		pl:Give("weapon_zs_melee_crowbar")
 		ToGive[1] = "weapon_zs_melee_crowbar"		
+		end		
 	end
 		
 	--Check if bought Magnum (give 1/6th chance)
@@ -728,7 +717,7 @@ function CalculatePlayerLoadout(pl)
 	end
 	
 	--Select a weapon
-	--pl:SelectWeapon(SelectWeapon)
+	pl:SelectWeapon(SelectWeapon)
 end
 
 function CalculateZombieHull(pl)
