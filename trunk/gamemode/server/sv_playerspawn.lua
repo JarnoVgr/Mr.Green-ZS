@@ -341,7 +341,7 @@ function GM:OnHumanSpawn(pl)
 		
 	--Freeman
 	--Check if we can be THE Gordon Freeman
-	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,2) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
 		--Only display message when being human
 		if pl:Team() == TEAM_SURVIVORS then
 			pl:ChatPrint("You're now THE Gordon Freeman!")
@@ -699,11 +699,11 @@ function CalculatePlayerLoadout(pl)
 		return
 	end
 
-	if pl.IsFreeman == true then
-			pl:ChatPrint("Crowbar!")	
-		pl:StripWeapon(Melee:GetClass())
-		ToGive[1] = "weapon_zs_melee_crowbar"	
-		pl:Give("weapon_zs_melee_crowbar")			
+	if pl.IsFreeman then
+		pl:ChatPrint("Crowbar for you!")	
+		pl:StripWeapon(Melee:GetClass())	
+		pl:Give("weapon_zs_melee_crowbar")	
+		ToGive[1] = "weapon_zs_melee_crowbar"		
 	end
 		
 	--Check if bought Magnum (give 1/6th chance)
