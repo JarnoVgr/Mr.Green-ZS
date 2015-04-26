@@ -690,14 +690,9 @@ function CalculatePlayerLoadout(pl)
 	end
 
 	if pl.IsFreeman then
-	
 		pl:ChatPrint("Have a crowbar!")	
-		local Melee = pl:GetMelee()
-		if Melee then
-		pl:StripWeapon(Melee:GetClass())
 		pl:Give("weapon_zs_melee_crowbar")
 		ToGive[1] = "weapon_zs_melee_crowbar"		
-		end		
 	end
 		
 	--Check if bought Magnum (give 1/6th chance)
