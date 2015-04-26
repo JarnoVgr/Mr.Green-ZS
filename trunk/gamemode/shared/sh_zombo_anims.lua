@@ -40,10 +40,10 @@ function GM:UpdateZombieAnimation( pl, vel, maxseqgroundspeed )
 	if pl._PlayBackRate then
 		pl:SetPlaybackRate( pl._PlayBackRate )
 	end
-
-	
 end
 
+
+-- Normal Zombie
 GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
 	local fVelocity = vel:Length2D()
 	pl._PlayBackRate = nil
@@ -61,7 +61,7 @@ GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
 		
 		if fVelocity >= 0.5 then 
 			if pl:Crouching() then			
-				iSeq = pl:LookupSequence ( "zombie_cwalk_01" )
+				iSeq = pl:LookupSequence ( "zombie_cwalk_01" )			
 			else					
 				iSeq = pl:LookupSequence ( "zombie_walk_01" )
 			end	
@@ -69,32 +69,17 @@ GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
 		
 		if pl:GetMoveType()==MOVETYPE_LADDER then
 			iSeq = pl:LookupSequence ( "zombie_climb_loop" )
+		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)			
 		end
 		return iIdeal, iSeq		
-	end
-	
-	--local iSeq, iIdeal = pl:LookupSequence("zombie_run")
-		
-	local wep = pl:GetActiveWeapon()
-	if IsValid(wep) and wep.GetClimbing and wep:GetClimbing() then
-		iSeq = 10
-	end
-
-	if pl:GetMoveType() == MOVETYPE_LADDER then
-		iSeq = pl:LookupSequence ( "climbloop" ) 
-		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)
 	end
 	
 	local revive = pl.Revive
 	if revive and revive:IsValid() then
 	pl:LookupSequence("zombie_slump_rise_01")
 	end
-	
-	
-	return iIdeal, iSeq
-	
+	return iIdeal, iSeq	
 end
-
 
 GM.DoAnimationEventZombies[0] = function ( pl, event, data )
 	if event == PLAYERANIMEVENT_CUSTOM_GESTURE then
@@ -125,7 +110,45 @@ GM.UpdateClassAnimation[0] = function(pl, vel, maxseqgroundspeed)
 
 end
 
-GM.CalcMainActivityZombies[14] = GM.CalcMainActivityZombies[0]
+-- Fresh Dead
+GM.CalcMainActivityZombies[14] = function ( pl, vel, key )
+	local fVelocity = vel:Length2D()
+	pl._PlayBackRate = nil
+	if IsValid(pl:GetActiveWeapon()) then 
+	
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" )
+		
+		if fVelocity == 0 then 
+			if pl:Crouching() then
+				iSeq = pl:LookupSequence ( "zombie_cidle_01" )	
+			else
+				iSeq = pl:LookupSequence ( "zombie_idle_01" ) 
+			end
+		end	
+		
+		if fVelocity >= 0.5 then 
+			if pl:Crouching() then			
+				iSeq = pl:LookupSequence ( "zombie_cwalk_01" )
+			else					
+				iSeq = pl:LookupSequence ( "zombie_run" )
+			end	
+		end
+		
+		if pl:GetMoveType()==MOVETYPE_LADDER then
+			iSeq = pl:LookupSequence ( "zombie_climb_loop" )
+			pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)		
+		end
+		return iIdeal, iSeq		
+	end
+	
+	local revive = pl.Revive
+	if revive and revive:IsValid() then
+	pl:LookupSequence("zombie_slump_rise_01")
+	end
+	return iIdeal, iSeq	
+end
+
+--.CalcMainActivityZombies[14] = GM.CalcMainActivityZombies[0]
 GM.DoAnimationEventZombies[14] = GM.DoAnimationEventZombies[0]
 GM.UpdateClassAnimation[14] = GM.UpdateClassAnimation[0]
 
@@ -235,17 +258,17 @@ end
 GM.CalcMainActivityZombies[3] = function ( pl, vel )
 
 	-- Default zombie act
-	local iSeq, iIdeal = pl:LookupSequence ( "idle" ) 
+	local iSeq, iIdeal = pl:LookupSequence ( "zombie_run_fast" ) 
 	pl._PlayBackRate = nil
 	local fVelocity = vel:Length2D()
 	if fVelocity > 2 then 
 		--if fVelocity > 170 then
 			if not pl:OnGround() and fVelocity > 230 then
-				iSeq = pl:LookupSequence ( "LeapStrike" ) 
-				pl._PlayBackRate = 1
+				iSeq = pl:LookupSequence ( "zombie_leap_mid" ) 
+				--pl._PlayBackRate = 1
 			else
 				--iIdeal = ACT_RUN
-				iSeq = pl:LookupSequence ( "Run" ) 
+				iSeq = pl:LookupSequence ( "zombie_run_fast" ) 
 			end
 		--else
 			--iIdeal = ACT_WALK
@@ -253,24 +276,13 @@ GM.CalcMainActivityZombies[3] = function ( pl, vel )
 		--end
 	else
 		--iIdeal = ACT_IDLE
-		iSeq = pl:LookupSequence ( "idle" ) 
+		--iSeq = pl:LookupSequence ( "idle" ) 
 	end
 	-- Secondary attack - Moan
-	if pl.iZombieSecAttack and CurTime() <= pl.iZombieSecAttack then 
-		iIdeal = ACT_CLIMB_UP 
-		iSeq = pl:LookupSequence ( "climbloop" ) 
-		pl._PlayBackRate = 1
-	end
 	
-	
-	
-	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsRoar and pl:GetActiveWeapon():IsRoar() then
-		iSeq = pl:LookupSequence ( "idle_angry" ) 
-	end
-	
-	if pl:GetMoveType() == MOVETYPE_LADDER then
-		iSeq = pl:LookupSequence ( "climbloop" ) 
-		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)
+	if pl:GetMoveType()==MOVETYPE_LADDER then
+		iSeq = pl:LookupSequence ( "zombie_climb_loop" )
+		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)		
 	end
 	
 	return iIdeal, iSeq
@@ -438,56 +450,51 @@ GM.CalcMainActivityZombies[6] = function ( pl, vel )
 	
 	local fVelocity = vel:Length2D()
 	pl._PlayBackRate = nil
+	
+	if IsValid(pl:GetActiveWeapon()) then 
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" )
+		
+		
+
 	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsScreaming and pl:GetActiveWeapon():IsScreaming() then 
-		iSeq, iIdeal = pl:LookupSequence ( "zombie_run" )
-		--iIdeal = ACT_IDLE_ON_FIRE 
-		return iIdeal, iSeq
+		iSeq = pl:LookupSequence ( "zombie_run" )		
+		return iIdeal, iSeq	
+	end	
+		if fVelocity == 0 then 
+			if pl:Crouching() then
+				iSeq = pl:LookupSequence ( "zombie_cidle_01" )	
+			else
+				iSeq = pl:LookupSequence ( "zombie_idle_01" ) 
+			end
+		end	
+		
+		if fVelocity >= 0.5 then 
+			if pl:Crouching() then			
+				iSeq = pl:LookupSequence ( "zombie_cwalk_03" )
+			else					
+				iSeq = pl:LookupSequence ( "zombie_walk_04" )			
+			end	
+		end
+		
+		if pl:GetMoveType()==MOVETYPE_LADDER then
+			iSeq = pl:LookupSequence ( "zombie_climb_loop" )
+			pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)		
+		end
+		return iIdeal, iSeq		
 	end
-
-	local iSeq, iIdeal = -1
 	
-	if fVelocity <= 0.5 then
-		--iIdeal = ACT_HL2MP_IDLE_ZOMBIE
-		iIdeal = ACT_HL2MP_WALK_ZOMBIE_02
-	else
-		iIdeal = ACT_HL2MP_WALK_ZOMBIE_02 - 1 + math.ceil((CurTime() / 4 + pl:EntIndex()) % 3)
-	end
-
-	if pl:GetMoveType() == MOVETYPE_LADDER then
-		iSeq = pl:LookupSequence ( "climbloop" ) 
-		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)
-	end
-	
-	-- Default zombie act
-	--[[
-	local iSeq, iIdeal = -1
-
-	local fVelocity = vel:Length2D()
-	if fVelocity > 30 then iIdeal = ACT_WALK else iIdeal = ACT_IDLE end
-	
-	-- Screaming
-	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsScreaming and pl:GetActiveWeapon():IsScreaming() then 
-		if fVelocity < 2 then 
-			iIdeal = ACT_IDLE_ON_FIRE 
-		end 
-	end]]--
-	
-	return iIdeal, iSeq
+	return iIdeal, iSeq	
 end
 
 -- Howler - Called on events like primary attack
 GM.DoAnimationEventZombies[6] = function ( pl, event, data )
-	if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
+	if event == PLAYERANIMEVENT_CUSTOM_GESTURE then
 		if ( data == CUSTOM_PRIMARY ) then
-			
-			-- Screaming
-			 pl.IsScreaming = true
-			pl:AnimRestartMainSequence()
-		   timer.Simple ( 1.3, function( pl ) if IsEntityValid ( pl ) then pl.IsScreaming = false end end, pl )
-
+			pl:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_GMOD_GESTURE_RANGE_ZOMBIE, true)
 			return ACT_INVALID
 		end
 	end
+	
 end
 
 
@@ -528,7 +535,7 @@ GM.CalcMainActivityZombies[8] = function ( pl, vel )
 	-- wep = IsValid(wep) and wep
 	
 	-- Default zombie act
-	local iSeq, iIdeal = pl:LookupSequence ( "Idle01" )
+	local iSeq, iIdeal = pl:LookupSequence ( "walk_All" )
 	if wep.IsHoldingGrenade and wep:IsHoldingGrenade() then iSeq = pl:LookupSequence ( "Idle_Grenade" ) end
 	
 	local fVelocity = vel:Length2D()
@@ -538,6 +545,8 @@ GM.CalcMainActivityZombies[8] = function ( pl, vel )
 		iSeq = pl:LookupSequence ( "walk_All" )
 		-- Walking with grenade
 		if wep.IsHoldingGrenade and wep:IsHoldingGrenade() then iSeq = pl:LookupSequence ( "walk_All_Grenade" ) end
+	else
+		iSeq = pl:LookupSequence ( "Idle01" )	
 	end
 	
 	-- Sprinting

@@ -1024,6 +1024,14 @@ function meta:VoiceKillCheer()
 	end
 end
 
+function meta:VoiceKillCheerZombie()
+	local set = VoiceSets["zombie"].KillCheer
+	if set then
+		self:EmitSound(set[math.random(1, #set)])
+		self.LastVoice = CurTime()
+	end
+end
+
 function meta:VoicePanic()
 	local set = VoiceSets[self.VoiceSet].Panic
 	if set then

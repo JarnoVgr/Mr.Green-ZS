@@ -51,13 +51,13 @@ function metaDamage:ProcessAssist( mVictim )
 			if attackers ~= self:GetAttacker() and ( self:GetAttacker():Team() ~= mVictim:Team() and Table.Team ~= mVictim:Team() ) then
 				if attackers ~= mVictim then
 					if mVictim:IsHuman() then
-						if ( table.Count( mVictim.Shooters ) == 2 ) or ( Table.Damage >= mVictim:GetMaximumHealth() * 0.25 ) then
+						if ( table.Count( mVictim.Shooters ) == 2 ) or ( Table.Damage >= mVictim:GetMaximumHealth() * 0.5 ) then
 							table.insert( mVictim.Assistants, attackers )
 						end  
 					end
 					
 					if mVictim:IsZombie() then
-						if ( table.Count( mVictim.Shooters ) == 2 ) or ( Table.Damage >= mVictim:GetMaximumHealth() * 0.4 ) then
+						if ( table.Count( mVictim.Shooters ) == 2 ) or ( Table.Damage >= mVictim:GetMaximumHealth() * 0.5 ) then
 							table.insert( mVictim.Assistants, attackers )
 						end
 					end

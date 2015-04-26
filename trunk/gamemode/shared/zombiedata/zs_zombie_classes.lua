@@ -212,7 +212,7 @@ ZombieClasses[2] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
-	Infliction = 0.60,
+	Infliction = 0.6,
 	Health = 450,
 	MaxHealth = 500,
 	TimeLimit = 810,
@@ -310,13 +310,11 @@ ZombieClasses[3] =
 	-- ViewOffset = Vector(0, 0, 0)
 }
 
-
-
 ZombieClasses[4] =
 {
 	Name = "Ghast",
 	Tag = "etherealzombie",
-	Infliction = 0.0,
+	Infliction = 0.25,
 	Health = 100,
 	MaxHealth = 110,
 	TimeLimit = 200,
@@ -373,7 +371,7 @@ ZombieClasses[5] =
 	SWEP = "weapon_zs_undead_wraith",
 	Model = Model( "models/wraith.mdl" ),
 	Speed = 190,
-	Description = "A ghastly figure capable of Teleporting!",
+	Description = "A teleporting apparition",
 	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport"},
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
@@ -404,7 +402,7 @@ ZombieClasses[6] =
 	Name = "Howler",
 	Tag = "howler",	
 	Infliction = 0.25,
-	Health = 140,
+	Health = 160,
 	MaxHealth = 130,
 	TimeLimit = 460,
 	Bounty = 100,
@@ -415,9 +413,9 @@ ZombieClasses[6] =
 	CanCrouch = true,
 	CanGib = true,
 	Model = Model("models/player/group01/female_01.mdl"), 
-	Speed = 160,						
+	Speed = 140,						
 	Description = "A School girl that screams!",
-	DescriptionGameplay = {"> PRIMARY: Scream that pulls humans", "> SECONDARY: Scream that pushes humans"},
+	DescriptionGameplay = {"> PRIMARY: Girly claws", "> SECONDARY: Disorientating scream"},
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	PlayerFootstep = true,
 	AttackSounds = { 
@@ -488,7 +486,7 @@ ZombieClasses[8] =
 {
 	Name = "Zombine",
 	Tag = "zombine",
-	Infliction = 0.75,
+	Infliction = 0.7,
 	Health = 380,
 	MaxHealth = 400, 
 	TimeLimit = 1020,
@@ -503,13 +501,12 @@ ZombieClasses[8] =
 	Model = Model("models/zombie/zombie_soldier.mdl"),
 	--Speed = 160,
 	Speed = 160,
---	RunSpeed = 190,
 	RunSpeed = 200,
 	Description = "A combine that took a turn to the worse.",
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Bloody claws", "> SPECIAL: Pulls out grenade, poison or normal", "> SPECIAL: Enrage when taken enough damage" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Pulls out grenade, poison or normal", "> SPECIAL: Enrage when taken enough damage" },
 	PainSounds = {
 		Sound( "npc/zombine/zombine_pain1.wav" ),
 		Sound( "npc/zombine/zombine_pain2.wav" ),
@@ -544,7 +541,7 @@ ZombieClasses[9] =
 {
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
-	Infliction = 0.60,
+	Infliction = 0.6,
 	Health = 100,
 	MaxHealth = 120,
 	Bounty = 75,

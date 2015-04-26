@@ -74,6 +74,10 @@ function VoiceToKillCheer( ply )
 	ply:VoiceKillCheer()
 end
 
+function VoiceToKillCheerZombie( ply )
+	ply:VoiceKillCheerZombie()
+end
+
 -- To avoid akward situations, we check if it would be realitic for
 -- this person to start chatting
 function IsRealisticToVoice( ply )

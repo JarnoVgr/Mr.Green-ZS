@@ -20,7 +20,7 @@ SWEP.Primary.Duration = 1.8
 SWEP.Primary.Damage = 40
 
 SWEP.Secondary.Delay = 0.8
-SWEP.Secondary.Duration = 2.5
+SWEP.Secondary.Duration = 3
 SWEP.Secondary.Damage = math.random(30,40)
 
 SWEP.SwapAnims = false

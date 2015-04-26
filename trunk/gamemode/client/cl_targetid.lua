@@ -77,6 +77,11 @@ function GM:HUDDrawTargetID()
 	end
 	
 	if entity:IsPlayer() then
+	
+		--if entity:IsWraith() then
+		--	local fakeNames = "Test,Test,Test,Test"	
+		--end
+	
 		local EntTeam = entity:Team() or -1
 
 		--Only show TargetIDs from same team

@@ -114,8 +114,8 @@ function SWEP:StartPrimaryAttack()
 		
 		-- Stop when we get grenade
 
-		GAMEMODE:SetPlayerSpeed ( mOwner, 0,0)
-		mOwner:SetLocalVelocity ( Vector ( 0,0,0 ) )
+		--GAMEMODE:SetPlayerSpeed ( mOwner, 0,0)
+		--mOwner:SetLocalVelocity ( Vector ( 0,0,0 ) )
 	end
 
 	--Sequence to play
@@ -306,7 +306,7 @@ function SWEP:AlertVOX()
 	local mSound = table.Random ( ZombieClasses[8].AlertSounds )
 
 	-- Sound duration
-	local fDuration = math.Rand( 1.6, 2.2 ) + 0.7
+	local fDuration = math.Rand( 5, 10) + 1
 	if fDuration == 0 then fDuration = 1.5 end
 	
 	-- Emit sound

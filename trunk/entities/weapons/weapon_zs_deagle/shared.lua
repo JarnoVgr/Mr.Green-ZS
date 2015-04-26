@@ -32,7 +32,7 @@ SWEP.AdminSpawnable		= true
 SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_pist_deagle.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_pist_deagle.mdl" )
-SWEP.HoldType = "pistol"
+SWEP.HoldType = "revolver"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Deagle.Single" )
 SWEP.Primary.Recoil			= 2

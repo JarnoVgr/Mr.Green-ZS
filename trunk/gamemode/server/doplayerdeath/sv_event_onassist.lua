@@ -37,12 +37,12 @@ local function OnAssistDeath(mVictim, mAttacker, mInflictor, mAssist, dmginfo)
 		-- Check level up ( human only )
 		-- mAssist:CheckLevelUp()
 		
-		local reward = ZombieClasses[mVictim:GetZombieClass()].SP/2
+		local reward = ZombieClasses[mVictim:GetZombieClass()].SP
 		if mVictim:IsBoss() then
 			reward = reward * math.Clamp(INFLICTION + 0.2,0.1,1.1)
 		end
 		
-		mAssist:AddXP(math.ceil(ZombieClasses[mVictim:GetZombieClass()].Bounty/2))
+		mAssist:AddXP(math.ceil(ZombieClasses[mVictim:GetZombieClass()].Bounty))
 		
 		skillpoints.AddSkillPoints(mAssist, math.ceil(reward))
 		mVictim:FloatingTextEffect( math.ceil(reward), mAssist )

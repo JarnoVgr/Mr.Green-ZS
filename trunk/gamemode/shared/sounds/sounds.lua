@@ -351,6 +351,16 @@ for _, set in pairs(VoiceSets["female"]) do
 	end
 end
 
+-- Zombie sounds
+VoiceSets["zombie"] = {}
+VoiceSets["zombie"].Laugh = {
+Sound("vo/ravenholm/madlaugh01.wav"),
+Sound("vo/ravenholm/madlaugh02.wav"),
+Sound("vo/ravenholm/madlaugh03.wav"),
+Sound("vo/ravenholm/madlaugh04.wav")
+}
+
+
 -- Combine sounds
 VoiceSets["combine"] = {}
 VoiceSets["combine"].PainSoundsLight = {
