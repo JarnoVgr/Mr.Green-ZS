@@ -316,7 +316,7 @@ function InsertWeaponsTab()
 					surface.DrawRect(barx+2 , bary+2, rel*barw-4, barh-4 )
 					
 					draw.SimpleTextOutlined ( labels[i][num], "WeaponNamesTiny",  barx-7, bary+barh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-					draw.SimpleTextOutlined ( stat, "WeaponNamesTiny", barx+60,bary+barh/2, Color (255,00,0,255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,0))					
+					draw.SimpleTextOutlined ( stat, "WeaponNamesTiny", barx+60,bary+barh/2, Color (255,00,0,255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))					
 
 					bary = bary + barh*1.5		
 				end

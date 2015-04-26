@@ -722,6 +722,11 @@ function GM:GetPlayerForBossZombie()
 		return nil
 	end
 	
+	--No boss picking if we have low player count.
+	if team.NumPlayers(TEAM_UNDEAD) < 6 and team.NumPlayers(TEAM_HUMAN) < 6 then
+		return nil
+	end	
+	
 	--Init table
 	local tab = {}
 		
