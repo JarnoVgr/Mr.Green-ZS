@@ -17,10 +17,10 @@ SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 55
 SWEP.Primary.Duration = 1.8
-SWEP.Primary.Damage = 45
+SWEP.Primary.Damage = 40
 
 SWEP.Secondary.Delay = 0.8
-SWEP.Secondary.Duration = 3.8
+SWEP.Secondary.Duration = 2.5
 SWEP.Secondary.Damage = math.random(30,40)
 
 SWEP.SwapAnims = false
@@ -130,7 +130,7 @@ function SWEP:PerformSecondaryAttack()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
 				--phys:SetVelocityInstantaneous(heading * math.Rand(310, 560))
-				phys:SetVelocityInstantaneous(heading * math.Rand(420, 490))
+				phys:SetVelocityInstantaneous(heading * math.Rand(420, 500))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end
@@ -143,10 +143,10 @@ end
 
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
-		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.8)
+		--mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.8)
 		return true
 	elseif self:IsInSecondaryAttack() then
-		mv:SetMaxSpeed(150)
+		--mv:SetMaxSpeed(150)
 		return true
 	end
 end
