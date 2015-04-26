@@ -1502,8 +1502,8 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 		return
 	end
 	
-	if (attacker:GetHealth() > 100) then return
-	else
+	--if (attacker:GetHealth() > 100) then return
+	--else
 		attacker:SetHealth(attacker:Health() + 5)
-	end
+	--end
 end)
