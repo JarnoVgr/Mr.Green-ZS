@@ -698,6 +698,9 @@ function CalculatePlayerLoadout(pl)
 	else
 		return
 	end
+	
+	--Select a weapon
+	pl:SelectWeapon(SelectWeapon)	
 
 	if pl.IsFreeman then
 		pl:ChatPrint("Crowbar for you!")	
@@ -725,7 +728,7 @@ function CalculatePlayerLoadout(pl)
 	end
 	
 	--Select a weapon
-	pl:SelectWeapon(SelectWeapon)
+	--pl:SelectWeapon(SelectWeapon)
 end
 
 function CalculateZombieHull(pl)
