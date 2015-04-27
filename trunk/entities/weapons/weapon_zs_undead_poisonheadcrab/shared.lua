@@ -79,7 +79,7 @@ function SWEP:Think()
 				
 				--local pos = vStart + mOwner:GetAimVector() * 16
 				
-				local tr = self.Owner:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_UNDEAD))
+				local tr = self.Owner:TraceLine(64, MASK_SHOT, team.GetPlayers(TEAM_UNDEAD))
 				local ent = tr.Entity
 				--if not IsValid(trent) then
 				--  return

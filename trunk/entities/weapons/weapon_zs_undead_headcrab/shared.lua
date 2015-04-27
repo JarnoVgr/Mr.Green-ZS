@@ -48,7 +48,6 @@ end
 
 function SWEP:Think()
 	if self.Leaping then
-		print("LEAPING")
 		local owner = self.Owner
 		if owner:OnGround() or 0 < owner:WaterLevel() then
 			self.Leaping = false
@@ -68,7 +67,7 @@ function SWEP:Think()
 					if ent:GetClass() == "func_breakable_surf" then
 						ent:Fire("break", "", 0)
 					else
-						local damage = math.random(10,13)
+						local damage = 10
 						local phys = ent:GetPhysicsObject()
 
 						if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() then
