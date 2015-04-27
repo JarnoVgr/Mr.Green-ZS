@@ -27,9 +27,9 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 
 		return true
 	--Scale damage for THE Gordon Freeman
-	elseif attacker.IsFreeman and attacker:IsHuman() and dmginfo:IsMeleeDamage() then
-		dmginfo:ScaleDamage(1.5)
-	end
+	--elseif attacker.IsFreeman and attacker:IsHuman() and dmginfo:IsMeleeDamage() then
+		--dmginfo:ScaleDamage(1.5)
+	--end
 	
 	--Physbox team-damage bug
 	if dmginfo:IsAttackerPhysbox() then

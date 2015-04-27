@@ -274,8 +274,8 @@ function SWEP:MeleeSwing()
 		if hitflesh then
 			util.Decal(self.BloodDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 			self:PlayHitFleshSound()
-			if SERVER and not (hitent:IsValid() and hitent:IsPlayer() and hitent:Team() == owner:Team()) and math.random(1,2) == 1 then
-				util.Blood(tr.HitPos, math.Rand(damage * 0.25, damage * 0.6), (tr.HitPos - owner:GetShootPos()):GetNormal(), math.Rand(damage * 6, damage * 12), true)
+			if SERVER and not (hitent:IsValid() and hitent:IsPlayer() and hitent:Team() == owner:Team()) and math.random(1,1) == 1 then
+				util.Blood(tr.HitPos, math.Rand(damage * 0.1, damage * 0.2), (tr.HitPos - owner:GetShootPos()):GetNormal(), math.Rand(damage * 6, damage * 12), true)
 			end
 			if not self.NoHitSoundFlesh then
 				self:PlayHitSound()
@@ -301,7 +301,7 @@ function SWEP:MeleeSwing()
 				dmginfo:SetInflictor(self.Weapon)
 				--dmginfo:SetDamageType(DMG_BULLET)
 				dmginfo:SetDamageType(self.DamageType)
-				dmginfo:SetDamageForce(self.MeleeDamage * 200 * owner:GetAimVector())
+				dmginfo:SetDamageForce(self.MeleeDamage * 20 * owner:GetAimVector())
 				if hitent:IsPlayer() then
 					hitent:MeleeViewPunch(damage)
 				end

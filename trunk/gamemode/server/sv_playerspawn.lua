@@ -338,22 +338,7 @@ function GM:OnHumanSpawn(pl)
 	if not pl:IsHuman() then
 		return
 	end
-		
-	--Freeman
-	--Check if we can be THE Gordon Freeman
-	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,2) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
-		--Only display message when being human
-		if pl:Team() == TEAM_SURVIVORS then
-			pl:ChatPrint("You're now THE Gordon Freeman!")
-		end
-		--Set global
-		self.IsGordonHere = true
-		
-		--Set model for player
-		pl.IsFreeman = true
-		pl.PlayerModel = "gordon"
-	end			
-		
+				
 	--Spawn protection
 	pl:GodEnable()
 	timer.Simple(3, function() 
@@ -664,6 +649,42 @@ function CalculatePlayerLoadout(pl)
 		ToGive = {"weapon_zs_tools_hammer", "weapon_zs_melee_keyboard"}
 	end
 		
+	--Freeman
+	--Check if we can be THE Gordon Freeman
+	if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+	--if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and math.random(1,1) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then	
+		--Only display message when being human
+		if pl:Team() == TEAM_SURVIVORS then
+			pl:ChatPrint("You're now THE Gordon Freeman!")
+		end
+		--Set global
+		pl.IsGordonHere = true
+		
+		--Set model for player
+		
+		pl.IsFreeman = true
+		pl.PlayerModel = "gordon"
+		pl:Give("weapon_zs_melee_crowbar")
+		--ToGive[1] = "weapon_zs_melee_crowbar"			
+	end		
+
+	--Check if bought Magnum (give 1/6th chance)
+	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
+		--Strip previous pistol
+		if pl:Team() == TEAM_SURVIVORS then
+			pl:ChatPrint("A mysterious stranger joins you..")
+		end
+		local Pistol = pl:GetPistol()
+		if Pistol then
+			--pl:StripWeapon(Pistol:GetClass())
+		end
+		--Give new magnum
+		pl:Give("weapon_zs_magnum")
+
+		--Override old pistol for auto-deploy (selecting)
+		--ToGive[1] = "weapon_zs_magnum"
+	end	
+		
 	--Actually give the loadout weapons
 	for k,v in pairs(ToGive) do
 		pl:Give(tostring(v))
@@ -671,7 +692,9 @@ function CalculatePlayerLoadout(pl)
 	
 	local SelectWeapon
 	if ToGive and #ToGive >= 1 then
+		
 		SelectWeapon = ToGive[1]
+		--print(SelectWeapon)
 	end
 	
 	--Arena gives a primary gun
@@ -688,27 +711,7 @@ function CalculatePlayerLoadout(pl)
 	else
 		return
 	end
-
-	if pl.IsFreeman then
-		pl:ChatPrint("Have a crowbar!")	
-		pl:Give("weapon_zs_melee_crowbar")
-		ToGive[1] = "weapon_zs_melee_crowbar"		
-	end
-		
-	--Check if bought Magnum (give 1/6th chance)
-	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
-		--Strip previous pistol
-		local Pistol = pl:GetPistol()
-		if Pistol then
-			pl:StripWeapon(Pistol:GetClass())
-		end
-		--Give new magnum
-		pl:Give("weapon_zs_magnum")
-
-		--Override old pistol for auto-deploy (selecting)
-		ToGive[1] = "weapon_zs_magnum"
-	end
-	
+			
 	if pl:GetPerk("_remote") then
 		pl:Give("weapon_zs_tools_remote")
 	end

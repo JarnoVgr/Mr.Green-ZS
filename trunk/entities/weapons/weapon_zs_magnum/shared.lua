@@ -39,7 +39,7 @@ SWEP.HoldType = "revolver"
 
 SWEP.Primary.Sound			= Sound( "Weapon_357.Single" )
 SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 42
+SWEP.Primary.Damage			= 40
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.6
@@ -49,18 +49,18 @@ SWEP.Primary.Ammo			= "pistol"--?
 SWEP.WalkSpeed = SPEED_PISTOL
 SWEP.MaxAmmo			    = 60
 
-SWEP.Cone = 0.040
-SWEP.ConeMoving = SWEP.Cone *1.40
-SWEP.ConeCrouching = SWEP.Cone *0.6
-SWEP.ConeIron = SWEP.Cone *0.6
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.6
+SWEP.Cone = 0.04
+SWEP.ConeMoving = SWEP.Cone *1.3
+SWEP.ConeCrouching = SWEP.Cone *0.85
+SWEP.ConeIron = SWEP.Cone *0.85
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.85
 
 SWEP.IronSightsPos = Vector(-4.59,25,0.65)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
-
+--[[
 local function DoRicochet(attacker, hitpos, hitnormal, normal, damage)
 	attacker.RicochetBullet = true
-	attacker:FireBullets({Num = 1, Src = hitpos, Dir = 2 * hitnormal * hitnormal:Dot(normal * -1) + normal, Spread = Vector(0, 0, 0), Tracer = 1, TracerName = "rico_trace", Force = damage * 0.15, Damage = damage * 2, Callback = GenericBulletCallback})
+	attacker:FireBullets({Num = 1, Src = hitpos, Dir = 2 * hitnormal * hitnormal:Dot(normal * -1) + normal, Spread = Vector(0, 0, 0), Tracer = 1, TracerName = "rico_trace", Force = damage * 0.15, Damage, Callback = GenericBulletCallback})
 	attacker.RicochetBullet = nil
 end
 
@@ -73,5 +73,5 @@ function SWEP.BulletCallback(attacker, tr, dmginfo)
 
 	GenericBulletCallback(attacker, tr, dmginfo)
 end
-
+]]--
 
