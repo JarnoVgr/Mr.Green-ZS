@@ -6,7 +6,7 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = false
 
-	SWEP.FakeArms = true
+	--SWEP.FakeArms = true
 
 	SWEP.ViewModelBoneMods = {
 		-- ["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1.4, 1.4, 1.4), pos = Vector(0, 0, 0), angle = Angle(-10.202, 19.533, 0) },

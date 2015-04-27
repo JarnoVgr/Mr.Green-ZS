@@ -314,7 +314,7 @@ ZombieClasses[4] =
 {
 	Name = "Ghast",
 	Tag = "etherealzombie",
-	Infliction = 0.25,
+	Infliction = 0.0,
 	Health = 100,
 	MaxHealth = 110,
 	TimeLimit = 200,
@@ -498,7 +498,7 @@ ZombieClasses[8] =
 	CanCrouch = true,
 	CanGib = true,
 	SWEP = "weapon_zs_undead_zombine",
-	Model = Model("models/zombie/zombie_soldier.mdl"),
+	Model = Model("models/player/zombie_soldier.mdl"),
 	--Speed = 160,
 	Speed = 160,
 	RunSpeed = 200,
@@ -534,8 +534,6 @@ ZombieClasses[8] =
 	},
 	ModelScale = 1
 }
-
-
 
 ZombieClasses[9] =
 {

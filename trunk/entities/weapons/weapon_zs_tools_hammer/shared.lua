@@ -164,7 +164,7 @@ if SERVER then
                             --if self.Owner._RepairScore == 1 then
 							skillpoints.AddSkillPoints(self.Owner, 1)
 							nail:FloatingTextEffect( 1, self.Owner )
-							self.Owner:AddXP(1)
+							self.Owner:AddXP(5)
 							self.Owner._RepairScore = 0
 								
 								
@@ -190,7 +190,7 @@ if SERVER then
                     if self.Owner._RepairScore == 5 then
                         skillpoints.AddSkillPoints(self.Owner, 10)
                         trent:FloatingTextEffect(10, self.Owner )
-                        self.Owner:AddXP(5)
+                        self.Owner:AddXP(30)
                         self.Owner._RepairScore = 0
                     end
                     --self:TakePrimaryAmmo(1)

@@ -63,6 +63,6 @@ function ENT:Draw()
 	end
 	
 	-- Make the nade smaller
-	self:SetModelScale ( 0.7,0 )
+	self:SetModelScale ( 0.8,0 )
 end
 

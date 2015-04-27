@@ -5,7 +5,7 @@ AddCSLuaFile()
 if CLIENT then
 	SWEP.DrawAmmo = true
 	SWEP.DrawCrosshair = false
-	SWEP.ViewModelFOV = 70
+	SWEP.ViewModelFOV = 80
 	SWEP.ViewModelFlip = true
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = false

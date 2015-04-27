@@ -13,7 +13,7 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = false
 	SWEP.ShowWorldModel = false
-	SWEP.FakeArms = true
+	--SWEP.FakeArms = true
 end
 
 

@@ -540,76 +540,61 @@ GM.CalcMainActivityZombies[8] = function ( pl, vel )
 	
 	local fVelocity = vel:Length2D()
 	
-	-- Walking
-	if fVelocity >= 1 then
-		iSeq = pl:LookupSequence ( "walk_All" )
-		-- Walking with grenade
-		if wep.IsHoldingGrenade and wep:IsHoldingGrenade() then iSeq = pl:LookupSequence ( "walk_All_Grenade" ) end
-	else
-		iSeq = pl:LookupSequence ( "Idle01" )	
-	end
-	
-	-- Sprinting
-	if ( fVelocity >= 150 ) then
-		iSeq = pl:LookupSequence ( "Run_All" ) 
+		if fVelocity == 0 then 
+			if wep.IsHoldingGrenade and wep:IsHoldingGrenade() then
+				iSeq = pl:LookupSequence ( "pose_standing_04" )					
+
+			elseif pl:Crouching() and wep.IsHoldingGrenade and wep:IsHoldingGrenade() then
+				iSeq = pl:LookupSequence ( "cidle_grenade" )
 		
-		-- Player running with grenade
-		if wep.IsHoldingGrenade and wep:IsHoldingGrenade() then iSeq = pl:LookupSequence ( "Run_All_grenade" ) end
+			elseif pl:Crouching() then
+				iSeq = pl:LookupSequence ( "zombie_cidle_01" )
+
+			else
+				iSeq = pl:LookupSequence ( "zombie_idle_01" ) 
+		end
 	end
+
+		if fVelocity > 0.5 then 
+			if wep.IsHoldingGrenade and wep:IsHoldingGrenade() and not pl:Crouching() then
+				iSeq = pl:LookupSequence ( "cwalk_grenade" )					
+			elseif pl:Crouching() then		
+				iSeq = pl:LookupSequence ( "zombie_cwalk_03" )
+			else					
+				iSeq = pl:LookupSequence ( "zombie_walk_02" )			
+			end	
+		end	
+		
+		if fVelocity > 180 then 
+			if wep.IsHoldingGrenade and wep:IsHoldingGrenade() then
+				iSeq = pl:LookupSequence ( "zombie_run" )					
+			elseif pl:Crouching() then			
+				iSeq = pl:LookupSequence ( "zombie_cwalk_05" )
+			else					
+				iSeq = pl:LookupSequence ( "zombie_walk_03" )			
+			end	
+		end			
 	
 	-- Getting grenade
 	if wep.IsGettingNade and wep:IsGettingNade() then
-		iSeq = pl:LookupSequence ( "pullGrenade" )
+		iSeq = pl:LookupSequence ( "menu_zombie_01" )
 	end
 	
-	-- Attacking animation
-	if (wep.IsAttackingAnim and wep:IsAttackingAnim() ) then iSeq = pl:LookupSequence ( wep.GetAttackSeq and wep:GetAttackSeq() or "attackD" ) --Moving
-	
+	if pl:GetMoveType()==MOVETYPE_LADDER then
+		iSeq = pl:LookupSequence ( "zombie_climb_loop" )
+		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)		
+	end	
 
-	end
-
-	
 	return iIdeal, iSeq
 end
 
 --  Zombine - Called on events like primary attack
 local Attacks = { "attackD", "attackE", "attackF", "attackB" }
 GM.DoAnimationEventZombies[8] = function ( pl, event, data )
-
-	-- Weapon deploy
-	if ( event == 34 ) then
-		
-		-- Set up the vars
-		-- pl.HoldingGrenade, pl.IsAttacking, pl.IsGettingNade = false, 0, false
-		
-		return ACT_INVALID
-	end
-	
-	-- Now custom gestures
-	if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
-	
-		-- Attacking
+	if event == PLAYERANIMEVENT_CUSTOM_GESTURE then
 		if ( data == CUSTOM_PRIMARY ) then
-		
-			-- Animation status
-			pl.AttackSequence = table.Random ( Attacks )
-			
-			-- Get sequence and restart it
-			pl:AnimRestartMainSequence()
-			--timer.Simple ( 1.2, function( pl ) if IsEntityValid ( pl ) then pl.IsAttacking = false end end, pl )
-			
-			return ACT_VM_PRIMARYATTACK
-		end
-		
-		-- Getting grenade
-		if ( data == CUSTOM_SECONDARY ) then
-		
-			-- Getting grenade
-			-- pl.IsGettingNade = true
-			pl:AnimRestartMainSequence()
-			-- timer.Simple ( 1, function( pl ) if IsEntityValid ( pl ) then pl.IsGettingNade = false pl.HoldingGrenade = true end end, pl )
-						
-			return ACT_VM_SECONDARYATTACK
+			pl:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_GMOD_GESTURE_RANGE_ZOMBIE, true)
+			return ACT_INVALID
 		end
 	end
 end

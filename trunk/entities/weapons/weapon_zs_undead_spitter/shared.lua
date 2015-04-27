@@ -4,8 +4,7 @@
 AddCSLuaFile()
 
 SWEP.Base = "weapon_zs_undead_base"
-
-SWEP.ViewModel = Model("models/weapons/v_wraith.mdl")
+SWEP.ViewModel = Model("models/Weapons/v_zombiearms.mdl")
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
 SWEP.PrintName = "Ghast"
@@ -14,6 +13,7 @@ SWEP.PrintName = "Ghast"
 if CLIENT then
 	SWEP.ViewModelFOV = 80
 	SWEP.ViewModelFlip = false
+	SWEP.FakeArms = true	
 end
 
 SWEP.Primary.Duration = 1.5
@@ -129,7 +129,10 @@ function SWEP:SecondaryAttack()
 	end
 
 	self:SetDisguise(true)
+	self.FakeArms = true
+	self:SetColor( Color( 255, 255, 255, 1 ) )
 
+	
 	--Pick random human model
 	if SERVER then	
 		self.DisguiseChoice = math.random(1,2)	
