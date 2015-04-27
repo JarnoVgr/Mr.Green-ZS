@@ -50,7 +50,7 @@ function ENT:Ricochet( trace )
 	
 	self.PhysObj:EnableMotion( true )
 	local DotProduct = trace.HitNormal:Dot( trace.Normal * -1 )
-	self.PhysObj:SetVelocity( 250 * ( ( 2 * trace.HitNormal * DotProduct ) + trace.Normal ) )
+	self.PhysObj:SetVelocity( 300 * ( ( 2 * trace.HitNormal * DotProduct ) + trace.Normal ) )
 	
 	-- Increment times
 	self.RicochetTimes = self.RicochetTimes + 1
@@ -89,10 +89,10 @@ function ENT:PhysicsCollide( Data, Phys )
 	if IsValid( HitEnt ) and ( HitEnt:IsPlayer() ) and ( HitEnt:IsHuman() ) then
 		HitEnt:EmitSound( "vo/ravenholm/monk_death07.wav", 100, math.random( 90, 110 ) )
 		
-		local Damage = math.random( 11, 20 ) - ( self.RicochetTimes * 1.5 )
-		
+		local Damage = 20 - ( self.RicochetTimes * 1.5 )
+		--HitEnt:TakeDamageOverTime( 1, 1, 2, 0, 12 ), mOwner, self.mOwnerWeapon or mOwner )
 		if HitEnt:GetPerk("_poisonprotect") then
-			Damage = math.ceil(Damage - Damage*0.3)
+			Damage = math.ceil(Damage - Damage*0.70)
 		end
 		
 		-- Take damage

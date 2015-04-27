@@ -32,7 +32,7 @@ SWEP.Primary.Ammo = "none"
 SWEP.Primary.Delay = 0.2
 
 SWEP.Secondary.ClipSize = -1
-SWEP.Secondary.Delay = 0.22
+SWEP.Secondary.Delay = 0.2
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo	= "none"
@@ -51,70 +51,78 @@ end
 -- Main think function
 
 function SWEP:Think()
-	if IsValid( self.Owner ) and ( self.Owner:KeyPressed( IN_JUMP ) ) then
-		self:Jump()
+
+	if IsValid( self.Owner ) then
+		self:CheckJump()
 	end	
 	
-	self:CheckJump()
-	self:CheckSpitting()
-	
-	if SERVER then
-		local mOwner = self.Owner
+	local mOwner = self.Owner
 
-		if IsValid(self.Owner) and self.Owner:Alive() then
-			if self.Leaping then
-				if mOwner:OnGround() or 0 < mOwner:WaterLevel() then
-					self.Leaping = false
-				else
-					local vStart = Vector(0,0,14) + mOwner:GetPos()
-					local ang = mOwner:GetAimVector() 
-					ang.z = 0
-					local tr = {}
-					tr.start = vStart
-					tr.endpos = vStart + ang * 45
-					tr.filter = mOwner
-					local trace = util.TraceLine(tr)
-					local ent = trace.Entity
+	if IsValid(self.Owner) and self.Owner:Alive() then
+		if self.Leaping then
+			--print("leaping")
+			if not mOwner:OnGround() or 0 < mOwner:WaterLevel() then
+				self.Leaping = false
+			else	
+				--local vStart = Vector(0,0,14) + mOwner:GetPos()
+				--local angles = self.Owner:GetAngles():Forward()
+				--angles.z = -0.1
+				--angles = angles:GetNormal()				
+				--local ang = mOwner:GetAimVector() 
+				--ang.z = 0
+				--local tr = {}
+				--tr.start = vStart
+				--tr.endpos = vStart + angles * 100
+				--tr.filter = mOwner
+				--local trace = util.TraceLine(tr)
+				--local ent = trace.Entity
+				
+				--local pos = vStart + mOwner:GetAimVector() * 16
+				
+				local tr = self.Owner:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_UNDEAD))
+				local ent = tr.Entity
+				--if not IsValid(trent) then
+				--  return
+				--end
+				
+				--for _, fin in pairs(team.GetPlayers(TEAM_HUMAN)) do
+				--	if fin:IsPlayer() and fin:Alive() and TrueVisible(vStart, fin:NearestPoint(vStart)) and fin:GetPos():Distance(pos) <= 16 then
+				--		ent = fin
+				--		break
+				--	end
+				--end
 					
-					local pos = vStart + mOwner:GetAimVector() * 16
-					
-					for _, fin in pairs(team.GetPlayers(TEAM_HUMAN)) do
-						if fin:IsPlayer() and fin:Alive() and TrueVisible(vStart, fin:NearestPoint(vStart)) and fin:GetPos():Distance(pos) <= 16 then
-							ent = fin
-							break
-						end
+				if ent and IsValid(ent) then
+					local phys = ent:GetPhysicsObject()
+
+					if phys:IsValid() and not ent:IsNPC() and not ent:IsPlayer() and phys:IsMoveable() then
+						local vel = 120 * mOwner:EyeAngles():Forward()
+
+						ent:ApplyForceOffset(vel, (ent:NearestPoint(vStart) + ent:GetPos() * 2) / 3)
+						ent:SetPhysicsAttacker(mOwner)
 					end
+
+					mOwner:ViewPunch(Angle(math.random(0, 30), math.random(0, 30), math.random(0, 30)))
+
+					if ent:IsPlayer() then
 						
-					if ent and IsValid(ent) then
-						local phys = ent:GetPhysicsObject()
-
-						if phys:IsValid() and not ent:IsNPC() and not ent:IsPlayer() and phys:IsMoveable() then
-							local vel = 120 * mOwner:EyeAngles():Forward()
-
-							phys:ApplyForceOffset(vel, (ent:NearestPoint(vStart) + ent:GetPos() * 2) / 3)
-							ent:SetPhysicsAttacker(mOwner)
-						end
-
-						mOwner:ViewPunch(Angle(math.random(0, 30), math.random(0, 30), math.random(0, 30)))
-
-						if ent:IsPlayer() and ent:Team() ~= mOwner:Team() then
-							ent:TakeDamage(5, mOwner)
-							ent:TakeDamageOverTime( math.Rand(2.1,3.1), 1.5, math.random(13,20), mOwner, self.Weapon )
-							
-							local Infect = EffectData()
-							Infect:SetEntity( ent )
-							util.Effect( "infected_human", Infect, true, true )
-						else
-							ent:TakeDamage(25, mOwner)
-						end
-						self.Leaping = false
+						ent:TakeDamage(5, mOwner)
+						ent:TakeDamageOverTime( math.random(1,2), 1, math.random(20,25), mOwner, self.Weapon )
+						local Infect = EffectData()
+						Infect:SetEntity( ent )
+						util.Effect( "infected_human", Infect, true, true )
+						mOwner:SetLocalVelocity( Vector( 0,0,0 ) )
+						mOwner:SetVelocity( Velocity )
+					else
+						ent:TakeDamage(25, mOwner)
 					end
+					self.Leaping = false
 				end
 			end
 		end
-	end
+	end	
 	
-	--self:NextThink(CurTime()+0.5)
+	self:NextThink(CurTime()+0.5)
 	--return true
 end
 
@@ -127,7 +135,6 @@ local iCrabs = 0
 		end
 return iCrabs
 end
-
 
 -- Random chance to deploy bomb on death
 hook.Add( "OnZombieDeath", "DeployPoisonCrabBomb", function( mVictim, mAttacker, mInflictor, dmginfo )
@@ -169,23 +176,28 @@ function SWEP:CanSpit()
 	return true
 end
 
-SWEP.NextSpit = 0
+
 function SWEP:PrimaryAttack()
-	if not IsValid( self.Owner ) then return end
+	self:Jump()
+end
+
+SWEP.NextSpit = 0
+function SWEP:SecondaryAttack()
+if not IsValid( self.Owner ) then return end
 	local mOwner = self.Owner
 	
 	local spitdelay = self:CalculateSpitDelay()
 	
 	-- Check cooldown
-	if ( mOwner.PrimaryAttackTimer or 0 ) > CurTime() then return end
-	mOwner.PrimaryAttackTimer, mOwner.LastCrabJump = CurTime() + 4.78 + spitdelay, CurTime() + 4.78
+	if ( mOwner.SecondaryAttackTimer or 0 ) > CurTime() then return end
+	mOwner.SecondaryAttackTimer, mOwner.LastCrabJump = CurTime() + 4 + spitdelay, CurTime() + 4
 	
 	-- Secondary attack cooldown
-	mOwner.NextSecondarySpit = CurTime() + 4.78 + spitdelay
+	mOwner.NextSecondarySpit = CurTime() + 4 + spitdelay
 	
 	-- Check if we can shoot
 	if not self:CanSpit() then
-		mOwner.PrimaryAttackTimer, mOwner.LastCrabJump = CurTime() + 4.78 + spitdelay, CurTime() + 0.55
+		mOwner.SecondaryAttackTimer, mOwner.LastCrabJump = CurTime() + 4 + spitdelay, CurTime() + 0.55
 		if SERVER then mOwner:EmitSound( table.Random( self.AimFailSounds ) ) end 
 		return
 	end
@@ -197,46 +209,10 @@ function SWEP:PrimaryAttack()
 	mOwner:DoAnimationEvent( CUSTOM_SECONDARY )
 	if SERVER then mOwner:EmitSound( "npc/headcrab_poison/ph_scream"..math.random( 1,3 )..".wav", math.random( 120, 145 ) ) end
 	
-	self:SetSpitEndTime(CurTime() + 0.8)
+	self:SetSpitEndTime(CurTime() + 1)
+	--self:ActualSpit()
 	
-	-- Actual spitting
-	--[==[timer.Simple( 0.8, function() 
-		if IsValid( self ) then
-			if IsValid( mOwner ) and mOwner:IsZombie() then
-				if mOwner:IsPoisonCrab() then
-					self.IsSpitting = false	
-					
-					-- Check if we can shoot
-					if not self:CanSpit() then
-						mOwner.PrimaryAttackTimer = CurTime() + 4.5  --0.5
-						if SERVER then mOwner:EmitSound( table.Random( self.AimFailSounds ) ) end 
-						return
-					end
-
-					if SERVER then 
-						mOwner:EmitSound( "weapons/crossbow/bolt_fly4.wav", 80, math.random( 120, 150 ) )
-						
-						-- Create entity
-						local Spit = ents.Create( "projectile_spit" )
-						if not IsValid( Spit ) then return end
-						
-						-- Blast off!
-						Spit:SetOwner( mOwner )
-						Spit:SetPos( mOwner:GetPos() + Vector( 0,0,15 ) )
-						Spit:Spawn()
-						
-						-- Apply velocity
-						local Vel = mOwner:GetAimVector() * 3500
-						local phys = Spit:GetPhysicsObject()
-						if phys:IsValid() then
-							if Vel.Z > 0 and Vel.Z < 150 then Vel.Z = 250 end
-							phys:ApplyForceCenter( Vel )
-						end
-					end				
-				end
-			end
-		end
-	end)]==]
+	timer.Simple( 0.8, function() if self then self:ActualSpit() end end)
 	
 	-- Stopped the whole spit process
 	GAMEMODE:SetPlayerSpeed( mOwner, 0,0 )
@@ -258,7 +234,7 @@ function SWEP:ActualSpit()
 					
 				-- Check if we can shoot
 				if not self:CanSpit() then
-					mOwner.PrimaryAttackTimer = CurTime() + 4.5  --0.5
+					mOwner.SecondaryAttackTimer = CurTime() + 4.5  --0.5
 					if SERVER then mOwner:EmitSound( table.Random( self.AimFailSounds ) ) end 
 					return
 				end
@@ -276,7 +252,7 @@ function SWEP:ActualSpit()
 						Spit:Spawn()
 						
 						-- Apply velocity
-						local Vel = mOwner:GetAimVector() * 3500
+						local Vel = mOwner:GetAimVector() * 1750
 						local phys = Spit:GetPhysicsObject()
 						if phys:IsValid() then
 							if Vel.Z > 0 and Vel.Z < 150 then Vel.Z = 250 end
@@ -289,80 +265,6 @@ function SWEP:ActualSpit()
 		end
 	
 
-end
-
-SWEP.NextSecondarySpit = 0
-function SWEP:SecondaryAttack()
-return false
---[[
-	local mOwner = self.Owner
-
-	-- Cooldown
-	if CurTime() < ( mOwner.NextSecondarySpit or 0 ) then return end
-	mOwner.NextSecondarySpit, mOwner.PrimaryAttackTimer = CurTime() + 4.78 + self:CalculateSpitDelay(), CurTime() + 4.78 + self:CalculateSpitDelay()
-	mOwner.LastCrabJump = CurTime() + 1.85
-	
-	-- Check if we can shoot
-	if not self:CanSpit() then
-		mOwner.NextSecondarySpit, mOwner.PrimaryAttackTimer, mOwner.LastCrabJump = CurTime() + 0.5, CurTime() + 0.78, CurTime() + 0.55
-		if SERVER then mOwner:EmitSound( table.Random( self.AimFailSounds ) ) end 
-		return
-	end
-
-	-- Spitting status
-	self.IsSpitting = true
-	
-	-- Call secondary animation
-	mOwner:DoAnimationEvent( CUSTOM_SECONDARY )
-	if SERVER then mOwner:EmitSound( "npc/headcrab_poison/ph_scream"..math.random( 1,3 )..".wav", math.random( 130, 150 ) ) end
-	
-	-- Actual spitting
-	timer.Simple( 0.8, function( mOwner ) 
-		if IsValid( self ) and IsValid( mOwner ) and mOwner:IsZombie() then
-			if mOwner:IsPoisonCrab() then
-				self.IsSpitting = false	
-				
-				-- Check if we can shoot
-				if not self:CanSpit() then
-					mOwner.NextSecondarySpit, mOwner.PrimaryAttackTimer = CurTime() + 4.5, CurTime() + 4.78 --0.5, 0.78
-					if SERVER then mOwner:EmitSound( table.Random( self.AimFailSounds ) ) end 
-					return
-				end
-
-				if SERVER then 
-					mOwner:EmitSound( "weapons/crossbow/bolt_fly4.wav", 80, math.random( 120, 150 ) )
-					
-					-- Create entity
-					local Spit = ents.Create( "projectile_spit" )
-					if not IsValid( Spit ) then return end
-					
-					-- Blast off!
-					Spit:SetOwner( mOwner )
-					Spit:SetPos( mOwner:GetPos() + Vector( 0,0,15 ) )
-					Spit:Spawn()
-					
-					-- Apply velocity
-					local Vel = mOwner:GetAimVector() * 3500
-					local phys = Spit:GetPhysicsObject()
-					if phys:IsValid() then
-						if Vel.Z > 0 and Vel.Z < 150 then Vel.Z = 250 end
-						phys:ApplyForceCenter( Vel )
-					end
-				end				
-			end
-		end
-	end, mOwner )
-	
-	-- Stopped the whole spit process
-	--GAMEMODE:SetPlayerSpeed( mOwner, 0 )
---	timer.Simple( 1, function( mOwner ) 
-	--	if IsValid( mOwner ) and mOwner:IsZombie() then
-		--	if mOwner:IsPoisonCrab() then
-		--		GAMEMODE:SetPlayerSpeed( mOwner, ZombieClasses[7].Speed ) 	
-		--	end
-	--	end
-	--end, mOwner )
-	]]
 end
 
 -- Fail jump
@@ -387,7 +289,7 @@ function SWEP:Jump()
 	if not mOwner:OnGround() then self:JumpFail() return end
 	
 	-- Check eye angles
-	if mOwner:GetAngles().pitch > 28 or mOwner:GetAngles().pitch < -48 then self:JumpFail() return end
+	--if mOwner:GetAngles().pitch > 28 or mOwner:GetAngles().pitch < -48 then self:JumpFail() return end
 	
 	-- Play jump sound
 	local Pitch = math.random( 90, 108 )
@@ -444,18 +346,18 @@ function SWEP:Jump()
 	end )	]==]
 	
 	-- Cooldown
-	mOwner.LastCrabJump = CurTime() + 2.1
+	mOwner.LastCrabJump = CurTime() + 2.5
 end
 
 function SWEP:CheckJump()
 	local rend = self:GetJumpEndTime()
 	if rend == 0 or CurTime() < rend then return end
 	self:SetJumpEndTime(0)
-	
 	self:ActualJump()
 
 end
 
+--[[
 function SWEP:CheckSpitting()
 	local rend = self:GetSpitEndTime()
 	if rend == 0 or CurTime() < rend then return end
@@ -464,7 +366,7 @@ function SWEP:CheckSpitting()
 	self:ActualSpit()
 
 end
-	
+]]--
 
 function SWEP:ActualJump()
 	
@@ -478,18 +380,16 @@ function SWEP:ActualJump()
 		if SERVER then GAMEMODE:SetPlayerSpeed( mOwner, ZombieClasses[ mOwner:GetZombieClass() ].Speed ) end
 			
 		-- Check eye angles
-		if mOwner:GetAngles().pitch > 28 or mOwner:GetAngles().pitch < -55 then 
-			mOwner.NextSecondarySpit, mOwner.PrimaryAttackTimer = CurTime() + 4.78, CurTime() + 4.78
-			self:JumpFail() 
-			return 
-		end
+		--if mOwner:GetAngles().pitch > 28 or mOwner:GetAngles().pitch < -55 then 
+		--	mOwner.NextSecondarySpit, mOwner.PrimaryAttackTimer = CurTime() + 4.78, CurTime() + 4.78
+		--	self:JumpFail() 
+		--	return 
+		--end
 			
-			
-
 		if SERVER then
 			self.Leaping = true
-			Velocity = Aim * 230
-			Velocity = Vector( math.Clamp( Velocity.X, -350, 350 ), math.Clamp( Velocity.Y, -350, 350 ), math.Clamp( Velocity.Z, 250, 320 ) )
+			Velocity = Aim * 475
+			Velocity = Vector( math.Clamp( Velocity.X, -475, 475 ), math.Clamp( Velocity.Y, -475, 475 ), math.Clamp( Velocity.Z, 250, 320 ) )
 				
 			mOwner:SetLocalVelocity( Vector( 0,0,0 ) )
 			mOwner:SetVelocity( Velocity )
@@ -498,7 +398,7 @@ function SWEP:ActualJump()
 				
 			-- Emit crazy sound
 			mOwner:EmitSound( "npc/headcrab_poison/ph_jump"..math.random( 1,3 )..".wav", 100, math.random( 95, 105 ) )
-			mOwner:EmitSound( "npc/headcrab_poison/ph_poisonbite"..math.random( 1,3 )..".wav", 100, math.random( 95, 105 ) )
+			--mOwner:EmitSound( "npc/headcrab_poison/ph_poisonbite"..math.random( 1,3 )..".wav", 100, math.random( 95, 105 ) )
 		end
 	end
 end

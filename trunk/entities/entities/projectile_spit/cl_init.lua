@@ -40,7 +40,7 @@ end
 
 -- Render hook
 function ENT:Draw()
-	self:SetColor( Color(240, 30, 30, 150) )
+	self:SetColor( Color(0, 255, 0, 150) )
 	self:DrawModel()
 	
 	-- Initialize emitter
@@ -71,7 +71,7 @@ function ENT:Draw()
 	self.Particles[1]:SetStartSize( partSize )
 	self.Particles[1]:SetEndSize( 0 )
 	self.Particles[1]:SetRoll( math.Rand( -0.2, 0.2 ) )
-	self.Particles[1]:SetColor( math.random( 100, 220 ), math.random( 40, 70 ), math.random( 30, 70 ) ) 
+	self.Particles[1]:SetColor( math.random( 20, 40 ), math.random( 200, 220 ), math.random( 30, 70 ) ) 
 	
 	local bioVelocity = Vector( math.Rand( -4, 4 ),math.Rand( -4, 4 ),math.Rand( -4, 4 ) )
 	if self.Sticked then bioVelocity = Vector( math.Rand( -8, 8 ),math.Rand( -8, 8 ),math.Rand( -8, 8 ) ) end
@@ -88,7 +88,7 @@ function ENT:Draw()
 	self.Particles[2]:SetStartSize( bioSize )
 	self.Particles[2]:SetEndSize( 0 )
 	self.Particles[2]:SetRoll( math.Rand( -0.2, 0.2 ) )
-	self.Particles[2]:SetColor( math.random( 100, 200 ), math.random( 10, 50 ), 30 ) 
+	self.Particles[2]:SetColor( math.random( 20, 60), math.random( 190, 220 ), 30 ) 
 end
 
 

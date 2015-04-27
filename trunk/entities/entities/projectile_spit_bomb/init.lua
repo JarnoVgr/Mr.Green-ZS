@@ -91,7 +91,7 @@ function ENT:Explode()
 		if IsEntityVisible ( v, vPos, Filter ) then
 			table.insert( Filter, v )
 			local fDistance = self:GetPos():Distance( v:GetPos() )
-			v:TakeDamageOverTime( math.Rand( 1.3, 1.7 ), 0.65, math.Clamp( ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 30 ) / 2, 0, 12 ), mOwner, self.mOwnerWeapon or mOwner )
+			v:TakeDamageOverTime( math.Rand( 1, 2 ), 1, math.Clamp( ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 30 ) / 2, 0, 12 ), mOwner, self.mOwnerWeapon or mOwner )
 			-- Apply effect to human
 			local Infect = EffectData()
 				Infect:SetEntity( v )

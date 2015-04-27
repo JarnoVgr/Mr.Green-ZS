@@ -48,6 +48,7 @@ end
 
 function SWEP:Think()
 	if self.Leaping then
+		print("LEAPING")
 		local owner = self.Owner
 		if owner:OnGround() or 0 < owner:WaterLevel() then
 			self.Leaping = false

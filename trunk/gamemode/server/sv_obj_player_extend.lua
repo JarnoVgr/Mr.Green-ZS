@@ -114,11 +114,11 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 			if Victim:Health() > iDamage then Victim:SetHealth( Victim:Health() - iDamage ) else Victim:TakeDamage( iDamage, Attacker, Inflictor ) end
 			Victim.IsInfected = true
 			-- Shake screen
-			Victim:ViewPunch( Angle( math.random( -20, 20 ), math.random( -5, 5 ), 0 ) )
+			Victim:ViewPunch( Angle( math.random( -1, 1 ), math.random( -1, 1 ), 0 ) )
 			
 			-- Cough sound
-			Victim:EmitSound( "ambient/voices/cough"..math.random( 1,4 )..".wav" )
-			Victim:EmitSound( "player/pl_pain"..math.random( 5,7 )..".wav" )
+			--Victim:EmitSound( "ambient/voices/cough"..math.random( 1,4 )..".wav" )
+			--Victim:EmitSound( "player/pl_pain"..math.random( 5,7 )..".wav" )
 			
 			-- Increase tick
 			Victim.TickDOT = Victim.TickDOT + 1

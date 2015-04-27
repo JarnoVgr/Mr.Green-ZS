@@ -181,9 +181,9 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel )
 		end 
 	end 
 	
-	if pl:GetMoveType() == MOVETYPE_LADDER then
-		iSeq = pl:LookupSequence ( "climbloop" ) 
-		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)
+	if pl:GetMoveType()==MOVETYPE_LADDER then
+		iSeq = pl:LookupSequence ( "zombie_climb_loop" )
+		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)		
 	end
 	
 	local revive = pl.Revive
@@ -621,15 +621,15 @@ GM.CalcMainActivityZombies[9] = function ( pl, vel )
 	local iSeq, iIdeal = -1
 
 	local fVelocity = vel:Length2D()
-	if fVelocity > 30 then 
-		if fVelocity > ZombieClasses[7].Speed then iIdeal = ACT_BLACKHEADCRAB_RUN_PANIC else iIdeal = ACT_RUN end
+	if fVelocity > 0.5 then 
+		iSeq = pl:LookupSequence ( "walk_All" )		
 	else 	
 		iIdeal = ACT_IDLE 
 	end
 	
 	-- Spitting animation
 	if (pl.IsSpitting and pl.IsSpitting >= CurTime()) then iSeq = pl:LookupSequence ( "Spitattack" ) end
-	
+	if pl.IsJumping then iSeq = pl:LookupSequence ( "Tele_Attack_a" ) end
 	-- Drowning
 	if not pl:OnGround() then iSeq = pl:LookupSequence ( "Drown" ) end
 	

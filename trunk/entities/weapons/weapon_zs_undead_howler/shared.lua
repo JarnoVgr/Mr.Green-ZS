@@ -98,9 +98,10 @@ function SWEP:StartSecondaryAttack()
 	end
 	
 	-- Cannot scream in air
-	if not mOwner:OnGround() then
-		return
-	end
+	-- Pufulet: Why not?
+	--if not mOwner:OnGround() then	
+	--	return
+	--end
 		
 	--Thirdperson animation and sound
 	mOwner:DoAnimationEvent(CUSTOM_SECONDARY)
