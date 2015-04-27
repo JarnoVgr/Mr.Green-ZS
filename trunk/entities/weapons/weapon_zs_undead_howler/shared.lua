@@ -25,10 +25,10 @@ SWEP.Primary.Delay = 0.6
 SWEP.Primary.Damage = 15
 SWEP.Primary.Reach = 47
 
-SWEP.Secondary.Reach = 300
+SWEP.Secondary.Reach = 400
 SWEP.Secondary.Duration = 1.0
 SWEP.Secondary.Delay = 0
-SWEP.Secondary.Next = 5
+SWEP.Secondary.Next = 4.5
 
 function SWEP:Precache()
 	self.BaseClass.Precache(self)
