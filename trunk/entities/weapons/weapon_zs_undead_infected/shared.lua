@@ -34,10 +34,10 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
-SWEP.Primary.Duration = 1.50
-SWEP.Primary.Delay = 0.8
+SWEP.Primary.Duration = 1.25
+SWEP.Primary.Delay = 0.74
 SWEP.Primary.Damage = 25
-SWEP.Primary.Reach = 47
+SWEP.Primary.Reach = 48
 
 SWEP.SwapAnims = false
 
@@ -67,11 +67,11 @@ function SWEP:PostPerformPrimaryAttack(hit)
 	end
 
 	if hit then
-		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav"))
+		self.Owner:EmitSound(Sound("npc/zombie/claw_strike".. math.random(1, 3) ..".wav"))
 		
 		
 	else
-		self.Owner:EmitSound(Sound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav"))
+		self.Owner:EmitSound(Sound("npc/zombie/claw_miss"..math.random(1, 2)..".wav"))
 		
 		
 	end
@@ -93,17 +93,18 @@ function SWEP:SecondaryAttack()
 end
 
 
+
 function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
 
 	--Attack sounds
-	for i = 20, 37 do
-		table.insert(self.AttackSounds,Sound("mrgreen/undead/infected/rage_at_victim"..i..".mp3"))
+	for i = 1, 2 do
+		table.insert(self.AttackSounds,Sound("npc/zombie/zo_attack"..i..".wav"))
 	end
 
 	--Idle sounds
-	for i = 1, 31 do
-		table.insert(self.IdleSounds,Sound("mrgreen/undead/infected/idle"..i..".mp3"))
+	for i = 1, 14 do
+		table.insert(self.IdleSounds,Sound("npc/zombie/zombie_voice_idle"..i..".wav"))
 	end
 end
 

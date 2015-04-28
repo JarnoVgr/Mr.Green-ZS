@@ -57,10 +57,10 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AR2.NPC_Single")
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 10
+SWEP.Primary.Damage			= 11
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
-SWEP.Primary.Delay			= 0.1
+SWEP.Primary.Delay			= 0.15
 SWEP.Primary.DefaultClip	= 125
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"

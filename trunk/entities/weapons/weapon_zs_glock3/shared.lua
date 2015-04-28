@@ -49,8 +49,8 @@ SWEP.MaxAmmo			    = 100
 SWEP.WalkSpeed = SPEED_PISTOL
 
 
-SWEP.Cone = 0.058
-SWEP.ConeMoving = SWEP.Cone *1.3
+SWEP.Cone = 0.07
+SWEP.ConeMoving = SWEP.Cone *1.2
 SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.9
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9

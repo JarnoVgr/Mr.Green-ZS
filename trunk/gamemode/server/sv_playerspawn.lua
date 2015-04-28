@@ -253,7 +253,13 @@ function GM:PlayerSpawn(pl)
 			Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredPlayerModelName ..". Which doesn't exist.")
 		end
 		
-
+	if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+		pl.IsGordonHere = true
+		pl.IsFreeman = true
+		pl.PlayerModel = "gordon"		
+	end	
+		
+		
 
 		--Check if we can be Santa Claus
 		if CHRISTMAS and pl:Team() ~= TEAM_SPECTATOR and ((not self.IsSantaHere and math.random(1,7) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsSanta) and not pl.IsFreeman then
@@ -651,21 +657,9 @@ function CalculatePlayerLoadout(pl)
 		
 	--Freeman
 	--Check if we can be THE Gordon Freeman
-	if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
-	--if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and math.random(1,1) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then	
-		--Only display message when being human
-		if pl:Team() == TEAM_SURVIVORS then
-			pl:ChatPrint("You're now THE Gordon Freeman!")
-		end
-		--Set global
-		pl.IsGordonHere = true
-		
-		--Set model for player
-		
-		pl.IsFreeman = true
-		pl.PlayerModel = "gordon"
-		pl:Give("weapon_zs_melee_crowbar")
-		--ToGive[1] = "weapon_zs_melee_crowbar"			
+	if pl:Team() == TEAM_SURVIVORS and pl.IsFreeman then
+		pl:ChatPrint("You're now THE Gordon Freeman!")
+		pl:Give("weapon_zs_melee_crowbar")		
 	end		
 
 	--Check if bought Magnum (give 1/6th chance)

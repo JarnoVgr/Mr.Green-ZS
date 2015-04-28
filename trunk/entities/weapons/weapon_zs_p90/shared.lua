@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.PrintName = "P90"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
-	SWEP.ViewModelFOV = 65
+	SWEP.ViewModelFOV = 60
 	SWEP.SlotPos = 13
 	SWEP.IconLetter = "m"
 	killicon.AddFont("weapon_zs_p90", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
@@ -40,10 +40,10 @@ SWEP.HoldType = "smg"
 SWEP.Primary.Sound			= Sound("Weapon_P90.Single")
 SWEP.Primary.Recoil			= 1
 SWEP.Primary.Unrecoil		= 0
-SWEP.Primary.Damage			= 13
+SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 50
-SWEP.Primary.Delay 			= 0.07
+SWEP.Primary.Delay 			= 0.085
 SWEP.Primary.DefaultClip	= 150
 SWEP.MaxAmmo			    = 250
 SWEP.Primary.Automatic		= true

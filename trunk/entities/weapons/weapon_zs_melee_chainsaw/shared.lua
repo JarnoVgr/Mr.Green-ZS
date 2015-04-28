@@ -46,8 +46,8 @@ SWEP.SlotPos = 8
 
 -- Damage, distane, delay
 SWEP.Primary.Automatic	= true
-SWEP.MeleeDamage = 400
-SWEP.MeleeRange = 64
+SWEP.MeleeDamage = 100
+SWEP.MeleeRange = 50
 SWEP.MeleeSize = 1.25
 SWEP.Primary.Delay = 0.7
 SWEP.TotalDamage = SWEP.Primary.Damage
@@ -82,7 +82,7 @@ end]]--
 
 function SWEP:PlaySwingSound()
 	self:EmitSound("ambient/machines/slicer1.wav")
-	self:EmitSound("weapons/melee/chainsaw_gore_03.wav")
+--	self:EmitSound("weapons/melee/chainsaw_gore_03.wav")
 end
 
  function SWEP:PlayHitFleshSound()
@@ -90,8 +90,8 @@ end
 end
 
 function SWEP:PlayHitSound()
-	self:EmitSound("weapons/melee/melee_skull_break_01.wav")
-	self:EmitSound("weapons/melee/chainsaw_gore_03.wav")
+	--self:EmitSound("weapons/melee/melee_skull_break_01.wav")
+	--self:EmitSound("weapons/melee/chainsaw_gore_03.wav")
 end
 
 function SWEP:OnDeploy()

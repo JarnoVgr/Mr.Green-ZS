@@ -28,19 +28,19 @@ local ColorMod = {
 	["$pp_colour_mulb"] = 0.
 }
 
---[[local ZombieCM = {
+local ZombieCM = {
 	["$pp_colour_brightness"] = 0,
 	["$pp_colour_contrast"] = 1,
-	["$pp_colour_colour"] = 1,
-	["$pp_colour_addr"] = 0.25,
-	["$pp_colour_addg"] = 0.20,
+	["$pp_colour_colour"] = 1.2,
+	["$pp_colour_addr"] = 0.15,
+	["$pp_colour_addg"] = 0.10,
 	["$pp_colour_addb"] = 0.0,
-	["$pp_colour_mulr"] = 1.15,
+	["$pp_colour_mulr"] = 1.05,
 	["$pp_colour_mulg"] = 0,
 	["$pp_colour_mulb"] = 0.
-}]]
+}
 
-local ZombieCM = {
+--[[local ZombieCM = {
 	["$pp_colour_brightness"] = 0,
 	["$pp_colour_contrast"] = 1,
 	["$pp_colour_colour"] = 1.3,
@@ -50,7 +50,7 @@ local ZombieCM = {
 	["$pp_colour_mulr"] = 1,
 	["$pp_colour_mulg"] = 1,
 	["$pp_colour_mulb"] = 1.
-}
+]]--}
 
 local ZombieHowlerCM = {
 	["$pp_colour_brightness"] = -0.20,
@@ -65,7 +65,7 @@ local ZombieHowlerCM = {
 }
 
 local ZombieRageCM = {
-	["$pp_colour_brightness"] = -0.18,
+	["$pp_colour_brightness"] = -0.1,
 	["$pp_colour_contrast"] = 1.5,
 	["$pp_colour_colour"] = 1,
 	["$pp_colour_addr"] = 0.27,
@@ -108,25 +108,25 @@ local HumanCM = {
 	["$pp_colour_addr"] = 0,
 	["$pp_colour_addg"] = 0,
 	["$pp_colour_addb"] = 0,
-	["$pp_colour_brightness"] = -0.02,
+	["$pp_colour_brightness"] = 0,
 	["$pp_colour_contrast"] = 1,
 	["$pp_colour_colour"] = 1,
-	["$pp_colour_mulr"] = 1,
-	["$pp_colour_mulg"] = 1,
-	["$pp_colour_mulb"] = 1
+	["$pp_colour_mulr"] = 1.0,
+	["$pp_colour_mulg"] = 1.0,
+	["$pp_colour_mulb"] = 1.0
 }
 
 --When spectating Zombies
 local SpectatorCM = {
-	["$pp_colour_addr"] = 0,
-	["$pp_colour_addg"] = 0,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_brightness"] = -0.08,
-	["$pp_colour_contrast"] = 1.25,
-	["$pp_colour_colour"] = 1,
-	["$pp_colour_mulr"] = 0,
-	["$pp_colour_mulg"] = 1,
-	["$pp_colour_mulb"] = 1
+	["$pp_colour_brightness"] = 0,
+	["$pp_colour_contrast"] = 1,
+	["$pp_colour_colour"] = 1.2,
+	["$pp_colour_addr"] = 0.15,
+	["$pp_colour_addg"] = 0.10,
+	["$pp_colour_addb"] = 0.0,
+	["$pp_colour_mulr"] = 1.05,
+	["$pp_colour_mulg"] = 0,
+	["$pp_colour_mulb"] = 0.
 }
 
 --When connecting

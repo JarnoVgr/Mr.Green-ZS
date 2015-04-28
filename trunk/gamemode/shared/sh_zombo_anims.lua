@@ -312,26 +312,81 @@ GM.CalcMainActivityZombies[4] = function ( pl, vel )
 	if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then
 		local iSeq, iIdeal = pl:LookupSequence ( "idle_melee1" )
 
-		--local i = pl:GetActiveWeapon().DisguiseChoice
-		--print(i)
-		--if i == 1 then
+		if  pl:GetActiveWeapon():GetDisguiseChoice() == 1 then
 			if fVelocity == 0 then 
 				iSeq = pl:LookupSequence ( "idle_smg1" ) 
-			end	
-			
-			if fVelocity >= 0.5 then 
+			elseif fVelocity >= 0.5 then 
 				iSeq = pl:LookupSequence ( "run_smg1" )
 			end
 
 			if pl:Crouching() and fVelocity == 0 then
 				iSeq = pl:LookupSequence ( "cidle_smg1" )			
-			end
-			
-			if pl:Crouching() and fVelocity >= 0.5 then
+			elseif pl:Crouching() and fVelocity >= 0.5 then
 				iSeq = pl:LookupSequence ( "cwalk_smg1" )			
 			end
 			return iIdeal, iSeq
-	--	end
+		end
+		
+		if pl:GetActiveWeapon():GetDisguiseChoice() == 2 then
+			if fVelocity == 0 then 
+				iSeq = pl:LookupSequence ( "idle_melee" ) 
+			elseif fVelocity >= 0.5 then 
+				iSeq = pl:LookupSequence ( "run_melee" )
+			end
+
+			if pl:Crouching() and fVelocity == 0 then
+				iSeq = pl:LookupSequence ( "cidle_melee" )			
+			elseif pl:Crouching() and fVelocity >= 0.5 then
+				iSeq = pl:LookupSequence ( "cwalk_melee" )			
+			end
+			return iIdeal, iSeq
+		end	
+
+		if pl:GetActiveWeapon():GetDisguiseChoice() == 3 then
+			if fVelocity == 0 then 
+				iSeq = pl:LookupSequence ( "idle_melee2" ) 
+			elseif fVelocity >= 0.5 then 
+				iSeq = pl:LookupSequence ( "run_melee2" )
+			end
+
+			if pl:Crouching() and fVelocity == 0 then
+				iSeq = pl:LookupSequence ( "cidle_melee2" )			
+			elseif pl:Crouching() and fVelocity >= 0.5 then
+				iSeq = pl:LookupSequence ( "cwalk_melee2" )			
+			end
+			return iIdeal, iSeq
+		end		
+
+		if pl:GetActiveWeapon():GetDisguiseChoice() == 4 then
+			if fVelocity == 0 then 
+				iSeq = pl:LookupSequence ( "idle_revolver" ) 
+			elseif fVelocity >= 0.5 then 
+				iSeq = pl:LookupSequence ( "run_revolver" )
+			end
+
+			if pl:Crouching() and fVelocity == 0 then
+				iSeq = pl:LookupSequence ( "cidle_revolver" )			
+			elseif pl:Crouching() and fVelocity >= 0.5 then
+				iSeq = pl:LookupSequence ( "cwalk_revolver" )			
+			end
+			return iIdeal, iSeq
+		end			
+		
+		if pl:GetActiveWeapon():GetDisguiseChoice() == 5 then
+			if fVelocity == 0 then 
+				iSeq = pl:LookupSequence ( "idle_pistol" ) 
+			elseif fVelocity >= 0.5 then 
+				iSeq = pl:LookupSequence ( "run_pistol" )
+			end
+
+			if pl:Crouching() and fVelocity == 0 then
+				iSeq = pl:LookupSequence ( "cidle_pistol" )			
+			elseif pl:Crouching() and fVelocity >= 0.5 then
+				iSeq = pl:LookupSequence ( "cwalk_pistol" )			
+			end
+			return iIdeal, iSeq
+		end			
+				
 		
 		--[[if i == 2 then
 			if fVelocity == 0 then 

@@ -120,6 +120,14 @@ function SWEP:IsDisguised()
 	return self:GetDTBool(0)
 end
 
+function SWEP:SetDisguiseChoice(choice)
+	self:SetDTInt(1, choice)
+end
+
+function SWEP:GetDisguiseChoice()
+	return self:GetDTInt(1)
+end
+
 function SWEP:SecondaryAttack()
 	self.Weapon:SetNextSecondaryFire(CurTime() + 3)
 	-- if self.Disguised then return end
@@ -131,11 +139,10 @@ function SWEP:SecondaryAttack()
 	self:SetDisguise(true)
 	self.FakeArms = true
 	self:SetColor( Color( 255, 255, 255, 1 ) )
-
 	
 	--Pick random human model
 	if SERVER then	
-		self.DisguiseChoice = math.random(1,2)	
+		self:SetDisguiseChoice(math.random(1,5)	)	
 		local survivors = team.GetPlayers(TEAM_HUMAN)
 		local model = "models/player/kleiner.mdl"
 		if #survivors > 0 then

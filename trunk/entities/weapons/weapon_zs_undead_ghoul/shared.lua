@@ -48,12 +48,12 @@ SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
 
-SWEP.Primary.Duration = 1.50
+SWEP.Primary.Duration = 1.4
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Damage = 20
 --Pufulet: so it did have more reach!
 --SWEP.Primary.Reach = 55
-SWEP.Primary.Reach = 47
+SWEP.Primary.Reach = 48
 
 SWEP.SwapAnims = false
 SWEP.Secondary.Duration = 2
@@ -86,15 +86,10 @@ function SWEP:PostPerformPrimaryAttack(hit)
 	if CLIENT then
 		return
 	end
-
 	if hit then
 		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav"))
-		
-		
 	else
 		self.Owner:EmitSound(Sound("npc/zombiegreen/claw_miss_"..math.random(1, 2)..".wav"))
-		
-		
 	end
 end
 

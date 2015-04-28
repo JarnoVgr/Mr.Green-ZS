@@ -65,10 +65,10 @@ AddCSLuaFile()
     SWEP.HoldType = "revolver"
     SWEP.Primary.Sound                      = Sound( "Weapon_357.Single" )
     SWEP.Primary.Recoil                     = 2
-    SWEP.Primary.Damage                     = 70
+    SWEP.Primary.Damage                     = 60
     SWEP.Primary.NumShots           = 1
     SWEP.Primary.ClipSize           = 2
-    SWEP.Primary.Delay                      = 0.3
+    SWEP.Primary.Delay                      = 0.6
     SWEP.Primary.DefaultClip        = 28
     SWEP.Primary.Automatic          = false
     SWEP.Primary.Ammo                       = "357"

@@ -75,25 +75,25 @@ function SWEP:PrimaryAttack()
 	
 	
 	--Recoil multiplier
-	local recoilMultiplier = 1.1
+	local recoilMultiplier = 0.8
 	if self:GetIronsights() then
 		--Less recoil when in ironsight
-		recoilMultiplier = recoilMultiplier * 0.6
+		recoilMultiplier = recoilMultiplier * 0.75
 	end
 	if self.Owner:Crouching() then
 		--Less recoil when crouching
-		recoilMultiplier = recoilMultiplier * 0.6
+		recoilMultiplier = recoilMultiplier * 0.75
 	end
 
 	local recoil = self.Primary.Recoil * recoilMultiplier
 	
 	if Owner.ViewPunch then
-		Owner:ViewPunch(Angle(recoil * -1, math.random(0.2,-0.2), 0))
+		Owner:ViewPunch(Angle(recoil * -1, math.random(0.1,-0.1), 0))
 	end
 
 	if (game.SinglePlayer() and SERVER) or (not game.SinglePlayer() and CLIENT and IsFirstTimePredicted() ) then
 		local eyeang = self.Owner:EyeAngles()
-		local permaRecoil = recoil * 0.07
+		local permaRecoil = recoil * 0.9
 		eyeang.pitch = eyeang.pitch - permaRecoil
 		self.Owner:SetEyeAngles(eyeang)
 	end

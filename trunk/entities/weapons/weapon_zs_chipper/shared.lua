@@ -58,10 +58,10 @@ SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound 			= Sound("Weapon_Shotgun.Single")
 SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 10
+SWEP.Primary.Damage			= 13
 SWEP.Primary.NumShots		= 6
 SWEP.Primary.ClipSize		= 6
-SWEP.Primary.Delay			= 0.7
+SWEP.Primary.Delay			= 0.75
 SWEP.Primary.DefaultClip	= 40
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "buckshot"
@@ -83,7 +83,7 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.OverridePos = Vector(2.839, -4.591, 2)
 SWEP.OverrideAng = Vector( 0,0,0 )
 
-SWEP.ReloadDelay = 0.45
+SWEP.ReloadDelay = 0.47
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0

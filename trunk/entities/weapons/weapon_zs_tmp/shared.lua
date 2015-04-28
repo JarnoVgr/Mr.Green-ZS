@@ -34,7 +34,7 @@ SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
 SWEP.Primary.Delay 		= 0.06
-SWEP.Primary.DefaultClip	= 50
+SWEP.Primary.DefaultClip	= 75
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
 
@@ -43,11 +43,11 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.MaxAmmo			    = 250
 
 
-SWEP.Cone = 0.067
-SWEP.ConeMoving = SWEP.Cone *1.3
-SWEP.ConeCrouching = SWEP.Cone *0.85
-SWEP.ConeIron = SWEP.Cone *0.85
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
+SWEP.Cone = 0.07
+SWEP.ConeMoving = SWEP.Cone *1.12
+SWEP.ConeCrouching = SWEP.Cone *0.9
+SWEP.ConeIron = SWEP.Cone *0.9
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
 --SWEP.ConeIronMoving = SWEP.Moving *0.80
 
 SWEP.WalkSpeed = SPEED_SMG

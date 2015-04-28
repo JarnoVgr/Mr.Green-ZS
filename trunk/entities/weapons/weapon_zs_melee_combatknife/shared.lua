@@ -26,11 +26,11 @@ SWEP.SlotPos = 6
 
 -- Damage, distane, delay
 
-SWEP.Primary.Delay = 0.7
+SWEP.Primary.Delay = 0.6
 
 SWEP.HoldType = "knife"
 
-SWEP.MeleeDamage = 20
+SWEP.MeleeDamage = 25
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
 SWEP.WalkSpeed = SPEED
