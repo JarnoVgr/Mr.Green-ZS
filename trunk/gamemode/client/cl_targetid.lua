@@ -29,6 +29,8 @@ local function DrawTargetIDTurret(entity)
 		name = Owner:Nick().."'s Turret"
 		
 		local TurretNickName = entity:GetTurretName()
+		--local TurretHealth = entity:GetDTInt(1)
+		--local TurretMaxHealth = entity:GetDTInt(3)
 		if TurretNickName then
 			nick = "'".. TurretNickName .."'"
 		end
@@ -38,29 +40,31 @@ local function DrawTargetIDTurret(entity)
 	
 	--local ammo = "Ammo: "..entity:GetNWInt("TurretAmmo").."/"..entity:GetNWInt("MaxTurretAmmo")
 	local ammo = "Ammo: "..entity:GetDTInt(0).."/"..entity:GetDTInt(2)
+	local health = "Health: "..entity:GetDTInt(1).."/"..entity:GetDTInt(3)
 		
 	local rand = 0
 	local rand2 = 0
 		
-	col = Color(255,255,255,125)
-	col2 = Color(0,0,0,125)
+	col = Color(255,255,240,75)
+	col2 = Color(0,0,0,75)
 
 	for k=1, 4 do
 		rand = math.Rand(-2, 2)
 		rand2 = math.Rand(-2,2)
 		col = Color(220,10,10,125)
 		if k == 4 then 
-			col = Color(255,255,255,255)
-			col2 = Color(0,0,0,255)
+			col = Color(255,255,240,220)
+			col2 = Color(0,0,0,220)
 			rand = 0 
 			rand2 = 0 
 		end
 			
 		if nick then
-			draw.SimpleTextOutlined(nick, "ArialBoldSeven", cenp.x + rand, cemp.y - 90 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
+			draw.SimpleTextOutlined(nick, "ArialBoldSeven", cenp.x + rand, cemp.y + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
 		end
-		draw.SimpleTextOutlined(name, "ArialBoldFive", cenp.x + rand, cemp.y - 62 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
-		draw.SimpleTextOutlined(ammo, "ArialBoldFive", cenp.x + rand, cemp.y - 35 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)	
+		draw.SimpleTextOutlined(name, "ArialBoldFive", cenp.x + rand, cemp.y + 28 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
+		draw.SimpleTextOutlined(health, "ArialBoldFive", cenp.x + rand, cemp.y + 56 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)	
+		draw.SimpleTextOutlined(ammo, "ArialBoldFive", cenp.x + rand, cemp.y + 84 +  rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)			
 	end
 end
 
