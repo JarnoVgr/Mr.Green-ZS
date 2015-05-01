@@ -49,7 +49,7 @@ SWEP.WorldModel = "models/weapons/w_smg_tmp.mdl"
 SWEP.Base = "weapon_zs_base"
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 13
+SWEP.Primary.Damage			= 18
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Delay = 0.17
@@ -61,7 +61,11 @@ SWEP.Secondary.Delay = 0.01
 SWEP.Secondary.Heal = 5
 SWEP.Secondary.HealDelay = 6
 SWEP.UseHands = true
-
+SWEP.Cone = 0.05
+SWEP.ConeMoving = SWEP.Cone *1.12
+SWEP.ConeCrouching = SWEP.Cone *0.9
+SWEP.ConeIron = SWEP.Cone *0.9
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
 
 SWEP.WalkSpeed = SPEED_LIGHT
 SWEP.HoldType = "smg"

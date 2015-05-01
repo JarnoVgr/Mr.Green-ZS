@@ -218,24 +218,33 @@ function SWEP:PerformPrimaryAttack()
 				ent:Fire( "break", "", 0 )
 				hit = true
 			end
-			
+
 			local phys = ent:GetPhysicsObject()
 			-- Case 2: It is a valid physics object
 			if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() and not ent.Nails then
-				local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 1400, 25000, 60000)
-				--Velocity.z = math.min(Velocity.z,1600)
-						
+				local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 1100, 25000, 60000)
+				--Velocity.z = math.min(Velocity.z,1600)				
 				--Apply force to prop and make the physics attacker myself
-				
 				phys:ApplyForceCenter(Velocity)
 				ent:SetPhysicsAttacker(self.Owner)
-
+				ent:TakeDamage(self.Primary.Damage, self.Owner, self)					
 				hit = true
-			elseif not ent:IsWeapon() then
-				--Take damage
+
+			elseif ent:IsPlayer() and ent:IsHuman() and not ent:IsWeapon() then		
+				local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 10, 10, 10000)			
 				ent:TakeDamage(self.Primary.Damage, self.Owner, self)
-
+				Velocity.z = 0 + self.Primary.Damage * math.random(3,5) + 130
+				
+				if self.Owner:HasBought("vampire") and self.Owner:Health() + self.Primary.Damage * 0.33 < self.Owner:GetMaximumHealth() then	
+					self.Owner:SetHealth(self.Owner:Health() + self.Primary.Damage * 0.33)	
+				end				
+				--Velocity.z = Velocity.z * 2.5					
+				ent:SetLocalVelocity(Velocity)				
 				hit = true
+				else
+				ent:TakeDamage(self.Primary.Damage, self.Owner, self)
+				--local mOwner = self.Owner
+				hit = true				
 			end
 		end
 

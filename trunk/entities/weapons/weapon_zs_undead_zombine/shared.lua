@@ -14,6 +14,7 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 end
 
+SWEP.NextPlant = 0
 SWEP.Primary.Delay = 0.65
 SWEP.Primary.Duration = 1.5
 SWEP.Primary.Reach = 48
@@ -46,21 +47,38 @@ function SWEP:Deploy()
 	self.Weapon:SendWeaponAnim(ACT_VM_IDLE)
 end
 
-function SWEP:Think()
-	self.BaseClass.Think(self)
+function SWEP:SetGrenadeType(type)
+	self:SetDTInt(1, type)
+end
 
+function SWEP:GetGrenadeType()
+	return self:GetDTInt(1)
+end
+
+function SWEP:Think()
+	self.BaseClass.Think(self)	
+	
 	if not IsValid(self.Owner) then
 		return
 	end
+	
 	local mOwner = self.Owner
 	
 	self:CheckAttackAnim()
 	self:CheckGrenade()
 
-	-- Think cooldown
-	if ( self.ThinkTimer or 0 ) > CurTime() then
-		return
-	end
+	if ( CurTime() > self.NextPlant ) and self.Owner:KeyReleased( IN_RELOAD  ) and not self:IsHoldingGrenade() then
+		self.NextPlant = ( CurTime() + 3 );		
+		if self:GetGrenadeType() == 2 then
+			self.Owner:Message("Explosive grenade active.", 1)
+			self:SetGrenadeType(1)
+			return			
+		else
+			self.Owner:Message("Poison grenade active.", 1)	
+			self:SetGrenadeType(2)
+			return
+		end
+	end	
 	
 	local Speed = ZombieClasses[8].Speed
 	
@@ -78,7 +96,12 @@ function SWEP:Think()
 			end	
 	end
 
-	self.ThinkTimer = CurTime() + 0.25
+	-- Think cooldown
+	if ( self.ThinkTimer or 0 ) > CurTime() then
+		return
+	end		
+	
+	self.ThinkTimer = CurTime() + 0.5
 end
 
 function SWEP:CheckAttackAnim()

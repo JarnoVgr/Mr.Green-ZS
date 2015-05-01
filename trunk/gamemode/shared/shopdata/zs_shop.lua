@@ -22,7 +22,7 @@ shopData = {
 	
 	[3] = { Cost = 5000, Type = "misc", Hidden = false, AdminOnly = false, Desc = "[1/6] Join the group with your only friend, Mister .357 cal.", Key = "magnumman", ID = 3, Sell = 0, Requires = 0, Name = "Mysterious Stranger",  },
 	
-	--[4] = { Cost = 6000, Hidden = true, AdminOnly = false, Desc = "You kill humans for a living. Literally. Restores half your HP after killing a human!", Key = "steamroller", ID = 4, Sell = 0, Requires = 0, Name = "Steamroller",  },
+	--[4] = { Cost = 6000, AdminOnly = false, Desc = "You kill humans for a living. Literally. Restores a quarter of your HP after killing a human!", Key = "steamroller", ID = 4, Sell = 0, Requires = 0, Name = "Steamroller",  },
 	--[5] = { Cost = 7500, Hidden = true, AdminOnly = false, Desc = "Get an additional weapon after redeeming. More zombies, better weapon.", Key = "comeback", ID = 5, Sell = 0, Requires = 0, Name = "Comeback",  },
 	[6] = { Cost = 1000, Type = "other", AdminOnly = false, Desc = "Being a bit paranoid about those toxic fumes? No worries, carry this mask! (note: it doesn't work against toxis fumes).", Key = "mask", ID = 6, Sell = 0, Requires = 0, Name = "Mask",  },
 	[7] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "Time to hit a homerun! All you need is a headcrab and a crowbar...", Key = "ushat", ID = 7, Sell = 0, Requires = 0, Name = "Baseball cap",  },
@@ -41,7 +41,7 @@ shopData = {
 	[20] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "A sawblade sombrero, how cool can it get? Chuck Norris has one you know.", Key = "sombrero", ID = 20, Sell = 0, Requires = 0, Name = "Sombrero",  },
 	[21] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "You won't die of starvation with this thing on.", Key = "melonhead", ID = 21, Sell = 0, Requires = 0, Name = "Melonhead",  },
 	[22] = { Cost = 8000,Type = "misc", AdminOnly = false, Desc = "You get twice as much ammunition from the Supply Crates!", Key = "ammoman", ID = 22, Sell = 0, Requires = 0, Name = "Ammunition Man",  },
-	--[23] = { Cost = 7000, Hidden = true, AdminOnly = false, Desc = "You get thirsty and want to suck the blood out of your victims. With this sucker,you'll leech health from your victims. The greater the damage, the greater the leech!", Key = "vampire", ID = 23, Sell = 0, Requires = 5, Name = "Blood Sucker",  },
+	[23] = { Cost = 7000,Type = "misc", AdminOnly = false, Desc = "You become bloodthirsty! Receive a third of damage done with claws towards your health!", Key = "vampire", ID = 23, Sell = 0, Requires = 5, Name = "Blood Sucker",  },
 	
 	-- FREEMAN
 	[24] = { Cost = 7500, Hidden = false, Type = "misc", AdminOnly = false, Desc = "[1/4] Start the round as THE Gordon Freeman!", Key = "gordonfreeman", ID = 24, Sell = 0, Requires = 0, Name = "Crowbar Wielding God",  },

@@ -28,8 +28,8 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		return true
 	--Scale damage for THE Gordon Freeman
 	--elseif attacker.IsFreeman and attacker:IsHuman() and dmginfo:IsMeleeDamage() then
-		--dmginfo:ScaleDamage(1.5)
-	--end
+	--	dmginfo:ScaleDamage(1.2)
+	end
 	
 	--Physbox team-damage bug
 	if dmginfo:IsAttackerPhysbox() then
@@ -47,10 +47,10 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		return true
 	--Scale down own AR2 grenades (grenade launcher) shots
 	elseif (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
-		dmginfo:ScaleDamage(0.80)
+		dmginfo:ScaleDamage(0.2)
 	--Scale down explosion damage if it's the owner
 	elseif (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) then
-		dmginfo:ScaleDamage(0.80)
+		dmginfo:ScaleDamage(0.45)
 	--Turret damage
 	elseif attacker:GetClass() == "zs_turret" then
 		if pl:IsHuman() then
@@ -94,7 +94,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	
 	--Check for explosion damage immunity
 	if dmginfo:IsExplosionDamage() and pl.NoExplosiveDamage and pl.NoExplosiveDamage >= CurTime() then
-		dmginfo:ScaleDamage(0.75)
+		dmginfo:ScaleDamage(0.5)
 	end
 		
 	--Zombies with howler protection
@@ -122,7 +122,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
-				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),60,math.random(95,105))	
+				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),70,math.random(95,105))				
 				if dmginfo:IsBulletDamage() then
 					dmginfo:SetDamage(dmginfo:GetDamage() * 1.5) --Duby: Reduced it as it was far to high
 				elseif dmginfo:IsMeleeDamage() then
@@ -130,8 +130,6 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 				end
 			end
 		end
-		
-		
 
 		--35% damage for zombine (armor)
 		if pl:IsZombine() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.75) and pl:Health() ~= 0 and pl.bCanSprint == false then
@@ -175,7 +173,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		end
 		
 		local speed, div_factor = math.abs(pl:GetVelocity().z), 24
-		local Damage = math.Clamp(speed / div_factor, 5, 90)
+		local Damage = math.Clamp(speed / div_factor, 5, 100)
 				
 		--Shake camera
 		if pl.ViewPunch then
@@ -193,7 +191,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 				if pl:GetPerk("_falldown") then
 					return
 				else	
-			pl:GiveStatus("knockdown",3)
+			pl:GiveStatus("knockdown",2)
 			end
 		end
 	end
@@ -204,7 +202,6 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		if Inflictor:GetClass() == "prop_physics" or Inflictor:GetClass() == "prop_physics_multiplayer" or Inflictor:GetClass() == "func_physbox" or Inflictor:GetClass() == "func_physbox_multiplayer" then-- if string.find ( Inflictor:GetClass(), "prop_physics" ) or string.find ( Inflictor:GetClass(), "physbox" ) then
 			local MaximumVictimHealth = pl:GetMaximumHealth()
 			local InitialDamage, NewDamage, Percentage = dmginfo:GetDamage(), dmginfo:GetDamage(), 0.45
-				
 			-- Phys damage cooldown -- so we don't hit it with great damage 2 times in one frame
 			if pl.PhysCooldownDamage == nil then
 				pl.PhysCooldownDamage = 0 
@@ -230,13 +227,13 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 				
 			local phys = Inflictor:GetPhysicsObject()
 
-			--[[if phys:IsValid() and pl:Alive() and phys:GetVelocity():Length() > 180 then
+			if phys:IsValid() and pl:Alive() and phys:GetVelocity():Length() > 180 then
 						if pl:GetPerk("_falldown") then
 					return
 				else
-				pl:GiveStatus("knockdown",math.Rand(2.1,3))
+				pl:GiveStatus("knockdown",math.Rand(1,2))
 				end
-			end]]--
+			end
 		end
 	end
 	

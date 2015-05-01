@@ -30,9 +30,9 @@ local ColorMod = {
 
 local ZombieCM = {
 	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 1,
+	["$pp_colour_contrast"] = 0,
 	["$pp_colour_colour"] = 1.2,
-	["$pp_colour_addr"] = 0.15,
+	["$pp_colour_addr"] = 0.2,
 	["$pp_colour_addg"] = 0.10,
 	["$pp_colour_addb"] = 0.0,
 	["$pp_colour_mulr"] = 1.05,
@@ -53,27 +53,27 @@ local ZombieCM = {
 ]]--}
 
 local ZombieHowlerCM = {
-	["$pp_colour_brightness"] = -0.20,
-	["$pp_colour_contrast"] = 1.2,
-	["$pp_colour_colour"] = 1,
-	["$pp_colour_addr"] = 0.31,
-	["$pp_colour_addg"] = 0.20,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_mulr"] = 0.15,
+	["$pp_colour_brightness"] = 0,
+	["$pp_colour_contrast"] = 0,
+	["$pp_colour_colour"] = 1.2,
+	["$pp_colour_addr"] = 0.2,
+	["$pp_colour_addg"] = 0.10,
+	["$pp_colour_addb"] = 0.0,
+	["$pp_colour_mulr"] = 1.05,
 	["$pp_colour_mulg"] = 0,
 	["$pp_colour_mulb"] = 0.
 }
 
 local ZombieRageCM = {
-	["$pp_colour_brightness"] = -0.1,
-	["$pp_colour_contrast"] = 1.5,
-	["$pp_colour_colour"] = 1,
-	["$pp_colour_addr"] = 0.27,
-	["$pp_colour_addg"] = 0.15,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_mulr"] = 0.16,
+	["$pp_colour_brightness"] = 0,
+	["$pp_colour_contrast"] = 0,
+	["$pp_colour_colour"] = 1.2,
+	["$pp_colour_addr"] = 0.2,
+	["$pp_colour_addg"] = 0.10,
+	["$pp_colour_addb"] = 0.0,
+	["$pp_colour_mulr"] = 1.05,
 	["$pp_colour_mulg"] = 0,
-	["$pp_colour_mulb"] = 0
+	["$pp_colour_mulb"] = 0.
 }
 
 --Alive Human
@@ -105,15 +105,15 @@ local HumanCM = {
 }]]
 
 local HumanCM = {
-	["$pp_colour_addr"] = 0,
-	["$pp_colour_addg"] = 0,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 1,
-	["$pp_colour_colour"] = 1,
-	["$pp_colour_mulr"] = 1.0,
-	["$pp_colour_mulg"] = 1.0,
-	["$pp_colour_mulb"] = 1.0
+	["$pp_colour_addr"] = 4,
+	["$pp_colour_addg"] = 4,
+	["$pp_colour_addb"] = 2,
+	["$pp_colour_brightness"] = 0.0,
+	["$pp_colour_contrast"] = 1.1,
+	["$pp_colour_colour"] = 1.5,
+	["$pp_colour_mulr"] = 1.2,
+	["$pp_colour_mulg"] = 1.4,
+	["$pp_colour_mulb"] = 1.4
 }
 
 --When spectating Zombies
@@ -121,7 +121,7 @@ local SpectatorCM = {
 	["$pp_colour_brightness"] = 0,
 	["$pp_colour_contrast"] = 1,
 	["$pp_colour_colour"] = 1.2,
-	["$pp_colour_addr"] = 0.15,
+	["$pp_colour_addr"] = 0.2,
 	["$pp_colour_addg"] = 0.10,
 	["$pp_colour_addb"] = 0.0,
 	["$pp_colour_mulr"] = 1.05,

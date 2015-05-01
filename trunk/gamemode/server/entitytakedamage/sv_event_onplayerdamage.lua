@@ -37,11 +37,11 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 	local pos = tr.HitPos
 	local norm = tr.HitNormal
 
-	local eff = EffectData()
-	eff:SetOrigin(pos)
-	eff:SetNormal(norm)
-	eff:SetScale(math.Rand(0.9,1.2))
-	eff:SetMagnitude(math.random(5,20))
-	util.Effect("bloodsplash", eff, true, true)
+	--local eff = EffectData()
+	--eff:SetOrigin(pos)
+	--eff:SetNormal(norm)
+	--eff:SetScale(math.Rand(0.9,1.2))
+	--eff:SetMagnitude(math.random(5,20))
+	--util.Effect("bloodsplash", eff, true, true)
 end
 hook.Add("OnPlayerTakeDamage", "PlayerTakeDamage", OnPlayerDamage)

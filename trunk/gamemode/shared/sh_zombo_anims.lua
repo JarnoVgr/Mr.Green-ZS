@@ -695,7 +695,6 @@ GM.DoAnimationEventZombies[9] = function ( pl, event, data )
 	end
 end
 
-
 --[[
 -- Crow
 GM.CalcMainActivityZombies[9] = function ( pl, vel )
@@ -735,7 +734,6 @@ GM.CalcMainActivityZombies[9] = function ( pl, vel )
 end
 
 ]]--
-
 
 --[[
 function MainActivityHate2(pl,vel)
@@ -836,8 +834,6 @@ GM.DoAnimationEventZombies[20] = function ( pl, event, data )
 	end
 end
 
-
-
 -- Hate
 GM.CalcMainActivityZombies[10] = function ( pl, vel )	
 	-- Default zombie act
@@ -883,57 +879,52 @@ GM.DoAnimationEventZombies[10] = function ( pl, event, data )
 	end
 end
 
-
-
-
-
 GM.CalcMainActivityZombies[11] = function ( pl, vel )
 	-- Default zombie act
-	local iSeq, iIdeal = pl:LookupSequence ( "Idle_Grenade" )
+	local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" )
 
 	local fVelocity = vel:Length2D()
 	
-	-- Walk animation or idle
-	if fVelocity > 30 then 
-		iSeq = pl:LookupSequence ( "walk_All_Grenade" )
-		if fVelocity > 180 then
-			iSeq = pl:LookupSequence ( "Run_All_grenade" )
+	if fVelocity == 0 then 
+		if pl:Crouching() then
+			iSeq = pl:LookupSequence ( "zombie_cidle_01" )
+		else
+			iSeq = pl:LookupSequence ( "zombie_run" ) 
 		end
-	else 
-		iSeq = pl:LookupSequence ( "Idle_Grenade" ) 
-	end
+	end	
+	
+	if fVelocity > 0.5 then 			
+		if pl:Crouching() then			
+			iSeq = pl:LookupSequence ( "zombie_cwalk_04" )
+		else					
+			iSeq = pl:LookupSequence ( "zombie_run" )			
+		end	
+	end			
 	
 	if (pl.IsAttacking and pl.IsAttacking >= CurTime() ) then iSeq = pl:LookupSequence ( pl.AttackSequence ) else pl._PlayBackRate = nil end
 	
 	local revive = pl.Revive
 	if revive and revive:IsValid() then
 		if revive:IsRising() then
-			iSeq = pl:LookupSequence ( "slumprise_b" ) 
+			iSeq = pl:LookupSequence ( "zombie_slump_rise_01" ) 
 		else
-			iSeq = pl:LookupSequence ( "slump_b" ) 
+			iSeq = pl:LookupSequence ( "zombie_slump_idle_01" ) 
 		end
 	end
+	
+	if pl:GetMoveType()==MOVETYPE_LADDER then
+		iSeq = pl:LookupSequence ( "zombie_climb_loop" )
+		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)		
+	end		
 	
 	return iIdeal, iSeq
 end
 
-local Attacks = { "swatleftlow", "swatleftlow", "attackE" }
+local Attacks = { "attackD", "attackE", "attackF", "attackB" }
 GM.DoAnimationEventZombies[11] = function ( pl, event, data )
-	if ( event == PLAYERANIMEVENT_CUSTOM_GESTURE ) then
+	if event == PLAYERANIMEVENT_CUSTOM_GESTURE then
 		if ( data == CUSTOM_PRIMARY ) then
-			-- pl:AnimRestartGesture( GESTURE_SLOT_CUSTOM, ACT_MELEE_ATTACK1 )
-			--pl.IsAttacking = true
-			pl.AttackSequence = table.Random ( Attacks )
-			pl._PlayBackRate = 0.95
-			-- Get sequence and restart it
-			pl:AnimRestartMainSequence()
-			
-			pl.IsAttacking = CurTime() + 1.3
-			--timer.Simple ( 1.3, function( pl ) if IsEntityValid ( pl ) then pl.IsAttacking = false end end, pl )
-
-			return ACT_VM_PRIMARYATTACK
-		elseif ( data == CUSTOM_SECONDARY ) then
-
+			pl:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_GMOD_GESTURE_RANGE_ZOMBIE, true)
 			return ACT_INVALID
 		end
 	end

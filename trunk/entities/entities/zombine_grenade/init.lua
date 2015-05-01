@@ -26,11 +26,17 @@ function ENT:Initialize()
 	-- Parent entity on zombie hand
 	if not IsEntityValid ( self.ZombieOwner ) then return end
 	
-	-- Set grenade type (poison or damage)
-	self:SetType( 1 )
-	--self:SetType( 2 )
-	--self:SetType(table1[math.random(1,#table1)])
+	local i = self.ZombieOwner:GetActiveWeapon():GetGrenadeType()
 	
+	if i == 0 then
+		self:SetType(1)
+	else
+		self:SetType(i)
+	end
+	-- 1 explosive
+	-- 2 poison
+	-- Set grenade type (poison or damage)
+	--self:SetType(table1[math.random(1,#table1)])
 	-- Set position on hand
 	self:SetPos ( self.ZombieOwner:GetPos() + Vector ( 0,0,40 ) )
 end

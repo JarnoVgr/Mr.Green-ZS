@@ -24,11 +24,11 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	if dmginfo:IsAttackerPlayer() then
 	
 		--Add bonus for prop-kills
-		if dmginfo:IsPhysDamage() then
-			if mVictim:IsHuman() and mAttacker:IsZombie() then
-				mAttacker:AddScore(1)
-			end
-		end
+		--if dmginfo:IsPhysDamage() then
+		--	if mVictim:IsHuman() and mAttacker:IsZombie() then
+		--		mAttacker:AddScore(1)
+		--	end
+		--end
 		
 		if mVictim.DiedFromFlare and mVictim.DiedFromFlare > CurTime() then
 			timer.Simple(0,function()

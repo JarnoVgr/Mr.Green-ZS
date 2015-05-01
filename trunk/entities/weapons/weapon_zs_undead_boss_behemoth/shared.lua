@@ -25,7 +25,7 @@ SWEP.ViewModelBoneMods = {
 
 
 SWEP.VElements = {
-	["Behemoth1"] = { type = "Model", model = "models/weapons/w_crowbar.mdl", bone = "ValveBiped.Bip01_R_Finger0", rel = "", pos = Vector(-8.29, -12.447, 1.335), angle = Angle(-4.758, 129.942, -25.379), size = Vector(1.917, 1.917, 1.917), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/flesh", skin = 0, bodygroup = {} }
+	["Behemoth1"] = { type = "Model", model = "models/weapons/w_crowbar.mdl", bone = "ValveBiped.Bip01_R_Finger0", rel = "", pos = Vector(-8.0, -12.0, 0), angle = Angle(-4.758, 129.942, -25.379), size = Vector(1.917, 1.917, 1.917), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/flesh", skin = 0, bodygroup = {} }
 }
 
 	SWEP.WElements = {
@@ -51,10 +51,10 @@ SWEP.ViewModel = "models/weapons/v_zombine.mdl" --
 --SWEP.WorldModel = "models/weapons/w_crowbar.mdl" --DO NOT MODIFY THIS
 SWEP.WorldModel = "models/weapons/w_grenade.mdl" --DO NOT MODIFY THIS
 
-SWEP.Primary.Reach = 45
-SWEP.Primary.Duration = 2.1
+SWEP.Primary.Reach = 50
+SWEP.Primary.Duration = 2.0
 SWEP.Primary.Delay = 0.6
-SWEP.Primary.Damage = math.random(80,95)
+SWEP.Primary.Damage = 40
 
 function SWEP:StartPrimaryAttack()
 	self.BaseClass.StartPrimaryAttack(self)
@@ -95,23 +95,15 @@ function SWEP:PostPerformPrimaryAttack(hit)
 		return
 	end
 
-	self.Owner:EmitSound(Sound("player/zombies/b/hitflesh.wav"),math.random(100,130),math.random(95,100))
-end
-
-function SWEP:PrimaryAttackHit(trace, ent)
-	if CLIENT then
-		return
-	end
-
 	if hit then
 		if ent and IsValid(ent) and ent:IsPlayer() then
-			pl:EmitSound(Sound("player/zombies/b/hitflesh.wav"),math.random(100,130),math.random(95,100))
+			pl:EmitSound(Sound("player/zombies/b/hitflesh.wav"),math.random(80,90),math.random(95,100))
 			util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
 		else
-			pl:EmitSound(Sound("player/zombies/b/hitwall.wav"),math.random(100,130),math.random(95,100))
+			pl:EmitSound(Sound("player/zombies/b/hitwall.wav"),math.random(80,90),math.random(95,100))
 		end
 	else
-		self.Owner:EmitSound(Sound("player/zombies/b/swing.wav"),math.random(100,130),math.random(95,100))
+		self.Owner:EmitSound(Sound("player/zombies/b/swing.wav"),math.random(80,90),math.random(95,100))
 	end
 end
 
@@ -122,7 +114,7 @@ function SWEP:SecondaryAttack()
 	end
 
 	if SERVER then
-		self.Owner:EmitSound("player/zombies/b/scream.wav", math.random(130, 150), math.random(80, 110))
+		self.Owner:EmitSound("player/zombies/b/scream.wav", math.random(80, 90), math.random(80, 110))
 	end
 
 	self.NextYell = CurTime() + math.random(8,13)
@@ -145,6 +137,6 @@ if CLIENT then
 			return
 		end
 		MeleeWeaponDrawHUD()
-		draw.SimpleTextOutlined("'c' to change perspective", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+	--	draw.SimpleTextOutlined("'c' to change perspective", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 end
