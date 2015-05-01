@@ -14,4 +14,5 @@ if SERVER then
 			self.Radius = tonumber(value)
 		end
 	end
+	
 end

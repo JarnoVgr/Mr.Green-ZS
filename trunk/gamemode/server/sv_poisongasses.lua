@@ -35,7 +35,7 @@ function GM:SpawnPoisonGasses()
 				
 		--Don't place nearby Survivor spawnpoints
 		for _, humanSpawn in pairs(team.GetSpawnPoint(TEAM_HUMAN)) do
-			if humanSpawn:GetPos():Distance(spawnPos) < 272 then
+			if humanSpawn:GetPos():Distance(spawnPos) < 192 then
 				blockEntSpawn = true
 				break
 			end
@@ -46,7 +46,7 @@ function GM:SpawnPoisonGasses()
 			
 		--Don't place nearby other gasses
 		for _, gasPos in pairs(spawnedGasPositions) do
-			if gasPos:Distance(spawnPos) < 128 then
+			if gasPos:Distance(spawnPos) < 192 then
 				blockEntSpawn = true
 				break
 			end
