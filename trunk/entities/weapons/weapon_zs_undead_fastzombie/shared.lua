@@ -207,7 +207,7 @@ function SWEP:SecondaryAttack()
 	self.Leaping = true
 	
 	--Leap cooldown
-	self.NextLeap = CurTime() + 1.3
+	self.NextLeap = CurTime() + 1.5
 	
 	--Fast zombie scream
 	if SERVER then

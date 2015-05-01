@@ -11,20 +11,18 @@ if ( CLIENT ) then
 	--["plank"] = { type = "Model", model = "models/weapons/w_plank.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.359, 1.521, 0), angle = Angle(0, 0, 180), size = Vector(1.23, 1.23, 1.23), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	["plank"] = { type = "Model", model = "models/weapons/w_plank.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(0.359, 2.521, 0), angle = Angle(0, 0, 180), size = Vector(1.23, 1.23, 1.23), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
-
+	
 	killicon.AddFont( "weapon_zs_melee_plank", "ZSKillicons", "e", Color(255, 255, 255, 255 ) )
 end
 
 -- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
-SWEP.ShowViewModel = false
-SWEP.ShowWorldModel = true
 
 -- Models paths
 SWEP.Author = "Deluvas"
 --SWEP.ViewModel = Model ( "models/weapons/c_crowbar.mdl" )
-SWEP.ViewModel = Model ( "models/weapons/c_stunstick.mdl" )
+--SWEP.ViewModel = Model ( "models/weapons/c_stunstick.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel = Model ( "models/weapons/w_plank.mdl" )
 

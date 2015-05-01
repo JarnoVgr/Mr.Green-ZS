@@ -46,11 +46,11 @@ SWEP.Slot = 3
 SWEP.SlotPos = 3
  
 --SWEP.Primary.ClipSize = 30
-SWEP.Primary.Damage = 30
+SWEP.Primary.Damage = 25
 --SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Automatic = true
 
-SWEP.Primary.Delay = 1
+SWEP.Primary.Delay = 0.8
 
 SWEP.Secondary.ClipSize = 5
 SWEP.Secondary.DefaultClip = 5
@@ -61,7 +61,7 @@ SWEP.Secondary.Ammo = "none"
 SWEP.WalkSpeed = SPEED_MELEE_LIGHT
 SWEP.HoldType = "melee"
  
-SWEP.MeleeDamage = 35
+SWEP.MeleeDamage = 25
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
 
@@ -185,16 +185,16 @@ if SERVER then
             if trent:GetClass() == "zs_turret" then
                 if trent:GetDTInt(1) < trent.MaxHealth then
    
-                    self.Owner._RepairScore = self.Owner._RepairScore + 1
+                   -- self.Owner._RepairScore = self.Owner._RepairScore + 1
                                            
-                    if self.Owner._RepairScore == 5 then
-                        skillpoints.AddSkillPoints(self.Owner, 10)
-                        trent:FloatingTextEffect(10, self.Owner )
-                        self.Owner:AddXP(30)
-                        self.Owner._RepairScore = 0
-                    end
+                   -- if self.Owner._RepairScore == 5 then
+                        skillpoints.AddSkillPoints(self.Owner, 1)
+                        trent:FloatingTextEffect(1, self.Owner )
+                        self.Owner:AddXP(5)
+                       -- self.Owner._RepairScore = 0
+                   -- end
                     --self:TakePrimaryAmmo(1)
-                    trent:SetDTInt(1,trent:GetDTInt(1)+1)
+                    trent:SetDTInt(1,trent:GetDTInt(1)+10)
                    
                     local pos = tr.HitPos
                     local norm = tr.HitNormal-- (tr.HitPos - self.Owner:GetShootPos()):Normalize():Angle()

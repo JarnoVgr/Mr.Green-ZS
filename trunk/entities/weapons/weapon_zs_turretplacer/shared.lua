@@ -118,6 +118,15 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire ( CurTime() + 0.65 )
 	
 if SERVER then
+
+	if skillpoints.GetSkillPoints(self.Owner) < 20 then
+		self.Owner:Message("20SP Required to deploy!", 2)
+		self.Weapon:SetNextPrimaryFire ( CurTime() + 5 )	
+	return end
+
+	skillpoints.TakeSkillPoints(self.Owner,20)
+	self.Owner:Message("-20SP", 1)		
+	 
 	local aimvec = self.Owner:GetAimVector()
 	local shootpos = self.Owner:GetPos()+Vector(0,0,1)
 	local CanCreateTurret = false

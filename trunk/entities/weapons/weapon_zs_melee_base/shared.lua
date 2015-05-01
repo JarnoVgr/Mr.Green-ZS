@@ -1,7 +1,7 @@
 AddCSLuaFile()
 AddCSLuaFile("cl_init.lua")
 
-SWEP.ViewModel = "models/weapons/v_crowbar.mdl"
+SWEP.ViewModel = "models/weapons/v_stunstick.mdl"
 --SWEP.ViewModel = ""
 SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
@@ -9,7 +9,6 @@ if CLIENT then
 	SWEP.ShowViewModel = false
 
 end
-
 SWEP.DrawCrosshair = false
 SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1

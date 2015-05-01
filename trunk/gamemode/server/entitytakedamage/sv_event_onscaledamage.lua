@@ -47,10 +47,10 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		return true
 	--Scale down own AR2 grenades (grenade launcher) shots
 	elseif (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
-		dmginfo:ScaleDamage(0.2)
+		dmginfo:ScaleDamage(0.8)
 	--Scale down explosion damage if it's the owner
 	elseif (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) then
-		dmginfo:ScaleDamage(0.45)
+		dmginfo:ScaleDamage(0.8)
 	--Turret damage
 	elseif attacker:GetClass() == "zs_turret" then
 		if pl:IsHuman() then
@@ -201,7 +201,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		local Inflictor = dmginfo:GetInflictor()
 		if Inflictor:GetClass() == "prop_physics" or Inflictor:GetClass() == "prop_physics_multiplayer" or Inflictor:GetClass() == "func_physbox" or Inflictor:GetClass() == "func_physbox_multiplayer" then-- if string.find ( Inflictor:GetClass(), "prop_physics" ) or string.find ( Inflictor:GetClass(), "physbox" ) then
 			local MaximumVictimHealth = pl:GetMaximumHealth()
-			local InitialDamage, NewDamage, Percentage = dmginfo:GetDamage(), dmginfo:GetDamage(), 0.45
+			local InitialDamage, NewDamage, Percentage = dmginfo:GetDamage(), dmginfo:GetDamage(), 0.2
 			-- Phys damage cooldown -- so we don't hit it with great damage 2 times in one frame
 			if pl.PhysCooldownDamage == nil then
 				pl.PhysCooldownDamage = 0 
@@ -231,7 +231,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 						if pl:GetPerk("_falldown") then
 					return
 				else
-				pl:GiveStatus("knockdown",math.Rand(1,2))
+				pl:GiveStatus("knockdown",math.Rand(1,3))
 				end
 			end
 		end

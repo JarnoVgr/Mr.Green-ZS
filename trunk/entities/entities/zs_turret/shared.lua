@@ -31,15 +31,15 @@ for i=1,2 do
 end
 
 -- Options
-ENT.MaxHealth = 400
+ENT.MaxHealth = 200
 ENT.MaxBullets = 150
-ENT.RechargeDelay = 0.7 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
-ENT.SpotDistance = 650
-ENT.Damage = 15
+ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
+ENT.SpotDistance = 700
+ENT.Damage = 6
 ENT.IgnoreClasses = {4,5,7,9,18} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {7,9}
 
-ENT.MinimumAimDot = 0.5
+ENT.MinimumAimDot = 0.25
 
 local function MyTrueVisible(posa, posb, filter)
 	local filt = ents.FindByClass("projectile_*")
@@ -97,11 +97,11 @@ if SERVER then
 			end]]--
 		
 		if self:GetTurretOwner():GetPerk("_turretammo") then
-			self.MaxBullets = math.Round(self.MaxBullets*1.5)
+			self.MaxBullets = math.Round(self.MaxBullets*2)
 		end
 		
 		if self:GetTurretOwner():GetPerk("_turrethp") then
-			self.MaxHealth = math.Round(self.MaxHealth*1.5)
+			self.MaxHealth = math.Round(self.MaxHealth*2)
 		end
 		
 		if self:GetTurretOwner():GetPerk("_turretdmg") then
@@ -117,10 +117,10 @@ if SERVER then
 		self:SetDTString(0,self:GetTurretOwner():GetInfo("_zs_turretnicknamefix"))
 		
 		-- switching to DT stuff
-		self:SetDTInt(0,self.MaxBullets) -- ammo
+		self:SetDTInt(0,0) -- ammo
 		self:SetDTInt(1,self.MaxHealth) -- health
 		self:SetDTInt(2,self.MaxBullets) -- max ammo
-		self:SetDTBool(0,true) -- is turret active
+		self:SetDTBool(0,false) -- is turret active
 		self:SetDTBool(1,false) -- attacking
 		self:SetDTBool(2,false) --  remote
 		
@@ -202,7 +202,7 @@ if SERVER then
 				
 			else
 				
-				self:RechargeAmmo(1,self.RechargeDelay)	
+				--self:RechargeAmmo(1,self.RechargeDelay)	
 				
 				
 				if IsValid(self.Target) then
@@ -231,11 +231,11 @@ if SERVER then
 							-- if not self:IsBlocked() then
 								if self:CanAttack() then
 									self.NextShoot = self.NextShoot or ct + 0.15	
-										if ct > self.NextShoot then
+										--if ct > self.NextShoot then
 											self:Shoot()
 											self:ResetSequence(self:LookupSequence("fire"))
 											self.NextShoot = ct + 0.15	
-										end
+										--end
 								else
 									self.NextShoot = self.NextShoot or ct + 0.15	
 										if ct > self.NextShoot then
@@ -282,7 +282,7 @@ if SERVER then
 			end
 		else
 			-- Increased recharge rate
-			self:RechargeAmmo(1,self.RechargeDelay/3.1)	
+			self:RechargeAmmo(1,0.11)	
 			self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),0,1))
 			self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),15,1))
 
@@ -293,7 +293,7 @@ if SERVER then
 	end
 
 	function ENT:DefaultPos()
-		return self:GetPos() + self:GetUp() * 55
+		return self:GetPos() +self:GetUp() * 55
 	end
 
 	function ENT:ShootPos()
@@ -423,8 +423,8 @@ if SERVER then
 		bullet.Dir = self:GetShootDir()
 		bullet.Spread = Vector(0, 0, 0)  
 		bullet.Tracer = 3
-		bullet.Force = 1.09
-		bullet.Damage = 13
+		bullet.Force = 0.1
+		bullet.Damage = self.Damage
 		bullet.TracerName = "AR2Tracer"
 		bullet.Callback = BulletCallback
 		
@@ -485,17 +485,9 @@ if SERVER then
 			end
 		end
 		
-			if not IsValid(activator) then
-			return
-		end
-		
-		if not activator:IsPlayer() or not activator:IsHuman() then
-			return
-		end
-		
+			if activator:KeyPressed( IN_RELOAD ) then
 
-
-		local owner = self:GetTurretOwner()
+			local owner = self:GetTurretOwner()
 			local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
 			if validOwner and activator == owner then
 				local placeWeapon = "weapon_zs_turretplacer"
@@ -510,19 +502,29 @@ if SERVER then
 				--Update owner
 				self:SetPlacer(activator)
 			end
-	
+			
+			end		
+		
+			if not IsValid(activator) then
+			return
+		end
+		
+		if not activator:IsPlayer() or not activator:IsHuman() then
+			return
+		end
+			
 	end
 
 	function ENT:OnTakeDamage( dmginfo )
 		if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() and not self:ShouldIgnoreDamage(dmginfo:GetAttacker()) then
 			--self:SetNWInt("TurretHealth",self:GetNWInt("TurretHealth") - dmginfo:GetDamage())
 			
-			local dmg = dmginfo:GetDamage()
+			local dmg = dmginfo:GetDamage()*0.25
 			
 			if IsValid(self:GetTurretOwner()) and self:GetTurretOwner():GetSuit() == "techsuit" then
-				dmg = dmg*2
+				dmg = dmg*0.66
 			end
-			
+
 			self:SetDTInt(1,self:GetDTInt(1) - dmg)
 			self:EmitSound("npc/scanner/scanner_pain"..math.random(1,2)..".wav")
 		
@@ -552,6 +554,7 @@ if SERVER then
 	end
 
 	function ENT:Explode()
+		local Owner = self:GetTurretOwner()
 		local trace = {}
 		trace.start = self:GetPos() + Vector(0,0,5)
 		trace.filter = self.Entity
@@ -560,6 +563,8 @@ if SERVER then
 		
 		util.Decal("Scorch",traceground.HitPos - traceground.HitNormal,traceground.HitPos + traceground.HitNormal)
 
+		
+		
 		local Effect = EffectData()
 		Effect:SetOrigin( self:GetPos() )
 		Effect:SetStart( self:GetPos() )
@@ -568,7 +573,17 @@ if SERVER then
 		-- if self:GetTurretOwner() then
 		-- 	self:GetTurretOwner().Turret = nil
 		-- end
+		
+		Owner:Message("Turret destroyed!", 2)
+		Owner:Message("20SP to place it again.", 2)			
+		local placeWeapon = "weapon_zs_turretplacer"
+		Owner:Give(placeWeapon)
+		Owner:SelectWeapon(placeWeapon)
+
+				
 		self.Entity:Remove()
+		
+		
 
 	end
 
@@ -749,6 +764,13 @@ if CLIENT then
 		if not self.EndPos then
 			return
 		end
+		
+		local brit = math.Clamp(self:GetDTInt(1) / self.MaxHealth, 0, 1)
+		local col = self:GetColor()
+		col.r = 255
+		col.g = 255 * brit
+		col.b = 255 * brit
+		self:SetColor(col)		
 		
 		if self:IsActive() then
 		render.SetMaterial( matLaser )
