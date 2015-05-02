@@ -17,7 +17,7 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 SWEP.Primary.Delay = 0.1
 SWEP.Primary.Reach = 42
 SWEP.Primary.Damage = 5
-SWEP.Primary.Duration = 0.65
+SWEP.Primary.Duration = 0.4
 
 
 SWEP.Secondary.Damage = 4
@@ -152,9 +152,9 @@ function SWEP:StartPrimaryAttack()
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
   
   	--Emit sound
-	if SERVER and #self.AttackSounds > 0 then
-		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))
-	end
+	--if SERVER and #self.AttackSounds > 0 then
+	--	self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))
+	--end
 end
 
 function SWEP:PostPerformPrimaryAttack(hit)
