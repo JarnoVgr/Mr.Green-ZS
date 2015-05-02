@@ -105,9 +105,9 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				mVictim:FloatingTextEffect(reward/1.3, mAttacker)
 				end
 				else 
-				skillpoints.AddSkillPoints(mAttacker,reward)
-				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-				mVictim:FloatingTextEffect(reward, mAttacker)
+				--skillpoints.AddSkillPoints(mAttacker,reward)
+				--mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
+				--mVictim:FloatingTextEffect(reward, mAttacker)
 			end
 				skillpoints.AddSkillPoints(mAttacker,reward)
 				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
