@@ -38,7 +38,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 0.25
+SWEP.Primary.Recoil			= 0.45
 SWEP.Primary.Damage			= 10
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 8
@@ -48,7 +48,7 @@ SWEP.Primary.Automatic		= false
 
 SWEP.Primary.Ammo			= "none"
 
-SWEP.Cone 			= 0.030
+SWEP.Cone 			= 0.034
 SWEP.ConeMoving		 = SWEP.Cone *1.3
 SWEP.ConeCrouching 	 = SWEP.Cone *0.90
 SWEP.ConeIron 		 = SWEP.Cone *0.95
@@ -108,7 +108,7 @@ function SWEP:Think()
 end
 
 function SWEP:EmitFireSound()
-	self:EmitSound(self.Primary.Sound, 80, math.random(120,130))
+	self:EmitSound(self.Primary.Sound, 80, math.random(115,125))
 end
 
 function SWEP:Reload()
@@ -119,9 +119,9 @@ function SWEP.BulletCallback(attacker, tr, dmginfo)
 	local e = EffectData()
 		e:SetOrigin(tr.HitPos)
 		e:SetNormal(tr.HitNormal)
-		e:SetRadius(5)
-		e:SetMagnitude(0.2)
-		e:SetScale(0.2)
+		e:SetRadius(1)
+		e:SetMagnitude(0.1)
+		e:SetScale(0.1)
 	util.Effect("cball_bounce", e)
 
 	GenericBulletCallback(attacker, tr, dmginfo)

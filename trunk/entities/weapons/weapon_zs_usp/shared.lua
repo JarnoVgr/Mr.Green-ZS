@@ -52,7 +52,7 @@ SWEP.Primary.Ammo			= "pistol"
 
 SWEP.FlipYaw = true
 
-SWEP.Cone = 0.04
+SWEP.Cone = 0.046
 SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.75
 SWEP.ConeIron = SWEP.Cone *0.8
