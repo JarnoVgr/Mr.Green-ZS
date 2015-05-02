@@ -47,22 +47,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			util.Effect( "fire_death", e, true, true )
 			mVictim.DiedFromFlare = nil
 		end
-		
-		--[[if mVictim:IsHuman() and mAttacker:IsZombie() then
-			if mAttacker:GetZombieClass() == 5 then
-				mVictim:Dismember("HEAD",dmginfo)
-			else
-				if mAttacker:GetZombieClass() == 10 then
-					mVictim:Dismember("SAWED",dmginfo)
-				end
-			end
-		end]]--
-		
-		--[[if mVictim:IsZombie() and mAttacker:IsZombie() then
-			if mAttacker:GetZombieClass() == 10 then
-				mVictim:Dismember("SAWED",dmginfo)
-			end
-		end]]--
+
 		
 		-- Melee kill
 		if dmginfo:IsMeleeDamage() and not mInflictor.IsTurretDmg then
@@ -70,6 +55,15 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				-- mAttacker:AddScore(1)
 				skillpoints.AddSkillPoints(mAttacker,5)
 				mVictim:FloatingTextEffect( 5, mAttacker )
+				
+				if mAttacker:GetPerk("_berserker") then
+					if mAttacker:GetPerk("_bloodmoney") then
+						skillpoints.AddSkillPoints(mAttacker,5)
+						mVictim:FloatingTextEffect( 5, mAttacker )
+						else
+						return
+					end
+				end	
 			end
 		end
 		

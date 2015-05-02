@@ -590,9 +590,7 @@ function RollTheDice ( pl,commandName,args )
 		end
 	elseif choise == 5 then
 		if pl:Team() == TEAM_HUMAN then
-			--message = "Double Edge Sword: ".. message .. ".. You've been set to half life!"
-			--pl:SetHealth(50)
-			pl:Ignite( math.random(1,5), 0)
+			pl:Ignite( math.random(1,4), 0)
 			message = "LOSE: "..message.." was put on fire by the dice."
 		elseif pl:Team() == TEAM_UNDEAD then
 			pl.BrainsEaten = pl.BrainsEaten - 1

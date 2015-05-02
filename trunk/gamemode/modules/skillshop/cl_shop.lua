@@ -21,6 +21,15 @@ WeaponTypeToCategory["explosive"] = "Explosive"
 WeaponTypeToCategory["admin"] = "Admin"
 WeaponTypeToCategory["christmas"] = "Admin"
 
+WeaponClassToCategory = {}
+WeaponClassToCategory["support"] = "Support"
+WeaponClassToCategory["medic"] = "Medic"
+WeaponClassToCategory["sharpshooter"] = "Sharpshooter"
+WeaponClassToCategory["berserker"] = "Berserker"
+WeaponClassToCategory["commando"] = "Commando"
+WeaponClassToCategory["engineer"] = "Engineer"
+WeaponClassToCategory["other"] = "Other"
+
 
 local MaxWeaponStats = {}
 local WeaponStats = {}
@@ -34,7 +43,6 @@ function StoreWeaponStats()
 	MaxWeaponStats["Automatic"] = GetMaxWeaponStats("Automatic")
 	MaxWeaponStats["Pistol"] = GetMaxWeaponStats("Pistol")
 	MaxWeaponStats["Melee"] = GetMaxWeaponStats("Melee")
-	
 	-- usual stats
 	for wep, tab in pairs(GAMEMODE.HumanWeapons) do
 		WeaponStats[wep] = GetWeaponStats(wep)
@@ -67,17 +75,11 @@ function GetMaxWeaponStats(category)
 	for _, weapon in pairs(weps) do
 		local tbl = weapons.Get(weapon)
 		if tbl then
-			if tbl.Primary.Damage and not tbl.IsShotgun then
-				local dmg1 = tbl.Primary.Damage
-				if tbl.Primary.NumShots then 
-					dmg1 = tbl.Primary.Damage * tbl.Primary.NumShots 
-					if tbl.IsShotgun then
-						dmg1 = dmg1 * 0.15 -- lower a bit so players wont be confused
-					end
-				end
-				
+			if tbl.Primary.Damage then
+				local dmg1 = tbl.Primary.Damage * (1 / tbl.Primary.Delay)
+
 				if dmg1 >= dmg then
-					dmg = dmg1
+					dmg = dmg1 * (1 / tbl.Primary.Delay)
 				end
 			end
 		end
@@ -90,12 +92,13 @@ function GetMaxWeaponStats(category)
 			if tbl.Cone then
 				if tbl.Cone >= acc then
 					acc = tbl.Cone
+					acc = 0.2 - acc					
 				end
 			end
 		end
 	end
 	
-	acc = 0.3
+	--acc = 0.3
 	
 	-- acc = math.max(0.00001, 1-(acc / 0.8)) * 100
 	
@@ -167,10 +170,15 @@ function GetWeaponStats(wep)
 			local dmg1 = tbl.Primary.Damage
 			if tbl.Primary.NumShots then dmg1 = tbl.Primary.Damage * tbl.Primary.NumShots end
 			dmg = dmg1
+			if tbl.Primary.ClipSize > 1 then
+				dmg = dmg1 * (1 / tbl.Primary.Delay)			
+			end
+			--print(Primary.ClipSize)
 		end
 		if tbl.Cone then
 			-- acc = math.max(0.00001, 1-(tbl.Cone / 0.8)) * 100
-			acc = math.Clamp(0.3-tbl.Cone,0,0.3)
+			acc = tbl.Cone	
+			acc = 0.2 - acc
 		end
 		if tbl.Primary.Delay then
 			rof = 1/tbl.Primary.Delay
@@ -213,12 +221,62 @@ function InsertWeaponsTab()
 	end
 	
 	--Melee
-	WeaponsList3 = vgui.Create( "DScrollPanel")
+	--WeaponsList3 = vgui.Create( "DScrollPanel")
+	--WeaponsList3:SetSize(MainSheetW,MainSheetH)
+	--WeaponsList3:SetSkin("ZSMG")
+	--WeaponsList3.Paint = function()
+	--end
+
+	--Commando
+	WeaponsList3 = vgui.Create("DScrollPanel")
 	WeaponsList3:SetSize(MainSheetW,MainSheetH)
 	WeaponsList3:SetSkin("ZSMG")
 	WeaponsList3.Paint = function()
 	end
+	
+	--Support
+	WeaponsList4 = vgui.Create( "DScrollPanel")
+	WeaponsList4:SetSize(MainSheetW,MainSheetH)
+	WeaponsList4:SetSkin("ZSMG")
+	WeaponsList4.Paint = function()
+	end
+	
+	--Medic
+	WeaponsList5 = vgui.Create( "DScrollPanel")
+	WeaponsList5:SetSize(MainSheetW,MainSheetH)
+	WeaponsList5:SetSkin("ZSMG")
+	WeaponsList5.Paint = function()
+	end	
+	
+	--Sharpshooter
+	WeaponsList6 = vgui.Create( "DScrollPanel")
+	WeaponsList6:SetSize(MainSheetW,MainSheetH)
+	WeaponsList6:SetSkin("ZSMG")
+	WeaponsList6.Paint = function()
+	end
 
+	--Engineer
+	WeaponsList7 = vgui.Create( "DScrollPanel")
+	WeaponsList7:SetSize(MainSheetW,MainSheetH)
+	WeaponsList7:SetSkin("ZSMG")
+	WeaponsList7.Paint = function()
+	end	
+	
+	--Berserker
+	WeaponsList8 = vgui.Create( "DScrollPanel")
+	WeaponsList8:SetSize(MainSheetW,MainSheetH)
+	WeaponsList8:SetSkin("ZSMG")
+	WeaponsList8.Paint = function()
+	end
+	
+	--General
+	--WeaponsList10 = vgui.Create( "DScrollPanel")
+	--WeaponsList10:SetSize(MainSheetW,MainSheetH)
+	--WeaponsList10:SetSkin("ZSMG")
+	--WeaponsList10.Paint = function()
+	--end	
+	
+	
 	local WeaponTab = {}
 	
 	for wep,tab in pairs(GAMEMODE.HumanWeapons) do
@@ -226,18 +284,33 @@ function InsertWeaponsTab()
 		if tab.Price then
 			
 			WeaponTab[wep] = vgui.Create("DLabel")
-			
-			if GetWeaponCategory ( wep ) == "Automatic" then
-				WeaponTab[wep]:SetParent(WeaponsList1)
+			--print(GetWeaponClass(wep))
+			--print(GetWeaponCategory(wep))	
+			if GetWeaponClass ( wep ) == "Commando" then
+				WeaponTab[wep]:SetParent(WeaponsList3)			
+			elseif GetWeaponClass ( wep ) == "Support" then		
+				WeaponTab[wep]:SetParent(WeaponsList4)		
+			elseif GetWeaponClass ( wep ) == "Medic" then
+				WeaponTab[wep]:SetParent(WeaponsList5)
+			elseif GetWeaponClass ( wep ) == "Sharpshooter" then
+				WeaponTab[wep]:SetParent(WeaponsList6)
+			elseif GetWeaponClass ( wep ) == "Engineer" then
+				WeaponTab[wep]:SetParent(WeaponsList7)
+			elseif GetWeaponClass ( wep ) == "Berserker" then
+				WeaponTab[wep]:SetParent(WeaponsList8)	
+			--elseif GetWeaponClass ( wep ) == "General" then
+			--	WeaponTab[wep]:SetParent(WeaponsList9)						
+			elseif GetWeaponClass ( wep ) == "Other" then
+				WeaponTab[wep]:SetParent(WeaponsList1)			
 			elseif GetWeaponCategory ( wep ) == "Pistol" then
 				WeaponTab[wep]:SetParent(WeaponsList2)
-			elseif GetWeaponCategory ( wep ) == "Melee" then
-				WeaponTab[wep]:SetParent(WeaponsList3)
+			--elseif GetWeaponCategory ( wep ) == "Melee" then			
+			--	WeaponTab[wep]:SetParent(WeaponsList3)
 			end
 			
 			WeaponTab[wep]:SetText("")
 			WeaponTab[wep]:SetSkin("ZSMG")
-			WeaponTab[wep]:SetSize(MainSheetW,MainSheetH/5)
+			WeaponTab[wep]:SetSize(MainSheetW,MainSheetH/6)
 			WeaponTab[wep]:Dock(TOP)
 
 			WeaponTab[wep].Think = function()
@@ -287,11 +360,12 @@ function InsertWeaponsTab()
 					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[wep].Name, "WeaponNames", 15, WeaponTab[wep]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				end
 				--Stats
-				local barw,barh = 120, WeaponTab[wep]:GetTall()/6
-				local barx, bary = WeaponTab[wep]:GetWide()/2-barw+55, 2*WeaponTab[wep]:GetTall()/6 - barh-- /2
+				local barw,barh = 80, WeaponTab[wep]:GetTall()/4
+				local barx, bary = WeaponTab[wep]:GetWide()/2-barw*1.5-70, 2*WeaponTab[wep]:GetTall()/6 - barh-- /2
+				bary = bary + 28
 				
 				local labels = {}
-				labels[1] = {"Damage","Damage"}
+				labels[1] = {"DPS","Damage"}
 				labels[2] = {"Accuracy","Reach"}
 				labels[3] = {"Rate of fire","Speed"}
 				
@@ -310,34 +384,46 @@ function InsertWeaponsTab()
 					surface.SetDrawColor(Color(50,50,50,255))
 					
 					local rel = math.Clamp(GetWepStats(wep)[i]/GetMaxWepStats(GetWeaponCategory(wep))[i],0,1)
-					local stat = math.Round(math.Clamp(GetWepStats(wep)[i],0,1000),1)
+					local stat
 					
+					if GetWeaponCategory(wep) == "Melee" and i == 2 then
+						stat = math.Round(math.Clamp(GetWepStats(wep)[i],0,100),1)						
+					end
+					
+					if i==1 then
+						stat = math.Round(math.Clamp(GetWepStats(wep)[i],0,400),1)
+					elseif i ==2 and GetWeaponCategory(wep) != "Melee" then
+						stat = math.Round(math.Clamp(GetWepStats(wep)[i],0,2),2)			
+					else
+						stat = math.Round(math.Clamp(GetWepStats(wep)[i],0,100),2)						
+					end					
 					
 					surface.DrawRect(barx+2 , bary+2, rel*barw-4, barh-4 )
 					
 					draw.SimpleTextOutlined ( labels[i][num], "WeaponNamesTiny",  barx-7, bary+barh/2, Color(255, 255, 255, 255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-					draw.SimpleTextOutlined ( stat, "WeaponNamesTiny", barx+60,bary+barh/2, Color (255,255,255,255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,0))					
+					draw.SimpleTextOutlined ( stat, "WeaponNamesTiny", barx+45,bary+barh/2, Color (255,255,255,255) , TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,0))
 
-					bary = bary + barh*1.5		
+				--	bary = bary + barh*1.5
+					barx = barx + barw*2
 				end
 
 				---------
 				if MySelf:GetScore() < tab.Price then --MySelf.SkillPoints
-					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[wep].Price.." SP", "ArialBoldSeven",  WeaponTab[wep]:GetWide()/2+70, WeaponTab[wep]:GetTall()/2, Color(180, 11, 11, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255)) -- WeaponTab[wep]:GetWide()/2-35
+					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[wep].Price.." SP", "ArialBoldSeven",  WeaponTab[wep]:GetWide()/2+220, WeaponTab[wep]:GetTall()/2, Color(180, 11, 11, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255)) -- WeaponTab[wep]:GetWide()/2-35
 				else
-					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[wep].Price.." SP", "ArialBoldSeven",  WeaponTab[wep]:GetWide()/2+70, WeaponTab[wep]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined ( GAMEMODE.HumanWeapons[wep].Price.." SP", "ArialBoldSeven",  WeaponTab[wep]:GetWide()/2+220, WeaponTab[wep]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				end
 				-- Add sale thingy
 				local Sale = GetSale(wep)
 				if Sale then
 					local s = surface.GetTextSize ( GAMEMODE.HumanWeapons[wep].Price.." SP" )
-					draw.SimpleTextOutlined("(ON SALE: -".. Sale .."%)", "WeaponNames",  WeaponTab[wep]:GetWide()/2+70+s+6, WeaponTab[wep]:GetTall()/2, Color(( math.sin(RealTime() * 5) * 95 ) + 150 , 30, 30, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined("(ON SALE: -".. Sale .."%)", "WeaponNames",  WeaponTab[wep]:GetWide()/2+94+s+6, WeaponTab[wep]:GetTall()/2+24, Color(( math.sin(RealTime() * 5) * 95 ) + 150 , 30, 30, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				end
 			end
 			
 			WeaponTab[wep].Btn = vgui.Create("DButton",WeaponTab[wep])
 			WeaponTab[wep].Btn:SetText("Buy it!")
-			WeaponTab[wep].Btn:SetSize(70, WeaponTab[wep]:GetTall()/2.3)
+			WeaponTab[wep].Btn:SetSize(80, WeaponTab[wep]:GetTall()/2.3)
 			WeaponTab[wep].Btn:SetPos(WeaponTab[wep]:GetWide()-70-50, WeaponTab[wep]:GetTall()/2-WeaponTab[wep].Btn:GetTall()/2)
 			
 			WeaponTab[wep].Btn.Think = function()
@@ -356,9 +442,16 @@ function InsertWeaponsTab()
 		end
 	end
 	
-	MainSheet:AddSheet("Primary", WeaponsList1, nil, false, false, nil )
+	MainSheet:AddSheet("Other", WeaponsList1, nil, false, false, nil )
 	MainSheet:AddSheet("Pistols", WeaponsList2, nil, false, false, nil )
-	MainSheet:AddSheet("Melee", WeaponsList3, nil, false, false, nil )
+	--MainSheet:AddSheet("Melee", WeaponsList3, nil, false, false, nil )
+	MainSheet:AddSheet("Commando", WeaponsList3, nil, false, false, nil )
+	MainSheet:AddSheet("Support", WeaponsList4, nil, false, false, nil )
+	MainSheet:AddSheet("Medic", WeaponsList5, nil, false, false, nil )
+	MainSheet:AddSheet("Sharpshooter", WeaponsList6, nil, false, false, nil )
+	MainSheet:AddSheet("Engineer", WeaponsList7, nil, false, false, nil )
+	MainSheet:AddSheet("Berserker", WeaponsList8, nil, false, false, nil )
+	--MainSheet:AddSheet("General", WeaponsList10, nil, false, false, nil )	
 end
 
 function InsertAmmoTab()
@@ -424,9 +517,9 @@ function InsertAmmoTab()
 				surface.SetDrawColor( 255, 255, 255, 255) 
 				draw.SimpleTextOutlined(GAMEMODE.SkillShopAmmo[ammo].Name, "WeaponNames", 15, AmmoTab[ammo]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				if MySelf:GetScore() < tab.Price then
-					draw.SimpleTextOutlined(GAMEMODE.SkillShopAmmo[ammo].Price.." SP", "ArialBoldSeven",  AmmoTab[ammo]:GetWide()/2-35, AmmoTab[ammo]:GetTall()/2, Color(180, 11, 11, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined(GAMEMODE.SkillShopAmmo[ammo].Price.." SP", "ArialBoldSeven",  AmmoTab[ammo]:GetWide()/2-10, AmmoTab[ammo]:GetTall()/2, Color(180, 11, 11, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				else
-					draw.SimpleTextOutlined(GAMEMODE.SkillShopAmmo[ammo].Price.." SP", "ArialBoldSeven",  AmmoTab[ammo]:GetWide()/2-35, AmmoTab[ammo]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+					draw.SimpleTextOutlined(GAMEMODE.SkillShopAmmo[ammo].Price.." SP", "ArialBoldSeven",  AmmoTab[ammo]:GetWide()/2-10, AmmoTab[ammo]:GetTall()/2, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 				end
 			end
 			

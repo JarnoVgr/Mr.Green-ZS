@@ -101,12 +101,127 @@ function GM:OnPlayerRedeem(pl, causer)
 				pl:StripWeapon(pl:GetPistol():GetClass())
 			end
 				
-			local wep = table.Random({"weapon_zs_deagle","weapon_zs_elites"})
+			local wep = table.Random({"weapon_zs_famas","weapon_zs_sg552"})
 			pl:Give(wep)
 			pl:SelectWeapon(wep)
 			pl._ComebackUsed = true
 		end
 	end
+	
+		noclass = {"weapon_zs_usp","weapon_zs_melee_fryingpan"}
+		
+		--Medic Stages
+		medicstage1 = {"weapon_zs_p228","weapon_zs_melee_combatknife","weapon_zs_medkit"}
+		
+		--Support stages
+		support = {"weapon_zs_usp","weapon_zs_melee_combatknife","weapon_zs_tools_plank","weapon_zs_tools_hammer"}
+		
+		--Commando stages
+		commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
+		
+		--Engineer stages
+		engineer = {"weapon_zs_pulsepistol","weapon_zs_turretplacer","weapon_zs_mine"}
+		
+		--Berserker stages
+		berserker = {"weapon_zs_classic","weapon_zs_melee_plank","weapon_zs_special_vodka"}
+		
+		--Sharpshooter stages
+		sharpshooter = {"weapon_zs_musket","weapon_zs_classic","weapon_zs_melee_fryingpan","weapon_zs_tools_supplies"}
+	
+	--{{ZS HUMAN CLASSES}}--
+		if pl:Team() == TEAM_SURVIVORS then
+			if pl:GetPerk("_medic") then
+				pl:ChatPrint("You are a Medic")
+
+				for k,v in pairs(medicstage1) do
+					pl:Give(tostring(v))
+				end
+					if pl:GetPerk("_medigun") then --Medical gun perk
+						pl:Give("weapon_zs_medigun")
+					end
+				end			
+		end
+		
+		if pl:Team() == TEAM_SURVIVORS then
+			if pl:GetPerk("_support2") then
+				pl.Loadout = table.Copy(support)
+				pl:ChatPrint("You are a Support class")
+				for k,v in pairs(support) do
+					pl:Give(tostring(v))
+				end	
+				--if pl:GetPerk("_supportweapon") then --Medical gun perk
+					--	pl:Give("weapon_zs_chipper")
+					--end
+				
+				end
+		end		
+		
+		if pl:Team() == TEAM_SURVIVORS then		
+			if pl:GetPerk("_engineer") then
+				pl:ChatPrint("You are an Engineer")
+				pl.Loadout = table.Copy(engineer)
+				for k,v in pairs(engineer) do
+					pl:Give(tostring(v))
+				end
+				if pl:GetPerk("_pulsesmg") then
+					pl:Give("weapon_zs_pulsesmg")
+				end
+				if pl:GetPerk("_combat") then
+					pl:SpawnMiniTurret()
+				end
+				
+				if pl:GetPerk("_remote") then
+					pl:Give("weapon_zs_tools_remote")
+				end
+				end
+		end
+		
+		if pl:Team() == TEAM_SURVIVORS then		
+			if pl:GetPerk("_commando") then
+				pl:ChatPrint("You are a Commando")
+				pl.Loadout = table.Copy(commando)
+				for k,v in pairs(commando) do
+					pl:Give(tostring(v))				
+				end		
+				--if pl:GetPerk("_arsanal") then --Medical gun perk
+					--	pl:Give("weapon_zs_defender")
+					--end		
+				end
+		end
+		
+		if pl:Team() == TEAM_SURVIVORS then		
+			if pl:GetPerk("_berserker") then
+				pl:ChatPrint("You are a Berserker")
+				pl.Loadout = table.Copy(berserker)
+				for k,v in pairs(berserker) do
+					pl:Give(tostring(v))
+				end
+				if pl:GetPerk("_slinger") then
+					pl:Give("weapon_zs_melee_hook")
+				end
+				end
+		end
+		
+				if pl:Team() == TEAM_SURVIVORS then		
+			if pl:GetPerk("_sharpshooter") then
+				pl:ChatPrint("You are a SharpShooter")
+				pl.Loadout = table.Copy(sharpshooter)
+				for k,v in pairs(sharpshooter) do
+					pl:Give(tostring(v))
+				end
+				if pl:GetPerk("_lethal") then
+					pl:StripWeapon(pl:GetAutomatic():GetClass())
+					pl:Give("weapon_zs_scout")
+					end
+				end
+		end
+		
+		for k,v in pairs(commando) do --If you don't have a class selected give them this... The commando <3
+					pl:Give(tostring(v))
+				end
+
+	
+
 	
 	pl.DeathClass = nil
 	pl.LastAttacker = nil
@@ -138,12 +253,7 @@ function GM:OnPlayerRedeem(pl, causer)
 			skillpoints.AddSkillPoints(pl, AverageSP)
 		end
 	end
-	
-	--Give SP for redeeming
-	--[[if CurTime() > (WARMUPTIME+240) then
-		skillpoints.AddSkillPoints(pl, math.max(20,math.Round(600*GetInfliction())))
-	end]]
-	
+
 	--Process
 	self:ProceedRedeemSpawn(pl)
 	

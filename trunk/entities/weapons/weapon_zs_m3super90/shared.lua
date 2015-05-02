@@ -100,6 +100,11 @@ function SWEP:Think()
 			self:SetClip1(self:Clip1() + 3)
 		end
 		
+				
+		if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
+			self:SetClip1(self:Clip1() + 1)
+		end
+		
 		if self.Primary.ClipSize <= self:Clip1() or self.Owner:GetAmmoCount(self.Primary.Ammo) <= 0 then
 			self.nextreloadfinish = CurTime() + self.ReloadDelay
 			self.reloading = false

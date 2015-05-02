@@ -5,18 +5,18 @@ local SKIN = {}
 
 SKIN.bg_color 					= Color( 0,0,0,250 )
 
-SKIN.control_color 				= Color( 90, 90, 90, 255 )
-SKIN.control_color_highlight	= Color( 150, 150, 150, 255 )
-SKIN.control_color_active 		= Color( 110, 150, 250, 255 )
-SKIN.control_color_bright 		= Color( 225, 150, 80, 255 )
-SKIN.control_color_dark 		= Color( 80, 80, 80, 255 )
+SKIN.control_color 				= Color( 90, 90, 90, 0 )
+SKIN.control_color_highlight	= Color( 150, 150, 150, 0 )
+SKIN.control_color_active 		= Color( 110, 150, 250, 0 )
+SKIN.control_color_bright 		= Color( 225, 150, 80, 0 )
+SKIN.control_color_dark 		= Color( 80, 80, 80, 0 )
 
-SKIN.colButtonBorder			= Color( 20, 20, 20, 255 )
+SKIN.colButtonBorder			= Color( 20, 20, 20, 0 )
 SKIN.colButtonBorderHighlight	= Color( 255, 255, 255, 50 )
 SKIN.colButtonBorderShadow		= Color( 0, 0, 0, 100 )
 
 SKIN.fontButton					= "Default"
-SKIN.colButtonText				= Color( 255, 255, 255, 255 )
+SKIN.colButtonText				= Color( 255, 255, 255, 0 )
 SKIN.colButtonTextDisabled		= Color( 255, 255, 255, 55 )
 
 SKIN.tooltip					= Color(40,40,40,140)
@@ -25,8 +25,7 @@ local Gradient = surface.GetTextureID( "gui/center_gradient" )
 
 function SKIN:PaintFrame(panel)
 		
-	-- self:DrawGenericBackground( 0, 0, panel:GetWide(), panel:GetTall(), Color(40,40,40,140) ) 
-	 self:DrawGenericBackground( 0, 0, panel:GetWide(), panel:GetTall(), Color(20,20,20,100) ) 
+	 self:DrawGenericBackground( 0, 0, panel:GetWide(), panel:GetTall(), Color(40,40,40,140) ) 
 	 	 
 	 surface.SetDrawColor( 30, 30, 30, 255 ) 
 	 surface.DrawRect( 1, 21, panel:GetWide()-2, 1 ) 
@@ -61,8 +60,7 @@ function SKIN:PaintTextEntry( panel )
 
 	if ( panel.m_bBackground ) then 
 
-		--surface.SetDrawColor( 60, 60, 60, 240 ) 
-		surface.SetDrawColor( 20, 20, 20, 240 ) 
+		surface.SetDrawColor( 60, 60, 60, 240 ) 
 		surface.DrawRect( 0, 0, panel:GetWide(), panel:GetTall() ) 
 
 	end 
@@ -71,8 +69,7 @@ function SKIN:PaintTextEntry( panel )
 
 	if ( panel.m_bBorder ) then 
 
-		--surface.SetDrawColor( 50, 50, 50, 255 ) 
-		surface.SetDrawColor( 20, 20, 20, 255 ) 
+		surface.SetDrawColor( 50, 50, 50, 255 ) 
 		surface.DrawOutlinedRect( 0, 0, panel:GetWide(), panel:GetTall() ) 
 		
 		surface.SetDrawColor( 10, 10, 10, 200 ) 
@@ -298,6 +295,6 @@ function SKIN:SchemeTab( panel )
 		
 end
 	
-derma.DefineSkin("ZSMG", "Derma skin for Mr. Green Zombie Survival", SKIN, "Default")
+derma.DefineSkin("ZSMG2", "Derma skin for Mr. Green Zombie Survival", SKIN, "Default")
 
-RunConsoleCommand("derma_skin", "ZSMG")
+RunConsoleCommand("derma_skin", "ZSMG2")

@@ -71,7 +71,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	--Possible revive
 	if CurTime() > WARMUPTIME and not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 1) then
-		if math.random(1,4) == 1 and (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) then
+		if math.random(1,3) == 1 and (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) then
 			GAMEMODE:DefaultRevive(mVictim)
 			revive = true
 			mVictim.NoDeathNotice = true
@@ -97,11 +97,21 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				if mVictim:IsBoss() then
 					reward = reward * math.Clamp(INFLICTION + 0.2,0.1,1.1)
 				end
-					
+
+				if mAttacker:GetPerk("_commando") then --Double checker, just in case..
+					if mAttacker:GetPerk("_profitable") then
+				skillpoints.AddSkillPoints(mAttacker,reward/1.3)
+				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
+				mVictim:FloatingTextEffect(reward/1.3, mAttacker)
+				end
+				else 
 				skillpoints.AddSkillPoints(mAttacker,reward)
 				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
 				mVictim:FloatingTextEffect(reward, mAttacker)
-
+			end
+				skillpoints.AddSkillPoints(mAttacker,reward)
+				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
+				mVictim:FloatingTextEffect(reward, mAttacker)
 				-- Add GreenCoins and increment zombies killed counter
 				mAttacker.ZombiesKilled = mAttacker.ZombiesKilled + 1
 				mAttacker:GiveGreenCoins(COINS_PER_ZOMBIE)

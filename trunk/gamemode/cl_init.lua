@@ -532,6 +532,14 @@ local function LoopLastHuman()
 	end
 end
 
+local function LoopShitHitFan()
+	if not ENDROUND and util.tobool(GetConVar( "_zs_enablemusic" )) then
+		surface.PlaySound(SHITHITFAN)
+		timer.Simple(SHITHITFANLENGTH, LoopShitHitFan)
+	end
+end
+
+
 local function DelayedLastHumanAlert()
 	if not ENDROUND then
 		if MySelf:Team() == TEAM_UNDEAD or not MySelf:Alive() then

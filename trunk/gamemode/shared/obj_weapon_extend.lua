@@ -158,10 +158,23 @@ function GetWeaponCategory ( class )
 	
 	-- Type error
 	if Type == "none" or Type == nil then return end
-	
+	--print(Type)	-- tool types
 	-- Get category
 	local strCategory = WeaponTypeToCategory[Type]
-	
+	--print("category")
+	--print(strCategory)	
+	return strCategory
+end
+
+function GetWeaponClass ( weapon )
+--print("weapon")
+	--print(weapon)
+	if weapon == nil then return end
+	local class = GetWeaponWhatClass(weapon)
+	--print("class")
+	--print(class)
+	if class == "none" or class == nil then return end
+	local strCategory = WeaponClassToCategory[class]
 	return strCategory
 end
 
@@ -175,6 +188,18 @@ function GetWeaponType ( class )
 	return GAMEMODE.HumanWeapons[ class ].Type
 end
 
+function GetWeaponWhatClass ( weapon ) 
+	--PrintTable(GAMEMODE.HumanWeapons[ weapon ])
+
+	--if class == nil then return "none" end
+	--print("weapon")
+	--print(weapon)
+	if GAMEMODE.HumanWeapons[ weapon ] == nil then return "none" end
+	--print(".class")
+	--print(GAMEMODE.HumanWeapons[ weapon ].Class)
+	return GAMEMODE.HumanWeapons[weapon].HumanClass
+end
+
 --[==[---------------------------------------------------------
         Used to get the type (string) of a weapon
 ---------------------------------------------------------]==]
@@ -184,7 +209,17 @@ function meta:GetType()
 	local name = tostring ( self:GetClass() )
 		
 	if GAMEMODE.HumanWeapons[ name ] == nil then return "none" end
+	--print(GAMEMODE.HumanWeapons[ name ].Type)	
 	return GAMEMODE.HumanWeapons[ name ].Type
+end
+
+function meta:GetWhatClass()
+	if not IsValid ( self ) then return "none" end                          
+
+	local name = tostring ( self:GetClass() )
+		
+	if GAMEMODE.HumanWeapons[ name ] == nil then return "none" end
+	return GAMEMODE.HumanWeapons[ name ].HumanClass
 end
 
 --[==[---------------------------------------------------------------------

@@ -29,8 +29,8 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	--Scale damage for THE Gordon Freeman
 	--elseif attacker.IsFreeman and attacker:IsHuman() and dmginfo:IsMeleeDamage() then
 	--	dmginfo:ScaleDamage(1.2)
+	--end
 	end
-	
 	--Physbox team-damage bug
 	if dmginfo:IsAttackerPhysbox() then
 		local mPhysAttacker = dmginfo:GetAttacker():GetPhysicsAttacker()
@@ -119,6 +119,8 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		--Scale any damage
 		dmginfo:ScaleDamage(GAMEMODE:GetUndeadDamageMultiplier())
 
+		
+		
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
@@ -138,11 +140,6 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
 		end
 
-		--if GetInfliction() >= 0.15 and pl:IsZombie() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.11) and pl:Health() ~= 0 and pl.bCanSprint == false then
-		--	pl.bCanSprint = true
-		--	pl:SendLua("WraithScream()")
-			--pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))
-		--end
 
 		--One boss
 		--[[if dmginfo:IsBulletDamage() and (pl:GetZombieClass() == 11 or pl:GetZombieClass() == 18) and (dmginfo:GetDamagePosition():Distance( pl:GetAttachment(pl:LookupAttachment("head")).Pos )) > 6.5 and math.random(5) == 5 then
@@ -180,7 +177,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			pl:ViewPunch(Angle(math.random(-45, 45),math.random (-15, 15), math.random(-10, 10)))
 		end 
 			
-		if pl:GetPerk("_falldmg") then
+		if pl:GetPerk("_point") then
 			dmginfo:AddDamage(Damage*0.75)
 		else
 			--Add new damage
@@ -188,7 +185,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		end
 		
 		if pl:Alive() then
-				if pl:GetPerk("_falldown") then
+				if pl:GetPerk("_point") then
 					return
 				else	
 			pl:GiveStatus("knockdown",2)

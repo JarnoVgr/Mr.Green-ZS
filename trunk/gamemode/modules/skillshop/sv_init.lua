@@ -110,6 +110,13 @@ function ApplySkillShopItem(pl, com, args)
 			return
 		end
 
+	local Weapons = {
+		pl:GetActiveWeapon(),
+		pl:GetAutomatic(),
+		pl:GetPistol()
+	}
+
+		
 		--Determine to check against what weapon
 		local StrCategory = GetWeaponCategory(item)
 		local CurrentWeapon = nil
@@ -120,6 +127,7 @@ function ApplySkillShopItem(pl, com, args)
 		elseif StrCategory == "Melee" and Melee then
 			CurrentWeapon = Melee
 		end
+		
 		
 		--Strip current weapon in same class
 		--[[if CurrentWeapon then
@@ -146,7 +154,7 @@ function ApplySkillShopItem(pl, com, args)
 		local Weapons = {
 			pl:GetActiveWeapon(),
 			pl:GetAutomatic(),
-			pl:GetPistol()
+			pl:GetPistol()	
 		}
 
 		for _,Weapon in pairs(Weapons) do

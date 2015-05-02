@@ -18,11 +18,19 @@ WeaponTypeToCategory["shotgun"] = "Automatic"
 WeaponTypeToCategory["pistol"] = "Pistol"
 WeaponTypeToCategory["melee"] = "Melee"
 WeaponTypeToCategory["tool1"] = "Tool1"
---WeaponTypeToCategory["tool2"] = "Tool2"
+WeaponTypeToCategory["tool2"] = "Tool2"
 WeaponTypeToCategory["misc"] = "Misc"
 WeaponTypeToCategory["explosive"] = "Explosive"
 WeaponTypeToCategory["admin"] = "Admin"
 WeaponTypeToCategory["christmas"] = "Admin"
+
+WeaponClassToCategory = {}
+WeaponClassToCategory["support"] = "Support"
+WeaponClassToCategory["medic"] = "Medic"
+WeaponClassToCategory["sharpshooter"] = "Sharpshooter"
+WeaponClassToCategory["berserker"] = "Berserker"
+WeaponClassToCategory["commando"] = "Commando"
+WeaponClassToCategory["engineer"] = "Engineer"
 
 -- Restricted weapons (mainly half life 2 ones)
 WeaponsRestricted = { "weapon_stunstick", "weapon_crowbar", "weapon_pistol", "weapon_357", "weapon_ar2", "weapon_shotgun", "weapon_frag", "weapon_crossbow", "weapon_rpg" }
@@ -233,11 +241,11 @@ end
 --Unlife music (2 variants)
 table.insert(ResourceFiles, "sound/mrgreen/music/deadlife.mp3")
 table.insert(ResourceFiles, "sound/mrgreen/music/deadlife_insane.mp3")
-table.insert(ResourceFiles, "sound/mrgreen/music/bosstheme.mp3")
+--table.insert(ResourceFiles, "sound/mrgreen/music/bosstheme.mp3")
 
 --Boss music (random to improve download speed)
---[[local randDownloadId = math.random(1,3)
-table.insert(ResourceFiles, "sound/mrgreen/music/bosstheme".. randDownloadId ..".mp3")]]
+local randDownloadId = math.random(1,3)
+table.insert(ResourceFiles, "sound/mrgreen/music/bosstheme".. randDownloadId ..".mp3")
 
 if CHRISTMAS then
 	--Christmas lights
@@ -342,6 +350,27 @@ table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/howler.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/howler.vtf")
+
+--Human classes
+
+
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_medic.vtf")
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_medic.vmt")
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_marksma.vtf")
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_marksma.vmt")
+
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_constructor.vtf")
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_constructor.vmt")
+
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_assaul.vtf")
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_assaul.vmt")
+
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_demolitions.vtf")
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_demolitions.vmt")
+
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_assault.vtf")
+table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_assault.vmt")
+
 
 
 --Undead crosshair

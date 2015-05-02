@@ -10,12 +10,7 @@ if CLIENT then
 	SWEP.SlotPos = 0
 	
 	SWEP.ViewModelFlip = false
-		
-	-- SWEP.IgnoreBonemerge = true
-	-- SWEP.UseHL2Bonemerge = true
-	--SWEP.ShowViewModel = true
-	--SWEP.AlwaysShowViewModel = true
-	--SWEP.ShowWorldModel = false
+
 
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = false
@@ -30,7 +25,7 @@ if CLIENT then
 end
 
 SWEP.WorldModel = "models/Weapons/w_package.mdl"
-SWEP.ViewModel = "models/weapons/v_c4.mdl"--models/weapons/v_hands.mdlmodels/weapons/v_healthkit.mdl
+SWEP.ViewModel = "models/weapons/v_c4.mdl"
 
 
 SWEP.Base = "weapon_zs_base_dummy"
@@ -40,8 +35,8 @@ SWEP.Primary.Delay = 0.01
 SWEP.Primary.Heal = 10
 SWEP.Primary.HealDelay = 7
 
-SWEP.Primary.ClipSize = 60
-SWEP.Primary.DefaultClip = 60
+SWEP.Primary.ClipSize = 50
+SWEP.Primary.DefaultClip = 50
 SWEP.Primary.Ammo = "Battery"
 
 SWEP.Secondary.Delay = 0.01
@@ -120,7 +115,7 @@ function SWEP:PrimaryAttack()
 				local multiplier = 1.1
 
 				if owner:GetPerk("_medupgr1" ) then
-					multiplier = 1.35
+					multiplier = 1.4
 				end
 				local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
 				local totake = math.ceil(toheal / multiplier)
@@ -158,8 +153,7 @@ function SWEP:PrimaryAttack()
 							end
 						end
 					end
-					-- end
-					-- self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+
 
 					owner:SetAnimation( PLAYER_ATTACK1 )
 
@@ -179,11 +173,11 @@ function SWEP:SecondaryAttack()
 	local owner = self.Owner
 	if self:CanPrimaryAttack() then
 		local health, maxhealth = owner:Health(), 100-- owner:GetMaxHealth()
-		if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 end
-		--if owner:GetPerk("_kevlar2") then maxhealth = 130 end
+		if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 elseif owner:GetPerk("_kevlarsupport") then maxhealth = 150 end 
+		
 		local multiplier = 1
 		if owner:GetPerk("_medupgr1") then
-			multiplier = 1.35
+			multiplier = 1.4
 		end
 		local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Secondary.Heal * multiplier, maxhealth - health)))
 		local totake = math.ceil(toheal / multiplier)
@@ -199,13 +193,12 @@ function SWEP:SecondaryAttack()
 			
 			self:TakeCombinedPrimaryAmmo(totake)
 			if SERVER then	
-				--log.PlayerAction( self.Owner, "heal_self", {["amount"] = toheal})
 			
 				owner:SetHealth(health + toheal)
 				
 				owner:EmitSound("items/smallmedkit1.wav")
 			end
-			-- self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+
 
 			owner:SetAnimation( PLAYER_ATTACK1 )
 			self.IdleAnimation = CurTime() + self:SequenceDuration()
@@ -282,7 +275,7 @@ function SWEP:Equip ( NewOwner )
 	if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false
 		if NewOwner:GetPerk("_medupgr2") then
-			NewOwner:GiveAmmo( 70, self:GetPrimaryAmmoTypeString() )
+			NewOwner:GiveAmmo( 100, self:GetPrimaryAmmoTypeString() )
 		end
 	else
 		if self.Ammunition then

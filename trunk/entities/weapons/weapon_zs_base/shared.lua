@@ -62,10 +62,13 @@ function SWEP:PrimaryAttack()
 	if not self:CanPrimaryAttack() then
 		return
 	end
+
 	
 	self:EmitFireSound()
 
+
 	self:TakeAmmo()
+	
 	
 	local Owner = self.Owner
 
@@ -76,13 +79,28 @@ function SWEP:PrimaryAttack()
 	
 	--Recoil multiplier
 	local recoilMultiplier = 0.8
+	
+	
 	if self:GetIronsights() then
 		--Less recoil when in ironsight
 		recoilMultiplier = recoilMultiplier * 0.75
+		if self.Owner:GetPerk("_accuracy") then
+			recoilMultiplier = recoilMultiplier * 0.1
+			
+		end
+		if self.Owner:GetPerk("_accuracy2") then
+			recoilMultiplier = recoilMultiplier * 0.1
+		end
 	end
 	if self.Owner:Crouching() then
 		--Less recoil when crouching
 		recoilMultiplier = recoilMultiplier * 0.75
+		if self.Owner:GetPerk("_accuracy") then
+			recoilMultiplier = recoilMultiplier * 0.1
+		end
+		if self.Owner:GetPerk("_accuracy2") then
+			recoilMultiplier = recoilMultiplier * 0.1
+		end
 	end
 
 	local recoil = self.Primary.Recoil * recoilMultiplier
@@ -119,12 +137,20 @@ function SWEP:PrimaryAttack()
 	aimVec.z = 0
 
 	self.Owner:SetVelocity(-5 * (recoil * aimVec))
+	
+		
 
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
 end
 
 function SWEP:GetWalkSpeed()
 	if self:GetIronsights() then
+		if self.Owner:GetPerk("_accuracy") then
+				return math.min(self.WalkSpeed, math.max(150, self.WalkSpeed * 0.5))
+			end
+		if self.Owner:GetPerk("_accuracy2") then
+			return math.min(self.WalkSpeed, math.max(150, self.WalkSpeed * 0.2))
+		end	
 		return math.min(self.WalkSpeed, math.max(90, self.WalkSpeed * 0.5))
 	end
 
@@ -276,6 +302,7 @@ function SWEP:Reload()
 		self:EmitSound(Sound(self.ReloadSound))
 	end
 
+	
 	--Voice
 	if SERVER then
 		if self.Weapon:Clip1() <= math.floor(self.Primary.ClipSize / 1.5) and math.random(1, 2) == 1 then
@@ -336,7 +363,9 @@ end
 function SWEP:DoBulletKnockback()
 	for ent, prevvel in pairs(tempknockback) do
 		local curvel = ent:GetVelocity()
-		--ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.25 + prevvel)
+		if self.Owner:GetPerk("_highcal") then
+		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.08 + prevvel)
+		end
 		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.025 + prevvel)
 	end
 end
@@ -382,7 +411,7 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 		Spread = Vector(cone * 0.8, cone * 0.8, 0),
 		Tracer = 1,
 		TracerName = self.TracerName,
-		Force = dmg * 0.04,
+		Force = dmg * 0.06,
 		Damage = dmg,
 		Callback = self.BulletCallback
 	})

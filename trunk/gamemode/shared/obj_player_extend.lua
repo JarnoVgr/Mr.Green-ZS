@@ -333,7 +333,8 @@ function meta:GetTools()
 
 	for k,v in pairs ( MyWeapons ) do
 		if v:IsValid() then
-			if v:GetType() == "tool1" then
+		--	if v:GetType() == "tool1" then
+			if v:GetType() == "tools" then
 				table.insert ( Tools, v )
 			end
 		end
@@ -565,11 +566,6 @@ function meta:HasVoted(VOTES)
 	end
 	
 	return false
-end
-
-function meta:HasGasMask()
-	return false
-	 --self:Alive() and self:IsHuman() and self:GetWeapon("weapon_zs_pickup_gasmask") and IsValid(self:GetWeapon("weapon_zs_pickup_gasmask"))
 end
 
 function meta:IsHolding()
@@ -1365,5 +1361,6 @@ net.Receive( "DoHulls", function(len)
 end)
 
 end
+
 
 

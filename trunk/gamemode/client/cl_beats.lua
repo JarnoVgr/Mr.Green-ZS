@@ -16,7 +16,8 @@ Beats[6] = {"zombiesurvival/hbeat5.wav"}
 Beats[7] = {"zombiesurvival/hbeat6.wav"}
 Beats[8] = {"zombiesurvival/hbeat7.wav"}
 Beats[9] = {"zombiesurvival/hbeat8.wav"}
-Beats[10] = {"zombiesurvival/hbeat9.wav"}
+--Beats[10] = {"zombiesurvival/hbeat9.wav"}
+Beats[10] = {"mrgreen/music/bosstheme2.mp3"}
 
 local BeatLength = {}
 BeatLength[0] = 1.0
@@ -29,7 +30,9 @@ BeatLength[6] = 1.7
 BeatLength[7] = 1.65
 BeatLength[8] = 1.7
 BeatLength[9] = 1.7
-BeatLength[10] = 1.7
+BeatLength[10] = 300
+--BeatLength[11] = 300
+
 
 local ZBeats = {}
 ZBeats[0] = {}
@@ -42,7 +45,8 @@ ZBeats[6] = {"zombiesurvival/_zbeat6.wav"}
 ZBeats[7] = {"zombiesurvival/_zbeat7.wav"}
 ZBeats[8] = {"zombiesurvival/_zbeat7_5.wav"}
 ZBeats[9] = {"zombiesurvival/_zbeat8.wav"}
-ZBeats[10] = {"zombiesurvival/_zbeat8.wav"}
+--ZBeats[10] = {"zombiesurvival/_zbeat8.wav"}
+ZBeats[10] = {"mrgreen/music/bosstheme2.mp3"}
 
 local ZBeatLength = {}
 ZBeatLength[0] = 1
@@ -55,16 +59,18 @@ ZBeatLength[6] = 7.4
 ZBeatLength[7] = 5.1
 ZBeatLength[8] = 10.3
 ZBeatLength[9] = 10.3
-ZBeatLength[10] = 1.7
+--ZBeatLength[10] = 1.7
+ZBeatLength[10] = 300
 
 --Precache beats
+--for i=1,10 do
 for i=1,10 do
 	util.PrecacheSound(Beats[i][1])
 	util.PrecacheSound(ZBeats[i][1])
 end
 
 function playBossMusic(insane)
-	--if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
+	if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
 	
 	--Stop all sounds
 	RunConsoleCommand("stopsound")

@@ -107,7 +107,7 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 			end
 			
 			if Victim:GetPerk() == "_poisonprotect" then
-				iDamage = math.ceil(iDamage - iDamage*0.75)
+				iDamage = math.ceil(iDamage - iDamage*0.85)
 			end
 			-- Default take damage only when low on health
 			if not IsValid( Inflictor ) then Inflictor = Attacker:GetActiveWeapon() or Attacker end
@@ -243,6 +243,8 @@ function meta:RestoreHumanHealth(am,returnhealth)
 		maxhealth = 110
 	elseif self:GetPerk("_kevlar2") then
 		maxhealth = 120
+	elseif self:GetPerk("_kevlarsupport") then
+		maxhealth = 150
 	end
 	if health == maxhealth and returnhealth then
 		return false
@@ -335,7 +337,7 @@ meta.BaseStripWeapons = meta.StripWeapons
 function meta:StripWeapons()
 
 	-- Reset the human's weapon counter to 0, for all categories
-	self.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Misc = 0, Admin = 0 }
+	self.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
 	-- Remove the weapons
 	for k,v in pairs ( self:GetWeapons() ) do
 		if IsEntityValid( v ) then
@@ -1508,14 +1510,14 @@ function meta:CheckSpeedChange()
 	local health = self:Health()
 	
 	if self:GetPerk() == "_sboost" then
-		speed = speed*1.08
+		speed = speed*1.15
 	end
 	
 	if self:GetPerk() == "_sboost2" then
 		speed = speed*1.05
 	end
 
-	local fHealthSpeed = self:GetPerk("_adrenaline") and 1 or math.Clamp ( ( health / 50 ), 0.85, 1 )
+	local fHealthSpeed = self:GetPerk("_berserk") and 1 or math.Clamp ( ( health / 50 ), 0.9, 1 )
 	
 	if self:IsHolding() then
 		local status = self.status_human_holding

@@ -114,6 +114,11 @@ function SWEP:Think()
 			self:SetClip1(self:Clip1() + 3)
 		end
 		
+				
+		if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
+			self:SetClip1(self:Clip1() + 1)
+		end
+		
 		self.Owner:RemoveAmmo(1, self.Primary.Ammo, false)
 		self:SetClip1(self:Clip1() + 1)
 

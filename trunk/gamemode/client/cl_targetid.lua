@@ -136,6 +136,9 @@ function GM:HUDDrawTargetID()
 			--Health
 			draw.SimpleTextOutlined("F", "Signs", x+rand,newY+rand2, col, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, 1, col2)
 			draw.SimpleTextOutlined(EntHealth, "ArialBoldSeven", x+rand, (newY + rand2) - h*0.01, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER, 1, col2)
+			if entity:IsBot() then --Duby: I LOVE YOU NECRO, I HAVE EVEN MADE NECRO BOTS NOW!!!
+			draw.SimpleTextOutlined("Necro Bot", "ArialBoldSeven", x+rand-40, (newY+25 + rand2) - h*0.01, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER, 1, col2)
+			end
 			
 			--Draw important player message, if any
 			if ImportantMessage then

@@ -27,6 +27,8 @@ function GM:UnleashBoss()
 				hp = 120
 			elseif pl:GetPerk("_kevlar") then
 				hp = 110
+			elseif pl:GetPerk("_kevlarsupport") then
+				hp = 150
 			end
 
 			pl:SetHealth(hp)

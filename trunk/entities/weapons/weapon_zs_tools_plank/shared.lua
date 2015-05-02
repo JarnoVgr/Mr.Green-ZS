@@ -140,7 +140,7 @@ function SWEP:Equip ( NewOwner )
 	
 	--if self.Owner:GetPerk("_plankamount") then
 	if self.Owner:GetPerk("_support") then
-		self.Weapon:SetClip1( 4 ) 	
+		self.Weapon:SetClip1( 8 ) 	
 	end
 	
 	-- Call this function to update weapon slot and others

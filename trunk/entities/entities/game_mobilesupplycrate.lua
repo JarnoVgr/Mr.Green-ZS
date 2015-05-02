@@ -159,6 +159,11 @@ if SERVER then
 					if activator:HasBought("ammoman") then
 						HowMuch = HowMuch * 2 --Ammo man perk
 					end
+					
+					if activator:GetPerk("_supportammo") then
+						HowMuch = HowMuch * 1.5 --Support Ammo perk
+					end
+					
 					activator:GiveAmmo(HowMuch, AmmoType)
 				end
 

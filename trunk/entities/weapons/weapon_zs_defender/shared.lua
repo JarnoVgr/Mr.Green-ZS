@@ -78,9 +78,10 @@ function SWEP:EmitFireSound()
 	self:EmitSound(self.Primary.Sound, 80, math.random(105,110))
 end
 
-SWEP.MaxAmmo			    = 9999
+SWEP.MaxAmmo = 9999
 
 SWEP.WalkSpeed = SPEED_RIFLE
 
 SWEP.IronSightsPos = Vector(-2, -4, 1.5)
 SWEP.IronSightsAng = Vector(0,0,0)
+

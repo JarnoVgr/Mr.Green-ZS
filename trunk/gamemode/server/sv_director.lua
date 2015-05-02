@@ -62,7 +62,6 @@ local function ManageEvents()
 		end
 	end
 	
-	--Start LastHuman mode if undead > 2 and human = 1
 	if numSurvivors == 1 and numUndead > 2 and not LASTHUMAN then
 		Debug("[DIRECTOR] Started Last Human")
 		GAMEMODE:LastHuman()
@@ -71,7 +70,6 @@ local function ManageEvents()
 		Debug("[DIRECTOR] All survivors dead. Undead win.")
 		GAMEMODE:OnEndRound(TEAM_UNDEAD)
 	end
-
 	-- if GAMEMODE_ARENA then--If its arena mode then don't spawn bosses
 		--return	
 	--else

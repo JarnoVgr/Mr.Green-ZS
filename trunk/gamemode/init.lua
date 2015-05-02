@@ -250,7 +250,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	local fSpeed, fHealth, iClass, fHealthSpeed = mWeapon.WalkSpeed or 200, mOwner:Health(), mOwner:GetHumanClass()
 	
 	if mOwner:GetPerk("_sboost") then
-		fSpeed = fSpeed*1.08
+		fSpeed = fSpeed*1.15
 	end
 
 	if mOwner:GetPerk("_sboost2") then
@@ -258,7 +258,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	end
 	
 	
-	fHealthSpeed = mOwner:GetPerk("_adrenaline") and 1 or math.Clamp ( ( fHealth / 50 ), 0.7, 1 )
+	fHealthSpeed = mOwner:GetPerk("_berserk") and 1 or math.Clamp ( ( fHealth / 50 ), 0.9, 1 )
 	
 	if bIron then
 		fSpeed = math.Round ( ( fSpeed * 0.6 ) * fHealthSpeed )
@@ -561,6 +561,13 @@ function GM:ModelToEntity(ent)
 		["models/weapons/w_knife_t.mdl"] = "weapon_zs_melee_combatknife",
 		["models/props_c17/metalpot001a.mdl"] = "weapon_zs_melee_pot",
 		["models/props_interiors/pot02a.mdl"] = "weapon_zs_melee_fryingpan",
+		
+			--Lets add some new weapons around the map to make it more interesting!
+		["models/props_junk/garbage_plasticbottle001a.mdl"] = "weapon_zs_glock3",
+		["models/props_junk/garbage_glassbottle003a.mdl"] = "weapon_zs_special_bottleofwine",
+		["models/props_canal/mattpipe.mdl"] = "weapon_zs_melee_pipe2",
+		["models/props_lab/cactus.mdl"] = "weapon_zs_melee_crowbar",
+		
 	}
 	
 	--See if the model exists in the table and if it, replace it with an entity
@@ -581,6 +588,7 @@ function GM:ModelToEntity(ent)
 	end)
 end
 
+
 NextAmmoDropOff = AMMO_REGENERATE_RATE
 NextHeal = 0
 NextQuickHeal = 0
@@ -598,7 +606,7 @@ function GM:LastHuman()
 	--Global var change
 	LASTHUMAN = true
 	
-	--Everyone can talk to eachother
+	--Everyone can talk to each other
 	RunConsoleCommand("sv_alltalk", "1")
 	
 	--Broadcast status to clients
@@ -1473,6 +1481,9 @@ function GM:KeyPress(pl, key)
 	end
 end ]]--
 
+
+
+
 --[=[----------------------------------------------------------------------
      Grave Digger suit health on death
 ---------------------------------------------------------------------------]=]
@@ -1496,6 +1507,10 @@ local SpecialWeapons = {
 hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacker)
 	if not inflictor or not SpecialWeapons[inflictor:GetClass()] then
 		return
+	end
+	
+	if attacker:GetPerk("_psychotic") then
+		attacker:SetHealth(attacker:Health() + 2)
 	end
 
 	if not IsValid(attacker) or not attacker:IsPlayer() or attacker:Team() ~= TEAM_HUMAN or attacker:GetSuit() ~= "gravedigger" then

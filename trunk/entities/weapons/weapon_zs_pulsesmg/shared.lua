@@ -45,7 +45,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("weapons/airboat/airboat_gun_lastshot"..math.random(1,2)..".wav")
-SWEP.Primary.Recoil			= 3
+SWEP.Primary.Recoil			= 1.2
 SWEP.Primary.Damage			= 11
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 20
