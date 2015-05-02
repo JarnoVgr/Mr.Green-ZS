@@ -698,6 +698,30 @@ function CalculatePlayerLoadout(pl)
 
 	local ToGive = {}
 	
+	--Freeman
+	--Check if we can be THE Gordon Freeman
+	if pl:Team() == TEAM_SURVIVORS and pl.IsFreeman then
+		pl:ChatPrint("You're now THE Gordon Freeman!")
+		pl:Give("weapon_zs_melee_crowbar")		
+	end		
+
+	--Check if bought Magnum (give 1/6th chance)
+	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
+		--Strip previous pistol
+		if pl:Team() == TEAM_SURVIVORS then
+			pl:ChatPrint("A mysterious stranger joins you..")
+		end
+		local Pistol = pl:GetPistol()
+		if Pistol then
+			--pl:StripWeapon(Pistol:GetClass())
+		end
+		--Give new magnum
+		pl:Give("weapon_zs_magnum")
+
+		--Override old pistol for auto-deploy (selecting)
+		--ToGive[1] = "weapon_zs_magnum"
+	end			
+	
 	--Give preferred loadout
 
 	if pl.Loadout and #pl.Loadout > 0 then
@@ -728,30 +752,6 @@ function CalculatePlayerLoadout(pl)
 		
 		--Sharpshooter stages
 		sharpshooter = {"weapon_zs_musket","weapon_zs_classic","weapon_zs_melee_fryingpan","weapon_zs_tools_supplies"}
-	
-	--Freeman
-	--Check if we can be THE Gordon Freeman
-	if pl:Team() == TEAM_SURVIVORS and pl.IsFreeman then
-		pl:ChatPrint("You're now THE Gordon Freeman!")
-		pl:Give("weapon_zs_melee_crowbar")		
-	end		
-
-	--Check if bought Magnum (give 1/6th chance)
-	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
-		--Strip previous pistol
-		if pl:Team() == TEAM_SURVIVORS then
-			pl:ChatPrint("A mysterious stranger joins you..")
-		end
-		local Pistol = pl:GetPistol()
-		if Pistol then
-			--pl:StripWeapon(Pistol:GetClass())
-		end
-		--Give new magnum
-		pl:Give("weapon_zs_magnum")
-
-		--Override old pistol for auto-deploy (selecting)
-		--ToGive[1] = "weapon_zs_magnum"
-	end		
 	
 	--{{ZS HUMAN CLASSES}}--
 		if pl:Team() == TEAM_SURVIVORS then
