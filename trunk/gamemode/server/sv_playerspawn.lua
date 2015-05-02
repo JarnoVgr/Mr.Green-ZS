@@ -871,24 +871,6 @@ function CalculatePlayerLoadout(pl)
 	else
 		return
 	end
-
-	
-	--[[--Check if bought Magnum (give 1/6th chance)
-	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
-		--Strip previous pistol
-		local Pistol = pl:GetPistol()
-		if Pistol then
-			pl:StripWeapon(Pistol:GetClass())
-		end
-		--Give new magnum
-		pl:Give("weapon_zs_magnum")
-
-		--Override old pistol for auto-deploy (selecting)
-	--	ToGive[1] = "weapon_zs_magnum"
-	end]]--
-
-	--Select a weapon
-	--pl:SelectWeapon(SelectWeapon)
 end
 
 function CalculateZombieHull(pl)
@@ -966,7 +948,7 @@ function CalculateZombieHealth(pl)
 		local desiredzombies = math.max(1, math.ceil(numPlayers * UNDEAD_START_AMOUNT_PERCENTAGE))
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+1) and team.NumPlayers(TEAM_HUMAN) >= 4) then
 			local IncreaseHealth = (Tab.Health * UNDEAD_START_AMOUNT_PERCENTAGE) * (team.NumPlayers(TEAM_HUMAN) / 4)
-			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, Tab.Health*1.3)
+			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, Tab.Health*1.4)
 		end
 	end
 	MaxHealth = math.Round(MaxHealth)

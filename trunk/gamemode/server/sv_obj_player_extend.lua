@@ -17,68 +17,7 @@ function meta:LegsGib()
 
 	self:Gib()
 end
---[[
---[==[--------------------------------------------------------------------------
-		   Spawns an NPC headcrab based on the player class
----------------------------------------------------------------------------]==]
-function meta:SpawnHeadcrabNPC( tbDmginfo )
-	if not self:IsZombie() then return end
-	
-	-- We need to be dead
-	if self:Alive() then return end
-	
-	-- Headshot
-	if tbDmginfo:IsBulletDamage() and tbDmginfo:GetDamagePosition():Distance( self:GetAttachment(1).Pos ) < 15 then return end
-	
-	-- Only for crabbed zombies
-	if not self:IsCommonZombie() and not self:IsPoisonZombie() and not self:IsFastZombie() and not self:IsZombine() then return end
-	
-	-- Different crabs
-	local sClass = "npc_headcrab"
-	if self:IsFastZombie() then sClass = "npc_headcrab_fast" elseif self:IsPoisonZombie() then sClass = "npc_headcrab_black" end
-	
-	-- Create it
-	local mNPC = ents.Create ( sClass )
-	if not mNPC:IsValid() then return end
-	
-	-- Make it friendly to other zombos
-	local Zombies = team.GetPlayers(TEAM_UNDEAD)
-	for i=1, #Zombies do
-		local pl = Zombies[i]
-		if not IsValid(pl) then
-			continue
-		end
-		
-		mNPC:AddEntityRelationship(pl, D_FR, 99) 
-	end
-	
-	-- Spawn it
-	mNPC:SetPos(self:GetPos())
-	mNPC:Spawn()
-	
-	-- Hop the attacker :C
-	local mAttacker = tbDmginfo:GetAttacker()
-	if IsEntityValid( mAttacker ) and mAttacker:IsHuman() then mNPC:UpdateEnemyMemory( mAttacker, mAttacker:GetPos() ) end
-	
-	-- Set attacker
-	mNPC.Parent = self
-end
 
---[==[-------------------------------------------------------------
-			   Makes the zombies have headcrabs
---------------------------------------------------------------]==]
-function meta:SetHeadcrabBodyGroup()
-	if not self:IsZombie() then return end
-	
-	-- Default 3
-	local iGroup = 3
-	-- 3 for everyone except posion zombo
-	if self:IsPoisonZombie() then iGroup = 11 end
-	
-	-- Set it for all except headcrabs, howlers, wraith and poison crabs
-	if not self:IsHeadcrab() and not self:IsHowler() and not self:IsZombine() and not self:IsWraith()  and not self:IsPoisonCrab() then self:Fire( "setbodygroup", tostring ( iGroup ) ) end
-end
-]]--
 -- Set team event
 function GM:OnTeamChange( pl, iFromTeam, iToTeam )
 end

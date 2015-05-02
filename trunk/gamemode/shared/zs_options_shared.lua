@@ -68,7 +68,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 10
-BOSS_CLASS = {11 }
+BOSS_CLASS = {11,10,20,13 }
 --BOSS_CLASS = {12} --Seeker
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
@@ -341,9 +341,10 @@ GM.RankUnlocks = {
 	--{{HUMAN CLASSES}}--
 	--[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_medupgr2","_medigun","_nade","_accuracy","_arsanal","_support","_supportammo","_supportweapon","_freeman","_psychotic","_combat","_pulsesmg","_mine","_medupgr1","_poisonprotect","_kevlar","_kevlar2","_profitable","_horse","_kevlarsupport","_bloodmoney","_berserk","_lethal","_highcal","_accuracy2","_blast","_point","_comeback2","_sboost","_sboost2","_remote","_psychopath","_slinger","_reload","_ironaim"},
 	
-	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter"},
+	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_highcal"},
 
 	[1] = {"_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_highcal"},
+	--[1] = {"_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_highcal"},
 	
 	[2] = {"_medupgr1","_kevlar","_kevlarsupport","_berserk","_blast","_point","_remote","_comeback2"},
 	
@@ -374,13 +375,13 @@ GM.Perks = {
 	
 	["_nade"] = {Name = "Grenades Tosser", Description = "Throw Grenades twice as quickly! ", RequiresWeapon = "_commando", Slot = 1}, --Done
 	["_accuracy"] = {Name = "Accuracy", Description = "50% less recoil from weapons while crouching or aiming.", RequiresWeapon = "_commando", Slot = 1},  --Done
-	["_arsanal"] = {Name = "Additional Arsanal", Description = "Given the Defender Rifle.", RequiresWeapon = "_commando", Slot = 1},  --Done
+	--["_arsanal"] = {Name = "Additional Arsanal", Description = "Given the Defender Rifle.", RequiresWeapon = "_commando", Slot = 1},  --Done
 
 	--Support
 	
 	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round, with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies.", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_supportweapon"] = {Name = "Fortify", Description = "You get given an extra weapon.", RequiresWeapon = "_support2", Slot = 1}, --Done
+	--["_supportweapon"] = {Name = "Fortify", Description = "You get given an extra weapon.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	
 	
 	--Berserker
@@ -509,7 +510,7 @@ CARRY_SPEEDLOSS_MINSPEED = 160
 
 -- Maximum crates per map
 --MAXIMUM_CRATES = 4 -- math.random(2, 3)
-MAXIMUM_CRATES = 7 -- math.random(2, 3)
+MAXIMUM_CRATES = math.random(1, 4)
 
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = false

@@ -258,17 +258,17 @@ end
 GM.CalcMainActivityZombies[3] = function ( pl, vel )
 
 	-- Default zombie act
-	local iSeq, iIdeal = pl:LookupSequence ( "zombie_run_fast" ) 
+	local iSeq, iIdeal = pl:LookupSequence ( "idle" ) 
 	pl._PlayBackRate = nil
 	local fVelocity = vel:Length2D()
 	if fVelocity > 2 then 
 		--if fVelocity > 170 then
 			if not pl:OnGround() and fVelocity > 230 then
-				iSeq = pl:LookupSequence ( "zombie_leap_mid" ) 
+				iSeq = pl:LookupSequence ( "LeapStrike" ) 
 				--pl._PlayBackRate = 1
 			else
 				--iIdeal = ACT_RUN
-				iSeq = pl:LookupSequence ( "zombie_run_fast" ) 
+				iSeq = pl:LookupSequence ( "Run" ) 
 			end
 		--else
 			--iIdeal = ACT_WALK
