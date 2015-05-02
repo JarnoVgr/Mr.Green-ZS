@@ -88,9 +88,9 @@ function playBossMusic(insane)
 	end
 	
 	--Delayed play because of stopsound in same frame
-	timer.Simple(1, function()
-		surface.PlaySound(Sound(song))
-	end)
+	--timer.Simple(1, function()
+	--	surface.PlaySound(Sound(song))
+	--end)
 	
 	-- Create timer
 	timer.Create("LoopBossMusic", songDuration, 0, function() 

@@ -449,7 +449,7 @@ GM.Perks = {
 	["_medic"] = {Name = "Medic", Description = "If you want to heal your team mates then this is the class for you!", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
 	["_commando"] = {Name = "Commando", Description = "Slaughter the zombies efficiently and support the team, Commando is in your blood!", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support", Description = "Support your team mates with supplies and construct protective barriers for them!", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
-	["_berserker"] = {Name = "Berserker", Description = "Slash and destroy the zombies upclose and personal, be at the front lines!", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_berserker"] = {Name = "Berserker", Description = "Slash and destroy the zombies upclose and personal, be at the front lines! +25% melee damage bonus.", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer", Description = "Create and build a way for your team to succeed, use your technology to kick ass!", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "SharpShooter", Description = "Long distance killing spree's, kill silently and efficiently!", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	
