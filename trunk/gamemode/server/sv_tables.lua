@@ -358,22 +358,22 @@ table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/freshdead.vtf")
 --Human classes
 
 
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_medic.vtf")
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_medic.vmt")
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_marksma.vtf")
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_marksma.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_medic.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_medic.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_marksma.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_marksma.vmt")
 
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_constructor.vtf")
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_constructor.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_constructor.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_constructor.vmt")
 
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_assaul.vtf")
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_assaul.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_assaul.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_assaul.vmt")
 
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_demolitions.vtf")
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_demolitions.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_demolitions.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_demolitions.vmt")
 
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_assault.vtf")
-table.insert(ResourceFiles, "zombiesurvival/humanclass/avatar_assault.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_assault.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_assault.vmt")
 
 
 

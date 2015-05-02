@@ -66,9 +66,9 @@ SlotLabel = {}
 
 local function IsValidRankUnlock(item, weptype, num)
 	--Hide locked items
-	if not MySelf:HasUnlocked(item) then
-		return false
-	end
+	--if not MySelf:HasUnlocked(item) then
+		--return false
+	--end
 	
 	if MySelf:IsBlocked(item, SlotLabel) or not MySelf:HasUnlocked(item) then
 	return false
@@ -841,7 +841,6 @@ function DrawSelectClass()
 	
 	--Options:
 	local spawntimer = 50
-	--local spawntimer = 3000
 	local spawntimercd = 0
 
 	TopMenuW, TopMenuH = math.min(math.max(w-100,ScaleW(1400)), 1050), math.min(ScaleH(1200), 650)

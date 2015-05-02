@@ -343,7 +343,6 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_highcal"},
 
-	[1] = {"_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_highcal"},
 	--[1] = {"_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_highcal"},
 	
 	[2] = {"_medupgr1","_kevlar","_kevlarsupport","_berserk","_blast","_point","_remote","_comeback2"},
