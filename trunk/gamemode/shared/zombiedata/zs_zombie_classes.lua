@@ -227,7 +227,7 @@ ZombieClasses[3] =
 {
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
-	Infliction = 0.0,
+	Infliction = 0.5,
 	Health = 160,
 	MaxHealth = 160,
 	TimeLimit = 160,
