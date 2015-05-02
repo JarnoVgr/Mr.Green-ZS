@@ -154,7 +154,7 @@ function GM:SetBoss(value,isInsane,duration)
 	
 		--Play music
 			--timer.Simple(0.3, function()
-			playBossMusic(isInsane)
+			--playBossMusic(isInsane)
 		--end)
 			--end
 	

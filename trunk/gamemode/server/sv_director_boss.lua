@@ -191,7 +191,7 @@ function GM:SetBoss(value)
 		--Update end time
 		boss.endTime = CurTime()
 
-		boss.nextBossTime = boss.endTime + math.random(360,420)
+		boss.nextBossTime = boss.endTime + math.random(360,460)
 	
 		--Inform players
 		net.Start("StopBoss")
