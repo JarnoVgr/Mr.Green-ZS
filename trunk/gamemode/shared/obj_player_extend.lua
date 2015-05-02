@@ -832,18 +832,18 @@ function meta:GetXP()
 	end
 	
 	if SERVER then
-		if not self.DataTable["ClassData"]["default"] then
+		if not self.DataTable["ClassData"]["new"] then
 			return 0
 		end
 		
-		return self.DataTable["ClassData"]["default"].xp
+		return self.DataTable["ClassData"]["new"].xp
 	elseif CLIENT then
 		if not MySelf.DataTable then
 			return 0
 		end
 		
-		if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["default"] then
-			return MySelf.DataTable["ClassData"]["default"].xp
+		if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["new"] then
+			return MySelf.DataTable["ClassData"]["new"].xp
 		end
 	end
 	
@@ -885,19 +885,19 @@ function meta:GetRank()
 	end
 	
 	if SERVER then
-		if not self.DataTable["ClassData"]["default"] then
+		if not self.DataTable["ClassData"]["new"] then
 			return 0
 		end
 		
-		return self.DataTable["ClassData"]["default"].rank
+		return self.DataTable["ClassData"]["new"].rank
 	elseif CLIENT then
 		if MySelf == self then
 			if not MySelf.DataTable then
 				return 0 --temp fix
 			end
 			
-			if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["default"] then
-				return MySelf.DataTable["ClassData"]["default"].rank
+			if MySelf.DataTable["ClassData"] and MySelf.DataTable["ClassData"]["new"] then
+				return MySelf.DataTable["ClassData"]["new"].rank
 			end
 		else
 			return self.InternalRank or 0

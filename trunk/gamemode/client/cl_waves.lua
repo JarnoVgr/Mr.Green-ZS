@@ -91,8 +91,8 @@ net.Receive("SendPlayerXP", function(len)
 		return 0
 	end
 	
-	if MySelf.DataTable["ClassData"]["default"] then
-		MySelf.DataTable["ClassData"]["default"].xp = xp
+	if MySelf.DataTable["ClassData"]["new"] then
+		MySelf.DataTable["ClassData"]["new"].xp = xp
 	end
 end)
 
@@ -108,8 +108,8 @@ net.Receive("SendPlayerRank", function(len)
 		return 0
 	end
 	
-	if MySelf.DataTable["ClassData"]["default"] then
-		MySelf.DataTable["ClassData"]["default"].rank = rank
+	if MySelf.DataTable["ClassData"]["new"] then
+		MySelf.DataTable["ClassData"]["new"].rank = rank
 	end
 end)
 
