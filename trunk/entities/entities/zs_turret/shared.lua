@@ -101,7 +101,7 @@ if SERVER then
 		end
 		
 		if self:GetTurretOwner():GetPerk("_turrethp") then
-			self.MaxHealth = math.Round(self.MaxHealth*2)
+			self.MaxHealth = math.Round(self.MaxHealth*2)		
 		end
 		
 		if self:GetTurretOwner():GetPerk("_turretdmg") then
@@ -120,6 +120,7 @@ if SERVER then
 		self:SetDTInt(0,0) -- ammo
 		self:SetDTInt(1,self.MaxHealth) -- health
 		self:SetDTInt(2,self.MaxBullets) -- max ammo
+		self:SetDTInt(3,self.MaxHealth)	-- max health
 		self:SetDTBool(0,false) -- is turret active
 		self:SetDTBool(1,false) -- attacking
 		self:SetDTBool(2,false) --  remote

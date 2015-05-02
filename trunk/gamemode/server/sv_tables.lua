@@ -131,7 +131,7 @@ for _, filename in pairs(files) do
 end
 
 --Fonts
-local files = {"akbar.ttf", "corpuscare.ttf", "Fears.ttf", "zsnew.ttf"}
+local files = {"akbar.ttf", "corpuscare.ttf", "Fears.ttf", "zsnew.ttf", "Futurot.ttf"}
 for _, filename in pairs(files) do
 	table.insert(ResourceFiles, "resource/fonts/".. filename)
 end
@@ -350,6 +350,10 @@ table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/zombine.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/howler.vmt")
 table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/howler.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/ghast.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/ghast.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/freshdead.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/freshdead.vtf")
 
 --Human classes
 

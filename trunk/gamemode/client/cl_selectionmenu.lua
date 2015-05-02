@@ -324,13 +324,13 @@ function PaintNewWeaponSelection()
 		end
 
 		--Background	
-		surface.SetMaterial(WeaponSelectionBackground)
-		surface.SetDrawColor(100, 225, 225, 255*Alpha)
-		surface.DrawTexturedRect(SLOT_POS[i].PosX-60, SLOT_POS[i].PosY-400, 340, 175-2, 180)
+		--surface.SetMaterial(WeaponSelectionBackground)
+		--surface.SetDrawColor(100, 225, 225, 255*Alpha)
+		--surface.DrawTexturedRect(SLOT_POS[i].PosX-60, SLOT_POS[i].PosY-400, 340, 175-2, 180)
 
 		--Weapon icon			
-		local ColorToDraw = Color(255, 255, 255, 255*Alpha)
-		local NameHeight = SLOT_POS[i].PosY - 330
+		local ColorToDraw = Color(255, 255, 255, 160*Alpha)
+		local NameHeight = SLOT_POS[i].PosY - 340
 		if IsSlotActive[i] then
 			--Put text higher
 			NameHeight = NameHeight - 20
@@ -349,12 +349,13 @@ function PaintNewWeaponSelection()
 				end
 			end
 
-			surface.DrawTexturedRect(SLOT_POS[i].PosX-80, SLOT_POS[i].PosY-400, 360, 175-2, 280)
-			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/2, SLOT_POS[i].PosY - 300, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(30, 140, 30, 200*Alpha))
+			--surface.DrawTexturedRect(SLOT_POS[i].PosX, SLOT_POS[i].PosY-400, 360, 175-2, 280)
+			draw.SimpleTextOutlined(letter, font, SLOT_POS[i].PosX + MySelf.WepW/1.5, SLOT_POS[i].PosY - 300,  Color(200, 240, 200, 160*Alpha) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(30, 80, 30, 160*Alpha))
 		end
+		
 
 		--Weapon name
-		draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "ArialBoldFive", SLOT_POS[i].PosX + MySelf.WepW/2, NameHeight, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0, 0, 0, 255*Alpha))
+		draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, "ssNewAmmoFont5", SLOT_POS[i].PosX + MySelf.WepW/1.5, NameHeight, ColorToDraw , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1,Color(0, 0, 0, 160*Alpha))
 	end
 end
 hook.Add("HUDPaintBackground", "PaintSelection", PaintNewWeaponSelection)

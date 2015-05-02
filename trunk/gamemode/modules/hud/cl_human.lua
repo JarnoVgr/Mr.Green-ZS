@@ -3,10 +3,14 @@
 -----------------------------------------]==]
 
 local healthIndication = {
-	{
-		Text = "Healthy as a horse",
-		Percent = 1
-	}, { Text = "A few scratches..", Percent = 0.8 }, { Text = "Not looking good..", Percent = 0.6 }, { Text = "Search for a doctor", Percent = 0.45 }, { Text = "You lost your guts", Percent = 0.4 }, { Text = "Bleeding to death!", Percent = 0.25 } }
+	{Text = "healthy as a horse",Percent = 1},
+	{ Text = "a few scratches", Percent = 0.9 },
+	{ Text = "a nasty wound", Percent = 0.75 },
+	{ Text = "search for help", Percent = 0.6 },
+	{ Text = "you lost your guts", Percent = 0.45 },
+	{ Text = "bleeding to death", Percent = 0.25 },
+	{ Text = "at deaths door", Percent = 0.1 }	
+	}
 table.SortByMember(healthIndication, "Percent", false)
 
 local LeftGradient = surface.GetTextureID("gui/gradient")
@@ -33,21 +37,30 @@ local turretIcon = surface.GetTextureID("killicon/turret")
 local healthPercentageDrawn, healthStatusText = 1, healthIndication[1].Text
 function hud.DrawHealth()
 	--Health?
-	surface.SetMaterial(hud.HumanElementBackground)
-	surface.SetDrawColor(0, 0, 0, 190)
-	surface.DrawTexturedRect(ScaleW(-133),ScaleH(880), ScaleW(450), ScaleH(270))
+	--surface.SetMaterial(hud.HumanElementBackground)
+	--surface.SetDrawColor(0, 0, 0, 190)
+	--surface.DrawTexturedRect(ScaleW(-133),ScaleH(880), ScaleW(450), ScaleH(270))
 
 	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
 
+	local startX = (ScrW()/2)
+	--draw.SimpleText("GREENCOINS", DescriptionFont, startX - ScrW()/2 + ScrW()/80, keysStartY + ScrH()/13, Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)	
+	
+	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(860), ScaleH(890)
+	--draw.SimpleText("SP", "ssNewAmmoFont9",startX - ScrW()/2 + ScrW()/80, textValueY, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+	--draw.SimpleText(MySelf:GetScore() or 0, "ssNewAmmoFont9",startX - ScrW()/2 + ScrW()/80, textKeyY, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)	
+	
+	
 	--Draw health points text
-	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1005)
-	draw.SimpleText(healthPoints, "HUDBetaHeader", healthTextX, healthTextValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleText("HP", "ssNewAmmoFont9", healthTextX, healthTextKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
+	draw.SimpleTextOutlined("+", "hpFont",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+	draw.SimpleTextOutlined(healthPoints, "ssNewAmmoFont13",startX - ScrW()/2 + ScrW()/45, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	--draw.SimpleText("HP", "ssNewAmmoFont13", healthTextX, healthTextKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
 	--Health bar begin
 
-	local barW, barH = ScaleW(190), ScaleH(35)
-	local barX, barY = healthTextX + ScaleW(30), ScaleH(880)+ScaleH(90)
+	local barW, barH = ScaleW(210), ScaleH(20)
+	local barX, barY = healthTextX + ScaleW(35), ScaleH(880)+ScaleH(110)
 	
 	local healthPercentage, healthChanged = math.Clamp(healthPoints / maxHealthPoints, 0, 1), false
 	if healthPercentage ~= healthPercentageDrawn then
@@ -98,7 +111,7 @@ function hud.DrawHealth()
 	end
 	
 	--Draw health status text
-	draw.SimpleText(healthStatusText, "NewZombieFont7", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleTextOutlined(healthStatusText, "ssNewAmmoFont5", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 	
 
 	--TODO: Make this look nice in the HUD
@@ -164,10 +177,10 @@ local function DrawWeaponLabels()
 		camAngle.y = camAngle.y + 90
 		camAngle.r = camAngle.r + 90
 				
-		local name = ent.PrintName or "Weapon"
+		local name = ent.PrintName or ""
 				
 		cam.Start3D2D( camPos, camAngle, 0.2 )
-		draw.SimpleTextOutlined( name, "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) ) 
+		draw.SimpleTextOutlined( name, "ssNewAmmoFont5", 0, 0, Color(255,255,255,120), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,40) ) 
 		cam.End3D2D()
 	end
 end
@@ -194,31 +207,35 @@ function hud.DrawAmmoPanel()
 		return
 	end
 	
-	local drawX, drawY, drawW, drawH = ScaleW(1110), ScaleH(880), ScaleW(150), ScaleH(270)
+	local drawX, drawY, drawW, drawH = ScaleW(1100), ScaleH(880), ScaleW(150), ScaleH(270)
 		
 	if currentAmmo > 0 then
-		surface.SetFont("ssNewAmmoFont9")
+		surface.SetFont("ssNewAmmoFont6.5")
 		local ammoTextWide, ammoTextTall = surface.GetTextSize(currentAmmo)
 
 		surface.SetFont("ssNewAmmoFont20")
 		local clipTextWide, clipTextTall = surface.GetTextSize(currentClipSize)
 
-		draw.SimpleTextOutlined(currentClipSize, "ssNewAmmoFont20", ScrW()-ScaleW(10)-ammoTextWide-10, ScrH()-(ScaleH(5)+clipTextTall), Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		draw.SimpleTextOutlined(currentAmmo, "ssNewAmmoFont9", ScrW()-ScaleW(10)-ammoTextWide-5, ScrH()-(ScaleH(5)+clipTextTall), Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+		draw.SimpleTextOutlined(currentClipSize, "ssNewAmmoFont24", ScrW()-ScaleW(10)-ammoTextWide-15, ScrH()-(ScaleH(4)+clipTextTall), Color(255,255,255,230), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+		draw.SimpleTextOutlined(currentAmmo, "ssNewAmmoFont9", ScrW()-ScaleW(10)-ammoTextWide-5, ScrH()-(ScaleH(3)+clipTextTall), Color(255,255,255,230), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 	else
-		draw.SimpleTextOutlined(currentClipSize, "ssNewAmmoFont20", ScrW()-ScaleW(5), ScrH()-ScaleH(5), Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP, 1, Color(0,0,0,255))
+		draw.SimpleTextOutlined(currentClipSize, "ssNewAmmoFont24", ScrW()-ScaleW(5), ScrH()-ScaleH(5), Color(255,255,255,230), TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP, 1, Color(0,0,0,255))
 	end
 end
 
 function hud.DrawSkillPoints()
 	--Background
-	surface.SetMaterial(hud.HumanElementBackground)
-	surface.SetDrawColor(0, 0, 0, 190)
-	surface.DrawTexturedRect(ScaleW(-50), ScaleH(770), ScaleW(150), ScaleH(250))
+	--surface.SetMaterial(hud.HumanElementBackground)
+	--surface.SetDrawColor(0, 0, 0, 190)
+	--surface.DrawTexturedRect(ScaleW(-50), ScaleH(770), ScaleW(150), ScaleH(250))
+	local startX = (ScrW()/2)
+	--draw.SimpleText("GREENCOINS", DescriptionFont, startX - ScrW()/2 + ScrW()/80, keysStartY + ScrH()/13, Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)	
 
-	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(860), ScaleH(890)
-	draw.SimpleText(MySelf:GetScore() or 0, "HUDBetaHeader", textX, textValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleText("SP", "ssNewAmmoFont9", textX, textKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	--draw.SimpleText("GREENCOINS", DescriptionFont, 0 + ScrW()/16, ScrH()/1.05, Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+	--draw.SimpleText(PlrData.GreenCoins, DescriptionFont, 0 + ScrW()/7.75, ScrH()/1.05, Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)	
+	
+	draw.SimpleTextOutlined("Skill Points: " .. MySelf:GetScore(), "ssNewAmmoFont7",0 + ScrW()/17.0, ScrH()/1.05, Color(255,255,255,120), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+	--draw.SimpleText(MySelf:GetScore() or 0, "ssNewAmmoFont5",0 + ScrW()/5.5, ScrH()/1.05, Color(255,255,255,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 end
 
 function hud.DrawObjMessages()

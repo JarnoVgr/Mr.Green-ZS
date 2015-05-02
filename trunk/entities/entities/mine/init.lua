@@ -9,6 +9,8 @@ ActualMines = {}
 
 function ENT:Initialize()
 	self.Entity:SetModel("models/Weapons/w_package.mdl") 
+	
+	
 	self.Entity:PhysicsInit(SOLID_VPHYSICS)
 	self.Entity:SetSolid (SOLID_NONE)
 	self.Entity:DrawShadow(false)

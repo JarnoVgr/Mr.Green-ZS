@@ -8,31 +8,37 @@ include("cl_human.lua")
 include("cl_human_friends.lua")
 include("cl_zombie.lua")
 
-local nextLevelKeySwitch, currentLevelKey = RealTime()+10, false
+local nextLevelKeySwitch, currentLevelKey = RealTime()+10, 0
 
-hud.HumanElementBackground = Material("mrgreen/hud/hudbackground.png")
-hud.HumanTopBackground = Material("mrgreen/hud/hud_background_top_h.png")
-hud.ZombieTopBackground = Material("mrgreen/hud/hud_background_top_z.png")
-hud.HumanHudBackground = Material("mrgreen/hud/hudbackgroundnew.png")
-hud.ZombieHudBackground = Material("mrgreen/hud/hudbackgroundnew_zombie.png")
+--hud.HumanElementBackground = Material("mrgreen/hud/hudbackground.png")
+--hud.HumanTopBackground = Material("mrgreen/hud/hud_background_top_h.png")
+--hud.ZombieTopBackground = Material("mrgreen/hud/hud_background_top_z.png")
+--hud.HumanHudBackground = Material("mrgreen/hud/hudbackgroundnew.png")
+--hud.ZombieHudBackground = Material("mrgreen/hud/hudbackgroundnew_zombie.png")
 
 local PlrData = {
 	GreenCoins = 0,
 	Rank = 1,
-	NextRankPerc = 0
+	NextRankPerc = 0,
+	XPRequired = 0,
+	XPCurrent = 0
 }
 local NextPlrDataCache = 0
 local function RecachePlayerData()
 	--5 seconds till next cache
 	NextPlrDataCache = RealTime() + 5
 
-	local RequiredXP = MySelf:NextRankXP() - MySelf:CurRankXP()
-	local CurrentXP = MySelf:GetXP() - MySelf:CurRankXP()
-
+	local RequiredXP = MySelf:NextRankXP()
+	local CurrentXP = MySelf:GetXP()
+	
+	
 	PlrData = {
 		GreenCoins = MySelf:GreenCoins(),
 		Rank = MySelf:GetRank(),
-		NextRankPerc = math.Round((CurrentXP / RequiredXP) * 100)
+		NextRankPerc = math.Round((CurrentXP / RequiredXP) * 100),
+		XPRequired = RequiredXP,
+		XPCurrent = CurrentXP
+
 	}
 end
 
@@ -73,24 +79,27 @@ function hud.InitFonts()
 	-- Right upper box text font
 	surface.CreateFontLegacy( "Arial", ScreenScale( 9.6 ), 700, true, true, "HUDBetaRightBox" )
 
-	surface.CreateFontLegacy( "Arial", ScreenScale( 7 ), 700, true, false, "ssNewAmmoFont5" )
-	surface.CreateFontLegacy( "Arial", ScreenScale( 7.6 ), 700, true, false, "ssNewAmmoFont7" )
-	surface.CreateFontLegacy( "Arial", ScreenScale( 7 ), 700, true, false, "ssNewAmmoFont6.5" )
-	surface.CreateFontLegacy( "Arial", ScreenScale( 9 ), 700, true, false, "ssNewAmmoFont9" )
-	surface.CreateFontLegacy( "Arial", ScreenScale( 16 ), 700, true, false, "ssNewAmmoFont13" )
-	surface.CreateFontLegacy( "Arial", ScreenScale( 20 ), 700, true, false, "ssNewAmmoFont20" )	
+	surface.CreateFontLegacy( "Future Rot", ScreenScale( 5.5 ), 700, true, false, "ssNewAmmoFont5" )
+	surface.CreateFontLegacy( "Future Rot", ScreenScale( 6.5 ), 700, true, false, "ssNewAmmoFont7" )
+	surface.CreateFontLegacy( "Future Rot", ScreenScale( 7.5 ), 700, true, false, "ssNewAmmoFont6.5" )
+	surface.CreateFontLegacy( "Future Rot", ScreenScale( 8.5 ), 700, true, false, "ssNewAmmoFont9" )
+	surface.CreateFontLegacy( "Future Rot", ScreenScale( 10.5 ), 700, true, false, "ssNewAmmoFont13" )
+	surface.CreateFontLegacy( "Future Rot", ScreenScale( 11.5 ), 700, true, false, "ssNewAmmoFont20" )		
+	surface.CreateFontLegacy( "Future Rot", ScreenScale( 12 ), 700, true, false, "ssNewAmmoFont24" )		
+	surface.CreateFontLegacy( "Arial", ScreenScale( 7 ), 700, true, false, "xpFont" )	
+	surface.CreateFontLegacy( "Arial", ScreenScale( 12 ), 700, true, false, "hpFont" )		
 	
 	--Undead HUD font
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(9), 400, true, true, "NewZombieFont7",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(10), 400, true, true, "NewZombieFont10",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(13), 400, true, true, "NewZombieFont13",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(14), 400, true, true, "NewZombieFont14",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(15), 400, true, true, "NewZombieFont15",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(17), 400, true, true, "NewZombieFont17",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(19), 400, true, true, "NewZombieFont19",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(23), 400, true, true, "NewZombieFont23",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(27), 400, true, true, "NewZombieFont27",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(35), 400, true, true, "NewZombieFont35",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(8), 400, true, true, "NewZombieFont7",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(9), 400, true, true, "NewZombieFont10",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(12), 400, true, true, "NewZombieFont13",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(13), 400, true, true, "NewZombieFont14",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(14), 400, true, true, "NewZombieFont15",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(15), 400, true, true, "NewZombieFont17",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(18), 400, true, true, "NewZombieFont19",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(22), 400, true, true, "NewZombieFont23",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(26), 400, true, true, "NewZombieFont27",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(34), 400, true, true, "NewZombieFont35",false, true)
 end
 hook.Add("Initialize", "hud.InitFonts", hud.InitFonts)
 
@@ -139,22 +148,36 @@ end
 
 local function DrawRoundTime(DescriptionFont, ValueFont)
 	--Initialize variables
-	local startX, keyStartY, valueStartY = ScrW()/2, ScaleH(15), ScaleH(55)
+	local startX, keyStartY, valueStartY = ScrW()/2, ScaleH(20), ScaleH(50)
 	local timeLeft, valueColor = 0, Color(255,255,255,255)
 
 	local keyText
 	if MySelf:IsZombie() then
 		keyText = "ROUND TIME"
+		
 	else
 		keyText = "EVACUATION TIME"
 	end
 
+	
+	local requiredScore = REDEEM_KILLS
+	if MySelf:HasBought("quickredemp") or MySelf:GetRank() < REDEEM_FAST_LEVEL then
+		requiredScore = REDEEM_FAST_KILLS
+	end
+
+	--Divide by 2
+	requiredScore = math.ceil(requiredScore / 2)
+
+	local currentScore = math.max(0, math.ceil(MySelf:GetScore() / 2))
+	
+	
+	
 	--Preparation (warmup)
 	if CurTime() <= WARMUPTIME then
 		keyText = "PREPARATION TIME"
-		if MySelf:IsHuman() then
-			draw.SimpleText("Get close to the Undead spawn to be sacrificed", "ssNewAmmoFont9", startX, keyStartY+100, Color(255,90,90,210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		end
+		--if MySelf:IsHuman() then
+		--	draw.SimpleText("Get close to the Undead spawn to be sacrificed", "ssNewAmmoFont9", startX, keyStartY+100, Color(255,90,90,210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		--end
 		timeLeft = math.max(0, WARMUPTIME - CurTime())
 
 		if timeLeft < 10 then
@@ -173,9 +196,21 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 		timeLeft = math.max(0, ROUNDTIME - CurTime())
 	end
 	
+	if MySelf:IsZombie() then
+			draw.SimpleTextOutlined("GOAL", "NewZombieFont15", startX - ScrW()/2 + ScrW()/80, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))			
+		if requiredScore - currentScore == 1 then
+			draw.SimpleTextOutlined("Eat " .. requiredScore - currentScore .. " brain in " .. ToMinutesSeconds(timeLeft + 1), "NewZombieFont13", startX - ScrW()/2 + ScrW()/80, valueStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))			
+		else
+		
+			draw.SimpleTextOutlined("Eat " .. requiredScore - currentScore .. " brains in " .. ToMinutesSeconds(timeLeft + 1), "NewZombieFont13", startX - ScrW()/2 + ScrW()/80, valueStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+		end
+	else
+	
+		draw.SimpleTextOutlined(keyText, DescriptionFont, startX - ScrW()/2 + ScrW()/80, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+		draw.SimpleTextOutlined(ToMinutesSeconds(timeLeft + 1), ValueFont, startX - ScrW()/2 + ScrW()/80, valueStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+	end
 	--Draw time
-	draw.SimpleText(keyText, DescriptionFont, startX, keyStartY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleText(ToMinutesSeconds(timeLeft + 1), ValueFont, startX, valueStartY, valueColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+
 end
 
 local NextTeamRefresh, CachedHumans, CachedZombies = 0, 0, 0
@@ -190,64 +225,66 @@ function hud.DrawStats()
 	--Define vars depending on team
 	local TeamColor, DescriptionFont, ValueFont, ValueBigFont
 	if MySelf:IsZombie() then
-		surface.SetMaterial(hud.ZombieTopBackground)
-		surface.SetDrawColor(100, 0, 0, 260)
+		--surface.SetMaterial(hud.ZombieTopBackground)
+		--surface.SetDrawColor(100, 0, 0, 260)
 		TeamColor = Color(255, 0, 0, 170)
-		DescriptionFont = "NewZombieFont15"
-		ValueFont = "NewZombieFont23"
-		ValueBigFont = "NewZombieFont35"
+		DescriptionFont = "NewZombieFont13"
+		ValueFont = "NewZombieFont13"
+		ValueBigFont = "HUDBetaZombieCount"
 	else
-		surface.SetMaterial(hud.HumanTopBackground)
-		surface.SetDrawColor(255, 255, 255, 190)
+		--surface.SetMaterial(hud.HumanTopBackground)
+		--surface.SetDrawColor(255, 255, 255, 190)
 		DescriptionFont = "ssNewAmmoFont5"
-		ValueFont = "ssNewAmmoFont13"
+		ValueFont = "ssNewAmmoFont9"
 		ValueBigFont = "HUDBetaZombieCount"
 	end
-	surface.DrawTexturedRect(ScaleW(200), ScaleH(-64), ScaleW(920), ScaleH(341))
+	--surface.DrawTexturedRect(ScaleW(200), ScaleH(-64), ScaleW(920), ScaleH(341))
 
 	--Text drawing
 	--surface.SetFont("ssNewAmmoFont6.5")
 
 	--Define Y-axis positions of keys and values
-	local keysStartY, valuesStartY = ScaleH(15), ScaleH(55)
+	local startX, keyStartY, valueStartY = ScrW()/2, ScaleH(20), ScaleH(50)
 
+	--draw.SimpleText(ToMinutesSeconds(timeLeft + 1), ValueFont, startX - ScrW()/2 + ScrW()/80, valueStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)		
+	
 	--Draw Survivor team count
-	local startX = ScaleW(430)
-	draw.SimpleText("SURVIVORS", DescriptionFont, startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleTextOutlined(CachedHumans, ValueFont, startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, TeamColor or Color(29, 87, 135, 170))
 
-	--Draw Undead team count
-	local startX = ScaleW(530)	
-	draw.SimpleText("ZOMBIES", DescriptionFont, startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleTextOutlined(CachedZombies, ValueFont,startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, TeamColor or Color(137, 30, 30, 170))
-
-	--Draw GreenCoins
-	local startX = 20+ScaleW(780)
-	draw.SimpleText("GREENCOINS", DescriptionFont, startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleTextOutlined(PlrData.GreenCoins, ValueFont, startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, TeamColor or Color(29, 135, 49, 170))
+	draw.SimpleTextOutlined("INFLICTION: ", DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(90), Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	draw.SimpleTextOutlined(CachedHumans, DescriptionFont, ScaleW(100),  ScaleH(90), Color(120,120,230,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	draw.SimpleTextOutlined("i", DescriptionFont,  ScaleW(120),  ScaleH(90), Color(255,255,255,150), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	draw.SimpleTextOutlined(CachedZombies, DescriptionFont, ScaleW(130),  ScaleH(90), Color(230,120,120,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
 	--Handle level key switching for current level and level completion percentage
 	if nextLevelKeySwitch <= RealTime() then
-		currentLevelKey = not currentLevelKey
-		nextLevelKeySwitch = RealTime()+10
+		if currentLevelKey == 2 then
+			currentLevelKey = 0
+		else
+			currentLevelKey = currentLevelKey+ 1
+		end
+		nextLevelKeySwitch = RealTime()+10		
+	end
+
+	if currentLevelKey == 0 then
+		draw.SimpleTextOutlined("Next level: " .. PlrData.NextRankPerc, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+		if PlrData.NextRankPerc >= 10 then
+			draw.SimpleTextOutlined("%", "xpFont", startX - ScrW()/2 + ScrW()/9, ScaleH(119), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+			draw.SimpleTextOutlined("("..PlrData.XPRequired - PlrData.XPCurrent .. " XP left)" , DescriptionFont, startX - ScrW()/2 + ScrW()/9, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))				
+		else
+			draw.SimpleTextOutlined("%", "xpFont", startX - ScrW()/2 + ScrW()/11, ScaleH(119), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
+			draw.SimpleTextOutlined("("..PlrData.XPRequired - PlrData.XPCurrent .. " XP left)" , DescriptionFont, startX - ScrW()/2 + ScrW()/9.5, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))							
+		end
+		-- 'Next Level: 50% (5000 XP left)'
+
+	elseif currentLevelKey == 1 then
+		draw.SimpleTextOutlined("GREENCOINS: "..PlrData.GreenCoins, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
+	elseif currentLevelKey == 2 then
+		draw.SimpleTextOutlined("LEVEL: " ..PlrData.Rank, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
 	end
 
 	local TopText, ValueText
-	if currentLevelKey then
-		TopText = "LEVEL"
-		ValueText = PlrData.Rank
-	else
-		TopText = "NEXT LEVEL"
-		ValueText = PlrData.NextRankPerc .."%"
-	end
-
-	--Draw current level
-	local startX = ScaleW(900)
-	draw.SimpleText(TopText, DescriptionFont, startX, keysStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleTextOutlined(ValueText, ValueFont, startX, valuesStartY, Color(255,255,255,180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, TeamColor or Color(29, 135, 49, 170))
-
 	--Draw round time
-	DrawRoundTime(DescriptionFont, ValueBigFont)
+	DrawRoundTime(DescriptionFont, ValueFont)
 end
 
 local function DrawHUD()
@@ -269,6 +306,6 @@ local function DrawHUD()
 		hud.DrawZombieHUD()
 	end
 
-	hud.DrawBossHealth()
+	--hud.DrawBossHealth()
 end
 hook.Add("HUDPaint", "hud.DrawHUD", DrawHUD)

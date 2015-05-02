@@ -1,27 +1,15 @@
 --[==[----------------------------------------
 		 Zombie HUD main
 -----------------------------------------]==]
-local zombieHealthIndication = {
-	{
-		Text = "Hungry as hell",
-		Percent = 1
-	}, {
-		Text = "It's just pain..",
-		Percent = 0.8
-	}, {
-		Text = "Not looking good..",
-		Percent = 0.6
-	}, {
-		Text = "I want gibs",
-		Percent = 0.45
-	}, {
-		Text = "I want gibs. NOW!",
-		Percent = 0.4
-	}, {
-		Text = "Crawling in my skin...",
-		Percent = 0.25
+local zombieHealthIndication  = {
+	{Text = "hungry as hell",Percent = 1},
+	{ Text = "walk it off", Percent = 0.9 },
+	{ Text = "couple of bullet holes", Percent = 0.75 },
+	{ Text = "you're missing a limb", Percent = 0.6 },
+	{ Text = "your organs are hanging out", Percent = 0.45 },
+	{ Text = "falling apart", Percent = 0.25 },
+	{ Text = "sack of flesh", Percent = 0.1 }	
 	}
-}
 table.SortByMember(zombieHealthIndication, "Percent", false)
 
 --Textures needed
@@ -29,11 +17,11 @@ local matHealthSplash, matSplashTop = surface.GetTextureID("zombiesurvival/hud/s
 
 function hud.DrawZombieHUDImages()
 	--Draw background
-	surface.SetMaterial(hud.ZombieHudBackground) 
-	surface.SetDrawColor(100, 0, 0, 260)
-	surface.DrawTexturedRect(ScaleW(450), ScaleH(-140), ScaleW(360), ScaleH(290)) --Middle
-	surface.DrawTexturedRect(ScaleW(650), ScaleH(-105), ScaleW(360), ScaleH(220)) --Right	
-	surface.DrawTexturedRect(ScaleW(280), ScaleH(-105), ScaleW(360), ScaleH(220)) --Left
+	--surface.SetMaterial(hud.ZombieHudBackground) 
+	--surface.SetDrawColor(100, 0, 0, 260)
+	--surface.DrawTexturedRect(ScaleW(450), ScaleH(-140), ScaleW(360), ScaleH(290)) --Middle
+	--surface.DrawTexturedRect(ScaleW(650), ScaleH(-105), ScaleW(360), ScaleH(220)) --Right	
+	--surface.DrawTexturedRect(ScaleW(280), ScaleH(-105), ScaleW(360), ScaleH(220)) --Left
 end
 
 local healthPercentageDrawn, healthStatusText = 1, zombieHealthIndication[1].Text
@@ -49,14 +37,14 @@ function hud.DrawZombieHUD()
 	
 	local x,y = 10, ScrH()-tw+190	
 
-	surface.SetMaterial(hud.ZombieHudBackground) 
-	surface.SetDrawColor(100, 0, 0, 260)
-	surface.DrawTexturedRect(ScaleW(-133),ScaleH(880), ScaleW(475), ScaleH(300))
+	--surface.SetMaterial(hud.ZombieHudBackground) 
+	--surface.SetDrawColor(100, 0, 0, 260)
+	--surface.DrawTexturedRect(ScaleW(-133),ScaleH(880), ScaleW(475), ScaleH(300))
 
 	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
 	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1005)
-	local barW, barH = ScaleW(190), ScaleH(35)
-	local barX, barY = healthTextX + ScaleW(30), ScaleH(880)+ScaleH(90)
+	local barW, barH = ScaleW(210), ScaleH(20)
+	local barX, barY = healthTextX + ScaleW(30), ScaleH(880)+ScaleH(110)
 	local healthPercentage, healthChanged = math.Clamp(healthPoints / maxHealthPoints, 0, 1), false
 		
 	if healthPercentage ~= healthPercentageDrawn then
@@ -90,11 +78,16 @@ function hud.DrawZombieHUD()
 			end
 		end
 	end
+		local startX = (ScrW()/2)	
+	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
+	--draw.SimpleText(healthPoints, "ssNewAmmoFont13",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)		
 		
 	--Draw health status text
-	draw.SimpleText(healthStatusText, "NewZombieFont7", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)	
-	draw.SimpleText(healthPoints, "NewZombieFont23", healthTextX, healthTextValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleText("HP", "NewZombieFont15", healthTextX, healthTextKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)		
+	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
+	draw.SimpleTextOutlined("+", "hpFont",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+	draw.SimpleTextOutlined(healthPoints, "ssNewAmmoFont13",startX - ScrW()/2 + ScrW()/45, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	draw.SimpleTextOutlined(healthStatusText, "ssNewAmmoFont5", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+	--draw.SimpleText("HP", "NewZombieFont15", healthTextX, healthTextKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)		
 end
 
 function hud.DrawBrains()
@@ -110,11 +103,17 @@ function hud.DrawBrains()
 	local currentScore = math.max(0, math.ceil(MySelf:GetScore() / 2))
 
 	--Background
-	surface.SetMaterial(hud.ZombieHudBackground) 
-	surface.SetDrawColor(100, 0, 0, 260)
-	surface.DrawTexturedRect(ScaleW(-50), ScaleH(740), ScaleW(160), ScaleH(130))
+	--surface.SetMaterial(hud.ZombieHudBackground) 
+	--surface.SetDrawColor(100, 0, 0, 260)
+	--surface.DrawTexturedRect(ScaleW(-50), ScaleH(740), ScaleW(160), ScaleH(130))
 
-	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(795), ScaleH(825)
-	draw.SimpleText(currentScore .." of ".. requiredScore, "NewZombieFont17", textX, textValueY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleText("BRAINS", "NewZombieFont15", textX, textKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	local textX, textValueY, textKeyY = ScaleW(15), ScaleH(900), ScaleH(900)
+	
+	
+	--if requiredScore - currentScore == 1 then
+	--	draw.SimpleText("Eat " .. requiredScore - currentScore .. " brain", "NewZombieFont13", textX, textValueY, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)	
+	--else
+	--	draw.SimpleText("Eat " .. requiredScore - currentScore .. " brains", "NewZombieFont13", textX, textValueY, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+	--end
+	--draw.SimpleText("BRAINS", "NewZombieFont10", textX, textKeyY, Color(255,255,255,200), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 end

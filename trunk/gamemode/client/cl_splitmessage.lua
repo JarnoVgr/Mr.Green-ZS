@@ -105,7 +105,7 @@ function notice.DrawMessage()
 					table.insert( notice.Draw, { sText = notice.Cache[1].sText, MessageTime = CurTime(), iType = notice.Cache[1].iType or 1, iDuration = notice.Cache[1].iDuration or 3.5 } )
 					
 					-- Cooldown
-					notice.Timer = CurTime() + ( notice.Cache[1].iDuration or 3.5 )
+					notice.Timer = CurTime() + ( notice.Cache[1].iDuration or 3.0 )
 					
 					-- Play sound
 					surface.PlaySound ( notice.Sounds[iType or 1] )

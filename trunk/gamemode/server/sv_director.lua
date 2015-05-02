@@ -108,7 +108,7 @@ function GiveSkillPointsSurvivors()
 		end
 
 		--Give SP
-		skillpoints.AddSkillPoints(pl, 20)
+		skillpoints.AddSkillPoints(pl, 10)
 
 		--Give XP
 		pl:AddXP(25)

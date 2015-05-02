@@ -26,7 +26,7 @@ ZombieClasses[0] =
 	SP = 20,
 	Threshold = 0,	
 	SWEP = "weapon_zs_undead_infected",			
-	JumpPower = 160,
+	JumpPower = 170,
 	--JumpPower = 190,
 	CanCrouch = true,
 	CanGib = true, 
@@ -96,19 +96,19 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	Tag = "zombie",	
 	Infliction = 0.0,
 	Revives = false,
-	Health = 120,
+	Health = 100,
 	MaxHealth = 120,
 	Bounty = 100,
 	SP = 15,
 	Threshold = 99,	
 	SWEP = "weapon_zs_undead_ghoul",			
-	JumpPower = 160,
+	JumpPower = 170,
 	Unlocked = false,
 	Hidden = false,
 	CanCrouch = true,
 	CanGib = true, 
 	Model = table.Random(InfectedZombiemodels), 
-	Speed = 190,	
+	Speed = 200,	
 	AngleFix = true,
 	DescriptionGameplay = { "> PRIMARY: Bare Claws", "> SECONDARY: War Cry!" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde! " },
@@ -190,7 +190,7 @@ ZombieClasses[2] =
 	SP = 40,
 	Mass = DEFAULT_MASS * 1.5,
 	Threshold = 4,
-	JumpPower = 160,
+	JumpPower = 170,
 	CanCrouch = true,
 	CanGib = true,
 	SWEP = "weapon_zs_undead_poisonzombie",
@@ -227,7 +227,7 @@ ZombieClasses[3] =
 {
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
-	Infliction = 0.5,
+	Infliction = 0.0,
 	Health = 160,
 	MaxHealth = 160,
 	TimeLimit = 160,
@@ -235,7 +235,7 @@ ZombieClasses[3] =
 	SP = 20,
 	Threshold = 2,
 	SWEP = "weapon_zs_undead_fastzombie",
-	JumpPower = 160,
+	JumpPower = 170,
 	CanCrouch = true,
 	CanGib = true,
 	AngleFix = true,
@@ -291,7 +291,7 @@ ZombieClasses[4] =
 	Bounty = 100,
 	SP = 15,
 	Threshold = 2,
-	JumpPower = 160,
+	JumpPower = 170,
 	CanCrouch = true,
 	CanGib = true,
 	SWEP = "weapon_zs_undead_spitter",
@@ -335,7 +335,7 @@ ZombieClasses[5] =
 	Bounty = 60,
 	SP = 20,
 	Threshold = 2,
-	JumpPower = 160,
+	JumpPower = 170,
 	CanCrouch = true,
 	CanGib = true,
 	SWEP = "weapon_zs_undead_wraith",
@@ -379,7 +379,7 @@ ZombieClasses[6] =
 	SP = 20,
 	Threshold = 4,			
 	SWEP = "weapon_zs_undead_howler",			
-	JumpPower = 160,
+	JumpPower = 170,
 	CanCrouch = true,
 	CanGib = true,
 	Model = Model("models/player/group01/female_01.mdl"), 
@@ -464,7 +464,7 @@ ZombieClasses[8] =
 	SP = 30,
 	Mass = DEFAULT_MASS * 1.2,
 	Threshold = 4,
-	JumpPower = 160,
+	JumpPower = 170,
 	CanCrouch = true,
 	CanGib = true,
 	SWEP = "weapon_zs_undead_zombine",
@@ -476,7 +476,7 @@ ZombieClasses[8] =
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Pulls out grenade, poison or normal", "> SPECIAL: Enrage when taken enough damage" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when taken enough damage" },
 	PainSounds = {
 		Sound( "npc/zombine/zombine_pain1.wav" ),
 		Sound( "npc/zombine/zombine_pain2.wav" ),
@@ -687,22 +687,22 @@ ZombieClasses[11] =
 	Name = "Behemoth",
 	Tag = "behemoth",
 	Infliction = 0.1,
-	Health = math.random(2000, 3000 ),
-	MaxHealth = 3500,
+	Health = 2000,
+	MaxHealth = 2000,
 	TimeLimit = 1020,
 	Bounty = 1000,
-	SP = 150,
+	SP = 200,
 	Mass = DEFAULT_MASS * 2,
 	Threshold = 4,
-	JumpPower = 200,
+	JumpPower = 180,
 	CanCrouch = true,
 	CanGib = true,
 	Unlocked = false,
 	Hidden = true,
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_behemoth",
-	Model = Model("models/zombie/zombie_soldier.mdl"),
-	Speed = 190,
+	Model = Model("models/player/zombie_soldier.mdl"),
+	Speed = 170,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -723,7 +723,7 @@ ZombieClasses[11] =
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
 		if IsValid(status) then
-			status:SetModel("models/zombie/zombie_soldier.mdl")
+			status:SetModel("models/player/zombie_soldier.mdl")
 		end
 		
 		local status2 = pl:GiveStatus("simple_revive2")
@@ -736,11 +736,11 @@ ZombieClasses[11] =
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
-	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
-	ViewOffset = Vector(0, 0, 73),
-	ViewOffsetDucked = Vector(0,0,32.2),
-	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+	ModelScale = 1.0,-- Vector(1.15,1.15,1.15),
+	--ViewOffset = Vector(0, 0, 73),
+	--ViewOffsetDucked = Vector(0,0,32.2),
+	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
+	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
 
 ZombieClasses[12] =
@@ -910,7 +910,7 @@ ZombieClasses[15] = --Everyone loves it ^^ Duby: R.I.P until you are loved once 
 	SP = 100,
 	Mass = DEFAULT_MASS * 2,
 	Threshold = 4,
-	JumpPower = 160,
+	JumpPower = 170,
 	CanCrouch = true,
 	CanGib = true,
 	Unlocked = false,
@@ -1139,8 +1139,6 @@ ZombieClasses[18] = --Creep and Play!
 	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
 	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
-
-
 
 ZombieClasses[19] = 
 {
