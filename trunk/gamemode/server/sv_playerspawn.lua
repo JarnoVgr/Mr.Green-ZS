@@ -258,6 +258,11 @@ function GM:PlayerSpawn(pl)
 		end
 		
 
+		if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+			pl.IsGordonHere = true
+			pl.IsFreeman = true
+			pl.PlayerModel = "gordon"		
+		end			
 
 		--Check if we can be Santa Claus
 		if CHRISTMAS and pl:Team() ~= TEAM_SPECTATOR and ((not self.IsSantaHere and math.random(1,7) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsSanta) and not pl.IsFreeman then
@@ -723,6 +728,30 @@ function CalculatePlayerLoadout(pl)
 		
 		--Sharpshooter stages
 		sharpshooter = {"weapon_zs_musket","weapon_zs_classic","weapon_zs_melee_fryingpan","weapon_zs_tools_supplies"}
+	
+	--Freeman
+	--Check if we can be THE Gordon Freeman
+	if pl:Team() == TEAM_SURVIVORS and pl.IsFreeman then
+		pl:ChatPrint("You're now THE Gordon Freeman!")
+		pl:Give("weapon_zs_melee_crowbar")		
+	end		
+
+	--Check if bought Magnum (give 1/6th chance)
+	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
+		--Strip previous pistol
+		if pl:Team() == TEAM_SURVIVORS then
+			pl:ChatPrint("A mysterious stranger joins you..")
+		end
+		local Pistol = pl:GetPistol()
+		if Pistol then
+			--pl:StripWeapon(Pistol:GetClass())
+		end
+		--Give new magnum
+		pl:Give("weapon_zs_magnum")
+
+		--Override old pistol for auto-deploy (selecting)
+		--ToGive[1] = "weapon_zs_magnum"
+	end		
 	
 	--{{ZS HUMAN CLASSES}}--
 		if pl:Team() == TEAM_SURVIVORS then
