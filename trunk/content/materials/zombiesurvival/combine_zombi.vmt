@@ -1,0 +1,10 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" 	"Models/Combine_soldier/Combine_zombi"	
+	"$bumpmap" "models/combine_soldier/combine_elite_normal"
+	"$model" 1
+	"$selfillum" 1
+}
+
+
+
