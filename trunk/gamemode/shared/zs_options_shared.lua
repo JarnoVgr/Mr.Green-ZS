@@ -67,8 +67,8 @@ FIRSTAPRIL = false
 
 
 --Boss stuff
-BOSS_TOTAL_PLAYERS_REQUIRED = 2
-BOSS_CLASS = {10, 11, 13, 18, 20}
+BOSS_TOTAL_PLAYERS_REQUIRED = 10
+BOSS_CLASS = {11 }
 --BOSS_CLASS = {12} --Seeker
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
@@ -145,6 +145,8 @@ GM.ChatTitles = {
  
 GM.HumanWeapons = {    
         --Berserker
+        ["weapon_zs_deagle"]  = { Name = "Desert Eagle", DPS = 93, Infliction = 0.2, Type = "pistol"},		
+		
         ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 100, Description = "Bish bash bosh, fast smacking and hard hitting!", HumanClass = "berserker" },  
         ["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 300, HumanClass = "berserker" },
         ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 600, HumanClass = "berserker" },
@@ -193,7 +195,6 @@ GM.HumanWeapons = {
         ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 200 },
         ["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 200, Description = "High fire rate thanks to having two pistols in your hands." },
         ["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 300, Description = "Russian Roulette Revolver" },
-        ["weapon_zs_deagle"]  = { Name = "Desert Eagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 200 },
         ["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic." },
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 200, Description = "Alyx is hot. But her gun is even more hot." },
  
