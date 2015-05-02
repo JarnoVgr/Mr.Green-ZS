@@ -120,7 +120,7 @@ function GM:PlayerInitialSpawn(pl)
 	-- pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
 		
 	-- Used to control how many weapons you are allowed to pickup
-	pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Misc = 0, Admin = 0 }
+	pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
 	
 	pl.AutoRedeem = util.tobool(pl:GetInfoNum("_zs_autoredeem",1)) or true
 	pl.IsFreeman = false
@@ -222,20 +222,24 @@ function GM:PlayerSpawn(pl)
 	pl:SetColor(Color(225,225,225,225))
 	-------------------------END DUBY'S FIX
 
-
+--[[ TO DO ADD CLASS BASED MODELS ]]--
 	
 	--Set model based on preferences
 	if pl:IsBot() then
 		--Random model
 		pl.PlayerModel = table.Random(PlayerModels)
 	else
+
 		--Get preferred model
 		local DesiredPlayerModelName = pl:GetInfo("cl_playermodel")
 		if #DesiredPlayerModelName > 0 and DesiredPlayerModelName ~= "none" then
 			pl.PlayerModel = string.lower(DesiredPlayerModelName)
+
+			
 		else
 			--pl.PlayerModel = table.Random(PlayerModels)
 			pl.PlayerModel = "kleiner"
+
 		end
 			
 		--Check if in PlayerModels list
@@ -253,13 +257,7 @@ function GM:PlayerSpawn(pl)
 			Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredPlayerModelName ..". Which doesn't exist.")
 		end
 		
-	if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
-		pl.IsGordonHere = true
-		pl.IsFreeman = true
-		pl.PlayerModel = "gordon"		
-	end	
-		
-		
+
 
 		--Check if we can be Santa Claus
 		if CHRISTMAS and pl:Team() ~= TEAM_SPECTATOR and ((not self.IsSantaHere and math.random(1,7) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsSanta) and not pl.IsFreeman then
@@ -333,7 +331,7 @@ function GM:OnFirstHumanSpawn(pl)
 	pl:KillSilent()
 	
 	pl.HumanClassMenuSent = true
-	
+
 	Debug("[SPAWN] Sending Human Class Menu to "..tostring(pl))
 end
 
@@ -344,7 +342,32 @@ function GM:OnHumanSpawn(pl)
 	if not pl:IsHuman() then
 		return
 	end
-				
+		
+	--Freeman
+	--Check if we can be THE Gordon Freeman
+	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+		--Only display message when being human
+		if pl:Team() == TEAM_SURVIVORS then
+			pl:ChatPrint("You're now THE Gordon Freeman!")
+		end
+
+		--Set global
+		self.IsGordonHere = true
+		
+		--Set model for player
+		pl.IsFreeman = true
+		pl.PlayerModel = "gordon"
+		
+		local Melee = pl:GetMelee()
+		
+		if Melee then --Duby: I have fixed the freeman perk not giving the crowbar. Had to strip the player naked first! 
+		pl:StripWeapon(Melee:GetClass())
+		pl:Give("weapon_zs_melee_crowbar")
+		ToGive[1] = "weapon_zs_melee_crowbar"		
+		end
+		
+	end			
+		
 	--Spawn protection
 	pl:GodEnable()
 	timer.Simple(3, function() 
@@ -385,7 +408,10 @@ function GM:OnHumanSpawn(pl)
 	self:SetPlayerSpeed(pl, CalculatePlayerSpeed(pl))
 
 	--Set crouch speed
-	pl:SetCrouchedWalkSpeed(0.65)
+	if pl:GetPerk("_point") then
+		pl:SetCrouchedWalkSpeed(0.9)
+	end
+		pl:SetCrouchedWalkSpeed(0.65)
 	
 	--Set jump power
 	if pl:GetJumpPower() ~= 200 then
@@ -405,8 +431,8 @@ function GM:OnHumanSpawn(pl)
 	pl:SetBloodColor(BLOOD_COLOR_RED)
 
 	--Delay use of Supply Crate
-	pl.NextSupplyUse = WARMUPTIME+60
-	pl:SendLua("MySelf.NextSupplyTime = ".. pl.NextSupplyUse) --Uses ServerTime clientside
+	--pl.NextSupplyUse = WARMUPTIME+60
+	--pl:SendLua("MySelf.NextSupplyTime = ".. pl.NextSupplyUse) --Uses ServerTime clientside
 
 	--
 	self:ProceedCustomSpawn(pl)
@@ -434,6 +460,12 @@ function GM:OnHumanSpawn(pl)
 
 	--Auto-enable flashlight
 	pl:Flashlight(true)
+	
+	if GAMEMODE:GetGameMode() == GAMEMODE_SCAVENGE then
+		pl:ChatPrint("SCAVENGE mode activated!")
+	end
+	
+	
 	
 	--Log
 	Debug("[SPAWN] ".. tostring(pl:Name()) .." spawned as a Survivor")
@@ -627,7 +659,26 @@ function CalculatePlayerSpeed ( pl )
 	if  pl:IsBot() then --This was changed as it worked off the medic class speeds. Which don't exist any more! 
 	Speed = 190
 	end
+	
+	if pl:GetPerk("_medic") then
+	Speed = 195
+	end
+	if pl:GetPerk("_commando") then
+	Speed = 180
+	end
+	if pl:GetPerk("_support2") then
 	Speed = 190
+	end
+	if pl:GetPerk("_berserker") then
+	Speed = 185
+	end
+	if pl:GetPerk("_engineer") then
+	Speed = 190
+	end
+	if pl:GetPerk("_sharpshooter") then
+	Speed = 170
+	end
+	
 	
 	return Speed, Speed
 end
@@ -643,59 +694,145 @@ function CalculatePlayerLoadout(pl)
 	local ToGive = {}
 	
 	--Give preferred loadout
+
 	if pl.Loadout and #pl.Loadout > 0 then
 		ToGive = table.Copy(pl.Loadout)
 	--Default loadout
-	else
-		ToGive = {"weapon_zs_usp","weapon_zs_melee_keyboard","weapon_zs_tools_torch"}
-		pl.Loadout = table.Copy(ToGive)
+	else --Sorting out what class gets what.
+
+	--Duby I will move all of this bellow into a meta once its been tested etc.. Its gonna be messy like this until its bug free
+						
+									--[[ HUMAN CLASS LOADOUT PREDICTIONS ]]-- 
+									
+		noclass = {"weapon_zs_usp","weapon_zs_melee_fryingpan"}
+		
+		--Medic Stages
+		medicstage1 = {"weapon_zs_p228","weapon_zs_melee_combatknife","weapon_zs_medkit"}
+		
+		--Support stages
+		support = {"weapon_zs_usp","weapon_zs_melee_combatknife","weapon_zs_tools_plank","weapon_zs_tools_hammer"}
+		
+		--Commando stages
+		commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
+		
+		--Engineer stages
+		engineer = {"weapon_zs_pulsepistol","weapon_zs_turretplacer","weapon_zs_mine","weapon_zs_special_chembomb"}
+		
+		--Berserker stages
+		berserker = {"weapon_zs_deagle","weapon_zs_melee_plank","weapon_zs_special_vodka"}
+		
+		--Sharpshooter stages
+		sharpshooter = {"weapon_zs_musket","weapon_zs_classic","weapon_zs_melee_fryingpan","weapon_zs_tools_supplies"}
+	
+	--{{ZS HUMAN CLASSES}}--
+		if pl:Team() == TEAM_SURVIVORS then
+			if pl:GetPerk("_medic") then
+				pl:ChatPrint("You are a Medic")
+
+				for k,v in pairs(medicstage1) do
+					pl:Give(tostring(v))
+				end
+					if pl:GetPerk("_medigun") then --Medical gun perk
+						pl:Give("weapon_zs_medigun")
+					end
+				end			
+		end
+		
+		if pl:Team() == TEAM_SURVIVORS then
+			if pl:GetPerk("_support2") then
+				pl.Loadout = table.Copy(support)
+				pl:ChatPrint("You are a Support class")
+				for k,v in pairs(support) do
+					pl:Give(tostring(v))
+				end	
+				if pl:GetPerk("_supportweapon") then --Medical gun perk
+						pl:Give("weapon_zs_chipper")
+					end
+				
+				end
+		end		
+		
+		if pl:Team() == TEAM_SURVIVORS then		
+			if pl:GetPerk("_engineer") then
+				pl:ChatPrint("You are an Engineer")
+				pl.Loadout = table.Copy(engineer)
+				for k,v in pairs(engineer) do
+					pl:Give(tostring(v))
+				end
+				if pl:GetPerk("_pulsesmg") then
+					pl:Give("weapon_zs_pulsesmg")
+				end
+				if pl:GetPerk("_combat") then
+					pl:SpawnMiniTurret()
+				end
+				
+				if pl:GetPerk("_remote") then
+					pl:Give("weapon_zs_tools_remote")
+				end
+				end
+		end
+		
+		if pl:Team() == TEAM_SURVIVORS then		
+			if pl:GetPerk("_commando") then
+				pl:ChatPrint("You are a Commando")
+				pl.Loadout = table.Copy(commando)
+				for k,v in pairs(commando) do
+					pl:Give(tostring(v))				
+				end		
+				if pl:GetPerk("_arsanal") then --Medical gun perk
+						pl:Give("weapon_zs_defender")
+					end		
+				end
+		end
+		
+		if pl:Team() == TEAM_SURVIVORS then		
+			if pl:GetPerk("_berserker") then
+				pl:ChatPrint("You are a Berserker")
+				pl.Loadout = table.Copy(berserker)
+				for k,v in pairs(berserker) do
+					pl:Give(tostring(v))
+				end
+				if pl:GetPerk("_slinger") then
+					pl:Give("weapon_zs_melee_hook")
+				end
+				end
+		end
+		
+				if pl:Team() == TEAM_SURVIVORS then		
+			if pl:GetPerk("_sharpshooter") then
+				pl:ChatPrint("You are a SharpShooter")
+				pl.Loadout = table.Copy(sharpshooter)
+				for k,v in pairs(sharpshooter) do
+					pl:Give(tostring(v))
+				end
+				if pl:GetPerk("_lethal") then
+					pl:StripWeapon(pl:GetAutomatic():GetClass())
+					pl:Give("weapon_zs_scout")
+					end
+				end
+		end
+		
+		for k,v in pairs(noclass) do --If you don't have a class selected give them this...
+					pl:Give(tostring(v))
+				end
+
 	end
 	
 	if pl:IsBot() then --This was changed as it worked off the medic class speeds. Which doesn't exist any more!
 		ToGive = {"weapon_zs_tools_hammer", "weapon_zs_melee_keyboard"}
 	end
-		
-	--Freeman
-	--Check if we can be THE Gordon Freeman
-	if pl:Team() == TEAM_SURVIVORS and pl.IsFreeman then
-		pl:ChatPrint("You're now THE Gordon Freeman!")
-		pl:Give("weapon_zs_melee_crowbar")		
-	end		
 
-	--Check if bought Magnum (give 1/6th chance)
-	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
-		--Strip previous pistol
-		if pl:Team() == TEAM_SURVIVORS then
-			pl:ChatPrint("A mysterious stranger joins you..")
-		end
-		local Pistol = pl:GetPistol()
-		if Pistol then
-			--pl:StripWeapon(Pistol:GetClass())
-		end
-		--Give new magnum
-		pl:Give("weapon_zs_magnum")
-
-		--Override old pistol for auto-deploy (selecting)
-		--ToGive[1] = "weapon_zs_magnum"
-	end	
-		
-	--Actually give the loadout weapons
-	for k,v in pairs(ToGive) do
-		pl:Give(tostring(v))
-	end
-	
-	local SelectWeapon
-	if ToGive and #ToGive >= 1 then
-		
-		SelectWeapon = ToGive[1]
-		--print(SelectWeapon)
-	end
+	--local SelectWeapon
+	--if ToGive and #ToGive >= 1 then
+	--	SelectWeapon = ToGive[1]
+	--end
 	
 	--Arena gives a primary gun
 	if GAMEMODE:GetGameMode() == GAMEMODE_ARENA then
+	pl:ChatPrint("ARENA MODE activated!")
 		local RandomWeapon = table.Random(GAMEMODE.ArenaWeapons)
 		pl:Give(RandomWeapon)
-		SelectWeapon = RandomWeapon
+		--SelectWeapon = RandomWeapon
 		
 		pl:GiveAmmo(6500, "ar2", false)
 		pl:GiveAmmo(6500, "smg1", false)
@@ -705,13 +842,24 @@ function CalculatePlayerLoadout(pl)
 	else
 		return
 	end
-			
-	if pl:GetPerk("_remote") then
-		pl:Give("weapon_zs_tools_remote")
-	end
+
 	
+	--[[--Check if bought Magnum (give 1/6th chance)
+	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
+		--Strip previous pistol
+		local Pistol = pl:GetPistol()
+		if Pistol then
+			pl:StripWeapon(Pistol:GetClass())
+		end
+		--Give new magnum
+		pl:Give("weapon_zs_magnum")
+
+		--Override old pistol for auto-deploy (selecting)
+	--	ToGive[1] = "weapon_zs_magnum"
+	end]]--
+
 	--Select a weapon
-	pl:SelectWeapon(SelectWeapon)
+	--pl:SelectWeapon(SelectWeapon)
 end
 
 function CalculateZombieHull(pl)
@@ -822,6 +970,10 @@ function CalculatePlayerHealth(pl)
 	if pl:GetPerk("_kevlar2") then
 		MaxHealth, Health = 120, 120
 	end
+	
+	if pl:GetPerk("_kevlarsupport") then
+		MaxHealth, Health = 150, 150
+	end	
 
 	-- Actually set the health
 	pl:SetHealth(Health)
