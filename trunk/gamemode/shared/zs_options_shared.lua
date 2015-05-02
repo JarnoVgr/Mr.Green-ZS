@@ -338,21 +338,21 @@ MAX_RANK = 6
 GM.RankUnlocks = {
 
 	--{{HUMAN CLASSES}}--
-	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_medupgr2","_medigun","_nade","_accuracy","_arsanal","_support","_supportammo","_supportweapon","_freeman","_psychotic","_combat","_pulsesmg","_mine","_medupgr1","_poisonprotect","_kevlar","_kevlar2","_profitable","_horse","_kevlarsupport","_bloodmoney","_berserk","_lethal","_highcal","_accuracy2","_blast","_point","_comeback2","_sboost","_sboost2","_remote","_psychopath","_slinger","_reload","_ironaim"},
+	--[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_medupgr2","_medigun","_nade","_accuracy","_arsanal","_support","_supportammo","_supportweapon","_freeman","_psychotic","_combat","_pulsesmg","_mine","_medupgr1","_poisonprotect","_kevlar","_kevlar2","_profitable","_horse","_kevlarsupport","_bloodmoney","_berserk","_lethal","_highcal","_accuracy2","_blast","_point","_comeback2","_sboost","_sboost2","_remote","_psychopath","_slinger","_reload","_ironaim"},
 	
-	--[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter"},
+	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter"},
 
-	--[1] = {"_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_highcal"},
+	[1] = {"_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_highcal"},
 	
-	--[2] = {"_medupgr1","_kevlar","_kevlarsupport","_berserk","_blast","_point","_remote","_comeback2"},
+	[2] = {"_medupgr1","_kevlar","_kevlarsupport","_berserk","_blast","_point","_remote","_comeback2"},
 	
-	--[3] = {"_medigun","_nade","_supportammo","_freeman","_pulsesmg","_accuracy2"},
+	[3] = {"_medigun","_nade","_supportammo","_freeman","_pulsesmg","_accuracy2"},
 	
-	--[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
+	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
-	--[5] = {"_healingnads","_arsanal","_supportweapon","_turret","_lethal","_psychotic"},
+	[5] = {"_healingnads","_arsanal","_supportweapon","_turret","_lethal","_psychotic"},
 	
-	--[6] = {"_combat","_profitable","_psychopath","_ironaim"},
+	[6] = {"_combat","_profitable","_psychopath","_ironaim"},
 	
 }
 
