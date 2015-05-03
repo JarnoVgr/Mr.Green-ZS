@@ -282,18 +282,18 @@ function SWEP:Equip ( NewOwner )
 			NewOwner:GiveAmmo( 100, self:GetPrimaryAmmoTypeString() )
 		end
 		
-		--if owner:GetPerk("_medic") then
-			--NewOwner:GiveAmmo*(owner:GetRank()12*, self:GetPrimaryAmmoTypeString())		
-		--end		
+		if NewOwner:GetPerk("_medic") then
+			NewOwner:GiveAmmo(self.Owner:GetRank()*12, self:GetPrimaryAmmoTypeString())		
+		end		
 	--else
 	--	if self.Ammunition then
 		--	self:TakePrimaryAmmo ( self:Clip1() - self.Ammunition )
 		--end
 	
-		NewOwner:RemoveAmmo ( 1500, self:GetPrimaryAmmoTypeString() )
-		if self.Weapon.RemainingAmmunition then
-			NewOwner:GiveAmmo( self.Weapon.RemainingAmmunition or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
-		end
+		--NewOwner:RemoveAmmo ( 1500, self:GetPrimaryAmmoTypeString() )
+		--if self.Weapon.RemainingAmmunition then
+		--	NewOwner:GiveAmmo( self.Weapon.RemainingAmmunition or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
+		--end
 	end	
 	
 	-- Call this function to update weapon slot and others
