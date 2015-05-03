@@ -103,7 +103,7 @@ function SWEP:OnDeploy()
         self:SetClip2(self:Clip2() * 2)
     end
 	
-	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") then
+	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") and not self.Weapon.HadFirstDeploy then
 		self:SetClip2(self:Clip2()+ self.Owner:GetRank())
 	end
     
