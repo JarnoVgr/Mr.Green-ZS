@@ -47,8 +47,8 @@ SWEP.Primary.Delay 			= 0.085
 SWEP.Primary.DefaultClip	= 150
 SWEP.MaxAmmo			    = 250
 SWEP.Primary.Automatic		= true
---SWEP.Primary.Ammo			= "smg1"
-SWEP.Primary.Ammo			= "buckshot"
+SWEP.Primary.Ammo			= "smg1"
+--SWEP.Primary.Ammo			= "buckshot"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.Cone = 0.06

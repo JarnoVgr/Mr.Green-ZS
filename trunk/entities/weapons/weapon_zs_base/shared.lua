@@ -364,7 +364,7 @@ function SWEP:DoBulletKnockback()
 	for ent, prevvel in pairs(tempknockback) do
 		local curvel = ent:GetVelocity()
 		if self.Owner:GetPerk("_highcal") then
-		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.08 + prevvel)
+		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.1 + prevvel)
 		end
 		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.025 + prevvel)
 	end
@@ -397,12 +397,27 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 	local owner = self.Owner
 	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
-
+	
 	--GetViewPunchAngles
 	local aim = self.Owner:GetAimVector()
 	local punch = self.Owner:GetViewPunchAngles():Forward()
 	punch.x = punch.x - 1
 
+	
+	if self.Primary.Ammo == "pistol" and self.Owner:GetPerk("_medic") then
+		dmg = dmg + (dmg * (4*self.Owner:GetRank() / 100))
+	
+	else if self.Primary.Ammo == "rifle" and self.Owner:GetPerk("_commando") then
+		dmg = dmg + (dmg * (4*self.Owner:GetRank() / 100))
+		
+	else if self.Primary.Ammo == "smg1" and self.Owner:GetPerk("_support") or self.Primary.Ammo == "buckshot" and self.Owner:GetPerk("_support") then
+		dmg = dmg + (dmg * (4*self.Owner:GetRank() / 100))		
+		
+	else if self.Primary.Ammo == "357" and self.Owner:GetPerk("_sharpshooter") then
+		dmg = dmg + (dmg * (4*self.Owner:GetRank() / 100))		
+	end	
+
+	
 	self:StartBulletKnockback()
 	self.Owner:FireBullets({
 		Num = numbul,

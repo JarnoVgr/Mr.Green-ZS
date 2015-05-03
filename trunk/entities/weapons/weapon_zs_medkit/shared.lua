@@ -127,6 +127,10 @@ function SWEP:PrimaryAttack()
 						multiplier = 1.45
 					end
 					
+					if owner:GetPerk("_medic") then
+						multiplier = multiplier + (multiplier*(5*owner:GetRank())/100)				
+					end
+					
 					self:SetNextCharge(CurTime() + delay)
 					owner.NextMedKitUse = self:GetNextCharge()
 					
@@ -134,7 +138,7 @@ function SWEP:PrimaryAttack()
 						owner.HealingDone = owner.HealingDone + (toheal or 14)
 						skillpoints.AddSkillPoints(owner,toheal or 14)
 						ent:FloatingTextEffect( toheal or 14, owner )
-						owner:AddXP(toheal or 5)
+						owner:AddXP(toheal*2 or 5)
 						
 						--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})
 						

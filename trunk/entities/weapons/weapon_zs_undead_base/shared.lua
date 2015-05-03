@@ -231,8 +231,13 @@ function SWEP:PerformPrimaryAttack()
 				hit = true
 
 			elseif ent:IsPlayer() and ent:IsHuman() and not ent:IsWeapon() then		
-				local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 10, 10, 10000)			
-				ent:TakeDamage(self.Primary.Damage, self.Owner, self)
+				local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 10, 10, 10000)	
+
+				if ent:GetPerk("_medic") then
+					ent:TakeDamage(self.Primary.Damage() - (self.Primary.Damage()* (4*attacker:GetRank())/100))	
+				else
+					ent:TakeDamage(self.Primary.Damage, self.Owner, self)
+				end
 				Velocity.z = 0 + self.Primary.Damage * math.random(3,5) + 130
 				
 				if self.Owner:HasBought("vampire") and self.Owner:Health() + self.Primary.Damage * 0.33 < self.Owner:GetMaximumHealth() then	

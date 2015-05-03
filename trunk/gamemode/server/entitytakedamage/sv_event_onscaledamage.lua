@@ -27,7 +27,8 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 
 		return true
 	elseif dmginfo:IsMeleeDamage() and attacker:IsHuman() and attacker:GetPerk("_berserker") then
-		local multiplier = (5*attacker:GetRank())*0.1
+		local multiplier = (5*attacker:GetRank())/100
+
 		dmginfo:ScaleDamage(1.2+multiplier)
 	end
 	--Physbox team-damage bug
@@ -118,8 +119,6 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		--Scale any damage
 		dmginfo:ScaleDamage(GAMEMODE:GetUndeadDamageMultiplier())
 
-		
-		
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 18 then
@@ -127,8 +126,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 				if dmginfo:IsBulletDamage() then
 					dmginfo:SetDamage(dmginfo:GetDamage() * 1.5)
 				elseif dmginfo:IsBulletDamage() and attacker:GetPerk ("_sharpshooter") then
-					dmginfo:SetDamage(dmginfo:GetDamage() * (1.5 + (5*attacker:GetRank())*0.1))
-			
+					dmginfo:SetDamage(dmginfo:GetDamage() + (dmginfo:GetDamage() *(5*attacker:GetRank())/100))
 				elseif dmginfo:IsMeleeDamage() then
 					dmginfo:SetDamage(dmginfo:GetDamage() * 2)
 				elseif dmginfo:IsMeleeDamage() and attacker:GetPerk("_headhunter") then
@@ -136,6 +134,8 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 				end
 			end
 		end
+		
+
 
 		--35% damage for zombine (armor)
 		if pl:IsZombine() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.75) and pl:Health() ~= 0 and pl.bCanSprint == false then

@@ -126,7 +126,7 @@ function ENT:PoisonExplode()
 		if IsEntityVisible ( v, vPos + Vector ( 0,0,3 ), Filter ) then
 			table.insert( Filter, v )
 			local fDistance = self:GetPos():Distance( v:GetPos() )
-			v:TakeDamageOverTime( math.Rand(2,3), 1.5, math.Clamp( ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 44 ) / 2, 0, 22 ), self.ZombieOwner, mOwnerWeapon )
+			v:TakeDamageOverTime( math.Rand(3,4), 1.5, math.Clamp( ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 44 ) / 2, 0, 22 ), self.ZombieOwner, mOwnerWeapon )
 			
 			-- Apply effect to human
 			local Infect = EffectData()
