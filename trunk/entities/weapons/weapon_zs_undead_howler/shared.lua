@@ -141,7 +141,7 @@ function SWEP:StartSecondaryAttack()
 	--	local fDamage = math.Round(24 * fHitPercentage, 0, 10)
 		local fDamage = math.Round(20 * fHitPercentage, 0, 10)
 		if fDamage > 0 then
-			v:TakeDamage(fDamage, self.Owner, self)
+			v:TakeDamage(fDamage*0.5, self.Owner, self)
 		end
 
 		--Check if last Howler scream was recently (we don't want to stack attacks)
