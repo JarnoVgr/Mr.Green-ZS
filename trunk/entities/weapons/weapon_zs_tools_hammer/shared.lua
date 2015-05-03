@@ -102,6 +102,10 @@ function SWEP:OnDeploy()
         self.Weapon.HadFirstDeploy = true
         self:SetClip2(self:Clip2() * 2)
     end
+	
+	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") then
+		self:SetClip2(self:Clip2()+ self.Owner:GetRank())
+	end
     
     if SERVER then
         self.Owner._RepairScore = self.Owner._RepairScore or 0
@@ -146,9 +150,14 @@ if SERVER then
 							--else if 								
 							-- if self.Owner:GetPerk("_trchregen") then                                                           
 							-- nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+15,1,nail:GetDTInt(1)))
-                                                 
-                            nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+5,1,nail:GetDTInt(1)))                 
-                            
+							
+							if self.Owner:GetPerk("_support2") then
+								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+5+(5*(17*self.Owner:GetRank())/100),1,nail:GetDTInt(1)))					        
+							else
+								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+5,1,nail:GetDTInt(1)))                 
+                            end
+							
+							
                             local pos = tr.HitPos
                             local norm = tr.HitNormal
         
