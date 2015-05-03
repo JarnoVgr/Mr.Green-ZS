@@ -285,7 +285,7 @@ ZombieClasses[4] =
 	Name = "Ghast",
 	Tag = "etherealzombie",
 	Infliction = 0.25,
-	Health = 100,
+	Health = 200,
 	MaxHealth = 110,
 	TimeLimit = 200,
 	Bounty = 80,
@@ -298,7 +298,7 @@ ZombieClasses[4] =
 	Model = Model( "models/wraith.mdl" ),
 	Speed = 190,
 	Description = "A ghastly figure which can disguise itself as a human!",
-	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Disguise as a human!"},
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Disguise as a human!", "> SPECIAL: Ignored by turrets"},
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),

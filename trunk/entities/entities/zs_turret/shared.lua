@@ -31,7 +31,7 @@ for i=1,2 do
 end
 
 -- Options
-ENT.MaxHealth = 200
+ENT.MaxHealth = 100
 ENT.MaxBullets = 150
 ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 700
@@ -289,7 +289,7 @@ if SERVER then
 			end
 		else
 			-- Increased recharge rate
-			self:RechargeAmmo(1,0.11- (0.5*(5*self:GetTurretOwner():GetRank())/100))	
+			self:RechargeAmmo(1,0.15- (0.4*(5*self:GetTurretOwner():GetRank())/100))	
 			self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),0,1))
 			self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),15,1))
 
@@ -430,7 +430,7 @@ if SERVER then
 		bullet.Dir = self:GetShootDir()
 		bullet.Spread = Vector(0, 0, 0)  
 		bullet.Tracer = 3
-		bullet.Force = 0.1
+		bullet.Force = 0.05
 		bullet.Damage = self.Damage
 		bullet.TracerName = "AR2Tracer"
 		bullet.Callback = BulletCallback
@@ -529,7 +529,7 @@ if SERVER then
 			local dmg = dmginfo:GetDamage()*0.25
 			
 			if IsValid(self:GetTurretOwner()) and self:GetTurretOwner():GetSuit() == "techsuit" then
-				dmg = dmg*0.66
+				dmg = dmg + dmg*0.5
 			end
 
 			self:SetDTInt(1,self:GetDTInt(1) - dmg)
