@@ -98,10 +98,10 @@ function SWEP:OnDeploy()
     self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 
     --Double amount of nails when having the upgrade   
-    if IsValid(self.Owner) and self.Owner:GetPerk("_extranails") and not self.Weapon.HadFirstDeploy then
-        self.Weapon.HadFirstDeploy = true
-        self:SetClip2(self:Clip2() * 2)
-    end
+   -- if IsValid(self.Owner) and self.Owner:GetPerk("_extranails") and not self.Weapon.HadFirstDeploy then
+     --   self.Weapon.HadFirstDeploy = true
+     --   self:SetClip2(self:Clip2() * 2)
+  --  end
 	
 	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") and not self.Weapon.HadFirstDeploy then
 		self:SetClip2(self:Clip2()+ self.Owner:GetRank())
