@@ -11,8 +11,10 @@ local function DrawTargetIDTurret(entity)
 	local EntTeam = TEAM_HUMAN
 
 	--Only show if same team
-	if MySelf:Team() ~= EntTeam then
-		return
+	if not MySelf:GetPerk("_commando") then
+		if MySelf:Team() ~= EntTeam then
+			return
+		end
 	end
 
 	local cen = entity:LocalToWorld(entity:OBBCenter())
@@ -89,8 +91,10 @@ function GM:HUDDrawTargetID()
 		local EntTeam = entity:Team() or -1
 
 		--Only show TargetIDs from same team
-		if MySelf:Team() ~= EntTeam then
-			return
+		if not MySelf:GetPerk("_commando") then
+			if MySelf:Team() ~= EntTeam then
+				return
+			end
 		end
 
 		local EntName = entity:Name()
@@ -129,8 +133,12 @@ function GM:HUDDrawTargetID()
 				rand = 0 
 				rand2 = 0 
 			end
-			draw.SimpleTextOutlined(EntName, "ArialBoldTwelve",x + rand,y + rand2,col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, col2)
-
+			
+			if MySelf:Team() == EntTeam then
+				draw.SimpleTextOutlined(EntName, "ArialBoldTwelve",x + rand,y + rand2,col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, col2)
+			else
+				col = Color(220,10,10,140)
+			end
 			newY = y + NameHeight + 8
 
 			--Health

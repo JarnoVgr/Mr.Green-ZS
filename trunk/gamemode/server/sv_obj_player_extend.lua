@@ -185,6 +185,10 @@ function meta:RestoreHumanHealth(am,returnhealth)
 	elseif self:GetPerk("_kevlarsupport") then
 		maxhealth = 150
 	end
+	
+	if self:GetPerk("_commando") then
+		maxhealth = 100 + (100*(5*self:GetRank())/100)
+	end
 	if health == maxhealth and returnhealth then
 		return false
 	end

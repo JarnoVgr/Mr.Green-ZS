@@ -1007,6 +1007,10 @@ function CalculatePlayerHealth(pl)
 	if pl:GetPerk("_kevlarsupport") then
 		MaxHealth, Health = 150, 150
 	end	
+	
+	if pl:GetPerk("_commando") then
+		MaxHealth, Health = 100 + (100*(5*pl:GetRank())/100), 100 + (100*(5*pl:GetRank())/100)
+	end	
 
 	-- Actually set the health
 	pl:SetHealth(Health)
