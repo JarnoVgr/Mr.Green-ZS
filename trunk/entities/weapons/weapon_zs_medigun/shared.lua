@@ -61,7 +61,7 @@ SWEP.Secondary.Delay = 0.01
 SWEP.Secondary.Heal = 5
 SWEP.Secondary.HealDelay = 6
 SWEP.UseHands = true
-SWEP.Cone = 0.05
+SWEP.Cone = 0.04
 SWEP.ConeMoving = SWEP.Cone *1.12
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9
@@ -78,7 +78,7 @@ function SWEP:OnInitialize()
 end
 
 function SWEP:EmitFireSound()
-	self:EmitSound(self.Primary.Sound, 60, math.random(140,150))
+	self:EmitSound(self.Primary.Sound, 80, math.random(140,150))
 end
 
 function SWEP:Think()
@@ -94,7 +94,7 @@ function SWEP:SecondaryAttack()
 	if self:CanSecondaryAttack() then
 		local owner = self.Owner
 		local trace = self.Owner:GetEyeTrace()
-		if trace.HitPos:Distance(self.Owner:GetShootPos()) <= 512 then
+		if trace.HitPos:Distance(self.Owner:GetShootPos()) <= 1024 then
 			local ent = self.Owner:GetEyeTrace().Entity
 
 		-- local ent = owner:MeleeTrace(32, 2).Entity
@@ -123,7 +123,7 @@ function SWEP:SecondaryAttack()
 						owner.HealingDone = owner.HealingDone + (toheal or 14)
 						skillpoints.AddSkillPoints(owner,toheal or 14)
 						ent:FloatingTextEffect( toheal or 14, owner )
-						owner:AddXP(toheal or 5)
+						owner:AddXP(toheal*3 or 5)
 						
 						--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})
 						
@@ -231,15 +231,19 @@ function SWEP:Equip ( NewOwner )
 		if NewOwner:GetPerk("_medupgr2") then
 			NewOwner:GiveAmmo( 70, self:GetSecondaryAmmoTypeString() )
 		end
+		
+		if NewOwner:GetPerk("_medic") then
+			NewOwner:GiveAmmo(self.Owner:GetRank()*12, self:GetPrimaryAmmoTypeString())		
+		end			
 	else
-		if self.Ammunition then
-			self:TakePrimaryAmmo ( self:Clip1() - self.Ammunition )
-		end
+		--if self.Ammunition then
+		--	self:TakePrimaryAmmo ( self:Clip1() - self.Ammunition )
+		--end
 	
-		NewOwner:RemoveAmmo ( 1500, self:GetSecondaryAmmoTypeString() )
-		if self.Weapon.RemainingAmmunition then
-			NewOwner:GiveAmmo( self.Weapon.RemainingAmmunition or self.Secondary.DefaultClip, self:GetPrimaryAmmoTypeString() )
-		end
+		--NewOwner:RemoveAmmo ( 1500, self:GetSecondaryAmmoTypeString() )
+		--if self.Weapon.RemainingAmmunition then
+		--	NewOwner:GiveAmmo( self.Weapon.RemainingAmmunition or self.Secondary.DefaultClip, self:GetPrimaryAmmoTypeString() )
+		--end
 	end	
 	
 	-- Call this function to update weapon slot and others
