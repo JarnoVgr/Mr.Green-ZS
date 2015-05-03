@@ -228,22 +228,45 @@ function GM:PlayerSpawn(pl)
 	if pl:IsBot() then
 		--Random model
 		pl.PlayerModel = table.Random(PlayerModels)
-	else
+	end	
+	--else
 
 		--Get preferred model
-		local DesiredPlayerModelName = pl:GetInfo("cl_playermodel")
-		if #DesiredPlayerModelName > 0 and DesiredPlayerModelName ~= "none" then
-			pl.PlayerModel = string.lower(DesiredPlayerModelName)
+	--	local DesiredPlayerModelName = pl:GetInfo("cl_playermodel")
+		--if #DesiredPlayerModelName > 0 and DesiredPlayerModelName ~= "none" then
+			--pl.PlayerModel = string.lower(DesiredPlayerModelName)
 
+			if pl:GetPerk("_medic") then			
+				pl.PlayerModel = "medic01"
+			end
 			
-		else
+			if pl:GetPerk("_commando") then		
+				pl.PlayerModel = "combie_soldier"
+			end
+			
+			if pl:GetPerk("_support2") then		
+				pl.PlayerModel = "eli"
+			end
+			
+			if pl:GetPerk("_berserker") then
+				pl.PlayerModel = "css_gasmask"
+			end
+			
+			if pl:GetPerk("_engineer") then
+				pl.PlayerModel = "kleiner"
+			end
+			
+			if pl:GetPerk("_sharpshooter") then
+				pl.PlayerModel = "odessa"
+			end
+		--else
 			--pl.PlayerModel = table.Random(PlayerModels)
-			pl.PlayerModel = "kleiner"
+			--pl.PlayerModel = "kleiner"
 
-		end
+		--end
 			
 		--Check if in PlayerModels list
-		if table.HasValue(PlayerModels, pl.PlayerModel) or (pl:IsAdmin() and table.HasValue(PlayerAdminModels, pl.PlayerModel)) then
+	--[[	if table.HasValue(PlayerModels, pl.PlayerModel) or (pl:IsAdmin() and table.HasValue(PlayerAdminModels, pl.PlayerModel)) then
 			--Get custom player color
 			local PlayerModelColor = pl:GetInfo("cl_playercolor")
 			
@@ -255,7 +278,7 @@ function GM:PlayerSpawn(pl)
 		else
 			pl.PlayerModel = table.Random(PlayerModels)
 			Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredPlayerModelName ..". Which doesn't exist.")
-		end
+		end]]--
 		
 
 		if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
@@ -279,7 +302,7 @@ function GM:PlayerSpawn(pl)
 				pl:ChatPrint("Ho ho ho!")
 			end
 		end
-	end
+	--end
 	
 	if pl:Team() == TEAM_SPECTATOR then
 		self:OnFirstHumanSpawn(pl)
