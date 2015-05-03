@@ -282,9 +282,9 @@ function SWEP:Equip ( NewOwner )
 			NewOwner:GiveAmmo( 100, self:GetPrimaryAmmoTypeString() )
 		end
 		
-		if owner:GetPerk("_medic") then
-			NewOwner:GiveAmmo*(12*owner:GetRank(), self:GetPrimaryAmmoTypeString())		
-		end		
+		--if owner:GetPerk("_medic") then
+			--NewOwner:GiveAmmo*(owner:GetRank()12*, self:GetPrimaryAmmoTypeString())		
+		--end		
 	else
 		if self.Ammunition then
 			self:TakePrimaryAmmo ( self:Clip1() - self.Ammunition )
