@@ -58,7 +58,18 @@ function SWEP:OnInitialize()
 end
 
 function SWEP:PrimaryAttack()
-	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+	local bonus = 0
+	
+	if self.Owner:GetPerk("_commando") then
+		bonus = (self.Owner:GetRank()*0.5)/100
+		
+		if self.Primary.Delay - bonus < 0.05 then
+			bonus = 0
+		end		
+		
+	end
+	
+	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay - bonus)
 	if not self:CanPrimaryAttack() then
 		return
 	end
@@ -85,21 +96,21 @@ function SWEP:PrimaryAttack()
 		--Less recoil when in ironsight
 		recoilMultiplier = recoilMultiplier * 0.75
 		if self.Owner:GetPerk("_accuracy") then
-			recoilMultiplier = recoilMultiplier * 0.1
+			recoilMultiplier = recoilMultiplier * 0.4
 			
 		end
 		if self.Owner:GetPerk("_accuracy2") then
-			recoilMultiplier = recoilMultiplier * 0.1
+			recoilMultiplier = recoilMultiplier * 0.4
 		end
 	end
 	if self.Owner:Crouching() then
 		--Less recoil when crouching
 		recoilMultiplier = recoilMultiplier * 0.75
 		if self.Owner:GetPerk("_accuracy") then
-			recoilMultiplier = recoilMultiplier * 0.1
+			recoilMultiplier = recoilMultiplier * 0.4
 		end
 		if self.Owner:GetPerk("_accuracy2") then
-			recoilMultiplier = recoilMultiplier * 0.1
+			recoilMultiplier = recoilMultiplier * 0.4
 		end
 	end
 
@@ -275,7 +286,18 @@ function SWEP:TranslateActivity(act)
 end
 
 function SWEP:TakeAmmo()
-	self:TakePrimaryAmmo(1)
+
+	if self.Owner:GetPerk("_commando") then
+
+		local chance = 12 - self.Owner:GetRank()
+		
+		if math.random(1,chance) != 1 then
+			self:TakePrimaryAmmo(1)		
+		end
+	else
+		self:TakePrimaryAmmo(1)
+	end
+
 end
 
 function SWEP:Reload()
