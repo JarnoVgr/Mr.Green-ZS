@@ -12,7 +12,7 @@ SWEP.Base = "weapon_zs_melee_base"
 
  
 -- Name, fov, etc
-SWEP.PrintName = "Nailing Hammer"
+SWEP.PrintName = "Hammer"
 SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
 SWEP.ViewModelFOV = 60
@@ -104,6 +104,7 @@ function SWEP:OnDeploy()
   --  end
 	
 	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") and not self.Weapon.HadFirstDeploy then
+		self.Weapon.HadFirstDeploy = true	
 		self:SetClip2(self:Clip2()+ self.Owner:GetRank())
 	end
     
