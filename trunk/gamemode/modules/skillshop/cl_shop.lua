@@ -207,18 +207,18 @@ util.PrecacheSound("UI/buttonrollover.wav")
 
 function InsertWeaponsTab()
 	--Primary
-	WeaponsList1 = vgui.Create("DScrollPanel")
-	WeaponsList1:SetSize(MainSheetW,MainSheetH)
-	WeaponsList1:SetSkin("ZSMG")
-	WeaponsList1.Paint = function()
-	end
+	--WeaponsList1 = vgui.Create("DScrollPanel")
+	--WeaponsList1:SetSize(MainSheetW,MainSheetH)
+	--WeaponsList1:SetSkin("ZSMG")
+	--WeaponsList1.Paint = function()
+	--end
 	
 	--Secondary
-	WeaponsList2 = vgui.Create( "DScrollPanel")
-	WeaponsList2:SetSize(MainSheetW,MainSheetH)
-	WeaponsList2:SetSkin("ZSMG")
-	WeaponsList2.Paint = function()
-	end
+	--WeaponsList2 = vgui.Create( "DScrollPanel")
+	--WeaponsList2:SetSize(MainSheetW,MainSheetH)
+	--WeaponsList2:SetSkin("ZSMG")
+	--WeaponsList2.Paint = function()
+	--end
 	
 	--Melee
 	--WeaponsList3 = vgui.Create( "DScrollPanel")
