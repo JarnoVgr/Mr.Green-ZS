@@ -18,7 +18,7 @@ function ENT:Initialize()
 	local Owner = self:GetOwner()
 	if IsValid(Owner) then
 		if Owner:GetPerk("_support") then
-			self.Heal = self.Heal + (self.Heal*(10*Owner:GetRank())/100))
+			self.Heal = self.Heal + (self.Heal*(10*Owner:GetRank())/100)
 		end
 		if Owner:GetPerk("_nailhp") then
 			self.Heal = math.Round(self.Heal + (self.Heal*0.5))
