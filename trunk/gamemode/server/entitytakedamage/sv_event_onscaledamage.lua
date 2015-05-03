@@ -124,13 +124,13 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 18 then
 				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),75,math.random(95,105))				
 				if dmginfo:IsBulletDamage() then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1.5)
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.2)
 				elseif dmginfo:IsBulletDamage() and attacker:GetPerk ("_sharpshooter") then
-					dmginfo:SetDamage(dmginfo:GetDamage() + (dmginfo:GetDamage() *(5*attacker:GetRank())/100))
+					dmginfo:SetDamage((dmginfo:GetDamage() * 1.2) + (dmginfo:GetDamage() *(5*attacker:GetRank())/100))
 				elseif dmginfo:IsMeleeDamage() then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 2)
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.5)
 				elseif dmginfo:IsMeleeDamage() and attacker:GetPerk("_headhunter") then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 2.5)				
+					dmginfo:SetDamage(dmginfo:GetDamage() * 2)				
 				end
 			end
 		end
