@@ -241,7 +241,7 @@ function GM:PlayerSpawn(pl)
 			end
 			
 			if pl:GetPerk("_commando") then		
-				pl.PlayerModel = "combie_soldier"
+				pl.PlayerModel = "barney"
 			end
 			
 			if pl:GetPerk("_support2") then		
