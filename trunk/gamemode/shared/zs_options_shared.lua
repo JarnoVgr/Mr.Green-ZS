@@ -590,7 +590,7 @@ REDEEM_KILLS = 8
 REDEEM_FAST_KILLS = 6
 
 --Maximum level to be fit for fast redeem
-REDEEM_FAST_LEVEL = 10
+REDEEM_FAST_LEVEL = 1
 
 -- Use soft collisions for teammates
 SOFT_COLLISIONS = false
