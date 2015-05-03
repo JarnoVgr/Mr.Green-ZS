@@ -95,6 +95,12 @@ if SERVER then
 			self.MaxHealth = math.Round(self.MaxHealth*1.8)
 			self.Damage = math.Round(self.Damage*1.5)
 			end
+					
+			if self:GetTurretOwner():GetPerk ("_engineer") then	
+				self.Damage = self.Damage + (self.Damage*(5*self:GetTurretOwner():GetRank())/100)		
+				self.MaxHealth = self.MaxHealth + (self.MaxHealth*(5*self:GetTurretOwner():GetRank())/100)	
+				self.MaxBullets = self.MaxBullets + (self.MaxBullets*(5*self:GetTurretOwner():GetRank())/100)	
+			end			
 		
 	--[[	if self:GetTurretOwner():GetPerk("_turretammo") then
 			self.MaxBullets = math.Round(self.MaxBullets*2)
@@ -231,11 +237,11 @@ if SERVER then
 						if ct > (self.NextAttackAction or 0) then
 							-- if not self:IsBlocked() then
 								if self:CanAttack() then
-									self.NextShoot = self.NextShoot or ct + 0.15	
+									self.NextShoot = self.NextShoot or ct + 0.15 - (0.5*(5*self:GetTurretOwner():GetRank())/100)
 										--if ct > self.NextShoot then
 											self:Shoot()
 											self:ResetSequence(self:LookupSequence("fire"))
-											self.NextShoot = ct + 0.15	
+											self.NextShoot = ct + 0.15	- (0.5*(5*self:GetTurretOwner():GetRank())/100)
 										--end
 								else
 									self.NextShoot = self.NextShoot or ct + 0.15	
@@ -283,7 +289,7 @@ if SERVER then
 			end
 		else
 			-- Increased recharge rate
-			self:RechargeAmmo(1,0.11)	
+			self:RechargeAmmo(1,0.11- (0.5*(5*self:GetTurretOwner():GetRank())/100))	
 			self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),0,1))
 			self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),15,1))
 

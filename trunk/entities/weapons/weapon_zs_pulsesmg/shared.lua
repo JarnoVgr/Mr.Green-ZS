@@ -123,13 +123,15 @@ SWEP.WalkSpeed = SPEED_SMG
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.40
+SWEP.rechargerate = 0.45
 SWEP.startcharge = 1
 SWEP.MaxClip = 20
 
 function SWEP:Think()
 	if SERVER then
 		local ply = self.Owner
+		
+		
 		
 		if ply:KeyDown(IN_ATTACK) then
 			if not self.fired then
@@ -138,6 +140,12 @@ function SWEP:Think()
 
 			self.lastfire = CurTime()
 		else
+		
+			if self:GetOwner():GetPerk("_engineer") then
+				self.MaxClip = self.MaxClip + (self.MaxClip*(10*self:GetOwner():GetRank())/100)
+				self.rechargerate = self.rechargerate + (self.rechargerate*(5*self:GetOwner():GetRank())/100)				
+			end
+			
 			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then
 				self.Weapon:SetClip1(math.min(self.MaxClip, self.Weapon:Clip1() + 1))
 				self.rechargerate = 0.1

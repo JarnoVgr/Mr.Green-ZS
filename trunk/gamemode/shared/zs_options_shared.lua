@@ -352,7 +352,7 @@ GM.RankUnlocks = {
 	
 	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
-	[5] = {"_healingnads","_arsanal","_supportweapon","_turret","_lethal","_psychotic"},
+	[5] = {"_healingnads","_turret","_psychotic"},
 	
 	[6] = {"_combat","_profitable","_psychopath","_ironaim"},
 	
@@ -448,12 +448,12 @@ GM.Perks = {
 	["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	
 	--[[New ZS Classes]]--
-	["_medic"] = {Name = "Medic", Description = "+rank*3% speed, +rank*4% pistol damage, +rank*4% poison protection, +rank*4% resistance, +rank*5% medkit power, +rank*12 medkit charge", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
+	["_medic"] = {Name = "Medic", Description = "+rank*3% speed | +rank*4% pistol damage | +rank*4% poison protection | +rank*4% damage resistance | +rank*5% medkit power | +rank*12 medkit charge", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
 	["_commando"] = {Name = "Commando", Description = "+rank*4% rifle damage", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support", Description = "+rank*4% SMG damage | +rank*4% shotgun damage | +rank*10% nail health", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
-	["_berserker"] = {Name = "Berserker", Description = "+20% melee damage, +rank*5% melee damage, +2 health on melee kill, +rank*2 health on melee kill, no slowdown, +rank*2% speed", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
-	["_engineer"] = {Name = "Engineer", Description = "no perks yet :(", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
-	["_sharpshooter"] = {Name = "Sharpshooter", Description = "+rank*5% headshot damage, +rank*4% sniper damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_berserker"] = {Name = "Berserker", Description = "+20% melee damage | +rank*5% melee damage | +2 health on melee kill | +rank*2 health on melee kill | no slowdown | +rank*2% speed", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_engineer"] = {Name = "Engineer", Description = "+rank*5% turret stats | +rank*5% turret fire rate | +rank*10% pulse capacity | +rank*5% pulse recharge rate", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
+	["_sharpshooter"] = {Name = "Sharpshooter", Description = "+rank*5% headshot damage | +rank*4% sniper damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	
 }
 
