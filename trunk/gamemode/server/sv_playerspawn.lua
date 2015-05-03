@@ -761,7 +761,7 @@ function CalculatePlayerLoadout(pl)
 		medicstage1 = {"weapon_zs_p228","weapon_zs_melee_combatknife","weapon_zs_medkit"}
 		
 		--Support stages
-		support = {"weapon_zs_usp","weapon_zs_melee_combatknife","weapon_zs_tools_plank","weapon_zs_tools_hammer"}
+		support = {"weapon_zs_usp","weapon_zs_tools_plank","weapon_zs_tools_hammer"}
 		
 		--Commando stages
 		commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
@@ -773,7 +773,7 @@ function CalculatePlayerLoadout(pl)
 		berserker = {"weapon_zs_deagle","weapon_zs_melee_plank","weapon_zs_special_vodka"}
 		
 		--Sharpshooter stages
-		sharpshooter = {"weapon_zs_python","weapon_zs_melee_fryingpan","weapon_zs_tools_supplies"}
+		sharpshooter = {"weapon_zs_python","weapon_zs_melee_beer","weapon_zs_tools_supplies"}
 	
 	--{{ZS HUMAN CLASSES}}--
 		if pl:Team() == TEAM_SURVIVORS then
