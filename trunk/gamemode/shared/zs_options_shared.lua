@@ -187,7 +187,7 @@ GM.HumanWeapons = {
        
         --Engineer
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 100, HumanClass = "engineer"},                      
-        ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 500, HumanClass = "engineer"},
+        ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 400, HumanClass = "engineer"},
  
         --Other Class
        -- ["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle",Price = 600, HumanClass = "other" },          
@@ -329,7 +329,7 @@ GM.AmmoRegeneration = {
 -- -- -- -- -- -- -- -- -- -- /
 XP_BLANK = 0
 
-XP_INCREASE_BY = 5000
+XP_INCREASE_BY = 9000
 
 XP_PLAYERS_REQUIRED = 5
 
@@ -510,8 +510,7 @@ CARRY_SPEEDLOSS_MINSPEED = 160
 -- -- -- -- -- -- -- -- /
 
 -- Maximum crates per map
---MAXIMUM_CRATES = 4 -- math.random(2, 3)
-MAXIMUM_CRATES = 3 -- math.random(2, 3)
+MAXIMUM_CRATES = 4 -- math.random(2, 3)
 
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = false

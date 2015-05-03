@@ -139,7 +139,7 @@ function SWEP:StartSecondaryAttack()
 															
 		--Inflict damage
 	--	local fDamage = math.Round(24 * fHitPercentage, 0, 10)
-		local fDamage = math.Round(20 * fHitPercentage, 0, 10)
+		local fDamage = math.Round(22.5 * fHitPercentage, 0, 10)
 		if fDamage > 0 then
 			v:TakeDamage(fDamage*0.5, self.Owner, self)
 		end
@@ -153,7 +153,7 @@ function SWEP:StartSecondaryAttack()
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage + 2.5 --Duby test.
+		local fFuckIntensity = fHitPercentage + 2.4 --Duby test.
 
 		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 
