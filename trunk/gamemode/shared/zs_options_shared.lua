@@ -330,7 +330,7 @@ XP_BLANK = 0
 
 XP_INCREASE_BY = 10000
 
-XP_PLAYERS_REQUIRED = 2
+XP_PLAYERS_REQUIRED = 5
 
 MAX_RANK = 6
 
@@ -447,10 +447,10 @@ GM.Perks = {
 	["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	
 	--[[New ZS Classes]]--
-	["_medic"] = {Name = "Medic", Description = "If you want to heal your team mates then this is the class for you!", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
-	["_commando"] = {Name = "Commando", Description = "Slaughter the zombies efficiently and support the team, Commando is in your blood!", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
-	["_support2"] = {Name = "Support", Description = "Support your team mates with supplies and construct protective barriers for them!", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
-	["_berserker"] = {Name = "Berserker", Description = "+20% melee damage, +rank*5% melee damage, +2 health on melee kill, +rank*2 health on melee kill, no slowdown, +rank*2% running speed", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_medic"] = {Name = "Medic", Description = "+rank*3% speed", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
+	["_commando"] = {Name = "Commando", Description = "", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
+	["_support2"] = {Name = "Support", Description = "", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
+	["_berserker"] = {Name = "Berserker", Description = "+20% melee damage, +rank*5% melee damage, +2 health on melee kill, +rank*2 health on melee kill, no slowdown, +rank*2% speed", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer", Description = "Create and build a way for your team to succeed, use your technology to kick ass!", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "Sharpshooter", Description = "+rank*5% headshot damage,", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	
