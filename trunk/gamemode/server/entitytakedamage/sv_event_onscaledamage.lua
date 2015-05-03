@@ -202,7 +202,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		local Inflictor = dmginfo:GetInflictor()
 		if Inflictor:GetClass() == "prop_physics" or Inflictor:GetClass() == "prop_physics_multiplayer" or Inflictor:GetClass() == "func_physbox" or Inflictor:GetClass() == "func_physbox_multiplayer" then-- if string.find ( Inflictor:GetClass(), "prop_physics" ) or string.find ( Inflictor:GetClass(), "physbox" ) then
 			local MaximumVictimHealth = pl:GetMaximumHealth()
-			local InitialDamage, NewDamage, Percentage = dmginfo:GetDamage(), dmginfo:GetDamage(), 0.2
+			local InitialDamage, NewDamage, Percentage = dmginfo:GetDamage(), dmginfo:GetDamage(), 0.35
 			-- Phys damage cooldown -- so we don't hit it with great damage 2 times in one frame
 			if pl.PhysCooldownDamage == nil then
 				pl.PhysCooldownDamage = 0 
