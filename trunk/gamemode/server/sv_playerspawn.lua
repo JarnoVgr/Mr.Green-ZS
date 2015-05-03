@@ -718,7 +718,7 @@ function CalculatePlayerLoadout(pl)
 	if pl:Team() ~= TEAM_HUMAN then
 		return
 	end
-
+	
 	local ToGive = {}
 	
 	--Freeman

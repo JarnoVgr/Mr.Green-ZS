@@ -342,7 +342,9 @@ function OnPressF2(pl)
 	if pl:HasBought("quickredemp") or pl:GetRank() < REDEEM_FAST_LEVEL then
 		requiredScore = REDEEM_FAST_KILLS
 	end
-	if not LASTHUMAN then
+	if not LASTHUMAN and CurTime() < (ROUNDTIME + WARMUPTIME)*0.75 then
+			print(CurTime())
+			print((ROUNDTIME + WARMUPTIME)*0.75)
 		if REDEEM and AUTOREDEEM and pl:Team() == TEAM_UNDEAD and pl:GetScore() >= requiredScore then
 			if not pl:IsBossZombie() then
 				pl:Redeem()
@@ -1527,6 +1529,10 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 	end
 	
 	if not IsValid(attacker) or not attacker:IsPlayer() or attacker:Team() ~= TEAM_HUMAN then
+		return
+	end
+		
+	if attacker:Health() > 100 then
 		return
 	end
 		

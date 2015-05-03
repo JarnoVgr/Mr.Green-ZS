@@ -577,7 +577,7 @@ function meta:CanRedeem()
 		return
 	end
 
-	if not IsValid(self) or ENDROUND or LASTHUMAN or self:Team() ~= TEAM_UNDEAD or team.NumPlayers(TEAM_HUMAN) == 1 or self:IsBossZombie() then
+	if not IsValid(self) or ENDROUND or LASTHUMAN or self:Team() ~= TEAM_UNDEAD or team.NumPlayers(TEAM_HUMAN) == 1 or self:IsBossZombie() or CurTime() > (ROUNDTIME + WARMUPTIME)*0.7 then
 		return false
 	end
 		
