@@ -266,7 +266,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	
 	
 	
-	fHealthSpeed = mOwner:GetPerk("_berserk") and 1 or math.Clamp ( ( fHealth / 60 ), 0.6, 1 )
+	fHealthSpeed = mOwner:GetPerk("_berserk") and 1 or math.Clamp ( ( fHealth / 40 ), 0.6, 1 )
 	
 	if bIron then
 		fSpeed = math.Round ( ( fSpeed * 0.6 ) * fHealthSpeed )

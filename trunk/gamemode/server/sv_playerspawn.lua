@@ -767,7 +767,7 @@ function CalculatePlayerLoadout(pl)
 		commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
 		
 		--Engineer stages
-		engineer = {"weapon_zs_pulsepistol","weapon_zs_turretplacer","weapon_zs_mine"}
+		engineer = {"weapon_zs_classic","weapon_zs_turretplacer","weapon_zs_mine"}
 		
 		--Berserker stages
 		berserker = {"weapon_zs_deagle","weapon_zs_melee_plank","weapon_zs_special_vodka"}

@@ -175,7 +175,7 @@ GM.HumanWeapons = {
        
         --Medic
         ["weapon_zs_medigun"]  = { Name = "Medigun", DPS = 143, Infliction = 0, Type = "smg",Price = 500, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
-        ["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg", Price = 500, HumanClass = "medic" },
+        ["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
        
         --Sharpshooter
         ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 100, HumanClass = "sharpshooter"},         
@@ -187,7 +187,7 @@ GM.HumanWeapons = {
        
         --Engineer
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 100, HumanClass = "engineer"},                      
-        ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 400, HumanClass = "engineer"},
+        ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 500, HumanClass = "engineer"},
  
         --Other Class
        -- ["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle",Price = 600, HumanClass = "other" },          
@@ -348,7 +348,7 @@ GM.RankUnlocks = {
 	
 	[2] = {"_medupgr1","_kevlar","_kevlarsupport","_berserk","_blast","_point","_remote","_comeback2"},
 	
-	[3] = {"_medigun","_nade","_supportammo","_freeman","_pulsesmg","_accuracy2"},
+	[3] = {"_medigun","_nade","_supportammo","_freeman","_accuracy2"},
 	
 	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
@@ -448,7 +448,7 @@ GM.Perks = {
 	["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	
 	--[[New ZS Classes]]--
-	["_medic"] = {Name = "Medic", Description = "+rank*3% speed | +rank*4% pistol damage | +rank*4% poison protection | +rank*4% damage resistance | +rank*5% medkit power | +rank*12 medkit charge", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
+	["_medic"] = {Name = "Medic", Description = "+rank*3% speed | +rank*4% pistol damage | +rank*4% medigun damage | +rank*4% poison protection | +rank*4% damage resistance | +rank*5% medkit power | +rank*12 medkit charge", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
 	["_commando"] = {Name = "Commando", Description = "+rank*4% rifle damage", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support", Description = "+rank*4% SMG damage | +rank*4% shotgun damage | +rank*10% nail health", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", Description = "+20% melee damage | +rank*5% melee damage | +2 health on melee kill | +rank*2 health on melee kill | no slowdown | +rank*2% speed", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
