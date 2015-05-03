@@ -689,7 +689,7 @@ function CalculatePlayerSpeed ( pl )
 	end
 	
 	if pl:GetPerk("_medic") then
-	Speed = 195
+	Speed = 180
 	end
 	if pl:GetPerk("_commando") then
 	Speed = 180
@@ -698,10 +698,10 @@ function CalculatePlayerSpeed ( pl )
 	Speed = 190
 	end
 	if pl:GetPerk("_berserker") then
-	Speed = 185
+	Speed = 180
 	end
 	if pl:GetPerk("_engineer") then
-	Speed = 190
+	Speed = 180
 	end
 	if pl:GetPerk("_sharpshooter") then
 	Speed = 170
@@ -767,7 +767,7 @@ function CalculatePlayerLoadout(pl)
 		commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
 		
 		--Engineer stages
-		engineer = {"weapon_zs_pulsepistol","weapon_zs_turretplacer","weapon_zs_mine","weapon_zs_special_chembomb"}
+		engineer = {"weapon_zs_pulsepistol","weapon_zs_turretplacer","weapon_zs_mine"}
 		
 		--Berserker stages
 		berserker = {"weapon_zs_deagle","weapon_zs_melee_plank","weapon_zs_special_vodka"}
