@@ -181,9 +181,9 @@ GM.HumanWeapons = {
         ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 100, HumanClass = "sharpshooter"},         
         ["weapon_zs_python"]  = { Name = "Python", DPS = 93, Infliction = 0.2, Type = "misc", Price = 400, HumanClass = "sharpshooter"},       
         ["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40, Infliction = 0, Type = "rifle", Price = 400, Description = "Light-weight sniper.", HumanClass = "sharpshooter" },    
-        ["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 700, HumanClass = "sharpshooter"  },
-        ["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 800, HumanClass = "sharpshooter"  },
-        ["weapon_zs_awp"]  = { Name = "AWP", DPS = 200, Infliction = 0, Type = "rifle", Price = 900, Description = "Heavy sniper.", HumanClass = "sharpshooter" },     
+        ["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 800, HumanClass = "sharpshooter"  },
+        ["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 1000, HumanClass = "sharpshooter"  },
+        ["weapon_zs_awp"]  = { Name = "AWP", DPS = 200, Infliction = 0, Type = "rifle", Price = 1400, Description = "Heavy sniper.", HumanClass = "sharpshooter" },     
        
         --Engineer
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 100, HumanClass = "engineer"},                      
