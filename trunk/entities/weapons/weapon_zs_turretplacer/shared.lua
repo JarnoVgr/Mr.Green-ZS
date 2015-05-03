@@ -118,14 +118,6 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire ( CurTime() + 0.65 )
 	
 if SERVER then
-
-	if skillpoints.GetSkillPoints(self.Owner) < 20 then
-		self.Owner:Message("20SP Required to deploy!", 2)
-		self.Weapon:SetNextPrimaryFire ( CurTime() + 5 )	
-	return end
-
-	skillpoints.TakeSkillPoints(self.Owner,20)
-	self.Owner:Message("-20SP", 1)		
 	 
 	local aimvec = self.Owner:GetAimVector()
 	local shootpos = self.Owner:GetPos()+Vector(0,0,1)
@@ -145,7 +137,7 @@ if SERVER then
 	local turrets = 0
 
 	for k,v in pairs ( ActualTurrets ) do-- ents.FindInBox (Vector (pos.x - 150,pos.y - 150,pos.z - 150), Vector (pos.x + 150, pos.y + 150, pos.z + 150))
-		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 150 then
+		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 64 then
 			turrets = turrets + 1
 		end
 	end
@@ -170,6 +162,17 @@ if SERVER then
 	local angles = aimvec:Angle()	
 	if CanCreateTurret then
 	--print("I can")
+	
+	if skillpoints.GetSkillPoints(self.Owner) < 20 then
+		self.Owner:Message("20SP Required to deploy!", 2)
+		self.Weapon:SetNextPrimaryFire ( CurTime() + 5 )	
+	return end
+
+	skillpoints.TakeSkillPoints(self.Owner,20)
+	self.Owner:Message("-20SP", 1)		
+	
+	
+	
 	local ent = ents.Create("zs_turret")
 		if (IsValid(ent)) then
 			--print("done")
