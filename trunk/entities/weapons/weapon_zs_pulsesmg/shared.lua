@@ -30,8 +30,17 @@ if CLIENT then
 end]]
 
 if CLIENT then
-	SWEP.HoldType = "smg"
-SWEP.ViewModelFOV = 60.323894568384
+
+SWEP.PrintName = "Pulse SMG"
+SWEP.Author	= "NECROSSIN and Deluvas"	
+SWEP.Slot = 5
+SWEP.SlotPos = 14
+SWEP.ViewModelFlip = false
+SWEP.ViewModelFOV = 60
+SWEP.IconLetter = "/"
+SWEP.SelectFont = "HL2MPTypeDeath"
+
+SWEP.HoldType = "smg"
 SWEP.ViewModelFlip = false
 SWEP.ViewModel = "models/weapons/c_smg1.mdl"
 SWEP.WorldModel = "models/weapons/w_smg1.mdl"
