@@ -32,7 +32,7 @@ SWEP.ReloadDelay = 0.4
 
 SWEP.Primary.Sound			= Sound("Weapon_XM1014.Single")
 SWEP.Primary.Recoil			= 8
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Damage			= 11.5
 SWEP.Primary.NumShots		= 7
 SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Delay			= 0.3
