@@ -755,7 +755,7 @@ function CalculatePlayerLoadout(pl)
 						
 									--[[ HUMAN CLASS LOADOUT PREDICTIONS ]]-- 
 									
-		noclass = {"weapon_zs_usp","weapon_zs_melee_fryingpan"}
+		noclass = {"weapon_zs_usp"}
 		
 		--Medic Stages
 		medicstage1 = {"weapon_zs_p228","weapon_zs_melee_combatknife","weapon_zs_medkit"}
