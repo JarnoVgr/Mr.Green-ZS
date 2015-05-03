@@ -234,7 +234,7 @@ function SWEP:PerformPrimaryAttack()
 				local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 10, 10, 10000)	
 
 				if ent:GetPerk("_medic") then
-					ent:TakeDamage(self.Primary.Damage() - (self.Primary.Damage()* (4*attacker:GetRank())/100))	
+					ent:TakeDamage(self.Primary.Damage() - (self.Primary.Damage()* (4*attacker:GetRank())/100), self.Owner, self)	
 				else
 					ent:TakeDamage(self.Primary.Damage, self.Owner, self)
 				end
