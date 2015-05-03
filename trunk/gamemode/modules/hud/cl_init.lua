@@ -268,7 +268,7 @@ function hud.DrawStats()
 	if currentLevelKey == 0 then
 		draw.SimpleTextOutlined("Next level: " .. PlrData.NextRankPerc, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
 		if PlrData.NextRankPerc >= 10 then
-			draw.SimpleTextOutlined("%", "xpFont", startX - ScrW()/2 + ScrW()/9, ScaleH(119), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+			draw.SimpleTextOutlined("%", "xpFont", startX - ScrW()/2 + ScrW()/10, ScaleH(119), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
 			draw.SimpleTextOutlined("("..PlrData.XPRequired - PlrData.XPCurrent .. " XP left)" , DescriptionFont, startX - ScrW()/2 + ScrW()/9, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))				
 		else
 			draw.SimpleTextOutlined("%", "xpFont", startX - ScrW()/2 + ScrW()/11, ScaleH(119), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
