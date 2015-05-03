@@ -54,7 +54,7 @@ function GM:GetVoteMaps()
 	--math.randomseed(os.time())
 
 	local randMapCycle = table.FullCopy(MapCycle)
-	randMapCycle = table.Shuffle(randMapCycle)
+	--randMapCycle = table.Shuffle(randMapCycle)
 	
 	--Get 6 random maps from the cycle
 	--[[for i=1,6 do
