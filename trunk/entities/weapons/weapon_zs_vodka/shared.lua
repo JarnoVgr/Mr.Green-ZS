@@ -46,7 +46,7 @@ SWEP.Primary.ClipSize = 1
 SWEP.Primary.DefaultClip = 1
 SWEP.Primary.Ammo = "Battery"
 
-SWEP.WalkSpeed = 220
+SWEP.WalkSpeed = SPEED
 
 SWEP.NoMagazine = true
 

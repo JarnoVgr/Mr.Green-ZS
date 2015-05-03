@@ -373,7 +373,7 @@ function GM:OnHumanSpawn(pl)
 		
 	--Freeman
 	--Check if we can be THE Gordon Freeman
-	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
 		--Only display message when being human
 		if pl:Team() == TEAM_SURVIVORS then
 			pl:ChatPrint("You're now THE Gordon Freeman!")
@@ -724,7 +724,6 @@ function CalculatePlayerLoadout(pl)
 	--Freeman
 	--Check if we can be THE Gordon Freeman
 	if pl:Team() == TEAM_SURVIVORS and pl.IsFreeman then
-		pl:ChatPrint("You're now THE Gordon Freeman!")
 		pl:Give("weapon_zs_melee_crowbar")		
 	end		
 
@@ -774,7 +773,7 @@ function CalculatePlayerLoadout(pl)
 		berserker = {"weapon_zs_deagle","weapon_zs_melee_plank","weapon_zs_special_vodka"}
 		
 		--Sharpshooter stages
-		sharpshooter = {"weapon_zs_musket","weapon_zs_classic","weapon_zs_melee_fryingpan","weapon_zs_tools_supplies"}
+		sharpshooter = {"weapon_zs_python","weapon_zs_melee_fryingpan","weapon_zs_tools_supplies"}
 	
 	--{{ZS HUMAN CLASSES}}--
 		if pl:Team() == TEAM_SURVIVORS then

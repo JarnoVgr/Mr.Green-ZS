@@ -300,10 +300,10 @@ function InsertWeaponsTab()
 				WeaponTab[wep]:SetParent(WeaponsList8)	
 			--elseif GetWeaponClass ( wep ) == "General" then
 			--	WeaponTab[wep]:SetParent(WeaponsList9)						
-			elseif GetWeaponClass ( wep ) == "Other" then
-				WeaponTab[wep]:SetParent(WeaponsList1)			
-			elseif GetWeaponCategory ( wep ) == "Pistol" then
-				WeaponTab[wep]:SetParent(WeaponsList2)
+			--elseif GetWeaponClass ( wep ) == "Other" then
+			--	WeaponTab[wep]:SetParent(WeaponsList1)			
+			--elseif GetWeaponCategory ( wep ) == "Pistol" then
+			--	WeaponTab[wep]:SetParent(WeaponsList2)
 			--elseif GetWeaponCategory ( wep ) == "Melee" then			
 			--	WeaponTab[wep]:SetParent(WeaponsList3)
 			end
@@ -442,8 +442,8 @@ function InsertWeaponsTab()
 		end
 	end
 	
-	MainSheet:AddSheet("Other", WeaponsList1, nil, false, false, nil )
-	MainSheet:AddSheet("Pistols", WeaponsList2, nil, false, false, nil )
+	--MainSheet:AddSheet("Other", WeaponsList1, nil, false, false, nil )
+	--MainSheet:AddSheet("Pistols", WeaponsList2, nil, false, false, nil )
 	--MainSheet:AddSheet("Melee", WeaponsList3, nil, false, false, nil )
 	MainSheet:AddSheet("Commando", WeaponsList3, nil, false, false, nil )
 	MainSheet:AddSheet("Support", WeaponsList4, nil, false, false, nil )
