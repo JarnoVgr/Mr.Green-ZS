@@ -26,10 +26,9 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		end
 
 		return true
-	--Scale damage for THE Gordon Freeman
-	elseif attacker.GetPerk("_berserker") and attacker:IsHuman() and dmginfo:IsMeleeDamage() then
-		dmginfo:ScaleDamage(1.25)
-	--end
+	elseif dmginfo:IsMeleeDamage() and attacker:IsHuman() and attacker:GetPerk("_berserker") then
+		local multiplier = (5*attacker:GetRank())*0.1
+		dmginfo:ScaleDamage(1.2+multiplier)
 	end
 	--Physbox team-damage bug
 	if dmginfo:IsAttackerPhysbox() then
@@ -123,12 +122,17 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
-			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
-				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),70,math.random(95,105))				
+			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 18 then
+				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),75,math.random(95,105))				
 				if dmginfo:IsBulletDamage() then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1.5) --Duby: Reduced it as it was far to high
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.5)
+				elseif dmginfo:IsBulletDamage() and attacker:GetPerk ("_sharpshooter") then
+					dmginfo:SetDamage(dmginfo:GetDamage() * (1.5 + (5*attacker:GetRank())*0.1))
+			
 				elseif dmginfo:IsMeleeDamage() then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 2)  --Duby: Reduced it as it was far to high
+					dmginfo:SetDamage(dmginfo:GetDamage() * 2)
+				elseif dmginfo:IsMeleeDamage() and attacker:GetPerk("_headhunter") then
+					dmginfo:SetDamage(dmginfo:GetDamage() * 2.5)				
 				end
 			end
 		end
@@ -285,4 +289,5 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	--Identify our last attacker and inflictor
 	pl:InsertLastDamage(dmginfo:GetPlayerAttacker(), dmginfo:GetInflictor())
 end
+
 hook.Add("ScalePlayersDamage", "ScalePlayersDamage", ScalePlayerDamage)

@@ -249,16 +249,24 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	-- Weapon walking speed, health, and player human class
 	local fSpeed, fHealth, iClass, fHealthSpeed = mWeapon.WalkSpeed or 200, mOwner:Health(), mOwner:GetHumanClass()
 	
-	if mOwner:GetPerk("_sboost") then
-		fSpeed = fSpeed*1.15
-	end
+	if mOwner:GetPerk() == "_sboost" then
+	fSpeed = fSpeed*1.15
+	
+	elseif mOwner:GetPerk() == "_sboost2" then
+		fSpeed = fSpeed*1.05
+	
+	elseif mOwner:GetPerk("_berserker") then
+		local multiplier = (2*mOwner:GetRank())*0.1
+		fSpeed = fSpeed +(fSpeed*multiplier)
 
-	if mOwner:GetPerk("_sboost2") then
-		fSpeed = fSpeed*1.04
-	end
+	elseif mOwner:GetPerk("_medic") then
+		local multiplier = (3*mOwner:GetRank())*0.1
+		fSpeed = fSpeed + (fSpeed*multiplier)	
+	end	
 	
 	
-	fHealthSpeed = mOwner:GetPerk("_berserk") and 1 or math.Clamp ( ( fHealth / 50 ), 0.9, 1 )
+	
+	fHealthSpeed = mOwner:GetPerk("_berserk") and 1 or math.Clamp ( ( fHealth / 60 ), 0.6, 1 )
 	
 	if bIron then
 		fSpeed = math.Round ( ( fSpeed * 0.6 ) * fHealthSpeed )
@@ -267,7 +275,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 			local status = mOwner.status_human_holding
 			-- for _, status in pairs(ents.FindByClass("status_human_holding")) do
 				if status and IsValid(status) and status:GetOwner() == mOwner and status.GetObject and status:GetObject():IsValid() and status:GetObject():GetPhysicsObject():IsValid() then
-					fSpeed = math.max(CARRY_SPEEDLOSS_MINSPEED, fSpeed - status:GetObject():GetPhysicsObject():GetMass() * CARRY_SPEEDLOSS_PERKG)
+					fSpeed = math.Round ( fSpeed * fHealthSpeed )
 					-- break
 				end
 			-- end
@@ -276,6 +284,15 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 		end
 	end
 	
+	if fHealth <= 40 and mOwner:GetPerk("_berserker") then
+		fSpeed = mWeapon.WalkSpeed or 200		
+		if mOwner:GetPerk("_berserk") then
+			fSpeed = fSpeed + fSpeed*0.1
+		end		
+	end
+	
+
+
 	-- Change speed
 	self:SetPlayerSpeed(mOwner, fSpeed)
 end
@@ -1509,16 +1526,21 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 		return
 	end
 	
+	if not IsValid(attacker) or not attacker:IsPlayer() or attacker:Team() ~= TEAM_HUMAN then
+		return
+	end
+		
+	if attacker:GetPerk("_berserker") then
+		local multiplier = (2*attacker:GetRank())
+		attacker:SetHealth(attacker:Health() + multiplier + 2)
+	end
+	
 	if attacker:GetPerk("_psychotic") then
 		attacker:SetHealth(attacker:Health() + 2)
 	end
 
-	if not IsValid(attacker) or not attacker:IsPlayer() or attacker:Team() ~= TEAM_HUMAN or attacker:GetSuit() ~= "gravedigger" then
-		return
-	end
-	
-	--if (attacker:GetHealth() > 100) then return
-	--else
+	if attacker:GetSuit() == "gravedigger" then
 		attacker:SetHealth(attacker:Health() + 5)
-	--end
+	end
+
 end)

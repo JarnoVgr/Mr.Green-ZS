@@ -770,7 +770,7 @@ function CalculatePlayerLoadout(pl)
 		if pl:Team() == TEAM_SURVIVORS then
 			if pl:GetPerk("_support2") then
 				pl.Loadout = table.Copy(support)
-				pl:ChatPrint("You are a Support class")
+				pl:ChatPrint("You are a Support")
 				for k,v in pairs(support) do
 					pl:Give(tostring(v))
 				end	
@@ -829,7 +829,7 @@ function CalculatePlayerLoadout(pl)
 		
 				if pl:Team() == TEAM_SURVIVORS then		
 			if pl:GetPerk("_sharpshooter") then
-				pl:ChatPrint("You are a SharpShooter")
+				pl:ChatPrint("You are a Sharpshooter")
 				pl.Loadout = table.Copy(sharpshooter)
 				for k,v in pairs(sharpshooter) do
 					pl:Give(tostring(v))

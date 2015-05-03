@@ -310,9 +310,6 @@ local function DrawContextMenu(x, y, weptype, parent, num)
 end
 
 
-
-
-
 local function DrawClassesContextMenu(x, y, weptype, parent, num)
 
 
@@ -676,11 +673,6 @@ function DrawClassIcon(x, y, ww, hh, wepclass, parent, num, weptype)
 		end
 	end
 end
-
-
-
-
-
 
 
 -- Loadout
@@ -1050,7 +1042,7 @@ function DrawSelectClass()
 		local actual = MySelf:GetXP() - MySelf:CurRankXP()
 		
 		if MySelf:GetRank() == 0 then
-			full = 3000
+			full = MySelf:NextRankXP()
 			actual = MySelf:GetXP()
 		end
 				

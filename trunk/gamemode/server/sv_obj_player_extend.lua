@@ -525,7 +525,7 @@ end
 
 --*insert rage icon here please*
 function meta:ValidateXP()
-	if self.DataTable and self.DataTable["ClassData"] and self.DataTable["ClassData"]["default"] and self.DataTable["ClassData"]["default"].xp and self.DataTable["ClassData"]["default"].rank then
+	if self.DataTable and self.DataTable["ClassData"] and self.DataTable["ClassData"]["new"] and self.DataTable["ClassData"]["new"].xp and self.DataTable["ClassData"]["new"].rank then
 		local rank = self:GetRank()
 		local xp = self:GetXP()
 		
@@ -537,7 +537,7 @@ function meta:ValidateXP()
 		
 		if xp < minxp then
 			print("[XP] Experience for player "..tostring(self).." corrupted. Restoring!")
-			self.DataTable["ClassData"]["default"].xp = minxp + restore
+			self.DataTable["ClassData"]["new"].xp = minxp + restore
 		end	
 	end
 end
@@ -552,7 +552,7 @@ function meta:AddXP(amount)
 		amount = amount*2
 	end
 	
-	if not self.DataTable["ClassData"]["default"] then
+	if not self.DataTable["ClassData"]["new"] then
 		local str = "not ready"
 		if self.Ready then
 			str = "ready"
@@ -563,9 +563,9 @@ function meta:AddXP(amount)
 		return
 	end	
 	
-	if type ( self.DataTable["ClassData"]["default"].xp ) == "number" then
-		if self.DataTable["ClassData"]["default"].rank and self.DataTable["ClassData"]["default"].rank >= MAX_RANK then return end
-		self.DataTable["ClassData"]["default"].xp = self.DataTable["ClassData"]["default"].xp + amount
+	if type ( self.DataTable["ClassData"]["new"].xp ) == "number" then
+		if self.DataTable["ClassData"]["new"].rank and self.DataTable["ClassData"]["new"].rank >= MAX_RANK then return end
+		self.DataTable["ClassData"]["new"].xp = self.DataTable["ClassData"]["new"].xp + amount
 		
 		if self:GetXP() >= self:NextRankXP() then
 			self:AddRank(1)
@@ -580,7 +580,7 @@ function meta:AddXP(amount)
 		-- My recommendation is that it should use a DT variable instead
 		-- 
 		net.Start("SendPlayerXP")
-			net.WriteDouble(tonumber(self.DataTable["ClassData"]["default"].xp))
+			net.WriteDouble(tonumber(self.DataTable["ClassData"]["new"].xp))
 		net.Send(self)
 	end
 end
@@ -590,7 +590,7 @@ util.AddNetworkString("SendPlayerRank")
 function meta:AddRank (amount)
 	if not IsValid(self) then return end
 	if self:IsBot() then return end
-	if not self.DataTable["ClassData"]["default"] then
+	if not self.DataTable["ClassData"]["new"] then
 		local str = "not ready"
 		if self.Ready then
 			str = "ready"
@@ -600,12 +600,12 @@ function meta:AddRank (amount)
 		
 		return
 	end	
-	if type ( self.DataTable["ClassData"]["default"].rank ) == "number" then
+	if type ( self.DataTable["ClassData"]["new"].rank ) == "number" then
 
-		self.DataTable["ClassData"]["default"].rank = self.DataTable["ClassData"]["default"].rank + amount
+		self.DataTable["ClassData"]["new"].rank = self.DataTable["ClassData"]["new"].rank + amount
 		
 		net.Start("SendPlayerRank")
-			net.WriteDouble(tonumber(self.DataTable["ClassData"]["default"].rank))
+			net.WriteDouble(tonumber(self.DataTable["ClassData"]["new"].rank))
 		net.Send(self)
 
 		if GAMEMODE.RankUnlocks[self:GetRank()] then
@@ -1427,6 +1427,7 @@ function meta:DoHulls(classid, teamid)
 	self:CollisionRulesChanged()
 end
 
+
 function meta:CheckSpeedChange()
 	if not IsValid(self) then return end
 	
@@ -1448,15 +1449,7 @@ function meta:CheckSpeedChange()
 	local speed = 190
 	local health = self:Health()
 	
-	if self:GetPerk() == "_sboost" then
-		speed = speed*1.15
-	end
-	
-	if self:GetPerk() == "_sboost2" then
-		speed = speed*1.05
-	end
-
-	local fHealthSpeed = self:GetPerk("_berserk") and 1 or math.Clamp ( ( health / 50 ), 0.9, 1 )
+	local fHealthSpeed = math.Clamp ( ( health / 50 ), 0.9, 1 )
 	
 	if self:IsHolding() then
 		local status = self.status_human_holding

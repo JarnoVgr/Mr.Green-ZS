@@ -68,7 +68,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 10
-BOSS_CLASS = {11,10,20,13 }
+BOSS_CLASS = {11 }
 --BOSS_CLASS = {12} --Seeker
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
@@ -258,7 +258,7 @@ GM.HumanWeapons = {
        
  
         --Special Items
-        ["weapon_zs_special_vodka"]  = { Name = "Bottle ol Vodka", DPS = 0, Infliction = 0, Type = "misc" }, --Duby: I essentially wanted to get some interest back into the dice and the game. This did the trick!
+        ["weapon_zs_special_vodka"]  = { Name = "Vodka", DPS = 0, Infliction = 0, Type = "misc" }, --Duby: I essentially wanted to get some interest back into the dice and the game. This did the trick!
         ["weapon_zs_special_bottleofwine"]  = { Name = "Bottle ol Wine", DPS = 0, Infliction = 0, Type = "misc" },
         ["weapon_zs_special_chembomb"]  = { Name = "Chemical Nade", DPS = 0, Infliction = 0, Type = "misc" },
        
@@ -341,9 +341,9 @@ GM.RankUnlocks = {
 	--{{HUMAN CLASSES}}--
 	--[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_medupgr2","_medigun","_nade","_accuracy","_arsanal","_support","_supportammo","_supportweapon","_freeman","_psychotic","_combat","_pulsesmg","_mine","_medupgr1","_poisonprotect","_kevlar","_kevlar2","_profitable","_horse","_kevlarsupport","_bloodmoney","_berserk","_lethal","_highcal","_accuracy2","_blast","_point","_comeback2","_sboost","_sboost2","_remote","_psychopath","_slinger","_reload","_ironaim"},
 	
-	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_highcal"},
+	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter"},
 
-	--[1] = {"_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_highcal"},
+	[1] = {"_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_headhunter"},
 	
 	[2] = {"_medupgr1","_kevlar","_kevlarsupport","_berserk","_blast","_point","_remote","_comeback2"},
 	
@@ -374,13 +374,13 @@ GM.Perks = {
 	
 	["_nade"] = {Name = "Grenades Tosser", Description = "Throw Grenades twice as quickly! ", RequiresWeapon = "_commando", Slot = 1}, --Done
 	["_accuracy"] = {Name = "Accuracy", Description = "50% less recoil from weapons while crouching or aiming.", RequiresWeapon = "_commando", Slot = 1},  --Done
-	--["_arsanal"] = {Name = "Additional Arsanal", Description = "Given the Defender Rifle.", RequiresWeapon = "_commando", Slot = 1},  --Done
+	["_arsanal"] = {Name = "Additional Arsanal", Description = "Given the Defender Rifle.", RequiresWeapon = "_commando", Slot = 1},  --Done
 
 	--Support
 	
 	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round, with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies.", RequiresWeapon = "_support2", Slot = 1}, --Done
-	--["_supportweapon"] = {Name = "Fortify", Description = "You get given an extra weapon.", RequiresWeapon = "_support2", Slot = 1}, --Done
+	["_supportweapon"] = {Name = "Fortify", Description = "You get given an extra weapon.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	
 	
 	--Berserker
@@ -429,7 +429,8 @@ GM.Perks = {
 	--Berserker
 	
 	["_bloodmoney"] = {Name = "Blood Money", Description = "+5SP for melee kills.", RequiresWeapon = "_berserker", Slot = 2}, --Done
-	["_berserk"] = {Name = "Berserk", Description = "+10% speed while under 30HP.", RequiresWeapon = "_berserker", Slot = 2}, --Done
+	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads.", RequiresWeapon = "_berserker", Slot = 2}, --Added by Pufulet
+	["_berserk"] = {Name = "Berserk", Description = "+10% speed while under 40HP.", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	
 	
 	--Engineer
@@ -449,9 +450,9 @@ GM.Perks = {
 	["_medic"] = {Name = "Medic", Description = "If you want to heal your team mates then this is the class for you!", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
 	["_commando"] = {Name = "Commando", Description = "Slaughter the zombies efficiently and support the team, Commando is in your blood!", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support", Description = "Support your team mates with supplies and construct protective barriers for them!", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
-	["_berserker"] = {Name = "Berserker", Description = "Slash and destroy the zombies upclose and personal, be at the front lines! +25% melee damage bonus.", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_berserker"] = {Name = "Berserker", Description = "+20% melee damage, +rank*5% melee damage, +2 health on melee kill, +rank*2 health on melee kill, no slowdown, +rank*2% running speed", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer", Description = "Create and build a way for your team to succeed, use your technology to kick ass!", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
-	["_sharpshooter"] = {Name = "SharpShooter", Description = "Long distance killing spree's, kill silently and efficiently!", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_sharpshooter"] = {Name = "Sharpshooter", Description = "+rank*5% headshot damage,", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	
 }
 
@@ -509,7 +510,7 @@ CARRY_SPEEDLOSS_MINSPEED = 160
 
 -- Maximum crates per map
 --MAXIMUM_CRATES = 4 -- math.random(2, 3)
-MAXIMUM_CRATES = math.random(1, 4)
+MAXIMUM_CRATES = 3 -- math.random(2, 3)
 
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = false
