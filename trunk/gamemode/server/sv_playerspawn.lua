@@ -228,58 +228,38 @@ function GM:PlayerSpawn(pl)
 	if pl:IsBot() then
 		--Random model
 		pl.PlayerModel = table.Random(PlayerModels)
-	end	
-	--else
-
-		--Get preferred model
-	--	local DesiredPlayerModelName = pl:GetInfo("cl_playermodel")
-		--if #DesiredPlayerModelName > 0 and DesiredPlayerModelName ~= "none" then
-			--pl.PlayerModel = string.lower(DesiredPlayerModelName)
-
-			if pl:GetPerk("_medic") then			
-				pl.PlayerModel = "medic01"
+	end
+	
+			if pl:GetPerk("_medic") then		--Duby: Updated player models with tables, yaaaayy!	
+				--pl.PlayerModel = "medic01"
+				pl.PlayerModel = table.Random(MedicPlayerModels)
 			end
 			
 			if pl:GetPerk("_commando") then		
-				pl.PlayerModel = "barney"
+				--pl.PlayerModel = "barney"
+				pl.PlayerModel = table.Random(CommandoPlayerModels)
 			end
 			
 			if pl:GetPerk("_support2") then		
-				pl.PlayerModel = "eli"
+				--pl.PlayerModel = "eli"
+				pl.PlayerModel = table.Random(SupportPlayerModels)
 			end
 			
 			if pl:GetPerk("_berserker") then
-				pl.PlayerModel = "css_gasmask"
+				--pl.PlayerModel = "css_gasmask"
+				pl.PlayerModel = table.Random(BerserkerPlayerModels)
 			end
 			
 			if pl:GetPerk("_engineer") then
-				pl.PlayerModel = "kleiner"
+				--pl.PlayerModel = "kleiner"
+				pl.PlayerModel = table.Random(EngineerPlayerModels)
 			end
 			
 			if pl:GetPerk("_sharpshooter") then
-				pl.PlayerModel = "odessa"
+				--pl.PlayerModel = "odessa"
+				pl.PlayerModel = table.Random(SharpshooterPlayerModels)
 			end
-		--else
-			--pl.PlayerModel = table.Random(PlayerModels)
-			--pl.PlayerModel = "kleiner"
 
-		--end
-			
-		--Check if in PlayerModels list
-	--[[	if table.HasValue(PlayerModels, pl.PlayerModel) or (pl:IsAdmin() and table.HasValue(PlayerAdminModels, pl.PlayerModel)) then
-			--Get custom player color
-			local PlayerModelColor = pl:GetInfo("cl_playercolor")
-			
-			--Set player color
-			pl:SetPlayerColor(Vector(PlayerModelColor))
-			
-			--Set weapon color
-			pl:SetWeaponColor(Vector(PlayerModelColor))
-		else
-			pl.PlayerModel = table.Random(PlayerModels)
-			Debug("[PLAYER MODEL] ".. tostring(pl:Name()) .." wanted to spawn as ".. DesiredPlayerModelName ..". Which doesn't exist.")
-		end]]--
-		
 
 		if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
 			pl.IsGordonHere = true

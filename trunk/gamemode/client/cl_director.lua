@@ -168,7 +168,7 @@ function GM:SetBoss(value,isInsane,duration)
 			--print("bossPl: ".. bossPl)
 			if bossPl and IsValid(bossPl) then		
 				--surface.PlaySound(Sound("ambient/creatures/town_zombie_call1.wav"))						
-				GAMEMODE:Add3DMessage(140, bossPl:Name() .." has risen as ".. ZombieClasses[bossPl:GetZombieClass()].Name .." Boss", nil, "ArialBoldFifteen")
+				GAMEMODE:Add3DMessage(140, bossPl:Name() .." has risen as ".. ZombieClasses[bossPl:GetZombieClass()].Name, nil, "ArialBoldFifteen")
 			end
 		end)
 		

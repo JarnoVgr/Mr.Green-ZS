@@ -17,7 +17,8 @@ Beats[7] = {"zombiesurvival/hbeat6.wav"}
 Beats[8] = {"zombiesurvival/hbeat7.wav"}
 Beats[9] = {"zombiesurvival/hbeat8.wav"}
 --Beats[10] = {"zombiesurvival/hbeat9.wav"}
-Beats[10] = {"mrgreen/music/bosstheme2.mp3"}
+--Beats[10] = {"mrgreen/music/bosstheme2.mp3"}
+Beats[10] = {"mrgreen/music/bosstheme3.mp3"}
 
 local BeatLength = {}
 BeatLength[0] = 1.0
@@ -46,7 +47,8 @@ ZBeats[7] = {"zombiesurvival/_zbeat7.wav"}
 ZBeats[8] = {"zombiesurvival/_zbeat7_5.wav"}
 ZBeats[9] = {"zombiesurvival/_zbeat8.wav"}
 --ZBeats[10] = {"zombiesurvival/_zbeat8.wav"}
-ZBeats[10] = {"mrgreen/music/bosstheme2.mp3"}
+--ZBeats[10] = {"mrgreen/music/bosstheme2.mp3"}
+ZBeats[10] = {"mrgreen/music/bosstheme3.mp3"}
 
 local ZBeatLength = {}
 ZBeatLength[0] = 1
@@ -63,14 +65,13 @@ ZBeatLength[9] = 10.3
 ZBeatLength[10] = 300
 
 --Precache beats
---for i=1,10 do
 for i=1,10 do
 	util.PrecacheSound(Beats[i][1])
 	util.PrecacheSound(ZBeats[i][1])
 end
 
 function playBossMusic(insane)
-	if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
+	--[[if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
 	
 	--Stop all sounds
 	RunConsoleCommand("stopsound")
@@ -100,7 +101,7 @@ function playBossMusic(insane)
 		surface.PlaySound(Sound(song))
 	end)
 
-	
+	]]--
 end
 
 
@@ -140,7 +141,8 @@ ENABLE_BLOOD = false
 local NextBeat = 0
 local LastBeatLevel = 0
 local function PlayBeats(teamid, am)
-	if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
+	--if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
+	if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
 	--if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
 		return
 	end

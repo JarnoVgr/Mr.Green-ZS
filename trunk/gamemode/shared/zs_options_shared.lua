@@ -50,8 +50,7 @@ SPEED_HEAVY = SPEED - 35
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8
---HORDE_MAX_DISTANCE = 2000
-HORDE_MAX_DISTANCE = 800
+HORDE_MAX_DISTANCE = 2000 --Leave this! It affects the beats and how they play. They play best as this number, do not touch it Pufu!
 
 BONUS_RESISTANCE_WAVE = 5
 BONUS_RESISTANCE_AMOUNT = 20 -- %
@@ -68,7 +67,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 12
-BOSS_CLASS = {11, 20, 10 }
+BOSS_CLASS = {11, 20, 10, 13 }
 --BOSS_CLASS = {12} --Seeker
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
@@ -340,7 +339,6 @@ MAX_RANK = 6
 GM.RankUnlocks = {
 
 	--{{HUMAN CLASSES}}--
-	--[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_medupgr2","_medigun","_nade","_accuracy","_arsanal","_support","_supportammo","_supportweapon","_freeman","_psychotic","_combat","_pulsesmg","_mine","_medupgr1","_poisonprotect","_kevlar","_kevlar2","_profitable","_horse","_kevlarsupport","_bloodmoney","_berserk","_lethal","_highcal","_accuracy2","_blast","_point","_comeback2","_sboost","_sboost2","_remote","_psychopath","_slinger","_reload","_ironaim"},
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter"},
 
@@ -448,12 +446,12 @@ GM.Perks = {
 	["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	
 	--[[New ZS Classes]]--
-	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit | P228 | Knife                            ",Description = "+X*3% speed | +X*4% pistol damage | +X*4% medigun damage | +X*4% poison protection | +X*4% damage resistance | +X*5% medkit power | +X*12 medkit charge", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
-	["_commando"] = {Name = "Commando",   		Equipment = "Grenades| Five SeveN | Knife               ", Description = "see undead health | +X*5% health | +X*4% rifle damage | 1 in 12-X chance to not use bullet | +0.0X/2 fire rate", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
-	["_support2"] = {Name = "Support",    		Equipment = "Board Pack | USP | Hammer                  ", Description = "+X*4% SMG damage | +X*4% shotgun damage | +X*10% nail health | +X*17% repair power | +X nails ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
-	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka | Desert Eagle | Plank               ", Description = "+20% melee damage | +X*5% melee damage | +2 health on melee kill | +X*2 health on melee kill | no slowdown | +X*2% speed", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
-	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret | C4 | Classic Pistol | Frying Pan  ", Description = "+X*5% turret stats | +X*5% turret fire rate | +X*10% pulse capacity | +X*5% pulse recharge rate", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
-	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies | Python | Beer Bottle		", Description = "+X*5% headshot damage | +X*4% sniper damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit  | P228  |  Knife                            ",Description = "Extra Speed | Extra Pistol Damage | More Medigun Damage | Poison Protection | ", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
+	["_commando"] = {Name = "Commando",   		Equipment = "Grenades  |   Five SeveN   | Knife               ", Description = "See Undead Health | Extra Health | Extra Rifle Damage | 1 in 12-X chance to not use bullet | Faster Fire Rate", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
+	["_support2"] = {Name = "Support",    		Equipment = "Board Pack  |  USP   |  Hammer                  ", Description = "Extra SMG Damage | Extra Shotgun Damage | Extra Nail Health | Bonus Repair Power | Extra Nails ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
+	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+20% Melee Damage | Extra Melee Damage | +2 Health On Melee Kill | Extra Health On Melee Kill | No Slowdown | Speed Boost", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret  |  C4  |  Classic Pistol  |  Pan  ", Description = "Bonus Turret Stats | Bonus Turret Fire Rate | Extra Pulse Capacity | Faster Pulse Regen Rate", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
+	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Python  |  Beer Bottle		", Description = "Extra Headshot Damage | Extra Sniper Damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	
 }
 
@@ -1008,41 +1006,25 @@ PlayerModels = {
 }
 
 EngineerPlayerModels = {
-"models/player/alyx.mdl",
-"models/player/barney.mdl",
-"models/player/eli.mdl",
-"models/player/mossman.mdl",
-"models/player/kleiner.mdl",
-"models/player/breen.mdl"
+"kleiner",
+"alyx",
+"breen",
+"mossman"
 }
 
 CommandoPlayerModels = {
-"models/player/combine_soldier.mdl",
-"models/player/combine_soldier_prisonguard.mdl",
-"models/player/combine_super_soldier.mdl",
-"models/player/police.mdl" 
+"css_swat"
 }
 
 SupportPlayerModels = {
-"models/player/arctic.mdl",
-"models/player/leet.mdl",
-"models/player/guerilla.mdl",
-"models/player/phoenix.mdl",
-"models/player/riot.mdl",
-"models/player/swat.mdl",
-"models/player/urban.mdl"
+"css_leet",
+"eli",
+"odessa"
 }
 
 BerserkerPlayerModels = {
-"gasmask.mdl",
-"odessa.mdl",
-"male_04.mdl",
-"hostage_02.mdl"
-
---"models/player/gasmask.mdl",
---"models/player/odessa.mdl",
---"models/player/group01/male_04.mdl",
---"models/player/hostage/hostage_02.mdl"
+"css_gasmask",
+"css_riot"
 }
 
 SharpshooterPlayerModels = {
@@ -1057,14 +1039,25 @@ SharpshooterPlayerModels = {
 		"male09",
 		"male10",
 		"male11",
-		"male12",
+		"male12"
 }
 
 MedicPlayerModels = {
-"models/player/group03/male_02.mdl",
-"models/player/group03/Male_04.mdl",
-"models/player/group03/male_06.mdl",
-"models/player/group03/male_07.mdl"
+		"medic01",
+		"medic02",
+		"medic03",
+		"medic04",
+		"medic05",
+		"medic06",
+		"medic07",
+		"medic08",
+		"medic09",
+		"medic10",
+		"medic11",
+		"medic12",
+		"medic13",
+		"medic14",
+		"medic15"
 }
 
 PlayerAdminModels = {
