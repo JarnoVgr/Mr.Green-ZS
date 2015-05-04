@@ -236,12 +236,12 @@ function SWEP:PerformPrimaryAttack()
 				if ent:GetPerk("_medic") then
 					--ent:TakeDamage(self.Primary.Damage() - (self.Primary.Damage()* (4*attacker:GetRank())/100), self.Owner, self)	
 					
-					ent:TakeDamage(self.Primary.Damage - (self.Primary.Damage* (4*ent:GetRank())/100), self.Owner, self)
+					ent:TakeDamage(self.Primary.Damage - (self.Primary.Damage* (5*ent:GetRank())/100), self.Owner, self)
 					
 				else
 					ent:TakeDamage(self.Primary.Damage, self.Owner, self)
 				end
-				Velocity.z = 0 + self.Primary.Damage * math.random(4,5) + 130
+				Velocity.z = 0 + self.Primary.Damage * math.random(4,5) + 140
 				
 				if self.Owner:HasBought("vampire") and self.Owner:Health() + self.Primary.Damage * 0.33 < self.Owner:GetMaximumHealth() then	
 					self.Owner:SetHealth(self.Owner:Health() + self.Primary.Damage * 0.33)	
