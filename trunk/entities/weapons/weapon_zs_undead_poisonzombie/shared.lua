@@ -54,7 +54,6 @@ function SWEP:StartPrimaryAttack()
 	end]]
 
 	-- Set the thirdperson animation and emit zombie attack sound
-	self.Owner:SetAnimation(PLAYER_ATTACK1)
 	if SERVER then
 		self.Owner:EmitSound(Sound("npc/zombie_poison/pz_warn"..math.random(1, 2)..".wav"))
 	end
@@ -62,8 +61,12 @@ end
 
 function SWEP:PostPerformPrimaryAttack(hit)
 	if CLIENT then
+	
+		self.Owner:SetAnimation(PLAYER_ATTACK1)	
 		return
 	end
+	
+	
 
 	if hit then
 		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav"))
