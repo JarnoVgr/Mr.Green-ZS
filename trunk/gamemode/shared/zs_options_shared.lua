@@ -428,7 +428,7 @@ GM.Perks = {
 	--Berserker
 	
 	["_bloodmoney"] = {Name = "Blood Money", Description = "+5SP for melee kills.", RequiresWeapon = "_berserker", Slot = 2}, --Done
-	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads.", RequiresWeapon = "_berserker", Slot = 2}, --Added by Pufulet
+	["_headhunter"] = {Name = "Head Hunter", Description = "+30% melee damage on heads.", RequiresWeapon = "_berserker", Slot = 2}, --Added by Pufulet
 	["_berserk"] = {Name = "Berserk", Description = "+10% speed while under 40HP.", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	
 	
