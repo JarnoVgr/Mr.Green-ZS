@@ -384,8 +384,8 @@ GM.Perks = {
 	
 	--Berserker
 	
-	["_freeman"] = {Name = "Berserker Fury", Description = "25% more damage with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_psychotic"] = {Name = "Psychotic", Description = "+50% atttack speed with melee weapons", RequiresWeapon = "_berserker", Slot = 1}, --Done
+	["_freeman"] = {Name = "Berserker Fury", Description = "20% more damage with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
+	["_psychotic"] = {Name = "Psychotic", Description = "+2 health from kills", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	["_slinger"] = {Name = "Hook Slinger", Description = "Spawn with the Crook'd Hook", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	
 	
@@ -435,7 +435,7 @@ GM.Perks = {
 	--Engineer
 	
 	--["_pulsecash"] = {Name = "Pulse Cash", Description = "+5sp from turret kills.", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
-	["_blast"] = {Name = "Blast Proof", Description = "+40% explosive damage increase and range.", RequiresWeapon = "_engineer", Slot = 2}, --Done
+	["_blast"] = {Name = "Blast Proof", Description = "+20% explosive damage increase and range.", RequiresWeapon = "_engineer", Slot = 2}, --Done
 	["_sboost"] = {Name = "Get To The Chopper", Description = "15% increase in walking speed.", RequiresWeapon = "_engineer", Slot = 2}, --Done
 	["_remote"] = {Name = "Turret Remote", Description = "Gives you the turret remote 'Requires turret'", RequiresWeapon = "_engineer", Slot = 2}, -- Done
 	
