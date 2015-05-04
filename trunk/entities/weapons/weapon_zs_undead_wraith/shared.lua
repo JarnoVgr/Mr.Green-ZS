@@ -15,13 +15,13 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 end
 
-SWEP.Primary.Duration = 1.5
+SWEP.Primary.Duration = 1.3
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 30
 SWEP.Primary.Next = 1.5
 --SWEP.Secondary.Next = 6.8
-SWEP.Secondary.Next = 3
+SWEP.Secondary.Next = 2
 SWEP.Secondary.Duration = 1
 
 SWEP.EmitWraithSound = 0
@@ -117,7 +117,7 @@ function SWEP:PerformSecondaryAttack()
 	end
 
 	--Delay next teleport
-	self.Weapon:SetNextSecondaryFire(CurTime() + 0.5)
+	self.Weapon:SetNextSecondaryFire(CurTime() + 3)
 	self.Weapon:SetNextPrimaryFire(0.2)
 	--Not enough health
 	--if mOwner:Health() < mOwner:GetMaximumHealth() * 0.15 then
