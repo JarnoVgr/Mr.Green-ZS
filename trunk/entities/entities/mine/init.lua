@@ -91,8 +91,8 @@ function ENT:Explode()
 	Ent.Inflictor = "weapon_zs_mine"
 	Ent:SetOwner( self:GetOwner() )
 	Ent:Activate()
-	Ent:SetKeyValue( "iMagnitude", 256 ) --180 -- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )
-	Ent:SetKeyValue( "iRadiusOverride", 256 )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )
+	Ent:SetKeyValue( "iMagnitude", 280 ) --180 -- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )
+	Ent:SetKeyValue( "iRadiusOverride", 200 )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )
 	Ent:Fire("explode", "", 0)
 	
 	--Shaken, not stirred

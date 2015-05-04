@@ -9,7 +9,7 @@ if CLIENT then
 	SWEP.Slot = 0
 	SWEP.SlotPos = 5
 	SWEP.ViewModelFOV = 60
-	SWEP.ViewModelFlip = true
+	SWEP.ViewModelFlip = false
 	SWEP.FlipYaw = true
 	SWEP.IconLetter = "t"
 	killicon.AddFont("weapon_zs_famas", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
@@ -38,7 +38,7 @@ SWEP.HoldType = "ar2"
 SWEP.Primary.Sound			= Sound("Weapon_FAMAS.Single")
 SWEP.Primary.Recoil			= 2						
 SWEP.Primary.Unrecoil		= 0
-SWEP.Primary.Damage			= 16.5
+SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 30
 SWEP.MaxAmmo			    = 250

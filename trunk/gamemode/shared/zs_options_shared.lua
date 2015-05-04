@@ -452,7 +452,7 @@ GM.Perks = {
 	["_commando"] = {Name = "Commando",   		Equipment = "Grenades| Five SeveN | Knife               ", Description = "see undead health | +X*5% health | +X*4% rifle damage | 1 in 12-X chance to not use bullet | +0.0X/2 fire rate", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support",    		Equipment = "Board Pack | USP | Hammer                  ", Description = "+X*4% SMG damage | +X*4% shotgun damage | +X*10% nail health | +X*17% repair power | +X nails ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka | Desert Eagle | Plank               ", Description = "+20% melee damage | +X*5% melee damage | +2 health on melee kill | +X*2 health on melee kill | no slowdown | +X*2% speed", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
-	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret | C4 | Classic Pistol | Frying Pan  ", Description = "+X*5% turret stats | +X*5% turret fire rate | +X*10% pulse capacity | +X*5% pulse recharge rate | +X*10% explosion resistance", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
+	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret | C4 | Classic Pistol | Frying Pan  ", Description = "+X*5% turret stats | +X*5% turret fire rate | +X*10% pulse capacity | +X*5% pulse recharge rate", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies | Python | Beer Bottle		", Description = "+X*5% headshot damage | +X*4% sniper damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	
 }

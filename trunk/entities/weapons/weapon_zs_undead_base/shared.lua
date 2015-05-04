@@ -241,7 +241,7 @@ function SWEP:PerformPrimaryAttack()
 				else
 					ent:TakeDamage(self.Primary.Damage, self.Owner, self)
 				end
-				Velocity.z = 0 + self.Primary.Damage * math.random(3,5) + 130
+				Velocity.z = 0 + self.Primary.Damage * math.random(4,5) + 130
 				
 				if self.Owner:HasBought("vampire") and self.Owner:Health() + self.Primary.Damage * 0.33 < self.Owner:GetMaximumHealth() then	
 					self.Owner:SetHealth(self.Owner:Health() + self.Primary.Damage * 0.33)	
