@@ -1514,16 +1514,17 @@ local SpecialWeapons = {
 	["weapon_zs_melee_crowbar"] = true,
 	["weapon_zs_melee_shovel"] = true,
 	["weapon_zs_melee_axe"] = true,
-	["weapon_zs_melee_combatknife"] = true,
 	["weapon_zs_melee_fryingpan"] = true,
 	["weapon_zs_melee_keyboard"] = true,
 	["weapon_zs_melee_plank"] = true,
 	["weapon_zs_melee_pot"] = true,
 	["weapon_zs_melee_katana"] = true,
+	["weapon_zs_melee_sledgehammer"] = true,	
 	["weapon_zs_fists2"] = true,
 	["weapon_zs_melee_pipe"] = true,
 	["weapon_zs_melee_pipe2"] = true,
-	["weapon_zs_melee_hook"] = true
+	["weapon_zs_melee_hook"] = true,
+	["weapon_zs_melee_chainsaw"] = true	
 }
 
 hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacker)
