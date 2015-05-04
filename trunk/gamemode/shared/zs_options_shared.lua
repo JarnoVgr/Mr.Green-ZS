@@ -37,7 +37,7 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 
 -- Movement stuff
 
-SPEED = 200
+SPEED = 185
 SPEED_LIGHT = SPEED - 10
 SPEED_MELEE_LIGHT = SPEED - 5
 SPEED_MELEE = SPEED - 15
@@ -450,7 +450,7 @@ GM.Perks = {
 	["_support2"] = {Name = "Support",    		Equipment = "Board Pack  |  USP   |  Hammer                  ", Description = "Extra SMG Damage | Extra Shotgun Damage | Extra Nail Health | Bonus Repair Power | Extra Nails ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+20% Melee Damage | Extra Melee Damage | +2 Health On Melee Kill | Extra Health On Melee Kill | No Slowdown | Speed Boost", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret  |  C4  |  Classic Pistol  |  Pan  ", Description = "Bonus Turret Stats | Bonus Turret Fire Rate | Extra Pulse Capacity | Faster Pulse Regen Rate | Increased C4 Damage | Increased C4 Radius", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
-	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Python  |  Beer Bottle		", Description = "Extra Headshot Damage | Extra Sniper Damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Python  |  Beer Bottle		", Description = "Extra Headshot Damage | Extra Speed | Extra Sniper Damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	
 }
 
