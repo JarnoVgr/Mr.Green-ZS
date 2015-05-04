@@ -65,7 +65,7 @@ SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic   	= true
 SWEP.Secondary.Ammo         = "none"
 
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 180
 
 local ShootSound = Sound("items/ammo_pickup.wav")
 local FailSound = Sound("buttons/combine_button_locked.wav")
