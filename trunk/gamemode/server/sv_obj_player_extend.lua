@@ -1131,6 +1131,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		end
 	
 		--Prevent damage with melees and certain weapons
+
 		if dmginfo:IsMeleeDamage() then
 			return true
 		--Scale down

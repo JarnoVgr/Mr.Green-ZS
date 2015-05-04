@@ -172,7 +172,7 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	local trFilter = self.Owner-- team.GetPlayers( TEAM_UNDEAD )
 	
 	-- Calculate damage done
-	local Damage = math.random( 80, 90 )
+	local Damage = 40
 
 	local TraceHit, HullHit = false, false
 	
