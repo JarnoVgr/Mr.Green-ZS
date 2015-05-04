@@ -45,7 +45,7 @@ SPEED_MELEE_HEAVY = SPEED - 20
 SPEED_PISTOL = SPEED - 15
 SPEED_SMG = SPEED - 25
 SPEED_SHOTGUN = SPEED - 30
-SPEED_RIFLE = SPEED - 30
+SPEED_RIFLE = SPEED - 35
 SPEED_HEAVY = SPEED - 35
 
 -- Horde stuff
@@ -154,10 +154,10 @@ GM.HumanWeapons = {
        
         --Commando
         ["weapon_zs_defender"]  = { Name = "Defender Rifle", DPS = 93, Price = 100, Infliction = 0.2, Type = "rifle", Description = "Scrap AK47", HumanClass = "commando"},    
-        ["weapon_zs_famas"]  = { Name = "Famas", DPS = 140, Type = "rifle", Price = 200, HumanClass = "commando" },
-        ["weapon_zs_sg552"]  = { Name = "SG552 Rifle", DPS = 106, Infliction = 0.51, Type = "rifle", Price = 400, HumanClass = "commando" },
+        ["weapon_zs_famas"]  = { Name = "Famas", DPS = 140, Type = "rifle", Price = 300, HumanClass = "commando" },
+        ["weapon_zs_sg552"]  = { Name = "SG552 Rifle", DPS = 106, Infliction = 0.51, Type = "rifle", Price = 500, HumanClass = "commando" },
         ["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138, Infliction = 0.65, Type = "rifle", Price = 600, HumanClass = "commando" },
-        ["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 700, HumanClass = "commando" },   
+        ["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 750, HumanClass = "commando" },   
         ["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125, Infliction = 0.53, Type = "rifle", Price = 800, HumanClass = "commando" },       
         ["weapon_zs_galil"]  = { Name = "Galil", DPS = 129, Infliction = 0.57, Type = "rifle", Price = 900, HumanClass = "commando" }, 
         ["weapon_zs_m249"]  = { Name = "M249", DPS = 200, Infliction = 0.85, Type = "rifle", Price = 1400, HumanClass = "commando" },      		
@@ -192,9 +192,9 @@ GM.HumanWeapons = {
        -- ["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle",Price = 600, HumanClass = "other" },          
        
         --Pistols
-        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 300, HumanClass = "medic" },
+        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 400, HumanClass = "medic" },
         ["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 200, Description = "High fire rate thanks to having two pistols in your hands." , HumanClass = "medic"},
-        ["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 400, Description = "Russian Roulette Revolver", HumanClass = "medic" },
+        ["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 500, Description = "Russian Roulette Revolver", HumanClass = "medic" },
         ["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic."},
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 200, Description = "Alyx is hot. But her gun is even more hot.", HumanClass = "medic" },
  
