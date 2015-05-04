@@ -72,15 +72,17 @@ local FailSound = Sound("buttons/combine_button_locked.wav")
 
 function SWEP:InitializeClientsideModels()
 	self.VElements = {
-		["crate"] = { type = "Model", model = "models/Items/item_item_crate.mdl", bone = "v_weapon.c4", rel = "", pos = Vector(0, 0, 0), angle = Angle(0, 0, -90), size = Vector(0.3, 0.3, 0.3), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	--	["crate"] = { type = "Model", model = "models/Items/item_item_crate.mdl", bone = "v_weapon.c4", rel = "", pos = Vector(0, 0, 0), angle = Angle(0, 0, -90), size = Vector(0.3, 0.3, 0.3), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		["crate"] = { type = "Model", model = "models/Items/item_item_crate.mdl", bone = "v_weapon.c4", rel = "", pos = Vector(-2, 0, 0), angle = Angle(0, 0, -90), size = Vector(0.4, 0.4, 0.4), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 
 	self.ViewModelBoneMods = {
-		["v_weapon.c4"] = { scale = Vector(1, 1, 1), pos = Vector(-1.555, -12.747, -0.622), angle = Angle(9.326, 7.46, 37.305) },
+		["v_weapon.c4"] = { scale = Vector(1, 1, 1), pos = Vector(-10.555, -12.747, -0.622), angle = Angle(9.326, 7.46, 37.305) },
 		["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -48.498, 0) },
-		["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(46.631, -33.576, 0) },
+	--	["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(46.631, -33.576, 0) },
+		["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0.631, -33.576, 0) },
 		["ValveBiped.Bip01_R_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(29.844, 26.114, -39.172) },
-		["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-5.597, 9.326, 0), angle = Angle(11.192, 0, -63.42) },
+	--	["ValveBiped.Bip01_R_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-5.597, 9.326, 0), angle = Angle(11.192, 0, -63.42) },
 		["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-4.041, 0.31, -5.908), angle = Angle(0, 0, 0) },
 		["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-3.731, 27.979, -18.653) },
 		["ValveBiped.Bip01_L_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -24.25, 0) },
@@ -147,6 +149,8 @@ function SWEP:Think()
 		util.Effect("crateghost", effectdata, true, true)
 		self.FirstThink = false
 	end
+
+	
 end
 
 function SWEP:OnDeploy()
