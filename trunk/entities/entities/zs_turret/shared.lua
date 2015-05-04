@@ -31,12 +31,12 @@ for i=1,2 do
 end
 
 -- Options
-ENT.MaxHealth = 100
+ENT.MaxHealth = 80
 ENT.MaxBullets = 150
 ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 700
 ENT.Damage = 6
-ENT.IgnoreClasses = {4,5,7,9,18} -- Index of zombie's classes that turret should ignore
+ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {7,9}
 
 ENT.MinimumAimDot = 0.25
@@ -97,9 +97,9 @@ if SERVER then
 			end
 					
 			if self:GetTurretOwner():GetPerk ("_engineer") then	
-				self.Damage = self.Damage + (self.Damage*(5*self:GetTurretOwner():GetRank())/100)		
-				self.MaxHealth = self.MaxHealth + (self.MaxHealth*(5*self:GetTurretOwner():GetRank())/100)	
-				self.MaxBullets = self.MaxBullets + (self.MaxBullets*(5*self:GetTurretOwner():GetRank())/100)	
+				self.Damage = self.Damage + (self.Damage*(6*self:GetTurretOwner():GetRank())/100)		
+				self.MaxHealth = self.MaxHealth + (self.MaxHealth*(6*self:GetTurretOwner():GetRank())/100)	
+				self.MaxBullets = self.MaxBullets + (self.MaxBullets*(6*self:GetTurretOwner():GetRank())/100)	
 			end			
 		
 	--[[	if self:GetTurretOwner():GetPerk("_turretammo") then

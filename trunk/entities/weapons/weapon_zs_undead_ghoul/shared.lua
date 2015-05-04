@@ -50,7 +50,7 @@ SWEP.AdminSpawnable = true
 
 SWEP.Primary.Duration = 1.4
 SWEP.Primary.Delay = 0.6
-SWEP.Primary.Damage = 20
+SWEP.Primary.Damage = 25
 --Pufulet: so it did have more reach!
 --SWEP.Primary.Reach = 55
 SWEP.Primary.Reach = 48

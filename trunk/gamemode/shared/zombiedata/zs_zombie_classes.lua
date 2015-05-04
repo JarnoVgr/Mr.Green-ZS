@@ -96,7 +96,7 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	Tag = "zombie",	
 	Infliction = 0.0,
 	Revives = false,
-	Health = 100,
+	Health = 150,
 	MaxHealth = 120,
 	Bounty = 100,
 	SP = 15,
@@ -108,7 +108,7 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	CanCrouch = true,
 	CanGib = true, 
 	Model = table.Random(InfectedZombiemodels), 
-	Speed = 200,	
+	Speed = 195,	
 	AngleFix = true,
 	DescriptionGameplay = { "> PRIMARY: Bare Claws", "> SECONDARY: War Cry!" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde! " },
@@ -284,8 +284,8 @@ ZombieClasses[4] =
 {
 	Name = "Ghast",
 	Tag = "etherealzombie",
-	Infliction = 0.25,
-	Health = 200,
+	Infliction = 0.0,
+	Health = 150,
 	MaxHealth = 110,
 	TimeLimit = 200,
 	Bounty = 80,
@@ -296,9 +296,9 @@ ZombieClasses[4] =
 	CanGib = true,
 	SWEP = "weapon_zs_undead_spitter",
 	Model = Model( "models/wraith.mdl" ),
-	Speed = 190,
+	Speed = 200,
 	Description = "A ghastly figure which can disguise itself as a human!",
-	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Disguise as a human!", "> SPECIAL: Ignored by turrets"},
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Disguise as a human!", "> SPECIAL: Ignored by turrets and proximity C4"},
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),
@@ -665,7 +665,7 @@ ZombieClasses[20] =
 		if IsValid(status) then
 			status:SetModel("models/Zombie/Poison.mdl")
 		end
-	
+		
 		local status2 = pl:GiveStatus("simple_revive")
 		if IsValid(status2) then
 			status2:SetReviveTime(CurTime() + 4)
@@ -804,10 +804,10 @@ ZombieClasses[13] =
 	Name = "Nerf",
 	Tag = "nerf",
 	Infliction = 0,
-	Health = 2500,
-	MaxHealth = 3000,
+	Health = 1500,
+	MaxHealth = 1500,
 	TimeLimit = 1020,
-	Bounty = 1000,
+	Bounty = 300,
 	SP = 150,
 	Mass = DEFAULT_MASS * 2,
 	Threshold = 4,
@@ -819,11 +819,11 @@ ZombieClasses[13] =
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_nerf",
 	Model = Model("models/Zombie/Fast.mdl"),
-	Speed = 195,
+	Speed = 190,
 	Description = "",
 	Unique = "",
 	PainSounds = {
-		Sound("npc/antlion_guard/growl_high.wav"),
+		--Sound("npc/antlion_guard/growl_high.wav"),
 
 	},
 	DeathSounds = {
@@ -841,11 +841,11 @@ ZombieClasses[13] =
 	end,
 	OnRevive = function(pl)
 	end,
-	ModelScale = 0.85,
-	ViewOffset = Vector( 0, 0, 50 ),
-	ViewOffsetDucked = Vector( 0, 0, 24 ),
-	Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
-	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
+	--ModelScale = 0.85,
+	--ViewOffset = Vector( 0, 0, 50 ),
+	--ViewOffsetDucked = Vector( 0, 0, 24 ),
+	--Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
+	--HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)}
 }
 
 ZombieClasses[14] =

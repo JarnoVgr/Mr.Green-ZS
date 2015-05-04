@@ -18,6 +18,7 @@ function ENT:Initialize()
 	self.Entity:SetTrigger(true)
 	self.Entity.Frozen = true
 	
+
 	local phys = self.Entity:GetPhysicsObject()
 	phys:EnableMotion( false )
 	
@@ -37,10 +38,13 @@ function ENT:AcceptInput(name, activator, caller, arg)
 end
 --]]
 function ENT:Think()
+	
 	if not IsValid(self) then
 		return
 	end
 	
+	--if CurTime() < 1.5 then return end
+		
 	-- In case the owner dies
 	local Owner = self:GetOwner()
 	if not IsValid ( Owner ) or not Owner:Alive() or Owner:Team() == TEAM_UNDEAD then 
@@ -53,14 +57,18 @@ function ENT:Think()
 		-- Remove it
 		self.Entity:Remove()
 	end
+
+	if self.Detonating then
+		self:Explode()
+		return
+	end	
 	
 	for k,v in ipairs(team.GetPlayers(TEAM_ZOMBIE)) do
 		local fDistance = v:GetPos():Distance( self:GetPos() )
 
 		--Check for conditions
-		if v:IsPlayer() and not v:IsHuman() and v:Alive() and fDistance < 128 then	
-		
-		local vPos, vEnd = self:GetPos(), self:GetPos() + ( self:GetPos() * 128 )
+		if v:IsPlayer() and not v:IsHuman() and v:Alive() and not table.HasValue(self.IgnoreClasses, v:GetZombieClass()) and fDistance < 140 then		
+		local vPos, vEnd = self:GetPos(), self:GetPos() + ( self:GetPos() * 140 )
 		local Trace = util.TraceLine ( { start = vPos, endpos = v:LocalToWorld( v:OBBCenter() ), filter = self, mask = MASK_SOLID } )
 			
 		-- Exploit trace
@@ -68,11 +76,13 @@ function ENT:Think()
 			continue
 		end		
 			self.Entity:EmitSound(self.WarningSound)
-			timer.Simple( 0.5, function()self:Explode()end)
-			self.Entity:NextThink(1)			
+			self.Detonating = true
+			return
 		end	
 
 	end	
+	
+	self:NextThink(CurTime() + 1)
 end
 
 function ENT:Explode()
@@ -82,7 +92,7 @@ function ENT:Explode()
 	end
 	
 	local Ent = ents.Create("env_explosion")
-	Ent:EmitSound( "explode_4")
+	Ent:EmitSound( "explode_" .. math.random(1,4))
 	Ent:SetPos( self.Entity:GetPos() )
 	Ent:Spawn()
 	Ent.Team = function() -- Correctly applies the whole 'no team damage' thing
@@ -91,15 +101,23 @@ function ENT:Explode()
 	Ent.Inflictor = "weapon_zs_mine"
 	Ent:SetOwner( self:GetOwner() )
 	Ent:Activate()
-	Ent:SetKeyValue( "iMagnitude", 280 ) --180 -- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )
-	Ent:SetKeyValue( "iRadiusOverride", 200 )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )
+	
+	
+	
+	if self:GetOwner():GetPerk("_engineer") then
+		self.damage = self.damage + (self.damage*(3*self:GetOwner():GetRank())/100)
+		self.radius = self.radius + (self.radius*(3*self:GetOwner():GetRank())/100)		
+	end
+	
+	Ent:SetKeyValue( "iMagnitude", self.damage ) --180 -- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )
+	Ent:SetKeyValue( "iRadiusOverride", self.radius )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )
 	Ent:Fire("explode", "", 0)
 	
 	--Shaken, not stirred
 	local shake = ents.Create( "env_shake" )
 	shake:SetPos( self.Entity:GetPos() )
 	shake:SetKeyValue( "amplitude", "500" ) -- Power of the shake effect
-	shake:SetKeyValue( "radius", "450" )	-- Radius of the shake effect
+	shake:SetKeyValue( "radius", "512" )	-- Radius of the shake effect
 	shake:SetKeyValue( "duration", "4" )	-- Duration of shake
 	--shake:SetKeyValue( "frequency", "128" )	-- Screenshake frequency
 	shake:SetKeyValue( "frequency", "170" )	-- Screenshake frequency
