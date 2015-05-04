@@ -6,7 +6,7 @@ AddCSLuaFile()
 SWEP.HoldType = "melee"
 
 if CLIENT then
-	SWEP.PrintName = "Explosive"
+	SWEP.PrintName = "C4"
 	SWEP.Slot = 4
 	SWEP.SlotPos = 1
 	SWEP.DrawCrosshair = false
@@ -18,8 +18,8 @@ if CLIENT then
 	SWEP.ScaleDownLeftHand = true
 	SWEP.ScaleDownRightHand = true
 	
-	-- killicon.AddFont( "weapon_zs_mine", "CSKillIcons", "I", Color(255, 255, 255, 255 ) )
-	killicon.Add("weapon_zs_mine", "HUD/scoreboard_bomb", Color(255, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_mine", "CSKillIcons", "I", Color(255, 255, 255, 255 ) )
+	--killicon.Add("weapon_zs_mine", "HUD/scoreboard_bomb", Color(255, 255, 255, 255 ) )
 	
 	function SWEP:DrawHUD()
 		MeleeWeaponDrawHUD()
@@ -28,16 +28,16 @@ end
 
 function SWEP:InitializeClientsideModels()
 	
-	self.ViewModelBoneMods = {
-		["Bip01_R_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(2.444, 15.593, -0.556) },
-		["Slam_base"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(12.536, 6.918, 32.043) },
-		["Bip01_R_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -0.625, 17.955) }
-	}
+	--self.ViewModelBoneMods = {
+	--	["Bip01_R_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(2.444, 15.593, -0.556) },
+	--	["Slam_base"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	--	["Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(12.536, 6.918, 32.043) },
+	--	["Bip01_R_Forearm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -0.625, 17.955) }
+	--}
 
-	self.VElements = {
-		["exp"] = { type = "Model", model = "models/Weapons/w_package.mdl", bone = "Slam_base", rel = "", pos = Vector(-7.4, -66.6, 22.156), angle = Angle(-43.644, -16.65, -113.362), size = Vector(0.675, 0.675, 0.675), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
+	--self.VElements = {
+	--	["exp"] = { type = "Model", model = "models/Weapons/w_package.mdl", bone = "Slam_base", rel = "", pos = Vector(-7.4, -66.6, 22.156), angle = Angle(-43.644, -16.65, -113.362), size = Vector(0.675, 0.675, 0.675), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	--}
 
 	self.WElements = {} 
 	
@@ -59,8 +59,8 @@ SWEP.Spawnable			= false
 SWEP.AdminSpawnable		= false
 ------------------------------------------------------------------------------------------------------
 --SWEP.ViewModel      = Model ( "models/Weapons/v_slam.mdl")
-SWEP.ViewModel      = Model ( "models/Weapons/c_slam.mdl")
-SWEP.WorldModel   = Model ( "models/Weapons/w_package.mdl" )
+SWEP.ViewModel      = Model ( "models/weapons/v_c4.mdl")
+SWEP.WorldModel   = Model ( "models/weapons/w_c4.mdl" )
 SWEP.UseHands = true
 ------------------------------------------------------------------------------------------------------
 SWEP.Primary.Delay			= 0.01 	
@@ -69,7 +69,7 @@ SWEP.Primary.Damage			= 7
 SWEP.Primary.NumShots		= 1		
 SWEP.Primary.Cone			= 0 	
 SWEP.Primary.ClipSize		= 10
-SWEP.Primary.DefaultClip	= 3
+SWEP.Primary.DefaultClip	= 4
 SWEP.Primary.Automatic   	= true
 SWEP.Primary.Ammo         	= "slam"	
 ------------------------------------------------------------------------------------------------------
@@ -89,14 +89,12 @@ SWEP.WalkSpeed = SPEED
 util.PrecacheSound("weapons/c4/c4_beep1.wav")
 util.PrecacheSound("weapons/c4/c4_plant.wav")
 
-
 function SWEP:On_Deploy()
 	-- Draw animation
 	if 0 < self:Clip1() then 
 		self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_DRAW )
 	else
 		self.Weapon:SendWeaponAnim( ACT_SLAM_DETONATOR_DRAW )
-		
 	end
 end
 
@@ -180,7 +178,7 @@ local owner = self.Owner
 		return
 	end
 	
-	if ( tr.Hit ) and tr.HitNormal.z > 0.5 then
+	if ( tr.Hit ) and tr.HitNormal.z != -1 then
 	-- /animation goes here
 	-- self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 
@@ -200,10 +198,10 @@ local owner = self.Owner
 		
 		if ( tr.Hit ) then	
 		-- Shared animation
-		self.Owner:SetAnimation( PLAYER_ATTACK1 )
-		-- self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
-		--self.Weapon:SetSequence("throw_throw"..math.random(1,2))
-		self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_THROW )
+		--self.Owner:SetAnimation( PLAYER_ATTACK1 )
+		--self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
+		--self.Weapon:SetSequence("weapons/c4/c4_plant.wav")
+		--self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_THROW )
 		--self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
 		timer.Simple(self.Weapon:SequenceDuration(),function() 
 			if self and self:IsValid() and self.Owner and self.Owner:GetActiveWeapon() == self then 
@@ -219,6 +217,7 @@ local owner = self.Owner
 				end
 			end 
 		end)
+		--
 		if SERVER then
 			local ent = ents.Create ("mine")
 			if ( ent ~= nil and ent:IsValid() ) then
@@ -232,7 +231,7 @@ local owner = self.Owner
 				ent:SetOwner(self.Owner)
 				ent:Spawn()
 				ent:Activate()
-				self.Owner:EmitSound( "weapons/slam/throw.wav" )
+				self.Owner:EmitSound("weapons/c4/c4_plant.wav" )
 				
 				ent:GetTable():WallPlant( tr.HitPos + tr.HitNormal, tr.HitNormal )
 				self:TakePrimaryAmmo( 1 )
@@ -248,6 +247,7 @@ local owner = self.Owner
 	
 end
 
+--[[
 function SWEP:SecondaryAttack()
 	if( CurTime() < self.NextPlant ) then return end
 	self.NextPlant = ( CurTime() + 1 );
@@ -312,3 +312,5 @@ function SWEP:Think()
 	
 	return true
 end
+
+]]--

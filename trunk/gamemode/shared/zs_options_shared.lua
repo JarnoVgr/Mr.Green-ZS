@@ -218,7 +218,7 @@ GM.HumanWeapons = {
         ["weapon_zs_tools_torch"] = { Name = "Torch", DPS = 0, Infliction = 0, Type = "tool2", Description = "Fix broken nails to prevent barricades getting broken." },       
         ["weapon_zs_miniturret"] = { Name = "Combat Mini-Turret", DPS = 0, Infliction = 0, Type = "tool2", Description = "CBA to shoot, let your friend here help you with that!"  },
         ["weapon_zs_grenade"]  = { Name = "Grenade", DPS = 8, Infliction = 0, Type = "tool2", Description = "Handheld explosives." },
-        ["weapon_zs_mine"]  = { Name = "Explosives", DPS = 8, Infliction = 0, Type = "tool2", Description = "BOOM, get your team out a tough spot.."  },       
+        ["weapon_zs_mine"]  = { Name = "Proximity C4", DPS = 8, Infliction = 0, Type = "tool2", Description = "BOOM, get your team out a tough spot.."  },       
        
         --Special
         ["weapon_zs_melee_crowbar"]  = { Name = "Crowbar", DPS = 85, Infliction = 0.65, Type = "melee" },      

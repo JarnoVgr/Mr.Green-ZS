@@ -8,9 +8,9 @@ include('shared.lua')
 ActualMines = {}
 
 function ENT:Initialize()
-	self.Entity:SetModel("models/Weapons/w_package.mdl") 
+	self.Entity:SetModel("models/weapons/w_c4_planted.mdl") 
 	
-	
+	--self.Entity:SetColor( 255 255 255 255 )
 	self.Entity:PhysicsInit(SOLID_VPHYSICS)
 	self.Entity:SetSolid (SOLID_NONE)
 	self.Entity:DrawShadow(false)
@@ -23,7 +23,7 @@ function ENT:Initialize()
 	
 	table.insert(ActualMines,self)
 end
-
+--[[
 function ENT:AcceptInput(name, activator, caller, arg)
 	if name == "detonate" then
 		self.Entity:EmitSound(self.WarningSound)
@@ -35,7 +35,7 @@ function ENT:AcceptInput(name, activator, caller, arg)
 		return true
 	end
 end
-
+--]]
 function ENT:Think()
 	if not IsValid(self) then
 		return
@@ -53,6 +53,26 @@ function ENT:Think()
 		-- Remove it
 		self.Entity:Remove()
 	end
+	
+	for k,v in ipairs(team.GetPlayers(TEAM_ZOMBIE)) do
+		local fDistance = v:GetPos():Distance( self:GetPos() )
+
+		--Check for conditions
+		if v:IsPlayer() and not v:IsHuman() and v:Alive() and fDistance < 128 then	
+		
+		local vPos, vEnd = self:GetPos(), self:GetPos() + ( self:GetPos() * 128 )
+		local Trace = util.TraceLine ( { start = vPos, endpos = v:LocalToWorld( v:OBBCenter() ), filter = self, mask = MASK_SOLID } )
+			
+		-- Exploit trace
+		if not Trace.Hit or not IsValid(Trace.Entity) or Trace.Entity ~= v then
+			continue
+		end		
+			self.Entity:EmitSound(self.WarningSound)
+			timer.Simple( 0.5, function()self:Explode()end)
+			self.Entity:NextThink(1)			
+		end	
+
+	end	
 end
 
 function ENT:Explode()
@@ -71,8 +91,8 @@ function ENT:Explode()
 	Ent.Inflictor = "weapon_zs_mine"
 	Ent:SetOwner( self:GetOwner() )
 	Ent:Activate()
-	Ent:SetKeyValue( "iMagnitude", 300 ) --180 -- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )
-	Ent:SetKeyValue( "iRadiusOverride", 350 )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )
+	Ent:SetKeyValue( "iMagnitude", 256 ) --180 -- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )
+	Ent:SetKeyValue( "iRadiusOverride", 256 )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )
 	Ent:Fire("explode", "", 0)
 	
 	--Shaken, not stirred
