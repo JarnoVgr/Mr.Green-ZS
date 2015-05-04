@@ -393,8 +393,8 @@ GM.Perks = {
 	
 	["_pulsesmg"] = {Name = "PulseSMG", Description = "Given the pulse SMG.", RequiresWeapon = "_engineer", Slot = 1},	--Done
 	["_combat"] = {Name = "Combat Turret", Description = "Given the Combat turret.", RequiresWeapon = "_engineer", Slot = 1},	--Done
-	["_mine"] = {Name = "Multi Mine", Description = "Place up to 10 mines on the floor! ", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 1}, --Done
-	["_turret"] = {Name = "Turret Overload", Description = "+50% attack rate for turret.", Material = "VGUI/gfx/VGUI/defuser", Slot = 1}, --Done
+	["_mine"] = {Name = "Multi Mine", Description = "Place up to 10 mines on the floor! ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 1}, --Done
+	["_turret"] = {Name = "Turret Overload", Description = "+50% attack rate for turret.",RequiresWeapon = "_engineer", Material = "VGUI/gfx/VGUI/defuser", Slot = 1}, --Done
 	
 	--Sharpshooter
 	
