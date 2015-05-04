@@ -104,7 +104,7 @@ function SWEP:PrimaryAttack()
 local owner = self.Owner
 	if( CurTime() < self.NextPlant ) or not self:CanPrimaryAttack() then return end
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return false end
-		self.NextPlant = ( CurTime() + 1.2 );
+		self.NextPlant = ( CurTime() + 0.2 );
 	-- 
 	local trace = {}
 	local pos = self.Owner:GetPos()
@@ -148,7 +148,7 @@ local owner = self.Owner
 	
 	
 	for k,v in pairs ( ActualMines ) do-- ents.FindInBox (Vector (pos.x - 100,pos.y - 100,pos.z - 100), Vector (pos.x + 100, pos.y + 100, pos.z + 100))
-		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 50 then
+		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 32 then
 			-- if v:GetClass() == "mine" then
 				mines = mines + 1
 			-- end

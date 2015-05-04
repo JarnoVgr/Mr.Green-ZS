@@ -342,9 +342,8 @@ function OnPressF2(pl)
 	if pl:HasBought("quickredemp") or pl:GetRank() < REDEEM_FAST_LEVEL then
 		requiredScore = REDEEM_FAST_KILLS
 	end
-	if not LASTHUMAN and CurTime() < (ROUNDTIME + WARMUPTIME)*0.75 then
-			print(CurTime())
-			print((ROUNDTIME + WARMUPTIME)*0.75)
+	if not LASTHUMAN and CurTime() < (ROUNDTIME + WARMUPTIME)*0.7 then
+
 		if REDEEM and AUTOREDEEM and pl:Team() == TEAM_UNDEAD and pl:GetScore() >= requiredScore then
 			if not pl:IsBossZombie() then
 				pl:Redeem()

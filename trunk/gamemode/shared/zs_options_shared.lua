@@ -448,12 +448,12 @@ GM.Perks = {
 	["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	
 	--[[New ZS Classes]]--
-	["_medic"] = {Name = "Medic", Description = "+rank*3% speed | +rank*4% pistol damage | +rank*4% medigun damage | +rank*4% poison protection | +rank*4% damage resistance | +rank*5% medkit power | +rank*12 medkit charge", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
-	["_commando"] = {Name = "Commando", Description = "see undead health | +rank*5% health | +rank*4% rifle damage | 1 in 12-rank chance to not use bullet | +(rank*0.5)/100 fire rate", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
-	["_support2"] = {Name = "Support", Description = "+rank*4% SMG damage | +rank*4% shotgun damage | +rank*10% nail health | +rank*17% repair power | +rank nails ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
-	["_berserker"] = {Name = "Berserker", Description = "+20% melee damage | +rank*5% melee damage | +2 health on melee kill | +rank*2 health on melee kill | no slowdown | +rank*2% speed", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
-	["_engineer"] = {Name = "Engineer", Description = "+rank*5% turret stats | +rank*5% turret fire rate | +rank*10% pulse capacity | +rank*5% pulse recharge rate", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
-	["_sharpshooter"] = {Name = "Sharpshooter", Description = "+rank*5% headshot damage | +rank*4% sniper damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit | P228 | Knife                            ",Description = "+X*3% speed | +X*4% pistol damage | +X*4% medigun damage | +X*4% poison protection | +X*4% damage resistance | +X*5% medkit power | +X*12 medkit charge", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
+	["_commando"] = {Name = "Commando",   		Equipment = "Grenades| Five SeveN | Knife               ", Description = "see undead health | +X*5% health | +X*4% rifle damage | 1 in 12-X chance to not use bullet | +0.0X/2 fire rate", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
+	["_support2"] = {Name = "Support",    		Equipment = "Board Pack | USP | Hammer                  ", Description = "+X*4% SMG damage | +X*4% shotgun damage | +X*10% nail health | +X*17% repair power | +X nails ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
+	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka | Desert Eagle | Plank               ", Description = "+20% melee damage | +X*5% melee damage | +2 health on melee kill | +X*2 health on melee kill | no slowdown | +X*2% speed", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret | C4 | Classic Pistol | Frying Pan  ", Description = "+X*5% turret stats | +X*5% turret fire rate | +X*10% pulse capacity | +X*5% pulse recharge rate", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
+	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies | Python | Beer Bottle		", Description = "+X*5% headshot damage | +X*4% sniper damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	
 }
 

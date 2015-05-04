@@ -177,12 +177,22 @@ local function DrawContextMenu(x, y, weptype, parent, num)
 				elseif GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].Description then
 					Description = GAMEMODE.HumanWeapons[item].Description
 				end
+				
+				local Equipment = ""				
+				if GAMEMODE.Perks[item] and GAMEMODE.Perks[item].Equipment then
+					Equipment = GAMEMODE.Perks[item].Equipment
+				elseif GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].Equipment then
+					Equipment = GAMEMODE.HumanWeapons[item].Equipment
+				end						
 
 				--Extra info about unlocking items
 				if not MySelf:HasUnlocked(item) then
 					Description = Description .. "\nThis item will be unlocked at a higher level."
 				end
-
+				
+				Description = "Perks: " .. Description
+				Equipment = "Equipment: " .. Equipment .. "                                                             "
+				Description = Equipment .. Description 
 				ItemDescription:SetText(Description)
 			end
 			
@@ -400,12 +410,22 @@ local function DrawClassesContextMenu(x, y, weptype, parent, num)
 				elseif GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].Description then
 					Description = GAMEMODE.HumanWeapons[item].Description
 				end
+				
+				local Equipment = ""				
+				if GAMEMODE.Perks[item] and GAMEMODE.Perks[item].Equipment then
+					Equipment = GAMEMODE.Perks[item].Equipment
+				elseif GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].Equipment then
+					Equipment = GAMEMODE.HumanWeapons[item].Equipment
+				end				
 
 				--Extra info about unlocking items
 				if not MySelf:HasUnlocked(item) then
 					Description = Description .. "\nThis item will be unlocked at a higher level."
 				end
 
+				Description = "Perks: " .. Description
+				Equipment = "Equipment: " .. Equipment .. "                                                             "
+				Description = Equipment .. Description 
 				ItemDescription:SetText(Description)
 			end
 			
@@ -556,13 +576,24 @@ function DrawClassIcon(x, y, ww, hh, wepclass, parent, num, weptype)
 
 		--Set description
 		local item = SlotLabel[num].Item
+		local Description = ""
 		if GAMEMODE.Perks[item] and GAMEMODE.Perks[item].Description then
-			ItemDescription:SetText(GAMEMODE.Perks[item].Description)
+			Description = GAMEMODE.Perks[item].Description
 		elseif GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].Description then
-			ItemDescription:SetText(GAMEMODE.HumanWeapons[item].Description)
+			Description = GAMEMODE.HumanWeapons[item].Description
 		end
 		
-		
+		local Equipment = ""				
+		if GAMEMODE.Perks[item] and GAMEMODE.Perks[item].Equipment then
+			Equipment = GAMEMODE.Perks[item].Equipment
+		elseif GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].Equipment then
+			Equipment = GAMEMODE.HumanWeapons[item].Equipment
+		end			
+
+		Description = "Perks: " .. Description
+		Equipment = "Equipment: " .. Equipment .. "                                                             "
+		Description = Equipment .. Description 
+		ItemDescription:SetText(Description)		
 	end
 
 	SlotLabel[num].OnCursorExited = function () 
@@ -932,10 +963,10 @@ function DrawSelectClass()
 	local SecondColumnWidth = math.Round((TopMenuW - (SlotWidth + 20)) / 2)
 
 	ItemDescriptionPanel = vgui.Create("DFrame")
-	ItemDescriptionPanel:SetSize(SecondColumnWidth, SlotHeight/2)
-	ItemDescriptionPanel:SetPos(TopMenuX + (SlotWidth + 10), TopMenuY+ 100)
+	ItemDescriptionPanel:SetSize(SecondColumnWidth * 1.2, SlotHeight / 1.2)
+	ItemDescriptionPanel:SetPos(TopMenuX + (SlotWidth - 30), TopMenuY+ 90)
 	ItemDescriptionPanel:SetSkin("ZSMG")
-	ItemDescriptionPanel:SetTitle("")
+	ItemDescriptionPanel:SetTitle("PERK DESCRIPTION | X = CURRENT LEVEL")
 	ItemDescriptionPanel:SetDraggable(false)
 	ItemDescriptionPanel:SetSizable(false)
 	ItemDescriptionPanel:SetDraggable(false)
