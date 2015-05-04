@@ -101,10 +101,12 @@ SWEP.TracerName = "AR2Tracer"
 
 SWEP.Primary.Ammo			= "none"
 
-SWEP.Cone 			= 0.064
+SWEP.Cone 			= 0.06
 SWEP.ConeMoving		 = SWEP.Cone *1.3
 SWEP.ConeCrouching 	 = SWEP.Cone *0.90
-
+SWEP.ConeIron 		 = SWEP.Cone *0.95
+SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.9
+SWEP.ConeIronMoving	 = SWEP.ConeMoving *0.9
 
 --SWEP.IronSightsPos = Vector(-2, -4, 1.5)
 --SWEP.IronSightsAng = Vector(0,0,0)
@@ -143,7 +145,7 @@ function SWEP:Think()
 		
 			if self:GetOwner():GetPerk("_engineer") then
 				self.MaxClip = 20 + (20*(10*self:GetOwner():GetRank())/100)
-				self.rechargerate = 0.45 + (0.45*(5*self:GetOwner():GetRank())/100)				
+				self.rechargerate = 0.45 - (0.45*(5*self:GetOwner():GetRank())/100)				
 			end
 			
 			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then
