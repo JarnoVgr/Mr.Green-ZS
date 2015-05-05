@@ -278,10 +278,10 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 		end		
 	end
 	
-	if mOwner:GetPerk() == "_sboost" then
+	if mOwner:GetPerk("_sboost") then
 	fSpeed = fSpeed + (fSpeed*0.15)
 	
-	elseif mOwner:GetPerk() == "_sboost2" then
+	elseif mOwner:GetPerk("_sboost2") then
 	fSpeed = fSpeed + fSpeed*0.05
 	
 	elseif mOwner:GetPerk("_berserker") then
