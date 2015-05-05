@@ -104,11 +104,11 @@ function SWEP:OnDeploy()
     end
 	
 	if self.Owner:GetPerk("_support2") then
-	self.ToHeal = self.ToHeal +(5*(15*self.Owner:GetRank())/100)	
+	self.ToHeal = self.ToHeal +(5*(12*self.Owner:GetRank())/100)	
 	end
 	
 	if self.Owner:GetSuit() == "supportsuit" then
-		self.ToHeal = self.ToHeal + 3
+		self.ToHeal = self.ToHeal + 2
 	end	
 	
 	if self.Weapon.HadFirstDeploy then return end

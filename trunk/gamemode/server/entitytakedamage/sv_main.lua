@@ -33,7 +33,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			if attacker:IsHuman() then
 		    	return true		
 			else
-				dmginfo:ScaleDamage(0.25 - (ent.Nails*0.04) )		
+				dmginfo:ScaleDamage(0.3 - (ent.Nails*0.04) )		
 			end
 
 		else

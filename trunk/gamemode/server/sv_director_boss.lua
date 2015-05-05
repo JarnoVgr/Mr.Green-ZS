@@ -17,7 +17,7 @@ function GM:UnleashBoss()
 
 	
 	-- FOR EXPERIMENTAL ROUND TIME OF 15 MIN TEST
-	if CurTime() < (ROUNDTIME/15)*5 then
+	if CurTime() < (240) then
 		return nil
 	end
 	
