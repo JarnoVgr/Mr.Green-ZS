@@ -96,21 +96,28 @@ end
  
 function SWEP:OnDeploy()
     self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
-
-    --Double amount of nails when having the upgrade   
-   -- if IsValid(self.Owner) and self.Owner:GetPerk("_extranails") and not self.Weapon.HadFirstDeploy then
-     --   self.Weapon.HadFirstDeploy = true
-     --   self:SetClip2(self:Clip2() * 2)
-  --  end
 	
-	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") and not self.Weapon.HadFirstDeploy then
-		self.Weapon.HadFirstDeploy = true	
-		self:SetClip2(self:Clip2()+ self.Owner:GetRank())
-	end
-    
     if SERVER then
         self.Owner._RepairScore = self.Owner._RepairScore or 0
     end
+	
+	if self.Weapon.HadFirstDeplay then return end
+	
+	
+    if IsValid(self.Owner) and self.Owner:GetPerk("_extranails") then
+        self.Weapon.HadFirstDeploy = true
+        self:SetClip2(self:Clip2() * 2)
+ -  end
+	
+	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") then
+		self.Weapon.HadFirstDeploy = true	
+		self:SetClip2(self:Clip2()+ self.Owner:GetRank())
+	end
+	
+	if Owner:GetSuit() == "supportsuit" then
+		self.Weapon.HadFirstDeploy = true	
+		self:SetClip2(self:Clip2()+5)
+	end		
 end
  
 SWEP.NextSwitch = 0
@@ -153,7 +160,7 @@ if SERVER then
 							-- nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+15,1,nail:GetDTInt(1)))
 							
 							if self.Owner:GetPerk("_support2") then
-								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+5+(5*(17*self.Owner:GetRank())/100),1,nail:GetDTInt(1)))					        
+								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+5+(5*(15*self.Owner:GetRank())/100),1,nail:GetDTInt(1)))					        
 							else
 								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+5,1,nail:GetDTInt(1)))                 
                             end

@@ -26,6 +26,8 @@ function ENT:Initialize()
 		if Owner:GetSuit() == "supportsuit" then
 			self.Heal = math.Round(self.Heal + (self.Heal*0.5))
 		end
+		
+		
 	end
 
 	--Health and Max Health

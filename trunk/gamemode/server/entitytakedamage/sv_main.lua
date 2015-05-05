@@ -24,14 +24,14 @@ function GM:EntityTakeDamage(ent, dmginfo)
 	if not ent:IsPlayer() then
 		--Scale damage for Cade Buster item
 		if (attacker:IsPlayer() and attacker:IsZombie() and attacker:HasBought("cadebuster")) or (attacker:GetOwner():IsPlayer() and attacker:GetOwner():HasBought("cadebuster") and attacker:GetOwner():IsZombie()) then  
-			dmginfo:ScaleDamage(2)
+			damage = damage * 2
 		end
 		
 		--Damage nails and check if a nail died
 		if ent:DamageNails(attacker, inflictor, damage, dmginfo) then 
 			--Nails are fine. Let's not damage the prop
-			dmginfo:ScaleDamage(0.4)			
-	    	return true
+			dmginfo:ScaleDamage(0.25)			
+	    	--return true
 		else
 			--Multiply once a nail dies
 			dmginfo:ScaleDamage(4)

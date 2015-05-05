@@ -39,11 +39,9 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		--mVictim:Dismember("HEAD",dmginfo)
 				
 		if mInflictor.IsTurretDmg then
-			skillpoints.AddSkillPoints(mAttacker, 5)
-		elseif mInflictor.IsTurretDmg then
-			skillpoints.AddSkillPoints(mAttacker, 15)
+			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)		
+			skillpoints.AddSkillPoints(mAttacker, 10)
 		end
-	end
 		
 	-- melee	
 	if mVictim:GetAttachment( 1 ) then 
