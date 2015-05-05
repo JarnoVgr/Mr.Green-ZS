@@ -89,10 +89,6 @@ end
 function SWEP:Initialize()
     self.BaseClass.Initialize(self)
 
-	self.ToHeal = 5
-	
-
-	
     self:SetDeploySpeed(1.1)
 
     self.NextNail = 0
@@ -100,6 +96,8 @@ end
  
 function SWEP:OnDeploy()
     self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
+	
+	self.ToHeal = 5
 	
     if SERVER then
         self.Owner._RepairScore = self.Owner._RepairScore or 0

@@ -16,11 +16,11 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Primary.Delay = 0.1
 SWEP.Primary.Reach = 42
-SWEP.Primary.Damage = 5
+SWEP.Primary.Damage = 4
 SWEP.Primary.Duration = 0.4
 
 
-SWEP.Secondary.Damage = 4
+SWEP.Secondary.Damage = 2
 SWEP.Secondary.PounceVelocity = 500
 SWEP.Secondary.PounceReach = 32
 SWEP.Secondary.PounceSize = 8
