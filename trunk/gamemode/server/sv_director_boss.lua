@@ -15,6 +15,12 @@ function GM:UnleashBoss()
 		return nil
 	end]]
 
+	
+	-- FOR EXPERIMENTAL ROUND TIME OF 15 MIN TEST
+	if CurTime() < (ROUNDTIME/15)*5 then
+		return nil
+	end
+	
 	--Set full health on players when in Arena Mode
 	if ARENA_MODE then			
 		for _, pl in pairs(player.GetAll()) do
