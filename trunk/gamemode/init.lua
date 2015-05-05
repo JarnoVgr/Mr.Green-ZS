@@ -249,24 +249,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	-- Weapon walking speed, health, and player human class
 	local fSpeed, fHealth, iClass, fHealthSpeed = mWeapon.WalkSpeed or 200, mOwner:Health(), mOwner:GetHumanClass()
 	
-	if mOwner:GetPerk() == "_sboost" then
-	fSpeed = fSpeed*1.15
-	
-	elseif mOwner:GetPerk() == "_sboost2" then
-		fSpeed = fSpeed*1.05
-	
-	elseif mOwner:GetPerk("_berserker") then
-		local multiplier = (2.5*mOwner:GetRank())/100
-		fSpeed = fSpeed +(fSpeed*multiplier)
-		
-	elseif mOwner:GetPerk("_sharpshooter") then
-		local multiplier = (1*mOwner:GetRank())/100
-		fSpeed = fSpeed +(fSpeed*multiplier)	
-		
-	elseif mOwner:GetPerk("_medic") then
-		local multiplier = (4*mOwner:GetRank())/100
-		fSpeed = fSpeed + (fSpeed*multiplier)	
-	end	
+
 	
 	
 	
@@ -295,7 +278,26 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 		end		
 	end
 	
-
+	if mOwner:GetPerk() == "_sboost" then
+	fSpeed = fSpeed*1.15
+	
+	elseif mOwner:GetPerk() == "_sboost2" then
+		fSpeed = fSpeed*1.05
+	
+	elseif mOwner:GetPerk("_berserker") then
+		local multiplier = (2.5*mOwner:GetRank())/100
+		fSpeed = fSpeed +(fSpeed*multiplier)
+		
+	elseif mOwner:GetPerk("_sharpshooter") then
+		local multiplier = (1*mOwner:GetRank())/100
+		fSpeed = fSpeed +(fSpeed*multiplier)	
+		
+	elseif mOwner:GetPerk("_medic") then
+		local multiplier = (4*mOwner:GetRank())/100
+		fSpeed = fSpeed + (fSpeed*multiplier)	
+	end	
+	
+	
 
 	-- Change speed
 	self:SetPlayerSpeed(mOwner, fSpeed)

@@ -340,7 +340,7 @@ GM.RankUnlocks = {
 
 	--{{HUMAN CLASSES}}--
 	
-	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter"},
+	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter", "_none1", "_none2"},
 
 	[1] = {"_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_headhunter"},
 	
@@ -362,6 +362,11 @@ GM.RankUnlocks = {
 GM.Perks = {
 --RequiresWeapon = What Human Class does the perk require to be shown
 					--[[Slot 1 'equipement perk']]--
+	
+	
+	["_none1"] = {Name = "None", Description = "No Perk.", Slot = 1},	
+	["_none2"] = {Name = "None", Description = "No Perk.", Slot = 2},	
+		
 	
 	--Medic
 	
@@ -432,7 +437,6 @@ GM.Perks = {
 	["_bloodmoney"] = {Name = "Blood Money", Description = "+5SP for melee kills.", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_headhunter"] = {Name = "Head Hunter", Description = "+30% melee damage on heads.", RequiresWeapon = "_berserker", Slot = 2}, --Added by Pufulet
 	["_berserk"] = {Name = "Berserk", Description = "+10% speed while under 40HP.", RequiresWeapon = "_berserker", Slot = 2}, --Done
-	
 	
 	--Engineer
 	
@@ -522,7 +526,10 @@ AMMO_REGENERATE_RATE = 2056744
 WARMUPTIME = 110
 
 -- In seconds, how long humans need to survive.
-ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes
+--ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes
+
+-- EXPERIMENTAL
+ROUNDTIME = (15*60) + WARMUPTIME -- 15 minutes
 
 -- Time in seconds between end round and next map.
 INTERMISSION_TIME = 35

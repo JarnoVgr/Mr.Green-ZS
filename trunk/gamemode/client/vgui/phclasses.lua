@@ -190,10 +190,16 @@ local function DrawContextMenu(x, y, weptype, parent, num)
 					Description = Description .. "\nThis item will be unlocked at a higher level."
 				end
 				
+				if Equipment != "" then
+					Description = Description 
+				else
+					Equipment = "Equipment: " .. Equipment .. "                                                             "
+					Description = Equipment .. Description 			
+				end
+			
 				Description = "Perks: " .. Description
-				Equipment = "Equipment: " .. Equipment .. "                                                             "
-				Description = Equipment .. Description 
 				ItemDescription:SetText(Description)
+				
 			end
 			
 			ItemLabel[item].OnCursorExited = function() 
@@ -423,9 +429,13 @@ local function DrawClassesContextMenu(x, y, weptype, parent, num)
 					Description = Description .. "\nThis item will be unlocked at a higher level."
 				end
 
-				Description = "Perks: " .. Description
-				Equipment = "Equipment: " .. Equipment .. "                                                             "
-				Description = Equipment .. Description 
+				if Equipment != "" then
+					Description = Description 
+				else
+					Equipment = "Equipment: " .. Equipment .. "                                                             "
+					Description = Equipment .. Description 			
+				end
+				
 				ItemDescription:SetText(Description)
 			end
 			
