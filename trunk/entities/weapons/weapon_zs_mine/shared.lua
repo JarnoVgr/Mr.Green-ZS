@@ -154,9 +154,9 @@ local owner = self.Owner
 	end
 		
 	if mines >= 1 then
-		if SERVER then 
-			self.Owner:Message("You must place the mine more away from other mines",1)
-		end
+		--if SERVER then 
+			--self.Owner:Message("You must place the mine more away from other mines",1)
+		--end
 		
 		return
 	end

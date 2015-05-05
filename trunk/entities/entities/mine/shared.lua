@@ -11,6 +11,8 @@ ENT.DetonationTime = 1
 ENT.IgnoreClasses = {4,7}
 ENT.damage = 280
 ENT.radius = 200
+ENT.scan = 1
+ENT.range = 140
 ENT.WarningSound = Sound("weapons/c4/c4_beep1.wav")
 
 util.PrecacheModel("models/Weapons/w_package.mdl")

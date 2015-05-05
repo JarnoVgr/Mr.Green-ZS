@@ -38,7 +38,7 @@ ENT.SpotDistance = 700
 ENT.Damage = 6
 ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {7,9}
-
+ENT.ShotsFired = 0
 ENT.MinimumAimDot = 0.25
 
 local function MyTrueVisible(posa, posb, filter)
@@ -91,9 +91,9 @@ if SERVER then
 		self:SetMaterial(MaterialToApply)]]
 			
 			if self:GetTurretOwner():GetPerk("_turret") then --Class engineer 
-			self.MaxBullets = math.Round(self.MaxBullets*1.8)
-			self.MaxHealth = math.Round(self.MaxHealth*1.8)
-			self.Damage = math.Round(self.Damage*1.5)
+				self.MaxBullets = math.Round(self.MaxBullets*1.5)
+				self.MaxHealth = math.Round(self.MaxHealth*1.5)
+				self.Damage = math.Round(self.Damage*1.5)
 			end
 					
 			if self:GetTurretOwner():GetPerk ("_engineer") then	
@@ -153,7 +153,7 @@ if SERVER then
 		if not IsValid(self.Entity) then
 			return
 		end
-
+		
 		if self:IsActive() then
 
 			if self:IsControlled() then
@@ -168,7 +168,7 @@ if SERVER then
 
 					
 					AngleYaw = math.Clamp(self:WorldToLocalAngles(TargetAngles).y,-60,60)
-					AnglePitch = math.Clamp(self:WorldToLocalAngles(TargetAngles).p,-15,15)
+					AnglePitch = math.Clamp(self:WorldToLocalAngles(TargetAngles).p,-90,90)
 
 					
 					self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),AngleYaw,10))
@@ -186,17 +186,17 @@ if SERVER then
 						
 						if self:CanAttack() then
 							-- double fire rate
-							self.NextShoot = self.NextShoot or ct + 0.065
+							self.NextShoot = self.NextShoot or ct + 0.05
 							if ct > self.NextShoot then
-								self:Shoot()
+								self:Shoot()								
 								self:ResetSequence(self:LookupSequence("fire"))
-								self.NextShoot = ct + 0.065	
+								self.NextShoot = ct + 0.05
 							end
 						else
-							self.NextShoot = self.NextShoot or ct + 0.065
+							self.NextShoot = self.NextShoot or ct + 0.05
 							if ct > self.NextShoot then
 								self:EmitSound("Weapon_Pistol.Empty")
-								self.NextShoot = ct + 0.065	
+								self.NextShoot = ct + 0.05
 							end
 						end	
 						
@@ -206,7 +206,6 @@ if SERVER then
 							--self:SetNWBool("TurretIsAttacking",false)
 						end
 					end
-				
 			else
 				
 				--self:RechargeAmmo(1,self.RechargeDelay)	
@@ -230,7 +229,7 @@ if SERVER then
 						TargetAngles = (self.TargetPos - self:GetAttachment(self:LookupAttachment("eyes")).Pos):Angle() -- Converting vector into angle
 							
 						AngleYaw = math.Clamp(self:WorldToLocalAngles(TargetAngles).y,-60,60)
-						AnglePitch = math.Clamp(self:WorldToLocalAngles(TargetAngles).p,-15,15)
+						AnglePitch = math.Clamp(self:WorldToLocalAngles(TargetAngles).p,-90,90)
 							
 						self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),AngleYaw,10))
 						self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),AnglePitch,7.5))
@@ -250,6 +249,8 @@ if SERVER then
 											self.NextShoot = ct + 0.15	
 										end
 								end
+								
+
 							-- end
 						end
 					else
@@ -272,7 +273,7 @@ if SERVER then
 						-- No zombies, play idle animation
 						self.NextBeep = self.NextBeep or ct + 1	
 						AngleYaw = math.Clamp(math.sin( RealTime()*1.2)*60,-60,60)
-						AnglePitch = math.Clamp(math.sin( RealTime()*0.3)*15,-15,15)
+						AnglePitch = math.Clamp(math.sin( RealTime()*0.3)*90,-90,90)
 						
 						
 						self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),AngleYaw,8))
@@ -300,7 +301,7 @@ if SERVER then
 	end
 
 	function ENT:DefaultPos()
-		return self:GetPos() +self:GetUp() * 55
+		return self:GetPos()-- +self:GetUp() * 60
 	end
 
 	function ENT:ShootPos()
@@ -425,10 +426,19 @@ if SERVER then
 		TURRET.IsTurretDmg = true
 		
 		local bullet = {}
-		bullet.Num = 1
+		
+		if self:IsControlled() then
+			bullet.Spread = Vector(0.02, 0.02, 0.02) 
+			bullet.Num = 2		
+		else
+			bullet.Spread = Vector(0, 0, 0) 
+			bullet.Num = 1				
+		end
+		
+	--	bullet.Num = 1
 		bullet.Src = self:GetShootPos()
 		bullet.Dir = self:GetShootDir()
-		bullet.Spread = Vector(0, 0, 0)  
+	--	bullet.Spread = Vector(0, 0, 0)  
 		bullet.Tracer = 3
 		bullet.Force = 0.05
 		bullet.Damage = self.Damage
@@ -497,6 +507,12 @@ if SERVER then
 			local owner = self:GetTurretOwner()
 			local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
 			if validOwner and activator == owner then
+			
+				--if activator:GetPerk("_remote") then
+				--	activator:SelectWeapon("weapon_zs_tools_remote")
+				--	activator:DropWeapon(activator)
+				--end		
+			
 				local placeWeapon = "weapon_zs_turretplacer"
 				activator:Give(placeWeapon)
 				activator:SelectWeapon(placeWeapon)
@@ -680,9 +696,9 @@ function ENT:IsZombieVisible(pos)
 
 	self.Blocked = false
 
-	if trace2.Hit and IsValid(trace2.Entity) and trace2.Entity:IsPlayer() and trace2.Entity:IsHuman() then
-		self.Blocked = true
-	end
+	--if trace2.Hit and IsValid(trace2.Entity) and trace2.Entity:IsPlayer() and trace2.Entity:IsHuman() then
+	--	self.Blocked = true
+	--end
 
 
 	return visible

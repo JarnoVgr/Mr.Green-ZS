@@ -120,13 +120,13 @@ function GM:OnPlayerRedeem(pl, causer)
 		commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
 		
 		--Engineer stages
-		engineer = {"weapon_zs_pulsepistol","weapon_zs_turretplacer","weapon_zs_mine"}
+		engineer = {"weapon_zs_classic","weapon_zs_melee_fryingpan","weapon_zs_turretplacer","weapon_zs_mine"}
 		
 		--Berserker stages
-		berserker = {"weapon_zs_classic","weapon_zs_melee_plank","weapon_zs_special_vodka"}
+		berserker = {"weapon_zs_deagle","weapon_zs_melee_plank","weapon_zs_special_vodka"}
 		
 		--Sharpshooter stages
-		sharpshooter = {"weapon_zs_musket","weapon_zs_classic","weapon_zs_melee_fryingpan","weapon_zs_tools_supplies"}
+		sharpshooter = {"weapon_zs_python","weapon_zs_melee_beer","weapon_zs_tools_supplies"}
 	
 	--{{ZS HUMAN CLASSES}}--
 		if pl:Team() == TEAM_SURVIVORS then
@@ -158,13 +158,8 @@ function GM:OnPlayerRedeem(pl, causer)
 		
 		if pl:Team() == TEAM_SURVIVORS then		
 			if pl:GetPerk("_engineer") then
-				pl:ChatPrint("You are an Engineer")
-				pl.Loadout = table.Copy(engineer)
-				for k,v in pairs(engineer) do
-					pl:Give(tostring(v))
-				end
-				if pl:GetPerk("_pulsesmg") then
-					pl:Give("weapon_zs_pulsesmg")
+				if pl:GetPerk("_pulsepistol") then
+					pl:Give("weapon_zs_pulsepistol")
 				end
 				if pl:GetPerk("_combat") then
 					pl:SpawnMiniTurret()
@@ -172,6 +167,11 @@ function GM:OnPlayerRedeem(pl, causer)
 				
 				if pl:GetPerk("_remote") then
 					pl:Give("weapon_zs_tools_remote")
+				end			
+				pl:ChatPrint("You are an Engineer")
+				pl.Loadout = table.Copy(engineer)
+				for k,v in pairs(engineer) do
+					pl:Give(tostring(v))
 				end
 				end
 		end
@@ -192,12 +192,12 @@ function GM:OnPlayerRedeem(pl, causer)
 		if pl:Team() == TEAM_SURVIVORS then		
 			if pl:GetPerk("_berserker") then
 				pl:ChatPrint("You are a Berserker")
+				if pl:GetPerk("_slinger") then
+					pl:Give("weapon_zs_melee_hook")
+				end				
 				pl.Loadout = table.Copy(berserker)
 				for k,v in pairs(berserker) do
 					pl:Give(tostring(v))
-				end
-				if pl:GetPerk("_slinger") then
-					pl:Give("weapon_zs_melee_hook")
 				end
 				end
 		end

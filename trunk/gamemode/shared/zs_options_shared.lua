@@ -37,11 +37,11 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 
 -- Movement stuff
 
-SPEED = 180
+SPEED = 190
 SPEED_LIGHT = SPEED - 5
 SPEED_MELEE_LIGHT = SPEED - 5
 SPEED_MELEE = SPEED - 10
-SPEED_MELEE_HEAVY = SPEED - 20
+SPEED_MELEE_HEAVY = SPEED - 25
 SPEED_PISTOL = SPEED - 10
 SPEED_SMG = SPEED - 20
 SPEED_SHOTGUN = SPEED - 25
@@ -66,7 +66,7 @@ FIRSTAPRIL = false
 
 
 --Boss stuff
-BOSS_TOTAL_PLAYERS_REQUIRED = 7
+BOSS_TOTAL_PLAYERS_REQUIRED = 8
 BOSS_CLASS = {11, 20, 10, 13 }
 --BOSS_CLASS = {12} --Seeker
 --BOSS_CLASS = {16} --Lilith
@@ -213,7 +213,7 @@ GM.HumanWeapons = {
 		["weapon_zs_turretplacer"] = { Name = "Turret", DPS = 0, Infliction = 0, Type = "tool1", Description = "Need more fire power? Here you go!"  },
 		  
 		  --Loadout Tools 2
-        ["weapon_zs_tools_remote"] = { Name = "Remote Controller", DPS = 0, Infliction = 0, Type = "tool2" },
+        ["weapon_zs_tools_remote"] = { Name = "Turret Controller", DPS = 0, Infliction = 0, Type = "pistol" },
         ["weapon_zs_tools_torch"] = { Name = "Torch", DPS = 0, Infliction = 0, Type = "tool2", Description = "Fix broken nails to prevent barricades getting broken." },       
         ["weapon_zs_miniturret"] = { Name = "Combat Mini-Turret", DPS = 0, Infliction = 0, Type = "tool2", Description = "CBA to shoot, let your friend here help you with that!"  },
         ["weapon_zs_grenade"]  = { Name = "Grenade", DPS = 8, Infliction = 0, Type = "tool2", Description = "Handheld explosives." },
@@ -346,13 +346,13 @@ GM.RankUnlocks = {
 	
 	[2] = {"_medupgr1","_kevlar","_kevlarsupport","_berserk","_blast","_point","_remote","_comeback2"},
 	
-	[3] = {"_nade","_supportammo","_freeman","_accuracy2"},
+	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_medigun", "_trap"},
 	
 	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
 	[5] = {"_healingnads","_turret","_psychotic"},
 	
-	[6] = {"_combat","_profitable","_psychopath","_ironaim"},
+	[6] = {"_combat","_profitable","_psychopath","_ironaim", "_nitrate"},
 	
 }
 
@@ -377,7 +377,7 @@ GM.Perks = {
 
 	--Support
 	
-	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round, with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
+	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "You get given an extra weapon.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	
@@ -385,22 +385,24 @@ GM.Perks = {
 	--Berserker
 	
 	["_freeman"] = {Name = "Berserker Fury", Description = "20% more damage with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_psychotic"] = {Name = "Psychotic", Description = "+2 health from kills", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_slinger"] = {Name = "Hook Slinger", Description = "Spawn with the Crook'd Hook", RequiresWeapon = "_berserker", Slot = 1}, --Done
+	["_psychotic"] = {Name = "Psychotic", Description = "+2 health from kills.", RequiresWeapon = "_berserker", Slot = 1}, --Done
+	["_slinger"] = {Name = "Hook Slinger", Description = "Spawn with the crooked hook.", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	
 	
 	--Engineer
 	
-	["_pulsesmg"] = {Name = "PulseSMG", Description = "Given the pulse SMG.", RequiresWeapon = "_engineer", Slot = 1},	--Done
-	["_combat"] = {Name = "Combat Turret", Description = "Given the Combat turret.", RequiresWeapon = "_engineer", Slot = 1},	--Done
-	["_mine"] = {Name = "Multi Mine", Description = "Place up to 10 mines on the floor! ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 1}, --Done
-	["_turret"] = {Name = "Turret Overload", Description = "+50% attack rate for turret.",RequiresWeapon = "_engineer", Material = "VGUI/gfx/VGUI/defuser", Slot = 1}, --Done
+	["_turret"] = {Name = "Turret Overload", Description = "+50% turret stats.",RequiresWeapon = "_engineer", Material = "VGUI/gfx/VGUI/defuser", Slot = 1}, --Done
+	["_nitrate"] = {Name = "Nitrate Stuffed", Description = "+40% C4 explosion radius. 2 second fuse time instead of 1. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done	
+	["_trap"] = {Name = "Trap Engineered", Description = "+40% C4 damage. 90 proximity distance instead of 140. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done		
+	["_pulsepistol"] = {Name = "Pulse Pistol", Description = "Gives the pulse pistol.", RequiresWeapon = "_engineer", Slot = 1},	--Done
+	["_combat"] = {Name = "Combat Turret", Description = "Gives the Combat turret.", RequiresWeapon = "_engineer", Slot = 1},	--Done	
+	["_remote"] = {Name = "Turret Remote", Description = " [REPLACES SECONDARY] Control the turret with this gadget! Your turret shoots 2 bullets for the cost of 1!", RequiresWeapon = "_engineer", Slot = 1}, -- Done	
 	
 	--Sharpshooter
 	
-	["_lethal"] = {Name = "Lethal Start", Description = "Given the scout sniper rifle.", RequiresWeapon = "_sharpshooter", Slot = 1}, --Done
+	["_lethal"] = {Name = "Lethal Start", Description = "Gives the scout sniper rifle.", RequiresWeapon = "_sharpshooter", Slot = 1}, --Done
 	["_accuracy2"] = {Name = "Excellent Accuracy", Description = "No recoil from shooting weapons while aiming or crouching.", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
-	["_highcal"] = {Name = "High Calibre Profit", Description = "Greater bullet Knockback.", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
+	["_highcal"] = {Name = "High Calibre Profit", Description = "Greater bullet knock back.", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
 	
 
 					--[[Slot 2 'personal perk']]--
@@ -415,14 +417,14 @@ GM.Perks = {
 	
 	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more HP.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2}, --Done
 	["_kevlar2"] = {Name = "Healthy Appetite", Description = "Give 50 extra initial HP.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2}, --Done
-	["_profitable"] = {Name = "Profitable", Description = "An extra 15sp from kills.", RequiresWeapon = "_commando", Slot = 2}, --Done
+	["_profitable"] = {Name = "Lead Market", Description = "+5 SP from kills.", RequiresWeapon = "_commando", Slot = 2}, --Done
 	["_comeback2"] = {Name = "Bring The Pain", Description = "Redeem with a Famas or SG552", RequiresWeapon = "_commando", Slot = 2},
 	
 	--Support
 	
 	["_horse"] = {Name = "Health Regenerate", Description = "If you take damage after 60 seconds you will regain the HP!", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "An extra 50HP!", RequiresWeapon = "_support2", Slot = 2}, --Done
-	["_psychopath"] = {Name = "Regenerative Nature", Description = "Regen health like a monster!", RequiresWeapon = "_support2", Slot = 2}, --Done
+	["_psychopath"] = {Name = "Regenerative Nature", Description = "Regain health like a monster!", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_reload"] = {Name = "Action Reload", Description = "Reload bullets twice as quickly in shotguns!", RequiresWeapon = "_support2", Slot = 2}, --Done
 	
 	--Berserker
@@ -435,12 +437,13 @@ GM.Perks = {
 	--Engineer
 	
 	--["_pulsecash"] = {Name = "Pulse Cash", Description = "+5sp from turret kills.", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
-	["_blast"] = {Name = "Blast Proof", Description = "+20% explosive damage increase and range.", RequiresWeapon = "_engineer", Slot = 2}, --Done
-	["_sboost"] = {Name = "Get To The Chopper", Description = "15% increase in walking speed.", RequiresWeapon = "_engineer", Slot = 2}, --Done
-	["_remote"] = {Name = "Turret Remote", Description = "Gives you the turret remote 'Requires turret'", RequiresWeapon = "_engineer", Slot = 2}, -- Done
+	["_blast"] = {Name = "Blast Proof", Description = "+40% resistance to explosives", RequiresWeapon = "_engineer", Slot = 2}, --Done
+	["_mine"] = {Name = "Multi C4", Description = "Place up to 10 C4 on the floor instead of 5! ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 2}, --Done	
+	["_sboost"] = {Name = "Get to the chopper!", Description = "+15% running speed.", RequiresWeapon = "_engineer", Slot = 2}, --Done
+
 	
 	--Sharpshooter
-	["_kevlar2"] = {Name = "Refined Kevlar", Description = "Gives you 50 more initial HP.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
+	["_kevlar2"] = {Name = "Refined Kevlar", Description = "+50 initial health.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	["_point"] = {Name = "Take Point", Description = "15% Crouch speed increase, you take less fall damage and also don't down.", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	

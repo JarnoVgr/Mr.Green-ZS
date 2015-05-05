@@ -18,7 +18,14 @@ function ENT:Initialize()
 	self.Entity:SetTrigger(true)
 	self.Entity.Frozen = true
 	
+	if self:GetOwner():GetPerk("_nitrate") then
+		self.scan = 2
+	end
 
+	if self:GetOwner():GetPerk("_trap") then
+		self.range = 90
+	end
+	
 	local phys = self.Entity:GetPhysicsObject()
 	phys:EnableMotion( false )
 	
@@ -67,8 +74,8 @@ function ENT:Think()
 		local fDistance = v:GetPos():Distance( self:GetPos() )
 
 		--Check for conditions
-		if v:IsPlayer() and not v:IsHuman() and v:Alive() and not table.HasValue(self.IgnoreClasses, v:GetZombieClass()) and fDistance < 140 then		
-		local vPos, vEnd = self:GetPos(), self:GetPos() + ( self:GetPos() * 140 )
+		if v:IsPlayer() and not v:IsHuman() and v:Alive() and not table.HasValue(self.IgnoreClasses, v:GetZombieClass()) and fDistance < self.range then		
+		local vPos, vEnd = self:GetPos(), self:GetPos() + ( self:GetPos() * self.range )
 		local Trace = util.TraceLine ( { start = vPos, endpos = v:LocalToWorld( v:OBBCenter() ), filter = self, mask = MASK_SOLID } )
 			
 		-- Exploit trace
@@ -82,7 +89,7 @@ function ENT:Think()
 
 	end	
 	
-	self:NextThink(CurTime() + 1)
+	self:NextThink(CurTime() + self.scan)
 end
 
 function ENT:Explode()
@@ -108,6 +115,14 @@ function ENT:Explode()
 		self.damage = self.damage + (self.damage*(3*self:GetOwner():GetRank())/100)
 		self.radius = self.radius + (self.radius*(3*self:GetOwner():GetRank())/100)		
 	end
+	
+	if self:GetOwner():GetPerk("_nitrate") then
+		self.radius = self.radius + (self.radius*0.4)		
+	end
+	
+	if self:GetOwner():GetPerk("_trap") then
+		self.damage = self.damage + (self.damage*0.3)		
+	end	
 	
 	Ent:SetKeyValue( "iMagnitude", self.damage ) --180 -- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )
 	Ent:SetKeyValue( "iRadiusOverride", self.radius )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )

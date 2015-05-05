@@ -207,7 +207,12 @@ function ENT:Explode()
 		if IsEntityVisible ( v, vPos + Vector ( 0,0,3 ), Filter ) then
 			table.insert( Filter, v )
 			local fDistance = self:GetPos():Distance( v:GetPos() )
-			v:TakeDamage ( math.Clamp ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 37,0, 47 ), self.ZombieOwner, mOwnerWeapon )
+			
+			if v:GetPerk("_blast") then
+				v:TakeDamage ( math.Clamp ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 30,0, 50 ), self.ZombieOwner, mOwnerWeapon )
+			else
+				v:TakeDamage ( math.Clamp ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 37,0, 100 ), self.ZombieOwner, mOwnerWeapon )
+			end			
 		end
 	end
 	

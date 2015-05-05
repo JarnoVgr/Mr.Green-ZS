@@ -47,10 +47,18 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		return true
 	--Scale down own AR2 grenades (grenade launcher) shots
 	elseif (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
-		dmginfo:ScaleDamage(0.5)
+		if pl:GetPerk("_blast") then
+			dmginfo:ScaleDamage(0.4)	
+		else
+			dmginfo:ScaleDamage(0.8)
+		end
 	--Scale down explosion damage if it's the owner
 	elseif (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) then
-		dmginfo:ScaleDamage(0.8)
+		if pl:GetPerk("_blast") then
+			dmginfo:ScaleDamage(0.4)	
+		else
+			dmginfo:ScaleDamage(0.8)
+		end
 	--Turret damage
 	elseif attacker:GetClass() == "zs_turret" then
 		if pl:IsHuman() then
@@ -122,7 +130,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
-				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),75,math.random(95,105))				
+				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),70,math.random(95,105))				
 				if dmginfo:IsBulletDamage() then
 					dmginfo:SetDamage(dmginfo:GetDamage() * 1.2)
 				elseif dmginfo:IsBulletDamage() and attacker:GetPerk ("_sharpshooter") then

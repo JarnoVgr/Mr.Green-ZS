@@ -49,7 +49,7 @@ SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "CombineCannon"
 SWEP.Secondary.Delay = 0.15
 
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = 175
 
 function SWEP:InitializeClientsideModels()
 	
@@ -193,10 +193,13 @@ if SERVER then
 			if self and self:IsValid() then
 				DropWeapon(self.Owner)
 			end
-		end
-		
-	end
+		end		
+	end	
 end
+	
+	--if self:GetOwner():GetPerk("_remote") then
+	--	self:GetOwner():Give("weapon_zs_tools_remote")
+	--end			
 	
 end
 	

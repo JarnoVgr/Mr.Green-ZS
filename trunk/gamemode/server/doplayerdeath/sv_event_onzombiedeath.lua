@@ -98,16 +98,12 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 					reward = reward * math.Clamp(INFLICTION + 0.2,0.1,1.1)
 				end
 
-				if mAttacker:GetPerk("_commando") then --Double checker, just in case..
-					if mAttacker:GetPerk("_profitable") then
-				skillpoints.AddSkillPoints(mAttacker,reward/1.3)
-				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-				mVictim:FloatingTextEffect(reward/1.3, mAttacker)
+				if mAttacker:GetPerk("_profitable") then
+					skillpoints.AddSkillPoints(mAttacker,5)
+					--mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty) no extra xp.
+					mVictim:FloatingTextEffect(5, mAttacker)
 				end
-				else 
-				--skillpoints.AddSkillPoints(mAttacker,reward)
-				--mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-				--mVictim:FloatingTextEffect(reward, mAttacker)
+
 			end
 				skillpoints.AddSkillPoints(mAttacker,reward)
 				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
