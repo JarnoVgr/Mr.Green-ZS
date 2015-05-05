@@ -417,6 +417,28 @@ local function AdminSay(pl, text, teamonly)
 		for k,pl in pairs (player.GetAll()) do
 			pl:CustomChatPrint( {nil, Color(255,15,15),text} )
 		end
+		
+	elseif (text:sub(1,10) == "!pufuisgay") then
+		text = string.gsub(text,"!pufuisgay","")
+		for k,pl in pairs (player.GetAll()) do
+			pl:CustomChatPrint( {nil, Color(0,15,225),text} )
+			timer.Simple(3, function()
+				pl:CustomChatPrint( {nil, Color(225,15,0),text} )
+				pl:Message("Pufulet Is Gay¬!")
+			end)
+			timer.Simple(6, function()
+				pl:CustomChatPrint( {nil, Color(0,225,0),text} )
+				pl:Message("Pufulet Is Gay¬!")
+			end)
+			timer.Simple(9, function()
+				pl:CustomChatPrint( {nil, Color(0,15,225),text} )
+				pl:Message("Pufulet Is Gay¬!")
+			end)
+			timer.Simple(12, function()
+				pl:CustomChatPrint( {nil, Color(0,225,0),text} )
+				pl:Message("Pufulet Is Gay¬!")
+			end)
+		end	
 	
 		return ""
 	end
