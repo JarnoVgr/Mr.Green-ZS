@@ -949,9 +949,10 @@ function CalculateZombieHealth(pl)
 		local numPlayers = #allPlayers
 
 		local desiredzombies = math.max(1, math.ceil(numPlayers * UNDEAD_START_AMOUNT_PERCENTAGE))
-		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies+1) and team.NumPlayers(TEAM_HUMAN) >= 4) then
+		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies) and team.NumPlayers(TEAM_HUMAN) >= 6) then
 			local IncreaseHealth = (Tab.Health * UNDEAD_START_AMOUNT_PERCENTAGE) * (team.NumPlayers(TEAM_HUMAN) / 4)
-			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, Tab.Health*1.4)
+			MaxHealth = math.Clamp(Tab.Health + IncreaseHealth, Tab.Health, Tab.Health*1.5)
+			MaxHealth = MaxHealth * 1.325
 		end
 	end
 	MaxHealth = math.Round(MaxHealth)
