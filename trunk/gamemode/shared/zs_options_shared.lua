@@ -346,7 +346,7 @@ GM.RankUnlocks = {
 	
 	[2] = {"_medupgr1","_kevlar","_kevlarsupport","_berserk","_blast","_point","_remote","_comeback2"},
 	
-	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_medigun", "_trap"},
+	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap"},
 	
 	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
 	

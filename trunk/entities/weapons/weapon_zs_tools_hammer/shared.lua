@@ -50,7 +50,7 @@ SWEP.Primary.Damage = 25
 --SWEP.Primary.DefaultClip = 30
 SWEP.Primary.Automatic = true
 
-SWEP.Primary.Delay = 0.8
+SWEP.Primary.Delay = 0.9
 
 SWEP.Secondary.ClipSize = 5
 SWEP.Secondary.DefaultClip = 5
@@ -61,17 +61,17 @@ SWEP.Secondary.Ammo = "none"
 SWEP.WalkSpeed = SPEED_MELEE_LIGHT
 SWEP.HoldType = "melee"
  
-SWEP.MeleeDamage = 25
-SWEP.MeleeRange = 50
+SWEP.MeleeDamage = 27
+SWEP.MeleeRange = 52
 SWEP.MeleeSize = 0.875
-
+SWEP.ToHeal = 5
  
 SWEP.UseMelee1 = true
  
 SWEP.HitGesture = ACT_HL2MP_GESTURE_RANGE_ATTACK_MELEE
 SWEP.MissGesture = SWEP.HitGesture
  
-SWEP.SwingTime = 0.25
+SWEP.SwingTime = 0.3
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingOffset = Vector(0, -30, 0)
 SWEP.SwingHoldType = "grenade"
@@ -89,6 +89,16 @@ end
 function SWEP:Initialize()
     self.BaseClass.Initialize(self)
 
+	self.ToHeal = 5
+	
+	if self.Owner:GetPerk("_support2") then
+	self.ToHeal = self.ToHeal +(5*(15*self.Owner:GetRank())/100)	
+	end
+	
+	if self.Owner:GetSuit() == "supportsuit" then
+		self.ToHeal = self.ToHeal + 3
+	end
+	
     self:SetDeploySpeed(1.1)
 
     self.NextNail = 0
@@ -111,10 +121,10 @@ function SWEP:OnDeploy()
 	
 	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") then
 		self.Weapon.HadFirstDeploy = true	
-		self:SetClip2(self:Clip2()+ self.Owner:GetRank())
+		self:SetClip2(self:Clip2()+ self.Owner:GetRank() + 1)
 	end
 	
-	if Owner:GetSuit() == "supportsuit" then
+	if IsValid(self.Owner) and Owner:GetSuit() == "supportsuit" then
 		self.Weapon.HadFirstDeploy = true	
 		self:SetClip2(self:Clip2()+5)
 	end		
@@ -158,14 +168,9 @@ if SERVER then
 							--else if 								
 							-- if self.Owner:GetPerk("_trchregen") then                                                           
 							-- nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+15,1,nail:GetDTInt(1)))
-							
-							if self.Owner:GetPerk("_support2") then
-								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+5+(5*(15*self.Owner:GetRank())/100),1,nail:GetDTInt(1)))					        
-							else
-								nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+5,1,nail:GetDTInt(1)))                 
-                            end
-							
-							
+
+							nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+self.ToHeal,1,nail:GetDTInt(1)))					        
+
                             local pos = tr.HitPos
                             local norm = tr.HitNormal
         

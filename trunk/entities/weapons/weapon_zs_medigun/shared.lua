@@ -48,7 +48,7 @@ SWEP.WorldModel = "models/weapons/w_smg_tmp.mdl"
 
 SWEP.Base = "weapon_zs_base"
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 1
+SWEP.Primary.Recoil			= 1.5
 SWEP.Primary.Damage			= 18
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 20
@@ -78,7 +78,7 @@ function SWEP:OnInitialize()
 end
 
 function SWEP:EmitFireSound()
-	self:EmitSound(self.Primary.Sound, 80, math.random(140,150))
+	self:EmitSound(self.Primary.Sound, 80, math.random(130,135))
 end
 
 function SWEP:Think()
@@ -227,13 +227,15 @@ function SWEP:Equip ( NewOwner )
 	if CLIENT then return end
 	
 	if self.Weapon.FirstSpawn then
-		self.Weapon.FirstSpawn = false
+
 		if NewOwner:GetPerk("_medupgr2") then
 			NewOwner:GiveAmmo( 70, self:GetSecondaryAmmoTypeString() )
+			self.Weapon.FirstSpawn = false		
 		end
 		
 		if NewOwner:GetPerk("_medic") then
-			NewOwner:GiveAmmo(self.Owner:GetRank()*15, self:GetPrimaryAmmoTypeString())		
+			NewOwner:GiveAmmo(self.Owner:GetRank()*15, self:GetPrimaryAmmoTypeString())
+			self.Weapon.FirstSpawn = false
 		end			
 	else
 		--if self.Ammunition then
