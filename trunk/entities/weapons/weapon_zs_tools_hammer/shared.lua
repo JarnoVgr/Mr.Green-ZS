@@ -101,7 +101,7 @@ function SWEP:OnDeploy()
         self.Owner._RepairScore = self.Owner._RepairScore or 0
     end
 	
-	if self.Weapon.HadFirstDeplay then return end
+	if self.Weapon.HadFirstDeploy then return end
 	
 	
     if IsValid(self.Owner) and self.Owner:GetPerk("_extranails") then
