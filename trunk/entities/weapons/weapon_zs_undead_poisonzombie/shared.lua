@@ -15,7 +15,7 @@ SWEP.ViewModel = Model("models/weapons/v_pza.mdl")
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
 SWEP.Primary.Delay = 0.8
-SWEP.Primary.Reach = 55
+SWEP.Primary.Reach = 50
 SWEP.Primary.Duration = 1.8
 SWEP.Primary.Damage = 40
 
@@ -44,6 +44,8 @@ function SWEP:StartPrimaryAttack()
 		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
 	end
 	self.SwapAnims = not self.SwapAnims
+		
+	self.Owner:SetAnimation(PLAYER_ATTACK1)		
 	
 	--Set the thirdperson animation and emit zombie attack sound
 	--self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
@@ -60,13 +62,8 @@ function SWEP:StartPrimaryAttack()
 end
 
 function SWEP:PostPerformPrimaryAttack(hit)
-	if CLIENT then
-	
-		self.Owner:SetAnimation(PLAYER_ATTACK1)	
-		return
-	end
-	
-	
+
+	self.Owner:SetAnimation(PLAYER_ATTACK1)	
 
 	if hit then
 		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav"))
@@ -83,7 +80,7 @@ function SWEP:StartSecondaryAttack()
 		return
 	end
 	
-	self.Owner:SetAnimation(PLAYER_ATTACK1)
+
 			
 	if SERVER then
 		pl:EmitSound(Sound("npc/zombie_poison/pz_throw".. math.random(2,3) ..".wav"))
