@@ -107,7 +107,7 @@ function SWEP:OnDeploy()
     if IsValid(self.Owner) and self.Owner:GetPerk("_extranails") then
         self.Weapon.HadFirstDeploy = true
         self:SetClip2(self:Clip2() * 2)
- -  end
+	end
 	
 	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") then
 		self.Weapon.HadFirstDeploy = true	
