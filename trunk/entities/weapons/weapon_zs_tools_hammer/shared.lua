@@ -91,13 +91,7 @@ function SWEP:Initialize()
 
 	self.ToHeal = 5
 	
-	if self.Owner:GetPerk("_support2") then
-	self.ToHeal = self.ToHeal +(5*(15*self.Owner:GetRank())/100)	
-	end
-	
-	if self.Owner:GetSuit() == "supportsuit" then
-		self.ToHeal = self.ToHeal + 3
-	end
+
 	
     self:SetDeploySpeed(1.1)
 
@@ -110,6 +104,14 @@ function SWEP:OnDeploy()
     if SERVER then
         self.Owner._RepairScore = self.Owner._RepairScore or 0
     end
+	
+	if self.Owner:GetPerk("_support2") then
+	self.ToHeal = self.ToHeal +(5*(15*self.Owner:GetRank())/100)	
+	end
+	
+	if self.Owner:GetSuit() == "supportsuit" then
+		self.ToHeal = self.ToHeal + 3
+	end	
 	
 	if self.Weapon.HadFirstDeploy then return end
 	
@@ -124,7 +126,7 @@ function SWEP:OnDeploy()
 		self:SetClip2(self:Clip2()+ self.Owner:GetRank() + 1)
 	end
 	
-	if IsValid(self.Owner) and Owner:GetSuit() == "supportsuit" then
+	if IsValid(self.Owner) and self.Owner:GetSuit() == "supportsuit" then
 		self.Weapon.HadFirstDeploy = true	
 		self:SetClip2(self:Clip2()+5)
 	end		
