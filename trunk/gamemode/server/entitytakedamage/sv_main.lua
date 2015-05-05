@@ -33,12 +33,12 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			if attacker:IsHuman() then
 		    	return true		
 			else
-				dmginfo:ScaleDamage(0.25)		
+				dmginfo:ScaleDamage(0.25 - (ent.Nails*0.04) )		
 			end
 
 		else
 			--Multiply once a nail dies
-			dmginfo:ScaleDamage(4)
+			dmginfo:ScaleDamage(1.25)
 		end
 		
 		local entclass = ent:GetClass()
