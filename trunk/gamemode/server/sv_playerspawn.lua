@@ -862,8 +862,8 @@ function CalculatePlayerLoadout(pl)
 	--Arena gives a primary gun
 	if GAMEMODE:GetGameMode() == GAMEMODE_ARENA then
 	pl:ChatPrint("ARENA MODE activated!")
-		local RandomWeapon = table.Random(GAMEMODE.ArenaWeapons)
-		pl:Give(RandomWeapon)
+		--local RandomWeapon = table.Random(GAMEMODE.ArenaWeapons)
+		--pl:Give(RandomWeapon)
 		--SelectWeapon = RandomWeapon
 		
 		pl:GiveAmmo(6500, "ar2", false)
