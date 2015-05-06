@@ -388,7 +388,7 @@ function SWEP:DoBulletKnockback()
 		if self.Owner:GetPerk("_highcal") then
 		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.1 + prevvel)
 		end
-		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.025 + prevvel)
+		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.0125 + prevvel)
 	end
 end
 

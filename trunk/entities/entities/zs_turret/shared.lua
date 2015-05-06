@@ -383,7 +383,7 @@ if SERVER then
 	function ENT:DoBulletKnockback()
 		for ent, prevvel in pairs(tempknockback) do
 			local curvel = ent:GetVelocity()
-			ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.005 + prevvel)
+			--ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.005 + prevvel)
 		end
 	end
 
@@ -440,7 +440,7 @@ if SERVER then
 		bullet.Dir = self:GetShootDir()
 	--	bullet.Spread = Vector(0, 0, 0)  
 		bullet.Tracer = 3
-		bullet.Force = 0.05
+		bullet.Force = 0
 		bullet.Damage = self.Damage
 		bullet.TracerName = "AR2Tracer"
 		bullet.Callback = BulletCallback

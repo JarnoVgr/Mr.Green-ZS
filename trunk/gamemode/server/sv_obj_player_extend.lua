@@ -1171,9 +1171,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		end
 		
 		bNailDied = true
-		
-		ent:SetHealth(ent:Health() - ((damage)/#ent.Nails))
-
+	
 		--????
 		local findcons = nail.constraint
 		local numcons = 0
