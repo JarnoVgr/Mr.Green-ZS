@@ -58,7 +58,7 @@ SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound 			= Sound("Weapon_Shotgun.Single")
 SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 12
+SWEP.Primary.Damage			= 11
 SWEP.Primary.NumShots		= 6
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.75
@@ -70,9 +70,9 @@ SWEP.MaxAmmo			    = 70
 SWEP.IsShotgun = true
  
 
-SWEP.Cone  = 0.11
+SWEP.Cone  = 0.105
 SWEP.ConeMoving = SWEP.Cone *1.15
-SWEP.ConeCrouching = SWEP.Cone *0.95
+SWEP.ConeCrouching = SWEP.Cone *0.90
 
 SWEP.WalkSpeed = SPEED_SHOTGUN
 
@@ -83,7 +83,7 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.OverridePos = Vector(2.839, -4.591, 2)
 SWEP.OverrideAng = Vector( 0,0,0 )
 
-SWEP.ReloadDelay = 0.47
+SWEP.ReloadDelay = 0.45
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0

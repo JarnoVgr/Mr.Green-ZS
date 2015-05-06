@@ -42,7 +42,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_Galil.Single")
 SWEP.Primary.Recoil			= 1.3
-SWEP.Primary.Damage			= 20
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 30
 SWEP.storeclipsize			= 30
