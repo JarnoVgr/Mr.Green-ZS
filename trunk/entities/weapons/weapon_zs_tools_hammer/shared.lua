@@ -184,9 +184,13 @@ if SERVER then
                             --self:TakePrimaryAmmo(1)
 
                             --if self.Owner._RepairScore == 1 then
-							skillpoints.AddSkillPoints(self.Owner, 1)
-							nail:FloatingTextEffect( 1, self.Owner )
-							self.Owner:AddXP(self.ToHeal)
+							
+							if not trent._LastAttackerIsHuman then
+								skillpoints.AddSkillPoints(self.Owner, 1)
+								nail:FloatingTextEffect( 1, self.Owner )
+								self.Owner:AddXP(self.ToHeal)
+							end
+							
 							self.Owner._RepairScore = 0
 								
 								
