@@ -253,10 +253,10 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	
 	
 	
-	fHealthSpeed = math.Clamp ( ( fHealth / 40 ), 0.6, 1 )
+	fHealthSpeed = math.Clamp ( ( fHealth / 40 ), 0.75, 1 )
 	
 	if bIron then
-		fSpeed = math.Round ( ( fSpeed * 0.6 ) * fHealthSpeed )
+		fSpeed = math.Round ( ( fSpeed * 0.75 ) * fHealthSpeed )
 	else
 		if mOwner:IsHolding() then
 			local status = mOwner.status_human_holding
@@ -291,7 +291,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 		fSpeed = fSpeed +(fSpeed*multiplier)
 		
 	elseif mOwner:GetPerk("_commando") then
-		fSpeed = fSpeed - 15	
+		fSpeed = fSpeed - 10	
 
 	elseif mOwner:GetPerk("_support") then
 		fSpeed = fSpeed - 10		
