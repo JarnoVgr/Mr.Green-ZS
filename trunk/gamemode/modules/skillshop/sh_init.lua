@@ -80,4 +80,12 @@ GM.SkillShopAmmo = {
 		ToolTab = true
 	},
 	
+	["Battery"] = {
+		Name = "Mogadonskoda's Used Dildo",
+		Model = "models/Items/BoxBuckshot.mdl",
+		Amount = 1,
+		Price = 10000,
+		ToolTab = true
+	},
+	
 }
