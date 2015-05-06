@@ -119,7 +119,7 @@ function SWEP:PerformSecondaryAttack()
 	aimvec.z = math.max(aimvec.z, -0.7)
 	
 	
-	for i=1, 10 do
+	for i=1, 12 do
 		local ent = ents.Create("projectile_poisonpuke")
 		if ent:IsValid() then
 			local heading = (aimvec + VectorRand() * 0.25):GetNormal()
