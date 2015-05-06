@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.PrintName = "TMP SMG"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 0
-	SWEP.ViewModelFOV = 60
+	SWEP.ViewModelFOV = 60	
 	SWEP.SlotPos = 19
 	SWEP.IconLetter = "d"
 	killicon.AddFont("weapon_zs_tmp", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))

@@ -114,7 +114,7 @@ function SWEP:Think()
 						mOwner:SetLocalVelocity( Vector( 0,0,0 ) )
 						mOwner:SetVelocity( Velocity )
 					else
-						ent:TakeDamage(25, mOwner)
+						ent:TakeDamage(5, mOwner)
 					end
 					self.Leaping = false
 				end
@@ -252,7 +252,7 @@ function SWEP:ActualSpit()
 						Spit:Spawn()
 						
 						-- Apply velocity
-						local Vel = mOwner:GetAimVector() * 1750
+						local Vel = mOwner:GetAimVector() * 2500
 						local phys = Spit:GetPhysicsObject()
 						if phys:IsValid() then
 							if Vel.Z > 0 and Vel.Z < 150 then Vel.Z = 250 end
