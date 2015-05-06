@@ -47,42 +47,6 @@ end
 
 meta.OldSetModelScale = meta.SetModelScale
 
---[[function meta:SetModelScale(sz,time)
-	
-	if SERVER then
-		if self:IsPlayer() then
-			net.Start("UpdateModelScale")
-				net.WriteDouble(sz)
-				net.WriteEntity(self)
-			net.Broadcast()
-		else
-			self:OldSetModelScale(sz,time)
-		end
-	else
-		self:OldSetModelScale(sz,time)
-	end
-	
-end]]
-
--- Check if the entity is on the ground
---[==[function meta:IsOnGround()
-	local trLine = util.TraceLine( { start = self:LocalToWorld( self:OBBMins() ), endpos = self:LocalToWorld( self:OBBMins() ) - Vector( 0,0,1000 ), filter = ents.GetAll() } )
-	
-	-- Is on the ground
-	if trLine.HitWorld then 
-		if self:LocalToWorld( self:OBBMins() ):Distance( trLine.HitPos ) < 20 then
-			return true
-		end
-		
-		-- Started as solid
-		if trLine.StartSolid then
-			return true
-		end
-	end
-	
-	return false
-end]==]
-
 function meta:TakeSpecialDamage(damage, damagetype, attacker, inflictor, hitpos)
 	attacker = attacker or self
 	if not attacker:IsValid() then attacker = self end

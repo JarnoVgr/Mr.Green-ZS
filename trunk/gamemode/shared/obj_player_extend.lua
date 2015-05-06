@@ -121,6 +121,117 @@ function meta:IsHuman()
 	return self:Team() == TEAM_HUMAN
 end
 
+--Check their Human class
+function meta:IsHumanClass()
+	if self:Team() ~= TEAM_HUMAN then
+		return
+	end
+		
+		--Medic Stages
+		medicstage1 = {"weapon_zs_p228","weapon_zs_melee_combatknife","weapon_zs_medkit"}
+		
+		--Support stages
+		support = {"weapon_zs_usp","weapon_zs_tools_plank","weapon_zs_tools_hammer"}
+		
+		--Commando stages
+		commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
+		
+		--Engineer stages
+		engineer = {"weapon_zs_classic", "weapon_zs_melee_fryingpan","weapon_zs_turretplacer","weapon_zs_mine"}
+		
+		--Berserker stages
+		berserker = {"weapon_zs_deagle","weapon_zs_melee_plank","weapon_zs_special_vodka"}
+		
+		--Sharpshooter stages
+		sharpshooter = {"weapon_zs_python","weapon_zs_melee_beer","weapon_zs_tools_supplies"}
+	
+	--{{ZS HUMAN CLASSES}}--
+
+			if self:GetPerk("_medic") then
+				self:ChatPrint("You are a Medic")
+
+				for k,v in pairs(medicstage1) do
+					self:Give(tostring(v))
+				end
+					if self:GetPerk("_medigun") then --Medical gun perk
+						self:Give("weapon_zs_medigun")
+					end
+				end			
+
+		
+
+			if self:GetPerk("_support2") then
+				self.Loadout = table.Copy(support)
+				self:ChatPrint("You are a Support")
+				for k,v in pairs(support) do
+					self:Give(tostring(v))
+				end	
+				if self:GetPerk("_supportweapon") then --Medical gun perk
+						self:Give("weapon_zs_chipper")
+					end
+				
+				end	
+				
+			if self:GetPerk("_engineer") then
+				self:ChatPrint("You are an Engineer")
+					if self:GetPerk("_pulsepistol") then
+						self:Give("weapon_zs_pulsepistol")
+					end		
+					if self:GetPerk("_remote") then
+						self:Give("weapon_zs_tools_remote")
+					end				
+					self.Loadout = table.Copy(engineer)
+					for k,v in pairs(engineer) do
+						self:Give(tostring(v))
+					end
+					if self:GetPerk("_combat") then
+						self:SpawnMiniTurret()
+					end
+				end
+
+		
+	
+			if self:GetPerk("_commando") then
+				self:ChatPrint("You are a Commando")
+				self.Loadout = table.Copy(commando)
+				for k,v in pairs(commando) do
+					self:Give(tostring(v))				
+				end		
+				if self:GetPerk("_arsanal") then
+						self:Give("weapon_zs_defender")
+					end		
+				end
+			
+			if self:GetPerk("_berserker") then
+				self:ChatPrint("You are a Berserker")
+				if self:GetPerk("_slinger") then
+					self:Give("weapon_zs_melee_hook")
+				end				
+				self.Loadout = table.Copy(berserker)
+				for k,v in pairs(berserker) do
+					self:Give(tostring(v))
+				end
+			end
+
+			
+			if self:GetPerk("_sharpshooter") then
+				self:ChatPrint("You are a Sharpshooter")
+				self.Loadout = table.Copy(sharpshooter)
+				for k,v in pairs(sharpshooter) do
+					self:Give(tostring(v))
+				end
+				if self:GetPerk("_lethal") then
+					self:StripWeapon(self:GetAutomatic():GetClass())
+					self:Give("weapon_zs_scout")
+					end
+				end
+		
+		for k,v in pairs(commando) do --If you don't have a class selected give them this...
+					self:Give(tostring(v))
+				end
+
+end
+
 --[=[---------------------------------------
        See if player is a zombie
 ----------------------------------------]=]
@@ -1361,6 +1472,3 @@ net.Receive( "DoHulls", function(len)
 end)
 
 end
-
-
-

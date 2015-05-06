@@ -471,6 +471,7 @@ function GM:OnHumanSpawn(pl)
 	
 	if GAMEMODE:GetGameMode() == GAMEMODE_SCAVENGE then
 		pl:ChatPrint("SCAVENGE mode activated!")
+		pl:ChatPrint("Search for items!")
 	end
 	
 	
@@ -522,9 +523,6 @@ function GM:OnZombieSpawn(pl)
 	CalculateZombieHealth(pl)
 
 	pl:DoHulls(Class, TEAM_UNDEAD)
-	
-	--Attach crabs to zombos
-	--pl:SetHeadcrabBodyGroup()
 	
 	--Set the zombies model
 	pl:SetModel(Tab.Model)
@@ -719,153 +717,24 @@ function CalculatePlayerLoadout(pl)
 		end
 		--Give new magnum
 		pl:Give("weapon_zs_magnum")
-
-		--Override old pistol for auto-deploy (selecting)
-		--ToGive[1] = "weapon_zs_magnum"
 	end			
 	
 	--Give preferred loadout
 
-	if pl.Loadout and #pl.Loadout > 0 then
+	if pl.Loadout and #pl.Loadout > 0 then --Duby: Need to sort this old function out. Its a mess...
 		ToGive = table.Copy(pl.Loadout)
-	--Default loadout
 	else --Sorting out what class gets what.
-
-	--Duby I will move all of this bellow into a meta once its been tested etc.. Its gonna be messy like this until its bug free
-						
-									--[[ HUMAN CLASS LOADOUT PREDICTIONS ]]-- 
-									
-		noclass = {"weapon_zs_usp"}
-		
-		--Medic Stages
-		medicstage1 = {"weapon_zs_p228","weapon_zs_melee_combatknife","weapon_zs_medkit"}
-		
-		--Support stages
-		support = {"weapon_zs_usp","weapon_zs_tools_plank","weapon_zs_tools_hammer"}
-		
-		--Commando stages
-		commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
-		
-		--Engineer stages
-		engineer = {"weapon_zs_classic", "weapon_zs_melee_fryingpan","weapon_zs_turretplacer","weapon_zs_mine"}
-		
-		--Berserker stages
-		berserker = {"weapon_zs_deagle","weapon_zs_melee_plank","weapon_zs_special_vodka"}
-		
-		--Sharpshooter stages
-		sharpshooter = {"weapon_zs_python","weapon_zs_melee_beer","weapon_zs_tools_supplies"}
-	
-	--{{ZS HUMAN CLASSES}}--
-		if pl:Team() == TEAM_SURVIVORS then
-			if pl:GetPerk("_medic") then
-				pl:ChatPrint("You are a Medic")
-
-				for k,v in pairs(medicstage1) do
-					pl:Give(tostring(v))
-				end
-					if pl:GetPerk("_medigun") then --Medical gun perk
-						pl:Give("weapon_zs_medigun")
-					end
-				end			
-		end
-		
-		if pl:Team() == TEAM_SURVIVORS then
-			if pl:GetPerk("_support2") then
-				pl.Loadout = table.Copy(support)
-				pl:ChatPrint("You are a Support")
-				for k,v in pairs(support) do
-					pl:Give(tostring(v))
-				end	
-				if pl:GetPerk("_supportweapon") then --Medical gun perk
-						pl:Give("weapon_zs_chipper")
-					end
-				
-				end
-		end		
-		
-		if pl:Team() == TEAM_SURVIVORS then		
-			if pl:GetPerk("_engineer") then
-				pl:ChatPrint("You are an Engineer")
-				if pl:GetPerk("_pulsepistol") then
-					pl:Give("weapon_zs_pulsepistol")
-				end		
-				if pl:GetPerk("_remote") then
-					pl:Give("weapon_zs_tools_remote")
-				end				
-				pl.Loadout = table.Copy(engineer)
-				for k,v in pairs(engineer) do
-					pl:Give(tostring(v))
-				end
-				if pl:GetPerk("_combat") then
-					pl:SpawnMiniTurret()
-				end
-				
-
-				end
-		end
-		
-		if pl:Team() == TEAM_SURVIVORS then		
-			if pl:GetPerk("_commando") then
-				pl:ChatPrint("You are a Commando")
-				pl.Loadout = table.Copy(commando)
-				for k,v in pairs(commando) do
-					pl:Give(tostring(v))				
-				end		
-				if pl:GetPerk("_arsanal") then --Medical gun perk
-						pl:Give("weapon_zs_defender")
-					end		
-				end
-		end
-		
-		if pl:Team() == TEAM_SURVIVORS then		
-			if pl:GetPerk("_berserker") then
-				pl:ChatPrint("You are a Berserker")
-				if pl:GetPerk("_slinger") then
-					pl:Give("weapon_zs_melee_hook")
-				end				
-				pl.Loadout = table.Copy(berserker)
-				for k,v in pairs(berserker) do
-					pl:Give(tostring(v))
-				end
-			end
-		end
-		
-				if pl:Team() == TEAM_SURVIVORS then		
-			if pl:GetPerk("_sharpshooter") then
-				pl:ChatPrint("You are a Sharpshooter")
-				pl.Loadout = table.Copy(sharpshooter)
-				for k,v in pairs(sharpshooter) do
-					pl:Give(tostring(v))
-				end
-				if pl:GetPerk("_lethal") then
-					pl:StripWeapon(pl:GetAutomatic():GetClass())
-					pl:Give("weapon_zs_scout")
-					end
-				end
-		end
-		
-		for k,v in pairs(noclass) do --If you don't have a class selected give them this...
-					pl:Give(tostring(v))
-				end
-
+		pl:IsHumanClass()--Check their Human class table
 	end
+
 	
 	if pl:IsBot() then --This was changed as it worked off the medic class speeds. Which doesn't exist any more!
 		ToGive = {"weapon_zs_tools_hammer", "weapon_zs_melee_keyboard"}
 	end
 
-	--local SelectWeapon
-	--if ToGive and #ToGive >= 1 then
-	--	SelectWeapon = ToGive[1]
-	--end
-	
 	--Arena gives a primary gun
 	if GAMEMODE:GetGameMode() == GAMEMODE_ARENA then
 	pl:ChatPrint("ARENA MODE activated!")
-		--local RandomWeapon = table.Random(GAMEMODE.ArenaWeapons)
-		--pl:Give(RandomWeapon)
-		--SelectWeapon = RandomWeapon
-		
 		pl:GiveAmmo(6500, "ar2", false)
 		pl:GiveAmmo(6500, "smg1", false)
 		pl:GiveAmmo(6500, "buckshot", false)
