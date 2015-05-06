@@ -23,7 +23,7 @@ function ENT:Initialize()
 	end
 
 	if self:GetOwner():GetPerk("_trap") then
-		self.range = 90
+		self.range = 70
 	end
 	
 	local phys = self.Entity:GetPhysicsObject()

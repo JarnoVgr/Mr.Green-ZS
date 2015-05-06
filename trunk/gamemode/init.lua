@@ -274,19 +274,27 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	if fHealth <= 40 and mOwner:GetPerk("_berserker") then
 		fSpeed = mWeapon.WalkSpeed or 200		
 		if mOwner:GetPerk("_berserk") then
-			fSpeed = fSpeed + fSpeed*0.1
+			fSpeed = fSpeed + fSpeed*0.15
 		end		
 	end
 	
 	if mOwner:GetPerk("_sboost") then
 	fSpeed = fSpeed + (fSpeed*0.15)
+	end
 	
-	elseif mOwner:GetPerk("_sboost2") then
+	if mOwner:GetPerk("_sboost2") then
 	fSpeed = fSpeed + fSpeed*0.05
+	end
 	
-	elseif mOwner:GetPerk("_berserker") then
+	if mOwner:GetPerk("_berserker") then
 		local multiplier = (2.5*mOwner:GetRank())/100
 		fSpeed = fSpeed +(fSpeed*multiplier)
+		
+	elseif mOwner:GetPerk("_commando") then
+		fSpeed = fSpeed - 15	
+
+	elseif mOwner:GetPerk("_support") then
+		fSpeed = fSpeed - 10		
 		
 	elseif mOwner:GetPerk("_sharpshooter") then
 		local multiplier = (1*mOwner:GetRank())/100

@@ -431,7 +431,7 @@ if SERVER then
 			bullet.Spread = Vector(0.02, 0.02, 0.02) 
 			bullet.Num = 2		
 		else
-			bullet.Spread = Vector(0, 0, 0) 
+			bullet.Spread = Vector(0.02, 0.02, 0.02) 
 			bullet.Num = 1				
 		end
 		
@@ -545,7 +545,7 @@ if SERVER then
 			local dmg = dmginfo:GetDamage()*0.25
 			
 			if IsValid(self:GetTurretOwner()) and self:GetTurretOwner():GetSuit() == "techsuit" then
-				dmg = dmg + dmg*0.5
+				dmg = dmg * 0.5
 			end
 
 			self:SetDTInt(1,self:GetDTInt(1) - dmg)

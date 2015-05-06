@@ -272,6 +272,9 @@ function SWEP:MeleeSwing()
 		local hitent = tr.Entity
 		local hitflesh = tr.MatType == MAT_FLESH or tr.MatType == MAT_BLOODYFLESH or tr.MatType == MAT_ANTLION or tr.MatType == MAT_ALIENFLESH
 
+
+		
+		
 		if self.HitAnim then
 			self.Weapon:SendWeaponAnim(self.HitAnim)
 		end
@@ -280,8 +283,8 @@ function SWEP:MeleeSwing()
 		if hitflesh then
 			util.Decal(self.BloodDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 			self:PlayHitFleshSound()
-			if SERVER and not (hitent:IsValid() and hitent:IsPlayer() and hitent:Team() == owner:Team()) and math.random(1,1) == 1 then
-				util.Blood(tr.HitPos, math.Rand(damage * 0.1, damage * 0.2), (tr.HitPos - owner:GetShootPos()):GetNormal(), math.Rand(damage * 6, damage * 12), true)
+			if SERVER and not (hitent:IsValid() and hitent:IsPlayer() and hitent:Team() == owner:Team()) and math.random(1,2) == 1 then
+				util.Blood(tr.HitPos, math.Rand(damage * 0.05, damage * 0.1), (tr.HitPos - owner:GetShootPos()):GetNormal(), math.Rand(damage * 3, damage * 6), true)
 			end
 			if not self.NoHitSoundFlesh then
 				self:PlayHitSound()
@@ -312,8 +315,19 @@ function SWEP:MeleeSwing()
 					hitent:MeleeViewPunch(damage)
 				end
 				
+				--if owner.GetPerk("_oppressive") then
+				local Velocity = self.Owner:EyeAngles():Forward() * damage * 10
+				Velocity.z = (damage * 3) + 20
+				Velocity.x = Velocity.x * 0.275
+				Velocity.y = Velocity.y * 0.275
 				hitent:TakeDamageInfo(dmginfo)
+				
+				if owner:GetPerk("_oppressive") then
+					Velocity.z = Velocity.z * 1.5
+				end
 
+				hitent:SetLocalVelocity(Velocity)
+				
 				local phys = hitent:GetPhysicsObject()
 				if hitent:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
 					hitent:SetPhysicsAttacker(owner)

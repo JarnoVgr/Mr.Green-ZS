@@ -350,13 +350,14 @@ GM.RankUnlocks = {
 	
 	[2] = {"_medupgr1","_kevlar","_kevlarsupport","_berserk","_blast","_point","_remote","_comeback2"},
 	
-	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap"},
+	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive"},
 	
 	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
 	[5] = {"_healingnads","_turret","_psychotic"},
 	
 	[6] = {"_combat","_profitable","_psychopath","_ironaim", "_nitrate"},
+		
 	
 }
 
@@ -366,8 +367,6 @@ GM.RankUnlocks = {
 GM.Perks = {
 --RequiresWeapon = What Human Class does the perk require to be shown
 					--[[Slot 1 'equipement perk']]--
-	
-	
 	["_none1"] = {Name = "None", Description = "No Perk.", Slot = 1},	
 	["_none2"] = {Name = "None", Description = "No Perk.", Slot = 2},	
 		
@@ -396,16 +395,16 @@ GM.Perks = {
 	["_freeman"] = {Name = "Berserker Fury", Description = "20% more damage with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	["_psychotic"] = {Name = "Psychotic", Description = "+2 health from kills.", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	["_slinger"] = {Name = "Hook Slinger", Description = "Spawn with the crooked hook.", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	
-	
+	["_headhunter"] = {Name = "Head Hunter", Description = "+40% melee damage on heads.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
+	["_oppressive"] = {Name = "Oppressive", Description = "Smash zombies away with your mighty weapons!", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
 	--Engineer
 	
 	["_turret"] = {Name = "Turret Overload", Description = "+50% turret stats.",RequiresWeapon = "_engineer", Material = "VGUI/gfx/VGUI/defuser", Slot = 1}, --Done
 	["_nitrate"] = {Name = "Nitrate Stuffed", Description = "+40% C4 explosion radius. 2 second fuse time instead of 1. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done	
-	["_trap"] = {Name = "Trap Engineered", Description = "+40% C4 damage. 90 proximity distance instead of 140. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done		
+	["_trap"] = {Name = "Trap Engineered", Description = "+40% C4 damage. 70 proximity distance instead of 140. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done		
 	["_pulsepistol"] = {Name = "Pulse Pistol", Description = "Gives the pulse pistol.", RequiresWeapon = "_engineer", Slot = 1},	--Done
 	["_combat"] = {Name = "Combat Turret", Description = "Gives the Combat turret.", RequiresWeapon = "_engineer", Slot = 1},	--Done	
-	["_remote"] = {Name = "Turret Remote", Description = " [REPLACES SECONDARY] Control the turret with this gadget! Your turret shoots 2 bullets for the cost of 1!", RequiresWeapon = "_engineer", Slot = 1}, -- Done	
+	["_remote"] = {Name = "Turret Remote", Description = "[REPLACES SECONDARY] Control the turret with this gadget! Your turret shoots 2 bullets for the cost of 1!", RequiresWeapon = "_engineer", Slot = 1}, -- Done	
 	
 	--Sharpshooter
 	
@@ -439,8 +438,7 @@ GM.Perks = {
 	--Berserker
 	
 	["_bloodmoney"] = {Name = "Blood Money", Description = "+5SP for melee kills.", RequiresWeapon = "_berserker", Slot = 2}, --Done
-	["_headhunter"] = {Name = "Head Hunter", Description = "+30% melee damage on heads.", RequiresWeapon = "_berserker", Slot = 2}, --Added by Pufulet
-	["_berserk"] = {Name = "Berserk", Description = "+10% speed while under 40HP.", RequiresWeapon = "_berserker", Slot = 2}, --Done
+	["_berserk"] = {Name = "Berserk", Description = "+15% speed while under 40HP.", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	
 	--Engineer
 	

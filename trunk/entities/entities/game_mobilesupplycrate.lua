@@ -61,7 +61,7 @@ function ENT:Think()
 		-- check if player got ammo
 		if pl.GotMobileSupplies == nil then -- whatever
 			pl.GotMobileSupplies = false
-			pl.MobileSupplyTime = ct + self.AmmoDelay -- make a timer for him
+			pl.MobileSupplyTime = ct + 0 -- make a timer for him
 			pl.MobileSupplyTimerActive = true
 		end
 
@@ -156,12 +156,13 @@ if SERVER then
 					HowMuch = math.Round(HowMuch * (INFLICTION + 0.6))
 
 					--Finally give it
-					if activator:HasBought("ammoman") then
-						HowMuch = HowMuch * 2 --Ammo man perk
-					end
 					
 					if activator:GetPerk("_supportammo") then
-						HowMuch = HowMuch * 1.5 --Support Ammo perk
+						HowMuch = HowMuch * 1.3 --Support Ammo perk
+					end			
+					
+					if activator:HasBought("ammoman") then
+						HowMuch = HowMuch * 2 --Ammo man perk
 					end
 					
 					activator:GiveAmmo(HowMuch, AmmoType)
@@ -180,7 +181,7 @@ if SERVER then
 				if activator ~= Owner and (IsValid(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
 					skillpoints.AddSkillPoints(Owner,10)
 					self:FloatingTextEffect(10, Owner)
-					Owner:AddXP(5)
+					Owner:AddXP(20)
 				end
 
 				--Play sound
