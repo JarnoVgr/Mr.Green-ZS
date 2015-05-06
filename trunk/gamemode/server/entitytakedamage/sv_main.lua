@@ -38,6 +38,10 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			dmginfo:ScaleDamage(1)
 		end
 		
+		if attacker:GetClass() == "env_explosion" then
+			dmginfo:ScaleDamage(0)
+		end
+		
 		local entclass = ent:GetClass()
 		-- A prop that was invulnerable and converted to vulnerable.
 		if ent.PropHealth then
@@ -51,6 +55,8 @@ function GM:EntityTakeDamage(ent, dmginfo)
 				ent.TotalHealth = ent.PropHealth
 			end
 
+			
+			
 			ent.PropHealth = ent.PropHealth - damage
 
 			if ent.PropHealth <= 0 then
