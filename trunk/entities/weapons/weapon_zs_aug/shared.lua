@@ -36,7 +36,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AUG.Single")
 SWEP.Primary.Recoil			= 1.5
-SWEP.Primary.Damage			= 15
+SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 30
 SWEP.Primary.Delay			= 0.09
@@ -46,11 +46,11 @@ SWEP.Primary.Ammo			= "ar2"
 SWEP.MaxBulletDistance 		= 3500
 SWEP.MaxAmmo			    = 250
 
-SWEP.Cone = 0.045
-SWEP.ConeMoving = SWEP.Cone *1.35
-SWEP.ConeCrouching = SWEP.Cone *0.75
-SWEP.ConeIron = SWEP.Cone *0.7
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
+SWEP.Cone = 0.06
+SWEP.ConeMoving = SWEP.Cone *1.3
+SWEP.ConeCrouching = SWEP.Cone *0.7
+SWEP.ConeIron = SWEP.Cone *0.6
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.6
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
