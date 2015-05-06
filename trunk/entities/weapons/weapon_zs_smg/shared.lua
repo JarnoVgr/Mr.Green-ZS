@@ -57,7 +57,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AR2.NPC_Single")
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 11
+SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
 SWEP.Primary.Delay			= 0.15
@@ -72,7 +72,9 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.ConeMoving = 0.076
 SWEP.Cone = 0.068
 SWEP.ConeCrouching = 0.063
-
+SWEP.ConeIron = SWEP.Cone *0.7
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
+SWEP.ConeIronMoving = SWEP.ConeMoving *0.7
 
 SWEP.WalkSpeed = SPEED_SMG
 
