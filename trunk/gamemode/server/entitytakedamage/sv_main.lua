@@ -279,11 +279,7 @@ function GM:SetupProps()
 				ent.TotalHealth = health
 			else
 				ent:SetHealth(math.ceil(ent:Health() * 3))
-				ent:SetMaxHealth(ent:Health())
-				if ent:Health() < 200 then
-					ent:SetHealth(math.ceil(ent:Health() * 3))
-					ent:SetMaxHealth(ent:Health())		
-				end				
+				ent:SetMaxHealth(ent:Health())		
 			end
 		end
 	end
