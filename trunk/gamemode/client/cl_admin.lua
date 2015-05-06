@@ -296,19 +296,17 @@ function DoAdminPanel()
 				RunConsoleCommand("zs_admin_debug","unlockspecies")
 				CloseAdminPanel()
 			end)
+				
+			DebugMenu:AddOption("All Talk (On)", function()
+				RunConsoleCommand("zs_admin_debug", "alltalk", "1")
+				CloseAdminPanel()
+			end)	
 			
-			--Start HalfLife
-			DebugMenu:AddOption("Start HalfLife", function()
-				RunConsoleCommand("zs_admin_debug","starthalflife")
+			DebugMenu:AddOption("All Talk (Off)", function()
+				RunConsoleCommand("zs_admin_debug", "notalk", "0")
 				CloseAdminPanel()
 			end)
-
 			
-			--Start UnLife
-			DebugMenu:AddOption("Start UnLife", function()
-				RunConsoleCommand("zs_admin_debug","startunlife")
-				CloseAdminPanel()
-			end)
 				
 			--Unleash Undead Boss
 			DebugMenu:AddOption("Unleash Undead Boss", function()

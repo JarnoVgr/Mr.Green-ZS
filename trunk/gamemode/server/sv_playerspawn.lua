@@ -222,8 +222,6 @@ function GM:PlayerSpawn(pl)
 	pl:SetColor(Color(225,225,225,225))
 	-------------------------END DUBY'S FIX
 
---[[ TO DO ADD CLASS BASED MODELS ]]--
-	
 	--Set model based on preferences
 	if pl:IsBot() then
 		--Random model

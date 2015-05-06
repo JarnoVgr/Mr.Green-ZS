@@ -72,15 +72,10 @@ FIRSTAPRIL = false
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 7--Pufu stop fucking with this! Last warning! I've been mellow about everything else, do not fucking change it!
 BOSS_CLASS = {11, 20, 10, 13 }
---BOSS_CLASS = {12} --Seeker
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
---BOSS_CLASS = {15} --Klinator
---BOSS_CLASS = {17} --Smoker class
 --BOSS_CLASS = {18} --Seeker2
---BOSS_CLASS = {19} --REMEIL
 --BOSS_CLASS = {11} --Behemoth
---BOSS_CLASS = {19} --Pumpking!
 --BOSS_CLASS = {20} --HateII
 --BOSS_CLASS = {13} --Nerf
 

@@ -206,7 +206,10 @@ local RandomText = table.Random({
 	"Inserting a coin...",
 	"Waking up the Behemoth...",  
 	"Spawning poison gas...",  
-	"Shuffling crate spawns..."
+	"Shuffling crate spawns...",
+	"Hitting Duby to code ZS...",
+	"Slapping Pufu to balance ZS...",
+	"Entering Necrossin's Basement..."
 })
 
 local matGlow = Material("Sprites/light_glow02_add_noz")
@@ -545,8 +548,8 @@ local function DelayedLastHumanAlert()
 		if MySelf:Team() == TEAM_UNDEAD or not MySelf:Alive() then
 			GAMEMODE:Add3DMessage(140, "Kill the Last Human", nil, "ArialBoldFifteen")
 		else
-			GAMEMODE:Add3DMessage(140, "You are the LAST HUMAN", nil, "ArialBoldFifteen")
-			GAMEMODE:Add3DMessage(140, "Run for your LIFE", nil, "ArialBoldTen")
+			GAMEMODE:Add3DMessage(140, "You are the LAST HUMAN ALIVE!", nil, "ArialBoldFifteen")
+			GAMEMODE:Add3DMessage(140, "FUCKING Leg It!", nil, "ArialBoldTen")
 		end
 	end
 end

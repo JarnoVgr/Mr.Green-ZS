@@ -439,6 +439,28 @@ local function AdminSay(pl, text, teamonly)
 				pl:Message("Pufulet Is Gay¬!")
 			end)
 		end	
+		
+	elseif (text:sub(1,10) == "!reiskafag") then
+		text = string.gsub(text,"!reiskafag","")
+		for k,pl in pairs (player.GetAll()) do
+			pl:CustomChatPrint( {nil, Color(0,15,225),text} )
+			timer.Simple(3, function()
+				pl:CustomChatPrint( {nil, Color(225,15,0),text} )
+				pl:Message("Reiska Is!")
+			end)
+			timer.Simple(6, function()
+				pl:CustomChatPrint( {nil, Color(0,225,0),text} )
+				pl:Message("Reiska Is!")
+			end)
+			timer.Simple(9, function()
+				pl:CustomChatPrint( {nil, Color(0,15,225),text} )
+				pl:Message("Reiska Is!")
+			end)
+			timer.Simple(12, function()
+				pl:CustomChatPrint( {nil, Color(0,225,0),text} )
+				pl:Message("Reiska Is!")
+			end)
+		end		
 	
 		return ""
 	end
@@ -491,27 +513,6 @@ local function AdminSay(pl, text, teamonly)
 			end
 
 			return ""
-			
-			--[[
-			elseif text == "!alltalk" then
-			for k, v in pairs(player.GetAll()) do
-				if v ~= pl then
-					RunConsoleCommand ( "sv_alltalk", "1" )
-				end
-			end
-
-			return ""
-			
-			elseif text == "!notalk" then
-			for k, v in pairs(player.GetAll()) do
-				if v ~= pl then
-					RunConsoleCommand ( "sv_alltalk", "0" )
-				end
-			end
-
-			return ""
-			]]--
-		--end
 		end
 	end
 

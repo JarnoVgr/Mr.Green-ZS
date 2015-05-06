@@ -26,37 +26,26 @@ local function Heal()
 	local Time = CurTime()
 		
 	
-	for i=1, #Human do
-			
+	for i=1, #Human do		
 		local pl = Human[i]
-			if pl:GetPerk("_horse") then
-				
+			if pl:GetPerk("_horse") then		
 		if not IsValid(pl) or not pl:Alive() or not pl:Team() == TEAM_HUMAN or pl:Health() >= maxheal then
 			continue
 		end
 
-		
-
 		if Time < (pl.LastHit + HealTimeout) or Time < (pl.LastHurt + HealTimeout) then
 			continue
 		end
-
-		pl:SetHealth(math.min(pl:Health() + HealAmount, maxheal))
+			pl:SetHealth(math.min(pl:Health() + HealAmount, maxheal))
 		else	
 	return
 		
-	end
-	
-	
-	end
-	
-	
-		
-	
+		end	
+	end	
 end
 timer.Create("HU-Heal", HealInterval, 0, Heal)
 
-local function Heal()
+local function Heal2()
 	local Time = CurTime()
 		
 	
@@ -85,7 +74,6 @@ local function Heal()
 	end
 	
 end
-timer.Create("HU-Heal", HealInterval2, 0, Heal)
-
+timer.Create("HU-Heal2", HealInterval2, 0, Heal2)
 
 

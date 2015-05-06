@@ -335,7 +335,6 @@ CombineModels = {
 -- Initial variables
 ENDROUND = false
 HALFLIFE = false
-UNLIFE = false
 LASTHUMAN = false
 BOSSACTIVE = false
 

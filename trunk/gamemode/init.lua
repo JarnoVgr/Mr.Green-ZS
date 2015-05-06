@@ -419,6 +419,8 @@ function GM:InitPostEntity()
 		self:SetObjStage(1)
 	end
 	
+	
+	
 	--Spawn initial supply crates
 	self:SpawnSupplyCrates()
 	

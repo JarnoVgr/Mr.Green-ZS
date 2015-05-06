@@ -11,7 +11,7 @@ include("sv_director_heal_human.lua")
 
 GAMEACTIVE = false
 --[==[---------------------------------------------------------
-   Event Director - Unlife/ Last human/ Endround
+   Event Director - Last human/ Endround
 ---------------------------------------------------------]==]
 local function ManageEvents()
 	--Stuff followed up by this is only needed when round hasn't ended

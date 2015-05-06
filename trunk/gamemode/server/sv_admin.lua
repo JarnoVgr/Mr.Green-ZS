@@ -405,8 +405,22 @@ function DoDebugCommands(pl, cmd, args)
 				Phys:EnableMotion(tobool(bToggle))
 			end
 		end
-		
 		Debug("[DEBUG] (Un)Freeze action")
+	elseif sCommand == "alltalk" then
+		for k,v in pairs(ents.GetAll()) do
+			if v ~= pl then
+					RunConsoleCommand ( "sv_alltalk", "1" )
+				end
+		end
+		Debug("[DEBUG] All Talk Turned On")
+	elseif sCommand == "notalk" then
+		for k,v in pairs(ents.GetAll()) do
+			if v ~= pl then
+					RunConsoleCommand ( "sv_alltalk", "0" )
+				end
+		end	
+		Debug("[DEBUG] All Talk Turned Off")
+		
 	end
 end
 concommand.Add("zs_admin_debug", DoDebugCommands) 

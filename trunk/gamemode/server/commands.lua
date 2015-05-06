@@ -487,6 +487,17 @@ function ShowLevelStats (pl, cmd, args)
 end
 concommand.Add("zs_showlevel",ShowLevelStats)
 
+function Pufu(pl, commandName,args )
+	if ENDROUND then
+		return
+	end
+
+	pl:ChatPrint("Dice temporarily disabled at round start")
+
+
+end
+
+
 function RollTheDice ( pl,commandName,args )
 	if ENDROUND then
 		return

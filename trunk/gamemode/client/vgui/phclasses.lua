@@ -1007,7 +1007,8 @@ function DrawSelectClass()
 
 	--Spawn button
 	SpawnButtonW, SpawnButtonH = SlotWidth * 1.5, ScaleH(58)
-	SpawnButtonX, SpawnButtonY = TopMenuX + ((TopMenuW / 2) - (SpawnButtonW / 2)), TopMenuY + TopMenuH + ScaleH(20)
+	--SpawnButtonX, SpawnButtonY = TopMenuX + ((TopMenuW / 2) - (SpawnButtonW / 2)), TopMenuY + TopMenuH + ScaleH(20)
+	SpawnButtonX, SpawnButtonY = TopMenuX + ((TopMenuW / 2) - (SpawnButtonW / 2)), TopMenuY + TopMenuH 
 
 	SpawnButton = vgui.Create("DButton", BlurPanel)
 	SpawnButton:SetText("")
