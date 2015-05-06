@@ -452,7 +452,7 @@ GM.Perks = {
 	["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	
 	--[[New ZS Classes]]--
-	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit  | P228  |  Knife                            ",Description = "Extra Speed | Extra Pistol Damage | More Medigun Damage | Poison Protection | ", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
+	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit  | P228  |  Knife                            ",Description = "Extra Speed | Extra Pistol Damage | More Medigun Damage | Poison Protection | Damage Resistance | ", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
 	["_commando"] = {Name = "Commando",   		Equipment = "Grenades  |   Five SeveN   | Knife               ", Description = "See Undead Health | Extra Health | Extra Rifle Damage | 1 in 12-X chance to not use bullet | Faster Fire Rate", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support",    		Equipment = "Board Pack  |  USP   |  Hammer                  ", Description = "Extra SMG Damage | Extra Shotgun Damage | Extra Nail Health | Bonus Repair Power | Extra Nails ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+20% Melee Damage | Extra Melee Damage | +2 Health On Melee Kill | Extra Health On Melee Kill | No Slowdown | Speed Boost", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},

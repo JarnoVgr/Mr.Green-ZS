@@ -1159,8 +1159,8 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 
 			continue
 		end
-
-		nail:SetNailHealth(nail:GetNailHealth() - damage)
+		nail:SetDTInt(0, nail:GetNailHealth() - 1)	
+		nail:SetNailHealth(nail:GetNailHealth() - damage)	
 		ent:EmitSound( "physics/metal/metal_box_impact_bullet"..math.random( 1,3 )..".wav", math.random( 90,95) )					
 		--Check for nail heath
 		if nail:GetNailHealth() > 0 then
