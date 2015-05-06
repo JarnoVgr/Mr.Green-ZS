@@ -317,13 +317,13 @@ function SWEP:MeleeSwing()
 				
 				--if owner.GetPerk("_oppressive") then
 				local Velocity = self.Owner:EyeAngles():Forward() * damage * 10
-				Velocity.z = (damage * 3) + 20
+				Velocity.z = (damage * 3.2) + 30
 				Velocity.x = Velocity.x * 0.275
 				Velocity.y = Velocity.y * 0.275
 				hitent:TakeDamageInfo(dmginfo)
 				
 				if owner:GetPerk("_oppressive") then
-					Velocity.z = Velocity.z * 1.5
+					Velocity.z = Velocity.z * 2.0
 				end
 
 				hitent:SetLocalVelocity(Velocity)
