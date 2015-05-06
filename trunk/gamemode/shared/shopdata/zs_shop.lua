@@ -43,7 +43,7 @@ shopData = {
 	[22] = { Cost = 8000,Type = "misc", AdminOnly = false, Desc = "You get twice as much ammunition from the Supply Crates!", Key = "ammoman", ID = 22, Sell = 0, Requires = 0, Name = "Ammunition Man",  },
 	[23] = { Cost = 7000,Type = "misc", AdminOnly = false, Desc = "You become bloodthirsty! Receive a third of damage done with claws towards your health!", Key = "vampire", ID = 23, Sell = 0, Requires = 5, Name = "Blood Sucker",  },
 	
-	-- FREEMAN
+	-- FREEMAN--egghat
 	[24] = { Cost = 7500, Hidden = false, Type = "misc", AdminOnly = false, Desc = "[1/4] Start the round as THE Gordon Freeman!", Key = "gordonfreeman", ID = 24, Sell = 0, Requires = 0, Name = "Crowbar Wielding God",  },
 	
 	--[25] = { Cost = 5000, Hidden = true, AdminOnly = false, Desc = "When having low health you won't walk as slow as without adrenaline.", Key = "adrenaline", ID = 25, Sell = 0, Requires = 0, Name = "Adrenaline",  },
@@ -201,7 +201,7 @@ hats = {
 		["1"] = { type = "Model", model = "models/Nova/w_headcrab.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(0.537, 0.4, 0), angle = Angle(90, -90, 0), size = Vector(0.861, 0.861, 0.861), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	},
 	["egg"] = {
-		["1"] = { type = "Model", model = "models/props_phx/misc/egg.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-2.507, 4.212, 0), angle = Angle(-90, 18.35, 0), size = Vector(2.905, 2.905, 2.905), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		["1"] = { type = "Model", model = "models/props_phx/misc/egg.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-2.507, 4.212, 0), angle = Angle(-90, 18.35, 0), size = Vector(7.905, 7.905, 7.905), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	},
 	["pumpkin"] = {
 		["1"] = { type = "Model", model = "models/props_outland/pumpkin01.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(2.019, 0, 0), angle = Angle(0, 96.212, 90), size = Vector(0.912, 0.912, 0.912), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
