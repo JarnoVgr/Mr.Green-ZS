@@ -32,13 +32,10 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			--Nails are fine. Let's not damage the prop
 			if attacker:IsHuman() then
 		    	return true		
-			else
-				dmginfo:ScaleDamage(0.4 - (ent.Nails*0.05) )		
 			end
-
 		else
 			--Multiply once a nail dies
-			dmginfo:ScaleDamage(1.5)
+			dmginfo:ScaleDamage(1)
 		end
 		
 		local entclass = ent:GetClass()
@@ -272,7 +269,6 @@ function GM:SetupProps()
 	if self:GetGameMode() == GAMEMODE_ARENA then
 		return
 	end
-	
 	for _, ent in pairs(ents.FindByClass("prop_physics*")) do
 		local mdl = ent:GetModel()
 		if mdl then
@@ -284,6 +280,10 @@ function GM:SetupProps()
 			else
 				ent:SetHealth(math.ceil(ent:Health() * 3))
 				ent:SetMaxHealth(ent:Health())
+				if ent:Health() < 200 then
+					ent:SetHealth(math.ceil(ent:Health() * 3))
+					ent:SetMaxHealth(ent:Health())		
+				end				
 			end
 		end
 	end

@@ -1159,17 +1159,20 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 
 			continue
 		end
-
-		nail:SetDTInt(1, nail:GetDTInt(1) - damage*0.1 )	
 		
+		nail:SetDTInt(1, nail:GetDTInt(1) - damage*0.1 )	
+		ent:SetHealth(ent:Health() - (damage/#ent.Nails))
 		nail:SetNailHealth(nail:GetNailHealth() - damage)	
-		ent:EmitSound( "physics/metal/metal_box_impact_bullet"..math.random( 1,3 )..".wav", math.random( 90,95) )					
+		
+		ent:EmitSound( "physics/metal/metal_box_impact_bullet"..math.random( 1,3 )..".wav", math.random(60,65) )					
 		--Check for nail heath
 		if nail:GetNailHealth() > 0 then
 			break
 		end
 		
 		bNailDied = true
+		
+		ent:SetHealth(ent:Health() - ((damage)/#ent.Nails))
 
 		--????
 		local findcons = nail.constraint

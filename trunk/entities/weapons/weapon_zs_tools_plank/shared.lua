@@ -7,7 +7,7 @@ SWEP.Base				= "weapon_zs_base_dummy"
 SWEP.HoldType = "slam"
 
 if ( CLIENT ) then
-	SWEP.PrintName = "Pack of Planks"
+	SWEP.PrintName = "Board Pack"
 	SWEP.DrawCrosshair = false
 	SWEP.ViewModelFlip = false
 
@@ -42,7 +42,7 @@ SWEP.Primary.ClipSize =4
 SWEP.Primary.DefaultClip = 4
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 2.0
+SWEP.Primary.Delay = 1.25
 SWEP.ShowViewModel = false
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
@@ -97,7 +97,7 @@ function SWEP:PrimaryAttack()
 	local shootpos = self.Owner:GetShootPos()
 	local tr = util.TraceLine({start = shootpos, endpos = shootpos + aimvec * 32, filter = self.Owner})
 
-	self:SetNextPrimaryFire(CurTime() + 2)
+	self:SetNextPrimaryFire(CurTime() + 1.25)
 
 	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(75, 80))
 	
@@ -111,7 +111,7 @@ function SWEP:PrimaryAttack()
 			local hp = 350
 			--if self.Owner:GetPerk("_plankhp") then
 			if self.Owner:GetPerk("_support") then
-				hp = hp+hp*0.5
+				hp = hp+hp*0.4
 			end			
 			ent:SetHealth(hp)
 			ent.PropHealth = hp

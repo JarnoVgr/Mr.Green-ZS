@@ -448,7 +448,7 @@ function SWEP:SecondaryAttack()
                             oldcons.Constraint:DeleteOnRemove(nail)
                         else
                             if SERVER then
-                                self.Owner:Message("Only 5 nails can be placed here", 2)
+                                self.Owner:Message("Only 5 nails can be placed here.", 2)
                             end
                         end
                     end
@@ -496,6 +496,7 @@ if CLIENT then
             end
 
             draw.SimpleTextOutlined("+".. math.Round(nail:GetDTInt(0)) .."/".. math.Round(nail:GetDTInt(1)), "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			--draw.SimpleTextOutlined(ent, "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
         end
     end
 end
