@@ -29,7 +29,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_Scout.Single")
-SWEP.Primary.Recoil			= 5
+SWEP.Primary.Recoil			= 3
 SWEP.Primary.Damage			= 70
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6

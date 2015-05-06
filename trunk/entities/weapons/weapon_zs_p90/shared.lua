@@ -51,12 +51,12 @@ SWEP.Primary.Ammo			= "smg1"
 --SWEP.Primary.Ammo			= "buckshot"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.06
+SWEP.Cone = 0.068
 SWEP.ConeMoving = SWEP.Cone *1.2
 SWEP.ConeCrouching = SWEP.Cone *0.85
 SWEP.ConeIron = SWEP.Cone *0.85
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
---SWEP.ConeIronMoving = SWEP.Moving *0.85
+SWEP.ConeIronMoving = SWEP.ConeMoving *0.85
 
 SWEP.WalkSpeed = SPEED_SMG
 SWEP.MaxBulletDistance 		= 1800

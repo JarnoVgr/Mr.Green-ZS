@@ -587,10 +587,10 @@ function GM:ModelToEntity(ent)
 		["models/props_interiors/pot02a.mdl"] = "weapon_zs_melee_fryingpan",
 		
 			--Lets add some new weapons around the map to make it more interesting!
-		["models/props_junk/garbage_plasticbottle001a.mdl"] = "weapon_zs_glock3",
-		["models/props_junk/garbage_glassbottle003a.mdl"] = "weapon_zs_special_bottleofwine",
+		--["models/props_junk/garbage_plasticbottle001a.mdl"] = "weapon_zs_glock3",
+		["models/props_junk/garbage_glassbottle003a.mdl"] = "weapon_zs_melee_beer",
 		["models/props_canal/mattpipe.mdl"] = "weapon_zs_melee_pipe2",
-		["models/props_lab/cactus.mdl"] = "weapon_zs_melee_crowbar",
+		--["models/props_lab/cactus.mdl"] = "weapon_zs_melee_crowbar",
 		
 	}
 	

@@ -65,7 +65,7 @@ AddCSLuaFile()
     SWEP.HoldType = "revolver"
     SWEP.Primary.Sound                      = Sound( "Weapon_357.Single" )
     SWEP.Primary.Recoil                     = 2
-    SWEP.Primary.Damage                     = 40
+    SWEP.Primary.Damage                     = 45
     SWEP.Primary.NumShots           = 1
     SWEP.Primary.ClipSize           = 2
     SWEP.Primary.Delay                      = 0.6
@@ -80,7 +80,7 @@ AddCSLuaFile()
     SWEP.ConeCrouching = SWEP.Cone *0.9
     SWEP.ConeIron = SWEP.Cone *0.2
     SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.1
-    --SWEP.ConeIronMoving = SWEP.Moving *0.1
+    SWEP.ConeIronMoving = SWEP.ConeMoving *0.1
      
     SWEP.IronSightsPos = Vector( -4.8, 22, 0.21 )
     SWEP.IronSightsAng = Vector( 0.5, -0.19, 0 )
