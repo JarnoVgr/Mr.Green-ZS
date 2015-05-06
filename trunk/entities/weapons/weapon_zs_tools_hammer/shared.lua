@@ -186,7 +186,7 @@ if SERVER then
                             --if self.Owner._RepairScore == 1 then
 							skillpoints.AddSkillPoints(self.Owner, 1)
 							nail:FloatingTextEffect( 1, self.Owner )
-							self.Owner:AddXP(5)
+							self.Owner:AddXP(self.ToHeal)
 							self.Owner._RepairScore = 0
 								
 								
@@ -568,7 +568,7 @@ if CLIENT then
                     continue
                 end
 
-                draw.SimpleTextOutlined("+".. math.Round(nail:GetDTInt(0)) .."/".. math.Round(nail:GetDTInt(1)), "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) 
+                draw.SimpleTextOutlined("+".. math.Round(nail:GetDTInt(0)) .." | ".. math.Round(nail:GetDTInt(1)), "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,230), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,230)) 
             end
         end
     end
