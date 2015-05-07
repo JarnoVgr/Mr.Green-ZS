@@ -127,12 +127,9 @@ function SWEP:OnDeploy()
 		self.Weapon.HadFirstDeploy = true	
 		self:SetClip2(self:Clip2()+ self.Owner:GetRank() + 1)
 	end
-	
-	print(self.Owner.Suit)
-	
-	if IsValid(self.Owner) and self.Owner:GetSuit() == "supportsuit" then
+	if IsValid(self.Owner) and self.Owner.DataTable["ShopItems"][51] then
 		self.Weapon.HadFirstDeploy = true	
-		self:SetClip2(self:Clip2()+5)
+		self:SetClip2(self:Clip2()+10)
 	end		
 end
  

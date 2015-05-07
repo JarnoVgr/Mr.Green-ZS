@@ -1017,27 +1017,24 @@ EngineerPlayerModels = {
 	"alyx",
 	"mossman",
 	"barney",
-	"breen",	
+	"breen"	
 }
 
 CommandoPlayerModels = {
-	"combie_soldier",
-	"combie_soldier_prisonguard"
-}
-
-SupportPlayerModels = {
-	"css_arctic",
-	"css_gasmask",
-	"css_guerilla",
-	"css_leet",
-	"css_phoenix",
 	"css_riot",
 	"css_swat",
 	"css_urban"
 }
 
+SupportPlayerModels = {
+	"css_arctic",
+	"css_guerilla",
+	"css_leet",
+	"css_phoenix",
+}
+
 BerserkerPlayerModels = {
-	"corpse01"
+	"css_gasmask"
 }
 
 SharpshooterPlayerModels = {
