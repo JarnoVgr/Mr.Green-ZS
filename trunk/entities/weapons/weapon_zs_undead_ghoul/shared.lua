@@ -55,7 +55,7 @@ SWEP.Primary.Reach = 48
 
 SWEP.SwapAnims = false
 SWEP.Secondary.Duration = 2.3
-SWEP.Secondary.Delay = 0.5
+SWEP.Secondary.Delay = 0.6
 
 function SWEP:Move()
 end
@@ -75,7 +75,7 @@ function SWEP:StartPrimaryAttack()
   
 	--Emit sound
 	if SERVER and #self.AttackSounds > 0 then
-		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]),74,math.Rand(110, 120))
+		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]),74,math.Rand(100, 120))
 	end
 
 end

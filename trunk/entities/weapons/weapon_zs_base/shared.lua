@@ -61,7 +61,7 @@ function SWEP:PrimaryAttack()
 	local bonus = 0
 	
 	if self.Owner:GetPerk("_commando") then
-		bonus = (self.Owner:GetRank()*0.5)/100
+		bonus = (self.Owner:GetRank()*0.4)/100
 		
 		if self.Primary.Delay - bonus < 0.05 then
 			bonus = 0
@@ -76,8 +76,6 @@ function SWEP:PrimaryAttack()
 
 	
 	self:EmitFireSound()
-
-
 	self:TakeAmmo()
 	
 	
@@ -86,12 +84,8 @@ function SWEP:PrimaryAttack()
 	local bullet = {}
 	bullet.Force = 3000
 
-	
-	
 	--Recoil multiplier
 	local recoilMultiplier = 0.8
-	
-	
 	if self:GetIronsights() then
 		--Less recoil when in ironsight
 		recoilMultiplier = recoilMultiplier * 0.75
