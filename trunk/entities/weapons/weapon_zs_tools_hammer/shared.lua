@@ -107,12 +107,12 @@ function SWEP:OnDeploy()
 	self.ToHeal = self.ToHeal +(5*(15*self.Owner:GetRank())/100)	
 	end
 	
-	if self.Owner:GetSuit() == "supportsuit" then
+	if IsValid(self.Owner) and self.Owner.DataTable["ShopItems"][51] then
 		self.ToHeal = self.ToHeal + 2
 	end	
 	
 	if self.Owner:GetPerk("_repairs") then
-		self.ToHealProp = self.ToHeal
+		self.ToHealProp = self.ToHeal * 4
 	end
 	
 	if self.Weapon.HadFirstDeploy then return end
