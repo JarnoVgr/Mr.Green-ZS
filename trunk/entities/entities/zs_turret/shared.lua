@@ -545,7 +545,7 @@ if SERVER then
 		if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() and not self:ShouldIgnoreDamage(dmginfo:GetAttacker()) then
 			--self:SetNWInt("TurretHealth",self:GetNWInt("TurretHealth") - dmginfo:GetDamage())
 			
-			local dmg = dmginfo:GetDamage()*0.25
+			local dmg = dmginfo:GetDamage()
 			
 			if IsValid(self:GetTurretOwner()) and self:GetTurretOwner().DataTable["ShopItems"][50] then
 				dmg = dmg * 0.5
