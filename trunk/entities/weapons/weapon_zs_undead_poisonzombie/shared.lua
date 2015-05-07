@@ -38,11 +38,6 @@ end
 
 function SWEP:StartPrimaryAttack()			
 	--Hacky way for the animations
-	if self.SwapAnims then
-		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
-	else
-		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
-	end
 	self.SwapAnims = not self.SwapAnims
 		
 	self.Owner:SetAnimation(PLAYER_ATTACK1)		
@@ -63,8 +58,12 @@ end
 
 function SWEP:PostPerformPrimaryAttack(hit)
 
-	self.Owner:SetAnimation(PLAYER_ATTACK1)	
-
+	if self.SwapAnims then
+		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
+	else
+		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+	end
+	
 	if hit then
 		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav"))
 	else

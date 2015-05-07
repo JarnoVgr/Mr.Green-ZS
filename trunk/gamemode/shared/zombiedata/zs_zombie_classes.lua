@@ -182,7 +182,7 @@ ZombieClasses[2] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
-	Infliction = 0.0,
+	Infliction = 0.6,
 	Health = 450,
 	MaxHealth = 625,
 	TimeLimit = 810,
@@ -201,7 +201,7 @@ ZombieClasses[2] =
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> SPECIAL: Propkill" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: Heal zombies or damage props and humans", "> SPECIAL: Propkill" },
 	PainSounds = {
 		Sound("npc/zombie_poison/pz_pain1.wav"),
 		Sound("npc/zombie_poison/pz_pain2.wav"),

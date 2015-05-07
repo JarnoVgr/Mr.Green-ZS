@@ -155,7 +155,7 @@ function GM:PlayerInitialSpawn(pl)
 	end
 	
 	--Case 2: If passed 5 minutes or lasthuman or endround or more than 50% players zombie, place him as undead
-	if (CurTime() > ROUNDTIME * 0.1) or LASTHUMAN or (GetInfliction() >= 0.5 and team.NumPlayers(TEAM_UNDEAD) > 2) or ENDROUND then
+	if (CurTime() > ROUNDTIME * 0.2) or LASTHUMAN or (GetInfliction() >= 0.5 and team.NumPlayers(TEAM_UNDEAD) > 2) or ENDROUND then
 		iTeam = TEAM_UNDEAD
 		DataTableConnected[ID].IsDead = true
 	end

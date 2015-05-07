@@ -29,9 +29,16 @@ function ENT:Think()
 				local owner = self:GetOwner()
 				if IsValid(owner) then
 					if not (hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive()) then
-						hitent:TakeDamage(5, owner, self)
+						if hitent:GetPerk("_medic") then
+							hitent:TakeDamage(math.random(2,3), owner, self)							
+						else
+							hitent:TakeDamage(5, owner, self)
+						end
 					elseif hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive() then
-						hitent:SetHealth(hitent:Health() + 10)					
+						if hitent:Health() < hitent:GetMaximumHealth()*1.2 then
+							owner:AddXP(5)
+							hitent:SetHealth(hitent:Health() + 10)	
+						end			
 					end
 				else
 					if not (hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive()) then
