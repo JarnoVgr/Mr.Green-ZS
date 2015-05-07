@@ -20,13 +20,12 @@ function ENT:Initialize()
 		if Owner:GetPerk("_support2") then
 			self.Heal = self.Heal + (self.Heal*(10*Owner:GetRank())/100)
 		end
-		if Owner:GetPerk("_nailhp") then
-			self.Heal = math.Round(self.Heal + (self.Heal*0.5))
+		--if Owner:GetPerk("_nailhp") then
+		--	self.Heal = math.Round(self.Heal + (self.Heal*0.5))
+		--end
+		if Owner.DataTable["ShopItems"][51] then
+			self.Heal = math.Round(self.Heal + (130*0.5))
 		end
-		if Owner:GetSuit() == "supportsuit" then
-			self.Heal = math.Round(self.Heal + (self.Heal*0.5))
-		end
-		
 		
 	end
 

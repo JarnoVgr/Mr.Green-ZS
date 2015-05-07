@@ -1563,7 +1563,7 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 
 	
 	if attacker.DataTable["ShopItems"][80] then
-		attacker:SetHealth(attacker:Health() + 6)
+		attacker:SetHealth(attacker:Health() + 5)
 	end
 
 end)
