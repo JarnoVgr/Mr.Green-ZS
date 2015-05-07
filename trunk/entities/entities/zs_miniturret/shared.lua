@@ -366,9 +366,9 @@ function ENT:OnTakeDamage( dmginfo )
 	--if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsUNDEAD() then
 		
 		local dmg = dmginfo:GetDamage()
-		
-		if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "techsuit" then
-			dmg = dmg*1.5
+
+		if IsValid(self:GetOwner()) and self:GetOwner().DataTable["ShopItems"][50] then
+			dmg = dmg*0.5
 		end
 		
 		self:SetHealth(self:GetHealth() - dmg)

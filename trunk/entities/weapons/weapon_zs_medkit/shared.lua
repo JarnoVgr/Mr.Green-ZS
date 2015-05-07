@@ -112,7 +112,7 @@ function SWEP:PrimaryAttack()
 			if ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
 
 				local health, maxhealth = ent:Health(), 100-- owner:GetMaxHealth()
-				local multiplier = 1.1
+				local multiplier = 1.0
 
 				if owner:GetPerk("_medupgr1" ) then
 					multiplier = 1.3
@@ -122,9 +122,9 @@ function SWEP:PrimaryAttack()
 				if toheal > 0 then
 					
 					local delay = self.Primary.HealDelay
-					if owner:GetSuit() == "medicsuit" then
-						delay = math.Clamp(self.Primary.HealDelay - 1.6,0,self.Primary.HealDelay)
-						multiplier = 1.3
+					if owner.DataTable["ShopItems"][48] then
+						delay = math.Clamp(self.Primary.HealDelay - 1.5,0,self.Primary.HealDelay)
+						multiplier = multiplier + 0.2
 					end
 					
 					if owner:GetPerk("_medic") then

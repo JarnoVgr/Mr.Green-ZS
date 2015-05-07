@@ -104,16 +104,16 @@ function SWEP:SecondaryAttack()
 				local multiplier = 1.0
 
 				if owner:GetPerk("_medupgr1" ) then
-					multiplier = 1.35
+					multiplier = 1.3
 				end
 				local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Secondary.Heal * multiplier, maxhealth - health)))
 				local totake = math.ceil(toheal / multiplier)
 				if toheal > 0 then
 					
 					local delay = self.Secondary.HealDelay
-					if owner:GetSuit() == "medicsuit" then
-						delay = math.Clamp(self.Secondary.HealDelay - 1.6,0,self.Secondary.HealDelay)
-						multiplier = 1.45
+					if owner.DataTable["ShopItems"][48] then
+						delay = math.Clamp(self.Secondary.HealDelay - 1.5,0,self.Secondary.HealDelay)
+						multiplier = multiplier + 0.2
 					end
 					
 					self:SetNextCharge(CurTime() + delay)

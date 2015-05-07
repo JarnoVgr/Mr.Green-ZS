@@ -100,7 +100,11 @@ if SERVER then
 				self.Damage = self.Damage + (self.Damage*(6*self:GetTurretOwner():GetRank())/100)		
 				self.MaxHealth = self.MaxHealth + (self.MaxHealth*(6*self:GetTurretOwner():GetRank())/100)	
 				self.MaxBullets = self.MaxBullets + (self.MaxBullets*(6*self:GetTurretOwner():GetRank())/100)	
-			end			
+			end		
+
+			if self:GetTurretOwner().DataTable["ShopItems"][50] then
+				self.Damage = self.Damage + 1		
+			end
 		
 	--[[	if self:GetTurretOwner():GetPerk("_turretammo") then
 			self.MaxBullets = math.Round(self.MaxBullets*2)
@@ -544,7 +548,7 @@ if SERVER then
 			
 			local dmg = dmginfo:GetDamage()*0.25
 			
-			if IsValid(self:GetTurretOwner()) and self:GetTurretOwner():GetSuit() == "techsuit" then
+			if IsValid(self:GetTurretOwner()) and self:GetTurretOwner().DataTable["ShopItems"][50] then
 				dmg = dmg * 0.5
 			end
 

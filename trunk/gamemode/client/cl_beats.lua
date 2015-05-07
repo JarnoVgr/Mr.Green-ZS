@@ -206,12 +206,6 @@ function ZombieAuraThink()
 			continue
 		end
 
-		--Make humans with stalkersuit sometimes invisible
-		if pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10 and math.random(0,5) ~= 5 then
-			continue
-		end
-
-		--
 		local HumanPosition = pl:GetPos()
 		if HumanPosition:Distance(Position) < 3024 and HumanPosition:ToScreen().visible then
 			AuraTable[pl] = HumanPosition

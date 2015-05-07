@@ -134,7 +134,11 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 				if dmginfo:IsBulletDamage() then
 					dmginfo:SetDamage(dmginfo:GetDamage() * 1.2)
 				elseif dmginfo:IsBulletDamage() and attacker:GetPerk ("_sharpshooter") then
-					dmginfo:SetDamage((dmginfo:GetDamage() * 1.2) + (dmginfo:GetDamage() *(5*attacker:GetRank())/100))
+					if attacker.DataTable["ShopItems"][69] then
+						dmginfo:SetDamage((dmginfo:GetDamage() * 1.3) + (dmginfo:GetDamage() *(5*attacker:GetRank())/100))				
+					else
+						dmginfo:SetDamage((dmginfo:GetDamage() * 1.2) + (dmginfo:GetDamage() *(5*attacker:GetRank())/100))
+					end
 				elseif dmginfo:IsMeleeDamage() then
 					dmginfo:SetDamage(dmginfo:GetDamage() * 1.4)
 				elseif dmginfo:IsMeleeDamage() and attacker:GetPerk("_headhunter") then

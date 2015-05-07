@@ -118,18 +118,18 @@ function SWEP:OnDeploy()
 	if self.Weapon.HadFirstDeploy then return end
 	
 	
-    if IsValid(self.Owner) and self.Owner:GetPerk("_extranails") then
-        self.Weapon.HadFirstDeploy = true
-        self:SetClip2(self:Clip2() * 2)
-	end
+    --if IsValid(self.Owner) and self.Owner:GetPerk("_extranails") then
+    --    self.Weapon.HadFirstDeploy = true
+    --   self:SetClip2(self:Clip2() * 2)
+	--end
 	
 	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") then
 		self.Weapon.HadFirstDeploy = true	
-		self:SetClip2(self:Clip2()+ self.Owner:GetRank() + 1)
+		self:SetClip2(self:Clip2()+ self.Owner:GetRank())
 	end
 	if IsValid(self.Owner) and self.Owner.DataTable["ShopItems"][51] then
 		self.Weapon.HadFirstDeploy = true	
-		self:SetClip2(self:Clip2()+10)
+		self:SetClip2(self:Clip2()+5)
 	end		
 end
  

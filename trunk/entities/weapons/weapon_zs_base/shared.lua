@@ -291,10 +291,14 @@ function SWEP:TakeAmmo()
 
 		local chance = 12 - self.Owner:GetRank()
 		
+		if self.Owner.DataTable["ShopItems"][52] then
+			chance = chance - 1
+		end
+		
 		if math.random(1,chance) != 1 then
 			self:TakePrimaryAmmo(1)		
 		end
-	else
+
 		self:TakePrimaryAmmo(1)
 	end
 

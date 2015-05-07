@@ -412,7 +412,7 @@ GM.Perks = {
 
 	--Medic
 	
-	["_medupgr1"] = {Name = "Healthy Reward", Description = "More SP goes to the owner for healing.", RequiresWeapon = "_medic", Slot = 2}, --Done
+	["_medupgr1"] = {Name = "Healthy Reward", Description = "+30% more SP goes to the owner for healing.", RequiresWeapon = "_medic", Slot = 2}, --Done
 	["_poisonprotect"] = {Name = "Natural Immunity", Description = "70% Poison resistance.", RequiresWeapon = "_medic", Slot = 2}, --Done
 	["_sboost2"] = {Name = "Roller Skates", Description = "5% increase in walking speed.", RequiresWeapon = "_medic", Slot = 2}, --Done
 	

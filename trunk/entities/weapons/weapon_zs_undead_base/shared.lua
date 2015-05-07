@@ -238,10 +238,12 @@ function SWEP:PerformPrimaryAttack()
 					
 					ent:TakeDamage(self.Primary.Damage - (self.Primary.Damage* (5*ent:GetRank())/100), self.Owner, self)
 					
+				elseif ent:GetPerk("_sharpshooter") and ent.DataTable["ShopItems"][69] and math.random(1,5) == 1 then
+					ent:TakeDamage(0, self.Owner, self)					
 				else
 					ent:TakeDamage(self.Primary.Damage, self.Owner, self)
 				end
-				Velocity.z = 0 + self.Primary.Damage * math.random(5,7) 
+				Velocity.z = self.Primary.Damage * math.random(6,8) 
 				
 				if self.Owner:HasBought("vampire") and self.Owner:Health() + self.Primary.Damage * 0.33 < self.Owner:GetMaximumHealth() then	
 					self.Owner:SetHealth(self.Owner:Health() + self.Primary.Damage * 0.33)	
