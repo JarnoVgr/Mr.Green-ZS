@@ -38,8 +38,7 @@ SWEP.Primary.Duration = 1.25
 SWEP.Primary.Delay = 0.75
 SWEP.Primary.Damage = 25
 SWEP.Primary.Reach = 48
-SWEP.Secondary.Delay = 0.8
-SWEP.Secondary.Duration = 2
+
 SWEP.SwapAnims = false
 
 
@@ -78,73 +77,19 @@ function SWEP:PostPerformPrimaryAttack(hit)
 	end
 end
 
-function SWEP:StartSecondaryAttack()
-	local pl = self.Owner
+SWEP.NextYell = 0
+function SWEP:SecondaryAttack()
+	if CurTime() < self.NextYell then return end
 	
-	if pl:GetAngles().pitch > 180 or pl:GetAngles().pitch < -180 then
-		pl:EmitSound(Sound("npc/zombie_poison/pz_idle"..math.random(2,4)..".wav"))
-		return
-	end
+	local mOwner = self.Owner
 	
-
-			
-	if SERVER then
-		pl:EmitSound(Sound("npc/zombie_poison/pz_throw".. math.random(2,3) ..".wav"))
-	end
-end
-
-
-function SWEP:PerformSecondaryAttack()
-	local pl = self.Owner
-
-	-- GAMEMODE:SetPlayerSpeed ( pl, ZombieClasses[ pl:GetZombieClass() ].Speed ) 
-	if pl:GetAngles().pitch > 90 or pl:GetAngles().pitch < -90 then 
-		if SERVER then
-			pl:EmitSound(Sound("npc/zombie_poison/pz_idle".. math.random(2,4) ..".wav"))
-		end
-
-		return 
-	end
+	--//Thirdperson animation
+	mOwner:DoAnimationEvent( CUSTOM_SECONDARY )
 		
-	--Swap Anims
-	if self.SwapAnims then
-		self:SendWeaponAnim(ACT_VM_HITCENTER)
-	else
-		self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
-	end
-	self.SwapAnims = not self.SwapAnims
-		
-	if CLIENT then
-		return
-	end
+	--//Emit both claw attack sound and weird funny sound
+	if SERVER then self.Owner:EmitSound("npc/zombie/zombie_voice_idle"..math.random(1, 14)..".wav") end
 
-	local shootpos = pl:GetShootPos()
-	local startpos = pl:GetPos()
-	startpos.z = shootpos.z
-	local aimvec = pl:GetAimVector()
-	aimvec.z = math.max(aimvec.z, -0.7)
-	
-	
-	for i=1, 12 do
-		local ent = ents.Create("projectile_poisonpuke")
-		if ent:IsValid() then
-			local heading = (aimvec + VectorRand() * 0.25):GetNormal()
-			ent:SetPos(startpos + heading * 8)
-			ent:SetOwner(pl)
-			ent:Spawn()
-			ent.TeamID = pl:Team()
-			local phys = ent:GetPhysicsObject()
-			if phys:IsValid() then
-				--phys:SetVelocityInstantaneous(heading * math.Rand(310, 560))
-				phys:SetVelocityInstantaneous(heading * math.Rand(420, 500))
-			end
-			ent:SetPhysicsAttacker(pl)
-		end
-	end
-
-	pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
-
-	--pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
+	self.NextYell = CurTime() + 2
 end
 
 
