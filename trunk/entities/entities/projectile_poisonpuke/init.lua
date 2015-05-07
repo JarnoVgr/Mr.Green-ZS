@@ -42,19 +42,20 @@ function ENT:Think()
 					end
 				else
 					if not (hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive()) then
-						hitent:TakeDamage(5, self, self)
+						hitent:TakeDamage(5, owner, self)
 					end
-				end
-				if not (hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive()) then
-					hitent:TakeDamage(5, self, self)
-				end				
+				end			
 			end
-
+			if not hitent:IsPlayer then
+				hitent:TakeDamage(5, owner, self)
+			end
 			self.HitData = nil
 		end
 
 		
 		self:Remove()
+	else
+		self:Remove()		
 	end
 end
 
