@@ -26,6 +26,10 @@ function ENT:Initialize()
 		self.range = 70
 	end
 	
+	if self:GetOwner().DataTable["ShopItems"][50] then
+		self.Damage = self.Damage + (self.Damage * 0.1)		
+	end
+	
 	local phys = self.Entity:GetPhysicsObject()
 	phys:EnableMotion( false )
 	

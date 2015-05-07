@@ -7,7 +7,7 @@ timer.Create("HU-RefreshCache", 15, 0, RefreshCache)
 
 --Time in seconds after last hit or hurt to wait before healing
 --local HealTimeout = 60
-local HealTimeout = 4
+local HealTimeout = 6
 local HealTimeout2 = 2
 
 --Amount to heal per cycle

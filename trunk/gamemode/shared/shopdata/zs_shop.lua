@@ -113,9 +113,9 @@ shopData = {
 	
 	
 	--Suits
-	[48] = { Cost = 9000, Type = "suit", AdminOnly = false, Desc = "[REQUIRES MEDIC] | +20% medical equipment SP reward | +1.5 medical equipment recharge rate | suit does not need to be equipped for bonuses.", Key = "medicsuit", ID = 48, Sell = 0, Requires = 0, Name = "Medic's Suit",  }, --11000
+	[48] = { Cost = 9000, Type = "suit", AdminOnly = false, Desc = "[REQUIRES MEDIC] | +20% medical equipment SP reward and healing | +1.5 medical equipment recharge rate | suit does not need to be equipped for bonuses.", Key = "medicsuit", ID = 48, Sell = 0, Requires = 0, Name = "Medic's Suit",  }, --11000
 	--[49] = { Cost = 9000, Type = "suit", AdminOnly = false, Desc = "Crush. Pound. Suit Bonus: Faster swing speed (heavy weapons only)", Key = "meleesuit", ID = 49, Sell = 0, Requires = 0, Name = "Berserker Suit",  },
-	[50] = { Cost = 9000, Type = "suit", AdminOnly = false, Desc = "[REQUIRES ENGINEER] | +1 turret damage | +50% turret and miniturret damage resistance | suit does not need to be equipped for bonuses.", Key = "techsuit", ID = 50, Sell = 0, Requires = 0, Name = "Engineer's Suit",  },
+	[50] = { Cost = 9000, Type = "suit", AdminOnly = false, Desc = "[REQUIRES ENGINEER] | +1 turret damage | +50% turret and miniturret damage resistance | +10% C4 damage | suit does not need to be equipped for bonuses.", Key = "techsuit", ID = 50, Sell = 0, Requires = 0, Name = "Engineer's Suit",  },
 	[51] = { Cost = 9000, Type = "suit", AdminOnly = false, Desc = "[REQUIRES SUPPORT] | +5 starting hammer nails | +2 hammer repair points | +50% nail health | suit does not need to be equipped for bonuses.", Key = "supportsuit", ID = 51, Sell = 0, Requires = 0, Name = "Support's Suit",  },
 	[52] = { Cost = 9000, Type = "suit", AdminOnly = false, Desc = "[REQUIRES COMMANDO] | +50% grenade damage | Adds 1 extra chance to (1 in 12-X chance to not use bullet) | suit does not need to be equipped for bonuses. ", Key = "assaultsuit", ID = 52, Sell = 0, Requires = 0, Name = "Commando's Suit",  },
 	[69] = { Cost = 9000, Type = "suit", AdminOnly = false, Desc = "[REQUIRES SHARPSHOOTER] | +10% headshot damage | 20% chance to evade claw damage | suit does not need to be equipped for bonuses. ", Key = "stalkersuit", ID = 69, Sell = 0, Requires = 0, Name = "Sharpshooter's Suit" },

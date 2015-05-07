@@ -47,10 +47,10 @@ SPEED_MELEE_LIGHT = SPEED - 5
 SPEED_MELEE = SPEED - 10
 SPEED_MELEE_HEAVY = SPEED - 20
 SPEED_PISTOL = SPEED - 10
-SPEED_SMG = SPEED - 20
+SPEED_SMG = SPEED - 15
 SPEED_SHOTGUN = SPEED - 25
-SPEED_RIFLE = SPEED - 30
-SPEED_HEAVY = SPEED - 35
+SPEED_RIFLE = SPEED - 20
+SPEED_HEAVY = SPEED - 30
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8
@@ -172,7 +172,7 @@ GM.HumanWeapons = {
         ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 1400, HumanClass = "support"},		
        
         --Medic
-        ["weapon_zs_medigun"]  = { Name = "Medigun", DPS = 143, Infliction = 0, Type = "smg",Price = 300, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
+        ["weapon_zs_medigun"]  = { Name = "Medigun", DPS = 143, Infliction = 0, Type = "smg",Price = 400, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
         ["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
        
         --Sharpshooter
@@ -191,9 +191,9 @@ GM.HumanWeapons = {
        -- ["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle",Price = 600, HumanClass = "other" },          
        
         --Pistols
-        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 400, HumanClass = "medic" },
+        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 300, HumanClass = "medic" },
         ["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 200, Description = "High fire rate thanks to having two pistols in your hands." , HumanClass = "medic"},
-        ["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 500, Description = "Russian Roulette Revolver", HumanClass = "medic" },
+        ["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 400, Description = "Russian Roulette Revolver", HumanClass = "medic" },
         ["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic."},
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 200, Description = "Alyx is hot. But her gun is even more hot.", HumanClass = "medic" },
  
@@ -343,7 +343,7 @@ GM.RankUnlocks = {
 
 	[1] = {"_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_headhunter"},
 	
-	[2] = {"_medupgr1","_kevlar","_kevlarsupport","_berserk","_blast","_point","_remote","_comeback2"},
+	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2"},
 	
 	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive"},
 	
@@ -351,7 +351,7 @@ GM.RankUnlocks = {
 	
 	[5] = {"_healingnads","_turret","_psychotic","_repairs"},
 	
-	[6] = {"_combat","_profitable","_psychopath","_ironaim", "_nitrate"},
+	[6] = {"_combat","_profitable","_ironaim", "_nitrate"},
 		
 	
 }
@@ -383,7 +383,7 @@ GM.Perks = {
 	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "You get given an extra weapon.", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_repairs"] = {Name = "Repairs", Description = "60% of repairs also goes to healing the prop!", RequiresWeapon = "_support2", Slot = 1}, --Done	
+	["_repairs"] = {Name = "Handy Man", Description = "Repairs also go towards healing the prop! +1 extra SP", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	
 	--Berserker
 	
@@ -419,16 +419,16 @@ GM.Perks = {
 	--Commando
 	
 	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more HP.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2}, --Done
-	["_kevlar2"] = {Name = "Healthy Appetite", Description = "Give 50 extra initial HP.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2}, --Done
-	["_profitable"] = {Name = "Lead Market", Description = "+5 SP from kills.", RequiresWeapon = "_commando", Slot = 2}, --Done
+	["_kevlar2"] = {Name = "Kevlar", Description = "+50 initial health", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2}, --Done
+	["_profitable"] = {Name = "Lead Market", Description = "+5 SP from kills", RequiresWeapon = "_commando", Slot = 2}, --Done
 	["_comeback2"] = {Name = "Bring The Pain", Description = "Redeem with a Famas or SG552", RequiresWeapon = "_commando", Slot = 2},
 	
 	--Support
 	
-	["_horse"] = {Name = "Health Regenerate", Description = "If you take damage after 60 seconds you will regain the HP!", RequiresWeapon = "_support2", Slot = 2}, --Done
-	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "An extra 50HP!", RequiresWeapon = "_support2", Slot = 2}, --Done
+	["_horse"] = {Name = "Horse Health", Description = "Regenerate health 6 seconds after last hit", RequiresWeapon = "_support2", Slot = 2}, --Done
+	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "+50 maximum health", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_psychopath"] = {Name = "Regenerative Nature", Description = "Regain health like a monster!", RequiresWeapon = "_support2", Slot = 2}, --Done
-	["_reload"] = {Name = "Action Reload", Description = "Reload bullets twice as quickly in shotguns!", RequiresWeapon = "_support2", Slot = 2}, --Done
+	["_reload"] = {Name = "Action Reload", Description = "Reload 2 shotgun shells at once!", RequiresWeapon = "_support2", Slot = 2}, --Done
 	
 	--Berserker
 	

@@ -38,7 +38,6 @@ ENT.SpotDistance = 700
 ENT.Damage = 5
 ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {7,9}
-ENT.ShotsFired = 0
 ENT.MinimumAimDot = 0.25
 
 local function MyTrueVisible(posa, posb, filter)
@@ -590,8 +589,6 @@ if SERVER then
 		
 		util.Decal("Scorch",traceground.HitPos - traceground.HitNormal,traceground.HitPos + traceground.HitNormal)
 
-		
-		
 		local Effect = EffectData()
 		Effect:SetOrigin( self:GetPos() )
 		Effect:SetStart( self:GetPos() )
@@ -601,17 +598,15 @@ if SERVER then
 		-- 	self:GetTurretOwner().Turret = nil
 		-- end
 		
-		Owner:Message("Turret destroyed!", 2)
-		Owner:Message("20SP to place it again.", 2)			
-		local placeWeapon = "weapon_zs_turretplacer"
-		Owner:Give(placeWeapon)
-		Owner:SelectWeapon(placeWeapon)
-
+		if Owner:IsValid() then
+			Owner:Message("Turret destroyed!", 2)		
+			local placeWeapon = "weapon_zs_turretplacer"
+			Owner:Give(placeWeapon)
+			Owner:SelectWeapon(placeWeapon)		
+		end
 				
 		self.Entity:Remove()
 		
-		
-
 	end
 
 	function ENT:UpdateTransmitState()
