@@ -112,7 +112,7 @@ function SWEP:OnDeploy()
 	end	
 	
 	if self.Owner:GetPerk("_repairs") then
-		self.ToHealProp = self.ToHeal * 4
+		self.ToHealProp = self.ToHeal
 	end
 	
 	if self.Weapon.HadFirstDeploy then return end
@@ -194,7 +194,7 @@ if SERVER then
 								self.Owner:AddXP(self.ToHeal)
 								
 								if self.ToHealProps != 0 then
-									trent:SetHealth(trent:Health() + self.ToHealProp)
+									trent:SetHealth(trent:Health() + self.ToHealProp*2)
 									skillpoints.AddSkillPoints(self.Owner, 1)
 									self.Owner:AddXP(self.ToHealProp)	
 								end		
