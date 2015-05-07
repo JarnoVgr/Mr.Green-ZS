@@ -296,7 +296,7 @@ function SWEP:TakeAmmo()
 		end
 		
 		if math.random(1,chance) != 1 then
-
+		self:TakePrimaryAmmo(1)	
 		end
 	else
 		self:TakePrimaryAmmo(1)	
