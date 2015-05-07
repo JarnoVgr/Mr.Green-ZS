@@ -105,7 +105,7 @@ function SWEP:PrimaryAttack()
 	if self:CanPrimaryAttack() then
 		local owner = self.Owner
 		local trace = self.Owner:GetEyeTrace()
-		if trace.HitPos:Distance(self.Owner:GetShootPos()) <= 80 then
+		if trace.HitPos:Distance(self.Owner:GetShootPos()) <= 90 then
 			local ent = self.Owner:GetEyeTrace().Entity
 
 		-- local ent = owner:MeleeTrace(32, 2).Entity

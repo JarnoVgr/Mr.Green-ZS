@@ -64,13 +64,6 @@ GM.SkillShopAmmo = {
 		Price = 30,
 		ToolTab = true
 	},
-	--[[["Battery"] = {
-		Name = "Refill 30 charge for Medkit",
-		Model = "models/Items/BoxBuckshot.mdl",
-		Amount = 30,
-		Price = 35,
-		ToolTab = true
-	},]]--
 
 	["Battery"] = {
 		Name = "30 Medkit Charge",
@@ -79,13 +72,13 @@ GM.SkillShopAmmo = {
 		Price = 50,
 		ToolTab = true
 	},
-	--[[
-	["Battery"] = {
+	
+	["xbowbolt"] = { --Instead of the KF Potato, I wanted to add a more community feel to the game. I think this did the trick! aha English humor..
 		Name = "Mogadonskoda's Used Dildo",
 		Model = "models/Items/BoxBuckshot.mdl",
 		Amount = 1,
 		Price = 10000,
 		ToolTab = true
-	},]]--
+	},
 	
 }

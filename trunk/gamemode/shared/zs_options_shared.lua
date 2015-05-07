@@ -23,14 +23,14 @@ end
 if SERVER and tobool(string.find(tostring(game.GetMap()),"zs_arena")) then
 	GM:SetGameMode(GAMEMODE_ARENA)
 end
---[[
-if SERVER --Set Savenge on a chance!
 
-if math.random(1,10) == 5 and tobool(string.find(tostring(game.GetMap()),"zs_")) then
+if SERVER then--Set Savenge on a chance!
+
+if math.random(1,1) == 1 and tobool(string.find(tostring(game.GetMap()),"zs_fortress")) then
 	GM:SetGameMode(GAMEMODE_SCAVENGE)
 end
 
-end]]--
+end
 
 DEFAULT_VIEW_OFFSET = Vector(0, 0, 64)
 DEFAULT_VIEW_OFFSET_DUCKED = Vector(0, 0, 28)

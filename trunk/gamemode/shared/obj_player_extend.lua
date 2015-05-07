@@ -911,7 +911,7 @@ function meta:SetZombieClass(cl)
 	self:SetDTInt(2,cl)
 end
 
-function meta:GetHumanClass()
+function meta:GetHumanClass() --Duby: Re-work this function. We only have one human class now, classes are made differently. This function is kinda redundant..
 	return 1-- self.ClassHuman or
 end
 
@@ -978,6 +978,7 @@ function meta:NextRankXP()
 
 	return exp or 2000
 end
+
 function meta:CurRankXP()
 	if self:IsBot() then
 		return 0
