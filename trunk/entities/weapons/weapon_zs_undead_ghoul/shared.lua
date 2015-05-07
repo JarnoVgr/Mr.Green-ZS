@@ -48,16 +48,14 @@ SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
 
-SWEP.Primary.Duration = 1.3
+SWEP.Primary.Duration = 1.5
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Damage = 20
---Pufulet: so it did have more reach!
---SWEP.Primary.Reach = 55
 SWEP.Primary.Reach = 48
 
 SWEP.SwapAnims = false
-SWEP.Secondary.Duration = 2
-SWEP.Secondary.Delay = 0.8
+SWEP.Secondary.Duration = 2.3
+SWEP.Secondary.Delay = 0.5
 
 function SWEP:Move()
 end
@@ -77,7 +75,7 @@ function SWEP:StartPrimaryAttack()
   
 	--Emit sound
 	if SERVER and #self.AttackSounds > 0 then
-		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))
+		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]),74,math.Rand(110, 120))
 	end
 
 end
@@ -93,25 +91,67 @@ function SWEP:PostPerformPrimaryAttack(hit)
 	end
 end
 
-SWEP.NextYell = 0
-function SWEP:SecondaryAttack()
-	if CurTime() < self.NextYell then return end
-	
-	local mOwner = self.Owner
-	
-	--//Thirdperson animation
-	mOwner:DoAnimationEvent( CUSTOM_SECONDARY )
+function SWEP:StartSecondaryAttack()
+	local pl = self.Owner
 		
-	--//Emit both claw attack sound and weird funny sound
-	if SERVER then self.Owner:EmitSound("npc/zombie/zombie_voice_idle"..math.random(1, 14)..".wav") end
-
-	self.NextYell = CurTime() + 2
+	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)		
+		
+	--Swap Anims
+	if self.SwapAnims then
+		self:SendWeaponAnim(ACT_VM_HITCENTER)
+	else
+		self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+	end
+	self.SwapAnims = not self.SwapAnims	
+		
+	if SERVER then
+		pl:EmitSound("npc/fast_zombie/leap1.wav", 74, math.Rand(110, 130))
+	end
 end
 
 
+function SWEP:PerformSecondaryAttack()
+	local pl = self.Owner
+	
+	if CLIENT then
+		return
+	end
+	
+
+	
+	local shootpos = pl:GetShootPos()
+	local startpos = pl:GetPos()
+	startpos.z = shootpos.z - 5
+	local aimvec = pl:GetAimVector()
+	aimvec.z = math.max(aimvec.z, -0.7)
+	
+	
+	for i=1, 4 do
+		local ent = ents.Create("projectile_poisonpuke")
+		if ent:IsValid() then
+			local heading = (aimvec + VectorRand() * 0.2):GetNormal()
+			ent:SetPos(startpos + heading * 8)
+			ent:SetOwner(pl)
+			ent:Spawn()
+			ent.TeamID = pl:Team()
+			local phys = ent:GetPhysicsObject()
+			if phys:IsValid() then
+				--phys:SetVelocityInstantaneous(heading * math.Rand(310, 560))
+				phys:SetVelocityInstantaneous(heading * math.Rand(380, 400))
+			end
+			ent:SetPhysicsAttacker(pl)
+		end
+	end
+
+	pl:EmitSound(Sound("physics/body/body_medium_break"..math.random(2,4)..".wav"), 80, math.random(70, 80))
+
+	--pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
+end
 function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
 
+	
+	self:SetColor(50,50,50,255)
 	--Attack sounds
 	for i = 20, 37 do
 		table.insert(self.AttackSounds,Sound("mrgreen/undead/infected/rage_at_victim"..i..".mp3"))

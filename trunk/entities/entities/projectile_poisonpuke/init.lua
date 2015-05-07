@@ -28,7 +28,7 @@ function ENT:Think()
 			if hitent and IsValid(hitent) then
 				local owner = self:GetOwner()
 				if IsValid(owner) then
-					if not (hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive()) then
+					if hitent:IsPlayer() and hitent:IsHuman() and hitent:Alive() then
 						if hitent:GetPerk("_medic") then
 							hitent:TakeDamage(math.random(2,3), owner, self)							
 						else
@@ -42,20 +42,15 @@ function ENT:Think()
 					end
 				else
 					if not (hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive()) then
-						hitent:TakeDamage(5, owner, self)
+						hitent:TakeDamage(5, self, self)
 					end
-				end			
+				end
 			end
-			if not hitent:IsPlayer then
-				hitent:TakeDamage(5, owner, self)
-			end
+
 			self.HitData = nil
 		end
 
-		
 		self:Remove()
-	else
-		self:Remove()		
 	end
 end
 
