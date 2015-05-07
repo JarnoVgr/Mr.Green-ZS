@@ -54,6 +54,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.RecBrain = 0
 	pl.BrainDamage = 150
 	pl.MaxHealth = 100
+	
 	pl.Suicided = false
 	pl.FreshRedeem = false
 	pl.Gibbed = false
@@ -154,7 +155,7 @@ function GM:PlayerInitialSpawn(pl)
 	end
 	
 	--Case 2: If passed 5 minutes or lasthuman or endround or more than 50% players zombie, place him as undead
-	if (CurTime() > ROUNDTIME * 0.25) or LASTHUMAN or (GetInfliction() >= 0.5 and team.NumPlayers(TEAM_UNDEAD) > 2) or ENDROUND then
+	if (CurTime() > ROUNDTIME * 0.1) or LASTHUMAN or (GetInfliction() >= 0.5 and team.NumPlayers(TEAM_UNDEAD) > 2) or ENDROUND then
 		iTeam = TEAM_UNDEAD
 		DataTableConnected[ID].IsDead = true
 	end
@@ -351,7 +352,7 @@ function GM:OnHumanSpawn(pl)
 		
 	--Freeman
 	--Check if we can be THE Gordon Freeman
-	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,5) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
 		--Only display message when being human
 		if pl:Team() == TEAM_SURVIVORS then
 			pl:ChatPrint("You're now THE Gordon Freeman!")
@@ -585,12 +586,12 @@ function GM:OnZombieSpawn(pl)
 	-- Prevent health pickups and/or machines
 	pl:SetMaxHealth(1) 
 	
-	--pl:SetBloodColor(BLOOD_COLOR_RED)
-	pl:SetBloodColor(BLOOD_COLOR_YELLOW)
+	pl:SetBloodColor(BLOOD_COLOR_RED)
+	--pl:SetBloodColor(BLOOD_COLOR_YELLOW)
 
 	--Auto enable zombie vision at first spawn
 	if pl.m_ZombieVision == nil or pl.m_ZombieVision == true then
-		timer.Simple(0.3,function()
+		timer.Simple(0.1,function()
 			pl.m_ZombieVision = true
 			pl:SendLua("gamemode.Call(\"ToggleZombieVision\", "..tostring(pl.m_ZombieVision)..")")
 		end)
@@ -646,6 +647,7 @@ function GM:PlayerDisconnected( pl )
 			DataTableConnected[ID].SuicideSickness = true
 		end
 	--end
+	pl.Suicided = true
 	
 	--Delay calculation
 	timer.Simple(2, function()

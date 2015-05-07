@@ -29,11 +29,13 @@ function ENT:Think()
 				local owner = self:GetOwner()
 				if IsValid(owner) then
 					if not (hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive()) then
-						hitent:TakeDamage(4, owner, self)
+						hitent:TakeDamage(5, owner, self)
+					elseif hitent:IsPlayer() and hitEnt:IsZombie() and hitent:Alive() then
+						hitent:SetHealth(hitent:Health() + 10)					
 					end
 				else
 					if not (hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive()) then
-						hitent:TakeDamage(4, self, self)
+						hitent:TakeDamage(5, self, self)
 					end
 				end
 			end
