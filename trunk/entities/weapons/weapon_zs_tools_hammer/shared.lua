@@ -65,7 +65,7 @@ SWEP.MeleeDamage = 27
 SWEP.MeleeRange = 52
 SWEP.MeleeSize = 0.875
 SWEP.ToHeal = 5
- 
+SWEP.ToHealProp = 0
 SWEP.UseMelee1 = true
  
 SWEP.HitGesture = ACT_HL2MP_GESTURE_RANGE_ATTACK_MELEE
@@ -104,12 +104,16 @@ function SWEP:OnDeploy()
     end
 	
 	if self.Owner:GetPerk("_support2") then
-	self.ToHeal = self.ToHeal +(5*(12*self.Owner:GetRank())/100)	
+	self.ToHeal = self.ToHeal +(5*(13*self.Owner:GetRank())/100)	
 	end
 	
 	if self.Owner:GetSuit() == "supportsuit" then
 		self.ToHeal = self.ToHeal + 2
 	end	
+	
+	if self.Owner:GetPerk("_repairs") then
+		self.ToHealProp = math.ceil(self.ToHeal * 0.6)
+	end
 	
 	if self.Weapon.HadFirstDeploy then return end
 	
@@ -123,6 +127,8 @@ function SWEP:OnDeploy()
 		self.Weapon.HadFirstDeploy = true	
 		self:SetClip2(self:Clip2()+ self.Owner:GetRank() + 1)
 	end
+	
+	print(self.Owner.Suit)
 	
 	if IsValid(self.Owner) and self.Owner:GetSuit() == "supportsuit" then
 		self.Weapon.HadFirstDeploy = true	
@@ -169,8 +175,8 @@ if SERVER then
 							-- if self.Owner:GetPerk("_trchregen") then                                                           
 							-- nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+15,1,nail:GetDTInt(1)))
 
-							nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+self.ToHeal,1,nail:GetDTInt(1)))					        
-
+							nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+self.ToHeal,1,nail:GetDTInt(1)))			
+							
                             local pos = tr.HitPos
                             local norm = tr.HitNormal
         
@@ -189,6 +195,12 @@ if SERVER then
 								skillpoints.AddSkillPoints(self.Owner, 1)
 								nail:FloatingTextEffect( 1, self.Owner )
 								self.Owner:AddXP(self.ToHeal)
+								
+								if self.ToHealProps != 0 then
+									trent:SetHealth(trent:Health() + self.ToHealProp)
+									skillpoints.AddSkillPoints(self.Owner, 1)
+									self.Owner:AddXP(self.ToHealProp)	
+								end		
 							end
 							
 							self.Owner._RepairScore = 0

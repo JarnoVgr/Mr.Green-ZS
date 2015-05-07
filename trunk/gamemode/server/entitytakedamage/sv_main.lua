@@ -38,10 +38,6 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			dmginfo:ScaleDamage(1)
 		end
 		
-		if attacker:GetClass() == "env_explosion" then
-			dmginfo:ScaleDamage(0)
-		end
-		
 		local entclass = ent:GetClass()
 		-- A prop that was invulnerable and converted to vulnerable.
 		if ent.PropHealth then
@@ -49,6 +45,11 @@ function GM:EntityTakeDamage(ent, dmginfo)
 		
 			if IsValid(attacker) and (attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN or attacker.GetOwner and IsValid(attacker:GetOwner()) and attacker:GetOwner():IsPlayer() and attacker:GetOwner():Team() == TEAM_HUMAN) then
 				ent._LastAttackerIsHuman = true
+				
+			if attacker:GetClass() == "env_explosion" then
+				dmginfo:ScaleDamage(0)
+			end				
+				
 			end
 			
 			if not ent.TotalHealth then

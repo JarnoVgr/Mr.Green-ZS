@@ -349,7 +349,7 @@ GM.RankUnlocks = {
 	
 	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
-	[5] = {"_healingnads","_turret","_psychotic"},
+	[5] = {"_healingnads","_turret","_psychotic","_repairs"},
 	
 	[6] = {"_combat","_profitable","_psychopath","_ironaim", "_nitrate"},
 		
@@ -383,7 +383,7 @@ GM.Perks = {
 	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "You get given an extra weapon.", RequiresWeapon = "_support2", Slot = 1}, --Done
-	
+	["_repairs"] = {Name = "Repairs", Description = "60% of repairs also goes to healing the prop!", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	
 	--Berserker
 	
@@ -1007,63 +1007,59 @@ PlayerModels = {
 		"css_swat",
 		"css_urban",
 		"combie_soldier",
-		"combie_soldier_prisonguard"
+		"combie_soldier_prisonguard",
+		"corpse01"	
 		--"santa"
 }
 
 EngineerPlayerModels = {
-"kleiner",
-"alyx",
-"breen",
-"mossman"
+	"kleiner",
+	"alyx",
+	"mossman",
+	"barney",
+	"breen",	
 }
 
 CommandoPlayerModels = {
-"css_swat"
+	"combie_soldier",
+	"combie_soldier_prisonguard"
 }
 
 SupportPlayerModels = {
-"css_leet",
-"eli",
-"odessa"
+	"css_arctic",
+	"css_gasmask",
+	"css_guerilla",
+	"css_leet",
+	"css_phoenix",
+	"css_riot",
+	"css_swat",
+	"css_urban"
 }
 
 BerserkerPlayerModels = {
-"css_gasmask",
-"css_riot"
+	"corpse01"
 }
 
 SharpshooterPlayerModels = {
-		"male01",
-		"male02",
-		"male03",
-		"male04",
-		"male05",
-		"male06",
-		"male07",
-		"male08",
-		"male09",
-		"male10",
-		"male11",
-		"male12"
+	"odessa"
 }
 
 MedicPlayerModels = {
-		"medic01",
-		"medic02",
-		"medic03",
-		"medic04",
-		"medic05",
-		"medic06",
-		"medic07",
-		"medic08",
-		"medic09",
-		"medic10",
-		"medic11",
-		"medic12",
-		"medic13",
-		"medic14",
-		"medic15"
+	"medic01",
+	"medic02",
+	"medic03",
+	"medic04",
+	"medic05",
+	"medic06",
+	"medic07",
+	"medic08",
+	"medic09",
+	"medic10",
+	"medic11",
+	"medic12",
+	"medic13",
+	"medic14",
+	"medic15"
 }
 
 PlayerAdminModels = {
