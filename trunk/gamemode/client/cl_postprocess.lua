@@ -262,7 +262,7 @@ function GM:_RenderScreenspaceEffects()
 		DrawBlur(5, 1.2)
 	--Blur for zombie classes menu background
 	elseif IsClassesMenuOpen() then
-		print("_RenderScreenspaceEffects-3")
+		--print("_RenderScreenspaceEffects-3")
 		DrawBlur(5, 3)
 	end
 		
