@@ -45,7 +45,7 @@ GM.SkillShopAmmo = {
 		Model = "models/Items/BoxBuckshot.mdl",
 		Tool = "weapon_zs_mine",
 		Amount = 1,
-		Price = 40,
+		Price = 60,
 		ToolTab = true
 	},
 	["grenade"] = {
