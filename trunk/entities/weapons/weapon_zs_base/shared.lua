@@ -298,11 +298,12 @@ function SWEP:TakeAmmo()
 		if math.random(1,chance) != 1 then
 			self:TakePrimaryAmmo(1)		
 		end
-
-		self:TakePrimaryAmmo(1)
 	end
 
+	self:TakePrimaryAmmo(1)	
+	
 end
+
 
 function SWEP:Reload()
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
