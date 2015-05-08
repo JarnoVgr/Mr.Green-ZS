@@ -173,6 +173,7 @@ GM.HumanWeapons = {
        
         --Medic
         ["weapon_zs_medigun"]  = { Name = "Medigun", DPS = 143, Infliction = 0, Type = "smg",Price = 400, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
+        ["weapon_zs_medishotgun"]  = { Name = "MediShotGun", DPS = 143, Infliction = 0, Type = "smg",Price = 400, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
         ["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
        
         --Sharpshooter
@@ -186,6 +187,11 @@ GM.HumanWeapons = {
         --Engineer
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 100, HumanClass = "engineer"},                      
         ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 400, HumanClass = "engineer"},
+ 
+		--PyroTechnic
+		   ["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
+		   ["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
+		
  
         --Other Class
        -- ["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle",Price = 600, HumanClass = "other" },          
@@ -240,7 +246,7 @@ GM.HumanWeapons = {
         ["weapon_zs_fists"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee", Description = "Punch a Zombie in the face." },
         ["weapon_zs_fists2"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
         ["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" }, -- 860
-        ["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
+     
        
        
         --Tool1
@@ -327,7 +333,7 @@ GM.AmmoRegeneration = {
 -- -- -- -- -- -- -- -- -- -- /
 XP_BLANK = 0
 
-XP_INCREASE_BY = 9000
+XP_INCREASE_BY = 10000
 
 XP_PLAYERS_REQUIRED = 5
 
@@ -345,11 +351,11 @@ GM.RankUnlocks = {
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2"},
 	
-	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive"},
+	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive","_medigun"},
 	
 	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
-	[5] = {"_healingnads","_turret","_psychotic","_repairs"},
+	[5] = {"_healingnads","_turret","_psychotic","_repairs","_medishot"},
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate"},
 		
@@ -365,11 +371,11 @@ GM.Perks = {
 	["_none1"] = {Name = "None", Description = "No Perk.", Slot = 1},	
 	["_none2"] = {Name = "None", Description = "No Perk.", Slot = 2},	
 		
-	
 	--Medic
 	
 	["_medupgr2"] = {Name = "Medical Supplies", Description = "100 extra medical charges.", RequiresWeapon = "_medic", Slot = 1}, --Done
 	["_medigun"] = {Name = "Medi Gun", Description = "Gives you the Medigun.", RequiresWeapon = "_medic", Slot = 1}, --Done
+	["_medishot"] = {Name = "Medi ShotGun", Description = "Gives you the Medical ShotGun", RequiresWeapon = "_medic", Slot = 1}, --Done
 	["_healingnads"] = {Name = "Healing grenades", Description = "Gives you 5 healing grenades.", RequiresWeapon = "_medic", Slot = 1}, --Need to make
 	
 	--Commando
@@ -455,6 +461,8 @@ GM.Perks = {
 	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+20% Melee Damage | Extra Melee Damage | +2 Health On Melee Kill | Extra Health On Melee Kill | No Slowdown | Speed Boost", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret  |  C4  |  Classic Pistol  |  Pan  ", Description = "Bonus Turret Stats | Bonus Turret Fire Rate | Extra Pulse Capacity | Faster Pulse Regen Rate | Increased C4 Damage | Increased C4 Radius", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Python  |  Beer Bottle		", Description = "Extra Headshot Damage | Extra Speed | Extra Sniper Damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	
+	["_pyrotechnic"] = {Name = "PyroTechnic", Equipment = "Fame Nades  |  Fare Gun  |  Wine ", Description = "Immune To Fire | Extra Health  |  Possibility To Get A Flamer On Spawn", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3}, --Need to start this soon
 	
 }
 

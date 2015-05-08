@@ -146,6 +146,8 @@ function meta:IsHumanClass()
 		
 		--Sharpshooter stages
 		sharpshooter = {"weapon_zs_python","weapon_zs_melee_beer","weapon_zs_tools_supplies"}
+		
+		pyrotechnic = {"weapon_zs_flaregun","weapon_zs_special_bottleofwine"}
 	
 	--{{ZS HUMAN CLASSES}}--
 
@@ -157,6 +159,9 @@ function meta:IsHumanClass()
 				end
 					if self:GetPerk("_medigun") then --Medical gun perk
 						self:Give("weapon_zs_medigun")
+					end
+					if self:GetPerk("_medishot") then
+						self:Give("weapon_zs_medishotgun")
 					end
 				end			
 
@@ -227,6 +232,14 @@ function meta:IsHumanClass()
 					self:Give("weapon_zs_scout")
 					end
 				end
+				
+			if self:GetPerk("_pyrotechnic") then
+				self:ChatPrint("You are a PyroTechnic")
+				self.Loadout = table.Copy(pyrotechnic)
+				for k,v in pairs(pyrotechnic) do
+					self:Give(tostring(v))
+				end
+			end	
 		
 		for k,v in pairs(commando2) do --If you don't have a class selected give them this...
 					self:Give(tostring(v))
