@@ -222,7 +222,15 @@ function SWEP:PerformPrimaryAttack()
 			local phys = ent:GetPhysicsObject()
 			-- Case 2: It is a valid physics object
 			if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() and not ent:IsPlayer() and not ent.Nails then
-				local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 1100, 25000, 60000)
+				
+				local Velocity
+				
+				if self.Primary.Damage == 25 or self.Primary.Damage == 40 then
+					Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 1100, 5000, 50000)
+				else
+					Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 300, 5000, 50000)				
+				end
+				
 				--Velocity.z = math.min(Velocity.z,1600)				
 				--Apply force to prop and make the physics attacker myself
 				phys:ApplyForceCenter(Velocity)
