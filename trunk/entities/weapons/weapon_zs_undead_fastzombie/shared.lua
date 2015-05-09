@@ -16,8 +16,8 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Primary.Delay = 0.1
 SWEP.Primary.Reach = 42
-SWEP.Primary.Damage = 4
-SWEP.Primary.Duration = 0.4
+SWEP.Primary.Damage = 5
+SWEP.Primary.Duration = 0.35
 
 
 SWEP.Secondary.Damage = 2
@@ -78,7 +78,9 @@ function SWEP:Think()
 				end
 
 				if ent:IsPlayer() or ent:IsNPC() then
-					ent:SetVelocity(self.Owner:GetForward() * self.Secondary.PounceVelocity)
+					local Velocity = self.Owner:GetForward() * self.Secondary.PounceVelocity
+					Velocity.z = Velocity.z * 2.5
+					ent:SetVelocity(Velocity)
 				else
 					--Calculate velocity to push
 					local Velocity = self.Owner:EyeAngles():Forward() * (self.Secondary.PounceVelocity * 3)
