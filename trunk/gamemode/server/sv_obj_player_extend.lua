@@ -1143,7 +1143,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 			return true
 		--Scale down
 		else
-			dmginfo:ScaleDamage(0.025)
+			dmginfo:ScaleDamage(0.02)
 		end
 	end
 
@@ -1167,7 +1167,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 			continue
 		end
 		
-		nail:SetDTInt(1, nail:GetDTInt(1) - damage*0.1 )	
+		nail:SetDTInt(1, nail:GetDTInt(1) - damage*0.25 )	
 		--ent:SetHealth(ent:Health() - (damage/#ent.Nails))
 		nail:SetNailHealth(nail:GetNailHealth() - damage)	
 		

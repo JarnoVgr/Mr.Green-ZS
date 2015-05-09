@@ -32,6 +32,8 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			--Nails are fine. Let's not damage the prop
 			if attacker:IsHuman() then
 		    	return true		
+			else
+				dmginfo:ScaleDamage(0.2)
 			end
 		else
 			--Multiply once a nail dies
