@@ -171,8 +171,8 @@ GM.HumanWeapons = {
         ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 1400, HumanClass = "support"},		
        
         --Medic
-        ["weapon_zs_medigun"]  = { Name = "Medi-02", DPS = 143, Infliction = 0, Type = "smg",Price = 400, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
-        ["weapon_zs_medishotgun"]  = { Name = "Medi-03", DPS = 143, Infliction = 0, Type = "smg",Price = 700, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medigun"]  = { Name = "Medi 02", DPS = 143, Infliction = 0, Type = "smg",Price = 400, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
+        ["weapon_zs_medishotgun"]  = { Name = "Medi 03", DPS = 143, Infliction = 0, Type = "smg",Price = 700, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		
       --  ["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
        
@@ -351,7 +351,7 @@ GM.RankUnlocks = {
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2"},
 	
-	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive","_medigun"},
+	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive"},
 	
 	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
 	

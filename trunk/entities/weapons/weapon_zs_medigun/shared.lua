@@ -4,7 +4,7 @@ if CLIENT then
 	SWEP.ViewModelFOV = 60
 	SWEP.BobScale = 2
 	SWEP.SwayScale = 1.5
-	SWEP.PrintName = "Medi-02"
+	SWEP.PrintName = "Medi 02"
 
 	SWEP.Slot = 4
 	SWEP.SlotPos = 0
@@ -222,31 +222,3 @@ function SWEP:CanSecondaryAttack()
 	return --[=[self:GetNextCharge() <= CurTime() and]=] (owner.NextMedKitUse or 0) <= CurTime()
 end
 
-function SWEP:Equip ( NewOwner )
-	if CLIENT then return end
-	
-	if self.Weapon.FirstSpawn then
-		self.Weapon.FirstSpawn = false
-		if NewOwner:GetPerk("_medupgr2") then
-			NewOwner:GiveAmmo( 100, self:GetPrimaryAmmoTypeString() )
-			self.Weapon.FirstSpawn = false	
-		end
-		
-		if NewOwner:GetPerk("_medic") then
-			NewOwner:GiveAmmo(self.Owner:GetRank()*15, self:GetPrimaryAmmoTypeString())	
-			self.Weapon.FirstSpawn = false			
-		end		
-	--else
-	--	if self.Ammunition then
-		--	self:TakePrimaryAmmo ( self:Clip1() - self.Ammunition )
-		--end
-	
-		--NewOwner:RemoveAmmo ( 1500, self:GetPrimaryAmmoTypeString() )
-		--if self.Weapon.RemainingAmmunition then
-		--	NewOwner:GiveAmmo( self.Weapon.RemainingAmmunition or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
-		--end
-	end	
-	
-	-- Call this function to update weapon slot and others
-	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
-end
