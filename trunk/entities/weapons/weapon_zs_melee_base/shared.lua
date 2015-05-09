@@ -313,21 +313,18 @@ function SWEP:MeleeSwing()
 				dmginfo:SetDamageForce(self.MeleeDamage * 20 * owner:GetAimVector())
 				if hitent:IsPlayer() then
 					hitent:MeleeViewPunch(damage)
-				end
-				
-				--if owner.GetPerk("_oppressive") then
-				local Velocity = self.Owner:EyeAngles():Forward() * damage * 10
-				Velocity.z = (damage * 3.2) + 30
-				Velocity.x = Velocity.x * 0.275
-				Velocity.y = Velocity.y * 0.275
-				hitent:TakeDamageInfo(dmginfo)
-				
-				if owner:GetPerk("_oppressive") then
-					Velocity.z = Velocity.z * 2.0
-				end
+					local Velocity = self.Owner:EyeAngles():Forward() * damage * 10
+					Velocity.z = (damage * 3.2) + 30
+					Velocity.x = Velocity.x * 0.275
+					Velocity.y = Velocity.y * 0.275
+					
+					if owner:GetPerk("_oppressive") then
+						Velocity.z = Velocity.z * 1.5
+					end
 
-				hitent:SetLocalVelocity(Velocity)
-				
+					hitent:SetLocalVelocity(Velocity)					
+				end
+					hitent:TakeDamageInfo(dmginfo)				
 				local phys = hitent:GetPhysicsObject()
 				if hitent:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
 					hitent:SetPhysicsAttacker(owner)

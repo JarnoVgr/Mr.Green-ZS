@@ -818,7 +818,7 @@ function meta:SecondWind(pl)
 	self.Revived = nil
 	self.DeathClass = dclass
 	self:SetPos(pos)
-	self:SetHealth(self:Health() * 0.2)
+	self:SetHealth(self:Health() * 0.4)
 	self:SetEyeAngles(angles)
 	self:EmitSound("npc/zombie/zombie_voice_idle"..math.random(1, 14)..".wav", 100, 85)
 	self:TemporaryNoCollide()
@@ -1121,6 +1121,8 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		return false
 	end
 	
+	local ent = self
+	
 	--Cadebreaking
 	if IsValid(attacker) and attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
 		--Warning
@@ -1133,6 +1135,11 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		--Prevent damage with melees and certain weapons
 
 		if dmginfo:IsMeleeDamage() then
+			--if attacker:GetWeapons() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_tools_hammer" then
+			--	print(ent:Health())
+			--	print("hammered")
+			--	ent:SetHealth(ent:Health() + 50)
+			--end
 			return true
 		--Scale down
 		else
@@ -1140,7 +1147,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		end
 	end
 
-	local ent = self
+
 	
 	ent._LastAttackerIsHuman = false
 	
@@ -1161,10 +1168,11 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		end
 		
 		nail:SetDTInt(1, nail:GetDTInt(1) - damage*0.1 )	
-		ent:SetHealth(ent:Health() - (damage/#ent.Nails))
+		--ent:SetHealth(ent:Health() - (damage/#ent.Nails))
 		nail:SetNailHealth(nail:GetNailHealth() - damage)	
 		
-		ent:EmitSound( "physics/metal/metal_box_impact_bullet"..math.random( 1,3 )..".wav", math.random(60,65) )					
+		ent:EmitSound( "physics/metal/metal_box_impact_bullet"..math.random( 1,3 )..".wav", math.random(50,60) )			
+		
 		--Check for nail heath
 		if nail:GetNailHealth() > 0 then
 			break

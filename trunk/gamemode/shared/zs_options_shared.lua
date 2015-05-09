@@ -144,7 +144,6 @@ GM.ChatTitles = {
 GM.HumanWeapons = {    
         --Berserker
         ["weapon_zs_deagle"]  = { Name = "Desert Eagle", DPS = 93, Infliction = 0.2, Type = "pistol"},		
-		
         ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 100, Description = "Bish bash bosh, fast smacking and hard hitting!", HumanClass = "berserker" },  
         ["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 400, HumanClass = "berserker" },
         ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 800, HumanClass = "berserker" },
@@ -172,9 +171,10 @@ GM.HumanWeapons = {
         ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 1400, HumanClass = "support"},		
        
         --Medic
-        ["weapon_zs_medigun"]  = { Name = "Medigun", DPS = 143, Infliction = 0, Type = "smg",Price = 400, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
-        ["weapon_zs_medishotgun"]  = { Name = "MediShotGun", DPS = 143, Infliction = 0, Type = "smg",Price = 400, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
-        ["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
+        ["weapon_zs_medigun"]  = { Name = "Medi-02", DPS = 143, Infliction = 0, Type = "smg",Price = 400, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
+        ["weapon_zs_medishotgun"]  = { Name = "Medi-03", DPS = 143, Infliction = 0, Type = "smg",Price = 700, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+		
+      --  ["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
        
         --Sharpshooter
         ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 100, HumanClass = "sharpshooter"},         
@@ -355,7 +355,7 @@ GM.RankUnlocks = {
 	
 	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
-	[5] = {"_healingnads","_turret","_psychotic","_repairs","_medishot"},
+	[5] = {"_turret","_psychotic","_repairs"},
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate"},
 		
@@ -389,7 +389,7 @@ GM.Perks = {
 	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "You get given an extra weapon.", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_repairs"] = {Name = "Handy Man", Description = "Repairs also go towards healing the prop! +1 extra SP", RequiresWeapon = "_support2", Slot = 1}, --Done	
+	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points.", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	
 	--Berserker
 	

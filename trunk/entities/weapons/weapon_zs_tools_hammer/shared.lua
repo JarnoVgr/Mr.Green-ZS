@@ -112,7 +112,7 @@ function SWEP:OnDeploy()
 	end	
 	
 	if self.Owner:GetPerk("_repairs") then
-		self.ToHealProp = self.ToHeal
+		self.ToHeal = self.ToHeal + 3
 	end
 	
 	if self.Weapon.HadFirstDeploy then return end
@@ -182,22 +182,22 @@ if SERVER then
 							eff:SetNormal(norm)
 							eff:SetScale( math.Rand(0.4,0.5) )
 							eff:SetMagnitude( math.random(1,1.2) )
-							util.Effect("StunstickImpact", eff, true, true)                           
+							util.Effect("StunstickImpact", eff, true, true)    
+
+							
                             --self.Owner._RepairScore = self.Owner._RepairScore + 1
                             --self:TakePrimaryAmmo(1)
 
                             --if self.Owner._RepairScore == 1 then
-							
+												
 							if not trent._LastAttackerIsHuman then
 								skillpoints.AddSkillPoints(self.Owner, 1)
 								nail:FloatingTextEffect( 1, self.Owner )
 								self.Owner:AddXP(self.ToHeal)
 								
-								if self.ToHealProps != 0 then
-									trent:SetHealth(trent:Health() + self.ToHealProp*2)
+								if self.ToHeal >= 10 then
 									skillpoints.AddSkillPoints(self.Owner, 1)
-									self.Owner:AddXP(self.ToHealProp)	
-								end		
+								end	
 							end
 							
 							self.Owner._RepairScore = 0

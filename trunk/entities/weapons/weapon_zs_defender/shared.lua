@@ -68,8 +68,8 @@ SWEP.MaxBulletDistance 		= 3500
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.Cone = 0.06
-SWEP.ConeMoving = SWEP.Cone *1.3
-SWEP.ConeCrouching = SWEP.Cone *0.80
+SWEP.ConeMoving = SWEP.Cone *1.2
+SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.7
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
 --SWEP.ConeIronMoving = SWEP.Moving *0.7
@@ -80,7 +80,7 @@ end
 
 SWEP.MaxAmmo = 9999
 
-SWEP.WalkSpeed = SPEED_RIFLE
+SWEP.WalkSpeed = SPEED_RIFLE+5
 
 SWEP.IronSightsPos = Vector(-2, -4, 1.5)
 SWEP.IronSightsAng = Vector(0,0,0)

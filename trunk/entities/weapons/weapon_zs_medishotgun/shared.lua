@@ -4,7 +4,7 @@ if CLIENT then
 	SWEP.ViewModelFOV = 60
 	SWEP.BobScale = 2
 	SWEP.SwayScale = 1.5
-	SWEP.PrintName = "MediShotGun"
+	SWEP.PrintName = "Medi-03"
 
 	SWEP.Slot = 4
 	SWEP.SlotPos = 0
@@ -50,7 +50,6 @@ SWEP.WElements = {
 	SWEP.IgnoreBonemerge = true
 	
 	SWEP.IgnoreThumbs = true
-	
 
 	SWEP.IconLetter = "d"		
 	killicon.AddFont( "weapon_zs_medigun", "CSKillIcons", SWEP.IconLetter, Color(120, 255, 255, 255 ) )
@@ -62,32 +61,40 @@ SWEP.WorldModel = "models/weapons/w_rif_ak47.mdl"
 
 SWEP.Base = "weapon_zs_base"
 
-SWEP.ReloadDelay = 0.4
-
-SWEP.Primary.Sound			= Sound("Weapon_XM1014.Single")
+SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
 SWEP.Primary.Recoil			= 3
-SWEP.Primary.Damage			= 7
-SWEP.Primary.NumShots		= 7
+SWEP.Primary.Damage			= 8
+SWEP.Primary.NumShots		= 8
 SWEP.Primary.ClipSize		= 8
-SWEP.Primary.Delay			= 0.35
-SWEP.Primary.DefaultClip	= 25
-SWEP.Primary.Automatic		= true
+SWEP.Primary.Delay			= 0.1
+SWEP.Primary.DefaultClip	= 32
+SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "Battery"
-SWEP.Primary.ReloadDelay	= 0.4
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.Secondary.Delay = 0.01
 SWEP.Secondary.Heal = 5
 SWEP.Secondary.HealDelay = 6
 SWEP.UseHands = true
-SWEP.Cone = 0.04
+
+SWEP.Cone = 0.08
 SWEP.ConeMoving = SWEP.Cone *1.12
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
-
-SWEP.WalkSpeed = SPEED_LIGHT
+SWEP.TracerName = "AR2Tracer"
+SWEP.WalkSpeed = SPEED_SHOTGUN
 SWEP.HoldType = "smg"
 
+function SWEP:EmitFireSound()
+	self:EmitSound(self.Primary.Sound, 90, math.random(100,110))
+end
+
+function SWEP:Think()
+	if self.IdleAnimation and self.IdleAnimation <= CurTime() then
+		self.IdleAnimation = nil
+		self:SendWeaponAnim(ACT_VM_IDLE)
+	end
+end
 
 function SWEP:OnInitialize()
 	if SERVER then
@@ -95,53 +102,7 @@ function SWEP:OnInitialize()
 	end	
 end
 
-function SWEP:EmitFireSound()
-	self:EmitSound(self.Primary.Sound, 80, math.random(130,135))
-end
 
-SWEP.reloadtimer = 0
-SWEP.nextreloadfinish = 0
-
-function SWEP:Reload()
-	if self.reloading then return end
-
-	if self:Clip1() < self.Primary.ClipSize and 0 < self.Owner:GetAmmoCount(self.Primary.Ammo) then
-		self:SetNextPrimaryFire(CurTime() + self.ReloadDelay)
-		self.reloading = true
-		self.reloadtimer = CurTime() + self.ReloadDelay
-		self:SendWeaponAnim(ACT_SHOTGUN_RELOAD_START)
-		self.Owner:RestartGesture(ACT_HL2MP_GESTURE_RELOAD_SHOTGUN)
-	end
-
-	self:SetIronsights(false)
-end
-
-function SWEP:Think()
-	if self.reloading and self.reloadtimer < CurTime() then
-		self.reloadtimer = CurTime() + self.ReloadDelay
-		self:SendWeaponAnim(ACT_VM_RELOAD)
-
-		self.Owner:RemoveAmmo(1, self.Primary.Ammo, false)
-		self:SetClip1(self:Clip1() + 1)
-
-		
-		if self.Primary.ClipSize <= self:Clip1() or self.Owner:GetAmmoCount(self.Primary.Ammo) <= 0 then
-			self.nextreloadfinish = CurTime() + self.ReloadDelay
-			self.reloading = false
-			self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-		end
-	end
-
-	local nextreloadfinish = self.nextreloadfinish
-	if nextreloadfinish ~= 0 and nextreloadfinish < CurTime() then
-		self:SendWeaponAnim(ACT_SHOTGUN_RELOAD_FINISH)
-		self.nextreloadfinish = 0
-	end
-
-	if self:GetIronsights() and not self.Owner:KeyDown(IN_ATTACK2) then
-		self:SetIronsights(false)
-	end
-end
 
 function SWEP:CanPrimaryAttack()
 	if self.Owner.KnockedDown or self.Owner:IsHolding() then return end
@@ -169,6 +130,7 @@ end
 util.PrecacheSound("items/medshot4.wav")
 util.PrecacheSound("items/medshotno1.wav")
 util.PrecacheSound("items/smallmedkit1.wav")
+
 function SWEP:SecondaryAttack()
 	if self:CanSecondaryAttack() then
 		local owner = self.Owner
@@ -280,8 +242,6 @@ if CLIENT then
 	end
 end
 
-
-
 function SWEP:CanSecondaryAttack()
 	local owner = self.Owner
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return false end
@@ -296,23 +256,29 @@ function SWEP:CanSecondaryAttack()
 	return (owner.NextMedKitUse or 0) <= CurTime()
 end
 
-
 function SWEP:Equip ( NewOwner )
 	if CLIENT then return end
 	
 	if self.Weapon.FirstSpawn then
-
+		self.Weapon.FirstSpawn = false
 		if NewOwner:GetPerk("_medupgr2") then
-			NewOwner:GiveAmmo( 70, self:GetSecondaryAmmoTypeString() )
-			self.Weapon.FirstSpawn = false		
+			NewOwner:GiveAmmo( 100, self:GetPrimaryAmmoTypeString() )
+			self.Weapon.FirstSpawn = false	
 		end
 		
 		if NewOwner:GetPerk("_medic") then
-			NewOwner:GiveAmmo(self.Owner:GetRank()*15, self:GetPrimaryAmmoTypeString())
-			self.Weapon.FirstSpawn = false
-		end			
-	else
-
+			NewOwner:GiveAmmo(self.Owner:GetRank()*15, self:GetPrimaryAmmoTypeString())	
+			self.Weapon.FirstSpawn = false			
+		end		
+	--else
+	--	if self.Ammunition then
+		--	self:TakePrimaryAmmo ( self:Clip1() - self.Ammunition )
+		--end
+	
+		--NewOwner:RemoveAmmo ( 1500, self:GetPrimaryAmmoTypeString() )
+		--if self.Weapon.RemainingAmmunition then
+		--	NewOwner:GiveAmmo( self.Weapon.RemainingAmmunition or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
+		--end
 	end	
 	
 	-- Call this function to update weapon slot and others

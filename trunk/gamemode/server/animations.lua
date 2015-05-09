@@ -32,7 +32,7 @@ local function PoisonZombieAnim(pl, anim)
 
 	if pl:GetSequence() == seq then return true end
 	pl:ResetSequence(seq)
-	pl:SetPlaybackRate(1.0)
+	pl:SetPlaybackRate(1.5)
 	pl:SetCycle(0)
 	return true
 end

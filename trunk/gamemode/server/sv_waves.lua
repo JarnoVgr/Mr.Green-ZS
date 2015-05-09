@@ -134,7 +134,7 @@ function SecondWind(pl)
 		pl.DeathClass = dclass
 		--pl.LastAttacker = lastattacker
 		pl:SetPos(pos)
-		pl:SetHealth(pl:Health() * 0.2)
+		pl:SetHealth(pl:Health() * 0.4)
 		pl:EmitSound("npc/zombie/zombie_voice_idle"..math.random(1, 14)..".wav", 100, 85)
 		pl:SetEyeAngles(angles)
 		timer.Destroy(pl:UniqueID().."secondwind")
