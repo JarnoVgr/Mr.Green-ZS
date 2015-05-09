@@ -314,9 +314,9 @@ function SWEP:MeleeSwing()
 				if hitent:IsPlayer() then
 					hitent:MeleeViewPunch(damage)
 					local Velocity = self.Owner:EyeAngles():Forward() * damage * 10
-					Velocity.z = (damage * 3.2) + 30
-					Velocity.x = Velocity.x * 0.275
-					Velocity.y = Velocity.y * 0.275
+					Velocity.z = (damage * 3)
+					Velocity.x = Velocity.x * 0.25
+					Velocity.y = Velocity.y * 0.25
 					
 					if owner:GetPerk("_oppressive") then
 						Velocity.z = Velocity.z * 1.5
