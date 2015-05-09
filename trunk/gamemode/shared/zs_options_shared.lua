@@ -171,8 +171,8 @@ GM.HumanWeapons = {
         ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 1400, HumanClass = "support"},		
        
         --Medic
-        ["weapon_zs_medigun"]  = { Name = "Medi 02", DPS = 143, Infliction = 0, Type = "smg",Price = 400, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
-        ["weapon_zs_medishotgun"]  = { Name = "Medi 03", DPS = 143, Infliction = 0, Type = "smg",Price = 700, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medigun"]  = { Name = "Medi 02", DPS = 143, Infliction = 0, Type = "smg",Price = 320, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
+        ["weapon_zs_medishotgun"]  = { Name = "Medi 03", DPS = 143, Infliction = 0, Type = "smg",Price = 450, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		
       --  ["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
        

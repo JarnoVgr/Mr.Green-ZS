@@ -49,7 +49,7 @@ SWEP.ShowWorldModel = true
 SWEP.ViewModelBoneMods = {}
 
 SWEP.VElements = {
-	["PulseSMG5"] = { type = "Model", model = "models/props_combine/breenconsole.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(0.375, 1.587, -9.561), angle = Angle(-8.875, 179.457, 71.336), size = Vector(0.067, 0.067, 0.067), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["PulseSMG5"] = { type = "Model", model = "models/props_combine/breenconsole.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(0.741, 0.982, -9.56), angle = Angle(-8.875, 179.457, 71.337), size = Vector(0.067, 0.067, 0.067), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["PulseSMG2"] = { type = "Model", model = "models/props_combine/breenlight.mdl", bone = "ValveBiped.base", rel = "PulseSMG", pos = Vector(4.044, 0.184, 9.319), angle = Angle(-79.792, -94.413, -89.52), size = Vector(0.273, 0.356, 0.333), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["PulseSMG4"] = { type = "Model", model = "models/props_combine/combine_emitter01.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(0.384, -0.357, -2.928), angle = Angle(-88.22, 0, 0), size = Vector(0.13, 0.13, 0.13), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["PulseSMG9"] = { type = "Model", model = "models/props_combine/combine_generator01.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(0.377, 3.265, -2.708), angle = Angle(-0.445, -6.307, -107.764), size = Vector(0.034, 0.034, 0.034), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
@@ -57,9 +57,7 @@ SWEP.VElements = {
 	["PulseSMG3"] = { type = "Model", model = "models/gibs/manhack_gib02.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(0.411, -0.588, -5.526), angle = Angle(96.745, 90.686, -7.461), size = Vector(0.275, 0.483, 0.331), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["PulseSMG"] = { type = "Model", model = "models/props_combine/combine_light002a.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(-0.019, -0.2, -2.668), angle = Angle(0, -86.018, 0), size = Vector(0.214, 0.214, 0.342), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["PulseSMG8"] = { type = "Model", model = "models/props_combine/pipes01_cluster02a.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(1.167, -0.361, -8.129), angle = Angle(-1.175, 180, 0), size = Vector(0.028, 0.039, 0.014), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_combine/portalball001_sheet", skin = 0, bodygroup = {} },
-	["PulseSMG3+"] = { type = "Model", model = "models/gibs/manhack_gib02.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(-0.29, 0.564, -9.318), angle = Angle(-37.954, -100.118, 84.945), size = Vector(0.275, 0.483, 0.279), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["pulseSMGSCREEN"] = { type = "Quad", bone = "ValveBiped.base", rel = "pulseSMG", pos = Vector(0.166, 0.85, 2.453), angle = Angle(2.45, 1.067, 58.862), size = 0.05, draw_func = nil},
-
+	["PulseSMG3+"] = { type = "Model", model = "models/gibs/manhack_gib02.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(-0.29, 0.564, -9.318), angle = Angle(-37.954, -100.118, 84.945), size = Vector(0.275, 0.483, 0.279), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
 SWEP.WElements = {

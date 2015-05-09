@@ -63,8 +63,8 @@ SWEP.Base = "weapon_zs_base"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
 SWEP.Primary.Recoil			= 3
-SWEP.Primary.Damage			= 8
-SWEP.Primary.NumShots		= 8
+SWEP.Primary.Damage			= 5
+SWEP.Primary.NumShots		= 6
 SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Delay			= 0.1
 SWEP.Primary.DefaultClip	= 32
