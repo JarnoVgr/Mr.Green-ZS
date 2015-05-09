@@ -153,9 +153,13 @@ if SERVER then
 					local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
 									
 					--Multiplier for infliction
-					HowMuch = math.Round(HowMuch * (INFLICTION + 0.6))
+					--HowMuch = math.Round(HowMuch * (INFLICTION + 0.6))
 
 					--Finally give it
+					
+					if activator:GetPerk("_support") then
+						HowMuch = HowMuch + (HowMuch*(5*activator:GetRank())/100)
+					end
 					
 					if activator:GetPerk("_supportammo") then
 						HowMuch = HowMuch * 1.3 --Support Ammo perk

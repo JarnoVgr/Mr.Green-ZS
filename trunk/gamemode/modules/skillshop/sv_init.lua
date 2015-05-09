@@ -180,12 +180,22 @@ function ApplySkillShopItem(pl, com, args)
 				continue
 			end
 
-			--Give actual ammo
-			if pl:HasBought("ammoman") then
-				pl:GiveAmmo(math.Clamp(ItemTable.Amount*2, 1, 1000), AmmoType)
-			else
-				pl:GiveAmmo(math.Clamp(ItemTable.Amount, 1, 1000), AmmoType)
+			local HowMuch = ItemTable.Amount
+			
+			if activator:GetPerk("_support") then
+				HowMuch = HowMuch + (HowMuch*(5*activator:GetRank())/100)
 			end			
+			
+			if activator:GetPerk("_supportammo") then
+				HowMuch = HowMuch * 1.3 --Support Ammo perk
+			end					
+			
+			if pl:HasBought("ammoman") then
+				HowMuch = HowMuch * 2
+			end
+						
+			pl:GiveAmmo(HowMuch, AmmoType)
+		
 			skillpoints.TakeSkillPoints(pl, ItemTable.Price)
 
 			break

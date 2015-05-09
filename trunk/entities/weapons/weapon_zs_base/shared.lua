@@ -61,12 +61,7 @@ function SWEP:PrimaryAttack()
 	local bonus = 0
 	
 	if self.Owner:GetPerk("_commando") then
-		bonus = (self.Owner:GetRank()*0.4)/100
-		
-		if self.Primary.Delay - bonus < 0.05 then
-			bonus = 0
-		end		
-		
+		bonus = (self.Owner:GetRank()*0.3)/100	
 	end
 	
 	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay - bonus)
