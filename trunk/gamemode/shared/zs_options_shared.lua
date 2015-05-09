@@ -333,7 +333,7 @@ GM.AmmoRegeneration = {
 -- -- -- -- -- -- -- -- -- -- /
 XP_BLANK = 0
 
-XP_INCREASE_BY = 10000
+XP_INCREASE_BY = 10500
 
 XP_PLAYERS_REQUIRED = 5
 
@@ -353,7 +353,7 @@ GM.RankUnlocks = {
 	
 	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive","_medigun"},
 	
-	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
+	[4] = {"_poisonprotect","_kevlar2","_psychopath","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
 	[5] = {"_turret","_psychotic","_repairs","_medishot"},
 	
