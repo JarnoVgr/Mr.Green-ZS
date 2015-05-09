@@ -351,11 +351,11 @@ GM.RankUnlocks = {
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2"},
 	
-	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive"},
+	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive","_medigun"},
 	
 	[4] = {"_poisonprotect","_kevlar2","_horse","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
-	[5] = {"_turret","_psychotic","_repairs"},
+	[5] = {"_turret","_psychotic","_repairs","_medishot"},
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate"},
 		
