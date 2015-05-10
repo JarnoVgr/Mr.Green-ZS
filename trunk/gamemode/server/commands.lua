@@ -589,7 +589,7 @@ function RollTheDice ( pl,commandName,args )
 		end
 	elseif choise == 4 and pl:Health() < pl:GetMaximumHealth() then
 		if pl:Team() == TEAM_HUMAN then
-			local calchealth = math.Clamp ( 100 - pl:Health(),25,100 )
+			local calchealth = math.Clamp ( 100 - pl:Health(),10,50 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
 			pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
 			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .." health!"
