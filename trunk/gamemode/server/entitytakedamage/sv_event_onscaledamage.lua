@@ -29,7 +29,8 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	elseif dmginfo:IsMeleeDamage() and attacker:IsHuman() and attacker:GetPerk("_berserker") then
 		local multiplier = 0.25 + ((5*attacker:GetRank())/100)
 
-		dmginfo:ScaleDamage(multiplier)
+		dmginfo:ScaleDamage(1.0 + multiplier)
+
 	end
 	--Physbox team-damage bug
 	if dmginfo:IsAttackerPhysbox() then

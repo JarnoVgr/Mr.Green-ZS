@@ -269,6 +269,7 @@ function SWEP:MeleeSwing()
 	local tr = owner:MeleeTrace(self.MeleeRange, self.MeleeSize, filter)
 	if tr.Hit then
 		local damage = self.MeleeDamage * (owner.HumanMeleeDamageMultiplier or 1)
+
 		local hitent = tr.Entity
 		local hitflesh = tr.MatType == MAT_FLESH or tr.MatType == MAT_BLOODYFLESH or tr.MatType == MAT_ANTLION or tr.MatType == MAT_ALIENFLESH
 
