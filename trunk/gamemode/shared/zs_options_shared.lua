@@ -347,7 +347,7 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_support","_slinger","_mine","_highcal","_headhunter"},
+	[1] = {"_medupgr2","_accuracy","_support","_mine","_highcal","_headhunter"},
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2"},
 	
@@ -395,7 +395,6 @@ GM.Perks = {
 	
 	["_freeman"] = {Name = "Berserker Fury", Description = "20% more damage with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	["_psychotic"] = {Name = "Psychotic", Description = "+2 health from kills.", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_slinger"] = {Name = "Hook Slinger", Description = "Spawn with the crooked hook.", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	["_headhunter"] = {Name = "Head Hunter", Description = "+40% melee damage on heads.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
 	["_oppressive"] = {Name = "Oppressive", Description = "Smash zombies away with your mighty weapons!", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
 	--Engineer
