@@ -153,7 +153,7 @@ function SWEP:StartSecondaryAttack()
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage + 3 --Duby test.
+		local fFuckIntensity = fHitPercentage + 1.1 --Duby test.
 
 		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 
