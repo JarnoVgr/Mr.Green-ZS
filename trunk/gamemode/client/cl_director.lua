@@ -244,12 +244,12 @@ local function ManageChatTitles ( pl, Text, TeamOnly, PlayerIsDead )
 	if IsValid(pl) then
 		local ColorToApply = Color ( 221, 219, 26 )
 
-		if pl:IsAdmin() or pl:IsSuperAdmin() then
-			ColorToApply = Color(0, 255, 0)
+		if  pl:IsSuperAdmin() then
+			ColorToApply = Color(0, 0, 225)
 		end
-		--[[elseif pl:IsAdmin() then
+		if pl:IsAdmin() then
 			ColorToApply = Color ( 255,0,0 )
-		end]]
+		end
 		
 		if pl.Title ~= nil and pl.Title ~= "" then
 			table.insert( tab, ColorToApply )
