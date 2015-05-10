@@ -33,7 +33,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			if attacker:IsHuman() then
 		    	return true		
 			else
-				dmginfo:ScaleDamage(0.05)
+		    	return true		
 			end
 		else
 			--Multiply once a nail dies
