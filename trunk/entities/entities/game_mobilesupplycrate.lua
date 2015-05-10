@@ -174,7 +174,7 @@ if SERVER then
 
 				--Heal 
 				if activator:Health() < activator:GetMaximumHealth() then
-					local healthDifference = math.Clamp(activator:GetMaximumHealth() - activator:Health(), 0, 12)
+					local healthDifference = math.Clamp(activator:GetMaximumHealth() - activator:Health(), 0, 5)
 					local actualHealAmount = math.random(5, healthDifference)
 					actualHealAmount = math.min(activator:Health() + actualHealAmount, activator:GetMaximumHealth())
 					activator:SetHealth(actualHealAmount)
