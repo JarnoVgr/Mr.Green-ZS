@@ -676,7 +676,7 @@ function CalculatePlayerSpeed ( pl )
 	Speed = 190
 	end
 	if pl:GetPerk("_berserker") then
-	Speed = 180
+	Speed = 170
 	end
 	if pl:GetPerk("_engineer") then
 	Speed = 180
