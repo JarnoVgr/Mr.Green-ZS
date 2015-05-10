@@ -73,6 +73,9 @@ SWEP.IsShotgun = true
 SWEP.Cone  = 0.105
 SWEP.ConeMoving = SWEP.Cone *1.15
 SWEP.ConeCrouching = SWEP.Cone *0.90
+SWEP.ConeIron 		 = SWEP.Cone *0.95
+SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.9
+SWEP.ConeIronMoving	 = SWEP.ConeMoving *0.9
 
 SWEP.WalkSpeed = SPEED_SHOTGUN
 
@@ -80,8 +83,8 @@ SWEP.IronSightsPos = Vector(-7.64, -10.315, 3.319)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.OverridePos = Vector(2.839, -4.591, 2)
-SWEP.OverrideAng = Vector( 0,0,0 )
+--SWEP.OverridePos = Vector(2.839, -4.591, 2)
+--SWEP.OverrideAng = Vector( 0,0,0 )
 
 SWEP.ReloadDelay = 0.45
 
@@ -136,7 +139,7 @@ function SWEP:Think()
 	end
 
 	if self:GetIronsights() and not self.Owner:KeyDown(IN_ATTACK2) then
-		self:SetIronsights(false)
+		self:SetIronsights(true)
 	end
 end
 
