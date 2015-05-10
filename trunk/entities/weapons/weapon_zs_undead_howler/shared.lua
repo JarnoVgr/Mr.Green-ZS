@@ -20,12 +20,12 @@ end
 SWEP.ViewModel = Model("models/Weapons/v_zombiearms.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
-SWEP.Primary.Duration = 2
+SWEP.Primary.Duration = 1.4
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Damage = 15
 SWEP.Primary.Reach = 47
 
-SWEP.Secondary.Reach = 400
+SWEP.Secondary.Reach = 256
 SWEP.Secondary.Duration = 1.0
 SWEP.Secondary.Delay = 0
 SWEP.Secondary.Next = 4.5
@@ -139,9 +139,9 @@ function SWEP:StartSecondaryAttack()
 															
 		--Inflict damage
 	--	local fDamage = math.Round(24 * fHitPercentage, 0, 10)
-		local fDamage = math.Round(22.5 * fHitPercentage, 0, 10)
+		local fDamage = math.Round(12 * fHitPercentage, 0, 10)
 		if fDamage > 0 then
-			v:TakeDamage(fDamage*0.5, self.Owner, self)
+			v:TakeDamage(fDamage, self.Owner, self)
 		end
 
 		--Check if last Howler scream was recently (we don't want to stack attacks)
@@ -153,31 +153,31 @@ function SWEP:StartSecondaryAttack()
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage + 2.4 --Duby test.
+		local fFuckIntensity = fHitPercentage + 3 --Duby test.
 
 		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 
 		-- Calculate base velocity
-		local Velocity = -1 * mOwner:GetForward() * 120
-		if not bPull then
-			Velocity = -1 * Velocity * 2
-		end
+		--local Velocity = -1 * mOwner:GetForward() * 120
+		--if not bPull then
+		--	Velocity = -1 * Velocity * 2
+		--end
 		
 		
-		Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random(190, 230)
-		if not bPull then
-			Velocity = Vector(Velocity.x * 0.45, Velocity.y * 0.45, Velocity.z)
-		end
+		--Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random(190, 230)
+		--if not bPull then
+		--	Velocity = Vector(Velocity.x * 0.45, Velocity.y * 0.45, Velocity.z)
+		--end
 
 		--Apply velocity		
-		v:SetVelocity(Velocity)
+		--v:SetVelocity(Velocity)
 				
 		-- Play sound
-		timer.Simple(0.2, function()
-			if IsValid(v) then
-				sound.Play("npc/barnacle/barnacle_bark1.wav", v:GetPos() + Vector(0, 0, 20), 120, math.random(60, 75))
-			end
-		end)
+		--timer.Simple(0.2, function()
+		--	if IsValid(v) then
+		--		sound.Play("npc/barnacle/barnacle_bark1.wav", v:GetPos() + Vector(0, 0, 20), 120, math.random(60, 75))
+		--	end
+		--end)
 	end
 	
 	--Scream effect for myself

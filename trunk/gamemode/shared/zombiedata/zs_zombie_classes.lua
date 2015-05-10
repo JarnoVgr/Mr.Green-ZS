@@ -177,7 +177,6 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	ModelScale = 1
 }
 
-
 ZombieClasses[2] =
 {
 	Name = "Poison Zombie",
@@ -221,7 +220,6 @@ ZombieClasses[2] =
 	ViewOffset = Vector(0, 0, 50),
 	ModelScale = 1
 }
-
 
 ZombieClasses[3] = 
 {
@@ -284,7 +282,7 @@ ZombieClasses[4] =
 {
 	Name = "Ghast",
 	Tag = "etherealzombie",
-	Infliction = 0.0,
+	Infliction = 0.25,
 	Health = 120,
 	MaxHealth = 200,
 	TimeLimit = 200,
@@ -322,7 +320,6 @@ ZombieClasses[4] =
 	ModelScale = 1
 	-- ViewOffset = Vector(0, 0, 0)
 }
-
 
 ZombieClasses[5] =
 {

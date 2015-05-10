@@ -508,6 +508,10 @@ function GM:DynamicSpawnIsValid(zombie, humans, allplayers)
 	if zombie:Alive() and zombie:GetMoveType() == MOVETYPE_WALK and zombie:WaterLevel() < 2 and not util.TraceHull({start = pos, endpos = pos + playerheight, mins = playermins, maxs = playermaxs, mask = MASK_SOLID, filter = allplayers}).Hit then
 		local valid = true
 
+
+		if not zombie:OnGround() then
+			valid = false	
+		end
 		
 		for i=1, #humans do
 			local human = humans[i]

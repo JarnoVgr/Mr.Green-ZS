@@ -126,15 +126,15 @@ function SWEP:PerformSecondaryAttack()
 	--end
 	
 	--Don't teleport in air
-	if not mOwner:OnGround() then
-		self:TeleportFail()
-		return
-	end
+	--if not mOwner:OnGround() then
+	--	self:TeleportFail()
+	--	return
+	--end
 
 	--Trace from aim
 	local aimTrace = util.TraceLine({
 		start = mOwner:GetShootPos(),
-		endpos = mOwner:GetShootPos() + (mOwner:GetAimVector() * 1000),
+		endpos = mOwner:GetShootPos() + (mOwner:GetAimVector() * 1024),
 		filter = mOwner,
 		mask = MASK_PLAYERSOLID_BRUSHONLY
 	})
@@ -144,10 +144,15 @@ function SWEP:PerformSecondaryAttack()
 	end
 	
 	--Check distance
-	if aimTrace.HitPos:Distance(aimTrace.StartPos) < 100 or aimTrace.HitPos:Distance(aimTrace.StartPos) > 1000 then
+	if aimTrace.HitPos:Distance(aimTrace.StartPos) < 64 or aimTrace.HitPos:Distance(aimTrace.StartPos) > 1024 then
 		self:TeleportFail()
 		return
 	end
+	
+	if mOwner:GetShootPos().z < aimTrace.HitPos.z - 32 then
+		self:TeleportFail()
+		return
+	end	
 
 	--Hulltrace that position
 	--Keep trying with higher Z-axis value to allow teleporting on steep spots
