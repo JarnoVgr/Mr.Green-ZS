@@ -92,16 +92,16 @@ function playBossMusic(insane)
 	--timer.Simple(1, function()
 	--	surface.PlaySound(Sound(song))
 	--end)
-	
+	]]--
 	-- Create timer
-	timer.Create("LoopBossMusic", songDuration, 0, function() 
+	--[[timer.Create("LoopBossMusic", songDuration, 0, function() 
 		if LASTHUMAN or ENDROUND or not BOSSACTIVE then
 			return
 		end
 		surface.PlaySound(Sound(song))
-	end)
+	end)]]--
 
-	]]--
+
 end
 
 
@@ -143,7 +143,6 @@ local LastBeatLevel = 0
 local function PlayBeats(teamid, am)
 	--if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
 	if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
-	--if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
 		return
 	end
 	--print(am)

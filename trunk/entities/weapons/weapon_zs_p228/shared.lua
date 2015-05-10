@@ -40,7 +40,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound("Weapon_P228.Single")
 SWEP.Primary.Recoil			= 1.1
-SWEP.Primary.Damage 		= 12
+SWEP.Primary.Damage 		= 13
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 18
 SWEP.Primary.Delay			= 0.10
