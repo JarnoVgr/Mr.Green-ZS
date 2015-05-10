@@ -319,7 +319,7 @@ function SWEP:MeleeSwing()
 					Velocity.y = Velocity.y * 0.25
 					
 					if owner:GetPerk("_oppressive") then
-						Velocity.z = Velocity.z * 1.5
+						Velocity.z = Velocity.z * 1.75
 					end
 
 					hitent:SetLocalVelocity(Velocity)					
