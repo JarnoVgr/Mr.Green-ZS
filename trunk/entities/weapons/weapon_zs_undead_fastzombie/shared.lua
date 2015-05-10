@@ -17,7 +17,7 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 SWEP.Primary.Delay = 0.1
 SWEP.Primary.Reach = 42
 SWEP.Primary.Damage = 5
-SWEP.Primary.Duration = 0.35
+SWEP.Primary.Duration = 0.32
 
 SWEP.Attacking = 0
 
@@ -155,6 +155,8 @@ function SWEP:StartPrimaryAttack()
 	end
 	self.SwapAnims = not self.SwapAnims
 	
+	self.Attacking = CurTime() + 1.6	
+	
 	--Set the thirdperson animation and emit zombie attack sound
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
   
@@ -168,8 +170,6 @@ function SWEP:PostPerformPrimaryAttack(hit)
 	if CLIENT then
 		return
 	end
-	
-	self.Attacking = CurTime() + 3
 
 	if hit then
 		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav"))

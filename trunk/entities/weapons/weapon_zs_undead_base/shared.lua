@@ -235,7 +235,6 @@ function SWEP:PerformPrimaryAttack()
 				--Apply force to prop and make the physics attacker myself
 				phys:ApplyForceCenter(Velocity)
 				ent:SetPhysicsAttacker(self.Owner)
-				ent:SetLocalVelocity(ent:GetVelocity()*0.5)
 				ent:TakeDamage(self.Primary.Damage, self.Owner, self)					
 				hit = true
 
@@ -254,7 +253,7 @@ function SWEP:PerformPrimaryAttack()
 				end
 				
 				if self.Primary.Damage > 20 then
-				Velocity.z = self.Primary.Damage * 8 
+				Velocity.z = self.Primary.Damage * 10
 				end
 				
 				if self.Owner:HasBought("vampire") and self.Owner:Health() + self.Primary.Damage * 0.33 < self.Owner:GetMaximumHealth() then	
