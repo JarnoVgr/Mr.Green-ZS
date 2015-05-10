@@ -52,7 +52,7 @@ SWEP.ViewModel = "models/weapons/v_zombine.mdl" --
 SWEP.WorldModel = "models/weapons/w_grenade.mdl" --DO NOT MODIFY THIS
 
 SWEP.Primary.Reach = 50
-SWEP.Primary.Duration = 2.0
+SWEP.Primary.Duration = 1.5
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Damage = 40
 

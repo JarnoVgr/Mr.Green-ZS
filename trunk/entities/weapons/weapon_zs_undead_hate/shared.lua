@@ -91,7 +91,7 @@ function SWEP:PrimaryAttack()
 		return
 	end
 	
-	self.Weapon:SetNextPrimaryFire(CurTime() + 3)
+	self.Weapon:SetNextPrimaryFire(CurTime() + 2)
 	
 	-- Make things easier
 	local pl = self.Owner
