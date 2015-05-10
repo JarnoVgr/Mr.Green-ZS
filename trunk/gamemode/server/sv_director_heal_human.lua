@@ -15,7 +15,7 @@ local HealTimeout2 = 2
 local HealAmount = 1
 
 local maxheal = 40
-local maxheal2 = 30
+local maxheal2 = 40
 
 --Interval time in seconds to heal
 --local HealInterval = 4
@@ -45,7 +45,7 @@ local function Heal()
 end
 timer.Create("HU-Heal", HealInterval, 0, Heal)
 
-local function Heal2()
+local function Heal()
 	local Time = CurTime()
 		
 	
@@ -74,6 +74,6 @@ local function Heal2()
 	end
 	
 end
-timer.Create("HU-Heal2", HealInterval2, 0, Heal2)
+timer.Create("HU-Heal", HealInterval2, 0, Heal)
 
 
