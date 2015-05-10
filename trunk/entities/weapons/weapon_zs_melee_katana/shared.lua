@@ -8,8 +8,8 @@ SWEP.Base = "weapon_zs_melee_base"
 
 -- Models paths
 SWEP.Author = "Deluvas"
---SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
-SWEP.ViewModel = Model("models/weapons/v_katana.mdl")
+SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
+--SWEP.ViewModel = Model("models/weapons/v_katana.mdl")
 SWEP.UseHands = true
 SWEP.WorldModel = Model("models/weapons/w_katana.mdl")
 
