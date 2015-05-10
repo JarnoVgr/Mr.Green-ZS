@@ -14,7 +14,7 @@ end
 SWEP.ViewModel = Model("models/weapons/v_pza.mdl")
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
-SWEP.Primary.Delay = 0.8
+SWEP.Primary.Delay = 0.9
 SWEP.Primary.Reach = 50
 SWEP.Primary.Duration = 1.8
 SWEP.Primary.Damage = 40
@@ -118,7 +118,7 @@ function SWEP:PerformSecondaryAttack()
 	aimvec.z = math.max(aimvec.z, -0.7)
 	
 	
-	for i=1, 12 do
+	for i=1, 8 do
 		local ent = ents.Create("projectile_poisonpuke")
 		if ent:IsValid() then
 			local heading = (aimvec + VectorRand() * 0.25):GetNormal()

@@ -19,6 +19,7 @@ SWEP.Primary.Reach = 42
 SWEP.Primary.Damage = 5
 SWEP.Primary.Duration = 0.35
 
+SWEP.Attacking = 0
 
 SWEP.Secondary.Damage = 2
 SWEP.Secondary.PounceVelocity = 500
@@ -79,7 +80,6 @@ function SWEP:Think()
 
 				if ent:IsPlayer() or ent:IsNPC() then
 					local Velocity = self.Owner:GetForward() * self.Secondary.PounceVelocity
-					Velocity.z = Velocity.z * 2.5
 					ent:SetVelocity(Velocity)
 				else
 					--Calculate velocity to push
@@ -130,6 +130,11 @@ function SWEP:Move(mv)
 		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.35)
 		return true
 	end
+	
+	if self.Attacking > CurTime() then
+		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.35)
+		return true	
+	end
 end
 
 SWEP.NextAttack = 0
@@ -163,6 +168,8 @@ function SWEP:PostPerformPrimaryAttack(hit)
 	if CLIENT then
 		return
 	end
+	
+	self.Attacking = CurTime() + 3
 
 	if hit then
 		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav"))
