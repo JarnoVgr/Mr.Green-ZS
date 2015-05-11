@@ -61,7 +61,7 @@ GM.SkillShopAmmo = {
 		Model = "models/Items/BoxBuckshot.mdl",
 		Tool = "weapon_zs_tools_hammer",
 		Amount = 1,
-		Price = 30,
+		Price = 10,
 		ToolTab = true
 	},
 
