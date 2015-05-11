@@ -186,7 +186,7 @@ if SERVER then
 							eff:SetMagnitude( math.random(1,1.2) )
 							util.Effect("StunstickImpact", eff, true, true)    
 
-							trent.PropHealth = math.Clamp(trent.PropHealth + self.ToHealProp, 0, trent.TotalHealth)
+							trent.PropHealth = math.Clamp(trent.PropHealth + trent.ToHealProp, 0, trent.TotalHealth)
 							
                             --self.Owner._RepairScore = self.Owner._RepairScore + 1
                             --self:TakePrimaryAmmo(1)
