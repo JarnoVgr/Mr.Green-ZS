@@ -48,7 +48,7 @@ ZBeats[8] = {"zombiesurvival/_zbeat7_5.wav"}
 ZBeats[9] = {"zombiesurvival/_zbeat8.wav"}
 --ZBeats[10] = {"zombiesurvival/_zbeat8.wav"}
 --ZBeats[10] = {"mrgreen/music/bosstheme2.mp3"}
-ZBeats[10] = {"mrgreen/music/bosstheme3.mp3"}
+ZBeats[10] = {"mrgreen/music/bosstheme4.mp3"}
 
 local ZBeatLength = {}
 ZBeatLength[0] = 1
