@@ -32,7 +32,7 @@ SWEP.TotalDamage = SWEP.Primary.Damage
 
 SWEP.MeleeDamage = 50
 SWEP.MeleeRange = 55
-SWEP.MeleeSize = 1.45
+SWEP.MeleeSize = 1.5
 SWEP.WalkSpeed = SPEED_MELEE
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 2.0
 

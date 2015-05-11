@@ -314,6 +314,9 @@ function SWEP:MeleeSwing()
 				dmginfo:SetDamageForce(self.MeleeDamage * 20 * owner:GetAimVector())
 				if hitent:IsPlayer() then
 					hitent:MeleeViewPunch(damage*0.1)
+					
+					if self.MeleeSize >= 1.5 then
+					
 					local Velocity = self.Owner:EyeAngles():Forward() * damage * 10
 					Velocity.z = (damage * 1.15)
 					Velocity.x = Velocity.x * 0.33
@@ -323,7 +326,10 @@ function SWEP:MeleeSwing()
 						Velocity.z = Velocity.z * 1.5
 					end
 
-					hitent:SetLocalVelocity(Velocity)					
+					hitent:SetLocalVelocity(Velocity)	
+
+					end		
+					
 				end
 					hitent:TakeDamageInfo(dmginfo)				
 				local phys = hitent:GetPhysicsObject()
