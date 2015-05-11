@@ -635,6 +635,11 @@ function DrawClassIcon(x, y, ww, hh, wepclass, parent, num, weptype)
 					Unlocks[i] = nil
 				end
 			end
+			timer.Simple(10,function() --Lazy debug, fixed the issue though
+				SlotLabel[i].Active = false
+				Unlocks[i]:Remove()
+				Unlocks[i] = nil
+			end)
 		end	
 		
 	end
