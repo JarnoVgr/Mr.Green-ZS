@@ -36,26 +36,19 @@ end
 local turretIcon = surface.GetTextureID("killicon/turret")
 local healthPercentageDrawn, healthStatusText = 1, healthIndication[1].Text
 function hud.DrawHealth()
-	--Health?
-	--surface.SetMaterial(hud.HumanElementBackground)
-	--surface.SetDrawColor(0, 0, 0, 190)
-	--surface.DrawTexturedRect(ScaleW(-133),ScaleH(880), ScaleW(450), ScaleH(270))
+
 
 	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
 
 	local startX = (ScrW()/2)
-	--draw.SimpleText("GREENCOINS", DescriptionFont, startX - ScrW()/2 + ScrW()/80, keysStartY + ScrH()/13, Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)	
-	
+
 	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(860), ScaleH(890)
-	--draw.SimpleText("SP", "ssNewAmmoFont9",startX - ScrW()/2 + ScrW()/80, textValueY, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-	--draw.SimpleText(MySelf:GetScore() or 0, "ssNewAmmoFont9",startX - ScrW()/2 + ScrW()/80, textKeyY, Color(255,255,255,180), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)	
-	
+
 	
 	--Draw health points text
 	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
 	draw.SimpleTextOutlined("+", "hpFont",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
 	draw.SimpleTextOutlined(healthPoints, "ssNewAmmoFont13",startX - ScrW()/2 + ScrW()/45, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-	--draw.SimpleText("HP", "ssNewAmmoFont13", healthTextX, healthTextKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
 	--Health bar begin
 
@@ -224,18 +217,10 @@ function hud.DrawAmmoPanel()
 end
 
 function hud.DrawSkillPoints()
-	--Background
-	--surface.SetMaterial(hud.HumanElementBackground)
-	--surface.SetDrawColor(0, 0, 0, 190)
-	--surface.DrawTexturedRect(ScaleW(-50), ScaleH(770), ScaleW(150), ScaleH(250))
+	
 	local startX = (ScrW()/2)
-	--draw.SimpleText("GREENCOINS", DescriptionFont, startX - ScrW()/2 + ScrW()/80, keysStartY + ScrH()/13, Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)	
-
-	--draw.SimpleText("GREENCOINS", DescriptionFont, 0 + ScrW()/16, ScrH()/1.05, Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-	--draw.SimpleText(PlrData.GreenCoins, DescriptionFont, 0 + ScrW()/7.75, ScrH()/1.05, Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)	
 	
 	draw.SimpleTextOutlined("Skill Points: " .. MySelf:GetScore(), "ssNewAmmoFont7",0 + ScrW()/17.0, ScrH()/1.05, Color(255,255,255,120), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-	--draw.SimpleText(MySelf:GetScore() or 0, "ssNewAmmoFont5",0 + ScrW()/5.5, ScrH()/1.05, Color(255,255,255,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 end
 
 function hud.DrawObjMessages()

@@ -217,9 +217,9 @@ table.insert(ResourceFiles, "sound/mrgreen/ui/menu_countdown.wav")
 
 
 --Game start music (random to improve download speed)
---table.insert(ResourceFiles, "sound/mrgreen/music/gamestart".. math.random(3,4) ..".mp3")
+table.insert(ResourceFiles, "sound/mrgreen/music/gamestart".. math.random(2,4) ..".mp3")
 --table.insert(ResourceFiles, "sound/mrgreen/music/gamestart4.mp3")
-table.insert(ResourceFiles, "sound/mrgreen/music/gamestart2.mp3")
+--table.insert(ResourceFiles, "sound/mrgreen/music/gamestart2.mp3")
 
 if CHRISTMAS then
 	table.insert(ResourceFiles, "sound/mrgreen/music/gamestart_xmas.mp3")
@@ -360,14 +360,11 @@ table.insert(ResourceFiles, "materials/zombiesurvival/classmenu/freshdead.vtf")
 
 table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_medic.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_medic.vmt")
-table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_marksma.vtf")
-table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_marksma.vmt")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_marksman.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_marksman.vmt")
 
 table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_constructor.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_constructor.vmt")
-
-table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_assaul.vtf")
-table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_assaul.vmt")
 
 table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_demolitions.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_demolitions.vmt")

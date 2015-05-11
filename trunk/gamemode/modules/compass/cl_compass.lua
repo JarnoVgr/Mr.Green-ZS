@@ -201,7 +201,6 @@ local function DrawArrowText()
 	end
 	
 	--Draw the shit
---	draw.SimpleTextOutlined("Supplies: "..DistanceCrate.." m", "ArialBoldTen", CrateW + (ArrowWide * 0.5), (CrateH + ArrowTall) - 20, Color(200, 30, 30, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 200))
 	draw.SimpleTextOutlined("Supplies: "..DistanceCrate.." m", "ArialBoldTen", CrateW + (ArrowWide * 0.5), (CrateH + ArrowTall) - 20, Color(24, 140, 30, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 200))
 end
 hook.Add("HUDPaint", "DrawArrowText", DrawArrowText)

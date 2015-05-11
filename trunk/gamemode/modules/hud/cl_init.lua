@@ -175,9 +175,9 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 	--Preparation (warmup)
 	if CurTime() <= WARMUPTIME then
 		keyText = "PREPARATION TIME"
-		--if MySelf:IsHuman() then
-		--	draw.SimpleText("Get close to the Undead spawn to be sacrificed", "ssNewAmmoFont9", startX, keyStartY+100, Color(255,90,90,210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		--end
+		if MySelf:IsHuman() then --Make it Obvious that the closer you are the greater the chance!
+			draw.SimpleText("Get close to the Undead spawn to be sacrificed", "ssNewAmmoFont9", startX, keyStartY+100, Color(255,90,90,210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		end
 		timeLeft = math.max(0, WARMUPTIME - CurTime())
 
 		if timeLeft < 10 then
@@ -225,29 +225,19 @@ function hud.DrawStats()
 	--Define vars depending on team
 	local TeamColor, DescriptionFont, ValueFont, ValueBigFont
 	if MySelf:IsZombie() then
-		--surface.SetMaterial(hud.ZombieTopBackground)
-		--surface.SetDrawColor(100, 0, 0, 260)
 		TeamColor = Color(255, 0, 0, 170)
 		DescriptionFont = "NewZombieFont13"
 		ValueFont = "NewZombieFont13"
 		ValueBigFont = "HUDBetaZombieCount"
 	else
-		--surface.SetMaterial(hud.HumanTopBackground)
-		--surface.SetDrawColor(255, 255, 255, 190)
 		DescriptionFont = "ssNewAmmoFont5"
 		ValueFont = "ssNewAmmoFont9"
 		ValueBigFont = "HUDBetaZombieCount"
 	end
-	--surface.DrawTexturedRect(ScaleW(200), ScaleH(-64), ScaleW(920), ScaleH(341))
-
-	--Text drawing
-	--surface.SetFont("ssNewAmmoFont6.5")
 
 	--Define Y-axis positions of keys and values
 	local startX, keyStartY, valueStartY = ScrW()/2, ScaleH(20), ScaleH(50)
 
-	--draw.SimpleText(ToMinutesSeconds(timeLeft + 1), ValueFont, startX - ScrW()/2 + ScrW()/80, valueStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)		
-	
 	--Draw Survivor team count
 
 	draw.SimpleTextOutlined("INFLICTION: ", DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(90), Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))

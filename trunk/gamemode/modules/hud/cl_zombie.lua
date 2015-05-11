@@ -37,10 +37,6 @@ function hud.DrawZombieHUD()
 	
 	local x,y = 10, ScrH()-tw+190	
 
-	--surface.SetMaterial(hud.ZombieHudBackground) 
-	--surface.SetDrawColor(100, 0, 0, 260)
-	--surface.DrawTexturedRect(ScaleW(-133),ScaleH(880), ScaleW(475), ScaleH(300))
-
 	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
 	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1005)
 	local barW, barH = ScaleW(210), ScaleH(20)
@@ -80,14 +76,14 @@ function hud.DrawZombieHUD()
 	end
 		local startX = (ScrW()/2)	
 	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
-	--draw.SimpleText(healthPoints, "ssNewAmmoFont13",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)		
+
 		
 	--Draw health status text
 	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
 	draw.SimpleTextOutlined("+", "hpFont",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
 	draw.SimpleTextOutlined(healthPoints, "ssNewAmmoFont13",startX - ScrW()/2 + ScrW()/45, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 	draw.SimpleTextOutlined(healthStatusText, "ssNewAmmoFont5", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
-	--draw.SimpleText("HP", "NewZombieFont15", healthTextX, healthTextKeyY, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)		
+	
 end
 
 function hud.DrawBrains()
@@ -102,18 +98,6 @@ function hud.DrawBrains()
 
 	local currentScore = math.max(0, math.ceil(MySelf:GetScore() / 2))
 
-	--Background
-	--surface.SetMaterial(hud.ZombieHudBackground) 
-	--surface.SetDrawColor(100, 0, 0, 260)
-	--surface.DrawTexturedRect(ScaleW(-50), ScaleH(740), ScaleW(160), ScaleH(130))
 
 	local textX, textValueY, textKeyY = ScaleW(15), ScaleH(900), ScaleH(900)
-	
-	
-	--if requiredScore - currentScore == 1 then
-	--	draw.SimpleText("Eat " .. requiredScore - currentScore .. " brain", "NewZombieFont13", textX, textValueY, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)	
-	--else
-	--	draw.SimpleText("Eat " .. requiredScore - currentScore .. " brains", "NewZombieFont13", textX, textValueY, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-	--end
-	--draw.SimpleText("BRAINS", "NewZombieFont10", textX, textKeyY, Color(255,255,255,200), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 end

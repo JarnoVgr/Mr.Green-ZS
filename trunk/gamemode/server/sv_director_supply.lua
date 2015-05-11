@@ -8,10 +8,7 @@ local SupplyCratePositions = {}
 
 --Load crates from map file
 function GM:SetCrates()
-	--if GAMEMODE:GetGameMode() == GAMEMODE_SCAVENGE then
-	--	return
-	--end
-	
+
 	local filename = "zombiesurvival/crates/".. game.GetMap() ..".txt"
 	
 	if file.Exists(filename,"DATA") then
