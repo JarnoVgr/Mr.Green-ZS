@@ -108,7 +108,7 @@ function SWEP:PrimaryAttack()
 			ent:SetAngles(aimvec:Angle())
 			ent:SetModel("models/props_debris/wood_board06a.mdl")
 			ent:Spawn()
-			local hp = 350
+			local hp = 500
 			--if self.Owner:GetPerk("_plankhp") then
 			if self.Owner:GetPerk("_support") then
 				hp = hp+hp*0.4

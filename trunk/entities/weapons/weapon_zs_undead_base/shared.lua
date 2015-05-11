@@ -256,8 +256,8 @@ function SWEP:PerformPrimaryAttack()
 				Velocity.z = self.Primary.Damage * 10
 				end
 				
-				if self.Owner:HasBought("vampire") and self.Owner:Health() + self.Primary.Damage * 0.33 < self.Owner:GetMaximumHealth() then	
-					self.Owner:SetHealth(self.Owner:Health() + self.Primary.Damage * 0.33)	
+				if self.Owner:HasBought("vampire") and self.Owner:Health() + self.Primary.Damage * 0.5 < self.Owner:GetMaximumHealth() then	
+					self.Owner:SetHealth(self.Owner:Health() + self.Primary.Damage * 0.5)	
 				end				
 				--Velocity.z = Velocity.z * 2.5					
 				ent:SetLocalVelocity(Velocity)				

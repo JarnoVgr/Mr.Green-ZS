@@ -1163,7 +1163,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		end
 		
 		nail:SetDTInt(1, nail:GetDTInt(1) - damage*0.2 )	
-		ent:SetHealth(ent:Health() - damage/#ent.Nails)
+		ent:SetHealth(ent:Health() - (damage/#ent.Nails)*0.5)
 		nail:SetNailHealth(nail:GetNailHealth() - damage*2)	
 		
 		ent:EmitSound( "physics/metal/metal_box_impact_bullet"..math.random( 1,3 )..".wav", math.random(50,60) )			
