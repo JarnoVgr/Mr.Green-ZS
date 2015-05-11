@@ -245,9 +245,8 @@ local function ManageChatTitles ( pl, Text, TeamOnly, PlayerIsDead )
 		local ColorToApply = Color ( 221, 219, 26 )
 
 		if  pl:IsSuperAdmin() then
-			ColorToApply = Color(0, 0, 225)
-		end
-		if pl:IsAdmin() then
+			ColorToApply = Color(0, 0, 225)	
+		elseif pl:IsAdmin() then
 			ColorToApply = Color ( 255,0,0 )
 		end
 		

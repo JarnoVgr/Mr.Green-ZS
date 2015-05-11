@@ -93,18 +93,18 @@ function SupplyArrowModelPanel:LayoutEntity(Arrow)
 	if not IsValid(MySelf) then
 		return
 	end
-	
 	--camera related stuff
     self:SetCamPos(Vector(0, 20, -6))  
 	self:SetLookAt(Vector(0, 0, 0))  
     Arrow:SetModelScale(0.4, 0)
       
-	self:SetPos(w * 0.5 - (self:GetWide() / 2), h - self:GetTall())
+--	self:SetPos(w * 0.5 - (self:GetWide() / 2), h - self:GetTall())
+	self:SetPos(w * 0.5 - (self:GetWide() / 2), h -20 - self:GetTall())
 
 	--Color the arrow
 	--self:SetColor(Color(200, 30, 30, 255))
 	self:SetColor(Color(24, 140, 30, 255))
-	
+
 	--Original vector pointing to
 	local AreThereCrates, Distance, CratePosition = AreThereSupplyCrates()
 	
@@ -131,6 +131,7 @@ function SupplyArrowModelPanel:LayoutEntity(Arrow)
 
 	--Finally set the arrow angles
     Arrow:SetAngles(nAng)
+
 end
 
 --[[----------------------------------------------------------------------------  
@@ -148,6 +149,8 @@ local Compass = vgui.CreateFromTable(vgui.RegisterTable(SupplyArrowModelPanel, "
 ---------------------------------------------------------]]
 local ArrowVisible = false
 local function ShouldDrawCompass()
+--	timer.Simple(100, function() --Some Shitty work around because I cba..
+	if CurTime() >= WARMUPTIME then --Actually, I could be assed. There done.
 	ArrowVisible = false
 	
 	--Grab data
@@ -176,8 +179,11 @@ local function ShouldDrawCompass()
 	end
 
 	--Set when needed
+
 	if Compass:IsVisible() ~= ArrowVisible then
 		Compass:SetVisible(ArrowVisible)
+	end
+--end)
 	end
 end
 hook.Add("Think", "ShouldDrawCompass", ShouldDrawCompass)
@@ -201,6 +207,7 @@ local function DrawArrowText()
 	end
 	
 	--Draw the shit
-	draw.SimpleTextOutlined("Supplies: "..DistanceCrate.." m", "ArialBoldTen", CrateW + (ArrowWide * 0.5), (CrateH + ArrowTall) - 20, Color(24, 140, 30, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 200))
+--	draw.SimpleTextOutlined("Supplies: "..DistanceCrate.." m", "ArialBoldTen", CrateW + (ArrowWide * 0.5), (CrateH + ArrowTall) - 20, Color(24, 140, 30, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 200))
+	draw.SimpleTextOutlined("Supplies: "..DistanceCrate.." m", "ArialBoldTen", CrateW + (ArrowWide * 0.5), (CrateH + ArrowTall) - 40, Color(24, 140, 30, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 200))
 end
 hook.Add("HUDPaint", "DrawArrowText", DrawArrowText)

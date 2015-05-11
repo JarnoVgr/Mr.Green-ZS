@@ -26,7 +26,8 @@ local function ManageEvents()
 			GAMEACTIVE = true
 			
 			--Assign random zombies
-			GAMEMODE:SetRandomsToFirstZombie()
+			--GAMEMODE:SetRandomsToFirstZombie()
+			GAMEMODE:SetRandomsToZombie() --Picks Humans closes to Z spawn or then random players..
 
 			--Give SkillPoints to survivors timer
 			timer.Create("GiveSkillPointsSurvivors", math.Round(ROUNDTIME/15), 0, GiveSkillPointsSurvivors)
@@ -39,7 +40,8 @@ local function ManageEvents()
 					continue
 				end
 				
-				pl:SendLua("surface.PlaySound(Sound(\"ambient/creatures/town_zombie_call1.wav\")) GAMEMODE:Add3DMessage(140,\"The Undead are rising\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"They are hungry for your fresh flesh\",nil,\"ArialBoldTen\")")
+			--	pl:SendLua("surface.PlaySound(Sound(\"ambient/creatures/town_child_scream1.wav\")) GAMEMODE:Add3DMessage(140,\"The Undead Have Arrived\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(140,\"Prepare Your Asses!\",nil,\"ArialBoldTen\")")
+				pl:SendLua("surface.PlaySound(Sound(\"ambient/creatures/town_child_scream1.wav\")) GAMEMODE:Add3DMessage(100,\"The Undead Have Arrived\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(100,\"Prepare Your Asses!\",nil,\"NewZombieFont13\") ")
 			end
 
 			Debug("[DIRECTOR] Game is now active")
@@ -76,9 +78,13 @@ local function ManageEvents()
 
 	--Pick random zombie(s) if there aren't any
 	if numUndead == 0 and numSurvivors >= 5 then
-		GAMEMODE:SetRandomsToFirstZombie()
+		--GAMEMODE:SetRandomsToFirstZombie()
+		GAMEMODE:SetRandomsToZombie()
 		Debug("[DIRECTOR] There were no zombies. Setting randoms")
 	end
+	
+	
+	
 end
 timer.Create("ManageEvents", 0.5, 0, ManageEvents)
 

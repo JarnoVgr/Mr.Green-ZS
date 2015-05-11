@@ -3,6 +3,80 @@ util.AddNetworkString("recwaveend")
 
 CAPPED_INFLICTION = 0
 
+function GM:SetRandomsToZombie() --Duby: I took Necro's old code and modified it a little.
+	local allplayers = player.GetAll()
+	local numplayers = #allplayers
+	
+
+	if numplayers <= 4 then return end
+
+	--local desiredzombies = math.max(1, math.ceil(3))
+	--local desiredzombies = math.max(UNDEAD_START_AMOUNT_MINIMUM, math.Round(3 * UNDEAD_START_AMOUNT_PERCENTAGE))
+	local desiredzombies = math.max(UNDEAD_START_AMOUNT, math.Round(UNDEAD_START_AMOUNT * UNDEAD_START_AMOUNT_PERCENTAGE))
+
+	local vols = 0
+	local voltab = {}
+	for _, gasses in pairs(ents.FindByClass("zs_poisongasses")) do
+		for _, ent in pairs(ents.FindInSphere(gasses:GetPos(), 500)) do
+			if ent:IsPlayer() and not table.HasValue(voltab, ent) then
+				vols = vols + 1
+				table.insert(voltab, ent)
+			end
+		end
+	end
+
+	for _, pl in pairs(allplayers) do
+		if pl:Team() == TEAM_UNDEAD then
+			vols = vols + 1
+			table.insert(voltab, pl)
+		end
+	end
+
+	if vols == desiredzombies then
+		for _, pl in pairs(voltab) do
+			if pl:Team() != TEAM_UNDEAD then
+				pl:SetFirstZombie()
+				umsg.Start("recvolfirstzom", pl)
+				umsg.End()
+			end
+		end
+	elseif vols < desiredzombies then
+		local spawned = 0
+		for i, pl in ipairs(voltab) do
+			if pl:Team() != TEAM_UNDEAD then
+
+				pl:SetFirstZombie()
+				umsg.Start("recvolfirstzom", pl)
+				umsg.End()
+				spawned = i
+			end
+		end
+
+		for i = 1, desiredzombies - spawned do
+			local humans = team.GetPlayers(TEAM_HUMAN)
+
+			if 0 < #humans then
+				local pl = humans[math.random(1, #humans)]
+				if pl:Team() != TEAM_UNDEAD then
+					pl:SwitchToZombie()
+					umsg.Start("recranfirstzom", pl)
+					umsg.End()
+				end
+			end
+		end
+	elseif desiredzombies < vols then
+		for i, pl in ipairs(voltab) do
+			if desiredzombies < i and pl:Team() == TEAM_HUMAN then
+				pl:SetPos(self:PlayerSelectSpawn(pl):GetPos())
+			else
+				pl:SetFirstZombie()
+				umsg.Start("recvolfirstzom", pl)
+				umsg.End()
+			end
+		end
+	end
+end
+
 function GM:SetRandomsToFirstZombie()
 	--Get num of players
 	local numPlayers = #player.GetAll()
@@ -57,9 +131,7 @@ function GM:SetRandomsToFirstZombie()
 end
 
 function GM:CalculateInfliction()
-	if ENDROUND then
-		return
-	end
+	if ENDROUND then return end
 	
 	local progressTime = CurTime() / ROUNDTIME
 	

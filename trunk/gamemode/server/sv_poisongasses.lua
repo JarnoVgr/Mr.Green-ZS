@@ -66,17 +66,23 @@ function GM:SpawnPoisonGasses()
 	
 end
 
---[[ --I will fix this and integrate it into this system above perhaps..
+--I will fix this and integrate it into this system above perhaps..
 -- Toxic damage
 ToxicPoints = {}
 ToxicTime = 0
 ToxicWarningTime = 0
-function ToxicDamager() 
+function GM:ToxicDamager() 
 	if ToxicTime > CurTime() then return end
 	
 	--Damage humans that enter toxic fumes, but don't kill them
-	for _,pl in pairs ( team.GetPlayers( TEAM_HUMAN ) ) do
-		if pl:IsInToxicFumes ( ToxicPoints ) then
+	--for _,pl in pairs ( team.GetPlayers( TEAM_HUMAN ) ) do
+	--	if pl:IsInToxicFumes ( ToxicPoints ) then
+	
+		local allplayers = player.GetAll()
+			for _, gasses in pairs(ents.FindByClass("zs_poisongasses")) do
+				local gaspos = gasses:GetPos()
+				for _, ent in pairs(allplayers) do
+					if ent:GetPos():Distance(gaspos) <= 500 and not table.HasValue(voltab, ent) then
 			local MaxHealth = pl:GetMaximumHealth()
 			if pl:Health() > MaxHealth * 0.15 then
 				pl:TakeDamage ( MaxHealth * 0.05, nil, nil )
@@ -84,6 +90,8 @@ function ToxicDamager()
 			end
 		end
 	end
+end
+
 	
 	--Heal the undead within the toxic fumes
 	for _,pl in pairs ( team.GetPlayers( TEAM_UNDEAD ) ) do
@@ -97,4 +105,3 @@ function ToxicDamager()
 	
 	ToxicTime = CurTime() + 1
 end
-]]--

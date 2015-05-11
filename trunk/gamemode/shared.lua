@@ -337,6 +337,7 @@ ENDROUND = false
 HALFLIFE = false
 LASTHUMAN = false
 BOSSACTIVE = false
+UNLIFE = false
 
 VecRand = VectorRand
 

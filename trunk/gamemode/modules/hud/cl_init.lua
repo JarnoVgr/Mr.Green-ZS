@@ -92,7 +92,7 @@ function hud.InitFonts()
 	--Undead HUD font
 	surface.CreateFontLegacy("Face Your Fears", ScreenScale(8), 400, true, true, "NewZombieFont7",false, true)
 	surface.CreateFontLegacy("Face Your Fears", ScreenScale(9), 400, true, true, "NewZombieFont10",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(12), 400, true, true, "NewZombieFont13",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(12), 400, true, false, "NewZombieFont13",false, true)
 	surface.CreateFontLegacy("Face Your Fears", ScreenScale(13), 400, true, true, "NewZombieFont14",false, true)
 	surface.CreateFontLegacy("Face Your Fears", ScreenScale(14), 400, true, true, "NewZombieFont15",false, true)
 	surface.CreateFontLegacy("Face Your Fears", ScreenScale(15), 400, true, true, "NewZombieFont17",false, true)
@@ -175,9 +175,9 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 	--Preparation (warmup)
 	if CurTime() <= WARMUPTIME then
 		keyText = "PREPARATION TIME"
-		if MySelf:IsHuman() then --Make it Obvious that the closer you are the greater the chance!
-			draw.SimpleText("Get close to the Undead spawn to be sacrificed", "ssNewAmmoFont9", startX, keyStartY+100, Color(255,90,90,210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		end
+		--if MySelf:IsHuman() then --Make it Obvious that the closer you are the greater the chance!
+		--	draw.SimpleText("Get close to the Undead spawn to be sacrificed", "ssNewAmmoFont5", startX, keyStartY+100, Color(255,90,90,210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		--end
 		timeLeft = math.max(0, WARMUPTIME - CurTime())
 
 		if timeLeft < 10 then

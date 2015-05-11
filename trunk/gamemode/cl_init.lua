@@ -546,7 +546,8 @@ end
 local function DelayedLastHumanAlert()
 	if not ENDROUND then
 		if MySelf:Team() == TEAM_UNDEAD or not MySelf:Alive() then
-			GAMEMODE:Add3DMessage(140, "Kill the Last Human", nil, "ArialBoldFifteen")
+			GAMEMODE:Add3DMessage(140, "Kill The Last Human!", nil, "ArialBoldFifteen")
+			GAMEMODE:Add3DMessage(140, "Crunch His Bones!", nil, "ArialBoldFifteen")
 		else
 			GAMEMODE:Add3DMessage(140, "You are the LAST HUMAN ALIVE!", nil, "ArialBoldFifteen")
 			GAMEMODE:Add3DMessage(140, "FUCKING Leg It!", nil, "ArialBoldTen")
