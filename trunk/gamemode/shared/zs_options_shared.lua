@@ -54,7 +54,7 @@ SPEED_HEAVY = SPEED - 30
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8
-HORDE_MAX_DISTANCE = 2000 --Leave this! It affects the beats and how they play. They play best as this number, do not touch it Pufu!
+HORDE_MAX_DISTANCE = 1800 --Leave this! It affects the beats and how they play. They play best as this number, do not touch it Pufu!
 
 BONUS_RESISTANCE_WAVE = 5
 BONUS_RESISTANCE_AMOUNT = 20 -- %

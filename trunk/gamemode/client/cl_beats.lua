@@ -18,7 +18,7 @@ Beats[8] = {"zombiesurvival/hbeat7.wav"}
 Beats[9] = {"zombiesurvival/hbeat8.wav"}
 --Beats[10] = {"zombiesurvival/hbeat9.wav"}
 --Beats[10] = {"mrgreen/music/bosstheme2.mp3"}
-Beats[10] = {"mrgreen/music/bosstheme3.mp3"}
+Beats[10] = {"mrgreen/music/bosstheme4.mp3"}
 
 local BeatLength = {}
 BeatLength[0] = 1.0
@@ -31,7 +31,7 @@ BeatLength[6] = 1.7
 BeatLength[7] = 1.65
 BeatLength[8] = 1.7
 BeatLength[9] = 1.7
-BeatLength[10] = 300
+BeatLength[10] = 240
 --BeatLength[11] = 300
 
 

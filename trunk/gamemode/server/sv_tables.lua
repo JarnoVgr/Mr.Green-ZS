@@ -244,7 +244,7 @@ table.insert(ResourceFiles, "sound/mrgreen/music/deadlife_insane.mp3")
 --table.insert(ResourceFiles, "sound/mrgreen/music/bosstheme.mp3")
 
 --Boss music (random to improve download speed)
-local randDownloadId = math.random(1,3)
+local randDownloadId = math.random(3,4)
 table.insert(ResourceFiles, "sound/mrgreen/music/bosstheme".. randDownloadId ..".mp3")
 
 if CHRISTMAS then
