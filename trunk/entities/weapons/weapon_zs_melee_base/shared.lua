@@ -317,8 +317,7 @@ function SWEP:MeleeSwing()
 					
 					if self.MeleeSize >= 1.5 then
 					
-					local Velocity = self.Owner:EyeAngles():Forward() * damage * 10
-					Velocity.z = (damage * 1.15)
+					local Velocity = self.Owner:EyeAngles():Forward() * damage * 5
 					Velocity.x = Velocity.x * 0.33
 					Velocity.y = Velocity.y * 0.33
 					
