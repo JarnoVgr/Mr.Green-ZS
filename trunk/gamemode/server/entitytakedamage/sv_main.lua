@@ -35,7 +35,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			end
 		else
 			--Multiply once a nail dies
-			dmginfo:ScaleDamage(1.4)
+			dmginfo:ScaleDamage(1.0)
 		end
 		
 		local entclass = ent:GetClass()
@@ -55,9 +55,7 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			if not ent.TotalHealth then
 				ent.TotalHealth = ent.PropHealth
 			end
-
-			
-			
+		
 			ent.PropHealth = ent.PropHealth - damage
 
 			if ent.PropHealth <= 0 then

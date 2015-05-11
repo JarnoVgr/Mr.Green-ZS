@@ -115,8 +115,6 @@ function SWEP:OnDeploy()
 		self.ToHeal = self.ToHeal + 3
 	end
 	
-	self.ToHealProp = self.ToHeal * 0.5	
-	
 	if self.Weapon.HadFirstDeploy then return end
 	
 	
@@ -186,7 +184,9 @@ if SERVER then
 							eff:SetMagnitude( math.random(1,1.2) )
 							util.Effect("StunstickImpact", eff, true, true)    
 
-							trent.PropHealth = math.Clamp(trent.PropHealth + trent.ToHealProp, 0, trent.TotalHealth)
+							if trent.PropHealth != nil then					
+								trent.PropHealth = math.Round(math.Clamp(trent.PropHealth + self.ToHeal*0.5, 0, trent.TotalHealth))
+							end							
 							
                             --self.Owner._RepairScore = self.Owner._RepairScore + 1
                             --self:TakePrimaryAmmo(1)
@@ -194,15 +194,13 @@ if SERVER then
                             --if self.Owner._RepairScore == 1 then
 												
 							if not trent._LastAttackerIsHuman then
-							
-							
 								skillpoints.AddSkillPoints(self.Owner, 1)
 								nail:FloatingTextEffect( 1, self.Owner )
 								self.Owner:AddXP(self.ToHeal)
 								
 								if self.ToHeal >= 10 then
 									skillpoints.AddSkillPoints(self.Owner, 1)
-									nail:FloatingTextEffect( 1, self.Owner )									
+								nail:FloatingTextEffect( 1, self.Owner )									
 								end	
 							end
 							

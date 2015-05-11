@@ -12,7 +12,7 @@ function ENT:Initialize()
 	-- self.Heal = 700 * math.Clamp(GetInfliction()+0.3,0.5,1)
 
 	--Initial and Maximum Health
-	self.Heal = 200
+	self.Heal = 300
 	
 	--Increase health when having a perk
 	local Owner = self:GetOwner()
@@ -24,7 +24,7 @@ function ENT:Initialize()
 		--	self.Heal = math.Round(self.Heal + (self.Heal*0.5))
 		--end
 		if Owner.DataTable["ShopItems"][51] then
-			self.Heal = math.Round(self.Heal + (200*0.5))
+			self.Heal = math.Round(self.Heal + (130*0.5))
 		end
 		
 	end
