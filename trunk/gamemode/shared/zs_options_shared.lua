@@ -397,7 +397,7 @@ GM.Perks = {
 	
 	["_freeman"] = {Name = "Berserker Fury", Description = "20% more damage with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	["_psychotic"] = {Name = "Psychotic", Description = "+2 health from kills.", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_headhunter"] = {Name = "Head Hunter", Description = "+40% melee damage on heads.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
+	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads. -15% melee damage.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
 	["_oppressive"] = {Name = "Oppressive", Description = "Smash zombies away with your mighty weapons!", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
 	--Engineer
 	
