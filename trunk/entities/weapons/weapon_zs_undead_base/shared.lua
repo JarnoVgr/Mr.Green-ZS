@@ -252,7 +252,7 @@ function SWEP:PerformPrimaryAttack()
 					ent:TakeDamage(self.Primary.Damage, self.Owner, self)
 				end
 				
-				if self.Primary.Damage => 20 then
+				if self.Primary.Damage > 20 then
 				Velocity.z = self.Primary.Damage * 10
 				end
 				
