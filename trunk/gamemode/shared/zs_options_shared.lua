@@ -351,13 +351,13 @@ GM.RankUnlocks = {
 
 	[1] = {"_medupgr2","_accuracy","_support","_mine","_highcal","_headhunter"},
 	
-	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2"},
+	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2", "_repairs"},
 	
 	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive","_medigun"},
 	
-	[4] = {"_poisonprotect","_kevlar2","_psychopath","_bloodmoney","_sboost","_kevlar2","_reload"},
+	[4] = {"_poisonprotect","_psychopath","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
-	[5] = {"_turret","_psychotic","_repairs","_medishot"},
+	[5] = {"_turret","_psychotic","_medishot"},
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate"},
 		
@@ -391,13 +391,13 @@ GM.Perks = {
 	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "You get given an extra weapon.", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points.", RequiresWeapon = "_support2", Slot = 1}, --Done	
+	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	
 	--Berserker
 	
 	["_freeman"] = {Name = "Berserker Fury", Description = "20% more damage with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_psychotic"] = {Name = "Psychotic", Description = "+2 health from kills.", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_headhunter"] = {Name = "Head Hunter", Description = "+40% melee damage on heads.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
+	["_psychotic"] = {Name = "Psychotic", Description = "+3 health from kills.", RequiresWeapon = "_berserker", Slot = 1}, --Done
+	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads. -15% melee damage.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
 	["_oppressive"] = {Name = "Oppressive", Description = "Smash zombies away with your mighty weapons!", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
 	--Engineer
 	
@@ -440,7 +440,7 @@ GM.Perks = {
 	--Berserker
 	
 	["_bloodmoney"] = {Name = "Blood Money", Description = "+5SP for melee kills.", RequiresWeapon = "_berserker", Slot = 2}, --Done
-	["_berserk"] = {Name = "Berserk", Description = "+15% speed while under 40HP.", RequiresWeapon = "_berserker", Slot = 2}, --Done
+	["_berserk"] = {Name = "Berserk", Description = "+10% speed while under 40HP.", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	
 	--Engineer
 	
@@ -458,7 +458,7 @@ GM.Perks = {
 	--[[New ZS Classes]]--
 	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit  | P228  |  Knife                            ",Description = "Extra Speed | Extra Pistol Damage | More Medigun Damage | Poison Protection | Damage Resistance | ", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
 	["_commando"] = {Name = "Commando",   		Equipment = "Grenades  |   Five SeveN   | Knife               ", Description = "See Undead Health | Extra Health | Extra Rifle Damage | 1 in 12-X chance to not use bullet | Faster Fire Rate |", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
-	["_support2"] = {Name = "Support",    		Equipment = "Board Pack  |  USP   |  Hammer                  ", Description = "Extra SMG Damage | Extra Shotgun Damage | Extra Nail Health | Bonus Repair Power | Extra Nails | Bonus ammunition from SkillShop and mobile supplies | ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
+	["_support2"] = {Name = "Support",    		Equipment = "Board Pack  |  USP   |  Hammer                  ", Description = "Extra SMG Damage | Extra Shotgun Damage | Extra Nail Health | 50% of repairs go towards prop health | Bonus Repair Power | Extra Nails | Bonus ammunition from SkillShop and mobile supplies | ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+20% Melee Damage | Extra Melee Damage | +2 Health On Melee Kill | Extra Health On Melee Kill | No Slowdown | Speed Boost |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret  |  C4  |  Classic Pistol  |  Pan  ", Description = "Bonus Turret Stats | Bonus Turret Fire Rate | Extra Pulse Capacity | Faster Pulse Regen Rate | Increased C4 Damage | Increased C4 Radius |", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Python  |  Beer Bottle		", Description = "Extra Headshot Damage | Extra Speed | Extra Sniper Damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
