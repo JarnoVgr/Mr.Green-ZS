@@ -12,7 +12,7 @@ function ENT:Initialize()
 	-- self.Heal = 700 * math.Clamp(GetInfliction()+0.3,0.5,1)
 
 	--Initial and Maximum Health
-	self.Heal = 300
+	self.Heal = 200
 	
 	--Increase health when having a perk
 	local Owner = self:GetOwner()

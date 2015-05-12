@@ -185,7 +185,7 @@ if SERVER then
 							util.Effect("StunstickImpact", eff, true, true)    
 
 							if trent.PropHealth != nil then					
-								trent.PropHealth = math.Round(math.Clamp(trent.PropHealth + self.ToHeal*0.5, 0, trent.TotalHealth))
+								trent.PropHealth = math.Round(math.Clamp(trent.PropHealth + self.ToHeal, 0, trent.TotalHealth))
 							end							
 							
                             --self.Owner._RepairScore = self.Owner._RepairScore + 1
