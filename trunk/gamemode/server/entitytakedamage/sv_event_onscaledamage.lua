@@ -135,14 +135,14 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
-				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),70,math.random(95,105))				
+				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),65,math.random(90,110))				
 				if dmginfo:IsBulletDamage() then
 					dmginfo:SetDamage(dmginfo:GetDamage() * 1.2)
 				elseif dmginfo:IsBulletDamage() and attacker:GetPerk ("_sharpshooter") then
 					if attacker.DataTable["ShopItems"][69] then
-						dmginfo:SetDamage((dmginfo:GetDamage() * 1.3) + (dmginfo:GetDamage() *(5*attacker:GetRank())/100))				
+						dmginfo:SetDamage((dmginfo:GetDamage() * (1.3 + (5*attacker:GetRank())/100)))				
 					else
-						dmginfo:SetDamage((dmginfo:GetDamage() * 1.2) + (dmginfo:GetDamage() *(5*attacker:GetRank())/100))
+						dmginfo:SetDamage((dmginfo:GetDamage() * (1.2 + (5*attacker:GetRank())/100)))
 					end
 				elseif dmginfo:IsMeleeDamage() then
 					dmginfo:SetDamage(dmginfo:GetDamage() * 1.4)
@@ -190,7 +190,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			return true
 		end
 		
-		local speed, div_factor = math.abs(pl:GetVelocity().z), 24
+		local speed, div_factor = math.abs(pl:GetVelocity().z), 20
 		local Damage = math.Clamp(speed / div_factor, 5, 100)
 				
 		--Shake camera
@@ -205,13 +205,13 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			dmginfo:AddDamage(Damage)
 		end
 		
-		if pl:Alive() then
+		--[[if pl:Alive() then
 				if pl:GetPerk("_point") then
 					return
 				else	
 			pl:GiveStatus("knockdown",1)
 			end
-		end
+		end]]--
 	end
 	
 	-- Clamp phys damage
@@ -245,13 +245,13 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 				
 			local phys = Inflictor:GetPhysicsObject()
 
-			if phys:IsValid() and pl:Alive() and phys:GetVelocity():Length() > 180 then
+			--[[if phys:IsValid() and pl:Alive() and phys:GetVelocity():Length() > 180 then
 						if pl:GetPerk("_falldown") then
 					return
 				else
 				pl:GiveStatus("knockdown",1)
-				end
-			end
+				end]]--
+			--end
 		end
 	end
 	
