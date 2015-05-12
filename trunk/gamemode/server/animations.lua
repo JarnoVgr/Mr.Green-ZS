@@ -19,6 +19,7 @@ local function PoisonZombieAnim(pl, anim)
 	else
 		if pl:GetVelocity():Length() > 0 then
 			act = ACT_WALK
+			pl:SetPlaybackRate(2)			
 		end
 	end
 
