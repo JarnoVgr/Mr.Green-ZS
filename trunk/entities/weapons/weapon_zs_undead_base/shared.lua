@@ -265,13 +265,13 @@ function SWEP:PerformPrimaryAttack()
 				if self.Primary.Damage > 20 then
 					Velocity.z = math.Clamp(Velocity.z + self.Primary.Damage * 13, 230, 270)
 					--ent:SetSpeed(ent:GetMaxSpeed()*0.5)
+					ent:SetLocalVelocity(Velocity)					
 				end
 				
 				if self.Owner:HasBought("vampire") and self.Owner:Health() + self.Primary.Damage * 0.5 < self.Owner:GetMaximumHealth() then	
 					self.Owner:SetHealth(self.Owner:Health() + self.Primary.Damage * 0.5)	
 				end	
-				--Velocity.z = Velocity.z * 2.5					
-				--ent:SetLocalVelocity(Velocity)				
+				--Velocity.z = Velocity.z * 2.5									
 				hit = true
 				else
 				ent:TakeDamage(self.Primary.Damage, self.Owner, self)
