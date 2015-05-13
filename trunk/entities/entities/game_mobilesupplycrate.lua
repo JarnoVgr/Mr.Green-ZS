@@ -183,8 +183,8 @@ if SERVER then
 				--Give SP to crate owner		
 				local Owner = self:GetPlacer()
 				if activator ~= Owner and (IsValid(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
-					skillpoints.AddSkillPoints(Owner,10)
-					self:FloatingTextEffect(10, Owner)
+					skillpoints.AddSkillPoints(Owner,4)
+					self:FloatingTextEffect(4, Owner)
 					Owner:AddXP(20)
 				end
 
