@@ -271,7 +271,7 @@ function SWEP:PerformPrimaryAttack()
 					self.Owner:SetHealth(self.Owner:Health() + self.Primary.Damage * 0.5)	
 				end	
 				--Velocity.z = Velocity.z * 2.5					
-				ent:SetLocalVelocity(Velocity)				
+				--ent:SetLocalVelocity(Velocity)				
 				hit = true
 				else
 				ent:TakeDamage(self.Primary.Damage, self.Owner, self)
