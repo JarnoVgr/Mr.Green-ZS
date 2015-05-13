@@ -71,7 +71,7 @@ FIRSTAPRIL = false
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 7--Pufu stop fucking with this! Last warning! I've been mellow about everything else, do not fucking change it!
-BOSS_CLASS = {11, 20, 10, 13 }
+BOSS_CLASS = {11, 20, 10} -- 13 "Nerf" is a bad boss.
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
 --BOSS_CLASS = {18} --Seeker2
