@@ -88,7 +88,8 @@ function SWEP:Think()
 
 					--Apply push
 					phys:ApplyForceCenter(Velocity)
-					ent:SetPhysicsAttacker(self.Owner)					
+					ent:SetPhysicsAttacker(self.Owner)
+					ent:TakeDamage(self.Secondary.Damage*5, self.Owner, self)					
 				end
 				
 				--Take damage
@@ -110,7 +111,7 @@ function SWEP:Think()
 			self.Leaping = false
 			
 			--Stop, so we don't bounce around
-			self.Owner:SetLocalVelocity(Vector(0, 0, 0))
+			--self.Owner:SetLocalVelocity(Vector(0, 0, 0))
 			
 			--Leap Cooldown
 			self.NextLeap = CurTime() + 3
@@ -155,7 +156,7 @@ function SWEP:StartPrimaryAttack()
 	end
 	self.SwapAnims = not self.SwapAnims
 	
-	self.Attacking = CurTime() + 1.2	
+	self.Attacking = CurTime() + 1	
 	
 	--Set the thirdperson animation and emit zombie attack sound
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
@@ -216,7 +217,7 @@ function SWEP:SecondaryAttack()
 	self.Leaping = true
 	
 	--Leap cooldown
-	self.NextLeap = CurTime() + 1.5
+	self.NextLeap = CurTime() + 2
 	
 	--Fast zombie scream
 	if SERVER then
