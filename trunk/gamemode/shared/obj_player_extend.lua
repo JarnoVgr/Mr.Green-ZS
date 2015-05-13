@@ -136,7 +136,7 @@ function meta:IsHumanClass()
 		--Commando stages
 		commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
 		
-		commando2 = {"weapon_zs_fiveseven"}
+		commando2 = {"weapon_zs_melee_plank"}
 		
 		--Engineer stages
 		engineer = {"weapon_zs_classic", "weapon_zs_melee_fryingpan","weapon_zs_turretplacer","weapon_zs_mine"}

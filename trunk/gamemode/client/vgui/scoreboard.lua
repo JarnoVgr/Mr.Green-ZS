@@ -60,7 +60,7 @@ local function AddScoreboardItem(ply, list)
 		draw.SimpleTextOutlined(ply:Nick().."   Berserker" , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		end
 		if ply:GetPerk("_sharpshooter") then
-		draw.SimpleTextOutlined(ply:Nick().."   SharpShooter" , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(ply:Nick().."   Sharpshooter" , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		end
 		if ply:GetPerk("_medic") then
 		draw.SimpleTextOutlined(ply:Nick().."   Medic" , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
