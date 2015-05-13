@@ -226,7 +226,7 @@ ZombieClasses[3] =
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
 	Infliction = 0.5,
-	Health = 160,
+	Health = 150,
 	MaxHealth = 200,
 	TimeLimit = 160,
 	Bounty = 80,
@@ -238,7 +238,7 @@ ZombieClasses[3] =
 	CanGib = true,
 	AngleFix = true,
 	Model = Model("models/Zombie/Fast.mdl"),
-	Speed = 270,
+	Speed = 275,
 	Description = "Skin and bones predator.",
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	

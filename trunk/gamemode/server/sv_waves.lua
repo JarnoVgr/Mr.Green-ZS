@@ -17,7 +17,7 @@ function GM:SetRandomsToZombie() --Duby: I took Necro's old code and modified it
 	local vols = 0
 	local voltab = {}
 	for _, gasses in pairs(ents.FindByClass("zs_poisongasses")) do
-		for _, ent in pairs(ents.FindInSphere(gasses:GetPos(), 512)) do
+		for _, ent in pairs(ents.FindInSphere(gasses:GetPos(), 5000)) do
 			if ent:IsPlayer() and not table.HasValue(voltab, ent) then
 				vols = vols + 1
 				table.insert(voltab, ent)
