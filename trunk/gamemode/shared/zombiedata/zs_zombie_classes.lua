@@ -606,7 +606,7 @@ ZombieClasses[10] =
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
-	ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
+	--ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
 --	ViewOffset = Vector(0, 0, 84),
 --	ViewOffsetDucked = Vector(0,0,38),
 --	Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
@@ -672,7 +672,7 @@ ZombieClasses[20] =
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
-	ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
+	--ModelScale = 1.5,-- Vector(1.35,1.35,1.35),
 	--ViewOffset = Vector(0, 0, 84),
 	--ViewOffsetDucked = Vector(0,0,38),
 	--Hull = { Vector(-16,-16, 0), Vector(16,16,97) },
@@ -733,7 +733,7 @@ ZombieClasses[11] =
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
-	ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
+	--ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
 	--ViewOffset = Vector(0, 0, 73),
 	--ViewOffsetDucked = Vector(0,0,32.2),
 	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
