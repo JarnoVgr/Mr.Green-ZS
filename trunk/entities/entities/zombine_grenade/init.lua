@@ -102,7 +102,7 @@ function ENT:PoisonExplode()
 	local shake = ents.Create( "env_shake" )
 	shake:SetPos( vPos )
 	shake:SetKeyValue( "amplitude", "800" ) -- Power of the shake effect
-	shake:SetKeyValue( "radius", "280" )	-- Radius of the shake effect
+	shake:SetKeyValue( "radius", "250" )	-- Radius of the shake effect
 	shake:SetKeyValue( "duration", "3" )	-- Duration of shake
 	shake:SetKeyValue( "frequency", "128" )	-- Screenshake frequency
 	shake:SetKeyValue( "spawnflags", "4" )	-- Spawnflags( In Air )
@@ -126,7 +126,7 @@ function ENT:PoisonExplode()
 		if IsEntityVisible ( v, vPos + Vector ( 0,0,3 ), Filter ) then
 			table.insert( Filter, v )
 			local fDistance = self:GetPos():Distance( v:GetPos() )
-			v:TakeDamageOverTime( math.Rand(3,4), 1.5, math.Clamp( ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 44 ) / 2, 0, 22 ), self.ZombieOwner, mOwnerWeapon )
+			v:TakeDamageOverTime( math.Rand(3,4), 1.5, math.Clamp( ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 30 ) / 2, 0, 22 ), self.ZombieOwner, mOwnerWeapon )
 			
 			-- Apply effect to human
 			local Infect = EffectData()
