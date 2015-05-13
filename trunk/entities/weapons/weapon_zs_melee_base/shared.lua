@@ -284,7 +284,7 @@ function SWEP:MeleeSwing()
 		if hitflesh then
 			util.Decal(self.BloodDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 			self:PlayHitFleshSound()
-			if SERVER and not (hitent:IsValid() and hitent:IsPlayer() and hitent:Team() == owner:Team()) and math.random(1,2) == 1 then
+			if SERVER and not (hitent:IsValid() and hitent:IsPlayer() and hitent:Team() == owner:Team()) then
 				util.Blood(tr.HitPos, math.Rand(damage * 0.05, damage * 0.1), (tr.HitPos - owner:GetShootPos()):GetNormal(), math.Rand(damage * 3, damage * 6), true)
 			end
 			if not self.NoHitSoundFlesh then

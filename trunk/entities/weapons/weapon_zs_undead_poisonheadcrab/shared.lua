@@ -122,7 +122,7 @@ function SWEP:Think()
 		end
 	end	
 	
-	self:NextThink(CurTime()+0.5)
+	self:NextThink(CurTime()+0.1)
 	--return true
 end
 

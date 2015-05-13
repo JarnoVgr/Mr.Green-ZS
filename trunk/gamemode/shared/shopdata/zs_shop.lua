@@ -41,7 +41,7 @@ shopData = {
 	[20] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "A sawblade sombrero, how cool can it get? Chuck Norris has one you know.", Key = "sombrero", ID = 20, Sell = 0, Requires = 0, Name = "Sombrero",  },
 	[21] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "You won't die of starvation with this thing on.", Key = "melonhead", ID = 21, Sell = 0, Requires = 0, Name = "Melonhead",  },
 	[22] = { Cost = 8000,Type = "misc", AdminOnly = false, Desc = "You get twice as much ammunition from the Supply Crates!", Key = "ammoman", ID = 22, Sell = 0, Requires = 0, Name = "Ammunition Man",  },
-	[23] = { Cost = 7000,Type = "misc", AdminOnly = false, Desc = "You become bloodthirsty! Receive a third of damage done with claws towards your health!", Key = "vampire", ID = 23, Sell = 0, Requires = 5, Name = "Blood Sucker",  },
+	[23] = { Cost = 7000,Type = "misc", AdminOnly = false, Desc = "You become bloodthirsty! Receive a half of damage done with claws towards your health!", Key = "vampire", ID = 23, Sell = 0, Requires = 5, Name = "Blood Sucker",  },
 	
 	-- FREEMAN--egghat
 	[24] = { Cost = 7500, Hidden = false, Type = "misc", AdminOnly = false, Desc = "[1/4] Start the round as THE Gordon Freeman!", Key = "gordonfreeman", ID = 24, Sell = 0, Requires = 0, Name = "Crowbar Wielding God",  },
