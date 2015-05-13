@@ -32,7 +32,7 @@ end
 
 -- Options
 ENT.MaxHealth = 80
-ENT.MaxBullets = 100
+ENT.MaxBullets = 120
 ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 700
 ENT.Damage = 5
@@ -88,21 +88,22 @@ if SERVER then
 		end
 		
 		self:SetMaterial(MaterialToApply)]]
-			
-			if self:GetTurretOwner():GetPerk("_turret") then --Class engineer 
-				self.MaxBullets = math.Round(self.MaxBullets*1.5)
-				self.MaxHealth = math.Round(self.MaxHealth*1.5)
-				self.Damage = math.Round(self.Damage*1.5)
-			end
 					
 			if self:GetTurretOwner():GetPerk ("_engineer") then	
 				self.Damage = self.Damage + (self.Damage*(6*self:GetTurretOwner():GetRank())/100)		
 				self.MaxHealth = self.MaxHealth + (self.MaxHealth*(6*self:GetTurretOwner():GetRank())/100)	
 				self.MaxBullets = self.MaxBullets + (self.MaxBullets*(6*self:GetTurretOwner():GetRank())/100)	
 			end		
+			
+			if self:GetTurretOwner():GetPerk("_turret") then --Class engineer 
+				self.MaxBullets = math.Round(self.MaxBullets*1.5)
+				self.MaxHealth = math.Round(self.MaxHealth*1.5)
+				self.Damage = math.Round(self.Damage*1.5)
+			end			
 
 			if self:GetTurretOwner().DataTable["ShopItems"][50] then
-				self.Damage = self.Damage + 1		
+				self.Damage = self.Damage + 1
+				self.MaxBullets = math.Round(self.MaxBullets*1.2)				
 			end
 		
 	--[[	if self:GetTurretOwner():GetPerk("_turretammo") then
@@ -293,7 +294,7 @@ if SERVER then
 			end
 		else
 			-- Increased recharge rate
-			self:RechargeAmmo(1,0.15- (0.4*(5*self:GetTurretOwner():GetRank())/100))	
+			self:RechargeAmmo(1,0.14- (0.45*(5*self:GetTurretOwner():GetRank())/100))	
 			self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),0,1))
 			self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),15,1))
 
@@ -430,18 +431,18 @@ if SERVER then
 		
 		local bullet = {}
 		
-		if self:IsControlled() then
-			bullet.Spread = Vector(0.02, 0.02, 0.02) 
-			bullet.Num = 2		
-		else
-			bullet.Spread = Vector(0.02, 0.02, 0.02) 
-			bullet.Num = 1				
-		end
+		--if self:IsControlled() then
+		--	bullet.Spread = Vector(0.02, 0.02, 0.02) 
+		--	bullet.Num = 2		
+		--else
+		--	bullet.Spread = Vector(0.02, 0.02, 0.02) 
+		--	bullet.Num = 1				
+	--	end
 		
-	--	bullet.Num = 1
+		bullet.Num = 1
 		bullet.Src = self:GetShootPos()
 		bullet.Dir = self:GetShootDir()
-	--	bullet.Spread = Vector(0, 0, 0)  
+		bullet.Spread = Vector(0, 0, 0)  
 		bullet.Tracer = 3
 		bullet.Force = 0
 		bullet.Damage = self.Damage
