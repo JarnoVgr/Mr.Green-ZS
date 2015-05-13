@@ -19,11 +19,11 @@ SWEP.WorldModel = "models/weapons/w_snip_g3sg1.mdl"
 
 SWEP.Primary.Sound = Sound("Weapon_G3SG1.Single")
 SWEP.Primary.Recoil = 3
-SWEP.Primary.Damage = 50
+SWEP.Primary.Damage = 40
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.5
-SWEP.Primary.ClipSize = 10
-SWEP.Primary.DefaultClip = 20
+SWEP.Primary.Delay = 0.33
+SWEP.Primary.ClipSize = 20
+SWEP.Primary.DefaultClip = 60
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo			= "357"
 

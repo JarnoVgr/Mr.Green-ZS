@@ -111,7 +111,7 @@ function GM:SetRandomsToFirstZombie()
 	while numAcquiredUndead < numRequiredUndead and whileFailedAttempts < 40 do
 		--Get random player
 		local pl = tblHumans[math.random(1, #tblHumans)]
-		
+
 		if pl:Team() ~= TEAM_UNDEAD then
 			--Set as first Undead
 			pl:SetFirstZombie()
