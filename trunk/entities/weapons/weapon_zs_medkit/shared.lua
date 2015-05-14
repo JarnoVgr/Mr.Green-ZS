@@ -127,8 +127,8 @@ function SWEP:PrimaryAttack()
 						multiplier = multiplier + 0.2
 					end
 					
-					if owner.GetPerk("_medic") then
-						multiplier = multiplier + multiplier*((5*owner.GetRank())/100)
+					if owner:GetPerk("_medic") then
+						multiplier = multiplier + multiplier*((5*owner:GetRank())/100)
 					end
 					
 					self:SetNextCharge(CurTime() + delay)
