@@ -373,13 +373,13 @@ function meta:DrawCrosshairCross()
 	local midarea = 40 * CrossHairScale
 	local length = scalebyheight * 1 + midarea / 4
 
-	surface.SetDrawColor(Color(255,255,255,200))
+	surface.SetDrawColor(Color(255,255,255,240))
 	surface.DrawRect(x - midarea - length, y - 1, length, 2)
 	surface.DrawRect(x + midarea, y - 1, length, 2)
 	surface.DrawRect(x - 1, y - midarea - length, 2, length)
 	surface.DrawRect(x - 1, y + midarea, 2, length)
 
-	surface.SetDrawColor(0, 0, 0, 200)
+	surface.SetDrawColor(0, 0, 0, 240)
 	surface.DrawOutlinedRect(x - midarea - length, y - 1, length, 2)
 	surface.DrawOutlinedRect(x + midarea, y - 1, length, 2)
 	surface.DrawOutlinedRect(x - 1, y - midarea - length, 2, length)

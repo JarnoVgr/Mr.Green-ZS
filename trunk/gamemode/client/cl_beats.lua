@@ -31,7 +31,7 @@ BeatLength[6] = 1.7
 BeatLength[7] = 1.65
 BeatLength[8] = 1.7
 BeatLength[9] = 1.7
-BeatLength[10] = 280
+BeatLength[10] = 300
 --BeatLength[11] = 300
 
 
@@ -62,7 +62,7 @@ ZBeatLength[7] = 5.1
 ZBeatLength[8] = 10.3
 ZBeatLength[9] = 10.3
 --ZBeatLength[10] = 1.7
-ZBeatLength[10] = 280
+ZBeatLength[10] = 300
 
 --Precache beats
 for i=1,10 do
