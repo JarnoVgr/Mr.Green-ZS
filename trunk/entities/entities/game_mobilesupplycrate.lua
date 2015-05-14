@@ -32,9 +32,9 @@ function ENT:Initialize()
 		self.CrateHealth = 300
 	end
 	
-	if self.Owner:GetPerk("_supply") then	
+	if self.GetPlacer():GetPerk("_supply") then	
 		self.Entity.SetColor( Color( 0, 200, 200, 255 ) )
-	end		
+	end
 				
 
 	--Unclaimed by default
@@ -280,7 +280,7 @@ if CLIENT then
 				draw.SimpleTextOutlined("Press E to claim", "ArialBoldFour", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 			end
 		elseif MySelf.MobileSupplyTimerActive == false then
-			draw.SimpleTextOutlined("Press E for bandages and ammo", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("USE for ammunition.", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 		end
 	    cam.End3D2D()
 	end
