@@ -102,24 +102,17 @@ function SWEP:SecondaryAttack()
 
 				local health, maxhealth = ent:Health(), 100-- owner:GetMaxHealth()
 				local multiplier = 1.0
-
-				if owner:GetPerk("_medupgr1" ) then
-					multiplier = 1.3
-				end
-				local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Secondary.Heal * multiplier, maxhealth - health)))
-				local totake = math.ceil(toheal / multiplier)
 				
 				if owner:GetPerk("_medic") then
 					multiplier = multiplier + multiplier*((5*owner:GetRank())/100)
 				end						
-
-				if owner:GetPerk("_medupgr1" ) then
-					multiplier = 1.3
-				end
 				
 				if owner.DataTable["ShopItems"][48] then
 					multiplier = multiplier + 0.2
-				end		
+				end	
+
+				local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Secondary.Heal * multiplier, maxhealth - health)))
+				local totake = math.ceil(toheal / multiplier)				
 				
 				if toheal > 0 then
 					
