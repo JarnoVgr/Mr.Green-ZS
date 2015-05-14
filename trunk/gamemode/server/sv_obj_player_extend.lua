@@ -1135,10 +1135,10 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		--Prevent damage with melees and certain weapons
 
 		if dmginfo:IsMeleeDamage() then
-			damage = 0
-			return true
+			damage = 10
 		else
-			damage = 10		
+			damage = 0	
+			return true			
 		end
 	end
 
