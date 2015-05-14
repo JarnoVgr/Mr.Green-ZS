@@ -119,12 +119,24 @@ function SWEP:PrimaryAttack()
 				end
 				local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
 				local totake = math.ceil(toheal / multiplier)
+				
+				if owner:GetPerk("_medic") then
+					multiplier = multiplier + multiplier*((5*owner:GetRank())/100)
+				end						
+
+				if owner:GetPerk("_medupgr1" ) then
+					multiplier = 1.3
+				end
+				
+				if owner.DataTable["ShopItems"][48] then
+					multiplier = multiplier + 0.2
+				end		
+				
 				if toheal > 0 then
 					
 					local delay = self.Primary.HealDelay
 					if owner.DataTable["ShopItems"][48] then
 						delay = math.Clamp(self.Primary.HealDelay - 1.5,0,self.Primary.HealDelay)
-						multiplier = multiplier + 0.2
 					end
 					
 					if owner:GetPerk("_medic") then
