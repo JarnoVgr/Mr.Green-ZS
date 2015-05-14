@@ -32,7 +32,7 @@ function ENT:Initialize()
 		self.CrateHealth = 300
 	end
 	
-	if self.Entity.Owner:GetPerk("_supply") then	
+	if self.Owner:GetPerk("_supply") then	
 		self.Entity.SetColor( Color( 0, 200, 200, 255 ) )
 	end		
 				
