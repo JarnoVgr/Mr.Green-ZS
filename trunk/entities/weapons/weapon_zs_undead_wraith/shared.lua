@@ -18,7 +18,7 @@ end
 SWEP.Primary.Duration = 1.3
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
-SWEP.Primary.Damage = 30
+SWEP.Primary.Damage = 29
 SWEP.Primary.Next = 1.5
 --SWEP.Secondary.Next = 6.8
 SWEP.Secondary.Next = 2
