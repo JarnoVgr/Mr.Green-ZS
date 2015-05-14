@@ -147,7 +147,7 @@ function meta:IsHumanClass()
 		--Sharpshooter stages
 		sharpshooter = {"weapon_zs_barreta","weapon_zs_melee_beer","weapon_zs_tools_supplies"}
 		
-		pyrotechnic = {"weapon_zs_flaregun","weapon_zs_special_bottleofwine"}
+		pyrotechnic = {"weapon_zs_flaregun","weapon_zs_flamer","weapon_zs_special_bottleofwine"}
 	
 	--{{ZS HUMAN CLASSES}}--
 

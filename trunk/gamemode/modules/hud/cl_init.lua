@@ -47,29 +47,29 @@ end
 -----------------------------------------]==]
 function hud.InitFonts()
 	-- Health indication font
-	surface.CreateFontLegacy( "Arial", ScreenScale( 7.6 ), 600, true, true, "HUDBetaHealth" ) -- 14.6
+	surface.CreateFontLegacy( "Arial", ScreenScale( 7.6 ), 700, true, true, "HUDBetaHealth" ) -- 14.6
 	
 	-- Level font
-	surface.CreateFontLegacy( "Arial", ScreenScale( 7.6 ), 600, true, true, "HUDBetaLevel" ) -- 14.6
+	surface.CreateFontLegacy( "Arial", ScreenScale( 7.6 ), 700, true, true, "HUDBetaLevel" ) -- 14.6
 	
 	-- Level font 4:3
-	surface.CreateFontLegacy( "Arial", ScreenScale( 7.3 ), 600, true, true, "HUDBetaLevelNormal" ) -- 14.6
+	surface.CreateFontLegacy( "Arial", ScreenScale( 7.3 ), 700, true, true, "HUDBetaLevelNormal" ) -- 14.6
 	
 	-- Kills icon font
-	surface.CreateFontLegacy( "Arial", ScreenScale( 21.6 ), 500, true, true, "HUDBetaKills" ) -- 44.6
+	surface.CreateFontLegacy( "Arial", ScreenScale( 21.6 ), 700, true, true, "HUDBetaKills" ) -- 44.6
 
 	
 	-- Ammo regen icon font
-	surface.CreateFontLegacy( "csd", ScreenScale( 17.6 ), 500, true, true, "HUDBetaAmmo" ) -- 36/6
+	surface.CreateFontLegacy( "csd", ScreenScale( 17.6 ), 700, true, true, "HUDBetaAmmo" ) -- 36/6
 	
 	-- Kills and regen text font
-	surface.CreateFontLegacy( "Arial", ScreenScale( 11 ), 500, true, true, "HUDBetaStats" ) -- 16
+	surface.CreateFontLegacy( "Arial", ScreenScale( 11 ), 700, true, true, "HUDBetaStats" ) -- 16
 
 	-- Small level showout
 	surface.CreateFontLegacy( "Arial", ScreenScale( 7 ), 700, true, true, "HUDBetaCorner" ) -- 14
  -- ssNewAmmoFont13 ssNewAmmoFont5 HUDBetaZombieCount HUDBetaKills HUDBetaHeader
 	-- How much to survive font
-	surface.CreateFontLegacy( "Arial", ScreenScale( 15 ), 500, true, true, "HUDBetaHeader" )
+	surface.CreateFontLegacy( "Arial", ScreenScale( 15 ), 700, true, true, "HUDBetaHeader" )
 	-- Zombie count
 	surface.CreateFontLegacy( "Arial", ScreenScale( 25 ), 700, true, true, "HUDBetaZombieCount" )
 
@@ -90,16 +90,16 @@ function hud.InitFonts()
 	surface.CreateFontLegacy( "Arial", ScreenScale( 12 ), 700, true, false, "hpFont" )		
 	
 	--Undead HUD font
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(8), 400, true, false, "NewZombieFont7",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(9), 400, true, false, "NewZombieFont10",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(12), 400, true, false, "NewZombieFont13",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(13), 400, true, false, "NewZombieFont14",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(14), 400, true, false, "NewZombieFont15",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(15), 400, true, false, "NewZombieFont17",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(18), 400, true, false, "NewZombieFont19",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(22), 400, true, false, "NewZombieFont23",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(26), 400, true, false, "NewZombieFont27",false, true)
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(34), 400, true, false, "NewZombieFont35",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(8), 700, true, false, "NewZombieFont7",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(9), 700, true, false, "NewZombieFont10",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(12), 700, true, false, "NewZombieFont13",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(13), 700, true, false, "NewZombieFont14",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(14), 700, true, false, "NewZombieFont15",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(15), 700, true, false, "NewZombieFont17",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(18), 700, true, false, "NewZombieFont19",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(22), 700, true, false, "NewZombieFont23",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(26), 700, true, false, "NewZombieFont27",false, true)
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(34), 700, true, false, "NewZombieFont35",false, true)
 end
 hook.Add("Initialize", "hud.InitFonts", hud.InitFonts)
 
