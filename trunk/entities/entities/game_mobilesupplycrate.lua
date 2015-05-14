@@ -4,7 +4,7 @@ ENT.Type 			= "anim"
 ENT.PrintName		= ""
 ENT.Author			= "NECROSSIN"
 ENT.Purpose			= ""
-ENT.AmmoDelay = 90
+ENT.AmmoDelay = 60
 ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 
 util.PrecacheSound("items/ammo_pickup.wav")
@@ -171,21 +171,21 @@ if SERVER then
 					
 					activator:GiveAmmo(HowMuch, AmmoType)
 				end
-
+				local Owner = self:GetPlacer()
+				
 				--Heal 
-				if activator:Health() < activator:GetMaximumHealth() then
-					local healthDifference = math.Clamp(activator:GetMaximumHealth() - activator:Health(), 0, 5)
-					local actualHealAmount = math.random(5, healthDifference)
-					actualHealAmount = math.min(activator:Health() + actualHealAmount, activator:GetMaximumHealth())
-					activator:SetHealth(actualHealAmount)
+				if activator:Health() < activator:GetMaximumHealth() and Owner:GetPerk("_supply") then
+					activator:SetHealth(activator:Health() + 5)
+					skillpoints.AddSkillPoints(Owner,1)
+					self:FloatingTextEffect(1, Owner)					
 				end
 
 				--Give SP to crate owner		
-				local Owner = self:GetPlacer()
+
 				if activator ~= Owner and (IsValid(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
 					skillpoints.AddSkillPoints(Owner,4)
 					self:FloatingTextEffect(4, Owner)
-					Owner:AddXP(20)
+					Owner:AddXP(10)
 				end
 
 				--Play sound

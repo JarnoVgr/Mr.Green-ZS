@@ -38,7 +38,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "revolver"
 
 SWEP.Primary.Sound			= Sound( "Weapon_357.Single" )
-SWEP.Primary.Recoil			= 2
+SWEP.Primary.Recoil			= 3.25
 SWEP.Primary.Damage			= 45
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6

@@ -161,28 +161,36 @@ GM.HumanWeapons = {
         ["weapon_zs_m249"]  = { Name = "M249", DPS = 200, Infliction = 0.85, Type = "rifle", Price = 1400, HumanClass = "commando" },      		
 		
         --Support
-        ["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143, Infliction = 0, Price = 150, Type = "shotgun", HumanClass = "support" },       
         ["weapon_zs_smg"]  = { Name = "Classic SMG", DPS = 125, Infliction = 0.65, Type = "smg", Price = 100, HumanClass = "support"},
+        ["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143, Infliction = 0, Price = 150, Type = "shotgun", HumanClass = "support" },       		
         ["weapon_zs_mac10"]  = { Name = "Mac 10", DPS = 126, Infliction = 0.60, Type = "smg", Price = 300, HumanClass = "support" },   
-        --["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127, Infliction = 0.58, Type = "smg", Price = 300, HumanClass = "support" },
         ["weapon_zs_ump"]  = { Name = "UMP", DPS = 110, Infliction = 0.60, Type = "smg", Price = 500, HumanClass = "support" },
-        ["weapon_zs_p90"]  = { Name = "P90", DPS = 125, Infliction = 0.65, Type = "smg", Price = 600, HumanClass = "support" },
-        ["weapon_zs_m3super90"]  = { Name = "M3 Shotgun", DPS = 149, Infliction = 0, Type = "shotgun", Price = 1300, HumanClass = "support"}, 
-        ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 1400, HumanClass = "support"},		
-       
+        ["weapon_zs_m3super90"]  = { Name = "M3 Shotgun", DPS = 149, Infliction = 0, Type = "shotgun", Price = 550, HumanClass = "support"}, 		
+        ["weapon_zs_p90"]  = { Name = "P90", DPS = 125, Infliction = 0.65, Type = "smg", Price = 650, HumanClass = "support" },
+        ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 850, HumanClass = "support"},		
+    
+        --["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127, Infliction = 0.58, Type = "smg", Price = 300, HumanClass = "support" },
+	
         --Medic
-        ["weapon_zs_medigun"]  = { Name = "Medi 02", DPS = 143, Infliction = 0, Type = "smg",Price = 320, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
-        ["weapon_zs_medishotgun"]  = { Name = "Medi 03", DPS = 143, Infliction = 0, Type = "smg",Price = 450, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medi2"]  = { Name = "Medi 02", DPS = 143, Infliction = 0, Type = "shotgun",Price = 300, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
+        ["weapon_zs_medi3"]  = { Name = "Medi 03", DPS = 143, Infliction = 0, Type = "smg",Price = 500, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+		["weapon_zs_medi1"]  = { Name = "Medi 01", DPS = 143, Infliction = 0, Type = "pistol",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		
-      --  ["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
+        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 300, HumanClass = "medic" },
+        ["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 400, Description = "Russian Roulette Revolver", HumanClass = "medic" },
+        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 200, Description = "Alyx is hot. But her gun is even more hot.", HumanClass = "medic" }, 
+
+		
+        ["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Description = "High fire rate thanks to having two pistols in your hands."},
+		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
        
         --Sharpshooter
-        ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 100, HumanClass = "sharpshooter"},         
-        ["weapon_zs_python"]  = { Name = "Python", DPS = 93, Infliction = 0.2, Type = "rifle"},       
-        ["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40, Infliction = 0, Type = "rifle", Price = 300, Description = "Light-weight sniper.", HumanClass = "sharpshooter" },    
-        ["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 700, HumanClass = "sharpshooter"  },
-        ["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 1000, HumanClass = "sharpshooter"  },
-        ["weapon_zs_awp"]  = { Name = "AWP", DPS = 200, Infliction = 0, Type = "rifle", Price = 1400, Description = "Heavy sniper.", HumanClass = "sharpshooter" },     
+        ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 200, HumanClass = "sharpshooter"},         
+        ["weapon_zs_python"]  = { Name = "Python", DPS = 93, Infliction = 0.2, Price = 100, Type = "pistol", HumanClass = "sharpshooter"},       
+        ["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40, Infliction = 0, Type = "rifle", Price = 400, Description = "Light-weight sniper.", HumanClass = "sharpshooter" },    
+        ["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 600, HumanClass = "sharpshooter"  },
+        ["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70, Infliction = 0.65, Type = "rifle", HumanClass = "sharpshooter"  },
+        ["weapon_zs_awp"]  = { Name = "AWP", DPS = 200, Infliction = 0, Type = "rifle", Price = 900, Description = "Heavy sniper.", HumanClass = "sharpshooter" },     
        
         --Engineer
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 100, HumanClass = "engineer"},                      
@@ -199,11 +207,6 @@ GM.HumanWeapons = {
        -- ["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle",Price = 600, HumanClass = "other" },          
        
         --Pistols
-        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 300, HumanClass = "medic" },
-        ["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 200, Description = "High fire rate thanks to having two pistols in your hands." , HumanClass = "medic"},
-        ["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 400, Description = "Russian Roulette Revolver", HumanClass = "medic" },
-        ["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic."},
-        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 200, Description = "Alyx is hot. But her gun is even more hot.", HumanClass = "medic" },
  
         --Loadout Guns
         ["weapon_zs_fiveseven"]  = { Name = "Five-Seven", DPS = 91, Infliction = 0.15, Type = "pistol"},       
@@ -212,6 +215,7 @@ GM.HumanWeapons = {
         ["weapon_zs_p228"]  = { Name = "P228", DPS = 58, Infliction = 0, Type = "pistol", Description = "More accuracy but less fire power compared to the USP."  },   
         ["weapon_zs_melee_plank"]  = { Name = "Plank", DPS = 56, Infliction = 0, Type = "melee", Description = "The noobs ultimate weapon."  },                
         ["weapon_zs_melee_combatknife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee" },
+        ["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic."},
  
         --Loadout Tools 1
         ["weapon_zs_tools_hammer"]  = { Name = "Nailing Hammer", DPS = 23, Infliction = 0, Type = "tool1", Description = "Stop! Hammer time. This will freeze props in their place. Primary to repair/whack, Secondary to nail." },
@@ -349,7 +353,7 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_support","_mine","_highcal","_headhunter"},
+	[1] = {"_medupgr2","_accuracy","_support","_mine","_headhunter"},
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2"},
 	
@@ -357,7 +361,7 @@ GM.RankUnlocks = {
 	
 	[4] = {"_poisonprotect","_kevlar2","_psychopath","_bloodmoney","_sboost","_kevlar2","_reload"},
 	
-	[5] = {"_turret","_psychotic","_repairs","_medishot"},
+	[5] = {"_turret","_psychotic","_repairs", "_supply"},
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate"},
 		
@@ -376,8 +380,8 @@ GM.Perks = {
 	--Medic
 	
 	["_medupgr2"] = {Name = "Medical Supplies", Description = "100 extra medical charges.", RequiresWeapon = "_medic", Slot = 1}, --Done
-	["_medigun"] = {Name = "Medi Gun", Description = "Gives you the Medigun.", RequiresWeapon = "_medic", Slot = 1}, --Done
-	["_medishot"] = {Name = "Medi ShotGun", Description = "Gives you the Medical ShotGun", RequiresWeapon = "_medic", Slot = 1}, --Done
+	["_medigun"] = {Name = "Medi 01", Description = "Start with the Medi 01.", RequiresWeapon = "_medic", Slot = 1}, --Done
+	--["_medishot"] = {Name = "Medi ShotGun", Description = "Gives you the Medical ShotGun", RequiresWeapon = "_medic", Slot = 1}, --Done
 	["_healingnads"] = {Name = "Healing grenades", Description = "Gives you 5 healing grenades.", RequiresWeapon = "_medic", Slot = 1}, --Need to make
 	
 	--Commando
@@ -411,12 +415,11 @@ GM.Perks = {
 	--Sharpshooter
 	
 	["_lethal"] = {Name = "Lethal Start", Description = "Gives the scout sniper rifle.", RequiresWeapon = "_sharpshooter", Slot = 1}, --Done
-	["_accuracy2"] = {Name = "Excellent Accuracy", Description = "No recoil from shooting weapons while aiming or crouching.", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
-	["_highcal"] = {Name = "High Calibre Profit", Description = "Greater bullet knock back.", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
+	["_accuracy2"] = {Name = "Kinetic Absorption", Description = "No recoil from shooting weapons while aiming or crouching.", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
+	["_highcal"] = {Name = "Reinforced Calibre", Description = "Greater bullet knock back.", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
+	["_supply"] = {Name = "Medical Supplies", Description = "Mobile supplies gives 5 health to users. +1SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
 	
-
 					--[[Slot 2 'personal perk']]--
-
 	--Medic
 	
 	["_medupgr1"] = {Name = "Healthy Reward", Description = "+30% more SP goes to the owner for healing.", RequiresWeapon = "_medic", Slot = 2}, --Done
@@ -434,13 +437,13 @@ GM.Perks = {
 	
 	["_horse"] = {Name = "Horse Health", Description = "Regenerate health 6 seconds after last hit", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "+50 maximum health", RequiresWeapon = "_support2", Slot = 2}, --Done
-	["_psychopath"] = {Name = "Regenerative Nature", Description = "Regain health like a monster!", RequiresWeapon = "_support2", Slot = 2}, --Done
+	["_psychopath"] = {Name = "Regeneration", Description = "Regain health like a monster!", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_reload"] = {Name = "Action Reload", Description = "Reload 2 shotgun shells at once!", RequiresWeapon = "_support2", Slot = 2}, --Done
 	
 	--Berserker
 	
 	["_bloodmoney"] = {Name = "Blood Money", Description = "+5SP for melee kills.", RequiresWeapon = "_berserker", Slot = 2}, --Done
-	["_berserk"] = {Name = "Berserk", Description = "+15% speed while under 40HP.", RequiresWeapon = "_berserker", Slot = 2}, --Done
+	["_berserk"] = {Name = "Berserk", Description = "+10% speed while under 40HP.", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	
 	--Engineer
 	

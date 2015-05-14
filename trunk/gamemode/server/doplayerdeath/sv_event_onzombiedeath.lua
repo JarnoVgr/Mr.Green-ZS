@@ -94,9 +94,9 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				mAttacker:AddToCounter("undeadkilled", 1)
 					
 				local reward = Tab.SP
-				if mVictim:IsBoss() then
-					reward = reward * math.Clamp(INFLICTION + 0.2,0.1,1.1)
-				end
+				--if mVictim:IsBoss() then
+				--	reward = reward * math.Clamp(INFLICTION + 0.2,0.1,1.1)
+				--end
 
 				if mAttacker:GetPerk("_commando") then --Double checker, just in case..
 					if mAttacker:GetPerk("_profitable") then

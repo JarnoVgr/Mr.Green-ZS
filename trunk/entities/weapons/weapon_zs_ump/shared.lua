@@ -40,7 +40,7 @@ SWEP.Primary.Ammo			= "smg1"
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.06
+SWEP.Cone = 0.054
 SWEP.ConeMoving = SWEP.Cone *1.12
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9

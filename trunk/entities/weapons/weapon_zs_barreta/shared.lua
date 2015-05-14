@@ -42,16 +42,16 @@ SWEP.Weight				= 5
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_ELITE.Single" )
-SWEP.Primary.Recoil			= 0.4
+SWEP.Primary.Recoil			= 0.9
 SWEP.Primary.Damage			= 13
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 15
-SWEP.Primary.Delay			= 0.2
-SWEP.Primary.DefaultClip	= 50
+SWEP.Primary.Delay			= 0.12
+SWEP.Primary.DefaultClip	= 60
 SWEP.MaxAmmo			    = 70
-SWEP.Primary.Automatic		= true
+SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = SPEED_PISTOL
 
 --SWEP.Cone = 0.04
 --SWEP.ConeMoving = SWEP.Cone *1.3
@@ -59,8 +59,8 @@ SWEP.WalkSpeed = 190
 --SWEP.ConeIron = SWEP.Cone *0.8
 --SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
 
-SWEP.Cone = 0.041
-SWEP.ConeMoving = SWEP.Cone *1.3
+SWEP.Cone = 0.047
+SWEP.ConeMoving = SWEP.Cone *1.2
 SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8

@@ -145,7 +145,7 @@ function meta:IsHumanClass()
 		berserker = {"weapon_zs_deagle","weapon_zs_melee_plank","weapon_zs_special_vodka"}
 		
 		--Sharpshooter stages
-		sharpshooter = {"weapon_zs_python","weapon_zs_melee_beer","weapon_zs_tools_supplies"}
+		sharpshooter = {"weapon_zs_barreta","weapon_zs_melee_beer","weapon_zs_tools_supplies"}
 		
 		pyrotechnic = {"weapon_zs_flaregun","weapon_zs_special_bottleofwine"}
 	
@@ -154,26 +154,24 @@ function meta:IsHumanClass()
 			if self:GetPerk("_medic") then
 				self:ChatPrint("You are a Medic")
 
+				if self:GetPerk("_medigun") then
+					self:Give("weapon_zs_medi1")
+				end			
+				
 				for k,v in pairs(medicstage1) do
 					self:Give(tostring(v))
 				end
-					if self:GetPerk("_medigun") then --Medical gun perk
-						self:Give("weapon_zs_medigun")
-					end
-					if self:GetPerk("_medishot") then
-						self:Give("weapon_zs_medishotgun")
-					end
+				
 				end			
 
 		
-
 			if self:GetPerk("_support2") then
 				self.Loadout = table.Copy(support)
 				self:ChatPrint("You are a Support")
 				for k,v in pairs(support) do
 					self:Give(tostring(v))
 				end	
-				if self:GetPerk("_supportweapon") then --Medical gun perk
+				if self:GetPerk("_supportweapon") then
 						self:Give("weapon_zs_chipper")
 					end
 				
@@ -986,7 +984,7 @@ function meta:NextRankXP()
 	local exp = 0
 		
 	for i=0,self:GetRank() do
-		exp = exp + XP_BLANK + XP_INCREASE_BY*(i+1)
+		exp = exp + XP_BLANK + XP_INCREASE_BY*(i+0.75)
 	end
 
 	return exp or 2000
@@ -1000,7 +998,7 @@ function meta:CurRankXP()
 	local exp = 0
 		
 	for i=0,math.Clamp(self:GetRank()-1,0,999999) do
-		exp = exp + XP_BLANK + XP_INCREASE_BY*(i+1)
+		exp = exp + XP_BLANK + XP_INCREASE_BY*(i+0.75)
 	end
 
 	return exp or 0

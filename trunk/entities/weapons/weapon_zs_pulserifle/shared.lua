@@ -78,7 +78,7 @@ SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_AR2.Single")
 SWEP.Primary.Recoil			= 1.2
-SWEP.Primary.Damage			= 15
+SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 40
 SWEP.Primary.Delay			= 0.085
@@ -112,7 +112,7 @@ SWEP.WalkSpeed = SPEED_SMG
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.45
+SWEP.rechargerate = 0.475
 SWEP.startcharge = 1
 SWEP.MaxClip = 40
 

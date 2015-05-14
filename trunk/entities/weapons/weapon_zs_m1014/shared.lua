@@ -31,8 +31,8 @@ SWEP.HoldType = "shotgun"
 SWEP.ReloadDelay = 0.4
 
 SWEP.Primary.Sound			= Sound("Weapon_XM1014.Single")
-SWEP.Primary.Recoil			= 8
-SWEP.Primary.Damage			= 10
+SWEP.Primary.Recoil			= 3
+SWEP.Primary.Damage			= 7
 SWEP.Primary.NumShots		= 7
 SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Delay			= 0.3
@@ -41,7 +41,7 @@ SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "buckshot"
 SWEP.Primary.ReloadDelay	= 0.4
 
-SWEP.Cone = 0.095
+SWEP.Cone = 0.12
 SWEP.ConeMoving = SWEP.Cone *1.05
 SWEP.ConeCrouching = SWEP.Cone *0.95
 

@@ -65,6 +65,7 @@ function SWEP:PrimaryAttack()
 	end
 	
 	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay - bonus)
+	
 	if not self:CanPrimaryAttack() then
 		return
 	end
@@ -80,26 +81,26 @@ function SWEP:PrimaryAttack()
 	bullet.Force = 3000
 
 	--Recoil multiplier
-	local recoilMultiplier = 0.8
+	local recoilMultiplier = 1
 	if self:GetIronsights() then
 		--Less recoil when in ironsight
 		recoilMultiplier = recoilMultiplier * 0.75
 		if self.Owner:GetPerk("_accuracy") then
-			recoilMultiplier = recoilMultiplier * 0.4
+			recoilMultiplier = recoilMultiplier * 0.5
 			
 		end
 		if self.Owner:GetPerk("_accuracy2") then
-			recoilMultiplier = recoilMultiplier * 0.4
+			recoilMultiplier = recoilMultiplier * 0
 		end
 	end
 	if self.Owner:Crouching() then
 		--Less recoil when crouching
 		recoilMultiplier = recoilMultiplier * 0.75
 		if self.Owner:GetPerk("_accuracy") then
-			recoilMultiplier = recoilMultiplier * 0.4
+			recoilMultiplier = recoilMultiplier * 0.5
 		end
 		if self.Owner:GetPerk("_accuracy2") then
-			recoilMultiplier = recoilMultiplier * 0.4
+			recoilMultiplier = recoilMultiplier * 0
 		end
 	end
 
@@ -111,7 +112,7 @@ function SWEP:PrimaryAttack()
 
 	if (game.SinglePlayer() and SERVER) or (not game.SinglePlayer() and CLIENT and IsFirstTimePredicted() ) then
 		local eyeang = self.Owner:EyeAngles()
-		local permaRecoil = recoil * 0.9
+		local permaRecoil = recoil
 		eyeang.pitch = eyeang.pitch - permaRecoil
 		self.Owner:SetEyeAngles(eyeang)
 	end
@@ -137,21 +138,12 @@ function SWEP:PrimaryAttack()
 	aimVec.z = 0
 
 	self.Owner:SetVelocity(-5 * (recoil * aimVec))
-	
-		
-
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
 end
 
 function SWEP:GetWalkSpeed()
 	if self:GetIronsights() then
-		if self.Owner:GetPerk("_accuracy") then
-				return math.min(self.WalkSpeed, math.max(150, self.WalkSpeed * 0.5))
-			end
-		if self.Owner:GetPerk("_accuracy2") then
-			return math.min(self.WalkSpeed, math.max(150, self.WalkSpeed * 0.2))
-		end	
-		return math.min(self.WalkSpeed, math.max(90, self.WalkSpeed * 0.5))
+		return math.min(self.WalkSpeed, math.max(90, self.WalkSpeed * 0.6))
 	end
 
 	return self.WalkSpeed
@@ -380,9 +372,9 @@ function SWEP:DoBulletKnockback()
 	for ent, prevvel in pairs(tempknockback) do
 		local curvel = ent:GetVelocity()
 		if self.Owner:GetPerk("_highcal") then
-		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.1 + prevvel)
+			ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.05 + prevvel)
 		end
-		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.0125 + prevvel)
+			ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.0125 + prevvel)
 	end
 end
 
