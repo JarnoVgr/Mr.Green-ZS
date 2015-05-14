@@ -23,6 +23,10 @@ function ENT:Initialize()
 		self.Entity:SetSolid(SOLID_VPHYSICS)	
 		self.Entity:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 			
+		if self.Owner:GetPerk("_supply") then	
+			self.Entity.SetColor( Color( 0, 200, 200, 255 ) )
+		end		
+			
 		local phys = self.Entity:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:Wake()
@@ -31,6 +35,8 @@ function ENT:Initialize()
 	
 		self.CrateHealth = 300
 	end
+	
+	
 
 	--Unclaimed by default
 	self:SetClaimed(false)

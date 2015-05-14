@@ -416,13 +416,13 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 		dmg = dmg + (dmg * (4*self.Owner:GetRank() / 100))
 	
 	elseif self.Primary.Ammo == "rifle" and self.Owner:GetPerk("_commando") then
-		dmg = dmg + (dmg * (5*self.Owner:GetRank() / 100))
+		dmg = dmg + (dmg * (4*self.Owner:GetRank() / 100))
 		
 	elseif self.Primary.Ammo == "smg1" and self.Owner:GetPerk("_support") or self.Primary.Ammo == "buckshot" and self.Owner:GetPerk("_support") then
-		dmg = dmg + (dmg * (5*self.Owner:GetRank() / 100))		
+		dmg = dmg + (dmg * (4*self.Owner:GetRank() / 100))		
 		
 	elseif self.Primary.Ammo == "357" and self.Owner:GetPerk("_sharpshooter") then
-		dmg = dmg + (dmg * (5*self.Owner:GetRank() / 100))	
+		dmg = dmg + (dmg * (4*self.Owner:GetRank() / 100))	
 	elseif self.Primary.Ammo == "Battery" and self.Owner:GetPerk("_medic") then --mediguns
 		dmg = dmg + (dmg * (4*self.Owner:GetRank() / 100))			
 	end	
