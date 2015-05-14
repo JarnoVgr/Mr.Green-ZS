@@ -359,7 +359,7 @@ GM.RankUnlocks = {
 	
 	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive","_medigun"},
 	
-	[4] = {"_poisonprotect","_kevlar2","_psychopath","_bloodmoney","_sboost","_kevlar2","_reload"},
+	[4] = {"_poisonprotect","_kevlar2","_psychopath","_bloodmoney","_sboost","_reload"},
 	
 	[5] = {"_turret","_psychotic","_repairs", "_supply"},
 	
@@ -454,7 +454,7 @@ GM.Perks = {
 
 	
 	--Sharpshooter
-	["_kevlar2"] = {Name = "Refined Kevlar", Description = "+50 initial health.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
+	["_kevlar2"] = {Name = "Kevlar", Description = "+50 initial health.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	["_point"] = {Name = "Take Point", Description = "15% Crouch speed increase, you take less fall damage and also don't down.", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	
