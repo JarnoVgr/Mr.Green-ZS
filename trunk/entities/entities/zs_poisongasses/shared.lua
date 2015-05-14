@@ -1,13 +1,12 @@
-AddCSLuaFile()
+AddCSLuaFile("shared.lua")
 
-ENT.Type = "anim"
-ENT.PrintName = "Undead Gas"
+ENT.Type 			= "anim"
+ENT.PrintName		= ""
+ENT.Author			= "Rob"
+ENT.Purpose			= ""
 
-if CLIENT then
-	function ENT:Initialize()
-		ParticleEffect("BUTT_FART2",self:GetPos(),Angle(100,100,100),nil)
-	end
 
-	function ENT:Draw()
-	end
-end
+
+
+
+
