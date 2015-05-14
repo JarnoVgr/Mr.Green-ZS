@@ -9,10 +9,10 @@ ENT.RenderGroup = RENDERGROUP_BOTH
 
 ENT.AutomaticFrameAdvance = true
 
-ENT.MaxHealth = 60
+ENT.MaxHealth = 500
 ENT.MaxBullets = 150
 ENT.RechargeDelay = 0.5
-ENT.SpotDistance = 190
+ENT.SpotDistance = 512
 ENT.Damage = 4
 
 local model = Model("models/Combine_Scanner.mdl")
@@ -61,6 +61,12 @@ function ENT:Initialize()
 		self.MaxHealth = math.Round(self.MaxHealth*1.5)
 		self.Damage = math.Round(self.Damage*1.5)
 	end
+	
+	if self:GetOwner():GetPerk ("_engineer") then	
+		self.Damage = self.Damage + (self.Damage*(6*self:GetOwner():GetRank())/100)		
+		self.MaxHealth = self.MaxHealth + (self.MaxHealth*(6*self:GetOwner():GetRank())/100)	
+		self.MaxBullets = self.MaxBullets + (self.MaxBullets*(6*self:GetOwner():GetRank())/100)	
+	end			
 	
 	--[[if self:GetOwner():GetPerk("_turretammo") then
 		self.MaxBullets = math.Round(self.MaxBullets*1.5)
