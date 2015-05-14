@@ -1135,10 +1135,12 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		--Prevent damage with melees and certain weapons
 
 		if dmginfo:IsMeleeDamage() then
-			damage = 10
+			if attacker:GetActiveWeapon():GetClass() != "weapon_zs_tools_hammer" then
+				damage = 10
+			end
 		else
 			damage = 0	
-			return true			
+			return true
 		end
 	end
 
