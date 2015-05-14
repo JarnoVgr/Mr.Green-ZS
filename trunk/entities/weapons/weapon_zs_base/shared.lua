@@ -84,7 +84,7 @@ function SWEP:PrimaryAttack()
 	local recoilMultiplier = 1
 	if self:GetIronsights() then
 		--Less recoil when in ironsight
-		recoilMultiplier = recoilMultiplier * 0.75
+		recoilMultiplier = recoilMultiplier * 0.5
 		if self.Owner:GetPerk("_accuracy") then
 			recoilMultiplier = recoilMultiplier * 0.5
 			
@@ -95,7 +95,7 @@ function SWEP:PrimaryAttack()
 	end
 	if self.Owner:Crouching() then
 		--Less recoil when crouching
-		recoilMultiplier = recoilMultiplier * 0.75
+		recoilMultiplier = recoilMultiplier * 0.5
 		if self.Owner:GetPerk("_accuracy") then
 			recoilMultiplier = recoilMultiplier * 0.5
 		end
@@ -107,7 +107,7 @@ function SWEP:PrimaryAttack()
 	local recoil = self.Primary.Recoil * recoilMultiplier
 	
 	if Owner.ViewPunch then
-		Owner:ViewPunch(Angle(recoil * -1, math.random(0.1,-0.1), 0))
+		Owner:ViewPunch(Angle(recoil * -1, math.random(0.01,-0.01), 0))
 	end
 
 	if (game.SinglePlayer() and SERVER) or (not game.SinglePlayer() and CLIENT and IsFirstTimePredicted() ) then
@@ -436,7 +436,7 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 		Spread = Vector(cone * 0.8, cone * 0.8, 0),
 		Tracer = 1,
 		TracerName = self.TracerName,
-		Force = dmg * 0.06,
+		Force = dmg * 0.1,
 		Damage = dmg,
 		Callback = self.BulletCallback
 	})

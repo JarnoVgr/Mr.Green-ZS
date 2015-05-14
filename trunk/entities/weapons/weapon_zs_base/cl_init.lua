@@ -80,7 +80,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 	end
 
 	if ghostlerp > 0 then
-		ghostlerp = math.max(0, ghostlerp - FrameTime() * 5)
+		ghostlerp = math.max(0, ghostlerp - FrameTime() * 1)
 	end
 
 	if ghostlerp > 0 then

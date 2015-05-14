@@ -48,7 +48,7 @@ SWEP.Primary.Automatic		= false
 
 SWEP.Primary.Ammo			= "none"
 
-SWEP.Cone 			= 0.04
+SWEP.Cone 			= 0.042
 SWEP.ConeMoving		 = SWEP.Cone *1.3
 SWEP.ConeCrouching 	 = SWEP.Cone *0.90
 SWEP.ConeIron 		 = SWEP.Cone *0.95

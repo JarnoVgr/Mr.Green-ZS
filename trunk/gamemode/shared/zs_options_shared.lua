@@ -43,14 +43,14 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 
 SPEED = 190
 SPEED_LIGHT = SPEED - 5
-SPEED_MELEE_LIGHT = SPEED - 5
-SPEED_MELEE = SPEED - 10
-SPEED_MELEE_HEAVY = SPEED - 20
-SPEED_PISTOL = SPEED - 10
-SPEED_SMG = SPEED - 15
-SPEED_SHOTGUN = SPEED - 25
-SPEED_RIFLE = SPEED - 20
-SPEED_HEAVY = SPEED - 30
+SPEED_MELEE_LIGHT = SPEED - 6
+SPEED_MELEE = SPEED - 11
+SPEED_MELEE_HEAVY = SPEED - 21
+SPEED_PISTOL = SPEED - 12
+SPEED_SMG = SPEED - 17
+SPEED_SHOTGUN = SPEED - 27
+SPEED_RIFLE = SPEED - 22
+SPEED_HEAVY = SPEED - 32
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8
@@ -155,10 +155,10 @@ GM.HumanWeapons = {
         ["weapon_zs_famas"]  = { Name = "Famas", DPS = 140, Type = "rifle", Price = 300, HumanClass = "commando" },
        -- ["weapon_zs_sg552"]  = { Name = "SG552 Rifle", DPS = 106, Infliction = 0.51, Type = "rifle", Price = 500, HumanClass = "commando" },
         ["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138, Infliction = 0.65, Type = "rifle", Price = 500, HumanClass = "commando" },
-        ["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 700, HumanClass = "commando" },   
-        ["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125, Infliction = 0.53, Type = "rifle", Price = 800, HumanClass = "commando" },       
-        ["weapon_zs_galil"]  = { Name = "Galil", DPS = 129, Infliction = 0.57, Type = "rifle", Price = 900, HumanClass = "commando" }, 
-        ["weapon_zs_m249"]  = { Name = "M249", DPS = 200, Infliction = 0.85, Type = "rifle", Price = 1400, HumanClass = "commando" },      		
+        ["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 600, HumanClass = "commando" },   
+        ["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125, Infliction = 0.53, Type = "rifle", Price = 600, HumanClass = "commando" },       
+        ["weapon_zs_galil"]  = { Name = "Galil", DPS = 129, Infliction = 0.57, Type = "rifle", Price = 750, HumanClass = "commando" }, 
+        ["weapon_zs_m249"]  = { Name = "M249", DPS = 200, Infliction = 0.85, Type = "rifle", Price = 950, HumanClass = "commando" },      		
 		
         --Support
         ["weapon_zs_smg"]  = { Name = "Classic SMG", DPS = 125, Infliction = 0.65, Type = "smg", Price = 100, HumanClass = "support"},

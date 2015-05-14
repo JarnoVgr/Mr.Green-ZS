@@ -123,7 +123,7 @@ SWEP.WalkSpeed = SPEED_SMG
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.45
+SWEP.rechargerate = 0.475
 SWEP.startcharge = 1
 SWEP.MaxClip = 20
 

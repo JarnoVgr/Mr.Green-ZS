@@ -8,7 +8,7 @@ if CLIENT then
 	SWEP.Author = "Duby"
 	SWEP.Slot = 1
 	SWEP.SlotPos = 3
-	SWEP.ViewModelFOV = 70
+	SWEP.ViewModelFOV = 60
 	killicon.AddFont( "weapon_zs_elites", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
 
 	SWEP.IgnoreThumbs = true
@@ -66,5 +66,5 @@ SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8
 
 
-SWEP.IronSightsPos = Vector(-5.5,14,2)
+SWEP.IronSightsPos = Vector(-5.5,15,2)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )

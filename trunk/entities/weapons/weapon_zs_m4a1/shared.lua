@@ -62,12 +62,12 @@ SWEP.ConeMoving = SWEP.Cone *1.2
 SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8
---SWEP.ConeIronMoving = SWEP.Moving *0.75
+SWEP.ConeIronMoving = SWEP.ConeMoving *0.75
 
 SWEP.MaxAmmo			    = 250
 
 SWEP.WalkSpeed = SPEED_RIFLE
 SWEP.MaxBulletDistance 		= 2600
 
-SWEP.IronSightsPos = Vector(-4, 13, 2)
+SWEP.IronSightsPos = Vector(-4, 0, 2)
 SWEP.IronSightsAng = Vector(0,0,0)
