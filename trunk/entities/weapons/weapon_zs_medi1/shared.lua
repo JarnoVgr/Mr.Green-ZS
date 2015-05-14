@@ -102,10 +102,15 @@ function SWEP:SecondaryAttack()
 				if toheal > 0 then
 					
 					local delay = self.Secondary.HealDelay
+					
 					if owner.DataTable["ShopItems"][48] then
 						delay = math.Clamp(self.Secondary.HealDelay - 1.5,0,self.Secondary.HealDelay)
 						multiplier = multiplier + 0.2
 					end
+					
+					if owner.GetPerk("_medic") then
+						multiplier = multiplier + multiplier*((5*owner.GetRank())/100)
+					end					
 					
 					self:SetNextCharge(CurTime() + delay)
 					owner.NextMedKitUse = self:GetNextCharge()

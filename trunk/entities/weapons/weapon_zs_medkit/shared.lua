@@ -127,8 +127,8 @@ function SWEP:PrimaryAttack()
 						multiplier = multiplier + 0.2
 					end
 					
-					if owner:GetPerk("_medic") then
-						multiplier = multiplier + (multiplier*(5*owner:GetRank())/100)				
+					if owner.GetPerk("_medic") then
+						multiplier = multiplier + multiplier*((5*owner.GetRank())/100)
 					end
 					
 					self:SetNextCharge(CurTime() + delay)
@@ -180,18 +180,14 @@ function SWEP:SecondaryAttack()
 		if owner:GetPerk("_kevlar") then maxhealth = 110 elseif owner:GetPerk("_kevlar2") then maxhealth = 120 elseif owner:GetPerk("_kevlarsupport") then maxhealth = 150 end 
 		
 		local multiplier = 1
-		if owner:GetPerk("_medupgr1") then
-			multiplier = 1.4
-		end
+		
 		local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Secondary.Heal * multiplier, maxhealth - health)))
 		local totake = math.ceil(toheal / multiplier)
+		
 		if toheal > 0 then
 		
 			local delay = self.Secondary.HealDelay
-			if owner:GetSuit() == "medicsuit" then
-				delay = math.Clamp(self.Secondary.HealDelay - 1.3,0,self.Secondary.HealDelay)
-			end
-			
+
 			self:SetNextCharge(CurTime() + delay)
 			owner.NextMedKitUse = self:GetNextCharge()
 			

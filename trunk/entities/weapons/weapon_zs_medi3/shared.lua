@@ -142,7 +142,7 @@ function SWEP:SecondaryAttack()
 			if ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
 
 				local health, maxhealth = ent:Health(), 100-- owner:GetMaxHealth()
-				local multiplier = 1.2
+				local multiplier = 1.0
 
 				if owner:GetPerk("_medupgr1" ) then
 					multiplier = 1.4
@@ -156,6 +156,10 @@ function SWEP:SecondaryAttack()
 						delay = math.Clamp(self.Secondary.HealDelay - 1.5,0,self.Secondary.HealDelay)
 						multiplier = multiplier + 0.2
 					end
+					
+					if owner.GetPerk("_medic") then
+						multiplier = multiplier + multiplier*((5*owner.GetRank())/100)
+					end					
 					
 					self:SetNextCharge(CurTime() + delay)
 					owner.NextMedKitUse = self:GetNextCharge()
