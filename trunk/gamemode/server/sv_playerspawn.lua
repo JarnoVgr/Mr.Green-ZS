@@ -628,9 +628,25 @@ function GM:PlayerDisconnected( pl )
 		return
 	end
 	
+	pl:Kill()
+	
+	if pl.LastAttackers then 
+		if #pl.LastAttackers > 0 then
+			print(#pl.LastAttackers)
+			PrintTable(pl.LastAttackers[#pl.LastAttackers])
+			if pl.LastAttackers[#pl.LastAttackers].Attacker:Team() == TEAM_UNDEAD then
+				pl.LastAttackers[#pl.LastAttackers].Attacker:AddScore(2)
+				pl.LastAttackers[#pl.LastAttackers].Attacker:AddToCounter("humanskilled", 1)
+				pl.LastAttackers[#pl.LastAttackers].Attacker:AddXP(200)				
+			elseif pl.LastAttackers[#pl.LastAttackers].Attacker:Team() == TEAM_HUMAN then
+				skillpoints.AddSkillPoints(pl.LastAttackers[#pl.LastAttackers].Attacker, 20)
+				pl.LastAttackers[#pl.LastAttackers].Attacker:AddXP(ZombieClasses[pl:GetZombieClass()].Bounty)						
+			end
+		end
+	end
+	
 	-- Save greencoins and stats
 	pl:SaveGreenCoins()
-	
 	-- Clean up sprays
 	table.remove(Sprays,pl:UserID())
 	SendSprayData()
