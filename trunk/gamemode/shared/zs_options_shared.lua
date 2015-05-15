@@ -605,7 +605,7 @@ REDEEM_FAST_KILLS = 6
 REDEEM_FAST_LEVEL = 1
 
 -- Use soft collisions for teammates
-SOFT_COLLISIONS = false
+SOFT_COLLISIONS = true
 
 -- If a person dies when there are less than the above amount of people, don't set them on the undead team if this is true. This should generally be true on public / big servers.
 --[[if game.MaxPlayers() < 4 then

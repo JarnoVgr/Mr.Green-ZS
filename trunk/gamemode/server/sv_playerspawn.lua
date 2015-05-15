@@ -117,8 +117,8 @@ function GM:PlayerInitialSpawn(pl)
 	pl.StuckTimer = 0
 	
 	pl:SetCustomCollisionCheck(true)
-	--pl:SetNoCollideWithTeammates(true)
-	-- pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
+	pl:SetNoCollideWithTeammates(true) --Duby: Not sure what this is, but it looks interesting
+	pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER) --Duby: Not sure what this is, but it looks interesting
 		
 	-- Used to control how many weapons you are allowed to pickup
 	pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
