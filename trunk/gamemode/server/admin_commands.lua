@@ -202,7 +202,7 @@ local function CommandSay(pl, text, teamonly)
 			elseif (text == "!Duby") then
 			pl:PrintMessage( HUD_PRINTCENTER, "The duel elite master will lead the dubyans!" )
 			
-			elseif (text == "!GheiiBen") then
+			elseif (text == "!Ben") then
 			pl:PrintMessage( HUD_PRINTCENTER, "You cannot take control! Unless you press the gheiiBen ;)" )
 			
 			elseif (text == "!Pufulet") then
@@ -423,46 +423,23 @@ local function AdminSay(pl, text, teamonly)
 		for k,pl in pairs (player.GetAll()) do
 			pl:CustomChatPrint( {nil, Color(0,15,225),text} )
 			timer.Simple(3, function()
-				pl:CustomChatPrint( {nil, Color(225,15,0),text} )
+				--pl:CustomChatPrint( {nil, Color(225,15,0),text} )
 				pl:Message("Pufulet Is Gay¬!")
 			end)
 			timer.Simple(6, function()
-				pl:CustomChatPrint( {nil, Color(0,225,0),text} )
+				--pl:CustomChatPrint( {nil, Color(0,225,0),text} )
 				pl:Message("Pufulet Is Gay¬!")
 			end)
 			timer.Simple(9, function()
-				pl:CustomChatPrint( {nil, Color(0,15,225),text} )
+				--pl:CustomChatPrint( {nil, Color(0,15,225),text} )
 				pl:Message("Pufulet Is Gay¬!")
 			end)
 			timer.Simple(12, function()
-				pl:CustomChatPrint( {nil, Color(0,225,0),text} )
+				--pl:CustomChatPrint( {nil, Color(0,225,0),text} )
 				pl:Message("Pufulet Is Gay¬!")
 			end)
 		end	
 		
-	elseif (text:sub(1,10) == "!reiskafag") then
-		text = string.gsub(text,"!reiskafag","")
-		for k,pl in pairs (player.GetAll()) do
-			pl:CustomChatPrint( {nil, Color(0,15,225),text} )
-			timer.Simple(3, function()
-				pl:CustomChatPrint( {nil, Color(225,15,0),text} )
-				pl:Message("Reiska Is!")
-			end)
-			timer.Simple(6, function()
-				pl:CustomChatPrint( {nil, Color(0,225,0),text} )
-				pl:Message("Reiska Is!")
-			end)
-			timer.Simple(9, function()
-				pl:CustomChatPrint( {nil, Color(0,15,225),text} )
-				pl:Message("Reiska Is!")
-			end)
-			timer.Simple(12, function()
-				pl:CustomChatPrint( {nil, Color(0,225,0),text} )
-				pl:Message("Reiska Is!")
-			end)
-		end		
-	
-		return ""
 	end
 
 	--Super Admin only commands	

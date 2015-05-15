@@ -845,6 +845,7 @@ function CalculateZombieHealth(pl)
 	--Set health
 	pl:SetMaximumHealth(MaxHealth)
 	pl:SetHealth(MaxHealth)
+	print(SetHealth)
 end
 
 

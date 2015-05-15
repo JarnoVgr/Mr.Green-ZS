@@ -1,6 +1,8 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
+
+
 MySelf = MySelf or NULL
 hook.Add("Think", "GetLocal", function()
 	if not ClientReady then
@@ -211,6 +213,7 @@ local RandomText = table.Random({
 	"Slapping Pufu to balance ZS...",
 	"Entering Necrossin's Basement..."
 })
+
 
 local matGlow = Material("Sprites/light_glow02_add_noz")
 local colHealth = Color(255, 255, 0, 255)
@@ -475,6 +478,8 @@ function GM:Initialize()
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(16), 500, true, false, "CorpusCareFifteen")
 	
 	surface.CreateFontLegacy("ZS New", ScreenScale(19), 500, true, false, "ZSKillicons")
+	
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(26), 700, true, false, "NewZombieFont40",false, true)
 
 	--Sync server setting
 	timer.Simple(4, function()

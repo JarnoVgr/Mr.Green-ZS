@@ -127,7 +127,7 @@ function SWEP:PrimaryAttack()
 
 	local tr = util.TraceLine { 
 		start = self.Owner:GetShootPos() /2,
-		endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * 300,
+		endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * 3,
 		filter = self.Owner
 	}
 	
@@ -140,12 +140,19 @@ function SWEP:PrimaryAttack()
 		end
 		end
 		
-		local ef = EffectData()
-		ef:SetOrigin(tr.HitPos)
-		ef:SetStart(self.Owner:GetShootPos())
-		ef:SetAttachment(1)
-		ef:SetEntity(self.Weapon)
-		util.Effect("flames", ef, true, true)
+		--local ef = EffectData()
+		--ef:SetOrigin(tr.HitPos)
+		--ef:SetStart(self.Owner:GetShootPos())
+		--ef:SetStart(self.Owner:EyePos() + (self.Owner:GetAimVector() * 30) )
+		--ef:SetAttachment(1)
+		--ef:SetEntity(self.Weapon)
+		--util.Effect("flames", ef, true, true)
+		
+		local pl = self.Owner
+		local e = EffectData()
+		--e:SetOrigin( self.Owner:EyePos() + (self.Owner:GetAimVector() * 30))
+		e:SetOrigin( self.Owner:GetShootPos() )
+		util.Effect( "flames", e )
 		
 	end
 	

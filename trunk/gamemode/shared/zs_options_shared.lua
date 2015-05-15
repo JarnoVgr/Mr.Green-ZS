@@ -24,13 +24,7 @@ if SERVER and tobool(string.find(tostring(game.GetMap()),"zs_arena")) then
 	GM:SetGameMode(GAMEMODE_ARENA)
 end
 
-if SERVER then--Set Savenge on a chance!
 
-if math.random(1,1) == 1 and tobool(string.find(tostring(game.GetMap()),"zs_fortress")) then
-	GM:SetGameMode(GAMEMODE_SCAVENGE)
-end
-
-end
 
 DEFAULT_VIEW_OFFSET = Vector(0, 0, 64)
 DEFAULT_VIEW_OFFSET_DUCKED = Vector(0, 0, 28)
@@ -202,6 +196,7 @@ GM.HumanWeapons = {
 		--PyroTechnic
 		   ["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
 		   ["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
+		   ["weapon_zs_firebomb"]  = { Name = "Flame Nade", DPS = 143, Infliction = 0, Type = "misc", Description = "A fire Grenade" },
 		
  
         --Other Class
@@ -465,9 +460,8 @@ GM.Perks = {
 	["_support2"] = {Name = "Support",    		Equipment = "Board Pack  |  USP   |  Hammer                  ", Description = "Extra SMG Damage | Extra Shotgun Damage | Extra Nail Health | Bonus Repair Power | Extra Nails | Bonus ammunition from SkillShop and mobile supplies | ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+20% Melee Damage | Extra Melee Damage | +2 Health On Melee Kill | Extra Health On Melee Kill | No Slowdown | Speed Boost |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret  |  C4  |  Classic Pistol  |  Pan  ", Description = "Bonus Turret Stats | Bonus Turret Fire Rate | Extra Pulse Capacity | Faster Pulse Regen Rate | Increased C4 Damage | Increased C4 Radius |", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
-	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Python  |  Beer Bottle		", Description = "Extra Headshot Damage | Extra Speed | Extra Sniper Damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
-	
-	["_pyrotechnic"] = {Name = "PyroTechnic", Equipment = "Fame Nades  |  Fare Gun  |  Wine ", Description = "Immune To Fire | Extra Health  |  Possibility To Get A Flamer On Spawn", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3}, --Need to start this soon
+	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Python  |  Beer Bottle		", Description = "Extra Headshot Damage | Extra Speed | Extra Sniper Damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},	
+	["_pyrotechnic"] = {Name = "PyroTechnic", Equipment = "Fame Nades  |  Fare Gun ", Description = "Immune To Fire | Extra Health  |  Possibility To Get A Flamer On Spawn", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3}, --Need to start this soon
 	
 }
 
@@ -1159,6 +1153,7 @@ achievementDesc = {
 	[49] = { Image = "zombiesurvival/achv_blank_zs", Key = "smoker", ID = 49, Name = "'From the smoke a hero arises!'", Desc = "Kill what blinds you!",  },
 	[50] = { Image = "zombiesurvival/achv_blank_zs", Key = "lilith", ID = 50, Name = "'Screaming bitch!'", Desc = "Kill the boss which is on its period.",  },
 	[51] = { Image = "zombiesurvival/achv_blank_zs", Key = "seekerII", ID = 51, Name = "'Hide'n'Seek reborn!'", Desc = "Return of an old evil in a new form!",  },
+	[52] = { Image = "zombiesurvival/achv_blank_zs", Key = "flare2", ID = 52, Name = "PyroManiac", Desc = "Kill a zombie with the flare gun.",  },
 }	
 
 --[=[---------------------------------

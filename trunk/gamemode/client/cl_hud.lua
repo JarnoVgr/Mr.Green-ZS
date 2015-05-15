@@ -46,6 +46,7 @@ hook.Add ( "DoPlayerDeath", "ZombieSpawnCountdown", death.ZomboDeath )
 ----------------------------------------------------]==]
 --local TEX_GRADIENT_TOP = surface.GetTextureID("vgui/gradient-u")
 function death.DeathHumanHUD()
+
 	if ENDROUND or not IsValid( MySelf ) then
 		return
 	end
@@ -57,17 +58,17 @@ function death.DeathHumanHUD()
 	
 	-- Draw the black boxes
 	surface.SetDrawColor(0,0,0,210)
-	--surface.SetTexture(TEX_GRADIENT_TOP)
+--	surface.SetTexture(TEX_GRADIENT_TOP)
 	surface.DrawRect(0,0, ScaleW(1280), ScaleH(162)) --ScaleH(162)
 
-	draw.DrawText("You've failed to survive", "NewZombieFont27", ScaleW(642), ScaleH(34), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
+	draw.DrawText("You've failed to survive", "NewZombieFont40", ScaleW(642), ScaleH(34), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
 
 	local timeleft = math.max(0,math.Round((MySelf.NextSpawn or 0) - CurTime()) + 1)
 	
 	local bCanSpawn = false
 
 	if timeleft ~= 0 then
-	 	draw.DrawText("You can resurrect as an Undead in ".. timeleft .." seconds", "NewZombieFont27", ScaleW(641), ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+	 	draw.DrawText("You can resurrect as an Undead in ".. timeleft .." seconds", "NewZombieFont40", ScaleW(641), ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	else
 		bCanSpawn = true
 	end
@@ -83,6 +84,7 @@ hook.Add("HUDPaint", "DeathHumanHUD", death.DeathHumanHUD)
           Draws the zombie death hud
 -----------------------------------------------------]==]
 function death.DeathZombieHUD()
+
 	if ENDROUND or not IsValid(MySelf) then
 		return
 	end
@@ -101,12 +103,12 @@ function death.DeathZombieHUD()
 	surface.DrawRect(0, 0, ScrW(), ScaleH(142))
 	
 	--Draw death text
-	draw.DrawText("YOU ARE DEAD", "NewZombieFont27", ScrW()/2, ScaleH(34), Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+	draw.DrawText("YOU ARE DEAD", "NewZombieFont40", ScrW()/2, ScaleH(34), Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 
 	--Display timeleft for respawning
 	local timeleft = math.max(0, math.Round(MySelf.NextSpawn - CurTime()) + 1)
 	if timeleft ~= 0 then
-		draw.DrawText("You can resurrect in ".. timeleft .." seconds", "NewZombieFont27", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+		draw.DrawText("You can resurrect in ".. timeleft .." seconds", "NewZombieFont40", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 	
 	--Spectate
@@ -114,7 +116,7 @@ function death.DeathZombieHUD()
 	if obsmode ~= OBS_MODE_NONE then
 		GAMEMODE:ZombieObserverHUD(obsmode, timeleft == 0)
 	elseif timeleft == 0 then
-		draw.DrawText("You can resurrect shortly", "NewZombieFont27", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+		draw.DrawText("You can resurrect shortly", "NewZombieFont40", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 end
 hook.Add("HUDPaint", "DeathZombieHUD", death.DeathZombieHUD)	

@@ -9,7 +9,7 @@ function ENT:Initialize()
 	self:SetModel("models/weapons/w_grenade.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
-	self:SetMaterial("models/debug/debugwhite")
+	self:SetMaterial("Models/effects/splodearc_sheet")
 	
 	self.CanHit = true
 	
@@ -51,13 +51,12 @@ function ENT:PhysicsCollide( Data, Phys )
 			
 			z.NoGib = CurTime() + 1
 			
-			z:TakeDamage(math.random(14,15),self.Entity:GetOwner(),self)
+			z:TakeDamage(math.random(65,75),self.Entity:GetOwner(),self)
 			self:EmitSound("Weapon_FlareGun.Single")
 			
 			z.DiedFromFlare = CurTime() + 1
 			
-			self.Entity:GetOwner():UnlockAchievement( "flare" )
-			--self:Remove()
+			self.Entity:GetOwner():UnlockAchievement( "flare2" )
 		end
 	end
 	
