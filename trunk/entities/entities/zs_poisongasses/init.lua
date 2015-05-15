@@ -4,11 +4,11 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 ENT.iPoisonTimer = 0
-ENT.iPoisonDamageRadius = 400
+ENT.iPoisonDamageRadius = 300
 ENT.objFoundEnemys = nil
 ENT.iTakeDamageDelay = 2.5
 --ENT.iTakeDamageDelay = 0.25
-ENT.iDamageAmount = 5
+ENT.iDamageAmount = 2
 --ENT.iDamageAmount = 1
 ENT.iHealAmount = 12
 
@@ -60,10 +60,10 @@ function ENT:Think()
 						v:TakeDamage( self.iDamageAmount, self, self:GetClass() )
 					end
 					if ( v:Team() == 3  ) then
-						if ( v:Health() + self.iHealAmount >= v:GetMaxHealth() ) then
-							--v:SetHealth( v:GetMaxHealth() )
+						if ( v:Health() + self.iHealAmount >= v:GetMaximumHealth() ) then
+							v:SetHealth(v:GetMaximumHealth())		
 						else
-						--	v:SetHealth( v:Health() + self.iHealAmount )
+							v:SetHealth(v:Health() + self.iHealAmount)	
 						end
 					end
 				end
