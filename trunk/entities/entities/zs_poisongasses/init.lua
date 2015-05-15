@@ -10,7 +10,7 @@ ENT.iTakeDamageDelay = 2.5
 --ENT.iTakeDamageDelay = 0.25
 ENT.iDamageAmount = 2
 --ENT.iDamageAmount = 1
-ENT.iHealAmount = 12
+ENT.iHealAmount = 30
 
   
 function ENT:Initialize()
