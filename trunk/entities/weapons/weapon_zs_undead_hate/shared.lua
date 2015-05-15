@@ -28,7 +28,7 @@ SWEP.AutoSwitchFrom = false
 SWEP.PrintName = "Hate"
 SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 56
+SWEP.ViewModelFOV = 40
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
 
@@ -36,7 +36,7 @@ SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 1.4
+SWEP.Primary.Delay = 1.3
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
@@ -91,7 +91,7 @@ function SWEP:PrimaryAttack()
 		return
 	end
 	
-	self.Weapon:SetNextPrimaryFire(CurTime() + 2)
+	self.Weapon:SetNextPrimaryFire(CurTime() + 1.4)
 	
 	-- Make things easier
 	local pl = self.Owner
@@ -160,7 +160,7 @@ function SWEP:PrimaryAttack()
 		end)	
 				
 	--Set the next swing attack for cooldown
-	self.NextAttack = CurTime() + 3
+	self.NextAttack = CurTime() + 2
 	self.NextHit = CurTime() + 0.7
 end
 
