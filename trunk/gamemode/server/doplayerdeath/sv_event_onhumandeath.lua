@@ -24,12 +24,12 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	local pos = tr.HitPos
 	local norm = tr.HitNormal
 
-	--local eff = EffectData()
-	--eff:SetOrigin( pos )
-	--eff:SetNormal( norm )
-	--eff:SetScale( math.Rand(0.9,1.2) )
-	--eff:SetMagnitude( math.random(5,20) )
-	--util.Effect( "gib_player", eff, true, true )
+	local eff = EffectData()
+	eff:SetOrigin( pos )
+	eff:SetNormal( norm )
+	eff:SetScale( math.Rand(0.9,1.2) )
+	eff:SetMagnitude( math.random(5,20) )
+	util.Effect( "gib_player", eff, true, true )
 
 	--Smash off current hat
 	GAMEMODE:DropHat(mVictim)
@@ -48,8 +48,8 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				end
 					
 				--
-				--if wepCategory == "Tool1" or wepCategory == "Tool2" then
-				if wepCategory == "Tool1" then
+				if wepCategory == "Tool1" or wepCategory == "Tool2" then
+				--if wepCategory == "Tool1" then
 					j.Ammunition = j:Clip1()
 					if wepname == "weapon_zs_medkit" then
 						j.RemainingAmmunition = mVictim:GetAmmoCount(j:GetPrimaryAmmoTypeString())

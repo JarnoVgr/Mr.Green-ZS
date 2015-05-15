@@ -478,8 +478,6 @@ function GM:Initialize()
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(16), 500, true, false, "CorpusCareFifteen")
 	
 	surface.CreateFontLegacy("ZS New", ScreenScale(19), 500, true, false, "ZSKillicons")
-	
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(26), 700, true, false, "NewZombieFont40",false, true)
 
 	--Sync server setting
 	timer.Simple(4, function()
