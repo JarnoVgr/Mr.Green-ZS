@@ -17,7 +17,7 @@ local function PrintData()
 end
 
 shopData = {
-	[1] = { Cost = 800, Type = "hat", AdminOnly = false, Desc = "Eating too many eggs in the morning? No problem. This is your solution! Now you can eat eggs, in-game, too!", Key = "egg", ID = 1, Sell = 0, Requires = 0, Name = "Egg Hat",  },
+	[1] = { Cost = 10000, Type = "hat", AdminOnly = false, Desc = "mogadon", Key = "egg", ID = 1, Sell = 0, Requires = 0, Name = "Egg Hat",  },
 	[2] = { Cost = 800, Type = "hat", AdminOnly = false, Desc = "If you wear this, you'll look like that anime character,Kanti Sama.", Key = "monitor", ID = 2, Sell = 0, Requires = 0, Name = "TV Head",  },
 	
 	[3] = { Cost = 5000, Type = "misc", Hidden = false, AdminOnly = false, Desc = "[1/6] Join the group with your only friend, Mister .357 cal.", Key = "magnumman", ID = 3, Sell = 0, Requires = 0, Name = "Mysterious Stranger",  },
