@@ -727,7 +727,7 @@ function GM:GetPlayerForBossZombie()
 	end
 	
 	--No boss picking if we have low player count.
-	if team.NumPlayers(TEAM_UNDEAD) < 6 and team.NumPlayers(TEAM_HUMAN) < 6 then
+	if team.NumPlayers(TEAM_UNDEAD) < 5 and team.NumPlayers(TEAM_HUMAN) < 5 then
 		return nil
 	end	
 	
@@ -754,7 +754,7 @@ function GM:GetPlayerForBossZombie()
 		end)
 	
 	--Take 3 best zombies
-	local num = math.random(1,math.max(3,#tab))
+	local num = 1
 	
 	--Return good zombie
 	if tab[num] then
