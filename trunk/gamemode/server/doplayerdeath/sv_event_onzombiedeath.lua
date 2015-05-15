@@ -85,7 +85,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		
 		--Put victim in spectator mode
 		if IsValid(mAttacker) and mAttacker:IsPlayer() and mAttacker ~= mVictim then
-			--mVictim:SpectateEntity(mAttacker)
+			mVictim:SpectateEntity(mAttacker)
 			--mVictim:Spectate(OBS_MODE_FREEZECAM)
 			--mVictim:SendLua("surface.PlaySound(Sound(\"UI/freeze_cam.wav\"))")
 
