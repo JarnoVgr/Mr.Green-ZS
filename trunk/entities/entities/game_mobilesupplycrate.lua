@@ -171,7 +171,7 @@ if SERVER then
 					end			
 					
 					if activator:HasBought("ammoman") then
-						HowMuch = HowMuch * 2 --Ammo man perk
+						HowMuch = HowMuch * 1.5 --Ammo man perk
 					end
 					
 					activator:GiveAmmo(HowMuch, AmmoType)
@@ -180,7 +180,7 @@ if SERVER then
 				
 				--Heal 
 				if activator:Health() < activator:GetMaximumHealth() and Owner:GetPerk("_supply") then
-					activator:SetHealth(activator:Health() + 5)
+					activator:SetHealth(activator:Health() + 4)
 					skillpoints.AddSkillPoints(Owner,1)
 					self:FloatingTextEffect(1, Owner)					
 				end

@@ -33,16 +33,16 @@ SWEP.Base = "weapon_zs_base_dummy"
 SWEP.Primary.Delay = 0.01
 
 SWEP.Primary.Heal = 10
-SWEP.Primary.HealDelay = 7
+SWEP.Primary.HealDelay = 10
 
-SWEP.Primary.ClipSize = 50
-SWEP.Primary.DefaultClip = 50
+SWEP.Primary.ClipSize = 100
+SWEP.Primary.DefaultClip = 100
 SWEP.Primary.Ammo = "Battery"
 
 SWEP.Secondary.Delay = 0.01
 
 SWEP.Secondary.Heal = 10
-SWEP.Secondary.HealDelay = 14
+SWEP.Secondary.HealDelay = 15
 
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
@@ -105,7 +105,7 @@ function SWEP:PrimaryAttack()
 	if self:CanPrimaryAttack() then
 		local owner = self.Owner
 		local trace = self.Owner:GetEyeTrace()
-		if trace.HitPos:Distance(self.Owner:GetShootPos()) <= 90 then
+		if trace.HitPos:Distance(self.Owner:GetShootPos()) <= 95 then
 			local ent = self.Owner:GetEyeTrace().Entity
 
 		-- local ent = owner:MeleeTrace(32, 2).Entity
@@ -289,9 +289,9 @@ function SWEP:Equip ( NewOwner )
 		end		
 		
 		if NewOwner:GetPerk("_medupgr2") then
-			NewOwner:GiveAmmo( 100, self:GetPrimaryAmmoTypeString() )
+			NewOwner:GiveAmmo( 150, self:GetPrimaryAmmoTypeString() )
 			if NewOwner:GetPerk("_medic") then
-				NewOwner:GiveAmmo(self.Owner:GetRank()*20 + 100, self:GetPrimaryAmmoTypeString())	
+				NewOwner:GiveAmmo(self.Owner:GetRank()*10, self:GetPrimaryAmmoTypeString())	
 			end	
 		end
 		

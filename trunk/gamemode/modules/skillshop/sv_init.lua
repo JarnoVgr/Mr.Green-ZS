@@ -115,8 +115,6 @@ function ApplySkillShopItem(pl, com, args)
 		pl:GetAutomatic(),
 		pl:GetPistol()
 	}
-
-		
 		--Determine to check against what weapon
 		local StrCategory = GetWeaponCategory(item)
 		local CurrentWeapon = nil
@@ -126,9 +124,7 @@ function ApplySkillShopItem(pl, com, args)
 			CurrentWeapon = Pistol
 		elseif StrCategory == "Melee" and Melee then
 			CurrentWeapon = Melee
-		end
-		
-		
+		end	
 		--Strip current weapon in same class
 		--[[if CurrentWeapon then
 			pl:StripWeapon(CurrentWeapon:GetClass())
@@ -191,7 +187,7 @@ function ApplySkillShopItem(pl, com, args)
 			end					
 			
 			if pl:HasBought("ammoman") then
-				HowMuch = HowMuch * 2
+				HowMuch = HowMuch * 1.5
 			end
 						
 			pl:GiveAmmo(HowMuch, AmmoType)

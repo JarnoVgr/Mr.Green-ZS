@@ -40,7 +40,7 @@ shopData = {
 	[19] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "Greencoins make Santa Claus's World go round! That's why you should buy this lovely hat right from Santa's Bag!  .. (Permanent hat)", Key = "present", ID = 19, Sell = 0, Requires = 0, Name = "Present Hat",  },
 	[20] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "A sawblade sombrero, how cool can it get? Chuck Norris has one you know.", Key = "sombrero", ID = 20, Sell = 0, Requires = 0, Name = "Sombrero",  },
 	[21] = { Cost = 1000, Type = "hat", AdminOnly = false, Desc = "You won't die of starvation with this thing on.", Key = "melonhead", ID = 21, Sell = 0, Requires = 0, Name = "Melonhead",  },
-	[22] = { Cost = 8000,Type = "misc", AdminOnly = false, Desc = "You get twice as much ammunition from the Supply Crates!", Key = "ammoman", ID = 22, Sell = 0, Requires = 0, Name = "Ammunition Man",  },
+	[22] = { Cost = 8000,Type = "misc", AdminOnly = false, Desc = "+50% ammunition from SkillShop and mobile supply crates!", Key = "ammoman", ID = 22, Sell = 0, Requires = 0, Name = "Ammunition Man",  },
 	[23] = { Cost = 7000,Type = "misc", AdminOnly = false, Desc = "You become bloodthirsty! Receive a half of damage done with claws towards your health!", Key = "vampire", ID = 23, Sell = 0, Requires = 5, Name = "Blood Sucker",  },
 	
 	-- FREEMAN--egghat
