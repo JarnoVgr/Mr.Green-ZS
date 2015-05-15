@@ -28,7 +28,7 @@ SWEP.AutoSwitchFrom = false
 SWEP.PrintName = "Hate"
 SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 45
+SWEP.ViewModelFOV = 56
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
 
@@ -175,7 +175,7 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	local trFilter = self.Owner-- team.GetPlayers( TEAM_UNDEAD )
 	
 	-- Calculate damage done
-	local Damage = math.random( 45 )
+	local Damage = 40
 
 	local TraceHit, HullHit = false, false
 	
@@ -208,7 +208,7 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 		
 		
 		-- Take damage
-		victim:TakeDamage ( math.Clamp( Damage, 1, 99 ), self.Owner, self )
+		victim:TakeDamage ( Damage, self.Owner, self )
 		
 		if victim:IsPlayer() and victim:IsZombie() then
 			victim:TakeDamage ( Damage/4, victim, self )
@@ -217,7 +217,7 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 		-- Claw sound
 		if victim:IsPlayer() then
 			victim:EmitSound("weapons/melee/chainsaw_gore_0"..math.random(1,4)..".wav",100, math.random( 90, 110 ))
-			if SERVER then util.Blood(tr.HitPos, math.Rand(Damage * 0.25, Damage * 0.6), (tr.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(Damage * 6, Damage * 12), true) end
+			if SERVER then util.Blood(tr.HitPos, math.Rand(Damage * 0.2, Damage * 0.4), (tr.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(Damage * 3, Damage * 8), true) end
 		else
 			-- Play the hit sound
 			pl:EmitSound( "ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )

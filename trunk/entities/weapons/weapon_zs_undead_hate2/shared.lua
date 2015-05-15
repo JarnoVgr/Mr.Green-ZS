@@ -112,10 +112,10 @@ function SWEP:PrimaryAttack()
 	-- Set the thirdperson animation and emit zombie attack sound
 	self.Owner:SetAnimation( PLAYER_ATTACK1 )
 	 
-	if SERVER then
-		GAMEMODE:SetPlayerSpeed( self.Owner, 180, 180 )
+	--if SERVER then
+	--	GAMEMODE:SetPlayerSpeed( self.Owner, 180, 180 )
 		--self.Owner:SetLocalVelocity ( Vector ( 0,0,0 ) )
-	end 
+	--end 
 	timer.Simple ( 0.4, function()
 		if not IsValid ( pl ) then return end
 			pl:DoAnimationEvent( CUSTOM_PRIMARY )
@@ -159,7 +159,7 @@ function SWEP:PrimaryAttack()
 		end)	
 				
 	--  Set the next swing attack for cooldown
-	self.NextAttack = CurTime() + 3
+	self.NextAttack = CurTime() + 2.8
 	self.NextHit = CurTime() + 0.7
 end
 
@@ -172,7 +172,7 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 	local trFilter = self.Owner-- team.GetPlayers( TEAM_UNDEAD )
 	
 	-- Calculate damage done
-	local Damage = 40
+	local Damage = 24
 
 	local TraceHit, HullHit = false, false
 	
@@ -215,7 +215,7 @@ function SWEP:DoPrimaryAttack ( trace, pl, victim )
 		-- Claw sound
 		if victim:IsPlayer() then
 			victim:EmitSound("weapons/melee/chainsaw_gore_0"..math.random(1,4)..".wav",100, math.random( 90, 110 ))
-			if SERVER then util.Blood(tr.HitPos, math.Rand(Damage * 0.25, Damage * 0.6), (tr.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(Damage * 6, Damage * 12), true) end
+			if SERVER then util.Blood(tr.HitPos, math.Rand(Damage * 0.2, Damage * 0.4), (tr.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(Damage * 2, Damage * 4), true) end
 		else
 			-- Play the hit sound
 			pl:EmitSound( "ambient/machines/slicer1.wav", 100, math.random( 90, 110 ) )
