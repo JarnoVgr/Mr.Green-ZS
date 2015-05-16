@@ -268,6 +268,8 @@ if CLIENT then
 		else
 			draw.SimpleTextOutlined( "Unclaimed Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		end
+		
+		draw.SimpleTextOutlined(self.CrateHealth, "ArialBoldFour", 0, 60, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))			
 				
 		if MySelf.MobileSupplyTimerActive == true then
 			local time = math.Round(MySelf.MobileSupplyTime - CurTime())
@@ -281,9 +283,7 @@ if CLIENT then
 			end
 		elseif MySelf.MobileSupplyTimerActive == false then
 			draw.SimpleTextOutlined("USE for ammunition.", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		end
-			draw.SimpleTextOutlined("+ "..self.CrateHealth, "ArialBoldFour", 0, 60, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))		
-		
+		end	
 	    cam.End3D2D()
 	end
 
