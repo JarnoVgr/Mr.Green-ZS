@@ -349,7 +349,7 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_support","_mine","_headhunter"},
+	[1] = {"_medupgr2","_accuracy","_support","_mine","_headhunter", "_kevlarcommando"},
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2"},
 	
@@ -357,7 +357,7 @@ GM.RankUnlocks = {
 	
 	[4] = {"_poisonprotect","_kevlar2","_psychopath","_bloodmoney","_sboost","_reload"},
 	
-	[5] = {"_turret","_psychotic","_repairs", "_supply"},
+	[5] = {"_turret","_psychotic","_repairs", "_supply", "_sboost2"},
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate"},
 		
@@ -413,19 +413,19 @@ GM.Perks = {
 	["_lethal"] = {Name = "Lethal Start", Description = "Gives the scout sniper rifle.", RequiresWeapon = "_sharpshooter", Slot = 1}, --Done
 	["_accuracy2"] = {Name = "Kinetic Absorption", Description = "No recoil from shooting weapons while aiming or crouching.", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
 	["_highcal"] = {Name = "Reinforced Calibre", Description = "Greater bullet knock back.", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
-	["_supply"] = {Name = "Medical Supplies", Description = "Mobile supplies gives 5 health to users. +1SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
+	["_supply"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users. +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
 	
 					--[[Slot 2 'personal perk']]--
 	--Medic
 	
-	["_medupgr1"] = {Name = "Healthy Reward", Description = "+30% more SP goes to the owner for healing.", RequiresWeapon = "_medic", Slot = 2}, --Done
+	["_medupgr1"] = {Name = "Healthy Reward", Description = "+30% bonus SP for healing.", RequiresWeapon = "_medic", Slot = 2}, --Done
 	["_poisonprotect"] = {Name = "Natural Immunity", Description = "70% Poison resistance.", RequiresWeapon = "_medic", Slot = 2}, --Done
-	["_sboost2"] = {Name = "Roller Skates", Description = "5% increase in walking speed.", RequiresWeapon = "_medic", Slot = 2}, --Done
+	["_sboost2"] = {Name = "Roller Skates", Description = "+5% increase in walking speed.", RequiresWeapon = "_medic", Slot = 2}, --Done
 	
 	--Commando
 	
-	["_kevlar"] = {Name = "Kevlar", Description = "Gives you 10 more HP.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2}, --Done
-	["_kevlar2"] = {Name = "Kevlar", Description = "+50 initial health", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2}, --Done
+	["_kevlarcommando"] = {Name = "Kevlar", Description = "+50 initial health.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2}, --Done
+	
 	["_profitable"] = {Name = "Lead Market", Description = "+5 SP from kills", RequiresWeapon = "_commando", Slot = 2}, --Done
 	["_comeback2"] = {Name = "Bring The Pain", Description = "Redeem with a Famas or SG552", RequiresWeapon = "_commando", Slot = 2},
 	
@@ -438,13 +438,13 @@ GM.Perks = {
 	
 	--Berserker
 	
-	["_bloodmoney"] = {Name = "Blood Money", Description = "+5SP for melee kills.", RequiresWeapon = "_berserker", Slot = 2}, --Done
+	["_bloodmoney"] = {Name = "Blood Money", Description = "+5 SP for melee kills.", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_berserk"] = {Name = "Berserk", Description = "+10% speed while under 40HP.", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	
 	--Engineer
 	
 	--["_pulsecash"] = {Name = "Pulse Cash", Description = "+5sp from turret kills.", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
-	["_blast"] = {Name = "Blast Proof", Description = "+40% resistance to explosives", RequiresWeapon = "_engineer", Slot = 2}, --Done
+	["_blast"] = {Name = "Blast Proof", Description = "+50% resistance to explosives", RequiresWeapon = "_engineer", Slot = 2}, --Done
 	["_mine"] = {Name = "Multi C4", Description = "Place up to 10 C4 on the floor instead of 5! ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 2}, --Done	
 	["_sboost"] = {Name = "Get to the chopper!", Description = "+15% running speed.", RequiresWeapon = "_engineer", Slot = 2}, --Done
 

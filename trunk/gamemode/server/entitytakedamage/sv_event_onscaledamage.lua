@@ -53,16 +53,16 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	--Scale down own AR2 grenades (grenade launcher) shots
 	elseif (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
 		if pl:GetPerk("_blast") then
-			dmginfo:ScaleDamage(0.4)	
+			dmginfo:ScaleDamage(0.3)	
 		else
-			dmginfo:ScaleDamage(0.8)
+			dmginfo:ScaleDamage(0.85)
 		end
 	--Scale down explosion damage if it's the owner
 	elseif (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) then
 		if pl:GetPerk("_blast") then
-			dmginfo:ScaleDamage(0.4)	
+			dmginfo:ScaleDamage(0.3)	
 		else
-			dmginfo:ScaleDamage(0.8)
+			dmginfo:ScaleDamage(0.85)
 		end
 	--Turret damage
 	elseif attacker:GetClass() == "zs_turret" then

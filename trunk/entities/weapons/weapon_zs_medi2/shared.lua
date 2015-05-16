@@ -134,6 +134,10 @@ function SWEP:SecondaryAttack()
 						ent:FloatingTextEffect2( toheal or 14, owner )
 						owner:AddXP(toheal*3 or 5)
 						
+						if owner.GetPerk("_medupgr1") then
+							skillpoints.AddSkillPoints(owner,toheal*0.3 or 15)				
+						end		
+						
 						--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})
 						
 						self:TakeCombinedPrimaryAmmo(totake)

@@ -862,22 +862,16 @@ function CalculatePlayerHealth(pl)
 		DataTableConnected[pl:UniqueID() or "UNCONNECTED"].Health = false
 	end
 	
-	--First kevlar upgrade
-	if pl:GetPerk("_kevlar") then
-		MaxHealth, Health = 110, 110
-	end
-	
-	--Second kevlar upgrade
-	if pl:GetPerk("_kevlar2") then
-		MaxHealth, Health = 120, 120
-	end
-	
 	if pl:GetPerk("_kevlarsupport") then
 		MaxHealth, Health = 150, 150
 	end	
 	
 	if pl:GetPerk("_commando") then
 		MaxHealth, Health = 100 + (100*(5*pl:GetRank())/100), 100 + (100*(5*pl:GetRank())/100)
+	end	
+	
+	if pl:GetPerk("_kevlarcommando") then
+		MaxHealth = Health + 50
 	end	
 
 	-- Actually set the health
