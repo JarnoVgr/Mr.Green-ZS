@@ -195,12 +195,12 @@ if SERVER then
 												
 							if not trent._LastAttackerIsHuman then
 								skillpoints.AddSkillPoints(self.Owner, 1)
-								nail:FloatingTextEffect( 1, self.Owner )
+								nail:FloatingTextEffect2( 1, self.Owner )
 								self.Owner:AddXP(self.ToHeal)
 								
 								if self.ToHeal >= 10 then
 									skillpoints.AddSkillPoints(self.Owner, 1)
-								nail:FloatingTextEffect( 1, self.Owner )									
+								nail:FloatingTextEffect2( 1, self.Owner )									
 								end	
 							end
 							
@@ -228,7 +228,7 @@ if SERVER then
                                            
                    -- if self.Owner._RepairScore == 5 then
                         skillpoints.AddSkillPoints(self.Owner, 1)
-                        trent:FloatingTextEffect(1, self.Owner )
+                        trent:FloatingTextEffect2(1, self.Owner )
                         self.Owner:AddXP(5)
                        -- self.Owner._RepairScore = 0
                    -- end

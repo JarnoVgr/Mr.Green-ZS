@@ -211,6 +211,45 @@ if CLIENT then
     end
 end
 
+
+if SERVER then
+    util.AddNetworkString( "net_floating_text2" )
+
+    function meta:FloatingTextEffect2( points, attacker )
+        if IsValid( attacker ) and attacker:IsPlayer() then
+            net.Start( "net_floating_text2" )
+                net.WriteInt( points, 32 )
+                net.WriteEntity( self )
+            net.Send( attacker )
+        end
+    end
+end
+
+if CLIENT then
+    net.Receive( "net_floating_text2", function( len )
+        local points = net.ReadInt( 32 )
+        local ent = net.ReadEntity()
+        
+        if ( IsValid( ent ) ) then
+            ent:FloatingTextEffect2( points )
+        end
+    end )
+
+    function meta:FloatingTextEffect2( points )
+        local effect = EffectData()
+        
+        -- Top-center
+        local pos = self:OBBCenter()
+        pos.z = self:OBBMaxs().z
+        
+        effect:SetOrigin( self:LocalToWorld( pos ) )
+        effect:SetMagnitude( math.Round( points ) or 0 )
+        
+        util.Effect( "effect_floating_text2", effect, true, true )    
+    end
+end
+
+
 --[==[----------------------------------------------------------------]==]
 
 local matWireframe = Material( "models/wireframe" )
