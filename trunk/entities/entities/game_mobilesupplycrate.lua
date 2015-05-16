@@ -29,7 +29,7 @@ function ENT:Initialize()
 			phys:EnableMotion(false) 
 		end
 	
-		self.CrateHealth = 300
+		self.CrateHealth = 200
 	end
 	
 	if self:GetPlacer():GetPerk("_supply") then	
@@ -282,6 +282,8 @@ if CLIENT then
 		elseif MySelf.MobileSupplyTimerActive == false then
 			draw.SimpleTextOutlined("USE for ammunition.", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 		end
+			draw.SimpleTextOutlined("+ "..self.CrateHealth, "ArialBoldFour", 0, 60, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))		
+		
 	    cam.End3D2D()
 	end
 
