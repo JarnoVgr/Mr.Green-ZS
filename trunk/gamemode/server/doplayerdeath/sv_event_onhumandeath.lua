@@ -96,8 +96,8 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 	
 	if LASTHUMAN then
-		mVictim:AddXP(1000)
-		mAttacker:AddXP(1000)	
+		mVictim:AddXP(500)
+		mAttacker:AddXP(500)	
 	end
 	
 	if dmginfo:IsSuicide( mVictim ) and CurTime() < ROUNDTIME * 0.12 then

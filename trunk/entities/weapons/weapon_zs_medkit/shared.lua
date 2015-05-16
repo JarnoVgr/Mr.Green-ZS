@@ -110,7 +110,6 @@ function SWEP:PrimaryAttack()
 
 		-- local ent = owner:MeleeTrace(32, 2).Entity
 			if ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
-
 			local health, maxhealth = ent:Health(), ent:GetMaximumHealth()
 				local multiplier = 1.0
 				
@@ -149,7 +148,7 @@ function SWEP:PrimaryAttack()
 						ent:FloatingTextEffect2( toheal or 15, owner )
 						owner:AddXP(toheal*2 or 5)
 						
-						if owner.GetPerk("_medupgr1") then
+						if owner:GetPerk("_medupgr1") then
 							skillpoints.AddSkillPoints(owner,toheal*0.3 or 15)				
 						end
 						

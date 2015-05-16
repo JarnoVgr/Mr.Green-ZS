@@ -180,7 +180,7 @@ function SWEP:SecondaryAttack()
 						ent:FloatingTextEffect2( toheal or 14, owner )
 						owner:AddXP(toheal*3 or 5)
 						
-						if owner.GetPerk("_medupgr1") then
+						if owner:GetPerk("_medupgr1") then
 							skillpoints.AddSkillPoints(owner,toheal*0.3 or 15)				
 						end			
 				
