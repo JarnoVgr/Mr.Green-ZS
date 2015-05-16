@@ -164,14 +164,14 @@ function GM:SetBoss(value)
 		end
 		
 		--Start the slowmo --Remove slowmo for now.
-		net.Start("SlowMoEffect")
-		net.Broadcast()
-		game.SetTimeScale(0.25)
+		--net.Start("SlowMoEffect")
+		--net.Broadcast()
+		--game.SetTimeScale(0.25)
 		
 		--Restore from slowmo
-		timer.Simple(1.1, function() 
-			game.SetTimeScale(1)
-		end)
+		--timer.Simple(1.1, function() 
+		--	game.SetTimeScale(1)
+		--end)
 
 		--Insane mode for last boss
 		local isInsane = false
