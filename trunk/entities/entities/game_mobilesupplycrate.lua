@@ -29,7 +29,7 @@ function ENT:Initialize()
 			phys:EnableMotion(false) 
 		end
 	
-		self.CrateHealth = 200
+		self.CrateHealth = 300
 	end
 	
 	if self:GetPlacer():GetPerk("_supply") then	
@@ -267,7 +267,8 @@ if CLIENT then
 			draw.SimpleTextOutlined( owner:Name() .."'s Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		else
 			draw.SimpleTextOutlined( "Unclaimed Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-		end		
+		end
+				
 		if MySelf.MobileSupplyTimerActive == true then
 			local time = math.Round(MySelf.MobileSupplyTime - CurTime())
 			draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(time + 1), "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
@@ -280,7 +281,7 @@ if CLIENT then
 			end
 		elseif MySelf.MobileSupplyTimerActive == false then
 			draw.SimpleTextOutlined("USE for ammunition.", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		end	
+		end
 	    cam.End3D2D()
 	end
 
