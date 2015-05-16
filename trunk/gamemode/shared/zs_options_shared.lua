@@ -191,14 +191,13 @@ GM.HumanWeapons = {
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 100, HumanClass = "engineer"},                      
         ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 400, HumanClass = "engineer"},
         ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 99, Infliction = 0, Type = "smg", Price = 800, HumanClass = "engineer"},
-		--weapon_zs_pulserifle
+
  
 		--PyroTechnic
-		   ["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
-		   ["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
-		   ["weapon_zs_firebomb"]  = { Name = "Flame Nade", DPS = 143, Infliction = 0, Type = "misc", Description = "A fire Grenade" },
+		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
+		["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
+		["weapon_zs_firebomb"]  = { Name = "Flame Nade", DPS = 143, Infliction = 0, Type = "misc", Description = "A fire Grenade" },
 		
- 
         --Other Class
        -- ["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle",Price = 600, HumanClass = "other" },          
        
@@ -335,7 +334,7 @@ GM.AmmoRegeneration = {
 -- -- -- -- -- -- -- -- -- -- /
 XP_BLANK = 0
 
-XP_INCREASE_BY = 12500
+XP_INCREASE_BY = 10000
 
 XP_PLAYERS_REQUIRED = 5
 
@@ -425,7 +424,7 @@ GM.Perks = {
 	--Commando
 	
 	["_kevlarcommando"] = {Name = "Kevlar", Description = "+50 initial health.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2}, --Done
-	["_profitable"] = {Name = "Lead Market", Description = "+5 SP from kills", RequiresWeapon = "_commando", Slot = 2}, --Done
+	["_profitable"] = {Name = "Lead Market", Description = "+30% bonus SP from kills", RequiresWeapon = "_commando", Slot = 2}, --Done
 	["_comeback2"] = {Name = "Bring The Pain", Description = "Redeem with a Famas or SG552", RequiresWeapon = "_commando", Slot = 2},
 	
 	--Support
