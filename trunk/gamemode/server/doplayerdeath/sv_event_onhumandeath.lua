@@ -95,6 +95,11 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	end
 	
+	if LASTHUMAN then
+		mVictim:AddXP(1000)
+		mAttacker:AddXP(1000)	
+	end
+	
 	if dmginfo:IsSuicide( mVictim ) and CurTime() < ROUNDTIME * 0.12 then
 		if mVictim:IsHuman() then
 			mVictim.Suicided = true
