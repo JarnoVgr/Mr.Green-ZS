@@ -104,8 +104,7 @@ local owner = self.Owner
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
 	if not self:CanPrimaryAttack() then return end
 		if owner:GetPerk("_nade") then
-		
-		self:SetNextPrimaryFire(CurTime() + self.Primary.Delay / 2 )
+		self:SetNextPrimaryFire(CurTime() + self.Primary.Delay * 0.5)
 	else
 		self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 	end

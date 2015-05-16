@@ -86,7 +86,7 @@ function SWEP:PrimaryAttack()
 		--Less recoil when in ironsight
 		recoilMultiplier = recoilMultiplier * 0.5
 		if self.Owner:GetPerk("_accuracy") then
-			recoilMultiplier = recoilMultiplier * 0.5
+			recoilMultiplier = recoilMultiplier * 0.75
 			
 		end
 		if self.Owner:GetPerk("_accuracy2") then
@@ -97,7 +97,7 @@ function SWEP:PrimaryAttack()
 		--Less recoil when crouching
 		recoilMultiplier = recoilMultiplier * 0.5
 		if self.Owner:GetPerk("_accuracy") then
-			recoilMultiplier = recoilMultiplier * 0.5
+			recoilMultiplier = recoilMultiplier * 0.75
 		end
 		if self.Owner:GetPerk("_accuracy2") then
 			recoilMultiplier = recoilMultiplier * 0

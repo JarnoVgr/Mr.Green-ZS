@@ -382,7 +382,7 @@ GM.Perks = {
 	
 	--Commando
 	
-	["_nade"] = {Name = "Grenades Tosser", Description = "Throw Grenades twice as quickly! ", RequiresWeapon = "_commando", Slot = 1}, --Done
+	["_nade"] = {Name = "Grenadier", Description = "Throw grenades twice as fast | +25% grenade damage | +40 explosion radius", RequiresWeapon = "_commando", Slot = 1}, --Done
 	["_accuracy"] = {Name = "Accuracy", Description = "50% less recoil from weapons while crouching or aiming.", RequiresWeapon = "_commando", Slot = 1},  --Done
 	["_arsanal"] = {Name = "Additional Arsanal", Description = "Given the Defender Rifle.", RequiresWeapon = "_commando", Slot = 1},  --Done
 
@@ -396,7 +396,7 @@ GM.Perks = {
 	--Berserker
 	
 	["_freeman"] = {Name = "Berserker Fury", Description = "20% more damage with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_psychotic"] = {Name = "Psychotic", Description = "+2 health from kills.", RequiresWeapon = "_berserker", Slot = 1}, --Done
+	["_psychotic"] = {Name = "Psychotic", Description = "+4 health from kills.", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads. -15% melee damage.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
 	["_oppressive"] = {Name = "Oppressive", Description = "Smash zombies away with your mighty weapons!", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
 	--Engineer
@@ -425,7 +425,6 @@ GM.Perks = {
 	--Commando
 	
 	["_kevlarcommando"] = {Name = "Kevlar", Description = "+50 initial health.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2}, --Done
-	
 	["_profitable"] = {Name = "Lead Market", Description = "+5 SP from kills", RequiresWeapon = "_commando", Slot = 2}, --Done
 	["_comeback2"] = {Name = "Bring The Pain", Description = "Redeem with a Famas or SG552", RequiresWeapon = "_commando", Slot = 2},
 	

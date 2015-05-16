@@ -39,12 +39,16 @@ function ENT:Explode()
 	local owner = self:GetOwner()
 	if owner:IsValid() and owner:IsPlayer() and owner:Team() == TEAM_HUMAN then
 		local pos = self:GetPos()
-
+	
+		util.BlastDamage2(self, owner, pos, self.GrenadeRadius or 350, self.GrenadeDamage or 500)
+	
 		if owner.DataTable["ShopItems"][52] and owner.GetPerk("_commando") then
 			util.BlastDamage2(self, owner, pos, self.GrenadeRadius or 350, self.GrenadeDamage * 1.5 or 500)
 		end
 		
-		util.BlastDamage2(self, owner, pos, self.GrenadeRadius or 350, self.GrenadeDamage or 500)
+		if owner.GetPerk("_nade") then
+			util.BlastDamage2(self, owner, pos, self.GrenadeRadius or 390, self.GrenadeDamage * 1.25 or 500)
+		end			
 	
 
 		local effectdata = EffectData()

@@ -1534,7 +1534,7 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 		attacker:SetHealth(attacker:Health() + multiplier + 1)
 		
 		if attacker:GetPerk("_psychotic") then
-			attacker:SetHealth(attacker:Health() + 1)
+			attacker:SetHealth(attacker:Health() + 4)
 		end
 		if attacker.DataTable["ShopItems"][80] then
 			attacker:SetHealth(attacker:Health() + 3)
