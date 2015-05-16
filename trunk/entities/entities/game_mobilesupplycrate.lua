@@ -182,14 +182,14 @@ if SERVER then
 				if activator:Health() < activator:GetMaximumHealth() and Owner:GetPerk("_supply") then
 					activator:SetHealth(activator:Health() + 4)
 					skillpoints.AddSkillPoints(Owner,1)
-					self:FloatingTextEffect(1, Owner)					
+					self:FloatingTextEffect2(1, Owner)					
 				end
 
 				--Give SP to crate owner		
 
 				if activator ~= Owner and (IsValid(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN) then
 					skillpoints.AddSkillPoints(Owner,4)
-					self:FloatingTextEffect(4, Owner)
+					self:FloatingTextEffect2(4, Owner)
 					Owner:AddXP(10)
 				end
 
