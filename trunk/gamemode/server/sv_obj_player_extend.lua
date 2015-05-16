@@ -191,10 +191,11 @@ function meta:RestoreHumanHealth(am,returnhealth)
 	if self:GetPerk("_kevlarcommando") then
 		health = maxhealth + 50
 	end
+	
 	if health == maxhealth and returnhealth then
 		return false
 	end
-	
+		
 	self:SetHealth(health+am)
 	
 	return true
