@@ -3,8 +3,8 @@ AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("cl_shop.lua")
 AddCSLuaFile("cl_obj_player_extend.lua")
 
-CreateConVar("zs_skillshop_buypoints_amount", "200", {FCVAR_REPLICATED}, "")
-CreateConVar("zs_skillshop_buypoints_cost", "50", {FCVAR_REPLICATED}, "")
+CreateConVar("zs_skillshop_buypoints_amount", "100", {FCVAR_REPLICATED}, "")
+CreateConVar("zs_skillshop_buypoints_cost", "40", {FCVAR_REPLICATED}, "")
 
 
 
