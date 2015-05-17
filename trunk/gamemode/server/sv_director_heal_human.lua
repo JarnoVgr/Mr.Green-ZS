@@ -30,11 +30,11 @@ local function Heal()
 		local pl = Human[i]
 			if pl:GetPerk("_psychopath") then		
 		if not IsValid(pl) or not pl:Alive() or not pl:Team() == TEAM_HUMAN or pl:Health() >= maxheal then
-			return
+			continue
 		end
 
 		if Time < (pl.LastHit + HealTimeout) or Time < (pl.LastHurt + HealTimeout) then
-			return
+			continue
 		end
 			pl:SetHealth(math.min(pl:Health() + HealAmount, maxheal))
 		else	
