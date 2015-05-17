@@ -48,8 +48,8 @@ SWEP.Secondary.Heal = 5
 SWEP.Secondary.HealDelay = 6
 SWEP.UseHands = true
 
-SWEP.Cone = 0.038
-SWEP.ConeMoving = SWEP.Cone *1.12
+SWEP.Cone = 0.042
+SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
