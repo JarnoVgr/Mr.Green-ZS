@@ -57,7 +57,7 @@ SWEP.Primary.Recoil			= 4
 SWEP.Primary.Damage			= 60
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 1
-SWEP.Primary.Delay			= 2
+SWEP.Primary.Delay			= 1.7
 SWEP.Primary.DefaultClip	= 12
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "357"
@@ -78,6 +78,7 @@ SWEP.Secondary.Delay = 0.5
 function SWEP:OnDeploy()
 	if self.Owner:GetPerk("_musket") then
 		self.Primary.ClipSize = 2
+	
 	end
 	--self:SendWeaponAnim(ACT_VM_IDLE)
 end
