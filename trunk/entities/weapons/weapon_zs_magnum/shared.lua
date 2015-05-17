@@ -45,7 +45,7 @@ SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.6
 SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= false
-SWEP.Primary.Ammo			= "pistol"--?
+SWEP.Primary.Ammo			= "357"--?
 SWEP.WalkSpeed = SPEED_PISTOL
 SWEP.MaxAmmo			    = 60
 
