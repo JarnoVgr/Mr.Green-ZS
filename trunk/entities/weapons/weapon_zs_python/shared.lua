@@ -64,11 +64,11 @@ AddCSLuaFile()
     SWEP.AutoSwitchFrom             = false
     SWEP.HoldType = "revolver"
     SWEP.Primary.Sound                      = Sound( "Weapon_357.Single" )
-    SWEP.Primary.Recoil                     = 2
+    SWEP.Primary.Recoil                     = 2.5
     SWEP.Primary.Damage                     = 45
     SWEP.Primary.NumShots           = 1
     SWEP.Primary.ClipSize           = 2
-    SWEP.Primary.Delay                      = 0.6
+    SWEP.Primary.Delay                      = 0.5
     SWEP.Primary.DefaultClip        = 28
     SWEP.Primary.Automatic          = false
     SWEP.Primary.Ammo                       = "357"
@@ -108,6 +108,7 @@ AddCSLuaFile()
     end]]--
 	
 	if CLIENT then
+	self:DrawCrosshair()	
 	local texGradDown = surface.GetTextureID("VGUI/gradient_down")
 	function SWEP:DrawHUD()
 	

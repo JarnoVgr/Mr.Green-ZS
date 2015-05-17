@@ -72,6 +72,7 @@ function SWEP:IsScoped()
 end
 
 if CLIENT then
+	self:DrawCrosshair()
 	SWEP.IronsightsMultiplier = 0.25
 	--SWEP.MinFOV = GetConVarNumber("fov_desired") * 0.25
 	function SWEP:GetViewModelPosition(pos, ang)
