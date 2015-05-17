@@ -12,7 +12,7 @@ local function PrePlayerDraw(pl)
 			render.SetBlend(1)
 		else
 			--local col = math.random( 1, 35 ) == 1 and 1 or 0.04
-			local col = math.random( 1, 70 ) == 1 and 1 or 0.17
+			local col = math.random( 1, 10 ) == 1 and 1 or 0.17
 			render.SetBlend(col)
 		end
 		undowraithblend = true
@@ -23,7 +23,7 @@ local function PrePlayerDraw(pl)
 			render.SetBlend(1)
 		else
 			--local col = math.random( 1, 35 ) == 1 and 1 or 0.04
-			local col = math.random( 1, 70 ) == 1 and 1 or 0.17
+			local col = math.random( 1, 10 ) == 1 and 1 or 0.17
 			render.SetBlend(col)
 		end
 		undowraithblend = true
@@ -39,7 +39,7 @@ local function PostPlayerDraw(pl)
 	if undomodelblend then
 		render.SetBlend(1)
 		render.ModelMaterialOverride()
-		render.SetColorModulation(40, 20, 30)
+		render.SetColorModulation(10, 10, 10)
 		undomodelblend = false
 	end
 	if undowraithblend then
