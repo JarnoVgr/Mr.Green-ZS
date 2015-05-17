@@ -22,10 +22,10 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Primary.Duration = 1.4
 SWEP.Primary.Delay = 0.6
-SWEP.Primary.Damage = 15
+SWEP.Primary.Damage = 17
 SWEP.Primary.Reach = 47
 
-SWEP.Secondary.Reach = 400
+SWEP.Secondary.Reach = 300
 SWEP.Secondary.Duration = 1.0
 SWEP.Secondary.Delay = 0
 SWEP.Secondary.Next = 4.5
@@ -138,8 +138,9 @@ function SWEP:StartSecondaryAttack()
 		local fHitPercentage = math.Clamp(1 - (fDistance / self.Secondary.Reach), 0, 1)
 															
 		--Inflict damage
-		local fDamage = math.Round(24 * fHitPercentage, 0, 10)
+		local fDamage = math.Round(25 * fHitPercentage, 0, 10)
 	--	local fDamage = math.Round(12 * fHitPercentage, 0, 10)
+	
 		if fDamage > 0 then
 			v:TakeDamage(fDamage, self.Owner, self)
 		end
@@ -153,10 +154,14 @@ function SWEP:StartSecondaryAttack()
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage + 1.1 --Duby test.
+		local fFuckIntensity = fHitPercentage * 1.25
 
-		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
-
+		
+		if v:GetPerk("_berserker") then
+			GAMEMODE:OnPlayerHowlered(v, fFuckIntensity*0.4)
+		else
+			GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
+		end
 		-- Calculate base velocity
 		--local Velocity = -1 * mOwner:GetForward() * 120
 		--if not bPull then
@@ -194,16 +199,12 @@ function SWEP:IsScreaming()
 end
 
 function SWEP:Move(mv)
-	if self:IsInPrimaryAttack() then
-		--mv:SetMaxSpeed(0)
-		return true
-	end
 	if self:IsInSecondaryAttack() then
-		--mv:SetMaxSpeed(0)
+		mv:SetMaxSpeed(100)
 		return true
 	end
 end
-
+--[[
 if CLIENT then
 	function SWEP:DrawHUD()
 		if not self.Owner:Alive() or ENDROUND then
@@ -216,3 +217,4 @@ if CLIENT then
 
 	end
 end
+]]--

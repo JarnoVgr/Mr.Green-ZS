@@ -34,7 +34,7 @@ ZombieClasses[0] =
 	Speed = 150,
 	AngleFix = true,
 	Description = "The backbone of the horde.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 250 ", "> SPEED: 150", "> DAMAGE: 23" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
 		Sound("npc/zombie/zombie_pain1.wav"),
@@ -110,7 +110,7 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	Model = table.Random(InfectedZombiemodels), 
 	Speed = 160,	
 	AngleFix = true,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: Heal zombies or damage props and humans", "> SPECIAL: Propkill" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: Heal zombies or damage props and humans", "> SPECIAL: Propkill", "> HEALTH: 150 ", "> SPEED: 160", "> DAMAGE: 20" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde! " },
 	PainSounds = {
 		Sound("npc/zombiegreen/been_shot_1.wav"),
@@ -200,7 +200,7 @@ ZombieClasses[2] =
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: Heal zombies or damage props and humans", "> SPECIAL: Propkill" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: Heal zombies or damage props and humans", "> SPECIAL: Propkill", "> HEALTH: 450 ", "> SPEED: 150", "> DAMAGE: 37" },
 	PainSounds = {
 		Sound("npc/zombie_poison/pz_pain1.wav"),
 		Sound("npc/zombie_poison/pz_pain2.wav"),
@@ -238,12 +238,12 @@ ZombieClasses[3] =
 	CanGib = true,
 	AngleFix = true,
 	Model = Model("models/Zombie/Fast.mdl"),
-	Speed = 275,
+	Speed = 280,
 	Description = "Skin and bones predator.",
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 150 ", "> SPEED: 280", "> DAMAGE: 5"  },
 	PainSounds = {
 		Sound("mrgreen/undead/fastzombie/pain1.wav"),
 		Sound("mrgreen/undead/fastzombie/pain2.wav"),
@@ -296,7 +296,7 @@ ZombieClasses[4] =
 	Model = Model( "models/wraith.mdl" ),
 	Speed = 180,
 	Description = "A ghastly figure which can disguise itself as a human!",
-	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Disguise as a human!", "> SPECIAL: Ignored by turrets and proximity C4"},
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Disguise as a human!", "> SPECIAL: Ignored by turrets and proximity C4", "> HEALTH: 120 ", "> SPEED: 180", "> DAMAGE: 20" },
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),
@@ -339,7 +339,7 @@ ZombieClasses[5] =
 	Model = Model( "models/wraith.mdl" ),
 	Speed = 190,
 	Description = "A teleporting apparition",
-	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport"},
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport", "> HEALTH: 120 ", "> SPEED: 190", "> DAMAGE: 29" },
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),
@@ -369,7 +369,7 @@ ZombieClasses[6] =
 	Name = "Howler",
 	Tag = "howler",	
 	Infliction = 0.25,
-	Health = 160,
+	Health = 150,
 	MaxHealth = 200,
 	TimeLimit = 460,
 	Bounty = 80,
@@ -380,9 +380,9 @@ ZombieClasses[6] =
 	CanCrouch = true,
 	CanGib = true,
 	Model = Model("models/player/group01/female_01.mdl"), 
-	Speed = 140,						
+	Speed = 150,						
 	Description = "A School girl that screams!",
-	DescriptionGameplay = {"> PRIMARY: Girly claws", "> SECONDARY: Disorientating scream"},
+	DescriptionGameplay = {"> PRIMARY: Girly claws", "> SECONDARY: Disorientating scream", "> HEALTH: 150 ", "> SPEED: 150", "> DAMAGE: 17" },
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	PlayerFootstep = true,
 	AttackSounds = { 
@@ -434,7 +434,7 @@ ZombieClasses[7] =
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes" },
+	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes", "> HEALTH: 60 ", "> SPEED: 180", "> DAMAGE: 10" },
 	PainSounds = {
 		Sound("npc/headcrab/pain1.wav"),
 		Sound("npc/headcrab/pain2.wav"),
@@ -473,7 +473,7 @@ ZombieClasses[8] =
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when taken enough damage" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when taken enough damage", "> HEALTH: 380 ", "> SPEED: 160", "> DAMAGE: 30" },
 	PainSounds = {
 		Sound( "npc/zombine/zombine_pain1.wav" ),
 		Sound( "npc/zombine/zombine_pain2.wav" ),
@@ -522,13 +522,13 @@ ZombieClasses[9] =
 	Threshold = 2,
 	SWEP = "weapon_zs_undead_poisonheadcrab",
 	Model = Model("models/headcrabblack.mdl"),
-	Speed = 150,
+	Speed = 160,
 	Description = "A headcrab that has adapted to secrete toxins.",
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY RANGED: Lunge", "> PRIMARY CONTACT: Poison Bite", "> SECONDARY: Spit", "> SPECIAL: Fits through small places", "> DEATH: Chance of dropping an unstable toxin" },
+	DescriptionGameplay = { "> PRIMARY RANGED: Lunge", "> PRIMARY CONTACT: Poison Bite", "> SECONDARY: Spit", "> SPECIAL: Fits through small places", "> DEATH: Chance of dropping an unstable toxin", "> HEALTH: 80 ", "> SPEED: 160", "> SPIT DAMAGE: 20","> BITE DAMAGE: 60 | 3 per second"  },
 	PainSounds = {
 		Sound("npc/headcrab_poison/ph_pain1.wav"),
 		Sound("npc/headcrab_poison/ph_pain2.wav"),

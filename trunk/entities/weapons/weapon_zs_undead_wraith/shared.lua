@@ -15,7 +15,7 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 end
 
-SWEP.Primary.Duration = 1.3
+SWEP.Primary.Duration = 1.35
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 29
@@ -144,7 +144,7 @@ function SWEP:PerformSecondaryAttack()
 	end
 	
 	--Check distance
-	if aimTrace.HitPos:Distance(aimTrace.StartPos) < 64 or aimTrace.HitPos:Distance(aimTrace.StartPos) > 1024 then
+	if aimTrace.HitPos:Distance(aimTrace.StartPos) < 80 or aimTrace.HitPos:Distance(aimTrace.StartPos) > 1024 then
 		self:TeleportFail()
 		return
 	end

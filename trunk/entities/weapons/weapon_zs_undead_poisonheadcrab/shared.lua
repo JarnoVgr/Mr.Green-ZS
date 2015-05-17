@@ -107,7 +107,7 @@ function SWEP:Think()
 					if ent:IsPlayer() then
 						
 						ent:TakeDamage(5, mOwner)
-						ent:TakeDamageOverTime( math.random(2,3), 1, math.random(15,20), mOwner, self.Weapon )
+						ent:TakeDamageOverTime( 3, 1, 20, mOwner, self.Weapon )
 						local Infect = EffectData()
 						Infect:SetEntity( ent )
 						util.Effect( "infected_human", Infect, true, true )
