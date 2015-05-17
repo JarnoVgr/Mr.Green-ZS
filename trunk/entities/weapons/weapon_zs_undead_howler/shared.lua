@@ -154,11 +154,11 @@ function SWEP:StartSecondaryAttack()
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage * 1.25
+		local fFuckIntensity = fHitPercentage * 1.3
 
 		
 		if v:GetPerk("_berserker") then
-			GAMEMODE:OnPlayerHowlered(v, fFuckIntensity*0.4)
+			GAMEMODE:OnPlayerHowlered(v, fFuckIntensity*0.7)
 		else
 			GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 		end
@@ -199,10 +199,10 @@ function SWEP:IsScreaming()
 end
 
 function SWEP:Move(mv)
-	if self:IsInSecondaryAttack() then
-		mv:SetMaxSpeed(100)
-		return true
-	end
+	--if self:IsInSecondaryAttack() then
+	--	mv:SetMaxSpeed(100)
+	--	return true
+	--end
 end
 --[[
 if CLIENT then
