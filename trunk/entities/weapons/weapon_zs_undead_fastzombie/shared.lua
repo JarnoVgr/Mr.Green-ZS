@@ -15,7 +15,7 @@ SWEP.ViewModel = Model("models/Weapons/v_fza.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Primary.Delay = 0.1
-SWEP.Primary.Reach = 42
+SWEP.Primary.Reach = 44
 SWEP.Primary.Damage = 5
 SWEP.Primary.Duration = 0.32
 
@@ -134,7 +134,7 @@ function SWEP:Move(mv)
 	end
 	
 	if self.Attacking > CurTime() then
-		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.35)
+		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.42)
 		return true	
 	end
 end

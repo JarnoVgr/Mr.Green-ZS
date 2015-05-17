@@ -238,12 +238,12 @@ ZombieClasses[3] =
 	CanGib = true,
 	AngleFix = true,
 	Model = Model("models/Zombie/Fast.mdl"),
-	Speed = 280,
+	Speed = 285,
 	Description = "Skin and bones predator.",
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 150 ", "> SPEED: 280", "> DAMAGE: 5"  },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 150 ", "> SPEED: 285", "> DAMAGE: 5"  },
 	PainSounds = {
 		Sound("mrgreen/undead/fastzombie/pain1.wav"),
 		Sound("mrgreen/undead/fastzombie/pain2.wav"),
