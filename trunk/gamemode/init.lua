@@ -1012,9 +1012,9 @@ function GM:CanPlayerSuicide(pl)
 	end
 	
 	--Boss zombies can't suicide
-	if pl:Team() == TEAM_UNDEAD and pl:IsBossZombie() then
-		return false
-	end
+	--if pl:Team() == TEAM_UNDEAD and pl:IsBossZombie() then
+	--	return false
+	--end
 	
 	return true
 end
