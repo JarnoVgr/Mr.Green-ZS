@@ -113,11 +113,6 @@ function SWEP:Think()
 		self.reloadtimer = CurTime() + self.ReloadDelay
 		self:SendWeaponAnim(ACT_VM_RELOAD)
 
-		if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
-			self:SetClip1(self:Clip1() + 3)
-		end
-		
-				
 		if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
 			self:SetClip1(self:Clip1() + 1)
 		end

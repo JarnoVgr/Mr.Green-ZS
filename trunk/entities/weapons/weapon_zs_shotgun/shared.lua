@@ -87,8 +87,14 @@ function SWEP:Think()
 		self.reloadtimer = CurTime() + self.ReloadDelay
 		self:SendWeaponAnim(ACT_VM_RELOAD)
 
+		if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
+			self:SetClip1(self:Clip1() + 1)
+		end		
+		
 		self.Owner:RemoveAmmo(1, self.Primary.Ammo, false)
 		self:SetClip1(self:Clip1() + 1)
+		
+		
 
 		if self.Primary.ClipSize <= self:Clip1() or self.Owner:GetAmmoCount(self.Primary.Ammo) <= 0 then
 			self.nextreloadfinish = CurTime() + self.ReloadDelay

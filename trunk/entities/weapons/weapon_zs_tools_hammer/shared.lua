@@ -52,8 +52,8 @@ SWEP.Primary.Automatic = true
 
 SWEP.Primary.Delay = 0.9
 
-SWEP.Secondary.ClipSize = 5
-SWEP.Secondary.DefaultClip = 5
+SWEP.Secondary.ClipSize = 10
+SWEP.Secondary.DefaultClip = 10
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 --SWEP.Secondary.Ammo = "gravity"
@@ -104,7 +104,7 @@ function SWEP:OnDeploy()
     end
 	
 	if self.Owner:GetPerk("_support2") then
-	self.ToHeal = self.ToHeal + self.Owner:GetRank()
+	self.ToHeal = self.ToHeal + (self.Owner:GetRank()*0.5)
 	end
 	
 	if IsValid(self.Owner) and self.Owner.DataTable["ShopItems"][51] then
