@@ -117,6 +117,43 @@ end
 concommand.Add ( "slap_player", SlapPlayer )
 
 --[==[------------------------------------------------
+        Admin Addon - Bitch slap a player
+-------------------------------------------------]==]
+function SlowPlayer ( pl, cmd, args )
+	if not IsValid ( pl ) or args[1] == nil or args[2] == nil then return end
+	if not pl:IsAdmin() then return end
+	
+	-- get the target player
+	local Target = GetPlayerByUserID( tonumber( args[1] ) )
+	
+	-- Some validity conditions
+	if not IsValid ( Target ) then return end
+	if not Target:Alive() then pl:ChatPrint ( "[ADMIN] The target is already dead !" ) return end
+	
+	local Damage = math.Round ( Target:GetMaximumHealth() * ( tonumber ( args[2] ) / 100 ) )
+	
+	-- Notice
+	
+	if ENDROUND then
+		PrintMessageAll ( HUD_PRINTTALK, "[ADMIN] Admin "..tostring ( pl:Name() ).." has slapped player "..GetPlayerByUserID( tonumber( args[1] ) ):Name().." with "..Damage.." damage !" )
+		Target:ChatPrint ( "[ADMIN] Admin "..tostring ( pl:Name() ).." has slapped you because you are not obeying the game rules !" )
+	else
+		for k, v in pairs( player.GetAll() ) do
+			v:CustomChatPrint( {nil, Color(255,0,0),"[ADMIN] ", Color(245,245,255),"Admin ",Color(255,0,0),tostring ( pl:Name() ),Color(235,235,255)," has slapped player ",Color(255,255,255),GetPlayerByUserID( tonumber( args[1] ) ):Name().." with "..Damage.." damage !"})
+			Target:ChatPrint ( "[ADMIN] Admin "..tostring ( pl:Name() ).." has slapped you because you are not obeying the game rules !" )
+		end
+	end
+
+	Debug ( "[ADMIN] Admin "..tostring ( pl:Name() ).." has slapped player "..GetPlayerByUserID( tonumber( args[1] ) ):Name().." with "..Damage.." damage !" )
+	
+	-- Slap the player
+	Target:TakeDamage ( Damage )
+	Target:EmitSound ( "ambient/voices/citizen_punches2.wav" )
+	Target:SetVelocity ( Vector( math.random( -10,10 ),math.random( -10,10 ),math.random( 0,10 ) ):GetNormal() * math.random( 300,500 ) )
+end
+concommand.Add ( "slap_player", SlapPlayer )
+
+--[==[------------------------------------------------
           Admin Addon - Give weapons/swep
 -------------------------------------------------]==]
 function GiveWeaponPlayer ( pl, cmd, args )

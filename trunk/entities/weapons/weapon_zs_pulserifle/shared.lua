@@ -31,7 +31,7 @@ end]]
 
 if CLIENT then
 
-SWEP.PrintName = "Pulse SMG"
+SWEP.PrintName = "Pulse Rifle"
 SWEP.Author	= "NECROSSIN and Deluvas and Duby and BrainDawg"	
 SWEP.Slot = 5
 SWEP.SlotPos = 14
@@ -56,17 +56,12 @@ SWEP.VElements = {
 	["Pulse Rifle"] = { type = "Model", model = "models/props_combine/bunker_gun01.mdl", bone = "Base", rel = "", pos = Vector(2.28, 13.729, 8.642), angle = Angle(83.805, -79.391, -2.488), size = Vector(0.898, 0.898, 0.898), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["Pulse Rifle2"] = { type = "Model", model = "models/weapons/c_arms_refugee.mdl", bone = "Base", rel = "", pos = Vector(22.896, -22.743, -0.116), angle = Angle(67.13, 86.931, -3.781), size = Vector(0.799, 0.799, 0.799), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
-
-
-
 end
 
 SWEP.Base				= "weapon_zs_base"
 
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
-
-
 SWEP.ViewModel = Model("models/weapons/c_irifle.mdl")
 SWEP.WorldModel = "models/weapons/w_irifle.mdl" 
 SWEP.UseHands = true
@@ -95,10 +90,7 @@ SWEP.ConeIron 		 = SWEP.Cone *0.95
 SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.9
 SWEP.ConeIronMoving	 = SWEP.ConeMoving *0.9
 
---SWEP.IronSightsPos = Vector(-2, -4, 1.5)
---SWEP.IronSightsAng = Vector(0,0,0)
-
-SWEP.IronSightsPos = Vector(3.361, 3.047, 0.92)
+SWEP.IronSightsPos = Vector(-2, -4, 1.5)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.Secondary.ClipSize		= -1
@@ -112,7 +104,7 @@ SWEP.WalkSpeed = SPEED_SMG
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.475
+SWEP.rechargerate = 0.5
 SWEP.startcharge = 1
 SWEP.MaxClip = 40
 
@@ -132,7 +124,7 @@ function SWEP:Think()
 		
 			if self:GetOwner():GetPerk("_engineer") then
 				self.MaxClip = 40 + (40*(10*self:GetOwner():GetRank())/100)
-				self.rechargerate = 0.45 - (0.45*(5*self:GetOwner():GetRank())/100)				
+				self.rechargerate = 0.5 - (0.5*(5*self:GetOwner():GetRank())/100)				
 			end
 			
 			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then

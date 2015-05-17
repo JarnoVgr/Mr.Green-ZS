@@ -260,11 +260,11 @@ function GM:PlayerSpawn(pl)
 			end
 
 
-		if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
-			pl.IsGordonHere = true
-			pl.IsFreeman = true
-			pl.PlayerModel = "gordon"		
-		end			
+		--if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,6) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+		--	pl.IsGordonHere = true
+		--	pl.IsFreeman = true
+		--	pl.PlayerModel = "gordon"		
+		--end			
 
 		--Check if we can be Santa Claus
 		if CHRISTMAS and pl:Team() ~= TEAM_SPECTATOR and ((not self.IsSantaHere and math.random(1,7) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsSanta) and not pl.IsFreeman then
@@ -352,7 +352,7 @@ function GM:OnHumanSpawn(pl)
 		
 	--Freeman
 	--Check if we can be THE Gordon Freeman
-	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,6) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
 		--Only display message when being human
 		if pl:Team() == TEAM_SURVIVORS then
 			pl:ChatPrint("You're now THE Gordon Freeman!")

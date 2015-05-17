@@ -190,7 +190,7 @@ local function DrawContextMenu(x, y, weptype, parent, num)
 					Description = Description .. "\nThis item will be unlocked at a higher level."
 				end
 				
-				if Equipment != "" then
+				if Equipment == "" then
 					Description = Description 
 				else
 					Equipment = "Equipment: " .. Equipment .. "                                                             "
@@ -429,7 +429,7 @@ local function DrawClassesContextMenu(x, y, weptype, parent, num)
 					Description = Description .. "\nThis item will be unlocked at a higher level."
 				end
 
-				if Equipment != "" then
+				if Equipment == "" then
 					Description = Description 
 				else
 					Equipment = "Equipment: " .. Equipment .. "                                                             "
@@ -601,8 +601,14 @@ function DrawClassIcon(x, y, ww, hh, wepclass, parent, num, weptype)
 		end			
 
 		Description = "Perks: " .. Description
-		Equipment = "Equipment: " .. Equipment .. "                                                             "
-		Description = Equipment .. Description 
+		
+		if Equipment != "" then
+			Equipment = "Equipment: " .. Equipment .. "                                                             "
+			Description = Equipment .. Description 			
+		else
+			Description = Description 		
+		end
+		
 		ItemDescription:SetText(Description)		
 	end
 

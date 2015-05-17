@@ -219,16 +219,17 @@ function meta:IsHumanClass()
 			end
 
 			
-			if self:GetPerk("_sharpshooter") then
+			if self:GetPerk("_sharpshooter") then			
 				self:ChatPrint("You are a Sharpshooter")
+				
+				if self:GetPerk("_lethal") then
+					self:Give("weapon_zs_python")
+					end
+				end
+				
 				self.Loadout = table.Copy(sharpshooter)
 				for k,v in pairs(sharpshooter) do
 					self:Give(tostring(v))
-				end
-				if self:GetPerk("_lethal") then
-					self:StripWeapon(self:GetAutomatic():GetClass())
-					self:Give("weapon_zs_scout")
-					end
 				end
 				
 			if self:GetPerk("_pyrotechnic") then
