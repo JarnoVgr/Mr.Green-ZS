@@ -358,7 +358,7 @@ GM.RankUnlocks = {
 	
 	[5] = {"_turret","_psychotic","_repairs", "_supply", "_sboost2", "_musket"},
 	
-	[6] = {"_combat","_profitable","_ironaim", "_nitrate"},
+	[6] = {"_combat","_profitable","_ironaim", "_nitrate", "_supportweapon"},
 		
 	
 }
@@ -389,7 +389,7 @@ GM.Perks = {
 	
 	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies.", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_supportweapon"] = {Name = "Fortify", Description = "You get given an extra weapon.", RequiresWeapon = "_support2", Slot = 1}, --Done
+	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with the Shotgun", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points.", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	
 	--Berserker

@@ -162,20 +162,22 @@ function meta:IsHumanClass()
 					self:Give(tostring(v))
 				end
 				
-				end			
+			end			
 
 		
 			if self:GetPerk("_support2") then
 				self.Loadout = table.Copy(support)
 				self:ChatPrint("You are a Support")
+				
+				if self:GetPerk("_supportweapon") then
+					self:Give("weapon_zs_shotgun")
+				end
+					
 				for k,v in pairs(support) do
 					self:Give(tostring(v))
 				end	
-				if self:GetPerk("_supportweapon") then
-						self:Give("weapon_zs_chipper")
-					end
 				
-				end	
+			end	
 				
 			if self:GetPerk("_engineer") then
 				self:ChatPrint("You are an Engineer")
@@ -240,9 +242,9 @@ function meta:IsHumanClass()
 				end
 			end	
 		
-		for k,v in pairs(commando2) do --If you don't have a class selected give them this...
-					self:Give(tostring(v))
-				end
+		--for k,v in pairs(commando2) do --If you don't have a class selected give them this...
+		--			self:Give(tostring(v))
+		--		end
 
 end
 
