@@ -108,10 +108,10 @@ AddCSLuaFile()
     end]]--
 	
 	if CLIENT then
-	self:DrawCrosshair()	
+
 	local texGradDown = surface.GetTextureID("VGUI/gradient_down")
 	function SWEP:DrawHUD()
-	
+		self:DrawCrosshair()	
 		local wid, hei = ScaleW(150), ScaleH(32)
 		--local space = 12+ScaleW(7)
 		local space = 12+ScaleW(-120)

@@ -179,7 +179,7 @@ function meta:RestoreHumanHealth(am,returnhealth)
 	local health, maxhealth = self:Health(), 100
 
 	if self:GetPerk("_kevlar2") then
-		maxhealth = 120
+		health = 150
 	elseif self:GetPerk("_kevlarsupport") then
 		maxhealth = 150
 	end

@@ -75,5 +75,6 @@ if CLIENT then
 		if self:IsScoped() then
 			self:DrawScope()
 		end
+		self:DrawCrosshair()			
 	end	
 end

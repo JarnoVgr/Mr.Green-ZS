@@ -231,7 +231,7 @@ end
 if CLIENT then
 	local texGradDown = surface.GetTextureID("VGUI/gradient_down")
 	function SWEP:DrawHUD()
-	
+		self:DrawCrosshair()	
 		local wid, hei = ScaleW(150), ScaleH(33)
 		local space = 12+ScaleW(7)
 		local x, y = ScrW() - wid - 200, ScrH() - ScaleH(73) - 6
