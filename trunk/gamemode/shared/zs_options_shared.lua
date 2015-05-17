@@ -356,7 +356,7 @@ GM.RankUnlocks = {
 	
 	[4] = {"_poisonprotect","_kevlar2","_psychopath","_bloodmoney","_sboost","_reload"},
 	
-	[5] = {"_turret","_psychotic","_repairs", "_supply", "_sboost2"},
+	[5] = {"_turret","_psychotic","_repairs", "_supply", "_sboost2", "_musket"},
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate"},
 		
@@ -414,6 +414,7 @@ GM.Perks = {
 	["_accuracy2"] = {Name = "Kinetic Absorption", Description = "No recoil while in iron sight", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
 	["_highcal"] = {Name = "Reinforced Calibre", Description = "Greater bullet knock back", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
 	["_supply"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users. +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
+	["_musket"] = {Name = "Musket Boy", Description = "+1 musket clipsize", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
 	
 					--[[Slot 2 'personal perk']]--
 	--Medic
