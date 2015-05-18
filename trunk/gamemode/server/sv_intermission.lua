@@ -448,7 +448,7 @@ function GM:OnEndRound(winner)
 			end
 				
 			-- For the last 2 levels, the second achievement is to survive.
-			if team.NumPlayers(TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD) > 10 then
+			if team.NumPlayers(TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD) > 12 then
 				if not pl:IsBot() and pl:Alive() then
 					pl:AddXP(4000)
 					

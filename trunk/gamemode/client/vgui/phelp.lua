@@ -175,7 +175,8 @@ HelpBtn[#HELP_TXT+1] = {
 							str = "Unattained"
 						end
 						id = list:AddLine( achievementDesc[k].Name, str )
-						id.Image = achievementDesc[k].Image
+						--id.Image = achievementDesc[k].Image
+						id.Image = "zombiesurvival/achv_blank_zs"
 						id.Desc = achievementDesc[k].Desc
 					end
 			end

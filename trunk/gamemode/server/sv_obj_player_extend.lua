@@ -699,7 +699,7 @@ end
 
 function meta:UnlockAchievement(stat)
 	--Only unlock when having more than 8 players
-	if #player.GetAll() < 8 or not self:GetAchievementsDataTable() then
+	if #player.GetAll() < 10 or not self:GetAchievementsDataTable() then
 		return false
 	end
 	
@@ -722,10 +722,9 @@ function meta:UnlockAchievement(stat)
 	--Only check for this when it's not Master of ZS
 	if stat ~= "masterofzs" then
 		local hasAll = true
-		for k, v in pairs(self.DataTable["Achievements"]) do
-			if not v and k ~= util.GetAchievementID("masterofzs") then
+			for k, v in ipairs( achievementDesc ) do
+			if achievementDesc[k].Type == "zs" then
 				hasAll = false
-				
 				break
 			end
 		end
