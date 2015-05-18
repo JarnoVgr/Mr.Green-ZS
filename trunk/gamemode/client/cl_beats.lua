@@ -31,8 +31,8 @@ BeatLength[6] = 1.7
 BeatLength[7] = 1.65
 BeatLength[8] = 1.7
 BeatLength[9] = 1.7
---BeatLength[10] = 240
-BeatLength[10] = 180
+--BeatLength[10] = 400
+BeatLength[10] = 270
 
 
 local ZBeats = {}
@@ -61,8 +61,8 @@ ZBeatLength[6] = 7.4
 ZBeatLength[7] = 5.1
 ZBeatLength[8] = 10.3
 ZBeatLength[9] = 10.3
-ZBeatLength[10] = 180
---ZBeatLength[10] = 240
+ZBeatLength[10] = 270
+--ZBeatLength[10] = 400
 
 --Precache beats
 for i=1,10 do
@@ -118,7 +118,7 @@ end
 concommand.Add("zs_enablemusic", EnableMusic)
 
 --Small turret's names from IW
-local randnames = { "Joseph", "Finger", "Beer", "Blob", "Chicken" }
+local randnames = { "Joseph", "Finger", "Beer", "Blob", "Chicken","Mr.Turret","Mrs.Turret","VR Turret" }
 CreateClientConVar("_zs_turretnicknamefix", table.Random(randnames), true, true)
 TurretNickname = GetConVarString("_zs_turretnicknamefix")
 function SetTurretNick( pl,commandName,args )

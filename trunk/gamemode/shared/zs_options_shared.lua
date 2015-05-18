@@ -48,7 +48,7 @@ SPEED_HEAVY = SPEED - 32
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8
-HORDE_MAX_DISTANCE = 1800 --Leave this! It affects the beats and how they play. They play best as this number, do not touch it Pufu!
+HORDE_MAX_DISTANCE = 2000 --Leave this! It affects the beats and how they play. They play best as this number, do not touch it Pufu!
 
 
 BONUS_RESISTANCE_WAVE = 5
@@ -63,10 +63,12 @@ CHRISTMAS = false
 --EVENT: Aprils Fools
 FIRSTAPRIL = false
 
+NECROMOD = true
+
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 7--Pufu stop fucking with this! Last warning! I've been mellow about everything else, do not fucking change it!
-BOSS_CLASS = {11, 20, 10} -- 13 "Nerf" is a bad boss.
+BOSS_CLASS = {11, 20, 10, 18, 16} -- 13 "Nerf" is a bad boss.
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
 --BOSS_CLASS = {18} --Seeker2
@@ -1080,8 +1082,7 @@ PlayerAdminModels = {
 		Human Perks/Classes
 ------------------------------------------------]=]--
 
-HumanClasses = { } --Duby: Leave this table as it will cause errors in sv_tables.lua and in the init.lua. I will deal with it soon!
-					 --Duby: Removed it, seems ok. I removed a load of stuff in sv_playerspawn and obj_player_extended and also sv_tables.
+HumanClasses = { } 
 						--Duby: So Necro used one of the classes for the human class which is used now. Kinda lazy but it works...
 HumanClasses[1] =
 {
@@ -1093,7 +1094,6 @@ HumanClasses[1] =
 	Models = {"models/player/group03/male_02.mdl","models/player/group03/Male_04.mdl","models/player/group03/male_06.mdl","models/player/group03/male_07.mdl"},
 	Speed = 200,
 }
-
 
 --[=[--------------------------------------------
 		Achievement descriptions

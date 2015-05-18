@@ -223,7 +223,7 @@ local function HeartbeatGlow()
 	if MySelf:Team() ~= TEAM_UNDEAD then
 		return
 	end
-
+--zombie survival onslaught
 	--Recache
 	if RealTime() > NextHumansCache then
 		CachedHumans = team.GetPlayers(TEAM_HUMAN)
@@ -477,6 +477,8 @@ function GM:Initialize()
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(13), 700, true, false, "CorpusCareThirteen")
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(16), 500, true, false, "CorpusCareFifteen")
 	
+	surface.CreateFontLegacy("Arial", ScreenScale(14), 500, true, false, "ArialFourteen2")
+	
 	surface.CreateFontLegacy("ZS New", ScreenScale(19), 500, true, false, "ZSKillicons")
 
 	--Sync server setting
@@ -553,7 +555,7 @@ local function DelayedLastHumanAlert()
 			--GAMEMODE:Add3DMessage(140, "Crunch His Bones!", nil, "ssNewAmmoFont7")
 		else
 			GAMEMODE:Add3DMessage(140, "You are the LAST HUMAN ALIVE!", nil, "ssNewAmmoFont7")
-			--GAMEMODE:Add3DMessage(140, "FUCKING Leg It!", nil, "ArialBoldTen")
+			GAMEMODE:Add3DMessage(140, "FUCKING Leg It!", nil, "ArialBoldTen")
 		end
 	end
 end

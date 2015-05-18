@@ -185,7 +185,7 @@ end
 for _, filename in pairs(file.Find("sound/mrgreen/pills/*.*", "GAME")) do  
 	table.insert(ResourceFiles, "sound/mrgreen/pills/".. filename)
 end
-	
+--greenshat.mdl	
 --Sound files here
 for _, filename in pairs(file.Find("sound/mrgreen/new/*.*", "GAME")) do
 	table.insert(ResourceFiles, "sound/mrgreen/new/".. filename)
@@ -560,10 +560,15 @@ if math.random(1, 3) == 1 then
 	table.insert(ResourceFiles, "materials/models/piratehat/piratehat.vtf")
 
 	--Green Admin hat
+	--table.insert(ResourceFiles, "models/greenshat/greenshat.mdl")
+	--table.insert(ResourceFiles, "materials/models/greenshat/greenshat.vmt")
+	--table.insert(ResourceFiles, "materials/models/greenshat/greenshat.vtf")
+end
+
+--Green Admin hat
 	table.insert(ResourceFiles, "models/greenshat/greenshat.mdl")
 	table.insert(ResourceFiles, "materials/models/greenshat/greenshat.vmt")
 	table.insert(ResourceFiles, "materials/models/greenshat/greenshat.vtf")
-end
 
 if math.random(1, 3) == 1 then
 	--Santa Hat

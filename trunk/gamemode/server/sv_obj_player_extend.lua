@@ -872,7 +872,6 @@ function meta:SetBodyPositions() --Bosses bone positions
 	
 end
 
-
 function meta:SetHumanBonePositions() --Revert the bone positions back
 
 	local Bone = self:LookupBone("ValveBiped.Bip01_Spine4")

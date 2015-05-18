@@ -56,6 +56,7 @@ function VoiceToPanic( ply )
 	end
 	
 	local hum = pos_humans[math.random(1,#pos_humans)]	
+	if ply:IsBot() then return end
 	hum:VoicePanic()	
 end
 

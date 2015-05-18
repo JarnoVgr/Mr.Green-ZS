@@ -17,9 +17,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	timer.Simple(1, function()
 		VoiceToPanic(mVictim)
 	end)
-	
-	--VoiceToKillCheerZombie(mAttacker)	
-	
+
 	local tr = mVictim:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_HUMAN))
 	local pos = tr.HitPos
 	local norm = tr.HitNormal
@@ -49,7 +47,6 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 					
 				--
 				if wepCategory == "Tool1" or wepCategory == "Tool2" then
-				--if wepCategory == "Tool1" then
 					j.Ammunition = j:Clip1()
 					if wepname == "weapon_zs_medkit" then
 						j.RemainingAmmunition = mVictim:GetAmmoCount(j:GetPrimaryAmmoTypeString())

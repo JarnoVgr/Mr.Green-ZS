@@ -80,51 +80,6 @@ end
 		end
 
 	end
---	hook.Add("Think","LegSpawn",PlayerSpawn)
-
-	--[=[local function PlayerEnteredVehicle( ply, vehicle, role )
-		if ply.LegsEnt and ply.LegsEnt:IsValid() then
-			ply.LegsEnt:Remove()
-		end
-		if ply.LegsEnt2 and ply.LegsEnt2:IsValid() then
-			ply.LegsEnt2:Remove()
-		end
-	end 
-	hook.Add("PlayerEnteredVehicle","VehicleLegz",PlayerEnteredVehicle)]=]
-
-	--[=[local function PlayerLeaveVehicle( ply, vehicle, role )
-		if ply.LegsEnt and ply.LegsEnt:IsValid() then
-			ply.LegsEnt:Remove()
-		end
-		if ply.LegsEnt2 and ply.LegsEnt2:IsValid() then
-			ply.LegsEnt2:Remove()
-		end
-	end 
-	hook.Add("PlayerLeaveVehicle","VehicleLegz",PlayerLeaveVehicle)]=]
-
-	--Just some commands I used when I was testing.
-	--[=[
-
-	local function ResetLegs(ply, cmd, args)
-		ply.LegsEnt = nil
-		ply.LegsEnt2 = nil
-
-	end
-	concommand.Add( "legs_reset", ResetLegs )
-
-	local function RemoveLegs(ply, cmd, args)
-		for k, ent in pairs(ents.GetAll()) do
-			if ent.LegsEnt and ent.LegsEnt2 then
-				ent:Remove()
-				print("Removed legs")
-				ResetLegs(ply)
-			end
-
-		end
-	end
-	concommand.Add( "legs_remove", RemoveLegs )
-
-	]=]
 
 
 	local function RemoveLegs(ply, cmd, args)

@@ -109,7 +109,7 @@ function GM:CalculateRandomLocations()
 	local spawns = team.GetSpawnPoint(TEAM_HUMAN)
 	
 	--TODO: Fix code here.
-	--local cratespawns = CrateSpawnsPositions or {}
+	local cratespawns = CrateSpawnsPositions or {}
 	
 	print("[PICKUPS] Check CalculateRandomLocations code")
 	

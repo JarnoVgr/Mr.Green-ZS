@@ -196,25 +196,25 @@ local function CommandSay(pl, text, teamonly)
 		elseif (text == "!jetboom") then
 			pl:PrintMessage( HUD_PRINTCENTER, "JetBoom: as great in programming as he is unfriendly." )
 			
-			elseif (text == "!Damien") then
+			elseif (text == "!damien") then
 			pl:PrintMessage( HUD_PRINTCENTER, "CheeseCake HACKS!!!! xD." )
 			
-			elseif (text == "!Duby") then
+			elseif (text == "!duby") then
 			pl:PrintMessage( HUD_PRINTCENTER, "The duel elite master will lead the dubyans!" )
 			
-			elseif (text == "!Ben") then
+			elseif (text == "!ben") then
 			pl:PrintMessage( HUD_PRINTCENTER, "You cannot take control! Unless you press the gheiiBen ;)" )
 			
-			elseif (text == "!Pufulet") then
+			elseif (text == "!pufulet") then
 			pl:PrintMessage( HUD_PRINTCENTER, "I am the best and you know it. Lil Scrub suck on my turtle!" )
 			
-			elseif (text == "!Rob") then
+			elseif (text == "!rob") then
 			pl:PrintMessage( HUD_PRINTCENTER, "hahahaha Pufulets updates make me laugh!" )
 			
-			elseif (text == "!Box") then
+			elseif (text == "!box") then
 			pl:PrintMessage( HUD_PRINTCENTER, "I am a Box within a box within a box within a box." )
 			
-			elseif (text == "!Reiska") then
+			elseif (text == "!reiska") then
 			pl:PrintMessage( HUD_PRINTCENTER, "Ha the Dubyans will never stop me! Vodka will fuel me to victory!" )
 			
 		elseif (text == "!clavus") then
@@ -468,8 +468,8 @@ local function AdminSay(pl, text, teamonly)
 			pl:SendLua("UnlockEffect(1, \"masterofzs\")")
 			return ""
 		elseif text == "!testlevelup" then
-			pl:SendLua("UnlockEffect(2, 22)")
-			return ""
+			pl:SendLua("UnlockEffect(2, 1)")
+			return ""	
 		elseif text == "!ornament" then
 			for k, v in pairs(ents.FindByClass("prop_dynamic_ornament")) do
 				print(k..": Pos = "..tostring(v:GetPos()).."; Parent = "..v:GetParent():GetClass())
@@ -498,6 +498,7 @@ local function AdminSay(pl, text, teamonly)
 			server_RunCommand(pl, "change_map",sep[2] )
 			return ""		
 		end
+		
 		
 		--[==[------ Player targeted commands -------]==]
 		

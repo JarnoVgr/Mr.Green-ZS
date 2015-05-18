@@ -903,7 +903,7 @@ function DrawSelectClass()
 	BlurPanel.Paint = function() 
 		--Override
 		draw.SimpleText("MrGreenGaming.com", "HUDFontTiny", TopMenuX + (TopMenuW / 2), TopMenuY - ScaleH(160), Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		draw.SimpleText("ZOMBIE SURVIVAL ONSLAUGHT", "NewZombieFont27", TopMenuX + (TopMenuW / 2), TopMenuY - ScaleH(110), Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText("ZOMBIE SURVIVAL ONSLAUGHT", "ArialBoldFifteen", TopMenuX + (TopMenuW / 2), TopMenuY - ScaleH(110), Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	end
 
 	

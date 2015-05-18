@@ -24,30 +24,4 @@ function GM:SendTitle ( from, to )
 		net.WriteTable(send)
 	net.Send(to)
 
-	--[==[local tab = {}
-	
-	if #from > 5 then
-		for k = 1, math.ceil( #from/5 ) do
-			tab[k] = {}
-			for nr = 1,5 do
-				if #from >= 5 * ( k - 1 ) + nr then
-					tab[k][nr] = from [ 5 * ( k - 1 ) + nr ]
-				else 
-					break
-				end
-			end
-		end
-	else
-		tab[1] = table.Copy( from )
-	end
-	
-	for key, subt in pairs( tab ) do
-		umsg.Start( "SendTitles",to )
-			umsg.Short( #subt )
-			for k, v in pairs( subt ) do
-				umsg.Entity( v )
-				umsg.String( v.Title or "" )
-			end	
-		umsg.End()
-	end]==]
 end

@@ -379,7 +379,7 @@ local function OnPressedF3(pl)
 	if pl:Team() == TEAM_UNDEAD then
 		-- If undead show classes menu
 		if not pl:IsBossZombie() then
-			pl:SendLua("DoClassesMenu()")
+			pl:SendLua("DrawClassMenu()")
 		end
 	elseif pl:Team() == TEAM_HUMAN and pl:Alive() then
 		--Drop weapon

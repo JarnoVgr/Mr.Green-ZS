@@ -122,7 +122,6 @@ function GM:CheckBoss()
 
 	--Start boss
 	GAMEMODE:SetBoss(true)
-
 	return true
 end
 

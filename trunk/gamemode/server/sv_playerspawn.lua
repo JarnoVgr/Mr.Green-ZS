@@ -120,9 +120,9 @@ function GM:PlayerInitialSpawn(pl)
 	pl.LastRTD = 0 
 	pl.StuckTimer = 0
 	
-	pl:SetCustomCollisionCheck(true)
-	pl:SetNoCollideWithTeammates(true) --Duby: Not sure what this is, but it looks interesting
-	pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER) --Duby: Not sure what this is, but it looks interesting
+	pl:SetCustomCollisionCheck(false)
+	--pl:SetNoCollideWithTeammates(true) --Duby: Not sure what this is, but it looks interesting
+	--pl:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER) --Duby: Not sure what this is, but it looks interesting
 		
 	-- Used to control how many weapons you are allowed to pickup
 	pl.CurrentWeapons = { Automatic = 0, Pistol = 0, Melee = 0, Tool1 = 0, Tool2 = 0, Misc = 0, Admin = 0 }
@@ -230,7 +230,8 @@ function GM:PlayerSpawn(pl)
 	--Set model based on preferences
 	if pl:IsBot() then
 		--Random model
-		pl.PlayerModel = table.Random(PlayerModels)
+		--pl.PlayerModel = table.Random(PlayerModels)
+		pl.PlayerModel = "gman"
 	end
 	
 			if pl:GetPerk("_medic") then		--Duby: Updated player models with tables, yaaaayy!	

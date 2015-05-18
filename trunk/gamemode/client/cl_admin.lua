@@ -313,6 +313,11 @@ function DoAdminPanel()
 				RunConsoleCommand("zs_admin_debug","unleashboss")
 				CloseAdminPanel()
 			end)
+			
+			--Unleash Undead Boss
+			DebugMenu:AddOption("Necro Mod W.I.P", function()
+				CloseAdminPanel()
+			end)
 
 			--Skip to Intermission
 			DebugMenu:AddOption("Start intermission in 5 seconds", function()
@@ -323,7 +328,7 @@ function DoAdminPanel()
 	end)
 
 	-- finally open the panel
-	timer.Simple(0.1, function() 
+	timer.Simple(0.25, function() 
 		if not IsValid(AdminPanel) then
 			return
 		end

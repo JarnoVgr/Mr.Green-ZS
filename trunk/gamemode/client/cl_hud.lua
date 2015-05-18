@@ -17,6 +17,7 @@ end)
 
 function GM:Initialize() --Stop the lag in its tracks with this 
 	surface.CreateFontLegacy("Face Your Fears", ScreenScale(20), 700, true, false, "NewZombieFont40")
+	surface.CreateFontLegacy("Arial", ScreenScale(14), 500, true, false, "ArialFourteen2")
 end
 
 --[==[---------------------------------------------------------------------
@@ -65,14 +66,14 @@ function death.DeathHumanHUD()
 --	surface.SetTexture(TEX_GRADIENT_TOP)
 	surface.DrawRect(0,0, ScaleW(1280), ScaleH(162)) --ScaleH(162)
 
-	draw.DrawText("You've failed to survive", "ArialFourteen", ScaleW(642), ScaleH(34), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
+	draw.DrawText("You've failed to survive", "ArialFourteen2", ScaleW(642), ScaleH(34), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
 
 	local timeleft = math.max(0,math.Round((MySelf.NextSpawn or 0) - CurTime()) + 1)
 	
 	local bCanSpawn = false
 
 	if timeleft ~= 0 then
-	 	draw.DrawText("You can resurrect as an Undead in ".. timeleft .." seconds", "ArialFourteen", ScaleW(641), ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+	 	draw.DrawText("You can resurrect as an Undead in ".. timeleft .." seconds", "ArialFourteen2", ScaleW(641), ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	else
 		bCanSpawn = true
 	end
@@ -107,12 +108,12 @@ function death.DeathZombieHUD()
 	surface.DrawRect(0, 0, ScrW(), ScaleH(142))
 	
 	--Draw death text
-	draw.DrawText("YOU ARE DEAD", "ArialFourteen", ScrW()/2, ScaleH(34), Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+	draw.DrawText("YOU ARE DEAD", "ArialFourteen2", ScrW()/2, ScaleH(34), Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 
 	--Display timeleft for respawning
 	local timeleft = math.max(0, math.Round(MySelf.NextSpawn - CurTime()) + 1)
 	if timeleft ~= 0 then
-		draw.DrawText("You can resurrect in ".. timeleft .." seconds", "ArialFourteen", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+		draw.DrawText("You can resurrect in ".. timeleft .." seconds", "ArialFourteen2", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 	
 	--Spectate
@@ -120,7 +121,7 @@ function death.DeathZombieHUD()
 	if obsmode ~= OBS_MODE_NONE then
 		GAMEMODE:ZombieObserverHUD(obsmode, timeleft == 0)
 	elseif timeleft == 0 then
-		draw.DrawText("You can resurrect shortly", "ArialFourteen", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+		draw.DrawText("You can resurrect shortly", "ArialFourteen2", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 end
 hook.Add("HUDPaint", "DeathZombieHUD", death.DeathZombieHUD)	
@@ -158,10 +159,10 @@ function GM:ZombieObserverHUD(obsmode, bCanSpawn)
 	end
 
 	if bCanSpawn then
-		draw.DrawText(HasValidTarget and "Press LMB to resurrect here" or "Press LMB to resurrect", "ArialFourteen", ScrW()/2, ScaleH(83),HasValidTarget and Color(0, 150, 0, 255) or Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+		draw.DrawText(HasValidTarget and "Press LMB to resurrect here" or "Press LMB to resurrect", "ArialFourteen2", ScrW()/2, ScaleH(83),HasValidTarget and Color(0, 150, 0, 255) or Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 
-	draw.SimpleText("Cycle targets by pressing RMB", "NewZombieFont14", w * 0.5, h * 0.75 + texh + 8, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+	draw.SimpleText("Cycle targets by pressing RMB", "ArialFourteen2", w * 0.5, h * 0.75 + texh + 8, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 end
 
 local GradientExample = surface.GetTextureID("gui/center_gradient")

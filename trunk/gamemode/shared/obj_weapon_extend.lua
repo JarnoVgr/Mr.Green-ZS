@@ -189,14 +189,9 @@ function GetWeaponType ( class )
 end
 
 function GetWeaponWhatClass ( weapon ) 
-	--PrintTable(GAMEMODE.HumanWeapons[ weapon ])
 
-	--if class == nil then return "none" end
-	--print("weapon")
-	--print(weapon)
 	if GAMEMODE.HumanWeapons[ weapon ] == nil then return "none" end
-	--print(".class")
-	--print(GAMEMODE.HumanWeapons[ weapon ].Class)
+
 	return GAMEMODE.HumanWeapons[weapon].HumanClass
 end
 
@@ -209,7 +204,7 @@ function meta:GetType()
 	local name = tostring ( self:GetClass() )
 		
 	if GAMEMODE.HumanWeapons[ name ] == nil then return "none" end
-	--print(GAMEMODE.HumanWeapons[ name ].Type)	
+	
 	return GAMEMODE.HumanWeapons[ name ].Type
 end
 
@@ -384,6 +379,11 @@ function meta:DrawCrosshairCross()
 	surface.DrawOutlinedRect(x + midarea, y - 1, length, 2)
 	surface.DrawOutlinedRect(x - 1, y - midarea - length, 2, length)
 	surface.DrawOutlinedRect(x - 1, y + midarea, 2, length)
+
+	surface.SetDrawColor(Color(255,0,0,200))
+	surface.DrawRect(x - 2, y - 2, 4, 4)
+	surface.SetDrawColor(0, 0, 0, 200)
+	surface.DrawOutlinedRect(x - 2, y - 2, 4, 4)
 end
 
 function meta:DrawCrosshairDot()
