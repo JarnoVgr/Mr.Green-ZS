@@ -751,6 +751,10 @@ function meta:SpawnAsZombieBoss()
 
 	self:SetZombieClass(table.Random(BOSS_CLASS))
 	
+	if team.NumPlayers(TEAM_HUMAN) > 6 then
+		self:SetHealth(self:Health() + (100 * (team.NumPlayers(TEAM_HUMAN) - 10))) 
+	end
+	
 	self.DeathClass = nil
 	self:UnSpectateAndSpawn()
 	self.DeathClass = curclass
