@@ -174,7 +174,7 @@ GM.HumanWeapons = {
 		["weapon_zs_medi1"]  = { Name = "Medi 01", DPS = 143, Infliction = 0, Type = "pistol",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		
         ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 200, HumanClass = "medic" },
-        ["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 400, Description = "Russian Roulette Revolver", HumanClass = "medic" },
+        ["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 300, Description = "Russian Roulette Revolver", HumanClass = "sharpshooter" },
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 200, Description = "Alyx is hot. But her gun is even more hot.", HumanClass = "medic" }, 
 
 		
@@ -460,7 +460,7 @@ GM.Perks = {
 	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit  | P228  |  Knife                            ",Description = "Extra Speed | Extra Pistol Damage | More Medigun Damage | Poison Protection | Damage Resistance | ", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
 	["_commando"] = {Name = "Commando",   		Equipment = "Grenades  |   Five SeveN   | Knife               ", Description = "See Undead Health | Extra Health | Extra Rifle Damage | 1 in 12-X chance to not use bullet | Faster Fire Rate |", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support",    		Equipment = "Board Pack  |  USP   |  Hammer                  ", Description = "Extra SMG Damage | Extra Shotgun Damage | Extra Nail Health | Bonus Repair Power | Extra Nails | Bonus ammunition from SkillShop and mobile supplies | ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
-	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+20% Melee Damage | Extra Melee Damage | +2 Health On Melee Kill | Extra Health On Melee Kill | +30% howler screen rape resistance | No Slowdown | Speed Boost |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+20% Melee Damage | Extra Melee Damage | +3 Health On Melee Kill | Extra Health On Melee Kill | +30% howler screen rape resistance | No Slowdown | Speed Boost |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret  |  C4  |  Classic Pistol  |  Pan  ", Description = "Bonus Turret Stats | Bonus Turret Fire Rate | Extra Pulse Capacity | Faster Pulse Regen Rate | Increased C4 Damage | Increased C4 Radius |", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Python  |  Beer Bottle		", Description = "Extra Headshot Damage | Extra Sniper Damage", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},	
 	["_pyrotechnic"] = {Name = "PyroTechnic", Equipment = "Fame Nades  |  Fare Gun ", Description = "Immune To Fire | Extra Health  |  Possibility To Get A Flamer On Spawn", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3}, --Need to start this soon
