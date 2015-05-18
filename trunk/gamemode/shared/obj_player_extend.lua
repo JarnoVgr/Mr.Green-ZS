@@ -460,8 +460,8 @@ function meta:GetTools()
 
 	for k,v in pairs ( MyWeapons ) do
 		if v:IsValid() then
-		--	if v:GetType() == "tool1" then
-			if v:GetType() == "tools" then
+			if v:GetType() == "tool1" then
+		--	if v:GetType() == "tools" then
 				table.insert ( Tools, v )
 			end
 		end
