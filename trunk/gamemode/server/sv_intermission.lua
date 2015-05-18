@@ -451,6 +451,15 @@ function GM:OnEndRound(winner)
 			if team.NumPlayers(TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD) > 10 then
 				if not pl:IsBot() and pl:Alive() then
 					pl:AddXP(4000)
+					
+				if game.GetMap() == "zs_uglyfort" then
+					pl:UnlockAchievement("uglyfort")
+				elseif game.GetMap() == "zs_fortress_mod" then
+					pl:UnlockAchievement("fortress")				
+				elseif game.GetMap() == "zs_termites_v2" then
+					pl:UnlockAchievement("termites")				
+				end
+				
 				end
 			end
 		end

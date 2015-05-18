@@ -4,6 +4,8 @@
 function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 
 	if attacker:Team() == TEAM_UNDEAD and pl:SteamID() == "STEAM_0:1:19523408" and not dmginfo:IsSuicide(pl) then
+		attacker:UnlockAchievement("pufulet")
+	end
 	
 	if pl:IsBot() or attacker:IsBot() then return end
 

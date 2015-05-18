@@ -230,7 +230,7 @@ usermessage.Hook("ReceiveChatTitles", ReceiveChatTitles)
 ---------------------------------------------------------]==]
 local function ManageChatTitles ( pl, Text, TeamOnly, PlayerIsDead )
 	local tab = {}
-	
+		
 	if ( PlayerIsDead ) then
 		table.insert( tab, Color( 255, 30, 40 ) )
 		table.insert( tab, "*DEAD* " )
@@ -240,6 +240,20 @@ local function ManageChatTitles ( pl, Text, TeamOnly, PlayerIsDead )
 		table.insert( tab, Color( 30, 160, 40 ) )
 		table.insert( tab, "(TEAM) " )
 	end
+	
+	if pl:IsSuperAdmin() then
+		table.insert( tab, Color( 100, 255, 200 ) )
+		table.insert( tab, "(ZS) " )		
+	elseif pl:IsAdmin() then
+		table.insert( tab, Color( 100, 180, 140 ) )
+		table.insert( tab, "(ZS) " )		
+	end
+	
+	if pl.DataTable["Achievements"][12] then
+		table.insert( tab, Color( 255, 235, 40 ) )
+		table.insert( tab, "(ZS Master) " )	
+	end
+
 	
 	if IsValid(pl) then
 		local ColorToApply = Color ( 221, 219, 26 )

@@ -463,10 +463,10 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 		end
 		
 		Prefixes = Prefixes.."["..PlayerColor.r..","..PlayerColor.g..","..PlayerColor.b..","..PlayerColor.a.."]"..pl:Name().."[/c]: "
+		
 	end
-	
+
 	mLine = Prefixes..mLine
-	
 	if mLine ~= "" then
 		--  Full Line (with markers)
 		Line = mLine

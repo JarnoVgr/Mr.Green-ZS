@@ -1148,7 +1148,10 @@ achievementDesc = {
 	[45] = { Image = "zombiesurvival/achv_blank_zs", Key = "zombine", ID = 45, Name = "Boom Together", Desc = "[ROUND] Blow up 2 humans as a Zombine",  },	
 	[46] = { Image = "zombiesurvival/achv_blank_zs", Key = "ghast", ID = 46, Name = "Deceiver", Desc = "[ROUND] Kill 2 humans as a Ghast",  },	
 	[47] = { Image = "zombiesurvival/achv_blank_zs", Key = "poisonheal", ID = 47, Name = "Rotten Medicine", Desc = "[ROUND] Heal 500 health points with poison",  }	,
-	[48] = { Image = "zombiesurvival/achv_blank_zs", Key = "pufulet", ID = 48, Name = "Myth Busted", Desc = "[ROUND] Kill Pufulet as a zombie",  }			
+	[48] = { Image = "zombiesurvival/achv_blank_zs", Key = "pufulet", ID = 48, Name = "Myth Busted", Desc = "[ROUND] Kill Pufulet as a zombie",  },		
+	[49] = { Image = "zombiesurvival/achv_blank_zs", Key = "uglyfort", ID = 49, Name = "[MAP] Ugly Fort", Desc = "[12 PLAYERS] Survive ugly fort",  },
+	[50] = { Image = "zombiesurvival/achv_blank_zs", Key = "fortress", ID = 50, Name = "[MAP] Fortress", Desc = "[12 PLAYERS] Survive fortress",  },
+	[51] = { Image = "zombiesurvival/achv_blank_zs", Key = "termites", ID = 51, Name = "[MAP] Termites", Desc = "[12 PLAYERS] Survive termites",  }	
 	--[45] = { Image = "zombiesurvival/achv_blank_zs", Key = "flare1", ID = 52, Name = "Pyromaniac", Desc = "Kill a zombie with the flare gun.",  },
 }	
 
