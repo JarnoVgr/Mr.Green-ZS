@@ -142,7 +142,7 @@ function meta:IsHumanClass()
 		engineer = {"weapon_zs_classic", "weapon_zs_melee_fryingpan","weapon_zs_turretplacer","weapon_zs_mine"}
 		
 		--Berserker stages
-		berserker = {"weapon_zs_deagle","weapon_zs_melee_plank","weapon_zs_special_vodka"}
+		berserker = {"weapon_zs_deagle","weapon_zs_melee_plank","weapon_zs_special_vodka","weapon_zs_special_bottleofwine"}
 		
 		--Sharpshooter stages
 		sharpshooter = {"weapon_zs_barreta","weapon_zs_melee_beer","weapon_zs_tools_supplies"}
