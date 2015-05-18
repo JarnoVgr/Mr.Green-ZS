@@ -255,6 +255,11 @@ function meta:IsZombie()
 	return self:Team() == TEAM_UNDEAD
 end
 
+function meta:IsZombieMaster()
+	--PrintTable(self.DataTable["Achievements"])
+	return self.DataTable["Achievements"]["masterofzs"] == true
+end
+
 function meta:SyncAngles()
 	local ang = self:EyeAngles()
 	ang.pitch = 0
