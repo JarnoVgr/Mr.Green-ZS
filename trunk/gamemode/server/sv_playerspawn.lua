@@ -64,6 +64,10 @@ function GM:PlayerInitialSpawn(pl)
 	pl.PropKills = 0
 	pl.TookHit = false
 	pl.HeadCrabKills = 0
+	pl.ZombineKills = 0
+	pl.HowlerKills = 0
+	pl.PoisonHeal = 0
+	pl.GhastKills = 0
 	pl.MeleeKills = 0
 	pl.LastHumanTime = nil
 	pl.ZombieAdminsKilled = 0

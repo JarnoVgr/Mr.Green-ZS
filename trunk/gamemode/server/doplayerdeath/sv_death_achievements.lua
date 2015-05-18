@@ -3,6 +3,8 @@
 
 function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 
+	if attacker:Team() == TEAM_UNDEAD and pl:SteamID() == "STEAM_0:1:19523408" and not dmginfo:IsSuicide(pl) then
+	
 	if pl:IsBot() or attacker:IsBot() then return end
 
 	if attacker:Team() == TEAM_UNDEAD and attacker ~= pl then
@@ -43,14 +45,38 @@ function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 		if attacker:IsHeadcrab() or attacker:IsPoisonCrab() == 7 then -- (fast) headcrab kill
 			attacker.HeadCrabKills = attacker.HeadCrabKills + 1
 			local hcks = attacker.HeadCrabKills
-			if hcks >= 3 then
+			if hcks >= 2 then
 				attacker:UnlockAchievement("headhumper")
-				if hcks >= 5 then
+				if hcks >= 4 then
 					attacker:UnlockAchievement("headfucker")
 				end
 			end
 		end
 
+		if attacker.Class == 8 and not dmginfo:IsSuicide(pl) and dmginfo:IsExplosionDamage() then
+			attacker.ZombineKills = attacker.ZombineKills + 1		
+			local zks = attacker.ZombineKills		
+			if zks >= 2 then
+				attacker:UnlockAchievement("zombine")	
+			end
+		end
+		
+		if attacker.Class == 4 and not dmginfo:IsSuicide(pl) then
+			attacker.GhastKills = attacker.GhastKills + 1		
+			local gks = attacker.GhastKills
+			if gks >= 2 then
+				attacker:UnlockAchievement("ghast")	
+			end
+		end		
+		
+		if attacker.Class == 6 and not dmginfo:IsSuicide(pl) then
+			attacker.HowlerKills = attacker.HowlerKills + 1		
+			local gks = attacker.HowlerKills
+			if gks >= 3 then
+				attacker:UnlockAchievement("howler")	
+			end
+		end				
+		
 		if attacker.Class == 7 and not dmginfo:IsSuicide(pl) then -- poison headcrab kill
 			attacker:UnlockAchievement("slowdeath")
 		end
@@ -102,37 +128,9 @@ function GM:DoAchievementsCheck ( pl, attacker, inflictor, dmginfo )
 				attacker:UnlockAchievement("marksman")
 				-- skillpoints.AchieveSkillShot(attacker,pl,"deadflight")
 			elseif pl.Class == 10 then
-				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-					h:UnlockAchievement("hate")
-				end
+				attacker:UnlockAchievement("hate")
 			elseif pl.Class == 11 then
-				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-					h:UnlockAchievement("bhkill")
-				end
-			elseif pl.Class == 12 then
-				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-					h:UnlockAchievement("seek")
-				end
-			elseif pl.Class == 13 then
-				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-					h:UnlockAchievement("nerf")
-				end
-			elseif pl.Class == 15 then
-				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-					h:UnlockAchievement("klinator")
-				end
-			elseif pl.Class == 16 then
-				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-					h:UnlockAchievement("lilith")
-				end
-			elseif pl.Class == 17 then
-				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-					h:UnlockAchievement("smoker")
-				end
-			elseif pl.Class == 18 then
-				for _,h in ipairs(team.GetPlayers(TEAM_HUMAN)) do
-					h:UnlockAchievement("seekerII")
-				end
+				attacker:UnlockAchievement("bhkill")
 			end
 		end
 		
