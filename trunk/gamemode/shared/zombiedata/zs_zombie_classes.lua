@@ -71,7 +71,6 @@ ZombieClasses[0] =
 			--pl:SetRandomFace()		
 		end
 	end,
-	-- ModelScale = Vector(1.35,1.35,1.35),
 	ModelScale = 1
 }
 
@@ -167,9 +166,8 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	Unique = "",
 	Description = "A tainted innocent who wanders the land..",
 	OnSpawn = function(pl)
-	pl:SetHumanBonePositions()	
-	pl:SetRandomFace()
-		--pl:SetBodyPositions()
+		pl:SetHumanBonePositions()	
+		pl:SetRandomFace()
 	end,
 	--Unique = "Can be deadly in numbers. Can Propkill.",	
 	PlayerFootstep = false,
@@ -198,7 +196,7 @@ ZombieClasses[2] =
 	--Description = "A hulking mass of flesh far more durable than any other zombie.",
 	Description = "A hulking mass of flesh, which can claw or spit on you!",
 	OnSpawn = function(pl)
-	pl:SetHumanBonePositions()	
+		pl:SetHumanBonePositions()	
 	end,
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: Heal zombies or damage props and humans", "> SPECIAL: Propkill", "> HEALTH: 450 ", "> SPEED: 150", "> DAMAGE: 37" },
 	PainSounds = {
@@ -241,7 +239,7 @@ ZombieClasses[3] =
 	Speed = 285,
 	Description = "Skin and bones predator.",
 	OnSpawn = function(pl)
-	pl:SetHumanBonePositions()	
+		pl:SetHumanBonePositions()	
 	end,
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 150 ", "> SPEED: 285", "> DAMAGE: 5"  },
 	PainSounds = {
@@ -399,7 +397,7 @@ ZombieClasses[6] =
 		Sound( "player/zombies/howler/howler_death_01.wav" ),
 	}, 
 	OnSpawn = function(pl)
-	pl:SetHumanBonePositions()	
+		pl:SetHumanBonePositions()	
 		local status = pl:GiveStatus("overridemodel")
 		
 		if status and status:IsValid() then
@@ -432,7 +430,7 @@ ZombieClasses[7] =
 	Description = "Head Humper! What is this creature!",
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	OnSpawn = function(pl)
-	pl:SetHumanBonePositions()	
+		pl:SetHumanBonePositions()	
 	end,
 	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes", "> HEALTH: 60 ", "> SPEED: 180", "> DAMAGE: 10" },
 	PainSounds = {
@@ -471,7 +469,7 @@ ZombieClasses[8] =
 	RunSpeed = 200,
 	Description = "A combine that took a turn to the worse.",
 	OnSpawn = function(pl)
-	pl:SetHumanBonePositions()	
+		pl:SetHumanBonePositions()	
 	end,
 	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when taken enough damage", "> HEALTH: 380 ", "> SPEED: 160", "> DAMAGE: 30" },
 	PainSounds = {
@@ -588,7 +586,7 @@ ZombieClasses[10] =
 	Unlocked = false,
 	-- ViewOffset = Vector( 0, 0, 0 ),
 	OnSpawn = function(pl)
-	pl:SetBodyPositions()
+		pl:SetBodyPositions()
 
 	local status = pl:GiveStatus("overridemodel")
 		if IsValid(status) then
@@ -657,7 +655,7 @@ ZombieClasses[20] =
 	Unlocked = false,
 	-- ViewOffset = Vector( 0, 0, 0 ),
 	OnSpawn = function(pl)	
-		pl:SetBodyPositions()
+			pl:SetBodyPositions()
 		local status = pl:GiveStatus("overridemodel")
 		if IsValid(status) then
 			status:SetModel("models/Zombie/Poison.mdl")

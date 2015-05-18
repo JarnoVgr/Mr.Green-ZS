@@ -15,11 +15,7 @@ function GM:UnleashBoss()
 		return nil
 	end]]
 
-	
-	-- FOR EXPERIMENTAL ROUND TIME OF 15 MIN TEST
-	--if CurTime() < (240) then
-	--	return nil
-	--end
+
 	
 	--Set full health on players when in Arena Mode
 	if ARENA_MODE then			
@@ -54,31 +50,9 @@ function GM:UnleashBoss()
 	--Start time
 	boss.starTime = CurTime()
 		
-	--Calculate boss duration
---	boss.duration = math.min(math.Round(GAMEMODE:GetUndeadDifficulty() * 140),ROUNDTIME-CurTime())
---	boss.duration = math.min(230,ROUNDTIME-CurTime()) --Make it static so that we don't have a boss spawn for 10 seconds.
 
 	--Set End time
 	boss.endTime = CurTime() + boss.duration		
-
-	--Create timer to kill boss and end of duration
-	--[[if boss.duration and boss.duration > 0 then
-		timer.Create("EndBoss", boss.duration, 1, function() 
-			if not boss.pl or not IsValid(boss.pl) or not boss.pl:IsBoss() or not boss.pl:Alive() then
-				--Just force disable it then
-				GAMEMODE:SetBoss(false)
-				return
-			end
-
-			local pl = boss.pl
-				
-			--Kill will trigger boss end
-
-			pl.NoBounty = true
-			pl:SetPhysicsAttacker(nil)
-			pl:Kill()
-		end)
-	end]]--
 
 	--Check if boss is still valid
 	timer.Create("BossValidityCheck", 5, 0, function() 
@@ -93,8 +67,6 @@ function GM:UnleashBoss()
 		end
 	end)
 	
-	--RunConsoleCommand("sv_alltalk", "1")
-	
 	return pl
 end
 
@@ -104,7 +76,6 @@ function GM:CheckBoss()
 	end
 
 	if GetInfliction() <= 0.35 then
-	--RunConsoleCommand("sv_alltalk", "0")
 		return false
 	end
 
@@ -115,10 +86,6 @@ function GM:CheckBoss()
 	if CurTime() < boss.nextBossTime then
 		return false
 	end
-
-	--[[if boss.count >= boss.maxCount then
-		return false
-	end]]
 
 	--Start boss
 	GAMEMODE:SetBoss(true)
@@ -184,8 +151,6 @@ function GM:SetBoss(value)
 		net.WriteFloat(boss.duration)
 		net.Broadcast()
 	else
-		--Kill end-boss timer
-		--timer.Destroy("EndBoss")
 
 		--Kill boss timers
 		timer.Destroy("BossValidityCheck")

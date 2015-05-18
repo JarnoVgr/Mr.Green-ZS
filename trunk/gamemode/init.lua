@@ -270,14 +270,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 			fSpeed = math.Round ( fSpeed * fHealthSpeed )
 		end
 	end
-	
-	--if fHealth <= 40 and mOwner:GetPerk("_berserker") then
-	--	fSpeed = mWeapon.WalkSpeed*1.02 or 175		
-	--	if mOwner:GetPerk("_berserk") then
-		--	fSpeed = fSpeed + fSpeed*0.9
-		--end		
-	--end
-	
+
 	if mOwner:GetPerk("_sboost") then
 	fSpeed = fSpeed + (fSpeed*0.15)
 	end
@@ -379,7 +372,7 @@ local function OnPressedF3(pl)
 	if pl:Team() == TEAM_UNDEAD then
 		-- If undead show classes menu
 		if not pl:IsBossZombie() then
-			pl:SendLua("DrawClassMenu()")
+			pl:SendLua("DoClassesMenu()")
 		end
 	elseif pl:Team() == TEAM_HUMAN and pl:Alive() then
 		--Drop weapon
@@ -449,7 +442,7 @@ end
 local function DeleteEntitiesRestricted()
 	-- Entities to delete on map (wildcards are supported)
 	--local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", --[=["func_door", "func_door_rotating",]=] "weapon_*", "item_ammo_*", "item_box_buckshot" }
-	local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", --[=["func_door", "func_door_rotating",]=] "item_ammo_*", "item_box_buckshot" }
+	local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", --[=["func_door", "func_door_rotating",]=] }
 	
 	-- Trash bin table, stores entities that will be removed
 	local TrashBin, CurrentMapTable = {}, MapProperties[game.GetMap()]-- TranslateMapTable[ game.GetMap() ]
@@ -596,7 +589,7 @@ function GM:ModelToEntity(ent)
 		--["models/props_junk/garbage_plasticbottle001a.mdl"] = "weapon_zs_glock3",
 		["models/props_junk/garbage_glassbottle003a.mdl"] = "weapon_zs_melee_beer",
 		["models/props_canal/mattpipe.mdl"] = "weapon_zs_melee_pipe2",
-		--["models/props_lab/cactus.mdl"] = "weapon_zs_melee_crowbar",
+
 		
 	}
 	

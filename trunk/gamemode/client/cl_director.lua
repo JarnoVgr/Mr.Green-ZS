@@ -153,9 +153,9 @@ function GM:SetBoss(value,isInsane,duration)
 	if BOSSACTIVE then
 	
 		--Play music
-			--timer.Simple(0.3, function()
-			--playBossMusic(isInsane)
-		--end)
+			timer.Simple(0.3, function()
+			playBossMusic(isInsane)
+		end)
 			--end
 	
 		boss.duration = duration
@@ -176,10 +176,10 @@ function GM:SetBoss(value,isInsane,duration)
 		Debug("[CLIENT] Boss has risen")
 	else
 		--
-		--timer.Destroy("LoopBossMusic") --Duby: This loops the boss music
+		timer.Destroy("LoopBossMusic") --Duby: This loops the boss music
 	
 		--Stop music
-		--RunConsoleCommand("stopsound")
+		RunConsoleCommand("stopsound")
 		
 		Debug("[CLIENT] Boss ran off")
 	end

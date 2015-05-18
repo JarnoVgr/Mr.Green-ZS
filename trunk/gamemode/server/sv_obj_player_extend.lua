@@ -1479,9 +1479,6 @@ function meta:CheckSpeedChange()
 	
 end
 
-function meta:SpawnAsSteroidZombie(int)
-end
-
 function meta:SpawnMiniTurret()
 	if IsValid(self.MiniTurret) then
 		return

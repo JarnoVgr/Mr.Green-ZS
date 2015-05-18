@@ -364,7 +364,7 @@ end
 -- Check if player title is valid
 local validchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789><! "
 local tbPatern = { "%", "&", "(", ")", "+", "]", "[", "?" }
-local forbiddenwords = { "admin", "moderator", "host", "server", "fuck", "( ?° ?? ?°) " }
+local forbiddenwords = { "moderator", "host", "server", "fuck", "( ?° ?? ?°) " }
 function ValidTitle( pl, str )
 	-- 24 character limit
 	if not str or string.len(str) > 24 then
@@ -399,7 +399,7 @@ function ValidTitle( pl, str )
 	return true
 end
 
-local forbiddenwords2 = { "fuck", "nigger", "nawb", "admin", "shit", "server", "( ?° ?? ?°) ", "Duby", "gay" }
+local forbiddenwords2 = { "fuck", "nigger", "nawb", "admin", "shit", "server", "( ?° ?? ?°) ", "Duby", "gay" } --The standard things, including myself after DanRod..
 
 function ValidTurretNick(pl,str)
 	if not str then

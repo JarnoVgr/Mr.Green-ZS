@@ -71,7 +71,7 @@ for i=1,10 do
 end
 
 function playBossMusic(insane)
-	--[[if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
+	if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
 	
 	--Stop all sounds
 	RunConsoleCommand("stopsound")
@@ -79,27 +79,27 @@ function playBossMusic(insane)
 	--Duby: When you re-implement the new boss music. Please test the code. The previous was broken.
 	
 	--Play the music
-	local songDuration = 277
-	local song = "mrgreen/music/deadlife.mp3"
+	local songDuration = 240
+	local song = "mrgreen/music/bosstheme4.mp3"
 	
 	--INSANE music
 	if insane then
-		songDuration = 215
-		song = "mrgreen/music/deadlife_insane.mp3"
+		songDuration = 240
+		song = "mrgreen/music/bosstheme4.mp3"
 	end
 	
 	--Delayed play because of stopsound in same frame
-	--timer.Simple(1, function()
-	--	surface.PlaySound(Sound(song))
-	--end)
-	]]--
+	timer.Simple(0.3, function()
+		surface.PlaySound(Sound(song))
+	end)
+	
 	-- Create timer
-	--[[timer.Create("LoopBossMusic", songDuration, 0, function() 
+	timer.Create("LoopBossMusic", songDuration, 0, function() 
 		if LASTHUMAN or ENDROUND or not BOSSACTIVE then
 			return
 		end
 		surface.PlaySound(Sound(song))
-	end)]]--
+	end)
 
 
 end
@@ -142,7 +142,7 @@ local NextBeat = 0
 local LastBeatLevel = 0
 local function PlayBeats(teamid, am)
 	--if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
-	if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
+	if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
 		return
 	end
 	--print(am)
