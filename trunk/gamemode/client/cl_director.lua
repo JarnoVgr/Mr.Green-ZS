@@ -251,10 +251,10 @@ local function ManageChatTitles ( pl, Text, TeamOnly, PlayerIsDead )
 	
 	--PrintTable(pl.DataTable["Achievements"])
 
-	if pl:IsZombieMaster() then
-		table.insert( tab, Color( 255, 235, 40 ) )
-		table.insert( tab, "(ZS Master) " )	
-	end
+	--if pl:IsZombieMaster() then
+	--	table.insert( tab, Color( 255, 235, 40 ) )
+	--	table.insert( tab, "(ZS Master) " )	
+	--end
 
 	
 	if IsValid(pl) then
