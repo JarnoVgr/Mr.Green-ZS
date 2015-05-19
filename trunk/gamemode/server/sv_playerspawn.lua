@@ -55,7 +55,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.BrainDamage = 150
 	pl.MaxHealth = 100
 	
-	pl.ZombieMaster = false
+	--pl.MasterZS = true
 	pl.Suicided = false
 	pl.FreshRedeem = false
 	pl.Gibbed = false
@@ -88,13 +88,7 @@ function GM:PlayerInitialSpawn(pl)
 		pl.HealingDone = 0
 		pl.Assists = 0
 	end
-	
-	if pl.DataTable["Achievements"][12] then	
-		pl.ZombieMaster = true
-	end
-	
-	pl.ZombieMaster = true	
-	
+		
 	pl.Hornyness = 0
 	pl.WeaponTable = {}
 	pl.NextHold = 0
@@ -180,6 +174,14 @@ function GM:PlayerInitialSpawn(pl)
 		pl:SetHumanClass(1)
 		self:PlayerReady(pl)
 	end
+	
+	--if pl.DataTable["Achievements"]["masterofzs"] then	
+	--	pl.ZombieMaster = true
+	--end
+	
+	
+	
+	
 	
 	--log
 	--[[if (iTeam ~= TEAM_SPECTATOR) then
