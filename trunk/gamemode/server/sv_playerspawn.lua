@@ -55,6 +55,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.BrainDamage = 150
 	pl.MaxHealth = 100
 	
+	pl.ZombieMaster = false
 	pl.Suicided = false
 	pl.FreshRedeem = false
 	pl.Gibbed = false
@@ -87,6 +88,12 @@ function GM:PlayerInitialSpawn(pl)
 		pl.HealingDone = 0
 		pl.Assists = 0
 	end
+	
+	if pl.DataTable["Achievements"][12] then	
+		pl.ZombieMaster = true
+	end
+	
+	pl.ZombieMaster = true	
 	
 	pl.Hornyness = 0
 	pl.WeaponTable = {}
