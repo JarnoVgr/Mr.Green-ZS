@@ -457,9 +457,16 @@ function GM:OnEndRound(winner)
 				elseif game.GetMap() == "zs_fortress_mod" then
 					pl:UnlockAchievement("fortress")				
 				elseif game.GetMap() == "zs_termites_v2" then
-					pl:UnlockAchievement("termites")				
-				end
-				
+					pl:UnlockAchievement("termites")		
+				elseif game.GetMap() == "zs_buntshot" then
+					pl:UnlockAchievement("buntshot")			
+				elseif game.GetMap() == "zs_ambush_v2" then
+					pl:UnlockAchievement("ambush")	
+				elseif game.GetMap() == "zs_dump_v1" then
+					pl:UnlockAchievement("dump")	
+				elseif game.GetMap() == "zs_filth_v3" then
+					pl:UnlockAchievement("filth")						
+				end				
 				end
 			end
 		end

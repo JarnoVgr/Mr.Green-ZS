@@ -38,8 +38,8 @@ function ENT:Think()
 						if hitent:Health() < hitent:GetMaximumHealth()*1.2 then
 							owner:AddXP(5)
 							hitent:SetHealth(hitent:Health() + 10)	
-							owner.PoisonHeals = owner.PoisonHeals + 10
-							local ph = owner.PoisonHeals
+							owner.PoisonHeals = owner.PoisonHeal + 10
+							local ph = owner.PoisonHeal
 							if ph >= 500 then
 								owner:UnlockAchievement("poisonheal")	
 							end							

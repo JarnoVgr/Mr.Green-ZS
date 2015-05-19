@@ -1113,8 +1113,8 @@ achievementDesc = {
 	[9] = { Image = "", Key = "spartan", ID = 9, Name = "[ZS] Spartan", Desc = "[TOTAL] Kill 300 undead", Type = "zs",    },
 	[10] = { Image = "", Key = "toolsofdestruction", ID = 10, Name = "[ZS] Tools of Destruction", Desc = "[ROUND] Propkill 3 humans", Type = "zs",    },
 	[11] = { Image = "", Key = "headfucker", ID = 11, Name = "[ZS] Headfucker", Desc = "[ROUND] Kill 4 humans as a Headcrab", Type = "zs",    },
-	[12] = { Image = "", Key = "masterofzs", ID = 12, Name = "[SPECIAL] Master of ZS", Desc = "Get every other achievement", Type = "special",  },
-	[13] = { Image = "", Key = "dealwiththedevil", ID = 13, Name = "[ZS] Deal With The Devil", Desc = "[TOTAL] Redeem three times", Type = "zs",    },
+	[12] = { Image = "", Key = "masterofzs", ID = 12, Name = "[REWARD] Master of ZS", Desc = "Get all [ZS] achievements | Reward: (ZS Master) chat tag", Type = "special",  },
+	[13] = { Image = "", Key = "dealwiththedevil", ID = 13, Name = "[ZS] Deal With The Devil", Desc = "[ROUND] Redeem three times", Type = "zs",    },
 	[14] = { Image = "", Key = "launchanddestroy", ID = 14, Name = "[ZS] Launch And Destroy", Desc = "Propkill a human", Type = "zs",    },
 	[15] = { Image = "", Key = "humanitysdamnation", ID = 15, Name = "[ZS] Humanity's Damnation", Desc = "[TOTAL] Inflict 10.000 damage to the humans", Type = "zs",    },
 	[16] = { Image = "", Key = "slayer", ID = 16, Name = "[ZS] Slayer", Desc = "[TOTAL] Kill 50 humans", Type = "zs",    },
@@ -1150,9 +1150,13 @@ achievementDesc = {
 	[46] = { Image = "", Key = "ghast", ID = 46, Name = "[ZS] Deceiver", Desc = "[ROUND] Kill 2 humans as a Ghast", Type = "zs",    },	
 	[47] = { Image = "", Key = "poisonheal", ID = 47, Name = "[ZS] Rotten Medicine", Desc = "[ROUND] Heal 500 health points with poison", Type = "zs",    }	,
 	[48] = { Image = "", Key = "pufulet", ID = 48, Name = "[SPECIAL] Myth Busted", Desc = "Kill Pufulet while he's human", Type = "special",  },		
-	[49] = { Image = "", Key = "uglyfort", ID = 49, Name = "[MAP] Ugly Fort", Desc = "[12 PLAYERS] Survive ugly fort", Type = "map",  },
-	[50] = { Image = "", Key = "fortress", ID = 50, Name = "[MAP] Fortress", Desc = "[12 PLAYERS] Survive fortress", Type = "map", },
-	[51] = { Image = "", Key = "termites", ID = 51, Name = "[MAP] Termites", Desc = "[12 PLAYERS] Survive termites", Type = "map",  }	
+	[49] = { Image = "", Key = "uglyfort", ID = 49, Name = "[MAP] Ugly Fort", Desc = "Survive ugly fort", Type = "map",  },
+	[50] = { Image = "", Key = "fortress", ID = 50, Name = "[MAP] Fortress", Desc = "Survive fortress", Type = "map", },
+	[51] = { Image = "", Key = "termites", ID = 51, Name = "[MAP] Termites", Desc = "Survive termites", Type = "map",  },
+	[52] = { Image = "", Key = "buntshot", ID = 52, Name = "[MAP] Buntshot", Desc = "Survive buntshot", Type = "map", },
+	[53] = { Image = "", Key = "ambush", ID = 53, Name = "[MAP] Ambush", Desc = "Survive ambush", Type = "map", },	
+	[54] = { Image = "", Key = "dump", ID = 54, Name = "[MAP] Dump", Desc = "Survive dump", Type = "map", },	
+	[55] = { Image = "", Key = "filth", ID = 55, Name = "[MAP] Filth", Desc = "Survive filth", Type = "map", }
 	--[45] = { Image = "", Key = "flare1", ID = 52, Name = "Pyromaniac", Desc = "Kill a zombie with the flare gun.",  },
 }	
 

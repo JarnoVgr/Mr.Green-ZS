@@ -165,7 +165,7 @@ HelpBtn[#HELP_TXT+1] = {
 					end	
 
 					list:AddLine( "------- ACHIEVEMENTS ---------------- ","----------------------------------" )
-					
+					list:AddLine( "---- REQUIRE 12 PLAYERS ------------- ","----------------------------------" )					
 					for k, v in ipairs( achievementDesc ) do
 						local str
 						local statID = util.GetAchievementID( v )

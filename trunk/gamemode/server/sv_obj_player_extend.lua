@@ -698,8 +698,8 @@ function meta:UnlockNotify(item)
 end
 
 function meta:UnlockAchievement(stat)
-	--Only unlock when having more than 8 players
-	if #player.GetAll() < 10 or not self:GetAchievementsDataTable() then
+	--Only unlock when having more than 12 players
+	if #player.GetAll() < 12 or not self:GetAchievementsDataTable() then
 		return false
 	end
 	
@@ -724,11 +724,13 @@ function meta:UnlockAchievement(stat)
 		local hasAll = true
 			for k, v in ipairs( achievementDesc ) do
 			if achievementDesc[k].Type == "zs" then
-				hasAll = false
-				break
+				if not self:GetAchievementsDataTable()[k] == true then
+					hasAll = false				
+					break	
+				end
 			end
 		end
-		
+
 		--Award Master of ZS when having all
 		if hasAll then
 			self:UnlockAchievement("masterofzs")
