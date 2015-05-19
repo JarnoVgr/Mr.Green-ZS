@@ -249,7 +249,7 @@ local function ManageChatTitles ( pl, Text, TeamOnly, PlayerIsDead )
 		table.insert( tab, "(ZS) " )		
 	end
 	
---	PrintTable(pl.DataTable["Achievements"])
+	PrintTable(pl.DataTable["Achievements"])
 
 	if pl.DataTable["Achievements"]["masterofzs"] then
 		table.insert( tab, Color( 255, 235, 40 ) )
