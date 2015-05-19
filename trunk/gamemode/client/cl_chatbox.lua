@@ -453,7 +453,13 @@ function CustomChat.ParseLine ( line, pl, teamonly, deadpl, Console )
 			-- Choose what color to apply to the title
 			if pl:Team() == TEAM_HUMAN then ColorToApply = Color( 0, 255, 0 ) end
 			if pl:Team() == TEAM_UNDEAD then ColorToApply = Color( 221, 219, 26 ) end
-		
+			--[[
+			if not pl.DataTable["Achievements"][12] then
+				local c = Color(255,235,40)
+				local master = "ZS Master"
+				Prefixes = Prefixes.."["..c.r..","..c.g..","..c.b..",255]["..master.."]"		
+			end	
+			]]--
 			-- Is Admin
 			if pl:IsAdmin() or pl:IsSuperAdmin() then
 				ColorToApply = Color ( 255,0,0 )
