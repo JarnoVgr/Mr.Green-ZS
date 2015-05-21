@@ -8,11 +8,11 @@ function GM:SetRandomsToZombie() --Duby: I took Necro's old code and modified it
 	local numplayers = #allplayers
 	
 
-	if numplayers <= 4 then return end
+	if numplayers <= 3 then return end
 
 	--local desiredzombies = math.max(1, math.ceil(3))
 	--local desiredzombies = math.max(UNDEAD_START_AMOUNT_MINIMUM, math.Round(3 * UNDEAD_START_AMOUNT_PERCENTAGE))
-	local desiredzombies = math.max(UNDEAD_START_AMOUNT, math.Round(UNDEAD_START_AMOUNT * UNDEAD_START_AMOUNT_PERCENTAGE))
+	local desiredzombies = math.max(UNDEAD_START_AMOUNT, math.Round(numplayers * UNDEAD_START_AMOUNT_PERCENTAGE))
 
 	local vols = 0
 	local voltab = {}
@@ -82,7 +82,7 @@ function GM:SetRandomsToFirstZombie()
 	local numPlayers = #player.GetAll()
 	
 	--Require atleast 5 players
-	if numPlayers <= 4 then
+	if numPlayers <= 3 then
 		return
 	end
 
