@@ -25,7 +25,7 @@ GM.SkillShopAmmo = {
 		Name = "30 SMG Bullets",
 		Model = "models/Items/BoxMRounds.mdl",
 		Amount = 30,
-		Price = 25
+		Price = 20
 	},
 	["ar2"] = {
 		Name = "30 Rifle Bullets",
@@ -53,23 +53,23 @@ GM.SkillShopAmmo = {
 		Model = "models/Items/BoxBuckshot.mdl",
 		Tool = "weapon_zs_grenade",
 		Amount = 1,
-		Price = 60,
+		Price = 50,
 		ToolTab = true
 	},
 	["gravity"] = {
-		Name = "Nail",
+		Name = "3 Nails",
 		Model = "models/Items/BoxBuckshot.mdl",
 		Tool = "weapon_zs_tools_hammer",
-		Amount = 1,
-		Price = 10,
+		Amount = 3,
+		Price = 20,
 		ToolTab = true
 	},
 
 	["Battery"] = {
-		Name = "30 Medkit Charge",
+		Name = "50 Medkit Charge",
 		Model = "models/Items/BoxBuckshot.mdl",
-		Amount = 30,
-		Price = 30,
+		Amount = 50,
+		Price = 100,
 		ToolTab = true
 	},
 	
