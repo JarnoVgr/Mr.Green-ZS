@@ -281,7 +281,7 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 				local gaspos = gasses:GetPos()
 				for _, ent in pairs(allplayers) do
 				--	if ent:GetPos():Distance(gaspos) <= 272 and not table.HasValue(voltab, ent) then
-					if ent:GetPos():Distance(gaspos) <= 512 and not table.HasValue(voltab, ent) then
+					if ent:GetPos():Distance(gaspos) <= 256 and not table.HasValue(voltab, ent) then
 						vols = vols + 1
 						table.insert(voltab, ent)
 					end
