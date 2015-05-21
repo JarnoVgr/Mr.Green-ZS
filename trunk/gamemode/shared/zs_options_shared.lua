@@ -47,8 +47,8 @@ SPEED_RIFLE = SPEED - 22
 SPEED_HEAVY = SPEED - 30
 
 -- Horde stuff
-HORDE_MAX_ZOMBIES = 8
-HORDE_MAX_DISTANCE = 2000 --Leave this! It affects the beats and how they play. They play best as this number, do not touch it Pufu!
+HORDE_MAX_ZOMBIES = 8		--It's meant for creating hordes, doesnt make sense for a zombie to be in a horde if they're across the map.
+HORDE_MAX_DISTANCE = 1000 --Leave this! It affects the beats and how they play. They play best as this number, do not touch it Pufu!
 
 
 BONUS_RESISTANCE_WAVE = 5
@@ -489,8 +489,8 @@ NPCS_COUNT_AS_KILLS = false
 -- INCOMING!-- -- 
 -- Fraction of people that should be set as zombies at the beginning of the game.
 UNDEAD_START_AMOUNT_PERCENTAGE = 0.15
-UNDEAD_START_AMOUNT_MINIMUM = 2
-UNDEAD_START_AMOUNT = 2
+UNDEAD_START_AMOUNT_MINIMUM = 1
+UNDEAD_START_AMOUNT = 1
 
 -- Good values are 1 to 3. 0.5 is about the same as the default HL2. 1 is about ZS difficulty. This is mainly for NPC healths and damages.
 DIFFICULTY = 1.5
@@ -521,7 +521,7 @@ CARRY_SPEEDLOSS_MINSPEED = 160
 -- -- -- -- -- -- -- -- /
 
 -- Maximum crates per map
-MAXIMUM_CRATES = 4 -- math.random(2, 3)
+MAXIMUM_CRATES = 2 -- math.random(2, 3)
 
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = false
