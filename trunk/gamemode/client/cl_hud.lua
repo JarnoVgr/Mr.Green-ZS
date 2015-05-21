@@ -113,7 +113,7 @@ function death.DeathZombieHUD()
 	--Display timeleft for respawning
 	local timeleft = math.max(0, math.Round(MySelf.NextSpawn - CurTime()) + 1)
 	if timeleft ~= 0 then
-		draw.DrawText("You can resurrect in ".. timeleft .." seconds", "NewZombieFont40", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+		draw.DrawText("You can resurrect in ".. timeleft .." seconds", "NewZombieFont23", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 	
 	--Spectate
@@ -121,7 +121,7 @@ function death.DeathZombieHUD()
 	if obsmode ~= OBS_MODE_NONE then
 		GAMEMODE:ZombieObserverHUD(obsmode, timeleft == 0)
 	elseif timeleft == 0 then
-		draw.DrawText("You can resurrect shortly", "NewZombieFont40", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+		draw.DrawText("You can resurrect shortly", "NewZombieFont23", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 end
 hook.Add("HUDPaint", "DeathZombieHUD", death.DeathZombieHUD)	
@@ -153,16 +153,16 @@ function GM:ZombieObserverHUD(obsmode, bCanSpawn)
 	if obsmode == OBS_MODE_CHASE then
 		local target = MySelf:GetObserverTarget()
 		if IsValid(target) and target:IsPlayer() and target:Team() == TEAM_UNDEAD then
-			draw.SimpleText("Observing ".. target:Name() .." (+"..math.max(0, target:Health())..")", "NewZombieFont40", w * 0.5, h * 0.75 - texh - 32, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+			draw.SimpleText("Observing ".. target:Name() .." (+"..math.max(0, target:Health())..")", "NewZombieFont23", w * 0.5, h * 0.75 - texh - 32, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 			HasValidTarget = self:DynamicSpawnIsValid(target)
 		end
 	end
 
 	if bCanSpawn then
-		draw.DrawText(HasValidTarget and "Press LMB to resurrect here" or "Press LMB to resurrect", "NewZombieFont40", ScrW()/2, ScaleH(83),HasValidTarget and Color(0, 150, 0, 255) or Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+		draw.DrawText(HasValidTarget and "Press LMB to resurrect here" or "Press LMB to resurrect", "NewZombieFont23", ScrW()/2, ScaleH(83),HasValidTarget and Color(0, 150, 0, 255) or Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 
-	draw.SimpleText("Cycle targets by pressing RMB", "ArialFourteen2", w * 0.5, h * 0.75 + texh + 8, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+	draw.SimpleText("Cycle targets by pressing RMB", "NewZombieFont23", w * 0.5, h * 0.75 + texh + 8, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 end
 
 local GradientExample = surface.GetTextureID("gui/center_gradient")
