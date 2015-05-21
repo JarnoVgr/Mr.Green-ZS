@@ -73,7 +73,7 @@ function death.DeathHumanHUD()
 	local bCanSpawn = false
 
 	if timeleft ~= 0 then
-	 	draw.DrawText("You can resurrect as an Undead in ".. timeleft .." seconds", "NewZombieFont40", ScaleW(641), ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
+	 	draw.DrawText("You can resurrect as an Undead in ".. timeleft .." seconds", "NewZombieFont23", ScaleW(641), ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	else
 		bCanSpawn = true
 	end
