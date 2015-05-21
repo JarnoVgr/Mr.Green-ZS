@@ -53,11 +53,7 @@ if CLIENT then
 	
 end
 
-
-
-
-
-SWEP.Primary.Duration = 1.50
+SWEP.Primary.Duration = 1.5
 SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 38
@@ -113,7 +109,7 @@ function SWEP:StartPrimaryAttack()
 	--self.Owner:SetAnimation(PLAYER_ATTACK1)
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
 	
-	self:EmitSound(Sound("player/zombies/seeker/screamclose.wav"), 500, math.random(140, 130))
+	self:EmitSound(Sound("player/zombies/seeker/screamclose.wav"), 70, math.random(120, 130))
 	 
 	
 	local stopPlayer = true
