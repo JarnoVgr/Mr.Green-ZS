@@ -42,7 +42,7 @@ SWEP.Primary.Damage			= 13
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 30
 SWEP.MaxAmmo			    = 250
-SWEP.Primary.Delay			= 0.135
+SWEP.Primary.Delay			= 0.12
 SWEP.Primary.DefaultClip	= 60
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
@@ -57,7 +57,7 @@ SWEP.ConeIron = SWEP.Cone *0.7
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
 --SWEP.ConeIronMoving = SWEP.Moving *0.7
 
-SWEP.WalkSpeed = SPEED_RIFLE
+SWEP.WalkSpeed = SPEED_RIFLE+10
 SWEP.MaxBulletDistance 		= 2300
 
 SWEP.IronSightsPos = Vector(-2, 10, 1.5)
