@@ -646,8 +646,6 @@ function GM:PlayerDisconnected( pl )
 	
 	if pl.LastAttackers then 
 		if #pl.LastAttackers > 0 then
-			print(#pl.LastAttackers)
-			PrintTable(pl.LastAttackers[#pl.LastAttackers])
 			if pl.LastAttackers[#pl.LastAttackers].Attacker:Team() == TEAM_UNDEAD then
 				pl.LastAttackers[#pl.LastAttackers].Attacker:AddScore(2)
 				pl.LastAttackers[#pl.LastAttackers].Attacker:AddToCounter("humanskilled", 1)
@@ -859,7 +857,7 @@ function CalculateZombieHealth(pl)
 	--Set health
 	pl:SetMaximumHealth(MaxHealth)
 	pl:SetHealth(MaxHealth)
-	print(SetHealth)
+
 end
 
 
