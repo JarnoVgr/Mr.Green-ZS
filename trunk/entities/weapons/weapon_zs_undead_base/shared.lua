@@ -225,7 +225,7 @@ function SWEP:PerformPrimaryAttack()
 				
 				local Velocity
 				
-				if self.Primary.Damage >= 20 and self.Primary.Damage != 29 then
+				if self.Primary.Damage > 20 and self.Primary.Damage != 33 then
 					Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 1300, 5000, 50000)
 				else
 					Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 500, 5000, 50000)				
@@ -262,9 +262,8 @@ function SWEP:PerformPrimaryAttack()
 					ent:TakeDamage(self.Primary.Damage, self.Owner, self)
 				end
 				
-				if self.Primary.Damage > 20 then
+				if self.Primary.Damage > 19 then
 					Velocity.z = math.Clamp(Velocity.z + self.Primary.Damage * 13, 230, 270)
-					--ent:SetSpeed(ent:GetMaxSpeed()*0.5)
 					ent:SetLocalVelocity(Velocity)					
 				end
 				
