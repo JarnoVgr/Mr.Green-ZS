@@ -47,20 +47,18 @@ function ENT:Draw()
 	cam.Start3D2D(pos,angle,0.26)
 
 	--draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", 0, -100, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255)) --New
-	draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", 0, -20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255)) --New
+	draw.SimpleTextOutlined("SkillShop", "ArialBoldSeven", 0, -20, Color(255,255,255,200), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,200)) --New
 
 		
 	--Get list of available weapons the player will most likely receive
-	local suppliesList = GetBestAvailableWeapons()
-	local text = "Press E to buy ".. suppliesList
-	if not suppliesList or suppliesList == "" then
-		--text = "Press E to buy" 
-		--draw.SimpleTextOutlined("Earn more SP to buy better weapons", "ArialBoldFour", 0, -85, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
-		draw.SimpleTextOutlined("Earn more SP to buy better weapons", "ArialBoldFour", 0, 10, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
-	else
+	--local suppliesList = GetBestAvailableWeapons()
+	local text = "USE | Browse shop "
+
 		--draw.SimpleTextOutlined(text, "ArialBoldFour", 0, -85, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
-		draw.SimpleTextOutlined(text, "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
-	end
+		draw.SimpleTextOutlined(text, "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,200)) --New
+
+ 
+ 		draw.SimpleTextOutlined("F3 | Salvage weapons for SP!", "ArialBoldFour", 0, 0, Color(255,255,255,200), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,200)) --New
  
 	cam.End3D2D()
 end

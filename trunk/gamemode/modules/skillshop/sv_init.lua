@@ -134,7 +134,9 @@ function ApplySkillShopItem(pl, com, args)
 		if CurrentWeapon then
 			for i,j in pairs(pl:GetWeapons()) do
 				if j:GetClass() == CurrentWeapon:GetClass() then
-					pl:DropWeapon(j)
+					skillpoints.AddSkillPoints(pl,GAMEMODE.HumanWeapons[j:GetClass()].Price*0.5)
+					pl:DropWeapon(j)					
+					j:Remove()					
 					break
 				end
 			end

@@ -83,6 +83,7 @@ end
 --------------------------------------------------------------]==]
 local function OnPlayerUse(pl, key)
 	--Ignore all keys but IN_USE and team check
+	
 	if key ~= IN_USE or not IsValid(pl) or pl:Team() ~= TEAM_HUMAN then
 		return
 	end

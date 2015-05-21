@@ -75,7 +75,6 @@ function GM:PlayerInitialSpawn(pl)
 	pl.Screamlist = {}
 	pl.ScreensFucked = 0
 	pl.Headshots = 0
-	
 	pl.GreencoinsGained = {}
 	pl.GreencoinsGained[TEAM_UNDEAD] = 0
 	pl.GreencoinsGained[TEAM_HUMAN] = 0

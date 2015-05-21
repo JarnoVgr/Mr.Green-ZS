@@ -375,8 +375,24 @@ local function OnPressedF3(pl)
 			pl:SendLua("DoClassesMenu()")
 		end
 	elseif pl:Team() == TEAM_HUMAN and pl:Alive() then
-		--Drop weapon
-		DropWeapon(pl)
+	
+	local vStart = pl:GetShootPos()
+	local tr = util.TraceLine ( { start = vStart, endpos = vStart + ( pl:GetAimVector() * 90 ), filter = pl, mask = MASK_SHOT } )
+	local entity = tr.Entity
+	
+		local price = GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price
+	
+		if IsValid(entity) and entity:GetClass() == "game_supplycrate" and price then	
+
+			skillpoints.AddSkillPoints(pl,GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price*0.5)
+			pl:GetActiveWeapon():Remove()				
+			DropWeapon(pl)
+			price = price * 0.5
+			pl:Message("+"..price.."SP!", 1)			
+			entity:EmitSound("Breakable.Metal")		
+		else
+			DropWeapon(pl)
+		end
 	end
 end
 hook.Add("ShowSpare1", "PressedF3", OnPressedF3)
