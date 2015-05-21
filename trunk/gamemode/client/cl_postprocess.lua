@@ -105,15 +105,15 @@ local HumanCM = {
 }]]
 
 local HumanCM = {
-	["$pp_colour_addr"] = 5,
-	["$pp_colour_addg"] = 5,
-	["$pp_colour_addb"] = 5,
+	["$pp_colour_addr"] = 1,
+	["$pp_colour_addg"] = 1,
+	["$pp_colour_addb"] = 1,
 	["$pp_colour_brightness"] = 0.0,
 	["$pp_colour_contrast"] = 1.0,
-	["$pp_colour_colour"] = 2,
-	["$pp_colour_mulr"] = 1.2,
-	["$pp_colour_mulg"] = 1.2,
-	["$pp_colour_mulb"] = 1.2
+	["$pp_colour_colour"] = 1,
+	["$pp_colour_mulr"] = 1,
+	["$pp_colour_mulg"] = 1,
+	["$pp_colour_mulb"] = 1
 }
 
 --When spectating Zombies
