@@ -287,14 +287,11 @@ function SWEP:Equip ( NewOwner )
 		self.Weapon.FirstSpawn = false
 		
 		if NewOwner:GetPerk("_medic") then
-			NewOwner:GiveAmmo(self.Owner:GetRank()*20, self:GetPrimaryAmmoTypeString())	
+			NewOwner:GiveAmmo(self.Owner:GetRank()*10, self:GetPrimaryAmmoTypeString())	
 		end		
 		
 		if NewOwner:GetPerk("_medupgr2") then
 			NewOwner:GiveAmmo( 100, self:GetPrimaryAmmoTypeString() )
-			if NewOwner:GetPerk("_medic") then
-				NewOwner:GiveAmmo(self.Owner:GetRank()*5, self:GetPrimaryAmmoTypeString())	
-			end	
 		end
 		
 	--else
