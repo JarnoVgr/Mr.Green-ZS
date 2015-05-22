@@ -69,7 +69,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	--Possible revive
 	if CurTime() > WARMUPTIME and not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 1) then
-		if math.random(1,3) == 1 and (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) then
+		if math.random(1,3) == 1 and dmginfo:IsBulletDamage() then
 			GAMEMODE:DefaultRevive(mVictim)
 			revive = true
 			mVictim.NoDeathNotice = true
@@ -80,6 +80,12 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	if not revive then
 		--Play sound
 		mVictim:PlayZombieDeathSound()
+		
+		if headshot then
+			skillpoints.AddSkillPoints(mAttacker,5)
+			mAttacker:AddXP(10)
+			mVictim:FloatingTextEffect(5, mAttacker)		
+		end
 		
 		--Put victim in spectator mode
 		if IsValid(mAttacker) and mAttacker:IsPlayer() and mAttacker ~= mVictim then
@@ -98,10 +104,10 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 
 				if mAttacker:GetPerk("_commando") then --Double checker, just in case..
 					if mAttacker:GetPerk("_profitable") then
-				skillpoints.AddSkillPoints(mAttacker,reward/1.3)
-				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-				mVictim:FloatingTextEffect(reward/1.3, mAttacker)
-				end
+						skillpoints.AddSkillPoints(mAttacker,reward/1.3)
+						mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
+						mVictim:FloatingTextEffect(reward/1.3, mAttacker)
+					end
 				else 
 			end
 				skillpoints.AddSkillPoints(mAttacker,reward)
