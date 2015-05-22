@@ -31,7 +31,7 @@ function GM:UpdateZombieAnimation( pl, vel, maxseqgroundspeed )
 	local rate = 1.0
 	
 	if len2d > 0.5 then
-		rate = ( ( len2d * 0.8 ) / maxseqgroundspeed )
+		rate = ( ( len2d) / maxseqgroundspeed )
 	end
 	
 	rate = math.Clamp(rate, 0.8, 1.5)
@@ -65,7 +65,7 @@ GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
 			else					
 				iSeq = pl:LookupSequence ( "zombie_walk_01" )
 			end
-			pl._PlayBackRate = math.Clamp(fVelocity*0.1,0.1,1.5)
+			--pl._PlayBackRate = math.Clamp(fVelocity*0.1,0.1,1.5)
 		end
 		
 		if pl:GetMoveType()==MOVETYPE_LADDER then
@@ -290,7 +290,7 @@ GM.CalcMainActivityZombies[2] = function ( pl, vel )
 	
 	if fVelocity > 30 then
 		iIdeal = ACT_WALK
-		pl._PlayBackRate = math.Clamp(fVelocity*0.1,0.1,1.5)	 
+		pl._PlayBackRate = math.Clamp(fVelocity*0.25,0.1,1.5)	 
 	else
 		iIdeal = ACT_IDLE
 	end
@@ -446,59 +446,35 @@ GM.CalcMainActivityZombies[4] = function ( pl, vel )
 			end
 			return iIdeal, iSeq
 		end			
-				
+
+else
+	if IsValid(pl:GetActiveWeapon()) then 
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_01" ) --Duby: I spent ages finding this out...	
+		--local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) --Duby: I spent ages finding this out...	
 		
-		--[[if i == 2 then
-			if fVelocity == 0 then 
-				iSeq = pl:LookupSequence ( "idle_melee2" ) 
-			end	
-			
-			if fVelocity >= 0.5 then 
-				iSeq = pl:LookupSequence ( "run_melee2" )
+		if fVelocity == 0 then 
+			if pl:Crouching() then
+				iSeq = pl:LookupSequence ( "zombie_cidle_01" )	
+			else
+				iSeq = pl:LookupSequence ( "zombie_idle_01" ) 
 			end
-
-			if pl:Crouching() and fVelocity == 0 then
-				iSeq = pl:LookupSequence ( "cidle_melee2" )			
-			end
-			
-			if pl:Crouching() and fVelocity >= 0.5 then
-				iSeq = pl:LookupSequence ( "cwalk_melee2" )			
-			end
-			return iIdeal, iSeq
-		end		
-		
-		]]--
-
-	
-
-	
-		--end
-		--[[
-		if i == 2 then
-			local iSeq, iIdeal = pl:LookupSequence ( "idle_melee2" )
-			if fVelocity >= 0.5 then 
-				iSeq = pl:LookupSequence ( "run_melee2" ) 
-			end
-			return iIdeal, iSeq
 		end	
 		
-		if i == 3 then
-			local iSeq, iIdeal = pl:LookupSequence ( "idle_revolver" )
-			if fVelocity >= 0.5 then 
-				iSeq = pl:LookupSequence ( "run_revolver" ) 
+		if fVelocity >= 0.5 then 
+			if pl:Crouching() then			
+				iSeq = pl:LookupSequence ( "zombie_cwalk_01" )			
+			else					
+				iSeq = pl:LookupSequence ( "zombie_walk_01" )
 			end
-			return iIdeal, iSeq
-		end			
+			--pl._PlayBackRate = math.Clamp(fVelocity*0.1,0.1,1.5)
+		end
 		
-		if i == 4 then
-			local iSeq, iIdeal = pl:LookupSequence ( "idle_pistol" )
-			if fVelocity >= 0.5 then 
-				iSeq = pl:LookupSequence ( "run_pistol" ) 
-			end
-			return iIdeal, iSeq
-		end				
-		]]--
-		
+		if pl:GetMoveType()==MOVETYPE_LADDER then
+			iSeq = pl:LookupSequence ( "zombie_climb_loop" )
+		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)			
+		end
+		return iIdeal, iSeq		
+	end
 end
 	-- Default zombie act
 	local iSeq, iIdeal = -1
@@ -513,11 +489,7 @@ end
 --  Ghast - Called on events like primary attack
 GM.DoAnimationEventZombies[4] = function ( pl, event, data )
 	if event == PLAYERANIMEVENT_ATTACK_PRIMARY then
-		if IsValid(pl:GetActiveWeapon()) and pl:GetActiveWeapon().IsDisguised and pl:GetActiveWeapon():IsDisguised() then
 			pl:AnimRestartGesture(GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_GMOD_GESTURE_RANGE_ZOMBIE, true)
-		else
-			pl:AnimRestartGesture( GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_MELEE_ATTACK1,true )
-		end
 		return ACT_INVALID
 	end
 end

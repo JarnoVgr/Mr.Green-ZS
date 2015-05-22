@@ -16,7 +16,7 @@ if CLIENT then
 	SWEP.FakeArms = true	
 end
 
-SWEP.Primary.Duration = 1.5
+SWEP.Primary.Duration = 1.4
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 20
@@ -64,6 +64,8 @@ end
 
 function SWEP:Deploy()
 	self.BaseClass.Deploy(self)
+	local model = "models/player/soldier_stripped.mdl"
+	self.Owner:SetModel(model)
 
 	if SERVER then
 		self.ScarySound = CreateSound(self.Owner, Sound("ambient/voices/crying_loop1.wav"))
@@ -83,25 +85,23 @@ function SWEP:StartPrimaryAttack()
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
 	
 	if self:IsDisguised() then
-		self:EmitSound(Sound("npc/antlion/distract1.wav"), 100, math.random(82, 92))
+		self:EmitSound(Sound("npc/antlion/distract1.wav"), 80, math.random(82, 92))
+		self:SetDisguiseChoice(math.random(1,5)	)		
 	else
-		self:EmitSound(Sound("npc/antlion/distract1.wav"), 100, math.random(92, 107))
+		self:EmitSound(Sound("npc/antlion/distract1.wav"), 80, math.random(72, 80))
 	end
 	
 	local stopPlayer = true
 
-	if self:IsDisguised() then
-		self.Primary.Speed = 200
-		stopPlayer = false
-	else
-		self.Primary.Speed = 0
+	if not self:IsDisguised() then
+		self.Primary.Speed = 120
 	end
 	 
-	if SERVER then
-		if stopPlayer then
-			self.Owner:SetLocalVelocity(Vector(0, 0, 0))
-		end
-	end
+	--if SERVER then
+	--	if stopPlayer then
+	--		self.Owner:SetLocalVelocity(Vector(0, 0, 0))
+	--	end
+	--end
 end
 
 function SWEP:Move(mv)
@@ -129,7 +129,7 @@ function SWEP:GetDisguiseChoice()
 end
 
 function SWEP:SecondaryAttack()
-	self.Weapon:SetNextSecondaryFire(CurTime() + 3)
+	self.Weapon:SetNextSecondaryFire(CurTime() + 2)
 	-- if self.Disguised then return end
 	if self:IsDisguised() then
 		self:EmitSound(Sound("npc/fast_zombie/idle"..math.random(1,3)..".wav"), 80)	
@@ -138,7 +138,7 @@ function SWEP:SecondaryAttack()
 
 	self:SetDisguise(true)
 	self.FakeArms = true
-	self:SetColor( Color( 255, 255, 255, 1 ) )
+
 	
 	--Pick random human model
 	if SERVER then	
@@ -151,7 +151,7 @@ function SWEP:SecondaryAttack()
 		
 		self.Owner:SetModel(model)
 		
-		self.Owner:EmitSound(Sound("npc/stalker/stalker_scream"..math.random(1,4)..".wav"), 80)
+		self.Owner:EmitSound(Sound("npc/stalker/stalker_scream"..math.random(1,4)..".wav"), 60)
 	end
 	
 	

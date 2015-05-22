@@ -12,7 +12,7 @@ local function PrePlayerDraw(pl)
 			render.SetBlend(1)
 		else
 			--local col = math.random( 1, 35 ) == 1 and 1 or 0.04
-			local col = math.random( 1, 10 ) == 1 and 1 or 0.17
+			local col = math.random( 1, 20 ) == 1 and 1 or 0.17
 			render.SetBlend(col)
 		end
 		undowraithblend = true
@@ -23,7 +23,7 @@ local function PrePlayerDraw(pl)
 			render.SetBlend(1)
 		else
 			--local col = math.random( 1, 35 ) == 1 and 1 or 0.04
-			local col = math.random( 1, 10 ) == 1 and 1 or 0.17
+			local col = math.random( 1, 20 ) == 1 and 1 or 0.17
 			render.SetBlend(col)
 		end
 		undowraithblend = true
