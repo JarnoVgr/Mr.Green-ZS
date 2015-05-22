@@ -53,7 +53,7 @@ SWEP.Primary.Recoil			= 0
 SWEP.Primary.Damage			= 7	
 SWEP.Primary.NumShots		= 1		
 SWEP.Primary.Cone			= 0 	
-SWEP.Primary.ClipSize		= 10
+SWEP.Primary.ClipSize		= 20
 SWEP.Primary.DefaultClip	= 4
 SWEP.Primary.Automatic   	= true
 SWEP.Primary.Ammo         	= "slam"	
@@ -67,6 +67,7 @@ SWEP.Secondary.ClipSize		= 1
 SWEP.Secondary.DefaultClip	= 1
 SWEP.Secondary.Automatic   	= false
 SWEP.Secondary.Ammo         = "none"
+SWEP.Weapon.FirstSpawn 		= true
 ------------------------------------------------------------------------------------------------------
 SWEP.WalkSpeed = SPEED
 
@@ -81,6 +82,15 @@ function SWEP:On_Deploy()
 	else
 		self.Weapon:SendWeaponAnim( ACT_SLAM_DETONATOR_DRAW )
 	end
+	
+	if self.Weapon.FirstSpawn then
+		self.Weapon.FirstSpawn = false
+		
+		if self.Owner:GetPerk("_mine") then
+			self.Primary.DefaultClip = 8	
+		end
+	end
+
 end
 
 function SWEP:PrimaryAttack()
