@@ -490,7 +490,7 @@ NPCS_COUNT_AS_KILLS = false
 
 -- INCOMING!-- -- 
 -- Fraction of people that should be set as zombies at the beginning of the game.
-UNDEAD_START_AMOUNT_PERCENTAGE = 0.17
+UNDEAD_START_AMOUNT_PERCENTAGE = 0.2
 UNDEAD_START_AMOUNT_MINIMUM = 1
 UNDEAD_START_AMOUNT = 1
 
