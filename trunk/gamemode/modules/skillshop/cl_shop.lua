@@ -64,7 +64,7 @@ function GetMaxWeaponStats(category)
 	local dmg, acc, rof = 0.1, 0.001, 0.01
 	
 	for wep,tab in pairs(GAMEMODE.HumanWeapons) do
-		if tab.Price and tab.HumanClass then
+		if tab.Price then
 			if GetWeaponCategory ( wep ) == category then
 				table.insert(weps,wep)
 			end
@@ -470,7 +470,7 @@ function InsertAmmoTab()
 	local AmmoTab = {}
 	
 	for ammo,tab in pairs(GAMEMODE.SkillShopAmmo) do
-		if tab.Price and tab.HumanClass then			
+		if tab.Price then			
 			AmmoTab[ammo] = vgui.Create("DLabel")
 			
 			if tab.ToolTab then
