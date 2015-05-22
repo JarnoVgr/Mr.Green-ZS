@@ -55,19 +55,19 @@ SWEP.HoldType = "ar2"
 SWEP.Primary.Sound = Sound("weapons/scout/scout_fire-1.wav")
 SWEP.Primary.Recoil			= 4
 SWEP.Primary.Damage			= 60
-SWEP.Primary.NumShots		= 1
+SWEP.Primary.NumShots		= 2
 SWEP.Primary.ClipSize		= 1
-SWEP.Primary.Delay			= 1.7
+SWEP.Primary.Delay			= 1.4
 SWEP.Primary.DefaultClip	= 12
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "357"
 SWEP.Primary.ReloadDelay	= 1.6
 
-SWEP.Cone = 0.038
+SWEP.Cone = 0.048
 SWEP.ConeMoving = SWEP.Cone *1.3
-SWEP.ConeCrouching = SWEP.Cone *0.7
-SWEP.ConeIron = SWEP.Cone *0.75
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.75
+SWEP.ConeCrouching = SWEP.Cone *03
+SWEP.ConeIron = SWEP.Cone *0.3
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.3
 
 SWEP.WalkSpeed = SPEED_LIGHT
 
@@ -77,7 +77,7 @@ SWEP.Secondary.Delay = 0.5
 
 function SWEP:OnDeploy()
 	if self.Owner:GetPerk("_musket") then
-		self.Primary.ClipSize = 2
+		self.Primary.ClipSize = 4
 	
 	end
 	--self:SendWeaponAnim(ACT_VM_IDLE)
