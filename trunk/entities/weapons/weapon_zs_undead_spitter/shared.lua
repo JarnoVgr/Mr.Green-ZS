@@ -93,9 +93,9 @@ function SWEP:StartPrimaryAttack()
 	
 	local stopPlayer = true
 
-	if not self:IsDisguised() then
-		self.Primary.Speed = 120
-	end
+	--if not self:IsDisguised() then
+	--	self.Primary.Speed = 120
+	--end
 	 
 	--if SERVER then
 	--	if stopPlayer then
@@ -105,10 +105,10 @@ function SWEP:StartPrimaryAttack()
 end
 
 function SWEP:Move(mv)
-	if self:IsInPrimaryAttack() then
-		mv:SetMaxSpeed(self.Primary.Speed)
-		return true
-	end
+	--if self:IsInPrimaryAttack() then
+	--	mv:SetMaxSpeed(self.Primary.Speed)
+	--	return true
+	--end
 end
 
 function SWEP:SetDisguise(bl)
