@@ -138,11 +138,15 @@ end
 function SWEP:Equip ( NewOwner )
 	if CLIENT then return end
 	
+	if self.Weapon.FirstSpawn then
+		self.Weapon.FirstSpawn = false	
+	
 	--if self.Owner:GetPerk("_plankamount") then
 	if self.Owner:GetPerk("_support") then
 		self.Weapon:SetClip1( 8 ) 	
 	end
 	
+	end
 	-- Call this function to update weapon slot and others
 	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
 end
