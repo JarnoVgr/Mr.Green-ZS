@@ -84,6 +84,12 @@ function SWEP:InitializeClientsideModels()
 	
 end
 
+function SWEP:OnInitialize()
+	if SERVER then
+		self.Weapon.FirstSpawn = true
+	end	
+end
+
 function SWEP:OnDeploy()
 
 	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )

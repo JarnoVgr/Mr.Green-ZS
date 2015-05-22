@@ -84,6 +84,14 @@ function SWEP:On_Deploy()
 	end
 end
 
+
+function SWEP:OnInitialize()
+	if SERVER then
+		self.Weapon.FirstSpawn = true
+	end	
+end
+
+
 function SWEP:Equip ( NewOwner )
 	if CLIENT then return end
 	
