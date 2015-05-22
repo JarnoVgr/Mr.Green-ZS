@@ -166,6 +166,8 @@ GM.HumanWeapons = {
         ["weapon_zs_p90"]  = { Name = "P90", DPS = 125, Infliction = 0.65, Type = "smg", Price = 650, HumanClass = "support" },
         ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 850, HumanClass = "support"},		
     
+	
+        ["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 120 }, -- 860	
         --["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127, Infliction = 0.58, Type = "smg", Price = 300, HumanClass = "support" },
 	
         --Medic
@@ -214,6 +216,7 @@ GM.HumanWeapons = {
         ["weapon_zs_melee_combatknife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee", Price = 100 },
         ["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic.", Price = 100},
  
+ 
         --Loadout Tools 1
         ["weapon_zs_tools_hammer"]  = { Name = "Hammer", DPS = 23, Infliction = 0, Type = "tool1", Description = "Stop! Hammer time. This will freeze props in their place. Primary to repair/whack, Secondary to nail." },
         ["weapon_zs_medkit"]  = { Name = "Medical Kit", DPS = 8, Infliction = 0, Type = "tool1", Description = "Be a good teammate. Or just heal yourself." },
@@ -225,18 +228,18 @@ GM.HumanWeapons = {
         ["weapon_zs_tools_remote"] = { Name = "Turret Controller", DPS = 0, Infliction = 0, Type = "misc" },
         ["weapon_zs_tools_torch"] = { Name = "Torch", DPS = 0, Infliction = 0, Type = "tool2", Description = "Fix broken nails to prevent barricades getting broken." },       
         ["weapon_zs_miniturret"] = { Name = "Combat Mini-Turret", DPS = 0, Infliction = 0, Type = "tool2", Description = "CBA to shoot, let your friend here help you with that!"  },
-        ["weapon_zs_grenade"]  = { Name = "Grenade", DPS = 8, Infliction = 0, Type = "tool1", Description = "Handheld explosives." },
+        ["weapon_zs_grenade"]  = { Name = "Grenade", DPS = 8, Infliction = 0, Type = "tool1", Description = "Handheld explosives.", Price = 120  },
         ["weapon_zs_mine"]  = { Name = "Proximity C4", DPS = 8, Infliction = 0, Type = "tool2", Description = "BOOM, get your team out a tough spot.."  },       
        
         --Special
         ["weapon_zs_melee_crowbar"]  = { Name = "Crowbar", DPS = 85, Infliction = 0.65, Type = "melee", Price = 100 },      
        
         --Map Only
-        ["weapon_zs_melee_beer"]  = { Name = "Beer Bottle", DPS = 30, Infliction = 0, Type = "melee", Description = "Alcohol!", Price = 100 },
-        ["weapon_zs_melee_keyboard"]  = { Name = "Keyboard", DPS = 45, Infliction = 0, Type = "melee", Description = "There's no better way to express your online anger.", Price = 100 },
-        ["weapon_zs_melee_pot"]  = { Name = "Pot", DPS = 61, Infliction = 0, Type = "melee", Description = "Don't do school stay in drugs, live the pot!", Price = 100 },
-        ["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee", Description = "Cooking by the book.", Price = 100 },
-        ["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Description = "", Price = 100 },
+        ["weapon_zs_melee_beer"]  = { Name = "Beer Bottle", DPS = 30, Infliction = 0, Type = "melee", Description = "Alcohol!", Price = 60 },
+        ["weapon_zs_melee_keyboard"]  = { Name = "Keyboard", DPS = 45, Infliction = 0, Type = "melee", Description = "There's no better way to express your online anger.", Price = 60 },
+        ["weapon_zs_melee_pot"]  = { Name = "Pot", DPS = 61, Infliction = 0, Type = "melee", Description = "Don't do school stay in drugs, live the pot!", Price = 60 },
+        ["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee", Description = "Cooking by the book.", Price = 600 },
+        ["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Description = "", Price = 120 },
         ["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee", Description = "Whoops. Looks like I shouldn't of hit him so hard..", Price = 100  },
         ["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee", Description = "Clunk, oh look his head fell off..", Price = 100  },
        
@@ -249,14 +252,13 @@ GM.HumanWeapons = {
         ["weapon_zs_minishotty"]  = { Name = "'Farter' Shotgun", DPS = 126, Infliction = 0, Type = "shotgun" },
         ["weapon_zs_fists"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee", Description = "Punch a Zombie in the face." },
         ["weapon_zs_fists2"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
-        ["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun" }, -- 860
      
        
        
         --Tool1
         ["weapon_zs_barricadekit"] = { Name = "Agies Barricading kit", DPS = 0, Infliction = 0, Type = "tool1" },
         --Tool2
-        ["weapon_zs_tools_plank"]  = { Name = "Pack of Planks", DPS = 0, Infliction = 0, Type = "tool2", Description = "Help your team mates, bring extra planks!"  },
+        ["weapon_zs_tools_plank"]  = { Name = "Pack of Planks", DPS = 0, Infliction = 0, Type = "tool2", Description = "Help your team mates, bring extra planks!", Price = 100  },
        
         --Pickups
         ["weapon_zs_pickup_gascan"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },
@@ -391,7 +393,7 @@ GM.Perks = {
 	--Support
 	
 	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies.", RequiresWeapon = "_support2", Slot = 1}, --Done
+	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies and SkillShop.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with the Shotgun", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points.", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	

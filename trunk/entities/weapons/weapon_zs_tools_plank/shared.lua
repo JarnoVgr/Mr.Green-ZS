@@ -17,7 +17,7 @@ if ( CLIENT ) then
 	--SWEP.NoHUD = true
 	
 	SWEP.ShowViewModel = true
-	SWEP.ShowWorldModel = false
+	SWEP.ShowWorldModel = true
 	SWEP.IgnoreBonemerge = true
 	
 	SWEP.IgnoreThumbs = true
@@ -29,8 +29,7 @@ SWEP.Author = "NECROSSIN"
 
 SWEP.ViewModel = "models/weapons/v_c4.mdl"
 --SWEP.ViewModel  = "models/weapons/c_grenade.mdl"
-SWEP.WorldModel = "models/props_junk/propane_tank001a.mdl"
-
+SWEP.WorldModel = Model("models/props_debris/wood_board06a.mdl")
 
 
 SWEP.Slot = 5
@@ -38,11 +37,11 @@ SWEP.SlotPos = 1
 
 -- SWEP.Info = ""
 
-SWEP.Primary.ClipSize =4
+SWEP.Primary.ClipSize = 4
 SWEP.Primary.DefaultClip = 4
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 1.25
+SWEP.Primary.Delay = 1
 SWEP.ShowViewModel = false
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
@@ -97,7 +96,7 @@ function SWEP:PrimaryAttack()
 	local shootpos = self.Owner:GetShootPos()
 	local tr = util.TraceLine({start = shootpos, endpos = shootpos + aimvec * 32, filter = self.Owner})
 
-	self:SetNextPrimaryFire(CurTime() + 1.25)
+	self:SetNextPrimaryFire(CurTime() + 1)
 
 	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(75, 80))
 	
@@ -131,6 +130,7 @@ function SWEP:PrimaryAttack()
 	if SERVER then		
 		if self and self:IsValid() and self.Weapon:Clip1() < 1 then
 			DropWeapon(self.Owner)
+			self:Remove()	
 		end
 	end
 end
@@ -154,12 +154,3 @@ end
 function SWEP:SecondaryAttack()
 return false
 end 
-
-
-function SWEP:_OnDrop()
-	if SERVER then
-		if self and self:IsValid() then
-			self:Remove()
-		end
-	end
-end

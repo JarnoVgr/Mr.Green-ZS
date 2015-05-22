@@ -7,13 +7,14 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 
 	SWEP.ShowViewModel = false
-	SWEP.ShowWorldModel = false
+	SWEP.ShowWorldModel = true
 	SWEP.VElements = {
 --	["bottle"] = { type = "Model", model = "models/props_junk/garbage_glassbottle003a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(4, 1, -5), angle = Angle(0, 0, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	["bottle"] = { type = "Model", model = "models/props_junk/garbage_glassbottle003a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(4, 1, -9), angle = Angle(0, 0, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
+	
 	SWEP.WElements = {
-	["bottle"] = { type = "Model", model = "models/props_junk/garbage_glassbottle003a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.635, 1, -3.636), angle = Angle(0, 0, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		["bottle"] = { type = "Model", model = "models/props_junk/garbage_glassbottle003a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.635, 1, -3.636), angle = Angle(0, 0, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "debug/env_cubemap_model", skin = 0, bodygroup = {} }
 	}
 end
 
@@ -30,7 +31,7 @@ SWEP.SlotPos = 5
 
 SWEP.DamageType = DMG_CLUB
 
-SWEP.MeleeDamage = 30
+SWEP.MeleeDamage = 80
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.75
 
@@ -58,13 +59,21 @@ function SWEP:PlayHitFleshSound()
 end
 
 function SWEP:OnMeleeHit(hitent, hitflesh, tr)
-
+	
 	local effectdata = EffectData()
 		effectdata:SetOrigin(tr.HitPos)
 		effectdata:SetNormal(tr.HitNormal)
 		effectdata:SetMagnitude(1)
 		effectdata:SetScale(0.5)
 		util.Effect("GlassImpact", effectdata)
+	
+	if SERVER then
+		if math.random(1,2) == 1 then
+			self.Owner:EmitSound("physics/glass/glass_bottle_break1.wav", 80, math.Rand(90, 105))	
+			DropWeapon(self.Owner)
+			self:Remove()	
+		end
+	end	
 end
 
 
