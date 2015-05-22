@@ -60,10 +60,10 @@ SWEP.Base = "weapon_zs_undead_base"
 SWEP.ViewModel = Model("models/weapons/v_zombiearms.mdl")
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
-SWEP.Primary.Reach = 45
-SWEP.Primary.Duration = 2.1
-SWEP.Primary.Delay = 1.4
-SWEP.Primary.Damage = math.random(45,50)
+SWEP.Primary.Reach = 48
+SWEP.Primary.Duration = 1.4
+SWEP.Primary.Delay = 0.6
+SWEP.Primary.Damage = 30
 
 SWEP.ShowWorldModel = false
 
