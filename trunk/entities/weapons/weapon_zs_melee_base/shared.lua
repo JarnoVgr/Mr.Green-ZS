@@ -247,7 +247,7 @@ function SWEP:StartSwinging()
 	end
 
 	--Viewpunch
-	self.Owner:MeleeViewPunch(math.random(0.2,0.4))
+	--self.Owner:MeleeViewPunch(math.random(0.2,0.4))
 
 	self:SetSwingEnd(CurTime() + swingtime)
 end

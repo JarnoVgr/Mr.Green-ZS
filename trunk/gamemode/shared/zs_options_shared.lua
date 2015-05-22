@@ -449,7 +449,7 @@ GM.Perks = {
 	
 	--["_pulsecash"] = {Name = "Pulse Cash", Description = "+5sp from turret kills.", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
 	["_blast"] = {Name = "Blast Proof", Description = "+50% resistance to explosives", RequiresWeapon = "_engineer", Slot = 2}, --Done
-	["_mine"] = {Name = "Multi C4", Description = "Place up to 10 C4 on the floor instead of 5! ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 2}, --Done	
+	["_mine"] = {Name = "Multi C4", Description = "Place up to 10 C4 on the floor instead of 5 | +4 C4 on spawn ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 2}, --Done	
 	["_sboost"] = {Name = "Get to the chopper!", Description = "+15% movement speed", RequiresWeapon = "_engineer", Slot = 2}, --Done
 
 	

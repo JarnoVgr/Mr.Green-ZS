@@ -90,7 +90,7 @@ function SWEP:Equip ( NewOwner )
 	if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false
 		if self.Owner:GetPerk("_mine") then
-			self.Primary.DefaultClip = 8	
+			self.Weapon:SetClip1( 8 ) 	
 		end		
 	end
 		
