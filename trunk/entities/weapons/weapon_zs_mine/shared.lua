@@ -92,7 +92,7 @@ function SWEP:Equip ( NewOwner )
 		end	
 		
 		if self.Owner:GetPerk("_mine") then
-			NewOwner:GiveAmmo(4, self:GetPrimaryAmmoTypeString())	
+			NewOwner:GiveAmmo(4, self:GetSecondaryAmmoTypeString())	
 		end
 	
 	
