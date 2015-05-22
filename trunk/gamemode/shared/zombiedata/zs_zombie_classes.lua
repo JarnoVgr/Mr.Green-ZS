@@ -292,9 +292,9 @@ ZombieClasses[4] =
 	CanGib = true,
 	SWEP = "weapon_zs_undead_spitter",
 	Model = Model( "models/player/soldier_stripped" ),
-	Speed = 180,
+	Speed = 170,
 	Description = "A ghastly figure which can disguise itself as a human!",
-	DescriptionGameplay = {"> PRIMARY: Claws", "> SECONDARY: Disguise as a human!", "> SPECIAL: Ignored by turrets and proximity C4", "> HEALTH: 125 ", "> SPEED: 180", "> DAMAGE: 20" },
+	DescriptionGameplay = {"> PRIMARY: Claws", "> SECONDARY: Disguise as a human!", "> SPECIAL: Ignored by turrets and proximity C4", "> HEALTH: 125 ", "> SPEED: 170", "> DAMAGE: 20" },
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),
