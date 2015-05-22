@@ -268,6 +268,10 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 			-- end
 		else
 			fSpeed = math.Round ( fSpeed * fHealthSpeed )
+			
+			if mOwner:GetPerk("_berserk") and fHealth < 41 then
+				fSpeed = fSpeed * 1.1
+			end			
 		end
 	end
 

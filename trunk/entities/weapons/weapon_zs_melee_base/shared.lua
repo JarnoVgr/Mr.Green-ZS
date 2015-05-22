@@ -241,20 +241,14 @@ function SWEP:StartSwinging()
 	self:PlayStartSwingSound()
 	
 	local swingtime = self.SwingTime
-	
-	if self.Owner and self.Owner:GetSuit() == "meleesuit" then
-		swingtime = math.Clamp(self.SwingTime-0.5,0,self.SwingTime)
-	end
-	
+		
 	if self.Owner and self.Owner:GetPerk("_psychotic") then
-		swingtime = math.Clamp(self.SwingTime-0.99,0,self.SwingTime)
+		swingtime = math.Clamp(self.SwingTime*0.6,0,self.SwingTime)
 	end
 
 	--Viewpunch
-	--owner:MeleeViewPunch(math.random(5,30))
-	if self.Owner and self.Owner:GetPerk("_psychotic") then
-		self:SetSwingEnd(CurTime() + swingtime / 2)
-	end
+	owner:MeleeViewPunch(math.random(5,10))
+
 	self:SetSwingEnd(CurTime() + swingtime)
 end
 

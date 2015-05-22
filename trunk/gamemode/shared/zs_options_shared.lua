@@ -258,7 +258,7 @@ GM.HumanWeapons = {
         --Tool1
         ["weapon_zs_barricadekit"] = { Name = "Agies Barricading kit", DPS = 0, Infliction = 0, Type = "tool1" },
         --Tool2
-        ["weapon_zs_tools_plank"]  = { Name = "Pack of Planks", DPS = 0, Infliction = 0, Type = "tool2", Description = "Help your team mates, bring extra planks!", Price = 80  },
+        ["weapon_zs_tools_plank"]  = { Name = "Pack of Planks", DPS = 0, Infliction = 0, Type = "tool2", Description = "Help your team mates, bring extra planks!", Price = 70  },
        
         --Pickups
         ["weapon_zs_pickup_gascan"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },
@@ -269,7 +269,7 @@ GM.HumanWeapons = {
        
  
         --Special Items
-        ["weapon_zs_special_vodka"]  = { Name = "Vodka", DPS = 0, Infliction = 0, Type = "misc", Price = 100 }, --Duby: I essentially wanted to get some interest back into the dice and the game. This did the trick!
+        ["weapon_zs_special_vodka"]  = { Name = "Vodka", DPS = 0, Infliction = 0, Type = "misc", Price = 80 }, --Duby: I essentially wanted to get some interest back into the dice and the game. This did the trick!
         ["weapon_zs_special_bottleofwine"]  = { Name = "Bottle ol Wine", DPS = 0, Infliction = 0, Type = "tool1", Price = 60 },
         ["weapon_zs_special_chembomb"]  = { Name = "Chemical Nade", DPS = 0, Infliction = 0, Type = "misc" },
        
@@ -400,7 +400,7 @@ GM.Perks = {
 	--Berserker
 	
 	["_freeman"] = {Name = "Berserker Fury", Description = "20% more damage with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_psychotic"] = {Name = "Psychotic", Description = "+4 health from kills.", RequiresWeapon = "_berserker", Slot = 1}, --Done
+	["_psychotic"] = {Name = "Psychotic", Description = "+4 health from kills | +60% melee swing speed", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads. -15% melee damage.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
 	["_oppressive"] = {Name = "Oppressive", Description = "Smash zombies away with your mighty weapons!", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
 	
