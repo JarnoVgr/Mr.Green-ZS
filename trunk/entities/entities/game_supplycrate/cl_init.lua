@@ -35,7 +35,7 @@ function ENT:Draw()
 
 	--Check for distance with local player
 	local pos = self:GetPos() + Vector(0,0,45)
-	if pos:Distance(MySelf:GetPos()) > 500 then
+	if pos:Distance(MySelf:GetPos()) > 256 then
 		return
 	end
 		  
@@ -47,7 +47,7 @@ function ENT:Draw()
 	cam.Start3D2D(pos,angle,0.26)
 
 	--draw.SimpleTextOutlined("Weapons and Supplies", "ArialBoldSeven", 0, -100, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255)) --New
-	draw.SimpleTextOutlined("SkillShop", "ArialBoldSeven", 0, -20, Color(255,255,255,200), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,200)) --New
+	draw.SimpleTextOutlined("SkillShop", "ArialBoldSeven", 0, -20, Color(255,255,255,200), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,250)) --New
 
 		
 	--Get list of available weapons the player will most likely receive
@@ -55,10 +55,10 @@ function ENT:Draw()
 	local text = "USE | Browse shop "
 
 		--draw.SimpleTextOutlined(text, "ArialBoldFour", 0, -85, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255)) --New
-		draw.SimpleTextOutlined(text, "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,200)) --New
+		draw.SimpleTextOutlined(text, "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,250)) --New
 
  
- 		draw.SimpleTextOutlined("F3 | Salvage weapons for SP!", "ArialBoldFour", 0, 0, Color(255,255,255,200), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,200)) --New
+ 		draw.SimpleTextOutlined("F3 | Salvage weapons for SP!", "ArialBoldFour", 0, 0, Color(255,255,255,250), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,200)) --New
  
 	cam.End3D2D()
 end
