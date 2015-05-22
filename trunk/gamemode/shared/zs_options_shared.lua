@@ -357,9 +357,9 @@ GM.RankUnlocks = {
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2","_lethal"},
 	
-	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive","_medigun"},
+	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive","_medigun","_pulsepistol"},
 	
-	[4] = {"_poisonprotect","_kevlar2","_bloodmoney","_sboost","_reload"},
+	[4] = {"_poisonprotect","_kevlar2","_bloodmoney","_sboost","_reload","_turretsp"},
 	
 	[5] = {"_turret","_psychotic","_repairs", "_supply", "_sboost2", "_musket"},
 	
@@ -412,7 +412,7 @@ GM.Perks = {
 	["_pulsepistol"] = {Name = "Pulse Pistol", Description = "Spawn with the pulse pistol", RequiresWeapon = "_engineer", Slot = 1},	--Done
 	["_combat"] = {Name = "Combat Turret", Description = "Gives the Combat turret.", RequiresWeapon = "_engineer", Slot = 1},	--Done	
 	["_remote"] = {Name = "Turret Remote", Description = "[REPLACES SECONDARY] Control the turret with this gadget! Your turret shoots 2 bullets for the cost of 1!", RequiresWeapon = "_engineer", Slot = 1}, -- Done	
-	
+	["_mine"] = {Name = "Multi C4", Description = "Place up to 10 C4 on the floor instead of 5 | +4 C4 on spawn ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 1}, --Done		
 	--Sharpshooter
 	
 	["_lethal"] = {Name = "Python", Description = "Spawn with the python", RequiresWeapon = "_sharpshooter", Slot = 1}, --Done
@@ -447,10 +447,9 @@ GM.Perks = {
 	
 	--Engineer
 	
-	--["_pulsecash"] = {Name = "Pulse Cash", Description = "+5sp from turret kills.", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
+	["_turretsp"] = {Name = "Turret Revenue", Description = "+10 SP from turret kills", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
 	["_blast"] = {Name = "Blast Proof", Description = "+50% resistance to explosives", RequiresWeapon = "_engineer", Slot = 2}, --Done
-	["_mine"] = {Name = "Multi C4", Description = "Place up to 10 C4 on the floor instead of 5 | +4 C4 on spawn ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 2}, --Done	
-	["_sboost"] = {Name = "Get to the chopper!", Description = "+15% movement speed", RequiresWeapon = "_engineer", Slot = 2}, --Done
+	["_sboost"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_engineer", Slot = 2}, --Done
 
 	
 	--Sharpshooter
