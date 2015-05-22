@@ -138,7 +138,7 @@ function SWEP:StartSecondaryAttack()
 		local fHitPercentage = math.Clamp(1 - (fDistance / self.Secondary.Reach), 0, 1)
 															
 		--Inflict damage
-		local fDamage = math.Round(25 * fHitPercentage, 0, 10)
+		local fDamage = math.Round(20 * fHitPercentage, 0, 10)
 	--	local fDamage = math.Round(12 * fHitPercentage, 0, 10)
 	
 		if fDamage > 0 then
@@ -154,7 +154,7 @@ function SWEP:StartSecondaryAttack()
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage * 1.3
+		local fFuckIntensity = fHitPercentage * 3
 
 		
 		if v:GetPerk("_berserker") then
