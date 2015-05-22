@@ -236,9 +236,9 @@ GM.HumanWeapons = {
        
         --Map Only
         ["weapon_zs_melee_beer"]  = { Name = "Beer Bottle", DPS = 30, Infliction = 0, Type = "melee", Description = "Alcohol!", Price = 60 },
-        ["weapon_zs_melee_keyboard"]  = { Name = "Keyboard", DPS = 45, Infliction = 0, Type = "melee", Description = "There's no better way to express your online anger.", Price = 60 },
-        ["weapon_zs_melee_pot"]  = { Name = "Pot", DPS = 61, Infliction = 0, Type = "melee", Description = "Don't do school stay in drugs, live the pot!", Price = 60 },
-        ["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee", Description = "Cooking by the book.", Price = 600 },
+        ["weapon_zs_melee_keyboard"]  = { Name = "Keyboard", DPS = 45, Infliction = 0, Type = "melee", Description = "There's no better way to express your online anger.", Price = 70 },
+        ["weapon_zs_melee_pot"]  = { Name = "Pot", DPS = 61, Infliction = 0, Type = "melee", Description = "Don't do school stay in drugs, live the pot!", Price = 70 },
+        ["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee", Description = "Cooking by the book.", Price = 70 },
         ["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Description = "", Price = 120 },
         ["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee", Description = "Whoops. Looks like I shouldn't of hit him so hard..", Price = 100  },
         ["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee", Description = "Clunk, oh look his head fell off..", Price = 100  },
