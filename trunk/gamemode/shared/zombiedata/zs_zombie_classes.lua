@@ -31,10 +31,10 @@ ZombieClasses[0] =
 	CanCrouch = true,
 	CanGib = true, 
 	Model = Model("models/player/zombie_classic.mdl"),
-	Speed = 150,
+	Speed = 146,
 	AngleFix = true,
 	Description = "The backbone of the horde.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 240 ", "> SPEED: 150", "> DAMAGE: 23" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 240 ", "> SPEED: 146", "> DAMAGE: 23" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
 		Sound("npc/zombie/zombie_pain1.wav"),
