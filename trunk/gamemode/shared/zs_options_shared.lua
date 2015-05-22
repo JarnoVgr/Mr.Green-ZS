@@ -419,7 +419,7 @@ GM.Perks = {
 	["_accuracy2"] = {Name = "Kinetic Absorption", Description = "No recoil while in iron sight", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
 	["_highcal"] = {Name = "Reinforced Calibre", Description = "Greater bullet knock back", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
 	["_supply"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users. +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
-	["_musket"] = {Name = "Musket Boy", Description = "+1 musket clipsize", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
+	["_musket"] = {Name = "Musket Boy", Description = "+2 musket clipsize", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
 	
 					--[[Slot 2 'personal perk']]--
 	--Medic
@@ -522,7 +522,7 @@ CARRY_SPEEDLOSS_MINSPEED = 160
 -- -- -- -- -- -- -- -- /
 
 -- Maximum crates per map
-MAXIMUM_CRATES = 2 -- math.random(2, 3)
+MAXIMUM_CRATES = 3 -- math.random(2, 3)
 
 -- Use Zombie Survival's custom footstep sounds? I'm not sure how bad it might lag considering you're potentially sending a lot of data on heavily packed servers.
 CUSTOM_FOOTSTEPS = false
