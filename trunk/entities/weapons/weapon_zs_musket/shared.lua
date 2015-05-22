@@ -65,7 +65,7 @@ SWEP.Primary.ReloadDelay	= 1.6
 
 SWEP.Cone = 0.048
 SWEP.ConeMoving = SWEP.Cone *1.3
-SWEP.ConeCrouching = SWEP.Cone *03
+SWEP.ConeCrouching = SWEP.Cone *0.3
 SWEP.ConeIron = SWEP.Cone *0.3
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.3
 
