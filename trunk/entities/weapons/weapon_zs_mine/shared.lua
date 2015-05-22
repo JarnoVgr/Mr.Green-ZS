@@ -92,7 +92,7 @@ function SWEP:Equip ( NewOwner )
 		end	
 		
 		if self.Owner:GetPerk("_mine") then
-			self.Primary.DefaultClip = 8
+			self.Clip1 = 8
 		end
 	
 	
