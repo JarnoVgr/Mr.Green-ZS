@@ -873,11 +873,11 @@ function CalculatePlayerHealth(pl)
 		DataTableConnected[pl:UniqueID() or "UNCONNECTED"].Health = false
 	end
 	
-	if pl:GetPerk("_kevlarsupport") then
+	if pl:GetPerk("_kevlarsupport") and pl:GetPerk("_support2") then
 		MaxHealth, Health = 150, 150
 	end	
 	
-	if pl:GetPerk("_kevlar2") then
+	if pl:GetPerk("_kevlar2") and pl:GetPerk("_sharpshooter") then
 		MaxHealth, Health = 100, 150
 	end		
 	
@@ -885,7 +885,7 @@ function CalculatePlayerHealth(pl)
 		MaxHealth, Health = 100 + (100*(5*pl:GetRank())/100), 100 + (100*(5*pl:GetRank())/100)
 	end	
 	
-	if pl:GetPerk("_kevlarcommando") then
+	if pl:GetPerk("_kevlarcommando") and pl:GetPerk("_commando") then
 		Health = MaxHealth + 50
 	end	
 
