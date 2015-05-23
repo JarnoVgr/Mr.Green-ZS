@@ -754,7 +754,7 @@ function meta:SpawnAsZombieBoss()
 	self:SetZombieClass(table.Random(BOSS_CLASS))
 	
 	if team.NumPlayers(TEAM_HUMAN) > 6 then
-		self:SetHealth(self:Health() + (100 * (team.NumPlayers(TEAM_HUMAN) - 10))) 
+		self:SetHealth(self:Health() + (100 * (team.NumPlayers(TEAM_HUMAN) - 6))) 
 	end
 	
 	self.DeathClass = nil
@@ -826,7 +826,7 @@ function meta:SecondWind(pl)
 	self.Revived = nil
 	self.DeathClass = dclass
 	self:SetPos(pos)
-	self:SetHealth(self:Health() * 0.4)
+	self:SetHealth(self:Health() * 0.3)
 	self:SetEyeAngles(angles)
 	self:EmitSound("npc/zombie/zombie_voice_idle"..math.random(1, 14)..".wav", 100, 85)
 	self:TemporaryNoCollide()
@@ -1210,7 +1210,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	
 	if bNailDied then
 		--Damage prop a bit to prevent nail abuse
-		dmginfo:ScaleDamage(1)
+		dmginfo:ScaleDamage(1.5)
 		
 		--Enable motion and reset for optimization
 		if #self.Nails == 0 then

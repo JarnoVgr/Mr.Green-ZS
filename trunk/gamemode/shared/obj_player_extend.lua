@@ -87,8 +87,6 @@ if CLIENT then
 				else
 					returnCount = returnCount + 1
 				end
-			elseif pl:IsBoss() then
-				returnCount = returnCount + 6
 			end
 		end
 

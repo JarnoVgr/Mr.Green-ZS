@@ -48,7 +48,7 @@ SPEED_HEAVY = SPEED - 30
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8		--It's meant for creating hordes, doesnt make sense for a zombie to be in a horde if they're across the map.
-HORDE_MAX_DISTANCE = 1000 --Leave this! It affects the beats and how they play. They play best as this number, do not touch it Pufu!
+HORDE_MAX_DISTANCE = 800 --Leave this! It affects the beats and how they play. They play best as this number, do not touch it Pufu!
 
 
 BONUS_RESISTANCE_WAVE = 5

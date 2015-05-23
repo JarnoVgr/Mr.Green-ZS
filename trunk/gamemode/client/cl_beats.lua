@@ -134,7 +134,7 @@ concommand.Add("zs_turretnickname",SetTurretNick)
 HCOLORMOD = true
 
 CreateClientConVar("zs_viewmodel_fov", 0, true, true)
-CreateClientConVar("zs_wepfov", 57, true, true) --Obsolete
+CreateClientConVar("zs_wepfov", 60, true, true) --Obsolete
 
 ENABLE_BLOOD = false
 
@@ -142,7 +142,7 @@ local NextBeat = 0
 local LastBeatLevel = 0
 local function PlayBeats(teamid, am)
 	--if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
-	if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
+	if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
 		return
 	end
 	--print(am)
