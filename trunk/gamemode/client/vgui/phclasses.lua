@@ -641,8 +641,14 @@ function DrawClassIcon(x, y, ww, hh, wepclass, parent, num, weptype)
 					Unlocks[i] = nil
 				end
 			end
+
+			--Note from Ywa: This looks like a horrible workaround. Gives errors in some cases. Please improve this! (I already added the condition check to prevent most problems)
 			timer.Simple(10,function() --Lazy debug, fixed the issue though
 				--SlotLabel[i].Active = false
+				if not Unlocks or not Unlocks[i] then
+					return
+				end
+
 				Unlocks[i]:Remove()
 				--Unlocks[i] = nil
 				

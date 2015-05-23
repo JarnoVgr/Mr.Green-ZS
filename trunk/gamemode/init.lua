@@ -175,6 +175,9 @@ include("modules/fpsbuff/sh_nixthelag.lua")
 --Compass
 include("modules/compass/sv_compass.lua")
 
+--Dynamic MaxPlayers
+include("modules/dynamic_maxplayers/sv_init.lua")
+
 --Christmas
 if CHRISTMAS then
 	--Snow
@@ -185,12 +188,17 @@ if HALLOWEEN then
 	AddCSLuaFile("modules/halloween/blood.lua")
 end
 
---Disable sv_alltalk chat notification
+--Disable sv_alltalk and sv_visiblemaxplayers chat notification
 if file.Exists("bin/gmsv_cvar3_*.dll", "LUA") then
 	require("cvar3")
 	local cvAllTalk = GetConVar("sv_alltalk")
 	if cvAllTalk:GetFlags() ~= FCVAR_NOTIFY then
 		cvAllTalk:SetFlags(FCVAR_NOTIFY)
+	end
+	
+	local cvVisibleMaxPlayers = GetConVar("sv_visiblemaxplayers")
+	if cvVisibleMaxPlayers:GetFlags() ~= FCVAR_NOTIFY then
+		cvVisibleMaxPlayers:SetFlags(FCVAR_NOTIFY)
 	end
 end
 
@@ -205,6 +213,10 @@ gmod.BroadcastLua = gmod.BroadcastLua or function( lua )
 	local players = player.GetAll()
 	for i=1,#players do
 		local pl = players[i]
+		if not IsValid(pl) then
+			continue
+		end
+		
 		pl:SendLua(lua)
 	end
 end
