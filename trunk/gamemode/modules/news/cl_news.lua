@@ -4,10 +4,11 @@ local GeneralInfo = {
 	"In need of GreenCoins? Visit MrGreenGaming.com for more info.",
 	"Our forums can be found on MrGreenGaming.com",
 	"Support the server by paying for GreenCoins. Visit MrGreenGaming.com for more info.",
-	"Addicted to the chat? On our website you can chat with the players ingame.",
-	"Press F4 to change some advanced gameplay options.",
-	"We highly appreciate your feedback. Let us know what you think about our server.",
-	"Don't hesitate to ask in the chat if you need something to be cleared up for you."
+	--"Addicted to the chat? On our website you can chat with the players ingame.",
+	--"Press F4 to change some advanced gameplay options.",
+	--"We highly appreciate your feedback. Let us know what you think about our server.",
+	"Bugs or issues? Report them on the forums at MrGreenGaming.com"
+	
 }
 GeneralInfo = table.Shuffle(GeneralInfo)
 
