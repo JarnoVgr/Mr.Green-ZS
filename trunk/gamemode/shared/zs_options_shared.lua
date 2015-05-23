@@ -143,7 +143,7 @@ GM.HumanWeapons = {
         ["weapon_zs_deagle"]  = { Name = "Desert Eagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 100},		
         ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 100, Description = "Bish bash bosh, fast smacking and hard hitting!", HumanClass = "berserker" },  
         ["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 400, HumanClass = "berserker" },
-        ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 800, HumanClass = "berserker" },
+        ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 600, HumanClass = "berserker" },
         ["weapon_zs_melee_katana"]  = { Name = "Katana", DPS = 90, Infliction = 0, Type = "melee", Price = 600, Description = "Handle with care. It's very sharp." , HumanClass = "berserker"},
         ["weapon_zs_melee_chainsaw"]  = { Name = "Chainsaw", DPS = 30, Infliction = 0, Type = "melee", Price = 800, Description = "This may become a bit gory.", HumanClass = "berserker" },   
        
@@ -159,7 +159,7 @@ GM.HumanWeapons = {
 		
         --Support
         ["weapon_zs_smg"]  = { Name = "Classic SMG", DPS = 125, Infliction = 0.65, Type = "smg", Price = 100, HumanClass = "support"},
-        ["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143, Infliction = 0, Price = 150, Type = "shotgun", HumanClass = "support" },       		
+        ["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143, Infliction = 0, Price = 140, Type = "shotgun", HumanClass = "support" },       		
         ["weapon_zs_mac10"]  = { Name = "Mac 10", DPS = 126, Infliction = 0.60, Type = "smg", Price = 300, HumanClass = "support" },   
         ["weapon_zs_ump"]  = { Name = "UMP", DPS = 110, Infliction = 0.60, Type = "smg", Price = 500, HumanClass = "support" },
         ["weapon_zs_m3super90"]  = { Name = "M3 Shotgun", DPS = 149, Infliction = 0, Type = "shotgun", Price = 550, HumanClass = "support"}, 		
@@ -167,17 +167,15 @@ GM.HumanWeapons = {
         ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 850, HumanClass = "support"},		
     
 	
-        ["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 120 }, -- 860	
+        ["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 100 }, -- 860	
         --["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127, Infliction = 0.58, Type = "smg", Price = 300, HumanClass = "support" },
 	
         --Medic
         ["weapon_zs_medi2"]  = { Name = "Medi 02", DPS = 143, Infliction = 0, Type = "shotgun",Price = 300, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
         ["weapon_zs_medi3"]  = { Name = "Medi 03", DPS = 143, Infliction = 0, Type = "smg",Price = 600, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		["weapon_zs_medi1"]  = { Name = "Medi 01", DPS = 143, Infliction = 0, Type = "pistol",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
-		
         ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 200, HumanClass = "medic" },
-        ["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 300, Description = "Russian Roulette Revolver", HumanClass = "sharpshooter" },
-        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 200, Description = "Alyx is hot. But her gun is even more hot.", HumanClass = "medic" }, 
+        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 100, Description = "Alyx is hot. But her gun is even more hot.", HumanClass = "medic" }, 
 
 		
         ["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Description = "High fire rate thanks to having two pistols in your hands."},
@@ -186,14 +184,16 @@ GM.HumanWeapons = {
         --Sharpshooter
         ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 120, HumanClass = "sharpshooter"},         
         ["weapon_zs_python"]  = { Name = "Python", DPS = 93, Infliction = 0.2, Price = 100, Type = "pistol", HumanClass = "sharpshooter"},       
-        ["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40, Infliction = 0, Type = "rifle", Price = 300, Description = "Light-weight sniper.", HumanClass = "sharpshooter" },    
+        ["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40, Infliction = 0, Type = "rifle", Price = 300, Description = "Light-weight sniper.", HumanClass = "sharpshooter" }, 
+		["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 300, Description = "Russian Roulette Revolver", HumanClass = "sharpshooter" },		
         ["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 600, HumanClass = "sharpshooter"  },
         ["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70, Infliction = 0.65, Type = "rifle", HumanClass = "sharpshooter"  },
         ["weapon_zs_awp"]  = { Name = "AWP", DPS = 200, Infliction = 0, Type = "rifle", Price = 900, Description = "Heavy sniper.", HumanClass = "sharpshooter" },     
        
+	   
         --Engineer
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 100, HumanClass = "engineer"},                      
-        ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 400, HumanClass = "engineer"},
+        ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 300, HumanClass = "engineer"},
         ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 99, Infliction = 0, Type = "smg", Price = 800, HumanClass = "engineer"},
 
  
@@ -236,9 +236,9 @@ GM.HumanWeapons = {
        
         --Map Only
         ["weapon_zs_melee_beer"]  = { Name = "Beer Bottle", DPS = 30, Infliction = 0, Type = "melee", Description = "Alcohol!", Price = 60 },
-        ["weapon_zs_melee_keyboard"]  = { Name = "Keyboard", DPS = 45, Infliction = 0, Type = "melee", Description = "There's no better way to express your online anger.", Price = 80 },
-        ["weapon_zs_melee_pot"]  = { Name = "Pot", DPS = 61, Infliction = 0, Type = "melee", Description = "Don't do school stay in drugs, live the pot!", Price = 80 },
-        ["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee", Description = "Cooking by the book.", Price = 80 },
+        ["weapon_zs_melee_keyboard"]  = { Name = "Keyboard", DPS = 45, Infliction = 0, Type = "melee", Description = "There's no better way to express your online anger.", Price = 70 },
+        ["weapon_zs_melee_pot"]  = { Name = "Pot", DPS = 61, Infliction = 0, Type = "melee", Description = "Don't do school stay in drugs, live the pot!", Price = 60 },
+        ["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee", Description = "Cooking by the book.", Price = 60 },
         ["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Description = "", Price = 120 },
         ["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee", Description = "Whoops. Looks like I shouldn't of hit him so hard..", Price = 100  },
         ["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee", Description = "Clunk, oh look his head fell off..", Price = 100  },

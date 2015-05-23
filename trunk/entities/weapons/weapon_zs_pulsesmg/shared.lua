@@ -105,7 +105,7 @@ SWEP.ConeIronMoving	 = SWEP.ConeMoving *0.9
 --SWEP.IronSightsPos = Vector(-2, -4, 1.5)
 --SWEP.IronSightsAng = Vector(0,0,0)
 
-SWEP.IronSightsPos = Vector(-6.361, -7.047, 0.92)
+SWEP.IronSightsPos = Vector(-2, -4, 0.92)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.Secondary.ClipSize		= -1

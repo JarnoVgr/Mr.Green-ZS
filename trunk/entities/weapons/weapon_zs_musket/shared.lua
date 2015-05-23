@@ -54,16 +54,16 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound = Sound("weapons/scout/scout_fire-1.wav")
 SWEP.Primary.Recoil			= 4
-SWEP.Primary.Damage			= 60
+SWEP.Primary.Damage			= 50
 SWEP.Primary.NumShots		= 2
-SWEP.Primary.ClipSize		= 1
+SWEP.Primary.ClipSize		= 2
 SWEP.Primary.Delay			= 1.4
 SWEP.Primary.DefaultClip	= 12
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "357"
 SWEP.Primary.ReloadDelay	= 1.6
 
-SWEP.Cone = 0.048
+SWEP.Cone = 0.057
 SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.3
 SWEP.ConeIron = SWEP.Cone *0.3
