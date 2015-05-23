@@ -19,7 +19,7 @@ SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
-
+SWEP.ActualClipSize = -1
 SWEP.SpeedBonus = 0
 
 SWEP.WalkSpeed = SPEED
@@ -35,8 +35,8 @@ end
 
 function SWEP:Initialize()
 	self:SetWeaponHoldType(self.HoldType)
-	self:SetDeploySpeed(1.1)	
-
+	self:SetDeploySpeed(1.1)
+	self.ActualClipSize	= self.ClipSize
 	if CLIENT then
 		--Set default FOV
 		if self.ViewModelFOV then
@@ -179,10 +179,10 @@ function SWEP:Deploy()
 
 		self.SpeedBonus = 0.03 + (self.Owner:GetRank()*0.3)/100	
 	
-		self.Primary.ClipSize = self.Primary.ClipSize * 0.1 + self.Primary.ClipSize + (self.Primary.ClipSize * (self.Owner:GetRank() * 2) / 100)	
+		self.Primary.ClipSize = self.ActualClipSize * 0.1 + self.ActualClipSize + (self.ActualClipSize * (self.Owner:GetRank() * 2) / 100)	
 		
 		if self.Owner.DataTable["ShopItems"][52] then
-			self.Primary.ClipSize = self.Primary.ClipSize + self.Primary.ClipSize * 0.2
+			self.Primary.ClipSize = self.Primary.ClipSize + self.ActualClipSize * 0.2
 		end
 		
 	end	
