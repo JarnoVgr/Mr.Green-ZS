@@ -20,6 +20,7 @@ SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
 
+SWEP.SpeedBonus = 0
 
 SWEP.WalkSpeed = SPEED
 
@@ -34,7 +35,7 @@ end
 
 function SWEP:Initialize()
 	self:SetWeaponHoldType(self.HoldType)
-	self:SetDeploySpeed(1.1)
+	self:SetDeploySpeed(1.1)	
 
 	if CLIENT then
 		--Set default FOV
@@ -58,22 +59,15 @@ function SWEP:OnInitialize()
 end
 
 function SWEP:PrimaryAttack()
-	local bonus = 0
 	
-	if self.Owner:GetPerk("_commando") then
-		bonus = (self.Owner:GetRank()*0.3)/100	
-	end
-	
-	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay - bonus)
+	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay - self.SpeedBonus)
 	
 	if not self:CanPrimaryAttack() then
 		return
 	end
 
-	
 	self:EmitFireSound()
 	self:TakeAmmo()
-	
 	
 	local Owner = self.Owner
 
@@ -181,6 +175,18 @@ function SWEP:Deploy()
 	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
 
+	if self.Owner:GetPerk("_commando") then
+
+		self.SpeedBonus = 0.03 + (self.Owner:GetRank()*0.3)/100	
+	
+		self.Primary.ClipSize = self.Primary.ClipSize * 0.1 + self.Primary.ClipSize + (self.Primary.ClipSize * (self.Owner:GetRank() * 2))	
+		
+		if self.Owner.DataTable["ShopItems"][52] then
+			self.Primary.ClipSize = self.Primary.ClipSize + self.Primary.ClipSize * 0.2
+		end
+		
+	end	
+	
 	if CLIENT then
 		self:CheckCustomIronSights()
 
@@ -267,24 +273,8 @@ function SWEP:TranslateActivity(act)
 end
 
 function SWEP:TakeAmmo()
-
-	if self.Owner:GetPerk("_commando") then
-
-		local chance = 12 - self.Owner:GetRank()
-		
-		if self.Owner.DataTable["ShopItems"][52] then
-			chance = chance - 1
-		end
-		
-		if math.random(1,chance) != 1 then
-		self:TakePrimaryAmmo(1)	
-		end
-	else
-		self:TakePrimaryAmmo(1)	
-	end
-	
+	self:TakePrimaryAmmo(1)	
 end
-
 
 function SWEP:Reload()
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
@@ -371,10 +361,10 @@ end
 function SWEP:DoBulletKnockback()
 	for ent, prevvel in pairs(tempknockback) do
 		local curvel = ent:GetVelocity()
-		if self.Owner:GetPerk("_highcal") then
-			ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.05 + prevvel)
-		end
-			ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.0125 + prevvel)
+		--if self.Owner:GetPerk("_highcal") then
+		--	ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.05 + prevvel)
+		--end
+		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.05 + prevvel)
 	end
 end
 
@@ -411,25 +401,6 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 	local punch = self.Owner:GetViewPunchAngles():Forward()
 	punch.x = punch.x - 1
 
-	
-	if self.Primary.Ammo == "pistol" and self.Owner:GetPerk("_medic") then
-		dmg = dmg + (dmg * (3*self.Owner:GetRank() / 100))
-		
-	elseif self.Primary.Ammo == "rifle" and self.Owner:GetPerk("_commando") then
-		dmg = dmg + (dmg * (3*self.Owner:GetRank() / 100))
-		
-	elseif self.Primary.Ammo == "smg1" and self.Owner:GetPerk("_support") or self.Primary.Ammo == "buckshot" and self.Owner:GetPerk("_support") then
-		dmg = dmg + (dmg * (3*self.Owner:GetRank() / 100))		
-		
-	elseif self.Primary.Ammo == "357" and self.Owner:GetPerk("_sharpshooter") then
-		dmg = dmg + (dmg * (3*self.Owner:GetRank() / 100))	
-	elseif self.Primary.Ammo == "Battery" and self.Owner:GetPerk("_medic") then --mediguns
-		dmg = dmg + (dmg * (3*self.Owner:GetRank() / 100))
-	elseif self.Primary.Ammo == "none" and self.Owner:GetPerk("_engineer") then
-		dmg = dmg + (dmg * (3*self.Owner:GetRank() / 100))					
-	end	
-
-	
 	self:StartBulletKnockback()
 	self.Owner:FireBullets({
 		Num = numbul,

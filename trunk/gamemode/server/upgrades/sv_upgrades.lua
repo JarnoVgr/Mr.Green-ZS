@@ -15,7 +15,26 @@ local ents = ents
 -- Process shop upgrades and more
 function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 
-	local damage = dmginfo:GetDamage()
+	local dmg = dmginfo:GetDamage()
+	
+	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
+		local mul = (attacker:GetRank() * 3) / 100 
+		if attacker:GetActiveWeapon().Primary.Ammo == "pistol" and attacker:GetPerk("_medic") then
+			dmg = dmg + (dmg * mul)
+		elseif attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("_commando") then
+			dmg = dmg + (dmg * mul)
+		elseif attacker:GetActiveWeapon().Primary.Ammo == "smg1" and attacker:GetPerk("_support") or attacker:GetActiveWeapon().Primary.Ammo == "buckshot" and attacker:GetPerk("_support") then
+			dmg = dmg + (dmg * mul)		
+		elseif attacker:GetActiveWeapon().Primary.Ammo == "357" and attacker:GetPerk("_sharpshooter") then
+			dmg = dmg + (dmg * mul)	
+		elseif attacker:GetActiveWeapon().Primary.Ammo == "Battery" and attacker:GetPerk("_medic") then --mediguns
+			dmg = dmg + (dmg * mul)
+		elseif attacker:GetActiveWeapon().Primary.Ammo == "none" and attacker:GetPerk("_engineer") then
+			dmg = dmg + (dmg * mul)					
+		end		
+	end
+	
+	dmginfo:SetDamage( dmg )	
 
 	--[[if attacker:IsPlayer() and ent:IsPlayer() then
 		if not ent:IsBot() and ent:IsPlayer() and ent:Team() == TEAM_HUMAN and ent:Alive() and ent:GetPerk("_enhkevlar") and attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD then
@@ -24,10 +43,10 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 	end]]--
 	
 	--  more damage when attacking with melee weapons
-	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and attacker:GetPerk("_freeman") and IsValid( inflictor ) then-- attacker:HasBought( "blessedfists" )
-		if inflictor:IsWeapon() and inflictor:GetType() == "melee" and not inflictor.IsTurretDmg then
-			dmginfo:SetDamage( damage * 1.2 )
-		end
-	end
+	--if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and attacker:GetPerk("_freeman") and IsValid( inflictor ) then-- attacker:HasBought( "blessedfists" )
+	--	if inflictor:IsWeapon() and inflictor:GetType() == "melee" and not inflictor.IsTurretDmg then
+	--		dmginfo:SetDamage( damage * 1.2 )
+	--	end
+	--end
 end
 
