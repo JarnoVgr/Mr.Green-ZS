@@ -271,10 +271,10 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	
 	
 	
-	fHealthSpeed = math.Clamp ( ( fHealth / 40 ), 0.75, 1 )
+	fHealthSpeed = math.Clamp ( ( fHealth / 40 ), 0.8, 1 )
 	
 	if bIron then
-		fSpeed = math.Round ( ( fSpeed * 0.75 ) * fHealthSpeed )
+		fSpeed = math.Round ( ( fSpeed * 0.8 ) * fHealthSpeed )
 	else
 		if mOwner:IsHolding() then
 			local status = mOwner.status_human_holding
