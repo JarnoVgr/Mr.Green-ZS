@@ -38,7 +38,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 0.45
+SWEP.Primary.Recoil			= 0.6
 SWEP.Primary.Damage			= 11
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 8
@@ -48,12 +48,12 @@ SWEP.Primary.Automatic		= false
 
 SWEP.Primary.Ammo			= "none"
 
-SWEP.Cone 			= 0.042
+SWEP.Cone 			= 0.048
 SWEP.ConeMoving		 = SWEP.Cone *1.3
-SWEP.ConeCrouching 	 = SWEP.Cone *0.90
-SWEP.ConeIron 		 = SWEP.Cone *0.95
-SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.9
-SWEP.ConeIronMoving	 = SWEP.ConeMoving *0.9
+SWEP.ConeCrouching 	 = SWEP.Cone *0.8
+SWEP.ConeIron 		 = SWEP.Cone *0.8
+SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.8
+SWEP.ConeIronMoving	 = SWEP.ConeMoving *0.8
 
 SWEP.IronSightsPos = Vector(-5.95, 7, 2 )
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
@@ -75,7 +75,7 @@ SWEP.lastfire = 0
 SWEP.rechargetimer = 0
 SWEP.rechargerate = 0.55
 SWEP.startcharge = 1
-SWEP.MaxClip = 12
+SWEP.MaxClip = 10
 
 
 
