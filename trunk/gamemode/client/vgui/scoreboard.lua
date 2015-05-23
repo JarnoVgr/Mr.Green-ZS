@@ -91,6 +91,7 @@ local function AddScoreboardItem(ply, list)
 		draw.SimpleTextOutlined(ply:Ping() , "ArialBoldFive", MainLabel[ply].Ping:GetWide()/2,MainLabel[ply].Ping:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 
+	--[[
 	MainLabel[ply].Health = MainLabel[ply]:Add( "DLabel" )
 	MainLabel[ply].Health:Dock( RIGHT )
 	MainLabel[ply].Health:SetText("")
@@ -113,7 +114,7 @@ local function AddScoreboardItem(ply, list)
 		
 		draw.SimpleTextOutlined(txt, "ArialBoldFive", MainLabel[ply].Health:GetWide()/2,MainLabel[ply].Health:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
-
+	--]]
 	MainLabel[ply].Kills = MainLabel[ply]:Add( "DLabel" )
 	MainLabel[ply].Kills:Dock(RIGHT)
 	MainLabel[ply].Kills:SetText("")
