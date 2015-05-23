@@ -84,7 +84,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("weapons/airboat/airboat_gun_lastshot"..math.random(1,2)..".wav")
-SWEP.Primary.Recoil			= 1.2
+SWEP.Primary.Recoil			= 0.7
 SWEP.Primary.Damage			= 11
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 20
@@ -127,8 +127,6 @@ function SWEP:Think()
 	if SERVER then
 		local ply = self.Owner
 		
-		
-		
 		if ply:KeyDown(IN_ATTACK) then
 			if not self.fired then
 				self.fired = true
@@ -146,11 +144,6 @@ function SWEP:Think()
 				self.Weapon:SetClip1(math.min(self.MaxClip, self.Weapon:Clip1() + 1))
 				self.rechargerate = 0.1
 				self.rechargetimer = CurTime() + self.rechargerate 
-				
-				if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "freeman" then --Ability for freeman suit!
-					self.Weapon:SetClip1(math.min(self.MaxClip, self.Weapon:Clip1() + 1))
-					self.rechargerate = 0.01
-				end
 			end
 			if self.fired then 
 				self.fired = false
