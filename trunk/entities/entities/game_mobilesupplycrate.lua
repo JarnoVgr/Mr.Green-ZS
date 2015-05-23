@@ -162,7 +162,7 @@ if SERVER then
 
 					--Finally give it
 					
-					if activator:GetPerk("_support") then
+					if activator:GetPerk("_support2") then
 						HowMuch = HowMuch + (HowMuch*(5*activator:GetRank())/100)
 					end
 					

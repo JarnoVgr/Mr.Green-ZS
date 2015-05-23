@@ -18,12 +18,12 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 	local dmg = dmginfo:GetDamage()
 	
 	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
-		local mul = (attacker:GetRank() * 3) / 100 
+		local mul = 0.1 + ((attacker:GetRank() * 2) / 100 )
 		if attacker:GetActiveWeapon().Primary.Ammo == "pistol" and attacker:GetPerk("_medic") then
 			dmg = dmg + (dmg * mul)
 		elseif attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("_commando") then
 			dmg = dmg + (dmg * mul)
-		elseif attacker:GetActiveWeapon().Primary.Ammo == "smg1" and attacker:GetPerk("_support") or attacker:GetActiveWeapon().Primary.Ammo == "buckshot" and attacker:GetPerk("_support") then
+		elseif attacker:GetActiveWeapon().Primary.Ammo == "smg1" and attacker:GetPerk("_support2") or attacker:GetActiveWeapon().Primary.Ammo == "buckshot" and attacker:GetPerk("_support") then
 			dmg = dmg + (dmg * mul)		
 		elseif attacker:GetActiveWeapon().Primary.Ammo == "357" and attacker:GetPerk("_sharpshooter") then
 			dmg = dmg + (dmg * mul)	

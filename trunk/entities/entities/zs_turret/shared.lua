@@ -240,11 +240,11 @@ if SERVER then
 						if ct > (self.NextAttackAction or 0) then
 							-- if not self:IsBlocked() then
 								if self:CanAttack() then
-									self.NextShoot = self.NextShoot or ct + 0.15 - (0.5*(5*self:GetTurretOwner():GetRank())/100)
+									self.NextShoot = self.NextShoot or ct + 0.15
 										--if ct > self.NextShoot then
 											self:Shoot()
 											self:ResetSequence(self:LookupSequence("fire"))
-											self.NextShoot = ct + 0.15	- (0.5*(5*self:GetTurretOwner():GetRank())/100)
+											self.NextShoot = ct + 0.15
 										--end
 								else
 									self.NextShoot = self.NextShoot or ct + 0.15	

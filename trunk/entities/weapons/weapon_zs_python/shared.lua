@@ -75,7 +75,7 @@ AddCSLuaFile()
     SWEP.WalkSpeed = SPEED_PISTOL
     SWEP.MaxBulletDistance          = 2000
      
-    SWEP.Cone = 0.03
+    SWEP.Cone = 0.06
     SWEP.ConeMoving = SWEP.Cone *1.4
     SWEP.ConeCrouching = SWEP.Cone *0.9
     SWEP.ConeIron = SWEP.Cone *0.2

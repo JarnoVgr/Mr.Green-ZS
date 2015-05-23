@@ -180,7 +180,7 @@ function ApplySkillShopItem(pl, com, args)
 
 			local HowMuch = ItemTable.Amount
 			
-			if pl:GetPerk("_support") then
+			if pl:GetPerk("_support2") then
 				HowMuch = HowMuch + (HowMuch*(5*pl:GetRank())/100)
 			end			
 			

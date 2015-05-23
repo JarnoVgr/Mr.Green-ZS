@@ -30,7 +30,7 @@ function ENT:Think()
 				if IsValid(owner) then
 					if hitent:IsPlayer() and hitent:IsHuman() and hitent:Alive() then
 						if hitent:GetPerk("_medic") then
-							hitent:TakeDamage(math.random(2,3), owner, self)							
+							hitent:TakeDamage(3, owner, self)							
 						else
 							hitent:TakeDamage(5, owner, self)
 						end
