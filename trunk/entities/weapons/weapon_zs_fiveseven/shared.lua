@@ -4,7 +4,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "Five-SeveN"			
+	SWEP.PrintName = "Five SeveN"			
 	SWEP.Author	= "Ywa"
 	SWEP.Slot = 1
 	SWEP.ViewModelFOV = 60
@@ -40,9 +40,9 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_FiveSeven.Single" )
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 12
+SWEP.Primary.Damage			= 13
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 20
+SWEP.Primary.ClipSize		= 15
 SWEP.Primary.Delay			= 0.1
 SWEP.Primary.DefaultClip	= 100
 SWEP.Primary.Automatic		= false

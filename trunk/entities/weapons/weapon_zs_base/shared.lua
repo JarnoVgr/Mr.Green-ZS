@@ -36,7 +36,7 @@ end
 function SWEP:Initialize()
 	self:SetWeaponHoldType(self.HoldType)
 	self:SetDeploySpeed(1.1)
-	self.ActualClipSize	= self.ClipSize
+	self.ActualClipSize	= self.Primary.ClipSize
 	if CLIENT then
 		--Set default FOV
 		if self.ViewModelFOV then
@@ -56,6 +56,7 @@ function SWEP:Initialize()
 end
 
 function SWEP:OnInitialize()
+
 end
 
 function SWEP:PrimaryAttack()
