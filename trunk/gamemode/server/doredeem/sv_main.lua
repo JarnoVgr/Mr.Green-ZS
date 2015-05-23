@@ -93,6 +93,8 @@ function GM:OnPlayerRedeem(pl, causer)
 	skillpoints.SetupSkillPoints(pl)
 	
 	--Comebacks
+	pl:Give("weapon_zs_elites")
+	
 	if not pl._ComebackUsed then		
 		--Comeback pistol
 		if pl:GetPerk("_comeback2") then
