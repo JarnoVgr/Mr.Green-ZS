@@ -179,7 +179,7 @@ function SWEP:Deploy()
 
 		self.SpeedBonus = 0.03 + (self.Owner:GetRank()*0.3)/100	
 	
-		self.Primary.ClipSize = self.Primary.ClipSize * 0.1 + self.Primary.ClipSize + (self.Primary.ClipSize * (self.Owner:GetRank() * 2))	
+		self.Primary.ClipSize = self.Primary.ClipSize * 0.1 + self.Primary.ClipSize + (self.Primary.ClipSize * (self.Owner:GetRank() * 2) / 100)	
 		
 		if self.Owner.DataTable["ShopItems"][52] then
 			self.Primary.ClipSize = self.Primary.ClipSize + self.Primary.ClipSize * 0.2
