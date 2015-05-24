@@ -1132,24 +1132,14 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	
 	--Cadebreaking
 	if IsValid(attacker) and attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
-		--Warning
-		--if (attacker.BarricadeWarnTime or 0) <= CurTime() then
-			--repairing prop is currently considered breaking..
-			--attacker:Message("Don't break the barricade", 2)
-			--attacker.BarricadeWarnTime = CurTime() + 6
-		--end
-	
-		--Prevent damage with melees and certain weapons
-
 		if dmginfo:IsMeleeDamage() then
 			if attacker:GetActiveWeapon():GetClass() == "weapon_zs_tools_hammer" then
 				return true
 			else
-				damage = 10
+				damage = damage * 0.5
 			end
 		else
-			damage = 0	
-			return true
+			damage = damage * 0.1	
 		end
 	end
 

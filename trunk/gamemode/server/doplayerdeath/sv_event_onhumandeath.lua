@@ -18,16 +18,16 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		VoiceToPanic(mVictim)
 	end)
 
-	local tr = mVictim:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_HUMAN))
-	local pos = tr.HitPos
-	local norm = tr.HitNormal
+	--local tr = mVictim:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_HUMAN))
+	--local pos = tr.HitPos
+	--local norm = tr.HitNormal
 
-	local eff = EffectData()
-	eff:SetOrigin( pos )
-	eff:SetNormal( norm )
-	eff:SetScale( math.Rand(0.9,1.2) )
-	eff:SetMagnitude( math.random(5,20) )
-	util.Effect( "gib_player", eff, true, true )
+	--local eff = EffectData()
+	--eff:SetOrigin( pos )
+	--eff:SetNormal( norm )
+	--eff:SetScale( math.Rand(0.9,1.2) )
+	--eff:SetMagnitude( math.random(5,20) )
+	--util.Effect( "gib_player", eff, true, true )
 
 	--Smash off current hat
 	GAMEMODE:DropHat(mVictim)
@@ -38,7 +38,8 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		--Loop through all player weapons
 		for i,j in pairs(mVictim:GetWeapons()) do
 			local wepCategory = GetWeaponCategory(j:GetClass())
-			if (wepCategory == "Pistol" or wepCategory == "Automatic" or wepCategory == "Melee") and mVictim:CanDropWeapon(j) then
+			--if (wepCategory == "Pistol" or wepCategory == "Automatic" or wepCategory == "Melee") and mVictim:CanDropWeapon(j) then
+			if mVictim:CanDropWeapon(j) then			
 				--Save ammo information from weapon
 				if wepCategory ~= "Melee" and j.Primary then
 					j.Primary.RemainingAmmo = j:Clip1()
@@ -75,7 +76,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		mVictim.ForcePlayerModel = true
 		local status = mVictim:GiveStatus("revive_slump_human")
 		if status then
-			status:SetReviveTime(CurTime() + 4)
+			status:SetReviveTime(CurTime() + 3)
 			status:SetZombieInitializeTime(CurTime() + 2)
 		end
 
@@ -93,8 +94,8 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 	
 	if LASTHUMAN then
-		mVictim:AddXP(500)
-		mAttacker:AddXP(500)	
+		mVictim:AddXP(400)
+		mAttacker:AddXP(200)	
 	end
 	
 	if dmginfo:IsSuicide( mVictim ) and CurTime() < ROUNDTIME * 0.12 then
