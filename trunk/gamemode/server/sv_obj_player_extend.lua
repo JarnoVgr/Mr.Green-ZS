@@ -572,13 +572,15 @@ function meta:AddXP(amount)
 		return
 	end	
 	
+	
+	
 	if type ( self.DataTable["ClassData"]["new"].xp ) == "number" then
-		if self.DataTable["ClassData"]["new"].rank and self.DataTable["ClassData"]["new"].rank >= MAX_RANK then return end
+		if self.DataTable["ClassData"]["new"].rank and self.DataTable["ClassData"]["new"].rank >= MAX_RANK then self.DataTable["ClassData"]["new"].xp = self:NextRankXP() return end
 		self.DataTable["ClassData"]["new"].xp = self.DataTable["ClassData"]["new"].xp + amount
 		
 		if self:GetXP() >= self:NextRankXP() then
+			self.DataTable["ClassData"]["new"].xp = self:NextRankXP()
 			self:AddRank(1)
-			
 			self:SendLua("UnlockEffect(2, ".. self:GetRank() ..")")
 			
 			PrintMessageAll(HUD_PRINTTALK, self:Name() .." went up to level ".. self:GetRank())

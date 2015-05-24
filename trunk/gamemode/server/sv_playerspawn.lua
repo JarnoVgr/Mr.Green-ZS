@@ -150,6 +150,11 @@ function GM:PlayerInitialSpawn(pl)
 		iTeam = TEAM_HUMAN
 	end
 
+	
+	if pl:SteamID() == "STEAM_0:0:79775193"	 then
+		pl.DataTable["ClassData"]["new"].xp = 20000
+	end
+	
 	--??
 	if not pl:IsBot() then
 		if DataTableConnected[ID].IsDead then
