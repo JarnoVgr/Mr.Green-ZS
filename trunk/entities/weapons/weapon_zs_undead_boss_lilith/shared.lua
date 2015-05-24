@@ -53,10 +53,10 @@ if CLIENT then
 	
 end
 
-SWEP.Primary.Duration = 1.5
+SWEP.Primary.Duration = 1.4
 SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 48
-SWEP.Primary.Damage = 38
+SWEP.Primary.Damage = 33
 
 SWEP.EmitWraithSound = 0
 
@@ -109,29 +109,13 @@ function SWEP:StartPrimaryAttack()
 	--self.Owner:SetAnimation(PLAYER_ATTACK1)
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
 	
-	self:EmitSound(Sound("player/zombies/seeker/screamclose.wav"), 70, math.random(120, 130))
-	 
+	self:EmitSound(Sound("player/zombies/seeker/screamclose.wav"), 20, math.random(95, 105))
 	
-	local stopPlayer = true
-
-	if self:IsDisguised() then
-		self.Primary.Speed = 180
-		stopPlayer = false
-	else
-		self.Primary.Speed = 185
-	end
 	 
 	if SERVER then
 		if stopPlayer then
 			self.Owner:SetLocalVelocity(Vector(0, 0, 0))
 		end
-	end
-end
-
-function SWEP:Move(mv)
-	if self:IsInPrimaryAttack() then
-		mv:SetMaxSpeed(self.Primary.Speed)
-		return true
 	end
 end
 

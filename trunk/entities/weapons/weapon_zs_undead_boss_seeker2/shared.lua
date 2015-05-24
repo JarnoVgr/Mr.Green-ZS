@@ -61,9 +61,9 @@ SWEP.ViewModel = Model("models/weapons/v_zombiearms.mdl")
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
 
 SWEP.Primary.Reach = 48
-SWEP.Primary.Duration = 1.4
+SWEP.Primary.Duration = 1.3
 SWEP.Primary.Delay = 0.6
-SWEP.Primary.Damage = 30
+SWEP.Primary.Damage = 27
 
 SWEP.ShowWorldModel = false
 
@@ -126,7 +126,7 @@ end
 function SWEP:PrimaryAttackHit(trace, ent)
 
 	pl:EmitSound(Sound("player/zombies/seeker/melee_0"..math.random(1,2)..".wav"),math.random(100,130),math.random(95,100))
-	util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
+	--util.Blood(trace.HitPos, math.Rand(self.Primary.Damage * 0.25, self.Primary.Damage * 0.6), (trace.HitPos - self.Owner:GetShootPos()):GetNormal(), math.Rand(self.Primary.Damage * 6, self.Primary.Damage * 12), true)
 end
 
 
