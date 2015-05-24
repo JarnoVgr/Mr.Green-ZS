@@ -41,7 +41,6 @@ function VoiceToQuestion()
 end
 
 function VoiceToPanic( ply )
-
 	local humans = team.GetPlayers(TEAM_HUMAN)
 	
 	local found = ents.FindInSphere(ply:GetPos(), 256)
@@ -55,9 +54,11 @@ function VoiceToPanic( ply )
 		end
 	end
 	
-	local hum = pos_humans[math.random(1,#pos_humans)]	
-	if ply:IsBot() then return end
-	hum:VoicePanic()	
+	local hum = pos_humans[math.random(1,#pos_humans)]
+	if not IsValid(hum) or ply:IsBot() then
+		return
+	end
+	hum:VoicePanic()
 end
 
 function VoiceToAnswer( ply )
