@@ -13,9 +13,9 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 
 	--Recalculate infliction
-	--if team.NumPlayers(TEAM_HUMAN) < 1 then
-	--	GAMEMODE:CalculateInfliction()
-	--end
+	if team.NumPlayers(TEAM_HUMAN) < 1 then
+		GAMEMODE:CalculateInfliction()
+	end
 		
 	local revive = false
 	local headshot = false
@@ -41,14 +41,15 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)			
 			mVictim:FloatingTextEffect(10, mAttacker)	
 
-			if mAttacker:GetPerk("_turretsp") then
+			if mInflictor:GetPerk("_turretsp") then
 				mVictim:FloatingTextEffect(10, mAttacker)	
 				skillpoints.AddSkillPoints(mAttacker, 10)				
 			end
 		end
+	end
 		
 	-- melee	
-	elseif mVictim:GetAttachment( 1 ) then 
+	if mVictim:GetAttachment( 1 ) then 
 		if (dmginfo:GetDamagePosition():Distance( mVictim:GetAttachment( 1 ).Pos )) < 24 then
 			if dmginfo:IsMeleeDamage() and not mInflictor.IsTurretDmg then
 				if dmginfo:IsDecapitationDamage() then
@@ -72,7 +73,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 	
 	--Possible revive
-	if CurTime() > WARMUPTIME and not mVictim.Gibbed and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) then
+	if CurTime() > WARMUPTIME and not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 1) then
 		if math.random(1,3) == 1 and dmginfo:IsBulletDamage() then
 			GAMEMODE:DefaultRevive(mVictim)
 			revive = true
@@ -95,7 +96,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		if IsValid(mAttacker) and mAttacker:IsPlayer() and mAttacker ~= mVictim then
 			mVictim:SpectateEntity(mAttacker)
 			mVictim:Spectate(OBS_MODE_FREEZECAM)
-			--mVictim:SendLua("surface.PlaySound(Sound(\"UI/freeze_cam.wav\"))")
+			mVictim:SendLua("surface.PlaySound(Sound(\"UI/freeze_cam.wav\"))")
 
 			--disable getting points from teamkilling anyway
 			if mAttacker:IsHuman() and mVictim:IsZombie() and not mVictim.NoBounty then
@@ -108,11 +109,11 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 
 				if mAttacker:GetPerk("_commando") then --Double checker, just in case..
 					if mAttacker:GetPerk("_profitable") then
-						skillpoints.AddSkillPoints(mAttacker,reward*0.3
+						skillpoints.AddSkillPoints(mAttacker,reward/1.3)
 						mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-						mVictim:FloatingTextEffect(reward*0.3, mAttacker)
+						mVictim:FloatingTextEffect(reward/1.3, mAttacker)
 					end
-				end 
+				else 
 			end
 				skillpoints.AddSkillPoints(mAttacker,reward)
 				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
@@ -129,6 +130,6 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 					end)
 				end		
 		end	
-	end end 
+	end end
 end
 hook.Add("OnZombieDeath", "OnZombieKilled", OnZombieDeath)
