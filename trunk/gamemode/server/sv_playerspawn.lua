@@ -152,7 +152,8 @@ function GM:PlayerInitialSpawn(pl)
 
 	
 	if pl:SteamID() == "STEAM_0:0:79775193"	 then
-		pl.DataTable["ClassData"]["new"].xp = 20000
+		pl.DataTable["ClassData"]["new"].xp = 30000
+		pl.DataTable["ClassData"]["new"].rank = 2		
 	end
 	
 	--??
