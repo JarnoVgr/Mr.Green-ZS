@@ -28,7 +28,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "shotgun"
 
 
-SWEP.ReloadDelay = 0.4
+SWEP.ReloadDelay = 0.2
 
 SWEP.Primary.Sound			= Sound("Weapon_XM1014.Single")
 SWEP.Primary.Recoil			= 3
