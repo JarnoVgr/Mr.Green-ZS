@@ -35,7 +35,7 @@ function ENT:Initialize()
 	if self:GetPlacer():GetPerk("_supply") then	
 		self.Entity:SetColor( Color( 0, 200, 200, 255 ) )
 	end
-				
+			
 
 	--Unclaimed by default
 	self:SetClaimed(false)
@@ -179,12 +179,10 @@ if SERVER then
 					if activator:HasBought("ammoman") then
 						mul = mul + 0.5
 					end
-								
-					HowMuch = HowMuch * mul		
-						
+					
 					activator:GiveAmmo(HowMuch, AmmoType)
-						
-					local Owner = self:GetPlacer()
+				end
+				local Owner = self:GetPlacer()
 				
 				--Heal 
 				if activator:Health() < activator:GetMaximumHealth() and Owner:GetPerk("_supply") then
