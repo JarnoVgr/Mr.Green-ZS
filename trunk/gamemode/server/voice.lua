@@ -31,7 +31,13 @@ function VoiceToQuestion()
 			
 			if (#pos_zombies <= 0 and #pos_humans > 0) then -- no undead in the area
 				local hum = pos_humans[math.random(1,#pos_humans)]
-				timer.Simple(4,function() VoiceToAnswer(hum) end)
+				
+				timer.Simple(4,function()
+					if not IsValid(hum) then
+						return
+					end
+					VoiceToAnswer(hum)
+				end)
 			end
 		end
 	end
