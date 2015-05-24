@@ -4,7 +4,7 @@ AddCSLuaFile("shared.lua")
 include('shared.lua')
 
 function ENT:Initialize()
-	self.DieTime = CurTime() + 10
+	self.DieTime = CurTime() + 6
 
 	self:DrawShadow(false)
 	self:PhysicsInitSphere(1)
@@ -13,7 +13,7 @@ function ENT:Initialize()
 
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
-		phys:SetMass(3)
+		phys:SetMass(2)
 		phys:EnableMotion(true)
 		phys:Wake()
 	end
@@ -62,7 +62,7 @@ end
 function ENT:PhysicsCollide(data, phys)
 
 	if self.HitData then return end
-
+	
 	self.HitData = data
 	self.DieTime = 0
 

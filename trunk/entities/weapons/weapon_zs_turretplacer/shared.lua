@@ -21,14 +21,14 @@ if CLIENT then
 	SWEP.IgnoreBonemerge = true
 	SWEP.UseHL2Bonemerge = true
 	SWEP.ShowViewModel = true
-	SWEP.ShowWorldModel = false
+	SWEP.ShowWorldModel = true
 	
 end
 
 SWEP.Author = "NECROSSIN"
 
 SWEP.ViewModel = "models/weapons/c_grenade.mdl"
-SWEP.WorldModel = "models/Weapons/w_grenade.mdl"
+SWEP.WorldModel = "models/Combine_turrets/Floor_turret.mdl"
 SWEP.UseHands = true
 SWEP.Base				= "weapon_zs_base_dummy"
 
@@ -192,6 +192,7 @@ if SERVER then
 				
 			if self and self:IsValid() then
 				DropWeapon(self.Owner)
+				self:Remove()	
 			end
 		end		
 	end	
@@ -217,7 +218,7 @@ function SWEP:SecondaryAttack()
 	end
 end 
 
-
+--[[
 function SWEP:_OnDrop()
 	if SERVER then
 		if self and self:IsValid() then
@@ -225,7 +226,7 @@ function SWEP:_OnDrop()
 		end
 	end
 end
-
+]]--
 function SWEP:Rotate()
 	self:SetDTInt(0,math.NormalizeAngle(self:GetRotation()+10))
 end

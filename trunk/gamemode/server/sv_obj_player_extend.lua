@@ -54,9 +54,11 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 			Victim.IsInfected = true
 			-- Shake screen
 			Victim:ViewPunch( Angle( math.random( -1, 1 ), math.random( -1, 1 ), 0 ) )
-			
+			if math.random(1,2) == 1 then
+				Victim:EmitSound( "ambient/voices/cough"..math.random( 1,4 )..".wav" )
+			end		
 			-- Cough sound
-			--Victim:EmitSound( "ambient/voices/cough"..math.random( 1,4 )..".wav" )
+			
 			--Victim:EmitSound( "player/pl_pain"..math.random( 5,7 )..".wav" )
 			
 			-- Increase tick

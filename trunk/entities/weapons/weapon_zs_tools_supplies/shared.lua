@@ -13,7 +13,7 @@ if CLIENT then
 	SWEP.IconLetter = "V"
 	
 	SWEP.ShowViewModel = false
-	SWEP.ShowWorldModel = false
+	SWEP.ShowWorldModel = true
 	SWEP.IgnoreBonemerge = true
 	
 	function SWEP:DrawHUD()
@@ -37,7 +37,7 @@ SWEP.AdminSpawnable		= true
 
 SWEP.ViewModel = Model("models/weapons/cstrike/c_c4.mdl")
 SWEP.UseHands = true
-SWEP.WorldModel = Model("models/weapons/w_c4.mdl")
+SWEP.WorldModel = Model("models/Items/item_item_crate.mdl")
 
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
@@ -226,6 +226,7 @@ function SWEP:PrimaryAttack()
 							
 			if self and self:IsValid() then
 				DropWeapon(self.Owner)
+				self:Remove()				
 			end
 		end
 	end
@@ -234,7 +235,7 @@ end
 function SWEP:SecondaryAttack()
 	return false
 end
-
+--[[
 function SWEP:_OnDrop()
 	if not SERVER then
 		return
@@ -244,3 +245,4 @@ function SWEP:_OnDrop()
 		self:Remove()
 	end
 end
+]]--

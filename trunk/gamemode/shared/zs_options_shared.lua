@@ -178,7 +178,7 @@ GM.HumanWeapons = {
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 100, Description = "Alyx is hot. But her gun is even more hot.", HumanClass = "medic" }, 
 
 		
-        ["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Description = "High fire rate thanks to having two pistols in your hands."},
+        ["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 100},
 		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
        
         --Sharpshooter
@@ -218,18 +218,17 @@ GM.HumanWeapons = {
  
  
         --Loadout Tools 1
-        ["weapon_zs_tools_hammer"]  = { Name = "Hammer", DPS = 23, Infliction = 0, Type = "tool1", Description = "Stop! Hammer time. This will freeze props in their place. Primary to repair/whack, Secondary to nail." },
-        ["weapon_zs_medkit"]  = { Name = "Medical Kit", DPS = 8, Infliction = 0, Type = "tool1", Description = "Be a good teammate. Or just heal yourself." },
-        ["weapon_zs_tools_supplies"] = { Name = "Mobile Supplies", DPS = 0, Infliction = 0, Type = "tool1", Description = "Allows you to spawn a Supply Crate." },
-		["weapon_zs_turretplacer"] = { Name = "Turret", DPS = 0, Infliction = 0, Type = "tool1", Description = "Need more fire power? Here you go!"  },
-		["weapon_zs_grenade"]  = { Name = "Grenade", DPS = 8, Infliction = 0, Type = "tool2", Description = "Handheld explosives." },
+        ["weapon_zs_tools_hammer"]  = { Name = "Hammer", DPS = 23, Infliction = 0, Type = "tool1", Description = "Stop! Hammer time. This will freeze props in their place. Primary to repair/whack, Secondary to nail.", Price = 100 },
+        ["weapon_zs_medkit"]  = { Name = "Medical Kit", DPS = 8, Infliction = 0, Type = "tool1", Description = "Be a good teammate. Or just heal yourself.", Price = 100 },
+        ["weapon_zs_tools_supplies"] = { Name = "Mobile Supplies", DPS = 0, Infliction = 0, Type = "tool1", Description = "Allows you to spawn a Supply Crate.", Price = 100 },
+		["weapon_zs_turretplacer"] = { Name = "Turret", DPS = 0, Infliction = 0, Type = "tool1", Description = "Need more fire power? Here you go!", Price = 100  },
 		  
 		  --Loadout Tools 2
         ["weapon_zs_tools_remote"] = { Name = "Turret Controller", DPS = 0, Infliction = 0, Type = "misc" },
         ["weapon_zs_tools_torch"] = { Name = "Torch", DPS = 0, Infliction = 0, Type = "tool2", Description = "Fix broken nails to prevent barricades getting broken." },       
         ["weapon_zs_miniturret"] = { Name = "Combat Mini-Turret", DPS = 0, Infliction = 0, Type = "tool2", Description = "CBA to shoot, let your friend here help you with that!"  },
         ["weapon_zs_grenade"]  = { Name = "Grenade", DPS = 8, Infliction = 0, Type = "tool1", Description = "Handheld explosives.", Price = 100  },
-        ["weapon_zs_mine"]  = { Name = "Proximity C4", DPS = 8, Infliction = 0, Type = "tool2", Description = "BOOM, get your team out a tough spot.."  },       
+        ["weapon_zs_mine"]  = { Name = "Proximity C4", DPS = 8, Infliction = 0, Type = "tool2", Description = "BOOM, get your team out a tough spot..", Price = 100  },       
        
         --Special
         ["weapon_zs_melee_crowbar"]  = { Name = "Crowbar", DPS = 85, Infliction = 0.65, Type = "melee", Price = 100 },      

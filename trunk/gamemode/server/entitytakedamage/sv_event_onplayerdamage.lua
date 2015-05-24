@@ -29,8 +29,8 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 	if pl:IsHuman() then
 		pl:CheckSpeedChange()
 
-		if attacker:IsZombie() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_ghoul" then
-			pl:TakeDamageOverTime( 1, 1, 16, attacker, attacker:GetActiveWeapon())
+		if attacker:IsPlayer() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_ghoul" then
+			pl:TakeDamageOverTime(dmginfo:GetDamage() * 0.2, 1.5, 10, attacker, attacker:GetActiveWeapon())
 			local Infect = EffectData()		
 			Infect:SetEntity( pl )
 			util.Effect( "infected_human", Infect, true)	

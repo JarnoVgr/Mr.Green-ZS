@@ -107,9 +107,9 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	CanCrouch = true,
 	CanGib = true, 
 	Model = table.Random(InfectedZombiemodels), 
-	Speed = 160,	
+	Speed = 148,	
 	AngleFix = true,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: Heal zombies or damage props and humans", "> CLAW POISON: 16 | 1 per second", "> HEALTH: 100 ", "> SPEED: 160", "> DAMAGE: 10" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> CLAW POISON: 10 | 2 per 1.5 seconds", "> HEALTH: 100 ", "> SPEED: 148", "> DAMAGE: 10" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde! " },
 	PainSounds = {
 		Sound("npc/zombiegreen/been_shot_1.wav"),
