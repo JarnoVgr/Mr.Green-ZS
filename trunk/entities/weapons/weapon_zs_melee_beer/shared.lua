@@ -31,7 +31,7 @@ SWEP.SlotPos = 5
 
 SWEP.DamageType = DMG_CLUB
 
-SWEP.MeleeDamage = 65
+SWEP.MeleeDamage = 50
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.75
 SWEP.Durability = 2

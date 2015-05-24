@@ -24,7 +24,7 @@ SWEP.Author = "Pufulet"
 SWEP.ViewModel = Model ( "models/weapons/c_stunstick.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel = Model("models/nova/chair_wood01.mdl")
-SWEP.Durability = 3
+SWEP.Durability = 4
 -- Name and fov
 SWEP.PrintName = "Chair"
 SWEP.ViewModelFOV = 60
@@ -37,7 +37,7 @@ SWEP.HoldType = "melee2"
 SWEP.Primary.Delay = 1.3
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 70
+SWEP.MeleeDamage = 50
 SWEP.MeleeRange = 52
 SWEP.MeleeSize = 1.3
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
