@@ -22,8 +22,17 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	local Class = mVictim:GetZombieClass()
 	local Tab = ZombieClasses[Class]
+	
+	--Possible revive
+	if CurTime() > WARMUPTIME and not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 1) then
+		if math.random(1,3) == 1 and dmginfo:IsBulletDamage() then
+			GAMEMODE:DefaultRevive(mVictim)
+			revive = true
+			mVictim.NoDeathNotice = true
+		end
+	end	
 
-	if not dmginfo:IsMeleeDamage() and mVictim:GetAttachment(1) and (dmginfo:GetDamagePosition():Distance(mVictim:GetAttachment(1).Pos )) < 15 then 
+	if not revive and not dmginfo:IsMeleeDamage() and mVictim:GetAttachment(1) and (dmginfo:GetDamagePosition():Distance(mVictim:GetAttachment(1).Pos )) < 15 then 
 		mVictim:EmitSound(Sound("physics/body/body_medium_break"..math.random( 2, 4 )..".wav"))
 				
 		headshot = true
@@ -70,15 +79,6 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	--Boss is gone
 	if mVictim:IsBoss() then
 		GAMEMODE:SetBoss(false)
-	end
-	
-	--Possible revive
-	if CurTime() > WARMUPTIME and not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 1) then
-		if math.random(1,3) == 1 and dmginfo:IsBulletDamage() then
-			GAMEMODE:DefaultRevive(mVictim)
-			revive = true
-			mVictim.NoDeathNotice = true
-		end
 	end
 	
 	--Check if we're for real dead
