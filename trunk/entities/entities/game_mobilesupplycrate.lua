@@ -162,21 +162,29 @@ if SERVER then
 
 					--Finally give it
 					
+					local mul = 1
+					
 					if activator:GetPerk("_support2") then
-						HowMuch = HowMuch + (HowMuch*(5*activator:GetRank())/100)
-					end
+						mul = mul + 0.1
+					end					
+					
+					if activator:GetPerk("_support2") then
+						mul = mul + activator:GetRank()*0.05
+					end	
 					
 					if activator:GetPerk("_supportammo") then
-						HowMuch = HowMuch * 1.3 --Support Ammo perk
-					end			
+						mul = mul + 0.3
+					end					
 					
 					if activator:HasBought("ammoman") then
-						HowMuch = HowMuch * 1.5 --Ammo man perk
+						mul = mul + 0.5
 					end
-					
+								
+					HowMuch = HowMuch * mul		
+						
 					activator:GiveAmmo(HowMuch, AmmoType)
-				end
-				local Owner = self:GetPlacer()
+						
+					local Owner = self:GetPlacer()
 				
 				--Heal 
 				if activator:Health() < activator:GetMaximumHealth() and Owner:GetPerk("_supply") then

@@ -179,18 +179,25 @@ function ApplySkillShopItem(pl, com, args)
 			end
 
 			local HowMuch = ItemTable.Amount
+			local mul = 1
 			
 			if pl:GetPerk("_support2") then
-				HowMuch = HowMuch + (HowMuch*(5*pl:GetRank())/100)
-			end			
+				mul = mul + 0.1
+			end					
+			
+			if pl:GetPerk("_support2") then
+				mul = mul + pl:GetRank()*0.05
+			end	
 			
 			if pl:GetPerk("_supportammo") then
-				HowMuch = HowMuch * 1.3 --Support Ammo perk
+				mul = mul + 0.3
 			end					
 			
 			if pl:HasBought("ammoman") then
-				HowMuch = HowMuch * 1.5
+				mul = mul + 0.5
 			end
+						
+			HowMuch = HowMuch * mul			
 						
 			pl:GiveAmmo(HowMuch, AmmoType)
 		
