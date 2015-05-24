@@ -95,9 +95,9 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	Tag = "zombie",	
 	Infliction = 0.0,
 	Revives = false,
-	Health = 140,
-	MaxHealth = 200,
-	Bounty = 100,
+	Health = 100,
+	MaxHealth = 140,
+	Bounty = 80,
 	SP = 15,
 	Threshold = 99,	
 	SWEP = "weapon_zs_undead_ghoul",			
@@ -109,7 +109,7 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	Model = table.Random(InfectedZombiemodels), 
 	Speed = 160,	
 	AngleFix = true,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: Heal zombies or damage props and humans", "> SPECIAL: Propkill", "> HEALTH: 140 ", "> SPEED: 160", "> DAMAGE: 20" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: Heal zombies or damage props and humans", "> CLAW POISON: 16 | 1 per second", "> HEALTH: 100 ", "> SPEED: 160", "> DAMAGE: 10" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde! " },
 	PainSounds = {
 		Sound("npc/zombiegreen/been_shot_1.wav"),
@@ -164,7 +164,7 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	},
 	
 	Unique = "",
-	Description = "A tainted innocent who wanders the land..",
+	Description = "A toxin infested innocent that can heal allies and poison enemies",
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 		pl:SetRandomFace()

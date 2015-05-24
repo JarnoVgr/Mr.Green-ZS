@@ -50,7 +50,7 @@ SWEP.AdminSpawnable = true
 
 SWEP.Primary.Duration = 1.5
 SWEP.Primary.Delay = 0.6
-SWEP.Primary.Damage = 20
+SWEP.Primary.Damage = 10
 SWEP.Primary.Reach = 48
 
 SWEP.SwapAnims = false
@@ -75,7 +75,7 @@ function SWEP:StartPrimaryAttack()
   
 	--Emit sound
 	if SERVER and #self.AttackSounds > 0 then
-		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]),74,math.Rand(100, 120))
+		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]),70,math.Rand(85, 90))
 	end
 
 end

@@ -28,6 +28,13 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 	
 	if pl:IsHuman() then
 		pl:CheckSpeedChange()
+
+		if attacker:IsZombie() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_ghoul" then
+			pl:TakeDamageOverTime( 1, 1, 16, attacker, attacker:GetActiveWeapon())
+			local Infect = EffectData()		
+			Infect:SetEntity( pl )
+			util.Effect( "infected_human", Infect, true)	
+		end
 	end
 	-- Victim got hit
 	pl.TookHit = true
