@@ -6,6 +6,7 @@ ClientsideConvars = {}
 ClientsideConvars["_zs_enablehints"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Game Hints"}
 ClientsideConvars["_zs_enablebeats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Beats"}
 ClientsideConvars["_zs_enablemusic"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Music"}
+--ClientsideConvars["_zs_mrgreenzombiesounds"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Mr.Green Zombie Sounds"}
 ClientsideConvars["_zs_enableironsightblur"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Blur while in ironsight"}
 ClientsideConvars["_zs_ironsight"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Crosshair while in ironsight"}
 ClientsideConvars["_zs_enablehats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hats"}

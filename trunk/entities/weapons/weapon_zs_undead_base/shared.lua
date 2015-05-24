@@ -49,6 +49,8 @@ SWEP.SwapAnims = false
 
 SWEP.IdleSounds = {}
 SWEP.AttackSounds = {}
+--SWEP.GreenAttackSounds = {}
+--SWEP.GreenIdleSounds = {}
 
 function SWEP:Deploy()
 	--Idle VOX sounds

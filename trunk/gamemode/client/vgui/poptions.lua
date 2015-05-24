@@ -397,6 +397,22 @@ local function EnableHats(sender, command, arguments)
 end
 concommand.Add("zs_enablehats", EnableHats)
 
+--[[
+ENABLE_MRGREENZOMBIESOUNDS = util.tobool(GetConVarNumber("_zs_mrgreenzombiesounds"))
+local function EnableMrGreenZombieSounds(sender, command, arguments)
+	ENABLE_MRGREENZOMBIESOUNDS = util.tobool(arguments[1])
+
+	if ENABLE_MRGREENZOMBIESOUNDS then
+		RunConsoleCommand("_zs_mrgreenzombiesounds", "1")
+		MySelf:ChatPrint("MrGreen zombie sounds enabled.")
+	else
+		RunConsoleCommand("_zs_mrgreenzombiesounds", "0")
+		MySelf:ChatPrint("MrGreen zombie sounds disabled.")
+	end
+end
+concommand.Add("_zs_mrgreenzombiesounds", EnableMrGreenZombieSounds)
+]]--
+
 -- Auto redeem
 -- CreateClientConVar("_zs_autoredeem", 1, true, false)
 AUTOREDEEM = util.tobool( GetConVarNumber("_zs_autoredeem") )

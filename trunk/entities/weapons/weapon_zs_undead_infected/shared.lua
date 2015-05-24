@@ -41,6 +41,8 @@ SWEP.Primary.Reach = 48
 
 SWEP.SwapAnims = false
 
+SWEP.LastAttackSound = 0
+
 
 function SWEP:StartPrimaryAttack()			
 	--Hacky way for the animations
@@ -55,9 +57,17 @@ function SWEP:StartPrimaryAttack()
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
   
 	--Emit sound
-	if SERVER and #self.AttackSounds > 0 then
-		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))
+	if SERVER and #self.AttackSounds > 0 and self.LastAttackSound < CurTime() then
+		--print(self.Green)
+	--if self.Green then
+		self.LastAttackSound = CurTime() + 2.0
+			--self.Owner:EmitSound(Sound(self.GreenAttackSounds[math.random(#self.GreenAttackSounds)]))
+		--else
+		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))		
 	end
+	--end
+	
+	
 
 end
 
@@ -68,12 +78,9 @@ function SWEP:PostPerformPrimaryAttack(hit)
 
 	if hit then
 		self.Owner:EmitSound(Sound("npc/zombie/claw_strike".. math.random(1, 3) ..".wav"))
-		
-		
 	else
 		self.Owner:EmitSound(Sound("npc/zombie/claw_miss"..math.random(1, 2)..".wav"))
-		
-		
+
 	end
 end
 
@@ -96,16 +103,26 @@ end
 
 function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
-
-	--Attack sounds
-	for i = 1, 2 do
-		table.insert(self.AttackSounds,Sound("npc/zombie/zo_attack"..i..".wav"))
-	end
-
-	--Idle sounds
-	for i = 1, 14 do
-		table.insert(self.IdleSounds,Sound("npc/zombie/zombie_voice_idle"..i..".wav"))
-	end
+	
+	--self.Green = util.tobool(GetConVarNumber("_zs_mrgreenzombiesounds"))
+	--if not mrgreenzombiesounds then
+	--[[
+		for i = 1, 2 do
+			table.insert(self.AttackSounds,Sound("npc/zombie/zo_attack"..i..".wav"))
+		end
+		for i = 1, 14 do
+			table.insert(self.IdleSounds,Sound("npc/zombie/zombie_voice_idle"..i..".wav"))
+		end
+		
+		]]--
+	--else
+		for i = 20, 37 do
+			table.insert(self.AttackSounds,Sound("mrgreen/undead/infected/rage_at_victim"..i..".mp3"))
+		end
+		for i = 1, 31 do
+			table.insert(self.IdleSounds,Sound("mrgreen/undead/infected/idle"..i..".mp3"))
+		end	
+	--end
 end
 
 if CLIENT then
