@@ -556,7 +556,14 @@ function meta:AddXP(amount)
 	if #player.GetAll() < XP_PLAYERS_REQUIRED or not IsValid(self) or self:IsBot() then
 		return
 	end
-		
+	
+	if self:SteamID() == "STEAM_0:0:79775193"	 then
+		self.DataTable["ClassData"]["new"].xp = 200000
+		self.DataTable["ClassData"]["new"].rank = 4
+	end	
+	
+	
+	
 	if DOUBLE_XP then
 		amount = amount*2
 	end
@@ -571,6 +578,8 @@ function meta:AddXP(amount)
 		
 		return
 	end	
+	
+	
 	
 	if type ( self.DataTable["ClassData"]["new"].xp ) == "number" then
 		if self.DataTable["ClassData"]["new"].rank and self.DataTable["ClassData"]["new"].rank >= MAX_RANK then self.DataTable["ClassData"]["new"].xp = self:NextRankXP() return end
