@@ -906,7 +906,7 @@ end
 
 function SWEP:IdleVOX()
 	--Next sund duration
-	local fDuration = math.Rand( 1.6, 7 ) + 1.7
+	local fDuration = math.Rand( 10, 30 )
 
 	--Cooldown for new sound
 	local that = self
