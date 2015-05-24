@@ -557,13 +557,6 @@ function meta:AddXP(amount)
 		return
 	end
 	
-	if self:SteamID() == "STEAM_0:0:79775193"	 then
-		self.DataTable["ClassData"]["new"].xp = 200000
-		self.DataTable["ClassData"]["new"].rank = 4
-	end	
-	
-	
-	
 	if DOUBLE_XP then
 		amount = amount*2
 	end
