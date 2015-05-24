@@ -41,7 +41,7 @@ SWEP.Primary.Ammo			= "buckshot"
 SWEP.MaxAmmo			    = 70
 SWEP.IsShotgun = true
 
-SWEP.Cone = 0.12
+SWEP.Cone = 0.13
 SWEP.ConeMoving = SWEP.Cone *1.10
 SWEP.ConeCrouching = SWEP.Cone *0.95
 

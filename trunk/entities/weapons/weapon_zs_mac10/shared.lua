@@ -28,7 +28,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("Weapon_MAC10.Single")
 SWEP.Primary.Recoil = 1.4
-SWEP.Primary.Damage = 9
+SWEP.Primary.Damage = 7
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.075
 
