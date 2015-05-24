@@ -628,7 +628,7 @@ function GM:ModelToEntity(ent)
 		["models/props_junk/garbage_glassbottle003a.mdl"] = "weapon_zs_melee_beer",
 		["models/props_junk/GlassBottle01a.mdl"] = "weapon_zs_melee_beer",
 		["models/props_canal/mattpipe.mdl"] = "weapon_zs_melee_pipe2",
-		["models/props_c17/furniturechair001a.mdl"	] = "weapon_zs_melee_chair",
+		["models/props_c17/furniturechair001a.mdl"] = "weapon_zs_melee_chair",
 
 		
 	}
