@@ -985,7 +985,7 @@ function meta:NextRankXP()
 	local exp = 0
 		
 	for i=0,self:GetRank() do
-		exp = exp + XP_BLANK + XP_INCREASE_BY*(i+1)
+		exp = exp + XP_BLANK + XP_INCREASE_BY*(i+1 + (i*2000))
 	end
 
 	return exp or 2000
@@ -999,7 +999,7 @@ function meta:CurRankXP()
 	local exp = 0
 		
 	for i=0,math.Clamp(self:GetRank()-1,0,999999) do
-		exp = exp + XP_BLANK + XP_INCREASE_BY*(i+1)
+		exp = exp + XP_BLANK + XP_INCREASE_BY*(i+1 + (i*2000))
 	end
 
 	return exp or 0
