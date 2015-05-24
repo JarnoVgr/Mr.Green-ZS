@@ -343,7 +343,7 @@ XP_INCREASE_BY = 10000
 
 XP_PLAYERS_REQUIRED = 6
 
-MAX_RANK = 6
+MAX_RANK = 7
 
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks} 
@@ -353,19 +353,19 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_support","_mine","_headhunter", "_kevlarcommando"},
+	[1] = {"_medupgr2","_accuracy","_mine" ,"_kevlarcommando"},
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2","_lethal"},
 	
-	[3] = {"_nade","_supportammo","_freeman","_accuracy2", "_trap", "_oppressive","_medigun","_pulsepistol"},
+	[3] = {"_nade","_supportammo","_freeman", "_oppressive","_medigun","_pulsepistol"},
 	
-	[4] = {"_poisonprotect","_kevlar2","_bloodmoney","_sboost","_reload","_turretsp"},
+	[4] = {"_poisonprotect","_bloodmoney","_sboost","_reload","_turretsp"},
 	
 	[5] = {"_turret","_psychotic","_repairs", "_supply", "_sboost2", "_musket"},
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate", "_supportweapon"},
 		
-	
+	[7] = {"_accuracy2","_headhunter","_support","_kevlar2", "_trap"},	
 }
 
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
