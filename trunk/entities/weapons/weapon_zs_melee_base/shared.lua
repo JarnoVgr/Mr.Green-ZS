@@ -61,6 +61,9 @@ function SWEP:Initialize()
 	self:SetWeaponHoldType(self.HoldType)
 	self:SetWeaponSwingHoldType(self.SwingHoldType)
 	
+	self:SetColor(Color(255,255,255,1))
+	self:SetMaterial("Debug/hsv") --Debug/hsv	
+	
 	if CLIENT then
 		--Set default FOV
 		if self.ViewModelFOV then
@@ -208,6 +211,7 @@ function SWEP:PlayHitSound()
 end
 
 function SWEP:PlayHitFleshSound()
+
 	self:EmitSound("physics/body/body_medium_break"..math.random(2, 4)..".wav")
 end
 
@@ -277,18 +281,17 @@ function SWEP:MeleeSwing()
 
 		if hitflesh then
 			util.Decal(self.BloodDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+
 			self:PlayHitFleshSound()
 			if SERVER and not (hitent:IsValid() and hitent:IsPlayer() and hitent:Team() == owner:Team()) then
 				util.Blood(tr.HitPos, math.Rand(damage * 0.05, damage * 0.1), (tr.HitPos - owner:GetShootPos()):GetNormal(), math.Rand(damage * 3, damage * 6), true)
 			end
-			if not self.NoHitSoundFlesh then
-				self:PlayHitSound()
-			end
-		else
-			util.Decal(self.HitDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
-			self:PlayHitSound()
-		end
 
+		else
+			self:PlayHitSound()	
+			util.Decal(self.HitDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+		end
+		
 		if self.OnMeleeHit and self:OnMeleeHit(hitent, hitflesh, tr) then
 			owner:LagCompensation(false)
 			return

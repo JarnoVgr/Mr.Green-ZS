@@ -31,10 +31,10 @@ SWEP.SlotPos = 5
 
 SWEP.DamageType = DMG_CLUB
 
-SWEP.MeleeDamage = 80
+SWEP.MeleeDamage = 65
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.75
-
+SWEP.Durability = 2
 SWEP.Primary.Delay = 1.0
 
 SWEP.WalkSpeed = SPEED
@@ -68,7 +68,8 @@ function SWEP:OnMeleeHit(hitent, hitflesh, tr)
 		util.Effect("GlassImpact", effectdata)
 	
 	if SERVER then
-		if math.random(1,2) == 1 then
+		self.Durability = self.Durability - 1
+		if self.Durability == 0 then
 			self.Owner:EmitSound("physics/glass/glass_bottle_break1.wav", 80, math.Rand(90, 105))	
 			DropWeapon(self.Owner)
 			self:Remove()	
