@@ -149,12 +149,6 @@ function GM:PlayerInitialSpawn(pl)
 	if pl:ConnectedAlreadyGotWeapons() and not pl:ConnectedIsDead() then
 		iTeam = TEAM_HUMAN
 	end
-
-	
-	if pl:SteamID() == "STEAM_0:0:79775193"	 then
-		pl.DataTable["ClassData"]["new"].xp = 30000
-		pl.DataTable["ClassData"]["new"].rank = 2		
-	end
 	
 	--??
 	if not pl:IsBot() then
