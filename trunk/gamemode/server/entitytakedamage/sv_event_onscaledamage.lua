@@ -29,7 +29,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 
 		return true
 	elseif dmginfo:IsMeleeDamage() and attacker:IsHuman() and attacker:GetPerk("_berserker") then
-		local multiplier = 0.2 + ((2*attacker:GetRank())/100)
+		local multiplier = 0.1 + ((2*attacker:GetRank())/100)
 
 		if dmginfo:IsMeleeDamage() and attacker:GetPerk("_headhunter") then
 			multiplier = multiplier - 0.15			
