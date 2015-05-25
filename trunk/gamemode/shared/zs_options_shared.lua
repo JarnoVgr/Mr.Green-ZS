@@ -350,7 +350,7 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_mine" ,"_kevlarcommando","_sboost3"},
+	[1] = {"_medupgr2","_accuracy","_mine" ,"_kevlarcommando","_sboost3","_highcal"},
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_lethal","_slinger"},
 	
@@ -389,36 +389,35 @@ GM.Perks = {
 
 	--Support
 	
-	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies and SkillShop.", RequiresWeapon = "_support2", Slot = 1}, --Done
+	["_support"] = {Name = "Board Pack", Description = "+4 Boards | +30% Board Health", RequiresWeapon = "_support2", Slot = 1}, --Done
+	["_supportammo"] = {Name = "Ammunition", Description = "+30% Ammo Received", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with the Shotgun", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points | +40% Nail Health", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	
 	--Berserker
 	
-	["_freeman"] = {Name = "Berserker Fury", Description = "20% more damage with melee weapons.", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_psychotic"] = {Name = "Psychotic", Description = "+4 health from kills | +60% melee swing speed", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads. -15% melee damage.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
-	["_oppressive"] = {Name = "Oppressive", Description = "Smash zombies away with your mighty weapons!", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
+	["_freeman"] = {Name = "Berserker Fury", Description = "+20% melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
+	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads | -15% melee damage.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
+	["_oppressive"] = {Name = "Oppressive", Description = "+85% melee knockback", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
 	["_slinger"] = {Name = "Hook", Description = "Spawn with the Hook", RequiresWeapon = "_berserker", Slot = 1},
 	
 	--Engineer
 	
 	["_turret"] = {Name = "Turret Overload", Description = "+50% turret stats.",RequiresWeapon = "_engineer", Material = "VGUI/gfx/VGUI/defuser", Slot = 1}, --Done
-	["_nitrate"] = {Name = "Nitrate Stuffed", Description = "+40% C4 explosion radius. 2 second fuse time instead of 1. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done	
-	["_trap"] = {Name = "Trap Engineered", Description = "+40% C4 damage. 70 proximity distance instead of 140. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done		
+	["_nitrate"] = {Name = "Nitrate Stuffed", Description = "+40% C4 explosion radius. 1.5 second fuse time instead of 1. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done	
+	["_trap"] = {Name = "Trap Engineered", Description = "+30% C4 damage. 70 proximity distance instead of 140. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done		
 	["_pulsepistol"] = {Name = "Pulse Pistol", Description = "Spawn with the Pulse Pistol", RequiresWeapon = "_engineer", Slot = 1},	--Done
-	["_combat"] = {Name = "Combat Turret", Description = "Spawn the Combat turret.", RequiresWeapon = "_engineer", Slot = 1},	--Done	
+	["_combat"] = {Name = "Combat Turret", Description = "Spawn with the Combat turret.", RequiresWeapon = "_engineer", Slot = 1},	--Done	
 	--["_remote"] = {Name = "Turret Remote", Description = "[REPLACES SECONDARY] Control the turret with this gadget! Your turret shoots 2 bullets for the cost of 1!", RequiresWeapon = "_engineer", Slot = 1}, -- Done	
-	["_mine"] = {Name = "Multi C4", Description = "Spawn with +4 C4",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 1}, --Done		
+	["_mine"] = {Name = "Multi C4", Description = "+4 C4",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 1}, --Done		
 	
 	--Sharpshooter
 	
 	["_lethal"] = {Name = "Python", Description = "Spawn with the Python", RequiresWeapon = "_sharpshooter", Slot = 1}, --Done
 	["_accuracy2"] = {Name = "Marksman", Description = "-70% Recoil | +40% Accuracy ", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
 	["_highcal"] = {Name = "Reinforced Calibre", Description = "+200% Bullet Knockback", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
-	["_supply"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users | +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
-	["_musket"] = {Name = "Musket Boy", Description = "+2 musket clipsize", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
+	["_supply"] = {Name = "Medical Station", Description = "Mobile Supplies gives 4 health to users | +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
+	["_musket"] = {Name = "Musketeer", Description = "+2 musket clipsize", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
 	
 					--[[Slot 2 'personal perk']]--
 	--Medic
@@ -442,16 +441,17 @@ GM.Perks = {
 	--Berserker
 	
 	["_bloodmoney"] = {Name = "Blood Money", Description = "+5 SP from melee kills", RequiresWeapon = "_berserker", Slot = 2}, --Done
-	["_berserk"] = {Name = "Berserk", Description = "+10% speed while under 40 health", RequiresWeapon = "_berserker", Slot = 2}, --Done
+	["_berserk"] = {Name = "Berserk", Description = "+10% movement speed while under 40 health", RequiresWeapon = "_berserker", Slot = 2}, --Done
+	["_psychotic"] = {Name = "Blood Lust", Description = "+4 health from kills | +60% melee swing speed", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	
 	--Engineer
 	
 	["_turretsp"] = {Name = "Turret Revenue", Description = "+10 SP from turret kills", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
-	["_blast"] = {Name = "Blast Proof", Description = "+60% resistance to explosives", RequiresWeapon = "_engineer", Slot = 2}, --Done
+	["_blast"] = {Name = "Blast Proof", Description = "+70% resistance to explosives", RequiresWeapon = "_engineer", Slot = 2}, --Done
 	["_sboost"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_engineer", Slot = 2}, --Done
 	
 	--Sharpshooter
-	["_kevlar2"] = {Name = "Kevlar", Description = "+30 initial health.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
+	["_kevlar2"] = {Name = "Kevlar", Description = "+30 Initial Health", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	["_point"] = {Name = "Take Point", Description = "+30% Jump Power | -15 Maximum Health | -50% Fall Damage", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	["_sboost3"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done	
 	--["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
