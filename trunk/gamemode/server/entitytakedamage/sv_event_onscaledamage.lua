@@ -135,7 +135,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		dmginfo:ScaleDamage(GAMEMODE:GetUndeadDamageMultiplier())
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
-			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 18 then
+			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
 				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),65,math.random(90,110))				
 				--if dmginfo:IsBulletDamage() then
 					--Humans already do double damage on headshot.
