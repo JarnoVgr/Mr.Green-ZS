@@ -246,7 +246,7 @@ function ApplySkillShopItem(pl, com, args)
 					end
 					
 						--Normal behavior
-						j:SetClip1(j:Clip1() + (HowMuch * mul))
+						j:SetClip1(j:Clip1() + GAMEMODE.SkillShopAmmo[item].Amount + (HowMuch * mul))
 					end
 					skillpoints.TakeSkillPoints(pl, GAMEMODE.SkillShopAmmo[item].Price)
 
