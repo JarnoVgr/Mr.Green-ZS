@@ -7,8 +7,7 @@ timer.Create("HU-RefreshCache", 15, 0, RefreshCache)
 
 --Time in seconds after last hit or hurt to wait before healing
 --local HealTimeout = 60
-local HealTimeout = 2
-
+local HealTimeout = 5
 
 --Amount to heal per cycle
 --local HealAmount = 20
@@ -16,30 +15,34 @@ local HealAmount = 1
 
 local maxheal = 40
 
-
 --Interval time in seconds to heal
 --local HealInterval = 4
-local HealInterval = 0.25
-
+local HealInterval = 2
 
 local function Heal()
 	local Time = CurTime()
 		
 	
-	for i=1, #Human do		
+	for i=1, #Human do
+			
 		local pl = Human[i]
+			if pl:GetPerk("_supportregen") then
 		
-		if not IsValid(pl) or not pl:Alive() or not pl:Team() == TEAM_HUMAN or pl:Health() >= maxheal or not pl:GetPerk("_psychopath") then
+		if not IsValid(pl) or not pl:Alive() or not pl:Team() == TEAM_HUMAN or pl:Health() >= maxheal then
 			continue
 		end
 
 		if Time < (pl.LastHit + HealTimeout) or Time < (pl.LastHurt + HealTimeout) then
 			continue
 		end
-			pl:SetHealth(math.min(pl:Health() + HealAmount, maxheal))
-		end
-	end	
+
+		pl:SetHealth(math.min(pl:Health() + HealAmount, maxheal))
+		else	
+	return
+		
+	end
+	
+	end
+	
 end
 timer.Create("HU-Heal", HealInterval, 0, Heal)
-
-

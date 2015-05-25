@@ -40,16 +40,16 @@ function ENT:Explode()
 	if owner:IsValid() and owner:IsPlayer() and owner:Team() == TEAM_HUMAN then
 		local pos = self:GetPos()
 	
-		util.BlastDamage2(self, owner, pos, 300, 300)
+		util.BlastDamage2(self, owner, pos, 250, 300)
 	
 		if owner.DataTable["ShopItems"][52] and owner.GetPerk("_commando") then
-			util.BlastDamage2(self, owner, pos, 300, 300 * 1.5)
+			util.BlastDamage2(self, owner, pos, 250, 300 * 1.5)
 		end
 		
 		if owner:GetPerk("_nade") then
 			util.BlastDamage2(self, owner, pos, 340, 300 * 1.25)
 			if owner.DataTable["ShopItems"][52] and owner.GetPerk("_commando") then
-				util.BlastDamage2(self, owner, pos, 340, 300 * 1.75)
+				util.BlastDamage2(self, owner, pos, 290, 300 * 1.75)
 			end			
 		end			
 	

@@ -19,8 +19,12 @@ SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
+
 SWEP.ActualClipSize = -1
 SWEP.SpeedBonus = 0
+SWEP.RecoilMultiplier = 1
+SWEP.AccuracyBonus = 0
+SWEP.ForceBonus = 1
 
 SWEP.WalkSpeed = SPEED
 
@@ -75,31 +79,14 @@ function SWEP:PrimaryAttack()
 	local bullet = {}
 	bullet.Force = 3000
 
+	local recoilm = 2 - self.RecoilMultiplier
+	
 	--Recoil multiplier
-	local recoilMultiplier = 1
-	if self:GetIronsights() then
-		--Less recoil when in ironsight
-		recoilMultiplier = recoilMultiplier * 0.5
-		if self.Owner:GetPerk("_accuracy") then
-			recoilMultiplier = recoilMultiplier * 0.75
-			
-		end
-		if self.Owner:GetPerk("_accuracy2") then
-			recoilMultiplier = recoilMultiplier * 0
-		end
-	end
-	if self.Owner:Crouching() then
-		--Less recoil when crouching
-		recoilMultiplier = recoilMultiplier * 0.5
-		if self.Owner:GetPerk("_accuracy") then
-			recoilMultiplier = recoilMultiplier * 0.75
-		end
-		if self.Owner:GetPerk("_accuracy2") then
-			recoilMultiplier = recoilMultiplier * 0
-		end
+	if self:GetIronsights() or self.Owner:Crouching() then
+		recoilm = recoilm * 0.5
 	end
 
-	local recoil = self.Primary.Recoil * recoilMultiplier
+	local recoil = self.Primary.Recoil * recoilm
 	
 	if Owner.ViewPunch then
 		Owner:ViewPunch(Angle(recoil * -1, math.random(0.01,-0.01), 0))
@@ -114,17 +101,17 @@ function SWEP:PrimaryAttack()
 
 	if self:GetIronsights() then
 		if self.Owner:Crouching() then
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIronCrouching)
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIronCrouching - (self.ConeIronCrouching * self.AccuracyBonus))
 		else
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIron)
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIron - (self.ConeIron * self.AccuracyBonus))
 		end
 	elseif 25 < self.Owner:GetVelocity():Length() then
-		self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving)
+		self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving - (self.ConeMoving * self.AccuracyBonus))
 	else
 		if self.Owner:Crouching() then
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeCrouching)
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeCrouching - (self.ConeCrouching * self.AccuracyBonus))
 		else
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.Cone)
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.Cone - (self.Cone * self.AccuracyBonus))
 		end
 	end
 
@@ -176,6 +163,22 @@ function SWEP:Deploy()
 	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
 
+	--commando
+	if self.Owner:GetPerk("_accuracy") then
+		self.RecoilMultiplier = 1 * 1.4
+		self.AccuracyBonus = 0.2
+	end
+	
+	--sharpshooter
+	if self.Owner:GetPerk("_accuracy2") then
+		self.RecoilMultiplier = 1 * 1.7
+		self.AccuracyBonus = 0.4
+	end	
+	
+	if self.Owner:GetPerk("_highcal") then
+		self.ForceBonus = 3
+	end		
+	
 	if self.Owner:GetPerk("_commando") then
 
 		self.SpeedBonus = (self.Owner:GetRank()*0.2)/100	
@@ -190,7 +193,6 @@ function SWEP:Deploy()
 	
 	if CLIENT then
 		self:CheckCustomIronSights()
-
 		self:ResetBonePositions()
 	end
 	
@@ -362,10 +364,7 @@ end
 function SWEP:DoBulletKnockback()
 	for ent, prevvel in pairs(tempknockback) do
 		local curvel = ent:GetVelocity()
-		--if self.Owner:GetPerk("_highcal") then
-		--	ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.05 + prevvel)
-		--end
-		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.05 + prevvel)
+		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * (0.1 * self.ForceBonus) + prevvel)
 	end
 end
 
@@ -407,7 +406,7 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 		Num = numbul,
 		Src = self.Owner:GetShootPos(),
 		Dir = aim + punch,
-		Spread = Vector(cone * 0.8, cone * 0.8, 0),
+		Spread = Vector(cone * 0.8 , cone * 0.8, 0),
 		Tracer = 1,
 		TracerName = self.TracerName,
 		Force = dmg * 0.1,

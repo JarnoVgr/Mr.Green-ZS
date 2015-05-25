@@ -92,7 +92,7 @@ function ENT:PhysicsCollide( Data, Phys )
 		local Damage = 20 - ( self.RicochetTimes * 1.5 )
 		--HitEnt:TakeDamageOverTime( 1, 1, 2, 0, 12 ), mOwner, self.mOwnerWeapon or mOwner )
 		if HitEnt:GetPerk("_poisonprotect") then
-			Damage = math.ceil(Damage - Damage*0.70)
+			Damage = math.ceil(Damage - Damage*0.8)
 		end
 		
 		-- Take damage

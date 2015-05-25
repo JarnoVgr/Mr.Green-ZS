@@ -6,6 +6,8 @@ BONUS_RESISTANCE = false
 -- Scales player damage (called before others)
 local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	--Player not ready
+
+	
 	if not pl.Ready then
 		dmginfo:SetDamage(0)
 		return true
@@ -53,16 +55,16 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	--Scale down own AR2 grenades (grenade launcher) shots
 	elseif (attacker:GetClass() == "player" and pl:IsHuman() and attacker:IsHuman()) then
 		if pl:GetPerk("_blast") then
-			dmginfo:ScaleDamage(0.3)	
+			dmginfo:ScaleDamage(0.2)	
 		else
-			dmginfo:ScaleDamage(0.85)
+			dmginfo:ScaleDamage(0.9)
 		end
 	--Scale down explosion damage if it's the owner
 	elseif (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) then
 		if pl:GetPerk("_blast") then
-			dmginfo:ScaleDamage(0.3)	
+			dmginfo:ScaleDamage(0.2)	
 		else
-			dmginfo:ScaleDamage(0.85)
+			dmginfo:ScaleDamage(0.9)
 		end
 	--Turret damage
 	elseif attacker:GetClass() == "zs_turret" then
@@ -131,23 +133,23 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	if pl:IsZombie() then
 		--Scale any damage
 		dmginfo:ScaleDamage(GAMEMODE:GetUndeadDamageMultiplier())
-
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
-			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
+			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 18 then
 				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),65,math.random(90,110))				
-				if dmginfo:IsBulletDamage() then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1.25)
-				elseif dmginfo:IsBulletDamage() and attacker:GetPerk ("_sharpshooter") then
+				--if dmginfo:IsBulletDamage() then
+					--Humans already do double damage on headshot.
+					--dmginfo:SetDamage(dmginfo:GetDamage() * 1.25)
+				if dmginfo:IsBulletDamage() and attacker:GetPerk ("_sharpshooter") then
 					if attacker.DataTable["ShopItems"][69] then
-						dmginfo:SetDamage((dmginfo:GetDamage() * (1.35 + (3*attacker:GetRank())/100)))				
+						dmginfo:SetDamage((dmginfo:GetDamage() * (1.2 + (2*attacker:GetRank())/100)))				
 					else
-						dmginfo:SetDamage((dmginfo:GetDamage() * (1.25 + (3*attacker:GetRank())/100)))
+						dmginfo:SetDamage((dmginfo:GetDamage() * (1.1 + (2*attacker:GetRank())/100)))
 					end
 				elseif dmginfo:IsMeleeDamage() then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1.45)
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.5)
 				elseif dmginfo:IsMeleeDamage() and attacker:GetPerk("_headhunter") then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1.95)				
+					dmginfo:SetDamage(dmginfo:GetDamage() * 2)				
 				end
 			end
 		end
@@ -191,7 +193,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		end
 		
 		local speed, div_factor = math.abs(pl:GetVelocity().z), 20
-		local Damage = math.Clamp(speed / div_factor, 5, 100)
+		local Damage = math.Clamp(speed / div_factor, 5, 1000)
 				
 		--Shake camera
 		if pl.ViewPunch then
@@ -199,7 +201,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		end 
 			
 		if pl:GetPerk("_point") then
-			dmginfo:AddDamage(Damage*0.75)
+			dmginfo:AddDamage(Damage*0.5)
 		else
 			--Add new damage
 			dmginfo:AddDamage(Damage)
@@ -256,6 +258,8 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	end
 	
 	--Zombies with howler prot have reduced damage by 80%
+	
+	--[[
 	if dmginfo:IsAttackerZombie() and pl:IsHuman() then
 		if dmginfo:GetAttacker():HasHowlerProtection() then
 			dmginfo:SetDamage( dmginfo:GetDamage() * 0.2 )
@@ -268,8 +272,10 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		effectdata:SetScale(0)
 		util.Effect("bloodstream", effectdata, nil, true)
 	end
+	]]--
 	
 	--Normal enraged zombies
+	--[[
 	if dmginfo:IsAttackerHuman() and pl:IsZombie() and pl:IsZombieInRage() and dmginfo:IsBulletDamage() then
 		-- Sometimes play metal sound, sometimes flesh ...
 		local iRandom, fSound = math.random( 1, 2 ), "physics/flesh/flesh_impact_bullet"..math.random(1, 4)..".wav"
@@ -297,12 +303,13 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			dmginfo:SetDamage(dmginfo:GetDamage() * 0.5)
 		end
 	end
+	]]--
 
 	--Reduce damage when SkillShop is open
 	if pl:IsHuman() and pl.IsSkillShopOpen then
 		dmginfo:SetDamage(dmginfo:GetDamage() * 0.1)
 	end
-
+	
 	--Identify our last attacker and inflictor
 	pl:InsertLastDamage(dmginfo:GetPlayerAttacker(), dmginfo:GetInflictor())
 end

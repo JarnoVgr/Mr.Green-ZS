@@ -28,7 +28,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "shotgun"
 
 
-SWEP.ReloadDelay = 0.2
+SWEP.ReloadDelay = 0.3
 
 SWEP.Primary.Sound			= Sound("Weapon_XM1014.Single")
 SWEP.Primary.Recoil			= 3
@@ -68,49 +68,14 @@ end
 
 --SWEP.IronSightsPos = Vector(2.559, -3.28, 1.399)
 --SWEP.IronSightsAng = Vector(0, 0, 0)
---[=[
-SWEP.NextReload = 0
-function SWEP:Reload()
-	local Magazine = self.Owner:GetAmmoCount( self.Weapon:GetPrimaryAmmoType() )	
-	
-	--  If the player hasn't anymore ammo then stop running this
-	if self.Weapon:Clip1() == self.Primary.ClipSize or Magazine == 0 then return end
-	
-	-- Disable ironsights
-	self:SetIronsights( false )
-	
-	-- Reload cooldown
-	if CurTime() < self.NextReload then return end
-	self.NextReload = CurTime() + self.Primary.Delay * 3
-	
-	if self.Weapon:Clip1() < self.Primary.ClipSize and self.Owner:GetAmmoCount(self.Primary.Ammo) > 0 then
-		self.Weapon:DefaultReload( ACT_VM_RELOAD )
-		timer.Simple( 0.25, function( self, owner ) 
-			if not IsValid ( self ) or not IsValid ( owner ) then return end
-			
-			-- Don't play the animation if it isn't the active weapon anymore
-			local ActiveWeapon = owner:GetActiveWeapon()
-			if ActiveWeapon ~= self then return end
-			
-			-- Weapon animation special for shotguns
-			self.Weapon:SendWeaponAnim ( ACT_SHOTGUN_RELOAD_FINISH )
-		end, self, self.Owner )
-			
-		self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-	end
-	
-	if SERVER then --  Reloading voice effect
-		if self.Weapon:Clip1() <= math.floor (self.Primary.ClipSize / 1.5) and math.random(1,2) == 1 then
-			local rlsnd = VoiceSets[self.Owner.VoiceSet].ReloadSounds
-			timer.Simple (0.2, function ( self )
-				if IsEntityValid ( self ) then
-					self:EmitSound(rlsnd[math.random(1, #rlsnd)])
-				end
-			end, self )
-		end
+
+function SWEP:OnDeploy()
+	if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
+		self.ReloadDelay = 0.4
+		self.ReloadDelay = self.ReloadDelay * 0.5
 	end
 end
-]=]
+
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0
@@ -131,21 +96,12 @@ end
 
 function SWEP:Think()
 	if self.reloading and self.reloadtimer < CurTime() then
+		
 		self.reloadtimer = CurTime() + self.ReloadDelay
 		self:SendWeaponAnim(ACT_VM_RELOAD)
 
 		self.Owner:RemoveAmmo(1, self.Primary.Ammo, false)
 		self:SetClip1(self:Clip1() + 1)
-
-		
-	if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
-			self:SetClip1(self:Clip1() + 4)
-		end
-		
-				
-		if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
-			self:SetClip1(self:Clip1() + 1)
-		end
 		
 		if self.Primary.ClipSize <= self:Clip1() or self.Owner:GetAmmoCount(self.Primary.Ammo) <= 0 then
 			self.nextreloadfinish = CurTime() + self.ReloadDelay

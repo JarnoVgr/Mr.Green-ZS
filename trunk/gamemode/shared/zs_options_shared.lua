@@ -24,8 +24,6 @@ if SERVER and tobool(string.find(tostring(game.GetMap()),"zs_arena")) then
 	GM:SetGameMode(GAMEMODE_ARENA)
 end
 
-
-
 DEFAULT_VIEW_OFFSET = Vector(0, 0, 64)
 DEFAULT_VIEW_OFFSET_DUCKED = Vector(0, 0, 28)
 DEFAULT_JUMP_POWER = 160
@@ -35,21 +33,20 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 
 -- Movement stuff
 
-SPEED = 190
-SPEED_LIGHT = SPEED - 5
-SPEED_MELEE_LIGHT = SPEED - 6
+SPEED = 186
+SPEED_LIGHT = SPEED - 2
+SPEED_MELEE_LIGHT = SPEED - 3
 SPEED_MELEE = SPEED - 11
-SPEED_MELEE_HEAVY = SPEED - 21
-SPEED_PISTOL = SPEED - 12
+SPEED_MELEE_HEAVY = SPEED - 19
+SPEED_PISTOL = SPEED - 10
 SPEED_SMG = SPEED - 17
-SPEED_SHOTGUN = SPEED - 25
-SPEED_RIFLE = SPEED - 22
-SPEED_HEAVY = SPEED - 30
+SPEED_SHOTGUN = SPEED - 23
+SPEED_RIFLE = SPEED - 20
+SPEED_HEAVY = SPEED - 27
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8		--It's meant for creating hordes, doesnt make sense for a zombie to be in a horde if they're across the map.
 HORDE_MAX_DISTANCE = 800 --Leave this! It affects the beats and how they play. They play best as this number, do not touch it Pufu!
-
 
 BONUS_RESISTANCE_WAVE = 5
 BONUS_RESISTANCE_AMOUNT = 20 -- %
@@ -316,7 +313,7 @@ GM.AmmoRegeneration = {
 	["smg1"] = 20, --SMG
 	["357"] = 8, --Sniper
 	["xbowbolt"] = 5,
-	["buckshot"] = 16, --Shotgun
+	["buckshot"] = 12, --Shotgun
 	["ar2altfire"] = 1,
 	["slam"] = 2, --Explosive
 	["rpg_round"] = 1,
@@ -353,13 +350,13 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_mine" ,"_kevlarcommando"},
+	[1] = {"_medupgr2","_accuracy","_mine" ,"_kevlarcommando","_sboost3"},
 	
-	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_comeback2","_lethal"},
+	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_lethal"},
 	
-	[3] = {"_nade","_supportammo","_freeman", "_oppressive","_medigun","_pulsepistol"},
+	[3] = {"_nade","_supportammo","_freeman", "_oppressive","_medigun","_pulsepistol","_defender"},
 	
-	[4] = {"_poisonprotect","_bloodmoney","_sboost","_reload","_turretsp"},
+	[4] = {"_poisonprotect","_bloodmoney","_sboost","_reload","_turretsp","_supportregen"},
 	
 	[5] = {"_turret","_psychotic","_repairs", "_supply", "_sboost2", "_musket"},
 	
@@ -382,20 +379,20 @@ GM.Perks = {
 	["_medupgr2"] = {Name = "Medical Supplies", Description = "+100 medical charges", RequiresWeapon = "_medic", Slot = 1}, --Done
 	["_medigun"] = {Name = "Medi 01", Description = "Spawn with the Medi 01", RequiresWeapon = "_medic", Slot = 1}, --Done
 	--["_medishot"] = {Name = "Medi ShotGun", Description = "Gives you the Medical ShotGun", RequiresWeapon = "_medic", Slot = 1}, --Done
-	["_healingnads"] = {Name = "Healing grenades", Description = "Gives you 5 healing grenades.", RequiresWeapon = "_medic", Slot = 1}, --Need to make
+	--["_healingnads"] = {Name = "Healing grenades", Description = "Gives you 5 healing grenades.", RequiresWeapon = "_medic", Slot = 1}, --Need to make
 	
 	--Commando
 	
-	["_nade"] = {Name = "Grenadier", Description = "Throw grenades twice as fast | +25% grenade damage | +40 explosion radius", RequiresWeapon = "_commando", Slot = 1}, --Done
-	["_accuracy"] = {Name = "Accuracy", Description = "50% less recoil from weapons while crouching or aiming.", RequiresWeapon = "_commando", Slot = 1},  --Done
-	["_arsanal"] = {Name = "Additional Arsanal", Description = "Given the Defender Rifle.", RequiresWeapon = "_commando", Slot = 1},  --Done
+	["_nade"] = {Name = "Grenadier", Description = "+25% grenade damage | +40 explosion radius | +3 Grenades", RequiresWeapon = "_commando", Slot = 1}, --Done
+	["_accuracy"] = {Name = "Accuracy", Description = "-40% Recoil | +20% Accuracy ", RequiresWeapon = "_commando", Slot = 1},  --Done
+	["_defender"] = {Name = "Defender Rifle", Description = "Spawn with the Defender Rifle.", RequiresWeapon = "_commando", Slot = 1},  --Done
 
 	--Support
 	
 	["_support"] = {Name = "Board Pack", Description = "Eight planks at the start of the round with 30% more health.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+30% ammo from mobile supplies and SkillShop.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with the Shotgun", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points.", RequiresWeapon = "_support2", Slot = 1}, --Done	
+	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points | +40% Nail Health", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	
 	--Berserker
 	
@@ -409,53 +406,54 @@ GM.Perks = {
 	["_turret"] = {Name = "Turret Overload", Description = "+50% turret stats.",RequiresWeapon = "_engineer", Material = "VGUI/gfx/VGUI/defuser", Slot = 1}, --Done
 	["_nitrate"] = {Name = "Nitrate Stuffed", Description = "+40% C4 explosion radius. 2 second fuse time instead of 1. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done	
 	["_trap"] = {Name = "Trap Engineered", Description = "+40% C4 damage. 70 proximity distance instead of 140. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done		
-	["_pulsepistol"] = {Name = "Pulse Pistol", Description = "Spawn with the pulse pistol", RequiresWeapon = "_engineer", Slot = 1},	--Done
-	["_combat"] = {Name = "Combat Turret", Description = "Gives the Combat turret.", RequiresWeapon = "_engineer", Slot = 1},	--Done	
-	["_remote"] = {Name = "Turret Remote", Description = "[REPLACES SECONDARY] Control the turret with this gadget! Your turret shoots 2 bullets for the cost of 1!", RequiresWeapon = "_engineer", Slot = 1}, -- Done	
-	["_mine"] = {Name = "Multi C4", Description = "Place up to 10 C4 on the floor instead of 5 | +4 C4 on spawn ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 1}, --Done		
+	["_pulsepistol"] = {Name = "Pulse Pistol", Description = "Spawn with the Pulse Pistol", RequiresWeapon = "_engineer", Slot = 1},	--Done
+	["_combat"] = {Name = "Combat Turret", Description = "Spawn the Combat turret.", RequiresWeapon = "_engineer", Slot = 1},	--Done	
+	--["_remote"] = {Name = "Turret Remote", Description = "[REPLACES SECONDARY] Control the turret with this gadget! Your turret shoots 2 bullets for the cost of 1!", RequiresWeapon = "_engineer", Slot = 1}, -- Done	
+	["_mine"] = {Name = "Multi C4", Description = "Spawn with +4 C4",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 1}, --Done		
+	
 	--Sharpshooter
 	
-	["_lethal"] = {Name = "Python", Description = "Spawn with the python", RequiresWeapon = "_sharpshooter", Slot = 1}, --Done
-	["_accuracy2"] = {Name = "Kinetic Absorption", Description = "No recoil while in iron sight", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
-	["_highcal"] = {Name = "Reinforced Calibre", Description = "Greater bullet knock back", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
-	["_supply"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users. +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
+	["_lethal"] = {Name = "Python", Description = "Spawn with the Python", RequiresWeapon = "_sharpshooter", Slot = 1}, --Done
+	["_accuracy2"] = {Name = "Marksman", Description = "-70% Recoil | +40% Accuracy ", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
+	["_highcal"] = {Name = "Reinforced Calibre", Description = "+200% Bullet Knockback", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
+	["_supply"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users | +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
 	["_musket"] = {Name = "Musket Boy", Description = "+2 musket clipsize", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
 	
 					--[[Slot 2 'personal perk']]--
 	--Medic
 	
 	["_medupgr1"] = {Name = "Healthy Reward", Description = "+30% SP for healing", RequiresWeapon = "_medic", Slot = 2}, --Done
-	["_poisonprotect"] = {Name = "Natural Immunity", Description = "70% Poison resistance", RequiresWeapon = "_medic", Slot = 2}, --Done
+	["_poisonprotect"] = {Name = "Natural Immunity", Description = "80% Poison resistance | -8 Poison Ticks", RequiresWeapon = "_medic", Slot = 2}, --Done
 	["_sboost2"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_medic", Slot = 2}, --Done
 	
 	--Commando
 	
 	["_kevlarcommando"] = {Name = "Kevlar", Description = "+50 initial health", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2}, --Done
 	["_profitable"] = {Name = "Lead Market", Description = "+30% SP from kills", RequiresWeapon = "_commando", Slot = 2}, --Done
-	["_comeback2"] = {Name = "Bring The Pain", Description = "Redeem with a Famas or SG552", RequiresWeapon = "_commando", Slot = 2},
+	--["_comeback2"] = {Name = "Bring The Pain", Description = "Redeem with a Famas or SG552", RequiresWeapon = "_commando", Slot = 2},
 	
 	--Support
 	
-	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "+50 maximum health", RequiresWeapon = "_support2", Slot = 2}, --Done
-	["_psychopath"] = {Name = "Regeneration", Description = "Regain health like a monster!", RequiresWeapon = "_support2", Slot = 2}, --Done
-	["_reload"] = {Name = "Action Reload", Description = "Reload 2 shotgun shells at once!", RequiresWeapon = "_support2", Slot = 2}, --Done
+	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "+50 Maximum Health", RequiresWeapon = "_support2", Slot = 2}, --Done
+	["_supportregen"] = {Name = "Regeneration", Description = "Regain 1 health every 3 seconds while under 40 health.", RequiresWeapon = "_support2", Slot = 2}, --Done
+	["_reload"] = {Name = "Action Reload", Description = "+50% Shotgun Reload Speed", RequiresWeapon = "_support2", Slot = 2}, --Done
 	
 	--Berserker
 	
-	["_bloodmoney"] = {Name = "Blood Money", Description = "+5 SP for melee kills", RequiresWeapon = "_berserker", Slot = 2}, --Done
+	["_bloodmoney"] = {Name = "Blood Money", Description = "+5 SP from melee kills", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_berserk"] = {Name = "Berserk", Description = "+10% speed while under 40 health", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	
 	--Engineer
 	
 	["_turretsp"] = {Name = "Turret Revenue", Description = "+10 SP from turret kills", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
-	["_blast"] = {Name = "Blast Proof", Description = "+50% resistance to explosives", RequiresWeapon = "_engineer", Slot = 2}, --Done
+	["_blast"] = {Name = "Blast Proof", Description = "+60% resistance to explosives", RequiresWeapon = "_engineer", Slot = 2}, --Done
 	["_sboost"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_engineer", Slot = 2}, --Done
-
 	
 	--Sharpshooter
-	["_kevlar2"] = {Name = "Kevlar", Description = "+50 initial health.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
-	["_point"] = {Name = "Take Point", Description = "15% Crouch speed increase, you take less fall damage and also don't down.", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
-	["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
+	["_kevlar2"] = {Name = "Kevlar", Description = "+30 initial health.", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
+	["_point"] = {Name = "Take Point", Description = "+30% Jump Power | -15 Maximum Health | -50% Fall Damage", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
+	["_sboost3"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done	
+	--["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	
 	--[[New ZS Classes]]--
 	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit  | P228  |  Knife                            ",Description = "+10% Pistol Damage | +10% Medi Damage | +2% Movement Speed Per Level | +2% Pistol Damage Per Level | +2% Medi Damage Per Level | +5% Poison Resistance Per Level | +5% Claw Damage Resistance Per Level | +5% Medical Power Per Level | ", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
@@ -463,7 +461,7 @@ GM.Perks = {
 	["_support2"] = {Name = "Support",    		Equipment = "Board Pack  |  USP   |  Hammer                  ", Description = "+10% Shotgun Damage | +10% SMG Damage | +10% Ammo Received | +2% SMG Damage Per Level | +2% Shotgun Damage Per Level | +5% Nail Health Per Level | +1 Repair Point Per Level | +1 Nail Per Level | +3% Ammo Received Per Level | ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+20% Melee Damage | +2% Melee Damage Per Level | +4 Health On Melee Kill | +1 Health On Melee Kill Per Level | +30% Howler Disorientation Resistance | +1% Movement Speed Per Level |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret  |  C4  |  Classic Pistol  |  Pan  ", Description = "+10% Pulse Weapon Damage | +6% Turret Damage/Health/Ammo Per Level | +10% Pulse Weapon Capacity Per Level | +2% Pulse Weapon Damage Per Level | +5% Pulse Weapon Recharge Rate Per Level | +2% C4 Damage Per Level | +2% C4 Radius Per Level |", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
-	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Beretta  |  Beer Bottle		", Description = "+10% Sniper Damage | +2% Sniper Damage Per Level | +3% Headshot Damage Per Level |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},	
+	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Beretta  |  Beer Bottle		", Description = "+10% Sniper Damage | +10% Headshot Damage | +2% Sniper Damage Per Level | +2% Headshot Damage Per Level |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},	
 	["_pyrotechnic"] = {Name = "PyroTechnic", Equipment = "Fame Nades  |  Fare Gun ", Description = "Immune To Fire | Extra Health  |  Possibility To Get A Flamer On Spawn", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3}, --Need to start this soon
 	
 }

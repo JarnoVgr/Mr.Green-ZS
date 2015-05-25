@@ -87,6 +87,14 @@ function SWEP:Reload()
 	self:SetIronsights(false)
 end
 
+function SWEP:OnDeploy()
+	if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
+		self.ReloadDelay = 0.45
+		self.ReloadDelay = self.ReloadDelay * 0.5
+	end
+end
+
+
 function SWEP:Think()
 	if self.reloading and self.reloadtimer < CurTime() then
 		self.reloadtimer = CurTime() + self.ReloadDelay
@@ -95,16 +103,6 @@ function SWEP:Think()
 		self.Owner:RemoveAmmo(1, self.Primary.Ammo, false)
 		self:SetClip1(self:Clip1() + 1)
 
-		
-	if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "Rambo" then
-			self:SetClip1(self:Clip1() + 3)
-		end
-		
-				
-		if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
-			self:SetClip1(self:Clip1() + 1)
-		end
-		
 		if self.Primary.ClipSize <= self:Clip1() or self.Owner:GetAmmoCount(self.Primary.Ammo) <= 0 then
 			self.nextreloadfinish = CurTime() + self.ReloadDelay
 			self.reloading = false

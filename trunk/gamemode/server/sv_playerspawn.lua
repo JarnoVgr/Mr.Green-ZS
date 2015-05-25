@@ -232,7 +232,7 @@ function GM:PlayerSpawn(pl)
 	end
 
 	pl:SetRenderMode(RENDERMODE_NORMAL)
-	pl:SetColor(Color(225,225,225,225))
+	pl:SetColor(Color(math.random(0,255),math.random(0,255),math.random(0,255),225))
 	-------------------------END DUBY'S FIX
 
 	--Set model based on preferences
@@ -365,7 +365,7 @@ function GM:OnHumanSpawn(pl)
 		
 	--Freeman
 	--Check if we can be THE Gordon Freeman
-	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,6) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
+	if pl:Team() ~= TEAM_SPECTATOR and ((not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
 		--Only display message when being human
 		if pl:Team() == TEAM_SURVIVORS then
 			pl:ChatPrint("You're now THE Gordon Freeman!")
@@ -389,13 +389,14 @@ function GM:OnHumanSpawn(pl)
 	end			
 		
 	--Spawn protection
+
 	pl:GodEnable()
 	timer.Simple(3, function() 
 		if IsValid(pl) then
 			pl:GodDisable() 
 		end
 	end)
-	
+
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
 	--Time the player spawned
@@ -428,14 +429,16 @@ function GM:OnHumanSpawn(pl)
 	self:SetPlayerSpeed(pl, CalculatePlayerSpeed(pl))
 
 	--Set crouch speed
-	if pl:GetPerk("_point") then
-		pl:SetCrouchedWalkSpeed(0.9)
-	end
-		pl:SetCrouchedWalkSpeed(0.65)
+
+	pl:SetCrouchedWalkSpeed(0.6)
 	
 	--Set jump power
-	if pl:GetJumpPower() ~= 190 then
-		pl:SetJumpPower(190) 
+	if pl:GetJumpPower() ~= 185 then
+		pl:SetJumpPower(185) 
+	end
+	
+	if pl:GetPerk("_point") then
+		pl:SetJumpPower(pl:GetJumpPower()*1.25) 
 	end
 	
 	--Calculate maximum health for human
@@ -559,6 +562,10 @@ function GM:OnZombieSpawn(pl)
 	if pl:GetJumpPower() ~= (Tab.JumpPower or 200) then
 		pl:SetJumpPower(Tab.JumpPower or 200) 
 	end
+
+	--if pl:GetPerk("_point") then
+	--	pl:SetJumpPower(1000) 
+	--else
 	
 	--
 	if pl.Revived then
@@ -878,7 +885,9 @@ function CalculatePlayerHealth(pl)
 	end	
 	
 	if pl:GetPerk("_kevlar2") and pl:GetPerk("_sharpshooter") then
-		MaxHealth, Health = 100, 150
+		MaxHealth, Health = 100, 130
+	elseif pl:GetPerk("_point") then
+		MaxHealth = 85			
 	end		
 	
 	if pl:GetPerk("_commando") then

@@ -30,7 +30,12 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 		pl:CheckSpeedChange()
 
 		if attacker:IsPlayer() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_ghoul" or attacker:IsPlayer() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_poisonzombie" then
-			pl:TakeDamageOverTime(math.Clamp(dmginfo:GetDamage() * 0.2,1,3), 1.5, 10, attacker, attacker:GetActiveWeapon())
+			local protect = 0
+			if pl:GetPerk("_poisonprotect") then
+				protect = 8
+			end	
+			
+			pl:TakeDamageOverTime(math.Clamp(dmginfo:GetDamage() * 0.2,1,2), 1.5, 10 - protect, attacker, attacker:GetActiveWeapon())
 			local Infect = EffectData()		
 			Infect:SetEntity( pl )
 			util.Effect( "infected_human", Infect, true)	

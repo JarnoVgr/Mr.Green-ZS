@@ -54,7 +54,7 @@ SWEP.Primary.Damage			= 7
 SWEP.Primary.NumShots		= 1		
 SWEP.Primary.Cone			= 0 	
 SWEP.Primary.ClipSize		= 20
-SWEP.Primary.DefaultClip	= 4
+SWEP.Primary.DefaultClip	= 3
 SWEP.Primary.Automatic   	= true
 SWEP.Primary.Ammo         	= "slam"	
 ------------------------------------------------------------------------------------------------------
@@ -99,7 +99,7 @@ function SWEP:Equip ( NewOwner )
 			self.Weapon.FirstSpawn = false
 			
 		if self.Owner:GetPerk("_mine") then
-			self.Weapon:SetClip1( 8 ) 	
+			self.Weapon:SetClip1( 7 ) 	
 		end	
 		
 		end	
@@ -130,33 +130,6 @@ local owner = self.Owner
 	local tr = util.TraceLine( trace )
 	-- 
 	
-	for k,v in pairs(ents.FindByClass("mine")) do
-		if v and v:GetOwner() == self.Owner then
-			mymines = mymines + 1
-		end
-	end
-	
-
-		if owner:GetPerk("_mine") then
-			if mymines > 10 then
-		if SERVER then
-			self.Owner:Message("You can't place more than 10 mines per ground",1,"white")
-		end
-		return
-	end
-	
-		else	
-			
-	if mymines > 5 then
-		if SERVER then
-			self.Owner:Message("You can't place more than 5 mines per ground",1,"white")
-		end
-		return
-	end
-	
-	end
-	
-	
 	for k,v in pairs ( ActualMines ) do
 		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 32 then
 				mines = mines + 1
@@ -164,11 +137,10 @@ local owner = self.Owner
 	end
 		
 	if mines >= 1 then
-
 		return
 	end
 	
-
+	--[[
 	if cades >= 1 then
 		if SERVER then 
 			self.Owner:Message("You must place the mine more away from barricades",1)
@@ -176,6 +148,7 @@ local owner = self.Owner
 		
 		return
 	end
+	]]--
 	
 	if ( tr.Hit ) and tr.HitNormal.z != -1 then
 
@@ -220,8 +193,7 @@ local owner = self.Owner
 				self.Owner:EmitSound("weapons/c4/c4_plant.wav" )
 				
 				ent:GetTable():WallPlant( tr.HitPos + tr.HitNormal, tr.HitNormal )
-				self:TakePrimaryAmmo( 1 )
-								
+				self:TakePrimaryAmmo( 1 )	
 			end
 		else
 		self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
