@@ -452,7 +452,7 @@ GM.Perks = {
 	
 	--Sharpshooter
 	["_kevlar2"] = {Name = "Kevlar", Description = "+30 Initial Health", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
-	["_point"] = {Name = "Take Point", Description = "+30% Jump Power | -15 Maximum Health | -50% Fall Damage", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
+	["_point"] = {Name = "Take Point", Description = "+30% Jump Power | -50% Fall Damage", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	["_sboost3"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done	
 	--["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	
