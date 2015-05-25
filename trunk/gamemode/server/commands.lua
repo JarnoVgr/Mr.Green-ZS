@@ -487,6 +487,22 @@ function ShowLevelStats (pl, cmd, args)
 end
 concommand.Add("zs_showlevel",ShowLevelStats)
 
+function EnableDamageOutput (pl, cmd, args)
+	if not (pl:IsValid()) then
+		return
+	end
+	
+	if pl.DamageOutput then
+		pl.DamageOutput = false
+		pl:PrintMessage(HUD_PRINTTALK,"Disabled damage output.")		
+	else
+		pl.DamageOutput = true	
+		pl:PrintMessage(HUD_PRINTTALK,"Enabled damage output.")		
+	end
+
+end
+concommand.Add("zs_damageoutput",EnableDamageOutput)
+
 function Pufu(pl, commandName,args )
 	if ENDROUND then
 		return

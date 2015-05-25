@@ -15,20 +15,20 @@ GeneralInfo = table.Shuffle(GeneralInfo)
 
 -- Human related hints
 local HumanHints = {
-	"Press E on Supply Crates to get weapons, ammo and health.",
-	"In need of new weaponry? Kill the Zombies and find a Supply Crate.",
+	"Use the SkillShop to gain weapons and ammo.",
+	"Type !damage in chat to enable damage output.",
 	-- "To see what Weapons you can get, press F2 to see your classes weapon tree!",
-	"SP stands for SkillPoints which you earn by killing Zombies.",
+	"SP stands for SkillPoints which you earn by killing zombies.",
 	"Press F3 to drop your current weapon."
 }
 HumanHints = table.Shuffle(HumanHints)
 
 -- Undead related hints
 local UndeadHints = {
-	"Press F3 to open the Zombie Species menu. More classes will unlock as Humans die.",
+	"Press F3 to open the Zombie Species menu. More classes will unlock as the round progresses.",
 	"Kill multiple Humans to become one of them again.",
-	"Zombie Bosses spawn every now and then to give the Undead power.",
-	"As more time goes on the more zombie classes unlock!",
+	"Player with the highest amount of damage done will become a boss!",
+	"Throwing flesh heals fellow zombies!",
 
 }
 UndeadHints = table.Shuffle(UndeadHints)

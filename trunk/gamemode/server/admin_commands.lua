@@ -143,6 +143,9 @@ local function CommandSay(pl, text, teamonly)
 		elseif (text == "!levelstats") then
 			server_RunCommand(pl, "zs_showlevel")
 			return ""
+		elseif (text == "!damage") then
+			server_RunCommand(pl, "zs_damageoutput")
+			return ""			
 		elseif (text == "!stopsounds") then
 			server_RunCommand(pl, "stopsounds")
 			pl:PrintMessage(HUD_PRINTTALK,"Stopped sounds.")

@@ -35,7 +35,17 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 	end
 	
 	dmginfo:SetDamage( dmg )	
+	
+	--local damage = util.tobool(GetConVarNumber("_zs_damage"))
+		--print(damage)
+	if attacker.DamageOutput then
+		attacker:ChatPrint(math.Round(dmg))
+	end
 
+	
+
+	
+	
 	--[[if attacker:IsPlayer() and ent:IsPlayer() then
 		if not ent:IsBot() and ent:IsPlayer() and ent:Team() == TEAM_HUMAN and ent:Alive() and ent:GetPerk("_enhkevlar") and attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD then
 			dmginfo:SetDamage (damage - damage*0.25 ) 

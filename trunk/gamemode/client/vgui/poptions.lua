@@ -397,21 +397,20 @@ local function EnableHats(sender, command, arguments)
 end
 concommand.Add("zs_enablehats", EnableHats)
 
---[[
-ENABLE_MRGREENZOMBIESOUNDS = util.tobool(GetConVarNumber("_zs_mrgreenzombiesounds"))
-local function EnableMrGreenZombieSounds(sender, command, arguments)
-	ENABLE_MRGREENZOMBIESOUNDS = util.tobool(arguments[1])
 
+ENABLE_DAMAGE = util.tobool(GetConVarNumber("_zs_damage"))
+local function EnableDamage(sender, command, arguments)
+	ENABLE_MRGREENZOMBIESOUNDS = util.tobool(arguments[1])
 	if ENABLE_MRGREENZOMBIESOUNDS then
-		RunConsoleCommand("_zs_mrgreenzombiesounds", "1")
-		MySelf:ChatPrint("MrGreen zombie sounds enabled.")
+		RunConsoleCommand("_zs_damage", "1")
+		MySelf:ChatPrint("Damage output enabled.")
 	else
-		RunConsoleCommand("_zs_mrgreenzombiesounds", "0")
-		MySelf:ChatPrint("MrGreen zombie sounds disabled.")
+		RunConsoleCommand("_zs_damage", "0")
+		MySelf:ChatPrint("Damage output disabled.")
 	end
 end
-concommand.Add("_zs_mrgreenzombiesounds", EnableMrGreenZombieSounds)
-]]--
+concommand.Add("_zs_damage", EnableDamage)
+
 
 -- Auto redeem
 -- CreateClientConVar("_zs_autoredeem", 1, true, false)
