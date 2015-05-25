@@ -184,9 +184,9 @@ if SERVER then
 							eff:SetMagnitude( math.random(1,1.2) )
 							util.Effect("StunstickImpact", eff, true, true)    
 
-							if trent.PropHealth != nil then					
-								trent.PropHealth = math.Round(math.Clamp(trent.PropHealth + self.ToHeal, 0, trent.TotalHealth))
-							end							
+							--if trent.PropHealth != nil then					
+							--	trent.PropHealth = math.Round(math.Clamp(trent.PropHealth + self.ToHeal, 0, trent.TotalHealth))
+							--end							
 							
                             --self.Owner._RepairScore = self.Owner._RepairScore + 1
                             --self:TakePrimaryAmmo(1)
@@ -200,11 +200,11 @@ if SERVER then
 								
 								if self.ToHeal >= 10 then
 									skillpoints.AddSkillPoints(self.Owner, 1)
-								nail:FloatingTextEffect2( 1, self.Owner )									
+									nail:FloatingTextEffect2( 1, self.Owner )									
 								end	
 							end
 							
-							self.Owner._RepairScore = 0
+							--self.Owner._RepairScore = 0
 								
 								
 
