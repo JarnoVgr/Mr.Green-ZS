@@ -19,7 +19,7 @@ function ENT:Initialize()
 	self.Entity.Frozen = true
 	
 	if self:GetOwner():GetPerk("_nitrate") then
-		self.scan = 2
+		self.scan = 1.5
 	end
 
 	if self:GetOwner():GetPerk("_trap") then

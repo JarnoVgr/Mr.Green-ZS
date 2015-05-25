@@ -352,7 +352,7 @@ GM.RankUnlocks = {
 
 	[1] = {"_medupgr2","_accuracy","_mine" ,"_kevlarcommando","_sboost3"},
 	
-	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_lethal"},
+	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_lethal","_slinger"},
 	
 	[3] = {"_nade","_supportammo","_freeman", "_oppressive","_medigun","_pulsepistol","_defender"},
 	
@@ -400,6 +400,7 @@ GM.Perks = {
 	["_psychotic"] = {Name = "Psychotic", Description = "+4 health from kills | +60% melee swing speed", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads. -15% melee damage.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
 	["_oppressive"] = {Name = "Oppressive", Description = "Smash zombies away with your mighty weapons!", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
+	["_slinger"] = {Name = "Hook", Description = "Spawn with the Hook", RequiresWeapon = "_berserker", Slot = 1},
 	
 	--Engineer
 	

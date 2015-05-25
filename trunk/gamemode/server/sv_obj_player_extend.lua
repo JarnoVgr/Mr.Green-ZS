@@ -1182,10 +1182,11 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 			if attacker:GetActiveWeapon():GetClass() == "weapon_zs_tools_hammer" then
 				return true
 			else
-				damage = damage * 0.5
+				damage = damage * 0.25
 			end
 		else
-			damage = damage * 0.1	
+			damage = 0	
+			return true			
 		end
 	end
 
@@ -1207,8 +1208,8 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 			continue
 		end
 		
-		nail:SetDTInt(1, nail:GetDTInt(1) - damage*0.2 )	
-		--ent:SetHealth(ent:Health() - (damage/#ent.Nails)*0.2)
+		nail:SetDTInt(1, nail:GetDTInt(1) - (damage/#ent.Nails) )	
+		ent:SetHealth(ent:Health() - (damage/#ent.Nails))
 		nail:SetNailHealth(nail:GetNailHealth() - damage)	
 		
 		ent:EmitSound( "physics/metal/metal_box_impact_bullet"..math.random( 1,3 )..".wav", math.random(50,60) )			
@@ -1246,7 +1247,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	
 	if bNailDied then
 		--Damage prop a bit to prevent nail abuse
-		dmginfo:ScaleDamage(1.5)
+		dmginfo:ScaleDamage(1/#ent.Nails)
 		
 		--Enable motion and reset for optimization
 		if #self.Nails == 0 then

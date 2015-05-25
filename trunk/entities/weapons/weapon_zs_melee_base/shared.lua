@@ -315,8 +315,8 @@ function SWEP:MeleeSwing()
 					if self.MeleeSize >= 1.5 then
 					
 					local Velocity = self.Owner:EyeAngles():Forward() * damage * 5
-					Velocity.x = Velocity.x * 0.33
-					Velocity.y = Velocity.y * 0.33
+					Velocity.x = Velocity.x * 0.4
+					Velocity.y = Velocity.y * 0.4
 					
 					if owner:GetPerk("_oppressive") then
 						Velocity.z = Velocity.z * 1.85
