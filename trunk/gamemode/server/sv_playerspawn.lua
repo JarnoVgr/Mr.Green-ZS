@@ -354,16 +354,17 @@ function GM:OnHumanSpawn(pl)
 	self:SetPlayerSpeed(pl, CalculatePlayerSpeed(pl))
 
 	--Set crouch speed
-	if pl:GetPerk("_point") then
-		pl:SetCrouchedWalkSpeed(0.9)
-	else
-		pl:SetCrouchedWalkSpeed(0.65)
-	end
-	
+
+	pl:SetCrouchedWalkSpeed(0.5)
+
 	--Set jump power
 	if pl:GetJumpPower() ~= 190 then
 		pl:SetJumpPower(190) 
 	end
+	
+	if pl:GetPerk("_point") then
+		pl:SetJumpPower(250) 
+	end	
 	
 	--Calculate maximum health for human
 	CalculatePlayerHealth(pl)
@@ -702,7 +703,7 @@ function CalculatePlayerLoadout(pl)
 
 		pl.Loadout = table.Copy(commando)
 
-		if pl:GetPerk("_arsanal") then
+		if pl:GetPerk("_defender") then
 			pl:Give("weapon_zs_defender")
 		end		
 	elseif pl:GetPerk("_berserker") then
