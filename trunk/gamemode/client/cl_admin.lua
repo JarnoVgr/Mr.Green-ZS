@@ -1,10 +1,30 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
+local AdminPanel, ToggleCooldown = nil, 0
+
+--[==[------------------------------------------------
+              Closes the Admin Panel
+-------------------------------------------------]==]
+local function CloseAdminPanel()
+	if not IsValid(AdminPanel) then
+		return
+	end
+	
+	--Cooldown
+	ToggleCooldown = CurTime() + 0.25
+	
+	--Hide mouse
+	gui.EnableScreenClicker(false)
+	
+	AdminPanel:Remove() 
+	AdminPanel = nil
+end
+
 --[==[------------------------------------------------
             Confirm an important action
 -------------------------------------------------]==]
-local function ConfirmAction ( Action, Pl, IsBan, BanTime, Reason ) 
+local function ConfirmAction(Action, Pl, IsBan, BanTime, Reason)
 	if Action == nil then
 		return
 	end
@@ -46,9 +66,8 @@ end
 --[==[------------------------------------------------
              Creates the Admin Panel
 -------------------------------------------------]==]
-local AdminPanel, ToggleCooldown = nil, 0
-function DoAdminPanel()
-	if not IsValid(MySelf) then
+local function DoAdminPanel()
+	if not IsValid(MySelf) or not MySelf:IsAdmin() then
 		return
 	end
 	
@@ -314,11 +333,6 @@ function DoAdminPanel()
 				CloseAdminPanel()
 			end)
 			
-			--Unleash Undead Boss
-			DebugMenu:AddOption("Necro Mod W.I.P", function()
-				CloseAdminPanel()
-			end)
-
 			--Skip to Intermission
 			DebugMenu:AddOption("Start intermission in 5 seconds", function()
 				RunConsoleCommand("zs_admin_debug","roundtime5")
@@ -327,7 +341,7 @@ function DoAdminPanel()
 		end
 	end)
 
-	-- finally open the panel
+	--Finally open the panel
 	timer.Simple(0.25, function() 
 		if not IsValid(AdminPanel) then
 			return
@@ -346,33 +360,14 @@ function DoAdminPanel()
 	end)
 end
 
---[==[------------------------------------------------
-              Closes the Admin Panel
--------------------------------------------------]==]
-function CloseAdminPanel()
-	if not IsValid(MySelf) or not IsValid(AdminPanel) then
-		return
-	end
-	
-	--Cooldown
-	ToggleCooldown = CurTime() + 0.25
-	
-	--Hide mouse
-	gui.EnableScreenClicker(false)
-	
-	AdminPanel:Remove() 
-	AdminPanel = nil
-end
+local ToggleCooldown = 0
 
 --[==[------------------------------------------------
               Called on KEY_C pressed
 -------------------------------------------------]==]
 local function OnKeyPressed()
-	if not IsValid(MySelf) or not MySelf:IsAdmin() then
-		return
-	end
-	
-	if ClassMenu ~= nil and ClassMenu:IsValid() and ClassMenu:IsVisible() then
+	--Don't display when in class menu
+	if IsValid(ClassMenu) and ClassMenu:IsVisible() then
 		return
 	end
 	
@@ -384,17 +379,13 @@ local function OnKeyPressed()
 	--Pop-up the admin panel
 	DoAdminPanel()
 end
-hook.Add("OnContextMenuOpen", "ContextKeyPressedHook", OnKeyPressed )
+hook.Add("OnContextMenuOpen", "ContextKeyPressedHook", OnKeyPressed)
 
 --[==[------------------------------------------------
               Called on KEY_C released
 -------------------------------------------------]==]
 local function OnKeyReleased()
-	if not IsValid(MySelf) or not MySelf:IsAdmin() then
-		return
-	end
-	
-	-- remove admin panel and disable mouse
+	--Remove admin panel and disable mouse
 	CloseAdminPanel()
 end
 hook.Add("OnContextMenuClose", "ContextKeyReleasedHook", OnKeyReleased )

@@ -494,7 +494,7 @@ function meta:Dismember ( distype,dmginfo )
 end
 
 
-function AddXP (pl, cmd, args)
+function AddXP(pl, cmd, args)
 	if not IsValid (pl) then return end
 	if pl:Team() == TEAM_SPECTATOR then return end
 	
@@ -506,7 +506,7 @@ function AddXP (pl, cmd, args)
 end
 concommand.Add("zs_xp_add", AddXP)
 
-function Addr (pl, cmd, args)
+function Addr(pl, cmd, args)
 	if not IsValid (pl) then return end
 	if pl:Team() == TEAM_SPECTATOR then return end
 	
@@ -818,11 +818,59 @@ end
 
 function meta:UnSpectateAndSpawn()
 	self:UnSpectate()
+
+	--Check if player is in spectators team and set proper team
+	local Team = self:Team()
+	if Team ~= TEAM_HUMAN or Team ~= TEAM_ZOMBIE then
+		self:SetAppropiateTeam()
+	end
+
 	self:Spawn()
 end
 
+function meta:SetAppropiateTeam()
+	local balance = team.NumPlayers(TEAM_HUMAN) / team.NumPlayers(TEAM_UNDEAD)
+	local ID = self:UniqueID() or "UNCONNECTED"
+
+	--Team
+	local iTeam = TEAM_SPECTATOR
+	
+	if self:IsBot() then
+		iTeam = TEAM_HUMAN
+	end
+	
+	-- Setup a table for connected selfayers for good reasons
+	if not DataTableConnected[ID] then
+		DataTableConnected[ID] = { IsDead = false, SuicideSickness = false, Health = false, HumanClass = false, AlreadyGotWeapons = false } 
+	end
+	
+	-- Case 3: If selfayer has connected as human and passed the class menu then reconnected then set him as human again with same class and health
+	if self:ConnectedAlreadyGotWeapons() and not self:ConnectedIsDead() then
+		iTeam = TEAM_HUMAN
+	end
+	
+	--??
+	if not self:IsBot() then
+		if DataTableConnected[ID].IsDead then
+			self.SpawnedTime = CurTime()
+			iTeam = TEAM_UNDEAD
+		end
+	end
+	
+	--Case 2: If passed 5 minutes or lasthuman or endround or more than 50% selfayers zombie, selface him as undead
+	if (CurTime() > ROUNDTIME * 0.2) or LASTHUMAN or (GetInfliction() >= 0.5 and team.Numselfayers(TEAM_UNDEAD) > 2) or ENDROUND then
+		iTeam = TEAM_UNDEAD
+		DataTableConnected[ID].IsDead = true
+	end
+		
+	--Set team and class
+	self:SetTeam(iTeam)
+end
+
 function meta:SecondWind(pl)
-	if self.Gibbed or self:Alive() or self:Team() ~= TEAM_UNDEAD then return end
+	if self.Gibbed or self:Alive() or self:Team() ~= TEAM_UNDEAD then
+		return
+	end
 
 	local pos = self:GetPos()
 	local angles = self:EyeAngles()
@@ -837,80 +885,74 @@ function meta:SecondWind(pl)
 	self:SetEyeAngles(angles)
 	self:EmitSound("npc/zombie/zombie_voice_idle"..math.random(1, 14)..".wav", 100, 85)
 	self:TemporaryNoCollide()
-	
 end
 
 function meta:SetRandomFace()
-	
-
 	local FlexNum = self:GetFlexNum() - 1
-	if ( FlexNum <= 0 ) then return end
+	if FlexNum <= 0 then
+		return
+	end
 	
 	for i=0, FlexNum-1 do
-	
-		self:SetFlexWeight( i, math.Clamp( math.Rand(0.1,2), 0, 2 ) )
-
-		
+		self:SetFlexWeight(i, math.Clamp(math.Rand(0.1, 2), 0, 2))
 	end
 	
 	self:SetFlexScale(math.random(-4,4))
-
-	
 end
 
----[[ Duby's Temp Bone Mod ]]---
----[[ I'll move this else where and make it more optimized soon! ]]---
-
-function meta:SetBodyPositions() --Bosses bone positions
-
-	local Bone = self:LookupBone("ValveBiped.Bip01_Spine4")
-	if Bone then
-		self:ManipulateBoneAngles( Bone, Angle(30,95,-190)  )
-	end
-	
-	local Bone = self:LookupBone("ValveBiped.Bip01_L_UpperArm")
-	if Bone then
-		self:ManipulateBoneAngles( Bone, Angle(-180,90,90)  )
-	end
-
-	local Bone = self:LookupBone("ValveBiped.Bip01_Pelvis")
-	if Bone then
-	 	self:ManipulateBoneAngles( Bone, Angle(0,0,10)  )
-	end
+--Bosses bone positions
+function meta:SetBodyPositions()
+	--Make all bones larger
 	for i = 0, self:GetBoneCount() - 1 do
-		self:ManipulateBoneScale( Bone, Vector(1.4,1.4,1.4)  )
+		self:ManipulateBoneScale(i, Vector(1.4, 1.4, 1.4))
 	end
 
-	
-end
-
-function meta:SetHumanBonePositions() --Revert the bone positions back
 
 	local Bone = self:LookupBone("ValveBiped.Bip01_Spine4")
 	if Bone then
-		self:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		self:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+		self:ManipulateBoneAngles(Bone, Angle(30, 95, -190))
+	end
+	
+	local Bone = self:LookupBone("ValveBiped.Bip01_L_UpperArm")
+	if Bone then
+		self:ManipulateBoneAngles(Bone, Angle(-180, 90, 90))
+	end
+
+	local Bone = self:LookupBone("ValveBiped.Bip01_Pelvis")
+	if Bone then
+	 	self:ManipulateBoneAngles(Bone, Angle(0, 0, 10))
+	end
+end
+
+--Revert the bone positions back
+--ToDo: Rename it to something like 'ResetBones'
+function meta:SetHumanBonePositions()
+	--[[local Bone = self:LookupBone("ValveBiped.Bip01_Spine4")
+	if Bone then
+		self:ManipulateBoneAngles(Bone, Angle(0,0,0))
+		self:ManipulateBoneScale(Bone, Vector(1,1,1))
 	end
 	local Bone = self:LookupBone("ValveBiped.Bip01_L_UpperArm")
 	if Bone then
-		self:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		self:ManipulateBoneScale( Bone, Vector(1,1,1)  )
+		self:ManipulateBoneAngles(Bone, Angle(0,0,0))
+		self:ManipulateBoneScale(Bone, Vector(1,1,1))
 	end
 	local Bone = self:LookupBone("ValveBiped.Bip01_Pelvis")
 	if Bone then
-	 	self:ManipulateBoneAngles( Bone, Angle(0,0,0)  )
-		self:ManipulateBoneScale( Bone, Vector(1,1,1)  )
-	end
-	
+	 	self:ManipulateBoneAngles(Bone, Angle(0,0,0))
+		self:ManipulateBoneScale(Bone, Vector(1,1,1) )
+	end]]
 
+	for i = 0, self:GetBoneCount() - 1 do
+		self:ManipulateBoneScale(i, Vector(1, 1, 1))
+		self:ManipulateBoneAngles(i, Angle(0, 0, 0))
+	end
 end
 
 function meta:CalculateViewOffsets()
-
 	local off1, off2 = Vector(0, 0, 64), Vector(0, 0, 28)
 	
 	if self:Team() ~= TEAM_UNDEAD then 
-	
 		self:SetViewOffset(off1)
 		self:SetViewOffsetDucked(off2)
 		
@@ -920,7 +962,8 @@ function meta:CalculateViewOffsets()
 			umsg.Vector(off2)
 		umsg.End()
 	
-	return end
+		return
+	end
 	
 	local offset = ZombieClasses[self:GetZombieClass()].ViewOffset
 	local offset2 = ZombieClasses[self:GetZombieClass()].ViewOffsetDucked
@@ -941,8 +984,6 @@ function meta:CalculateViewOffsets()
 		umsg.Vector(off1)
 		umsg.Vector(off2)
 	umsg.End()
-	
-
 end
 
 function meta:VoicePush()
@@ -1004,22 +1045,23 @@ util.AddNetworkString( "CustomChatAdd" )
 -- NOTE: Function not network-friendly
 -- Pretty awesome Server-to-Client chat messages by Overv
 function meta:CustomChatPrint(arg)
-if ( type( arg[1] ) == "Player" ) then self = arg[1] end
-	
+	if type( arg[1] ) == "Player" then
+		self = arg[1]
+	end
 		
-		net.Start("CustomChatAdd")
-			net.WriteDouble( #arg )
-			for _, v in pairs( arg ) do
-				if ( type( v ) == "string" ) then
-					net.WriteString( v )
-				elseif ( type ( v ) == "table" ) then
-					net.WriteDouble( v.r )
-					net.WriteDouble( v.g )
-					net.WriteDouble( v.b )
-					net.WriteDouble( v.a )
-				end
-			end
-		net.Send(self)
+	net.Start("CustomChatAdd")
+	net.WriteDouble(#arg)
+	for _, v in pairs(arg) do
+		if type( v ) == "string" then
+			net.WriteString( v )
+		elseif type ( v ) == "table" then
+			net.WriteDouble( v.r )
+			net.WriteDouble( v.g )
+			net.WriteDouble( v.b )
+			net.WriteDouble( v.a )
+		end
+	end
+	net.Send(self)
 end
 
 ---
@@ -1030,7 +1072,7 @@ function player.CustomChatPrint( arg )
 	
 	for i = 1, #players do
 		local ply = players[i]
-		ply:CustomChatPrint( arg )
+		ply:CustomChatPrint(arg)
 	end
 end
 
@@ -1051,33 +1093,32 @@ end
 meta.BasePickupObject = meta.PickupObject
 
 function meta:PickupObject( ent )
+	if not IsValid(ent) then
+		return
+	end
 	
-	if not IsValid(ent) then return end
+	self:BasePickupObject(ent)
 	
-	self:BasePickupObject( ent )
-	
-	print("Picked up entity"..tostring(ent:GetClass()))
-
+	Debug("Picked up entity: "..tostring(ent:GetClass()))
 end
 
 meta.BaseDropObject = meta.DropObject
 
-function meta:DropObject( ent )
-	
-	if not IsValid(ent) then return end
+function meta:DropObject(ent)
+	if not IsValid(ent) then
+		return
+	end
 	
 	self:BaseDropObject( ent )
 	
-	print("Dropped entity"..tostring(ent:GetClass()))
-
+	Debug("Dropped entity: "..tostring(ent:GetClass()))
 end
 
 -- -- -- -- -- -- / Entity Meta Table -- -- -- -- -- -- -- -- -- -- -- -- /
-local metaEntity = FindMetaTable( "Entity" )
+local metaEntity = FindMetaTable("Entity")
 
 -- Holy fuck. Garry, is it so hard to make a reference for dragged props?!
 function metaEntity:IsPickupEntity()
-
 	if not IsValid(self) then return end
 	
 	local status = false
@@ -1120,7 +1161,6 @@ end
 local keyvalues = {}
  
 hook.Add("EntityKeyValue","KVFix",function(e,k,v)
- 
 	keyvalues[e] = keyvalues[e] or {}
 	keyvalues[e][k] = v
 end)
@@ -1128,7 +1168,6 @@ end)
 function metaEntity:GetKeyValues()
 	return keyvalues[self] or {}
 end
-
 
 function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	if not self.Nails then 

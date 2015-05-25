@@ -791,7 +791,7 @@ function GM:SendAdminStats(to)
 	umsg.End()
 end
 
-function ChangeClass(pl,cmd,args)
+local function ChangeClass(pl, cmd, args)
 	if args[1] == nil then return end
 	
 	if pl:Team() == TEAM_SPECTATOR then
@@ -806,7 +806,7 @@ function ChangeClass(pl,cmd,args)
 		pl:Spawn()
 	end
 end
-concommand.Add( "ChangeClass", ChangeClass )
+concommand.Add("ChangeClass", ChangeClass)
 
 --[=[---------------------------------------------------------
 	  Crappy bypass for the FCVAR
@@ -978,9 +978,10 @@ end
 function GM:OnPhysgunReload(weapon, pl)
 end
 
-function GM:PlayerSay(player, text, teamonly)
+--Prevent spectators from using the chat
+--[[function GM:PlayerSay(player, text, teamonly)
 	return player:Team() ~= TEAM_SPECTATOR
-end
+end]]
 
 function TrueVisible(posa, posb)
 	-- local filt = ents.FindByClass("projectile_*")
@@ -990,7 +991,7 @@ function TrueVisible(posa, posb)
 	return not util.TraceLine({start = posa, endpos = posb, filter = filt}).Hit
 end
 
-function FromBehind( attacker, pl )
+function FromBehind(attacker, pl)
 	local ang1 = (pl:GetPos()-attacker:GetPos()):Angle()
 	local ang2 = pl:GetAngles()
 	ang1.p = 0
@@ -1049,9 +1050,9 @@ function GM:CanPlayerSuicide(pl)
 	end
 	
 	--Boss zombies can't suicide
-	--if pl:Team() == TEAM_UNDEAD and pl:IsBossZombie() then
-	--	return false
-	--end
+	--[[if pl:Team() == TEAM_UNDEAD and pl:IsBossZombie() then
+		return false
+	end]]
 	
 	return true
 end

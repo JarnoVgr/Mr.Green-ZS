@@ -953,53 +953,34 @@ util.PrecacheSound("npc/stalker/breathing3.wav")
 util.PrecacheSound("npc/zombie/zombie_pain6.wav")
 
 GM.ZombieThirdPerson = false
-function GM:PlayerBindPress(pl, bind, pressed)
-	if pl:Team() ~= TEAM_UNDEAD and not pl:IsZombine() and string.find(bind, "speed") then
-		return true
-	elseif pl:Team() == TEAM_SPECTATOR and (string.find (bind, "messagemode") or string.find (bind,"messagemode2") or string.find(bind,"+voicerecord")) then 
-		return true
-	end
-	
-	--Third person view toggle
-	if bind == "+menu_context" then
-		self.ZombieThirdPerson = not self.ZombieThirdPerson
-	end
-end
-
 --[=[----------------------------------------------------------------
    Restrict  keys like jump / crouch for some classes
 ------------------------------------------------------------------]=]
-function RestrictControls ( pl , bind, pressed ) 
-	if not pl == MySelf then
-		return
-	end
-
-	if pl:Team() == TEAM_UNDEAD then
+local function RestrictControls(pl, bind, pressed)
+	local Team = pl:Team()
+	if Team == TEAM_UNDEAD then
+		--Third person view toggle
+		if bind == "+menu_context" then
+			GAMEMODE.ZombieThirdPerson = not GAMEMODE.ZombieThirdPerson
+		--Block running for non-Zombines
+		elseif bind == "+speed" and not pl:IsZombine() then --string.find(bind, "speed")
+			return true
 		--Ducking
-		if string.find(bind, "duck") then
+		elseif bind == "+duck" then --string.find(bind, "duck")
 			local Class = pl:GetZombieClass()
 		
-			if ZombieClasses[Class].CanCrouch == false then
+			if not ZombieClasses[Class].CanCrouch then
 				return true
 			end
-		end
-	end
-	
-	--Walk for humans
-	if pl:Team() == TEAM_HUMAN then
-		if string.find(bind, "walk") then
+		end	
+	elseif Team == TEAM_HUMAN then
+		--Prevent humans walking (note by Ywa: why should we prevent this?)
+		if bind == "+walk" then --string.find(bind, "walk")
 			return true
 		end		
 	end
 end
 hook.Add("PlayerBindPress", "RestrictControl", RestrictControls)
-
-function SpectatorSay ( say )
-	if MySelf:Team() == TEAM_SPECTATOR then
-		return true
-	end
-end
-hook.Add("StartChat", "Spectator", SpectatorSay)
 
 DEBUG_VIEW = false
 

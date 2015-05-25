@@ -153,7 +153,6 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 	end
 end
 
-
 function GM:PlayerDeathThink(pl,attacker,dmginfo)
 	if pl.Revive then
 		return
@@ -161,18 +160,21 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 
 	if pl:GetObserverMode() == OBS_MODE_CHASE then
 		local target = pl:GetObserverTarget()
-		if not target or not target:IsValid() or not target:Alive() then
+		if not IsValid(target) or not target:Alive() then
 			pl:StripWeapons()
 			pl:Spectate(OBS_MODE_ROAMING)
 			pl:SpectateEntity(NULL)
 		end
 	end
 	
-	if pl:Team() ~= TEAM_UNDEAD then
+	local Team, IsSpectating = pl:Team(), false
+	if Team == TEAM_SPECTATOR then
+		IsSpectating = true
+	elseif Team ~= TEAM_UNDEAD then
 		return
 	end
 	
-	if pl:IsBot() then
+	if pl:IsBot() and not IsSpectating then
 		pl.NextSpawn = nil
 
 		pl:RefreshDynamicSpawnPoint()
@@ -195,21 +197,35 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 		end
 	else -- In spectator.
 		if pl:KeyDown(IN_ATTACK) and (not pl.NextSpawn or (pl.NextSpawn and pl.NextSpawn < CurTime())) then
-			pl:RefreshDynamicSpawnPoint()
-			pl:UnSpectateAndSpawn()
+			if not IsSpectating then
+				pl:RefreshDynamicSpawnPoint()
+				pl:UnSpectateAndSpawn()
+			else
+				pl:UnSpectateAndSpawn()
+			end
 		elseif pl:KeyPressed(IN_ATTACK2) then
 			pl.SpectatedPlayerKey = (pl.SpectatedPlayerKey or 0) + 1
 
-			local livingzombies = {}
+			local LivingPlayers = {}
+			if IsSpectating then
+				--Also add human players to spectate
+				for k, v in pairs(team.GetPlayers(TEAM_HUMAN)) do
+					if v:Alive() then
+						table.insert(LivingPlayers, v)
+					end
+				end
+			end
+
+			--Check for Zombies to spectate
 			for k, v in pairs(team.GetPlayers(TEAM_ZOMBIE)) do
 				if v:Alive() then
-					table.insert(livingzombies, v)
+					table.insert(LivingPlayers, v)
 				end
 			end
 
 			pl:StripWeapons()
 			
-			local specplayer = livingzombies[pl.SpectatedPlayerKey]
+			local specplayer = LivingPlayers[pl.SpectatedPlayerKey]
 			if specplayer then
 				pl:Spectate(OBS_MODE_CHASE)
 				pl:SpectateEntity(specplayer)

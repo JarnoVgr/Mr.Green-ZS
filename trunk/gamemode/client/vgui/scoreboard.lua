@@ -188,7 +188,42 @@ local function RemoveScoreboardItem(ply,list)
 	MainLabel[ply] = nil
 end
 
+local function BuildSpectatorList()
+	local Spectators = team.GetPlayers(TEAM_SPECTATOR)
+
+	local Count = 0
+	local Str = false
+
+	for i=1, #Spectators do
+		local pl = Spectators[i]
+		if not IsValid(pl) then
+			continue
+		end
+			
+		Count = Count + 1
+
+		--Append nickname to list
+		if not Str then
+			Str = pl:Nick()
+		else
+			Str = Str ..", ".. pl:Nick()
+		end
+	end
+
+	return Count, Str
+end
+
 function GM:CreateScoreboardVGUI()
+	--Calcs
+	local scoreboard_w, scoreboard_h = ScaleW(340), ScaleH(670)
+	
+	local scoreboard_space = ScaleW(40)
+	
+	local left_x,left_y = w/2 - scoreboard_space/2 - scoreboard_w, h/2 - scoreboard_h/2 + 25 +ScaleH(50)
+	local right_x,right_y = w/2 + scoreboard_space/2, h/2 - scoreboard_h/2 + 25+ScaleH(50)
+
+
+	--Create panel
 	SCPanel = vgui.Create("DFrame")
 	SCPanel:SetSize(w,h)
 	SCPanel:SetPos(0,0)
@@ -200,26 +235,43 @@ function GM:CreateScoreboardVGUI()
 	SCPanel.Paint = function() 
 		--Override
 		draw.SimpleText("MrGreenGaming.com", "HUDFontTiny", SCPanel:GetWide()/2,ScaleH(135), Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		draw.SimpleText("ZOMBIE SURVIVAL", "ArialBoldFifteen", SCPanel:GetWide()/2,ScaleH(180), Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)		
+		draw.SimpleTextOutlined("ZOMBIE SURVIVAL", "ArialBoldFifteen", SCPanel:GetWide()/2,ScaleH(180), Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 255))
+
+		local SpectatorsCount, SpectatorsStr = BuildSpectatorList()
+		
+		if SpectatorsStr then
+			local FinalStr
+			if SpectatorsCount == 1 then
+				FinalStr = "Spectator: ".. SpectatorsStr
+			else
+				FinalStr = "Spectators: ".. SpectatorsStr
+			end
+
+			local padding = 5
+
+			surface.SetFont("ArialBoldTen")
+			local StrW, StrH = surface.GetTextSize(FinalStr)
+		
+			--Draw background panel
+			DrawPanelBlackBox(left_x, left_y + scoreboard_h + 10, StrW + (padding * 2), StrH + padding)
+
+			
+			draw.SimpleText(FinalStr, "ArialBoldFive", left_x + padding, left_y + scoreboard_h + 10 + padding, Color(255, 255, 255, 210), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
+		end
 	end
 	
-	scoreboard_w,scoreboard_h = ScaleW(340), ScaleH(670)
 	
-	scoreboard_space = ScaleW(40)
-	
-	left_x,left_y = w/2 - scoreboard_space/2 - scoreboard_w, h/2 - scoreboard_h/2 + 25 +ScaleH(50)
-	right_x,right_y = w/2 + scoreboard_space/2, h/2 - scoreboard_h/2 + 25+ScaleH(50)
 	
 	left_scoreboard = vgui.Create( "DPanelList",SCPanel )
 	-- left_scoreboard:ParentToHUD()
-	left_scoreboard:SetPos( left_x,left_y )
+	left_scoreboard:SetPos(left_x, left_y)
 	left_scoreboard:SetSize( scoreboard_w,scoreboard_h )
 	left_scoreboard:SetSkin("ZSMG")
 	left_scoreboard:SetSpacing(0)
 	left_scoreboard:SetPadding(0)
 	left_scoreboard:EnableVerticalScrollbar( true )
 	left_scoreboard.Paint = function ()
-		DrawPanelBlackBox(0,0,scoreboard_w,scoreboard_h)
+		DrawPanelBlackBox(0, 0,scoreboard_w,scoreboard_h)
 	end
 	
 	
@@ -232,7 +284,7 @@ function GM:CreateScoreboardVGUI()
 	right_scoreboard:SetPadding(0)
 	right_scoreboard:EnableVerticalScrollbar( true )
 	right_scoreboard.Paint = function ()
-		DrawPanelBlackBox(0,0,scoreboard_w,scoreboard_h)
+		DrawPanelBlackBox(0, 0, scoreboard_w, scoreboard_h)
 	end
 	
 	left_scoreboard.Think = function()

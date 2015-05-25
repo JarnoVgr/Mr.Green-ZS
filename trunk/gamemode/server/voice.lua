@@ -7,6 +7,10 @@ end
 hook.Add( "Initialize","VoiceInit",VoiceInit)
 
 function VoiceToQuestion()
+	if not IsValid(ply) then
+		return
+	end
+	
 	local humans = team.GetPlayers(TEAM_HUMAN)
 	if #humans > 1 then
 		local ply = humans[math.random(1,#humans)]
@@ -47,6 +51,10 @@ function VoiceToQuestion()
 end
 
 function VoiceToPanic( ply )
+	if not IsValid(ply) then
+		return
+	end
+
 	local humans = team.GetPlayers(TEAM_HUMAN)
 	
 	local found = ents.FindInSphere(ply:GetPos(), 256)

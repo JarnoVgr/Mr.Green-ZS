@@ -23,38 +23,53 @@ end
 --[==[---------------------------------------------------------------------
                      Called when myself ( as human ) dies
 ----------------------------------------------------------------------]==]
-function death.HumanDeath( pl, attacker )
-	if not IsValid(pl) or pl ~= MySelf or not pl:IsHuman() then
+local function Death( pl, attacker )
+	if not IsValid(pl) or pl ~= MySelf then
 		return
 	end
 
-	--Status
-	MySelf.FirstHumanDeath = true
+	local Team = pl:Team()
+
+	if Team == TEAM_HUMAN then
+		MySelf.FirstHumanDeath = true
+	elseif Team == TEAM_ZOMBIE then
+		MySelf.FirstHumanDeath = false
+	end
 end
-hook.Add("DoPlayerDeath", "SpawnCountdown", death.HumanDeath)
+hook.Add("DoPlayerDeath", "SpawnCountdown", Death)
 
---[==[---------------------------------------------------------------------
-               Called when myself ( as zombie ) dies
-----------------------------------------------------------------------]==]
-function death.ZomboDeath( pl, attacker )
-	if not IsValid(pl) or not pl:IsZombie() or pl ~= MySelf then
+--[==[----------------------------------------------------
+          Draws the spectator death hud
+----------------------------------------------------]==]
+function death.DeathSpectatorHUD()
+	if ENDROUND or not IsValid(MySelf) or MySelf:Team() ~= TEAM_SPECTATOR or not MySelf.ReadySQL or IsLoadoutOpen() or MySelf:Alive() then
 		return
-	end
+	end	
+	--local textw, texth = surface.GetTextSize( sRandomNotice )
 	
-	-- Status
-	MySelf.FirstHumanDeath = false
+	-- Draw the black boxes
+	surface.SetDrawColor(0,0,0,210)
+--	surface.SetTexture(TEX_GRADIENT_TOP)
+	surface.DrawRect(0,0, ScaleW(1280), ScaleH(162)) --ScaleH(162)
+
+	draw.DrawText("You're spectating. Press LMB to play.", "ArialFourteen2", ScaleW(642), ScaleH(34), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
+	
+	local obsmode = MySelf:GetObserverMode()
+	if obsmode ~= OBS_MODE_NONE then
+		GAMEMODE:SpectatorHUD(obsmode, false)
+	end
 end
-hook.Add ( "DoPlayerDeath", "ZombieSpawnCountdown", death.ZomboDeath )
+hook.Add("HUDPaint", "DeathSpectatorHUD", death.DeathSpectatorHUD)
 
 --[==[----------------------------------------------------
           Draws the human death hud
 ----------------------------------------------------]==]
 --local TEX_GRADIENT_TOP = surface.GetTextureID("vgui/gradient-u")
 function death.DeathHumanHUD()
-
-	if ENDROUND or not IsValid( MySelf ) then
+	if ENDROUND or not IsValid(MySelf) then
 		return
 	end
+
 	if not MySelf:IsZombie() or IsClassesMenuOpen() or not MySelf.FirstHumanDeath or MySelf:Alive() then
 		return
 	end
@@ -80,7 +95,7 @@ function death.DeathHumanHUD()
 
 	local obsmode = MySelf:GetObserverMode()
 	if obsmode ~= OBS_MODE_NONE then
-		GAMEMODE:ZombieObserverHUD(obsmode,bCanSpawn)
+		GAMEMODE:SpectatorHUD(obsmode, bCanSpawn)
 	end
 end
 hook.Add("HUDPaint", "DeathHumanHUD", death.DeathHumanHUD)
@@ -89,7 +104,6 @@ hook.Add("HUDPaint", "DeathHumanHUD", death.DeathHumanHUD)
           Draws the zombie death hud
 -----------------------------------------------------]==]
 function death.DeathZombieHUD()
-
 	if ENDROUND or not IsValid(MySelf) then
 		return
 	end
@@ -119,7 +133,7 @@ function death.DeathZombieHUD()
 	--Spectate
 	local obsmode = MySelf:GetObserverMode()
 	if obsmode ~= OBS_MODE_NONE then
-		GAMEMODE:ZombieObserverHUD(obsmode, timeleft == 0)
+		GAMEMODE:SpectatorHUD(obsmode, timeleft == 0)
 	elseif timeleft == 0 then
 		draw.DrawText("You can resurrect shortly", "NewZombieFont23", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
@@ -133,15 +147,15 @@ function death.Draw3DZombieHUD()
 	end
 	
 	-- Never died
-	if not MySelf.InitialDeath then return end
-	
-	if MySelf:IsFreeSpectating() then return end
+	if not MySelf.InitialDeath or MySelf:IsFreeSpectating() then
+		return
+	end
 	
 	GAMEMODE:DrawCustomDeathNotice()	
 end
 hook.Add("PostDrawOpaqueRenderables","Draw3DZombieHUD",death.Draw3DZombieHUD)
 
-function GM:ZombieObserverHUD(obsmode, bCanSpawn)
+function GM:SpectatorHUD(obsmode, bCanSpawn)
 	if obsmode == OBS_MODE_FREEZECAM then
 		return
 	end
@@ -152,9 +166,11 @@ function GM:ZombieObserverHUD(obsmode, bCanSpawn)
 	local HasValidTarget
 	if obsmode == OBS_MODE_CHASE then
 		local target = MySelf:GetObserverTarget()
-		if IsValid(target) and target:IsPlayer() and target:Team() == TEAM_UNDEAD then
+		if IsValid(target) and target:IsPlayer() then
 			draw.SimpleText("Observing ".. target:Name() .." (+"..math.max(0, target:Health())..")", "NewZombieFont23", w * 0.5, h * 0.75 - texh - 32, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
-			HasValidTarget = self:DynamicSpawnIsValid(target)
+			if target:Team() == TEAM_UNDEAD then
+				HasValidTarget = self:DynamicSpawnIsValid(target)
+			end
 		end
 	end
 
@@ -162,7 +178,7 @@ function GM:ZombieObserverHUD(obsmode, bCanSpawn)
 		draw.DrawText(HasValidTarget and "Press LMB to resurrect here" or "Press LMB to resurrect", "NewZombieFont23", ScrW()/2, ScaleH(83),HasValidTarget and Color(0, 150, 0, 255) or Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 
-	draw.SimpleText("Cycle targets by pressing RMB", "NewZombieFont23", w * 0.5, h * 0.75 + texh + 8, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+	draw.SimpleText("Cycle targets by pressing RMB", "NewZombieFont19", w * 0.5, h * 0.75 + texh + 8, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 end
 
 local GradientExample = surface.GetTextureID("gui/center_gradient")
@@ -218,4 +234,3 @@ function DrawPanelBlackBox(x,y,w,h,overridealpha)
 	surface.SetDrawColor( 30, 30, 30, 255*a )
 	surface.DrawOutlinedRect( x+1, y+1, w-2, h-2 )
 end
-

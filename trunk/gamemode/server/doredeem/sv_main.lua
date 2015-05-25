@@ -110,8 +110,6 @@ function GM:OnPlayerRedeem(pl, causer)
 		end
 	end
 	
-	pl:IsHumanClass() --Check their Human class table
-	
 	pl.DeathClass = nil
 	pl.LastAttacker = nil
 	pl:SetZombieClass (0)
