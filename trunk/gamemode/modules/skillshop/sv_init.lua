@@ -224,29 +224,8 @@ function ApplySkillShopItem(pl, com, args)
 						--Assign ammo to second ammo
 						j:SetClip2(j:Clip2() + GAMEMODE.SkillShopAmmo[item].Amount)
 					else
-					
-					local ToGive = GAMEMODE.SkillShopAmmo[item].Amount
-					
-					local mul = 1
-					
-					if pl:GetPerk("_support2") then
-						mul = mul + 0.1
-					end					
-					
-					if pl:GetPerk("_support2") then
-						mul = mul + pl:GetRank()*0.05
-					end	
-					
-					if pl:GetPerk("_supportammo") then
-						mul = mul + 0.3
-					end					
-					
-					if pl:HasBought("ammoman") then
-						mul = mul + 0.5
-					end
-					
 						--Normal behavior
-						j:SetClip1(j:Clip1() + GAMEMODE.SkillShopAmmo[item].Amount + (HowMuch * mul))
+						j:SetClip1(j:Clip1() + GAMEMODE.SkillShopAmmo[item].Amount)
 					end
 					skillpoints.TakeSkillPoints(pl, GAMEMODE.SkillShopAmmo[item].Price)
 

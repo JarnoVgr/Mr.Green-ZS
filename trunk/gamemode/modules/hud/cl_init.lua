@@ -79,6 +79,7 @@ function hud.InitFonts()
 	-- Right upper box text font
 	surface.CreateFontLegacy( "Arial", ScreenScale( 9.6 ), 700, true, true, "HUDBetaRightBox" )
 
+	surface.CreateFontLegacy( "Future Rot", ScreenScale( 4 ), 700, true, false, "ssNewAmmoFont4" )
 	surface.CreateFontLegacy( "Future Rot", ScreenScale( 5.5 ), 700, true, false, "ssNewAmmoFont5" )
 	surface.CreateFontLegacy( "Future Rot", ScreenScale( 6.5 ), 700, true, false, "ssNewAmmoFont7" )
 	surface.CreateFontLegacy( "Future Rot", ScreenScale( 7.5 ), 700, true, false, "ssNewAmmoFont6.5" )

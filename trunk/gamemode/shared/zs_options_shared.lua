@@ -250,7 +250,9 @@ GM.HumanWeapons = {
         ["weapon_zs_fists"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee", Description = "Punch a Zombie in the face." },
         ["weapon_zs_fists2"]  = { Name = "Fists", DPS = 30, Infliction = 0, Restricted = true, Type = "melee" },
      
-       
+    
+		["weapon_zs_tools_spawner"]  = { Name = "Spawner", Type = "tool2"},
+	
        
         --Tool1
         ["weapon_zs_barricadekit"] = { Name = "Agies Barricading kit", DPS = 0, Infliction = 0, Type = "tool1" },
