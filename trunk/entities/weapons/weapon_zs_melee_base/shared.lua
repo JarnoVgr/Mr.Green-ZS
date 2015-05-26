@@ -63,13 +63,13 @@ function SWEP:Initialize()
 	
 	self:SetColor(Color(255,255,255,1))
 	self:SetMaterial("Debug/hsv") --Debug/hsv	
-	
+	--self.ViewModel = ""
+
 	if CLIENT then
 		--Set default FOV
 		if self.ViewModelFOV then
 			self.ViewModelDefaultFOV = self.ViewModelFOV
-		end
-		
+		end		
 		--Create a new table for every weapon instance
 		self.VElements = table.FullCopy(self.VElements)
 		self.WElements = table.FullCopy(self.WElements)

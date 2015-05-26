@@ -16,7 +16,7 @@ hook.Add("PlayerInitialSpawn", "InitNextSpawnTime", function(pl)
 end)
 
 function GM:Initialize() --Stop the lag in its tracks with this 
-	surface.CreateFontLegacy("Face Your Fears", ScreenScale(20), 700, true, false, "NewZombieFont40")
+	surface.CreateFontLegacy("Face Your Fears", ScreenScale(20), 700, true, false, "NewZombieFont23")
 	surface.CreateFontLegacy("Arial", ScreenScale(14), 500, true, false, "ArialFourteen2")
 end
 
@@ -52,7 +52,7 @@ function death.DeathSpectatorHUD()
 --	surface.SetTexture(TEX_GRADIENT_TOP)
 	surface.DrawRect(0,0, ScaleW(1280), ScaleH(162)) --ScaleH(162)
 
-	draw.DrawText("You're spectating. Press LMB to play.", "ArialFourteen2", ScaleW(642), ScaleH(34), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
+	draw.DrawText("You're spectating. Press LMB to play.", "NewZombieFont23", ScaleW(642), ScaleH(34), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
 	
 	local obsmode = MySelf:GetObserverMode()
 	if obsmode ~= OBS_MODE_NONE then
@@ -81,7 +81,7 @@ function death.DeathHumanHUD()
 --	surface.SetTexture(TEX_GRADIENT_TOP)
 	surface.DrawRect(0,0, ScaleW(1280), ScaleH(162)) --ScaleH(162)
 
-	draw.DrawText("You've failed to survive", "ArialFourteen2", ScaleW(642), ScaleH(34), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
+	draw.DrawText("You've failed to survive", "NewZombieFont23", ScaleW(642), ScaleH(34), Color(115, 115, 115, 255), TEXT_ALIGN_CENTER)
 
 	local timeleft = math.max(0,math.Round((MySelf.NextSpawn or 0) - CurTime()) + 1)
 	
@@ -122,7 +122,7 @@ function death.DeathZombieHUD()
 	surface.DrawRect(0, 0, ScrW(), ScaleH(142))
 	
 	--Draw death text
-	draw.DrawText("YOU ARE DEAD", "ArialFourteen2", ScrW()/2, ScaleH(34), Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+	draw.DrawText("YOU ARE DEAD", "NewZombieFont23", ScrW()/2, ScaleH(34), Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 
 	--Display timeleft for respawning
 	local timeleft = math.max(0, math.Round(MySelf.NextSpawn - CurTime()) + 1)
@@ -160,7 +160,7 @@ function GM:SpectatorHUD(obsmode, bCanSpawn)
 		return
 	end
 	
-	surface.SetFont("ArialBoldTen")
+	surface.SetFont("NewZombieFont23")
 	local texw, texh = surface.GetTextSize("W")
 
 	local HasValidTarget
@@ -178,7 +178,7 @@ function GM:SpectatorHUD(obsmode, bCanSpawn)
 		draw.DrawText(HasValidTarget and "Press LMB to resurrect here" or "Press LMB to resurrect", "NewZombieFont23", ScrW()/2, ScaleH(83),HasValidTarget and Color(0, 150, 0, 255) or Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
 
-	draw.SimpleText("Cycle targets by pressing RMB", "NewZombieFont19", w * 0.5, h * 0.75 + texh + 8, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+	draw.SimpleText("Cycle targets by pressing RMB", "NewZombieFont23", w * 0.5, h * 0.75 + texh + 8, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 end
 
 local GradientExample = surface.GetTextureID("gui/center_gradient")

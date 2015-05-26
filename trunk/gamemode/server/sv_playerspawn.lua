@@ -115,6 +115,8 @@ function GM:PlayerInitialSpawn(pl)
 	pl.GotWeapon.Automatic = false
 	pl.GotWeapon.Melee = false
 	
+	pl.DamageOutput = false
+	
 	pl.AmmoMultiplier = {}
 	
 	pl.LastRTD = 0 

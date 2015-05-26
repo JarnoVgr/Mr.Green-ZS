@@ -1072,7 +1072,7 @@ function DrawSelectClass()
 	PlayerProgressPanel:SetSize(StatsW, StatsH)
 	PlayerProgressPanel:SetPos(TopMenuX + (SlotWidth + 10), TopMenuY + 200)
 	PlayerProgressPanel:SetSkin("ZSMG")
-	PlayerProgressPanel:SetTitle("CLASSES RANK	") 
+	PlayerProgressPanel:SetTitle("LEVEL") 
 	PlayerProgressPanel:SetDraggable(false)
 	PlayerProgressPanel:SetSizable(false)
 	PlayerProgressPanel:SetDraggable(false)
@@ -1083,10 +1083,10 @@ function DrawSelectClass()
 		local Rank2X, Rank2Y = StatsW-Rank1X, Rank1Y
 		
 		draw.SimpleTextOutlined(MySelf:GetRank(), "ArialBoldFifteen", Rank1X, Rank1Y, Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		draw.SimpleTextOutlined("Rank" , "WeaponNames", Rank1X,Rank1Y+ScaleH(25), Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Level" , "WeaponNames", Rank1X,Rank1Y+ScaleH(25), Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		
 		draw.SimpleTextOutlined(MySelf:GetRank()+1, "ArialBoldFifteen", Rank2X, Rank2Y, Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		draw.SimpleTextOutlined("Rank" , "WeaponNames", Rank2X,Rank2Y+ScaleH(25), Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Level" , "WeaponNames", Rank2X,Rank2Y+ScaleH(25), Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 
 		--Progress bar
 		local BarW, BarH = StatsW/2, StatsH * 0.3

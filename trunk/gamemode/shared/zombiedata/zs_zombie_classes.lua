@@ -194,7 +194,7 @@ ZombieClasses[2] =
 	Model = Model( "models/Zombie/Poison.mdl" ),
 	Speed = 150,
 	--Description = "A hulking mass of flesh far more durable than any other zombie.",
-	Description = "A hulking mass of flesh, which can claw or spit on you!",
+	Description = "A hulking mass of flesh, the undead meat shield",
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
@@ -455,7 +455,7 @@ ZombieClasses[8] =
 	Health = 380,
 	MaxHealth = 450, 
 	TimeLimit = 1020,
-	Bounty = 120,
+	Bounty = 140,
 	SP = 30,
 	Mass = DEFAULT_MASS * 1.2,
 	Threshold = 4,
@@ -1081,8 +1081,8 @@ ZombieClasses[18] = --Creep and Play!
 	Name = "Seeker",
 	Tag = "weapon_zs_undead_boss_seeker2",
 	Infliction = 0.2,
-	Health = 1200,
-	MaxHealth = 1200,
+	Health = 1000,
+	MaxHealth = 1000,
 	TimeLimit = 1020,
 	Bounty = 500,
 	SP = 100,
@@ -1096,7 +1096,7 @@ ZombieClasses[18] = --Creep and Play!
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_seeker2",
 	Model = Model("models/player/corpse1.mdl"), 
-	Speed = 140,
+	Speed = 149,
 	Description = "An experiment gone wrong, and its now out hunting the elite!",
 	Unique = "",
 	OnSpawn = function(pl)	
@@ -1129,10 +1129,7 @@ ZombieClasses[18] = --Creep and Play!
 		Sound("npc/zombie_poison/pz_call1.wav"),
 	},
 	ModelScale = 1,-- Vector(1.15,1.15,1.15),
-	ViewOffset = Vector(0, 0, 73),
-	ViewOffsetDucked = Vector(0,0,32.2),
-	Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
-	HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
+
 }
 
 ZombieClasses[19] = 

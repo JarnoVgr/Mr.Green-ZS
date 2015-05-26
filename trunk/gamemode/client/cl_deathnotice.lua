@@ -287,9 +287,9 @@ local function DrawDeath( x, y, death, hud_deathnotice_time )
 	death.color2.a = alpha
 	
 	local tbTranslate = {
-		["redeem"] = { "is human again!", "redeemed", "revived", "resurected" },
+		["redeem"] = { "is human again!", "redeemed", "revived", "resurrected" },
 		["suicide"] = { "wasn't happy enough", "suicided", "went to Hell", "put an end to his misery" },
-		["random"] = { "has spread his bones!", "strangely died", "died in mistery!", "is gibs now!" },
+		["random"] = { "has spread his bones!", "strangely died", "died in mystery!", "is gibs now!" },
 	}
 	
 	-- Killicon size
