@@ -1035,7 +1035,8 @@ EngineerPlayerModels = {
 CommandoPlayerModels = {
 	"css_riot",
 	"css_swat",
-	"css_urban"
+	"css_urban",
+	"css_gasmask",		
 }
 
 SupportPlayerModels = {
@@ -1046,7 +1047,7 @@ SupportPlayerModels = {
 }
 
 BerserkerPlayerModels = {
-	"css_gasmask"
+	"monk"
 }
 
 SharpshooterPlayerModels = {
