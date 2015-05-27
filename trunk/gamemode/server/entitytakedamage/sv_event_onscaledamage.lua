@@ -147,9 +147,9 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 						dmginfo:SetDamage((dmginfo:GetDamage() * (1.1 + (2*attacker:GetRank())/100)))
 					end
 				elseif dmginfo:IsMeleeDamage() then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1.5)
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.25)
 				elseif dmginfo:IsMeleeDamage() and attacker:GetPerk("_headhunter") then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 2)				
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.75)				
 				end
 			end
 		end
