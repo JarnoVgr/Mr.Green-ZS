@@ -39,7 +39,7 @@ SWEP.HoldType = "melee2"
 SWEP.Primary.Delay = 1.25
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 90
+SWEP.MeleeDamage = 70
 SWEP.MeleeRange = 60
 SWEP.MeleeSize = 2.5
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
