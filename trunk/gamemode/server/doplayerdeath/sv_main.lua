@@ -160,7 +160,7 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 
 	if pl:GetObserverMode() == OBS_MODE_CHASE then
 		local target = pl:GetObserverTarget()
-		if not IsValid(target) or not target:Alive() then
+		if not IsValid(target) or (target:IsPlayer() and not target:Alive()) then
 			pl:StripWeapons()
 			pl:Spectate(OBS_MODE_ROAMING)
 			pl:SpectateEntity(NULL)
@@ -223,10 +223,17 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 				end
 			end
 
+			--Check for spawner ents to spawn on
+			for k, v in pairs(ents.FindByClass("game_spawner")) do
+				table.insert(LivingPlayers, v)
+			end
+
+			--Is this really needed here?
 			pl:StripWeapons()
 			
+			--So what are going to spectate on
 			local specplayer = LivingPlayers[pl.SpectatedPlayerKey]
-			if specplayer then
+			if IsValid(specplayer) then
 				pl:Spectate(OBS_MODE_CHASE)
 				pl:SpectateEntity(specplayer)
 			else

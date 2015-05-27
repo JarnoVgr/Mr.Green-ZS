@@ -1133,11 +1133,12 @@ function GM:PlayerSelectSpawn(pl)
 	
 	--Undead spawn
 	if Team == TEAM_UNDEAD then
-		local dyn = pl.ForceDynamicSpawn
-		if dyn then
+		--Check if player wants to spawn at a specific target
+		local DynamicTarget = pl.ForceDynamicSpawn
+		if DynamicTarget then
 			pl.ForceDynamicSpawn = nil
-			if self:DynamicSpawnIsValid(dyn) then
-				return dyn
+			if self:DynamicSpawnIsValid(DynamicTarget) then
+				return DynamicTarget
 			end
 			--local epicenter = dyn:GetPos()
 		end
@@ -1155,10 +1156,7 @@ function GM:PlayerSelectSpawn(pl)
 	end
 
 	local result = tab and #tab > 0 and tab[math.random(1, #tab)] or pl
-	
-	-- print("Result "..tostring(result))
-	-- PrintTable(tab)
-	--return LastSpawnPoints[Team] or #tab > 0 and tab[math.random(1, #tab)] or pl
+
 	return result
 end
 

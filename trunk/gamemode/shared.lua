@@ -496,40 +496,56 @@ local playerheight = Vector(0, 0, 72)
 local playermins = Vector(-17, -17, 0)
 local playermaxs = Vector(17, 17, 4)
 
-function GM:DynamicSpawnIsValid(zombie, humans, allplayers)
-	--TODO: Cache
-	if not humans then
-		humans = team.GetPlayers(TEAM_HUMAN)
+--Refresh cache
+local Humans, AllPlayers = {}, {}
+timer.Create("RefreshSharedData", 3, 0, function()
+	AllPlayers = player.GetAll()
+	Humans = team.GetPlayers(TEAM_HUMAN)
+end)
+
+function GM:DynamicSpawnIsValid(target)
+	if not IsValid(target) then
+		return false
 	end
-	if not allplayers then
-		allplayers = player.GetAll()
-	end
 
-	local pos = zombie:GetPos() + Vector(0, 0, 1)
-	if zombie:Alive() and zombie:GetMoveType() == MOVETYPE_WALK and zombie:WaterLevel() < 2 and not util.TraceHull({start = pos, endpos = pos + playerheight, mins = playermins, maxs = playermaxs, mask = MASK_SOLID, filter = allplayers}).Hit then
-		local valid = true
+	local Class = target:GetClass()
 
+	--Check if spawning on a Blood Spawner
+	if Class == "game_spawner" then
+		return true
+	--Check if spawning on player
+	elseif target:IsPlayer() then
+		local pos = target:GetPos() + Vector(0, 0, 1)
 
-		if not zombie:OnGround() then
-			valid = false	
+		local traceData = {
+			start = pos,
+			endpos = pos + playerheight,
+			mins = playermins,
+			maxs = playermaxs,
+			mask = MASK_SOLID,
+			filter = AllPlayers
+		}
+
+		if not target:Alive() or target:GetMoveType() ~= MOVETYPE_WALK or not target:OnGround() or target:WaterLevel() >= 2 or util.TraceHull(traceData).Hit then
+			return false
 		end
-		
-		for i=1, #humans do
-			local human = humans[i]
-			if not IsValid(human) then
+
+		for i=1, #Humans do
+			local human = Humans[i]
+			if not IsValid(human) or not human:IsPlayer() or not human:Alive() then
 				continue
 			end
 			
 			local eyepos = human:EyePos()
-			local nearest = zombie:NearestPoint(eyepos)
+			local nearest = target:NearestPoint(eyepos)
 			local dist = eyepos:Distance(nearest)
-			if dist <= 400 or dist <= 824 and WorldVisible(eyepos, nearest) then -- Zombies can't be in radius of any humans. Zombies can't be clearly visible by any humans.
-				valid = false
-				break
+			--Zombies can't be in radius of any human and can't be clearly seen by any human
+			if dist <= 400 or (dist <= 824 and WorldVisible(eyepos, nearest)) then
+				return false
 			end
 		end
 
-		return valid
+		return true
 	end
 
 	return false
@@ -604,7 +620,7 @@ function GM:GetDynamicSpawns(pl)
 		end
 		
 		local pos = zombie:GetPos() + Vector(0, 0, 1)
-		if zombie ~= pl and self:DynamicSpawnIsValid(zombie, humans, allplayers) then
+		if zombie ~= pl and self:DynamicSpawnIsValid(zombie) then
 			table.insert(tab, zombie)
 		end
 	end

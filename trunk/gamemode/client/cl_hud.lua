@@ -163,13 +163,23 @@ function GM:SpectatorHUD(obsmode, bCanSpawn)
 	surface.SetFont("NewZombieFont23")
 	local texw, texh = surface.GetTextSize("W")
 
-	local HasValidTarget
+	local HasValidTarget = false
 	if obsmode == OBS_MODE_CHASE then
 		local target = MySelf:GetObserverTarget()
-		if IsValid(target) and target:IsPlayer() then
-			draw.SimpleText("Observing ".. target:Name() .." (+"..math.max(0, target:Health())..")", "NewZombieFont23", w * 0.5, h * 0.75 - texh - 32, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
-			if target:Team() == TEAM_UNDEAD then
+		if IsValid(target) then
+			local text
+			if target:IsPlayer() then
+				text = "Observing ".. target:Name() .." (+"..math.max(0, target:Health())..")"
+				if target:Team() == TEAM_UNDEAD then
+					HasValidTarget = self:DynamicSpawnIsValid(target)
+				end
+			elseif target:GetClass() == "game_spawner" then
+				text = "Observing Blood Spawner"
 				HasValidTarget = self:DynamicSpawnIsValid(target)
+			end
+
+			if text then
+				draw.SimpleText(text, "NewZombieFont23", w * 0.5, h * 0.75 - texh - 32, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 			end
 		end
 	end

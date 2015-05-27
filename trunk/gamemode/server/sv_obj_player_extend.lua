@@ -1338,7 +1338,7 @@ end
 
 function meta:RefreshDynamicSpawnPoint()
 	local target = self:GetObserverTarget()
-	if self:GetObserverMode() == OBS_MODE_CHASE and target and target:IsValid() and target:IsPlayer() and target:Team() == TEAM_UNDEAD then
+	if IsValid(target) then
 		self.ForceDynamicSpawn = target
 	else
 		self.ForceDynamicSpawn = nil
