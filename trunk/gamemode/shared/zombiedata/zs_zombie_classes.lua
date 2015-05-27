@@ -179,7 +179,7 @@ ZombieClasses[2] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
-	Infliction = 0.58,
+	Infliction = 0.63,
 	Health = 480,
 	MaxHealth = 600,
 	TimeLimit = 810,
@@ -280,7 +280,7 @@ ZombieClasses[4] =
 {
 	Name = "Ghast",
 	Tag = "etherealzombie",
-	Infliction = 0.0,
+	Infliction = 0.25,
 	Health = 125,
 	MaxHealth = 200,
 	TimeLimit = 200,
@@ -504,7 +504,7 @@ ZombieClasses[9] =
 {
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
-	Infliction = 0.6,
+	Infliction = 0.63,
 	Health = 80,
 	MaxHealth = 100,
 	Bounty = 60,
