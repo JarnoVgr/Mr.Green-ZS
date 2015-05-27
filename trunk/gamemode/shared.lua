@@ -512,6 +512,22 @@ function GM:DynamicSpawnIsValid(target)
 
 	--Check if spawning on a Blood Spawner
 	if Class == "game_spawner" then
+	
+		for i=1, #Humans do
+			local human = Humans[i]
+			if not IsValid(human) or not human:IsPlayer() or not human:Alive() then
+				continue
+			end
+			
+			local eyepos = human:EyePos()
+			local nearest = target:NearestPoint(eyepos)
+			local dist = eyepos:Distance(nearest)
+			--Zombies can't be in radius of any human and can't be clearly seen by any human
+			if dist <= 400 or (dist <= 824 and WorldVisible(eyepos, nearest)) then
+				return false
+			end
+		end
+		
 		return true
 	--Check if spawning on player
 	elseif target:IsPlayer() then
@@ -613,6 +629,11 @@ function GM:GetDynamicSpawns(pl)
 	local humans = team.GetPlayers(TEAM_HUMAN)
 	local zombies = team.GetPlayers(TEAM_UNDEAD)
 
+	--Check for spawner ents to spawn on
+	for k, v in pairs(ents.FindByClass("game_spawner")) do
+		table.insert(tab, v)
+	end		
+	
 	for i=1, #zombies do
 		local zombie = zombies[i]
 		if not IsValid(zombie) then

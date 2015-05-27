@@ -193,12 +193,12 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 				--Just go into freeroam
 				pl:Spectate(OBS_MODE_ROAMING)
 				pl:SpectateEntity(NULL)
-			end
+			end	
 		end
 	else -- In spectator.
 		if pl:KeyDown(IN_ATTACK) and (not pl.NextSpawn or (pl.NextSpawn and pl.NextSpawn < CurTime())) then
-			if not IsSpectating then
-				pl:RefreshDynamicSpawnPoint()
+			if not IsSpectating then			
+				pl:RefreshDynamicSpawnPoint()		
 				pl:UnSpectateAndSpawn()
 			else
 				pl:UnSpectateAndSpawn()
@@ -215,18 +215,18 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 					end
 				end
 			end
-
+			
 			--Check for Zombies to spectate
 			for k, v in pairs(team.GetPlayers(TEAM_ZOMBIE)) do
 				if v:Alive() then
 					table.insert(LivingPlayers, v)
 				end
 			end
-
+			
 			--Check for spawner ents to spawn on
 			for k, v in pairs(ents.FindByClass("game_spawner")) do
 				table.insert(LivingPlayers, v)
-			end
+			end					
 
 			--Is this really needed here?
 			pl:StripWeapons()
