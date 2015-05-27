@@ -14,7 +14,7 @@ SWEP.ViewModelFOV		= 52
 
 SWEP.Primary.ClipSize		= -1
 SWEP.Primary.DefaultClip	= -1
-SWEP.Primary.Damage			= 35
+SWEP.Primary.Damage			= 10
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "none"
 
@@ -32,7 +32,8 @@ SWEP.Slot				= 0
 SWEP.SlotPos			= 5
 SWEP.DrawAmmo			= false
 SWEP.DrawCrosshair		= false
-SWEP.WalkSpeed = 200
+SWEP.WalkSpeed = SPEED
+
 local SwingSound = Sound( "weapons/slam/throw.wav" )
 local HitSound = Sound( "Flesh.ImpactHard" )
 
@@ -50,7 +51,7 @@ function SWEP:PreDrawViewModel( vm, wep, ply )
 
 end
 
-SWEP.HitDistance = 67
+SWEP.HitDistance = 48
 SWEP.AttackAnims = { "fists_left", "fists_right", "fists_uppercut" }
 function SWEP:PrimaryAttack()
 	self.Owner:SetAnimation( PLAYER_ATTACK1 )
@@ -72,39 +73,12 @@ function SWEP:PrimaryAttack()
 		self:Idle()
 	end )
 
-	timer.Simple( 0.05, function()
-		if ( !IsValid( self ) || !IsValid( self.Owner ) || !self.Owner:GetActiveWeapon() || self.Owner:GetActiveWeapon() != self ) then return end
-		if ( anim == "fists_left" ) then
-			self.Owner:ViewPunch( Angle( 0, 16, 0 ) )
-		elseif ( anim == "fists_right" ) then
-			self.Owner:ViewPunch( Angle( 0, -16, 0 ) )
-		elseif ( anim == "fists_uppercut" ) then
-			self.Owner:ViewPunch( Angle( 16, -8, 0 ) )
-		end
-	end )
-
-	timer.Simple( 0.2, function()
-		if ( !IsValid( self ) || !IsValid( self.Owner ) || !self.Owner:GetActiveWeapon() || self.Owner:GetActiveWeapon() != self ) then return end
-		if ( anim == "fists_left" ) then
-			self.Owner:ViewPunch( Angle( 4, -16, 0 ) )
-		elseif ( anim == "fists_right" ) then
-			self.Owner:ViewPunch( Angle( 4, 16, 0 ) )
-		elseif ( anim == "fists_uppercut" ) then
-			self.Owner:ViewPunch( Angle( -32, 0, 0 ) )
-		end
-		self.Owner:EmitSound( SwingSound )
-		
-	end )
-
 	timer.Simple( 0.2, function()
 		if ( !IsValid( self ) || !IsValid( self.Owner ) || !self.Owner:GetActiveWeapon() || self.Owner:GetActiveWeapon() != self ) then return end
 		self:DealDamage( anim )
 	end )
 
-	self:SetNextPrimaryFire( CurTime() + 0.9 )
-
-	
-	
+	self:SetNextPrimaryFire( CurTime() + 0.4 )
 end
 
 function SWEP:DealDamage( anim )
