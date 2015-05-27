@@ -67,7 +67,7 @@ function SWEP:Think()
 		return
 	end
 	
-	--[[
+
 	if self.Owner:KeyReleased( IN_RELOAD  ) then	
 		if SERVER then
 			local vecAim = self.Owner:GetAimVector()
@@ -91,13 +91,22 @@ function SWEP:Think()
 				--Check distance to Supply Crates
 				for _, Ent in pairs(ents.FindByClass("game_spawner")) do
 					if tr.HitPos:Distance(Ent:GetPos()) <= 512 then
-						self.Owner:Message("Too close to another spawner.", 2)
+						self.Owner:Message("Too close to another blood spawner.", 2)
 						canPlaceCrate = false
 						break
 					end
 				end
 			end
 
+			if self.Owner.HasBloodSpawner and canPlaceCrate then
+				for _, Ent in pairs(ents.FindByClass("game_spawner")) do
+					if Ent:GetPlacer():Name() == self.Owner:Name() then
+						Ent:Explode()				
+						break
+					end
+				end			
+			end
+						
 			--Exit when cannot place
 			if not canPlaceCrate then
 				return
@@ -106,23 +115,29 @@ function SWEP:Think()
 			--Display animation
 			self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 
+			self.Owner.HasBloodSpawner = true
+			self.Owner:EmitSound("npc/fast_zombie/leap1.wav", 100, math.Rand(70, 80))
+			self.Owner:Kill()
+			
+			for k,v in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
+				v:Message("A blood spawner has been created.", 2)
+			end
+			
+			
 			--Create entity
 			local angles = vecAim:Angle()
 			local ent = ents.Create("game_spawner")
 			if (ent ~= nil and ent:IsValid()) then
-				self.Owner:EmitSound("npc/fast_zombie/leap1.wav", 74, math.Rand(110, 130))
 				ent:SetPos(tr.HitPos)
 				ent:SetAngles(Angle(0,angles.y,angles.r))
 				ent:SetPlacer(self.Owner)
 				ent:Spawn()
 				ent:Activate()
-				ent:EmitSound(Sound("npc/roller/blade_cut.wav"))
 				self.Owner.Crate = ent
 
 			end
 		end
-	end
-]]--	
+	end	
 end
 
 
@@ -214,7 +229,6 @@ function SWEP:PerformSecondaryAttack()
 end
 function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
-
 	
 	self:SetColor(50,50,50,255)
 	--Attack sounds

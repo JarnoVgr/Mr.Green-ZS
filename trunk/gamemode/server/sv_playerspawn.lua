@@ -116,6 +116,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.GotWeapon.Melee = false
 	
 	pl.DamageOutput = false
+	pl.HasBloodSpawner = false
 	
 	pl.AmmoMultiplier = {}
 	

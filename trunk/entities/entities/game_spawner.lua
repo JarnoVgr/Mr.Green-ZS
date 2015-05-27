@@ -31,7 +31,7 @@ function ENT:Initialize()
 			phys:EnableMotion(false) 
 		end
 	
-		self.CrateHealth = 100
+		self.CrateHealth = 60
 	end
 
 	--Unclaimed by default
@@ -47,30 +47,45 @@ function ENT:Initialize()
 				return
 			end
 			
-			halo.Add({self}, self.LineColor, 1, 1, 1, true, false)
+			halo.Add({self}, self.LineColor, 2, 2, 2, true, false)
 		end)
 	end
 end
 
 function ENT:Think()
-if SERVER then
-	if math.random(1,5) == 2 then 
-		util.Blood(self.Entity:GetPos(), math.Rand(1, 2), (self.Entity:GetPos() - (self.Entity:GetPos() - Vector(0,0,32))):GetNormal() , math.Rand(1, 2), true)
+	if SERVER then
+		if math.random(1,3) == 1 then 
+			util.Blood(self.Entity:GetPos(), math.Rand(1, 2), (self.Entity:GetPos() - (self.Entity:GetPos() - Vector(0,0,32))):GetNormal() , math.Rand(1, 2), true)
+		end
 	end
-	end
+	self:NextThink(CurTime() + 2)	
 end
 
 if SERVER then
 	function ENT:OnTakeDamage( dmginfo )
-		if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsHuman() then
+		if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsHuman() or dmginfo:GetAttacker() == self:GetPlacer() then
 			self.CrateHealth = self.CrateHealth - dmginfo:GetDamage()
+			util.Blood(self.Entity:GetPos(), math.Rand(2, 4), (self.Entity:GetPos() - (self.Entity:GetPos() - Vector(0,0,32))):GetNormal() , math.Rand(2, 4), true)			
 			if self.CrateHealth <= 0 then
-				self:Explode()
+				self:Explode()	
+
+				if dmginfo:GetAttacker():IsHuman() then			
+					skillpoints.AddSkillPoints(dmginfo:GetAttacker(), 10)
+					dmginfo:GetAttacker():AddXP(50)			
+					self:FloatingTextEffect(10, dmginfo:GetAttacker())		
+				end			
 			end
 		end
 	end
 
 	function ENT:Explode()
+	
+		self:GetPlacer().HasBloodSpawner = false
+		
+		for k,v in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
+			v:Message("A blood spawner has been destroyed!", 1)
+		end	
+	
 		local trace = {}
 		trace.start = self:GetPos() + Vector(0,0,5)
 		trace.filter = self.Entity
@@ -95,7 +110,7 @@ if CLIENT then
 	function ENT:Draw()
 	    self:DrawModel()
 
-		self:SetModelScale(math.Clamp((math.sin(CurTime() * 2) * 0.25) + 0.5,0.65,0.9),0)	
+		self:SetModelScale(math.Clamp((math.sin(CurTime() * 2) * 0.5) + 0.4,0.8,1.2),0)	
 		
 	    if not IsValid(MySelf) or MySelf:Team() ~= TEAM_ZOMBIE then
 	        return
@@ -104,7 +119,7 @@ if CLIENT then
 	    self.LineColor = Color(math.abs(200 * math.sin(CurTime() * 3)), 0, 0, 100)
 
 	    --Draw some stuff
-	    local pos = self:GetPos() + Vector(0,0,40)
+	    local pos = self:GetPos() + Vector(0,0,30)
 
 	    --Check for distance with local player
 	    if pos:Distance(MySelf:GetPos()) > 128 then
@@ -121,9 +136,9 @@ if CLIENT then
 		local owner = self:GetPlacer()
 		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
 	
-		if validOwner then
-			draw.SimpleTextOutlined( owner:Name() .."'s Spawner", "ssNewAmmoFont4", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-		end
+		--if validOwner then
+			draw.SimpleTextOutlined( owner:Name() .."'s Blood Spawner", "ssNewAmmoFont4", 0, 0, Color(255,255,255,200), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,200))
+		--end
 				
 	    cam.End3D2D()
 	end

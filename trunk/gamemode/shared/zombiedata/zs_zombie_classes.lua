@@ -97,19 +97,19 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	Revives = false,
 	Health = 100,
 	MaxHealth = 140,
-	Bounty = 80,
+	Bounty = 60,
 	SP = 15,
 	Threshold = 99,	
 	SWEP = "weapon_zs_undead_ghoul",	
-	JumpPower = 190,
+	JumpPower = 170,
 	Unlocked = false,
 	Hidden = false,
 	CanCrouch = true,
 	CanGib = true, 
 	Model = table.Random(InfectedZombiemodels), 
-	Speed = 148,	
+	Speed = 140,	
 	AngleFix = true,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> CLAW POISON: 20 | 2 per 1.5 seconds", "> HEALTH: 100 ", "> SPEED: 148", "> DAMAGE: 10" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh","> RELOAD: Create blood spawner on ground", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> CLAW POISON: 20 | 2 per 1.5 seconds", "> HEALTH: 100 ", "> SPEED: 148", "> DAMAGE: 10" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde! " },
 	PainSounds = {
 		Sound("npc/zombiegreen/been_shot_1.wav"),
@@ -164,7 +164,7 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	},
 	
 	Unique = "",
-	Description = "A toxin infested innocent that can heal allies and poison enemies",
+	Description = "Toxin filled supporter.",
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 		pl:SetRandomFace()
@@ -194,7 +194,7 @@ ZombieClasses[2] =
 	Model = Model( "models/Zombie/Poison.mdl" ),
 	Speed = 150,
 	--Description = "A hulking mass of flesh far more durable than any other zombie.",
-	Description = "A hulking mass of flesh, the undead meat shield",
+	Description = "The undead meat shield.",
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
