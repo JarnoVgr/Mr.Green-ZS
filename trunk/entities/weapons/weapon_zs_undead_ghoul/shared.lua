@@ -60,6 +60,71 @@ SWEP.Secondary.Delay = 0.6
 function SWEP:Move()
 end
 
+function SWEP:Think()
+	self.BaseClass.Think(self)	
+	
+	if not IsValid(self.Owner) then
+		return
+	end
+	
+	--[[
+	if self.Owner:KeyReleased( IN_RELOAD  ) then	
+		if SERVER then
+			local vecAim = self.Owner:GetAimVector()
+			local posShoot = self.Owner:GetShootPos()
+		
+			local tr = util.TraceLine({start = posShoot, endpos = posShoot+300*vecAim, filter = self.Owner})
+		
+			local canPlaceCrate = false
+
+			--Check if we really need to draw the crate
+			if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 10 and tr.HitPos:Distance(self.Owner:GetPos()) <= 70 then
+				--Check traceline position area
+				local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-28,-28,0), maxs = Vector(28,28,25)})
+
+				if hTrace.Entity == NULL then
+					canPlaceCrate = true
+				end
+			end
+
+			if canPlaceCrate then
+				--Check distance to Supply Crates
+				for _, Ent in pairs(ents.FindByClass("game_spawner")) do
+					if tr.HitPos:Distance(Ent:GetPos()) <= 512 then
+						self.Owner:Message("Too close to another spawner.", 2)
+						canPlaceCrate = false
+						break
+					end
+				end
+			end
+
+			--Exit when cannot place
+			if not canPlaceCrate then
+				return
+			end
+
+			--Display animation
+			self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+
+			--Create entity
+			local angles = vecAim:Angle()
+			local ent = ents.Create("game_spawner")
+			if (ent ~= nil and ent:IsValid()) then
+				self.Owner:EmitSound("npc/fast_zombie/leap1.wav", 74, math.Rand(110, 130))
+				ent:SetPos(tr.HitPos)
+				ent:SetAngles(Angle(0,angles.y,angles.r))
+				ent:SetPlacer(self.Owner)
+				ent:Spawn()
+				ent:Activate()
+				ent:EmitSound(Sound("npc/roller/blade_cut.wav"))
+				self.Owner.Crate = ent
+
+			end
+		end
+	end
+]]--	
+end
+
 
 function SWEP:StartPrimaryAttack()			
 	--Hacky way for the animations
