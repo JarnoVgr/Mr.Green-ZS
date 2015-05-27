@@ -52,7 +52,7 @@ function GM:SetRandomsToZombie() --Duby: I took Necro's old code and modified it
 			end
 		end
 
-		for i = 1, desiredzombies - spawned do
+		for i = 1, desiredzombies - spawned - vols do
 			local humans = team.GetPlayers(TEAM_HUMAN)
 
 			if 0 < #humans then
