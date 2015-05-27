@@ -62,18 +62,18 @@ SWEP.WorldModel = "models/weapons/w_rif_ak47.mdl"
 SWEP.Base = "weapon_zs_base"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 3
-SWEP.Primary.Damage			= 5
+SWEP.Primary.Recoil			= 2.8
+SWEP.Primary.Damage			= 6
 SWEP.Primary.NumShots		= 7
 SWEP.Primary.ClipSize		= 10
-SWEP.Primary.Delay			= 0.15
+SWEP.Primary.Delay			= 0.2
 SWEP.Primary.DefaultClip	= 40
-SWEP.Primary.Automatic		= false
+SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "Battery"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.Secondary.Delay = 0.01
-SWEP.Secondary.Heal = 5
-SWEP.Secondary.HealDelay = 6
+SWEP.Secondary.Heal = 10
+SWEP.Secondary.HealDelay = 12
 SWEP.UseHands = true
 
 SWEP.Cone = 0.09

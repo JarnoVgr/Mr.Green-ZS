@@ -45,10 +45,10 @@ SWEP.Primary.Ammo = "Battery"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.Secondary.Delay = 0.01
 SWEP.Secondary.Heal = 5
-SWEP.Secondary.HealDelay = 6
+SWEP.Secondary.HealDelay = 12
 SWEP.UseHands = true
 
-SWEP.Cone = 0.042
+SWEP.Cone = 0.05
 SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9
