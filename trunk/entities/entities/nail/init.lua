@@ -24,11 +24,11 @@ function ENT:Initialize()
 		--	self.Heal = math.Round(self.Heal + (self.Heal*0.5))
 		--end
 		if Owner.DataTable["ShopItems"][51] then
-			self.Heal = math.Round(self.Heal + (100*0.5))
+			self.Heal = self.Heal + 50
 		end
 		
 		if Owner:GetPerk("_repairs") then
-			self.Heal = self.Heal + 100*0.4
+			self.Heal = self.Heal + 40
 		end		
 		
 	end

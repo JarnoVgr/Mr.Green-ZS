@@ -105,7 +105,7 @@ function GM:PlayerInitialSpawn(pl)
 	
 	pl.Loadout = pl.Loadout or {}
 	pl.Perk = pl.Perk or {}
-	
+		
 	pl.SupplyCart = {}
 	pl.SupplyCart.Weapons = {}
 	pl.SupplyCart.Ammo = {}
@@ -285,6 +285,10 @@ function GM:OnHumanSpawn(pl)
 		pl.PlayerModel = table.Random(EngineerPlayerModels)
 	elseif pl:GetPerk("_sharpshooter") then
 		pl.PlayerModel = table.Random(SharpshooterPlayerModels)
+	else
+		--Default to the medic
+		pl.PlayerModel = table.Random(MedicPlayerModels)
+		pl:SetPerk("_medic")
 	end
 
 	--Check if we can be Santa Claus
@@ -654,7 +658,6 @@ function CalculatePlayerLoadout(pl)
 		
 	--Commando stages
 	local commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
-	local commando2 = {"weapon_zs_melee_plank"}
 		
 	--Engineer stages
 	local engineer = {"weapon_zs_classic", "weapon_zs_melee_fryingpan","weapon_zs_turretplacer","weapon_zs_mine"}

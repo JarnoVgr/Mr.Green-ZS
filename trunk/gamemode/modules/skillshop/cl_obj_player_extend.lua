@@ -8,7 +8,7 @@ function meta:HasBoughtPointsWithCoins()
 end
 
 function meta:CanBuyPointsWithCoins()
-	return not MySelf.BoughtPointsWithCoins and MySelf:GreenCoins() >= 200
+	return not MySelf.BoughtPointsWithCoins and MySelf:GreenCoins() >= 40
 end
 
 function meta:SetBoughtPointsWithCoins( bool )

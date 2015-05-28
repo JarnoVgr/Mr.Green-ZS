@@ -180,7 +180,7 @@ if SERVER then
 						mul = mul + 0.5
 					end
 					
-					activator:GiveAmmo(HowMuch, AmmoType)
+					activator:GiveAmmo(HowMuch * mul, AmmoType)
 				end
 				local Owner = self:GetPlacer()
 				
