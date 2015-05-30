@@ -134,11 +134,11 @@ if CLIENT then
 	    cam.Start3D2D(pos,angle,0.26)
 
 		local owner = self:GetPlacer()
-		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
+		local validOwner = (IsValid(owner) and owner:Team() == TEAM_UNDEAD)
 	
-		--if validOwner then
+		if validOwner then
 			draw.SimpleTextOutlined( owner:Name() .."'s Blood Spawner", "ssNewAmmoFont4", 0, 0, Color(255,255,255,200), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,200))
-		--end
+		end
 				
 	    cam.End3D2D()
 	end
