@@ -4,7 +4,7 @@ boss.pl = nil
 boss.startTime = 0
 boss.duration = 0
 boss.endTime = 0
-boss.nextBossTime = 0
+boss.nextBossTime = 300
 boss.count = 3
 boss.maxCount = math.random(4,5)
 
@@ -161,7 +161,7 @@ function GM:SetBoss(value)
 		--Update end time
 		boss.endTime = CurTime()
 
-		boss.nextBossTime = boss.endTime + math.random(200,260)
+		boss.nextBossTime = boss.endTime + 240
 	
 		--Inform players
 		net.Start("StopBoss")
