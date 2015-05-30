@@ -64,8 +64,8 @@ NECROMOD = true
 
 
 --Boss stuff
-BOSS_TOTAL_PLAYERS_REQUIRED = 7--Pufu stop fucking with this! Last warning! I've been mellow about everything else, do not fucking change it!
-BOSS_CLASS = {11, 20, 10, 18, 16} -- 13 "Nerf" is a bad boss.
+BOSS_TOTAL_PLAYERS_REQUIRED = 10
+BOSS_CLASS = {11, 20, 10, 18, 16}
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
 --BOSS_CLASS = {18} --Seeker2
@@ -493,6 +493,7 @@ NPCS_COUNT_AS_KILLS = false
 UNDEAD_START_AMOUNT_PERCENTAGE = 0.2
 UNDEAD_START_AMOUNT_MINIMUM = 1
 UNDEAD_START_AMOUNT = 1
+
 
 -- Good values are 1 to 3. 0.5 is about the same as the default HL2. 1 is about ZS difficulty. This is mainly for NPC healths and damages.
 DIFFICULTY = 1.5
