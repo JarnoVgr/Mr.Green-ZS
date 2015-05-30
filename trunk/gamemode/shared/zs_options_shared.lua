@@ -493,6 +493,7 @@ NPCS_COUNT_AS_KILLS = false
 UNDEAD_START_AMOUNT_PERCENTAGE = 0.2
 UNDEAD_START_AMOUNT_MINIMUM = 1
 UNDEAD_START_AMOUNT = 1
+UNDEAD_VOLUNTEER_DISTANCE = 256
 
 
 -- Good values are 1 to 3. 0.5 is about the same as the default HL2. 1 is about ZS difficulty. This is mainly for NPC healths and damages.

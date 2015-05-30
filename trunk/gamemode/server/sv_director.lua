@@ -19,8 +19,13 @@ local function ManageEvents()
 		return
 	end
 	
+	
 	--Check warmup time
 	if not GAMEACTIVE then
+	
+		GAMEMODE:UpdateHumanTable()
+			
+			
 		if CurTime() > WARMUPTIME then
 			--Set active
 			GAMEACTIVE = true

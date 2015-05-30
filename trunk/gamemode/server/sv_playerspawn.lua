@@ -60,6 +60,9 @@ function GM:PlayerInitialSpawn(pl)
 	pl.FreshRedeem = false
 	pl.Gibbed = false
 	
+	pl.GasDistance = 9999999
+	pl.ToBeZombie = false
+	
 	pl.DataTable = pl.DataTable or {}
 	pl.Redeems = 0
 	pl.PropKills = 0

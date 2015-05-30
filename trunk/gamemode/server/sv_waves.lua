@@ -3,6 +3,28 @@ util.AddNetworkString("recwaveend")
 
 CAPPED_INFLICTION = 0
 
+function GM:UpdateHumanTable()
+
+	local humans = team.GetPlayers(TEAM_HUMAN)			
+
+	-- Sort the human table so that the closest ones to gas are the victims!
+	--print("test")
+	
+	for k,v in pairs(humans) do
+		local pos = v:GetPos()
+		local closest = 9999999
+		for _, gasses in pairs(ents.FindByClass("zs_poisongasses")) do	
+			local dist = gasses:GetPos():Distance(pos)
+			if dist < closest then
+				closest = dist
+			end
+		end
+		v.GasDistance = closest		
+	end
+
+	--	
+end
+
 function GM:SetRandomsToZombie() --Duby: I took Necro's old code and modified it a little.
 	local allplayers = player.GetAll()
 	local numplayers = #allplayers
@@ -13,11 +35,13 @@ function GM:SetRandomsToZombie() --Duby: I took Necro's old code and modified it
 	--local desiredzombies = math.max(1, math.ceil(3))
 	--local desiredzombies = math.max(UNDEAD_START_AMOUNT_MINIMUM, math.Round(3 * UNDEAD_START_AMOUNT_PERCENTAGE))
 	local desiredzombies = math.max(UNDEAD_START_AMOUNT, math.Round(numplayers * UNDEAD_START_AMOUNT_PERCENTAGE))
-
+	
+	local humans = team.GetPlayers(TEAM_HUMAN)			
+	
 	local vols = 0
 	local voltab = {}
 	for _, gasses in pairs(ents.FindByClass("zs_poisongasses")) do
-		for _, ent in pairs(ents.FindInSphere(gasses:GetPos(), 256)) do
+		for _, ent in pairs(ents.FindInSphere(gasses:GetPos(), UNDEAD_VOLUNTEER_DISTANCE)) do
 			if ent:IsPlayer() and not table.HasValue(voltab, ent) then
 				vols = vols + 1
 				table.insert(voltab, ent)
@@ -50,13 +74,11 @@ function GM:SetRandomsToZombie() --Duby: I took Necro's old code and modified it
 				umsg.End()
 				spawned = i
 			end
-		end
-
+		end		
 		for i = 1, desiredzombies - spawned - vols do
-			local humans = team.GetPlayers(TEAM_HUMAN)
-
+	table.sort(humans,self.ZombieSpawnDistanceSort)		
 			if 0 < #humans then
-				local pl = humans[math.random(1, #humans)]
+				local pl = humans[i]				
 				if pl:Team() != TEAM_UNDEAD then
 					pl:SwitchToZombie()
 					umsg.Start("recranfirstzom", pl)
@@ -65,6 +87,7 @@ function GM:SetRandomsToZombie() --Duby: I took Necro's old code and modified it
 			end
 		end
 	elseif desiredzombies < vols then
+
 		for i, pl in ipairs(voltab) do
 			if desiredzombies < i and pl:Team() == TEAM_HUMAN then
 				pl:SetPos(self:PlayerSelectSpawn(pl):GetPos())
@@ -76,6 +99,11 @@ function GM:SetRandomsToZombie() --Duby: I took Necro's old code and modified it
 		end
 	end
 end
+
+function GM:ZombieSpawnDistanceSort(other)
+	return self.GasDistance < other.GasDistance
+end
+
 
 function GM:SetRandomsToFirstZombie()
 	--Get num of players
