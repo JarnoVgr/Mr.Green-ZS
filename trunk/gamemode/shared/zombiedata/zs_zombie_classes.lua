@@ -34,7 +34,7 @@ ZombieClasses[0] =
 	Speed = 146,
 	AngleFix = true,
 	Description = "The backbone of the horde.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 240 ", "> SPEED: 146", "> DAMAGE: 23" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 240 ", "> SPEED: 146", "> DAMAGE: 24" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
 		Sound("npc/zombie/zombie_pain1.wav"),
