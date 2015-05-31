@@ -30,13 +30,13 @@ function ENT:Think()
 				if IsValid(owner) then
 					if hitent:IsPlayer() and hitent:IsHuman() and hitent:Alive() then
 						if hitent:GetPerk("_medic") then
-							hitent:TakeDamage(3, owner, self)							
+							hitent:TakeDamage(2, owner, self)							
 						else
-							hitent:TakeDamage(5, owner, self)
+							hitent:TakeDamage(3, owner, self)
 						end
 					elseif hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive() then
-						if hitent:Health() < hitent:GetMaximumHealth()*1.2 then
-							owner:AddXP(5)
+						if hitent:Health() + 5 < hitent:GetMaximumHealth() then
+							owner:AddXP(3)
 							hitent:SetHealth(hitent:Health() + 10)	
 							owner.PoisonHeals = owner.PoisonHeal + 10
 							local ph = owner.PoisonHeal
