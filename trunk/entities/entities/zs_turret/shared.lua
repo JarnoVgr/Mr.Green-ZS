@@ -91,8 +91,8 @@ if SERVER then
 					
 			if self:GetTurretOwner():GetPerk ("_engineer") then	
 				self.Damage = self.Damage + (self.Damage*(6*self:GetTurretOwner():GetRank())/100)		
-				self.MaxHealth = self.MaxHealth + (self.MaxHealth*(6*self:GetTurretOwner():GetRank())/100)	
-				self.MaxBullets = self.MaxBullets + (self.MaxBullets*(6*self:GetTurretOwner():GetRank())/100)	
+				--self.MaxHealth = self.MaxHealth + (self.MaxHealth*(5*self:GetTurretOwner():GetRank())/100)	
+				self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 10)
 			end		
 			
 			if self:GetTurretOwner():GetPerk("_turret") then --Class engineer 
