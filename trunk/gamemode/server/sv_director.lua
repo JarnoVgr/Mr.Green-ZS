@@ -45,7 +45,7 @@ local function ManageEvents()
 					continue
 				end
 
-				pl:SendLua("surface.PlaySound(Sound(\"npc/fast_zombie/fz_alert_far1.wav\")) GAMEMODE:Add3DMessage(100,\"The Undead Have Arrived\",nil,\"ArialBoldTwelve\") GAMEMODE:Add3DMessage(100,\"Prepare Your Asses!\",nil,\"NewZombieFont13\") ")
+				pl:SendLua("surface.PlaySound(Sound(\"npc/fast_zombie/fz_alert_far1.wav\")) GAMEMODE:Add3DMessage(100,\"They come!\",nil,\"ArialBoldTwelve\")")
 			end
 
 			Debug("[DIRECTOR] Game is now active")
