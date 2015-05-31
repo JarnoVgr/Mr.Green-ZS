@@ -4,13 +4,13 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 ENT.iPoisonTimer = 0
-ENT.iPoisonDamageRadius = 300
+ENT.iPoisonDamageRadius = 256
 ENT.objFoundEnemys = nil
-ENT.iTakeDamageDelay = 1.5
+ENT.iTakeDamageDelay = 1.0
 --ENT.iTakeDamageDelay = 0.25
-ENT.iDamageAmount = 3
+ENT.iDamageAmount = 2
 --ENT.iDamageAmount = 1
-ENT.iHealAmount = 25
+ENT.iHealAmount = 20
 
   
 function ENT:Initialize()
@@ -47,7 +47,7 @@ end
 
 function ENT:Think()
 	if ( self.iPoisonTimer <= CurTime() ) then
-		self.iPoisonTimer = CurTime() + math.Rand( 1.25, 2 )
+		self.iPoisonTimer = CurTime() + 1.5
 		self.objFoundEnemys = ents.FindInSphere( self:GetPos(), self.iPoisonDamageRadius )
 		for k, v in pairs( self.objFoundEnemys ) do
 			if ( IsValid( v ) &&  v:IsPlayer()  ) then

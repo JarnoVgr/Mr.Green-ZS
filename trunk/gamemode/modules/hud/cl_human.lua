@@ -20,7 +20,7 @@ function hud.DrawHumanHUD()
 	hud.DrawHealth()
 	hud.DrawSkillPoints()
 	hud.DrawObjMessages()
-	--hud.UpdateHumanTable()
+	hud.UpdateHumanTable()
 	--local humans = team.GetPlayers(TEAM_HUMAN)		
 	--table.sort(humans,hud.ZombieSpawnDistanceSort())	
 	hud.DrawZeroWaveMessage()
@@ -305,7 +305,7 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 			draw.SimpleTextOutlined("Humans closest to a zombie gas will become a zombie!", "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75 - txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
 			local vols = 0
-			local victimtab = {}
+			local gastab = {}
 			
 			local voltab = {}
 			local allplayers = player.GetAll()
@@ -323,7 +323,7 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 			local numplayers = #allplayers
 			local desiredzombies = math.max(UNDEAD_START_AMOUNT, math.Round(numplayers * UNDEAD_START_AMOUNT_PERCENTAGE))
 			
-			--local humans = team.GetPlayers(TEAM_HUMAN)	
+			local humans = team.GetPlayers(TEAM_HUMAN)	
 			
 			--local distance = 9999999	
 	
@@ -356,15 +356,25 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 				end
 			end		
 ]]--
+
 			--local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
 			
-
+			local y = ScrH() * 0.12 + txth * 1.25
+			
+			for k,v in pairs(humans) do	
+				if v:Name() == LocalPlayer():Name() then
+					draw.SimpleTextOutlined(v:Name().. " " ..math.Round(v.GasDistance), "ssNewAmmoFont4", ScrW() * 0.013, y, COLOR_RED, TEXT_ALIGN_LEFT , TEXT_ALIGN_CENTER,1, Color(0,0,0,200))
+				else
+					draw.SimpleTextOutlined(v:Name().. " " ..math.Round(v.GasDistance), "ssNewAmmoFont4", ScrW() * 0.013, y, COLOR_GRAY, TEXT_ALIGN_LEFT , TEXT_ALIGN_CENTER,1, Color(0,0,0,200))				
+				end
+				y = y + txth * 1
+			end
+			
 		--	draw.SimpleTextOutlined("Number of initial zombies this game ("..UNDEAD_START_AMOUNT * 100 .."%): "..desiredzombies, "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			draw.SimpleTextOutlined("Initial zombies this game: "..desiredzombies.."", "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,220))
-
+			y = ScrH() * 0.75 + txth * 2
 			draw.SimpleTextOutlined("Zombie volunteers: "..vols, "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,220))
 			surface.SetFont("Default")
-			local y = ScrH() * 0.75 + txth * 2
 			txtw, txth = surface.GetTextSize("Hi")
 			for _, pl in pairs(voltab) do
 				if ScrH() - txth <= y then break else
