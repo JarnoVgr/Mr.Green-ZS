@@ -19,13 +19,18 @@ function hud.DrawHumanHUD()
 	hud.DrawAmmoPanel()
 	hud.DrawHealth()
 	hud.DrawSkillPoints()
-	hud.DrawObjMessages()
-	hud.UpdateHumanTable()
+	--hud.DrawObjMessages()
+	
+	if CurTime() <= WARMUPTIME then
+		hud.UpdateHumanTable()
+		hud.DrawZeroWaveMessage()	
+	end
 	--local humans = team.GetPlayers(TEAM_HUMAN)		
 	--table.sort(humans,hud.ZombieSpawnDistanceSort())	
-	hud.DrawZeroWaveMessage()
+
 	--hud.DrawFriends()
 	
+	--[[
 	if OBJECTIVE then
 		surface.SetTexture(LeftGradient)
 		surface.SetDrawColor(0, 0, 0, 140)
@@ -34,6 +39,7 @@ function hud.DrawHumanHUD()
 		draw.SimpleTextOutlined("Stage #"..GAMEMODE:GetObjStage().." of "..#Objectives, "ArialBoldFive", 10, 5, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
 		draw.SimpleTextOutlined("Objective: "..Objectives[GAMEMODE:GetObjStage()].Info, "ArialBoldFive", 10, 25, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))	
 	end
+	]]--
 end
 
 
