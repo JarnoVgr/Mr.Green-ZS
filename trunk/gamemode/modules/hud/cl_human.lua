@@ -272,6 +272,8 @@ function hud.UpdateHumanTable()
 	-- Sort the human table so that the closest ones to gas are the victims!
 	--print("test")
 	
+	if math.random(1,10) == 10 then
+	
 	for k,v in pairs(humans) do
 		local pos = v:GetPos()
 		local closest = 9999999
@@ -282,6 +284,8 @@ function hud.UpdateHumanTable()
 			end
 		end
 		v.GasDistance = closest	
+	end
+	
 	end
 
 	--	
@@ -361,7 +365,7 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 			
 			local y = ScrH() * 0.12 + txth * 1.25
 			
-			if math.random(1,6) == 6 then
+
 			
 				for k,v in pairs(humans) do	
 					if v:Name() == LocalPlayer():Name() then
@@ -372,7 +376,6 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 					y = y + txth * 1
 				end
 			
-			end
 			
 		--	draw.SimpleTextOutlined("Number of initial zombies this game ("..UNDEAD_START_AMOUNT * 100 .."%): "..desiredzombies, "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			draw.SimpleTextOutlined("Initial zombies this game: "..desiredzombies.."", "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,220))
