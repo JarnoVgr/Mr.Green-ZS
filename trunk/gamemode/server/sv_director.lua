@@ -19,19 +19,15 @@ local function ManageEvents()
 		return
 	end
 	
-	
 	--Check warmup time
 	if not GAMEACTIVE then
-	
-		GAMEMODE:UpdateHumanTable()
-			
-			
 		if CurTime() > WARMUPTIME then
 			--Set active
 			GAMEACTIVE = true
 			
 			--Assign random zombies
 			--GAMEMODE:SetRandomsToFirstZombie()
+			GAMEMODE:UpdateHumanTable()			
 			GAMEMODE:SetRandomsToZombie() --Picks Humans closes to Z spawn or then random players..
 
 			--Give SkillPoints to survivors timer
@@ -119,7 +115,7 @@ function GiveSkillPointsSurvivors()
 		skillpoints.AddSkillPoints(pl, 10)
 
 		--Give XP
-		pl:AddXP(40)
+		pl:AddXP(30)
 	end
 end
 
