@@ -281,7 +281,7 @@ ZombieClasses[4] =
 	Name = "Ghast",
 	Tag = "etherealzombie",
 	Infliction = 0.25,
-	Health = 125,
+	Health = 100,
 	MaxHealth = 200,
 	TimeLimit = 200,
 	Bounty = 80,
@@ -294,7 +294,7 @@ ZombieClasses[4] =
 	Model = Model( "models/player/soldier_stripped" ),
 	Speed = 170,
 	Description = "A ghastly figure which can disguise itself as a human!",
-	DescriptionGameplay = {"> PRIMARY: Claws", "> SECONDARY: Disguise as a human!", "> SPECIAL: Ignored by turrets and proximity C4", "> HEALTH: 125 ", "> SPEED: 170", "> DAMAGE: 20" },
+	DescriptionGameplay = {"> PRIMARY: Claws", "> SECONDARY: Disguise as a human!", "> SPECIAL: Ignored by turrets and proximity C4", "> HEALTH: 100 ", "> SPEED: 170", "> DAMAGE: 20" },
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),
