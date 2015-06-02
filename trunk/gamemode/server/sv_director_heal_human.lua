@@ -17,7 +17,7 @@ local maxheal = 100
 
 --Interval time in seconds to heal
 --local HealInterval = 4
-local HealInterval = 1
+local HealInterval = 6
 
 local function Heal()
 	local Time = CurTime()
