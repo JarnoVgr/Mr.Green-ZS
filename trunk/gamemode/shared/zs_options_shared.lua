@@ -355,7 +355,7 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_mine" ,"_kevlarcommando","_sboost3","_highcal"},
+	[1] = {"_medupgr2","_accuracy","_mine" ,"_kevlarcommando","_sboost3","_highcal","_bulk"},
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_lethal","_slinger"},
 	
@@ -442,6 +442,7 @@ GM.Perks = {
 	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "+50 Maximum Health", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_supportregen"] = {Name = "Regeneration", Description = "Regain 1 health every 6 seconds.", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_reload"] = {Name = "Action Reload", Description = "+50% Shotgun Reload Speed", RequiresWeapon = "_support2", Slot = 2}, --Done
+	["_bulk"] = {Name = "Bulk", Description = "No speed penalty for weapons.", RequiresWeapon = "_support2", Slot = 2}, --Done
 	
 	--Berserker
 	

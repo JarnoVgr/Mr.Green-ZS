@@ -267,29 +267,6 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	-- Weapon walking speed, health, and player human class
 	local fSpeed, fHealth, iClass, fHealthSpeed = mWeapon.WalkSpeed or 200, mOwner:Health(), mOwner:GetHumanClass()
 	
-
-	
-	
-	
-	fHealthSpeed = math.Clamp ( ( fHealth / 40 ), 0.8, 1 )
-	
-	if bIron then
-		fSpeed = math.Round ( ( fSpeed * 0.8 ) * fHealthSpeed )
-	else
-		if mOwner:IsHolding() then
-			local status = mOwner.status_human_holding
-			-- for _, status in pairs(ents.FindByClass("status_human_holding")) do
-				if status and IsValid(status) and status:GetOwner() == mOwner and status.GetObject and status:GetObject():IsValid() and status:GetObject():GetPhysicsObject():IsValid() then
-					fSpeed = math.Round ( fSpeed * fHealthSpeed )
-					-- break
-				end
-			-- end
-		else
-			fSpeed = math.Round ( fSpeed * fHealthSpeed )
-					
-		end
-	end
-
 	if mOwner:GetPerk("_sboost") then
 		fSpeed = fSpeed + (fSpeed*0.05)
 	end
@@ -310,16 +287,41 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 		fSpeed = fSpeed - 7	
 
 	elseif mOwner:GetPerk("_support2") then
-		fSpeed = fSpeed - 9		
+		fSpeed = fSpeed - 10	
+		
+		if mOwner:GetPerk("_bulk") then
+			fSpeed = SPEED - 10
+		end
 		
 	elseif mOwner:GetPerk("_medic") then
 		local multiplier = 0.03 + (2*mOwner:GetRank())/100
 		fSpeed = fSpeed + (fSpeed*multiplier)	
 	end	
 	
+	fHealthSpeed = math.Clamp ( ( fHealth / 40 ), 0.8, 1 )
+	
+	if bIron then
+		fSpeed = math.Round ( ( fSpeed * 0.8 ) * fHealthSpeed )
+	else
+		if mOwner:IsHolding() then
+			local status = mOwner.status_human_holding
+			-- for _, status in pairs(ents.FindByClass("status_human_holding")) do
+				if status and IsValid(status) and status:GetOwner() == mOwner and status.GetObject and status:GetObject():IsValid() and status:GetObject():GetPhysicsObject():IsValid() then
+					fSpeed = math.Round ( fSpeed * fHealthSpeed )
+					-- break
+				end
+			-- end
+		else
+			fSpeed = math.Round ( fSpeed * fHealthSpeed )
+					
+		end
+	end	
+	
 	if mOwner:GetPerk("_berserk") and fHealth < 41 then
 		fSpeed = mWeapon.WalkSpeed * 1.1
 	end		
+	
+	
 		
 	-- Change speed
 	self:SetPlayerSpeed(mOwner, fSpeed)
