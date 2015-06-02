@@ -154,7 +154,7 @@ function SWEP:StartSecondaryAttack()
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage * 4
+		local fFuckIntensity = fHitPercentage * 6
 
 		
 		if v:GetPerk("_berserker") then
