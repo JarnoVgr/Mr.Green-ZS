@@ -303,25 +303,24 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	end
 	
 	if mOwner:GetPerk("_berserker") then
-		local multiplier = (1*mOwner:GetRank())/100
+		local multiplier = 0.02 + (1*mOwner:GetRank())/100
 		fSpeed = fSpeed +(fSpeed*multiplier)
 		
 	elseif mOwner:GetPerk("_commando") then
-		fSpeed = fSpeed - 10	
+		fSpeed = fSpeed - 7	
 
 	elseif mOwner:GetPerk("_support2") then
-		fSpeed = fSpeed - 10		
+		fSpeed = fSpeed - 9		
 		
 	elseif mOwner:GetPerk("_medic") then
-		local multiplier = (2*mOwner:GetRank())/100
+		local multiplier = 0.03 + (2*mOwner:GetRank())/100
 		fSpeed = fSpeed + (fSpeed*multiplier)	
 	end	
 	
 	if mOwner:GetPerk("_berserk") and fHealth < 41 then
 		fSpeed = mWeapon.WalkSpeed * 1.1
 	end		
-	
-
+		
 	-- Change speed
 	self:SetPlayerSpeed(mOwner, fSpeed)
 end
@@ -1528,6 +1527,25 @@ function OnShutDown()
 end
 hook.Add("ShutDown", "OnShutDown", OnShutDown)
 
+--[=[---------------------------------------------------------
+      Slowdown when walking backwards.
+---------------------------------------------------------]=]
+
+function GM:KeyPress(pl, key)
+	if pl:Team() ~= TEAM_HUMAN then
+		return
+	end
+	
+	if pl:KeyPressed(IN_FORWARD) then
+		pl.WalkingBackwards = false	
+	elseif pl:KeyPressed(IN_BACK) or pl:KeyDown(IN_BACK) then
+		pl.WalkingBackwards = true
+	else
+		pl.WalkingBackwards = false
+	end
+	
+	pl:CheckSpeedChange()
+end
 
 --[=[----------------------------------------------------------------------
      Grave Digger suit health on death
@@ -1551,7 +1569,7 @@ local SpecialWeapons = {
 }
 
 hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacker)
-	if not inflictor or not SpecialWeapons[inflictor:GetClass()] then
+	if not inflictor then
 		return
 	end
 	
@@ -1559,7 +1577,7 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 		return
 	end
 		
-	if attacker:Health() > 100 then
+	if attacker:Health() >= 100 then
 		return
 	end
 		

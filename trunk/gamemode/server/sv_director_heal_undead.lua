@@ -7,7 +7,7 @@ timer.Create("ZO-RefreshCache", 15, 0, RefreshCache)
 
 --Time in seconds after last hit or hurt to wait before healing
 --local HealTimeout = 60
-local HealTimeout = 3
+local HealTimeout = 4
 
 --Amount to heal per cycle
 --local HealAmount = 20
@@ -15,14 +15,14 @@ local HealAmount = 1
 
 --Interval time in seconds to heal
 --local HealInterval = 4
-local HealInterval = 1
+local HealInterval = 0.3
 
 local function Heal()
 	local Time = CurTime()
 	
 	for i=1, #Zombie do	
 		local pl = Zombie[i]
-		if not IsValid(pl) or not pl:Alive() or not pl:Team() == TEAM_UNDEAD pl:Health() >= pl:GetMaximumHealth() then
+		if not IsValid(pl) or not pl:Alive() or not pl:Team() == TEAM_UNDEAD or pl:Health() >= pl:GetMaximumHealth() then
 			continue
 		end
 

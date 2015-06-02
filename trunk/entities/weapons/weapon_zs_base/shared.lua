@@ -83,13 +83,13 @@ function SWEP:PrimaryAttack()
 	
 	--Recoil multiplier
 	if self:GetIronsights() or self.Owner:Crouching() then
-		recoilm = recoilm * 0.5
+		recoilm = recoilm * 0.85
 	end
 
 	local recoil = self.Primary.Recoil * recoilm
 	
 	if Owner.ViewPunch then
-		Owner:ViewPunch(Angle(recoil * -1, math.random(0.01,-0.01), 0))
+		Owner:ViewPunch(Angle((recoil * -1)*0.375, math.random(0.01,-0.01), 0))
 	end
 
 	if (game.SinglePlayer() and SERVER) or (not game.SinglePlayer() and CLIENT and IsFirstTimePredicted() ) then
@@ -101,17 +101,17 @@ function SWEP:PrimaryAttack()
 
 	if self:GetIronsights() then
 		if self.Owner:Crouching() then
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIronCrouching - (self.ConeIronCrouching * self.AccuracyBonus))
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIronCrouching * 0.75 - (self.ConeIronCrouching * self.AccuracyBonus))
 		else
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIron - (self.ConeIron * self.AccuracyBonus))
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIron * 0.75 - (self.ConeIron * self.AccuracyBonus))
 		end
 	elseif 25 < self.Owner:GetVelocity():Length() then
-		self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving - (self.ConeMoving * self.AccuracyBonus))
+		self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.10 - (self.ConeMoving * self.AccuracyBonus))
 	else
 		if self.Owner:Crouching() then
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeCrouching - (self.ConeCrouching * self.AccuracyBonus))
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeCrouching * 0.75 - (self.ConeCrouching * self.AccuracyBonus))
 		else
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.Cone - (self.Cone * self.AccuracyBonus))
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.Cone * 0.75 - (self.Cone * self.AccuracyBonus))
 		end
 	end
 
@@ -406,7 +406,7 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 		Num = numbul,
 		Src = self.Owner:GetShootPos(),
 		Dir = aim + punch,
-		Spread = Vector(cone * 0.8 , cone * 0.8, 0),
+		Spread = Vector(cone * 0.9 , cone * 0.9, 0),
 		Tracer = 1,
 		TracerName = self.TracerName,
 		Force = dmg * 0.1,

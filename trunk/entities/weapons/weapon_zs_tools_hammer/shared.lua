@@ -46,9 +46,9 @@ SWEP.Slot = 3
 SWEP.SlotPos = 3
  
 --SWEP.Primary.ClipSize = 30
-SWEP.Primary.Damage = 25
+--SWEP.Primary.Damage = 25
 --SWEP.Primary.DefaultClip = 30
-SWEP.Primary.Automatic = true
+--SWEP.Primary.Automatic = true
 
 SWEP.Primary.Delay = 0.9
 
@@ -61,7 +61,7 @@ SWEP.Secondary.Ammo = "none"
 SWEP.WalkSpeed = SPEED_MELEE_LIGHT
 SWEP.HoldType = "melee"
  
-SWEP.MeleeDamage = 27
+SWEP.MeleeDamage = 25
 SWEP.MeleeRange = 52
 SWEP.MeleeSize = 0.875
 SWEP.ToHeal = 5

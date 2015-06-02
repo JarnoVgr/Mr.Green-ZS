@@ -28,6 +28,16 @@ local umsg = umsg
 		if ( run == 0 ) then run = 1 end
 		if ( max == 0 ) then max = 1 end --@NECROSSIN: It was a typo, you need glasses :<
 		
+		--print(walk)
+		--print(run)
+		--print(max)
+		
+		if pl.WalkingBackwards then
+			walk = walk * SPEED_BACKWARDS
+			run = run * SPEED_BACKWARDS
+			max = max * SPEED_BACKWARDS	 
+		end
+	
 		-- Call the base function
 		--BaseSetPlayerSpeed ( pl, walk )
 		

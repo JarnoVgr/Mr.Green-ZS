@@ -33,7 +33,10 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 
 -- Movement stuff
 
-SPEED = 186
+-- 1 to 0.
+SPEED_BACKWARDS = 0.55
+
+SPEED = 194
 SPEED_LIGHT = SPEED - 2
 SPEED_MELEE_LIGHT = SPEED - 3
 SPEED_MELEE = SPEED - 11
@@ -155,16 +158,16 @@ GM.HumanWeapons = {
         ["weapon_zs_m249"]  = { Name = "M249", DPS = 200, Infliction = 0.85, Type = "rifle", Price = 950, HumanClass = "commando" },      		
 		
         --Support
+        ["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 100, HumanClass = "support" },	
         ["weapon_zs_smg"]  = { Name = "Classic SMG", DPS = 125, Infliction = 0.65, Type = "smg", Price = 100, HumanClass = "support"},
-        ["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143, Infliction = 0, Price = 140, Type = "shotgun", HumanClass = "support" },       		
+        ["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143, Infliction = 0, Price = 200, Type = "shotgun", HumanClass = "support" },       		
         ["weapon_zs_mac10"]  = { Name = "Mac 10", DPS = 126, Infliction = 0.60, Type = "smg", Price = 300, HumanClass = "support" },   
         ["weapon_zs_ump"]  = { Name = "UMP", DPS = 110, Infliction = 0.60, Type = "smg", Price = 500, HumanClass = "support" },
-        ["weapon_zs_m3super90"]  = { Name = "M3 Shotgun", DPS = 149, Infliction = 0, Type = "shotgun", Price = 550, HumanClass = "support"}, 		
-        ["weapon_zs_p90"]  = { Name = "P90", DPS = 125, Infliction = 0.65, Type = "smg", Price = 650, HumanClass = "support" },
-        ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 850, HumanClass = "support"},		
+        ["weapon_zs_m3super90"]  = { Name = "M3 Shotgun", DPS = 149, Infliction = 0, Type = "shotgun", Price = 600, HumanClass = "support"}, 		
+        ["weapon_zs_p90"]  = { Name = "P90", DPS = 125, Infliction = 0.65, Type = "smg", Price = 700, HumanClass = "support" },
+        ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 800, HumanClass = "support"},		
     
 	
-        ["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 100 }, -- 860	
         --["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127, Infliction = 0.58, Type = "smg", Price = 300, HumanClass = "support" },
 	
         --Medic
@@ -205,13 +208,13 @@ GM.HumanWeapons = {
         --Pistols
  
         --Loadout Guns
-        ["weapon_zs_fiveseven"]  = { Name = "Five-Seven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 60},       
+        ["weapon_zs_fiveseven"]  = { Name = "Five Seven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 60},       
         ["weapon_zs_barreta"]  = { Name = "Barreta", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 60},            
         ["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42, Infliction = 0, Type = "pistol", Description = "It's practical!", Price = 60 },
         ["weapon_zs_p228"]  = { Name = "P228", DPS = 58, Infliction = 0, Type = "pistol", Description = "More accuracy but less fire power compared to the USP." , Price = 60},   
         ["weapon_zs_melee_plank"]  = { Name = "Plank", DPS = 56, Infliction = 0, Type = "melee", Description = "The noobs ultimate weapon.", Price = 60  },                
         ["weapon_zs_melee_combatknife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee", Price = 60 },
-        ["weapon_zs_classic"]  = { Name = "'Classic' Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic.", Price = 60},
+        ["weapon_zs_classic"]  = { Name = "Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic.", Price = 60},
  
  
         --Loadout Tools 1
@@ -453,16 +456,16 @@ GM.Perks = {
 	["_sboost"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_engineer", Slot = 2}, --Done
 	
 	--Sharpshooter
-	["_kevlar2"] = {Name = "Kevlar", Description = "+30 Initial Health", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
+	["_kevlar2"] = {Name = "Health", Description = "+20 Health", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	["_point"] = {Name = "Take Point", Description = "+30% Jump Power | -50% Fall Damage", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	["_sboost3"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done	
 	--["_ironaim"] = {Name = "Hard Scope", Description = "Extra 15% zoom speed on sniper rifles!", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	
 	--[[New ZS Classes]]--
-	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit  | P228  |  Knife                            ",Description = "+10% Pistol Damage | +10% Medi Damage | +2% Movement Speed Per Level | +2% Pistol Damage Per Level | +2% Medi Damage Per Level | +5% Poison Resistance Per Level | +5% Claw Damage Resistance Per Level | +5% Medical Power Per Level | ", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
-	["_commando"] = {Name = "Commando",   		Equipment = "Grenades  |   Five SeveN   | Knife               ", Description = "+10% Rifle Damage | See Undead Health | +5 Health Per Level | +10% Clip Size | +4% Clip Size Per Level | +2% Rifle Damage Per Level | +2% Firing Speed Per Level |", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
+	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit  | P228  |  Knife                            ",Description = "+10% Pistol Damage | +10% Medi Damage | +3% Movement Speed | +2% Movement Speed Per Level | +2% Pistol Damage Per Level | +2% Medi Damage Per Level | +5% Poison Resistance Per Level | +10% Undead Damage Resistance | +3% Undead Damage Resistance Per Level | +5% Medical Power Per Level | ", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
+	["_commando"] = {Name = "Commando",   		Equipment = "Grenades  |   Five SeveN   | Knife               ", Description = "+10% Rifle Damage | See Undead Health | +10 Health | +3 Health Per Level | +10% Clip Size | +4% Clip Size Per Level | +2% Rifle Damage Per Level | +2% Firing Speed Per Level |", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support",    		Equipment = "Board Pack  |  USP   |  Hammer                  ", Description = "+10% Shotgun Damage | +10% SMG Damage | +10% Ammo Received | +2% SMG Damage Per Level | +2% Shotgun Damage Per Level | +5% Nail Health Per Level | +1 Repair Point Per Level | +1 Nail Per Level | +3% Ammo Received Per Level | ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
-	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+10% Melee Damage | +2% Melee Damage Per Level | +4 Health On Melee Kill | +1 Health On Melee Kill Per Level | +30% Howler Disorientation Resistance | +1% Movement Speed Per Level |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+10% Melee Damage | +2% Melee Damage Per Level | +4 Health On Melee Kill | +1 Health On Melee Kill Per Level | +30% Howler Disorientation Resistance | +2% Movement Speed | +1% Movement Speed Per Level |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret  |  C4  |  Classic Pistol  |  Pan  ", Description = "+10% Pulse Weapon Damage | +5% Turret Damage Per Level | +10 Turret Bullets Per Level | +10% Pulse Weapon Capacity Per Level | +2% Pulse Weapon Damage Per Level | +5% Pulse Weapon Recharge Rate Per Level | +2% C4 Damage Per Level | +2% C4 Radius Per Level |", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Beretta  |  Beer Bottle		", Description = "+10% Sniper Damage | +10% Headshot Damage | +2% Sniper Damage Per Level | +2% Headshot Damage Per Level |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},	
 	["_pyrotechnic"] = {Name = "PyroTechnic", Equipment = "Fame Nades  |  Fare Gun ", Description = "Immune To Fire | Extra Health  |  Possibility To Get A Flamer On Spawn", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3}, --Need to start this soon

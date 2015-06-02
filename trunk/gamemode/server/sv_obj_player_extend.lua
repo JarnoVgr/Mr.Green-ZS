@@ -190,7 +190,7 @@ function meta:RestoreHumanHealth(am,returnhealth)
 	
 	
 	if self:GetPerk("_commando") then
-		maxhealth = 100 + (100*(5*self:GetRank())/100)
+		maxhealth = 110 + self:GetRank() * 3
 	end
 	
 	if self:GetPerk("_kevlarcommando") then

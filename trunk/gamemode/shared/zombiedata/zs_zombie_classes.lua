@@ -20,7 +20,7 @@ ZombieClasses[0] =
 	Tag = "infected",	
 	Infliction = 0,
 	Revives = true,
-	Health = 240,
+	Health = 225,
 	MaxHealth = 350,
 	Bounty = 100,
 	SP = 20,
@@ -34,7 +34,7 @@ ZombieClasses[0] =
 	Speed = 146,
 	AngleFix = true,
 	Description = "The backbone of the horde.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 240 ", "> SPEED: 146", "> DAMAGE: 24" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 225 ", "> SPEED: 146", "> DAMAGE: 24" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
 		Sound("npc/zombie/zombie_pain1.wav"),
@@ -180,7 +180,7 @@ ZombieClasses[2] =
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
 	Infliction = 0.63,
-	Health = 480,
+	Health = 450,
 	MaxHealth = 600,
 	TimeLimit = 810,
 	Bounty = 175,
@@ -198,7 +198,7 @@ ZombieClasses[2] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> SPECIAL: Propkill", "> CLAW POISON: 20 | 2 per 1.5 seconds", "> HEALTH: 480 ", "> SPEED: 150", "> DAMAGE: 35" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> SPECIAL: Propkill", "> CLAW POISON: 20 | 2 per 1.5 seconds", "> HEALTH: 450 ", "> SPEED: 150", "> DAMAGE: 35" },
 	PainSounds = {
 		Sound("npc/zombie_poison/pz_pain1.wav"),
 		Sound("npc/zombie_poison/pz_pain2.wav"),
@@ -452,7 +452,7 @@ ZombieClasses[8] =
 	Name = "Zombine",
 	Tag = "zombine",
 	Infliction = 0.8,
-	Health = 380,
+	Health = 350,
 	MaxHealth = 450, 
 	TimeLimit = 1020,
 	Bounty = 140,
@@ -471,7 +471,7 @@ ZombieClasses[8] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when taken enough damage", "> HEALTH: 380 ", "> SPEED: 160", "> DAMAGE: 30" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when taken enough damage", "> HEALTH: 350 ", "> SPEED: 160", "> DAMAGE: 30" },
 	PainSounds = {
 		Sound( "npc/zombine/zombine_pain1.wav" ),
 		Sound( "npc/zombine/zombine_pain2.wav" ),

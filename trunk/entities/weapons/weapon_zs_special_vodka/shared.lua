@@ -190,29 +190,6 @@ function SWEP:GetNextCharge()
 	return self:GetDTFloat(0)
 end
 
-if CLIENT then
-	local texGradDown = surface.GetTextureID("VGUI/gradient_down")
-	function SWEP:DrawHUD()
-	
-		local wid, hei = ScaleW(150), ScaleH(33)
-		local space = 12+ScaleW(7)
-		local x, y = ScrW() - wid - 12, ScrH() - ScaleH(73) - 12
-		y = y + ScaleH(73)/2 - hei/2
-		surface.SetFont("ssNewAmmoFont13")
-		local tw, th = surface.GetTextSize("Vodka Brew")
-		local texty = y + hei/2 
-		
-		 draw.SimpleText("Bottle o'l Vodka", "ssNewAmmoFont7", x+space, texty+10, Color(255,255,255,255), TEXT_ALIGN_LEFT)
-
-		local charges = self:GetPrimaryAmmoCount()
-		if charges > 0 then
-			draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		else
-			draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, COLOR_DARKRED, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		end
-	end
-end
-
 function SWEP:Equip ( NewOwner )
 	if CLIENT then return end
 	

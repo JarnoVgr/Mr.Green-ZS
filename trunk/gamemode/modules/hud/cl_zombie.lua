@@ -5,8 +5,8 @@ local zombieHealthIndication  = {
 	{Text = "hungry as hell",Percent = 1},
 	{ Text = "walk it off", Percent = 0.9 },
 	{ Text = "couple of bullet holes", Percent = 0.75 },
-	{ Text = "you're missing a limb", Percent = 0.6 },
-	{ Text = "your organs are hanging out", Percent = 0.45 },
+	{ Text = "missing a limb", Percent = 0.6 },
+	{ Text = "organs are hanging out", Percent = 0.45 },
 	{ Text = "falling apart", Percent = 0.25 },
 	{ Text = "sack of flesh", Percent = 0.1 }	
 	}

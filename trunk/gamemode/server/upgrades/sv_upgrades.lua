@@ -16,7 +16,7 @@ local ents = ents
 function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 
 	local dmg = dmginfo:GetDamage()
-	
+	print(dmg)
 	if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
 		local mul = 0.1 + ((attacker:GetRank() * 2) / 100 )
 		if attacker:GetActiveWeapon().Primary.Ammo == "pistol" and attacker:GetPerk("_medic") then
@@ -31,32 +31,32 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			dmg = dmg + (dmg * mul)
 		elseif attacker:GetActiveWeapon().Primary.Ammo == "none" and attacker:GetPerk("_engineer") then
 			dmg = dmg + (dmg * mul)					
-		end		
-	end
+			
+		elseif dmginfo:IsMeleeDamage() and attacker:GetPerk("_berserker") then
+			dmg = dmg + (dmg * mul)	
+
+			if attacker:GetPerk("_headhunter") then
+				dmg = dmg * 0.85			
+			end	
+		end
+	elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent:IsPlayer() then
 	
+		if attacker:HasBought("vampire") and attacker:Health() + dmg * 0.5 < attacker:GetMaximumHealth() then	
+			attacker:SetHealth(attacker:Health() + dmg * 0.5)	
+		end		
+	
+		if ent:GetPerk("_sharpshooter") and ent.DataTable["ShopItems"][69] and math.random(1,5) == 1 then
+			dmginfo:SetDamage(0)				
+		elseif ent:GetPerk("_medic") then
+			dmg = dmg - (dmg * ((3*ent:GetRank())/100) + 0.1)		
+		end
+	end
+
 	dmginfo:SetDamage( dmg )	
 	
-	--local damage = util.tobool(GetConVarNumber("_zs_damage"))
-		--print(damage)
 	if attacker.DamageOutput then
 		attacker:ChatPrint(math.Round(dmg))
 	end
 
-	
-
-	
-	
-	--[[if attacker:IsPlayer() and ent:IsPlayer() then
-		if not ent:IsBot() and ent:IsPlayer() and ent:Team() == TEAM_HUMAN and ent:Alive() and ent:GetPerk("_enhkevlar") and attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD then
-			dmginfo:SetDamage (damage - damage*0.25 ) 
-		end
-	end]]--
-	
-	--  more damage when attacking with melee weapons
-	--if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and attacker:GetPerk("_freeman") and IsValid( inflictor ) then-- attacker:HasBought( "blessedfists" )
-	--	if inflictor:IsWeapon() and inflictor:GetType() == "melee" and not inflictor.IsTurretDmg then
-	--		dmginfo:SetDamage( damage * 1.2 )
-	--	end
-	--end
 end
 

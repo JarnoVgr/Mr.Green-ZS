@@ -61,7 +61,8 @@ function GM:PlayerInitialSpawn(pl)
 	pl.Gibbed = false
 	
 	pl.GasDistance = 9999999
-	pl.ToBeZombie = false
+	
+	pl.WalkingBackwards = false
 	
 	pl.DataTable = pl.DataTable or {}
 	pl.Redeems = 0
@@ -879,9 +880,9 @@ function CalculatePlayerHealth(pl)
 	if pl:GetPerk("_support2") and pl:GetPerk("_kevlarsupport") then
 		MaxHealth, Health = 150, 150
 	elseif pl:GetPerk("_sharpshooter") and pl:GetPerk("_kevlar2") then
-		MaxHealth, Health = 100, 150
+		MaxHealth, Health = 120, 120
 	elseif pl:GetPerk("_commando") then
-		MaxHealth, Health = 100 + (100*(5*pl:GetRank())/100), 100 + (100*(5*pl:GetRank())/100)
+		MaxHealth, Health = 110 + pl:GetRank() * 3, 110 + pl:GetRank() * 3
 
 		if pl:GetPerk("_kevlarcommando") then
 			Health = MaxHealth + 50
