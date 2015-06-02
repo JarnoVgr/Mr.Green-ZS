@@ -69,6 +69,8 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	skillpoints.Clean(mVictim)
 	
 	mVictim:PlayDeathSound()
+	
+	mVictim.WalkingBackwards = false
 		
 	--Revival
 	if not mVictim.Gibbed and not dmginfo:IsSuicide(mVictim) then
