@@ -16,10 +16,10 @@ GM.SkillShopAmmo = {
 		Price = 20
 	},
 	["357"] = {
-		Name = "14 Sniper Bullets",
+		Name = "12 Sniper Bullets",
 		Model = "models/Items/357ammo.mdl",
-		Amount = 14,
-		Price = 45
+		Amount = 12,
+		Price = 40
 	},
 	["smg1"] = {
 		Name = "50 SMG Bullets",
@@ -35,9 +35,9 @@ GM.SkillShopAmmo = {
 	},
 	
 	["buckshot"] = {
-		Name = "16 Shotgun Shells",
+		Name = "12 Shotgun Shells",
 		Model = "models/Items/BoxBuckshot.mdl",
-		Amount = 16,
+		Amount = 12,
 		Price = 40
 	},
 	["slam"] = {
