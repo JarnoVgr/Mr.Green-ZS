@@ -10,35 +10,35 @@ CreateConVar("zs_skillshop_buypoints_cost", "40", {FCVAR_REPLICATED}, "")
 
 GM.SkillShopAmmo = {
 	["pistol"] = {
-		Name = "12 Pistol Bullets",
+		Name = "20 Pistol Bullets",
 		Model = "models/Items/BoxSRounds.mdl",
-		Amount = 12,
+		Amount = 20,
 		Price = 20
 	},
 	["357"] = {
-		Name = "6 Sniper Bullets",
+		Name = "14 Sniper Bullets",
 		Model = "models/Items/357ammo.mdl",
-		Amount = 6,
-		Price = 30
+		Amount = 14,
+		Price = 45
 	},
 	["smg1"] = {
-		Name = "30 SMG Bullets",
+		Name = "50 SMG Bullets",
 		Model = "models/Items/BoxMRounds.mdl",
-		Amount = 30,
-		Price = 20
+		Amount = 50,
+		Price = 30
 	},
 	["ar2"] = {
-		Name = "30 Rifle Bullets",
+		Name = "60 Rifle Bullets",
 		Model = "models/Items/combine_rifle_cartridge01.mdl",
-		Amount = 35,
-		Price = 30
+		Amount = 60,
+		Price = 40
 	},
 	
 	["buckshot"] = {
-		Name = "12 Shotgun Shells",
+		Name = "16 Shotgun Shells",
 		Model = "models/Items/BoxBuckshot.mdl",
-		Amount = 12,
-		Price = 30
+		Amount = 16,
+		Price = 40
 	},
 	["slam"] = {
 		Name = "C4",
