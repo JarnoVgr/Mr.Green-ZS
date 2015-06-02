@@ -13,7 +13,7 @@ function ENT:Initialize()
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
-		phys:SetMass(4)
+		phys:SetMass(20)
 		phys:SetMaterial("metal")
 	end
 end
@@ -22,6 +22,7 @@ function ENT:PhysicsCollide(data, phys)
 	if 20 < data.Speed and 0.25 < data.DeltaTime then
 		self:EmitSound("physics/metal/metal_grenade_impact_hard"..math.random(1,3)..".wav")
 	end
+	self:SetVelocity(Vector(0,0,0))
 end
 
 function ENT:Think()
