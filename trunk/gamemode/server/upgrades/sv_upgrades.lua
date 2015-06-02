@@ -26,6 +26,9 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 		elseif attacker:GetActiveWeapon().Primary.Ammo == "smg1" and attacker:GetPerk("_support2") or attacker:GetActiveWeapon().Primary.Ammo == "buckshot" and attacker:GetPerk("_support2") then
 			dmg = dmg + (dmg * mul)		
 		elseif attacker:GetActiveWeapon().Primary.Ammo == "357" and attacker:GetPerk("_sharpshooter") then
+			if attacker:GetPerk("_highcal") then
+				mul = mul + 0.05		
+			end
 			dmg = dmg + (dmg * mul)	
 		elseif attacker:GetActiveWeapon().Primary.Ammo == "Battery" and attacker:GetPerk("_medic") then --mediguns
 			dmg = dmg + (dmg * mul)

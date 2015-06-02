@@ -50,7 +50,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)			
 			mVictim:FloatingTextEffect(10, mAttacker)	
 
-			if mInflictor:GetPerk("_turretsp") then
+			if mAttacker:GetPerk("_turretsp") then
 				mVictim:FloatingTextEffect(10, mAttacker)	
 				skillpoints.AddSkillPoints(mAttacker, 10)				
 			end

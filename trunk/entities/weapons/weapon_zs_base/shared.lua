@@ -165,8 +165,8 @@ function SWEP:Deploy()
 
 	--commando
 	if self.Owner:GetPerk("_accuracy") then
-		self.RecoilMultiplier = 1 * 1.4
-		self.AccuracyBonus = 0.2
+		self.RecoilMultiplier = 1 * 1.5
+		self.AccuracyBonus = 0.5
 	end
 	
 	--sharpshooter

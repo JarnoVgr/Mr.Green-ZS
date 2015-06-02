@@ -557,16 +557,15 @@ function RollTheDice ( pl,commandName,args )
 	
 	message = pl:GetName()
 
-	if choise == 1 then
-		if pl:Team() == TEAM_HUMAN then	
-	
-			specialitems = { "weapon_zs_special_chembomb", "weapon_zs_special_vodka", "weapon_zs_special_bottleofwine"}
-			message = "WIN: ".. message .." rolled the dice and got a special item!"
-			pl:Give(table.Random(specialitems))		
-		elseif pl:Team() == TEAM_UNDEAD then	
+	if choise == 1 then	
+		if pl:Team() == TEAM_UNDEAD then	
 			pl:AddScore(1)
 			message = "WIN: ".. message .." rolled the dice and has found a piece of brain!"
 		end
+		if pl:Team() == TEAM_HUMAN then	
+			pl:SetVelocity(Vector(math.random(0,1000),math.random(0,1000),math.random(0,1000)))
+			message = "LOSE: ".. message .." rolled the dice and has been flung!"
+		end		
 	elseif choise == 2 then
 		if pl:Team() == TEAM_HUMAN then
 			message = "LOSE: ".. message .." rolled the dice and got raped in the ass."
@@ -579,8 +578,7 @@ function RollTheDice ( pl,commandName,args )
 		end
 	elseif choise == 3 then
 		if pl:Team() == TEAM_HUMAN then
-				if pl:HasBought("ladyluck") or math.random (1,2) == 1 then
-		
+				if pl:HasBought("ladyluck") then
 			pl:GiveAmmo( 120, "pistol" )	
 			pl:GiveAmmo( 80, "ar2" )
 			pl:GiveAmmo( 120, "SMG1" )	
@@ -629,20 +627,6 @@ function RollTheDice ( pl,commandName,args )
 		elseif pl:Team() == TEAM_UNDEAD then
 			message = message .." rolled the dice and got bugger all!"
 		end	
-	else
-		if pl:Team() == TEAM_HUMAN then
-			if pl:HasBought("ladyluck") or math.random (1,2) == 1 then
-				specialitems = { "weapon_zs_python","weapon_zs_pulsesmg"}
-				message = "WIN: LadyLuck gave "..message.." A special weapon!"
-				pl:Give(table.Random(specialitems))		
-				else 
-					pl:Ignite( math.random(1,5), 0)
-					message = "LOSE: "..message.." was put on fire by the dice."
-				end
-		elseif pl:Team() == TEAM_UNDEAD then
-			pl:AddScore(1)
-			message = "WIN: ".. message .." rolled the dice and has found a piece of brain!"
-		end
 	end
 		
 	pl.LastRTD = CurTime() + RTD_TIME

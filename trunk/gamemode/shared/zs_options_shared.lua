@@ -389,7 +389,7 @@ GM.Perks = {
 	--Commando
 	
 	["_nade"] = {Name = "Grenadier", Description = "+25% grenade damage | +40 explosion radius | +3 Grenades", RequiresWeapon = "_commando", Slot = 1}, --Done
-	["_accuracy"] = {Name = "Accuracy", Description = "-40% Recoil | +20% Accuracy ", RequiresWeapon = "_commando", Slot = 1},  --Done
+	["_accuracy"] = {Name = "Accuracy", Description = "-50% Recoil | +50% Accuracy ", RequiresWeapon = "_commando", Slot = 1},  --Done
 	["_defender"] = {Name = "Defender Rifle", Description = "Spawn with the Defender Rifle.", RequiresWeapon = "_commando", Slot = 1},  --Done
 
 	--Support
@@ -420,7 +420,7 @@ GM.Perks = {
 	
 	["_lethal"] = {Name = "Python", Description = "Spawn with the Python", RequiresWeapon = "_sharpshooter", Slot = 1}, --Done
 	["_accuracy2"] = {Name = "Marksman", Description = "-70% Recoil | +40% Accuracy ", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
-	["_highcal"] = {Name = "Reinforced Calibre", Description = "+200% Bullet Knockback", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
+	["_highcal"] = {Name = "High Calibre", Description = "+5% Damage | +200% Bullet Knockback", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
 	["_supply"] = {Name = "Medical Station", Description = "Mobile Supplies gives 4 health to users | +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
 	["_musket"] = {Name = "Musketeer", Description = "+2 musket clipsize", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
 	
@@ -440,7 +440,7 @@ GM.Perks = {
 	--Support
 	
 	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "+50 Maximum Health", RequiresWeapon = "_support2", Slot = 2}, --Done
-	["_supportregen"] = {Name = "Regeneration", Description = "Regain 1 health every 3 seconds while under 40 health.", RequiresWeapon = "_support2", Slot = 2}, --Done
+	["_supportregen"] = {Name = "Regeneration", Description = "Regain 1 health every 6 seconds.", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_reload"] = {Name = "Action Reload", Description = "+50% Shotgun Reload Speed", RequiresWeapon = "_support2", Slot = 2}, --Done
 	
 	--Berserker
