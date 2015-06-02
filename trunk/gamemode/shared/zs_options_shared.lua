@@ -149,12 +149,12 @@ GM.HumanWeapons = {
        
         --Commando
         ["weapon_zs_defender"]  = { Name = "Defender Rifle", DPS = 93, Price = 100, Infliction = 0.2, Type = "rifle", Description = "Scrap AK47", HumanClass = "commando"},    
-        ["weapon_zs_famas"]  = { Name = "Famas", DPS = 140, Type = "rifle", Price = 300, HumanClass = "commando" },
+        ["weapon_zs_famas"]  = { Name = "Famas", DPS = 140, Type = "rifle", Price = 250, HumanClass = "commando" },
        -- ["weapon_zs_sg552"]  = { Name = "SG552 Rifle", DPS = 106, Infliction = 0.51, Type = "rifle", Price = 500, HumanClass = "commando" },
-        ["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138, Infliction = 0.65, Type = "rifle", Price = 500, HumanClass = "commando" },
-        ["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 600, HumanClass = "commando" },   
-        ["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125, Infliction = 0.53, Type = "rifle", Price = 600, HumanClass = "commando" },       
-        ["weapon_zs_galil"]  = { Name = "Galil", DPS = 129, Infliction = 0.57, Type = "rifle", Price = 750, HumanClass = "commando" }, 
+        ["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138, Infliction = 0.65, Type = "rifle", Price = 350, HumanClass = "commando" },
+        ["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125, Infliction = 0.53, Type = "rifle", Price = 500, HumanClass = "commando" }, 		
+        ["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 650, HumanClass = "commando" },         
+        ["weapon_zs_galil"]  = { Name = "Galil", DPS = 129, Infliction = 0.57, Type = "rifle", Price = 800, HumanClass = "commando" }, 
         ["weapon_zs_m249"]  = { Name = "M249", DPS = 200, Infliction = 0.85, Type = "rifle", Price = 950, HumanClass = "commando" },      		
 		
         --Support
@@ -464,7 +464,7 @@ GM.Perks = {
 	
 	--[[New ZS Classes]]--
 	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit  | P228  |  Knife                            ",Description = "+10% Pistol Damage | +10% Medi Damage | +3% Movement Speed | +2% Movement Speed Per Level | +2% Pistol Damage Per Level | +2% Medi Damage Per Level | +5% Poison Resistance Per Level | +10% Undead Damage Resistance | +3% Undead Damage Resistance Per Level | +5% Medical Power Per Level | ", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
-	["_commando"] = {Name = "Commando",   		Equipment = "Grenades  |   Five SeveN   | Knife               ", Description = "+10% Rifle Damage | See Undead Health | +10 Health | +3 Health Per Level | +10% Clip Size | +4% Clip Size Per Level | +2% Rifle Damage Per Level | +2% Firing Speed Per Level |", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
+	["_commando"] = {Name = "Commando",   		Equipment = "Grenades  |   Five SeveN   | Knife               ", Description = "+10% Rifle Damage | See Undead Health | +10 Health | +3 Health Per Level | +10% Clip Size | +4% Clip Size Per Level | +2% Rifle Damage Per Level | +1% Firing Speed Per Level |", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support",    		Equipment = "Board Pack  |  USP   |  Hammer                  ", Description = "+10% Shotgun Damage | +10% SMG Damage | +10% Ammo Received | +2% SMG Damage Per Level | +2% Shotgun Damage Per Level | +5% Nail Health Per Level | +1 Repair Point Per Level | +1 Nail Per Level | +3% Ammo Received Per Level | ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+10% Melee Damage | +2% Melee Damage Per Level | +4 Health On Melee Kill | +1 Health On Melee Kill Per Level | +30% Howler Disorientation Resistance | +2% Movement Speed | +1% Movement Speed Per Level |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret  |  C4  |  Classic Pistol  |  Pan  ", Description = "+10% Pulse Weapon Damage | +5% Turret Damage Per Level | +10 Turret Bullets Per Level | +10% Pulse Weapon Capacity Per Level | +2% Pulse Weapon Damage Per Level | +5% Pulse Weapon Recharge Rate Per Level | +2% C4 Damage Per Level | +2% C4 Radius Per Level |", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
