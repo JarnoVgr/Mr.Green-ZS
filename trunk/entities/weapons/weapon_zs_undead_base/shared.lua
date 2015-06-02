@@ -254,6 +254,8 @@ function SWEP:PerformPrimaryAttack()
 				end											
 				hit = true
 				ent:TakeDamage(self.Primary.Damage, self.Owner, self)			
+			else
+				ent:TakeDamage(self.Primary.Damage, self.Owner, self)	
 			end
 		end
 
