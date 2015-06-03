@@ -315,14 +315,14 @@ end
 function SWEP:SecondaryAttack()
 	if self.Berserker then
 		
-		if CurTime() < self.NextLeap and not pl:OnGround() then
+		if CurTime() < self.NextLeap or not self.Owner:OnGround() then
 			return
 		end	
 		
 		--Set flying velocity
-		local Velocity = self.Owner:GetAngles():Forward() * 3
+		local Velocity = self.Owner:GetAngles():Forward() * 400
 		
-		Velocity.z = math.Clamp(Velocity.z, 160,200)
+		Velocity.z = math.Clamp(Velocity.z, 150,260)
 
 		self.Leaping = true
 		
@@ -331,7 +331,7 @@ function SWEP:SecondaryAttack()
 		
 		if SERVER then
 			self.Owner:EmitSound(Sound("vo/ravenholm/monk_pain0".. math.random(1,9) ..".wav"),70,math.random(80,100))
-			self.Owner:EmitSound(Sound("weapons/physcannon/energy_sing_flyby".. math.random(1,2) ..".wav"),110,math.random(100,120))
+			self.Owner:EmitSound(Sound("weapons/physcannon/energy_sing_flyby".. math.random(1,2) ..".wav"),90,math.random(115,125))
 		end
 		
 		self.Owner:SetGroundEntity(NULL)

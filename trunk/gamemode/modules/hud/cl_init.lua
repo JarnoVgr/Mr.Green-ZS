@@ -29,7 +29,7 @@ local function RecachePlayerData()
 	NextPlrDataCache = RealTime() + 5
 
 	local RequiredXP = MySelf:NextRankXP()
-	local CurrentXP = MySelf:GetXP() - MySelf:CurRankXP()
+	local CurrentXP = MySelf:GetXP()
 	
 	
 	PlrData = {
