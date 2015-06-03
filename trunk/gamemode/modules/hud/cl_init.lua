@@ -28,8 +28,9 @@ local function RecachePlayerData()
 	--5 seconds till next cache
 	NextPlrDataCache = RealTime() + 5
 
-	local RequiredXP = MySelf:CurRankXP()
-	local CurrentXP = MySelf:GetXP()
+	local RequiredXP = MySelf:NextRankXP()
+	local CurrentXP = MySelf:GetXP() - MySelf:GetCurRankXP()
+	
 	
 	PlrData = {
 		GreenCoins = MySelf:GreenCoins(),
