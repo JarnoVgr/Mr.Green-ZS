@@ -315,14 +315,14 @@ end
 function SWEP:SecondaryAttack()
 	if self.Berserker then
 		
-		if CurTime() < self.NextLeap then
+		if CurTime() < self.NextLeap and pl:OnGround() then
 			return
 		end	
 		
 		--Set flying velocity
-		local Velocity = self.Owner:GetAngles():Forward() * 400
+		local Velocity = self.Owner:GetAngles():Forward() * 4
 		
-		Velocity.z = math.Clamp(Velocity.z, 150,200)
+		Velocity.z = math.Clamp(Velocity.z, 170,200)
 
 		self.Leaping = true
 		
