@@ -588,7 +588,7 @@ function meta:AddXP(amount)
 			self.DataTable["ClassData"]["new"].xp = self:NextRankXP()
 			self:AddRank(1)
 			self:SendLua("UnlockEffect(2, ".. self:GetRank() ..")")
-			
+						
 			PrintMessageAll(HUD_PRINTTALK, self:Name() .." went up to level ".. self:GetRank())
 		end
 			
