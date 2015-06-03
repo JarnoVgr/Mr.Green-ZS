@@ -322,7 +322,7 @@ function SWEP:SecondaryAttack()
 		--Set flying velocity
 		local Velocity = self.Owner:GetAngles():Forward() * 400
 		
-		Velocity.z = math.Clamp(Velocity.z, 150,275)
+		Velocity.z = math.Clamp(Velocity.z, 150,200)
 
 		self.Leaping = true
 		
