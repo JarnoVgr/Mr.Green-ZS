@@ -341,7 +341,7 @@ GM.AmmoRegeneration = {
 -- -- -- -- -- -- -- -- -- -- /
 XP_BLANK = 0
 
-XP_INCREASE_BY = 5000
+XP_INCREASE_BY = 10000
 
 XP_PLAYERS_REQUIRED = 6
 
