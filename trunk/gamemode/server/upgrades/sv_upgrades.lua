@@ -41,7 +41,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				if attacker:GetPerk("_highcal") then
 					mul = mul + 0.05		
 					
-				elseif attacker:GetPerk("_frictionburn") and math.random(1,5) == 1 then
+				elseif attacker:GetPerk("_frictionburn") and math.random(1,4) == 1 then
 					ent:TakeDamageOverTime(5, 1, 5, attacker, inflictor )
 					ent:Ignite(5,0)			
 				end
@@ -74,7 +74,6 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 				
 			elseif attacker:GetPerk("_berserker") then
-			
 				if not dmginfo:IsMeleeDamage() then
 					dmg = dmg * 0.9
 				else

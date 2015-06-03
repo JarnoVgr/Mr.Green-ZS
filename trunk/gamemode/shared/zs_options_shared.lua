@@ -432,7 +432,7 @@ GM.Perks = {
 	["_highcal"] = {Name = "High Calibre", Description = "+5% Damage | +200% Bullet Knockback", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
 	["_supply"] = {Name = "Medical Station", Description = "Mobile Supplies gives 4 health to users | +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
 	["_musket"] = {Name = "Musketeer", Description = "+2 musket clipsize", RequiresWeapon = "_sharpshooter", Slot = 1},
-	["_frictionburn"] = {Name = "Friction Burn", Description = "20% chance to ignite target", RequiresWeapon = "_sharpshooter", Slot = 1},
+	["_frictionburn"] = {Name = "Friction Burn", Description = "25% chance to ignite target using sharpshooter weapons", RequiresWeapon = "_sharpshooter", Slot = 1},
 	
 					--[[Slot 2 'personal perk']]--
 	--Medic
