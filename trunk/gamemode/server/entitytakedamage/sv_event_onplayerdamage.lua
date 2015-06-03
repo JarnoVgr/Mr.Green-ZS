@@ -29,7 +29,6 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 	
 	if pl:IsHuman() then
 		pl:CheckSpeedChange()
-
 		if attacker:IsPlayer() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_ghoul" or attacker:IsPlayer() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_poisonzombie" then
 			local protect = 0
 			if pl:GetPerk("_poisonprotect") then
@@ -46,9 +45,9 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 	pl.TookHit = true
 
 	--Hit gore
-	local tr = pl:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_HUMAN))
-	local pos = tr.HitPos
-	local norm = tr.HitNormal
+	--local tr = pl:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_HUMAN))
+	--local pos = tr.HitPos
+	--local norm = tr.HitNormal
 
 	--local eff = EffectData()
 	--eff:SetOrigin(pos)

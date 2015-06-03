@@ -93,8 +93,8 @@ function SWEP:Think()
 		else
 		
 			if self:GetOwner():GetPerk("_engineer") then
-				self.MaxClip = 12 + (12*(10*self:GetOwner():GetRank())/100)
-				self.rechargerate = 0.55 - (0.55*(6*self:GetOwner():GetRank())/100)				
+				self.MaxClip = 12 + (12*(5*self:GetOwner():GetRank())/100)
+				self.rechargerate = 0.55 - (0.55*(2*self:GetOwner():GetRank())/100)				
 			end
 
 		

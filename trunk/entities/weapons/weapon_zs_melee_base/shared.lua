@@ -16,11 +16,14 @@ SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
 SWEP.Primary.Delay = 1
 
+SWEP.NextLeap = 0
+SWEP.Breakthrough = false
 
 SWEP.MeleeDamage = 30
 SWEP.MeleeRange = 65
 SWEP.MeleeSize = 1.5
 SWEP.MeleeKnockBack = 0
+SWEP.Berserker = false
 
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
@@ -125,6 +128,17 @@ function SWEP:Deploy()
 	end
 	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 	
+	if self.Owner:GetPerk("_berserker") then
+		if self.Owner:GetPerk("_breakthrough") then	
+			self.Breakthrough = true
+		end
+		self.Berserker = true
+	else
+		self.Berserker = false
+	end
+	
+	
+	
 	self:OnDeploy()
 	
 	self.Owner:StopAllLuaAnimations()
@@ -172,6 +186,75 @@ function SWEP:Think()
 		self:StopSwinging()
 		self:MeleeSwing()
 	end
+	
+	if self.Leaping and self.Breakthrough then
+		self.Owner:LagCompensation(true)
+
+		local traces = self.Owner:PenetratingMeleeTrace(20, 20, nil, self.Owner:LocalToWorld(self.Owner:OBBCenter()))
+
+		local hit = false
+		for _, trace in ipairs(traces) do
+			if not trace.Hit then
+				continue
+			end
+
+			hit = true
+
+			if not trace.HitWorld then
+				local ent = trace.Entity
+				if not ent or not ent:IsValid() then
+					continue
+				end
+
+				--Break glass
+				if ent:GetClass() == "func_breakable_surf" then
+					ent:Fire( "break", "", 0 )
+					hit = true
+				end
+
+				--Check for valid phys object
+				local phys = ent:GetPhysicsObject()
+				if not phys:IsValid() or not phys:IsMoveable() or ent.Nails then
+					continue
+				end
+
+				if ent:IsPlayer() or ent:IsNPC() then
+					local Velocity = self.Owner:GetForward() * 200
+					Velocity.z = math.Clamp(Velocity.z,180,220)
+					ent:SetVelocity(Velocity)
+				else
+					--Calculate velocity to push
+					local Velocity = self.Owner:EyeAngles():Forward() * (100 * 3)
+					Velocity.z = math.min(Velocity.z,1600)
+					phys:ApplyForceCenter(Velocity)		
+				end
+				
+				--Take damage
+				ent:TakeDamage(25, self.Owner, self)
+				self.Attacking = CurTime() + 1.25					
+			end
+		end
+
+		if hit then
+			if self.Owner.ViewPunch then
+				self.Owner:ViewPunch(Angle(math.random(0, 70), math.random(0, 70), math.random(0, 70)))
+			end
+
+			if SERVER then
+				self.Owner:EmitSound(Sound("physics/flesh/flesh_strider_impact_bullet1.wav"))
+			end
+						
+			self.Leaping = false
+			self.NextLeap = CurTime() + 3
+		end
+		
+		--Always update leap status
+		if (self.Owner:OnGround() or self.Owner:WaterLevel() >= 2) then
+			self.Leaping = false
+		end
+
+		self.Owner:LagCompensation(false)
+	end	
 end
 
 function SWEP:OnDrop()
@@ -226,6 +309,34 @@ function SWEP:PrimaryAttack()
 		self:MeleeSwing()
 	else
 		self:StartSwinging()
+	end
+end
+
+function SWEP:SecondaryAttack()
+	if self.Berserker then
+		
+		if CurTime() < self.NextLeap then
+			return
+		end	
+		
+		--Set flying velocity
+		local Velocity = self.Owner:GetAngles():Forward() * 400
+		
+		Velocity.z = math.Clamp(Velocity.z, 150,275)
+
+		self.Leaping = true
+		
+		--Leap cooldown
+		self.NextLeap = CurTime() + 5
+		
+		if SERVER then
+			self.Owner:EmitSound(Sound("vo/ravenholm/monk_pain0".. math.random(1,9) ..".wav"),70,math.random(80,100))
+			self.Owner:EmitSound(Sound("weapons/physcannon/energy_sing_flyby".. math.random(1,2) ..".wav"),110,math.random(100,120))
+		end
+		
+		self.Owner:SetGroundEntity(NULL)
+		self.Owner:SetLocalVelocity(Velocity)	
+		
 	end
 end
 

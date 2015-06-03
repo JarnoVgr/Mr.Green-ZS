@@ -15,6 +15,7 @@ function GM:ProceedRedeemSpawn(pl)
 	
 	local NewSpawn = self:GetNiceHumanSpawn(pl)
 
+	pl:Give("weapon_zs_elites")
 	if NewSpawn then
 		pl:SetPos(NewSpawn:GetPos())
 	end
@@ -95,6 +96,7 @@ function GM:OnPlayerRedeem(pl, causer)
 	--Comebacks
 	pl:Give("weapon_zs_elites")
 	
+	--[[
 	if not pl._ComebackUsed then		
 		--Comeback pistol
 		if pl:GetPerk("_comeback2") then
@@ -109,6 +111,7 @@ function GM:OnPlayerRedeem(pl, causer)
 			pl._ComebackUsed = true
 		end
 	end
+	]]--
 	
 	pl.DeathClass = nil
 	pl.LastAttacker = nil

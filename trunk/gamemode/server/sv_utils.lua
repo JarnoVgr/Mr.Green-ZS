@@ -32,7 +32,7 @@ local umsg = umsg
 		--print(run)
 		--print(max)
 		
-		if pl.WalkingBackwards then
+		if pl.WalkingBackwards then --CurTime() < pl.LastHurt + 2 then
 			walk = walk * SPEED_BACKWARDS
 			run = run * SPEED_BACKWARDS
 			max = max * SPEED_BACKWARDS	 

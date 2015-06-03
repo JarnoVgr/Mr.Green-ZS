@@ -44,19 +44,22 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 				Victim:ClearDamageOverTime()
 				return
 			end
-			
-			if Victim:GetPerk() == "_medic" then		
-				iDamage = iDamage - (iDamage* (5*Victim:GetRank())/100)
+
+			if Victim:IsHuman() then
+				if Victim:GetPerk() == "_medic" then		
+					iDamage = iDamage - (iDamage* (5*Victim:GetRank())/100)
+				end		
+				if math.random(1,2) == 1 then
+					Victim:EmitSound( "ambient/voices/cough"..math.random( 1,4 )..".wav" )
+				end						
 			end
+
 			-- Default take damage only when low on health
 			if not IsValid( Inflictor ) then Inflictor = Attacker:GetActiveWeapon() or Attacker end
 			if Victim:Health() > iDamage then Victim:SetHealth( Victim:Health() - iDamage ) else Victim:TakeDamage( iDamage, Attacker, Inflictor ) end
 			Victim.IsInfected = true
 			-- Shake screen
 			Victim:ViewPunch( Angle( math.random( -1, 1 ), math.random( -1, 1 ), 0 ) )
-			if math.random(1,2) == 1 then
-				Victim:EmitSound( "ambient/voices/cough"..math.random( 1,4 )..".wav" )
-			end		
 			-- Cough sound
 			
 			--Victim:EmitSound( "player/pl_pain"..math.random( 5,7 )..".wav" )
@@ -1517,7 +1520,7 @@ function meta:CheckSpeedChange()
 	else
 		speed = math.Round ( speed * fHealthSpeed )
 	end
-	
+		
 	GAMEMODE:SetPlayerSpeed( self, speed )
 	
 end

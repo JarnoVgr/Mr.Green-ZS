@@ -52,7 +52,7 @@ SWEP.ViewModel = "models/weapons/v_zombine.mdl" --
 SWEP.WorldModel = "models/weapons/w_grenade.mdl" --DO NOT MODIFY THIS
 
 SWEP.Primary.Reach = 50
-SWEP.Primary.Duration = 1.4
+SWEP.Primary.Duration = 1.45
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Damage = 35
 
@@ -71,23 +71,6 @@ function SWEP:StartPrimaryAttack()
 		return
 	end	
 
-	--Slowdown
-	--GAMEMODE:SetPlayerSpeed(pl, 120, 120)
-	
-	--Restore
-	timer.Simple(1.6, function()
-		if not IsValid(pl) then
-			return
-		end
-
-		local classId = pl:GetZombieClass()
-		
-		if not pl:Alive() or not classId == 11 then
-			return
-		end
-
-		GAMEMODE:SetPlayerSpeed(pl, ZombieClasses[classId].Speed, ZombieClasses[classId].Speed)
-	end)
 end
 
 function SWEP:PostPerformPrimaryAttack(hit)

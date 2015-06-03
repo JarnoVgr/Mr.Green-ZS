@@ -564,12 +564,12 @@ function GM:ProceedCustomSpawn(pl)
 		return
 	end
 
+	pl:Give("weapon_zs_elites")
+	
 	if newspawn then
 		pl:SetPos(newspawn:GetPos())
 	end
 end
-
-
 
 --[==[------------------------------------------------
 	    Called on player disconnect
@@ -853,7 +853,6 @@ function CalculateZombieHealth(pl)
 		local desiredzombies = math.max(1, math.ceil(numPlayers * UNDEAD_START_AMOUNT_PERCENTAGE))
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies) and team.NumPlayers(TEAM_HUMAN) >= 5) then
 			local IncreaseHealth = Tab.Health * 0.5
-			MaxHealth = Tab.Health + IncreaseHealth
 			MaxHealth = Tab.Health + IncreaseHealth
 		end
 	end

@@ -169,7 +169,7 @@ if SERVER then
 					end					
 					
 					if activator:GetPerk("_support2") then
-						mul = mul + activator:GetRank()*0.05
+						mul = mul + activator:GetRank()*0.02
 					end	
 					
 					if activator:GetPerk("_supportammo") then

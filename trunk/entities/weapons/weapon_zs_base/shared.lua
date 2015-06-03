@@ -181,7 +181,7 @@ function SWEP:Deploy()
 	
 	if self.Owner:GetPerk("_commando") then
 
-		self.SpeedBonus = (self.Owner:GetRank()*0.2)/100	
+		self.SpeedBonus = (self.Owner:GetRank()*0.1)/100	
 	
 		self.Primary.ClipSize = self.ActualClipSize * 0.1 + self.ActualClipSize + (self.ActualClipSize * (self.Owner:GetRank() * 4) / 100)	
 		

@@ -90,8 +90,8 @@ if SERVER then
 		self:SetMaterial(MaterialToApply)]]
 					
 			if self:GetTurretOwner():GetPerk ("_engineer") then	
-				self.Damage = self.Damage + (self.Damage*(6*self:GetTurretOwner():GetRank())/100)		
-				--self.MaxHealth = self.MaxHealth + (self.MaxHealth*(5*self:GetTurretOwner():GetRank())/100)	
+				self.Damage = self.Damage + (self.Damage*(2*self:GetTurretOwner():GetRank())/100)		
+				self.MaxHealth = self.MaxHealth + (self.MaxHealth*(2*self:GetTurretOwner():GetRank())/100)	
 				self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 10)
 			end		
 			
@@ -294,7 +294,7 @@ if SERVER then
 			end
 		else
 			-- Increased recharge rate
-			self:RechargeAmmo(1,0.14- (0.45*(5*self:GetTurretOwner():GetRank())/100))	
+			self:RechargeAmmo(1,0.14 - (0.14*(2 + 2*self:GetTurretOwner():GetRank())/100))	
 			self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),0,1))
 			self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),15,1))
 

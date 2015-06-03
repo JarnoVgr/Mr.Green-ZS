@@ -79,20 +79,19 @@ function ENT:Think()
 
 		--Check for conditions
 		if v:IsPlayer() and not v:IsHuman() and v:Alive() and not table.HasValue(self.IgnoreClasses, v:GetZombieClass()) and fDistance < self.range then		
-		local vPos, vEnd = self:GetPos(), self:GetPos() + ( self:GetPos() * self.range )
-		local Trace = util.TraceLine ( { start = vPos, endpos = v:LocalToWorld( v:OBBCenter() ), filter = self, mask = MASK_SOLID } )
+			local vPos, vEnd = self:GetPos(), self:GetPos() + ( self:GetPos() * self.range )
+			local Trace = util.TraceLine ( { start = vPos, endpos = v:LocalToWorld( v:OBBCenter() ), filter = self, mask = MASK_SOLID } )
+				
+			-- Exploit trace
+			if not Trace.Hit or not IsValid(Trace.Entity) or Trace.Entity ~= v then
+				continue
+			end	
 			
-		-- Exploit trace
-		if not Trace.Hit or not IsValid(Trace.Entity) or Trace.Entity ~= v then
-			continue
-		end		
 			self.Entity:EmitSound(self.WarningSound)
 			self.Detonating = true
 			return
 		end	
-
 	end	
-	
 	self:NextThink(CurTime() + self.scan)
 end
 
@@ -113,20 +112,18 @@ function ENT:Explode()
 	Ent:SetOwner( self:GetOwner() )
 	Ent:Activate()
 	
-	
-	
 	if self:GetOwner():GetPerk("_engineer") then
-		self.damage = self.damage + (self.damage*(2*self:GetOwner():GetRank())/100)
-		self.radius = self.radius + (self.radius*(2*self:GetOwner():GetRank())/100)		
+		self.damage = self.damage + (self.damage*(1*self:GetOwner():GetRank())/100)
+		self.radius = self.radius + (self.radius*(1*self:GetOwner():GetRank())/100)	
+
+		if self:GetOwner():GetPerk("_nitrate") then
+			self.radius = self.radius + (self.radius*0.4)		
+		elseif self:GetOwner():GetPerk("_trap") then
+			self.damage = self.damage + (self.damage*0.3)		
+		elseif self:GetOwner():GetPerk("_combustion") then
+			self.damage = self.damage * 0.9
+		end		
 	end
-	
-	if self:GetOwner():GetPerk("_nitrate") then
-		self.radius = self.radius + (self.radius*0.4)		
-	end
-	
-	if self:GetOwner():GetPerk("_trap") then
-		self.damage = self.damage + (self.damage*0.3)		
-	end	
 	
 	Ent:SetKeyValue( "iMagnitude", self.damage ) --180 -- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )
 	Ent:SetKeyValue( "iRadiusOverride", self.radius )-- math.Clamp ( math.Round ( 250 * GetInfliction() ), 150, 350 )

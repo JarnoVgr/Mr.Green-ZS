@@ -118,7 +118,7 @@ function SWEP:PrimaryAttack()
 				end	
 				
 				if owner:GetPerk("_medic") then
-					multiplier = multiplier + multiplier*((5*owner:GetRank())/100)
+					multiplier = multiplier + multiplier*((2*owner:GetRank())/100)
 				end						
 				
 				if owner.DataTable["ShopItems"][48] then

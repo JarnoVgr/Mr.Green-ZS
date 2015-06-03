@@ -123,8 +123,8 @@ function SWEP:Think()
 		else
 		
 			if self:GetOwner():GetPerk("_engineer") then
-				self.MaxClip = 40 + (40*(10*self:GetOwner():GetRank())/100)
-				self.rechargerate = 0.5 - (0.5*(5*self:GetOwner():GetRank())/100)				
+				self.MaxClip = 40 + (40*(5*self:GetOwner():GetRank())/100)
+				self.rechargerate = 0.5 - (0.5*(2*self:GetOwner():GetRank())/100)				
 			end
 			
 			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then

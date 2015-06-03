@@ -28,7 +28,7 @@ local function Heal()
 			continue
 		end
 
-		if Time < (pl.LastHit + HealTimeout) or Time < (pl.LastHurt + HealTimeout) then
+		if Time < HealTimeout or Time < (pl.LastHurt + HealTimeout) then
 			continue
 		end
 

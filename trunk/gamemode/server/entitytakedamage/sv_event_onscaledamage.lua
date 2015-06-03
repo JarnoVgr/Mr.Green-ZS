@@ -103,6 +103,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		dmginfo:ScaleDamage(0.5)
 	end
 		
+	--[[	
 	--Zombies with howler protection
 	if dmginfo:IsAttackerHuman() and pl:IsZombie() and dmginfo:IsBulletDamage() and pl:HasHowlerProtection() then
 		if math.random(3) == 3 then
@@ -121,26 +122,25 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		return true
 	end
 
+	]]--
+	
 	if pl:IsZombie() then
 		--Scale any damage
 		dmginfo:ScaleDamage(GAMEMODE:GetUndeadDamageMultiplier())
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
-			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 15 then
+			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 16 then
 				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),65,math.random(90,110))				
-				--if dmginfo:IsBulletDamage() then
-					--Humans already do double damage on headshot.
-					--dmginfo:SetDamage(dmginfo:GetDamage() * 1.25)
 				if dmginfo:IsBulletDamage() and attacker:GetPerk ("_sharpshooter") then
 					if attacker.DataTable["ShopItems"][69] then
-						dmginfo:SetDamage((dmginfo:GetDamage() * (1.2 + (2*attacker:GetRank())/100)))				
+						dmginfo:SetDamage((dmginfo:GetDamage() * (1.2 + (1*attacker:GetRank())/100)))				
 					else
-						dmginfo:SetDamage((dmginfo:GetDamage() * (1.1 + (2*attacker:GetRank())/100)))
+						dmginfo:SetDamage((dmginfo:GetDamage() * (1.1 + (1*attacker:GetRank())/100)))
 					end
-				elseif dmginfo:IsMeleeDamage() then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1.25)
 				elseif dmginfo:IsMeleeDamage() and attacker:GetPerk("_headhunter") then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1.75)				
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.75)						
+				elseif dmginfo:IsMeleeDamage() then
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.25)			
 				end
 			end
 		end

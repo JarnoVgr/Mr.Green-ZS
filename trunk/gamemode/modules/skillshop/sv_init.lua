@@ -186,7 +186,7 @@ function ApplySkillShopItem(pl, com, args)
 			end					
 			
 			if pl:GetPerk("_support2") then
-				mul = mul + pl:GetRank()*0.05
+				mul = mul + pl:GetRank()*0.02
 			end	
 			
 			if pl:GetPerk("_supportammo") then
