@@ -34,7 +34,7 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- Movement stuff
 
 -- 1 to 0.
-SPEED_BACKWARDS = 0.53
+SPEED_BACKWARDS = 0.5
 
 SPEED = 195
 SPEED_LIGHT = SPEED - 2
@@ -479,7 +479,7 @@ GM.Perks = {
 	["_medic"] = {Name = "Medic",		  		Equipment = "Medkit  | P228  |  Knife                            ",Description = "+10% Pistol Damage | +10% Medi Damage | +3% Movement Speed | +1.5% Movement Speed / Level | +1% Pistol Damage / Level | +1% Medi Damage / Level | +5% Poison Resistance / Level | +10% Undead Damage Resistance | +2% Undead Damage Resistance / Level | +2% Medical Power / Level | ", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
 	["_commando"] = {Name = "Commando",   		Equipment = "Grenades  |   Five SeveN   | Knife               ", Description = "+10% Rifle Damage | See Undead Health | +10 Health | +3 Health / Level | +10% Clip Size | +4% Clip Size / Level | +1% Rifle Damage / Level | +1% Firing Speed / Level |", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support",    		Equipment = "Board Pack  |  USP   |  Hammer                  ", Description = "+10% Shotgun Damage | +10% SMG Damage | +10% Ammo Received | +1% SMG Damage / Level | +1% Shotgun Damage / Level | +2% Nail Health / Level | +0.5 Repair Points / Level | +1 Nail / Level | +2% Ammo Received / Level | ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
-	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+10% Melee Damage | +1% Melee Damage / Level | +4 Health On Melee Kill | -10% Gun Damage | [SECONDARY] Leap forwards with melee | +1 Health On Melee Kill / Level | +30% Howler Disorientation Resistance | +2% Movement Speed | +1% Movement Speed / Level |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+	["_berserker"] = {Name = "Berserker", 		Equipment = "Vodka  |  Desert Eagle  |  Plank               ", Description = "+10% Melee Damage | +1% Melee Damage / Level | +4 Health On Melee Kill | -10% Gun Damage | [SECONDARY] Leap forwards with melee | +1 Health On Melee Kill / Level | +30% Howler Disorientation Resistance | +2% Movement Speed | +0.5% Movement Speed / Level |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = "Turret  |  C4  |  Classic Pistol  |  Pan  ", Description = "+10% Pulse Weapon Damage | +2% Turret Damage / Level | +2% Turret Health / Level | +10 Turret Bullets / Level | +5% Pulse Weapon Capacity / Level | +1% Pulse Weapon Damage / Level | +2% Pulse Weapon and Turret Recharge Rate / Level | +1% C4 Damage / Level | +1% C4 Radius / Level |", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = "Mobile Supplies  |  Beretta  |  Beer Bottle		", Description = "+10% Sniper Damage | +10% Headshot Damage | +1% Sniper Damage / Level | +1% Headshot Damage / Level |", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},	
 	["_pyrotechnic"] = {Name = "PyroTechnic", Equipment = "Fame Nades  |  Fare Gun ", Description = "Immune To Fire | Extra Health  |  Possibility To Get A Flamer On Spawn", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3}, --Need to start this soon
