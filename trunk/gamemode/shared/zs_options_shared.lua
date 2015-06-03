@@ -460,7 +460,7 @@ GM.Perks = {
 	["_bloodmoney"] = {Name = "Blood Money", Description = "+5 SP from melee kills", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_berserk"] = {Name = "Berserk", Description = "+10% movement speed while under 40 health", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_psychotic"] = {Name = "Blood Lust", Description = "+4 health from kills | +60% melee swing speed", RequiresWeapon = "_berserker", Slot = 2}, --Done
-	["_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 25 damage and knock targets backwards", RequiresWeapon = "_berserker", Slot = 2},	
+	["_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 20 damage and knock targets backwards", RequiresWeapon = "_berserker", Slot = 2},	
 	
 	--Engineer
 	

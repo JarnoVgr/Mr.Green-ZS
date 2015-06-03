@@ -219,7 +219,7 @@ function SWEP:Think()
 				end
 
 				if ent:IsPlayer() or ent:IsNPC() then
-					local Velocity = self.Owner:GetForward() * 200
+					local Velocity = self.Owner:GetForward() * 160
 					Velocity.z = math.Clamp(Velocity.z,180,220)
 					ent:SetVelocity(Velocity)
 				else
@@ -230,7 +230,7 @@ function SWEP:Think()
 				end
 				
 				--Take damage
-				ent:TakeDamage(25, self.Owner, self)
+				ent:TakeDamage(20, self.Owner, self)
 				self.Attacking = CurTime() + 1.25					
 			end
 		end
