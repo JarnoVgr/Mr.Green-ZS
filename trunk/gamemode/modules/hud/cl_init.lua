@@ -179,7 +179,7 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 		--if MySelf:IsHuman() then --Make it Obvious that the closer you are the greater the chance!
 		--	draw.SimpleText("Get close to the Undead spawn to be sacrificed", "ssNewAmmoFont5", startX, keyStartY+100, Color(255,90,90,210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		--end
-		timeLeft = math.max(0, WARMUPTIME - CurTime())
+		timeLeft = math.max(0, WARMUPTIME-10 - CurTime())
 
 		if timeLeft < 10 then
 			local glow = math.sin(CurTime() * 8) * 200 + 255

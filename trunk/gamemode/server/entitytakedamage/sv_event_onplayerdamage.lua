@@ -40,6 +40,7 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 			Infect:SetEntity( pl )
 			util.Effect( "infected_human", Infect, true)	
 		end
+		
 	end
 	-- Victim got hit
 	pl.TookHit = true

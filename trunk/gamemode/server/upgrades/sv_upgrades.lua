@@ -69,7 +69,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 
 				if attacker:GetPerk("_combustion") and inflictor:GetClass() == "env_explosion" then
-					ent:TakeDamageOverTime(5, 1, 5, attacker, inflictor )
+					ent:TakeDamageOverTime(6, 1, 5, attacker, inflictor )
 					ent:Ignite(5,0)		
 				end
 				

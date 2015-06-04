@@ -63,7 +63,7 @@ function ENT:Initialize()
 	end
 	
 	if self:GetOwner():GetPerk ("_engineer") then	
-		self.Damage = self.Damage + (self.Damage*(2*self:GetOwner():GetRank())/100)		
+		self.Damage = self.Damage + ((self.Damage*1.05)*(2*self:GetOwner():GetRank())/100)		
 		self.MaxHealth = self.MaxHealth + (self.MaxHealth*(2*self:GetOwner():GetRank())/100)	
 		self.MaxBullets = self.MaxBullets + (10*self:GetOwner():GetRank())
 	end			

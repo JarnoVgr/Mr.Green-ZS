@@ -372,6 +372,8 @@ table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_demoliti
 table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_assault.vtf")
 table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_assault.vmt")
 
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_berserker.vtf")
+table.insert(ResourceFiles, "materials/zombiesurvival/humanclass/avatar_berserker.vmt")
 
 
 --Undead crosshair

@@ -12,7 +12,7 @@ Colors[4] = {CButton = Color (0,0,0,255)}
 Colors[5] = {CButton = Color (0,0,0,255)}
 
 local SpawnButtons = {}
-
+local spawntimer = 50
 SpawnButtons.ColorUsual = Color(1,1,1,180)
 SpawnButtons.ColorUsualOver = Color(200,200,200,255)
 SpawnButtons.ColorUsualBack = Color(0,0,0,255)
@@ -193,11 +193,11 @@ local function DrawContextMenu(x, y, weptype, parent, num)
 				if Equipment == "" then
 					Description = Description 
 				else
-					Equipment = "Equipment: " .. Equipment .. "                                                             "
+					Equipment = "Equipment:\n\n" .. Equipment .. "\n\n"
 					Description = Equipment .. Description 			
 				end
 			
-				Description = "Perks: " .. Description
+				Description = "Perks:\n\n" .. Description
 				ItemDescription:SetText(Description)
 				
 			end
@@ -328,9 +328,7 @@ end
 
 local function DrawClassesContextMenu(x, y, weptype, parent, num)
 
-
-
-	Unlocks[num] = vgui.Create("DPanelList", 10)
+	Unlocks[num] = vgui.Create("DPanelList")
 
 	local ww, hh = 1000, 4000
 	
@@ -428,11 +426,11 @@ local function DrawClassesContextMenu(x, y, weptype, parent, num)
 				if not MySelf:HasUnlocked(item) then
 					Description = Description .. "\nThis item will be unlocked at a higher level."
 				end
-
+				Description = "Perks:\n\n" .. Description
 				if Equipment == "" then
 					Description = Description 
 				else
-					Equipment = "Equipment: " .. Equipment .. "                                                             "
+					Equipment = "Equipment:\n\n" .. Equipment .. "\n\n"
 					Description = Equipment .. Description 			
 				end
 				
@@ -446,20 +444,24 @@ local function DrawClassesContextMenu(x, y, weptype, parent, num)
 			end
 
 			ItemLabel[item].OnMousePressed = function() 
-				if MySelf:IsBlocked(item, SlotLabel) or not MySelf:HasUnlocked(item) then
-					surface.PlaySound(Sound("buttons/weapon_cant_buy.wav"))
-					return
-				end					
-				
-				if not SlotLabel[num] then
-					return
+				--if MySelf:IsBlocked(item, SlotLabel) or not MySelf:HasUnlocked(item) then
+				--	surface.PlaySound(Sound("buttons/weapon_cant_buy.wav"))
+				--	return
+				--end					
+				if SlotLabel[num] then
+					surface.PlaySound(Sound("mrgreen/ui/menu_click01.wav"))
+					SlotLabel[num].Item = item
 				end
-					
-				surface.PlaySound(Sound("mrgreen/ui/menu_click01.wav"))
-
-				SlotLabel[num].Item = item
+				
 				Unlocks[num]:Remove()
 			end
+			
+			ItemLabel[item].Think = function() 
+				if WARMUPTIME-10 - CurTime() <= 1 then
+					Unlocks[num]:Remove()
+				end	
+			end
+			
 
 			if IsValidWeapon then
 				ItemLabel[item].Paint = function()
@@ -503,8 +505,6 @@ local function DrawClassesContextMenu(x, y, weptype, parent, num)
 							local fWide, fTall = surface.GetTextSize(letter)
 
 							surface.SetDrawColor(255, 255, 255, 255)
-
-									
 							draw.SimpleTextOutlined(letter, font, itemWidth/2, 55, Color(255, 255, 255, 255) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 
 							
@@ -570,6 +570,7 @@ end
 
 --CLASS SECECTION MENU I AM LAZY AND DID A C&P EDIT
 function DrawClassIcon(x, y, ww, hh, wepclass, parent, num, weptype)
+	
 	hh = hh - 30
 
 	SlotLabel[num] = vgui.Create("DLabel")
@@ -600,10 +601,10 @@ function DrawClassIcon(x, y, ww, hh, wepclass, parent, num, weptype)
 			Equipment = GAMEMODE.HumanWeapons[item].Equipment
 		end			
 
-		Description = "Perks: " .. Description
+		Description = "Perks:\n\n" .. Description
 		
 		if Equipment != "" then
-			Equipment = "Equipment: " .. Equipment .. "                                                             "
+			Equipment = "Equipment:\n\n" .. Equipment .. "\n\n"
 			Description = Equipment .. Description 			
 		else
 			Description = Description 		
@@ -617,6 +618,7 @@ function DrawClassIcon(x, y, ww, hh, wepclass, parent, num, weptype)
 
 		ItemDescription:SetText("")
 	end
+
 
 	SlotLabel[num].OnMousePressed = function () 
 		for i=1, 1 do
@@ -641,22 +643,12 @@ function DrawClassIcon(x, y, ww, hh, wepclass, parent, num, weptype)
 					Unlocks[i] = nil
 				end
 			end
-
-			--Note from Ywa: This looks like a horrible workaround. Gives errors in some cases. Please improve this! (I already added the condition check to prevent most problems)
-			timer.Simple(10,function() --Lazy debug, fixed the issue though
-				--SlotLabel[i].Active = false
-				if not Unlocks or not Unlocks[i] then
-					return
-				end
-
-				Unlocks[i]:Remove()
-				--Unlocks[i] = nil
-				
-			end)
 		end	
 		
 	end
+
 	SlotLabel[num].Think = function() 
+
 	end
 	
 	SlotLabel[num].Paint = function()
@@ -891,11 +883,11 @@ function DrawSelectClass()
 	LoadoutOpen = true
 	
 	--Options:
-	local spawntimer = 50
+	spawntimer = 50
 	local spawntimercd = 0
 
 	TopMenuW, TopMenuH = math.min(math.max(w-100,ScaleW(1400)), 1050), math.min(ScaleH(1200), 650)
-	TopMenuX, TopMenuY = (w / 2) - (TopMenuW / 2), (h / 2) - (TopMenuH / 2)
+	TopMenuX, TopMenuY = (w / 2) - (TopMenuW / 2) + (TopMenuW / 2), (h / 2) - (TopMenuH / 2)
 
 	
 	local BlurPanel = vgui.Create("DFrame")
@@ -908,8 +900,8 @@ function DrawSelectClass()
 	BlurPanel:ShowCloseButton(false)
 	BlurPanel.Paint = function() 
 		--Override
-		draw.SimpleText("MrGreenGaming.com", "HUDFontTiny", TopMenuX + (TopMenuW / 2), TopMenuY - ScaleH(160), Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		draw.SimpleText("ZOMBIE SURVIVAL ONSLAUGHT", "ArialBoldFifteen", TopMenuX + (TopMenuW / 2), TopMenuY - ScaleH(110), Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText("MrGreenGaming.com", "ssNewAmmoFont9", TopMenuX, TopMenuY - ScaleH(160), Color(59, 119, 59, 230), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText("ZOMBIE SURVIVAL ONSLAUGHT", "ssNewAmmoFont9", TopMenuX, TopMenuY - ScaleH(110), Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	end
 
 	
@@ -940,7 +932,6 @@ function DrawSelectClass()
 		end
 	end
 	
-
 	local stepY = 200
 	local marginY = 4
 	local SlotHeight = math.Round((TopMenuH - (marginY * 4)) / 5)
@@ -953,7 +944,7 @@ function DrawSelectClass()
 	
 	local LoadoutPistolPanel = vgui.Create("DFrame")
 	LoadoutPistolPanel:SetSize(SlotWidth, SlotHeight)
-	LoadoutPistolPanel:SetPos(TopMenuX,TopMenuY + stepY)
+	LoadoutPistolPanel:SetPos(TopMenuX - (w / 4),TopMenuY + stepY)
 	LoadoutPistolPanel:SetSkin("ZSMG")
 	LoadoutPistolPanel:SetTitle("CLASS") 
 	LoadoutPistolPanel:SetDraggable(false)
@@ -961,12 +952,18 @@ function DrawSelectClass()
 	LoadoutPistolPanel:SetDraggable(false)
 	LoadoutPistolPanel:ShowCloseButton(false)
 	DrawClassIcon(0, 30, SlotWidth, SlotHeight, perk3, LoadoutPistolPanel,1,"perk3") --Edited one for the classes selection menu. Messy messy mess.....
+	--DrawClassIcon(x, y, ww, hh, wepclass, parent, 1, "perk3")	
+
+	if perk3 == "none" then
+		DrawClassesContextMenu(w/2, h/20, "perk3", ItemsPanel, 1)
+	end
+	
 	IncreasestepY()
 
 	
 	local LoadoutPerk1Panel = vgui.Create("DFrame")
 	LoadoutPerk1Panel:SetSize(SlotWidth, SlotHeight)
-	LoadoutPerk1Panel:SetPos(TopMenuX,TopMenuY + stepY)
+	LoadoutPerk1Panel:SetPos(TopMenuX - (w / 4),TopMenuY + stepY)
 	LoadoutPerk1Panel:SetSkin("ZSMG")
 	LoadoutPerk1Panel:SetTitle( "EQUIPMENT PERK" ) 
 	LoadoutPerk1Panel:SetDraggable ( false )
@@ -975,10 +972,11 @@ function DrawSelectClass()
 	LoadoutPerk1Panel:ShowCloseButton(false)
 	DrawSlotIcon(0, 30, SlotWidth, SlotHeight,perk1, LoadoutPerk1Panel, 2, "Perk1")
 	IncreasestepY()	
+
 	
 	local LoadoutPerk2Panel = vgui.Create("DFrame")
 	LoadoutPerk2Panel:SetSize(SlotWidth, SlotHeight)
-	LoadoutPerk2Panel:SetPos(TopMenuX,TopMenuY + stepY)
+	LoadoutPerk2Panel:SetPos(TopMenuX - (w / 4),TopMenuY + stepY)
 	LoadoutPerk2Panel:SetSkin("ZSMG")
 	LoadoutPerk2Panel:SetTitle( "PERSONAL PERK" ) 
 	LoadoutPerk2Panel:SetDraggable ( false )
@@ -991,10 +989,10 @@ function DrawSelectClass()
 	local SecondColumnWidth = math.Round((TopMenuW - (SlotWidth + 20)) / 2)
 
 	ItemDescriptionPanel = vgui.Create("DFrame")
-	ItemDescriptionPanel:SetSize(SecondColumnWidth * 1.2, SlotHeight / 1.2)
-	ItemDescriptionPanel:SetPos(TopMenuX + (SlotWidth - 30), TopMenuY+ 90)
+	ItemDescriptionPanel:SetSize(SecondColumnWidth * 0.7, SlotHeight * 3)
+	ItemDescriptionPanel:SetPos(TopMenuX * 1.19, TopMenuY + stepY * 0.43)
 	ItemDescriptionPanel:SetSkin("ZSMG")
-	ItemDescriptionPanel:SetTitle("PERK DESCRIPTION | X = CURRENT LEVEL")
+	ItemDescriptionPanel:SetTitle("LOADOUT")
 	ItemDescriptionPanel:SetDraggable(false)
 	ItemDescriptionPanel:SetSizable(false)
 	ItemDescriptionPanel:SetDraggable(false)
@@ -1010,7 +1008,7 @@ function DrawSelectClass()
 
 	ItemsPanel = vgui.Create("DFrame")
 	ItemsPanel:SetSize(SecondColumnWidth, TopMenuH - (SlotHeight + 10))
-	ItemsPanel:SetPos(TopMenuX + (SlotWidth + 10), TopMenuY + SlotHeight + 10)
+	ItemsPanel:SetPos(TopMenuX + (SlotWidth + 10) - (w / 4), TopMenuY + SlotHeight + 10)
 	ItemsPanel:SetDraggable(false)
 	ItemsPanel:SetTitle("")
 	ItemsPanel:ShowCloseButton(false)
@@ -1024,14 +1022,14 @@ function DrawSelectClass()
 	Loadout = {}
 
 	--Spawn button
-	SpawnButtonW, SpawnButtonH = SlotWidth * 1.5, ScaleH(58)
+	SpawnButtonW, SpawnButtonH = SlotWidth, ScaleH(50)
 	--SpawnButtonX, SpawnButtonY = TopMenuX + ((TopMenuW / 2) - (SpawnButtonW / 2)), TopMenuY + TopMenuH + ScaleH(20)
-	SpawnButtonX, SpawnButtonY = TopMenuX + ((TopMenuW / 2) - (SpawnButtonW / 2)), TopMenuY + TopMenuH 
+	SpawnButtonX, SpawnButtonY = w / 2 - (SpawnButtonW * 0.5), TopMenuY + TopMenuH 
 
 	SpawnButton = vgui.Create("DButton", BlurPanel)
 	SpawnButton:SetText("")
-	SpawnButton:SetPos(SpawnButtonX/1.08, SpawnButtonY)
-	SpawnButton:SetSize(SpawnButtonW/1.02, SpawnButtonH)
+	SpawnButton:SetPos(SpawnButtonX, SpawnButtonY)
+	SpawnButton:SetSize(SpawnButtonW, SpawnButtonH)
 
 	local function CloseSpawnMenu(class)
 		ChangeClassClient(1)
@@ -1045,21 +1043,16 @@ function DrawSelectClass()
 	end
 
 	SpawnButton.Think = function () 
-		if spawntimercd > CurTime() then 
-			return
-		end
-
-		spawntimer = spawntimer - 1
-		if spawntimer <= 0 then
+		if WARMUPTIME-10 - CurTime() <= 0 then
 			CloseSpawnMenu(math.random(1,5))
 		end
 		
-		spawntimercd = CurTime() + 1
 	end
 	
 	SpawnButton.PaintOver = function ()
-		draw.SimpleTextOutlined("SPAWN (".. spawntimer ..")" , "ArialBoldTwelve", SpawnButtonW/2, SpawnButtonH/2, Color (255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-10 - CurTime()), "ssNewAmmoFont9", SpawnButtonW/2, SpawnButtonH/2, Color (255,255,255,220), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
 	end
+	
 	SpawnButton.DoClick = function ()
 		CloseSpawnMenu(1)
 	end
@@ -1070,7 +1063,7 @@ function DrawSelectClass()
 	
 	PlayerProgressPanel = vgui.Create("DFrame")
 	PlayerProgressPanel:SetSize(StatsW, StatsH)
-	PlayerProgressPanel:SetPos(TopMenuX + (SlotWidth + 10), TopMenuY + 200)
+	PlayerProgressPanel:SetPos(TopMenuX + (SlotWidth + 10) - (w / 4), TopMenuY + 200)
 	PlayerProgressPanel:SetSkin("ZSMG")
 	PlayerProgressPanel:SetTitle("LEVEL") 
 	PlayerProgressPanel:SetDraggable(false)
@@ -1089,7 +1082,7 @@ function DrawSelectClass()
 		draw.SimpleTextOutlined("Level" , "WeaponNames", Rank2X,Rank2Y+ScaleH(25), Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 
 		--Progress bar
-		local BarW, BarH = StatsW/2, StatsH * 0.3
+		local BarW, BarH = StatsW/2, StatsH * 0.2
 		local BarX, BarY = StatsW/2 - BarW/2,StatsH/2 - BarH/2
 		
 		--Background
@@ -1111,7 +1104,7 @@ function DrawSelectClass()
 		surface.SetDrawColor(Color(255,255,255,255))
 		surface.DrawRect(BarX+5 , BarY+5, (rel)*(BarW-10), BarH-10 )
 
-		draw.SimpleTextOutlined("XP: ".. actual .." / ".. full, "WeaponNames", StatsW/2,Rank2Y+ScaleH(25), Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("XP: ".. actual .." | ".. full, "WeaponNames", StatsW/2,Rank2Y+ScaleH(25), Color(255,255,255,255), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 
 	

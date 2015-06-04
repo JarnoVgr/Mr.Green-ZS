@@ -20,6 +20,10 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 
 	local headshot = false
 	
+	if mVictim:IsOnFire() then
+	   mVictim:Extinguish()
+	end	
+	
 	-- Only for player attackers
 	if dmginfo:IsAttackerPlayer() then	
 		if mVictim.DiedFromFlare and mVictim.DiedFromFlare > CurTime() then
@@ -62,10 +66,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		-- Headshot
 		if mVictim:GetAttachment( 1 ) then 
 			if (dmginfo:GetDamagePosition():Distance( mVictim:GetAttachment( 1 ).Pos )) < 15 then
-				if not dmginfo:IsMeleeDamage() then
-
 					headshot = true
-				end
 			end
 		end
 	end

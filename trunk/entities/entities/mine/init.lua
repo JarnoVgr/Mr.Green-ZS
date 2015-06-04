@@ -113,7 +113,7 @@ function ENT:Explode()
 	Ent:Activate()
 	
 	if self:GetOwner():GetPerk("_engineer") then
-		self.damage = self.damage + (self.damage*(1*self:GetOwner():GetRank())/100)
+		self.damage = self.damage + ((self.damage*1.05)*(1*self:GetOwner():GetRank())/100)
 		self.radius = self.radius + (self.radius*(1*self:GetOwner():GetRank())/100)	
 
 		if self:GetOwner():GetPerk("_nitrate") then

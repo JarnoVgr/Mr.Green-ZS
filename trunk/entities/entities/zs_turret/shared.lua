@@ -32,7 +32,7 @@ end
 
 -- Options
 ENT.MaxHealth = 80
-ENT.MaxBullets = 120
+ENT.MaxBullets = 100
 ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 700
 ENT.Damage = 5
@@ -92,7 +92,7 @@ if SERVER then
 			if self:GetTurretOwner():GetPerk ("_engineer") then	
 				self.Damage = self.Damage + (self.Damage*(2*self:GetTurretOwner():GetRank())/100)		
 				self.MaxHealth = self.MaxHealth + (self.MaxHealth*(2*self:GetTurretOwner():GetRank())/100)	
-				self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 10)
+				self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 5)
 			end		
 			
 			if self:GetTurretOwner():GetPerk("_turret") then --Class engineer 
@@ -294,7 +294,7 @@ if SERVER then
 			end
 		else
 			-- Increased recharge rate
-			self:RechargeAmmo(1,0.14 - (0.14*(2 + 2*self:GetTurretOwner():GetRank())/100))	
+			self:RechargeAmmo(1,0.14 - (0.14*(0.20 + 2*(self:GetTurretOwner():GetRank())/100)))	
 			self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),0,1))
 			self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),15,1))
 

@@ -91,7 +91,7 @@ function GM:PlayerInitialSpawn(pl)
 		pl.HealingDone = 0
 		pl.Assists = 0
 	end
-		
+			
 	pl.Hornyness = 0
 	pl.WeaponTable = {}
 	pl.NextHold = 0
@@ -146,11 +146,7 @@ function GM:PlayerInitialSpawn(pl)
 		pl:SetHumanClass(1)
 		self:PlayerReady(pl)
 	end
-	
-	--if pl.DataTable["Achievements"]["masterofzs"] then	
-	--	pl.ZombieMaster = true
-	--end
-		
+
 	skillpoints.SetupSkillPoints(pl)
 		
 	if OBJECTIVE then
@@ -242,9 +238,8 @@ function GM:PlayerSpawn(pl)
 		self:OnZombieSpawn(pl)
 		pl:StopAllLuaAnimations()
 	end
-
-	--Send player level
-	net.Start("SetPlayerLevel")
+	
+	net.Start("SetPlayerLevel")	
 	net.WriteEntity(pl)
 	net.WriteInt(pl:GetRank(), 32)
 	net.Broadcast()
@@ -271,7 +266,7 @@ function GM:OnHumanSpawn(pl)
 	if not pl:IsHuman() then
 		return
 	end
-
+	
 	--Set model based on preferences
 	if pl:IsBot() then
 		--Random model
@@ -294,7 +289,7 @@ function GM:OnHumanSpawn(pl)
 		pl.PlayerModel = table.Random(MedicPlayerModels)
 		pl:SetPerk("_medic")
 	end
-
+	
 	--Check if we can be Santa Claus
 	if CHRISTMAS and ((not self.IsSantaHere and math.random(1,7) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsSanta) and not pl.IsFreeman then
 		--Set global
@@ -579,20 +574,23 @@ function GM:PlayerDisconnected( pl )
 		return
 	end
 	
-	pl:Kill()
-	
-	if pl.LastAttackers then 
-		if #pl.LastAttackers > 0 then
-			if pl.LastAttackers[#pl.LastAttackers].Attacker:Team() == TEAM_UNDEAD then
-				pl.LastAttackers[#pl.LastAttackers].Attacker:AddScore(2)
-				pl.LastAttackers[#pl.LastAttackers].Attacker:AddToCounter("humanskilled", 1)
-				pl.LastAttackers[#pl.LastAttackers].Attacker:AddXP(200)				
-			elseif pl.LastAttackers[#pl.LastAttackers].Attacker:Team() == TEAM_HUMAN then
-				skillpoints.AddSkillPoints(pl.LastAttackers[#pl.LastAttackers].Attacker, 20)
-				pl.LastAttackers[#pl.LastAttackers].Attacker:AddXP(ZombieClasses[pl:GetZombieClass()].Bounty)						
+	if pl.Health and pl.Health > 0 then
+		pl:Kill()	
+		
+		if pl.LastAttackers then 
+			if #pl.LastAttackers > 0 then
+				if pl.LastAttackers[#pl.LastAttackers].Attacker:Team() == TEAM_UNDEAD then
+					pl.LastAttackers[#pl.LastAttackers].Attacker:AddScore(2)
+					pl.LastAttackers[#pl.LastAttackers].Attacker:AddToCounter("humanskilled", 1)
+					pl.LastAttackers[#pl.LastAttackers].Attacker:AddXP(200)				
+				elseif pl.LastAttackers[#pl.LastAttackers].Attacker:Team() == TEAM_HUMAN then
+					skillpoints.AddSkillPoints(pl.LastAttackers[#pl.LastAttackers].Attacker, 20)
+					pl.LastAttackers[#pl.LastAttackers].Attacker:AddXP(ZombieClasses[pl:GetZombieClass()].Bounty)						
+				end
 			end
-		end
+		end		
 	end
+
 	
 	-- Save greencoins and stats
 	pl:SaveGreenCoins()

@@ -206,12 +206,9 @@ local RandomText = table.Random({
 	"Starting zombie apocalypse...",
 	"Sewing zombie parts together...",
 	"Inserting a coin...",
-	"Waking up the Behemoth...",  
-	"Spawning poison gas...",  
-	"Shuffling crate spawns...",
-	"Hitting Duby to code ZS...",
-	"Slapping Pufu to balance ZS...",
-	"Entering Necrossin's Basement..."
+	"Waking up The Behemoth...",  
+	"Praising Pufulet...",
+	"Entering Necrossin's basement..."
 })
 
 
@@ -259,8 +256,8 @@ hook.Add("HUDPaint", "DrawWaiting", function()
 		return
 	end
 	
-	draw.SimpleText("Please wait... ".. RandomText, "ArialBoldFifteen", ScrW() * 0.5, ScrH() * 0.5, Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-	draw.SimpleText("MrGreenGaming.com", "HUDFontTiny", ScrW() * 0.5, ScrH() * 0.55, Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText("Please wait... ".. RandomText, "ssNewAmmoFont6.5", ScrW() * 0.5, ScrH() * 0.5, Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	draw.SimpleText("MrGreenGaming.com", "ssNewAmmoFont6.5", ScrW() * 0.5, ScrH() * 0.55, Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
 	if not IsValid(MySelf) then
 		return

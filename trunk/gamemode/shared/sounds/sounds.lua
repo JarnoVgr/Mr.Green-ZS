@@ -47,7 +47,8 @@ VoiceSets["male"].ChatSounds = {
 	["leeroo"] = { Sound("mrgreen/leeroy.mp3") },
 	["over 9000"] = { Sound("mrgreen/9000.wav") },
 	["damnit"] = { Sound("mrgreen/goddamnit2.wav") },
-	["this is sparta"] = { Sound("mrgreen/sparta.wav") },
+	--sound is really corrupt after the years...
+	--["this is sparta"] = { Sound("mrgreen/sparta.wav") },
 	["open the door"] = { Sound("mrgreen/opendoor2.wav"), Sound("mrgreen/opendoor3.wav") },
 	["ok"] = { Sound("vo/npc/male01/ok01.wav"), Sound("vo/npc/male01/ok02.wav") },
 	["hack"] = { Sound("vo/npc/male01/hacks01.wav"), Sound("vo/npc/male01/hacks02.wav") },

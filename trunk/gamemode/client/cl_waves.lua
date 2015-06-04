@@ -23,15 +23,15 @@ net.Receive("SetInf", function(len)
 	
 	local msg = ""
 	if amount == 1 then
-		msg = UnlockedClass .." specie unlocked"
+		msg = UnlockedClass .." class unlocked"
 	elseif amount > 1 then
-		msg = amount .." Undead species unlocked"
+		msg = amount .." undead classes unlocked"
 	end
 	
 	if msg ~= "" then
-		GAMEMODE:Add3DMessage(140,msg,nil,"ArialBoldTwelve")
-		surface.PlaySound(Sound("ambient/atmosphere/cave_hit1.wav"))
-		--surface.PlaySound("ambient/creatures/town_zombie_call1.wav")
+		GAMEMODE:Add3DMessage(140,msg,nil,"ssNewAmmoFont6.5")
+		--surface.PlaySound(Sound("ambient/atmosphere/cave_hit1.wav"))
+		surface.PlaySound("ambient/creatures/town_zombie_call1.wav")
 	end
 end)
 
