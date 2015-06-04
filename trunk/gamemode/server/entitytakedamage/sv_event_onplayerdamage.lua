@@ -28,9 +28,7 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 
 	
 	if pl:IsHuman() then
-		if not pl:OnGround() then
-			pl:SetVelocity ( Vector(0,0,0))
-		end
+
 		pl:CheckSpeedChange()
 		if attacker:IsPlayer() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_ghoul" or attacker:IsPlayer() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_poisonzombie" then
 			local protect = 0

@@ -1550,6 +1550,15 @@ function GM:KeyPress(pl, key)
 		pl.WalkingBackwards = false
 	end
 	
+	if pl:KeyPressed(IN_JUMP) then
+		pl.LastJump = CurTime()
+		if pl:GetJumpPower() > 0 and pl.LastJump + 1 > CurTime() then
+			pl:SetJumpPower(0) 
+		else
+			pl:SetJumpPower(190) 		
+		end
+	end
+	
 	pl:CheckSpeedChange()
 end
 
