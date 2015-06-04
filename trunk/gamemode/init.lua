@@ -1540,7 +1540,7 @@ hook.Add("ShutDown", "OnShutDown", OnShutDown)
 function GM:KeyPress(pl, key)
 
 	if pl:KeyPressed(IN_JUMP) then
-		if (pl:Team() == TEAM_HUMAN and pl:GetJumpPower() > 0 and pl:GetVelocity():Length2D() > 195 and pl.LastJump + 0.8 > CurTime()) or (pl:Team() == TEAM_UNDEAD and pl:GetJumpPower() > 0 and pl:GetVelocity():Length2D() > 175 and pl.LastJump + 0.8 > CurTime()) then
+		if (pl:Team() == TEAM_HUMAN and pl:GetJumpPower() > 0 and pl:GetVelocity():Length2D() > 240 and pl.LastJump + 0.8 > CurTime()) or (pl:Team() == TEAM_UNDEAD and pl:GetJumpPower() > 0 and pl:GetVelocity():Length2D() > 180 and pl.LastJump + 0.8 > CurTime()) then
 			pl:SetJumpPower(20)
 		else
 			pl.LastJump = CurTime()			
