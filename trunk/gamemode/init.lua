@@ -1538,28 +1538,31 @@ hook.Add("ShutDown", "OnShutDown", OnShutDown)
 ---------------------------------------------------------]=]
 
 function GM:KeyPress(pl, key)
-	if pl:Team() ~= TEAM_HUMAN then
-		return
-	end
-	
-	if pl:KeyPressed(IN_FORWARD) then
-		pl.WalkingBackwards = false	
-	elseif pl:KeyPressed(IN_BACK) or pl:KeyDown(IN_BACK) then
-		pl.WalkingBackwards = true
-	else
-		pl.WalkingBackwards = false
-	end
-	
 	if pl:KeyPressed(IN_JUMP) then
-		if pl:GetJumpPower() > 0 and pl.LastJump + 0.7 > CurTime() then
+		if pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime() then
 			pl:SetJumpPower(20) 
 		else
 			pl.LastJump = CurTime()			
 			pl:SetJumpPower(190) 		
 		end
 	end
+
+	if pl:Team() ~= TEAM_HUMAN then
+		return
+	end
 	
-	pl:CheckSpeedChange()
+	if pl:KeyPressed(IN_FORWARD) then
+		pl.WalkingBackwards = false
+		pl:CheckSpeedChange()		
+	elseif pl:KeyPressed(IN_BACK) or pl:KeyDown(IN_BACK) then
+		pl.WalkingBackwards = true
+		pl:CheckSpeedChange()		
+	else
+		pl.WalkingBackwards = false
+		pl:CheckSpeedChange()		
+	end
+	
+
 end
 
 --[=[----------------------------------------------------------------------
