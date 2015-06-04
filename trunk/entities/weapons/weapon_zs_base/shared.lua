@@ -82,9 +82,13 @@ function SWEP:PrimaryAttack()
 	local recoilm = 2 - self.RecoilMultiplier
 	
 	--Recoil multiplier
-	if self:GetIronsights() or self.Owner:Crouching() then
-		recoilm = recoilm * 0.85
+	if self.Owner:Crouching() then
+		recoilm = recoilm * 0.8
 	end
+	
+	if self:GetIronsights()then
+		recoilm = recoilm * 0.45
+	end	
 
 	local recoil = self.Primary.Recoil * recoilm
 	
