@@ -41,7 +41,7 @@ local function ManageEvents()
 					continue
 				end
 
-				pl:SendLua("surface.PlaySound(Sound(\"npc/vo/ravenholm/shotgun_theycome.wav\")) GAMEMODE:Add3DMessage(100,\"They come!\",nil,\"ssNewAmmoFont20\")")
+				pl:SendLua("surface.PlaySound(Sound(\"vo/ravenholm/shotgun_theycome.wav\")) GAMEMODE:Add3DMessage(100,\"They come!\",nil,\"ssNewAmmoFont20\")")
 			end
 
 			Debug("[DIRECTOR] Game is now active")
