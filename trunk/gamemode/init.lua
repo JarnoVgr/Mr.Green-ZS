@@ -1551,10 +1551,10 @@ function GM:KeyPress(pl, key)
 	end
 	
 	if pl:KeyPressed(IN_JUMP) then
-		pl.LastJump = CurTime()
 		if pl:GetJumpPower() > 0 and pl.LastJump + 1 > CurTime() then
-			pl:SetJumpPower(0) 
+			pl:SetJumpPower(20) 
 		else
+			pl.LastJump = CurTime()			
 			pl:SetJumpPower(190) 		
 		end
 	end
