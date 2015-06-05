@@ -65,7 +65,7 @@ AddCSLuaFile()
     SWEP.HoldType = "revolver"
     SWEP.Primary.Sound                      = Sound( "Weapon_357.Single" )
     SWEP.Primary.Recoil                     = 2.5
-    SWEP.Primary.Damage                     = 49
+    SWEP.Primary.Damage                     = 40
     SWEP.Primary.NumShots           = 1
     SWEP.Primary.ClipSize           = 2
     SWEP.Primary.Delay                      = 0.5
@@ -88,6 +88,16 @@ AddCSLuaFile()
     function SWEP:IsScoped()
             return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.15 <= CurTime()
     end
+	
+
+	function SWEP:OnDeploy()
+		if self.Owner:GetPerk("_musket") then
+			self.Primary.ClipSize = 4
+		
+		end
+		--self:SendWeaponAnim(ACT_VM_IDLE)
+	end
+		
      
    --[[ if CLIENT then
             SWEP.IronsightsMultiplier = 0.50

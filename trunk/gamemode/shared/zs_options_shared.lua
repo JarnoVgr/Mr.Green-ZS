@@ -182,12 +182,12 @@ GM.HumanWeapons = {
 		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
        
         --Sharpshooter
-        ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 120, HumanClass = "sharpshooter"},         
+        ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 200, HumanClass = "sharpshooter"},         
         ["weapon_zs_python"]  = { Name = "Python", DPS = 93, Infliction = 0.2, Price = 100, Type = "pistol", HumanClass = "sharpshooter"},       
         ["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40, Infliction = 0, Type = "rifle", Price = 300, Description = "Light-weight sniper.", HumanClass = "sharpshooter" }, 
 		["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 300, Description = "Russian Roulette Revolver", HumanClass = "sharpshooter" },		
-        ["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 600, HumanClass = "sharpshooter"  },
-        ["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70, Infliction = 0.65, Type = "rifle", HumanClass = "sharpshooter"  },
+        ["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 500, HumanClass = "sharpshooter"  },
+        ["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 700, HumanClass = "sharpshooter"  },
         ["weapon_zs_awp"]  = { Name = "AWP", DPS = 200, Infliction = 0, Type = "rifle", Price = 900, Description = "Heavy sniper.", HumanClass = "sharpshooter" },     
        
 	   
@@ -432,8 +432,8 @@ GM.Perks = {
 	["_accuracy2"] = {Name = "Marksman", Description = "-70% Recoil | +40% Accuracy ", RequiresWeapon = "_sharpshooter", Slot = 1	, Material = "vgui/achievements/hip_show_bw"},	--Done
 	["_highcal"] = {Name = "High Calibre", Description = "+5% Damage | +200% Bullet Knockback", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
 	["_supply"] = {Name = "Medical Station", Description = "Mobile Supplies gives 4 health to users | +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
-	["_musket"] = {Name = "Musketeer", Description = "+2 musket clipsize", RequiresWeapon = "_sharpshooter", Slot = 1},
-	["_frictionburn"] = {Name = "Friction Burn", Description = "25% chance to ignite target using sharpshooter weapons", RequiresWeapon = "_sharpshooter", Slot = 1},
+	["_musket"] = {Name = "Double Calibre", Description = "+2 Musket clip size | +2 Python clip size", RequiresWeapon = "_sharpshooter", Slot = 1},
+	["_frictionburn"] = {Name = "Friction Burn", Description = "25% chance to ignite target using sharpshooter weapons | -5% Damage", RequiresWeapon = "_sharpshooter", Slot = 1},
 	
 					--[[Slot 2 'personal perk']]--
 	--Medic
@@ -477,12 +477,12 @@ GM.Perks = {
 	--[[New ZS Classes]]--
 	
 	["_medic"] = {Name = "Medic",		  		Equipment = " Medkit\n P228\n Knife",Description = " +10% Pistol Damage \n +10% Medi Damage\n +10% Damage Resistance\n +3% Movement Speed \n\n +1.5% Movement Speed per lvl \n +1% Pistol Damage per lvl\n +1% Medi Damage per lvl\n +5% Poison Resistance per lvl\n +2% Undead Damage Resistance per lvl \n +2% Medical Power per lvl", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
-	["_commando"] = {Name = "Commando",   		Equipment = " Grenades\n Five SeveN\n Knife", Description = " +10% Rifle Damage \n See Undead Health\n +10% Clip Size  \n +10 Health \n\n +3 Health per lvl\n +4% Clip Size per lvlLevel \n +1% Rifle Damage per lvl\n +1% Firing Speed per lvl\n", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
+	["_commando"] = {Name = "Commando",   		Equipment = " Grenades\n Five SeveN\n Knife", Description = " +10% Rifle Damage \n See Undead Health\n +10% Clip Size  \n +10 Health \n\n +3 Health per lvl\n +2% Clip Size per lvlLevel \n +1% Rifle Damage per lvl\n +1% Firing Speed per lvl\n", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support",    		Equipment = " Board Pack \n USP\n Hammer", Description = " +10% Shotgun Damage \n +10% SMG Damage \n +10% Ammo Received \n\n +1% SMG Damage per lvl\n +1% Shotgun Damage per lvl \n +2% Nail Health per lvl \n +0.5 Repair Points per lvl \n +1 Nail per lvl \n +2% Ammo Received per lvl \n ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		Equipment = " Vodka\n Desert Eagle\n Plank", Description = " +10% Melee Damage \n +4 Health On Melee Kill \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +1% Melee Damage per lvl\n +0.5% Movement Speed per lvl \n", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = " Turret\n C4\n Pistol\n Frying Pan", Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +5% Turret Damage\n\n +2% Turret Damage per lvl \n +2% Turret Health per lvl \n +5 Turret Bullets per lvl \n +5% Pulse Weapon Capacity per lvl \n +1% Pulse Weapon Damage per lvl \n +2% Pulse Weapon Recharge Rate per lvl \n +2% Turret Recharge Rate per lvl \n +1% C4 Damage per lvl \n +1% C4 Radius per lvl \n", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = " Mobile Supplies\n Beretta\n Beer Bottle", Description = " +10% Sniper Damage \n +10% Headshot Damage \n\n +1% Sniper Damage per lvl \n +1% Headshot Damage per lvl \n", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},	
-	["_pyrotechnic"] = {Name = "PyroTechnic", Equipment = "Fame Nades  \n  Fare Gun", Description = "Immune To Fire \n Extra Health  \n  Possibility To Get A Flamer On Spawn", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3}, --Need to start this soon
+	["_pyro"] = {Name = "Pyro", Equipment = " Alyx Gun\n Stun Stick ", Description = "", Material = "zombiesurvival/humanclass/avatar_constructor", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3}, --Need to start this soon
 	
 }
 

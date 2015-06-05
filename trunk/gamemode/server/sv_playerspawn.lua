@@ -285,6 +285,8 @@ function GM:OnHumanSpawn(pl)
 		pl.PlayerModel = table.Random(EngineerPlayerModels)
 	elseif pl:GetPerk("_sharpshooter") then
 		pl.PlayerModel = table.Random(SharpshooterPlayerModels)
+	elseif pl:GetPerk("_pyro") then
+		pl.PlayerModel = table.Random(PyroPlayerModels)		
 	else
 		--Default to the medic
 		pl.PlayerModel = table.Random(MedicPlayerModels)
@@ -675,7 +677,7 @@ function CalculatePlayerLoadout(pl)
 	local sharpshooter = {"weapon_zs_barreta","weapon_zs_melee_beer","weapon_zs_tools_supplies"}
 	
 	--PyroTechnic stages	
-	local pyrotechnic = {"weapon_zs_flaregun","weapon_zs_firebomb","weapon_zs_melee_pipe2"}
+	local pyro = {"weapon_zs_flaregun","weapon_zs_firebomb","weapon_zs_melee_pipe2"}
 
 	pl.Loadout = {}
 	
@@ -733,9 +735,9 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("_lethal") then
 			pl:Give("weapon_zs_python")
 		end		
-	elseif pl:GetPerk("_pyrotechnic") then
-		pl.Loadout = table.Copy(pyrotechnic)
-		pl:ChatPrint("You are a PyroTechnic")
+	elseif pl:GetPerk("_pyro") then
+		pl.Loadout = table.Copy(pyro)
+		pl:ChatPrint("You are a Pyro")
 	end
 
 	--Give class loadout

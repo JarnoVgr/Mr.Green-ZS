@@ -87,7 +87,7 @@ function SWEP:PrimaryAttack()
 	end
 	
 	if self:GetIronsights()then
-		recoilm = recoilm * 0.45
+		recoilm = recoilm * 0.5
 	end	
 
 	local recoil = self.Primary.Recoil * recoilm
@@ -187,7 +187,7 @@ function SWEP:Deploy()
 
 		self.SpeedBonus = (self.Owner:GetRank()*0.1)/100	
 	
-		self.Primary.ClipSize = self.ActualClipSize * 0.1 + self.ActualClipSize + (self.ActualClipSize * (self.Owner:GetRank() * 4) / 100)	
+		self.Primary.ClipSize = self.ActualClipSize * 0.1 + self.ActualClipSize + (self.ActualClipSize * (self.Owner:GetRank() * 2) / 100)	
 		
 		if self.Owner.DataTable["ShopItems"][52] then
 			self.Primary.ClipSize = self.Primary.ClipSize + self.ActualClipSize * 0.2

@@ -42,6 +42,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					mul = mul + 0.05		
 					
 				elseif attacker:GetPerk("_frictionburn") and math.random(1,4) == 1 then
+					mul = mul - 0.05	
 					ent:TakeDamageOverTime(5, 1, 5, attacker, inflictor )
 					ent:Ignite(5,0)			
 				end
