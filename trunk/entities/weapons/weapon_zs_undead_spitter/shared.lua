@@ -105,11 +105,13 @@ function SWEP:StartPrimaryAttack()
 end
 
 function SWEP:Move(mv)
-	--if self:IsInPrimaryAttack() then
-	--	mv:SetMaxSpeed(self.Primary.Speed)
-	--	return true
-	--end
+	if self and self.Owner and self:IsDisguised() then
+		mv:SetMaxSpeed(180)
+		
+		return true
+	end
 end
+
 
 function SWEP:SetDisguise(bl)
 	self:SetDTBool(0,bl)
@@ -149,8 +151,10 @@ function SWEP:SecondaryAttack()
 			model = table.Random(survivors):GetModel()
 		end
 		
-		self.Owner:SetModel(model)
+		self.Owner:SetHealth(60)
+		self.Owner:SetMaximumHealth(60)
 		
+		self.Owner:SetModel(model)
 		self.Owner:EmitSound(Sound("npc/stalker/stalker_scream"..math.random(1,4)..".wav"), 60)
 	end
 	
