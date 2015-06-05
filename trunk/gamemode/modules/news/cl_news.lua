@@ -17,6 +17,7 @@ GeneralInfo = table.Shuffle(GeneralInfo)
 local HumanHints = {
 	"Use the SkillShop to gain weapons and ammo.",
 	"Type !damage in chat to enable damage output.",
+	"Type !buyxp in chat to purchase 1000 XP with 100 GreenCoins.",	
 	-- "To see what Weapons you can get, press F2 to see your classes weapon tree!",
 	"SP stands for SkillPoints which you earn by killing zombies.",
 	"Press F3 to drop your current weapon."

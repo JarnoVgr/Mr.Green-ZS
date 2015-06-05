@@ -143,6 +143,9 @@ local function CommandSay(pl, text, teamonly)
 		elseif (text == "!levelstats") then
 			server_RunCommand(pl, "zs_showlevel")
 			return ""
+		elseif (text == "!buyxp") then
+			server_RunCommand(pl, "zs_buyxp")
+			return ""			
 		elseif (text == "!damage") then
 			server_RunCommand(pl, "zs_damageoutput")
 			return ""			

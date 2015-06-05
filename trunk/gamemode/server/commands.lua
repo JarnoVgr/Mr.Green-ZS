@@ -503,6 +503,35 @@ function EnableDamageOutput (pl, cmd, args)
 end
 concommand.Add("zs_damageoutput",EnableDamageOutput)
 
+function BuyXP (pl, cmd, args)
+	if not (pl:IsValid()) then
+		return
+	end
+		
+	if #player.GetAll() < XP_PLAYERS_REQUIRED then
+		pl:PrintMessage(HUD_PRINTTALK,"Not enough players.")		
+		return
+	end	
+			
+	if pl:GreenCoins() < 100 then
+		pl:PrintMessage(HUD_PRINTTALK,"Insufficient GreenCoins. 100 Required.")		
+		return
+	end
+	
+	if pl:GetRank() == MAX_RANK then
+		pl:PrintMessage(HUD_PRINTTALK,"Already at max rank.")		
+		return	
+	end
+	
+	pl:EmitSound(Sound("ambient/levels/labs/coinslot1.wav"),100,100)	
+	pl:Message("Purchased 1000 XP with 100 GreenCoins.", 1)			
+	pl:AddXP(1000)
+	pl:TakeGreenCoins(100)
+	pl:PrintMessage(HUD_PRINTTALK,"Purchased 1000 XP with 100 GreenCoins.")		
+
+end
+concommand.Add("zs_buyxp",BuyXP)
+
 function Pufu(pl, commandName,args )
 	if ENDROUND then
 		return
