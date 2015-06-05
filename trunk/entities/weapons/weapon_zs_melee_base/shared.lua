@@ -230,7 +230,7 @@ function SWEP:Think()
 				end
 				
 				--Take damage
-				ent:TakeDamage(self.Primary.Damage*0.4, self.Owner, self)
+				ent:TakeDamage(self.MeleeDamage*0.4, self.Owner, self)
 				self.Attacking = CurTime() + 1.25					
 			end
 		end
