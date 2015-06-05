@@ -85,11 +85,12 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	if not revive then
 		--Play sound
 		mVictim:PlayZombieDeathSound()
+		local floaty = 0
 		
 		if headshot then
 			skillpoints.AddSkillPoints(mAttacker,5)
 			mAttacker:AddXP(10)
-			mVictim:FloatingTextEffect(5, mAttacker)		
+			floaty = floaty + 5	
 		end
 		
 		--Put victim in spectator mode
@@ -103,21 +104,22 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				mAttacker:AddToCounter("undeadkilled", 1)
 					
 				local reward = Tab.SP
-				if mVictim:IsBoss() then
-					reward = reward * math.Clamp(INFLICTION + 0.2,0.1,1.1)
-				end
+					
+				if UNLIFE then
+					skillpoints.AddSkillPoints(mAttacker,reward)
+					floaty = floaty + reward	
+				end				
 
 				if mAttacker:GetPerk("_commando") then --Double checker, just in case..
 					if mAttacker:GetPerk("_profitable") then
 						skillpoints.AddSkillPoints(mAttacker,reward/1.3)
-						mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-						mVictim:FloatingTextEffect(reward/1.3, mAttacker)
+						floaty = floaty + (reward/1.3)	
 					end
 				else 
 			end
 				skillpoints.AddSkillPoints(mAttacker,reward)
 				mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)
-				mVictim:FloatingTextEffect(reward, mAttacker)
+				mVictim:FloatingTextEffect((floaty + reward), mAttacker)
 				-- Add GreenCoins and increment zombies killed counter
 				mAttacker.ZombiesKilled = mAttacker.ZombiesKilled + 1
 				mAttacker:GiveGreenCoins(COINS_PER_ZOMBIE)

@@ -265,7 +265,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 	if mOwner:IsBot() then return end
 
 	-- Weapon walking speed, health, and player human class
-	local fSpeed, fHealth, iClass, fHealthSpeed = mWeapon.WalkSpeed or 200, mOwner:Health(), mOwner:GetHumanClass()
+	local fSpeed, fHealth, iClass, fHealthSpeed = mWeapon.WalkSpeed or SPEED, mOwner:Health(), mOwner:GetHumanClass()
 	
 	if mOwner:GetPerk("_sboost") then
 		fSpeed = fSpeed + (fSpeed*0.05)

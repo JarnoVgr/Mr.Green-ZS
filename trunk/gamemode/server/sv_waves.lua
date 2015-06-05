@@ -165,9 +165,43 @@ function GM:CalculateInfliction()
 	
 	INFLICTION = math.Round(progressTime,2)
 	CAPPED_INFLICTION = INFLICTION
-
+	
+	self:CalculateUnlife()
 	self:SendInfliction()
 end
+
+function GM:CalculateUnlife()
+	if ENDROUND or UNLIFE or LASTHUMAN then
+		return
+	end
+	
+	if not UNLIFE then
+		local allplayers = #player.GetAll()
+		local zombies = team.NumPlayers(TEAM_UNDEAD)
+		local infliction = math.Round((zombies/allplayers) * 100)
+	
+		if infliction >= 75 then
+			UNLIFE = true
+			
+			net.Start("unlife")
+				net.WriteBit(true)
+			net.Broadcast()			
+			
+			local Survivors = team.GetPlayers(TEAM_HUMAN)
+			for i=1, #Survivors do
+				local pl = Survivors[i]
+				if not IsValid(pl) or not pl:Alive() then
+					continue
+				end
+
+				skillpoints.AddSkillPoints(pl, 100)
+				pl:SendLua("GAMEMODE:Add3DMessage(100,\"Unlife Mode! Double SP Received!\",nil,\"ssNewAmmoFont7\")")	
+				pl:AddXP(100)
+			end			
+		end
+	end	
+end
+util.AddNetworkString( "unlife" )
 
 function GM:OnPlayerReady(pl)
 	if not pl:IsValid() then

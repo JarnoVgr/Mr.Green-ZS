@@ -71,23 +71,17 @@ for i=1,10 do
 	util.PrecacheSound(ZBeats[i][1])
 end
 
-function playBossMusic(insane)
-	if LASTHUMAN or ENDROUND or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
+function playDragulaMusic()
+	if LASTHUMAN or ENDROUND or UNLIFE or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
+	
+	UNLIFE = true
 	
 	--Stop all sounds
 	RunConsoleCommand("stopsound")
-
-	--Duby: When you re-implement the new boss music. Please test the code. The previous was broken.
 	
 	--Play the music
-	local songDuration = 240
-	local song = "mrgreen/music/bosstheme4.mp3"
-	
-	--INSANE music
-	if insane then
-		songDuration = 240
-		song = "mrgreen/music/bosstheme4.mp3"
-	end
+	local songDuration = 277
+	local song = "mrgreen/music/deadlife.mp3"
 	
 	--Delayed play because of stopsound in same frame
 	timer.Simple(0.3, function()
@@ -96,12 +90,11 @@ function playBossMusic(insane)
 	
 	-- Create timer
 	timer.Create("LoopBossMusic", songDuration, 0, function() 
-		if LASTHUMAN or ENDROUND or not BOSSACTIVE then
+		if LASTHUMAN or ENDROUND then
 			return
 		end
 		surface.PlaySound(Sound(song))
 	end)
-
 
 end
 
@@ -143,7 +136,7 @@ local NextBeat = 0
 local LastBeatLevel = 0
 local function PlayBeats(teamid, am)
 	--if ENDROUND or LASTHUMAN or BOSSACTIVE or RealTime() <= NextBeat then
-	if ENDROUND or LASTHUMAN or RealTime() <= NextBeat then
+	if ENDROUND or LASTHUMAN or UNLIFE or RealTime() <= NextBeat then
 		return
 	end
 	--print(am)

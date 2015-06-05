@@ -155,7 +155,7 @@ function GM:SetBoss(value,isInsane,duration)
 	
 		--Play music
 			--timer.Simple(0.3, function()
-			--playBossMusic(isInsane)
+			--playBossMusic()
 		--end)
 			--end
 	
@@ -191,6 +191,15 @@ net.Receive("StartBoss", function(len)
 	local bossDuration = net.ReadFloat()
 	GAMEMODE:SetBoss(true,isInsane,bossDuration)
 end)
+
+net.Receive("unlife", function(len)
+	local unlife = tobool(net.ReadBit())
+
+	if unlife then
+		playDragulaMusic()
+	end
+end)
+
 
 net.Receive("StopBoss", function(len)
 	GAMEMODE:SetBoss(false)

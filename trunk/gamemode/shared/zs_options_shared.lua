@@ -34,18 +34,18 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- Movement stuff
 
 -- 1 to 0.
-SPEED_BACKWARDS = 0.5
+SPEED_BACKWARDS = 0.515
 
-SPEED = 195
+SPEED = 190
 SPEED_LIGHT = SPEED - 2
 SPEED_MELEE_LIGHT = SPEED - 3
 SPEED_MELEE = SPEED - 11
-SPEED_MELEE_HEAVY = SPEED - 19
+SPEED_MELEE_HEAVY = SPEED - 17
 SPEED_PISTOL = SPEED - 10
-SPEED_SMG = SPEED - 17
+SPEED_SMG = SPEED - 16
 SPEED_SHOTGUN = SPEED - 23
-SPEED_RIFLE = SPEED - 20
-SPEED_HEAVY = SPEED - 27
+SPEED_RIFLE = SPEED - 21
+SPEED_HEAVY = SPEED - 24
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8		--It's meant for creating hordes, doesnt make sense for a zombie to be in a horde if they're across the map.

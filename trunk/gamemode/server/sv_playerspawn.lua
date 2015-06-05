@@ -358,7 +358,7 @@ function GM:OnHumanSpawn(pl)
 	pl.ReviveCount = 0
 			
 	--Calculate player's speed
-	self:SetPlayerSpeed(pl, CalculatePlayerSpeed(pl))
+	--self:SetPlayerSpeed(pl, CalculatePlayerSpeed(pl))
 
 	--Set crouch speed
 
@@ -560,7 +560,7 @@ function GM:ProceedCustomSpawn(pl)
 		return
 	end
 
-	pl:Give("weapon_zs_elites")
+
 	
 	if newspawn then
 		pl:SetPos(newspawn:GetPos())
@@ -577,7 +577,7 @@ function GM:PlayerDisconnected( pl )
 	
 	if pl.Health and pl.Health > 0 then
 		pl:Kill()	
-		
+
 		if pl.LastAttackers then 
 			if #pl.LastAttackers > 0 then
 				if pl.LastAttackers[#pl.LastAttackers].Attacker:Team() == TEAM_UNDEAD then
@@ -589,7 +589,8 @@ function GM:PlayerDisconnected( pl )
 					pl.LastAttackers[#pl.LastAttackers].Attacker:AddXP(ZombieClasses[pl:GetZombieClass()].Bounty)						
 				end
 			end
-		end		
+		end	
+		
 	end
 
 	
@@ -622,6 +623,7 @@ end
 --[==[------------------------------------------------
    Used to calculate player speed on spawn
 -------------------------------------------------]==]
+--[[
 function CalculatePlayerSpeed(pl)
 	local Speed = 0
 
@@ -644,6 +646,7 @@ function CalculatePlayerSpeed(pl)
 	--Returns twice: walk and run speed
 	return Speed, Speed
 end
+]]--
 
 --[==[------------------------------------------------
      Loadout Director - Called on h spawn

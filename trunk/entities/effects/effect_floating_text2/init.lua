@@ -1,7 +1,7 @@
 --Second effect 
 function EFFECT:Init( data )
 	self:SetRenderBounds( Vector( -16, -16, -16 ), Vector( 16, 16, 16 ) )
-	self.Seed = math.Rand( 0, 3 )
+	self.Seed = math.Rand( 0, 6 )
 	self.Pos = data:GetOrigin()
 	self.Color = Color( 235, 235, 235, 255 )
 	self.DeathTime = CurTime() + 3

@@ -50,12 +50,12 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			if dmginfo:IsAttackerPlayer() then
 				-- mAttacker:AddScore(1)
 				skillpoints.AddSkillPoints(mAttacker,5)
-				mVictim:FloatingTextEffect( 5, mAttacker )
+
 				
 				if mAttacker:GetPerk("_berserker") then
 					if mAttacker:GetPerk("_bloodmoney") then
 						skillpoints.AddSkillPoints(mAttacker,5)
-						mVictim:FloatingTextEffect( 5, mAttacker )
+						
 						else
 						return
 					end
