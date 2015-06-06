@@ -242,8 +242,8 @@ function PaintNewWeaponSelection()
 	end
 	
 	local AmmoStepX,AmmoStepY = 12,12
-	local AmmoW,AmmoH = ScaleW(150), ScaleH(73)
-	local AmmoX,AmmoY = ScrW()-AmmoW-AmmoStepX, ScrH()-AmmoH-AmmoStepY
+	local AmmoW,AmmoH = ScaleW(200), ScaleH(70)
+	local AmmoX,AmmoY = ScrW()-AmmoW-AmmoStepX, ScrH()-AmmoH-AmmoStepY*2
 	
 	MySelf.WepX,MySelf.WepY = AmmoX, AmmoY
 	MySelf.WepW,MySelf.WepH = AmmoW, AmmoH

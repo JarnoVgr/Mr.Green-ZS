@@ -7,7 +7,7 @@ if CLIENT then
 	SWEP.SlotPos = 6
 	SWEP.ViewModelFOV = 60
 	SWEP.IconLetter = "s"
-	killicon.AddFont("weapon_zs_elites", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ))
+	killicon.AddFont( "weapon_zs_flaregun", "HL2MPTypeDeath", ".",Color(255, 255, 100, 100 ) )
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = true
 	
@@ -26,7 +26,7 @@ if CLIENT then
         ["bullet1+++"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "Bullet4", rel = "", pos = Vector(0.006, 0.043, 0.349), angle = Angle(0, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
         ["glow+++++"] = { type = "Sprite", sprite = "sprites/glow02", bone = "Bullet2", rel = "bullet1+++++", pos = Vector(0, 0, -0.406), size = { x = 1, y = 1 }, color = Color(213, 143, 96, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
         ["bullet1"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "Bullet1", rel = "", pos = Vector(0.006, 0.043, 0.349), angle = Angle(0, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
-        ["switch"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "Hand", rel = "", pos = Vector(0.4, -3.988, 9.18), angle = Angle(0, 0, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
+		["switch"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "Hand", rel = "", pos = Vector(0.4, -3.988, 9.18), angle = Angle(0, 0, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
         ["glow+++"] = { type = "Sprite", sprite = "sprites/glow02", bone = "Bullet2", rel = "bullet1+++", pos = Vector(0, 0, -0.406), size = { x = 1, y = 1 }, color = Color(213, 143, 96, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
         ["switchr"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "Hand", rel = "", pos = Vector(-0.151, -4, 9), angle = Angle(0, -180, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
         ["bullet1+++++"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "Bullet6", rel = "", pos = Vector(0.006, 0.043, 0.349), angle = Angle(0, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
@@ -65,30 +65,30 @@ SWEP.Base				= "weapon_zs_base"
 
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
-SWEP.ViewModel            = "models/weapons/v_357.mdl"
+SWEP.ViewModel            = "models/weapons/c_357.mdl"
 SWEP.WorldModel            = "models/weapons/w_357.mdl"
 
 SWEP.UseHands = true
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
-SWEP.HoldType = "pistol"
+SWEP.HoldType = "revolver"
 SWEP.IronSightsHoldType = "pistol"
-SWEP.Primary.Sound  = Sound("Weapon_MP5Navy.Single")
-SWEP.Primary.Recoil			= 0
-SWEP.Primary.Damage			= 13
+SWEP.Primary.Sound  = Sound("weapons/flaregun/fire.wav")
+SWEP.Primary.Recoil			= 4
+SWEP.Primary.Damage			= 30
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.95
-SWEP.Primary.DefaultClip	= 36
+SWEP.Primary.DefaultClip	= 12
 SWEP.MaxAmmo			    = 100
 SWEP.Primary.Automatic		= true  
-SWEP.Primary.Ammo			= "pistol"
+SWEP.Primary.Ammo			= "alyxgun"
 
-SWEP.Cone = 0.051
-SWEP.ConeMoving = SWEP.Cone *1.3
-SWEP.ConeCrouching = SWEP.Cone *0.8
-SWEP.ConeIron = SWEP.Cone *0.8
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8
+SWEP.Cone = 0.03
+SWEP.ConeMoving = SWEP.Cone * 1.1
+SWEP.ConeCrouching = SWEP.Cone * 0.95
+SWEP.ConeIron = SWEP.Cone
+SWEP.ConeIronCrouching = SWEP.ConeCrouching
 
 SWEP.WalkSpeed = SPEED_PISTOL
 
@@ -109,7 +109,7 @@ function SWEP:PrimaryAttack()
 	end
 
 	self.Weapon:SetNextPrimaryFire(CurTime() + 1)
-	self:EmitSound("Weapon_MP5Navy.Single")
+	self:EmitSound("weapons/flaregun/fire.wav")
 	self:ShootEffects(self)
 	self:TakePrimaryAmmo(1)
 	
@@ -125,7 +125,7 @@ function SWEP:PrimaryAttack()
 	if SERVER then
 	local ent = ents.Create("projectile_flare2")
 	if ent:IsValid() then
-		ent:SetPos(self.Owner:EyePos() + (self.Owner:GetAimVector() * 30) )
+		ent:SetPos(self.Owner:EyePos())
 		ent:SetAngles(self.Owner:EyeAngles() * 10)
 		ent:SetOwner(owner)
 		ent:Spawn()
@@ -134,7 +134,7 @@ function SWEP:PrimaryAttack()
 		local phys = ent:GetPhysicsObject()
 		if phys:IsValid() then
 			phys:Wake()
-			phys:SetVelocity((self.Owner:GetAimVector()+Vector(0,0,0.1)) * 800)
+			phys:SetVelocity((self.Owner:GetAimVector()+Vector(0,0,0.1)) * 2000)
 		end
 	end
 		end
@@ -147,5 +147,6 @@ function SWEP:SendWeaponAnimation()
 	self:SendWeaponAnim(self:Clip1() % 2 == 0 and ACT_VM_PRIMARYATTACK or ACT_VM_SECONDARYATTACK)
 end
 
-SWEP.IronSightsPos = Vector(-5.9,17,2.5)
+
+SWEP.IronSightsPos = Vector(-4.59,25,0.65)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )

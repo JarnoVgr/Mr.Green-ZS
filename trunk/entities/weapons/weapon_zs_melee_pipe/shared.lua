@@ -35,7 +35,7 @@ SWEP.Slot = 2
 SWEP.SlotPos = 8
 
 -- Damage, distane, delay
-SWEP.MeleeDamage = 70
+SWEP.MeleeDamage = 22
 SWEP.Primary.Delay = 0.90
 SWEP.Primary.Distance = 73
 SWEP.WalkSpeed = SPEED_MELEE
@@ -46,7 +46,7 @@ SWEP.ShowWorldModel = false
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 -- Killicons
 if CLIENT then
-	killicon.AddFont( "weapon_zs_melee_pipe", "HL2MPTypeDeath", "6", Color( 255, 80, 0, 255 ) )
+	killicon.AddFont( "weapon_zs_melee_pipe", "HL2MPTypeDeath", "6", Color( 255, 200, 200, 255 ) )
 end
 
 function SWEP:PlayHitSound()

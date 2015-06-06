@@ -210,7 +210,7 @@ function hud.DrawAmmoPanel()
 		return
 	end
 	
-	local drawX, drawY, drawW, drawH = ScaleW(1100), ScaleH(880), ScaleW(150), ScaleH(270)
+	local drawX, drawY, drawW, drawH = ScaleW(800), ScaleH(900), ScaleW(150), ScaleH(270)
 		
 	if currentAmmo > 0 then
 		surface.SetFont("ssNewAmmoFont6.5")

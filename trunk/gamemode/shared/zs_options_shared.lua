@@ -34,7 +34,7 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- Movement stuff
 
 -- 1 to 0.
-SPEED_BACKWARDS = 0.515
+SPEED_BACKWARDS = 0.52
 
 SPEED = 190
 SPEED_LIGHT = SPEED - 2
@@ -174,9 +174,6 @@ GM.HumanWeapons = {
         ["weapon_zs_medi2"]  = { Name = "Medi 02", DPS = 143, Infliction = 0, Type = "shotgun",Price = 300, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
         ["weapon_zs_medi3"]  = { Name = "Medi 03", DPS = 143, Infliction = 0, Type = "smg",Price = 600, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		["weapon_zs_medi1"]  = { Name = "Medi 01", DPS = 143, Infliction = 0, Type = "pistol",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
-        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 200, HumanClass = "medic" },
-        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 100, Description = "Alyx is hot. But her gun is even more hot.", HumanClass = "medic" }, 
-
 		
         ["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 100},
 		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
@@ -197,10 +194,15 @@ GM.HumanWeapons = {
         ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 99, Infliction = 0, Type = "smg", Price = 800, HumanClass = "engineer"},
 
  
-		--PyroTechnic
-		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
-		["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", Description = "Alert other Survivors when you're in need of help." },
-		["weapon_zs_firebomb"]  = { Name = "Flame Nade", DPS = 143, Infliction = 0, Type = "misc", Description = "A fire Grenade" },
+		--Pyro
+        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 100, HumanClass = "pyro" }, 		
+		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", HumanClass = "pyro", Price = 200},
+        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 300, HumanClass = "pyro" },		
+		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Type = "shotgun", HumanClass = "pyro", Price = 500},	
+		
+		["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", HumanClass = "pyro"},
+		["weapon_zs_firebomb"]  = { Name = "Flame Nade", DPS = 143, Infliction = 0, HumanClass = "pyro"},
+		
 		
         --Other Class
        -- ["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle",Price = 600, HumanClass = "other" },          
@@ -313,11 +315,11 @@ GM.HumanWeapons = {
 
 GM.AmmoRegeneration = {
 	["ar2"] = 20, --Rifle
-	["alyxgun"] = 16,
+	["alyxgun"] = 20,
 	["pistol"] = 20, --Pistol
 	["smg1"] = 20, --SMG
 	["357"] = 8, --Sniper
-	["xbowbolt"] = 5,
+	["xbowbolt"] = 12,
 	["buckshot"] = 12, --Shotgun
 	["ar2altfire"] = 1,
 	["slam"] = 2, --Explosive
@@ -353,11 +355,11 @@ GM.RankUnlocks = {
 
 	--{{HUMAN CLASSES}}--
 	
-	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter", "_none1", "_none2"},
+	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_pyro", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_mine" ,"_sboost3","_highcal","_bulk"},
+	[1] = {"_medupgr2","_accuracy","_mine" ,"_sboost3","_highcal","_bulk","_burn"},
 	
-	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_slinger"},
+	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_slinger","_flarebounce"},
 	
 	[3] = {"_nade", "_freeman" ,"_medigun","_pulsepistol", "_kevlarcommando2"},
 	
@@ -373,7 +375,7 @@ GM.RankUnlocks = {
 
 	[9] = {"_combustion","_executioner","_battlemedic","_supportammo"},
 	
-	[10] = {"_oppressive","_lethal", "_sboost2","_bleed"}
+	[10] = {"_oppressive","_lethal", "_sboost2","_bleed","_pyrokevlar"}
 }
 
 -- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
@@ -474,6 +476,15 @@ GM.Perks = {
 	["_point"] = {Name = "Take Point", Description = "+30% jump power | -50% Fall Damage", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	["_sboost3"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done	
 	
+	--Pyro
+	
+	--Equipment
+	["_flarebounce"] = {Name = "Flare Bounce", Description = "70% chance a flare bounces off a target instead of disappearing", RequiresWeapon = "_pyro", Slot = 1},
+	["_burn"] = {Name = "Pyromaniac", Description = "+5% burn chance | +25% burn damage | 10% chance to burn self", RequiresWeapon = "_pyro", Slot = 1},	
+	--Personal
+	["_pyrokevlar"] = {Name = "Kevlar", Description = "+20% damage resistance | -5% speed", RequiresWeapon = "_pyro", Slot = 2, Material = "vgui/gfx/vgui/kevlar"},
+	
+	
 	--[[New ZS Classes]]--
 	
 	["_medic"] = {Name = "Medic",		  		Equipment = " Medkit\n P228\n Knife",Description = " +10% Pistol Damage \n +10% Medi Damage\n +10% Damage Resistance\n +3% Movement Speed \n\n +1.5% Movement Speed per lvl \n +1% Pistol Damage per lvl\n +1% Medi Damage per lvl\n +5% Poison Resistance per lvl\n +2% Undead Damage Resistance per lvl \n +2% Medical Power per lvl", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
@@ -482,7 +493,7 @@ GM.Perks = {
 	["_berserker"] = {Name = "Berserker", 		Equipment = " Vodka\n Desert Eagle\n Plank", Description = " +10% Melee Damage \n +4 Health On Melee Kill \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +1% Melee Damage per lvl\n +0.5% Movement Speed per lvl \n", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = " Turret\n C4\n Pistol\n Frying Pan", Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +5% Turret Damage\n\n +2% Turret Damage per lvl \n +2% Turret Health per lvl \n +5 Turret Bullets per lvl \n +5% Pulse Weapon Capacity per lvl \n +1% Pulse Weapon Damage per lvl \n +2% Pulse Weapon Recharge Rate per lvl \n +2% Turret Recharge Rate per lvl \n +1% C4 Damage per lvl \n +1% C4 Radius per lvl \n", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = " Mobile Supplies\n Beretta\n Beer Bottle", Description = " +10% Sniper Damage \n +10% Headshot Damage \n\n +1% Sniper Damage per lvl \n +1% Headshot Damage per lvl \n", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},	
-	["_pyro"] = {Name = "Pyro", Equipment = " Alyx Gun\n Stun Stick ", Description = "", Material = "zombiesurvival/humanclass/avatar_constructor", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3}, --Need to start this soon
+	["_pyro"] = {Name = "Pyro", Equipment = " Alyx Gun\n Metal Pipe", Description = " +10% Pyro Damage\n 5 Initial Fire Damage\n +5% Burn Damage\n 10% Chance To Burn Target\n +1 Burn Duration\n\n +2% Burn Damage per lvl\n +2% Burn Chance per lvl\n +1% Pyro damage per lvl", Material = "zombiesurvival/humanclass/avatar_constructor", Material = "vgui/achievements/goose_chase_bw", Slot = 3}, --Need to start this soon
 	
 }
 
@@ -1041,6 +1052,11 @@ PlayerModels = {
 		"combie_soldier_prisonguard",
 		"corpse01"	
 		--"santa"
+}
+
+PyroPlayerModels = {
+	"combie_soldier",
+	"combie_soldier_prisonguard"
 }
 
 EngineerPlayerModels = {

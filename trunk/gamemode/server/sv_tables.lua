@@ -27,6 +27,7 @@ WeaponTypeToCategory["christmas"] = "Admin"
 WeaponClassToCategory = {}
 WeaponClassToCategory["support"] = "Support"
 WeaponClassToCategory["medic"] = "Medic"
+WeaponClassToCategory["pyro"] = "Pyro"
 WeaponClassToCategory["sharpshooter"] = "Sharpshooter"
 WeaponClassToCategory["berserker"] = "Berserker"
 WeaponClassToCategory["commando"] = "Commando"

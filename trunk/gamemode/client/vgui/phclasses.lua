@@ -333,7 +333,7 @@ local function DrawClassesContextMenu(x, y, weptype, parent, num)
 	local ww, hh = 1000, 4000
 	
 	local posY = ScaleH(120)
-	local posX = ScaleW(300)
+	local posX = ScaleW(230)
 
 	--ItemsPanel
 	Unlocks[num]:SetPos(posX,posY)

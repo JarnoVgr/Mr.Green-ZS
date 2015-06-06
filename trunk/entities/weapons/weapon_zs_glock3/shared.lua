@@ -38,22 +38,22 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Glock.Single" )
 SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 11
+SWEP.Primary.Damage			= 9
 SWEP.Primary.NumShots		= 3
 SWEP.Primary.ClipSize		= 7
 SWEP.Primary.Delay			= 0.3
 SWEP.Primary.DefaultClip	= 45
 SWEP.Primary.Automatic		= false
-SWEP.Primary.Ammo			= "pistol"
+SWEP.Primary.Ammo			= "alyx"
 SWEP.MaxAmmo			    = 100
 SWEP.WalkSpeed = SPEED_PISTOL
 
 
-SWEP.Cone = 0.08
+SWEP.Cone = 0.085
 SWEP.ConeMoving = SWEP.Cone *1.2
-SWEP.ConeCrouching = SWEP.Cone *0.8
-SWEP.ConeIron = SWEP.Cone *0.9
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
+SWEP.ConeCrouching = SWEP.Cone *0.85
+SWEP.ConeIron = SWEP.Cone *0.95
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.95
 --SWEP.ConeIronMoving = SWEP.Moving *0.9
 
 

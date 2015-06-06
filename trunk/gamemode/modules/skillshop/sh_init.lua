@@ -15,6 +15,12 @@ GM.SkillShopAmmo = {
 		Amount = 20,
 		Price = 20
 	},
+	["alyxgun"] = {
+		Name = "40 Pyro Rounds",
+		Model = "models/Items/BoxSRounds.mdl",
+		Amount = 40,
+		Price = 40
+	},	
 	["357"] = {
 		Name = "12 Sniper Bullets",
 		Model = "models/Items/357ammo.mdl",

@@ -290,6 +290,13 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 			fSpeed = fSpeed*0.95
 		end
 		
+	elseif mOwner:GetPerk("_pyro") then
+		fSpeed = fSpeed - 3
+		
+		if mOwner:GetPerk("_pyrokevlar") then
+			fSpeed = fSpeed*0.95	
+		end
+		
 	elseif mOwner:GetPerk("_support2") then
 		fSpeed = fSpeed - 8	
 		

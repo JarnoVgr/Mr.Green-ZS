@@ -24,6 +24,7 @@ WeaponTypeToCategory["christmas"] = "Admin"
 WeaponClassToCategory = {}
 WeaponClassToCategory["support"] = "Support"
 WeaponClassToCategory["medic"] = "Medic"
+WeaponClassToCategory["pyro"] = "Pyro"
 WeaponClassToCategory["sharpshooter"] = "Sharpshooter"
 WeaponClassToCategory["berserker"] = "Berserker"
 WeaponClassToCategory["commando"] = "Commando"
@@ -269,6 +270,13 @@ function InsertWeaponsTab()
 	WeaponsList8.Paint = function()
 	end
 	
+	--Pyro
+	WeaponsList9 = vgui.Create( "DScrollPanel")
+	WeaponsList9:SetSize(MainSheetW,MainSheetH)
+	WeaponsList9:SetSkin("ZSMG")
+	WeaponsList9.Paint = function()
+	end	
+	
 	--General
 	--WeaponsList10 = vgui.Create( "DScrollPanel")
 	--WeaponsList10:SetSize(MainSheetW,MainSheetH)
@@ -297,7 +305,9 @@ function InsertWeaponsTab()
 			elseif GetWeaponClass ( wep ) == "Engineer" then
 				WeaponTab[wep]:SetParent(WeaponsList7)
 			elseif GetWeaponClass ( wep ) == "Berserker" then
-				WeaponTab[wep]:SetParent(WeaponsList8)	
+				WeaponTab[wep]:SetParent(WeaponsList8)
+			elseif GetWeaponClass ( wep ) == "Pyro" then
+				WeaponTab[wep]:SetParent(WeaponsList9)					
 			--elseif GetWeaponClass ( wep ) == "General" then
 			--	WeaponTab[wep]:SetParent(WeaponsList9)						
 			--elseif GetWeaponClass ( wep ) == "Other" then
@@ -451,6 +461,7 @@ function InsertWeaponsTab()
 	MainSheet:AddSheet("Sharpshooter", WeaponsList6, nil, false, false, nil )
 	MainSheet:AddSheet("Engineer", WeaponsList7, nil, false, false, nil )
 	MainSheet:AddSheet("Berserker", WeaponsList8, nil, false, false, nil )
+	MainSheet:AddSheet("Pyro", WeaponsList9, nil, false, false, nil )	
 	--MainSheet:AddSheet("General", WeaponsList10, nil, false, false, nil )	
 end
 

@@ -54,7 +54,7 @@ SWEP.PrintName			= "'Defender' Rifle"
 
 SWEP.HoldType = "ar2"
 
-SWEP.Primary.Sound			= Sound("Weapon_AK47.Single")
+SWEP.Primary.Sound			= Sound("weapons/ak47/ak47-1.wav")
 SWEP.Primary.Recoil			= 1.5
 SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 1

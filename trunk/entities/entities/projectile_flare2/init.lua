@@ -4,9 +4,17 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self.DieTime = CurTime() + 0.8
+	self.DieTime = CurTime() + 3
 
+	if self.Entity:GetOwner():GetPerk("_pyro") then
+		local mul = self.Entity:GetOwner():GetRank() * 0.01
+		mul = mul + 0.05
+		
+		self.Damage = self.Damage*mul
+	end
+	
 	self:SetModel("models/weapons/w_grenade.mdl")
+	--self:SetModel("models/items/flare.mdl")	
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetMaterial("Models/effects/splodearc_sheet")
@@ -27,8 +35,6 @@ function ENT:HumanHoldable(pl)
 end
 
 function ENT:Think()
-	
-	
 	if self.DieTime < CurTime() then
 		self.Entity:Remove()
 	end
@@ -43,28 +49,32 @@ end
 function ENT:PhysicsCollide( Data, Phys ) 
 	
 	local HitEnt = Data.HitEntity
-	
-	if self.CanHit then
-		if IsValid( HitEnt ) and ( HitEnt:IsPlayer() ) and ( HitEnt:IsZombie() ) then
-			
+	if self.CanHit and IsValid( HitEnt) then
+		local damage = 30	
+		if HitEnt:IsPlayer() and HitEnt:Team() == TEAM_UNDEAD then	
+			local ignite = 3 + (2 *(0.05 + self.Entity:GetOwner():GetRank()*0.01)) + (2*(self.Entity:GetOwner():GetRank()*0.01))
+
+			local burn = 5 + (5 * (0.05 + (2*(self.Entity:GetOwner():GetRank()*0.01))))		
 			local z = HitEnt
+			z:TakeDamageOverTime(burn, 1, ignite, self.Entity:GetOwner(), self )
+			z:Ignite(ignite,0)				
+			--z.NoGib = CurTime() + 1
+			z:TakeDamage(damage,self.Entity:GetOwner(),self)
 			
-			z.NoGib = CurTime() + 1
+			if self.Entity:GetOwner():GetPerk("_flarebounce") then
+				if math.random(1,4) == 1 then
+					self.Entity:Remove()
+				end
+			else
+				self.Entity:Remove()		
+			end
 			
-			z:TakeDamage(math.random(65,75),self.Entity:GetOwner(),self)
-			self:EmitSound("Weapon_FlareGun.Single")
-			
-			z.DiedFromFlare = CurTime() + 1
-			
-			self.Entity:GetOwner():UnlockAchievement( "flare2" )
+		elseif not HitEnt:IsPlayer() then
+			HitEnt:TakeDamage((damage * 0.2) ,self.Entity:GetOwner(),self)
 		end
 	end
 	
 	self.CanHit = false
-	
-	
-	
-
 end
 
 function ENT:UpdateTransmitState()

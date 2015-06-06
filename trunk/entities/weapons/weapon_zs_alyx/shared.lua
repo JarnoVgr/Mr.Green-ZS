@@ -24,7 +24,7 @@ SWEP.WElements = {
 }
 		
 		
-        --killicon.AddFont( "weapon_zs_alyx", "HL2MPTypeDeath", "-", Color(0, 0, 150, 255 ) )
+        killicon.AddFont( "weapon_zs_alyx", "HL2MPTypeDeath", "-", Color(255, 200, 200, 255 ) )
 end
  
 SWEP.Base = "weapon_zs_base"
@@ -36,21 +36,21 @@ SWEP.HoldType = "pistol"
 SWEP.Primary.Sound  = Sound("weapons/alyxgun/fire01.wav")
 SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
 SWEP.Primary.Recoil  = 1
-SWEP.Primary.Damage = 10
+SWEP.Primary.Damage = 8
 SWEP.Primary.NumShots           = 1
 SWEP.Primary.ClipSize           = 15
-SWEP.Primary.Delay                      = 0.1
+SWEP.Primary.Delay                      = 0.11
 SWEP.Primary.DefaultClip        = 150
 SWEP.Primary.Automatic = true
 SWEP.MaxAmmo                        = 160
-SWEP.Primary.Ammo                       = "pistol"
+SWEP.Primary.Ammo                       = "alyxgun"
 SWEP.WalkSpeed = SPEED_PISTOL
 SWEP.UseHands = true
-SWEP.Cone = 0.048
-SWEP.ConeMoving = SWEP.Cone *1.3
-SWEP.ConeCrouching = SWEP.Cone *0.75
-SWEP.ConeIron = SWEP.Cone *0.8
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
+SWEP.Cone = 0.06
+SWEP.ConeMoving = SWEP.Cone *1.2
+SWEP.ConeCrouching = SWEP.Cone *0.8
+SWEP.ConeIron = SWEP.Cone *0.85
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.95
 
 SWEP.IronSightsPos = Vector(-4.59,25,0.65)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )

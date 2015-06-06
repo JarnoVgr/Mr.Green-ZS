@@ -43,8 +43,8 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					
 				elseif attacker:GetPerk("_frictionburn") and math.random(1,4) == 1 then
 					mul = mul - 0.05	
-					ent:TakeDamageOverTime(5, 1, 5, attacker, inflictor )
-					ent:Ignite(5,0)			
+					ent:TakeDamageOverTime(6, 1, 4, attacker, inflictor )
+					ent:Ignite(4,0)			
 				end
 
 				dmg = dmg + (dmg * mul)	
@@ -59,7 +59,37 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 				
 				dmg = dmg + (dmg * mul)
+				
+			elseif attacker:GetActiveWeapon().Primary.Ammo == "alyxgun" and attacker:GetPerk("_pyro") then
+				dmg = dmg + (dmg * mul)
+				
+				local burnchance = 100 - attacker:GetRank() * 2	
+				
+				if attacker:GetPerk("_burn") then
+					burnchance = burnchance - 5
+				end
+				
+				if math.random(1,burnchance) <= 10 then
+					local ignite = 3 + (2 *(0.05 + attacker:GetRank()*0.01))
+					local burn = 5 + (5 * (0.05 + (2*(attacker:GetRank()*0.01))))
+					
+					if attacker:GetPerk("_burn") then
+						burn = burn * 1.25
+						
+						if math.random(1,10) == 1 then
+							attacker:Ignite(ignite,0)							
+						end
+					end	
+					
+					ent:TakeDamageOverTime(burn, 1, ignite , attacker, inflictor )					
+					ent:Ignite(ignite,0)	
 
+					--print("damage over time" ..burn)
+					--print("ignite time".. ignite)
+					--print("burn chance"..burnchance)
+				
+				end
+				
 			elseif  attacker:GetPerk("_engineer") then
 			
 				if attacker:GetActiveWeapon().Primary.Ammo == "none" then
@@ -70,8 +100,8 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 
 				if attacker:GetPerk("_combustion") and inflictor:GetClass() == "env_explosion" then
-					ent:TakeDamageOverTime(6, 1, 5, attacker, inflictor )
-					ent:Ignite(5,0)		
+					ent:TakeDamageOverTime(6, 1, 4, attacker, inflictor )
+					ent:Ignite(4,0)		
 				end
 				
 			elseif attacker:GetPerk("_berserker") then
@@ -103,7 +133,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				elseif ent:GetPerk("_medic") then
 					dmg = dmg - (dmg * ((2*ent:GetRank())/100) + 0.1)	
 
-				elseif ent:GetPerk("_kevlarcommando2") then
+				elseif ent:GetPerk("_kevlarcommando2") or ent:GetPerk("_pyrokevlar") then
 					dmg = dmg*0.8			
 				end
 			end

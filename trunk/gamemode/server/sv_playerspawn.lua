@@ -311,7 +311,7 @@ function GM:OnHumanSpawn(pl)
 		
 	--Freeman
 	--Check if we can be THE Gordon Freeman
-	if (not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,6) == 1) or pl.IsFreeman then
+	if (not self.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,4) == 1) or pl.IsFreeman then
 		--Only display message when being human
 		pl:ChatPrint("You're now THE Gordon Freeman!")
 
@@ -677,7 +677,7 @@ function CalculatePlayerLoadout(pl)
 	local sharpshooter = {"weapon_zs_barreta","weapon_zs_melee_beer","weapon_zs_tools_supplies"}
 	
 	--PyroTechnic stages	
-	local pyro = {"weapon_zs_flaregun","weapon_zs_firebomb","weapon_zs_melee_pipe2"}
+	local pyro = {"weapon_zs_alyx","weapon_zs_melee_pipe"}
 
 	pl.Loadout = {}
 	
