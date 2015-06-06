@@ -480,7 +480,8 @@ GM.Perks = {
 	
 	--Equipment
 	["_flarebounce"] = {Name = "Flare Bounce", Description = "70% chance a flare bounces off a target instead of disappearing", RequiresWeapon = "_pyro", Slot = 1},
-	["_burn"] = {Name = "Pyromaniac", Description = "+5% burn chance | +25% burn damage | 10% chance to burn self", RequiresWeapon = "_pyro", Slot = 1},	
+	["_burn"] = {Name = "Pyromaniac", Description = "+5% burn chance | +25% burn damage | 10% chance to burn self", RequiresWeapon = "_pyro", Slot = 1},
+	["_flaregun"] = {Name = "Flare Gun", Description = "Spawn with the Flaregun", RequiresWeapon = "_pyro", Slot = 1},		
 	--Personal
 	["_pyrokevlar"] = {Name = "Kevlar", Description = "+20% damage resistance | -5% speed", RequiresWeapon = "_pyro", Slot = 2, Material = "vgui/gfx/vgui/kevlar"},
 	
