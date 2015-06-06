@@ -51,7 +51,7 @@ function ENT:PhysicsCollide( Data, Phys )
 	
 	local HitEnt = Data.HitEntity
 	if self.CanHit and IsValid( HitEnt) then
-		local damage = 23	
+		local damage = 22	
 		if HitEnt:IsPlayer() and HitEnt:Team() == TEAM_UNDEAD then	
 			local ignite = 3 + (2 *(0.05 + self.Entity:GetOwner():GetRank()*0.01)) + (2*(self.Entity:GetOwner():GetRank()*0.01))
 
@@ -60,9 +60,10 @@ function ENT:PhysicsCollide( Data, Phys )
 			z:TakeDamageOverTime(burn, 1, ignite, self.Entity:GetOwner(), self )
 			z:Ignite(ignite,0)				
 			--z.NoGib = CurTime() + 1
-			z:TakeDamage(damage,self.Entity:GetOwner(),self)
+
 			
 			if self.Entity:GetOwner():GetPerk("_flarebounce") then
+				damage = damage + 5
 				if math.random(1,4) == 1 then
 					self.Entity:Remove()
 				end
@@ -70,6 +71,7 @@ function ENT:PhysicsCollide( Data, Phys )
 				self.Entity:Remove()		
 			end
 			
+			z:TakeDamage(damage,self.Entity:GetOwner(),self)			
 		elseif not HitEnt:IsPlayer() then
 			HitEnt:TakeDamage((damage * 0.2) ,self.Entity:GetOwner(),self)
 		end

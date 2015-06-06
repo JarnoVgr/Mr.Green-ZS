@@ -61,9 +61,12 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				dmg = dmg + (dmg * mul)
 				
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "alyxgun" and attacker:GetPerk("_pyro") then
-				dmg = dmg + (dmg * mul)
 
-				local burnchance = 100 - attacker:GetRank() * 2	
+				local burnchance = 100 - attacker:GetRank() * 1	
+				
+				if ent:IsOnFire() then
+					mul = mul + 0.1
+				end				
 				
 				if attacker:GetActiveWeapon():GetClass() == "weapon_zs_pyroshotgun" then
 					burnchance = burnchance - 10
@@ -71,11 +74,29 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				
 				if attacker:GetPerk("_burn") then
 					burnchance = burnchance - 5
+				elseif attacker:GetPerk("_scorch") then
+					mul = mul + 0.1
+					burnchance = burnchance + 5
 				end
 				
 				if math.random(1,burnchance) <= 12 then
+					
 					local ignite = 3 + (2 *(0.05 + attacker:GetRank()*0.01))
-					local burn = 5 + (5 * (0.05 + (2*(attacker:GetRank()*0.01))))
+					local burn = 6 + (6 * (0.05 + (2*(attacker:GetRank()*0.01))))					
+					
+					if attacker:GetPerk("_pyrosp") then
+						skillpoints.AddSkillPoints(attacker,2)
+						ent:FloatingTextEffect(2, attacker)						
+					elseif attacker:GetPerk("_scorch") then
+						ignite = ignite - 2
+						burn = burn - 3
+					end
+					
+					if ent:IsOnFire() then
+						mul = mul + 0.1
+					end
+					
+
 					
 					if attacker:GetPerk("_burn") then
 						burn = burn * 1.25
@@ -93,6 +114,8 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					--print("burn chance"..burnchance)
 				
 				end
+				
+				dmg = dmg + (dmg * mul)
 				
 			elseif  attacker:GetPerk("_engineer") then
 			

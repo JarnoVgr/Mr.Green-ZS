@@ -45,7 +45,7 @@ SWEP.MaxAmmo                        = 160
 SWEP.Primary.Ammo                       = "alyxgun"
 SWEP.WalkSpeed = SPEED_PISTOL
 SWEP.UseHands = true
-SWEP.Cone = 0.06
+SWEP.Cone = 0.055
 SWEP.ConeMoving = SWEP.Cone *1.2
 SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.85
@@ -61,6 +61,19 @@ SWEP.ViewModel = "models/weapons/cstrike/c_pist_fiveseven.mdl"
 SWEP.WorldModel = "models/weapons/w_alyx_gun.mdl"
 --SWEP.WorldModel = "models/weapons/w_pistol.mdl"
 --SWEP.ShowViewModel = true
+
+function SWEP:OnDeploy()
+    self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
+
+	if self.Weapon.HadFirstDeploy then return end
+
+	if IsValid(self.Owner) and self.Owner:GetPerk("_alyxclip") then
+		self.Weapon.HadFirstDeploy = true	
+		self.Owner:GiveAmmo( self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
+	end		
+end
+
+
 SWEP.ShowWorldModel = true
 SWEP.ViewModelBoneMods = {
 ["v_weapon.Glock_Slide"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },

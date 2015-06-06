@@ -77,14 +77,14 @@ SWEP.Primary.Sound  = Sound("weapons/flaregun/fire.wav")
 SWEP.Primary.Recoil			= 4
 SWEP.Primary.Damage			= 30
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 6
+SWEP.Primary.ClipSize		= 12
 SWEP.Primary.Delay			= 0.95
-SWEP.Primary.DefaultClip	= 12
+SWEP.Primary.DefaultClip	= 36
 SWEP.MaxAmmo			    = 100
 SWEP.Primary.Automatic		= true  
 SWEP.Primary.Ammo			= "alyxgun"
 
-SWEP.Cone = 0.03
+SWEP.Cone = 0.035
 SWEP.ConeMoving = SWEP.Cone * 1.1
 SWEP.ConeCrouching = SWEP.Cone * 0.95
 SWEP.ConeIron = SWEP.Cone
@@ -111,7 +111,7 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire(CurTime() + 1)
 	self:EmitSound("weapons/flaregun/fire.wav")
 	self:ShootEffects(self)
-	self:TakePrimaryAmmo(1)
+	self:TakePrimaryAmmo(2)
 	
 	if not SERVER then
 		return

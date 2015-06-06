@@ -315,7 +315,7 @@ GM.HumanWeapons = {
 
 GM.AmmoRegeneration = {
 	["ar2"] = 20, --Rifle
-	["alyxgun"] = 20,
+	["alyxgun"] = 30,
 	["pistol"] = 20, --Pistol
 	["smg1"] = 20, --SMG
 	["357"] = 8, --Sniper
@@ -357,15 +357,15 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_pyro", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_mine" ,"_sboost3","_highcal","_bulk","_burn"},
+	[1] = {"_medupgr2","_accuracy","_mine" ,"_sboost3","_highcal","_bulk","_alyxclip"},
 	
-	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_slinger"},
+	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_slinger","_pyrosp"},
 	
 	[3] = {"_nade", "_freeman" ,"_medigun","_pulsepistol", "_kevlarcommando2","_flaregun"},
 	
-	[4] = {"_poisonprotect","_bloodmoney","_sboost","_turretsp","_supportregen", "_kevlarcommando"},
+	[4] = {"_poisonprotect","_bloodmoney","_sboost","_turretsp","_supportregen", "_kevlarcommando","_scorch"},
 	
-	[5] = {"_turret","_psychotic","_repairs","_defender", "_supply", "_musket"},
+	[5] = {"_turret","_psychotic","_repairs","_defender", "_supply", "_musket","_burn"},
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate", "_supportweapon"},
 		
@@ -479,11 +479,15 @@ GM.Perks = {
 	--Pyro
 	
 	--Equipment
-	["_flarebounce"] = {Name = "Flare Bounce", Description = "70% chance a flare bounces off a target instead of disappearing", RequiresWeapon = "_pyro", Slot = 1},
-	["_burn"] = {Name = "Pyromaniac", Description = "+5% burn chance | +25% burn damage | 10% chance to burn self", RequiresWeapon = "_pyro", Slot = 1},
-	["_flaregun"] = {Name = "Flare Gun", Description = "Spawn with the Flaregun", RequiresWeapon = "_pyro", Slot = 1},		
+	["_flarebounce"] = {Name = "Flare Bounce", Description = "+5 Flare Damage | 75% chance a flare bounces off a target instead of disappearing", RequiresWeapon = "_pyro", Slot = 1},
+	["_burn"] = {Name = "Pyromaniac", Description = "+5% burn chance | +25% burn damage | 10% chance to burn self when a target is burnt.", RequiresWeapon = "_pyro", Slot = 1},
+	["_flaregun"] = {Name = "Flare Gun", Description = "Spawn with the Flaregun", RequiresWeapon = "_pyro", Slot = 1},
+	["_scorch"] = {Name = "Scorch", Description = "+10% Pyro Damage | -2 Burn Duration | -3 Burn Damage | -5% Burn Chance", RequiresWeapon = "_pyro", Slot = 1},		
+	["_alyxclip"] = {Name = "Alyx Clip", Description = "+75 Ammo For The Alyx Gun", RequiresWeapon = "_pyro", Slot = 1},	
+	
 	--Personal
 	["_pyrokevlar"] = {Name = "Kevlar", Description = "+20% damage resistance | -5% speed", RequiresWeapon = "_pyro", Slot = 2, Material = "vgui/gfx/vgui/kevlar"},
+	["_pyrosp"] = {Name = "Hot Points", Description = "+2SP when a target is burnt.", RequiresWeapon = "_pyro", Slot = 2},	
 	
 	
 	--[[New ZS Classes]]--
@@ -494,7 +498,7 @@ GM.Perks = {
 	["_berserker"] = {Name = "Berserker", 		Equipment = " Vodka\n Desert Eagle\n Plank", Description = " +10% Melee Damage \n +4 Health On Melee Kill \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +1% Melee Damage per lvl\n +0.5% Movement Speed per lvl \n", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = " Turret\n C4\n Pistol\n Frying Pan", Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +5% Turret Damage\n\n +2% Turret Damage per lvl \n +2% Turret Health per lvl \n +5 Turret Bullets per lvl \n +5% Pulse Weapon Capacity per lvl \n +1% Pulse Weapon Damage per lvl \n +2% Pulse Weapon Recharge Rate per lvl \n +2% Turret Recharge Rate per lvl \n +1% C4 Damage per lvl \n +1% C4 Radius per lvl \n", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = " Mobile Supplies\n Beretta\n Beer Bottle", Description = " +10% Sniper Damage \n +10% Headshot Damage \n\n +1% Sniper Damage per lvl \n +1% Headshot Damage per lvl \n", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},	
-	["_pyro"] = {Name = "Pyro", Equipment = " Alyx Gun\n Metal Pipe", Description = " +10% Pyro Damage\n 5 Initial Fire Damage\n +5% Burn Damage\n 12% Chance To Burn Target\n +1 Burn Duration\n\n +2% Burn Damage per lvl\n +2% Burn Chance per lvl\n +1% Pyro Damage per lvl\n +2% burn duration per lvl", Material = "zombiesurvival/humanclass/avatar_constructor", Material = "vgui/achievements/goose_chase_bw", Slot = 3}, --Need to start this soon
+	["_pyro"] = {Name = "Pyro", Equipment = " Alyx Gun\n Metal Pipe", Description = " 12% Chance To Burn Target With Pyro Weapons\n +10% Pyro Damage\n 6 Initial Fire Damage\n +5% Burn Damage\n +10% Damage To Burning Targets \n +1 Burn Duration\n\n +2% Burn Damage per lvl\n +1% Burn Chance per lvl\n +1% Pyro Damage per lvl\n +2% Burn Duration per lvl", Material = "zombiesurvival/humanclass/avatar_constructor", Material = "vgui/achievements/goose_chase_bw", Slot = 3}, --Need to start this soon
 	
 }
 
