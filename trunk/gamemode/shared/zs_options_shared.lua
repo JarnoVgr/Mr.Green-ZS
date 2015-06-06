@@ -1056,8 +1056,7 @@ PlayerModels = {
 }
 
 PyroPlayerModels = {
-	"combie_soldier",
-	"combie_soldier_prisonguard"
+	"css_gasmask"
 }
 
 EngineerPlayerModels = {
@@ -1071,8 +1070,7 @@ EngineerPlayerModels = {
 CommandoPlayerModels = {
 	"css_riot",
 	"css_swat",
-	"css_urban",
-	"css_gasmask",		
+	"css_urban",	
 }
 
 SupportPlayerModels = {
