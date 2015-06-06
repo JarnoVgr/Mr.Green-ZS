@@ -49,24 +49,20 @@ local function AddScoreboardItem(ply, list)
 		draw.SimpleTextOutlined(ply:Nick() , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		if ply:GetPerk("_support2") then
 		draw.SimpleTextOutlined(ply:Nick().."   Support" , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		end
-		if ply:GetPerk("_engineer") then
+		elseif ply:GetPerk("_engineer") then
 		draw.SimpleTextOutlined(ply:Nick().."   Engineer" , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		end
-		if ply:GetPerk("_commando") then
+		elseif ply:GetPerk("_commando") then
 		draw.SimpleTextOutlined(ply:Nick().."   Commando" , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		end
-		if ply:GetPerk("_berserker") then
+		elseif ply:GetPerk("_berserker") then
 		draw.SimpleTextOutlined(ply:Nick().."   Berserker" , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		end
-		if ply:GetPerk("_sharpshooter") then
+		elseif ply:GetPerk("_sharpshooter") then
 		draw.SimpleTextOutlined(ply:Nick().."   Sharpshooter" , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		end
-		if ply:GetPerk("_medic") then
+		elseif ply:GetPerk("_pyro") then
+		draw.SimpleTextOutlined(ply:Nick().."   Pyro" , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))	
+		elseif ply:GetPerk("_medic") then
 		draw.SimpleTextOutlined(ply:Nick().."   Medic" , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		end
-		if ply:IsBot() then
-		draw.SimpleTextOutlined("Necro Bots" , "ArialBoldFive", 100,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		elseif ply:IsBot() then
+		draw.SimpleTextOutlined("Necro Bot" , "ArialBoldFive", 100,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		end
 	end
 	
