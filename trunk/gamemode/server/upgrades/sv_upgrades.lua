@@ -62,8 +62,12 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "alyxgun" and attacker:GetPerk("_pyro") then
 				dmg = dmg + (dmg * mul)
-				
+
 				local burnchance = 100 - attacker:GetRank() * 2	
+				
+				if attacker:GetActiveWeapon():GetClass() == "weapon_zs_pyroshotgun" then
+					burnchance = burnchance - 10
+				end
 				
 				if attacker:GetPerk("_burn") then
 					burnchance = burnchance - 5
@@ -79,7 +83,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 						if math.random(1,10) == 1 then
 							attacker:Ignite(ignite,0)							
 						end
-					end	
+					end
 					
 					ent:TakeDamageOverTime(burn, 1, ignite , attacker, inflictor )					
 					ent:Ignite(ignite,0)	
