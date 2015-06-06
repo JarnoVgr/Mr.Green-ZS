@@ -36,12 +36,12 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- 1 to 0.
 SPEED_BACKWARDS = 0.52
 
-SPEED = 190
+SPEED = 195
 SPEED_LIGHT = SPEED - 2
 SPEED_MELEE_LIGHT = SPEED - 3
 SPEED_MELEE = SPEED - 11
 SPEED_MELEE_HEAVY = SPEED - 17
-SPEED_PISTOL = SPEED - 10
+SPEED_PISTOL = SPEED - 5
 SPEED_SMG = SPEED - 16
 SPEED_SHOTGUN = SPEED - 23
 SPEED_RIFLE = SPEED - 21
@@ -359,9 +359,9 @@ GM.RankUnlocks = {
 
 	[1] = {"_medupgr2","_accuracy","_mine" ,"_sboost3","_highcal","_bulk","_burn"},
 	
-	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_slinger","_flarebounce"},
+	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_slinger"},
 	
-	[3] = {"_nade", "_freeman" ,"_medigun","_pulsepistol", "_kevlarcommando2"},
+	[3] = {"_nade", "_freeman" ,"_medigun","_pulsepistol", "_kevlarcommando2","_flaregun"},
 	
 	[4] = {"_poisonprotect","_bloodmoney","_sboost","_turretsp","_supportregen", "_kevlarcommando"},
 	
@@ -369,7 +369,7 @@ GM.RankUnlocks = {
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate", "_supportweapon"},
 		
-	[7] = {"_accuracy2","_headhunter","_support","_kevlar2", "_trap"},
+	[7] = {"_accuracy2","_headhunter","_support","_kevlar2", "_trap","_flarebounce"},
 
 	[8] = {"_breakthrough","_reload","_darkenergy","_enforcer","_frictionburn"},	
 

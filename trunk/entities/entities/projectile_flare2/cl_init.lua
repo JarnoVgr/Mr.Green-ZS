@@ -36,7 +36,7 @@ function ENT:Think()
 		particle:SetColor(255, 50, 50)
 		self.NextPuff = CurTime() + 0.005
 	end
-	
+	--[[
 	local dlight = DynamicLight( self:EntIndex() )
 	if ( dlight ) then
 		dlight.Pos = self:GetPos()
@@ -49,7 +49,7 @@ function ENT:Think()
 		dlight.DieTime = CurTime() + 1
 		dlight.Style = 0
 	end
-	
+	]]--
 end
 
 function ENT:OnRemove()
