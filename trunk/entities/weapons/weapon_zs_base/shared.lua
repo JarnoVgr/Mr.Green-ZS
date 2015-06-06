@@ -258,7 +258,7 @@ function SWEP:Equip(NewOwner)
 	end
 	
 	-- Magazine clip is stored in the weapon, instead of player
-	--NewOwner:RemoveAmmo( 1500, self:GetPrimaryAmmoTypeString() )
+	NewOwner:RemoveAmmo( 1500, self:GetPrimaryAmmoTypeString() )
 	NewOwner:GiveAmmo( self.Primary.Magazine or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
 			
 	-- Call this function to update weapon slot and others
