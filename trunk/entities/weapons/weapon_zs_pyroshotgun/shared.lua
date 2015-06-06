@@ -66,8 +66,8 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("weapons/galil/galil-1.wav")
-SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 12
+SWEP.Primary.Recoil			= 2.25
+SWEP.Primary.Damage			= 10.5
 SWEP.Primary.NumShots		= 4
 SWEP.Primary.ClipSize		= 24
 SWEP.Primary.Delay			= 0.5
