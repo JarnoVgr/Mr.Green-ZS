@@ -44,7 +44,7 @@ SWEP.Primary.ClipSize		= 7
 SWEP.Primary.Delay			= 0.3
 SWEP.Primary.DefaultClip	= 45
 SWEP.Primary.Automatic		= false
-SWEP.Primary.Ammo			= "alyx"
+SWEP.Primary.Ammo			= "alyxgun"
 SWEP.MaxAmmo			    = 100
 SWEP.WalkSpeed = SPEED_PISTOL
 
