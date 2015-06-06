@@ -22,7 +22,7 @@ GM.SkillShopAmmo = {
 		Price = 40
 	},	
 	["357"] = {
-		Name = "12 Sniper Bullets",
+		Name = "12 Sharpshooter Rounds",
 		Model = "models/Items/357ammo.mdl",
 		Amount = 12,
 		Price = 40
@@ -34,7 +34,7 @@ GM.SkillShopAmmo = {
 		Price = 30
 	},
 	["ar2"] = {
-		Name = "60 Rifle Bullets",
+		Name = "60 Commando Rounds",
 		Model = "models/Items/combine_rifle_cartridge01.mdl",
 		Amount = 60,
 		Price = 40
@@ -72,10 +72,10 @@ GM.SkillShopAmmo = {
 	},
 
 	["Battery"] = {
-		Name = "50 Medkit Charge",
+		Name = "50 Medic Rounds",
 		Model = "models/Items/BoxBuckshot.mdl",
 		Amount = 50,
-		Price = 100,
+		Price = 50,
 		ToolTab = true
 	},
 	

@@ -32,7 +32,7 @@ SWEP.Base = "weapon_zs_base"
 SWEP.Spawnable                  = true
 SWEP.AdminSpawnable             = true
  
-SWEP.HoldType = "pistol"
+SWEP.HoldType = "revolver"
 SWEP.Primary.Sound  = Sound("weapons/alyxgun/fire01.wav")
 SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
 SWEP.Primary.Recoil  = 1
@@ -40,7 +40,7 @@ SWEP.Primary.Damage = 8
 SWEP.Primary.NumShots           = 1
 SWEP.Primary.ClipSize           = 15
 SWEP.Primary.Delay                      = 0.11
-SWEP.Primary.DefaultClip        = 150
+SWEP.Primary.DefaultClip        = 75
 SWEP.Primary.Automatic = true
 SWEP.MaxAmmo                        = 160
 SWEP.Primary.Ammo                       = "alyxgun"
