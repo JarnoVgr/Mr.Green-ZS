@@ -17,6 +17,7 @@ function ENT:Initialize()
 	--self:SetModel("models/items/flare.mdl")	
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
+	self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 	self:SetMaterial("Models/effects/splodearc_sheet")
 	
 	self.CanHit = true

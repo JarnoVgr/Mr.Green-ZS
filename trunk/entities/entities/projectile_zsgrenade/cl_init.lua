@@ -54,7 +54,7 @@ function ENT:Draw()
 
 		render.SetMaterial(matGlow)
 		render.DrawSprite(pos, 16, 16, COLOR_RED)
-
+		--[[
 		local dlight = DynamicLight(self:EntIndex())
 		if dlight then
 			dlight.Pos = pos
@@ -66,5 +66,6 @@ function ENT:Draw()
 			dlight.Decay = 256
 			dlight.DieTime = CurTime() + 0.1
 		end
+		]]--
 	end
 end
