@@ -31,12 +31,11 @@ SWEP.Base = "weapon_zs_base"
  
 SWEP.Spawnable                  = true
 SWEP.AdminSpawnable             = true
- 
-SWEP.HoldType = "revolver"
+
 SWEP.Primary.Sound  = Sound("weapons/alyxgun/fire01.wav")
 SWEP.ReloadSound = Sound("Weapon_Pistol.Reload")
 SWEP.Primary.Recoil  = 1
-SWEP.Primary.Damage = 8
+SWEP.Primary.Damage = 7
 SWEP.Primary.NumShots           = 1
 SWEP.Primary.ClipSize           = 15
 SWEP.Primary.Delay                      = 0.11
@@ -55,7 +54,7 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.95
 SWEP.IronSightsPos = Vector(-4.59,25,0.65)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
  
-SWEP.HoldType = "pistol"
+SWEP.HoldType = "revolver"
 
 SWEP.ViewModel = "models/weapons/cstrike/c_pist_fiveseven.mdl"
 --SWEP.UseHands = true

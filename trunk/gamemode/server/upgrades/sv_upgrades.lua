@@ -69,7 +69,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					burnchance = burnchance - 5
 				end
 				
-				if math.random(1,burnchance) <= 10 then
+				if math.random(1,burnchance) <= 12 then
 					local ignite = 3 + (2 *(0.05 + attacker:GetRank()*0.01))
 					local burn = 5 + (5 * (0.05 + (2*(attacker:GetRank()*0.01))))
 					
