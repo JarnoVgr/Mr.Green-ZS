@@ -83,7 +83,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				
 				if math.random(1,burnchance) <= 12 then
 					
-					local ignite = 3 + (2 *(0.05 + attacker:GetRank()*0.01))
+					local ignite = 3 + (3 *(0.05 + attacker:GetRank()*0.01))
 					local burn = 6 + (6 * (0.05 + (2*(attacker:GetRank()*0.01))))					
 					
 					if attacker:GetPerk("_pyrosp") then

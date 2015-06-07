@@ -1604,6 +1604,10 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 		return
 	end
 	
+	if not inflictor:IsMelee() then
+		return
+	end
+	
 	if not IsValid(attacker) or not attacker:IsPlayer() or attacker:Team() ~= TEAM_HUMAN then
 		return
 	end
