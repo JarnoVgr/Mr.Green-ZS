@@ -577,7 +577,7 @@ function GM:PlayerDisconnected( pl )
 		return
 	end
 	
-	if pl.Health and pl.Health > 0 then
+	if pl.Health() and pl.Health() > 0 then
 		pl:Kill()	
 
 		if pl.LastAttackers then 
