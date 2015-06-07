@@ -1555,10 +1555,15 @@ function GM:KeyPress(pl, key)
 		end
 	end
 
+	if pl:KeyPressed(IN_DUCK) then
+		pl.LastJump = CurTime()				
+	end
+		
+	
 	if pl:Team() ~= TEAM_HUMAN then
 		return
 	end
-	
+
 	if pl:KeyPressed(IN_FORWARD) then
 		pl.WalkingBackwards = false
 		pl:CheckSpeedChange()		
