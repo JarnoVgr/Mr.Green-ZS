@@ -150,23 +150,22 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 
 					dmg = dmg + (dmg * mul)					
 				end
+			end		
+		elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent:IsPlayer() then
+		
+			if attacker:HasBought("vampire") and attacker:Health() + dmg * 0.5 < attacker:GetMaximumHealth() then	
+				attacker:SetHealth(attacker:Health() + dmg * 0.5)	
+			end		
+		
+			if ent:GetPerk("_sharpshooter") and ent.DataTable["ShopItems"][69] and math.random(1,5) == 1 then
+				dmginfo:SetDamage(0)				
+			elseif ent:GetPerk("_medic") then
+				dmg = dmg - (dmg * ((2*ent:GetRank())/100) + 0.1)	
 
-			elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent:IsPlayer() then
-			
-				if attacker:HasBought("vampire") and attacker:Health() + dmg * 0.5 < attacker:GetMaximumHealth() then	
-					attacker:SetHealth(attacker:Health() + dmg * 0.5)	
-				end		
-			
-				if ent:GetPerk("_sharpshooter") and ent.DataTable["ShopItems"][69] and math.random(1,5) == 1 then
-					dmginfo:SetDamage(0)				
-				elseif ent:GetPerk("_medic") then
-					dmg = dmg - (dmg * ((2*ent:GetRank())/100) + 0.1)	
-
-				elseif ent:GetPerk("_kevlarcommando2") or ent:GetPerk("_pyrokevlar") then
-					dmg = dmg*0.8			
-				end
-			end
-		end
+			elseif ent:GetPerk("_kevlarcommando2") or ent:GetPerk("_pyrokevlar") then
+				dmg = dmg*0.8			
+			end	
+		end		
 
 		if attacker.DamageOutput then
 			attacker:ChatPrint("damage: " .. math.Round(dmg) .. " | multiplier: " .. (1 + mul) .. " | old damage: " .. math.Round(olddmg))
