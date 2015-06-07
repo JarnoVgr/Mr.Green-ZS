@@ -66,12 +66,12 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("weapons/galil/galil-1.wav")
-SWEP.Primary.Recoil			= 2.25
-SWEP.Primary.Damage			= 10.5
+SWEP.Primary.Recoil			= 2.3
+SWEP.Primary.Damage			= 11
 SWEP.Primary.NumShots		= 4
-SWEP.Primary.ClipSize		= 24
-SWEP.Primary.Delay			= 0.5
-SWEP.Primary.DefaultClip	= 48
+SWEP.Primary.ClipSize		= 28
+SWEP.Primary.Delay			= 0.45
+SWEP.Primary.DefaultClip	= 56
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "alyxgun"
 
@@ -79,10 +79,10 @@ SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 function SWEP:EmitFireSound()
 	self:TakePrimaryAmmo(3);
-	self:EmitSound(self.Primary.Sound, 80, math.random(80,85))
+	self:EmitSound(self.Primary.Sound, 90, math.random(75,80))
 end
 
-SWEP.WalkSpeed = SPEED_SHOTGUN
+SWEP.WalkSpeed = SPEED_SHOTGUN - 9
 SWEP.MaxBulletDistance 		= 2750 
 
 SWEP.Cone = 0.115
