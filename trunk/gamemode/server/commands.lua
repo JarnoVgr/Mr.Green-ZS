@@ -611,17 +611,19 @@ function RollTheDice ( pl,commandName,args )
 			pl:GiveAmmo( 120, "pistol" )	
 			pl:GiveAmmo( 80, "ar2" )
 			pl:GiveAmmo( 120, "SMG1" )	
-			pl:GiveAmmo( 80, "buckshot" )		
+			pl:GiveAmmo( 60, "buckshot" )		
 			pl:GiveAmmo( 8, "XBowBolt" )
-			pl:GiveAmmo( 50, "357" )
+			pl:GiveAmmo( 40, "357" )
+			pl:GiveAmmo( 80, "alyxgun" )			
 			message = "WIN: ".. message .." rolled the dice and received extra ammo from lady luck!"		
 		else
 			pl:GiveAmmo( 90, "pistol" )	
 			pl:GiveAmmo( 60, "ar2" )
 			pl:GiveAmmo( 90, "SMG1" )	
-			pl:GiveAmmo( 60, "buckshot" )		
+			pl:GiveAmmo( 40, "buckshot" )		
 			pl:GiveAmmo( 5, "XBowBolt" )
-			pl:GiveAmmo( 30, "357" )
+			pl:GiveAmmo( 20, "357" )
+			pl:GiveAmmo( 50, "alyxgun" )					
 			message = "WIN: ".. message .." rolled the dice and received some ammo!"	
 		end	
 		elseif pl:Team() == TEAM_UNDEAD then
