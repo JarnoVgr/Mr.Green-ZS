@@ -2,6 +2,20 @@ include("shared.lua")
 
 function ENT:Draw()
 	self:DrawModel()
+	
+	local dlight = DynamicLight( self:EntIndex() )
+	
+	if ( dlight ) then
+		dlight.Pos = self:GetPos()
+		dlight.r = 255
+		dlight.g = 20
+		dlight.b = 20
+		dlight.Brightness = 1
+		dlight.Size = 200
+		dlight.Decay = 200 * 5
+		dlight.DieTime = CurTime() + 0.1
+		dlight.Style = 0
+	end	
 end
 
 function ENT:Initialize()
@@ -9,6 +23,7 @@ function ENT:Initialize()
 	--self.Emitter:SetNearClip(48, 64)
 	
 	self.BurnSound = CreateSound( self, "Weapon_FlareGun.Burn" )  
+	
 	
 end
 
@@ -31,25 +46,11 @@ function ENT:Think()
 		particle:SetStartAlpha(100)
 		particle:SetEndAlpha(0)
 		particle:SetStartSize(0.20)
-		particle:SetEndSize(math.Rand(8, 10))
+		particle:SetEndSize(math.Rand(12, 20))
 		particle:SetRoll(math.Rand(-0.2, 0.2))
 		particle:SetColor(255, 50, 50)
 		self.NextPuff = CurTime() + 0.005
 	end
-	--[[
-	local dlight = DynamicLight( self:EntIndex() )
-	if ( dlight ) then
-		dlight.Pos = self:GetPos()
-		dlight.r = 255
-		dlight.g = 50
-		dlight.b = 50
-		dlight.Brightness = 1
-		dlight.Size = 500
-		dlight.Decay = 500 * 5
-		dlight.DieTime = CurTime() + 1
-		dlight.Style = 0
-	end
-	]]--
 end
 
 function ENT:OnRemove()
