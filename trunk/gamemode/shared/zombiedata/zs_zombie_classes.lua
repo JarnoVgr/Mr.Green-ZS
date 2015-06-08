@@ -324,7 +324,7 @@ ZombieClasses[5] =
 	Name = "Ethereal",
 	Tag = "etherealzombie",
 	Infliction = 0.25,
-	Health = 120,
+	Health = 100,
 	MaxHealth = 200,
 	TimeLimit = 200,
 	Bounty = 60,
@@ -337,7 +337,7 @@ ZombieClasses[5] =
 	Model = Model( "models/wraith.mdl" ),
 	Speed = 190,
 	Description = "A teleporting apparition",
-	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport", "> HEALTH: 120 ", "> SPEED: 190", "> DAMAGE: 33" },
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport", "> HEALTH: 100 ", "> SPEED: 190", "> DAMAGE: 33" },
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),
@@ -354,6 +354,7 @@ ZombieClasses[5] =
 		Sound("wraithdeath3.wav"),
 		Sound("wraithdeath4.wav")
 	},
+	
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 		pl:DrawShadow(false)
