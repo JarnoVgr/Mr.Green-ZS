@@ -141,7 +141,9 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 						mul = mul - 0.15
 					elseif attacker:GetPerk("_freeman") then
 						mul = mul + 0.1
-					elseif attacker:GetPerk("_executioner") then
+					end
+					
+					if attacker:GetPerk("_executioner") then
 						mul = mul - 0.25
 						if ent:Health() < ent:GetMaximumHealth()*0.3 then
 							mul = mul + 1
@@ -169,7 +171,9 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				attacker:Ignite(3,0)	
 				dmg = dmg*0.9
 				ent:Ignite(1,0)				
-				ent:TakeDamageOverTime(6, 1, 3 , ent,ent)		
+				ent:TakeDamageOverTime(6, 1, 3 , ent,ent)	
+			elseif ent:GetPerk("_berserker") then
+				dmg = dmg*0.95		
 			end	
 		end		
 
