@@ -195,7 +195,7 @@ end)
 net.Receive("unlife", function(len)
 	local unlife = tobool(net.ReadBit())
 
-	if unlife then
+	if unlife and not LASTHUMAN then
 		playDragulaMusic()
 	end
 end)
