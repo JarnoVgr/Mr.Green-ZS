@@ -173,7 +173,7 @@ if SERVER then
 					end	
 					
 					if activator:GetPerk("_supportammo") then
-						mul = mul + 0.3
+						mul = mul + 0.35
 					end					
 					
 					if activator:HasBought("ammoman") then

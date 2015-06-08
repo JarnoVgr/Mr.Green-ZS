@@ -361,7 +361,7 @@ GM.RankUnlocks = {
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_slinger","_pyrosp"},
 	
-	[3] = {"_nade", "_freeman" ,"_medigun","_pulsepistol", "_kevlarcommando2","_flaregun"},
+	[3] = {"_nade", "_freeman" ,"_medigun","_pulsepistol", "_kevlarcommando2","_flaregun","_bulletstorm"},
 	
 	[4] = {"_poisonprotect","_bloodmoney","_sboost","_turretsp","_supportregen", "_kevlarcommando","_scorch"},
 	
@@ -403,8 +403,9 @@ GM.Perks = {
 
 	--Support
 	
+	["_bulletstorm"] = {Name = "Bullet Storm", Description = "+1 SMG damage", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	["_support"] = {Name = "Board Pack", Description = "+4 Boards | +30% Board Health", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_supportammo"] = {Name = "Ammunition", Description = "+30% Ammo Received", RequiresWeapon = "_support2", Slot = 1}, --Done
+	["_supportammo"] = {Name = "Ammunition", Description = "+35% Ammo Received", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with the Shotgun", RequiresWeapon = "_support2", Slot = 1, Material = "vgui/achievements/kill_enemy_m3_bw"}, --Done
 	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points | +40% Nail Health", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	

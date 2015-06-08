@@ -190,7 +190,7 @@ function ApplySkillShopItem(pl, com, args)
 			end	
 			
 			if pl:GetPerk("_supportammo") then
-				mul = mul + 0.3
+				mul = mul + 0.35
 			end					
 			
 			if pl:HasBought("ammoman") then
