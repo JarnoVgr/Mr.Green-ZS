@@ -78,7 +78,7 @@ function SWEP:Think()
 			local canPlaceCrate = false
 
 			--Check if we really need to draw the crate
-			if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 10 and tr.HitPos:Distance(self.Owner:GetPos()) <= 70 then
+			if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) <= 110 then
 				--Check traceline position area
 				local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-28,-28,0), maxs = Vector(28,28,25)})
 
@@ -90,7 +90,7 @@ function SWEP:Think()
 			if canPlaceCrate then
 				--Check distance to Supply Crates
 				for _, Ent in pairs(ents.FindByClass("game_spawner")) do
-					if tr.HitPos:Distance(Ent:GetPos()) <= 512 then
+					if tr.HitPos:Distance(Ent:GetPos()) <= 300 then
 						self.Owner:Message("Too close to another blood spawner.", 2)
 						canPlaceCrate = false
 						break
