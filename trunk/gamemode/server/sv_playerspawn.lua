@@ -480,6 +480,7 @@ function GM:OnZombieSpawn(pl)
 	pl:SetModel(Tab.Model)
 
 	pl.NoBounty = false
+	pl.LastAttackers = nil	
 	
 	--
 	if not pl.Loadout then
