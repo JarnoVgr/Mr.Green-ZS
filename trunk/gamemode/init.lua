@@ -1555,7 +1555,7 @@ function GM:KeyPress(pl, key)
 			pl.LastJump = CurTime()		
 			pl:SetJumpPower(pl.OriginalJumpPower)	
 		end
-	elseif pl:KeyPressed(IN_DUCK) and not pl:OnGround() then
+	elseif pl:KeyPressed(IN_DUCK) and pl:OnGround() then
 		pl.LastJump = CurTime()				
 	end
 	
