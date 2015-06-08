@@ -590,7 +590,7 @@ ZombieClasses[10] =
 
 	local status = pl:GiveStatus("overridemodel")
 		if IsValid(status) then
-			status:SetModel("models/Zombie/Poison.mdl")
+			--status:SetModel("models/Zombie/Poison.mdl")
 		--	pl:SetBodyPositions()
 		end
 	

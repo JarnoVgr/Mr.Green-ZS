@@ -58,7 +58,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 		
 	-- melee	
-	if mVictim:GetAttachment( 1 ) then 
+	if not revive and mVictim:GetAttachment( 1 ) then 
 		if (dmginfo:GetDamagePosition():Distance( mVictim:GetAttachment( 1 ).Pos )) < 24 then
 			if dmginfo:IsMeleeDamage() and not mInflictor.IsTurretDmg then
 				if dmginfo:IsDecapitationDamage() then
@@ -85,6 +85,17 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	if not revive then
 		--Play sound
 		mVictim:PlayZombieDeathSound()
+		
+		if math.random(1,10) == 1 then
+		
+			local healthvial = ents.Create("item_healthvial")
+			if IsValid(healthvial) then
+				healthvial:SetPos(mVictim:GetPos())
+				healthvial:Spawn()
+			end
+		
+		end
+		
 		local floaty = 0
 		
 		if headshot then
