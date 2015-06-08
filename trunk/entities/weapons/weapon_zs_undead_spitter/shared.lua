@@ -91,7 +91,7 @@ function SWEP:StartPrimaryAttack()
 		self:EmitSound(Sound("npc/antlion/distract1.wav"), 80, math.random(72, 80))
 	end
 	
-	local stopPlayer = true
+	--local stopPlayer = true
 
 	--if not self:IsDisguised() then
 	--	self.Primary.Speed = 120
@@ -105,9 +105,8 @@ function SWEP:StartPrimaryAttack()
 end
 
 function SWEP:Move(mv)
-	if self and self.Owner and self:IsDisguised() then
-		mv:SetMaxSpeed(180)
-		
+	if self and self.Owner and not self:IsDisguised() then
+		mv:SetMaxSpeed(145)		
 		return true
 	end
 end
@@ -145,6 +144,7 @@ function SWEP:SecondaryAttack()
 	--Pick random human model
 	if SERVER then	
 		self:SetDisguiseChoice(math.random(1,5)	)	
+		self.Owner:SetPlayerColor(Vector(math.random(0.01,1),math.random(0.01,1),math.random(0.01,1)))
 		local survivors = team.GetPlayers(TEAM_HUMAN)
 		local model = "models/player/kleiner.mdl"
 		if #survivors > 0 then

@@ -1546,19 +1546,18 @@ hook.Add("ShutDown", "OnShutDown", OnShutDown)
 
 function GM:KeyPress(pl, key)
 
-	if pl:KeyPressed(IN_JUMP) then
-		if (pl:Team() == TEAM_HUMAN and pl:GetJumpPower() > 0 and pl:GetVelocity():Length2D() > 230 and pl.LastJump + 0.7 > CurTime()) or (pl:Team() == TEAM_UNDEAD and pl:GetJumpPower() > 0 and pl:GetVelocity():Length2D() > 180 and pl.LastJump + 0.7 > CurTime()) then
+	
+
+	if pl:KeyPressed(IN_JUMP) and pl:OnGround() then
+		if (pl:Team() == TEAM_HUMAN and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime()) or (pl:Team() == TEAM_UNDEAD and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime()) then
 			pl:SetJumpPower(20)
 		else
-			pl.LastJump = CurTime()			
-			pl:SetJumpPower(190) 		
+			pl.LastJump = CurTime()		
+			pl:SetJumpPower(pl.OriginalJumpPower)	
 		end
-	end
-
-	if pl:KeyPressed(IN_DUCK) then
+	elseif pl:KeyPressed(IN_DUCK) and not pl:OnGround() then
 		pl.LastJump = CurTime()				
 	end
-		
 	
 	if pl:Team() ~= TEAM_HUMAN then
 		return
@@ -1604,7 +1603,7 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 		return
 	end
 	
-	if not inflictor:IsMelee() then
+	if not inflictor.IsMelee then
 		return
 	end
 	

@@ -15,7 +15,6 @@ function GM:ProceedRedeemSpawn(pl)
 	
 	local NewSpawn = self:GetNiceHumanSpawn(pl)
 
-	pl:Give("weapon_zs_elites")
 	if NewSpawn then
 		pl:SetPos(NewSpawn:GetPos())
 	end
@@ -94,7 +93,6 @@ function GM:OnPlayerRedeem(pl, causer)
 	skillpoints.SetupSkillPoints(pl)
 	
 	--Comebacks
-	pl:Give("weapon_zs_elites")
 	
 	--[[
 	if not pl._ComebackUsed then		
@@ -119,6 +117,8 @@ function GM:OnPlayerRedeem(pl, causer)
 	pl.RecBrain = 0
 	pl.BrainDamage = 0
 	
+	--Players are given Dual Elites which they can sell if they wish.
+	--[[
 	--Give average SP
 	local Humans = team.GetPlayers(TEAM_HUMAN)
 	local TotalSkillPoints, ValidPlayers = 0, 0
@@ -144,6 +144,8 @@ function GM:OnPlayerRedeem(pl, causer)
 		end
 	end
 
+	]]--
+	
 	--Process
 	self:ProceedRedeemSpawn(pl)
 	

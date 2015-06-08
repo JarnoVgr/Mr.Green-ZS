@@ -369,11 +369,8 @@ function GM:OnHumanSpawn(pl)
 	--Set jump power
 	if pl:GetJumpPower() ~= 190 then
 		pl:SetJumpPower(190) 
+		pl.OriginalJumpPower = 190
 	end
-	
-	if pl:GetPerk("_point") then
-		pl:SetJumpPower(250) 
-	end	
 	
 	--Calculate maximum health for human
 	CalculatePlayerHealth(pl)
@@ -436,21 +433,26 @@ function GM:OnZombieSpawn(pl)
 	if pl:Team() ~= TEAM_UNDEAD then
 		return
 	end
-
-	--Spawn protection
+	
+	-- Zombies have their gasses now.
+	--[[
+	Spawn protection
 	pl:GodEnable()
 	timer.Simple(1, function()
 		if IsValid(pl) then
 			pl:GodDisable()
 		end
 	end)
+	]]--
 	
 	local ID = pl:UniqueID() or "UNCONNECTED"
 	
 	--Set a random human class if they connect as zombie and there is no human class
+	--[[
 	if pl:ConnectedIsDead() and pl.ClassHuman == nil then
 		pl:SetHumanClass(1)
 	end
+	]]--
 	
 	--Manages class spawn
 	if pl.DeathClass then
@@ -459,10 +461,12 @@ function GM:OnZombieSpawn(pl)
 	end
 	
 	--Enable the suicide system on the player if he had it
+	--[[
 	if pl:ConnectedHasSuicideSickness() then
 		pl.Suicided = true
 		DataTableConnected[ID].SuicideSickness = false
 	end
+	]]--
 	
 	local Class = pl:GetZombieClass()
 	local Tab = ZombieClasses[Class]
@@ -483,6 +487,7 @@ function GM:OnZombieSpawn(pl)
 	end
 	
 	--Fix late spawners
+	--[[
 	if #pl.Loadout <=1 then
 		timer.Simple(1,function()
 			if IsValid(pl) then
@@ -490,11 +495,13 @@ function GM:OnZombieSpawn(pl)
 			end
 		end)
 	end
-
+	]]--
+	
 	--Set jump power
-	if pl:GetJumpPower() ~= (Tab.JumpPower or 200) then
-		pl:SetJumpPower(Tab.JumpPower or 200) 
-	end
+	--if pl:GetJumpPower() ~= (Tab.JumpPower or 200) then
+		pl:SetJumpPower(Tab.JumpPower or 150)
+		pl.OriginalJumpPower = Tab.JumpPower or 190		
+	--end
 	
 	--
 	if pl.Revived then
@@ -518,9 +525,9 @@ function GM:OnZombieSpawn(pl)
 	end
 	
 	--Set skin color
-	local col = pl:GetInfo("cl_playercolor")
-	pl:SetPlayerColor(Vector(col))
-	pl:SetWeaponColor(Vector(col))
+	local col = Vector(math.random(0.01,1),math.random(0.01,1),math.random(0.01,1))
+	pl:SetPlayerColor(col)
+	pl:SetWeaponColor(col)
 
 	--Call class spawn function
 	if Tab.OnSpawn then
@@ -534,7 +541,7 @@ function GM:OnZombieSpawn(pl)
 	pl:UnSpectate()		
 	-- Prevent health pickups and/or machines
 	pl:SetMaxHealth(1) 
-	
+	pl.WalkingBackwards = false
 	--Blood
 	pl:SetBloodColor(BLOOD_COLOR_RED)
 
@@ -656,6 +663,10 @@ end
 function CalculatePlayerLoadout(pl)
 	if pl:Team() ~= TEAM_HUMAN then
 		return
+	end
+	
+	if pl.Redeemed then	
+		pl:Give("weapon_zs_elites")
 	end
 
 	--Medic Stages

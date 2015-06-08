@@ -5,7 +5,7 @@ AddCSLuaFile ( "cl_afk.lua" )
 
 -- Time to kick
 --TIME_KICK = 360 Pufulet: we want to keep players in longer
-TIME_KICK = 1000
+TIME_KICK = 600
 
 --[==[------------------------------------------------------------
 	      Kicks a player if afk is overtime

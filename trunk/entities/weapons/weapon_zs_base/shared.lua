@@ -93,7 +93,7 @@ function SWEP:PrimaryAttack()
 	local recoil = self.Primary.Recoil * recoilm
 	
 	if Owner.ViewPunch then
-		Owner:ViewPunch(Angle((recoil * -1)*0.375, math.random(0.01,-0.01), 0))
+		Owner:ViewPunch(Angle((recoil * -1)*0.33, math.random(0.01,-0.01), 0))
 	end
 
 	if (game.SinglePlayer() and SERVER) or (not game.SinglePlayer() and CLIENT and IsFirstTimePredicted() ) then
@@ -161,6 +161,11 @@ function SWEP:SetIronsights(b)
 end
 
 function SWEP:Deploy()
+
+	if not self:SequenceDuration() then
+		return
+	end
+	
 	self:SetNextReload(0)
 	self:SetIronsights(false)
 
