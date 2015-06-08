@@ -1558,7 +1558,7 @@ function GM:KeyPress(pl, key)
 			pl.ConsecutiveJumps = pl.ConsecutiveJumps + 1		
 		end
 		
-		if pl.LastJump + 2 < CurTime() then
+		if pl.LastJump + 0.8 < CurTime() then
 			pl.ConsecutiveJumps = 0			
 		end
 		
