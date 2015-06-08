@@ -127,7 +127,7 @@ function SWEP:PrimaryAttack()
 	if ent:IsValid() then
 		local position = self.Owner:EyePos()
 		ent:SetPos(position)		
-		position.z = position.z - 6
+		position.z = position.z - 10
 		ent:SetAngles(self.Owner:EyeAngles() * 10)
 		ent:SetOwner(owner)
 		ent:Spawn()

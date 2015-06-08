@@ -442,7 +442,7 @@ GM.Perks = {
 	--Medic
 	
 	["_medupgr1"] = {Name = "Healthy Reward", Description = "+30% SP for healing", RequiresWeapon = "_medic", Slot = 2}, --Done
-	["_poisonprotect"] = {Name = "Natural Immunity", Description = "80% Poison resistance | -8 Poison Ticks", RequiresWeapon = "_medic", Slot = 2}, --Done
+	["_poisonprotect"] = {Name = "Natural Immunity", Description = "80% Poison resistance | -4 Poison Ticks", RequiresWeapon = "_medic", Slot = 2}, --Done
 	["_sboost2"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_medic", Slot = 2}, --Done
 	
 	--Commando
