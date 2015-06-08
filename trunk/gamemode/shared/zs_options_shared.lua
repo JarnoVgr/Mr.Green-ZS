@@ -367,7 +367,7 @@ GM.RankUnlocks = {
 	
 	[5] = {"_turret","_psychotic","_repairs","_defender", "_supply", "_musket","_burn"},
 	
-	[6] = {"_combat","_profitable","_ironaim", "_nitrate", "_supportweapon"},
+	[6] = {"_combat","_profitable","_ironaim", "_nitrate", "_supportweapon","_immolate"},
 		
 	[7] = {"_accuracy2","_headhunter","_support","_kevlar2", "_trap","_flarebounce"},
 
@@ -487,7 +487,8 @@ GM.Perks = {
 	
 	--Personal
 	["_pyrokevlar"] = {Name = "Kevlar", Description = "+20% damage resistance | -5% speed", RequiresWeapon = "_pyro", Slot = 2, Material = "vgui/gfx/vgui/kevlar"},
-	["_pyrosp"] = {Name = "Hot Points", Description = "+2SP when a target is burnt.", RequiresWeapon = "_pyro", Slot = 2},			
+	["_pyrosp"] = {Name = "Hot Points", Description = "+3SP when a target is burnt.", RequiresWeapon = "_pyro", Slot = 2},
+	["_immolate"] = {Name = "Immolate", Description = "Burn zombies that attack you | Ignite self for 1 second | +10% damage resistance", RequiresWeapon = "_pyro", Slot = 2},		
 	
 	--[[New ZS Classes]]--
 	

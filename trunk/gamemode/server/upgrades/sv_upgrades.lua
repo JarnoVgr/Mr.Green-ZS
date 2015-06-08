@@ -87,8 +87,8 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					local burn = 6 + (6 * (0.05 + (2*(attacker:GetRank()*0.01))))					
 					
 					if attacker:GetPerk("_pyrosp") then
-						skillpoints.AddSkillPoints(attacker,2)
-						ent:FloatingTextEffect(2, attacker)						
+						skillpoints.AddSkillPoints(attacker,3)
+						ent:FloatingTextEffect(3, attacker)						
 					elseif attacker:GetPerk("_scorch") then
 						ignite = ignite - 2
 						burn = burn - 3
@@ -163,7 +163,13 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				dmg = dmg - (dmg * ((2*ent:GetRank())/100) + 0.1)	
 
 			elseif ent:GetPerk("_kevlarcommando2") or ent:GetPerk("_pyrokevlar") then
-				dmg = dmg*0.8			
+				dmg = dmg*0.8	
+
+			elseif ent:GetPerk("_immolate") then
+				attacker:Ignite(3,0)	
+				dmg = dmg*0.9
+				ent:Ignite(1,0)				
+				ent:TakeDamageOverTime(6, 1, 3 , ent,ent)		
 			end	
 		end		
 
