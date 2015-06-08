@@ -175,7 +175,7 @@ GM.HumanWeapons = {
         ["weapon_zs_medi3"]  = { Name = "Medi 03", DPS = 143, Infliction = 0, Type = "smg",Price = 600, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		["weapon_zs_medi1"]  = { Name = "Medi 01", DPS = 143, Infliction = 0, Type = "pistol",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		
-        ["weapon_zs_elites"]  = { Name = "Dual-Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 100},
+        ["weapon_zs_elites"]  = { Name = "Dual Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 300},
 		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
        
         --Sharpshooter
@@ -487,18 +487,17 @@ GM.Perks = {
 	
 	--Personal
 	["_pyrokevlar"] = {Name = "Kevlar", Description = "+20% damage resistance | -5% speed", RequiresWeapon = "_pyro", Slot = 2, Material = "vgui/gfx/vgui/kevlar"},
-	["_pyrosp"] = {Name = "Hot Points", Description = "+2SP when a target is burnt.", RequiresWeapon = "_pyro", Slot = 2},	
-	
+	["_pyrosp"] = {Name = "Hot Points", Description = "+2SP when a target is burnt.", RequiresWeapon = "_pyro", Slot = 2},			
 	
 	--[[New ZS Classes]]--
 	
 	["_medic"] = {Name = "Medic",		  		Equipment = " Medkit\n P228\n Knife",Description = " +10% Pistol Damage \n +10% Medi Damage\n +10% Damage Resistance\n +3% Movement Speed \n\n +1.5% Movement Speed per lvl \n +1% Pistol Damage per lvl\n +1% Medi Damage per lvl\n +5% Poison Resistance per lvl\n +2% Undead Damage Resistance per lvl \n +2% Medical Power per lvl", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
 	["_commando"] = {Name = "Commando",   		Equipment = " Grenades\n Five SeveN\n Knife", Description = " +10% Rifle Damage \n See Undead Health\n +10% Clip Size  \n +10 Health \n\n +3 Health per lvl\n +2% Clip Size per lvlLevel \n +1% Rifle Damage per lvl\n +1% Firing Speed per lvl\n", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support",    		Equipment = " Board Pack \n USP\n Hammer", Description = " +10% Shotgun Damage \n +10% SMG Damage \n +10% Ammo Received \n\n +1% SMG Damage per lvl\n +1% Shotgun Damage per lvl \n +2% Nail Health per lvl \n +0.5 Repair Points per lvl \n +1 Nail per lvl \n +2% Ammo Received per lvl \n ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
-	["_berserker"] = {Name = "Berserker", 		Equipment = " Vodka\n Desert Eagle\n Plank", Description = " +10% Melee Damage \n +4 Health On Melee Kill \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +1% Melee Damage per lvl\n +0.5% Movement Speed per lvl \n", Material = "VGUI/achievements/kill_enemy_knife_bw", Slot = 3},
+	["_berserker"] = {Name = "Berserker", 		Equipment = " Vodka\n Desert Eagle\n Plank", Description = " +10% Melee Damage \n +4 Health On Melee Kill \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +1% Melee Damage per lvl\n +0.5% Movement Speed per lvl \n", Material = "zombiesurvival/humanclass/avatar_berserker", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		Equipment = " Turret\n C4\n Pistol\n Frying Pan", Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +5% Turret Damage\n\n +2% Turret Damage per lvl \n +2% Turret Health per lvl \n +5 Turret Bullets per lvl \n +5% Pulse Weapon Capacity per lvl \n +1% Pulse Weapon Damage per lvl \n +2% Pulse Weapon Recharge Rate per lvl \n +2% Turret Recharge Rate per lvl \n +1% C4 Damage per lvl \n +1% C4 Radius per lvl \n", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
-	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = " Mobile Supplies\n Beretta\n Beer Bottle", Description = " +10% Sniper Damage \n +10% Headshot Damage \n\n +1% Sniper Damage per lvl \n +1% Headshot Damage per lvl \n", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},	
-	["_pyro"] = {Name = "Pyro", Equipment = " Alyx Gun\n Metal Pipe", Description = " 12% Chance To Burn Target With Pyro Weapons\n +10% Pyro Damage\n 6 Initial Fire Damage\n +5% Burn Damage\n +10% Damage To Burning Targets \n +1 Burn Duration\n\n +2% Burn Damage per lvl\n +1% Burn Chance per lvl\n +1% Pyro Damage per lvl\n +2% Burn Duration per lvl", Material = "zombiesurvival/humanclass/avatar_constructor", Material = "vgui/achievements/goose_chase_bw", Slot = 3}, --Need to start this soon
+	["_sharpshooter"] = {Name = "Sharpshooter", Equipment = " Mobile Supplies\n Beretta\n Beer Bottle", Description = " +10% Sniper Damage \n +10% Headshot Damage \n\n +1% Sniper Damage per lvl \n +1% Headshot Damage per lvl \n",Material = "zombiesurvival/humanclass/avatar_sharpshooter" , Slot = 3},	
+	["_pyro"] = {Name = "Pyro", Equipment = " Alyx Gun\n Metal Pipe", Description = " 12% Chance To Burn Target With Pyro Weapons\n +10% Pyro Damage\n 6 Initial Fire Damage\n +5% Burn Damage\n +10% Damage To Burning Targets \n +1 Burn Duration\n\n +2% Burn Damage per lvl\n +1% Burn Chance per lvl\n +1% Pyro Damage per lvl\n +2% Burn Duration per lvl", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3}, --Need to start this soon
 	
 }
 
