@@ -125,7 +125,9 @@ function SWEP:PrimaryAttack()
 	if SERVER then
 	local ent = ents.Create("projectile_flare2")
 	if ent:IsValid() then
-		ent:SetPos(self.Owner:EyePos())
+		local position = self.Owner:EyePos()
+		ent:SetPos(position)		
+		position.z = position.z - 6
 		ent:SetAngles(self.Owner:EyeAngles() * 10)
 		ent:SetOwner(owner)
 		ent:Spawn()
