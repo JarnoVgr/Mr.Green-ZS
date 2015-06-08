@@ -1549,12 +1549,19 @@ function GM:KeyPress(pl, key)
 	
 
 	if pl:KeyPressed(IN_JUMP) and pl:OnGround() then
-		if (pl:Team() == TEAM_HUMAN and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime()) or (pl:Team() == TEAM_UNDEAD and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime()) then
+		if (pl:Team() == TEAM_HUMAN and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime() and pl.ConsecutiveJumps >= 3) or (pl:Team() == TEAM_UNDEAD and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime() and pl.ConsecutiveJumps >= 3) then
 			pl:SetJumpPower(20)
+			pl.ConsecutiveJumps = 0			
 		else
 			pl.LastJump = CurTime()		
 			pl:SetJumpPower(pl.OriginalJumpPower)	
+			pl.ConsecutiveJumps = pl.ConsecutiveJumps + 1		
 		end
+		
+		if pl.LastJump + 2 < CurTime() then
+			pl.ConsecutiveJumps = 0			
+		end
+		
 	elseif pl:KeyPressed(IN_DUCK) and pl:OnGround() then
 		pl.LastJump = CurTime()				
 	end

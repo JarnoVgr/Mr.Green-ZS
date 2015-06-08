@@ -64,6 +64,7 @@ function GM:PlayerInitialSpawn(pl)
 	
 	pl.WalkingBackwards = false
 	pl.LastJump = 0
+	pl.ConsecutiveJumps = 0
 	
 	pl.DataTable = pl.DataTable or {}
 	pl.Redeems = 0
