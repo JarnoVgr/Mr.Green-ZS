@@ -68,7 +68,7 @@ NECROMOD = true
 
 --Boss stuff
 BOSS_TOTAL_PLAYERS_REQUIRED = 10
-BOSS_CLASS = {11, 20, 10, 18, 16}
+BOSS_CLASS = {11}
 --BOSS_CLASS = {16} --Lilith
 --BOSS_CLASS = {10} --hate
 --BOSS_CLASS = {18} --Seeker2
