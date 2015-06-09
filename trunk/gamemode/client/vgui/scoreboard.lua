@@ -230,8 +230,8 @@ function GM:CreateScoreboardVGUI()
 	SCPanel:SetBackgroundBlur(true)
 	SCPanel.Paint = function() 
 		--Override
-		draw.SimpleText("MrGreenGaming.com", "HUDFontTiny", SCPanel:GetWide()/2,ScaleH(135), Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		draw.SimpleTextOutlined("ZOMBIE SURVIVAL", "ArialBoldFifteen", SCPanel:GetWide()/2,ScaleH(180), Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 255))
+		draw.SimpleText("MrGreenGaming.com", "ssNewAmmoFont9", SCPanel:GetWide()/2,ScaleH(135), Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleTextOutlined("ZOMBIE SURVIVAL", "ssNewAmmoFont9", SCPanel:GetWide()/2,ScaleH(180), Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 255))
 
 		local SpectatorsCount, SpectatorsStr = BuildSpectatorList()
 		
