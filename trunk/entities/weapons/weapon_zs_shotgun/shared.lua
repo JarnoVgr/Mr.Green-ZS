@@ -47,7 +47,7 @@ SWEP.Primary.Damage			= 6
 SWEP.Primary.NumShots		= 7
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.55
-SWEP.Primary.DefaultClip	= 12
+SWEP.Primary.DefaultClip	= 30
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo	= "buckshot"
 SWEP.ConeMoving = 0.15
@@ -55,7 +55,7 @@ SWEP.Cone = 0.143
 SWEP.ConeCrouching = 0.141
 SWEP.IsShotgun = true
 SWEP.MaxAmmo			    = 50
-SWEP.WalkSpeed = SPEED_SHOTGUN
+SWEP.WalkSpeed = (SPEED_SHOTGUN + 5)
 
 --.IronSightsPos = Vector (-9.0313, -11.1282, 4.0295)
 --SWEP.IronSightsAng = Vector (0.2646, -0.0374, 0)

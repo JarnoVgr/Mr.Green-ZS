@@ -1506,7 +1506,7 @@ function meta:CheckSpeedChange()
 		return
 	end
 	
-	local speed = 190
+	local speed = SPEED
 	local health = self:Health()
 	
 	local fHealthSpeed = math.Clamp ( ( health / 50 ), 0.9, 1 )

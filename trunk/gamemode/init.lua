@@ -1543,32 +1543,27 @@ hook.Add("ShutDown", "OnShutDown", OnShutDown)
 --[=[---------------------------------------------------------
       Slowdown when walking backwards.
 ---------------------------------------------------------]=]
-
+--[[
 function GM:KeyPress(pl, key)
-
-	
-
-	if pl:KeyPressed(IN_JUMP) and pl:OnGround() then
-		if (pl:Team() == TEAM_HUMAN and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime() and pl.ConsecutiveJumps >= 3) or (pl:Team() == TEAM_UNDEAD and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime() and pl.ConsecutiveJumps >= 3) then
-			pl:SetJumpPower(20)
-			pl.ConsecutiveJumps = 0			
-		else
-			pl.LastJump = CurTime()		
-			pl:SetJumpPower(pl.OriginalJumpPower)	
-			pl.ConsecutiveJumps = pl.ConsecutiveJumps + 1		
-		end
+	--if pl:KeyPressed(IN_JUMP) or pl:KeyPressed(IN_DUCK) then
+	--	if (pl:Team() == TEAM_HUMAN and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime() and pl.ConsecutiveJumps >= 3) or (pl:Team() == TEAM_UNDEAD and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime() and pl.ConsecutiveJumps >= 3) then
+			--pl:SetJumpPower(20)
+			--pl.ConsecutiveJumps = 0			
+		--else
 		
-		if pl.LastJump + 0.7 < CurTime() then
-			pl.ConsecutiveJumps = 0			
-		end
+
+			--pl.LastJump = CurTime()					
+		--	pl:SetJumpPower(pl.OriginalJumpPower)	
+			--pl.ConsecutiveJumps = pl.ConsecutiveJumps + 1		
+		--end
 		
-	elseif pl:KeyPressed(IN_DUCK) and pl:OnGround() then
-		pl.LastJump = CurTime()				
-	end
-	
-	if pl:Team() ~= TEAM_HUMAN then
-		return
-	end
+		--if pl.LastJump + 0.7 < CurTime() then
+		--	pl.ConsecutiveJumps = 0			
+		--end
+		
+	--if pl:Team() ~= TEAM_HUMAN then
+	--	return
+	--end
 
 	if pl:KeyPressed(IN_FORWARD) then
 		pl.WalkingBackwards = false
@@ -1581,9 +1576,10 @@ function GM:KeyPress(pl, key)
 		pl:CheckSpeedChange()		
 	end
 	
-
+	--pl:CheckSpeedChange()
+	
 end
-
+]]--
 --[=[----------------------------------------------------------------------
      Grave Digger suit health on death
 ---------------------------------------------------------------------------]=]

@@ -33,16 +33,16 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 
 -- Movement stuff
 
--- 1 to 0.
-SPEED_BACKWARDS = 0.52
+-- 1 to 0, higher means less penality.
+SPEED_PENALTY = 0.55
 
 SPEED = 200
-SPEED_LIGHT = SPEED - 2
-SPEED_MELEE_LIGHT = SPEED - 3
-SPEED_MELEE = SPEED - 11
+SPEED_LIGHT = SPEED - 3
+SPEED_MELEE_LIGHT = SPEED - 4
+SPEED_MELEE = SPEED - 10
 SPEED_MELEE_HEAVY = SPEED - 17
-SPEED_PISTOL = SPEED - 5
-SPEED_SMG = SPEED - 16
+SPEED_PISTOL = SPEED - 6
+SPEED_SMG = SPEED - 15
 SPEED_SHOTGUN = SPEED - 23
 SPEED_RIFLE = SPEED - 21
 SPEED_HEAVY = SPEED - 24
@@ -167,8 +167,7 @@ GM.HumanWeapons = {
         ["weapon_zs_p90"]  = { Name = "P90", DPS = 125, Infliction = 0.65, Type = "smg", Price = 700, HumanClass = "support" },
         ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 800, HumanClass = "support"},		
     
-	
-        --["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127, Infliction = 0.58, Type = "smg", Price = 300, HumanClass = "support" },
+	       --["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127, Infliction = 0.58, Type = "smg", Price = 300, HumanClass = "support" },
 	
         --Medic
         ["weapon_zs_medi2"]  = { Name = "Medi 02", DPS = 143, Infliction = 0, Type = "shotgun",Price = 300, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
@@ -176,7 +175,6 @@ GM.HumanWeapons = {
 		["weapon_zs_medi1"]  = { Name = "Medi 01", DPS = 143, Infliction = 0, Type = "pistol",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		
         ["weapon_zs_elites"]  = { Name = "Dual Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 300},
-		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg" },
        
         --Sharpshooter
         ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 200, HumanClass = "sharpshooter"},         
@@ -195,9 +193,11 @@ GM.HumanWeapons = {
 
  
 		--Pyro
-        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 100, HumanClass = "pyro" }, 		
+        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", HumanClass = "pyro" }, 
+		
+        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 100, HumanClass = "pyro" },		
 		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "pistol", HumanClass = "pyro", Price = 200},
-        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 300, HumanClass = "pyro" },		
+		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg", HumanClass = "pyro", Price = 300 },		
 		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Type = "shotgun", HumanClass = "pyro", Price = 500},	
 		
 		["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", HumanClass = "pyro"},
@@ -482,7 +482,7 @@ GM.Perks = {
 	--Equipment
 	["_flarebounce"] = {Name = "Flare Bounce", Description = "+5 Flare Damage | 75% chance a flare bounces off a target instead of disappearing", RequiresWeapon = "_pyro", Slot = 1},
 	["_burn"] = {Name = "Pyromaniac", Description = "+5% burn chance | +25% burn damage | 10% chance to burn self when a target is burnt.", RequiresWeapon = "_pyro", Slot = 1},
-	["_flaregun"] = {Name = "Flare Gun", Description = "Spawn with the Flaregun", RequiresWeapon = "_pyro", Slot = 1},
+	["_glock"] = {Name = "Glock", Description = "Spawn with the Glock", RequiresWeapon = "_pyro", Slot = 1},
 	["_scorch"] = {Name = "Scorch", Description = "+10% Pyro Damage | -2 Burn Duration | -3 Burn Damage | -5% Burn Chance", RequiresWeapon = "_pyro", Slot = 1},		
 	["_alyxclip"] = {Name = "Alyx Clip", Description = "+75 Ammo For The Alyx Gun", RequiresWeapon = "_pyro", Slot = 1},	
 	

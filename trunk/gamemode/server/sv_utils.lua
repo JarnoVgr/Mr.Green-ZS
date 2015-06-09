@@ -32,12 +32,21 @@ local umsg = umsg
 		--print(run)
 		--print(max)
 		
+		--[[
 		if pl.WalkingBackwards then --CurTime() < pl.LastHurt + 2 then
-			walk = walk * SPEED_BACKWARDS
-			run = run * SPEED_BACKWARDS
-			max = max * SPEED_BACKWARDS	 
+			walk = walk * SPEED_PENALTY
+			run = run * SPEED_PENALTY
+			max = max * SPEED_PENALTY
+		--elseif pl.LastJump + 1 > CurTime() then
+		--elseif not pl:OnGround() then		
+		--	walk = walk * SPEED_PENALTY
+		--	run = run * SPEED_PENALTY
+		--	max = max * SPEED_PENALTY	 		
+			
+			--timer.Simple(1, function() pl:CheckSpeedChange()end)
+			
 		end
-	
+	]]--
 		-- Call the base function
 		--BaseSetPlayerSpeed ( pl, walk )
 		

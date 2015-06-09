@@ -368,9 +368,8 @@ function GM:OnHumanSpawn(pl)
 	pl:SetCrouchedWalkSpeed(0.5)
 
 	--Set jump power
-	if pl:GetJumpPower() ~= 190 then
-		pl:SetJumpPower(190) 
-		pl.OriginalJumpPower = 190
+	if pl:GetJumpPower() ~= 180 then
+		pl:SetJumpPower(180) 
 	end
 	
 	--Calculate maximum health for human
@@ -501,8 +500,8 @@ function GM:OnZombieSpawn(pl)
 	
 	--Set jump power
 	--if pl:GetJumpPower() ~= (Tab.JumpPower or 200) then
-		pl:SetJumpPower(Tab.JumpPower or 150)
-		pl.OriginalJumpPower = Tab.JumpPower or 190		
+		pl:SetJumpPower(Tab.JumpPower or 180)
+		pl.OriginalJumpPower = Tab.JumpPower or 180		
 	--end
 	
 	--
@@ -669,6 +668,7 @@ function CalculatePlayerLoadout(pl)
 	
 	if pl.Redeemed then	
 		pl:Give("weapon_zs_elites")
+		pl:SelectWeapon("weapon_zs_elites")		
 	end
 
 	--Medic Stages
@@ -752,8 +752,8 @@ function CalculatePlayerLoadout(pl)
 		pl.Loadout = table.Copy(pyro)
 		pl:ChatPrint("You are a Pyro")
 		
-		if pl:GetPerk("_flaregun") then
-			pl:Give("weapon_zs_flaregun")
+		if pl:GetPerk("_glock") then
+			pl:Give("weapon_zs_glock3")
 		end		
 	end
 

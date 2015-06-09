@@ -30,13 +30,13 @@ SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_TMP.Single")
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 13
+SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 25
 SWEP.Primary.Delay 		= 0.06
 SWEP.Primary.DefaultClip	= 75
 SWEP.Primary.Automatic		= true
-SWEP.Primary.Ammo			= "smg1"
+SWEP.Primary.Ammo			= "alyxgun"
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 

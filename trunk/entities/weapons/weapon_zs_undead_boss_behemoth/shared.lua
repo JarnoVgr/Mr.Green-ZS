@@ -52,15 +52,15 @@ SWEP.ViewModel = "models/weapons/v_zombine.mdl" --
 SWEP.WorldModel = "models/weapons/w_grenade.mdl" --DO NOT MODIFY THIS
 
 SWEP.Primary.Reach = 50
-SWEP.Primary.Duration = 1.45
+SWEP.Primary.Duration = 1.3
 SWEP.Primary.Delay = 0.6
-SWEP.Primary.Damage = 35
+SWEP.Primary.Damage = 30
 
 function SWEP:StartPrimaryAttack()
 	self.BaseClass.StartPrimaryAttack(self)
 
 	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-	self.IdleAnimation = CurTime() + self:SequenceDuration()
+	self.IdleAnimation = CurTime() + self:SequenceDuration() + self.Primary.Duration
 
 	local pl = self.Owner
 

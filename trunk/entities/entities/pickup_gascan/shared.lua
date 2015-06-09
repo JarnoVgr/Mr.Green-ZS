@@ -5,6 +5,7 @@ util.PrecacheModel("models/props_junk/metalgascan.mdl")
 
 if SERVER then
 AddCSLuaFile("shared.lua")
+end
 
 function ENT:Initialize()
 	
@@ -37,45 +38,16 @@ function ENT:OnZeroHealth(dmginfo)
 	if self.Exploded then return end
 	self.Exploded = true
 	
-	local attacker = dmginfo:GetAttacker()
-	local tm = nil
-	
-	if attacker and attacker.Team then
-		tm = attacker:Team()
+	if self:GetOwner():IsValid() and self:GetOwner():Team() == TEAM_HUMAN then
+		util.BlastDamage2(self, self:GetOwner(), self:GetPos(), 250, 300)
+		local effectdata = EffectData()
+		effectdata:SetOrigin(pos)
+		util.Effect("Explosion", effectdata)	
 	end
 	
-	local Ent = ents.Create("env_explosion")
-	Ent:EmitSound( "explode_4" )		
-	Ent:SetPos( self.Entity:GetPos() + Vector(0,0,3) )
-	Ent:Spawn()
-	if tm then
-		Ent.Team = function()
-			return tm
-		end
-	end
-	Ent:SetOwner( self:GetOwner() )
-	Ent:Activate()
-	Ent:SetKeyValue( "iMagnitude", 200 )
-	Ent:SetKeyValue( "iRadiusOverride", 140 )
-	Ent:Fire("explode", "", 0)
-	
-	local shake = ents.Create( "env_shake" )
-	shake:SetPos( self.Entity:GetPos() )
-	shake:SetKeyValue( "amplitude", "800" )
-	shake:SetKeyValue( "radius", "300" )
-	shake:SetKeyValue( "duration", "3" )
-	shake:SetKeyValue( "frequency", "128" )
-	shake:SetKeyValue( "spawnflags", "4" )
-	shake:Spawn()
-	shake:SetOwner( self:GetOwner() )
-	shake:Activate()
-	shake:Fire( "StartShake", "", 0 )
-	
-	-- timer.Simple(0,function ()
-		-- if not IsValid(self.Entity) then return end
-		self.Entity:Remove() -- end)
+	self.Entity:Remove() -- end)
 
-	
+
 end
 
 function ENT:SetUse()
@@ -85,7 +57,4 @@ function ENT:SetUse()
 	end
 end
 
-
-
-end
 

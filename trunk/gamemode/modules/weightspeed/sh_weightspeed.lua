@@ -182,10 +182,25 @@ end
 local cMove = {}
 cMove.ZomboMove = {}
 
-cMove.ZomboMove[8] = function(pl, CMove)
+function cMove.ZomboMove ( pl, CMove )
 	local iForward = CMove:GetForwardSpeed()
 	local iSide = CMove:GetSideSpeed()
 	
+	if pl.IsDazed then
+		local iTimeLeft = pl.DazeTime - CurTime()
+		local fMul = iTimeLeft / pl.DazeDuration
+		
+		-- New speed
+		local iNewSpeed = pl.DazeBeforeSpeed * ( 1 - fMul ) 
+		
+		if CMove:GetForwardSpeed() < 0 then
+			iNewSpeed = iNewSpeed * SPEED_PENALTY
+		end	
+		
+		CMove:SetSpeed ( iNewSpeed )		
+		return
+	end	
+	--[[
 	-- Sprinting
 	if pl.bCanSprint then
 		-- Slow down side move
@@ -201,6 +216,7 @@ cMove.ZomboMove[8] = function(pl, CMove)
 			return
 		end
 	end
+	]]--
 end
 
 function cMove.HumanMove ( pl, CMove )
@@ -214,24 +230,51 @@ function cMove.HumanMove ( pl, CMove )
 		
 		-- New speed
 		local iNewSpeed = pl.DazeBeforeSpeed * ( 1 - fMul ) 
-		CMove:SetSpeed ( iNewSpeed )
-			
+		
+		if CMove:GetForwardSpeed() < 0 then
+			iNewSpeed = iNewSpeed * SPEED_PENALTY
+		end	
+		
+		CMove:SetSpeed ( iNewSpeed )		
 		return
 	end
 	
+	--print(iSide)
 	-- Walking backwards slows
-	if iForward < 0 then
-		CMove:SetForwardSpeed ( iForward * 0.7 )
-	end
 end
 
 -- Wondering if I should enable this or not
 function GM:Move( pl, CMove )
 
-	-- Move data for humans
-	if pl:IsHuman() then cMove.HumanMove ( pl, CMove ) return end
+	if not pl.IsDazed then
+		if pl:GetVelocity().z < -185 then
+			pl:Daze(1.5)
+		elseif pl:GetVelocity().z < -150 then
+			pl:Daze(0.75)
+		elseif pl:GetVelocity().z < -40 then
+				
+		end
+		
+		if pl:Crouching() and CMove:GetForwardSpeed() > 0 then
+			pl:Daze(1)
+		end
+		
+	end
 	
+	
+	
+	if CMove:GetForwardSpeed() < 0 then
+		--CMove:SetForwardSpeed ( -11 )
+		CMove:SetSpeed (SPEED*SPEED_PENALTY)		
+	end		
+	
+	--print(pl:GetForwardSpeed()) 
+
+	-- Move data for humans
+	if pl:IsHuman() then cMove.HumanMove ( pl, CMove )return end
+	if pl:IsZombie() then cMove.ZomboMove ( pl, CMove )return end	
 	-- Move data for zombos
+	--[[
 	if pl:IsZombie() then 
 		local wep = pl:GetActiveWeapon()
 		if wep and IsValid(wep) and wep.Move then 
@@ -244,6 +287,8 @@ function GM:Move( pl, CMove )
 			return 
 		end 		
 	end
+	
+	]]--
 end
 
 Debug ( "[MODULE] Loaded 'Speed' Script!" )
