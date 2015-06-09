@@ -568,7 +568,7 @@ CUSTOM_FOOTSTEPS = false
 AMMO_REGENERATE_RATE = 2056744
 
 --Warming up time
-WARMUPTIME = 110
+WARMUPTIME = 120
 
 -- In seconds, how long humans need to survive.
 --ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes

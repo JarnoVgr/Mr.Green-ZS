@@ -80,7 +80,7 @@ function hud.InitFonts()
 	surface.CreateFontLegacy( "Arial", ScreenScale( 9.6 ), 700, true, true, "HUDBetaRightBox" )
 
 	surface.CreateFontLegacy( "Future Rot", ScreenScale( 4 ), 700, true, false, "ssNewAmmoFont4" )
-	surface.CreateFontLegacy( "Future Rot", ScreenScale( 5.5 ), 700, true, false, "ssNewAmmoFont5" )
+	surface.CreateFontLegacy( "Future Rot", ScreenScale( 5 ), 700, true, false, "ssNewAmmoFont5" )
 	surface.CreateFontLegacy( "Future Rot", ScreenScale( 6.5 ), 700, true, false, "ssNewAmmoFont7" )
 	surface.CreateFontLegacy( "Future Rot", ScreenScale( 7.5 ), 700, true, false, "ssNewAmmoFont6.5" )
 	surface.CreateFontLegacy( "Future Rot", ScreenScale( 8.5 ), 700, true, false, "ssNewAmmoFont9" )
@@ -160,6 +160,13 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 		keyText = "EVACUATION TIME"
 	end
 
+	if DOUBLE_XP then
+		draw.SimpleTextOutlined("DOUBLE XP ACTIVE", DescriptionFont, ScrW()/1.1, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,200))	
+	end
+	
+	if team.NumPlayers(TEAM_HUMAN) < XP_PLAYERS_REQUIRED then
+		draw.SimpleTextOutlined("XP disabled while under ".. XP_PLAYERS_REQUIRED .. " players", DescriptionFont, ScrW()/1.7, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,200))		
+	end
 	
 	local requiredScore = REDEEM_KILLS
 	if MySelf:HasBought("quickredemp") or MySelf:GetRank() < REDEEM_FAST_LEVEL then
@@ -170,7 +177,7 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 	requiredScore = math.ceil(requiredScore / 2)
 
 	local currentScore = math.max(0, math.ceil(MySelf:GetScore() / 2))
-	
+	currentScore = math.Clamp(currentScore,0,4)
 	
 	
 	--Preparation (warmup)
