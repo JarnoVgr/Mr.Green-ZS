@@ -105,7 +105,7 @@ end
 
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
-		mv:SetMaxSpeed(self.Primary.Speed)
+		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.01)
 		return true
 	end
 end
