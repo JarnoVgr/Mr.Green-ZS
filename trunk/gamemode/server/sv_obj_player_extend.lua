@@ -1188,8 +1188,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 				damage = damage * 0.25
 			end
 		else
-			damage = 0	
-			return true			
+			damage = damage * 0.25	
 		end
 	end
 

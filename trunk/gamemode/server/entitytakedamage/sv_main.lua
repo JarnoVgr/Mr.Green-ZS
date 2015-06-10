@@ -274,7 +274,7 @@ function GM:SetupProps()
 		if mdl then
 			mdl = string.lower(mdl)
 			if ent:GetMaxHealth() == 1 and ent:Health() == 0 and ent:GetKeyValues().damagefilter ~= "invul" and ent:GetName() == "" then
-				local health = math.min(2500, math.ceil((ent:OBBMins():Length() + ent:OBBMaxs():Length()) * 5))
+				local health = math.min(2500, math.ceil((ent:OBBMins():Length() + ent:OBBMaxs():Length()) * 9))
 				ent.PropHealth = health
 				ent.TotalHealth = health
 			else
