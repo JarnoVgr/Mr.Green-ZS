@@ -578,10 +578,10 @@ function RollTheDice ( pl,commandName,args )
 		
 	end]]--
 	
-	choise = math.random(1,6)
+	choise = math.random(1,5)
 	
 	if pl:HasBought("ladyluck") and choise <= 2 then
-		choise = math.random(3,6) -- second chance with bad outcome
+		choise = math.random(3,5) -- second chance with bad outcome
 	end
 	
 	message = pl:GetName()
