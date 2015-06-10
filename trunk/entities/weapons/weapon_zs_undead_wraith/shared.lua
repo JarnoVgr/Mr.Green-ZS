@@ -16,7 +16,7 @@ if CLIENT then
 end
 
 SWEP.Primary.Duration = 1.35
-SWEP.Primary.Delay = 0.55
+SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 33
 SWEP.Primary.Next = 1.5
@@ -105,7 +105,7 @@ end
 
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
-		mv:SetMaxSpeed(0)
+		mv:SetMaxSpeed(self.Primary.Speed)
 		return true
 	end
 end
