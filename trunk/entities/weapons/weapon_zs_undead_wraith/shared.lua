@@ -24,6 +24,8 @@ SWEP.Primary.Next = 1.5
 SWEP.Secondary.Next = 2
 SWEP.Secondary.Duration = 1
 
+SWEP.Attacking = 0
+
 SWEP.EmitWraithSound = 0
 SWEP.Screams = {
 	Sound("npc/stalker/stalker_alert1b.wav"),
@@ -90,23 +92,23 @@ function SWEP:StartPrimaryAttack()
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
 	self:EmitSound(Sound("npc/antlion/distract1.wav"), 100, math.random(92, 107))
 	 
-	local stopPlayer = true
-
+--	local stopPlayer = true
+	self.Attacking = CurTime()
 	--Stop movement
 	--self.Primary.Speed = 1
-	self.Primary.Speed = 0
+	--self.Primary.Speed = 0
 	 
 	if SERVER then
-		if stopPlayer then
-			self.Owner:SetLocalVelocity(Vector(0, 0, 0))
-		end
+		--if stopPlayer then
+		self.Owner:SetLocalVelocity(Vector(0, 0, 0))
+		--end
 	end
 end
 
 function SWEP:Move(mv)
-	if self:IsInPrimaryAttack() then
-		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.01)
-		return true
+	if self.Attacking + 1 > CurTime() then
+		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0)
+		return true	
 	end
 end
 
