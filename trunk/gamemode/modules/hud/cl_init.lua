@@ -164,7 +164,7 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 		draw.SimpleTextOutlined("DOUBLE XP ACTIVE", DescriptionFont, ScrW()/1.1, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,200))	
 	end
 	
-	if team.NumPlayers(TEAM_HUMAN) < XP_PLAYERS_REQUIRED then
+	if (team.NumPlayers(TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD)) < XP_PLAYERS_REQUIRED then
 		draw.SimpleTextOutlined("XP disabled while under ".. XP_PLAYERS_REQUIRED .. " players", DescriptionFont, ScrW()/1.7, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,200))		
 	end
 	
