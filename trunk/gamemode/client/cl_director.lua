@@ -14,14 +14,14 @@ ClientsideConvars["_zs_headbob"] = {Value = 1, ShouldSave = true, UserData = fal
 ClientsideConvars["cl_legs"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Show legs"}
 ClientsideConvars["zs_hidehud"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hide HUD"}
 ClientsideConvars["_zs_hidecrosshair"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Disable crosshair"}
-ClientsideConvars["zs_drawcrateoutline"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Supply Crate outline"}
+ClientsideConvars["zs_drawcrateoutline"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Supply Crate outline"}
 ClientsideConvars["zs_drawarrow"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Draw arrow leading to Supply Crate"}
 ClientsideConvars["zs_drawcolourmod"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Colour mod"}
 ClientsideConvars["zs_drawsharpeneffect"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Sharpen effect as near Undead indicator"}
 
 
 ClientsideConvars["_zs_autoredeem"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Automatic redeem"}
-ClientsideConvars["_zs_humanspawn"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Spawn on Survivors when possible"}
+ClientsideConvars["_zs_humanspawn"] = {Value = 0, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Spawn on Survivors when possible"}
 
 
 -- finally get rid of readding shitload of code for single fucking convar

@@ -19,6 +19,9 @@ function ENT:Initialize()
 		self.Entity:SetSolid(SOLID_VPHYSICS)	
 		self.Entity:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 		
+	--	local outline = ents.Create("models/items/boxmrounds.mdl")			
+
+		
 		local phys = self.Entity:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:Wake()
