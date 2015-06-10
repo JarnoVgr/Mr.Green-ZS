@@ -93,21 +93,23 @@ function SWEP:StartPrimaryAttack()
 	self:EmitSound(Sound("npc/antlion/distract1.wav"), 100, math.random(92, 107))
 	 
 --	local stopPlayer = true
-	self.Attacking = CurTime()
 	--Stop movement
 	--self.Primary.Speed = 1
 	--self.Primary.Speed = 0
 	 
+	self.Attacking = CurTime() + 1	 
+	 
 	if SERVER then
 		--if stopPlayer then
+		self.Attacking = CurTime() + 1	
 		self.Owner:SetLocalVelocity(Vector(0, 0, 0))
 		--end
 	end
 end
 
 function SWEP:Move(mv)
-	if self.Attacking + 1 > CurTime() then
-		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0)
+	if self.Attacking > CurTime() then
+		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.35)
 		return true	
 	end
 end
@@ -119,7 +121,7 @@ function SWEP:PerformSecondaryAttack()
 	end
 
 	--Delay next teleport
-	self.Weapon:SetNextSecondaryFire(CurTime() + 3)
+	self.Weapon:SetNextSecondaryFire(CurTime() + 4)
 	self.Weapon:SetNextPrimaryFire(0.2)
 	--Not enough health
 	--if mOwner:Health() < mOwner:GetMaximumHealth() * 0.15 then
@@ -229,7 +231,7 @@ function SWEP:PerformSecondaryAttack()
 		mOwner:SetPos(hullTrace.HitPos)
 	end
 
-	self.Weapon:SetNextSecondaryFire(CurTime() + self.Secondary.Next)
+	self.Weapon:SetNextSecondaryFire(CurTime() + self.Secondary.Next + 1)
 	--Post teleport smoke
 	timer.Simple(0.1, function()
 		if not IsValid(mOwner) then
@@ -306,7 +308,6 @@ function SWEP:TeleportFail()
 	end
 end
 
-
 function SWEP:OnRemove()
 	if SERVER then
 		self.ScarySound:Stop()
@@ -319,6 +320,10 @@ end
 function SWEP:Think()
 	self.BaseClass.Think(self)
 
+	if self.Attacking > CurTime() then	
+		self.Owner:SetLocalVelocity(Vector(0, 0, -150))
+	end
+	
 	if SERVER then
 		if self.ScarySound then
 			self.ScarySound:PlayEx(0.2, 95 + math.sin(RealTime())*8) 

@@ -86,14 +86,18 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		--Play sound
 		mVictim:PlayZombieDeathSound()
 		
-		if math.random(1,10) == 1 then
-		
-			local healthvial = ents.Create("item_healthvial")
+		if math.random(1,4) == 1 then
+			local item = "zs_ammobox"
+			
+			if math.random(1,4) == 1 then
+				item = "item_healthvial"
+			end
+			--local healthvial = ents.Create("item_healthvial")
+			local healthvial = ents.Create(item)			
 			if IsValid(healthvial) then
 				healthvial:SetPos(mVictim:GetPos())
 				healthvial:Spawn()
 			end
-		
 		end
 		
 		local floaty = 0
