@@ -46,7 +46,7 @@ local function AddScoreboardItem(ply, list)
 		end
 		
 		local col = team.GetColor(ply:Team())
-		--draw.SimpleTextOutlined(ply:Nick() , "ArialBoldFive", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(ply:Nick() , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		if ply:GetPerk("_support2") then
 		draw.SimpleTextOutlined(ply:Nick().."  Support" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:GetPerk("_engineer") then
