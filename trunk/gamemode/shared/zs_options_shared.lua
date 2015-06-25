@@ -34,7 +34,7 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- Movement stuff
 
 -- 1 to 0, higher means less penality.
-SPEED_PENALTY = 0.59
+SPEED_PENALTY = 0.65
 
 SPEED = 200
 SPEED_LIGHT = SPEED - 3
@@ -489,7 +489,7 @@ GM.Perks = {
 	--Personal
 	["_pyrokevlar"] = {Name = "Kevlar", Description = "+20% damage resistance | -5% speed", RequiresWeapon = "_pyro", Slot = 2, Material = "vgui/gfx/vgui/kevlar"},
 	["_pyrosp"] = {Name = "Hot Points", Description = "+3SP when a target is burnt.", RequiresWeapon = "_pyro", Slot = 2},
-	["_immolate"] = {Name = "Immolate", Description = "Burn zombies that attack you | Ignite self for 1 second | +10% damage resistance", RequiresWeapon = "_pyro", Slot = 2},		
+	["_immolate"] = {Name = "Immolate", Description = "Burn zombies that attack you | Ignite self when damage taken | +40% damage resistance", RequiresWeapon = "_pyro", Slot = 2},		
 	
 	--[[New ZS Classes]]--
 	

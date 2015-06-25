@@ -173,12 +173,12 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				dmg = dmg*0.8	
 
 			elseif ent:GetPerk("_immolate") then
-				attacker:Ignite(3,0)	
+				attacker:Ignite(4,0)	
 				dmg = dmg*0.9
 				ent:Ignite(2,0)				
-				attacker:TakeDamageOverTime(6, 1, 3 , ent,ent)	
+				attacker:TakeDamageOverTime(7, 1, 4 , ent,ent)	
 			elseif ent:GetPerk("_berserker") then
-				dmg = dmg*0.95		
+				dmg = dmg*0.6		
 			end	
 		end		
 
