@@ -249,14 +249,12 @@ function GM:Move( pl, CMove )
 	if not pl.IsDazed then
 		if pl:GetVelocity().z < -190 then
 			pl:Daze(1)
-		elseif pl:GetVelocity().z < -150 then
-			pl:Daze(0.5)
-		elseif pl:GetVelocity().z < -40 then
-				
+		elseif pl:GetVelocity().z < -60 then
+
 		end
 		
-		if pl:Crouching() and CMove:GetForwardSpeed() > 0 then
-			pl:Daze(0.5)
+		if pl:Crouching() and not pl:OnGround() and CMove:GetForwardSpeed() > 0 then
+			pl:Daze(1)
 		end
 		
 	end
