@@ -468,7 +468,7 @@ function GM:InitPostEntity()
 	self:SpawnSupplyCrates()
 	
 	--Create zombie Flashlight
-	self:CreateZombieFlashLight()
+	--self:CreateZombieFlashLight()
 	
 	--Log
 	--log.WorldAction("Round_Start")
@@ -721,6 +721,7 @@ end
 -- hook.Add ( "PlayerSwitchFlashlight", "RestrictFlashLight", RestrictFlashlight )
 
 function GM:PlayerSwitchFlashlight(pl, Switch)
+	--[[
 	if pl:Team() == TEAM_UNDEAD then
 		pl.m_ZombieVision = pl.m_ZombieVision or false
 		if pl:Alive() then
@@ -730,7 +731,7 @@ function GM:PlayerSwitchFlashlight(pl, Switch)
 
 		return false
 	end
-
+	]]--
 	return true
 end
 

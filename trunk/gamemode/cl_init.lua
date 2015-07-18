@@ -1144,7 +1144,7 @@ hook.Add("PostDrawOpaqueRenderables","DrawCarryRope",function()
 	end
 end)
 
-local vecfake = Vector(0, 0, 32000)
+--[[
 hook.Add("Think", "DrawZombieFlashLight", function()
 	local light = Entity(0):GetDTEntity(0)
 	
@@ -1162,10 +1162,11 @@ hook.Add("Think", "DrawZombieFlashLight", function()
 			if not light:IsEffectActive( EF_NODRAW ) then
 				light:SetNoDraw(true)
 			end
-			light:SetPos(vecfake)
+			light:SetPos(Vector(0, 0, 0))
 		end
 	end
 end)
+]]--
 
 function GM:ToggleZombieVision(toggle)
 	if toggle == nil then

@@ -413,7 +413,7 @@ function GM:OnHumanSpawn(pl)
 	end	
 
 	--Auto-enable flashlight
-	pl:Flashlight(true)
+	--pl:Flashlight(true)
 	
 	--Scavenge
 	if GAMEMODE:GetGameMode() == GAMEMODE_SCAVENGE then
