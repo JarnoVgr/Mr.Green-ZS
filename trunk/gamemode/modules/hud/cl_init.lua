@@ -263,22 +263,27 @@ function hud.DrawStats()
 		nextLevelKeySwitch = RealTime()+10		
 	end
 
-	if currentLevelKey == 0 then
-		draw.SimpleTextOutlined("Next level: " .. PlrData.NextRankPerc, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
-		if PlrData.NextRankPerc >= 10 then
-			draw.SimpleTextOutlined("%", "xpFont", startX - ScrW()/2 + ScrW()/10, ScaleH(119), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
-			draw.SimpleTextOutlined("("..PlrData.XPRequired - PlrData.XPCurrent .. " XP left)" , DescriptionFont, startX - ScrW()/2 + ScrW()/9, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))				
-		else
-			draw.SimpleTextOutlined("%", "xpFont", startX - ScrW()/2 + ScrW()/11, ScaleH(119), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
-			draw.SimpleTextOutlined("("..PlrData.XPRequired - PlrData.XPCurrent .. " XP left)" , DescriptionFont, startX - ScrW()/2 + ScrW()/9.5, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))							
-		end
-		-- 'Next Level: 50% (5000 XP left)'
-
-	elseif currentLevelKey == 1 then
-		draw.SimpleTextOutlined("GREENCOINS: "..PlrData.GreenCoins, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
-	elseif currentLevelKey == 2 then
-		draw.SimpleTextOutlined("LEVEL: " ..PlrData.Rank, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
+	if PlrData.Rank == 10 then
+		draw.SimpleTextOutlined("GREENCOINS: "..PlrData.GreenCoins, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))			
+	else
+		if currentLevelKey == 0 then
+			draw.SimpleTextOutlined("Next level: " .. PlrData.NextRankPerc, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+			if PlrData.NextRankPerc >= 10 then
+				draw.SimpleTextOutlined("%", "xpFont", startX - ScrW()/2 + ScrW()/10, ScaleH(119), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+				draw.SimpleTextOutlined("("..PlrData.XPRequired - PlrData.XPCurrent .. " XP left)" , DescriptionFont, startX - ScrW()/2 + ScrW()/9, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))				
+			else
+				draw.SimpleTextOutlined("%", "xpFont", startX - ScrW()/2 + ScrW()/11, ScaleH(119), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
+				draw.SimpleTextOutlined("("..PlrData.XPRequired - PlrData.XPCurrent .. " XP left)" , DescriptionFont, startX - ScrW()/2 + ScrW()/9.5, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))							
+			end
+			-- 'Next Level: 50% (5000 XP left)'
+		elseif currentLevelKey == 1 then
+			draw.SimpleTextOutlined("GREENCOINS: "..PlrData.GreenCoins, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
+		elseif currentLevelKey == 2 then
+			draw.SimpleTextOutlined("LEVEL: " ..PlrData.Rank, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
+		end	
 	end
+	
+
 
 	local TopText, ValueText
 	--Draw round time

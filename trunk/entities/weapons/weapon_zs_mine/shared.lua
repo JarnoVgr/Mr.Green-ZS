@@ -114,7 +114,7 @@ end
 function SWEP:PrimaryAttack()
 local owner = self.Owner
 	if( CurTime() < self.NextPlant ) or not self:CanPrimaryAttack() then return end
-	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return false end
+	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHuman() and self.Owner:IsHolding() then return false end
 		self.NextPlant = ( CurTime() + 0.2 );
 	-- 
 	local trace = {}
