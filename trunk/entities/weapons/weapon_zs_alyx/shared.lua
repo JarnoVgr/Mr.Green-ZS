@@ -9,13 +9,13 @@ if CLIENT then
 		SWEP.ShowViewModel = false 
 		SWEP.ViewModelFOV = 60		
 		
-	SWEP.ViewModelBoneMods = {
+SWEP.ViewModelBoneMods = {
 	["v_weapon.FIVESEVEN_PARENT"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
 }
 	
 
 SWEP.VElements = {
-	["alyxgun"] = { type = "Model", model = "models/weapons/w_alyx_gun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.07, 1.671, -4.04), angle = Angle(176.841, 4.718, 3.109), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["Alyx Gun"] = { type = "Model", model = "models/weapons/w_alyx_gun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(5.706, 2.01, -4.006), angle = Angle(172.666, 1.973, 5.897), size = Vector(0.935, 0.935, 0.935), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
 
@@ -51,8 +51,8 @@ SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.85
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.95
 
-SWEP.IronSightsPos = Vector(-4.59,25,0.65)
-SWEP.IronSightsAng = Vector( 0, 0, 0 )
+SWEP.IronSightsPos = Vector(-5.961, -12.164, 2.89)
+SWEP.IronSightsAng = Vector(0, 0, 0)
  
 SWEP.HoldType = "revolver"
 

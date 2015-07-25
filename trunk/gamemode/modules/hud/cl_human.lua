@@ -22,7 +22,7 @@ function hud.DrawHumanHUD()
 	--hud.DrawObjMessages()
 	
 	if CurTime() <= WARMUPTIME then
-		hud.UpdateHumanTable()
+		--hud.UpdateHumanTable()
 		hud.DrawZeroWaveMessage()	
 	end
 	--local humans = team.GetPlayers(TEAM_HUMAN)		
@@ -369,6 +369,7 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 			
 			local y = ScrH() * 0.12 + txth * 1.25
 			
+			--[[
 			for k,v in pairs(humans) do	
 				if v:Name() == LocalPlayer():Name() then
 					draw.SimpleTextOutlined(v:Name().. " " ..math.Round(v.GasDistance or 0), "ssNewAmmoFont4", ScrW() * 0.013, y, COLOR_RED, TEXT_ALIGN_LEFT , TEXT_ALIGN_CENTER,1, Color(0,0,0,200))
@@ -377,7 +378,7 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 				end
 				y = y + txth * 1
 			end
-			
+			]]--
 			
 		--	draw.SimpleTextOutlined("Number of initial zombies this game ("..UNDEAD_START_AMOUNT * 100 .."%): "..desiredzombies, "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			draw.SimpleTextOutlined("Initial zombies this game: "..desiredzombies.."", "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,220))
