@@ -21,7 +21,6 @@ function ENT:Initialize()
 		
 	--	local outline = ents.Create("models/items/boxmrounds.mdl")			
 
-		
 		local phys = self.Entity:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:Wake()
@@ -29,20 +28,21 @@ function ENT:Initialize()
 		end
 	end
 
-	if CLIENT then
-		hook.Add("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self), function()
-			if not util.tobool(GetConVarNumber("zs_drawcrateoutline")) then
-				return
-			end
+	--if CLIENT then
+		--hook.Add("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self), function()
+			--if not util.tobool(GetConVarNumber("zs_drawcrateoutline")) then
+			--	return
+			--end
 			
-			if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
-				return
-			end
+			--if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
+			--	return
+			--end
 			
-			halo.Add({self}, self.LineColor, 2, 2, 2, true, false)
-		end)
-	end
+			--halo.Add({self}, self.LineColor, 2, 2, 2, true, false)
+		--end)
+	--end
 end
+
 
 if SERVER then
 	function ENT:Use(activator, caller)
@@ -71,14 +71,15 @@ if SERVER then
 			activator:GiveAmmo( 30 * mul, "SMG1" )	
 			activator:GiveAmmo( 12 * mul, "buckshot" )		
 			activator:GiveAmmo( 8 * mul, "357" )
-			activator:GiveAmmo( 30 * mul, "alyxgun" )		
+			activator:GiveAmmo( 30 * mul, "alyxgun" )	
+			activator:GiveAmmo( 20 * mul, "battery" )			
 			self:Remove()
 		end
 	end
 end
 	
 if CLIENT then
-	ENT.LineColor = Color(210, 0, 0, 100)
+	--ENT.LineColor = Color(210, 0, 0, 100)
 	function ENT:Draw()
 	    self:DrawModel()
 		
@@ -89,7 +90,7 @@ if CLIENT then
 	    self.LineColor = Color(0, 200, 100, 100)
 	end
 
-	function ENT:OnRemove()
-	    hook.Remove("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self))
-	end
+	--function ENT:OnRemove()
+	--    hook.Remove("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self))
+	--end
 end
