@@ -365,7 +365,7 @@ function GM:OnHumanSpawn(pl)
 
 	--Set crouch speed
 
-	pl:SetCrouchedWalkSpeed(0.5)
+	pl:SetCrouchedWalkSpeed(0.45)
 
 	--Set jump power
 	if pl:GetJumpPower() ~= 180 then
@@ -537,7 +537,7 @@ function GM:OnZombieSpawn(pl)
 		
 	-- Set the zombie's walk and crouch speed
 	self:SetPlayerSpeed(pl, Tab.Speed)
-	pl:SetCrouchedWalkSpeed(Tab.CrouchWalkSpeed or 0.80)
+	pl:SetCrouchedWalkSpeed(0.5)
 		
 	pl:UnSpectate()		
 	-- Prevent health pickups and/or machines
