@@ -158,6 +158,7 @@ function SWEP:StartPrimaryAttack()
 	self.SwapAnims = not self.SwapAnims
 	
 	self.Attacking = CurTime() + 1.25	
+	self.Owner:Daze(1)
 	
 	--Set the thirdperson animation and emit zombie attack sound
 	self.Owner:DoAnimationEvent(CUSTOM_PRIMARY)
