@@ -13,7 +13,7 @@ GM.SkillShopAmmo = {
 		Name = "20 Pistol Bullets",
 		Model = "models/Items/BoxSRounds.mdl",
 		Amount = 20,
-		Price = 20
+		Price = 40
 	},
 	["alyxgun"] = {
 		Name = "40 Pyro Rounds",
@@ -31,7 +31,7 @@ GM.SkillShopAmmo = {
 		Name = "50 SMG Bullets",
 		Model = "models/Items/BoxMRounds.mdl",
 		Amount = 50,
-		Price = 30
+		Price = 40
 	},
 	["ar2"] = {
 		Name = "60 Commando Rounds",
@@ -59,15 +59,15 @@ GM.SkillShopAmmo = {
 		Model = "models/Items/BoxBuckshot.mdl",
 		Tool = "weapon_zs_grenade",
 		Amount = 1,
-		Price = 50,
+		Price = 40,
 		ToolTab = true
 	},
 	["gravity"] = {
-		Name = "3 Nails",
+		Name = "6 Nails",
 		Model = "models/Items/BoxBuckshot.mdl",
 		Tool = "weapon_zs_tools_hammer",
-		Amount = 3,
-		Price = 20,
+		Amount = 6,
+		Price = 30,
 		ToolTab = true
 	},
 
@@ -77,14 +77,6 @@ GM.SkillShopAmmo = {
 		Amount = 50,
 		Price = 50,
 		ToolTab = true
-	},
-	
-	["xbowbolt"] = { --Instead of the KF Potato, I wanted to add a more community feel to the game. I think this did the trick! aha English humor..
-		Name = "Mogadonskoda's Used Dildo",
-		Model = "models/Items/BoxBuckshot.mdl",
-		Amount = 1,
-		Price = 10000,
-		ToolTab = true
-	},
-	
+	}
+
 }

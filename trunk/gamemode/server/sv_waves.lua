@@ -251,7 +251,7 @@ end
 
 function DefaultRevive(pl)
 	timer.Create(pl:UniqueID().."secondwind", 2, 1, SecondWind, pl)
-	pl:GiveStatus("revive", 3.5)
+	pl:GiveStatus("revive", 3.25)
 end
 
 function SecondWind(pl)
@@ -268,7 +268,7 @@ function SecondWind(pl)
 		pl.DeathClass = dclass
 		--pl.LastAttacker = lastattacker
 		pl:SetPos(pos)
-		pl:SetHealth(pl:Health() * 0.3)
+		pl:SetHealth(pl:Health() * 0.5)
 		pl:EmitSound("npc/zombie/zombie_voice_idle"..math.random(1, 14)..".wav", 100, 85)
 		pl:SetEyeAngles(angles)
 		timer.Destroy(pl:UniqueID().."secondwind")
