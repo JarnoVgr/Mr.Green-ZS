@@ -20,7 +20,7 @@ ZombieClasses[0] =
 	Tag = "infected",	
 	Infliction = 0,
 	Revives = true,
-	Health = 225,
+	Health = 210,
 	MaxHealth = 350,
 	Bounty = 100,
 	SP = 20,
@@ -33,7 +33,7 @@ ZombieClasses[0] =
 	Speed = 146,
 	AngleFix = true,
 	Description = "The backbone of the horde.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 225 ", "> SPEED: 146", "> DAMAGE: 24" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 210 ", "> SPEED: 146", "> DAMAGE: 24" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
 		Sound("npc/zombie/zombie_pain1.wav"),

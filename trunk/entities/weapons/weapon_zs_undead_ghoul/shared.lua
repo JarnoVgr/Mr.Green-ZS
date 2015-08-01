@@ -48,9 +48,9 @@ SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
 
-SWEP.Primary.Duration = 1.5
+SWEP.Primary.Duration = 1.4
 SWEP.Primary.Delay = 0.6
-SWEP.Primary.Damage = 10
+SWEP.Primary.Damage = 15
 SWEP.Primary.Reach = 48
 
 SWEP.SwapAnims = false
