@@ -159,7 +159,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 			end	
 			
-			skillpoints.AddSkillPoints(attacker,math.Clamp(dmg*0.1,1,5))		
+			skillpoints.AddSkillPoints(attacker,math.Clamp(dmg*0.1,0,5))		
 			
 		elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent:IsPlayer() then
 		

@@ -359,15 +359,15 @@ GM.RankUnlocks = {
 
 	[1] = {"_medupgr2","_accuracy","_mine" ,"_sboost3","_highcal","_bulk","_alyxclip"},
 	
-	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_slinger","_pyrosp"},
+	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_pyrosp"},
 	
 	[3] = {"_nade", "_freeman" ,"_medigun","_pulsepistol", "_kevlarcommando2","_flaregun","_bulletstorm"},
 	
 	[4] = {"_poisonprotect","_bloodmoney","_sboost","_turretsp","_supportregen", "_kevlarcommando","_scorch"},
 	
-	[5] = {"_turret","_psychotic","_repairs","_defender", "_supply", "_musket","_burn"},
+	[5] = {"_turret","_psychotic","_repairs", "_supply", "_musket","_burn"},
 	
-	[6] = {"_combat","_profitable","_ironaim", "_nitrate", "_supportweapon","_immolate"},
+	[6] = {"_combat","_profitable","_ironaim", "_nitrate","_immolate"},
 		
 	[7] = {"_accuracy2","_headhunter","_support","_kevlar2", "_trap","_flarebounce"},
 
