@@ -4,7 +4,7 @@ boss.pl = nil
 boss.startTime = 0
 boss.duration = 0
 boss.endTime = 0
-boss.nextBossTime = 420
+boss.nextBossTime = 240
 boss.count = 3
 boss.maxCount = math.random(4,5)
 
@@ -16,28 +16,7 @@ function GM:UnleashBoss()
 	end]]
 
 
-	
-	--Set full health on players when in Arena Mode
-	if ARENA_MODE then			
-		for _, pl in pairs(player.GetAll()) do
-			if pl:Team() ~= TEAM_HUMAN or not pl:Alive() then
-				continue
-			end
-			
-			local hp = 100
-			if pl:GetPerk("_kevlar2") then
-				hp = 120
-			elseif pl:GetPerk("_kevlar") then
-				hp = 110
-			elseif pl:GetPerk("_kevlarsupport") then
-				hp = 150
-			end
-
-			pl:SetHealth(hp)
-		end
-	end
-	
-	
+		
 	pl = GAMEMODE:GetPlayerForBossZombie()
 	if not IsValid(pl) then
 		return nil
@@ -50,7 +29,6 @@ function GM:UnleashBoss()
 	--Start time
 	boss.starTime = CurTime()
 		
-
 	--Set End time
 	boss.endTime = CurTime() + boss.duration		
 
@@ -87,6 +65,10 @@ function GM:CheckBoss()
 		return false
 	end
 
+	if team.GetPlayers(TEAM_HUMAN) < BOSS_TOTAL_PLAYERS_REQUIRED then
+		return false
+	end
+	
 	--Start boss
 	GAMEMODE:SetBoss(true)
 	return true

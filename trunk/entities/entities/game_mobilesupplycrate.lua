@@ -164,12 +164,9 @@ if SERVER then
 					
 					local mul = 1
 					
+
 					if activator:GetPerk("_support2") then
-						mul = mul + 0.1
-					end					
-					
-					if activator:GetPerk("_support2") then
-						mul = mul + activator:GetRank()*0.02
+						mul = (mul+0.1) + activator:GetRank()*0.02
 					end	
 					
 					if activator:GetPerk("_supportammo") then
@@ -179,6 +176,7 @@ if SERVER then
 					if activator:HasBought("ammoman") then
 						mul = mul + 0.5
 					end
+					
 					
 					activator:GiveAmmo(HowMuch * mul, AmmoType)
 				end
