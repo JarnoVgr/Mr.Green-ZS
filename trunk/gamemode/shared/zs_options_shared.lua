@@ -36,7 +36,7 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- 1 to 0, higher means less penality.
 SPEED_PENALTY = 0.65
 
-SPEED = 200
+SPEED = 210
 SPEED_LIGHT = SPEED - 3
 SPEED_MELEE_LIGHT = SPEED - 4
 SPEED_MELEE = SPEED - 10
