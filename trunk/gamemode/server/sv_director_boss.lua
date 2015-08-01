@@ -4,7 +4,7 @@ boss.pl = nil
 boss.startTime = 0
 boss.duration = 0
 boss.endTime = 0
-boss.nextBossTime = 360
+boss.nextBossTime = 420
 boss.count = 3
 boss.maxCount = math.random(4,5)
 
