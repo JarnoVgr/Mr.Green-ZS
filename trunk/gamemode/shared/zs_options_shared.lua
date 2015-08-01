@@ -403,7 +403,7 @@ GM.Perks = {
 
 	--Support
 	
-	["_bulletstorm"] = {Name = "Bullet Storm", Description = "+1 SMG damage", RequiresWeapon = "_support2", Slot = 1}, --Done	
+	["_bulletstorm"] = {Name = "Bullet Storm", Description = "+10% SMG damage", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	["_support"] = {Name = "Board Pack", Description = "+4 Boards | +30% Board Health", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+35% Ammo Received", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with the Shotgun", RequiresWeapon = "_support2", Slot = 1, Material = "vgui/achievements/kill_enemy_m3_bw"}, --Done
