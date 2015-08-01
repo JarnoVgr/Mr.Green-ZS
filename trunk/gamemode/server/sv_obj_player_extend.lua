@@ -589,7 +589,7 @@ function meta:AddXP(amount)
 			self:AddRank(1)
 			self:SendLua("UnlockEffect(2, ".. self:GetRank() ..")")
 						
-			PrintMessageAll(HUD_PRINTTALK, self:Name() .." went up to level ".. self:GetRank())
+			PrintMessageAll(HUD_PRINTTALK, self:Name() .." is now level ".. self:GetRank())
 		end
 			
 		--- 
@@ -884,7 +884,7 @@ function meta:SecondWind(pl)
 	self.Revived = nil
 	self.DeathClass = dclass
 	self:SetPos(pos)
-	self:SetHealth(self:Health() * 0.3)
+	self:SetHealth(self:Health() * 0.5)
 	self:SetEyeAngles(angles)
 	self:EmitSound("npc/zombie/zombie_voice_idle"..math.random(1, 14)..".wav", 100, 85)
 	self:TemporaryNoCollide()
