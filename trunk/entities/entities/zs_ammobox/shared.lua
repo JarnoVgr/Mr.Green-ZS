@@ -13,6 +13,9 @@ function ENT:Initialize()
 	if SERVER then	
 		--self.Entity:SetPos(self.Entity:GetPos() + Vector(0,0,22))
 		--self:SetModelScale(0.3,0)
+		
+		
+		
 		self.Entity:SetModel("models/items/boxmrounds.mdl")
 		self.Entity:PhysicsInit(SOLID_VPHYSICS)
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)

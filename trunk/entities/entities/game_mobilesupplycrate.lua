@@ -14,10 +14,10 @@ function ENT:SetupDataTables()
 	self:NetworkVar("Bool", 0, "Claimed")
 end
 
-util.PrecacheModel("models/Items/item_item_crate.mdl")
+util.PrecacheModel("models/items/ammocrate_smg1.mdl")
 function ENT:Initialize()
 	if SERVER then	
-		self.Entity:SetModel("models/Items/item_item_crate.mdl")
+		self.Entity:SetModel("models/items/ammocrate_smg1.mdl")
 		self.Entity:PhysicsInit(SOLID_VPHYSICS)
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
 		self.Entity:SetSolid(SOLID_VPHYSICS)	
@@ -239,6 +239,7 @@ end
 if CLIENT then
 	ENT.LineColor = Color(210, 0, 0, 100)
 	function ENT:Draw()
+			
 	    self:DrawModel()
 
 	    if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then

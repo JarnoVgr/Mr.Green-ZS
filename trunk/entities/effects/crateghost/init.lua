@@ -9,7 +9,7 @@ function EFFECT:Init(data)
 	self:SetNoDraw(true)
 
 	--Set model and model's material
-	self.Entity:SetModel("models/Items/item_item_crate.mdl")
+	self.Entity:SetModel("models/items/ammocrate_smg1.mdl")
 	self.Entity:SetMaterial("models/debug/debugwhite")
 end
 
