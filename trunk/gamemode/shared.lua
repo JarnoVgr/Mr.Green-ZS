@@ -747,7 +747,7 @@ function GM:IsBossRequired()
 	end
 	
 	--Require atleast X amount of players
-	if #player.GetAll() < BOSS_TOTAL_PLAYERS_REQUIRED then
+	if (team.NumPlayers(TEAM_UNDEAD) + team.NumPlayers(TEAM_HUMAN)) < BOSS_TOTAL_PLAYERS_REQUIRED then
 		return false
 	end
 	
