@@ -215,7 +215,7 @@ function SWEP:PrimaryAttack()
 			--Logging, Note to Clavus - add crate logging
 			--log.PlayerAction( self.Owner, "place_turret")
 			
-			ent:SetPos(Vector(tr.HitPos.x,tr.HitPos.y,tr.HitPos.z+24))
+			ent:SetPos(Vector(tr.HitPos.x,tr.HitPos.y,tr.HitPos.z+20))
 			ent:SetAngles(Angle(0,angles.y,angles.r))
 			ent:SetPlacer(self.Owner)
 			ent:Spawn()
