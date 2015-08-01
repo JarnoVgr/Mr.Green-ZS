@@ -65,9 +65,10 @@ function GM:CheckBoss()
 		return false
 	end
 
-	if team.GetPlayers(TEAM_HUMAN) < BOSS_TOTAL_PLAYERS_REQUIRED then
-		return false
-	end
+	
+	--if team.GetPlayers(TEAM_HUMAN) < BOSS_TOTAL_PLAYERS_REQUIRED then
+	--	return false
+	--end
 	
 	--Start boss
 	GAMEMODE:SetBoss(true)
