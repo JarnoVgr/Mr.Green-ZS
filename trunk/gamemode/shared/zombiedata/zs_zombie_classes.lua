@@ -20,7 +20,7 @@ ZombieClasses[0] =
 	Tag = "infected",	
 	Infliction = 0,
 	Revives = true,
-	Health = 230,
+	Health = 200,
 	MaxHealth = 350,
 	Bounty = 100,
 	SP = 20,
@@ -33,7 +33,7 @@ ZombieClasses[0] =
 	Speed = 146,
 	AngleFix = true,
 	Description = "The backbone of the horde.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 230 ", "> SPEED: 146", "> DAMAGE: 25" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 200 ", "> SPEED: 146", "> DAMAGE: 25" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
 		Sound("npc/zombie/zombie_pain1.wav"),
@@ -179,7 +179,7 @@ ZombieClasses[2] =
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
 	Infliction = 0.63,
-	Health = 450,
+	Health = 400,
 	MaxHealth = 600,
 	TimeLimit = 810,
 	Bounty = 175,
@@ -197,7 +197,7 @@ ZombieClasses[2] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> SPECIAL: Propkill", "> CLAW POISON: 10 | 2 per 1.5 seconds", "> HEALTH: 450 ", "> SPEED: 150", "> DAMAGE: 35" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> SPECIAL: Propkill", "> CLAW POISON: 10 | 2 per 1.5 seconds", "> HEALTH: 400 ", "> SPEED: 150", "> DAMAGE: 35" },
 	PainSounds = {
 		Sound("npc/zombie_poison/pz_pain1.wav"),
 		Sound("npc/zombie_poison/pz_pain2.wav"),
@@ -223,7 +223,7 @@ ZombieClasses[3] =
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
 	Infliction = 0.5,
-	Health = 150,
+	Health = 140,
 	MaxHealth = 200,
 	TimeLimit = 160,
 	Bounty = 80,
@@ -240,7 +240,7 @@ ZombieClasses[3] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 150 ", "> SPEED: 285", "> DAMAGE: 5"  },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 140 ", "> SPEED: 285", "> DAMAGE: 5"  },
 	PainSounds = {
 		Sound("mrgreen/undead/fastzombie/pain1.wav"),
 		Sound("mrgreen/undead/fastzombie/pain2.wav"),

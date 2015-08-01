@@ -27,7 +27,7 @@ SWEP.Primary.Ammo			= "357"
 
 SWEP.Primary.Delay = 0.3
 SWEP.Primary.ClipSize = 10
-SWEP.Primary.DefaultClip = 20
+SWEP.Primary.DefaultClip = SWEP.Primary.ClipSize
 
 SWEP.Cone = 0.04
 SWEP.ConeMoving = SWEP.Cone *1.5

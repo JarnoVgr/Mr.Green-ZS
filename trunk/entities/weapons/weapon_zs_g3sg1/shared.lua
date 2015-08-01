@@ -23,7 +23,7 @@ SWEP.Primary.Damage = 35
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.33
 SWEP.Primary.ClipSize = 20
-SWEP.Primary.DefaultClip = 60
+SWEP.Primary.DefaultClip = SWEP.Primary.ClipSize
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo			= "357"
 

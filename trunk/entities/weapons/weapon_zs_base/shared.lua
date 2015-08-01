@@ -39,7 +39,7 @@ end
 
 function SWEP:Initialize()
 	self:SetWeaponHoldType(self.HoldType)
-	self:SetDeploySpeed(1.1)
+	self:SetDeploySpeed(1.0)
 	self.ActualClipSize	= self.Primary.ClipSize
 	if CLIENT then
 		--Set default FOV

@@ -29,7 +29,7 @@ function ENT:Initialize()
 			phys:EnableMotion(false) 
 		end
 	
-		self.CrateHealth = 300
+		self.CrateHealth = 200
 	end
 	
 	if self:GetPlacer():GetPerk("_supply") then	
@@ -253,7 +253,7 @@ if CLIENT then
 	    end
 
 	    --Draw some stuff
-	    local pos = self:GetPos() + Vector(0,0,45)
+	    local pos = self:GetPos() + Vector(0,0,30)
 
 	    --Check for distance with local player
 	    if pos:Distance(MySelf:GetPos()) > 400 then

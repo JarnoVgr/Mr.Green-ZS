@@ -48,7 +48,7 @@ SWEP.Primary.ClipSize		= 30
 SWEP.storeclipsize			= 30
 SWEP.MaxAmmo			    = 250
 SWEP.Primary.Delay			= 0.1
-SWEP.Primary.DefaultClip	= 90
+SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 
