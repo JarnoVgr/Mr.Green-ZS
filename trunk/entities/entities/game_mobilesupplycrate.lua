@@ -21,8 +21,8 @@ function ENT:Initialize()
 		self.Entity:PhysicsInit(SOLID_VPHYSICS)
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
 		self.Entity:SetSolid(SOLID_VPHYSICS)	
-		self.Entity:SetCollisionGroup(COLLISION_GROUP_WEAPON)
-		
+		self.Entity:SetCollisionGroup(SOLID_VPHYSICS)
+
 		local phys = self.Entity:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:Wake()

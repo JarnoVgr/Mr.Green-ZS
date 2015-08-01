@@ -144,7 +144,7 @@ function SWEP:Think()
 		local owner = self.Owner
 		local effectdata = EffectData()
 		effectdata:SetEntity(owner)
-		effectdata:SetOrigin(owner:GetShootPos() + owner:GetAimVector() * 32)
+		effectdata:SetOrigin(owner:GetShootPos() + owner:GetAimVector() * 32 + Vector(0,0,20))
 		effectdata:SetNormal(owner:GetAimVector())
 		util.Effect("crateghost", effectdata, true, true)
 		self.FirstThink = false
