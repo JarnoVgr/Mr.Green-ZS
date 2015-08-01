@@ -255,9 +255,11 @@ function GM:Move( pl, CMove )
 
 		end
 		
-		if pl:Crouching() and not pl:OnGround() and CMove:GetForwardSpeed() > 0 then
+		if not pl:OnGround() and CMove:GetForwardSpeed() > 0 then
 			pl:Daze(1)
 		end
+		
+		
 		
 	end
 	
