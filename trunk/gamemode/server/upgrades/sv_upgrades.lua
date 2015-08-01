@@ -157,7 +157,10 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 
 					dmg = dmg + (dmg * mul)					
 				end
-			end		
+			end	
+			
+			skillpoints.AddSkillPoints(attacker,math.Clamp(dmg*0.1,1,5))		
+			
 		elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent:IsPlayer() then
 		
 			if attacker:HasBought("vampire") and attacker:Health() + dmg * 0.5 < attacker:GetMaximumHealth() then	
