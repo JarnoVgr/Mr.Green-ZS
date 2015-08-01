@@ -197,7 +197,7 @@ function SWEP:PerformSecondaryAttack()
 		return
 	end
 	
-
+	pl:Daze(1.5);
 	
 	local shootpos = pl:GetShootPos()
 	local startpos = pl:GetPos()
