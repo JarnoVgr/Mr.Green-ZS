@@ -34,18 +34,18 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- Movement stuff
 
 -- 1 to 0, higher means less penality.
-SPEED_PENALTY = 0.65
+SPEED_PENALTY = 0.635
 
-SPEED = 210
-SPEED_LIGHT = SPEED - 3
-SPEED_MELEE_LIGHT = SPEED - 4
-SPEED_MELEE = SPEED - 10
-SPEED_MELEE_HEAVY = SPEED - 17
-SPEED_PISTOL = SPEED - 6
-SPEED_SMG = SPEED - 15
-SPEED_SHOTGUN = SPEED - 23
-SPEED_RIFLE = SPEED - 21
-SPEED_HEAVY = SPEED - 24
+SPEED = 208
+SPEED_LIGHT = SPEED - 6
+SPEED_MELEE_LIGHT = SPEED - 7
+SPEED_MELEE = SPEED - 15
+SPEED_MELEE_HEAVY = SPEED - 20
+SPEED_PISTOL = SPEED - 9
+SPEED_SMG = SPEED - 22
+SPEED_SHOTGUN = SPEED - 33
+SPEED_RIFLE = SPEED - 30
+SPEED_HEAVY = SPEED - 35
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8		--It's meant for creating hordes, doesnt make sense for a zombie to be in a horde if they're across the map.
@@ -493,7 +493,7 @@ GM.Perks = {
 	
 	--[[New ZS Classes]]--
 	
-	["_medic"] = {Name = "Medic",		  		Equipment = " Medkit\n P228\n Knife",Description = " +10% Pistol Damage \n +10% Medi Damage\n +10% Damage Resistance\n +3% Movement Speed \n\n +1.5% Movement Speed per lvl \n +1% Pistol Damage per lvl\n +1% Medi Damage per lvl\n +5% Poison Resistance per lvl\n +2% Undead Damage Resistance per lvl \n +2% Medical Power per lvl", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
+	["_medic"] = {Name = "Medic",		  		Equipment = " Medkit\n P228\n Knife",Description = " +10% Pistol Damage \n +10% Medi Damage\n +10% Damage Resistance\n +3% Movement Speed \n\n +1.2% Movement Speed per lvl \n +1% Pistol Damage per lvl\n +1% Medi Damage per lvl\n +5% Poison Resistance per lvl\n +2% Undead Damage Resistance per lvl \n +2% Medical Power per lvl", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
 	["_commando"] = {Name = "Commando",   		Equipment = " Grenades\n Five SeveN\n Knife", Description = " +10% Rifle Damage \n See Undead Health\n +10% Clip Size  \n +10 Health \n\n +3 Health per lvl\n +2% Clip Size per lvlLevel \n +1% Rifle Damage per lvl\n +1% Firing Speed per lvl\n", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support",    		Equipment = " Board Pack \n USP\n Hammer", Description = " +10% Shotgun Damage \n +10% SMG Damage \n +10% Ammo Received \n\n +1% SMG Damage per lvl\n +1% Shotgun Damage per lvl \n +2% Nail Health per lvl \n +0.5 Repair Points per lvl \n +1 Nail per lvl \n +2% Ammo Received per lvl \n ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		Equipment = " Vodka\n Desert Eagle\n Plank", Description = " +10% Melee Damage \n +4 Health On Melee Kill\n +5% Damage Resistance \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +1% Melee Damage per lvl\n +0.5% Movement Speed per lvl \n", Material = "zombiesurvival/humanclass/avatar_berserker", Slot = 3},
