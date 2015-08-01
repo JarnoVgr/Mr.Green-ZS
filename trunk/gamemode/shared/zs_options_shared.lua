@@ -193,7 +193,7 @@ GM.HumanWeapons = {
 
  
 		--Pyro
-        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", HumanClass = "pyro" }, 
+        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 100}, 
 		
         ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 100, HumanClass = "pyro" },		
 		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "pistol", HumanClass = "pyro", Price = 200},
