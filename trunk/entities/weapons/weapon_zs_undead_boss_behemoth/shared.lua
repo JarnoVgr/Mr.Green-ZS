@@ -52,9 +52,9 @@ SWEP.ViewModel = "models/weapons/v_zombine.mdl" --
 SWEP.WorldModel = "models/weapons/w_grenade.mdl" --DO NOT MODIFY THIS
 
 SWEP.Primary.Reach = 50
-SWEP.Primary.Duration = 1.3
+SWEP.Primary.Duration = 1.35
 SWEP.Primary.Delay = 0.6
-SWEP.Primary.Damage = 30
+SWEP.Primary.Damage = 33
 
 function SWEP:StartPrimaryAttack()
 	self.BaseClass.StartPrimaryAttack(self)
