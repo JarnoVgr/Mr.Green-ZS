@@ -11,7 +11,7 @@ local HealTimeout = 4
 
 --Amount to heal per cycle
 --local HealAmount = 20
-local HealAmount = 3
+local HealAmount = 5
 
 --Interval time in seconds to heal
 --local HealInterval = 4
