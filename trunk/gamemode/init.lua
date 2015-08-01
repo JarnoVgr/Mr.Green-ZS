@@ -305,7 +305,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 		end
 		
 	elseif mOwner:GetPerk("_medic") then
-		local multiplier = 0.03 + (1*mOwner:GetRank())/100
+		local multiplier = 0.03 + (mOwner:GetRank()*0.01)
 		fSpeed = fSpeed + (fSpeed*multiplier)	
 	end	
 	
