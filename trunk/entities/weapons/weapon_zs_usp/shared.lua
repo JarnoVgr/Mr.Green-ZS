@@ -46,7 +46,7 @@ SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 12
 SWEP.Primary.Delay			= 0.14
-SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
+SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize * 3
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
 

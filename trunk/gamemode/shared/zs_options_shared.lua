@@ -460,14 +460,14 @@ GM.Perks = {
 	
 	--Berserker
 	
-	["_bloodmoney"] = {Name = "Blood Money", Description = "+5 SP from melee kills", RequiresWeapon = "_berserker", Slot = 2}, --Done
+	["_bloodmoney"] = {Name = "Blood Money", Description = "+3 SP from melee kills", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_berserk"] = {Name = "Berserk", Description = "+10% movement speed while under 40 health", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_psychotic"] = {Name = "Blood Lust", Description = "+4 health from kills | +60% melee swing speed", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 40% of melee damage and knock targets backwards", RequiresWeapon = "_berserker", Slot = 2, Material = "vgui/achievements/kill_enemy_in_air_bw"},	
 	
 	--Engineer
 	
-	["_turretsp"] = {Name = "Turret Revenue", Description = "+10 SP from turret kills", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
+	["_turretsp"] = {Name = "Turret Revenue", Description = "+5 SP from turret kills", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
 	["_blast"] = {Name = "Blast Proof", Description = "+70% resistance to explosives", RequiresWeapon = "_engineer", Slot = 2}, --Done
 	["_sboost"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_engineer", Slot = 2}, --Done
 	

@@ -49,12 +49,9 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		if dmginfo:IsMeleeDamage() and not mInflictor.IsTurretDmg then
 			if dmginfo:IsAttackerPlayer() then
 				-- mAttacker:AddScore(1)
-				skillpoints.AddSkillPoints(mAttacker,5)
-
-				
 				if mAttacker:GetPerk("_berserker") then
 					if mAttacker:GetPerk("_bloodmoney") then
-						skillpoints.AddSkillPoints(mAttacker,5)
+						skillpoints.AddSkillPoints(mAttacker,3)
 						
 						else
 						return

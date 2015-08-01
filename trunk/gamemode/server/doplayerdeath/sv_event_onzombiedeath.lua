@@ -46,13 +46,13 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		util.Effect( "headshot", effectdata, true, true )
 					
 		if mInflictor.IsTurretDmg then
-			skillpoints.AddSkillPoints(mAttacker, 10)
+			skillpoints.AddSkillPoints(mAttacker, 3)
 			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)			
-			mVictim:FloatingTextEffect(10, mAttacker)	
+			mVictim:FloatingTextEffect(3, mAttacker)	
 
 			if mAttacker:GetPerk("_turretsp") then
-				mVictim:FloatingTextEffect(10, mAttacker)	
-				skillpoints.AddSkillPoints(mAttacker, 10)				
+				mVictim:FloatingTextEffect(5, mAttacker)	
+				skillpoints.AddSkillPoints(mAttacker, 5)				
 			end
 		end
 	end
@@ -64,7 +64,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				if dmginfo:IsDecapitationDamage() then
 					
 					if math.random(1,2) == 1 then
-						skillpoints.AddSkillPoints(mAttacker,5)
+						skillpoints.AddSkillPoints(mAttacker,3)
 
 						mVictim:Dismember("DECAPITATION",dmginfo)
 							
@@ -103,9 +103,9 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		local floaty = 0
 		
 		if headshot then
-			skillpoints.AddSkillPoints(mAttacker,5)
+			skillpoints.AddSkillPoints(mAttacker,3)
 			mAttacker:AddXP(10)
-			floaty = floaty + 5	
+			floaty = floaty + 3
 		end
 		
 		--Put victim in spectator mode
