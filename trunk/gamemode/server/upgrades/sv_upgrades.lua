@@ -26,7 +26,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 		olddmg = dmginfo:GetDamage() 
 		mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
 		
-		if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
+		if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and ent:IsPlayer() then
 			if attacker:GetActiveWeapon().Primary.Ammo == "pistol" and attacker:GetPerk("_medic") then
 				dmg = dmg + (dmg * mul)
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("_commando") then
@@ -159,7 +159,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 			end	
 			
-			skillpoints.AddSkillPoints(attacker,math.Clamp(dmg*0.1,0,5))		
+			skillpoints.AddSkillPoints(attacker,math.Clamp(dmg*0.05,0,1))		
 			
 		elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent:IsPlayer() then
 		
