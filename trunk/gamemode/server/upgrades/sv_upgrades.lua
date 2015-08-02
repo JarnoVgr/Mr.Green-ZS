@@ -27,6 +27,55 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 		mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
 		
 		if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and ent:IsPlayer() then
+		
+		
+		
+		
+	if skillpoints.GetSkillPoints(attacker) >= 100 then
+		local item = "zs_ammobox"	
+
+		local delta = 1 - math.Clamp( ( ROUNDSTART_TIME - CurTime()) / ROUNDTIME, 0, 1 )
+		local babyPrice = math.Round(delta*1000) + 100			
+		local possibleWeapons = {}
+		
+		for wep,tab in pairs(GAMEMODE.HumanWeapons) do
+			if tab.Price and tab.HumanClass then
+				if tab.Price <= babyPrice then
+					table.insert(possibleWeapons,wep)				
+				end
+			end
+		end
+	
+		item = table.Random(possibleWeapons)
+
+		local itemToSpawn = ents.Create(item)			
+		
+		if IsValid(itemToSpawn) then
+			if attacker:Crouching() then
+				itemToSpawn:SetPos(attacker:GetPos()+Vector(0,0,20))			
+			else
+				itemToSpawn:SetPos(attacker:GetPos()+Vector(0,0,32))			
+			end
+			itemToSpawn:Spawn()
+		
+			local phys = itemToSpawn:GetPhysicsObject()
+			if phys:IsValid() then
+				phys:Wake()
+				phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
+				phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+			end
+		end	
+		skillpoints.TakeSkillPoints(attacker,100)
+		attacker:Message("Weapon dropped.", 1)			
+	end
+				
+		
+		
+		
+		
+		
+		
+		
 			if attacker:GetActiveWeapon().Primary.Ammo == "pistol" and attacker:GetPerk("_medic") then
 				dmg = dmg + (dmg * mul)
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("_commando") then

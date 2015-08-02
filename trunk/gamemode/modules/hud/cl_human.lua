@@ -235,7 +235,8 @@ function hud.DrawSkillPoints()
 	
 	local startX = (ScrW()/2)
 	
-	draw.SimpleTextOutlined("Skill Points: " .. MySelf:GetScore(), "ssNewAmmoFont7",0 + ScrW()/17.0, ScrH()/1.05, Color(255,255,255,120), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+	
+	draw.SimpleTextOutlined("SP for next drop: " .. math.Clamp(100 -  MySelf:GetScore(),0,100), "ssNewAmmoFont5.5",0 + ScrW()/17.0, ScrH()/1.05, Color(255,255,255,120), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 end
 
 function hud.DrawObjMessages()

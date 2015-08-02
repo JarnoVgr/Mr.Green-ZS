@@ -89,14 +89,53 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		mVictim:PlayZombieDeathSound()
 
 		if math.random(1,10) > 2 then
-			dropGoodies()
-		end
+		local item = "zs_ammobox"	
+
+		if not MOBILE_SUPPLIES then
+			item = "weapon_zs_tools_supplies"
+			MOBILE_SUPPLIES = true
+		end	
 		
-		if skillpoints.GetSkillPoints(mAttacker) >= 100 then
-			dropGoodiesForAttacker(mAttacker)
-			skillpoints.TakeSkillPoints(mAttacker,100)
+		local dropChance = math.random(1,10)
+			if dropChance <= 3 then
+				local delta = 1 - math.Clamp( ( ROUNDSTART_TIME - CurTime()) / ROUNDTIME, 0, 1 )
+				local babyPrice = math.Round(delta*1000) + 100			
+				local possibleWeapons = {}
+				
+				for wep,tab in pairs(GAMEMODE.HumanWeapons) do
+					if tab.Price and tab.HumanClass then
+						if tab.Price <= babyPrice then
+							table.insert(possibleWeapons,wep)				
+						end
+					end
+				end
+				
+				item = table.Random(possibleWeapons)
+				
+			elseif dropChance == 4 then
+				item = "item_healthvial"		
+			end
+
+			local itemToSpawn = ents.Create(item)			
+			
+			if IsValid(itemToSpawn) then
+			
+				if mVictim:Crouching() then
+					itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,20))			
+				else
+					itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,32))			
+				end
+
+				itemToSpawn:Spawn()
+				
+				local phys = itemToSpawn:GetPhysicsObject()
+				if phys:IsValid() then
+					phys:Wake()
+					phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
+					phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+				end
+			end		
 		end
-		
 		local floaty = 0
 		
 		if headshot then
@@ -145,92 +184,5 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				end		
 		end	
 	end end
-end
-
-local function dropGoodies()
-local item = "zs_ammobox"	
-
-		if not MOBILE_SUPPLIES then
-			item = "weapon_zs_tools_supplies"
-			MOBILE_SUPPLIES = true
-		end	
-		
-		local dropChance = math.random(1,10) then
-			if dropChance <= 3 then
-				local delta = 1 - math.Clamp( ( ROUNDSTART_TIME - CurTime()) / ROUNDTIME, 0, 1 )
-				local babyPrice = math.Round(delta*1000) + 100			
-				local possibleWeapons = {}
-				
-				for wep,tab in pairs(GAMEMODE.HumanWeapons) do
-					if tab.Price and tab.HumanClass then
-						if tab.Price <= babyPrice then
-							table.insert(possibleWeapons,wep)				
-						end
-					end
-				end
-				
-				item = table.Random(possibleWeapons)
-				
-			elseif dropChance == 4 then
-				item = "item_healthvial"		
-			end
-
-			local itemToSpawn = ents.Create(item)			
-			
-			if IsValid(itemToSpawn) then
-			
-				if mVictim:Crouching() then
-					itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,20))			
-				else
-					itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,32))			
-				end
-
-				itemToSpawn:Spawn()
-				
-				local phys = itemToSpawn:GetPhysicsObject()
-				if phys:IsValid() then
-					phys:Wake()
-					phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
-					phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
-				end
-			end			
-end
-
-local function dropGoodiesForAttacker(mAttacker)
-	item = "zs_ammobox"	
-
-	local delta = 1 - math.Clamp( ( ROUNDSTART_TIME - CurTime()) / ROUNDTIME, 0, 1 )
-	local babyPrice = math.Round(delta*1000) + 100			
-	local possibleWeapons = {}
-	
-	for wep,tab in pairs(GAMEMODE.HumanWeapons) do
-		if tab.Price and tab.HumanClass then
-			if tab.Price <= babyPrice then
-				table.insert(possibleWeapons,wep)				
-			end
-		end
-	end
-	
-	item = table.Random(possibleWeapons)
-
-	local itemToSpawn = ents.Create(item)			
-	
-	if IsValid(itemToSpawn) then
-	
-		if mAttacker:Crouching() then
-			itemToSpawn:SetPos(mAttacker:GetPos()+Vector(0,0,20))			
-		else
-			itemToSpawn:SetPos(mAttacker:GetPos()+Vector(0,0,32))			
-		end
-
-		itemToSpawn:Spawn()
-		
-		local phys = itemToSpawn:GetPhysicsObject()
-		if phys:IsValid() then
-			phys:Wake()
-			phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
-			phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
-		end
-	end			
 end
 hook.Add("OnZombieDeath", "OnZombieKilled", OnZombieDeath)
