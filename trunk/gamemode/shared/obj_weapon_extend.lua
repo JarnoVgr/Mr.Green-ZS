@@ -325,7 +325,7 @@ function meta:DrawCrosshair()
 	if util.tobool(GetConVarNumber("_zs_hidecrosshair")) or self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
 		return
 	end
-	self:DrawCrosshairCross()
+	--self:DrawCrosshairCross()
 	self:DrawCrosshairDot()
 end
 
