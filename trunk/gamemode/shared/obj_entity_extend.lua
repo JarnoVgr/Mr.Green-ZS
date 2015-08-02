@@ -294,7 +294,7 @@ function meta:RenderGlowEffect( color )
 end
 
 hook.Add( "PostDrawOpaqueRenderables", "RenderWeaponsGlow", function()
-    if ( IsValid( MySelf ) and MySelf:IsHuman() and MySelf:Alive() ) then
+   --[[ if ( IsValid( MySelf ) and MySelf:IsHuman() and MySelf:Alive() ) then
         for k,v in pairs( ents.FindByClass( "weapon_*" ) ) do
         	--Check if it's in the world and not holden by a player
         	if not IsValid( v:GetOwner() ) then
@@ -305,5 +305,5 @@ hook.Add( "PostDrawOpaqueRenderables", "RenderWeaponsGlow", function()
 				end				
             end
         end
-    end
+    end]]--
 end)
