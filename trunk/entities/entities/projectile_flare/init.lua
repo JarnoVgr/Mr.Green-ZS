@@ -50,7 +50,7 @@ function ENT:PhysicsCollide( Data, Phys )
 			local z = HitEnt
 			
 			z.NoGib = CurTime() + 1
-			
+			z:Ignite(3)
 			z:TakeDamage(math.random(420,510),self.Entity:GetOwner(),self)
 			self:EmitSound("Weapon_FlareGun.Single")
 			
