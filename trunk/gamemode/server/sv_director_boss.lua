@@ -53,10 +53,6 @@ function GM:CheckBoss()
 		return false
 	end
 
-	if GetInfliction() <= 0.3 then
-		return false
-	end
-
 	if boss.active then
 		return false
 	end
@@ -64,6 +60,12 @@ function GM:CheckBoss()
 	if CurTime() < boss.nextBossTime then
 		return false
 	end
+	
+	if CurTime() < ROUNDTIME*0.5 then
+		return false
+	end
+	
+	
 
 	
 	--if team.GetPlayers(TEAM_HUMAN) < BOSS_TOTAL_PLAYERS_REQUIRED then
