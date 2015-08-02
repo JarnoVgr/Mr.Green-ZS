@@ -61,7 +61,7 @@ function GM:CheckBoss()
 		return false
 	end
 	
-	if CurTime() < ROUNDTIME*0.5 then
+	if CurTime() < ROUNDTIME*0.666 then
 		return false
 	end
 	

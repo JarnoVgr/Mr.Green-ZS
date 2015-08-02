@@ -272,7 +272,7 @@ function meta:RenderGlowEffect( color )
     local oldscale = self:GetModelScale()
 
     -- Render wireframe/debugwhite
-    self:SetModelScale( oldscale * 1.01, 0 )
+    self:SetModelScale( oldscale * 1.05, 0 )
     
     render.SetColorModulation( color.r, color.g, color.b )
     render.SuppressEngineLighting(true)
@@ -282,7 +282,7 @@ function meta:RenderGlowEffect( color )
     self:DrawModel()
 
     render.SetBlend(0.4 * mytime)
-    render.ModelMaterialOverride( matWireframe )
+    --render.ModelMaterialOverride( matWireframe )
     self:DrawModel()
 
     render.ModelMaterialOverride(0)
