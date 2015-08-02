@@ -299,10 +299,10 @@ hook.Add( "PostDrawOpaqueRenderables", "RenderWeaponsGlow", function()
         	--Check if it's in the world and not holden by a player
         	if not IsValid( v:GetOwner() ) then
 				if v:Clip1() == 0 then
-					v:Remove()
-					return
+					v:RenderGlowEffect( Color( 0.75, 0.25,0.25 ) )
+				else
+					v:RenderGlowEffect( Color( 0.1, 0.75, 1 ) )				
 				end				
-            	v:RenderGlowEffect( Color( 0.1, 0.75, 1 ) )
             end
         end
     end
