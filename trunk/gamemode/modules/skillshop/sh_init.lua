@@ -13,45 +13,45 @@ GM.SkillShopAmmo = {
 		Name = "30 Pistol Bullets",
 		Model = "models/Items/BoxSRounds.mdl",
 		Amount = 30,
-		Price = 40
+		Price = 50
 	},
 	["alyxgun"] = {
 		Name = "40 Pyro Rounds",
 		Model = "models/Items/BoxSRounds.mdl",
 		Amount = 40,
-		Price = 40
+		Price = 50
 	},	
 	["357"] = {
 		Name = "18 Sharpshooter Rounds",
 		Model = "models/Items/357ammo.mdl",
 		Amount = 18,
-		Price = 40
+		Price = 50
 	},
 	["smg1"] = {
 		Name = "50 SMG Bullets",
 		Model = "models/Items/BoxMRounds.mdl",
 		Amount = 50,
-		Price = 40
+		Price = 50
 	},
 	["ar2"] = {
 		Name = "60 Commando Rounds",
 		Model = "models/Items/combine_rifle_cartridge01.mdl",
 		Amount = 60,
-		Price = 40
+		Price = 50
 	},
 	
 	["buckshot"] = {
 		Name = "18 Shotgun Shells",
 		Model = "models/Items/BoxBuckshot.mdl",
 		Amount = 18,
-		Price = 40
+		Price = 50
 	},
 	["slam"] = {
 		Name = "C4",
 		Model = "models/Items/BoxBuckshot.mdl",
 		Tool = "weapon_zs_mine",
 		Amount = 1,
-		Price = 40,
+		Price = 50,
 		ToolTab = true
 	},
 	["grenade"] = {
@@ -59,7 +59,7 @@ GM.SkillShopAmmo = {
 		Model = "models/Items/BoxBuckshot.mdl",
 		Tool = "weapon_zs_grenade",
 		Amount = 1,
-		Price = 40,
+		Price = 50,
 		ToolTab = true
 	},
 	["gravity"] = {
