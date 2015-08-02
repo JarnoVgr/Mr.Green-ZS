@@ -88,6 +88,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		--Play sound
 		mVictim:PlayZombieDeathSound()
 
+		if math.random(1,10) > 2 then
 		local item = "zs_ammobox"	
 
 		if not MOBILE_SUPPLIES then
@@ -95,47 +96,46 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			MOBILE_SUPPLIES = true
 		end	
 		
-		local dropChance = math.random(1,10)
-		
-		if dropChance <= 3 then
-			local delta = 1 - math.Clamp( ( ROUNDSTART_TIME - CurTime()) / ROUNDTIME, 0, 1 )
-			local babyPrice = math.Round(delta*1000) + 100			
-			local possibleWeapons = {}
-			
-			for wep,tab in pairs(GAMEMODE.HumanWeapons) do
-				if tab.Price and tab.HumanClass then
-					if tab.Price <= babyPrice then
-						table.insert(possibleWeapons,wep)				
+		local dropChance = math.random(1,10) then
+			if dropChance <= 3 then
+				local delta = 1 - math.Clamp( ( ROUNDSTART_TIME - CurTime()) / ROUNDTIME, 0, 1 )
+				local babyPrice = math.Round(delta*1000) + 100			
+				local possibleWeapons = {}
+				
+				for wep,tab in pairs(GAMEMODE.HumanWeapons) do
+					if tab.Price and tab.HumanClass then
+						if tab.Price <= babyPrice then
+							table.insert(possibleWeapons,wep)				
+						end
 					end
 				end
+				
+				item = table.Random(possibleWeapons)
+				
+			elseif dropChance == 4 then
+				item = "item_healthvial"		
 			end
+
+			local itemToSpawn = ents.Create(item)			
 			
-			item = table.Random(possibleWeapons)
+			if IsValid(itemToSpawn) then
 			
-		elseif dropChance == 4 then
-			item = "item_healthvial"		
+				if mVictim:Crouching() then
+					itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,20))			
+				else
+					itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,32))			
+				end
+
+				itemToSpawn:Spawn()
+				
+				local phys = itemToSpawn:GetPhysicsObject()
+				if phys:IsValid() then
+					phys:Wake()
+					phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
+					phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+				end
+			end			
 		end
-
-		local itemToSpawn = ents.Create(item)			
-		
-		if IsValid(itemToSpawn) then
-		
-			if mVictim:Crouching() then
-				itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,20))			
-			else
-				itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,32))			
-			end
-
-			itemToSpawn:Spawn()
-			
-			local phys = itemToSpawn:GetPhysicsObject()
-			if phys:IsValid() then
-				phys:Wake()
-				phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
-				phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
-			end
-		end			
-
 		local floaty = 0
 		
 		if headshot then
