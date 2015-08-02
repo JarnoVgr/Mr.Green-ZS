@@ -23,15 +23,6 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	local Class = mVictim:GetZombieClass()
 	local Tab = ZombieClasses[Class]
 	
-	--Possible revive
-	if CurTime() > WARMUPTIME and not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 1) then
-		if math.random(1,3) == 1 and dmginfo:IsBulletDamage() then
-			GAMEMODE:DefaultRevive(mVictim)
-			revive = true
-			mVictim.NoDeathNotice = true
-		end
-	end	
-
 	if not revive and not dmginfo:IsMeleeDamage() and mVictim:GetAttachment(1) and (dmginfo:GetDamagePosition():Distance(mVictim:GetAttachment(1).Pos )) < 15 then 
 		mVictim:EmitSound(Sound("physics/body/body_medium_break"..math.random( 2, 4 )..".wav"))
 				
@@ -56,6 +47,17 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			end
 		end
 	end
+	
+	--Possible revive
+	if CurTime() > WARMUPTIME and not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 1) then
+		if math.random(1,3) == 1 and dmginfo:IsBulletDamage() then
+			GAMEMODE:DefaultRevive(mVictim)
+			revive = true
+			mVictim.NoDeathNotice = true
+		end
+	end		
+		
+	
 		
 	-- melee	
 	if not revive and mVictim:GetAttachment( 1 ) then 
@@ -85,21 +87,55 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	if not revive then
 		--Play sound
 		mVictim:PlayZombieDeathSound()
+
+		local item = "zs_ammobox"	
+
+		if not MOBILE_SUPPLIES then
+			item = "weapon_zs_tools_supplies"
+			MOBILE_SUPPLIES = true
+		end	
 		
-		if math.random(1,3) == 1 then
-			local item = "zs_ammobox"
+		local dropChance = math.random(1,10)
+		
+		if dropChance <= 3 then
+			local delta = 1 - math.Clamp( ( ROUNDSTART_TIME - CurTime()) / ROUNDTIME, 0, 1 )
+			local babyPrice = math.Round(delta*1000) + 100			
+			local possibleWeapons = {}
 			
-			if math.random(1,5) == 1 then
-				item = "item_healthvial"
+			for wep,tab in pairs(GAMEMODE.HumanWeapons) do
+				if tab.Price and tab.HumanClass then
+					if tab.Price <= babyPrice then
+						table.insert(possibleWeapons,wep)				
+					end
+				end
 			end
-			--local healthvial = ents.Create("item_healthvial")
-			local healthvial = ents.Create(item)			
-			if IsValid(healthvial) then
-				healthvial:SetPos(mVictim:GetPos())
-				healthvial:Spawn()
-			end
+			
+			item = table.Random(possibleWeapons)
+			
+		elseif dropChance == 4 then
+			item = "item_healthvial"		
 		end
+
+		local itemToSpawn = ents.Create(item)			
 		
+		if IsValid(itemToSpawn) then
+		
+			if mVictim:Crouching() then
+				itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,20))			
+			else
+				itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,32))			
+			end
+
+			itemToSpawn:Spawn()
+			
+			local phys = itemToSpawn:GetPhysicsObject()
+			if phys:IsValid() then
+				phys:Wake()
+				phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
+				phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+			end
+		end			
+
 		local floaty = 0
 		
 		if headshot then
@@ -110,9 +146,9 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		
 		--Put victim in spectator mode
 		if IsValid(mAttacker) and mAttacker:IsPlayer() and mAttacker ~= mVictim then
-			mVictim:SpectateEntity(mAttacker)
-			mVictim:Spectate(OBS_MODE_FREEZECAM)
-			mVictim:SendLua("surface.PlaySound(Sound(\"UI/freeze_cam.wav\"))")
+			--mVictim:SpectateEntity(mAttacker)
+			--mVictim:Spectate(OBS_MODE_FREEZECAM)
+			--mVictim:SendLua("surface.PlaySound(Sound(\"UI/freeze_cam.wav\"))")
 
 			--disable getting points from teamkilling anyway
 			if mAttacker:IsHuman() and mVictim:IsZombie() and not mVictim.NoBounty then

@@ -4,7 +4,7 @@ ENT.Type 			= "anim"
 ENT.PrintName		= ""
 ENT.Author			= "NECROSSIN"
 ENT.Purpose			= ""
-ENT.AmmoDelay = 60
+ENT.AmmoDelay = 90
 ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 
 util.PrecacheSound("items/ammo_pickup.wav")

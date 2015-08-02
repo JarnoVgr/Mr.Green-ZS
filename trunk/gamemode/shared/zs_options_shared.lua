@@ -576,6 +576,9 @@ WARMUPTIME = 120
 -- EXPERIMENTAL
 ROUNDTIME = (15*60) + WARMUPTIME -- 15 minutes
 
+-- ROUND START TIME
+ROUNDSTARTTIME = 0
+
 -- Time in seconds between end round and next map.
 INTERMISSION_TIME = 35
 

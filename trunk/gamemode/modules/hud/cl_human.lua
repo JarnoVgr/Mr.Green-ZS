@@ -151,6 +151,8 @@ end
 
 local cachedEnts
 local nextEntsCache
+
+
 local function DrawWeaponLabels()
 	if not IsEntityValid(MySelf) or ENDROUND or not MySelf.ReadySQL or not MySelf:Alive() or not MySelf:IsHuman() or IsClassesMenuOpen() or util.tobool(GetConVarNumber("zs_hidehud")) then
 		return
@@ -168,6 +170,7 @@ local function DrawWeaponLabels()
 	
 	--Draw weapon name labels
 	
+	--[[
 	for k, ent in pairs(cachedEnts) do
 		if not ent or not IsValid(ent) or not ent:IsWeapon() or IsValid(ent:GetOwner()) or ent:GetPos():Distance( LocalPlayer():GetPos() ) > 400 then
 			continue
@@ -186,8 +189,10 @@ local function DrawWeaponLabels()
 		draw.SimpleTextOutlined( name, "ssNewAmmoFont5", 0, 0, Color(255,255,255,120), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,40) ) 
 		cam.End3D2D()
 	end
+	]]--
 end
 hook.Add("PostDrawTranslucentRenderables", "RenderWorldWeaponsLabels", DrawWeaponLabels)
+
 
 function hud.DrawAmmoPanel()
 	local ActiveWeapon = MySelf:GetActiveWeapon()

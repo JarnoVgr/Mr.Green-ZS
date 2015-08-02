@@ -24,6 +24,7 @@ local function ManageEvents()
 		if CurTime() > WARMUPTIME then
 			--Set active
 			GAMEACTIVE = true
+			ROUNDSTART_TIME = CurTime() + ROUNDTIME
 			
 			--Assign random zombies
 			--GAMEMODE:SetRandomsToFirstZombie()

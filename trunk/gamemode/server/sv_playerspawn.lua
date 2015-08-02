@@ -742,6 +742,7 @@ function CalculatePlayerLoadout(pl)
 			pl:Give("weapon_zs_melee_hook")
 		end
 	elseif pl:GetPerk("_sharpshooter") then
+		MOBILE_SUPPLIES = true
 		pl.Loadout = table.Copy(sharpshooter)
 		pl:ChatPrint("You are a Sharpshooter")
 			

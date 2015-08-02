@@ -69,13 +69,41 @@ if SERVER then
 		end		
 	
 		if activator:IsPlayer() and activator:IsHuman() then
-			activator:GiveAmmo( 20 * mul, "pistol" )	
-			activator:GiveAmmo( 30 * mul, "ar2" )
-			activator:GiveAmmo( 30 * mul, "SMG1" )	
-			activator:GiveAmmo( 12 * mul, "buckshot" )		
-			activator:GiveAmmo( 8 * mul, "357" )
-			activator:GiveAmmo( 30 * mul, "alyxgun" )	
-			activator:GiveAmmo( 20 * mul, "battery" )			
+		
+			local Automatic, Pistol = activator:GetAutomatic(), activator:GetPistol()
+			if Automatic or Pistol then
+				local WeaponToFill = activator:GetActiveWeapon()		
+				local AmmoType
+						
+				if IsValid(WeaponToFill) and (GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic") then
+					AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
+				else
+					AmmoType = "pistol"
+				end
+							
+				-- How much ammo to give
+				local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
+				
+				local mul = 1
+					
+				if activator:GetPerk("_support2") then
+					mul = (mul+0.1) + activator:GetRank()*0.02
+				end	
+				
+				if activator:GetPerk("_supportammo") then
+					mul = mul + 0.35
+				end					
+				
+				if activator:HasBought("ammoman") then
+					mul = mul + 0.5
+				end		
+
+				activator:GiveAmmo(HowMuch * mul, AmmoType)							
+				
+			end
+			
+
+			
 			self:Remove()
 		end
 	end

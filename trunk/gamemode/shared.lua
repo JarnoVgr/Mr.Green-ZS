@@ -339,6 +339,9 @@ LASTHUMAN = false
 BOSSACTIVE = false
 UNLIFE = false
 
+-- Mobile supplies
+MOBILE_SUPPLIES = false
+
 VecRand = VectorRand
 
 -- Hull types

@@ -65,7 +65,7 @@ SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic   	= true
 SWEP.Secondary.Ammo         = "none"
 
-SWEP.WalkSpeed = 175
+SWEP.WalkSpeed = 170
 
 local ShootSound = Sound("items/ammo_pickup.wav")
 local FailSound = Sound("buttons/combine_button_locked.wav")
@@ -215,7 +215,7 @@ function SWEP:PrimaryAttack()
 			--Logging, Note to Clavus - add crate logging
 			--log.PlayerAction( self.Owner, "place_turret")
 			
-			ent:SetPos(Vector(tr.HitPos.x,tr.HitPos.y,tr.HitPos.z+20))
+			ent:SetPos(Vector(tr.HitPos.x,tr.HitPos.y,tr.HitPos.z+17))
 			ent:SetAngles(Angle(0,angles.y,angles.r))
 			ent:SetPlacer(self.Owner)
 			ent:Spawn()
