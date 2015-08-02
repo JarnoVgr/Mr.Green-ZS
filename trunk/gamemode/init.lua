@@ -465,7 +465,7 @@ function GM:InitPostEntity()
 	
 	
 	--Spawn initial supply crates
-	self:SpawnSupplyCrates()
+	--self:SpawnSupplyCrates()
 	
 	--Create zombie Flashlight
 	--self:CreateZombieFlashLight()
