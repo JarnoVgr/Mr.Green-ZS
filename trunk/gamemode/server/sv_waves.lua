@@ -180,7 +180,7 @@ function GM:CalculateUnlife()
 		local zombies = team.NumPlayers(TEAM_UNDEAD)
 		local infliction = math.Round((zombies/allplayers) * 100)
 	
-		if infliction >= 75 then
+		if infliction >= 75 amd team.NumPlayers(TEAM_HUMAN) > 1then
 			UNLIFE = true
 			
 			net.Start("unlife")
