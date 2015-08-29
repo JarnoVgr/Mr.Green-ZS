@@ -74,8 +74,8 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "revolver"
 SWEP.IronSightsHoldType = "pistol"
 SWEP.Primary.Sound  = Sound("weapons/flaregun/fire.wav")
-SWEP.Primary.Recoil			= 4
-SWEP.Primary.Damage			= 25
+SWEP.Primary.Recoil			= 5
+SWEP.Primary.Damage			= 50
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 12
 SWEP.Primary.Delay			= 0.95
@@ -111,7 +111,7 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire(CurTime() + 1)
 	self:EmitSound("weapons/flaregun/fire.wav")
 	self:ShootEffects(self)
-	self:TakePrimaryAmmo(2)
+	self:TakePrimaryAmmo(6)
 	
 	if not SERVER then
 		return

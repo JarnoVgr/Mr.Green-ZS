@@ -120,8 +120,6 @@ function ENT:Explode()
 			self.radius = self.radius + (self.radius*0.4)		
 		elseif self:GetOwner():GetPerk("_trap") then
 			self.damage = self.damage + (self.damage*0.3)		
-		elseif self:GetOwner():GetPerk("_combustion") then
-			self.damage = self.damage * 0.9
 		end		
 	end
 	

@@ -130,22 +130,20 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				
 				if attacker:GetPerk("_burn") then
 					burnchance = burnchance - 5
-				elseif attacker:GetPerk("_scorch") then
-					mul = mul + 0.1
-					burnchance = burnchance + 5
+				--elseif attacker:GetPerk("_scorch") then
+				--	burnchance = burnchance + 5
 				end
 				
 				if math.random(1,burnchance) <= 12 then
 					
-					local ignite = 3 + (3 *(0.05 + attacker:GetRank()*0.01))
-					local burn = 6 + (6 * (0.05 + (2*(attacker:GetRank()*0.01))))					
+					local ignite = 1 + (1 *(0.05 + attacker:GetRank()*0.01))
+					local burn = 12 + (12 * (0.05 + (2*(attacker:GetRank()*0.01))))					
 					
 					if attacker:GetPerk("_pyrosp") then
 						skillpoints.AddSkillPoints(attacker,3)
 						ent:FloatingTextEffect(3, attacker)						
-					elseif attacker:GetPerk("_scorch") then
-						ignite = ignite - 2
-						burn = burn - 3
+					--elseif attacker:GetPerk("_scorch") then
+					--	burn = burn + (burn*0.15)
 					end
 					
 					if ent:IsOnFire() then

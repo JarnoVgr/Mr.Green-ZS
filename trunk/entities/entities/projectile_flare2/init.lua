@@ -4,7 +4,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self.DieTime = CurTime() + 4
+	self.DieTime = CurTime() + 7
 	
 	self:SetModel("models/weapons/w_grenade.mdl")
 	--self:SetModel("models/items/flare.mdl")	
@@ -12,14 +12,14 @@ function ENT:Initialize()
 	self:SetSolid(SOLID_VPHYSICS)
 	--self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 	self:SetMaterial("models/shiny")
-	self:SetColor(255,0,0)
+	self:SetColor(235,25,25)
 	self.CanHit = true
 	
 	--self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
-		phys:SetMass(2)
+		phys:SetMass(3)
 		phys:SetMaterial("metal")
 	end
 end
@@ -44,7 +44,7 @@ function ENT:PhysicsCollide( Data, Phys )
 	
 	local HitEnt = Data.HitEntity
 	if self.CanHit and IsValid( HitEnt) then
-		local damage = 25
+		local damage = 50
 		if HitEnt:IsPlayer() and HitEnt:Team() == TEAM_UNDEAD then	
 			--local ignite = 3 + (2 *(0.05 + self.Entity:GetOwner():GetRank()*0.01)) + (2*(self.Entity:GetOwner():GetRank()*0.01))
 
@@ -55,21 +55,22 @@ function ENT:PhysicsCollide( Data, Phys )
 			--z.NoGib = CurTime() + 1
 
 			if self.Entity:GetOwner():GetPerk("_flarebounce") then
-				damage = damage + 5
+				damage = damage + 10
 				if math.random(1,4) == 1 then
 					self.Entity:Remove()
+					self.CanHit = false
 				end
 			else
-				self.Entity:Remove()		
+				self.Entity:Remove()
+				self.CanHit = false				
 			end
-			
+			HitEnt:Ignite(3);
 			HitEnt:TakeDamage(damage,self.Entity:GetOwner(),self)			
 		elseif not HitEnt:IsPlayer() then
 			HitEnt:TakeDamage((damage * 0.2) ,self.Entity:GetOwner(),self)
+			self.Entity:Remove()
 		end
 	end
-	
-	self.CanHit = false
 end
 
 function ENT:UpdateTransmitState()
