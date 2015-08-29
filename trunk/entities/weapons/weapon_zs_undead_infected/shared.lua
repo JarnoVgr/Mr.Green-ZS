@@ -60,7 +60,7 @@ function SWEP:StartPrimaryAttack()
 	if SERVER and #self.AttackSounds > 0 and self.LastAttackSound < CurTime() then
 		--print(self.Green)
 	--if self.Green then
-		self.LastAttackSound = CurTime() + 2.0
+		self.LastAttackSound = CurTime() + math.random(2,6)
 			--self.Owner:EmitSound(Sound(self.GreenAttackSounds[math.random(#self.GreenAttackSounds)]))
 		--else
 		self.Owner:EmitSound(Sound(self.AttackSounds[math.random(#self.AttackSounds)]))		

@@ -79,6 +79,8 @@ function SWEP:StartSecondaryAttack()
 		return
 	end
 	
+	pl:Daze(1.5);	
+	
 
 			
 	if SERVER then
@@ -117,8 +119,6 @@ function SWEP:PerformSecondaryAttack()
 	local aimvec = pl:GetAimVector()
 	aimvec.z = math.max(aimvec.z, -0.7)
 	
-	pl:Daze(1.5);	
-	
 	for i=1, 8 do
 		local ent = ents.Create("projectile_poisonpuke")
 		if ent:IsValid() then
@@ -140,7 +140,7 @@ function SWEP:PerformSecondaryAttack()
 
 	--pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
 end
-
+--[[
 function SWEP:Move(mv)
 	if self:IsInPrimaryAttack() then
 		--mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.8)
@@ -150,7 +150,7 @@ function SWEP:Move(mv)
 		return true
 	end
 end
-
+]]--
 function SWEP:OnRemove()
 	self.BaseClass.OnRemove(self)
 

@@ -368,8 +368,8 @@ function GM:OnHumanSpawn(pl)
 	pl:SetCrouchedWalkSpeed(0.45)
 
 	--Set jump power
-	if pl:GetJumpPower() ~= 200 then
-		pl:SetJumpPower(200) 
+	if pl:GetJumpPower() ~= 210 then
+		pl:SetJumpPower(210) 
 	end
 	
 	--Calculate maximum health for human
@@ -500,7 +500,7 @@ function GM:OnZombieSpawn(pl)
 	
 	--Set jump power
 	--if pl:GetJumpPower() ~= (Tab.JumpPower or 200) then
-		pl:SetJumpPower(Tab.JumpPower or 200)
+		pl:SetJumpPower(Tab.JumpPower or 210)
 		pl.OriginalJumpPower = Tab.JumpPower or 200		
 	--end
 	

@@ -16,7 +16,7 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Primary.Delay = 0.1
 SWEP.Primary.Reach = 44
-SWEP.Primary.Damage = 4
+SWEP.Primary.Damage = 5
 SWEP.Primary.Duration = 0.32
 
 SWEP.Attacking = 0
@@ -100,7 +100,7 @@ function SWEP:Think()
 
 		if hit then
 			if self.Owner.ViewPunch then
-				self.Owner:ViewPunch(Angle(math.random(0, 70), math.random(0, 70), math.random(0, 70)))
+				self.Owner:ViewPunch(Angle(math.random(0, 20), math.random(0, 20), math.random(0, 20)))
 			end
 
 			if SERVER then
@@ -128,6 +128,7 @@ function SWEP:Think()
 end
 
 function SWEP:Move(mv)
+
 	if self and self.Owner and self.Owner:KeyDown(IN_ATTACK) then
 		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.35)
 		return true

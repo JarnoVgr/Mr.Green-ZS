@@ -123,9 +123,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end				
 				
 				if attacker:GetActiveWeapon():GetClass() == "weapon_zs_pyroshotgun" then
-					burnchance = burnchance - 10
-				elseif attacker:GetActiveWeapon():GetClass() == "weapon_zs_flaregun" then
-					burnchance = 12
+					burnchance = burnchance - 12
 				end
 				
 				if attacker:GetPerk("_burn") then
@@ -136,8 +134,10 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				
 				if math.random(1,burnchance) <= 12 then
 					
-					local ignite = 1 + (1 *(0.05 + attacker:GetRank()*0.01))
-					local burn = 12 + (12 * (0.05 + (2*(attacker:GetRank()*0.01))))					
+					local ignite = 1
+					local burn = 6 + (6 * (0.05 + (3*(attacker:GetRank()*0.01))))		
+					local scorch = 10 + (10 * (2*(attacker:GetRank()*0.01)))	
+
 					
 					if attacker:GetPerk("_pyrosp") then
 						skillpoints.AddSkillPoints(attacker,3)
@@ -145,13 +145,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					--elseif attacker:GetPerk("_scorch") then
 					--	burn = burn + (burn*0.15)
 					end
-					
-					if ent:IsOnFire() then
-						mul = mul + 0.1
-					end
-					
-
-					
+										
 					if attacker:GetPerk("_burn") then
 						burn = burn * 1.25
 						
@@ -160,6 +154,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 						end
 					end
 					
+					dmg = dmg+scorch
 					ent:TakeDamageOverTime(burn, 1, ignite , attacker, inflictor )					
 					ent:Ignite(ignite,0)	
 

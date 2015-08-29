@@ -414,6 +414,7 @@ local function OnPressedF3(pl)
 		end
 	elseif pl:Team() == TEAM_HUMAN and pl:Alive() then
 	
+	--[[
 	local vStart = pl:GetShootPos()
 	local tr = util.TraceLine ( { start = vStart, endpos = vStart + ( pl:GetAimVector() * 90 ), filter = pl, mask = MASK_SHOT } )
 	local entity = tr.Entity
@@ -429,8 +430,9 @@ local function OnPressedF3(pl)
 			pl:Message("+"..price.."SP!", 1)			
 			entity:EmitSound("Breakable.Metal")		
 		else
+		]]--
 			DropWeapon(pl)
-		end
+		--end
 	end
 end
 hook.Add("ShowSpare1", "PressedF3", OnPressedF3)

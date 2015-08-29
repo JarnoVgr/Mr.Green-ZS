@@ -274,7 +274,14 @@ function GM:Move( pl, CMove )
 
 	-- Move data for humans
 	if pl:IsHuman() then cMove.HumanMove ( pl, CMove )return end
-	if pl:IsZombie() then cMove.ZomboMove ( pl, CMove )return end	
+	if pl:IsZombie() then 
+		local wep = pl:GetActiveWeapon()
+				if wep and IsValid(wep) and wep.Move then 
+					wep:Move(CMove) 
+				end
+		cMove.ZomboMove ( pl, CMove )
+		return
+	end	
 	-- Move data for zombos
 	--[[
 	if pl:IsZombie() then 

@@ -57,18 +57,16 @@ function ENT:PhysicsCollide( Data, Phys )
 			if self.Entity:GetOwner():GetPerk("_flarebounce") then
 				damage = damage + 10
 				if math.random(1,4) == 1 then
-					self.Entity:Remove()
 					self.CanHit = false
 				end
 			else
-				self.Entity:Remove()
 				self.CanHit = false				
 			end
 			HitEnt:Ignite(3);
 			HitEnt:TakeDamage(damage,self.Entity:GetOwner(),self)			
 		elseif not HitEnt:IsPlayer() then
 			HitEnt:TakeDamage((damage * 0.2) ,self.Entity:GetOwner(),self)
-			self.Entity:Remove()
+
 		end
 	end
 end

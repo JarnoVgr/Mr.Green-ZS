@@ -184,6 +184,8 @@ function SWEP:StartSecondaryAttack()
 	end
 	self.SwapAnims = not self.SwapAnims	
 		
+	pl:Daze(1.5);	
+		
 	if SERVER then
 		pl:EmitSound("npc/fast_zombie/leap1.wav", 74, math.Rand(110, 130))
 	end
@@ -196,8 +198,6 @@ function SWEP:PerformSecondaryAttack()
 	if CLIENT then
 		return
 	end
-	
-	pl:Daze(1.5);
 	
 	local shootpos = pl:GetShootPos()
 	local startpos = pl:GetPos()
