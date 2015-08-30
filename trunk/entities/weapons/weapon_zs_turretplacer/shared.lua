@@ -123,14 +123,14 @@ if SERVER then
 	local shootpos = self.Owner:GetPos()+Vector(0,0,1)
 	local CanCreateTurret = false
 	
-	local tr = util.TraceLine({start = shootpos, endpos = shootpos + aimvec * 70, filter = self.Owner})
+	local tr = util.TraceLine({start = shootpos, endpos = shootpos + aimvec * 200, filter = self.Owner})
 
-	local htrace = util.TraceHull ( { start = tr.HitPos, endpos = tr.HitPos, mins = Vector (-30,-30,0), maxs = Vector (30,30,80), filter=self.Owner} )--  filter = MySelf,
+	local htrace = util.TraceHull ( { start = tr.HitPos, endpos = tr.HitPos, mins = Vector (-28,-28,0), maxs = Vector (28,28,70), filter=self.Owner} )--  filter = MySelf,
 	local trground = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos - Vector(0,0,1.5)})
 	
-	if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 10 and tr.HitPos:Distance(self.Owner:GetPos()) <= 130 then
+	if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 20 and tr.HitPos:Distance(self.Owner:GetPos()) <= 130 then
 
-		local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-28,-28,0), maxs = Vector(28,28,25)})
+		local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-24,-24,0), maxs = Vector(24,24,0)})
 
 		if hTrace.Entity == NULL then
 			CanCreateTurret = true

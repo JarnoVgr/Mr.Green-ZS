@@ -148,37 +148,41 @@ if SERVER then
 					local WeaponToFill = activator:GetActiveWeapon()		
 					local AmmoType
 							
-					if IsValid(WeaponToFill) and (GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic") then
+					--if IsValid(WeaponToFill) and (GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic") then
 						AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
-					else
-						AmmoType = "pistol"
-					end
-								
+					--else
+					--	AmmoType = "pistol"
+					--end
+							
+					if AmmoType == "slam" then
+						WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
+					else							
 					-- How much ammo to give
-					local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
-									
-					--Multiplier for infliction
-					--HowMuch = math.Round(HowMuch * (INFLICTION + 0.6))
+						local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
+										
+						--Multiplier for infliction
+						--HowMuch = math.Round(HowMuch * (INFLICTION + 0.6))
 
-					--Finally give it
-					
-					local mul = 1
-					
+						--Finally give it
+						
+						local mul = 1
+						
 
-					if activator:GetPerk("_support2") then
-						mul = (mul+0.1) + activator:GetRank()*0.02
-					end	
-					
-					if activator:GetPerk("_supportammo") then
-						mul = mul + 0.35
-					end					
-					
-					if activator:HasBought("ammoman") then
-						mul = mul + 0.5
+						if activator:GetPerk("_support2") then
+							mul = (mul+0.1) + activator:GetRank()*0.02
+						end	
+						
+						if activator:GetPerk("_supportammo") then
+							mul = mul + 0.35
+						end					
+						
+						if activator:HasBought("ammoman") then
+							mul = mul + 0.5
+						end
+						
+						
+						activator:GiveAmmo(HowMuch * mul, AmmoType)
 					end
-					
-					
-					activator:GiveAmmo(HowMuch * mul, AmmoType)
 				end
 				local Owner = self:GetPlacer()
 				
@@ -202,6 +206,7 @@ if SERVER then
 
 				--
 				gotSupplies = true
+				
 			end
 		end
 

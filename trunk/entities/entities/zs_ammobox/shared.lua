@@ -70,17 +70,23 @@ if SERVER then
 	
 		if activator:IsPlayer() and activator:IsHuman() then
 		
-			local Automatic, Pistol = activator:GetAutomatic(), activator:GetPistol()
-			if Automatic or Pistol then
+			--local Automatic, Pistol = activator:GetAutomatic(), activator:GetPistol()
+			--if Automatic or Pistol then
 				local WeaponToFill = activator:GetActiveWeapon()		
 				local AmmoType
 						
-				if IsValid(WeaponToFill) and (GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic") then
+						
+						--print(WeaponToFill:GetPrimaryAmmoTypeString());
+				--if IsValid(WeaponToFill) and (GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "tool1") then
 					AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
-				else
-					AmmoType = "pistol"
-				end
+				--else
+				--	AmmoType = "pistol"
+				--end
 							
+					if AmmoType == "slam" then
+						WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
+					else
+													
 				-- How much ammo to give
 				local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
 				
@@ -101,11 +107,11 @@ if SERVER then
 				activator:GiveAmmo(HowMuch * mul, AmmoType)							
 				
 			end
-			
+			end
 
 			
 			self:Remove()
-		end
+		--end
 	end
 end
 	
