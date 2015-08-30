@@ -911,6 +911,26 @@ function meta:GetPerk(prk)
 	return table.HasValue(self.Perk, prk) or false
 end
 
+function meta:GetHumanClass()
+	if self:GetPerk("_medic") then
+		return "medic"
+	elseif self:GetPerk("_commando") then
+		return "commando"
+	elseif self:GetPerk("_support2") then
+		return "support"
+	elseif self:GetPerk("_engineer") then
+		return "engineer"	
+	elseif self:GetPerk("_sharpshooter") then
+		return "sharpshooter"	
+	elseif self:GetPerk("_berserker") then
+		return "berserker"	
+	elseif self:GetPerk("_pyro") then
+		return "pyro"			
+	else
+		return ""
+	end
+end
+
 function meta:IsBlocked(item, SlotLabel)	
 	local BlockedWeapon = GAMEMODE.HumanWeapons[item] and GAMEMODE.HumanWeapons[item].IsBlocked == true 
 	local BlockedPerk = GAMEMODE.Perks[item] and GAMEMODE.Perks[item].IsBlocked == true

@@ -58,10 +58,10 @@ if SERVER then
 		self._mOwner = self:GetTurretOwner()
 
 		self.Entity:SetModel("models/Combine_turrets/Floor_turret.mdl")
-		self.Entity:PhysicsInit(SOLID_VPHYSICS )
+		self.Entity:PhysicsInit(SOLID_VPHYSICS)
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
-		self.Entity:SetSolid(SOLID_VPHYSICS)
-		self.Entity:SetCollisionGroup( COLLISION_GROUP_WEAPON )
+		self.Entity:SetSolid(SOLID_VPHYSICS)	
+		self.Entity:SetCollisionGroup(SOLID_VPHYSICS)
 	    
 		local phys = self.Entity:GetPhysicsObject()
 		if (phys:IsValid()) then

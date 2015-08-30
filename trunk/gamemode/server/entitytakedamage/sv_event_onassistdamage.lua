@@ -25,7 +25,7 @@ local function AssistDamageAdd ( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	end
 end
-hook.Add( "OnPlayerTakeDamage", "AssistAddDamage", AssistDamageAdd )
+--hook.Add( "OnPlayerTakeDamage", "AssistAddDamage", AssistDamageAdd )
  
 
  

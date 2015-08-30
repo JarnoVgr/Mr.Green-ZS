@@ -757,6 +757,7 @@ function GM:PlayerCanPickupWeapon(ply, entity)
 	--Filter Half-Life weapons (expect physgun and physcannon - they are handled by admin filter)
 	for k,v in pairs(WeaponsRestricted) do
 		if EntClass == v then
+			entity:Remove();
 			return false
 		end
 	end

@@ -1018,6 +1018,8 @@ function GM:PreDrawViewModel(vm, pl, weapon)
 	--Call same function in SWEP
 	if isfunction(weapon.PreDrawViewModel)	then
 		weapon:PreDrawViewModel(vm, pl, weapon)
+		weapon:SetColor(Color(255,255,255,1))
+		weapon:SetMaterial("Debug/hsv") --Debug/hsv	
 	end
 
 	--Use unified hands

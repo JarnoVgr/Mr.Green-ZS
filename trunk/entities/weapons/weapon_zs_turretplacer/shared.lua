@@ -118,7 +118,7 @@ function SWEP:PrimaryAttack()
 	self.Weapon:SetNextPrimaryFire ( CurTime() + 0.65 )
 	
 if SERVER then
-	 
+	 	 
 	local aimvec = self.Owner:GetAimVector()
 	local shootpos = self.Owner:GetPos()+Vector(0,0,1)
 	local CanCreateTurret = false
@@ -128,16 +128,26 @@ if SERVER then
 	local htrace = util.TraceHull ( { start = tr.HitPos, endpos = tr.HitPos, mins = Vector (-30,-30,0), maxs = Vector (30,30,80), filter=self.Owner} )--  filter = MySelf,
 	local trground = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos - Vector(0,0,1.5)})
 	
-	if trground.HitWorld then
-		CanCreateTurret = true
-	else
-		CanCreateTurret = false
+	if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 10 and tr.HitPos:Distance(self.Owner:GetPos()) <= 130 then
+
+		local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-28,-28,0), maxs = Vector(28,28,25)})
+
+		if hTrace.Entity == NULL then
+			CanCreateTurret = true
+		end
 	end
+	
+	--if trground.HitWorld then
+	--	CanCreateTurret = true
+	--else
+	--	CanCreateTurret = false
+	--end
+	
 	local pos = self.Owner:GetPos()
 	local turrets = 0
 
 	for k,v in pairs ( ActualTurrets ) do-- ents.FindInBox (Vector (pos.x - 150,pos.y - 150,pos.z - 150), Vector (pos.x + 150, pos.y + 150, pos.z + 150))
-		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 64 then
+		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 48 then
 			turrets = turrets + 1
 		end
 	end
@@ -152,7 +162,7 @@ if SERVER then
 	
 	for _, Ent in pairs(ents.FindByClass("game_supplycrate")) do
 		if tr.HitPos then
-			if tr.HitPos:Distance(Ent:GetPos()) < 40 then
+			if tr.HitPos:Distance(Ent:GetPos()) < 32 then
 				self.Owner:Message("Place the turret more away from the Supply Crate!", 2)
 				return
 			end
@@ -162,17 +172,7 @@ if SERVER then
 	local angles = aimvec:Angle()	
 	if CanCreateTurret then
 	--print("I can")
-	
-	if skillpoints.GetSkillPoints(self.Owner) < 20 then
-		self.Owner:Message("20SP Required to deploy!", 2)
-		self.Weapon:SetNextPrimaryFire ( CurTime() + 5 )	
-	return end
-
-	skillpoints.TakeSkillPoints(self.Owner,20)
-	self.Owner:Message("-20SP", 1)		
-	
-	
-	
+		
 	local ent = ents.Create("zs_turret")
 		if (IsValid(ent)) then
 			--print("done")

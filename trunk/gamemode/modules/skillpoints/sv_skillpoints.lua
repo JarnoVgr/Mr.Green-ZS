@@ -72,8 +72,49 @@ function skillpoints.AddSkillPoints(pl, amount)
 	if not amount or amount == 0 or not IsValid(pl) or not pl:IsPlayer() then
 		return false
 	end
-	
+
 	pl:AddScore(amount)
+	if skillpoints.GetSkillPoints(pl) >= 100 then
+		local item = "zs_ammobox"	
+
+		local delta = 1 - math.Clamp( ( ROUNDSTART_TIME - CurTime()) / ROUNDTIME, 0, 1 )
+		local babyPrice = math.Round(delta*1000) + 100			
+		local possibleWeapons = {}
+
+		for wep,tab in pairs(GAMEMODE.HumanWeapons) do
+			if tab.Price and tab.HumanClass then
+				if tab.HumanClass ~= pl:GetHumanClass() then continue end
+			
+				if tab.Price <= babyPrice then
+					table.insert(possibleWeapons,wep)			
+				end
+
+			end
+		end
+
+		item = table.Random(possibleWeapons)
+
+		local itemToSpawn = ents.Create(item)			
+
+		if IsValid(itemToSpawn) then
+			if pl:Crouching() then
+				itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,20))			
+			else
+				itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,32))			
+			end
+			itemToSpawn:Spawn()
+
+			local phys = itemToSpawn:GetPhysicsObject()
+			if phys:IsValid() then
+				phys:Wake()
+				phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
+				phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+			end
+		end	
+		skillpoints.TakeSkillPoints(pl,100)
+		pl:Message(item .. " dropped.", 1)			
+	end		
+	
 	return true
 end
 

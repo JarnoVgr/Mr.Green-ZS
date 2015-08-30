@@ -64,8 +64,8 @@ function SWEP:Initialize()
 	self:SetWeaponHoldType(self.HoldType)
 	self:SetWeaponSwingHoldType(self.SwingHoldType)
 	
-	self:SetColor(Color(255,255,255,1))
-	self:SetMaterial("Debug/hsv") --Debug/hsv	
+	--self:SetColor(Color(255,255,255,1))
+	--self:SetMaterial("Debug/hsv") --Debug/hsv	
 	--self.ViewModel = ""
 
 	if CLIENT then
@@ -107,15 +107,17 @@ function SWEP:IsMelee()
 	return true
 end
 
+
 function SWEP:PreDrawViewModel(vm, pl, weapon)
 	--Init viewmodel visibility
+			vm:SetMaterial("")
 	if (self.ShowViewModel == nil or self.ShowViewModel) then
 		vm:SetColor(Color(255,255,255,255))
 
 		vm:SetMaterial("")
 	else
 		-- we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
-		vm:SetColor(Color(255,255,255,1))
+		vm:SetColor(Color(255,255,255,0))
 		-- ^ stopped working in GMod 13 because you have to do Entity:SetRenderMode(1) for translucency to kick in
 		-- however for some reason the view model resets to render mode 0 every frame so we just apply a debug material to prevent it from drawing
 		vm:SetMaterial("Debug/hsv") --Debug/hsv
