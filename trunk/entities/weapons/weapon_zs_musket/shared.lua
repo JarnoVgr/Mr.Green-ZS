@@ -41,7 +41,7 @@ SWEP.Base				= "weapon_zs_base"
 
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
-
+SWEP.HumanClass = "sharpshooter"
 SWEP.ViewModel			= "models/weapons/cstrike/c_snip_scout.mdl"
 SWEP.UseHands = true
 SWEP.WorldModel			= "models/weapons/w_snip_scout.mdl"
@@ -54,7 +54,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound = Sound("weapons/scout/scout_fire-1.wav")
 SWEP.Primary.Recoil			= 4.5
-SWEP.Primary.Damage			= 50
+SWEP.Primary.Damage			= 60
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 2
 SWEP.Primary.Delay			= 1.4

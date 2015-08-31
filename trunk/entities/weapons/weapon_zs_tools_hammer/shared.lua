@@ -1,7 +1,6 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
  
-
 AddCSLuaFile()
  
 SWEP.Author = "Duby"
@@ -10,7 +9,6 @@ SWEP.UseHands = true
 SWEP.WorldModel = Model("models/weapons/w_hammer.mdl")
 SWEP.Base = "weapon_zs_melee_base"
 
- 
 -- Name, fov, etc
 SWEP.PrintName = "Hammer"
 SWEP.DrawAmmo = false
@@ -77,6 +75,9 @@ SWEP.SwingOffset = Vector(0, -30, 0)
 SWEP.SwingHoldType = "grenade"
  
 SWEP.Mode = 1
+
+SWEP.HumanClass = "support"
+
 
 function SWEP:PlaySwingSound()
     self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(65, 70))
@@ -514,82 +515,8 @@ if CLIENT then
                 continue
             end
 
-            draw.SimpleTextOutlined("+".. math.Round(nail:GetDTInt(0)) .."/".. math.Round(nail:GetDTInt(1)), "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+            draw.SimpleTextOutlined("+".. math.Round(nail:GetDTInt(0)) .." / ".. math.Round(nail:GetDTInt(1)), "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			--draw.SimpleTextOutlined(ent, "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
-        end
-    end
-end
-
-
---[[
-function SWEP:GetNextCharge()
-    return self:GetDTFloat(0)
-end]]--
-
-
-if CLIENT then
-    function SWEP:CacheNails()
-        self.CachedNails = {}
-        self.NextNailCache = CurTime()+5
-
-        --Display nails
-        for _, nail in pairs(ents.FindByClass("nail")) do
-            if not nail or not IsValid(nail) or not nail:IsValid() then
-                continue
-            end
-
-            if nail:GetPos():Distance(EyePos()) > (self.NailTextDrawDistance * 2.5) then
-                continue
-            end
-
-            table.insert(self.CachedNails, nail)
-        end
-    end
-
-    function SWEP:DrawHUD()
-        local wid, hei = ScaleW(150), ScaleH(33)
-        local space = 12+ScaleW(7)
-        local x, y = ScrW() - 64, ScrH() - ScaleH(73) - 32
-        y = y + ScaleH(73)/2 - hei/2
-        surface.SetFont("ssNewAmmoFont13")
-        
-        local texty = y + hei/2 
-
-        local charges = self:GetSecondaryAmmoCount()
-
-        local text = charges ..""
-       -- if charges ~= 1 then
-           --text = text .. ""
-       -- end
-
-        local textColor = Color(255,255,255,255)
-        if charges == 0 then
-            textColor = COLOR_DARKRED
-        end
-
-        draw.SimpleTextOutlined(text, "ssNewAmmoFont20", x-8, texty, textColor, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-        
-        
-        MeleeWeaponDrawHUD()
-        
-        --Cache nails
-        if not self.NextNailCache or CurTime() > self.NextNailCache then
-            self:CacheNails()
-        end
-
-        --Display nails
-        if self.CachedNails then
-            for _,nail in pairs(self.CachedNails) do
-                if not nail or not IsValid(nail) or not nail:IsValid() then
-                    continue
-                end
-
-                if nail:GetPos():Distance(EyePos()) > self.NailTextDrawDistance then
-                    continue
-                end
-
-                draw.SimpleTextOutlined("+".. math.Round(nail:GetDTInt(0)) .." | ".. math.Round(nail:GetDTInt(1)), "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,230), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,230)) 
-            end
         end
     end
 end

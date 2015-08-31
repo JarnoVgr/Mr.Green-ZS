@@ -43,6 +43,8 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
 --SWEP.ConeIronMoving = SWEP.Moving *0.8
 
 SWEP.WalkSpeed = SPEED_PISTOL
+
+SWEP.HumanClass = "medic"
 --SWEP.IronSightsPos = Vector(0,0,0)
 --SWEP.IronSightsAng = Vector(0,0,0)
 --SWEP.IronSightsPos = Vector(0, -0.094, 1.205)
@@ -64,8 +66,6 @@ SWEP.WElements = {
 	["elite1"] = { type = "Model", model = "models/weapons/w_pist_elite_single.mdl", bone = "ValveBiped.Bip01_R_Hand", pos = Vector(3.763, 1.161, 2.691), angle = Angle(-0.32, -2.125, -180), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	["elite2"] = { type = "Model", model = "models/weapons/w_pist_elite_single.mdl", bone = "ValveBiped.Bip01_L_Hand", pos = Vector(3.94, 1.294, -2.597), angle = Angle(0, -19.07, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
-	
-
 
 
 function SWEP:SendWeaponAnimation()

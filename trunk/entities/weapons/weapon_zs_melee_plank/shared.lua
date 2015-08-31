@@ -42,7 +42,7 @@ SWEP.MeleeDamage = 15
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 0.875
 SWEP.WalkSpeed = SPEED
-
+SWEP.HumanClass = "berserker"
 SWEP.UseMelee1 = true
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 SWEP.HitGesture = ACT_HL2MP_GESTURE_RANGE_ATTACK_MELEE

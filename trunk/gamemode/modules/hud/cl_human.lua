@@ -16,7 +16,7 @@ table.SortByMember(healthIndication, "Percent", false)
 local LeftGradient = surface.GetTextureID("gui/gradient")
 local Arrow = surface.GetTextureID("gui/arrow")
 function hud.DrawHumanHUD()
-	hud.DrawAmmoPanel()
+	--hud.DrawAmmoPanel()
 	hud.DrawHealth()
 	hud.DrawSkillPoints()
 	--hud.DrawObjMessages()
@@ -318,6 +318,7 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 		--	draw.SimpleTextOutlined("Waiting for players... "..ToMinutesSeconds(math.max(0, WARMUPTIME - curtime)), "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			draw.SimpleTextOutlined("Humans closest to a zombie gas will become a zombie!", "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75 - txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
+			
 			local vols = 0
 			local gastab = {}
 			

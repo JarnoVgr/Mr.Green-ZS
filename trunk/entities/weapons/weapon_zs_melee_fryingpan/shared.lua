@@ -30,11 +30,11 @@ SWEP.ViewModelFOV = 60
 -- Position
 SWEP.Slot = 2
 SWEP.SlotPos = 4
-
+SWEP.HumanClass = "berserker"
 -- Damage, distane, delay
 SWEP.Primary.Delay = 0.6
 SWEP.DamageType = DMG_CLUB
-SWEP.MeleeDamage = 27
+SWEP.MeleeDamage = 20
 SWEP.MeleeRange = 54
 SWEP.MeleeSize = 1.0
 SWEP.WalkSpeed = SPEED_MELEE

@@ -39,7 +39,7 @@ SWEP.Primary.Damage = 7
 SWEP.Primary.NumShots           = 1
 SWEP.Primary.ClipSize           = 15
 SWEP.Primary.Delay                      = 0.11
-SWEP.Primary.DefaultClip        = 15 * 3
+SWEP.Primary.DefaultClip        = 15 * 4
 SWEP.Primary.Automatic = true
 SWEP.MaxAmmo                        = 160
 SWEP.Primary.Ammo                       = "alyxgun"
@@ -50,7 +50,7 @@ SWEP.ConeMoving = SWEP.Cone *1.2
 SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.85
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.95
-
+SWEP.HumanClass = "pyro"
 SWEP.IronSightsPos = Vector(-5.961, -12.164, 2.89)
 SWEP.IronSightsAng = Vector(0, 0, 0)
  

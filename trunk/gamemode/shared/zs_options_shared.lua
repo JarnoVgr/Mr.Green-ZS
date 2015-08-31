@@ -153,7 +153,7 @@ GM.HumanWeapons = {
        -- ["weapon_zs_sg552"]  = { Name = "SG552 Rifle", DPS = 106, Infliction = 0.51, Type = "rifle", Price = 500, HumanClass = "commando" },
         ["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138, Infliction = 0.65, Type = "rifle", Price = 350, HumanClass = "commando" },
         ["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125, Infliction = 0.53, Type = "rifle", Price = 500, HumanClass = "commando" }, 		
-        ["weapon_zs_ak47"]  = { Name = "AK-47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 650, HumanClass = "commando" },         
+        ["weapon_zs_ak47"]  = { Name = "AK47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 650, HumanClass = "commando" },         
         ["weapon_zs_galil"]  = { Name = "Galil", DPS = 129, Infliction = 0.57, Type = "rifle", Price = 800, HumanClass = "commando" }, 
         ["weapon_zs_m249"]  = { Name = "M249", DPS = 200, Infliction = 0.85, Type = "rifle", Price = 950, HumanClass = "commando" },      		
 		
@@ -262,7 +262,7 @@ GM.HumanWeapons = {
         --Tool1
         ["weapon_zs_barricadekit"] = { Name = "Agies Barricading kit", DPS = 0, Infliction = 0, Type = "tool1" },
         --Tool2
-        ["weapon_zs_tools_plank"]  = { Name = "Pack of Planks", DPS = 0, Infliction = 0, Type = "tool2", Description = "Help your team mates, bring extra planks!", Price = 70  },
+        ["weapon_zs_tools_plank"]  = { Name = "Board Pack", DPS = 0, Infliction = 0, Type = "tool2", Description = "Help your team mates, bring extra planks!", Price = 70  },
        
         --Pickups
         ["weapon_zs_pickup_gascan"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },

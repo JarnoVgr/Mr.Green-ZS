@@ -65,9 +65,9 @@ SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
 SWEP.Primary.Recoil			= 2.8
 SWEP.Primary.Damage			= 6
 SWEP.Primary.NumShots		= 7
-SWEP.Primary.ClipSize		= 10
+SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Delay			= 0.2
-SWEP.Primary.DefaultClip	= 40
+SWEP.Primary.DefaultClip	= 20
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "Battery"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
@@ -107,7 +107,7 @@ end
 function SWEP:CanPrimaryAttack()
 	if self.Owner.KnockedDown or self.Owner:IsHolding() then return end
 
-	if self:Clip1() <= 0 then
+	if self:Clip1() < 2 then
 		self:EmitSound("Weapon_Shotgun.Empty")
 		self:SetNextPrimaryFire(CurTime() + 0.25)
 		return false
@@ -123,7 +123,7 @@ function SWEP:CanPrimaryAttack()
 		self:SetNextPrimaryFire(CurTime() + 0.25)
 		return false
 	end
-
+	self:TakePrimaryAmmo(1)
 	return true
 end
 
@@ -252,12 +252,7 @@ if CLIENT then
 			surface.DrawTexturedRect(x+3, y+3, math.min(1, timeleft / math.max(self.Secondary.HealDelay, self.Secondary.HealDelay)) * (wid-6), hei-6)
 		end
 
-		local charges = self:GetPrimaryAmmoCount()
-		if charges > 0 then
-			draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		else
-			draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, COLOR_DARKRED, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		end
+
 	end
 end
 

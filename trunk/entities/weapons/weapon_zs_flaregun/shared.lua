@@ -75,7 +75,7 @@ SWEP.HoldType = "revolver"
 SWEP.IronSightsHoldType = "pistol"
 SWEP.Primary.Sound  = Sound("weapons/flaregun/fire.wav")
 SWEP.Primary.Recoil			= 5
-SWEP.Primary.Damage			= 50
+SWEP.Primary.Damage			= 100
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.95
@@ -83,7 +83,7 @@ SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.MaxAmmo			    = 100
 SWEP.Primary.Automatic		= true  
 SWEP.Primary.Ammo			= "alyxgun"
-
+SWEP.HumanClass = "pyro"
 SWEP.Cone = 0.035
 SWEP.ConeMoving = SWEP.Cone * 1.1
 SWEP.ConeCrouching = SWEP.Cone * 0.95

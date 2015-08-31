@@ -27,7 +27,7 @@ SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
 SWEP.HoldType = "shotgun"
-
+SWEP.HumanClass = "support"
 SWEP.Primary.Sound			= Sound("Weapon_M3.Single")
 SWEP.Primary.Recoil			= 4
 SWEP.Primary.Damage			= 13

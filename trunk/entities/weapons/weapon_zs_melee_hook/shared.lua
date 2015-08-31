@@ -62,6 +62,8 @@ SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingHoldType = "grenade"
 SWEP.ShowWorldModel = false 
 SWEP.ShowViewModel = false
+
+SWEP.HumanClass = "berserker"
 function SWEP:PlaySwingSound()
 	self:EmitSound("Weapon_Crowbar.Single")
 end

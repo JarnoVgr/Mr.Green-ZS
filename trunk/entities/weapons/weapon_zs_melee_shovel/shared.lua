@@ -26,8 +26,8 @@ SWEP.WorldModel = "models/weapons/w_shovel.mdl"
 
 SWEP.MeleeDamage = 50
 SWEP.MeleeRange = 65
-SWEP.MeleeSize = 1.3
-
+SWEP.MeleeSize = 1.3	
+SWEP.HumanClass = "berserker"
 SWEP.Primary.Delay = 1.25
 SWEP.WalkSpeed = SPEED_MELEE_HEAVY
 

@@ -74,7 +74,7 @@ AddCSLuaFile()
     SWEP.Primary.Ammo                       = "357"
     SWEP.WalkSpeed = SPEED_PISTOL
     SWEP.MaxBulletDistance          = 2000
-     
+    SWEP.HumanClass = "sharpshooter"
     SWEP.Cone = 0.06
     SWEP.ConeMoving = SWEP.Cone *1.4
     SWEP.ConeCrouching = SWEP.Cone *0.9

@@ -49,7 +49,7 @@ SWEP.Primary.Ammo			= "ar2"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.MaxAmmo			    = 250
 SWEP.Secondary.Delay = 0.5
-
+SWEP.HumanClass = "commando"
 SWEP.WalkSpeed = SPEED_RIFLE
 
 SWEP.Cone = 0.061

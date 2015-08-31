@@ -35,7 +35,7 @@ SWEP.MeleeRange = 55
 SWEP.MeleeSize = 1.5
 SWEP.WalkSpeed = SPEED_MELEE
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 2.0
-
+SWEP.HumanClass = "berserker"
 SWEP.SwingTime = 0.55
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingHoldType = "grenade"

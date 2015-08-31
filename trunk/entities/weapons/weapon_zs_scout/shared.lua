@@ -30,7 +30,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_Scout.Single")
 SWEP.Primary.Recoil			= 3
-SWEP.Primary.Damage			= 45
+SWEP.Primary.Damage			= 55
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 1.2
@@ -45,8 +45,8 @@ SWEP.ConeCrouching = SWEP.Cone *0.75
 SWEP.ConeIron = SWEP.Cone *0.1
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.1
 --SWEP.ConeIronMoving = SWEP.Moving *0.1
-
-SWEP.WalkSpeed = SPEED_LIGHT + 5
+SWEP.HumanClass = "sharpshooter"
+SWEP.WalkSpeed = SPEED_LIGHT + 10
 
 SWEP.MaxAmmo			    = 40
 

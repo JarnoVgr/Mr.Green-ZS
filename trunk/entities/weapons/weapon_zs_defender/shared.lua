@@ -51,7 +51,7 @@ SWEP.UseHands = true
 SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_rif_ak47.mdl" )
 SWEP.WorldModel			= Model ( "models/weapons/w_rif_ak47.mdl" )
 SWEP.PrintName			= "'Defender' Rifle"
-
+SWEP.HumanClass = "commando"
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("weapons/ak47/ak47-1.wav")

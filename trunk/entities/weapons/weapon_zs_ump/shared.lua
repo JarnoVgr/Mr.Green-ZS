@@ -37,7 +37,7 @@ SWEP.Primary.Delay			= 0.135
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "smg1"
-
+SWEP.HumanClass = "support"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.Cone = 0.075

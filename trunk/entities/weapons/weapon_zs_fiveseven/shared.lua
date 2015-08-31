@@ -38,6 +38,8 @@ SWEP.AutoSwitchFrom		= false
 
 SWEP.HoldType = "pistol"
 
+SWEP.HumanClass = "medic"
+
 SWEP.Primary.Sound			= Sound( "Weapon_FiveSeven.Single" )
 SWEP.Primary.Recoil			= 1
 SWEP.Primary.Damage			= 12

@@ -57,7 +57,7 @@ SWEP.Primary.Ammo         	= "none"
 
 SWEP.Secondary.Delay		= 0.9
 SWEP.Secondary.Recoil		= 0
-SWEP.Secondary.Damage		= 6
+SWEP.Secondary.Damage		= 0
 SWEP.Secondary.NumShots		= 1
 SWEP.Secondary.Cone			= 0
 SWEP.Secondary.ClipSize		= -1
@@ -180,7 +180,7 @@ function SWEP:PrimaryAttack()
 		local canPlaceCrate = false
 
 		--Check if we really need to draw the crate
-		if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 10 and tr.HitPos:Distance(self.Owner:GetPos()) <= 70 then
+		if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 28 and tr.HitPos:Distance(self.Owner:GetPos()) <= 110 then
 			--Check traceline position area
 			local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-28,-28,0), maxs = Vector(28,28,25)})
 

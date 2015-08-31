@@ -21,7 +21,7 @@ if CHRISTMAS then
 		["lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.497, 0.989, -2.882), angle = Angle(0, 0, 180), size = Vector(0.356, 0.356, 0.356), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
 	}
 end
-
+SWEP.HumanClass = "sharpshooter"
 SWEP.Base = "weapon_zs_base"
 
 SWEP.Spawnable			= true

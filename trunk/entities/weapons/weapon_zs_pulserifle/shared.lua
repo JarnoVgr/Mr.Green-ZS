@@ -59,7 +59,7 @@ SWEP.VElements = {
 end
 
 SWEP.Base				= "weapon_zs_base"
-
+SWEP.HumanClass = "engineer"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 SWEP.ViewModel = Model("models/weapons/c_irifle.mdl")

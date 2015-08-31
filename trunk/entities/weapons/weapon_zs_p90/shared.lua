@@ -36,7 +36,7 @@ SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
 SWEP.HoldType = "smg"
-
+SWEP.HumanClass = "support"
 SWEP.Primary.Sound			= Sound("Weapon_P90.Single")
 SWEP.Primary.Recoil			= 1.0
 SWEP.Primary.Unrecoil		= 0

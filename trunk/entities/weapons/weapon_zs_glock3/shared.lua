@@ -34,6 +34,8 @@ SWEP.WorldModel			= Model ( "models/weapons/w_pist_glock18.mdl" )
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
+SWEP.HumanClass = "pyro"
+
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Glock.Single" )

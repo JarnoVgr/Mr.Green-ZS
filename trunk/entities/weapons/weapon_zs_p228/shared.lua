@@ -32,7 +32,7 @@ SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_pist_p228.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_pist_p228.mdl" )
 
-
+SWEP.HumanClass = "medic"
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 

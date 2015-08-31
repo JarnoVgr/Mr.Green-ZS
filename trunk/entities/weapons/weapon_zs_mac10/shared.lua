@@ -25,10 +25,10 @@ SWEP.WorldModel = "models/weapons/w_smg_mac10.mdl"
 SWEP.Weight = 5
 
 SWEP.HoldType = "pistol"
-
+SWEP.HumanClass = "support"
 SWEP.Primary.Sound = Sound("Weapon_MAC10.Single")
 SWEP.Primary.Recoil = 1.15
-SWEP.Primary.Damage = 7.5
+SWEP.Primary.Damage = 8
 SWEP.Primary.NumShots = 1
 SWEP.Primary.Delay = 0.075
 

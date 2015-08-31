@@ -37,6 +37,8 @@ SWEP.MeleeSize = 0.75
 SWEP.Durability = 2
 SWEP.Primary.Delay = 1.0
 
+SWEP.HumanClass = "berserker"
+
 SWEP.WalkSpeed = SPEED
 
 SWEP.SwingRotation = Angle(0, -90, -60)

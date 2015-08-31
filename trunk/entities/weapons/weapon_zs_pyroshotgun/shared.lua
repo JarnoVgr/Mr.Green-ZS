@@ -75,6 +75,8 @@ SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "alyxgun"
 
+SWEP.HumanClass = "pyro"
+
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 function SWEP:EmitFireSound()

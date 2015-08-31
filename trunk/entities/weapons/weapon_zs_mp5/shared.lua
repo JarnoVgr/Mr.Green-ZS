@@ -22,7 +22,7 @@ if CHRISTMAS then
 		["lights"] = { type = "Model", model = "models/player/items/engineer/xms_wrench.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-4.881, 0.867, -6.048), angle = Angle(-79.633, 0, 0), size = Vector(0.899, 0.899, 0.899), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = math.random(0,1), bodygroup = {} }
 	}
 end
-
+SWEP.HumanClass = "support"
 SWEP.Base				= "weapon_zs_base"
 
 SWEP.Spawnable			= true

@@ -45,7 +45,7 @@ SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.MaxBulletDistance 		= 3500
 SWEP.MaxAmmo			    = 250
-
+SWEP.HumanClass = "commando"
 SWEP.Cone = 0.06
 SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.7

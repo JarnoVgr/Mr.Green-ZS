@@ -50,7 +50,7 @@ SWEP.UseHands = true
 ------------------------------------------------------------------------------------------------------
 SWEP.Primary.Delay			= 0.01 	
 SWEP.Primary.Recoil			= 0		
-SWEP.Primary.Damage			= 7	
+SWEP.Primary.Damage			= 0
 SWEP.Primary.NumShots		= 1		
 SWEP.Primary.Cone			= 0 	
 SWEP.Primary.ClipSize		= 20
@@ -67,7 +67,7 @@ SWEP.Secondary.ClipSize		= 1
 SWEP.Secondary.DefaultClip	= 1
 SWEP.Secondary.Automatic   	= false
 SWEP.Secondary.Ammo         = "none"
-
+SWEP.HumanClass = "engineer"
 ------------------------------------------------------------------------------------------------------
 SWEP.WalkSpeed = SPEED
 

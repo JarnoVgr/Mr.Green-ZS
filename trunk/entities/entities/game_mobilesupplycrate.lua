@@ -154,7 +154,7 @@ if SERVER then
 					--	AmmoType = "pistol"
 					--end
 							
-					if AmmoType == "slam" then
+					if AmmoType == "slam" or AmmoType == "grenade" then
 						WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
 					else							
 					-- How much ammo to give

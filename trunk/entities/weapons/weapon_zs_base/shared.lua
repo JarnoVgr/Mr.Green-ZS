@@ -26,6 +26,8 @@ SWEP.RecoilMultiplier = 1
 SWEP.AccuracyBonus = 0
 SWEP.ForceBonus = 1
 
+SWEP.HumanClass = "medic"
+
 SWEP.WalkSpeed = SPEED
 
 SWEP.HoldType = "pistol"

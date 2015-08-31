@@ -37,13 +37,13 @@ SWEP.Primary.Delay 		= 0.06
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "alyxgun"
-
+SWEP.HumanClass = "pyro"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.MaxAmmo			    = 250
 
 
-SWEP.Cone = 0.074
+SWEP.Cone = 0.078
 SWEP.ConeMoving = SWEP.Cone *1.12
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9

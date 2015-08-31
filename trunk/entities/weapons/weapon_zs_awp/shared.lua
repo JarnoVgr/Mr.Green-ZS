@@ -36,7 +36,7 @@ SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "357"
 SWEP.Primary.ReloadDelay	= 2
-
+SWEP.HumanClass = "sharpshooter"
 SWEP.IronSightsPos = Vector(-7.481, -11.891, 2.24)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 

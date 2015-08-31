@@ -33,9 +33,9 @@ SWEP.DeploySpeed = 0.6
 -- Slot pos
 SWEP.Slot = 2
 SWEP.SlotPos = 8
-
+SWEP.HumanClass = "berserker"
 -- Damage, distane, delay
-SWEP.MeleeDamage = 20
+SWEP.MeleeDamage = 22
 SWEP.Primary.Delay = 0.7
 SWEP.Primary.Distance = 73
 SWEP.WalkSpeed = SPEED_MELEE

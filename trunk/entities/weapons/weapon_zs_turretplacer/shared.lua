@@ -36,7 +36,7 @@ SWEP.Slot = 5
 SWEP.SlotPos = 1 
 
 -- SWEP.Info = ""
-
+SWEP.HumanClass = "engineer"
 SWEP.Primary.ClipSize =1
 SWEP.Primary.DefaultClip = 1
 SWEP.Primary.Automatic = false

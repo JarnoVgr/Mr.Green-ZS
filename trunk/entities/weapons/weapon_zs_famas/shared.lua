@@ -48,6 +48,8 @@ SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.Primary.Cone			= 0.04
 
+SWEP.HumanClass = "commando"
+
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.Cone = 0.06

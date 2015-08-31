@@ -28,17 +28,6 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 		
 		if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and ent:IsPlayer() then
 		
-		
-		
-			
-				
-		
-		
-		
-		
-		
-		
-		
 			if attacker:GetActiveWeapon().Primary.Ammo == "pistol" and attacker:GetPerk("_medic") then
 				dmg = dmg + (dmg * mul)
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("_commando") then

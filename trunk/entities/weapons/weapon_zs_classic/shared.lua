@@ -40,6 +40,7 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
 SWEP.IronSightsPos = Vector(-5.85,10,2)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
  
+SWEP.HumanClass = "medic" 
  
 SWEP.VElements = {
         ["pistol"] = { type = "Model", model = "models/weapons/c_pistol.mdl", bone = "v_weapon.Glock_Parent", rel = "", pos = Vector(26.249, 1.776, 5.823), angle = Angle(1.692, 162.576, 79.93), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }

@@ -29,7 +29,7 @@ SWEP.HoldType = "shotgun"
 
 
 SWEP.ReloadDelay = 0.3
-
+SWEP.HumanClass = "support"
 SWEP.Primary.Sound			= Sound("Weapon_XM1014.Single")
 SWEP.Primary.Recoil			= 3
 SWEP.Primary.Damage			= 7

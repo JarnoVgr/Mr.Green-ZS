@@ -26,7 +26,7 @@ SWEP.Author = "Deluvas"
 SWEP.ViewModel = Model ( "models/weapons/c_stunstick.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel = Model("models/weapons/w_axe.mdl")
-
+SWEP.HumanClass = "berserker"
 -- Name and fov
 SWEP.PrintName = "Axe"
 SWEP.ViewModelFOV = 60
@@ -40,7 +40,7 @@ SWEP.HoldType = "melee2"
 SWEP.Primary.Delay = 1.05
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 40
+SWEP.MeleeDamage = 41
 SWEP.MeleeRange = 56
 SWEP.MeleeSize = 1.5
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0

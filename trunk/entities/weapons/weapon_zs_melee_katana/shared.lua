@@ -31,7 +31,7 @@ SWEP.Slot = 2
 SWEP.SlotPos = 6
 SWEP.DeploySpeed = 0.6
 -- Damage, distane, delay
-
+SWEP.HumanClass = "berserker"
 SWEP.MeleeDamage = 45
 SWEP.MeleeRange = 64
 SWEP.MeleeSize = 1.25

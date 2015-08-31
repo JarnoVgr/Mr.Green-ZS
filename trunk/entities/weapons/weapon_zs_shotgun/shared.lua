@@ -40,7 +40,7 @@ SWEP.HoldType = "shotgun"
 
 
 SWEP.ReloadDelay = 0.4
-
+SWEP.HumanClass = "support"
 SWEP.Primary.Sound			= Sound("Weapon_Shotgun.Single")
 SWEP.Primary.Recoil			= 3
 SWEP.Primary.Damage			= 6

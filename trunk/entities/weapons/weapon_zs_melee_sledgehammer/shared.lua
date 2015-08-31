@@ -38,7 +38,7 @@ SWEP.HoldType = "melee2"
 
 SWEP.Primary.Delay = 1.25
 SWEP.TotalDamage = SWEP.Primary.Damage
-
+SWEP.HumanClass = "berserker"
 SWEP.MeleeDamage = 60
 SWEP.MeleeRange = 60
 SWEP.MeleeSize = 2.5

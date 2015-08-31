@@ -22,7 +22,7 @@ SWEP.Author = "JetBoom"
 SWEP.Contact = ""
 SWEP.Purpose = ""
 SWEP.Instructions = ""
-
+SWEP.HumanClass = "commando"
 SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.ViewModel = "models/weapons/c_grenade.mdl"

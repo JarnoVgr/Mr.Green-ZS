@@ -31,7 +31,7 @@ SWEP.AdminSpawnable		= true
 SWEP.ViewModel = "models/weapons/cstrike/c_pist_fiveseven.mdl"
 SWEP.WorldModel = "models/weapons/w_pist_fiveseven.mdl"
 SWEP.UseHands = true
-
+SWEP.HumanClass = "engineer"
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 

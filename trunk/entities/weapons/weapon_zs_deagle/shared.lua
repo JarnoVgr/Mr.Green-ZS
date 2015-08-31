@@ -33,10 +33,10 @@ SWEP.ViewModel			= Model ( "models/weapons/cstrike/c_pist_deagle.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel			= Model ( "models/weapons/w_pist_deagle.mdl" )
 SWEP.HoldType = "revolver"
-
+SWEP.HumanClass = "medic"
 SWEP.Primary.Sound			= Sound( "Weapon_Deagle.Single" )
 SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 20
+SWEP.Primary.Damage			= 24
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 7
 SWEP.Primary.Delay			= 0.3

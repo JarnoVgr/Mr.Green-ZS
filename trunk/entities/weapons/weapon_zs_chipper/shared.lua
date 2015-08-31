@@ -69,7 +69,7 @@ SWEP.Primary.Ammo			= "buckshot"
 SWEP.MaxAmmo			    = 70
 SWEP.IsShotgun = true
  
-
+SWEP.HumanClass = "support"
 SWEP.Cone  = 0.145
 SWEP.ConeMoving = SWEP.Cone *1.1
 SWEP.ConeCrouching = SWEP.Cone *0.90

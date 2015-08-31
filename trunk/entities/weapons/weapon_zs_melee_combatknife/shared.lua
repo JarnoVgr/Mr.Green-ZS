@@ -36,7 +36,7 @@ SWEP.MeleeSize = 0.875
 SWEP.WalkSpeed = SPEED
 
 SWEP.HitDecal = "Manhackcut"
-
+SWEP.HumanClass = "berserker"
 SWEP.NoHitSoundFlesh = true
 
 if CHRISTMAS then

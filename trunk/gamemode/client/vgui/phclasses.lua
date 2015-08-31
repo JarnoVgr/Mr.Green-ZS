@@ -1069,7 +1069,7 @@ function DrawSelectClass()
 	StatsW, StatsH = SecondColumnWidth, SlotHeight
 	
 	PlayerProgressPanel = vgui.Create("DFrame")
-	PlayerProgressPanel:SetSize(ScrW()*0.265, ScrH()*0.1)
+	PlayerProgressPanel:SetSize(ScrW()*0.28, ScrH()*0.1)
 	PlayerProgressPanel:SetPos(ScrW()*0.59 , ScrH()*0.7)
 	PlayerProgressPanel:SetSkin("ZSMG")
 	PlayerProgressPanel:SetTitle("LEVEL " .. MySelf:GetRank()) 
@@ -1080,7 +1080,7 @@ function DrawSelectClass()
 
 	PlayerProgressPanel.PaintOver = function()
 
-		draw.SimpleTextOutlined(MySelf:CurRankXP()-MySelf:GetXP() .." XP Remaining for level " .. MySelf:GetRank()+1 , "ssNewAmmoFont7", ScrW()*0.01, ScrH()*0.05, Color (255,255,255,220), TEXT_ALIGN_LEFT,TEXT_ALIGN_LEFT,1,Color(0,0,0,230))
+		draw.SimpleTextOutlined(MySelf:CurRankXP()-MySelf:GetXP() .." XP Remaining for level " .. MySelf:GetRank()+1 , "ssNewAmmoFont7", ScrW()*0.0085, ScrH()*0.05, Color (255,255,255,220), TEXT_ALIGN_LEFT,TEXT_ALIGN_LEFT,1,Color(0,0,0,230))
 		
 	end
 

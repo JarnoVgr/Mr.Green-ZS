@@ -82,7 +82,7 @@ SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
 SWEP.HoldType = "smg"
-
+SWEP.HumanClass = "engineer"
 SWEP.Primary.Sound			= Sound("weapons/airboat/airboat_gun_lastshot"..math.random(1,2)..".wav")
 SWEP.Primary.Recoil			= 0.7
 SWEP.Primary.Damage			= 11

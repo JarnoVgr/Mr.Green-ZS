@@ -24,6 +24,7 @@ if CLIENT then
 	
 end
 
+SWEP.HumanClass = "medic"
 
 SWEP.Base = "weapon_zs_base"
 

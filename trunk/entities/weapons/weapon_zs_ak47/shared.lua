@@ -56,6 +56,7 @@ SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8
 --SWEP.ConeIronMoving = SWEP.Moving *0.7
 
+SWEP.HumanClass = "commando"
 
 SWEP.MaxAmmo			    = 9999
 
