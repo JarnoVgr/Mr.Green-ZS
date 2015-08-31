@@ -392,7 +392,7 @@ function PaintNewWeaponSelection()
 		end
 		
 		if MyWeapons[i].HumanClass == "medic" then
-			ColorToDraw = Color(100, 230, 255, math.Clamp(160*Alpha, 0, 255))
+			ColorToDraw = Color(100, 200, 250, math.Clamp(160*Alpha, 0, 255))
 		elseif MyWeapons[i].HumanClass == "berserker" then
 			ColorToDraw = Color(255, 141, 147, math.Clamp(160*Alpha, 0, 255))
 		elseif MyWeapons[i].HumanClass == "pyro" then
@@ -402,13 +402,16 @@ function PaintNewWeaponSelection()
 		elseif MyWeapons[i].HumanClass == "commando" then
 			ColorToDraw = Color(188, 168, 255, math.Clamp(160*Alpha, 0, 255))		
 		elseif MyWeapons[i].HumanClass == "engineer" then
-			ColorToDraw = Color(30, 218, 255, math.Clamp(160*Alpha, 0, 255))	
+			ColorToDraw = Color(30, 228, 255, math.Clamp(160*Alpha, 0, 255))	
 		elseif MyWeapons[i].HumanClass == "support" then
 			ColorToDraw = Color(255, 182, 238, math.Clamp(160*Alpha, 0, 255))					
 		end
+					
+		local price = GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Price
+		price = math.floor(math.Clamp(price * 0.2,0,90))
 		
 		--Weapon name
-		draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, FontSize, SLOT_POS[i].PosX + MySelf.WepW * 1.25, NameHeight, ColorToDraw , TEXT_ALIGN_RIGHT, TEXT_ALIGN_RIGHT,1,Color(0, 0, 0, math.Clamp(Alpha, 0, 255)))
+		draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name .. " (" .. price .. " SP)", FontSize, SLOT_POS[i].PosX + MySelf.WepW * 1.25, NameHeight, ColorToDraw , TEXT_ALIGN_RIGHT, TEXT_ALIGN_RIGHT,1,Color(0, 0, 0, math.Clamp(Alpha, 0, 255)))
 	end
 end
 hook.Add("HUDPaintBackground", "PaintSelection", PaintNewWeaponSelection)

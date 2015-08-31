@@ -267,7 +267,7 @@ HelpBtn[#HELP_TXT+3] = {
 
 function MakepHelp( nr )
 		
-	local ww,wh = 600, 500
+	local ww,wh = ScrW()*0.4, ScrH()*0.4
 	local wx,wy = w/2-ww/2,h/2-wh/2
 	
 	local MainWindow = vgui.Create("DFrame")
@@ -280,7 +280,7 @@ function MakepHelp( nr )
 	MainWindow:MakePopup()
 	
 	MainWindow.PaintOver = function()
-		draw.SimpleTextOutlined ( "F1: Help | F2: Redeem (as zombie) | F3: Drop weapon (as human)/Open class menu (as zombie) | F4: Options", "ArialBoldFour", 10, 30, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined ( "F1 Help | F2: Redeem / Scrap Weapon | F3: Zombie Class Menu / Throw Weapon | F4: Options", "ArialBoldFour", 10, 30, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP,1,Color(0,0,0,255))
 	end
 	
 	local MainWindowEntry = vgui.Create("DTextEntry",MainWindow)

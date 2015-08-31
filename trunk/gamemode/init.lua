@@ -379,6 +379,18 @@ end
 
 -- Player presses F2
 function OnPressF2(pl)	
+
+	if pl:Team() == TEAM_HUMAN and pl:Alive() and CurTime() > WARMUPTIME + 1 then
+			local price = GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price
+			skillpoints.AddSkillPoints(pl,GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price*0.5)
+			pl:GetActiveWeapon():Remove()				
+			DropWeapon(pl)
+			price = math.floor(math.Clamp(price * 0.2,0,90))
+			pl:Message("+"..price.."SP!", 1)			
+			pl:EmitSound("Breakable.Metal")		
+			return
+	end
+	
 	local requiredScore = REDEEM_KILLS
 	if pl:HasBought("quickredemp") or pl:GetRank() < REDEEM_FAST_LEVEL then
 		requiredScore = REDEEM_FAST_KILLS
@@ -436,6 +448,8 @@ local function OnPressedF3(pl)
 	end
 end
 hook.Add("ShowSpare1", "PressedF3", OnPressedF3)
+
+
 
 -- Player presses F4
 function GM:ShowSpare2(pl)
@@ -498,7 +512,7 @@ end
 local function DeleteEntitiesRestricted()
 	-- Entities to delete on map (wildcards are supported)
 	--local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", --[=["func_door", "func_door_rotating",]=] "weapon_*", "item_ammo_*", "item_box_buckshot" }
-	local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", --[=["func_door", "func_door_rotating",]=] }
+	local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", "item_ammo_*" --[=["func_door", "func_door_rotating",]=] }
 	
 	-- Trash bin table, stores entities that will be removed
 	local TrashBin, CurrentMapTable = {}, MapProperties[game.GetMap()]-- TranslateMapTable[ game.GetMap() ]

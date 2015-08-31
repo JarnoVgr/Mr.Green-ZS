@@ -865,6 +865,7 @@ function DrawSlotIcon(x, y, ww, hh, wepclass, parent, num, weptype)
 end
 
 local LoadoutOpen = false
+local spawned = false
 
 function DrawSelectClass()
 	local filename = "zombiesurvival/loadouts/default.txt"
@@ -1038,6 +1039,8 @@ function DrawSelectClass()
 	SpawnButton:SetPos(SpawnButtonX, ScrH()*0.8)
 	SpawnButton:SetSize(SpawnButtonW, SpawnButtonH)
 
+
+	
 	local function CloseSpawnMenu(class)
 		ChangeClassClient(1)
 		BlurPanel:Close()
@@ -1050,7 +1053,7 @@ function DrawSelectClass()
 	end
 
 	SpawnButton.Think = function () 
-		if WARMUPTIME-10 - CurTime() <= 0 then
+		if WARMUPTIME-10 - CurTime() <= 0 || spawned == true then
 			CloseSpawnMenu(math.random(1,5))
 		end
 		
@@ -1062,6 +1065,7 @@ function DrawSelectClass()
 	
 	SpawnButton.DoClick = function ()
 		CloseSpawnMenu(1)
+		spawned = true
 	end
 	
 	--Stats

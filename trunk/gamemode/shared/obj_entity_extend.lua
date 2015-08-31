@@ -293,17 +293,34 @@ function meta:RenderGlowEffect( color )
     self:SetModelScale( oldscale, 0 )
 end
 
+
+
 hook.Add( "PostDrawOpaqueRenderables", "RenderWeaponsGlow", function()
-   --[[ if ( IsValid( MySelf ) and MySelf:IsHuman() and MySelf:Alive() ) then
+   				local ColorToDraw
+   if ( IsValid( MySelf ) and MySelf:IsHuman() and MySelf:Alive() ) then
         for k,v in pairs( ents.FindByClass( "weapon_*" ) ) do
         	--Check if it's in the world and not holden by a player
         	if not IsValid( v:GetOwner() ) then
-				if v:Clip1() == 0 then
-					v:RenderGlowEffect( Color( 0.75, 0.25,0.25 ) )
-				else
-					v:RenderGlowEffect( Color( 0.1, 0.75, 1 ) )				
-				end				
+				if v.HumanClass == "medic" then
+					ColorToDraw = Color(100 / 255, 200 / 255, 250 / 255)
+				elseif v.HumanClass == "berserker" then
+					ColorToDraw = Color(255 / 255, 110 / 255, 120 / 255)
+				elseif v.HumanClass == "pyro" then
+					ColorToDraw = Color(255 / 255, 178 / 255, 62 / 255)		
+				elseif v.HumanClass == "sharpshooter" then
+					ColorToDraw = Color(127/ 255, 181 / 255, 120 / 255)		
+				elseif v.HumanClass == "commando" then
+					ColorToDraw = Color(188/ 255, 168/ 255, 255/ 255)		
+				elseif v.HumanClass == "engineer" then
+					ColorToDraw = Color(30/ 255, 228/ 255, 255/ 255)	
+				elseif v.HumanClass == "support" then
+					ColorToDraw = Color(255/ 255, 182/ 255, 238/ 255)					
+				end
+				
+				v:RenderGlowEffect( ColorToDraw )
+				timeToDraw = CurTime()
+				
             end
         end
-    end]]--
+    end
 end)
