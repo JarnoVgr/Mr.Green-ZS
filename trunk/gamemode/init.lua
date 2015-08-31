@@ -382,10 +382,11 @@ function OnPressF2(pl)
 
 	if pl:Team() == TEAM_HUMAN and pl:Alive() and CurTime() > WARMUPTIME + 1 then
 			local price = GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price
-			skillpoints.AddSkillPoints(pl,GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price*0.5)
+
 			pl:GetActiveWeapon():Remove()				
 			DropWeapon(pl)
 			price = math.floor(math.Clamp(price * 0.2,0,90))
+			skillpoints.AddSkillPoints(pl,price)
 			pl:Message("+"..price.."SP!", 1)			
 			pl:EmitSound("Breakable.Metal")		
 			return
