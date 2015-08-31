@@ -44,7 +44,7 @@ function ENT:PhysicsCollide( Data, Phys )
 	
 	local HitEnt = Data.HitEntity
 	if self.CanHit and IsValid( HitEnt) then
-		local damage = 100
+		local damage = 70
 		if HitEnt:IsPlayer() and HitEnt:Team() == TEAM_UNDEAD then	
 			--local ignite = 3 + (2 *(0.05 + self.Entity:GetOwner():GetRank()*0.01)) + (2*(self.Entity:GetOwner():GetRank()*0.01))
 
