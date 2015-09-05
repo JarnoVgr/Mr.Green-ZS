@@ -72,11 +72,11 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_AR2.Single")
-SWEP.Primary.Recoil			= 1.2
+SWEP.Primary.Recoil			= 1.3
 SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 40
-SWEP.Primary.Delay			= 0.085
+SWEP.Primary.Delay			= 0.1
 SWEP.Primary.DefaultClip	= 40
 SWEP.Primary.Automatic		= true
 SWEP.TracerName = "AR2Tracer"

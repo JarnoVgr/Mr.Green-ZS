@@ -14,6 +14,7 @@ ENT.radius = 150
 ENT.scan = 1
 ENT.range = 140
 ENT.WarningSound = Sound("weapons/c4/c4_beep1.wav")
+ENT.planted = 0
 
 util.PrecacheModel("models/Weapons/w_package.mdl")
 util.PrecacheSound("weapons/c4/c4_beep1.wav")

@@ -33,6 +33,8 @@ function ENT:Initialize()
 	local phys = self.Entity:GetPhysicsObject()
 	phys:EnableMotion( false )
 	
+	self.planted = CurTime()
+	
 	table.insert(ActualMines,self)
 end
 --[[
@@ -54,6 +56,9 @@ function ENT:Think()
 		return
 	end
 	
+	if self.planted + 3 > CurTime() then
+		return
+	end
 	--if CurTime() < 1.5 then return end
 		
 	-- In case the owner dies
