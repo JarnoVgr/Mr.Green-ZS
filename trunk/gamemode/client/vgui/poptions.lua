@@ -80,13 +80,13 @@ function MakepOptions()
 	end
 	Cat["hud"]:SetContents( CatList["hud"] )	
 	
-	--local slider = vgui.Create("DNumSlider")
-	--slider:SizeToContents()
-	--slider:SetDecimals(0)
-	--slider:SetMinMax(-30, 40)
-	--slider:SetConVar("zs_viewmodel_fov")
-	--slider:SetText("Field Of View")
-	--CatList["hud"]:AddItem( slider )
+	local slider = vgui.Create("DNumSlider")
+	slider:SizeToContents()
+	slider:SetDecimals(0)
+	slider:SetMinMax(-10, 25)
+	slider:SetConVar("zs_viewmodel_fov")
+	slider:SetText("Field Of View")
+	CatList["hud"]:AddItem( slider )
 	
 	
 	-- ---------------------------
