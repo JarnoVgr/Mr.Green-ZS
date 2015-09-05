@@ -21,7 +21,7 @@ local PlrData = {
 	Rank = 1,
 	NextRankPerc = 0,
 	XPRequired = 0,
-	XPCurrent = 0
+	XPCurrent = 0,
 }
 local NextPlrDataCache = 0
 local function RecachePlayerData()

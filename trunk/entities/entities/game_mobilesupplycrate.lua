@@ -30,6 +30,7 @@ function ENT:Initialize()
 		end
 	
 		self.CrateHealth = 200
+		self.CrateMaxHealth = 200
 	end
 	
 	if self:GetPlacer():GetPerk("_supply") then	
@@ -90,9 +91,18 @@ if SERVER then
 		if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() then
 			self.CrateHealth = self.CrateHealth - dmginfo:GetDamage()
 		
+				local brit = math.Clamp(self.CrateHealth / self.CrateMaxHealth, 0, 1)
+		local col = self:GetColor()
+		col.r = 255
+		col.g = 255 * brit
+		col.b = 255 * brit
+		self:SetColor(col)		
+		
 			if self.CrateHealth <= 0 then
 				self:Explode()
 			end
+			
+			
 		end
 	end
 
@@ -181,7 +191,7 @@ if SERVER then
 						end
 						
 						
-						activator:GiveAmmo(HowMuch * mul, AmmoType)
+						activator:GiveAmmo(math.Round(HowMuch * mul), AmmoType)
 					end
 				end
 				local Owner = self:GetPlacer()
@@ -243,8 +253,8 @@ if CLIENT then
 	ENT.LineColor = Color(210, 0, 0, 100)
 	function ENT:Draw()
 			
-	    self:DrawModel()
-
+	    self:DrawModel()		
+		
 	    if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
 	        return
 	    end
@@ -259,7 +269,7 @@ if CLIENT then
 	    local pos = self:GetPos() + Vector(0,0,30)
 
 	    --Check for distance with local player
-	    if pos:Distance(MySelf:GetPos()) > 400 then
+	    if pos:Distance(MySelf:GetPos()) > 360 then
 	        return
 	    end
 	          
@@ -273,15 +283,14 @@ if CLIENT then
 		local owner = self:GetPlacer()
 		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
 	
-		if validOwner then
-			draw.SimpleTextOutlined( owner:Name() .."'s Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-		else
+		if !validOwner then
+			--draw.SimpleTextOutlined( owner:Name() .."'s Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 			draw.SimpleTextOutlined( "Unclaimed Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		end
 				
 		if MySelf.MobileSupplyTimerActive == true then
 			local time = math.Round(MySelf.MobileSupplyTime - CurTime())
-			draw.SimpleTextOutlined("In 0"..ToMinutesSeconds(time + 1), "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Supples In 0"..ToMinutesSeconds(time + 1), "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 
 			--Check if placer is MySelf
 			if validOwner and MySelf == owner and not self:GetClaimed() then

@@ -84,6 +84,9 @@ function GM:PlayerInitialSpawn(pl)
 	pl.GreencoinsGained = {}
 	pl.GreencoinsGained[TEAM_UNDEAD] = 0
 	pl.GreencoinsGained[TEAM_HUMAN] = 0
+	
+	pl.SPRequired = 100
+	pl.SPReceived = 0
 
 	if pl:IsBot() then
 		--Used for testing intermission screen scores

@@ -15,6 +15,9 @@ table.SortByMember(healthIndication, "Percent", false)
 
 local LeftGradient = surface.GetTextureID("gui/gradient")
 local Arrow = surface.GetTextureID("gui/arrow")
+
+SPRequired = 100
+	
 function hud.DrawHumanHUD()
 	--hud.DrawAmmoPanel()
 	hud.DrawHealth()
@@ -81,11 +84,11 @@ function hud.DrawHealth()
 	
 	--Different colors
 	if iPercentage > 0.75 then
-		healthBarColor = Color(24, 140, 30, 255)
-		healthBarBGColor = Color(52, 68, 15, 255)
+		healthBarColor = Color(24, 140, 30, 225)
+		healthBarBGColor = Color(52, 68, 15, 225)
 	elseif iPercentage > 0.5 then
-		healthBarColor = Color(137, 116, 24, 255)
-		healthBarBGColor = Color(86, 73, 15, 255)
+		healthBarColor = Color(137, 116, 24, 225)
+		healthBarBGColor = Color(86, 73, 15, 225)
 	end
 
 	--Flash under certain conditions
@@ -102,7 +105,7 @@ function hud.DrawHealth()
 	--Foreground
 	surface.SetDrawColor(healthBarColor)
 	surface.DrawRect(barX, barY, barW * healthPercentageDrawn, barH)
-
+--[[
 	--Only update text if health changed
 	if healthChanged then
 		for k, v in ipairs(healthIndication) do
@@ -112,9 +115,9 @@ function hud.DrawHealth()
 			end
 		end
 	end
-	
+	]]--
 	--Draw health status text
-	draw.SimpleTextOutlined(healthStatusText, "ssNewAmmoFont5", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	--draw.SimpleTextOutlined(healthStatusText, "ssNewAmmoFont5", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 	
 
 	--TODO: Make this look nice in the HUD
@@ -231,12 +234,14 @@ function hud.DrawAmmoPanel()
 	end
 end
 
+local SPRequired = 100
+
+net.Receive("SPRequired", function(len)
+	SPRequired = net.ReadFloat()
+end)
+
 function hud.DrawSkillPoints()
-	
-	local startX = (ScrW()/2)
-	
-	
-	draw.SimpleTextOutlined("SP for next drop: " .. math.Clamp(100 -  MySelf:GetScore(),0,100), "ssNewAmmoFont5.5",0 + ScrW()/17.0, ScrH()/1.05, Color(255,255,255,120), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+	draw.SimpleTextOutlined("SP for next drop: " .. math.Clamp(SPRequired -  MySelf:GetScore(),0,SPRequired), "ssNewAmmoFont5.5",0 + ScrW()/17.0, ScrH()/1.05, Color(255,255,255,145), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 end
 
 function hud.DrawObjMessages()

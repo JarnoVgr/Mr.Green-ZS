@@ -365,7 +365,7 @@ function PaintNewWeaponSelection()
 			
 			
 
-				ColorToDraw = Color(220, 240, 230, math.Clamp(100*Alpha + 150, 0, 255))
+				ColorToDraw = Color(220, 240, 230, math.Clamp(100*Alpha + 155, 0, 255))
 
 		
 			if clip1 > 0 || clip2 > 0 then
@@ -408,10 +408,11 @@ function PaintNewWeaponSelection()
 		end
 					
 		local price = GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Price
-		price = math.floor(math.Clamp(price * 0.2,0,90))
+
+		price = math.Round(price * 0.5)
 		
 		--Weapon name
-		draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name .. " (" .. price .. " SP)", FontSize, SLOT_POS[i].PosX + MySelf.WepW * 1.25, NameHeight, ColorToDraw , TEXT_ALIGN_RIGHT, TEXT_ALIGN_RIGHT,1,Color(0, 0, 0, math.Clamp(Alpha, 0, 255)))
+		draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name .. " (" .. price .. " SP)", FontSize, SLOT_POS[i].PosX + MySelf.WepW * 1.25, NameHeight, ColorToDraw , TEXT_ALIGN_RIGHT, TEXT_ALIGN_RIGHT,1,Color(0, 0, 0, math.Clamp(160*Alpha + 80, 0, 255)))
 	end
 end
 hook.Add("HUDPaintBackground", "PaintSelection", PaintNewWeaponSelection)

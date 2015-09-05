@@ -66,6 +66,7 @@ end
 
 --Alias
 skillpoints.Clean = skillpoints.SetupSkillPoints
+util.AddNetworkString( "SPRequired" )
 
 --Add nessesary amount of skill points
 function skillpoints.AddSkillPoints(pl, amount)
@@ -73,13 +74,26 @@ function skillpoints.AddSkillPoints(pl, amount)
 		return false
 	end
 
+	pl.SPReceived = pl.SPReceived + amount
 	pl:AddScore(amount)
-	if skillpoints.GetSkillPoints(pl) >= 100 then
-		local item = "zs_ammobox"	
 
+	if skillpoints.GetSkillPoints(pl) >= pl.SPRequired then
+	
+	net.Start("SPRequired")
+		net.WriteFloat(math.Round(pl.SPRequired + 50))
+		net.WriteBit(false)
+	net.Send(pl)
+			skillpoints.TakeSkillPoints(pl,pl.SPRequired)
+		pl.SPRequired = pl.SPRequired + 50
+	
+	
+		local item = "zs_ammobox"	
+			--pl:SetSPRequired(pl:SPRequired() + pl:SPRequired() * 0.5)
 		local delta = 1 - math.Clamp( ( ROUNDSTART_TIME - CurTime()) / ROUNDTIME, 0, 1 )
-		local babyPrice = math.Round(delta*1000) + 100			
+		local babyPrice = math.Round(delta*200) + 80		
 		local possibleWeapons = {}
+		
+
 
 		for wep,tab in pairs(GAMEMODE.HumanWeapons) do
 			if tab.Price and tab.HumanClass then
@@ -95,7 +109,8 @@ function skillpoints.AddSkillPoints(pl, amount)
 		item = table.Random(possibleWeapons)
 
 		local itemToSpawn = ents.Create(item)			
-
+		
+		print(item)
 		if IsValid(itemToSpawn) then
 			if pl:Crouching() then
 				itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,20))			
@@ -111,7 +126,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 				phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
 			end
 		end	
-		skillpoints.TakeSkillPoints(pl,100)
+		pl:EmitSound("weapons/physcannon/energy_sing_explosion"..math.random(1,2)..".wav" )
 		pl:Message(item .. " dropped.", 1)			
 	end		
 	

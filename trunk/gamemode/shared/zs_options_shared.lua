@@ -140,65 +140,65 @@ GM.ChatTitles = {
  
 GM.HumanWeapons = {    
         --Berserker
-        ["weapon_zs_deagle"]  = { Name = "Desert Eagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 100},		
-        ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 100, Description = "Bish bash bosh, fast smacking and hard hitting!", HumanClass = "berserker" },  
-        ["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 400, HumanClass = "berserker" },
-        ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 600, HumanClass = "berserker" },
-        ["weapon_zs_melee_katana"]  = { Name = "Katana", DPS = 90, Infliction = 0, Type = "melee", Price = 600, Description = "Handle with care. It's very sharp." , HumanClass = "berserker"},
-        ["weapon_zs_melee_chainsaw"]  = { Name = "Chainsaw", DPS = 30, Infliction = 0, Type = "melee", Price = 800, Description = "This may become a bit gory.", HumanClass = "berserker" },   
+        ["weapon_zs_deagle"]  = { Name = "Desert Eagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 50, HumanClass = "berserker"},		
+        ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 80, Description = "Bish bash bosh, fast smacking and hard hitting!", HumanClass = "berserker" },  
+        ["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 110, HumanClass = "berserker" },
+        ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 160, HumanClass = "berserker" },
+        ["weapon_zs_melee_katana"]  = { Name = "Katana", DPS = 90, Infliction = 0, Type = "melee", Price = 180, Description = "Handle with care. It's very sharp." , HumanClass = "berserker"},
+        ["weapon_zs_melee_chainsaw"]  = { Name = "Chainsaw", DPS = 30, Infliction = 0, Type = "melee", Price = 200, Description = "This may become a bit gory.", HumanClass = "berserker" },   
        
         --Commando
-        ["weapon_zs_defender"]  = { Name = "Defender Rifle", DPS = 93, Price = 100, Infliction = 0.2, Type = "rifle", Description = "Scrap AK47", HumanClass = "commando"},    
-        ["weapon_zs_famas"]  = { Name = "Famas", DPS = 140, Type = "rifle", Price = 250, HumanClass = "commando" },
+        ["weapon_zs_defender"]  = { Name = "Defender Rifle", DPS = 93, Price = 80, Infliction = 0.2, Type = "rifle", Description = "Scrap AK47", HumanClass = "commando"},    
+        ["weapon_zs_famas"]  = { Name = "Famas", DPS = 140, Type = "rifle", Price = 100, HumanClass = "commando" },
        -- ["weapon_zs_sg552"]  = { Name = "SG552 Rifle", DPS = 106, Infliction = 0.51, Type = "rifle", Price = 500, HumanClass = "commando" },
-        ["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138, Infliction = 0.65, Type = "rifle", Price = 350, HumanClass = "commando" },
-        ["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125, Infliction = 0.53, Type = "rifle", Price = 500, HumanClass = "commando" }, 		
-        ["weapon_zs_ak47"]  = { Name = "AK47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 650, HumanClass = "commando" },         
-        ["weapon_zs_galil"]  = { Name = "Galil", DPS = 129, Infliction = 0.57, Type = "rifle", Price = 800, HumanClass = "commando" }, 
-        ["weapon_zs_m249"]  = { Name = "M249", DPS = 200, Infliction = 0.85, Type = "rifle", Price = 950, HumanClass = "commando" },      		
+        ["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138, Infliction = 0.65, Type = "rifle", Price = 120, HumanClass = "commando" },
+        ["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125, Infliction = 0.53, Type = "rifle", Price = 140, HumanClass = "commando" }, 		
+        ["weapon_zs_ak47"]  = { Name = "AK47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 160, HumanClass = "commando" },         
+        ["weapon_zs_galil"]  = { Name = "Galil", DPS = 129, Infliction = 0.57, Type = "rifle", Price = 180, HumanClass = "commando" }, 
+        ["weapon_zs_m249"]  = { Name = "M249", DPS = 200, Infliction = 0.85, Type = "rifle", Price = 200, HumanClass = "commando" },      		
 		
         --Support
-        ["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 100, HumanClass = "support" },	
-        ["weapon_zs_smg"]  = { Name = "Classic SMG", DPS = 125, Infliction = 0.65, Type = "smg", Price = 100, HumanClass = "support"},
-        ["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143, Infliction = 0, Price = 200, Type = "shotgun", HumanClass = "support" },       		
-        ["weapon_zs_mac10"]  = { Name = "Mac 10", DPS = 126, Infliction = 0.60, Type = "smg", Price = 300, HumanClass = "support" },   
-        ["weapon_zs_ump"]  = { Name = "UMP", DPS = 110, Infliction = 0.60, Type = "smg", Price = 500, HumanClass = "support" },
-        ["weapon_zs_m3super90"]  = { Name = "M3 Shotgun", DPS = 149, Infliction = 0, Type = "shotgun", Price = 600, HumanClass = "support"}, 		
-        ["weapon_zs_p90"]  = { Name = "P90", DPS = 125, Infliction = 0.65, Type = "smg", Price = 700, HumanClass = "support" },
-        ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 800, HumanClass = "support"},		
+        ["weapon_zs_shotgun"]  = { Name = "Shotgun", DPS = 215, Infliction = 0.85, Type = "shotgun", Price = 80, HumanClass = "support" },	
+        ["weapon_zs_smg"]  = { Name = "Classic SMG", DPS = 125, Infliction = 0.65, Type = "smg", Price = 80, HumanClass = "support"},
+        ["weapon_zs_chipper"]  = { Name = "Chipper", DPS = 143, Infliction = 0, Price = 120, Type = "shotgun", HumanClass = "support" },       		
+        ["weapon_zs_mac10"]  = { Name = "Mac 10", DPS = 126, Infliction = 0.60, Type = "smg", Price = 120, HumanClass = "support" },   
+        ["weapon_zs_ump"]  = { Name = "UMP", DPS = 110, Infliction = 0.60, Type = "smg", Price = 140, HumanClass = "support" },
+        ["weapon_zs_m3super90"]  = { Name = "M3 Shotgun", DPS = 149, Infliction = 0, Type = "shotgun", Price = 160, HumanClass = "support"}, 		
+        ["weapon_zs_p90"]  = { Name = "P90", DPS = 125, Infliction = 0.65, Type = "smg", Price = 160, HumanClass = "support" },
+        ["weapon_zs_m1014"]  = { Name = "M1014", DPS = 246, Infliction = 0.85, Type = "shotgun", Price = 190, HumanClass = "support"},		
     
 	       --["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127, Infliction = 0.58, Type = "smg", Price = 300, HumanClass = "support" },
 	
         --Medic
-        ["weapon_zs_medi2"]  = { Name = "Medi 02", DPS = 143, Infliction = 0, Type = "shotgun",Price = 300, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
-        ["weapon_zs_medi3"]  = { Name = "Medi 03", DPS = 143, Infliction = 0, Type = "smg",Price = 600, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
-		["weapon_zs_medi1"]  = { Name = "Medi 01", DPS = 143, Infliction = 0, Type = "pistol",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medi2"]  = { Name = "Medi 02", DPS = 143, Infliction = 0, Type = "shotgun",Price = 140, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
+        ["weapon_zs_medi3"]  = { Name = "Medi 03", DPS = 143, Infliction = 0, Type = "smg",Price = 190, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+		["weapon_zs_medi1"]  = { Name = "Medi 01", DPS = 143, Infliction = 0, Type = "pistol",Price = 80, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		
-        ["weapon_zs_elites"]  = { Name = "Dual Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 300},
+        ["weapon_zs_elites"]  = { Name = "Dual Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 120},
        
         --Sharpshooter
-        ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 200, HumanClass = "sharpshooter"},         
-        ["weapon_zs_python"]  = { Name = "Python", DPS = 93, Infliction = 0.2, Price = 100, Type = "pistol", HumanClass = "sharpshooter"},       
-        ["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40, Infliction = 0, Type = "rifle", Price = 300, Description = "Light-weight sniper.", HumanClass = "sharpshooter" }, 
-		["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 300, Description = "Russian Roulette Revolver", HumanClass = "sharpshooter" },		
-        ["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 500, HumanClass = "sharpshooter"  },
-        ["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 700, HumanClass = "sharpshooter"  },
-        ["weapon_zs_awp"]  = { Name = "AWP", DPS = 200, Infliction = 0, Type = "rifle", Price = 900, Description = "Heavy sniper.", HumanClass = "sharpshooter" },     
+        ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 100, HumanClass = "sharpshooter"},         
+        ["weapon_zs_python"]  = { Name = "Python", DPS = 93, Infliction = 0.2, Price = 80, Type = "pistol", HumanClass = "sharpshooter"},       
+        ["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40, Infliction = 0, Type = "rifle", Price = 140, Description = "Light-weight sniper.", HumanClass = "sharpshooter" }, 
+		["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 160, Description = "Russian Roulette Revolver", HumanClass = "sharpshooter" },		
+        ["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 160, HumanClass = "sharpshooter"  },
+        ["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 180, HumanClass = "sharpshooter"  },
+        ["weapon_zs_awp"]  = { Name = "AWP", DPS = 200, Infliction = 0, Type = "rifle", Price = 200, Description = "Heavy sniper.", HumanClass = "sharpshooter" },     
        
 	   
         --Engineer
-        ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 100, HumanClass = "engineer"},                      
-        ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 300, HumanClass = "engineer"},
-        ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 99, Infliction = 0, Type = "smg", Price = 800, HumanClass = "engineer"},
+        ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 80, HumanClass = "engineer"},                      
+        ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 140, HumanClass = "engineer"},
+        ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 99, Infliction = 0, Type = "smg", Price = 200, HumanClass = "engineer"},
 
  
 		--Pyro
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 100}, 
 		
-        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 100, HumanClass = "pyro" },		
-		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "pistol", HumanClass = "pyro", Price = 200},
-		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg", HumanClass = "pyro", Price = 300 },		
-		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Type = "shotgun", HumanClass = "pyro", Price = 500},	
+        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 120, HumanClass = "pyro" },		
+		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "pistol", HumanClass = "pyro", Price = 120},
+		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg", HumanClass = "pyro", Price = 140 },		
+		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Type = "shotgun", HumanClass = "pyro", Price = 180},	
 		
 		["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", HumanClass = "pyro"},
 		["weapon_zs_firebomb"]  = { Name = "Flame Nade", DPS = 143, Infliction = 0, HumanClass = "pyro"},
@@ -210,20 +210,20 @@ GM.HumanWeapons = {
         --Pistols
  
         --Loadout Guns
-        ["weapon_zs_fiveseven"]  = { Name = "Five Seven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 60},       
-        ["weapon_zs_barreta"]  = { Name = "Barreta", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 60},            
-        ["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42, Infliction = 0, Type = "pistol", Description = "It's practical!", Price = 60 },
-        ["weapon_zs_p228"]  = { Name = "P228", DPS = 58, Infliction = 0, Type = "pistol", Description = "More accuracy but less fire power compared to the USP." , Price = 60},   
-        ["weapon_zs_melee_plank"]  = { Name = "Plank", DPS = 56, Infliction = 0, Type = "melee", Description = "The noobs ultimate weapon.", Price = 60  },                
-        ["weapon_zs_melee_combatknife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee", Price = 60 },
-        ["weapon_zs_classic"]  = { Name = "Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic.", Price = 60},
+        ["weapon_zs_fiveseven"]  = { Name = "Five Seven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 50, HumanClass = "medic"},       
+        ["weapon_zs_barreta"]  = { Name = "Barreta", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 50, HumanClass = "medic"},            
+        ["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42, Infliction = 0, Type = "pistol", Description = "It's practical!", Price = 50 , HumanClass = "medic"},
+        ["weapon_zs_p228"]  = { Name = "P228", DPS = 58, Infliction = 0, Type = "pistol", Description = "More accuracy but less fire power compared to the USP." , Price = 50, HumanClass = "medic"},   
+        ["weapon_zs_melee_plank"]  = { Name = "Plank", DPS = 56, Infliction = 0, Type = "melee", Description = "The noobs ultimate weapon.", Price = 50, HumanClass = "berserker"  },                
+        ["weapon_zs_melee_combatknife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee", Price = 50 , HumanClass = "berserker" },
+        ["weapon_zs_classic"]  = { Name = "Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic.", Price = 50, HumanClass = "medic" },
  
  
         --Loadout Tools 1
-        ["weapon_zs_tools_hammer"]  = { Name = "Hammer", DPS = 23, Infliction = 0, Type = "tool1", Description = "Stop! Hammer time. This will freeze props in their place. Primary to repair/whack, Secondary to nail.", Price = 100 },
-        ["weapon_zs_medkit"]  = { Name = "Medical Kit", DPS = 8, Infliction = 0, Type = "tool1", Description = "Be a good teammate. Or just heal yourself.", Price = 100 },
+        ["weapon_zs_tools_hammer"]  = { Name = "Hammer", DPS = 23, Infliction = 0, Type = "tool1", Description = "Stop! Hammer time. This will freeze props in their place. Primary to repair/whack, Secondary to nail.", HumanClass = "support" , Price = 100 },
+        ["weapon_zs_medkit"]  = { Name = "Medical Kit", DPS = 8, Infliction = 0, Type = "tool1", Description = "Be a good teammate. Or just heal yourself.", Price = 160, HumanClass = "medic"  },
         ["weapon_zs_tools_supplies"] = { Name = "Mobile Supplies", DPS = 0, Infliction = 0, Type = "tool2", Description = "Allows you to spawn a Supply Crate.", Price = 100 },
-		["weapon_zs_turretplacer"] = { Name = "Turret", DPS = 0, Infliction = 0, Type = "tool2", Description = "Need more fire power? Here you go!", Price = 100  },
+		["weapon_zs_turretplacer"] = { Name = "Turret", DPS = 0, Infliction = 0, Type = "tool2", Description = "Need more fire power? Here you go!", Price = 160, HumanClass = "engineer"   },
 		  
 		  --Loadout Tools 2
         ["weapon_zs_tools_remote"] = { Name = "Turret Controller", DPS = 0, Infliction = 0, Type = "misc" },
@@ -241,7 +241,7 @@ GM.HumanWeapons = {
         ["weapon_zs_melee_keyboard"]  = { Name = "Keyboard", DPS = 45, Infliction = 0, Type = "melee", Description = "There's no better way to express your online anger.", Price = 40 },
         ["weapon_zs_melee_pot"]  = { Name = "Pot", DPS = 61, Infliction = 0, Type = "melee", Description = "Don't do school stay in drugs, live the pot!", Price = 40 },
         ["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee", Description = "Cooking by the book.", Price = 40 },
-        ["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Description = "", Price = 100 },
+        ["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Description = "", Price = 80 },
         ["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee", Description = "Whoops. Looks like I shouldn't of hit him so hard..", Price = 40  },
         ["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee", Description = "Clunk, oh look his head fell off..", Price = 40  },
        
@@ -262,7 +262,7 @@ GM.HumanWeapons = {
         --Tool1
         ["weapon_zs_barricadekit"] = { Name = "Agies Barricading kit", DPS = 0, Infliction = 0, Type = "tool1" },
         --Tool2
-        ["weapon_zs_tools_plank"]  = { Name = "Board Pack", DPS = 0, Infliction = 0, Type = "tool2", Description = "Help your team mates, bring extra planks!", Price = 70  },
+        ["weapon_zs_tools_plank"]  = { Name = "Board Pack", DPS = 0, Infliction = 0, Type = "tool2", Description = "Help your team mates, bring extra planks!", Price = 50  },
        
         --Pickups
         ["weapon_zs_pickup_gascan"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },
@@ -737,32 +737,39 @@ HELP_TXT = {}
 
 HELP_TXT[1] = {
  title = "Help", 
-	txt = [[
-	Mr. Green Zombie Survival
+	txt = [[Mr. Green Zombie Survival
 	
-	-- HUMANS -----------------------------------------------------
+	| Humans |
 	
-	> Objective: Team up and survive Against the zombie horde!
-	> Weapons: Kill zombies, Get SP go to the crate when the timer is up and press 'e' It then gives you your new weapons.
-	> Leveling: To level up - you need to gain experience that you get for almost anything you do. Each time you level up - you may unlock new tools and perks. 
-	To check your current experience type !levelstats in chat.
-	> Tips: Stick with your team and make good use of your tools.
+		[Objective]
+			- Survive for 15 minutes to win.
+		[How?] 
+			- Battle the undead to gain SP(SkillPoints) in order to receive weapons and ammunition.
+		[SP]
+			- SP is received by damaging/killing/healing/repairing/surviving.
+			- You will receive a weapon drop once you reach a required amount of SP.
+			- Weapons and ammunition have a chance of dropping from killing undead.
+			- Better weapons will drop as the round progresses.
+		[F3]
+			- Throw weapon.
+			- Salvage weapon for SP while looking at a mobile supply crate.
+
+	| Undead |
 	
-	-- ZOMBIES ----------------------------------------------------
+		[Objective]
+			- Kill 4 humans (8 score) in order to redeem(become a human).
+		[How?] 
+			- Use the variety of undead(F3).
+			- Each undead has it's own pros and cons and should all be used in seperate situations.
+		[F2]
+			- Redeem.
+		[F3]
+			- Undead class selection.
 	
-	> Objective: Eat all humans. If you get 8 score (by eating 4 humans) - you will be able to redeem (F2).
-	> Classes: Zombies have 8 different classes that will be unlocked depending on the round time. (press F3 to choose your class).
-	> Spawning: As zombie you can spawn on other zombies (left mouse button). With right mouse button you can scroll through other zombies.
-	> Teamwork: Zombies can gain damage resistance from bullets by grouping into hordes. 
-	
-	-- ADMINS ----------------------------------------------------
-	
-	> Damien, Duby, Reiska, Lameshot, Phychopeti,Jeremiah.
-	
-	-- SERVER CODERS ----------------------------------------------------
-	
-	>Ywa, Duby, Pufulet.
-	Any questions go to:  http://mrgreengaming.com
+	[F4]
+		- Options menu.
+	[Website]
+		- http://mrgreengaming.com
 ]]
 }
 
@@ -770,37 +777,26 @@ HELP_TXT[1] = {
 HELP_TXT[2] = {
 	title = "Rules", 
 	txt = [[
-	The following WILL get you permabanned:
-		  - hacking / cheating
-		  - getting yourself banned too often
-		  - being a general retard
-	
-	The following can result in temporary ban:
-		  - Being rude
-		  - Impersonating an admin
-		  - Exploiting after being warned several times
-		  - Ladder glitching
-		  - Cadebreaking
-		  - B-hopping
-		  - Spawn camping
-	The following can result in kick or insta-death:
-		  - Being AFK for a long period of time
-		  - Spamming after being muted/gagged
-		
-	The following can result in being teleported:
-		  - Exploiting a map
+	Permanent Ban:
+		  - Hacking.
+		  - Gettting banned too often.
+		  
+	Temporary Ban
+		  - Purposefully irritating players.
+
+	Teleported
+		  - Exploting a map.
 		  - Prop climbing
 		
-	The following can result in being muted/gagged:
+	Muted \ Gagged:
 		  - Spamming
-		  - Abusing voice (playing music, screaming etc.)
-		  - Excessive swearing
-	
+		  - Abusing voice chat.
+		  - Being an idiot.
 	]]
 } 
 
 HELP_TXT[3] = {
-	title = "LV Unlocks", 
+	title = "Leveling Guide", 
 	txt = [[
 		-At Mr.Green we reward you for playing on the server for long periods of time.
 		

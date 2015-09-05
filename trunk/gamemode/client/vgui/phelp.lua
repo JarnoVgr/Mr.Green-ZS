@@ -234,6 +234,7 @@ HelpBtn[#HELP_TXT+1] = {
 	end
 }
  --Duby: Out of date, Damien will need to do an update on this one..
+ --[[
 HelpBtn[#HELP_TXT+2] = {
 	name = "Adv. Guide",
 	action = function()
@@ -252,9 +253,9 @@ HelpBtn[#HELP_TXT+2] = {
 		pHelpHTML = guide
 		
 	end
-}
+}]]--
 
-HelpBtn[#HELP_TXT+3] = {
+HelpBtn[#HELP_TXT+2] = {
 	name = "Green Shop",
 	action = function()
 		
@@ -267,21 +268,21 @@ HelpBtn[#HELP_TXT+3] = {
 
 function MakepHelp( nr )
 		
-	local ww,wh = ScrW()*0.4, ScrH()*0.4
+	local ww,wh = ScrW()*0.325, ScrH()*0.5
 	local wx,wy = w/2-ww/2,h/2-wh/2
 	
 	local MainWindow = vgui.Create("DFrame")
 	MainWindow:SetSize(ww,wh)
 	MainWindow:SetPos(wx,wy)
 	MainWindow:SetSkin("ZSMG")
-	MainWindow:SetTitle( "" ) --"F1: Help | F2: Redeem (as zombie) | F3: Drop weapon (as human)/Open class menu (as zombie) | F4: Options"
+	MainWindow:SetTitle( "F1 Menu" ) --"F1: Help | F2: Redeem (as zombie) | F3: Drop weapon (as human)/Open class menu (as zombie) | F4: Options"
 	MainWindow:SetDraggable (false)
 	MainWindow:SetSizable(false)
 	MainWindow:MakePopup()
 	
-	MainWindow.PaintOver = function()
-		draw.SimpleTextOutlined ( "F1 Help | F2: Redeem / Scrap Weapon | F3: Zombie Class Menu / Throw Weapon | F4: Options", "ArialBoldFour", 10, 30, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP,1,Color(0,0,0,255))
-	end
+	--MainWindow.PaintOver = function()
+	--	draw.SimpleTextOutlined ( "F1 Help | F2: Redeem | F3: Zombie Class Menu / Throw Weapon - Scrap Weapon | F4: Options", "ArialBoldFour", 10, 40, Color(255, 255, 255, 255) , TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP,1,Color(0,0,0,255))
+	--end
 	
 	local MainWindowEntry = vgui.Create("DTextEntry",MainWindow)
 	MainWindowEntry:SetPos( 10, 55 ) 

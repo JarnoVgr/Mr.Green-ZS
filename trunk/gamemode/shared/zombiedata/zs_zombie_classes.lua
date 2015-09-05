@@ -279,8 +279,8 @@ ZombieClasses[4] =
 {
 	Name = "Ghast",
 	Tag = "etherealzombie",
-	Infliction = 0.25,
-	Health = 125,
+	Infliction = 0.0,
+	Health = 100,
 	MaxHealth = 200,
 	TimeLimit = 200,
 	Bounty = 80,
@@ -293,22 +293,20 @@ ZombieClasses[4] =
 	Model = Model( "models/player/soldier_stripped" ),
 	Speed = 185,
 	Description = "A ghastly figure which can disguise itself as a human!",
-	DescriptionGameplay = {"> PRIMARY: Claws", "> SECONDARY: Disguise as a human!", "> SPECIAL: Ignored by turrets and proximity C4", "> HEALTH: 125 / 60 ", "> SPEED: 145 / 185 ", "> DAMAGE: 20" },
+	DescriptionGameplay = {"> PRIMARY: Claws", "> SECONDARY: Disguise as a human!", "> SPECIAL: Ignored by turrets and proximity C4", "> HEALTH: 100 / 150 ", "> SPEED: 145 / 185 ", "> DAMAGE: 20" },
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
-		--[[Sound("npc/stalker/stalker_pain1.wav"),
+		Sound("npc/stalker/stalker_pain1.wav"),
 		Sound("npc/stalker/stalker_pain2.wav"),
-		Sound("npc/stalker/stalker_pain3.wav"),]]
-		Sound("npc/stalker/stalker_alert1b.wav"),
-		Sound("npc/stalker/stalker_alert12.wav"),
-		Sound("npc/stalker/stalker_alert13.wav"),
+		Sound("npc/stalker/stalker_pain3.wav"),
+		--Sound("npc/stalker/stalker_alert1b.wav"),
+		--Sound("npc/stalker/stalker_alert12.wav"),
+		--Sound("npc/stalker/stalker_alert13.wav"),
 		-- Sound("npc/barnacle/barnacle_pull4.wav")
 	},
 	DeathSounds = {
 		Sound("npc/stalker/stalker_die1.wav"),
-		Sound("npc/stalker/stalker_die2.wav"),
-		Sound("wraithdeath3.wav"),
-		Sound("wraithdeath4.wav")
+		Sound("npc/stalker/stalker_die2.wav")
 	},
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
@@ -322,11 +320,11 @@ ZombieClasses[5] =
 {
 	Name = "Ethereal",
 	Tag = "etherealzombie",
-	Infliction = 0.25,
-	Health = 110,
+	Infliction = 0.0,
+	Health = 100,
 	MaxHealth = 200,
 	TimeLimit = 200,
-	Bounty = 60,
+	Bounty = 80,
 	SP = 4,
 	Threshold = 2,
 	JumpPower = 180,
@@ -334,24 +332,24 @@ ZombieClasses[5] =
 	CanGib = true,
 	SWEP = "weapon_zs_undead_wraith",
 	Model = Model( "models/wraith.mdl" ),
-	Speed = 190,
+	Speed = 185,
 	Description = "A teleporting apparition",
-	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport", "> HEALTH: 110 ", "> SPEED: 190", "> DAMAGE: 33" },
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport", "> HEALTH: 100 ", "> SPEED: 185", "> DAMAGE: 33" },
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),
 		Sound("npc/stalker/stalker_pain2.wav"),
 		Sound("npc/stalker/stalker_pain3.wav"),]]
-		Sound("npc/stalker/stalker_alert1b.wav"),
-		Sound("npc/stalker/stalker_alert12.wav"),
-		Sound("npc/stalker/stalker_alert13.wav"),
+		--Sound("npc/stalker/stalker_alert1b.wav"),
+		--Sound("npc/stalker/stalker_alert12.wav"),
+		--Sound("npc/stalker/stalker_alert13.wav"),
 		-- Sound("npc/barnacle/barnacle_pull4.wav")
 	},
 	DeathSounds = {
-		Sound("npc/stalker/stalker_die1.wav"),
-		Sound("npc/stalker/stalker_die2.wav"),
-		Sound("wraithdeath3.wav"),
-		Sound("wraithdeath4.wav")
+		Sound("npc/stalker/wraithdeath1.wav"),
+		Sound("npc/stalker/wraithdeath2.wav"),	
+		Sound("npc/stalker/wraithdeath3.wav"),
+		Sound("npc/stalker/wraithdeath4.wav")
 	},
 	
 	OnSpawn = function(pl)

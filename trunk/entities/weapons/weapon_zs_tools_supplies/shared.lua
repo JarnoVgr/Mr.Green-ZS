@@ -47,7 +47,7 @@ SWEP.HoldType = "normal"
 
 SWEP.Primary.Delay			= 0.9 	
 SWEP.Primary.Recoil			= 0		
-SWEP.Primary.Damage			= 7	
+SWEP.Primary.Damage			= 0
 SWEP.Primary.NumShots		= 1		
 SWEP.Primary.Cone			= 0 	
 SWEP.Primary.ClipSize		= 1

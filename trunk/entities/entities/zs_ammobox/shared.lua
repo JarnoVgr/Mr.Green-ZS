@@ -104,10 +104,9 @@ if SERVER then
 					mul = mul + 0.5
 				end		
 
-				activator:GiveAmmo(HowMuch * mul, AmmoType)							
-				
+				activator:GiveAmmo(math.Round(HowMuch * mul), AmmoType)							
 			end
-			end
+		end
 
 			
 			self:Remove()

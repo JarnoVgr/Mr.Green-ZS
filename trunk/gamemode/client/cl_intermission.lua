@@ -67,10 +67,9 @@ end
 ---------------------------------------------------------]]
 local GameHints = {
 	"Headcrabs are small. They can hardly be seen. Use them wisely.",
-	"As an Infected, you can throw props at humans, in most cases, killing them.",
+	"As an Infected, you can hit props at humans, in most cases, killing them.",
 	"As a Survivor, you have limited weapon slots. Press F3 to drop a weapon.",
 	"If you are injured, call a Medic or search for health vials in the map.",
-	"After redeeming, humans are protected for a short amount of time from all damage.",
 	"You can nail objects using the nailing hammer.",
 	"As a Medic, you can heal yourself by holding RIGHT-MOUSE button.",
 	"Press F1 for further game instructions.",
@@ -78,7 +77,7 @@ local GameHints = {
 	"You can buy hats and upgrades from our shop with GreenCoins.",
 	"You can open the GreenCoins Shop by typing !shop in the chat.",
 	"As an Undead, press F3 to change your class.",
-	"Poison Zombies can throw meat at other zombies, healing them.", --Can they still do this?
+	"Poison Zombies can throw flesh at other zombies, healing them.", --Can they still do this?
 	"Eating meat as Undead heals you.",
 	"Like living on the edge? Type !rtd in chat to Roll the Dice."
 }

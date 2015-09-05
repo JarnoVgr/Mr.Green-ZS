@@ -380,7 +380,7 @@ end
 -- Player presses F2
 function OnPressF2(pl)	
 
-	if pl:Team() == TEAM_HUMAN and pl:Alive() and CurTime() > WARMUPTIME + 1 then
+	--[[if pl:Team() == TEAM_HUMAN and pl:Alive() and CurTime() > WARMUPTIME + 1 then
 			local price = GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price
 
 			pl:GetActiveWeapon():Remove()				
@@ -390,7 +390,7 @@ function OnPressF2(pl)
 			pl:Message("+"..price.."SP!", 1)			
 			pl:EmitSound("Breakable.Metal")		
 			return
-	end
+	end]]--
 	
 	local requiredScore = REDEEM_KILLS
 	if pl:HasBought("quickredemp") or pl:GetRank() < REDEEM_FAST_LEVEL then
@@ -427,25 +427,25 @@ local function OnPressedF3(pl)
 		end
 	elseif pl:Team() == TEAM_HUMAN and pl:Alive() then
 	
-	--[[
+
 	local vStart = pl:GetShootPos()
 	local tr = util.TraceLine ( { start = vStart, endpos = vStart + ( pl:GetAimVector() * 90 ), filter = pl, mask = MASK_SHOT } )
 	local entity = tr.Entity
 	
 		local price = GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price
 	
-		if IsValid(entity) and entity:GetClass() == "game_supplycrate" and price then	
+		if IsValid(entity) and entity:GetClass() == "game_mobilesupplycrate" and price and CurTime() > WARMUPTIME + 1 then	
 
-			skillpoints.AddSkillPoints(pl,GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price*0.5)
 			pl:GetActiveWeapon():Remove()				
 			DropWeapon(pl)
-			price = price * 0.5
+			price = math.Round(price * 0.5)
+			skillpoints.AddSkillPoints(pl,price)
 			pl:Message("+"..price.."SP!", 1)			
-			entity:EmitSound("Breakable.Metal")		
+			pl:EmitSound("Breakable.Metal")		
+			return
 		else
-		]]--
 			DropWeapon(pl)
-		--end
+		end
 	end
 end
 hook.Add("ShowSpare1", "PressedF3", OnPressedF3)

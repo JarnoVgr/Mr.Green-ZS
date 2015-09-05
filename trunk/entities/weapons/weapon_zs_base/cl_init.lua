@@ -6,7 +6,7 @@ SWEP.ViewModelFOV = 75
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = true
 SWEP.BobScale = 2
-SWEP.SwayScale = 1.5
+SWEP.SwayScale = 1.75
 SWEP.Slot = 0
 SWEP.ShowViewModel = true
 
@@ -84,7 +84,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 	end
 
 	if ghostlerp > 0 then
-		pos = pos + 3.5 * ghostlerp * ang:Up()
+		pos = pos + 30.5 * ghostlerp * ang:Up()
 		ang:RotateAroundAxis(ang:Right(), -30 * ghostlerp)
 	end
 

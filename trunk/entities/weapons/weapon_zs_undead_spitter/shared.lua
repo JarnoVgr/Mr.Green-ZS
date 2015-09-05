@@ -16,7 +16,7 @@ if CLIENT then
 	SWEP.FakeArms = true	
 end
 
-SWEP.Primary.Duration = 1.4
+SWEP.Primary.Duration = 1.35
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 20
@@ -151,8 +151,8 @@ function SWEP:SecondaryAttack()
 			model = table.Random(survivors):GetModel()
 		end
 		
-		self.Owner:SetHealth(60)
-		self.Owner:SetMaximumHealth(60)
+		self.Owner:SetHealth(150)
+		self.Owner:SetMaximumHealth(150)
 		
 		self.Owner:SetModel(model)
 		self.Owner:EmitSound(Sound("npc/stalker/stalker_scream"..math.random(1,4)..".wav"), 60)
