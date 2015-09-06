@@ -91,10 +91,14 @@ function SWEP:PrimaryAttack()
 	local tr = util.TraceLine({start = shootpos, endpos = shootpos + aimvec * 32, filter = self.Owner})
 
 	self:SetNextPrimaryFire(CurTime() + 1)
-
-	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(75, 80))
 	
 	if SERVER then
+	
+		if self and self:IsValid() and self.Weapon:Clip1() < 1 then
+			return
+		end
+		
+			self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(75, 80))
 		local ent = ents.Create("zs_ammobox")
 		if IsValid(ent) then
 			ent:SetPos(tr.HitPos)
@@ -110,13 +114,7 @@ function SWEP:PrimaryAttack()
 			self:TakePrimaryAmmo(1)
 		end
 	end
-	
-	if SERVER then		
-		if self and self:IsValid() and self.Weapon:Clip1() < 1 then
-			DropWeapon(self.Owner)
-			self:Remove()	
-		end
-	end
+
 end
 
 function SWEP:Reload() 
