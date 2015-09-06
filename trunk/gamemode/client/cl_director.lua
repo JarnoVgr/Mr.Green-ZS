@@ -250,7 +250,7 @@ local function ManageChatTitles ( pl, Text, TeamOnly, PlayerIsDead )
 		table.insert( tab, Color( 30, 160, 40 ) )
 		table.insert( tab, "(TEAM) " )
 	end
-	
+	--[[
 	if pl:IsSuperAdmin() then
 		table.insert( tab, Color( 100, 255, 200 ) )
 		table.insert( tab, "(ZS) " )		
@@ -258,7 +258,7 @@ local function ManageChatTitles ( pl, Text, TeamOnly, PlayerIsDead )
 		table.insert( tab, Color( 100, 180, 140 ) )
 		table.insert( tab, "(ZS) " )		
 	end
-	
+	]]--
 	--PrintTable(pl.DataTable["Achievements"])
 
 	--if pl.MasterZS then
