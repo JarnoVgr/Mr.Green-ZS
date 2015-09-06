@@ -92,13 +92,13 @@ function SWEP:PrimaryAttack()
 
 	self:SetNextPrimaryFire(CurTime() + 1)
 	
+	
 	if SERVER then
 	
 		if self and self:IsValid() and self.Weapon:Clip1() < 1 then
 			return
 		end
 		
-			self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(75, 80))
 		local ent = ents.Create("zs_ammobox")
 		if IsValid(ent) then
 			ent:SetPos(tr.HitPos)
@@ -115,6 +115,8 @@ function SWEP:PrimaryAttack()
 		end
 	end
 
+	
+				self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(75, 80))
 end
 
 function SWEP:Reload() 
