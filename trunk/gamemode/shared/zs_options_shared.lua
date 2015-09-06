@@ -368,7 +368,7 @@ GM.RankUnlocks = {
 	
 	[4] = {"_poisonprotect","_bloodmoney","_sboost","_turretsp","_supportregen", "_kevlarcommando","_scorch"},
 	
-	[5] = {"_turret","_psychotic","_repairs", "_supply", "_musket","_burn"},
+	[5] = {"_turret","_psychotic","_repairs", "_supply", "_musket","_burn","_supportweapon"},
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate","_immolate","_vampire"},
 		
