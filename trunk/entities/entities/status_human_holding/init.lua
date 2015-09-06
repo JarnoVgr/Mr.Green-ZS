@@ -29,22 +29,23 @@ function ENT:Initialize()
 		-- 		ent:Input("onpickedup", owner, object, "")
 		-- 	end
 		-- end
-		object:SetRenderMode(RENDERMODE_TRANSALPHA) 
-		local c = object:GetColor()
-		object.r,object.g,object.b,object.a = c.r,c.g,c.b,c.a
-		object:SetColor(Color(object.r,object.g,object.b,190))
+		--object:SetRenderMode(RENDERMODE_TRANSALPHA) 
+		--local c = object:GetColor()
+		--object.r,object.g,object.b,object.a = c.r,c.g,c.b,c.a
+		--object:SetColor(Color(object.r,object.g,object.b,190))
 		local objectphys = object:GetPhysicsObject()
 		if objectphys:IsValid() then
 			objectphys:AddGameFlag(FVPHYSICS_PLAYER_HELD)
 			objectphys:AddGameFlag(FVPHYSICS_NO_IMPACT_DMG)
 			objectphys:AddGameFlag(FVPHYSICS_NO_NPC_IMPACT_DMG)
 
+			
+			
 			if objectphys:GetMass() < CARRY_DRAG_MASS and object:OBBMins():Length() + object:OBBMaxs():Length() < CARRY_DRAG_VOLUME then
 				object._OriginalMass = objectphys:GetMass()
-
+				--object:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 				objectphys:EnableGravity(false)
 				objectphys:SetMass(2)
-
 				--[=[if not object.OldCollisionGroup then
 					local r, g, b, a = object:GetColor()
 					object.OldColor = Color(r, g, b, a)
@@ -70,6 +71,25 @@ function ENT:Initialize()
 	end
 end
 
+function ENT:PhysicsCollide( Data, Phys ) 
+	local Player = Data.HitEntity
+	
+	if self.Removing then
+		if IsValid(Player) and Player:IsPlayer() then
+			
+		else
+			local object = self:GetObject()
+			object:SetCollisionGroup(COLLISION_GROUP_NONE)
+			self:Remove()
+		end
+	end
+	
+end
+
+function ENT:StartRemoving()
+	self.Removing = true
+end
+
 function ENT:OnRemove()
 	local owner = self:GetOwner()
 	if IsValid(owner) then
@@ -92,7 +112,7 @@ function ENT:OnRemove()
 	if IsValid(object) then
 		--[=[local timnam = "ENABLECOLLISIONS"..tostring(object)
 		timer.Create(timnam, 0, 0, EnableCollisions, object, 16, nil, timnam)]=]
-		object:SetColor(Color(object.r,object.g,object.b,object.a))
+		--object:SetColor(Color(object.r,object.g,object.b,object.a))
 		local objectphys = object:GetPhysicsObject()
 		if objectphys:IsValid() then
 			objectphys:ClearGameFlag(FVPHYSICS_PLAYER_HELD)
@@ -102,6 +122,7 @@ function ENT:OnRemove()
 			if object._OriginalMass then
 				objectphys:SetMass(object._OriginalMass)
 				object._OriginalMass = nil
+				
 			end
 			--[=[if object._OriginalLinearDamping then
 				objectphys:SetDamping(object._OriginalLinearDamping, object._OriginalAngularDamping)
@@ -162,7 +183,7 @@ function ENT:Think()
 		--vel.z = 0
 		objectphys:ApplyForceCenter(objectphys:GetMass() * frametime * 500 * vel:Normalize())]=]
 	else
-		if not self.ObjectPosition or not owner:KeyDown(IN_SPEED) then
+		if not self.ObjectPosition or not owner:KeyDown(IN_SPEED) and not owner:KeyDown(IN_ALT1) then
 			local obbcenter = object:OBBCenter()
 			local objectpos = shootpos + owner:GetAimVector() * 48
 			objectpos = objectpos - obbcenter.z * object:GetUp()

@@ -154,7 +154,7 @@ function SWEP:StartSecondaryAttack()
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage * 6
+		local fFuckIntensity = fHitPercentage * 6.5
 
 		
 		if v:GetPerk("_berserker") then
@@ -187,7 +187,7 @@ function SWEP:StartSecondaryAttack()
 	end
 	
 	--Scream effect for myself
-	self.Owner:SendLua("WraithScream()")
+	--self.Owner:SendLua("WraithScream()")
 end
 
 function SWEP:Screaming(bl)

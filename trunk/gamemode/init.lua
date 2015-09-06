@@ -301,7 +301,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 		fSpeed = fSpeed - 8	
 		
 		if mOwner:GetPerk("_bulk") then
-			fSpeed = SPEED - 14
+			fSpeed = SPEED - 12
 		end
 		
 	elseif mOwner:GetPerk("_medic") then

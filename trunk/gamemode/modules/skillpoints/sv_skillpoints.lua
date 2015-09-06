@@ -126,7 +126,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 				phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
 			end
 		end	
-		pl:EmitSound("weapons/physcannon/energy_sing_explosion"..math.random(1,2)..".wav" )
+		pl:EmitSound("items/gift_pickup.wav" )
 		pl:Message(item .. " dropped.", 1)			
 	end		
 	

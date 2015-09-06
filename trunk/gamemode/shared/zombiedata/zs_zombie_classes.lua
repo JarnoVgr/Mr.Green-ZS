@@ -223,7 +223,7 @@ ZombieClasses[3] =
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
 	Infliction =0.5,-- 0.5,
-	Health = 140,
+	Health = 135,
 	MaxHealth = 200,
 	TimeLimit = 160,
 	Bounty = 80,
@@ -240,7 +240,7 @@ ZombieClasses[3] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 140 ", "> SPEED: 285", "> DAMAGE: 5"  },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 135 ", "> SPEED: 285", "> DAMAGE: 4"  },
 	PainSounds = {
 		Sound("mrgreen/undead/fastzombie/pain1.wav"),
 		Sound("mrgreen/undead/fastzombie/pain2.wav"),
