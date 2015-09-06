@@ -48,7 +48,7 @@ SWEP.WorldModel = "models/weapons/w_smg_tmp.mdl"
 
 SWEP.Base = "weapon_zs_base"
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 1.5
+SWEP.Primary.Recoil			= 1
 SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 20

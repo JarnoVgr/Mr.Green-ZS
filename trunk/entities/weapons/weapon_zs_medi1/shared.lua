@@ -34,7 +34,7 @@ SWEP.ViewModel = "models/weapons/c_pistol.mdl"
 SWEP.WorldModel = "models/weapons/w_pistol.mdl"
 SWEP.Base = "weapon_zs_base"
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 1
+SWEP.Primary.Recoil			= 0.8
 SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 16
@@ -48,7 +48,7 @@ SWEP.Secondary.Heal = 5
 SWEP.Secondary.HealDelay = 12
 SWEP.UseHands = true
 
-SWEP.Cone = 0.05
+SWEP.Cone = 0.04
 SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9
