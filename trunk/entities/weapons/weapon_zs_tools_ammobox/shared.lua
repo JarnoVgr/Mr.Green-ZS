@@ -29,7 +29,7 @@ SWEP.Author = "NECROSSIN"
 
 SWEP.ViewModel = Model("models/weapons/cstrike/c_c4.mdl")
 --SWEP.ViewModel  = "models/weapons/c_grenade.mdl"
-SWEP.WorldModel = Model("models/itemsboxmrounds.mdl")
+SWEP.WorldModel = Model("models/items/boxmrounds.mdl")
 
 SWEP.Slot = 5
 SWEP.SlotPos = 1 
