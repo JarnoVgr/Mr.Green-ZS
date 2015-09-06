@@ -1651,7 +1651,7 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 		end		
 		
 		if attacker:GetPerk("_vampire") then
-			healthToGive = math.round(healthToGive * 0.4)
+			healthToGive = math.Round(healthToGive * 0.4)
 		end		
 		
 		attacker:SetHealth(attacker:Health() + healthToGive)

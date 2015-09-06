@@ -156,7 +156,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					dmg = dmg + (dmg * mul)		
 
 					if attacker:GetPerk("_vampire") then
-						attacker:SetHealth(math.clamp(attacker:Health() + dmg*0.1,0,attacker:GetMaximumHealth()))	
+						attacker:SetHealth(math.Clamp(attacker:Health() + dmg*0.1,0,attacker:GetMaximumHealth()))	
 					end
 					
 				end
