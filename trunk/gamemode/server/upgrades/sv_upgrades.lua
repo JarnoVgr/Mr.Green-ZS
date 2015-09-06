@@ -39,8 +39,12 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "smg1" and attacker:GetPerk("_support2") or attacker:GetActiveWeapon().Primary.Ammo == "buckshot" and attacker:GetPerk("_support2") then
 				dmg = dmg + (dmg * mul)		
 				
-				if attacker:GetPerk("_bulletstorm") and attacker:GetActiveWeapon().Primary.Ammo == "smg1" then
-					mul = mul + 0.1
+				if attacker:GetPerk("_bulletstorm") then
+					if attacker:GetActiveWeapon().Primary.Ammo == "smg1" then
+						mul = mul + 0.1
+					else
+						mul = mul + 0.05
+					end
 				end
 				
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "357" and attacker:GetPerk("_sharpshooter") then
@@ -139,7 +143,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					if attacker:GetPerk("_headhunter") then
 						mul = mul - 0.15
 					elseif attacker:GetPerk("_freeman") then
-						mul = mul + 0.1
+						mul = mul + 0.15
 					end
 					
 					if attacker:GetPerk("_executioner") then
@@ -149,7 +153,12 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 						end
 					end
 
-					dmg = dmg + (dmg * mul)					
+					dmg = dmg + (dmg * mul)		
+
+					if attacker:GetPerk("_vampire") then
+						attacker:SetHealth(math.clamp(attacker:Health() + dmg*0.1,0,attacker:GetMaximumHealth()))	
+					end
+					
 				end
 			end	
 			

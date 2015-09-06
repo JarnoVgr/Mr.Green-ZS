@@ -1,6 +1,8 @@
 ENT.Type = "anim"
 ENT.Base = "status__base"
 
+ENT.Removing = false
+
 function ENT:GetObject()
 	return self:GetDTEntity(0)
 end

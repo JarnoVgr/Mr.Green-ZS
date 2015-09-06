@@ -1638,15 +1638,23 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 	end
 		
 	if attacker:GetPerk("_berserker") then
+	
 		local multiplier = attacker:GetRank()
-		attacker:SetHealth(attacker:Health() + multiplier + 4)
+		local healthToGive =  multiplier + 4
 		
 		if attacker:GetPerk("_psychotic") then
-			attacker:SetHealth(attacker:Health() + 4)
+			healthToGive = healthToGive + 4
 		end
+		
 		if attacker.DataTable["ShopItems"][80] then
-			attacker:SetHealth(attacker:Health() + 3)
+			healthToGive = healthToGive + 3
 		end		
+		
+		if attacker:GetPerk("_vampire") then
+			healthToGive = math.round(healthToGive * 0.4)
+		end		
+		
+		attacker:SetHealth(attacker:Health() + healthToGive)
 	end
 
 end)

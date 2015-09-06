@@ -141,11 +141,11 @@ GM.ChatTitles = {
 GM.HumanWeapons = {    
         --Berserker
         ["weapon_zs_deagle"]  = { Name = "Desert Eagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 50, HumanClass = "berserker"},		
-        ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 80, Description = "Bish bash bosh, fast smacking and hard hitting!", HumanClass = "berserker" },  
-        ["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 110, HumanClass = "berserker" },
-        ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 160, HumanClass = "berserker" },
-        ["weapon_zs_melee_katana"]  = { Name = "Katana", DPS = 90, Infliction = 0, Type = "melee", Price = 180, Description = "Handle with care. It's very sharp." , HumanClass = "berserker"},
-        ["weapon_zs_melee_chainsaw"]  = { Name = "Chainsaw", DPS = 30, Infliction = 0, Type = "melee", Price = 200, Description = "This may become a bit gory.", HumanClass = "berserker" },   
+        ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 50, Description = "Bish bash bosh, fast smacking and hard hitting!", HumanClass = "berserker" },  
+        ["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 100, HumanClass = "berserker" },
+        ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 150, HumanClass = "berserker" },
+        ["weapon_zs_melee_katana"]  = { Name = "Katana", DPS = 90, Infliction = 0, Type = "melee", Price = 160, Description = "Handle with care. It's very sharp." , HumanClass = "berserker"},
+        ["weapon_zs_melee_chainsaw"]  = { Name = "Chainsaw", DPS = 30, Infliction = 0, Type = "melee", Price = 180, Description = "This may become a bit gory.", HumanClass = "berserker" },   
        
         --Commando
         ["weapon_zs_defender"]  = { Name = "Defender Rifle", DPS = 93, Price = 80, Infliction = 0.2, Type = "rifle", Description = "Scrap AK47", HumanClass = "commando"},    
@@ -189,7 +189,7 @@ GM.HumanWeapons = {
         --Engineer
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 80, HumanClass = "engineer"},                      
         ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", DPS = 99, Infliction = 0, Type = "smg", Price = 140, HumanClass = "engineer"},
-        ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 99, Infliction = 0, Type = "smg", Price = 200, HumanClass = "engineer"},
+        ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", DPS = 99, Infliction = 0, Type = "smg", Price = 180, HumanClass = "engineer"},
 
  
 		--Pyro
@@ -367,7 +367,7 @@ GM.RankUnlocks = {
 	
 	[5] = {"_turret","_psychotic","_repairs", "_supply", "_musket","_burn"},
 	
-	[6] = {"_combat","_profitable","_ironaim", "_nitrate","_immolate"},
+	[6] = {"_combat","_profitable","_ironaim", "_nitrate","_immolate","_vampire"},
 		
 	[7] = {"_accuracy2","_headhunter","_support","_kevlar2", "_trap","_flarebounce"},
 
@@ -403,7 +403,7 @@ GM.Perks = {
 
 	--Support
 	
-	["_bulletstorm"] = {Name = "Bullet Storm", Description = "+10% SMG damage", RequiresWeapon = "_support2", Slot = 1}, --Done	
+	["_bulletstorm"] = {Name = "Bullet Storm", Description = "+10% SMG damage | +5 Shotgun damage", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	["_support"] = {Name = "Board Pack", Description = "+4 Boards | +30% Board Health", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+35% Ammo Received", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with the Shotgun", RequiresWeapon = "_support2", Slot = 1, Material = "vgui/achievements/kill_enemy_m3_bw"}, --Done
@@ -411,7 +411,7 @@ GM.Perks = {
 	
 	--Berserker
 	
-	["_freeman"] = {Name = "Freeman's Spirit", Description = "+10% melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
+	["_freeman"] = {Name = "Freeman's Spirit", Description = "+15% melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads | -15% melee damage.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
 	["_oppressive"] = {Name = "Oppressive", Description = "+85% melee knockback", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
 	["_slinger"] = {Name = "Hook", Description = "Spawn with the Hook", RequiresWeapon = "_berserker", Slot = 1},
@@ -464,7 +464,8 @@ GM.Perks = {
 	["_berserk"] = {Name = "Berserk", Description = "+10% movement speed while under 40 health", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_psychotic"] = {Name = "Blood Lust", Description = "+4 health from kills | +60% melee swing speed", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 40% of melee damage and knock targets backwards", RequiresWeapon = "_berserker", Slot = 2, Material = "vgui/achievements/kill_enemy_in_air_bw"},	
-	
+	["_vampire"] = {Name = "Vampire", Description = "10% of melee damage goes towards health | -60% health from kills", RequiresWeapon = "_berserker", Slot = 2}, --Done
+		
 	--Engineer
 	
 	["_turretsp"] = {Name = "Turret Revenue", Description = "+5 SP from turret kills", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
