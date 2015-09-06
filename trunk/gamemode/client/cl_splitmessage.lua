@@ -37,18 +37,18 @@ function notice.Message( sText, tbColor, iType, iDuration )
 	-- Add it to the draw table
 	if notice.Timer <= CurTime() then
 		if ( #notice.Draw == 0 ) then
-			table.insert( notice.Draw, { sText = sText, MessageTime = CurTime(), iType = iType or 1, iDuration = iDuration or 3.5 } )
-			notice.Timer = CurTime() + ( iDuration or 3.5 )
+			table.insert( notice.Draw, { sText = sText, MessageTime = CurTime(), iType = iType or 1, iDuration = iDuration or 1 } )
+			notice.Timer = CurTime() + ( iDuration or 1 )
 			
 			-- Play sound
-			if notice.Sounds[iType] then
-				surface.PlaySound ( notice.Sounds[iType or 1] )
-			end
+			--if notice.Sounds[iType] then
+			--	surface.PlaySound ( notice.Sounds[iType or 1] )
+			--end
 		end
 	else
 	
 		-- Add it to cache
-		table.insert( notice.Cache, { sText = sText, iType = iType or 1, iDuration = iDuration or 3.5 } )
+		table.insert( notice.Cache, { sText = sText, iType = iType or 1, iDuration = iDuration or 1 } )
 	end
 end
 

@@ -1248,13 +1248,13 @@ function GM:Rewarded(wep)
 	
 	surface.PlaySound(Sound("mrgreen/new/weppickup"..math.random(1,3)..".wav"))
 
-	--[[
+
 	if wep and wep.PrintName then
-		--MySelf:Message("Picked up a ".. wep.PrintName, nil, 1, 2.5)
+		MySelf:Message("Picked up a ".. wep.PrintName, nil, 1, 2)
 	else
-		--MySelf:Message("Arsenal upgraded", 2.5)
+		MySelf:Message("Arsenal upgraded", 2.5)
 	end
-	]]--
+
 end
 
 -- Receive spray locations
