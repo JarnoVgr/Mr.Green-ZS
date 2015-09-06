@@ -223,6 +223,7 @@ GM.HumanWeapons = {
         ["weapon_zs_tools_hammer"]  = { Name = "Hammer", DPS = 23, Infliction = 0, Type = "tool1", Description = "Stop! Hammer time. This will freeze props in their place. Primary to repair/whack, Secondary to nail.", HumanClass = "support" , Price = 100 },
         ["weapon_zs_medkit"]  = { Name = "Medical Kit", DPS = 8, Infliction = 0, Type = "tool1", Description = "Be a good teammate. Or just heal yourself.", Price = 160, HumanClass = "medic"  },
         ["weapon_zs_tools_supplies"] = { Name = "Mobile Supplies", DPS = 0, Infliction = 0, Type = "tool2", Description = "Allows you to spawn a Supply Crate.", Price = 100 },
+		
 		["weapon_zs_turretplacer"] = { Name = "Turret", DPS = 0, Infliction = 0, Type = "tool2", Description = "Need more fire power? Here you go!", Price = 160, HumanClass = "engineer"   },
 		  
 		  --Loadout Tools 2
@@ -232,6 +233,7 @@ GM.HumanWeapons = {
         ["weapon_zs_grenade"]  = { Name = "Grenade", DPS = 8, Infliction = 0, Type = "tool1", Description = "Handheld explosives.", Price = 100  },
         ["weapon_zs_mine"]  = { Name = "Proximity C4", DPS = 8, Infliction = 0, Type = "tool1", Description = "BOOM, get your team out a tough spot..", Price = 100  },       
        
+	   
         --Special
         ["weapon_zs_melee_crowbar"]  = { Name = "Crowbar", DPS = 85, Infliction = 0.65, Type = "melee", Price = 100 },      
        
@@ -262,8 +264,9 @@ GM.HumanWeapons = {
         --Tool1
         ["weapon_zs_barricadekit"] = { Name = "Agies Barricading kit", DPS = 0, Infliction = 0, Type = "tool1" },
         --Tool2
-        ["weapon_zs_tools_plank"]  = { Name = "Board Pack", DPS = 0, Infliction = 0, Type = "tool2", Description = "Help your team mates, bring extra planks!", Price = 50  },
-       
+        ["weapon_zs_tools_plank"]  = { Name = "Board Pack", DPS = 0, Infliction = 0, Type = "tool2", Description = "Help your team mates, bring extra planks!", Price = 60  },
+  
+        ["weapon_zs_tools_ammobox"]  = { Name = "Ammo Pack", DPS = 0, Infliction = 0, Type = "tool2", Price = 60},  
         --Pickups
         ["weapon_zs_pickup_gascan"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },
         ["weapon_zs_pickup_gascan2"]  = { Name = "Dangerous Gas Can2", DPS = 0, Infliction = 0, Type = "misc" },
@@ -357,9 +360,9 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_pyro", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_mine" ,"_sboost3","_highcal","_bulk","_alyxclip"},
+	[1] = {"_medupgr2","_accuracy","_mine" ,"_sboost3","_highcal","_bulk","_alyxclip","_support"},
 	
-	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_pyrosp"},
+	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_pyrosp","_mobilesupplies"},
 	
 	[3] = {"_nade", "_freeman" ,"_medigun","_pulsepistol", "_kevlarcommando2","_flaregun","_bulletstorm"},
 	
@@ -369,7 +372,7 @@ GM.RankUnlocks = {
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate","_immolate","_vampire"},
 		
-	[7] = {"_accuracy2","_headhunter","_support","_kevlar2", "_trap","_flarebounce"},
+	[7] = {"_accuracy2","_headhunter","_kevlar2", "_trap","_flarebounce"},
 
 	[8] = {"_breakthrough","_reload","_darkenergy","_enforcer","_frictionburn"},	
 
@@ -403,11 +406,13 @@ GM.Perks = {
 
 	--Support
 	
-	["_bulletstorm"] = {Name = "Bullet Storm", Description = "+10% SMG damage | +5 Shotgun damage", RequiresWeapon = "_support2", Slot = 1}, --Done	
-	["_support"] = {Name = "Board Pack", Description = "+4 Boards | +30% Board Health", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_supportammo"] = {Name = "Ammunition", Description = "+35% Ammo Received", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with the Shotgun", RequiresWeapon = "_support2", Slot = 1, Material = "vgui/achievements/kill_enemy_m3_bw"}, --Done
+
+	["_support"] = {Name = "Board Pack", Description = "Spawn with a pack of boards.", RequiresWeapon = "_support2", Slot = 1}, --Done
+	["_supportammo"] = {Name = "Ammunition", Description = "+40% Ammo Received", RequiresWeapon = "_support2", Slot = 1}, --Done
+	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with a Shotgun", RequiresWeapon = "_support2", Slot = 1, Material = "vgui/achievements/kill_enemy_m3_bw"}, --Done
 	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points | +40% Nail Health", RequiresWeapon = "_support2", Slot = 1}, --Done	
+	["_mobilesupplies"] = {Name = "Mobile Supply", Description = "Spawn with a mobile supply.", RequiresWeapon = "_support2", Slot = 1}, --Done
+
 	
 	--Berserker
 	
@@ -452,7 +457,7 @@ GM.Perks = {
 	["_kevlarcommando2"] = {Name = "Kevlar", Description = "+20% damage resistance | -5% speed", RequiresWeapon = "_commando", Slot = 2, Material = "vgui/gfx/vgui/kevlar"},
 	
 	--Support
-	
+	["_bulletstorm"] = {Name = "Bullet Storm", Description = "+10% SMG damage | +5 Shotgun damage", RequiresWeapon = "_support2", Slot = 2}, --Done		
 	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "+50 Maximum Health", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_supportregen"] = {Name = "Regeneration", Description = "Regain 1 health every 6 seconds.", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_reload"] = {Name = "Action Reload", Description = "+50% Shotgun Reload Speed", RequiresWeapon = "_support2", Slot = 2}, --Done
@@ -502,7 +507,7 @@ GM.Perks = {
 		Description = " +10% Rifle Damage \n See Undead Health\n +10% Clip Size  \n +10 Health \n\n +3 Health per lvl\n +2% Clip Size per lvlLevel \n +1% Rifle Damage per lvl\n +1% Firing Speed per lvl\n", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support",    		
 		Equipment = " Board Pack \n USP\n Hammer", 			
-		Description = " +10% Shotgun Damage \n +10% SMG Damage \n +10% Ammo Received \n\n +1% SMG Damage per lvl\n +1% Shotgun Damage per lvl \n +2% Nail Health per lvl \n +0.5 Repair Points per lvl \n +1 Nail per lvl \n +2% Ammo Received per lvl \n ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
+		Description = " +10% Shotgun Damage \n +10% SMG Damage \n +10% Ammo Received \n\n +1% SMG Damage per lvl\n +1% Shotgun Damage per lvl \n +1% Nail Health per lvl \n +0.5 Repair Points per lvl \n +1 Nail per lvl \n +2% Ammo Received per lvl \n ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		
 		Equipment = " Desert Eagle\n Plank", 				
 		Description = " +10% Melee Damage \n +4 Health On Melee Kill\n +5% Damage Resistance \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +1% Melee Damage per lvl\n +0.5% Movement Speed per lvl \n", Material = "zombiesurvival/humanclass/avatar_berserker", Slot = 3},

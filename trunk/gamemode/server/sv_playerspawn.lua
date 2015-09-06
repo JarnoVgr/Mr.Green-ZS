@@ -678,7 +678,7 @@ function CalculatePlayerLoadout(pl)
 	local medicstage1 = {"weapon_zs_p228","weapon_zs_melee_combatknife","weapon_zs_medkit"}
 		
 	--Support stages
-	local support = {"weapon_zs_usp","weapon_zs_tools_plank","weapon_zs_tools_hammer"}
+	local support = {"weapon_zs_usp","weapon_zs_tools_hammer"}
 		
 	--Commando stages
 	local commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
@@ -713,6 +713,15 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("_supportweapon") then
 			pl:Give("weapon_zs_shotgun")
 		end
+		
+		if pl:GetPerk("_support") then
+			pl:Give("weapon_zs_tools_plank")
+		elseif pl:GetPerk("_mobilesupplies") then
+			pl:Give("weapon_zs_tools_supplies")
+		else
+			pl:Give("weapon_zs_tools_ammobox")	
+		end
+		
 	elseif pl:GetPerk("_engineer") then
 		pl.Loadout = table.Copy(engineer)
 

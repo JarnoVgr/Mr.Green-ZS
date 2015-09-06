@@ -50,8 +50,8 @@ SWEP.SlotPos = 3
 
 SWEP.Primary.Delay = 0.9
 
-SWEP.Secondary.ClipSize = 10
-SWEP.Secondary.DefaultClip = 10
+SWEP.Secondary.ClipSize = 20
+SWEP.Secondary.DefaultClip = 20
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 --SWEP.Secondary.Ammo = "gravity"

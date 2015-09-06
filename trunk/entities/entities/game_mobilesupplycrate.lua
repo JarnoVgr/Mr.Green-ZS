@@ -164,9 +164,9 @@ if SERVER then
 					--	AmmoType = "pistol"
 					--end
 							
-					if AmmoType == "slam" or AmmoType == "grenade" then
+					if AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none" then
 						WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
-					else							
+					else					
 					-- How much ammo to give
 						local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
 										
@@ -183,7 +183,7 @@ if SERVER then
 						end	
 						
 						if activator:GetPerk("_supportammo") then
-							mul = mul + 0.35
+							mul = mul + 0.4
 						end					
 						
 						if activator:HasBought("ammoman") then

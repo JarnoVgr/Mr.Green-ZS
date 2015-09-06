@@ -77,7 +77,7 @@ function SWEP:InitializeClientsideModels()
 	}
 
 	self.ViewModelBoneMods = {
-		["v_weapon.c4"] = { scale = Vector(1, 1, 1), pos = Vector(-10.555, -12.747, -0.622), angle = Angle(9.326, 7.46, 37.305) },
+		["v_weapon.c4"] = { scale = Vector(0.01,0.01, 0.01), pos = Vector(-10.555, -12.747, -0.622), angle = Angle(9.326, 7.46, 37.305) },
 		["ValveBiped.Bip01_L_Finger02"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -48.498, 0) },
 	--	["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(46.631, -33.576, 0) },
 		["ValveBiped.Bip01_R_Hand"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0.631, -33.576, 0) },
