@@ -107,16 +107,20 @@ function SWEP:PrimaryAttack()
 	local shootpos = self.Owner:GetShootPos()
 	local tr = util.TraceLine({start = shootpos, endpos = shootpos + aimvec * 32, filter = self.Owner})
 
-	self:SetNextPrimaryFire(CurTime() + 1)
-
-	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(75, 80))
+	if self and self:IsValid() and self.Weapon:Clip1() < 1 then
+		return
+	end
 	
-	if SERVER then
+
+	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(60, 65))	
+	self:SetNextPrimaryFire(CurTime() + 1)
+	
+	if SERVER then		
 		local ent = ents.Create("prop_physics_multiplayer")
 		if IsValid(ent) then
 			ent:SetPos(tr.HitPos)
 			ent:SetAngles(aimvec:Angle())
-			ent:SetModel("models/props_debris/wood_board06a.mdl")
+			ent:SetModel("models/props_debris/wood_board0" .. math.random(1,6) .. "a.mdl")
 			ent:Spawn()
 			local hp = 400
 			--if self.Owner:GetPerk("_plankhp") then
@@ -135,12 +139,9 @@ function SWEP:PrimaryAttack()
 		end
 	end
 	
-	if SERVER then		
-		if self and self:IsValid() and self.Weapon:Clip1() < 1 then
-			DropWeapon(self.Owner)
-			self:Remove()	
-		end
-	end
+
+	
+
 end
 
 function SWEP:Reload() 
