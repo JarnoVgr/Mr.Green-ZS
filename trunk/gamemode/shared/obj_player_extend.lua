@@ -172,7 +172,7 @@ function meta:DoubleTrace(distance, mask, size, mask2, filter)
 end
 
 function meta:MeleeViewPunch(damage)
-	local maxpunch = (damage + 25) * 0.5
+	local maxpunch = damage
 	local minpunch = -maxpunch
 	self:ViewPunch(Angle(math.Rand(minpunch, maxpunch), math.Rand(minpunch, maxpunch), math.Rand(minpunch, maxpunch)))
 end

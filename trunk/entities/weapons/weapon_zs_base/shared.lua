@@ -183,7 +183,7 @@ function SWEP:Deploy()
 	--sharpshooter
 	if self.Owner:GetPerk("_accuracy2") then
 		self.RecoilMultiplier = 1 * 1.7
-		self.AccuracyBonus = 0.4
+		self.AccuracyBonus = 0.7
 	end	
 	
 	if self.Owner:GetPerk("_highcal") then
@@ -191,6 +191,10 @@ function SWEP:Deploy()
 	end		
 	
 	if self.Owner:GetPerk("_commando") then
+	
+		if self.Owner:GetPerk("_enforcer") then
+			self.Primary.ClipSize = self.Primary.ClipSize + self.ActualClipSize * 0.2
+		end
 
 		self.SpeedBonus = (self.Owner:GetRank()*0.1)/100	
 	

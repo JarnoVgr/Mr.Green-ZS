@@ -21,17 +21,19 @@ net.Receive("SetInf", function(len)
 		end
 	end
 	
+	
 	local msg = ""
 	if amount == 1 then
-		msg = UnlockedClass .." class unlocked"
+		msg = UnlockedClass .."s have risen!"
 	elseif amount > 1 then
-		msg = amount .." undead classes unlocked"
+		msg = amount .." undead classes have risen!"
 	end
 	
 	if msg ~= "" then
-		GAMEMODE:Add3DMessage(140,msg,nil,"ssNewAmmoFont6.5")
-		--surface.PlaySound(Sound("ambient/atmosphere/cave_hit1.wav"))
-		surface.PlaySound("ambient/creatures/town_zombie_call1.wav")
+		GAMEMODE:Add3DMessage(140,msg,nil,"ssNewAmmoFont20")
+		
+		surface.PlaySound(Sound("ambient/levels/prison/inside_battle_zombie".. math.random(1,3) .. ".wav"))
+		--surface.PlaySound("ambient/creatures/town_zombie_call1.wav")
 	end
 end)
 
@@ -49,14 +51,15 @@ net.Receive("UnlockAllUndeadClasses", function(len)
 	
 	local msg = ""
 	if amount == 1 then
-		msg = UnlockedClass .." specie unlocked"
+		msg = UnlockedClass .."s have risen!"
 	elseif amount > 1 then
-		msg = amount .." Undead species unlocked"
+		msg = amount .." undead classes have risen!"
 	end
 	
 	if msg ~= "" then
-		GAMEMODE:Add3DMessage(140,msg,nil,"ArialBoldTwelve")
-		surface.PlaySound(Sound("ambient/atmosphere/cave_hit1.wav"))
+		GAMEMODE:Add3DMessage(140,msg,nil,"ssNewAmmoFont20")
+		
+		surface.PlaySound(Sound("ambient/levels/prison/inside_battle_zombie".. math.random(1,3) .. ".wav"))
 		--surface.PlaySound("ambient/creatures/town_zombie_call1.wav")
 	end
 end)

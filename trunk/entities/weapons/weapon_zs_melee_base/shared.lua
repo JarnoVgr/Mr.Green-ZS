@@ -363,15 +363,14 @@ function SWEP:StartSwinging()
 		swingtime = math.Clamp(self.SwingTime*0.6,0,self.SwingTime)
 	end
 
-	--Viewpunch
-	--self.Owner:MeleeViewPunch(math.random(0.2,0.4))
-
 	self:SetSwingEnd(CurTime() + swingtime)
 end
 
 function SWEP:MeleeSwing()
 	local owner = self.Owner
 
+	--Viewpunch
+	self.Owner:MeleeViewPunch(self.MeleeDamage*0.05)
 	owner:SetAnimation(PLAYER_ATTACK1)
 	local filter = owner:GetMeleeFilter()
 
@@ -379,7 +378,7 @@ function SWEP:MeleeSwing()
 
 	local tr = owner:MeleeTrace(self.MeleeRange, self.MeleeSize, filter)
 	if tr.Hit then
-		local damage = self.MeleeDamage * (owner.HumanMeleeDamageMultiplier or 1)
+		local damage = self.MeleeDamage
 
 		local hitent = tr.Entity
 		local hitflesh = tr.MatType == MAT_FLESH or tr.MatType == MAT_BLOODYFLESH or tr.MatType == MAT_ANTLION or tr.MatType == MAT_ALIENFLESH
@@ -423,9 +422,9 @@ function SWEP:MeleeSwing()
 				dmginfo:SetDamageType(self.DamageType)
 				dmginfo:SetDamageForce(self.MeleeDamage * 20 * owner:GetAimVector())
 				if hitent:IsPlayer() then
-					hitent:MeleeViewPunch(damage*0.1)
+					hitent:MeleeViewPunch(damage*0.05)
 					
-					if self.MeleeSize >= 1.5 then
+					if self.MeleeSize >= 1 then
 					
 					local Velocity = self.Owner:EyeAngles():Forward() * damage * 5
 					Velocity.x = Velocity.x * 0.4
@@ -434,6 +433,7 @@ function SWEP:MeleeSwing()
 					if owner:GetPerk("_oppressive") then
 						Velocity.z = Velocity.z * 1.85
 					end
+	
 
 					hitent:SetLocalVelocity(Velocity)	
 

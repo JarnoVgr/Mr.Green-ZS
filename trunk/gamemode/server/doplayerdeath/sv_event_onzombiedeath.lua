@@ -66,7 +66,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				if dmginfo:IsDecapitationDamage() then
 					
 					if math.random(1,2) == 1 then
-						skillpoints.AddSkillPoints(mAttacker,3)
+						skillpoints.AddSkillPoints(mAttacker,5)
 
 						mVictim:Dismember("DECAPITATION",dmginfo)
 							
@@ -139,6 +139,11 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		local floaty = 0
 		
 		if headshot then
+				if mAttacker:GetPerk("_headshot") then
+					floaty = floaty + 5
+					skillpoints.AddSkillPoints(mAttacker,5)
+				end
+				
 			skillpoints.AddSkillPoints(mAttacker,3)
 			mAttacker:AddXP(10)
 			floaty = floaty + 3

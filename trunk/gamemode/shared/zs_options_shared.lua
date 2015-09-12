@@ -143,6 +143,7 @@ GM.HumanWeapons = {
         ["weapon_zs_deagle"]  = { Name = "Desert Eagle", DPS = 93, Infliction = 0.2, Type = "pistol", Price = 50, HumanClass = "berserker"},		
         ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", DPS = 38, Infliction = 0, Type = "melee", Price = 50, Description = "Bish bash bosh, fast smacking and hard hitting!", HumanClass = "berserker" },  
         ["weapon_zs_melee_axe"]  = { Name = "Axe", DPS = 78, Infliction = 0.5, Type = "melee", Price = 100, HumanClass = "berserker" },
+        ["weapon_zs_melee_stunstick"]  = { Name = "Stun Stick", Type = "melee", Price = 80, HumanClass = "berserker" },		
         ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", DPS = 38, Infliction = 0, Type = "melee", Price = 150, HumanClass = "berserker" },
         ["weapon_zs_melee_katana"]  = { Name = "Katana", DPS = 90, Infliction = 0, Type = "melee", Price = 160, Description = "Handle with care. It's very sharp." , HumanClass = "berserker"},
         ["weapon_zs_melee_chainsaw"]  = { Name = "Chainsaw", DPS = 30, Infliction = 0, Type = "melee", Price = 180, Description = "This may become a bit gory.", HumanClass = "berserker" },   
@@ -361,7 +362,7 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_pyro", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_mine" ,"_sboost3","_highcal","_bulk","_alyxclip","_support"},
+	[1] = {"_medupgr2","_accuracy","_mine" ,"_headshot","_highcal","_bulk","_alyxclip","_support"},
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_pyrosp","_mobilesupplies"},
 	
@@ -373,7 +374,7 @@ GM.RankUnlocks = {
 	
 	[6] = {"_combat","_profitable","_ironaim", "_nitrate","_immolate","_vampire"},
 		
-	[7] = {"_accuracy2","_headhunter","_kevlar2", "_trap","_flarebounce"},
+	[7] = {"_accuracy2","_headhunter","_kevlar2", "_trap","_flarebounce","_slinger"},
 
 	[8] = {"_breakthrough","_reload","_darkenergy","_enforcer","_frictionburn"},	
 
@@ -400,7 +401,7 @@ GM.Perks = {
 	
 	--Commando
 	
-	["_enforcer"] = {Name = "Enforcer", Description = "+1 rifle damage", RequiresWeapon = "_commando", Slot = 1, Material = "vgui/achievements/immovable_object_bw"},			
+	["_enforcer"] = {Name = "Enforcer", Description = "+1 rifle damage | +20% clip size", RequiresWeapon = "_commando", Slot = 1, Material = "vgui/achievements/immovable_object_bw"},			
 	["_nade"] = {Name = "Grenadier", Description = "+25% grenade damage | +40 explosion radius | +3 Grenades", RequiresWeapon = "_commando", Slot = 1, Material = "vgui/gfx/vgui/hegrenade"}, --Done
 	["_accuracy"] = {Name = "Accuracy", Description = "-50% Recoil | +50% Accuracy ", RequiresWeapon = "_commando", Slot = 1, Material = "vgui/achievements/kill_hostage_rescuer_bw"},  --Done
 	["_defender"] = {Name = "Defender Rifle", Description = "Spawn with the Defender Rifle.", RequiresWeapon = "_commando", Slot = 1, Material = "vgui/achievements/kill_enemy_ak47_bw"},  --Done
@@ -411,7 +412,7 @@ GM.Perks = {
 	["_support"] = {Name = "Board Pack", Description = "Spawn with a pack of boards.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+40% Ammo Received", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with a Shotgun", RequiresWeapon = "_support2", Slot = 1, Material = "vgui/achievements/kill_enemy_m3_bw"}, --Done
-	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points | +40% Nail Health", RequiresWeapon = "_support2", Slot = 1}, --Done	
+	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points | +40% Nail Health | +10 Nails", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	["_mobilesupplies"] = {Name = "Mobile Supply", Description = "Spawn with a mobile supply.", RequiresWeapon = "_support2", Slot = 1}, --Done
 
 	
@@ -438,7 +439,7 @@ GM.Perks = {
 	--Sharpshooter
 	
 	["_lethal"] = {Name = "Python", Description = "Spawn with the Python", RequiresWeapon = "_sharpshooter", Slot = 1, Material = "vgui/achievements/domination_overkills_low_bw"}, --Done
-	["_accuracy2"] = {Name = "Marksman", Description = "-70% Recoil | +40% Accuracy ", RequiresWeapon = "_sharpshooter", Slot = 1	, Material = "vgui/achievements/hip_show_bw"},	--Done
+	["_accuracy2"] = {Name = "Marksman", Description = "-70% Recoil | +70% Accuracy ", RequiresWeapon = "_sharpshooter", Slot = 1	, Material = "vgui/achievements/hip_show_bw"},	--Done
 	["_highcal"] = {Name = "High Calibre", Description = "+5% Damage | +200% Bullet Knockback", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
 	["_supply"] = {Name = "Medical Station", Description = "Mobile Supplies gives 4 health to users | +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
 	["_musket"] = {Name = "Double Calibre", Description = "+2 Musket clip size | +2 Python clip size", RequiresWeapon = "_sharpshooter", Slot = 1},
@@ -458,7 +459,7 @@ GM.Perks = {
 	["_kevlarcommando2"] = {Name = "Kevlar", Description = "+20% damage resistance | -5% speed", RequiresWeapon = "_commando", Slot = 2, Material = "vgui/gfx/vgui/kevlar"},
 	
 	--Support
-	["_bulletstorm"] = {Name = "Bullet Storm", Description = "+10% SMG damage | +5 Shotgun damage", RequiresWeapon = "_support2", Slot = 2}, --Done		
+	["_bulletstorm"] = {Name = "Bullet Storm", Description = "+10% SMG damage | +5% Shotgun damage", RequiresWeapon = "_support2", Slot = 2}, --Done		
 	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "+50 Maximum Health", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_supportregen"] = {Name = "Regeneration", Description = "Regain 1 health every 6 seconds.", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_reload"] = {Name = "Action Reload", Description = "+50% Shotgun Reload Speed", RequiresWeapon = "_support2", Slot = 2}, --Done
@@ -470,7 +471,7 @@ GM.Perks = {
 	["_berserk"] = {Name = "Berserk", Description = "+10% movement speed while under 40 health", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_psychotic"] = {Name = "Blood Lust", Description = "+4 health from kills | +60% melee swing speed", RequiresWeapon = "_berserker", Slot = 2}, --Done
 	["_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 40% of melee damage and knock targets backwards", RequiresWeapon = "_berserker", Slot = 2, Material = "vgui/achievements/kill_enemy_in_air_bw"},	
-	["_vampire"] = {Name = "Vampire", Description = "10% of melee damage goes towards health | -60% health from kills", RequiresWeapon = "_berserker", Slot = 2}, --Done
+	["_vampire"] = {Name = "Vampire", Description = "10% of melee damage goes towards health | -80% health from kills", RequiresWeapon = "_berserker", Slot = 2}, --Done
 		
 	--Engineer
 	
@@ -481,8 +482,9 @@ GM.Perks = {
 	--Sharpshooter
 	
 	["_kevlar2"] = {Name = "Health", Description = "+20 maximum health", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
-	["_point"] = {Name = "Take Point", Description = "+30% jump power | -50% Fall Damage", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
-	["_sboost3"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done	
+	["_point"] = {Name = "Agility", Description = "+30% jump power | -50% Fall Damage", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
+	["_headshot"] = {Name = "Skill Shot", Description = "+5 SP for headshot kills", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done	
+	
 	
 	--Pyro
 	

@@ -1246,11 +1246,10 @@ function GM:Rewarded(wep)
 		return
 	end
 	
-	surface.PlaySound(Sound("mrgreen/new/weppickup"..math.random(1,3)..".wav"))
-
+	surface.PlaySound(Sound("items/gift_pickup.wav" ))
 
 	if wep and wep.PrintName then
-		MySelf:Message("Picked up a ".. wep.PrintName, nil, 1, 2)
+		MySelf:Message("Picked up ".. wep.PrintName, nil, 1, 2)
 	else
 		MySelf:Message("Arsenal upgraded", 2.5)
 	end

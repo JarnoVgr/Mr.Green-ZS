@@ -127,7 +127,13 @@ function SWEP:OnDeploy()
 	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") then
 		self.Weapon.HadFirstDeploy = true	
 		self:SetClip2(self:Clip2()+ self.Owner:GetRank())
+		
+		if self.Owner:GetPerk("_repairs") then
+		self:SetClip2(self:Clip2() + 10)		
+		end
 	end
+	
+	
 	if IsValid(self.Owner) and self.Owner.DataTable["ShopItems"][51] then
 		self.Weapon.HadFirstDeploy = true	
 		self:SetClip2(self:Clip2()+5)

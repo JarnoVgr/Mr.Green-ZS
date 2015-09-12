@@ -13,13 +13,13 @@ if CLIENT then
 end
 
 -- Model paths
-SWEP.Author = "Deluvas"
-SWEP.ViewModel = Model("models/weapons/c_crowbar.mdl")
+SWEP.Author = "Pufulet"
+SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
+SWEP.WorldModel = "models/weapons/w_stunbaton.mdl"
 SWEP.UseHands = true
-SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 -- Name and fov
-SWEP.PrintName = "Crowbar"
+SWEP.PrintName = "Stunstick"
 SWEP.ViewModelFOV = 50
 
 -- Slot pos
@@ -30,24 +30,36 @@ SWEP.SlotPos = 3
 SWEP.Primary.Delay = 0.8
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 40
-SWEP.MeleeRange = 55
+SWEP.MeleeRange = 46
 SWEP.MeleeSize = 1.5
-SWEP.WalkSpeed = SPEED_MELEE
-SWEP.MeleeKnockBack = SWEP.MeleeDamage * 2.0
+SWEP.MeleeDelay = 0.9
+SWEP.WalkSpeed = SPEED_MELEE + 8
+SWEP.MeleeKnockBack = SWEP.MeleeDamage
 SWEP.HumanClass = "berserker"
-SWEP.SwingTime = 0.55
+SWEP.SwingTime = 0.3
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingHoldType = "grenade"
 
 function SWEP:PlaySwingSound()
-	self:EmitSound("Weapon_Crowbar.Single")
+	self:EmitSound("Weapon_StunStick.Swing")
 end
 
 function SWEP:PlayHitSound()
-	self:EmitSound("Weapon_Crowbar.Melee_HitWorld")
+	self:EmitSound("Weapon_StunStick.Melee_HitWorld")
 end
 
 function SWEP:PlayHitFleshSound()
-	self:EmitSound("Weapon_Crowbar.Melee_Hit")
+	self:EmitSound("Weapon_StunStick.Melee_Hit")
+end
+
+function SWEP.BulletCallback(attacker, tr, dmginfo)
+	local e = EffectData()
+		e:SetOrigin(tr.HitPos)
+		e:SetNormal(tr.HitNormal)
+		e:SetRadius(0.8)
+		e:SetMagnitude(0.2)
+		e:SetScale(0.2)
+	util.Effect("cball_bounce", e)
+
+	GenericBulletCallback(attacker, tr, dmginfo)
 end

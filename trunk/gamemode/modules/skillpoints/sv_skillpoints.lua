@@ -127,7 +127,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 			end
 		end	
 		pl:EmitSound("items/gift_pickup.wav" )
-		pl:Message(item .. " dropped.", 1)			
+		pl:Message(item .. " dropped.", 2)			
 	end		
 	
 	return true

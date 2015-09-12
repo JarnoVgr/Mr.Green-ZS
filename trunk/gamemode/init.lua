@@ -271,7 +271,7 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 		fSpeed = fSpeed + (fSpeed*0.05)
 	end
 	
-	if mOwner:GetPerk("_sboost3") then
+	if mOwner:GetPerk("_point") then
 		fSpeed = fSpeed + (fSpeed*0.05)
 	end	
 	
@@ -1650,7 +1650,7 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 		end		
 		
 		if attacker:GetPerk("_vampire") then
-			healthToGive = math.Round(healthToGive * 0.4)
+			healthToGive = math.Round(healthToGive * 0.2)
 		end		
 		
 		attacker:SetHealth(attacker:Health() + healthToGive)
