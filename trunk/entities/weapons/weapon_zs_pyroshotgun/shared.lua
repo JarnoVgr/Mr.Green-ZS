@@ -67,14 +67,14 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("weapons/galil/galil-1.wav")
 SWEP.Primary.Recoil			= 2.3
-SWEP.Primary.Damage			= 11.5
+SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 4
 SWEP.Primary.ClipSize		= 28
 SWEP.Primary.Delay			= 0.45
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "alyxgun"
-
+ SWEP.TracerName = "AirboatGunHeavyTracer"
 SWEP.HumanClass = "pyro"
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
@@ -87,7 +87,7 @@ end
 SWEP.WalkSpeed = (SPEED_SHOTGUN + 7)
 SWEP.MaxBulletDistance 		= 2750 
 
-SWEP.Cone = 0.115
+SWEP.Cone = 0.11
 SWEP.ConeMoving = SWEP.Cone *1.1
 SWEP.ConeCrouching = SWEP.Cone *0.95
 SWEP.ConeIron = SWEP.Cone *0.85

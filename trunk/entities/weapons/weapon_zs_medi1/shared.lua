@@ -59,7 +59,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.IronSightsPos = Vector(-5.52, -12.15, 2.859)
 SWEP.IronSightsAng = Vector(0, 0, 0)
-
+SWEP.HumanClass = "medic"
 
 function SWEP:OnInitialize()
 	if SERVER then

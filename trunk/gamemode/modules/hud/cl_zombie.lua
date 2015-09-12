@@ -33,16 +33,18 @@ function hud.DrawZombieHUD()
 		return
 	end
 
-	local tw, th = surface.GetTextureSize(matHealthSplash)
-	
-	local x,y = 10, ScrH()-tw+190	
-
 	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
-	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1005)
-	local barW, barH = ScaleW(210), ScaleH(20)
-	local barX, barY = healthTextX + ScaleW(30), ScaleH(880)+ScaleH(110)
+
+	local startX = (ScrW()/2)
+
+	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(860), ScaleH(890)
+
+	--Health bar begin
+
+	--local barW, barH = ScaleW(210), ScaleH(20)
+	--local barX, barY = healthTextX + ScaleW(35), ScaleH(880)+ScaleH(110)
+	
 	local healthPercentage, healthChanged = math.Clamp(healthPoints / maxHealthPoints, 0, 1), false
-		
 	if healthPercentage ~= healthPercentageDrawn then
 		healthChanged = true
 	end
@@ -50,39 +52,30 @@ function hud.DrawZombieHUD()
 	healthPercentageDrawn = math.Clamp(math.Approach(healthPercentageDrawn, healthPercentage, FrameTime() * 1.8), 0, 1) --Smooth
 
 	--Determine health bar foreground color
-	local healthBarColor = Color(137, 30, 30, 230)
+	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
+	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
+	local healthBarColor = Color(154, 30, 30, 255)
+	--local healthBarBGColor = Color(70, 20, 20, 255)
+	
+	--Different colors
+	if iPercentage > 0.65 then
+		healthBarColor = Color(24, 170, 30, 225)
+	--	healthBarBGColor = Color(52, 68, 15, 225)
+	elseif iPercentage > 0.3 then
+		healthBarColor = Color(190, 116, 24, 225)
+		--healthBarBGColor = Color(86, 73, 15, 225)
+	end
+	
+	--Flash under certain conditions
 	if MySelf:IsTakingDOT() or healthPercentageDrawn < 0.3 then
-		healthBarColor = Color(healthBarColor.r, healthBarColor.g, healthBarColor.b, math.abs( math.sin( CurTime() * 4 ) ) * 255 )
-	end
+		healthBarColor = Color(healthBarColor.r, healthBarColor.g, healthBarColor.b, math.abs( math.sin( CurTime() * 4 ) ) * 255)
+	end	
 
-	--Background
-	if healthPercentageDrawn ~= 1 then
-		surface.SetDrawColor(70, 20, 20, 210)
-		surface.DrawRect(barX, barY, barW, barH)
-	end
-
-	--Foreground
-	surface.SetDrawColor(healthBarColor)
-	surface.DrawRect(barX, barY, barW * healthPercentageDrawn, barH)
---[[
-	--Only update text if health changed
-	if healthChanged then
-		for k, v in ipairs(zombieHealthIndication) do
-			if healthPercentage >= v.Percent then
-				healthStatusText = v.Text
-				break
-			end
-		end
-	end]]--
-		local startX = (ScrW()/2)	
+	--Draw health points text
 	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
-
-		
-	--Draw health status text
-	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
-	draw.SimpleTextOutlined("+", "hpFont",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
-	draw.SimpleTextOutlined(healthPoints, "ssNewAmmoFont13",startX - ScrW()/2 + ScrW()/45, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-	--draw.SimpleTextOutlined(healthStatusText, "ssNewAmmoFont5", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+	draw.SimpleTextOutlined("+", "hpFont",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, healthBarColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+	draw.SimpleTextOutlined(healthPoints, "ssNewAmmoFont24",startX - ScrW()/2 + ScrW()/45, ScrH()/1.03, healthBarColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	
 	
 end
 

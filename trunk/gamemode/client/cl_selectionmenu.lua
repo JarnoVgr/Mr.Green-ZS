@@ -406,13 +406,13 @@ function PaintNewWeaponSelection()
 		elseif MyWeapons[i].HumanClass == "support" then
 			ColorToDraw = Color(255, 182, 238, math.Clamp(160*Alpha, 0, 255))					
 		end
-					
+
 		local price = GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Price
 
 		price = math.Round(price * 0.5)
 		
 		--Weapon name
-		draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name .. " (" .. price .. " SP)", FontSize, SLOT_POS[i].PosX + MySelf.WepW * 1.25, NameHeight, ColorToDraw , TEXT_ALIGN_RIGHT, TEXT_ALIGN_RIGHT,1,Color(0, 0, 0, math.Clamp(160*Alpha + 80, 0, 255)))
+		draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name .. " (" .. price .. " SP)", FontSize, SLOT_POS[i].PosX + MySelf.WepW * 1.25, NameHeight, ColorToDraw , TEXT_ALIGN_RIGHT, TEXT_ALIGN_RIGHT,1,Color(0, 0, 0, math.Clamp(160*Alpha + 40, 0, 255)))
 	end
 end
 hook.Add("HUDPaintBackground", "PaintSelection", PaintNewWeaponSelection)

@@ -170,14 +170,16 @@ GM.HumanWeapons = {
 	       --["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127, Infliction = 0.58, Type = "smg", Price = 300, HumanClass = "support" },
 	
         --Medic
-        ["weapon_zs_medi2"]  = { Name = "Medi 02", DPS = 143, Infliction = 0, Type = "shotgun",Price = 140, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
-        ["weapon_zs_medi3"]  = { Name = "Medi 03", DPS = 143, Infliction = 0, Type = "smg",Price = 190, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
-		["weapon_zs_medi1"]  = { Name = "Medi 01", DPS = 143, Infliction = 0, Type = "pistol",Price = 80, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medi2"]  = { Name = "Medi 2", DPS = 143, Infliction = 0, Type = "shotgun",Price = 130, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
+		["weapon_zs_medi1"]  = { Name = "Medi 1", DPS = 143, Infliction = 0, Type = "pistol",Price = 80, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medi3"]  = { Name = "Medi 3", DPS = 143, Infliction = 0, Type = "smg",Price = 160, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medi4"]  = { Name = "Medi 4", DPS = 143, Infliction = 0, Type = "rifle",Price = 190, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		
         ["weapon_zs_elites"]  = { Name = "Dual Elites", DPS = 92, Infliction = 0.25, Type = "pistol", Price = 120},
        
         --Sharpshooter
-        ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 100, HumanClass = "sharpshooter"},         
+        ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 100, HumanClass = "sharpshooter"},    
+        ["weapon_zs_annabelle"]  = { Name = "Annabelle", Type = "rifle", Price = 170, HumanClass = "sharpshooter"},   		
         ["weapon_zs_python"]  = { Name = "Python", DPS = 93, Infliction = 0.2, Price = 80, Type = "pistol", HumanClass = "sharpshooter"},       
         ["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40, Infliction = 0, Type = "rifle", Price = 140, Description = "Light-weight sniper.", HumanClass = "sharpshooter" }, 
 		["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 160, Description = "Russian Roulette Revolver", HumanClass = "sharpshooter" },		
@@ -194,12 +196,11 @@ GM.HumanWeapons = {
  
 		--Pyro
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 100}, 
-		
         ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 120, HumanClass = "pyro" },		
-		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "pistol", HumanClass = "pyro", Price = 120},
-		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg", HumanClass = "pyro", Price = 140 },		
-		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Type = "shotgun", HumanClass = "pyro", Price = 180},	
-		
+		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "pistol", HumanClass = "pyro", Price = 140},
+		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg", HumanClass = "pyro", Price = 120 },		
+		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Type = "shotgun", HumanClass = "pyro", Price = 160},	
+		["weapon_zs_pyrocannon"]  = { Name = "'Infernus' Cannon", Type = "shotgun", HumanClass = "pyro", Price = 180},			
 		["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", HumanClass = "pyro"},
 		["weapon_zs_firebomb"]  = { Name = "Flame Nade", DPS = 143, Infliction = 0, HumanClass = "pyro"},
 		

@@ -24,10 +24,10 @@ function hud.DrawHumanHUD()
 	hud.DrawSkillPoints()
 	--hud.DrawObjMessages()
 	
-	if CurTime() <= WARMUPTIME then
+	--if CurTime() <= WARMUPTIME then
 		--hud.UpdateHumanTable()
-		hud.DrawZeroWaveMessage()	
-	end
+	--	hud.DrawZeroWaveMessage()	
+	--end
 	--local humans = team.GetPlayers(TEAM_HUMAN)		
 	--table.sort(humans,hud.ZombieSpawnDistanceSort())	
 
@@ -57,16 +57,10 @@ function hud.DrawHealth()
 
 	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(860), ScaleH(890)
 
-	
-	--Draw health points text
-	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
-	draw.SimpleTextOutlined("+", "hpFont",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
-	draw.SimpleTextOutlined(healthPoints, "ssNewAmmoFont13",startX - ScrW()/2 + ScrW()/45, ScrH()/1.03, Color(255,255,255,170), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-
 	--Health bar begin
 
-	local barW, barH = ScaleW(210), ScaleH(20)
-	local barX, barY = healthTextX + ScaleW(35), ScaleH(880)+ScaleH(110)
+	--local barW, barH = ScaleW(210), ScaleH(20)
+	--local barX, barY = healthTextX + ScaleW(35), ScaleH(880)+ScaleH(110)
 	
 	local healthPercentage, healthChanged = math.Clamp(healthPoints / maxHealthPoints, 0, 1), false
 	if healthPercentage ~= healthPercentageDrawn then
@@ -78,33 +72,41 @@ function hud.DrawHealth()
 	--Determine health bar foreground color
 	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
 	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
-	local healthBarColor = Color(137, 30, 30, 255)
-	local healthBarBGColor = Color(70, 20, 20, 255)
+	local healthBarColor = Color(154, 30, 30, 255)
+	--local healthBarBGColor = Color(70, 20, 20, 255)
 	
 	
 	--Different colors
 	if iPercentage > 0.75 then
-		healthBarColor = Color(24, 140, 30, 225)
-		healthBarBGColor = Color(52, 68, 15, 225)
+		healthBarColor = Color(24, 170, 30, 225)
+	--	healthBarBGColor = Color(52, 68, 15, 225)
 	elseif iPercentage > 0.5 then
-		healthBarColor = Color(137, 116, 24, 225)
-		healthBarBGColor = Color(86, 73, 15, 225)
+		healthBarColor = Color(190, 116, 24, 225)
+		--healthBarBGColor = Color(86, 73, 15, 225)
 	end
-
+	
 	--Flash under certain conditions
 	if MySelf:IsTakingDOT() or healthPercentageDrawn < 0.3 then
 		healthBarColor = Color(healthBarColor.r, healthBarColor.g, healthBarColor.b, math.abs( math.sin( CurTime() * 4 ) ) * 255)
-	end
+	end	
+
+	--Draw health points text
+	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
+	draw.SimpleTextOutlined("+", "hpFont",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, healthBarColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+	draw.SimpleTextOutlined(healthPoints, "ssNewAmmoFont24",startX - ScrW()/2 + ScrW()/45, ScrH()/1.03, healthBarColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	
+	
+
 
 	--Background
-	if healthPercentageDrawn ~= 1 then
-		surface.SetDrawColor(healthBarBGColor)
-		surface.DrawRect(barX, barY, barW, barH)
-	end
+	--if healthPercentageDrawn ~= 1 then
+	--	surface.SetDrawColor(healthBarBGColor)
+	--	surface.DrawRect(barX, barY, barW, barH)
+	--end
 
 	--Foreground
-	surface.SetDrawColor(healthBarColor)
-	surface.DrawRect(barX, barY, barW * healthPercentageDrawn, barH)
+	--surface.SetDrawColor(healthBarColor)
+	--surface.DrawRect(barX, barY, barW * healthPercentageDrawn, barH)
 --[[
 	--Only update text if health changed
 	if healthChanged then
@@ -241,7 +243,8 @@ net.Receive("SPRequired", function(len)
 end)
 
 function hud.DrawSkillPoints()
-	draw.SimpleTextOutlined("SP for next drop: " .. math.Clamp(SPRequired -  MySelf:GetScore(),0,SPRequired), "ssNewAmmoFont5.5",0 + ScrW()/17.0, ScrH()/1.05, Color(255,255,255,145), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+	local startX = ScrW()/2
+	draw.SimpleTextOutlined("SP for drop: " .. SPRequired - MySelf:GetScore(), "ssNewAmmoFont5.5",startX - ScrW()/2 + ScrW()/80, ScrH()/1.075, Color(255,255,255,145), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 end
 
 function hud.DrawObjMessages()

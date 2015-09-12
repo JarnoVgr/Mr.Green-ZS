@@ -75,7 +75,7 @@ SWEP.Secondary.Delay = 0.01
 SWEP.Secondary.Heal = 10
 SWEP.Secondary.HealDelay = 12
 SWEP.UseHands = true
-
+SWEP.HumanClass = "medic"
 SWEP.Cone = 0.09
 SWEP.ConeMoving = SWEP.Cone *1.12
 SWEP.ConeCrouching = SWEP.Cone *0.9

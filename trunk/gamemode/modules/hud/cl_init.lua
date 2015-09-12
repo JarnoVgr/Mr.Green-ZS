@@ -115,6 +115,7 @@ local matDangerSign = surface.GetTextureID ( "zombiesurvival/hud/danger_sign" )
 
 hud.BossBackground = surface.GetTextureID ( "zombiesurvival/hud/splash_top" )
 hud.texGradDown = surface.GetTextureID("VGUI/gradient_down")
+
 function hud.DrawBossHealth()
 	if not GAMEMODE:IsBossAlive() then
 		return
@@ -161,8 +162,7 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 
 	local keyText
 	if MySelf:IsZombie() then
-		keyText = "ROUND TIME"
-		
+		keyText = "FEED TIME"
 	else
 		keyText = "EVACUATION TIME"
 	end
@@ -171,9 +171,11 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 	--	draw.SimpleTextOutlined("DOUBLE XP ACTIVE", DescriptionFont, ScrW()/1.1, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,200))	
 	--end
 	
+	--[[
 	if (team.NumPlayers(TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD)) < XP_PLAYERS_REQUIRED then
 		draw.SimpleTextOutlined("XP disabled while under ".. XP_PLAYERS_REQUIRED .. " players", DescriptionFont, ScrW()/1.7, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,200))		
 	end
+	]]--
 	
 	local requiredScore = REDEEM_KILLS
 	if MySelf:HasBought("quickredemp") or MySelf:GetRank() < REDEEM_FAST_LEVEL then
@@ -185,7 +187,6 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 
 	local currentScore = math.max(0, math.ceil(MySelf:GetScore() / 2))
 	currentScore = math.Clamp(currentScore,0,4)
-	
 	
 	--Preparation (warmup)
 	if CurTime() <= WARMUPTIME then
@@ -212,12 +213,11 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 	end
 	
 	if MySelf:IsZombie() then
-			draw.SimpleTextOutlined("GOAL", "NewZombieFont15", startX - ScrW()/2 + ScrW()/80, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))			
+			--draw.SimpleTextOutlined("GOAL", "NewZombieFont15", startX - ScrW()/2 + ScrW()/80, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))			
 		if requiredScore - currentScore == 1 then
-			draw.SimpleTextOutlined("Eat " .. requiredScore - currentScore .. " brain in " .. ToMinutesSeconds(timeLeft + 1), "NewZombieFont13", startX - ScrW()/2 + ScrW()/80, valueStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))			
+			draw.SimpleTextOutlined("Eat " .. requiredScore - currentScore .. " brain in " .. ToMinutesSeconds(timeLeft + 1), "NewZombieFont13", startX - ScrW()/2 + ScrW()/80, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))			
 		else
-		
-			draw.SimpleTextOutlined("Eat " .. requiredScore - currentScore .. " brains in " .. ToMinutesSeconds(timeLeft + 1), "NewZombieFont13", startX - ScrW()/2 + ScrW()/80, valueStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+			draw.SimpleTextOutlined("Eat " .. requiredScore - currentScore .. " brains in " .. ToMinutesSeconds(timeLeft + 1), "NewZombieFont13", startX - ScrW()/2 + ScrW()/80, keyStartY, Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
 		end
 	else
 	
@@ -227,7 +227,7 @@ local function DrawRoundTime(DescriptionFont, ValueFont)
 	--Draw time
 
 end
-
+	local TeamColor, DescriptionFont, ValueFont, ValueBigFont
 local NextTeamRefresh, CachedHumans, CachedZombies = 0, 0, 0
 function hud.DrawStats()
 	--Recache team counts
@@ -238,7 +238,6 @@ function hud.DrawStats()
 	end
 
 	--Define vars depending on team
-	local TeamColor, DescriptionFont, ValueFont, ValueBigFont
 	if MySelf:IsZombie() then
 		TeamColor = Color(255, 0, 0, 170)
 		DescriptionFont = "NewZombieFont13"
@@ -253,13 +252,12 @@ function hud.DrawStats()
 	--Define Y-axis positions of keys and values
 	local startX, keyStartY, valueStartY = ScrW()/2, ScaleH(20), ScaleH(50)
 
-	--Draw Survivor team count
-
+	--[[Draw Survivor team count
 	draw.SimpleTextOutlined("INFLICTION: ", DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(90), Color(255,255,255,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 	draw.SimpleTextOutlined(CachedHumans, DescriptionFont, ScaleW(100),  ScaleH(90), Color(120,120,230,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 	draw.SimpleTextOutlined("i", DescriptionFont,  ScaleW(120),  ScaleH(90), Color(255,255,255,150), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 	draw.SimpleTextOutlined(CachedZombies, DescriptionFont, ScaleW(130),  ScaleH(90), Color(230,120,120,150), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-
+]]--
 	--Handle level key switching for current level and level completion percentage
 	if nextLevelKeySwitch <= RealTime() then
 		if currentLevelKey == 2 then
@@ -270,6 +268,9 @@ function hud.DrawStats()
 		nextLevelKeySwitch = RealTime()+10		
 	end
 
+	draw.SimpleTextOutlined("GREENCOINS: "..PlrData.GreenCoins, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(80), Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))			
+--[[
+	
 	if PlrData.Rank == 10 then
 		draw.SimpleTextOutlined("GREENCOINS: "..PlrData.GreenCoins, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(200,240,200,100), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))			
 	else
@@ -289,7 +290,7 @@ function hud.DrawStats()
 			draw.SimpleTextOutlined("LEVEL: " ..PlrData.Rank, DescriptionFont, startX - ScrW()/2 + ScrW()/80, ScaleH(120), Color(255,255,255,130), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))		
 		end	
 	end
-	
+	]]--
 
 
 	local TopText, ValueText
@@ -301,7 +302,7 @@ local function DrawHUD()
 	if not IsValid(MySelf) or ENDROUND or not MySelf.ReadySQL or not MySelf:Alive() or IsClassesMenuOpen() or util.tobool(GetConVarNumber("zs_hidehud")) then
 		return
 	end
-
+	
 	--Cache
 	if RealTime() >= NextPlrDataCache then
 		RecachePlayerData()
