@@ -24,7 +24,6 @@ end
 
 -- Name and fov
 SWEP.PrintName = "Katana"
-SWEP.ViewModelFOV = 60
 SWEP.HoldType = "melee2"
 -- Position
 SWEP.Slot = 2
@@ -32,13 +31,17 @@ SWEP.SlotPos = 6
 SWEP.DeploySpeed = 0.6
 -- Damage, distane, delay
 SWEP.HumanClass = "berserker"
-SWEP.MeleeDamage = 45
+SWEP.MeleeDamage = 40
 SWEP.MeleeRange = 64
 SWEP.MeleeSize = 1.25
 SWEP.Primary.Delay = 0.6
 SWEP.TotalDamage = SWEP.Primary.Damage
-SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 0.5
 SWEP.WalkSpeed = SPEED_MELEE
+
+SWEP.SwingTime = 0.3
+SWEP.SwingRotation = Angle(0, -20, -40)
+SWEP.SwingOffset = Vector(10, 0, 0)
 
 
 function SWEP:Precache()
@@ -49,6 +52,7 @@ function SWEP:Precache()
 	util.PrecacheSound("weapons/katana/katana_02.wav")
 	util.PrecacheSound("weapons/katana/katana_03.wav")
 end
+
 function SWEP:Deploy()
 	if SERVER then
 		if self.Owner:FlashlightIsOn() and self.Owner:GetHumanClass() ~= 3 then
@@ -68,6 +72,18 @@ function SWEP:Deploy()
 	end
 	
 	return true
+end
+
+function SWEP:PlaySwingSound()
+	self:EmitSound("weapons/knife/knife_slash"..math.random(1, 2)..".wav", 75, math.random(110,115))
+end
+
+function SWEP:PlayHitSound()
+	self:EmitSound("weapons/knife/knife_hitwall1.wav", 75, math.random(110,115))
+end
+
+function SWEP:PlayHitFleshSound()
+	self:EmitSound("weapons/knife/knife_hit"..math.random(1, 4)..".wav", 75, math.random(110,115))
 end
 
 SWEP.KatanaSounds = {}

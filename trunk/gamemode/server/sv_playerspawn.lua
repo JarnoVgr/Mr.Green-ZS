@@ -752,7 +752,9 @@ function CalculatePlayerLoadout(pl)
 
 		if pl:GetPerk("_slinger") then
 			pl:Give("weapon_zs_melee_hook")
-		end
+		elseif pl:GetPerk("_oppressive") then
+			pl:Give("weapon_zs_melee_pipe2")
+		end		
 	elseif pl:GetPerk("_sharpshooter") then
 		MOBILE_SUPPLIES = true
 		pl.Loadout = table.Copy(sharpshooter)

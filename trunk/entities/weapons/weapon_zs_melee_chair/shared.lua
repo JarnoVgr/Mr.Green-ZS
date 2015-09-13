@@ -27,7 +27,9 @@ SWEP.WorldModel = Model("models/nova/chair_wood01.mdl")
 SWEP.Durability = 4
 -- Name and fov
 SWEP.PrintName = "Chair"
-SWEP.ViewModelFOV = 60
+
+SWEP.ShowViewModel = false
+SWEP.ShowWorldModel = false
 
 -- Slot pos
 SWEP.Slot = 2
@@ -37,10 +39,10 @@ SWEP.HoldType = "melee2"
 SWEP.Primary.Delay = 1.3
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 50
+SWEP.MeleeDamage = 45
 SWEP.MeleeRange = 52
 SWEP.MeleeSize = 1.3
-SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
+SWEP.MeleeKnockBack = SWEP.MeleeDamage
 SWEP.WalkSpeed = SPEED_MELEE
 
 SWEP.SwingTime = 0.8

@@ -35,7 +35,7 @@ SWEP.Slot = 2
 SWEP.SlotPos = 8
 SWEP.HumanClass = "berserker"
 -- Damage, distane, delay
-SWEP.MeleeDamage = 22
+SWEP.MeleeDamage = 20
 SWEP.Primary.Delay = 0.7
 SWEP.Primary.Distance = 73
 SWEP.WalkSpeed = SPEED_MELEE
@@ -43,7 +43,7 @@ SWEP.SwingTime = 0.6
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.ShowViewModel = false
 SWEP.ShowWorldModel = false
-SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
+SWEP.MeleeKnockBack = SWEP.MeleeDamage
 -- Killicons
 if CLIENT then
 	killicon.AddFont( "weapon_zs_melee_pipe", "HL2MPTypeDeath", "6", Color( 255, 200, 200, 255 ) )

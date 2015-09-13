@@ -29,7 +29,6 @@ SWEP.WorldModel = Model("models/weapons/w_axe.mdl")
 SWEP.HumanClass = "berserker"
 -- Name and fov
 SWEP.PrintName = "Axe"
-SWEP.ViewModelFOV = 60
 
 -- Slot pos
 SWEP.Slot = 2
@@ -40,13 +39,13 @@ SWEP.HoldType = "melee2"
 SWEP.Primary.Delay = 1.05
 SWEP.TotalDamage = SWEP.Primary.Damage
 
-SWEP.MeleeDamage = 41
+SWEP.MeleeDamage = 40
 SWEP.MeleeRange = 56
 SWEP.MeleeSize = 1.5
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
 SWEP.WalkSpeed = SPEED_MELEE
 
-SWEP.SwingTime = 0.65
+SWEP.SwingTime = 0.7
 SWEP.SwingRotation = Angle(0, -20, -40)
 SWEP.SwingOffset = Vector(10, 0, 0)
 SWEP.SwingHoldType = "melee"

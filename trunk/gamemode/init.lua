@@ -304,6 +304,12 @@ function GM:WeaponDeployed(mOwner, mWeapon, bIron)
 			fSpeed = SPEED - 12
 		end
 		
+	elseif mOwner:GetPerk("_sharpshooter") then
+	
+		if mOwner:GetPerk("_point") then
+			fSpeed = fSpeed*1.05	
+		end		
+		
 	elseif mOwner:GetPerk("_medic") then
 		local multiplier = 0.03 + ((mOwner:GetRank()*0.5)*0.01)
 		fSpeed = fSpeed + (fSpeed*multiplier)	
@@ -1639,7 +1645,7 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 	if attacker:GetPerk("_berserker") then
 	
 		local multiplier = attacker:GetRank()
-		local healthToGive =  multiplier + 4
+		local healthToGive =  multiplier + 5
 		
 		if attacker:GetPerk("_psychotic") then
 			healthToGive = healthToGive + 4

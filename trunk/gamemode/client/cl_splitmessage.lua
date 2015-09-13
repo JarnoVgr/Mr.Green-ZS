@@ -100,7 +100,7 @@ function notice.DrawMessage()
 			notice.bAddNext = true
 			
 			-- Delay for next message in cache
-			timer.Simple ( 1, function()
+			timer.Simple ( 2, function()
 				if #notice.Cache > 0 then			
 					table.insert( notice.Draw, { sText = notice.Cache[1].sText, MessageTime = CurTime(), iType = notice.Cache[1].iType or 1, iDuration = notice.Cache[1].iDuration or 3.5 } )
 					

@@ -37,12 +37,11 @@ SWEP.HoldType = "melee2"
 -- Damage, distane, delay
 
 SWEP.Primary.Delay = 1.25
-SWEP.TotalDamage = SWEP.Primary.Damage
 SWEP.HumanClass = "berserker"
 SWEP.MeleeDamage = 60
 SWEP.MeleeRange = 60
 SWEP.MeleeSize = 2.5
-SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
+SWEP.MeleeKnockBack = SWEP.MeleeDamage
 
 SWEP.Primary.Delay = 1.33
 
@@ -50,7 +49,7 @@ SWEP.WalkSpeed = SPEED_MELEE_HEAVY
 
 SWEP.SwingRotation = Angle(60, 0, -80)
 SWEP.SwingOffset = Vector(0, -30, 0)
-SWEP.SwingTime = 0.75
+SWEP.SwingTime = 0.8
 SWEP.SwingHoldType = "melee"
 
 function SWEP:PlaySwingSound()

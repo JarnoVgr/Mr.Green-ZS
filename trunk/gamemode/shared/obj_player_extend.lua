@@ -777,7 +777,7 @@ function meta:Message(sText, iType, Col, iDuration)
 	
 	--Clientside
 	if CLIENT then 
-	    notice.Message(sText, Col, iType, iDuration) 
+	    notice.Message(sText, Col, iType, iDuration + 1) 
 	end
 end
 	

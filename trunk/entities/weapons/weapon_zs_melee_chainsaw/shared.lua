@@ -13,22 +13,16 @@ SWEP.UseHands = true
 
 if CLIENT then
 	SWEP.ShowViewModel = false 
-
-SWEP.ViewModelBoneMods = {
-	--["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-13.594, -8, 5), angle = Angle(-174.849, 76.903, 180) },
-	["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(3.594, -8, 5), angle = Angle(140.849, 70.903, 180) },
-	["ValveBiped.Bip01_L_Finger0"] = { scale = Vector(1, 1, 1), pos = Vector(-0.276, 0.097, -0.897), angle = Angle(8.331, 0, 0) }
-}
 	
-SWEP.VElements = {
-	
-	["chainsaw"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.941, 2.631, -6.678), angle = Angle(180, 90, -53.116), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["Blowtorch2"] = { type = "Model", model = "models/props_pipes/valvewheel002a.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "chainsaw", pos = Vector(3.868, 2.633, -5.016), angle = Angle(-0.617, 33.426, 0), size = Vector(0.294, 0.294, 0.294), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-}
+	SWEP.VElements = {
+		
+		["chainsaw"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.941, 2.631, -6.678), angle = Angle(180, 90, -53.116), size = Vector(0.8, 0.8, 0.8), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+		["Blowtorch2"] = { type = "Model", model = "models/props_pipes/valvewheel002a.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "chainsaw", pos = Vector(3.868, 2.633, -5.016), angle = Angle(-0.617, 33.426, 0), size = Vector(0.294, 0.294, 0.294), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	}
 
-SWEP.WElements = {
-	["1"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.752, 0, -5.715), angle = Angle(-3.507, 66.623, 75.973), size = Vector(0.82, 0.82, 0.82), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-}
+	SWEP.WElements = {
+		["1"] = { type = "Model", model = "models/weapons/w_chainsaw.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.752, 0, -5.715), angle = Angle(-3.507, 66.623, 75.973), size = Vector(0.82, 0.82, 0.82), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	}
 
 end
 
@@ -37,24 +31,23 @@ SWEP.WorldModel = "models/props_canal/mattpipe.mdl"
 
 -- Name and fov
 SWEP.HoldType = "melee2"
-SWEP.PrintName = "Chainsaw!"
-SWEP.ViewModelFOV = 60
-SWEP.DeploySpeed = 0.6
+SWEP.PrintName = "Chainsaw"
+
+SWEP.DeploySpeed = 0.8
 -- Slot pos
 SWEP.Slot = 2
 SWEP.SlotPos = 8
 SWEP.HumanClass = "berserker"
 -- Damage, distane, delay
 SWEP.Primary.Automatic	= true
-SWEP.MeleeDamage = 100
+SWEP.MeleeDamage = 25
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 1.25
-SWEP.Primary.Delay = 0.7
-SWEP.TotalDamage = SWEP.Primary.Damage
-SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.0
-SWEP.WalkSpeed = 170
+SWEP.Primary.Delay = 0.3
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 0.5
+SWEP.WalkSpeed = SPEED_MELEE_HEAVY
 
-SWEP.SwingTime = 0.9
+SWEP.SwingTime = 0.3
 SWEP.SwingRotation = Angle(0, -40, 0)
 SWEP.ShowViewModel = false
 SWEP.ShowWorldModel = false
@@ -81,8 +74,7 @@ end]]--
 
 
 function SWEP:PlaySwingSound()
-	self:EmitSound("ambient/machines/slicer1.wav")
---	self:EmitSound("weapons/melee/chainsaw_gore_03.wav")
+	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(35, 45))
 end
 
  function SWEP:PlayHitFleshSound()
@@ -90,8 +82,7 @@ end
 end
 
 function SWEP:PlayHitSound()
-	--self:EmitSound("weapons/melee/melee_skull_break_01.wav")
-	--self:EmitSound("weapons/melee/chainsaw_gore_03.wav")
+	self:EmitSound("ambient/machines/slicer1.wav")
 end
 
 function SWEP:OnDeploy()

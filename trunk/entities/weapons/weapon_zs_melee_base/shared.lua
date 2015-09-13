@@ -2,20 +2,19 @@ AddCSLuaFile()
 AddCSLuaFile("cl_init.lua")
 
 SWEP.ViewModel = "models/weapons/v_stunstick.mdl"
---SWEP.ViewModel = ""
 SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
 
 if CLIENT then
 	SWEP.ShowViewModel = false
-
 end
+
 SWEP.DrawCrosshair = false
 SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
 SWEP.Primary.Delay = 1
-
+SWEP.ViewModelFOV = 60
 SWEP.NextLeap = 0
 SWEP.Breakthrough = false
 
@@ -63,10 +62,6 @@ function SWEP:Initialize()
 	self:SetDeploySpeed(1.1)
 	self:SetWeaponHoldType(self.HoldType)
 	self:SetWeaponSwingHoldType(self.SwingHoldType)
-	
-	--self:SetColor(Color(255,255,255,1))
-	--self:SetMaterial("Debug/hsv") --Debug/hsv	
-	--self.ViewModel = ""
 
 	if CLIENT then
 		--Set default FOV
@@ -107,22 +102,16 @@ function SWEP:IsMelee()
 	return true
 end
 
-
 function SWEP:PreDrawViewModel(vm, pl, weapon)
-	--Init viewmodel visibility
-			vm:SetMaterial("")
-	if (self.ShowViewModel == nil or self.ShowViewModel) then
-		vm:SetColor(Color(255,255,255,255))
-
-		vm:SetMaterial("")
-	else
-		-- we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
-		vm:SetColor(Color(255,255,255,0))
-		-- ^ stopped working in GMod 13 because you have to do Entity:SetRenderMode(1) for translucency to kick in
-		-- however for some reason the view model resets to render mode 0 every frame so we just apply a debug material to prevent it from drawing
-		vm:SetMaterial("Debug/hsv") --Debug/hsv
+	if (!self.ShowViewModel) then
+		render.SetBlend(0)
 	end
 end
+
+function SWEP:PostDrawViewModel(vm, pl, weapon)
+	render.SetBlend(1)
+end
+
 
 function SWEP:Deploy()
 	if SERVER then
@@ -138,8 +127,6 @@ function SWEP:Deploy()
 	else
 		self.Berserker = false
 	end
-	
-	
 	
 	self:OnDeploy()
 	
@@ -221,8 +208,8 @@ function SWEP:Think()
 				end
 
 				if ent:IsPlayer() or ent:IsNPC() then
-					local Velocity = self.Owner:GetForward() * 160
-					Velocity.z = math.Clamp(Velocity.z,180,220)
+					local Velocity = self.Owner:GetForward() * 180
+					Velocity.z = math.Clamp(Velocity.z,190,220)
 					ent:SetVelocity(Velocity)
 				else
 					--Calculate velocity to push
@@ -275,7 +262,6 @@ end
 function SWEP:CanPrimaryAttack()
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
 		return false
-		
 	end
 
 	return not self:IsSwinging()
@@ -382,9 +368,6 @@ function SWEP:MeleeSwing()
 
 		local hitent = tr.Entity
 		local hitflesh = tr.MatType == MAT_FLESH or tr.MatType == MAT_BLOODYFLESH or tr.MatType == MAT_ANTLION or tr.MatType == MAT_ALIENFLESH
-
-
-		
 		
 		if self.HitAnim then
 			self.Weapon:SendWeaponAnim(self.HitAnim)
@@ -422,24 +405,23 @@ function SWEP:MeleeSwing()
 				dmginfo:SetDamageType(self.DamageType)
 				dmginfo:SetDamageForce(self.MeleeDamage * 20 * owner:GetAimVector())
 				if hitent:IsPlayer() then
+				
 					hitent:MeleeViewPunch(damage*0.05)
 					
-					if self.MeleeSize >= 1 then
-					
-					local Velocity = self.Owner:EyeAngles():Forward() * damage * 5
+					local Velocity = self.Owner:EyeAngles():Forward() * damage * 3 * (self.MeleeSize - 0.25)
 					Velocity.x = Velocity.x * 0.4
 					Velocity.y = Velocity.y * 0.4
-					
+					Velocity.z = Velocity.z * 1.12
+
 					if owner:GetPerk("_oppressive") then
 						Velocity.z = Velocity.z * 1.85
 					end
-	
-
-					hitent:SetLocalVelocity(Velocity)	
-
-					end		
 					
-				end
+					Velocity.z = math.Clamp(Velocity.z,0,220)
+	
+					hitent:SetLocalVelocity(Velocity)	
+				end		
+					
 					hitent:TakeDamageInfo(dmginfo)				
 				local phys = hitent:GetPhysicsObject()
 				if hitent:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
@@ -508,7 +490,6 @@ if CLIENT then
 		if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then 
 			vm:SetColor(Color(255,255,255,1)) 
 			self:DrawWorldModel()
-			
 			return
 		end
 				

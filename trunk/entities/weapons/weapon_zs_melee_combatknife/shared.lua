@@ -19,6 +19,7 @@ end
 -- Name and fov
 SWEP.PrintName = "Combat Knife"
 SWEP.ViewModelFOV = 60
+SWEP.ShowViewModel = true
 
 -- Position
 SWEP.Slot = 2

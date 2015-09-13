@@ -1011,16 +1011,8 @@ end)
 
 
 function GM:PreDrawViewModel(vm, pl, weapon)
-	if not weapon then
-		return
-	end
-
-	--Call same function in SWEP
-	if isfunction(weapon.PreDrawViewModel)	then
-		weapon:PreDrawViewModel(vm, pl, weapon)
-		weapon:SetColor(Color(255,255,255,1))
-		weapon:SetMaterial("Debug/hsv") --Debug/hsv	
-	end
+	
+	if (!IsValid(weapon)) then return false end
 
 	--Use unified hands
 	if weapon.UseHands then
@@ -1029,12 +1021,18 @@ function GM:PreDrawViewModel(vm, pl, weapon)
 			hands:DrawModel()
 		end
 	end
+	
+	if weapon.PreDrawViewModel then
+		weapon:PreDrawViewModel( vm, pl, weapon )
+	end
 end
 
 function GM:PostDrawViewModel(vm, pl, weapon)	
+
+	if (!IsValid(weapon)) then return false end
 	--Call same function in SWEP
-	if isfunction(weapon.PostDrawViewModel)	then
-		weapon:PostDrawViewModel(vm, pl, weapon)
+	if weapon.PostDrawViewModel then
+		weapon:PostDrawViewModel( vm, pl, weapon )
 	end
 end
 

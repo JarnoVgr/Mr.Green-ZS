@@ -36,16 +36,16 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- 1 to 0, higher means less penality.
 SPEED_PENALTY = 0.635
 
-SPEED = 195
-SPEED_LIGHT = SPEED - 6
+SPEED = 187
+SPEED_LIGHT = SPEED - 2
 SPEED_MELEE_LIGHT = SPEED - 3
 SPEED_MELEE = SPEED - 10
-SPEED_MELEE_HEAVY = SPEED - 20
+SPEED_MELEE_HEAVY = SPEED - 23
 SPEED_PISTOL = SPEED - 9
-SPEED_SMG = SPEED - 22
-SPEED_SHOTGUN = SPEED - 33
+SPEED_SMG = SPEED - 20
+SPEED_SHOTGUN = SPEED - 32
 SPEED_RIFLE = SPEED - 30
-SPEED_HEAVY = SPEED - 35
+SPEED_HEAVY = SPEED - 33
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8		--It's meant for creating hordes, doesnt make sense for a zombie to be in a horde if they're across the map.
@@ -247,7 +247,7 @@ GM.HumanWeapons = {
         ["weapon_zs_melee_fryingpan"]  = { Name = "Frying Pan", DPS = 70, Infliction = 0, Type = "melee", Description = "Cooking by the book.", Price = 40 },
         ["weapon_zs_melee_shovel"]  = { Name = "Shovel", DPS = 40, Infliction = 0, Type = "melee", Description = "", Price = 80 },
         ["weapon_zs_melee_pipe"]  = { Name = "Pipe", DPS = 30, Infliction = 0, Type = "melee", Description = "Whoops. Looks like I shouldn't of hit him so hard..", Price = 40  },
-        ["weapon_zs_melee_pipe2"]  = { Name = "Improved Pipe", DPS = 30, Infliction = 0, Type = "melee", Description = "Clunk, oh look his head fell off..", Price = 40  },
+        ["weapon_zs_melee_pipe2"]  = { Name = "Lead Pipe", Type = "melee", Price = 60  },
        
         --All the other stuff we don't care about right now
         --Heavy
@@ -362,7 +362,7 @@ GM.RankUnlocks = {
 	
 	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_pyro", "_none1", "_none2"},
 
-	[1] = {"_medupgr2","_accuracy","_mine" ,"_headshot","_highcal","_bulk","_alyxclip","_support"},
+	[1] = {"_medupgr2","_accuracy","_mine" ,"_headshot","_highcal","_bulk","_alyxclip","_support","_vampire"},
 	
 	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_pyrosp","_mobilesupplies"},
 	
@@ -372,7 +372,7 @@ GM.RankUnlocks = {
 	
 	[5] = {"_turret","_psychotic","_repairs", "_supply", "_musket","_burn","_supportweapon"},
 	
-	[6] = {"_combat","_profitable","_ironaim", "_nitrate","_immolate","_vampire"},
+	[6] = {"_combat","_profitable","_ironaim", "_nitrate","_immolate"},
 		
 	[7] = {"_accuracy2","_headhunter","_kevlar2", "_trap","_flarebounce","_slinger"},
 
@@ -408,19 +408,17 @@ GM.Perks = {
 
 	--Support
 	
-
 	["_support"] = {Name = "Board Pack", Description = "Spawn with a pack of boards.", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportammo"] = {Name = "Ammunition", Description = "+40% Ammo Received", RequiresWeapon = "_support2", Slot = 1}, --Done
 	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with a Shotgun", RequiresWeapon = "_support2", Slot = 1, Material = "vgui/achievements/kill_enemy_m3_bw"}, --Done
 	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points | +40% Nail Health | +10 Nails", RequiresWeapon = "_support2", Slot = 1}, --Done	
 	["_mobilesupplies"] = {Name = "Mobile Supply", Description = "Spawn with a mobile supply.", RequiresWeapon = "_support2", Slot = 1}, --Done
 
-	
 	--Berserker
 	
 	["_freeman"] = {Name = "Freeman's Spirit", Description = "+15% melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
 	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads | -15% melee damage.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
-	["_oppressive"] = {Name = "Oppressive", Description = "+85% melee knockback", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
+	["_oppressive"] = {Name = "Oppressive", Description = "Spawn with the Lead Pipe | +85% melee knockback", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
 	["_slinger"] = {Name = "Hook", Description = "Spawn with the Hook", RequiresWeapon = "_berserker", Slot = 1},
 	["_executioner"] = {Name = "Executioner", Description = "+100% melee damage on targets under 30% health | -25% melee damage", RequiresWeapon = "_berserker", Slot = 2},	
 	
@@ -459,6 +457,7 @@ GM.Perks = {
 	["_kevlarcommando2"] = {Name = "Kevlar", Description = "+20% damage resistance | -5% speed", RequiresWeapon = "_commando", Slot = 2, Material = "vgui/gfx/vgui/kevlar"},
 	
 	--Support
+	
 	["_bulletstorm"] = {Name = "Bullet Storm", Description = "+10% SMG damage | +5% Shotgun damage", RequiresWeapon = "_support2", Slot = 2}, --Done		
 	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "+50 Maximum Health", RequiresWeapon = "_support2", Slot = 2}, --Done
 	["_supportregen"] = {Name = "Regeneration", Description = "Regain 1 health every 6 seconds.", RequiresWeapon = "_support2", Slot = 2}, --Done
@@ -482,9 +481,8 @@ GM.Perks = {
 	--Sharpshooter
 	
 	["_kevlar2"] = {Name = "Health", Description = "+20 maximum health", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
-	["_point"] = {Name = "Agility", Description = "+30% jump power | -50% Fall Damage", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
+	["_point"] = {Name = "Agility", Description = "-50% Fall Damage | +5% movement speed", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
 	["_headshot"] = {Name = "Skill Shot", Description = "+5 SP for headshot kills", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done	
-	
 	
 	--Pyro
 	
@@ -513,7 +511,7 @@ GM.Perks = {
 		Description = " Ammo Pack can be used to gather ammo from ammo boxes or mobile supply as well as throwing ammo boxes down. \n +10% Shotgun Damage \n +10% SMG Damage \n +10% Ammo Received \n\n +1% SMG Damage per lvl\n +1% Shotgun Damage per lvl \n +1% Nail Health per lvl \n +0.5 Repair Points per lvl \n +1 Nail per lvl \n +2% Ammo Received per lvl \n ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		
 		Equipment = " Desert Eagle\n Plank", 				
-		Description = " +10% Melee Damage \n +4 Health On Melee Kill\n +5% Damage Resistance \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +1% Melee Damage per lvl\n +0.5% Movement Speed per lvl \n", Material = "zombiesurvival/humanclass/avatar_berserker", Slot = 3},
+		Description = " +10% Melee Damage \n +5 Health On Melee Kill\n +5% Damage Resistance \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +1% Melee Damage per lvl\n +0.5% Movement Speed per lvl \n", Material = "zombiesurvival/humanclass/avatar_berserker", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		
 		Equipment = " Turret\n C4\n Pistol\n Frying Pan", 	
 		Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +5% Turret Damage\n\n +2% Turret Damage per lvl \n +2% Turret Health per lvl \n +5 Turret Bullets per lvl \n +5% Pulse Weapon Capacity per lvl \n +1% Pulse Weapon Damage per lvl \n +2% Pulse Weapon Recharge Rate per lvl \n +2% Turret Recharge Rate per lvl \n +1% C4 Damage per lvl \n +1% C4 Radius per lvl \n", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
