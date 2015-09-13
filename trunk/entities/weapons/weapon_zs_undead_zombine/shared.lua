@@ -258,7 +258,7 @@ function SWEP:SecondaryAttack()
 	end
 
 	--Allow sprinting
-	mOwner.bCanSprint = true
+	--mOwner.bCanSprint = true
 
 	-- Emit both claw attack sound and weird funny sound
 	if SERVER then

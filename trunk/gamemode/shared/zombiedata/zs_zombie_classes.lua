@@ -436,13 +436,13 @@ ZombieClasses[7] =
 	Threshold = 1,
 	SWEP = "weapon_zs_undead_headcrab",
 	Model = Model("models/headcrabclassic.mdl"),
-	Speed = 180,
+	Speed = 165,
 	Description = "Head Humper! What is this creature!",
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes", "> HEALTH: 50 ", "> SPEED: 180", "> DAMAGE: 10" },
+	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes", "> HEALTH: 50 ", "> SPEED: 165", "> DAMAGE: 10" },
 	PainSounds = {
 		Sound("npc/headcrab/pain1.wav"),
 		Sound("npc/headcrab/pain2.wav"),
@@ -532,13 +532,13 @@ ZombieClasses[9] =
 	Threshold = 2,
 	SWEP = "weapon_zs_undead_poisonheadcrab",
 	Model = Model("models/headcrabblack.mdl"),
-	Speed = 165,
+	Speed = 160,
 	Description = "A headcrab that has adapted to secrete toxins.",
 	DescriptionGameplay2 = { "TYPE: Support class for horde" },
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY RANGED: Lunge", "> PRIMARY CONTACT: Poison Bite", "> SECONDARY: Spit", "> SPECIAL: Fits through small places", "> DEATH: Chance of dropping an unstable toxin", "> HEALTH: 70 ", "> SPEED: 165", "> SPIT DAMAGE: 20","> BITE DAMAGE: 60 | 3 per second"  },
+	DescriptionGameplay = { "> PRIMARY RANGED: Lunge", "> PRIMARY CONTACT: Poison Bite", "> SECONDARY: Spit", "> SPECIAL: Fits through small places", "> DEATH: Chance of dropping an unstable toxin", "> HEALTH: 70 ", "> SPEED: 160", "> SPIT DAMAGE: 20","> BITE DAMAGE: 60 | 3 per second"  },
 	PainSounds = {
 		Sound("npc/headcrab_poison/ph_pain1.wav"),
 		Sound("npc/headcrab_poison/ph_pain2.wav"),

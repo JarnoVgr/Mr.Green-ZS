@@ -29,7 +29,7 @@ SWEP.Durability = 4
 SWEP.PrintName = "Chair"
 
 SWEP.ShowViewModel = false
-SWEP.ShowWorldModel = false
+SWEP.ShowWorldModel = true
 
 -- Slot pos
 SWEP.Slot = 2
