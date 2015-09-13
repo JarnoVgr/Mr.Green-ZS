@@ -727,7 +727,7 @@ ZombieClasses[11] =
 		Sound("npc/zombine/striderx_alert5.wav"),
 		Sound("npc/zombine/striderx_alert6.wav"),
 	},
-	Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) },
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 75) },
 	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},	
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
