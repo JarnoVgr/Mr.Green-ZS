@@ -26,11 +26,11 @@ if CLIENT then
 
 end
 
-SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
+SWEP.ViewModel = "models/weapons/v_chainsaw.mdl"
 SWEP.WorldModel = "models/props_canal/mattpipe.mdl"
 
 -- Name and fov
-SWEP.HoldType = "melee2"
+SWEP.HoldType = "physgun"
 SWEP.PrintName = "Chainsaw"
 
 SWEP.DeploySpeed = 0.8
@@ -40,7 +40,7 @@ SWEP.SlotPos = 8
 SWEP.HumanClass = "berserker"
 -- Damage, distane, delay
 SWEP.Primary.Automatic	= true
-SWEP.MeleeDamage = 25
+SWEP.MeleeDamage = 23
 SWEP.MeleeRange = 50
 SWEP.MeleeSize = 1.25
 SWEP.Primary.Delay = 0.3
