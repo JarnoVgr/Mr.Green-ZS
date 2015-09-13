@@ -61,7 +61,7 @@ SWEP.HoldType = "melee"
  
 SWEP.MeleeDamage = 25
 SWEP.MeleeRange = 52
-SWEP.MeleeSize = 0.875
+SWEP.MeleeSize = 1
 SWEP.ToHeal = 5
 SWEP.ToHealProp = 0
 SWEP.UseMelee1 = true

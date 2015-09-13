@@ -40,7 +40,7 @@ SWEP.Primary.Delay = 1.25
 SWEP.HumanClass = "berserker"
 SWEP.MeleeDamage = 60
 SWEP.MeleeRange = 60
-SWEP.MeleeSize = 2.5
+SWEP.MeleeSize = 2.0
 SWEP.MeleeKnockBack = SWEP.MeleeDamage
 
 SWEP.Primary.Delay = 1.33

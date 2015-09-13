@@ -49,6 +49,9 @@ ZombieClasses[0] =
 		Sound("npc/zombie/zombie_die2.wav"),
 		Sound("npc/zombie/zombie_die3.wav")
 	}, 	
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) },
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},
+	
 	PlayerFootstep = false,
 	Unlocked = true,
 	OnSpawn = function(pl)	
@@ -161,6 +164,8 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 		Sound("npc/zombie_poison/pz_idle3.wav"),
 		Sound("npc/zombie_poison/pz_idle4.wav"),
 	},
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) },
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},
 	
 	Unique = "",
 	Description = "Toxin filled supporter.",
@@ -304,6 +309,8 @@ ZombieClasses[4] =
 		--Sound("npc/stalker/stalker_alert13.wav"),
 		-- Sound("npc/barnacle/barnacle_pull4.wav")
 	},
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) },
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},
 	DeathSounds = {
 		Sound("npc/stalker/stalker_die1.wav"),
 		Sound("npc/stalker/stalker_die2.wav")
@@ -345,6 +352,8 @@ ZombieClasses[5] =
 		--Sound("npc/stalker/stalker_alert13.wav"),
 		-- Sound("npc/barnacle/barnacle_pull4.wav")
 	},
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) },
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},	
 	DeathSounds = {
 		Sound("npc/stalker/wraithdeath1.wav"),
 		Sound("npc/stalker/wraithdeath2.wav"),	
@@ -391,6 +400,8 @@ ZombieClasses[6] =
 		Sound("player/zombies/howler/howler_mad_03.wav" ),
 		Sound("player/zombies/howler/howler_mad_04.wav" ),
 	},
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) },
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},	
 	DeathSounds = {
 		Sound( "player/zombies/howler/howler_death_01.wav" ),
 	}, 
@@ -421,6 +432,7 @@ ZombieClasses[7] =
 	JumpPower = 100,
 	CanCrouch = false,
 	CanGib = false,
+	StepSize = 8,
 	Threshold = 1,
 	SWEP = "weapon_zs_undead_headcrab",
 	Model = Model("models/headcrabclassic.mdl"),
@@ -464,6 +476,8 @@ ZombieClasses[8] =
 	Model = Model("models/player/zombie_soldier.mdl"),
 	--Speed = 160,
 	Speed = 150,
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) },
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},	
 	RunSpeed = 190,
 	Description = "A combine that took a turn to the worse.",
 	OnSpawn = function(pl)
@@ -680,11 +694,11 @@ ZombieClasses[11] =
 	Name = "Behemoth",
 	Tag = "behemoth",
 	Infliction = 0.1,
-	Health = 1100,
+	Health = 1200,
 	MaxHealth = 1200,
 	TimeLimit = 1020,
 	Bounty = 500,
-	SP = 20,
+	SP = 30,
 	Mass = DEFAULT_MASS * 2,
 	Threshold = 4,
 	JumpPower = 180,
@@ -695,7 +709,7 @@ ZombieClasses[11] =
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_behemoth",
 	Model = Model("models/player/zombie_soldier.mdl"),
-	Speed = 175,
+	Speed = 170,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -713,6 +727,8 @@ ZombieClasses[11] =
 		Sound("npc/zombine/striderx_alert5.wav"),
 		Sound("npc/zombine/striderx_alert6.wav"),
 	},
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) },
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},	
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
 		if IsValid(status) then

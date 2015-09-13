@@ -33,7 +33,7 @@ SWEP.DamageType = DMG_CLUB
 
 SWEP.MeleeDamage = 50
 SWEP.MeleeRange = 50
-SWEP.MeleeSize = 0.75
+SWEP.MeleeSize = 1
 SWEP.Durability = 2
 SWEP.Primary.Delay = 1.0
 
