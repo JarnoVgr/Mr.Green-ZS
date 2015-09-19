@@ -53,6 +53,10 @@ if SERVER then
 		if not IsValid(activator) then
 			return
 		end
+		
+		if activator:IsZombie() then
+			return
+		end
 	
 		local mul = 1
 	
