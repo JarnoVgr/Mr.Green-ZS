@@ -397,7 +397,7 @@ GM.Perks = {
 	["_medupgr2"] = {Name = "Medical Supplies", Description = "+100 medical charges", RequiresWeapon = "_medic", Slot = 1}, --Done
 	["_medigun"] = {Name = "Medi 01", Description = "Spawn with the Medi 01", RequiresWeapon = "_medic", Slot = 1}, --Done
 	["_battlemedic"] = {Name = "Battle Medic", Description = "+1 medi damage | +1 pistol damage", RequiresWeapon = "_medic", Slot = 1}, --Done	
-	["_bleed"] = {Name = "Bleed", Description = "10% of damage done is applied every 5 seconds | -10% damage", RequiresWeapon = "_medic", Slot = 1}, --Need to make
+	["_bleed"] = {Name = "Bleed", Description = "20% of damage done is applied every second for 5 seconds.", RequiresWeapon = "_medic", Slot = 1}, --Need to make
 	
 	--Commando
 	
@@ -501,7 +501,7 @@ GM.Perks = {
 	--[[New ZS Classes]]--
 	
 	["_medic"] = {Name = "Medic",		  		
-		Equipment = " Medkit\n P228\n Knife",
+		Equipment = " Medkit\n P228\n Stun Stick",
 		Description = " +10% Pistol Damage \n +10% Medi Damage\n +10% Damage Resistance\n +3% Movement Speed \n\n +0.5% Movement Speed per lvl \n +1% Pistol Damage per lvl\n +1% Medi Damage per lvl\n +5% Poison Resistance per lvl\n +2% Undead Damage Resistance per lvl \n +2% Medical Power per lvl", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
 	["_commando"] = {Name = "Commando",   		
 		Equipment = " Grenades\n Five SeveN\n Knife", 

@@ -100,7 +100,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.Hornyness = 0
 	pl.WeaponTable = {}
 	pl.NextHold = 0
-	pl.WalkSpeed = 200
+	pl.WalkSpeed = 190
 	
 	pl.ReviveCount = 0
 	
@@ -675,7 +675,7 @@ function CalculatePlayerLoadout(pl)
 	end
 
 	--Medic Stages
-	local medicstage1 = {"weapon_zs_p228","weapon_zs_melee_combatknife","weapon_zs_medkit"}
+	local medicstage1 = {"weapon_zs_p228","weapon_zs_melee_stunstick","weapon_zs_medkit"}
 		
 	--Support stages
 	local support = {"weapon_zs_usp","weapon_zs_tools_hammer"}

@@ -90,7 +90,6 @@ if CLIENT then
 			end
 		end
 
-		--
 		lastUndeadFocusValue = returnCount
 		nextUndeadFocusTime = CurTime() + 2
 
@@ -172,11 +171,8 @@ function meta:DoubleTrace(distance, mask, size, mask2, filter)
 end
 
 function meta:MeleeViewPunch(damage)
-	local maxpunch = damage
-	local minpunch = -maxpunch
-	self:ViewPunch(Angle(math.Rand(minpunch, maxpunch), math.Rand(minpunch, maxpunch), math.Rand(minpunch, maxpunch)))
+	self:ViewPunch(Angle(math.Rand(damage*0.5, damage), math.Rand(damage*0.5, damage), math.Rand(damage*0.5, damage)))
 end
-
 
 function meta:MeleeTrace(distance, size, filter, start)
 	return self:TraceHull(distance, MASK_SOLID, size, filter, start)

@@ -64,15 +64,25 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				if attacker:GetPerk("_battlemedic") then
 					dmg = dmg + 1			
 				elseif attacker:GetPerk("_bleed") then
-					ent:TakeDamageOverTime(dmg*0.1, 1, 5, attacker, inflictor )	
-					mul = mul - 0.1
+					ent:TakeDamageOverTime(dmg*0.2, 1, 5, attacker, inflictor )	
 				end
 				
 				dmg = dmg + (dmg * mul)
 				
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "alyxgun" and attacker:GetPerk("_pyro") then
-
 				local burnchance = 100 - attacker:GetRank() * 1	
+				
+				local ignite = 1
+				local burn = 6 + (6 * (0.05 + (3*(attacker:GetRank()*0.01))))		
+				local scorch = 10 + (10 * (2*(attacker:GetRank()*0.01)))	
+				
+				if attacker.DataTable["ShopItems"][111] then
+					burnchance -= 5
+					ignite += 1
+					scorch = scorch + scorch *0.15
+					
+				end
+
 				
 				if ent:IsOnFire() then
 					mul = mul + 0.1
@@ -91,11 +101,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 				
 				if math.random(1,burnchance) <= 12 then
-					
-					local ignite = 1
-					local burn = 6 + (6 * (0.05 + (3*(attacker:GetRank()*0.01))))		
-					local scorch = 10 + (10 * (2*(attacker:GetRank()*0.01)))	
-
+				
 					
 					if attacker:GetPerk("_pyrosp") then
 						skillpoints.AddSkillPoints(attacker,3)

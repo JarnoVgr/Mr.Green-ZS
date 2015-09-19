@@ -552,7 +552,7 @@ function RollTheDice ( pl,commandName,args )
 		return
 	end
 	
-	if CurTime() < (WARMUPTIME+10) then
+	if CurTime() < (WARMUPTIME+1) then
 		pl:ChatPrint("Dice temporarily disabled at round start")
 		return
 	end
@@ -562,31 +562,19 @@ function RollTheDice ( pl,commandName,args )
 		return
 	end
 	
+	local diceRoll,message
+
+	diceRoll = math.random(1,6)
 	
+	local Luck = false
 	
-	local choise,message,name
-	
---[[	--Let's roll
-	choise = math.random(1,5)
-	--Second roll when having ladyluck-item
-	if pl:HasBought("ladyluck") and choise <= 2 then
-		choise = math.random(1,5)
-	end
-	
-	if pl:HasBought("ladyluck") and choise <= 1 then
-		choise = math.random(1,5)
-		
-	end]]--
-	
-	choise = math.random(1,5)
-	
-	if pl:HasBought("ladyluck") and choise <= 2 then
-		choise = math.random(3,5) -- second chance with bad outcome
+	if pl:HasBought("ladyluck")then
+		Luck = true
 	end
 	
 	message = pl:GetName()
 
-	if choise == 1 then	
+	if diceRoll == 1 then	
 		if pl:Team() == TEAM_UNDEAD then	
 			pl:AddScore(1)
 			message = "WIN: ".. message .." rolled the dice and has found a piece of brain!"
@@ -595,36 +583,45 @@ function RollTheDice ( pl,commandName,args )
 			pl:SetVelocity(Vector(math.random(0,1000),math.random(0,1000),math.random(0,1000)))
 			message = "LOSE: ".. message .." rolled the dice and has been flung!"
 		end		
-	elseif choise == 2 then
+	elseif diceRoll == 2 then
 		if pl:Team() == TEAM_HUMAN then
-			message = "LOSE: ".. message .." rolled the dice and got raped in the ass."
-			pl:SetHealth(1)
+			if (Luck) then
+				message = "LOSE: ".. message .." rolled the dice and avoided getting raped in the ass."
+				pl:SetHealth(pl:Health())
+			else
+				message = "LOSE: ".. message .." rolled the dice and got raped in the ass."
+				pl:SetHealth(1)		
+			end
+
 		elseif pl:Team() == TEAM_UNDEAD then
 			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
+			if (Luck) then
+				randhealth = randhealth * 1.5
+			end
 			pl:SetHealth(pl:Health() + randhealth)
 			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
 		end
-	elseif choise == 3 then
+	elseif diceRoll == 3 then
 		if pl:Team() == TEAM_HUMAN then
-				if pl:HasBought("ladyluck") then
-			pl:GiveAmmo( 120, "pistol" )	
-			pl:GiveAmmo( 80, "ar2" )
-			pl:GiveAmmo( 120, "SMG1" )	
-			pl:GiveAmmo( 60, "buckshot" )		
-			pl:GiveAmmo( 8, "XBowBolt" )
-			pl:GiveAmmo( 40, "357" )
-			pl:GiveAmmo( 80, "alyxgun" )			
-			message = "WIN: ".. message .." rolled the dice and received extra ammo from lady luck!"		
-		else
-			pl:GiveAmmo( 90, "pistol" )	
-			pl:GiveAmmo( 60, "ar2" )
-			pl:GiveAmmo( 90, "SMG1" )	
-			pl:GiveAmmo( 40, "buckshot" )		
-			pl:GiveAmmo( 5, "XBowBolt" )
-			pl:GiveAmmo( 20, "357" )
-			pl:GiveAmmo( 50, "alyxgun" )					
-			message = "WIN: ".. message .." rolled the dice and received some ammo!"	
+			if pl:HasBought("ladyluck") then
+				pl:GiveAmmo( 40, "pistol" )	
+				pl:GiveAmmo( 80, "ar2" )
+				pl:GiveAmmo( 80, "SMG1" )	
+				pl:GiveAmmo( 30, "buckshot" )		
+				pl:GiveAmmo( 8, "XBowBolt" )
+				pl:GiveAmmo( 20, "357" )
+				pl:GiveAmmo( 70, "alyxgun" )			
+				message = "WIN: ".. message .." rolled the dice and received plenty of ammo!"		
+			else
+				pl:GiveAmmo( 30, "pistol" )	
+				pl:GiveAmmo( 60, "ar2" )
+				pl:GiveAmmo( 60, "SMG1" )	
+				pl:GiveAmmo( 20, "buckshot" )		
+				pl:GiveAmmo( 5, "XBowBolt" )
+				pl:GiveAmmo( 20, "357" )
+				pl:GiveAmmo( 50, "alyxgun" )					
+				message = "WIN: ".. message .." rolled the dice and received some ammo!"	
 		end	
 		elseif pl:Team() == TEAM_UNDEAD then
 			local calchealth = math.Clamp ( 100 - pl:Health(),60,100 )
@@ -632,11 +629,16 @@ function RollTheDice ( pl,commandName,args )
 			pl:SetHealth(math.max(pl:Health() - randhealth, 1))
 			message = "LOSE: ".. message .." rolled the dice and lost ".. randhealth .."KG of flesh!!"
 		end
-	elseif choise == 4 and pl:Health() < pl:GetMaximumHealth() then
+	elseif diceRoll == 4 and pl:Health() < pl:GetMaximumHealth() then
 		if pl:Team() == TEAM_HUMAN then
 			local calchealth = math.Clamp ( 100 - pl:Health(),10,50 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
 			pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
+			
+			if (Luck) then
+				randhealth = randhealth * 1.25
+			end
+			
 			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .." health!"
 		elseif pl:Team() == TEAM_UNDEAD then
 			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
@@ -644,20 +646,21 @@ function RollTheDice ( pl,commandName,args )
 			pl:SetHealth( pl:Health() + randhealth)
 			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
 		end
-	elseif choise == 5 then
+	elseif diceRoll == 5 then
 		if pl:Team() == TEAM_HUMAN then
-			pl:Ignite( math.random(1,4), 0)
-			message = "LOSE: "..message.." was put on fire by the dice."
+			if (Luck) then
+				pl:Ignite( math.random(1,2), 0)
+			else
+				pl:Ignite( math.random(1,4), 0)
+			end
+			message = "LOSE: "..message.." was put on fire by the dice!"
 		elseif pl:Team() == TEAM_UNDEAD then
 			pl.BrainsEaten = pl.BrainsEaten - 1
 			message = "LOSE: ".. message .." rolled the dice and has lost a piece of brain!"
 		end
-	elseif choise == 6 then
-		if pl:Team() == TEAM_HUMAN then
-			message = message .. ".. rolled the dice and got bugger all!"
-		elseif pl:Team() == TEAM_UNDEAD then
-			message = message .." rolled the dice and got bugger all!"
-		end	
+	elseif diceRoll == 6 then
+		message = message .. ".. rolled the dice and changed colour!"
+		pl:SetColor(Color(math.random(1,255),math.random(1,255),math.random(1,255)))
 	end
 		
 	pl.LastRTD = CurTime() + RTD_TIME
