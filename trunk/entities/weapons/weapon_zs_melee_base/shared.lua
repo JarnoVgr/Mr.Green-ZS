@@ -378,7 +378,6 @@ function SWEP:MeleeSwing()
 			util.Decal(self.BloodDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 
 			self:PlayHitFleshSound()
-			self:PlayHitSound()
 			if SERVER and not (hitent:IsValid() and hitent:IsPlayer() and hitent:Team() == owner:Team()) then
 				util.Blood(tr.HitPos, math.Rand(damage * 0.05, damage * 0.1), (tr.HitPos - owner:GetShootPos()):GetNormal(), math.Rand(damage * 3, damage * 6), true)
 			end
@@ -599,17 +598,11 @@ if CLIENT then
 	end
 
 	SWEP.wRenderOrder = nil
-	
 	function SWEP:DrawWorldModel()
-
-		if (!IsValid(self.Owner) && self.WElements) then
-			self:DrawModel()	
-		end
-		
-		if (!self.WElements) then
-			self:DrawModel()
-		end
-
+				
+				if (self.ShowWorldModel == nil or self.ShowWorldModel) then
+						self:DrawModel()
+				end
 
 				
 				if (!self.WElements) then return end
