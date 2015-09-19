@@ -11,21 +11,14 @@ if CLIENT then
 	
 	SWEP.ViewModelFlip = false
 
-
-	SWEP.ShowViewModel = true
-	SWEP.ShowWorldModel = false
-	SWEP.IgnoreBonemerge = true
-	
-	SWEP.IgnoreThumbs = true
-	
 	SWEP.NoHUD = true
 		
 	killicon.AddFont( "weapon_zs_medkit", "CSKillIcons", "F", Color(255, 255, 255, 255 ) )
 	
 end
-
-SWEP.WorldModel = "models/Weapons/w_package.mdl"
-SWEP.ViewModel = "models/weapons/v_c4.mdl"
+SWEP.UseHands = true
+SWEP.ViewModel				= Model( "models/weapons/c_medkit.mdl" )
+SWEP.WorldModel				= Model( "models/weapons/w_medkit.mdl" )
 
 
 SWEP.Base = "weapon_zs_base_dummy"
@@ -56,36 +49,6 @@ SWEP.HoldType = "slam"
 
 SWEP.NoDeployDelay = true
 
-function SWEP:InitializeClientsideModels()
-	
-	self.ViewModelBoneMods = {
-		["v_weapon.button2"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.c4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button5"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button0"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.Left_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(-0.486, 0.456, 0.785), angle = Angle(0, 0.638, 0) },
-		["v_weapon.button3"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.Right_Arm"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(6.224, 3.197, -1.892) },
-		["v_weapon.button6"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button8"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button1"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button9"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button7"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
-	}
-
-	
-	self.VElements = {
-		["medkit"] = { type = "Model", model = "models/items/HealthKit.mdl", bone = "v_weapon.c4", rel = "", pos = Vector(-2.849, 0.319, 1.254), angle = Angle(-93, 90, 5), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-		
-	}
-	
-	self.WElements = {
-		["medkit"] = { type = "Model", model = "models/items/HealthKit.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.224, 5.181, -1.887), angle = Angle(40.43, 174.731, -180), size = Vector(0.6, 0.6, 0.6), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
-	
-end
-
 function SWEP:OnInitialize()
 	if SERVER then
 		self.Weapon.FirstSpawn = true
@@ -98,9 +61,11 @@ function SWEP:Think()
 		self:SendWeaponAnim(ACT_VM_IDLE)
 	end
 end
+
 util.PrecacheSound("items/medshot4.wav")
 util.PrecacheSound("items/medshotno1.wav")
 util.PrecacheSound("items/smallmedkit1.wav")
+
 function SWEP:PrimaryAttack()
 	if self:CanPrimaryAttack() then
 		local owner = self.Owner

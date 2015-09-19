@@ -39,7 +39,7 @@ SWEP.Primary.Ammo = "smg1"
 
 SWEP.MaxAmmo = 230
 
-SWEP.Cone = 0.076
+SWEP.Cone = 0.07
 SWEP.ConeMoving = SWEP.Cone *1.1
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.85

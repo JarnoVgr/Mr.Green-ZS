@@ -20,7 +20,7 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 -- Name and fov
 SWEP.PrintName = "Crowbar"
-SWEP.ViewModelFOV = 50
+SWEP.ViewModelFOV = 60
 
 -- Slot pos
 SWEP.Slot = 2

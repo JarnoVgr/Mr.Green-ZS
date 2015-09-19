@@ -9,18 +9,16 @@ SWEP.Base = "weapon_zs_melee_base"
 -- Model paths
 SWEP.Author = "Duby"
 SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
-SWEP.WorldModel = "models/props_canal/mattpipe.mdl"
+SWEP.WorldModel = "models/props_lab/pipesystem01b.mdl"
 SWEP.UseHands = true
 
 if CLIENT then
-	SWEP.ShowViewModel = false 
-
 SWEP.VElements = {
-	["1"] = { type = "Model", model = "models/props_pipes/pipecluster08d_extender128.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.635, 1.118, -10.91), angle = Angle(0, 0, 0), size = Vector(0.172, 0.172, 0.219), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["1"] = { type = "Model", model = "models/props_lab/pipesystem01b.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.635, 1.118, -10.91), angle = Angle(0, 0, 0), size = Vector(0.5, 0.5, 0.55), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
 SWEP.WElements = {
-	["1"] = { type = "Model", model = "models/props_pipes/pipecluster08d_extender128.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.596, 1.557, -11.948), angle = Angle(176.494, 85.324, -3.507), size = Vector(0.237, 0.237, 0.237), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["1"] = { type = "Model", model = "models/props_lab/pipesystem01b.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.596, 1.557, -11.948), angle = Angle(176.494, 85.324, -3.507), size = Vector(0.65, 0.65, 0.67), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
 	killicon.AddFont( "weapon_zs_melee_pipe", "HL2MPTypeDeath", "g", Color(255, 255, 255, 255 ) )
@@ -35,11 +33,11 @@ SWEP.Slot = 2
 SWEP.SlotPos = 8
 SWEP.HumanClass = "berserker"
 -- Damage, distane, delay
-SWEP.MeleeDamage = 20
-SWEP.Primary.Delay = 0.7
-SWEP.Primary.Distance = 73
+SWEP.MeleeDamage = 23
+SWEP.Primary.Delay = 0.75
+SWEP.Primary.Distance = 55
 SWEP.WalkSpeed = SPEED_MELEE
-SWEP.SwingTime = 0.6
+SWEP.SwingTime = 0.7
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.ShowViewModel = false
 SWEP.ShowWorldModel = false

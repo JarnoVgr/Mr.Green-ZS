@@ -21,7 +21,7 @@ SWEP.AdminSpawnable	= true
 SWEP.PrintName = "Headcrab"
 SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 70
+SWEP.ViewModelFOV = 60
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
 

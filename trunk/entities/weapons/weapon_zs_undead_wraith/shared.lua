@@ -340,11 +340,3 @@ util.PrecacheSound("ambient/machines/slicer4.wav")
 util.PrecacheSound("npc/zombie/claw_miss1.wav")
 util.PrecacheSound("npc/zombie/claw_miss2.wav")
 
-if CLIENT then
-	function SWEP:DrawHUD()
-		if not self.Owner:Alive() or ENDROUND then
-			return
-		end
-		MeleeWeaponDrawHUD()
-	end
-end

@@ -262,7 +262,6 @@ function SWEP:Equip(NewOwner)
 	if CLIENT then
 		return
 	end
-	
 	-- If the weapon is dropped and has 10 bullets less in the current clip, then substract that amount for the new owner
 	if self.Primary.RemainingAmmo then
 		self:TakePrimaryAmmo ( self:Clip1() - self.Primary.RemainingAmmo )
@@ -277,6 +276,7 @@ function SWEP:Equip(NewOwner)
 end
 
 function SWEP:OnDrop()
+
 	if CLIENT then
 		self:OnRemove()
 	end	

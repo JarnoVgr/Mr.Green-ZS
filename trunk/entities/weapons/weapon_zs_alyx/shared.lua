@@ -10,6 +10,9 @@ if CLIENT then
 		SWEP.ViewModelFOV = 60		
 			
 		SWEP.ViewModelBoneMods = {
+			["v_weapon.Glock_Slide"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+			["v_weapon.Glock_Parent"] = { scale = Vector(0.287, 0.287, 0.287), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		--	["v_weapon.Glock_Clip"] = { scale = Vector(3, 3, 3), pos = Vector(-0.672, -0.664, -0.24), angle = Angle(3.359, -10.171, 0) },
 			["v_weapon.FIVESEVEN_PARENT"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
 		}
 		SWEP.VElements = {
@@ -31,7 +34,7 @@ SWEP.Primary.Recoil  = 1
 SWEP.Primary.Damage = 8
 SWEP.Primary.NumShots           = 1
 SWEP.Primary.ClipSize           = 15
-SWEP.Primary.Delay                      = 0.11
+SWEP.Primary.Delay                      = 0.14
 SWEP.Primary.DefaultClip        = 15 * 4
 SWEP.Primary.Automatic = true
 SWEP.MaxAmmo                        = 160
@@ -63,9 +66,4 @@ function SWEP:OnDeploy()
 	end		
 end
 
-SWEP.ShowWorldModel = true
-SWEP.ViewModelBoneMods = {
-["v_weapon.Glock_Slide"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-["v_weapon.Glock_Parent"] = { scale = Vector(0.287, 0.287, 0.287), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-["v_weapon.Glock_Clip"] = { scale = Vector(3, 3, 3), pos = Vector(-0.672, -0.664, -0.24), angle = Angle(3.359, -10.171, 0) }
-}
+SWEP.ShowWorldModel = false

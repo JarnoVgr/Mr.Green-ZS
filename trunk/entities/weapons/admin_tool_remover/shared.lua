@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.PrintName = "Remover Tool"
 	SWEP.DrawAmmo = false
 	SWEP.DrawCrosshair = true
-	SWEP.ViewModelFOV = 70
+	SWEP.ViewModelFOV = 60
 	SWEP.ViewModelFlip = false
 	SWEP.CSMuzzleFlashes = false
 	SWEP.Author	= "ClavusElite"

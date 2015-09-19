@@ -28,7 +28,7 @@ SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.Author	= "NECROSSIN"	
 
-SWEP.ViewModelFOV = 65
+SWEP.ViewModelFOV = 60
 
 SWEP.Info = "Left click to place a Mobile Supplies"
 

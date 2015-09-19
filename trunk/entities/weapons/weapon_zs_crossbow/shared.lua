@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.PrintName = "Crossbow"
 	SWEP.DrawAmmo = false
 	SWEP.DrawCrosshair = false
-	SWEP.ViewModelFOV = 70
+	SWEP.ViewModelFOV = 60
 	SWEP.ViewModelFlip = false
 	SWEP.CSMuzzleFlashes = false
 

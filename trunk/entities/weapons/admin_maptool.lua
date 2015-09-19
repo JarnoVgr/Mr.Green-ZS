@@ -35,7 +35,6 @@ if CLIENT then
 	SWEP.PrintName = "Map Tool"
 	SWEP.DrawAmmo = false
 	SWEP.DrawCrosshair = true
-	SWEP.ViewModelFOV = 70
 	SWEP.ViewModelFlip = false
 	SWEP.CSMuzzleFlashes = false
 	SWEP.Author	= ""

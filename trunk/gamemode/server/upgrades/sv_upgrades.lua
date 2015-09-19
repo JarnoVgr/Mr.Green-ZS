@@ -77,8 +77,8 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				local scorch = 10 + (10 * (2*(attacker:GetRank()*0.01)))	
 				
 				if attacker.DataTable["ShopItems"][111] then
-					burnchance -= 5
-					ignite += 1
+					burnchance = burnchance - 5
+					ignite =  ignite + 1
 					scorch = scorch + scorch *0.15
 					
 				end

@@ -6,10 +6,18 @@ AddCSLuaFile ()
 -- Melee base
 SWEP.Base = "weapon_zs_melee_base"
 
-if CLIENT then
-	SWEP.ShowViewModel = false
-	SWEP.ShowWorldModel = true
+-- Model paths
+SWEP.Author = "Pufulet"
+SWEP.ViewModel = "models/weapons/c_stunstick.mdl"
+SWEP.WorldModel = "models/props_c17/furniturechair001a.mdl"
+SWEP.UseHands = true
+SWEP.Durability = 4
+SWEP.PrintName = "Chair"
 
+SWEP.ShowViewModel = false
+SWEP.ShowWorldModel = false
+
+if CLIENT then
 	SWEP.VElements = {
 		["chair"] = { type = "Model", model = "models/nova/chair_wood01.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(0, -4.676, -28), angle = Angle(0, 0, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
@@ -18,18 +26,6 @@ if CLIENT then
 		["chair"] = { type = "Model", model = "models/nova/chair_wood01.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(10.909, -5.2, -20.9), angle = Angle(0, 0, 0), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 	}
 end
-
--- Model paths
-SWEP.Author = "Pufulet"
-SWEP.ViewModel = Model ( "models/weapons/c_stunstick.mdl" )
-SWEP.UseHands = true
-SWEP.WorldModel = Model("models/nova/chair_wood01.mdl")
-SWEP.Durability = 4
--- Name and fov
-SWEP.PrintName = "Chair"
-
-SWEP.ShowViewModel = false
-SWEP.ShowWorldModel = true
 
 -- Slot pos
 SWEP.Slot = 2

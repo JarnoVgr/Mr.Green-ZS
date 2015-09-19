@@ -1283,30 +1283,13 @@ end
 usermessage.Hook("PlayClientsideSound", PlayClientsideSound) 
 
 function MeleeWeaponDrawHUD()
-	local cW, cH = ScrW() * 0.5, ScrH() * 0.5
-	local wLength, hLength =  ScaleW(16),ScaleW(6)
-	
-	surface.SetDrawColor( Color ( 188,183,153,30 ) )
-	surface.DrawLine(cW - wLength, cH - 2, cW + wLength, cH - 2)
-	
-	surface.SetDrawColor( Color ( 188,183,153,160 ) )
-	surface.DrawLine(cW - wLength, cH - 1, cW + wLength, cH - 1)
-	
-	surface.SetDrawColor( Color ( 188,183,153,160 ) )
-	surface.DrawLine(cW - wLength, cH - 0, cW + wLength, cH - 0)
-	
-	surface.SetDrawColor( Color ( 188,183,153,30 ) )
-	surface.DrawLine(cW - wLength, cH + 1, cW + wLength, cH + 1)
+	local x = ScrW() * 0.5
+	local y = ScrH() * 0.5
 
-	
-	surface.SetDrawColor( Color ( 188,183,153,50 ) )
-	surface.DrawLine(cW - 1, cH - hLength, cW - 1, cH + hLength)
-	
-	surface.SetDrawColor( Color ( 188,183,153,130 ) )
-	surface.DrawLine(cW - 0, cH - hLength, cW - 0, cH + hLength)
-	
-	surface.SetDrawColor( Color ( 188,183,153,50 ) )
-	surface.DrawLine(cW + 1, cH - hLength, cW + 1, cH + hLength)
+	surface.SetDrawColor(Color(255,0,0,200))
+	surface.DrawRect(x - 2, y - 2, 4, 4)
+	surface.SetDrawColor(0, 0, 0, 200)
+	surface.DrawOutlinedRect(x - 2, y - 2, 4, 4)
 end
 
 -- Textures we need to draw the crosshair 

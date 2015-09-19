@@ -75,15 +75,15 @@ function SWEP:Deploy()
 end
 
 function SWEP:PlaySwingSound()
-	self:EmitSound("weapons/knife/knife_slash"..math.random(1, 2)..".wav", 75, math.random(110,115))
+	self:EmitSound("weapons/knife/knife_slash"..math.random(1, 2)..".wav", 85, math.random(110,115))
 end
 
 function SWEP:PlayHitSound()
-	self:EmitSound("weapons/knife/knife_hitwall1.wav", 75, math.random(110,115))
+	self:EmitSound("weapons/knife/knife_hitwall1.wav", 85, math.random(110,115))
 end
 
 function SWEP:PlayHitFleshSound()
-	self:EmitSound("weapons/knife/knife_hit"..math.random(1, 4)..".wav", 75, math.random(110,115))
+	self:EmitSound("weapons/knife/knife_hit"..math.random(1, 4)..".wav", 85, math.random(110,115))
 end
 
 SWEP.KatanaSounds = {}

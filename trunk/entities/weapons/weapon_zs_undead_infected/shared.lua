@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "Infected"
-	SWEP.ViewModelFOV = 75
+	SWEP.ViewModelFOV = 70
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = false
 
@@ -123,4 +123,9 @@ function SWEP:Initialize()
 			table.insert(self.IdleSounds,Sound("mrgreen/undead/infected/idle"..i..".mp3"))
 		end	
 	--end
+end
+
+-- Drop crosshair
+if CLIENT then
+	function SWEP:DrawHUD() GAMEMODE:DrawZombieCrosshair ( self.Owner, self.Primary.Reach ) end
 end

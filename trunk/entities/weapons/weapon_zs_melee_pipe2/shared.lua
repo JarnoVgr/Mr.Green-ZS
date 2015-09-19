@@ -33,9 +33,9 @@ SWEP.Slot = 2
 SWEP.SlotPos = 8
 
 -- Damage, distane, delay
-SWEP.MeleeDamage = 45
-SWEP.Primary.Delay = 0.6
-SWEP.Primary.Distance = 73
+SWEP.MeleeDamage = 48
+SWEP.Primary.Delay = 0.65
+SWEP.Primary.Distance = 50
 SWEP.WalkSpeed = SPEED_MELEE_HEAVY + 5
 SWEP.SwingTime = 0.9
 SWEP.SwingRotation = Angle(30, -30, -30)
@@ -45,9 +45,9 @@ SWEP.MeleeKnockBack = SWEP.MeleeDamage
 SWEP.HumanClass = "berserker"
 
 function SWEP:PlayHitSound()
-	self:EmitSound("physics/metal/metal_canister_impact_hard"..math.random(3)..".wav", 75, math.random(115, 125))
+	self:EmitSound("physics/metal/metal_canister_impact_hard"..math.random(3)..".wav", 75, math.random(100, 105))
 end
 
 function SWEP:PlaySwingSound()
-	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(62, 65))
+	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(58, 60))
 end

@@ -33,7 +33,7 @@ SWEP.WalkSpeed = SPEED_MELEE_HEAVY
 
 SWEP.SwingRotation = Angle(0, -90, -60)
 SWEP.SwingOffset = Vector(0, 30, -40)
-SWEP.SwingTime = 0.7
+SWEP.SwingTime = 0.75
 SWEP.SwingHoldType = "melee"
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.1
 

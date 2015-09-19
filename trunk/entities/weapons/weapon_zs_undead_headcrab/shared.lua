@@ -77,6 +77,8 @@ function SWEP:Think()
 							ent:SetPhysicsAttacker(owner)
 						end
 						ent:TakeDamage( damage, owner, self )
+						util.Blood(ent:GetPos(), math.Rand(damage * 0.05, damage * 0.1), (ent:GetPos() - owner:GetShootPos()):GetNormal(), math.Rand(damage * 3, damage * 6), true)
+
 					end
 					owner:SetLocalVelocity( Vector(0,0,0) )
 				end

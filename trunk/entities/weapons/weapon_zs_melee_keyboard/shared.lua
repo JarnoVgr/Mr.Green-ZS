@@ -47,7 +47,7 @@ SWEP.WorldModel = Model("models/weapons/w_keyboard.mdl")
 
 -- Name and fov
 SWEP.PrintName = "Keyboard"
-SWEP.ViewModelFOV = 70
+SWEP.ViewModelFOV = 60
 
 -- Slot position
 SWEP.Slot = 2
