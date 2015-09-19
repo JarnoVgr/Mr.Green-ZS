@@ -11,7 +11,7 @@ end
 if CLIENT then
 	SWEP.DrawAmmo = true
 	SWEP.DrawCrosshair = false
-	SWEP.ViewModelFOV = 70
+	SWEP.ViewModelFOV = 60
 	SWEP.ViewModelFlip = false
 	SWEP.ShowViewModel = true
 end
@@ -445,6 +445,11 @@ if CLIENT then
 
 	SWEP.wRenderOrder = nil
 	function SWEP:DrawWorldModel()
+	
+		if (!IsValid(self.Owner)) then
+			self:DrawModel()	
+		end
+		
 		if self.Owner.IsHolding and self.Owner:IsHolding() then
 			return
 		end
@@ -463,7 +468,6 @@ if CLIENT then
 						end
 					end	
 				end]]
-			self:DrawModel()
 		end
 		
 		if self.CheckWorldModelElements then
