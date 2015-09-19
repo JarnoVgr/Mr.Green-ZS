@@ -252,7 +252,7 @@ local function HeartbeatGlow()
 end
  
 hook.Add("HUDPaint", "DrawWaiting", function()
-	if ENDROUND or game.SinglePlayer() then
+	if ENDROUND or game.SinglePlayer() or engine.IsPlayingDemo() then
 		return
 	end
 	
