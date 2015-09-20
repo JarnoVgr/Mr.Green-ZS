@@ -3,8 +3,7 @@ AddCSLuaFile()
 if CLIENT then
 	SWEP.PrintName = "Infected Zombie"
 	SWEP.ViewModelFOV = 80
-	SWEP.ViewModelFlip = false
-	SWEP.ShowViewModel = false
+
 
 	--SWEP.FakeArms = true
 
@@ -46,13 +45,13 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
 SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
-
+SWEP.FakeArms = true
 
 SWEP.Primary.Duration = 1.4
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Damage = 15
 SWEP.Primary.Reach = 48
-
+		SWEP.ShowViewModel = false
 SWEP.SwapAnims = false
 SWEP.Secondary.Duration = 2.3
 SWEP.Secondary.Delay = 0.6
@@ -227,10 +226,14 @@ function SWEP:PerformSecondaryAttack()
 
 	--pl:TakeDamage(self.Secondary.Damage, pl, self.Weapon)
 end
+
 function SWEP:Initialize()
+
+	if CLIENT then
+		self:MakeArms()
+	end
 	self.BaseClass.Initialize(self)
-	
-	self:SetColor(50,50,50,255)
+
 	--Attack sounds
 	for i = 20, 37 do
 		table.insert(self.AttackSounds,Sound("mrgreen/undead/infected/rage_at_victim"..i..".mp3"))

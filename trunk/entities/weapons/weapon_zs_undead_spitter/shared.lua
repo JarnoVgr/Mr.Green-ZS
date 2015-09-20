@@ -22,6 +22,7 @@ SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 20
 SWEP.DisguiseChoice = 1
 SWEP.EmitWraithSound = 0
+SWEP.Attacking = 0
 
 SWEP.Screams = {
 	Sound("npc/stalker/stalker_alert1b.wav"),
@@ -80,7 +81,7 @@ function SWEP:StartPrimaryAttack()
 		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
 	end
 	self.SwapAnims = not self.SwapAnims
-	
+	self.Attacking = CurTime() + 1.5
 	-- Set the thirdperson animation and emit zombie attack sound
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
 	
@@ -108,9 +109,11 @@ function SWEP:Move(mv)
 	if self and self.Owner and not self:IsDisguised() then
 		mv:SetMaxSpeed(145)		
 		return true
+	elseif self and self.Owner and self.Attacking > CurTime() then
+		mv:SetMaxSpeed(50)		
+		return true		
 	end
 end
-
 
 function SWEP:SetDisguise(bl)
 	self:SetDTBool(0,bl)
@@ -134,31 +137,41 @@ function SWEP:SecondaryAttack()
 	-- if self.Disguised then return end
 	if self:IsDisguised() then
 		self:EmitSound(Sound("npc/fast_zombie/idle"..math.random(1,3)..".wav"), 80)	
+		self:SetDisguise(false)
+		
+		if CLIENT then
+			self:RemoveArms()
+			self.ShowViewModel = true
+		end
+		
+		local model = Model("models/player/soldier_stripped.mdl" )
+		self.Owner:SetModel(model)
+		self.Owner:SetMaximumHealth(160)
+		self.Owner:SetHealth(math.Clamp(self.Owner:Health(),1,self.Owner:GetMaximumHealth()))		
 		return
 	end
-
+	
 	self:SetDisguise(true)
-	self.FakeArms = true
-
 	
 	--Pick random human model
 	if SERVER then	
+				local model = "models/player/kleiner.mdl"
 		self:SetDisguiseChoice(math.random(1,5)	)	
 		self.Owner:SetPlayerColor(Vector(math.random(0.01,1),math.random(0.01,1),math.random(0.01,1)))
 		local survivors = team.GetPlayers(TEAM_HUMAN)
-		local model = "models/player/kleiner.mdl"
 		if #survivors > 0 then
 			model = table.Random(survivors):GetModel()
 		end
-		
-		self.Owner:SetHealth(150)
-		self.Owner:SetMaximumHealth(150)
-		
+		self.Owner:SetMaximumHealth(100)
+		self.Owner:SetHealth(math.Clamp(self.Owner:Health(),1,self.Owner:GetMaximumHealth()))
 		self.Owner:SetModel(model)
-		self.Owner:EmitSound(Sound("npc/stalker/stalker_scream"..math.random(1,4)..".wav"), 60)
+		self:EmitSound(Sound("npc/fast_zombie/idle"..math.random(1,3)..".wav"), 80)	
 	end
-	
-	
+
+	if CLIENT then
+		self.ShowViewModel = false
+		self:MakeArms()
+	end	
 end
 
 -- Play teleport fail sound

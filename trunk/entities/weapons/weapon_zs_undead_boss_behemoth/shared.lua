@@ -9,20 +9,6 @@ if CLIENT then
 
 SWEP.ShowViewModel = true --DO NOT MODIFY THIS
 SWEP.ShowWorldModel = true --DO NOT MODIFY THIS
-SWEP.ViewModelBoneMods = {
-	["ValveBiped.Bip01_R_Finger31"] = { scale = Vector(1.202, 1.202, 1.202), pos = Vector(-1.769, -1.145, 0.032), angle = Angle(18.652, -69.49, -13.641) },
-	["ValveBiped.Bip01_R_Finger11"] = { scale = Vector(1, 1, 1), pos = Vector(0.151, 0.326, 0), angle = Angle(-7.047, -33.475, 50.738) },
-	["ValveBiped.Bip01_L_Finger2"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-2.948, 0, 0) },
-	["ValveBiped.Bip01_R_Finger22"] = { scale = Vector(1, 1, 1), pos = Vector(0, -0.038, -0.75), angle = Angle(0, -27.199, 0) },
-	["ValveBiped.Bip01_R_Finger1"] = { scale = Vector(1, 1, 1), pos = Vector(-2.964, -0.269, 0.695), angle = Angle(7.298, 0, 0) },
-	["ValveBiped.Bip01_R_Finger21"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-1.775, -25.341, 0) },
-	["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(-0.06, -4.65, -2.939), angle = Angle(-13.061, 0.861, -20.26) },
-	["ValveBiped.Bip01_L_Hand"] = { scale = Vector(1.325, 1.347, 1.348), pos = Vector(2.046, 0, 0), angle = Angle(8.331, 2.536, -22.885) },
-	["ValveBiped.Bip01_R_Finger2"] = { scale = Vector(1, 1, 1), pos = Vector(-2.993, 0.177, -0.108), angle = Angle(0, 0, 0) },
-	["ValveBiped.Bip01_R_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(-15.4, 1.141, -62.826) },
-	["ValveBiped.Bip01_L_Finger01"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, -14.27) }
-}
-
 
 SWEP.VElements = {
 	["Behemoth1"] = { type = "Model", model = "models/weapons/w_crowbar.mdl", bone = "ValveBiped.Bip01_R_Finger0", rel = "", pos = Vector(-8.0, -12.0, 0), angle = Angle(-4.758, 129.942, -25.379), size = Vector(1.917, 1.917, 1.917), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/flesh", skin = 0, bodygroup = {} }
@@ -36,7 +22,6 @@ SWEP.VElements = {
 		["crowbar"] = { type = "Model", model = "models/Weapons/w_crowbar.mdl", bone = "ValveBiped.Bip01_L_Hand", rel = "", pos = Vector(3.857, 0.418, 1.325), angle = Angle(0, -107.212, -97.001), size = Vector(1, 1.715, 1.763), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/flesh", skin = 0, bodygroup = {} },
 		["eye1+"] = { type = "Sprite", sprite = "effects/redflare", bone = "ValveBiped.Bip01_R_Hand", rel = "skull", pos = Vector(4.406, -2.438, 1.33), size = { x = 13, y = 13 }, color = Color(255, 255, 0, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false}
 	} 
-	
 end
 
 SWEP.Base = "weapon_zs_undead_base"
@@ -45,31 +30,34 @@ SWEP.Base = "weapon_zs_undead_base"
 --SWEP.WorldModel = Model("models/Weapons/w_crowbar.mdl")
 
 SWEP.HoldType = "pistol" --DO NOT MODIFY THIS
-SWEP.ViewModelFOV = 70 --KEEP THIS AT 65-70
+SWEP.ViewModelFOV = 60 --KEEP THIS AT 65-70
 SWEP.ViewModelFlip = true --MAKE SURE THIS IS SET TO TRUE
 SWEP.ViewModel = "models/weapons/v_zombine.mdl" --
 --SWEP.WorldModel = "models/weapons/w_crowbar.mdl" --DO NOT MODIFY THIS
 SWEP.WorldModel = "models/weapons/w_grenade.mdl" --DO NOT MODIFY THIS
 
-SWEP.Primary.Reach = 50
-SWEP.Primary.Duration = 1.35
-SWEP.Primary.Delay = 0.6
-SWEP.Primary.Damage = 33
+SWEP.Primary.Delay = 0.65
+SWEP.Primary.Duration = 1.5
+SWEP.Primary.Reach = 48
+SWEP.Primary.Damage = 35
 
-function SWEP:StartPrimaryAttack()
-	self.BaseClass.StartPrimaryAttack(self)
 
-	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-	self.IdleAnimation = CurTime() + self:SequenceDuration() + self.Primary.Duration
-
+function SWEP:StartPrimaryAttack()	
+	--Make things easier
 	local pl = self.Owner
+	self.IdleAnimation = CurTime() + self:SequenceDuration()
+	--Owner
+	local mOwner, mWeapon = self.Owner, self.Weapon
+	
+	--Sequence to play
+	local iSequence = table.Random(self.ZombineAttacks) 	
+	self:SetAttackSeq(iSequence)	
+	--self:SetAttackAnimEndTime(CurTime() + 0.00)
+	self:SetAttackAnimEndTime(CurTime() + 1.5)
 
-	--Set the thirdperson animation and emit zombie attack sound
-	pl:DoAnimationEvent(CUSTOM_PRIMARY)	
-
-	if CLIENT then
-		return
-	end	
+	--Hacky way for the animations
+	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+	mOwner:DoAnimationEvent(CUSTOM_PRIMARY)
 
 end
 

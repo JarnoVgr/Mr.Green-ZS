@@ -7,7 +7,7 @@ SWEP.Base = "weapon_zs_undead_base"
 
 SWEP.PrintName = "Poison Zombie"
 if CLIENT then
-	SWEP.ViewModelFOV = 50
+	SWEP.ViewModelFOV = 48
 	SWEP.ViewModelFlip = false
 end
 
@@ -21,19 +21,11 @@ SWEP.Primary.Damage = 35
 
 SWEP.Secondary.Delay = 0.8
 SWEP.Secondary.Duration = 3
-SWEP.Secondary.Damage = math.random(30,40)
 
 SWEP.SwapAnims = false
 
 function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
-	--anno
-	--if CLIENT then
-	--	self.BreathSound = CreateSound(self.Weapon,Sound("npc/zombie_poison/pz_breathe_loop1.wav"));
-	--	if self.BreathSound then
-	--		self.BreathSound:Play()
-	--	end
-	--end
 end
 
 function SWEP:StartPrimaryAttack()			

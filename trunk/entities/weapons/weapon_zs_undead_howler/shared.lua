@@ -9,11 +9,9 @@ SWEP.Base = "weapon_zs_undead_base"
 SWEP.PrintName = "Howler"
 
 if CLIENT then
-	SWEP.ViewModelFOV = 70
+	SWEP.ViewModelFOV = 80
 	SWEP.ViewModelFlip = false
-	SWEP.ShowViewModel = false
 	SWEP.ShowWorldModel = false
-	--SWEP.FakeArms = true
 end
 
 
@@ -52,7 +50,6 @@ end
 
 function SWEP:Think()
 	self.BaseClass.Think(self)
-
 	--if SERVER then
 		if self:IsScreaming() == true and not self:IsInSecondaryAttack() then
 		self:Screaming(false)	
@@ -96,13 +93,7 @@ function SWEP:StartSecondaryAttack()
 	if not IsValid(mOwner) then
 		return
 	end
-	
-	-- Cannot scream in air
-	-- Pufulet: Why not?
-	--if not mOwner:OnGround() then	
-	--	return
-	--end
-		
+
 	--Thirdperson animation and sound
 	mOwner:DoAnimationEvent(CUSTOM_SECONDARY)
 
@@ -154,7 +145,7 @@ function SWEP:StartSecondaryAttack()
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage * 6.5
+		local fFuckIntensity = fHitPercentage * 6
 
 		
 		if v:GetPerk("_berserker") then
@@ -163,31 +154,7 @@ function SWEP:StartSecondaryAttack()
 		else
 			GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 		end
-		-- Calculate base velocity
-		--local Velocity = -1 * mOwner:GetForward() * 120
-		--if not bPull then
-		--	Velocity = -1 * Velocity * 2
-		--end
-		
-		
-		--Velocity.x, Velocity.y, Velocity.z = Velocity.x * 0.5, Velocity.y * 0.5, math.random(190, 230)
-		--if not bPull then
-		--	Velocity = Vector(Velocity.x * 0.45, Velocity.y * 0.45, Velocity.z)
-		--end
-
-		--Apply velocity		
-		--v:SetVelocity(Velocity)
-				
-		-- Play sound
-		--timer.Simple(0.2, function()
-		--	if IsValid(v) then
-		--		sound.Play("npc/barnacle/barnacle_bark1.wav", v:GetPos() + Vector(0, 0, 20), 120, math.random(60, 75))
-		--	end
-		--end)
 	end
-	
-	--Scream effect for myself
-	--self.Owner:SendLua("WraithScream()")
 end
 
 function SWEP:Screaming(bl)
@@ -200,22 +167,8 @@ function SWEP:IsScreaming()
 end
 
 function SWEP:Move(mv)
-	--if self:IsInSecondaryAttack() then
-	--	mv:SetMaxSpeed(100)
-	--	return true
-	--end
-end
---[[
-if CLIENT then
-	function SWEP:DrawHUD()
-		if not self.Owner:Alive() or ENDROUND then
-			return
-		end
-		MeleeWeaponDrawHUD()
-
-		draw.SimpleTextOutlined("TIP:", "ArialBoldFive", w-ScaleW(150), h-ScaleH(63), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		draw.SimpleTextOutlined("Right Click To Howl!", "ArialBoldFive", w-ScaleW(150), h-ScaleH(40), Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-
+	if self:IsScreaming() then
+		mv:SetMaxSpeed(100)
+	return true
 	end
 end
-]]--

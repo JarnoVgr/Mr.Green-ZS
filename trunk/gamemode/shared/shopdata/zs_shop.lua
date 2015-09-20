@@ -236,16 +236,16 @@ hats = {
 	},
 	["termeye"] = {
 		["1"] = { type = "Model", model = "models/Gibs/manhack_gib03.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(4.206, 2.404, 1.812), angle = Angle(0, -76.82, 90), size = Vector(0.75, 0.75, 0.75), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["2"] = { type = "Sprite", sprite = "effects/redflare", bone = "ValveBiped.Bip01_R_Hand", rel = "1", pos = Vector(3.868, 0.388, 0.699), size = { x = 4.212, y = 4.212 }, color = Color(255, 255, 255, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false}
+		["2"] = { type = "Sprite", sprite = "effects/redflare", bone = "ValveBiped.Bip01_R_Hand", rel = "1", pos = Vector(3.868, 0.388, 0.699), size = { x = 4.212, y = 4.212 }, color = Color(255, 255, 255, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
 	},
 	["fez"] = {
-		["1"] = { type = "Model", model = "models/props_junk/terracotta01.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(8.781, -1.196, -3.014), angle = Angle(-59.658, -180, -16.302), size = Vector(0.175, 0.175, 0.194), color = Color(188, 0, 0, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+		["1"] = { type = "Model", model = "models/props_junk/terracotta01.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(8.781, -1.196, -3.014), angle = Angle(-59.658, -180, -16.302), size = Vector(0.175, 0.175, 0.194), color = Color(188, 0, 0, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	},
 	["beard"] = {
-		["1"] = { type = "Model", model = "models/player/items/demo/demo_beardpipe.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-1.32, 1.054, 0), angle = Angle(0, -74.849, -90), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {}, particle = {"cig_burn","drg_pipe_smoke"}, particleatt = "cig_drg_smoke" }
+		["1"] = { type = "Model", model = "models/player/items/demo/demo_beardpipe.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-1.32, 1.054, 0), angle = Angle(0, -74.849, -90), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
 	},
 	["cigar"] = {
-		["1"] = { type = "Model", model = "models/player/items/soldier/cigar.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(0.93, -0.127, -0.681), angle = Angle(0, -90, -90), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {}, particle = {"drg_pipe_smoke"}, particleatt = "cig_drg_smoke" }
+		["1"] = { type = "Model", model = "models/player/items/soldier/cigar.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(0.93, -0.127, -0.681), angle = Angle(0, -90, -90), size = Vector(1, 1, 1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {}}
 	},
 	["wbeanie"] = {
 		["1"] = { type = "Model", model = "models/player/items/pyro/pyro_beanie.mdl", bone = "ValveBiped.Bip01_Head1", rel = "", pos = Vector(-73.206, 6.395, 0), angle = Angle(0, -80.63, -90), size = Vector(1.036, 1.036, 1.036), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }

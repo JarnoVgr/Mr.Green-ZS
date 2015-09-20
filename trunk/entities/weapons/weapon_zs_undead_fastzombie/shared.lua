@@ -130,12 +130,12 @@ end
 function SWEP:Move(mv)
 
 	if self and self.Owner and self.Owner:KeyDown(IN_ATTACK) then
-		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.35)
+		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.3)
 		return true
 	end
 	
 	if self.Attacking > CurTime() then
-		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.42)
+		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.3)
 		return true	
 	end
 end

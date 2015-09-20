@@ -69,7 +69,6 @@ end
 
 function SWEP:Initialize()
 	if CLIENT then
-		self:MakeArms()
 
 		-- Create a new table for every weapon instance
 		self.VElements = table.FullCopy( self.VElements )
@@ -417,19 +416,15 @@ function SWEP:Equip(NewOwner)
 end
 
 function SWEP:PreDrawViewModel(vm, pl, weapon)
-	--Init viewmodel visibility
-	if (self.ShowViewModel == nil or self.ShowViewModel) then
-		vm:SetColor(Color(255,255,255,255))
-
-		vm:SetMaterial("")
-	else
-		-- we set the alpha to 1 instead of 0 because else ViewModelDrawn stops being called
-		vm:SetColor(Color(255,255,255,1))
-		-- ^ stopped working in GMod 13 because you have to do Entity:SetRenderMode(1) for translucency to kick in
-		-- however for some reason the view model resets to render mode 0 every frame so we just apply a debug material to prevent it from drawing
-		vm:SetMaterial("Debug/hsv") --Debug/hsv
+	if (!self.ShowViewModel) then
+		render.SetBlend(0)
 	end
 end
+
+function SWEP:PostDrawViewModel(vm, pl, weapon)
+	render.SetBlend(1)
+end
+
 
 if CLIENT then
 	--[[local lerp = 0

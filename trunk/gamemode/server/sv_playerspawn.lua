@@ -198,8 +198,8 @@ function GM:PlayerSpawn(pl)
 
 	--Reset colors
 	pl:SetRenderMode(RENDERMODE_NORMAL)
-	pl:SetColor(Color(225,225,225,225))
 
+	pl:SetPlayerColor(Vector(math.random(0.1,1),math.random(0.1,1),math.random(0.1,1)))
 	--[[if pl:Team() ~= TEAM_SPECTATOR and ((not pl.IsGordonHere and pl:HasBought("gordonfreeman") and math.random(1,6) == 1 and pl:Team() == TEAM_SURVIVORS) or pl.IsFreeman) then
 		pl.IsGordonHere = true
 		pl.IsFreeman = true
