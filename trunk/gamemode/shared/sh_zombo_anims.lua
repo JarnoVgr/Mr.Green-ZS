@@ -645,9 +645,9 @@ GM.CalcMainActivityZombies[8] = function ( pl, vel )
 
 		if fVelocity > 0.5 then 
 			if wep.IsHoldingGrenade and wep:IsHoldingGrenade() and not pl:Crouching() then
-				iSeq = pl:LookupSequence ( "cwalk_grenade" )					
+				iSeq = pl:LookupSequence ( "zombie_walk_03" )					
 			elseif pl:Crouching() then		
-				iSeq = pl:LookupSequence ( "zombie_cwalk_03" )
+				iSeq = pl:LookupSequence ( "cwalk_grenade" )
 			else					
 				iSeq = pl:LookupSequence ( "zombie_walk_02" )			
 			end	

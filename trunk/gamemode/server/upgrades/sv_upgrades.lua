@@ -164,7 +164,9 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					dmg = dmg + (dmg * mul)		
 
 					if attacker:GetPerk("_vampire") then
-						attacker:SetHealth(math.Clamp(attacker:Health() + dmg*0.1,0,attacker:GetMaximumHealth()))	
+						attacker:SetHealth(math.Clamp(attacker:Health() + dmg*0.075,0,attacker:GetMaximumHealth()))	
+					else
+						attacker:SetHealth(math.Clamp(attacker:Health() + dmg*0.05,0,attacker:GetMaximumHealth()))						
 					end
 					
 				end
@@ -193,7 +195,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				ent:Ignite(2,0)				
 				attacker:TakeDamageOverTime(7, 1, 4 , ent,ent)	
 			elseif ent:GetPerk("_berserker") then
-				dmg = dmg*0.6		
+				dmg = dmg*0.9	
 			end	
 		end		
 
