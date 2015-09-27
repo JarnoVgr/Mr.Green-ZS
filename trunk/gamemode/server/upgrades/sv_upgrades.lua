@@ -146,7 +146,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				if not dmginfo:IsMeleeDamage() then
 					dmg = dmg * 0.9
 				else
-					mul = 0
+					mul = 0.1
 					if attacker:GetPerk("_headhunter") then
 						mul = mul - 0.15
 					elseif attacker:GetPerk("_freeman") then
