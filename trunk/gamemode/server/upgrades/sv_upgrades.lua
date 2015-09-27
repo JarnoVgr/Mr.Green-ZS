@@ -21,13 +21,11 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 
 	dmg = dmginfo:GetDamage()
 
-	if attacker:IsPlayer() then
-
-		olddmg = dmginfo:GetDamage() 
-		mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
-		
+	if attacker:IsPlayer() then		
 		if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and ent:IsPlayer() then
-		
+				
+				olddmg = dmginfo:GetDamage() 
+				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
 			if attacker:GetActiveWeapon().Primary.Ammo == "pistol" and attacker:GetPerk("_medic") then
 				dmg = dmg + (dmg * mul)
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("_commando") then
@@ -148,6 +146,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				if not dmginfo:IsMeleeDamage() then
 					dmg = dmg * 0.9
 				else
+					mul = 0
 					if attacker:GetPerk("_headhunter") then
 						mul = mul - 0.15
 					elseif attacker:GetPerk("_freeman") then
@@ -160,7 +159,6 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 							mul = mul + 1
 						end
 					end
-
 					dmg = dmg + (dmg * mul)		
 
 					if attacker:GetPerk("_vampire") then
