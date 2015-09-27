@@ -41,26 +41,6 @@ SWEP.Primary.Duration = 1.5
 SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 35
 
-
-function SWEP:StartPrimaryAttack()	
-	--Make things easier
-	local pl = self.Owner
-	self.IdleAnimation = CurTime() + self:SequenceDuration()
-	--Owner
-	local mOwner, mWeapon = self.Owner, self.Weapon
-	
-	--Sequence to play
-	local iSequence = table.Random(self.ZombineAttacks) 	
-	self:SetAttackSeq(iSequence)	
-	--self:SetAttackAnimEndTime(CurTime() + 0.00)
-	self:SetAttackAnimEndTime(CurTime() + 1.5)
-
-	--Hacky way for the animations
-	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-	mOwner:DoAnimationEvent(CUSTOM_PRIMARY)
-
-end
-
 function SWEP:PostPerformPrimaryAttack(hit)
 	if CLIENT then
 		return
