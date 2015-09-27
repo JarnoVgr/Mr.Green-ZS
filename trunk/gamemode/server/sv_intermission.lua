@@ -330,9 +330,15 @@ function GM:SendVotemaps(to)
 			}
 		end
 			
+			
+		if i == 1 and CurTime() < 420 then
+			net.WriteString(game.GetMap())
+			net.WriteString("Restart Map")
+		else
 		-- Send the data
-		net.WriteString(VotePointTable[key].Map.FileName)
-		net.WriteString(VotePointTable[key].Map.FriendlyName)
+			net.WriteString(VotePointTable[key].Map.FileName)
+			net.WriteString(VotePointTable[key].Map.FriendlyName)
+		end
 	end
 	net.Broadcast()
 end
