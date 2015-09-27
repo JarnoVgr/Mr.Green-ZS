@@ -327,7 +327,7 @@ ZombieClasses[5] =
 {
 	Name = "Ethereal",
 	Tag = "etherealzombie",
-	Infliction = 0.0,
+	Infliction = 0.5,
 	Health = 100,
 	MaxHealth = 200,
 	TimeLimit = 200,
