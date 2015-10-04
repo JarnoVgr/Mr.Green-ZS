@@ -7,8 +7,8 @@ function ENT:Initialize()
 	self.DieTime = CurTime() + self.LifeTime
 
 	self:SetModel("models/weapons/w_grenade.mdl")
-	--self:PhysicsInit(SOLID_VPHYSICS)
-	--self:SetSolid(SOLID_VPHYSICS)
+	self:PhysicsInit(SOLID_VPHYSICS)
+	self:SetSolid(SOLID_VPHYSICS)
 	self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then

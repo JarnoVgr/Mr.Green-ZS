@@ -48,7 +48,7 @@ SWEP.SlotPos = 3
 --SWEP.Primary.DefaultClip = 30
 --SWEP.Primary.Automatic = true
 
-SWEP.Primary.Delay = 0.9
+SWEP.Primary.Delay = 0.6
 
 SWEP.Secondary.ClipSize = 20
 SWEP.Secondary.DefaultClip = 20
@@ -59,7 +59,7 @@ SWEP.Secondary.Ammo = "none"
 SWEP.WalkSpeed = SPEED_MELEE_LIGHT
 SWEP.HoldType = "melee"
  
-SWEP.MeleeDamage = 25
+SWEP.MeleeDamage = 20
 SWEP.MeleeRange = 52
 SWEP.MeleeSize = 1
 SWEP.ToHeal = 5
@@ -202,7 +202,6 @@ if SERVER then
 												
 							if not trent._LastAttackerIsHuman then
 								skillpoints.AddSkillPoints(self.Owner, 1)
-								nail:FloatingTextEffect2( 1, self.Owner )
 								self.Owner:AddXP(self.ToHeal)
 								
 								--nail:SetDTInt(1, nail:GetDTInt(1) + self.ToHeal*0.5)		
@@ -237,7 +236,6 @@ if SERVER then
                                            
                    -- if self.Owner._RepairScore == 5 then
                         skillpoints.AddSkillPoints(self.Owner, 1)
-                        trent:FloatingTextEffect2(1, self.Owner )
                         self.Owner:AddXP(5)
                        -- self.Owner._RepairScore = 0
                    -- end
@@ -308,7 +306,7 @@ function SWEP:SecondaryAttack()
         return
     end
 
-    local tr = self.Owner:TraceLine(50, MASK_SHOT, player.GetAll())
+    local tr = self.Owner:TraceLine(60, MASK_SHOT, player.GetAll())
 
     local trent = tr.Entity
     if not IsValid(trent) then
@@ -336,7 +334,7 @@ function SWEP:SecondaryAttack()
         end
     end
 
-    local trtwo = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos + self.Owner:GetAimVector() * 16, filter = {self.Owner, trent}})
+    local trtwo = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos + self.Owner:GetAimVector() * 26, filter = {self.Owner, trent}})
 
     local ent = trtwo.Entity
     
@@ -364,7 +362,7 @@ function SWEP:SecondaryAttack()
                 self.Alternate = not self.Alternate
                 self.Owner:SetAnimation(PLAYER_ATTACK1)
 
-                self.NextNail = CurTime() + 1
+                self.NextNail = CurTime() + 0.7
                 --self:TakePrimaryAmmo(1)
                 --self:TakeSecondaryAmmo(1)
                 self:TakeSecondaryAmmo(1)
@@ -436,7 +434,7 @@ function SWEP:SecondaryAttack()
                                    
                             local nail = ents.Create("nail")
                             local aimvec = self.Owner:GetAimVector()
-                            nail:SetPos(tr.HitPos - aimvec * 8)
+                            nail:SetPos(tr.HitPos - aimvec * 16)
                             nail:SetAngles(aimvec:Angle())
                             nail:SetParentPhysNum(tr.PhysicsBone)
                             nail:SetParent(trent)
