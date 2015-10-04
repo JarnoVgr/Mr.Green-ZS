@@ -23,7 +23,7 @@ SWEP.Secondary.Ammo = "CombineCannon"
 SWEP.TracerName = "Tracer"
 
 SWEP.ActualClipSize = -1
-SWEP.SpeedBonus = 0
+
 SWEP.RecoilMultiplier = 1
 SWEP.AccuracyBonus = 0
 SWEP.ForceBonus = 1
@@ -69,7 +69,7 @@ end
 
 function SWEP:PrimaryAttack()
 	
-	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay - self.SpeedBonus)
+	self.Weapon:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 	
 	if not self:CanPrimaryAttack() then
 		return
@@ -199,7 +199,7 @@ function SWEP:Deploy()
 			bonus = self.ActualClipSize * 0.2
 		end
 
-		self.SpeedBonus = (self.Owner:GetRank()*0.1)/100	
+	
 	
 		self.Primary.ClipSize = self.ActualClipSize * 0.1 + self.ActualClipSize + (self.ActualClipSize * (self.Owner:GetRank() * 2) / 100) + bonus
 		
