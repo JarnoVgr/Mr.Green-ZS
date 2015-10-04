@@ -48,7 +48,7 @@ SWEP.SlotPos = 3
 --SWEP.Primary.DefaultClip = 30
 --SWEP.Primary.Automatic = true
 
-SWEP.Primary.Delay = 0.6
+SWEP.Primary.Delay = 0.65
 
 SWEP.Secondary.ClipSize = 20
 SWEP.Secondary.DefaultClip = 20
@@ -334,7 +334,7 @@ function SWEP:SecondaryAttack()
         end
     end
 
-    local trtwo = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos + self.Owner:GetAimVector() * 26, filter = {self.Owner, trent}})
+    local trtwo = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos + self.Owner:GetAimVector() * 16, filter = {self.Owner, trent}})
 
     local ent = trtwo.Entity
     
