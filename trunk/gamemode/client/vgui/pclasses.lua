@@ -29,9 +29,9 @@ local Image = {
 	[6] = surface.GetTextureID("zombiesurvival/classmenu/howler"),
 	[7] = surface.GetTextureID("zombiesurvival/classmenu/headcrab"),
 	[3] = surface.GetTextureID("zombiesurvival/classmenu/fastzombie"),
-	[9] = surface.GetTextureID("zombiesurvival/classmenu/poisonheadcrab"),
+	[9] = surface.GetTextureID("zombiesurvival/classmenu/poisonheadcrab")
 	
-	[20] = surface.GetTextureID("zombiesurvival/classmenu/zombine2"),	
+	--[20] = surface.GetTextureID("zombiesurvival/classmenu/zombine2"),	
 
 }
 -- Initialize the colors needed for the 3 buttons

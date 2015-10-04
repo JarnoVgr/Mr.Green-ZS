@@ -4,6 +4,7 @@
 -- Called when a zombie is killed
 local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	-- Calculate spawn cooldown
+	--[[
 	if CurTime() <= WARMUPTIME then
 		mVictim.NextSpawn = WARMUPTIME+2
 		mVictim:SendLua("MySelf.NextSpawn = ".. (WARMUPTIME+2))
@@ -11,7 +12,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		mVictim.NextSpawn = CurTime() + 2
 		mVictim:SendLua("MySelf.NextSpawn = CurTime() + 2")
 	end
-
+]]--
 	--Recalculate infliction
 	if team.NumPlayers(TEAM_HUMAN) < 1 then
 		GAMEMODE:CalculateInfliction()

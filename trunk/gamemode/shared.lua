@@ -526,7 +526,7 @@ function GM:DynamicSpawnIsValid(target)
 			local nearest = target:NearestPoint(eyepos)
 			local dist = eyepos:Distance(nearest)
 			--Zombies can't be in radius of any human and can't be clearly seen by any human
-			if dist <= 400 or (dist <= 824 and WorldVisible(eyepos, nearest)) then
+			if dist <= 750 or (dist <= 750 and WorldVisible(eyepos, nearest)) then
 				return false
 			end
 		end
@@ -559,7 +559,7 @@ function GM:DynamicSpawnIsValid(target)
 			local nearest = target:NearestPoint(eyepos)
 			local dist = eyepos:Distance(nearest)
 			--Zombies can't be in radius of any human and can't be clearly seen by any human
-			if dist <= 400 or (dist <= 824 and WorldVisible(eyepos, nearest)) then
+			if dist <= 600 or (dist <= 900 and WorldVisible(eyepos, nearest)) then
 				return false
 			end
 		end

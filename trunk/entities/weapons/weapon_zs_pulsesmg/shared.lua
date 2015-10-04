@@ -113,13 +113,12 @@ SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= true
 SWEP.Secondary.Ammo			= "none"
 
-SWEP.MaxBulletDistance 		= 2900 -- Uses pulse power, FTW!
-SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
+
 SWEP.WalkSpeed = SPEED_SMG
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.475
+SWEP.rechargerate = 0.6
 SWEP.startcharge = 1
 SWEP.MaxClip = 20
 
@@ -156,4 +155,16 @@ end
 
 function SWEP:Reload()
 	return false
+end
+
+function SWEP.BulletCallback(attacker, tr, dmginfo)
+	local e = EffectData()
+		e:SetOrigin(tr.HitPos)
+		e:SetNormal(tr.HitNormal)
+		e:SetRadius(0.8)
+		e:SetMagnitude(0.2)
+		e:SetScale(0.2)
+	util.Effect("cball_bounce", e)
+
+	GenericBulletCallback(attacker, tr, dmginfo)
 end

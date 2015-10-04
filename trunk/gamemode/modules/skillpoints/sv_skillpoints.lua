@@ -86,15 +86,12 @@ function skillpoints.AddSkillPoints(pl, amount)
 			skillpoints.TakeSkillPoints(pl,pl.SPRequired)
 		pl.SPRequired = pl.SPRequired + 30
 	
-	
 		local item = "zs_ammobox"	
 			--pl:SetSPRequired(pl:SPRequired() + pl:SPRequired() * 0.5)
 		local delta = 1 - math.Clamp( ( ROUNDSTART_TIME - CurTime()) / ROUNDTIME, 0, 1 )
 		local babyPrice = math.Round(delta*200) + 80		
 		local possibleWeapons = {}
 		
-
-
 		for wep,tab in pairs(GAMEMODE.HumanWeapons) do
 			if tab.Price and tab.HumanClass then
 				if tab.HumanClass ~= pl:GetHumanClass() then continue end
@@ -107,27 +104,51 @@ function skillpoints.AddSkillPoints(pl, amount)
 		end
 
 		item = table.Random(possibleWeapons)
-
-		local itemToSpawn = ents.Create(item)			
 		
-		print(item)
-		if IsValid(itemToSpawn) then
-			if pl:Crouching() then
-				itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,20))			
-			else
-				itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,32))			
+		local weaponType = GetWeaponType(item)
+		
+		if weaponType == "pistol" then
+			local Pistol = pl:GetPistol()
+			if IsValid(Pistol) then		
+				pl:StripWeapon(Pistol:GetClass())
 			end
-			itemToSpawn:Spawn()
+			pl:Give(item)			
+			pl:SelectWeapon(item)
+		elseif weaponType == "melee" then
+			local Melee = pl:GetMelee()
+			if IsValid(Melee) then			
+				pl:StripWeapon(Melee:GetClass())
+			end
+			pl:Give(item)			
+			pl:SelectWeapon(item)			
+		elseif weaponType == "smg" || weaponType == "rifle" || weaponType == "shotgun" then
+			local Automatic = pl:GetAutomatic()
+			if IsValid(Automatic) then
+				pl:StripWeapon(Automatic:GetClass())
+			end
+			pl:Give(item)
+			pl:SelectWeapon(item)			
+		else
+			local itemToSpawn = ents.Create(item)	
+			if IsValid(itemToSpawn) then
+				pl:Message(item.PrintName or item .. " dropped.", 2)	
+				if pl:Crouching() then
+					itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,20))			
+				else
+					itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,32))			
+				end
+				itemToSpawn:Spawn()
 
-			local phys = itemToSpawn:GetPhysicsObject()
-			if phys:IsValid() then
-				phys:Wake()
-				phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
-				phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+				local phys = itemToSpawn:GetPhysicsObject()
+				if phys:IsValid() then
+					phys:Wake()
+					phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
+					phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+				end
 			end
-		end	
+		end
 		pl:EmitSound("items/gift_pickup.wav" )
-		pl:Message(item .. " dropped.", 2)			
+		
 	end		
 	
 	return true

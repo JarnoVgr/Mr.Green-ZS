@@ -20,6 +20,8 @@ SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
 
+SWEP.TracerName = "Tracer"
+
 SWEP.ActualClipSize = -1
 SWEP.SpeedBonus = 0
 SWEP.RecoilMultiplier = 1

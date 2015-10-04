@@ -758,22 +758,20 @@ if SERVER then
 end
 
 function meta:Message(sText, iType, Col, iDuration)
-	
+
 	--Send message
 	if SERVER then
-		
 		net.Start( "notice.GetNotice" )
 			net.WriteString(sText)
 			net.WriteDouble(iType or 2)
 			net.WriteString(Col or "zs_please")
-			net.WriteDouble(iDuration or -1)
+			net.WriteDouble(iDuration or 2)
 		net.Send(self)
-		
 	end
 	
 	--Clientside
 	if CLIENT then 
-	    notice.Message(sText, Col, iType, iDuration) 
+	    notice.Message(sText, Col, iType, iDuration or 2) 
 	end
 end
 	

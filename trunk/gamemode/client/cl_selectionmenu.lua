@@ -343,12 +343,12 @@ function PaintNewWeaponSelection()
 			NameHeight = NameHeight - ScrH()*0.015
 			Alpha = AlphaSelected + 20
 			
-
+			
 			local dmg = 0
 			local clip1 = 0
 			local clip2 = 0
 			local clip3 = 0
-			if MyWeapons[i] then
+			if MyWeapons[i] then			
 				if MyWeapons[i].Primary.Damage then
 					if MyWeapons[i].Primary.NumShots then
 						clip1 = MyWeapons[i]:Clip1()
@@ -363,9 +363,9 @@ function PaintNewWeaponSelection()
 				end
 			end
 			
-			
+			clip1 = MyWeapons[i]:Clip1()
 
-				ColorToDraw = Color(220, 240, 230, math.Clamp(100*Alpha + 155, 0, 255))
+			ColorToDraw = Color(220, 240, 230, math.Clamp(100*Alpha + 155, 0, 255))
 
 		
 			if clip1 > 0 || clip2 > 0 then

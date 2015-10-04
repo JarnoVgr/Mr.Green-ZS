@@ -49,14 +49,14 @@ function GM:DoPlayerDeath ( pl, attacker, dmginfo )
 	pl.LastAttackers = nil
 	
 	-- Process assists
-	dmginfo:ProcessAssist( pl ) 
+	--dmginfo:ProcessAssist( pl ) 
 	
 	-- Resets the attacker's assistant
-	timer.Simple(0.05, function()
+	--[[timer.Simple(0.05, function()
 		if IsValid(dmginfo:GetAttacker()) then
 			dmginfo:GetAttacker().AttackerAssistant = nil
 		end
-	end)
+	end)]]--
 	
 	-- Stop the player/camera
 	self:SetPlayerSpeed( pl, 0 )

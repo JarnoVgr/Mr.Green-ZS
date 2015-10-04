@@ -48,14 +48,6 @@ SWEP.ShowViewModel = true
 SWEP.ShowWorldModel = true
 SWEP.ViewModelBoneMods = {}
 
-SWEP.ViewModelBoneMods = {
-	["Base"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
-}
-
-SWEP.VElements = {
-	["Pulse Rifle"] = { type = "Model", model = "models/props_combine/bunker_gun01.mdl", bone = "Base", rel = "", pos = Vector(2.28, 13.729, 8.642), angle = Angle(83.805, -79.391, -2.488), size = Vector(0.898, 0.898, 0.898), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["Pulse Rifle2"] = { type = "Model", model = "models/weapons/c_arms_refugee.mdl", bone = "Base", rel = "", pos = Vector(22.896, -22.743, -0.116), angle = Angle(67.13, 86.931, -3.781), size = Vector(0.799, 0.799, 0.799), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-}
 end
 
 SWEP.Base				= "weapon_zs_base"
@@ -72,8 +64,8 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_AR2.Single")
-SWEP.Primary.Recoil			= 1.3
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Recoil			= 1.1
+SWEP.Primary.Damage			= 10
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 40
 SWEP.Primary.Delay			= 0.1
@@ -83,7 +75,7 @@ SWEP.TracerName = "AR2Tracer"
 
 SWEP.Primary.Ammo			= "none"
 
-SWEP.Cone 			= 0.06
+SWEP.Cone 			= 0.05
 SWEP.ConeMoving		 = SWEP.Cone *1.3
 SWEP.ConeCrouching 	 = SWEP.Cone *0.90
 SWEP.ConeIron 		 = SWEP.Cone *0.95
@@ -98,13 +90,11 @@ SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= true
 SWEP.Secondary.Ammo			= "none"
 
-SWEP.MaxBulletDistance 		= 2900 -- Uses pulse power, FTW!
-SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.WalkSpeed = SPEED_SMG
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.5
+SWEP.rechargerate = 0.6
 SWEP.startcharge = 1
 SWEP.MaxClip = 40
 
@@ -144,4 +134,16 @@ end
 
 function SWEP:Reload()
 	return false
+end
+
+function SWEP.BulletCallback(attacker, tr, dmginfo)
+	local e = EffectData()
+		e:SetOrigin(tr.HitPos)
+		e:SetNormal(tr.HitNormal)
+		e:SetRadius(0.8)
+		e:SetMagnitude(0.2)
+		e:SetScale(0.2)
+	util.Effect("cball_bounce", e)
+
+	GenericBulletCallback(attacker, tr, dmginfo)
 end

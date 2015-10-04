@@ -36,7 +36,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AUG.Single")
 SWEP.Primary.Recoil			= 1.5
-SWEP.Primary.Damage			= 12
+SWEP.Primary.Damage			= 13
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 30
 SWEP.Primary.Delay			= 0.1

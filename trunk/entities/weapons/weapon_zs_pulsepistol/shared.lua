@@ -38,8 +38,8 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 0.6
-SWEP.Primary.Damage			= 9
+SWEP.Primary.Recoil			= 0.65
+SWEP.Primary.Damage			= 10
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Delay			= 0.12
@@ -67,13 +67,11 @@ SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
-SWEP.MaxBulletDistance 		= 2900 -- Uses pulse power, FTW!
-SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.WalkSpeed = SPEED_PISTOL
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.55
+SWEP.rechargerate = 0.6
 SWEP.startcharge = 1
 SWEP.MaxClip = 10
 

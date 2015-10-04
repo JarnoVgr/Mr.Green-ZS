@@ -719,6 +719,7 @@ function meta:UnlockAchievement(stat)
 	end
 	
 	--YAY! Achievements
+	self:AddXP(600)	
 	self.DataTable["Achievements"][statID] = true
 	self:SendLua('UnlockEffect(1, "'..stat..'")')
 	self.DataTable["progress"] = math.floor(self:GetAchvProgress())

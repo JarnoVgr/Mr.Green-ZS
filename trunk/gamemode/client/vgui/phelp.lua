@@ -63,7 +63,9 @@ HelpBtn[#HELP_TXT+1] = {
 			-- List view
 			local list = vgui.Create("DListView",pHelp)
 			list:SetPos(ax+150+5,ay+25)
-			list:SetSize(340,300)
+			local w = ScrW()*0.3
+			local h = ScrH()*0.45
+			list:SetSize(w,h)
 			table.insert(labtable,list)
 			
 			list.SortByColumn = function() end
@@ -71,23 +73,23 @@ HelpBtn[#HELP_TXT+1] = {
 			local c0 = list:AddColumn( "Score/Achievement" ) 
 			local c1 = list:AddColumn( "Progress" ) 
 
-			c0:SetMinWidth( math.floor(340/2+10) )
-			c0:SetMaxWidth( math.floor(340/2+10) )
-			c1:SetMinWidth( math.floor(340/2-10) )
-			c1:SetMaxWidth( math.floor(340/2-10) )
+			c0:SetMinWidth( math.floor(w/2+10) )
+			c0:SetMaxWidth( math.floor(w/2+10) )
+			c1:SetMinWidth( math.floor(w/2-10) )
+			c1:SetMaxWidth( math.floor(w/2-10) )
 			
 			-- image
-			local achvimage = vgui.Create("DImage", pHelp)
-			achvimage:SetPos(ax+150+5,ay+25+5+300)
-			achvimage:SetSize(100,100)
-			achvimage:SetImage( "zombiesurvival/achv_blank_zs" )
-			achvimage:SetImageColor( Color(255,255,255,255) )
-			table.insert(labtable,achvimage)
+			--local achvimage = vgui.Create("DImage", pHelp)
+			--achvimage:SetPos(ax+150+5,ay+25+5+h)
+			--achvimage:SetSize(100,100)
+			--achvimage:SetImage( "zombiesurvival/achv_blank_zs" )
+			--achvimage:SetImageColor( Color(255,255,255,255) )
+			--table.insert(labtable,achvimage)
 			
 			-- description box
 			local reasonbox = vgui.Create("DTextEntry",pHelp)
-			reasonbox:SetPos( ax+150+5+100+5, ay+25+5+300 ) 
-			reasonbox:SetSize( 235, 100 ) 
+			reasonbox:SetPos( ax+150+5, ay+25+5+h ) 
+			reasonbox:SetSize( w, 100 ) 
 			reasonbox:SetEditable( false )
 			reasonbox:SetMultiline( true )
 			reasonbox:SetValue("< Select something to view the description! >")
@@ -218,10 +220,10 @@ HelpBtn[#HELP_TXT+1] = {
 				if (theline.Image and theline.Desc) then
 					reasonbox:SetValue(theline.Desc)
 					--unlockbox:SetValue(theline.UnlockInfo)
-					achvimage:SetImage(theline.Image)
+					--achvimage:SetImage(theline.Image)
 				else
 					reasonbox:SetValue("< Select something to view the description! >")
-					achvimage:SetImage( "zombiesurvival/achv_blank_zs" )
+					--achvimage:SetImage( "zombiesurvival/achv_blank_zs" )
 				end
 			end
 				
@@ -268,7 +270,7 @@ HelpBtn[#HELP_TXT+2] = {
 
 function MakepHelp( nr )
 		
-	local ww,wh = ScrW()*0.325, ScrH()*0.5
+	local ww,wh = ScrW()*0.6, ScrH()*0.7
 	local wx,wy = w/2-ww/2,h/2-wh/2
 	
 	local MainWindow = vgui.Create("DFrame")

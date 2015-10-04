@@ -150,12 +150,12 @@ GM.HumanWeapons = {
        
         --Commando
         ["weapon_zs_defender"]  = { Name = "Defender Rifle", DPS = 93, Price = 80, Infliction = 0.2, Type = "rifle", Description = "Scrap AK47", HumanClass = "commando"},    
-        ["weapon_zs_famas"]  = { Name = "Famas", DPS = 140, Type = "rifle", Price = 100, HumanClass = "commando" },
+        ["weapon_zs_famas"]  = { Name = "Famas", DPS = 140, Type = "rifle", Price = 110, HumanClass = "commando" },
        -- ["weapon_zs_sg552"]  = { Name = "SG552 Rifle", DPS = 106, Infliction = 0.51, Type = "rifle", Price = 500, HumanClass = "commando" },
-        ["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138, Infliction = 0.65, Type = "rifle", Price = 120, HumanClass = "commando" },
-        ["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125, Infliction = 0.53, Type = "rifle", Price = 140, HumanClass = "commando" }, 		
-        ["weapon_zs_ak47"]  = { Name = "AK47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 160, HumanClass = "commando" },         
-        ["weapon_zs_galil"]  = { Name = "Galil", DPS = 129, Infliction = 0.57, Type = "rifle", Price = 180, HumanClass = "commando" }, 
+        ["weapon_zs_m4a1"]  = { Name = "M4A1", DPS = 138, Infliction = 0.65, Type = "rifle", Price = 130, HumanClass = "commando" },
+        ["weapon_zs_aug"]  = { Name = "Steyr AUG", DPS = 125, Infliction = 0.53, Type = "rifle", Price = 130, HumanClass = "commando" }, 		
+        ["weapon_zs_ak47"]  = { Name = "AK47", DPS = 133, Infliction = 0.7, Type = "rifle", Price = 180, HumanClass = "commando" },         
+        ["weapon_zs_galil"]  = { Name = "Galil", DPS = 129, Infliction = 0.57, Type = "rifle", Price = 150, HumanClass = "commando" }, 
         ["weapon_zs_m249"]  = { Name = "M249", DPS = 200, Infliction = 0.85, Type = "rifle", Price = 200, HumanClass = "commando" },      		
 		
         --Support
