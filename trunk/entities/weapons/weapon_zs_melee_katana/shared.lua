@@ -53,26 +53,6 @@ function SWEP:Precache()
 	util.PrecacheSound("weapons/katana/katana_03.wav")
 end
 
-function SWEP:Deploy()
-	if SERVER then
-		if self.Owner:FlashlightIsOn() and self.Owner:GetHumanClass() ~= 3 then
-			--self.Owner:Flashlight( false )
-		end
-	
-	end
-	self.Weapon:EmitSound("weapons/katana/draw.wav")
-	-- Draw animation
-	self.Weapon:SendWeaponAnim ( ACT_VM_DRAW )
-	
-	-- Deploy speed
-	self.Weapon:SetNextPrimaryFire ( CurTime() + self.DeploySpeed )
-	
-	if SERVER then
-		GAMEMODE:WeaponDeployed( self.Owner, self )
-	end
-	
-	return true
-end
 
 function SWEP:PlaySwingSound()
 	self:EmitSound("weapons/knife/knife_slash"..math.random(1, 2)..".wav", 85, math.random(110,115))
