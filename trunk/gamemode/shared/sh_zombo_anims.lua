@@ -647,7 +647,7 @@ GM.CalcMainActivityZombies[8] = function ( pl, vel )
 			if wep.IsHoldingGrenade and wep:IsHoldingGrenade() and not pl:Crouching() then
 				iSeq = pl:LookupSequence ( "zombie_walk_03" )					
 			elseif pl:Crouching() then		
-				iSeq = pl:LookupSequence ( "cwalk_grenade" )
+				iSeq = pl:LookupSequence ( "zombie_cwalk_05" )
 			else					
 				iSeq = pl:LookupSequence ( "zombie_walk_02" )			
 			end	
@@ -950,7 +950,7 @@ GM.CalcMainActivityZombies[11] = function ( pl, vel )
 	if pl:GetMoveType()==MOVETYPE_LADDER then
 		iSeq = pl:LookupSequence ( "zombie_climb_loop" )
 		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)		
-	end		
+	end
 	
 	return iIdeal, iSeq
 end

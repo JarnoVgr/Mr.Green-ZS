@@ -25,7 +25,7 @@ ZombieClasses[0] =
 	Bounty = 100,
 	SP = 5,
 	Threshold = 0,	
-	SWEP = "weapon_zs_undead_infected",			
+	SWEP = "weapon_zs_undead_infected",		
 	JumpPower = 190,
 	CanCrouch = true,
 	CanGib = true, 
@@ -478,12 +478,12 @@ ZombieClasses[8] =
 	Speed = 150,
 	Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) },
 	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},	
-	RunSpeed = 190,
+	RunSpeed = 200,
 	Description = "A combine that took a turn to the worse.",
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when taken enough damage", "> HEALTH: 350 ", "> SPEED: 150 / 190", "> DAMAGE: 30" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when under 175 health.", "> HEALTH: 350 ", "> SPEED: 150 / 190", "> DAMAGE: 30" },
 	PainSounds = {
 		Sound( "npc/zombine/zombine_pain1.wav" ),
 		Sound( "npc/zombine/zombine_pain2.wav" ),
@@ -694,8 +694,8 @@ ZombieClasses[11] =
 	Name = "Behemoth",
 	Tag = "behemoth",
 	Infliction = 0.1,
-	Health = 1200,
-	MaxHealth = 1200,
+	Health = 2000,
+	MaxHealth = 2000,
 	TimeLimit = 1020,
 	Bounty = 500,
 	SP = 30,
@@ -708,6 +708,7 @@ ZombieClasses[11] =
 	Hidden = true,
 	IsBoss = true,
 	SWEP = "weapon_zs_undead_boss_behemoth",
+	
 	Model = Model("models/player/zombie_soldier.mdl"),
 	Speed = 170,
 	Description = "",
@@ -745,9 +746,9 @@ ZombieClasses[11] =
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
-	--ModelScale = 1.15,-- Vector(1.15,1.15,1.15),
-	--ViewOffset = Vector(0, 0, 73),
-	--ViewOffsetDucked = Vector(0,0,32.2),
+	ModelScale = 1.25,-- Vector(1.15,1.15,1.15),
+	ViewOffset = Vector(0, 0, 73),
+	ViewOffsetDucked = Vector(0,0,32.2),
 	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
 	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }

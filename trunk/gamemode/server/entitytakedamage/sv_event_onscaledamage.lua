@@ -148,7 +148,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 
 
 		--35% damage for zombine (armor)
-		if pl:IsZombine() and pl:Health() <= math.Round(pl:GetMaximumHealth() * 0.5) and pl:Health() ~= 0 and pl.bCanSprint == false then
+		if pl:IsZombine() and pl:Health() <= 175 and pl:Health() ~= 0 and pl.bCanSprint == false then
 			pl.bCanSprint = true
 			pl:SendLua("WraithScream()")
 			pl:EmitSound(Sound("npc/zombine/zombine_charge"..math.random ( 1,2 )..".wav"))

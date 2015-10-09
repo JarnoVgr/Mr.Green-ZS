@@ -133,7 +133,7 @@ function SWEP:StartPrimaryAttack()
 	
 	--Set the thirdperson animation and emit zombie attack sound
 	if SERVER then 
-		self.Owner:EmitSound(Sound("npc/zombine/zombine_alert"..math.random ( 1,3 )..".wav")) 
+		self.Owner:EmitSound(Sound("npc/zombine/zombine_alert"..math.random ( 1,7 )..".wav")) 
 		
 		-- Stop when we get grenade
 
