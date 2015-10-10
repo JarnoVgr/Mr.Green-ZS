@@ -116,22 +116,80 @@ function skillpoints.AddSkillPoints(pl, amount)
 			pl:SelectWeapon(item)
 		elseif weaponType == "melee" then
 			local Melee = pl:GetMelee()
-			if IsValid(Melee) then			
-				pl:StripWeapon(Melee:GetClass())
-			end
-			pl:Give(item)			
-			pl:SelectWeapon(item)			
+
+			if IsValid(Melee) then		
+				if weapons.Get(item).MeleeDamage * (1 / weapons.Get(item).Primary.Delay) > Melee.MeleeDamage * (1 / Melee.Primary.Delay) then	
+					pl:StripWeapon(Melee:GetClass())
+					pl:Give(item)			
+					pl:SelectWeapon(item)				
+				else
+					pl:GiveAmmo( 20, "pistol" )	
+					pl:GiveAmmo( 60, "ar2" )
+					pl:GiveAmmo( 60, "SMG1" )	
+					pl:GiveAmmo( 18, "buckshot" )		
+					pl:GiveAmmo( 8, "XBowBolt" )
+					pl:GiveAmmo( 16, "357" )
+					pl:GiveAmmo( 60, "alyxgun" )
+					local itemToSpawn = ents.Create(item)	
+					if IsValid(itemToSpawn) then
+						pl:Message(weapons.Get(item).PrintName .. " dropped." or item .. " dropped.", 2)	
+						if pl:Crouching() then
+							itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,20))			
+						else
+							itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,32))			
+						end
+						itemToSpawn:Spawn()
+
+						local phys = itemToSpawn:GetPhysicsObject()
+						if phys:IsValid() then
+							phys:Wake()
+							phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
+							phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+						end
+					end
+				end
+				pl:EmitSound("items/gift_pickup.wav" )				
+			end			
 		elseif weaponType == "smg" || weaponType == "rifle" || weaponType == "shotgun" then
+		
 			local Automatic = pl:GetAutomatic()
-			if IsValid(Automatic) then
-				pl:StripWeapon(Automatic:GetClass())
-			end
-			pl:Give(item)
-			pl:SelectWeapon(item)			
+			if weapons.Get(item).Primary.Damage * (1 / weapons.Get(item).Primary.Delay) > Automatic.Primary.Damage * (1 / Automatic.Primary.Delay) then	
+				if IsValid(Automatic) then
+					pl:StripWeapon(Automatic:GetClass())
+				end
+				pl:Give(item)
+				pl:SelectWeapon(item)
+			else
+				pl:GiveAmmo( 20, "pistol" )	
+				pl:GiveAmmo( 60, "ar2" )
+				pl:GiveAmmo( 60, "SMG1" )	
+				pl:GiveAmmo( 18, "buckshot" )		
+				pl:GiveAmmo( 8, "XBowBolt" )
+				pl:GiveAmmo( 16, "357" )
+				pl:GiveAmmo( 60, "alyxgun" )	
+				
+				local itemToSpawn = ents.Create(item)	
+				if IsValid(itemToSpawn) then
+					pl:Message(weapons.Get(item).PrintName .. " dropped." or item .. " dropped.", 2)						
+					if pl:Crouching() then
+						itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,20))			
+					else
+						itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,32))			
+					end
+					itemToSpawn:Spawn()
+
+					local phys = itemToSpawn:GetPhysicsObject()
+					if phys:IsValid() then
+						phys:Wake()
+						phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
+						phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+					end
+				end		
+			end	
 		else
 			local itemToSpawn = ents.Create(item)	
 			if IsValid(itemToSpawn) then
-				pl:Message(item.PrintName or item .. " dropped.", 2)	
+				pl:Message(weapons.Get(item).PrintName .. " dropped." or item .. " dropped.", 2)	
 				if pl:Crouching() then
 					itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,20))			
 				else

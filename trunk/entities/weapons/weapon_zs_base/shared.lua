@@ -114,25 +114,25 @@ function SWEP:PrimaryAttack()
 	
 		if self.Owner:GetVelocity():Length() > 10 then	
 			if self.LastShot > CurTime() - 0.2 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 2 - (self.ConeMoving * self.AccuracyBonus))	
-			elseif self.LastShot > CurTime() - 0.35 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.75 - (self.ConeMoving * self.AccuracyBonus))	
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.6 - (self.ConeMoving * self.AccuracyBonus))	
+			elseif self.LastShot > CurTime() - 0.3 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.5 - (self.ConeMoving * self.AccuracyBonus))	
 			elseif self.LastShot > CurTime() - 0.5 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.5 - (self.ConeMoving * self.AccuracyBonus))			
-			elseif self.LastShot > CurTime() - 0.75 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.25 - (self.ConeMoving * self.AccuracyBonus))
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.3 - (self.ConeMoving * self.AccuracyBonus))			
+			elseif self.LastShot > CurTime() - 0.6 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.1 - (self.ConeMoving * self.AccuracyBonus))
 			else
 				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1 - (self.ConeMoving * self.AccuracyBonus))		
 			end
 			
 		else
 			if self.LastShot > CurTime() - 0.2 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.5 - (self.ConeMoving * self.AccuracyBonus))	
-			elseif self.LastShot > CurTime() - 0.35 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.25 - (self.ConeMoving * self.AccuracyBonus))	
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.3 - (self.ConeMoving * self.AccuracyBonus))	
+			elseif self.LastShot > CurTime() - 0.3 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.2 - (self.ConeMoving * self.AccuracyBonus))	
 			elseif self.LastShot > CurTime() - 0.5 then
 				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1 - (self.ConeMoving * self.AccuracyBonus))			
-			elseif self.LastShot > CurTime() - 0.75 then
+			elseif self.LastShot > CurTime() - 0.6 then
 				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 0.75 - (self.ConeMoving * self.AccuracyBonus))
 			else
 				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 0.5 - (self.ConeMoving * self.AccuracyBonus))		
