@@ -52,9 +52,6 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				if mAttacker:GetPerk("_berserker") then
 					if mAttacker:GetPerk("_bloodmoney") then
 						skillpoints.AddSkillPoints(mAttacker,3)
-						
-						else
-						return
 					end
 				end	
 			end
@@ -75,7 +72,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	
 	--Make the player splash (gib) if damage is very big or if it's a chem zombie otherwise make the ragdolls.
 	if mVictim:IsZombie() then
-		if mVictim:Health() < -45 and not (dmginfo:IsMeleeDamage() or dmginfo:IsExplosionDamage() or dmginfo:IsFallDamage()) then
+		if mVictim:Health() < -100 and not (dmginfo:IsMeleeDamage() or dmginfo:IsExplosionDamage() or dmginfo:IsFallDamage()) then
 			-- Gib the player
 			if ZombieClasses[ mVictim:GetZombieClass() ].CanGib then 
 				mVictim:Gib( dmginfo ) 
