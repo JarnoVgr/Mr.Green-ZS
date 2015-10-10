@@ -54,7 +54,7 @@ function SWEP:Think()
 		--self:CheckAttackAnim()
 
 		if self:IsScreaming() == true and not self:IsInSecondaryAttack() then
-		self:Screaming(false)	
+			self:Screaming(false)	
 		end 
 	--end
 end

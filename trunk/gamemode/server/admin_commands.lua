@@ -315,10 +315,10 @@ local function CommandSay(pl, text, teamonly)
 					pl:EmitSound(v[math.random(1,#v)])
 					pl.LastVoice = CurTime()
 					pl.ChatScream = CurTime() + 10 -- 10 secs before we're allowed another scream, prevents spam
-					return ""
 					break
 				end	
 			end
+								return ""
 		end
 	end
 end
