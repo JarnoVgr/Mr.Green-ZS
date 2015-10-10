@@ -332,6 +332,8 @@ function GM:SendVotemaps(to)
 			
 			
 		if i == 1 and CurTime() < 420 then
+			FileName = game.GetMap(),
+			FriendlyName = "Restart Map"		
 			net.WriteString(game.GetMap())
 			net.WriteString("Restart Map")
 		else
