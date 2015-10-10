@@ -20,6 +20,9 @@ SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
 
+
+SWEP.LastShot = 0
+
 SWEP.TracerName = "Tracer"
 
 SWEP.ActualClipSize = -1
@@ -107,26 +110,58 @@ function SWEP:PrimaryAttack()
 		self.Owner:SetEyeAngles(eyeang)
 	end
 
-	if self:GetIronsights() then
-		if self.Owner:Crouching() then
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIronCrouching * 0.75 - (self.ConeIronCrouching * self.AccuracyBonus))
+	if (self.Primary.Ammo == "pistol") then
+	
+		if self.Owner:GetVelocity():Length() > 10 then	
+			if self.LastShot > CurTime() - 0.2 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 2 - (self.ConeMoving * self.AccuracyBonus))	
+			elseif self.LastShot > CurTime() - 0.35 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.75 - (self.ConeMoving * self.AccuracyBonus))	
+			elseif self.LastShot > CurTime() - 0.5 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.5 - (self.ConeMoving * self.AccuracyBonus))			
+			elseif self.LastShot > CurTime() - 0.75 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.25 - (self.ConeMoving * self.AccuracyBonus))
+			else
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1 - (self.ConeMoving * self.AccuracyBonus))		
+			end
+			
 		else
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIron * 0.75 - (self.ConeIron * self.AccuracyBonus))
+			if self.LastShot > CurTime() - 0.2 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.5 - (self.ConeMoving * self.AccuracyBonus))	
+			elseif self.LastShot > CurTime() - 0.35 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.25 - (self.ConeMoving * self.AccuracyBonus))	
+			elseif self.LastShot > CurTime() - 0.5 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1 - (self.ConeMoving * self.AccuracyBonus))			
+			elseif self.LastShot > CurTime() - 0.75 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 0.75 - (self.ConeMoving * self.AccuracyBonus))
+			else
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 0.5 - (self.ConeMoving * self.AccuracyBonus))		
+			end
 		end
-	elseif 25 < self.Owner:GetVelocity():Length() then
-		self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.10 - (self.ConeMoving * self.AccuracyBonus))
+	
 	else
-		if self.Owner:Crouching() then
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeCrouching * 0.75 - (self.ConeCrouching * self.AccuracyBonus))
+		if self:GetIronsights() then
+			if self.Owner:Crouching() then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIronCrouching * 0.7 - (self.ConeIronCrouching * self.AccuracyBonus))
+			else
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIron * 0.7 - (self.ConeIron * self.AccuracyBonus))
+			end
+		elseif 0.5 < self.Owner:GetVelocity():Length() then
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.3 - (self.ConeMoving * self.AccuracyBonus))
 		else
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.Cone * 0.75 - (self.Cone * self.AccuracyBonus))
+			if self.Owner:Crouching() then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeCrouching * 0.7 - (self.ConeCrouching * self.AccuracyBonus))
+			else
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.Cone * 0.7 - (self.Cone * self.AccuracyBonus))
+			end
 		end
 	end
 
 	--Knockback
 	local aimVec = self.Owner:GetAimVector()
 	aimVec.z = 0
-
+	self.LastShot = CurTime()
+	
 	self.Owner:SetVelocity(-5 * (recoil * aimVec))
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
 end

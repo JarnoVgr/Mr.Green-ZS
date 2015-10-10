@@ -483,7 +483,7 @@ ZombieClasses[8] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when under 175 health.", "> HEALTH: 350 ", "> SPEED: 150 / 190", "> DAMAGE: 30" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when under 175 health.", "> HEALTH: 350 ", "> SPEED: 150 / 200", "> DAMAGE: 30" },
 	PainSounds = {
 		Sound( "npc/zombine/zombine_pain1.wav" ),
 		Sound( "npc/zombine/zombine_pain2.wav" ),
