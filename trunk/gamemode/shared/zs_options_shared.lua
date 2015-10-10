@@ -514,7 +514,7 @@ GM.Perks = {
 		Description = " +10% Melee Damage \n 5% damage done with melee goes to health\n +5 Health On Melee Kill\n +10% Damage Resistance \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +0.5% Movement Speed per lvl \n", Material = "zombiesurvival/humanclass/avatar_berserker", Slot = 3},
 	["_engineer"] = {Name = "Engineer",   		
 		Equipment = " Turret\n C4\n Pistol\n Frying Pan", 	
-		Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +5% Turret Damage\n\n +2% Turret Damage per lvl \n +2% Turret Health per lvl \n +5 Turret Bullets per lvl \n +5% Pulse Weapon Capacity per lvl \n +1% Pulse Weapon Damage per lvl \n +2% Pulse Weapon Recharge Rate per lvl \n +2% Turret Recharge Rate per lvl \n +1% C4 Damage per lvl \n +1% C4 Radius per lvl \n", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
+		Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +1 Turret Damage\n\n +0.25 Turret Damage per lvl \n +2 Turret Health per lvl \n +2 Turret Bullets per lvl \n +5% Pulse Weapon Capacity per lvl \n +1% Pulse Weapon Damage per lvl \n +2% Pulse Weapon Recharge Rate per lvl \n +2% Turret Recharge Rate per lvl \n +1% C4 Damage per lvl \n +1% C4 Radius per lvl \n", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
 	["_sharpshooter"] = {Name = "Sharpshooter", 
 		Equipment = " Mobile Supplies\n Beretta\n Knife", 	
 		Description = " +10% Sniper Damage \n +10% Headshot Damage \n\n +1% Sniper Damage per lvl \n +1% Headshot Damage per lvl \n",Material = "zombiesurvival/humanclass/avatar_sharpshooter" , Slot = 3},	

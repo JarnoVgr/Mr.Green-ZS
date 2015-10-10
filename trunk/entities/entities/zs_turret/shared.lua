@@ -90,9 +90,9 @@ if SERVER then
 		self:SetMaterial(MaterialToApply)]]
 					
 			if self:GetTurretOwner():GetPerk ("_engineer") then	
-				self.Damage = self.Damage + (self.Damage*(2*self:GetTurretOwner():GetRank())/100)		
-				self.MaxHealth = self.MaxHealth + (self.MaxHealth*(2*self:GetTurretOwner():GetRank())/100)	
-				self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 5)
+				self.Damage = self.Damage + (self:GetTurretOwner():GetRank() * 0.25) + 1
+				self.MaxHealth = self.MaxHealth + self:GetTurretOwner():GetRank()
+				self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 2) + 10
 			end		
 			
 			if self:GetTurretOwner():GetPerk("_turret") then --Class engineer 
