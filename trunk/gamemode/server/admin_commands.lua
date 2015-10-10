@@ -312,13 +312,14 @@ local function CommandSay(pl, text, teamonly)
 		if pl.ChatScream < CurTime() or pl:IsSuperAdmin() then
 			for k, v in pairs (VoiceSets[set].ChatSounds) do
 				if string.find(string.lower(text),k) then
+					return ""
 					pl:EmitSound(v[math.random(1,#v)])
 					pl.LastVoice = CurTime()
 					pl.ChatScream = CurTime() + 10 -- 10 secs before we're allowed another scream, prevents spam
 					break
 				end	
 			end
-								return ""
+
 		end
 	end
 end
