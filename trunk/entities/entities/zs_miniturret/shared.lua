@@ -12,8 +12,8 @@ ENT.AutomaticFrameAdvance = true
 ENT.MaxHealth = 500
 ENT.MaxBullets = 150
 ENT.RechargeDelay = 0.5
-ENT.SpotDistance = 512
-ENT.Damage = 4
+ENT.SpotDistance = 580
+ENT.Damage = 5
 
 local model = Model("models/Combine_Scanner.mdl")
 
@@ -56,17 +56,22 @@ function ENT:Initialize()
 	self.LastShootTime = 0
 	
 	
-	if self:GetOwner():GetPerk("_turret") then --Combined the turret perks into one perk as requested by the community.
+	if self:GetTurretOwner():GetPerk ("_engineer") then	
+		self.Damage = self.Damage + (self:GetTurretOwner():GetRank() * 0.25) + 1
+		self.MaxHealth = self.MaxHealth + self:GetTurretOwner():GetRank()
+		self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 2) + 10
+	end		
+	
+	if self:GetTurretOwner():GetPerk("_turret") then --Class engineer 
 		self.MaxBullets = math.Round(self.MaxBullets*1.5)
 		self.MaxHealth = math.Round(self.MaxHealth*1.5)
 		self.Damage = math.Round(self.Damage*1.5)
-	end
-	
-	if self:GetOwner():GetPerk ("_engineer") then	
-		self.Damage = self.Damage + ((self.Damage*1.05)*(2*self:GetOwner():GetRank())/100)		
-		self.MaxHealth = self.MaxHealth + (self.MaxHealth*(2*self:GetOwner():GetRank())/100)	
-		self.MaxBullets = self.MaxBullets + (10*self:GetOwner():GetRank())
 	end			
+
+	if self:GetTurretOwner().DataTable["ShopItems"][50] then
+		self.Damage = self.Damage + 1
+		self.MaxBullets = math.Round(self.MaxBullets*1.2)				
+	end		
 	
 	--[[if self:GetOwner():GetPerk("_turretammo") then
 		self.MaxBullets = math.Round(self.MaxBullets*1.5)
@@ -112,10 +117,10 @@ function ENT:Think()
 		if self:IsValidTarget(target) then
 			if ct > (self.NextAttackAction or 0) then
 				if self:CanAttack() then
-					self.NextShoot = self.NextShoot or ct + 0.18	
+					self.NextShoot = self.NextShoot or ct + 0.05	
 					if ct > self.NextShoot then
 						self:Shoot()
-						self.NextShoot = ct + 0.18	
+						self.NextShoot = ct + 0.05
 					end
 				else
 					self:ClearTarget()
