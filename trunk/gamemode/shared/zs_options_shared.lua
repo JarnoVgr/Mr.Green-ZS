@@ -508,7 +508,7 @@ GM.Perks = {
 		Description = " +10% Rifle Damage \n See Undead Health\n +10% Clip Size  \n +10 Health \n\n +3 Health per lvl\n +2% Clip Size per lvlLevel \n +1% Rifle Damage per lvl\n", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
 	["_support2"] = {Name = "Support",    		
 		Equipment = " Ammo Pack \n USP\n Hammer", 			
-		Description = " Ammo Pack can be used to gather ammo from ammo boxes or mobile supply as well as throwing ammo boxes down. \n +10% Shotgun Damage \n +10% SMG Damage \n +10% Ammo Received \n\n +1% SMG Damage per lvl\n +1% Shotgun Damage per lvl \n +1% Nail Health per lvl \n +0.5 Repair Points per lvl \n +1 Nail per lvl \n +2% Ammo Received per lvl \n ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
+		Description = " Ammo Pack can be used to gather ammo from ammo boxes or mobile supply as well as throwing ammo boxes down. \n +10% Shotgun Damage \n +10% SMG Damage \n +10% Ammo Received \n\n +1% SMG Damage per lvl\n +1% Shotgun Damage per lvl \n +1 Nail Health per lvl \n +0.25 Repair Points per lvl \n +1 Nail per lvl \n +2% Ammo Received per lvl \n ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
 	["_berserker"] = {Name = "Berserker", 		
 		Equipment = " Desert Eagle\n Plank", 				
 		Description = " +10% Melee Damage \n 5% damage done with melee goes to health\n +5 Health On Melee Kill\n +10% Damage Resistance \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +0.5% Movement Speed per lvl \n", Material = "zombiesurvival/humanclass/avatar_berserker", Slot = 3},

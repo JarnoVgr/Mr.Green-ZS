@@ -1209,17 +1209,15 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 			continue
 		end
 		
-		nail:SetDTInt(1, nail:GetDTInt(1) - (damage/#ent.Nails) )	
+		nail:SetDTInt(1, nail:GetDTInt(1) - ((damage/#ent.Nails)*0.5) )	
 		ent:SetHealth(ent:Health() - (damage/#ent.Nails))
-		nail:SetNailHealth(nail:GetNailHealth() - damage)	
+		nail:SetNailHealth(nail:GetNailHealth() - (damage/#ent.Nails))	
 		
 		ent:EmitSound( "physics/metal/metal_box_impact_bullet"..math.random( 1,3 )..".wav", math.random(50,60) )			
 		
 		--Check for nail heath
-		if nail:GetNailHealth() > 0 then
-			break
-		end
-		
+		if nail:GetNailHealth() <= 0 then
+	
 		bNailDied = true
 	
 		--????
@@ -1243,6 +1241,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 				
 		--Stop execution since we don't want to damage multiple nails in 1 hit
 		break
+				end
 			
 	end
 	

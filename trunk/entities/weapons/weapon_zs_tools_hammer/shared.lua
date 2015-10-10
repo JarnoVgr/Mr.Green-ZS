@@ -105,7 +105,7 @@ function SWEP:OnDeploy()
     end
 	
 	if self.Owner:GetPerk("_support2") then
-	self.ToHeal = self.ToHeal + (self.Owner:GetRank()*0.5)
+	self.ToHeal = math.Round(self.ToHeal + (self.Owner:GetRank()*0.25))
 	end
 	
 	if IsValid(self.Owner) and self.Owner.DataTable["ShopItems"][51] then

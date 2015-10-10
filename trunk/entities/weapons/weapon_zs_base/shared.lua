@@ -7,6 +7,9 @@ SWEP.ConeMoving = 0.03
 SWEP.ConeCrouching = 0.013
 SWEP.ConeIron = 0.018
 SWEP.ConeIronCrouching = 0.01
+
+SWEP.CurrentCone = 0
+
 SWEP.ViewModelFlip = false
 SWEP.ViewModelFOV = 60
 SWEP.Primary.ClipSize = -1
