@@ -151,25 +151,23 @@ function skillpoints.AddSkillPoints(pl, amount)
 				pl:EmitSound("items/gift_pickup.wav" )				
 			end			
 		elseif weaponType == "smg" || weaponType == "rifle" || weaponType == "shotgun" then
-		
 			local Automatic = pl:GetAutomatic()
-			if (weapons.Get(item).Primary.Damage * weapons.Get(item).Primary.NumShots) * (1 / weapons.Get(item).Primary.Delay) > (Automatic.Primary.Damage * Automatic.Primary.NumShots )* (1 / Automatic.Primary.Delay) then	
-				if IsValid(Automatic) then
+			if IsValid(Automatic) then			
+				if (weapons.Get(item).Primary.Damage * weapons.Get(item).Primary.NumShots) * (1 / weapons.Get(item).Primary.Delay) > (Automatic.Primary.Damage * Automatic.Primary.NumShots )* (1 / Automatic.Primary.Delay) then	
 					pl:StripWeapon(Automatic:GetClass())
-				end
-				pl:Give(item)
-				pl:SelectWeapon(item)
-			else
-				pl:GiveAmmo( 20, "pistol" )	
-				pl:GiveAmmo( 60, "ar2" )
-				pl:GiveAmmo( 60, "SMG1" )	
-				pl:GiveAmmo( 18, "buckshot" )		
-				pl:GiveAmmo( 8, "XBowBolt" )
-				pl:GiveAmmo( 16, "357" )
-				pl:GiveAmmo( 60, "alyxgun" )	
-				
+					pl:Give(item)
+					pl:SelectWeapon(item)
 				local itemToSpawn = ents.Create(item)	
-				if IsValid(itemToSpawn) then
+				elseif IsValid(itemToSpawn) then
+				
+					pl:GiveAmmo( 20, "pistol" )	
+					pl:GiveAmmo( 60, "ar2" )
+					pl:GiveAmmo( 60, "SMG1" )	
+					pl:GiveAmmo( 18, "buckshot" )		
+					pl:GiveAmmo( 8, "XBowBolt" )
+					pl:GiveAmmo( 16, "357" )
+					pl:GiveAmmo( 60, "alyxgun" )				
+				
 					pl:Message(weapons.Get(item).PrintName .. " dropped." or item .. " dropped.", 2)						
 					if pl:Crouching() then
 						itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,20))			
