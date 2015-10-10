@@ -30,6 +30,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl:SetZombieClass(0)
 	pl:SetHumanClass(1)
 	
+	MOBILE_SUPPLIES = false	
 	-- Substract one point from the most chosen class table to compensate for the setzombie/human class above
 	--local HumanClassName, ZombieClassName = HumanClasses[1].Name, ZombieClasses[1].Name
 	
@@ -756,7 +757,6 @@ function CalculatePlayerLoadout(pl)
 			pl:Give("weapon_zs_melee_pipe2")
 		end		
 	elseif pl:GetPerk("_sharpshooter") then
-		MOBILE_SUPPLIES = true
 		pl.Loadout = table.Copy(sharpshooter)
 		pl:ChatPrint("You are a Sharpshooter")
 			
