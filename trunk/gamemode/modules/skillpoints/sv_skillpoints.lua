@@ -153,7 +153,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 		elseif weaponType == "smg" || weaponType == "rifle" || weaponType == "shotgun" then
 		
 			local Automatic = pl:GetAutomatic()
-			if weapons.Get(item).Primary.Damage * (1 / weapons.Get(item).Primary.Delay) > Automatic.Primary.Damage * (1 / Automatic.Primary.Delay) then	
+			if (weapons.Get(item).Primary.Damage * weapons.Get(item).Primary.NumShots) * (1 / weapons.Get(item).Primary.Delay) > (Automatic.Primary.Damage * Automatic.Primary.NumShots )* (1 / Automatic.Primary.Delay) then	
 				if IsValid(Automatic) then
 					pl:StripWeapon(Automatic:GetClass())
 				end
