@@ -51,7 +51,7 @@ end
 function SWEP:Think()
 	self.BaseClass.Think(self)
 	--if SERVER then
-		self:CheckAttackAnim()
+		--self:CheckAttackAnim()
 
 		if self:IsScreaming() == true and not self:IsInSecondaryAttack() then
 		self:Screaming(false)	
