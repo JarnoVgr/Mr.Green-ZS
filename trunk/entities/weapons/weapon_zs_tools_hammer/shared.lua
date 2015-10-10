@@ -434,7 +434,7 @@ function SWEP:SecondaryAttack()
                                    
                             local nail = ents.Create("nail")
                             local aimvec = self.Owner:GetAimVector()
-                            nail:SetPos(tr.HitPos - aimvec * 16)
+                            nail:SetPos(tr.HitPos - aimvec * 8)
                             nail:SetAngles(aimvec:Angle())
                             nail:SetParentPhysNum(tr.PhysicsBone)
                             nail:SetParent(trent)

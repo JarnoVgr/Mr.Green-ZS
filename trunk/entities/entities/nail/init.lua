@@ -10,22 +10,23 @@ function ENT:Initialize()
 	self:SetModel(Model("models/crossbow_bolt.mdl"))
 	--self:PhysicsInit(SOLID_BBOX)
 	-- self.Heal = 700 * math.Clamp(GetInfliction()+0.3,0.5,1)
-
+	--self:SetMaterial("models/debug/debugwhite")
 	--Initial and Maximum Health
 	self.Heal = 100
-	
 	--Increase health when having a perk
 	local Owner = self:GetOwner()
 	if IsValid(Owner) then
 		if Owner:GetPerk("_support2") then
-			self.Heal = self.Heal + (100*(1*Owner:GetRank())/100)
+			self.Heal = self.Heal + Owner:GetRank()
+			
+			if Owner.DataTable["ShopItems"][51] then
+				self.Heal = self.Heal + 20
+			end			
 		end
 		--if Owner:GetPerk("_nailhp") then
 		--	self.Heal = math.Round(self.Heal + (self.Heal*0.5))
 		--end
-		if Owner.DataTable["ShopItems"][51] then
-			self.Heal = self.Heal + 50
-		end
+
 		
 		if Owner:GetPerk("_repairs") then
 			self.Heal = self.Heal + 40
