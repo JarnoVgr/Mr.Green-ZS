@@ -43,7 +43,7 @@ SWEP.Primary.Recoil			= 2
 SWEP.Primary.Damage			= 9
 SWEP.Primary.NumShots		= 3
 SWEP.Primary.ClipSize		= 7
-SWEP.Primary.Delay			= 0.3
+SWEP.Primary.Delay			= 0.22
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "alyxgun"
@@ -51,11 +51,11 @@ SWEP.MaxAmmo			    = 100
 SWEP.WalkSpeed = SPEED_PISTOL
 
 
-SWEP.Cone = 0.98
-SWEP.ConeMoving = SWEP.Cone *1.2
-SWEP.ConeCrouching = SWEP.Cone *0.85
-SWEP.ConeIron = SWEP.Cone *0.95
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.95
+SWEP.Cone = 0.13
+SWEP.ConeMoving = SWEP.Cone *1.05
+SWEP.ConeCrouching = SWEP.Cone *0.98
+SWEP.ConeIron = SWEP.Cone *0.99
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.99
 --SWEP.ConeIronMoving = SWEP.Moving *0.9
 
 
