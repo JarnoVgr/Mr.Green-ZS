@@ -34,7 +34,7 @@ SWEP.SlotPos = 8
 
 -- Damage, distane, delay
 SWEP.MeleeDamage = 40
-SWEP.Primary.Delay = 0.75
+SWEP.Primary.Delay = 1
 SWEP.Primary.Distance = 50
 SWEP.WalkSpeed = SPEED_MELEE_HEAVY - 4
 SWEP.SwingTime = 0.65

@@ -284,7 +284,7 @@ function GM:OnHumanSpawn(pl)
 		pl.PlayerModel = table.Random(MedicPlayerModels)
 	elseif pl:GetPerk("Commando") then		
 		pl.PlayerModel = table.Random(CommandoPlayerModels)
-	elseif pl:GetPerk("_support2") then		
+	elseif pl:GetPerk("Support") then		
 		pl.PlayerModel = table.Random(SupportPlayerModels)
 	elseif pl:GetPerk("Berserker") then
 		pl.PlayerModel = table.Random(BerserkerPlayerModels)
