@@ -98,7 +98,7 @@ function SWEP:Equip ( NewOwner )
 		if self.Weapon.FirstSpawn then
 			self.Weapon.FirstSpawn = false
 			
-		if self.Owner:GetPerk("_mine") then
+		if self.Owner:GetPerk("engineer_multimine") then
 			self.Weapon:SetClip1( 7 ) 	
 		end	
 		

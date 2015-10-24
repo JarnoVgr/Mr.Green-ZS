@@ -47,19 +47,19 @@ local function AddScoreboardItem(ply, list)
 		
 		local col = team.GetColor(ply:Team())
 		draw.SimpleTextOutlined(ply:Nick() , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		if ply:GetPerk("_support2") then
+		if ply:GetPerk("Support") then
 		draw.SimpleTextOutlined(ply:Nick().."  Support" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		elseif ply:GetPerk("_engineer") then
+		elseif ply:GetPerk("Engineer") then
 		draw.SimpleTextOutlined(ply:Nick().."  Engineer" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		elseif ply:GetPerk("_commando") then
+		elseif ply:GetPerk("Commando") then
 		draw.SimpleTextOutlined(ply:Nick().."  Commando" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		elseif ply:GetPerk("_berserker") then
+		elseif ply:GetPerk("Berserker") then
 		draw.SimpleTextOutlined(ply:Nick().."  Berserker" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		elseif ply:GetPerk("_sharpshooter") then
+		elseif ply:GetPerk("Sharpshooter") then
 		draw.SimpleTextOutlined(ply:Nick().."  Sharpshooter" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-		elseif ply:GetPerk("_pyro") then
+		elseif ply:GetPerk("Pyro") then
 		draw.SimpleTextOutlined(ply:Nick().."  Pyro" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))	
-		elseif ply:GetPerk("_medic") then
+		elseif ply:GetPerk("Medic") then
 		draw.SimpleTextOutlined(ply:Nick().."  Medic" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:IsBot() then
 		draw.SimpleTextOutlined("Necro Bot" , "ArialBoldFive", 100,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))

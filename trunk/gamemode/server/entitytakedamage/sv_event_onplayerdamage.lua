@@ -15,20 +15,23 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 	-- Damage indicator
 	GAMEMODE:DoDamageIndicator(pl, inflictor, attacker, dmginfo)
 
-	--timer.Simple(0.5, function()
-		--  Process upgrade codes and bonuses
-		GAMEMODE:DoDamageUpgrades(pl, attacker, inflictor, dmginfo)
-		
-		-- Process achievements
-		GAMEMODE:DoDamageAchievements(pl, attacker, inflictor, dmginfo)
-	--end)
+--timer.Simple(0.5, function()
+	--  Process upgrade codes and bonuses
+	GAMEMODE:DoDamageUpgrades(pl, attacker, inflictor, dmginfo)
+	
+	-- Process achievements
+	GAMEMODE:DoDamageAchievements(pl, attacker, inflictor, dmginfo)
+--end)
 
 	-- Play hurt sound
 	pl:PlayPainSound()
+	
+	
 
 	
 	if pl:IsHuman() then
 		pl:CheckSpeedChange()
+		pl:CheckEnrage(dmginfo:GetDamage())
 		if attacker:IsPlayer() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_ghoul" or attacker:IsPlayer() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_poisonzombie" then
 			local protect = 0
 			if pl:GetPerk("_poisonprotect") then

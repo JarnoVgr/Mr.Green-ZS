@@ -47,6 +47,7 @@ local function SelectSales()
 end
 hook.Add("Initialize", "SkillShop-SelectSales", SelectSales)
 
+--[[
 util.AddNetworkString("SendSales")
 local function SendSalesToClient(pl)
 	if pl:IsBot() or ItemsOnSale == 0 then
@@ -62,7 +63,7 @@ local function SendSalesToClient(pl)
 	net.Send(pl)
 end
 hook.Add("PlayerReady", "SkillShop-SendSales", SendSalesToClient)
-
+]]--
 --Buy points with GCs
 local BuyPointsAmount = GetConVar("zs_skillshop_buypoints_amount")
 local BuyPointsCost = GetConVar("zs_skillshop_buypoints_cost")
@@ -181,11 +182,11 @@ function ApplySkillShopItem(pl, com, args)
 			local HowMuch = ItemTable.Amount
 			local mul = 1
 			
-			if pl:GetPerk("_support2") then
+			if pl:GetPerk("Support") then
 				mul = mul + 0.1
 			end					
 			
-			if pl:GetPerk("_support2") then
+			if pl:GetPerk("Support") then
 				mul = mul + pl:GetRank()*0.02
 			end	
 			

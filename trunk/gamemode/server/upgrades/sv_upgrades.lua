@@ -25,51 +25,29 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 		if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and ent:IsPlayer() then
 				
 				olddmg = dmginfo:GetDamage() 
-				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
-			if attacker:GetActiveWeapon().Primary.Ammo == "pistol" and attacker:GetPerk("_medic") then
-				dmg = dmg + (dmg * mul)
-			elseif attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("_commando") then
-				dmg = dmg + (dmg * mul)
-				
-				if attacker:GetPerk("_enforcer") then
-					dmg = dmg + 1
-				end
-			elseif attacker:GetActiveWeapon().Primary.Ammo == "smg1" and attacker:GetPerk("_support2") or attacker:GetActiveWeapon().Primary.Ammo == "buckshot" and attacker:GetPerk("_support2") then
-				dmg = dmg + (dmg * mul)		
-				
-				if attacker:GetPerk("_bulletstorm") then
-					if attacker:GetActiveWeapon().Primary.Ammo == "smg1" then
-						mul = mul + 0.1
-					else
-						mul = mul + 0.05
-					end
-				end
-				
-			elseif attacker:GetActiveWeapon().Primary.Ammo == "357" and attacker:GetPerk("_sharpshooter") then
-				if attacker:GetPerk("_highcal") then
-					mul = mul + 0.05		
-					
-				elseif attacker:GetPerk("_frictionburn") and math.random(1,4) == 1 then
-					mul = mul - 0.05	
-					ent:TakeDamageOverTime(6, 1, 4, attacker, inflictor )
-					ent:Ignite(4,0)			
-				end
+				mul = 0
 
-				dmg = dmg + (dmg * mul)	
+			if attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("Commando") then
+				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+				dmg = dmg + (dmg * mul)
 				
-			elseif attacker:GetActiveWeapon().Primary.Ammo == "Battery" and attacker:GetPerk("_medic") then --mediguns
-			
-				if attacker:GetPerk("_battlemedic") then
-					dmg = dmg + 1			
-				elseif attacker:GetPerk("_bleed") then
+			elseif attacker:GetActiveWeapon().Primary.Ammo == "smg1" and attacker:GetPerk("Support") or attacker:GetActiveWeapon().Primary.Ammo == "buckshot" and attacker:GetPerk("_support2") then
+				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+				dmg = dmg + (dmg * mul)						
+			elseif attacker:GetActiveWeapon().Primary.Ammo == "357" and attacker:GetPerk("Sharpshooter") then
+				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+				dmg = dmg + (dmg * mul)	
+			elseif (attacker:GetActiveWeapon().Primary.Ammo == "Battery" or attacker:GetActiveWeapon().Primary.Ammo == "pistol")  and attacker:GetPerk("Medic") then --mediguns
+				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+				dmg = dmg + (dmg * mul)
+				
+				if attacker:GetPerk("medic_bleed") then
 					ent:TakeDamageOverTime(dmg*0.2, 1, 5, attacker, inflictor )	
 				end
 				
-				dmg = dmg + (dmg * mul)
-				
-			elseif attacker:GetActiveWeapon().Primary.Ammo == "alyxgun" and attacker:GetPerk("_pyro") then
+			elseif attacker:GetActiveWeapon().Primary.Ammo == "alyxgun" and attacker:GetPerk("Pyro") then
+				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
 				local burnchance = 100 - attacker:GetRank() * 1	
-				
 				local ignite = 1
 				local burn = 6 + (6 * (0.05 + (3*(attacker:GetRank()*0.01))))		
 				local scorch = 10 + (10 * (2*(attacker:GetRank()*0.01)))	
@@ -81,7 +59,6 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					
 				end
 
-				
 				if ent:IsOnFire() then
 					mul = mul + 0.1
 				end				
@@ -92,77 +69,60 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					burnchance = burnchance - 20
 				end
 				
-				if attacker:GetPerk("_burn") then
+				if attacker:GetPerk("pyro_burn") then
 					burnchance = burnchance - 5
-				--elseif attacker:GetPerk("_scorch") then
-				--	burnchance = burnchance + 5
 				end
 				
 				if math.random(1,burnchance) <= 12 then
-				
-					
-					if attacker:GetPerk("_pyrosp") then
+					if attacker:GetPerk("pyro_hotpoints") then
 						skillpoints.AddSkillPoints(attacker,3)
 						ent:FloatingTextEffect(3, attacker)						
-					--elseif attacker:GetPerk("_scorch") then
-					--	burn = burn + (burn*0.15)
 					end
 										
-					if attacker:GetPerk("_burn") then
-						burn = burn * 1.25
-						
-						if math.random(1,10) == 1 then
-							attacker:Ignite(ignite,0)							
-						end
+					if attacker:GetPerk("pyro_burn") then
+						burn = burn + 10
+					end
+					
+					if attacker:GetPerk("pyro_backfire") then	
+						attacker:GiveAmmo(5,"alyxgun")
 					end
 					
 					dmg = dmg+scorch
 					ent:TakeDamageOverTime(burn, 1, ignite , attacker, inflictor )					
 					ent:Ignite(ignite,0)	
-
-					--print("damage over time" ..burn)
-					--print("ignite time".. ignite)
-					--print("burn chance"..burnchance)
-				
 				end
 				
 				dmg = dmg + (dmg * mul)
 				
-			elseif  attacker:GetPerk("_engineer") then
-			
+			elseif  attacker:GetPerk("Engineer") then
 				if attacker:GetActiveWeapon().Primary.Ammo == "none" then
-					dmg = dmg + (dmg * mul)	
-					if attacker:GetPerk("_darkenergy") then
-						dmg = dmg + 1
+					mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+
+					if attacker:GetPerk("engineer_darkenergy") then
+						mul = mul + 0.1
 					end					
 				end
 
-				if attacker:GetPerk("_combustion") and inflictor:GetClass() == "env_explosion" then
-					ent:TakeDamageOverTime(6, 1, 4, attacker, inflictor )
+				if attacker:GetPerk("engineer_combustion") and inflictor:GetClass() == "env_explosion" then
+					ent:TakeDamageOverTime(7, 1, 4, attacker, inflictor )
 					ent:Ignite(4,0)		
 				end
+				dmg = dmg + (dmg * mul)	
 				
-			elseif attacker:GetPerk("_berserker") then
+			elseif attacker:GetPerk("Berserker") then
 				if not dmginfo:IsMeleeDamage() then
 					dmg = dmg * 0.9
 				else
 					mul = 0.1
-					if attacker:GetPerk("_headhunter") then
-						mul = mul - 0.15
-					elseif attacker:GetPerk("_freeman") then
-						mul = mul + 0.15
-					end
-					
-					if attacker:GetPerk("_executioner") then
-						mul = mul - 0.25
+					if attacker:GetPerk("berserker_executioner") then
 						if ent:Health() < ent:GetMaximumHealth()*0.3 then
-							mul = mul + 1
+							mul = mul + 0.3
 						end
 					end
 					dmg = dmg + (dmg * mul)		
 
-					if attacker:GetPerk("_vampire") then
-						attacker:SetHealth(math.Clamp(attacker:Health() + dmg*0.075,0,attacker:GetMaximumHealth()))	
+					if attacker:GetPerk("berserker_vampire") then
+						attacker:SetHealth(math.Clamp(attacker:Health() + dmg*0.065,0,attacker:GetMaximumHealth()))	
 					else
 						attacker:SetHealth(math.Clamp(attacker:Health() + dmg*0.05,0,attacker:GetMaximumHealth()))						
 					end
@@ -170,29 +130,42 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 			end	
 			
-			skillpoints.AddSkillPoints(attacker,math.floor( ( ent:GetMaximumHealth() / 10 ) * ( dmg / ent:GetMaximumHealth() )))	
+			if (!attacker:GetPerk("global_sp")) then
+				skillpoints.AddSkillPoints(attacker,math.floor( ( ent:GetMaximumHealth() / 10 ) * ( dmg / ent:GetMaximumHealth() )))	
+			end
 
 			
-		elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent:IsPlayer() then
+		elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent:IsPlayer() and ent:Team() == TEAM_HUMAN then
 		
 			if attacker:HasBought("vampire") and attacker:Health() + dmg * 0.5 < attacker:GetMaximumHealth() then	
 				attacker:SetHealth(attacker:Health() + dmg * 0.5)	
 			end		
 		
-			if ent:GetPerk("_sharpshooter") and ent.DataTable["ShopItems"][69] and math.random(1,5) == 1 then
+			if ent:GetPerk("Sharpshooter") and ent.DataTable["ShopItems"][69] and math.random(1,5) == 1 then
 				dmginfo:SetDamage(0)				
-			elseif ent:GetPerk("_medic") then
+			elseif ent:GetPerk("Medic") then
+			
+				if (ent:GetPerk("medic_battlemedic")) then
+					dmg = dmg - (dmg * 0.05)					
+				end
+			
 				dmg = dmg - (dmg * ((2*ent:GetRank())/100) + 0.1)	
 
-			elseif ent:GetPerk("_kevlarcommando2") or ent:GetPerk("_pyrokevlar") then
+			elseif ent:GetPerk("commando_kevlar") then
 				dmg = dmg*0.8	
+				
+			elseif ent:GetPerk("berserker_enrage") then
+				if (ent:Health() > 40 and (ent:Health() - dmg) < 40) then
+					ent:SendLua("WraithScream()")
+					ent:EmitSound(Sound("npc/fast_zombie/fz_scream1.wav"), 90, 85)
+					ent:SetColor(Color(255,125,125))
+				end
 
-			elseif ent:GetPerk("_immolate") then
-				attacker:Ignite(4,0)	
-				dmg = dmg*0.6
-				ent:Ignite(2,0)				
-				attacker:TakeDamageOverTime(7, 1, 4 , ent,ent)	
-			elseif ent:GetPerk("_berserker") then
+			elseif ent:GetPerk("pyro_immolate") then
+				attacker:Ignite(4,0)			
+				dmginfo:SetAttacker(ent)
+				attacker:TakeDamageOverTime(10, 1, 4 ,ent,ent)	
+			elseif ent:GetPerk("Berserker") then
 				dmg = dmg*0.9	
 			end	
 		end		

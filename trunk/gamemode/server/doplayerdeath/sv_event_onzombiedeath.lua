@@ -27,8 +27,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	if not revive and not dmginfo:IsMeleeDamage() and mVictim:GetAttachment(1) and (dmginfo:GetDamagePosition():Distance(mVictim:GetAttachment(1).Pos )) < 15 then 
 		mVictim:EmitSound(Sound("physics/body/body_medium_break"..math.random( 2, 4 )..".wav"))
 				
-		headshot = true
-				
+		headshot = true		
 		-- Effect
 		local effectdata = EffectData()
 		effectdata:SetOrigin( mVictim:GetAttachment(1).Pos )
@@ -40,11 +39,9 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		if mInflictor.IsTurretDmg then
 			skillpoints.AddSkillPoints(mAttacker, 3)
 			mAttacker:AddXP(ZombieClasses[mVictim:GetZombieClass()].Bounty)			
-			mVictim:FloatingTextEffect(3, mAttacker)	
 
-			if mAttacker:GetPerk("_turretsp") then
-				mVictim:FloatingTextEffect(5, mAttacker)	
-				skillpoints.AddSkillPoints(mAttacker, 5)				
+			if mAttacker:GetPerk("engineer_revenue") then
+				mVictim:FloatingTextEffect(5, mAttacker)				
 			end
 		end
 	end
@@ -62,18 +59,15 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		
 	-- melee	
 	if not revive and mVictim:GetAttachment( 1 ) then 
-		if (dmginfo:GetDamagePosition():Distance( mVictim:GetAttachment( 1 ).Pos )) < 24 then
+		if (dmginfo:GetDamagePosition():Distance( mVictim:GetAttachment( 1 ).Pos )) < 16 then
 			if dmginfo:IsMeleeDamage() and not mInflictor.IsTurretDmg then
 				if dmginfo:IsDecapitationDamage() then
-					
-					if math.random(1,2) == 1 then
-						skillpoints.AddSkillPoints(mAttacker,5)
+				
+					skillpoints.AddSkillPoints(mAttacker,5)
 
-						mVictim:Dismember("DECAPITATION",dmginfo)
-							
-						headshot = true
-
-					end
+					mVictim:Dismember("DECAPITATION",dmginfo)
+						
+					headshot = true
 				end
 			end
 		end
@@ -140,10 +134,10 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		local floaty = 0
 		
 		if headshot then
-				if mAttacker:GetPerk("_headshot") then
-					floaty = floaty + 5
-					skillpoints.AddSkillPoints(mAttacker,5)
-				end
+			if mAttacker:GetPerk("sharpshooter_skillshot") then
+				floaty = floaty + 5
+				skillpoints.AddSkillPoints(mAttacker,5)
+			end
 				
 			skillpoints.AddSkillPoints(mAttacker,3)
 			mAttacker:AddXP(10)
@@ -166,11 +160,16 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 					skillpoints.AddSkillPoints(mAttacker,reward)
 					floaty = floaty + reward	
 				end				
+				
+				if mAttacker:GetPerk("global_sp") then
+					skillpoints.AddSkillPoints(mAttacker,reward * 2)
+					floaty = floaty + reward * 2					
+				end
 
-				if mAttacker:GetPerk("_commando") then --Double checker, just in case..
-					if mAttacker:GetPerk("_profitable") then
-						skillpoints.AddSkillPoints(mAttacker,reward/1.3)
-						floaty = floaty + (reward/1.3)	
+				if mAttacker:GetPerk("Commando") then --Double checker, just in case..
+					if mAttacker:GetPerk("commando_leadmarket") then
+						skillpoints.AddSkillPoints(mAttacker,reward/1.5)
+						floaty = floaty + (reward/1.5)	
 					end
 				else 
 			end

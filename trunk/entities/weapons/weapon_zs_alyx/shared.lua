@@ -59,11 +59,6 @@ function SWEP:OnDeploy()
     self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 
 	if self.Weapon.HadFirstDeploy then return end
-
-	if IsValid(self.Owner) and self.Owner:GetPerk("_alyxclip") then
-		self.Weapon.HadFirstDeploy = true	
-		self.Owner:GiveAmmo( self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
-	end		
 end
 
 SWEP.ShowWorldModel = false

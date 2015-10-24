@@ -48,12 +48,10 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		-- Melee kill
 		if dmginfo:IsMeleeDamage() and not mInflictor.IsTurretDmg then
 			if dmginfo:IsAttackerPlayer() then
-				-- mAttacker:AddScore(1)
-				if mAttacker:GetPerk("_berserker") then
-					if mAttacker:GetPerk("_bloodmoney") then
-						skillpoints.AddSkillPoints(mAttacker,3)
-					end
-				end	
+			-- mAttacker:AddScore(1)
+				if mAttacker:GetPerk("berserker_bloodmoney") then
+					skillpoints.AddSkillPoints(mAttacker,3)
+				end
 			end
 		end
 		
@@ -78,9 +76,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				mVictim:Gib( dmginfo ) 
 				mVictim.Gibbed = true
 
-				skillpoints.AddSkillPoints(mAttacker,5)
-				mVictim:FloatingTextEffect( 5, mAttacker )
-				
+				skillpoints.AddSkillPoints(mAttacker,5)				
 				-- New commando's reqs--------------------------------------
 				
 				---------------------------------------------------------------------

@@ -254,97 +254,6 @@ function GM:OnWeaponEquip(pl, mWeapon)
 end
 
 --[=[---------------------------------------------------------
-      Called when a weapon is deployed
----------------------------------------------------------]=]
-function GM:WeaponDeployed(mOwner, mWeapon, bIron)
-	if not IsValid ( mOwner ) or not mWeapon:IsWeapon() then
-		return
-	end
-	
-	-- We don't want bots
-	if mOwner:IsBot() then return end
-
-	-- Weapon walking speed, health, and player human class
-	local fSpeed, fHealth, iClass, fHealthSpeed = mWeapon.WalkSpeed or SPEED, mOwner:Health(), mOwner:GetHumanClass()
-	
-	if mOwner:GetPerk("_sboost") then
-		fSpeed = fSpeed + (fSpeed*0.05)
-	end
-	
-	if mOwner:GetPerk("_point") then
-		fSpeed = fSpeed + (fSpeed*0.05)
-	end	
-	
-	if mOwner:GetPerk("_sboost2") then
-		fSpeed = fSpeed + fSpeed*0.05
-	end
-	
-	if mOwner:GetPerk("_berserker") then
-		local multiplier = 0.03 + ((mOwner:GetRank()*0.5)*0.01)
-		fSpeed = fSpeed +(fSpeed*multiplier)
-		
-	elseif mOwner:GetPerk("_commando") then
-		fSpeed = fSpeed - 7	
-		
-		if mOwner:GetPerk("_kevlarcommando2") then
-			fSpeed = fSpeed*0.95
-		end
-		
-	elseif mOwner:GetPerk("_pyro") then
-		fSpeed = fSpeed - 3
-		
-		if mOwner:GetPerk("_pyrokevlar") then
-			fSpeed = fSpeed*0.95	
-		end
-		
-	elseif mOwner:GetPerk("_support2") then
-		fSpeed = fSpeed - 8	
-		
-		if mOwner:GetPerk("_bulk") then
-			fSpeed = SPEED - 12
-		end
-		
-	elseif mOwner:GetPerk("_sharpshooter") then
-	
-		if mOwner:GetPerk("_point") then
-			fSpeed = fSpeed*1.05	
-		end		
-		
-	elseif mOwner:GetPerk("_medic") then
-		local multiplier = 0.03 + ((mOwner:GetRank()*0.5)*0.01)
-		fSpeed = fSpeed + (fSpeed*multiplier)	
-	end	
-	
-	fHealthSpeed = math.Clamp ( ( fHealth / 40 ), 0.8, 1 )
-	
-	if bIron then
-		fSpeed = math.Round ( ( fSpeed * 0.8 ) * fHealthSpeed )
-	else
-		if mOwner:IsHolding() then
-			local status = mOwner.status_human_holding
-			-- for _, status in pairs(ents.FindByClass("status_human_holding")) do
-				if status and IsValid(status) and status:GetOwner() == mOwner and status.GetObject and status:GetObject():IsValid() and status:GetObject():GetPhysicsObject():IsValid() then
-					fSpeed = math.Round ( fSpeed * fHealthSpeed )
-					-- break
-				end
-			-- end
-		else
-			fSpeed = math.Round ( fSpeed * fHealthSpeed )
-					
-		end
-	end	
-	
-	if mOwner:GetPerk("_berserk") and fHealth < 41 then
-		fSpeed = mWeapon.WalkSpeed * 1.1
-	end		
-	
-	
-		
-	-- Change speed
-	self:SetPlayerSpeed(mOwner, fSpeed)
-end
-
---[=[---------------------------------------------------------
 	      Called at map load
 ---------------------------------------------------------]=]
 function GM:Initialize()
@@ -385,19 +294,6 @@ end
 
 -- Player presses F2
 function OnPressF2(pl)	
-
-	--[[if pl:Team() == TEAM_HUMAN and pl:Alive() and CurTime() > WARMUPTIME + 1 then
-			local price = GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price
-
-			pl:GetActiveWeapon():Remove()				
-			DropWeapon(pl)
-			price = math.floor(math.Clamp(price * 0.2,0,90))
-			skillpoints.AddSkillPoints(pl,price)
-			pl:Message("+"..price.."SP!", 1)			
-			pl:EmitSound("Breakable.Metal")		
-			return
-	end]]--
-	
 	local requiredScore = REDEEM_KILLS
 	if pl:HasBought("quickredemp") or pl:GetRank() < REDEEM_FAST_LEVEL then
 		requiredScore = REDEEM_FAST_KILLS
@@ -472,11 +368,15 @@ function GM:InitPostEntity()
 	--Loop 1 through props to convert into entity where needed
 	for _, ent in pairs(ents.FindByClass("prop_physics")) do
 		self:ModelToEntity(ent)
+		ent:SetKeyValue("disableshadows", "true")
+		ent:DrawShadow(false)
 	end
 	
 	--Loop 2 through props to convert into entity where needed
 	for _, ent in pairs(ents.FindByClass("prop_physics_multiplayer")) do
 		self:ModelToEntity(ent)
+		ent:SetKeyValue("disableshadows", "true")
+		ent:DrawShadow(false)
 	end
 	
 	--Set objective stage
@@ -518,7 +418,7 @@ end
 local function DeleteEntitiesRestricted()
 	-- Entities to delete on map (wildcards are supported)
 	--local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", --[=["func_door", "func_door_rotating",]=] "weapon_*", "item_ammo_*", "item_box_buckshot" }
-	local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", "item_ammo_*" --[=["func_door", "func_door_rotating",]=] }
+	local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", "item_ammo_*", "weapon_*", "item_box*"}
 	
 	-- Trash bin table, stores entities that will be removed
 	local TrashBin, CurrentMapTable = {}, MapProperties[game.GetMap()]-- TranslateMapTable[ game.GetMap() ]
@@ -561,8 +461,8 @@ local function DeleteEntitiesRestricted()
 					for n,mdl in pairs(MapRemoveEntsByModel) do
 						if v:GetModel() == mdl then
 							if IsValid ( v ) then
-								SafeRemoveEntity ( v )	
 							Debug ( "[INIT] Safely removing entity "..tostring ( v ).." from map "..tostring ( game.GetMap() ) )
+								SafeRemoveEntity ( v )	
 							end		
 						end
 					end
@@ -631,6 +531,17 @@ local function DeleteEntitiesRestricted()
 	for k,v in pairs ( TrashBin ) do
 		if IsValid ( v ) then
 			Debug ( "[INIT] Safely removing entity "..tostring ( v ).." from map "..tostring ( game.GetMap() ) )
+			
+			local item = "zs_ammobox"	
+			local itemToSpawn = ents.Create(item)	
+			itemToSpawn:SetPos(v:GetPos())			
+			itemToSpawn:Spawn()
+			local phys = itemToSpawn:GetPhysicsObject()
+			if phys:IsValid() then
+				phys:Wake()
+				phys:ApplyForceCenter(Vector(math.Rand(10, 30),math.Rand(10, 30),math.Rand(10, 40)))
+				phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+			end
 			SafeRemoveEntity ( v )
 		end
 	end
@@ -1564,46 +1475,6 @@ function OnShutDown()
 end
 hook.Add("ShutDown", "OnShutDown", OnShutDown)
 
---[=[---------------------------------------------------------
-      Slowdown when walking backwards.
----------------------------------------------------------]=]
---[[
-function GM:KeyPress(pl, key)
-	--if pl:KeyPressed(IN_JUMP) or pl:KeyPressed(IN_DUCK) then
-	--	if (pl:Team() == TEAM_HUMAN and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime() and pl.ConsecutiveJumps >= 3) or (pl:Team() == TEAM_UNDEAD and pl:GetJumpPower() > 20 and pl.LastJump + 0.7 > CurTime() and pl.ConsecutiveJumps >= 3) then
-			--pl:SetJumpPower(20)
-			--pl.ConsecutiveJumps = 0			
-		--else
-		
-
-			--pl.LastJump = CurTime()					
-		--	pl:SetJumpPower(pl.OriginalJumpPower)	
-			--pl.ConsecutiveJumps = pl.ConsecutiveJumps + 1		
-		--end
-		
-		--if pl.LastJump + 0.7 < CurTime() then
-		--	pl.ConsecutiveJumps = 0			
-		--end
-		
-	--if pl:Team() ~= TEAM_HUMAN then
-	--	return
-	--end
-
-	if pl:KeyPressed(IN_FORWARD) then
-		pl.WalkingBackwards = false
-		pl:CheckSpeedChange()		
-	elseif pl:KeyPressed(IN_BACK) or pl:KeyDown(IN_BACK) then
-		pl.WalkingBackwards = true
-		pl:CheckSpeedChange()		
-	else
-		pl.WalkingBackwards = false
-		pl:CheckSpeedChange()		
-	end
-	
-	--pl:CheckSpeedChange()
-	
-end
-]]--
 --[=[----------------------------------------------------------------------
      Grave Digger suit health on death
 ---------------------------------------------------------------------------]=]
@@ -1647,16 +1518,12 @@ hook.Add("PlayerDeath", "GraveDiggerHealth", function(victim, inflictor, attacke
 		local multiplier = attacker:GetRank()
 		local healthToGive =  multiplier + 5
 		
-		if attacker:GetPerk("_psychotic") then
-			healthToGive = healthToGive + 4
+		if attacker:GetPerk("berserker_maniac") then
+			healthToGive = healthToGive + (healthToGive * 0.25)
 		end
 		
 		if attacker.DataTable["ShopItems"][80] then
 			healthToGive = healthToGive + 3
-		end		
-		
-		if attacker:GetPerk("_vampire") then
-			healthToGive = math.Round(healthToGive * 0.2)
 		end		
 		
 		attacker:SetHealth(attacker:Health() + healthToGive)

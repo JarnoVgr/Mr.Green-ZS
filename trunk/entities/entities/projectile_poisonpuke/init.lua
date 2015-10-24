@@ -29,7 +29,7 @@ function ENT:Think()
 				local owner = self:GetOwner()
 				if IsValid(owner) then
 					if hitent:IsPlayer() and hitent:IsHuman() and hitent:Alive() then
-						if hitent:GetPerk("_medic") then
+						if hitent:GetPerk("Medic") then
 							hitent:TakeDamage(2, owner, self)							
 						else
 							hitent:TakeDamage(3, owner, self)

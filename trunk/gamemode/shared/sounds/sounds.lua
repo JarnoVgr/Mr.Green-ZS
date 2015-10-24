@@ -41,6 +41,7 @@ Sound ( "vo/npc/male01/startle01.wav" ),
 Sound ( "vo/npc/male01/startle02.wav" ),
 }
 
+
 -- Trigger sounds for chat. If someone says "zombie" in chat, it'll emit the corresponding sound
 VoiceSets["male"].ChatSounds = {
 	["burp"] = { Sound("mrgreen/burp.wav") },
@@ -67,8 +68,64 @@ VoiceSets["male"].ChatSounds = {
 	["pills"] = { Sound("mrgreen/pills/SpotPills01male.wav"), Sound("mrgreen/pills/SpotPills02male.wav"),Sound("mrgreen/pills/SpotPills03male.wav")  },
 }
 
+VoiceSets["monk"] = {}
+VoiceSets["monk"].ChatSounds = {
+	["burp"] = { Sound("mrgreen/burp.wav") },
+	["leeroo"] = { Sound("mrgreen/leeroy.mp3") },
+	["over 9000"] = { Sound("mrgreen/9000.wav") },
+	["damnit"] = { Sound("mrgreen/goddamnit2.wav") },
+	--sound is really corrupt after the years...
+	--["this is sparta"] = { Sound("mrgreen/sparta.wav") },
+	["open the door"] = { Sound("mrgreen/opendoor2.wav"), Sound("mrgreen/opendoor3.wav") },
+	["ok"] = { Sound("vo/npc/male01/ok01.wav"), Sound("vo/npc/male01/ok02.wav") },
+	["hack"] = { Sound("vo/npc/male01/hacks01.wav"), Sound("vo/npc/male01/hacks02.wav") },
+	["headcrab"] = { Sound("vo/npc/male01/headcrabs01.wav"), Sound("vo/npc/male01/headcrabs02.wav") },
+	["run"] = { Sound("vo/npc/male01/runforyourlife01.wav"), Sound("vo/npc/male01/runforyourlife02.wav") },
+	["s go"] = { Sound("vo/npc/male01/letsgo01.wav"), Sound("vo/npc/male01/letsgo02.wav") },
+	["help"] = { Sound("vo/npc/male01/help01.wav") },
+	["nice"] = { Sound("vo/npc/male01/nice.wav") },
+	["incoming"] = { Sound("vo/npc/male01/incoming02.wav") },
+	["watch out"] = { Sound("vo/npc/male01/watchout.wav") },
+	["get down"] = { Sound("vo/npc/male01/getdown02.wav") },
+	["oh shi"] = { Sound("vo/npc/male01/uhoh.wav"), Sound("vo/npc/male01/ohno.wav") },
+	["zombie"] = { Sound("vo/npc/male01/zombies01.wav"), Sound("vo/npc/male01/zombies02.wav") },
+	["freeman"] = { Sound("vo/npc/male01/gordead_ques03a.wav"), Sound("vo/npc/male01/gordead_ques03b.wav") },
+	["get out"] = { Sound("vo/npc/male01/gethellout.wav") },
+	["pills"] = { Sound("mrgreen/pills/SpotPills01male.wav"), Sound("mrgreen/pills/SpotPills02male.wav"),Sound("mrgreen/pills/SpotPills03male.wav")  },
+}
+
 -- Random things they'll say now and then
 VoiceSets["male"].QuestionSounds = {
+Sound("vo/npc/male01/question04.wav"),
+Sound("vo/npc/male01/question06.wav"),
+Sound("vo/npc/male01/question02.wav"),
+Sound("vo/npc/male01/question09.wav"),
+Sound("vo/npc/male01/question11.wav"),
+Sound("vo/npc/male01/question12.wav"),
+Sound("vo/npc/male01/question17.wav"),
+Sound("vo/npc/male01/question19.wav"),
+Sound("vo/npc/male01/question20.wav"),
+Sound("vo/npc/male01/question22.wav"),
+Sound("vo/npc/male01/question26.wav"),
+Sound("vo/npc/male01/question28.wav"),
+Sound("vo/npc/male01/question29.wav"),
+Sound("vo/npc/male01/question07.wav"),
+Sound("vo/npc/male01/question01.wav"),
+Sound("vo/npc/male01/question03.wav"),
+Sound("vo/npc/male01/question05.wav"),
+Sound("vo/npc/male01/question13.wav"),
+Sound("vo/npc/male01/question07.wav"),
+Sound("vo/npc/male01/question14.wav"),
+Sound("vo/npc/male01/question18.wav"),
+Sound("vo/npc/male01/question21.wav"),
+Sound("vo/npc/male01/question25.wav"),
+Sound("vo/npc/male01/question27.wav"),
+Sound("vo/trainyard/cit_pacing.wav"),
+Sound("vo/npc/male01/question30.wav")
+}
+
+
+VoiceSets["monk"].QuestionSounds = {
 Sound("vo/npc/male01/question04.wav"),
 Sound("vo/npc/male01/question06.wav"),
 Sound("vo/npc/male01/question02.wav"),
@@ -262,6 +319,14 @@ VoiceSets["female"].ChatSounds = {
 	["pills"] = { Sound("mrgreen/pills/SpotPills01female.wav"), Sound("mrgreen/pills/SpotPills02female.wav")  },
 }
 
+VoiceSets["monk"] = {}
+VoiceSets["monk"].KillCheer = {
+Sound("vo/ravenholm/madlaugh01.wav"),
+Sound("vo/ravenholm/madlaugh02.wav"),
+Sound("vo/ravenholm/madlaugh03.wav"),
+Sound("vo/ravenholm/madlaugh04.wav"),
+}
+
 VoiceSets["female"].ReloadSounds = {
 Sound("vo/npc/female01/coverwhilereload01.wav"),
 Sound("vo/npc/female01/coverwhilereload02.wav"),
@@ -361,6 +426,13 @@ Sound("vo/ravenholm/madlaugh03.wav"),
 Sound("vo/ravenholm/madlaugh04.wav")
 }
 
+VoiceSets["monk"] = {}
+VoiceSets["monk"].ReloadSounds = {
+Sound("vo/ravenholm/madlaugh01.wav"),
+Sound("vo/ravenholm/madlaugh02.wav"),
+Sound("vo/ravenholm/madlaugh03.wav"),
+Sound("vo/ravenholm/madlaugh04.wav"),
+}
 
 -- Combine sounds
 VoiceSets["combine"] = {}

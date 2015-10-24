@@ -94,7 +94,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 		
 		for wep,tab in pairs(GAMEMODE.HumanWeapons) do
 			if tab.Price and tab.HumanClass then
-				if tab.HumanClass ~= pl:GetHumanClass() then continue end
+				if tab.HumanClass ~= pl:GetHumanWeaponClass() then continue end
 			
 				if tab.Price <= babyPrice and tab.Price > babyPrice - 90 then
 					table.insert(possibleWeapons,wep)			
@@ -102,7 +102,6 @@ function skillpoints.AddSkillPoints(pl, amount)
 
 			end
 		end
-
 		item = table.Random(possibleWeapons)
 		
 		local weaponType = GetWeaponType(item)

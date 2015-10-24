@@ -387,140 +387,178 @@ GM.RankUnlocks = {
 --RequiresWeapon = "weapon_zs_tools_hammer",
 
 GM.Perks = {
---RequiresWeapon = What Human Class does the perk require to be shown
-					--[[Slot 1 'equipement perk']]--
-	["_none1"] = {Name = "None", Description = "No Perk.", Slot = 1},	
-	["_none2"] = {Name = "None", Description = "No Perk.", Slot = 2},	
-		
-	--Medic
-	
-	["_medupgr2"] = {Name = "Medical Supplies", Description = "+100 medical charges", RequiresWeapon = "_medic", Slot = 1}, --Done
-	["_medigun"] = {Name = "Medi 01", Description = "Spawn with the Medi 01", RequiresWeapon = "_medic", Slot = 1}, --Done
-	["_battlemedic"] = {Name = "Battle Medic", Description = "+1 medi damage | +1 pistol damage", RequiresWeapon = "_medic", Slot = 1}, --Done	
-	["_bleed"] = {Name = "Bleed", Description = "20% of damage done is applied every second for 5 seconds.", RequiresWeapon = "_medic", Slot = 1}, --Need to make
-	
-	--Commando
-	
-	["_enforcer"] = {Name = "Enforcer", Description = "+1 rifle damage | +20% clip size", RequiresWeapon = "_commando", Slot = 1, Material = "vgui/achievements/immovable_object_bw"},			
-	["_nade"] = {Name = "Grenadier", Description = "+25% grenade damage | +40 explosion radius | +3 Grenades", RequiresWeapon = "_commando", Slot = 1, Material = "vgui/gfx/vgui/hegrenade"}, --Done
-	["_accuracy"] = {Name = "Accuracy", Description = "-50% Recoil | +50% Accuracy ", RequiresWeapon = "_commando", Slot = 1, Material = "vgui/achievements/kill_hostage_rescuer_bw"},  --Done
-	["_defender"] = {Name = "Defender Rifle", Description = "Spawn with the Defender Rifle.", RequiresWeapon = "_commando", Slot = 1, Material = "vgui/achievements/kill_enemy_ak47_bw"},  --Done
 
-	--Support
+	-- Slot 1: Equipment
+	-- Slot 2: Specialist
+	-- Slot 3: Personal
+	-- Slot 4: Global
+	-- Slot 5: Classes
 	
-	["_support"] = {Name = "Board Pack", Description = "Spawn with a pack of boards.", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_supportammo"] = {Name = "Ammunition", Description = "+40% Ammo Received", RequiresWeapon = "_support2", Slot = 1}, --Done
-	["_supportweapon"] = {Name = "Fortify", Description = "Spawn with a Shotgun", RequiresWeapon = "_support2", Slot = 1, Material = "vgui/achievements/kill_enemy_m3_bw"}, --Done
-	["_repairs"] = {Name = "Handy Man", Description = "+3 repair points | +40% Nail Health | +10 Nails", RequiresWeapon = "_support2", Slot = 1}, --Done	
-	["_mobilesupplies"] = {Name = "Mobile Supply", Description = "Spawn with a mobile supply.", RequiresWeapon = "_support2", Slot = 1}, --Done
+		["global_sp"] = {Name = "SP", Description = "+200% SP from kills\n0 SP from inflicting damage", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/gfx/vgui/last_match_miscellaneous"},
+		["global_none"] = {Name = "None", Description = "", Class = "Global", Slot = 4, Rank = 0, Material = ""},
+	
+	
+	-- Medic	
 
-	--Berserker
-	
-	["_freeman"] = {Name = "Freeman's Spirit", Description = "+15% melee damage", Material = "VGUI/achievements/kill_enemy_knife_bw", RequiresWeapon = "_berserker", Slot = 1}, --Done
-	["_headhunter"] = {Name = "Head Hunter", Description = "+50% melee damage on heads | -15% melee damage.", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet
-	["_oppressive"] = {Name = "Oppressive", Description = "Spawn with the Lead Pipe | +85% melee knockback", RequiresWeapon = "_berserker", Slot = 1}, --Added by Pufulet	
-	["_slinger"] = {Name = "Hook", Description = "Spawn with the Hook", RequiresWeapon = "_berserker", Slot = 1},
-	["_executioner"] = {Name = "Executioner", Description = "+100% melee damage on targets under 30% health | -25% melee damage", RequiresWeapon = "_berserker", Slot = 2},	
-	
-	--Engineer
-	
-	["_turret"] = {Name = "Turret Overload", Description = "+50% turret stats.",RequiresWeapon = "_engineer", Material = "VGUI/gfx/VGUI/defuser", Slot = 1}, --Done
-	["_nitrate"] = {Name = "Nitrate Stuffed", Description = "+40% C4 explosion radius. 1.5 second fuse time instead of 1. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done	
-	["_trap"] = {Name = "Trap Engineered", Description = "+30% C4 damage. 70 proximity distance instead of 140. ",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", Slot = 1}, --Done		
-	["_pulsepistol"] = {Name = "Pulse Pistol", Description = "Spawn with the Pulse Pistol", RequiresWeapon = "_engineer", Slot = 1},	--Done
-	["_combat"] = {Name = "Combat Turret", Description = "Spawn with the Combat turret.", RequiresWeapon = "_engineer", Slot = 1},	--Done	
-	["_darkenergy"] = {Name = "Dark Energy", Description = "+1 pulse damage", RequiresWeapon = "_engineer", Slot = 1},	--Done
-	--["_combustion"] = {Name = "Combustion", Description = "Ignite targets caught in blast | -10% C4 damage ",RequiresWeapon = "_engineer", Material = "vgui/achievements/goose_chase_bw", RequiresWeapon = "_engineer", Slot = 1}, --Done		
-	--["_remote"] = {Name = "Turret Remote", Description = "[REPLACES SECONDARY] Control the turret with this gadget! Your turret shoots 2 bullets for the cost of 1!", RequiresWeapon = "_engineer", Slot = 1}, -- Done	
-	["_mine"] = {Name = "Multi C4", Description = "+4 C4",RequiresWeapon = "_engineer", Material = "HUD/scoreboard_clock", RequiresWeapon = "_engineer", Slot = 1}, --Done		
-	
-	--Sharpshooter
-	
-	["_lethal"] = {Name = "Python", Description = "Spawn with the Python", RequiresWeapon = "_sharpshooter", Slot = 1, Material = "vgui/achievements/domination_overkills_low_bw"}, --Done
-	["_accuracy2"] = {Name = "Marksman", Description = "-70% Recoil | +70% Accuracy ", RequiresWeapon = "_sharpshooter", Slot = 1	, Material = "vgui/achievements/hip_show_bw"},	--Done
-	["_highcal"] = {Name = "High Calibre", Description = "+5% Damage | +200% Bullet Knockback", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done
-	["_supply"] = {Name = "Medical Station", Description = "Mobile Supplies gives 4 health to users | +1 SP", RequiresWeapon = "_sharpshooter", Slot = 1},	--Done	
-	["_musket"] = {Name = "Double Calibre", Description = "+2 Musket clip size | +2 Python clip size", RequiresWeapon = "_sharpshooter", Slot = 1},
-	["_frictionburn"] = {Name = "Friction Burn", Description = "25% chance to ignite target using sharpshooter weapons | -5% Damage", RequiresWeapon = "_sharpshooter", Slot = 1},
-	
-					--[[Slot 2 'personal perk']]--
-	--Medic
-	
-	["_medupgr1"] = {Name = "Healthy Reward", Description = "+30% SP for healing", RequiresWeapon = "_medic", Slot = 2}, --Done
-	["_poisonprotect"] = {Name = "Natural Immunity", Description = "80% Poison resistance | -4 Poison Ticks", RequiresWeapon = "_medic", Slot = 2}, --Done
-	["_sboost2"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_medic", Slot = 2}, --Done
-	
-	--Commando
-	
-	["_kevlarcommando"] = {Name = "Health", Description = "+50 Initial health", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_commando", Slot = 2},
-	["_profitable"] = {Name = "Lead Market", Description = "+30% SP from kills", RequiresWeapon = "_commando", Slot = 2, Material = "vgui/gfx/vgui/last_match_miscellaneous"},
-	["_kevlarcommando2"] = {Name = "Kevlar", Description = "+20% damage resistance | -5% speed", RequiresWeapon = "_commando", Slot = 2, Material = "vgui/gfx/vgui/kevlar"},
-	
-	--Support
-	
-	["_bulletstorm"] = {Name = "Bullet Storm", Description = "+10% SMG damage | +5% Shotgun damage", RequiresWeapon = "_support2", Slot = 2}, --Done		
-	["_kevlarsupport"] = {Name = "Healthy As A Horse", Description = "+50 Maximum Health", RequiresWeapon = "_support2", Slot = 2}, --Done
-	["_supportregen"] = {Name = "Regeneration", Description = "Regain 1 health every 6 seconds.", RequiresWeapon = "_support2", Slot = 2}, --Done
-	["_reload"] = {Name = "Action Reload", Description = "+50% Shotgun Reload Speed", RequiresWeapon = "_support2", Slot = 2}, --Done
-	["_bulk"] = {Name = "Bulk", Description = "No speed penalty for weapons.", RequiresWeapon = "_support2", Slot = 2}, --Done
-	
-	--Berserker
-	
-	["_bloodmoney"] = {Name = "Blood Money", Description = "+3 SP from melee kills", RequiresWeapon = "_berserker", Slot = 2}, --Done
-	["_berserk"] = {Name = "Berserk", Description = "+10% movement speed while under 40 health", RequiresWeapon = "_berserker", Slot = 2}, --Done
-	["_psychotic"] = {Name = "Blood Lust", Description = "+4 health from kills | +60% melee swing speed", RequiresWeapon = "_berserker", Slot = 2}, --Done
-	["_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 40% of melee damage and knock targets backwards", RequiresWeapon = "_berserker", Slot = 2, Material = "vgui/achievements/kill_enemy_in_air_bw"},	
-	["_vampire"] = {Name = "Vampire", Description = "7.5% of melee damage goes towards health | -80% health from kills", RequiresWeapon = "_berserker", Slot = 2}, --Done
+		["medic_supplies"] = {Name = "Medical Supplies", Description = "+100 medical charge on spawn", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/decal_sprays"},
+		["medic_medigun"] = {Name = "Medic Pistol", Description = "Spawn with the medic pistol", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_fiveseven"},     
+
+		["medic_bleed"] = {Name = "Bleed", Description = "20% of damage done is applied every second for 5 seconds", Class = "Medic", Slot = 2, Rank = 3, Material = "vgui/achievements/kill_enemy_last_bullet"},              
+		["medic_reward"] = {Name = "Healthy Reward", Description = "+40% SP from healing", Class = "Medic", Slot = 2, Rank = 3, Material = "vgui/achievements/collect_gifts"},
+
+		["medic_immunity"] = {Name = "Natural Immunity", Description = "Immune to poison damage inflicted over time", Class = "Medic", Slot = 3, Rank = 6, Material = "vgui/achievements/win_rounds_without_buying"},
+		["medic_battlemedic"] = {Name = "Battle Medic", Description = "30% damage resistance from props\n+5% undead damage resistance", Class = "Medic", Slot = 3, Rank = 6, Material = "vgui/achievements/last_player_alive"},
+
+	-- Commando
 		
-	--Engineer
+		["commando_defender"] = {Name = "Defender", Description = "Spawn with the Defender rifle", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/immovable_object"},
+		["commando_grenadier"] = {Name = "Grenadier", Description = "+3 grenades on spawn", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/grenade_multikill"},
+
+		["commando_enforcer"] = {Name = "Enforcer", Description = "+25 clip size", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/kill_enemy_last_bullet"},
+		["commando_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
+
+		["commando_kevlar"] = {Name = "Kevlar", Description = "+20% damage resistance from the undead", Class = "Commando", Slot = 3, Rank = 7, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
+		["commando_health"] = {Name = "Health", Description = "+30 maximum health", Class = "Commando", Slot = 3, Rank = 7, Material = "vgui/achievements/decal_sprays"},
+
+	-- Support	
 	
-	["_turretsp"] = {Name = "Turret Revenue", Description = "+5 SP from turret kills", RequiresWeapon = "_engineer", Slot = 2}, --Need to make this!
-	["_blast"] = {Name = "Blast Proof", Description = "+70% resistance to explosives", RequiresWeapon = "_engineer", Slot = 2}, --Done
-	["_sboost"] = {Name = "Speed", Description = "+5% movement speed", RequiresWeapon = "_engineer", Slot = 2}, --Done
+		["support_boardpack"] = {Name = "Board Pack", Description = "Replace ammo pack with a pack of boards", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/break_windows"},
+		["support_mobilesupplies"] = {Name = "Mobile Supplies", Description = "Replace ammo pack with mobile supplies", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/kills_with_multiple_guns"},
+		["support_shotgun"] = {Name = "Shotgun", Description = "Spawn with a shotgun", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_m3"},
+			   
+		["support_ammo"] = {Name = "Ammo", Description = "+40% ammo received", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/kill_enemy_reloading"},
+		["support_repairs"] = {Name = "Repairs", Description = "+3 hammer repair points\n+40% nail health\n+10 nails on spawn", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/snipe_two_from_same_spot"},
+							   
+		["support_regeneration"] = {Name = "Regeneration", Description = "Regain 1 health every 6 seconds", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/decal_sprays"},
+		["support_bulk"] = {Name = "Bulk", Description = "No speed penalty for weapons", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/meta_weaponmaster"},
+		["support_health"] = {Name = "Health", Description = "+50 maximum health", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/last_player_alive"},
 	
-	--Sharpshooter
+	-- Berserker
 	
-	["_kevlar2"] = {Name = "Health", Description = "+20 maximum health", Material = "VGUI/gfx/VGUI/kevlar", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
-	["_point"] = {Name = "Agility", Description = "-50% Fall Damage | +5% movement speed", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done
-	["_headshot"] = {Name = "Skill Shot", Description = "+5 SP for headshot kills", RequiresWeapon = "_sharpshooter", Slot = 2}, --Done	
+		["berserker_none"] = {Name = "None", Description = "None", Class = "Berserker", Slot = 1, Rank = 1, Material = ""},
+		["berserker_hook"] = {Name = "Slinger", Description = "Spawn with a hook", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_knife"},
+		["berserker_oppressor"] = {Name = "Oppressor", Description = "Spawn with a lead pipe", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_last_bullet"},
+	   
+		["berserker_maniac"] = {Name = "Maniac", Description = "+25% health from melee kills\n+50% melee swing", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/win_pistolrounds_med"},               
+		["berserker_headhunter"] = {Name = "Head Hunter", Description = "+20% melee damage on heads", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
+		["berserker_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 40% of melee damage and knocks target backwards", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/kill_enemy_in_air"},     
+
+		["berserker_bloodmoney"] = {Name = "Blood Money", Description = "+3 SP from melee kills", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/win_knife_fights_low"},
+		["berserker_vampire"] = {Name = "Vampire", Description = "+6% of melee damage goes towards health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/meta_pistol"},
+		["berserker_enrage"] = {Name = "Enrage", Description = "Increased movement speed while at or under 40 health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/pistol_round_knife_kill"},
+				
+	-- Engineer
 	
-	--Pyro
+		["engineer_combatturret"] = {Name = "Combat Turret", Description = "Spawn with a combat turret", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/concurrent_dominations"},
+		["engineer_pulsepistol"] = {Name = "Pulse Pistol", Description = "Spawn with a pulse pistol", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_fiveseven"},
+		["engineer_multimine"] = {Name = "Multi Mine", Description = "+4 C4 on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/goose_chase"},                    
+
+		["engineer_turret"] = {Name = "Turret Overload", Description = "+40 turret stats", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/bomb_defuse_needed_kit"},
+		["engineer_darkenergy"] = {Name = "Dark Energy", Description = "+10% pulse damage", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/win_rounds_without_buying"}, 
+
+		["engineer_revenue"] = {Name = "Turret Revenue", Description = "+5 SP from turret kills", Class = "Engineer", Slot = 3, Rank = 7, Material = "vgui/achievements/kill_low_damage"},
+		["engineer_blastproof"] = {Name = "Blast Proof", Description = "70% resistance to explosives", Class = "Engineer", Slot = 3, Rank = 7, Material = "hud/t_victories_bomb-detonated"},
+
+	-- Sharpshooter
+		
+		["sharpshooter_python"] = {Name = "Python", Description = "Spawn with the Python", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/hip_shot"},
+		["sharpshooter_medical"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users and +1 SP for the owner", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/collect_gifts"},              
+
+
+		["sharpshooter_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/domination_overkills_low"},
+		["sharpshooter_double"] = {Name = "Double Calibre", Description = "+2 Musket clip size\n+2 Python clip size", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/kill_two_with_one_shot"},              
+		["sharpshooter_friction"] = {Name = "Friction Burn", Description = "25% chance to ingite target with a headshot", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/immovable_object"},        
+
+		["sharpshooter_skillshot"] = {Name = "Skill Shot", Description = "+5 SP for headshot kills", Class = "Sharpshooter", Slot = 3, Rank = 8, Material = "vgui/achievements/headshots_in_round"},           
+		["sharpshooter_agility"] = {Name = "Agility", Description = "+7% movement speed\n+40 jump power", Class = "Sharpshooter", Slot = 3, Rank = 8, Material = "vgui/achievements/kill_enemy_in_air"},
+	-- Pyro
 	
-	--Equipment
-	["_flarebounce"] = {Name = "Flare Bounce", Description = "+10 Flare Damage | 75% chance a flare bounces off a target instead of disappearing", RequiresWeapon = "_pyro", Slot = 1},
-	["_burn"] = {Name = "Pyromaniac", Description = "+5% scorch chance | +25% scorch damage | 10% chance to burn self when a target is burnt.", RequiresWeapon = "_pyro", Slot = 1},
-	["_glock"] = {Name = "Glock", Description = "Spawn with the Glock", RequiresWeapon = "_pyro", Slot = 1},
-	--["_scorch"] = {Name = "Scorch", Description = "+15% Scorch Damage | -3 Burn Damage | -5% Burn Chance", RequiresWeapon = "_pyro", Slot = 1},		
-	["_alyxclip"] = {Name = "Alyx Clip", Description = "+75 Ammo For The Alyx Gun", RequiresWeapon = "_pyro", Slot = 1},	
+		["pyro_backfire"] = {Name = "Backfire", Description = "+5 pyro ammunition back when target has been ignited", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_reloading"},
+		["pyro_glock"] = {Name = "Glock", Description = "Spawn with a glock", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_glock"},
+	   
+		["pyro_burn"] = {Name = "Burn", Description = "+5% scorch chance\n+10 scorch damage", Class = "Pyro", Slot = 2, Rank = 3, Material = "hud/t_victories_terrorist-win"}, 
+		["pyro_flare"] = {Name = "Flare Bounce", Description = "+10 flare damage\n75% chance flare doesn't explode on impact", Class = "Pyro", Slot = 2, Rank = 3, Material = "hud/t_victories_rescue-failed"},
+	   
+		["pyro_hotpoints"] = {Name = "Hot Points", Description = "+3 SP when a taget is burnt", Class = "Pyro", Slot = 3, Rank = 5, Material = "vgui/achievements/kill_bomb_pickup"},          
+		["pyro_immolate"] = {Name = "Immolate", Description = "Burn the target that damages you", Class = "Pyro", Slot = 3, Rank = 5, Material = "hud/t_victories_counter-terrorist-eliminated"},
 	
-	--Personal
-	["_pyrokevlar"] = {Name = "Kevlar", Description = "+20% damage resistance | -5% speed", RequiresWeapon = "_pyro", Slot = 2, Material = "vgui/gfx/vgui/kevlar"},
-	["_pyrosp"] = {Name = "Hot Points", Description = "+3 SP when a target is scorched.", RequiresWeapon = "_pyro", Slot = 2},
-	["_immolate"] = {Name = "Immolate", Description = "Scorch zombies that attack you | Ignite self when damage taken | +40% damage resistance", RequiresWeapon = "_pyro", Slot = 2},		
 	
-	--[[New ZS Classes]]--
+	-- Bonus Perks
 	
-	["_medic"] = {Name = "Medic",		  		
+	--["berserker_executioner"] = {Name = "Executioner", Description = "+30% melee damage to targets under or at 30% health", Class = "Berserker", Slot = 2, Rank = 0, Material = "vgui/achievements/glow"},	
+	--["engineer_combustion"] = {Name = "Combustion", Description = "Undead caught in the explosion are ignited", Class = "Engineer", Slot = 2, Rank = 0, Material = "vgui/achievements/glow"},	
+	--["commando_leadmarket"] = {Name = "Lead Market", Description = "+50% SP from kills", Class = "Commando", Slot = 3, Rank = 0, Material = "vgui/achievements/survived_headshot_due_to_helmet_bw"},
+
+	["Medic"] = {Name = "Medic",		  		
 		Equipment = " Medkit\n P228\n Stun Stick",
-		Description = " +10% Pistol Damage \n +10% Medi Damage\n +10% Damage Resistance\n +3% Movement Speed \n\n +0.5% Movement Speed per lvl \n +1% Pistol Damage per lvl\n +1% Medi Damage per lvl\n +5% Poison Resistance per lvl\n +2% Undead Damage Resistance per lvl \n +2% Medical Power per lvl", Material = "zombiesurvival/humanclass/avatar_medic", Slot = 3},
-	["_commando"] = {Name = "Commando",   		
+		Description = " +10% Pistol damage \n +10% Medi damage\n +10% damage Resistance\n +3% Movement speed",
+		CoefDesc = " +%G%% Movement speed\n +%i%% Pistol damage\n +%i%% Medi damage\n +%i%% Poison resistance\n +%i%% Undead damage resistance\n +%i%% Medical power",
+		Coef = {0.5, 1, 1, 5, 2, 2},
+		Slot = 5,
+		Rank = 0,
+		Colour = Color(100, 200, 250,100),
+		Model = "models/player/group03m/female_03.mdl"},
+		
+	["Commando"] = {Name = "Commando",   		
 		Equipment = " Grenades\n Five SeveN\n Knife", 
-		Description = " +10% Rifle Damage \n See Undead Health\n +10% Clip Size  \n +10 Health \n\n +3 Health per lvl\n +2% Clip Size per lvlLevel \n +1% Rifle Damage per lvl\n", Material = "zombiesurvival/humanclass/avatar_marksman", Slot = 3},
-	["_support2"] = {Name = "Support",    		
+		Description = " +10% Rifle Damage \n See undead health\n +10% Clip size  \n +10 Health ",
+		CoefDesc = " +%i%% Health\n +%i%% Clip size\n +%i%% Rifle damage",
+		Coef = {3, 2, 1},
+		Slot = 5,
+		Rank = 0,
+		Colour = Color(188, 168, 255,100),
+		Model = "models/player/combine_soldier.mdl"},		
+		
+	["Support"] = {Name = "Support",    		
 		Equipment = " Ammo Pack \n USP\n Hammer", 			
-		Description = " Ammo Pack can be used to gather ammo from ammo boxes or mobile supply as well as throwing ammo boxes down. \n +10% Shotgun Damage \n +10% SMG Damage \n +10% Ammo Received \n\n +1% SMG Damage per lvl\n +1% Shotgun Damage per lvl \n +1 Nail Health per lvl \n +0.25 Repair Points per lvl \n +1 Nail per lvl \n +2% Ammo Received per lvl \n ", Material = "zombiesurvival/humanclass/avatar_constructor", Slot = 3},
-	["_berserker"] = {Name = "Berserker", 		
+		Description = " +10% Shotgun damage \n +10% SMG damage \n +10% Ammo received",
+		CoefDesc = " +%i%% SMG damage\n +%i%% Shotgun damage \n +%i%% Nail health\n +%G Repair points\n +%i Nail\n +%i%% Ammo received",
+		Coef = {1, 1, 1, 0.25, 1, 2},
+		Slot = 5,
+		Rank = 0,	
+		Colour = Color(255, 182, 238,100),
+		Model = "models/player/arctic.mdl"},		
+		
+	["Berserker"] = {Name = "Berserker", 		
 		Equipment = " Desert Eagle\n Plank", 				
-		Description = " +10% Melee Damage \n 5% damage done with melee goes to health\n +5 Health On Melee Kill\n +10% Damage Resistance \n -10% Gun Damage\n +30% Howler Disorientation Resistance\n +2% Movement Speed\n [SECONDARY] Leap forwards with melee \n\n +1 Health On Melee Kill per lvl \n +0.5% Movement Speed per lvl \n", Material = "zombiesurvival/humanclass/avatar_berserker", Slot = 3},
-	["_engineer"] = {Name = "Engineer",   		
+		Description = " [RMB] Leap while holding a melee weapon.\n\n +10% melee damage \n +5% melee damage to health\n +5 Health on melee kill\n +10% Damage resistance \n -10% Gun Damage\n +2% Movement Speed",
+		CoefDesc = " +%i Health from melee kill\n +%G%% Movement speed",
+		Coef = {1, 0.5},
+		Slot = 5,
+		Rank = 0,
+		Colour = Color(255, 141, 147,100),
+		Model = "models/player/monk.mdl"},		
+		
+	["Engineer"] = {Name = "Engineer",   		
 		Equipment = " Turret\n C4\n Pistol\n Frying Pan", 	
-		Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +1 Turret Damage\n\n +0.25 Turret Damage per lvl \n +2 Turret Health per lvl \n +2 Turret Bullets per lvl \n +5% Pulse Weapon Capacity per lvl \n +1% Pulse Weapon Damage per lvl \n +2% Pulse Weapon Recharge Rate per lvl \n +2% Turret Recharge Rate per lvl \n +1% C4 Damage per lvl \n +1% C4 Radius per lvl \n", Material = "zombiesurvival/humanclass/avatar_demolitions", Slot = 3},
-	["_sharpshooter"] = {Name = "Sharpshooter", 
+		Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +1 Turret Damage",
+		CoefDesc = " +%G%% Turret damage\n +%i%% Turret health\n +%i%% Turret ammo capacity\n +%i Pulse weapon capacity\n +%i%% pulse weapon damage\n +%i%% Pulse weapon recharge rate\n +%i%% Turret recharge rate\n +%i%% C4 damage\n +%i%% C4 radius",
+		Coef = {0.25, 2, 2, 5, 1, 2, 2, 1, 1},
+		Slot = 5,
+		Rank = 0,
+		Colour = Color(30, 228, 255,100),
+		Model = "models/player/barney.mdl"},
+		
+	["Sharpshooter"] = {Name = "Sharpshooter", 
 		Equipment = " Mobile Supplies\n Beretta\n Knife", 	
-		Description = " +10% Sniper Damage \n +10% Headshot Damage \n\n +1% Sniper Damage per lvl \n +1% Headshot Damage per lvl \n",Material = "zombiesurvival/humanclass/avatar_sharpshooter" , Slot = 3},	
-	["_pyro"] = {Name = "Pyro", 				
+		Description = " +10% Sniper damage \n +10% Headshot damage",
+		CoefDesc = " +%i%% Sniper damage\n +%i%% Headshot damage\n",
+		Coef = {1,1},
+		Slot = 5,
+		Rank = 0,
+		Colour = Color(127, 181, 120,100),
+		Model = "models/player/odessa.mdl"},		
+		
+	["Pyro"] = {Name = "Pyro",				
 		Equipment = " Alyx Gun\n Metal Pipe", 				
-		Description = " 12% Chance To Burn Target With Pyro Weapons\n +10% Pyro Damage\n 6 Initial Burn Damage\n 10 Initial Scorch Damage\n +10% Damage To Burning Targets \n\n +3% Burn Damage per lvl\n +1% Burn Chance per lvl\n +1% Pyro Damage per lvl\n +2% Scorch Damage per lvl", Material = "zombiesurvival/humanclass/avatar_assault", Slot = 3},
+		Description = " 12% Chance to burn target\n +10% Pyro damage\n 6 Initial burn damage\n 10 Initial scorch damage\n +10% damage to burning targets",
+		CoefDesc = " +%i Burn damage\n +%i Burn chance\n +%i Pyro damage\n +%i Scorch damage",
+		Material = "zombiesurvival/humanclass/avatar_assault",
+		Coef = {3,1,1,2},
+		Slot = 5,
+		Rank = 0,
+		Colour = Color(255, 178, 62,100),
+		Model = "models/player/gasmask.mdl"}		
 	
 }
 

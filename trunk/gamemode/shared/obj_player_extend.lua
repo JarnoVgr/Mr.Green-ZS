@@ -905,20 +905,20 @@ function meta:GetPerk(prk)
 	return table.HasValue(self.Perk, prk) or false
 end
 
-function meta:GetHumanClass()
-	if self:GetPerk("_medic") then
+function meta:GetHumanWeaponClass()
+	if self:GetPerk("Medic") then
 		return "medic"
-	elseif self:GetPerk("_commando") then
+	elseif self:GetPerk("Commando") then
 		return "commando"
-	elseif self:GetPerk("_support2") then
+	elseif self:GetPerk("Support") then
 		return "support"
-	elseif self:GetPerk("_engineer") then
+	elseif self:GetPerk("Engineer") then
 		return "engineer"	
-	elseif self:GetPerk("_sharpshooter") then
+	elseif self:GetPerk("Sharpshooter") then
 		return "sharpshooter"	
-	elseif self:GetPerk("_berserker") then
+	elseif self:GetPerk("Berserker") then
 		return "berserker"	
-	elseif self:GetPerk("_pyro") then
+	elseif self:GetPerk("Pyro") then
 		return "pyro"			
 	else
 		return ""
@@ -955,21 +955,11 @@ function meta:IsBlocked(item, SlotLabel)
 end
 
 function meta:HasUnlocked(item)
-	local unl = false
-	
-	for i=0,table.maxn(GAMEMODE.RankUnlocks) do
-		if i > self:GetRank() or not GAMEMODE.RankUnlocks[i] then
-			continue
-		end
-		
-		for _,v in pairs(GAMEMODE.RankUnlocks[i]) do
-			if item == v then
-				unl = true
-			end
-		end
+	if (self:GetRank() < GAMEMODE.Perks[item].Rank) then
+		return false
+	else
+		return true
 	end
-	
-	return unl
 end
 
 function meta:TraceLine(distance, _mask, filter)
@@ -1104,6 +1094,56 @@ Sound("npc/combine_soldier/die1.wav"),
 Sound("npc/combine_soldier/die2.wav"),
 Sound("npc/combine_soldier/die3.wav")
 }
+
+VoiceSets["monk"] = {}
+VoiceSets["monk"].PainSoundsLight = {
+Sound("vo/ravenholm/monk_pain01.wav"),
+Sound("vo/ravenholm/monk_pain02.wav"),
+Sound("vo/ravenholm/monk_pain03.wav"),
+Sound("vo/ravenholm/monk_pain05.wav")
+}
+
+VoiceSets["monk"].PainSoundsMed = {
+Sound("vo/ravenholm/monk_pain04.wav"),
+Sound("vo/ravenholm/monk_pain06.wav"),
+Sound("vo/ravenholm/monk_pain07.wav"),
+Sound("vo/ravenholm/monk_pain08.wav")
+}
+
+VoiceSets["monk"].PainSoundsHeavy = {
+Sound("vo/ravenholm/monk_pain09.wav"),
+Sound("vo/ravenholm/monk_pain10.wav"),
+Sound("vo/ravenholm/monk_pain12.wav")
+}
+
+VoiceSets["monk"].DeathSounds = {
+Sound("vo/ravenholm/monk_death07.wav")
+}
+
+VoiceSets["barney"] = {}
+VoiceSets["barney"].PainSoundsLight = {
+	Sound("vo/npc/Barney/ba_pain02.wav"),
+	Sound("vo/npc/Barney/ba_pain07.wav"),
+	Sound("vo/npc/Barney/ba_pain04.wav")
+}
+VoiceSets["barney"].PainSoundsMed = {
+	Sound("vo/npc/Barney/ba_pain01.wav"),
+	Sound("vo/npc/Barney/ba_pain08.wav"),
+	Sound("vo/npc/Barney/ba_pain10.wav")
+}
+VoiceSets["barney"].PainSoundsHeavy = {
+	Sound("vo/npc/Barney/ba_pain05.wav"),
+	Sound("vo/npc/Barney/ba_pain06.wav"),
+	Sound("vo/npc/Barney/ba_pain09.wav")
+}
+VoiceSets["barney"].DeathSounds = {
+	Sound("vo/npc/Barney/ba_ohshit03.wav"),
+	Sound("vo/npc/Barney/ba_no01.wav"),
+	Sound("vo/npc/Barney/ba_no02.wav"),
+	Sound("vo/npc/Barney/ba_pain03.wav")
+}
+
+
 
 function meta:HasBought(str)
 	if not str or not self.DataTable or (SERVER and self:IsBot()) then
@@ -1262,7 +1302,7 @@ meta.OldSetHealth = metaEntity.SetHealth
 function meta:SetHealth(health)
 	self:OldSetHealth(health)
 	if self.Team and self:Team() == TEAM_HUMAN and self:IsPlayer() then
-		self:CheckSpeedChange()
+		self:CheckSpeedChange(0)
 	end
 end
 

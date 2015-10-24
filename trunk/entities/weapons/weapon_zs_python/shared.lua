@@ -65,11 +65,11 @@ AddCSLuaFile()
     SWEP.HoldType = "revolver"
     SWEP.Primary.Sound                      = Sound( "Weapon_357.Single" )
     SWEP.Primary.Recoil                     = 2.5
-    SWEP.Primary.Damage                     = 40
+    SWEP.Primary.Damage                     = 42
     SWEP.Primary.NumShots           = 1
     SWEP.Primary.ClipSize           = 2
     SWEP.Primary.Delay                      = 0.5
-    SWEP.Primary.DefaultClip        = SWEP.Primary.ClipSize
+    SWEP.Primary.DefaultClip        = SWEP.Primary.ClipSize * 4
     SWEP.Primary.Automatic          = false
     SWEP.Primary.Ammo                       = "357"
     SWEP.WalkSpeed = SPEED_PISTOL
@@ -91,7 +91,7 @@ AddCSLuaFile()
 	
 
 	function SWEP:OnDeploy()
-		if self.Owner:GetPerk("_musket") then
+		if self.Owner:GetPerk("sharpshooter_double") then
 			self.Primary.ClipSize = 4
 		
 		end

@@ -46,8 +46,8 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 			end
 
 			if Victim:IsHuman() then
-				if Victim:GetPerk() == "_medic" then		
-					iDamage = iDamage - (iDamage* (5*Victim:GetRank())/100)
+				if Victim:GetPerk() == "medic_immunity" then		
+					return
 				end		
 				if math.random(1,2) == 1 then
 					Victim:EmitSound( "ambient/voices/cough"..math.random( 1,4 )..".wav" )
@@ -180,30 +180,7 @@ function meta:RestoreHumanHealth(am,returnhealth)
 	if not self:IsHuman() then
 		return
 	end
-	
-	local health, maxhealth = self:Health(), 100
 
-	if self:GetPerk("_kevlar2") then
-		health = 130
-	elseif self:GetPerk("_kevlarsupport") then
-		maxhealth = 150
-	end
-	
-	
-	if self:GetPerk("_commando") then
-		maxhealth = 110 + self:GetRank() * 3
-	end
-	
-	if self:GetPerk("_kevlarcommando") then
-		health = maxhealth + 50
-	end
-	
-	if health == maxhealth and returnhealth then
-		return false
-	end
-		
-	self:SetHealth(health+am)
-	
 	return true
 end
 
@@ -525,7 +502,7 @@ function meta:SetPerk(key)
 	
 	self.Perk = self.Perk or {} -- just in case
 	
-	if #self.Perk > 2 then return end
+	--if #self.Perk > 2 then return end
 	
 	--self.Perk = key
 	table.insert(self.Perk,key)
@@ -623,11 +600,11 @@ function meta:AddRank (amount)
 			net.WriteDouble(tonumber(self.DataTable["ClassData"]["new"].rank))
 		net.Send(self)
 
-		if GAMEMODE.RankUnlocks[self:GetRank()] then
-			for k,v in pairs(GAMEMODE.RankUnlocks[self:GetRank()])do
-				self:UnlockNotify( v )
-			end
-		end
+		--if GAMEMODE.RankUnlocks[self:GetRank()] then
+		--	for k,v in pairs(GAMEMODE.RankUnlocks[self:GetRank()])do
+		--		self:UnlockNotify( v )
+		--	end
+		--end
 	end
 end
 
@@ -1491,41 +1468,64 @@ function meta:DoHulls(classid, teamid)
 	self:CollisionRulesChanged()
 end
 
+function meta:CheckEnrage(damage)
+	if self:GetPerk("berserker_enrage") and self:Health() - damage <= 40 then
+		local fSpeed = SPEED + 20
+		GAMEMODE:SetPlayerSpeed(self, fSpeed)		
+	end		
+end
 
 function meta:CheckSpeedChange()
 	if not IsValid(self) then return end
 	
-	local wep = self:GetActiveWeapon()
+	local wep = self:GetActiveWeapon()	
+
+	if self:IsBot() then return end
+
 	
-	if wep and IsValid(wep) then
+	-- Weapon walking speed, health, and player human class
+	local fSpeed, fHealth, iClass, fHealthSpeed = wep.WalkSpeed or SPEED, self:Health(), self:GetHumanClass()
 	
-		local iron = false
+	if self:GetPerk("Berserker") then
+		local multiplier = 0.03 + ((self:GetRank()*0.5)*0.01)
+		fSpeed = fSpeed +(fSpeed*multiplier)
 		
-		if wep.GetIronsights and wep:GetIronsights() then
-			iron = true
+	elseif self:GetPerk("Commando") then
+		fSpeed = fSpeed - 8	
+		
+	elseif self:GetPerk("Support") then
+		fSpeed = fSpeed - 10	
+		
+		if self:GetPerk("support_bulk") then
+			fSpeed = SPEED
 		end
 		
-		GAMEMODE:WeaponDeployed( self, wep, iron )
+
+	elseif self:GetPerk("sharpshooter_agility") then
+		fSpeed = fSpeed*1.07
 		
-		return
-	end
+	elseif self:GetPerk("Medic") then
+		local multiplier = 0.03 + ((self:GetRank()*0.5)*0.01)
+		fSpeed = fSpeed + (fSpeed*multiplier)	
+	end	
 	
-	local speed = SPEED
-	local health = self:Health()
-	
-	local fHealthSpeed = math.Clamp ( ( health / 50 ), 0.9, 1 )
-	
+	fHealthSpeed = math.Clamp ( ( fHealth / 40 ), 0.8, 1 )
+				
 	if self:IsHolding() then
 		local status = self.status_human_holding
 			if status and IsValid(status) and status:GetOwner() == self and status.GetObject and status:GetObject():IsValid() and status:GetObject():GetPhysicsObject():IsValid() then
-				speed = math.max(CARRY_SPEEDLOSS_MINSPEED, speed - status:GetObject():GetPhysicsObject():GetMass() * CARRY_SPEEDLOSS_PERKG)
+				fSpeed = math.max(CARRY_SPEEDLOSS_MINSPEED, fSpeed - status:GetObject():GetPhysicsObject():GetMass() * CARRY_SPEEDLOSS_PERKG)
 				-- break
 			end
 	else
-		speed = math.Round ( speed * fHealthSpeed )
+		fSpeed = math.Round ( fSpeed * fHealthSpeed )
 	end
-		
-	GAMEMODE:SetPlayerSpeed( self, speed )
+	
+	if self:GetPerk("berserker_enrage") and fHealth <= 40 then
+		fSpeed = SPEED + 20
+	end		
+
+	GAMEMODE:SetPlayerSpeed(self, fSpeed)
 	
 end
 

@@ -221,7 +221,6 @@ function GM:EntityTakeDamage(ent, dmginfo)
 				status:Remove()
 			end
 		end
-
 		--Scale player damage
 		if gamemode.Call( "ScalePlayersDamage", ent, attacker, inflictor, dmginfo ) then 
 			return 

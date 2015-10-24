@@ -735,13 +735,11 @@ function ApplyLoadout(pl, com, args)
 		pl.Loadout = {}
 	end
 	
+	PrintTable(pl.Loadout)
+	
 	for _, item in pairs(args) do
 		if pl:HasUnlocked(item) then
-			if string.sub(item, 1, 1) == "_" then
-				pl:SetPerk(item)
-			elseif string.sub(item, 1, 6) == "weapon" then
-				table.insert(pl.Loadout,item)
-			end
+			pl:SetPerk(item)
 		end
 	end
 end

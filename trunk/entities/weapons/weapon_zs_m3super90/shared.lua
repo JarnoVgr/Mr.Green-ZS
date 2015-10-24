@@ -31,7 +31,7 @@ SWEP.HumanClass = "support"
 SWEP.Primary.Sound			= Sound("Weapon_M3.Single")
 SWEP.Primary.Recoil			= 4
 SWEP.Primary.Damage			= 13
-SWEP.Primary.NumShots		= 8
+SWEP.Primary.NumShots		= 7
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.8
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
@@ -41,7 +41,7 @@ SWEP.Primary.Ammo			= "buckshot"
 SWEP.MaxAmmo			    = 70
 SWEP.IsShotgun = true
 
-SWEP.Cone = 0.134
+SWEP.Cone = 0.114
 SWEP.ConeMoving = SWEP.Cone *1.10
 SWEP.ConeCrouching = SWEP.Cone *0.95
 
@@ -87,12 +87,6 @@ function SWEP:Reload()
 	self:SetIronsights(false)
 end
 
-function SWEP:OnDeploy()
-	if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
-		self.ReloadDelay = 0.45
-		self.ReloadDelay = self.ReloadDelay * 0.5
-	end
-end
 
 
 function SWEP:Think()

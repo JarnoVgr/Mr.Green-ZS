@@ -16,7 +16,7 @@ function ENT:Initialize()
 	--Increase health when having a perk
 	local Owner = self:GetOwner()
 	if IsValid(Owner) then
-		if Owner:GetPerk("_support2") then
+		if Owner:GetPerk("Support") then
 			self.Heal = self.Heal + Owner:GetRank()
 			
 			if Owner.DataTable["ShopItems"][51] then
@@ -28,7 +28,7 @@ function ENT:Initialize()
 		--end
 
 		
-		if Owner:GetPerk("_repairs") then
+		if Owner:GetPerk("support_repairs") then
 			self.Heal = self.Heal + 40
 		end		
 		

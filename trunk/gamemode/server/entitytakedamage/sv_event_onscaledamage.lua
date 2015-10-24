@@ -52,7 +52,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		end
 	--Scale down explosion damage if it's the owner
 	elseif (attacker:GetClass() == "env_explosion" and pl:IsHuman() and pl == attacker:GetOwner()) then
-		if pl:GetPerk("_blast") then
+		if pl:GetPerk("engineer_blastproof") then
 			dmginfo:ScaleDamage(0.2)	
 		else
 			dmginfo:ScaleDamage(0.9)
@@ -131,14 +131,18 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 16 then
 				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),65,math.random(90,110))				
-				if dmginfo:IsBulletDamage() and attacker:GetPerk ("_sharpshooter") then
+				if dmginfo:IsBulletDamage() and attacker:GetPerk ("Sharpshooter") then
+					if attacker:GetPerk("sharpshooter_friction") and math.random(1,4) == 1 then
+						pl:TakeDamageOverTime(7, 1, 4, attacker, inflictor )
+						pl:Ignite(4,0)			
+					end
 					if attacker.DataTable["ShopItems"][69] then
 						dmginfo:SetDamage((dmginfo:GetDamage() * (1.2 + (1*attacker:GetRank())/100)))				
 					else
 						dmginfo:SetDamage((dmginfo:GetDamage() * (1.1 + (1*attacker:GetRank())/100)))
 					end
-				elseif dmginfo:IsMeleeDamage() and attacker:GetPerk("_headhunter") then
-					dmginfo:SetDamage(dmginfo:GetDamage() * 1.65)						
+				elseif dmginfo:IsMeleeDamage() and attacker:GetPerk("berserker_headhunter") then
+					dmginfo:SetDamage(dmginfo:GetDamage() * 1.40)						
 				elseif dmginfo:IsMeleeDamage() then
 					dmginfo:SetDamage(dmginfo:GetDamage() * 1.15)			
 				end
@@ -191,12 +195,10 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			pl:ViewPunch(Angle(math.random(-45, 45),math.random (-15, 15), math.random(-10, 10)))
 		end 
 			
-		if pl:GetPerk("_point") then
-			dmginfo:AddDamage(Damage*0.5)
-		else
-			--Add new damage
-			dmginfo:AddDamage(Damage)
-		end
+
+		--Add new damage
+		dmginfo:AddDamage(Damage)
+
 		
 		--[[if pl:Alive() then
 				if pl:GetPerk("_point") then
@@ -212,7 +214,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		local Inflictor = dmginfo:GetInflictor()
 		if Inflictor:GetClass() == "prop_physics" or Inflictor:GetClass() == "prop_physics_multiplayer" or Inflictor:GetClass() == "func_physbox" or Inflictor:GetClass() == "func_physbox_multiplayer" then-- if string.find ( Inflictor:GetClass(), "prop_physics" ) or string.find ( Inflictor:GetClass(), "physbox" ) then
 			local MaximumVictimHealth = pl:GetMaximumHealth()
-			local InitialDamage, NewDamage, Percentage = dmginfo:GetDamage(), dmginfo:GetDamage(), 0.32
+			local InitialDamage, NewDamage, Percentage = dmginfo:GetDamage(), dmginfo:GetDamage(), 0.35
 			-- Phys damage cooldown -- so we don't hit it with great damage 2 times in one frame
 			if pl.PhysCooldownDamage == nil then
 				pl.PhysCooldownDamage = 0 
@@ -234,6 +236,14 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			pl.PhysCooldownDamage = CurTime() + 0.05
 					
 			-- Apply damage
+			if (pl:GetPerk("medic_battlemedic")) then
+				NewDamage = NewDamage * 0.7
+			end
+			
+			local vel = pl:GetPos()
+			vel.z = vel.z + 32
+			util.Blood(vel, math.Rand(NewDamage * 0.1, NewDamage * 0.2), vel:GetNormal(), math.Rand(NewDamage * 0.4, NewDamage), true)
+
 			dmginfo:SetDamage(NewDamage)
 				
 			local phys = Inflictor:GetPhysicsObject()

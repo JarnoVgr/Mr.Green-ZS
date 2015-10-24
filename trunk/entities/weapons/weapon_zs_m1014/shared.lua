@@ -41,7 +41,7 @@ SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "buckshot"
 SWEP.Primary.ReloadDelay	= 0.4
 
-SWEP.Cone = 0.132
+SWEP.Cone = 0.11
 SWEP.ConeMoving = SWEP.Cone *1.05
 SWEP.ConeCrouching = SWEP.Cone *0.95
 
@@ -68,13 +68,6 @@ end
 
 --SWEP.IronSightsPos = Vector(2.559, -3.28, 1.399)
 --SWEP.IronSightsAng = Vector(0, 0, 0)
-
-function SWEP:OnDeploy()
-	if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
-		self.ReloadDelay = 0.4
-		self.ReloadDelay = self.ReloadDelay * 0.5
-	end
-end
 
 
 SWEP.reloadtimer = 0

@@ -104,7 +104,7 @@ function SWEP:OnDeploy()
         self.Owner._RepairScore = self.Owner._RepairScore or 0
     end
 	
-	if self.Owner:GetPerk("_support2") then
+	if self.Owner:GetPerk("Support") then
 	self.ToHeal = math.Round(self.ToHeal + (self.Owner:GetRank()*0.25))
 	end
 	
@@ -112,7 +112,7 @@ function SWEP:OnDeploy()
 		self.ToHeal = self.ToHeal + 2
 	end	
 	
-	if self.Owner:GetPerk("_repairs") then
+	if self.Owner:GetPerk("support_repairs") then
 		self.ToHeal = self.ToHeal + 3
 	end
 	
@@ -124,11 +124,11 @@ function SWEP:OnDeploy()
     --   self:SetClip2(self:Clip2() * 2)
 	--end
 	
-	if IsValid(self.Owner) and self.Owner:GetPerk("_support2") then
+	if IsValid(self.Owner) and self.Owner:GetPerk("Support") then
 		self.Weapon.HadFirstDeploy = true	
 		self:SetClip2(self:Clip2()+ self.Owner:GetRank())
 		
-		if self.Owner:GetPerk("_repairs") then
+		if self.Owner:GetPerk("support_repairs") then
 		self:SetClip2(self:Clip2() + 10)		
 		end
 	end
@@ -207,8 +207,7 @@ if SERVER then
 								--nail:SetDTInt(1, nail:GetDTInt(1) + self.ToHeal*0.5)		
 								
 								if self.ToHeal >= 10 then
-									skillpoints.AddSkillPoints(self.Owner, 1)
-									nail:FloatingTextEffect2( 1, self.Owner )									
+									skillpoints.AddSkillPoints(self.Owner, 1)								
 								end	
 							end
 							

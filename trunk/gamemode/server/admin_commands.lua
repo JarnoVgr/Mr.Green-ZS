@@ -305,6 +305,7 @@ local function CommandSay(pl, text, teamonly)
 		end
 	end
 
+	--[[
 	--Check for voice commands	
 	if pl:Team() == TEAM_HUMAN then
 		local set = pl.VoiceSet or "male"
@@ -320,6 +321,7 @@ local function CommandSay(pl, text, teamonly)
 			end
 		end
 	end
+	]]--
 end
 hook.Add("PlayerSay", "ChatCommands1", CommandSay)
 

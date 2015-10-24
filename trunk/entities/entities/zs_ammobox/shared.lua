@@ -60,15 +60,15 @@ if SERVER then
 	
 		local mul = 1
 	
-		if activator:GetPerk("_support2") then
+		if activator:GetPerk("Support") then
 			mul = mul + 0.1
 		end					
 		
-		if activator:GetPerk("_support2") then
+		if activator:GetPerk("Support") then
 			mul = mul + activator:GetRank()*0.02
 		end	
 		
-		if activator:GetPerk("_supportammo") then
+		if activator:GetPerk("support_ammo") then
 			mul = mul + 0.4
 		end		
 	
@@ -103,11 +103,11 @@ if SERVER then
 				
 				local mul = 1
 					
-				if activator:GetPerk("_support2") then
+				if activator:GetPerk("Support") then
 					mul = (mul+0.1) + activator:GetRank()*0.02
 				end	
 				
-				if activator:GetPerk("_supportammo") then
+				if activator:GetPerk("support_ammo") then
 					mul = mul + 0.4
 				end					
 				

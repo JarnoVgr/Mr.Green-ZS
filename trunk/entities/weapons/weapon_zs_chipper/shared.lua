@@ -58,8 +58,8 @@ SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound 			= Sound("Weapon_Shotgun.Single")
 SWEP.Primary.Recoil			= 2.5
-SWEP.Primary.Damage			= 10
-SWEP.Primary.NumShots		= 7
+SWEP.Primary.Damage			= 7
+SWEP.Primary.NumShots		= 9
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.75
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
@@ -107,14 +107,6 @@ function SWEP:Reload()
 
 	self:SetIronsights(false)
 end
-
-function SWEP:OnDeploy()
-	if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
-		self.ReloadDelay = 0.45
-		self.ReloadDelay = self.ReloadDelay * 0.5
-	end
-end
-
 
 function SWEP:Think()
 	if self.reloading and self.reloadtimer < CurTime() then

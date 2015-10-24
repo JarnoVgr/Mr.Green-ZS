@@ -11,7 +11,7 @@ local function DrawTargetIDTurret(entity)
 	local EntTeam = TEAM_HUMAN
 
 	--Only show if same team
-	if not MySelf:GetPerk("_commando") then
+	if not MySelf:GetPerk("Commando") then
 		if MySelf:Team() ~= EntTeam then
 			return
 		end
@@ -91,7 +91,7 @@ function GM:HUDDrawTargetID()
 		local EntTeam = entity:Team() or -1
 
 		--Only show TargetIDs from same team
-		if not MySelf:GetPerk("_commando") then
+		if not MySelf:GetPerk("Commando") then
 			if MySelf:Team() ~= EntTeam then
 				return
 			end

@@ -14,9 +14,9 @@ SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 
-SWEP.Primary.Duration = 1.25
-SWEP.Primary.Delay = 0.75
-SWEP.Primary.Damage = 24
+SWEP.Primary.Duration = 1.2
+SWEP.Primary.Delay = 0.74
+SWEP.Primary.Damage = 25
 SWEP.Primary.Reach = 48
 
 SWEP.SwapAnims = false

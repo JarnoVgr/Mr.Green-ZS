@@ -134,7 +134,7 @@ function SWEP:Think()
 			self.lastfire = CurTime()
 		else
 		
-			if self:GetOwner():GetPerk("_engineer") then
+			if self:GetOwner():GetPerk("Engineer") then
 				self.MaxClip = 20 + (20*(5*self:GetOwner():GetRank())/100)
 				self.rechargerate = 0.45 - (0.45*(2*self:GetOwner():GetRank())/100)				
 			end

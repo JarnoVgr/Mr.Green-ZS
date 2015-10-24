@@ -51,7 +51,7 @@ function SWEP:Deploy()
 	end
 
 	if SERVER then
-		GAMEMODE:WeaponDeployed(self.Owner, self)
+		self.Owner:CheckSpeedChange()
 		return true
 	else
 		self:SetViewModelColor(Color(255, 255, 255, 255)) 
@@ -94,6 +94,7 @@ function SWEP:Precache()
 end
 
 function SWEP:Initialize()
+	self:DrawShadow(false)
 	self:SetWeaponHoldType( self.HoldType )
 	
 	if not self.NoDeployDelay then

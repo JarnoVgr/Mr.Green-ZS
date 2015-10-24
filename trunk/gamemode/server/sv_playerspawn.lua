@@ -17,7 +17,7 @@ function GM:PlayerInitialSpawn(pl)
 		net.WriteBit(true)
 		net.Send(pl)
 	end
-	
+	pl:DrawShadow(false)
 	pl:SetCanZoom(false)
 
 	--Bots are always ready, human players need to wait
@@ -85,7 +85,9 @@ function GM:PlayerInitialSpawn(pl)
 	pl.GreencoinsGained = {}
 	pl.GreencoinsGained[TEAM_UNDEAD] = 0
 	pl.GreencoinsGained[TEAM_HUMAN] = 0
+
 	
+	pl.LastRage = 0
 	pl.SPRequired = 100
 	pl.SPReceived = 0
 
@@ -278,24 +280,20 @@ function GM:OnHumanSpawn(pl)
 		--Random model
 		--pl.PlayerModel = table.Random(PlayerModels)
 		pl.PlayerModel = "gman"
-	elseif pl:GetPerk("_medic") then
+	elseif pl:GetPerk("Medic") then
 		pl.PlayerModel = table.Random(MedicPlayerModels)
-	elseif pl:GetPerk("_commando") then		
+	elseif pl:GetPerk("Commando") then		
 		pl.PlayerModel = table.Random(CommandoPlayerModels)
 	elseif pl:GetPerk("_support2") then		
 		pl.PlayerModel = table.Random(SupportPlayerModels)
-	elseif pl:GetPerk("_berserker") then
+	elseif pl:GetPerk("Berserker") then
 		pl.PlayerModel = table.Random(BerserkerPlayerModels)
-	elseif pl:GetPerk("_engineer") then
+	elseif pl:GetPerk("Engineer") then
 		pl.PlayerModel = table.Random(EngineerPlayerModels)
-	elseif pl:GetPerk("_sharpshooter") then
+	elseif pl:GetPerk("Sharpshooter") then
 		pl.PlayerModel = table.Random(SharpshooterPlayerModels)
-	elseif pl:GetPerk("_pyro") then
+	elseif pl:GetPerk("Pyro") then
 		pl.PlayerModel = table.Random(PyroPlayerModels)		
-	else
-		--Default to the medic
-		pl.PlayerModel = table.Random(MedicPlayerModels)
-		pl:SetPerk("_medic")
 	end
 	
 	--Check if we can be Santa Claus
@@ -372,8 +370,12 @@ function GM:OnHumanSpawn(pl)
 	pl:SetCrouchedWalkSpeed(0.45)
 
 	--Set jump power
-	if pl:GetJumpPower() ~= 210 then
-		pl:SetJumpPower(210) 
+	if pl:GetJumpPower() ~= 220 then
+		pl:SetJumpPower(220) 
+	end
+	
+	if (pl:GetPerk("sharpshooter_agility")) then
+		pl:SetJumpPower(260)
 	end
 	
 	--Calculate maximum health for human
@@ -437,7 +439,7 @@ function GM:OnZombieSpawn(pl)
 	if pl:Team() ~= TEAM_UNDEAD then
 		return
 	end
-	
+	pl:DrawShadow(false)
 	-- Zombies have their gasses now.
 	--[[
 	Spawn protection
@@ -501,13 +503,6 @@ function GM:OnZombieSpawn(pl)
 		end)
 	end
 	]]--
-	
-	--Set jump power
-	--if pl:GetJumpPower() ~= (Tab.JumpPower or 200) then
-		pl:SetJumpPower(Tab.JumpPower or 210)
-		pl.OriginalJumpPower = Tab.JumpPower or 200		
-	--end
-	
 	--
 	if pl.Revived then
 		pl.ReviveCount = pl.ReviveCount + 1
@@ -635,40 +630,14 @@ function GM:PlayerDisconnected( pl )
 end
 
 --[==[------------------------------------------------
-   Used to calculate player speed on spawn
--------------------------------------------------]==]
---[[
-function CalculatePlayerSpeed(pl)
-	local Speed = 0
-
-	if pl:IsBot() then --This was changed as it worked off the medic class speeds. Which don't exist any more! 
-		Speed = 190
-	elseif pl:GetPerk("_medic") then
-		Speed = 180
-	elseif pl:GetPerk("_commando") then
-		Speed = 180
-	elseif pl:GetPerk("_support2") then
-		Speed = 190
-	elseif pl:GetPerk("_berserker") then
-		Speed = 170
-	elseif pl:GetPerk("_engineer") then
-		Speed = 180
-	elseif pl:GetPerk("_sharpshooter") then
-		Speed = 170
-	end	
-	
-	--Returns twice: walk and run speed
-	return Speed, Speed
-end
-]]--
-
---[==[------------------------------------------------
      Loadout Director - Called on h spawn
 -------------------------------------------------]==]
 function CalculatePlayerLoadout(pl)
 	if pl:Team() ~= TEAM_HUMAN then
 		return
 	end
+	
+	
 	
 	if pl.Redeemed then	
 		pl:Give("weapon_zs_elites")
@@ -699,77 +668,82 @@ function CalculatePlayerLoadout(pl)
 	pl.Loadout = {}
 	
 	--Classes
-	if pl:GetPerk("_medic") then
+	if pl:GetPerk("Medic") then
 		pl.Loadout = table.Copy(medicstage1)
 
 		pl:ChatPrint("You are a Medic")
 
-		if pl:GetPerk("_medigun") then
+		if pl:GetPerk("medic_medigun") then
 			pl:Give("weapon_zs_medi1")
 		end
-	elseif pl:GetPerk("_support2") then
+	elseif pl:GetPerk("Support") then
 		pl.Loadout = table.Copy(support)
 		pl:ChatPrint("You are a Support")
 				
-		if pl:GetPerk("_supportweapon") then
+		if pl:GetPerk("support_shotgun") then
 			pl:Give("weapon_zs_shotgun")
 		end
-		
-		if pl:GetPerk("_support") then
+
+		if pl:GetPerk("support_boardpack") then
 			pl:Give("weapon_zs_tools_plank")
-		elseif pl:GetPerk("_mobilesupplies") then
+		elseif pl:GetPerk("support_mobilesupplies") then
 			pl:Give("weapon_zs_tools_supplies")
 		else
 			pl:Give("weapon_zs_tools_ammobox")	
 		end
 		
-	elseif pl:GetPerk("_engineer") then
+	elseif pl:GetPerk("Engineer") then
 		pl.Loadout = table.Copy(engineer)
 
 		pl:ChatPrint("You are an Engineer")
-		if pl:GetPerk("_pulsepistol") then
+		if pl:GetPerk("engineer_pulsepistol") then
 			pl:Give("weapon_zs_pulsepistol")
 		end
 
-		if pl:GetPerk("_remote") then
-			pl:Give("weapon_zs_tools_remote")
-		end
-
-		if pl:GetPerk("_combat") then
+		if pl:GetPerk("engineer_combatturret") then
 			pl:SpawnMiniTurret()
 		end
-	elseif pl:GetPerk("_commando") then
+		
+	elseif pl:GetPerk("Commando") then
 		pl:ChatPrint("You are a Commando")
 
 		pl.Loadout = table.Copy(commando)
 
-		if pl:GetPerk("_defender") then
+		if pl:GetPerk("commando_defender") then
 			pl:Give("weapon_zs_defender")
 		end		
-	elseif pl:GetPerk("_berserker") then
+	elseif pl:GetPerk("Berserker") then
 		pl.Loadout = table.Copy(berserker)
 
 		pl:ChatPrint("You are a Berserker")
 
-		if pl:GetPerk("_slinger") then
+		if pl:GetPerk("berserker_hook") then
 			pl:Give("weapon_zs_melee_hook")
-		elseif pl:GetPerk("_oppressive") then
+		elseif pl:GetPerk("berserker_oppressor") then
 			pl:Give("weapon_zs_melee_pipe2")
 		end		
-	elseif pl:GetPerk("_sharpshooter") then
+	elseif pl:GetPerk("Sharpshooter") then
 		pl.Loadout = table.Copy(sharpshooter)
 		pl:ChatPrint("You are a Sharpshooter")
 			
-		if pl:GetPerk("_lethal") then
+		if pl:GetPerk("sharpshooter_python") then
 			pl:Give("weapon_zs_python")
 		end		
-	elseif pl:GetPerk("_pyro") then
+	elseif pl:GetPerk("Pyro") then
 		pl.Loadout = table.Copy(pyro)
 		pl:ChatPrint("You are a Pyro")
 		
-		if pl:GetPerk("_glock") then
+		if pl:GetPerk("pyro_glock") then
 			pl:Give("weapon_zs_glock3")
-		end		
+		end
+	else
+		pl.Loadout = table.Copy(medicstage1)
+
+		pl:ChatPrint("You are a Medic")
+
+		if pl:GetPerk("medic_medigun") then
+			pl:Give("weapon_zs_medi1")
+		end
 	end
 
 	--Give class loadout
@@ -904,7 +878,7 @@ function CalculatePlayerHealth(pl)
 		return
 	end
 
-	local MaxHealth, Health = 100, 100
+	local Health = 100
 	
 	--Case 3: If player got hurt and reconnected as human
 	if pl:ConnectedHealth() ~= false then
@@ -912,21 +886,18 @@ function CalculatePlayerHealth(pl)
 		DataTableConnected[pl:UniqueID() or "UNCONNECTED"].Health = false
 	end
 	
-	if pl:GetPerk("_support2") and pl:GetPerk("_kevlarsupport") then
-		MaxHealth, Health = 150, 150
-	elseif pl:GetPerk("_sharpshooter") and pl:GetPerk("_kevlar2") then
-		MaxHealth, Health = 120, 120
-	elseif pl:GetPerk("_commando") then
-		MaxHealth, Health = 110 + pl:GetRank() * 3, 110 + pl:GetRank() * 3
+	if pl:GetPerk("support_health") then
+		Health = 150
+	elseif pl:GetPerk("Commando") then
+		Health = 110 + pl:GetRank() * 3
 
-		if pl:GetPerk("_kevlarcommando") then
-			Health = MaxHealth + 50
+		if pl:GetPerk("commando_health") then
+			Health = Health + 30
 		end
 	end
-
 	-- Actually set the health
 	pl:SetHealth(Health)
-	pl:SetMaximumHealth(MaxHealth)
+	pl:SetMaximumHealth(Health)
 end
 
 --[==[----------------------------------------------------

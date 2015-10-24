@@ -18,14 +18,6 @@ function ENT:Initialize()
 	self.Entity:SetTrigger(true)
 	self.Entity.Frozen = true
 	
-	if self:GetOwner():GetPerk("_nitrate") then
-		self.scan = 1.5
-	end
-
-	if self:GetOwner():GetPerk("_trap") then
-		self.range = 70
-	end
-	
 	if self:GetOwner().DataTable["ShopItems"][50] then
 		self.Damage = self.Damage + (self.Damage * 0.1)		
 	end
@@ -117,15 +109,9 @@ function ENT:Explode()
 	Ent:SetOwner( self:GetOwner() )
 	Ent:Activate()
 	
-	if self:GetOwner():GetPerk("_engineer") then
+	if self:GetOwner():GetPerk("Engineer") then
 		self.damage = self.damage + ((self.damage*1.05)*(1*self:GetOwner():GetRank())/100)
 		self.radius = self.radius + (self.radius*(1*self:GetOwner():GetRank())/100)	
-
-		if self:GetOwner():GetPerk("_nitrate") then
-			self.radius = self.radius + (self.radius*0.4)		
-		elseif self:GetOwner():GetPerk("_trap") then
-			self.damage = self.damage + (self.damage*0.3)		
-		end		
 	end
 	
 	Ent:SetKeyValue( "iMagnitude", self.damage ) --180 -- math.Clamp ( math.Round ( 250 * GetInfliction() ), 100, 350 )

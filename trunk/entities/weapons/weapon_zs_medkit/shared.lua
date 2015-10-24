@@ -77,15 +77,7 @@ function SWEP:PrimaryAttack()
 			if ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
 			local health, maxhealth = ent:Health(), ent:GetMaximumHealth()
 				local multiplier = 1.0
-				
-				if owner:GetPerk("_medupgr1" ) then
-					multiplier = 1.3
-				end	
-				
-				if owner:GetPerk("_medic") then
-					multiplier = multiplier + multiplier*((2*owner:GetRank())/100)
-				end						
-				
+						
 				if owner.DataTable["ShopItems"][48] then
 					multiplier = multiplier + 0.2
 				end		
@@ -100,10 +92,6 @@ function SWEP:PrimaryAttack()
 						delay = math.Clamp(self.Primary.HealDelay - 1.5,0,self.Primary.HealDelay)
 					end
 					
-					if owner:GetPerk("_medic") then
-						multiplier = multiplier + multiplier*((5*owner:GetRank())/100)
-					end
-					
 					self:SetNextCharge(CurTime() + delay)
 					owner.NextMedKitUse = self:GetNextCharge()
 					
@@ -113,8 +101,8 @@ function SWEP:PrimaryAttack()
 						ent:FloatingTextEffect2( toheal or 15, owner )
 						owner:AddXP(toheal*2 or 5)
 						
-						if owner:GetPerk("_medupgr1") then
-							skillpoints.AddSkillPoints(owner,toheal*0.3 or 15)				
+						if owner:GetPerk("medic_reward") then
+							skillpoints.AddSkillPoints(owner,toheal*0.4 or 15)				
 						end
 						
 						--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})
@@ -251,11 +239,11 @@ function SWEP:Equip ( NewOwner )
 	if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false
 		
-		if NewOwner:GetPerk("_medic") then
+		if NewOwner:GetPerk("Medic") then
 			NewOwner:GiveAmmo(self.Owner:GetRank()*10, self:GetPrimaryAmmoTypeString())	
 		end		
 		
-		if NewOwner:GetPerk("_medupgr2") then
+		if NewOwner:GetPerk("medic_supplies") then
 			NewOwner:GiveAmmo( 100, self:GetPrimaryAmmoTypeString() )
 		end
 	end	

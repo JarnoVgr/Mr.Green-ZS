@@ -54,7 +54,7 @@ function ENT:PhysicsCollide( Data, Phys )
 			--z:Ignite(ignite,0)				
 			--z.NoGib = CurTime() + 1
 
-			if self.Entity:GetOwner():GetPerk("_flarebounce") then
+			if self.Entity:GetOwner():GetPerk("pyro_flare") then
 				damage = damage + 10
 				if math.random(1,4) == 1 then
 					self.CanHit = false

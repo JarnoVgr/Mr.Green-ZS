@@ -312,7 +312,7 @@ function GM:OnPlayerReadySQL()
 					hook.Remove("Think", "CheckUpdateData")
 					
 					--Class menu
-					DrawSelectClass()
+					DrawLoadoutMenu()
 				end
 			end
 		end)

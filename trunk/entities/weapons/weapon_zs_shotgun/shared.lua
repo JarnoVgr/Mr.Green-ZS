@@ -50,9 +50,9 @@ SWEP.Primary.Delay			= 0.55
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo	= "buckshot"
-SWEP.ConeMoving = 0.15
-SWEP.Cone = 0.148
-SWEP.ConeCrouching = 0.146
+SWEP.ConeMoving = 0.12
+SWEP.Cone = 0.118
+SWEP.ConeCrouching = 0.116
 SWEP.IsShotgun = true
 SWEP.MaxAmmo			    = 50
 SWEP.WalkSpeed = (SPEED_SHOTGUN + 5)
@@ -80,12 +80,6 @@ function SWEP:Reload()
 	end
 
 	self:SetIronsights(false)
-end
-function SWEP:OnDeploy()
-	if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_reload") then
-		self.ReloadDelay = 0.4
-		self.ReloadDelay = self.ReloadDelay * 0.5
-	end
 end
 
 function SWEP:Think()

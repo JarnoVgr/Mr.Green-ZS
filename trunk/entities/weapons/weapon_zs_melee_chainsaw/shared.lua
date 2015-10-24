@@ -40,7 +40,7 @@ SWEP.SlotPos = 8
 SWEP.HumanClass = "berserker"
 -- Damage, distane, delay
 SWEP.Primary.Automatic	= true
-SWEP.MeleeDamage = 15
+SWEP.MeleeDamage = 20
 SWEP.MeleeRange = 51
 SWEP.MeleeSize = 0.5
 SWEP.Primary.Delay = 0.1

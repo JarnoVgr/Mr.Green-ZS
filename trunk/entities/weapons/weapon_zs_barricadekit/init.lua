@@ -19,7 +19,8 @@ function SWEP:Deploy()
 	self.Owner:DrawViewModel( true )
 	self.Owner:DrawWorldModel( true )
 
-	GAMEMODE:WeaponDeployed ( self.Owner, self )
+	self.Owner:CheckSpeedChange()
+
 
 	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
 		

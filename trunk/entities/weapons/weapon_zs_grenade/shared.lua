@@ -86,7 +86,7 @@ function SWEP:Equip ( NewOwner )
 		self.Weapon.FirstSpawn = false	
 	
 	--if self.Owner:GetPerk("_plankamount") then
-	if self.Owner:GetPerk("_nade") then
+	if self.Owner:GetPerk("commando_grenadier") then
 		self.Weapon:SetClip1( 6 ) 	
 	end
 	
@@ -120,11 +120,8 @@ local owner = self.Owner
 
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
 	if not self:CanPrimaryAttack() then return end
-		if owner:GetPerk("_nade") then
-		self:SetNextSecondaryFire(CurTime() + self.Primary.Delay * 0.5)
-	else
-		self:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
-	end
+
+	self:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
 	
 	local owner = self.Owner
 	if SERVER then
@@ -139,7 +136,7 @@ local owner = self.Owner
 			if phys:IsValid() then
 				phys:Wake()
 				phys:AddAngleVelocity(VectorRand() * 5)
-				phys:SetVelocityInstantaneous(self.Owner:GetAimVector() * 250)
+				phys:SetVelocityInstantaneous(self.Owner:GetAimVector() * 300)
 			end
 		end
 	end
@@ -156,12 +153,9 @@ local owner = self.Owner
 
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
 	if not self:CanPrimaryAttack() then return end
-		if owner:GetPerk("_nade") then
-		self:SetNextPrimaryFire(CurTime() + self.Primary.Delay * 0.5)
-	else
-		self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-	end
-	
+
+	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+
 	local owner = self.Owner
 	if SERVER then
 		local ent = ents.Create("projectile_zsgrenade")

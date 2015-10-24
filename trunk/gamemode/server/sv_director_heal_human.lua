@@ -24,15 +24,14 @@ local function Heal()
 	
 	for i=1, #Human do	
 		local pl = Human[i]
-		if not IsValid(pl) or not pl:Alive() or not pl:Team() == TEAM_HUMAN or not pl:GetPerk("_supportregen") or pl:Health() >= maxheal then
-			continue
-		end
+		if IsValid(pl) and pl:Alive() and pl:Team() == TEAM_HUMAN and pl:GetPerk("support_regeneration") and pl:Health() < pl:GetMaximumHealth() then
+		
+			if Time < HealTimeout or Time < (pl.LastHurt + HealTimeout) then
+				continue
+			end	
 
-		if Time < HealTimeout or Time < (pl.LastHurt + HealTimeout) then
-			continue
+			pl:SetHealth(math.min(pl:Health() + HealAmount, maxheal))				
 		end
-
-		pl:SetHealth(math.min(pl:Health() + HealAmount, maxheal))	
 	end
 end
 timer.Create("HU-Heal", HealInterval, 0, Heal)

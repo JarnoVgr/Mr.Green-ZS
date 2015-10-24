@@ -149,13 +149,7 @@ function SWEP:StartSecondaryAttack()
 		--Shakey shakey
 		local fFuckIntensity = fHitPercentage * 6
 
-		
-		if v:GetPerk("_berserker") then
-			GAMEMODE:OnPlayerHowlered(v, fFuckIntensity*0.7)
-			v:TakeDamage(3, self.Owner, self)			
-		else
-			GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
-		end
+		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 	end
 end
 

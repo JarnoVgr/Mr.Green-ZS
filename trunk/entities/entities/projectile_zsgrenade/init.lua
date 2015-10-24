@@ -43,18 +43,10 @@ function ENT:Explode()
 	
 		util.BlastDamage2(self, owner, pos, 250, 300)
 	
-		if owner.DataTable["ShopItems"][52] and owner.GetPerk("_commando") then
+		if owner.DataTable["ShopItems"][52] and owner.GetPerk("Commando") then
 			util.BlastDamage2(self, owner, pos, 250, 300 * 1.5)
 		end
 		
-		if owner:GetPerk("_nade") then
-			util.BlastDamage2(self, owner, pos, 340, 300 * 1.25)
-			if owner.DataTable["ShopItems"][52] and owner.GetPerk("_commando") then
-				util.BlastDamage2(self, owner, pos, 290, 300 * 1.75)
-			end			
-		end			
-	
-
 		local effectdata = EffectData()
 		effectdata:SetOrigin(pos)
 		util.Effect("Explosion", effectdata)

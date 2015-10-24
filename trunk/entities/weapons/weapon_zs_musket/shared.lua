@@ -76,7 +76,7 @@ SWEP.MaxAmmo			    = 40
 SWEP.Secondary.Delay = 0.5
 
 function SWEP:OnDeploy()
-	if self.Owner:GetPerk("_musket") then
+	if self.Owner:GetPerk("sharpshooter_double") then
 		self.Primary.ClipSize = 4
 	
 	end

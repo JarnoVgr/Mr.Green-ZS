@@ -48,6 +48,7 @@ function SWEP:Precache()
 end
 
 function SWEP:Initialize()
+	self:DrawShadow(false)
 	self:SetWeaponHoldType(self.HoldType)
 	self:SetDeploySpeed(1.0)
 	self.ActualClipSize	= self.Primary.ClipSize
@@ -90,6 +91,7 @@ function SWEP:PrimaryAttack()
 	bullet.Force = 3000
 
 	local recoilm = 2 - self.RecoilMultiplier
+	local cone = self.Cone
 	
 	--Recoil multiplier
 	if self.Owner:Crouching() then
@@ -113,59 +115,70 @@ function SWEP:PrimaryAttack()
 		self.Owner:SetEyeAngles(eyeang)
 	end
 
-	if (self.Primary.Ammo == "pistol") then
 	
-		if self.Owner:GetVelocity():Length() > 10 then	
-			if self.LastShot > CurTime() - 0.2 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.6 - (self.ConeMoving * self.AccuracyBonus))	
-			elseif self.LastShot > CurTime() - 0.3 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.5 - (self.ConeMoving * self.AccuracyBonus))	
-			elseif self.LastShot > CurTime() - 0.5 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.3 - (self.ConeMoving * self.AccuracyBonus))			
-			elseif self.LastShot > CurTime() - 0.6 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.1 - (self.ConeMoving * self.AccuracyBonus))
-			else
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1 - (self.ConeMoving * self.AccuracyBonus))		
-			end
+	local j = 0
+	if self.Owner:GetVelocity():Length() > 10 then
+		j = 0.5
+		cone = self.ConeMoving
+	end	
+	
+	if self.Owner:Crouching() then
+		cone = self.ConeCrouching
+	end
+	
+	if self:GetIronsights() then
+		cone = self.ConeIron
+		if self.Owner:Crouching() then
+			cone = self.ConeIronCrouching
+		end		
+	end
+	
+	if (self.Primary.Ammo == "pistol") then
+
+		for i=1, 10 do
+			if self.LastShot > CurTime() - (i * 0.08) then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, (cone * ((j + 1.41) - (i * 0.14))) - (cone * self.AccuracyBonus))		
+				break
 			
-		else
-			if self.LastShot > CurTime() - 0.2 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.3 - (self.ConeMoving * self.AccuracyBonus))	
-			elseif self.LastShot > CurTime() - 0.3 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.2 - (self.ConeMoving * self.AccuracyBonus))	
-			elseif self.LastShot > CurTime() - 0.5 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1 - (self.ConeMoving * self.AccuracyBonus))			
-			elseif self.LastShot > CurTime() - 0.6 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 0.75 - (self.ConeMoving * self.AccuracyBonus))
-			else
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 0.5 - (self.ConeMoving * self.AccuracyBonus))		
+			elseif i == 10 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.3 - (cone * self.AccuracyBonus))
+				break
 			end
 		end
+
+	elseif (self.Primary.Ammo == "buckshot" or self.Primary.Ammo == "357") then
+	
+	for i=1, 10 do
+		if self.LastShot > CurTime() - (i * 0.11) then
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, (cone * ((j + 1.51) - (i * 0.12))) - (cone * self.AccuracyBonus))		
+			break
+		
+		elseif i == 10 then
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.5 - (cone * self.AccuracyBonus))
+			break
+		end
+	end	
+	
 	
 	else
-		if self:GetIronsights() then
-			if self.Owner:Crouching() then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIronCrouching * 0.7 - (self.ConeIronCrouching * self.AccuracyBonus))
-			else
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeIron * 0.7 - (self.ConeIron * self.AccuracyBonus))
-			end
-		elseif 0.5 < self.Owner:GetVelocity():Length() then
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeMoving * 1.3 - (self.ConeMoving * self.AccuracyBonus))
-		else
-			if self.Owner:Crouching() then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.ConeCrouching * 0.7 - (self.ConeCrouching * self.AccuracyBonus))
-			else
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self.Cone * 0.7 - (self.Cone * self.AccuracyBonus))
+		for i=1, 10 do
+			if self.LastShot > CurTime() - (i * 0.08) then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, (cone * ((j + 1.105) - (i * 0.1))) - (cone * self.AccuracyBonus))		
+				break
+			
+			elseif i == 10 then
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.3 - (cone * self.AccuracyBonus))
+				break
 			end
 		end
 	end
 
 	--Knockback
-	local aimVec = self.Owner:GetAimVector()
-	aimVec.z = 0
+	--local aimVec = self.Owner:GetAimVector()
+	--aimVec.z = 0
 	self.LastShot = CurTime()
 	
-	self.Owner:SetVelocity(-5 * (recoil * aimVec))
+	--self.Owner:SetVelocity(-5 * (recoil * aimVec))
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
 end
 
@@ -199,7 +212,7 @@ function SWEP:SetIronsights(b)
 		end
 	end
 	if CLIENT then return end
-	GAMEMODE:WeaponDeployed ( self.Owner, self, b )
+	self.Owner:CheckSpeedChange()
 end
 
 function SWEP:Deploy()
@@ -215,29 +228,23 @@ function SWEP:Deploy()
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
 
 	--commando
-	if self.Owner:GetPerk("_accuracy") then
-		self.RecoilMultiplier = 1 * 1.5
-		self.AccuracyBonus = 0.5
+	if self.Owner:GetPerk("commando_marksman") then
+		self.AccuracyBonus = 0.6
 	end
 	
 	--sharpshooter
-	if self.Owner:GetPerk("_accuracy2") then
-		self.RecoilMultiplier = 1 * 1.7
+	if self.Owner:GetPerk("sharpshooter_marksman") then
 		self.AccuracyBonus = 0.7
 	end	
 	
-	if self.Owner:GetPerk("_highcal") then
-		self.ForceBonus = 3
-	end		
 	
-	if self.Owner:GetPerk("_commando") then
+	if self.Owner:GetPerk("Commando") then
 	
 		local bonus = 0
-		if self.Owner:GetPerk("_enforcer") then
-			bonus = self.ActualClipSize * 0.2
+		if self.Owner:GetPerk("commando_enforcer") then
+			bonus = self.ActualClipSize * 0.25
 		end
 
-	
 	
 		self.Primary.ClipSize = self.ActualClipSize * 0.1 + self.ActualClipSize + (self.ActualClipSize * (self.Owner:GetRank() * 2) / 100) + bonus
 		
@@ -260,7 +267,7 @@ function SWEP:Deploy()
 	
 	--Speed change
 	if SERVER then
-		GAMEMODE:WeaponDeployed( self.Owner, self )
+		self.Owner:CheckSpeedChange()
 		return true
 	else
 		self:SetViewModelColor( Color(255,255,255,255) ) 
@@ -363,14 +370,16 @@ function SWEP:Reload()
 	--Voice
 	if SERVER then
 		if self.Weapon:Clip1() <= math.floor(self.Primary.ClipSize / 1.5) and math.random(1, 2) == 1 then
-			local rlsnd = VoiceSets[self.Owner.VoiceSet].ReloadSounds
-			if rlsnd then
-				local that = self
-				timer.Simple(0.2, function ()
-					if IsValid(that) then
-						self:EmitSound(rlsnd[math.random(1, #rlsnd)])
-					end
-				end)
+			if (VoiceSets[self.Owner.VoiceSet].ReloadSounds) then
+				local rlsnd = VoiceSets[self.Owner.VoiceSet].ReloadSounds
+				if rlsnd then
+					local that = self
+					timer.Simple(0.2, function ()
+						if IsValid(that) then
+							self:EmitSound(rlsnd[math.random(1, #rlsnd)])
+						end
+					end)
+				end
 			end
 		end
 	end

@@ -33,7 +33,7 @@ function ENT:Initialize()
 		self.CrateMaxHealth = 200
 	end
 	
-	if self:GetPlacer():GetPerk("_supply") then	
+	if self:GetPlacer():GetPerk("sharpshooter_medical") then	
 		self.Entity:SetColor( Color( 0, 200, 200, 255 ) )
 	end
 			
@@ -91,11 +91,19 @@ if SERVER then
 		if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() then
 			self.CrateHealth = self.CrateHealth - dmginfo:GetDamage()
 		
+		
+		
 				local brit = math.Clamp(self.CrateHealth / self.CrateMaxHealth, 0, 1)
 		local col = self:GetColor()
 		col.r = 255
 		col.g = 255 * brit
 		col.b = 255 * brit
+		if self:GetPlacer():GetPerk("_supply") then
+			col.r = 0
+			col.g = 200 * brit
+			col.b = 200 * brit		
+		end
+
 		self:SetColor(col)		
 		
 			if self.CrateHealth <= 0 then
@@ -178,11 +186,11 @@ if SERVER then
 						local mul = 1
 						
 
-						if activator:GetPerk("_support2") then
+						if activator:GetPerk("Support") then
 							mul = (mul+0.1) + activator:GetRank()*0.02
 						end	
 						
-						if activator:GetPerk("_supportammo") then
+						if activator:GetPerk("support_ammo") then
 							mul = mul + 0.4
 						end					
 						
@@ -197,10 +205,9 @@ if SERVER then
 				local Owner = self:GetPlacer()
 				
 				--Heal 
-				if activator:Health() < activator:GetMaximumHealth() and Owner:GetPerk("_supply") then
+				if activator:Health() < activator:GetMaximumHealth() and Owner:GetPerk("sharpshooter_medical") then
 					activator:SetHealth(activator:Health() + 4)
-					skillpoints.AddSkillPoints(Owner,1)
-					self:FloatingTextEffect2(1, Owner)					
+					skillpoints.AddSkillPoints(Owner,1)			
 				end
 
 				--Give SP to crate owner		

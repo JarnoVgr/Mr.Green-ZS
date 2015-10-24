@@ -59,6 +59,7 @@ function SWEP:Precache()
 end
 
 function SWEP:Initialize()
+	self:DrawShadow(false)
 	self:SetDeploySpeed(1.1)
 	self:SetWeaponHoldType(self.HoldType)
 	self:SetWeaponSwingHoldType(self.SwingHoldType)
@@ -115,12 +116,12 @@ end
 
 function SWEP:Deploy()
 	if SERVER then
-		GAMEMODE:WeaponDeployed(self.Owner, self)
+		self.Owner:CheckSpeedChange()
 	end
 	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 	
-	if self.Owner:GetPerk("_berserker") then
-		if self.Owner:GetPerk("_breakthrough") then	
+	if self.Owner:GetPerk("Berserker") then
+		if self.Owner:GetPerk("berserker_breakthrough") then	
 			self.Breakthrough = true
 		end
 		self.Berserker = true
@@ -345,8 +346,8 @@ function SWEP:StartSwinging()
 	
 	local swingtime = self.SwingTime
 		
-	if self.Owner and self.Owner:GetPerk("_psychotic") then
-		swingtime = math.Clamp(self.SwingTime*0.6,0,self.SwingTime)
+	if self.Owner and self.Owner:GetPerk("berserker_maniac") then
+		swingtime = math.Clamp(self.SwingTime*0.5,0,self.SwingTime)
 	end
 
 	self:SetSwingEnd(CurTime() + swingtime)
@@ -412,12 +413,7 @@ function SWEP:MeleeSwing()
 					local Velocity = self.Owner:EyeAngles():Forward() * damage * 3 * (self.MeleeSize - 0.25)
 					Velocity.x = Velocity.x * 0.4
 					Velocity.y = Velocity.y * 0.4
-					Velocity.z = Velocity.z * 1.12
-
-					if owner:GetPerk("_oppressive") then
-						Velocity.z = Velocity.z * 1.85
-					end
-					
+					Velocity.z = Velocity.z * 1.12					
 					Velocity.z = math.Clamp(Velocity.z,0,220)
 	
 					hitent:SetLocalVelocity(Velocity)	
