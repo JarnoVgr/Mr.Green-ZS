@@ -17,6 +17,7 @@ end
 util.PrecacheModel("models/items/ammocrate_smg1.mdl")
 function ENT:Initialize()
 	if SERVER then	
+		self:DrawShadow(false)
 		self.Entity:SetModel("models/items/ammocrate_smg1.mdl")
 		self.Entity:PhysicsInit(SOLID_VPHYSICS)
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)

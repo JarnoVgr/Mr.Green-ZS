@@ -36,7 +36,7 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- 1 to 0, higher means less penality.
 SPEED_PENALTY = 0.635
 
-SPEED = 187
+SPEED = 200
 SPEED_LIGHT = SPEED - 2
 SPEED_MELEE_LIGHT = SPEED - 3
 SPEED_MELEE = SPEED - 10
@@ -197,7 +197,8 @@ GM.HumanWeapons = {
  
 		--Pyro
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 100}, 
-        ["weapon_zs_glock3"]  = { Name = "Glock", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 120, HumanClass = "pyro" },		
+        ["weapon_zs_glock3"]  = { Name = "Glock 3", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 120, HumanClass = "pyro" },		
+        ["weapon_zs_glock1"]  = { Name = "Glock 1", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 120, HumanClass = "pyro" },		
 		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "pistol", HumanClass = "pyro", Price = 140},
 		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg", HumanClass = "pyro", Price = 120 },		
 		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Type = "shotgun", HumanClass = "pyro", Price = 160},	
@@ -473,8 +474,9 @@ GM.Perks = {
 		["sharpshooter_agility"] = {Name = "Agility", Description = "+7% movement speed\n+40 jump power", Class = "Sharpshooter", Slot = 3, Rank = 8, Material = "vgui/achievements/kill_enemy_in_air"},
 	-- Pyro
 	
-		["pyro_backfire"] = {Name = "Backfire", Description = "+5 pyro ammunition back when target has been ignited", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_reloading"},
-		["pyro_glock"] = {Name = "Glock", Description = "Spawn with a glock", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_glock"},
+		["pyro_backfire"] = {Name = "Backfire", Description = "6 pyro ammunition back when target has been ignited", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_reloading"},
+		["pyro_glock3"] = {Name = "Glock 3", Description = "Spawn with the Glock 3", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_glock"},
+		["pyro_glock1"] = {Name = "Glock 1", Description = "Spawn with the Glock 1", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_glock"},
 	   
 		["pyro_burn"] = {Name = "Burn", Description = "+5% scorch chance\n+10 scorch damage", Class = "Pyro", Slot = 2, Rank = 3, Material = "hud/t_victories_terrorist-win"}, 
 		["pyro_flare"] = {Name = "Flare Bounce", Description = "+10 flare damage\n75% chance flare doesn't explode on impact", Class = "Pyro", Slot = 2, Rank = 3, Material = "hud/t_victories_rescue-failed"},

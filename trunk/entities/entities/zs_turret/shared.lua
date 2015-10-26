@@ -54,7 +54,7 @@ end
 
 if SERVER then
 	function ENT:Initialize()
-		
+		self:DrawShadow(false)
 		self._mOwner = self:GetTurretOwner()
 
 		self.Entity:SetModel("models/Combine_turrets/Floor_turret.mdl")

@@ -84,7 +84,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					end
 					
 					if attacker:GetPerk("pyro_backfire") then	
-						attacker:GiveAmmo(5,"alyxgun")
+						attacker:GiveAmmo(6,"alyxgun")
 					end
 					
 					dmg = dmg+scorch

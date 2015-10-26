@@ -366,23 +366,24 @@ function GM:InitPostEntity()
 	gamemode.Call("SetupProps")
 	
 	--Loop 1 through props to convert into entity where needed
-	for _, ent in pairs(ents.FindByClass("prop_physics")) do
+	for _, ent in pairs(ents.FindByClass("prop*")) do
 		self:ModelToEntity(ent)
 		ent:SetKeyValue("disableshadows", "true")
 		ent:DrawShadow(false)
 	end
 	
-	--Loop 2 through props to convert into entity where needed
-	for _, ent in pairs(ents.FindByClass("prop_physics_multiplayer")) do
-		self:ModelToEntity(ent)
-		ent:SetKeyValue("disableshadows", "true")
+	for _, ent in pairs(ents.FindByClass("func_*")) do
 		ent:DrawShadow(false)
+		ent:SetKeyValue("disableshadows", 1)
+	end
+	for _, ent in pairs(ents.FindByClass("env_*")) do
+		ent:DrawShadow(false)
+		ent:SetKeyValue("disableshadows", 1)
 	end
 	
 	--Set objective stage
-	if OBJECTIVE then
-		self:SetObjStage(1)
-	end
+	--	self:SetObjStage(1)
+	--end
 	
 	
 	

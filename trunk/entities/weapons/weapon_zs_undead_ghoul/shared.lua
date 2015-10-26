@@ -1,7 +1,7 @@
 AddCSLuaFile()
 --Made by Duby :P
 if CLIENT then
-	SWEP.PrintName = "Infected Zombie"
+	SWEP.PrintName = "Ghoul"
 	SWEP.ViewModelFOV = 80
 
 
@@ -67,7 +67,7 @@ function SWEP:Think()
 	end
 	
 
-	if self.Owner:KeyReleased( IN_RELOAD  ) then	
+	if self.Owner:KeyReleased( IN_RELOAD  ) then
 		if SERVER then
 			local vecAim = self.Owner:GetAimVector()
 			local posShoot = self.Owner:GetShootPos()

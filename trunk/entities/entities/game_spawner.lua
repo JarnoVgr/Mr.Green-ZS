@@ -16,6 +16,7 @@ end
 util.PrecacheModel("models/props_c17/gravestone002a.mdl")
 function ENT:Initialize()
 	if SERVER then	
+		self:DrawShadow(false)
 		self.Entity:SetPos(self.Entity:GetPos() + Vector(0,0,22))
 		--self:SetModelScale(0.3,0)
 		self.Entity:SetMaterial("models/flesh")

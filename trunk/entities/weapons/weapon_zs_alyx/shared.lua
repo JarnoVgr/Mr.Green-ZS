@@ -12,7 +12,6 @@ if CLIENT then
 		SWEP.ViewModelBoneMods = {
 			["v_weapon.Glock_Slide"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 			["v_weapon.Glock_Parent"] = { scale = Vector(0.287, 0.287, 0.287), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		--	["v_weapon.Glock_Clip"] = { scale = Vector(3, 3, 3), pos = Vector(-0.672, -0.664, -0.24), angle = Angle(3.359, -10.171, 0) },
 			["v_weapon.FIVESEVEN_PARENT"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
 		}
 		SWEP.VElements = {
@@ -53,7 +52,7 @@ SWEP.TracerName = "AirboatGunTracer"
 SWEP.HoldType = "revolver"
 
 SWEP.ViewModel = "models/weapons/cstrike/c_pist_fiveseven.mdl"
-SWEP.WorldModel = "models/weapons/w_alyx_gun.mdl"
+SWEP.WorldModel			= Model ( "models/weapons/w_pist_fiveseven.mdl" )
 
 function SWEP:OnDeploy()
     self.Weapon:SendWeaponAnim(ACT_VM_DRAW)

@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.ViewModelFOV = 60
 	SWEP.SlotPos = 6
 	SWEP.IconLetter = "c"
-	killicon.AddFont( "weapon_zs_glock3", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_glock1", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
 end
 
 if CHRISTMAS then
@@ -39,19 +39,19 @@ SWEP.HumanClass = "pyro"
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Glock.Single" )
-SWEP.Primary.Recoil			= 1.8
-SWEP.Primary.Damage			= 9
-SWEP.Primary.NumShots		= 3
+SWEP.Primary.Recoil			= 1
+SWEP.Primary.Damage			= 10
+SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 21
-SWEP.Primary.Delay			= 0.22
+SWEP.Primary.Delay			= 0.1
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
-SWEP.Primary.Automatic		= false
+SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "alyxgun"
 SWEP.MaxAmmo			    = 100
 SWEP.WalkSpeed = SPEED_PISTOL
 
 
-SWEP.Cone = 0.11
+SWEP.Cone = 0.07
 SWEP.ConeMoving = SWEP.Cone *1.05
 SWEP.ConeCrouching = SWEP.Cone *0.98
 SWEP.ConeIron = SWEP.Cone *0.99
@@ -63,7 +63,3 @@ SWEP.IronSightsPos = Vector(-5.8,16,2)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
 
 SWEP.TracerName = "AirboatGunTracer"
-
-function SWEP:TakeAmmo()
-	self:TakePrimaryAmmo(3)	
-end

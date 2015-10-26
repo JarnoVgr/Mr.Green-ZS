@@ -733,12 +733,14 @@ function CalculatePlayerLoadout(pl)
 		pl.Loadout = table.Copy(pyro)
 		pl:ChatPrint("You are a Pyro")
 		
-		if pl:GetPerk("pyro_glock") then
+		if pl:GetPerk("pyro_glock3") then
 			pl:Give("weapon_zs_glock3")
+		elseif pl:GetPerk("pyro_glock1") then
+			pl:Give("weapon_zs_glock1")
 		end
+		
 	else
 		pl.Loadout = table.Copy(medicstage1)
-
 		pl:ChatPrint("You are a Medic")
 
 		if pl:GetPerk("medic_medigun") then

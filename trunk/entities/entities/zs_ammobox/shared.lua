@@ -11,18 +11,12 @@ util.PrecacheModel("models/items/boxmrounds.mdl")
 
 function ENT:Initialize()
 	if SERVER then	
-		--self.Entity:SetPos(self.Entity:GetPos() + Vector(0,0,22))
-		--self:SetModelScale(0.3,0)
-		
-		
-		
+		self:DrawShadow(false)
 		self.Entity:SetModel("models/items/boxmrounds.mdl")
 		self.Entity:PhysicsInit(SOLID_VPHYSICS)
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
 		self.Entity:SetSolid(SOLID_VPHYSICS)	
 		self.Entity:SetCollisionGroup(COLLISION_GROUP_WEAPON)
-		
-	--	local outline = ents.Create("models/items/boxmrounds.mdl")			
 
 		local phys = self.Entity:GetPhysicsObject()
 		if IsValid(phys) then
@@ -30,20 +24,6 @@ function ENT:Initialize()
 			phys:EnableMotion(true) 
 		end
 	end
-
-	--if CLIENT then
-		--hook.Add("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self), function()
-			--if not util.tobool(GetConVarNumber("zs_drawcrateoutline")) then
-			--	return
-			--end
-			
-			--if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
-			--	return
-			--end
-			
-			--halo.Add({self}, self.LineColor, 2, 2, 2, true, false)
-		--end)
-	--end
 end
 
 
