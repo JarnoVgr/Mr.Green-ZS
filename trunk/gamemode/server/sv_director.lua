@@ -41,8 +41,8 @@ local function ManageEvents()
 				if not IsValid(pl) then
 					continue
 				end
-				if math.random(1,100) == 100 then
-					pl:SendLua("surface.PlaySound(Sound(\"vo/ravenholm/shotgun_theycome.wav\")) GAMEMODE:Add3DMessage(100,\"They come!\",nil,\"ssNewAmmoFont20\")")
+				if math.random(1,10) == 10 then
+					pl:SendLua("surface.PlaySound(Sound(\"vo/ravenholm/shotgun_theycome.wav\")) GAMEMODE:Add3DMessage(100,\"They come!\",nil,\"ssNewAmmoFont7\")")
 				else
 					pl:SendLua("surface.PlaySound(Sound(\"ambient/creatures/town_zombie_call1.wav\"))")				
 				end
