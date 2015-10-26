@@ -50,9 +50,9 @@ SWEP.Primary.Delay			= 0.55
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo	= "buckshot"
-SWEP.ConeMoving = 0.12
-SWEP.Cone = 0.118
-SWEP.ConeCrouching = 0.116
+SWEP.ConeMoving = 0.134
+SWEP.Cone = 0.128
+SWEP.ConeCrouching = 0.123
 SWEP.IsShotgun = true
 SWEP.MaxAmmo			    = 50
 SWEP.WalkSpeed = (SPEED_SHOTGUN + 5)
@@ -89,6 +89,7 @@ function SWEP:Think()
 		
 		self.Owner:RemoveAmmo(1, self.Primary.Ammo, false)
 		self:SetClip1(self:Clip1() + 1)
+        self:EmitSound("Weapon_Shotgun.Reload")		
 		
 		if self.Primary.ClipSize <= self:Clip1() or self.Owner:GetAmmoCount(self.Primary.Ammo) <= 0 then
 			self.nextreloadfinish = CurTime() + self.ReloadDelay

@@ -42,7 +42,9 @@ if SERVER then
 	
 		if activator:GetPerk("Support") then
 			mul = mul + 0.1
-		end					
+		end
+
+		
 		
 		if activator:GetPerk("Support") then
 			mul = mul + activator:GetRank()*0.02
@@ -76,7 +78,7 @@ if SERVER then
 					--	WeaponToFill:SetClip2(WeaponToFill:Clip2()+2)
 					--end
 					
-
+				
 													
 				-- How much ammo to give
 				local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
@@ -99,7 +101,7 @@ if SERVER then
 			end
 		end
 
-			
+			self:EmitSound("items/gift_pickup.wav" )
 			self:Remove()
 		--end
 	end

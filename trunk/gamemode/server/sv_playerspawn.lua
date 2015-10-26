@@ -29,8 +29,7 @@ function GM:PlayerInitialSpawn(pl)
 	
 	pl:SetZombieClass(0)
 	pl:SetHumanClass(1)
-	
-	MOBILE_SUPPLIES = false	
+
 	-- Substract one point from the most chosen class table to compensate for the setzombie/human class above
 	--local HumanClassName, ZombieClassName = HumanClasses[1].Name, ZombieClasses[1].Name
 	
