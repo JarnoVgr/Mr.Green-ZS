@@ -256,7 +256,7 @@ function GM:Move( pl, CMove )
 		end
 		
 		if pl:Crouching() then
-			pl:SetStepSize(8)
+			pl:SetStepSize(12)
 		else
 			pl:SetStepSize(18)	
 		end

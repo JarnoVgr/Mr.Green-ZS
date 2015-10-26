@@ -136,7 +136,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 
 			
 		elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent:IsPlayer() and ent:Team() == TEAM_HUMAN then
-		
+				
 			if attacker:HasBought("vampire") and attacker:Health() + dmg * 0.5 < attacker:GetMaximumHealth() then	
 				attacker:SetHealth(attacker:Health() + dmg * 0.5)	
 			end		
@@ -168,6 +168,10 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			elseif ent:GetPerk("Berserker") then
 				dmg = dmg*0.9	
 			end	
+			
+			if (dmg > 10) then
+				ent:Daze(dmg*0.1)	
+			end
 		end		
 
 		if attacker.DamageOutput then
