@@ -498,7 +498,7 @@ GM.Perks = {
 		Coef = {0.5, 1, 1, 5, 2, 2},
 		Slot = 5,
 		Rank = 0,
-		Colour = Color(100, 200, 250,32),
+		Colour = Color(100, 230, 130,32),
 		Model = "models/player/group03m/female_03.mdl"},
 		
 	["Commando"] = {Name = "Commando",   		

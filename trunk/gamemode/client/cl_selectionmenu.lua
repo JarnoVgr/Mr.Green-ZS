@@ -392,7 +392,7 @@ function PaintNewWeaponSelection()
 		end
 		
 		if MyWeapons[i].HumanClass == "medic" then
-			ColorToDraw = Color(100, 200, 250, math.Clamp(160*Alpha, 0, 255))
+			ColorToDraw = Color(100, 230, 130, math.Clamp(160*Alpha, 0, 255))
 		elseif MyWeapons[i].HumanClass == "berserker" then
 			ColorToDraw = Color(255, 141, 147, math.Clamp(160*Alpha, 0, 255))
 		elseif MyWeapons[i].HumanClass == "pyro" then
