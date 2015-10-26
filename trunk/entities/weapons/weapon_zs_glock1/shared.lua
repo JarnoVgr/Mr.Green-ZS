@@ -40,7 +40,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_Glock.Single" )
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 10
+SWEP.Primary.Damage			= 9
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 21
 SWEP.Primary.Delay			= 0.1
