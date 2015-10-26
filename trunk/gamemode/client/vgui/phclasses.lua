@@ -955,13 +955,68 @@ function DrawLoadoutMenu()
 		draw.RoundedBox( 0, 0, 0, w, h, Color( 30, 35, 30, 230 ) )
 	end
 	
+	local FrameDescription = vgui.Create("DTextEntry",Frame)
+	FrameDescription:SetPos( frameSizeWidth * 0.585, frameSizeHeight*0.435 ) 
+	FrameDescription:SetSize( frameSizeWidth * 0.4, frameSizeHeight * 0.2 ) 
+	FrameDescription:SetEditable( false )
+	FrameDescription:SetValue("")
+	FrameDescription:SetFont("Trebuchet24")
+	FrameDescription:SetMultiline( true )		
+	
+	local ProfileText = vgui.Create("DTextEntry",Frame)
+	ProfileText:SetPos( frameSizeWidth * 0.585, frameSizeHeight*0.34 )
+	ProfileText:SetSize( frameSizeWidth * 0.4, frameSizeHeight * 0.09 ) 
+	ProfileText:SetEditable( false )
+	ProfileText:SetValue("            GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  MySelf:CurRankXP() - MySelf:GetXP() .. " XP Remaining")
+	ProfileText:SetFont("Trebuchet24")
+	ProfileText:SetMultiline( false )		
+		
+	local Avatar = vgui.Create( "AvatarImage", ProfileText )
+	Avatar:SetSize( 64, 64 )
+	Avatar:SetPos( 4, 4 )
+	Avatar:SetPlayer( LocalPlayer(), 64 )
+	
 	local FrameText = vgui.Create("DTextEntry",Frame)
-	FrameText:SetPos( frameSizeWidth * 0.585, frameSizeHeight*0.34 ) 
-	FrameText:SetSize( frameSizeWidth * 0.4, frameSizeHeight * 0.62 ) 
+	FrameText:SetPos( frameSizeWidth * 0.585, frameSizeHeight*0.64 ) 
+	FrameText:SetSize( frameSizeWidth * 0.4, frameSizeHeight * 0.32 ) 
 	FrameText:SetEditable( false )
-	FrameText:SetValue("\nLatest News\n\nWelcome to the new class selection menu!\n\nAny bugs or issues please report them on\n\nwww.mrgreengaming.com\n\n\nSpecial thanks to Braindawg for providing icons")
-	FrameText:SetFont("ssNewAmmoFont5")
+	FrameText:SetValue("\nWelcome to the new class selection menu!\nPlease visit the forums for suggestions and bug reporting. -Pufulet\n\n\nSpecial thanks to Braindawg and Box for their work!")
+	FrameText:SetFont("Trebuchet24")
 	FrameText:SetMultiline( true )	
+	
+	
+	local buttonWeb = vgui.Create( "DButton", Frame)
+	
+	buttonWeb:SetPos( frameSizeWidth*0.87, frameSizeHeight - buttonHeight * 1.33)
+	buttonWeb:SetSize( frameSizeWidth * 0.11, frameSizeHeight * 0.06 ) 	
+	buttonWeb:SetText("Visit Forums")
+	buttonWeb:SetFont("CloseCaption_Normal")	
+	buttonWeb:SetTextColor( Color( 95, 240, 110, 255 ) )
+	buttonWeb.Paint = function( self, w, h )
+		draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 35, 29, 240 ) )
+	end		
+	
+	buttonWeb.OnCursorEntered = function() 
+		buttonWeb.Overed = true
+		surface.PlaySound(Sound("mrgreen/ui/menu_focus.wav"))
+	end
+	
+	buttonWeb.OnCursorExited = function() 
+		buttonWeb.Overed = false
+	end		
+	
+	buttonWeb.DoClick = function()
+		surface.PlaySound(Sound("mrgreen/ui/menu_accept.wav"))
+		gui.OpenURL( "http://mrgreengaming.com/forums/forum/13-zombie-survival/" )
+	end
+	
+	buttonWeb.PaintOver = function ()
+	
+		if buttonWeb.Overed then
+			surface.SetDrawColor(50, 255, 60, math.Clamp(math.sin(CurTime()*5)*100 + 100,40,255))
+			surface.DrawOutlinedRect(0, 0, frameSizeWidth * 0.11, frameSizeHeight * 0.06)
+		end
+	end	
 	
 	LoadoutOpen = true
 		
@@ -994,7 +1049,7 @@ function DrawLoadoutMenu()
 			spawned = true
 			saveClass(classSelected, perkButtons)				
 		end
-	end	
+	end
 	
 	for k, v in pairs(GAMEMODE.Perks) do
 	
@@ -1028,7 +1083,7 @@ function DrawLoadoutMenu()
 		for i, j in pairs (v.Coef) do
 			v.Coef[i] = j * MySelf:GetRank()			
 		end
-
+		
 		buttonClass[k] = vgui.Create( "DButton", Frame )	
 		buttonClass[k]:SetParent(Frame)		
 		buttonClass[k]:SetText( "" )		
@@ -1047,14 +1102,14 @@ function DrawLoadoutMenu()
 		icon:SetDirectionalLight( BOX_FRONT, v.Colour )		
 		icon:SetSize( buttonClassWidth, buttonClassHeight )
 		icon:SetAmbientLight( v.Colour )
-		icon:SetModel( v.Model ) -- you can only change colors on playermodels
-			
+		icon:SetModel( v.Model )
+		icon:SetFOV(75)
 		local eyepos = icon.Entity:GetBonePosition( icon.Entity:LookupBone( "ValveBiped.Bip01_Head1" ) )
 
-		eyepos:Add( Vector( 0, 0, 2 ) )	-- Move up slightly
+		eyepos:Add(Vector( 0, 0, 2 ))
 		icon:SetLookAt( eyepos )
-		icon:SetCamPos( eyepos-Vector( -17, 3, 0 ) )	-- Move cam in front of eyes
-		icon.Entity:SetEyeTarget( eyepos-Vector( -12, 0, 0 ) )			
+		icon:SetCamPos( eyepos-Vector( -17, 0, 0 ) )
+		icon.Entity:SetEyeTarget( eyepos-Vector( 0, 0, 0 ) )			
 
 		icon.OnCursorEntered = function() 
 			buttonClass[k]:OnCursorEntered()
@@ -1115,11 +1170,6 @@ function DrawLoadoutMenu()
 		
 		buttonClass[k].PaintOver = function ()
 		
-			--local texture = surface.GetTextureID(v.Material)
-			--surface.SetTexture(texture)
-			--surface.SetDrawColor(255, 255, 255,255)			
-			--surface.DrawTexturedRect(0,0, buttonClassWidth, buttonClassHeight)	
-			
 			if buttonClass[k].Overed and not buttonClass[k].Active then
 				surface.SetDrawColor(200, 200, 50, math.Clamp(math.sin(CurTime()*5)*100 + 100,40,255))
 				surface.DrawOutlinedRect(0, 0, buttonClassWidth, buttonClassHeight)
@@ -1127,6 +1177,7 @@ function DrawLoadoutMenu()
 			elseif buttonClass[k].Active then
 				surface.SetDrawColor(50, 255, 50, math.Clamp(math.sin(CurTime()*5)*100 + 150,40,255))
 				surface.DrawOutlinedRect( 0, 0, buttonClassWidth, buttonClassHeight)
+				FrameDescription:SetValue("\n Equipment:\n\n" .. v.Equipment)
 			end
 		end
 		
@@ -1201,7 +1252,7 @@ function DrawLoadoutMenu()
 	end	
 	
 	classTitle.PaintOver = function ()
-		draw.SimpleTextOutlined(" " .. classSelected .. " (" .. MySelf:GetRank() .. ")" .. " (" ..  MySelf:CurRankXP() - MySelf:GetXP() .. " XP Remaining)", "ssNewAmmoFont9", 0, (buttonHeight*0.5)*0.25, Color (255,255,255,220), TEXT_ALIGN_LEFT,TEXT_ALIGN_LEFT,1,Color(0,0,0,230))
+		draw.SimpleTextOutlined(" " .. classSelected, "ssNewAmmoFont9", 0, (buttonHeight*0.5)*0.25, Color (255,255,255,220), TEXT_ALIGN_LEFT,TEXT_ALIGN_LEFT,1,Color(0,0,0,230))
 	end
 
 end

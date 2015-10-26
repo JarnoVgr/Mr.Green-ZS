@@ -412,7 +412,7 @@ GM.Perks = {
 
 	-- Commando
 		
-		["commando_defender"] = {Name = "Defender", Description = "Spawn with the Defender rifle", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/immovable_object"},
+		["commando_defender"] = {Name = "Defender", Description = "Spawn with the Defender rifle", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_ak47"},
 		["commando_grenadier"] = {Name = "Grenadier", Description = "+3 grenades on spawn", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/grenade_multikill"},
 
 		["commando_enforcer"] = {Name = "Enforcer", Description = "+25 clip size", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/kill_enemy_last_bullet"},
@@ -498,7 +498,7 @@ GM.Perks = {
 		Coef = {0.5, 1, 1, 5, 2, 2},
 		Slot = 5,
 		Rank = 0,
-		Colour = Color(100, 200, 250,100),
+		Colour = Color(100, 200, 250,32),
 		Model = "models/player/group03m/female_03.mdl"},
 		
 	["Commando"] = {Name = "Commando",   		
@@ -508,7 +508,7 @@ GM.Perks = {
 		Coef = {3, 2, 1},
 		Slot = 5,
 		Rank = 0,
-		Colour = Color(188, 168, 255,100),
+		Colour = Color(188, 168, 255,32),
 		Model = "models/player/combine_soldier.mdl"},		
 		
 	["Support"] = {Name = "Support",    		
@@ -518,7 +518,7 @@ GM.Perks = {
 		Coef = {1, 1, 1, 0.25, 1, 2},
 		Slot = 5,
 		Rank = 0,	
-		Colour = Color(255, 182, 238,100),
+		Colour = Color(255, 182, 238,32),
 		Model = "models/player/arctic.mdl"},		
 		
 	["Berserker"] = {Name = "Berserker", 		
@@ -528,7 +528,7 @@ GM.Perks = {
 		Coef = {1, 0.5},
 		Slot = 5,
 		Rank = 0,
-		Colour = Color(255, 141, 147,100),
+		Colour = Color(255, 141, 147,32),
 		Model = "models/player/monk.mdl"},		
 		
 	["Engineer"] = {Name = "Engineer",   		
@@ -538,8 +538,8 @@ GM.Perks = {
 		Coef = {0.25, 2, 2, 5, 1, 2, 2, 1, 1},
 		Slot = 5,
 		Rank = 0,
-		Colour = Color(30, 228, 255,100),
-		Model = "models/player/barney.mdl"},
+		Colour = Color(30, 228, 255,32),
+		Model = "models/player/alyx.mdl"},
 		
 	["Sharpshooter"] = {Name = "Sharpshooter", 
 		Equipment = " Mobile Supplies\n Beretta\n Knife", 	
@@ -548,7 +548,7 @@ GM.Perks = {
 		Coef = {1,1},
 		Slot = 5,
 		Rank = 0,
-		Colour = Color(127, 181, 120,100),
+		Colour = Color(127, 181, 120,32),
 		Model = "models/player/odessa.mdl"},		
 		
 	["Pyro"] = {Name = "Pyro",				
@@ -559,7 +559,7 @@ GM.Perks = {
 		Coef = {3,1,1,2},
 		Slot = 5,
 		Rank = 0,
-		Colour = Color(255, 178, 62,100),
+		Colour = Color(255, 178, 62,28),
 		Model = "models/player/gasmask.mdl"}		
 	
 }
