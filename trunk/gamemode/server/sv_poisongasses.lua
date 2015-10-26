@@ -46,7 +46,7 @@ function GM:SpawnPoisonGasses()
 			
 		--Don't place nearby other gasses
 		for _, gasPos in pairs(spawnedGasPositions) do
-			if gasPos:Distance(spawnPos) < 192 then
+			if gasPos:Distance(spawnPos) < 512 then
 				blockEntSpawn = true
 				break
 			end
