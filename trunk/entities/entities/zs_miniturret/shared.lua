@@ -10,7 +10,7 @@ ENT.RenderGroup = RENDERGROUP_BOTH
 ENT.AutomaticFrameAdvance = true
 
 ENT.MaxHealth = 500
-ENT.MaxBullets = 150
+ENT.MaxBullets = 75
 ENT.RechargeDelay = 0.5
 ENT.SpotDistance = 580
 ENT.Damage = 5
@@ -117,10 +117,10 @@ function ENT:Think()
 		if self:IsValidTarget(target) then
 			if ct > (self.NextAttackAction or 0) then
 				if self:CanAttack() then
-					self.NextShoot = self.NextShoot or ct + 0.05	
+					self.NextShoot = self.NextShoot or ct + 0.08	
 					if ct > self.NextShoot then
 						self:Shoot()
-						self.NextShoot = ct + 0.05
+						self.NextShoot = ct + 0.08
 					end
 				else
 					self:ClearTarget()
@@ -302,7 +302,7 @@ function ENT:Shoot()
 	bullet.Dir = self:GetAngles():Forward()
 	bullet.Spread = Vector(0.1, 0.1, 0.1)  
 	bullet.Tracer = 6
-	bullet.Force = 1
+	bullet.Force = 0.1
 	bullet.Damage = 4
 	bullet.TracerName = "Tracer"
 	bullet.Callback = BulletCallback

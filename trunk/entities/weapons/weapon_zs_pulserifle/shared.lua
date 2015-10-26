@@ -94,7 +94,7 @@ SWEP.WalkSpeed = SPEED_SMG
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.6
+SWEP.rechargerate = 0.65
 SWEP.startcharge = 1
 SWEP.MaxClip = 40
 
@@ -114,7 +114,7 @@ function SWEP:Think()
 		
 			if self:GetOwner():GetPerk("Engineer") then
 				self.MaxClip = 40 + (40*(5*self:GetOwner():GetRank())/100)
-				self.rechargerate = 0.5 - (0.5*(2*self:GetOwner():GetRank())/100)				
+				self.rechargerate = 0.65 - (0.65*(2*self:GetOwner():GetRank())/100)				
 			end
 			
 			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then

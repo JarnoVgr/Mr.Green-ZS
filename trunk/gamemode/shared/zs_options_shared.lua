@@ -171,7 +171,7 @@ GM.HumanWeapons = {
 	       --["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127, Infliction = 0.58, Type = "smg", Price = 300, HumanClass = "support" },
 	
         --Medic
-        ["weapon_zs_medi2"]  = { Name = "Medi 2", DPS = 143, Infliction = 0, Type = "shotgun",Price = 130, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
+        ["weapon_zs_medi2"]  = { Name = "Medi 2", DPS = 143, Infliction = 0, Type = "shotgun",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
 		["weapon_zs_medi1"]  = { Name = "Medi 1", DPS = 143, Infliction = 0, Type = "pistol",Price = 80, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
         ["weapon_zs_medi3"]  = { Name = "Medi 3", DPS = 143, Infliction = 0, Type = "smg",Price = 160, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
         ["weapon_zs_medi4"]  = { Name = "Medi 4", DPS = 143, Infliction = 0, Type = "rifle",Price = 190, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
@@ -180,13 +180,13 @@ GM.HumanWeapons = {
        
         --Sharpshooter
         ["weapon_zs_musket"]  = { Name = "Musket", DPS = 143, Infliction = 0, Type = "rifle", Description = "Somehow still works.", Price = 100, HumanClass = "sharpshooter"},    
-        ["weapon_zs_annabelle"]  = { Name = "Annabelle", Type = "rifle", Price = 170, HumanClass = "sharpshooter"},   		
+        ["weapon_zs_annabelle"]  = { Name = "Annabelle", Type = "rifle", Price = 160, HumanClass = "sharpshooter"},   		
         ["weapon_zs_python"]  = { Name = "Python", DPS = 93, Infliction = 0.2, Price = 80, Type = "pistol", HumanClass = "sharpshooter"},       
-        ["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40, Infliction = 0, Type = "rifle", Price = 140, Description = "Light-weight sniper.", HumanClass = "sharpshooter" }, 
-		["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 160, Description = "Russian Roulette Revolver", HumanClass = "sharpshooter" },		
+        ["weapon_zs_scout"]  = { Name = "Scout Sniper", DPS = 40, Infliction = 0, Type = "rifle", Price = 120, Description = "Light-weight sniper.", HumanClass = "sharpshooter" }, 
+		["weapon_zs_magnum"]  = { Name = ".357 Magnum", DPS = 121, Infliction = 0.3, Type = "pistol", Price = 100, Description = "Russian Roulette Revolver", HumanClass = "sharpshooter" },		
         ["weapon_zs_sg550"]  = { Name = "SG550", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 160, HumanClass = "sharpshooter"  },
         ["weapon_zs_g3sg1"]  = { Name = "G3SG1", DPS = 70, Infliction = 0.65, Type = "rifle", Price = 180, HumanClass = "sharpshooter"  },
-        ["weapon_zs_awp"]  = { Name = "AWP", DPS = 200, Infliction = 0, Type = "rifle", Price = 200, Description = "Heavy sniper.", HumanClass = "sharpshooter" },     
+        ["weapon_zs_awp"]  = { Name = "AWP", DPS = 200, Infliction = 0, Type = "rifle", Price = 180, Description = "Heavy sniper.", HumanClass = "sharpshooter" },     
        
 	   
         --Engineer
