@@ -83,7 +83,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 		net.WriteFloat(math.Round(pl.SPRequired + 30))
 		net.WriteBit(false)
 	net.Send(pl)
-			skillpoints.TakeSkillPoints(pl,pl.SPRequired)
+		skillpoints.TakeSkillPoints(pl,pl.SPRequired)
 		pl.SPRequired = pl.SPRequired + 30
 	
 		local item = "zs_ammobox"	
@@ -96,7 +96,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 			if tab.Price and tab.HumanClass then
 				if tab.HumanClass ~= pl:GetHumanWeaponClass() then continue end
 			
-				if tab.Price <= babyPrice and tab.Price > babyPrice - 90 then
+				if tab.Price <= babyPrice and tab.Price > babyPrice - 80 and tab.Price > 50 then
 					table.insert(possibleWeapons,wep)			
 				end
 

@@ -196,13 +196,13 @@ GM.HumanWeapons = {
 
  
 		--Pyro
-        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 100}, 
-        ["weapon_zs_glock3"]  = { Name = "Glock 3", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 120, HumanClass = "pyro" },		
-        ["weapon_zs_glock1"]  = { Name = "Glock 1", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 120, HumanClass = "pyro" },		
-		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "pistol", HumanClass = "pyro", Price = 140},
+        ["weapon_zs_alyx"]  = { Name = "Alyx Gun", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 60}, 
+        ["weapon_zs_glock3"]  = { Name = "Glock 3", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 80, HumanClass = "pyro" },		
+        ["weapon_zs_glock1"]  = { Name = "Glock 1", DPS = 120, Infliction = 0.25, Type = "pistol", Price = 80, HumanClass = "pyro" },		
+		["weapon_zs_flaregun"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "pistol", HumanClass = "pyro", Price = 120},
 		["weapon_zs_tmp"]  = { Name = "Silent TMP", DPS = 107, Infliction = 0.56, Type = "smg", HumanClass = "pyro", Price = 120 },		
 		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Type = "shotgun", HumanClass = "pyro", Price = 160},	
-		["weapon_zs_pyrocannon"]  = { Name = "'Infernus' Cannon", Type = "shotgun", HumanClass = "pyro", Price = 180},			
+		["weapon_zs_pyrocannon"]  = { Name = "'Infernus' Cannon", Type = "shotgun", HumanClass = "pyro", Price = 175},			
 		["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", HumanClass = "pyro"},
 		["weapon_zs_firebomb"]  = { Name = "Flame Nade", DPS = 143, Infliction = 0, HumanClass = "pyro"},
 		
