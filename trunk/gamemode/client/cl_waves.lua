@@ -30,7 +30,7 @@ net.Receive("SetInf", function(len)
 	end
 	
 	if msg ~= "" then
-		GAMEMODE:Add3DMessage(140,msg,nil,"ssNewAmmoFont20")
+		GAMEMODE:Add3DMessage(140,msg,nil,"ssNewAmmoFont10")
 		
 		surface.PlaySound(Sound("ambient/levels/prison/inside_battle_zombie".. math.random(1,3) .. ".wav"))
 		--surface.PlaySound("ambient/creatures/town_zombie_call1.wav")
