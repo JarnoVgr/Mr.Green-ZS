@@ -49,6 +49,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.LastHurt = 0
 	pl.LastHit = 0
 	pl.LastVoice = 0
+	pl.Tier = 1
 	pl.HighestAmmoType = "pistol"
 	
 	pl.RecBrain = 0
@@ -102,7 +103,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.Hornyness = 0
 	pl.WeaponTable = {}
 	pl.NextHold = 0
-	pl.WalkSpeed = 190
+	pl.WalkSpeed = 200
 	
 	pl.ReviveCount = 0
 	
