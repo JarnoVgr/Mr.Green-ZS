@@ -141,8 +141,8 @@ GM.ChatTitles = {
 GM.HumanWeapons = {    
         --Berserker
         ["weapon_zs_deagle"]  = { Name = "Desert Eagle", Tier = 0, Type = "pistol", Price = 50, HumanClass = "berserker"},	
-        ["weapon_zs_melee_stunstick"]  = { Name = "Stun Stick", Tier = 0, Type = "melee", Price = 80, HumanClass = "berserker" },			
-        ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", Tier = 1, Type = "melee", Price = 50, HumanClass = "berserker" },  
+        ["weapon_zs_melee_stunstick"]  = { Name = "Stun Stick", Tier = 0, Type = "melee", Price = 60, HumanClass = "berserker" },			
+        ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", Tier = 1, Type = "melee", Price = 60, HumanClass = "berserker" },  
         ["weapon_zs_melee_pipe2"]  = { Name = "Lead Pipe", Tier = 1, Type = "melee", Price = 60, HumanClass = "berserker"  },		
         ["weapon_zs_melee_axe"]  = { Name = "Axe", Tier = 2, Type = "melee", Price = 100, HumanClass = "berserker" },	
         ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", Tier = 3, Type = "melee", Price = 150, HumanClass = "berserker" },
@@ -150,7 +150,7 @@ GM.HumanWeapons = {
         ["weapon_zs_melee_chainsaw"]  = { Name = "Chainsaw", Tier = 4, Type = "melee", Price = 180, HumanClass = "berserker" },   
        
         --Commando
-        ["weapon_zs_defender"]  = { Name = "Defender", Tier = 1, Type = "rifle", HumanClass = "commando"},    
+        ["weapon_zs_defender"]  = { Name = "Defender", Tier = 1, Type = "rifle", Price = 80,HumanClass = "commando"},    
         ["weapon_zs_famas"]  = { Name = "Famas", Tier = 1, Type = "rifle", Price = 110, HumanClass = "commando" },
         ["weapon_zs_sg552"]  = { Name = "SG552", Tier = 1, Type = "rifle", Price = 110, HumanClass = "commando" },
         ["weapon_zs_m4a1"]  = { Name = "M4A1", Tier = 2, Type = "rifle", Price = 130, HumanClass = "commando" },
@@ -492,7 +492,7 @@ GM.Perks = {
 	--["commando_leadmarket"] = {Name = "Lead Market", Description = "+50% SP from kills", Class = "Commando", Slot = 3, Rank = 0, Material = "vgui/achievements/survived_headshot_due_to_helmet_bw"},
 
 	["Medic"] = {Name = "Medic",		  		
-		Equipment = " Medkit\n P228\n Stun Stick",
+		Equipment = "Medkit, P228, Stun Stick",
 		Description = " +10% Pistol damage \n +10% Medi damage\n +10% damage Resistance\n +3% Movement speed",
 		CoefDesc = " +%G%% Movement speed\n +%i%% Pistol damage\n +%i%% Medi damage\n +%i%% Poison resistance\n +%i%% Undead damage resistance\n +%i%% Medical power",
 		Coef = {0.5, 1, 1, 5, 2, 2},
@@ -502,7 +502,7 @@ GM.Perks = {
 		Model = "models/player/group03m/female_03.mdl"},
 		
 	["Commando"] = {Name = "Commando",   		
-		Equipment = " Grenades\n Five SeveN\n Knife", 
+		Equipment = "Grenades, Five SeveN, Knife", 
 		Description = " +10% Rifle Damage \n See undead health\n +10% Clip size  \n +10 Health ",
 		CoefDesc = " +%i%% Health\n +%i%% Clip size\n +%i%% Rifle damage",
 		Coef = {3, 2, 1},
@@ -512,7 +512,7 @@ GM.Perks = {
 		Model = "models/player/combine_soldier.mdl"},		
 		
 	["Support"] = {Name = "Support",    		
-		Equipment = " Ammo Pack \n USP\n Hammer", 			
+		Equipment = "Ammo Pack, USP, Hammer", 			
 		Description = " +10% Shotgun damage \n +10% SMG damage \n +10% Ammo received",
 		CoefDesc = " +%i%% SMG damage\n +%i%% Shotgun damage \n +%i%% Nail health\n +%G Repair points\n +%i Nail\n +%i%% Ammo received",
 		Coef = {1, 1, 1, 0.25, 1, 2},
@@ -522,7 +522,7 @@ GM.Perks = {
 		Model = "models/player/arctic.mdl"},		
 		
 	["Berserker"] = {Name = "Berserker", 		
-		Equipment = " Desert Eagle\n Plank", 				
+		Equipment = "Desert Eagle, Plank", 				
 		Description = " [RMB] Leap while holding a melee weapon.\n\n +10% melee damage \n +5% melee damage to health\n +5 Health on melee kill\n +10% Damage resistance \n -10% Gun Damage\n +2% Movement Speed",
 		CoefDesc = " +%i Health from melee kill\n +%G%% Movement speed",
 		Coef = {1, 0.5},
@@ -532,7 +532,7 @@ GM.Perks = {
 		Model = "models/player/monk.mdl"},		
 		
 	["Engineer"] = {Name = "Engineer",   		
-		Equipment = " Turret\n C4\n Pistol\n Frying Pan", 	
+		Equipment = "Turret, C4, Pistol, Frying Pan", 	
 		Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +1 Turret Damage",
 		CoefDesc = " +%G%% Turret damage\n +%i%% Turret health\n +%i%% Turret ammo capacity\n +%i Pulse weapon capacity\n +%i%% pulse weapon damage\n +%i%% Pulse weapon recharge rate\n +%i%% Turret recharge rate\n +%i%% C4 damage\n +%i%% C4 radius",
 		Coef = {0.25, 2, 2, 5, 1, 2, 2, 1, 1},
@@ -542,7 +542,7 @@ GM.Perks = {
 		Model = "models/player/alyx.mdl"},
 		
 	["Sharpshooter"] = {Name = "Sharpshooter", 
-		Equipment = " Mobile Supplies\n Beretta\n Knife", 	
+		Equipment = "Mobile Supplies, Beretta, Knife", 	
 		Description = " +10% Sniper damage \n +10% Headshot damage",
 		CoefDesc = " +%i%% Sniper damage\n +%i%% Headshot damage\n",
 		Coef = {1,1},
@@ -552,7 +552,7 @@ GM.Perks = {
 		Model = "models/player/odessa.mdl"},		
 		
 	["Pyro"] = {Name = "Pyro",				
-		Equipment = " Alyx Gun\n Metal Pipe", 				
+		Equipment = "Alyx Gun, Metal Pipe", 				
 		Description = " 12% Chance to burn target\n +10% Pyro damage\n 6 Initial burn damage\n 10 Initial scorch damage\n +10% damage to burning targets",
 		CoefDesc = " +%i Burn damage\n +%i Burn chance\n +%i Pyro damage\n +%i Scorch damage",
 		Material = "zombiesurvival/humanclass/avatar_assault",

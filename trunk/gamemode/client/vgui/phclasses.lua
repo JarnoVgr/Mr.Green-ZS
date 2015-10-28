@@ -928,6 +928,8 @@ function updateSelectedClass(classSelected)
 	end	
 end
 
+
+
 function DrawLoadoutMenu()
 	
 	MySelf:ConCommand("tooltip_delay 0") 
@@ -961,40 +963,60 @@ function DrawLoadoutMenu()
 	FrameDescription:SetEditable( false )
 	FrameDescription:SetValue("")
 	FrameDescription:SetFont("Trebuchet24")
-	FrameDescription:SetMultiline( true )		
+	FrameDescription:SetMultiline( true )	
+
+	local frameDescriptionText = ""
+	
+	FrameDescription.PaintOver = function ()
+		draw.DrawText(" " .. frameDescriptionText, "Trebuchet18", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)		
+	end	
 	
 	local ProfileText = vgui.Create("DTextEntry",Frame)
 	ProfileText:SetPos( frameSizeWidth * 0.585, frameSizeHeight*0.34 )
 	ProfileText:SetSize( frameSizeWidth * 0.4, frameSizeHeight * 0.09 ) 
 	ProfileText:SetEditable( false )
-	ProfileText:SetValue("            GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  MySelf:CurRankXP() - MySelf:GetXP() .. " XP Remaining")
+	ProfileText:SetValue("")
+	
+	ProfileText.PaintOver = function ()
+		draw.DrawText("GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  MySelf:CurRankXP() - MySelf:GetXP() .. " XP Remaining","Trebuchet18", ScaleW(60), 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)		
+	end
+	
 	ProfileText:SetFont("Trebuchet24")
 	ProfileText:SetMultiline( false )		
 		
 	local Avatar = vgui.Create( "AvatarImage", ProfileText )
-	Avatar:SetSize( 64, 64 )
-	Avatar:SetPos( 4, 4 )
-	Avatar:SetPlayer( LocalPlayer(), 64 )
+	Avatar:SetSize( frameSizeHeight*0.1, frameSizeHeight*0.1 )
+	Avatar:SetPos( 0, 0 )
+	Avatar:SetPlayer( LocalPlayer(), 64)
 	
 	local FrameText = vgui.Create("DTextEntry",Frame)
 	FrameText:SetPos( frameSizeWidth * 0.585, frameSizeHeight*0.64 ) 
 	FrameText:SetSize( frameSizeWidth * 0.4, frameSizeHeight * 0.32 ) 
 	FrameText:SetEditable( false )
-	FrameText:SetValue("\nWelcome to the new class selection menu!\nPlease visit the forums for suggestions and bug reporting. -Pufulet\n\n\nSpecial thanks to Braindawg and Box for their work!")
+	FrameText:SetValue("")
 	FrameText:SetFont("Trebuchet24")
 	FrameText:SetMultiline( true )	
 	
+	FrameText.PaintOver = function ()
+		draw.DrawText(" Welcome to the new class selection menu!", "Trebuchet18", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)
+		draw.DrawText(" Please report any bugs/issues or post suggestions on the forums.", "Trebuchet18", 0, ScaleH(30), Color(248,253,248,235), TEXT_ALIGN_LEFT)
+
+	end	
 	
 	local buttonWeb = vgui.Create( "DButton", Frame)
 	
 	buttonWeb:SetPos( frameSizeWidth*0.87, frameSizeHeight - buttonHeight * 1.33)
 	buttonWeb:SetSize( frameSizeWidth * 0.11, frameSizeHeight * 0.06 ) 	
-	buttonWeb:SetText("Visit Forums")
+	buttonWeb:SetText("")
 	buttonWeb:SetFont("CloseCaption_Normal")	
 	buttonWeb:SetTextColor( Color( 95, 240, 110, 255 ) )
 	buttonWeb.Paint = function( self, w, h )
 		draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 35, 29, 240 ) )
 	end		
+	
+	buttonWeb.PaintOver = function ()
+		draw.DrawText("Visit Forums", "CloseCaption_Normal", 0, 0,  Color( 95, 240, 110, 255 ), TEXT_ALIGN_LEFT)	
+	end	
 	
 	buttonWeb.OnCursorEntered = function() 
 		buttonWeb.Overed = true
@@ -1177,7 +1199,7 @@ function DrawLoadoutMenu()
 			elseif buttonClass[k].Active then
 				surface.SetDrawColor(50, 255, 50, math.Clamp(math.sin(CurTime()*5)*100 + 150,40,255))
 				surface.DrawOutlinedRect( 0, 0, buttonClassWidth, buttonClassHeight)
-				FrameDescription:SetValue("\n Equipment:\n\n" .. v.Equipment)
+				frameDescriptionText = "Equipment: " .. v.Equipment
 			end
 		end
 		
