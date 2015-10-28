@@ -985,7 +985,7 @@ function DrawLoadoutMenu()
 	ProfileText:SetMultiline( false )		
 		
 	local Avatar = vgui.Create( "AvatarImage", ProfileText )
-	Avatar:SetSize( frameSizeHeight*0.1, frameSizeHeight*0.1 )
+	Avatar:SetSize( frameSizeHeight*0.095, frameSizeHeight*0.095 )
 	Avatar:SetPos( 0, 0 )
 	Avatar:SetPlayer( LocalPlayer(), 64)
 	
@@ -1008,14 +1008,12 @@ function DrawLoadoutMenu()
 	buttonWeb:SetPos( frameSizeWidth*0.87, frameSizeHeight - buttonHeight * 1.33)
 	buttonWeb:SetSize( frameSizeWidth * 0.11, frameSizeHeight * 0.06 ) 	
 	buttonWeb:SetText("")
-	buttonWeb:SetFont("CloseCaption_Normal")	
 	buttonWeb:SetTextColor( Color( 95, 240, 110, 255 ) )
 	buttonWeb.Paint = function( self, w, h )
 		draw.RoundedBox( 0, 0, 0, w, h, Color( 25, 35, 29, 240 ) )
 	end		
 	
 	buttonWeb.PaintOver = function ()
-		draw.DrawText("Visit Forums", "CloseCaption_Normal", 0, 0,  Color( 95, 240, 110, 255 ), TEXT_ALIGN_LEFT)	
 	end	
 	
 	buttonWeb.OnCursorEntered = function() 
@@ -1034,6 +1032,8 @@ function DrawLoadoutMenu()
 	
 	buttonWeb.PaintOver = function ()
 	
+		draw.DrawText("Forums", "Trebuchet24", (frameSizeWidth * 0.11) * 0.5, ScaleH(5),  Color( 95, 240, 110, 255 ), TEXT_ALIGN_CENTER)	
+		
 		if buttonWeb.Overed then
 			surface.SetDrawColor(50, 255, 60, math.Clamp(math.sin(CurTime()*5)*100 + 100,40,255))
 			surface.DrawOutlinedRect(0, 0, frameSizeWidth * 0.11, frameSizeHeight * 0.06)
@@ -1054,15 +1054,21 @@ function DrawLoadoutMenu()
 	end	
 	
 	buttonSpawn.PaintOver = function ()
-		draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-10 - CurTime()), "ssNewAmmoFont9", buttonWidth/2, buttonHeight/2, Color (255,255,255,220), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
+		draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-10 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
 		surface.SetDrawColor(200, 50, 50, math.Clamp(math.sin(CurTime()*6)*200 + 100,0,255))
 		surface.DrawOutlinedRect(0, 0, buttonWidth, buttonHeight)	
 	end
+	
+	
+	buttonSpawn.OnCursorEntered = function() 
+		surface.PlaySound(Sound("mrgreen/ui/menu_focus.wav"))
+	end	
 	
 	buttonSpawn.DoClick = function ()
 		Frame:Close()
 		spawned = true
 		saveClass(classSelected, perkButtons)		
+		surface.PlaySound(Sound("mrgreen/ui/menu_accept.wav"))		
 	end
 	
 	buttonSpawn.Think = function () 
