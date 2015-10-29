@@ -27,12 +27,6 @@ function ENT:Initialize()
 		--if Owner:GetPerk("_nailhp") then
 		--	self.Heal = math.Round(self.Heal + (self.Heal*0.5))
 		--end
-
-		
-		if Owner:GetPerk("support_repairs") then
-			self.Heal = self.Heal + 40
-		end		
-		
 	end
 
 	--Health and Max Health

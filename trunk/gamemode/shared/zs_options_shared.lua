@@ -428,7 +428,7 @@ GM.Perks = {
 		["support_shotgun"] = {Name = "Shotgun", Description = "Spawn with a shotgun", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_m3"},
 			   
 		["support_ammo"] = {Name = "Ammo", Description = "+40% ammo received", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/kill_enemy_reloading"},
-		["support_repairs"] = {Name = "Repairs", Description = "+3 hammer repair points\n+40% nail health\n+10 nails on spawn", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/snipe_two_from_same_spot"},
+		["support_repairs"] = {Name = "Repairs", Description = "+3 hammer repair points\n+10 nails on spawn", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/snipe_two_from_same_spot"},
 							   
 		["support_regeneration"] = {Name = "Regeneration", Description = "Regain 1 health every 6 seconds", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/decal_sprays"},
 		["support_bulk"] = {Name = "Bulk", Description = "No speed penalty for weapons", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/meta_weaponmaster"},

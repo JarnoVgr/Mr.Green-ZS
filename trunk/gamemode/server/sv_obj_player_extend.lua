@@ -161,7 +161,7 @@ function meta:SwitchToZombie()
 	skillpoints.SetupSkillPoints(self)
 	self:UnSpectate()
 	-- Spawn him
-	self:Message( "You've been randomly selected to lead the Undead Army.", 1, "255,255,255,255" )
+	self:Message( "You were the closest to the deadly gas!", 1, "255,255,255,255" )
 	self:Spawn()
 	
 	-- Correct any speed changes
@@ -1186,7 +1186,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 			continue
 		end
 		
-		nail:SetDTInt(1, nail:GetDTInt(1) - ((damage/#ent.Nails)*0.5) )	
+		nail:SetDTInt(1, nail:GetDTInt(1) - ((damage/#ent.Nails)*0.25) )	
 		ent:SetHealth(ent:Health() - (damage/#ent.Nails))
 		nail:SetNailHealth(nail:GetNailHealth() - (damage/#ent.Nails))	
 		

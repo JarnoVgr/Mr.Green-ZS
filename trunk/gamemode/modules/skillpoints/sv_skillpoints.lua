@@ -86,7 +86,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 		skillpoints.TakeSkillPoints(pl,pl.SPRequired)
 		pl.SPRequired = pl.SPRequired + 30
 		
-		if pl.Tier > 4 then
+		if pl.Tier > 5 then
 			pl:EmitSound("items/gift_pickup.wav" )
 			pl:GiveAmmo( 20, "pistol" )	
 			pl:GiveAmmo( 60, "ar2" )

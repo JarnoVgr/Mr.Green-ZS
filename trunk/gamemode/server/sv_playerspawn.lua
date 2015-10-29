@@ -675,6 +675,7 @@ function CalculatePlayerLoadout(pl)
 
 		if pl:GetPerk("medic_medigun") then
 			pl:Give("weapon_zs_medi1")
+			pl.Tier = 2			
 		end
 	elseif pl:GetPerk("Support") then
 		pl.Loadout = table.Copy(support)
@@ -682,6 +683,7 @@ function CalculatePlayerLoadout(pl)
 				
 		if pl:GetPerk("support_shotgun") then
 			pl:Give("weapon_zs_shotgun")
+			pl.Tier = 2
 		end
 
 		if pl:GetPerk("support_boardpack") then
@@ -692,12 +694,14 @@ function CalculatePlayerLoadout(pl)
 			pl:Give("weapon_zs_tools_ammobox")	
 		end
 		
+		
 	elseif pl:GetPerk("Engineer") then
 		pl.Loadout = table.Copy(engineer)
 
 		pl:ChatPrint("You are an Engineer")
 		if pl:GetPerk("engineer_pulsepistol") then
 			pl:Give("weapon_zs_pulsepistol")
+			pl.Tier = 2			
 		end
 
 		if pl:GetPerk("engineer_combatturret") then
@@ -711,6 +715,7 @@ function CalculatePlayerLoadout(pl)
 
 		if pl:GetPerk("commando_defender") then
 			pl:Give("weapon_zs_defender")
+			pl.Tier = 2			
 		end		
 	elseif pl:GetPerk("Berserker") then
 		pl.Loadout = table.Copy(berserker)
@@ -719,7 +724,9 @@ function CalculatePlayerLoadout(pl)
 
 		if pl:GetPerk("berserker_hook") then
 			pl:Give("weapon_zs_melee_hook")
+			pl.Tier = 2			
 		elseif pl:GetPerk("berserker_oppressor") then
+			pl.Tier = 2		
 			pl:Give("weapon_zs_melee_pipe2")
 		end		
 	elseif pl:GetPerk("Sharpshooter") then
@@ -727,6 +734,7 @@ function CalculatePlayerLoadout(pl)
 		pl:ChatPrint("You are a Sharpshooter")
 			
 		if pl:GetPerk("sharpshooter_python") then
+			pl.Tier = 2		
 			pl:Give("weapon_zs_python")
 		end		
 	elseif pl:GetPerk("Pyro") then
@@ -734,8 +742,10 @@ function CalculatePlayerLoadout(pl)
 		pl:ChatPrint("You are a Pyro")
 		
 		if pl:GetPerk("pyro_glock3") then
+			pl.Tier = 2		
 			pl:Give("weapon_zs_glock3")
 		elseif pl:GetPerk("pyro_glock1") then
+			pl.Tier = 2		
 			pl:Give("weapon_zs_glock1")
 		end
 		
@@ -744,6 +754,7 @@ function CalculatePlayerLoadout(pl)
 		pl:ChatPrint("You are a Medic")
 
 		if pl:GetPerk("medic_medigun") then
+			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
 		end
 	end
@@ -780,15 +791,6 @@ function CalculatePlayerLoadout(pl)
 		pl:Give("weapon_zs_magnum")
 	end			
 	
-	--Arena gives a primary gun
-	if GAMEMODE:GetGameMode() == GAMEMODE_ARENA then
-		pl:ChatPrint("ARENA MODE activated!")
-		pl:GiveAmmo(6500, "ar2", false)
-		pl:GiveAmmo(6500, "smg1", false)
-		pl:GiveAmmo(6500, "buckshot", false)
-		pl:GiveAmmo(6500, "pistol", false)
-		pl:GiveAmmo(6500, "357", false)
-	end
 end
 
 function CalculateZombieHull(pl)
