@@ -361,7 +361,7 @@ function SWEP:SecondaryAttack()
                 self.Alternate = not self.Alternate
                 self.Owner:SetAnimation(PLAYER_ATTACK1)
 
-                self.NextNail = CurTime() + 0.7
+                self.NextNail = CurTime() + 1
                 --self:TakePrimaryAmmo(1)
                 --self:TakeSecondaryAmmo(1)
                 self:TakeSecondaryAmmo(1)
@@ -418,7 +418,7 @@ function SWEP:SecondaryAttack()
                 for _, oldcons in pairs(constraint.FindConstraints(trent, "Weld")) do
                     if oldcons.Ent1 == ent or oldcons.Ent2 == ent then
                         trent.Nails = trent.Nails or {}
-                        if #trent.Nails < 5 then
+                        if #trent.Nails < 3 then
                             self:SendWeaponAnim(ACT_VM_HITCENTER)
                             self.Alternate = not self.Alternate
                             self.Owner:SetAnimation(PLAYER_ATTACK1)
@@ -471,7 +471,7 @@ function SWEP:SecondaryAttack()
                             oldcons.Constraint:DeleteOnRemove(nail)
                         else
                             if SERVER then
-                                self.Owner:Message("Only 5 nails can be placed here.", 2)
+                                self.Owner:Message("Only 3 nails can be placed here.", 2)
                             end
                         end
                     end
