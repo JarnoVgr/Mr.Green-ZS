@@ -141,7 +141,7 @@ function SWEP:PrimaryAttack()
 				break
 			
 			elseif i == 10 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.3 - (cone * self.AccuracyBonus))
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.57 - (cone * self.AccuracyBonus))
 				break
 			end
 		end
@@ -154,7 +154,7 @@ function SWEP:PrimaryAttack()
 			break
 		
 		elseif i == 10 then
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.5 - (cone * self.AccuracyBonus))
+			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.7 - (cone * self.AccuracyBonus))
 			break
 		end
 	end	
@@ -163,11 +163,11 @@ function SWEP:PrimaryAttack()
 	else
 		for i=1, 10 do
 			if self.LastShot > CurTime() - (i * 0.08) then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, (cone * ((j + 1.105) - (i * 0.1))) - (cone * self.AccuracyBonus))		
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, (cone * ((j + 1.109) - (i * 0.1))) - (cone * self.AccuracyBonus))		
 				break
 			
 			elseif i == 10 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.3 - (cone * self.AccuracyBonus))
+				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.5 - (cone * self.AccuracyBonus))
 				break
 			end
 		end
@@ -471,7 +471,7 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 		Num = numbul,
 		Src = self.Owner:GetShootPos(),
 		Dir = aim + punch,
-		Spread = Vector(cone * 0.9 , cone * 0.9, 0),
+		Spread = Vector(cone, cone, 0),
 		Tracer = 1,
 		TracerName = self.TracerName,
 		Force = dmg * 0.1,
