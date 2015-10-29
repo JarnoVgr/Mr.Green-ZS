@@ -201,7 +201,7 @@ GM.HumanWeapons = {
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", Tier = 0, Type = "pistol", Price = 60}, 
         ["weapon_zs_glock3"]  = { Name = "Glock 3", Tier = 1, Type = "pistol", Price = 80, HumanClass = "pyro" },		
         ["weapon_zs_glock1"]  = { Name = "Glock 1", Tier = 1, Type = "pistol", Price = 80, HumanClass = "pyro" },		
-		["weapon_zs_flaregun"]  = { Name = "Flare Gun", Tier = 2, Type = "pistol", HumanClass = "pyro", Price = 120},
+		["weapon_zs_flaregun"]  = { Name = "Flare Gun", Tier = 2, Type = "smg", HumanClass = "pyro", Price = 120},
 		["weapon_zs_tmp"]  = { Name = "Silent TMP", Tier = 2, Type = "smg", HumanClass = "pyro", Price = 120 },		
 		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Tier = 3, Type = "shotgun", HumanClass = "pyro", Price = 160},	
 		["weapon_zs_pyrocannon"]  = { Name = "'Infernus' Cannon", Tier = 4, Type = "shotgun", HumanClass = "pyro", Price = 175},			
@@ -543,7 +543,7 @@ GM.Perks = {
 		
 	["Sharpshooter"] = {Name = "Sharpshooter", 
 		Equipment = "Mobile Supplies, Beretta, Knife", 	
-		Description = " +10% Sniper damage \n +10% Headshot damage",
+		Description = " +5% Sniper damage \n +8% Headshot damage",
 		CoefDesc = " +%i%% Sniper damage\n +%i%% Headshot damage\n",
 		Coef = {1,1},
 		Slot = 5,

@@ -35,7 +35,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
 				dmg = dmg + (dmg * mul)						
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "357" and attacker:GetPerk("Sharpshooter") then
-				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+				mul = 0.05 + ((attacker:GetRank() * 1) / 100 )
 				dmg = dmg + (dmg * mul)	
 			elseif (attacker:GetActiveWeapon().Primary.Ammo == "Battery" or attacker:GetActiveWeapon().Primary.Ammo == "pistol")  and attacker:GetPerk("Medic") then --mediguns
 				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )

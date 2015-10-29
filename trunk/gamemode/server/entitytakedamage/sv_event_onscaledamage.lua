@@ -137,9 +137,9 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 						pl:Ignite(4,0)			
 					end
 					if attacker.DataTable["ShopItems"][69] then
-						dmginfo:SetDamage((dmginfo:GetDamage() * (1.2 + (1*attacker:GetRank())/100)))				
+						dmginfo:SetDamage((dmginfo:GetDamage() * (1.13 + (1*attacker:GetRank())/100)))				
 					else
-						dmginfo:SetDamage((dmginfo:GetDamage() * (1.1 + (1*attacker:GetRank())/100)))
+						dmginfo:SetDamage((dmginfo:GetDamage() * (1.08 + (1*attacker:GetRank())/100)))
 					end
 				elseif dmginfo:IsMeleeDamage() and attacker:GetPerk("berserker_headhunter") then
 					dmginfo:SetDamage(dmginfo:GetDamage() * 1.40)						
