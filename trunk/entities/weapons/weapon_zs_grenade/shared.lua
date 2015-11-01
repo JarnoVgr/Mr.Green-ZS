@@ -29,8 +29,8 @@ SWEP.ViewModel = "models/weapons/c_grenade.mdl"
 SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_grenade.mdl"
 SWEP.TotalDamage = "~450-500"
-SWEP.Primary.ClipSize = 3
-SWEP.Primary.DefaultClip = 3
+SWEP.Primary.ClipSize = 1
+SWEP.Primary.DefaultClip = 1
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "grenade"
 SWEP.Primary.Delay = 2
@@ -87,7 +87,7 @@ function SWEP:Equip ( NewOwner )
 	
 	--if self.Owner:GetPerk("_plankamount") then
 	if self.Owner:GetPerk("commando_grenadier") then
-		self.Weapon:SetClip1( 6 ) 	
+		self.Weapon:SetClip1( 4 ) 	
 	end
 	
 	end
