@@ -203,12 +203,6 @@ if SERVER then
 							if not trent._LastAttackerIsHuman then
 								skillpoints.AddSkillPoints(self.Owner, 1)
 								self.Owner:AddXP(self.ToHeal)
-								
-								--nail:SetDTInt(1, nail:GetDTInt(1) + self.ToHeal*0.5)		
-								
-								if self.ToHeal >= 10 then
-									skillpoints.AddSkillPoints(self.Owner, 1)								
-								end	
 							end
 							
 							--self.Owner._RepairScore = 0
