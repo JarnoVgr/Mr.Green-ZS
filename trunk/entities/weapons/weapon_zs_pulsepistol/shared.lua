@@ -38,7 +38,7 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 0.65
+SWEP.Primary.Recoil			= 0.75
 SWEP.Primary.Damage			= 10
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 8
@@ -48,7 +48,7 @@ SWEP.Primary.Automatic		= false
 
 SWEP.Primary.Ammo			= "none"
 
-SWEP.Cone 			= 0.048
+SWEP.Cone 			= 0.056
 SWEP.ConeMoving		 = SWEP.Cone *1.3
 SWEP.ConeCrouching 	 = SWEP.Cone *0.8
 SWEP.ConeIron 		 = SWEP.Cone *0.8
@@ -71,12 +71,9 @@ SWEP.WalkSpeed = SPEED_PISTOL
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.65
+SWEP.rechargerate = 0.7
 SWEP.startcharge = 1
 SWEP.MaxClip = 10
-
-
-
 
 function SWEP:Think()
 	if SERVER then
@@ -91,20 +88,16 @@ function SWEP:Think()
 		else
 		
 			if self:GetOwner():GetPerk("Engineer") then
-				self.MaxClip = 12 + (12*(5*self:GetOwner():GetRank())/100)
-				self.rechargerate = 0.65 - (0.65*(2*self:GetOwner():GetRank())/100)				
+				self.MaxClip = 10 + (10*(5*self:GetOwner():GetRank())/100)
+				self.rechargerate = 0.7 - (0.7*(2*self:GetOwner():GetRank())/100)				
 			end
 
 		
 			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then
 				self.Weapon:SetClip1(math.min(self.MaxClip, self.Weapon:Clip1() + 1))
-				self.rechargerate = 0.1
+				self.rechargerate = 0.7
 				self.rechargetimer = CurTime() + self.rechargerate 
 				
-				if IsValid(self:GetOwner()) and self:GetOwner():GetSuit() == "freeman" then --Ability for freeman suit!
-					self.Weapon:SetClip1(math.min(self.MaxClip, self.Weapon:Clip1() + 1))
-					self.rechargerate = 0.01
-				end
 			end
 			if self.fired then 
 				self.fired = false

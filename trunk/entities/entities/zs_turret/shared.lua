@@ -190,17 +190,17 @@ if SERVER then
 						
 						if self:CanAttack() then
 							-- double fire rate
-							self.NextShoot = self.NextShoot or ct + 0.05
+							self.NextShoot = self.NextShoot or ct + 0.06
 							if ct > self.NextShoot then
 								self:Shoot()								
 								self:ResetSequence(self:LookupSequence("fire"))
-								self.NextShoot = ct + 0.05
+								self.NextShoot = ct + 0.06
 							end
 						else
-							self.NextShoot = self.NextShoot or ct + 0.05
+							self.NextShoot = self.NextShoot or ct + 0.06
 							if ct > self.NextShoot then
 								self:EmitSound("Weapon_Pistol.Empty")
-								self.NextShoot = ct + 0.05
+								self.NextShoot = ct + 0.06
 							end
 						end	
 						
