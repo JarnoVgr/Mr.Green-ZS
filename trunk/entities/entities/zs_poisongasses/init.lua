@@ -4,11 +4,11 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 ENT.iPoisonTimer = 0
-ENT.iPoisonDamageRadius = 460
+ENT.iPoisonDamageRadius = 350
 ENT.objFoundEnemys = nil
 ENT.iTakeDamageDelay = 1.0
 --ENT.iTakeDamageDelay = 0.25
-ENT.iDamageAmount = 5
+ENT.iDamageAmount = 4
 --ENT.iDamageAmount = 1
 ENT.iHealAmount = 25
 

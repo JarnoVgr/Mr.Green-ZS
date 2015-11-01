@@ -273,7 +273,7 @@ function GM:OnHumanSpawn(pl)
 	if not pl:IsHuman() then
 		return
 	end
-	
+					pl:SetMaterial("")
 	--Set model based on preferences
 	if pl:IsBot() then
 		--Random model
@@ -438,6 +438,7 @@ function GM:OnZombieSpawn(pl)
 	if pl:Team() ~= TEAM_UNDEAD then
 		return
 	end
+	pl:SetMaterial("")
 	pl:DrawShadow(false)
 	-- Zombies have their gasses now.
 	--[[
@@ -888,6 +889,7 @@ function CalculateZombieHealth(pl)
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies + 1) and team.NumPlayers(TEAM_HUMAN) >= 5) then
 			local IncreaseHealth = Tab.Health
 			MaxHealth = Tab.Health + IncreaseHealth
+			pl:SetMaterial("models/flesh")
 		end
 	end
 	MaxHealth = math.Round(MaxHealth)
