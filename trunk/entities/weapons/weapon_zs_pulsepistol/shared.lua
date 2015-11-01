@@ -95,10 +95,9 @@ function SWEP:Think()
 		
 			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then
 				self.Weapon:SetClip1(math.min(self.MaxClip, self.Weapon:Clip1() + 1))
-				self.rechargerate = 0.7
 				self.rechargetimer = CurTime() + self.rechargerate 
-				
 			end
+			
 			if self.fired then 
 				self.fired = false
 			end
