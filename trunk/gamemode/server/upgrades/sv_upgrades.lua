@@ -170,7 +170,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			end	
 			
 			if (dmg > 10) then
-				ent:Daze(dmg*0.075)	
+				ent:Daze(dmg*0.06)	
 			end
 		end		
 
