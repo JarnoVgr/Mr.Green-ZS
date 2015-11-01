@@ -66,10 +66,10 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("weapons/galil/galil-1.wav")
 SWEP.Primary.Recoil			= 2.3
-SWEP.Primary.Damage			= 15
+SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 4
 SWEP.Primary.ClipSize		= 28
-SWEP.Primary.Delay			= 0.45
+SWEP.Primary.Delay			= 0.44
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "alyxgun"

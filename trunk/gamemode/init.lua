@@ -372,6 +372,11 @@ function GM:InitPostEntity()
 		ent:DrawShadow(false)
 	end
 	
+	for _, ent in pairs(ents.FindByClass("func_precipitation")) do
+		ent:Remove()
+	end
+	
+	
 	for _, ent in pairs(ents.FindByClass("func_*")) do
 		ent:DrawShadow(false)
 		ent:SetKeyValue("disableshadows", 1)

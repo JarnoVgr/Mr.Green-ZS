@@ -359,11 +359,11 @@ function meta:DrawCrosshairCross()
 		return
 	end
 
-	cone = ScrH() / 76.8 * cone
+	cone = ScrH() / 100 * cone
 
 	CrossHairScale = math.Approach(CrossHairScale, cone, FrameTime() * 5 + math.abs(CrossHairScale - cone) * 0.02)
 
-	local scalebyheight = (h / 768) * 0.2
+	local scalebyheight = (h / 1080) * 0.2
 
 	local midarea = 40 * CrossHairScale
 	local length = scalebyheight * 1 + midarea*0.1

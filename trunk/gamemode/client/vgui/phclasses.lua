@@ -968,7 +968,7 @@ function DrawLoadoutMenu()
 	local frameDescriptionText = ""
 	
 	FrameDescription.PaintOver = function ()
-		draw.DrawText(" " .. frameDescriptionText, "Trebuchet18", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)		
+		draw.DrawText(" " .. frameDescriptionText, "Trebuchet24", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)		
 	end	
 	
 	local ProfileText = vgui.Create("DTextEntry",Frame)
@@ -978,7 +978,7 @@ function DrawLoadoutMenu()
 	ProfileText:SetValue("")
 	
 	ProfileText.PaintOver = function ()
-		draw.DrawText("GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  MySelf:CurRankXP() - MySelf:GetXP() .. " XP Remaining","Trebuchet18", ScaleW(60), 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)		
+		draw.DrawText("GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  MySelf:CurRankXP() - MySelf:GetXP() .. " XP Remaining","Trebuchet24", ScaleW(60), ScaleH(22), Color(248,253,248,235), TEXT_ALIGN_LEFT)		
 	end
 	
 	ProfileText:SetFont("Trebuchet24")
@@ -998,8 +998,8 @@ function DrawLoadoutMenu()
 	FrameText:SetMultiline( true )	
 	
 	FrameText.PaintOver = function ()
-		draw.DrawText(" Welcome to the new class selection menu!", "Trebuchet18", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)
-		draw.DrawText(" Please report any bugs/issues or post suggestions on the forums.", "Trebuchet18", 0, ScaleH(30), Color(248,253,248,235), TEXT_ALIGN_LEFT)
+		draw.DrawText(" Welcome to the new class selection menu!", "Trebuchet24", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)
+		draw.DrawText(" Report any bugs/issues or post suggestions on the forums.", "Trebuchet24", 0, ScaleH(30), Color(248,253,248,235), TEXT_ALIGN_LEFT)
 
 	end	
 	
@@ -1032,7 +1032,7 @@ function DrawLoadoutMenu()
 	
 	buttonWeb.PaintOver = function ()
 	
-		draw.DrawText("Forums", "Trebuchet24", (frameSizeWidth * 0.11) * 0.5, ScaleH(5),  Color( 95, 240, 110, 255 ), TEXT_ALIGN_CENTER)	
+		draw.DrawText("Forums", "Trebuchet24", (frameSizeWidth * 0.11) * 0.5, ScaleH(12),  Color( 95, 240, 110, 255 ), TEXT_ALIGN_CENTER)	
 		
 		if buttonWeb.Overed then
 			surface.SetDrawColor(50, 255, 60, math.Clamp(math.sin(CurTime()*5)*100 + 100,40,255))
@@ -1041,44 +1041,7 @@ function DrawLoadoutMenu()
 	end	
 	
 	LoadoutOpen = true
-		
-	local buttonSpawn = vgui.Create( "DButton", Frame)
-	buttonSpawn:SetParent(Frame)
-	buttonSpawn:SetSkin("ZSMG")		
-	buttonSpawn:SetText( "" )		
-	buttonSpawn:SetTextColor( Color( 255, 255, 255 ) )
-	buttonSpawn:SetPos( frameSizeWidth*0.5 - buttonWidth*0.51, frameSizeHeight - buttonHeight * 1.5)
-	buttonSpawn:SetSize( buttonWidth, buttonHeight )
-	buttonSpawn.Paint = function( self, w, h )
-		draw.RoundedBox( 0, 0, 0, w, h, Color( 60, 65, 60, 220 ) )
-	end	
-	
-	buttonSpawn.PaintOver = function ()
-		draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-10 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
-		surface.SetDrawColor(200, 50, 50, math.Clamp(math.sin(CurTime()*6)*200 + 100,0,255))
-		surface.DrawOutlinedRect(0, 0, buttonWidth, buttonHeight)	
-	end
-	
-	
-	buttonSpawn.OnCursorEntered = function() 
-		surface.PlaySound(Sound("mrgreen/ui/menu_focus.wav"))
-	end	
-	
-	buttonSpawn.DoClick = function ()
-		Frame:Close()
-		spawned = true
-		saveClass(classSelected, perkButtons)		
-		surface.PlaySound(Sound("mrgreen/ui/menu_accept.wav"))		
-	end
-	
-	buttonSpawn.Think = function () 
-		if WARMUPTIME-10 - CurTime() <= 0 then
-			Frame:Close()
-			spawned = true
-			saveClass(classSelected, perkButtons)				
-		end
-	end
-	
+			
 	for k, v in pairs(GAMEMODE.Perks) do
 	
 		GAMEMODE.Perks[k].CodeName = k
@@ -1282,6 +1245,52 @@ function DrawLoadoutMenu()
 	classTitle.PaintOver = function ()
 		draw.SimpleTextOutlined(" " .. classSelected, "ssNewAmmoFont9", 0, (buttonHeight*0.5)*0.25, Color (255,255,255,220), TEXT_ALIGN_LEFT,TEXT_ALIGN_LEFT,1,Color(0,0,0,230))
 	end
+	
+	local buttonSpawn = vgui.Create( "DButton", Frame)
+	buttonSpawn:SetParent(Frame)
+	buttonSpawn:SetSkin("ZSMG")		
+	buttonSpawn:SetText( "" )		
+	buttonSpawn:SetTextColor( Color( 255, 255, 255 ) )
+	buttonSpawn:SetPos( frameSizeWidth*0.5 - buttonWidth*0.51, frameSizeHeight - buttonHeight * 1.5)
+	buttonSpawn:SetSize( buttonWidth, buttonHeight )
+	buttonSpawn.Paint = function( self, w, h )
+		draw.RoundedBox( 0, 0, 0, w, h, Color( 60, 65, 60, 220 ) )
+	end	
+	
+	buttonSpawn.PaintOver = function ()
+		draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-10 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
+		if buttonSpawn.Overed then
+			surface.SetDrawColor(50, 255, 60, math.Clamp(math.sin(CurTime()*5)*100 + 100,40,255))
+		else	
+			surface.SetDrawColor(200, 50, 50, math.Clamp(math.sin(CurTime()*6)*200 + 100,0,255))
+		end
+		surface.DrawOutlinedRect(0, 0, buttonWidth, buttonHeight)
+	end
+	
+	
+	buttonSpawn.OnCursorEntered = function() 
+		surface.PlaySound(Sound("mrgreen/ui/menu_focus.wav"))
+		buttonSpawn.Overed = true
+	end	
+	
+	buttonSpawn.OnCursorExited = function() 
+		buttonSpawn.Overed = false
+	end		
+	
+	buttonSpawn.DoClick = function ()
+		Frame:Close()
+		spawned = true
+		saveClass(classSelected, perkButtons)		
+		surface.PlaySound(Sound("mrgreen/ui/menu_accept.wav"))		
+	end
+	
+	buttonSpawn.Think = function () 
+		if WARMUPTIME-10 - CurTime() <= 0 then
+			Frame:Close()
+			spawned = true
+			saveClass(classSelected, perkButtons)				
+		end
+	end	
 
 end
 

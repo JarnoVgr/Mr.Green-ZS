@@ -86,6 +86,8 @@ function skillpoints.AddSkillPoints(pl, amount)
 		skillpoints.TakeSkillPoints(pl,pl.SPRequired)
 		pl.SPRequired = pl.SPRequired + 30
 		
+		
+		
 		if pl.Tier > 5 then
 			pl:EmitSound("items/gift_pickup.wav" )
 			pl:GiveAmmo( 20, "pistol" )	
@@ -94,7 +96,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 			pl:GiveAmmo( 18, "buckshot" )		
 			pl:GiveAmmo( 8, "XBowBolt" )
 			pl:GiveAmmo( 16, "357" )
-			pl:GiveAmmo( 60, "alyxgun" )			
+			pl:GiveAmmo( 40, "alyxgun" )			
 			return true
 		end		
 	
@@ -110,7 +112,13 @@ function skillpoints.AddSkillPoints(pl, amount)
 			end
 		end		
 		
+		PrintTable(possibleWeapons)
 		pl.Tier = pl.Tier + 1
+		
+		net.Start("tier")
+		net.WriteFloat(pl.Tier)
+		net.WriteBit(false)
+		net.Send(pl)		
 		item = table.Random(possibleWeapons)
 		
 		local weaponType = GetWeaponType(item)
@@ -124,24 +132,26 @@ function skillpoints.AddSkillPoints(pl, amount)
 			pl:SelectWeapon(item)
 		elseif weaponType == "melee" then
 			local Melee = pl:GetMelee()
-			if IsValid(Melee) then		
+			if (Melee) then		
 				pl:StripWeapon(Melee:GetClass())
-				pl:Give(item)			
-				pl:SelectWeapon(item)				
-				pl:EmitSound("items/gift_pickup.wav" )	
-				pl:Message("Ammo drop received", 2)					
-			end			
+			end
+			
+			pl:Give(item)			
+			pl:SelectWeapon(item)				
+						
 		elseif weaponType == "smg" || weaponType == "rifle" || weaponType == "shotgun" then
-			local Automatic = pl:GetAutomatic()
-			if IsValid(Automatic) then			
-				pl:StripWeapon(Automatic:GetClass())
-				pl:Give(item)
-				pl:SelectWeapon(item)	
-			end	
+			
+			if (pl:GetAutomatic()) then
+				pl:StripWeapon(pl:GetAutomatic():GetClass())
+			end
+			
+			pl:Give(item)
+			pl:SelectWeapon(item)	
+
 		else
 			local itemToSpawn = ents.Create(item)	
 			if IsValid(itemToSpawn) then
-				pl:Message(weapons.Get(item).PrintName .. " dropped." or item .. " dropped.", 2)	
+			
 				if pl:Crouching() then
 					itemToSpawn:SetPos(pl:GetPos()+Vector(0,0,20))			
 				else
@@ -158,7 +168,13 @@ function skillpoints.AddSkillPoints(pl, amount)
 			end
 		end
 		pl:EmitSound("items/gift_pickup.wav" )
-		
+		pl:GiveAmmo( 20, "pistol" )	
+		pl:GiveAmmo( 30, "ar2" )
+		pl:GiveAmmo( 30, "SMG1" )	
+		pl:GiveAmmo( 12, "buckshot" )		
+		pl:GiveAmmo( 8, "XBowBolt" )
+		pl:GiveAmmo( 12, "357" )
+		pl:GiveAmmo( 40, "alyxgun" )		
 	end		
 	
 	return true

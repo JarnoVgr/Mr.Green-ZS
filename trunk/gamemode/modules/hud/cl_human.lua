@@ -242,9 +242,34 @@ net.Receive("SPRequired", function(len)
 	SPRequired = net.ReadFloat()
 end)
 
+local tier = 1
+
+net.Receive("tier", function(len)
+	tier = net.ReadFloat()
+end)
+
+local spBarX = ScrW()/2 - (ScrW()*0.13 * 0.5)
+local spBarY = ScrH()/1.03
+
 function hud.DrawSkillPoints()
-	local startX = ScrW()/2
-	draw.SimpleTextOutlined("SP for drop: " .. SPRequired - MySelf:GetScore(), "ssNewAmmoFont5.5",startX - ScrW()/2 + ScrW()/80, ScrH()/1.075, Color(255,255,255,145), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+
+local spRatio = math.Round(MySelf:GetScore()*100/SPRequired)/100
+		
+surface.SetDrawColor( 100, 100 , 100, 200 )
+surface.DrawOutlinedRect( spBarX, spBarY, ScrW()*0.13, ScrH()*0.01 )
+surface.SetDrawColor(0, 154, 205, 200 )
+surface.DrawRect( spBarX, spBarY, (ScrW()*0.13)*spRatio, ScrH()*0.01 )
+
+surface.SetDrawColor(200, 200, 200, 200 )
+surface.DrawRect( spBarX, spBarY  - ScrH()*0.005, ScrW()*0.002, ScrH()*0.015 )
+surface.DrawRect( spBarX + ScrW()*0.13, spBarY - ScrH()*0.005, ScrW()*0.002, ScrH()*0.015 )
+
+if tier < 5 then
+	draw.SimpleText("Weapon Drop: " .. SPRequired - MySelf:GetScore() .. " SP", "HudHintTextLarge", spBarX + (ScrW()*0.13 * 0.5), ScrH()/1.0425, Color( 255, 255, 255, 245 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )	
+else
+	draw.SimpleText("Ammo Drop: " .. SPRequired - MySelf:GetScore() .. " SP", "HudHintTextLarge", spBarX + (ScrW()*0.13 * 0.5), ScrH()/1.0425, Color( 255, 255, 255, 245 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )	
+end
+--draw.SimpleTextOutlined("SP for drop: " .. SPRequired - MySelf:GetScore(), "ssNewAmmoFont5.5",startX - ScrW()/2 + ScrW()/80, ScrH()/1.075, Color(255,255,255,145), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 end
 
 function hud.DrawObjMessages()

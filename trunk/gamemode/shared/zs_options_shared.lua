@@ -175,7 +175,7 @@ GM.HumanWeapons = {
         ["weapon_zs_medi2"]  = { Name = "Medi 2", Tier = 1, Type = "shotgun",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
 		["weapon_zs_medi1"]  = { Name = "Medi 1", Tier = 2, Type = "pistol",Price = 80, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
         ["weapon_zs_medi3"]  = { Name = "Medi 3", Tier = 3, Type = "smg",Price = 160, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
-        ["weapon_zs_medi4"]  = { Name = "Medi 4", Tier = 4, Type = "rifle",Price = 190, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medi4"]  = { Name = "Medi 4", Tier = 4, Type = "rifle",Price = 180, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		
         ["weapon_zs_elites"]  = { Name = "Dual Elites", Type = "pistol", Price = 120},
        
@@ -204,7 +204,7 @@ GM.HumanWeapons = {
 		["weapon_zs_flaregun"]  = { Name = "Flare Gun", Tier = 2, Type = "smg", HumanClass = "pyro", Price = 120},
 		["weapon_zs_tmp"]  = { Name = "Silent TMP", Tier = 2, Type = "smg", HumanClass = "pyro", Price = 120 },		
 		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Tier = 3, Type = "shotgun", HumanClass = "pyro", Price = 160},	
-		["weapon_zs_pyrocannon"]  = { Name = "'Infernus' Cannon", Tier = 4, Type = "shotgun", HumanClass = "pyro", Price = 175},			
+		["weapon_zs_pyrocannon"]  = { Name = "'Infernus' Cannon", Tier = 4, Type = "shotgun", HumanClass = "pyro", Price = 180},			
 		["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", HumanClass = "pyro"},
 		["weapon_zs_firebomb"]  = { Name = "Flame Nade", DPS = 143, Infliction = 0, HumanClass = "pyro"},
 		
@@ -321,7 +321,7 @@ GM.HumanWeapons = {
 
 GM.AmmoRegeneration = {
 	["ar2"] = 16, --Rifle
-	["alyxgun"] = 30,
+	["alyxgun"] = 22,
 	["pistol"] = 12, --Pistol
 	["smg1"] = 20, --SMG
 	["357"] = 6, --Sniper
@@ -420,7 +420,9 @@ GM.Perks = {
 
 		["commando_kevlar"] = {Name = "Kevlar", Description = "+20% damage resistance from the undead", Class = "Commando", Slot = 3, Rank = 7, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
 		["commando_health"] = {Name = "Health", Description = "+30 maximum health", Class = "Commando", Slot = 3, Rank = 7, Material = "vgui/achievements/decal_sprays"},
+	    ["commando_leadmarket"] = {Name = "Lead Market", Description = "+50% SP from kills", Class = "Commando", Slot = 3, Rank = 7, Material = "vgui/achievements/collect_gifts"},
 
+		
 	-- Support	
 	
 		["support_boardpack"] = {Name = "Board Pack", Description = "Replace ammo pack with a pack of boards", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/break_windows"},
@@ -489,7 +491,6 @@ GM.Perks = {
 	
 	--["berserker_executioner"] = {Name = "Executioner", Description = "+30% melee damage to targets under or at 30% health", Class = "Berserker", Slot = 2, Rank = 0, Material = "vgui/achievements/glow"},	
 	--["engineer_combustion"] = {Name = "Combustion", Description = "Undead caught in the explosion are ignited", Class = "Engineer", Slot = 2, Rank = 0, Material = "vgui/achievements/glow"},	
-	--["commando_leadmarket"] = {Name = "Lead Market", Description = "+50% SP from kills", Class = "Commando", Slot = 3, Rank = 0, Material = "vgui/achievements/survived_headshot_due_to_helmet_bw"},
 
 	["Medic"] = {Name = "Medic",		  		
 		Equipment = "Medkit, P228, Stun Stick",

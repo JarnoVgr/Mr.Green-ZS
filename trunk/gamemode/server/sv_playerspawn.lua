@@ -86,7 +86,6 @@ function GM:PlayerInitialSpawn(pl)
 	pl.GreencoinsGained[TEAM_UNDEAD] = 0
 	pl.GreencoinsGained[TEAM_HUMAN] = 0
 
-	
 	pl.LastRage = 0
 	pl.SPRequired = 100
 	pl.SPReceived = 0
@@ -629,6 +628,7 @@ function GM:PlayerDisconnected( pl )
 	end)
 end
 
+util.AddNetworkString( "tier" )
 --[==[------------------------------------------------
      Loadout Director - Called on h spawn
 -------------------------------------------------]==]
@@ -675,7 +675,8 @@ function CalculatePlayerLoadout(pl)
 
 		if pl:GetPerk("medic_medigun") then
 			pl:Give("weapon_zs_medi1")
-			pl.Tier = 2			
+			pl.Tier = 2	
+			pl.SPRequired = 130				
 		end
 	elseif pl:GetPerk("Support") then
 		pl.Loadout = table.Copy(support)
@@ -684,6 +685,7 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("support_shotgun") then
 			pl:Give("weapon_zs_shotgun")
 			pl.Tier = 2
+			pl.SPRequired = 130				
 		end
 
 		if pl:GetPerk("support_boardpack") then
@@ -701,7 +703,8 @@ function CalculatePlayerLoadout(pl)
 		pl:ChatPrint("You are an Engineer")
 		if pl:GetPerk("engineer_pulsepistol") then
 			pl:Give("weapon_zs_pulsepistol")
-			pl.Tier = 2			
+			pl.Tier = 2		
+			pl.SPRequired = 130				
 		end
 
 		if pl:GetPerk("engineer_combatturret") then
@@ -715,7 +718,8 @@ function CalculatePlayerLoadout(pl)
 
 		if pl:GetPerk("commando_defender") then
 			pl:Give("weapon_zs_defender")
-			pl.Tier = 2			
+			pl.Tier = 2		
+			pl.SPRequired = 130				
 		end		
 	elseif pl:GetPerk("Berserker") then
 		pl.Loadout = table.Copy(berserker)
@@ -725,9 +729,11 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("berserker_hook") then
 			pl:Give("weapon_zs_melee_hook")
 			pl.Tier = 2			
+			pl.SPRequired = 130				
 		elseif pl:GetPerk("berserker_oppressor") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_melee_pipe2")
+			pl.SPRequired = 130				
 		end		
 	elseif pl:GetPerk("Sharpshooter") then
 		pl.Loadout = table.Copy(sharpshooter)
@@ -736,6 +742,7 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("sharpshooter_python") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_python")
+			pl.SPRequired = 130				
 		end		
 	elseif pl:GetPerk("Pyro") then
 		pl.Loadout = table.Copy(pyro)
@@ -744,9 +751,11 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("pyro_glock3") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_glock3")
+			pl.SPRequired = 130				
 		elseif pl:GetPerk("pyro_glock1") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_glock1")
+			pl.SPRequired = 130				
 		end
 		
 	else
@@ -756,9 +765,20 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("medic_medigun") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
+			pl.SPRequired = 130			
 		end
 	end
 
+	net.Start("SPRequired")
+	net.WriteFloat(math.Round(pl.SPRequired))
+	net.WriteBit(false)
+	net.Send(pl)	
+	
+	net.Start("tier")
+	net.WriteFloat(math.Round(pl.Tier))
+	net.WriteBit(false)
+	net.Send(pl)	
+	
 	--Give class loadout
 	for k,v in pairs(pl.Loadout) do
 		pl:Give(tostring(v))				
