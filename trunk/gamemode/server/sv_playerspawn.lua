@@ -385,7 +385,7 @@ function GM:OnHumanSpawn(pl)
 			
 	--Apply loadout
 	CalculatePlayerLoadout(pl)
-
+	
 	--Blood color
 	pl:SetBloodColor(BLOOD_COLOR_RED)
 
@@ -395,6 +395,10 @@ function GM:OnHumanSpawn(pl)
 
 	--
 	self:ProceedCustomSpawn(pl)
+	
+	if pl:GetPerk("engineer_bonusturret") then
+		pl:GiveAmmo( 1, "SniperRound" )
+	end		
 
 	--Set hat and suit
 	if pl.SelectedHat ~= "none" or pl:IsBot() then

@@ -171,16 +171,19 @@ function SWEP:PrimaryAttack()
 	--Set next primary fire
 	self.Weapon:SetNextPrimaryFire(CurTime() + 0.65)
 
+	
+
+	
 	if SERVER then
 		local vecAim = self.Owner:GetAimVector()
 		local posShoot = self.Owner:GetShootPos()
 	
-		local tr = util.TraceLine({start = posShoot, endpos = posShoot+300*vecAim, filter = self.Owner})
+		local tr = util.TraceLine({start = posShoot, endpos = posShoot+100*vecAim, filter = self.Owner})
 	
 		local canPlaceCrate = false
 
 		--Check if we really need to draw the crate
-		if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 28 and tr.HitPos:Distance(self.Owner:GetPos()) <= 110 then
+		if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 28 then
 			--Check traceline position area
 			local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-28,-28,0), maxs = Vector(28,28,25)})
 

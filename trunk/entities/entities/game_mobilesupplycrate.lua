@@ -293,21 +293,21 @@ if CLIENT then
 	
 		if !validOwner then
 			--draw.SimpleTextOutlined( owner:Name() .."'s Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			draw.SimpleTextOutlined( "Unclaimed Mobile Supplies", "ArialBoldFive", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined( "Unclaimed Mobile Supplies", "Trebuchet18", 0, 0, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		end
 				
 		if MySelf.MobileSupplyTimerActive == true then
 			local time = math.Round(MySelf.MobileSupplyTime - CurTime())
-			draw.SimpleTextOutlined("Supples In 0"..ToMinutesSeconds(time + 1), "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Supples In 0"..ToMinutesSeconds(time + 1), "Trebuchet18", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 
 			--Check if placer is MySelf
 			if validOwner and MySelf == owner and not self:GetClaimed() then
-				draw.SimpleTextOutlined("Press E to pickup", "ArialBoldFour", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+				draw.SimpleTextOutlined("Press E to pickup", "Trebuchet18", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 			elseif not validOwner then
-				draw.SimpleTextOutlined("Press E to claim", "ArialBoldFour", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+				draw.SimpleTextOutlined("Press E to claim", "Trebuchet18", 0, 40, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 			end
 		elseif MySelf.MobileSupplyTimerActive == false then
-			draw.SimpleTextOutlined("USE for ammunition.", "ArialBoldFour", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("USE for ammunition.", "Trebuchet18", 0, 20, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 		end
 	    cam.End3D2D()
 	end

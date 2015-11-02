@@ -40,7 +40,7 @@ ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should i
 ENT.IgnoreDamage = {7,9}
 ENT.MinimumAimDot = 0.25
 
-ENT.RechargeAmmo = 0.15
+ENT.AmmoRecharge = 0.15
 
 local function MyTrueVisible(posa, posb, filter)
 	local filt = ents.FindByClass("projectile_*")
@@ -95,7 +95,7 @@ if SERVER then
 				self.Damage = self.Damage + (self:GetTurretOwner():GetRank() * 0.25) + 1
 				self.MaxHealth = self.MaxHealth + self:GetTurretOwner():GetRank()
 				self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 2) + 10
-				self.RechargeAmmo = 0.14 - (self:GetTurretOwner():GetRank() * 0.005)			
+				self.AmmoRecharge = 0.14 - (self:GetTurretOwner():GetRank() * 0.005)			
 			end		
 			
 			if self:GetTurretOwner():GetPerk("engineer_turret") then --Class engineer 
@@ -281,7 +281,7 @@ if SERVER then
 			end
 		else
 			-- Increased recharge rate
-			self:RechargeAmmo(1,self.RechargeAmmo)
+			self:RechargeAmmo(1,self.AmmoRecharge)
 			self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),0,1))
 			self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),15,1))
 
@@ -498,23 +498,11 @@ if SERVER then
 			local owner = self:GetTurretOwner()
 			local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
 			if validOwner and activator == owner then
-			
-				--if activator:GetPerk("_remote") then
-				--	activator:SelectWeapon("weapon_zs_tools_remote")
-				--	activator:DropWeapon(activator)
-				--end		
-			
 				local placeWeapon = "weapon_zs_turretplacer"
-				activator:Give(placeWeapon)
 				activator:SelectWeapon(placeWeapon)
+				activator:GiveAmmo( 1, "SniperRound" )				
 				self:Remove()
 			--Check for claiming
-			elseif not validOwner then
-				--Claim crate
-				self:SetClaimed(true)
-
-				--Update owner
-				self:SetPlacer(activator)
 			end
 			
 			end		
@@ -589,8 +577,8 @@ if SERVER then
 		if Owner:IsValid() then
 			Owner:Message("Turret destroyed!", 2)		
 			local placeWeapon = "weapon_zs_turretplacer"
-			Owner:Give(placeWeapon)
-			Owner:SelectWeapon(placeWeapon)		
+			Owner:SelectWeapon(placeWeapon)	
+			Owner:GiveAmmo( 1, "SniperRound")			
 		end
 				
 		self.Entity:Remove()

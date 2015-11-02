@@ -49,10 +49,11 @@ SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "CombineCannon"
 SWEP.Secondary.Delay = 0.15
 
-SWEP.WalkSpeed = 175
+SWEP.WalkSpeed = SPEED_MELEE_HEAVY
 
 function SWEP:InitializeClientsideModels()
 	
+
 	self.ViewModelBoneMods = {
 		["ValveBiped.Bip01_R_Finger12"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -34.1, 0) },
 		["ValveBiped.Bip01_R_Finger2"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0), angle = Angle(0, -18.857, -11.02) },
@@ -83,6 +84,8 @@ function SWEP:InitializeClientsideModels()
 		["turret_light"] = { type = "Sprite", sprite = "models/roller/rollermine_glow", bone = "ValveBiped.Bip01_R_Hand", rel = "turret", pos = Vector(0.955, 0.28, 7.58), size = { x = 1, y = 1 }, color = Color(255, 255, 255, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false}
 	}
 	
+
+	
 end
 
 function SWEP:Precache()
@@ -100,48 +103,38 @@ end
 
 function SWEP:OnDeploy()
 	if SERVER then
+		if not self:CanPrimaryAttack() then return end
 		local owner = self.Owner
 		local effectdata = EffectData()
 		effectdata:SetEntity(owner)
 		effectdata:SetOrigin(owner:GetShootPos() + owner:GetAimVector() * 32)
 		effectdata:SetNormal(owner:GetAimVector())
 		util.Effect("turretghost", effectdata, nil, true)
-		
 	end
-	
-	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
-	
+	self.Owner:DrawViewModel(false)
 end
 
 function SWEP:PrimaryAttack()
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then return end
+	if not self:CanPrimaryAttack() then return end
 	self.Weapon:SetNextPrimaryFire ( CurTime() + 0.65 )
-	
 if SERVER then
-	 	 
+	 	
 	local aimvec = self.Owner:GetAimVector()
-	local shootpos = self.Owner:GetPos()+Vector(0,0,1)
+	local shootpos = self.Owner:GetPos()+Vector(0,0,32)
 	local CanCreateTurret = false
+
+	local tr = util.TraceLine({start = shootpos, endpos = shootpos + aimvec * 70, filter = self.Owner})
+
+	local htrace = util.TraceHull ( { start = tr.HitPos, endpos = tr.HitPos, mins = Vector (-24,-24,0), maxs = Vector (24,24,80), filter=self.Owner} )--  filter = MySelf,
+	local trground = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos - Vector(0,0,2)})
 	
-	local tr = util.TraceLine({start = shootpos, endpos = shootpos + aimvec * 200, filter = self.Owner})
-
-	local htrace = util.TraceHull ( { start = tr.HitPos, endpos = tr.HitPos, mins = Vector (-28,-28,0), maxs = Vector (28,28,70), filter=self.Owner} )--  filter = MySelf,
-	local trground = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos - Vector(0,0,1.5)})
-	
-	if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 20 and tr.HitPos:Distance(self.Owner:GetPos()) <= 130 then
-
-		local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-24,-24,0), maxs = Vector(24,24,0)})
-
-		if hTrace.Entity == NULL then
+	self.CanCreateTurret = false
+	if trground.HitWorld then
+		if htrace.Entity == NULL and tr.HitPos:Distance(self.Owner:GetPos()) > 30 then	
 			CanCreateTurret = true
 		end
 	end
-	
-	--if trground.HitWorld then
-	--	CanCreateTurret = true
-	--else
-	--	CanCreateTurret = false
-	--end
 	
 	local pos = self.Owner:GetPos()
 	local turrets = 0
@@ -188,19 +181,21 @@ if SERVER then
 			ent:EmitSound("npc/roller/blade_cut.wav")
 			self.Owner.Turret = ent
 			self:TakePrimaryAmmo( 1 )
+			self:Deploy()
 						
 				
-			if self and self:IsValid() then
-				DropWeapon(self.Owner)
-				self:Remove()	
-			end
+			--if self and self:IsValid() then
+			--	DropWeapon(self.Owner)
+			--	self:Remove()	
+			--end
 		end		
 	end	
 end
 	
 	--if self:GetOwner():GetPerk("_remote") then
 	--	self:GetOwner():Give("weapon_zs_tools_remote")
-	--end			
+	--end
+				self:Deploy()	
 	
 end
 	
@@ -228,7 +223,7 @@ function SWEP:_OnDrop()
 end
 ]]--
 function SWEP:Rotate()
-	self:SetDTInt(0,math.NormalizeAngle(self:GetRotation()+10))
+	self:SetDTInt(0,math.NormalizeAngle(self:GetRotation()+22.5))
 end
 
 function SWEP:GetRotation()
@@ -236,16 +231,22 @@ function SWEP:GetRotation()
 end
 
 function SWEP:Think()
-	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHolding() then
-		return
-	end
-		
-	if CLIENT then
-		if not self.VElements then return end
-		
-		self.VElements["turret"].modelEnt:SetPoseParameter("aim_yaw",0)
-		self.VElements["turret"].modelEnt:SetPoseParameter("aim_pitch",0)
-	end
+	if SERVER then
+		local ammocount = self.Owner:GetAmmoCount(self.Primary.Ammo)
+		if 0 < ammocount then
+
+			self:SetClip1(ammocount + self:Clip1())
+			self.Owner:RemoveAmmo(ammocount, self.Primary.Ammo)
+		end
+	
+		if self.NextDeploy and self.NextDeploy < CurTime() then
+			if 0 < self:Clip1() then
+				self:SendWeaponAnim(ACT_VM_DRAW)
+			else
+				self:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
+			end
+		end
+	end		
 end
 
 if CLIENT then

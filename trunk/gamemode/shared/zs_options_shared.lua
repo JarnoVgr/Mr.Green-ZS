@@ -449,17 +449,18 @@ GM.Perks = {
 		
 		
 		["berserker_dunker"] = {Name = "Dunker", Description = "Increased melee damage the faster you're falling", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/kill_enemy_in_air"},		
-		["berserker_bloodmoney"] = {Name = "Blood Money", Description = "+3 SP from melee kills", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/win_knife_fights_low"},
+		["berserker_bloodmoney"] = {Name = "Blood Money", Description = "+6 SP from melee kills", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/win_knife_fights_low"},
 		["berserker_vampire"] = {Name = "Vampire", Description = "+6% of melee damage goes towards health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/meta_pistol"},
 		["berserker_enrage"] = {Name = "Enrage", Description = "Increased movement speed while at or under 40 health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/pistol_round_knife_kill"},
 				
 	-- Engineer
-	
-		["engineer_combatturret"] = {Name = "Combat Turret", Description = "Spawn with a combat turret\n Receives all turret bonuses", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/concurrent_dominations"},
+		["engineer_bonusturret"] = {Name = "Lockdown", Description = "+1 Turret received on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/bomb_defuse_needed_kit"},
+		["engineer_combatturret"] = {Name = "Combat Turret", Description = "Spawn with a combat turret\nReceives all turret bonuses", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/concurrent_dominations"},
 		["engineer_pulsepistol"] = {Name = "Pulse Pistol", Description = "Spawn with a pulse pistol", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_fiveseven"},
 		["engineer_multimine"] = {Name = "Multi Mine", Description = "+4 C4 on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/goose_chase"},                    
 
 		["engineer_turret"] = {Name = "Turret Overload", Description = "+40 turret stats", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/bomb_defuse_needed_kit"},
+		["engineer_combustion"] = {Name = "Combustion", Description = "Targets caught in the explosion are ignited", Class = "Engineer", Slot = 2, Rank = 5, Material = "hud/t_victories_terrorist-win"},	
 		["engineer_darkenergy"] = {Name = "Dark Energy", Description = "+10% pulse damage", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/win_rounds_without_buying"}, 
 
 		["engineer_revenue"] = {Name = "Turret Revenue", Description = "+5 SP from turret kills", Class = "Engineer", Slot = 3, Rank = 7, Material = "vgui/achievements/kill_low_damage"},
@@ -492,8 +493,6 @@ GM.Perks = {
 	
 	-- Bonus Perks
 	
-	--["engineer_combustion"] = {Name = "Combustion", Description = "Undead caught in the explosion are ignited", Class = "Engineer", Slot = 2, Rank = 0, Material = "vgui/achievements/glow"},	
-
 	["Medic"] = {Name = "Medic",		  		
 		Equipment = "Medkit, P228, Stun Stick",
 		Description = " +10% Pistol damage \n +10% Medi damage\n +10% damage Resistance\n +3% Movement speed",
@@ -537,8 +536,8 @@ GM.Perks = {
 	["Engineer"] = {Name = "Engineer",   		
 		Equipment = "Turret, C4, Pistol, Frying Pan", 	
 		Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +1 Turret Damage\n +0.01 Turret recharge rate",
-		CoefDesc = " +%G%% Turret damage\n +%G%% Turret recharge rate\n +%i%% Turret health\n +%i%% Turret ammo capacity\n +%i Pulse weapon capacity\n +%i%% Pulse weapon damage\n +%i%% Pulse weapon recharge rate\n +%i%% Turret recharge rate\n +%i%% C4 damage\n +%i%% C4 radius",
-		Coef = {0.25, 0.005, 2, 2, 5, 1, 2, 2, 1, 1},
+		CoefDesc = " +%G%% Turret damage\n +%G%% Turret recharge rate\n +%i%% Turret health\n +%i%% Turret ammo capacity\n +%i Pulse weapon capacity\n +%i%% Pulse weapon damage\n +%i%% Pulse weapon recharge rate\n +%i%% C4 damage\n +%i%% C4 radius",
+		Coef = {0.25, 0.005, 2, 2, 5, 1, 2, 1, 1},
 		Slot = 5,
 		Rank = 0,
 		Colour = Color(30, 228, 255,32),

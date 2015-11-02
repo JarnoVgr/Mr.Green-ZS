@@ -28,18 +28,20 @@ function EFFECT:Think()
 	local rot = math.NormalizeAngle(wep:GetDTInt(0)) or 0
 	
 	local aimvec = self.EfOwner:GetAimVector()
-	local shootpos = self.EfOwner:GetPos()+Vector(0,0,1)
+	local shootpos = self.EfOwner:GetPos()+Vector(0,0,32)
 	local tr = util.TraceLine({start = shootpos, endpos = shootpos + aimvec * 70, filter = self.EfOwner})
 
 	self.Entity:SetPos(tr.HitPos)
 
-	local htrace = util.TraceHull ( { start = tr.HitPos, endpos = tr.HitPos,  mins = Vector (-30,-30,0), maxs = Vector (30,30,80)} )-- filter = self.EfOwner,
-	local trground = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos - Vector(0,0,1.5)})
+	local htrace = util.TraceHull ( { start = tr.HitPos, endpos = tr.HitPos,  mins = Vector (-24,-24,0), maxs = Vector (24,24,80)} )-- filter = self.EfOwner,
+	local trground = util.TraceLine({start = tr.HitPos, endpos = tr.HitPos - Vector(0,0,2)})
 	-- local trground = util.TraceLine({start = self.Entity:GetPos(), endpos = self.Entity:GetPos() - Vector(0,0,1.5)})-- , filter = self.Entity
+	
+	
 	
 	self.CanCreateTurret = false
 	if trground.HitWorld then
-		if htrace.Entity == NULL and tr.HitPos:Distance(self.EfOwner:GetPos()) > 25 then
+		if htrace.Entity == NULL and tr.HitPos:Distance(self.EfOwner:GetPos()) > 30 then
 			self.CanCreateTurret = true
 		-- elseif htrace.Entity == self.EfOwner then
 		-- 	ent:SetColor (255,0,0,200)
@@ -75,29 +77,6 @@ function EFFECT:Think()
 end
 local matLaser 		= Material( "sprites/bluelaser1" )
 function EFFECT:Render()
-	self.Entity:SetMaterial("models/debug/debugwhite")
+	self.Entity:SetMaterial("models/wireframe")
 	self.Entity:DrawModel()
-	
-	local t = {}
-	t.start = self.Entity:GetAttachment(self.Entity:LookupAttachment("eyes")).Pos
-	t.endpos = t.start + self.Entity:GetAttachment(self.Entity:LookupAttachment("eyes")).Ang:Forward() * 130
-	t.filter = {self.Entity}
-	t.mask = MASK_PLAYERSOLID
-	local tr = util.TraceLine(t)
-	
-	local endpos = tr.HitPos or t.endpos
-	
-	if self.CanCreateTurret then
-		local col = Color(0,255,0,200)
-	else
-		local col = Color(255,0,0,200)
-	end
-	
-	local TexOffset = CurTime() * 3
-
-	local Distance = endpos:Distance( t.start )
-	
-	render.SetMaterial( matLaser )
-	render.DrawBeam( endpos, t.start, math.Rand(5,7), TexOffset, TexOffset+Distance/8, col )
-	
 end

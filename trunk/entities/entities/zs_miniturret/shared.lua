@@ -17,7 +17,7 @@ ENT.Damage = 5
 ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {7,9}
 ENT.MinimumAimDot = 0.25
-ENT.RechargeAmmo = 0.15
+ENT.AmmoRecharge = 0.15
 
 local model = Model("models/Combine_Scanner.mdl")
 
@@ -64,7 +64,7 @@ function ENT:Initialize()
 		self.Damage = self.Damage + (self:GetTurretOwner():GetRank() * 0.25) + 1
 		self.MaxHealth = self.MaxHealth + self:GetTurretOwner():GetRank()
 		self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 2) + 10
-		self.RechargeAmmo = 0.14 - (self:GetTurretOwner():GetRank() * 0.005)			
+		self.AmmoRecharge = 0.14 - (self:GetTurretOwner():GetRank() * 0.005)			
 	end		
 	
 	if self:GetTurretOwner():GetPerk("engineer_turret") then --Class engineer 
@@ -142,7 +142,7 @@ function ENT:Think()
 			self:SetAttacking(true)
 			
 		else
-			self:RechargeAmmo(1,self.RechargeAmmo)
+			self:RechargeAmmo(1,self.AmmoRecharge)
 		end
 	end
 	

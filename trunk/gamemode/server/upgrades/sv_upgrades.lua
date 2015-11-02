@@ -125,7 +125,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 
 					if attacker:GetPerk("berserker_dunker") then
 						local bonus = attacker:GetVelocity().z * -1					
-						dmg = math.Clamp((((bonus*dmg) * 0.006) + dmg),dmg,dmg*5) 
+						dmg = math.Clamp((((bonus*dmg) * 0.005) + dmg),dmg,dmg*5) 
 					end
 					
 					if attacker:GetPerk("berserker_vampire") then

@@ -149,6 +149,16 @@ function skillpoints.AddSkillPoints(pl, amount)
 			pl:SelectWeapon(item)	
 
 		else
+		
+		if item == "weapon_zs_turretplacer" then
+			pl:Give(item)
+			pl:SelectWeapon(item)				
+			pl:GiveAmmo( 1, "SniperRound" )
+			pl:Message("Bonus turret received", nil, 1, 2)	
+			pl:EmitSound("items/gift_pickup.wav" )	
+			return true
+		end
+		
 			local itemToSpawn = ents.Create(item)	
 			if IsValid(itemToSpawn) then
 			
@@ -167,14 +177,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 				end
 			end
 		end
-		pl:EmitSound("items/gift_pickup.wav" )
-		pl:GiveAmmo( 20, "pistol" )	
-		pl:GiveAmmo( 30, "ar2" )
-		pl:GiveAmmo( 30, "SMG1" )	
-		pl:GiveAmmo( 12, "buckshot" )		
-		pl:GiveAmmo( 8, "XBowBolt" )
-		pl:GiveAmmo( 12, "357" )
-		pl:GiveAmmo( 40, "alyxgun" )		
+		pl:EmitSound("items/gift_pickup.wav" )	
 	end		
 	
 	return true

@@ -312,8 +312,8 @@ function SWEP:SecondaryAttack()
 		local Velocity = self.Owner:GetAngles():Forward() * 400
 		
 		if self.Owner:GetPerk("berserker_battlecharge") then
-			Velocity = self.Owner:GetAngles():Forward() * 450
-			Velocity.z = math.Clamp(Velocity.z, 200,460)		
+			Velocity = self.Owner:GetAngles():Forward() * 420
+			Velocity.z = math.Clamp(Velocity.z, 200,360)		
 		else
 			Velocity.z = math.Clamp(Velocity.z, 150,260)		
 		end

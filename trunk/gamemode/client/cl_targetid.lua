@@ -22,7 +22,7 @@ local function DrawTargetIDTurret(entity)
 	
 	local cem = entity:LocalToWorld(entity:OBBMaxs())
 	local cemp = cem:ToScreen()
-
+	
 	--Get owner and turret name
 	local name 
 	local nick = ""
@@ -41,33 +41,19 @@ local function DrawTargetIDTurret(entity)
 	end
 	
 	--local ammo = "Ammo: "..entity:GetNWInt("TurretAmmo").."/"..entity:GetNWInt("MaxTurretAmmo")
-	local ammo = "Ammo: "..entity:GetDTInt(0).."/"..entity:GetDTInt(2)
-	local health = "Health: "..entity:GetDTInt(1).."/"..entity:GetDTInt(3)
-		
-	local rand = 0
-	local rand2 = 0
-		
-	col = Color(255,255,240,75)
-	col2 = Color(0,0,0,75)
+	local ammo = entity:GetDTInt(0).."|"..entity:GetDTInt(2)
+	local health = entity:GetDTInt(1).."|"..entity:GetDTInt(3)
+				
+	col = Color(255,255,240,225)
+	col2 = Color(0,0,0,225)
 
-	for k=1, 4 do
-		rand = math.Rand(-2, 2)
-		rand2 = math.Rand(-2,2)
-		col = Color(220,10,10,125)
-		if k == 4 then 
-			col = Color(255,255,240,220)
-			col2 = Color(0,0,0,220)
-			rand = 0 
-			rand2 = 0 
-		end
-			
-		if nick then
-			draw.SimpleTextOutlined(nick, "ArialBoldSeven", cenp.x + rand, cemp.y + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
-		end
-		draw.SimpleTextOutlined(name, "ArialBoldFive", cenp.x + rand, cemp.y + 28 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
-		draw.SimpleTextOutlined(health, "ArialBoldFive", cenp.x + rand, cemp.y + 56 + rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)	
-		draw.SimpleTextOutlined(ammo, "ArialBoldFive", cenp.x + rand, cemp.y + 84 +  rand2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)			
-	end
+	draw.DrawText(nick, "Trebuchet18", cenp.x, cemp.y, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
+	draw.DrawText("Ammunition [" .. ammo .."]", "Trebuchet18", cenp.x, cemp.y * 1.07, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
+	draw.DrawText("Integrity [" .. health .."]", "Trebuchet18", cenp.x, cemp.y * 1.14, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)	
+	
+	
+	draw.DrawText("USE + RELOAD to PICKUP", "Trebuchet18", cenp.x, cemp.y * 1.28, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)		
+
 end
 
 function GM:HUDDrawTargetID()

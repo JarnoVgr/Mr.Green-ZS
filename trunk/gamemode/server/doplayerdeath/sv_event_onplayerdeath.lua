@@ -50,7 +50,7 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			if dmginfo:IsAttackerPlayer() then
 			-- mAttacker:AddScore(1)
 				if mAttacker:GetPerk("berserker_bloodmoney") then
-					skillpoints.AddSkillPoints(mAttacker,3)
+					skillpoints.AddSkillPoints(mAttacker,6)
 				end
 			end
 		end
