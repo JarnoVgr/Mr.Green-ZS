@@ -245,7 +245,7 @@ ZombieClasses[3] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 135 ", "> SPEED: 285", "> DAMAGE: 4"  },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 135 ", "> SPEED: 285", "> DAMAGE: 5"  },
 	PainSounds = {
 		Sound("mrgreen/undead/fastzombie/pain1.wav"),
 		Sound("mrgreen/undead/fastzombie/pain2.wav"),
@@ -442,7 +442,7 @@ ZombieClasses[7] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes", "> HEALTH: 50 ", "> SPEED: 165", "> DAMAGE: 10" },
+	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes", "> HEALTH: 50 ", "> SPEED: 165", "> DAMAGE: 8" },
 	PainSounds = {
 		Sound("npc/headcrab/pain1.wav"),
 		Sound("npc/headcrab/pain2.wav"),

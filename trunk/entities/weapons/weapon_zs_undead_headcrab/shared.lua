@@ -67,7 +67,7 @@ function SWEP:Think()
 					if ent:GetClass() == "func_breakable_surf" then
 						ent:Fire("break", "", 0)
 					else
-						local damage = 10
+						local damage = 8
 						local phys = ent:GetPhysicsObject()
 
 						if phys:IsValid() and not ent:IsNPC() and phys:IsMoveable() then
@@ -77,7 +77,7 @@ function SWEP:Think()
 							ent:SetPhysicsAttacker(owner)
 						end
 						ent:TakeDamage( damage, owner, self )
-						util.Blood(ent:GetPos(), math.Rand(damage * 0.05, damage * 0.1), (ent:GetPos() - owner:GetShootPos()):GetNormal(), math.Rand(damage * 3, damage * 6), true)
+						util.Blood(ent:GetPos(), math.Rand(damage * 0.25, damage * 0.2), (ent:GetPos() - owner:GetShootPos()):GetNormal(), math.Rand(damage * 3, damage * 6), true)
 
 					end
 					owner:SetLocalVelocity( Vector(0,0,0) )
@@ -86,7 +86,7 @@ function SWEP:Think()
 				self.Leaping = false
 				self.Owner.Humping = false
 				self.NextLeap = CurTime() + 1
-				if SERVER then owner:EmitSound("npc/headcrab/headbite.wav") owner:ViewPunch(Angle(math.random(0, 30), math.random(0, 30), math.random(0, 30))) end
+				if SERVER then owner:EmitSound("npc/headcrab/headbite.wav") owner:ViewPunch(Angle(math.random(0, 10), math.random(0, 10), math.random(0, 10))) end
 			elseif trace.HitWorld then
 				if SERVER then owner:EmitSound("physics/flesh/flesh_strider_impact_bullet1.wav") end
 				self.Leaping = false

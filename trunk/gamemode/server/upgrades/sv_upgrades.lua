@@ -120,7 +120,14 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 						end
 					end
 					dmg = dmg + (dmg * mul)		
+					
 
+
+					if attacker:GetPerk("berserker_dunker") then
+						local bonus = attacker:GetVelocity().z * -1					
+						dmg = math.Clamp((((bonus*dmg) * 0.006) + dmg),dmg,dmg*5) 
+					end
+					
 					if attacker:GetPerk("berserker_vampire") then
 						attacker:SetHealth(math.Clamp(attacker:Health() + dmg*0.065,0,attacker:GetMaximumHealth()))	
 					else
@@ -169,7 +176,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				dmg = dmg*0.9	
 			end	
 			
-			if (dmg > 10) then
+			if (dmg > 10 && !ent:GetPerk("Berserker")) then
 				ent:Daze(dmg*0.06)	
 			end
 		end		

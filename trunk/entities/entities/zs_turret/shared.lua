@@ -32,13 +32,15 @@ end
 
 -- Options
 ENT.MaxHealth = 80
-ENT.MaxBullets = 100
+ENT.MaxBullets = 80
 ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 700
 ENT.Damage = 5
 ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {7,9}
 ENT.MinimumAimDot = 0.25
+
+ENT.RechargeAmmo = 0.15
 
 local function MyTrueVisible(posa, posb, filter)
 	local filt = ents.FindByClass("projectile_*")
@@ -93,31 +95,20 @@ if SERVER then
 				self.Damage = self.Damage + (self:GetTurretOwner():GetRank() * 0.25) + 1
 				self.MaxHealth = self.MaxHealth + self:GetTurretOwner():GetRank()
 				self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 2) + 10
+				self.RechargeAmmo = 0.14 - (self:GetTurretOwner():GetRank() * 0.005)			
 			end		
 			
 			if self:GetTurretOwner():GetPerk("engineer_turret") then --Class engineer 
-				self.MaxBullets = math.Round(self.MaxBullets*1.5)
-				self.MaxHealth = math.Round(self.MaxHealth*1.5)
-				self.Damage = math.Round(self.Damage*1.5)
+				self.MaxBullets = math.Round(self.MaxBullets*1.4)
+				self.MaxHealth = math.Round(self.MaxHealth*1.4)
+				self.Damage = math.Round(self.Damage*1.4)
 			end			
 
 			if self:GetTurretOwner().DataTable["ShopItems"][50] then
 				self.Damage = self.Damage + 1
-				self.MaxBullets = math.Round(self.MaxBullets*1.2)				
+				self.MaxBullets = math.Round(self.MaxBullets + 30)				
 			end
-		
-	--[[	if self:GetTurretOwner():GetPerk("_turretammo") then
-			self.MaxBullets = math.Round(self.MaxBullets*2)
-		end
-		
-		if self:GetTurretOwner():GetPerk("_turrethp") then
-			self.MaxHealth = math.Round(self.MaxHealth*2)		
-		end
-		
-		if self:GetTurretOwner():GetPerk("_turretdmg") then
-			self.Damage = math.Round(self.Damage*1.5)
-		end]]--
-		
+
 		-- Set few things
 		self.Target = nil
 		self.TargetPos = nil
@@ -136,15 +127,11 @@ if SERVER then
 		self:SetDTBool(2,false) --  remote
 		
 		table.insert(ActualTurrets,self)
-		
-
 			if self and IsValid(self:GetOwner()) then
 				net.Start("SendTurret")
 					net.WriteEntity(self)
 				net.Send(self:GetOwner())
 			end
-
-		
 	end
 
 	function ENT:Think()
@@ -294,7 +281,7 @@ if SERVER then
 			end
 		else
 			-- Increased recharge rate
-			self:RechargeAmmo(1,0.14 - (0.14*(0.20 + 2*(self:GetTurretOwner():GetRank())/100)))	
+			self:RechargeAmmo(1,self.RechargeAmmo)
 			self:SetPoseParameter("aim_yaw",math.Approach(self:GetPoseParameter("aim_yaw"),0,1))
 			self:SetPoseParameter("aim_pitch",math.Approach(self:GetPoseParameter("aim_pitch"),15,1))
 
@@ -549,7 +536,7 @@ if SERVER then
 			local dmg = dmginfo:GetDamage()
 			
 			if IsValid(self:GetTurretOwner()) and self:GetTurretOwner().DataTable["ShopItems"][50] then
-				dmg = dmg * 0.5
+				dmg = dmg * 0.8
 			end
 
 			self:SetDTInt(1,self:GetDTInt(1) - dmg)

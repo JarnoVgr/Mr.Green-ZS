@@ -10,10 +10,14 @@ ENT.RenderGroup = RENDERGROUP_BOTH
 ENT.AutomaticFrameAdvance = true
 
 ENT.MaxHealth = 500
-ENT.MaxBullets = 75
-ENT.RechargeDelay = 0.5
-ENT.SpotDistance = 580
+ENT.MaxBullets = 80
+ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
+ENT.SpotDistance = 700
 ENT.Damage = 5
+ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should ignore
+ENT.IgnoreDamage = {7,9}
+ENT.MinimumAimDot = 0.25
+ENT.RechargeAmmo = 0.15
 
 local model = Model("models/Combine_Scanner.mdl")
 
@@ -60,6 +64,7 @@ function ENT:Initialize()
 		self.Damage = self.Damage + (self:GetTurretOwner():GetRank() * 0.25) + 1
 		self.MaxHealth = self.MaxHealth + self:GetTurretOwner():GetRank()
 		self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 2) + 10
+		self.RechargeAmmo = 0.14 - (self:GetTurretOwner():GetRank() * 0.005)			
 	end		
 	
 	if self:GetTurretOwner():GetPerk("engineer_turret") then --Class engineer 
@@ -70,20 +75,8 @@ function ENT:Initialize()
 
 	if self:GetTurretOwner().DataTable["ShopItems"][50] then
 		self.Damage = self.Damage + 1
-		self.MaxBullets = math.Round(self.MaxBullets*1.2)				
-	end		
-	
-	--[[if self:GetOwner():GetPerk("_turretammo") then
-		self.MaxBullets = math.Round(self.MaxBullets*1.5)
+		self.MaxBullets = math.Round(self.MaxBullets + 30)				
 	end
-	
-	if self:GetOwner():GetPerk("_turrethp") then
-		self.MaxHealth = math.Round(self.MaxHealth*1.5)
-	end
-	
-	if self:GetOwner():GetPerk("_turretdmg") then
-		self.Damage = math.Round(self.Damage*1.5)
-	end]]--
 	
 	self:SetAmmo(self.MaxBullets)
 	self:SetHealth(self.MaxHealth)
@@ -149,7 +142,7 @@ function ENT:Think()
 			self:SetAttacking(true)
 			
 		else
-			self:RechargeAmmo(1,self.RechargeDelay)	
+			self:RechargeAmmo(1,self.RechargeAmmo)
 		end
 	end
 	
@@ -379,7 +372,7 @@ function ENT:OnTakeDamage( dmginfo )
 		local dmg = dmginfo:GetDamage()
 
 		if IsValid(self:GetOwner()) and self:GetOwner().DataTable["ShopItems"][50] then
-			dmg = dmg*0.5
+			dmg = dmg*0.8
 		end
 		
 		self:SetHealth(self:GetHealth() - dmg)

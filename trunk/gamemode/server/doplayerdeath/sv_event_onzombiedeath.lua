@@ -94,7 +94,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		local dropChance = math.random(1,10)
 			if dropChance <= 2 then
 				local delta = 1 - math.Clamp( ( ROUNDSTART_TIME - CurTime()) / ROUNDTIME, 0, 1 )
-				local babyPrice = math.Round(delta*150) + 50			
+				local babyPrice = math.Round(delta*200) + 50			
 				local possibleWeapons = {}
 				
 				for wep,tab in pairs(GAMEMODE.HumanWeapons) do

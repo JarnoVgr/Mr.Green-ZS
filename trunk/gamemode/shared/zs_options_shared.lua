@@ -437,22 +437,25 @@ GM.Perks = {
 		["support_health"] = {Name = "Health", Description = "+50 maximum health", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/last_player_alive"},
 	
 	-- Berserker
-	
 		["berserker_none"] = {Name = "None", Description = "None", Class = "Berserker", Slot = 1, Rank = 1, Material = ""},
 		["berserker_hook"] = {Name = "Slinger", Description = "Spawn with a hook", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_knife"},
 		["berserker_oppressor"] = {Name = "Oppressor", Description = "Spawn with a lead pipe", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_last_bullet"},
+		["berserker_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 40% of melee damage and knocks target backwards", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_in_air"},     
 	   
+		["berserker_executioner"] = {Name = "Executioner", Description = "+30% melee damage to targets under or at 30% health", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/pistol_round_knife_kill"},		   
 		["berserker_maniac"] = {Name = "Maniac", Description = "+25% health from melee kills\n+50% melee swing", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/win_pistolrounds_med"},               
-		["berserker_headhunter"] = {Name = "Head Hunter", Description = "+20% melee damage on heads", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
-		["berserker_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 40% of melee damage and knocks target backwards", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/kill_enemy_in_air"},     
-
+		["berserker_headhunter"] = {Name = "Head Hunter", Description = "+20% melee damage on heads\n Daze target when struck on the head", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
+		["berserker_battlecharge"] = {Name = "Battle Charge", Description = "Increased leap power", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/kill_enemy_in_air"}, 
+		
+		
+		["berserker_dunker"] = {Name = "Dunker", Description = "Increased melee damage the faster you're falling", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/kill_enemy_in_air"},		
 		["berserker_bloodmoney"] = {Name = "Blood Money", Description = "+3 SP from melee kills", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/win_knife_fights_low"},
 		["berserker_vampire"] = {Name = "Vampire", Description = "+6% of melee damage goes towards health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/meta_pistol"},
 		["berserker_enrage"] = {Name = "Enrage", Description = "Increased movement speed while at or under 40 health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/pistol_round_knife_kill"},
 				
 	-- Engineer
 	
-		["engineer_combatturret"] = {Name = "Combat Turret", Description = "Spawn with a combat turret", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/concurrent_dominations"},
+		["engineer_combatturret"] = {Name = "Combat Turret", Description = "Spawn with a combat turret\n Receives all turret bonuses", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/concurrent_dominations"},
 		["engineer_pulsepistol"] = {Name = "Pulse Pistol", Description = "Spawn with a pulse pistol", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_fiveseven"},
 		["engineer_multimine"] = {Name = "Multi Mine", Description = "+4 C4 on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/goose_chase"},                    
 
@@ -489,7 +492,6 @@ GM.Perks = {
 	
 	-- Bonus Perks
 	
-	--["berserker_executioner"] = {Name = "Executioner", Description = "+30% melee damage to targets under or at 30% health", Class = "Berserker", Slot = 2, Rank = 0, Material = "vgui/achievements/glow"},	
 	--["engineer_combustion"] = {Name = "Combustion", Description = "Undead caught in the explosion are ignited", Class = "Engineer", Slot = 2, Rank = 0, Material = "vgui/achievements/glow"},	
 
 	["Medic"] = {Name = "Medic",		  		
@@ -524,7 +526,7 @@ GM.Perks = {
 		
 	["Berserker"] = {Name = "Berserker", 		
 		Equipment = "Desert Eagle, Plank", 				
-		Description = " [RMB] Leap while holding a melee weapon.\n\n +10% melee damage \n +5% melee damage to health\n +5 Health on melee kill\n +10% Damage resistance \n -10% Gun Damage\n +2% Movement Speed",
+		Description = " [RMB] Leap while holding a melee weapon.\n Cannot be dazed when hit\n +10% melee damage \n +5% melee damage to health\n +5 Health on melee kill\n +10% Damage resistance \n -10% Gun Damage\n +2% Movement Speed",
 		CoefDesc = " +%i Health from melee kill\n +%G%% Movement speed",
 		Coef = {1, 0.5},
 		Slot = 5,
@@ -534,9 +536,9 @@ GM.Perks = {
 		
 	["Engineer"] = {Name = "Engineer",   		
 		Equipment = "Turret, C4, Pistol, Frying Pan", 	
-		Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +1 Turret Damage",
-		CoefDesc = " +%G%% Turret damage\n +%i%% Turret health\n +%i%% Turret ammo capacity\n +%i Pulse weapon capacity\n +%i%% pulse weapon damage\n +%i%% Pulse weapon recharge rate\n +%i%% Turret recharge rate\n +%i%% C4 damage\n +%i%% C4 radius",
-		Coef = {0.25, 2, 2, 5, 1, 2, 2, 1, 1},
+		Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +1 Turret Damage\n +0.01 Turret recharge rate",
+		CoefDesc = " +%G%% Turret damage\n +%G%% Turret recharge rate\n +%i%% Turret health\n +%i%% Turret ammo capacity\n +%i Pulse weapon capacity\n +%i%% Pulse weapon damage\n +%i%% Pulse weapon recharge rate\n +%i%% Turret recharge rate\n +%i%% C4 damage\n +%i%% C4 radius",
+		Coef = {0.25, 0.005, 2, 2, 5, 1, 2, 2, 1, 1},
 		Slot = 5,
 		Rank = 0,
 		Colour = Color(30, 228, 255,32),
