@@ -39,30 +39,29 @@ local function AddScoreboardItem(ply, list)
 	MainLabel[ply].Name	= MainLabel[ply]:Add("DLabel")
 	MainLabel[ply].Name:Dock(FILL)
 	MainLabel[ply].Name:SetText("")
-	MainLabel[ply].Name:DockMargin(15, 0, 0, 0)
+	MainLabel[ply].Name:DockMargin(10, 0, 0, 0)
 	MainLabel[ply].Name.Paint = function()		
 		if not IsValid(ply) then
 			return
 		end
 		
 		local col = team.GetColor(ply:Team())
-		draw.SimpleTextOutlined(ply:Nick() , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		if ply:GetPerk("Support") then
-		draw.SimpleTextOutlined(ply:Nick().."  Support" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(ply:Nick().." ["..  ply:GetRank() .."] Support" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:GetPerk("Engineer") then
-		draw.SimpleTextOutlined(ply:Nick().."  Engineer" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(ply:Nick().." ["..  ply:GetRank() .."] Engineer" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:GetPerk("Commando") then
-		draw.SimpleTextOutlined(ply:Nick().."  Commando" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(ply:Nick().." ["..  ply:GetRank() .."] Commando" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:GetPerk("Berserker") then
-		draw.SimpleTextOutlined(ply:Nick().."  Berserker" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(ply:Nick().." Berserker" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:GetPerk("Sharpshooter") then
-		draw.SimpleTextOutlined(ply:Nick().."  Sharpshooter" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(ply:Nick().." Sharpshooter" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:GetPerk("Pyro") then
-		draw.SimpleTextOutlined(ply:Nick().."  Pyro" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))	
+		draw.SimpleTextOutlined(ply:Nick().." Pyro" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))	
 		elseif ply:GetPerk("Medic") then
-		draw.SimpleTextOutlined(ply:Nick().."  Medic" , "ssNewAmmoFont5", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined(ply:Nick().." Medic" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:IsBot() then
-		draw.SimpleTextOutlined("Necro Bot" , "ArialBoldFive", 100,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Necro Bot" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		end
 	end
 	
@@ -84,7 +83,7 @@ local function AddScoreboardItem(ply, list)
 		end
 
 		local col = team.GetColor(ply:Team())
-		draw.SimpleTextOutlined(ply:Ping() , "ssNewAmmoFont5", MainLabel[ply].Ping:GetWide()/2,MainLabel[ply].Ping:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		draw.SimpleTextOutlined("Ping [" .. ply:Ping() .. "]", "Trebuchet18", 0,MainLabel[ply].Ping:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 	end
 
 	--[[
@@ -124,8 +123,14 @@ local function AddScoreboardItem(ply, list)
 		end
 		
 		local col = team.GetColor(ply:Team())
-		draw.SimpleTextOutlined(ply:GetScore() , "ssNewAmmoFont5", MainLabel[ply].Kills:GetWide()/2,MainLabel[ply].Kills:GetTall()/2, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		
+		if (ply:Team() == TEAM_UNDEAD) then
+			draw.SimpleTextOutlined("Brains [" .. ply:GetScore() .. "]", "Trebuchet18", 0,MainLabel[ply].Kills:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		else
+			draw.SimpleTextOutlined("SP [" .. ply:GetScore() .. "]", "Trebuchet18", 0,MainLabel[ply].Kills:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		end
 	end
+	
 	
 	MainLabel[ply].Think = function()
 		if not IsValid(ply) then
@@ -230,8 +235,8 @@ function GM:CreateScoreboardVGUI()
 	SCPanel:SetBackgroundBlur(true)
 	SCPanel.Paint = function() 
 		--Override
-		draw.SimpleText("MrGreenGaming.com", "ssNewAmmoFont9", SCPanel:GetWide()/2,ScaleH(135), Color(59, 119, 59, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		draw.SimpleTextOutlined("ZOMBIE SURVIVAL", "ssNewAmmoFont9", SCPanel:GetWide()/2,ScaleH(180), Color(255, 255, 255, 210), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 255))
+		draw.SimpleText("MrGreenGaming.com", "Trebuchet24", SCPanel:GetWide()/2,ScaleH(135), Color(59, 119, 59, 235), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleTextOutlined("Zombie Survival", "Trebuchet24", SCPanel:GetWide()/2,ScaleH(180), Color(230, 255, 235, 230), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 255))
 
 		local SpectatorsCount, SpectatorsStr = BuildSpectatorList()
 		

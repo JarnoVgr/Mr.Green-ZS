@@ -934,6 +934,7 @@ function DrawLoadoutMenu()
 	
 	MySelf:ConCommand("tooltip_delay 0") 
 	MySelf:ConCommand("r_dynamic 0")
+	MySelf:ConCommand("r_PhysPropStaticLighting 0")
 
 	local filename = "zombiesurvival/loadouts/chosenClass.txt"
 	

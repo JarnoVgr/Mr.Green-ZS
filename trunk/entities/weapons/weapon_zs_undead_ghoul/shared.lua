@@ -66,30 +66,17 @@ function SWEP:Think()
 		return
 	end
 	
-
 	if self.Owner:KeyReleased( IN_RELOAD  ) then
 		if SERVER then
-			local vecAim = self.Owner:GetAimVector()
-			local posShoot = self.Owner:GetShootPos()
-		
-			local tr = util.TraceLine({start = posShoot, endpos = posShoot+300*vecAim, filter = self.Owner})
-		
-			local canPlaceCrate = false
-
-			--Check if we really need to draw the crate
-			if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) <= 110 then
-				--Check traceline position area
-				local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-28,-28,0), maxs = Vector(28,28,25)})
-
-				if hTrace.Entity == NULL then
-					canPlaceCrate = true
-				end
+			canPlaceCrate = false
+			if self.Owner:OnGround() and not self.Owner:Crouching() then
+				canPlaceCrate = true
 			end
-
+			
 			if canPlaceCrate then
 				--Check distance to Supply Crates
 				for _, Ent in pairs(ents.FindByClass("game_spawner")) do
-					if tr.HitPos:Distance(Ent:GetPos()) <= 300 then
+					if self.Owner:GetPos():Distance(Ent:GetPos()) <= 300 then
 						self.Owner:Message("Too close to another blood spawner.", 2)
 						canPlaceCrate = false
 						break
@@ -115,8 +102,9 @@ function SWEP:Think()
 			self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 
 			self.Owner.HasBloodSpawner = true
-			self.Owner:EmitSound("npc/fast_zombie/leap1.wav", 100, math.Rand(70, 80))
-			self.Owner:Kill()
+			self.Owner:EmitSound("npc/fast_zombie/leap1.wav", 100, math.Rand(65, 70))
+			self.Owner:Daze(3)
+			self.Owner:SetHealth(5 + self.Owner:Health() * 0.35)
 			
 			for k,v in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
 				v:Message("A blood spawner has been created.", 2)
@@ -124,14 +112,15 @@ function SWEP:Think()
 			
 			
 			--Create entity
-			local angles = vecAim:Angle()
+			local angles = self.Owner:EyeAngles()
 			local ent = ents.Create("game_spawner")
 			if (ent ~= nil and ent:IsValid()) then
-				ent:SetPos(tr.HitPos)
+				ent:SetPos(self.Owner:GetPos())
 				ent:SetAngles(Angle(0,angles.y,angles.r))
 				ent:SetPlacer(self.Owner)
 				ent:Spawn()
 				ent:Activate()
+				util.Blood(ent:GetPos(), math.Rand(10, 20), (ent:GetPos() - (ent:GetPos() - Vector(0,0,32))):GetNormal() , math.Rand(1, 2), true)		
 				self.Owner.Crate = ent
 
 			end

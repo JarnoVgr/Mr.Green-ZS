@@ -17,7 +17,7 @@ util.PrecacheModel("models/props_c17/gravestone002a.mdl")
 function ENT:Initialize()
 	if SERVER then	
 		self:DrawShadow(false)
-		self.Entity:SetPos(self.Entity:GetPos() + Vector(0,0,22))
+		self.Entity:SetPos(self.Entity:GetPos() + Vector(0,0,20))
 		--self:SetModelScale(0.3,0)
 		self.Entity:SetMaterial("models/flesh")
 		self.Entity:SetModel("models/props_c17/gravestone002a.mdl")
@@ -32,7 +32,7 @@ function ENT:Initialize()
 			phys:EnableMotion(false) 
 		end
 	
-		self.CrateHealth = 60
+		self.CrateHealth = 80
 	end
 
 	--Unclaimed by default
@@ -58,7 +58,13 @@ function ENT:Think()
 		if math.random(1,3) == 1 then 
 			util.Blood(self.Entity:GetPos(), math.Rand(1, 2), (self.Entity:GetPos() - (self.Entity:GetPos() - Vector(0,0,32))):GetNormal() , math.Rand(1, 2), true)
 		end
+		
+		if not self:IsOnGround() then
+			print("TEST")
+			--self:Explode()
+		end			
 	end
+
 	self:NextThink(CurTime() + 2)	
 end
 
@@ -71,10 +77,14 @@ if SERVER then
 				self:Explode()	
 
 				if dmginfo:GetAttacker():IsHuman() then			
-					skillpoints.AddSkillPoints(dmginfo:GetAttacker(), 10)
-					dmginfo:GetAttacker():AddXP(50)			
-					self:FloatingTextEffect(10, dmginfo:GetAttacker())		
-				end			
+					skillpoints.AddSkillPoints(dmginfo:GetAttacker(), 6)
+					dmginfo:GetAttacker():AddXP(40)			
+					self:FloatingTextEffect(6, dmginfo:GetAttacker())						
+				end	
+
+				for k,v in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
+					v:Message("A blood spawner has been destroyed!", 1)
+				end					
 			end
 		end
 	end
@@ -83,9 +93,7 @@ if SERVER then
 	
 		self:GetPlacer().HasBloodSpawner = false
 		
-		for k,v in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
-			v:Message("A blood spawner has been destroyed!", 1)
-		end	
+
 	
 		local trace = {}
 		trace.start = self:GetPos() + Vector(0,0,5)

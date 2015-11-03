@@ -32,7 +32,7 @@ function EFFECT:Think()
 		ghostHidden = true
 	elseif tr.HitWorld and tr.HitPos:Distance(self.EfOwner:GetPos()) > 10 and tr.HitPos:Distance(self.EfOwner:GetPos()) <= 70 then
 		--Check traceline position area
-		local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-28,-28,0), maxs = Vector(28,28,25)})
+		local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-26,-26,0), maxs = Vector(26,26,25)})
 
 		if hTrace.Entity == NULL then
 			canPlaceCrate = true
@@ -74,5 +74,6 @@ function EFFECT:Think()
 end
 
 function EFFECT:Render()
+	self.Entity:SetMaterial("models/wireframe")
 	self.Entity:DrawModel()
 end

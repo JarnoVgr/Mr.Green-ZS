@@ -65,6 +65,8 @@ hook.Add("HUDPaint", "DeathSpectatorHUD", death.DeathSpectatorHUD)
           Draws the human death hud
 ----------------------------------------------------]==]
 --local TEX_GRADIENT_TOP = surface.GetTextureID("vgui/gradient-u")
+
+--[[
 function death.DeathHumanHUD()
 	if ENDROUND or not IsValid(MySelf) then
 		return
@@ -99,10 +101,11 @@ function death.DeathHumanHUD()
 	end
 end
 hook.Add("HUDPaint", "DeathHumanHUD", death.DeathHumanHUD)
-
+]]--
 --[==[----------------------------------------------------
           Draws the zombie death hud
 -----------------------------------------------------]==]
+
 function death.DeathZombieHUD()
 	if ENDROUND or not IsValid(MySelf) then
 		return
@@ -125,7 +128,7 @@ function death.DeathZombieHUD()
 	draw.DrawText("YOU ARE DEAD", "NewZombieFont23", ScrW()/2, ScaleH(34), Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 
 	--Display timeleft for respawning
-	local timeleft = math.max(0, math.Round(MySelf.NextSpawn - CurTime()) + 1)
+	local timeleft = math.max(0, math.Round(MySelf.NextSpawn - CurTime()))
 	if timeleft ~= 0 then
 		draw.DrawText("You can resurrect in ".. timeleft .." seconds", "NewZombieFont23", ScrW()/2, ScaleH(83), Color(135, 135, 135, 255), TEXT_ALIGN_CENTER)
 	end
@@ -139,7 +142,6 @@ function death.DeathZombieHUD()
 	end
 end
 hook.Add("HUDPaint", "DeathZombieHUD", death.DeathZombieHUD)	
-
 
 function death.Draw3DZombieHUD()
 	if ENDROUND or not IsEntityValid(MySelf) or not MySelf:IsZombie() or MySelf.FirstHumanDeath or IsClassesMenuOpen() or MySelf:Alive() then

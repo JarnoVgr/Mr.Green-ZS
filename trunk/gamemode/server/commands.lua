@@ -580,14 +580,14 @@ function RollTheDice ( pl,commandName,args )
 			message = "WIN: ".. message .." rolled the dice and has found a piece of brain!"
 		end
 		if pl:Team() == TEAM_HUMAN then	
-			pl:SetVelocity(Vector(math.random(0,1000),math.random(0,1000),math.random(0,1000)))
+			pl:SetVelocity(Vector(math.random(0,10000),math.random(0,10000),math.random(0,10000)))
 			message = "LOSE: ".. message .." rolled the dice and has been flung!"
 		end		
 	elseif diceRoll == 2 then
 		if pl:Team() == TEAM_HUMAN then
 			if (Luck) then
 				message = "LOSE: ".. message .." rolled the dice and avoided getting raped in the ass."
-				pl:SetHealth(pl:Health())
+				pl:SetHealth(math.Clamp(pl:Health() * 0.5,0,pl:GetMaximumHealth()))
 			else
 				message = "LOSE: ".. message .." rolled the dice and got raped in the ass."
 				pl:SetHealth(1)		
@@ -621,8 +621,8 @@ function RollTheDice ( pl,commandName,args )
 				pl:GiveAmmo( 5, "XBowBolt" )
 				pl:GiveAmmo( 20, "357" )
 				pl:GiveAmmo( 50, "alyxgun" )					
-				message = "WIN: ".. message .." rolled the dice and received some ammo!"	
-		end	
+				message = "WIN: ".. message .." rolled the dice and received some ammo!"
+			end				
 		elseif pl:Team() == TEAM_UNDEAD then
 			local calchealth = math.Clamp ( 100 - pl:Health(),60,100 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
@@ -636,12 +636,12 @@ function RollTheDice ( pl,commandName,args )
 			pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
 			
 			if (Luck) then
-				randhealth = randhealth * 1.25
+				randhealth = math.round(randhealth * 1.25)
 			end
 			
 			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .." health!"
 		elseif pl:Team() == TEAM_UNDEAD then
-			local calchealth = math.Clamp ( 200 - pl:Health(),60,200 )
+			local calchealth = math.Clamp ( 200 - pl:Health(),60,250 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
 			pl:SetHealth( pl:Health() + randhealth)
 			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
@@ -649,9 +649,9 @@ function RollTheDice ( pl,commandName,args )
 	elseif diceRoll == 5 then
 		if pl:Team() == TEAM_HUMAN then
 			if (Luck) then
-				pl:Ignite( math.random(1,2), 0)
+				pl:Ignite( math.random(2,3), 0)
 			else
-				pl:Ignite( math.random(1,4), 0)
+				pl:Ignite( math.random(2,6), 0)
 			end
 			message = "LOSE: "..message.." was put on fire by the dice!"
 		elseif pl:Team() == TEAM_UNDEAD then

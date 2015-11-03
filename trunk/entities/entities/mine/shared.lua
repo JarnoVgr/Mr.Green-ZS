@@ -4,7 +4,7 @@
 ENT.Type = "anim"
 ENT.Author = "Amps" -- Original code by Amps
 ENT.Purpose	= ""
-ENT.Spawnable = false
+ENT.Spawnable = falses
 ENT.AdminSpawnable = false
 ENT.Detonating = false
 ENT.DetonationTime = 1

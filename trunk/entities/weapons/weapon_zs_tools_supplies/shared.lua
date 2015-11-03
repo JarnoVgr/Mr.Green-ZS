@@ -185,7 +185,7 @@ function SWEP:PrimaryAttack()
 		--Check if we really need to draw the crate
 		if tr.HitPos and tr.HitWorld and tr.HitPos:Distance(self.Owner:GetPos()) > 28 then
 			--Check traceline position area
-			local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-28,-28,0), maxs = Vector(28,28,25)})
+			local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-26,-26,0), maxs = Vector(26,26,25)})
 
 			if hTrace.Entity == NULL then
 				canPlaceCrate = true

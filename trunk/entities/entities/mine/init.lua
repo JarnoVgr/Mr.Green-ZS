@@ -42,6 +42,9 @@ function ENT:AcceptInput(name, activator, caller, arg)
 	end
 end
 --]]
+
+
+
 function ENT:Think()
 	
 	if not IsValid(self) then
