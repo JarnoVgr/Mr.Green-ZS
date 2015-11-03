@@ -58,11 +58,7 @@ function ENT:Think()
 		if math.random(1,3) == 1 then 
 			util.Blood(self.Entity:GetPos(), math.Rand(1, 2), (self.Entity:GetPos() - (self.Entity:GetPos() - Vector(0,0,32))):GetNormal() , math.Rand(1, 2), true)
 		end
-		
-		if not self:IsOnGround() then
-			print("TEST")
-			--self:Explode()
-		end			
+			
 	end
 
 	self:NextThink(CurTime() + 2)	
