@@ -47,21 +47,23 @@ local function AddScoreboardItem(ply, list)
 		
 		local col = team.GetColor(ply:Team())
 		if ply:GetPerk("Support") then
-		draw.SimpleTextOutlined(ply:Nick().." ["..  ply:GetRank() .."] Support" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			draw.SimpleTextOutlined(ply:Nick().." ["..  ply:GetRank() .."] Support" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:GetPerk("Engineer") then
-		draw.SimpleTextOutlined(ply:Nick().." ["..  ply:GetRank() .."] Engineer" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			draw.SimpleTextOutlined(ply:Nick().." ["..  ply:GetRank() .."] Engineer" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:GetPerk("Commando") then
-		draw.SimpleTextOutlined(ply:Nick().." ["..  ply:GetRank() .."] Commando" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			draw.SimpleTextOutlined(ply:Nick().." ["..  ply:GetRank() .."] Commando" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:GetPerk("Berserker") then
-		draw.SimpleTextOutlined(ply:Nick().." Berserker" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			draw.SimpleTextOutlined(ply:Nick().." Berserker" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:GetPerk("Sharpshooter") then
-		draw.SimpleTextOutlined(ply:Nick().." Sharpshooter" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			draw.SimpleTextOutlined(ply:Nick().." Sharpshooter" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:GetPerk("Pyro") then
-		draw.SimpleTextOutlined(ply:Nick().." Pyro" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))	
+			draw.SimpleTextOutlined(ply:Nick().." Pyro" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))	
 		elseif ply:GetPerk("Medic") then
-		draw.SimpleTextOutlined(ply:Nick().." Medic" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			draw.SimpleTextOutlined(ply:Nick().." Medic" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
 		elseif ply:IsBot() then
-		draw.SimpleTextOutlined("Necro Bot" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+			draw.SimpleTextOutlined("Necro Bot" , "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
+		else
+			draw.SimpleTextOutlined(ply:Nick(), "Trebuchet18", 0,MainLabel[ply].Name:GetTall()/2, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))		
 		end
 	end
 	
@@ -73,7 +75,7 @@ local function AddScoreboardItem(ply, list)
 	MainLabel[ply].Ping	= MainLabel[ply]:Add( "DLabel" )
 	MainLabel[ply].Ping:Dock( RIGHT )
 	MainLabel[ply].Ping:SetText("")
-	MainLabel[ply].Ping:SetWidth( 50 )
+	MainLabel[ply].Ping:SetWidth( 55 )
 	-- MainLabel[ply].Ping:SetFont( "ScoreboardDefault" )
 	-- MainLabel[ply].Ping:SetTextColor( color_white )
 	-- MainLabel[ply].Ping:SetContentAlignment( 5 )
@@ -113,7 +115,7 @@ local function AddScoreboardItem(ply, list)
 	MainLabel[ply].Kills = MainLabel[ply]:Add( "DLabel" )
 	MainLabel[ply].Kills:Dock(RIGHT)
 	MainLabel[ply].Kills:SetText("")
-	MainLabel[ply].Kills:SetWidth(60)
+	MainLabel[ply].Kills:SetWidth(50)
 	-- MainLabel[ply].Kills:SetFont( "ScoreboardDefault" )
 	-- MainLabel[ply].Kills:SetTextColor( color_white )
 	-- MainLabel[ply].Kills:SetContentAlignment( 5 )

@@ -66,7 +66,6 @@ hook.Add("HUDPaint", "DeathSpectatorHUD", death.DeathSpectatorHUD)
 ----------------------------------------------------]==]
 --local TEX_GRADIENT_TOP = surface.GetTextureID("vgui/gradient-u")
 
---[[
 function death.DeathHumanHUD()
 	if ENDROUND or not IsValid(MySelf) then
 		return
@@ -101,7 +100,7 @@ function death.DeathHumanHUD()
 	end
 end
 hook.Add("HUDPaint", "DeathHumanHUD", death.DeathHumanHUD)
-]]--
+
 --[==[----------------------------------------------------
           Draws the zombie death hud
 -----------------------------------------------------]==]

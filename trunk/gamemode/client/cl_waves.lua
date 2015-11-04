@@ -21,7 +21,6 @@ net.Receive("SetInf", function(len)
 		end
 	end
 	
-	
 	local msg = ""
 	if amount == 1 then
 		msg = UnlockedClass .."s have risen!"

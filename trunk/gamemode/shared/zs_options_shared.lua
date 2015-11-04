@@ -505,7 +505,7 @@ GM.Perks = {
 		
 	["Commando"] = {Name = "Commando",   		
 		Equipment = "Grenades, Five SeveN, Knife", 
-		Description = " +10% Rifle Damage \n See undead health\n +10% Clip size  \n +10 Health ",
+		Description = " +10% Rifle Damage \n See undead health\n +10% Clip size \n +10 Health ",
 		CoefDesc = " +%i%% Health\n +%i%% Clip size\n +%i%% Rifle damage",
 		Coef = {3, 2, 1},
 		Slot = 5,
@@ -590,7 +590,7 @@ NPCS_COUNT_AS_KILLS = false
 UNDEAD_START_AMOUNT_PERCENTAGE = 0.2
 UNDEAD_START_AMOUNT_MINIMUM = 1
 UNDEAD_START_AMOUNT = 1
-UNDEAD_VOLUNTEER_DISTANCE = 256
+UNDEAD_VOLUNTEER_DISTANCE = 340
 
 
 -- Good values are 1 to 3. 0.5 is about the same as the default HL2. 1 is about ZS difficulty. This is mainly for NPC healths and damages.
@@ -631,7 +631,7 @@ CUSTOM_FOOTSTEPS = false
 AMMO_REGENERATE_RATE = 2056744
 
 --Warming up time
-WARMUPTIME = 120
+WARMUPTIME = 135
 
 -- In seconds, how long humans need to survive.
 --ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes

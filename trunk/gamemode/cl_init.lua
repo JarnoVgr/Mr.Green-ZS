@@ -310,9 +310,12 @@ function GM:OnPlayerReadySQL()
 					--Remove wait message and this hook
 					hook.Remove("HUDPaint", "DrawWaiting")
 					hook.Remove("Think", "CheckUpdateData")
+					if (WARMUPTIME-10 - CurTime() <= 0) then
 					
+					else
+						DrawLoadoutMenu()				
+					end
 					--Class menu
-					DrawLoadoutMenu()
 				end
 			end
 		end)
