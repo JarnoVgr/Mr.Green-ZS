@@ -172,7 +172,7 @@ function SWEP:StartSecondaryAttack()
 	end
 	self.SwapAnims = not self.SwapAnims	
 		
-	pl:Daze(1.5);	
+	pl:Daze(2.5);	
 		
 	if SERVER then
 		pl:EmitSound("npc/fast_zombie/leap1.wav", 74, math.Rand(110, 130))
@@ -205,7 +205,7 @@ function SWEP:PerformSecondaryAttack()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
 				--phys:SetVelocityInstantaneous(heading * math.Rand(310, 560))
-				phys:SetVelocityInstantaneous(heading * math.Rand(380, 400))
+				phys:SetVelocityInstantaneous(heading * math.Rand(320, 360))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end
