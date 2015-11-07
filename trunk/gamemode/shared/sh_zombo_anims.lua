@@ -99,9 +99,8 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel, key )
 	local fVelocity = vel:Length2D()
 	pl._PlayBackRate = nil
 	if IsValid(pl:GetActiveWeapon()) then 
-		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_01" ) --Duby: I spent ages finding this out...	
-		--local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) --Duby: I spent ages finding this out...	
-		
+		local iSeq, iIdeal = pl:LookupSequence ( "zombie_walk_01" )
+
 		if fVelocity == 0 then 
 			if pl:Crouching() then
 				iSeq = pl:LookupSequence ( "zombie_cidle_01" )	
@@ -116,7 +115,7 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel, key )
 			else					
 				iSeq = pl:LookupSequence ( "zombie_walk_01" )
 			end
-			pl._PlayBackRate = math.Clamp(fVelocity*0.075,0.1,1.4)
+			pl._PlayBackRate = math.Clamp(fVelocity*0.5,0.2,2.5)
 		end
 		
 		if pl:GetMoveType()==MOVETYPE_LADDER then
@@ -156,6 +155,7 @@ GM.UpdateClassAnimation[1] = function(pl, vel, maxseqgroundspeed)
 		local zvel = pl:GetVelocity().z
 		if math.abs(zvel) < 8 then zvel = 0 end
 		pl:SetPlaybackRate(math.Clamp(zvel / 60 * 0.25, -1, 1))
+		
 	end
 end
 
@@ -185,7 +185,7 @@ GM.CalcMainActivityZombies[14] = function ( pl, vel, key )
 			else					
 				iSeq = pl:LookupSequence ( "zombie_run" )
 			end	
-			pl._PlayBackRate = math.Clamp(fVelocity*0.1,0.1,1.5)			
+			pl._PlayBackRate = math.Clamp(fVelocity*0.5,0.1,1.5)				
 		end
 		
 		if pl:GetMoveType()==MOVETYPE_LADDER then
@@ -288,17 +288,14 @@ GM.CalcMainActivityZombies[2] = function ( pl, vel )
 	pl._PlayBackRate = nil
 	local fVelocity = vel:Length2D()
 	
-	if fVelocity > 30 then
+	if fVelocity > 0.25 then
 		iIdeal = ACT_WALK
-		pl._PlayBackRate = math.Clamp(fVelocity*0.25,0.1,1.5)	 
+		pl._PlayBackRate = math.Clamp(fVelocity*0.03,0.05,2.0)	 
 	else
 		iIdeal = ACT_IDLE
 	end
 
-	if pl:GetMoveType() == MOVETYPE_LADDER then
-		iSeq = pl:LookupSequence ( "climbloop" ) 
-		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)
-	end
+
 	
 	return iIdeal, iSeq
 end
@@ -309,7 +306,7 @@ GM.DoAnimationEventZombies[2] = function ( pl, event, data )
 		pl:AnimRestartGesture( GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_MELEE_ATTACK1,true)
 		return ACT_INVALID
 	elseif event == PLAYERANIMEVENT_ATTACK_SECONDARY then
-		pl:AnimRestartGesture( GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_MELEE_ATTACK1,true)
+		pl:AnimRestartGesture( GESTURE_SLOT_ATTACK_AND_RELOAD, ACT_MELEE_ATTACK2,true)
 		return ACT_INVALID
 	end
 end

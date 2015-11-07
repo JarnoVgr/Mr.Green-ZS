@@ -7,12 +7,22 @@ SWEP.Base = "weapon_zs_undead_base"
 
 SWEP.PrintName = "Poison Zombie"
 if CLIENT then
-	SWEP.ViewModelFOV = 48
-	SWEP.ViewModelFlip = false
+SWEP.HoldType = "pistol"
+SWEP.ViewModelFOV = 50
+SWEP.ViewModelFlip = false
+SWEP.ShowViewModel = true
+SWEP.ShowWorldModel = false
+
 end
 
-SWEP.ViewModel = Model("models/weapons/v_pza.mdl")
+SWEP.ViewModel = "models/weapons/v_pza.mdl"
 SWEP.WorldModel = Model("models/weapons/w_knife_t.mdl")
+
+SWEP.ViewModelBoneMods = {
+	["ValveBiped.Bip01_L_Clavicle"] = { scale = Vector(1, 0.83, 1), pos = Vector(0.5, 1, -1.668), angle = Angle(0, 0, 0) },
+	["ValveBiped.Bip01_R_Clavicle"] = { scale = Vector(1, 0.628, 1), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
+}
+
 
 SWEP.Primary.Delay = 0.8
 SWEP.Primary.Reach = 50
@@ -20,13 +30,11 @@ SWEP.Primary.Duration = 1.6
 SWEP.Primary.Damage = 35
 
 SWEP.Secondary.Delay = 0.8
-SWEP.Secondary.Duration = 3
+SWEP.Secondary.Duration = 4
 
 SWEP.SwapAnims = false
 
-function SWEP:Initialize()
-	self.BaseClass.Initialize(self)
-end
+
 
 function SWEP:StartPrimaryAttack()			
 	--Hacky way for the animations
@@ -45,17 +53,16 @@ function SWEP:StartPrimaryAttack()
 	-- Set the thirdperson animation and emit zombie attack sound
 	if SERVER then
 		self.Owner:EmitSound(Sound("npc/zombie_poison/pz_warn"..math.random(1, 2)..".wav"))
-	end
+	end	
 end
 
 function SWEP:PostPerformPrimaryAttack(hit)
-
 	if self.SwapAnims then
 		self.Weapon:SendWeaponAnim(ACT_VM_HITCENTER)
 	else
 		self.Weapon:SendWeaponAnim(ACT_VM_SECONDARYATTACK)
 	end
-	
+
 	if hit then
 		self.Owner:EmitSound(Sound("npc/zombiegreen/hit_punch_0".. math.random(1, 8) ..".wav"))
 	else
@@ -63,20 +70,21 @@ function SWEP:PostPerformPrimaryAttack(hit)
 	end
 end
 
+
 function SWEP:StartSecondaryAttack()
 	local pl = self.Owner
+	
+	pl:DoAnimationEvent(ACT_RANGE_ATTACK2)		
 	
 	if pl:GetAngles().pitch > 180 or pl:GetAngles().pitch < -180 then
 		pl:EmitSound(Sound("npc/zombie_poison/pz_idle"..math.random(2,4)..".wav"))
 		return
 	end
 	
-	pl:Daze(1.5);	
+	pl:Daze(3.25);	
 	
-
-			
 	if SERVER then
-		pl:EmitSound(Sound("npc/zombie_poison/pz_throw".. math.random(2,3) ..".wav"))
+		pl:EmitSound("NPC_PoisonZombie.Throw")
 	end
 end
 

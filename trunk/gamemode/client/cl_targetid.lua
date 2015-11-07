@@ -47,12 +47,12 @@ local function DrawTargetIDTurret(entity)
 	col = Color(255,255,240,225)
 	col2 = Color(0,0,0,225)
 
-	draw.DrawText(nick, "Trebuchet18", cenp.x, cemp.y, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
-	draw.DrawText("Ammunition [" .. ammo .."]", "Trebuchet18", cenp.x, cemp.y * 1.07, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
-	draw.DrawText("Integrity [" .. health .."]", "Trebuchet18", cenp.x, cemp.y * 1.14, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)	
+	draw.DrawText(Owner:Nick() .. " | " ..nick .. "\n Ammunition [" .. ammo .."]\n Integrity [" .. health .."]\n ", "Trebuchet24", ScrW() * 0.5,  ScrH() * 0.78, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
+	--draw.DrawText("Ammunition [" .. ammo .."]", "Trebuchet18", cenp.x, cemp.y * 1.07, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)
+	--draw.DrawText("Integrity [" .. health .."]", "Trebuchet18", cenp.x, cemp.y * 1.14, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)	
 	
 	
-	draw.DrawText("USE + RELOAD to PICKUP", "Trebuchet18", cenp.x, cemp.y * 1.28, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)		
+	--draw.DrawText("USE + RELOAD to PICKUP", "Trebuchet18", cenp.x, cemp.y * 1.28, col, TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,col2)		
 
 end
 

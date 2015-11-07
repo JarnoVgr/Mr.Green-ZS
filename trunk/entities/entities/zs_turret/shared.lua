@@ -468,6 +468,7 @@ if SERVER then
 		end
 	end
 
+	
 	function ENT:Use(activator, caller)
 		local ct = CurTime()
 		if not IsValid(activator) then
@@ -493,7 +494,7 @@ if SERVER then
 			end
 		end
 		
-			if activator:KeyPressed( IN_RELOAD ) then
+		if activator:KeyPressed( IN_SPEED  ) then
 
 			local owner = self:GetTurretOwner()
 			local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)

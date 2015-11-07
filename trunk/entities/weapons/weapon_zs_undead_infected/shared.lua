@@ -83,19 +83,7 @@ end
 
 function SWEP:Initialize()
 	self.BaseClass.Initialize(self)
-	
-	--self.Green = util.tobool(GetConVarNumber("_zs_mrgreenzombiesounds"))
-	--if not mrgreenzombiesounds then
-	--[[
-		for i = 1, 2 do
-			table.insert(self.AttackSounds,Sound("npc/zombie/zo_attack"..i..".wav"))
-		end
-		for i = 1, 14 do
-			table.insert(self.IdleSounds,Sound("npc/zombie/zombie_voice_idle"..i..".wav"))
-		end
 		
-		]]--
-	--else
 		for i = 20, 37 do
 			table.insert(self.AttackSounds,Sound("mrgreen/undead/infected/rage_at_victim"..i..".mp3"))
 		end
