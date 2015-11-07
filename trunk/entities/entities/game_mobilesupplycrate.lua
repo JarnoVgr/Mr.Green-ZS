@@ -177,7 +177,7 @@ if SERVER then
 						WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
 					else					
 					-- How much ammo to give
-						local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
+						local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType]
 										
 						--Multiplier for infliction
 						--HowMuch = math.Round(HowMuch * (INFLICTION + 0.6))

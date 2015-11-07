@@ -81,7 +81,7 @@ if SERVER then
 				
 													
 				-- How much ammo to give
-				local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType] or 50
+				local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType]
 				
 				local mul = 1
 					
