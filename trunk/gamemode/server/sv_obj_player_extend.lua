@@ -1510,7 +1510,7 @@ function meta:CheckSpeedChange()
 		fSpeed = fSpeed + (fSpeed*multiplier)	
 	end	
 	
-	fHealthSpeed = math.Clamp ( ( fHealth / 40 ), 0.8, 1 )
+	fHealthSpeed = math.Clamp ( ( fHealth / 60 ), 0.9, 1 )
 				
 	if self:IsHolding() then
 		local status = self.status_human_holding
