@@ -32,7 +32,7 @@ end
 
 -- Options
 ENT.MaxHealth = 60
-ENT.MaxBullets = 80
+ENT.MaxBullets = 70
 ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 650
 ENT.Damage = 5
