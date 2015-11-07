@@ -162,6 +162,7 @@ function meta:SwitchToZombie()
 	self:UnSpectate()
 	-- Spawn him
 	self:Message( "You were the closest to the deadly gas!", 1, "255,255,255,255" )
+	self:SendLua("surface.PlaySound(Sound(\"music/ravenholm_1.mp3\"))")		
 	self:Spawn()
 	
 	-- Correct any speed changes

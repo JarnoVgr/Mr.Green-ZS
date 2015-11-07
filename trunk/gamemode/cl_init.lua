@@ -310,8 +310,13 @@ function GM:OnPlayerReadySQL()
 					--Remove wait message and this hook
 					hook.Remove("HUDPaint", "DrawWaiting")
 					hook.Remove("Think", "CheckUpdateData")
-
-					DrawLoadoutMenu()				
+					
+					if (CurTime() - WARMUPTIME > 0) then
+						RunConsoleCommand("ChangeClass", 1)
+						gamemode.Call("PostPlayerChooseLoadout", MySelf)
+					else
+						DrawLoadoutMenu()	
+					end					
 
 					--Class menu
 				end

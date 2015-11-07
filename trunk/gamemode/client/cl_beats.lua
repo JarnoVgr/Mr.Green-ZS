@@ -99,6 +99,22 @@ function playDragulaMusic()
 end
 
 
+randomSongs = {"hl2_song8", "hl2_song7", "hl2_song30", "hl2_song0", "hl2_song1", "hl2_song17", "hl2_song33", "hl2_song2"}
+local function ManageMusic()
+	if not MySelf:IsHuman() then return end
+	
+	if not util.tobool(GetConVar( "_zs_ambientmusic" )) then return end
+	
+	if not MySelf:IsValid() then
+		return
+	end
+
+	if (CurTime() - (WARMUPTIME + 120) > 0) then
+		surface.PlaySound("music/" .. table.Random(randomSongs) .. ".mp3")
+	end
+end
+timer.Create("ManageMusic", 180, 0, ManageMusic)
+
 ENABLE_MUSIC = util.tobool(GetConVarNumber("zs_enablemusic"))
 local function EnableMusic(sender, command, arguments)
 	ENABLE_MUSIC = util.tobool(arguments[1])
@@ -111,8 +127,23 @@ local function EnableMusic(sender, command, arguments)
 end
 concommand.Add("zs_enablemusic", EnableMusic)
 
+ENABLE_AMBIENT_MUSIC = util.tobool(GetConVarNumber("zs_ambientmusic"))
+local function EnableMusic(sender, command, arguments)
+	ENABLE_AMBIENT_MUSIC = util.tobool(arguments[1])
+
+	if ENABLE_AMBIENT_MUSIC then
+		MySelf:ChatPrint("Enabled ambient music.")
+	else
+		MySelf:ChatPrint("Disabled ambient music.")
+	end
+end
+concommand.Add("zs_ambientmusic", EnableMusic)
+
+
+
+
 --Small turret's names from IW
-local randnames = { "Joseph", "Finger", "Beer", "Blob", "Chicken","Mr.Turret","Mrs.Turret","VR Turret" }
+local randnames = { "Turret", "Terry", "Tim" }
 CreateClientConVar("_zs_turretnicknamefix", table.Random(randnames), true, true)
 TurretNickname = GetConVarString("_zs_turretnicknamefix")
 function SetTurretNick( pl,commandName,args )

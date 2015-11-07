@@ -6,6 +6,8 @@ ClientsideConvars = {}
 ClientsideConvars["_zs_enablehints"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Game Hints"}
 ClientsideConvars["_zs_enablebeats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Beats"}
 ClientsideConvars["_zs_enablemusic"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Music"}
+ClientsideConvars["_zs_ambientmusic"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Ambient Music"}
+
 --ClientsideConvars["_zs_damage"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Print damage output"}
 ClientsideConvars["_zs_enableironsightblur"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = false, Category = "hud", Description = "Blur while in ironsight"}
 ClientsideConvars["_zs_ironsight"] = {Value = 0, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Crosshair while in ironsight"}
@@ -168,7 +170,6 @@ function GM:SetBoss(value,isInsane,duration)
 			local bossPl = GAMEMODE:GetBossZombie()
 			--print("bossPl: ".. bossPl)
 			if bossPl and IsValid(bossPl) then		
-				--surface.PlaySound(Sound("ambient/creatures/town_zombie_call1.wav"))						
 				GAMEMODE:Add3DMessage(140, bossPl:Name() .." has risen as ".. ZombieClasses[bossPl:GetZombieClass()].Name, Color(255,255,255,220), "ssNewAmmoFont6.5")
 			end
 		end)

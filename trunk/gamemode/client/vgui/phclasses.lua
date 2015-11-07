@@ -66,9 +66,12 @@ function updateSelectedClass(classSelected)
 	end	
 end
 
-
+spawnMusic = {"hl1_song14.mp3","hl1_song19.mp3","hl1_song24.mp3","hl1_song26.mp3","hl1_song5.mp3"}
+local menuTimeOpened
 
 function DrawLoadoutMenu()
+	
+	menuTimeOpened = CurTime()
 	
 	MySelf:ConCommand("tooltip_delay 0") 
 	MySelf:ConCommand("r_dynamic 0")
@@ -392,6 +395,7 @@ function DrawLoadoutMenu()
 	end
 	
 	local buttonSpawn = vgui.Create( "DButton", Frame)
+	
 	buttonSpawn:SetParent(Frame)
 	buttonSpawn:SetSkin("ZSMG")		
 	buttonSpawn:SetText( "" )		
@@ -403,11 +407,18 @@ function DrawLoadoutMenu()
 	end	
 	
 	buttonSpawn.PaintOver = function ()
-		draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-10 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
-		if buttonSpawn.Overed then
-			surface.SetDrawColor(50, 255, 60, math.Clamp(math.sin(CurTime()*5)*100 + 100,40,255))
+	
+		if (buttonSpawn.No) then
+			draw.SimpleTextOutlined("Spawn enabled in ".. math.Round(menuTimeOpened+10 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
+		else
+			draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-10 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
+		end
+		if buttonSpawn.No then
+			surface.SetDrawColor(200, 50, 50, math.Clamp(math.sin(CurTime()*6)*200 + 100,0,255))	
+		elseif buttonSpawn.Overed then
+			surface.SetDrawColor(50, 255, 60, math.Clamp(math.sin(CurTime()*12)*100 + 100,40,255))
 		else	
-			surface.SetDrawColor(200, 50, 50, math.Clamp(math.sin(CurTime()*6)*200 + 100,0,255))
+			surface.SetDrawColor(200, 200, 50, math.Clamp(math.sin(CurTime()*6)*200 + 100,0,255))
 		end
 		surface.DrawOutlinedRect(0, 0, buttonWidth, buttonHeight)
 	end
@@ -423,13 +434,27 @@ function DrawLoadoutMenu()
 	end		
 	
 	buttonSpawn.DoClick = function ()
+	
+		if menuTimeOpened + 10 > CurTime() then
+			return
+		end
 		Frame:Close()
 		spawned = true
 		saveClass(classSelected, perkButtons)		
 		surface.PlaySound(Sound("mrgreen/ui/menu_accept.wav"))		
+		
+		local ENABLE_MUSIC = util.tobool(GetConVarNumber("_zs_ambientmusic"))
+		if ENABLE_MUSIC then
+			surface.PlaySound("music/" .. table.Random(spawnMusic))
+		end
 	end
 	
 	buttonSpawn.Think = function () 
+		if menuTimeOpened + 10 > CurTime() then
+			buttonSpawn.No = true
+		else
+			buttonSpawn.No = false
+		end
 		if WARMUPTIME-10 - CurTime() <= 0 then
 			Frame:Close()
 			spawned = true
@@ -573,7 +598,6 @@ function saveClass(class, perkButtons)
 	local tbl = util.TableToJSON(selectedPerks)
 	
 	file.Write(filename,tbl)
-	
 
 	local filename = "zombiesurvival/loadouts/chosenClass.txt"
 	file.Write(filename, classSelected)
