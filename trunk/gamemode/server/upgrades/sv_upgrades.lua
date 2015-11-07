@@ -176,7 +176,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				dmg = dmg*0.9	
 			end	
 			
-			if (dmg > 10 && !ent:GetPerk("Berserker")) then
+			if (dmg > 25 && !ent:GetPerk("Berserker")) then
 				ent:Daze(dmg*0.06)	
 			end
 		end		
