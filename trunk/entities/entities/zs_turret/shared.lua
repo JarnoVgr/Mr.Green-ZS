@@ -31,10 +31,10 @@ for i=1,2 do
 end
 
 -- Options
-ENT.MaxHealth = 80
+ENT.MaxHealth = 60
 ENT.MaxBullets = 80
 ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
-ENT.SpotDistance = 700
+ENT.SpotDistance = 650
 ENT.Damage = 5
 ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {7,9}
@@ -494,7 +494,7 @@ if SERVER then
 			end
 		end
 		
-		if activator:KeyPressed( IN_SPEED  ) then
+		if activator:KeyPressed( IN_RELOAD  ) then
 
 			local owner = self:GetTurretOwner()
 			local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
