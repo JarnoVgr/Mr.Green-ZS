@@ -366,11 +366,11 @@ function GM:OnHumanSpawn(pl)
 
 	--Set crouch speed
 
-	pl:SetCrouchedWalkSpeed(0.45)
+	pl:SetCrouchedWalkSpeed(0.5)
 
 	--Set jump power
 	if pl:GetJumpPower() ~= 220 then
-w
+		pl:SetJumpPower(220)
 	end
 	
 	if (pl:GetPerk("sharpshooter_agility")) then
