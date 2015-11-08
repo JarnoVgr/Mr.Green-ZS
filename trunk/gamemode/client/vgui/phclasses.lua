@@ -408,15 +408,8 @@ function DrawLoadoutMenu()
 	end	
 	
 	buttonSpawn.PaintOver = function ()
-	
-		if (buttonSpawn.No) then
-			draw.SimpleTextOutlined("Spawn enabled in ".. math.Round(menuTimeOpened+10 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
-		else
-			draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-5 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
-		end
-		if buttonSpawn.No then
-			surface.SetDrawColor(200, 50, 50, math.Clamp(math.sin(CurTime()*6)*200 + 100,0,255))	
-		elseif buttonSpawn.Overed then
+		draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-5 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
+		if buttonSpawn.Overed then
 			surface.SetDrawColor(50, 255, 60, math.Clamp(math.sin(CurTime()*12)*100 + 100,40,255))
 		else	
 			surface.SetDrawColor(200, 200, 50, math.Clamp(math.sin(CurTime()*6)*200 + 100,0,255))
@@ -435,10 +428,6 @@ function DrawLoadoutMenu()
 	end		
 	
 	buttonSpawn.DoClick = function ()
-	
-		if menuTimeOpened + 5 > CurTime() == false then
-			return
-		end
 		Frame:Close()
 		spawned = true
 		saveClass(classSelected, perkButtons)		
@@ -451,11 +440,6 @@ function DrawLoadoutMenu()
 	end
 	
 	buttonSpawn.Think = function () 
-		if menuTimeOpened + 5 > CurTime() == false then
-			buttonSpawn.No = true
-		else
-			buttonSpawn.No = false
-		end
 		if WARMUPTIME-10 - CurTime() <= 0 then
 			Frame:Close()
 			spawned = true

@@ -65,7 +65,7 @@ SWEP.rechargerate = 0.08
 SWEP.startcharge = 0.2
 SWEP.MaxClip = 100
 SWEP.reloadSoundPlayed = false
-function SWEP:Think()	
+function SWEP:Think()
 	if SERVER then
 		local ply = self.Owner
 		
