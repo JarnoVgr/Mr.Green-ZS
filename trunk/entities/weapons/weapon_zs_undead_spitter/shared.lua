@@ -16,10 +16,10 @@ if CLIENT then
 	SWEP.FakeArms = true	
 end
 
-SWEP.Primary.Duration = 1.35
+SWEP.Primary.Duration = 1.3
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Reach = 48
-SWEP.Primary.Damage = 20
+SWEP.Primary.Damage = 22
 SWEP.DisguiseChoice = 1
 SWEP.EmitWraithSound = 0
 SWEP.Attacking = 0

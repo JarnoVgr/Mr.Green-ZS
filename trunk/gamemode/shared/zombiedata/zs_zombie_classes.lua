@@ -298,7 +298,7 @@ ZombieClasses[4] =
 	Model = Model( "models/player/soldier_stripped" ),
 	Speed = 185,
 	Description = "A ghastly figure which can disguise itself as a human!",
-	DescriptionGameplay = {"> PRIMARY: Claws", "> SECONDARY: Disguise as a human! / Return to ghast state", "> SPECIAL: Ignored by turrets and proximity C4", "> HEALTH: 160 / 100 ", "> SPEED: 145 / 185 ", "> DAMAGE: 20" },
+	DescriptionGameplay = {"> PRIMARY: Claws", "> SECONDARY: Disguise as a human! / Return to ghast state", "> SPECIAL: Ignored by turrets and proximity C4", "> HEALTH: 160 / 100 ", "> SPEED: 145 / 185 ", "> DAMAGE: 22" },
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		Sound("npc/stalker/stalker_pain1.wav"),
