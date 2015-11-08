@@ -99,6 +99,20 @@ function playDragulaMusic()
 end
 
 
+SPAWN_INSTANTLY = util.tobool( GetConVarNumber("_zs_spawndelay") )
+local function EnableSpawnDelay(sender, command, arguments)
+	SPAWN_INSTANTLY = util.tobool( arguments[1] )
+
+	if SPAWN_INSTANTLY then
+		RunConsoleCommand("_zs_spawndelay", "1")
+		MySelf:ChatPrint("Spawn delay enabled.")
+	else
+		RunConsoleCommand("_zs_spawndelay", "0")
+		MySelf:ChatPrint("Spawn delay disabled.")
+	end
+end
+concommand.Add("_zs_spawndelay", EnableSpawnDelay)
+
 randomSongs = {"hl2_song8", "hl2_song7", "hl2_song30", "hl2_song0", "hl2_song1", "hl2_song17", "hl2_song33", "hl2_song2"}
 local function ManageMusic()
 	if not MySelf:IsHuman() then return end
@@ -138,7 +152,6 @@ local function EnableMusic(sender, command, arguments)
 	end
 end
 concommand.Add("zs_ambientmusic", EnableMusic)
-
 
 
 

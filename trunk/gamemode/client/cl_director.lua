@@ -21,6 +21,7 @@ ClientsideConvars["zs_drawarrow"] = {Value = 1, ShouldSave = true, UserData = fa
 ClientsideConvars["zs_drawcolourmod"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Colour mod"}
 ClientsideConvars["zs_drawsharpeneffect"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Sharpen effect as near Undead indicator"}
 
+ClientsideConvars["_zs_spawndelay"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "gmp", Description = "Enable human spawn delay"}
 
 ClientsideConvars["_zs_autoredeem"] = {Value = 1, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Automatic redeem"}
 ClientsideConvars["_zs_humanspawn"] = {Value = 0, ShouldSave = true, UserData = true, CanChange = true, Category = "gmp", Description = "Spawn on Survivors when possible"}

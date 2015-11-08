@@ -66,12 +66,18 @@ function updateSelectedClass(classSelected)
 	end	
 end
 
+
 spawnMusic = {"hl1_song14.mp3","hl1_song19.mp3","hl1_song24.mp3","hl1_song26.mp3","hl1_song5.mp3"}
 local menuTimeOpened
-
+local spawnInstantly = false
 function DrawLoadoutMenu()
 	
 	menuTimeOpened = CurTime()
+	print(util.tobool(GetConVar( "_zs_spawndelay" )))
+	
+	if not util.tobool(GetConVar( "_zs_spawndelay" )) then 
+		spawnInstantly = true
+	end
 	
 	MySelf:ConCommand("tooltip_delay 0") 
 	MySelf:ConCommand("r_dynamic 0")
@@ -435,7 +441,7 @@ function DrawLoadoutMenu()
 	
 	buttonSpawn.DoClick = function ()
 	
-		if menuTimeOpened + 10 > CurTime() then
+		if menuTimeOpened + 10 > CurTime() and spawnInstantly == false then
 			return
 		end
 		Frame:Close()
@@ -450,7 +456,7 @@ function DrawLoadoutMenu()
 	end
 	
 	buttonSpawn.Think = function () 
-		if menuTimeOpened + 10 > CurTime() then
+		if menuTimeOpened + 10 > CurTime() and spawnInstantly == false then
 			buttonSpawn.No = true
 		else
 			buttonSpawn.No = false

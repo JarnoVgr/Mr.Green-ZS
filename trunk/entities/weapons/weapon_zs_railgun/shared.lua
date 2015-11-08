@@ -45,45 +45,113 @@ SWEP.HoldType = "ar2"
 SWEP.ViewModel = "models/weapons/cstrike/c_shot_xm1014.mdl"
 SWEP.WorldModel = "models/weapons/w_shot_xm1014.mdl"
 
-SWEP.Primary.ClipSize = 8;
-SWEP.Primary.DefaultClip = 20;
+SWEP.Primary.ClipSize = 100;
+SWEP.Primary.DefaultClip = 100;
 SWEP.Primary.Automatic = false;
-SWEP.Primary.Ammo = "357";
+SWEP.Primary.Ammo = "none";
  
-SWEP.Sound = Sound ("weapon_357.Single")
-SWEP.Damage = 50
 SWEP.Spread = 0.02
-SWEP.NumBul = 1
 SWEP.Delay = 0.7
-SWEP.Force = 3
- 
+SWEP.Primary.Sound = "weapons/mortar/mortar_fire1.wav"
+SWEP.TracerName = "AirboatGunHeavyTracer"
+SWEP.HumanClass = "engineer"
+SWEP.WalkSpeed = SPEED_HEAVY - 5
+SWEP.Primary.Damage = 200 
+
+SWEP.fired = false
+SWEP.lastfire = 0
+SWEP.rechargetimer = 0
+SWEP.rechargerate = 0.09
+SWEP.startcharge = 0.2
+SWEP.MaxClip = 100
+SWEP.reloadSoundPlayed = false
+function SWEP:Think()	
+	if SERVER then
+		local ply = self.Owner
+		
+		if ply:KeyDown(IN_ATTACK) then
+			if not self.fired then
+				self.fired = true
+			end
+
+			self.lastfire = CurTime()
+		else
+
+			if self:GetOwner():GetPerk("Engineer") then
+				self.rechargerate = 0.08 - (0.08*(2*self:GetOwner():GetRank())/100)				
+			end
+
+			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then
+				self.Weapon:SetClip1(math.min(self.MaxClip, self.Weapon:Clip1() + 1))
+				self.rechargetimer = CurTime() + self.rechargerate 
+			end
+			
+			if self.fired then 
+				self.fired = false
+			end
+		end
+	end
+		if (self:Clip1() == 100 and !self.reloadSoundPlayed) then
+			self:EmitSound(Sound("npc/roller/remote_yes.wav"), 100)	
+			self.reloadSoundPlayed = true
+		end			
+	return self.BaseClass.Think(self)
+end
+
+function SWEP:EmitFireSound()
+	self:EmitSound(self.Primary.Sound)
+end
+
+function SWEP:Reload()
+	return false
+end
+
+
+
 function SWEP:PrimaryAttack() -- when secondary attack happens
- 
+	if (self:Clip1() < 100) then return end
 	-- Make sure we can shoot first
 	if ( !self:CanPrimaryAttack() ) then return end
- 
+	self.reloadSoundPlayed = false
+	
+ 	self.Owner:ViewPunch(Angle(math.random(-10,15),math.random(-15,15),math.random(-15,10)))	
 	local eyetrace = self.Owner:GetEyeTrace();
-	-- this gets where you are looking. The SWep is making an explosion where you are LOOKING, right?
- 
-	self:EmitSound ( self.Sound )
-	-- this makes the sound, which I specified earlier in the code
- 
+	self:EmitFireSound()
 	self.BaseClass.ShootEffects (self);
-	-- this makes the shooting animation for the 357 for view model and world model. 
- 
-	local explode = ents.Create( "env_explosion" ) -- creates the explosion
-	explode:SetPos( eyetrace.HitPos )
-	-- this creates the explosion through your self.Owner:GetEyeTrace, which is why I put eyetrace in front
-	explode:SetOwner( self.Owner ) -- this sets you as the person who made the explosion
-	explode:Spawn() --this actually spawns the explosion
-	explode:SetKeyValue( "iMagnitude", "220" ) -- the magnitude
-	explode:Fire( "Explode", 0, 0 )
-	explode:EmitSound( "weapon_AWP.Single", 400, 400 ) -- the sound for the explosion, and how far away it can be heard
+	
+	 if SERVER then	 
+	 
+		local explode = ents.Create( "env_explosion" ) -- creates the explosion
+		explode:SetPos( eyetrace.HitPos )
+		-- this creates the explosion through your self.Owner:GetEyeTrace, which is why I put eyetrace in front
+		explode:SetOwner( self.Owner ) -- this sets you as the person who made the explosion
+		explode:Spawn() --this actually spawns the explosion
+		explode:SetKeyValue( "iMagnitude", self.Primary.Damage ) -- the magnitude
+		explode:SetKeyValue( "iRadiusOverride", "140")
+		explode:Fire( "Explode", 0, 0 )
+		explode:EmitSound(Sound("weapons/mortar/mortar_explode".. math.random(1,3)..".wav"), 400, 100) -- the sound for the explosion, and how far away it can be heard
+			
+		local shake = ents.Create( "env_shake" )
+		shake:SetPos( eyetrace.HitPos )
+		shake:SetKeyValue( "amplitude", "300" ) -- Power of the shake effect
+		shake:SetKeyValue( "radius", "180" )	-- Radius of the shake effect
+		shake:SetKeyValue( "duration", "1" )	-- Duration of shake
+		shake:SetKeyValue( "frequency", "170" )	-- Screenshake frequency
+		shake:SetKeyValue( "spawnflags", "4" )
+		shake:Spawn()
+		shake:SetOwner( self.Owner )
+		shake:Activate()
+		shake:Fire( "StartShake", "", 0 )	
+	 end
+	 
+		local e = EffectData()
+			e:SetOrigin(eyetrace.HitPos)
+			e:SetNormal(eyetrace.HitNormal)
+			e:SetRadius(20)
+			e:SetMagnitude(30)
+			e:SetScale(3)
+		util.Effect("cball_bounce", e)		 
  
 	self:SetNextPrimaryFire( CurTime() + self.Delay )
-	self:SetNextSecondaryFire( CurTime() + self.Delay )
-	-- this sets the delay for the next primary and secondary fires.
- 
-	self:TakePrimaryAmmo(1) -- removes 1 ammo from our clip
- 
-end -- telling Gmod that it's the end of the function
+	self:TakePrimaryAmmo(100) -- removes 1 ammo from our clip
+end

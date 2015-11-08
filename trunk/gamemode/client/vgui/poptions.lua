@@ -411,7 +411,6 @@ local function EnableDamage(sender, command, arguments)
 end
 concommand.Add("_zs_damage", EnableDamage)
 
-
 -- Auto redeem
 -- CreateClientConVar("_zs_autoredeem", 1, true, false)
 AUTOREDEEM = util.tobool( GetConVarNumber("_zs_autoredeem") )

@@ -194,8 +194,8 @@ GM.HumanWeapons = {
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", Tier = 1, Type = "pistol", Price = 80, HumanClass = "engineer"},                      
         ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", Tier = 2, Type = "smg", Price = 120, HumanClass = "engineer"},
 		["weapon_zs_turretplacer"] = { Name = "Turret", Tier = 3, Type = "tool2", Price = 140, HumanClass = "engineer"   },	
-        ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", Tier = 4, Type = "smg", Price = 150, HumanClass = "engineer"},
-        --["weapon_zs_railgun"]  = { Name = "Railgun", Tier = 4, Type = "rifle", Price = 200, HumanClass = "engineer"},
+        ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", Tier = 3, Type = "smg", Price = 150, HumanClass = "engineer"},
+        ["weapon_zs_railgun"]  = { Name = "Railgun", Tier = 4, Type = "rifle", Price = 180, HumanClass = "engineer"},
  
 		--Pyro
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", Tier = 0, Type = "pistol", Price = 60}, 
