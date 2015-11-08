@@ -370,7 +370,7 @@ function GM:OnHumanSpawn(pl)
 
 	--Set jump power
 	if pl:GetJumpPower() ~= 220 then
-		pl:SetJumpPower(220) 
+w
 	end
 	
 	if (pl:GetPerk("sharpshooter_agility")) then
@@ -488,7 +488,7 @@ function GM:OnZombieSpawn(pl)
 	
 	--Set the zombies model
 	pl:SetModel(Tab.Model)
-
+	pl:SetJumpPower(Tab.JumpPower)
 	pl.NoBounty = false
 	pl.LastAttackers = nil	
 	
