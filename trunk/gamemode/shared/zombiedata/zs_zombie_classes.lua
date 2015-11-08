@@ -183,7 +183,7 @@ ZombieClasses[2] =
 {
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
-	Infliction = 0.63,
+	Infliction = 0.58,
 	Health = 400,
 	MaxHealth = 600,
 	TimeLimit = 810,
@@ -422,7 +422,7 @@ ZombieClasses[7] =
 	Name = "Headcrab",
 	Tag = "headcrab",
 	Infliction = 0,
-	Health = 50,
+	Health = 45,
 	MaxHealth = 100,
 	Bounty = 50,
 	SP = 4,
@@ -442,7 +442,7 @@ ZombieClasses[7] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes", "> HEALTH: 50 ", "> SPEED: 165", "> DAMAGE: 8" },
+	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes", "> HEALTH: 45 ", "> SPEED: 165", "> DAMAGE: 8" },
 	PainSounds = {
 		Sound("npc/headcrab/pain1.wav"),
 		Sound("npc/headcrab/pain2.wav"),
@@ -516,7 +516,7 @@ ZombieClasses[9] =
 {
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
-	Infliction = 0.63,
+	Infliction = 0.58,
 	Health = 70,
 	MaxHealth = 100,
 	Bounty = 60,
