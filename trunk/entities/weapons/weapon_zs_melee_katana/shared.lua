@@ -59,7 +59,7 @@ function SWEP:PlaySwingSound()
 end
 
 function SWEP:PlayHitSound()
-	self:EmitSound("weapons/knife/knife_hitwall1.wav", 85, math.random(110,115))
+	self:EmitSound("weapons/katana/katana_0"..math.random(1, 3)..".wav", 85, math.random(99,102))
 end
 
 function SWEP:PlayHitFleshSound()

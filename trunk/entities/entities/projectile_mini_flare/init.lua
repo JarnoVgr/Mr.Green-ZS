@@ -3,12 +3,10 @@ AddCSLuaFile("shared.lua")
 
 include("shared.lua")
 
-
-
 function ENT:Initialize()
-	self.DieTime = CurTime() + 7
+	self.DieTime = CurTime() + 4
 	
-	self:SetModel("models/weapons/w_grenade.mdl")
+	self:SetModel("models/mechanics/various/211.mdl")
 	--self:SetModel("models/items/flare.mdl")	
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
@@ -46,16 +44,8 @@ function ENT:PhysicsCollide( Data, Phys )
 	
 	local HitEnt = Data.HitEntity
 	if self.CanHit and IsValid( HitEnt) then
-		local damage = 100
+		local damage = 40
 		if HitEnt:IsPlayer() and HitEnt:Team() == TEAM_UNDEAD then	
-			--local ignite = 3 + (2 *(0.05 + self.Entity:GetOwner():GetRank()*0.01)) + (2*(self.Entity:GetOwner():GetRank()*0.01))
-
-			--local burn = 6 + (6 * (0.05 + (2*(self.Entity:GetOwner():GetRank()*0.01))))		
-			--local z = HitEnt
-			--z:TakeDamageOverTime(burn, 1, ignite, self.Entity:GetOwner(), self )
-			--z:Ignite(ignite,0)				
-			--z.NoGib = CurTime() + 1
-
 			if self.Entity:GetOwner():GetPerk("pyro_flare") then
 				damage = damage + 10
 				if math.random(1,4) == 1 then

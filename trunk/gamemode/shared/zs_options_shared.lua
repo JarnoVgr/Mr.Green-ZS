@@ -192,17 +192,19 @@ GM.HumanWeapons = {
 	   
         --Engineer
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", Tier = 1, Type = "pistol", Price = 80, HumanClass = "engineer"},                      
-        ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", Tier = 2, Type = "smg", Price = 130, HumanClass = "engineer"},
+        ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", Tier = 2, Type = "smg", Price = 120, HumanClass = "engineer"},
 		["weapon_zs_turretplacer"] = { Name = "Turret", Tier = 3, Type = "tool2", Price = 140, HumanClass = "engineer"   },	
-        ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", Tier = 4, Type = "smg", Price = 180, HumanClass = "engineer"},
-
+        ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", Tier = 4, Type = "smg", Price = 150, HumanClass = "engineer"},
+        --["weapon_zs_railgun"]  = { Name = "Railgun", Tier = 4, Type = "rifle", Price = 200, HumanClass = "engineer"},
  
 		--Pyro
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", Tier = 0, Type = "pistol", Price = 60}, 
         ["weapon_zs_glock3"]  = { Name = "Glock 3", Tier = 1, Type = "pistol", Price = 80, HumanClass = "pyro" },		
         ["weapon_zs_glock1"]  = { Name = "Glock 1", Tier = 1, Type = "pistol", Price = 80, HumanClass = "pyro" },		
-		["weapon_zs_flaregun"]  = { Name = "Flare Gun", Tier = 2, Type = "smg", HumanClass = "pyro", Price = 120},
-		["weapon_zs_tmp"]  = { Name = "Silent TMP", Tier = 2, Type = "smg", HumanClass = "pyro", Price = 120 },		
+		["weapon_zs_flaregun"]  = { Name = "Flare Gun", Tier = 2, Type = "shotgun", HumanClass = "pyro", Price = 120},
+		["weapon_zs_flaregun_2"]  = { Name = "Baby Flare", Tier = 2, Type = "shotgun", HumanClass = "pyro", Price = 120},
+
+		["weapon_zs_tmp"]  = { Name = "Silent TMP", Tier = 3, Type = "smg", HumanClass = "pyro", Price = 120 },		
 		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Tier = 3, Type = "shotgun", HumanClass = "pyro", Price = 160},	
 		["weapon_zs_pyrocannon"]  = { Name = "'Infernus' Cannon", Tier = 4, Type = "shotgun", HumanClass = "pyro", Price = 180},			
 		["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", HumanClass = "pyro"},

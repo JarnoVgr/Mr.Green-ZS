@@ -141,7 +141,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				skillpoints.AddSkillPoints(attacker,math.floor( ( ent:GetMaximumHealth() / 10 ) * ( dmg / ent:GetMaximumHealth() )))	
 			end
 
-			
+			attacker:AddXP(math.Round(dmg*0.1))	
 		elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent:IsPlayer() and ent:Team() == TEAM_HUMAN then
 				
 			if attacker:HasBought("vampire") and attacker:Health() + dmg * 0.5 < attacker:GetMaximumHealth() then	
@@ -186,7 +186,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 		end
 		
 	end
-	
+
 	dmginfo:SetDamage( dmg )
 end
 

@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "Flare Gun"			
-	SWEP.Author	= "Duby"
+	SWEP.Author	= "Braindawg"
 	SWEP.Slot = 1
 	SWEP.SlotPos = 6
 	SWEP.ViewModelFOV = 60
@@ -11,54 +11,38 @@ if CLIENT then
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = true
 	
-	  SWEP.ViewModelBoneMods = {
-        ["Bullet3"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-        ["Cylinder"] = { scale = Vector(1, 1, 1), pos = Vector(0, 0, 0.075), angle = Angle(0, 0, 0) },
-        ["Bullet1"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-        ["Bullet4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-        ["Bullet5"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-        ["Bullet2"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-        ["Bullet6"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
-    }
-
-    SWEP.VElements = {
-        ["bullet1++"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "Bullet3", rel = "", pos = Vector(0.006, 0.043, 0.349), angle = Angle(0, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
-        ["bullet1+++"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "Bullet4", rel = "", pos = Vector(0.006, 0.043, 0.349), angle = Angle(0, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
-        ["glow+++++"] = { type = "Sprite", sprite = "sprites/glow02", bone = "Bullet2", rel = "bullet1+++++", pos = Vector(0, 0, -0.406), size = { x = 1, y = 1 }, color = Color(213, 143, 96, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
-        ["bullet1"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "Bullet1", rel = "", pos = Vector(0.006, 0.043, 0.349), angle = Angle(0, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
-		["switch"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "Hand", rel = "", pos = Vector(0.4, -3.988, 9.18), angle = Angle(0, 0, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
-        ["glow+++"] = { type = "Sprite", sprite = "sprites/glow02", bone = "Bullet2", rel = "bullet1+++", pos = Vector(0, 0, -0.406), size = { x = 1, y = 1 }, color = Color(213, 143, 96, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
-        ["switchr"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "Hand", rel = "", pos = Vector(-0.151, -4, 9), angle = Angle(0, -180, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
-        ["bullet1+++++"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "Bullet6", rel = "", pos = Vector(0.006, 0.043, 0.349), angle = Angle(0, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
-        ["bullet1+"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "Bullet2", rel = "", pos = Vector(0.006, 0.043, 0.349), angle = Angle(0, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
-        ["glow+"] = { type = "Sprite", sprite = "sprites/glow02", bone = "Bullet2", rel = "bullet1+", pos = Vector(0, 0, -0.406), size = { x = 1, y = 1 }, color = Color(213, 143, 96, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
-        ["glow"] = { type = "Sprite", sprite = "sprites/glow02", bone = "Bullet1", rel = "bullet1", pos = Vector(0, 0, -0.406), size = { x = 1, y = 1 }, color = Color(213, 143, 96, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
-        ["glow++"] = { type = "Sprite", sprite = "sprites/glow02", bone = "Bullet2", rel = "bullet1++", pos = Vector(0, 0, -0.406), size = { x = 1, y = 1 }, color = Color(213, 143, 96, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
-        ["bullet1++++"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "Bullet5", rel = "", pos = Vector(0.006, 0.043, 0.349), angle = Angle(0, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
-        ["switchr++"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "Hand", rel = "switchr+", pos = Vector(0, 0, -1.5), angle = Angle(0, 0, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
-        ["switch++"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "Hand", rel = "switch+", pos = Vector(0, 0, -1.5), angle = Angle(0, 0, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
-        ["underbarrel"] = { type = "Model", model = "models/props_trainstation/payphone001a.mdl", bone = "Hand", rel = "", pos = Vector(0, -2.619, 9.157), angle = Angle(0, 90, 0), size = Vector(0.1, 0.043, 0.085), color = Color(200, 200, 200, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-        ["glow++++"] = { type = "Sprite", sprite = "sprites/glow02", bone = "Bullet2", rel = "bullet1++++", pos = Vector(0, 0, -0.406), size = { x = 1, y = 1 }, color = Color(213, 143, 96, 255), nocull = true, additive = true, vertexalpha = true, vertexcolor = true, ignorez = false},
-        ["radiator"] = { type = "Model", model = "models/props_interiors/Radiator01a.mdl", bone = "Hand", rel = "", pos = Vector(0.087, -4.795, 4.731), angle = Angle(0, 0, 90), size = Vector(0.059, 0.079, 0.009), color = Color(200, 200, 210, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-        ["switchr+"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "Hand", rel = "switchr", pos = Vector(0, 0, -1.5), angle = Angle(0, 0, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
-        ["switch+"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "Hand", rel = "switch", pos = Vector(0, 0, -1.5), angle = Angle(0, 0, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} }
-    }
-    
-    SWEP.WElements = {
-        ["bullet1++"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6, 1.6, -3.681), angle = Angle(90, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
-        ["bullet1+++"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6, 0.363, -4.238), angle = Angle(90, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
-        ["bullet1"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6, 1.593, -4.182), angle = Angle(90, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
-        ["switch"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(12.225, 1.401, -4.449), angle = Angle(0, -90, -90), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
-        ["switchr"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(12.225, 0.5, -4.449), angle = Angle(0, 90, 90), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
-        ["bullet1+"] = { type = "Model", model = "models/props_lab/jar01b.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6, 0.375, -3.583), angle = Angle(90, 0, 0), size = Vector(0.1, 0.1, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "models/props_lab/Tank_Glass001", skin = 0, bodygroup = {} },
-        ["switch+"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "switch", pos = Vector(0, 0, -1.5), angle = Angle(0, 0, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
-        ["switch++"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "switch+", pos = Vector(0, 0, -1.5), angle = Angle(0, 0, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
-        ["switchr++"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "switchr+", pos = Vector(0, 0, -1.5), angle = Angle(0, 0, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
-        ["radiator"] = { type = "Model", model = "models/props_interiors/Radiator01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(7.25, 0.855, -5.301), angle = Angle(0, -90, 0), size = Vector(0.059, 0.079, 0.009), color = Color(200, 200, 210, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-        ["switchr+"] = { type = "Model", model = "models/props_lab/bindergraylabel01a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "switchr", pos = Vector(0, 0, -1.5), angle = Angle(0, 0, 0), size = Vector(0.07, 0.07, 0.07), color = Color(255, 225, 210, 255), surpresslightning = false, material = "models/props_combine/metal_combinebridge001", skin = 0, bodygroup = {} },
-        ["underbarrel"] = { type = "Model", model = "models/props_trainstation/payphone001a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(11.656, 0.925, -3.089), angle = Angle(-90, 0, 0), size = Vector(0.1, 0.029, 0.085), color = Color(200, 200, 200, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-    }
+SWEP.ViewModelBoneMods = {
+	["Bullet4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["Bullet3"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["Bullet6"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["Cylinder"] = { scale = Vector(0.167, 0.167, 0.167), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["Bullet5"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["Python"] = { scale = Vector(0.259, 0.259, 0.259), pos = Vector(-0.883, -0.073, -0.338), angle = Angle(0, 4.433, 0) },
+	["Bullet2"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+	["Bullet1"] = { scale = Vector(0.112, 0.112, 0.112), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
+}	
 	
+SWEP.VElements = {
+	["Flaregun5"] = { type = "Model", model = "models/hunter/blocks/cube05x05x05.mdl", bone = "Python", rel = "Flaregun3", pos = Vector(0.082, 1.61, 1.184), angle = Angle(-7.281, 0.252, 25.083), size = Vector(0.039, 0.194, 0.076), color = Color(0, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} },
+	["Flaregun6"] = { type = "Model", model = "models/editor/spot_cone.mdl", bone = "Cylinder", rel = "Flaregun", pos = Vector(0.137, -0.004, 7.262), angle = Angle(90.512, -102.429, 41.974), size = Vector(0.152, 0.152, 0.152), color = Color(255, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} },
+	["Flaregun4"] = { type = "Model", model = "models/items/grenadeammo.mdl", bone = "Python", rel = "Flaregun2", pos = Vector(-0.03, 0.008, 0.097), angle = Angle(-180, -7.152, -0.341), size = Vector(0.579, 0.579, 0.211), color = Color(0, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} },
+	["Flare"] = { type = "Model", model = "models/Items/Flare.mdl", bone = "Bullet1", rel = "", pos = Vector(0.159, 0.657, 1.914), angle = Angle(-35.156, -125.04, -92.564), size = Vector(0.58, 0.58, 0.58), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["Flaregun3"] = { type = "Model", model = "models/props_c17/pulleyhook01.mdl", bone = "ValveBiped.Bip01_Spine4", rel = "Flaregun4", pos = Vector(0.331, 0.587, 2.687), angle = Angle(173.25, -2.083, -7.858), size = Vector(0.098, 0.098, 0.032), color = Color(0, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} },
+	["Flaregun"] = { type = "Model", model = "models/hunter/tubes/tube1x1x4.mdl", bone = "Cylinder", rel = "", pos = Vector(0.097, -0.055, -1.325), angle = Angle(0, 0, 0), size = Vector(0.045, 0.045, 0.045), color = Color(255, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} },
+	["Flaregun2"] = { type = "Model", model = "models/hunter/tubes/circle2x2.mdl", bone = "Python", rel = "", pos = Vector(0.166, -0.283, -1.573), angle = Angle(0, 0, 0), size = Vector(0.025, 0.025, 0.025), color = Color(255, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} }
+}
+
+
+SWEP.WElements = {
+	["Flaregun5"] = { type = "Model", model = "models/hunter/blocks/cube05x05x05.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "Flaregun3", pos = Vector(0.493, 0.833, 0.588), angle = Angle(95.422, 0, 0), size = Vector(0.05, 0.125, 0.034), color = Color(0, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} },
+	["Flaregun4"] = { type = "Model", model = "models/items/grenadeammo.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "Flaregun2", pos = Vector(-0.03, 0.449, 0.097), angle = Angle(-180, -7.152, -0.341), size = Vector(0.579, 0.579, 0.211), color = Color(0, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} },
+	["Flaregun2"] = { type = "Model", model = "models/hunter/tubes/circle2x2.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.438, 1.304, -4.025), angle = Angle(-4.042, -86.234, -90.67), size = Vector(0.009, 0.009, 0.009), color = Color(255, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} },
+	["Flaregun3"] = { type = "Model", model = "models/props_c17/pulleyhook01.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "Flaregun4", pos = Vector(0.331, 0.759, 3.214), angle = Angle(173.25, 0.57, -7.858), size = Vector(0.098, 0.098, 0.032), color = Color(0, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} },
+	["Flaregun"] = { type = "Model", model = "models/hunter/tubes/tube1x1x4.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(6.561, 1.603, -3.333), angle = Angle(-94.149, -0.514, 0), size = Vector(0.045, 0.045, 0.045), color = Color(255, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} },
+	["Flaregun6"] = { type = "Model", model = "models/editor/spot_cone.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "Flaregun", pos = Vector(0.068, -0.164, 7.756), angle = Angle(90.512, -102.429, 41.974), size = Vector(0.152, 0.152, 0.152), color = Color(255, 0, 0, 255), surpresslightning = false, material = "models/shiny", skin = 0, bodygroup = {} }
+}
+
+
 end
 
 SWEP.Base				= "weapon_zs_base"
@@ -92,16 +76,8 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching
 
 SWEP.WalkSpeed = SPEED_PISTOL
 
-
-SWEP.IronSightsPos = Vector(-4.59,25,0.65)
-SWEP.IronSightsAng = Vector( 0, 0, 0 )
-if CHRISTMAS then
-	SWEP.VElements = {
-		["xms_lights+"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.elite_right", rel = "", pos = Vector(0, -4.803, -3.602), angle = Angle(90, 90, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-		["xms_lights"] = { type = "Model", model = "models/player/items/scout/xms_scattergun.mdl", bone = "v_weapon.elite_left", rel = "", pos = Vector(0, -5.04, -3.01), angle = Angle(90, 90, 0), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
-end
-
+SWEP.IronSightsPos = Vector(-4.56, -6.314, 1)
+SWEP.IronSightsAng = Vector(0, 0, 0)
 
 function SWEP:PrimaryAttack()
 	if not self:CanPrimaryAttack() then

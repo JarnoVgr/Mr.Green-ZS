@@ -1,9 +1,7 @@
 -- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
 -- See LICENSE.txt for license information
 
-if SERVER then
-	AddCSLuaFile("shared.lua")
-end
+AddCSLuaFile()
 
 --SWEP.PrintName = "Sub-Machine Gun"
 SWEP.PrintName = "Classic SMG"
