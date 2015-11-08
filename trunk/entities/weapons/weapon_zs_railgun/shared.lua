@@ -61,7 +61,7 @@ SWEP.Primary.Damage = 200
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.09
+SWEP.rechargerate = 0.08
 SWEP.startcharge = 0.2
 SWEP.MaxClip = 100
 SWEP.reloadSoundPlayed = false
@@ -78,7 +78,7 @@ function SWEP:Think()
 		else
 
 			if self:GetOwner():GetPerk("Engineer") then
-				self.rechargerate = 0.08 - (0.08*(2*self:GetOwner():GetRank())/100)				
+				self.rechargerate = 0.072 - (0.072*(2*self:GetOwner():GetRank())/100)				
 			end
 
 			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then
