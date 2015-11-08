@@ -73,11 +73,6 @@ local spawnInstantly = false
 function DrawLoadoutMenu()
 	
 	menuTimeOpened = CurTime()
-	print(util.tobool(GetConVar( "_zs_spawndelay" )))
-	
-	if not util.tobool(GetConVar( "_zs_spawndelay" )) then 
-		spawnInstantly = true
-	end
 	
 	MySelf:ConCommand("tooltip_delay 0") 
 	MySelf:ConCommand("r_dynamic 0")
@@ -417,7 +412,7 @@ function DrawLoadoutMenu()
 		if (buttonSpawn.No) then
 			draw.SimpleTextOutlined("Spawn enabled in ".. math.Round(menuTimeOpened+10 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
 		else
-			draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-10 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
+			draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-5 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
 		end
 		if buttonSpawn.No then
 			surface.SetDrawColor(200, 50, 50, math.Clamp(math.sin(CurTime()*6)*200 + 100,0,255))	
@@ -441,7 +436,7 @@ function DrawLoadoutMenu()
 	
 	buttonSpawn.DoClick = function ()
 	
-		if menuTimeOpened + 10 > CurTime() and spawnInstantly == false then
+		if menuTimeOpened + 5 > CurTime() == false then
 			return
 		end
 		Frame:Close()
@@ -456,7 +451,7 @@ function DrawLoadoutMenu()
 	end
 	
 	buttonSpawn.Think = function () 
-		if menuTimeOpened + 10 > CurTime() and spawnInstantly == false then
+		if menuTimeOpened + 5 > CurTime() == false then
 			buttonSpawn.No = true
 		else
 			buttonSpawn.No = false
