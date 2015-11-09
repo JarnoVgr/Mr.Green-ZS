@@ -45,6 +45,10 @@ local trace = util.TraceLine( tr )
 
 end
 
+function ENT:UpdateTransmitState()
+	return TRANSMIT_PVS
+end
+
 function ENT:Think()
 	if ( self.iPoisonTimer <= CurTime() ) then
 		self.iPoisonTimer = CurTime() + 1.5
@@ -56,10 +60,10 @@ function ENT:Think()
 				end
 				if ( CurTime()  >= v.iCanTakePoisonDamage && self:IsVisiblePlayer( v ) ) then
 					v.iCanTakePoisonDamage = CurTime() + self.iTakeDamageDelay
-					if ( v:Team() == 4   ) then
+					if ( v:Team() == 4 ) then
 						v:TakeDamage( self.iDamageAmount, self, self:GetClass() )
 					end
-					if ( v:Team() == 3  ) then
+					if ( v:Team() == 3 ) then
 						if ( v:Health() + self.iHealAmount >= v:GetMaximumHealth() ) then
 							v:SetHealth(v:GetMaximumHealth())		
 						else

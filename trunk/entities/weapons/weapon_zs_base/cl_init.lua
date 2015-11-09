@@ -585,14 +585,15 @@ function SWEP:DrawScope()
 	 -- scope
 	 surface.SetTexture(scope)
 	 surface.SetDrawColor(1, 1, 1, 255)
-	 surface.DrawTexturedRectRotated(x, y, scope_size, scope_size, 0)
+	 surface.DrawTexturedRectRotated(x, y, scope_size * 1.25, scope_size, 0)
 
 	local dist = 0
 	
 	local tr = MySelf:GetEyeTrace()
 	
-	if tr.Hit then
-		dist = math.Round(MySelf:GetShootPos():Distance(tr.HitPos))
-		draw.SimpleTextOutlined("Distance: "..dist, "ChatFont",ScrW()/2+100,ScrH()/2,Color(255,255,255,255),TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,0.1, Color(0,0,0,255))
-	end	
+	-- RIP Sharpshooter + Necrossin
+	--if tr.Hit then
+	--	dist = math.Round(MySelf:GetShootPos():Distance(tr.HitPos))
+	--	draw.SimpleTextOutlined("Distance: "..dist, "ChatFont",ScrW()/2+100,ScrH()/2,Color(255,255,255,255),TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,0.1, Color(0,0,0,255))
+	--end	
 end

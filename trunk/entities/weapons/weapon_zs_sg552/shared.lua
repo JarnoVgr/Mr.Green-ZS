@@ -38,11 +38,11 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_SG552.Single")
-SWEP.Primary.Recoil			= 2
-SWEP.Primary.Damage			= 15
+SWEP.Primary.Recoil			= 1
+SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 24
-SWEP.Primary.Delay			= 0.12
+SWEP.Primary.Delay			= 0.125
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
@@ -63,6 +63,28 @@ SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.10
 SWEP.IronSightsPos = Vector( -6, -8.504, 2.599 )
 SWEP.IronSightsAng = Vector( 0, 2, 0 )
 
+function SWEP:IsScoped()
+	return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.25 <= CurTime()
+end
+
+if CLIENT then
+	SWEP.IronsightsMultiplier = 0.25
+	function SWEP:GetViewModelPosition(pos, ang)
+		if self:IsScoped() then
+			return pos + ang:Up() * 256
+		end
+
+		return self.BaseClass.GetViewModelPosition(self, pos, ang)
+	end
+
+	function SWEP:DrawHUD()
+		if self:IsScoped() then
+			self:DrawScope()
+			
+		end
+		self:DrawCrosshair()	
+	end	
+end
 
 
 --SWEP.IronSightsPos = Vector(6.635, -10.82, 2.678)

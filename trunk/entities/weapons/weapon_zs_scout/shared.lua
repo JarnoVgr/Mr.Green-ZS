@@ -65,15 +65,11 @@ if CHRISTMAS then
 end
 
 function SWEP:IsScoped()
-	if IsValid(self:GetOwner()) and self:GetOwner():GetPerk("_ironaim") then
-		return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.05 <= CurTime()
-	end
 	return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.25 <= CurTime()
 end
 
 if CLIENT then
 	SWEP.IronsightsMultiplier = 0.25
-	--SWEP.MinFOV = GetConVarNumber("fov_desired") * 0.25
 	function SWEP:GetViewModelPosition(pos, ang)
 		if self:IsScoped() then
 			return pos + ang:Up() * 256

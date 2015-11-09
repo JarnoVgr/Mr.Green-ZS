@@ -141,7 +141,7 @@ GM.ChatTitles = {
 GM.HumanWeapons = {    
         --Berserker
         ["weapon_zs_deagle"]  = { Name = "Desert Eagle", Tier = 0, Type = "pistol", Price = 50, HumanClass = "berserker"},	
-        ["weapon_zs_melee_stunstick"]  = { Name = "Stun Stick", Tier = 0, Type = "melee", Price = 60, HumanClass = "berserker" },			
+        ["weapon_zs_melee_stunstick"]  = { Name = "Stun Stick", Tier = 0, Type = "melee", Price = 50, HumanClass = "berserker" },			
         ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", Tier = 1, Type = "melee", Price = 60, HumanClass = "berserker" },  
         ["weapon_zs_melee_pipe2"]  = { Name = "Lead Pipe", Tier = 1, Type = "melee", Price = 60, HumanClass = "berserker"  },		
         ["weapon_zs_melee_axe"]  = { Name = "Axe", Tier = 2, Type = "melee", Price = 100, HumanClass = "berserker" },	
@@ -150,18 +150,18 @@ GM.HumanWeapons = {
         ["weapon_zs_melee_chainsaw"]  = { Name = "Chainsaw", Tier = 4, Type = "melee", Price = 180, HumanClass = "berserker" },   
        
         --Commando
-        ["weapon_zs_defender"]  = { Name = "Defender", Tier = 1, Type = "rifle", Price = 80,HumanClass = "commando"},    
-        ["weapon_zs_famas"]  = { Name = "Famas", Tier = 1, Type = "rifle", Price = 110, HumanClass = "commando" },
-        ["weapon_zs_sg552"]  = { Name = "SG552", Tier = 1, Type = "rifle", Price = 110, HumanClass = "commando" },
+        ["weapon_zs_defender"]  = { Name = "Defender", Tier = 0, Type = "rifle", Price = 80,HumanClass = "commando"},    
+        ["weapon_zs_famas"]  = { Name = "Famas", Tier = 1, Type = "rifle", Price = 100, HumanClass = "commando" },
+        ["weapon_zs_sg552"]  = { Name = "SG552", Tier = 1, Type = "rifle", Price = 100, HumanClass = "commando" },
         ["weapon_zs_m4a1"]  = { Name = "M4A1", Tier = 2, Type = "rifle", Price = 130, HumanClass = "commando" },
         ["weapon_zs_aug"]  = { Name = "Steyr AUG", Tier = 2, Type = "rifle", Price = 130, HumanClass = "commando" }, 		
         ["weapon_zs_ak47"]  = { Name = "AK47", Tier = 3, Type = "rifle", Price = 180, HumanClass = "commando" },         
         ["weapon_zs_galil"]  = { Name = "Galil", Tier = 3, Type = "rifle", Price = 150, HumanClass = "commando" }, 
-        ["weapon_zs_m249"]  = { Name = "M249", Tier = 4, Type = "rifle", Price = 200, HumanClass = "commando" },      		
+        ["weapon_zs_m249"]  = { Name = "M249", Tier = 4, Type = "rifle", Price = 200, HumanClass = "commando" },  		
 		
         --Support
         ["weapon_zs_shotgun"]  = { Name = "Shotgun", Tier = 1, Type = "shotgun", Price = 80, HumanClass = "support" },	
-        ["weapon_zs_smg"]  = { Name = "Classic SMG", Tier = 1, Type = "smg", Price = 80, HumanClass = "support"},
+        ["weapon_zs_smg"]  = { Name = "SMG", Tier = 1, Type = "smg", Price = 80, HumanClass = "support"},
         ["weapon_zs_chipper"]  = { Name = "Chipper", Tier = 2, Price = 120, Type = "shotgun", HumanClass = "support" },       		
         ["weapon_zs_mac10"]  = { Name = "Mac 10", Tier = 2, Type = "smg", Price = 120, HumanClass = "support" },   
         ["weapon_zs_ump"]  = { Name = "UMP", Tier = 3, Type = "smg", Price = 140, HumanClass = "support" },
@@ -169,7 +169,7 @@ GM.HumanWeapons = {
         ["weapon_zs_p90"]  = { Name = "P90", Tier = 4, Type = "smg", Price = 160, HumanClass = "support" },
         ["weapon_zs_m1014"]  = { Name = "M1014", Tier = 4, Type = "shotgun", Price = 190, HumanClass = "support"},		
     
-	       --["weapon_zs_mp5"]  = { Name = "MP5", DPS = 127, Infliction = 0.58, Type = "smg", Price = 300, HumanClass = "support" },
+	    ["weapon_zs_mp5"]  = { Name = "MP5 Navy", Tier = 0, Type = "smg", Price = 80, HumanClass = "support" },
 	
         --Medic
         ["weapon_zs_medi2"]  = { Name = "Medi 2", Tier = 1, Type = "shotgun",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
@@ -183,7 +183,7 @@ GM.HumanWeapons = {
         ["weapon_zs_musket"]  = { Name = "Musket", Tier = 1, Type = "rifle", Description = "Somehow still works.", Price = 100, HumanClass = "sharpshooter"},    
         ["weapon_zs_annabelle"]  = { Name = "Annabelle", Tier = 3, Type = "rifle", Price = 160, HumanClass = "sharpshooter"},   		
         ["weapon_zs_python"]  = { Name = "Python", Tier = 1, Price = 80, Type = "pistol", HumanClass = "sharpshooter"},       
-        ["weapon_zs_scout"]  = { Name = "Scout Sniper", Tier = 2, Type = "rifle", Price = 120, Description = "Light-weight sniper.", HumanClass = "sharpshooter" }, 
+        ["weapon_zs_scout"]  = { Name = "Scout", Tier = 2, Type = "rifle", Price = 120, Description = "Light-weight sniper.", HumanClass = "sharpshooter" }, 
 		["weapon_zs_magnum"]  = { Name = ".357 Magnum", Tier = 2, Type = "pistol", Price = 100, Description = "Russian Roulette Revolver", HumanClass = "sharpshooter" },		
         ["weapon_zs_sg550"]  = { Name = "SG550", Tier = 3, Type = "rifle", Price = 160, HumanClass = "sharpshooter"  },
         ["weapon_zs_g3sg1"]  = { Name = "G3SG1", Tier = 4, Type = "rifle", Price = 180, HumanClass = "sharpshooter"  },
@@ -200,7 +200,7 @@ GM.HumanWeapons = {
 		--Pyro
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", Tier = 0, Type = "pistol", Price = 60}, 
         ["weapon_zs_glock3"]  = { Name = "Glock 3", Tier = 1, Type = "pistol", Price = 80, HumanClass = "pyro" },		
-        ["weapon_zs_glock1"]  = { Name = "Glock 1", Tier = 1, Type = "pistol", Price = 80, HumanClass = "pyro" },		
+        ["weapon_zs_glock1"]  = { Name = "Glock 1", Tier = 0, Type = "pistol", Price = 80, HumanClass = "pyro" },		
 		["weapon_zs_flaregun"]  = { Name = "Flare Gun", Tier = 2, Type = "shotgun", HumanClass = "pyro", Price = 120},
 		["weapon_zs_flaregun_2"]  = { Name = "Baby Flare", Tier = 2, Type = "shotgun", HumanClass = "pyro", Price = 120},
 
@@ -210,14 +210,8 @@ GM.HumanWeapons = {
 		["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", HumanClass = "pyro"},
 		["weapon_zs_firebomb"]  = { Name = "Flame Nade", DPS = 143, Infliction = 0, HumanClass = "pyro"},
 		
-		
-        --Other Class
-       -- ["weapon_zs_crossbow"]  = { Name = "Crossbow", DPS = 220, Infliction = 0, Type = "rifle",Price = 600, HumanClass = "other" },          
-       
-        --Pistols
- 
         --Loadout Guns
-        ["weapon_zs_fiveseven"]  = { Name = "Five Seven", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 50, HumanClass = "medic"},       
+        ["weapon_zs_fiveseven"]  = { Name = "Five SeveN", DPS = 91, Infliction = 0.15, Type = "pistol", Price = 50, HumanClass = "medic"},       
         ["weapon_zs_barreta"]  = { Name = "Barreta", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 50, HumanClass = "medic"},            
         ["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42, Infliction = 0, Type = "pistol", Description = "It's practical!", Price = 50 , HumanClass = "medic"},
         ["weapon_zs_p228"]  = { Name = "P228", DPS = 58, Infliction = 0, Type = "pistol", Description = "More accuracy but less fire power compared to the USP." , Price = 50, HumanClass = "medic"},   
@@ -360,34 +354,7 @@ MAX_RANK = 10
 -- -- -- -- -- -- -- -- -- -- /
 -- [rank] = {unlocks} 
 GM.RankUnlocks = {
-
-	--{{HUMAN CLASSES}}--
-	
-	[0] = {"_medic","_support2","_commando","_berserker","_engineer","_sharpshooter","_pyro", "_none1", "_none2"},
-
-	[1] = {"_medupgr2","_accuracy","_mine" ,"_headshot","_highcal","_bulk","_alyxclip","_support","_vampire"},
-	
-	[2] = {"_medupgr1","_kevlarsupport","_berserk","_blast","_point","_pyrosp","_mobilesupplies"},
-	
-	[3] = {"_nade", "_freeman" ,"_medigun","_pulsepistol", "_kevlarcommando2","_flaregun","_bulletstorm"},
-	
-	[4] = {"_poisonprotect","_bloodmoney","_sboost","_turretsp","_supportregen", "_kevlarcommando","_scorch"},
-	
-	[5] = {"_turret","_psychotic","_repairs", "_supply", "_musket","_burn","_supportweapon"},
-	
-	[6] = {"_combat","_profitable","_ironaim", "_nitrate","_immolate"},
-		
-	[7] = {"_accuracy2","_headhunter","_kevlar2", "_trap","_flarebounce","_slinger"},
-
-	[8] = {"_breakthrough","_reload","_darkenergy","_enforcer","_frictionburn"},	
-
-	[9] = {"_combustion","_executioner","_battlemedic","_supportammo"},
-	
-	[10] = {"_oppressive","_lethal", "_sboost2","_bleed","_pyrokevlar"}
 }
-
--- [name] = {Name = "...", Description = "...", Material = "..." (optional), Slot = (1 or 2)}
---RequiresWeapon = "weapon_zs_tools_hammer",
 
 GM.Perks = {
 
@@ -404,7 +371,7 @@ GM.Perks = {
 	-- Medic	
 
 		["medic_supplies"] = {Name = "Medical Supplies", Description = "+100 medical charge on spawn", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/decal_sprays"},
-		["medic_medigun"] = {Name = "Medic Pistol", Description = "Spawn with the medic pistol", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_fiveseven"},     
+		["medic_medigun"] = {Name = "Medic Pistol", Description = "[TIER 1]\nSpawn with the medic pistol", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_fiveseven"},     
 
 		["medic_bleed"] = {Name = "Bleed", Description = "20% of damage done is applied every second for 5 seconds", Class = "Medic", Slot = 2, Rank = 3, Material = "vgui/achievements/kill_enemy_last_bullet"},              
 		["medic_reward"] = {Name = "Healthy Reward", Description = "+40% SP from healing", Class = "Medic", Slot = 2, Rank = 3, Material = "vgui/achievements/collect_gifts"},
@@ -413,8 +380,7 @@ GM.Perks = {
 		["medic_battlemedic"] = {Name = "Battle Medic", Description = "30% damage resistance from props\n+5% undead damage resistance", Class = "Medic", Slot = 3, Rank = 6, Material = "vgui/achievements/last_player_alive"},
 
 	-- Commando
-		
-		["commando_defender"] = {Name = "Defender", Description = "Spawn with the Defender rifle", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_ak47"},
+		["commando_defender"] = {Name = "Defender", Description = "[TIER 0]\nSpawn with the Defender rifle", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_ak47"},
 		["commando_grenadier"] = {Name = "Grenadier", Description = "+3 grenades on spawn", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/grenade_multikill"},
 
 		["commando_enforcer"] = {Name = "Enforcer", Description = "+25 clip size", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/kill_enemy_last_bullet"},
@@ -426,11 +392,12 @@ GM.Perks = {
 
 		
 	-- Support	
-	
 		["support_boardpack"] = {Name = "Board Pack", Description = "Replace ammo pack with a pack of boards", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/break_windows"},
 		["support_mobilesupplies"] = {Name = "Mobile Supplies", Description = "Replace ammo pack with mobile supplies", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/kills_with_multiple_guns"},
-		["support_shotgun"] = {Name = "Shotgun", Description = "Spawn with a shotgun", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_m3"},
-			   
+		["support_shotgun"] = {Name = "Shotgun", Description = "[TIER 1]\nSpawn with a shotgun", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_m3"},
+		["support_mp5"] = {Name = "MP5", Description = "[TIER 0]\nSpawn with an MP5", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_mp5navy"},
+
+		
 		["support_ammo"] = {Name = "Ammo", Description = "+40% ammo received", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/kill_enemy_reloading"},
 		["support_repairs"] = {Name = "Repairs", Description = "+3 hammer repair points\n+10 nails on spawn", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/snipe_two_from_same_spot"},
 							   
@@ -440,8 +407,8 @@ GM.Perks = {
 	
 	-- Berserker
 		["berserker_none"] = {Name = "None", Description = "None", Class = "Berserker", Slot = 1, Rank = 1, Material = ""},
-		["berserker_hook"] = {Name = "Slinger", Description = "Spawn with a hook", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_knife"},
-		["berserker_oppressor"] = {Name = "Oppressor", Description = "Spawn with a lead pipe", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_last_bullet"},
+		["berserker_hook"] = {Name = "Slinger", Description = "[TIER 1]\nSpawn with a hook", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_knife"},
+		["berserker_oppressor"] = {Name = "Oppressor", Description = "[TIER 1]\nSpawn with a lead pipe", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_last_bullet"},
 		["berserker_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 40% of melee damage and knocks target backwards", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_in_air"},     
 	   
 		["berserker_executioner"] = {Name = "Executioner", Description = "+30% melee damage to targets under or at 30% health", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/pistol_round_knife_kill"},		   
@@ -458,7 +425,7 @@ GM.Perks = {
 	-- Engineer
 		["engineer_bonusturret"] = {Name = "Lockdown", Description = "+1 Turret received on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/bomb_defuse_needed_kit"},
 		["engineer_combatturret"] = {Name = "Combat Turret", Description = "Spawn with a combat turret\nReceives all turret bonuses", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/concurrent_dominations"},
-		["engineer_pulsepistol"] = {Name = "Pulse Pistol", Description = "Spawn with a pulse pistol", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_fiveseven"},
+		["engineer_pulsepistol"] = {Name = "Pulse Pistol", Description = "[TIER 1]\nSpawn with a pulse pistol", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_fiveseven"},
 		["engineer_multimine"] = {Name = "Multi Mine", Description = "+4 C4 on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/goose_chase"},                    
 
 		["engineer_turret"] = {Name = "Turret Overload", Description = "+40 turret stats", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/bomb_defuse_needed_kit"},
@@ -470,7 +437,7 @@ GM.Perks = {
 
 	-- Sharpshooter
 		
-		["sharpshooter_python"] = {Name = "Python", Description = "Spawn with the Python", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/hip_shot"},
+		["sharpshooter_python"] = {Name = "Python", Description = "[TIER 1]\nSpawn with the Python", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/hip_shot"},
 		["sharpshooter_medical"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users and +1 SP for the owner", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/collect_gifts"},              
 
 
@@ -483,13 +450,12 @@ GM.Perks = {
 	-- Pyro
 	
 		["pyro_backfire"] = {Name = "Backfire", Description = "6 pyro ammunition back when target has been ignited", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_reloading"},
-		["pyro_glock3"] = {Name = "Glock 3", Description = "Spawn with the Glock 3", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_glock"},
-		["pyro_glock1"] = {Name = "Glock 1", Description = "Spawn with the Glock 1", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_glock"},
+		["pyro_glock1"] = {Name = "Glock 1", Description = "[TIER 0]\nSpawn with the Glock 1", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_glock"},
 	   
 		["pyro_burn"] = {Name = "Burn", Description = "+5% scorch chance\n+10 scorch damage", Class = "Pyro", Slot = 2, Rank = 3, Material = "hud/t_victories_terrorist-win"}, 
 		["pyro_flare"] = {Name = "Flare Bounce", Description = "+10 flare damage\n75% chance flare doesn't explode on impact", Class = "Pyro", Slot = 2, Rank = 3, Material = "hud/t_victories_rescue-failed"},
 	   
-		["pyro_hotpoints"] = {Name = "Hot Points", Description = "+3 SP when a taget is burnt", Class = "Pyro", Slot = 3, Rank = 5, Material = "vgui/achievements/kill_bomb_pickup"},          
+		["pyro_hotpoints"] = {Name = "Hot Points", Description = "+3 SP when a target is burnt", Class = "Pyro", Slot = 3, Rank = 5, Material = "vgui/achievements/kill_bomb_pickup"},          
 		["pyro_immolate"] = {Name = "Immolate", Description = "Burn the target that damages you", Class = "Pyro", Slot = 3, Rank = 5, Material = "hud/t_victories_counter-terrorist-eliminated"},
 	
 	

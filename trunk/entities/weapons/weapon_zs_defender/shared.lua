@@ -55,10 +55,10 @@ SWEP.HumanClass = "commando"
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("weapons/ak47/ak47-1.wav")
-SWEP.Primary.Recoil			= 1.5
-SWEP.Primary.Damage			= 12
+SWEP.Primary.Recoil			= 1.52
+SWEP.Primary.Damage			= 11
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 20
+SWEP.Primary.ClipSize		= 22
 SWEP.Primary.Delay			= 0.15
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= true
@@ -67,11 +67,11 @@ SWEP.Primary.Ammo			= "ar2"
 SWEP.MaxBulletDistance 		= 3500
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.06
-SWEP.ConeMoving = SWEP.Cone *1.2
-SWEP.ConeCrouching = SWEP.Cone *0.8
-SWEP.ConeIron = SWEP.Cone *0.7
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.7
+SWEP.Cone = 0.059
+SWEP.ConeMoving = SWEP.Cone *1.05
+SWEP.ConeCrouching = SWEP.Cone *0.7
+SWEP.ConeIron = SWEP.Cone *0.65
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.65
 --SWEP.ConeIronMoving = SWEP.Moving *0.7
 
 function SWEP:EmitFireSound()

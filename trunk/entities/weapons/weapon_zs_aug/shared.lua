@@ -35,7 +35,7 @@ SWEP.PrintName			= "AUG"
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AUG.Single")
-SWEP.Primary.Recoil			= 1.5
+SWEP.Primary.Recoil			= 1.2
 SWEP.Primary.Damage			= 13
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 30
@@ -49,8 +49,8 @@ SWEP.HumanClass = "commando"
 SWEP.Cone = 0.06
 SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.7
-SWEP.ConeIron = SWEP.Cone *0.6
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.6
+SWEP.ConeIron = SWEP.Cone *0.1
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.1
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
@@ -59,3 +59,25 @@ SWEP.WalkSpeed = SPEED_RIFLE
 SWEP.IronSightsPos = Vector(-4, 0, 2)
 SWEP.IronSightsAng = Vector(0,0,0)
 
+function SWEP:IsScoped()
+	return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.25 <= CurTime()
+end
+
+if CLIENT then
+	SWEP.IronsightsMultiplier = 0.25
+	function SWEP:GetViewModelPosition(pos, ang)
+		if self:IsScoped() then
+			return pos + ang:Up() * 256
+		end
+
+		return self.BaseClass.GetViewModelPosition(self, pos, ang)
+	end
+
+	function SWEP:DrawHUD()
+		if self:IsScoped() then
+			self:DrawScope()
+			
+		end
+		self:DrawCrosshair()	
+	end	
+end
