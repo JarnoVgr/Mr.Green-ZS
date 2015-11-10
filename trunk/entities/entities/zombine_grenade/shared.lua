@@ -7,7 +7,7 @@ ENT.Type = "anim"
 ENT.BoomTime, ENT.Boom = 0, 5
 
 -- Distance to blow
-ENT.MaximumDist = 280
+ENT.MaximumDist = 220
 
 -- Pause for beep
 ENT.BeepTime = 0

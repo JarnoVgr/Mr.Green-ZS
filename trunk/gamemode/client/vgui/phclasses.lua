@@ -23,7 +23,7 @@ perkButtons = {}
 Loadout = {}
 
 local Frame = vgui.Create( "DFrame" )
-
+Frame:SetVisible( false )
 
 function updateSelectedClass(classSelected)
 	local filename = "zombiesurvival/loadouts/".. classSelected ..".txt"

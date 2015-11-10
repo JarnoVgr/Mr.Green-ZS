@@ -198,7 +198,7 @@ function ENT:Explode()
 	end
 	Ent:SetOwner( self:GetOwner() )
 	Ent:Activate()
-	Ent:SetKeyValue( "iMagnitude", math.Clamp ( math.Rand ( 89,99), 30, 140 ) )
+	Ent:SetKeyValue( "iMagnitude", 120 )
 	--Ent:SetKeyValue( "iRadiusOverride", math.Clamp ( math.Rand ( 50,120), 5, 130 )  )
 	Ent:Fire("explode", "", 0)
 	
