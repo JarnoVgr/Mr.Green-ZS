@@ -42,8 +42,8 @@ SWEP.Primary.Sound			= Sound( "Weapon_Glock.Single" )
 SWEP.Primary.Recoil			= 1.8
 SWEP.Primary.Damage			= 9
 SWEP.Primary.NumShots		= 3
-SWEP.Primary.ClipSize		= 21
-SWEP.Primary.Delay			= 0.24
+SWEP.Primary.ClipSize		= 7
+SWEP.Primary.Delay			= 0.26
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "alyxgun"
@@ -51,7 +51,7 @@ SWEP.MaxAmmo			    = 100
 SWEP.WalkSpeed = SPEED_PISTOL
 
 
-SWEP.Cone = 0.145
+SWEP.Cone = 0.14
 SWEP.ConeMoving = SWEP.Cone *1.05
 SWEP.ConeCrouching = SWEP.Cone *0.98
 SWEP.ConeIron = SWEP.Cone *0.99
@@ -63,7 +63,3 @@ SWEP.IronSightsPos = Vector(-5.8,16,2)
 SWEP.IronSightsAng = Vector( 0, 0, 0 )
 
 SWEP.TracerName = "AirboatGunTracer"
-
-function SWEP:TakeAmmo()
-	self:TakePrimaryAmmo(3)	
-end

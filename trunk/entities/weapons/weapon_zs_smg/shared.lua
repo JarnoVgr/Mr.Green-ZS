@@ -4,7 +4,7 @@
 AddCSLuaFile()
 
 --SWEP.PrintName = "Sub-Machine Gun"
-SWEP.PrintName = "Classic SMG"
+SWEP.PrintName = "SMG"
 
 if CLIENT then		
 	SWEP.Author	= "Deluvas"
@@ -55,7 +55,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AR2.NPC_Single")
 SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 7
+SWEP.Primary.Damage			= 8
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 40
 SWEP.Primary.Delay			= 0.095
@@ -67,7 +67,7 @@ SWEP.MaxAmmo			    = 250
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 
-SWEP.ConeMoving = 0.072
+SWEP.ConeMoving = 0.076
 SWEP.Cone = 0.062
 SWEP.ConeCrouching = 0.06
 SWEP.ConeIron = SWEP.Cone *0.7

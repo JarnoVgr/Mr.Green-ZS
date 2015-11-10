@@ -56,7 +56,7 @@ SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("weapons/ak47/ak47-1.wav")
 SWEP.Primary.Recoil			= 1.52
-SWEP.Primary.Damage			= 11
+SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 22
 SWEP.Primary.Delay			= 0.15

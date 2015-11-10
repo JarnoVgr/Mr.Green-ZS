@@ -492,7 +492,7 @@ function drawPerks(Perk, y, numPerks)
 		Perk[i].Paint = function( self, w, h )
 			if Perk[i].Disabled then return end
 			draw.RoundedBox( 0, 0, 0, w, h, Color( 110, 90, 90, 100 ) )
-		end		
+		end	
 
 		Perk[i].PaintOver = function ()
 		

@@ -691,6 +691,8 @@ function CalculatePlayerLoadout(pl)
 			pl:Give("weapon_zs_shotgun")
 			pl.Tier = 2
 			pl.SPRequired = 130				
+		elseif pl:GetPerk("support_mp5") then
+			pl:Give("weapon_zs_mp5")		
 		end
 
 		if pl:GetPerk("support_boardpack") then
