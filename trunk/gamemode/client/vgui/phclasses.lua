@@ -145,11 +145,11 @@ function DrawLoadoutMenu()
 	FrameText:SetSize( frameSizeWidth * 0.4, frameSizeHeight * 0.32 ) 
 	FrameText:SetEditable( false )
 	FrameText:SetValue("")
-	FrameText:SetFont("Trebuchet24")
+	FrameText:SetFont("Trebuchet18")
 	FrameText:SetMultiline( true )	
 	
 	FrameText.PaintOver = function ()
-		draw.DrawText(" Welcome to the new class selection menu!\n Report any bugs/issues or post suggestions on the forums.", "Trebuchet24", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)
+		draw.DrawText("[DOUBLE XP ACTIVATED]\n Welcome to the new class selection menu!\n Report any bugs/issues or post suggestions on the forums.", "Trebuchet24", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)
 	end	
 	
 	local buttonWeb = vgui.Create( "DButton", Frame)
