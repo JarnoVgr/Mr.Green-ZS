@@ -44,8 +44,6 @@ if SERVER then
 			mul = mul + 0.1
 		end
 
-		
-		
 		if activator:GetPerk("Support") then
 			mul = mul + activator:GetRank()*0.02
 		end	
@@ -60,26 +58,23 @@ if SERVER then
 			--if Automatic or Pistol then
 				local WeaponToFill = activator:GetActiveWeapon()		
 				local AmmoType
-						
-						
-						--print(WeaponToFill:GetPrimaryAmmoTypeString());
+
+				--print(WeaponToFill:GetPrimaryAmmoTypeString());
 				--if IsValid(WeaponToFill) and (GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "tool1") then
 					AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
 				--else
 				--	AmmoType = "pistol"
 				--end
-							
-					if AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none" then
-						WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
-					else
-					
-					--print(WeaponToFill:GetClass())
-					--if WeaponToFill:GetClass() == "weapon_zs_tools_hammer" then
-					--	WeaponToFill:SetClip2(WeaponToFill:Clip2()+2)
-					--end
-					
+						
+				if AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none" then
+					WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
+				else
 				
-													
+				--print(WeaponToFill:GetClass())
+				--if WeaponToFill:GetClass() == "weapon_zs_tools_hammer" then
+				--	WeaponToFill:SetClip2(WeaponToFill:Clip2()+2)
+				--end
+				
 				-- How much ammo to give
 				local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType]
 				

@@ -86,8 +86,6 @@ function skillpoints.AddSkillPoints(pl, amount)
 		skillpoints.TakeSkillPoints(pl,pl.SPRequired)
 		pl.SPRequired = pl.SPRequired + 30
 		
-		
-		
 		if pl.Tier > 5 then
 			pl:EmitSound("items/gift_pickup.wav" )
 			pl:GiveAmmo( 20, "pistol" )	
@@ -103,7 +101,6 @@ function skillpoints.AddSkillPoints(pl, amount)
 		local item = "zs_ammobox"		
 		local possibleWeapons = {}
 		
-		
 		for wep,tab in pairs(GAMEMODE.HumanWeapons) do
 			if tab.Tier and tab.HumanClass then
 				if tab.HumanClass ~= pl:GetHumanWeaponClass() then continue end
@@ -112,7 +109,6 @@ function skillpoints.AddSkillPoints(pl, amount)
 			end
 		end		
 		
-		PrintTable(possibleWeapons)
 		pl.Tier = pl.Tier + 1
 		
 		net.Start("tier")
@@ -122,15 +118,11 @@ function skillpoints.AddSkillPoints(pl, amount)
 		item = table.Random(possibleWeapons)
 		
 		local weaponType = GetWeaponType(item)
+		local ammoType = 0
+		local ammoCount = 0
 		
-		if weaponType == "pistol" then
-			local Pistol = pl:GetPistol()
-			if IsValid(Pistol) then		
-				pl:StripWeapon(Pistol:GetClass())
-			end
-			pl:Give(item)			
-			pl:SelectWeapon(item)
-		elseif weaponType == "melee" then
+		if weaponType == "melee" then
+		
 			local Melee = pl:GetMelee()
 			if (Melee) then		
 				pl:StripWeapon(Melee:GetClass())
@@ -139,26 +131,37 @@ function skillpoints.AddSkillPoints(pl, amount)
 			pl:Give(item)			
 			pl:SelectWeapon(item)				
 						
-		elseif weaponType == "smg" || weaponType == "rifle" || weaponType == "shotgun" then
+		elseif (weaponType == "smg" || weaponType == "rifle" || weaponType == "shotgun" || weaponType == "pistol") then
 			
-			if (pl:GetAutomatic()) then
-				pl:StripWeapon(pl:GetAutomatic():GetClass())
+			local weapon = nil
+			
+			if (weaponType == "pistol") then
+				weapon = pl:GetPistol()
+			else
+				weapon = pl:GetAutomatic()			
 			end
 			
+			if (weapon) then
+			    pl:SelectWeapon(weapon:GetClass())
+				ammoType = pl:GetActiveWeapon().Primary.Ammo
+				ammoCount = pl:GetAmmoCount(pl:GetActiveWeapon():GetPrimaryAmmoType())
+				pl:StripWeapon(weapon:GetClass())
+				
+			end
 			pl:Give(item)
 			pl:SelectWeapon(item)	
-
+			pl:GiveAmmo(ammoCount or 20, pl:GetActiveWeapon().Primary.Ammo or "pistol")			
+			
+		elseif item == "weapon_zs_turretplacer" then
+		
+			if (pl:HasWeapon(item)) then
+				pl:GiveAmmo( 1, "SniperRound" )
+				pl:Message("+1 turret", nil, 1, 2)				
+			else
+				pl:Give(item)			
+			end
+		
 		else
-		
-		if item == "weapon_zs_turretplacer" then
-			pl:Give(item)
-			pl:SelectWeapon(item)				
-			pl:GiveAmmo( 1, "SniperRound" )
-			pl:Message("Bonus turret received", nil, 1, 2)	
-			pl:EmitSound("items/gift_pickup.wav" )	
-			return true
-		end
-		
 			local itemToSpawn = ents.Create(item)	
 			if IsValid(itemToSpawn) then
 			
@@ -179,7 +182,6 @@ function skillpoints.AddSkillPoints(pl, amount)
 		end
 		pl:EmitSound("items/gift_pickup.wav" )	
 	end		
-	
 	return true
 end
 
