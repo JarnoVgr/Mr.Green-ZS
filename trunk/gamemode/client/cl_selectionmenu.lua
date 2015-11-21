@@ -230,8 +230,6 @@ function PaintNewWeaponSelection()
 	if util.tobool(GetConVarNumber("zs_hidehud")) or not IsValid(MySelf) or not MySelf:Alive() or MySelf:Team() ~= TEAM_HUMAN or ENDROUND or not MySelf.ReadySQL then
 		return
 	end
-	
-	--[[
 
 	if not storedicons then
 		for wep,t in pairs(GAMEMODE.HumanWeapons) do
@@ -242,10 +240,10 @@ function PaintNewWeaponSelection()
 		-- PrintTable(StoredIcons)
 		storedicons = true
 	end
-	]]--
+	
 	local AmmoStepX,AmmoStepY = ScrW()*0.06,ScrH()*0.18
 	local AmmoW,AmmoH = ScrW()*0.05,ScrH()*0.065
-	local AmmoX,AmmoY = ScrW()-AmmoW-AmmoStepX*0.5, ScrH()-AmmoH-AmmoStepY*1.5
+	local AmmoX,AmmoY = ScrW()-AmmoW-AmmoStepX*0.5, ScrH()-AmmoH-AmmoStepY*2
 	
 	MySelf.WepX,MySelf.WepY = AmmoX, AmmoY
 	MySelf.WepW,MySelf.WepH = AmmoW, AmmoH
@@ -286,119 +284,135 @@ function PaintNewWeaponSelection()
 	local SLOT_POS = {}
 	-- Calculate the distance (height) between each
 	local Offset = {}
-	local counter = 0.5
+	local counter = 1
 	for i = 0,MaximumSlots do
 			if IsSlot[MaximumSlots - i] then
 					SLOT_POS[MaximumSlots - i] = { PosX = MySelf.WepX, PosY = MySelf.WepY - counter*MySelf.WepH }
-					counter = counter + 0.5
+					counter = counter + 1
 			end
 	end
 
 	local AlphaLockTime = 1.5
 
+	--Check if we still need to display the weapons
+	--if HideSelectionTime <= (CurTime()-AlphaLockTime) then
+		--ShowWeapons = false
+	--end
+	
+	--Return if we don't want it to be displayed
+	--if not ShowWeapons then
+	--	return
+	--end
+
 	--Calculate alpha levels
 	local AlphaSelected = math.Clamp((HideSelectionTime - (CurTime()-AlphaLockTime)) / (HideSelectionTime - LastScroll),0,1)
 	local AlphaNonSelected = math.Clamp((HideSelectionTime - (CurTime()-(AlphaLockTime/2))) / (HideSelectionTime - LastScroll),0,1)
 
+
 	--Draw panels
 	for i = 0, MaximumSlots do
-
 		if not IsSlot[i] then
 			continue
 		end
 
 		
 		--Specify what alpha formula to use
-		local Alpha = AlphaSelected
+		local Alpha
+		if IsSlotActive[i] then
+			Alpha = AlphaSelected
+		else
+			Alpha = AlphaNonSelected
+		end
 
 		--Background	
 		--surface.SetMaterial(WeaponSelectionBackground)
 		--surface.SetDrawColor(100, 225, 225, 255*Alpha)
 		--surface.DrawTexturedRect(SLOT_POS[i].PosX-60, SLOT_POS[i].PosY-400, 340, 175-2, 180)
-		local colourDesc = Color(255, 255, 255, math.Clamp(160*AlphaNonSelected, 0, 255))
+
+		if !IsSlotActive[i] and Alpha == 0 then continue end
 		
-		if !IsSlotActive[i] and AlphaNonSelected == 0 then continue end
 		
 		--Weapon icon			
-		local colourTitle
+		local ColorToDraw = Color(255, 255, 255, math.Clamp(160*Alpha, 0, 255))
 		local NameHeight = SLOT_POS[i].PosY
-
-		selection = {"" , ""}
+		FontSize = "ssNewAmmoFont5"		
 		
-		if IsSlotActive[i] then	
+		if IsSlotActive[i] then
 
-			colourDesc = Color(228, 248, 236, math.Clamp(255*AlphaNonSelected, 0, 255))		
+			FontSize = "ssNewAmmoFont6"
+			NameHeight = NameHeight - ScrH()*0.015
+			Alpha = AlphaSelected + 20
 			
-			if MyWeapons[i].HumanClass == "medic" then
-				colourTitle = Color(100, 230, 130, math.Clamp(160, 0, 255))
-			elseif MyWeapons[i].HumanClass == "berserker" then
-				colourTitle = Color(255, 141, 147, math.Clamp(160, 0, 255))
-			elseif MyWeapons[i].HumanClass == "pyro" then
-				colourTitle = Color(255, 178, 62, math.Clamp(160, 0, 255))		
-			elseif MyWeapons[i].HumanClass == "sharpshooter" then
-				colourTitle = Color(127, 181, 120, math.Clamp(160, 0, 255))		
-			elseif MyWeapons[i].HumanClass == "commando" then
-				colourTitle = Color(188, 168, 255, math.Clamp(160, 0, 255))		
-			elseif MyWeapons[i].HumanClass == "engineer" then
-				colourTitle = Color(30, 228, 255, math.Clamp(160, 0, 255))	
-			elseif MyWeapons[i].HumanClass == "support" then
-				colourTitle = Color(255, 182, 238, math.Clamp(160, 0, 255))					
-			end					
 			
-			selection = {"[","]"}
-			Alpha = Alpha + 20
-			
-			--surface.SetDrawColor(18, 29, 18, 240 )
-			draw.RoundedBox(0, ScrW()*0.62, ScrH() - ScrH()*0.079, ScrW()*0.2175, ScrH()*0.079, Color(20, 26, 20, 150))
-			--draw.RoundedBox( number cornerRadius
-			
-			draw.SimpleText(MyWeapons[i].PrintName, "Trebuchet24", ScrW()*0.6225, ScrH() - ScrH()*0.08, colourTitle , TEXT_ALIGN_LEFT, TEXT_ALIGN_RIGHT,1,Color(0, 0, 0, math.Clamp(160*Alpha + 40, 0, 255)))
-			
-			local price = "[Price " .. math.Round((GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Price) * 0.5) .. "]"	
-			local tier = "[Tier 0]"
-			local meleeDamage = 0
-			local bulletDamage = 0
-			local bulletAmmo = 0
-			
-			if (GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Tier) then
-				tier = "[T" .. GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Tier .. "]"
-			end
-			
-			if (MyWeapons[i].MeleeDamage) then
-				meleeDamage = "[DMG " .. MyWeapons[i].MeleeDamage .. "]"
-			end
-			
-			if (MyWeapons[i].Primary.Damage) then
-				bulletDamage = "[DMG " .. MyWeapons[i].Primary.Damage .. "]"
-			end
-			
-			if (MyWeapons[i]:Clip1() and MySelf:GetAmmoCount(MyWeapons[i]:GetPrimaryAmmoType())) then
-				bulletAmmo = "[" .. MyWeapons[i]:Clip1() .. " | " .. MySelf:GetAmmoCount(MyWeapons[i]:GetPrimaryAmmoType()) .. "]"			
-			end
-			
-			if (MyWeapons[i]:Clip2() and not MyWeapons[i].Primary.Damage ) then
-				bulletAmmo = "[" .. MyWeapons[i]:Clip1() .. "]"
-			end
+			local dmg = 0
+			local clip1 = 0
+			local clip2 = 0
+			local clip3 = 0
+			if MyWeapons[i] then			
+				if MyWeapons[i].Primary.Damage then
+					if MyWeapons[i].Primary.NumShots then
+						clip1 = MyWeapons[i]:Clip1()
+						clip2 = MySelf:GetAmmoCount(MyWeapons[i]:GetPrimaryAmmoType())
+						dmg = MyWeapons[i].Primary.Damage * MyWeapons[i].Primary.NumShots
+						
 
-			
-			if (MyWeapons[i].MeleeDamage) then
-				if (MyWeapons[i]:Clip2()) then
-					draw.DrawText("[" .. MyWeapons[i]:Clip2() .. "]" .. meleeDamage .. " " ..price .. "" ..tier, "HudHintTextLarge", ScrW()*0.625, ScrH() - ScrH()*0.0425,  colourDesc , TEXT_ALIGN_LEFT)
-				else
-					draw.DrawText(meleeDamage .. " " ..price .. "" ..tier, "HudHintTextLarge", ScrW()*0.625, ScrH() - ScrH()*0.0425,  colourDesc , TEXT_ALIGN_LEFT)
+					end
+				elseif MyWeapons[i].MeleeDamage then					
+					dmg = MyWeapons[i].MeleeDamage
+					clip3 = MyWeapons[i]:Clip2()
 				end
-			elseif (MyWeapons[i].Primary.Damage and MyWeapons[i].Primary.Damage > 0) then	
-				draw.DrawText(bulletAmmo .. "" ..bulletDamage .. " " ..price .. "" ..tier, "HudHintTextLarge", ScrW()*0.625, ScrH() - ScrH()*0.0425,  ColorToDraw , TEXT_ALIGN_LEFT)	
-			else
-				draw.DrawText(bulletAmmo .. " " ..price .. "" ..tier, "HudHintTextLarge", ScrW()*0.625, ScrH() - ScrH()*0.0425,  ColorToDraw , TEXT_ALIGN_LEFT)					
-			end						
+			end
+			
+			clip1 = MyWeapons[i]:Clip1()
 
-		else
-			selection = {"",""}
+			ColorToDraw = Color(220, 240, 230, math.Clamp(100*Alpha + 155, 0, 255))
+
+		
+			if clip1 > 0 || clip2 > 0 then
+				draw.SimpleTextOutlined(clip1, "ssNewAmmoFont9", SLOT_POS[i].PosX + ScrW()*0.005, NameHeight + ScrH()*0.021,  ColorToDraw , TEXT_ALIGN_RIGHT, TEXT_ALIGN_RIGHT,1, Color(0, 0, 0, math.Clamp(160*Alpha + 155, 0, 255)))
+				
+				if clip2 > 0 then
+					draw.SimpleTextOutlined(clip2, "ssNewAmmoFont5", SLOT_POS[i].PosX + ScrW()*0.01, NameHeight + ScrH()*0.027,  ColorToDraw , TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0, 0, 0, math.Clamp(160*Alpha + 155, 0, 255)))
+				end
+								
+				if dmg > 0 then
+					draw.SimpleTextOutlined("DMG " .. dmg, "ssNewAmmoFont5", SLOT_POS[i].PosX + ScrW()*0.03, NameHeight + ScrH()*0.027,  ColorToDraw , TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0, 0, 0, math.Clamp(160*Alpha + 155, 0, 255)))
+				end
+				
+			elseif clip1 < 1 and clip3 > 0 then
+				if dmg > 0 then
+					draw.SimpleTextOutlined("DMG " .. dmg, "ssNewAmmoFont5", SLOT_POS[i].PosX + ScrW()*0.02, NameHeight + ScrH()*0.027,  ColorToDraw , TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0, 0, 0, math.Clamp(160*Alpha + 155, 0, 255)))
+				end
+				
+				draw.SimpleTextOutlined(clip3, "ssNewAmmoFont9", SLOT_POS[i].PosX + ScrW()*0.005, NameHeight + ScrH()*0.021,  ColorToDraw , TEXT_ALIGN_RIGHT, TEXT_ALIGN_RIGHT,1, Color(0, 0, 0, math.Clamp(160*Alpha + 155, 0, 255)))
+		
+			elseif dmg > 0 then
+				draw.SimpleTextOutlined("DMG " .. dmg, "ssNewAmmoFont5", SLOT_POS[i].PosX, NameHeight + ScrH()*0.027,  ColorToDraw , TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0, 0, 0, math.Clamp(160*Alpha + 155, 0, 255)))
+			end
 		end
 		
+		if MyWeapons[i].HumanClass == "medic" then
+			ColorToDraw = Color(100, 230, 130, math.Clamp(160*Alpha, 0, 255))
+		elseif MyWeapons[i].HumanClass == "berserker" then
+			ColorToDraw = Color(255, 141, 147, math.Clamp(160*Alpha, 0, 255))
+		elseif MyWeapons[i].HumanClass == "pyro" then
+			ColorToDraw = Color(255, 178, 62, math.Clamp(160*Alpha, 0, 255))		
+		elseif MyWeapons[i].HumanClass == "sharpshooter" then
+			ColorToDraw = Color(127, 181, 120, math.Clamp(160*Alpha, 0, 255))		
+		elseif MyWeapons[i].HumanClass == "commando" then
+			ColorToDraw = Color(188, 168, 255, math.Clamp(160*Alpha, 0, 255))		
+		elseif MyWeapons[i].HumanClass == "engineer" then
+			ColorToDraw = Color(30, 228, 255, math.Clamp(160*Alpha, 0, 255))	
+		elseif MyWeapons[i].HumanClass == "support" then
+			ColorToDraw = Color(255, 182, 238, math.Clamp(160*Alpha, 0, 255))					
+		end
+
+		local price = GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Price
+
+		price = math.Round(price * 0.5)
+		
 		--Weapon name
-		draw.SimpleText(selection[1] .. MyWeapons[i].PrintName .. selection[2], "Trebuchet24", SLOT_POS[i].PosX + MySelf.WepW * 1.25, NameHeight, colourDesc , TEXT_ALIGN_RIGHT, TEXT_ALIGN_RIGHT,1,Color(0, 0, 0, math.Clamp(160*Alpha, 0, 255)))
+		draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name .. " (" .. price .. " SP)", FontSize, SLOT_POS[i].PosX + MySelf.WepW * 1.25, NameHeight, ColorToDraw , TEXT_ALIGN_RIGHT, TEXT_ALIGN_RIGHT,1,Color(0, 0, 0, math.Clamp(160*Alpha + 40, 0, 255)))
 	end
 end
 hook.Add("HUDPaintBackground", "PaintSelection", PaintNewWeaponSelection)

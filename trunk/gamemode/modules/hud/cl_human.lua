@@ -265,7 +265,7 @@ function hud.DrawSkillPoints()
 	
 	surface.SetDrawColor(200, 200, 200, 200 )
 	surface.DrawRect( spBarX, spBarY  - ScrH()*0.005, ScrW()*0.002, ScrH()*0.015 )
-	surface.DrawRect( spBarX + ScrW()*0.13 - ScrW()*0.002, spBarY - ScrH()*0.005, ScrW()*0.002, ScrH()*0.015 )
+	surface.DrawRect( spBarX + ScrW()*0.13 - ScrW()*0.001, spBarY - ScrH()*0.005, ScrW()*0.002, ScrH()*0.015 )
 
 	if tier < 5 then
 		draw.SimpleText("T" .. tier .. " Weapon Drop: " .. SPRequired - MySelf:GetScore() .. " SP", "HudHintTextLarge", spBarX + (ScrW()*0.13 * 0.5), ScrH()/1.0425, Color( 255, 255, 255, 245 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )	
