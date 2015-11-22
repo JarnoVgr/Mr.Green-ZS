@@ -51,11 +51,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					dmg = dmg + 6
 					GAMEMODE:OnPlayerHowlered(ent, 2)			
 				end
-				
-				if attacker:GetPerk("medic_bleed") then
-					ent:TakeDamageOverTime(dmg*0.2, 1, 5, attacker, inflictor )	
-				end
-				
+						
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "alyxgun" and attacker:GetPerk("Pyro") then
 				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
 				local burnchance = 100 - attacker:GetRank() * 1	
@@ -132,9 +128,12 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					end
 					dmg = dmg + (dmg * mul)		
 					
+					if attacker:GetPerk("berserker_barbed") then
+						ent:TakeDamageOverTime(dmg*0.2, 2, 3, attacker, inflictor )	
+					end
 
 
-					if attacker:GetPerk("berserker_dunker") then
+					if attacker:GetPerk("berserker_battlecharge") then
 						local bonus = attacker:GetVelocity().z * -1					
 						dmg = math.Clamp((((bonus*dmg) * 0.005) + dmg),dmg,dmg*5) 
 					end
@@ -182,6 +181,9 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					ent:EmitSound(Sound("npc/fast_zombie/fz_scream1.wav"), 90, 85)
 					ent:SetColor(Color(255,125,125))
 				end
+			elseif ent:GetPerk("berserker_porcupine") then
+				attacker:TakeDamage(dmg*0.33, ent, ent:GetActiveWeapon)	
+			end
 
 			elseif ent:GetPerk("pyro_immolate") then
 				attacker:Ignite(4,0)			

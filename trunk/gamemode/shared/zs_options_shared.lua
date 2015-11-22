@@ -141,12 +141,12 @@ GM.ChatTitles = {
 GM.HumanWeapons = {    
         --Berserker
         ["weapon_zs_deagle"]  = { Name = "Desert Eagle", Tier = 0, Type = "pistol", Price = 50, HumanClass = "berserker"},	
-        ["weapon_zs_melee_stunstick"]  = { Name = "Stun Stick", Tier = 0, Type = "melee", Price = 50, HumanClass = "berserker" },			
-        ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", Tier = 1, Type = "melee", Price = 60, HumanClass = "berserker" },  
+        ["weapon_zs_melee_stunstick"]  = { Name = "Stun Stick", Tier = 1, Type = "melee", Price = 50, HumanClass = "berserker" },			
+        ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", Tier = 0, Type = "melee", Price = 60, HumanClass = "berserker" },  
         ["weapon_zs_melee_pipe2"]  = { Name = "Lead Pipe", Tier = 1, Type = "melee", Price = 60, HumanClass = "berserker"  },		
         ["weapon_zs_melee_axe"]  = { Name = "Axe", Tier = 2, Type = "melee", Price = 100, HumanClass = "berserker" },	
-        ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", Tier = 3, Type = "melee", Price = 150, HumanClass = "berserker" },
-        ["weapon_zs_melee_katana"]  = { Name = "Katana", Tier = 4, Type = "melee", Price = 160 , HumanClass = "berserker"},
+        ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", Tier = 2, Type = "melee", Price = 150, HumanClass = "berserker" },
+        ["weapon_zs_melee_katana"]  = { Name = "Katana", Tier = 3, Type = "melee", Price = 160 , HumanClass = "berserker"},
         ["weapon_zs_melee_chainsaw"]  = { Name = "Chainsaw", Tier = 4, Type = "melee", Price = 180, HumanClass = "berserker" },   
        
         --Commando
@@ -374,7 +374,6 @@ GM.Perks = {
 		["medic_medigun"] = {Name = "Medic Pistol", Description = "[TIER 1]\nSpawn with the medic pistol", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_fiveseven"},     
 
 		["medic_overheal"] = {Name = "Overheal", Description = "Heal humans +10% of their maximum health", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/meta_rifle.vtf"},              			
-		["medic_bleed"] = {Name = "Bleed", Description = "20% of damage done is applied every second for 5 seconds", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/kill_enemy_last_bullet"},              
 		["medic_reward"] = {Name = "Healthy Reward", Description = "+40% SP from healing", Class = "Medic", Slot = 2, Rank = 3, Material = "vgui/achievements/collect_gifts"},
 		["medic_antivenom"] = {Name = "Anti Venom", Description = "Healing an undead with a medigun will poison them", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/lossless_extermination.vtf"},
 
@@ -410,19 +409,18 @@ GM.Perks = {
 		["support_health"] = {Name = "Health", Description = "+50 maximum health", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/last_player_alive"},
 	
 	-- Berserker
-		["berserker_none"] = {Name = "None", Description = "None", Class = "Berserker", Slot = 1, Rank = 1, Material = ""},
-		["berserker_hook"] = {Name = "Slinger", Description = "[TIER 1]\nSpawn with a hook", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_knife"},
+		["berserker_hook"] = {Name = "Slinger", Description = "[TIER 0]\nSpawn with a hook", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_knife"},
 		["berserker_oppressor"] = {Name = "Oppressor", Description = "[TIER 1]\nSpawn with a lead pipe", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_last_bullet"},
 		["berserker_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 40% of melee damage and knocks target backwards", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_in_air"},     
+		["berserker_barbed"] = {Name = "Barbed Weaponry", Description = "20% of damage done is applied every 2 seconds for 3 seconds", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_last_bullet"},              
 	   
 		["berserker_executioner"] = {Name = "Executioner", Description = "+30% melee damage to targets under or at 30% health", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/pistol_round_knife_kill"},		   
 		["berserker_maniac"] = {Name = "Maniac", Description = "+25% health from melee kills\n+50% melee swing", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/win_pistolrounds_med"},               
 		["berserker_headhunter"] = {Name = "Head Hunter", Description = "+20% melee damage on heads\n Daze target when struck on the head", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
-		["berserker_battlecharge"] = {Name = "Battle Charge", Description = "Increased leap power", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/kill_enemy_in_air"}, 
+		["berserker_battlecharge"] = {Name = "Battle Charge", Description = "Bonus damage received when falling, maximum +500% damage\nIncreased leap power", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/kill_enemy_in_air"}, 
 		
-		
-		["berserker_dunker"] = {Name = "Dunker", Description = "Increased melee damage the faster you're falling", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/kill_enemy_in_air"},		
-		["berserker_bloodmoney"] = {Name = "Blood Money", Description = "+6 SP from melee kills", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/win_knife_fights_low"},
+		["berserker_porcupine"] = {Name = "Porcupine", Description = "33% of damage received goes back to the attacker", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/immovable_object"},
+		["berserker_bloodmoney"] = {Name = "Blood Money", Description = "+9 SP from melee kills", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/win_knife_fights_low"},
 		["berserker_vampire"] = {Name = "Vampire", Description = "+6% of melee damage goes towards health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/meta_pistol"},
 		["berserker_enrage"] = {Name = "Enrage", Description = "Increased movement speed while at or under 40 health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/pistol_round_knife_kill"},
 				

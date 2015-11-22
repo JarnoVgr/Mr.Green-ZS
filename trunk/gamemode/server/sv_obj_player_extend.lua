@@ -1480,7 +1480,7 @@ end
 
 function meta:CheckEnrage(damage)
 	if self:GetPerk("berserker_enrage") and self:Health() - damage <= 40 then
-		local fSpeed = SPEED + 20
+		local fSpeed = SPEED + 25
 		GAMEMODE:SetPlayerSpeed(self, fSpeed)		
 	end		
 end
@@ -1532,7 +1532,7 @@ function meta:CheckSpeedChange()
 	end
 	
 	if self:GetPerk("berserker_enrage") and fHealth <= 40 then
-		fSpeed = SPEED + 20
+		fSpeed = SPEED + 25
 	end		
 
 	GAMEMODE:SetPlayerSpeed(self, fSpeed)

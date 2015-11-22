@@ -735,8 +735,7 @@ function CalculatePlayerLoadout(pl)
 
 		if pl:GetPerk("berserker_hook") then
 			pl:Give("weapon_zs_melee_hook")
-			pl.Tier = 2			
-			pl.SPRequired = 130				
+			pl.Tier = 1			
 		elseif pl:GetPerk("berserker_oppressor") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_melee_pipe2")
