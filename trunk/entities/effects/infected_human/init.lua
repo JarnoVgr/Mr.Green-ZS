@@ -22,7 +22,7 @@ end
 
 -- Checks to see if item is valid
 function EFFECT:IsItemValid()
-	return IsValid( self.Human ) and self.Human:IsPlayer() and self.Human:IsHuman() and self.Human:IsTakingDOT()
+	return self.Human:IsPlayer() and self.Human:IsTakingDOT()
 end
 
 -- Returns effect position

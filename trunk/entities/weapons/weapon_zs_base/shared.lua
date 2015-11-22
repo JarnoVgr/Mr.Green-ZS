@@ -33,7 +33,6 @@ SWEP.ActualClipSize = -1
 SWEP.RecoilMultiplier = 1
 SWEP.AccuracyBonus = 0
 SWEP.ForceBonus = 1
-
 SWEP.HumanClass = "medic"
 
 SWEP.WalkSpeed = SPEED
@@ -220,13 +219,11 @@ function SWEP:Deploy()
 	if not self:SequenceDuration() then
 		return
 	end
-	
+	self.Primary.ClipSize = self.ActualClipSize
 	self:SetNextReload(0)
 	self:SetIronsights(false)
-
 	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
-	self.IdleAnimation = CurTime() + self:SequenceDuration()
-
+	self.IdleAnimation = CurTime() + self:SequenceDuration()		
 	--commando
 	if self.Owner:GetPerk("commando_marksman") then
 		self.AccuracyBonus = 0.6
@@ -238,14 +235,11 @@ function SWEP:Deploy()
 	end	
 	
 	
-	if self.Owner:GetPerk("Commando") then
-	
+	if self.Owner:GetPerk("Commando") then		
 		local bonus = 0
 		if self.Owner:GetPerk("commando_enforcer") then
 			bonus = self.ActualClipSize * 0.25
 		end
-
-	
 		self.Primary.ClipSize = self.ActualClipSize * 0.1 + self.ActualClipSize + (self.ActualClipSize * (self.Owner:GetRank() * 2) / 100) + bonus
 		
 		if self.Owner.DataTable["ShopItems"][52] then
@@ -306,7 +300,7 @@ function SWEP:OnRemove()
 	end
 end
 
-function SWEP:Equip(NewOwner)
+function SWEP:Equip(NewOwner)		
 	if CLIENT then
 		return
 	end
@@ -460,6 +454,10 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 	local owner = self.Owner
 	self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
+	
+	if (self.Owner:GetPerk("commando_viper") and self.Primary.Ammo == "ar2") then
+		numbul = 2				
+	end
 	
 	--GetViewPunchAngles
 	local aim = self.Owner:GetAimVector()

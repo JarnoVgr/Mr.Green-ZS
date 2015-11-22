@@ -46,6 +46,10 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	end
 	
+	if (mAttacker:GetPerk("commando_bloodammo") then
+		mAttacker:GiveAmmo(math.Round(dmginfo:GetDamage() * 0.5),"ar2")
+	end
+	
 	--Possible revive
 	if CurTime() > WARMUPTIME and not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 1) then
 		if math.random(1,3) == 1 and dmginfo:IsBulletDamage() then

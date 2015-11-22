@@ -128,7 +128,7 @@ function DrawLoadoutMenu()
 	ProfileText:SetEditable( false )
 	ProfileText:SetValue("")
 	ProfileText.PaintOver = function ()
-		draw.DrawText("GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  MySelf:NextRankXP() - MySelf:GetXP() .. " XP Remaining","Trebuchet24", ScaleW(60), ScaleH(22), Color(248,253,248,235), TEXT_ALIGN_LEFT)		
+		draw.SimpleText("GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  MySelf:NextRankXP() - MySelf:GetXP() .. " XP Remaining","Trebuchet24", ScaleW(60), ScaleH(22), Color(248,253,248,235), TEXT_ALIGN_LEFT)				
 	end
 	
 

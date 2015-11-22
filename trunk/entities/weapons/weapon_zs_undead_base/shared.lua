@@ -246,7 +246,7 @@ function SWEP:PerformPrimaryAttack()
 					util.Blood(vel, math.Rand(self.Primary.Damage * 0.1, self.Primary.Damage * 0.2), vel:GetNormal(), math.Rand(self.Primary.Damage * 0.4, self.Primary.Damage), true)
 				
 					if self.Primary.Damage >= 20 then
-						local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 6, 10, 10000)					
+						local Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 7, 10, 10000)					
 						Velocity.z = math.Clamp(Velocity.z + self.Primary.Damage * 5, 140, 145)				
 						ent:SetLocalVelocity(Velocity)						
 					end

@@ -28,7 +28,13 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				mul = 0
 
 			if attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("Commando") then
+							
 				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+				
+				if (attacker:GetPerk("commando_viper")) then
+					mul = mul - 0.40
+				end			
+				
 				dmg = dmg + (dmg * mul)
 				
 			elseif (attacker:GetActiveWeapon().Primary.Ammo == "smg1" and attacker:GetPerk("Support")) or (attacker:GetActiveWeapon().Primary.Ammo == "buckshot" and attacker:GetPerk("Support")) then
@@ -37,9 +43,14 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "357" and attacker:GetPerk("Sharpshooter") then
 				mul = 0.05 + ((attacker:GetRank() * 1) / 100 )
 				dmg = dmg + (dmg * mul)	
-			elseif (attacker:GetActiveWeapon().Primary.Ammo == "Battery" or attacker:GetActiveWeapon().Primary.Ammo == "pistol")  and attacker:GetPerk("Medic") then --mediguns
+			elseif (attacker:GetActiveWeapon().Primary.Ammo == "Battery" or attacker:GetActiveWeapon().Primary.Ammo == "pistol" or attacker:GetActiveWeapon():GetClass() == "weapon_zs_melee_stunstick")  and attacker:GetPerk("Medic") then --mediguns
 				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
 				dmg = dmg + (dmg * mul)
+				
+				if attacker:GetPerk("medic_stun") and attacker:GetActiveWeapon():GetClass() == "weapon_zs_melee_stunstick" then
+					dmg = dmg + 6
+					GAMEMODE:OnPlayerHowlered(ent, 2)			
+				end
 				
 				if attacker:GetPerk("medic_bleed") then
 					ent:TakeDamageOverTime(dmg*0.2, 1, 5, attacker, inflictor )	
@@ -151,13 +162,17 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			if ent:GetPerk("Sharpshooter") and ent.DataTable["ShopItems"][69] and math.random(1,5) == 1 then
 				dmginfo:SetDamage(0)				
 			elseif ent:GetPerk("Medic") then
-			
+				
 				if (ent:GetPerk("medic_battlemedic")) then
 					dmg = dmg - (dmg * 0.05)					
 				end
+				
+				if (ent:GetPerk("medic_tanker") and ent.LastTimeHit + 3> CurTime()) then
+					dmg = dmg * 0.5			
+				end				
 			
 				dmg = dmg - (dmg * ((2*ent:GetRank())/100) + 0.1)	
-
+				ent.LastTimeHit = CurTime()
 			elseif ent:GetPerk("commando_kevlar") then
 				dmg = dmg*0.8	
 				

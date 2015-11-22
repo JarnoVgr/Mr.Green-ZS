@@ -76,6 +76,10 @@ function SWEP:PrimaryAttack()
 		-- local ent = owner:MeleeTrace(32, 2).Entity
 			if ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
 			local health, maxhealth = ent:Health(), ent:GetMaximumHealth()
+			
+				if (owner:GetPerk("medic_overheal")) then
+					maxhealth = maxhealth * 1.1
+				end					
 				local multiplier = 1.0
 						
 				if owner.DataTable["ShopItems"][48] then
@@ -84,9 +88,10 @@ function SWEP:PrimaryAttack()
 				
 				local toheal = math.min(self:GetPrimaryAmmoCount(), math.ceil(math.min(self.Primary.Heal * multiplier, maxhealth - health)))
 				local totake = math.ceil(toheal / multiplier)				
-				
 				if toheal > 0 then
-					
+					self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+					self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+					self.Owner:SetAnimation(PLAYER_ATTACK1)						
 					local delay = self.Primary.HealDelay
 					if owner.DataTable["ShopItems"][48] then
 						delay = math.Clamp(self.Primary.HealDelay - 1.5,0,self.Primary.HealDelay)
@@ -154,12 +159,12 @@ function SWEP:SecondaryAttack()
 
 			self:SetNextCharge(CurTime() + delay)
 			owner.NextMedKitUse = self:GetNextCharge()
-			
+			self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+			self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+			self.Owner:SetAnimation(PLAYER_ATTACK1)				
 			self:TakeCombinedPrimaryAmmo(totake)
-			if SERVER then	
-			
+			if SERVER then		
 				owner:SetHealth(health + toheal)
-				
 				owner:EmitSound("items/smallmedkit1.wav")
 			end
 

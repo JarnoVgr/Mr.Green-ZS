@@ -85,7 +85,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.GreencoinsGained = {}
 	pl.GreencoinsGained[TEAM_UNDEAD] = 0
 	pl.GreencoinsGained[TEAM_HUMAN] = 0
-
+	pl.LastTimeHit = 0
 	pl.LastRage = 0
 	pl.SPRequired = 100
 	pl.SPReceived = 0
@@ -763,6 +763,7 @@ function CalculatePlayerLoadout(pl)
 	else
 		pl.Loadout = table.Copy(medicstage1)
 		pl:ChatPrint("You are a Medic")
+		pl:SetPerk("Medic")
 
 		if pl:GetPerk("medic_medigun") then
 			pl.Tier = 2		

@@ -56,14 +56,20 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 
 			-- Default take damage only when low on health
 			if not IsValid( Inflictor ) then Inflictor = Attacker:GetActiveWeapon() or Attacker end
-			if Victim:Health() > iDamage then Victim:SetHealth( Victim:Health() - iDamage ) else Victim:TakeDamage( iDamage, Attacker, Inflictor ) end
+			
+			if (Victim:IsHuman()) then
+				if Victim:Health() > iDamage then Victim:SetHealth( Victim:Health() - iDamage ) else Victim:TakeDamage( iDamage, Attacker, Inflictor ) end
+			end
 			Victim.IsInfected = true
 			-- Shake screen
 			Victim:ViewPunch( Angle( math.random( -1, 1 ), math.random( -1, 1 ), 0 ) )
-			-- Cough sound
 			
-			--Victim:EmitSound( "player/pl_pain"..math.random( 5,7 )..".wav" )
-			
+			if (Attacker:IsHuman()) then
+				local Infect = EffectData()		
+				Infect:SetEntity( Victim )
+				util.Effect( "infected_human", Infect, true)				
+				Victim:TakeDamage(iDamage, Attacker, Inflictor)		
+			end
 			-- Increase tick
 			Victim.TickDOT = Victim.TickDOT + 1
 			

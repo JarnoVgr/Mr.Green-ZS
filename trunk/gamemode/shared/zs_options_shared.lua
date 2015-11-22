@@ -367,22 +367,27 @@ GM.Perks = {
 		["global_sp"] = {Name = "SP", Description = "+200% SP from kills\n0 SP from inflicting damage", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/gfx/vgui/last_match_miscellaneous"},
 		["global_none"] = {Name = "None", Description = "", Class = "Global", Slot = 4, Rank = 0, Material = ""},
 	
-	
 	-- Medic	
 
-		["medic_supplies"] = {Name = "Medical Supplies", Description = "+100 medical charge on spawn", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/decal_sprays"},
+		["medic_stun"] = {Name = "Stun", Description = "Disorientates undead on impact with stunstick\n+6 stunstick damage", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/meta_pistol.vtf"},              	
+		["medic_supplies"] = {Name = "Medical Supplies", Description = "+100 medical charge for medical equipment", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/decal_sprays"},
 		["medic_medigun"] = {Name = "Medic Pistol", Description = "[TIER 1]\nSpawn with the medic pistol", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_fiveseven"},     
 
-		["medic_bleed"] = {Name = "Bleed", Description = "20% of damage done is applied every second for 5 seconds", Class = "Medic", Slot = 2, Rank = 3, Material = "vgui/achievements/kill_enemy_last_bullet"},              
+		["medic_overheal"] = {Name = "Overheal", Description = "Heal humans +10% of their maximum health", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/meta_rifle.vtf"},              			
+		["medic_bleed"] = {Name = "Bleed", Description = "20% of damage done is applied every second for 5 seconds", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/kill_enemy_last_bullet"},              
 		["medic_reward"] = {Name = "Healthy Reward", Description = "+40% SP from healing", Class = "Medic", Slot = 2, Rank = 3, Material = "vgui/achievements/collect_gifts"},
+		["medic_antivenom"] = {Name = "Anti Venom", Description = "Healing an undead with a medigun will poison them", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/lossless_extermination.vtf"},
 
+		["medic_tanker"] = {Name = "Tanker", Description = "+50 damage resistance for 3 seconds when hit", Class = "Medic", Slot = 3, Rank = 6, Material = "vgui/achievements/hip_shot.vtf"},
 		["medic_immunity"] = {Name = "Natural Immunity", Description = "Immune to poison damage inflicted over time", Class = "Medic", Slot = 3, Rank = 6, Material = "vgui/achievements/win_rounds_without_buying"},
 		["medic_battlemedic"] = {Name = "Battle Medic", Description = "30% damage resistance from props\n+5% undead damage resistance", Class = "Medic", Slot = 3, Rank = 6, Material = "vgui/achievements/last_player_alive"},
 
 	-- Commando
 		["commando_defender"] = {Name = "Defender", Description = "[TIER 0]\nSpawn with the Defender rifle", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_ak47"},
 		["commando_grenadier"] = {Name = "Grenadier", Description = "+3 grenades on spawn", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/grenade_multikill"},
+		["commando_viper"] = {Name = "Viper", Description = "Shoot 2 bullets at a time with assault rifles\n -40% damage", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/hip_shot"},
 
+		["commando_bloodammo"] = {Name = "Blood Ammo", Description = "Receive 50% of damage done as assault rifle ammo from kills", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/win_knife_fights_low"},
 		["commando_enforcer"] = {Name = "Enforcer", Description = "+25 clip size", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/kill_enemy_last_bullet"},
 		["commando_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
 
@@ -396,7 +401,6 @@ GM.Perks = {
 		["support_mobilesupplies"] = {Name = "Mobile Supplies", Description = "Replace ammo pack with mobile supplies", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/kills_with_multiple_guns"},
 		["support_shotgun"] = {Name = "Shotgun", Description = "[TIER 1]\nSpawn with a shotgun", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_m3"},
 		["support_mp5"] = {Name = "MP5", Description = "[TIER 0]\nSpawn with an MP5", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_mp5navy"},
-
 		
 		["support_ammo"] = {Name = "Ammo", Description = "+40% ammo received", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/kill_enemy_reloading"},
 		["support_repairs"] = {Name = "Repairs", Description = "+3 hammer repair points\n+10 nails on spawn", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/snipe_two_from_same_spot"},

@@ -167,7 +167,9 @@ function GM:OnPlayerHowlered ( pl, iIntensity )
 	pl:SendLua( "StalkerFuck("..( iIntensity )..")" )
 	
 	-- Play a help sound/scream
-	pl:EmitSound ( table.Random ( VoiceSets[ pl.VoiceSet or 1 ].Frightened ) )
+	if (pl:IsHuman()) then
+		pl:EmitSound ( table.Random ( VoiceSets[ pl.VoiceSet or 1 ].Frightened ) )
+	end
 end
 
 --[==[-------------------------------------------------------
