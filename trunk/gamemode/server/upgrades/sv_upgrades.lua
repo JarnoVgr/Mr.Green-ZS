@@ -183,7 +183,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 			elseif ent:GetPerk("berserker_porcupine") then
 				attacker:TakeDamage(dmg*0.33, ent, ent:GetActiveWeapon())	
-			end
+			
 
 			elseif ent:GetPerk("pyro_immolate") then
 				attacker:Ignite(4,0)			

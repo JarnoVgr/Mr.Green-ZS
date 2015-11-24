@@ -612,6 +612,7 @@ function RollTheDice ( pl,commandName,args )
 				pl:GiveAmmo( 10, "XBowBolt" )
 				pl:GiveAmmo( 20, "357" )
 				pl:GiveAmmo( 60, "alyxgun" )			
+				pl:GiveAmmo( 70, "battery" )					
 				message = "WIN: ".. message .." rolled the dice and received plenty of ammo!"		
 			else
 				pl:GiveAmmo( 30, "pistol" )	
@@ -620,7 +621,8 @@ function RollTheDice ( pl,commandName,args )
 				pl:GiveAmmo( 20, "buckshot" )		
 				pl:GiveAmmo( 5, "XBowBolt" )
 				pl:GiveAmmo( 20, "357" )
-				pl:GiveAmmo( 40, "alyxgun" )					
+				pl:GiveAmmo( 40, "alyxgun" )	
+				pl:GiveAmmo( 50, "battery" )				
 				message = "WIN: ".. message .." rolled the dice and received some ammo!"
 			end				
 		elseif pl:Team() == TEAM_UNDEAD then
@@ -663,8 +665,8 @@ function RollTheDice ( pl,commandName,args )
 		pl:SetColor(Color(math.random(1,255),math.random(1,255),math.random(1,255)))
 	end
 	
-	print("Dice landed on " .. diceRoll)
-		
+	message = message .. " [DEBUG] Diceroll is " .. diceRoll
+	
 	pl.LastRTD = CurTime() + RTD_TIME
 
 	PrintMessageAll(HUD_PRINTTALK, message)
