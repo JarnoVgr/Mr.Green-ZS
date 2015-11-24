@@ -24,12 +24,12 @@ function hud.DrawHumanHUD()
 	hud.DrawSkillPoints()
 	--hud.DrawObjMessages()
 	
-	--if CurTime() <= WARMUPTIME then
-		--hud.UpdateHumanTable()
-	--	hud.DrawZeroWaveMessage()	
-	--end
-	--local humans = team.GetPlayers(TEAM_HUMAN)		
-	--table.sort(humans,hud.ZombieSpawnDistanceSort())	
+	if CurTime() <= WARMUPTIME then
+		hud.UpdateHumanTable()
+		hud.DrawZeroWaveMessage()	
+	end
+	local humans = team.GetPlayers(TEAM_HUMAN)		
+	table.sort(humans,hud.ZombieSpawnDistanceSort())	
 
 	--hud.DrawFriends()
 	
