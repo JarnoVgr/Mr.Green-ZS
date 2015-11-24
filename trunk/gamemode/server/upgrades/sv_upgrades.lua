@@ -182,7 +182,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					ent:SetColor(Color(255,125,125))
 				end
 			elseif ent:GetPerk("berserker_porcupine") then
-				attacker:TakeDamage(dmg*0.33, ent, ent:GetActiveWeapon)	
+				attacker:TakeDamage(dmg*0.33, ent, ent:GetActiveWeapon())	
 			end
 
 			elseif ent:GetPerk("pyro_immolate") then

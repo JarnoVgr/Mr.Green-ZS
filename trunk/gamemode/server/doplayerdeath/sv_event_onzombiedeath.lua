@@ -46,7 +46,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	end
 	
-	if (mAttacker:GetPerk("commando_bloodammo") then
+	if (mAttacker:GetPerk("commando_bloodammo")) then
 		mAttacker:GiveAmmo(math.Round(dmginfo:GetDamage() * 0.5),"ar2")
 	end
 	
