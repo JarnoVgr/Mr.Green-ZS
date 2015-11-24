@@ -631,7 +631,7 @@ function RollTheDice ( pl,commandName,args )
 			pl:SetHealth(math.max(pl:Health() - randhealth, 1))
 			message = "LOSE: ".. message .." rolled the dice and lost ".. randhealth .."KG of flesh!!"
 		end
-	elseif diceRoll == 4 and pl:Health() < pl:GetMaximumHealth() then
+	elseif diceRoll == 4 then
 		if pl:Team() == TEAM_HUMAN then
 			local calchealth = math.Clamp ( 100 - pl:Health(),10,50 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
@@ -664,8 +664,6 @@ function RollTheDice ( pl,commandName,args )
 		message = message .. ".. rolled the dice and changed colour!"
 		pl:SetColor(Color(math.random(1,255),math.random(1,255),math.random(1,255)))
 	end
-	
-	message = message .. " [DEBUG] Diceroll is " .. diceRoll
 	
 	pl.LastRTD = CurTime() + RTD_TIME
 

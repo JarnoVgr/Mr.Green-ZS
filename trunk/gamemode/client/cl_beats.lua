@@ -74,6 +74,8 @@ end
 function playDragulaMusic()
 	if LASTHUMAN or ENDROUND or UNLIFE or not util.tobool(GetConVar( "_zs_enablemusic" )) then return end	
 	
+	if LASTHUMAN then return end
+	
 	UNLIFE = true
 	
 	--Stop all sounds

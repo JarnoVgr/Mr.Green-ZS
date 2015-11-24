@@ -61,7 +61,7 @@ SWEP.Primary.Damage = 200
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.08
+SWEP.rechargerate = 0.074
 SWEP.startcharge = 0.2
 SWEP.MaxClip = 100
 SWEP.reloadSoundPlayed = false
@@ -78,7 +78,7 @@ function SWEP:Think()
 		else
 
 			if self:GetOwner():GetPerk("Engineer") then
-				self.rechargerate = 0.072 - (0.072*(2*self:GetOwner():GetRank())/100)				
+				self.rechargerate = 0.066 - (0.066*(2*self:GetOwner():GetRank())/100)				
 			end
 
 			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then
@@ -127,7 +127,7 @@ function SWEP:PrimaryAttack() -- when secondary attack happens
 		explode:SetOwner( self.Owner ) -- this sets you as the person who made the explosion
 		explode:Spawn() --this actually spawns the explosion
 		explode:SetKeyValue( "iMagnitude", self.Primary.Damage ) -- the magnitude
-		explode:SetKeyValue( "iRadiusOverride", "140")
+		explode:SetKeyValue( "iRadiusOverride", "90")
 		explode:Fire( "Explode", 0, 0 )
 		explode:EmitSound(Sound("weapons/mortar/mortar_explode".. math.random(1,3)..".wav"), 400, 100) -- the sound for the explosion, and how far away it can be heard
 			
