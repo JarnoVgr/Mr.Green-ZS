@@ -172,8 +172,8 @@ GM.HumanWeapons = {
 	    ["weapon_zs_mp5"]  = { Name = "MP5 Navy", Tier = 0, Type = "smg", Price = 80, HumanClass = "support" },
 	
         --Medic
-        ["weapon_zs_medi2"]  = { Name = "Medi 2", Tier = 1, Type = "shotgun",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
-		["weapon_zs_medi1"]  = { Name = "Medi 1", Tier = 2, Type = "pistol",Price = 80, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medi2"]  = { Name = "Medi 2", Tier = 2, Type = "shotgun",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
+		["weapon_zs_medi1"]  = { Name = "Medi 1", Tier = 1, Type = "pistol",Price = 80, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
         ["weapon_zs_medi3"]  = { Name = "Medi 3", Tier = 3, Type = "smg",Price = 160, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
         ["weapon_zs_medi4"]  = { Name = "Medi 4", Tier = 4, Type = "rifle",Price = 180, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		
