@@ -27,6 +27,10 @@ function GM:EntityTakeDamage(ent, dmginfo)
 			damage = damage * 1.5
 		end
 		
+		if (attacker:IsPlayer() and attacker:IsHuman() and dmginfo:IsExplosionDamage()) then
+			damage = damage*0.1
+		end
+		
 		--Damage nails and check if a nail died
 		if ent:DamageNails(attacker, inflictor, damage, dmginfo) then 
 			--Nails are fine. Let's not damage the prop
