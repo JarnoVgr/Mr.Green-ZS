@@ -193,7 +193,6 @@ function SWEP:CanSecondaryAttack()
 
 	if self:GetPrimaryAmmoCount() <= 0 then
 		self:SetNextCharge(CurTime() + 0.75)
-		owner.NextMedKitUse = self:GetNextCharge()
 		return false
 	end
 	
