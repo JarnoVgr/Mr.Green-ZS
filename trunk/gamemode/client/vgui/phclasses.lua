@@ -113,7 +113,7 @@ function DrawLoadoutMenu()
 	FrameDescription:SetSize( frameSizeWidth * 0.4, frameSizeHeight * 0.2 ) 
 	FrameDescription:SetEditable( false )
 	FrameDescription:SetValue("")
-	FrameDescription:SetFont("Trebuchet18""
+	FrameDescription:SetFont("Trebuchet18")
 	FrameDescription:SetMultiline( true )	
 
 	local frameDescriptionText = ""
