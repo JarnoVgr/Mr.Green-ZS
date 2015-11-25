@@ -67,7 +67,9 @@ util.PrecacheSound("items/medshotno1.wav")
 util.PrecacheSound("items/smallmedkit1.wav")
 
 function SWEP:PrimaryAttack()
-	if self:CanPrimaryAttack() then
+	if (self:GetNextCharge() > CurTime()) then return end
+
+	if self:CanSecondaryAttack() then
 		local owner = self.Owner
 		local trace = self.Owner:GetEyeTrace()
 		if trace.HitPos:Distance(self.Owner:GetShootPos()) <= 95 then
@@ -145,7 +147,9 @@ end
 
 function SWEP:SecondaryAttack()
 	local owner = self.Owner
-	if self:CanPrimaryAttack() then
+	if (self:GetNextCharge() > CurTime()) then return end
+
+	if self:CanSecondaryAttack() then
 		local health, maxhealth = owner:Health(), owner:GetMaximumHealth()
 		
 		local multiplier = 1
@@ -229,13 +233,10 @@ function SWEP:CanPrimaryAttack()
 
 	if self:GetPrimaryAmmoCount() <= 0 then
 		self:SetNextCharge(CurTime() + 0.75)
-		owner.NextMedKitUse = self:GetNextCharge()
-		--self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-		--owner.NextMedKitUse = self:GetNextPrimaryFire()
 		return false
 	end
 	
-	return --[=[self:GetNextCharge() <= CurTime() and]=] (owner.NextMedKitUse or 0) <= CurTime()
+	return true
 end
 
 function SWEP:Equip ( NewOwner )

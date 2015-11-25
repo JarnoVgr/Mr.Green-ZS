@@ -374,7 +374,7 @@ if SERVER then
 	function ENT:DoBulletKnockback()
 		for ent, prevvel in pairs(tempknockback) do
 			local curvel = ent:GetVelocity()
-			--ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.005 + prevvel)
+			ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.001 + prevvel)
 		end
 	end
 

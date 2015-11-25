@@ -83,7 +83,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 	
 	--Check if we're for real dead
-	if not revive then
+	if not revive and mAttacker and mAttacker:IsHuman() then
 		--Play sound
 		mVictim:PlayZombieDeathSound()
 

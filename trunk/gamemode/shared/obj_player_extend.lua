@@ -955,6 +955,10 @@ function meta:IsBlocked(item, SlotLabel)
 end
 
 function meta:HasUnlocked(item)
+
+	if (!GAMEMODE.Perks[item]) then
+		return false
+	end
 	if (self:GetRank() < GAMEMODE.Perks[item].Rank) then
 		return false
 	else

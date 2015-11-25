@@ -84,7 +84,7 @@ function VOTEMAP_PANEL:Paint()
 	end
 
 	--Skip when maps table isn't filled yet
-	if not VoteMaps or #VoteMaps ~= 3 then
+	if not VoteMaps or #VoteMaps ~= 5 then
 		return
 	end
 
@@ -97,7 +97,7 @@ function VOTEMAP_PANEL:Paint()
 
 	self.Height = self.SmartScale(122)
 
-	for i = 1,3 do
+	for i = 1,5 do
 		--Draw the selection area on every slot, but keep the color invisible
 		surface.SetDrawColor(IntermissionColorLabels[i+8])
 		surface.DrawRect(7, self.Height - self.SmartScale(15), Wide - 14, self.SmartScale(30))
@@ -190,7 +190,7 @@ function ManageVoteMap(panel)
 	panel.Page = 1
 	panel.MaxPages = 1
 	   
-	for i = 1, 3 do
+	for i = 1, 5 do
 		DoLabel(i+8, panel, font, text, 7, h - posy, COLOR_LIGHT_GREY, "label", Color(0,0,0,0), Wide - 14, tall)
 
 		local increment
@@ -207,7 +207,7 @@ end
 	   Receive voting maps (3 maps)
 ---------------------------------------------------------]==]
 net.Receive("ReceiveVoteMaps", function(len)
-	for i = 1, 3 do
+	for i = 1, 5 do
 	    local MapName = net.ReadString()
 	    local Title = net.ReadString()
 
@@ -227,7 +227,7 @@ end)
 	   Receive vote points update
 ---------------------------------------------------------]==]
 net.Receive("ReceiveVotePoints", function(len)
-	for i = 1, 3 do
+	for i = 1, 5 do
 		local MapName = net.ReadString()
 
 		for k,v in pairs(VoteMaps) do

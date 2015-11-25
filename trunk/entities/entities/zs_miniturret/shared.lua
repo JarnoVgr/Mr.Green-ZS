@@ -110,10 +110,10 @@ function ENT:Think()
 		if self:IsValidTarget(target) then
 			if ct > (self.NextAttackAction or 0) then
 				if self:CanAttack() then
-					self.NextShoot = self.NextShoot or ct + 0.08	
+					self.NextShoot = self.NextShoot or ct + 0.1	
 					if ct > self.NextShoot then
 						self:Shoot()
-						self.NextShoot = ct + 0.08
+						self.NextShoot = ct + 0.1
 					end
 				else
 					self:ClearTarget()
@@ -247,7 +247,7 @@ end
 function ENT:DoBulletKnockback()
 	for ent, prevvel in pairs(tempknockback) do
 		local curvel = ent:GetVelocity()
-		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.005 + prevvel)
+		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.001 + prevvel)
 	end
 end
 

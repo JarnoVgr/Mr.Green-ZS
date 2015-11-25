@@ -113,7 +113,7 @@ function DrawLoadoutMenu()
 	FrameDescription:SetSize( frameSizeWidth * 0.4, frameSizeHeight * 0.2 ) 
 	FrameDescription:SetEditable( false )
 	FrameDescription:SetValue("")
-	FrameDescription:SetFont("Trebuchet24")
+	FrameDescription:SetFont("Trebuchet18""
 	FrameDescription:SetMultiline( true )	
 
 	local frameDescriptionText = ""
@@ -128,7 +128,7 @@ function DrawLoadoutMenu()
 	ProfileText:SetEditable( false )
 	ProfileText:SetValue("")
 	ProfileText.PaintOver = function ()
-		draw.SimpleText("GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  MySelf:NextRankXP() - MySelf:GetXP() .. " XP Remaining","Trebuchet24", ScaleW(60), ScaleH(22), Color(248,253,248,235), TEXT_ALIGN_LEFT)				
+		draw.SimpleText("GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  MySelf:NextRankXP() - MySelf:GetXP() .. " XP Remaining","Trebuchet18", ScaleW(60), ScaleH(22), Color(248,253,248,235), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)				
 	end
 	
 
@@ -136,7 +136,7 @@ function DrawLoadoutMenu()
 	ProfileText:SetMultiline( false )		
 		
 	local Avatar = vgui.Create( "AvatarImage", ProfileText )
-	Avatar:SetSize( frameSizeHeight*0.095, frameSizeHeight*0.095 )
+	Avatar:SetSize( frameSizeHeight*0.0875, frameSizeHeight*0.0875 )
 	Avatar:SetPos( 0, 0 )
 	Avatar:SetPlayer( LocalPlayer(), 64)
 	
@@ -149,7 +149,7 @@ function DrawLoadoutMenu()
 	FrameText:SetMultiline( true )	
 	
 	FrameText.PaintOver = function ()
-		draw.DrawText("[DOUBLE XP ACTIVATED]\n Welcome to the new class selection menu!\n Report any bugs/issues or post suggestions on the forums.", "Trebuchet24", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)
+		draw.DrawText(" [DOUBLE XP ACTIVATED]\n Welcome to the new class selection menu!\n Report any bugs/issues or post suggestions on the forums.", "Trebuchet18", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)
 	end	
 	
 	local buttonWeb = vgui.Create( "DButton", Frame)

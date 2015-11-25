@@ -196,7 +196,7 @@ function SWEP:CanSecondaryAttack()
 		return false
 	end
 	
-	return --[=[self:GetNextCharge() <= CurTime() and]=] (owner.NextMedKitUse or 0) <= CurTime()
+	return true --[=[self:GetNextCharge() <= CurTime() and]=]-- (owner.NextMedKitUse or 0) <= CurTime()
 end
 
 function SWEP:Equip ( NewOwner )
