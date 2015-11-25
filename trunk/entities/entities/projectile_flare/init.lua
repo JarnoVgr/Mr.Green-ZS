@@ -4,7 +4,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self.DieTime = CurTime() + 12
+	self.DieTime = CurTime() + 8
 
 	self:SetModel("models/weapons/w_grenade.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
@@ -17,7 +17,7 @@ function ENT:Initialize()
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
-		phys:SetMass(3)
+		phys:SetMass(1)
 		phys:SetMaterial("metal")
 	end
 end

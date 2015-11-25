@@ -18,7 +18,7 @@ end
 SWEP.ViewModel = Model("models/Weapons/v_zombiearms.mdl")
 SWEP.WorldModel = Model("models/weapons/w_crowbar.mdl")
 
-SWEP.Primary.Duration = 1.4
+SWEP.Primary.Duration = 1.3
 SWEP.Primary.Delay = 0.6
 SWEP.Primary.Damage = 17
 SWEP.Primary.Reach = 47
@@ -134,7 +134,7 @@ function SWEP:StartSecondaryAttack()
 		local fDamage = math.Round(20 * fHitPercentage, 0, 10)
 	--	local fDamage = math.Round(12 * fHitPercentage, 0, 10)
 	
-		if fDamage > 0 then
+		if fDamage > 0 and fDistance < (self.Secondary.Reach * 0.5) then
 			v:TakeDamage(fDamage, self.Owner, self)
 		end
 

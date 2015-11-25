@@ -19,7 +19,7 @@ function ENT:Initialize()
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
-		phys:SetMass(3)
+		phys:SetMass(1)
 		phys:SetMaterial("metal")
 	end
 end
@@ -44,7 +44,7 @@ function ENT:PhysicsCollide( Data, Phys )
 	
 	local HitEnt = Data.HitEntity
 	if self.CanHit and IsValid( HitEnt) then
-		local damage = 40
+		local damage = 35
 		if HitEnt:IsPlayer() and HitEnt:Team() == TEAM_UNDEAD then	
 			if self.Entity:GetOwner():GetPerk("pyro_flare") then
 				damage = damage + 10
