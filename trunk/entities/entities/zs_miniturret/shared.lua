@@ -9,10 +9,10 @@ ENT.RenderGroup = RENDERGROUP_BOTH
 
 ENT.AutomaticFrameAdvance = true
 
-ENT.MaxHealth = 500
+ENT.MaxHealth = 100
 ENT.MaxBullets = 80
 ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
-ENT.SpotDistance = 700
+ENT.SpotDistance = 650
 ENT.Damage = 2
 ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {7,9}

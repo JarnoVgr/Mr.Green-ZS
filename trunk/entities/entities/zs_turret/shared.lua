@@ -31,8 +31,8 @@ for i=1,2 do
 end
 
 -- Options
-ENT.MaxHealth = 60
-ENT.MaxBullets = 70
+ENT.MaxHealth = 80
+ENT.MaxBullets = 80
 ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 650
 ENT.Damage = 3
@@ -575,12 +575,12 @@ if SERVER then
 		-- 	self:GetTurretOwner().Turret = nil
 		-- end
 		
-		if Owner:IsValid() then
-			Owner:Message("Turret destroyed!", 2)		
-			local placeWeapon = "weapon_zs_turretplacer"
-			Owner:SelectWeapon(placeWeapon)	
-			Owner:GiveAmmo( 1, "SniperRound")			
-		end
+		--if Owner:IsValid() then
+		--	Owner:Message("Turret destroyed!", 2)		
+		--	local placeWeapon = "weapon_zs_turretplacer"
+		--	Owner:SelectWeapon(placeWeapon)	
+		--	Owner:GiveAmmo( 1, "SniperRound")			
+		--end
 				
 		self.Entity:Remove()
 		
