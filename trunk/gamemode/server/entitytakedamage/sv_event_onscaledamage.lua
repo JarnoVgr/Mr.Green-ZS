@@ -130,7 +130,9 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		--Scale headshot damage
 		if (dmginfo:IsBulletDamage() or dmginfo:IsMeleeDamage()) and pl:GetAttachment(1) then 
 			if (dmginfo:GetDamagePosition():Distance(pl:GetAttachment(1).Pos)) < 16 then
-				pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),65,math.random(90,110))				
+				if (math.random(1,3) == 1) then
+					pl:EmitSound(Sound("player/headshot".. math.random(1, 2) ..".wav"),60,math.random(90,110))
+				end			
 				if dmginfo:IsBulletDamage() and attacker:GetPerk ("Sharpshooter") then
 					if attacker:GetPerk("sharpshooter_friction") and math.random(1,4) == 1 then
 						pl:TakeDamageOverTime(7, 1, 4, attacker, inflictor )
