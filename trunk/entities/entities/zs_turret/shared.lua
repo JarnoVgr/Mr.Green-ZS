@@ -38,7 +38,7 @@ ENT.SpotDistance = 650
 ENT.Damage = 3
 ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {7,9}
-ENT.MinimumAimDot = 0.25
+ENT.MinimumAimDot = 0.3
 
 ENT.AmmoRecharge = 0.15
 
@@ -177,17 +177,17 @@ if SERVER then
 						
 						if self:CanAttack() then
 							-- double fire rate
-							self.NextShoot = self.NextShoot or ct + 0.06
+							self.NextShoot = self.NextShoot or ct + 0.08
 							if ct > self.NextShoot then
 								self:Shoot()								
 								self:ResetSequence(self:LookupSequence("fire"))
-								self.NextShoot = ct + 0.06
+								self.NextShoot = ct + 0.08
 							end
 						else
 							self.NextShoot = self.NextShoot or ct + 0.06
 							if ct > self.NextShoot then
 								self:EmitSound("Weapon_Pistol.Empty")
-								self.NextShoot = ct + 0.06
+								self.NextShoot = ct + 0.08
 							end
 						end	
 						
