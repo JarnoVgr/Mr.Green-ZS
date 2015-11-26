@@ -498,7 +498,7 @@ if SERVER then
 
 			local owner = self:GetTurretOwner()
 			local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
-			if validOwner and activator == owner then
+			if validOwner and activator == owner and owner:HasWeapon("weapon_zs_turretplacer") then
 				local placeWeapon = "weapon_zs_turretplacer"
 				activator:SelectWeapon(placeWeapon)
 				activator:GiveAmmo( 1, "SniperRound" )				

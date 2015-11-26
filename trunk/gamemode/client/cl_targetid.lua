@@ -94,18 +94,10 @@ function GM:HUDDrawTargetID()
 		local col = Color(255,255,255,155)
 		local col2 = Color(0,0,0,155)
 
-		surface.SetFont("ArialBoldTwelve")
+		surface.SetFont("Trebuchet18")
 		local NameWidth, NameHeight = surface.GetTextSize(EntName)
 
-		--Medical assistance
-		local ImportantMessage
-		if EntHealth < 10 then
-			ImportantMessage = "Bleeding to death.."
-		elseif EntHealth < 25 then 
-			ImportantMessage = "Requires a Medic!"
-		end
-
-		surface.SetFont("ArialBoldSeven")
+		surface.SetFont("Trebuchet18")
 		local HealthTextWidth, HealthTextHeight = surface.GetTextSize(EntHealth)
 		
 		--Random background border stuff
@@ -121,7 +113,7 @@ function GM:HUDDrawTargetID()
 			end
 			
 			if MySelf:Team() == EntTeam then
-				draw.SimpleTextOutlined(EntName, "ArialBoldTwelve",x + rand,y + rand2,col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, col2)
+				draw.SimpleTextOutlined(EntName, "Trebuchet18",x + rand,y + rand2,col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, col2)
 			else
 				col = Color(220,10,10,140)
 			end
@@ -129,17 +121,15 @@ function GM:HUDDrawTargetID()
 
 			--Health
 			draw.SimpleTextOutlined("F", "Signs", x+rand,newY+rand2, col, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, 1, col2)
-			draw.SimpleTextOutlined(EntHealth, "ArialBoldSeven", x+rand, (newY + rand2) - h*0.01, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER, 1, col2)
+			draw.SimpleTextOutlined(EntHealth, "Trebuchet18", x+rand, (newY + rand2) - h*0.01, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER, 1, col2)
 			if entity:IsBot() then --Duby: I LOVE YOU NECRO, I HAVE EVEN MADE NECRO BOTS NOW!!!
-			draw.SimpleTextOutlined("Necro Bot", "ArialBoldSeven", x+rand-40, (newY+25 + rand2) - h*0.01, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER, 1, col2)
+			draw.SimpleTextOutlined("Necro Bot", "Trebuchet18", x+rand-40, (newY+25 + rand2) - h*0.01, col, TEXT_ALIGN_LEFT,TEXT_ALIGN_CENTER, 1, col2)
 			end
 			--Draw important player message, if any
-			if ImportantMessage then
-				draw.SimpleTextOutlined(ImportantMessage, "ArialBoldTwelve", x+rand, newY+rand2-100, col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, col2)
-			--Else, draw level
-			elseif EntRank > 0 then
+
+			if EntRank > 0 then
 				newY = newY + HealthTextHeight + 2
-				draw.SimpleTextOutlined("Level ".. EntRank, "ArialBoldSeven", x+rand, newY+rand2, col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, col2)
+				draw.SimpleTextOutlined("Level ".. EntRank, "Trebuchet18", x+rand, newY+rand2, col, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, col2)
 			end
 		end
 	elseif entity:GetClass() == "zs_turret" then

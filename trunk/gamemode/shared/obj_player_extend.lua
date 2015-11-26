@@ -765,13 +765,13 @@ function meta:Message(sText, iType, Col, iDuration)
 			net.WriteString(sText)
 			net.WriteDouble(iType or 2)
 			net.WriteString(Col or "zs_please")
-			net.WriteDouble(iDuration or 2)
+			net.WriteDouble(iDuration or 4)
 		net.Send(self)
 	end
 	
 	--Clientside
 	if CLIENT then 
-	    notice.Message(sText, Col, iType, iDuration or 2) 
+	    notice.Message(sText, Col, iType, iDuration or 4) 
 	end
 end
 	

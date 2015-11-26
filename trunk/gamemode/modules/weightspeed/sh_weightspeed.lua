@@ -256,21 +256,15 @@ function GM:Move( pl, CMove )
 		end
 		
 		if pl:Crouching() then
-			pl:SetStepSize(12)
+			pl:SetStepSize(14)
 		else
 			pl:SetStepSize(18)	
 		end
 		
 		if pl:Crouching() and not pl:OnGround() and CMove:GetForwardSpeed() > 0 then
 			pl:Daze(1)
-			
 		end
-		
-		
-		
 	end
-	
-	
 	
 	if CMove:GetForwardSpeed() < 0 then
 		--CMove:SetForwardSpeed ( -11 )

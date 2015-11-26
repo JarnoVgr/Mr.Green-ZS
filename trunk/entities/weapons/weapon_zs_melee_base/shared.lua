@@ -309,7 +309,7 @@ function SWEP:SecondaryAttack()
 		end	
 		
 		--Set flying velocity
-		local Velocity = self.Owner:GetAngles():Forward() * 360
+		local Velocity = self.Owner:GetAngles():Forward() * 335
 		
 		if self.Owner:GetPerk("berserker_battlecharge") then
 			Velocity = self.Owner:GetAngles():Forward() * 400
@@ -322,11 +322,13 @@ function SWEP:SecondaryAttack()
 		self.Leaping = true
 		
 		--Leap cooldown
-		self.NextLeap = CurTime() + 5
+		self.NextLeap = CurTime() + 6
 		
 		if SERVER then
-			self.Owner:EmitSound(Sound("vo/ravenholm/monk_pain0".. math.random(1,9) ..".wav"),70,math.random(80,100))
-			self.Owner:EmitSound(Sound("weapons/physcannon/energy_sing_flyby".. math.random(1,2) ..".wav"),90,math.random(115,125))
+			if math.random(1,3) == 1 then
+				self.Owner:EmitSound(Sound("vo/ravenholm/monk_pain0".. math.random(1,9) ..".wav"),70,math.random(95,105))
+			end
+			self.Owner:EmitSound(Sound("weapons/physcannon/energy_sing_flyby".. math.random(1,2) ..".wav"),70,math.random(115,125))
 		end
 		
 		self.Owner:SetGroundEntity(NULL)

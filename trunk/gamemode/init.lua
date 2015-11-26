@@ -304,15 +304,15 @@ function OnPressF2(pl)
 			if not pl:IsBossZombie() then
 				pl:Redeem()
 			else
-				pl:ChatPrint("Undead Boss can't redeem.")
+				pl:Messsage("Cannot redeem while a boss")				
 			end
 		else
 			if pl:Team() == TEAM_UNDEAD then
-				pl:ChatPrint("You need a score of ".. requiredScore .." to redeem.")
+				pl:Messsage("You need a score of ".. requiredScore .." to redeem")				
 			end
 		end
 	else
-		pl:ChatPrint("You can't redeem anymore.")
+		pl:Messsage("You can't redeem anymore.")		
 	end
 end
 
@@ -325,29 +325,26 @@ local function OnPressedF3(pl)
 	end
 	
 	if pl:Team() == TEAM_UNDEAD then
-		-- If undead show classes menu
-		if not pl:IsBossZombie() then
-			pl:SendLua("DoClassesMenu()")
-		end
+		pl:SendLua("DoClassesMenu()")
 	elseif pl:Team() == TEAM_HUMAN and pl:Alive() then
-	
-
-	local vStart = pl:GetShootPos()
-	local tr = util.TraceLine ( { start = vStart, endpos = vStart + ( pl:GetAimVector() * 90 ), filter = pl, mask = MASK_SHOT } )
-	local entity = tr.Entity
-	
-				local price = GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price	
-		if IsValid(entity) and entity:GetClass() == "game_mobilesupplycrate" and price and CurTime() > WARMUPTIME + 1 then	
-
-			pl:GetActiveWeapon():Remove()				
-			DropWeapon(pl)
-			price = math.Round(price * 0.5)
-			skillpoints.AddSkillPoints(pl,price)
-			pl:Message("+"..price.."SP!", 1)			
-			pl:EmitSound("Breakable.Metal")		
-			return
+		local vStart = pl:GetShootPos()
+		local tr = util.TraceLine ( { start = vStart, endpos = vStart + ( pl:GetAimVector() * 90 ), filter = pl, mask = MASK_SHOT } )
+		local entity = tr.Entity
+		if entity and IsValid(entity) and entity:GetClass() == "game_mobilesupplycrate" then
+			local price = GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price	
+			if price and CurTime() > WARMUPTIME + 1 then	
+				pl:GetActiveWeapon():Remove()				
+				DropWeapon(pl)
+				price = math.Round(price * 0.5)
+				skillpoints.AddSkillPoints(pl,price)
+				pl:Message("+"..price.." SP", 1)			
+				pl:EmitSound("Breakable.Metal")		
+				return
+			else
+				pl:Messsage("Cannot scrap during preparation")
+			end
 		else
-			DropWeapon(pl)
+			DropWeapon(pl)	
 		end
 	end
 end

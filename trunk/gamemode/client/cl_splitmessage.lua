@@ -33,22 +33,34 @@ function notice.Message( sText, tbColor, iType, iDuration )
 	if not notice.Timer then 
 		notice.Timer = 0 
 	end	
+	
+	for k, v in pairs (notice.Cache) do
+		if (v.sText == sText) then
+			return
+		end	
+	end
 
+	for k, v in pairs (notice.Draw) do
+		if (v.sText == sText) then
+			return
+		end	
+	end
+	
 	-- Add it to the draw table
 	if notice.Timer <= CurTime() then
 		if ( #notice.Draw == 0 ) then
 			table.insert( notice.Draw, { sText = sText, MessageTime = CurTime(), iType = iType or 1, iDuration = iDuration or 1 } )
-			notice.Timer = CurTime() + ( iDuration or 1 )
+			notice.Timer = CurTime() + ( iDuration )
 			
 			-- Play sound
-			--if notice.Sounds[iType] then
-			--	surface.PlaySound ( notice.Sounds[iType or 1] )
-			--end
+			if notice.Sounds[iType] then
+				surface.PlaySound ( notice.Sounds[iType or 1] )
+			end
 		end
 	else
 	
 		-- Add it to cache
-		table.insert( notice.Cache, { sText = sText, iType = iType or 1, iDuration = iDuration or 1 } )
+		table.insert( notice.Cache, { sText = sText, iType = iType or 1, iDuration = iDuration or 4 } )
 	end
 end
 
@@ -65,9 +77,9 @@ net.Receive("notice.GetNotice", function( len )
 	local iType = net.ReadDouble()
 	local sColor = net.ReadString()
 	local iDuration = net.ReadDouble()
-	
+		
 	if iDuration == -1 then
-		iDuration = nil
+		iDuration = 4
 	end
 	
 	--Add it to list
@@ -100,12 +112,12 @@ function notice.DrawMessage()
 			notice.bAddNext = true
 			
 			-- Delay for next message in cache
-			timer.Simple ( 2, function()
+			timer.Simple ( 0.5, function()
 				if #notice.Cache > 0 then			
 					table.insert( notice.Draw, { sText = notice.Cache[1].sText, MessageTime = CurTime(), iType = notice.Cache[1].iType or 1, iDuration = notice.Cache[1].iDuration or 3.5 } )
 					
 					-- Cooldown
-					notice.Timer = CurTime() + ( notice.Cache[1].iDuration or 3.0 )
+					notice.Timer = CurTime() + (1.5)
 					
 					-- Play sound
 					surface.PlaySound ( notice.Sounds[iType or 1] )
@@ -127,7 +139,7 @@ function notice.DrawMessage()
 	local iType = notice.Draw[1].iType
 	
 	-- Get text size
-	surface.SetFont ( "ArialBoldFifteen" )
+	surface.SetFont ( "Trebuchet24" )
 	local wText, hText = surface.GetTextSize ( notice.Draw[1].sText )
 			
 	-- Make it go down the screen
@@ -135,7 +147,7 @@ function notice.DrawMessage()
 	notice.ImgPos = math.Approach( notice.ImgPos, ScaleH(749), ( FrameTime() * 150 ) )
 				
 	-- Create text module
-	notice.HintText = CreateText ( notice.Draw[1].sText, "ArialBoldFifteen", ScaleW(669), notice.TextPos, Color ( 255,255,255, notice.Alpha ), ALIGN_CENTER )
+	notice.HintText = CreateText ( notice.Draw[1].sText, "Trebuchet24", ScaleW(669), notice.TextPos, Color ( 255,255,255, notice.Alpha ), ALIGN_CENTER )
 	notice.HintText:Draw()
 
 	-- Get notice texture
@@ -158,7 +170,7 @@ function notice.DrawMessage()
 	if notice.Size >= 67 then notice.MaxSize = 50 elseif notice.Size <= 50 then notice.MaxSize = 67 end
 			
 	-- Make it fade disappear/appear
-	if CurTime() > notice.Timer - 0.9 then
+	if CurTime() > notice.Timer - 0.2 then
 		notice.Alpha = math.Approach( notice.Alpha,0,( FrameTime() * 300 ) )
 	else
 		notice.Alpha = math.Approach( notice.Alpha,255,( FrameTime() * 120 ) )

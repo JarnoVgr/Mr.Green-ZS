@@ -288,10 +288,11 @@ local function CommandSay(pl, text, teamonly)
 	end
 	
 	--MEDIC required
-	if (text == "medic!") and pl:Health() <= 65 and pl:Team() == TEAM_HUMAN and pl:Alive() then
+	if (text == "medic!") and pl:Health() <= 100 and pl:Team() == TEAM_HUMAN and pl:Alive() then
 		for _,medic in pairs(player.GetAll()) do
-			if pl:Team() == TEAM_HUMAN and medic:Team() == TEAM_HUMAN and medic:Alive() and pl ~= medic then
-				medic:Message(pl:Name() .." needs immediate healing", 1, "white")
+			if pl:Team() == TEAM_HUMAN and medic:Team() == TEAM_HUMAN and medic:Alive() and medic:GetPerk("Medic") then--pl ~= medic then
+				medic:Message(pl:Name() .." requires aid!")
+				--medic:Message(pl:Name() .." requires health", 1, "white")
 			end
 		end
 	end
