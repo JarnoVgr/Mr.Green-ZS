@@ -69,7 +69,7 @@ AddCSLuaFile()
     SWEP.Primary.NumShots           = 1
     SWEP.Primary.ClipSize           = 2
     SWEP.Primary.Delay                      = 0.5
-    SWEP.Primary.DefaultClip        = SWEP.Primary.ClipSize * 4
+    SWEP.Primary.DefaultClip        = SWEP.Primary.ClipSize * 7
     SWEP.Primary.Automatic          = false
     SWEP.Primary.Ammo                       = "357"
     SWEP.WalkSpeed = SPEED_PISTOL

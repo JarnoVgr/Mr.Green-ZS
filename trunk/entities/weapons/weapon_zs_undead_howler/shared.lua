@@ -147,7 +147,7 @@ function SWEP:StartSecondaryAttack()
 		v.lastHowlerScream = CurTime()
 
 		--Shakey shakey
-		local fFuckIntensity = fHitPercentage * 6
+		local fFuckIntensity = fHitPercentage * 5.5
 
 		GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
 	end
@@ -164,7 +164,7 @@ end
 
 function SWEP:Move(mv)
 	if self:IsScreaming() then
-		mv:SetMaxSpeed(100)
+		mv:SetMaxSpeed(70)
 	return true
 	end
 end

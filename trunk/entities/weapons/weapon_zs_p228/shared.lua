@@ -23,7 +23,7 @@ end
 
 SWEP.Base				= "weapon_zs_base"
 
-SWEP.WalkSpeed = 190
+SWEP.WalkSpeed = SPEED_PISTOL + 3
 
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
@@ -44,7 +44,7 @@ SWEP.Primary.Damage 		= 13
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 18
 SWEP.Primary.Delay			= 0.1
-SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize * 3
+SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize * 5
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )

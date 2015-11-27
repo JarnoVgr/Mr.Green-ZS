@@ -724,9 +724,7 @@ function CalculatePlayerLoadout(pl)
 		pl.Loadout = table.Copy(commando)
 
 		if pl:GetPerk("commando_defender") then
-			pl:Give("weapon_zs_defender")
-			pl.Tier = 2		
-			pl.SPRequired = 130				
+			pl:Give("weapon_zs_defender")			
 		end		
 	elseif pl:GetPerk("Berserker") then
 		pl.Loadout = table.Copy(berserker)
