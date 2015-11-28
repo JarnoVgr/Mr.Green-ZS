@@ -633,7 +633,7 @@ function RollTheDice ( pl,commandName,args )
 		end
 	elseif diceRoll == 4 then
 		if pl:Team() == TEAM_HUMAN then
-			local calchealth = math.Clamp ( 100 - pl:Health(),10,50 )
+			local calchealth = math.Clamp ( 100 - pl:Health(),30,100 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
 			pl:SetHealth( math.min( pl:Health() + randhealth, pl:GetMaximumHealth() ) )
 			
@@ -641,12 +641,13 @@ function RollTheDice ( pl,commandName,args )
 				randhealth = math.round(randhealth * 1.25)
 			end
 			
+			
 			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .." health!"
 		elseif pl:Team() == TEAM_UNDEAD then
 			local calchealth = math.Clamp ( 200 - pl:Health(),60,250 )
 			local randhealth = math.random( 25, math.Round ( calchealth ) )
 			pl:SetHealth( pl:Health() + randhealth)
-			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!!"
+			message = "WIN: ".. message .." rolled the dice and gained ".. randhealth .."KG of flesh!"
 		end
 	elseif diceRoll == 5 then
 		if pl:Team() == TEAM_HUMAN then
