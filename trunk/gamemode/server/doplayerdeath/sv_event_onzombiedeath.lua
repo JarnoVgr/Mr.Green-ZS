@@ -59,6 +59,31 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	end		
 		
+	if (mVictim:GetZombieClass() == 1 or mVictim:GetZombieClass() == 2) then
+	
+		local shootpos = mVictim:GetShootPos()
+		local startpos = mVictim:GetPos()
+		startpos.z = shootpos.z - 5
+		local aimvec = mVictim:GetAimVector()
+		aimvec.z = math.max(aimvec.z, -0.7)
+		
+		for i=1, 5 do
+			local ent = ents.Create("projectile_poisonpuke")
+			if ent:IsValid() then
+				local heading = (aimvec + VectorRand() * 0.25):GetNormal()
+				ent:SetPos(startpos + heading * 8)
+				ent:SetOwner(mVictim)
+				ent:Spawn()
+				ent.TeamID = mVictim:Team()
+				local phys = ent:GetPhysicsObject()
+				if phys:IsValid() then
+					phys:SetVelocityInstantaneous(heading * math.Rand(300, 320))
+				end
+				ent:SetPhysicsAttacker(mVictim)
+			end
+		end	
+	
+	end
 	
 		
 	-- melee	

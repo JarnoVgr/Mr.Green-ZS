@@ -2,7 +2,7 @@ AddCSLuaFile()
 --Made by Duby :P
 if CLIENT then
 	SWEP.PrintName = "Ghoul"
-	SWEP.ViewModelFOV = 80
+	SWEP.ViewModelFOV = 70
 
 
 	--SWEP.FakeArms = true
@@ -49,9 +49,9 @@ SWEP.FakeArms = true
 
 SWEP.Primary.Duration = 1.4
 SWEP.Primary.Delay = 0.6
-SWEP.Primary.Damage = 15
+SWEP.Primary.Damage = 17
 SWEP.Primary.Reach = 48
-		SWEP.ShowViewModel = false
+SWEP.ShowViewModel = false
 SWEP.SwapAnims = false
 SWEP.Secondary.Duration = 2.3
 SWEP.Secondary.Delay = 0.6

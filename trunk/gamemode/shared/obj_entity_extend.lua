@@ -324,3 +324,18 @@ hook.Add( "PostDrawOpaqueRenderables", "RenderWeaponsGlow", function()
         end
     end
 end)
+
+function meta:HitFence(data, phys)
+	local pos = phys:GetPos()
+	local vel = data.OurOldVelocity
+	local endpos = data.HitPos + vel:GetNormalized()
+	if util.TraceLine({start = pos, endpos = endpos, mask = MASK_SOLID, filter = self}).Hit and not util.TraceLine({start = pos, endpos = endpos, mask = MASK_SHOT, filter = self}).Hit then -- Essentially hit a fence or passable object.
+		self:SetPos(data.HitPos)
+		phys:SetPos(data.HitPos)
+		phys:SetVelocityInstantaneous(vel)
+
+		return true
+	end
+
+	return false
+end

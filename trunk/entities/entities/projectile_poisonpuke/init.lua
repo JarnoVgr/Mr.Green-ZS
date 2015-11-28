@@ -13,7 +13,8 @@ function ENT:Initialize()
 
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
-		phys:SetMass(2)
+		phys:SetMass(4)
+		phys:SetBuoyancyRatio(0.002)		
 		phys:EnableMotion(true)
 		phys:Wake()
 	end
@@ -60,6 +61,7 @@ function ENT:Think()
 end
 
 function ENT:PhysicsCollide(data, phys)
+	if not self:HitFence(data, phys) then
 
 	if self.HitData then return end
 	
@@ -73,6 +75,8 @@ function ENT:PhysicsCollide(data, phys)
 
 	self:NextThink(CurTime())
 	return true
+	end
+	return false
 end
 
 function ENT:UpdateTransmitState()

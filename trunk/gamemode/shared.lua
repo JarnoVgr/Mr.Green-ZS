@@ -443,7 +443,6 @@ function GM:ShouldCollide(ent1, ent2)
 
 	return true
 end
-
 --------------------------------------------
 --Include some objective stuff
 --------------------------------------------

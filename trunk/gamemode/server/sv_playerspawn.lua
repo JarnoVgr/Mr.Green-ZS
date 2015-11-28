@@ -366,7 +366,7 @@ function GM:OnHumanSpawn(pl)
 
 	--Set crouch speed
 
-	pl:SetCrouchedWalkSpeed(0.5)
+	pl:SetCrouchedWalkSpeed(0.33)
 
 	--Set jump power
 	if pl:GetJumpPower() ~= 220 then
@@ -645,6 +645,7 @@ function CalculatePlayerLoadout(pl)
 	
 	
 	if pl.Redeemed then	
+		pl:SetCrouchedWalkSpeed(0.33)
 		pl:Give("weapon_zs_elites")
 		pl:SelectWeapon("weapon_zs_elites")		
 	end
@@ -888,7 +889,10 @@ function CalculateZombieHealth(pl)
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies) and team.NumPlayers(TEAM_HUMAN) >= 5) then
 			local IncreaseHealth = Tab.Health
 			MaxHealth = Tab.Health + IncreaseHealth
-			pl:SetMaterial("models/flesh")
+			
+			if (pl:GetZombieClass() != 4 and pl:GetZombieClass() != 5) then
+				pl:SetMaterial("models/flesh")
+			end
 		end
 	end
 	MaxHealth = math.Round(MaxHealth)

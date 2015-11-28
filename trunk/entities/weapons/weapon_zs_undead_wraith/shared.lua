@@ -90,18 +90,18 @@ function SWEP:StartPrimaryAttack()
 	
 	-- Set the thirdperson animation and emit zombie attack sound
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
-	self:EmitSound(Sound("npc/antlion/distract1.wav"), 100, math.random(92, 107))
+	self:EmitSound(Sound("npc/antlion/distract1.wav"), 100, math.random(86, 96))
 	 
 --	local stopPlayer = true
 	--Stop movement
 	--self.Primary.Speed = 1
 	--self.Primary.Speed = 0
 	 
-	self.Attacking = CurTime() + 1	 
+	self.Attacking = CurTime() + 0.5	 
 	 
 	if SERVER then
 		--if stopPlayer then
-		self.Attacking = CurTime() + 1	
+		self.Attacking = CurTime() + 0.5	
 		self.Owner:SetLocalVelocity(Vector(0, 0, 0))
 		--end
 	end

@@ -105,14 +105,14 @@ local HumanCM = {
 }]]
 
 local HumanCM = {
-	["$pp_colour_addr"] = 20,
-	["$pp_colour_addg"] = 2,
-	["$pp_colour_addb"] = 20,
-	["$pp_colour_brightness"] = 0.005,
-	["$pp_colour_contrast"] = 1,
-	["$pp_colour_colour"] = 0.8,
+	["$pp_colour_addr"] = 2,
+	["$pp_colour_addg"] = 1,
+	["$pp_colour_addb"] = 2,
+	["$pp_colour_brightness"] = 0.001,
+	["$pp_colour_contrast"] = 1.12,
+	["$pp_colour_colour"] = 10,
 	["$pp_colour_mulr"] = 1.2,
-	["$pp_colour_mulg"] = 1.0,
+	["$pp_colour_mulg"] = 1.16,
 	["$pp_colour_mulb"] = 1.2
 }
 

@@ -78,16 +78,7 @@ ZombieClasses[0] =
 
 
 InfectedZombiemodels = { 	
-"models/player/group03/male_02.mdl",
-"models/player/group03/Male_04.mdl",
-"models/player/group03/male_06.mdl",
-"models/player/group03/male_07.mdl",
-"models/player/alyx.mdl",
-"models/player/barney.mdl",
-"models/player/eli.mdl",
-"models/player/mossman.mdl",
-"models/player/kleiner.mdl",
-"models/player/breen.mdl"
+"models/player/group01/Male_04.mdl"
 }
 --Obsolete class (not removed to prevent gamemode from breaking)
 ZombieClasses[1] =		--I re-added this class to add some diversity into the game. We need faster classes				
@@ -109,9 +100,9 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	CanCrouch = true,
 	CanGib = true, 
 	Model = table.Random(InfectedZombiemodels), 
-	Speed = 158,	
+	Speed = 152,	
 	AngleFix = true,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh","> RELOAD: Create blood spawner on ground", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> CLAW POISON: 10 | 2 per 1.5 seconds", "> HEALTH: 140 ", "> SPEED: 158", "> DAMAGE: 15" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh","> RELOAD: Create blood spawner on ground", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> CLAW POISON: 10 | 2 per 1.5 seconds", "> HEALTH: 140 ", "> SPEED: 158", "> DAMAGE: 17" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde! " },
 	PainSounds = {
 		Sound("npc/zombiegreen/been_shot_1.wav"),
@@ -328,7 +319,7 @@ ZombieClasses[5] =
 	Name = "Ethereal",
 	Tag = "etherealzombie",
 	Infliction = 0.33,
-	Health = 100,
+	Health = 125,
 	MaxHealth = 200,
 	TimeLimit = 200,
 	Bounty = 80,
@@ -339,9 +330,9 @@ ZombieClasses[5] =
 	CanGib = true,
 	SWEP = "weapon_zs_undead_wraith",
 	Model = Model( "models/wraith.mdl" ),
-	Speed = 185,
+	Speed = 170,
 	Description = "A teleporting apparition",
-	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport", "> HEALTH: 100 ", "> SPEED: 185", "> DAMAGE: 33" },
+	DescriptionGameplay = {"> PRIMARY: Hooks", "> SECONDARY: Teleport", "> HEALTH: 125 ", "> SPEED: 170", "> DAMAGE: 33" },
 	DescriptionGameplay2 = {"TYPE: Support class for horde"},
 	PainSounds = {
 		--[[Sound("npc/stalker/stalker_pain1.wav"),
@@ -694,12 +685,12 @@ ZombieClasses[11] =
 	Name = "Behemoth",
 	Tag = "behemoth",
 	Infliction = 0.1,
-	Health = 4000,
-	MaxHealth = 4000,
+	Health = 3000,
+	MaxHealth = 3000,
 	TimeLimit = 1020,
 	Bounty = 500,
-	SP = 30,
-	Mass = DEFAULT_MASS * 2,
+	SP = 50,
+	Mass = DEFAULT_MASS * 4,
 	Threshold = 4,
 	JumpPower = 220,
 	CanCrouch = true,
@@ -710,7 +701,7 @@ ZombieClasses[11] =
 	SWEP = "weapon_zs_undead_boss_behemoth",
 	
 	Model = Model("models/player/zombie_soldier.mdl"),
-	Speed = 170,
+	Speed = 165,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -728,8 +719,6 @@ ZombieClasses[11] =
 		Sound("npc/zombine/striderx_alert5.wav"),
 		Sound("npc/zombine/striderx_alert6.wav"),
 	},
-	Hull = { Vector(-16, -16, 0), Vector(16, 16, 75) },
-	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},	
 	OnSpawn = function(pl)
 		local status = pl:GiveStatus("overridemodel")
 		if IsValid(status) then

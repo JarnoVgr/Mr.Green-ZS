@@ -19,7 +19,7 @@ SWEP.Primary.Delay = 0.65
 SWEP.Primary.Duration = 1.5
 SWEP.Primary.Reach = 48
 SWEP.Primary.Damage = 35
-
+SWEP.Secondary.Reach = 500
 --Temp workaround
 SWEP.IdleSounds = ZombieClasses[8].IdleSounds
 
@@ -183,9 +183,96 @@ function SWEP:SecondaryAttack()
 		return
 	end
 
+	
+	
+	local mOwner = self.Owner
+	if not IsValid(mOwner) then
+		return
+	end	
+	
+	if CLIENT then
+		return
+	end	
+	
 	if SERVER then
-		self.Owner:EmitSound("player/zombies/b/scream.wav", 130)
+		self.Owner:EmitSound("player/zombies/b/scream.wav", 150, math.random(90,95))	
 	end
 
-	self.NextYell = CurTime() + math.random(8,13)
+	for k,v in ipairs(team.GetPlayers(TEAM_HUMAN)) do
+		local fDistance = v:GetPos():Distance( self.Owner:GetPos() )
+
+		--Check for conditions
+		if not v:IsPlayer() or not v:Alive() or fDistance > self.Secondary.Reach then
+			continue
+		end
+
+		local vPos, vEnd = mOwner:GetShootPos(), mOwner:GetShootPos() + ( mOwner:GetAimVector() * self.Secondary.Reach )
+		local Trace = util.TraceLine ( { start = vPos, endpos = v:LocalToWorld( v:OBBCenter() ), filter = mOwner, mask = MASK_SOLID } )
+			
+		-- Exploit trace
+		if not Trace.Hit or not IsValid(Trace.Entity) or Trace.Entity ~= v then
+			continue
+		end
+		
+		--Calculate percentage of being hit
+		local fHitPercentage = math.Clamp(1 - (fDistance / self.Secondary.Reach), 0, 1)
+															
+		--Check if last Howler scream was recently (we don't want to stack attacks)
+		if v.lastHowlerScream and v.lastHowlerScream >= (CurTime()-4) then
+			continue
+		end
+
+		--Set last Howler scream
+		v.lastHowlerScream = CurTime()
+
+		--Shakey shakey
+		local fFuckIntensity = fHitPercentage * 3
+		
+		if (v:IsHuman()) then
+			GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
+		elseif (v:IsZombie()) then
+			v:SendLua("WraithScream()")
+			v:SetHealth(math.Clamp(v:Health() * fFuckIntensity,0,v:GetMaximumHealth()))
+		end
+	end
+	
+for k,v in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
+		local fDistance = v:GetPos():Distance( self.Owner:GetPos() )
+
+		--Check for conditions
+		if not v:IsPlayer() or not v:Alive() or fDistance > self.Secondary.Reach then
+			continue
+		end
+
+		local vPos, vEnd = mOwner:GetShootPos(), mOwner:GetShootPos() + ( mOwner:GetAimVector() * self.Secondary.Reach )
+		local Trace = util.TraceLine ( { start = vPos, endpos = v:LocalToWorld( v:OBBCenter() ), filter = mOwner, mask = MASK_SOLID } )
+			
+		-- Exploit trace
+		if not Trace.Hit or not IsValid(Trace.Entity) or Trace.Entity ~= v then
+			continue
+		end
+		
+		--Calculate percentage of being hit
+		local fHitPercentage = math.Clamp(1 - (fDistance / self.Secondary.Reach), 0, 1)
+															
+		--Check if last Howler scream was recently (we don't want to stack attacks)
+		if v.lastHowlerScream and v.lastHowlerScream >= (CurTime()-4) then
+			continue
+		end
+
+		--Set last Howler scream
+		v.lastHowlerScream = CurTime()
+
+		--Shakey shakey
+		local fFuckIntensity = 1 + fHitPercentage * 2.0
+		
+		if (v:IsHuman()) then
+			GAMEMODE:OnPlayerHowlered(v, fFuckIntensity)
+		elseif (v:IsZombie()) then
+			v:SendLua("WraithScream()")
+			v:SetHealth(math.Clamp(v:Health() * fFuckIntensity,0,v:GetMaximumHealth()))
+		end
+	end	
+	self.NextYell = CurTime() + 8
 end
+
