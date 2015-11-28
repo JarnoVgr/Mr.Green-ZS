@@ -168,7 +168,6 @@ GM.HumanWeapons = {
         ["weapon_zs_m3super90"]  = { Name = "M3", Tier = 3, Type = "shotgun", Price = 160, HumanClass = "support"}, 		
         ["weapon_zs_p90"]  = { Name = "P90", Tier = 4, Type = "smg", Price = 160, HumanClass = "support" },
         ["weapon_zs_m1014"]  = { Name = "M1014", Tier = 4, Type = "shotgun", Price = 190, HumanClass = "support"},		
-    
 	    ["weapon_zs_mp5"]  = { Name = "MP5 Navy", Tier = 0, Type = "smg", Price = 80, HumanClass = "support" },
 	
         --Medic
@@ -557,7 +556,7 @@ NPCS_COUNT_AS_KILLS = false
 
 -- INCOMING!-- -- 
 -- Fraction of people that should be set as zombies at the beginning of the game.
-UNDEAD_START_AMOUNT_PERCENTAGE = 0.2
+UNDEAD_START_AMOUNT_PERCENTAGE = 0.21
 UNDEAD_START_AMOUNT_MINIMUM = 1
 UNDEAD_START_AMOUNT = 1
 UNDEAD_VOLUNTEER_DISTANCE = 340

@@ -504,6 +504,11 @@ local function AdminSay(pl, text, teamonly)
 
 	if (#sep > 1 and text:sub(1,1) == "!") then
 		if (sep[1] == "!changemap" or sep[1] == "!changelevel") then
+		
+			for k, v in pairs(player.GetAll()) do
+				v:WriteDataSQL()
+			end		
+		
 			server_RunCommand(pl, "change_map",sep[2] )
 			return ""		
 		end
