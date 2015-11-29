@@ -23,10 +23,14 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 
 	if attacker:IsPlayer() then		
 		if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and ent:IsPlayer() then
+						
+			olddmg = dmginfo:GetDamage() 
+			mul = 0
+			
+			if dmginfo:IsMeleeDamage() and attacker:Crouching() then
+				mul = mul - 0.22
+			end
 				
-				olddmg = dmginfo:GetDamage() 
-				mul = 0
-
 			if attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("Commando") then
 							
 				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
@@ -38,13 +42,13 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				dmg = dmg + (dmg * mul)
 				
 			elseif (attacker:GetActiveWeapon().Primary.Ammo == "smg1" and attacker:GetPerk("Support")) or (attacker:GetActiveWeapon().Primary.Ammo == "buckshot" and attacker:GetPerk("Support")) then
-				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+				mul = mul + 0.1 + ((attacker:GetRank() * 1) / 100 )
 				dmg = dmg + (dmg * mul)						
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "357" and attacker:GetPerk("Sharpshooter") then
-				mul = 0.05 + ((attacker:GetRank() * 1) / 100 )
+				mul = mul + 0.05 + ((attacker:GetRank() * 1) / 100 )
 				dmg = dmg + (dmg * mul)	
 			elseif (attacker:GetActiveWeapon().Primary.Ammo == "Battery" or attacker:GetActiveWeapon().Primary.Ammo == "pistol" or attacker:GetActiveWeapon():GetClass() == "weapon_zs_melee_stunstick")  and attacker:GetPerk("Medic") then --mediguns
-				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+				mul = mul + 0.1 + ((attacker:GetRank() * 1) / 100 )
 				dmg = dmg + (dmg * mul)
 				
 				if attacker:GetPerk("medic_stun") and attacker:GetActiveWeapon():GetClass() == "weapon_zs_melee_stunstick" then
@@ -53,7 +57,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 						
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "alyxgun" and attacker:GetPerk("Pyro") then
-				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+				mul = mul + 0.1 + ((attacker:GetRank() * 1) / 100 )
 				local burnchance = 100 - attacker:GetRank() * 1	
 				local ignite = 1
 				local burn = 6 + (6 * (0.05 + (3*(attacker:GetRank()*0.01))))		
@@ -120,7 +124,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				if not dmginfo:IsMeleeDamage() then
 					dmg = dmg * 0.9
 				else
-					mul = 0.1
+					mul = mul + 0.1
 					if attacker:GetPerk("berserker_executioner") then
 						if ent:Health() < ent:GetMaximumHealth()*0.3 then
 							mul = mul + 0.3
