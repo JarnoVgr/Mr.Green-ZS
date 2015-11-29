@@ -45,17 +45,14 @@ function ENT:Think()
 								owner:UnlockAchievement("poisonheal")	
 							end							
 						end			
-					end
-				else
-					if not (hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive()) then
-						hitent:TakeDamage(5, self, self)
+					else
+						hitent:SetPhysicsAttacker(self.Owner)
+						hitent:TakeDamage(5, self.Owner, self)						
 					end
 				end
 			end
-
 			self.HitData = nil
 		end
-
 		self:Remove()
 	end
 end

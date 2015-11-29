@@ -97,16 +97,10 @@ function SWEP:Equip ( NewOwner )
 	
 		if self.Weapon.FirstSpawn then
 			self.Weapon.FirstSpawn = false
-			
-		if self.Owner:GetPerk("engineer_multimine") then
-			self.Weapon:SetClip1( 7 ) 	
+			if self.Owner:GetPerk("engineer_multimine") then
+				self.Weapon:SetClip1( 8 ) 	
+			end	
 		end	
-		
-		end	
-		
-
-	
-	
 	-- Call this function to update weapon slot and others
 	gamemode.Call ( "OnWeaponEquip", NewOwner, self )
 end
@@ -125,14 +119,14 @@ local owner = self.Owner
 	local mymines = 0
 	
 	trace.start = self.Owner:GetShootPos()
-	trace.endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * 64
+	trace.endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * 50
 	trace.filter = ents.GetAll() -- Ignore everything but the world.
 	local tr = util.TraceLine( trace )
 	-- 
 	
 	for k,v in pairs ( ActualMines ) do
 		if IsValid( v ) and tr.HitPos:Distance(v:GetPos()) <= 32 then
-				mines = mines + 1
+			mines = mines + 1
 		end
 	end
 		
@@ -161,7 +155,7 @@ local owner = self.Owner
 		local cades = 0
 	
 		trace.start = self.Owner:GetShootPos()
-		trace.endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * 64
+		trace.endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * 50
 		trace.filter = ents.GetAll()
 		local tr = util.TraceLine( trace )
 		
@@ -180,12 +174,7 @@ local owner = self.Owner
 		if SERVER then
 			local ent = ents.Create ("mine")
 			if ( ent ~= nil and ent:IsValid() ) then
-			
-				if self.Owner:IsPlayer() then
-					--  logging
-					-- log.PlayerAction( self.Owner, "plant_mine")
-				end
-				
+							
 				ent:SetPos(tr.HitPos)		
 				ent:SetOwner(self.Owner)
 				ent:Spawn()

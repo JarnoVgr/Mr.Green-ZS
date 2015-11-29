@@ -9,10 +9,10 @@ ENT.AdminSpawnable = false
 ENT.Detonating = false
 ENT.DetonationTime = 1
 ENT.IgnoreClasses = {4,7}
-ENT.damage = 195
-ENT.radius = 150
+ENT.damage = 190
+ENT.radius = 140
 ENT.scan = 1
-ENT.range = 140
+ENT.range = 120
 ENT.WarningSound = Sound("weapons/c4/c4_beep1.wav")
 ENT.planted = 0
 

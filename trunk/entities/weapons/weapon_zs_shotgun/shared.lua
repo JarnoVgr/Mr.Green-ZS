@@ -14,7 +14,7 @@ if CLIENT then
 	SWEP.ViewModelFOV = 60
 	SWEP.ViewModelFlip = false
 	
-	SWEP.ShowViewModel = false
+	SWEP.ShowViewModel = true
 	SWEP.IgnoreBonemerge = false
 	SWEP.UseHL2Bonemerge = true
 	SWEP.ScaleDownLeftHand = true
@@ -28,8 +28,8 @@ SWEP.Base				= "weapon_zs_base"
 
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
-
-SWEP.ViewModel			= Model ( "models/weapons/v_shotgun.mdl" )
+SWEP.UseHands = true
+SWEP.ViewModel			= Model ( "models/weapons/c_shotgun.mdl" )
 SWEP.WorldModel			= Model ( "models/weapons/w_shotgun.mdl" )
 
 SWEP.Weight				= 5
@@ -50,18 +50,20 @@ SWEP.Primary.Delay			= 0.55
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo	= "buckshot"
-SWEP.ConeMoving = 0.134
-SWEP.Cone = 0.128
-SWEP.ConeCrouching = 0.123
+
+SWEP.Cone  = 0.09
+SWEP.ConeMoving = SWEP.Cone *1.1
+SWEP.ConeCrouching = SWEP.Cone *0.90
+SWEP.ConeIron = SWEP.Cone *0.85
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.85
+SWEP.ConeIronMoving = SWEP.ConeMoving *0.85
+
 SWEP.IsShotgun = true
 SWEP.MaxAmmo			    = 50
-SWEP.WalkSpeed = (SPEED_SHOTGUN + 5)
+SWEP.WalkSpeed = (SPEED_SHOTGUN + 10)
 
---.IronSightsPos = Vector (-9.0313, -11.1282, 4.0295)
---SWEP.IronSightsAng = Vector (0.2646, -0.0374, 0)
-
-SWEP.OverridePos = Vector(-3.36, -9.016, 2.2)
-SWEP.OverrideAng = Vector(0, 0, 0)
+SWEP.IronSightsPos = Vector (-9.0313, 0, 3.3295)
+SWEP.IronSightsAng = Vector (0.2646, -0.0374, 0)
 
 ---SWEP.IronSightsPos = Vector(-3.36, -9.016, 2.2)
 ---SWEP.IronSightsAng = Vector(0, 0, 0)
@@ -130,7 +132,4 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	return true
-end
-
-function SWEP:SecondaryAttack()
 end

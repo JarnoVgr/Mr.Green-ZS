@@ -18,11 +18,7 @@ function ENT:Draw()
 	FixAngles:RotateAroundAxis(FixAngles:Forward(), FixRotation.z)
 	local TargetPos = self.Entity:GetPos()
    --  cam.Start3D2D(TargetPos, FixAngles, 0.15)
-   local Size = math.abs(math.sin(RealTime() * 1)*30) + 12
+	local Size = math.abs(math.sin(RealTime() * 1)*30) + 12
 	render.SetMaterial(light)
 	render.DrawSprite( TargetPos, Size, Size, Color(255,20,20,80 ) )
-end
-
-function ENT:Think()
-
 end

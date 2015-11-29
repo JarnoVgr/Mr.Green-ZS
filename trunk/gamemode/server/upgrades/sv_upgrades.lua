@@ -201,9 +201,11 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 		if attacker.DamageOutput then
 			attacker:ChatPrint("damage: " .. math.Round(dmg) .. " | multiplier: " .. (1 + mul) .. " | old damage: " .. math.Round(olddmg))
 		end
-		
 	end
 
+	if (dmginfo:IsExplosionDamage()) and ent and ent:IsHuman() and ent:GetPerk("engineer_blastproof") then
+		dmg = dmg * 0.2
+	end
 	dmginfo:SetDamage( dmg )
 end
 

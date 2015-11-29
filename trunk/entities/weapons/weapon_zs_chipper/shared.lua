@@ -57,10 +57,10 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "shotgun"
 
 SWEP.Primary.Sound 			= Sound("Weapon_Shotgun.Single")
-SWEP.Primary.Recoil			= 2.5
+SWEP.Primary.Recoil			= 3
 SWEP.Primary.Damage			= 7
-SWEP.Primary.NumShots		= 9
-SWEP.Primary.ClipSize		= 6
+SWEP.Primary.NumShots		= 10
+SWEP.Primary.ClipSize		= 4
 SWEP.Primary.Delay			= 0.75
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
@@ -73,20 +73,20 @@ SWEP.HumanClass = "support"
 SWEP.Cone  = 0.145
 SWEP.ConeMoving = SWEP.Cone *1.1
 SWEP.ConeCrouching = SWEP.Cone *0.90
-SWEP.ConeIron 		 = SWEP.Cone *0.95
-SWEP.ConeIronCrouching   	= SWEP.ConeCrouching *0.9
-SWEP.ConeIronMoving	 = SWEP.ConeMoving *0.9
+SWEP.ConeIron = SWEP.Cone *0.85
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.85
+SWEP.ConeIronMoving = SWEP.ConeMoving *0.85
 
 SWEP.WalkSpeed = SPEED_SHOTGUN
 
-SWEP.IronSightsPos = Vector(-7.64, -10.315, 3.319)
+SWEP.IronSightsPos = Vector(-7.64, 0, 3.319)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 --SWEP.OverridePos = Vector(2.839, -4.591, 2)
 --SWEP.OverrideAng = Vector( 0,0,0 )
 
-SWEP.ReloadDelay = 0.45
+SWEP.ReloadDelay = 0.51
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0
@@ -115,7 +115,8 @@ function SWEP:Think()
 		
 		self.Owner:RemoveAmmo(1, self.Primary.Ammo, false)
 		self:SetClip1(self:Clip1() + 1)
-
+        self:EmitSound("Weapon_Shotgun.Reload")		
+		
 		if self.Primary.ClipSize <= self:Clip1() or self.Owner:GetAmmoCount(self.Primary.Ammo) <= 0 then
 			self.nextreloadfinish = CurTime() + self.ReloadDelay
 			self.reloading = false
@@ -130,7 +131,7 @@ function SWEP:Think()
 	end
 
 	if self:GetIronsights() and not self.Owner:KeyDown(IN_ATTACK2) then
-		self:SetIronsights(true)
+		self:SetIronsights(false)
 	end
 end
 
@@ -156,7 +157,4 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	return true
-end
-
-function SWEP:SecondaryAttack()
 end

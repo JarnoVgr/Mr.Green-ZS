@@ -192,9 +192,9 @@ GM.HumanWeapons = {
         --Engineer
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", Tier = 1, Type = "pistol", Price = 80, HumanClass = "engineer"},                      
         ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", Tier = 2, Type = "smg", Price = 100, HumanClass = "engineer"},
-		["weapon_zs_turretplacer"] = { Name = "Turret", Tier = 3, Type = "tool2", Price = 100, HumanClass = "engineer"   },	
+		["weapon_zs_turretplacer"] = { Name = "Turret", Tier = 0, Type = "tool2", Price = 100, HumanClass = "engineer"   },	
         ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", Tier = 3, Type = "smg", Price = 130, HumanClass = "engineer"},
-        ["weapon_zs_railgun"]  = { Name = "Railgun", Tier = 4, Type = "rifle", Price = 150, HumanClass = "engineer"},
+        ["weapon_zs_railgun"]  = { Name = "Railgun", Tier = 4, Type = "pistol", Price = 150, HumanClass = "engineer"},
  
 		--Pyro
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", Tier = 0, Type = "pistol", Price = 60}, 
@@ -427,14 +427,14 @@ GM.Perks = {
 		["engineer_bonusturret"] = {Name = "Lockdown", Description = "+1 Turret received on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/bomb_defuse_needed_kit"},
 		["engineer_combatturret"] = {Name = "Combat Turret", Description = "Spawn with a combat turret\nReceives all turret bonuses", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/concurrent_dominations"},
 		["engineer_pulsepistol"] = {Name = "Pulse Pistol", Description = "[TIER 1]\nSpawn with a pulse pistol", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_fiveseven"},
-		["engineer_multimine"] = {Name = "Multi Mine", Description = "+4 C4 on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/goose_chase"},                    
+		["engineer_multimine"] = {Name = "Multi Mine", Description = "+5 C4 on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/goose_chase"},                    
 
 		["engineer_turret"] = {Name = "Turret Overload", Description = "+40 turret stats", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/bomb_defuse_needed_kit"},
 		["engineer_combustion"] = {Name = "Combustion", Description = "Targets caught in the explosion are ignited", Class = "Engineer", Slot = 2, Rank = 5, Material = "hud/t_victories_terrorist-win"},	
 		["engineer_darkenergy"] = {Name = "Dark Energy", Description = "+10% pulse damage", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/win_rounds_without_buying"}, 
 
 		["engineer_revenue"] = {Name = "Turret Revenue", Description = "+5 SP from turret kills", Class = "Engineer", Slot = 3, Rank = 7, Material = "vgui/achievements/kill_low_damage"},
-		["engineer_blastproof"] = {Name = "Blast Proof", Description = "70% resistance to explosives", Class = "Engineer", Slot = 3, Rank = 7, Material = "hud/t_victories_bomb-detonated"},
+		["engineer_blastproof"] = {Name = "Blast Proof", Description = "+80% resistance to explosives", Class = "Engineer", Slot = 3, Rank = 7, Material = "hud/t_victories_bomb-detonated"},
 
 	-- Sharpshooter
 		

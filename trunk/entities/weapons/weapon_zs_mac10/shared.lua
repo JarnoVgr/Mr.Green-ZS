@@ -27,10 +27,10 @@ SWEP.Weight = 5
 SWEP.HoldType = "pistol"
 SWEP.HumanClass = "support"
 SWEP.Primary.Sound = Sound("Weapon_MAC10.Single")
-SWEP.Primary.Recoil = 1.15
-SWEP.Primary.Damage = 10
+SWEP.Primary.Recoil = 1.4
+SWEP.Primary.Damage = 12
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.075
+SWEP.Primary.Delay = 0.072
 
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.DefaultClip = SWEP.Primary.ClipSize

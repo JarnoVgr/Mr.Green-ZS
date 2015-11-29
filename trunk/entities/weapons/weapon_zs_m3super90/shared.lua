@@ -32,8 +32,8 @@ SWEP.Primary.Sound			= Sound("Weapon_M3.Single")
 SWEP.Primary.Recoil			= 4
 SWEP.Primary.Damage			= 11
 SWEP.Primary.NumShots		= 7
-SWEP.Primary.ClipSize		= 6
-SWEP.Primary.Delay			= 0.75
+SWEP.Primary.ClipSize		= 7
+SWEP.Primary.Delay			= 0.8
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "buckshot"
@@ -41,21 +41,22 @@ SWEP.Primary.Ammo			= "buckshot"
 SWEP.MaxAmmo			    = 70
 SWEP.IsShotgun = true
 
-SWEP.Cone = 0.11
-SWEP.ConeMoving = SWEP.Cone *1.10
+SWEP.Cone = 0.099
+SWEP.ConeMoving = SWEP.Cone *1.1
 SWEP.ConeCrouching = SWEP.Cone *0.95
+SWEP.ConeIron = SWEP.Cone *0.85
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.85
+SWEP.ConeIronMoving = SWEP.ConeMoving *0.85
 
-SWEP.WalkSpeed = SPEED_SHOTGUN
+SWEP.WalkSpeed = (SPEED_SHOTGUN + 4)
 SWEP.MaxBulletDistance 		= 1750
 
-SWEP.IronSightsPos = Vector(-7.64, -10.315, 3.319)
+SWEP.IronSightsPos = Vector(-7.64, 0, 3.319)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.OverridePos = Vector(2.839, -4.591, 2)
 SWEP.OverrideAng = Vector( 0,0,0 )
-
-
 
 SWEP.ReloadDelay = 0.45
 
@@ -136,7 +137,4 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	return true
-end
-
-function SWEP:SecondaryAttack()
 end

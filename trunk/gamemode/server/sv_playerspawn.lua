@@ -113,7 +113,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.MultiKills.Crossbow = {}
 	pl.MultiKills.Mine = {}
 	pl.MultiKills.Pistol = {}
-	
+	pl.MenuSent = false
 	pl.Loadout = pl.Loadout or {}
 	pl.Perk = pl.Perk or {}
 		
@@ -209,8 +209,9 @@ function GM:PlayerSpawn(pl)
 	end]]
 	
 	--???
-	if pl:Team() == TEAM_SPECTATOR then
+	if pl:Team() == TEAM_SPECTATOR and not pl.MenuSent then
 		self:OnFirstHumanSpawn(pl)
+		pl.MenuSent = true
 		return
 	end
 

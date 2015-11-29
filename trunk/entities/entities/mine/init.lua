@@ -9,17 +9,22 @@ ActualMines = {}
 
 function ENT:Initialize()
 	self.Entity:SetModel("models/weapons/w_c4_planted.mdl") 
-	
+
 	--self.Entity:SetColor( 255 255 255 255 )
-	self.Entity:PhysicsInit(SOLID_VPHYSICS)
-	self.Entity:SetSolid (SOLID_NONE)
 	self.Entity:DrawShadow(false)
-	self.Entity:SetCollisionGroup( COLLISION_GROUP_NONE )
+
 	self.Entity:SetTrigger(true)
 	self.Entity.Frozen = true
 	
-	if self:GetOwner().DataTable["ShopItems"][50] then
-		self.Damage = self.Damage + (self.Damage * 0.1)		
+	if SERVER then	
+		self.Entity:PhysicsInit(SOLID_VPHYSICS)
+		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
+		self.Entity:SetSolid(SOLID_VPHYSICS)	
+		self.Entity:SetCollisionGroup(COLLISION_GROUP_WEAPON)	
+		
+		if self:GetOwner().DataTable["ShopItems"][50] then
+			self.Damage = self.Damage + (self.Damage * 0.1)		
+		end
 	end
 	
 	local phys = self.Entity:GetPhysicsObject()
@@ -43,6 +48,16 @@ function ENT:AcceptInput(name, activator, caller, arg)
 end
 --]]
 
+
+if SERVER then
+	function ENT:OnTakeDamage( dmginfo )
+		if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() then
+			self:Explode()				
+			self.Entity:Remove()
+			return
+		end
+	end
+end
 
 
 function ENT:Think()
@@ -140,9 +155,9 @@ end
 
 function ENT:WallPlant(hitpos, forward)
 	if (hitpos) then
-		self.Entity:SetPos( hitpos + Vector(0,0,3) )
+		self.Entity:SetPos(hitpos)
 	end
-    self.Entity:SetAngles( forward:Angle() + Angle( -90, 0, 180 ) )
+    self.Entity:SetAngles(forward:Angle() + Angle( -90, 0, 180 ) )
 end
 
 function ENT:PhysicsCollide( data, phys ) 

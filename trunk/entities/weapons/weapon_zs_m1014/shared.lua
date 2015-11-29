@@ -32,8 +32,8 @@ SWEP.ReloadDelay = 0.3
 SWEP.HumanClass = "support"
 SWEP.Primary.Sound			= Sound("Weapon_XM1014.Single")
 SWEP.Primary.Recoil			= 3
-SWEP.Primary.Damage			= 7
-SWEP.Primary.NumShots		= 7
+SWEP.Primary.Damage			= 6.5
+SWEP.Primary.NumShots		= 8
 SWEP.Primary.ClipSize		= 8
 SWEP.Primary.Delay			= 0.3
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
@@ -41,9 +41,12 @@ SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "buckshot"
 SWEP.Primary.ReloadDelay	= 0.4
 
-SWEP.Cone = 0.11
-SWEP.ConeMoving = SWEP.Cone *1.05
+SWEP.Cone = 0.099
+SWEP.ConeMoving = SWEP.Cone *1.1
 SWEP.ConeCrouching = SWEP.Cone *0.95
+SWEP.ConeIron = SWEP.Cone *0.85
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.85
+SWEP.ConeIronMoving = SWEP.ConeMoving *0.85
 
 
 SWEP.MaxAmmo			    = 70
@@ -54,8 +57,8 @@ SWEP.IsShotgun = true
 SWEP.WalkSpeed = SPEED_SHOTGUN
 SWEP.MaxBulletDistance 		= 2300
 
-SWEP.IronSightsPos = Vector(-6.881, -11.261, 2.68)
-SWEP.IronSightsAng = Vector(0, -0.828, 0)
+SWEP.IronSightsPos = Vector(-7.64, 0, 3.319)
+SWEP.IronSightsAng = Vector(0, 0, 0)
 
 SWEP.OverridePos = Vector(2.559, -3.28, 1.399)
 SWEP.OverrideAng = Vector( 0,0,0 )
@@ -68,7 +71,6 @@ end
 
 --SWEP.IronSightsPos = Vector(2.559, -3.28, 1.399)
 --SWEP.IronSightsAng = Vector(0, 0, 0)
-
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0
@@ -135,7 +137,4 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	return true
-end
-
-function SWEP:SecondaryAttack()
 end

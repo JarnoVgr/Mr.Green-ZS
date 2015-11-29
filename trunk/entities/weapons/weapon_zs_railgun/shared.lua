@@ -45,8 +45,8 @@ SWEP.HoldType = "ar2"
 SWEP.ViewModel = "models/weapons/cstrike/c_shot_xm1014.mdl"
 SWEP.WorldModel = "models/weapons/w_shot_xm1014.mdl"
 
-SWEP.Primary.ClipSize = 100;
-SWEP.Primary.DefaultClip = 100;
+SWEP.Primary.ClipSize = 150;
+SWEP.Primary.DefaultClip = 150;
 SWEP.Primary.Automatic = false;
 SWEP.Primary.Ammo = "none";
  
@@ -61,9 +61,9 @@ SWEP.Primary.Damage = 200
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.074
-SWEP.startcharge = 0.2
-SWEP.MaxClip = 100
+SWEP.rechargerate = 0.071
+SWEP.startcharge = 0.1
+SWEP.MaxClip = 150
 SWEP.reloadSoundPlayed = false
 function SWEP:Think()
 	if SERVER then
@@ -78,7 +78,7 @@ function SWEP:Think()
 		else
 
 			if self:GetOwner():GetPerk("Engineer") then
-				self.rechargerate = 0.066 - (0.066*(2*self:GetOwner():GetRank())/100)				
+				self.rechargerate = 0.065 - (0.065*(2*self:GetOwner():GetRank())/100)				
 			end
 
 			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then
@@ -91,7 +91,7 @@ function SWEP:Think()
 			end
 		end
 	end
-		if (self:Clip1() == 100 and !self.reloadSoundPlayed) then
+		if (self:Clip1() >= 100 and !self.reloadSoundPlayed) then
 			self:EmitSound(Sound("npc/roller/remote_yes.wav"), 100)	
 			self.reloadSoundPlayed = true
 		end			

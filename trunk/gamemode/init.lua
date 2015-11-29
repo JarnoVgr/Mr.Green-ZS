@@ -331,11 +331,11 @@ local function OnPressedF3(pl)
 		local tr = util.TraceLine ( { start = vStart, endpos = vStart + ( pl:GetAimVector() * 90 ), filter = pl, mask = MASK_SHOT } )
 		local entity = tr.Entity
 		if entity and IsValid(entity) and entity:GetClass() == "game_mobilesupplycrate" then
-			local price = GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Price	
-			if price and CurTime() > WARMUPTIME + 1 then	
+			local price = GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Tier or 0	
+			if price and CurTime() > WARMUPTIME then	
 				pl:GetActiveWeapon():Remove()				
 				DropWeapon(pl)
-				price = math.Round(price * 0.5)
+				price = (price * 10) + 10
 				skillpoints.AddSkillPoints(pl,price)
 				pl:Message("+"..price.." SP", 1)			
 				pl:EmitSound("Breakable.Metal")		

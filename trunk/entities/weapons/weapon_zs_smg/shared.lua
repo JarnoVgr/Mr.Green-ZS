@@ -17,13 +17,7 @@ if CLIENT then
 	SWEP.IgnoreBonemerge = false
 	SWEP.UseHL2Bonemerge = true
 	SWEP.ScaleDownLeftHand = true
-	
-	SWEP.VElements = {
-	 	["smg1"] = { type = "Model", model = "models/Weapons/w_smg1.mdl", bone = "ValveBiped.base", rel = "", pos = Vector(-0.826, 0.95, 3.444), angle = Angle(88.787, 143.143, 126.155), size = Vector(0.837, 0.842, 0.856), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
-	}
-	
 	SWEP.IconLetter = "/"
-
 	killicon.AddFont( "weapon_zs_smg", "HL2MPTypeDeath", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
 end
 
@@ -54,8 +48,8 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "ar2"
 
 SWEP.Primary.Sound			= Sound("Weapon_AR2.NPC_Single")
-SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 9
+SWEP.Primary.Recoil			= 1.15
+SWEP.Primary.Damage			= 10
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 40
 SWEP.Primary.Delay			= 0.095
@@ -67,7 +61,7 @@ SWEP.MaxAmmo			    = 250
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 
-SWEP.ConeMoving = 0.076
+SWEP.ConeMoving = 0.072
 SWEP.Cone = 0.062
 SWEP.ConeCrouching = 0.06
 SWEP.ConeIron = SWEP.Cone *0.7
