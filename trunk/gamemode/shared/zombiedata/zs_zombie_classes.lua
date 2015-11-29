@@ -738,8 +738,8 @@ ZombieClasses[11] =
 	ModelScale = 1.25,-- Vector(1.15,1.15,1.15),
 	ViewOffset = Vector(0, 0, 73),
 	ViewOffsetDucked = Vector(0,0,32.2),
-	Hull = { Vector(-19, -19, 0), Vector(19, 19, 78) },
-	HullDuck = {Vector(-19, -19, 0), Vector(19, 19, 46)},		
+	Hull = { Vector(-21, -21, 0), Vector(21, 21, 78) },
+	HullDuck = {Vector(-21, -21, 0), Vector(21, 21, 46)},		
 	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
 	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
