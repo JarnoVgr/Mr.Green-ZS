@@ -253,7 +253,6 @@ if SERVER then
 	self:SetSwingEnd(0)
 end
 
-
 function SWEP:PrimaryAttack()
 
     self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
@@ -309,10 +308,6 @@ function SWEP:SecondaryAttack()
     --Get phys object
     local PhysEnt = trent:GetPhysicsObject()
 
-    --??
-    if not string.find(trent:GetClass(), "prop_physics") and IsValid(PhysEnt) then
-        return
-    end
 
     if SERVER then
         if not IsValid(PhysEnt) or (not PhysEnt:IsMoveable() and not trent.Nails) or trent.IsObjEntity then

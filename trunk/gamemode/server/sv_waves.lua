@@ -320,6 +320,7 @@ function GM:TryHumanPickup(pl, entity)
 					pl.NextUnHold = CurTime() + 0.05
 					newstatus:SetPos(pl:GetShootPos())
 					newstatus:SetOwner(pl)
+					entity:SetPhysicsAttacker(pl)
 					newstatus:SetParent(pl)
 					newstatus:SetObject(entity)
 					newstatus:Spawn()

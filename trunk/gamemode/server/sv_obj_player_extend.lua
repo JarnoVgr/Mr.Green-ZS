@@ -1170,9 +1170,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 			else
 				damage = damage * 0.25
 			end
-		else
-			damage = damage * 0.25	
-		end
+		else return true end
 	end
 
 	ent._LastAttackerIsHuman = false
@@ -1199,7 +1197,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		end
 		
 		--damage - damage / ent.Nails * 0.2
-		nail:SetDTInt(1, nail:GetDTInt(1) - ((damage/#ent.Nails)* math.random(0.25,0.45)))	
+		nail:SetDTInt(1, nail:GetDTInt(1) - ((damage/#ent.Nails)* math.random(0.2,0.4)))	
 		nail:SetNailHealth(nail:GetNailHealth() - ((damage/#ent.Nails) + damage*0.3))	
 
 		--Check for nail heath
@@ -1532,7 +1530,7 @@ function meta:CheckSpeedChange()
 	end
 	
 	if self:GetPerk("berserker_enrage") and fHealth <= 40 then
-		fSpeed = SPEED + 25
+		fSpeed = SPEED + 28
 	end		
 
 	GAMEMODE:SetPlayerSpeed(self, fSpeed)

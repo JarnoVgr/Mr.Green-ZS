@@ -20,7 +20,7 @@ local mul = 0
 function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 
 	dmg = dmginfo:GetDamage()
-
+	
 	if attacker:IsPlayer() then		
 		if attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN and ent:IsPlayer() then
 						
@@ -205,6 +205,11 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 		if attacker.DamageOutput then
 			attacker:ChatPrint("damage: " .. math.Round(dmg) .. " | multiplier: " .. (1 + mul) .. " | old damage: " .. math.Round(olddmg))
 		end
+	elseif (dmginfo:GetInflictor():GetClass() == "func_physbox") then
+		if IsValid(dmginfo:GetAttacker()) then
+			dmg = 0
+		end
+
 	end
 
 	if (dmginfo:IsExplosionDamage()) and ent and ent:IsHuman() and ent:GetPerk("engineer_blastproof") then
