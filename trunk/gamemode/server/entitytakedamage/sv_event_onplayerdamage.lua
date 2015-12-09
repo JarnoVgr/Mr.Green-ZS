@@ -24,11 +24,11 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 --end)
 
 	-- Play hurt sound
-	pl:PlayPainSound()
-	
+	if (dmginfo:GetDamage() > 0) then
+		pl:PlayPainSound()
+	end
 	
 
-	
 	if pl:IsHuman() then
 		pl:CheckSpeedChange()
 		pl:CheckEnrage(dmginfo:GetDamage())

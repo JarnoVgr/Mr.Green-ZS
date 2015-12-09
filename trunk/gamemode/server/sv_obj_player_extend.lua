@@ -64,7 +64,7 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 			-- Shake screen
 			Victim:ViewPunch( Angle( math.random( -1, 1 ), math.random( -1, 1 ), 0 ) )
 			
-			if (Attacker:IsHuman()) then
+			if (Attacker:IsHuman() and not Victim.IsInfected) then
 				local Infect = EffectData()		
 				Infect:SetEntity( Victim )
 				util.Effect( "infected_human", Infect, true)				
@@ -820,10 +820,6 @@ function meta:SetAppropiateTeam()
 
 	--Team
 	local iTeam = TEAM_SPECTATOR
-	
-	if self:IsBot() then
-		iTeam = TEAM_HUMAN
-	end
 	
 	-- Setup a table for connected selfayers for good reasons
 	if not DataTableConnected[ID] then

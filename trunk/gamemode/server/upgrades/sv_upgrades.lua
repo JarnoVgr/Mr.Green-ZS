@@ -187,8 +187,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 			elseif ent:GetPerk("berserker_porcupine") then
 				attacker:TakeDamage(dmg*0.33, ent, ent:GetActiveWeapon())	
-			
-
+		
 			elseif ent:GetPerk("pyro_immolate") then
 				attacker:Ignite(4,0)			
 				dmginfo:SetAttacker(ent)
@@ -196,10 +195,6 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			elseif ent:GetPerk("Berserker") then
 				dmg = dmg*0.9	
 			end	
-			
-			if (dmg > 25 && !ent:GetPerk("Berserker")) then
-				ent:Daze(dmg*0.06)	
-			end
 		end		
 
 		if attacker.DamageOutput then
@@ -209,12 +204,16 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 		if IsValid(dmginfo:GetAttacker()) then
 			dmg = 0
 		end
-
-	end
-
-	if (dmginfo:IsExplosionDamage()) and ent and ent:IsHuman() and ent:GetPerk("engineer_blastproof") then
+		
+	elseif (dmginfo:IsFireDamage()) then
+		if (dmginfo:GetInflictor():GetClass() == "entityflame") then
+			dmg = 0
+		end
+		
+	elseif (dmginfo:IsExplosionDamage()) and ent and ent:IsHuman() and ent:GetPerk("engineer_blastproof") then
 		dmg = dmg * 0.2
 	end
+	
 	dmginfo:SetDamage( dmg )
 end
 
