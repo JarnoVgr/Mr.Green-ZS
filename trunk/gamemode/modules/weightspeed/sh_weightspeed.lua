@@ -159,7 +159,6 @@ end
 
 function PLAYER:Daze( iDuration )
 	if not iDuration then iDuration = 1 end
-	if self.IsDazed then return end
 	
 	-- Lower speed
 	self.DazeBeforeSpeed = self:GetMaxSpeed()

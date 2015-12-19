@@ -701,7 +701,7 @@ ZombieClasses[11] =
 	SWEP = "weapon_zs_undead_boss_behemoth",
 	
 	Model = Model("models/player/zombie_soldier.mdl"),
-	Speed = 165,
+	Speed = 160,
 	Description = "",
 	Unique = "",
 	PainSounds = {
@@ -735,11 +735,11 @@ ZombieClasses[11] =
 	OnRevive = function(pl)
 		pl:AnimResetGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD)
 	end,
-	ModelScale = 1.25,-- Vector(1.15,1.15,1.15),
-	ViewOffset = Vector(0, 0, 73),
-	ViewOffsetDucked = Vector(0,0,32.2),
-	Hull = { Vector(-21, -21, 0), Vector(21, 21, 78) },
-	HullDuck = {Vector(-21, -21, 0), Vector(21, 21, 46)},		
+	ModelScale = 1,-- Vector(1.15,1.15,1.15),
+	--ViewOffset = Vector(0, 0, 73),
+	--ViewOffsetDucked = Vector(0,0,32.2),
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) },
+	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},	
 	--Hull = { Vector(-16,-16, 0), Vector(16,16,83) },
 	--HullDuck = { Vector(-16,-16, 0), Vector(16,16,41) },
 }
