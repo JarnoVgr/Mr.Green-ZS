@@ -456,7 +456,7 @@ function GM:OnEndRound(winner)
 					pl:AddXP(2500)
 					pl:AddXP(team.NumPlayers(TEAM_HUMAN)*100)
 					
-				if game.GetMap() == "zs_uglyfort" then
+				if game.GetMap() == "zs_uglyfort_v2" then
 					pl:UnlockAchievement("uglyfort")
 				elseif game.GetMap() == "zs_fortress_mod" then
 					pl:UnlockAchievement("fortress")				
