@@ -101,13 +101,14 @@ function SWEP:SecondaryAttack()
 						skillpoints.AddSkillPoints(owner,toheal or 14)
 						ent:FloatingTextEffect2( toheal or 14, owner )
 						owner:AddXP(toheal*3 or 5)
-						
+												self:TakeCombinedPrimaryAmmo(totake)
 						if owner:GetPerk("medic_reward") then
 							skillpoints.AddSkillPoints(owner,toheal*0.4 or 15)	
-							ent:FloatingTextEffect2(owner,toheal*0.4 or 15)							
+							ent:FloatingTextEffect2(owner,toheal*0.4 or 15)			
+							toheal = toheal + toheal * 1.15
 						end	
 
-						self:TakeCombinedPrimaryAmmo(totake)
+
 
 						ent:SetHealth(health + toheal)
 						ent:EmitSound(Sound("items/medshot4.wav"),80,115)
@@ -135,7 +136,7 @@ function SWEP:SecondaryAttack()
 					self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 					self.Owner:SetAnimation(PLAYER_ATTACK1)						
 					if (SERVER) then	
-						ent:TakeDamageOverTime(10, 2, 4 ,self.Owner,self)							
+						ent:TakeDamageOverTime(8, 1, 5 ,self.Owner,self)							
 					end					
 					self:SetNextCharge(CurTime() + 10)
 				end
