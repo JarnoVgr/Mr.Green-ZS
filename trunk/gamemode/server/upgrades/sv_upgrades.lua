@@ -36,7 +36,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
 				
 				if (attacker:GetPerk("commando_viper")) then
-					mul = mul - 0.40
+					mul = mul - 0.36
 				end			
 				
 				dmg = dmg + (dmg * mul)

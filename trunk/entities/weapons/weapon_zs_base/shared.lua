@@ -31,7 +31,7 @@ SWEP.TracerName = "Tracer"
 SWEP.ActualClipSize = -1
 
 SWEP.RecoilMultiplier = 1
-SWEP.AccuracyBonus = 0
+SWEP.AccuracyBonus = 1
 SWEP.ForceBonus = 1
 SWEP.HumanClass = "medic"
 
@@ -114,7 +114,7 @@ function SWEP:PrimaryAttack()
 		self.Owner:SetEyeAngles(eyeang)
 	end
 
-	
+	local accuracy = 0
 	local j = 0
 	if self.Owner:GetVelocity():Length() > 10 then
 		j = 0.5
@@ -136,11 +136,11 @@ function SWEP:PrimaryAttack()
 
 		for i=1, 10 do
 			if self.LastShot > CurTime() - (i * 0.08) then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, (cone * ((j + 1.41) - (i * 0.14))) - (cone * self.AccuracyBonus))		
+				accuracy = (cone * ((j + 1.41) - (i * 0.14)))
 				break
 			
 			elseif i == 10 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.57 - (cone * self.AccuracyBonus))
+				accuracy = cone * 0.57
 				break
 			end
 		end
@@ -149,11 +149,11 @@ function SWEP:PrimaryAttack()
 	
 	for i=1, 10 do
 		if self.LastShot > CurTime() - (i * 0.11) then
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, (cone * ((j + 1.51) - (i * 0.12))) - (cone * self.AccuracyBonus))		
+			accuracy = (cone * ((j + 1.51) - (i * 0.12)))
 			break
 		
 		elseif i == 10 then
-			self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.7 - (cone * self.AccuracyBonus))
+			accuracy = cone * 0.7
 			break
 		end
 	end	
@@ -162,15 +162,18 @@ function SWEP:PrimaryAttack()
 	else
 		for i=1, 10 do
 			if self.LastShot > CurTime() - (i * 0.08) then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, (cone * ((j + 1.109) - (i * 0.1))) - (cone * self.AccuracyBonus))		
+				accuracy = (cone * ((j + 1.109) - (i * 0.1)))
 				break
 			
 			elseif i == 10 then
-				self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, cone * 0.5 - (cone * self.AccuracyBonus))
+				accuracy = cone * 0.5
 				break
 			end
 		end
 	end
+	
+	accuracy = accuracy + (accuracy * self.AccuracyBonus)
+	self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, accuracy)		
 
 	--Knockback
 	--local aimVec = self.Owner:GetAimVector()
@@ -224,15 +227,23 @@ function SWEP:Deploy()
 	self:SetIronsights(false)
 	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 	self.IdleAnimation = CurTime() + self:SequenceDuration()		
+	self.AccuracyBonus = 1
 	--commando
 	if self.Owner:GetPerk("commando_marksman") then
-		self.AccuracyBonus = 0.6
+		self.AccuracyBonus = 1.6
 	end
 	
 	--sharpshooter
-	if self.Owner:GetPerk("sharpshooter_marksman") then
-		self.AccuracyBonus = 0.7
-	end	
+	if (self.Owner:GetPerk("Sharpshooter")) then
+		self.AccuracyBonus = self.Owner:GetRank() * 2 + 0.1
+		if self.Owner:GetPerk("sharpshooter_marksman") then
+			self.AccuracyBonus = self.AccuracyBonus + 1.7
+		end	
+	end
+	
+	if (self.Owner:GetPerk("commando_viper")) then
+		self.AccuracyBonus = 0.85
+	end
 	
 	
 	if self.Owner:GetPerk("Commando") then		
@@ -457,6 +468,10 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 	
 	if (self.Owner:GetPerk("commando_viper") and self.Primary.Ammo == "ar2") then
 		numbul = 2				
+	elseif(math.random(1,4) == 1 and self.Owner:GetPerk("sharpshooter_fragments") and self.Primary.Ammo == "357") then
+		numbul = math.random(5,8)
+		dmg = dmg*0.4
+		cone = cone * 1.5
 	end
 	
 	--GetViewPunchAngles

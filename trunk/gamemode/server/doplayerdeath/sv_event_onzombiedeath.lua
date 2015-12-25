@@ -2,6 +2,41 @@
 -- See LICENSE.txt for license information
 
 -- Called when a zombie is killed
+
+local function GiveAmmoDirectly(pl)
+
+		if pl:IsPlayer() and pl:IsHuman() then
+			local WeaponToFill = pl:GetActiveWeapon()		
+			local AmmoType
+
+			AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
+					
+			if AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none" then
+				WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
+			else
+			
+			local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType]
+			local mul = 1
+				
+			if pl:GetPerk("Support") then
+				mul = (mul+0.1) + pl:GetRank()*0.02
+			end	
+			
+			if pl:GetPerk("support_ammo") then
+				mul = mul + 0.4
+			end					
+			
+			if pl:HasBought("ammoman") then
+				mul = mul + 0.5
+			end		
+
+			pl:GiveAmmo(math.Round(HowMuch * mul), AmmoType)							
+		end
+	end
+	pl:EmitSound("items/gift_pickup.wav" )
+end
+
+
 local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	-- Calculate spawn cooldown
 	--[[
@@ -47,7 +82,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 	
 	if (mAttacker:GetPerk("commando_bloodammo")) then
-		mAttacker:GiveAmmo(math.Round(dmginfo:GetDamage() * 0.5),"ar2")
+		mAttacker:GiveAmmo(math.Round(dmginfo:GetDamage() * 0.4),"ar2")
 	end
 	
 	--Possible revive
@@ -113,41 +148,42 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		mVictim:PlayZombieDeathSound()
 
 		if math.random(1,10) > 2 then
-		local item = "zs_ammobox"	
+			local item = "zs_ammobox"	
 
-		if not MOBILE_SUPPLIES then
-			item = "weapon_zs_tools_supplies"
-			MOBILE_SUPPLIES = true
-		end	
-		
-		local dropChance = math.random(1,10)
-		
-			if dropChance == 3 then
+			if not MOBILE_SUPPLIES then
+				item = "weapon_zs_tools_supplies"
+				MOBILE_SUPPLIES = true
+			end	
+			
+			if math.random(1,10) == 3 then
 				item = "item_healthvial"		
 			end
 
-			local itemToSpawn = ents.Create(item)			
-			
-			if IsValid(itemToSpawn) then
-			
-				if mVictim:Crouching() then
-					itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,20))			
-				else
-					itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,32))			
-				end
-
-				itemToSpawn:Spawn()
+			if (mAttacker:GetPerk("global_ammo")) then
+				GiveAmmoDirectly(mAttacker)
+			else
+				local itemToSpawn = ents.Create(item)			
 				
-				local phys = itemToSpawn:GetPhysicsObject()
-				if phys:IsValid() then
-					phys:Wake()
-					phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
-					phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
-				end
-			end		
+				if IsValid(itemToSpawn) then
+					if mVictim:Crouching() then
+						itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,20))			
+					else
+						itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,32))			
+					end
+
+					itemToSpawn:Spawn()
+						
+					local phys = itemToSpawn:GetPhysicsObject()
+					if phys:IsValid() then
+						phys:Wake()
+						phys:ApplyForceCenter(Vector(math.Rand(25, 175),math.Rand(25, 175),math.Rand(50, 375)))
+						phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+					end
+				end		
+			end
 		end
-		local floaty = 0
 		
+		local floaty = 0
 		if headshot then
 			if mAttacker:GetPerk("sharpshooter_skillshot") then
 				floaty = floaty + 5

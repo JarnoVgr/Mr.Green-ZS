@@ -176,23 +176,23 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		end]]
 	end
 	
+	
+	
 	--Fall damage
 	if dmginfo:IsFallDamage() then
 		dmginfo:SetDamage(0)
 			
-		--Fall damage is only for humans
-		if not pl:IsHuman() then
-			return true
+		if (pl:GetVelocity().z < 0) then
+			local damage = (pl:GetVelocity().z * -1) * 0.15
+			
+			if not pl:IsHuman() then
+				damage = damage * 0.5
+			elseif pl:HasBought("bootsofsteel") then
+				damage = damage * 0.6
+			end			
+			dmginfo:AddDamage(damage)
 		end
 
-		--Prevent falldamage with Boots of Steel
-		if pl:HasBought("bootsofsteel")	and math.random(1, 2) == 1 then
-			return true
-		end
-		
-		local speed, div_factor = math.abs(pl:GetVelocity().z), 20
-		local Damage = math.Clamp(speed / div_factor, 5, 1000)
-				
 		--Shake camera
 		if pl.ViewPunch then
 			pl:ViewPunch(Angle(math.random(-45, 45),math.random (-15, 15), math.random(-10, 10)))
@@ -200,7 +200,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			
 
 		--Add new damage
-		dmginfo:AddDamage(Damage)
+		--dmginfo:AddDamage(Damage)
 
 		
 		--[[if pl:Alive() then

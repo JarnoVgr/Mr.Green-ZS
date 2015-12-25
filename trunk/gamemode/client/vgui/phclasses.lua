@@ -464,7 +464,6 @@ function insertPerk(Perk, PerkButton)
 end
 
 function drawPerks(Perk, y, numPerks)	
-
 	Perk = {}
 		
 	local buttonPerkWidth = ScrW()*0.05

@@ -922,7 +922,7 @@ function CalculatePlayerHealth(pl)
 		Health = 110 + pl:GetRank() * 3
 
 		if pl:GetPerk("commando_health") then
-			Health = Health + 30
+			Health = Health + 40
 		end
 	end
 	-- Actually set the health

@@ -38,20 +38,6 @@ if SERVER then
 			return
 		end
 	
-		local mul = 1
-	
-		if activator:GetPerk("Support") then
-			mul = mul + 0.1
-		end
-
-		if activator:GetPerk("Support") then
-			mul = mul + activator:GetRank()*0.02
-		end	
-		
-		if activator:GetPerk("support_ammo") then
-			mul = mul + 0.4
-		end		
-	
 		if activator:IsPlayer() and activator:IsHuman() then
 		
 			--local Automatic, Pistol = activator:GetAutomatic(), activator:GetPistol()

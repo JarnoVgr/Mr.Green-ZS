@@ -363,6 +363,7 @@ GM.Perks = {
 	-- Slot 4: Global
 	-- Slot 5: Classes
 	
+		["global_ammo"] = {Name = "Ammo", Description = "Receive ammunition from kills instead of ammo drops\nGives ammo to holding weapon only", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/achievements/kill_enemy_reloading"},
 		["global_sp"] = {Name = "SP", Description = "+200% SP from kills\n0 SP from inflicting damage", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/gfx/vgui/last_match_miscellaneous"},
 		["global_none"] = {Name = "None", Description = "", Class = "Global", Slot = 4, Rank = 0, Material = ""},
 	
@@ -383,14 +384,14 @@ GM.Perks = {
 	-- Commando
 		["commando_defender"] = {Name = "Defender", Description = "[TIER 0]\nSpawn with the Defender rifle", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_ak47"},
 		["commando_grenadier"] = {Name = "Grenadier", Description = "+3 grenades on spawn", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/grenade_multikill"},
-		["commando_viper"] = {Name = "Viper", Description = "Shoot 2 bullets at a time with assault rifles\n -40% damage", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/hip_shot"},
+		["commando_viper"] = {Name = "Viper", Description = "Shoot 2 bullets at a time with assault rifles\n -36% damage\n -15% accuracy", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/hip_shot"},
 
-		["commando_bloodammo"] = {Name = "Blood Ammo", Description = "Receive 50% of damage done as assault rifle ammo from kills", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/win_knife_fights_low"},
+		["commando_bloodammo"] = {Name = "Blood Ammo", Description = "Receive 40% of damage done as assault rifle ammo from kills", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/win_knife_fights_low"},
 		["commando_enforcer"] = {Name = "Enforcer", Description = "+25 clip size", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/kill_enemy_last_bullet"},
 		["commando_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
 
 		["commando_kevlar"] = {Name = "Kevlar", Description = "+20% damage resistance from the undead", Class = "Commando", Slot = 3, Rank = 7, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
-		["commando_health"] = {Name = "Health", Description = "+30 maximum health", Class = "Commando", Slot = 3, Rank = 7, Material = "vgui/achievements/decal_sprays"},
+		["commando_health"] = {Name = "Health", Description = "+40 maximum health", Class = "Commando", Slot = 3, Rank = 7, Material = "vgui/achievements/decal_sprays"},
 	    ["commando_leadmarket"] = {Name = "Lead Market", Description = "+50% SP from kills", Class = "Commando", Slot = 3, Rank = 7, Material = "vgui/achievements/collect_gifts"},
 
 		
@@ -440,12 +441,12 @@ GM.Perks = {
 		
 		["sharpshooter_python"] = {Name = "Python", Description = "[TIER 1]\nSpawn with the Python", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/hip_shot"},
 		["sharpshooter_medical"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users and +1 SP for the owner", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/collect_gifts"},              
-
+		["sharpshooter_fragments"] = {Name = "Fragments", Description = "25% chance a sharpshooter shot will explode in fragments.\n5-8 fragments\n40% of weapon damage per fragment\n-50% accuracy on fragment shot", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/kill_low_damage"},
 
 		["sharpshooter_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/domination_overkills_low"},
 		["sharpshooter_double"] = {Name = "Double Calibre", Description = "+2 Musket clip size\n+2 Python clip size", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/kill_two_with_one_shot"},              
-		["sharpshooter_friction"] = {Name = "Friction Burn", Description = "25% chance to ingite target with a headshot", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/immovable_object"},        
-
+		["sharpshooter_friction"] = {Name = "Friction Burn", Description = "25% chance to ignite target with a headshot", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/immovable_object"},        
+		
 		["sharpshooter_skillshot"] = {Name = "Skill Shot", Description = "+5 SP for headshot kills", Class = "Sharpshooter", Slot = 3, Rank = 8, Material = "vgui/achievements/headshots_in_round"},           
 		["sharpshooter_agility"] = {Name = "Agility", Description = "+7% movement speed\n+40 jump power", Class = "Sharpshooter", Slot = 3, Rank = 8, Material = "vgui/achievements/kill_enemy_in_air"},
 	-- Pyro
@@ -514,9 +515,9 @@ GM.Perks = {
 		
 	["Sharpshooter"] = {Name = "Sharpshooter", 
 		Equipment = "Mobile Supplies, Beretta, Knife", 	
-		Description = " +5% Sniper damage \n +8% Headshot damage",
-		CoefDesc = " +%i%% Sniper damage\n +%i%% Headshot damage\n",
-		Coef = {1,1},
+		Description = " +5% Sniper damage \n +8% Headshot damage\n +10% Accuracy",
+		CoefDesc = " +%i%% Sniper damage\n +%i%% Headshot damage\n +%i%% Accuracy",
+		Coef = {1,1,2},
 		Slot = 5,
 		Rank = 0,
 		Colour = Color(127, 181, 120,32),

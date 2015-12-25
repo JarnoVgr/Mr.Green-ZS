@@ -60,7 +60,7 @@ SWEP.WalkSpeed = SPEED_PISTOL
 --SWEP.ConeIron = SWEP.Cone *0.8
 --SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
 
-SWEP.Cone = 0.045
+SWEP.Cone = 0.036
 SWEP.ConeMoving = SWEP.Cone *1.2
 SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.8

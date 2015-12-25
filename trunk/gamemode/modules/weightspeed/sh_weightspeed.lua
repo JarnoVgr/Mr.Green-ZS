@@ -159,7 +159,7 @@ end
 
 function PLAYER:Daze( iDuration )
 	if not iDuration then iDuration = 1 end
-	
+	self.LastDaze = CurTime()
 	-- Lower speed
 	self.DazeBeforeSpeed = self:GetMaxSpeed()
 	
@@ -226,18 +226,16 @@ function cMove.HumanMove ( pl, CMove )
 	if pl.IsDazed then
 		local iTimeLeft = pl.DazeTime - CurTime()
 		local fMul = iTimeLeft / pl.DazeDuration
-		
-		-- New speed
+
 		local iNewSpeed = pl.DazeBeforeSpeed * ( 1 - fMul ) 
 		
 		if CMove:GetForwardSpeed() < 0 then
 			iNewSpeed = iNewSpeed * SPEED_PENALTY
 		end	
-		
+
 		CMove:SetSpeed ( iNewSpeed )		
 		return
 	end
-	
 	--print(iSide)
 	-- Walking backwards slows
 end
@@ -247,11 +245,11 @@ function GM:Move( pl, CMove )
 
 	if not pl.IsDazed then
 		if pl:GetVelocity().z < -190 then
-			pl:Daze(0.8)
+			pl:Daze(1.2)
 		elseif pl:GetVelocity().z < -100 then
-			pl:Daze(0.6)			
+			pl:Daze(1)			
 		elseif pl:GetVelocity().z < -60 then
-
+			pl:Daze(0.5)			
 		end
 		
 		if pl:Crouching() then
@@ -266,7 +264,6 @@ function GM:Move( pl, CMove )
 	end
 	
 	if CMove:GetForwardSpeed() < 0 then
-		--CMove:SetForwardSpeed ( -11 )
 		CMove:SetSpeed (SPEED*SPEED_PENALTY)		
 	end		
 	

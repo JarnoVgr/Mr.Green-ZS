@@ -40,11 +40,11 @@ end
 SWEP.ViewModel = "models/weapons/c_pistol.mdl"
 SWEP.WorldModel = "models/weapons/w_pistol.mdl"
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 0.8
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Recoil			= 0.9
+SWEP.Primary.Damage			= 13
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 16
-SWEP.Primary.Delay = 0.15
+SWEP.Primary.ClipSize		= 14
+SWEP.Primary.Delay = 0.12
 SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )

@@ -63,11 +63,11 @@ SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "357"
 SWEP.Primary.ReloadDelay	= 1.6
 
-SWEP.Cone = 0.09
-SWEP.ConeMoving = SWEP.Cone *1.5
+SWEP.Cone = 0.07
+SWEP.ConeMoving = SWEP.Cone *1.2
 SWEP.ConeCrouching = SWEP.Cone *0.8
-SWEP.ConeIron = SWEP.Cone *0.2
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.2
+SWEP.ConeIron = SWEP.Cone *0.4
+SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.4
 
 SWEP.WalkSpeed = SPEED_LIGHT
 

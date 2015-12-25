@@ -40,8 +40,8 @@ SWEP.ViewModel = "models/weapons/cstrike/c_smg_tmp.mdl"
 SWEP.WorldModel = "models/weapons/w_smg_tmp.mdl"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Recoil			= 1.1
+SWEP.Primary.Damage			= 13
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Delay = 0.13
@@ -63,5 +63,5 @@ SWEP.WalkSpeed = SPEED_LIGHT
 SWEP.HoldType = "smg"
 
 function SWEP:EmitFireSound()
-	self:EmitSound(self.Primary.Sound, 80, math.random(130,135))
+	self:EmitSound(self.Primary.Sound, 80, math.random(141,143))
 end

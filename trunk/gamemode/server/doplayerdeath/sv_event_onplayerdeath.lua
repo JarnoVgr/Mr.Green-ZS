@@ -43,7 +43,6 @@ local function OnPlayerDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			util.Effect( "fire_death", e, true, true )
 			mVictim.DiedFromFlare = nil
 		end
-
 		
 		-- Melee kill
 		if dmginfo:IsMeleeDamage() and not mInflictor.IsTurretDmg then

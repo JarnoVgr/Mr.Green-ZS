@@ -785,8 +785,11 @@ end
 
 meta.OldCreateRagdoll = meta.CreateRagdoll
 function meta:CreateRagdoll()
+					CreateRagdoll(self)
+					--[[
 	local status = self.status_overridemodel
 	if status and IsValid(status) then
+	print("new ragdoll")
 		timer.Simple(0, function()
 			if IsValid(self) and IsValid(status) then 
 				-- SetModel(self, status:GetModel()) 
@@ -800,6 +803,7 @@ function meta:CreateRagdoll()
 	else
 		self:OldCreateRagdoll()
 	end
+	]]--
 end
 
 function meta:UnSpectateAndSpawn()

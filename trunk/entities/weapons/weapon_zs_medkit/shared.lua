@@ -108,14 +108,14 @@ function SWEP:PrimaryAttack()
 						ent:FloatingTextEffect2( toheal or 15, owner )
 						owner:AddXP(toheal*2 or 5)
 						
+						self:TakeCombinedPrimaryAmmo(totake)
 						if owner:GetPerk("medic_reward") then
-							skillpoints.AddSkillPoints(owner,toheal*0.4 or 15)				
-						end
+							skillpoints.AddSkillPoints(owner,toheal*0.4 or 15)	
+							ent:FloatingTextEffect2(owner,toheal*0.4 or 15)			
+							toheal = toheal + toheal * 1.15
+						end	
 						
 						--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})
-						
-						self:TakeCombinedPrimaryAmmo(totake)
-
 						ent:SetHealth(health + toheal)
 						ent:EmitSound(Sound("items/medshot4.wav"))
 						
