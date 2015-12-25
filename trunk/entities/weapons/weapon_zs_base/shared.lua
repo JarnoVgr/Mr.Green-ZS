@@ -471,7 +471,6 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 	elseif(math.random(1,4) == 1 and self.Owner:GetPerk("sharpshooter_fragments") and self.Primary.Ammo == "357") then
 		numbul = math.random(5,8)
 		dmg = dmg*0.4
-		cone = cone * 1.5
 	end
 	
 	--GetViewPunchAngles
