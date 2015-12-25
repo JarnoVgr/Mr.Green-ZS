@@ -232,7 +232,7 @@ function SWEP:Deploy()
 	
 	--sharpshooter
 	if (self.Owner:GetPerk("Sharpshooter")) then
-		self.AccuracyBonus = self.Owner:GetRank() * 2 + 0.1
+		self.AccuracyBonus = ((self.Owner:GetRank() * 2)*0.1) + 0.1
 		if self.Owner:GetPerk("sharpshooter_marksman") then
 			self.AccuracyBonus = self.AccuracyBonus + 1.7
 		end	
