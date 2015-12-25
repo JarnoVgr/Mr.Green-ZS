@@ -366,7 +366,9 @@ GM.Perks = {
 		["global_ammo"] = {Name = "Ammo", Description = "Receive ammunition from kills instead of ammo drops\nGives ammo to holding weapon only", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/achievements/kill_enemy_reloading"},
 		["global_sp"] = {Name = "SP", Description = "+200% SP from kills\n0 SP from inflicting damage", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/gfx/vgui/last_match_miscellaneous"},
 		["global_none"] = {Name = "None", Description = "", Class = "Global", Slot = 4, Rank = 0, Material = ""},
-	
+		--["global_lasthuman"] = {Name = "Last Human", Description = "+500 SP when last human", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/achievements/last_player_alive"},
+
+		
 	-- Medic	
 
 		["medic_stun"] = {Name = "Stun", Description = "Disorientates undead on impact with stunstick\n+6 stunstick damage", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/meta_pistol.vtf"},              	

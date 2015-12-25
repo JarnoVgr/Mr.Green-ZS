@@ -35,7 +35,7 @@ SWEP.MaxAmmo			    = 100
 SWEP.Primary.Automatic		= true  
 SWEP.Primary.Ammo			= "pistol"
 
-SWEP.Cone = 0.06
+SWEP.Cone = 0.045
 SWEP.ConeMoving = SWEP.Cone *1.1
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9

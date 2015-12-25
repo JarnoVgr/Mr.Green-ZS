@@ -6,6 +6,8 @@ ENT.Author			= "NECROSSIN"
 ENT.Purpose			= ""
 ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 
+ENT.Active = false
+
 util.PrecacheSound("items/ammo_pickup.wav")
 
 function ENT:SetupDataTables()
@@ -54,13 +56,13 @@ function ENT:Initialize()
 end
 
 function ENT:Think()
-	if SERVER then
-		if math.random(1,3) == 1 then 
-			util.Blood(self.Entity:GetPos(), math.Rand(1, 2), (self.Entity:GetPos() - (self.Entity:GetPos() - Vector(0,0,32))):GetNormal() , math.Rand(1, 2), true)
+	if (self.Active) then
+		if SERVER then
+			if math.random(1,3) == 1 then 
+				util.Blood(self.Entity:GetPos(), math.Rand(1, 2), (self.Entity:GetPos() - (self.Entity:GetPos() - Vector(0,0,32))):GetNormal() , math.Rand(1, 2), true)
+			end
 		end
-			
 	end
-
 	self:NextThink(CurTime() + 2)	
 end
 

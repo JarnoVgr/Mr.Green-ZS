@@ -79,7 +79,7 @@ function GM:SetRandomsToZombie() --Duby: I took Necro's old code and modified it
 	table.sort(humans,self.ZombieSpawnDistanceSort)		
 			if 0 < #humans then
 				local pl = humans[i]				
-				if pl:Team() != TEAM_UNDEAD then
+				if pl and pl:Team() != TEAM_UNDEAD then
 					pl:SwitchToZombie()
 					umsg.Start("recranfirstzom", pl)
 					umsg.End()

@@ -11,9 +11,9 @@ function GM:ScoreboardShow()
 	GAMEMODE.ShowScoreboard = true
 	gui.EnableScreenClicker(true)
 
-	if not SCPanel then
+	--if not SCPanel then
 		self:CreateScoreboardVGUI()
-	end
+	--end
 end
 
 function GM:ScoreboardHide()

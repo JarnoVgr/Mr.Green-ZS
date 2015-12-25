@@ -71,7 +71,7 @@ spawnMusic = {"hl1_song14.mp3","hl1_song19.mp3","hl1_song24.mp3","hl1_song26.mp3
 local menuTimeOpened
 local spawnInstantly = false
 function DrawLoadoutMenu()
-	
+		
 	menuTimeOpened = CurTime()
 	
 	MySelf:ConCommand("tooltip_delay 0") 
@@ -446,7 +446,6 @@ function DrawLoadoutMenu()
 			saveClass(classSelected, perkButtons)				
 		end
 	end	
-
 end
 
 function insertPerk(Perk, PerkButton)

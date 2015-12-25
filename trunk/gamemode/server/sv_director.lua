@@ -64,7 +64,7 @@ local function ManageEvents()
 		end
 	end
 	
-	if numSurvivors == 1 and numUndead > 2 and not LASTHUMAN then
+	if numSurvivors == 1 and numUndead > 4 and not LASTHUMAN then
 		Debug("[DIRECTOR] Started Last Human")
 		GAMEMODE:LastHuman()
 	--End round if undead are more than 1 and no humans

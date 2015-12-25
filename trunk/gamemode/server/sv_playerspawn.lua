@@ -21,11 +21,11 @@ function GM:PlayerInitialSpawn(pl)
 	pl:SetCanZoom(false)
 
 	--Bots are always ready, human players need to wait
-	if pl:IsBot() then
-		pl.Ready = true
-	else
+	--if pl:IsBot() then
+	--	pl.Ready = true
+	--else
 		pl.Ready = false
-	end
+	--end
 	
 	pl:SetZombieClass(0)
 	pl:SetHumanClass(1)
@@ -90,14 +90,14 @@ function GM:PlayerInitialSpawn(pl)
 	pl.SPRequired = 100
 	pl.SPReceived = 0
 
-	if pl:IsBot() then
-		--Used for testing intermission screen scores
-		pl.HealingDone = math.random(1, 200)
-		pl.Assists = math.random(1, 200)
-	else
+	--if pl:IsBot() then
+	--	--Used for testing intermission screen scores
+	--	pl.HealingDone = math.random(1, 200)
+	--	pl.Assists = math.random(1, 200)
+	--else
 		pl.HealingDone = 0
 		pl.Assists = 0
-	end
+	--end
 			
 	pl.Hornyness = 0
 	pl.WeaponTable = {}
@@ -149,10 +149,10 @@ function GM:PlayerInitialSpawn(pl)
 	pl:SetZombieClass(0)
 	
 	--Call PlayerReady if player is a bot
-	if pl:IsBot() then
-		pl:SetHumanClass(1)
-		self:PlayerReady(pl)
-	end
+	--if pl:IsBot() then
+	--	pl:SetHumanClass(1)
+	--	self:PlayerReady(pl)
+	--end
 
 	skillpoints.SetupSkillPoints(pl)
 		

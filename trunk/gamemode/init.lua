@@ -636,6 +636,9 @@ function GM:LastHuman()
 	end
 	
 	--Remember the time
+	if (LastHuman.getPerk("global_lasthuman")) then
+		skillpoints.AddSkillPoints(LastHuman,500)
+	end
 	LastHuman.LastHumanTime = CurTime()
 	
 	--Log

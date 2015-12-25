@@ -136,7 +136,7 @@ function SWEP:PrimaryAttack()
 
 		for i=1, 10 do
 			if self.LastShot > CurTime() - (i * 0.08) then
-				accuracy = (cone * ((j + 1.41) - (i * 0.14)))
+				accuracy = (cone * ((j + 1.0) - (i * 0.1)))
 				break
 			
 			elseif i == 10 then
@@ -467,11 +467,12 @@ function SWEP:ShootBullets(dmg, numbul, cone)
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
 	
 	if (self.Owner:GetPerk("commando_viper") and self.Primary.Ammo == "ar2") then
-		numbul = 2				
-	elseif(math.random(1,4) == 1 and self.Owner:GetPerk("sharpshooter_fragments") and self.Primary.Ammo == "357") then
-		numbul = math.random(5,8)
-		dmg = dmg*0.4
-	end
+		numbul = 2	
+	end		
+	--elseif(math.random(1,4) == 1 and self.Owner:GetPerk("sharpshooter_fragments") and self.Primary.Ammo == "357") then
+	--	numbul = math.random(5,8)
+	--	dmg = dmg*0.4
+	--end
 	
 	--GetViewPunchAngles
 	local aim = self.Owner:GetAimVector()
