@@ -444,7 +444,7 @@ GM.Perks = {
 		["sharpshooter_python"] = {Name = "Python", Description = "[TIER 1]\nSpawn with the Python", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/hip_shot"},
 		["sharpshooter_medical"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users and +1 SP for the owner", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/collect_gifts"},              
 		
-		--["sharpshooter_fragments"] = {Name = "Fragments", Description = "25% chance a sharpshooter shot will explode in fragments.\n5-8 fragments\n40% of weapon damage per fragment\n-50% accuracy on fragment shot", Class = "Sharpshooter", Slot = 2, Rank = 0, Material = "vgui/achievements/kill_low_damage"},
+		["sharpshooter_fragments"] = {Name = "Fragments", Description = "25% chance a sharpshooter shot will explode in fragments.\n5-8 fragments\n40% of weapon damage per fragment\n-50% accuracy on fragment shot", Class = "Sharpshooter", Slot = 2, Rank = 0, Material = "vgui/achievements/kill_low_damage"},
 		["sharpshooter_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/domination_overkills_low"},
 		["sharpshooter_double"] = {Name = "Double Calibre", Description = "+2 Musket clip size\n+2 Python clip size", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/kill_two_with_one_shot"},              
 		["sharpshooter_friction"] = {Name = "Friction Burn", Description = "25% chance to ignite target with a headshot", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/immovable_object"},        
