@@ -83,18 +83,24 @@ function SWEP:Think()
 					end
 				end
 			end
-
-			if self.Owner.HasBloodSpawner and canPlaceCrate then
-				for _, Ent in pairs(ents.FindByClass("game_spawner")) do
-					if Ent:GetPlacer():Name() == self.Owner:Name() then
-						Ent:Explode()				
-						break
-					end
-				end			
-			end
 						
 			--Exit when cannot place
 			if not canPlaceCrate then
+				return
+			end
+			
+			local owner = self.Owner
+			local pos = owner:WorldSpaceCenter()
+			local ang = owner:EyeAngles()
+			ang.pitch = 0
+			ang.roll = 0
+			local forward = ang:Forward()
+			local right = ang:Right()
+			local endpos = pos + Vector(0,0,100)
+
+			local tr = util.TraceLine({start = pos, endpos = endpos, filter = player.GetAll(), mask = MASK_PLAYERSOLID})
+			if tr.HitWorld or tr.HitSky then
+				owner:Message("Not enough room.", 2)
 				return
 			end
 
@@ -110,6 +116,14 @@ function SWEP:Think()
 				v:Message("A blood spawner has been created.", 2)
 			end
 			
+			if self.Owner.HasBloodSpawner and canPlaceCrate then
+				for _, Ent in pairs(ents.FindByClass("game_spawner")) do
+					if Ent:GetPlacer():Name() == self.Owner:Name() then
+						Ent:Explode()				
+						break
+					end
+				end			
+			end		
 			
 			--Create entity
 			local angles = self.Owner:EyeAngles()
