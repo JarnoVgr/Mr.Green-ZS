@@ -101,10 +101,10 @@ GM.CalcMainActivityZombies[1] = function ( pl, vel, key )
 		--local iSeq, iIdeal = pl:LookupSequence ( "zombie_run" ) --Duby: I spent ages finding this out...	
 		
 		iSeq = pl:LookupSequence ( "zombie_walk_06" )	
-
+		pl._PlayBackRate = math.Clamp(fVelocity*0.03,0.05,2.0)	 
 		if pl:GetMoveType()==MOVETYPE_LADDER then
 			iSeq = pl:LookupSequence ( "zombie_climb_loop" )
-		pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)			
+			pl._PlayBackRate = math.Clamp(pl:GetVelocity().z/200,-1,1)			
 		end
 		return iIdeal, iSeq		
 	end
