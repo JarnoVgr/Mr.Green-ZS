@@ -110,8 +110,7 @@ function SWEP:PrimaryAttack()
 						
 						self:TakeCombinedPrimaryAmmo(totake)
 						if owner:GetPerk("medic_reward") then
-							skillpoints.AddSkillPoints(owner,toheal*0.4 or 15)	
-							ent:FloatingTextEffect2(owner,toheal*0.4 or 15)			
+							skillpoints.AddSkillPoints(owner,toheal*0.4 or 15)		
 							toheal = toheal + toheal * 1.15
 						end	
 						

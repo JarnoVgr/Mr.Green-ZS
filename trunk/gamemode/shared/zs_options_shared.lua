@@ -376,7 +376,7 @@ GM.Perks = {
 		["medic_medigun"] = {Name = "Medic Pistol", Description = "[TIER 1]\nSpawn with the medic pistol", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_fiveseven"},     
 
 		["medic_overheal"] = {Name = "Overheal", Description = "Heal humans +10% of their maximum health", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/meta_rifle.vtf"},              			
-		["medic_reward"] = {Name = "Healthy Reward", Description = "+40% SP from healing\n+15% healing power", Class = "Medic", Slot = 2, Rank = 3, Material = "vgui/achievements/collect_gifts"},
+		["medic_reward"] = {Name = "Healthy Reward", Description = "+40% SP from healing\n+15% healing power", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/collect_gifts"},
 		["medic_antivenom"] = {Name = "Anti Venom", Description = "Healing an undead with a medigun will poison them", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/lossless_extermination.vtf"},
 
 		["medic_tanker"] = {Name = "Tanker", Description = "+50 damage resistance for 3 seconds when hit", Class = "Medic", Slot = 3, Rank = 6, Material = "vgui/achievements/hip_shot.vtf"},
