@@ -169,7 +169,11 @@ function SWEP:PrimaryAttack()
 		end
 	end
 	
-	accuracy = accuracy + (accuracy * self.AccuracyBonus)
+	if self.AccuracyBonus != 1 then
+		accuracy = accuracy + (accuracy * self.AccuracyBonus)	
+	end
+	
+
 	self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, accuracy)		
 
 	--Knockback
