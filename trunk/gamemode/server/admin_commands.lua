@@ -575,6 +575,24 @@ local function AdminSay(pl, text, teamonly)
 			target:UnMute()
 			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." unmuted player "..tostring(target:Name())..".")
 			return ""
+		elseif(sep[1] == "!xp") then
+			target:AddXP(sep[3])
+			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." gave player "..tostring(target:Name()).." " .. sep[3] .. " XP.")
+			return		
+		elseif(sep[1] == "!prestige") then
+			target.DataTable["ClassData"]["new"].rank = 0
+			
+			net.Start("SendPlayerRank")
+				net.WriteDouble(tonumber(target.DataTable["ClassData"]["new"].rank))
+			net.Send(target)
+			
+			target.DataTable["ClassData"]["new"].xp = 0
+			
+			net.Start("SendPlayerXP")
+				net.WriteDouble(tonumber(target.DataTable["ClassData"]["new"].xp))
+			net.Send(target)	
+			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." prestiged player "..tostring(target:Name())..".")			
+			return
 		elseif(sep[1] == "!gag") then
 			target:Gag()
 			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." gagged player "..tostring(target:Name())..".")

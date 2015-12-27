@@ -128,10 +128,13 @@ function DrawLoadoutMenu()
 	ProfileText:SetEditable( false )
 	ProfileText:SetValue("")
 	ProfileText.PaintOver = function ()
-		draw.SimpleText("GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  MySelf:NextRankXP() - MySelf:GetXP() .. " XP Remaining","Trebuchet18", ScaleW(60), ScaleH(22), Color(248,253,248,235), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)				
+		local xp = 0
+		if (MySelf:NextRankXP() - MySelf:GetXP() > 0) then
+			xp = MySelf:NextRankXP() - MySelf:GetXP()
+		end		
+		draw.SimpleText("GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  xp .. " XP Remaining","Trebuchet24", (frameSizeWidth * 0.4)*0.14, (frameSizeHeight * 0.09)*0.5, Color(248,253,248,235), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)				
 	end
 	
-
 	ProfileText:SetFont("Trebuchet24")
 	ProfileText:SetMultiline( false )		
 		
@@ -149,7 +152,7 @@ function DrawLoadoutMenu()
 	FrameText:SetMultiline( true )	
 	
 	FrameText.PaintOver = function ()
-		draw.DrawText(" [DOUBLE XP ACTIVATED]\n Welcome to the new class selection menu!\n Report any bugs/issues or post suggestions on the forums.", "Trebuchet18", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)
+		draw.DrawText(" [DOUBLE XP ACTIVATED]\n\n Report any bugs/issues or post suggestions on the forums.", "Trebuchet24", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)
 	end	
 	
 	local buttonWeb = vgui.Create( "DButton", Frame)
@@ -317,7 +320,7 @@ function DrawLoadoutMenu()
 			elseif buttonClass[k].Active then
 				surface.SetDrawColor(50, 255, 50, math.Clamp(math.sin(CurTime()*5)*100 + 150,40,255))
 				surface.DrawOutlinedRect( 0, 0, buttonClassWidth, buttonClassHeight)
-				frameDescriptionText = "Equipment: " .. v.Equipment
+				frameDescriptionText = "Starter equipment: " .. v.Equipment
 			end
 		end
 		
