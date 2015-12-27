@@ -204,14 +204,9 @@ function SWEP:Equip ( NewOwner )
 	
 	if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false
-		
 		if NewOwner:GetPerk("Medic") then
 			NewOwner:GiveAmmo((self.Owner:GetRank()+ 1)*10, self:GetPrimaryAmmoTypeString())	
 		end		
-		
-		if NewOwner:GetPerk("medic_supplies") then
-			NewOwner:GiveAmmo( 100, self:GetPrimaryAmmoTypeString() )
-		end
 	end	
 	
 	-- Call this function to update weapon slot and others
