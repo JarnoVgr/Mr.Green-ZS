@@ -8,6 +8,7 @@ local GeneralInfo = {
 	--"Press F4 to change some advanced gameplay options.",
 	--"We highly appreciate your feedback. Let us know what you think about our server.",
 	"Bugs or issues? Report them on the forums at MrGreenGaming.com"
+	"Type !buyxp in chat to purchase 1000 XP with 100 GreenCoins.",		
 	
 }
 GeneralInfo = table.Shuffle(GeneralInfo)
@@ -15,9 +16,7 @@ GeneralInfo = table.Shuffle(GeneralInfo)
 
 -- Human related hints
 local HumanHints = {
-	"Use the SkillShop to gain weapons and ammo.",
 	"Type !damage in chat to enable damage output.",
-	"Type !buyxp in chat to purchase 1000 XP with 100 GreenCoins.",	
 	-- "To see what Weapons you can get, press F2 to see your classes weapon tree!",
 	"SP stands for SkillPoints which you earn by killing zombies.",
 	"Press F3 to drop your current weapon."
@@ -30,7 +29,6 @@ local UndeadHints = {
 	"Kill multiple Humans to become one of them again.",
 	"Player with the highest amount of damage done will become a boss!",
 	"Throwing flesh heals fellow zombies!",
-
 }
 UndeadHints = table.Shuffle(UndeadHints)
 
@@ -40,14 +38,26 @@ UndeadHints = table.Shuffle(UndeadHints)
 ---------------------------------------------------------]==]
 local sIndex = 1
 local function DisplayNews()
-	chat.AddText(Color(0, 160, 255), "[INFO] ", Color(213, 213, 213), GeneralInfo[sIndex])
+	chat.AddText(Color(60, 160, 240), "[INFO] ", Color(213, 213, 213), GeneralInfo[sIndex])
 	
 	sIndex = sIndex + 1
 	if sIndex > #GeneralInfo then
 		sIndex = 1
 	end
 end
-timer.Create("DisplayNews", 80, 0, DisplayNews)
+timer.Create("DisplayNews", 180, 0, DisplayNews)
+
+ENABLE_HINTS = util.tobool(GetConVarNumber("_zs_enablehints"))
+local function EnableHints(sender, command, arguments)
+	ENABLE_HINTS = util.tobool(arguments[1])
+
+	if ENABLE_HINTS then
+		MySelf:ChatPrint("Enabled hints.")
+	else
+		MySelf:ChatPrint("Disabled hints.")
+	end
+end
+concommand.Add("_zs_enablehints", EnableHints)
 
 --[==[---------------------------------------------------------
        Used to send human/undead hints to players
@@ -55,6 +65,9 @@ timer.Create("DisplayNews", 80, 0, DisplayNews)
 local HumanIndex, ZombieIndex = 1, 1
 local function DisplayHints()
 	local pl = LocalPlayer()
+	
+	if not (ENABLE_HINTS) then return end
+	
 	if not IsValid(pl) then
 		return
 	end
@@ -62,14 +75,14 @@ local function DisplayHints()
 	local Team = pl:Team()
 	
 	if Team == TEAM_HUMAN then
-		chat.AddText(Color(0, 160, 255), "[HINT] ", Color(213, 213, 213), HumanHints[HumanIndex] )
+		chat.AddText(Color(0, 160, 250), "[HINT] ", Color(213, 213, 213), HumanHints[HumanIndex] )
 
 		HumanIndex = HumanIndex + 1
 		if HumanIndex > #HumanHints then
 			HumanIndex = 1
 		end
 	elseif Team == TEAM_UNDEAD then
-		chat.AddText(Color(0, 255, 0), "[HINT] ", Color(213, 213, 213), UndeadHints[ZombieIndex])
+		chat.AddText(Color(20, 235, 20), "[HINT] ", Color(213, 213, 213), UndeadHints[ZombieIndex])
 
 		ZombieIndex = ZombieIndex + 1
 		if ZombieIndex > #UndeadHints then
@@ -77,4 +90,4 @@ local function DisplayHints()
 		end
 	end
 end
-timer.Create("DisplayHints", 140, 0, DisplayHints)
+timer.Create("DisplayHints", 180, 0, DisplayHints)

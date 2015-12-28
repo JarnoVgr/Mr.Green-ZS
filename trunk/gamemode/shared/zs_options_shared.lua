@@ -315,13 +315,13 @@ GM.HumanWeapons = {
 -- Changing these means you're an idiot.
 
 GM.AmmoRegeneration = {
-	["ar2"] = 16, --Rifle
+	["ar2"] = 28, --Rifle
 	["alyxgun"] = 22,
-	["pistol"] = 12, --Pistol
-	["smg1"] = 20, --SMG
-	["357"] = 6, --Sniper
+	["pistol"] = 18, --Pistol
+	["smg1"] = 30, --SMG
+	["357"] = 8, --Sniper
 	["xbowbolt"] = 12,
-	["buckshot"] = 6, --Shotgun
+	["buckshot"] = 8, --Shotgun
 	["ar2altfire"] = 1,
 	["slam"] = 1, --Explosive
 	["rpg_round"] = 1,

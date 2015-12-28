@@ -243,7 +243,7 @@ function PaintNewWeaponSelection()
 	
 	local AmmoStepX,AmmoStepY = ScrW()*0.06,ScrH()*0.18
 	local AmmoW,AmmoH = ScrW()*0.05,ScrH()*0.065
-	local AmmoX,AmmoY = ScrW()-AmmoW-AmmoStepX*0.5, ScrH()-AmmoH-AmmoStepY*2
+	local AmmoX,AmmoY = ScrW()-AmmoW-AmmoStepX*0.5, (ScrH()*1.15)-AmmoH-AmmoStepY*2
 	
 	MySelf.WepX,MySelf.WepY = AmmoX, AmmoY
 	MySelf.WepW,MySelf.WepH = AmmoW, AmmoH
@@ -338,11 +338,9 @@ function PaintNewWeaponSelection()
 		FontSize = "ssNewAmmoFont5"		
 		
 		if IsSlotActive[i] then
-
 			FontSize = "ssNewAmmoFont6"
 			NameHeight = NameHeight - ScrH()*0.015
 			Alpha = AlphaSelected + 20
-			
 			
 			local dmg = 0
 			local clip1 = 0

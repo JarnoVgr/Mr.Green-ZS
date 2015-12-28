@@ -340,7 +340,7 @@ local function DrawHintMessage()
 end
 
 function GM:HintMessage(y, arg)
-	if not GetConVar("_zs_enablehints"):GetBool() then return end
+	if not (ENABLE_HINTS) then return end
 	local Cached2 = true
 
 	for i=1,#arg do

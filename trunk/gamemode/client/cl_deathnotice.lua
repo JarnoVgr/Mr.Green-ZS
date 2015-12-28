@@ -250,6 +250,7 @@ usermessage.Hook("NPCKilledNPC", RecvNPCKilledNPC)
 
 function GM:AddDeathNotice(Victim, team1, Inflictor, Attacker, team2, headshot, assist)
    	local Death = {}
+		
 	Death.victim 	= 	Victim
 	Death.attacker	=	Attacker
 	Death.time		=	CurTime()
@@ -287,14 +288,25 @@ local function DrawDeath( x, y, death, hud_deathnotice_time )
 	death.color2.a = alpha
 	
 	local tbTranslate = {
-		["redeem"] = { "is human again!", "redeemed", "revived", "resurrected" },
-		["suicide"] = { "wasn't happy enough", "suicided", "went to Hell", "put an end to his misery" },
-		["random"] = { "has spread his bones!", "strangely died", "died in mystery!", "is gibs now!" },
+		["redeem"] = { "[REDEEM]" },
+		["suicide"] = { "[SUICIDE]" },
+		["random"] = { "[???]" },
 	}
 	
 	-- Killicon size
 	local wIcon, hIcon = killicon.GetSize( death.icon )
+	
+	if (wIcon and hIcon) then
+		wIcon = wIcon * 0.88
+		hIcon = hIcon * 0.88	
+	end
+	
 	local wHeadshot,hHeadshot = killicon.GetSize( "headshot" )
+	
+	if (wHeadshot and hHeadshot) then
+		wHeadshot = wHeadshot * 0.88
+		hHeadshot = hHeadshot * 0.88	
+	end	
 	
 	-- Side strings
 	local sRightSide, sLeftSide = death.right
@@ -303,20 +315,16 @@ local function DrawDeath( x, y, death, hud_deathnotice_time )
 	end
 	
 	if death.left then 
-		if death.assist and death.assist ~= "" then 
-			sLeftSide = death.left.." + "..death.assist 
-		else 
-			sLeftSide = death.left 
-		end 
+		sLeftSide = death.left 
 	else 
 		sRightSide = sRightSide..markup.DoColorText ( " "..death.Message, Color ( 255,255,255,alpha ) ) 
 	end
-
+	
 	-- Markup'd sides
 	local sMarkRight, sMarkLeft, sMarkCenter = markup.DoColorText ( sRightSide, death.color2 ), markup.DoColorText ( sLeftSide, death.color1 ), markup.DoColorText ( "finished off", Color ( 255,255,255,alpha ) )
 	
 	-- Draw markup
-	mMarkRight, mMarkLeft, mMarkCenter = markup.Parse( "<font=ChatFont>"..sMarkRight.."</font>" ), markup.Parse( "<font=ChatFont>"..sMarkLeft.."</font>" ), markup.Parse( "<font=ChatFont>"..sMarkCenter.."</font>" ) 
+	mMarkRight, mMarkLeft, mMarkCenter = markup.Parse( "<font=Trebuchet24>"..sMarkRight.."</font>" ), markup.Parse( "<font=Trebuchet24>"..sMarkLeft.."</font>" ), markup.Parse( "<font=Trebuchet24>"..sMarkCenter.."</font>" ) 
 	local wMarkRight, hMarkRight = w * 0.98 - ( mMarkRight:GetWidth() ), y
 	if death.headshot then
 		wMarkLeft = wMarkRight - (wHeadshot) - ( wIcon * 1.2 ) - ( mMarkLeft:GetWidth() )
@@ -324,6 +332,7 @@ local function DrawDeath( x, y, death, hud_deathnotice_time )
 		wMarkLeft = wMarkRight - ( wIcon * 1.4 ) - ( mMarkLeft:GetWidth() )
 	end
 		
+
 	-- Draw victim markup
 	if death.icon ~= "player" then
 		mMarkRight:Draw( wMarkRight, hMarkRight )
@@ -343,12 +352,12 @@ local function DrawDeath( x, y, death, hud_deathnotice_time )
 				mMarkLeft:Draw( wMarkLeft, hMarkRight )
 			end
 		else
-			local mMarkTotal = markup.Parse( "<font=ChatFont>"..sMarkLeft.." "..sMarkCenter.." "..sMarkRight.."</font>" )
+			local mMarkTotal = markup.Parse( "<font=Trebuchet24>"..sMarkLeft.." "..sMarkCenter.." "..sMarkRight.."</font>" )
 			mMarkTotal:Draw( w * 0.98 - mMarkTotal:GetWidth(), y )
 		end
 	end
 
-	return y + ( hIcon * 1.4 ) * 0.70
+	return y + ( hIcon * 1.4 ) * 0.5
 end
 
 function GM:DrawDeathNotice(x, y)

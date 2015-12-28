@@ -3,7 +3,7 @@
 
 -- store convars here
 ClientsideConvars = {}
-ClientsideConvars["_zs_enablehints"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Game Hints"}
+ClientsideConvars["_zs_enablehints"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Hints"}
 ClientsideConvars["_zs_enablebeats"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Beats"}
 ClientsideConvars["_zs_enablemusic"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Music"}
 ClientsideConvars["_zs_ambientmusic"] = {Value = 1, ShouldSave = true, UserData = false, CanChange = true, Category = "hud", Description = "Ambient Music"}

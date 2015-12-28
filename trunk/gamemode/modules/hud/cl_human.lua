@@ -352,7 +352,7 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 			surface.SetFont("ArialBoldSeven")
 			local txtw, txth = surface.GetTextSize("Hi")
 		--	draw.SimpleTextOutlined("Waiting for players... "..ToMinutesSeconds(math.max(0, WARMUPTIME - curtime)), "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			draw.SimpleTextOutlined("Humans closest to a zombie gas will become a zombie!", "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75 - txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Humans closest to a zombie gas will become a zombie!", "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.05 - txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 
 			
 			local vols = 0
@@ -424,9 +424,9 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 			]]--
 			
 		--	draw.SimpleTextOutlined("Number of initial zombies this game ("..UNDEAD_START_AMOUNT * 100 .."%): "..desiredzombies, "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			draw.SimpleTextOutlined("Initial zombies this game: "..desiredzombies.."", "ssNewAmmoFont6.5", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,220))
-			y = ScrH() * 0.75 + txth * 2
-			draw.SimpleTextOutlined("Zombie volunteers: "..vols, "ssNewAmmoFont6.5", ScrW() * 0.5, ScrH() * 0.75 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,220))
+			draw.SimpleTextOutlined("Initial zombies this game: "..desiredzombies.."", "ssNewAmmoFont6.5", ScrW() * 0.5, ScrH() * 0.05, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,220))
+			y = ScrH() * 0.05 + txth * 2
+			draw.SimpleTextOutlined("Volunteers: "..vols, "ssNewAmmoFont6.5", ScrW() * 0.5, ScrH() * 0.05 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,220))
 			surface.SetFont("Default")
 			txtw, txth = surface.GetTextSize("Hi")
 			for _, pl in pairs(voltab) do

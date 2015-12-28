@@ -80,11 +80,11 @@ function skillpoints.AddSkillPoints(pl, amount)
 	if skillpoints.GetSkillPoints(pl) >= pl.SPRequired then
 	
 		net.Start("SPRequired")
-		net.WriteFloat(math.Round(pl.SPRequired + 30))
+		net.WriteFloat(math.Round(pl.SPRequired + 50))
 		net.WriteBit(false)
 		net.Send(pl)
 		skillpoints.TakeSkillPoints(pl,pl.SPRequired)
-		pl.SPRequired = pl.SPRequired + 30
+		pl.SPRequired = pl.SPRequired + 50
 		
 		if pl.Tier > 5 then
 			pl:EmitSound("items/gift_pickup.wav" )
