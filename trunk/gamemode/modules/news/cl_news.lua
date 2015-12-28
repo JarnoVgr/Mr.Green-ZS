@@ -7,7 +7,7 @@ local GeneralInfo = {
 	--"Addicted to the chat? On our website you can chat with the players ingame.",
 	--"Press F4 to change some advanced gameplay options.",
 	--"We highly appreciate your feedback. Let us know what you think about our server.",
-	"Bugs or issues? Report them on the forums at MrGreenGaming.com"
+	"Bugs or issues? Report them on the forums at MrGreenGaming.com",
 	"Type !buyxp in chat to purchase 1000 XP with 100 GreenCoins.",		
 	
 }
