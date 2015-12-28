@@ -102,17 +102,17 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		local aimvec = mVictim:GetAimVector()
 		aimvec.z = math.max(aimvec.z, -0.7)
 		
-		for i=1, 5 do
+		for i=1, 8 do
 			local ent = ents.Create("projectile_poisonpuke")
 			if ent:IsValid() then
-				local heading = (aimvec + VectorRand() * 0.25):GetNormal()
+				local heading = (aimvec + VectorRand() * 0.55):GetNormal()
 				ent:SetPos(startpos + heading * 8)
 				ent:SetOwner(mVictim)
 				ent:Spawn()
 				ent.TeamID = mVictim:Team()
 				local phys = ent:GetPhysicsObject()
 				if phys:IsValid() then
-					phys:SetVelocityInstantaneous(heading * math.Rand(300, 320))
+					phys:SetVelocityInstantaneous(heading * math.Rand(320, 340))
 				end
 				ent:SetPhysicsAttacker(mVictim)
 			end
@@ -147,7 +147,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		--Play sound
 		mVictim:PlayZombieDeathSound()
 
-		if math.random(1,10) > 2 then
+		if math.random(1,10) > 3 then
 			local item = "zs_ammobox"	
 
 			if not MOBILE_SUPPLIES then
@@ -155,7 +155,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				MOBILE_SUPPLIES = true
 			end	
 			
-			if math.random(1,10) == 3 then
+			if math.random(1,10) == 1 then
 				item = "item_healthvial"		
 			end
 
@@ -171,6 +171,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 						itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,32))			
 					end
 
+					
 					itemToSpawn:Spawn()
 						
 					local phys = itemToSpawn:GetPhysicsObject()
