@@ -772,9 +772,17 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("medic_medigun") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
-			pl:GiveAmmo( 40, "battery" )	
+			pl:GiveAmmo( 40, "Battery" )	
 			pl.SPRequired = 130			
 		end
+		
+		if pl:GetPerk("Medic") then
+			pl:GiveAmmo(self.Owner:GetRank()*10, "Battery")	
+		end		
+		
+		if pl:GetPerk("medic_supplies") then
+			pl:GiveAmmo( 100, "Battery" )
+		end		
 	end
 
 	
@@ -810,7 +818,7 @@ function CalculatePlayerLoadout(pl)
 	if pl:HasBought("magnumman") and math.random(1,6) == 1 then
 		--Strip previous pistol
 		pl:ChatPrint("A mysterious stranger joins you..")
-
+		pl:GiveAmmo(16, "357")	
 		--Remove current pistol
 		local Pistol = pl:GetPistol()
 		if Pistol then

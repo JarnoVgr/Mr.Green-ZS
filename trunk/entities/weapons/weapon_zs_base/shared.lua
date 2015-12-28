@@ -319,12 +319,12 @@ function SWEP:Equip(NewOwner)
 		if self.Owner:GetPerk("Commando") then		
 			local bonus = 0
 			if self.Owner:GetPerk("commando_enforcer") then
-				bonus = self.ActualClipSize * 0.25
+				bonus = self.Primary.ClipSize * 0.25
 			end
-			self.Primary.ClipSize = self.ActualClipSize * 0.1 + self.ActualClipSize + (self.ActualClipSize * (self.Owner:GetRank() * 2) / 100) + bonus
+			self.Primary.ClipSize = self.Primary.ClipSize * 0.1 + self.Primary.ClipSize + (self.Primary.ClipSize * (self.Owner:GetRank() * 3) / 100) + bonus
 			
 			if self.Owner.DataTable["ShopItems"][52] then
-				self.Primary.ClipSize = self.Primary.ClipSize + self.ActualClipSize * 0.2
+				self.Primary.ClipSize = self.Primary.ClipSize + self.Primary.ClipSize * 0.2
 			end
 		end		
 		self:SetClip1(self.Primary.ClipSize)
