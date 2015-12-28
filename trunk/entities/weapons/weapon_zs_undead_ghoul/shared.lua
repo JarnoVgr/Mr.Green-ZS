@@ -96,7 +96,7 @@ function SWEP:Think()
 			ang.roll = 0
 			local forward = ang:Forward()
 			local right = ang:Right()
-			local endpos = pos + Vector(0,0,100)
+			local endpos = pos + Vector(0,0,84)
 
 			local tr = util.TraceLine({start = pos, endpos = endpos, filter = player.GetAll(), mask = MASK_PLAYERSOLID})
 			if tr.HitWorld or tr.HitSky then
@@ -109,8 +109,7 @@ function SWEP:Think()
 
 			self.Owner.HasBloodSpawner = true
 			self.Owner:EmitSound("npc/fast_zombie/leap1.wav", 100, math.Rand(65, 70))
-			self.Owner:Daze(3)
-			self.Owner:SetHealth(5 + self.Owner:Health() * 0.35)
+			self.Owner:SetHealth(5 + self.Owner:Health() * 0.2)
 			
 			for k,v in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
 				v:Message("A blood spawner has been created.", 2)
@@ -211,7 +210,7 @@ function SWEP:PerformSecondaryAttack()
 	for i=1, 4 do
 		local ent = ents.Create("projectile_poisonpuke")
 		if ent:IsValid() then
-			local heading = (aimvec + VectorRand() * 0.2):GetNormal()
+			local heading = (aimvec + VectorRand() * 0.15):GetNormal()
 			ent:SetPos(startpos + heading * 8)
 			ent:SetOwner(pl)
 			ent:Spawn()
@@ -219,7 +218,7 @@ function SWEP:PerformSecondaryAttack()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
 				--phys:SetVelocityInstantaneous(heading * math.Rand(310, 560))
-				phys:SetVelocityInstantaneous(heading * math.Rand(320, 360))
+				phys:SetVelocityInstantaneous(heading * math.Rand(330, 360))
 			end
 			ent:SetPhysicsAttacker(pl)
 		end

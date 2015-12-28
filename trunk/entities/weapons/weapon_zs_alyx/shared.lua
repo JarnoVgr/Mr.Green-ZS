@@ -33,7 +33,6 @@ SWEP.Primary.Damage = 10
 SWEP.Primary.NumShots           = 1
 SWEP.Primary.ClipSize           = 15
 SWEP.Primary.Delay                      = 0.15
-SWEP.Primary.DefaultClip        = 15 * 4
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo                       = "alyxgun"
 SWEP.WalkSpeed = SPEED_PISTOL

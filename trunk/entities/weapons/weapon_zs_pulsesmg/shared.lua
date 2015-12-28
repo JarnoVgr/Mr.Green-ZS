@@ -89,7 +89,6 @@ SWEP.Primary.Damage			= 10
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Delay			= 0.085
-SWEP.Primary.DefaultClip	= 20
 SWEP.Primary.Automatic		= true
 SWEP.TracerName = "AR2Tracer"
 

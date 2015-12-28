@@ -24,22 +24,19 @@ SWEP.WorldModel = "models/weapons/w_smg_mac10.mdl"
 
 SWEP.Weight = 5
 
-SWEP.HoldType = "pistol"
+SWEP.HoldType = "smg"
 SWEP.HumanClass = "support"
 SWEP.Primary.Sound = Sound("Weapon_MAC10.Single")
 SWEP.Primary.Recoil = 1.4
 SWEP.Primary.Damage = 12
 SWEP.Primary.NumShots = 1
-SWEP.Primary.Delay = 0.072
+SWEP.Primary.Delay = 0.071
 
 SWEP.Primary.ClipSize = 30
-SWEP.Primary.DefaultClip = SWEP.Primary.ClipSize
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "smg1"
 
-SWEP.MaxAmmo = 230
-
-SWEP.Cone = 0.07
+SWEP.Cone = 0.074
 SWEP.ConeMoving = SWEP.Cone *1.1
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.85

@@ -66,7 +66,6 @@ SWEP.Primary.Damage			= 6
 SWEP.Primary.NumShots		= 7
 SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Delay			= 0.3
-SWEP.Primary.DefaultClip	= 20
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "Battery"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
@@ -82,7 +81,7 @@ SWEP.ConeIron = SWEP.Cone *0.9
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
 SWEP.TracerName = "AR2Tracer"
 SWEP.WalkSpeed = SPEED_SHOTGUN
-SWEP.HoldType = "smg"
+SWEP.HoldType = "shotgun"
 
 function SWEP:EmitFireSound()
 	self:EmitSound(self.Primary.Sound, 90, math.random(100,110))

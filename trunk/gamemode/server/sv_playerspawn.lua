@@ -692,9 +692,11 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("support_shotgun") then
 			pl:Give("weapon_zs_shotgun")
 			pl.Tier = 2
+			pl:GiveAmmo(18, "buckshot")
 			pl.SPRequired = 130				
 		elseif pl:GetPerk("support_mp5") then
 			pl:Give("weapon_zs_mp5")		
+			pl:GiveAmmo(60, "SMG1")
 		end
 
 		if pl:GetPerk("support_boardpack") then
@@ -726,7 +728,8 @@ function CalculatePlayerLoadout(pl)
 		pl.Loadout = table.Copy(commando)
 
 		if pl:GetPerk("commando_defender") then
-			pl:Give("weapon_zs_defender")			
+			pl:Give("weapon_zs_defender")		
+			pl:GiveAmmo(52, "ar2")			
 		end		
 	elseif pl:GetPerk("Berserker") then
 		pl.Loadout = table.Copy(berserker)
@@ -748,6 +751,7 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("sharpshooter_python") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_python")
+			pl:GiveAmmo(16, "357")	
 			pl.SPRequired = 130				
 		end		
 	elseif pl:GetPerk("Pyro") then
@@ -757,6 +761,7 @@ function CalculatePlayerLoadout(pl)
 		
 		if pl:GetPerk("pyro_glock1") then
 			pl:Give("weapon_zs_glock1")
+			pl:GiveAmmo( 60, "alyxgun" )	
 		end
 		
 	else
@@ -767,10 +772,13 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("medic_medigun") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
+			pl:GiveAmmo( 40, "battery" )	
 			pl.SPRequired = 130			
 		end
 	end
 
+	
+	pl:GiveAmmo( 60, "pistol" )	
 	net.Start("SPRequired")
 	net.WriteFloat(math.Round(pl.SPRequired))
 	net.WriteBit(false)

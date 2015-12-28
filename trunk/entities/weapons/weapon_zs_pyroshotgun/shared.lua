@@ -70,7 +70,6 @@ SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 4
 SWEP.Primary.ClipSize		= 28
 SWEP.Primary.Delay			= 0.44
-SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "alyxgun"
  SWEP.TracerName = "AirboatGunHeavyTracer"

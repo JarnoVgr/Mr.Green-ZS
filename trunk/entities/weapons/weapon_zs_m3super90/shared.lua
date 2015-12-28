@@ -34,14 +34,13 @@ SWEP.Primary.Damage			= 11
 SWEP.Primary.NumShots		= 7
 SWEP.Primary.ClipSize		= 7
 SWEP.Primary.Delay			= 0.8
-SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "buckshot"
 
 SWEP.MaxAmmo			    = 70
 SWEP.IsShotgun = true
 
-SWEP.Cone = 0.099
+SWEP.Cone = 0.081
 SWEP.ConeMoving = SWEP.Cone *1.1
 SWEP.ConeCrouching = SWEP.Cone *0.95
 SWEP.ConeIron = SWEP.Cone *0.85

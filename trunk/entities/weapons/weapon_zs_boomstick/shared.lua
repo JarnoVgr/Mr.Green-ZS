@@ -20,9 +20,7 @@ SWEP.Primary.Recoil = 8
 SWEP.Primary.Damage = 34
 SWEP.Primary.NumShots = 9
 SWEP.Primary.Delay = 1.6
-
 SWEP.Primary.ClipSize = 4
-SWEP.Primary.DefaultClip = 8
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "buckshot"
 

@@ -13,7 +13,7 @@ SWEP.CurrentCone = 0
 SWEP.ViewModelFlip = false
 SWEP.ViewModelFOV = 60
 SWEP.Primary.ClipSize = -1
-SWEP.Primary.DefaultClip = -1
+SWEP.Primary.DefaultClip = 0
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "pistol"
 SWEP.AutoSwitchTo		= false
@@ -322,8 +322,10 @@ function SWEP:Equip(NewOwner)
 	end
 	
 	-- Magazine clip is stored in the weapon, instead of player
-	NewOwner:RemoveAmmo( 1500, self:GetPrimaryAmmoTypeString() )
-	NewOwner:GiveAmmo( self.Primary.Magazine or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
+	--NewOwner:RemoveAmmo( 1500, self:GetPrimaryAmmoTypeString() )
+	--NewOwner:GiveAmmo( self.Primary.Magazine or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
+	
+	--self:RemoveAmmo(1500, self:GetPrimaryAmmoTypeString())
 			
 	-- Call this function to update weapon slot and others
 	gamemode.Call( "OnWeaponEquip", NewOwner, self)

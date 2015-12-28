@@ -41,11 +41,10 @@ SWEP.WorldModel = "models/weapons/w_smg_tmp.mdl"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
 SWEP.Primary.Recoil			= 1.1
-SWEP.Primary.Damage			= 13
+SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Delay = 0.13
-SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo = "Battery"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
@@ -53,7 +52,8 @@ SWEP.Secondary.Delay = 0.01
 SWEP.Secondary.Heal = 5
 SWEP.Secondary.HealDelay = 12
 SWEP.UseHands = true
-SWEP.Cone = 0.04
+
+SWEP.Cone = 0.046
 SWEP.ConeMoving = SWEP.Cone *1.12
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9

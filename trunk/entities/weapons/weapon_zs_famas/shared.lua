@@ -43,7 +43,6 @@ SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 30
 SWEP.MaxAmmo			    = 250
 SWEP.Primary.Delay			= 0.11
-SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.Primary.Cone			= 0.04
@@ -52,7 +51,7 @@ SWEP.HumanClass = "commando"
 
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
-SWEP.Cone = 0.06
+SWEP.Cone = 0.05
 SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.80
 SWEP.ConeIron = SWEP.Cone *0.7

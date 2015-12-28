@@ -62,7 +62,6 @@ SWEP.Primary.Damage			= 7
 SWEP.Primary.NumShots		= 10
 SWEP.Primary.ClipSize		= 4
 SWEP.Primary.Delay			= 0.75
-SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "buckshot"
 

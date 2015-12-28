@@ -45,10 +45,9 @@ SWEP.HoldType = "ar2"
 SWEP.ViewModel = "models/weapons/cstrike/c_shot_xm1014.mdl"
 SWEP.WorldModel = "models/weapons/w_shot_xm1014.mdl"
 
-SWEP.Primary.ClipSize = 150;
-SWEP.Primary.DefaultClip = 150;
-SWEP.Primary.Automatic = false;
-SWEP.Primary.Ammo = "none";
+SWEP.Primary.ClipSize = 150
+SWEP.Primary.Automatic = false
+SWEP.Primary.Ammo = "none"
  
 SWEP.Spread = 0.02
 SWEP.Delay = 0.7

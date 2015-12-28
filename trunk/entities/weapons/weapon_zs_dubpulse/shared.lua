@@ -52,7 +52,6 @@ SWEP.Primary.Automatic = true
 SWEP.Primary.Delay = 0.085
 SWEP.Primary.Recoil = 6
 SWEP.Primary.ClipSize		= 25
-SWEP.Primary.DefaultClip	= 25
 
 SWEP.Secondary.Automatic 	= false
 SWEP.Secondary.Ammo 		= "pistol"

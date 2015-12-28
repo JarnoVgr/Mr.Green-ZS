@@ -50,7 +50,6 @@ SWEP.ViewModel = "models/weapons/v_crossbow.mdl"
 SWEP.WorldModel = "models/weapons/w_crossbow.mdl"
 SWEP.TotalDamage = "~190-200"
 SWEP.Primary.ClipSize = 1
-SWEP.Primary.DefaultClip = 8
 SWEP.Primary.Automatic = true
 --SWEP.Primary.Ammo = "XBowBolt"
 SWEP.Primary.Ammo = "pistol"
