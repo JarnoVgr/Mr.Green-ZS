@@ -768,7 +768,7 @@ function CalculatePlayerLoadout(pl)
 		pl.Loadout = table.Copy(medicstage1)
 		pl:ChatPrint("You are a Medic")
 		pl:SetPerk("Medic")
-
+		pl:GiveAmmo( 100, "Battery" )
 		if pl:GetPerk("medic_medigun") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
