@@ -772,7 +772,7 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("medic_medigun") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
-			pl:GiveAmmo( 40, "Battery" )	
+			pl:GiveAmmo( 50, "Battery" )	
 			pl.SPRequired = 130			
 		end
 		
@@ -785,8 +785,6 @@ function CalculatePlayerLoadout(pl)
 		end		
 	end
 
-	
-	pl:GiveAmmo( 60, "pistol" )	
 	net.Start("SPRequired")
 	net.WriteFloat(math.Round(pl.SPRequired))
 	net.WriteBit(false)
@@ -801,6 +799,8 @@ function CalculatePlayerLoadout(pl)
 	for k,v in pairs(pl.Loadout) do
 		pl:Give(tostring(v))				
 	end
+	
+	pl:GiveAmmo(60, "pistol")		
 	
 	--Check if we are THE Gordon Freeman
 	if pl.IsFreeman then
