@@ -101,7 +101,7 @@ function DrawLoadoutMenu()
 	end
 	
 	Frame.Think = function () 
-		if WARMUPTIME - CurTime() <= 0 then
+		if WARMUPTIME + 20 - CurTime() <= 0 then
 			Frame:Close()
 			spawned = true
 			saveClass(classSelected, perkButtons)				
@@ -411,7 +411,7 @@ function DrawLoadoutMenu()
 	end	
 	
 	buttonSpawn.PaintOver = function ()
-		draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME-5 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
+		draw.SimpleTextOutlined("Spawn ".. math.Round(WARMUPTIME + 20 - CurTime()), "Trebuchet24", buttonWidth/2, buttonHeight/2, Color (250,255,250,230), TEXT_ALIGN_CENTER,TEXT_ALIGN_CENTER,1,Color(0,0,0,230))
 		if buttonSpawn.Overed then
 			surface.SetDrawColor(50, 255, 60, math.Clamp(math.sin(CurTime()*12)*100 + 100,40,255))
 		else	
@@ -443,7 +443,7 @@ function DrawLoadoutMenu()
 	end
 	
 	buttonSpawn.Think = function () 
-		if WARMUPTIME-10 - CurTime() <= 0 then
+		if WARMUPTIME + 20 - CurTime() <= 0 then
 			Frame:Close()
 			spawned = true
 			saveClass(classSelected, perkButtons)				
