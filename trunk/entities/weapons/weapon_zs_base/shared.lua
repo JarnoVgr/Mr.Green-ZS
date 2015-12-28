@@ -7,7 +7,7 @@ SWEP.ConeMoving = 0.03
 SWEP.ConeCrouching = 0.013
 SWEP.ConeIron = 0.018
 SWEP.ConeIronCrouching = 0.01
-
+SWEP.FirstSpawn = true
 SWEP.CurrentCone = 0
 
 SWEP.ViewModelFlip = false
@@ -135,7 +135,7 @@ function SWEP:PrimaryAttack()
 	if (self.Primary.Ammo == "pistol") then
 
 		for i=1, 6 do
-			if self.LastShot > CurTime() - (i * 0.08) then
+			if self.LastShot > CurTime() - (i * 0.099) then
 				accuracy = (cone * ((j + 0.9) - (i * 0.09)))
 				break
 			
@@ -147,7 +147,7 @@ function SWEP:PrimaryAttack()
 
 	elseif (self.Primary.Ammo == "buckshot" or self.Primary.Ammo == "357") then
 		for i=1, 6 do
-			if self.LastShot > CurTime() - (i * 0.11) then
+			if self.LastShot > CurTime() - (i * 0.135) then
 				accuracy = (cone * ((j + 1.21) - (i * 0.12)))
 				break
 			
@@ -158,7 +158,7 @@ function SWEP:PrimaryAttack()
 		end	
 	else
 		for i=1, 6 do
-			if self.LastShot > CurTime() - (i * 0.08) then
+			if self.LastShot > CurTime() - (i * 0.089) then
 				accuracy = (cone * ((j + 1.109) - (i * 0.1)))
 				break
 			
@@ -243,22 +243,8 @@ function SWEP:Deploy()
 	end
 	
 	if (self.Owner:GetPerk("commando_viper")) then
-		self.AccuracyBonus = 0.2
+		self.AccuracyBonus = self.AccuracyBonus - 0.15
 	end
-	
-	
-	if self.Owner:GetPerk("Commando") then		
-		local bonus = 0
-		if self.Owner:GetPerk("commando_enforcer") then
-			bonus = self.ActualClipSize * 0.25
-		end
-		self.Primary.ClipSize = self.ActualClipSize * 0.1 + self.ActualClipSize + (self.ActualClipSize * (self.Owner:GetRank() * 2) / 100) + bonus
-		
-		if self.Owner.DataTable["ShopItems"][52] then
-			self.Primary.ClipSize = self.Primary.ClipSize + self.ActualClipSize * 0.2
-		end
-		
-	end	
 	
 	if CLIENT then
 		self:CheckCustomIronSights()
@@ -315,6 +301,22 @@ end
 function SWEP:Equip(NewOwner)		
 	if CLIENT then
 		return
+	end
+	
+	if self.FirstSpawn then
+		if self.Owner:GetPerk("Commando") then		
+			local bonus = 0
+			if self.Owner:GetPerk("commando_enforcer") then
+				bonus = self.ActualClipSize * 0.25
+			end
+			self.Primary.ClipSize = self.ActualClipSize * 0.1 + self.ActualClipSize + (self.ActualClipSize * (self.Owner:GetRank() * 2) / 100) + bonus
+			
+			if self.Owner.DataTable["ShopItems"][52] then
+				self.Primary.ClipSize = self.Primary.ClipSize + self.ActualClipSize * 0.2
+			end
+		end		
+		self:SetClip1(self.Primary.ClipSize)
+		self.FirstSpawn = false
 	end
 	-- If the weapon is dropped and has 10 bullets less in the current clip, then substract that amount for the new owner
 	if self.Primary.RemainingAmmo then
