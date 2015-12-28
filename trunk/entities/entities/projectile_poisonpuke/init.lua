@@ -20,18 +20,6 @@ function ENT:Initialize()
 	end
 end
 
-
-			local protect = 0
-			if pl:GetPerk("_poisonprotect") then
-				protect = 4
-			end	
-			
-
-			
-
-
-
-
 function ENT:Think()
 	if self.DieTime < CurTime() then
 		if self.HitData then
