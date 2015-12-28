@@ -757,7 +757,7 @@ function CalculatePlayerLoadout(pl)
 	elseif pl:GetPerk("Pyro") then
 		pl.Loadout = table.Copy(pyro)
 		pl:ChatPrint("You are a Pyro")
-		
+		pl:GiveAmmo( 80, "alyxgun" )			
 		
 		if pl:GetPerk("pyro_glock1") then
 			pl:Give("weapon_zs_glock1")
