@@ -117,7 +117,7 @@ function SWEP:PrimaryAttack()
 	local accuracy = 0
 	local j = 0
 	if self.Owner:GetVelocity():Length() > 10 then
-		j = 0.05
+		j = 0.5
 		cone = self.ConeMoving
 	end	
 	
