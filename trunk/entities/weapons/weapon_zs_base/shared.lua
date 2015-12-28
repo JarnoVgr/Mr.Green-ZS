@@ -243,7 +243,7 @@ function SWEP:Deploy()
 	end
 	
 	if (self.Owner:GetPerk("commando_viper")) then
-		self.AccuracyBonus = 0.85
+		self.AccuracyBonus = 0.2
 	end
 	
 	
