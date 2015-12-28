@@ -223,6 +223,18 @@ function SWEP:Deploy()
 	if not self:SequenceDuration() then
 		return
 	end
+	
+	if self.Owner:GetPerk("Commando") then		
+		local bonus = 0
+		if self.Owner:GetPerk("commando_enforcer") then
+			bonus = self.ActualClipSize * 0.25
+		end
+		self.Primary.ClipSize = self.ActualClipSize * 0.1 + self.ActualClipSize + (self.ActualClipSize * (self.Owner:GetRank() * 2) / 100) + bonus
+		
+		if self.Owner.DataTable["ShopItems"][52] then
+			self.Primary.ClipSize = self.Primary.ClipSize + self.ActualClipSize * 0.2
+		end
+	end		
 	self.Primary.ClipSize = self.ActualClipSize
 	self:SetNextReload(0)
 	self:SetIronsights(false)
