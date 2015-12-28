@@ -386,7 +386,7 @@ GM.Perks = {
 	-- Commando
 		["commando_defender"] = {Name = "Defender", Description = "[TIER 0]\nSpawn with the Defender rifle", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_ak47"},
 		["commando_grenadier"] = {Name = "Grenadier", Description = "+3 grenades on spawn", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/grenade_multikill"},
-		["commando_viper"] = {Name = "Viper", Description = "Shoot 2 bullets at a time with assault rifles\n -36% damage\n -15% accuracy", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/hip_shot"},
+		--["commando_viper"] = {Name = "Viper", Description = "Shoot 2 bullets at a time with assault rifles\n -36% damage\n -15% accuracy", Class = "Commando", Slot = 1, Rank = 2, Material = "vgui/achievements/hip_shot"},
 
 		["commando_bloodammo"] = {Name = "Blood Ammo", Description = "Receive 40% of damage done as assault rifle ammo from kills", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/win_knife_fights_low"},
 		["commando_enforcer"] = {Name = "Enforcer", Description = "+25 clip size", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/kill_enemy_last_bullet"},
