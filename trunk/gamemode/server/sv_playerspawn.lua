@@ -781,7 +781,7 @@ function CalculatePlayerLoadout(pl)
 		end		
 		
 		if pl:GetPerk("medic_supplies") then
-			pl:GiveAmmo( 100, "Battery" )
+			pl:GiveAmmo(100,"Battery" )
 		end		
 	end
 
