@@ -31,23 +31,7 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 
 	if pl:IsHuman() then
 		pl:CheckSpeedChange()
-		pl:CheckEnrage(dmginfo:GetDamage())
-		if attacker:IsPlayer() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_ghoul" or attacker:IsPlayer() and attacker:GetActiveWeapon():GetClass() == "weapon_zs_undead_poisonzombie" then
-			local protect = 0
-			if pl:GetPerk("_poisonprotect") then
-				protect = 4
-			end	
-			
-			pl:TakeDamageOverTime(math.Clamp(dmginfo:GetDamage() * 0.2,1,2), 1.5, 5 - protect, attacker, attacker:GetActiveWeapon())
-			
-			if not pl.IsInfected then
-				local Infect = EffectData()		
-				Infect:SetEntity( pl )
-				util.Effect( "infected_human", Infect, true)
-			end
-			
-		end
-		
+		pl:CheckEnrage(dmginfo:GetDamage())		
 	end
 	-- Victim got hit
 	pl.TookHit = true

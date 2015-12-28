@@ -20,6 +20,18 @@ function ENT:Initialize()
 	end
 end
 
+
+			local protect = 0
+			if pl:GetPerk("_poisonprotect") then
+				protect = 4
+			end	
+			
+
+			
+
+
+
+
 function ENT:Think()
 	if self.DieTime < CurTime() then
 		if self.HitData then
@@ -31,10 +43,23 @@ function ENT:Think()
 				if IsValid(owner) then
 					if hitent:IsPlayer() and hitent:IsHuman() and hitent:Alive() then
 						if hitent:GetPerk("Medic") then
-							hitent:TakeDamage(2, owner, self)							
+							hitent:TakeDamage(2, owner, self)	
+
+							local protect = 0
+							if hitent:GetPerk("_poisonprotect") then
+								protect = 4
+							end	
+							hitent:TakeDamageOverTime(1, 1.2, 6 - protect, owner, owner:GetActiveWeapon())							
 						else
 							hitent:TakeDamage(3, owner, self)
+							hitent:TakeDamageOverTime(1, 1.2, 6, owner, owner:GetActiveWeapon())							
 						end
+						
+						if not hitent.IsInfected then
+							local Infect = EffectData()		
+							Infect:SetEntity( hitent )
+							util.Effect( "infected_human", Infect, true)
+						end						
 					elseif hitent:IsPlayer() and hitent:IsZombie() and hitent:Alive() then
 						if hitent:Health() + 5 < hitent:GetMaximumHealth() then
 							owner:AddXP(3)
