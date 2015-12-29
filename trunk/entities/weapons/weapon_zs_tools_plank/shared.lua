@@ -120,9 +120,9 @@ function SWEP:PrimaryAttack()
 		if IsValid(ent) then
 			ent:SetPos(tr.HitPos)
 			ent:SetAngles(aimvec:Angle())
-			ent:SetModel("models/props_debris/wood_board0" .. math.random(1,6) .. "a.mdl")
+			ent:SetModel("models/props_debris/wood_board04a.mdl")
 			ent:Spawn()
-			local hp = 400
+			local hp = 600
 			--if self.Owner:GetPerk("_plankhp") then
 			ent:SetHealth(hp)
 			ent.PropHealth = hp

@@ -10,6 +10,8 @@ SWEP.ConeIronCrouching = 0.01
 SWEP.FirstSpawn = true
 SWEP.CurrentCone = 0
 
+SWEP.Primary.BulletsUsed = 1
+
 SWEP.ViewModelFlip = false
 SWEP.ViewModelFOV = 60
 SWEP.Primary.ClipSize = -1
@@ -169,11 +171,7 @@ function SWEP:PrimaryAttack()
 		end
 	end
 	
-	if self.AccuracyBonus != 1 then
-		accuracy = accuracy + (accuracy * self.AccuracyBonus)	
-	end
-	
-
+	accuracy = accuracy * self.AccuracyBonus	
 	self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, accuracy)		
 
 	--Knockback
@@ -224,6 +222,8 @@ function SWEP:Deploy()
 		return
 	end
 	
+	self.Primary.ClipSize = self.ActualClipSize	
+	
 	if self.Owner:GetPerk("Commando") then		
 		local bonus = 0
 		if self.Owner:GetPerk("commando_enforcer") then
@@ -235,27 +235,26 @@ function SWEP:Deploy()
 			self.Primary.ClipSize = self.Primary.ClipSize + self.ActualClipSize * 0.2
 		end
 	end		
-	self.Primary.ClipSize = self.ActualClipSize
+	
 	self:SetNextReload(0)
 	self:SetIronsights(false)
 	self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 	self.IdleAnimation = CurTime() + self:SequenceDuration()		
 	self.AccuracyBonus = 1
 	--commando
-	if self.Owner:GetPerk("commando_marksman") then
-		self.AccuracyBonus = 1.6
+	if self.Owner:GetPerk("commando_marksman") or self.Owner:GetPerk("sharpshooter_marksman") then
+		self.AccuracyBonus = 0.6
 	end
 	
 	--sharpshooter
+	
 	if (self.Owner:GetPerk("Sharpshooter")) then
-		self.AccuracyBonus = ((self.Owner:GetRank() * 2)*0.1) + 0.1
-		if self.Owner:GetPerk("sharpshooter_marksman") then
-			self.AccuracyBonus = self.AccuracyBonus + 1.7
-		end	
+		self.AccuracyBonus = self.AccuracyBonus - (((self.Owner:GetRank() * 2)*0.01) + 0.1)
 	end
 	
-	if (self.Owner:GetPerk("commando_viper")) then
-		self.AccuracyBonus = self.AccuracyBonus - 0.15
+	if (self.Owner:GetPerk("commando_viper")) and self.Primary.Ammo == "ar2" then
+		self.AccuracyBonus = self.AccuracyBonus + 0.25
+		self.Primary.BulletsUsed = 2
 	end
 	
 	if CLIENT then
@@ -361,7 +360,7 @@ function SWEP:TranslateActivity(act)
 end
 
 function SWEP:TakeAmmo()
-	self:TakePrimaryAmmo(1)	
+	self:TakePrimaryAmmo(self.Primary.BulletsUsed)	
 end
 
 function SWEP:Reload()

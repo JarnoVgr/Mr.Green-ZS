@@ -82,7 +82,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end
 	
 	if (mAttacker:GetPerk("commando_bloodammo")) then
-		mAttacker:GiveAmmo(math.Round(dmginfo:GetDamage() * 0.4),"ar2")
+		mAttacker:GiveAmmo(math.Round(dmginfo:GetDamage() * 0.33),"ar2")
 	end
 	
 	--Possible revive

@@ -36,7 +36,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
 				
 				if (attacker:GetPerk("commando_viper")) then
-					mul = mul - 0.36
+					mul = mul - 0.15
 				end			
 				
 				dmg = dmg + (dmg * mul)
@@ -177,16 +177,20 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				dmg = dmg - (dmg * ((2*ent:GetRank())/100) + 0.1)	
 				ent.LastTimeHit = CurTime()
 			elseif ent:GetPerk("commando_kevlar") then
-				dmg = dmg*0.8	
-				
-			elseif ent:GetPerk("berserker_enrage") then
-				if (ent:Health() > 40 and (ent:Health() - dmg) < 40) then
-					ent:SendLua("WraithScream()")
-					ent:EmitSound(Sound("npc/fast_zombie/fz_scream1.wav"), 90, 85)
-					ent:SetColor(Color(255,125,125))
+				dmg = dmg*0.84	
+			
+			elseif ent:GetPerk("Berserker") then
+			
+				dmg = dmg*0.9
+				if ent:GetPerk("berserker_enrage") then
+					if (ent:Health() > 40 and (ent:Health() - dmg) < 40) then
+						ent:SendLua("WraithScream()")
+						ent:EmitSound(Sound("npc/fast_zombie/fz_scream1.wav"), 90, 85)
+						ent:SetColor(Color(255,125,125))
+					end
+				elseif ent:GetPerk("berserker_porcupine") then
+					attacker:TakeDamage(dmg*0.66, ent, ent:GetActiveWeapon())	
 				end
-			elseif ent:GetPerk("berserker_porcupine") then
-				attacker:TakeDamage(dmg*0.33, ent, ent:GetActiveWeapon())	
 		
 			elseif ent:GetPerk("pyro_immolate") then
 				attacker:Ignite(4,0)			
