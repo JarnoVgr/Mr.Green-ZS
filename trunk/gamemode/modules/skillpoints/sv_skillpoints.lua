@@ -86,10 +86,10 @@ function skillpoints.AddSkillPoints(pl, amount)
 		skillpoints.TakeSkillPoints(pl,pl.SPRequired)
 		pl.SPRequired = pl.SPRequired + 50
 		
-		pl:GiveAmmo( 20, "pistol" )	
-		pl:GiveAmmo( 60, "ar2" )
-		pl:GiveAmmo( 60, "SMG1" )	
-		pl:GiveAmmo( 18, "buckshot" )		
+		pl:GiveAmmo( 18, "pistol" )	
+		pl:GiveAmmo( 30, "ar2" )
+		pl:GiveAmmo( 30, "SMG1" )	
+		pl:GiveAmmo( 16, "buckshot" )		
 		pl:GiveAmmo( 8, "XBowBolt" )
 		pl:GiveAmmo( 16, "357" )
 		pl:GiveAmmo( 40, "alyxgun" )			
@@ -145,8 +145,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 				
 			end
 			pl:Give(item)
-			pl:SelectWeapon(item)	
-			pl:GiveAmmo(ammoCount or 20, pl:GetActiveWeapon().Primary.Ammo or "pistol")			
+			pl:SelectWeapon(item)			
 			
 		elseif item == "weapon_zs_turretplacer" then
 		
