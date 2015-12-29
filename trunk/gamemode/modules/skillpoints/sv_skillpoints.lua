@@ -86,18 +86,14 @@ function skillpoints.AddSkillPoints(pl, amount)
 		skillpoints.TakeSkillPoints(pl,pl.SPRequired)
 		pl.SPRequired = pl.SPRequired + 50
 		
-		if pl.Tier > 5 then
-			pl:EmitSound("items/gift_pickup.wav" )
-			pl:GiveAmmo( 20, "pistol" )	
-			pl:GiveAmmo( 60, "ar2" )
-			pl:GiveAmmo( 60, "SMG1" )	
-			pl:GiveAmmo( 18, "buckshot" )		
-			pl:GiveAmmo( 8, "XBowBolt" )
-			pl:GiveAmmo( 16, "357" )
-			pl:GiveAmmo( 40, "alyxgun" )			
-			return true
-		end		
-	
+		pl:GiveAmmo( 20, "pistol" )	
+		pl:GiveAmmo( 60, "ar2" )
+		pl:GiveAmmo( 60, "SMG1" )	
+		pl:GiveAmmo( 18, "buckshot" )		
+		pl:GiveAmmo( 8, "XBowBolt" )
+		pl:GiveAmmo( 16, "357" )
+		pl:GiveAmmo( 40, "alyxgun" )			
+
 		local item = "zs_ammobox"		
 		local possibleWeapons = {}
 		

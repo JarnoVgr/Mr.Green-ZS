@@ -742,7 +742,7 @@ function CalculatePlayerLoadout(pl)
 		elseif pl:GetPerk("berserker_oppressor") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_melee_pipe2")
-			pl.SPRequired = 130				
+			pl.SPRequired = 150				
 		end		
 	elseif pl:GetPerk("Sharpshooter") then
 		pl.Loadout = table.Copy(sharpshooter)
@@ -752,7 +752,7 @@ function CalculatePlayerLoadout(pl)
 			pl.Tier = 2		
 			pl:Give("weapon_zs_python")
 			pl:GiveAmmo(16, "357")	
-			pl.SPRequired = 130				
+			pl.SPRequired = 150				
 		end		
 	elseif pl:GetPerk("Pyro") then
 		pl.Loadout = table.Copy(pyro)
@@ -768,16 +768,15 @@ function CalculatePlayerLoadout(pl)
 		pl.Loadout = table.Copy(medicstage1)
 		pl:ChatPrint("You are a Medic")
 		pl:SetPerk("Medic")
-		pl:GiveAmmo( 100, "Battery" )
 		if pl:GetPerk("medic_medigun") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
 			pl:GiveAmmo( 50, "Battery" )	
-			pl.SPRequired = 130			
+			pl.SPRequired = 150			
 		end
 		
 		if pl:GetPerk("Medic") then
-			pl:GiveAmmo(self.Owner:GetRank()*10, "Battery")	
+			pl:GiveAmmo(pl:GetRank()*10, "Battery")	
 		end		
 		
 		if pl:GetPerk("medic_supplies") then
@@ -801,7 +800,7 @@ function CalculatePlayerLoadout(pl)
 	end
 	
 	pl:GiveAmmo(60, "pistol")		
-	
+	pl:GiveAmmo( 100, "Battery" )	
 	--Check if we are THE Gordon Freeman
 	if pl.IsFreeman then
 		--Remove current melee weapon
