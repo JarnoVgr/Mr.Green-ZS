@@ -195,7 +195,7 @@ ZombieClasses[2] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> SPECIAL: Propkill", "> CLAW POISON: 10 | 2 per 1.5 seconds", "> HEALTH: 400 ", "> SPEED: 150", "> DAMAGE: 35" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> SPECIAL: Propkill", "> CLAW POISON: 10 | 2 per 1.5 seconds", "> HEALTH: 425 ", "> SPEED: 150", "> DAMAGE: 35" },
 	PainSounds = {
 		Sound("npc/zombie_poison/pz_pain1.wav"),
 		Sound("npc/zombie_poison/pz_pain2.wav"),
@@ -687,8 +687,8 @@ ZombieClasses[11] =
 	Name = "Behemoth",
 	Tag = "behemoth",
 	Infliction = 0.1,
-	Health = 3000,
-	MaxHealth = 3000,
+	Health = 2000,
+	MaxHealth = 2000,
 	TimeLimit = 1020,
 	Bounty = 500,
 	SP = 50,
