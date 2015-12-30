@@ -881,13 +881,6 @@ local function HUDPaint()
 		elseif WATER_DROWNTIME > 0 and WATER_DROWNTIME ~= WATER_DROWNTIME_CONST then
 		
 			WATER_DROWNTIME = math.min(WATER_DROWNTIME + FrameTime() * 3, WATER_DROWNTIME_CONST)
-			if WATER_DROWNTIME <= WATER_DROWNTIME_CONST then
-				ColorModify["$pp_colour_addb"] = 0
-				ColorModify["$pp_colour_colour"] = 1
-			else
-				ColorModify["$pp_colour_addb"] = math.Approach(ColorModify["$pp_colour_addb"], 0, FrameTime() * 0.3)
-				ColorModify["$pp_colour_colour"] = math.Approach(ColorModify["$pp_colour_colour"], 1, FrameTime())
-			end
 			
 			local ww,wh = ScaleW(212),ScaleH(30)
 			local wx,wy = w/2-ww/2, h-wh*2
