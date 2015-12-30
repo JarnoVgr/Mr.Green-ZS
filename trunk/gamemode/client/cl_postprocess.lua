@@ -386,7 +386,6 @@ hook.Add( "RenderScreenspaceEffects", "ScreenEffects", function()
 	if ( !IsValid( MySelf ) || !util.tobool(GetConVarNumber("zs_drawcolourmod") ) ) then
 		return 
 	end
-	print('asasasas')
 	RendercolorModM( MySelf )
 	DrawBloom( 0.6, 0.7, 4, 4, 1, 1.4, 1, 1.2, 1 )
 end )
