@@ -191,38 +191,38 @@ local colorModM = {
 			},
 		colorModMStages	= {
 			[ 1 ] = {
-				[ "$pp_colour_addr" ] 				= 0.24,
-				[ "$pp_colour_addg" ] 				= 0.08,
+				[ "$pp_colour_addr" ] 				= 0.16,
+				[ "$pp_colour_addg" ] 				= 0.06,
 				[ "$pp_colour_addb" ] 				= 0,
 				[ "$pp_colour_brightness" ] 		= -0.1,
 				[ "$pp_colour_contrast" ] 			= 1,
 				[ "$pp_colour_colour" ] 			= 1.96,
-				[ "$pp_colour_mulr" ] 				= 0.32,
-				[ "$pp_colour_mulg" ] 				= 0.16,
+				[ "$pp_colour_mulr" ] 				= 0.22,
+				[ "$pp_colour_mulg" ] 				= 0.12,
 				[ "$pp_colour_mulb" ] 				= 0,
 				motionBlurAmount					= 0
 			},
 			[ 2 ] = {
-				[ "$pp_colour_addr" ] 				= 0.24,
-				[ "$pp_colour_addg" ] 				= 0.08,
+				[ "$pp_colour_addr" ] 				= 0.16,
+				[ "$pp_colour_addg" ] 				= 0.06,
 				[ "$pp_colour_addb" ] 				= 0,
 				[ "$pp_colour_brightness" ] 		= -0.1,
 				[ "$pp_colour_contrast" ] 			= 1,
 				[ "$pp_colour_colour" ] 			= 1.96,
-				[ "$pp_colour_mulr" ] 				= 0.32,
-				[ "$pp_colour_mulg" ] 				= 0.16,
+				[ "$pp_colour_mulr" ] 				= 0.22,
+				[ "$pp_colour_mulg" ] 				= 0.12,
 				[ "$pp_colour_mulb" ] 				= 0,
 				motionBlurAmount					= 0
 			},
 			[ 3 ] = {
-				[ "$pp_colour_addr" ] 				= 0.24,
-				[ "$pp_colour_addg" ] 				= 0.08,
+				[ "$pp_colour_addr" ] 				= 0.16,
+				[ "$pp_colour_addg" ] 				= 0.06,
 				[ "$pp_colour_addb" ] 				= 0,
 				[ "$pp_colour_brightness" ] 		= -0.1,
 				[ "$pp_colour_contrast" ] 			= 1,
 				[ "$pp_colour_colour" ] 			= 1.96,
-				[ "$pp_colour_mulr" ] 				= 0.32,
-				[ "$pp_colour_mulg" ] 				= 0.16,
+				[ "$pp_colour_mulr" ] 				= 0.22,
+				[ "$pp_colour_mulg" ] 				= 0.12,
 				[ "$pp_colour_mulb" ] 				= 0,
 				motionBlurAmount					= 0
 			},
@@ -293,14 +293,14 @@ local colorModM = {
 				motionBlurAmount					= 0.02
 			},
 			[ 3 ] = {
-				[ "$pp_colour_addr" ] 				= 0.24,
-				[ "$pp_colour_addg" ] 				= 0.08,
+				[ "$pp_colour_addr" ] 				= 0.16,
+				[ "$pp_colour_addg" ] 				= 0.06,
 				[ "$pp_colour_addb" ] 				= 0,
 				[ "$pp_colour_brightness" ] 		= -0.1,
 				[ "$pp_colour_contrast" ] 			= 1.3,
 				[ "$pp_colour_colour" ] 			= 1.96,
-				[ "$pp_colour_mulr" ] 				= 0.32,
-				[ "$pp_colour_mulg" ] 				= 0.16,
+				[ "$pp_colour_mulr" ] 				= 0.22,
+				[ "$pp_colour_mulg" ] 				= 0.12,
 				[ "$pp_colour_mulb" ] 				= 0,
 				motionBlurAmount					= 0.1
 			},
@@ -382,10 +382,11 @@ end
 
 
 
-hook.Add( "RenderScreenspaceEffects", "ScreenEffects", function() 
-	if ( !IsValid( MySelf ) ) then
+hook.Add( "RenderScreenspaceEffects", "ScreenEffects", function()
+	if ( !IsValid( MySelf ) || !util.tobool(GetConVarNumber("zs_drawcolourmod") ) ) then
 		return 
 	end
+	print('asasasas')
 	RendercolorModM( MySelf )
 	DrawBloom( 0.6, 0.7, 4, 4, 1, 1.4, 1, 1.2, 1 )
 end )
@@ -421,38 +422,6 @@ function GM:GetMotionBlurValues( x, y, z, r )
 	return  x, y, blurAmount, r 
 end
 
-
-
---[==[---------------------------------------------------------
-	Calculate how much sharpen to apply
----------------------------------------------------------]==]
-local fSharpenContrast, fSharpenOffset = 0, 0.22
-function CalculateSharpenEffect()
-	if not IsValid(MySelf) or not util.tobool(GetConVarNumber("zs_drawsharpeneffect")) then
-		return
-	end
-	
-	local fSharpenContrastAmount = 0
-	
-	-- Get how many zombies are there near me
-	if MySelf:Team() == TEAM_HUMAN then
-		local ZombiesNearMe = MySelf:GetNearUndead(300)
-		fSharpenContrastAmount = math.Clamp(ZombiesNearMe, 0, 7)
-		
-		-- Make it more obvious
-		if ZombiesNearMe > 0 and ZombiesNearMe < 3 then
-			fSharpenContrastAmount = 3.5
-		end
-	end
-	
-	-- Smooth the contrast apparition
-	fSharpenContrast = math.Approach ( fSharpenContrast, fSharpenContrastAmount, 0.05 )
-		
-	-- Finally, set the sharpen
-	if fSharpenContrast ~= 0 then
-		DrawSharpen ( fSharpenContrast, fSharpenOffset )
-	end
-end
 
 --[==[---------------------------------------------------------
     Blur function taken from utils
@@ -532,7 +501,7 @@ local FuckColTab = {
 }
 
 local function DrawStalkerFuck()
-	DrawcolorModMify( FuckColTab )
+	DrawColorModify( FuckColTab )
 	DrawMotionBlur( 0.2, math.Clamp(FuckedTime-CurTime(),0,1), 0)
 	FuckColTab[ "$pp_colour_colour" ] = math.Approach( FuckColTab[ "$pp_colour_colour" ], 1, FuckedLength*FrameTime())
 	local sev = math.Clamp(FuckedTime-CurTime(),0,5)/35
