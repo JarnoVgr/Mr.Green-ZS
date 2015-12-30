@@ -4,352 +4,424 @@
 local DAMAGE_BLUR = true
 local IRON_CROSSHAIR = false
 
-ColorModify = {
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 1,
-	["$pp_colour_colour"] = 1,
-	["$pp_colour_addr"] = 0,
-	["$pp_colour_addg"] = 0,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_mulr"] = 0,
-	["$pp_colour_mulg"] = 0,
-	["$pp_colour_mulb"] = 0.
+
+
+
+
+local colorModM = {
+	activeColorCorrection = {
+		[ "$pp_colour_addr" ] 				= 0,
+		[ "$pp_colour_addg" ] 				= 0,
+		[ "$pp_colour_addb" ] 				= 0,
+		[ "$pp_colour_brightness" ] 		= 0,
+		[ "$pp_colour_contrast" ] 			= 0,
+		[ "$pp_colour_colour" ] 			= 0,
+		[ "$pp_colour_mulr" ] 				= 0,
+		[ "$pp_colour_mulg" ] 				= 0,
+		[ "$pp_colour_mulb" ] 				= 0,		
+	},
+
+	//Team one base values and stuff.
+	[TEAM_SPECTATOR] = {
+		baseValues = {
+			[ "$pp_colour_addr" ] 				= 0,
+			[ "$pp_colour_addg" ] 				= 0,
+			[ "$pp_colour_addb" ] 				= 0,
+			[ "$pp_colour_brightness" ] 		= 0,
+			[ "$pp_colour_contrast" ] 			= 1,
+			[ "$pp_colour_colour" ] 			= 1.96,
+			[ "$pp_colour_mulr" ] 				= 0,
+			[ "$pp_colour_mulg" ] 				= 0,
+			[ "$pp_colour_mulb" ] 				= 0,
+			motionBlurAmount					= 0
+		},
+		colorModMStages	= {
+			[ 1 ] = {
+				[ "$pp_colour_addr" ] 				= 0,
+				[ "$pp_colour_addg" ] 				= 0,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= 0,
+				[ "$pp_colour_contrast" ] 			= 1,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0,
+				[ "$pp_colour_mulg" ] 				= 0,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0
+			},
+			[ 2 ] = {
+				[ "$pp_colour_addr" ] 				= 0,
+				[ "$pp_colour_addg" ] 				= 0,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= 0,
+				[ "$pp_colour_contrast" ] 			= 1,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0,
+				[ "$pp_colour_mulg" ] 				= 0,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0
+			},
+			[ 3 ] = {
+				[ "$pp_colour_addr" ] 				= 0,
+				[ "$pp_colour_addg" ] 				= 0,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= 0,
+				[ "$pp_colour_contrast" ] 			= 1,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0,
+				[ "$pp_colour_mulg" ] 				= 0,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0
+			},
+		},
+		ColorRate = {
+			[ "$pp_colour_addr" ] 				= 0.18,
+			[ "$pp_colour_addg" ] 				= 0.12,
+			[ "$pp_colour_addb" ] 				= 0.05,
+			[ "$pp_colour_brightness" ] 		= 0.8,
+			[ "$pp_colour_contrast" ] 			= 0.24,
+			[ "$pp_colour_colour" ] 			= 0.48,
+			[ "$pp_colour_mulr" ] 				= 0.24,
+			[ "$pp_colour_mulg" ] 				= 0.16,
+			[ "$pp_colour_mulb" ] 				= 0.12,	
+		},
+		addedEffects = {
+			[ "$pp_colour_addr" ] 				= 0,
+			[ "$pp_colour_addg" ] 				= 0,
+			[ "$pp_colour_addb" ] 				= 0,
+			[ "$pp_colour_brightness" ] 		= 0,
+			[ "$pp_colour_contrast" ] 			= 0,
+			[ "$pp_colour_colour" ] 			= 0,
+			[ "$pp_colour_mulr" ] 				= 0,
+			[ "$pp_colour_mulg" ] 				= 0,
+			[ "$pp_colour_mulb" ] 				= 0,
+		},
+		motionBlurAmount 						= 0,
+		addedEffectRecoverRate 					= 0.4
+	},
+	[2] = {
+		baseValues = {
+			[ "$pp_colour_addr" ] 				= 0,
+			[ "$pp_colour_addg" ] 				= 0,
+			[ "$pp_colour_addb" ] 				= 0,
+			[ "$pp_colour_brightness" ] 		= 0,
+			[ "$pp_colour_contrast" ] 			= 1,
+			[ "$pp_colour_colour" ] 			= 1.96,
+			[ "$pp_colour_mulr" ] 				= 0,
+			[ "$pp_colour_mulg" ] 				= 0,
+			[ "$pp_colour_mulb" ] 				= 0,
+			motionBlurAmount					= 0
+		},
+		colorModMStages	= {
+			[ 1 ] = {
+				[ "$pp_colour_addr" ] 				= 0,
+				[ "$pp_colour_addg" ] 				= 0,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= 0,
+				[ "$pp_colour_contrast" ] 			= 1,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0,
+				[ "$pp_colour_mulg" ] 				= 0,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0
+			},
+			[ 2 ] = {
+				[ "$pp_colour_addr" ] 				= 0,
+				[ "$pp_colour_addg" ] 				= 0,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= 0,
+				[ "$pp_colour_contrast" ] 			= 1,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0,
+				[ "$pp_colour_mulg" ] 				= 0,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0
+			},
+			[ 3 ] = {
+				[ "$pp_colour_addr" ] 				= 0,
+				[ "$pp_colour_addg" ] 				= 0,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= 0,
+				[ "$pp_colour_contrast" ] 			= 1,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0,
+				[ "$pp_colour_mulg" ] 				= 0,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0
+			},
+			
+		},
+		ColorRate = {
+			[ "$pp_colour_addr" ] 				= 0.18,
+			[ "$pp_colour_addg" ] 				= 0.12,
+			[ "$pp_colour_addb" ] 				= 0.05,
+			[ "$pp_colour_brightness" ] 		= 0.8,
+			[ "$pp_colour_contrast" ] 			= 0.24,
+			[ "$pp_colour_colour" ] 			= 0.48,
+			[ "$pp_colour_mulr" ] 				= 0.24,
+			[ "$pp_colour_mulg" ] 				= 0.16,
+			[ "$pp_colour_mulb" ] 				= 0.12,	
+		},
+		addedEffects = {
+			[ "$pp_colour_addr" ] 				= 0,
+			[ "$pp_colour_addg" ] 				= 0,
+			[ "$pp_colour_addb" ] 				= 0,
+			[ "$pp_colour_brightness" ] 		= 0,
+			[ "$pp_colour_contrast" ] 			= 0,
+			[ "$pp_colour_colour" ] 			= 0,
+			[ "$pp_colour_mulr" ] 				= 0,
+			[ "$pp_colour_mulg" ] 				= 0,
+			[ "$pp_colour_mulb" ] 				= 0,
+		},
+		motionBlurAmount 						= 0,
+		addedEffectRecoverRate 					= 0.4
+	},
+	//Zombie Team
+	[3] = {
+		baseValues = {
+				[ "$pp_colour_addr" ] 				= 0.24,
+				[ "$pp_colour_addg" ] 				= 0.08,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= -0.1,
+				[ "$pp_colour_contrast" ] 			= 1,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0.32,
+				[ "$pp_colour_mulg" ] 				= 0.16,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0
+			},
+		colorModMStages	= {
+			[ 1 ] = {
+				[ "$pp_colour_addr" ] 				= 0.24,
+				[ "$pp_colour_addg" ] 				= 0.08,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= -0.1,
+				[ "$pp_colour_contrast" ] 			= 1,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0.32,
+				[ "$pp_colour_mulg" ] 				= 0.16,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0
+			},
+			[ 2 ] = {
+				[ "$pp_colour_addr" ] 				= 0.24,
+				[ "$pp_colour_addg" ] 				= 0.08,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= -0.1,
+				[ "$pp_colour_contrast" ] 			= 1,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0.32,
+				[ "$pp_colour_mulg" ] 				= 0.16,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0
+			},
+			[ 3 ] = {
+				[ "$pp_colour_addr" ] 				= 0.24,
+				[ "$pp_colour_addg" ] 				= 0.08,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= -0.1,
+				[ "$pp_colour_contrast" ] 			= 1,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0.32,
+				[ "$pp_colour_mulg" ] 				= 0.16,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0
+			},
+			
+		},
+		ColorRate = {
+			[ "$pp_colour_addr" ] 				= 0.16,
+			[ "$pp_colour_addg" ] 				= 0.24,
+			[ "$pp_colour_addb" ] 				= 0,
+			[ "$pp_colour_brightness" ] 		= 0.30,
+			[ "$pp_colour_contrast" ] 			= 0.5,
+			[ "$pp_colour_colour" ] 			= 3,
+			[ "$pp_colour_mulr" ] 				= 0.4,
+			[ "$pp_colour_mulg" ] 				= 0.4,
+			[ "$pp_colour_mulb" ] 				= 0.4,	
+		},
+		addedEffects = {
+			[ "$pp_colour_addr" ] 				= 0,
+			[ "$pp_colour_addg" ] 				= 0,
+			[ "$pp_colour_addb" ] 				= 0,
+			[ "$pp_colour_brightness" ] 		= 0,
+			[ "$pp_colour_contrast" ] 			= 0,
+			[ "$pp_colour_colour" ] 			= 0,
+			[ "$pp_colour_mulr" ] 				= 0,
+			[ "$pp_colour_mulg" ] 				= 0,
+			[ "$pp_colour_mulb" ] 				= 0,
+		},
+		motionBlurAmount 						= 0,
+		addedEffectRecoverRate 					= 0.4
+	},
+	//Human team
+	[4] = {
+		baseValues = {
+			[ "$pp_colour_addr" ] 				= 0,
+			[ "$pp_colour_addg" ] 				= 0,
+			[ "$pp_colour_addb" ] 				= 0,
+			[ "$pp_colour_brightness" ] 		= 0,
+			[ "$pp_colour_contrast" ] 			= 1,
+			[ "$pp_colour_colour" ] 			= 1.96,
+			[ "$pp_colour_mulr" ] 				= 0,
+			[ "$pp_colour_mulg" ] 				= 0,
+			[ "$pp_colour_mulb" ] 				= 0,
+			motionBlurAmount					= 0
+		},
+		colorModMStages	= {
+			[ 1 ] = {
+				[ "$pp_colour_addr" ] 				= 0.06,
+				[ "$pp_colour_addg" ] 				= 0.02,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= -0.05,
+				[ "$pp_colour_contrast" ] 			= 1,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0.08,
+				[ "$pp_colour_mulg" ] 				= 0.04,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0.01
+			},
+			[ 2 ] = {
+				[ "$pp_colour_addr" ] 				= 0.12,
+				[ "$pp_colour_addg" ] 				= 0.04,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= -0.07,
+				[ "$pp_colour_contrast" ] 			= 1.2,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0.16,
+				[ "$pp_colour_mulg" ] 				= 0.08,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0.02
+			},
+			[ 3 ] = {
+				[ "$pp_colour_addr" ] 				= 0.24,
+				[ "$pp_colour_addg" ] 				= 0.08,
+				[ "$pp_colour_addb" ] 				= 0,
+				[ "$pp_colour_brightness" ] 		= -0.1,
+				[ "$pp_colour_contrast" ] 			= 1.3,
+				[ "$pp_colour_colour" ] 			= 1.96,
+				[ "$pp_colour_mulr" ] 				= 0.32,
+				[ "$pp_colour_mulg" ] 				= 0.16,
+				[ "$pp_colour_mulb" ] 				= 0,
+				motionBlurAmount					= 0.1
+			},
+			
+		},
+		ColorRate = {
+			[ "$pp_colour_addr" ] 				= 0.18,
+			[ "$pp_colour_addg" ] 				= 0.12,
+			[ "$pp_colour_addb" ] 				= 0.05,
+			[ "$pp_colour_brightness" ] 		= 0.8,
+			[ "$pp_colour_contrast" ] 			= 0.5,
+			[ "$pp_colour_colour" ] 			= 0.45,
+			[ "$pp_colour_mulr" ] 				= 0.24,
+			[ "$pp_colour_mulg" ] 				= 0.16,
+			[ "$pp_colour_mulb" ] 				= 0.12,	
+		},
+		addedEffects = {
+			[ "$pp_colour_addr" ] 				= 0,
+			[ "$pp_colour_addg" ] 				= 0,
+			[ "$pp_colour_addb" ] 				= 0,
+			[ "$pp_colour_brightness" ] 		= 0,
+			[ "$pp_colour_contrast" ] 			= 0,
+			[ "$pp_colour_colour" ] 			= 0,
+			[ "$pp_colour_mulr" ] 				= 0,
+			[ "$pp_colour_mulg" ] 				= 0,
+			[ "$pp_colour_mulb" ] 				= 0,
+		},
+		motionBlurAmount 						= 0,
+		addedEffectRecoverRate 					= 0.4
+	},
 }
 
-local ColorMod = {
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 1,
-	["$pp_colour_colour"] = 1,
-	["$pp_colour_addr"] = 0,
-	["$pp_colour_addg"] = 0,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_mulr"] = 0,
-	["$pp_colour_mulg"] = 0,
-	["$pp_colour_mulb"] = 0.
-}
-
-local ZombieCM = {
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 0,
-	["$pp_colour_colour"] = 1.2,
-	["$pp_colour_addr"] = 0.2,
-	["$pp_colour_addg"] = 0.1,
-	["$pp_colour_addb"] = 0.0,
-	["$pp_colour_mulr"] = 0.2,
-	["$pp_colour_mulg"] = 0.1,
-	["$pp_colour_mulb"] = 0.0
-}
-
---[[local ZombieCM = {
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 1,
-	["$pp_colour_colour"] = 1.3,
-	["$pp_colour_addr"] = 0.1,
-	["$pp_colour_addg"] = 0,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_mulr"] = 1,
-	["$pp_colour_mulg"] = 1,
-	["$pp_colour_mulb"] = 1.
-]]--}
-
-local ZombieHowlerCM = {
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 0,
-	["$pp_colour_colour"] = 1.2,
-	["$pp_colour_addr"] = 0.2,
-	["$pp_colour_addg"] = 0.10,
-	["$pp_colour_addb"] = 0.0,
-	["$pp_colour_mulr"] = 1.3,
-	["$pp_colour_mulg"] = 0.1,
-	["$pp_colour_mulb"] = 0.1
-}
-
-local ZombieRageCM = {
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 0,
-	["$pp_colour_colour"] = 1.2,
-	["$pp_colour_addr"] = 0.15,
-	["$pp_colour_addg"] = 0.10,
-	["$pp_colour_addb"] = 0.0,
-	["$pp_colour_mulr"] = 1.5,
-	["$pp_colour_mulg"] = 0.5,
-	["$pp_colour_mulb"] = 0.5
-}
-
---Alive Human
---[[
---Oldest
-local HumanCM = {
-	["$pp_colour_addr"] = 0,
-	["$pp_colour_addg"] = 0,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 1,
-	["$pp_colour_colour"] = 1,
-	["$pp_colour_mulr"] = 0,
-	["$pp_colour_mulg"] = 0,
-	["$pp_colour_mulb"] = 0
-}]]
---[[
---Pre-Changes
-local HumanCM = {
-	["$pp_colour_addr"] = 0,
-	["$pp_colour_addg"] = 0,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_brightness"] = -0.03, --0.08
-	["$pp_colour_contrast"] = 0.8,
-	["$pp_colour_colour"] = 0.68,
-	["$pp_colour_mulr"] = 0,
-	["$pp_colour_mulg"] = 1,
-	["$pp_colour_mulb"] = 1
-}]]
-
-local HumanCM = {
-	["$pp_colour_addr"] = 2,
-	["$pp_colour_addg"] = 1,
-	["$pp_colour_addb"] = 2,
-	["$pp_colour_brightness"] = 0.001,
-	["$pp_colour_contrast"] = 1.12,
-	["$pp_colour_colour"] = 10,
-	["$pp_colour_mulr"] = 1.2,
-	["$pp_colour_mulg"] = 1.16,
-	["$pp_colour_mulb"] = 1.2
-}
-
---When spectating Zombies
-local DeadSpectatorCM = {
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 1,
-	["$pp_colour_colour"] = 1.2,
-	["$pp_colour_addr"] = 0.2,
-	["$pp_colour_addg"] = 0.10,
-	["$pp_colour_addb"] = 0.0,
-	["$pp_colour_mulr"] = 1.05,
-	["$pp_colour_mulg"] = 0,
-	["$pp_colour_mulb"] = 0
-}
-
---Spectators
-local SpectatorCM = {
-	["$pp_colour_addr"] = 0,
-	["$pp_colour_addg"] = 0,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_brightness"] = 0,
-	["$pp_colour_contrast"] = 1,
-	["$pp_colour_colour"] = 1,
-	["$pp_colour_mulr"] = 1,
-	["$pp_colour_mulg"] = 1,
-	["$pp_colour_mulb"] = 1
-}
-
---When connecting
-local ConnectingCM = {
-	["$pp_colour_addr"] = 0,
-	["$pp_colour_addg"] = 0,
-	["$pp_colour_addb"] = 0,
-	["$pp_colour_brightness"] = -0.08,
-	["$pp_colour_contrast"] = 1.25,
-	["$pp_colour_colour"] = 0,
-	["$pp_colour_mulr"] = 0,
-	["$pp_colour_mulg"] = 0,
-	["$pp_colour_mulb"] = 0
-}
-
---[==[--------------------------------------------------
-        Used to calculate color mod values
----------------------------------------------------]==]
-local DrawColorModify = DrawColorModify
-local surface = surface
-local EyePos = EyePos
-local EyeAngles = EyeAngles
-local zombies = 0
-function CalculateColorMod()
-	if not IsValid(MySelf) or not util.tobool(GetConVarNumber("zs_drawcolourmod")) then
-		return
+local function AnimatedColor(iStart, iEnd, iRate)
+	if ( iStart == iEnd ) then
+		return iEnd
 	end
-	
-	-- Undead side post proccesing
-	if MySelf:Team() == TEAM_UNDEAD and not ENDROUND then
-		local max = math.min(team.NumPlayers(TEAM_UNDEAD),HORDE_MAX_ZOMBIES)
-		zombies = math.Approach(zombies, math.Clamp(MySelf:GetNearUndead(HORDE_MAX_DISTANCE),0,10), FrameTime() * 5)
-		ZombieCM["$pp_colour_colour"] = math.min(1, 0.25 + 1.75 * (zombies/max))
-
-		for k,v in pairs ( ZombieCM ) do
-			local ApproachTo = ZombieCM[k]
-			if MySelf:HasHowlerProtection() then
-				ApproachTo = ZombieHowlerCM[k]
-			end
-			
-			-- Check for zombie rage
-			if MySelf:IsZombieInRage() or MySelf.IsWraithTeleporting then
-				ApproachTo = ZombieRageCM[k]
-			end
-			
-			-- Approach colors
-			local ApproachMul = 0.01
-			if MySelf:IsWraith() then ApproachMul = 0.0025 end
-			ColorMod[k] = math.Approach ( ColorMod[k], ApproachTo, ApproachTo * ApproachMul )
-		end
-	-- Human side post proccesing
-	elseif MySelf:Team() == TEAM_HUMAN and not ENDROUND then
-		--Draw bloom
-		--DrawBloom( .65, 1, 9, 9, 1, .65, 1, 1, 1 )
-		
-		--Special settings for Nightmode
-		for k,v in pairs(HumanCM) do
-			if k ~= "$pp_colour_addr" and k ~= "$pp_colour_addg" and k ~= "$pp_colour_addb" and k ~= "$pp_colour_colour" then
-				ColorMod[k] = v
-			end
-		end
-
-		--Health events
-		local Red, Green, Blue, Color = ColorMod["$pp_colour_addr"], ColorMod["$pp_colour_addg"], ColorMod["$pp_colour_addb"], ColorMod["$pp_colour_colour"]
-		local iRedAmount, iGreenAmount, iBlueAmount, iColor = 0, 0, 0, 0.68
-		local Health = MySelf:Health()
-		
-		--Smooth rate
-		local Rate, ColorRate = FrameTime() * 0.1, FrameTime() * 0.18	
-		
-		--Make the screen red when below 35 hp
-		if not MySelf:GetPerk("_adrenaline") then
-			if Health <= 35 then 
-				iRedAmount = 0.16
-			end
-			
-			-- Make the screen go yellowish inbetween [36, 50]
-			if Health > 35 and Health <= 50 or ( MySelf:IsTakingDOT() and Health > 35 ) then 
-				iRedAmount, iGreenAmount = 0.05, 0.05		
-			end
-		end
-		
-		--Exploit color change
-		if MySelf:GetDTInt(3) > 0 then
-			iRedAmount, iGreenAmount = 0.25, 0.1
-		end
-		
-		--More color when humans around, less when you are alone!
-		if Health > 50 then
-			local HumansNearMe = GetHumanFocus(MySelf, 380)
-			iColor = math.Clamp(HumansNearMe / 3, 0.4, 0.75) 
-		end
-			
-		-- Dramatically change colors if you redeem
-		if Red == 0.25 and Green == 0.20 then
-			Rate = 10
-		end
-		
-		-- Smooth color values
-		ColorMod["$pp_colour_addr"] = math.Approach( Red, iRedAmount, Rate)
-		ColorMod["$pp_colour_addg"] = math.Approach( Green, iGreenAmount, Rate)
-		ColorMod["$pp_colour_addb"] = math.Approach( Blue, iBlueAmount, Rate)
-		ColorMod["$pp_colour_colour"] = math.Approach( Color, iColor, ColorRate)
-	-- Dead post proccesing
-	elseif MySelf:Team() == TEAM_SPECTATOR or ENDROUND then
-		if not MySelf.ReadySQL or IsLoadoutOpen() or ENDROUND then
-			for k,v in pairs(ConnectingCM) do
-				ColorMod[k] = v
-			end
-		else
-			for k,v in pairs(SpectatorCM) do
-				ColorMod[k] = v
-			end
-		end
-
-	end
-	
-	-- Actually change colors
-	
-	DrawColorModify(ColorMod)
+	return math.Approach(iStart, iEnd, FrameTime() * iRate )
 end
 
---[==[---------------------------------------------------------
-     Render screen effects/ post proccesing here
----------------------------------------------------------]==]
-function GM:_RenderScreenspaceEffects()
-	if not IsValid(MySelf) or render.GetDXLevel() < 80 then
-		return
-	end
-
-	--Blur the screen at Endround
-	if ENDROUND then
-		DrawBlur(5, 1.2)
-	--Blur for zombie classes menu background
-	elseif IsClassesMenuOpen() then
-		--print("_RenderScreenspaceEffects-3")
-		DrawBlur(5, 3)
-	end
-		
-	-- Sharpen Effect Think
-	CalculateSharpenEffect()
-
-	-- Dynamic color mod
-	CalculateColorMod()
-	
-	--Sobel post-process
-	ManageSobelEffect()
-end
-hook.Add("RenderScreenspaceEffects", "PostProcess", function()
-	GAMEMODE:_RenderScreenspaceEffects()
-end)
-
---[==[----------------------------------------------------
-	Used to manage sobel effect
------------------------------------------------------]==]
-local fSobel = 0
-function ManageSobelEffect()
-	local fCurrentSobel = 0
-
-	-- Approach sobel value
-	fSobel = math.Approach(fSobel, fCurrentSobel, 0.004)
-	
-	-- Apply 
-	if fSobel > 0 then
-		DrawSobel(fSobel)
-	end
+local function SetcolorModMTable(activeTable, newTable, colorRateTable )
+		activeTable[ "$pp_colour_addr" ] 			= AnimatedColor(activeTable[ "$pp_colour_addr" ], newTable["$pp_colour_addr"], colorRateTable["$pp_colour_addr"])
+		activeTable[ "$pp_colour_addg" ] 			= AnimatedColor(activeTable[ "$pp_colour_addg" ], newTable["$pp_colour_addg"], colorRateTable["$pp_colour_addg"] )
+		activeTable[ "$pp_colour_mulr" ] 			= AnimatedColor(activeTable[ "$pp_colour_mulr" ], newTable["$pp_colour_mulr"], colorRateTable["$pp_colour_mulr"])
+		activeTable[ "$pp_colour_mulg" ] 			= AnimatedColor(activeTable[ "$pp_colour_mulg" ], newTable["$pp_colour_mulg"], colorRateTable["$pp_colour_mulg"] )
+		activeTable[ "$pp_colour_addb" ] 			= AnimatedColor(activeTable[ "$pp_colour_addb" ], newTable["$pp_colour_addb"], colorRateTable["$pp_colour_mulg"] )
+		activeTable[ "$pp_colour_mulb" ] 			= AnimatedColor(activeTable[ "$pp_colour_mulb" ], newTable["$pp_colour_mulb"], colorRateTable["$pp_colour_mulg"] )
+		activeTable[ "$pp_colour_contrast" ] 		= AnimatedColor(activeTable[ "$pp_colour_contrast" ], newTable["$pp_colour_contrast"], colorRateTable["$pp_colour_contrast"] )
+		activeTable[ "$pp_colour_brightness" ] 		= AnimatedColor(activeTable[ "$pp_colour_brightness" ], newTable["$pp_colour_brightness"], colorRateTable["$pp_colour_brightness"] )
+		activeTable[ "$pp_colour_colour" ] 			= AnimatedColor(activeTable[ "$pp_colour_colour" ], newTable["$pp_colour_colour"], colorRateTable["$pp_colour_colour"])
 end
 
---[==[---------------------------------------------------------
-     Used to motion blur the edge of the screen
----------------------------------------------------------]==]
-local fBlurForward = 0
-local function ManageSourceMotionBlur ( x, y, fwd, spin )
-	if not IsValid ( MySelf ) then
-		return
-	end
-	
-	local fBlurForwardAmount = 0
-	
-	--Blur when health is low as human
-	if MySelf:Team() == TEAM_HUMAN then
-		if MySelf:Health() <= 50 or MySelf:IsTakingDOT() then
-			if MySelf:Health() >= 35 then fBlurForwardAmount = 0.03 else fBlurForwardAmount = 0.1 end
-		end
-		
-		--Explot blur
-		if MySelf:GetDTInt( 3 ) > 0 then
-			fBlurForwardAmount = 0.6
-		end
+local function RendercolorModM(pl)
+	local pHealth			= pl:Health() 		|| 100
+	local pMaxHealth		= pl:GetMaxHealth() || 100
+	local pTeam				= pl:Team()
+	local hPersentage		= (pHealth/pMaxHealth)
+	local defaultTable 		= defaultTable		||	colorModM[pTeam].baseValues
+	local ColorRate			= ColorRate 		||	colorModM[pTeam].ColorRate
+	local activeColorTable 	= activeColorTable	||	colorModM.activeColorCorrection
+	local colorStages		= colorStages		||	colorModM[pTeam].colorModMStages
 
-		--Ironsight blur
-		local Weapon = MySelf:GetActiveWeapon()
-		if IsValid ( Weapon ) then
-			if Weapon.GetIronsights and Weapon:GetIronsights() then
-				fBlurForwardAmount = 0.03
-			end
-		end
+
+	if ( hPersentage > 0.5 ) then
+		SetcolorModMTable(activeColorTable, defaultTable, ColorRate)
+		colorModM[pTeam].motionBlurAmount = AnimatedColor(colorModM[pTeam].motionBlurAmount, defaultTable.motionBlurAmount, 0.2 )
+	elseif(hPersentage <= 0.5 && hPersentage > 0.4) then
+		SetcolorModMTable(activeColorTable, colorStages[1], ColorRate)
+		colorModM[pTeam].motionBlurAmount = AnimatedColor(colorModM[pTeam].motionBlurAmount, colorStages[1].motionBlurAmount, 0.2 )
+	elseif(hPersentage <= 0.4 && hPersentage > 0.25) then
+		SetcolorModMTable(activeColorTable, colorStages[2], ColorRate)
+		colorModM[pTeam].motionBlurAmount = AnimatedColor(colorModM[pTeam].motionBlurAmount, colorStages[2].motionBlurAmount, 0.2 )
+	elseif(hPersentage <= 0.25) then
+		SetcolorModMTable(activeColorTable, colorStages[3], ColorRate)
+		colorModM[pTeam].motionBlurAmount = AnimatedColor(colorModM[pTeam].motionBlurAmount, colorStages[3].motionBlurAmount, 0.2 )
 	end
 	
-	--Wraith blur effect/ethereal
+	DrawColorModify( activeColorTable )
+end
+
+
+
+hook.Add( "RenderScreenspaceEffects", "ScreenEffects", function() 
+	if ( !IsValid( MySelf ) ) then
+		return 
+	end
+	RendercolorModM( MySelf )
+	DrawBloom( 0.6, 0.7, 4, 4, 1, 1.4, 1, 1.2, 1 )
+end )
+
+local maxBlur, addedBlur =  0.1, 0
+function GM:GetMotionBlurValues( x, y, z, r )
+	if ( !IsValid( MySelf ) ) then
+		return 
+	end
+	local pTeam 		= MySelf:Team() 
+	local blurAmount	= colorModM[pTeam].motionBlurAmount
+	
+	if ( MySelf:IsTakingDOT() ) then
+		blurAmount = math.Min( blurAmount + 0.1, maxBlur )
+	end
+	 --Explot blur
+	if MySelf:GetDTInt( 3 ) > 0 then
+		blurAmount = math.Min( blurAmount + 0.1, maxBlur )
+	end
+	
+		--Wraith blur effect/ethereal
 	if MySelf:Alive() and MySelf:IsZombie() and MySelf:IsWraith() then
-		fBlurForwardAmount = 0.04
+		blurAmount = math.Min( blurAmount + 0.04, maxBlur )
 	end
 	
-	--Smooth the blur apparition
-	fBlurForward = math.Approach ( fBlurForward, fBlurForwardAmount, 0.001 )
-	
-	return x * 4, y * 4, fBlurForward, spin
+	--Ironsight blur
+	local Weapon = MySelf:GetActiveWeapon()
+	if IsValid ( Weapon ) then
+		if Weapon.GetIronsights and Weapon:GetIronsights() then
+			blurAmount = math.Min( blurAmount + 0.03, maxBlur )
+		end
+	end
+	return  x, y, blurAmount, r 
 end
-hook.Add( "GetMotionBlurValues", "GetBlurValues", ManageSourceMotionBlur )
+
+
 
 --[==[---------------------------------------------------------
 	Calculate how much sharpen to apply
@@ -420,8 +492,8 @@ function DrawBlur(starttime, amount)
 end
 
 local function DecayPoisonedEffect()
-	HumCM["$pp_colour_addg"] = math.Approach(ColorModify["$pp_colour_addg"], 0, FrameTime() * 0.5)
-	HumCM["$pp_colour_brightness"] = math.Approach(ColorModify["$pp_colour_brightness"], 0, FrameTime() * 0.5)
+	HumCM["$pp_colour_addg"] = math.Approach(colorModMify["$pp_colour_addg"], 0, FrameTime() * 0.5)
+	HumCM["$pp_colour_brightness"] = math.Approach(colorModMify["$pp_colour_brightness"], 0, FrameTime() * 0.5)
 
 	if HumCM["$pp_colour_addg"] <= 0 then
 		timer.Destroy("poison")
@@ -460,7 +532,7 @@ local FuckColTab = {
 }
 
 local function DrawStalkerFuck()
-	DrawColorModify( FuckColTab )
+	DrawcolorModMify( FuckColTab )
 	DrawMotionBlur( 0.2, math.Clamp(FuckedTime-CurTime(),0,1), 0)
 	FuckColTab[ "$pp_colour_colour" ] = math.Approach( FuckColTab[ "$pp_colour_colour" ], 1, FuckedLength*FrameTime())
 	local sev = math.Clamp(FuckedTime-CurTime(),0,5)/35
