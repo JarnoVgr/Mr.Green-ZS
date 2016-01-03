@@ -34,7 +34,7 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- Movement stuff
 
 -- 1 to 0, higher means less penality.
-SPEED_PENALTY = 0.60
+SPEED_PENALTY = 0.58
 
 SPEED = 211
 SPEED_LIGHT = SPEED - 2
@@ -331,7 +331,7 @@ GM.AmmoRegeneration = {
 	["grenade"] = 1, --Grenade
 	["thumper"] = 1,
 	["gravity"] = 3, --Nail
-	["Battery"] = 24, --Medkit
+	["Battery"] = 40, --Medkit
 	["gaussenergy"] = 10,
 	["combinecannon"] = 10,
 	["airboatgun"] = 100,
@@ -603,13 +603,13 @@ CUSTOM_FOOTSTEPS = false
 AMMO_REGENERATE_RATE = 2056744
 
 --Warming up time
-WARMUPTIME = 135
+WARMUPTIME = 140
 
 -- In seconds, how long humans need to survive.
 --ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes
 
 -- EXPERIMENTAL
-ROUNDTIME = (15*60) + WARMUPTIME -- 15 minutes
+ROUNDTIME = (16*60) + WARMUPTIME -- 15 minutes
 
 -- ROUND START TIME
 ROUNDSTARTTIME = 0
