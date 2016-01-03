@@ -861,9 +861,6 @@ local function HUDPaint()
 			if WATER_DROWNTIME <= 0 then
 				RunConsoleCommand("water_death")
 				WATER_DROWNTIME = WATER_DROWNTIME_CONST
-			elseif 10 < WATER_DROWNTIME then
-				ColorModify["$pp_colour_addb"] = math.Approach(ColorModify["$pp_colour_addb"], 0.45, FrameTime() * 0.2)
-				ColorModify["$pp_colour_colour"] = math.Approach(ColorModify["$pp_colour_colour"], 0, FrameTime() * 0.25)
 			end
 			
 			local ww,wh = ScaleW(212),ScaleH(30)
