@@ -30,7 +30,7 @@ if CLIENT then
 	
 
 	SWEP.IconLetter = "v"		
-	killicon.AddFont( "weapon_zs_medigun", "CSKillIcons", SWEP.IconLetter, Color(120, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_medi4", "CSKillIcons", SWEP.IconLetter, Color(120, 255, 255, 255 ) )
 	
 end
 
@@ -45,10 +45,6 @@ SWEP.Primary.ClipSize		= 40
 SWEP.Primary.Delay = 0.1
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo = "Battery"
-SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
-SWEP.Secondary.Delay = 0.01
-SWEP.Secondary.Heal = 5
-SWEP.Secondary.HealDelay = 12
 SWEP.UseHands = true
 SWEP.Cone = 0.048
 SWEP.ConeMoving = SWEP.Cone *1.12

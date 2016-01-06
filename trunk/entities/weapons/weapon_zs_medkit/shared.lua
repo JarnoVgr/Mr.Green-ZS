@@ -27,14 +27,11 @@ SWEP.Primary.Delay = 0.01
 
 SWEP.Primary.Heal = 10
 SWEP.Primary.HealDelay = 10
-
 SWEP.Primary.ClipSize = 100
 SWEP.Primary.Ammo = "Battery"
-
 SWEP.Secondary.Delay = 0.01
-
-SWEP.Secondary.Heal = 13
-SWEP.Secondary.HealDelay = 18
+SWEP.Secondary.Heal = 10
+SWEP.Secondary.HealDelay = 20
 
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
@@ -112,6 +109,10 @@ function SWEP:PrimaryAttack()
 							skillpoints.AddSkillPoints(owner,toheal*0.4 or 15)		
 							toheal = toheal + toheal * 1.15
 						end	
+						
+						if (owner:GetPerk("Medic")) then
+							toheal = toheal + (toheal * (owner:GetRank()*0.03))
+						end							
 						
 						--log.PlayerOnPlayerAction( self.Owner, ent, "heal_other", {["amount"] = (toheal or 10)})
 						ent:SetHealth(health + toheal)

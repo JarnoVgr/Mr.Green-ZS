@@ -331,7 +331,7 @@ GM.AmmoRegeneration = {
 	["grenade"] = 1, --Grenade
 	["thumper"] = 1,
 	["gravity"] = 3, --Nail
-	["Battery"] = 40, --Medkit
+	["Battery"] = 20, --Medkit
 	["gaussenergy"] = 10,
 	["combinecannon"] = 10,
 	["airboatgun"] = 100,
@@ -363,8 +363,8 @@ GM.Perks = {
 	-- Slot 4: Global
 	-- Slot 5: Classes
 	
-		["global_ammo"] = {Name = "Ammo", Description = "Receive ammunition from kills instead of ammo drops\nGives ammo to holding weapon only", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/achievements/kill_enemy_reloading"},
-		["global_sp"] = {Name = "SP", Description = "+200% SP from kills\n0 SP from inflicting damage", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/gfx/vgui/last_match_miscellaneous"},
+		--["global_ammo"] = {Name = "Ammo", Description = "Receive ammunition from kills instead of ammo drops\nGives ammo to holding weapon only", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/achievements/kill_enemy_reloading"},
+		--["global_sp"] = {Name = "SP", Description = "+200% SP from kills\n0 SP from inflicting damage", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/gfx/vgui/last_match_miscellaneous"},
 		["global_none"] = {Name = "None", Description = "", Class = "Global", Slot = 4, Rank = 0, Material = ""},
 		--["global_lasthuman"] = {Name = "Last Human", Description = "+500 SP when last human", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/achievements/last_player_alive"},
 
@@ -467,9 +467,9 @@ GM.Perks = {
 	
 	["Medic"] = {Name = "Medic",		  		
 		Equipment = "Medkit, P228, Stun Stick",
-		Description = " +10% Pistol damage \n +10% Medi damage\n +10% damage Resistance\n +3% Movement speed",
-		CoefDesc = " +%G%% Movement speed\n +%i%% Pistol damage\n +%i%% Medi damage\n +%i%% Poison resistance\n +%i%% Undead damage resistance\n +%i%% Medical power",
-		Coef = {0.5, 1, 1, 5, 2, 2},
+		Description = " +10% Pistol damage \n +10% Medi damage\n +10% damage Resistance\n +3% Movement speed\n +10% Medical ammo received\n +10 Medical ammo on spawn",
+		CoefDesc = " +%G%% Movement speed\n +%i%% Pistol damage\n +%i%% Medi damage\n +%i%% Poison resistance\n +%i%% Undead damage resistance\n +%i%% Medical efficiency\n +%i%% Medical ammo received\n +%i Medical ammo on spawn",
+		Coef = {0.5, 1, 1, 5, 2, 3, 10, 10},
 		Slot = 5,
 		Rank = 0,
 		Colour = Color(100, 230, 130,32),

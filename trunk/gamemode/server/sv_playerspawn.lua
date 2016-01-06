@@ -89,7 +89,6 @@ function GM:PlayerInitialSpawn(pl)
 	pl.LastRage = 0
 	pl.SPRequired = 100
 	pl.SPReceived = 0
-
 	--if pl:IsBot() then
 	--	--Used for testing intermission screen scores
 	--	pl.HealingDone = math.random(1, 200)
@@ -677,16 +676,29 @@ function CalculatePlayerLoadout(pl)
 	--Classes
 	if pl:GetPerk("Medic") then
 		pl.Loadout = table.Copy(medicstage1)
-
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
+		end
 		pl:ChatPrint("You are a Medic")
 
 		if pl:GetPerk("medic_medigun") then
+			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
-			pl.Tier = 2	
-			pl.SPRequired = 130				
+			pl:GiveAmmo( 50, "Battery" )	
+			pl.SPRequired = 150			
 		end
+		
+		pl:GiveAmmo(100, "Battery" )	
+		pl:GiveAmmo((10 + pl:GetRank()*10), "Battery")	
+		
+		if pl:GetPerk("medic_supplies") then
+			pl:GiveAmmo(100,"Battery" )
+		end		
 	elseif pl:GetPerk("Support") then
 		pl.Loadout = table.Copy(support)
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
+		end		
 		pl:ChatPrint("You are a Support")
 				
 		if pl:GetPerk("support_shotgun") then
@@ -710,7 +722,9 @@ function CalculatePlayerLoadout(pl)
 		
 	elseif pl:GetPerk("Engineer") then
 		pl.Loadout = table.Copy(engineer)
-
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
+		end
 		pl:ChatPrint("You are an Engineer")
 		if pl:GetPerk("engineer_pulsepistol") then
 			pl:Give("weapon_zs_pulsepistol")
@@ -724,7 +738,9 @@ function CalculatePlayerLoadout(pl)
 		
 	elseif pl:GetPerk("Commando") then
 		pl:ChatPrint("You are a Commando")
-
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
+		end
 		pl.Loadout = table.Copy(commando)
 
 		if pl:GetPerk("commando_defender") then
@@ -733,7 +749,9 @@ function CalculatePlayerLoadout(pl)
 		end		
 	elseif pl:GetPerk("Berserker") then
 		pl.Loadout = table.Copy(berserker)
-
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
+		end
 		pl:ChatPrint("You are a Berserker")
 
 		if pl:GetPerk("berserker_hook") then
@@ -746,6 +764,9 @@ function CalculatePlayerLoadout(pl)
 		end		
 	elseif pl:GetPerk("Sharpshooter") then
 		pl.Loadout = table.Copy(sharpshooter)
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
+		end		
 		pl:ChatPrint("You are a Sharpshooter")
 			
 		if pl:GetPerk("sharpshooter_python") then
@@ -756,6 +777,9 @@ function CalculatePlayerLoadout(pl)
 		end		
 	elseif pl:GetPerk("Pyro") then
 		pl.Loadout = table.Copy(pyro)
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
+		end		
 		pl:ChatPrint("You are a Pyro")
 		pl:GiveAmmo( 80, "alyxgun" )			
 		
@@ -766,17 +790,21 @@ function CalculatePlayerLoadout(pl)
 		
 	else
 		pl.Loadout = table.Copy(medicstage1)
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
+		end		
 		pl:ChatPrint("You are a Medic")
 		pl:SetPerk("Medic")
 		if pl:GetPerk("medic_medigun") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
-			pl:GiveAmmo( 50, "Battery" )	
+			pl:GiveAmmo(50, "Battery")	
 			pl.SPRequired = 150			
 		end
 		
 		if pl:GetPerk("Medic") then
-			pl:GiveAmmo(pl:GetRank()*10, "Battery")	
+			pl:GiveAmmo( 100, "Battery" )	
+			pl:GiveAmmo((10 + pl:GetRank()*10), "Battery")	
 		end		
 		
 		if pl:GetPerk("medic_supplies") then
@@ -794,13 +822,7 @@ function CalculatePlayerLoadout(pl)
 	net.WriteBit(false)
 	net.Send(pl)	
 	
-	--Give class loadout
-	for k,v in pairs(pl.Loadout) do
-		pl:Give(tostring(v))				
-	end
-	
 	pl:GiveAmmo(60, "pistol")		
-	pl:GiveAmmo( 100, "Battery" )	
 	--Check if we are THE Gordon Freeman
 	if pl.IsFreeman then
 		--Remove current melee weapon
@@ -895,6 +917,7 @@ function CalculateZombieHealth(pl)
 	local classId = pl:GetZombieClass()
 	local Tab = ZombieClasses[classId]
 	local MaxHealth = Tab.Health
+	pl.SP = Tab.SP * 3
 	
 	-- Case 2: if there are only 2 zombies double their HP
 	if not pl:IsBossZombie() then

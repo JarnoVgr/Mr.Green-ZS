@@ -53,7 +53,7 @@ SWEP.WElements = {
 	SWEP.IgnoreThumbs = true
 
 	SWEP.IconLetter = "d"
-	killicon.AddFont( "weapon_zs_medigun", "CSKillIcons", SWEP.IconLetter, Color(120, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_medi3", "CSKillIcons", SWEP.IconLetter, Color(120, 255, 255, 255 ) )
 	
 end
 
@@ -69,18 +69,15 @@ SWEP.Primary.Delay			= 0.3
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "Battery"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
-SWEP.Secondary.Delay = 0.01
-SWEP.Secondary.Heal = 10
-SWEP.Secondary.HealDelay = 12
 SWEP.UseHands = true
 SWEP.HumanClass = "medic"
-SWEP.Cone = 0.09
+SWEP.Cone = 0.078
 SWEP.ConeMoving = SWEP.Cone *1.12
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
 SWEP.TracerName = "AR2Tracer"
-SWEP.WalkSpeed = SPEED_SHOTGUN
+SWEP.WalkSpeed = (SPEED_SHOTGUN + 10)
 SWEP.HoldType = "shotgun"
 
 function SWEP:EmitFireSound()

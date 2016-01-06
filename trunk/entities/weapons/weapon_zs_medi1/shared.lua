@@ -28,7 +28,7 @@ if CLIENT then
 	
 	SWEP.IgnoreThumbs = true
 	
-	killicon.AddFont( "weapon_zs_classic", "HL2MPTypeDeath", "-", Color(120, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_medi1", "HL2MPTypeDeath", "-", Color(120, 255, 255, 255 ) )
 	
 end
 
@@ -46,10 +46,6 @@ SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 14
 SWEP.Primary.Delay = 0.12
 SWEP.Primary.Automatic		= false
-SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
-SWEP.Secondary.Delay = 0.01
-SWEP.Secondary.Heal = 5
-SWEP.Secondary.HealDelay = 12
 SWEP.UseHands = true
 
 SWEP.Cone = 0.04
@@ -64,5 +60,3 @@ SWEP.HoldType = "pistol"
 SWEP.IronSightsPos = Vector(-5.52, -12.15, 2.859)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 SWEP.HumanClass = "medic"
-
-

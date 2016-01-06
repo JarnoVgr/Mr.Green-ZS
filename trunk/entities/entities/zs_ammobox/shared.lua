@@ -26,7 +26,6 @@ function ENT:Initialize()
 	end
 end
 
-
 if SERVER then
 	function ENT:Use(activator, caller)
 	
@@ -39,55 +38,14 @@ if SERVER then
 		end
 	
 		if activator:IsPlayer() and activator:IsHuman() then
-		
-			--local Automatic, Pistol = activator:GetAutomatic(), activator:GetPistol()
-			--if Automatic or Pistol then
-				local WeaponToFill = activator:GetActiveWeapon()		
-				local AmmoType
-
-				--print(WeaponToFill:GetPrimaryAmmoTypeString());
-				--if IsValid(WeaponToFill) and (GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "tool1") then
-					AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
-				--else
-				--	AmmoType = "pistol"
-				--end
-						
-				if AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none" then
-					WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
-				else
-				
-				--print(WeaponToFill:GetClass())
-				--if WeaponToFill:GetClass() == "weapon_zs_tools_hammer" then
-				--	WeaponToFill:SetClip2(WeaponToFill:Clip2()+2)
-				--end
-				
-				-- How much ammo to give
-				local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType]
-				
-				local mul = 1
-					
-				if activator:GetPerk("Support") then
-					mul = (mul+0.1) + activator:GetRank()*0.02
-				end	
-				
-				if activator:GetPerk("support_ammo") then
-					mul = mul + 0.4
-				end					
-				
-				if activator:HasBought("ammoman") then
-					mul = mul + 0.5
-				end		
-
-				activator:GiveAmmo(math.Round(HowMuch * mul), AmmoType)							
-			end
-		end
-
+			activator:GiveAmmoPack()	
 			self:EmitSound("items/gift_pickup.wav" )
-			self:Remove()
-		--end
+			self:Remove()			
+		end
 	end
 end
 	
+--[[	
 if CLIENT then
 	--ENT.LineColor = Color(210, 0, 0, 100)
 	function ENT:Draw()
@@ -104,3 +62,4 @@ if CLIENT then
 	--    hook.Remove("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self))
 	--end
 end
+]]--

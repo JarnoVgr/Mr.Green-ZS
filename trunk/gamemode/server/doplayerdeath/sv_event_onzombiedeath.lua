@@ -2,44 +2,9 @@
 -- See LICENSE.txt for license information
 
 -- Called when a zombie is killed
-
-local function GiveAmmoDirectly(pl)
-
-		if pl:IsPlayer() and pl:IsHuman() then
-			local WeaponToFill = pl:GetActiveWeapon()		
-			local AmmoType
-
-			AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
-					
-			if AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none" then
-				WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
-			else
-			
-			local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType]
-			local mul = 1
-				
-			if pl:GetPerk("Support") then
-				mul = (mul+0.1) + pl:GetRank()*0.02
-			end	
-			
-			if pl:GetPerk("support_ammo") then
-				mul = mul + 0.4
-			end					
-			
-			if pl:HasBought("ammoman") then
-				mul = mul + 0.5
-			end		
-
-			pl:GiveAmmo(math.Round(HowMuch * mul), AmmoType)							
-		end
-	end
-	pl:EmitSound("items/gift_pickup.wav" )
-end
-
-
 local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	-- Calculate spawn cooldown
-	--[[
+
 	if CurTime() <= WARMUPTIME then
 		mVictim.NextSpawn = WARMUPTIME+2
 		mVictim:SendLua("MySelf.NextSpawn = ".. (WARMUPTIME+2))
@@ -47,7 +12,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		mVictim.NextSpawn = CurTime() + 2
 		mVictim:SendLua("MySelf.NextSpawn = CurTime() + 2")
 	end
-]]--
+
 	--Recalculate infliction
 	if team.NumPlayers(TEAM_HUMAN) < 1 then
 		GAMEMODE:CalculateInfliction()
@@ -160,7 +125,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			end
 
 			if (mAttacker:GetPerk("global_ammo")) then
-				GiveAmmoDirectly(mAttacker)
+				mAttacker:GiveAmmoPack()
 			else
 				local itemToSpawn = ents.Create(item)			
 				

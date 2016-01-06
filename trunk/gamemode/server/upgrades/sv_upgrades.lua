@@ -151,9 +151,13 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 			end	
 			
-			if (!attacker:GetPerk("global_sp")) then
-				skillpoints.AddSkillPoints(attacker,math.floor( ( ent:GetMaximumHealth() / 10 ) * ( dmg / ent:GetMaximumHealth() )))	
-			end
+			--if (!attacker:GetPerk("global_sp")) then
+				if ent.SP then
+					local toTake = math.Clamp(math.floor( ( ent:GetMaximumHealth() / 10 ) * ( dmg / ent:GetMaximumHealth() )),0,ent.SP)
+					skillpoints.AddSkillPoints(attacker,toTake)
+					ent.SP = ent.SP - toTake
+				end
+			--end
 
 		elseif attacker:IsPlayer() and attacker:Team() == TEAM_UNDEAD and ent:IsPlayer() and ent:Team() == TEAM_HUMAN then
 				

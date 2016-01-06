@@ -161,48 +161,8 @@ if SERVER then
 				activator.MobileSupplyTime = CurTime() + self.AmmoDelay
 				activator:SendLua("MySelf.MobileSupplyTime = CurTime() + "..self.AmmoDelay.."")
 				
-				--Give ammo
-				local Automatic, Pistol = activator:GetAutomatic(), activator:GetPistol()
-				if Automatic or Pistol then
-					local WeaponToFill = activator:GetActiveWeapon()		
-					local AmmoType
-							
-					--if IsValid(WeaponToFill) and (GetWeaponCategory ( WeaponToFill:GetClass() ) == "Pistol" or GetWeaponCategory ( WeaponToFill:GetClass() ) == "Automatic") then
-						AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
-					--else
-					--	AmmoType = "pistol"
-					--end
-							
-					if AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none" then
-						WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
-					else					
-					-- How much ammo to give
-						local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType]
-										
-						--Multiplier for infliction
-						--HowMuch = math.Round(HowMuch * (INFLICTION + 0.6))
-
-						--Finally give it
-						
-						local mul = 1
-						
-
-						if activator:GetPerk("Support") then
-							mul = (mul+0.1) + activator:GetRank()*0.02
-						end	
-						
-						if activator:GetPerk("support_ammo") then
-							mul = mul + 0.4
-						end					
-						
-						if activator:HasBought("ammoman") then
-							mul = mul + 0.5
-						end
-						
-						
-						activator:GiveAmmo(math.Round(HowMuch * mul), AmmoType)
-					end
-				end
+				activator:GiveAmmoPack()
+				
 				local Owner = self:GetPlacer()
 				
 				--Heal 

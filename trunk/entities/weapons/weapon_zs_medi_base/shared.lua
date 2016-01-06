@@ -23,12 +23,11 @@ SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 16
 SWEP.Primary.Delay 			= 0.15
-SWEP.Primary.DefaultClip	= SWEP.Primary.ClipSize
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo 			= "Battery"
 SWEP.Secondary.Delay 		= 0.01
 SWEP.Secondary.Heal 		= 5
-SWEP.Secondary.HealDelay 	= 12
+SWEP.Secondary.HealDelay 	= 10
 SWEP.UseHands = true
 
 SWEP.Cone = 0.04
@@ -101,13 +100,15 @@ function SWEP:SecondaryAttack()
 						skillpoints.AddSkillPoints(owner,toheal or 14)
 						ent:FloatingTextEffect2( toheal or 14, owner )
 						owner:AddXP(toheal*3 or 5)
-												self:TakeCombinedPrimaryAmmo(totake)
+						self:TakeCombinedPrimaryAmmo(totake)
 						if owner:GetPerk("medic_reward") then
 							skillpoints.AddSkillPoints(owner,toheal*0.4 or 15)		
 							toheal = toheal + toheal * 1.15
-						end	
+						end
 
-
+						if (owner:GetPerk("Medic")) then
+							toheal = toheal + (toheal * (owner:GetRank()*0.03))
+						end						
 
 						ent:SetHealth(health + toheal)
 						ent:EmitSound(Sound("items/medshot4.wav"),80,115)
