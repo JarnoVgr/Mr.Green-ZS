@@ -364,9 +364,9 @@ GM.Perks = {
 	-- Slot 5: Classes
 	
 		--["global_ammo"] = {Name = "Ammo", Description = "Receive ammunition from kills instead of ammo drops\nGives ammo to holding weapon only", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/achievements/kill_enemy_reloading"},
-		--["global_sp"] = {Name = "SP", Description = "+200% SP from kills\n0 SP from inflicting damage", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/gfx/vgui/last_match_miscellaneous"},
+		["global_sp"] = {Name = "SP", Description = "+200% SP from kills\n0 SP from inflicting damage", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/gfx/vgui/last_match_miscellaneous"},
 		["global_none"] = {Name = "None", Description = "", Class = "Global", Slot = 4, Rank = 0, Material = ""},
-		--["global_lasthuman"] = {Name = "Last Human", Description = "+500 SP when last human", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/achievements/last_player_alive"},
+		["global_lasthuman"] = {Name = "Last Human", Description = "+500 SP when last human", Class = "Global", Slot = 4, Rank = 0, Material = "vgui/achievements/last_player_alive"},
 
 		
 	-- Medic	
@@ -609,7 +609,7 @@ WARMUPTIME = 140
 --ROUNDTIME = (20*60) + WARMUPTIME -- 20 minutes
 
 -- EXPERIMENTAL
-ROUNDTIME = (16*60) + WARMUPTIME -- 15 minutes
+ROUNDTIME = (15*60) + WARMUPTIME -- 15 minutes
 
 -- ROUND START TIME
 ROUNDSTARTTIME = 0
@@ -618,7 +618,7 @@ ROUNDSTARTTIME = 0
 INTERMISSION_TIME = 35
 
 --Amount of time players have to vote for next map(seconds)
-VOTE_TIME = 20
+VOTE_TIME = 30
 
 --Set this to true to destroy all brush-based doors that aren't based on phys_hinge and func_physbox or whatever. For door campers.
 DESTROY_DOORS = true
