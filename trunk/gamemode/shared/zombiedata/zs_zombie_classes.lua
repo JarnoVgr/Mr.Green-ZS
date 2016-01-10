@@ -102,7 +102,7 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	Model = table.Random(InfectedZombiemodels), 
 	Speed = 170,	
 	AngleFix = true,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh","> RELOAD: Create blood spawner on ground", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> CLAW POISON: 10 | 2 per 1.5 seconds", "> HEALTH: 140 ", "> SPEED: 170", "> DAMAGE: 17" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh","> RELOAD: Create blood spawner on ground", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> HEALTH: 140 ", "> SPEED: 170", "> DAMAGE: 17" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde! " },
 	PainSounds = {
 		Sound("npc/zombiegreen/been_shot_1.wav"),
@@ -195,7 +195,7 @@ ZombieClasses[2] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> SPECIAL: Propkill", "> CLAW POISON: 10 | 2 per 1.5 seconds", "> HEALTH: 425 ", "> SPEED: 150", "> DAMAGE: 35" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> SPECIAL: Propkill", "> HEALTH: 425 ", "> SPEED: 150", "> DAMAGE: 35" },
 	PainSounds = {
 		Sound("npc/zombie_poison/pz_pain1.wav"),
 		Sound("npc/zombie_poison/pz_pain2.wav"),

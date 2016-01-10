@@ -153,7 +153,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			
 			--if (!attacker:GetPerk("global_sp")) then
 				if ent.SP then
-					local toTake = math.Clamp(math.floor( ( ent:GetMaximumHealth() / 10 ) * ( dmg / ent:GetMaximumHealth() )),0,ent.SP)
+					local toTake = math.Clamp(math.floor(( ent:GetMaximumHealth() / 10 ) * ( dmg / ent:GetMaximumHealth() )),0,ent.SP)
 					skillpoints.AddSkillPoints(attacker,toTake)
 					ent.SP = ent.SP - toTake
 				end

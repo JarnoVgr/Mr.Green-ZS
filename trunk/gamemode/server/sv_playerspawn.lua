@@ -676,17 +676,17 @@ function CalculatePlayerLoadout(pl)
 	--Classes
 	if pl:GetPerk("Medic") then
 		pl.Loadout = table.Copy(medicstage1)
-		for k,v in pairs(pl.Loadout) do
-			pl:Give(tostring(v))				
-		end
-		pl:ChatPrint("You are a Medic")
-
 		if pl:GetPerk("medic_medigun") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
 			pl:GiveAmmo( 50, "Battery" )	
 			pl.SPRequired = 150			
 		end
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
+		end
+		pl:ChatPrint("You are a Medic")
+
 		
 		pl:GiveAmmo(100, "Battery" )	
 		pl:GiveAmmo((10 + pl:GetRank()*10), "Battery")	
@@ -696,11 +696,6 @@ function CalculatePlayerLoadout(pl)
 		end		
 	elseif pl:GetPerk("Support") then
 		pl.Loadout = table.Copy(support)
-		for k,v in pairs(pl.Loadout) do
-			pl:Give(tostring(v))				
-		end		
-		pl:ChatPrint("You are a Support")
-				
 		if pl:GetPerk("support_shotgun") then
 			pl:Give("weapon_zs_shotgun")
 			pl.Tier = 2
@@ -717,15 +712,16 @@ function CalculatePlayerLoadout(pl)
 			pl:Give("weapon_zs_tools_supplies")
 		else
 			pl:Give("weapon_zs_tools_ammobox")	
-		end
+		end		
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
+		end		
+		pl:ChatPrint("You are a Support")
+				
 		
 		
 	elseif pl:GetPerk("Engineer") then
 		pl.Loadout = table.Copy(engineer)
-		for k,v in pairs(pl.Loadout) do
-			pl:Give(tostring(v))				
-		end
-		pl:ChatPrint("You are an Engineer")
 		if pl:GetPerk("engineer_pulsepistol") then
 			pl:Give("weapon_zs_pulsepistol")
 			pl.Tier = 2		
@@ -734,26 +730,25 @@ function CalculatePlayerLoadout(pl)
 
 		if pl:GetPerk("engineer_combatturret") then
 			pl:SpawnMiniTurret()
+		end		
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
 		end
+		pl:ChatPrint("You are an Engineer")
 		
 	elseif pl:GetPerk("Commando") then
 		pl:ChatPrint("You are a Commando")
+		if pl:GetPerk("commando_defender") then
+			pl:Give("weapon_zs_defender")		
+			pl:GiveAmmo(52, "ar2")			
+		end			
 		for k,v in pairs(pl.Loadout) do
 			pl:Give(tostring(v))				
 		end
 		pl.Loadout = table.Copy(commando)
-
-		if pl:GetPerk("commando_defender") then
-			pl:Give("weapon_zs_defender")		
-			pl:GiveAmmo(52, "ar2")			
-		end		
+	
 	elseif pl:GetPerk("Berserker") then
 		pl.Loadout = table.Copy(berserker)
-		for k,v in pairs(pl.Loadout) do
-			pl:Give(tostring(v))				
-		end
-		pl:ChatPrint("You are a Berserker")
-
 		if pl:GetPerk("berserker_hook") then
 			pl:Give("weapon_zs_melee_hook")
 			pl.Tier = 1			
@@ -761,46 +756,53 @@ function CalculatePlayerLoadout(pl)
 			pl.Tier = 2		
 			pl:Give("weapon_zs_melee_pipe2")
 			pl.SPRequired = 150				
-		end		
-	elseif pl:GetPerk("Sharpshooter") then
-		pl.Loadout = table.Copy(sharpshooter)
+		end			
 		for k,v in pairs(pl.Loadout) do
 			pl:Give(tostring(v))				
-		end		
-		pl:ChatPrint("You are a Sharpshooter")
-			
+		end
+		pl:ChatPrint("You are a Berserker")
+	
+	elseif pl:GetPerk("Sharpshooter") then
+		pl.Loadout = table.Copy(sharpshooter)
 		if pl:GetPerk("sharpshooter_python") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_python")
 			pl:GiveAmmo(16, "357")	
 			pl.SPRequired = 150				
+		end			
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
 		end		
+		pl:ChatPrint("You are a Sharpshooter")
+			
+	
 	elseif pl:GetPerk("Pyro") then
 		pl.Loadout = table.Copy(pyro)
+		if pl:GetPerk("pyro_glock1") then
+			pl:Give("weapon_zs_glock1")
+			pl:GiveAmmo( 60, "alyxgun" )	
+		end		
 		for k,v in pairs(pl.Loadout) do
 			pl:Give(tostring(v))				
 		end		
 		pl:ChatPrint("You are a Pyro")
 		pl:GiveAmmo( 80, "alyxgun" )			
 		
-		if pl:GetPerk("pyro_glock1") then
-			pl:Give("weapon_zs_glock1")
-			pl:GiveAmmo( 60, "alyxgun" )	
-		end
 		
 	else
 		pl.Loadout = table.Copy(medicstage1)
-		for k,v in pairs(pl.Loadout) do
-			pl:Give(tostring(v))				
-		end		
-		pl:ChatPrint("You are a Medic")
-		pl:SetPerk("Medic")
 		if pl:GetPerk("medic_medigun") then
 			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
 			pl:GiveAmmo(50, "Battery")	
 			pl.SPRequired = 150			
-		end
+		end		
+		for k,v in pairs(pl.Loadout) do
+			pl:Give(tostring(v))				
+		end		
+		pl:ChatPrint("You are a Medic")
+		pl:SetPerk("Medic")
+
 		
 		if pl:GetPerk("Medic") then
 			pl:GiveAmmo( 100, "Battery" )	
