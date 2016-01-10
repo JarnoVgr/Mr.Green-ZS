@@ -741,11 +741,12 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("commando_defender") then
 			pl:Give("weapon_zs_defender")		
 			pl:GiveAmmo(52, "ar2")			
-		end			
+		end		
+		pl.Loadout = table.Copy(commando)		
 		for k,v in pairs(pl.Loadout) do
 			pl:Give(tostring(v))				
 		end
-		pl.Loadout = table.Copy(commando)
+
 	
 	elseif pl:GetPerk("Berserker") then
 		pl.Loadout = table.Copy(berserker)
