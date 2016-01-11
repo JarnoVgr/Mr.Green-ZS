@@ -225,6 +225,7 @@ function GM:PlayerDeathThink(pl,attacker,dmginfo)
 			
 			--Check for spawner ents to spawn on
 			for k, v in pairs(ents.FindByClass("game_spawner")) do
+				if v.Dormant then continue end
 				table.insert(LivingPlayers, v)
 			end					
 

@@ -738,7 +738,7 @@ function ApplyLoadout(pl, com, args)
 		pl.Loadout = {}
 	end
 	
-	PrintTable(pl.Loadout)
+	--PrintTable(pl.Loadout)
 	
 	for _, item in pairs(args) do
 		if pl:HasUnlocked(item) then

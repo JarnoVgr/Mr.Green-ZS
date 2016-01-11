@@ -66,7 +66,7 @@ function util.Blood(pos, amount, dir, force, noprediction)
 		effectdata:SetOrigin(pos)
 		effectdata:SetMagnitude(amount)
 		effectdata:SetNormal(dir)
-		effectdata:SetScale(math.max(1, force*0.05))
+		effectdata:SetScale(math.max(0.5, force*0.01))
 	util.Effect("bloodstream", effectdata, nil, noprediction)
 end
 

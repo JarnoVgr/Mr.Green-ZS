@@ -109,11 +109,7 @@ function SWEP:Think()
 
 			self.Owner.HasBloodSpawner = true
 			self.Owner:EmitSound("npc/fast_zombie/leap1.wav", 100, math.Rand(65, 70))
-			self.Owner:SetHealth(5 + self.Owner:Health() * 0.2)
-			
-			for k,v in ipairs(team.GetPlayers(TEAM_UNDEAD)) do
-				v:Message("A blood spawner has been created.", 2)
-			end
+			self.Owner:SetHealth(self.Owner:Health() * 0.5)
 			
 			if self.Owner.HasBloodSpawner and canPlaceCrate then
 				for _, Ent in pairs(ents.FindByClass("game_spawner")) do

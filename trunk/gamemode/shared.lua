@@ -634,6 +634,7 @@ function GM:GetDynamicSpawns(pl)
 
 	--Check for spawner ents to spawn on
 	for k, v in pairs(ents.FindByClass("game_spawner")) do
+		if v.Dormant then continue end
 		table.insert(tab, v)
 	end		
 	
