@@ -14,7 +14,7 @@ SWEP.DrawCrosshair = false
 SWEP.ViewModelFOV = 70
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = false
-
+SWEP.LeapTime = CurTime()
 SWEP.Weight = 5
 SWEP.AutoSwitchTo = true
 SWEP.AutoSwitchFrom = false
@@ -60,26 +60,27 @@ function SWEP:Think()
 
 	if IsValid(self.Owner) and self.Owner:Alive() then
 		if self.Leaping then
+			
 			--print("leaping")
-			if not mOwner:OnGround() or 0 < mOwner:WaterLevel() then
+			if self.LeapTime + 0.33 < CurTime() and mOwner:OnGround() or 0 < mOwner:WaterLevel() then
 				self.Leaping = false
 			else	
-				--local vStart = Vector(0,0,14) + mOwner:GetPos()
-				--local angles = self.Owner:GetAngles():Forward()
-				--angles.z = -0.1
-				--angles = angles:GetNormal()				
-				--local ang = mOwner:GetAimVector() 
-				--ang.z = 0
-				--local tr = {}
-				--tr.start = vStart
-				--tr.endpos = vStart + angles * 100
-				--tr.filter = mOwner
-				--local trace = util.TraceLine(tr)
-				--local ent = trace.Entity
+				local vStart = Vector(0,0,14) + mOwner:GetPos()
+				local angles = self.Owner:GetAngles():Forward()
+				angles.z = -0.1
+				angles = angles:GetNormal()				
+				local ang = mOwner:GetAimVector() 
+				ang.z = 0
+				local tr = {}
+				tr.start = vStart
+				tr.endpos = vStart + angles * 100
+				tr.filter = mOwner
+				local trace = util.TraceLine(tr)
+				local ent = trace.Entity
 				
-				--local pos = vStart + mOwner:GetAimVector() * 16
+				local pos = vStart + mOwner:GetAimVector() * 16
 				
-				local tr = self.Owner:TraceLine(64, MASK_SHOT, team.GetPlayers(TEAM_UNDEAD))
+				local tr = self.Owner:TraceLine(30, MASK_SHOT, team.GetPlayers(TEAM_UNDEAD))
 				local ent = tr.Entity
 				--if not IsValid(trent) then
 				--  return
@@ -94,27 +95,17 @@ function SWEP:Think()
 					
 				if ent and IsValid(ent) then
 					local phys = ent:GetPhysicsObject()
-
-					if phys:IsValid() and not ent:IsNPC() and not ent:IsPlayer() and phys:IsMoveable() then
-						local vel = 120 * mOwner:EyeAngles():Forward()
-
-						ent:ApplyForceOffset(vel, (ent:NearestPoint(vStart) + ent:GetPos() * 2) / 3)
-						ent:SetPhysicsAttacker(mOwner)
-					end
-
-					mOwner:ViewPunch(Angle(math.random(0, 30), math.random(0, 30), math.random(0, 30)))
+					mOwner:ViewPunch(Angle(math.random(1, 2), math.random(1, 2), math.random(1, 2)))
 
 					if ent:IsPlayer() then
-						
-						ent:TakeDamage(5, mOwner)
-						ent:TakeDamageOverTime( 3, 1, 20, mOwner, self.Weapon )
+						ent:TakeDamageOverTime( 3, 1, 10, mOwner, self.Weapon )
 						local Infect = EffectData()
 						Infect:SetEntity( ent )
 						util.Effect( "infected_human", Infect, true, true )
 						mOwner:SetLocalVelocity( Vector( 0,0,0 ) )
-						mOwner:SetVelocity( Velocity )
+						mOwner:SetVelocity( Vector( 0,0,0 ) )
 					else
-						ent:TakeDamage(5, mOwner)
+						ent:TakeDamage(20, mOwner)
 					end
 					self.Leaping = false
 				end
@@ -190,14 +181,14 @@ if not IsValid( self.Owner ) then return end
 	
 	-- Check cooldown
 	if ( mOwner.SecondaryAttackTimer or 0 ) > CurTime() then return end
-	mOwner.SecondaryAttackTimer, mOwner.LastCrabJump = CurTime() + 4 + spitdelay, CurTime() + 4
+	mOwner.SecondaryAttackTimer, mOwner.LastCrabJump = CurTime() + 3 + spitdelay, CurTime() + 3
 	
 	-- Secondary attack cooldown
-	mOwner.NextSecondarySpit = CurTime() + 4 + spitdelay
+	mOwner.NextSecondarySpit = CurTime() + 4.5 + spitdelay
 	
 	-- Check if we can shoot
 	if not self:CanSpit() then
-		mOwner.SecondaryAttackTimer, mOwner.LastCrabJump = CurTime() + 4 + spitdelay, CurTime() + 0.55
+		mOwner.SecondaryAttackTimer, mOwner.LastCrabJump = CurTime() + 4 + spitdelay, CurTime() + 0.4
 		if SERVER then mOwner:EmitSound( table.Random( self.AimFailSounds ) ) end 
 		return
 	end
@@ -248,7 +239,7 @@ function SWEP:ActualSpit()
 						
 						-- Blast off!
 						Spit:SetOwner( mOwner )
-						Spit:SetPos( mOwner:GetPos() + Vector( 0,0,15 ) )
+						Spit:SetPos( mOwner:GetPos() + Vector( 0,0,8 ) )
 						Spit:Spawn()
 						
 						-- Apply velocity
@@ -346,7 +337,7 @@ function SWEP:Jump()
 	end )	]==]
 	
 	-- Cooldown
-	mOwner.LastCrabJump = CurTime() + 2.5
+	mOwner.LastCrabJump = CurTime() + 2.3
 end
 
 function SWEP:CheckJump()
@@ -385,7 +376,7 @@ function SWEP:ActualJump()
 		--	self:JumpFail() 
 		--	return 
 		--end
-			
+			self.LeapTime = CurTime()
 		if SERVER then
 			self.Leaping = true
 			Velocity = Aim * 475
