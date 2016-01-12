@@ -49,7 +49,7 @@ SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "SniperRound"
 SWEP.Secondary.Delay = 0.15
 
-SWEP.WalkSpeed = SPEED_MELEE_HEAVY
+SWEP.WalkSpeed = SPEED_MELEE_HEAVY - 12
 
 function SWEP:InitializeClientsideModels()
 	
@@ -103,7 +103,6 @@ end
 
 function SWEP:OnDeploy()
 	if SERVER then
-		if not self:CanPrimaryAttack() then return end
 		local owner = self.Owner
 		local effectdata = EffectData()
 		effectdata:SetEntity(owner)
@@ -234,9 +233,17 @@ function SWEP:Think()
 	if SERVER then
 		local ammocount = self.Owner:GetAmmoCount(self.Primary.Ammo)
 		if 0 < ammocount then
-
 			self:SetClip1(ammocount + self:Clip1())
 			self.Owner:RemoveAmmo(ammocount, self.Primary.Ammo)
+
+			local owner = self.Owner
+			local effectdata = EffectData()
+			effectdata:SetEntity(owner)
+			effectdata:SetOrigin(owner:GetShootPos() + owner:GetAimVector() * 32)
+			effectdata:SetNormal(owner:GetAimVector())
+			util.Effect("turretghost", effectdata, nil, true)
+
+			self.Owner:DrawViewModel(false)			
 		end
 	
 		if self.NextDeploy and self.NextDeploy < CurTime() then

@@ -10,7 +10,7 @@ end
 
 ENT.Type   = "anim"
 ENT.PrintName           = "Turret"
-ENT.RenderGroup         = RENDERGROUP_TRANSLUCENT
+ENT.RenderGroup         = RENDERGROUP_BOTH
 ENT.AutomaticFrameAdvance = true
 
 -- Some precaching stuff
@@ -32,15 +32,17 @@ end
 
 -- Options
 ENT.MaxHealth = 80
-ENT.MaxBullets = 80
-ENT.RechargeDelay = 0.0 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
+ENT.MaxBullets = 100
+ENT.RechargeDelay = 0.2 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
 ENT.SpotDistance = 650
 ENT.Damage = 3
 ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {7,9}
 ENT.MinimumAimDot = 0.3
-
-ENT.AmmoRecharge = 0.15
+ENT.NumBullets = 1
+ENT.AmmoRecharge = 0.14
+ENT.ShootDelay = 0.07
+ENT.Accuracy = 0
 
 local function MyTrueVisible(posa, posb, filter)
 	local filt = ents.FindByClass("projectile_*")
@@ -73,41 +75,30 @@ if SERVER then
 		self:SetPlaybackRate(1) -- Normal speed for animations
 
 		self:SetSequence(self:LookupSequence("deploy"))
+					
+		if self:GetTurretOwner():GetPerk ("Engineer") then	
+			self.Damage = self.Damage + (self:GetTurretOwner():GetRank() * 0.1) + 1
+			self.MaxHealth = self.MaxHealth + self:GetTurretOwner():GetRank()
+			self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 2) + 10
+			self.AmmoRecharge = 0.13 - (self:GetTurretOwner():GetRank() * 0.005)			
+		end		
 		
-		-- Lets make it much pretty
-		-- Why I dont use skins? Because I cant force a skin for turret model from original HL2 (unlike Ep2)
-		--Ywa: This is disabled to preserve downloads count
-		--[[local RandomSkin = math.random(1,3)
-		local MaterialToApply = ""
-		
-		-- Skin 1
-		if RandomSkin == 1 then
-			MaterialToApply = "models/Combine_Turrets/Floor_turret/floor_turret_citizen"
-		elseif RandomSkin == 2 then
-			MaterialToApply = "models/Combine_Turrets/Floor_turret/floor_turret_citizen2"
-		elseif RandomSkin == 3 then
-			MaterialToApply = "models/Combine_Turrets/Floor_turret/floor_turret_citizen4"
+		if self:GetTurretOwner():GetPerk("engineer_turret") then --Class engineer 
+			self.MaxBullets = math.Round(self.MaxBullets*1.4)
+			self.MaxHealth = math.Round(self.MaxHealth*1.4)
+			self.Damage = math.Round(self.Damage*1.4)
+		end			
+
+		if self:GetTurretOwner().DataTable["ShopItems"][50] then
+			self.Damage = self.Damage + 1
+			self.MaxBullets = math.Round(self.MaxBullets + 30)				
 		end
 		
-		self:SetMaterial(MaterialToApply)]]
-					
-			if self:GetTurretOwner():GetPerk ("Engineer") then	
-				self.Damage = self.Damage + (self:GetTurretOwner():GetRank() * 0.1) + 1
-				self.MaxHealth = self.MaxHealth + self:GetTurretOwner():GetRank()
-				self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 2) + 10
-				self.AmmoRecharge = 0.14 - (self:GetTurretOwner():GetRank() * 0.005)			
-			end		
-			
-			if self:GetTurretOwner():GetPerk("engineer_turret") then --Class engineer 
-				self.MaxBullets = math.Round(self.MaxBullets*1.4)
-				self.MaxHealth = math.Round(self.MaxHealth*1.4)
-				self.Damage = math.Round(self.Damage*1.4)
-			end			
-
-			if self:GetTurretOwner().DataTable["ShopItems"][50] then
-				self.Damage = self.Damage + 1
-				self.MaxBullets = math.Round(self.MaxBullets + 30)				
-			end
+		if self:GetTurretOwner():GetPerk("engineer_quadsentry") then
+			self.NumBullets = 4
+			self.ShootDelay = 1
+			self.Accuracy = 0.2
+		end
 
 		-- Set few things
 		self.Target = nil
@@ -145,10 +136,35 @@ if SERVER then
 			return
 		end
 		
-		if self:IsActive() then
+		if !self:IsActive() then
+			if self:GetAmmo() == self.MaxBullets then
+				self:SetNWBool("TurretIsActive",true)
+				self:SetDTBool(0,true)
+				self:EmitSound("NPC_FloorTurret.Deploy")
+				self:SetSequence(self:LookupSequence("deploy"))			
+			end
+		end
 
+		if self:IsActive() then
+			if self:GetAmmo() == 0 then
+				self.Target = nil
+				self:SetNWBool("TurretIsActive",false)
+				self:SetDTBool(0,false)
+				self:EmitSound("NPC_FloorTurret.Die")
+				self:SetSequence(self:LookupSequence("retract"))
+
+				--else
+				--	--self:SetNWBool("TurretIsActive",true)
+				--	self:SetDTBool(0,true)
+				--	self:EmitSound("NPC_FloorTurret.Deploy")
+				--	self:SetSequence(self:LookupSequence("deploy"))
+				--end
+			--self.NextSwitch = ct + 2
+
+			else
+				self:RechargeAmmo(1,self.AmmoRecharge * 2)
+			end
 			if self:IsControlled() then
-					
 					if IsValid(self:GetTurretOwner():GetActiveWeapon()) and self:GetTurretOwner():GetActiveWeapon():GetClass() ~= "weapon_zs_tools_remote" then
 						self:SetControl(false)
 					end
@@ -177,17 +193,17 @@ if SERVER then
 						
 						if self:CanAttack() then
 							-- double fire rate
-							self.NextShoot = self.NextShoot or ct + 0.08
+							self.NextShoot = self.NextShoot or ct + self.ShootDelay
 							if ct > self.NextShoot then
 								self:Shoot()								
 								self:ResetSequence(self:LookupSequence("fire"))
-								self.NextShoot = ct + 0.08
+								self.NextShoot = ct + self.ShootDelay
 							end
 						else
-							self.NextShoot = self.NextShoot or ct + 0.06
+							self.NextShoot = self.NextShoot or ct + self.ShootDelay
 							if ct > self.NextShoot then
 								self:EmitSound("Weapon_Pistol.Empty")
-								self.NextShoot = ct + 0.08
+								self.NextShoot = ct + self.ShootDelay
 							end
 						end	
 						
@@ -227,17 +243,17 @@ if SERVER then
 						if ct > (self.NextAttackAction or 0) then
 							-- if not self:IsBlocked() then
 								if self:CanAttack() then
-									self.NextShoot = self.NextShoot or ct + 0.15
+									self.NextShoot = self.NextShoot or ct + self.ShootDelay
 										--if ct > self.NextShoot then
 											self:Shoot()
 											self:ResetSequence(self:LookupSequence("fire"))
-											self.NextShoot = ct + 0.15
+											self.NextShoot = ct + self.ShootDelay
 										--end
 								else
-									self.NextShoot = self.NextShoot or ct + 0.15	
+									self.NextShoot = self.NextShoot or ct + self.ShootDelay	
 										if ct > self.NextShoot then
 											self:EmitSound("Weapon_Pistol.Empty")
-											self.NextShoot = ct + 0.15	
+											self.NextShoot = ct + self.ShootDelay
 										end
 								end
 								
@@ -418,18 +434,10 @@ if SERVER then
 		
 		local bullet = {}
 		
-		--if self:IsControlled() then
-		--	bullet.Spread = Vector(0.02, 0.02, 0.02) 
-		--	bullet.Num = 2		
-		--else
-		--	bullet.Spread = Vector(0.02, 0.02, 0.02) 
-		--	bullet.Num = 1				
-	--	end
-		
-		bullet.Num = 1
+		bullet.Num = self.NumBullets
 		bullet.Src = self:GetShootPos()
 		bullet.Dir = self:GetShootDir()
-		bullet.Spread = Vector(0, 0, 0)  
+		bullet.Spread = Vector(self.Accuracy, self.Accuracy, self.Accuracy)  
 		bullet.Tracer = 3
 		bullet.Force = 0
 		bullet.Damage = self.Damage
@@ -438,7 +446,7 @@ if SERVER then
 		
 		self:FireBullets(bullet)
 		
-		self:TakeAmmo(1)
+		self:TakeAmmo(self.NumBullets)
 		
 		self.LastShootTime = CurTime() + 3
 		
@@ -470,53 +478,21 @@ if SERVER then
 
 	
 	function ENT:Use(activator, caller)
-		local ct = CurTime()
-		if not IsValid(activator) then
-			return
+		local owner = self:GetTurretOwner()
+		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
+		if validOwner and activator == owner and owner:HasWeapon("weapon_zs_turretplacer") then
+			local placeWeapon = "weapon_zs_turretplacer"
+			activator:SelectWeapon(placeWeapon)
+			activator:GiveAmmo( 1, "SniperRound" )				
+			self:Remove()
 		end
+	end		
 		
 
-		if activator:IsPlayer() and activator:IsHuman() and activator == self:GetTurretOwner() then
-			self.Target = nil
-			if self.NextSwitch < ct then
-				if self:IsActive() then
-					--self:SetNWBool("TurretIsActive",false)
-					self:SetDTBool(0,false)
-					self:EmitSound("NPC_FloorTurret.Die")
-					self:SetSequence(self:LookupSequence("retract"))
-				else
-					--self:SetNWBool("TurretIsActive",true)
-					self:SetDTBool(0,true)
-					self:EmitSound("NPC_FloorTurret.Deploy")
-					self:SetSequence(self:LookupSequence("deploy"))
-				end
-			self.NextSwitch = ct + 2
-			end
-		end
-		
-		if activator:KeyPressed( IN_RELOAD  ) then
 
-			local owner = self:GetTurretOwner()
-			local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
-			if validOwner and activator == owner and owner:HasWeapon("weapon_zs_turretplacer") then
-				local placeWeapon = "weapon_zs_turretplacer"
-				activator:SelectWeapon(placeWeapon)
-				activator:GiveAmmo( 1, "SniperRound" )				
-				self:Remove()
-			--Check for claiming
-			end
-			
-			end		
-		
-			if not IsValid(activator) then
-			return
-		end
-		
-		if not activator:IsPlayer() or not activator:IsHuman() then
-			return
-		end
-			
-	end
+	--[[
+			]]--
+
 
 	function ENT:OnTakeDamage( dmginfo )
 		if dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():IsZombie() and not self:ShouldIgnoreDamage(dmginfo:GetAttacker()) then
@@ -741,7 +717,7 @@ if CLIENT then
 	function ENT:Think()
 		local t = {}
 		t.start = self:GetAttachment(self:LookupAttachment("eyes")).Pos
-		t.endpos = t.start + self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward() * 4096
+		t.endpos = t.start + self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward() * 650
 		t.filter = {self.Entity}
 		t.mask = MASK_PLAYERSOLID
 		local tr = util.TraceLine(t)
