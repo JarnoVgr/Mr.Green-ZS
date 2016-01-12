@@ -432,7 +432,7 @@ GM.Perks = {
 		["engineer_pulsepistol"] = {Name = "Pulse Pistol", Description = "[TIER 1]\nSpawn with a pulse pistol", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_fiveseven"},
 		["engineer_multimine"] = {Name = "Multi Mine", Description = "+5 C4 on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/goose_chase"},                    
 
-		["engineer_quadsentry"] = {Name = "Quad Sentry", Description = "+3 turret shots fired\n-200% accuracy\nConsumes +3 ammo", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/bomb_defuse_needed_kit"},
+		["engineer_quadsentry"] = {Name = "Quad Sentry", Description = "+3 turret shots fired\n-200% turret accuracy\nTurret consumes +3 ammo", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/bomb_defuse_needed_kit"},
 		
 		["engineer_turret"] = {Name = "Turret Overload", Description = "+40 turret stats", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/bomb_defuse_needed_kit"},
 		["engineer_combustion"] = {Name = "Combustion", Description = "Targets caught in the explosion are ignited", Class = "Engineer", Slot = 2, Rank = 5, Material = "hud/t_victories_terrorist-win"},	
