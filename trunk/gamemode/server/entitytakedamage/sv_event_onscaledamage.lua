@@ -183,7 +183,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 		dmginfo:SetDamage(0)
 			
 		if (pl:GetVelocity().z < 0) then
-			local damage = (pl:GetVelocity().z * -1) * 0.15
+			local damage = (pl:GetVelocity().z * -1) * 0.1
 			
 			if not pl:IsHuman() then
 				damage = damage * 0.5

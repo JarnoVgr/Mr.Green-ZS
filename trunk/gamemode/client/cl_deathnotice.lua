@@ -208,6 +208,48 @@ net.Receive("PlayerRedeemed", function(len)
 
 end)
 
+net.Receive("PlayerRedeemedLoadout", function(len)
+
+	local pl = net.ReadEntity()
+		if pl:IsValid() then
+		
+		local filename = "zombiesurvival/loadouts/chosenClass.txt"
+		
+		if file.Exists(filename,"DATA") then
+			classSelected = file.Read(filename)
+		end
+
+		local selectedPerks = {}
+		
+		for k, v in pairs(perkButtons) do
+			for i, j in pairs (v) do
+				if (j.Active) then
+					table.insert(selectedPerks,j.Perk.CodeName)
+				end
+			end
+		end
+
+		table.insert(selectedPerks,classSelected)	
+		
+		local filename = "zombiesurvival/loadouts/".. classSelected .. ".txt"
+		
+		local tbl = util.TableToJSON(selectedPerks)
+		
+		file.Write(filename,tbl)
+
+		local filename = "zombiesurvival/loadouts/chosenClass.txt"
+		file.Write(filename, classSelected)
+		
+		RunConsoleCommand("_applyloadout",unpack(selectedPerks))
+		
+		RunConsoleCommand("ChangeClass", 1)
+
+		-- Only one call after choosing loadout
+		gamemode.Call("PostPlayerChooseLoadout", MySelf)
+	end
+
+end)
+
 net.Receive("PlayerKilledZS", function(len)
 	
 	local victim = net.ReadEntity()

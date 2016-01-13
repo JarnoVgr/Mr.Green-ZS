@@ -700,7 +700,7 @@ function CalculatePlayerLoadout(pl)
 			pl:Give("weapon_zs_shotgun")
 			pl.Tier = 2
 			pl:GiveAmmo(18, "buckshot")
-			pl.SPRequired = 130				
+			pl.SPRequired = 150				
 		elseif pl:GetPerk("support_mp5") then
 			pl:Give("weapon_zs_mp5")		
 			pl:GiveAmmo(60, "SMG1")
@@ -725,7 +725,7 @@ function CalculatePlayerLoadout(pl)
 		if pl:GetPerk("engineer_pulsepistol") then
 			pl:Give("weapon_zs_pulsepistol")
 			pl.Tier = 2		
-			pl.SPRequired = 130				
+			pl.SPRequired = 150				
 		end
 
 		if pl:GetPerk("engineer_combatturret") then

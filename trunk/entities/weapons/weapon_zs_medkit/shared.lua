@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.ViewModelFOV = 60
+	SWEP.ViewModelFOV = 70
 	SWEP.BobScale = 2
 	SWEP.SwayScale = 1.5
 	SWEP.PrintName = "Medkit"
@@ -73,7 +73,7 @@ function SWEP:PrimaryAttack()
 
 		-- local ent = owner:MeleeTrace(32, 2).Entity
 			if ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_HUMAN then
-			local health, maxhealth = ent:Health(), ent:GetMaximumHealth()
+				local health, maxhealth = ent:Health(), ent:GetMaximumHealth()
 			
 				if (owner:GetPerk("medic_overheal")) then
 					maxhealth = maxhealth * 1.1
@@ -135,6 +135,18 @@ function SWEP:PrimaryAttack()
 					self.IdleAnimation = CurTime() + self:SequenceDuration()
 
 				end
+			elseif ent:IsValid() and ent:IsPlayer() and ent:Alive() and ent:Team() == TEAM_UNDEAD and self.Owner:GetPerk("medic_transfusion") then
+				if SERVER then
+					ent:TakeDamage(self.Primary.Heal, self.Owner, self)				
+					self.Owner:GiveAmmo(math.Round(self.Primary.Heal * 0.5), "Battery")
+					self:SetNextCharge(CurTime() + self.Primary.HealDelay)
+					owner.NextMedKitUse = self:GetNextCharge()	
+					
+				end
+				ent:EmitSound(Sound("items/medshot4.wav"))
+				self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+				self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+				self.Owner:SetAnimation(PLAYER_ATTACK1)					
 			end
 		end
 	else
@@ -182,6 +194,20 @@ end
 	
 function SWEP:OnDeploy()
 	self.IdleAnimation = CurTime() + self:SequenceDuration()
+	
+	if self.Owner:GetPerk("medic_flow") then
+		self.Primary.Heal = 1
+		self.Primary.HealDelay = 0.5
+		self.Secondary.Heal = 1
+		self.Secondary.HealDelay = 1.5
+		self.Primary.Automatic   	= true		
+	else
+		self.Primary.Heal = 10
+		self.Primary.HealDelay = 10
+		self.Secondary.Heal = 10
+		self.Secondary.HealDelay = 20	
+		self.Primary.Automatic   	= false				
+	end
 	--self:SendWeaponAnim(ACT_VM_IDLE)
 end
 

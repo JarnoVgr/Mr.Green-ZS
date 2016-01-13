@@ -20,7 +20,7 @@ function GM:ProceedRedeemSpawn(pl)
 	end
 end
 util.AddNetworkString( "PlayerRedeemed" )
-
+util.AddNetworkString( "PlayerRedeemedLoadout" )
 -- Redeem code goes here
 local PlayersRedeemed = {}
 function GM:OnPlayerRedeem(pl, causer)
@@ -33,6 +33,10 @@ function GM:OnPlayerRedeem(pl, causer)
 	net.Start("PlayerRedeemed")
 	net.WriteEntity(pl)
 	net.Broadcast()
+	
+	net.Start("PlayerRedeemedLoadout")
+	net.WriteEntity(pl)
+	net.Broadcast()	
 	
 	--
 	pl:RemoveAllStatus(true, true)
@@ -145,6 +149,8 @@ function GM:OnPlayerRedeem(pl, causer)
 	end
 
 	]]--
+	
+	
 	
 	--Process
 	self:ProceedRedeemSpawn(pl)

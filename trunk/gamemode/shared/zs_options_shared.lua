@@ -374,11 +374,16 @@ GM.Perks = {
 		["medic_stun"] = {Name = "Stun", Description = "Disorientates undead on impact with stunstick\n+6 stunstick damage", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/meta_pistol.vtf"},              	
 		["medic_supplies"] = {Name = "Medical Supplies", Description = "+100 medical charge for medical equipment", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/decal_sprays"},
 		["medic_medigun"] = {Name = "Medic Pistol", Description = "[TIER 1]\nSpawn with the medic pistol", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_fiveseven"},     
+		["medic_transfusion"] = {Name = "Transfusion", Description = "PRIMARY with medkit to extract healing power equivalent health from an undead\n +50% of healing power towards medical supplies.", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/win_dual_duel.vtf"},
 
+		
 		["medic_overheal"] = {Name = "Overheal", Description = "Heal humans +10% of their maximum health", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/meta_rifle.vtf"},              			
 		["medic_reward"] = {Name = "Healthy Reward", Description = "+40% SP from healing\n+15% healing power", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/collect_gifts"},
 		["medic_antivenom"] = {Name = "Anti Venom", Description = "Healing an undead with a medigun will poison them", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/lossless_extermination.vtf"},
+		["medic_flow"] = {Name = "Flow", Description = "-95% medkit healing cooldown\n -90% medkit healing power", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/fast_round_win.vtf"},
 
+		
+		
 		["medic_tanker"] = {Name = "Tanker", Description = "+50 damage resistance for 3 seconds when hit", Class = "Medic", Slot = 3, Rank = 6, Material = "vgui/achievements/hip_shot.vtf"},
 		["medic_immunity"] = {Name = "Natural Immunity", Description = "Immune to poison damage inflicted over time", Class = "Medic", Slot = 3, Rank = 6, Material = "vgui/achievements/win_rounds_without_buying"},
 		["medic_battlemedic"] = {Name = "Battle Medic", Description = "30% damage resistance from props\n+5% undead damage resistance", Class = "Medic", Slot = 3, Rank = 6, Material = "vgui/achievements/last_player_alive"},
@@ -432,7 +437,7 @@ GM.Perks = {
 		["engineer_pulsepistol"] = {Name = "Pulse Pistol", Description = "[TIER 1]\nSpawn with a pulse pistol", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_fiveseven"},
 		["engineer_multimine"] = {Name = "Multi Mine", Description = "+5 C4 on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/goose_chase"},                    
 
-		["engineer_quadsentry"] = {Name = "Quad Sentry", Description = "+3 turret shots fired\n-200% turret accuracy\nTurret consumes +3 ammo", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/bomb_defuse_needed_kit"},
+		["engineer_quadsentry"] = {Name = "Quad Sentry", Description = "+3 turret shots fired\n-200% turret accuracy\nTurret consumes +3 ammo", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/rescue_all_hostages.vtf"},
 		
 		["engineer_turret"] = {Name = "Turret Overload", Description = "+40 turret stats", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/bomb_defuse_needed_kit"},
 		["engineer_combustion"] = {Name = "Combustion", Description = "Targets caught in the explosion are ignited", Class = "Engineer", Slot = 2, Rank = 5, Material = "hud/t_victories_terrorist-win"},	

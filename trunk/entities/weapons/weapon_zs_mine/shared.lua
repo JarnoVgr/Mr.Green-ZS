@@ -108,6 +108,7 @@ end
 function SWEP:PrimaryAttack()
 local owner = self.Owner
 	if( CurTime() < self.NextPlant ) or not self:CanPrimaryAttack() then return end
+	
 	if self.Owner.KnockedDown or self.Owner.IsHolding and self.Owner:IsHuman() and self.Owner:IsHolding() then return false end
 		self.NextPlant = ( CurTime() + 0.2 );
 	-- 
@@ -146,6 +147,7 @@ local owner = self.Owner
 	
 	if ( tr.Hit ) and tr.HitNormal.z != -1 then
 
+	
 	self.NextPlant = ( CurTime() + 1 );
 
 		if not IsValid ( self.Owner ) then return end 
@@ -163,8 +165,10 @@ local owner = self.Owner
 		timer.Simple(self.Weapon:SequenceDuration(),function() 
 			if self and self:IsValid() and self.Owner and self.Owner:GetActiveWeapon() == self then 
 				if 0 < self:Clip1() then 
-
-					self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_DRAW )
+					self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+					self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+					self.Owner:SetAnimation(PLAYER_ATTACK1)
+					--self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_DRAW )
 				else
 					self.Weapon:SendWeaponAnim( ACT_SLAM_DETONATOR_DRAW )
 				end
@@ -185,8 +189,10 @@ local owner = self.Owner
 				self:TakePrimaryAmmo( 1 )	
 			end
 		else
-		self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
-	
+		--self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
+						self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+					self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+					self.Owner:SetAnimation(PLAYER_ATTACK1)
 		end
 	end
 	
