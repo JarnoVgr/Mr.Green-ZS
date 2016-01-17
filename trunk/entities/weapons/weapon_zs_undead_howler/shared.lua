@@ -23,7 +23,7 @@ SWEP.Primary.Delay = 0.6
 SWEP.Primary.Damage = 17
 SWEP.Primary.Reach = 47
 
-SWEP.Secondary.Reach = 300
+SWEP.Secondary.Reach = 330
 SWEP.Secondary.Duration = 1.0
 SWEP.Secondary.Delay = 0
 SWEP.Secondary.Next = 4.5
@@ -131,7 +131,7 @@ function SWEP:StartSecondaryAttack()
 		local fHitPercentage = math.Clamp(1 - (fDistance / self.Secondary.Reach), 0, 1)
 															
 		--Inflict damage
-		local fDamage = math.Round(20 * fHitPercentage, 0, 10)
+		local fDamage = math.Round(22 * fHitPercentage, 0, 10)
 	--	local fDamage = math.Round(12 * fHitPercentage, 0, 10)
 	
 		if fDamage > 0 and fDistance < (self.Secondary.Reach * 0.5) then

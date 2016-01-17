@@ -92,7 +92,7 @@ function SWEP:PrimaryAttack()
 					self.Owner:SetAnimation(PLAYER_ATTACK1)						
 					local delay = self.Primary.HealDelay
 					if owner.DataTable["ShopItems"][48] then
-						delay = math.Clamp(self.Primary.HealDelay - 1.5,0,self.Primary.HealDelay)
+						delay = math.Clamp(self.Primary.HealDelay - 1.5,0.5,self.Primary.HealDelay)
 					end
 					
 					self:SetNextCharge(CurTime() + delay)

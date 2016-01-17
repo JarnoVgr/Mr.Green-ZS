@@ -98,13 +98,19 @@ function SWEP:Think()
 					mOwner:ViewPunch(Angle(math.random(1, 2), math.random(1, 2), math.random(1, 2)))
 
 					if ent:IsPlayer() then
-						ent:TakeDamageOverTime( 3, 1, 10, mOwner, self.Weapon )
+						mOwner:EmitSound( "npc/headcrab_poison/ph_poisonbite"..math.random( 1,3 )..".wav", 100, math.random( 95, 105 ) )
+						if ent:GetPerk("Medic") then						
+							ent:TakeDamageOverTime( 3, 1.5, 10 - (ent:GetRank() * 0.5), mOwner, self.Weapon )
+						else
+							ent:TakeDamageOverTime( 3, 1.5, 10, mOwner, self.Weapon )						
+						end
 						local Infect = EffectData()
 						Infect:SetEntity( ent )
 						util.Effect( "infected_human", Infect, true, true )
 						mOwner:SetLocalVelocity( Vector( 0,0,0 ) )
 						mOwner:SetVelocity( Vector( 0,0,0 ) )
 					else
+						mOwner:EmitSound( "npc/headcrab_poison/ph_poisonbite"..math.random( 1,3 )..".wav", 100, math.random( 95, 105 ) )					
 						ent:TakeDamage(20, mOwner)
 					end
 					self.Leaping = false
