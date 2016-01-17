@@ -36,8 +36,8 @@ SWEP.SlotPos = 1
 
 -- SWEP.Info = ""
 SWEP.HumanClass = "support"
-SWEP.Primary.ClipSize = 4
-SWEP.Primary.DefaultClip = 4
+SWEP.Primary.ClipSize = 6
+SWEP.Primary.DefaultClip = 6
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "none"
 SWEP.Primary.Delay = 1
@@ -48,7 +48,7 @@ SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "none"
 SWEP.Secondary.Delay = 0.15
 
-SWEP.WalkSpeed = 175
+SWEP.WalkSpeed = 185
 
 function SWEP:InitializeClientsideModels()
 	self.VElements = {
@@ -102,6 +102,7 @@ function SWEP:PrimaryAttack()
 			ent:SetPos(tr.HitPos)
 			ent:SetAngles(aimvec:Angle())
 			ent:Spawn()
+			--ent:SetAmmoType("pistol")
 
 			--if self.Owner:GetPerk("_plankhp") then
 			local phys = ent:GetPhysicsObject()

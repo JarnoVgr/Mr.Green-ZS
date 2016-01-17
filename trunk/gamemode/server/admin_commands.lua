@@ -592,7 +592,6 @@ local function AdminSay(pl, text, teamonly)
 				net.WriteDouble(tonumber(target.DataTable["ClassData"]["new"].xp))
 			net.Send(target)	
 			
-			target:SendLua("UnlockEffect(2, ".. target:GetRank() ..")")
 			PrintMessageAll(HUD_PRINTTALK, "Admin ".. pl:Name() .." prestiged player "..tostring(target:Name())..".")			
 			return
 		elseif(sep[1] == "!gag") then

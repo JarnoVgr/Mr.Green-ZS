@@ -1552,18 +1552,19 @@ function meta:SpawnMiniTurret()
 	end
 end
 
-function meta:GiveAmmoPack()
+function meta:GiveAmmoPack(ammoType)
+
 	local WeaponToFill = self:GetActiveWeapon()		
 	local AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
 
-	if AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none" then
+	if (AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none") and ammoType == "Supply" then
+	
+		print(ammoType)
 		WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
-	else
-		local HowMuch = GAMEMODE.AmmoRegeneration[AmmoType]
+	elseif (ammoType) then
+		local HowMuch = GAMEMODE.AmmoRegeneration[ammoType]
 		local mul = 1
 		
-		print(AmmoType)
-			
 		if self:GetPerk("Support") then
 			mul = (mul+0.1) + self:GetRank()*0.02
 		end	
@@ -1572,7 +1573,7 @@ function meta:GiveAmmoPack()
 			mul = mul + 0.4
 		end					
 		
-		if (Ammotype == "Battery" and self:GetPerk("Medic")) then
+		if (ammoType == "Battery" and self:GetPerk("Medic")) then
 			mul = mul + 0.1
 			mul = mul + (self:GetRank() * 0.1)
 		end
@@ -1580,6 +1581,6 @@ function meta:GiveAmmoPack()
 		if self:HasBought("ammoman") then
 			mul = mul + 0.5
 		end	
-		self:GiveAmmo(math.Round(HowMuch * mul), AmmoType)
+		self:GiveAmmo(math.Round(HowMuch * mul), ammoType)
 	end
 end

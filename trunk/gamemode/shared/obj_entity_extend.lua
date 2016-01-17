@@ -262,10 +262,10 @@ function meta:RenderGlowEffect( color )
         
     -- Setup timing
     self.Seed = self.Seed or math.Rand( 0, 10 )
-    local mytime = ( 1 + math.sin( CurTime() * 8 ) ) / 2
+    local mytime = ( 0.5 + math.sin( CurTime() * 4 ) )
 
     -- Too far away
-    if ( not ( EyePos():Distance(self:GetPos()) <= 1024 ) ) then
+    if ( not ( EyePos():Distance(self:GetPos()) <= 512 ) ) then
         return
     end
     
@@ -277,17 +277,17 @@ function meta:RenderGlowEffect( color )
     render.SetColorModulation( color.r, color.g, color.b )
     render.SuppressEngineLighting(true)
 
-    render.SetBlend(0.15 * mytime)
+    render.SetBlend(0.15 * (mytime * 0.3))
     render.ModelMaterialOverride( matWhite )
     self:DrawModel()
 
-    render.SetBlend(0.4 * mytime)
+    render.SetBlend(0.8 * (mytime * 0.3))
     --render.ModelMaterialOverride( matWireframe )
     self:DrawModel()
 
     render.ModelMaterialOverride(0)
     render.SuppressEngineLighting(false)
-    render.SetBlend(1)
+    render.SetBlend(0.5)
     render.SetColorModulation(1, 1, 1)
     
     self:SetModelScale( oldscale, 0 )
@@ -322,6 +322,11 @@ hook.Add( "PostDrawOpaqueRenderables", "RenderWeaponsGlow", function()
 				
             end
         end
+		
+		for k,v in pairs( ents.FindByClass( "zs_ammobox" ) ) do
+				v:RenderGlowEffect( Color(100/ 255, 180/ 255, 110/ 255) )
+				timeToDraw = CurTime()			
+		end
     end
 end)
 
