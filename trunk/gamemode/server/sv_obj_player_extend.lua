@@ -1559,6 +1559,7 @@ function meta:GiveAmmoPack(ammoType)
 
 	if self:GetActiveWeapon():GetClass() == "weapon_zs_tools_ammobox" and ammoType != "Supply" then
 		WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)	
+		return
 	end
 	
 	if (not ammoType) then
