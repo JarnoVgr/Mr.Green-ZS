@@ -138,7 +138,8 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 
 					
 					itemToSpawn:Spawn()
-						
+					itemToSpawn:Spawn()		
+					
 					local phys = itemToSpawn:GetPhysicsObject()
 					if phys:IsValid() then
 						phys:Wake()
