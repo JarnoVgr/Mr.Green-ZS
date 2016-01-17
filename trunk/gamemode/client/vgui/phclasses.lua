@@ -535,8 +535,6 @@ function drawPerks(Perk, y, numPerks)
 			
 			Perk[i].Active = true
 			surface.PlaySound(Sound("mrgreen/ui/menu_accept.wav"))
-			--selectClass(v, Frame)
-			
 		end		
 		
 		Perk[i].OnCursorEntered = function() 

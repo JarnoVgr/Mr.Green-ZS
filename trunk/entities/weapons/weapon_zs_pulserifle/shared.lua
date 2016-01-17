@@ -65,9 +65,9 @@ SWEP.HoldType = "smg"
 
 SWEP.Primary.Sound			= Sound("Weapon_AR2.Single")
 SWEP.Primary.Recoil			= 1.1
-SWEP.Primary.Damage			= 10
+SWEP.Primary.Damage			= 12
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 40
+SWEP.Primary.ClipSize		= 50
 SWEP.Primary.Delay			= 0.1
 SWEP.Primary.Automatic		= true
 SWEP.TracerName = "AR2Tracer"
@@ -89,13 +89,13 @@ SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= true
 SWEP.Secondary.Ammo			= "none"
 
-SWEP.WalkSpeed = SPEED_SMG
+SWEP.WalkSpeed = SPEED_RIFLE
 SWEP.fired = false
 SWEP.lastfire = 0
 SWEP.rechargetimer = 0
-SWEP.rechargerate = 0.65
-SWEP.startcharge = 1
-SWEP.MaxClip = 40
+SWEP.rechargerate = 0.8
+SWEP.startcharge = 0.75
+SWEP.MaxClip = 50
 
 function SWEP:Think()
 	if SERVER then
@@ -112,8 +112,8 @@ function SWEP:Think()
 		else
 		
 			if self:GetOwner():GetPerk("Engineer") then
-				self.MaxClip = 40 + (40*(5*self:GetOwner():GetRank())/100)
-				self.rechargerate = 0.65 - (0.65*(2*self:GetOwner():GetRank())/100)				
+				self.MaxClip = 50 + (50*(5*self:GetOwner():GetRank())/100)
+				self.rechargerate = 0.8 - (0.8*(2*self:GetOwner():GetRank())/100)				
 			end
 			
 			if (CurTime() - self.startcharge) > self.lastfire and CurTime() > self.rechargetimer then

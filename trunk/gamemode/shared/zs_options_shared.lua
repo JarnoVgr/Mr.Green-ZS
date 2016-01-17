@@ -190,7 +190,8 @@ GM.HumanWeapons = {
        
 	   
         --Engineer
-        ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", Tier = 1, Type = "pistol", Price = 80, HumanClass = "engineer"},                      
+        ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", Tier = 1, Type = "pistol", Price = 80, HumanClass = "engineer"},           
+        ["weapon_zs_energiser"]  = { Name = "Energiser", Tier = 3, Type = "smg", HumanClass = "engineer"},    		
         ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", Tier = 2, Type = "smg", Price = 100, HumanClass = "engineer"},
 		["weapon_zs_turretplacer"] = { Name = "Turret", Tier = 0, Type = "tool2", Price = 100, HumanClass = "engineer"   },	
         ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", Tier = 3, Type = "smg", Price = 130, HumanClass = "engineer"},
@@ -379,7 +380,7 @@ GM.Perks = {
 		
 		["medic_overheal"] = {Name = "Overheal", Description = "Heal humans +10% of their maximum health", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/meta_rifle.vtf"},              			
 		["medic_reward"] = {Name = "Healthy Reward", Description = "+40% SP from healing\n+15% healing power", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/collect_gifts"},
-		["medic_antivenom"] = {Name = "Anti Venom", Description = "Healing an undead with a medigun will poison them", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/lossless_extermination.vtf"},
+		--["medic_antivenom"] = {Name = "Anti Venom", Description = "Healing an undead with a medigun will poison them", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/lossless_extermination.vtf"},
 		["medic_flow"] = {Name = "Flow", Description = "-95% medkit healing cooldown\n -90% medkit healing power", Class = "Medic", Slot = 2, Rank = 2, Material = "vgui/achievements/fast_round_win.vtf"},
 
 		

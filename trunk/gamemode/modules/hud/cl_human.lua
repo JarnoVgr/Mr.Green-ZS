@@ -261,7 +261,7 @@ function hud.DrawSkillPoints()
 	surface.DrawRect( spBarX, spBarY, (ScrW()*0.13)*spRatio, ScrH()*0.01 )
 
 	
-	draw.RoundedBox(0, spBarX, spBarY, ScrW()*0.13, ScrH()*0.08, Color(20, 26, 20, 150))
+	--draw.RoundedBox(0, spBarX, spBarY, ScrW()*0.13, ScrH()*0.08, Color(20, 26, 20, 150))
 	
 	surface.SetDrawColor(200, 200, 200, 200 )
 	surface.DrawRect( spBarX, spBarY  - ScrH()*0.005, ScrW()*0.002, ScrH()*0.015 )

@@ -76,9 +76,12 @@ function SWEP:Think()
 							phys:ApplyForceOffset(vel, (ent:NearestPoint(owner:GetShootPos()) + ent:GetPos() * 2) / 3)
 							ent:SetPhysicsAttacker(owner)
 						end
-						ent:TakeDamage( damage, owner, self )
-						util.Blood(ent:GetPos(), math.Rand(damage * 0.25, damage * 0.2), (ent:GetPos() - owner:GetShootPos()):GetNormal(), math.Rand(damage * 3, damage * 6), true)
-
+						
+						ent:TakeDamage( damage, owner, self )						
+						if ent:IsPlayer() then
+							util.Blood(ent:GetPos(), math.Rand(damage * 0.25, damage * 0.2), (ent:GetPos() - owner:GetShootPos()):GetNormal(), math.Rand(damage * 3, damage * 6), true)
+						end
+						
 					end
 					owner:SetLocalVelocity( Vector(0,0,0) )
 				end
