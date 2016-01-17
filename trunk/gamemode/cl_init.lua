@@ -56,7 +56,10 @@ include("client/cl_targetid.lua")
 include("client/cl_selectionmenu.lua")
 include("client/cl_hudpickup.lua")
 include("client/cl_spawnmenu.lua")
-include("client/cl_intermission.lua")
+--include("client/cl_intermission.lua")
+include("client/cl_endgame.lua")
+
+
 include("client/cl_postprocess.lua")
 include("client/cl_players.lua")
 include("client/cl_deathnotice.lua")

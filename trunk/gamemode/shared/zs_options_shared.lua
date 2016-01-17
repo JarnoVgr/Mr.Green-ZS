@@ -623,7 +623,7 @@ ROUNDTIME = (15*60) + WARMUPTIME -- 15 minutes
 ROUNDSTARTTIME = 0
 
 -- Time in seconds between end round and next map.
-INTERMISSION_TIME = 35
+INTERMISSION_TIME = 45
 
 --Amount of time players have to vote for next map(seconds)
 VOTE_TIME = 30
