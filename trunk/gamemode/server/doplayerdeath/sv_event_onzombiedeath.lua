@@ -120,10 +120,6 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				MOBILE_SUPPLIES = true
 			end	
 			
-			if math.random(1,10) == 1 then
-				item = "item_healthvial"		
-			end
-
 			if (mAttacker:GetPerk("global_ammo")) then
 				mAttacker:GiveAmmoPack()
 			else
@@ -135,10 +131,8 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 					else
 						itemToSpawn:SetPos(mVictim:GetPos()+Vector(0,0,32))			
 					end
-
 					
 					itemToSpawn:Spawn()
-					itemToSpawn:Spawn()		
 					
 					local phys = itemToSpawn:GetPhysicsObject()
 					if phys:IsValid() then
