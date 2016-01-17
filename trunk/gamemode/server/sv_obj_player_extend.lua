@@ -1565,7 +1565,7 @@ function meta:GiveAmmoPack(ammoType)
 	if (not ammoType) then
 		ammoType = AmmoType
 	end
-	if (AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none") and ammoType == "Supply" then
+	if (AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none") then
 		WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
 	elseif (ammoType and ammoType != "Supply") then
 		local HowMuch = GAMEMODE.AmmoRegeneration[ammoType]
