@@ -227,12 +227,12 @@ function DrawPanelBlackBox(x,y,w,h,overridealpha)
 		a = overridealpha
 	end
 	
-	surface.SetDrawColor( Color( 0, 0, 0, 240*a ) )
+	surface.SetDrawColor( Color( 1, 10, 6, 240*a ) )
 	surface.DrawRect( x, y, w, h )
 		
 	
 	Quad.texture = GradientExample
-	Quad.color = Color(40,40,40,140*a)
+	Quad.color = Color(1,5,3,140*a)
  
 	Quad.x = x
 	Quad.y = y

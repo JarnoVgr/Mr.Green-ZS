@@ -218,12 +218,12 @@ end
 
 function GM:CreateScoreboardVGUI()
 	--Calcs
-	local scoreboard_w, scoreboard_h = ScaleW(340), ScaleH(670)
+	local scoreboard_w, scoreboard_h = ScaleW(395), ScaleH(680)
 	
-	local scoreboard_space = ScaleW(40)
+	local scoreboard_space = ScaleW(10)
 	
-	local left_x,left_y = w/2 - scoreboard_space/2 - scoreboard_w, h/2 - scoreboard_h/2 + 25 +ScaleH(50)
-	local right_x,right_y = w/2 + scoreboard_space/2, h/2 - scoreboard_h/2 + 25+ScaleH(50)
+	local left_x,left_y = w/2 - scoreboard_space/2 - scoreboard_w, h/2 - scoreboard_h/2 + ScaleH(50)
+	local right_x,right_y = w/2 + scoreboard_space/2, h/2 - scoreboard_h/2 + ScaleH(50)
 
 
 	--Create panel
@@ -237,9 +237,12 @@ function GM:CreateScoreboardVGUI()
 	SCPanel:SetBackgroundBlur(true)
 	SCPanel.Paint = function() 
 		--Override
-		draw.SimpleText("MrGreenGaming.com", "Trebuchet24", SCPanel:GetWide()/2,ScaleH(135), Color(59, 119, 59, 235), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-		draw.SimpleTextOutlined("Zombie Survival", "Trebuchet24", SCPanel:GetWide()/2,ScaleH(180), Color(230, 255, 235, 230), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 255))
+		draw.SimpleText("MrGreenGaming.com", "Trebuchet24", SCPanel:GetWide()/2,ScaleH(115), Color(59, 119, 59, 235), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleTextOutlined("Zombie Survival", "Trebuchet24", SCPanel:GetWide()/2,ScaleH(160), Color(230, 255, 235, 230), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0, 0, 0, 255))
 
+	SCPanel:SetSkin("ZSMG")	
+		
+		
 		local SpectatorsCount, SpectatorsStr = BuildSpectatorList()
 		
 		if SpectatorsStr then
@@ -276,7 +279,7 @@ function GM:CreateScoreboardVGUI()
 	left_scoreboard.Paint = function ()
 		DrawPanelBlackBox(0, 0,scoreboard_w,scoreboard_h)
 	end
-	
+
 	
 	right_scoreboard = vgui.Create( "DPanelList",SCPanel )
 	-- right_scoreboard:ParentToHUD()

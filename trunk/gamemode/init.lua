@@ -426,7 +426,7 @@ end
 local function DeleteEntitiesRestricted()
 	-- Entities to delete on map (wildcards are supported)
 	--local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", --[=["func_door", "func_door_rotating",]=] "weapon_*", "item_ammo_*", "item_box_buckshot" }
-	local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", "item_ammo_*", "weapon_*", "item_box*"}
+	local EntitiesToRemove = { "prop_ragdoll", "npc_zombie","npc_headcrab", "npc_zombie_torso", "npc_maker", "npc_template_maker", "npc_maker_template", "item_ammo_*", "weapon_*", "item_box*", "item_healthvial"}
 	
 	-- Trash bin table, stores entities that will be removed
 	local TrashBin, CurrentMapTable = {}, MapProperties[game.GetMap()]-- TranslateMapTable[ game.GetMap() ]
@@ -542,13 +542,26 @@ local function DeleteEntitiesRestricted()
 			
 			local item = "zs_ammobox"	
 			local itemToSpawn = ents.Create(item)	
-			itemToSpawn:SetPos(v:GetPos())			
+			itemToSpawn:SetPos(v:GetPos())	
+			itemToSpawn:SetAngles(v:GetAngles())
 			itemToSpawn:Spawn()
+			
+			
+			
+			if v:GetClass() == "item_healthvial" then
+				itemToSpawn:SetAmmoType("Battery")
+			elseif v:GetClass() == "item_box_buckshot" then
+				itemToSpawn:SetAmmoType("buckshot")
+			elseif v:GetClass() == "item_ammo_pistol" then
+				itemToSpawn:SetAmmoType("pistol")
+			elseif v:GetClass() == "item_ammo_smg1" then
+				itemToSpawn:SetAmmoType("smg1")			
+			end
+			
 			local phys = itemToSpawn:GetPhysicsObject()
 			if phys:IsValid() then
 				phys:Wake()
-				phys:ApplyForceCenter(Vector(math.Rand(10, 30),math.Rand(10, 30),math.Rand(10, 40)))
-				phys:SetAngles(Angle(math.Rand(0, 180),math.Rand(0, 180),math.Rand(0, 180)))
+				--phys:ApplyForceCenter(Vector(math.Rand(10, 30),math.Rand(10, 30),math.Rand(10, 40)))
 			end
 			SafeRemoveEntity ( v )
 		end

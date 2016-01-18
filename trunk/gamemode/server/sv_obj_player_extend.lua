@@ -1556,19 +1556,21 @@ function meta:GiveAmmoPack(ammoType)
 
 	local WeaponToFill = self:GetActiveWeapon()		
 	local AmmoType = WeaponToFill:GetPrimaryAmmoTypeString() or "pistol"
-
-	if self:GetActiveWeapon():GetClass() == "weapon_zs_tools_ammobox" and ammoType != "Supply" then
-		WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)	
-		return
-	end
-	
+	local HowMuch
 	if (not ammoType) then
 		ammoType = AmmoType
 	end
-	if (AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none") then
+
+	if ((AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none") and ammoType == "Supply") then
 		WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
-	elseif (ammoType and ammoType != "Supply") then
-		local HowMuch = GAMEMODE.AmmoRegeneration[ammoType]
+	elseif (ammoType) then
+	
+		if (ammoType == "Supply") then
+			HowMuch = GAMEMODE.AmmoRegeneration[AmmoType]
+		else
+			HowMuch = GAMEMODE.AmmoRegeneration[ammoType]		
+		end
+		
 		local mul = 1
 		
 		if self:GetPerk("Support") then

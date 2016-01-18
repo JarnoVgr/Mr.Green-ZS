@@ -126,7 +126,7 @@ function SWEP:OnDeploy()
 	
 	if IsValid(self.Owner) and self.Owner:GetPerk("Support") then
 		self.Weapon.HadFirstDeploy = true	
-		self:SetClip2(self:Clip2()+ self.Owner:GetRank())
+		self:SetClip2(self:Clip2()+ self.Owner:GetRank() * 2)
 		
 		if self.Owner:GetPerk("support_repairs") then
 		self:SetClip2(self:Clip2() + 10)		
@@ -407,7 +407,7 @@ function SWEP:SecondaryAttack()
                 for _, oldcons in pairs(constraint.FindConstraints(trent, "Weld")) do
                     if oldcons.Ent1 == ent or oldcons.Ent2 == ent then
                         trent.Nails = trent.Nails or {}
-                        if #trent.Nails < 5 then
+                        if #trent.Nails < 6 then
                             self:SendWeaponAnim(ACT_VM_HITCENTER)
                             self.Alternate = not self.Alternate
                             self.Owner:SetAnimation(PLAYER_ATTACK1)

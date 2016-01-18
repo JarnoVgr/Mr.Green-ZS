@@ -80,6 +80,10 @@ end
 
 function SWEP:OnDeploy()
 
+	if (self.Weapon.FirstSpawn) then
+		self:SetClip1(self:Clip1()+ (self.Owner:GetRank() * 0.5))
+		self.Weapon.FirstSpawn = false
+	end
 	self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
 end
 
@@ -106,8 +110,10 @@ function SWEP:PrimaryAttack()
 
 			--if self.Owner:GetPerk("_plankhp") then
 			local phys = ent:GetPhysicsObject()
+			
 			if phys:IsValid() then
-				phys:SetVelocityInstantaneous(self.Owner:GetVelocity())
+				local Vel = self.Owner:GetAimVector() * 1250
+				phys:ApplyForceCenter( Vel )			
 			end
 			ent:SetPhysicsAttacker(self.Owner)
 			self:TakePrimaryAmmo(1)

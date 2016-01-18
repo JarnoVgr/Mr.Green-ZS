@@ -19,7 +19,7 @@ if CLIENT then
 	SWEP.ScaleDownRightHand = true
 	
 	killicon.AddFont( "weapon_zs_mine", "CSKillIcons", "I", Color(255, 255, 255, 255 ) )
-	
+	SWEP.ViewModelFOV	= 70
 	function SWEP:DrawHUD()
 		MeleeWeaponDrawHUD()
 	end
@@ -38,7 +38,7 @@ SWEP.Author			= "" -- Original code by Amps
 SWEP.Instructions	= "Stand close to a wall to plant the mine. Detonates when enemy is within visible range." 
 SWEP.NextPlant = 0
 ------------------------------------------------------------------------------------------------------
-SWEP.ViewModelFOV	= 50
+SWEP.ViewModelFOV	= 70
 SWEP.ViewModelFlip	= false
 ------------------------------------------------------------------------------------------------------
 SWEP.Spawnable			= false
@@ -134,17 +134,7 @@ local owner = self.Owner
 	if mines >= 1 then
 		return
 	end
-	
-	--[[
-	if cades >= 1 then
-		if SERVER then 
-			self.Owner:Message("You must place the mine more away from barricades",1)
-		end
-		
-		return
-	end
-	]]--
-	
+
 	if ( tr.Hit ) and tr.HitNormal.z != -1 then
 
 	
@@ -165,10 +155,7 @@ local owner = self.Owner
 		timer.Simple(self.Weapon:SequenceDuration(),function() 
 			if self and self:IsValid() and self.Owner and self.Owner:GetActiveWeapon() == self then 
 				if 0 < self:Clip1() then 
-					self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-					self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-					self.Owner:SetAnimation(PLAYER_ATTACK1)
-					--self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_DRAW )
+					self.Weapon:SendWeaponAnim( ACT_SLAM_THROW_DRAW )
 				else
 					self.Weapon:SendWeaponAnim( ACT_SLAM_DETONATOR_DRAW )
 				end
@@ -189,10 +176,7 @@ local owner = self.Owner
 				self:TakePrimaryAmmo( 1 )	
 			end
 		else
-		--self.Weapon:SendWeaponAnim( ACT_VM_DRAW )
-						self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-					self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
-					self.Owner:SetAnimation(PLAYER_ATTACK1)
+
 		end
 	end
 	

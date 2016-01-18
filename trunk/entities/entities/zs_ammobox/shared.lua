@@ -23,7 +23,6 @@ ammoTypes = {
 	["Supply"] = Model("models/Items/item_item_crate.mdl")
 }
 
-
 function ENT:Initialize()
 	if SERVER then	
 	
@@ -37,7 +36,7 @@ function ENT:Initialize()
 		self.Entity:PhysicsInit(SOLID_VPHYSICS)
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
 		self.Entity:SetSolid(SOLID_VPHYSICS)	
-		self.Entity:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+		self.Entity:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
 
 		local phys = self.Entity:GetPhysicsObject()
 		if IsValid(phys) then
@@ -75,21 +74,9 @@ if SERVER then
 	end
 end
 	
---[[	
-if CLIENT then
-	--ENT.LineColor = Color(210, 0, 0, 100)
-	function ENT:Draw()
-	    self:DrawModel()
-		
-	    if not IsValid(MySelf) or MySelf:Team() ~= TEAM_HUMAN then
-	        return
-		end
 
-	    self.LineColor = Color(0, 200, 100, 100)
-	end
-
-	--function ENT:OnRemove()
-	--    hook.Remove("PreDrawHalos", "CustDrawHalosAmmo".. tostring(self))
+--if SHARED then
+	--function ENT:Draw()
+	--	self:RenderGlowEffect( Color(100/ 255, 180/ 255, 110/ 255) )		
 	--end
-end
-]]--
+--end

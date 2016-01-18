@@ -294,7 +294,7 @@ function meta:RenderGlowEffect( color )
 end
 
 
-
+--[[
 hook.Add( "PostDrawOpaqueRenderables", "RenderWeaponsGlow", function()
    				local ColorToDraw
    if ( IsValid( MySelf ) and MySelf:IsHuman() and MySelf:Alive() ) then
@@ -322,14 +322,10 @@ hook.Add( "PostDrawOpaqueRenderables", "RenderWeaponsGlow", function()
 				
             end
         end
-		
-		for k,v in pairs( ents.FindByClass( "zs_ammobox" ) ) do
-				v:RenderGlowEffect( Color(100/ 255, 180/ 255, 110/ 255) )
-				timeToDraw = CurTime()			
-		end
+
     end
 end)
-
+]]--
 function meta:HitFence(data, phys)
 	local pos = phys:GetPos()
 	local vel = data.OurOldVelocity
