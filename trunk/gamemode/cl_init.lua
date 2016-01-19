@@ -867,7 +867,7 @@ local function HUDPaint()
 			end
 			
 			local ww,wh = ScaleW(212),ScaleH(30)
-			local wx,wy = w/2-ww/2, h-wh*2
+			local wx,wy = w/2-ww/2, h-wh
 			
 			surface.SetDrawColor( 0, 0, 0, 150)
 			surface.DrawRect(wx,wy,ww,wh)
@@ -883,7 +883,7 @@ local function HUDPaint()
 			WATER_DROWNTIME = math.min(WATER_DROWNTIME + FrameTime() * 3, WATER_DROWNTIME_CONST)
 			
 			local ww,wh = ScaleW(212),ScaleH(30)
-			local wx,wy = w/2-ww/2, h-wh*2
+			local wx,wy = w/2-ww/2, h-wh
 			
 			surface.SetDrawColor( 0, 0, 0, 150)
 			surface.DrawRect(wx,wy,ww,wh)

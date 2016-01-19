@@ -152,7 +152,6 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			end
 				
 			skillpoints.AddSkillPoints(mAttacker,3)
-			mAttacker:AddXP(10)
 			floaty = floaty + 3
 		end
 		

@@ -32,7 +32,7 @@ local function ManageEvents()
 			GAMEMODE:SetRandomsToZombie() --Picks Humans closes to Z spawn or then random players..
 
 			--Give SkillPoints to survivors timer
-			timer.Create("GiveSkillPointsSurvivors", math.Round(ROUNDTIME/45), 0, GiveSkillPointsSurvivors)
+			--timer.Create("GiveSkillPointsSurvivors", math.Round(ROUNDTIME/45), 0, GiveSkillPointsSurvivors)
 
 			--
 			local Survivors = team.GetPlayers(TEAM_HUMAN)

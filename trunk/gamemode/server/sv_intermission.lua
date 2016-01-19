@@ -453,7 +453,7 @@ function GM:OnEndRound(winner)
 			-- For the last 2 levels, the second achievement is to survive.
 			if team.NumPlayers(TEAM_HUMAN) + team.NumPlayers(TEAM_UNDEAD) > 10 then
 				if not pl:IsBot() and pl:Alive() then
-					pl:AddXP(2500)
+					pl:AddXP(2000)
 					pl:AddXP(team.NumPlayers(TEAM_HUMAN)*100)
 					
 				if game.GetMap() == "zs_uglyfort_v2" then

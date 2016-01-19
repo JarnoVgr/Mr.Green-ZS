@@ -22,7 +22,7 @@ COINS_PER_ZOMBIE = 1
 COINS_PER_HUMAN = 5
 
 --Double XP for everything
-DOUBLE_XP = true
+DOUBLE_XP = false
 
 --IRC Relay
 IRC_RELAY_ENABLED = CreateConVar("zs_irc", "0", FCVAR_ARCHIVE + FCVAR_NOTIFY, "Enable IRC. Requires mapchange."):GetBool()

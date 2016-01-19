@@ -132,7 +132,7 @@ function DrawLoadoutMenu()
 		if (MySelf:NextRankXP() - MySelf:GetXP() > 0) then
 			xp = MySelf:NextRankXP() - MySelf:GetXP()
 		end		
-		draw.SimpleText("GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  xp .. " XP Remaining","Trebuchet24", (frameSizeWidth * 0.4)*0.14, (frameSizeHeight * 0.09)*0.5, Color(248,253,248,235), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)				
+		draw.SimpleText("GreenCoins: " .. MySelf:GreenCoins() .. " | Rank " .. MySelf:GetRank()  .. " | " ..  xp .. " XP Left","Trebuchet24", (frameSizeWidth * 0.4)*0.14, (frameSizeHeight * 0.09)*0.5, Color(248,253,248,235), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)				
 	end
 	
 	ProfileText:SetFont("Trebuchet24")
@@ -152,7 +152,7 @@ function DrawLoadoutMenu()
 	FrameText:SetMultiline( true )	
 	
 	FrameText.PaintOver = function ()
-		draw.DrawText(" [DOUBLE XP ACTIVATED]\n\n Report any bugs/issues or post suggestions on the forums.", "Trebuchet24", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)
+		draw.DrawText(" Report any bugs/issues or post suggestions\n\n on the forums.", "Trebuchet24", 0, 0, Color(248,253,248,235), TEXT_ALIGN_LEFT)
 	end	
 	
 	local buttonWeb = vgui.Create( "DButton", Frame)

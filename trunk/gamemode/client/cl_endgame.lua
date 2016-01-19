@@ -255,7 +255,7 @@ function Intermission(nextmap, winner, timeleft)
 			end
 		end
 		
-		draw.SimpleTextOutlined(wintext, "ArialBold_25", w/2, h/2, wincol, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255))
+		draw.SimpleTextOutlined(wintext, "ssNewAmmoFont24", w/2, h/2, wincol, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255))
 		
 		local votetxt = "Vote for the next location:"
 		if MySelf.HasVotedMap == true then
@@ -296,6 +296,7 @@ function AddMapLabel(y,mapfilename,mapname)
 	MapLabel[mapfilename].Color = color_white
 	MapLabel[mapfilename].OnCursorEntered = function()
 		MapLabel[mapfilename].Overed = true 
+		surface.PlaySound(Sound("mrgreen/ui/menu_focus.wav"))
 	end
 	MapLabel[mapfilename].OnCursorExited = function()
 		MapLabel[mapfilename].Overed = false 
@@ -304,7 +305,7 @@ function AddMapLabel(y,mapfilename,mapname)
 		if not MySelf.HasVotedMap then
 			MySelf.HasVotedMap = true
 			MySelf.VotedMapFile = mapfilename
-
+			surface.PlaySound(Sound("mrgreen/ui/menu_accept.wav"))
 			-- Send voted mapfilename to server
 			RunConsoleCommand ( "VoteAddMap", mapfilename )
 		end

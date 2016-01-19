@@ -44,7 +44,7 @@ SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_ELITE.Single" )
 SWEP.Primary.Recoil			= 1.05
-SWEP.Primary.Damage			= 13
+SWEP.Primary.Damage			= 14
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 15
 SWEP.Primary.Delay			= 0.12
