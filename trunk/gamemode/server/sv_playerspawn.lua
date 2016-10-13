@@ -146,11 +146,14 @@ function GM:PlayerInitialSpawn(pl)
 	pl:SetAppropiateTeam()
 
 	pl:SetZombieClass(0)
-	
+		
 	--Call PlayerReady if player is a bot
 	if pl:IsBot() then
 		pl:SetHumanClass(1)
 		self:PlayerReady(pl)
+		
+		pl:SetTeam(4)
+		pl:Spawn()		
 	end
 
 	skillpoints.SetupSkillPoints(pl)

@@ -388,10 +388,10 @@ if SERVER then
 	end
 
 	function ENT:DoBulletKnockback()
-		for ent, prevvel in pairs(tempknockback) do
-			local curvel = ent:GetVelocity()
-			ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.001 + prevvel)
-		end
+		--for ent, prevvel in pairs(tempknockback) do
+		--	local curvel = ent:GetVelocity()
+		--	ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.001 + prevvel)
+		--end
 	end
 
 	function GenericBulletCallback(attacker, tr, dmginfo)

@@ -106,13 +106,14 @@ function SWEP:PrimaryAttack()
 	local recoil = self.Primary.Recoil * recoilm
 	
 	if Owner.ViewPunch then
-		Owner:ViewPunch(Angle((recoil * -1)*0.33, math.random(0.01,-0.01), 0))
+		Owner:ViewPunch(Angle((recoil * -1)*0.5, math.random(0.01,-0.01), 0))
 	end
+	
+	recoil = recoil * 0.25
 
 	if (game.SinglePlayer() and SERVER) or (not game.SinglePlayer() and CLIENT and IsFirstTimePredicted() ) then
 		local eyeang = self.Owner:EyeAngles()
-		local permaRecoil = recoil
-		eyeang.pitch = eyeang.pitch - permaRecoil
+		eyeang.pitch = eyeang.pitch - recoil
 		self.Owner:SetEyeAngles(eyeang)
 	end
 
@@ -450,7 +451,7 @@ end
 function SWEP:DoBulletKnockback()
 	for ent, prevvel in pairs(tempknockback) do
 		local curvel = ent:GetVelocity()
-		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * (0.1 * self.ForceBonus) + prevvel)
+		ent:SetVelocity(curvel * -1 + (curvel - prevvel) * (0.01 * self.ForceBonus) + prevvel)
 	end
 end
 

@@ -112,7 +112,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		--Play sound
 		mVictim:PlayZombieDeathSound()
 
-		if math.random(1,5) == 1 then
+		if math.random(1,3) == 1 then
 			local item = "zs_ammobox"	
 
 			if not MOBILE_SUPPLIES then
