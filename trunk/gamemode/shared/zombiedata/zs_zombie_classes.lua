@@ -20,7 +20,7 @@ ZombieClasses[0] =
 	Tag = "infected",	
 	Infliction = 0,
 	Revives = true,
-	Health = 200,
+	Health = 230,
 	MaxHealth = 350,
 	Bounty = 100,
 	SP = 5,
@@ -33,7 +33,7 @@ ZombieClasses[0] =
 	Speed = 143,
 	AngleFix = true,
 	Description = "The backbone of the horde.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 200 ", "> SPEED: 143", "> DAMAGE: 25" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 230 ", "> SPEED: 143", "> DAMAGE: 25" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
 		Sound("npc/zombie/zombie_pain1.wav"),
@@ -221,7 +221,7 @@ ZombieClasses[3] =
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
 	Infliction =0.5,-- 0.5,
-	Health = 140,
+	Health = 130,
 	MaxHealth = 200,
 	TimeLimit = 160,
 	Bounty = 80,
@@ -238,7 +238,7 @@ ZombieClasses[3] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 140 ", "> SPEED: 285", "> DAMAGE: 5"  },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 130 ", "> SPEED: 285", "> DAMAGE: 4"  },
 	PainSounds = {
 		Sound("mrgreen/undead/fastzombie/pain1.wav"),
 		Sound("mrgreen/undead/fastzombie/pain2.wav"),
