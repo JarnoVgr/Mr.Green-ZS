@@ -83,7 +83,7 @@ function SWEP:Think()
 					ent:SetVelocity(Velocity)
 				else
 					--Calculate velocity to push
-					local Velocity = self.Owner:EyeAngles():Forward() * (self.Secondary.PounceVelocity * 3)
+					local Velocity = self.Owner:EyeAngles():Forward() * (self.Secondary.PounceVelocity * 2)
 					Velocity.z = math.min(Velocity.z,1600)
 
 					--Apply push
@@ -130,12 +130,12 @@ end
 function SWEP:Move(mv)
 
 	if self and self.Owner and self.Owner:KeyDown(IN_ATTACK) then
-		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.3)
+		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.35)
 		return true
 	end
 	
 	if self.Attacking > CurTime() then
-		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.3)
+		mv:SetMaxSpeed(self.Owner:GetMaxSpeed()*0.35)
 		return true	
 	end
 end
