@@ -209,9 +209,9 @@ function ENT:Explode()
 			local fDistance = self:GetPos():Distance( v:GetPos() )
 			
 			if v:GetPerk("_blast") then
-				v:TakeDamage ( math.Clamp ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 30,0, 50 ), self.ZombieOwner, mOwnerWeapon )
+				v:TakeDamage (( self.MaximumDist - fDistance ) / self.MaximumDist * 14, self.ZombieOwner, mOwnerWeapon )
 			else
-				v:TakeDamage ( math.Clamp ( ( ( self.MaximumDist - fDistance ) / self.MaximumDist ) * 37,0, 100 ), self.ZombieOwner, mOwnerWeapon )
+				v:TakeDamage (( self.MaximumDist - fDistance ) / self.MaximumDist * 20, self.ZombieOwner, mOwnerWeapon )
 			end			
 		end
 	end
