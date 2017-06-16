@@ -245,9 +245,9 @@ function GM:Move( pl, CMove )
 
 	if not pl.IsDazed then
 		if pl:GetVelocity().z < -190 then
-			pl:Daze(1.2)
+			pl:Daze(0.5)
 		elseif pl:GetVelocity().z < -100 then
-			pl:Daze(1)			
+			pl:Daze(0.5)			
 		elseif pl:GetVelocity().z < -60 then
 			pl:Daze(0.5)			
 		end

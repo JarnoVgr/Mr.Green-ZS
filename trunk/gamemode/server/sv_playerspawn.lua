@@ -932,8 +932,8 @@ function CalculateZombieHealth(pl)
 
 		local desiredzombies = math.max(1, math.ceil(numPlayers * UNDEAD_START_AMOUNT_PERCENTAGE))
 		if (team.NumPlayers(TEAM_UNDEAD) <= (desiredzombies) and team.NumPlayers(TEAM_HUMAN) >= 5) then
-			local IncreaseHealth = Tab.Health
-			MaxHealth = Tab.Health + IncreaseHealth
+
+			MaxHealth = MaxHealth * 2.5
 			
 			if (pl:GetZombieClass() != 4 and pl:GetZombieClass() != 5) then
 				pl:SetMaterial("models/flesh")
