@@ -221,7 +221,7 @@ ZombieClasses[3] =
 	Name = "Fast Zombie",
 	Tag = "fastzombie",
 	Infliction =0.5,-- 0.5,
-	Health = 130,
+	Health = 150,
 	MaxHealth = 200,
 	TimeLimit = 160,
 	Bounty = 80,
@@ -238,7 +238,7 @@ ZombieClasses[3] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 130 ", "> SPEED: 285", "> DAMAGE: 4"  },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Leap", "> HEALTH: 150 ", "> SPEED: 285", "> DAMAGE: 4"  },
 	PainSounds = {
 		Sound("mrgreen/undead/fastzombie/pain1.wav"),
 		Sound("mrgreen/undead/fastzombie/pain2.wav"),
@@ -455,8 +455,8 @@ ZombieClasses[8] =
 	Name = "Zombine",
 	Tag = "zombine",
 	Infliction = 0.8,
-	Health = 350,
-	MaxHealth = 450, 
+	Health = 400,
+	MaxHealth = 800, 
 	TimeLimit = 1020,
 	Bounty = 140,
 	SP = 7,
@@ -471,12 +471,12 @@ ZombieClasses[8] =
 	Speed = 150,
 	Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) },
 	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)},	
-	RunSpeed = 200,
+	RunSpeed = 210,
 	Description = "A combine that took a turn to the worse.",
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when under 175 health.", "> HEALTH: 350 ", "> SPEED: 150 / 200", "> DAMAGE: 30" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Grenade","> RELOAD: Switch between poison and explosive grenades", "> SPECIAL: Enrage when under 175 health.", "> HEALTH: 400 ", "> SPEED: 150 / 210", "> DAMAGE: 30" },
 	PainSounds = {
 		Sound( "npc/zombine/zombine_pain1.wav" ),
 		Sound( "npc/zombine/zombine_pain2.wav" ),
