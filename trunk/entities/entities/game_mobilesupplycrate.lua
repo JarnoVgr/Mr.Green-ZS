@@ -151,8 +151,21 @@ if SERVER then
 		activator.NextPop = CurTime() + 1.5
 
 		local gotSupplies = false
+		
+			if activator:IsPlayer() and activator:IsHuman() then
+				ammoType = 	activator:GetActiveWeapon():GetPrimaryAmmoTypeString()
+					
+				if (ammoType == "none") then
+					return 
+				end
+				
+				if (ammoType == "SniperRound") then
+					return
+				end
+			end		
 			
 		if activator.MobileSupplyTimerActive == false then
+	
 			if activator.GotMobileSupplies == false then
 				activator.GotMobileSupplies = true
 				activator.MobileSupplyTimerActive = true	

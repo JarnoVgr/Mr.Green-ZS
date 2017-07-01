@@ -39,8 +39,8 @@ SWEP.HumanClass = "sharpshooter"
 SWEP.IronSightsPos = Vector(-7.481, -11.891, 2.24)
 SWEP.IronSightsAng = Vector(0, 0, 0)
 
-SWEP.Cone = 0.036
-SWEP.ConeMoving = SWEP.Cone *1.75
+SWEP.Cone = 0.045
+SWEP.ConeMoving = SWEP.Cone *2.5
 SWEP.ConeCrouching = SWEP.Cone *0.75
 SWEP.ConeIron = SWEP.Cone *0.1
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.1

@@ -30,7 +30,7 @@ local function Heal()
 				continue
 			end	
 
-			pl:SetHealth(math.min(pl:Health() + HealAmount, maxheal))				
+			pl:SetHealth(math.min(pl:Health() + HealAmount, pl:GetMaximumHealth()))				
 		end
 	end
 end

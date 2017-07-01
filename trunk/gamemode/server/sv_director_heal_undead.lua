@@ -11,11 +11,11 @@ local HealTimeout = 4
 
 --Amount to heal per cycle
 --local HealAmount = 20
-local HealAmount = 5
+local HealAmount = 1
 
 --Interval time in seconds to heal
 --local HealInterval = 4
-local HealInterval = 1
+local HealInterval = 0.1
 
 local function Heal()
 	local Time = CurTime()
