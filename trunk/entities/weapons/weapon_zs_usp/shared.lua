@@ -41,18 +41,18 @@ SWEP.AutoSwitchFrom		= false
 SWEP.HoldType = "pistol"
 
 SWEP.Primary.Sound			= Sound( "Weapon_USP.Single" )
-SWEP.Primary.Recoil			= 1.0
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Recoil			= 1.5
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 12
-SWEP.Primary.Delay			= 0.14
+SWEP.Primary.Delay			= 0.12
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
 
 SWEP.FlipYaw = true
 
 SWEP.Cone = 0.044
-SWEP.ConeMoving = SWEP.Cone *1.3
+SWEP.ConeMoving = SWEP.Cone *1.8
 SWEP.ConeCrouching = SWEP.Cone *0.75
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80

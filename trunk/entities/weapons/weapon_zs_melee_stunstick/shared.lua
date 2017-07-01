@@ -26,15 +26,15 @@ SWEP.SlotPos = 3
 
 -- Damage, distance, delay
 SWEP.Primary.Delay = 0.8
-SWEP.MeleeDamage = 24
+SWEP.MeleeDamage = 40
 
-SWEP.MeleeRange = 46
+SWEP.MeleeRange = 49
 SWEP.MeleeSize = 1.5
-SWEP.MeleeDelay = 0.95
+SWEP.MeleeDelay = 0.9
 SWEP.WalkSpeed = SPEED_MELEE + 5
 SWEP.MeleeKnockBack = SWEP.MeleeDamage
 SWEP.HumanClass = "berserker"
-SWEP.SwingTime = 0.3
+SWEP.SwingTime = 0.6
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingHoldType = "grenade"
 

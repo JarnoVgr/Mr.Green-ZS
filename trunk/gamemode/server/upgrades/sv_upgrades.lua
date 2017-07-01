@@ -27,9 +27,9 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			olddmg = dmginfo:GetDamage() 
 			mul = 0
 			
-			if dmginfo:IsMeleeDamage() and attacker:Crouching() then
-				mul = mul - 0.22
-			end
+			--if dmginfo:IsMeleeDamage() and attacker:Crouching() then
+			--	mul = mul - 0.22
+			--end
 				
 			if attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("Commando") then
 							
@@ -185,20 +185,16 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			elseif ent:GetPerk("Berserker") then
 			
 				dmg = dmg*0.9
-				if ent:GetPerk("berserker_enrage") then
-					if (ent:Health() > 40 and (ent:Health() - dmg) < 40) then
-						ent:SendLua("WraithScream()")
-						ent:EmitSound(Sound("npc/fast_zombie/fz_scream1.wav"), 90, 85)
-						ent:SetColor(Color(255,125,125))
-					end
-				elseif ent:GetPerk("berserker_porcupine") then
-					attacker:TakeDamage(dmg*0.66, ent, ent:GetActiveWeapon())	
+
+				if ent:GetPerk("berserker_porcupine") then
+					attacker:TakeDamage(dmg*3, ent, ent:GetActiveWeapon())	
 				end
 		
 			elseif ent:GetPerk("pyro_immolate") then
+				dmg = dmg*0.9			
 				attacker:Ignite(4,0)			
 				dmginfo:SetAttacker(ent)
-				attacker:TakeDamageOverTime(10, 1, 4 ,ent,ent)	
+				attacker:TakeDamageOverTime(12, 1, 4 ,ent,ent)	
 			elseif ent:GetPerk("Berserker") then
 				dmg = dmg*0.9	
 			end	

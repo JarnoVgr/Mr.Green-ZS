@@ -26,7 +26,7 @@ end
 
 DEFAULT_VIEW_OFFSET = Vector(0, 0, 64)
 DEFAULT_VIEW_OFFSET_DUCKED = Vector(0, 0, 28)
-DEFAULT_JUMP_POWER = 160
+DEFAULT_JUMP_POWER = 200
 DEFAULT_STEP_SIZE = 18
 DEFAULT_MASS = 80
 DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
@@ -34,18 +34,18 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- Movement stuff
 
 -- 1 to 0, higher means less penality.
-SPEED_PENALTY = 0.55
+SPEED_PENALTY = 0.6
 
-SPEED = 211
-SPEED_LIGHT = SPEED - 2
-SPEED_MELEE_LIGHT = SPEED - 1
-SPEED_MELEE = SPEED - 10
-SPEED_MELEE_HEAVY = SPEED - 25
-SPEED_PISTOL = SPEED - 9
-SPEED_SMG = SPEED - 19
-SPEED_SHOTGUN = SPEED - 23
-SPEED_RIFLE = SPEED - 25
-SPEED_HEAVY = SPEED - 28
+SPEED = 220
+SPEED_LIGHT = SPEED
+SPEED_MELEE_LIGHT = SPEED
+SPEED_MELEE = SPEED - 5
+SPEED_MELEE_HEAVY = SPEED - 15
+SPEED_PISTOL = SPEED - 10
+SPEED_SMG = SPEED - 15
+SPEED_SHOTGUN = SPEED - 20
+SPEED_RIFLE = SPEED - 20
+SPEED_HEAVY = SPEED - 30
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8		--It's meant for creating hordes, doesnt make sense for a zombie to be in a horde if they're across the map.
@@ -160,9 +160,9 @@ GM.HumanWeapons = {
         ["weapon_zs_m249"]  = { Name = "M249", Tier = 4, Type = "rifle", Price = 200, HumanClass = "commando" },  		
 		
         --Support
-        ["weapon_zs_shotgun"]  = { Name = "Shotgun", Tier = 1, Type = "shotgun", Price = 80, HumanClass = "support" },	
+        ["weapon_zs_shotgun"]  = { Name = "Shotgun", Tier = 0, Type = "shotgun", Price = 80, HumanClass = "support" },	
         ["weapon_zs_smg"]  = { Name = "SMG", Tier = 1, Type = "smg", Price = 80, HumanClass = "support"},
-        ["weapon_zs_chipper"]  = { Name = "Chipper", Tier = 2, Price = 120, Type = "shotgun", HumanClass = "support" },       		
+        ["weapon_zs_chipper"]  = { Name = "Chipper", Tier = 1, Price = 120, Type = "shotgun", HumanClass = "support" },       		
         ["weapon_zs_mac10"]  = { Name = "Mac 10", Tier = 2, Type = "smg", Price = 120, HumanClass = "support" },   
         ["weapon_zs_ump"]  = { Name = "UMP", Tier = 3, Type = "smg", Price = 140, HumanClass = "support" },
         ["weapon_zs_m3super90"]  = { Name = "M3", Tier = 3, Type = "shotgun", Price = 160, HumanClass = "support"}, 		
@@ -347,7 +347,7 @@ XP_BLANK = 0
 
 XP_INCREASE_BY = 10000
 
-XP_PLAYERS_REQUIRED = 2
+XP_PLAYERS_REQUIRED = 6
 
 MAX_RANK = 10
 
@@ -406,14 +406,15 @@ GM.Perks = {
 	-- Support	
 		["support_boardpack"] = {Name = "Board Pack", Description = "Replace ammo pack with a pack of boards", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/break_windows"},
 		["support_mobilesupplies"] = {Name = "Mobile Supplies", Description = "Replace ammo pack with mobile supplies", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/kills_with_multiple_guns"},
-		["support_shotgun"] = {Name = "Shotgun", Description = "[TIER 1]\nSpawn with a shotgun", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_m3"},
+		["support_shotgun"] = {Name = "Shotgun", Description = "[TIER 0]\nSpawn with a shotgun", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_m3"},
 		["support_mp5"] = {Name = "MP5", Description = "[TIER 0]\nSpawn with an MP5", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_mp5navy"},
 		
 		["support_ammo"] = {Name = "Ammo", Description = "+40% ammo received", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/kill_enemy_reloading"},
 		["support_repairs"] = {Name = "Repairs", Description = "+3 hammer repair points\n+10 nails on spawn", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/snipe_two_from_same_spot"},
-							   
+		["support_medical"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users and +1 SP for the owner", Class = "Sharpshooter", Slot = 2, Rank = 5, Material = "vgui/achievements/collect_gifts"},              
+					
 		["support_regeneration"] = {Name = "Regeneration", Description = "Regain 1 health every 6 seconds", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/decal_sprays"},
-		["support_bulk"] = {Name = "Bulk", Description = "No speed penalty for weapons", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/meta_weaponmaster"},
+		["support_bulk"] = {Name = "Bulk", Description = "+15% movement speed", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/meta_weaponmaster"},
 		["support_health"] = {Name = "Health", Description = "+50 maximum health", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/last_player_alive"},
 	
 	-- Berserker
@@ -427,10 +428,10 @@ GM.Perks = {
 		["berserker_headhunter"] = {Name = "Head Hunter", Description = "+20% melee damage on heads\n Daze target when struck on the head", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
 		["berserker_battlecharge"] = {Name = "Battle Charge", Description = "Bonus damage received when falling, maximum +500% damage\nIncreased leap power", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/kill_enemy_in_air"}, 
 		
-		["berserker_porcupine"] = {Name = "Porcupine", Description = "67% of damage received goes back to the attacker", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/immovable_object"},
+		["berserker_porcupine"] = {Name = "Porcupine", Description = "300% of damage received goes back to the attacker", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/immovable_object"},
 		["berserker_bloodmoney"] = {Name = "Blood Money", Description = "+9 SP from melee kills", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/win_knife_fights_low"},
 		["berserker_vampire"] = {Name = "Vampire", Description = "+6% of melee damage goes towards health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/meta_pistol"},
-		["berserker_enrage"] = {Name = "Enrage", Description = "Increased movement speed while at or under 40 health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/pistol_round_knife_kill"},
+		["berserker_enrage"] = {Name = "Enrage", Description = "250 movement speed while under 50% health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/pistol_round_knife_kill"},
 				
 	-- Engineer
 		["engineer_bonusturret"] = {Name = "Lockdown", Description = "+1 Turret received on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/bomb_defuse_needed_kit"},
@@ -450,15 +451,14 @@ GM.Perks = {
 	-- Sharpshooter
 		
 		["sharpshooter_python"] = {Name = "Python", Description = "[TIER 1]\nSpawn with the Python", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/hip_shot"},
-		["sharpshooter_medical"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users and +1 SP for the owner", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/collect_gifts"},              
+		["sharpshooter_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/domination_overkills_low"},
 		
 		["sharpshooter_fragments"] = {Name = "Fragments", Description = "25% chance a sharpshooter shot will explode in fragments.\n5-8 fragments\n40% of weapon damage per fragment\n-50% accuracy on fragment shot", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/kill_low_damage"},
-		["sharpshooter_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/domination_overkills_low"},
 		["sharpshooter_double"] = {Name = "Double Calibre", Description = "+2 Musket clip size\n+2 Python clip size", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/kill_two_with_one_shot"},              
 		["sharpshooter_friction"] = {Name = "Friction Burn", Description = "25% chance to ignite target with a headshot", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/immovable_object"},        
 		
 		["sharpshooter_skillshot"] = {Name = "Skill Shot", Description = "+5 SP for headshot kills", Class = "Sharpshooter", Slot = 3, Rank = 8, Material = "vgui/achievements/headshots_in_round"},           
-		["sharpshooter_agility"] = {Name = "Agility", Description = "+7% movement speed\n+40 jump power", Class = "Sharpshooter", Slot = 3, Rank = 8, Material = "vgui/achievements/kill_enemy_in_air"},
+		["sharpshooter_agility"] = {Name = "Agility", Description = "+10% movement speed\n+40 jump power", Class = "Sharpshooter", Slot = 3, Rank = 8, Material = "vgui/achievements/kill_enemy_in_air"},
 	-- Pyro
 	
 		["pyro_backfire"] = {Name = "Backfire", Description = "6 pyro ammunition back when target has been ignited", Class = "Pyro", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_reloading"},
@@ -468,7 +468,7 @@ GM.Perks = {
 		["pyro_flare"] = {Name = "Flare Bounce", Description = "+10 flare damage\n75% chance flare doesn't explode on impact", Class = "Pyro", Slot = 2, Rank = 3, Material = "hud/t_victories_rescue-failed"},
 	   
 		["pyro_hotpoints"] = {Name = "Hot Points", Description = "+3 SP when a target is burnt", Class = "Pyro", Slot = 3, Rank = 5, Material = "vgui/achievements/kill_bomb_pickup"},          
-		["pyro_immolate"] = {Name = "Immolate", Description = "Burn the target that damages you", Class = "Pyro", Slot = 3, Rank = 5, Material = "hud/t_victories_counter-terrorist-eliminated"},
+		["pyro_immolate"] = {Name = "Immolate", Description = "Burn the target that damages you\n+10% damage resistance", Class = "Pyro", Slot = 3, Rank = 5, Material = "hud/t_victories_counter-terrorist-eliminated"},
 	
 	
 	-- Bonus Perks
@@ -594,7 +594,7 @@ CARRY_DRAG_VOLUME = 120
 CARRY_MAXIMUM_VOLUME = 150
 
 -- Humans are slowed by this amount per kg carried.
-CARRY_SPEEDLOSS_PERKG = 1.1
+CARRY_SPEEDLOSS_PERKG = 1.5
 
 -- But never slower than this.
 CARRY_SPEEDLOSS_MINSPEED = 160

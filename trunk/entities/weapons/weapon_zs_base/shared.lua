@@ -117,7 +117,6 @@ function SWEP:PrimaryAttack()
 		self.Owner:SetEyeAngles(eyeang)
 	end
 
-	local accuracy = 0
 	local j = 0
 	if self.Owner:GetVelocity():Length() > 10 then
 		j = 0.5
@@ -135,44 +134,7 @@ function SWEP:PrimaryAttack()
 		end		
 	end
 	
-	if (self.Primary.Ammo == "pistol") then
-
-		for i=1, 6 do
-			if self.LastShot > CurTime() - (i * 0.099) then
-				accuracy = (cone * ((j + 0.9) - (i * 0.09)))
-				break
-			
-			elseif i == 6 then
-				accuracy = cone * 0.3
-				break
-			end
-		end
-
-	elseif (self.Primary.Ammo == "buckshot" or self.Primary.Ammo == "357") then
-		for i=1, 6 do
-			if self.LastShot > CurTime() - (i * 0.135) then
-				accuracy = (cone * ((j + 1.21) - (i * 0.12)))
-				break
-			
-			elseif i == 6 then
-				accuracy = cone * 0.7
-				break
-			end
-		end	
-	else
-		for i=1, 6 do
-			if self.LastShot > CurTime() - (i * 0.089) then
-				accuracy = (cone * ((j + 1.109) - (i * 0.1)))
-				break
-			
-			elseif i == 6 then
-				accuracy = cone * 0.3
-				break
-			end
-		end
-	end
-	
-	accuracy = accuracy * self.AccuracyBonus	
+	local accuracy = cone * self.AccuracyBonus	
 	self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, accuracy)		
 
 	--Knockback

@@ -36,7 +36,7 @@ SWEP.HoldType = "revolver"
 SWEP.HumanClass = "medic"
 SWEP.Primary.Sound			= Sound( "Weapon_Deagle.Single" )
 SWEP.Primary.Recoil			= 2.25
-SWEP.Primary.Damage			= 29
+SWEP.Primary.Damage			= 34
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 7
 SWEP.Primary.Delay			= 0.2
@@ -52,7 +52,7 @@ SWEP.WalkSpeed = SPEED_PISTOL
 --SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.80
 
 SWEP.Cone = 0.048
-SWEP.ConeMoving = SWEP.Cone *1.33
+SWEP.ConeMoving = SWEP.Cone *1.9
 SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8

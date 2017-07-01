@@ -178,40 +178,7 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 	
 	
 	
-	--Fall damage
-	if dmginfo:IsFallDamage() then
-		dmginfo:SetDamage(0)
-			
-		if (pl:GetVelocity().z < 0) then
-			local damage = (pl:GetVelocity().z * -1) * 0.1
-			
-			if not pl:IsHuman() then
-				damage = damage * 0.5
-			elseif pl:HasBought("bootsofsteel") then
-				damage = damage * 0.6
-			end			
-			dmginfo:AddDamage(damage)
-		end
 
-		--Shake camera
-		if pl.ViewPunch then
-			pl:ViewPunch(Angle(math.random(-45, 45),math.random (-15, 15), math.random(-10, 10)))
-		end 
-			
-
-		--Add new damage
-		--dmginfo:AddDamage(Damage)
-
-		
-		--[[if pl:Alive() then
-				if pl:GetPerk("_point") then
-					return
-				else	
-			pl:GiveStatus("knockdown",1)
-			end
-		end]]--
-	end
-	
 	-- Clamp phys damage
 	if pl:IsPlayer() and dmginfo:GetAttacker():IsPlayer() and pl:Team() ~= dmginfo:GetAttacker():Team() then
 		local Inflictor = dmginfo:GetInflictor()

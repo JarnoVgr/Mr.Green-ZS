@@ -48,7 +48,7 @@ SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "none"
 SWEP.Secondary.Delay = 0.15
 
-SWEP.WalkSpeed = 185
+SWEP.WalkSpeed = SPEED_MELEE
 
 function SWEP:InitializeClientsideModels()
 	self.VElements = {
@@ -59,16 +59,16 @@ function SWEP:InitializeClientsideModels()
 	self.ViewModelBoneMods = {
 		["v_weapon.c4"] = { scale = Vector(0.01,0.01, 0.01), pos = Vector(-10.555, -12.747, -0.622), angle = Angle(9.326, 7.46, 37.305) },
 	
-		["v_weapon.button0"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button1"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button2"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button3"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button5"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button6"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button7"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button8"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
-		["v_weapon.button9"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["v_weapon.button0"] = { scale = Vector(0.001, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["v_weapon.button1"] = { scale = Vector(0.001, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["v_weapon.button2"] = { scale = Vector(0.001, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["v_weapon.button3"] = { scale = Vector(0.001, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["v_weapon.button4"] = { scale = Vector(0.001, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["v_weapon.button5"] = { scale = Vector(0.001, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["v_weapon.button6"] = { scale = Vector(0.001, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["v_weapon.button7"] = { scale = Vector(0.001, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["v_weapon.button8"] = { scale = Vector(0.001, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
+		["v_weapon.button9"] = { scale = Vector(0.001, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
 	}
 end
 
@@ -97,7 +97,7 @@ function SWEP:PrimaryAttack()
 	if self and self:IsValid() and self.Weapon:Clip1() < 1 then
 		return
 	end
-	self:SetNextPrimaryFire(CurTime() + 1)
+	self:SetNextPrimaryFire(CurTime() + 0.1)
 	self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(75, 80))
 	
 	if SERVER then
@@ -106,24 +106,10 @@ function SWEP:PrimaryAttack()
 			ent:SetPos(tr.HitPos)
 			ent:SetAngles(aimvec:Angle())
 			ent:Spawn()
-			--ent:SetAmmoType("pistol")
-
-			--if self.Owner:GetPerk("_plankhp") then
-			local phys = ent:GetPhysicsObject()
-			
-			if phys:IsValid() then
-				local Vel = self.Owner:GetAimVector() * 1250
-				phys:ApplyForceCenter( Vel )			
-			end
-			ent:SetPhysicsAttacker(self.Owner)
 			self:TakePrimaryAmmo(1)
 		end
 	end
-
-	
-
 end
-
 
 function SWEP:EmitFireSound()
 		self:EmitSound("weapons/iceaxe/iceaxe_swing1.wav", 75, math.random(75, 80))

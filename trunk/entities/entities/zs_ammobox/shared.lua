@@ -26,12 +26,13 @@ ammoTypes = {
 function ENT:Initialize()
 	if SERVER then	
 	
-	local raw_types = {}
-	for k, v in pairs( ammoTypes ) do
-	  table.insert( raw_types, k )
-	end
+	--local raw_types = {}
+	--for k, v in pairs( ammoTypes ) do
+	--  table.insert( raw_types, k )
+	--end
 
-	self:SetAmmoType(table.Random(raw_types))	
+	--self:SetAmmoType(table.Random(raw_types))	
+	self:SetAmmoType("smg1")		
 		self:DrawShadow(false)
 		self.Entity:PhysicsInit(SOLID_VPHYSICS)
 		self.Entity:SetMoveType(MOVETYPE_VPHYSICS)
@@ -67,9 +68,24 @@ if SERVER then
 		end
 	
 		if activator:IsPlayer() and activator:IsHuman() then
-			activator:GiveAmmoPack(self.AmmoType)	
-			self:EmitSound("items/gift_pickup.wav" )
-			self:Remove()			
+		
+		ammoType = 	activator:GetActiveWeapon():GetPrimaryAmmoTypeString()
+			
+		if (ammoType == "none") then
+			return 
+		end
+		
+		if (ammoType == "SniperRound") then
+			return
+		end
+			
+		activator:GiveAmmoPack(ammoType)	
+				
+		--activator:GiveAmmoPack(self.AmmoType)	
+
+		self:EmitSound("items/gift_pickup.wav" )
+		self:Remove()	
+		
 		end
 	end
 end

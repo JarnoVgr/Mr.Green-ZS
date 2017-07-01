@@ -222,55 +222,35 @@ function cMove.HumanMove ( pl, CMove )
 	local iForward = CMove:GetForwardSpeed()
 	local iSide = CMove:GetSideSpeed()
 	
+	local iNewSpeed = pl:GetMaxSpeed()
+	
 	-- Player is dazed
 	if pl.IsDazed then
 		local iTimeLeft = pl.DazeTime - CurTime()
 		local fMul = iTimeLeft / pl.DazeDuration
 
-		local iNewSpeed = pl.DazeBeforeSpeed * ( 1 - fMul ) 
-		
-		if CMove:GetForwardSpeed() < 0 then
-			iNewSpeed = iNewSpeed * SPEED_PENALTY
-		end	
-
-		CMove:SetSpeed ( iNewSpeed )		
-		return
+		iNewSpeed = pl.DazeBeforeSpeed * ( 1 - fMul ) 
 	end
+	
+	if iForward < 0 then
+		iNewSpeed = iNewSpeed * SPEED_PENALTY
+		if ( iForward < 0 and iSide > 0 ) or ( iForward < 0 and iSide < 0 ) then 
+			iNewSpeed = iNewSpeed * SPEED_PENALTY
+		end
+	end	
+	
+	CMove:SetSpeed(iNewSpeed)
+
 	--print(iSide)
 	-- Walking backwards slows
 end
 
 -- Wondering if I should enable this or not
-function GM:Move( pl, CMove )
-
-	if not pl.IsDazed then
-		if pl:GetVelocity().z < -190 then
-			pl:Daze(0.5)
-		elseif pl:GetVelocity().z < -100 then
-			pl:Daze(0.5)			
-		elseif pl:GetVelocity().z < -60 then
-			pl:Daze(0.5)			
-		end
-		
-		if pl:Crouching() then
-			pl:SetStepSize(14)
-		else
-			pl:SetStepSize(18)	
-		end
-		
-		if pl:Crouching() and not pl:OnGround() and CMove:GetForwardSpeed() > 0 then
-			pl:Daze(1)
-		end
-	end
-	
-	if CMove:GetForwardSpeed() < 0 then
-		CMove:SetSpeed (SPEED*SPEED_PENALTY)		
-	end		
-	
+function GM:Move( pl, CMove )	
 	--print(pl:GetForwardSpeed()) 
 
 	-- Move data for humans
-	if pl:IsHuman() then cMove.HumanMove ( pl, CMove )return end
+	if pl:IsHuman() then cMove.HumanMove ( pl, CMove ) return end
 	if pl:IsZombie() then 
 		local wep = pl:GetActiveWeapon()
 				if wep and IsValid(wep) and wep.Move then 

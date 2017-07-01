@@ -41,10 +41,10 @@ SWEP.HoldType = "pistol"
 SWEP.HumanClass = "medic"
 
 SWEP.Primary.Sound			= Sound( "Weapon_FiveSeven.Single" )
-SWEP.Primary.Recoil			= 1
-SWEP.Primary.Damage			= 15
+SWEP.Primary.Recoil			= 1.5
+SWEP.Primary.Damage			= 17
 SWEP.Primary.NumShots		= 1
-SWEP.Primary.ClipSize		= 15
+SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Delay			= 0.1
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "pistol"
@@ -53,7 +53,7 @@ SWEP.MaxAmmo			    = 60
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 
 SWEP.Cone = 0.053
-SWEP.ConeMoving = SWEP.Cone *1.3
+SWEP.ConeMoving = SWEP.Cone *1.8
 SWEP.ConeCrouching = SWEP.Cone *0.8
 SWEP.ConeIron = SWEP.Cone *0.8
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.8

@@ -289,6 +289,7 @@ function GM:OnHumanSpawn(pl)
 	elseif pl:GetPerk("Support") then		
 		pl.PlayerModel = table.Random(SupportPlayerModels)
 	elseif pl:GetPerk("Berserker") then
+		pl:DoMuscularBones()
 		pl.PlayerModel = table.Random(BerserkerPlayerModels)
 	elseif pl:GetPerk("Engineer") then
 		pl.PlayerModel = table.Random(EngineerPlayerModels)
@@ -369,11 +370,11 @@ function GM:OnHumanSpawn(pl)
 
 	--Set crouch speed
 
-	pl:SetCrouchedWalkSpeed(0.33)
+	pl:SetCrouchedWalkSpeed(0.40)
 
 	--Set jump power
-	if pl:GetJumpPower() ~= 220 then
-		pl:SetJumpPower(220)
+	if pl:GetJumpPower() ~= DEFAULT_JUMP_POWER then
+		pl:SetJumpPower(DEFAULT_JUMP_POWER)
 	end
 	
 	if (pl:GetPerk("sharpshooter_agility")) then
@@ -382,6 +383,7 @@ function GM:OnHumanSpawn(pl)
 	
 	--Calculate maximum health for human
 	CalculatePlayerHealth(pl)
+	CalculatePlayerSpeedMultiplier(pl)
 	
 	--
 	pl:DoHulls()
@@ -701,9 +703,7 @@ function CalculatePlayerLoadout(pl)
 		pl.Loadout = table.Copy(support)
 		if pl:GetPerk("support_shotgun") then
 			pl:Give("weapon_zs_shotgun")
-			pl.Tier = 2
-			pl:GiveAmmo(18, "buckshot")
-			pl.SPRequired = 150				
+			pl:GiveAmmo(18, "buckshot")			
 		elseif pl:GetPerk("support_mp5") then
 			pl:Give("weapon_zs_mp5")		
 			pl:GiveAmmo(60, "SMG1")
@@ -972,6 +972,31 @@ function CalculatePlayerHealth(pl)
 	-- Actually set the health
 	pl:SetHealth(Health)
 	pl:SetMaximumHealth(Health)
+end
+
+function CalculatePlayerSpeedMultiplier(pl)
+
+	local multiplier = 1
+	
+	if pl:GetPerk("Berserker") then
+		multiplier = multiplier + 0.03 + ((pl:GetRank()*0.5)*0.01)
+		
+	elseif pl:GetPerk("Commando") then
+
+		
+	elseif pl:GetPerk("Support") then	
+		if pl:GetPerk("support_bulk") then
+			multiplier = multiplier + 0.15
+		end
+		
+	elseif pl:GetPerk("sharpshooter_agility") then
+		multiplier = multiplier + 0.1
+		
+	elseif pl:GetPerk("Medic") then
+		multiplier = multiplier + 0.03 + ((pl:GetRank()*0.5)*0.01)
+	end	
+	
+	pl:SetSpeedMultiplier(multiplier * 100)
 end
 
 --[==[----------------------------------------------------

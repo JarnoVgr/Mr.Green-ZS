@@ -28,7 +28,7 @@ SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.Author	= "NECROSSIN"	
 
-SWEP.ViewModelFOV = 65
+SWEP.ViewModelFOV = 60
 
 SWEP.Info = "Left click to place a Mobile Supplies"
 
@@ -65,7 +65,7 @@ SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic   	= true
 SWEP.Secondary.Ammo         = "none"
 
-SWEP.WalkSpeed = 170
+SWEP.WalkSpeed = SPEED_MELEE_HEAVY
 
 local ShootSound = Sound("items/ammo_pickup.wav")
 local FailSound = Sound("buttons/combine_button_locked.wav")

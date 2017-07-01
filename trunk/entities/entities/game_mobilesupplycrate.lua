@@ -34,7 +34,7 @@ function ENT:Initialize()
 		self.CrateMaxHealth = 200
 	end
 	
-	if self:GetPlacer():GetPerk("sharpshooter_medical") then	
+	if self:GetPlacer():GetPerk("support_medical") then	
 		self.Entity:SetColor( Color( 0, 200, 200, 255 ) )
 	end
 			
@@ -166,7 +166,7 @@ if SERVER then
 				local Owner = self:GetPlacer()
 				
 				--Heal 
-				if activator:Health() < activator:GetMaximumHealth() and Owner:GetPerk("sharpshooter_medical") then
+				if activator:Health() < activator:GetMaximumHealth() and Owner:GetPerk("support_medical") then
 					activator:SetHealth(activator:Health() + 4)
 					skillpoints.AddSkillPoints(Owner,1)			
 				end

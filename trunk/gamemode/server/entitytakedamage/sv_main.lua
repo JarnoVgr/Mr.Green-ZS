@@ -289,12 +289,33 @@ function GM:SetupProps()
 end
 
 -- Disable 'crunch' sound for zombies on falldamage
-function GM:OnPlayerHitGround ( ent )
-	if IsEntityValid( ent ) then
-		if not ent:IsHuman() then 
-			return true 
-		end
+function GM:OnPlayerHitGround(pl, inwater, hitfloater, speed)
+
+	local isundead = pl:Team() == TEAM_UNDEAD
+	
+	
+	if isundead then
+		speed = math.max(0, speed - 200)
 	end
+
+	local damage = (0.1 * (speed - 460))
+	if hitfloater then damage = damage / 2 end
+
+	if math.floor(damage) > 0 then
+		if SERVER then
+			if damage >= 30 and damage < pl:Health() then
+				pl:GiveStatus("knockdown",damage * 0.05)
+			end
+			pl:EmitSound("player/pl_fallpain"..(math.random(2) == 1 and 3 or 1)..".wav")
+		end
+	end		
+		
+	if pl:HasBought("bootsofsteel") then
+		damage = damage * 0.6
+	end			
+	
+	pl:TakeDamage(damage)
+
 end
 
 Debug ( "[MODULE] Loaded Entity-Take-Damage file." )

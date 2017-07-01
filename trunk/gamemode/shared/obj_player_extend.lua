@@ -814,8 +814,44 @@ function meta:SetMaximumHealth(Max)
 	self:SetDTInt(0, math.Round(Max))
 end
 
+
 function meta:GetMaximumHealth()
 	return self:GetDTInt(0)
+end
+
+local MuscularBones = {
+	["ValveBiped.Bip01_R_Upperarm"] = Vector(1, 2, 2),
+	["ValveBiped.Bip01_R_Forearm"] = Vector(1, 2, 2),
+	["ValveBiped.Bip01_L_Upperarm"] = Vector(1, 2, 2),
+	["ValveBiped.Bip01_L_Forearm"] = Vector(1, 2, 2)
+}
+
+function meta:DoMuscularBones()
+	if self:Team() == TEAM_HUMAN then
+		self.MuscularBones = {}
+
+		for bonename, newscale in pairs(MuscularBones) do
+			local boneid = self:LookupBone(bonename)
+			if boneid and boneid > 0 then
+				table.insert(self.MuscularBones, boneid)
+				self:ManipulateBoneScale(boneid, newscale)
+			end
+		end
+	end
+end
+
+
+function meta:SetSpeedMultiplier(Max)
+	if CLIENT then
+		return
+	end
+	
+	self.SpeedMultiplier = Max
+	self:SetDTInt(4, math.Round(Max))
+end
+
+function meta:GetMaximumSpeedMultiplier()
+	return self:GetDTInt(4)	
 end
 
 function meta:GetXP()

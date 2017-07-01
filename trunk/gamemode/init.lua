@@ -546,11 +546,7 @@ local function DeleteEntitiesRestricted()
 			itemToSpawn:SetAngles(v:GetAngles())
 			itemToSpawn:Spawn()
 			
-			
-			
-			if v:GetClass() == "item_healthvial" then
-				itemToSpawn:SetAmmoType("Battery")
-			elseif v:GetClass() == "item_box_buckshot" then
+			if v:GetClass() == "item_box_buckshot" then
 				itemToSpawn:SetAmmoType("buckshot")
 			elseif v:GetClass() == "item_ammo_pistol" then
 				itemToSpawn:SetAmmoType("pistol")

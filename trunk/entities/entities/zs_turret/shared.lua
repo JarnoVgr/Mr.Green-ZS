@@ -34,15 +34,15 @@ end
 ENT.MaxHealth = 80
 ENT.MaxBullets = 100
 ENT.RechargeDelay = 0.2 -- recharge delay when turret is active, when turret is 'offline' recharge delay will be based off that one
-ENT.SpotDistance = 650
-ENT.Damage = 3
+ENT.SpotDistance = 626
+ENT.Damage = 2
 ENT.IgnoreClasses = {4,7,9,18} -- Index of zombie's classes that turret should ignore
 ENT.IgnoreDamage = {7,9}
 ENT.MinimumAimDot = 0.3
 ENT.NumBullets = 1
-ENT.AmmoRecharge = 0.14
-ENT.ShootDelay = 0.07
-ENT.Accuracy = 0
+ENT.AmmoRecharge = 0.03
+ENT.ShootDelay = 0.01
+ENT.Accuracy = 0.033
 
 local function MyTrueVisible(posa, posb, filter)
 	local filt = ents.FindByClass("projectile_*")
@@ -80,7 +80,7 @@ if SERVER then
 			self.Damage = self.Damage + (self:GetTurretOwner():GetRank() * 0.1) + 1
 			self.MaxHealth = self.MaxHealth + self:GetTurretOwner():GetRank()
 			self.MaxBullets = self.MaxBullets + (self:GetTurretOwner():GetRank() * 2) + 10
-			self.AmmoRecharge = 0.13 - (self:GetTurretOwner():GetRank() * 0.005)			
+			self.AmmoRecharge = 0.029 - (self:GetTurretOwner():GetRank() * 0.005)			
 		end		
 		
 		if self:GetTurretOwner():GetPerk("engineer_turret") then --Class engineer 
@@ -378,50 +378,25 @@ if SERVER then
 
 	local damageisfalse = {damage = false, effect = true}
 
-	local tempknockback
-	function ENT:StartBulletKnockback()
-		tempknockback = {}
-	end
 
-	function ENT:EndBulletKnockback()
-		tempknockback = nil
-	end
-
-	function ENT:DoBulletKnockback()
-		--for ent, prevvel in pairs(tempknockback) do
-		--	local curvel = ent:GetVelocity()
-		--	ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.001 + prevvel)
-		--end
-	end
-
-	function GenericBulletCallback(attacker, tr, dmginfo)
-		local ent = tr.Entity
-		if ent:IsValid() then
-			if ent:IsPlayer() then
-				if ent:Team() == TEAM_UNDEAD and tempknockback then
-					tempknockback[ent] = ent:GetVelocity()
-				end
-			else
-				local phys = ent:GetPhysicsObject()
-				if ent:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
-					ent:SetPhysicsAttacker(attacker)
-				end
-			end
-		end
-	end
 
 	local function BulletCallback(attacker, tr, dmginfo)
-		local ent = tr.Entity
-		if ent:IsValid() then
-			ent:TakeSpecialDamage(dmginfo:GetDamage(), dmginfo:GetDamageType(), TURRETOWNER, TURRET, tr.HitPos)
+		--local ent = tr.Entity
+		--if ent:IsValid() then
+			--if ent:IsPlayer() then
+				--if ent:Team() == TEAM_UNDEAD then
+						--local curvel = ent:GetVelocity()
+					--ent:SetVelocity(curvel * -1 + (curvel - prevvel) * 0.01 + prevvel)
+				--end
+			--else
+			--	local phys = ent:GetPhysicsObject()
+			--	if ent:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
+			--		ent:SetPhysicsAttacker(attacker)
+			--	end
+			--end
+		--end
 
-			local phys = ent:GetPhysicsObject()
-			if ent:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
-				ent:SetPhysicsAttacker(attacker)
-			end
-		end
-
-		return damageisfalse
+		--return damageisfalse
 	end
 
 	function ENT:Shoot()
@@ -437,15 +412,15 @@ if SERVER then
 		bullet.Num = self.NumBullets
 		bullet.Src = self:GetShootPos()
 		bullet.Dir = self:GetShootDir()
-		bullet.Spread = Vector(self.Accuracy, self.Accuracy, self.Accuracy)  
+		bullet.Spread = Vector(self.Accuracy, self.Accuracy, 0)  
 		bullet.Tracer = 3
-		bullet.Force = 0
+		bullet.Force = 1
 		bullet.Damage = self.Damage
 		bullet.TracerName = "AR2Tracer"
 		bullet.Callback = BulletCallback
 		
 		self:FireBullets(bullet)
-		
+
 		self:TakeAmmo(self.NumBullets)
 		
 		self.LastShootTime = CurTime() + 3

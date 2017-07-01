@@ -25,23 +25,23 @@ SWEP.WorldModel = Model ( "models/weapons/w_fryingpan.mdl" )
 
 -- Name
 SWEP.PrintName = "Frying Pan"
-SWEP.ViewModelFOV = 60
+SWEP.ViewModelFOV = 55
 
 -- Position
 SWEP.Slot = 2
 SWEP.SlotPos = 4
 SWEP.HumanClass = "berserker"
 -- Damage, distane, delay
-SWEP.Primary.Delay = 0.6
+SWEP.Primary.Delay = 0.8
 SWEP.DamageType = DMG_CLUB
-SWEP.MeleeDamage = 20
+SWEP.MeleeDamage = 40
 SWEP.MeleeRange = 54
 SWEP.MeleeSize = 1.0
 SWEP.WalkSpeed = SPEED_MELEE
 SWEP.MeleeKnockBack = SWEP.MeleeDamage * 1.1
 
 SWEP.SwingRotation = Angle(30, -30, -30)
-SWEP.SwingTime = 0.38
+SWEP.SwingTime = 0.5
 SWEP.SwingHoldType = "grenade"
 
 function SWEP:PlayHitSound()

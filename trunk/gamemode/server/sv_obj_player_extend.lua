@@ -1476,65 +1476,39 @@ function meta:DoHulls(classid, teamid)
 	self:CollisionRulesChanged()
 end
 
-function meta:CheckEnrage(damage)
-	if self:GetPerk("berserker_enrage") and self:Health() - damage <= 40 then
-		local fSpeed = SPEED + 25
-		GAMEMODE:SetPlayerSpeed(self, fSpeed)		
-	end		
-end
-
-function meta:CheckSpeedChange()
+function meta:CheckSpeedChange(damage)
 	if not IsValid(self) then return end
-	
-	local wep = self:GetActiveWeapon()	
-
+	damage = damage or 0
 	if self:IsBot() then return end
 
+	local wep = self:GetActiveWeapon()	
 	
 	-- Weapon walking speed, health, and player human class
-	local fSpeed, fHealth, iClass, fHealthSpeed = wep.WalkSpeed or SPEED, self:Health(), self:GetHumanClass()
+	local fSpeed, fHealthMaximum, fHealth = wep.WalkSpeed or SPEED, self:GetMaximumHealth(), self:Health() - damage
 	
-	if self:GetPerk("Berserker") then
-		local multiplier = 0.03 + ((self:GetRank()*0.5)*0.01)
-		fSpeed = fSpeed +(fSpeed*multiplier)
-		
-	elseif self:GetPerk("Commando") then
-		fSpeed = fSpeed - 8	
-		
-	elseif self:GetPerk("Support") then
-		fSpeed = fSpeed - 10	
-		
-		if self:GetPerk("support_bulk") then
-			fSpeed = SPEED
-		end
-		
+	local fHealthSpeed = math.Clamp ((fHealth / (fHealthMaximum * 0.2)), 0.8, 1 )	
 
-	elseif self:GetPerk("sharpshooter_agility") then
-		fSpeed = fSpeed*1.07
+	fSpeed = math.Round ( fSpeed * fHealthSpeed )	
+
 		
-	elseif self:GetPerk("Medic") then
-		local multiplier = 0.03 + ((self:GetRank()*0.5)*0.01)
-		fSpeed = fSpeed + (fSpeed*multiplier)	
-	end	
-	
-	fHealthSpeed = math.Clamp ( ( fHealth / 60 ), 0.9, 1 )
-				
 	if self:IsHolding() then
 		local status = self.status_human_holding
 			if status and IsValid(status) and status:GetOwner() == self and status.GetObject and status:GetObject():IsValid() and status:GetObject():GetPhysicsObject():IsValid() then
-				fSpeed = math.max(CARRY_SPEEDLOSS_MINSPEED, fSpeed - status:GetObject():GetPhysicsObject():GetMass() * CARRY_SPEEDLOSS_PERKG)
+				fSpeed = fSpeed - status:GetObject():GetPhysicsObject():GetMass() * CARRY_SPEEDLOSS_PERKG
 				-- break
 			end
-	else
-		fSpeed = math.Round ( fSpeed * fHealthSpeed )
 	end
-	
-	if self:GetPerk("berserker_enrage") and fHealth <= 40 then
-		fSpeed = SPEED + 28
-	end		
 
-	GAMEMODE:SetPlayerSpeed(self, fSpeed)
+	if self:GetPerk("berserker_enrage") and fHealth < (self:GetMaximumHealth() * 0.5) then
+		fSpeed = 250
 	
+		ent:SendLua("WraithScream()")
+		ent:EmitSound(Sound("npc/fast_zombie/fz_scream1.wav"), 90, 85)
+		ent:SetColor(Color(255,125,125))
+
+	end		
+	
+	GAMEMODE:SetPlayerSpeed(self, fSpeed * (self:GetMaximumSpeedMultiplier() / 100))
 end
 
 function meta:SpawnMiniTurret()
@@ -1560,8 +1534,10 @@ function meta:GiveAmmoPack(ammoType)
 	if (not ammoType) then
 		ammoType = AmmoType
 	end
+	
 
-	if ((AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none") and ammoType == "Supply") then
+
+	if ((AmmoType == "slam" or AmmoType == "grenade" or AmmoType == "none")) then
 		WeaponToFill:SetClip1(WeaponToFill:Clip1() + 1)
 	elseif (ammoType) then
 	

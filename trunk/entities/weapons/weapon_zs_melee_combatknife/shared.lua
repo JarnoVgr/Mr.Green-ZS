@@ -18,7 +18,7 @@ end
 
 -- Name and fov
 SWEP.PrintName = "Combat Knife"
-SWEP.ViewModelFOV = 60
+SWEP.ViewModelFOV = 55
 SWEP.ShowViewModel = true
 
 -- Position
@@ -27,7 +27,7 @@ SWEP.SlotPos = 6
 
 -- Damage, distane, delay
 
-SWEP.Primary.Delay = 0.68
+SWEP.Primary.Delay = 0.3
 SWEP.SwingTime = 0
 SWEP.HoldType = "knife"
 SWEP.SwingTime = 0.1

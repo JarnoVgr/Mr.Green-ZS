@@ -30,8 +30,8 @@ local function OnPlayerDamage(pl, attacker, inflictor, dmginfo )
 	
 
 	if pl:IsHuman() then
-		pl:CheckSpeedChange()
-		pl:CheckEnrage(dmginfo:GetDamage())		
+		pl:CheckSpeedChange(dmginfo:GetDamage())
+
 	end
 	-- Victim got hit
 	pl.TookHit = true

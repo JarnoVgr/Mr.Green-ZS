@@ -47,7 +47,7 @@ SWEP.WorldModel = Model("models/weapons/w_keyboard.mdl")
 
 -- Name and fov
 SWEP.PrintName = "Keyboard"
-SWEP.ViewModelFOV = 60
+SWEP.ViewModelFOV = 55
 
 -- Slot position
 SWEP.Slot = 2
@@ -57,11 +57,11 @@ SWEP.SlotPos = 5
 SWEP.HumanClass = "berserker"
 SWEP.MeleeSize = 1.0
 SWEP.DamageType = DMG_CLUB
-SWEP.MeleeDamage = 20
+SWEP.MeleeDamage = 40
 SWEP.MeleeRange = 60
 SWEP.WalkSpeed = SPEED_MELEE
 
-SWEP.SwingTime = 0.3
+SWEP.SwingTime = 0.6
 SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingOffset = Vector(0, -30, 0)
 SWEP.SwingHoldType = "melee"

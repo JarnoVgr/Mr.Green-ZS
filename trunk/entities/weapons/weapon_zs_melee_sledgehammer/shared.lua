@@ -28,7 +28,7 @@ SWEP.WorldModel = "models/weapons/w_sledgehammer.mdl"
 
 -- Name and fov
 SWEP.PrintName = "Sledgehammer"
-SWEP.ViewModelFOV = 60
+SWEP.ViewModelFOV = 55
 
 -- Slot pos
 SWEP.Slot = 2
@@ -37,18 +37,18 @@ SWEP.HoldType = "melee2"
 -- Damage, distane, delay
 
 SWEP.HumanClass = "berserker"
-SWEP.MeleeDamage = 60
+SWEP.MeleeDamage = 75
 SWEP.MeleeRange = 60
 SWEP.MeleeSize = 2.0
-SWEP.MeleeKnockBack = SWEP.MeleeDamage
+SWEP.MeleeKnockBack = SWEP.MeleeDamage * 4
 
-SWEP.Primary.Delay = 1.33
+SWEP.Primary.Delay = 1.4
 
 SWEP.WalkSpeed = SPEED_MELEE_HEAVY
 
 SWEP.SwingRotation = Angle(60, 0, -80)
 SWEP.SwingOffset = Vector(0, -30, 0)
-SWEP.SwingTime = 0.9
+SWEP.SwingTime = 1
 SWEP.SwingHoldType = "melee"
 
 function SWEP:PlaySwingSound()
