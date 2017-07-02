@@ -136,7 +136,7 @@ function SWEP:SecondaryAttack()
 					self.Weapon:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
 					self.Owner:SetAnimation(PLAYER_ATTACK1)						
 					if (SERVER) then	
-						ent:TakeDamageOverTime(8, 1, 5 ,self.Owner,self)							
+						ent:TakeDamageOverTime(10, 1, 5 ,self.Owner,self)							
 					end					
 					self:SetNextCharge(CurTime() + 10)
 				end

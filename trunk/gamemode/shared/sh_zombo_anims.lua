@@ -31,10 +31,10 @@ function GM:UpdateZombieAnimation( pl, vel, maxseqgroundspeed )
 	local rate = 1.0
 	
 	if len2d > 0.5 then
-		rate = ( ( len2d) / maxseqgroundspeed )
+		rate = ( ( len2d) / (maxseqgroundspeed * 1.5) )
 	end
 	
-	rate = math.Clamp(rate, 0.8, 1.5)
+	rate = math.Clamp(rate, 0.8, 2)
 	
 	pl:SetPlaybackRate( rate )
 	if pl._PlayBackRate then

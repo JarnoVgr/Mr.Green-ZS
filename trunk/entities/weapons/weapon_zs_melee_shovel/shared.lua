@@ -25,7 +25,7 @@ SWEP.UseHands = true
 SWEP.WorldModel = "models/weapons/w_shovel.mdl"
 
 SWEP.MeleeDamage = 55
-SWEP.MeleeRange = 65
+SWEP.MeleeRange = 70
 SWEP.MeleeSize = 1.3	
 SWEP.HumanClass = "berserker"
 SWEP.Primary.Delay = 1.25

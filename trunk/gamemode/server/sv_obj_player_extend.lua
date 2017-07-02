@@ -49,7 +49,7 @@ function takeDamageOverTime( Victim, iDamage, fDelay, iTicks, Attacker, Inflicto
 				if Victim:GetPerk() == "medic_immunity" then		
 					return
 				end		
-				if math.random(1,2) == 1 then
+				if math.random(1,3) == 1 then
 					Victim:EmitSound( "ambient/voices/cough"..math.random( 1,4 )..".wav" )
 				end						
 			end
@@ -98,7 +98,7 @@ function meta:TakeDamageOverTime( iDamage, fDelay, iTicks, Attacker, Inflictor )
 	if self:IsTakingDOT() or not self:Alive() or not IsValid( Attacker ) then return end
 	
 	-- Default fDelay / Tick
-	fDelay, iTicks = fDelay or 1, iTicks or 1
+	fDelay, iTicks = fDelay or 0.5, iTicks or 0.5
 	
 	-- Status
 	self:SetDTBool( 0, true )
