@@ -1524,7 +1524,7 @@ function meta:CheckSpeedChange(damage)
 	--end
 	--speed = fSpeed
 	
-	GAMEMODE:SetPlayerSpeed(self, fSpeed * ((self:GetMaximumSpeedMultiplier() / 100) - (self.Weight * 0.01)))
+	GAMEMODE:SetPlayerSpeed(self, fSpeed * ((self:GetMaximumSpeedMultiplier() / 100) - (self.Weight * 0.02)))
 end
 
 function meta:SpawnMiniTurret()

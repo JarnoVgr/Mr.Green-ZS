@@ -57,10 +57,9 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				end
 						
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "alyxgun" and attacker:GetPerk("Pyro") then
-				mul = mul + 0.1 + ((attacker:GetRank() * 1) / 100 )
-				local burnchance = 100 - attacker:GetRank() * 1	
+				local burnchance = 100 - attacker:GetRank() * 2	
 				local ignite = 1
-				local burn = 6 + (6 * (0.05 + (3*(attacker:GetRank()*0.01))))		
+				local burn = 6 + (6 * (0.05 + (4*(attacker:GetRank()*0.01))))		
 				local scorch = 10 + (10 * (2*(attacker:GetRank()*0.01)))	
 				
 				if attacker.DataTable["ShopItems"][111] then
@@ -74,11 +73,13 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					mul = mul + 0.1
 				end				
 				
+				--[[
 				if attacker:GetActiveWeapon():GetClass() == "weapon_zs_dragonsbreath" then
 					burnchance = burnchance - 12
 				elseif attacker:GetActiveWeapon():GetClass() == "weapon_zs_infernus" then
 					burnchance = burnchance - 20
 				end
+				]]--
 				
 				if attacker:GetPerk("pyro_burn") then
 					burnchance = burnchance - 5
@@ -186,9 +187,9 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			
 				dmg = dmg*0.9
 
-				if ent:GetPerk("berserker_porcupine") then
-					attacker:TakeDamage(dmg*3, ent, ent:GetActiveWeapon())	
-				end
+				--if ent:GetPerk("berserker_porcupine") then
+				--	attacker:TakeDamage(dmg*3, ent, ent:GetActiveWeapon())	
+				--end
 		
 			elseif ent:GetPerk("pyro_immolate") then
 				dmg = dmg*0.9			
@@ -198,6 +199,10 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 			elseif ent:GetPerk("Berserker") then
 				dmg = dmg*0.9	
 			end	
+			
+			if dmg >= 10 and not ent:GetPerk("Berserker") then
+				attacker:Daze(dmg*0.05)
+			end
 		end		
 
 		if attacker.DamageOutput then

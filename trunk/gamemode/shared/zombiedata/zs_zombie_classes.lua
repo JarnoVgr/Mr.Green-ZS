@@ -20,8 +20,7 @@ ZombieClasses[0] =
 	Tag = "infected",	
 	Infliction = 0,
 	Revives = true,
-	Health = 230,
-	MaxHealth = 460,
+	Health = 220,
 	Bounty = 100,
 	SP = 5,
 	Threshold = 0,	
@@ -33,7 +32,7 @@ ZombieClasses[0] =
 	Speed = 145,
 	AngleFix = true,
 	Description = "The backbone of the horde.",
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 230 ", "> SPEED: 145", "> DAMAGE: 25" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SPECIAL: Propkill", "> HEALTH: 220 ", "> SPEED: 145", "> DAMAGE: 25" },
 	DescriptionGameplay2 = { "TYPE: Back bone of a horde " },
 	PainSounds = {
 		Sound("npc/zombie/zombie_pain1.wav"),
@@ -157,7 +156,7 @@ ZombieClasses[1] =		--I re-added this class to add some diversity into the game.
 	},
 	ViewOffset = Vector( 0, 0, 50 ),
 	ViewOffsetDucked = Vector( 0, 0, 24 ),
-	Hull = { Vector(-16, -16, 0), Vector(16, 16, 62) },
+	Hull = { Vector(-16, -16, 0), Vector(16, 16, 58) },
 	HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 32)},
 	
 	Unique = "",
@@ -177,8 +176,7 @@ ZombieClasses[2] =
 	Name = "Poison Zombie",
 	Tag = "poisonzombie",
 	Infliction = 0.55,
-	Health = 425,
-	MaxHealth = 850,
+	Health = 440,
 	TimeLimit = 810,
 	Bounty = 175,
 	SP = 8,
@@ -189,13 +187,13 @@ ZombieClasses[2] =
 	CanGib = true,
 	SWEP = "weapon_zs_undead_poisonzombie",
 	Model = Model( "models/Zombie/Poison.mdl" ),
-	Speed = 150,
+	Speed = 154,
 	--Description = "A hulking mass of flesh far more durable than any other zombie.",
 	Description = "The undead meat shield.",
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> SPECIAL: Propkill", "> HEALTH: 425 ", "> SPEED: 150", "> DAMAGE: 35" },
+	DescriptionGameplay = { "> PRIMARY: Claws", "> SECONDARY: Throw flesh", "> FLESH: 10 health to zombies, 5 damage to props and humans", "> SPECIAL: Propkill", "> HEALTH: 440 ", "> SPEED: 154", "> DAMAGE: 35" },
 	PainSounds = {
 		Sound("npc/zombie_poison/pz_pain1.wav"),
 		Sound("npc/zombie_poison/pz_pain2.wav"),
@@ -415,7 +413,7 @@ ZombieClasses[7] =
 	Name = "Headcrab",
 	Tag = "headcrab",
 	Infliction = 0,
-	Health = 50,
+	Health = 60,
 	MaxHealth = 100,
 	Bounty = 50,
 	SP = 4,
@@ -435,7 +433,7 @@ ZombieClasses[7] =
 	OnSpawn = function(pl)
 		pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes", "> HEALTH: 50 ", "> SPEED: 165", "> DAMAGE: 8" },
+	DescriptionGameplay = { "> PRIMARY: Lunge", "> SPECIAL: Fits through small holes", "> HEALTH: 60 ", "> SPEED: 165", "> DAMAGE: 8" },
 	PainSounds = {
 		Sound("npc/headcrab/pain1.wav"),
 		Sound("npc/headcrab/pain2.wav"),
@@ -510,9 +508,7 @@ ZombieClasses[9] =
 	Name = "Poison Headcrab",
 	Tag = "poisonheadcrab",
 	Infliction = 0.55,
-	Health = 60,
-	MaxHealth = 60,
-	Bounty = 60,
+	Health = 80,
 	SP = 4,
 	Mass = 40,
 	StepSize = 8,
@@ -531,7 +527,7 @@ ZombieClasses[9] =
 	OnSpawn = function(pl)
 	pl:SetHumanBonePositions()	
 	end,
-	DescriptionGameplay = { "> PRIMARY RANGED: Leap", "> SECONDARY: Spit", "> SPECIAL: Fits through small places", "> DEATH: Chance of dropping an unstable toxin", "> HEALTH: 70 ", "> SPEED: 146", "> SPIT DAMAGE: 20","> BITE DAMAGE: 30 | 3 per second"  },
+	DescriptionGameplay = { "> PRIMARY RANGED: Leap", "> SECONDARY: Spit", "> SPECIAL: Fits through small places", "> DEATH: Chance of dropping an unstable toxin", "> HEALTH: 80 ", "> SPEED: 146", "> SPIT DAMAGE: 20","> BITE DAMAGE: 30 | 3 per second"  },
 	PainSounds = {
 		Sound("npc/headcrab_poison/ph_pain1.wav"),
 		Sound("npc/headcrab_poison/ph_pain2.wav"),

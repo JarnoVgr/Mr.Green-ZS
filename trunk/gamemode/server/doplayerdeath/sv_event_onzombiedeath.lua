@@ -6,11 +6,10 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	-- Calculate spawn cooldown
 
 	if CurTime() <= WARMUPTIME then
-		mVictim.NextSpawn = WARMUPTIME+2
-		mVictim:SendLua("MySelf.NextSpawn = ".. (WARMUPTIME+2))
+		mVictim.NextSpawn = WARMUPTIME
+		mVictim:SendLua("MySelf.NextSpawn = ".. WARMUPTIME)
 	else
 		mVictim.NextSpawn = CurTime() + 2
-		mVictim:SendLua("MySelf.NextSpawn = CurTime() + 2")
 	end
 
 	--Recalculate infliction
@@ -46,15 +45,15 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	end
 	
-	if (mAttacker:GetPerk("commando_bloodammo")) then
+	if (mAttacker:IsHuman() and mAttacker:GetPerk("commando_bloodammo")) then
 		mAttacker:GiveAmmo(math.Round(dmginfo:GetDamage() * 0.33),"ar2")
 	end
 	
 	--Possible revive
-	if CurTime() > WARMUPTIME and not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 2) then
+	if CurTime() > WARMUPTIME and not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 1) then
 		--if math.random(1,3) == 1 and dmginfo:IsBulletDamage() then
 		
-			local status = mVictim:GiveStatus("revive_slump_human")
+			local status = mVictim:GiveStatus("revive_slump")
 			if status then
 				status:SetReviveTime(CurTime() + 3)
 				status:SetZombieInitializeTime(CurTime() + 3)
@@ -83,7 +82,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 				ent.TeamID = mVictim:Team()
 				local phys = ent:GetPhysicsObject()
 				if phys:IsValid() then
-					phys:SetVelocityInstantaneous(heading * math.Rand(320, 340))
+					phys:SetVelocityInstantaneous(heading * 400)
 				end
 				ent:SetPhysicsAttacker(mVictim)
 			end

@@ -660,7 +660,7 @@ function CalculatePlayerLoadout(pl)
 	local medicstage1 = {"weapon_zs_fists2", "weapon_zs_p228","weapon_zs_stunstick","weapon_zs_medkit"}
 		
 	--Support stages
-	local support = {"weapon_zs_fists2", "weapon_zs_tools_torch", "weapon_zs_usp","weapon_zs_hammer"}
+	local support = {"weapon_zs_ammunition_pack", "weapon_zs_tools_supplies", "weapon_zs_fists2", "weapon_zs_tools_torch", "weapon_zs_usp","weapon_zs_hammer"}
 		
 	--Commando stages
 	local commando = {"weapon_zs_fists2", "weapon_zs_fiveseven","weapon_zs_knife","weapon_zs_grenade"}
@@ -712,12 +712,9 @@ function CalculatePlayerLoadout(pl)
 		end
 
 		if pl:GetPerk("support_boardpack") then
-			pl:Give("weapon_zs_tools_plank")
-		elseif pl:GetPerk("support_mobilesupplies") then
-			pl:Give("weapon_zs_tools_supplies")
-		else
-			pl:Give("weapon_zs_ammunition_pack")	
+			pl:Give("weapon_zs_tools_plank")	
 		end		
+		
 		for k,v in pairs(pl.Loadout) do
 			pl:Give(tostring(v))				
 		end		
@@ -741,7 +738,7 @@ function CalculatePlayerLoadout(pl)
 		pl:ChatPrint("You are a Commando")
 		if pl:GetPerk("commando_defender") then
 			pl:Give("weapon_zs_defender")		
-			pl:GiveAmmo(52, "ar2")			
+			pl:GiveAmmo(60, "ar2")			
 		end		
 		pl.Loadout = table.Copy(commando)		
 		for k,v in pairs(pl.Loadout) do
@@ -951,7 +948,9 @@ function CalculatePlayerHealth(pl)
 		DataTableConnected[pl:UniqueID() or "UNCONNECTED"].Health = false
 	end
 	
-	if pl:GetPerk("support_health") then
+	if pl:GetPerk("Berserker") then
+		Health = Health + 5 + (pl:GetRank() * 2)
+	elseif pl:GetPerk("support_health") then
 		Health = 150
 	elseif pl:GetPerk("Commando") then
 		Health = 110 + pl:GetRank() * 3

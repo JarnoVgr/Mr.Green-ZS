@@ -77,8 +77,13 @@ GM.CalcMainActivityZombies[0] = function ( pl, vel, key )
 	
 	local revive = pl.Revive
 	if revive and revive:IsValid() then
-	pl:LookupSequence("zombie_slump_rise_01")
-	end
+		if revive:IsRising() then
+			iSeq = pl:LookupSequence ( "zombie_slump_rise_01" ) 
+		else
+			iSeq = pl:LookupSequence ( "zombie_slump_idle_01" ) 
+		end
+	end	
+	
 	return iIdeal, iSeq	
 end
 

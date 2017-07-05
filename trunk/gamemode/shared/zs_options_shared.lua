@@ -34,19 +34,9 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 -- Movement stuff
 
 -- 1 to 0, higher means less penalty.
-SPEED_PENALTY = 0.75
+SPEED_PENALTY = 0.70
 
-SPEED = 190
-SPEED_LIGHT = SPEED
-SPEED_MELEE_LIGHT = SPEED
-SPEED_MELEE = SPEED
-SPEED_MELEE_HEAVY = SPEED
-SPEED_PISTOL = SPEED
-SPEED_SMG = SPEED
-SPEED_SHOTGUN = SPEED
-SPEED_RIFLE = SPEED
-SPEED_HEAVY = SPEED
-
+SPEED = 200
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8		--It's meant for creating hordes, doesnt make sense for a zombie to be in a horde if they're across the map.
@@ -407,8 +397,8 @@ GM.Perks = {
 
 		
 	-- Support	
-		["support_boardpack"] = {Name = "Board Pack", Description = "Replace ammo pack with a pack of boards", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/break_windows"},
-		["support_mobilesupplies"] = {Name = "Mobile Supplies", Description = "Replace ammo pack with mobile supplies", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/kills_with_multiple_guns"},
+		["support_boardpack"] = {Name = "Board Pack", Description = "Spawn with a pack of boards", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/break_windows"},
+		--["support_mobilesupplies"] = {Name = "Mobile Supplies", Description = "Replace ammo pack with mobile supplies", Class = "Support", Slot = 1, Rank = 3, Material = "vgui/achievements/kills_with_multiple_guns"},
 		["support_shotgun"] = {Name = "Shotgun", Description = "[TIER 0]\nSpawn with a shotgun", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_m3"},
 		["support_mp5"] = {Name = "MP5", Description = "[TIER 0]\nSpawn with an MP5", Class = "Support", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_mp5navy"},
 		
@@ -431,7 +421,7 @@ GM.Perks = {
 		["berserker_headhunter"] = {Name = "Head Hunter", Description = "+20% melee damage on heads\n Daze target when struck on the head", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
 		["berserker_battlecharge"] = {Name = "Battle Charge", Description = "Bonus damage received when falling, maximum +500% damage\nIncreased leap power", Class = "Berserker", Slot = 2, Rank = 3, Material = "vgui/achievements/kill_enemy_in_air"}, 
 		
-		["berserker_porcupine"] = {Name = "Porcupine", Description = "300% of damage received goes back to the attacker", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/immovable_object"},
+		--["berserker_porcupine"] = {Name = "Porcupine", Description = "300% of damage received goes back to the attacker", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/immovable_object"},
 		["berserker_bloodmoney"] = {Name = "Blood Money", Description = "+9 SP from melee kills", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/win_knife_fights_low"},
 		["berserker_vampire"] = {Name = "Vampire", Description = "+6% of melee damage goes towards health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/meta_pistol"},
 		["berserker_enrage"] = {Name = "Enrage", Description = "250 movement speed while under 50% health", Class = "Berserker", Slot = 3, Rank = 6, Material = "vgui/achievements/pistol_round_knife_kill"},
@@ -497,8 +487,8 @@ GM.Perks = {
 		Model = "models/player/combine_soldier.mdl"},		
 		
 	["Support"] = {Name = "Support",    		
-		Equipment = "Ammo Pack, USP, Hammer, Blow torch", 			
-		Description = " +10% Shotgun damage \n +10% SMG damage \n +10% Ammo received",
+		Equipment = "Mobile Supplies, Ammo Pack, USP, Hammer, Blow torch", 			
+		Description = " +1% Shotgun damage \n +10% SMG damage \n +10% Ammo received",
 		CoefDesc = " +%i%% SMG damage\n +%i%% Shotgun damage \n +%i%% Nail health\n +%G Repair points\n +%i Nails\n +%i%% Ammo received\n +%G Ammo in ammo pack",
 		Coef = {1, 1, 1, 0.25, 2, 2, 0.5},
 		Slot = 5,
@@ -508,9 +498,9 @@ GM.Perks = {
 		
 	["Berserker"] = {Name = "Berserker", 		
 		Equipment = "Desert Eagle, Plank", 				
-		Description = " [RMB] Leap while holding a melee weapon.\n Cannot be dazed when hit\n +10% melee damage \n +5% melee damage to health\n +5 Health on melee kill\n +10% Damage resistance \n -10% Gun Damage\n +2% Movement Speed",
-		CoefDesc = " +%i Health from melee kill\n +%G%% Movement speed",
-		Coef = {1, 0.5},
+		Description = " [RMB] Leap while holding a melee weapon.\n Cannot be dazed when hit\n +10% melee damage \n +5% melee damage to health\n +5 Health on melee kill\n +10% Damage resistance \n -10% Gun Damage\n +2% Movement Speed\n +5 Health",
+		CoefDesc = " +%i Health from melee kill\n +%G%% Movement speed\n  +%i Health",
+		Coef = {1, 0.5, 2},
 		Slot = 5,
 		Rank = 0,
 		Colour = Color(255, 141, 147,32),
@@ -527,7 +517,7 @@ GM.Perks = {
 		Model = "models/player/alyx.mdl"},
 		
 	["Sharpshooter"] = {Name = "Sharpshooter", 
-		Equipment = "Mobile Supplies, Beretta, Knife", 	
+		Equipment = "Beretta, Knife", 	
 		Description = " +5% Sniper damage \n +8% Headshot damage\n +10% Accuracy",
 		CoefDesc = " +%i%% Sniper damage\n +%i%% Headshot damage\n +%i%% Accuracy",
 		Coef = {1,1,2},
@@ -538,10 +528,10 @@ GM.Perks = {
 		
 	["Pyro"] = {Name = "Pyro",				
 		Equipment = "Alyx Gun, Knife", 				
-		Description = " 12% Chance to burn target\n +10% Pyro damage\n 6 Initial burn damage\n 10 Initial scorch damage\n +10% damage to burning targets",
-		CoefDesc = " +%i Burn damage\n +%i Burn chance\n +%i Pyro damage\n +%i Scorch damage",
+		Description = " 12% Chance to burn target\n 6 Initial burn damage\n 10 Initial scorch damage\n +10% damage to burning targets",
+		CoefDesc = " +%i Burn damage\n +%i Burn chance\n +%i Scorch damage",
 		Material = "zombiesurvival/humanclass/avatar_assault",
-		Coef = {3,1,1,2},
+		Coef = {4,2,2},
 		Slot = 5,
 		Rank = 0,
 		Colour = Color(255, 178, 62,28),
