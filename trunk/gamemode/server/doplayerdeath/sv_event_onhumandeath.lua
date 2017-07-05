@@ -73,7 +73,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	mVictim.WalkingBackwards = false
 		
 	--Revival
-	--[[
+	
 	if not mVictim.Gibbed and not dmginfo:IsSuicide(mVictim) then
 		mVictim:SetZombieClass(0)
 		mVictim.ForcePlayerModel = true
@@ -85,7 +85,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 
 		mVictim.MyBodyIsReady = true -- no jokes about this one
 	end
-	]]--
+	
 	
 	-- Emo achievment
 	if dmginfo:IsSuicide( mVictim ) or mAttacker:IsWorld() then
