@@ -197,7 +197,7 @@ net.Receive("PlayerRedeemed", function(len)
 	end
 
 end)
-
+local classSelected = "Medic"
 net.Receive("PlayerRedeemedLoadout", function(len)
 
 	local pl = net.ReadEntity()
