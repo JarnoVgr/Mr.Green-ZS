@@ -296,7 +296,7 @@ ZombieClasses[4] =
 	PainSounds = {
 		Sound("npc/stalker/stalker_pain1.wav"),
 		Sound("npc/stalker/stalker_pain2.wav"),
-		Sound("npc/stalker/stalker_pain3.wav"),
+		Sound("npc/stalker/stalker_pain3.wav")
 		--Sound("npc/stalker/stalker_alert1b.wav"),
 		--Sound("npc/stalker/stalker_alert12.wav"),
 		--Sound("npc/stalker/stalker_alert13.wav"),

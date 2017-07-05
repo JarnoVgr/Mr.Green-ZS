@@ -21,7 +21,7 @@ SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "CombineCannon"
 SWEP.Secondary.Delay = 0.5
 
-SWEP.WalkSpeed = 150
+
 
 function SWEP:Reload()
 	self:DefaultReload(ACT_VM_RELOAD)

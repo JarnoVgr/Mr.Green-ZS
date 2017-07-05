@@ -326,9 +326,18 @@ function meta:DrawCrosshair()
 		return
 	end
 	self:DrawCrosshairCross()
-	self:DrawCrosshairDot()
+	--self:DrawCrosshairDot()
 end
-
+local matGrad = Material("VGUI/gradient-r")
+local function DrawLine(x, y, rot)
+	rot = 270 - rot
+	surface.SetMaterial(matGrad)
+	--surface.SetDrawColor(0, 0, 0, 220)
+	--surface.DrawTexturedRectRotated(x, y, 14, 4, rot)
+	surface.SetDrawColor(Color(255,255,255,255))
+	surface.DrawTexturedRectRotated(x, y, 12, 2, rot)
+end
+local baserot = 0
 local CrossHairScale = 1
 function meta:DrawCrosshairCross()
 	local x = ScrW() * 0.5
@@ -338,49 +347,37 @@ function meta:DrawCrosshairCross()
 
 	local owner = self.Owner
 
-	local cone
-	if ironsights then
-		if owner:Crouching() then
-			cone = self.ConeIronCrouching
-		else
-			cone = self.ConeIron
-		end
-	elseif 25 < self.Owner:GetVelocity():Length() then
-		cone = self.ConeMoving
-	else
-		if self.Owner:Crouching() then
-			cone = self.ConeCrouching
-		else
-			cone = self.Cone
-		end
+	local cone = self:GetCone()
+
+	if cone <= 0 or ironsights and not ironsightscrosshair then return end
+
+	cone = ScrH() / 76.8 * cone
+
+	CrossHairScale = math.Approach(CrossHairScale, cone, FrameTime() * math.max(5, math.abs(CrossHairScale - cone) * 0.02))
+
+	local midarea = 40 * CrossHairScale
+
+	local vel = LocalPlayer():GetVelocity()
+	local len = vel:Length()
+	--if GAMEMODE.NoCrosshairRotate then
+		baserot = 0
+	--else
+	--	baserot = math.NormalizeAngle(baserot + vel:GetNormalized():Dot(EyeAngles():Right()) * math.min(10, len / 200))
+	--end
+
+	--[[if baserot ~= 0 then
+		render.PushFilterMag(TEXFILTER.ANISOTROPIC)
+		render.PushFilterMin(TEXFILTER.ANISOTROPIC)
+	end]]
+
+	local ang = Angle(0, 0, baserot)
+	for i=0, 359, 360 / 4 do
+		ang.roll = baserot + i
+		local p = ang:Up() * midarea
+		DrawLine(math.Round(x + p.y), math.Round(y + p.z), ang.roll)
 	end
-
-	if cone <= 0 or ironsights and not ironsightscrosshair then
-		return
-	end
-
-	cone = (ScrH() / 100 * cone) * 1.75
-
-	CrossHairScale = math.Approach(CrossHairScale, cone, FrameTime() * 5 + math.abs(CrossHairScale - cone) * 0.02)
-
-	local scalebyheight = (h / 1080) * 0.2
-
-	local midarea = 30 * CrossHairScale
-	local length = scalebyheight * 1 + midarea*0.25
-
-	surface.SetDrawColor(Color(200,200,200,160))
-	surface.DrawRect(x - midarea - length, y - 1, length, 2)
-	surface.DrawRect(x + midarea, y - 1, length, 2)
-	surface.DrawRect(x - 1, y - midarea - length, 2, length)
-	surface.DrawRect(x - 1, y + midarea, 2, length)
-
-	surface.SetDrawColor(200, 200, 200, 160)
-	surface.DrawOutlinedRect(x - midarea - length, y - 1, length, 2)
-	surface.DrawOutlinedRect(x + midarea, y - 1, length, 2)
-	surface.DrawOutlinedRect(x - 1, y - midarea - length, 2, length)
-	surface.DrawOutlinedRect(x - 1, y + midarea, 2, length)
-
-	surface.SetDrawColor(Color(200,0,0,160))
+	
+		surface.SetDrawColor(Color(255,0,0,200))
 	surface.DrawRect(x - 2, y - 2, 4, 4)
 	surface.SetDrawColor(0, 0, 0, 200)
 	surface.DrawOutlinedRect(x - 2, y - 2, 4, 4)
@@ -395,9 +392,32 @@ function meta:DrawCrosshairDot()
 	local x = ScrW() * 0.5
 	local y = ScrH() * 0.5
 
-	surface.SetDrawColor(Color(255,0,0,200))
-	surface.DrawRect(x - 2, y - 2, 4, 4)
-	surface.SetDrawColor(0, 0, 0, 200)
-	surface.DrawOutlinedRect(x - 2, y - 2, 4, 4)
+
+end
+
+function meta:BaseDrawWeaponSelection(x, y, wide, tall, alpha)
+
+	--if killicon.Get(self:GetClass()) then
+		killicon.Draw(x + wide * 0.3, y + tall * 0.5, self:GetClass(), 255)
+		draw.SimpleText(self.Type, "fontWeaponSelectionSub", x + wide * 0.5, y + tall * 0.4, Color(255,255,0,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)	
+	
+		local damage
+		
+		if self.MeleeDamage then
+			damage = self.MeleeDamage
+		elseif self.Primary.Damage then
+			damage = self.Primary.Damage * self.Primary.NumShots 
+		else
+			damage = "No"
+		end
+		
+		
+		draw.SimpleText(damage.. " damage", "fontWeaponSelectionSub", x + wide * 0.5, y + tall * 0.52, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)		
+		--draw.SimpleText(math.Round(((1 / self.Primary.Delay) * self.Primary.NumShots) * 60)  .. " rpm", "fontWeaponSelectionSub", x + wide * 0.5, y + tall * 0.62, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)				
+		draw.SimpleText(self.Weight .. " weight", "fontWeaponSelectionSub", x + wide * 0.5, y + tall * 0.62, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)				
+		--draw.SimpleText(self.PrintName, "fontWeaponSelectionMain", x + wide * 0.5, y + tall * 0.25, Color(255,0,0,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	--[[else
+		draw.SimpleTextBlur(self:GetPrintName(), "ZSHUDFontSmaller", x + wide * 0.5, y + tall * 0.5, COLOR_RED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+	end]]
 end
 

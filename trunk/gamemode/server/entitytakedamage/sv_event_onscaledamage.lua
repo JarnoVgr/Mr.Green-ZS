@@ -23,8 +23,8 @@ local function ScalePlayerDamage(pl, attacker, inflictor, dmginfo )
 			dmginfo:SetDamage( 0 )
 		else
 			--10 damage per second
-			dmginfo:SetDamage(pl:GetMaximumHealth() * 0.1)
-			pl.dmgNextDrown = CurTime() + 1
+			dmginfo:SetDamage(pl:GetMaximumHealth() * 0.05)
+			pl.dmgNextDrown = CurTime() + 0.5
 		end
 
 		return true

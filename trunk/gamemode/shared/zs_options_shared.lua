@@ -33,19 +33,20 @@ DEFAULT_MODELSCALE = 1-- Vector(1, 1, 1)
 
 -- Movement stuff
 
--- 1 to 0, higher means less penality.
-SPEED_PENALTY = 0.70
+-- 1 to 0, higher means less penalty.
+SPEED_PENALTY = 0.75
 
-SPEED = 220
+SPEED = 190
 SPEED_LIGHT = SPEED
 SPEED_MELEE_LIGHT = SPEED
-SPEED_MELEE = SPEED - 5
-SPEED_MELEE_HEAVY = SPEED - 15
-SPEED_PISTOL = SPEED - 10
-SPEED_SMG = SPEED - 15
-SPEED_SHOTGUN = SPEED - 20
-SPEED_RIFLE = SPEED - 20
-SPEED_HEAVY = SPEED - 30
+SPEED_MELEE = SPEED
+SPEED_MELEE_HEAVY = SPEED
+SPEED_PISTOL = SPEED
+SPEED_SMG = SPEED
+SPEED_SHOTGUN = SPEED
+SPEED_RIFLE = SPEED
+SPEED_HEAVY = SPEED
+
 
 -- Horde stuff
 HORDE_MAX_ZOMBIES = 8		--It's meant for creating hordes, doesnt make sense for a zombie to be in a horde if they're across the map.
@@ -141,13 +142,13 @@ GM.ChatTitles = {
 GM.HumanWeapons = {    
         --Berserker
         ["weapon_zs_deagle"]  = { Name = "Desert Eagle", Tier = 0, Type = "pistol", Price = 50, HumanClass = "berserker"},	
-        ["weapon_zs_melee_stunstick"]  = { Name = "Stun Stick", Tier = 0, Type = "melee", Price = 50, HumanClass = "berserker" },			
-        ["weapon_zs_melee_hook"]  = { Name = "Meat Hook", Tier = 0, Type = "melee", Price = 60, HumanClass = "berserker" },  
-        ["weapon_zs_melee_pipe2"]  = { Name = "Lead Pipe", Tier = 1, Type = "melee", Price = 60, HumanClass = "berserker"  },		
-        ["weapon_zs_melee_axe"]  = { Name = "Axe", Tier = 2, Type = "melee", Price = 100, HumanClass = "berserker" },	
-        ["weapon_zs_melee_sledgehammer"]  = { Name = "Sledgehammer", Tier = 3, Type = "melee", Price = 150, HumanClass = "berserker" },
-        ["weapon_zs_melee_katana"]  = { Name = "Katana", Tier = 3, Type = "melee", Price = 160 , HumanClass = "berserker"},
-        ["weapon_zs_melee_chainsaw"]  = { Name = "Chainsaw", Tier = 4, Type = "melee", Price = 180, HumanClass = "berserker" },   
+        ["weapon_zs_stunstick"]  = { Name = "Stun Stick", Tier = 0, Type = "melee", Price = 50, HumanClass = "berserker" },			
+        ["weapon_zs_hook"]  = { Name = "Meat Hook", Tier = 0, Type = "melee", Price = 60, HumanClass = "berserker" },  
+        ["weapon_zs_pipe2"]  = { Name = "Lead Pipe", Tier = 1, Type = "melee", Price = 60, HumanClass = "berserker"  },		
+        ["weapon_zs_axe"]  = { Name = "Axe", Tier = 2, Type = "melee", Price = 100, HumanClass = "berserker" },	
+        ["weapon_zs_sledgehammer"]  = { Name = "Sledgehammer", Tier = 3, Type = "melee", Price = 150, HumanClass = "berserker" },
+        ["weapon_zs_katana"]  = { Name = "Katana", Tier = 3, Type = "melee", Price = 160 , HumanClass = "berserker"},
+        ["weapon_zs_chainsaw"]  = { Name = "Chainsaw", Tier = 4, Type = "melee", Price = 180, HumanClass = "berserker" },   
        
         --Commando
         ["weapon_zs_defender"]  = { Name = "Defender", Tier = 0, Type = "rifle", Price = 80,HumanClass = "commando"},    
@@ -160,15 +161,17 @@ GM.HumanWeapons = {
         ["weapon_zs_m249"]  = { Name = "M249", Tier = 4, Type = "rifle", Price = 200, HumanClass = "commando" },  		
 		
         --Support
+	    ["weapon_zs_mp5"]  = { Name = "MP5 Navy", Tier = 0, Type = "smg", Price = 80, HumanClass = "support" },		
         ["weapon_zs_shotgun"]  = { Name = "Shotgun", Tier = 0, Type = "shotgun", Price = 80, HumanClass = "support" },	
-        ["weapon_zs_smg"]  = { Name = "SMG", Tier = 1, Type = "smg", Price = 80, HumanClass = "support"},
+        ["weapon_zs_mp7"]  = { Name = "SMG", Tier = 1, Type = "smg", Price = 80, HumanClass = "support"},
         ["weapon_zs_chipper"]  = { Name = "Chipper", Tier = 1, Price = 120, Type = "shotgun", HumanClass = "support" },       		
         ["weapon_zs_mac10"]  = { Name = "Mac 10", Tier = 2, Type = "smg", Price = 120, HumanClass = "support" },   
-        ["weapon_zs_ump"]  = { Name = "UMP", Tier = 3, Type = "smg", Price = 140, HumanClass = "support" },
-        ["weapon_zs_m3super90"]  = { Name = "M3", Tier = 3, Type = "shotgun", Price = 160, HumanClass = "support"}, 		
-        ["weapon_zs_p90"]  = { Name = "P90", Tier = 4, Type = "smg", Price = 160, HumanClass = "support" },
+        ["weapon_zs_ump"]  = { Name = "UMP", Tier = 2, Type = "smg", Price = 140, HumanClass = "support" },
+        ["weapon_zs_m3"]  = { Name = "M3", Tier = 3, Type = "shotgun", Price = 160, HumanClass = "support"}, 		
+        ["weapon_zs_p90"]  = { Name = "P90", Tier = 3, Type = "smg", Price = 160, HumanClass = "support" },
+        ["weapon_zs_p90"]  = { Name = "P90", Tier = 3, Type = "smg", Price = 160, HumanClass = "support" },		
         ["weapon_zs_m1014"]  = { Name = "M1014", Tier = 4, Type = "shotgun", Price = 190, HumanClass = "support"},		
-	    ["weapon_zs_mp5"]  = { Name = "MP5 Navy", Tier = 0, Type = "smg", Price = 80, HumanClass = "support" },
+
 	
         --Medic
         ["weapon_zs_medi2"]  = { Name = "Medi 2", Tier = 2, Type = "shotgun",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
@@ -191,11 +194,11 @@ GM.HumanWeapons = {
 	   
         --Engineer
         ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", Tier = 1, Type = "pistol", Price = 80, HumanClass = "engineer"},           
-        ["weapon_zs_energiser"]  = { Name = "Energiser", Tier = 3, Type = "smg", HumanClass = "engineer"},    		
+        ["weapon_zs_pulse_thumper"]  = { Name = "Pulse 'Thumper'", Tier = 3, Type = "smg", HumanClass = "engineer"},    		
         ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", Tier = 2, Type = "smg", Price = 100, HumanClass = "engineer"},
-		["weapon_zs_turretplacer"] = { Name = "Turret", Tier = 0, Type = "tool2", Price = 100, HumanClass = "engineer"   },	
-        ["weapon_zs_pulserifle"]  = { Name = "Pulse Rifle", Tier = 3, Type = "smg", Price = 130, HumanClass = "engineer"},
-        ["weapon_zs_railgun"]  = { Name = "Railgun", Tier = 4, Type = "pistol", Price = 150, HumanClass = "engineer"},
+		["weapon_zs_turret"] = { Name = "Turret", Tier = 0, Type = "tool2", Price = 100, HumanClass = "engineer"   },	
+        ["weapon_zs_pulse_rifle"]  = { Name = "Pulse Rifle", Tier = 3, Type = "smg", Price = 130, HumanClass = "engineer"},
+        ["weapon_zs_pulse_railgun"]  = { Name = "Pulse Railgun", Tier = 4, Type = "pistol", Price = 150, HumanClass = "engineer"},
  
 		--Pyro
         ["weapon_zs_alyx"]  = { Name = "Alyx Gun", Tier = 0, Type = "pistol", Price = 60}, 
@@ -205,8 +208,8 @@ GM.HumanWeapons = {
 		["weapon_zs_flaregun_2"]  = { Name = "Baby Flare", Tier = 2, Type = "shotgun", HumanClass = "pyro", Price = 100},
 
 		["weapon_zs_tmp"]  = { Name = "Silent TMP", Tier = 3, Type = "smg", HumanClass = "pyro", Price = 100 },		
-		["weapon_zs_pyroshotgun"]  = { Name = "Dragon's Breath", Tier = 3, Type = "shotgun", HumanClass = "pyro", Price = 160},	
-		["weapon_zs_pyrocannon"]  = { Name = "'Infernus' Cannon", Tier = 4, Type = "shotgun", HumanClass = "pyro", Price = 180},			
+		["weapon_zs_dragonsbreath"]  = { Name = "Dragon's Breath", Tier = 3, Type = "shotgun", HumanClass = "pyro", Price = 160},	
+		["weapon_zs_infernus"]  = { Name = "'Infernus' Cannon", Tier = 4, Type = "shotgun", HumanClass = "pyro", Price = 180},			
 		["weapon_zs_flamer"]  = { Name = "Flare Gun", DPS = 143, Infliction = 0, Type = "rifle", HumanClass = "pyro"},
 		["weapon_zs_firebomb"]  = { Name = "Flame Nade", DPS = 143, Infliction = 0, HumanClass = "pyro"},
 		
@@ -215,13 +218,13 @@ GM.HumanWeapons = {
         ["weapon_zs_barreta"]  = { Name = "Barreta", DPS = 30, Infliction = 0.25, Type = "pistol", Price = 50, HumanClass = "medic"},            
         ["weapon_zs_usp"]  = { Name = "USP .45", DPS = 42, Infliction = 0, Type = "pistol", Description = "It's practical!", Price = 50 , HumanClass = "medic"},
         ["weapon_zs_p228"]  = { Name = "P228", DPS = 58, Infliction = 0, Type = "pistol", Description = "More accuracy but less fire power compared to the USP." , Price = 50, HumanClass = "medic"},   
-        ["weapon_zs_melee_plank"]  = { Name = "Plank", DPS = 56, Infliction = 0, Type = "melee", Description = "The noobs ultimate weapon.", Price = 50, HumanClass = "berserker"  },                
-        ["weapon_zs_melee_combatknife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee", Price = 50 , HumanClass = "berserker" },
-        ["weapon_zs_classic"]  = { Name = "Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic.", Price = 50, HumanClass = "medic" },
+        ["weapon_zs_plank"]  = { Name = "Plank", DPS = 56, Infliction = 0, Type = "melee", Description = "The noobs ultimate weapon.", Price = 50, HumanClass = "berserker"  },                
+        ["weapon_zs_knife"]  = { Name = "Combat Knife", DPS = 15, Infliction = 0, Type = "melee", Price = 50 , HumanClass = "berserker" },
+        ["weapon_zs_owens"]  = { Name = "Pistol", DPS = 30, Infliction = 0.25, Type = "pistol", Description = "Classic.", Price = 50, HumanClass = "medic" },
  
  
         --Loadout Tools 1
-        ["weapon_zs_tools_hammer"]  = { Name = "Hammer", DPS = 23, Infliction = 0, Type = "tool1", Description = "Stop! Hammer time. This will freeze props in their place. Primary to repair/whack, Secondary to nail.", HumanClass = "support" , Price = 100 },
+        ["weapon_zs_hammer"]  = { Name = "Hammer", DPS = 23, Infliction = 0, Type = "tool1", Description = "Stop! Hammer time. This will freeze props in their place. Primary to repair/whack, Secondary to nail.", HumanClass = "support" , Price = 100 },
         ["weapon_zs_medkit"]  = { Name = "Medical Kit", DPS = 8, Infliction = 0, Type = "tool1", Description = "Be a good teammate. Or just heal yourself.", Price = 160, HumanClass = "medic"  },
         ["weapon_zs_tools_supplies"] = { Name = "Mobile Supplies", DPS = 0, Infliction = 0, Type = "tool2", Description = "Allows you to spawn a Supply Crate.", Price = 100 },
 		
@@ -231,7 +234,7 @@ GM.HumanWeapons = {
         ["weapon_zs_tools_torch"] = { Name = "Torch", DPS = 0, Infliction = 0, Type = "tool2", Description = "Fix broken nails to prevent barricades getting broken." },       
         ["weapon_zs_miniturret"] = { Name = "Combat Mini-Turret", DPS = 0, Infliction = 0, Type = "tool2", Description = "CBA to shoot, let your friend here help you with that!"  },
         ["weapon_zs_grenade"]  = { Name = "Grenade", DPS = 8, Infliction = 0, Type = "tool1", Description = "Handheld explosives.", Price = 100  },
-        ["weapon_zs_mine"]  = { Name = "Proximity C4", DPS = 8, Infliction = 0, Type = "tool1", Description = "BOOM, get your team out a tough spot..", Price = 100  },       
+        ["weapon_zs_proximity_mine"]  = { Name = "Proximity C4", DPS = 8, Infliction = 0, Type = "tool1", Description = "BOOM, get your team out a tough spot..", Price = 100  },       
        
 	   
         --Special
@@ -265,7 +268,7 @@ GM.HumanWeapons = {
         --Tool2
         ["weapon_zs_tools_plank"]  = { Name = "Board Pack", DPS = 0, Infliction = 0, Type = "tool2", Description = "Help your team mates, bring extra planks!", Price = 60  },
   
-        ["weapon_zs_tools_ammobox"]  = { Name = "Ammo Pack", DPS = 0, Infliction = 0, Type = "tool2", Price = 60},  
+        --["weapon_zs_ammunition_pack"]  = { Name = "Ammo Pack", DPS = 0, Infliction = 0, Type = "tool2", Price = 60},  
         --Pickups
         ["weapon_zs_pickup_gascan"]  = { Name = "Dangerous Gas Can", DPS = 0, Infliction = 0, Type = "misc" },
         ["weapon_zs_pickup_gascan2"]  = { Name = "Dangerous Gas Can2", DPS = 0, Infliction = 0, Type = "misc" },
@@ -396,7 +399,7 @@ GM.Perks = {
 
 		["commando_bloodammo"] = {Name = "Blood Ammo", Description = "Receive 33% of damage done as assault rifle ammo from kills", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/win_knife_fights_low"},
 		["commando_enforcer"] = {Name = "Enforcer", Description = "+25 clip size", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/kill_enemy_last_bullet"},
-		["commando_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
+		--["commando_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Commando", Slot = 2, Rank = 4, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
 
 		["commando_kevlar"] = {Name = "Kevlar", Description = "+16% damage resistance from the undead", Class = "Commando", Slot = 3, Rank = 7, Material = "vgui/achievements/survived_headshot_due_to_helmet"},
 		["commando_health"] = {Name = "Health", Description = "+40 maximum health", Class = "Commando", Slot = 3, Rank = 7, Material = "vgui/achievements/decal_sprays"},
@@ -451,7 +454,7 @@ GM.Perks = {
 	-- Sharpshooter
 		
 		["sharpshooter_python"] = {Name = "Python", Description = "[TIER 1]\nSpawn with the Python", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/hip_shot"},
-		["sharpshooter_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/domination_overkills_low"},
+		--["sharpshooter_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/domination_overkills_low"},
 		
 		["sharpshooter_fragments"] = {Name = "Fragments", Description = "25% chance a sharpshooter shot will explode in fragments.\n5-8 fragments\n40% of weapon damage per fragment\n-50% accuracy on fragment shot", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/kill_low_damage"},
 		["sharpshooter_double"] = {Name = "Double Calibre", Description = "+2 Musket clip size\n+2 Python clip size", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/kill_two_with_one_shot"},              
@@ -494,7 +497,7 @@ GM.Perks = {
 		Model = "models/player/combine_soldier.mdl"},		
 		
 	["Support"] = {Name = "Support",    		
-		Equipment = "Ammo Pack, USP, Hammer", 			
+		Equipment = "Ammo Pack, USP, Hammer, Blow torch", 			
 		Description = " +10% Shotgun damage \n +10% SMG damage \n +10% Ammo received",
 		CoefDesc = " +%i%% SMG damage\n +%i%% Shotgun damage \n +%i%% Nail health\n +%G Repair points\n +%i Nails\n +%i%% Ammo received\n +%G Ammo in ammo pack",
 		Coef = {1, 1, 1, 0.25, 2, 2, 0.5},
@@ -534,7 +537,7 @@ GM.Perks = {
 		Model = "models/player/odessa.mdl"},		
 		
 	["Pyro"] = {Name = "Pyro",				
-		Equipment = "Alyx Gun, Metal Pipe", 				
+		Equipment = "Alyx Gun, Knife", 				
 		Description = " 12% Chance to burn target\n +10% Pyro damage\n 6 Initial burn damage\n 10 Initial scorch damage\n +10% damage to burning targets",
 		CoefDesc = " +%i Burn damage\n +%i Burn chance\n +%i Pyro damage\n +%i Scorch damage",
 		Material = "zombiesurvival/humanclass/avatar_assault",

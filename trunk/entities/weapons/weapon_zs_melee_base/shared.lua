@@ -14,7 +14,6 @@ SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
 SWEP.Primary.Delay = 1
-SWEP.ViewModelFOV = 60
 SWEP.NextLeap = 0
 SWEP.Breakthrough = false
 
@@ -29,7 +28,10 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = true
 SWEP.Secondary.Ammo = "none"
 
-SWEP.WalkSpeed = 200
+SWEP.Type = "N/A"
+SWEP.Weight = 0
+
+SWEP.WalkSpeed = SPEED
 
 SWEP.IsMelee = true
 
@@ -161,9 +163,13 @@ function SWEP:Equip(NewOwner)
 	if CLIENT then
 		return
 	end
-
+	if SERVER then
+		self.Owner.Weight = self.Owner.Weight + self.Weight
+		self.Owner:CheckSpeedChange()
+	end
 	--Call this function to update weapon slot and others
 	gamemode.Call("OnWeaponEquip", NewOwner, self)
+	
 end
 
 function SWEP:Think()

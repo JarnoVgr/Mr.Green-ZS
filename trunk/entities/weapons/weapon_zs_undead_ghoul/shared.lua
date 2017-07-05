@@ -214,7 +214,7 @@ function SWEP:PerformSecondaryAttack()
 			local phys = ent:GetPhysicsObject()
 			if phys:IsValid() then
 				--phys:SetVelocityInstantaneous(heading * math.Rand(310, 560))
-				phys:SetVelocityInstantaneous(heading * 400)
+				phys:SetVelocityInstantaneous(heading * 380)
 			end
 			ent:SetPhysicsAttacker(pl)
 		end

@@ -13,7 +13,8 @@ SWEP.CurrentCone = 0
 SWEP.Primary.BulletsUsed = 1
 
 SWEP.ViewModelFlip = false
-SWEP.ViewModelFOV = 60
+SWEP.ViewModelFOV = 50
+SWEP.DefaultViewModelFOV = 50
 SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = 0
 SWEP.Primary.Automatic = false
@@ -26,9 +27,15 @@ SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
 
 
-SWEP.LastShot = 0
 
+SWEP.Type = "N/A"
+SWEP.Weight = 0
+SWEP.ConeMax = 0.03
+SWEP.ConeMin = 0.01
+SWEP.ConeRamp = 4
 SWEP.TracerName = "Tracer"
+
+SWEP.LastShot = 0
 
 SWEP.ActualClipSize = -1
 
@@ -54,10 +61,6 @@ function SWEP:Initialize()
 	self:SetDeploySpeed(1.0)
 	self.ActualClipSize	= self.Primary.ClipSize
 	if CLIENT then
-		--Set default FOV
-		if self.ViewModelFOV then
-			self.ViewModelDefaultFOV = self.ViewModelFOV
-		end
 
 		--Create a new table for every weapon instance
 		self.VElements = table.FullCopy(self.VElements)
@@ -74,6 +77,20 @@ end
 function SWEP:OnInitialize()
 
 end
+
+function SWEP:GetCone()
+	if not self.Owner:OnGround() or self.ConeMax == self.ConeMin then return self.ConeMax end
+
+	local basecone = self.ConeMin
+	local conedelta = self.ConeMax - basecone
+
+	local multiplier = math.min(self.Owner:GetVelocity():Length() / self.WalkSpeed, 1) * 0.7
+	if not self.Owner:Crouching() then multiplier = multiplier + 0.125 end
+	if not self:GetIronsights() then multiplier = multiplier + 0.05 end
+
+	return basecone + conedelta * multiplier ^ self.ConeRamp
+end
+
 
 function SWEP:PrimaryAttack()
 	
@@ -92,7 +109,6 @@ function SWEP:PrimaryAttack()
 	bullet.Force = 3000
 
 	local recoilm = 2 - self.RecoilMultiplier
-	local cone = self.Cone
 	
 	--Recoil multiplier
 	if self.Owner:Crouching() then
@@ -117,25 +133,7 @@ function SWEP:PrimaryAttack()
 		self.Owner:SetEyeAngles(eyeang)
 	end
 
-	local j = 0
-	if self.Owner:GetVelocity():Length() > 10 then
-		j = 0.5
-		cone = self.ConeMoving
-	end	
-	
-	if self.Owner:Crouching() then
-		cone = self.ConeCrouching
-	end
-	
-	if self:GetIronsights() then
-		cone = self.ConeIron
-		if self.Owner:Crouching() then
-			cone = self.ConeIronCrouching
-		end		
-	end
-	
-	local accuracy = cone * self.AccuracyBonus	
-	self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, accuracy)		
+	self:ShootBullets(self.Primary.Damage, self.Primary.NumShots, self:GetCone())		
 
 	--Knockback
 	--local aimVec = self.Owner:GetAimVector()
@@ -277,6 +275,13 @@ function SWEP:Equip(NewOwner)
 		return
 	end
 	
+	if SERVER then
+		self.Owner.Weight = self.Owner.Weight + self.Weight
+		self.Owner:CheckSpeedChange()
+	end
+
+	--self.Owner.SpeedMultiplier = self.Owner.SpeedMultiplier - (self.Weight * 0.1)
+	
 	if self.FirstSpawn then
 		if self.Owner:GetPerk("Commando") then		
 			local bonus = 0
@@ -302,12 +307,16 @@ function SWEP:Equip(NewOwner)
 	--NewOwner:GiveAmmo( self.Primary.Magazine or self.Primary.DefaultClip, self:GetPrimaryAmmoTypeString() )
 	
 	--self:RemoveAmmo(1500, self:GetPrimaryAmmoTypeString())
-			
+
 	-- Call this function to update weapon slot and others
 	gamemode.Call( "OnWeaponEquip", NewOwner, self)
 end
 
 function SWEP:OnDrop()
+
+
+
+	--self.Owner.Weight = self.Owner.Weight - self.Weight
 
 	if CLIENT then
 		self:OnRemove()
@@ -378,9 +387,9 @@ function SWEP:CanPrimaryAttack()
 		return
 	end
 
-	if self:Clip1() <= 0 then
+	if self:Clip1() < self.Primary.BulletsUsed then
 		self:EmitSound(Sound("Weapon_Pistol.Empty"))
-		self.Weapon:SetNextPrimaryFire(CurTime() + math.max(0.25, self.Primary.Delay))
+		self.Weapon:SetNextPrimaryFire(CurTime() + math.max(1, self.Primary.Delay))
 
 		--Auto-reloading
 		self:Reload()

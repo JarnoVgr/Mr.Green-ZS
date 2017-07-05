@@ -37,12 +37,12 @@ function hud.DrawZombieHUD()
 
 	local startX = (ScrW()/2)
 
-	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(860), ScaleH(890)
+	local textX, textY = ScaleW(40), ScrH() - ScaleH(50)
 
 	--Health bar begin
 
-	--local barW, barH = ScaleW(210), ScaleH(20)
-	--local barX, barY = healthTextX + ScaleW(35), ScaleH(880)+ScaleH(110)
+	local barW, barH = ScaleW(220), ScaleH(40)
+	local barX, barY = ScaleW(30), textY - (barH * 0.5)
 	
 	local healthPercentage, healthChanged = math.Clamp(healthPoints / maxHealthPoints, 0, 1), false
 	if healthPercentage ~= healthPercentageDrawn then
@@ -53,44 +53,64 @@ function hud.DrawZombieHUD()
 
 	--Determine health bar foreground color
 	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
-	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
-	local healthBarColor = Color(154, 30, 30, 255)
-	--local healthBarBGColor = Color(70, 20, 20, 255)
-	
+	local percentage = math.Clamp((fHealth / fMaxHealth), 0.2, 1)
+				
 	--Different colors
-	if iPercentage > 0.65 then
-		healthBarColor = Color(24, 170, 30, 225)
-	--	healthBarBGColor = Color(52, 68, 15, 225)
-	elseif iPercentage > 0.3 then
-		healthBarColor = Color(190, 116, 24, 225)
-		--healthBarBGColor = Color(86, 73, 15, 225)
-	end
+
+	local red = 1 - percentage
+	local healthFontColor = Color(250, 250, 250, 220)
+	local healthBarColor = Color(255 * red, 255 * percentage, 30 * percentage, 100)
+	local healthBarBGColor = Color(30 * red, 30 * percentage, 30 * percentage, 100)
 	
 	--Flash under certain conditions
 	if MySelf:IsTakingDOT() or healthPercentageDrawn < 0.3 then
 		healthBarColor = Color(healthBarColor.r, healthBarColor.g, healthBarColor.b, math.abs( math.sin( CurTime() * 4 ) ) * 255)
 	end	
 
-	--Draw health points text
-	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
-	draw.SimpleTextOutlined("+", "hpFont",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, healthBarColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
-	draw.SimpleTextOutlined(healthPoints, "ssNewAmmoFont24",startX - ScrW()/2 + ScrW()/45, ScrH()/1.03, healthBarColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	surface.SetDrawColor(Color(0,0,0,60))
+	surface.DrawRect(0, ScrH() - ScaleH(120), ScaleW(260), ScaleH(120))		
 	
+	--Background
+	if healthPercentageDrawn ~= 1 then
+		surface.SetDrawColor(healthBarBGColor)
+		surface.DrawRect(barX, barY, barW, barH)
+	end
+	
+	--Foreground
+	surface.SetDrawColor(healthBarColor)
+	surface.DrawRect(barX, barY, barW * healthPercentageDrawn, barH)
+	
+	draw.SimpleTextOutlined(healthPoints, "fontHuman12",textX, textY + ScaleH(2), healthFontColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,220))	
 	
 end
-
+local requiredScore = 0
+local spBarX = 0 + (ScrW()*0.13 * 0.5)
+local spBarY = ScrH()/1.1
 function hud.DrawBrains()
-	--Calculate amount of brains required
-	local requiredScore = REDEEM_KILLS
-	if MySelf:HasBought("quickredemp") or MySelf:GetRank() < REDEEM_FAST_LEVEL then
+	
+	requiredScore = REDEEM_KILLS
+	if MySelf:HasBought("quickredemp") then
 		requiredScore = REDEEM_FAST_KILLS
 	end
 
-	--Divide by 2
-	requiredScore = math.ceil(requiredScore / 2)
+	local spRatio = MySelf:GetScore() / requiredScore
+	
+	surface.SetDrawColor( 100, 100 , 100, 200 )
+	surface.DrawOutlinedRect( spBarX, spBarY, ScrW()*0.13, ScrH()*0.01 )
+	surface.SetDrawColor(0, 175, 205, 200 )
+	surface.DrawRect( spBarX, spBarY, (ScrW()*0.13)*spRatio, ScrH()*0.01 )
 
-	local currentScore = math.max(0, math.ceil(MySelf:GetScore() / 2))
+	
+	--draw.RoundedBox(0, spBarX, spBarY, ScrW()*0.13, ScrH()*0.08, Color(20, 26, 20, 150))
+	
+	surface.SetDrawColor(200, 200, 200, 200 )
+	surface.DrawRect( spBarX, spBarY  - ScrH()*0.005, ScrW()*0.002, ScrH()*0.015 )
+	surface.DrawRect( spBarX + ScrW()*0.13 - ScrW()*0.001, spBarY - ScrH()*0.005, ScrW()*0.002, ScrH()*0.015 )
 
+
+	draw.SimpleText("Redemption", "HudHintTextLarge", spBarX + (ScrW()*0.13 * 0.5), spBarY * 0.985, Color( 255, 200, 200, 245 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )	
+
+	draw.SimpleText(MySelf:GetScore() .. " / " .. requiredScore, "HudHintTextSmall", spBarX + (ScrW()*0.13 * 0.5), spBarY * 1.005, Color( 255, 200, 200, 245 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )		
 
 	local textX, textValueY, textKeyY = ScaleW(15), ScaleH(900), ScaleH(900)
 end

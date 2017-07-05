@@ -147,7 +147,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 			pl:Give(item)
 			pl:SelectWeapon(item)			
 			
-		elseif item == "weapon_zs_turretplacer" then
+		elseif item == "weapon_zs_turret" then
 		
 			if (pl:HasWeapon(item)) then
 				pl:GiveAmmo( 1, "SniperRound" )

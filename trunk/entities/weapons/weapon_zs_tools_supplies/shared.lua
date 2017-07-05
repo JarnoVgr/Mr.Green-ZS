@@ -6,8 +6,6 @@ AddCSLuaFile()
 SWEP.PrintName = "Mobile Supplies"
 
 if CLIENT then
-	SWEP.Slot = 4
-	SWEP.SlotPos = 1 
 	SWEP.ViewModelFlip = false
 	SWEP.DrawCrosshair = false
 	SWEP.IconLetter = "V"
@@ -21,14 +19,16 @@ if CLIENT then
 	end	
 	
 	--Killicon
-	killicon.AddFont("weapon_zs_tools_supplies", "CSKillIcons", SWEP.IconLetter, Color(255, 80, 0, 255))
+	killicon.AddFont("weapon_zs_tools_supplies", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255))
 end
 
 SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.Author	= "NECROSSIN"	
 
-SWEP.ViewModelFOV = 60
+SWEP.Slot = 4
+SWEP.Weight = 8
+SWEP.Type = "Deployable"
 
 SWEP.Info = "Left click to place a Mobile Supplies"
 
@@ -39,7 +39,6 @@ SWEP.ViewModel = Model("models/weapons/cstrike/c_c4.mdl")
 SWEP.UseHands = true
 SWEP.WorldModel = Model("models/Items/item_item_crate.mdl")
 
-SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
@@ -64,8 +63,6 @@ SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic   	= true
 SWEP.Secondary.Ammo         = "none"
-
-SWEP.WalkSpeed = SPEED_MELEE_HEAVY
 
 local ShootSound = Sound("items/ammo_pickup.wav")
 local FailSound = Sound("buttons/combine_button_locked.wav")
@@ -126,6 +123,11 @@ SWEP.AmmoMode = {
 function SWEP:Equip(NewOwner)
 	if not SERVER then
 		return
+	end
+	
+	if SERVER then
+		self.Owner.Weight = self.Owner.Weight + self.Weight
+		self.Owner:CheckSpeedChange()
 	end
 	
 	gamemode.Call("OnWeaponEquip", NewOwner, self)
@@ -228,8 +230,10 @@ function SWEP:PrimaryAttack()
 			self:TakePrimaryAmmo(1)
 							
 			if self and self:IsValid() then
-				DropWeapon(self.Owner)
+				--self.Owner.Weight = self.Owner.Weight - self.Weight	
+				DropWeapon(self.Owner)	
 				self:Remove()				
+				
 			end
 		end
 	end

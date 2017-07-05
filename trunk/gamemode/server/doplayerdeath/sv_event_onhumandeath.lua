@@ -67,7 +67,7 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	end)
 		
 	skillpoints.Clean(mVictim)
-	
+	mVictim.Weight = 0
 	mVictim:PlayDeathSound()
 	
 	mVictim.WalkingBackwards = false

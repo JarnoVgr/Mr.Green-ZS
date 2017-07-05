@@ -217,10 +217,10 @@ function meta:DropWeapon(Weapon)
 	end
 	
 	--Substract a slot from the category and remove it
-	local strCategory = GetWeaponCategory ( Weapon:GetClass() )
-	if strCategory == nil then
-		return
-	end
+	--local strCategory = GetWeaponCategory ( Weapon:GetClass() )
+	--if strCategory == nil then
+	--	return
+	--end
 	
 	--We can't spawn the weapon into the void/solids
 	if not self:CanDropWeapon(Weapon) then
@@ -242,11 +242,13 @@ function meta:DropWeapon(Weapon)
 		ClientDropWeapon(self)
 	end
 	
+	self.Weight = self.Weight - ActiveWeapon.Weight
+	
 	--Base function
 	self:BaseDropWeapon(Weapon)
 	
 	--Subtract weapon count
-	self.CurrentWeapons[strCategory] = self.CurrentWeapons[strCategory] - 1
+	--self.CurrentWeapons[strCategory] = self.CurrentWeapons[strCategory] - 1
 end
 
 --[==[----------------------------------------------------------------
@@ -297,10 +299,10 @@ function meta:StripWeapon( Class )
 	end
 	
 	-- Substract a slot from the category and remove it
-	local strCategory = GetWeaponCategory ( Class )
-	if strCategory == nil then
-		return
-	end
+	--local strCategory = GetWeaponCategory ( Class )
+	--if strCategory == nil then
+	--	return
+	--end
 	
 	-- Get the weapon to strip
 	local Weapon, ActiveWeapon = self:GetWeapon ( Class ), self:GetActiveWeapon()
@@ -315,7 +317,7 @@ function meta:StripWeapon( Class )
 	end
 	
 	-- Substract weapon count
-	self.CurrentWeapons[strCategory] = self.CurrentWeapons[strCategory] - 1
+	--self.CurrentWeapons[strCategory] = self.CurrentWeapons[strCategory] - 1
 	
 	-- Base function
 	self:BaseStripWeapon(Class)
@@ -1165,7 +1167,7 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 	--Cadebreaking
 	if IsValid(attacker) and attacker:IsPlayer() and attacker:Team() == TEAM_HUMAN then
 		if dmginfo:IsMeleeDamage() then
-			if attacker:GetActiveWeapon():GetClass() == "weapon_zs_tools_hammer" then
+			if attacker:GetActiveWeapon():GetClass() == "weapon_zs_hammer" then
 				return true
 			else
 				damage = damage * 0.25
@@ -1476,6 +1478,8 @@ function meta:DoHulls(classid, teamid)
 	self:CollisionRulesChanged()
 end
 
+
+util.AddNetworkString( "weight" )
 function meta:CheckSpeedChange(damage)
 	if not IsValid(self) then return end
 	damage = damage or 0
@@ -1486,7 +1490,7 @@ function meta:CheckSpeedChange(damage)
 	-- Weapon walking speed, health, and player human class
 	local fSpeed, fHealthMaximum, fHealth = wep.WalkSpeed or SPEED, self:GetMaximumHealth(), self:Health() - damage
 	
-	local fHealthSpeed = math.Clamp ((fHealth / (fHealthMaximum * 0.2)), 0.8, 1 )	
+	local fHealthSpeed = math.Clamp ((fHealth / (fHealthMaximum * 0.5)), 0.75, 1 )	
 
 	fSpeed = math.Round ( fSpeed * fHealthSpeed )	
 
@@ -1508,7 +1512,19 @@ function meta:CheckSpeedChange(damage)
 
 	end		
 	
-	GAMEMODE:SetPlayerSpeed(self, fSpeed * (self:GetMaximumSpeedMultiplier() / 100))
+
+
+	--if speed != fSpeed then
+		if self.Weight then
+			net.Start("weight")
+			net.WriteFloat(self.Weight)
+			net.WriteBit(false)
+			net.Send(self)	
+		end
+	--end
+	--speed = fSpeed
+	
+	GAMEMODE:SetPlayerSpeed(self, fSpeed * ((self:GetMaximumSpeedMultiplier() / 100) - (self.Weight * 0.01)))
 end
 
 function meta:SpawnMiniTurret()

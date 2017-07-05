@@ -365,6 +365,7 @@ local ToggleCooldown = 0
 --[==[------------------------------------------------
               Called on KEY_C pressed
 -------------------------------------------------]==]
+--[[
 local function OnKeyPressed()
 	--Don't display when in class menu
 	if IsValid(ClassMenu) and ClassMenu:IsVisible() then
@@ -377,9 +378,10 @@ local function OnKeyPressed()
 	end
 	
 	--Pop-up the admin panel
-	DoAdminPanel()
+	--DoAdminPanel()
 end
 hook.Add("OnContextMenuOpen", "ContextKeyPressedHook", OnKeyPressed)
+]]--
 
 --[==[------------------------------------------------
               Called on KEY_C released

@@ -100,9 +100,9 @@ function SWEP:Think()
 					if ent:IsPlayer() then
 						mOwner:EmitSound( "npc/headcrab_poison/ph_poisonbite"..math.random( 1,3 )..".wav", 100, math.random( 95, 105 ) )
 						if ent:GetPerk("Medic") then						
-							ent:TakeDamageOverTime( 3, 1.5, 10 - (ent:GetRank() * 0.5), mOwner, self.Weapon )
+							ent:TakeDamageOverTime( 3, 1.0, 10 - (ent:GetRank() * 0.5), mOwner, self.Weapon )
 						else
-							ent:TakeDamageOverTime( 3, 1.5, 10, mOwner, self.Weapon )						
+							ent:TakeDamageOverTime( 3, 1.0, 10, mOwner, self.Weapon )						
 						end
 						local Infect = EffectData()
 						Infect:SetEntity( ent )

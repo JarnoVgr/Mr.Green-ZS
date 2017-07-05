@@ -3,9 +3,6 @@ AddCSLuaFile()
 SWEP.Base = "weapon_zs_medi_base"
 
 if CLIENT then
-	SWEP.ViewModelFOV = 60
-	SWEP.BobScale = 2
-	SWEP.SwayScale = 1.5
 	SWEP.PrintName = "Medi 04"
 
 	SWEP.VElements = {
@@ -30,7 +27,7 @@ if CLIENT then
 	
 
 	SWEP.IconLetter = "v"		
-	killicon.AddFont( "weapon_zs_medi4", "CSKillIcons", SWEP.IconLetter, Color(120, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_medi4", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
 	
 end
 
@@ -38,21 +35,21 @@ SWEP.ViewModel = "models/weapons/cstrike/c_rif_famas.mdl"
 SWEP.WorldModel = "models/weapons/w_rif_famas.mdl"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 0.8
-SWEP.Primary.Damage			= 14
+SWEP.Primary.Recoil			= 1
+SWEP.Primary.Damage			= 15
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 40
 SWEP.Primary.Delay = 0.1
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo = "Battery"
 SWEP.UseHands = true
-SWEP.Cone = 0.048
-SWEP.ConeMoving = SWEP.Cone *1.12
-SWEP.ConeCrouching = SWEP.Cone *0.9
-SWEP.ConeIron = SWEP.Cone *0.9
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
 
-SWEP.WalkSpeed = SPEED_LIGHT-5
+SWEP.ConeMax = 0.06
+SWEP.ConeMin = 0.05
+SWEP.Type = "Medical"
+SWEP.Weight = 3
+SWEP.Slot = 3
+
 SWEP.HoldType = "ar2"
 SWEP.HumanClass = "medic"
 

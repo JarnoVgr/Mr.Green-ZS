@@ -32,10 +32,10 @@ function ENT:Think()
 					if hitent:IsPlayer() and hitent:IsHuman() and hitent:Alive() then
 						if hitent:GetPerk("Medic") then
 							hitent:TakeDamage(2, owner, self)	
-							hitent:TakeDamageOverTime(1, 1.2, 6, owner, owner:GetActiveWeapon())							
+							hitent:TakeDamageOverTime(1, 1.0, 6, owner, owner:GetActiveWeapon())							
 						else
 							hitent:TakeDamage(3, owner, self)
-							hitent:TakeDamageOverTime(1, 1.2, 6, owner, owner:GetActiveWeapon())							
+							hitent:TakeDamageOverTime(1, 1.0, 6, owner, owner:GetActiveWeapon())							
 						end
 						
 						if not hitent.IsInfected then

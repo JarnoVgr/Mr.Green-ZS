@@ -1,17 +1,12 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.ViewModelFOV = 60
-	SWEP.BobScale = 2
-	SWEP.SwayScale = 1.5
 	SWEP.PrintName = "Medi 01"
-	SWEP.Slot = 4
-	SWEP.SlotPos = 0
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = true
 	SWEP.IgnoreBonemerge = true
 	SWEP.IgnoreThumbs = true
-	killicon.AddFont( "weapon_zs_classic", "HL2MPTypeDeath", "-", Color(120, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_classic", "HL2MPTypeDeath", "-", Color(255, 255, 255, 255 ) )
 end
 
 SWEP.ViewModel = "models/weapons/c_pistol.mdl"
@@ -35,7 +30,7 @@ SWEP.ConeMoving = SWEP.Cone *1.3
 SWEP.ConeCrouching = SWEP.Cone *0.9
 SWEP.ConeIron = SWEP.Cone *0.9
 SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
-SWEP.WalkSpeed = SPEED_PISTOL
+
 SWEP.HoldType = "pistol"
 SWEP.HumanClass = "medic"
 
@@ -168,7 +163,7 @@ if CLIENT then
 		self:DrawCrosshair()	
 		local wid, hei = ScaleW(150), ScaleH(33)
 		local space = 12+ScaleW(7)
-		local x, y = ScrW() - wid - 200, ScrH() - ScaleH(73) - 6
+		local x, y = ScrW() - wid - ScaleW(22) , ScrH() - hei - ScaleH(100)
 		y = y + ScaleH(73)/2 - hei/2
 		surface.SetFont("ssNewAmmoFont13")
 		local tw, th = surface.GetTextSize("Medical Kit")

@@ -1,12 +1,18 @@
 include("shared.lua")
 
-
+SWEP.SlotPos = 0
+SWEP.ViewModelFOV = 50
 function SWEP:DrawHUD()
 	if util.tobool(GetConVarNumber("_zs_hidecrosshair")) then
 		return
 	end
 	MeleeWeaponDrawHUD()
 end
+
+function SWEP:DrawWeaponSelection(...)
+	return self:BaseDrawWeaponSelection(...)
+end
+
 
 local function CosineInterpolation(y1, y2, mu)
 	local mu2 = (1 - math.cos(mu * math.pi)) / 2

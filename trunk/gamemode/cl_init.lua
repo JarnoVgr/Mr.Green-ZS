@@ -373,7 +373,7 @@ if not killicon.GetFont then -- Need this for the rewards message.
 		if GetWeaponType(sClass) == "melee" and not IsZSWeapon then
 			IsHl2Weapon = true
 		end
-		if sClass == "weapon_zs_melee_combatknife" then
+		if sClass == "weapon_zs_knife" then
 			IsZSWeapon = false
 			IsHl2Weapon = false
 		end
@@ -475,6 +475,7 @@ function GM:Initialize()
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(6), 700, true, false, "CorpusCareFive")
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(7), 700, true, false, "CorpusCareSeven")
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(10), 700, true, false, "CorpusCareTen")
+	surface.CreateFontLegacy("CorpusCare", ScreenScale(11), 700, true, false, "CorpusCareEleven")	
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(13), 700, true, false, "CorpusCareThirteen")
 	surface.CreateFontLegacy("CorpusCare", ScreenScale(16), 500, true, false, "CorpusCareFifteen")
 	
@@ -948,7 +949,7 @@ GM.ZombieThirdPerson = false
 ------------------------------------------------------------------]=]
 local function RestrictControls(pl, bind, pressed)
 	local Team = pl:Team()
-	if Team == TEAM_UNDEAD then
+	--if Team == TEAM_UNDEAD then
 		--Third person view toggle
 		if bind == "+menu_context" then
 			GAMEMODE.ZombieThirdPerson = not GAMEMODE.ZombieThirdPerson
@@ -963,12 +964,12 @@ local function RestrictControls(pl, bind, pressed)
 				return true
 			end
 		end	
-	elseif Team == TEAM_HUMAN then
+	--elseif Team == TEAM_HUMAN then
 		--Prevent humans walking (note by Ywa: why should we prevent this?)
-		if bind == "+walk" then --string.find(bind, "walk")
-			return true
-		end		
-	end
+	--	if bind == "+walk" then --string.find(bind, "walk")
+	--		return true
+	--	end		
+	--end
 end
 hook.Add("PlayerBindPress", "RestrictControl", RestrictControls)
 
@@ -1041,7 +1042,7 @@ function GM:_ShouldDrawLocalPlayer(pl)
 	end
 
 	local weapon = pl:GetActiveWeapon()
-	return pl.Team and pl:Team() == TEAM_UNDEAD and ((self.ZombieThirdPerson or (IsValid(weapon) and weapon.GetClimbing and weapon:GetClimbing())) or (pl.Revive and pl.Revive:IsValid()))--  and pl.Revive:IsRising()
+	return pl.Team and ((self.ZombieThirdPerson or (IsValid(weapon) and weapon.GetClimbing and weapon:GetClimbing())) or (pl.Revive and pl.Revive:IsValid() and pl.Revive:IsRising()))--  and pl.Revive:IsRising()
 end
 
 local function CalculateView(pl, vPos, aAng, fFov)
@@ -1053,20 +1054,23 @@ local function CalculateView(pl, vPos, aAng, fFov)
 	local Velocity, EyeAngle = pl:GetVelocity(), pl:EyeAngles()
 	
 	--Revive camera
+	--[[
 	if pl.Revive and pl.Revive.GetRagdollEyes then
 		local rpos, rang = pl.Revive:GetRagdollEyes(pl)
 		if rpos then
 			return { origin = rpos, angles = rang }
 		end
 	end
-	
+	]]--
 	--Skull camera for dead humans
+	--[[
 	if MySelf:GetRagdollEntity() and not (MySelf:GetObserverMode() == OBS_MODE_ROAMING or MySelf:GetObserverMode() == OBS_MODE_FREEZECAM or MySelf:GetObserverMode() == OBS_MODE_CHASE ) then
 		local rpos, rang = GAMEMODE:GetRagdollEyes(MySelf)
 		if rpos then
 			return { origin = rpos, angles = rang }
 		end
 	end
+	]]--
 	
 	--
 	if pl:ShouldDrawLocalPlayer() and pl:Alive() then
@@ -1077,10 +1081,13 @@ local function CalculateView(pl, vPos, aAng, fFov)
 				local pos,ang = pl:GetBonePosition(bone)
 				if pos and ang then
 					ang:RotateAroundAxis(ang:Up(),-90)
-					return {
-						origin = pos+pl:SyncAngles():Forward()*4+pl:SyncAngles():Up()*-3,
-						angles = Angle(math.Clamp(aAng.p,-45,45), aAng.y, ang.r/6)
-					}
+					
+
+						return {
+							origin = pos+pl:SyncAngles():Forward()*4+pl:SyncAngles():Up()*-3,
+							angles = Angle(math.Clamp(aAng.p,-45,45), aAng.y, ang.r/6)
+						}
+
 				end
 			end
 		else
@@ -1088,7 +1095,7 @@ local function CalculateView(pl, vPos, aAng, fFov)
 		end
 	end
 
-	fFov = fFov or GetConVar("fov_desired"):GetInt() or 75
+	fFov = fFov or GetConVar("fov_desired"):GetInt() or 90
 
 	-- Weapon calc. view management ( human only )
 	if MySelf:Team() == TEAM_HUMAN then

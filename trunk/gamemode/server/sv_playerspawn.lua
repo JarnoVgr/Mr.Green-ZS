@@ -55,6 +55,7 @@ function GM:PlayerInitialSpawn(pl)
 	pl.RecBrain = 0
 	pl.BrainDamage = 150
 	pl.MaxHealth = 100
+	pl.Weight = 0
 	
 	--pl.MasterZS = true
 	pl.Suicided = false
@@ -656,25 +657,25 @@ function CalculatePlayerLoadout(pl)
 	end
 
 	--Medic Stages
-	local medicstage1 = {"weapon_zs_p228","weapon_zs_melee_stunstick","weapon_zs_medkit"}
+	local medicstage1 = {"weapon_zs_fists2", "weapon_zs_p228","weapon_zs_stunstick","weapon_zs_medkit"}
 		
 	--Support stages
-	local support = {"weapon_zs_usp","weapon_zs_tools_hammer"}
+	local support = {"weapon_zs_fists2", "weapon_zs_tools_torch", "weapon_zs_usp","weapon_zs_hammer"}
 		
 	--Commando stages
-	local commando = {"weapon_zs_fiveseven","weapon_zs_melee_combatknife","weapon_zs_grenade"}
+	local commando = {"weapon_zs_fists2", "weapon_zs_fiveseven","weapon_zs_knife","weapon_zs_grenade"}
 		
 	--Engineer stages
-	local engineer = {"weapon_zs_classic", "weapon_zs_melee_fryingpan","weapon_zs_turretplacer","weapon_zs_mine"}
+	local engineer = {"weapon_zs_fists2", "weapon_zs_owens", "weapon_zs_knife","weapon_zs_turret","weapon_zs_proximity_mine"}
 		
 	--Berserker stages
-	local berserker = {"weapon_zs_deagle","weapon_zs_melee_plank"}
+	local berserker = {"weapon_zs_fists2", "weapon_zs_deagle","weapon_zs_plank"}
 		
 	--Sharpshooter stages
-	local sharpshooter = {"weapon_zs_barreta","weapon_zs_melee_combatknife","weapon_zs_tools_supplies"}
+	local sharpshooter = {"weapon_zs_fists2", "weapon_zs_barreta","weapon_zs_knife"}
 	
 	--PyroTechnic stages	
-	local pyro = {"weapon_zs_alyx","weapon_zs_melee_pipe"}
+	local pyro = {"weapon_zs_fists2", "weapon_zs_alyx","weapon_zs_knife"}
 
 	pl.Loadout = {}
 	
@@ -701,6 +702,7 @@ function CalculatePlayerLoadout(pl)
 		end		
 	elseif pl:GetPerk("Support") then
 		pl.Loadout = table.Copy(support)
+		pl:GiveAmmo(18, "buckshot")				
 		if pl:GetPerk("support_shotgun") then
 			pl:Give("weapon_zs_shotgun")
 			pl:GiveAmmo(18, "buckshot")			
@@ -714,7 +716,7 @@ function CalculatePlayerLoadout(pl)
 		elseif pl:GetPerk("support_mobilesupplies") then
 			pl:Give("weapon_zs_tools_supplies")
 		else
-			pl:Give("weapon_zs_tools_ammobox")	
+			pl:Give("weapon_zs_ammunition_pack")	
 		end		
 		for k,v in pairs(pl.Loadout) do
 			pl:Give(tostring(v))				

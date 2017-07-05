@@ -3,12 +3,10 @@ AddCSLuaFile()
 SWEP.HoldType = "slam"
 
 if CLIENT then
-	SWEP.PrintName = "Torch"
+	SWEP.PrintName = "Blowtorch"
 	SWEP.DrawCrosshair = false
 	SWEP.ViewModelFlip = false
 
-	SWEP.Slot = 4
-	SWEP.SlotPos = 0
 	SWEP.IconLetter = "E"
 	
 	killicon.AddFont("weapon_zs_tools_torch", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255))
@@ -22,10 +20,14 @@ end
 SWEP.Author = "NECROSSIN"
 
 --SWEP.ViewModel = "models/Weapons/v_Grenade.mdl"
-SWEP.ViewModel = "models/Weapons/c_grenade.mdl"
+SWEP.ViewModel = "models/weapons/c_grenade.mdl"
 SWEP.WorldModel = "models/Weapons/w_grenade.mdl"
 SWEP.UseHands = true
 SWEP.Base = "weapon_zs_base_dummy"
+
+SWEP.Slot = 4
+SWEP.Type = "Tool"
+SWEP.Weight = 1
 
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.DefaultClip = 30
@@ -44,8 +46,6 @@ SWEP.IdleAngle = Angle(7.105, -8.9, 1.98)
 SWEP.ActiveAngle = Angle(0.893, 9.805, -4.725)
 
 SWEP.TempAng = SWEP.IdleAngle
-
-SWEP.WalkSpeed = 200
 
 function SWEP:InitializeClientsideModels()
 	self.ViewModelBoneMods = {

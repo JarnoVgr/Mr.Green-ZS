@@ -245,15 +245,15 @@ function GM:OnWeaponEquip(pl, mWeapon)
 	end
 
 	-- Hacky way to update weapon slot count
-	local EntClass = mWeapon:GetClass()
-	local PrintName = mWeapon.PrintName or "weapon"
+	--local EntClass = mWeapon:GetClass()
+	--local PrintName = mWeapon.PrintName or "weapon"
 
-	local category = WeaponTypeToCategory[mWeapon:GetType()]
-	if not category or not pl.CurrentWeapons[category] then
-		return
-	end
+	--local category = WeaponTypeToCategory[mWeapon:GetType()]
+	--if not category or not pl.CurrentWeapons[category] then
+	--	return
+	--end
 	
-	pl.CurrentWeapons[category] = pl.CurrentWeapons[category] + 1
+	--pl.CurrentWeapons[category] = pl.CurrentWeapons[category] + 1
 end
 
 --[=[---------------------------------------------------------
@@ -330,25 +330,8 @@ local function OnPressedF3(pl)
 	if pl:Team() == TEAM_UNDEAD then
 		pl:SendLua("DoClassesMenu()")
 	elseif pl:Team() == TEAM_HUMAN and pl:Alive() then
-		local vStart = pl:GetShootPos()
-		local tr = util.TraceLine ( { start = vStart, endpos = vStart + ( pl:GetAimVector() * 90 ), filter = pl, mask = MASK_SHOT } )
-		local entity = tr.Entity
-		if entity and IsValid(entity) and entity:GetClass() == "game_mobilesupplycrate" then
-			local price = GAMEMODE.HumanWeapons[pl:GetActiveWeapon():GetClass()].Tier or 0	
-			if price and CurTime() > WARMUPTIME then	
-				pl:GetActiveWeapon():Remove()				
-				DropWeapon(pl)
-				price = (price * 10) + 10
-				skillpoints.AddSkillPoints(pl,price)
-				pl:Message("+"..price.." SP", 1)			
-				pl:EmitSound("Breakable.Metal")		
-				return
-			else
-				pl:Messsage("Cannot scrap during preparation")
-			end
-		else
-			DropWeapon(pl)	
-		end
+		if pl:GetActiveWeapon():GetClass() == "weapon_zs_fists2" then return end
+		DropWeapon(pl)	
 	end
 end
 hook.Add("ShowSpare1", "PressedF3", OnPressedF3)
@@ -576,24 +559,24 @@ function GM:ModelToEntity(ent)
 	
 	--Initialize our translation table
 	local ModelToEntity = {
-		["models/props_c17/tools_wrench01a.mdl"] = "weapon_zs_tools_hammer",
-		["models/props/cs_office/computer_keyboard.mdl"] = "weapon_zs_melee_keyboard",
-		["models/props_c17/metalpot002a.mdl"] = "weapon_zs_melee_fryingpan",
-		["models/weapons/w_fryingpan.mdl"] = "weapon_zs_melee_fryingpan",
-		["models/weapons/w_pot.mdl"] = "weapon_zs_melee_pot",
-		["models/props/cs_militia/axe.mdl"] = "weapon_zs_melee_axe",
-		["models/props_junk/shovel01a.mdl"] = "weapon_zs_melee_shovel",
-		["models/weapons/w_knife_t.mdl"] = "weapon_zs_melee_combatknife",
-		["models/weapons/w_knife_ct.mdl"] = "weapon_zs_melee_combatknife",
-		["models/weapons/w_knife_t.mdl"] = "weapon_zs_melee_combatknife",
-		["models/props_c17/metalpot001a.mdl"] = "weapon_zs_melee_pot",
-		["models/props_interiors/pot02a.mdl"] = "weapon_zs_melee_fryingpan",
+		["models/props_c17/tools_wrench01a.mdl"] = "weapon_zs_hammer",
+		["models/props/cs_office/computer_keyboard.mdl"] = "weapon_zs_keyboard",
+		["models/props_c17/metalpot002a.mdl"] = "weapon_zs_fryingpan",
+		["models/weapons/w_fryingpan.mdl"] = "weapon_zs_fryingpan",
+		["models/weapons/w_pot.mdl"] = "weapon_zs_pot",
+		["models/props/cs_militia/axe.mdl"] = "weapon_zs_axe",
+		["models/props_junk/shovel01a.mdl"] = "weapon_zs_shovel",
+		["models/weapons/w_knife_t.mdl"] = "weapon_zs_knife",
+		["models/weapons/w_knife_ct.mdl"] = "weapon_zs_knife",
+		["models/weapons/w_knife_t.mdl"] = "weapon_zs_knife",
+		["models/props_c17/metalpot001a.mdl"] = "weapon_pot",
+		["models/props_interiors/pot02a.mdl"] = "weapon_fryingpan",
 		
 			--Lets add some new weapons around the map to make it more interesting!
 		--["models/props_junk/garbage_plasticbottle001a.mdl"] = "weapon_zs_glock3",
-		["models/props_junk/garbage_glassbottle003a.mdl"] = "weapon_zs_melee_beer",
-		["models/props_junk/GlassBottle01a.mdl"] = "weapon_zs_melee_beer",
-		["models/props_canal/mattpipe.mdl"] = "weapon_zs_melee_pipe2"
+		["models/props_junk/garbage_glassbottle003a.mdl"] = "weapon_zs_beer",
+		["models/props_junk/GlassBottle01a.mdl"] = "weapon_zs_beer",
+		["models/props_canal/mattpipe.mdl"] = "weapon_zs_pipe2"
 		--["models/props_c17/furniturechair001a.mdl"] = "weapon_zs_melee_chair"
 
 		
@@ -735,13 +718,13 @@ function GM:PlayerCanPickupWeapon(ply, entity)
 	end
 	
 	-- Notify the player if he is carrying more than 1 weapon of each type --  Dont notify anymore		
-	local Category = WeaponTypeToCategory[ entity:GetType() ]
+	--local Category = WeaponTypeToCategory[ entity:GetType() ]
 	--if Category then
-		if ply.CurrentWeapons[Category] and ply.CurrentWeapons[Category] >= 1 and Category ~= "Admin" then
+		--if ply.CurrentWeapons[Category] and ply.CurrentWeapons[Category] >= 1 and Category ~= "Admin" then
 			--return false
-			return 
+			--return 
 		--end
-	end
+	--end
 	
 	--			
 	ply.HighestAmmoType = string.lower(entity:GetPrimaryAmmoTypeString() or ply.HighestAmmoType)

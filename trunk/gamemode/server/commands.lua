@@ -114,7 +114,7 @@ function DropWeapon(pl, commandName, args)
 
 	--Actual dropping
 	pl:DropWeapon(Weapon)
-	
+	pl:CheckSpeedChange()
 	--Notify 
 	--pl:ChatPrint( "You've dropped a "..tostring ( GAMEMODE.HumanWeapons[wepname].Name ) )
 end

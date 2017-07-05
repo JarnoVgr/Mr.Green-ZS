@@ -211,6 +211,11 @@ if SERVER then
 				local placeWeapon = "weapon_zs_tools_supplies"
 				activator:Give(placeWeapon)
 				activator:SelectWeapon(placeWeapon)
+				--if SERVER then
+					--activator.Weight = activator.Weight + activator:GetActiveWeapon().Weight	
+					--print(activator:GetActiveWeapon().Weight	)
+				--end
+
 				self:Remove()
 			--Check for claiming
 			elseif not validOwner then

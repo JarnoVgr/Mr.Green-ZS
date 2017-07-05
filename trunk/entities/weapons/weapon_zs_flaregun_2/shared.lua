@@ -1,13 +1,11 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.PrintName = "Flare Boy"			
+	SWEP.PrintName = "'Flare Boy'"			
 	SWEP.Author	= "Braindawg"
-	SWEP.Slot = 1
-	SWEP.SlotPos = 6
-	SWEP.ViewModelFOV = 60
+
 	SWEP.IconLetter = "s"
-	killicon.AddFont( "weapon_zs_flaregun", "HL2MPTypeDeath", ".",Color(255, 255, 100, 100 ) )
+	killicon.AddFont( "weapon_zs_flaregun_2", "HL2MPTypeDeath", ".",Color(255, 255, 255, 255 ) )
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = true
 		
@@ -83,13 +81,13 @@ SWEP.MaxAmmo			    = 100
 SWEP.Primary.Automatic		= true  
 SWEP.Primary.Ammo			= "alyxgun"
 SWEP.HumanClass = "pyro"
-SWEP.Cone = 0.035
-SWEP.ConeMoving = SWEP.Cone * 1.1
-SWEP.ConeCrouching = SWEP.Cone * 0.95
-SWEP.ConeIron = SWEP.Cone
-SWEP.ConeIronCrouching = SWEP.ConeCrouching
 
-SWEP.WalkSpeed = SPEED_PISTOL
+
+SWEP.ConeMax = 0.08
+SWEP.ConeMin = 0.03
+SWEP.Type = "Incendiary"
+SWEP.Weight = 2
+SWEP.Slot = 1
 
 
 SWEP.IronSightsPos = Vector(-4.59,25,0.65)

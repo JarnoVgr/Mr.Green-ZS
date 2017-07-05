@@ -10,7 +10,7 @@ SWEP.PrintName = "barricade kit"
 SWEP.ViewModel = Model ( "models/weapons/c_rpg.mdl" )
 SWEP.WorldModel = Model ( "models/weapons/w_rocket_launcher.mdl" )
 SWEP.UseHands = true
-SWEP.WalkSpeed = 190
+
 SWEP.Models = { "models/props_interiors/radiator01a.mdl", "models/props_junk/trashbin01a.mdl" }
 SWEP.ModelOBB = { [1] = { Min = Vector( -5.2500, -25.2500, -18.4771 ) , Max = Vector ( 5.2500 ,25.0245 ,18.2500 )  }, [2] = { Min = Vector( -13.2614 ,-12.0523 ,-20.2876 ) , Max = Vector ( 13.2614, 12.0523 ,20.3897 )  } }
 SWEP.DrawCrosshair = true

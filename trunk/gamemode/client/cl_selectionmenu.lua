@@ -62,7 +62,7 @@ local function ManageSlotBinds ( pl, bind, pressed )
 		end
 	end
 end
-hook.Add ( "PlayerBindPress", "ManageSlots", ManageSlotBinds )
+--hook.Add ( "PlayerBindPress", "ManageSlots", ManageSlotBinds )
 
 local function OnScrolled( pl, bind, pressed )
 	if pl:Team() ~= TEAM_HUMAN or (bind ~= "invnext" and bind ~= "invprev") then
@@ -138,7 +138,7 @@ local function OnScrolled( pl, bind, pressed )
 		
 	return true
 end
-hook.Add("PlayerBindPress", "OnScrolled", OnScrolled)
+--hook.Add("PlayerBindPress", "OnScrolled", OnScrolled)
 
 --Restricted half life 2 weapons
 local WeaponsRestricted = { "weapon_stunstick", "weapon_crowbar", "weapon_pistol", "weapon_357", "weapon_ar2", "weapon_shotgun", "weapon_frag", "weapon_crossbow", "weapon_rpg", "weapon_physcannon", "weapon_physgun" }
@@ -409,4 +409,4 @@ function PaintNewWeaponSelection()
 		draw.SimpleTextOutlined(GAMEMODE.HumanWeapons[MyWeapons[i]:GetClass()].Name, FontSize, SLOT_POS[i].PosX + MySelf.WepW * 1.25, NameHeight, ColorToDraw , TEXT_ALIGN_RIGHT, TEXT_ALIGN_RIGHT,1,Color(0, 0, 0, math.Clamp(160*Alpha + 40, 0, 255)))
 	end
 end
-hook.Add("HUDPaintBackground", "PaintSelection", PaintNewWeaponSelection)
+--hook.Add("HUDPaintBackground", "PaintSelection", PaintNewWeaponSelection)

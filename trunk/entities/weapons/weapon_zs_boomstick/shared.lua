@@ -30,7 +30,7 @@ SWEP.ConeCrouching = 0.061
 
 SWEP.IsShotgun = true
 SWEP.MaxAmmo = 55
-SWEP.WalkSpeed = SPEED_HEAVY
+
 
 SWEP.reloadtimer = 0
 SWEP.nextreloadfinish = 0

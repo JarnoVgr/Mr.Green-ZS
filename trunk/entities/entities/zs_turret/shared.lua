@@ -453,14 +453,22 @@ if SERVER then
 
 	
 	function ENT:Use(activator, caller)
+		local placeWeapon = "weapon_zs_turret"
 		local owner = self:GetTurretOwner()
 		local validOwner = (IsValid(owner) and owner:Alive() and owner:Team() == TEAM_HUMAN)
-		if validOwner and activator == owner and owner:HasWeapon("weapon_zs_turretplacer") then
-			local placeWeapon = "weapon_zs_turretplacer"
-			activator:SelectWeapon(placeWeapon)
-			activator:GiveAmmo( 1, "SniperRound" )				
-			self:Remove()
+		if validOwner and activator == owner then
+			if owner:HasWeapon(placeWeapon) then
+				activator:SelectWeapon(placeWeapon)
+				activator:GiveAmmo( 1, "SniperRound" )				
+			else
+				activator:Give(placeWeapon)
+				activator:SelectWeapon(placeWeapon)		
+			
+			end
+			self:Remove()			
 		end
+		
+		
 	end		
 		
 
@@ -526,12 +534,21 @@ if SERVER then
 		-- 	self:GetTurretOwner().Turret = nil
 		-- end
 		
-		--if Owner:IsValid() then
-		--	Owner:Message("Turret destroyed!", 2)		
-		--	local placeWeapon = "weapon_zs_turretplacer"
-		--	Owner:SelectWeapon(placeWeapon)	
-		--	Owner:GiveAmmo( 1, "SniperRound")			
-		--end
+
+		local placeWeapon = "weapon_zs_turret"
+
+		local validOwner = (IsValid(Owner) and Owner:Alive() and Owner:Team() == TEAM_HUMAN)
+		if validOwner then
+			if Owner:HasWeapon(placeWeapon) then
+				Owner:SelectWeapon(placeWeapon)
+				Owner:GiveAmmo( 1, "SniperRound" )				
+			else
+				Owner:Give(placeWeapon)
+				Owner:SelectWeapon(placeWeapon)		
+			end		
+			Owner:Message("Turret destroyed!", 2)		
+		end
+
 				
 		self.Entity:Remove()
 		

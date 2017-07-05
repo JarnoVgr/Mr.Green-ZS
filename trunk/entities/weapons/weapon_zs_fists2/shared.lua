@@ -10,26 +10,23 @@ SWEP.UseHands			= true
 SWEP.ViewModel			= "models/weapons/c_arms_citizen.mdl"
 SWEP.WorldModel			= ""
 
-SWEP.ViewModelFOV		= 52
-
 SWEP.Primary.ClipSize		= -1
 SWEP.Primary.DefaultClip	= -1
-SWEP.Primary.Damage			= 10
+SWEP.MeleeDamage			= 10
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "none"
-
+SWEP.Type = "Melee"
 SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
 
-SWEP.Weight				= 5
+SWEP.Weight				= 0
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 
 SWEP.PrintName			= "Fists"
 SWEP.Slot				= 0
-SWEP.SlotPos			= 5
 SWEP.DrawAmmo			= false
 SWEP.DrawCrosshair		= false
 SWEP.WalkSpeed = SPEED
@@ -37,7 +34,7 @@ SWEP.WalkSpeed = SPEED
 local SwingSound = Sound( "weapons/slam/throw.wav" )
 local HitSound = Sound( "Flesh.ImpactHard" )
 
-if CLIENT then killicon.AddFont( "weapon_zs_fists", "HL2MPTypeDeath", "6", Color( 255, 80, 0, 255 ) ) end
+if CLIENT then killicon.Add( "weapon_zs_fists2", "killicon/fists", Color(255, 255, 255, 255 ) ) end
 
 function SWEP:Initialize()
 
@@ -100,22 +97,21 @@ function SWEP:DealDamage( anim )
 
 	if ( tr.Hit ) then self.Owner:EmitSound( HitSound ) end
 
-	if ( IsValid( tr.Entity ) && ( tr.Entity:IsNPC() || tr.Entity:IsPlayer() ) ) then
+	if ( IsValid( tr.Entity ) ) then
 		local dmginfo = DamageInfo()
-		dmginfo:SetDamage( self.Primary.Damage )
-		if ( anim == "fists_left" ) then
-			dmginfo:SetDamageForce( self.Owner:GetRight() * 49125 + self.Owner:GetForward() * 99984 ) -- Yes we need those specific numbers
-		elseif ( anim == "fists_right" ) then
-			dmginfo:SetDamageForce( self.Owner:GetRight() * -49124 + self.Owner:GetForward() * 99899 )
-		elseif ( anim == "fists_uppercut" ) then
-			dmginfo:SetDamageForce( self.Owner:GetUp() * 51589 + self.Owner:GetForward() * 100128 )
-		end
+		dmginfo:SetDamage( self.MeleeDamage )
+
 		dmginfo:SetInflictor( self )
 		local attacker = self.Owner
 		if ( !IsValid( attacker ) ) then attacker = self end
 		dmginfo:SetAttacker( attacker )
-
+		dmginfo:SetDamageForce(self.MeleeDamage * 20 * attacker:GetAimVector())
 		tr.Entity:TakeDamageInfo( dmginfo )
+		
+		local phys = tr.Entity:GetPhysicsObject()
+		if tr.Entity:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
+			tr.Entity:SetPhysicsAttacker(attacker)
+		end	
 	end
 	
 end

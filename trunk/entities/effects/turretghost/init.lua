@@ -18,7 +18,7 @@ function EFFECT:Think()
 	
 	if not IsValid(self.EfOwner) then return false end
 	if not IsValid(self.EfOwner:GetActiveWeapon()) then return false end
-	if self.EfOwner:GetActiveWeapon():GetClass() ~= "weapon_zs_turretplacer" then return false end
+	if self.EfOwner:GetActiveWeapon():GetClass() ~= "weapon_zs_turret" then return false end
 	if not self.EfOwner:Alive() then return false end
 	if not self.EfOwner:IsHuman() then return false end
 	
@@ -72,7 +72,7 @@ function EFFECT:Think()
 	-- self.Entity:SetPoseParameter("aim_yaw",0)
 	-- self.Entity:SetPoseParameter("aim_pitch",0)
 	
-	return (self and self.EfOwner and IsValid(self.EfOwner) and self.EfOwner:GetActiveWeapon() and self.EfOwner:GetActiveWeapon():GetClass() == "weapon_zs_turretplacer" and self.EfOwner:Alive() and self.EfOwner:Team() ~= TEAM_UNDEAD)
+	return (self and self.EfOwner and IsValid(self.EfOwner) and self.EfOwner:GetActiveWeapon() and self.EfOwner:GetActiveWeapon():GetClass() == "weapon_zs_turret" and self.EfOwner:Alive() and self.EfOwner:Team() ~= TEAM_UNDEAD)
 	-- return RealTime() < self.DieTime
 end
 local matLaser 		= Material( "sprites/bluelaser1" )

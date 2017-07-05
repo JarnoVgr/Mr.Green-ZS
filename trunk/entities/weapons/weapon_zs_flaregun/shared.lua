@@ -2,12 +2,8 @@ AddCSLuaFile()
 
 if CLIENT then
 	SWEP.PrintName = "Flare Gun"			
-	SWEP.Author	= "Braindawg"
-	SWEP.Slot = 1
-	SWEP.SlotPos = 6
-	SWEP.ViewModelFOV = 60
 	SWEP.IconLetter = "s"
-	killicon.AddFont( "weapon_zs_flaregun", "HL2MPTypeDeath", ".",Color(255, 255, 100, 100 ) )
+	killicon.AddFont( "weapon_zs_flaregun", "HL2MPTypeDeath", ".",Color(255, 255, 255, 255 ) )
 	SWEP.ShowViewModel = true
 	SWEP.ShowWorldModel = true
 	
@@ -47,14 +43,12 @@ end
 
 SWEP.Base				= "weapon_zs_base"
 
-SWEP.Spawnable			= true
-SWEP.AdminSpawnable		= true
+
 SWEP.ViewModel            = "models/weapons/c_357.mdl"
 SWEP.WorldModel            = "models/weapons/w_357.mdl"
 
 SWEP.UseHands = true
-SWEP.AutoSwitchTo		= false
-SWEP.AutoSwitchFrom		= false
+
 SWEP.HoldType = "revolver"
 SWEP.IronSightsHoldType = "pistol"
 SWEP.Primary.Sound  = Sound("weapons/flaregun/fire.wav")
@@ -63,17 +57,17 @@ SWEP.Primary.Damage			= 100
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 6
 SWEP.Primary.Delay			= 0.95
-SWEP.MaxAmmo			    = 100
 SWEP.Primary.Automatic		= true  
 SWEP.Primary.Ammo			= "alyxgun"
 SWEP.HumanClass = "pyro"
-SWEP.Cone = 0.035
-SWEP.ConeMoving = SWEP.Cone * 1.1
-SWEP.ConeCrouching = SWEP.Cone * 0.95
-SWEP.ConeIron = SWEP.Cone
-SWEP.ConeIronCrouching = SWEP.ConeCrouching
 
-SWEP.WalkSpeed = SPEED_PISTOL
+SWEP.ConeMax = 0.08
+SWEP.ConeMin = 0.03
+SWEP.Type = "Incendiary"
+SWEP.Weight = 2
+SWEP.Slot = 1
+
+
 
 SWEP.IronSightsPos = Vector(-4.56, -6.314, 1)
 SWEP.IronSightsAng = Vector(0, 0, 0)

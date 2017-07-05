@@ -74,9 +74,9 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 					mul = mul + 0.1
 				end				
 				
-				if attacker:GetActiveWeapon():GetClass() == "weapon_zs_pyroshotgun" then
+				if attacker:GetActiveWeapon():GetClass() == "weapon_zs_dragonsbreath" then
 					burnchance = burnchance - 12
-				elseif attacker:GetActiveWeapon():GetClass() == "weapon_zs_pyrocannon" then
+				elseif attacker:GetActiveWeapon():GetClass() == "weapon_zs_infernus" then
 					burnchance = burnchance - 20
 				end
 				

@@ -3,7 +3,6 @@ AddCSLuaFile()
 if CLIENT then
 	SWEP.PrintName = "Grenade"
 	SWEP.Slot = 4
-	SWEP.SlotPos = 1
 	SWEP.DrawCrosshair = false
 	SWEP.ViewModelFlip = false
 	SWEP.ViewModelFOV = 60
@@ -42,7 +41,8 @@ SWEP.Secondary.DefaultClip = 4
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "CombineCannon"
 
-SWEP.WalkSpeed = SPEED_LIGHT
+SWEP.Weight = 1
+SWEP.Type = "Throwable"
 
 function SWEP:Initialize()
 	self:SetDeploySpeed(1.1)
@@ -81,6 +81,9 @@ end
 
 function SWEP:Equip ( NewOwner )
 	if CLIENT then return end
+	
+	self.Owner.Weight = self.Owner.Weight + self.Weight
+	self.Owner:CheckSpeedChange()	
 	
 	if self.Weapon.FirstSpawn then
 		self.Weapon.FirstSpawn = false	

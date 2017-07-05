@@ -18,49 +18,40 @@ local Arrow = surface.GetTextureID("gui/arrow")
 
 SPRequired = 100
 	
+local TableUpdated = 0	
+	
 function hud.DrawHumanHUD()
-	--hud.DrawAmmoPanel()
+	hud.DrawAmmoPanel()
 	hud.DrawHealth()
 	hud.DrawSkillPoints()
 	--hud.DrawObjMessages()
 	
 	if CurTime() <= WARMUPTIME then
-		--hud.UpdateHumanTable()
+		--if TableUpdated < CurTime() then
+			--TableUpdated = CurTime() + 3
+			--hud.UpdateHumanTable()
+			--local humans = team.GetPlayers(TEAM_HUMAN)		
+			--table.sort(humans,hud.ZombieSpawnDistanceSort)	
+		--end
 		hud.DrawZeroWaveMessage()	
 	end
-	--local humans = team.GetPlayers(TEAM_HUMAN)		
-	--table.sort(humans,hud.ZombieSpawnDistanceSort())	
 
-	--hud.DrawFriends()
-	
-	--[[
-	if OBJECTIVE then
-		surface.SetTexture(LeftGradient)
-		surface.SetDrawColor(0, 0, 0, 140)
-		surface.DrawTexturedRect(0,0,ScaleW(370),ScaleH(60))
-	
-		draw.SimpleTextOutlined("Stage #"..GAMEMODE:GetObjStage().." of "..#Objectives, "ArialBoldFive", 10, 5, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))
-		draw.SimpleTextOutlined("Objective: "..Objectives[GAMEMODE:GetObjStage()].Info, "ArialBoldFive", 10, 25, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT,1, Color(0,0,0,255))	
-	end
-	]]--
 end
 
 
 local turretIcon = surface.GetTextureID("killicon/turret")
 local healthPercentageDrawn, healthStatusText = 1, healthIndication[1].Text
 function hud.DrawHealth()
-
-
 	local healthPoints, maxHealthPoints = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
 
 	local startX = (ScrW()/2)
 
-	local textX, textValueY, textKeyY = ScaleW(40), ScaleH(860), ScaleH(890)
+	local textX, textY = ScaleW(40), ScrH() - ScaleH(50)
 
 	--Health bar begin
 
-	--local barW, barH = ScaleW(210), ScaleH(20)
-	--local barX, barY = healthTextX + ScaleW(35), ScaleH(880)+ScaleH(110)
+	local barW, barH = ScaleW(220), ScaleH(40)
+	local barX, barY = ScaleW(30), textY - (barH * 0.5)
 	
 	local healthPercentage, healthChanged = math.Clamp(healthPoints / maxHealthPoints, 0, 1), false
 	if healthPercentage ~= healthPercentageDrawn then
@@ -71,87 +62,37 @@ function hud.DrawHealth()
 
 	--Determine health bar foreground color
 	local fHealth, fMaxHealth = math.max(MySelf:Health(),0), MySelf:GetMaximumHealth()
-	local iPercentage = math.Clamp(fHealth / fMaxHealth, 0, 1)
-	local healthBarColor = Color(154, 30, 30, 255)
-	--local healthBarBGColor = Color(70, 20, 20, 255)
-	
-	
+	local percentage = math.Clamp((fHealth / fMaxHealth), 0.2, 1)
+				
 	--Different colors
-	if iPercentage > 0.75 then
-		healthBarColor = Color(24, 170, 30, 225)
-	--	healthBarBGColor = Color(52, 68, 15, 225)
-	elseif iPercentage > 0.5 then
-		healthBarColor = Color(190, 116, 24, 225)
-		--healthBarBGColor = Color(86, 73, 15, 225)
-	end
+
+	local red = 1 - percentage
+	local healthFontColor = Color(250, 250, 250, 220)
+	local healthBarColor = Color(255 * red, 255 * percentage, 30 * percentage, 100)
+	local healthBarBGColor = Color(30 * red, 30 * percentage, 30 * percentage, 100)
+
 	
 	--Flash under certain conditions
 	if MySelf:IsTakingDOT() or healthPercentageDrawn < 0.3 then
 		healthBarColor = Color(healthBarColor.r, healthBarColor.g, healthBarColor.b, math.abs( math.sin( CurTime() * 4 ) ) * 255)
 	end	
 
+	surface.SetDrawColor(Color(0,0,0,60))
+	surface.DrawRect(0, ScrH() - ScaleH(120), ScaleW(260), ScaleH(120))		
+	
 	--Draw health points text
-	local healthTextX , healthTextValueY, healthTextKeyY = ScaleW(40),ScaleH(975), ScaleH(1200)
-	draw.SimpleTextOutlined("+", "hpFont",startX - ScrW()/2 + ScrW()/80, ScrH()/1.03, healthBarColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
-	draw.SimpleTextOutlined(healthPoints, "ssNewAmmoFont24",startX - ScrW()/2 + ScrW()/45, ScrH()/1.03, healthBarColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-	
-	
-
 
 	--Background
-	--if healthPercentageDrawn ~= 1 then
-	--	surface.SetDrawColor(healthBarBGColor)
-	--	surface.DrawRect(barX, barY, barW, barH)
-	--end
-
+	if healthPercentageDrawn ~= 1 then
+		surface.SetDrawColor(healthBarBGColor)
+		surface.DrawRect(barX, barY, barW, barH)
+	end
+	
 	--Foreground
-	--surface.SetDrawColor(healthBarColor)
-	--surface.DrawRect(barX, barY, barW * healthPercentageDrawn, barH)
---[[
-	--Only update text if health changed
-	if healthChanged then
-		for k, v in ipairs(healthIndication) do
-			if healthPercentage >= v.Percent then
-				healthStatusText = v.Text
-				break
-			end
-		end
-	end
-	]]--
-	--Draw health status text
-	--draw.SimpleTextOutlined(healthStatusText, "ssNewAmmoFont5", barX+(barW/2), barY+(barH/2), Color(250,250,250,170), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+	surface.SetDrawColor(healthBarColor)
+	surface.DrawRect(barX, barY, barW * healthPercentageDrawn, barH)
 	
-
-	--TODO: Make this look nice in the HUD
-	--Duby: Ywa this causes script errors and removes the whole hud when a player has both turrets. So I am going to do something with this soon. 
---[[
-	if IsValid(MySelf.MiniTurret) or IsValid(MySelf.Turret) then
-		local tur = MySelf.MiniTurret or MySelf.Turret
-		
-		if not tur then
-			return
-		end
-
-		surface.SetFont("ssNewAmmoFont13")
-		local fSPTextWidth, fSPTextHeight = surface.GetTextSize(MySelf:GetScore() .." SP")
-	
-		ActualX = ActualX + HPBarSizeW + ScaleW(40) + fSPTextWidth
-	
-		local th = HPBarSizeH
-	
-		surface.SetDrawColor(0, 0, 0, 150)
-		surface.DrawRect(ActualX, ActualY, ScaleW(80),HPBarSizeH)
-		
-		surface.SetTexture(turreticon)
-		surface.SetDrawColor(255, 255, 255, 255)
-		surface.DrawTexturedRect(ActualX,ActualY,th,th)
-
-
-		ActualX = ActualX + th + ScaleW(40)
-				
-		draw.SimpleTextOutlined(tur:GetAmmo().."/"..tur:GetMaxAmmo(), "ssNewAmmoFont6.5", ActualX, ActualY+th/2, Color(255,255,255,255), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	end
-	]]
+	draw.SimpleTextOutlined(healthPoints, "fontHuman12",textX, textY + ScaleH(2), healthFontColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,220))	
 end
 
 local cachedEnts
@@ -198,12 +139,14 @@ local function DrawWeaponLabels()
 end
 hook.Add("PostDrawTranslucentRenderables", "RenderWorldWeaponsLabels", DrawWeaponLabels)
 
-
+local ammoPercentageDrawn = 0
 function hud.DrawAmmoPanel()
 	local ActiveWeapon = MySelf:GetActiveWeapon()
 	if not IsValid(ActiveWeapon) then
 		return
 	end
+	
+	--[[
 	local currentClipSize, currentAmmo = MySelf:GetActiveWeapon():Clip1(), MySelf:GetAmmoCount(MySelf:GetActiveWeapon():GetPrimaryAmmoType())
 		
 	--Draw turret's ammo
@@ -215,25 +158,74 @@ function hud.DrawAmmoPanel()
 			end
 		end
 	end
-	
-	if ActiveWeapon.NoHUD or currentClipSize == -1 then
-		return
-	end
-	
-	local drawX, drawY, drawW, drawH = ScaleW(800), ScaleH(900), ScaleW(150), ScaleH(270)
-		
-	if currentAmmo > 0 then
-		surface.SetFont("ssNewAmmoFont6.5")
-		local ammoTextWide, ammoTextTall = surface.GetTextSize(currentAmmo)
+	]]--
 
-		surface.SetFont("ssNewAmmoFont20")
-		local clipTextWide, clipTextTall = surface.GetTextSize(currentClipSize)
 
-		draw.SimpleTextOutlined(currentClipSize, "ssNewAmmoFont24", ScrW()-ScaleW(10)-ammoTextWide-15, ScrH()-(ScaleH(4)+clipTextTall), Color(255,255,255,230), TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
-		draw.SimpleTextOutlined(currentAmmo, "ssNewAmmoFont9", ScrW()-ScaleW(10)-ammoTextWide-5, ScrH()-(ScaleH(3)+clipTextTall), Color(255,255,255,230), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
+--MySelf:GetAmmoCount(MySelf:GetActiveWeapon():GetPrimaryAmmoType())
+	local Clip1, ClipSize, AmmoRemaining = MySelf:GetActiveWeapon():Clip1(),  MySelf:GetActiveWeapon().Primary.ClipSize, MySelf:GetAmmoCount(MySelf:GetActiveWeapon():GetPrimaryAmmoType())
+	
+	local percentage = 0
+		local healthPercentage, healthChanged = 0, false
+	
+	if (MySelf:GetActiveWeapon().Pulse_ClipSize) then
+		healthPercentage = math.Clamp(Clip1 / MySelf:GetActiveWeapon().Pulse_ClipSize, 0, 1)
+		percentage = math.Clamp((Clip1 / MySelf:GetActiveWeapon().Pulse_ClipSize), 0.2, 1)
 	else
-		draw.SimpleTextOutlined(currentClipSize, "ssNewAmmoFont24", ScrW()-ScaleW(5), ScrH()-ScaleH(5), Color(255,255,255,230), TEXT_ALIGN_RIGHT, TEXT_ALIGN_TOP, 1, Color(0,0,0,255))
+		healthPercentage = math.Clamp(Clip1 / ClipSize, 0, 1)	
+		percentage = math.Clamp((Clip1 / ClipSize), 0.2, 1)
 	end
+	
+
+	
+	if ActiveWeapon.NoHUD or Clip1 == -1 then
+		return
+	end	
+	
+	local textX, textY = (ScrW()) - (ScrW() * 0.18) , ScrH() - ScaleH(50)
+
+	--Health bar begin
+
+	local barW, barH = ScaleW(220), ScaleH(40)
+	local barX, barY = (ScrW()) - (ScrW() * 0.19), textY - (barH * 0.5)
+	
+	
+
+	if healthPercentage ~= ammoPercentageDrawn then
+		healthChanged = true
+	end
+
+	ammoPercentageDrawn = math.Clamp(math.Approach(ammoPercentageDrawn, healthPercentage, FrameTime() * 1.5), 0, 1) --Smooth
+
+	local red = 1 - percentage
+	local healthFontColor = Color(250, 250, 250, 220)
+	local healthBarColor = Color(255, 255 * percentage, 255 * percentage, 100)
+	local healthBarBGColor = Color(30 * red, 30 * percentage, 30 * percentage, 100)
+
+	--surface.SetDrawColor(Color(0,0,0,60))
+	--surface.DrawRect(0, ScrH() - ScaleH(120), ScaleW(260), ScaleH(120))		
+	
+	--Draw health points text
+
+	--Background
+	if ammoPercentageDrawn ~= 1 then
+		surface.SetDrawColor(healthBarBGColor)
+		surface.DrawRect(barX, barY, barW, barH)
+	end
+	
+	--Foreground
+	surface.SetDrawColor(healthBarColor)
+	surface.DrawRect(barX, barY, barW * ammoPercentageDrawn, barH)
+
+	--draw.SimpleTextOutlined("+", "hpFont",textX, textY, healthFontColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+	
+	if (MySelf:GetActiveWeapon().Pulse_ClipSize) then
+		draw.SimpleTextOutlined(Clip1 .. " / " .. MySelf:GetActiveWeapon().Pulse_ClipSize, "CorpusCareThirteen",textX, textY, healthFontColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,220))	
+	
+	else
+		draw.SimpleTextOutlined(Clip1 .. " / " .. AmmoRemaining, "CorpusCareThirteen",textX, textY, healthFontColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER,1, Color(0,0,0,220))	
+	end
+	--draw.SimpleTextOutlined(":" .. maxHealthPoints, "fontHuman6",textX + ScaleW(40), textY + ScaleH(10), healthFontColor, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER,1, Color(0,0,0,220))			
+
 end
 
 local SPRequired = 100
@@ -243,13 +235,17 @@ net.Receive("SPRequired", function(len)
 end)
 
 local tier = 1
-
+local weight = 0
 net.Receive("tier", function(len)
 	tier = net.ReadFloat()
 end)
 
-local spBarX = ScrW()/2 - (ScrW()*0.13 * 0.5)
-local spBarY = ScrH()/1.03
+net.Receive("weight", function(len)
+	weight = net.ReadFloat()
+end)
+
+local spBarX = 0 + (ScrW()*0.13 * 0.5)
+local spBarY = ScrH()/1.1
 
 function hud.DrawSkillPoints()
 
@@ -267,10 +263,13 @@ function hud.DrawSkillPoints()
 	surface.DrawRect( spBarX, spBarY  - ScrH()*0.005, ScrW()*0.002, ScrH()*0.015 )
 	surface.DrawRect( spBarX + ScrW()*0.13 - ScrW()*0.001, spBarY - ScrH()*0.005, ScrW()*0.002, ScrH()*0.015 )
 
+	
+	draw.SimpleText(weight .. " KG", "HudHintTextLarge", ScrW()*0.025, spBarY * 1, Color( 255, 255, 255, 245 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+	
 	if tier < 5 then
-		draw.SimpleText("T" .. tier .. " Weapon Drop: " .. SPRequired - MySelf:GetScore() .. " SP", "HudHintTextLarge", spBarX + (ScrW()*0.13 * 0.5), ScrH()/1.0425, Color( 255, 255, 255, 245 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )	
+		draw.SimpleText("T" .. tier .. " Weapon Drop: " .. SPRequired - MySelf:GetScore() .. " SP", "HudHintTextLarge", spBarX + (ScrW()*0.13 * 0.5), spBarY * 0.985, Color( 255, 255, 255, 245 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )	
 	else
-		draw.SimpleText("Ammo Drop: " .. SPRequired - MySelf:GetScore() .. " SP", "HudHintTextLarge", spBarX + (ScrW()*0.13 * 0.5), ScrH()/1.0425, Color( 255, 255, 255, 245 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )	
+		draw.SimpleText("Ammo Drop: " .. SPRequired - MySelf:GetScore() .. " SP", "HudHintTextLarge", spBarX + (ScrW()*0.13 * 0.5), spBarY * 0.985, Color( 255, 255, 255, 245 ), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )	
 	end
 --draw.SimpleTextOutlined("SP for drop: " .. SPRequired - MySelf:GetScore(), "ssNewAmmoFont5.5",startX - ScrW()/2 + ScrW()/80, ScrH()/1.075, Color(255,255,255,145), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255))
 end
@@ -317,10 +316,9 @@ function hud.UpdateHumanTable()
 
 	local humans = team.GetPlayers(TEAM_HUMAN)			
 
-	-- Sort the human table so that the closest ones to gas are the victims!
-	--print("test")
 	
-	if math.random(1,20) == 1 then
+
+		TableUpdated = CurTime() + 3
 		for k,v in pairs(humans) do
 			local pos = v:GetPos()
 			local closest = 9999999
@@ -332,18 +330,16 @@ function hud.UpdateHumanTable()
 			end
 			v.GasDistance = closest	
 		end
-	end
+
 
 	--	
 end
 
 function hud.ZombieSpawnDistanceSort(other)
-	return self.GasDistance < other.GasDistance
+	return MySelf.GasDistance < other.GasDistance
 end
 
-
-
-function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
+function hud.DrawZeroWaveMessage()
 		
 		local curtime = CurTime()
 		
@@ -352,7 +348,7 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 			surface.SetFont("ArialBoldSeven")
 			local txtw, txth = surface.GetTextSize("Hi")
 		--	draw.SimpleTextOutlined("Waiting for players... "..ToMinutesSeconds(math.max(0, WARMUPTIME - curtime)), "ArialBoldSeven", ScrW() * 0.5, ScrH() * 0.25, COLOR_GRAY,TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			draw.SimpleTextOutlined("Humans closest to a zombie gas will become a zombie!", "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.05 - txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+			draw.SimpleTextOutlined("Humans closest to a zombie gas will become a zombie!", "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.65 - txth, Color(255,255,255,150), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,150))
 
 			
 			local vols = 0
@@ -376,7 +372,8 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 			
 			local humans = team.GetPlayers(TEAM_HUMAN)	
 			
-			--local distance = 9999999	
+			--[[
+			local distance = 9999999	
 	
 			for _, pl in pairs(allplayers) do
 				if pl:Team() == TEAM_UNDEAD then
@@ -385,11 +382,10 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 				end
 			end
 			
-			--[[
-			
 			for i = 1, desiredzombies - vols do
 				if 0 < #humans then	
 					for j = 1, #humans do
+					
 						if humans[j].GasDistance < distance and not humans[j].ToBeZombie then
 							distance = humans[j].GasDistance
 							humans[j].ToBeZombie = true
@@ -406,13 +402,13 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 					humans[j].ToBeZombie = false				
 				end
 			end		
-]]--
+
 
 			--local desiredzombies = math.max(1, math.ceil(numplayers * WAVE_ONE_ZOMBIES))
 			
-			local y = ScrH() * 0.12 + txth * 1.25
+			local y = ScrH() * 0.8 + txth * 1.25
 			
-			--[[
+
 			for k,v in pairs(humans) do	
 				if v:Name() == LocalPlayer():Name() then
 					draw.SimpleTextOutlined(v:Name().. " " ..math.Round(v.GasDistance or 0), "ssNewAmmoFont4", ScrW() * 0.013, y, COLOR_RED, TEXT_ALIGN_LEFT , TEXT_ALIGN_CENTER,1, Color(0,0,0,200))
@@ -424,14 +420,14 @@ function hud.DrawZeroWaveMessage() --Duby: Lets re-add this nice feature!
 			]]--
 			
 		--	draw.SimpleTextOutlined("Number of initial zombies this game ("..UNDEAD_START_AMOUNT * 100 .."%): "..desiredzombies, "ssNewAmmoFont7", ScrW() * 0.5, ScrH() * 0.75, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			draw.SimpleTextOutlined("Initial zombies this game: "..desiredzombies.."", "ssNewAmmoFont6.5", ScrW() * 0.5, ScrH() * 0.05, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,220))
-			y = ScrH() * 0.05 + txth * 2
-			draw.SimpleTextOutlined("Volunteers: "..vols, "ssNewAmmoFont6.5", ScrW() * 0.5, ScrH() * 0.05 + txth, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,220))
+			draw.SimpleTextOutlined("Initial zombies this game: "..desiredzombies.."", "ssNewAmmoFont6.5", ScrW() * 0.5, ScrH() * 0.65, Color(255,255,255,150), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,150))
+			y = ScrH() * 0.65 + txth * 2
+			draw.SimpleTextOutlined("Volunteers: "..vols, "ssNewAmmoFont6.5", ScrW() * 0.5, ScrH() * 0.65 + txth, Color(255,255,255,150), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,150))
 			surface.SetFont("Default")
 			txtw, txth = surface.GetTextSize("Hi")
 			for _, pl in pairs(voltab) do
 				if ScrH() - txth <= y then break else
-					draw.SimpleTextOutlined(pl:Name(), "ssNewAmmoFont6.5", ScrW() * 0.5, y, COLOR_GRAY, TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,220))
+					draw.SimpleTextOutlined(pl:Name(), "ssNewAmmoFont6.5", ScrW() * 0.5, y, Color(255,255,255,150), TEXT_ALIGN_CENTER , TEXT_ALIGN_CENTER,1, Color(0,0,0,150))
 					y = y + txth * 2
 				end
 			end			

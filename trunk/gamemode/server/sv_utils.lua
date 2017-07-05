@@ -115,7 +115,7 @@ function ClientDropWeapon( self, Class )
 	if not IsValid(self) or not self:IsPlayer() or not self.Ready then
 		return
 	end
-
+	self:CheckSpeedChange()
 	-- Send it to client
 	umsg.Start("OnWeaponDropped", self)
 	umsg.End()

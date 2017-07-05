@@ -2,12 +2,13 @@ include("shared.lua")
 
 SWEP.DrawAmmo = true
 SWEP.DrawCrosshair = false
-SWEP.ViewModelFOV = 75
+SWEP.ViewModelFOV = 60
 SWEP.ViewModelFlip = false
 SWEP.CSMuzzleFlashes = true
-SWEP.BobScale = 2
-SWEP.SwayScale = 1.75
+SWEP.BobScale = 1
+SWEP.SwayScale = 1
 SWEP.Slot = 0
+SWEP.SlotPos = 0
 SWEP.ShowViewModel = true
 
 SWEP.IronsightsMultiplier = 0.6
@@ -91,7 +92,8 @@ function SWEP:GetViewModelPosition(pos, ang)
 	return pos, ang
 end
 
-function SWEP:DrawWeaponSelection(x, y, wide, tall, alpha)
+function SWEP:DrawWeaponSelection(...)
+	return self:BaseDrawWeaponSelection(...)
 end
 
 function SWEP:DrawHUD()

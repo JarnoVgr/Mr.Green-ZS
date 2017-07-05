@@ -3,13 +3,8 @@ AddCSLuaFile()
 SWEP.Base = "weapon_zs_medi_base"
 
 if CLIENT then
-	SWEP.ViewModelFOV = 60
-	SWEP.BobScale = 2
-	SWEP.SwayScale = 1.5
 	SWEP.PrintName = "Medi 03"
 
-	SWEP.Slot = 4
-	SWEP.SlotPos = 0
 	
 	SWEP.ViewModelBoneMods = {
 	["ValveBiped.Bip01_L_UpperArm"] = { scale = Vector(1, 1, 1), pos = Vector(0, -1.943, 0.138), angle = Angle(0, 0, 0) },
@@ -53,7 +48,7 @@ SWEP.WElements = {
 	SWEP.IgnoreThumbs = true
 
 	SWEP.IconLetter = "d"
-	killicon.AddFont( "weapon_zs_medi3", "CSKillIcons", SWEP.IconLetter, Color(120, 255, 255, 255 ) )
+	killicon.AddFont( "weapon_zs_medi3", "CSKillIcons", SWEP.IconLetter, Color(255, 255, 255, 255 ) )
 	
 end
 
@@ -61,8 +56,8 @@ SWEP.ViewModel = "models/weapons/cstrike/c_rif_ak47.mdl"
 SWEP.WorldModel = "models/weapons/w_rif_ak47.mdl"
 
 SWEP.Primary.Sound = Sound("weapons/airboat/airboat_gun_energy1.wav")
-SWEP.Primary.Recoil			= 2.8
-SWEP.Primary.Damage			= 6
+SWEP.Primary.Recoil			= 2
+SWEP.Primary.Damage			= 8
 SWEP.Primary.NumShots		= 7
 SWEP.Primary.ClipSize		= 20
 SWEP.Primary.Delay			= 0.3
@@ -70,14 +65,14 @@ SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "Battery"
 SWEP.FirePower = ( SWEP.Primary.Damage * SWEP.Primary.ClipSize )
 SWEP.UseHands = true
-SWEP.HumanClass = "medic"
-SWEP.Cone = 0.078
-SWEP.ConeMoving = SWEP.Cone *1.12
-SWEP.ConeCrouching = SWEP.Cone *0.9
-SWEP.ConeIron = SWEP.Cone *0.9
-SWEP.ConeIronCrouching = SWEP.ConeCrouching *0.9
+
+SWEP.ConeMax = 0.14
+SWEP.ConeMin = 0.1
+SWEP.Type = "Medical"
+SWEP.Weight = 4
+SWEP.Slot = 3
+
 SWEP.TracerName = "AR2Tracer"
-SWEP.WalkSpeed = (SPEED_SHOTGUN + 10)
 SWEP.HoldType = "shotgun"
 
 function SWEP:EmitFireSound()

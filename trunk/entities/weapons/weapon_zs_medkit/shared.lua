@@ -1,13 +1,10 @@
 AddCSLuaFile()
 
 if CLIENT then
-	SWEP.ViewModelFOV = 70
-	SWEP.BobScale = 2
-	SWEP.SwayScale = 1.5
 	SWEP.PrintName = "Medkit"
 
 	SWEP.Slot = 4
-	SWEP.SlotPos = 0
+
 	
 	SWEP.ViewModelFlip = false
 
@@ -20,10 +17,12 @@ SWEP.UseHands = true
 SWEP.ViewModel				= Model( "models/weapons/c_medkit.mdl" )
 SWEP.WorldModel				= Model( "models/weapons/w_medkit.mdl" )
 
-
 SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.Primary.Delay = 0.01
+
+SWEP.Type = "Medical"
+SWEP.Weight = 1
 
 SWEP.Primary.Heal = 10
 SWEP.Primary.HealDelay = 10
@@ -36,8 +35,6 @@ SWEP.Secondary.HealDelay = 20
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Ammo = "CombineCannon"
-
-SWEP.WalkSpeed = SPEED_LIGHT
 
 SWEP.NoMagazine = true
 

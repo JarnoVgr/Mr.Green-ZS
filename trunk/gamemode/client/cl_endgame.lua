@@ -255,7 +255,7 @@ function Intermission(nextmap, winner, timeleft)
 			end
 		end
 		
-		draw.SimpleTextOutlined(wintext, "ssNewAmmoFont24", w/2, h/2, wincol, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255))
+		draw.SimpleTextOutlined(wintext, "fontHuman12", w/2, h/2, wincol, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255))
 		
 		local votetxt = "Vote for the next location:"
 		if MySelf.HasVotedMap == true then
