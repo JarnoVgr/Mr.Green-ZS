@@ -1,11 +1,10 @@
--- © Limetric Studios ( www.limetricstudios.com ) -- All rights reserved.
--- See LICENSE.txt for license information
-     
+AddCSLuaFile()
+
 AddCSLuaFile()
      
 if CLIENT then
-            SWEP.PrintName = "'Python' Magnum"
-            SWEP.ViewModelFlip = false
+	SWEP.PrintName = "'Python' Magnum"
+	SWEP.ViewModelFlip = false
 	 
     SWEP.ViewModelBoneMods = {
             ["Bullet4"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) },
@@ -46,101 +45,64 @@ if CLIENT then
             ["scopeholder"] = { type = "Model", model = "models/props_c17/lampShade001a.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "scope", pos = Vector(-2, 0, 1), angle = Angle(0, 0, 0), size = Vector(0.1, 0.05, 0.1), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
             ["scope"] = { type = "Model", model = "models/XQM/deg360.mdl", bone = "ValveBiped.Bip01_Head1", rel = "cylinder", pos = Vector(0, 0, -2.6), angle = Angle(-4, 1, 0), size = Vector(0.219, 0.025, 0.025), color = Color(204, 255, 193, 255), surpresslightning = false, material = "models/xqm/cellshadedcamo_diffuse", skin = 0, bodygroup = {} }
     }
-           -- killicon.AddFont( "weapon_zs_magnum", "HL2MPTypeDeath", ".",Color(255, 0, 0, 255 ) )
+           killicon.AddFont( "weapon_zs_python", "HL2MPTypeDeath", ".",Color(255, 255, 255, 255 ) )
 
 end
 
+SWEP.Base				= "weapon_zs_base"
 
 SWEP.ViewModel                  = Model ( "models/weapons/c_357.mdl" )
 SWEP.UseHands = true
 SWEP.WorldModel                 = Model ( "models/weapons/w_357.mdl" )
 
+SWEP.HoldType = "ar2"
+
 SWEP.HoldType = "revolver"
-SWEP.Primary.Sound                      = Sound( "Weapon_357.Single" )
-SWEP.Primary.Recoil                     = 2.5
-SWEP.Primary.Damage                     = 44
+SWEP.Primary.Recoil                     = 10
+SWEP.Primary.Damage                     = 40
 SWEP.Primary.NumShots           = 1
 SWEP.Primary.ClipSize           = 2
 SWEP.Primary.Delay                      = 0.5
 SWEP.Primary.Automatic          = false
 SWEP.Primary.Ammo                       = "357"
-
 SWEP.Slot = 2
 SWEP.Weight	= 2
 SWEP.Type = "Rifle"
-SWEP.ConeMax = 0.07
-SWEP.ConeMin = 0.01	
+SWEP.ConeMax = 0.13
+SWEP.ConeMin = 0.03
 
- 
-SWEP.IronSightsPos = Vector( -4.8, 22, 0.21 )
-SWEP.IronSightsAng = Vector( 0.5, -0.19, 0 )
- 
+SWEP.Secondary.Delay = 0.5
+
+SWEP.IronSightsPos = Vector(-6.68, -19.292, 3.359)
+SWEP.IronSightsAng = Vector(0, 0, 0)
+
+function SWEP:EmitFireSound()
+	self:EmitSound("weapons/awp/awp1.wav", 90, math.random(130,135))	
+end
+
 function SWEP:IsScoped()
-		return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.15 <= CurTime()
+	return self:GetIronsights() and self.fIronTime and self.fIronTime + 0.25 <= CurTime()
 end
-
-
-function SWEP:OnDeploy()
-	if self.Owner:GetPerk("sharpshooter_double") then
-		self.Primary.ClipSize = 4
-	
-	end
-	--self:SendWeaponAnim(ACT_VM_IDLE)
-end
-	
- 
---[[ if CLIENT then
-		SWEP.IronsightsMultiplier = 0.50
- 
-		function SWEP:GetViewModelPosition(pos, ang)
-				if self:IsScoped() then
-						return pos + ang:Up() * 256
-				end
- 
-				return self.BaseClass.GetViewModelPosition(self, pos, ang)
-		end
- 
-		function SWEP:DrawHUD()
-				if self:IsScoped() then
-						self:DrawScope()
-				end
-		end    
-end]]--
 
 if CLIENT then
+	SWEP.IronsightsMultiplier = 0.25
+	function SWEP:GetViewModelPosition(pos, ang)
+		if self:IsScoped() then
+			return pos + ang:Up() * 256
+		end
 
-local texGradDown = surface.GetTextureID("VGUI/gradient_down")
-function SWEP:DrawHUD()
-	self:DrawCrosshair()	
-	local wid, hei = ScaleW(150), ScaleH(32)
-	--local space = 12+ScaleW(7)
-	local space = 12+ScaleW(-120)
-	local x, y = ScrW() - wid - 12, ScrH() - ScaleH(73) - 12
-	y = y + ScaleH(73)/2 - hei/2
-	surface.SetFont("ssNewAmmoFont13")
-	local tw, th = surface.GetTextSize("Magnum Python")
-	local texty = y + hei/2 
+		return self.BaseClass.GetViewModelPosition(self, pos, ang)
+	end
 
-	--local charges = self:GetPrimaryAmmoCount()
-	--[[if charges > 0 then
-		draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, Color(255,255,255,255), TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	else
-		draw.SimpleTextOutlined(charges, "ssNewAmmoFont13", x-8, texty, COLOR_DARKRED, TEXT_ALIGN_RIGHT,TEXT_ALIGN_CENTER,1,Color(0,0,0,255))
-	end]]--
-	
-	 if self:IsScoped() then
-						self:DrawScope()
-				end
-	
+	function SWEP:DrawHUD()
+		if self:IsScoped() then
+			self:DrawScope()
+			
+		end
+		self:DrawCrosshair()	
+	end	
 end
 
-SWEP.IronsightsMultiplier = 0.50
- 
-		function SWEP:GetViewModelPosition(pos, ang)
-				if self:IsScoped() then
-						return pos + ang:Up() * 256
-				end
- 
-				return self.BaseClass.GetViewModelPosition(self, pos, ang)
-		end
+function SWEP:Precache()
+	util.PrecacheModel(self.ViewModel)
 end
