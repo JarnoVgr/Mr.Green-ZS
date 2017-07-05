@@ -84,7 +84,7 @@ function SWEP:GetCone()
 	local basecone = self.ConeMin * self.AccuracyBonus
 	local conedelta = ( self.ConeMax  * self.AccuracyBonus )- basecone 
 	
-	local multiplier = math.min(self.Owner:GetVelocity():Length() / self.WalkSpeed, 1) * 0.65
+	local multiplier = math.min(self.Owner:GetVelocity():Length() / self.WalkSpeed, 1) * 0.8
 	if not self.Owner:Crouching() then multiplier = multiplier + 0.175 end
 	if not self:GetIronsights() then multiplier = multiplier + 0.1 end
 

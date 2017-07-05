@@ -247,7 +247,7 @@ function SWEP:PerformPrimaryAttack()
 				
 					if self.Primary.Damage >= 20 then
 						local Velocity = self.Owner:EyeAngles():Forward() * self.Primary.Damage * 10				
-						Velocity.z = Velocity.z + self.Primary.Damage * 10			
+						Velocity.z = Velocity.z + self.Primary.Damage * 8			
 						ent:SetLocalVelocity(Velocity)						
 					end
 				end											

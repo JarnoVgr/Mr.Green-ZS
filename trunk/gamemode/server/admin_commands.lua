@@ -549,9 +549,7 @@ local function AdminSay(pl, text, teamonly)
 		
 		--Redeem command
 		if (sep[1] == "!redeem" and target:Team() == TEAM_UNDEAD) then	
-			if (target == pl and not pl:IsSuperAdmin()) then
-				pl:Message("You cannot redeem yourself")
-			else
+
 				server_RunCommand (pl, "redeem_player", target:UserID())
 				if not LASTHUMAN or not ENDROUND then
 					pl:Message(target:GetName() .." redeemed")
@@ -559,7 +557,7 @@ local function AdminSay(pl, text, teamonly)
 					pl:Message("You can't redeem ".. target:GetName() .." at this moment")
 				end
 				target:Message("You are redeemed by ".. pl:GetName())
-			end
+
 			return ""
 		--Slay command
 		elseif(sep[1] == "!slay") then

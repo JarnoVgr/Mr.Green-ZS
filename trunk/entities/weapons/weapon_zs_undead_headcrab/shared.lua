@@ -56,8 +56,9 @@ function SWEP:Think()
 		else
 			local vStart = self.OwnerOffset + owner:GetPos()
 			local tr = {}
+			
 			tr.start = vStart
-			tr.endpos = vStart + self.OwnerAngles
+			tr.endpos = owner:GetShootPos() + owner:GetForward() * 6 + self.OwnerAngles			
 			tr.filter = owner
 			local trace = util.TraceLine(tr)
 			local ent = trace.Entity
@@ -83,7 +84,7 @@ function SWEP:Think()
 						end
 						
 					end
-					owner:SetLocalVelocity( Vector(0,0,0) )
+					--owner:SetLocalVelocity( Vector(0,0,0) )
 				end
 					
 				self.Leaping = false
