@@ -723,14 +723,10 @@ function CalculatePlayerLoadout(pl)
 		end		
 		pl:ChatPrint("You are a Support")
 				
-		
-		
 	elseif pl:GetPerk("Engineer") then
 		pl.Loadout = table.Copy(engineer)
 		if pl:GetPerk("engineer_pulsepistol") then
-			pl:Give("weapon_zs_pulsepistol")
-			pl.Tier = 2		
-			pl.SPRequired = 150				
+			pl:Give("weapon_zs_pulse_pistol")			
 		end
 
 		if pl:GetPerk("engineer_combatturret") then
@@ -756,12 +752,9 @@ function CalculatePlayerLoadout(pl)
 	elseif pl:GetPerk("Berserker") then
 		pl.Loadout = table.Copy(berserker)
 		if pl:GetPerk("berserker_hook") then
-			pl:Give("weapon_zs_melee_hook")
-			pl.Tier = 1			
-		elseif pl:GetPerk("berserker_oppressor") then
-			pl.Tier = 2		
-			pl:Give("weapon_zs_melee_pipe2")
-			pl.SPRequired = 150				
+			pl:Give("weapon_zs_hook")	
+		elseif pl:GetPerk("berserker_oppressor") then	
+			pl:Give("weapon_zs_lead_pipe")			
 		end			
 		for k,v in pairs(pl.Loadout) do
 			pl:Give(tostring(v))				
@@ -771,10 +764,8 @@ function CalculatePlayerLoadout(pl)
 	elseif pl:GetPerk("Sharpshooter") then
 		pl.Loadout = table.Copy(sharpshooter)
 		if pl:GetPerk("sharpshooter_python") then
-			pl.Tier = 2		
 			pl:Give("weapon_zs_python")
-			pl:GiveAmmo(16, "357")	
-			pl.SPRequired = 150				
+			pl:GiveAmmo(16, "357")			
 		end			
 		for k,v in pairs(pl.Loadout) do
 			pl:Give(tostring(v))				
@@ -798,10 +789,8 @@ function CalculatePlayerLoadout(pl)
 	else
 		pl.Loadout = table.Copy(medicstage1)
 		if pl:GetPerk("medic_medigun") then
-			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
-			pl:GiveAmmo(50, "Battery")	
-			pl.SPRequired = 150			
+			pl:GiveAmmo(50, "Battery")			
 		end		
 		for k,v in pairs(pl.Loadout) do
 			pl:Give(tostring(v))				

@@ -32,7 +32,7 @@ SWEP.Type = "N/A"
 SWEP.Weight = 0
 SWEP.ConeMax = 0.03
 SWEP.ConeMin = 0.01
-SWEP.ConeRamp = 4
+SWEP.ConeRamp = 6
 SWEP.TracerName = "Tracer"
 
 SWEP.LastShot = 0
@@ -81,12 +81,12 @@ end
 function SWEP:GetCone()
 	if not self.Owner:OnGround() or self.ConeMax == self.ConeMin then return self.ConeMax end
 
-	local basecone = self.ConeMin
-	local conedelta = self.ConeMax - basecone
-
-	local multiplier = math.min(self.Owner:GetVelocity():Length() / self.WalkSpeed, 1) * 0.7
-	if not self.Owner:Crouching() then multiplier = multiplier + 0.125 end
-	if not self:GetIronsights() then multiplier = multiplier + 0.05 end
+	local basecone = self.ConeMin * self.AccuracyBonus
+	local conedelta = ( self.ConeMax  * self.AccuracyBonus )- basecone 
+	
+	local multiplier = math.min(self.Owner:GetVelocity():Length() / self.WalkSpeed, 1) * 0.65
+	if not self.Owner:Crouching() then multiplier = multiplier + 0.175 end
+	if not self:GetIronsights() then multiplier = multiplier + 0.1 end
 
 	return basecone + conedelta * multiplier ^ self.ConeRamp
 end
@@ -104,10 +104,7 @@ function SWEP:PrimaryAttack()
 	self:TakeAmmo()
 	
 	local Owner = self.Owner
-
-	local bullet = {}
-	bullet.Force = 3000
-
+	
 	local recoilm = 2 - self.RecoilMultiplier
 	
 	--Recoil multiplier

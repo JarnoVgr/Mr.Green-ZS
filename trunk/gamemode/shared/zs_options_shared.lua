@@ -193,9 +193,9 @@ GM.HumanWeapons = {
        
 	   
         --Engineer
-        ["weapon_zs_pulsepistol"]  = { Name = "Pulse Pistol", Tier = 1, Type = "pistol", Price = 80, HumanClass = "engineer"},           
+        ["weapon_zs_pulse_pistol"]  = { Name = "Pulse Pistol", Tier = 1, Type = "pistol", Price = 80, HumanClass = "engineer"},           
         ["weapon_zs_pulse_thumper"]  = { Name = "Pulse 'Thumper'", Tier = 3, Type = "smg", HumanClass = "engineer"},    		
-        ["weapon_zs_pulsesmg"]  = { Name = "Pulse SMG", Tier = 2, Type = "smg", Price = 100, HumanClass = "engineer"},
+        ["weapon_zs_pulse_smg"]  = { Name = "Pulse SMG", Tier = 2, Type = "smg", Price = 100, HumanClass = "engineer"},
 		["weapon_zs_turret"] = { Name = "Turret", Tier = 0, Type = "tool2", Price = 100, HumanClass = "engineer"   },	
         ["weapon_zs_pulse_rifle"]  = { Name = "Pulse Rifle", Tier = 3, Type = "smg", Price = 130, HumanClass = "engineer"},
         ["weapon_zs_pulse_railgun"]  = { Name = "Pulse Railgun", Tier = 4, Type = "pistol", Price = 150, HumanClass = "engineer"},
@@ -414,7 +414,7 @@ GM.Perks = {
 		
 		["support_ammo"] = {Name = "Ammo", Description = "+40% ammo received", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/kill_enemy_reloading"},
 		["support_repairs"] = {Name = "Repairs", Description = "+3 hammer repair points\n+10 nails on spawn", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/snipe_two_from_same_spot"},
-		["support_medical"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users and +1 SP for the owner", Class = "Sharpshooter", Slot = 2, Rank = 5, Material = "vgui/achievements/collect_gifts"},              
+		["support_medical"] = {Name = "Medical Station", Description = "Mobile supplies gives 4 health to users and +1 SP for the owner", Class = "Support", Slot = 2, Rank = 5, Material = "vgui/achievements/collect_gifts"},              
 					
 		["support_regeneration"] = {Name = "Regeneration", Description = "Regain 1 health every 6 seconds", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/decal_sprays"},
 		["support_bulk"] = {Name = "Bulk", Description = "+15% movement speed", Class = "Support", Slot = 3, Rank = 8, Material = "vgui/achievements/meta_weaponmaster"},
@@ -422,7 +422,7 @@ GM.Perks = {
 	
 	-- Berserker
 		["berserker_hook"] = {Name = "Slinger", Description = "[TIER 0]\nSpawn with a hook", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_knife"},
-		["berserker_oppressor"] = {Name = "Oppressor", Description = "[TIER 1]\nSpawn with a lead pipe", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_last_bullet"},
+		["berserker_oppressor"] = {Name = "Oppressor", Description = "[TIER 0]\nSpawn with a lead pipe", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_last_bullet"},
 		["berserker_breakthrough"] = {Name = "Breakthrough", Description = "Leaps do 40% of melee damage and knocks target backwards", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_in_air"},     
 		["berserker_barbed"] = {Name = "Barbed Weaponry", Description = "20% of damage done is applied every 2 seconds for 3 seconds", Class = "Berserker", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_last_bullet"},              
 	   
@@ -439,7 +439,7 @@ GM.Perks = {
 	-- Engineer
 		["engineer_bonusturret"] = {Name = "Lockdown", Description = "+1 Turret received on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/bomb_defuse_needed_kit"},
 		["engineer_combatturret"] = {Name = "Combat Turret", Description = "Spawn with a combat turret\nReceives all turret bonuses", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/concurrent_dominations"},
-		["engineer_pulsepistol"] = {Name = "Pulse Pistol", Description = "[TIER 1]\nSpawn with a pulse pistol", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_fiveseven"},
+		["engineer_pulsepistol"] = {Name = "Pulse Pistol", Description = "[TIER 0]\nSpawn with a pulse pistol", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/kill_enemy_fiveseven"},
 		["engineer_multimine"] = {Name = "Multi Mine", Description = "+5 C4 on spawn", Class = "Engineer", Slot = 1, Rank = 2, Material = "vgui/achievements/goose_chase"},                    
 
 		["engineer_quadsentry"] = {Name = "Quad Sentry", Description = "+3 turret shots fired\n-200% turret accuracy\nTurret consumes +3 ammo", Class = "Engineer", Slot = 2, Rank = 5, Material = "vgui/achievements/rescue_all_hostages.vtf"},
@@ -453,8 +453,8 @@ GM.Perks = {
 
 	-- Sharpshooter
 		
-		["sharpshooter_python"] = {Name = "Python", Description = "[TIER 1]\nSpawn with the Python", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/hip_shot"},
-		--["sharpshooter_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/domination_overkills_low"},
+		["sharpshooter_python"] = {Name = "Python", Description = "[TIER 0]\nSpawn with the Python", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/hip_shot"},
+		["sharpshooter_marksman"] = {Name = "Marksman", Description = "+60% accuracy", Class = "Sharpshooter", Slot = 1, Rank = 3, Material = "vgui/achievements/domination_overkills_low"},
 		
 		["sharpshooter_fragments"] = {Name = "Fragments", Description = "25% chance a sharpshooter shot will explode in fragments.\n5-8 fragments\n40% of weapon damage per fragment\n-50% accuracy on fragment shot", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/kill_low_damage"},
 		["sharpshooter_double"] = {Name = "Double Calibre", Description = "+2 Musket clip size\n+2 Python clip size", Class = "Sharpshooter", Slot = 2, Rank = 6, Material = "vgui/achievements/kill_two_with_one_shot"},              

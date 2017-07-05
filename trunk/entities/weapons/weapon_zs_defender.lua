@@ -51,7 +51,7 @@ SWEP.WorldModel			= Model ( "models/weapons/w_rif_ak47.mdl" )
 SWEP.PrintName			= "'Defender' Rifle"
 SWEP.HoldType = "ar2"
 
-SWEP.Primary.Sound			= Sound("weapons/ak47/ak47-1.wav")
+SWEP.Primary.Sound			= Sound("Weapon_AK47.SingleHeavy")
 SWEP.Primary.Recoil			= 1.5
 SWEP.Primary.Damage			= 18
 SWEP.Primary.NumShots		= 1
@@ -63,9 +63,14 @@ SWEP.Primary.Ammo			= "ar2"
 SWEP.ConeMax = 0.1
 SWEP.ConeMin = 0.04
 
-function SWEP:EmitFireSound()
-	self:EmitSound(self.Primary.Sound, 80, math.random(105,110))
-end
+sound.Add( {
+name = "Weapon_AK47.SingleHeavy",
+channel = CHAN_WEAPON,
+volume = 1.0,
+level = 100,
+pitch = 130,
+sound = ")weapons/ak47/ak47-1.wav"
+} )
 
 SWEP.IronSightsPos = Vector(-2, -4, 1.5)
 SWEP.IronSightsAng = Vector(0,0,0)
