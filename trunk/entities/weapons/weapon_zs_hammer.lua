@@ -291,9 +291,9 @@ function SWEP:SecondaryAttack()
         end
 
         --Notice, cuz we're nice folks explaining how this game works
-        if SERVER then
-            self.Owner:Message("No nails left. Buy nails at the Supply Crate.", 2)
-        end
+       -- if SERVER then
+       --     self.Owner:Message("No nails left. Buy nails at the Supply Crate.", 2)
+        --end
             
         return
     end

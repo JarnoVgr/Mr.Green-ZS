@@ -45,7 +45,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		end
 	end
 	
-	if (mAttacker:IsHuman() and mAttacker:GetPerk("commando_bloodammo")) then
+	if (mAttacker and mAttacker:IsPlayer() and mAttacker:IsHuman() and mAttacker:GetPerk("commando_bloodammo")) then
 		mAttacker:GiveAmmo(math.Round(dmginfo:GetDamage() * 0.33),"ar2")
 	end
 	
@@ -56,7 +56,7 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 			local status = mVictim:GiveStatus("revive_slump")
 			if status then
 				status:SetReviveTime(CurTime() + 3)
-				status:SetZombieInitializeTime(CurTime() + 3)
+				--status:SetZombieInitializeTime(CurTime() + 3)
 			end			
 			GAMEMODE:DefaultRevive(mVictim)
 			revive = true

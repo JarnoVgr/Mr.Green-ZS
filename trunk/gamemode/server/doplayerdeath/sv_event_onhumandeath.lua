@@ -80,7 +80,6 @@ local function OnHumanDeath( mVictim, mAttacker, mInflictor, dmginfo )
 		local status = mVictim:GiveStatus("revive_slump_human")
 		if status then
 			status:SetReviveTime(CurTime() + 3)
-			status:SetZombieInitializeTime(CurTime() + 3)
 		end
 
 		mVictim.MyBodyIsReady = true -- no jokes about this one

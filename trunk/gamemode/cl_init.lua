@@ -233,7 +233,7 @@ local function HeartbeatGlow()
 	local eyepos = EyePos()
 	for i=1, #CachedHumans do
 		local pl = CachedHumans[i]
-		if not IsValid(pl) or pl:Team() ~= TEAM_HUMAN or not pl:Alive() or pl:GetPos():Distance(eyepos) > 2500 or (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
+		if not IsValid(pl) or pl:Team() ~= TEAM_HUMAN or not pl:Alive() or pl:GetPos():Distance(eyepos) > 5012 or (pl:GetSuit() == "stalkersuit" and pl:GetVelocity():Length() < 10) then
 			continue
 		end			
 		
@@ -246,7 +246,7 @@ local function HeartbeatGlow()
 
 		render.SetMaterial(matGlow)
 		render.DrawSprite(pos, 13, 13, colHealth)
-		local size = math.sin(RealTime()*3 + pl:EntIndex()) * 50 - 21
+		local size = (math.sin(RealTime()*2 + pl:EntIndex()) * 40) + 16
 		if size > 0 then
 			render.DrawSprite(pos, size * 1.5, size, colHealth)
 			render.DrawSprite(pos, size, size * 1.5, colHealth)
