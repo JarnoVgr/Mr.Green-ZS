@@ -241,7 +241,8 @@ function SWEP:PerformPrimaryAttack()
 
 			elseif ent:IsPlayer() and ent:IsHuman() and not ent:IsWeapon() then		
 				if SERVER then
-					util.Blood(vel, self.Primary.Damage * 0.1, vel:GetNormal(), self.Primary.Damage * 0.1, true)
+				
+					util.Blood(ent:GetPos() + Vector(0,0,32), 8, (ent:GetPos() - self.Owner:GetShootPos()):GetNormal(), 0.001, true)
 				end											
 				hit = true
 				ent:TakeDamage(self.Primary.Damage, self.Owner, self)			

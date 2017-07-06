@@ -53,11 +53,11 @@ local function OnZombieDeath( mVictim, mAttacker, mInflictor, dmginfo )
 	if CurTime() > WARMUPTIME and not mVictim.Gibbed and Tab.Revives and not headshot and not (dmginfo:IsSuicide( mVictim ) or dmginfo:GetDamageType() == DMG_BLAST) and (mVictim.ReviveCount and mVictim.ReviveCount < 1) then
 		--if math.random(1,3) == 1 and dmginfo:IsBulletDamage() then
 		
-			local status = mVictim:GiveStatus("revive_slump")
-			if status then
-				status:SetReviveTime(CurTime() + 3)
-				status:SetZombieInitializeTime(CurTime() + 3)
-			end			
+			--local status = mVictim:GiveStatus("revive_slump")
+			--if status then
+			--	status:SetReviveTime(CurTime() + 3)
+				--status:SetZombieInitializeTime(CurTime() + 3)
+			--end			
 			GAMEMODE:DefaultRevive(mVictim)
 			revive = true
 			mVictim.NoDeathNotice = true

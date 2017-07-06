@@ -420,15 +420,9 @@ function SWEP:MeleeSwing()
 				--dmginfo:SetDamageType(DMG_BULLET)
 				dmginfo:SetDamageType(self.DamageType)
 				dmginfo:SetDamageForce(self.MeleeDamage * 20 * owner:GetAimVector())
-				if hitent:IsPlayer() then
-				
-					hitent:MeleeViewPunch(damage*0.05)	
-					local Velocity = self.Owner:EyeAngles():Forward() * damage * (self.MeleeSize - 0.25)					
-					hitent:SetLocalVelocity(Velocity)	
+	
 					
-				end		
-					
-					hitent:TakeDamageInfo(dmginfo)				
+				hitent:TakeDamageInfo(dmginfo)				
 				local phys = hitent:GetPhysicsObject()
 				if hitent:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
 					hitent:SetPhysicsAttacker(owner)
