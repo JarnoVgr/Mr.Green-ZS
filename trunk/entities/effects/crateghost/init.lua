@@ -23,14 +23,14 @@ function EFFECT:Think()
 	
 	local tr = util.TraceLine({start = posShoot, endpos = posShoot+300*vecAim, filter = self.EfOwner})
 
-	self.Entity:SetPos(tr.HitPos)	
+	self.Entity:SetPos(tr.HitPos + Vector(0,0,18)	)
 	
 	local canPlaceCrate, ghostHidden = false, false
 
 	--Check if we really need to draw the crate
 	if tr.HitSky or tr.HitPos:Distance(self.EfOwner:GetPos()) > 100 or not tr.HitPos then
 		ghostHidden = true
-	elseif tr.HitWorld and tr.HitPos:Distance(self.EfOwner:GetPos()) > 10 and tr.HitPos:Distance(self.EfOwner:GetPos()) <= 70 then
+	elseif tr.HitWorld and tr.HitPos:Distance(self.EfOwner:GetPos()) > 16 and tr.HitPos:Distance(self.EfOwner:GetPos()) <= 70 then
 		--Check traceline position area
 		local hTrace = util.TraceHull({start = tr.HitPos, endpos = tr.HitPos, mins = Vector(-26,-26,0), maxs = Vector(26,26,25)})
 

@@ -18,8 +18,6 @@ SWEP.CSMuzzleFlashes = false
 SWEP.Type = "Tool"
  
 if CLIENT then
-    SWEP.NailTextDrawDistance = 170
-
     SWEP.ShowViewModel = false
     SWEP.ShowWorldModel = true
     killicon.AddFont("weapon_zs_hammer", "ZSKillicons", "c", Color(255, 255, 255, 255))
@@ -407,7 +405,7 @@ function SWEP:SecondaryAttack()
                 for _, oldcons in pairs(constraint.FindConstraints(trent, "Weld")) do
                     if oldcons.Ent1 == ent or oldcons.Ent2 == ent then
                         trent.Nails = trent.Nails or {}
-                        if #trent.Nails < 6 then
+                        if #trent.Nails < 5 then
                             self:SendWeaponAnim(ACT_VM_HITCENTER)
                             self.Alternate = not self.Alternate
                             self.Owner:SetAnimation(PLAYER_ATTACK1)
@@ -495,27 +493,4 @@ function SWEP:Precache()
     util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-3.wav")
     util.PrecacheSound("weapons/melee/crowbar/crowbar_hit-4.wav")
     util.PrecacheSound("weapons/crossbow/reload1.wav")
-end
-
-if CLIENT then
-    function SWEP:DrawHUD()
-        if ENDROUND or not self.Owner:Alive() then
-            return
-        end
-
-        MeleeWeaponDrawHUD()
-        
-        for _,nail in pairs (ents.FindByClass("nail")) do
-            if not nail or not nail:IsValid() then
-                continue
-            end
-
-            if nail:GetPos():Distance(EyePos()) > 105 then
-                continue
-            end
-
-            draw.SimpleTextOutlined("+".. math.Round(nail:GetDTInt(0)) .." / ".. math.Round(nail:GetDTInt(1)), "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
-			--draw.SimpleTextOutlined(ent, "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
-        end
-    end
 end

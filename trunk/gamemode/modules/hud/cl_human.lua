@@ -19,11 +19,32 @@ local Arrow = surface.GetTextureID("gui/arrow")
 SPRequired = 100
 	
 local TableUpdated = 0	
-	
+local nailBarWidth = ScrW()*0.04		
 function hud.DrawHumanHUD()
 	hud.DrawAmmoPanel()
 	hud.DrawHealth()
 	hud.DrawSkillPoints()
+	
+	
+	for _,nail in pairs (ents.FindByClass("nail")) do
+		if not nail or not nail:IsValid() then
+			continue
+		end
+
+		if nail:GetPos():Distance(EyePos()) > 280 then
+			continue
+		end
+		
+		local nailHealth = math.Round(nail:GetDTInt(0)*100/nail:GetDTInt(1))/100	
+		surface.SetDrawColor( 245, 245 , 255, 140 )
+		surface.DrawRect( nail:GetPos():ToScreen().x - nailBarWidth / 2, nail:GetPos():ToScreen().y, nailBarWidth, ScrH()*0.0075 )
+		surface.SetDrawColor(255 * (1 - nailHealth), 255 * nailHealth, 0, 220 )
+		surface.DrawRect( nail:GetPos():ToScreen().x - nailBarWidth / 2, nail:GetPos():ToScreen().y, nailBarWidth * nailHealth, ScrH()*0.0075 )
+	
+
+		--draw.SimpleTextOutlined("+".. math.Round(nail:GetDTInt(0)) .." / ".. math.Round(nail:GetDTInt(1)), "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
+		--draw.SimpleTextOutlined(ent, "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))	
+	end	
 	--hud.DrawObjMessages()
 	
 	if CurTime() <= WARMUPTIME then
@@ -163,6 +184,14 @@ function hud.DrawAmmoPanel()
 
 --MySelf:GetAmmoCount(MySelf:GetActiveWeapon():GetPrimaryAmmoType())
 	local Clip1, ClipSize, AmmoRemaining = MySelf:GetActiveWeapon():Clip1(),  MySelf:GetActiveWeapon().Primary.ClipSize, MySelf:GetAmmoCount(MySelf:GetActiveWeapon():GetPrimaryAmmoType())
+	
+	local Clip2, ClipSize2, AmmoRemaining2 = MySelf:GetActiveWeapon():Clip2(),  MySelf:GetActiveWeapon().Secondary.ClipSize, MySelf:GetAmmoCount(MySelf:GetActiveWeapon():GetSecondaryAmmoType())
+	
+	if (Clip1 == -1 and Clip2 != - 1) then
+		Clip1 = Clip2
+		ClipSize = ClipSize2
+		AmmoRemaining = AmmoRemaining2
+	end
 	
 	local percentage = 0
 		local healthPercentage, healthChanged = 0, false
