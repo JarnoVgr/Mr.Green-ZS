@@ -29,9 +29,9 @@ SWEP.PrintName = "Lead Pipe"
 SWEP.DeploySpeed = 0.6
 -- Slot pos
 SWEP.Slot = 0
-SWEP.Weight = 2
+SWEP.Weight = 3
 -- Damage, distane, delay
-SWEP.MeleeDamage = 65
+SWEP.MeleeDamage = 55
 SWEP.Primary.Delay = 1
 SWEP.Primary.Distance = 50
 SWEP.SwingTime = 0.8
