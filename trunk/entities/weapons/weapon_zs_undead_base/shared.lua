@@ -227,7 +227,7 @@ function SWEP:PerformPrimaryAttack()
 				local Velocity
 				
 				if self.Primary.Damage >= 20  then
-					Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 1500, 0, 50000)
+					Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 1000, 0, 50000)
 				else
 					Velocity = self.Owner:EyeAngles():Forward() * math.Clamp(self.Primary.Damage * 500, 0, 50000)				
 				end
@@ -241,15 +241,7 @@ function SWEP:PerformPrimaryAttack()
 
 			elseif ent:IsPlayer() and ent:IsHuman() and not ent:IsWeapon() then		
 				if SERVER then
-					local vel = ent:GetPos()
-					vel.z = vel.z + 32
-					util.Blood(vel, math.Rand(self.Primary.Damage * 0.1, self.Primary.Damage * 0.2), vel:GetNormal(), math.Rand(self.Primary.Damage * 0.4, self.Primary.Damage), true)
-				
-					if self.Primary.Damage >= 20 then
-						local Velocity = self.Owner:EyeAngles():Forward() * self.Primary.Damage * 10				
-						Velocity.z = Velocity.z + self.Primary.Damage * 8			
-						ent:SetLocalVelocity(Velocity)						
-					end
+					util.Blood(vel, self.Primary.Damage * 0.1, vel:GetNormal(), self.Primary.Damage * 0.1, true)
 				end											
 				hit = true
 				ent:TakeDamage(self.Primary.Damage, self.Owner, self)			

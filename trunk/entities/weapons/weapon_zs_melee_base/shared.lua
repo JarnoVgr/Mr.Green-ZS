@@ -423,15 +423,7 @@ function SWEP:MeleeSwing()
 				if hitent:IsPlayer() then
 				
 					hitent:MeleeViewPunch(damage*0.05)	
-					local Velocity = self.Owner:EyeAngles():Forward() * damage * 2.5 * (self.MeleeSize - 0.25)					
-					if damage > 40 then
-						Velocity.x = Velocity.x * 0.8
-						Velocity.y = Velocity.y * 0.8
-						Velocity.z = Velocity.z * 1.4					
-						Velocity.z = math.Clamp(Velocity.z,40,160)
-					end
-
-	
+					local Velocity = self.Owner:EyeAngles():Forward() * damage * (self.MeleeSize - 0.25)					
 					hitent:SetLocalVelocity(Velocity)	
 					
 				end		
