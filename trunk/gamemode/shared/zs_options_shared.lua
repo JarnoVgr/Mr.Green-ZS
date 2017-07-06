@@ -468,7 +468,7 @@ GM.Perks = {
 	
 	["Medic"] = {Name = "Medic",		  		
 		Equipment = "Medkit, P228, Stun Stick",
-		Description = " +10% Pistol damage \n +10% Medi damage\n +10% damage Resistance\n +3% Movement speed\n +10% Medical ammo received\n +10 Medical ammo on spawn",
+		Description = " +1% Pistol damage \n +10% Medi damage\n +10% damage Resistance\n +3% Movement speed\n +10% Medical ammo received\n +10 Medical ammo on spawn",
 		CoefDesc = " +%G%% Movement speed\n +%i%% Pistol damage\n +%i%% Medi damage\n +%i%% Poison resistance\n +%i%% Undead damage resistance\n +%i%% Medical efficiency\n +%i%% Medical ammo received\n +%i Medical ammo on spawn",
 		Coef = {0.5, 1, 1, 5, 2, 3, 10, 10},
 		Slot = 5,
@@ -478,8 +478,8 @@ GM.Perks = {
 		
 	["Commando"] = {Name = "Commando",   		
 		Equipment = "Grenades, Five SeveN, Knife", 
-		Description = " +10% Rifle Damage \n See undead health\n +10% Clip size \n +10 Health ",
-		CoefDesc = " +%i%% Health\n +%i%% Clip size\n +%i%% Rifle damage",
+		Description = " +1% Assault rifle damage \n See undead health\n +10% Clip size \n +10 Health ",
+		CoefDesc = " +%i%% Health\n +%i%% Clip size\n +%i%% assault rifle damage",
 		Coef = {3, 3, 1},
 		Slot = 5,
 		Rank = 0,
@@ -488,7 +488,7 @@ GM.Perks = {
 		
 	["Support"] = {Name = "Support",    		
 		Equipment = "Mobile Supplies, Ammo Pack, USP, Hammer, Blow torch", 			
-		Description = " +1% Shotgun damage \n +10% SMG damage \n +10% Ammo received",
+		Description = " +1% Shotgun damage \n +1% SMG damage \n +10% Ammo received",
 		CoefDesc = " +%i%% SMG damage\n +%i%% Shotgun damage \n +%i%% Nail health\n +%G Repair points\n +%i Nails\n +%i%% Ammo received\n +%G Ammo in ammo pack",
 		Coef = {1, 1, 1, 0.25, 2, 2, 0.5},
 		Slot = 5,
@@ -508,7 +508,7 @@ GM.Perks = {
 		
 	["Engineer"] = {Name = "Engineer",   		
 		Equipment = "Turret, C4, Pistol, Frying Pan", 	
-		Description = " +10% Pulse Weapon Damage\n +5% C4 Damage\n +1 Turret Damage\n +0.01 Turret recharge rate",
+		Description = " +1% Pulse Weapon Damage\n +5% C4 Damage\n +1 Turret Damage\n +0.01 Turret recharge rate",
 		CoefDesc = " +%G%% Turret damage\n +%G%% Turret recharge rate\n +%i%% Turret health\n +%i%% Turret ammo capacity\n +%i Pulse weapon capacity\n +%i%% Pulse weapon damage\n +%i%% Pulse weapon recharge rate\n +%i%% C4 damage\n +%i%% C4 radius",
 		Coef = {0.1, 0.005, 2, 2, 5, 1, 2, 1, 1},
 		Slot = 5,

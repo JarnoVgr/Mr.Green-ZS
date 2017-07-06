@@ -29,7 +29,7 @@ SWEP.Primary.Ammo			= "alyxgun"
 SWEP.Slot = 2
 SWEP.Weight	= 3
 SWEP.Type = "Incendiary"
-SWEP.ConeMax = 0.05
+SWEP.ConeMax = 0.08
 SWEP.ConeMin = 0.035
 
 SWEP.IronSightsPos = Vector(-3.5, 5, 2)

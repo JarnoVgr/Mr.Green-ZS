@@ -36,7 +36,7 @@ SWEP.UseHands 			= true
 SWEP.HoldType = 			"ar2"
 SWEP.Primary.Sound			= Sound("Weapon_AR2.NPC_Single")
 SWEP.Primary.Recoil			= 1.5
-SWEP.Primary.Damage			= 18
+SWEP.Primary.Damage			= 16
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.ClipSize		= 40
 SWEP.Primary.Delay			= 0.096
@@ -46,7 +46,7 @@ SWEP.Primary.Ammo			= "smg1"
 SWEP.Slot = 2
 SWEP.Weight				= 3
 SWEP.Type = "SMG"
-SWEP.ConeMax = 0.05
+SWEP.ConeMax = 0.07
 SWEP.ConeMin = 0.035
 
 SWEP.IronSightsPos = Vector(-6.441, -6.049, 1.059)

@@ -819,12 +819,6 @@ function CalculatePlayerLoadout(pl)
 	pl:GiveAmmo(60, "pistol")		
 	--Check if we are THE Gordon Freeman
 	if pl.IsFreeman then
-		--Remove current melee weapon
-		local Melee = pl:GetMelee()
-		if Melee then
-			pl:StripWeapon(Melee:GetClass())
-		end
-
 		--Give crowbar
 		pl:Give("weapon_zs_melee_crowbar")		
 	end		
@@ -834,11 +828,6 @@ function CalculatePlayerLoadout(pl)
 		--Strip previous pistol
 		pl:ChatPrint("A mysterious stranger joins you..")
 		pl:GiveAmmo(16, "357")	
-		--Remove current pistol
-		local Pistol = pl:GetPistol()
-		if Pistol then
-			pl:StripWeapon(Pistol:GetClass())
-		end
 
 		--Give magnum
 		pl:Give("weapon_zs_magnum")

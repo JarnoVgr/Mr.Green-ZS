@@ -33,7 +33,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				
 			if attacker:GetActiveWeapon().Primary.Ammo == "ar2" and attacker:GetPerk("Commando") then
 							
-				mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+				mul = 0.01 + ((attacker:GetRank() * 1) / 100 )
 				
 				if (attacker:GetPerk("commando_viper")) then
 					mul = mul - 0.15
@@ -42,13 +42,13 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				dmg = dmg + (dmg * mul)
 				
 			elseif (attacker:GetActiveWeapon().Primary.Ammo == "smg1" and attacker:GetPerk("Support")) or (attacker:GetActiveWeapon().Primary.Ammo == "buckshot" and attacker:GetPerk("Support")) then
-				mul = mul + 0.1 + ((attacker:GetRank() * 1) / 100 )
+				mul = mul + 0.01 + ((attacker:GetRank() * 1) / 100 )
 				dmg = dmg + (dmg * mul)						
 			elseif attacker:GetActiveWeapon().Primary.Ammo == "357" and attacker:GetPerk("Sharpshooter") then
 				mul = mul + 0.05 + ((attacker:GetRank() * 1) / 100 )
 				dmg = dmg + (dmg * mul)	
 			elseif (attacker:GetActiveWeapon().Primary.Ammo == "Battery" or attacker:GetActiveWeapon().Primary.Ammo == "pistol" or attacker:GetActiveWeapon():GetClass() == "weapon_zs_melee_stunstick")  and attacker:GetPerk("Medic") then --mediguns
-				mul = mul + 0.1 + ((attacker:GetRank() * 1) / 100 )
+				mul = mul + 0.01 + ((attacker:GetRank() * 1) / 100 )
 				dmg = dmg + (dmg * mul)
 				
 				if attacker:GetPerk("medic_stun") and attacker:GetActiveWeapon():GetClass() == "weapon_zs_melee_stunstick" then
@@ -108,7 +108,7 @@ function GM:DoDamageUpgrades ( ent, attacker, inflictor, dmginfo )
 				
 			elseif  attacker:GetPerk("Engineer") then
 				if attacker:GetActiveWeapon().Primary.Ammo == "none" then
-					mul = 0.1 + ((attacker:GetRank() * 1) / 100 )
+					mul = 0.01 + ((attacker:GetRank() * 1) / 100 )
 
 					if attacker:GetPerk("engineer_darkenergy") then
 						mul = mul + 0.1

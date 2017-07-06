@@ -27,8 +27,6 @@ SWEP.Base = "weapon_zs_base_dummy"
 
 SWEP.Author	= "NECROSSIN"	
 
-SWEP.ViewModelFOV = 60
-
 SWEP.Info = "Left click to place a Mobile Supplies"
 
 SWEP.Spawnable			= true
@@ -38,7 +36,7 @@ SWEP.ViewModel = Model("models/weapons/cstrike/c_c4.mdl")
 SWEP.UseHands = true
 SWEP.WorldModel = Model("models/Items/item_item_crate.mdl")
 
-SWEP.Weight				= 5
+SWEP.Weight				= 3
 SWEP.AutoSwitchTo		= false
 SWEP.AutoSwitchFrom		= false
 

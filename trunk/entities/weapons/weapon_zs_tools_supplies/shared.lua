@@ -27,7 +27,7 @@ SWEP.Base = "weapon_zs_base_dummy"
 SWEP.Author	= "NECROSSIN"	
 
 SWEP.Slot = 4
-SWEP.Weight = 8
+SWEP.Weight = 6
 SWEP.Type = "Deployable"
 
 SWEP.Info = "Left click to place a Mobile Supplies"
