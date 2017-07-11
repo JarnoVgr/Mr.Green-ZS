@@ -192,24 +192,18 @@ if HALLOWEEN then
 end
 
 --Disable sv_alltalk and sv_visiblemaxplayers chat notification
---if file.Exists("bin/gmsv_cvar3_*.dll", "LUA") then
-	--require("cvar3")
+--[[if file.Exists("bin/gmsv_cvar3_*.dll", "LUA") then
+	require("cvar3")
 	local cvAllTalk = GetConVar("sv_alltalk")
-	--[[if cvAllTalk:GetFlags() ~= FCVAR_NOTIFY then
-		cvAllTalk:SetFlags(FCVAR_NOTIFY)
-	end]]
 	if cvAllTalk:GetFlags() ~= 0 then
 		cvAllTalk:SetFlags(0)
 	end
 	
 	local cvVisibleMaxPlayers = GetConVar("sv_visiblemaxplayers")
-	--[[if cvVisibleMaxPlayers:GetFlags() ~= FCVAR_NOTIFY then
-		cvVisibleMaxPlayers:SetFlags(FCVAR_NOTIFY)
-	end]]
 	if cvVisibleMaxPlayers:GetFlags() ~= 0 then
 		cvVisibleMaxPlayers:SetFlags(0)
 	end
---end
+end]]
 
 Thres = 0
 difficulty = 1 --default 1
