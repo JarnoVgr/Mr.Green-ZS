@@ -1464,7 +1464,7 @@ function meta:DoHulls(classid, teamid)
 
 	if teamid == TEAM_HUMAN then
 		local Hull = { Vector(-16, -16, 0), Vector(16, 16, 72) }
-		local HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 39.5)}
+		local HullDuck = {Vector(-16, -16, 0), Vector(16, 16, 36)}
 		self:SetHull(Hull[1], Hull[2])
 		self:SetHullDuck(HullDuck[1], HullDuck[2])
 	end

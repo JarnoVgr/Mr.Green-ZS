@@ -648,7 +648,7 @@ function CalculatePlayerLoadout(pl)
 		return
 	end
 	
-	
+	pl.Weight = 0
 	
 	if pl.Redeemed then	
 		pl:SetCrouchedWalkSpeed(0.33)

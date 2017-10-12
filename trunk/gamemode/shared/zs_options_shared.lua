@@ -587,7 +587,7 @@ CARRY_DRAG_VOLUME = 120
 CARRY_MAXIMUM_VOLUME = 150
 
 -- Humans are slowed by this amount per kg carried.
-CARRY_SPEEDLOSS_PERKG = 1.5
+CARRY_SPEEDLOSS_PERKG = 1.0
 
 -- But never slower than this.
 CARRY_SPEEDLOSS_MINSPEED = 160

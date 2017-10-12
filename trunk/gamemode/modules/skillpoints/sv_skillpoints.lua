@@ -121,7 +121,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 		
 			local Melee = pl:GetMelee()
 			if (Melee) then		
-				pl:StripWeapon(Melee:GetClass())
+				--pl:StripWeapon(Melee:GetClass())
 			end
 			
 			pl:Give(item)			
@@ -141,7 +141,7 @@ function skillpoints.AddSkillPoints(pl, amount)
 			    pl:SelectWeapon(weapon:GetClass())
 				ammoType = pl:GetActiveWeapon().Primary.Ammo
 				ammoCount = pl:GetAmmoCount(pl:GetActiveWeapon():GetPrimaryAmmoType())
-				pl:StripWeapon(weapon:GetClass())
+				--pl:StripWeapon(weapon:GetClass())
 				
 			end
 			pl:Give(item)
