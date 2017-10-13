@@ -414,7 +414,7 @@ function meta:BaseDrawWeaponSelection(x, y, wide, tall, alpha)
 		
 		draw.SimpleText(damage.. " damage", "fontWeaponSelectionSub", x + wide * 0.5, y + tall * 0.52, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)		
 		--draw.SimpleText(math.Round(((1 / self.Primary.Delay) * self.Primary.NumShots) * 60)  .. " rpm", "fontWeaponSelectionSub", x + wide * 0.5, y + tall * 0.62, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)				
-		draw.SimpleText(self.Weight .. " weight", "fontWeaponSelectionSub", x + wide * 0.5, y + tall * 0.62, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)				
+		draw.SimpleText(self.Weight .. " kg", "fontWeaponSelectionSub", x + wide * 0.5, y + tall * 0.62, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)				
 		--draw.SimpleText(self.PrintName, "fontWeaponSelectionMain", x + wide * 0.5, y + tall * 0.25, Color(255,0,0,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	--[[else
 		draw.SimpleTextBlur(self:GetPrintName(), "ZSHUDFontSmaller", x + wide * 0.5, y + tall * 0.5, COLOR_RED, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)

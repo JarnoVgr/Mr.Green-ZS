@@ -12,7 +12,7 @@ SWEP.WorldModel			= ""
 
 SWEP.Primary.ClipSize		= -1
 SWEP.Primary.DefaultClip	= -1
-SWEP.MeleeDamage			= 10
+SWEP.MeleeDamage			= 15
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "none"
 SWEP.Type = "Melee"
@@ -70,7 +70,7 @@ function SWEP:PrimaryAttack()
 		self:Idle()
 	end )
 
-	timer.Simple( 0.2, function()
+	timer.Simple( 0.4, function()
 		if ( !IsValid( self ) || !IsValid( self.Owner ) || !self.Owner:GetActiveWeapon() || self.Owner:GetActiveWeapon() != self ) then return end
 		self:DealDamage( anim )
 	end )
@@ -95,23 +95,23 @@ function SWEP:DealDamage( anim )
 		} )
 	end
 
-	if ( tr.Hit ) then self.Owner:EmitSound( HitSound ) end
+	if SERVER and( tr.Hit ) then self.Owner:EmitSound( HitSound )
 
-	if ( IsValid( tr.Entity ) ) then
-		local dmginfo = DamageInfo()
-		dmginfo:SetDamage( self.MeleeDamage )
+		if ( IsValid( tr.Entity ) ) then
+			local dmginfo = DamageInfo()
+			dmginfo:SetDamage( self.MeleeDamage )
 
-		dmginfo:SetInflictor( self )
-		local attacker = self.Owner
-		if ( !IsValid( attacker ) ) then attacker = self end
-		dmginfo:SetAttacker( attacker )
-		dmginfo:SetDamageForce(self.MeleeDamage * 20 * attacker:GetAimVector())
-		tr.Entity:TakeDamageInfo( dmginfo )
-		
-		local phys = tr.Entity:GetPhysicsObject()
-		if tr.Entity:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
-			tr.Entity:SetPhysicsAttacker(attacker)
-		end	
+			dmginfo:SetInflictor( self )
+			local attacker = self.Owner
+			if ( !IsValid( attacker ) ) then attacker = self end
+			dmginfo:SetAttacker( attacker )
+			tr.Entity:TakeDamageInfo( dmginfo )
+			local phys = tr.Entity:GetPhysicsObject()
+			phys:ApplyForceCenter(self.Owner:EyeAngles():Forward() * (self.MeleeDamage * 200))
+			if tr.Entity:GetMoveType() == MOVETYPE_VPHYSICS and phys:IsValid() and phys:IsMoveable() then
+				tr.Entity:SetPhysicsAttacker(attacker)
+			end	
+		end
 	end
 	
 end

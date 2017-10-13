@@ -48,8 +48,8 @@ SWEP.Weight = 1
 
 SWEP.Primary.Delay = 0.7
 
-SWEP.Secondary.ClipSize = 20
-SWEP.Secondary.DefaultClip = 20
+SWEP.Secondary.ClipSize = 30
+SWEP.Secondary.DefaultClip = 30
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 --SWEP.Secondary.Ammo = "gravity"
@@ -96,7 +96,7 @@ end
 function SWEP:OnDeploy()
     self.Weapon:SendWeaponAnim(ACT_VM_DRAW)
 	
-	self.ToHeal = 5
+	self.ToHeal = 8
 	
     if SERVER then
         self.Owner._RepairScore = self.Owner._RepairScore or 0
@@ -166,54 +166,37 @@ if SERVER then
                 self.Owner:SetAnimation(PLAYER_ATTACK1)
                 
             if trent.Nails and #trent.Nails > 0 then
-
+				local count = 0;
                 for i=1, #trent.Nails do
                     local nail = trent.Nails[i]
                        
                     if IsValid(nail) then
                         if nail:GetNailHealth() < nail:GetDTInt(1) then
-					
-							--else if 								
-							-- if self.Owner:GetPerk("_trchregen") then                                                           
-							-- nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+15,1,nail:GetDTInt(1)))
 
-							nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+self.ToHeal,1,nail:GetDTInt(1)))			
+							nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+(self.ToHeal / # trent.Nails),1,nail:GetDTInt(1)))			
 							
-                            local pos = tr.HitPos
-                            local norm = tr.HitNormal
-        
-                            local eff = EffectData()
-							eff:SetOrigin(pos)
-							eff:SetNormal(norm)
-							eff:SetScale( math.Rand(0.4,0.5) )
-							eff:SetMagnitude( math.random(1,1.2) )
-							util.Effect("StunstickImpact", eff, true, true)    
-
-							--if trent.PropHealth != nil then					
-							--	trent.PropHealth = math.Round(math.Clamp(trent.PropHealth + self.ToHeal, 0, trent.TotalHealth))
-							--end							
-							
-                            --self.Owner._RepairScore = self.Owner._RepairScore + 1
-                            --self:TakePrimaryAmmo(1)
-
-                            --if self.Owner._RepairScore == 1 then
-												
-							if not trent._LastAttackerIsHuman then
-								skillpoints.AddSkillPoints(self.Owner, 1)
-								self.Owner:AddXP(self.ToHeal)
-							end
-							
-							--self.Owner._RepairScore = 0
+							if (count == 0) then
+								local pos = tr.HitPos
+								local norm = tr.HitNormal
 								
-								
+			
+								local eff = EffectData()
+								eff:SetOrigin(pos)
+								eff:SetNormal(norm)
+								eff:SetScale( math.Rand(0.4,0.5) )
+								eff:SetMagnitude( math.random(1,1.2) )
+								util.Effect("StunstickImpact", eff, true, true)  
 
-                                
-                                --elseif self.Owner and self.Owner:GetSuit() == "supportsuit" then
-                                --self.Owner:AddXP(10)
-                           -- end
-                            self.Owner:EmitSound("npc/dog/dog_servo"..math.random(7, 8)..".wav", 70, math.random(100, 105))
+								if not trent._LastAttackerIsHuman then
+									skillpoints.AddSkillPoints(self.Owner, 1)
+									self.Owner:AddXP(self.ToHeal)
+								end
+			
+								self.Owner:EmitSound("npc/dog/dog_servo"..math.random(7, 8)..".wav", 70, math.random(100, 105))							
+							end 
 
-                            break
+							count = count + 1;
+							
                         end
                     end
                 end
@@ -348,7 +331,7 @@ function SWEP:SecondaryAttack()
                 self.Alternate = not self.Alternate
                 self.Owner:SetAnimation(PLAYER_ATTACK1)
 
-                self.NextNail = CurTime() + 1
+                self.NextNail = CurTime() + 0.6
                 --self:TakePrimaryAmmo(1)
                 --self:TakeSecondaryAmmo(1)
                 self:TakeSecondaryAmmo(1)
@@ -410,7 +393,7 @@ function SWEP:SecondaryAttack()
                             self.Alternate = not self.Alternate
                             self.Owner:SetAnimation(PLAYER_ATTACK1)
 
-                            self.NextNail = CurTime() + 1
+                            self.NextNail = CurTime() + 0.6
                             self:TakeSecondaryAmmo(1)
                            
                             --Reward with SP and XP

@@ -1181,7 +1181,6 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		ent._LastAttackerIsHuman = true
 	end
 	
-	local bNailDied = false
 
 	for i=1, #ent.Nails do
 		local nail = ent.Nails[i]
@@ -1199,8 +1198,9 @@ function metaEntity:DamageNails(attacker, inflictor, damage, dmginfo)
 		end
 		
 		--damage - damage / ent.Nails * 0.2
-		nail:SetDTInt(1, nail:GetDTInt(1) - ((damage/#ent.Nails)* math.random(0.2,0.4)))	
-		nail:SetNailHealth(nail:GetNailHealth() - ((damage/#ent.Nails) + damage*0.3))	
+		nail:SetDTInt(1, nail:GetDTInt(1) - ((damage/(#ent.Nails * 2)) * 0.2))
+		
+		nail:SetNailHealth(nail:GetNailHealth() - ((damage/(#ent.Nails * 2)) + damage * 0.5))	
 
 		--Check for nail heath
 		if nail:GetNailHealth() <= 0 then
@@ -1525,6 +1525,7 @@ function meta:CheckSpeedChange(damage)
 	--speed = fSpeed
 	
 	GAMEMODE:SetPlayerSpeed(self, fSpeed * ((self:GetMaximumSpeedMultiplier() / 100) - (self.Weight * 0.02)))
+
 end
 
 function meta:SpawnMiniTurret()

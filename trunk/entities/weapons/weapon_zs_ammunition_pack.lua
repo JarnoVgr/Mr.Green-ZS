@@ -28,7 +28,7 @@ SWEP.Primary.ClipSize = 6
 SWEP.Primary.DefaultClip = 6
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 1
+SWEP.Primary.Delay = 0.5
 SWEP.ShowViewModel = false
 SWEP.Secondary.ClipSize = 1
 SWEP.Secondary.DefaultClip = 1
@@ -95,6 +95,20 @@ function SWEP:PrimaryAttack()
 			ent:SetAngles(aimvec:Angle())
 			ent:Spawn()
 			self:TakePrimaryAmmo(1)
+			
+			local phys = ent:GetPhysicsObject()
+			if phys:IsValid() then
+				phys:Wake()
+				phys:AddAngleVelocity(VectorRand() * 5)
+				phys:SetVelocityInstantaneous(self.Owner:GetAimVector() * 40)
+			end
+		end
+		
+		
+		
+		if self:Clip1() == 0 then
+			DropWeapon(self.Owner)
+			self:Remove()
 		end
 	end
 end

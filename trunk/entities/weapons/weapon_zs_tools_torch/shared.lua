@@ -29,8 +29,8 @@ SWEP.Slot = 4
 SWEP.Type = "Tool"
 SWEP.Weight = 1
 
-SWEP.Primary.ClipSize = 30
-SWEP.Primary.DefaultClip = 30
+SWEP.Primary.ClipSize = 100
+SWEP.Primary.DefaultClip = 100
 SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "SniperRound"
 
@@ -101,7 +101,7 @@ function SWEP:PrimaryAttack()
 		return
 	end
 		
-	self.Weapon:SetNextPrimaryFire(CurTime() + 0.12)	
+	self.Weapon:SetNextPrimaryFire(CurTime() + 0.1)	
 
 	if SERVER then
 		local tr = self.Owner:TraceLine(54, MASK_SHOT, team.GetPlayers(TEAM_HUMAN))
@@ -114,31 +114,30 @@ function SWEP:PrimaryAttack()
 		if tr.Hit and not tr.HitWorld then
 			if trent.Nails and #trent.Nails > 0 then
 				local griefedprop = false
+				self:TakePrimaryAmmo (1)				
 				
 				if trent._LastAttackerIsHuman then
 					griefedprop = true
 				end
 				
+				if not griefedprop then
+					self.Owner._TorchScore = self.Owner._TorchScore + 1
+					
+					if self.Owner._TorchScore == 30 then
+						skillpoints.AddSkillPoints(self.Owner, 4)
+						nail:FloatingTextEffect( 4, self.Owner )
+						self.Owner:AddXP(5)
+						self.Owner._TorchScore = 0
+					end
+				end				
+				
 				for i=1, #trent.Nails do
 					local nail = trent.Nails[i]
 					
 					if nail and nail:IsValid() then
-						if nail:GetNailHealth() < nail:GetDTInt(1) then -- nail:GetNWInt("MaxNailHealth")
-							self:TakePrimaryAmmo (1)
-							
-							if not griefedprop then
-								self.Owner._TorchScore = self.Owner._TorchScore + 1
-								
-								if self.Owner._TorchScore == 30 then
-									skillpoints.AddSkillPoints(self.Owner, 10)
-									nail:FloatingTextEffect( 10, self.Owner )
-									self.Owner:AddXP(5)
-									self.Owner._TorchScore = 0
-								end
-							end
-							
+						if nail:GetNailHealth() < nail:GetDTInt(1) then -- nail:GetNWInt("MaxNailHealth")							
 							--nail.Heal = math.Clamp(nail.Heal+2,1,nail:GetDTInt(1))
-							nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+4,1,nail:GetDTInt(1)))
+							nail:SetNailHealth(math.Clamp(nail:GetNailHealth()+1,1,nail:GetDTInt(1)))
 							
 							local pos = tr.HitPos
 							local norm = tr.HitNormal-- (tr.HitPos - self.Owner:GetShootPos()):Normalize():Angle()
@@ -155,7 +154,7 @@ function SWEP:PrimaryAttack()
 							util.Decal("FadingScorch",tr.HitPos+tr.HitNormal,tr.HitPos-tr.HitNormal)
 							
 							-- BREAKER!
-							break
+							--break
 						end
 					end
 				end
@@ -198,7 +197,7 @@ function SWEP:PrimaryAttack()
 				self:TakePrimaryAmmo(1)
 				
 				trent:TakeDamage(2,self.Owner,self)
-				
+				trent:Ignite(1,0)	
 				if math.random(3) == 3 then
 					trent:EmitSound("player/pl_burnpain"..math.random(1,3)..".wav")
 				end
@@ -239,7 +238,7 @@ function SWEP:Think()
 		ApproachAngle(self.ViewModelBoneMods["ValveBiped.Bip01_R_Clavicle"].angle,self.AppTo,FrameTime()*33)
 	end
 	
-	local maxclip = 30
+	local maxclip = 100
 	
 	if self.Owner and self.Owner:GetSuit() == "supportsuit" then
 		maxclip = 100
@@ -251,39 +250,17 @@ function SWEP:Think()
 			self.fired = true
 			self.lastfire = CurTime()
 		else
-			if self.lastfire < CurTime() - 0.3 and self.rechargetimer < CurTime() then
+			if self.lastfire < CurTime() - 0.2 and self.rechargetimer < CurTime() then
 				self.Weapon:SetClip1( math.min( maxclip,self.Weapon:Clip1() + 1 ) )
-				local rtime = 0.15
+				local rtime = 0.05
 				if self.Owner:GetPerk("_trchregen") then
-					rtime = 0.10
+					rtime = 0.05
 				end
 				self.rechargetimer = CurTime() + rtime
 			end
 			if self.fired then 
 				self.fired = false
 			end
-		end
-	end
-end
-
-if CLIENT then
-	function SWEP:DrawHUD()
-		if ENDROUND or not self.Owner:Alive() then
-			return
-		end
-
-		MeleeWeaponDrawHUD()
-
-		for _,nail in pairs (ents.FindByClass("nail")) do
-			if not nail or not nail:IsValid() then
-				continue
-			end
-
-			if nail:GetPos():Distance(EyePos()) > 105 then
-				continue
-			end
-
-			draw.SimpleTextOutlined("+".. math.Round(nail:GetDTInt(0)) .."/".. math.Round(nail:GetDTInt(1)), "ArialBoldFive", nail:GetPos():ToScreen().x, nail:GetPos():ToScreen().y, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,1, Color(0,0,0,255))
 		end
 	end
 end
