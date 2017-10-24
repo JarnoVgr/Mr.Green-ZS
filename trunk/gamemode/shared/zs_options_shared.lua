@@ -164,10 +164,10 @@ GM.HumanWeapons = {
 
 	
         --Medic
-        ["weapon_zs_medi2"]  = { Name = "Medi 2", Tier = 2, Type = "shotgun",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
-		["weapon_zs_medi1"]  = { Name = "Medi 1", Tier = 1, Type = "pistol",Price = 80, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
-        ["weapon_zs_medi3"]  = { Name = "Medi 3", Tier = 3, Type = "smg",Price = 160, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
-        ["weapon_zs_medi4"]  = { Name = "Medi 4", Tier = 4, Type = "rifle",Price = 180, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medi2"]  = { Name = "Medi 2", Tier = 1, Type = "shotgun",Price = 100, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"},           
+		["weapon_zs_medi1"]  = { Name = "Medi 1", Tier = 0, Type = "pistol",Price = 80, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medi3"]  = { Name = "Medi 3", Tier = 2, Type = "smg",Price = 160, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
+        ["weapon_zs_medi4"]  = { Name = "Medi 4", Tier = 3, Type = "rifle",Price = 180, Description = "Ranged medkit that can also shoot zombies!", HumanClass = "medic"}, 
 		
         ["weapon_zs_elites"]  = { Name = "Dual Elites", Type = "pistol", Price = 120},
        
@@ -367,7 +367,7 @@ GM.Perks = {
 
 		["medic_stun"] = {Name = "Stun", Description = "Disorientates undead on impact with stunstick\n+6 stunstick damage", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/meta_pistol.vtf"},              	
 		["medic_supplies"] = {Name = "Medical Supplies", Description = "+100 medical charge for medical equipment", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/decal_sprays"},
-		["medic_medigun"] = {Name = "Medic Pistol", Description = "[TIER 1]\nSpawn with the medic pistol", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_fiveseven"},     
+		["medic_medigun"] = {Name = "Medic Pistol", Description = "[TIER 0]\nSpawn with the medic pistol", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/kill_enemy_fiveseven"},     
 		["medic_transfusion"] = {Name = "Transfusion", Description = "PRIMARY with medkit to extract healing power equivalent health from an undead\n +50% of healing power towards medical supplies.", Class = "Medic", Slot = 1, Rank = 1, Material = "vgui/achievements/win_dual_duel.vtf"},
 
 		

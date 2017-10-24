@@ -683,10 +683,8 @@ function CalculatePlayerLoadout(pl)
 	if pl:GetPerk("Medic") then
 		pl.Loadout = table.Copy(medicstage1)
 		if pl:GetPerk("medic_medigun") then
-			pl.Tier = 2		
 			pl:Give("weapon_zs_medi1")
-			pl:GiveAmmo( 50, "Battery" )	
-			pl.SPRequired = 150			
+			pl:GiveAmmo( 50, "Battery" )			
 		end
 		for k,v in pairs(pl.Loadout) do
 			pl:Give(tostring(v))				

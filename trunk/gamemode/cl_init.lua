@@ -900,7 +900,7 @@ end
 BloodDraws = {}
 function AddBloodSplat( severity )
 	local toDraw = bloodSplats[math.random(1,8)]
-	local dur = severity * 0.5
+	local dur = severity * 0.25
 	local alp = 35+severity*20
 	
 	if #BloodDraws < 3 then

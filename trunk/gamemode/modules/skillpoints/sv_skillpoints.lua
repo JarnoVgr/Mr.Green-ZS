@@ -80,11 +80,11 @@ function skillpoints.AddSkillPoints(pl, amount)
 	if skillpoints.GetSkillPoints(pl) >= pl.SPRequired then
 	
 		net.Start("SPRequired")
-		net.WriteFloat(math.Round(pl.SPRequired + 100))
+		net.WriteFloat(math.Round((pl.SPRequired * 1.5) + 20))
 		net.WriteBit(false)
 		net.Send(pl)
 		skillpoints.TakeSkillPoints(pl,pl.SPRequired)
-		pl.SPRequired = pl.SPRequired + 100
+		pl.SPRequired = (pl.SPRequired * 1.5) + 20
 		
 		pl:GiveAmmo( 18, "pistol" )	
 		pl:GiveAmmo( 30, "ar2" )

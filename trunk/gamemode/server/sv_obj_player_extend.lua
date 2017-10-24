@@ -1523,8 +1523,7 @@ function meta:CheckSpeedChange(damage)
 		end
 	--end
 	--speed = fSpeed
-	
-	GAMEMODE:SetPlayerSpeed(self, fSpeed * ((self:GetMaximumSpeedMultiplier() / 100) - (self.Weight * 0.02)))
+	GAMEMODE:SetPlayerSpeed(self, fSpeed * ((self:GetMaximumSpeedMultiplier() / 100) - math.Clamp(self.Weight * 0.02, 0, 0.14)))
 
 end
 

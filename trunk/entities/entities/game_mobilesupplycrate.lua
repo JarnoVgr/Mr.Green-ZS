@@ -34,7 +34,7 @@ function ENT:Initialize()
 		self.CrateMaxHealth = 200
 	end
 	
-	if self:GetPlacer():GetPerk("support_medical") then	
+	if self:GetPlacer() != nil and self:GetPlacer():GetPerk("support_medical") then	
 		self.Entity:SetColor( Color( 0, 200, 200, 255 ) )
 	end
 			

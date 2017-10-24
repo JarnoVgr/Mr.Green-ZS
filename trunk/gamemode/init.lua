@@ -960,7 +960,7 @@ function SoMuchBlood(point, kill, distance)
 	
 		dirvec = v:GetPos()-point
 		if (dirvec:Length() <= distance) then
-			table.insert(hax, { pl = v, severity = math.Clamp(math.Round(1-distance/dirvec:Length())*5,1,5 )} )
+			table.insert(hax, { pl = v, severity = math.Clamp(math.Round(1-distance/dirvec:Length()),1,5 )} )
 		end
 	end
 	
